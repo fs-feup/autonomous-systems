@@ -40,9 +40,9 @@ std::string SLAMParameters::load_config() {
       slam_config["slam"]["data_association_model_name"].as<std::string>();
   this->data_association_limit_distance_ =
       slam_config["slam"]["data_association_limit_distance"].as<float>();
-  this->data_association_gate_ = slam_config["slam"]["data_association_gate"].as<float>();
+  this->data_association_gate_ = slam_config["slam"]["data_association_gate"].as<double>();
   this->new_landmark_confidence_gate_ =
-      slam_config["slam"]["new_landmark_confidence_gate"].as<float>();
+      slam_config["slam"]["new_landmark_confidence_gate"].as<double>();
   this->observation_x_noise_ = slam_config["slam"]["observation_x_noise"].as<float>();
   this->observation_y_noise_ = slam_config["slam"]["observation_y_noise"].as<float>();
   this->velocity_x_noise_ = slam_config["slam"]["velocity_x_noise"].as<float>();

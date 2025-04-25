@@ -6,6 +6,8 @@
 
 #include <cmath>
 #include <map>
+#include <memory>
+#include <queue>
 #include <utility>
 #include <vector>
 
@@ -37,13 +39,21 @@ class PathCalculation {
 
 private:
   bool path_orientation_corrected_ = false;
-  std::vector<PathPoint> predefined_path_;  
+  std::vector<PathPoint> predefined_path_;
 
+  // Anchor point for the path, to avoid calculating the path from the position of the car
   common_lib::structures::Pose anchor_point_;
   bool anchor_point_set_ = false;
 
-
 public:
+  /**
+   * @brief MidPoint struct represents a potential path point with connections
+   */
+  struct MidPoint {
+    Point point;
+    std::vector<MidPoint*> close_points;
+  };
+
   /**
    * @brief Construct a new default PathCalculation object
    *
@@ -76,6 +86,7 @@ public:
     Point point;
     std::vector<MidPoint *> close_points;
 
+<<<<<<< HEAD
     bool operator==(const MidPoint& other) const {
         return (point.x() == other.point.x()) && (point.y() == other.point.y());
     }
@@ -89,6 +100,101 @@ public:
                                               common_lib::structures::Pose pose);
 
 
+=======
+  /**
+   * @brief Depth-first search for path cost calculation
+   *
+   * @param depth Maximum depth to search
+   * @param previous Previous point in the path
+   * @param current Current point being evaluated
+   * @param maxcost Maximum cost allowed for path segment
+   * @return std::pair<double, MidPoint*> Cost and next point pair
+   */
+  std::pair<double, MidPoint*> dfs_cost(int depth, const MidPoint* previous, MidPoint* current,
+                                        double maxcost);
+
+  /**
+   * @brief Generate a path from cone array without color information
+   *
+   * @param cone_array The array of cones representing the track
+   * @param pose The current pose of the vehicle
+   * @return std::vector<PathPoint> The generated path
+   */
+  std::vector<PathPoint> no_coloring_planning(const std::vector<Cone>& cone_array,
+                                              common_lib::structures::Pose pose);
+
+  /**
+   * @brief Creates midpoints from triangulation of cone positions
+   *
+   * @param cone_array The array of cones
+   * @return std::vector<std::unique_ptr<MidPoint>> Vector of midpoints
+   */
+  std::vector<std::unique_ptr<MidPoint>> createMidPointsFromTriangulation(
+      const std::vector<Cone>& cone_array);
+
+  /**
+   * @brief Establishes connections between close midpoints
+   *
+   * @param mid_points Vector of midpoints to connect
+   */
+  void establishMidPointConnections(const std::vector<std::unique_ptr<MidPoint>>& mid_points);
+
+  /**
+   * @brief Updates the anchor point if not already set
+   *
+   * @param pose The current vehicle pose
+   */
+  void updateAnchorPoint(const common_lib::structures::Pose& pose);
+
+  /**
+   * @brief Finds the first and second points to start the path
+   *
+   * @param mid_points Vector of available midpoints
+   * @param anchor_pose The anchor pose for reference
+   * @return std::pair<MidPoint*, MidPoint*> First and second points for the path
+   */
+  std::pair<MidPoint*, MidPoint*> findPathStartPoints(
+      const std::vector<std::unique_ptr<MidPoint>>& mid_points,
+      const common_lib::structures::Pose& anchor_pose);
+
+  /**
+   * @brief Find the second point for the path based on the first point and projection
+   *
+   * @param mid_points Vector of available midpoints
+   * @param first The first point of the path
+   * @param projected The projected point based on vehicle orientation
+   * @param anchor_pose The anchor pose for reference
+   * @return MidPoint* The second point for the path
+   */
+  MidPoint* findSecondPoint(const std::vector<std::unique_ptr<MidPoint>>& mid_points,
+                            const MidPoint* first, const MidPoint& projected,
+                            const common_lib::structures::Pose& anchor_pose);
+
+  /**
+   * @brief Generate a path using DFS cost search
+   *
+   * @param first The first point of the path
+   * @param second The second point of the path
+   * @return std::vector<MidPoint*> The generated path as midpoints
+   */
+  std::vector<MidPoint*> generatePath(MidPoint* first, MidPoint* second);
+
+  /**
+   * @brief Convert midpoint path to path points
+   *
+   * @param path Vector of midpoints representing the path
+   * @return std::vector<PathPoint> The final path points
+   */
+  std::vector<PathPoint> convertToPathPoints(const std::vector<MidPoint*>& path);
+
+  /**
+   * @brief Generate a path for skidpad course
+   *
+   * @param cone_array The array of cones representing the track
+   * @param pose The current pose of the vehicle
+   * @return std::vector<PathPoint> The generated path
+   */
+>>>>>>> dev
   std::vector<PathPoint> skidpad_path(std::vector<Cone>& cone_array,
                                       common_lib::structures::Pose pose);
 };

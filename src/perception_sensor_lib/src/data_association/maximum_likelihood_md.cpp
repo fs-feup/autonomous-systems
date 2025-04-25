@@ -1,6 +1,5 @@
 #include "perception_sensor_lib/data_association/maximum_likelihood_md.hpp"
 
-#include <Eigen/Dense>
 #include <cmath>
 #include <limits>
 #include <vector>
@@ -22,13 +21,6 @@ Eigen::VectorXi MaximumLikelihoodMD::associate(
   Eigen::VectorXd landmarks_local_coordinates = common_lib::maths::global_to_local_coordinates(
       state.segment(0, 3), state.segment(3, state.size() - 3));
 
-  // Set fields of the jacobian that are common to all landmarks
-  Eigen::MatrixXd jacobian_local_coordinates = Eigen::MatrixXd::Zero(2, state.size());
-  jacobian_local_coordinates(0, 0) = -cos_theta;
-  jacobian_local_coordinates(0, 1) = -sin_theta;
-  jacobian_local_coordinates(1, 0) = sin_theta;
-  jacobian_local_coordinates(1, 1) = -cos_theta;
-
   for (int i = 0; i < num_observations; ++i) {
     Eigen::Vector2d obs;
     obs << observations(2 * i), observations(2 * i + 1);
@@ -48,22 +40,10 @@ Eigen::VectorXi MaximumLikelihoodMD::associate(
       double dx = lx - car_x;
       double dy = ly - car_y;
 
-      // Set fields of the jacobian that are not common to all landmarks.
-      jacobian_local_coordinates(0, 2) = -sin_theta * dx + cos_theta * dy;
-      jacobian_local_coordinates(1, 2) = -(cos_theta * dx + sin_theta * dy);
-      jacobian_local_coordinates(0, j) = cos_theta;
-      jacobian_local_coordinates(0, j + 1) = sin_theta;
-      jacobian_local_coordinates(1, j) = -sin_theta;
-      jacobian_local_coordinates(1, j + 1) = cos_theta;
-
       // Innovation: difference between actual and predicted observation
       Eigen::Vector2d innovation = obs - landmarks_local_coordinates.segment(j - 3, 2);
 
-      // Innovation covariance: S = H * covariance * H^T + Q
-      Eigen::Matrix2d innovation_covariance =
-          jacobian_local_coordinates * covariance * jacobian_local_coordinates.transpose() +
-          this->observation_noise_covariance_matrix_;
-
+      Eigen::Matrix2d innovation_covariance = covariance.block(j, j, 2, 2);
       // Guard against non-invertible innovation_covariance
       double det = innovation_covariance.determinant();
       if (det == 0) {
@@ -71,7 +51,6 @@ Eigen::VectorXi MaximumLikelihoodMD::associate(
                     "Non-invertible innovation covariance matrix");
         continue;
       }
-
       double normalized_innovation_squared =
           innovation.transpose() * innovation_covariance.inverse() * innovation;
 
@@ -80,14 +59,6 @@ Eigen::VectorXi MaximumLikelihoodMD::associate(
         best_cost = normalized_innovation_squared;
         best_landmark_index = j;
       }
-
-      // Reset fields of the jacobian that are not common to all landmarks
-      jacobian_local_coordinates(0, 2) = 0;
-      jacobian_local_coordinates(1, 2) = 0;
-      jacobian_local_coordinates(0, j) = 0;
-      jacobian_local_coordinates(0, j + 1) = 0;
-      jacobian_local_coordinates(1, j) = 0;
-      jacobian_local_coordinates(1, j + 1) = 0;
     }
 
     if (best_cost < this->_params_.association_gate) {

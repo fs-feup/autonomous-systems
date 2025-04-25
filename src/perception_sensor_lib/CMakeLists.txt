@@ -32,6 +32,7 @@ endif()
 set(IMPLEMENTATION_FILES
   src/data_association/maximum_likelihood_nll.cpp
   src/data_association/maximum_likelihood_md.cpp
+  src/data_association/nearest_neighbour.cpp
   src/data_association/nearest_neighbor.cpp
   src/observation_model/base_observation_model.cpp
 )

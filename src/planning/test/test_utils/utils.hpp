@@ -14,7 +14,6 @@
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/path_point.hpp"
 #include "gtest/gtest.h"
-#include "planning/cone_coloring.hpp"
 #include "planning/outliers.hpp"
 #include "planning/path_calculation.hpp"
 #include "planning/planning.hpp"

@@ -6,7 +6,9 @@
  *
  */
 struct PathCalculationConfig {
+  double minimum_cone_distance_ = 2.5;
   double dist_threshold_ = 7.0;
+  double projected_point_distance_ = 1.0;
   double angle_gain_ = 20.0;
   double distance_gain_ = 5.0;
   double angle_exponent_ = 3.0;
@@ -16,7 +18,6 @@ struct PathCalculationConfig {
   int max_points_ = 50;
 
   PathCalculationConfig() = default;
-  explicit PathCalculationConfig(float dist_threshold) : dist_threshold_(dist_threshold) {}
 };
 
 #endif  // SRC_PLANNING_INCLUDE_CONFIG_PATH_CALCULATION_CONFIG_HPP_

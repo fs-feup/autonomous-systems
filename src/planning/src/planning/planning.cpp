@@ -27,16 +27,8 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   YAML::Node planning = YAML::LoadFile(planning_config_path);
   auto planning_config = planning["planning"];
 
-  params.angle_gain_ = planning_config["angle_gain"].as<double>();
-  params.distance_gain_ = planning_config["distance_gain"].as<double>();
-  params.ncones_gain_ = planning_config["ncones_gain"].as<double>();
-  params.angle_exponent_ = planning_config["angle_exponent"].as<double>();
-  params.distance_exponent_ = planning_config["distance_exponent"].as<double>();
-  params.same_cone_distance_threshold_ =
-      planning_config["same_cone_distance_threshold"].as<double>();
-  params.cost_max_ = planning_config["cost_max"].as<double>();
-  params.use_memory_cone_coloring_ = planning_config["use_memory_cone_coloring"].as<bool>();
-
+  params.minimum_cone_distance_ = planning_config["minimum_cone_distance"].as<double>();
+  params.projected_point_distance_ = planning_config["projected_point_distance"].as<double>();
   params.nc_angle_gain_ = planning_config["nc_angle_gain"].as<double>();
   params.nc_distance_gain_ = planning_config["nc_distance_gain"].as<double>();
   params.nc_angle_exponent_ = planning_config["nc_angle_exponent"].as<double>();
@@ -49,8 +41,6 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.outliers_spline_coeffs_ratio_ =
       planning_config["outliers_spline_coeffs_ratio"].as<float>();
   params.outliers_spline_precision_ = planning_config["outliers_spline_precision"].as<int>();
-  params.path_calculation_dist_threshold_ =
-      planning_config["path_calculation_dist_threshold"].as<double>();
   params.smoothing_spline_order_ = planning_config["smoothing_spline_order"].as<int>();
   params.smoothing_spline_coeffs_ratio_ =
       planning_config["smoothing_spline_coeffs_ratio"].as<float>();
@@ -74,7 +64,6 @@ Planning::Planning(const PlanningParameters &params)
       planning_config_(params),
       desired_velocity_(params.desired_velocity_),
       _map_frame_id_(params.map_frame_id_) {
-  cone_coloring_ = ConeColoring(planning_config_.cone_coloring_);
   outliers_ = Outliers(planning_config_.outliers_);
   path_calculation_ = PathCalculation(planning_config_.path_calculation_);
   path_smoothing_ = PathSmoothing(planning_config_.smoothing_);
@@ -97,24 +86,8 @@ Planning::Planning(const PlanningParameters &params)
     this->visualization_pub_ =
         this->create_publisher<visualization_msgs::msg::Marker>("/path_planning/smoothed_path", 10);
 
-    // Publisher for visualization
-    this->blue_cones_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
-        "/path_planning/blue_cones", 10);
-
-    // Publisher for visualization
-    this->yellow_cones_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
-        "/path_planning/yellow_cones", 10);
-
     this->triangulations_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
         "/path_planning/triangulations", 10);
-    // Publisher for visualization
-    this->after_rem_blue_cones_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
-        "/path_planning/after_rem_blue_cones", 10);
-
-    // Publisher for visualization
-    this->after_rem_yellow_cones_pub_ =
-        this->create_publisher<visualization_msgs::msg::MarkerArray>(
-            "/path_planning/after_rem_yellow_cones", 10);
   }
   // Publishes path from file in Skidpad & Acceleration events
   this->timer_ = this->create_wall_timer(
@@ -135,6 +108,7 @@ Planning::Planning(const PlanningParameters &params)
 }
 
 void Planning::fetch_discipline() {
+<<<<<<< HEAD
   if (!param_client_->wait_for_service(std::chrono::seconds(2))) {
     RCLCPP_ERROR(this->get_logger(), "Service /pacsim/pacsim_node/get_parameters not available.");
     return;
@@ -163,11 +137,46 @@ void Planning::fetch_discipline() {
           RCLCPP_ERROR(this->get_logger(), "Failed to retrieve discipline parameter.");
         }
       });
+=======
+  common_lib::competition_logic::Mission mission_result =
+      common_lib::competition_logic::Mission::AUTOCROSS;
+
+  if (!param_client_->wait_for_service(std::chrono::milliseconds(100))) {
+    RCLCPP_ERROR(this->get_logger(), "Service /pacsim/pacsim_node/get_parameters not available.");
+  } else {
+    auto request = std::make_shared<rcl_interfaces::srv::GetParameters::Request>();
+    request->names.push_back("discipline");
+
+    param_client_->async_send_request(
+        request, [this](rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedFuture future) {
+          auto response = future.get();
+          common_lib::competition_logic::Mission mission_result =
+              common_lib::competition_logic::Mission::AUTOCROSS;
+
+          if (!response->values.empty() && response->values[0].type == 4) {  // Type 4 = string
+            std::string discipline = response->values[0].string_value;
+            RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
+
+            if (discipline == "skidpad") {
+              mission_result = common_lib::competition_logic::Mission::SKIDPAD;
+            } else if (discipline == "acceleration") {
+              mission_result = common_lib::competition_logic::Mission::ACCELERATION;
+            }
+          } else {
+            RCLCPP_ERROR(this->get_logger(), "Failed to retrieve discipline parameter.");
+          }
+
+          this->mission = mission_result;
+        });
+  }
+
+  this->mission = mission_result;
+>>>>>>> dev
 }
 
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) {
   auto number_of_cones_received = static_cast<int>(msg.cone_array.size());
-  RCLCPP_DEBUG(this->get_logger(), "Planning received %i cones", number_of_cones_received);
+  RCLCPP_INFO(this->get_logger(), "Planning received %i cones", number_of_cones_received);
   this->cone_array_ = common_lib::communication::cone_vector_from_custom_interfaces(msg);
   this->received_first_track_ = true;
   if (!(this->received_first_pose_)) {
@@ -179,7 +188,7 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) 
 }
 
 void Planning::run_planning_algorithms() {
-  RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Running Planning Algorithms");
+  RCLCPP_INFO(rclcpp::get_logger("planning"), "Running Planning Algorithms");
   if (this->cone_array_.empty()) {
     publish_track_points({});
     return;
@@ -190,10 +199,17 @@ void Planning::run_planning_algorithms() {
   std::vector<PathPoint> triangulations_path = {};
   std::vector<PathPoint> final_path = {};
 
+<<<<<<< HEAD
   if ((this->mission == common_lib::competition_logic::Mission::SKIDPAD)) {
     final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
 
   } else if ((this->mission == common_lib::competition_logic::Mission::ACCELERATION)) {
+=======
+  if (this->mission == common_lib::competition_logic::Mission::SKIDPAD) {
+    final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
+
+  } else if (this->mission == common_lib::competition_logic::Mission::ACCELERATION) {
+>>>>>>> dev
     triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
     // Smooth the calculated path
     final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
@@ -207,7 +223,11 @@ void Planning::run_planning_algorithms() {
       }
     } else {
       for (auto &point : final_path) {
+<<<<<<< HEAD
         point.ideal_velocity = this->desired_velocity_;
+=======
+        point.ideal_velocity = 100.0;
+>>>>>>> dev
       }
     }
   } else {
@@ -234,8 +254,12 @@ void Planning::run_planning_algorithms() {
                static_cast<int>(final_path.size()));
 
   if (planning_config_.simulation_.publishing_visualization_msgs_) {
+<<<<<<< HEAD
     publish_visualization_msgs(std::vector<Cone>{}, std::vector<Cone>{}, std::vector<Cone>{},
                                std::vector<Cone>{}, triangulations_path, final_path);
+=======
+    publish_visualization_msgs(triangulations_path, final_path);
+>>>>>>> dev
   }
 }
 
@@ -286,22 +310,8 @@ bool Planning::is_predicitve_mission() const {
          this->mission == common_lib::competition_logic::Mission::ACCELERATION;
 }
 
-void Planning::publish_visualization_msgs(const std::vector<Cone> &left_cones,
-                                          const std::vector<Cone> &right_cones,
-                                          const std::vector<Cone> &after_refining_blue_cones,
-                                          const std::vector<Cone> &after_refining_yellow_cones,
-                                          const std::vector<PathPoint> &after_triangulations_path,
+void Planning::publish_visualization_msgs(const std::vector<PathPoint> &after_triangulations_path,
                                           const std::vector<PathPoint> &final_path) const {
-  this->blue_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      left_cones, "blue_cones_colored", this->_map_frame_id_, "blue"));
-  this->yellow_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      right_cones, "yellow_cones_colored", this->_map_frame_id_, "yellow"));
-  this->after_rem_blue_cones_pub_->publish(
-      common_lib::communication::marker_array_from_structure_array(
-          after_refining_blue_cones, "blue_cones_colored", this->_map_frame_id_, "blue"));
-  this->after_rem_yellow_cones_pub_->publish(
-      common_lib::communication::marker_array_from_structure_array(
-          after_refining_yellow_cones, "yellow_cones_colored", this->_map_frame_id_, "yellow"));
   this->triangulations_pub_->publish(common_lib::communication::marker_array_from_structure_array(
       after_triangulations_path, "after_triangulations_path", this->_map_frame_id_, "orange"));
   this->visualization_pub_->publish(common_lib::communication::line_marker_from_structure_array(
