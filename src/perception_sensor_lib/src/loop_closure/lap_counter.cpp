@@ -10,7 +10,7 @@ LoopClosure::Result LapCounter::detect(
   const Eigen::Vector3d& current_pose,
   const std::vector<Eigen::Vector2d>& map_cones,
   const Eigen::VectorXi& associations,
-  const Eigen::VectorXi& observations) const
+  const Eigen::VectorXd& observations) const
 {
   double dx = current_pose.x();
   double dy = current_pose.y();

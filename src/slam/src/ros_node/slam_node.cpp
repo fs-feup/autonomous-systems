@@ -62,6 +62,8 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
       "/state_estimation/slam_execution_time", 10);
   this->_covariance_publisher_ = this->create_publisher<std_msgs::msg::Float64MultiArray>(
       "/state_estimation/slam_covariance", 10);
+  this->_number_of_laps_ = this->create_publisher<std_msgs::msg::Float64>(
+      "/state_estimation/lap_counter", 10);
 
   RCLCPP_INFO(this->get_logger(), "SLAM Node has been initialized");
 }
@@ -188,4 +190,10 @@ void SLAMNode::_publish_covariance() {
     }
   }
   this->_covariance_publisher_->publish(covariance_msg);
+}
+
+void SLAMNode::_publish_lap_counter() {
+  std_msgs::msg::Float64 lap_counter_msg;
+  lap_counter_msg.data = this->_slam_solver_->get_lap_counter();
+  this->_number_of_laps_->publish(lap_counter_msg);
 }

@@ -37,5 +37,5 @@ public:
     const Eigen::Vector3d& current_pose,
     const std::vector<Eigen::Vector2d>& map_cones,
     const Eigen::VectorXi& associations,
-    const Eigen::VectorXi& observations) const = 0;
+    const Eigen::VectorXd& observations) const = 0;
 };

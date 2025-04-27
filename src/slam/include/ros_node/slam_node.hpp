@@ -39,6 +39,8 @@ protected:
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr _position_publisher_;
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr _execution_time_publisher_;
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr _covariance_publisher_;
+  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _number_of_laps_;
+
   rclcpp::TimerBase::SharedPtr _timer_;      /**< timer */
   std::shared_ptr<SLAMSolver> _slam_solver_; /**< SLAM solver object */
   std::vector<common_lib::structures::Cone> _perception_map_;
@@ -86,6 +88,12 @@ protected:
    *
    */
   void _publish_covariance();
+
+  /**
+   * @brief publishes the number of laps
+   *
+   */
+  void _publish_lap_counter();
 
 public:
   // /**

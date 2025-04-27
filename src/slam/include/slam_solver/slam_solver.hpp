@@ -93,4 +93,11 @@ public:
    * @return Eigen::MatrixXd
    */
   virtual Eigen::MatrixXd get_covariance() = 0;
+
+  /**
+   * @brief Get the lap counter
+   *
+   * @return int lap counter
+   */
+  virtual int get_lap_counter() = 0;
 };

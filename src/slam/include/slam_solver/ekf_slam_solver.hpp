@@ -21,6 +21,8 @@ class EKFSLAMSolver : public SLAMSolver {
   bool velocities_received_ = false;
   bool cones_receieved_ = false;
 
+  int _lap_counter_ = 0;
+
   /**
    * @brief Get the observation noise matrix object used in the correction step of the EKF
    * with the right dimensions
@@ -125,4 +127,8 @@ public:
    * @return Eigen::MatrixXd covariance matrix
    */
   Eigen::MatrixXd get_covariance() override { return covariance_; }
+
+  int get_lap_counter() override {
+    return this->_lap_counter_;
+  }
 };

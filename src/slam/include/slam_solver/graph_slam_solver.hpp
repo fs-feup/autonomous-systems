@@ -109,6 +109,13 @@ public:
   Eigen::MatrixXd get_covariance() override;
 
   /**
+   * @brief Get the lap counter
+   *
+   * @return int lap counter
+   */
+  int get_lap_counter() override;
+
+  /**
    * Timekeeping array
    * - 0: total motion time (prediction)
    * - 1: total observation time (correction)
