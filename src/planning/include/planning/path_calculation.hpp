@@ -81,26 +81,7 @@ public:
    */
   std::vector<PathPoint> process_delaunay_triangulations(
       std::pair<std::vector<Cone>, std::vector<Cone>> refined_cones) const;
-  
-  struct MidPoint {
-    Point point;
-    std::vector<MidPoint *> close_points;
 
-<<<<<<< HEAD
-    bool operator==(const MidPoint& other) const {
-        return (point.x() == other.point.x()) && (point.y() == other.point.y());
-    }
-
-  };
-
-  std::pair<double, MidPoint*> dfs_cost(int depth, MidPoint *previous, MidPoint *current, double maxcost);
-
-
-  std::vector<PathPoint> no_coloring_planning(std::vector<Cone>& cone_array,
-                                              common_lib::structures::Pose pose);
-
-
-=======
   /**
    * @brief Depth-first search for path cost calculation
    *
@@ -194,7 +175,6 @@ public:
    * @param pose The current pose of the vehicle
    * @return std::vector<PathPoint> The generated path
    */
->>>>>>> dev
   std::vector<PathPoint> skidpad_path(std::vector<Cone>& cone_array,
                                       common_lib::structures::Pose pose);
 };

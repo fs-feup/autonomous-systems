@@ -57,12 +57,8 @@ struct PlanningConfig {
     outliers_.coeffs_ratio_ = params.outliers_spline_coeffs_ratio_;
     outliers_.use_outlier_removal_ = params.use_outlier_removal_;
 
-<<<<<<< HEAD
-    path_calculation_.dist_threshold_ = params.path_calculation_dist_threshold_;
-=======
     path_calculation_.minimum_cone_distance_ = params.minimum_cone_distance_;
     path_calculation_.projected_point_distance_ = params.projected_point_distance_;
->>>>>>> dev
     path_calculation_.angle_gain_ = params.nc_angle_gain_;
     path_calculation_.distance_gain_ = params.nc_distance_gain_;
     path_calculation_.angle_exponent_ = params.nc_angle_exponent_;

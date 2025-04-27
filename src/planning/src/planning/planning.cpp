@@ -108,36 +108,6 @@ Planning::Planning(const PlanningParameters &params)
 }
 
 void Planning::fetch_discipline() {
-<<<<<<< HEAD
-  if (!param_client_->wait_for_service(std::chrono::seconds(2))) {
-    RCLCPP_ERROR(this->get_logger(), "Service /pacsim/pacsim_node/get_parameters not available.");
-    return;
-  }
-
-  auto request = std::make_shared<rcl_interfaces::srv::GetParameters::Request>();
-  request->names.push_back("discipline");
-
-  auto future_result = param_client_->async_send_request(
-      request, [this](rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedFuture future) {
-        auto response = future.get();
-
-        if (!response->values.empty() && response->values[0].type == 4) {  // Type 4 = string
-          std::string discipline = response->values[0].string_value;
-          RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
-          if (discipline == "skidpad") {
-            RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
-            this->mission = common_lib::competition_logic::Mission::SKIDPAD;
-          } else if (discipline == "acceleration") {
-            RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
-            this->mission = common_lib::competition_logic::Mission::ACCELERATION;
-          } else {
-            this->mission = common_lib::competition_logic::Mission::AUTOCROSS;
-          }
-        } else {
-          RCLCPP_ERROR(this->get_logger(), "Failed to retrieve discipline parameter.");
-        }
-      });
-=======
   common_lib::competition_logic::Mission mission_result =
       common_lib::competition_logic::Mission::AUTOCROSS;
 
@@ -171,7 +141,6 @@ void Planning::fetch_discipline() {
   }
 
   this->mission = mission_result;
->>>>>>> dev
 }
 
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) {
@@ -199,17 +168,10 @@ void Planning::run_planning_algorithms() {
   std::vector<PathPoint> triangulations_path = {};
   std::vector<PathPoint> final_path = {};
 
-<<<<<<< HEAD
-  if ((this->mission == common_lib::competition_logic::Mission::SKIDPAD)) {
-    final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
-
-  } else if ((this->mission == common_lib::competition_logic::Mission::ACCELERATION)) {
-=======
   if (this->mission == common_lib::competition_logic::Mission::SKIDPAD) {
     final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
 
   } else if (this->mission == common_lib::competition_logic::Mission::ACCELERATION) {
->>>>>>> dev
     triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
     // Smooth the calculated path
     final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
@@ -223,11 +185,7 @@ void Planning::run_planning_algorithms() {
       }
     } else {
       for (auto &point : final_path) {
-<<<<<<< HEAD
-        point.ideal_velocity = this->desired_velocity_;
-=======
         point.ideal_velocity = 100.0;
->>>>>>> dev
       }
     }
   } else {
@@ -254,12 +212,7 @@ void Planning::run_planning_algorithms() {
                static_cast<int>(final_path.size()));
 
   if (planning_config_.simulation_.publishing_visualization_msgs_) {
-<<<<<<< HEAD
-    publish_visualization_msgs(std::vector<Cone>{}, std::vector<Cone>{}, std::vector<Cone>{},
-                               std::vector<Cone>{}, triangulations_path, final_path);
-=======
     publish_visualization_msgs(triangulations_path, final_path);
->>>>>>> dev
   }
 }
 

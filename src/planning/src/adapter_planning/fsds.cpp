@@ -1,7 +1,6 @@
 #include "adapter_planning/fsds.hpp"
 
 #include "planning/planning.hpp"
-#include "custom_interfaces/msg/pose.hpp"
 
 FsdsAdapter::FsdsAdapter(const PlanningParameters& params) : Planning(params) {
   if (this->planning_config_.simulation_.using_simulated_se_) {

@@ -6,7 +6,6 @@
 #include <string>
 #include <vector>
 
-#include "custom_interfaces/msg/pose.hpp"
 #include "common_lib/communication/interfaces.hpp"
 #include "common_lib/communication/marker.hpp"
 #include "common_lib/competition_logic/mission_logic.hpp"
@@ -19,6 +18,7 @@
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/point_array.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
+#include "custom_interfaces/msg/pose.hpp"
 #include "planning/outliers.hpp"
 #include "planning/path_calculation.hpp"
 #include "planning/smoothing.hpp"

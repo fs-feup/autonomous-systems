@@ -1,18 +1,12 @@
 planning:
-  angle_gain: 5.246
-  distance_gain: 6.657
-  ncones_gain: 10.7
-  angle_exponent: 2.0
-  distance_exponent: 0.998
-  cost_max: 40.0
-  same_cone_distance_threshold: 0.6
-  use_memory_cone_coloring: true
-  nc_angle_gain: 40.0  # Parameters for path planning with no coloring (nc)
+  minimum_cone_distance: 2.0 # minimum distance between cones -> The rules say 3m, but we should keep it lower for safety
+  projected_point_distance: 1.0 # the distamce from the first point to the projected point to search for the second point
+  nc_angle_gain: 25.0  # Parameters for path planning with no coloring (nc)
   nc_distance_gain: 5.0
   nc_angle_exponent: 2.0
   nc_distance_exponent: 1.0
-  nc_max_cost: 50.0
-  nc_search_depth: 5
+  nc_max_cost: 40.0
+  nc_search_depth: 4
   nc_max_points: 200 # --------------------------
   outliers_spline_order: 3
   outliers_spline_coeffs_ratio: 3.0
@@ -22,10 +16,10 @@ planning:
   smoothing_spline_coeffs_ratio: 3.0
   smoothing_spline_precision: 10 
   publishing_visualization_msg: true
-  pre_defined_velocity_planning: 50.0
+  pre_defined_velocity_planning: 4.0
   use_outlier_removal: false
   use_path_smoothing: true
-  minimum_velocity: 3.0
+  minimum_velocity: 1.0
   braking_acceleration: -1.0
-  normal_acceleration: 5.0
+  normal_acceleration: 4.0
   use_velocity_planning: false

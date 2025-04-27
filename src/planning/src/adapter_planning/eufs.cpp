@@ -1,6 +1,5 @@
 #include "adapter_planning/eufs.hpp"
 
-#include "custom_interfaces/msg/pose.hpp"
 #include "planning/planning.hpp"
 
 visualization_msgs::msg::Marker marker_from_cone_w_covariance(
