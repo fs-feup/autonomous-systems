@@ -1,5 +1,7 @@
 #include "adapter_slam/vehicle.hpp"
 
+#include <geometry_msgs/msg/transform_stamped.hpp>
+
 #include "common_lib/competition_logic/color.hpp"
 #include "ros_node/slam_node.hpp"
 
@@ -14,6 +16,25 @@ VehicleAdapter::VehicleAdapter(const SLAMParameters& params) : SLAMNode(params) 
             _mission_ = common_lib::competition_logic::Mission(msg->as_mission);
           });
   _finished_client_ = this->create_client<std_srvs::srv::Trigger>("/as_srv/mission_finished");
+
+  // Create a static map frame
+  _tf_static_broadcaster_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(*this);
+
+  geometry_msgs::msg::TransformStamped transformStamped;
+  transformStamped.header.stamp = this->get_clock()->now();
+  transformStamped.header.frame_id = "map";              // Fixed frame: "map"
+  transformStamped.child_frame_id = "vehicle_estimate";  // The child frame: "vehicle"
+
+  transformStamped.transform.translation.x = 0.0;
+  transformStamped.transform.translation.y = 0.0;
+  transformStamped.transform.translation.z = 0.0;
+
+  transformStamped.transform.rotation.x = 0.0;
+  transformStamped.transform.rotation.y = 0.0;
+  transformStamped.transform.rotation.z = 0.0;
+  transformStamped.transform.rotation.w = 1.0;
+
+  _tf_static_broadcaster_->sendTransform(transformStamped);
 }
 
 // TODO: implement a more complex logic, like the one in inspection node
