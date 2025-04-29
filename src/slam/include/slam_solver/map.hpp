@@ -5,7 +5,7 @@
 #include <string>
 
 #include "slam_solver/ekf_slam_solver.hpp"
-#include "slam_solver/graph_slam_solver.hpp"
+#include "slam_solver/graph_slam_solver/graph_slam_solver.hpp"
 
 /*
  * Map of slam_solvers, with the key being the type of the slam_solver and the value being a lambda

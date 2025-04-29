@@ -1,4 +1,4 @@
-#include "slam_solver/graph_slam_solver.hpp"
+#include "slam_solver/graph_slam_solver/graph_slam_solver.hpp"
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
