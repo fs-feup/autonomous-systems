@@ -12,12 +12,15 @@
  * Map of slam_solvers, with the key being the type of the slam_solver and the value being a lambda
  * function that returns a shared pointer to the corresponding slam_solver
  */
-const std::map<std::string, std::function<std::shared_ptr<BaseOptimizer>()>, std::less<>>
+const std::map<std::string, std::function<std::shared_ptr<BaseOptimizer>(const SLAMParameters&)>,
+               std::less<>>
     graph_slam_optimizer_constructors_map = {
         {"normal_levenberg",
-         []() -> std::shared_ptr<BaseOptimizer> {
-           return std::make_shared<NormalLevenbergOptimizer>();
+         [](const SLAMParameters& params) -> std::shared_ptr<BaseOptimizer> {
+           return std::make_shared<NormalLevenbergOptimizer>(params);
          }},
         {"isam2",
-         []() -> std::shared_ptr<BaseOptimizer> { return std::make_shared<ISAM2Optimizer>(); }},
+         [](const SLAMParameters& params) -> std::shared_ptr<BaseOptimizer> {
+           return std::make_shared<ISAM2Optimizer>(params);
+         }},
 };

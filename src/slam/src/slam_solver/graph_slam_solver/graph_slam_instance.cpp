@@ -172,10 +172,7 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
       // Create new landmark
       landmark_symbol = gtsam::Symbol('l', ++(this->_landmark_counter_));
       landmark = gtsam::Point2(observations_global(i * 2), observations_global(i * 2 + 1));
-      RCLCPP_INFO(rclcpp::get_logger("slam"), "process_observations - New landmark %d",
-                  this->_landmark_counter_);
       this->_graph_values_.insert(landmark_symbol, landmark);
-      RCLCPP_INFO(rclcpp::get_logger("slam"), "Survived");
     } else {
       // Association to previous landmark
       landmark_symbol =

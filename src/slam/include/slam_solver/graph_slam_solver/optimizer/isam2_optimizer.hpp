@@ -8,7 +8,7 @@ class ISAM2Optimizer : public BaseOptimizer {
   gtsam::ISAM2 _isam2_;           //< ISAM2 instance for the optimizer
   gtsam::Values _last_estimate_;  //< Last estimate from the optimizer
 public:
-  ISAM2Optimizer();
+  ISAM2Optimizer(const SLAMParameters& params);
 
   ~ISAM2Optimizer() override = default;
 

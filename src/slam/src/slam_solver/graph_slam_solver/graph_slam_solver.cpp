@@ -33,8 +33,8 @@ GraphSLAMSolver::GraphSLAMSolver(const SLAMParameters& params,
                                  std::shared_ptr<V2PMotionModel> motion_model,
                                  std::shared_ptr<std::vector<double>> execution_times)
     : SLAMSolver(params, data_association, motion_model, execution_times),
-      _graph_slam_instance_(
-          params, graph_slam_optimizer_constructors_map.at(params.slam_optimization_type_)()) {
+      _graph_slam_instance_(params, graph_slam_optimizer_constructors_map.at(
+                                        params.slam_optimization_type_)(params)) {
   // TODO: transform into range and bearing noises
 }
 
@@ -64,7 +64,7 @@ void GraphSLAMSolver::init(std::weak_ptr<rclcpp::Node> node) {
 
 void GraphSLAMSolver::add_motion_prior(const common_lib::structures::Velocities& velocities) {
   std::unique_lock lock(this->_mutex_);
-  rclcpp::Time start_time, motion_model_time, factor_graph_time, optimization_time;
+  rclcpp::Time start_time, motion_model_time, factor_graph_time;
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_motion_prior - Mutex accessed");
   start_time = rclcpp::Clock().now();
   MotionData velocities_data(
@@ -80,25 +80,13 @@ void GraphSLAMSolver::add_motion_prior(const common_lib::structures::Velocities&
   motion_model_time = rclcpp::Clock().now();
   this->_graph_slam_instance_.process_pose(
       eigen_to_gtsam_pose(this->_pose_updater_.get_last_pose()));
-
   factor_graph_time = rclcpp::Clock().now();
-  if (this->_params_.slam_optimization_mode_ == "sync") {
-    this->_graph_slam_instance_.optimize();
-    this->_pose_updater_.set_last_pose(gtsam_pose_to_eigen(this->_graph_slam_instance_.get_pose()));
-    optimization_time = rclcpp::Clock().now();
-    RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_motion_prior - Graph optimized");
-  }
-
   // Timekeeping
   if (this->_execution_times_ == nullptr) {
     return;
   }
   this->_execution_times_->at(9) = (motion_model_time - start_time).seconds() * 1000.0;
   this->_execution_times_->at(10) = (factor_graph_time - motion_model_time).seconds() * 1000.0;
-  if (this->_params_.slam_optimization_mode_ == "sync") {
-    this->_execution_times_->at(5) = (optimization_time - factor_graph_time).seconds() * 1000.0;
-  }
-
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_motion_prior - Mutex unlocked");
 }
 
@@ -160,15 +148,13 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Mutex unlocked - Factors added");
 
   // Optimize the graph
-  if (this->_params_.slam_optimization_mode_ == "sync" ||
-      this->_params_.slam_optimization_mode_ ==
-          "sync_observations") {  // If optimization is synchronous
-    RCLCPP_INFO(rclcpp::get_logger("slam"), "add_observations - Mutex locked - optimizing graph");
+  if (this->_params_.slam_optimization_mode_ == "sync") {  // If optimization is synchronous
+    RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Mutex locked - optimizing graph");
     std::unique_lock uniq_lock(this->_mutex_);
     this->_graph_slam_instance_.optimize();
     optimization_time = rclcpp::Clock().now();
     this->_pose_updater_.set_last_pose(gtsam_pose_to_eigen(this->_graph_slam_instance_.get_pose()));
-    RCLCPP_INFO(rclcpp::get_logger("slam"), "add_observations - Mutex unlocked - graph optimized");
+    RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Mutex unlocked - graph optimized");
   }
 
   // Timekeeping
@@ -178,7 +164,7 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   this->_execution_times_->at(3) = (covariance_time - initialization_time).seconds() * 1000.0;
   this->_execution_times_->at(2) = (association_time - covariance_time).seconds() * 1000.0;
   this->_execution_times_->at(4) = (factor_graph_time - association_time).seconds() * 1000.0;
-  if (this->_params_.slam_optimization_period_ <= 0.0) {
+  if (this->_params_.slam_optimization_mode_ == "sync") {
     this->_execution_times_->at(5) = (optimization_time - factor_graph_time).seconds() * 1000.0;
   }
 }

@@ -20,6 +20,10 @@ SLAMParameters::SLAMParameters(const SLAMParameters &params) {
   slam_optimization_period_ = params.slam_optimization_period_;
   frame_id_ = params.frame_id_;
   slam_optimization_type_ = params.slam_optimization_type_;
+  slam_optimization_mode_ = params.slam_optimization_mode_;
+  slam_isam2_relinearize_threshold_ = params.slam_isam2_relinearize_threshold_;
+  slam_isam2_relinearize_skip_ = params.slam_isam2_relinearize_skip_;
+  slam_isam2_factorization_ = params.slam_isam2_factorization_;
 }
 
 std::string SLAMParameters::load_config() {
@@ -55,6 +59,13 @@ std::string SLAMParameters::load_config() {
   this->slam_min_pose_difference_ = slam_config["slam"]["slam_min_pose_difference"].as<float>();
   this->slam_optimization_period_ = slam_config["slam"]["slam_optimization_period"].as<double>();
   this->slam_optimization_type_ = slam_config["slam"]["slam_optimization_type"].as<std::string>();
+  this->slam_optimization_mode_ = slam_config["slam"]["slam_optimization_mode"].as<std::string>();
+  this->slam_isam2_relinearize_threshold_ =
+      slam_config["slam"]["slam_isam2_relinearize_threshold"].as<double>();
+  this->slam_isam2_relinearize_skip_ =
+      slam_config["slam"]["slam_isam2_relinearize_skip"].as<double>();
+  this->slam_isam2_factorization_ =
+      slam_config["slam"]["slam_isam2_factorization"].as<std::string>();
 
   return adapter;
 }

@@ -29,7 +29,11 @@ struct SLAMParameters {
   double slam_optimization_period_ = 0.0;  //< Period for running optimization of the graph (s),
                                            //  0.0 means optimization on observations receival
   std::string slam_optimization_type_ = "normal_levenberg";
-  std::string slam_optimization_mode_ = "sync_observations";
+  std::string slam_optimization_mode_ = "sync";
+
+  double slam_isam2_relinearize_threshold_ = 0.1;
+  double slam_isam2_relinearize_skip_ = 1;
+  std::string slam_isam2_factorization_ = "QR";
 
   SLAMParameters() = default;
   explicit SLAMParameters(const SLAMParameters &params);
@@ -45,5 +49,31 @@ struct SLAMParameters {
     return DataAssociationParameters(data_association_limit_distance_, data_association_gate_,
                                      new_landmark_confidence_gate_, observation_x_noise_,
                                      observation_y_noise_);
+  }
+
+  friend std::ostream &operator<<(std::ostream &os, const SLAMParameters &params) {
+    os << "SLAMParameters: {"
+       << ", frame_id_: " << params.frame_id_
+       << "use_simulated_perception_: " << params.use_simulated_perception_
+       << ", use_simulated_velocities_: " << params.use_simulated_velocities_
+       << ", motion_model_name_: " << params.motion_model_name_
+       << ", data_association_model_name_: " << params.data_association_model_name_
+       << ", data_association_limit_distance_: " << params.data_association_limit_distance_
+       << ", data_association_gate_: " << params.data_association_gate_
+       << ", new_landmark_confidence_gate_: " << params.new_landmark_confidence_gate_
+       << ", observation_x_noise_: " << params.observation_x_noise_
+       << ", observation_y_noise_: " << params.observation_y_noise_
+       << ", velocity_x_noise_: " << params.velocity_x_noise_
+       << ", velocity_y_noise_: " << params.velocity_y_noise_
+       << ", angular_velocity_noise_: " << params.angular_velocity_noise_
+       << ", slam_solver_name_: " << params.slam_solver_name_
+       << ", slam_min_pose_difference_: " << params.slam_min_pose_difference_
+       << ", slam_optimization_mode_: " << params.slam_optimization_mode_
+       << ", slam_optimization_type_: " << params.slam_optimization_type_
+       << ", slam_optimization_period_: " << params.slam_optimization_period_
+       << ", slam_isam2_relinearize_threshold_: " << params.slam_isam2_relinearize_threshold_
+       << ", slam_isam2_relinearize_skip_: " << params.slam_isam2_relinearize_skip_
+       << ", slam_isam2_factorization_: " << params.slam_isam2_factorization_ << "}";
+    return os;
   }
 };

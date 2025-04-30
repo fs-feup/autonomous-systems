@@ -3,8 +3,14 @@
 #include <gtsam/nonlinear/NonlinearFactorGraph.h>
 #include <gtsam/nonlinear/Values.h>
 
+#include "slam_config/general_config.hpp"
+
 class BaseOptimizer {
+protected:
+  const SLAMParameters& _params_;
+
 public:
+  explicit BaseOptimizer(const SLAMParameters& params) : _params_(params){};
   virtual ~BaseOptimizer() = default;
 
   /**

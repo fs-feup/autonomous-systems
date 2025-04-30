@@ -17,6 +17,8 @@
 /*---------------------- Constructor --------------------*/
 
 SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
+  // Print parameters
+  RCLCPP_INFO_STREAM(this->get_logger(), "SLAM Node parameters:" << params);
   // Initialize the models
   std::shared_ptr<V2PMotionModel> motion_model = v2p_models_map.at(params.motion_model_name_)();
   std::shared_ptr<DataAssociationModel> data_association =

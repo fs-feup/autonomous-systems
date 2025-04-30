@@ -1,10 +1,12 @@
 #pragma once
 
+#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
+
 #include "slam_solver/graph_slam_solver/optimizer/base_optimizer.hpp"
 
 class NormalLevenbergOptimizer : public BaseOptimizer {
 public:
-  NormalLevenbergOptimizer() = default;
+  NormalLevenbergOptimizer(const SLAMParameters& params);
 
   ~NormalLevenbergOptimizer() override = default;
 
