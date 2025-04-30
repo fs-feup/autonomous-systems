@@ -25,7 +25,7 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
           params.new_landmark_confidence_gate_, params.observation_x_noise_,
           params.observation_y_noise_));
 
-  this->_execution_times_ = std::make_shared<std::vector<double>>(10, 0.0);
+  this->_execution_times_ = std::make_shared<std::vector<double>>(20, 0.0);
 
   // Initialize SLAM solver object
   this->_slam_solver_ = slam_solver_constructors_map.at(params.slam_solver_name_)(

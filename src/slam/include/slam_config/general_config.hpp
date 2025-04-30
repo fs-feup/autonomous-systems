@@ -4,6 +4,8 @@
 #include <rclcpp/rclcpp.hpp>
 #include <string>
 
+#include "perception_sensor_lib/data_association/parameters.hpp"
+
 /**
  * @brief Parameters for the SLAM node
  */
@@ -26,6 +28,8 @@ struct SLAMParameters {
       0.3;  //< Minimum pose difference to add a new pose to the graph
   double slam_optimization_period_ = 0.0;  //< Period for running optimization of the graph (s),
                                            //  0.0 means optimization on observations receival
+  std::string slam_optimization_type_ = "normal_levenberg";
+  std::string slam_optimization_mode_ = "sync_observations";
 
   SLAMParameters() = default;
   explicit SLAMParameters(const SLAMParameters &params);
@@ -36,4 +40,10 @@ struct SLAMParameters {
    * @return std::string adapter_name
    */
   std::string load_config();
+
+  DataAssociationParameters get_data_association_parameters() {
+    return DataAssociationParameters(data_association_limit_distance_, data_association_gate_,
+                                     new_landmark_confidence_gate_, observation_x_noise_,
+                                     observation_y_noise_);
+  }
 };

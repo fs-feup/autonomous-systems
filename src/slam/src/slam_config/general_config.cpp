@@ -19,6 +19,7 @@ SLAMParameters::SLAMParameters(const SLAMParameters &params) {
   slam_min_pose_difference_ = params.slam_min_pose_difference_;
   slam_optimization_period_ = params.slam_optimization_period_;
   frame_id_ = params.frame_id_;
+  slam_optimization_type_ = params.slam_optimization_type_;
 }
 
 std::string SLAMParameters::load_config() {
@@ -53,6 +54,7 @@ std::string SLAMParameters::load_config() {
   this->slam_solver_name_ = slam_config["slam"]["slam_solver_name"].as<std::string>();
   this->slam_min_pose_difference_ = slam_config["slam"]["slam_min_pose_difference"].as<float>();
   this->slam_optimization_period_ = slam_config["slam"]["slam_optimization_period"].as<double>();
+  this->slam_optimization_type_ = slam_config["slam"]["slam_optimization_type"].as<std::string>();
 
   return adapter;
 }

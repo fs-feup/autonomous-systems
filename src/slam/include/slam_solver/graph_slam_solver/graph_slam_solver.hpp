@@ -9,6 +9,7 @@
 
 #include "slam_solver/graph_slam_solver/factor_data_structures.hpp"
 #include "slam_solver/graph_slam_solver/graph_slam_instance.hpp"
+#include "slam_solver/graph_slam_solver/optimizer/base_optimizer.hpp"
 #include "slam_solver/graph_slam_solver/pose_updater.hpp"
 #include "slam_solver/slam_solver.hpp"
 
@@ -113,6 +114,7 @@ public:
    * - 6: optimization copy / initialization time
    * - 7: redo time in optimization routine
    * - 8: total asynchronous optimization routine time
-   *
+   * - 9: motion model time
+   * - 10: factor graph time (in add_motion_prior)
    */
 };

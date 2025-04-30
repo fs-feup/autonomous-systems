@@ -7,6 +7,7 @@
 
 #include "slam_config/general_config.hpp"
 #include "slam_solver/graph_slam_solver/factor_data_structures.hpp"
+#include "slam_solver/graph_slam_solver/optimizer/base_optimizer.hpp"
 
 /**
  * @brief Graph SLAM instance class - class to hold the factor graph and the values
@@ -14,6 +15,7 @@
  * All operations to the factor graph and values are carried out by this object
  */
 class GraphSLAMInstance {
+protected:
   gtsam::NonlinearFactorGraph
       _factor_graph_;  //< Factor graph for the graph SLAM solver (only factors, no estimates)
   gtsam::Values _graph_values_;         //< Estimate for the graph SLAM solver
@@ -24,12 +26,13 @@ class GraphSLAMInstance {
   bool _new_observation_factors_ =
       false;  //< Flag to check if new factors were added to the graph for optimization
 
-  SLAMParameters _params_;  //< Parameters for the SLAM solver
+  SLAMParameters _params_;                     //< Parameters for the SLAM solver
+  std::shared_ptr<BaseOptimizer> _optimizer_;  //< Optimizer for the graph SLAM solver
 
 public:
   GraphSLAMInstance() = default;
 
-  GraphSLAMInstance(const SLAMParameters& params);
+  GraphSLAMInstance(const SLAMParameters& params, std::shared_ptr<BaseOptimizer> optimizer);
 
   GraphSLAMInstance(const GraphSLAMInstance& other);
 
@@ -42,14 +45,14 @@ public:
    *
    * @return true if new pose factors exist
    */
-  bool should_process_observations() const;
+  bool new_pose_factors() const;
 
   /**
    * @brief Checks if it is worth running optimization
    *
    * @return true if new observation factors exist
    */
-  bool should_perform_optimization() const;
+  bool new_observation_factors() const;
 
   unsigned int get_landmark_counter() const;
 

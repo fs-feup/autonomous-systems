@@ -17,11 +17,9 @@
 
 #include "common_lib/maths/transformations.hpp"
 
-bool GraphSLAMInstance::should_process_observations() const { return this->_new_pose_node_; }
+bool GraphSLAMInstance::new_pose_factors() const { return this->_new_pose_node_; }
 
-bool GraphSLAMInstance::should_perform_optimization() const {
-  return this->_new_observation_factors_;
-}
+bool GraphSLAMInstance::new_observation_factors() const { return this->_new_observation_factors_; }
 
 const gtsam::Values& GraphSLAMInstance::get_graph_values_reference() const {
   return this->_graph_values_;
@@ -75,7 +73,9 @@ Eigen::MatrixXd GraphSLAMInstance::get_covariance_matrix() const {
   return Eigen::MatrixXd::Zero(this->_landmark_counter_, this->_landmark_counter_);
 }
 
-GraphSLAMInstance::GraphSLAMInstance(const SLAMParameters& params) : _params_(params) {
+GraphSLAMInstance::GraphSLAMInstance(const SLAMParameters& params,
+                                     std::shared_ptr<BaseOptimizer> optimizer)
+    : _params_(params), _optimizer_(optimizer) {
   // Create a new factor graph
   _factor_graph_ = gtsam::NonlinearFactorGraph();
   const gtsam::Pose2 prior_pose(0.0, 0.0, 0.0);
@@ -172,7 +172,10 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
       // Create new landmark
       landmark_symbol = gtsam::Symbol('l', ++(this->_landmark_counter_));
       landmark = gtsam::Point2(observations_global(i * 2), observations_global(i * 2 + 1));
+      RCLCPP_INFO(rclcpp::get_logger("slam"), "process_observations - New landmark %d",
+                  this->_landmark_counter_);
       this->_graph_values_.insert(landmark_symbol, landmark);
+      RCLCPP_INFO(rclcpp::get_logger("slam"), "Survived");
     } else {
       // Association to previous landmark
       landmark_symbol =
@@ -196,7 +199,6 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
 }
 
 void GraphSLAMInstance::optimize() {  // TODO: implement sliding window and other parameters
-  gtsam::LevenbergMarquardtOptimizer optimizer(this->_factor_graph_, this->_graph_values_);
-  this->_graph_values_ = optimizer.optimize();
+  this->_graph_values_ = this->_optimizer_->optimize(this->_factor_graph_, this->_graph_values_);
   this->_new_observation_factors_ = false;
 }
