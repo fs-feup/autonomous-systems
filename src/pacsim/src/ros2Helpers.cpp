@@ -359,7 +359,7 @@ geometry_msgs::msg::TransformStamped createRosTransformMsg(const Eigen::Vector3d
 {
     geometry_msgs::msg::TransformStamped transformStamped;
     transformStamped.header.stamp = rclcpp::Time(static_cast<uint64_t>(time * 1e9));
-    ;
+
     transformStamped.header.frame_id = frame;
     transformStamped.child_frame_id = child_frame;
 
@@ -369,6 +369,7 @@ geometry_msgs::msg::TransformStamped createRosTransformMsg(const Eigen::Vector3d
 
     tf2::Quaternion q;
     q.setRPY(0, 0, rot.z());
+    q.normalize();
     transformStamped.transform.rotation.x = q.x();
     transformStamped.transform.rotation.y = q.y();
     transformStamped.transform.rotation.z = q.z();
