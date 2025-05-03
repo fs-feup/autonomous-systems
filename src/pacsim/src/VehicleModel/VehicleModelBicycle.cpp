@@ -337,10 +337,14 @@ Eigen::Vector3d VehicleModelBicycle::calculateAccelerations(double steeringFront
   double ayModel = ayTires + friction.y() / m;
 
   // Calculate yaw moment contributions
-  double rdotFx =
-      0.5 * sf * (-Fx_FL * std::cos(steeringAngles.FL) + Fx_FR * std::cos(steeringAngles.FR)) +
-      lf * (Fx_FL * std::sin(steeringAngles.FL) + Fx_FR * std::sin(steeringAngles.FR)) +
-      0.5 * sr * (Fx_RR - Fx_RL);
+  double rdotFx
+      = 0.5 * this->sf * (-Fx_FL * std::cos(this->steeringAngles.FL) + Fx_FR * std::cos(this->steeringAngles.FR))
+      + this->lf * (Fx_FL * std::sin(this->steeringAngles.FL) + Fx_FR * std::sin(this->steeringAngles.FR))
+      + 0.5 * this->sr * (Fx_RR * std::cos(this->steeringAngles.RR) - Fx_RL * std::cos(this->steeringAngles.RL))
+      - this->lr * (Fx_RL * std::sin(this->steeringAngles.RL) + Fx_RR * std::sin(this->steeringAngles.RR));
+
+  double rdotFy = this->lf * (Fy_Front * std::cos(steeringFront)) - this->lr * (Fy_Rear);
+  double rdot = (1 / Izz * (rdotFx + rdotFy));
 
   double rdotFy = lf * (Fy_Front * std::cos(steeringFront)) - lr * (Fy_Rear);
 
