@@ -5,7 +5,7 @@ velocity_estimation:
   steering_angle_noise: 0.0001
   imu_acceleration_noise: 0.05
   imu_rotational_noise: 0.001
-  wheel_base: 1.6
-  weight_distribution_front: 0.5
+  wheel_base: 1.53
+  weight_distribution_front: 0.52549
   gear_ratio: 4.0
   wheel_radius: 0.203
