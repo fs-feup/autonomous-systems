@@ -4,7 +4,6 @@
 
 #include "VehicleModel/VehicleModelInterface.hpp"
 #include "transform.hpp"
-#include <iostream>
 
 VehicleModelBicycle::VehicleModelBicycle()
     : position(Eigen::Vector3d::Zero()),
