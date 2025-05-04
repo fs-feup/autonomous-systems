@@ -1,5 +1,6 @@
 velocity_estimation:
   estimation_method: "ekf"
+  s2v_model_name: "bicycle_model"
   wheel_speed_noise: 0.1
   motor_rpm_noise: 0.1
   steering_angle_noise: 0.0001

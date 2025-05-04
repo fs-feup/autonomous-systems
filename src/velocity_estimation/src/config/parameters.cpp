@@ -15,6 +15,7 @@ std::string VEParameters::load_config() {
 
   this->_estimation_method_ =
       ve_config["velocity_estimation"]["estimation_method"].as<std::string>();
+  this->_s2v_model_name_ = ve_config["velocity_estimation"]["s2v_model_name"].as<std::string>();
   this->imu_acceleration_noise_ =
       ve_config["velocity_estimation"]["imu_acceleration_noise"].as<double>();
   this->imu_rotational_noise_ =
@@ -23,11 +24,6 @@ std::string VEParameters::load_config() {
   this->steering_angle_noise_ =
       ve_config["velocity_estimation"]["steering_angle_noise"].as<double>();
   this->motor_rpm_noise_ = ve_config["velocity_estimation"]["motor_rpm_noise"].as<double>();
-  this->_wheel_base_ = ve_config["velocity_estimation"]["wheel_base"].as<double>();
-  this->_weight_distribution_front_ =
-      ve_config["velocity_estimation"]["weight_distribution_front"].as<double>();
-  this->_gear_ratio_ = ve_config["velocity_estimation"]["gear_ratio"].as<double>();
-  this->_wheel_radius_ = ve_config["velocity_estimation"]["wheel_radius"].as<double>();
 
   return adapter;
 }
