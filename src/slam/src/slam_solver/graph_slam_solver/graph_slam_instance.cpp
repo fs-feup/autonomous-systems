@@ -98,6 +98,8 @@ GraphSLAMInstance::GraphSLAMInstance(const GraphSLAMInstance& other) {
   _landmark_counter_ = other._landmark_counter_;
   _new_pose_node_ = other._new_pose_node_;
   _new_observation_factors_ = other._new_observation_factors_;
+  _optimizer_ = other._optimizer_;
+  _params_ = other._params_;
 }
 
 GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) {
@@ -110,6 +112,8 @@ GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) 
   _landmark_counter_ = other._landmark_counter_;
   _new_pose_node_ = other._new_pose_node_;
   _new_observation_factors_ = other._new_observation_factors_;
+  _optimizer_ = other._optimizer_;
+  _params_ = other._params_;
 
   return *this;
 }
@@ -196,6 +200,9 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
 }
 
 void GraphSLAMInstance::optimize() {  // TODO: implement sliding window and other parameters
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"),
+               "GraphSLAMInstance - Optimizing1 graph with %ld factors and %ld values",
+               this->_factor_graph_.size(), this->_graph_values_.size());
   this->_graph_values_ = this->_optimizer_->optimize(this->_factor_graph_, this->_graph_values_);
   this->_new_observation_factors_ = false;
 }

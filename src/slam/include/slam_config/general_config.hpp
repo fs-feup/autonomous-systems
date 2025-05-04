@@ -36,7 +36,7 @@ struct SLAMParameters {
   std::string slam_isam2_factorization_ = "QR";
 
   SLAMParameters() = default;
-  explicit SLAMParameters(const SLAMParameters &params);
+  SLAMParameters(const SLAMParameters &params);
 
   /**
    * @brief Load the configuration for the SLAM node from YAML file
