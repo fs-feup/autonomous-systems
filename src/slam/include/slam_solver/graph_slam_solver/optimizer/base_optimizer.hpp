@@ -24,5 +24,6 @@ public:
    * @return The optimized values
    */
   virtual gtsam::Values optimize(gtsam::NonlinearFactorGraph& factor_graph,
-                                 gtsam::Values& graph_values) = 0;
+                                 gtsam::Values& graph_values, unsigned int pose_num,
+                                 unsigned int landmark_num) = 0;
 };

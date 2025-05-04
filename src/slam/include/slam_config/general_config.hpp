@@ -34,6 +34,7 @@ struct SLAMParameters {
   double slam_isam2_relinearize_threshold_ = 0.1;
   double slam_isam2_relinearize_skip_ = 1;
   std::string slam_isam2_factorization_ = "QR";
+  unsigned int sliding_window_size_ = 5;
 
   SLAMParameters() = default;
   SLAMParameters(const SLAMParameters &params);
@@ -71,6 +72,7 @@ struct SLAMParameters {
        << ", slam_optimization_mode_: " << params.slam_optimization_mode_
        << ", slam_optimization_type_: " << params.slam_optimization_type_
        << ", slam_optimization_period_: " << params.slam_optimization_period_
+       << ", sliding_window_size_: " << params.sliding_window_size_
        << ", slam_isam2_relinearize_threshold_: " << params.slam_isam2_relinearize_threshold_
        << ", slam_isam2_relinearize_skip_: " << params.slam_isam2_relinearize_skip_
        << ", slam_isam2_factorization_: " << params.slam_isam2_factorization_ << "}";

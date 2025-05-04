@@ -21,3 +21,6 @@ slam:
   slam_isam2_relinearize_threshold: 0.005 # Threshold for relinearizing the graph in isam2
   slam_isam2_relinearize_skip: 1 # Number of steps to skip before relinearizing the graph in isam2
   slam_isam2_factorization: "QR" # QR" or "CHOLESKY" -> Factorization method for isam2
+
+  # Only for slam_optimization_type: "sliding_window_levenberg"
+  sliding_window_size: 5 # Number of poses to keep in the sliding window

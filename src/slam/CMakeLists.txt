@@ -49,6 +49,7 @@ set(IMPLEMENTATION_FILES
   src/slam_solver/graph_slam_solver/graph_slam_instance.cpp
   src/slam_solver/graph_slam_solver/optimizer/isam2_optimizer.cpp
   src/slam_solver/graph_slam_solver/optimizer/normal_levenberg_optimizer.cpp
+  src/slam_solver/graph_slam_solver/optimizer/sliding_window_levenberg_optimizer.cpp
 )
 
 add_executable(slam src/main.cpp ${IMPLEMENTATION_FILES})

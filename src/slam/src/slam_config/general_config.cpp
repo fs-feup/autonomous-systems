@@ -24,6 +24,7 @@ SLAMParameters::SLAMParameters(const SLAMParameters &params) {
   slam_isam2_relinearize_threshold_ = params.slam_isam2_relinearize_threshold_;
   slam_isam2_relinearize_skip_ = params.slam_isam2_relinearize_skip_;
   slam_isam2_factorization_ = params.slam_isam2_factorization_;
+  sliding_window_size_ = params.sliding_window_size_;
 }
 
 std::string SLAMParameters::load_config() {
@@ -66,6 +67,7 @@ std::string SLAMParameters::load_config() {
       slam_config["slam"]["slam_isam2_relinearize_skip"].as<double>();
   this->slam_isam2_factorization_ =
       slam_config["slam"]["slam_isam2_factorization"].as<std::string>();
+  this->sliding_window_size_ = slam_config["slam"]["sliding_window_size"].as<unsigned int>();
 
   return adapter;
 }

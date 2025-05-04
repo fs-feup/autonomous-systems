@@ -203,6 +203,7 @@ void GraphSLAMInstance::optimize() {  // TODO: implement sliding window and othe
   RCLCPP_DEBUG(rclcpp::get_logger("slam"),
                "GraphSLAMInstance - Optimizing1 graph with %ld factors and %ld values",
                this->_factor_graph_.size(), this->_graph_values_.size());
-  this->_graph_values_ = this->_optimizer_->optimize(this->_factor_graph_, this->_graph_values_);
+  this->_graph_values_ = this->_optimizer_->optimize(
+      this->_factor_graph_, this->_graph_values_, this->_pose_counter_, this->_landmark_counter_);
   this->_new_observation_factors_ = false;
 }

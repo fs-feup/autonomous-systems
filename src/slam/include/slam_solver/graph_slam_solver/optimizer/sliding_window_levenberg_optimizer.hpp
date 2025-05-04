@@ -4,11 +4,11 @@
 
 #include "slam_solver/graph_slam_solver/optimizer/base_optimizer.hpp"
 
-class NormalLevenbergOptimizer : public BaseOptimizer {
+class SlidingWindowLevenbergOptimizer : public BaseOptimizer {
 public:
-  NormalLevenbergOptimizer(const SLAMParameters& params);
+  SlidingWindowLevenbergOptimizer(const SLAMParameters& params);
 
-  ~NormalLevenbergOptimizer() override = default;
+  ~SlidingWindowLevenbergOptimizer() override = default;
 
   gtsam::Values optimize(gtsam::NonlinearFactorGraph& factor_graph, gtsam::Values& graph_values,
                          unsigned int pose_num, unsigned int landmark_num) override;
