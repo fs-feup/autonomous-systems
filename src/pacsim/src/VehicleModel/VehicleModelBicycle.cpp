@@ -343,9 +343,6 @@ Eigen::Vector3d VehicleModelBicycle::calculateAccelerations(double steeringFront
       + 0.5 * this->sr * (Fx_RR * std::cos(this->steeringAngles.RR) - Fx_RL * std::cos(this->steeringAngles.RL))
       - this->lr * (Fx_RL * std::sin(this->steeringAngles.RL) + Fx_RR * std::sin(this->steeringAngles.RR));
 
-  double rdotFy = this->lf * (Fy_Front * std::cos(steeringFront)) - this->lr * (Fy_Rear);
-  double rdot = (1 / Izz * (rdotFx + rdotFy));
-
   double rdotFy = lf * (Fy_Front * std::cos(steeringFront)) - lr * (Fy_Rear);
 
   // Calculate yaw acceleration
