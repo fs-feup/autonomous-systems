@@ -3,7 +3,7 @@ global:
   config_name: "" # version of the configuration, appended to the adapter name on the file name e.g. "_faster_control"
   use_simulated_se: false # use simulated state estimator from the simulator
   use_simulated_perception: true # use simulated perception from the simulator
-  use_simulated_planning: false # use simulated planning from the mocker_node
+  use_simulated_planning: true # use simulated planning from the mocker_node
   use_simulated_velocities: true # use simulated velocities from the simulator
-  track_name: "FSE23" 
+  track_name: "FSE23"
   vehicle_frame_id: "map" # "map" or ... -> frame_id for the visualization messages

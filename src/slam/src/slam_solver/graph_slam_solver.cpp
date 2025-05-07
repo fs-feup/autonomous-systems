@@ -30,7 +30,7 @@
     _factor_graph_.add(gtsam::PriorFactor<gtsam::Pose2>(pose_symbol, prior_pose, prior_noise));
 
     // Loop closure
-    this->loop_closure_ = std::make_shared<LapCounter>(5, 6);
+    this->loop_closure_ = std::make_shared<LapCounter>(4, 10);
     this->lap_counter_ = 0;
 
     // Create a new values object
@@ -201,7 +201,6 @@
     }
 
     LoopClosure::Result result = loop_closure_->detect(pose, landmarks, associations, observations);
-    RCLCPP_INFO(rclcpp::get_logger("slam"), "Loop closure detected: %d", result.detected);
 
   if (result.detected) {
     lap_counter_++;

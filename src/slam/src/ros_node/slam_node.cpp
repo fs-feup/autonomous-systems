@@ -100,6 +100,7 @@ void SLAMNode::_perception_subscription_callback(const custom_interfaces::msg::C
 
   this->_publish_vehicle_pose();
   this->_publish_map();
+  this->_publish_lap_counter();
 
   // Timekeeping
   rclcpp::Time end_time = this->get_clock()->now();

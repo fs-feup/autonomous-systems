@@ -16,9 +16,9 @@ LoopClosure::Result LapCounter::detect(
   double dy = current_pose.y();
   double dist = std::sqrt(dx * dx + dy * dy);
 
-  // only enable checking after leaving the start region by +1 meter
+  // only enable checking after leaving the start region by +2 meters, to avoid false detections 
   if (!searching_) {
-    if (dist > threshold_dist_ + 1.0) {
+    if (dist > threshold_dist_ + 2.0) {
       searching_ = true;
     } else {
       return {false, 0.0};
@@ -36,6 +36,7 @@ LoopClosure::Result LapCounter::detect(
     if (j >= 3) {
       int map_idx = (j - 3) / 2;  // Index into map_cones
       if (map_idx < first_x_cones_) {
+        searching_ = false;  // Reset search flag
         return {true, 0.0};
       }
     }
