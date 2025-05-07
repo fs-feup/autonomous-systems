@@ -77,7 +77,8 @@ if(BUILD_TESTING)
 
   set(TESTFILES
     test/main.cpp
-    test/slam_solver/graph_slam_solver_test.cpp
+    test/slam_solver/graph_slam_solver/graph_slam_solver_test.cpp
+    test/slam_solver/graph_slam_solver/optimizer/sliding_window_levenberg_optimizer_test.cpp
     test/slam_solver/ekf_slam_solver_test.cpp
   )
 

@@ -27,6 +27,32 @@ SLAMParameters::SLAMParameters(const SLAMParameters &params) {
   sliding_window_size_ = params.sliding_window_size_;
 }
 
+SLAMParameters &SLAMParameters::operator=(const SLAMParameters &other) {
+  if (this != &other) {
+    use_simulated_perception_ = other.use_simulated_perception_;
+    use_simulated_velocities_ = other.use_simulated_velocities_;
+    motion_model_name_ = other.motion_model_name_;
+    data_association_model_name_ = other.data_association_model_name_;
+    data_association_limit_distance_ = other.data_association_limit_distance_;
+    observation_x_noise_ = other.observation_x_noise_;
+    observation_y_noise_ = other.observation_y_noise_;
+    velocity_x_noise_ = other.velocity_x_noise_;
+    velocity_y_noise_ = other.velocity_y_noise_;
+    angular_velocity_noise_ = other.angular_velocity_noise_;
+    slam_solver_name_ = other.slam_solver_name_;
+    slam_min_pose_difference_ = other.slam_min_pose_difference_;
+    slam_optimization_period_ = other.slam_optimization_period_;
+    frame_id_ = other.frame_id_;
+    slam_optimization_type_ = other.slam_optimization_type_;
+    slam_optimization_mode_ = other.slam_optimization_mode_;
+    slam_isam2_relinearize_threshold_ = other.slam_isam2_relinearize_threshold_;
+    slam_isam2_relinearize_skip_ = other.slam_isam2_relinearize_skip_;
+    slam_isam2_factorization_ = other.slam_isam2_factorization_;
+    sliding_window_size_ = other.sliding_window_size_;
+  }
+  return *this;
+}
+
 std::string SLAMParameters::load_config() {
   std::string global_config_path =
       common_lib::config_load::get_config_yaml_path("slam", "global", "global_config");

@@ -34,9 +34,9 @@ Eigen::Matrix3d ConstantVelocityModel::get_jacobian_pose(const Eigen::Vector3d &
   return jacobian;
 }
 
-Eigen::Matrix3d ConstantVelocityModel::get_jacobian_velocities(const Eigen::Vector3d &previous_pose,
-                                                               const Eigen::Vector3d &velocities,
-                                                               const double delta_t) {
+Eigen::Matrix3d ConstantVelocityModel::get_jacobian_velocities(
+    const Eigen::Vector3d &previous_pose, [[maybe_unused]] const Eigen::Vector3d &velocities,
+    const double delta_t) {
   Eigen::Matrix3d jacobian = Eigen::Matrix3d::Zero();
   jacobian(0, 0) = ::cos(previous_pose(2)) * delta_t;
   jacobian(0, 1) = -::sin(previous_pose(2)) * delta_t;

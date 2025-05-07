@@ -78,4 +78,6 @@ struct SLAMParameters {
        << ", slam_isam2_factorization_: " << params.slam_isam2_factorization_ << "}";
     return os;
   }
+
+  SLAMParameters &operator=(const SLAMParameters &other);
 };

@@ -5,15 +5,15 @@
 SlidingWindowLevenbergOptimizer::SlidingWindowLevenbergOptimizer(const SLAMParameters& params)
     : BaseOptimizer(params){};
 
-gtsam::Values SlidingWindowLevenbergOptimizer::optimize(gtsam::NonlinearFactorGraph& factor_graph,
-                                                        gtsam::Values& graph_values,
-                                                        unsigned int pose_num,
-                                                        unsigned int landmark_num) {
+gtsam::Values SlidingWindowLevenbergOptimizer::optimize(
+    gtsam::NonlinearFactorGraph& factor_graph, gtsam::Values& graph_values,
+    [[maybe_unused]] unsigned int pose_num, [[maybe_unused]] unsigned int landmark_num) {
   // Retrieve the last 5 poses added to the graph
   std::unordered_set<gtsam::Key> relevant_keys;
   gtsam::NonlinearFactorGraph sliding_window_graph;
   gtsam::Values sliding_window_values;
-  for (int i = std::max<int>(1, pose_num - _params_.sliding_window_size_ + 1); i <= pose_num; ++i) {
+  for (int i = std::max<int>(1, pose_num - _params_.sliding_window_size_ + 1);
+       i <= static_cast<int>(pose_num); ++i) {
     relevant_keys.insert(gtsam::Symbol('x', i));
   }
 
@@ -48,9 +48,6 @@ gtsam::Values SlidingWindowLevenbergOptimizer::optimize(gtsam::NonlinearFactorGr
   for (const auto& key : relevant_keys) {
     sliding_window_values.insert(key, graph_values.at(key));
   }
-
-  sliding_window_graph.print("Sliding Window Graph");
-  sliding_window_values.print("Sliding Window Values");
 
   // Optimize the sliding window
   gtsam::LevenbergMarquardtOptimizer optimizer(sliding_window_graph, sliding_window_values);

@@ -17,8 +17,9 @@ ISAM2Optimizer::ISAM2Optimizer(const SLAMParameters& params) : BaseOptimizer(par
 };
 
 gtsam::Values ISAM2Optimizer::optimize(gtsam::NonlinearFactorGraph& factor_graph,
-                                       gtsam::Values& graph_values, unsigned int pose_num,
-                                       unsigned int landmark_num) {
+                                       gtsam::Values& graph_values,
+                                       [[maybe_unused]] unsigned int pose_num,
+                                       [[maybe_unused]] unsigned int landmark_num) {
   // Remove values from graph_values that are in _last_estimate_
   gtsam::Values new_values;
   for (const auto& key : graph_values.keys()) {
