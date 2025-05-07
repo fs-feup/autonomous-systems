@@ -17,11 +17,9 @@
 
 #include "common_lib/maths/transformations.hpp"
 
-bool GraphSLAMInstance::should_process_observations() const { return this->_new_pose_node_; }
+bool GraphSLAMInstance::new_pose_factors() const { return this->_new_pose_node_; }
 
-bool GraphSLAMInstance::should_perform_optimization() const {
-  return this->_new_observation_factors_;
-}
+bool GraphSLAMInstance::new_observation_factors() const { return this->_new_observation_factors_; }
 
 const gtsam::Values& GraphSLAMInstance::get_graph_values_reference() const {
   return this->_graph_values_;
@@ -75,7 +73,9 @@ Eigen::MatrixXd GraphSLAMInstance::get_covariance_matrix() const {
   return Eigen::MatrixXd::Zero(this->_landmark_counter_, this->_landmark_counter_);
 }
 
-GraphSLAMInstance::GraphSLAMInstance(const SLAMParameters& params) : _params_(params) {
+GraphSLAMInstance::GraphSLAMInstance(const SLAMParameters& params,
+                                     std::shared_ptr<BaseOptimizer> optimizer)
+    : _params_(params), _optimizer_(optimizer) {
   // Create a new factor graph
   _factor_graph_ = gtsam::NonlinearFactorGraph();
   const gtsam::Pose2 prior_pose(0.0, 0.0, 0.0);
@@ -98,6 +98,8 @@ GraphSLAMInstance::GraphSLAMInstance(const GraphSLAMInstance& other) {
   _landmark_counter_ = other._landmark_counter_;
   _new_pose_node_ = other._new_pose_node_;
   _new_observation_factors_ = other._new_observation_factors_;
+  _optimizer_ = other._optimizer_;
+  _params_ = other._params_;
 }
 
 GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) {
@@ -110,6 +112,8 @@ GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) 
   _landmark_counter_ = other._landmark_counter_;
   _new_pose_node_ = other._new_pose_node_;
   _new_observation_factors_ = other._new_observation_factors_;
+  _optimizer_ = other._optimizer_;
+  _params_ = other._params_;
 
   return *this;
 }
@@ -196,7 +200,9 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
 }
 
 void GraphSLAMInstance::optimize() {  // TODO: implement sliding window and other parameters
-  gtsam::LevenbergMarquardtOptimizer optimizer(this->_factor_graph_, this->_graph_values_);
-  this->_graph_values_ = optimizer.optimize();
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"),
+               "GraphSLAMInstance - Optimizing1 graph with %ld factors and %ld values",
+               this->_factor_graph_.size(), this->_graph_values_.size());
+  this->_graph_values_ = this->_optimizer_->optimize(this->_factor_graph_, this->_graph_values_);
   this->_new_observation_factors_ = false;
 }
