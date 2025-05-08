@@ -43,11 +43,21 @@ class VehicleDynamicsPublisher(Node):
             Float64MultiArray, "/vehicle/slip_angles", 10
         )
         self.slip_ratio_pub = self.create_publisher(
-            Float64MultiArray, "/as_msgs/controls", 10
+            Float64MultiArray, "/vehicle/slip_ratio", 10
         )
 
-        self.last_yaw = None
-        self.last_time = None
+        self.distance_pub = self.create_publisher(
+            Float64MultiArray, "/vehicle/distance", 10
+        )
+
+        self.path_cuvatures_pub = self.create_publisher(
+            Float64MultiArray, "/vehicle/path_curvatures", 10
+        )
+
+        self.last_rpm_time = None
+        self.latest_vx = None
+        self.latest_steering_angle = None
+        self.latest_yaw_rate = None
 
     def slip_angle_callback(self, velocities_msg, yaw_rate_msg, steering_angle_msg):
         """
@@ -66,6 +76,10 @@ class VehicleDynamicsPublisher(Node):
         vy = velocities_msg.velocity_y
         steering_angle = steering_angle_msg.steering_angle
         yaw_rate = yaw_rate_msg.vector.x
+
+        self.latest_vx = vx
+        self.latest_steering_angle = steering_angle
+        self.latest_yaw_rate = yaw_rate
 
         L = 1.53  # wheelbase
         T = 1.2  # track width
@@ -133,6 +147,45 @@ class VehicleDynamicsPublisher(Node):
         slip_ratios_msg.data = [slip_ratio_left, slip_ratio_right]
 
         self.slip_ratio_pub.publish(slip_ratios_msg)
+
+        # Calculate and publish distance traveled (m) since last message using average rear speed
+        current_time = (
+            rl_rpm_msg.header.stamp.sec + rl_rpm_msg.header.stamp.nanosec * 1e-9
+        )
+        if self.last_rpm_time is not None:
+            dt = current_time - self.last_rpm_time
+            distance = 0.5 * (V_RR + V_RL) * dt
+
+            distance_msg = Float64MultiArray()
+            distance_msg.data = [distance]
+            self.distance_pub.publish(distance_msg)
+        else:
+            self.get_logger().info("First RPM sync received, skipping distance calc.")
+
+        self.last_rpm_time = current_time
+
+        distance = 0.5 * (V_RR + V_RL) * dt
+        distance_msg = Float64MultiArray()
+        distance_msg.data = [distance]
+        self.distance_pub.publish(distance_msg)
+
+        # Calculate and publish path curvature (1/m) using average rear speed
+
+        if self.latest_vx is not None and self.latest_steering_angle is not None:
+            cinematic = math.tan(self.latest_steering_angle) / 1.53
+            dynamic = (
+                self.latest_yaw_rate / self.latest_vx
+                if self.latest_vx != 0
+                else float("nan")
+            )
+
+            curvature_msg = Float64MultiArray()
+            curvature_msg.data = [cinematic, dynamic]
+            self.path_curvature_pub.publish(curvature_msg)
+
+            self.get_logger().info(
+                f"Published Path Curvature: Cinematic = {cinematic:.4f}, Dynamic = {dynamic:.4f}"
+            )
 
         self.get_logger().info(
             f"Published Slip Ratio: Left: {slip_ratio_left:.3f}, Right: {slip_ratio_right:.3f}"
