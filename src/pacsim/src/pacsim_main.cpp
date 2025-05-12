@@ -257,7 +257,7 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
         Wheels steeringCurr = model->getSteeringAngles();
         double steeringWheelCurr = model->getSteeringWheelAngle();
 
-        StampedScalar steeringDataFront { steeringWheelCurr, simTime };
+        StampedScalar steeringDataFront { steeringCurr.FL + steeringCurr.FR / 2, simTime };
         // tire_positions for model
 
         //
