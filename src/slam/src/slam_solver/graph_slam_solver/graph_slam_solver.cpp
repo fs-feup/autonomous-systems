@@ -34,8 +34,9 @@ GraphSLAMSolver::GraphSLAMSolver(const SLAMParameters& params,
                                  std::shared_ptr<LandmarkFilter> landmark_filter,
                                  std::shared_ptr<std::vector<double>> execution_times)
     : SLAMSolver(params, data_association, motion_model, landmark_filter, execution_times),
-      _graph_slam_instance_(params, graph_slam_optimizer_constructors_map.at(
-                                        params.slam_optimization_type_)(params)) {
+      _graph_slam_instance_(
+          params, graph_slam_optimizer_constructors_map.at(params.slam_optimization_type_)(params),
+          landmark_filter) {
   // TODO: transform into range and bearing noises
 }
 
@@ -125,7 +126,7 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   // Data association
   Eigen::VectorXi associations(cones.size());
   associations = this->_data_association_->associate(
-      state, covariance, observations,
+      state.segment(3, state.size() - 3), observations_global, covariance,
       observations_confidences);  // TODO: implement different mahalanobis distance
   association_time = rclcpp::Clock().now();
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Associations calculated");
@@ -137,6 +138,7 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
     ObservationData observation_data(std::make_shared<Eigen::VectorXd>(observations),
                                      std::make_shared<Eigen::VectorXi>(associations),
                                      std::make_shared<Eigen::VectorXd>(observations_global),
+                                     std::make_shared<Eigen::VectorXd>(observations_confidences),
                                      cones.at(0).timestamp);
     if (this->_optimization_under_way_) {
       this->_observation_data_queue_.push(observation_data);

@@ -5,6 +5,7 @@
 #include <gtsam/nonlinear/NonlinearFactorGraph.h>
 #include <gtsam/nonlinear/Values.h>
 
+#include "perception_sensor_lib/landmark_filter/base_landmark_filter.hpp"
 #include "slam_config/general_config.hpp"
 #include "slam_solver/graph_slam_solver/factor_data_structures.hpp"
 #include "slam_solver/graph_slam_solver/optimizer/base_optimizer.hpp"
@@ -26,13 +27,15 @@ protected:
   bool _new_observation_factors_ =
       false;  //< Flag to check if new factors were added to the graph for optimization
 
-  SLAMParameters _params_;                     //< Parameters for the SLAM solver
-  std::shared_ptr<BaseOptimizer> _optimizer_;  //< Optimizer for the graph SLAM solver
+  SLAMParameters _params_;                            //< Parameters for the SLAM solver
+  std::shared_ptr<BaseOptimizer> _optimizer_;         //< Optimizer for the graph SLAM solver
+  std::shared_ptr<LandmarkFilter> _landmark_filter_;  //< Landmark filter for the graph SLAM solver
 
 public:
   GraphSLAMInstance() = default;
 
-  GraphSLAMInstance(const SLAMParameters& params, std::shared_ptr<BaseOptimizer> optimizer);
+  GraphSLAMInstance(const SLAMParameters& params, std::shared_ptr<BaseOptimizer> optimizer,
+                    std::shared_ptr<LandmarkFilter> landmark_filter);
 
   GraphSLAMInstance(const GraphSLAMInstance& other);
 

@@ -25,14 +25,17 @@ struct ObservationData {
   std::shared_ptr<Eigen::VectorXd> observations_;
   std::shared_ptr<Eigen::VectorXi> associations_;
   std::shared_ptr<Eigen::VectorXd> observations_global_;
+  std::shared_ptr<Eigen::VectorXd> observations_confidences_;
   rclcpp::Time timestamp_;
 
   ObservationData() = default;
   ObservationData(std::shared_ptr<Eigen::VectorXd> observations,
                   std::shared_ptr<Eigen::VectorXi> associations,
-                  std::shared_ptr<Eigen::VectorXd> observations_global, rclcpp::Time timestamp)
+                  std::shared_ptr<Eigen::VectorXd> observations_global,
+                  std::shared_ptr<Eigen::VectorXd> observations_confidences, rclcpp::Time timestamp)
       : observations_(observations),
         associations_(associations),
         observations_global_(observations_global),
+        observations_confidences_(observations_confidences),
         timestamp_(timestamp) {}
 };

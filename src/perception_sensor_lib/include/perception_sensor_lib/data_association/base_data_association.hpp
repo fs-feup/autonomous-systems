@@ -25,10 +25,12 @@ public:
    * @param observation_confidences Confidence in the observations in the same order as the
    * observations
    * @return Eigen::VectorXi Each entry corresponds to an observation and contains the index of the
-   * landmark that the observation is associated with in the state vector (x coordinate). If the
+   * landmark that the observation is associated with in the landmark vector (x coordinate). If the
    * observation is considered new, the entry is -1. If the observation is considered an outlier,
    * the entry is -2.
    */
-  virtual Eigen::VectorXi associate(const Eigen::VectorXd& landmarks, const Eigen::VectorXd& observations, const Eigen::MatrixXd& covariance,
+  virtual Eigen::VectorXi associate(const Eigen::VectorXd& landmarks,
+                                    const Eigen::VectorXd& observations,
+                                    const Eigen::MatrixXd& covariance,
                                     const Eigen::VectorXd& observation_confidences) const = 0;
 };

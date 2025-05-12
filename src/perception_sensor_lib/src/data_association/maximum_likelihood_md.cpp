@@ -4,6 +4,8 @@
 #include <limits>
 #include <vector>
 
+#define INFINITESIMAL 1e-9
+
 Eigen::VectorXi MaximumLikelihoodMD::associate(
     const Eigen::VectorXd& landmarks, const Eigen::VectorXd& observations,
     const Eigen::MatrixXd& covariance, const Eigen::VectorXd& observation_confidences) const {
@@ -27,7 +29,7 @@ Eigen::VectorXi MaximumLikelihoodMD::associate(
           covariance.block(2 * j, 2 * j, 2, 2) + this->observation_noise_covariance_matrix_;
       // Guard against non-invertible innovation_covariance
       double det = innovation_covariance.determinant();
-      if (std::abs(det) <= 1e-9) {
+      if (std::abs(det) <= INFINITESIMAL) {
         RCLCPP_WARN(rclcpp::get_logger("data_association"),
                     "Non-invertible innovation covariance matrix for landmark at : [%f, %f]",
                     landmarks(2 * j), landmarks(2 * j + 1));
