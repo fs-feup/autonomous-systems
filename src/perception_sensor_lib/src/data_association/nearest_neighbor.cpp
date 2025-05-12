@@ -21,8 +21,7 @@ Eigen::VectorXi NearestNeighbor::associate(const Eigen::VectorXd& state,
 
   for (int i = 0; i < num_observations; ++i) {
     Eigen::Vector2d obs;
-    obs << observations(2 * i),
-        observations(2 * i + 1);  // TODO: make another one with relative coordinates or a flag
+    obs << observations(2 * i), observations(2 * i + 1);
 
     double best_cost = std::numeric_limits<double>::max();
     int best_landmark_index = -1;

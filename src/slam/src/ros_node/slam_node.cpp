@@ -69,6 +69,7 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
       "/state_estimation/slam_covariance", 10);
   this->_lap_counter_publisher_ = this->create_publisher<std_msgs::msg::Float64>(
       "/state_estimation/lap_counter", 10);
+
   this->_tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
 
   RCLCPP_INFO(this->get_logger(), "SLAM Node has been initialized");
