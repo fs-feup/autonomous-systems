@@ -19,7 +19,7 @@ protected:
     motion_model = v2p_models_map.at(params.motion_model_name_)();
 
     ekf_slam_solver = std::make_shared<EKFSLAMSolver>(params, data_association, motion_model,
-                                                      landmark_filter, execution_time, node);
+                                                      landmark_filter, execution_time);
   }
 
   std::shared_ptr<DataAssociationModel> data_association;

@@ -75,11 +75,7 @@ class VehicleAdapter(Adapter):
                 "State ground truth is not set yet. Skipping processing."
             )
             groundtruth_map_treated = np.array([])
-        self.node.compute_and_publish_state_estimation(
-            [],
-            [],
-            [],
-            [],
+        self.node.compute_and_publish_state_map(
             map_treated,
             groundtruth_map_treated,
         )

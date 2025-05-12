@@ -4,9 +4,8 @@ EKFSLAMSolver::EKFSLAMSolver(const SLAMParameters& params,
                              std::shared_ptr<DataAssociationModel> data_association,
                              std::shared_ptr<V2PMotionModel> motion_model,
                              std::shared_ptr<LandmarkFilter> landmark_filter,
-                             std::shared_ptr<std::vector<double>> execution_times,
-                             std::weak_ptr<rclcpp::Node> node)
-    : SLAMSolver(params, data_association, motion_model, landmark_filter, execution_times, node),
+                             std::shared_ptr<std::vector<double>> execution_times)
+    : SLAMSolver(params, data_association, motion_model, landmark_filter, execution_times),
       slam_parameters_(params) {
   this->covariance_ =
       Eigen::MatrixXd::Identity(3, 3) * 0.4;  // TODO: initialize with the right values
@@ -16,6 +15,8 @@ EKFSLAMSolver::EKFSLAMSolver(const SLAMParameters& params,
   this->process_noise_matrix_(2, 2) = params.angular_velocity_noise_;
   this->observation_model_ = std::make_shared<ObservationModel>();
 }
+
+void EKFSLAMSolver::init(std::weak_ptr<rclcpp::Node> _) {}
 
 Eigen::MatrixXd EKFSLAMSolver::get_observation_noise_matrix(int num_landmarks) const {
   Eigen::MatrixXd observation_noise_matrix =

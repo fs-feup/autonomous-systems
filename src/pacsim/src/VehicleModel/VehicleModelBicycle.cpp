@@ -246,8 +246,7 @@ void VehicleModelBicycle::calculateSlipAngles(double& kappaFront, double& kappaR
    * the opposite of the velocity vector instead of Vx only. Drag also applied opposite of Vx
    * instead of simply adding the negative value.
    */
-  // bool stillstand = (velocity.norm() < VELOCITY_THRESHOLD) &&
-  //                   (std::abs(angularVelocity.z()) < ANGULAR_VELOCITY_THRESHOLD);
+  bool stillstand = (velocity.norm() < 0.03);
 
   // Calculate wheel positions relative to CoG
   Eigen::Vector3d rFront(lf, 0.0, 0.0);
@@ -264,10 +263,10 @@ void VehicleModelBicycle::calculateSlipAngles(double& kappaFront, double& kappaR
   kappaFront = std::atan2(vFront.y(), std::max(std::abs(vFront.x()), eps)) - steeringFront;
   kappaRear = std::atan2(vRear.y(), std::max(std::abs(vRear.x()), eps));
 
-  // if (stillstand) {
-  //   kappaFront = 0.0;
-  //   kappaRear = 0.0;
-  // }
+  if (stillstand) {
+    kappaFront = 0.0;
+    kappaRear = 0.0;
+  }
 }
 
 // New helper function to calculate wheel positions and velocities

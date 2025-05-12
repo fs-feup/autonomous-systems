@@ -81,7 +81,8 @@ void EKF::predict(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
 void EKF::correct(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
                   common_lib::sensor_data::WheelEncoderData& wss_data, double motor_rpm,
                   double steering_angle) {
-  BicycleModel bicycle_model = BicycleModel(common_lib::car_parameters::CarParameters());
+  BicycleModel bicycle_model =
+      BicycleModel(common_lib::car_parameters::CarParameters(0.406, 1.53, 0.804, 1.2, 0.804, 4));
   Eigen::VectorXd predicted_observations = bicycle_model.cg_velocity_to_wheels(state);
   Eigen::VectorXd observations = Eigen::VectorXd::Zero(6);
   observations << wss_data.fl_rpm, wss_data.fr_rpm, wss_data.rl_rpm, wss_data.rr_rpm,
@@ -104,7 +105,6 @@ void EKF::correct(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "y: \n" << y);
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "Jacobian: \n" << jacobian);
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "Kalman gain: \n" << kalman_gain);
-
   state += kalman_gain * y;
   covariance = (Eigen::Matrix3d::Identity() - kalman_gain * jacobian) * covariance;
 }

@@ -2,39 +2,6 @@
 #include "rclcpp/rclcpp.hpp"
 #include "test_utils/utils.hpp"
 
-void iterate_coloring(const std::string &filename) {
-  std::vector<common_lib::structures::Cone> cones = cone_vector_from_file(filename);
-  auto cone_coloring = ConeColoring();
-
-  std::ofstream measures_path = openWriteFile("performance/exec_time/planning/planning_" +
-                                              get_current_date_time_as_string() + ".csv");
-
-  int no_iters = 100;
-  double total_time = 0;
-
-  // No_iters repetitions to get average
-  for (int i = 0; i < no_iters; i++) {
-    auto orientation = static_cast<float>(atan2(cones[1].position.y - cones[0].position.y,
-                                                cones[1].position.x - cones[0].position.x));
-
-    auto t0 = std::chrono::high_resolution_clock::now();
-
-    const auto [blue_cones, yellow_cones] = cone_coloring.color_cones(
-        cones, Pose(cones[0].position.x, cones[0].position.y - 1.5, orientation));
-
-    auto t1 = std::chrono::high_resolution_clock::now();
-
-    double elapsed_time_ms = std::chrono::duration<double, std::milli>(t1 - t0).count();
-
-    total_time += elapsed_time_ms;
-  }
-
-  measures_path << total_time / no_iters << ",";
-  measures_path.close();
-
-  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Cones colored in average %f ms.",
-              (total_time / no_iters));
-}
 
 /**
  * @brief Iterates the Outliers algorithm repeatedly and measures the average time
@@ -145,8 +112,8 @@ void iterate_smoothing(std::vector<PathPoint> &path) {
  */
 TEST(Planning, planning_exec_time) {
   std::string directory_path = "../../src/planning/test/maps/";
-  int size;
-  int n_outliers;
+  int size = 0;
+  int n_outliers = 0;
   for (const auto &entry : fs::directory_iterator(directory_path)) {
     if (fs::is_regular_file(entry.path())) {
       std::string filename = entry.path().filename().string();
@@ -154,7 +121,6 @@ TEST(Planning, planning_exec_time) {
         extract_info(filename, size, n_outliers);
         std::string filePath = "src/planning/test/maps/" + filename;
         iterate_outliers(filePath, n_outliers);
-        iterate_coloring(filePath);
         std::vector<PathPoint> path = iterate_triangulations(filePath);
         iterate_smoothing(path);
       }

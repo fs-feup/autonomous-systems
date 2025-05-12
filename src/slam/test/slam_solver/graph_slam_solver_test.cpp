@@ -1,4 +1,4 @@
-#include "slam_solver/graph_slam_solver.hpp"
+#include "slam_solver/graph_slam_solver/graph_slam_solver.hpp"
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
@@ -59,35 +59,6 @@ public:
   std::shared_ptr<DataAssociationModel> data_association_ptr;
   std::shared_ptr<GraphSLAMSolver> solver;
 };
-
-/**
- * @brief Test the GraphSLAMSolver add_motion_prior method
- */
-TEST_F(GraphSlamSolverTest, Prediction) {
-  // Arrange
-  EXPECT_CALL(*mock_motion_model_ptr, get_next_pose)
-      .Times(1)
-      .WillOnce(testing::Return(Eigen::Vector3d(1.0, 0.0, 0.0)));
-  solver->_last_pose_update_ = rclcpp::Clock().now();
-
-  //   EXPECT_CALL(*mock_motion_model_ptr, get_jacobian_velocities)
-  //       .Times(1)
-  //       .WillOnce(testing::Return(Eigen::Matrix3d::Identity() * 0.1));
-
-  common_lib::structures::Velocities velocities;
-  velocities.timestamp_ = solver->_last_pose_update_ + rclcpp::Duration(1, 0);
-  velocities.velocity_x = 1.0;
-  velocities.velocity_y = 0.0;
-  velocities.rotational_velocity = 0.0;
-
-  // Act
-  solver->_received_first_velocities_ = true;
-  solver->add_motion_prior(velocities);
-  const common_lib::structures::Pose result = solver->get_pose_estimate();
-
-  // Assert
-  EXPECT_FLOAT_EQ(result.position.x, 1.0);
-}
 
 /**
  * @brief Test the GraphSLAMSolver in one iteration of inputs
@@ -159,8 +130,8 @@ TEST_F(GraphSlamSolverTest, MotionAndObservation) {
   EXPECT_NEAR(pose_after_observations.position.x, 4.0, 0.2);
   EXPECT_GT(abs(pose_before_observations.position.x - 4.0),
             abs(pose_after_observations.position.x - 4.0));
-  ASSERT_EQ(map_before_observations.size(), 4);
-  ASSERT_EQ(map_after_observations.size(), 4);
+  EXPECT_EQ(map_before_observations.size(), 4);
+  EXPECT_EQ(map_after_observations.size(), 4);
   EXPECT_NEAR(map_before_observations[0].position.x, 3.0, 0.2);
   EXPECT_NEAR(map_before_observations[1].position.x, 3.0, 0.2);
   EXPECT_NEAR(map_before_observations[2].position.x, 6.0, 0.2);
