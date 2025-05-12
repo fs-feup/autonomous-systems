@@ -46,8 +46,9 @@ set(IMPLEMENTATION_FILES
   src/slam_solver/ekf_slam_solver.cpp
   src/slam_solver/graph_slam_solver/graph_slam_solver.cpp
   src/slam_solver/graph_slam_solver/pose_updater.cpp
-  src/slam_solver/graph_slam_solver/factor_data_structures.cpp
   src/slam_solver/graph_slam_solver/graph_slam_instance.cpp
+  src/slam_solver/graph_slam_solver/optimizer/isam2_optimizer.cpp
+  src/slam_solver/graph_slam_solver/optimizer/normal_levenberg_optimizer.cpp
 )
 
 add_executable(slam src/main.cpp ${IMPLEMENTATION_FILES})
