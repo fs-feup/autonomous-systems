@@ -21,6 +21,8 @@ set(PACKAGES
     visualization_msgs
     message_filters
     motion_lib
+    tf2
+    tf2_ros
     perception_sensor_lib
     yaml-cpp
 )
@@ -41,8 +43,12 @@ set(IMPLEMENTATION_FILES
   src/adapter_slam/vehicle.cpp
   src/slam_config/general_config.cpp
   src/slam_solver/slam_solver.cpp
-  src/slam_solver/graph_slam_solver.cpp
   src/slam_solver/ekf_slam_solver.cpp
+  src/slam_solver/graph_slam_solver/graph_slam_solver.cpp
+  src/slam_solver/graph_slam_solver/pose_updater.cpp
+  src/slam_solver/graph_slam_solver/graph_slam_instance.cpp
+  src/slam_solver/graph_slam_solver/optimizer/isam2_optimizer.cpp
+  src/slam_solver/graph_slam_solver/optimizer/normal_levenberg_optimizer.cpp
 )
 
 add_executable(slam src/main.cpp ${IMPLEMENTATION_FILES})

@@ -8,6 +8,7 @@
 #include "perception_sensor_lib/observation_model/base_observation_model.hpp"
 #include "slam_solver/slam_solver.hpp"
 
+
 class EKFSLAMSolver : public SLAMSolver {
   SLAMParameters slam_parameters_;
   std::shared_ptr<ObservationModel> observation_model_;
@@ -15,13 +16,12 @@ class EKFSLAMSolver : public SLAMSolver {
   Eigen::MatrixXd covariance_;
   Eigen::MatrixXd process_noise_matrix_;
   Eigen::VectorXd pose = Eigen::VectorXd::Zero(3);
+  int lap_counter_ = 0;
 
   rclcpp::Time last_update_;
 
   bool velocities_received_ = false;
   bool cones_receieved_ = false;
-
-  int _lap_counter_ = 0;
 
   /**
    * @brief Get the observation noise matrix object used in the correction step of the EKF
@@ -105,8 +105,16 @@ public:
   EKFSLAMSolver(const SLAMParameters& params,
                 std::shared_ptr<DataAssociationModel> data_association,
                 std::shared_ptr<V2PMotionModel> motion_model,
-                std::shared_ptr<std::vector<double>> execution_times,
-                std::weak_ptr<rclcpp::Node> node);
+                std::shared_ptr<std::vector<double>> execution_times);
+
+  /**
+   * @brief Initialize the EKF SLAM solver
+   * @description This method is used to initialize the EKF SLAM solver's
+   * aspects that require the node e.g. timer callbacks
+   * @param node ROS2 node
+   */
+  void init(std::weak_ptr<rclcpp::Node> _) override;
+
   /**
    * @brief Executed to deal with new velocity data
    *
@@ -128,7 +136,10 @@ public:
    */
   Eigen::MatrixXd get_covariance() override { return covariance_; }
 
-  int get_lap_counter() override {
-    return this->_lap_counter_;
-  }
+  /**
+   * @brief Get the lap counter
+   *
+   * @return int lap counter
+   */
+  int get_lap_counter() override { return lap_counter_; }
 };

@@ -7,6 +7,7 @@
 #include "common_lib/structures/velocities.hpp"
 #include "motion_lib/v2p_models/base_v2p_motion_model.hpp"
 #include "perception_sensor_lib/data_association/base_data_association.hpp"
+#include "perception_sensor_lib/loop_closure/loop_closure.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "slam_config/general_config.hpp"
 
@@ -23,7 +24,6 @@ protected:
   std::shared_ptr<std::vector<double>>
       _execution_times_;  //< Execution times: 0 -> total motion; 1 -> total
                           // observation; the rest are solver specific
-  std::weak_ptr<rclcpp::Node> _node_;
 
   rclcpp::Time _last_pose_update_ = rclcpp::Time(0);
   rclcpp::Time _last_observation_update_ = rclcpp::Time(0);
@@ -42,22 +42,18 @@ public:
    */
   SLAMSolver(const SLAMParameters& params, std::shared_ptr<DataAssociationModel> data_association,
              std::shared_ptr<V2PMotionModel> motion_model,
-             std::shared_ptr<std::vector<double>> execution_times,
-             std::weak_ptr<rclcpp::Node> node);
-
-  /**
-   * @brief Construct a new SLAMSolver object
-   *
-   * @param params Parameters for the SLAM solver
-   * @param data_association Data association module
-   * @param motion_model Motion model
-   * @param execution_times Timekeeping array
-   */
-  SLAMSolver(const SLAMParameters& params, std::shared_ptr<DataAssociationModel> data_association,
-             std::shared_ptr<V2PMotionModel> motion_model,
              std::shared_ptr<std::vector<double>> execution_times);
 
   virtual ~SLAMSolver() = default;
+
+  /**
+   * @brief Initialize the SLAM solver
+   * @description This method is used to initialize the SLAM solver's
+   * aspects that require the node e.g. timer callbacks
+   *
+   * @param node ROS2 node
+   */
+  virtual void init(std::weak_ptr<rclcpp::Node> node) = 0;
 
   /**
    * @brief Add motion prior to the solver (prediction step)
