@@ -1,84 +1,82 @@
 <robot name="RosE" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:property name="baseFrame" value="car" />
-  <link name="${baseFrame}">
+  <link name="car">
     <visual>
       <origin rpy="0.0 0 0" xyz="0 0 0"/>
-        <geometry>
+      <geometry>
         <cylinder radius="0.001" length=".001" />
       </geometry>
     </visual>
   </link>
-   <link name="Modell">
+  <link name="Modell">
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="-1.57 0 0" />
       <geometry>
-      <mesh filename="package://pacsim/urdf/Model_without_Steering_Tires.stl" scale="0.01 0.01 0.01"/>
+        <mesh filename="package://pacsim/urdf/Model_without_Steering_Tires.stl" scale="0.01 0.01 0.01"/>
       </geometry>
-
     </visual>
   </link>
   <link name="FL_inside">
     <visual>
-      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
       <geometry>
-      <mesh filename="package://pacsim/urdf/FL_Inside.stl" scale="0.01 0.01 0.01"/>
+        <mesh filename="package://pacsim/urdf/FL_Inside.stl" scale="0.01 0.01 0.01"/>
       </geometry>
-
-      </visual>
+    </visual>
   </link>
   <link name="FL_outside">
     <visual>
-      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
       <geometry>
-      <mesh filename="package://pacsim/urdf/FL_Outside.stl" scale="0.01 0.01 0.01"/>
+        <mesh filename="package://pacsim/urdf/FL_Outside.stl" scale="0.01 0.01 0.01"/>
       </geometry>
     </visual>
   </link>
   <link name="FR_inside">
     <visual>
-      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
       <geometry>
-      <mesh filename="package://pacsim/urdf/FR_Inside.stl" scale="0.01 0.01 0.01"/>
+        <mesh filename="package://pacsim/urdf/FR_Inside.stl" scale="0.01 0.01 0.01"/>
       </geometry>
-      </visual>
+    </visual>
   </link>
   <link name="FR_outside">
     <visual>
-      <origin rpy="0.0 0 3.1415" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 3.1415" xyz="0 0 0"/>
       <geometry>
-      <mesh filename="package://pacsim/urdf/FL_Outside.stl" scale="0.01 0.01 0.01"/>
+        <mesh filename="package://pacsim/urdf/FL_Outside.stl" scale="0.01 0.01 0.01"/>
       </geometry>
     </visual>
   </link>
   <link name="RR_inside">
     <visual>
-      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
       <geometry>
-      <mesh filename="package://pacsim/urdf/RR_Inside.stl" scale="0.01 0.01 0.01"/>
+        <mesh filename="package://pacsim/urdf/RR_Inside.stl" scale="0.01 0.01 0.01"/>
       </geometry>
-      </visual>
+    </visual>
   </link>
   <link name="RR_outside">
     <visual>
-      <origin rpy="0.0 0 3.14" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 3.14" xyz="0 0 0"/>
       <geometry>
-      <mesh filename="package://pacsim/urdf/FL_Outside.stl" scale="0.01 0.01 0.01"/>
+        <mesh filename="package://pacsim/urdf/FL_Outside.stl" scale="0.01 0.01 0.01"/>
       </geometry>
     </visual>
   </link>
   <link name="RL_inside">
     <visual>
-      <origin rpy="0.0 0 3.1415" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 3.1415" xyz="0 0 0"/>
       <geometry>
-      <mesh filename="package://pacsim/urdf/RR_Inside.stl" scale="0.01 0.01 0.01"/>
+        <mesh filename="package://pacsim/urdf/RR_Inside.stl" scale="0.01 0.01 0.01"/>
       </geometry>
-      </visual>
+    </visual>
   </link>
   <link name="RL_outside">
     <visual>
-      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
       <geometry>
-      <mesh filename="package://pacsim/urdf/FL_Outside.stl" scale="0.01 0.01 0.01"/>
+        <mesh filename="package://pacsim/urdf/FL_Outside.stl" scale="0.01 0.01 0.01"/>
       </geometry>
     </visual>
   </link>
@@ -86,7 +84,7 @@
     <visual>
       <origin rpy="0.0 0 0" xyz="0 0 0"/>
       <geometry>
-      <mesh filename="package://pacsim/urdf/Steering_Wheel.stl" scale="0.01 0.01 0.01"/>
+        <mesh filename="package://pacsim/urdf/Steering_Wheel.stl" scale="0.01 0.01 0.01"/>
       </geometry>
     </visual>
   </link>
@@ -145,7 +143,6 @@
     <origin xyz="0 0 0" rpy="0 0 0" />
     <axis xyz="0 1 0" />
   </joint>
-
   <joint name="steering" type="revolute">
     <parent link="Modell"/>
     <child link="steering_wheel"/>
@@ -153,5 +150,4 @@
     <axis xyz="1 0 0" />
     <limit upper=".5" lower="-.5" effort="10" velocity="10" />
   </joint>
-
 </robot>

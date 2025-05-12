@@ -1,2 +1,2 @@
 std_msgs/Header header
-pacsim/Landmark[] detections
+pacsim/PerceptionDetection[] detections

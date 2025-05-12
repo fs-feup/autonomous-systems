@@ -16,7 +16,7 @@
 #include <tf2_ros/static_transform_broadcaster.h>
 #include <tf2_ros/transform_broadcaster.h>
 
-#include "VehicleModel/VehicleModelBicycle.cpp"
+#include "VehicleModel/VehicleModelBicycle.hpp"
 #include "configParser.hpp"
 #include "sensor_msgs/msg/joint_state.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
@@ -52,6 +52,9 @@
 
 #include "track/gripMap.hpp"
 
+void publishStateEstimation();
+void updateStateEstimation(const pacsim::msg::PerceptionDetections msg);
+
 // DynamicDoubleTrackModel7Dof model;
 std::shared_ptr<rclcpp::executors::SingleThreadedExecutor> executor;
 std::shared_ptr<IVehicleModel> model;
@@ -61,13 +64,17 @@ rclcpp::Publisher<rosgraph_msgs::msg::Clock>::SharedPtr clockPub;
 rclcpp::Publisher<geometry_msgs::msg::TwistWithCovarianceStamped>::SharedPtr velocity_pub;
 rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr imu_pub;
 rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr mapVizPub;
-rclcpp::Publisher<pacsim::msg::Track>::SharedPtr trackPub;
+rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr simulatedSeVizPub;
+rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr stateEstimationPub;
 rclcpp::Publisher<pacsim::msg::StampedScalar>::SharedPtr steeringFrontPub;
 rclcpp::Publisher<pacsim::msg::StampedScalar>::SharedPtr steeringRearPub;
 rclcpp::Publisher<pacsim::msg::Wheels>::SharedPtr wheelspeedPub;
 rclcpp::Publisher<pacsim::msg::Wheels>::SharedPtr torquesPub;
 rclcpp::Publisher<pacsim::msg::StampedScalar>::SharedPtr voltageSensorTSPub;
 rclcpp::Publisher<pacsim::msg::StampedScalar>::SharedPtr currentSensorTSPub;
+std::map<std::pair<double, double>, geometry_msgs::msg::Point> detected_cones_map;
+
+
 
 rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr jointStatePublisher;
 
@@ -85,6 +92,7 @@ std::map<std::shared_ptr<GnssSensor>, rclcpp::Publisher<pacsim::msg::GNSS>::Shar
 
 DeadTime<double> deadTimeSteeringFront(0.0);
 DeadTime<double> deadTimeSteeringRear(0.0);
+DeadTime<double> deadTimeThrottle(0.0);
 DeadTime<Wheels> deadTimeTorques(0.0);
 DeadTime<Wheels> deadTimeWspdSetpoints(0.0);
 DeadTime<Wheels> deadTimeMaxTorques(0.0);
@@ -161,10 +169,10 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
 
     visualization_msgs::msg::MarkerArray mapMarkerMsg = mapMarkersWrapper.markerFromLMs(lms, trackFrame, 0.0);
     mapVizPub->publish(mapMarkerMsg);
-    trackPub->publish(createRosTrackMessage(lms, "map", 0.0));
 
     deadTimeSteeringFront = DeadTime<double>(0.05);
     deadTimeSteeringRear = DeadTime<double>(0.05);
+    deadTimeThrottle = DeadTime<double>(0.02);
     deadTimeTorques = DeadTime<Wheels>(0.02);
     deadTimeWspdSetpoints = DeadTime<Wheels>(0.02);
     deadTimeMaxTorques = DeadTime<Wheels>(0.02);
@@ -187,7 +195,7 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
         clockPub->publish(clockMsg);
         auto wheelPositions = model->getWheelPositions();
         Wheels gripValues = gm.getGripValues(wheelPositions);
-        model->forwardIntegrate(timestep, gripValues);
+        model->forwardIntegrate(timestep/* , gripValues */);
         auto t = model->getPosition();
         auto rEulerAngles = model->getOrientation();
         auto alpha = model->getAngularAcceleration();
@@ -228,6 +236,11 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
             Wheels val = deadTimeMinTorques.getOldest();
             model->setMinTorques(val);
         }
+        if (deadTimeThrottle.availableDeadTime(simTime))
+        {
+            double val = deadTimeThrottle.getOldest();
+            model->setThrottle(val);
+        }
         if (deadTimePowerGroundSetpoint.availableDeadTime(simTime))
         {
             double val = deadTimePowerGroundSetpoint.getOldest();
@@ -257,7 +270,7 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
         Wheels steeringCurr = model->getSteeringAngles();
         double steeringWheelCurr = model->getSteeringWheelAngle();
 
-        StampedScalar steeringDataFront { steeringCurr.FL + steeringCurr.FR / 2, simTime };
+        StampedScalar steeringDataFront { (steeringCurr.FL + steeringCurr.FR) / 2, simTime };
         // tire_positions for model
 
         //
@@ -326,10 +339,12 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
                 perceptionSensorVizPublisherMap[perceptionSensor]->publish(lmsMarkerMsg);
 
                 mapVizPub->publish(mapMarkerMsg);
-                trackPub->publish(createRosTrackMessage(lms, "map", simTime));
+                publishStateEstimation();
+
                 pacsim::msg::PerceptionDetections lmsMsg
                     = LandmarkListToRosMessage(sensorLms, sensorLms.frame_id, sensorLms.timestamp);
                 perceptionSensorPublisherMap[perceptionSensor]->publish(lmsMsg);
+                updateStateEstimation(lmsMsg);
             }
         }
 
@@ -376,10 +391,13 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
         nextLoopTime += std::chrono::microseconds((int)((timestep / realtimeRatio) * 1000000.0));
         std::this_thread::sleep_until(nextLoopTime);
     }
+    logger->logWarning("Ros status, 1 is OK, 0 is not OK: " + to_string(rclcpp::ok()));
+    logger->logWarning("Simulation finished, generating report");
     Report report;
     cl->fillReport(report, simTime);
     report.track_name = trackName;
     reportToFile(report, report_file_dir);
+    logger->logWarning("Canceling executor!");
     executor->cancel();
     return 0;
 }
@@ -389,6 +407,12 @@ void cbFuncLat(const pacsim::msg::StampedScalar& msg)
     std::lock_guard<std::mutex> l(mutexSimTime);
     deadTimeSteeringFront.addVal(msg.value, simTime);
     deadTimeSteeringRear.addVal(0.0, simTime);
+}
+
+void cbFuncLong(const pacsim::msg::StampedScalar& msg)
+{
+    std::lock_guard<std::mutex> l(mutexSimTime);
+    deadTimeThrottle.addVal(msg.value, simTime);
 }
 
 void cbFuncTorquesInverterMin(const pacsim::msg::Wheels& msg)
@@ -487,6 +511,98 @@ void initPerceptionSensors()
     return;
 }
 
+void updateStateEstimation(const pacsim::msg::PerceptionDetections msg)
+{
+    std::lock_guard<std::mutex> lock(mutexSimTime);  // Ensure thread safety
+
+    // Get vehicle position and orientation from the model
+    Eigen::Vector3d vehicle_position = model->getPosition();
+    Eigen::Vector3d vehicle_orientation = model->getOrientation();
+
+    double yaw = vehicle_orientation.z();  // Extract yaw (rotation around Z-axis)
+
+    // Create 2D rotation matrix for transforming perception detections
+    Eigen::Matrix2d rotation_matrix;
+    rotation_matrix << cos(yaw), -sin(yaw),
+                       sin(yaw),  cos(yaw);
+
+    // Set duplicate removal threshold (meters)
+    const double epsilon = 2.5;  // Ignore detections closer than 30cm to existing cones
+
+    for (const auto& detection : msg.detections)
+    {
+        // Get detected point in vehicle frame
+        Eigen::Vector2d local_point(detection.pose.pose.position.x, detection.pose.pose.position.y);
+
+        // Transform to map frame
+        Eigen::Vector2d global_point = rotation_matrix * local_point;
+        global_point += vehicle_position.head<2>();  // Apply translation
+
+        // Check if a cone already exists nearby
+        bool is_duplicate = false;
+        for (const auto& existing_cone : detected_cones_map)
+        {
+            double dist = std::hypot(global_point.x() - existing_cone.first.first,
+                                     global_point.y() - existing_cone.first.second);
+            if (dist < epsilon)
+            {
+                is_duplicate = true;
+                break;
+            }
+        }
+
+        if (!is_duplicate)
+        {
+            // Round positions to avoid tiny variations (grid-based key system)
+            double rounded_x = std::round(global_point.x() * 100.0) / 100.0;  // Round to 2 decimal places
+            double rounded_y = std::round(global_point.y() * 100.0) / 100.0;
+
+            std::pair<double, double> key = {rounded_x, rounded_y};
+            geometry_msgs::msg::Point point;
+            point.x = global_point.x();
+            point.y = global_point.y();
+            point.z = detection.pose.pose.position.z;  // Keep Z as detected
+
+            detected_cones_map[key] = point;
+        }
+    }
+}
+
+
+void publishStateEstimation()
+{
+    visualization_msgs::msg::MarkerArray marker_array;
+    int id = 0;  // Unique ID for each marker
+
+    for (const auto& entry : detected_cones_map)
+    {
+        visualization_msgs::msg::Marker marker;
+        marker.header.frame_id = "map";  // Map reference frame
+        marker.header.stamp = rclcpp::Time(simTime * 1e9);
+        marker.ns = "seen_cones";
+        marker.id = id++;  // Assign unique ID
+        marker.type = visualization_msgs::msg::Marker::SPHERE;
+        marker.action = visualization_msgs::msg::Marker::ADD;
+        marker.pose.position = entry.second;
+        marker.pose.orientation.w = 1.0;
+
+        // Marker Size
+        marker.scale.x = 0.2;  // Adjust based on cone size
+        marker.scale.y = 0.2;
+        marker.scale.z = 0.2;
+
+        // Marker Color (e.g., Orange for cones)
+        marker.color.a = 1.0;
+        marker.color.r = 1.0;
+        marker.color.g = 0.5;
+        marker.color.b = 0.0;
+        marker_array.markers.push_back(marker);
+    }
+
+    stateEstimationPub->publish(marker_array);  // Publish all seen cones
+}
+
+
 void initSensors()
 {
     Config cfg(sensors_config_path);
@@ -515,7 +631,7 @@ void initSensors()
     auto frontSteeringConfig = sensorsConfig.getElement("steering_front");
     steeringSensorFront->readConfig(frontSteeringConfig);
     steeringSensorRear = std::make_shared<ScalarValueSensor>(200.0, 0.005);
-    auto rearSteeringConfig = sensorsConfig.getElement("steering_rear");
+    auto rearSteeringConfig = sensorsConfig.getElement("steering_front");
     steeringSensorRear->readConfig(rearSteeringConfig);
     auto wheelSpeedConfig = sensorsConfig.getElement("wheelspeeds");
     wheelspeedSensor = std::make_shared<WheelsSensor>(200.0, 0.005);
@@ -602,6 +718,10 @@ int main(int argc, char** argv)
     auto torquessubmax
         = node->create_subscription<pacsim::msg::Wheels>("/pacsim/torques_max", 1, cbFuncTorquesInverterMax);
 
+    auto throttleSub = node->create_subscription<pacsim::msg::StampedScalar>("/pacsim/throttle_setpoint", 1, cbFuncLong);
+    RCLCPP_INFO_STREAM(rclcpp::get_logger("pacsim_logger"), "Createdsubscription for throttle");
+
+
     auto wspdSetpointSub
         = node->create_subscription<pacsim::msg::Wheels>("/pacsim/wheelspeed_setpoints", 1, cbWheelspeeds);
 
@@ -612,15 +732,18 @@ int main(int argc, char** argv)
 
     clockPub = node->create_publisher<rosgraph_msgs::msg::Clock>("/clock", 1);
 
-    mapVizPub = node->create_publisher<visualization_msgs::msg::MarkerArray>("/pacsim/track/visualization", 1);
+    mapVizPub = node->create_publisher<visualization_msgs::msg::MarkerArray>("/pacsim/map", 1);
 
-    trackPub = node->create_publisher<pacsim::msg::Track>("/pacsim/track/landmarks", 1);
+    simulatedSeVizPub = node->create_publisher<visualization_msgs::msg::MarkerArray>("/pacsim/state_estimation", 1);
 
     auto finishSignalServer = node->create_service<std_srvs::srv::Empty>("/pacsim/finish_signal", cbFinishSignal);
     auto clockTriggerAbsoluteServer = node->create_service<pacsim::srv::ClockTriggerAbsolute>(
         "/pacsim/clock_trigger/absolute", cbClockTriggerAbsolute);
     auto clockTriggerRelativeServer = node->create_service<pacsim::srv::ClockTriggerRelative>(
         "/pacsim/clock_trigger/relative", cbClockTriggerRelative);
+
+    stateEstimationPub = node->create_publisher<visualization_msgs::msg::MarkerArray>("/pacsim/state_estimation", 1);
+
 
     getRos2Params(node);
     mainConfig = fillMainConfig(main_config_path);
@@ -673,7 +796,7 @@ int main(int argc, char** argv)
     executor->spin();
 
     mainLoopThread.join();
-
+    logger->logWarning("Finished pacsim");
     rclcpp::shutdown();
 
     return 0;

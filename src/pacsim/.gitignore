@@ -1,2 +1,10 @@
+**/build/*
+**/install/*
+**/log/*
+*.db3
+!.vscode/settings.json
+!.vscode/c_cpp_properties.json
 .vscode/*
 __pycache__/
+
+**/tmp/*
