@@ -57,12 +57,12 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
       continue;
     } else if (associations(i) == -1) {
       new_landmarks.conservativeResize(new_landmarks.size() + 2);
-      new_landmarks(new_landmarks.size() - 2) = observations(2 * i);
-      new_landmarks(new_landmarks.size() - 1) = observations(2 * i + 1);
+      new_landmarks(new_landmarks.size() - 2) = global_observations(2 * i);
+      new_landmarks(new_landmarks.size() - 1) = global_observations(2 * i + 1);
       new_confidences.conservativeResize(new_confidences.size() + 1);
       new_confidences(new_confidences.size() - 1) = observation_confidences(i);
     } else {
-      matched_landmarks_indices.push_back(associations(i));
+      matched_landmarks_indices.push_back(associations(i) + 3);
       matched_observations.conservativeResize(matched_observations.size() + 2);
       matched_observations(matched_observations.size() - 2) = observations(2 * i);
       matched_observations(matched_observations.size() - 1) = observations(2 * i + 1);
