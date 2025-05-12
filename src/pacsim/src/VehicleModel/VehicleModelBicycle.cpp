@@ -107,7 +107,7 @@ void VehicleModelBicycle::setOrientation(Eigen::Vector3d newOrientation) {
 }
 
 double VehicleModelBicycle::processSlipAngleLat(double alpha_input, double Fz) {
-  return tireModel.calculateLateralForce(alpha_input, Fz);
+  return std::sin(tireModel.Clat * std::atan(tireModel.Blat * alpha_input - tireModel.Elat * (tireModel.Blat * alpha_input - std::atan(tireModel.Blat * alpha_input))));
 }
 
 void VehicleModelBicycle::AerodynamicsModel::calculateForces(double velocityX, double& downforce,
