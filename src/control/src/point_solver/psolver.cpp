@@ -14,14 +14,14 @@ PointSolver::PointSolver(double k) : k_(k) {}
  *
  * @param pose msg
  */
-void PointSolver::update_vehicle_pose(const custom_interfaces::msg::Pose &vehicle_state_msg,
+void PointSolver::update_vehicle_pose(const custom_interfaces::msg::Pose &pose,
                                       double velocity) {
   // update to Rear Wheel position
-  this->vehicle_pose_.position.x = vehicle_state_msg.x;
-  this->vehicle_pose_.position.y = vehicle_state_msg.y;
+  this->vehicle_pose_.position.x = pose.x;
+  this->vehicle_pose_.position.y = pose.y;
 
   this->vehicle_pose_.velocity_ = velocity;
-  this->vehicle_pose_.orientation = vehicle_state_msg.theta;
+  this->vehicle_pose_.orientation = pose.theta;
   BicycleModel bicycle_model = BicycleModel(common_lib::car_parameters::CarParameters());
   this->vehicle_pose_.rear_axis_ = bicycle_model.rear_axis_position(
       this->vehicle_pose_.position, this->vehicle_pose_.orientation, this->dist_cg_2_rear_axis_);
