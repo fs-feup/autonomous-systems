@@ -1,45 +1,130 @@
 perception_sensors:
   - sensor:
-    name: "lidar"
+    name: "livox_front"
     enabled: true
-    rate: 10 # sampling rate of sensor
-    delay:
-      mean: 0.05 # deadtime processing delay (signal won't be available for processing for 0.1s)
+    rate: 10
+    delay: 
+      mean: 0.2
     pose:
-      position: [0.0, 0.0, 0.115] # relative position to car's center of mass
-      orientation: [0.0, 0.0, 0.0] # relative orientation relative to car's orientation
-    observation:  
-      # all self explanatory, units are meters / radians
-      min_range: 1.5
-      max_range: 30
-      min_angle_horizontal: -0.7854
-      max_angle_horizontal: 0.7854
-      min_angle_vertical: -0.4363
-      max_angle_vertical: 0.2618
+      position: [0.0,0.0,0.0]
+      orientation: [0.0,0.0,0.0]
+    observation:
+      min_range: 1
+      max_range: 45
+      min_angle_horizontal: -1.0472
+      max_angle_horizontal: 1.0472
+      min_angle_vertical: -0.2181662
+      max_angle_vertical: 0.2181662
+
     detection:
-      # detection probability 0 is none and 1 is 100% chance of detection
       prob_min_dist: 0.99
       prob_decrease_dist_linear: 0.01
       prob_decrease_dist_quadratic: 0.00012
       min_prob: 0.1
+
     classification:
-      # successful classification rate starts at a high value at minimum distance, decreasing at a (ax² + bx) rate until it reaches max_dist or max_prob
-      max_dist: 15 # upper bound, more than this and classified as unknown
-      prob_min_dist: 0.99 # at min dist, correct classification prob
-      prob_decrease_dist_linear: 0.01 # linear factor decrease in guessing right w/ dist
-      prob_decrease_dist_quadratic: 0.000125 # same but quadratic factor
+      max_dist: 15
+      prob_min_dist: 0.99
+      prob_decrease_dist_linear: 0.01
+      prob_decrease_dist_quadratic: 0.000125
       min_prob: 0.2 # 0.2 is equivalent to random guessing (5 classes)
+
     noise:
-      # Normal distribution values
-      cartesian: # x, y, z
+      cartesian: #x, y, z
         mean: [0.0, 0.0, 0.0]
         sigma: [0.01, 0.01, 0.01]
       angle: # horizontal, vertical
         mean: [0.0, 0.0]
         sigma: [0.001, 0.001]
-      range: # Absolute error
+      range:
         mean: 0.0
         sigma: 0.02
-      range_relative: # Error scaled with distance
+      range_relative:
+        mean: 0.0
+        sigma: 0.0001
+  - sensor:
+    name: "livox_left2"
+    enabled: true
+    rate: 10
+    delay: 
+      mean: 0.1
+    pose:
+      position: [-1.7533289, 0.59746433, 0.07546455]
+      orientation: [0.12472367, -0.00889492, 1.21845561]
+    observation:
+      min_range: 1
+      max_range: 45
+      min_angle_horizontal: -1.0472
+      max_angle_horizontal: 1.0472
+      min_angle_vertical: -0.2181662
+      max_angle_vertical: 0.2181662
+
+    detection:
+      prob_min_dist: 0.99
+      prob_decrease_dist_linear: 0.01
+      prob_decrease_dist_quadratic: 0.00012
+      min_prob: 0.1
+
+    classification:
+      max_dist: 15
+      prob_min_dist: 0.99
+      prob_decrease_dist_linear: 0.01
+      prob_decrease_dist_quadratic: 0.000125
+      min_prob: 0.2 # 0.2 is equivalent to random guessing (5 classes)
+
+    noise:
+      cartesian: #x, y, z
+        mean: [0.0, 0.0, 0.0]
+        sigma: [0.01, 0.01, 0.01]
+      angle: # horizontal, vertical
+        mean: [0.0, 0.0]
+        sigma: [0.001, 0.001]
+      range:
+        mean: 0.0
+        sigma: 0.02
+      range_relative:
+        mean: 0.0
+        sigma: 0.0001
+  - sensor:
+    name: "livox_right2"
+    enabled: true
+    rate: 10
+    delay: 
+      mean: 0.1
+    pose:
+      position: [-1.73520207, -0.61862863, 0.04065186]
+      orientation: [-0.08730302, 0.06381912, -1.23762976]
+    observation:
+      min_range: 1
+      max_range: 45
+      min_angle_horizontal: -1.0472
+      max_angle_horizontal: 1.0472
+      min_angle_vertical: -0.2181662
+      max_angle_vertical: 0.2181662
+
+    detection:
+      prob_min_dist: 0.99
+      prob_decrease_dist_linear: 0.01
+      prob_decrease_dist_quadratic: 0.00012
+      min_prob: 0.1
+
+    classification:
+      max_dist: 15
+      prob_min_dist: 0.99
+      prob_decrease_dist_linear: 0.01
+      prob_decrease_dist_quadratic: 0.000125
+      min_prob: 0.2 # 0.2 is equivalent to random guessing (5 classes)
+
+    noise:
+      cartesian: #x, y, z
+        mean: [0.0, 0.0, 0.0]
+        sigma: [0.01, 0.01, 0.01]
+      angle: # horizontal, vertical
+        mean: [0.0, 0.0]
+        sigma: [0.001, 0.001]
+      range:
+        mean: 0.0
+        sigma: 0.02
+      range_relative:
         mean: 0.0
         sigma: 0.0001

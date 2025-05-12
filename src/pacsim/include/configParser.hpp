@@ -43,7 +43,7 @@ public:
         }
         return this->node[i];
     }
-    template <typename T> inline T getElement(string elementName) { return this->node[elementName].as<T>(); }
+    template <typename T> inline T getElement(string elementName) { return this->node[elementName].as<T>(); };
     template <typename T> inline bool getElement(T* res, string elementName)
     {
         *res = this->node[elementName].as<T>();

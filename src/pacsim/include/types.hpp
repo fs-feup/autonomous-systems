@@ -72,10 +72,10 @@ struct Pose
 };
 struct Wheels
 {
-    double FL; // Front Left
-    double FR; // Front Right
-    double RL; // Rear Left
-    double RR; // Rear Right
+    double FL;
+    double FR;
+    double RL;
+    double RR;
 
     double timestamp;
 };

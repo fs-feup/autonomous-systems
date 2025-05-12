@@ -18,7 +18,7 @@ def getFullFilePath(name, dir):
 
 
 def generate_launch_description():
-  track_name = "FSG23.yaml"
+  track_name = "FSE23.yaml"
   track_frame = "map"
   realtime_ratio = 1.0
   discipline = "autocross"
@@ -33,7 +33,7 @@ def generate_launch_description():
           executable='pacsim_node',
           name='pacsim_node',
           parameters = [{'use_sim_time':True}, {"track_name" : getFullFilePath(track_name, "tracks")}, {"grip_map_path" : getFullFilePath("gripMap.yaml", "tracks")}, {"track_frame" : track_frame}, {"realtime_ratio" : realtime_ratio}, 
-                        {"report_file_dir" : "/home/ws/src/pacsim/tmp"}, {"main_config_path" : getFullFilePath("mainConfig.yaml", dir="config")}, {"perception_config_path" : getFullFilePath("perception.yaml", dir="config")}, 
+                        {"report_file_dir" : "/tmp"}, {"main_config_path" : getFullFilePath("mainConfig.yaml", dir="config")}, {"perception_config_path" : getFullFilePath("perception.yaml", dir="config")}, 
                         {"sensors_config_path" : getFullFilePath("sensors.yaml", dir="config")}, {"vehicle_model_config_path" : getFullFilePath("vehicleModel.yaml", dir="config")}, {"discipline" : discipline}],
           output="screen",
           emulate_tty=True)
@@ -52,6 +52,8 @@ def generate_launch_description():
           executable='robot_state_publisher',
           name='robot_state_publisher',
           output='screen',
-          parameters=[{'use_sim_time':True}, {'publish_frequency':float(1000),}],
+          parameters=[{'use_sim_time':True}, {'publish_frequency':float(1000),
+                      'robot_description': Command(['xacro',' ',xacro_path])
+                      }],
           arguments=[xacro_path])
   return LaunchDescription([nodePacsim, nodePacsimShutdownEventHandler, robot_state_publisher])

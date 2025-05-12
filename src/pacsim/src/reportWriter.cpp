@@ -1,5 +1,4 @@
 #include "reportWriter.hpp"
-#include <rclcpp/rclcpp.hpp>
 
 bool reportToFile(Report report, std::string dir)
 {
@@ -114,7 +113,6 @@ bool reportToFile(Report report, std::string dir)
     out << YAML::EndMap;
     strftime(buffer, 80, "%F-%H-%M-%S", timeinfo);
     std::string path = dir + "/report-" + std::string(buffer) + ".yaml";
-    RCLCPP_INFO_STREAM(rclcpp::get_logger("pacsim_logger"), "Writing report to " << path);
     std::ofstream fout(path);
     fout << out.c_str();
 

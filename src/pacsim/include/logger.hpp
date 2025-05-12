@@ -14,8 +14,6 @@ public:
     void logError(std::string in) { RCLCPP_ERROR_STREAM(rclcpp::get_logger("pacsim_logger"), in); }
 
     void logFatal(std::string in) { RCLCPP_FATAL_STREAM(rclcpp::get_logger("pacsim_logger"), in); }
-
-    void logDebug(std::string in) { RCLCPP_DEBUG_STREAM(rclcpp::get_logger("pacsim_logger"), in); }
 };
 
 #endif /* PACSCIMLOGGER_HPP */
