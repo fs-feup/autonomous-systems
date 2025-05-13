@@ -1,9 +1,10 @@
 #include "perception_sensor_lib/loop_closure/lap_counter.hpp"
 #include <cmath>
 
-LapCounter::LapCounter(double threshold_dist, int first_x_cones)
+LapCounter::LapCounter(double threshold_dist, int first_x_cones, int border_width)
   : threshold_dist_(threshold_dist),
-    first_x_cones_(first_x_cones)
+    first_x_cones_(first_x_cones),
+    border_width_(border_width)
 {}
 
 LoopClosure::Result LapCounter::detect(
@@ -16,9 +17,9 @@ LoopClosure::Result LapCounter::detect(
   double dy = current_pose.y();
   double dist = std::sqrt(dx * dx + dy * dy);
 
-  // only enable checking after leaving the start region by +2 meters, to avoid false detections 
+  // add a border to give some space until we start searching again
   if (!searching_) {
-    if (dist > threshold_dist_ + 2.0) {
+    if (dist > threshold_dist_ + border_width_) {
       searching_ = true;
     } else {
       return {false, 0.0};
@@ -30,17 +31,30 @@ LoopClosure::Result LapCounter::detect(
     return {false, 0.0};
   }
 
+  bool match_found = false;
   // Look for match with any of the first X cones
   for (int i = 0; i < associations.size(); ++i) {
     int j = associations[i];
     if (j >= 3) {
       int map_idx = (j - 3) / 2;  // Index into map_cones
       if (map_idx < first_x_cones_) {
-        searching_ = false;  // Reset search flag
-        return {true, 0.0};
+        match_found = true;  // Update the outer match_found variable
+        break;  // We found a match, no need to continue searching
       }
     }
   }
-
+  
+  if (match_found) {
+    confidence_++;
+    if (confidence_ >= 3) {
+      // We found loop closure, reset confidence and return
+      confidence_ = 0;
+      searching_ = false;  // Reset search flag
+      return {true, 0.0};
+    }
+  } else {
+    confidence_ = 0;
+  }
+  
   return {false, 0.0};
 }

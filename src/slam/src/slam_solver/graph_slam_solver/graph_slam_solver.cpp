@@ -60,7 +60,7 @@ void GraphSLAMSolver::init(std::weak_ptr<rclcpp::Node> node) {
     RCLCPP_ERROR(rclcpp::get_logger("slam"),
                  "Failed to create optimization timer, node is not valid");
   }
-  this->loop_closure_ = std::make_shared<LapCounter>(4, 10);
+  this->loop_closure_ = std::make_shared<LapCounter>(4, 10, 3);
 
 }
 
