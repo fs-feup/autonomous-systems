@@ -1,11 +1,13 @@
 #include "adapter_control/pacsim.hpp"
 
+#include "custom_interfaces/msg/pose.hpp"
 #include "node_/node_control.hpp"
 
 PacSimAdapter::PacSimAdapter(const ControlParameters& params)
     : Control(params),
       steering_pub_(create_publisher<pacsim::msg::StampedScalar>("/pacsim/steering_setpoint", 10)),
-      acceleration_pub_(create_publisher<pacsim::msg::StampedScalar>("/pacsim/throttle_setpoint", 10)) {
+      acceleration_pub_(
+          create_publisher<pacsim::msg::StampedScalar>("/pacsim/throttle_setpoint", 10)) {
   // No topic for pacsim, just set the go_signal to true
   go_signal_ = true;
 
@@ -22,9 +24,9 @@ PacSimAdapter::PacSimAdapter(const ControlParameters& params)
 
     car_velocity_sub_ = this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
         "/pacsim/velocity", 10, [this](const geometry_msgs::msg::TwistWithCovarianceStamped& msg) {
-          last_stored_velocity_ = std::sqrt(std::pow(msg.twist.twist.linear.x, 2) +
-                                            std::pow(msg.twist.twist.linear.y, 2) +
-                                            std::pow(msg.twist.twist.linear.z, 2));
+          velocity_ = std::sqrt(std::pow(msg.twist.twist.linear.x, 2) +
+                                std::pow(msg.twist.twist.linear.y, 2) +
+                                std::pow(msg.twist.twist.linear.z, 2));
         });
   }
 
@@ -33,7 +35,7 @@ PacSimAdapter::PacSimAdapter(const ControlParameters& params)
 
 void PacSimAdapter::timer_callback() {
   if (tf_buffer_->canTransform("map", "car", tf2::TimePointZero)) {
-    custom_interfaces::msg::VehicleState pose;
+    custom_interfaces::msg::Pose pose;
     geometry_msgs::msg::TransformStamped t =
         tf_buffer_->lookupTransform("map", "car", tf2::TimePointZero);
     pose.header = t.header;
@@ -45,13 +47,10 @@ void PacSimAdapter::timer_callback() {
     double yaw;
     m.getRPY(roll, pitch, yaw);
     pose.theta = yaw;
-    pose.position.x = t.transform.translation.x;
-    pose.position.y = t.transform.translation.y;
-    pose.linear_velocity = this->last_stored_velocity_;
-    pose.angular_velocity = 0.0;  // not needed -> default value
+    pose.x = t.transform.translation.x;
+    pose.y = t.transform.translation.y;
 
-    RCLCPP_DEBUG(get_logger(), "Pose info. Position:%f, %f;  Linear velocity %f, Theta %f",
-                 pose.position.x, pose.position.y, pose.linear_velocity, pose.theta);
+    RCLCPP_DEBUG(get_logger(), "Pose info. Position:%f, %f, Theta %f", pose.x, pose.y, pose.theta);
     this->publish_control(pose);
   }
 }
