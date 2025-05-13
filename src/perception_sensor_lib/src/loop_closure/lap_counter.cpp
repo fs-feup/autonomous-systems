@@ -9,7 +9,7 @@ LapCounter::LapCounter(double threshold_dist, int first_x_cones, int border_widt
 
 LoopClosure::Result LapCounter::detect(
   const Eigen::Vector3d& current_pose,
-  const std::vector<Eigen::Vector2d>& map_cones,
+  const Eigen::VectorXi& map_cones,
   const Eigen::VectorXi& associations,
   const Eigen::VectorXd& observations) const
 {

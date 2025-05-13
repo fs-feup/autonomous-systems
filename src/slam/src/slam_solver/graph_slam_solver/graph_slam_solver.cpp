@@ -134,10 +134,10 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   Eigen::Vector3d pose;
   pose << state(0), state(1), state(2);
 
-  std::vector<Eigen::Vector2d> landmarks;
-  for (int i = 3; i < state.size(); i += 2) {
+  Eigen::VectorXi landmarks(state.size() - 3);
+  for (int i = 3; i < state.size(); i ++) {
     // Iterate through the landmarks in the state
-      landmarks.emplace_back(Eigen::Vector2d(state(i), state(i+1)));
+      landmarks(i-3) = state(i);
   }
   LoopClosure::Result result = loop_closure_->detect(pose, landmarks, associations, observations);
   if (result.detected) {
