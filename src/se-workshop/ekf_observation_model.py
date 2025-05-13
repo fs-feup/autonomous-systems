@@ -45,7 +45,7 @@ def observation_model(state):
     
     motor_rpm = velocity_to_rpm(velocity_x, wheel_radius) * gear_ratio
     
-    return np.array([fl_wss, fr_wss, rl_wss, rr_wss, sas, motor_rpm], dtype=float)  # Replace with actual observation model logic
+    return np.array([fl_wss, fr_wss, rl_wss, rr_wss, sas, motor_rpm], dtype=float) 
 
 def observation_model_jacobian(state):
     velocity_x = state[0]
