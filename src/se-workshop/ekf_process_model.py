@@ -7,7 +7,6 @@ def process_model(state, imu_measurements, dt):
 
     acceleration_x = imu_measurements[0]
     acceleration_y = imu_measurements[1]
-    angular_acceleration = imu_measurements[2] 
     
     # Coriolis correction
     coriolis_x = 2 * angular_velocity * velocity_y
@@ -15,7 +14,7 @@ def process_model(state, imu_measurements, dt):
 
     new_velocity_x = velocity_x + (acceleration_x + coriolis_x) * dt
     new_velocity_y = velocity_y + (acceleration_y + coriolis_y) * dt
-    new_angular_velocity = angular_velocity + angular_acceleration * dt
+    new_angular_velocity = imu_measurements[2]
 
     return np.array([new_velocity_x, new_velocity_y, new_angular_velocity], dtype=float)
 
@@ -34,5 +33,6 @@ def process_model_jacobian(state, imu_measurement, dt):
     jacobian[1, 2] = -2 * velocity_x * dt       # ∂vy/∂ω
     jacobian[2, 0] = 0                         # ∂ω/∂vx
     jacobian[2, 1] = 0                         # ∂ω/∂vy
-    jacobian[2, 2] = 1                         # ∂ω/∂ω
+    
+    # The diagonal elements are already set to 1 by default and it is correct because partial derivatives of the state with respect to itself are 1.
     return jacobian 
