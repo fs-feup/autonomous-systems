@@ -1,7 +1,5 @@
 #include "estimators/ekf.hpp"
 
-#include <iostream>
-
 EKF::EKF(const VEParameters& params) {
   this->process_noise_matrix_ = Eigen::Matrix3d::Identity();
   this->process_noise_matrix_(0, 0) = params.imu_acceleration_noise_;
@@ -14,10 +12,8 @@ EKF::EKF(const VEParameters& params) {
   this->measurement_noise_matrix_(3, 3) = params.wheel_speed_noise_;
   this->measurement_noise_matrix_(4, 4) = params.steering_angle_noise_;
   this->measurement_noise_matrix_(5, 5) = params.motor_rpm_noise_;
-  this->wheel_base_ = params._wheel_base_;
-  this->weight_distribution_front_ = params._weight_distribution_front_;
-  this->wheel_radius_ = params._wheel_radius_;
-  this->gear_ratio_ = params._gear_ratio_;
+  this->car_parameters_ = params.car_parameters_;
+  this->s2v_model = s2v_models_map.at(params._s2v_model_name_)(params.car_parameters_);
 }
 
 void EKF::imu_callback(const common_lib::sensor_data::ImuData& imu_data) {
@@ -81,14 +77,12 @@ void EKF::predict(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
 void EKF::correct(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
                   common_lib::sensor_data::WheelEncoderData& wss_data, double motor_rpm,
                   double steering_angle) {
-  BicycleModel bicycle_model =
-      BicycleModel(common_lib::car_parameters::CarParameters(0.406, 1.53, 0.804, 1.2, 0.804, 4));
-  Eigen::VectorXd predicted_observations = bicycle_model.cg_velocity_to_wheels(state);
+  Eigen::VectorXd predicted_observations = this->s2v_model->cg_velocity_to_wheels(state);
   Eigen::VectorXd observations = Eigen::VectorXd::Zero(6);
   observations << wss_data.fl_rpm, wss_data.fr_rpm, wss_data.rl_rpm, wss_data.rr_rpm,
       steering_angle, motor_rpm;
   Eigen::VectorXd y = observations - predicted_observations;
-  Eigen::MatrixXd jacobian = bicycle_model.jacobian_cg_velocity_to_wheels(state);
+  Eigen::MatrixXd jacobian = this->s2v_model->jacobian_cg_velocity_to_wheels(state);
   Eigen::MatrixXd kalman_gain =
       covariance * jacobian.transpose() *
       (jacobian * covariance * jacobian.transpose() + this->measurement_noise_matrix_).inverse();

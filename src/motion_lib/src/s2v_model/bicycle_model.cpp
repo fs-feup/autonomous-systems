@@ -62,8 +62,9 @@ Eigen::VectorXd BicycleModel::cg_velocity_to_wheels(Eigen::Vector3d& cg_velociti
   if (vx < 0) {
     front_wheels_rpm = -front_wheels_rpm;
   }
-
-  double steering_angle = (std::fabs(vx) <= 0.01) ? 0 : atan((vy + omega * lf) / vx);
+  double v = sqrt(pow(vx, 2) + pow(vy, 2));
+  double steering_angle =
+      (std::fabs(v) <= 0.01) ? 0 : atan(omega * (this->car_parameters_.wheelbase) / v);
   double motor_rpm = 60 * this->car_parameters_.gear_ratio * rear_wheel_velocity /
                      (M_PI * this->car_parameters_.wheel_diameter);
   if (vx < 0) {
@@ -119,12 +120,13 @@ Eigen::MatrixXd BicycleModel::jacobian_cg_velocity_to_wheels(Eigen::Vector3d& cg
   jacobian(3, 0) = jacobian(2, 0);
   jacobian(3, 1) = jacobian(2, 1);
   jacobian(3, 2) = jacobian(2, 2);
-
-  double tan_squared = pow((vy + omega * lf) / vx, 2);
-  jacobian(4, 0) = (-(vy + omega * lf) / (vx * vx)) / (1 + tan_squared);
-  jacobian(4, 1) = (1 / vx) / (1 + tan_squared);
-  jacobian(4, 2) = (lf / vx) / (1 + tan_squared);
-
+  double L = this->car_parameters_.wheelbase;
+  double v = sqrt(pow(vx, 2) + pow(vy, 2));
+  if (std::fabs(v) > 0.01) {
+    jacobian(4, 0) = -((omega * L) / (v * v + (omega * L) * (omega * L))) * (vx / v);
+    jacobian(4, 1) = -((omega * L) / (v * v + (omega * L) * (omega * L))) * (vy / v);
+    jacobian(4, 2) = (L * v) / (v * v + (omega * L) * (omega * L));
+  }
   jacobian(5, 0) = sign * this->car_parameters_.gear_ratio * 60 * vx /
                    (M_PI * this->car_parameters_.wheel_diameter * rear_wheel_velocity);
   jacobian(5, 1) = sign * this->car_parameters_.gear_ratio * 60 * (vy - omega * lr) /
