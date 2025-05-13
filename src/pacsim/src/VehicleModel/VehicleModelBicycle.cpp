@@ -87,7 +87,18 @@ void VehicleModelBicycle::setMaxTorques(Wheels in) { maxTorques = in; }
 void VehicleModelBicycle::setMinTorques(Wheels in) { minTorques = in; }
 
 void VehicleModelBicycle::setSteeringSetpointFront(double in) {
-  steeringModel.calculateSteeringAngles(in, steeringAngles);
+        double avgRatio = 0.5 * (this->steeringModel.innerSteeringRatio + this->steeringModel.outerSteeringRatio);
+        if (in > 0)
+        {
+            this->steeringAngles.FL = this->steeringModel.innerSteeringRatio * in;
+            this->steeringAngles.FR = this->steeringModel.outerSteeringRatio * in;
+        }
+        else
+        {
+            this->steeringAngles.FL = this->steeringModel.outerSteeringRatio * in;
+            this->steeringAngles.FR = this->steeringModel.innerSteeringRatio * in;
+        }
+        return;
 }
 
 void VehicleModelBicycle::setSteeringSetpointRear(double in) {
@@ -106,7 +117,7 @@ void VehicleModelBicycle::setOrientation(Eigen::Vector3d newOrientation) {
   orientation = newOrientation;
 }
 
-double VehicleModelBicycle::processSlipAngleLat(double alpha_input, double Fz) {
+double VehicleModelBicycle::processSlipAngleLat(double alpha_input, double Fz = 0.0) {
   return std::sin(tireModel.Clat * std::atan(tireModel.Blat * alpha_input - tireModel.Elat * (tireModel.Blat * alpha_input - std::atan(tireModel.Blat * alpha_input))));
 }
 
@@ -365,58 +376,113 @@ void VehicleModelBicycle::updateWheelSpeeds(const Eigen::Vector3d& vFL, const Ei
   wheelspeeds.RR = vRR.x() / rpm2ms;
 }
 
-// Refactored getDynamicStates using the new helper functions
-Eigen::Vector3d VehicleModelBicycle::getDynamicStates(double dt) {
-  // Calculate wheel positions and velocities
-  double steeringFront;
-  Eigen::Vector3d rFL, rFR, rRL, rRR, rFront, rRear;
-  Eigen::Vector3d vFL, vFR, vRL, vRR;
-  calculateWheelGeometry(steeringFront, rFL, rFR, rRL, rRR, rFront, rRear, vFL, vFR, vRL, vRR);
 
-  // Calculate normal forces on axles
-  double Fz_Front, Fz_Rear;
-  calculateNormalForces(Fz_Front, Fz_Rear);
+    Eigen::Vector3d VehicleModelBicycle::getDynamicStates(double dt, Wheels frictionCoefficients)
+    {
+        double l = this->lr + this->lf;
+        double vx = this->velocity.x();
+        double vy = this->velocity.y();
+        double ax = this->acceleration.x();
+        double ay = this->acceleration.y();
+        double r = this->angularVelocity.z();
+        // Downforce
+        double F_aero_downforce
+            = 0. * 1.29 * this->aeroModel.aeroArea * this->aeroModel.cla * (vx * vx) + this->powerGroundSetpoint * this->powertrainModel.powerGroundForce;
+        double F_aero_drag = 0.5 * 1.29 * this->aeroModel.aeroArea * this->aeroModel.cda * (vx * vx);
+        double g = 9.81;
+        double steeringFront = 0.5 * (this->steeringAngles.FL + this->steeringAngles.FR);
 
-  // Calculate aero drag
-  double downforce, drag;
-  aeroModel.calculateForces(velocity.x(), downforce, drag);
+        // max because lifted tire makes no forces
+        double Fz_Front = std::max(0.0, ((m * g + F_aero_downforce) * 0.5 * this->lr / l));
+        double Fz_Rear = std::max(0.0, ((m * g + F_aero_downforce) * 0.5 * this->lf / l));
 
-  // Calculate rolling resistance (applied opposite to velocity direction)
-  double frict = (Fz_Front + Fz_Rear) * ROLLING_RESISTANCE_COEFF;
-  Eigen::Vector3d friction;
+        Eigen::Vector3d vCog = this->velocity;
+        Eigen::Vector3d omega = this->angularVelocity;
 
-  if (velocity.norm() < 0.01) {
-      friction = Eigen::Vector3d::Zero();
-  } else {
-      Eigen::Vector3d velDir = -velocity.normalized();
-      friction = frict * velDir;
-  }
+        Eigen::Vector3d rFL = Eigen::Vector3d(lf, 0.5 * sf, 0.0);
+        Eigen::Vector3d rFR = Eigen::Vector3d(lf, -0.5 * sf, 0.0);
+        Eigen::Vector3d rRL = Eigen::Vector3d(-lr, 0.5 * sr, 0.0);
+        Eigen::Vector3d rRR = Eigen::Vector3d(-lr, -0.5 * sr, 0.0);
+        Eigen::Vector3d rFront = Eigen::Vector3d(lf, 0.0, 0.0);
+        Eigen::Vector3d rRear = Eigen::Vector3d(-lf, 0.0, 0.0);
 
-  // Calculate longitudinal forces
-  double Fx_FL, Fx_FR, Fx_RL, Fx_RR;
-  calculateLongitudinalForces(Fx_FL, Fx_FR, Fx_RL, Fx_RR);
+        Eigen::Vector3d vFL = vCog + omega.cross(rFL);
+        Eigen::Vector3d vFR = vCog + omega.cross(rFR);
+        Eigen::Vector3d vRL = vCog + omega.cross(rRL);
+        Eigen::Vector3d vRR = vCog + omega.cross(rRR);
+        Eigen::Vector3d vFront = vCog + omega.cross(rFront);
+        Eigen::Vector3d vRear = vCog + omega.cross(rRear);
 
-  // Calculate slip angles
-  double kappaFront, kappaRear;
-  calculateSlipAngles(kappaFront, kappaRear);
+        double rpm2ms = this->powertrainModel.wheelRadius * 2.0 * M_PI / (this->powertrainModel.gearRatio * 60.0);
 
-  // Calculate lateral forces using tire model
-  double Fy_Front = processSlipAngleLat(kappaFront, Fz_Front / 2) * 2;
-  double Fy_Rear = processSlipAngleLat(kappaRear, Fz_Rear / 2) * 2;
+        bool stillstand = (vCog.norm() < 0.1) && (std::abs(this->angularVelocity.z()) < 0.001);
 
-  // Update wheel speeds
-  updateWheelSpeeds(vFL, vFR, vRL, vRR);
+        // tire side slip angles
+        double eps = 0.00001;
 
-  RCLCPP_DEBUG(rclcpp::get_logger("a"),
-      "Vx: %f, Vy: %f, W: %f, KappaF: %f, KappaR: %f, Fy_Front: %f, Fy_Rear: %f, drag: %f, friction: %f", velocity.x(),
-      velocity.y(), angularVelocity.z(), kappaFront, kappaRear, Fy_Front, Fy_Rear, drag, friction.x());
+        double kappaFront = std::atan2(vFront.y(), std::max(std::abs(vFront.x()), eps)) - steeringFront;
+        double kappaRear = std::atan2(vRear.y(), std::max(std::abs(vRear.x()), eps));
 
-  // Calculate accelerations
-  return calculateAccelerations(steeringFront, Fx_FL, Fx_FR, Fx_RL, Fx_RR, Fy_Front, Fy_Rear, drag,
-                                friction);
-}
+        // don't steer when vehicle doesn't move
+        if (stillstand)
+        {
+            kappaFront = 0.0;
+            kappaRear = 0.0;
+        }
 
-void VehicleModelBicycle::forwardIntegrate(double dt) {
+        // old calculation as backup for now
+        double Fx_FL = this->powertrainModel.gearRatio * this->torques.FL / this->powertrainModel.wheelRadius;
+        double Fx_FR = this->powertrainModel.gearRatio * this->torques.FR / this->powertrainModel.wheelRadius;
+        double Fx_RL = this->powertrainModel.gearRatio * this->torques.RL / this->powertrainModel.wheelRadius;
+        double Fx_RR = this->powertrainModel.gearRatio * this->torques.RR / this->powertrainModel.wheelRadius;
+
+        Fx_FL *= (((this->torques.FL) > 0.5) || (vCog.x() > 0.3)) ? 1.0 : 0.0;
+        Fx_FR *= (((this->torques.FR) > 0.5) || (vCog.x() > 0.3)) ? 1.0 : 0.0;
+        Fx_RL *= (((this->torques.RL) > 0.5) || (vCog.x() > 0.3)) ? 1.0 : 0.0;
+        Fx_RR *= (((this->torques.RR) > 0.5) || (vCog.x() > 0.3)) ? 1.0 : 0.0;
+
+        double Dlat_Front = 0.5 * (frictionCoefficients.FL + frictionCoefficients.FR) * this->tireModel.Dlat * Fz_Front;
+        double Dlat_Rear = 0.5 * (frictionCoefficients.RL + frictionCoefficients.RR) * this->tireModel.Dlat * Fz_Rear;
+
+        double Fy_Front = Dlat_Front * processSlipAngleLat(kappaFront);
+        double Fy_Rear = Dlat_Rear * processSlipAngleLat(kappaRear);
+
+        // todo convert speed
+        this->wheelspeeds.FL = vFL.x() / rpm2ms;
+        this->wheelspeeds.FR = vFR.x() / rpm2ms;
+        this->wheelspeeds.RL = vRL.x() / rpm2ms;
+        this->wheelspeeds.RR = vRR.x() / rpm2ms;
+
+        double axTires = (std::cos(this->steeringAngles.FL) * Fx_FL + std::cos(this->steeringAngles.FR) * Fx_FR + Fx_RL
+                             + Fx_RR - std::sin(steeringFront) * Fy_Front)
+            / m;
+        double axModel = axTires - F_aero_drag / m;
+
+        double ayTires = (std::sin(this->steeringAngles.FL) * Fx_FL + std::sin(this->steeringAngles.FR) * Fx_FR
+                             + std::cos(steeringFront) * Fy_Front + Fy_Rear)
+            / m;
+        double ayModel = (ayTires);
+
+        double rdotFx
+            = 0.5 * this->sf * (-Fx_FL * std::cos(this->steeringAngles.FL) + Fx_FR * std::cos(this->steeringAngles.FR))
+            + this->lf * (Fx_FL * std::sin(this->steeringAngles.FL) + Fx_FR * std::sin(this->steeringAngles.FR))
+            + 0.5 * this->sr * (Fx_RR * std::cos(this->steeringAngles.RR) - Fx_RL * std::cos(this->steeringAngles.RL))
+            - this->lr * (Fx_RL * std::sin(this->steeringAngles.RL) + Fx_RR * std::sin(this->steeringAngles.RR));
+        double rdotFy = this->lf * (Fy_Front * std::cos(steeringFront)) - this->lr * (Fy_Rear);
+        double rdot = (1 / Izz * (rdotFx + rdotFy));
+
+        Eigen::Vector3d ret(axModel, ayModel, rdot);
+        return ret;
+    }
+
+void VehicleModelBicycle::forwardIntegrate(double dt, Wheels frictionCoefficients) {
+
+    Eigen::Vector3d friction(std::min(200.0, 2000.0 * std::abs(this->velocity.x())),
+      std::min(200.0, 2000.0 * std::abs(this->velocity.y())),
+      std::min(200.0, 2000.0 * std::abs(this->velocity.z())));
+    friction[0] = (this->velocity.x() > 0) ? friction.x() : -friction.x();
+    friction[1] = (this->velocity.y() > 0) ? friction.y() : -friction.y();
+    friction[2] = (this->velocity.z() > 0) ? friction.z() : -friction.z();
   // Update position based on velocity and orientation
   Eigen::AngleAxisd yawAngle(orientation.z(), Eigen::Vector3d::UnitZ());
   position += (yawAngle.matrix() * velocity) * dt;
@@ -425,7 +491,7 @@ void VehicleModelBicycle::forwardIntegrate(double dt) {
   powertrainModel.calculateWheelTorques(throttleActuation, torques);
 
   // Calculate dynamic states
-  Eigen::Vector3d dynamicStates = getDynamicStates(dt);
+  Eigen::Vector3d dynamicStates = getDynamicStates(dt, frictionCoefficients);
 
   // Update orientation based on angular velocity
   orientation.z() += dt * angularVelocity.z();

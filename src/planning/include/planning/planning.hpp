@@ -16,6 +16,7 @@
 #include "custom_interfaces/msg/path_point.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/point2d.hpp"
+#include "custom_interfaces/msg/pose.hpp"
 #include "custom_interfaces/msg/point_array.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
 #include "planning/outliers.hpp"
@@ -73,7 +74,7 @@ class Planning : public rclcpp::Node {
   bool received_first_pose_ = false;
   std::vector<Cone> cone_array_;
   /**< Subscription to vehicle localization */
-  rclcpp::Subscription<custom_interfaces::msg::VehicleState>::SharedPtr vl_sub_;
+  rclcpp::Subscription<custom_interfaces::msg::Pose>::SharedPtr vl_sub_;
   /**< Subscription to track map */
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr track_sub_;
   /**< Local path points publisher */
@@ -90,7 +91,7 @@ class Planning : public rclcpp::Node {
    *
    * @param msg The received VehicleState message.
    */
-  void vehicle_localization_callback(const custom_interfaces::msg::VehicleState &msg);
+  void vehicle_localization_callback(const custom_interfaces::msg::Pose &msg);
 
   /**
    * @brief Fetches the mission from the parameters.

@@ -36,11 +36,29 @@ def generate_launch_description():
             )
         ),
     )
+
+    planning_launch_description = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            PathJoinSubstitution(
+                [FindPackageShare("planning"), "launch", "planning.launch.py"]
+            )
+        ),
+    )
+    control_launch_description = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            PathJoinSubstitution(
+                [FindPackageShare("control"), "launch", "control.launch.py"]
+            )
+    ),)
+
+    
     return LaunchDescription(
         [
             slam_launch_description,
             ve_launch_description,
             pacsim_launch_description,
             evaluator_launch_description,
+            planning_launch_description,
+            control_launch_description,
         ],
     )
