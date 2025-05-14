@@ -23,7 +23,8 @@ void PacsimAdapter::wss_callback(const pacsim::msg::Wheels::SharedPtr msg) {
   common_lib::sensor_data::WheelEncoderData wheel_encoder_data(msg->rl, msg->rr, msg->fl, msg->fr,
                                                                0.0, msg->stamp);
   this->_velocity_estimator_->wss_callback(wheel_encoder_data);
-  this->_velocity_estimator_->motor_rpm_callback(0.5 * this->_parameters_._gear_ratio_ *
+  this->_velocity_estimator_->motor_rpm_callback(0.5 *
+                                                 this->_parameters_.car_parameters_.gear_ratio *
                                                  (msg->rl + msg->rr));  // Simulate resolver data
 }
 

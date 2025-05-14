@@ -8,6 +8,7 @@
 #include "common_lib/structures/pose.hpp"
 #include "common_lib/structures/position.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
+#include "custom_interfaces/msg/pose.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
 #include "gtest/gtest.h"
 #include "motion_lib/car_parameters.hpp"
@@ -59,7 +60,8 @@ public:
    *
    * @param pose msg
    */
-  void update_vehicle_pose(const custom_interfaces::msg::VehicleState &vehicle_state_msg);
+  void update_vehicle_pose(const custom_interfaces::msg::Pose &vehicle_state_msg,
+                           double velocity = 0.0);
 
   FRIEND_TEST(PointSolverTests, Test_update_closest_point_1);
   FRIEND_TEST(PointSolverTests, Test_update_lookahead_point_1);
