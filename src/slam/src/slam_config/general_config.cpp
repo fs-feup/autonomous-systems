@@ -94,6 +94,5 @@ std::string SLAMParameters::load_config() {
   this->slam_isam2_factorization_ =
       slam_config["slam"]["slam_isam2_factorization"].as<std::string>();
   this->sliding_window_size_ = slam_config["slam"]["sliding_window_size"].as<unsigned int>();
-
   return adapter;
 }
