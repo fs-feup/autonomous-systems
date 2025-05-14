@@ -74,9 +74,8 @@ Eigen::MatrixXd GraphSLAMInstance::get_covariance_matrix() const {
 }
 
 GraphSLAMInstance::GraphSLAMInstance(const SLAMParameters& params,
-                                     std::shared_ptr<BaseOptimizer> optimizer,
-                                     std::shared_ptr<LandmarkFilter> landmark_filter)
-    : _params_(params), _optimizer_(optimizer), _landmark_filter_(landmark_filter) {
+                                     std::shared_ptr<BaseOptimizer> optimizer)
+    : _params_(params), _optimizer_(optimizer) {
   // Create a new factor graph
   _factor_graph_ = gtsam::NonlinearFactorGraph();
   const gtsam::Pose2 prior_pose(0.0, 0.0, 0.0);
@@ -101,7 +100,6 @@ GraphSLAMInstance::GraphSLAMInstance(const GraphSLAMInstance& other) {
   _new_observation_factors_ = other._new_observation_factors_;
   _optimizer_ = other._optimizer_;
   _params_ = other._params_;
-  _landmark_filter_ = other._landmark_filter_;
 }
 
 GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) {
@@ -116,7 +114,6 @@ GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) 
   _new_observation_factors_ = other._new_observation_factors_;
   _optimizer_ = other._optimizer_;
   _params_ = other._params_;
-  _landmark_filter_ = other._landmark_filter_;
 
   return *this;
 }
@@ -167,9 +164,6 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
   Eigen::VectorXd& observations = *(observation_data.observations_);
   Eigen::VectorXi& associations = *(observation_data.associations_);
   Eigen::VectorXd& observations_global = *(observation_data.observations_global_);
-  Eigen::VectorXd& observations_confidences = *(observation_data.observations_confidences_);
-  Eigen::VectorXd new_observations;
-  Eigen::VectorXd new_observations_confidences;
   for (unsigned int i = 0; i < observations.size() / 2; i++) {
     gtsam::Point2 landmark;
     gtsam::Symbol landmark_symbol;
@@ -178,52 +172,16 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
     if (associations(i) == -2) {
       // No association
       continue;
-    } else if (landmark_lost_in_optimization) {
+    } else if (associations(i) == -1 || landmark_lost_in_optimization) {
       // Create new landmark
       landmark_symbol = gtsam::Symbol('l', ++(this->_landmark_counter_));
       landmark = gtsam::Point2(observations_global(i * 2), observations_global(i * 2 + 1));
       this->_graph_values_.insert(landmark_symbol, landmark);
-    } else if (associations(i) == -1) {
-      new_observations.conservativeResize(new_observations.size() + 2);
-      new_observations_confidences.conservativeResize(new_observations_confidences.size() + 1);
-      new_observations(new_observations.size() - 2) = observations_global(i * 2);
-      new_observations(new_observations.size() - 1) = observations_global(i * 2 + 1);
-      new_observations_confidences(new_observations_confidences.size() - 1) =
-          observations_confidences(i);
-      continue;
     } else {
       // Association to previous landmark
       landmark_symbol = gtsam::Symbol('l', (associations(i)) / 2 + 1);  // Convert to landmark id
     }
     const Eigen::Vector2d observation_cartesian(observations[i * 2], observations[i * 2 + 1]);
-    Eigen::Vector2d observation_cylindrical = common_lib::maths::cartesian_to_cylindrical(
-        observation_cartesian);  // Convert to cylindrical coordinates
-    const gtsam::Rot2 observation_rotation(observation_cylindrical(1));
-
-    const gtsam::noiseModel::Diagonal::shared_ptr observation_noise =
-        gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector2(this->_params_.observation_x_noise_,
-                                                           this->_params_.observation_y_noise_));
-
-    this->_factor_graph_.add(gtsam::BearingRangeFactor<gtsam::Pose2, gtsam::Point2>(
-        gtsam::Symbol('x', this->_pose_counter_), landmark_symbol, observation_rotation,
-        observation_cylindrical(0), observation_noise));
-  }
-  // Get filtered new observations
-  Eigen::VectorXd filtered_new_observations =
-      this->_landmark_filter_->filter(new_observations, new_observations_confidences);
-  auto pose = this->get_pose();
-  Eigen::Vector3d pose_vector(pose.x(), pose.y(), pose.theta());
-  for (unsigned int i = 0; i < filtered_new_observations.size() / 2; i++) {
-    gtsam::Point2 landmark;
-    gtsam::Symbol landmark_symbol;
-    // Create new landmark
-    landmark_symbol = gtsam::Symbol('l', ++(this->_landmark_counter_));
-    Eigen::Vector2d local_coordinates = common_lib::maths::global_to_local_coordinates(
-        pose_vector, filtered_new_observations.segment<2>(i * 2));
-    landmark =
-        gtsam::Point2(filtered_new_observations(i * 2), filtered_new_observations(i * 2 + 1));
-    this->_graph_values_.insert(landmark_symbol, landmark);
-    const Eigen::Vector2d observation_cartesian(local_coordinates[0], local_coordinates[1]);
     Eigen::Vector2d observation_cylindrical = common_lib::maths::cartesian_to_cylindrical(
         observation_cartesian);  // Convert to cylindrical coordinates
     const gtsam::Rot2 observation_rotation(observation_cylindrical(1));

@@ -11,6 +11,7 @@ def generate_launch_description():
                 package="slam",
                 executable="slam",
                 name="slam",
+                output="screen",
                 arguments=["--ros-args", "--log-level", "slam:=info"],
             ),
         ]

@@ -15,6 +15,7 @@
 #include <gtsam/slam/PriorFactor.h>
 #include <gtsam/slam/ProjectionFactor.h>
 
+#include <iostream>
 #include <rclcpp/rclcpp.hpp>
 
 #include "common_lib/maths/transformations.hpp"
@@ -34,9 +35,8 @@ GraphSLAMSolver::GraphSLAMSolver(const SLAMParameters& params,
                                  std::shared_ptr<LandmarkFilter> landmark_filter,
                                  std::shared_ptr<std::vector<double>> execution_times)
     : SLAMSolver(params, data_association, motion_model, landmark_filter, execution_times),
-      _graph_slam_instance_(
-          params, graph_slam_optimizer_constructors_map.at(params.slam_optimization_type_)(params),
-          landmark_filter) {
+      _graph_slam_instance_(params, graph_slam_optimizer_constructors_map.at(
+                                        params.slam_optimization_type_)(params)) {
   // TODO: transform into range and bearing noises
 }
 
@@ -92,6 +92,26 @@ void GraphSLAMSolver::add_motion_prior(const common_lib::structures::Velocities&
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_motion_prior - Mutex unlocked");
 }
 
+void print_pairs(const Eigen::VectorXd& values) {
+  if (values.size() % 2 != 0) {
+    RCLCPP_ERROR(rclcpp::get_logger("slam"), "Input vector size must be even to form pairs");
+    return;
+  }
+
+  for (size_t i = 0; i < values.size(); i += 2) {
+    std::cout << "(" << values(i) << "," << values(i + 1) << ")";
+    if (i + 2 < values.size()) {
+      std::cout << ",";
+    }
+  }
+}
+
+void print_singles(const Eigen::VectorXi& values) {
+  for (size_t i = 0; i < values.size(); i++) {
+    std::cout << values(i) << ", ";
+  }
+}
+
 void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures::Cone>& cones) {
   rclcpp::Time start_time, initialization_time, covariance_time, association_time,
       factor_graph_time, optimization_time;
@@ -109,10 +129,11 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   }
 
   {
-    RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Shared mutex accessed");
+    RCLCPP_WARN(rclcpp::get_logger("slam"), "add_observations - Shared mutex accessed");
     const std::shared_lock lock(this->_mutex_);
     // Only proceed if the vehicle has moved
     if (!this->_graph_slam_instance_.new_pose_factors()) {
+      std::cout << "No new pose factors, skipping observations" << std::endl;
       return;
     }
     state = this->_graph_slam_instance_.get_state_vector();
@@ -129,7 +150,45 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
       state.segment(3, state.size() - 3), observations_global, covariance,
       observations_confidences);  // TODO: implement different mahalanobis distance
   association_time = rclcpp::Clock().now();
-  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Associations calculated");
+  RCLCPP_WARN(rclcpp::get_logger("slam"), "add_observations - Associations calculated");
+  std::cout << "MAP: ";
+  print_pairs(state.segment(3, state.size() - 3));
+  std::cout << "Global observations: ";
+  print_pairs(observations_global);
+  std::cout << "Associations: ";
+  print_singles(associations);
+  Eigen::VectorXd unfiltered_new_observations;
+  Eigen::VectorXd unfiltered_new_observations_confidences;
+  for (int i = 0; i < associations.size(); i++) {
+    if (associations(i) == -1) {
+      unfiltered_new_observations.conservativeResize(unfiltered_new_observations.size() + 2);
+      unfiltered_new_observations(unfiltered_new_observations.size() - 2) =
+          observations_global(i * 2);
+      unfiltered_new_observations(unfiltered_new_observations.size() - 1) =
+          observations_global(i * 2 + 1);
+      unfiltered_new_observations_confidences.conservativeResize(
+          unfiltered_new_observations_confidences.size() + 1);
+      unfiltered_new_observations_confidences(unfiltered_new_observations_confidences.size() - 1) =
+          observations_confidences(i);
+      associations(i) = -2;  // Mark as not ready to be added to the graph
+    }
+  }
+  Eigen::VectorXd filtered_new_observations = this->_landmark_filter_->filter(
+      unfiltered_new_observations, unfiltered_new_observations_confidences);
+  std::cout << "Filtered new observations: ";
+  print_pairs(filtered_new_observations);
+
+  // Set the associations to -1 for the filtered observations
+  for (int i = 0; i < filtered_new_observations.size() / 2; i++) {
+    for (int j = 0; j < associations.size(); j++) {
+      if (std::hypot(filtered_new_observations(i * 2) - observations_global(j * 2),
+                     filtered_new_observations(i * 2 + 1) - observations_global(j * 2 + 1)) <
+          common_lib::structures::Cone::equality_tolerance) {
+        associations(j) = -1;
+        break;
+      }
+    }
+  }
 
   {
     RCLCPP_DEBUG(rclcpp::get_logger("slam"),
