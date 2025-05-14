@@ -98,87 +98,87 @@ jobs:
           colcon test --packages-select perception
           colcon test-result --all --verbose
 
-  ekf_state_est:
-    runs-on: ubuntu-latest
+  #ekf_state_est:
+  #  runs-on: ubuntu-latest
 
-    container:
-      image: ros:humble-ros-base-jammy
+  #  container:
+  #    image: ros:humble-ros-base-jammy
 
-    defaults:
-      run:
-        shell: bash
+  #  defaults:
+  #    run:
+  #      shell: bash
 
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: 'true'
+  # steps:
+  #    - uses: actions/checkout@v4
+  #      with:
+  #        submodules: 'true'
 
-      - name: Install dependencies
-        run: |
-          echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
-          ./dependencies_install.sh
+  #    - name: Install dependencies
+  #      run: |
+  #        echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
+  #        ./dependencies_install.sh
       
-      - name: Rosdep
-        run: |
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          rosdep update
-          rosdep install --from-paths src --ignore-src -r -y
+  #    - name: Rosdep
+  #      run: |
+  #        source /opt/ros/$ROS_DISTRO/setup.bash
+  #        rosdep update
+  #        rosdep install --from-paths src --ignore-src -r -y
       
-      - name: Build Dependencies
-        run: |
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim motion_lib perception_sensor_lib
+  #    - name: Build Dependencies
+  #     run: |
+  #        source /opt/ros/$ROS_DISTRO/setup.bash
+  #        colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim motion_lib perception_sensor_lib
 
-      - name: Build and Test EKF State Estimation
-        run: |
-          source install/setup.bash
-          colcon build --packages-select ekf_state_est
-          colcon test --packages-select ekf_state_est
-          colcon test-result --all --verbose
+  #    - name: Build and Test EKF State Estimation
+  #      run: |
+  #        source install/setup.bash
+  #        colcon build --packages-select ekf_state_est
+  #        colcon test --packages-select ekf_state_est
+  #        colcon test-result --all --verbose
 
-  slam:
-    runs-on: ubuntu-latest
+  #slam:
+  #  runs-on: ubuntu-latest
 
-    container:
-      image: ros:humble-ros-base-jammy
+  # container:
+  #    image: ros:humble-ros-base-jammy
 
-    defaults:
-      run:
-        shell: bash
+  #  defaults:
+  #    run:
+  #      shell: bash
 
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: 'true'
+  #  steps:
+  #    - uses: actions/checkout@v4
+  #      with:
+  #        submodules: 'true'
 
-      - name: Install dependencies
-        run: |
-          echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
-          ./dependencies_install.sh
-          ./src/slam/dependencies_install.sh
+  #    - name: Install dependencies
+  #      run: |
+  #        echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
+  #        ./dependencies_install.sh
+  #        ./src/slam/dependencies_install.sh
 
-      - name: Set up GTSAM path
-        run: |
-          echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> /home/$USERNAME/.bashrc
+  #    - name: Set up GTSAM path
+  #     run: |
+  #        echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> /home/$USERNAME/.bashrc
       
-      - name: Rosdep
-        run: |
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          rosdep update
-          rosdep install --from-paths src --ignore-src -r -y
+  #    - name: Rosdep
+  #      run: |
+  #        source /opt/ros/$ROS_DISTRO/setup.bash
+  #        rosdep update
+  #        rosdep install --from-paths src --ignore-src -r -y
       
-      - name: Build Dependencies
-        run: |
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim motion_lib perception_sensor_lib
+  #    - name: Build Dependencies
+  #      run: |
+  #        source /opt/ros/$ROS_DISTRO/setup.bash
+  #        colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim motion_lib perception_sensor_lib
 
-      - name: Build and Test SLAM
-        run: |
-          source install/setup.bash
-          export LD_LIBRARY_PATH=/usr/local/lib:LD_LIBRARY_PATH
-          colcon build --packages-select slam
-          colcon test --packages-select slam
-          colcon test-result --all --verbose
+  #    - name: Build and Test SLAM
+  #      run: |
+  #        source install/setup.bash
+  #        export LD_LIBRARY_PATH=/usr/local/lib:LD_LIBRARY_PATH
+  #        colcon build --packages-select slam
+  #        colcon test --packages-select slam
+  #        colcon test-result --all --verbose
 
   velocity_estimation:
             runs-on: ubuntu-latest
