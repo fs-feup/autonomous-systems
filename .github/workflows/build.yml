@@ -11,6 +11,7 @@ jobs:
 
   build: # Sonarcloud analysis
     name: sonarcloud-build
+    if: github.event_name == 'pull_request'
 
     runs-on: ubuntu-latest
 
