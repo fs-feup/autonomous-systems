@@ -23,9 +23,15 @@ gtsam::Values SlidingWindowLevenbergOptimizer::optimize(
     bool include = false;
     for (const auto& key : involved_keys) {
       if (gtsam::Symbol(key).chr() == 'x' && relevant_keys.count(key) == 0) {
+        // If one of the involved nodes in the factor is a pose
+        // and not one in the sliding window, ignore the factor
         include = false;
         break;
       } else if (gtsam::Symbol(key).chr() == 'x' && relevant_keys.count(key) > 0) {
+        // If one of the involved nodes in the factor is a pose
+        // and is in the sliding window, include the factor, but
+        // wait to check if the other node is a pose and not in the
+        // sliding window
         include = true;
       }
     }

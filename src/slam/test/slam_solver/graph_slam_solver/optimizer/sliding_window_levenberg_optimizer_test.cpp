@@ -52,7 +52,7 @@ protected:
                            unsigned int window_size) {
     // ARRANGE
     params.sliding_window_size_ = window_size;  // Set sliding window size to 5
-    auto optimizer = std::make_shared<SlidingWindowLevenbergOptimizer>(params);
+    optimizer = std::make_shared<SlidingWindowLevenbergOptimizer>(params);
 
     // Add some pose values to the graph
     for (unsigned int i = 1; i <= num_poses; i++) {
