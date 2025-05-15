@@ -34,4 +34,12 @@ public:
    */
   virtual Eigen::VectorXd filter(const Eigen::VectorXd& new_observations,
                                  const Eigen::VectorXd& new_observation_confidences) = 0;
+  /**
+   * @brief Used by SLAM to signal to the filter that the landmarks are already in SLAM's map, and
+   * they should no longer be returned by the filter as new.
+   *
+   * @param some_landmarks landmarks to be deleted in the form of [x1, y1, x2, y2, ...] in the
+   * global frame
+   */
+  virtual void delete_landmarks(const Eigen::VectorXd& some_landmarks) = 0;
 };

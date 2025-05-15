@@ -19,6 +19,7 @@ public:
   MOCK_METHOD(Eigen::VectorXd, filter,
               (const Eigen::VectorXd& observations, const Eigen::VectorXd& observation_confidences),
               (override));
+  MOCK_METHOD(void, delete_landmarks, (const Eigen::VectorXd& some_landmarks), (override));
 };
 
 class MockV2PModel : public V2PMotionModel {

@@ -70,6 +70,7 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
   }
   Eigen::VectorXd filtered_new_landmarks =
       this->_landmark_filter_->filter(new_landmarks, new_confidences);
+  this->_landmark_filter_->delete_landmarks(filtered_new_landmarks);
   this->correct(this->state_, this->covariance_, matched_landmarks_indices, matched_observations);
   this->state_augmentation(this->state_, this->covariance_, filtered_new_landmarks);
   this->update_process_noise_matrix();

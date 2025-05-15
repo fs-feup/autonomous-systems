@@ -25,7 +25,7 @@ Eigen::VectorXd ConsecutiveCounterFilter::filter(
     }
   }
   // Update counter
-  Eigen::VectorXd new_map = Eigen::VectorXd::Zero(0);
+  Eigen::VectorXd new_map;
   Eigen::VectorXi new_counter;
   Eigen::VectorXd filtered_observations;
   for (int i = 0; i < num_landmarks; i++) {
@@ -43,12 +43,11 @@ Eigen::VectorXd ConsecutiveCounterFilter::filter(
       }
       filtered_observations.segment(filtered_observations.size() - 2, 2) =
           this->map.segment(i * 2, 2);
-    } else {
-      new_map.conservativeResize(new_map.size() + 2);
-      new_map.segment(new_map.size() - 2, 2) = this->map.segment(i * 2, 2);
-      new_counter.conservativeResize(new_counter.size() + 1);
-      new_counter(new_counter.size() - 1) = this->counter(i) + 1;
     }
+    new_map.conservativeResize(new_map.size() + 2);
+    new_map.segment(new_map.size() - 2, 2) = this->map.segment(i * 2, 2);
+    new_counter.conservativeResize(new_counter.size() + 1);
+    new_counter(new_counter.size() - 1) = this->counter(i) + 1;
   }
   new_map.conservativeResize(new_map.size() + to_be_added_to_map.size());
   new_map.tail(to_be_added_to_map.size()) = to_be_added_to_map;
@@ -58,4 +57,31 @@ Eigen::VectorXd ConsecutiveCounterFilter::filter(
   this->counter = new_counter;
 
   return filtered_observations;
+}
+
+void ConsecutiveCounterFilter::delete_landmarks(const Eigen::VectorXd& some_landmarks) {
+  int map_size = this->map.size() / 2;
+  int num_landmarks = some_landmarks.size() / 2;
+  std::vector<bool> to_be_deleted(map_size, false);
+  Eigen::VectorXd new_map;
+  Eigen::VectorXi new_counter;
+  for (int i = 0; i < num_landmarks; i++) {
+    for (int j = 0; j < map_size; j++) {
+      if (std::hypot(this->map(j * 2) - some_landmarks(i * 2),
+                     this->map(j * 2 + 1) - some_landmarks(i * 2 + 1)) < EQUALITY_TOLERANCE) {
+        to_be_deleted[j] = true;
+      }
+    }
+  }
+  for (int i = 0; i < map_size; i++) {
+    if (to_be_deleted[i]) {
+      continue;
+    }
+    new_map.conservativeResize(new_map.size() + 2);
+    new_map.segment(new_map.size() - 2, 2) = this->map.segment(i * 2, 2);
+    new_counter.conservativeResize(new_counter.size() + 1);
+    new_counter(new_counter.size() - 1) = this->counter(i);
+  }
+  this->map = new_map;
+  this->counter = new_counter;
 }

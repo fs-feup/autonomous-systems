@@ -85,7 +85,7 @@ void SLAMNode::init() { this->_slam_solver_->init(this->weak_from_this()); }
 void SLAMNode::_perception_subscription_callback(const custom_interfaces::msg::ConeArray &msg) {
   auto const &cone_array = msg.cone_array;
 
-  RCLCPP_WARN(this->get_logger(), "SUB - Perception: %ld cones", cone_array.size());
+  RCLCPP_DEBUG(this->get_logger(), "SUB - Perception: %ld cones", cone_array.size());
 
   if (!this->_go_) {
     RCLCPP_WARN(this->get_logger(), "ATTR - Mission not started yet");
