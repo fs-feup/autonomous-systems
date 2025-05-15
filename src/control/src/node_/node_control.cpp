@@ -11,6 +11,7 @@
 #include "common_lib/config_load/config_load.hpp"
 #include "custom_interfaces/msg/evaluator_control_data.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
+#include "custom_interfaces/msg/pose.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
@@ -86,14 +87,21 @@ Control::Control(const ControlParameters& params)
                        params.pid_anti_windup_) {
   RCLCPP_INFO(this->get_logger(), "Simulated Planning: %d", use_simulated_planning_);
   if (!using_simulated_se_) {
-    vehicle_state_sub_ = this->create_subscription<custom_interfaces::msg::VehicleState>(
-        "/state_estimation/vehicle_state", 10,
+    vehicle_state_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
+        "/state_estimation/vehicle_pose", 10,
         std::bind(&Control::publish_control, this, std::placeholders::_1));
+
+    velocity_sub_ = this->create_subscription<custom_interfaces::msg::Velocities>(
+        "/state_estimation/velocities", 10,
+        [this](const custom_interfaces::msg::Velocities::SharedPtr msg) {
+          this->velocity_ =
+              std::sqrt(msg->velocity_x * msg->velocity_x + msg->velocity_y * msg->velocity_y);
+        });
   }
 }
 
 // This function is called when a new pose is received
-void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicle_state_msg) {
+void Control::publish_control(const custom_interfaces::msg::Pose& vehicle_state_msg) {
   if (!go_signal_) {
     RCLCPP_INFO(rclcpp::get_logger("control"), "Go Signal Not received");
 
@@ -105,9 +113,9 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
 
     received_vehicle_state = true;
     custom_interfaces::msg::PathPoint initial;
-    initial.x = vehicle_state_msg.position.x;
-    initial.y = vehicle_state_msg.position.y;
-    initial.v = vehicle_state_msg.linear_velocity;
+    initial.x = vehicle_state_msg.x;
+    initial.y = vehicle_state_msg.y;
+    initial.v = this->velocity_;
 
     // Insert at the beginning of the pathpoint_array_ (true "push_front")
     pathpoint_array_.insert(pathpoint_array_.begin(), initial);
@@ -116,7 +124,7 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
   rclcpp::Time start = this->now();
 
   // update vehicle pose
-  this->point_solver_.update_vehicle_pose(vehicle_state_msg);
+  this->point_solver_.update_vehicle_pose(vehicle_state_msg, this->velocity_);
 
   // find the closest point on the path
   // print pathpoint array size
@@ -167,8 +175,8 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Torque: %f, Steering Angle: %f", torque,
                steering_angle);
 
-  publish_evaluator_data(lookahead_velocity, lookahead_point, closest_point, vehicle_state_msg,
-                         closest_point_velocity, execution_time);
+  // publish_evaluator_data(lookahead_velocity, lookahead_point, closest_point, vehicle_state_msg,
+  //                     closest_point_velocity, execution_time);
   publish_visualization_data(lookahead_point, closest_point);
   publish_cmd(torque, steering_angle);
   // Adapter to communicate with the car

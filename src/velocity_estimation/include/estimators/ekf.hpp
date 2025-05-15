@@ -5,13 +5,14 @@
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
 #include <chrono>
+#include <memory>
 
 #include "common_lib/structures/velocities.hpp"
 #include "config/parameters.hpp"
 #include "custom_interfaces/msg/velocities.hpp"
 #include "estimators/estimator.hpp"
 #include "motion_lib/particle_model.hpp"
-#include "motion_lib/s2v_model/bicycle_model.hpp"
+#include "motion_lib/s2v_model/map.hpp"
 
 class EKF : public VelocityEstimator {
   rclcpp::Time _last_update_;
@@ -33,11 +34,8 @@ class EKF : public VelocityEstimator {
   bool motor_rpm_received_ = false;
   bool steering_angle_received_ = false;
 
-  // Parameters
-  double wheel_base_;
-  double weight_distribution_front_;
-  double wheel_radius_;
-  double gear_ratio_;
+  common_lib::car_parameters::CarParameters car_parameters_;
+  std::shared_ptr<S2VModel> s2v_model;
 
   /**
    * @brief Predict velocities at the next index based on IMU measurements and current state
