@@ -43,7 +43,7 @@
         "-e", "DISPLAY=${env:DISPLAY}"
     ],
     "mounts": [
-       "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
+        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
         "source=/dev/dri,target=/dev/dri,type=bind,consistency=cached",
         "source=${localWorkspaceFolder}/cache/humble-ros-base-jammy/build,target=/home/ws/build,type=bind",
         "source=${localWorkspaceFolder}/cache/humble-ros-base-jammy/install,target=/home/ws/install,type=bind",

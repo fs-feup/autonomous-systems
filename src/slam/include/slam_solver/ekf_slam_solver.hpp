@@ -111,7 +111,7 @@ public:
    * aspects that require the node e.g. timer callbacks
    * @param node ROS2 node
    */
-  void init(std::weak_ptr<rclcpp::Node> _) override;
+  void init([[maybe_unused]] std::weak_ptr<rclcpp::Node> _) override;
 
   /**
    * @brief Executed to deal with new velocity data

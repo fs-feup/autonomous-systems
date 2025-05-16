@@ -1,16 +1,14 @@
 #pragma once
 
-#include <gtsam/nonlinear/ISAM2.h>
+#include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
 
 #include "slam_solver/graph_slam_solver/optimizer/base_optimizer.hpp"
 
-class ISAM2Optimizer : public BaseOptimizer {
-  gtsam::ISAM2 _isam2_;           //< ISAM2 instance for the optimizer
-  gtsam::Values _last_estimate_;  //< Last estimate from the optimizer
+class SlidingWindowLevenbergOptimizer : public BaseOptimizer {
 public:
-  ISAM2Optimizer(const SLAMParameters& params);
+  SlidingWindowLevenbergOptimizer(const SLAMParameters& params);
 
-  ~ISAM2Optimizer() override = default;
+  ~SlidingWindowLevenbergOptimizer() override = default;
 
   gtsam::Values optimize(gtsam::NonlinearFactorGraph& factor_graph, gtsam::Values& graph_values,
                          [[maybe_unused]] unsigned int pose_num,

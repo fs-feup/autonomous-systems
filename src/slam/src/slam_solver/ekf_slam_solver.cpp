@@ -15,7 +15,7 @@ EKFSLAMSolver::EKFSLAMSolver(const SLAMParameters& params,
   this->observation_model_ = std::make_shared<ObservationModel>();
 }
 
-void EKFSLAMSolver::init(std::weak_ptr<rclcpp::Node> _) {}
+void EKFSLAMSolver::init([[maybe_unused]] std::weak_ptr<rclcpp::Node> _) {}
 
 Eigen::MatrixXd EKFSLAMSolver::get_observation_noise_matrix(int num_landmarks) const {
   Eigen::MatrixXd observation_noise_matrix =

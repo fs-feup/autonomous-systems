@@ -30,7 +30,8 @@ public:
    * observation is considered new, the entry is -1. If the observation is considered an outlier,
    * the entry is -2.
    */
-  virtual Eigen::VectorXi associate(const Eigen::VectorXd& state, const Eigen::MatrixXd& covariance,
+  virtual Eigen::VectorXi associate(const Eigen::VectorXd& state,
+                                    [[maybe_unused]] const Eigen::MatrixXd& covariance,
                                     const Eigen::VectorXd& observations,
                                     const Eigen::VectorXd& observation_confidences) const = 0;
 };
