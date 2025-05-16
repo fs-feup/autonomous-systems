@@ -26,8 +26,8 @@ void EKF::imu_callback(const common_lib::sensor_data::ImuData& imu_data) {
                   this->imu_data_);
     RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "2 - State: %f %f %f", this->state_(0),
                  this->state_(1), this->state_(2));
-    this->correct(this->state_, this->covariance_, this->wss_data_, this->motor_rpm_,
-                  this->steering_angle_);
+    //this->correct(this->state_, this->covariance_, this->wss_data_, this->motor_rpm_,
+                  //sthis->steering_angle_);
     RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "3 - State: %f %f %f", this->state_(0),
                  this->state_(1), this->state_(2));
   }
