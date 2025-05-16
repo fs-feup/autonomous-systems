@@ -47,7 +47,11 @@ class VehicleDynamicsPublisher(Node):
         )
 
         self.distance_pub = self.create_publisher(
-            Float64MultiArray, "/vehicle/distance", 10
+            Float64MultiArray, "/vehicle/wheels_distance", 10
+        )
+
+        self.distance_cg_pub = self.create_publisher(
+            Float64MultiArray, "/vehicle/cg_distance", 10
         )
 
         self.path_cuvatures_pub = self.create_publisher(
@@ -55,6 +59,14 @@ class VehicleDynamicsPublisher(Node):
         )
 
         self.last_rpm_time = None
+        self.last_est_time = None
+        self.last_distance_rpm = {
+            "distance_fl": 0.0,
+            "distance_fr": 0.0,
+            "distance_rl": 0.0,
+            "distance_rr": 0.0,
+        }
+        self.last_distance_est = {"distance_cg": 0.0}
         self.latest_vx = None
         self.latest_steering_angle = None
         self.latest_yaw_rate = None
@@ -118,6 +130,22 @@ class VehicleDynamicsPublisher(Node):
             f"Published Slip Angles (deg): CG: {math.degrees(slip_angle_beta):.2f}, FL: {math.degrees(alpha_FL):.2f}, FR: {math.degrees(alpha_FR):.2f}, RL: {math.degrees(alpha_RL):.2f}, RR: {math.degrees(alpha_RR):.2f}, Yaw Rate: {yaw_rate:.3f}"
         )
 
+        # Calculate and publish distance traveled (m) since last message using average speed
+
+        current_time = self.get_clock().now().nanoseconds / 1e9
+        if self.last_est_time is not None:
+            dt = current_time - self.last_est_time
+            v_total = math.sqrt(vx**2 + vy**2)
+            distance_cg = v_total * dt
+        self.last_est_time = current_time
+        self.last_distance_est["distance_cg"] += distance_cg
+        distance_cg_msg = Float64MultiArray()
+        distance_cg_msg.data = [distance_cg, self.last_distance_est["distance_cg"]]
+        self.distance_cg_pub.publish(distance_cg_msg)
+        self.get_logger().info(
+            f"Published Distance CG: {distance_cg:.3f} m, Time Delta: {dt:.3f} s"
+        )
+
     def slip_ratio_callback(self, rl_rpm_msg, rr_rpm_msg, fl_rpm_msg, fr_rpm_msg):
         """
         Callback function for synchronized wheel speed sensor (WSS) data.
@@ -154,20 +182,30 @@ class VehicleDynamicsPublisher(Node):
         )
         if self.last_rpm_time is not None:
             dt = current_time - self.last_rpm_time
-            distance = 0.5 * (V_RR + V_RL) * dt
-
+            distance_fr = V_FR * dt
+            distance_fl = V_FL * dt
+            distance_rl = V_RL * dt
+            distance_rr = V_RR * dt
+            self.last_distance_rpm["distance_fr"] += distance_fr
+            self.last_distance_rpm["distance_fl"] += distance_fl
+            self.last_distance_rpm["distance_rl"] += distance_rl
+            self.last_distance_rpm["distance_rr"] += distance_rr
             distance_msg = Float64MultiArray()
-            distance_msg.data = [distance]
+            distance_msg.data = [
+                distance_fr,
+                distance_fl,
+                distance_rl,
+                distance_rr,
+                self.last_distance_rpm["distance_fr"],
+                self.last_distance_rpm["distance_fl"],
+                self.last_distance_rpm["distance_rl"],
+                self.last_distance_rpm["distance_rr"],
+            ]
             self.distance_pub.publish(distance_msg)
         else:
             self.get_logger().info("First RPM sync received, skipping distance calc.")
 
         self.last_rpm_time = current_time
-
-        distance = 0.5 * (V_RR + V_RL) * dt
-        distance_msg = Float64MultiArray()
-        distance_msg.data = [distance]
-        self.distance_pub.publish(distance_msg)
 
         # Calculate and publish path curvature (1/m) using average rear speed
 
