@@ -477,12 +477,19 @@ void VehicleModelBicycle::updateWheelSpeeds(const Eigen::Vector3d& vFL, const Ei
 
 void VehicleModelBicycle::forwardIntegrate(double dt, Wheels frictionCoefficients) {
 
-    Eigen::Vector3d friction(std::min(200.0, 2000.0 * std::abs(this->velocity.x())),
-      std::min(200.0, 2000.0 * std::abs(this->velocity.y())),
-      std::min(200.0, 2000.0 * std::abs(this->velocity.z())));
-    friction[0] = (this->velocity.x() > 0) ? friction.x() : -friction.x();
-    friction[1] = (this->velocity.y() > 0) ? friction.y() : -friction.y();
-    friction[2] = (this->velocity.z() > 0) ? friction.z() : -friction.z();
+  // Override dt with the difference of timestamps using the system clock
+  static std::chrono::steady_clock::time_point last_time = std::chrono::steady_clock::now();
+  auto now = std::chrono::steady_clock::now();
+  std::chrono::duration<double> elapsed = now - last_time;
+  dt = elapsed.count();
+  last_time = now;
+
+  Eigen::Vector3d friction(std::min(200.0, 2000.0 * std::abs(this->velocity.x())),
+    std::min(200.0, 2000.0 * std::abs(this->velocity.y())),
+    std::min(200.0, 2000.0 * std::abs(this->velocity.z())));
+  friction[0] = (this->velocity.x() > 0) ? friction.x() : -friction.x();
+  friction[1] = (this->velocity.y() > 0) ? friction.y() : -friction.y();
+  friction[2] = (this->velocity.z() > 0) ? friction.z() : -friction.z();
   // Update position based on velocity and orientation
   Eigen::AngleAxisd yawAngle(orientation.z(), Eigen::Vector3d::UnitZ());
   position += (yawAngle.matrix() * velocity) * dt;
