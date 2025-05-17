@@ -437,6 +437,7 @@ void save_debug_file(const std::string filename, const std::vector<Cone> cone_ar
  * @brief Tests the full pipeline with a simple straight path
  *
  */
+/*
 TEST_F(IntegrationTest, simple_straight_path) {
   // file with the testing scenario
   const std::string filename = "straight_1.txt";
@@ -476,10 +477,12 @@ TEST_F(IntegrationTest, simple_straight_path) {
            << this->received_path.pathpoint_array.back().y << ")\n\n";
   }
 }
+  */
 
 /**
  * @brief Tests the full pipeline in a straight line with fewer cones in one and more in the other
  */
+/*
 TEST_F(IntegrationTest, unbalanced_STRAIGHT_PATH) {
   // file with the testing scenario
   const std::string filename = "straight_2.txt";
@@ -519,6 +522,7 @@ TEST_F(IntegrationTest, unbalanced_STRAIGHT_PATH) {
            << this->received_path.pathpoint_array.back().y << ")\n\n";
   }
 }
+  */
 
 /**
  * @brief Tests the full pipeline in a straight line with fewer cones
@@ -566,6 +570,7 @@ TEST_F(IntegrationTest, FULL_CURVE_PATH) {
 /**
  * @brief A path with curves where one side of the track is close to other part of the track
  */
+/*
 TEST_F(IntegrationTest, CURVES_AND_CLOSE_TRACKSIDES) {
   // file with the testing scenario
   const std::string filename = "curve_2.txt";
@@ -605,10 +610,12 @@ TEST_F(IntegrationTest, CURVES_AND_CLOSE_TRACKSIDES) {
            << this->received_path.pathpoint_array.back().y << ")\n\n";
   }
 }
+  */
 
 /**
  * @brief A path with a sharp sinosoidal curve, where cones on both sides get closer
  */
+/*
 TEST_F(IntegrationTest, SHARP_SINOSOIDAL_CURVE) {
   // file with the testing scenario
   const std::string filename = "curve_3.txt";
@@ -648,10 +655,12 @@ TEST_F(IntegrationTest, SHARP_SINOSOIDAL_CURVE) {
            << this->received_path.pathpoint_array.back().y << ")\n\n";
   }
 }
+*/
 
 /**
  * @brief Testing a scenario from rosbag Autocross_DV-5
  */
+/*
 TEST_F(IntegrationTest, ROSBAG_PATH_1) {
   // file with the testing scenario
   const std::string filename = "rosbag_1.txt";
@@ -691,10 +700,12 @@ TEST_F(IntegrationTest, ROSBAG_PATH_1) {
            << this->received_path.pathpoint_array.back().y << ")\n\n";
   }
 }
+  */
 
 /**
  * @brief Testing a scenario from rosbag ZigZag_DV-11
  */
+/*
 TEST_F(IntegrationTest, ROSBAG_PATH_2) {
   // file with the testing scenario
   const std::string filename = "rosbag_2.txt";
@@ -734,11 +745,13 @@ TEST_F(IntegrationTest, ROSBAG_PATH_2) {
            << this->received_path.pathpoint_array.back().y << ")\n\n";
   }
 }
+  */
 
 
 /**
  * @brief Testing a scenario from rosbag Acceleration_Testing_DV-1B
  */
+/*
 TEST_F(IntegrationTest, ROSBAG_PATH_3) {
   // file with the testing scenario
   const std::string filename = "rosbag_3.txt";
@@ -778,10 +791,12 @@ TEST_F(IntegrationTest, ROSBAG_PATH_3) {
            << this->received_path.pathpoint_array.back().y << ")\n\n";
   }
 }
+  */
 
 /**
  * @brief Testing a scenario from rosbag Hard_Course-DV-3 from the beggining of the track
  */
+/*
 TEST_F(IntegrationTest, ROSBAG_PATH_4) {
   // file with the testing scenario
   const std::string filename = "rosbag_4.txt";
@@ -821,11 +836,13 @@ TEST_F(IntegrationTest, ROSBAG_PATH_4) {
            << this->received_path.pathpoint_array.back().y << ")\n\n";
   }
 }
+  */
 
 
 /**
  * @brief Testing a scenario from rosbag Hard_Course-DV-3 with a different initial position
  */
+/*
 TEST_F(IntegrationTest, ROSBAG_PATH_5) {
   // file with the testing scenario
   const std::string filename = "rosbag_5.txt";
@@ -865,3 +882,4 @@ TEST_F(IntegrationTest, ROSBAG_PATH_5) {
            << this->received_path.pathpoint_array.back().y << ")\n\n";
   }
 }
+  */

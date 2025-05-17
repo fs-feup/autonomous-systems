@@ -18,7 +18,8 @@ class GraphSLAMInstance {
 protected:
   gtsam::NonlinearFactorGraph
       _factor_graph_;  //< Factor graph for the graph SLAM solver (only factors, no estimates)
-  gtsam::Values _graph_values_;         //< Estimate for the graph SLAM solver
+  gtsam::Values
+      _graph_values_;  //< Estimate for the graph SLAM solver: l_ are landmarks, x_ are poses
   unsigned int _pose_counter_ = 0;      //< Counter for the pose symbols
   unsigned int _landmark_counter_ = 0;  //< Counter for the landmark symbols
   bool _new_pose_node_ =

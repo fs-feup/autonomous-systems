@@ -54,9 +54,9 @@ public:
    * @param delta_t
    * @return Eigen::Matrix3d
    */
-  virtual Eigen::Matrix3d get_jacobian_velocities(const Eigen::Vector3d &previous_pose,
-                                                  const Eigen::Vector3d &velocities,
-                                                  const double delta_t) = 0;
+  virtual Eigen::Matrix3d get_jacobian_velocities(
+      const Eigen::Vector3d &previous_pose, [[maybe_unused]] const Eigen::Vector3d &velocities,
+      const double delta_t) = 0;
 
   /**
    * @brief Get the process noise matrix

@@ -4,8 +4,6 @@
 #include <gtest/gtest.h>
 #include <yaml-cpp/yaml.h>
 
-#include <iostream>
-
 class MockDataAssociationModel : public DataAssociationModel {
 public:
   MOCK_METHOD(Eigen::VectorXi, associate,
@@ -32,6 +30,9 @@ public:
               (override));
 };
 
+/**
+ * @brief Whitebox integration test for the GraphSLAMSolver
+ */
 class GraphSlamSolverTest : public testing::Test {
 public:
   GraphSlamSolverTest() : params() {

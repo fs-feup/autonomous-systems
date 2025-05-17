@@ -4,7 +4,7 @@ NearestNeighbor::NearestNeighbor(const DataAssociationParameters& params)
     : DataAssociationModel(params) {}
 
 Eigen::VectorXi NearestNeighbor::associate(const Eigen::VectorXd& state,
-                                           const Eigen::MatrixXd& covariance,
+                                           [[maybe_unused]] const Eigen::MatrixXd& covariance,
                                            const Eigen::VectorXd& observations,
                                            const Eigen::VectorXd& observation_confidences) const {
   const int num_observations = observations.size() / 2;

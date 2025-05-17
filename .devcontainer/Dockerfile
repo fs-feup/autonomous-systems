@@ -37,7 +37,6 @@ RUN apt update && apt upgrade -y \
 
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/"$USERNAME"/.bashrc
 # Needed to link with GTSAM
-RUN echo 'export LD_LIBRARY_PATH=/usr/local/lib:LD_LIBRARY_PATH' >> /home/"$USERNAME"/.bashrc
 ENV SHELL /bin/bash
 USER $USERNAME
 CMD ["/bin/bash"]
