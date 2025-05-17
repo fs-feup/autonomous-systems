@@ -149,8 +149,7 @@ void Control::publish_control(const custom_interfaces::msg::Pose& vehicle_state_
   }
 
   // calculate longitudinal control: PI-D
-  double torque = this->long_controller_.update(this->velocity_,
-                                                this->point_solver_.vehicle_pose_.velocity_);
+  double torque = this->long_controller_.update(lookahead_velocity, this->velocity_);
 
   // calculate Lateral Control: Pure Pursuit
   double steering_angle = this->lat_controller_.pp_steering_control_law(
