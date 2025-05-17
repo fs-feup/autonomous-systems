@@ -3,8 +3,9 @@
 EKFSLAMSolver::EKFSLAMSolver(const SLAMParameters& params,
                              std::shared_ptr<DataAssociationModel> data_association,
                              std::shared_ptr<V2PMotionModel> motion_model,
-                             std::shared_ptr<std::vector<double>> execution_times)
-    : SLAMSolver(params, data_association, motion_model, execution_times),
+                             std::shared_ptr<std::vector<double>> execution_times,
+                             std::shared_ptr<LoopClosure> loop_closure)
+    : SLAMSolver(params, data_association, motion_model, execution_times, loop_closure),
       slam_parameters_(params) {
   this->covariance_ =
       Eigen::MatrixXd::Identity(3, 3) * 0.4;  // TODO: initialize with the right values

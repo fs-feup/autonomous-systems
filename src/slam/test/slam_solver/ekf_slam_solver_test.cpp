@@ -16,9 +16,9 @@ protected:
                                   params.new_landmark_confidence_gate_, params.observation_x_noise_,
                                   params.observation_y_noise_));
     motion_model = v2p_models_map.at(params.motion_model_name_)();
-
+    
     ekf_slam_solver =
-        std::make_shared<EKFSLAMSolver>(params, data_association, motion_model, execution_time);
+        std::make_shared<EKFSLAMSolver>(params, data_association, motion_model, execution_time, nullptr);
   }
 
   std::shared_ptr<DataAssociationModel> data_association;

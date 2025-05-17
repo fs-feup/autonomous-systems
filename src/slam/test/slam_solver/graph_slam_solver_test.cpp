@@ -40,7 +40,7 @@ public:
     motion_model_ptr = mock_motion_model_ptr;
     data_association_ptr = mock_data_association_ptr;
     solver =
-        std::make_shared<GraphSLAMSolver>(params, data_association_ptr, motion_model_ptr, nullptr);
+        std::make_shared<GraphSLAMSolver>(params, data_association_ptr, motion_model_ptr, nullptr, nullptr);
     params.slam_optimization_period_ = 0.0;
   }
 

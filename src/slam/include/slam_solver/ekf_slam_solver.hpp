@@ -16,7 +16,6 @@ class EKFSLAMSolver : public SLAMSolver {
   Eigen::MatrixXd covariance_;
   Eigen::MatrixXd process_noise_matrix_;
   Eigen::VectorXd pose = Eigen::VectorXd::Zero(3);
-  int lap_counter_ = 0;
 
   rclcpp::Time last_update_;
 
@@ -105,7 +104,8 @@ public:
   EKFSLAMSolver(const SLAMParameters& params,
                 std::shared_ptr<DataAssociationModel> data_association,
                 std::shared_ptr<V2PMotionModel> motion_model,
-                std::shared_ptr<std::vector<double>> execution_times);
+                std::shared_ptr<std::vector<double>> execution_times,
+                std::shared_ptr<LoopClosure> loop_closure);
 
   /**
    * @brief Initialize the EKF SLAM solver

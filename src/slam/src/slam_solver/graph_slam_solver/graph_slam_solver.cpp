@@ -31,8 +31,9 @@ Eigen::Vector3d gtsam_pose_to_eigen(const gtsam::Pose2& pose) {
 GraphSLAMSolver::GraphSLAMSolver(const SLAMParameters& params,
                                  std::shared_ptr<DataAssociationModel> data_association,
                                  std::shared_ptr<V2PMotionModel> motion_model,
-                                 std::shared_ptr<std::vector<double>> execution_times)
-    : SLAMSolver(params, data_association, motion_model, execution_times),
+                                 std::shared_ptr<std::vector<double>> execution_times,
+                                 std::shared_ptr<LoopClosure> loop_closure)
+    : SLAMSolver(params, data_association, motion_model, execution_times, loop_closure),
       _graph_slam_instance_(params, graph_slam_optimizer_constructors_map.at(
                                         params.slam_optimization_type_)(params)) {
   // TODO: transform into range and bearing noises
@@ -60,8 +61,6 @@ void GraphSLAMSolver::init(std::weak_ptr<rclcpp::Node> node) {
     RCLCPP_ERROR(rclcpp::get_logger("slam"),
                  "Failed to create optimization timer, node is not valid");
   }
-  this->loop_closure_ = std::make_shared<LapCounter>(4, 10, 3);
-
 }
 
 void GraphSLAMSolver::add_motion_prior(const common_lib::structures::Velocities& velocities) {
@@ -135,11 +134,8 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   pose << state(0), state(1), state(2);
 
   Eigen::VectorXi landmarks(state.size() - 3);
-  for (int i = 3; i < state.size(); i ++) {
-    // Iterate through the landmarks in the state
-      landmarks(i-3) = state(i);
-  }
-  LoopClosure::Result result = loop_closure_->detect(pose, landmarks, associations, observations);
+  landmarks = state.segment(3, state.size() - 3).cast<int>();
+  LoopClosure::Result result = _loop_closure_->detect(pose, landmarks, associations, observations);
   if (result.detected) {
     lap_counter_++;
     RCLCPP_INFO(rclcpp::get_logger("slam"), "Lap counter: %d", lap_counter_);

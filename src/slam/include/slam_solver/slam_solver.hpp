@@ -24,12 +24,16 @@ protected:
   std::shared_ptr<std::vector<double>>
       _execution_times_;  //< Execution times: 0 -> total motion; 1 -> total
                           // observation; the rest are solver specific
+  std::shared_ptr<LoopClosure> _loop_closure_;  //< Loop closure object pointer
 
   rclcpp::Time _last_pose_update_ = rclcpp::Time(0);
   rclcpp::Time _last_observation_update_ = rclcpp::Time(0);
 
   bool _received_first_velocities_ =
       false;  //< Flag to check if the first velocities have been received
+  
+  
+  int lap_counter_ = 0;  //< Lap counter for the graph SLAM solver
 
 public:
   /**
@@ -39,10 +43,12 @@ public:
    * @param data_association Data association module
    * @param motion_model Motion model
    * @param execution_times Timekeeping array
+   * @param loop_closure Loop closure model
    */
   SLAMSolver(const SLAMParameters& params, std::shared_ptr<DataAssociationModel> data_association,
              std::shared_ptr<V2PMotionModel> motion_model,
-             std::shared_ptr<std::vector<double>> execution_times);
+             std::shared_ptr<std::vector<double>> execution_times, 
+             std::shared_ptr<LoopClosure> loop_closure);
 
   virtual ~SLAMSolver() = default;
 

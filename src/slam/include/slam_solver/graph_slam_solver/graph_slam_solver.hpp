@@ -34,9 +34,6 @@ class GraphSLAMSolver : public SLAMSolver {
   std::shared_mutex _mutex_;  //< Mutex for the graph SLAM solver, locks access to the graph
   bool _optimization_under_way_ = false;  //< Flag to check if the optimization is under way
 
-  std::shared_ptr<LoopClosure> loop_closure_;  //< Loop closure object pointer
-  int lap_counter_ = 0;  //< Lap counter for the graph SLAM solver
-
   rclcpp::CallbackGroup::SharedPtr
       _reentrant_group_;  //< Reentrant callback group for the timer callback
 
@@ -62,7 +59,8 @@ public:
   GraphSLAMSolver(const SLAMParameters& params,
                   std::shared_ptr<DataAssociationModel> data_association,
                   std::shared_ptr<V2PMotionModel> motion_model,
-                  std::shared_ptr<std::vector<double>> execution_times);
+                  std::shared_ptr<std::vector<double>> execution_times,
+                  std::shared_ptr<LoopClosure> loop_closure);
 
   ~GraphSLAMSolver() = default;
 

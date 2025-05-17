@@ -11,6 +11,7 @@ public:
   /**
    * @param threshold_dist   distance (m) around origin to trigger closure
    * @param first_x_cones    consider a loop if you see any of these first X cones
+   * @param border_width     distance to givve to start searching for loop closure again
    */
   LapCounter(double threshold_dist, int first_x_cones, int border_width);
 

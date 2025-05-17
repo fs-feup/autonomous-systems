@@ -12,6 +12,7 @@
 #include "common_lib/structures/position.hpp"
 #include "motion_lib/v2p_models/map.hpp"
 #include "perception_sensor_lib/data_association/map.hpp"
+#include "perception_sensor_lib/loop_closure/lap_counter.hpp"
 #include "slam_solver/map.hpp"
 
 /*---------------------- Constructor --------------------*/
@@ -28,10 +29,11 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
           params.observation_y_noise_));
 
   this->_execution_times_ = std::make_shared<std::vector<double>>(20, 0.0);
+  std::shared_ptr<LoopClosure> loop_closure = std::make_shared<LapCounter>(4,10,5);
 
   // Initialize SLAM solver object
   this->_slam_solver_ = slam_solver_constructors_map.at(params.slam_solver_name_)(
-      params, data_association, motion_model, this->_execution_times_);
+      params, data_association, motion_model, this->_execution_times_, loop_closure);
 
   _perception_map_ = std::vector<common_lib::structures::Cone>();
   _vehicle_state_velocities_ = common_lib::structures::Velocities();
