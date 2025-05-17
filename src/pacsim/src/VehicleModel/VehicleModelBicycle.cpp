@@ -413,7 +413,7 @@ void VehicleModelBicycle::updateWheelSpeeds(const Eigen::Vector3d& vFL, const Ei
         Eigen::Vector3d vFront = vCog + omega.cross(rFront);
         Eigen::Vector3d vRear = vCog + omega.cross(rRear);
 
-        double rpm2ms = this->powertrainModel.wheelRadius * 2.0 * M_PI / (this->powertrainModel.gearRatio * 60.0);
+        double rpm2ms = this->powertrainModel.wheelRadius * TWO_PI / 60.0;
 
         bool stillstand = (vCog.norm() < 0.1) && (std::abs(this->angularVelocity.z()) < 0.001);
 
