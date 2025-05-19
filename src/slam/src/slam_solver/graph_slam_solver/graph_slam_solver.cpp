@@ -41,7 +41,7 @@ GraphSLAMSolver::GraphSLAMSolver(const SLAMParameters& params,
 
 // ------------------------------- GraphSLAMSolver ---------------------------------
 
-void GraphSLAMSolver::init(std::weak_ptr<rclcpp::Node> node) {
+void GraphSLAMSolver::init([[maybe_unused]] std::weak_ptr<rclcpp::Node> node) {
   // Create a timer for asynchronous optimization
   if (this->_params_.slam_optimization_mode_ != "async" ||
       this->_params_.slam_optimization_period_ <= 0.0) {

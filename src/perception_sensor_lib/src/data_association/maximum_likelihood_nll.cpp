@@ -5,7 +5,7 @@
 #include <vector>
 
 Eigen::VectorXi MaximumLikelihoodNLL::associate(
-    const Eigen::VectorXd& state, const Eigen::MatrixXd& covariance,
+    const Eigen::VectorXd& state, [[maybe_unused]] const Eigen::MatrixXd& covariance,
     const Eigen::VectorXd& observations, const Eigen::VectorXd& observation_confidences) const {
   int num_observations = observations.size() / 2;
   Eigen::VectorXi associations =

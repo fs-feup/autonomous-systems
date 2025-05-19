@@ -39,7 +39,7 @@ Eigen::VectorXd GraphSLAMInstance::get_state_vector() const {
   unsigned int landmark_id = 3;
   for (auto it = _graph_values_.begin(); it != _graph_values_.end(); ++it) {
     // Iterate through the landmarks in the _graph_values_
-    if (gtsam::Symbol(it->key).chr() == 'l') {
+    if (gtsam::Symbol(it->key).chr() == 'l') {  // If the key is a landmark (l)
       gtsam::Point2 landmark = it->value.cast<gtsam::Point2>();
       state(landmark_id++) = landmark.x();
       state(landmark_id++) = landmark.y();
@@ -148,7 +148,7 @@ void GraphSLAMInstance::process_pose(const gtsam::Pose2& pose) {
   gtsam::noiseModel::Diagonal::shared_ptr prior_noise =
       gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector3(0.1, 0.1, 0.1));
 
-  // Add the prior factor to the graph
+  // Add the prior factor to the graph (x means pose node)
   gtsam::Symbol previous_pose_symbol('x', this->_pose_counter_);
   gtsam::Symbol new_pose_symbol('x', ++(this->_pose_counter_));
 
@@ -203,6 +203,8 @@ void GraphSLAMInstance::optimize() {  // TODO: implement sliding window and othe
   RCLCPP_DEBUG(rclcpp::get_logger("slam"),
                "GraphSLAMInstance - Optimizing1 graph with %ld factors and %ld values",
                this->_factor_graph_.size(), this->_graph_values_.size());
-  this->_graph_values_ = this->_optimizer_->optimize(this->_factor_graph_, this->_graph_values_);
+
+  this->_graph_values_ = this->_optimizer_->optimize(
+      this->_factor_graph_, this->_graph_values_, this->_pose_counter_, this->_landmark_counter_);
   this->_new_observation_factors_ = false;
 }

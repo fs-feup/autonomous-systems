@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 project(slam)
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic -O2 -O3)
+  add_compile_options(-Wall -Wextra -Wpedantic -O3 -DNDEBUG)
 endif()
 
 # find dependencies
@@ -26,7 +26,7 @@ set(PACKAGES
     perception_sensor_lib
     yaml-cpp
 )
-set(GTSAM_INCLUDE_DIRS "/usr/local/include/gtsam")
+find_package(GTSAM REQUIRED) # Outside because it is not ament package
 foreach(pkg ${PACKAGES})
   find_package(${pkg} REQUIRED)
 endforeach()
@@ -49,6 +49,7 @@ set(IMPLEMENTATION_FILES
   src/slam_solver/graph_slam_solver/graph_slam_instance.cpp
   src/slam_solver/graph_slam_solver/optimizer/isam2_optimizer.cpp
   src/slam_solver/graph_slam_solver/optimizer/normal_levenberg_optimizer.cpp
+  src/slam_solver/graph_slam_solver/optimizer/sliding_window_levenberg_optimizer.cpp
 )
 
 add_executable(slam src/main.cpp ${IMPLEMENTATION_FILES})
@@ -57,7 +58,6 @@ ament_target_dependencies(slam ${PACKAGES})
 target_include_directories(slam PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
-  ${GTSAM_INCLUDE_DIRS}
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${EIGEN3_INCLUDE_DIR}
 )
@@ -76,7 +76,8 @@ if(BUILD_TESTING)
 
   set(TESTFILES
     test/main.cpp
-    test/slam_solver/graph_slam_solver_test.cpp
+    test/slam_solver/graph_slam_solver/graph_slam_solver_test.cpp
+    test/slam_solver/graph_slam_solver/optimizer/sliding_window_levenberg_optimizer_test.cpp
     test/slam_solver/ekf_slam_solver_test.cpp
   )
 
@@ -90,7 +91,6 @@ if(BUILD_TESTING)
   target_include_directories(slam_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
-    ${GTSAM_INCLUDE_DIRS} # Necessary to be here before Eigen3
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${EIGEN3_INCLUDE_DIR}  
   )

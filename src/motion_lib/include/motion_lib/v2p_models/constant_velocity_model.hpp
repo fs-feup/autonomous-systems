@@ -49,6 +49,6 @@ public:
    * @return Eigen::Matrix3d
    */
   Eigen::Matrix3d get_jacobian_velocities(const Eigen::Vector3d &previous_pose,
-                                          const Eigen::Vector3d &velocities,
+                                          [[maybe_unused]] const Eigen::Vector3d &velocities,
                                           const double delta_t) override;
 };

@@ -59,7 +59,7 @@ public:
    *
    * @param node ROS2 node
    */
-  virtual void init(std::weak_ptr<rclcpp::Node> node) = 0;
+  virtual void init([[maybe_unused]] std::weak_ptr<rclcpp::Node> node) = 0;
 
   /**
    * @brief Add motion prior to the solver (prediction step)
