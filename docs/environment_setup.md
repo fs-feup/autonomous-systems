@@ -53,13 +53,12 @@ For each of the approaches, there are different steps here:
 This project depends on submodules to function. Most, if not all of these submodules are other repositories of this organization. 
 - For all environments:
     ```sh
-    git submodule update --init --recursive ./ext/interfaces
-    git submodule update --init --recursive ./ext/pacsim # For pacsim messages
+    git submodule update --init --recursive ./ext/gtsam
     ```
 - For in vehicle testing:
     ```sh
-    git submodule update --init --recursive ./ext/rslidar_sdk # LiDAR
-    git submodule update --init --recursive ./ext/rslidar_msg # LiDAR
+    git submodule update --init --recursive ./ext/xsens-imu # IMU
+    git submodule update --init --recursive ./ext/hesai-lidar # LiDAR
     git submodule update --init ./ext/as-integration # ROS_CAN, NOT RECURSIVE
     ```
 
