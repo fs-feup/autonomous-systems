@@ -12,8 +12,9 @@ public:
    * @param threshold_dist   distance (m) around origin to trigger closure
    * @param first_x_cones    consider a loop if you see any of these first X cones
    * @param border_width     distance to givve to start searching for loop closure again
+   * @param minimum_confidence minimum number of observations to confirm loop closure
    */
-  LapCounter(double threshold_dist, int first_x_cones, int border_width);
+  LapCounter(double threshold_dist, int first_x_cones, int border_width, int minimum_confidence);
 
   /**
    * @brief Detects loop closure when returning to origin and seeing initial cones
@@ -35,6 +36,7 @@ private:
   double threshold_dist_;
   int first_x_cones_;
   int border_width_;
+  int minimum_confidence_;
   mutable int confidence_ {0};
   mutable bool searching_{false};
 };

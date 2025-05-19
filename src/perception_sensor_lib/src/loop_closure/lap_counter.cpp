@@ -1,10 +1,11 @@
 #include "perception_sensor_lib/loop_closure/lap_counter.hpp"
 #include <cmath>
 
-LapCounter::LapCounter(double threshold_dist, int first_x_cones, int border_width)
+LapCounter::LapCounter(double threshold_dist, int first_x_cones, int border_width, int minimum_confidence)
   : threshold_dist_(threshold_dist),
     first_x_cones_(first_x_cones),
-    border_width_(border_width)
+    border_width_(border_width),
+    minimum_confidence_(minimum_confidence)
 {}
 
 LoopClosure::Result LapCounter::detect(
@@ -46,7 +47,7 @@ LoopClosure::Result LapCounter::detect(
   
   if (match_found) {
     confidence_++;
-    if (confidence_ >= 3) {
+    if (confidence_ >= minimum_confidence_) {
       // We found loop closure, reset confidence and return
       confidence_ = 0;
       searching_ = false;  // Reset search flag
