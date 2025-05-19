@@ -102,6 +102,8 @@ Control::Control(const ControlParameters& params)
 
 // This function is called when a new pose is received
 void Control::publish_control(const custom_interfaces::msg::Pose& vehicle_state_msg) {
+
+  RCLCPP_INFO(rclcpp::get_logger("control"), "Velocity: %f", this->velocity_);
   if (!go_signal_) {
     RCLCPP_INFO(rclcpp::get_logger("control"), "Go Signal Not received");
 
@@ -147,8 +149,7 @@ void Control::publish_control(const custom_interfaces::msg::Pose& vehicle_state_
   }
 
   // calculate longitudinal control: PI-D
-  double torque = this->long_controller_.update(closest_point_velocity,
-                                                this->point_solver_.vehicle_pose_.velocity_);
+  double torque = this->long_controller_.update(lookahead_velocity, this->velocity_);
 
   // calculate Lateral Control: Pure Pursuit
   double steering_angle = this->lat_controller_.pp_steering_control_law(

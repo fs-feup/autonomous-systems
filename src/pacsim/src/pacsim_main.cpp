@@ -195,7 +195,7 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
         clockPub->publish(clockMsg);
         auto wheelPositions = model->getWheelPositions();
         Wheels gripValues = gm.getGripValues(wheelPositions);
-        model->forwardIntegrate(timestep/* , gripValues */);
+        model->forwardIntegrate(timestep, gripValues);
         auto t = model->getPosition();
         auto rEulerAngles = model->getOrientation();
         auto alpha = model->getAngularAcceleration();

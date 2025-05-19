@@ -25,8 +25,8 @@ PacSimAdapter::PacSimAdapter(const ControlParameters& params)
     car_velocity_sub_ = this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
         "/pacsim/velocity", 10, [this](const geometry_msgs::msg::TwistWithCovarianceStamped& msg) {
           velocity_ = std::sqrt(std::pow(msg.twist.twist.linear.x, 2) +
-                                std::pow(msg.twist.twist.linear.y, 2) +
-                                std::pow(msg.twist.twist.linear.z, 2));
+                                            std::pow(msg.twist.twist.linear.y, 2) +
+                                            std::pow(msg.twist.twist.linear.z, 2));
         });
   }
 
@@ -50,7 +50,8 @@ void PacSimAdapter::timer_callback() {
     pose.x = t.transform.translation.x;
     pose.y = t.transform.translation.y;
 
-    RCLCPP_DEBUG(get_logger(), "Pose info. Position:%f, %f, Theta %f", pose.x, pose.y, pose.theta);
+    RCLCPP_DEBUG(get_logger(), "Pose info. Position:%f, %f, Theta %f", pose.x,
+                 pose.y, pose.theta);
     this->publish_control(pose);
   }
 }

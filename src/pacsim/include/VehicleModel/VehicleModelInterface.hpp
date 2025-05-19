@@ -43,6 +43,6 @@ public:
     virtual void setOrientation(Eigen::Vector3d orientation) = 0;
     
     // Simulation methods
-    virtual void forwardIntegrate(double dt) = 0;
+    virtual void forwardIntegrate(double dt, Wheels frictionCoefficients) = 0;
     virtual std::array<Eigen::Vector3d, 4> getWheelPositions() = 0;
 };

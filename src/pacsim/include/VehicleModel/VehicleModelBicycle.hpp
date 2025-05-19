@@ -56,7 +56,7 @@ public:
     void setOrientation(Eigen::Vector3d orientation) override;
     
     // Simulation methods
-    void forwardIntegrate(double dt) override;
+    void forwardIntegrate(double dt, Wheels frictionCoefficients);
     std::array<Eigen::Vector3d, 4> getWheelPositions() override;
 
 private:
@@ -217,7 +217,7 @@ private:
         const Eigen::Vector3d& vRL, const Eigen::Vector3d& vRR);
 
     // Physics calculation methods
-    Eigen::Vector3d getDynamicStates(double dt);
+    Eigen::Vector3d getDynamicStates(double dt, Wheels frictionCoefficients);
     void calculateNormalForces(double& Fz_Front, double& Fz_Rear) const;
     void calculateSlipAngles(double& kappaFront, double& kappaRear) const;
     void updateWheelSpeeds(double dt);

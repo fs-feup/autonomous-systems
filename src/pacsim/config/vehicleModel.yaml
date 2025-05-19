@@ -18,8 +18,8 @@ vehicle_model:
     Izz: 101.082
     wheelRadius: 0.203
     gearRatio: 4.0
-    innerSteeringRatio: 0.1869
-    outerSteeringRatio: 0.1582
+    innerSteeringRatio: 0.255625
+    outerSteeringRatio: 0.20375
     nominalVoltageTS: 600.0
     powerGroundForce: 0.0
     # powertrainEfficiency: 0.95
