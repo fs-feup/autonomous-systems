@@ -92,11 +92,12 @@ Planning::Planning(const PlanningParameters &params)
   // Publishes path from file in Skidpad & Acceleration events
   this->timer_ = this->create_wall_timer(
       std::chrono::milliseconds(100), std::bind(&Planning::publish_predicitive_track_points, this));
-
+  RCLCPP_INFO(this->get_logger(), "BRUH");
   if (!planning_config_.simulation_.using_simulated_se_) {
+    RCLCPP_INFO(this->get_logger(), "I am configuring subscribers");
     // Vehicle Localization Subscriber
-    this->vl_sub_ = this->create_subscription<custom_interfaces::msg::VehicleState>(
-        "/state_estimation/vehicle_state", 10,
+    this->vl_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
+        "/state_estimation/vehicle_pose", 10,
         std::bind(&Planning::vehicle_localization_callback, this, _1));
     // State Estimation map Subscriber
     this->track_sub_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
@@ -151,7 +152,6 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) 
   if (!(this->received_first_pose_)) {
     return;
   } else {
-    RCLCPP_DEBUG(this->get_logger(), "Running all Planning algorithms");
     run_planning_algorithms();
   }
 }
@@ -216,18 +216,17 @@ void Planning::run_planning_algorithms() {
   }
 }
 
-void Planning::vehicle_localization_callback(const custom_interfaces::msg::VehicleState &msg) {
-  this->pose = Pose(msg.position.x, msg.position.y, msg.theta);
+void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose &msg) {
+  RCLCPP_DEBUG(this->get_logger(), "Received Pose: %lf - %lf - %lf", msg.x, msg.y, msg.theta);
+  this->pose = Pose(msg.x, msg.y, msg.theta);
 
   if (!this->received_first_pose_) {
     this->initial_car_orientation_ = msg.theta;
   }
   if (this->received_first_track_ && !this->received_first_pose_) {
-    this->received_first_pose_ = true;
     run_planning_algorithms();
-  } else {
-    this->received_first_pose_ = true;
   }
+  this->received_first_pose_ = true;
 }
 
 /**

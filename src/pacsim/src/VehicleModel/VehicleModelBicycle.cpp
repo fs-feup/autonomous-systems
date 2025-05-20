@@ -178,6 +178,7 @@ void VehicleModelBicycle::PowertrainModel::calculateWheelTorques(double throttle
 
 double VehicleModelBicycle::PowertrainModel::calculateEfficiency(const Wheels& torques) const {
   // Simple efficiency model based on rear wheel torques
+  // TODO: macros instead of harcoded values
   return 0.002333 * (torques.RL + torques.RR) + 0.594;
 }
 
