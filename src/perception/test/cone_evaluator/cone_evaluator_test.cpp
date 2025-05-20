@@ -61,8 +61,8 @@ std::shared_ptr<EvaluatorParameters> createTestEvaluatorParams(const EvaluatorRe
  */
 TEST(ConeEvaluatorTest, EvaluateClusterConfidenceSufficient) {
   EvaluatorResults fake_results;
-  fake_results.cylinder_out_distance_xy_small = 0.7;
-  fake_results.cylinder_out_distance_xy_large = 0.7;
+  fake_results.cylinder_out_distance_xy_small = 0.9;
+  fake_results.cylinder_out_distance_xy_large = 0.9;
   fake_results.cylinder_n_large_points = 0;
   fake_results.cylinder_n_out_points = 0;
   fake_results.cylinder_out_distance_z_large = 0.9;
@@ -71,10 +71,10 @@ TEST(ConeEvaluatorTest, EvaluateClusterConfidenceSufficient) {
   fake_results.deviation_xoy = 0.9;
   fake_results.deviation_z = 0.9;
 
-  fake_results.height_out_ratio_small = 1.0;
-  fake_results.height_out_ratio_large = 1.0;
-  fake_results.height_in_ratio_large = 0.8;
-  fake_results.height_in_ratio_small = 0.8;
+  fake_results.height_out_ratio_small = 0.9;
+  fake_results.height_out_ratio_large = 0.9;
+  fake_results.height_in_ratio_large = 0.9;
+  fake_results.height_in_ratio_small = 0.9;
   fake_results.height_large = false;
 
   fake_results.n_points = 1.0;
@@ -89,6 +89,7 @@ TEST(ConeEvaluatorTest, EvaluateClusterConfidenceSufficient) {
 
   // Create a stack-allocated point cloud.
   pcl::PointCloud<pcl::PointXYZI> cloud;
+  cloud.resize(10);
   // Wrap the stack object with a non-owning shared pointer.
   const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
       &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
@@ -98,7 +99,7 @@ TEST(ConeEvaluatorTest, EvaluateClusterConfidenceSufficient) {
 
   const bool result = cone_evaluator.evaluateCluster(cluster, ground_plane);
 
-  ASSERT_NEAR(cluster.get_confidence(), 0.565, 1e-4);
+  ASSERT_NEAR(cluster.get_confidence(), 0.915, 1e-4);
   ASSERT_EQ(result, true);
 }
 
@@ -114,6 +115,7 @@ TEST(ConeEvaluatorTest, EvaluateClusterConfidenceInsufficient) {
 
   // Create a stack-allocated point cloud.
   pcl::PointCloud<pcl::PointXYZI> cloud;
+  cloud.resize(10);
   // Wrap the stack object with a non-owning shared pointer.
   const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
       &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
@@ -123,6 +125,6 @@ TEST(ConeEvaluatorTest, EvaluateClusterConfidenceInsufficient) {
 
   const bool result = cone_evaluator.evaluateCluster(cluster, ground_plane);
 
-  ASSERT_NEAR(cluster.get_confidence(), 0.0, 1e-3);
+  ASSERT_NEAR(cluster.get_confidence(), 0.05, 1e-3);
   ASSERT_EQ(result, false);
 }
