@@ -9,6 +9,7 @@ sudo pip3 install colcon-common-extensions
 sudo apt install -y python3-rosdep
 sudo apt install -y ros-humble-message-filters
 sudo apt install -y ros-humble-tf-transformations
+sudo apt install -y ros-humble-rosbag2-storage-mcap
 
 # planning
 sudo apt-get install libcgal-dev -y

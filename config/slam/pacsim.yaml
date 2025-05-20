@@ -1,5 +1,5 @@
 slam:
-  motion_model_name: "constant_velocity_turnrate" # "constant_velocity" or "constant_velocity_turnrate" or ... -> name of the motion model
+  motion_model_name: "constant_velocity" # "constant_velocity" or "constant_velocity_turnrate" or ... -> name of the motion model
   data_association_model_name: "nearest_neighbor" # "maximum_likelihood_md" or "maximum_likelihood_nll" or "nearest_neighbor" or... -> name of the data association model
   data_association_limit_distance: 70 # maximum distance to consider a cone for data association
   data_association_gate: 1.23 # Maximum allowed Malahanobis distance (or euclidean distance for nearest neighbor) between an observation and matched landmark
@@ -11,4 +11,16 @@ slam:
   angular_velocity_noise: 0.1 # sigma of the noise for the angular velocity
   slam_solver_name: "graph_slam" # "graph_slam" or "ekf_slam" or ... -> name of the slam solver
   slam_min_pose_difference: 0.3 # Minimum distance between poses to consider adding to factor graph
-  slam_optimization_period: 0.0 # Time between optimization steps in seconds, 0.0 means optimization every time observations are added
+  slam_optimization_mode: "sync" # "sync" or "async" or ... -> name of the optimization mode, in which sync is at every factor added, async is at every time step
+  slam_optimization_type: "normal_levenberg" # "normal_levenberg" or "isam2" or "sliding_window_levenberg" or ... -> name of the optimization type
+
+  # Only for slam_optimization_mode: "async"
+  slam_optimization_period: 0.2 # Time between optimization steps in seconds, 0.0 means optimization every time observations are added
+
+  # Only for slam_optimization_type: "isam2"
+  slam_isam2_relinearize_threshold: 0.005 # Threshold for relinearizing the graph in isam2
+  slam_isam2_relinearize_skip: 1 # Number of steps to skip before relinearizing the graph in isam2
+  slam_isam2_factorization: "QR" # QR" or "CHOLESKY" -> Factorization method for isam2
+
+  # Only for slam_optimization_type: "sliding_window_levenberg"
+  sliding_window_size: 20 # Number of poses to keep in the sliding window

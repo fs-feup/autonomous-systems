@@ -103,8 +103,16 @@ public:
   EKFSLAMSolver(const SLAMParameters& params,
                 std::shared_ptr<DataAssociationModel> data_association,
                 std::shared_ptr<V2PMotionModel> motion_model,
-                std::shared_ptr<std::vector<double>> execution_times,
-                std::weak_ptr<rclcpp::Node> node);
+                std::shared_ptr<std::vector<double>> execution_times);
+
+  /**
+   * @brief Initialize the EKF SLAM solver
+   * @description This method is used to initialize the EKF SLAM solver's
+   * aspects that require the node e.g. timer callbacks
+   * @param node ROS2 node
+   */
+  void init([[maybe_unused]] std::weak_ptr<rclcpp::Node> _) override;
+
   /**
    * @brief Executed to deal with new velocity data
    *

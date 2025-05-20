@@ -1,6 +1,9 @@
 #include "ros_node/slam_node.hpp"
 
+#include <tf2/LinearMath/Quaternion.h>
+
 #include <fstream>
+#include <geometry_msgs/msg/transform_stamped.hpp>
 
 #include "common_lib/communication/marker.hpp"
 #include "common_lib/maths/transformations.hpp"
@@ -14,6 +17,8 @@
 /*---------------------- Constructor --------------------*/
 
 SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
+  // Print parameters
+  RCLCPP_INFO_STREAM(this->get_logger(), "SLAM Node parameters:" << params);
   // Initialize the models
   std::shared_ptr<V2PMotionModel> motion_model = v2p_models_map.at(params.motion_model_name_)();
   std::shared_ptr<DataAssociationModel> data_association =
@@ -22,11 +27,11 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
           params.new_landmark_confidence_gate_, params.observation_x_noise_,
           params.observation_y_noise_));
 
-  this->_execution_times_ = std::make_shared<std::vector<double>>(10, 0.0);
+  this->_execution_times_ = std::make_shared<std::vector<double>>(20, 0.0);
 
   // Initialize SLAM solver object
   this->_slam_solver_ = slam_solver_constructors_map.at(params.slam_solver_name_)(
-      params, data_association, motion_model, this->_execution_times_, this->weak_from_this());
+      params, data_association, motion_model, this->_execution_times_);
 
   _perception_map_ = std::vector<common_lib::structures::Cone>();
   _vehicle_state_velocities_ = common_lib::structures::Velocities();
@@ -62,9 +67,12 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
       "/state_estimation/slam_execution_time", 10);
   this->_covariance_publisher_ = this->create_publisher<std_msgs::msg::Float64MultiArray>(
       "/state_estimation/slam_covariance", 10);
+  this->_tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
 
   RCLCPP_INFO(this->get_logger(), "SLAM Node has been initialized");
 }
+
+void SLAMNode::init() { this->_slam_solver_->init(this->weak_from_this()); }
 
 /*---------------------- Subscriptions --------------------*/
 
@@ -134,6 +142,7 @@ void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::V
 
 void SLAMNode::_publish_vehicle_pose() {
   auto message = custom_interfaces::msg::Pose();
+  auto tf_message = geometry_msgs::msg::TransformStamped();
   message.x = this->_vehicle_pose_.position.x;
   message.y = this->_vehicle_pose_.position.y;
   message.theta = this->_vehicle_pose_.orientation;
@@ -142,14 +151,30 @@ void SLAMNode::_publish_vehicle_pose() {
 
   RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f)", message.x, message.y, message.theta);
   this->_vehicle_pose_publisher_->publish(message);
+
+  // Publish the transform
+  tf_message.header.stamp = message.header.stamp;
+  tf_message.header.frame_id = "map";
+  tf_message.child_frame_id = "vehicle_estimate";
+
+  tf2::Quaternion q;
+  q.setRPY(0.0, 0.0, message.theta);
+  tf_message.transform.translation.x = message.x;
+  tf_message.transform.translation.y = message.y;
+  tf_message.transform.translation.z = 0.0;
+  tf_message.transform.rotation.x = q.x();
+  tf_message.transform.rotation.y = q.y();
+  tf_message.transform.rotation.z = q.z();
+  tf_message.transform.rotation.w = q.w();
+  this->_tf_broadcaster_->sendTransform(tf_message);
 }
 
 void SLAMNode::_publish_map() {
   auto cone_array_msg = custom_interfaces::msg::ConeArray();
   auto marker_array_msg = visualization_msgs::msg::MarkerArray();
   auto marker_array_msg_perception = visualization_msgs::msg::MarkerArray();
-  RCLCPP_DEBUG(this->get_logger(), "PUB - cone map:");
-  RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
+  RCLCPP_DEBUG(this->get_logger(), "PUB - cone map %ld", this->_track_map_.size());
+  // RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
   for (common_lib::structures::Cone const &cone : this->_track_map_) {
     auto cone_message = custom_interfaces::msg::Cone();
     cone_message.position.x = cone.position.x;
@@ -157,10 +182,10 @@ void SLAMNode::_publish_map() {
     // TODO(marhcouto): add covariance & large cones & confidence
     cone_message.color = common_lib::competition_logic::get_color_string(cone.color);
     cone_array_msg.cone_array.push_back(cone_message);
-    RCLCPP_DEBUG(this->get_logger(), "(%f\t%f)\t%s", cone_message.position.x,
-                 cone_message.position.y, cone_message.color.c_str());
+    // RCLCPP_DEBUG(this->get_logger(), "(%f\t%f)\t%s", cone_message.position.x,
+    //              cone_message.position.y, cone_message.color.c_str());
   }
-  RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
+  // RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
   cone_array_msg.header.stamp = this->get_clock()->now();
   this->_map_publisher_->publish(cone_array_msg);
   marker_array_msg = common_lib::communication::marker_array_from_structure_array(
