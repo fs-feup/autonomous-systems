@@ -189,6 +189,8 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
     std::mutex mtxClockTrigger;
     std::unique_lock<std::mutex> lockClockTrigger(mtxClockTrigger);
 
+    double accumulator = 0.0;
+
     while (rclcpp::ok() && !(finish))
     {
         rosgraph_msgs::msg::Clock clockMsg;
@@ -206,9 +208,11 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
             = createRosTransformMsg(t, rEulerAngles, trackFrame, "car", simTime);
         br->sendTransform(transformStamped);
         geometry_msgs::msg::TwistWithCovarianceStamped poseStamped;
+        accumulator += model->getAngularVelocity().z() * timestep;
         poseStamped.twist.twist.linear.x = t.x();
         poseStamped.twist.twist.linear.y = t.y();
         poseStamped.twist.twist.angular.z = rEulerAngles.z();
+        poseStamped.twist.twist.angular.x = accumulator;
         pose_pub->publish(poseStamped);
 
         if (deadTimeSteeringFront.availableDeadTime(simTime))

@@ -34,7 +34,8 @@ ControlParameters Control::load_config(std::string& adapter) {
   YAML::Node global_config = YAML::LoadFile(global_config_path);
 
   adapter = global_config["global"]["adapter"].as<std::string>();
-  params.using_simulated_se_ = global_config["global"]["use_simulated_se"].as<bool>();
+  params.using_simulated_slam_ = global_config["global"]["use_simulated_se"].as<bool>();
+  params.using_simulated_velocities_ = global_config["global"]["use_simulated_velocities"].as<bool>();
   params.use_simulated_planning_ = global_config["global"]["use_simulated_planning"].as<bool>();
 
   std::string control_path =
@@ -63,7 +64,8 @@ ControlParameters Control::load_config(std::string& adapter) {
 
 Control::Control(const ControlParameters& params)
     : Node("control"),
-      using_simulated_se_(params.using_simulated_se_),
+      using_simulated_slam_(params.using_simulated_slam_),
+      using_simulated_velocities_(params.using_simulated_velocities_),
       use_simulated_planning_(params.use_simulated_planning_),
       _map_frame_id_(params.map_frame_id_),
       evaluator_data_pub_(create_publisher<custom_interfaces::msg::EvaluatorControlData>(
@@ -86,11 +88,12 @@ Control::Control(const ControlParameters& params)
                        params.pid_t_, params.pid_lim_min_, params.pid_lim_max_,
                        params.pid_anti_windup_) {
   RCLCPP_INFO(this->get_logger(), "Simulated Planning: %d", use_simulated_planning_);
-  if (!using_simulated_se_) {
-    vehicle_state_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
+  if (!using_simulated_slam_) {
+    vehicle_pose_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
         "/state_estimation/vehicle_pose", 10,
         std::bind(&Control::publish_control, this, std::placeholders::_1));
-
+  }
+  if (!using_simulated_velocities_) {
     velocity_sub_ = this->create_subscription<custom_interfaces::msg::Velocities>(
         "/state_estimation/velocities", 10,
         [this](const custom_interfaces::msg::Velocities::SharedPtr msg) {

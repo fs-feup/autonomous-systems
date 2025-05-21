@@ -11,7 +11,8 @@ PacSimAdapter::PacSimAdapter(const ControlParameters& params)
   // No topic for pacsim, just set the go_signal to true
   go_signal_ = true;
 
-  if (using_simulated_se_) {
+  this->finished_client_ = this->create_client<std_srvs::srv::Empty>("/pacsim/finish_signal");
+  if (using_simulated_slam_) {
     tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->get_clock());
     tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
 
@@ -19,9 +20,9 @@ PacSimAdapter::PacSimAdapter(const ControlParameters& params)
     RCLCPP_INFO(this->get_logger(), "Creating wall timer");
     timer_ = this->create_wall_timer(std::chrono::milliseconds(10),
                                      std::bind(&PacSimAdapter::timer_callback, this));
+  }
 
-    this->finished_client_ = this->create_client<std_srvs::srv::Empty>("/pacsim/finish_signal");
-
+  if (using_simulated_velocities_) {
     car_velocity_sub_ = this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
         "/pacsim/velocity", 10, [this](const geometry_msgs::msg::TwistWithCovarianceStamped& msg) {
           velocity_ = std::sqrt(std::pow(msg.twist.twist.linear.x, 2) +
