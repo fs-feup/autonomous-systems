@@ -51,7 +51,8 @@ public:
    * @return Eigen::VectorXd vector of wheel speeds, steering angle and motor speed
    * {fl_rpm, fr_rpm, rl_rpm, rr_rpm, steering_angle, motor_rpm}
    */
-  virtual Eigen::VectorXd cg_velocity_to_wheels(Eigen::Vector3d& cg_velocities) = 0;
+  virtual Eigen::VectorXd cg_velocity_to_wheels(
+      Eigen::Vector3d& cg_velocities) = 0;  // TODO: this const
 
   /**
    * @brief jacobian of the function cg_velocity_to_wheels with respect to the velocities of the
