@@ -13,12 +13,9 @@ class PacSimAdapter : public Control {
  private:
   rclcpp::Publisher<pacsim::msg::StampedScalar>::SharedPtr steering_pub_;
   rclcpp::Publisher<pacsim::msg::StampedScalar>::SharedPtr acceleration_pub_;
-
-  std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
-  std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
   rclcpp::Client<std_srvs::srv::Empty>::SharedPtr finished_client_;
   rclcpp::Subscription<geometry_msgs::msg::TwistWithCovarianceStamped>::SharedPtr car_velocity_sub_;
-  rclcpp::TimerBase::SharedPtr timer_;
+  rclcpp::Subscription<geometry_msgs::msg::TwistWithCovarianceStamped>::SharedPtr car_pose_sub_;
 
   double last_stored_velocity_{0.0};
 
@@ -26,7 +23,20 @@ class PacSimAdapter : public Control {
 
  public:
   explicit PacSimAdapter(const ControlParameters &params);
-  void timer_callback();
+
+  /**
+   * @brief Callback for the pacsim ground truth pose topic
+   */
+  void _pacsim_gt_pose_callback(const geometry_msgs::msg::TwistWithCovarianceStamped &msg);
+
+  /**
+   * @brief Callback for the pacsim ground truth velocity topic
+   */
+  void _pacsim_gt_velocities_callback(const geometry_msgs::msg::TwistWithCovarianceStamped &msg);
+
+  /**
+   * @brief send signal to finish mission
+   */
   void finish();
   void publish_cmd(double acceleration = 0, double steering = 0) override;
 };

@@ -92,9 +92,7 @@ Planning::Planning(const PlanningParameters &params)
   // Publishes path from file in Skidpad & Acceleration events
   this->timer_ = this->create_wall_timer(
       std::chrono::milliseconds(100), std::bind(&Planning::publish_predicitive_track_points, this));
-  RCLCPP_INFO(this->get_logger(), "BRUH");
   if (!planning_config_.simulation_.using_simulated_se_) {
-    RCLCPP_INFO(this->get_logger(), "I am configuring subscribers");
     // Vehicle Localization Subscriber
     this->vl_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
         "/state_estimation/vehicle_pose", 10,
@@ -146,7 +144,7 @@ void Planning::fetch_discipline() {
 
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) {
   auto number_of_cones_received = static_cast<int>(msg.cone_array.size());
-  RCLCPP_INFO(this->get_logger(), "Planning received %i cones", number_of_cones_received);
+  RCLCPP_DEBUG(this->get_logger(), "Planning received %i cones", number_of_cones_received);
   this->cone_array_ = common_lib::communication::cone_vector_from_custom_interfaces(msg);
   this->received_first_track_ = true;
   if (!(this->received_first_pose_)) {
@@ -157,7 +155,7 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) 
 }
 
 void Planning::run_planning_algorithms() {
-  RCLCPP_INFO(rclcpp::get_logger("planning"), "Running Planning Algorithms");
+  RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Running Planning Algorithms");
   if (this->cone_array_.empty()) {
     publish_track_points({});
     return;

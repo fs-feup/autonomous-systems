@@ -72,21 +72,21 @@ target_include_directories(planning PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
 target_compile_features(planning PUBLIC c_std_99 cxx_std_17)
+install(TARGETS planning
+  DESTINATION lib/${PROJECT_NAME})
+
 install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
 
-# if(BUILD_TESTING)
-#   find_package(ament_cmake_gtest REQUIRED)
-#   ament_add_gtest(planning_test ${TESTFILES} ${IMPLEMENTATION_FILES})
-#   ament_target_dependencies(planning_test ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs tf2_ros tf2_geometry_msgs pacsim common_lib std_srvs nav_msgs visualization_msgs)
-#   target_include_directories(planning_test PUBLIC
-#     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-#     $<INSTALL_INTERFACE:include>)
-#   target_link_libraries(planning_test ${CGAL_LIBRARIES} ${GMP_LIBRARIES} ${MPFR_LIBRARIES} ${QT5_LIBRARIES} ${GSL_LIBRARIES} yaml-cpp)
+if(BUILD_TESTING)
+  find_package(ament_cmake_gtest REQUIRED)
+  ament_add_gtest(planning_test ${TESTFILES} ${IMPLEMENTATION_FILES})
+  ament_target_dependencies(planning_test ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs tf2_ros tf2_geometry_msgs pacsim common_lib std_srvs nav_msgs visualization_msgs)
+  target_include_directories(planning_test PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>)
+  target_link_libraries(planning_test ${CGAL_LIBRARIES} ${GMP_LIBRARIES} ${MPFR_LIBRARIES} ${QT5_LIBRARIES} ${GSL_LIBRARIES} yaml-cpp)
 
-#   install(TARGETS
-#     planning
-#     planning_test
-#     DESTINATION lib/${PROJECT_NAME})
-# endif()
+  install(TARGETS ${PROJECT_NAME}_test DESTINATION lib/${PROJECT_NAME})
+endif()
 
 ament_package()

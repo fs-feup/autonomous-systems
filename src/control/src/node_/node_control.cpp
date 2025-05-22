@@ -145,7 +145,7 @@ void Control::publish_control(const custom_interfaces::msg::Pose& vehicle_state_
       this->point_solver_.update_lookahead_point(pathpoint_array_, closest_point_id);
 
   if (lookahead_error) {
-    RCLCPP_DEBUG(rclcpp::get_logger("control"), "PurePursuit: Failed to update lookahed point");
+    RCLCPP_ERROR(rclcpp::get_logger("control"), "PurePursuit: Failed to update lookahed point");
     return;
   }
 

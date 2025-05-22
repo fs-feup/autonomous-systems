@@ -8,18 +8,10 @@ void PoseUpdater::update_pose(const MotionData& motion_data,
     this->_received_first_velocities_ = true;
     return;
   }
-
-  RCLCPP_INFO(rclcpp::get_logger("slam"),
-  "PoseUpdater - Previous theta: %lf; Delta T: %lf; Angular velocity: %lf;", this->_last_pose_(2), (motion_data.timestamp_ - this->_last_pose_update_).seconds(),
-    (*motion_data.velocities_)(2));
-
+  
+  double delta =  (motion_data.timestamp_ - this->_last_pose_update_).seconds() + (motion_data.timestamp_ - this->_last_pose_update_).nanoseconds() / 1000000000;
   this->_last_pose_ =
-      motion_model->get_next_pose(this->_last_pose_, *(motion_data.velocities_),
-                                  (motion_data.timestamp_ - this->_last_pose_update_).seconds());
-
-  RCLCPP_INFO(rclcpp::get_logger("slam"),
-  "PoseUpdater - New pose: %lf %lf %lf", this->_last_pose_(0), this->_last_pose_(1),
-    this->_last_pose_(2));
+      motion_model->get_next_pose(this->_last_pose_, *(motion_data.velocities_), delta);
   this->_last_pose_update_ = motion_data.timestamp_;
 }
 

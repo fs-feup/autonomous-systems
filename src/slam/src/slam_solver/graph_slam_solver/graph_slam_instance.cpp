@@ -146,7 +146,7 @@ void GraphSLAMInstance::process_pose(const gtsam::Pose2& pose) {
   // 0),
   //              motion_covariance(1, 1), motion_covariance(2, 2));
   gtsam::noiseModel::Diagonal::shared_ptr prior_noise =
-      gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector3(0.1, 0.1, 0.1));
+      gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector3(_params_.velocity_x_noise_, _params_.velocity_y_noise_, _params_.angular_velocity_noise_));
 
   // Add the prior factor to the graph (x means pose node)
   gtsam::Symbol previous_pose_symbol('x', this->_pose_counter_);
@@ -199,7 +199,7 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
   this->_new_observation_factors_ = true;
 }
 
-void GraphSLAMInstance::optimize() {  // TODO: implement sliding window and other parameters
+void GraphSLAMInstance::optimize() { 
   RCLCPP_DEBUG(rclcpp::get_logger("slam"),
                "GraphSLAMInstance - Optimizing1 graph with %ld factors and %ld values",
                this->_factor_graph_.size(), this->_graph_values_.size());
