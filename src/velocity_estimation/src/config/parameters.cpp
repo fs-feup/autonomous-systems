@@ -35,8 +35,8 @@ std::string VEParameters::load_config() {
   this->motor_rpm_noise_ = ve_config["velocity_estimation"]["motor_rpm_noise"].as<double>();
 
   this->car_parameters_.wheel_diameter =
-      ve_config["velocity_estimation"]["wheel_radius"].as<double>() * 2.0;
-  this->car_parameters_.wheelbase = ve_config["velocity_estimation"]["wheel_base"].as<double>();
+      car_config["car"]["wheel_diameter"].as<double>();
+  this->car_parameters_.wheelbase = car_config["car"]["wheel_base"].as<double>();
   this->car_parameters_.rear_axis_to_camera = car_config["car"]["rear_axis_to_camera"].as<double>();
   this->car_parameters_.axis_length = car_config["car"]["axis_length"].as<double>();
 

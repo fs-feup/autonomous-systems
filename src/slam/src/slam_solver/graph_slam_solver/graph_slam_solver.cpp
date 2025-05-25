@@ -83,6 +83,9 @@ void GraphSLAMSolver::add_motion_prior(const common_lib::structures::Velocities&
 }
 
 void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures::Cone>& cones) {
+  if (cones.empty()) {
+    return;
+  }
   rclcpp::Time start_time, initialization_time, covariance_time, association_time,
       factor_graph_time, optimization_time;
   start_time = rclcpp::Clock().now();
@@ -105,6 +108,7 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
     if (!this->_graph_slam_instance_.new_pose_factors()) {
       return;
     }
+    this->_graph_slam_instance_.process_pose_difference(Eigen::Vector3d::Zero(), this->_pose_updater_.get_last_pose(), true);
     state = this->_graph_slam_instance_.get_state_vector();
     observations_global =
         common_lib::maths::local_to_global_coordinates(state.head<3>(), observations);

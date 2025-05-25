@@ -122,12 +122,12 @@ GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) 
 }
 
 void GraphSLAMInstance::process_pose_difference(const Eigen::Vector3d& pose_difference,
-                                                const Eigen::Vector3d& new_pose) {
+                                                const Eigen::Vector3d& new_pose, bool force_update) {
   this->_accumulated_pose_difference_ += pose_difference;
-  if (const double pose_difference_norm = ::sqrt(pow(_accumulated_pose_difference_(0), 2) +
+  if (double pose_difference_norm = ::sqrt(pow(_accumulated_pose_difference_(0), 2) +
                                                  pow(_accumulated_pose_difference_(1), 2) +
                                                  pow(_accumulated_pose_difference_(2), 2));
-      pose_difference_norm < this->_params_.slam_min_pose_difference_) {
+      pose_difference_norm < this->_params_.slam_min_pose_difference_ && !force_update) {
     return;
   }
 
@@ -212,8 +212,8 @@ void GraphSLAMInstance::optimize() {
                "GraphSLAMInstance - Optimizing1 graph with %ld factors and %ld values",
                this->_factor_graph_.size(), this->_graph_values_.size());
 
-  // this->_graph_values_ = this->_optimizer_->optimize(
-  //     this->_factor_graph_, this->_graph_values_, this->_pose_counter_,
-  //     this->_landmark_counter_);
+  this->_graph_values_ = this->_optimizer_->optimize(
+      this->_factor_graph_, this->_graph_values_, this->_pose_counter_,
+      this->_landmark_counter_);
   this->_new_observation_factors_ = false;
 }
