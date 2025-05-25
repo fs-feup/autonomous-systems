@@ -16,6 +16,7 @@
 #include <gtsam/slam/ProjectionFactor.h>
 
 #include "common_lib/maths/transformations.hpp"
+#include "slam_solver/graph_slam_solver/utils.hpp"
 
 bool GraphSLAMInstance::new_pose_factors() const { return this->_new_pose_node_; }
 
@@ -100,6 +101,7 @@ GraphSLAMInstance::GraphSLAMInstance(const GraphSLAMInstance& other) {
   _new_observation_factors_ = other._new_observation_factors_;
   _optimizer_ = other._optimizer_;
   _params_ = other._params_;
+  _accumulated_pose_difference_ = other._accumulated_pose_difference_;
 }
 
 GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) {
@@ -114,21 +116,23 @@ GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) 
   _new_observation_factors_ = other._new_observation_factors_;
   _optimizer_ = other._optimizer_;
   _params_ = other._params_;
+  _accumulated_pose_difference_ = other._accumulated_pose_difference_;
 
   return *this;
 }
 
-void GraphSLAMInstance::process_pose(const gtsam::Pose2& pose) {
-  const gtsam::Pose2 last_pose_node =
-      this->_graph_values_.at<gtsam::Pose2>(gtsam::Symbol('x', this->_pose_counter_));
-  const gtsam::Pose2 pose_difference = pose.between(last_pose_node);
-
-  if (const double pose_difference_norm =
-          ::sqrt(pow(pose_difference.x(), 2) + pow(pose_difference.y(), 2) +
-                 pow(pose_difference.theta(), 2));
+void GraphSLAMInstance::process_pose_difference(const Eigen::Vector3d& pose_difference,
+                                                const Eigen::Vector3d& new_pose) {
+  this->_accumulated_pose_difference_ += pose_difference;
+  if (const double pose_difference_norm = ::sqrt(pow(_accumulated_pose_difference_(0), 2) +
+                                                 pow(_accumulated_pose_difference_(1), 2) +
+                                                 pow(_accumulated_pose_difference_(2), 2));
       pose_difference_norm < this->_params_.slam_min_pose_difference_) {
     return;
   }
+
+  gtsam::Pose2 new_pose_gtsam = eigen_to_gtsam_pose(new_pose);
+  gtsam::Pose2 pose_difference_gtsam = eigen_to_gtsam_pose(_accumulated_pose_difference_);
 
   // Calculate noise
   // // TODO: Implement noise -> this was shit because covariance from velocity estimation had too
@@ -146,18 +150,22 @@ void GraphSLAMInstance::process_pose(const gtsam::Pose2& pose) {
   // 0),
   //              motion_covariance(1, 1), motion_covariance(2, 2));
   gtsam::noiseModel::Diagonal::shared_ptr prior_noise =
-      gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector3(_params_.velocity_x_noise_, _params_.velocity_y_noise_, _params_.angular_velocity_noise_));
+      gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector3(0.1, 0.1, 0.1));
 
   // Add the prior factor to the graph (x means pose node)
   gtsam::Symbol previous_pose_symbol('x', this->_pose_counter_);
   gtsam::Symbol new_pose_symbol('x', ++(this->_pose_counter_));
 
   this->_factor_graph_.add(gtsam::BetweenFactor<gtsam::Pose2>(previous_pose_symbol, new_pose_symbol,
-                                                              pose_difference, prior_noise));
-  this->_new_pose_node_ = true;
+                                                              pose_difference_gtsam, prior_noise));
 
   // Add the prior pose to the values
-  _graph_values_.insert(new_pose_symbol, pose);
+  _graph_values_.insert(new_pose_symbol, new_pose_gtsam);
+
+  this->_new_pose_node_ = true;
+  this->_accumulated_pose_difference_ = Eigen::Vector3d::Zero();  // Reset the accumulated pose
+
+  return;
 }
 
 void GraphSLAMInstance::process_observations(const ObservationData& observation_data) {
@@ -199,12 +207,13 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
   this->_new_observation_factors_ = true;
 }
 
-void GraphSLAMInstance::optimize() { 
+void GraphSLAMInstance::optimize() {
   RCLCPP_DEBUG(rclcpp::get_logger("slam"),
                "GraphSLAMInstance - Optimizing1 graph with %ld factors and %ld values",
                this->_factor_graph_.size(), this->_graph_values_.size());
 
-  this->_graph_values_ = this->_optimizer_->optimize(
-      this->_factor_graph_, this->_graph_values_, this->_pose_counter_, this->_landmark_counter_);
+  // this->_graph_values_ = this->_optimizer_->optimize(
+  //     this->_factor_graph_, this->_graph_values_, this->_pose_counter_,
+  //     this->_landmark_counter_);
   this->_new_observation_factors_ = false;
 }

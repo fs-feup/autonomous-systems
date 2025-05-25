@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Eigen/Dense>
+#include <utility>
 
 #include "motion_lib/v2p_models/base_v2p_motion_model.hpp"
 #include "slam_solver/graph_slam_solver/factor_data_structures.hpp"
@@ -24,7 +25,16 @@ public:
 
   PoseUpdater& operator=(const PoseUpdater& other);
 
-  void update_pose(const MotionData& motion_data, std::shared_ptr<V2PMotionModel> motion_model);
+  /**
+   * @brief Updates the last pose and returns the pose difference
+   *
+   * @param motion_data Motion data containing the velocities and timestamp
+   * @param motion_model Motion model to apply the velocities
+   * @return std::pair<Eigen::Vector3d, Eigen::Vector3d> Pose difference (x, y, theta) from the last
+   * pose, updated pose
+   */
+  std::pair<Eigen::Vector3d, Eigen::Vector3d> update_pose(
+      const MotionData& motion_data, std::shared_ptr<V2PMotionModel> motion_model);
 
   Eigen::Vector3d get_last_pose() const { return _last_pose_; }
 

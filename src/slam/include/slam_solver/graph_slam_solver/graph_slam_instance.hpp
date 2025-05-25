@@ -20,6 +20,8 @@ protected:
       _factor_graph_;  //< Factor graph for the graph SLAM solver (only factors, no estimates)
   gtsam::Values
       _graph_values_;  //< Estimate for the graph SLAM solver: l_ are landmarks, x_ are poses
+  Eigen::Vector3d _accumulated_pose_difference_ =
+      Eigen::Vector3d::Zero();          //< Accumulated pose difference from the last pose node
   unsigned int _pose_counter_ = 0;      //< Counter for the pose symbols
   unsigned int _landmark_counter_ = 0;  //< Counter for the landmark symbols
   bool _new_pose_node_ =
@@ -94,9 +96,10 @@ public:
   /**
    * @brief Add motion prior to the graph
    *
-   * @param pose Pose to add to the graph
+   * @param pose Pose difference to add to the graph
    */
-  void process_pose(const gtsam::Pose2& pose);
+  void process_pose_difference(const Eigen::Vector3d& pose_difference,
+                               const Eigen::Vector3d& new_pose);
 
   /**
    * @brief Runs optimization on the graph

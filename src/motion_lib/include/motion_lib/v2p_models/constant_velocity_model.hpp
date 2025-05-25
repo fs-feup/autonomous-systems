@@ -20,15 +20,16 @@ public:
   explicit ConstantVelocityModel(const Eigen::Vector3d base_process_noise);
 
   /**
-   * @brief Predict the pose of the robot given the velocities
+   * @brief Gives the increments to the pose instead of the next pose
    *
    * @param previous_pose
    * @param velocities (vx, vy, omega)
    * @param delta_t
    * @return Eigen::Vector3d
    */
-  Eigen::Vector3d get_next_pose(const Eigen::Vector3d &previous_pose,
-                                const Eigen::Vector3d &velocities, const double delta_t) override;
+  Eigen::Vector3d get_pose_difference(const Eigen::Vector3d &previous_pose,
+                                      const Eigen::Vector3d &velocities,
+                                      const double delta_t) override;
 
   /**
    * @brief Get the Jacobian matrix of the motion model in relation to velocities (commands)
