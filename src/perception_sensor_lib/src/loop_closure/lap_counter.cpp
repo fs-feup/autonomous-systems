@@ -32,29 +32,22 @@ LoopClosure::Result LapCounter::detect(
     return {false, 0.0};
   }
 
-  bool match_found = false;
+  int confidence_ = 0;
   // Look for match with any of the first X cones
   for (int i = 0; i < associations.size(); ++i) {
     int j = associations[i];
     if (j >= 3) {
       int map_idx = (j - 3) / 2;  // Index into map_cones
       if (map_idx < first_x_cones_) {
-        match_found = true;  // Update the outer match_found variable
-        break;  // We found a match, no need to continue searching
+        confidence_ ++; // increase the number of cones that have a match -> increase confidence
       }
     }
   }
   
-  if (match_found) {
-    confidence_++;
-    if (confidence_ >= minimum_confidence_) {
-      // We found loop closure, reset confidence and return
-      confidence_ = 0;
-      searching_ = false;  // Reset search flag
-      return {true, 0.0};
-    }
-  } else {
-    confidence_ = 0;
+  
+  if (confidence_ >= minimum_confidence_) {
+    searching_ = false;  // Reset search flag
+    return {true, 0.0};
   }
   
   return {false, 0.0};

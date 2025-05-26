@@ -37,6 +37,5 @@ private:
   int first_x_cones_;
   int border_width_;
   int minimum_confidence_;
-  mutable int confidence_ {0};
   mutable bool searching_{false};
 };
