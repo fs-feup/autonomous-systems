@@ -1,10 +1,10 @@
+from operator import le
 import os
 import re
 import matplotlib.pyplot as plt
 import numpy as np
 from dataclasses import dataclass
 from typing import List, Tuple
-
 
 @dataclass
 class Vehicle:
@@ -69,6 +69,7 @@ def process_folder(folder_path):
 #####################################################################
 ###################### IMPLEMENT THIS FUNCTION ######################
 #####################################################################
+
 def border_estimation(test_case):
     """
     IMPLEMENT YOUR BORDER ESTIMATION ALGORITHM HERE
@@ -89,14 +90,151 @@ def border_estimation(test_case):
             - Right cones in yellow
         - No need to modify any other part of the code
     """
-    # This is a placeholder implementation
-    # Replace this with your actual border estimation algorithm
-    midpoint = len(test_case.cones) // 2
-    left_cones = test_case.cones[:midpoint]
-    right_cones = test_case.cones[midpoint:]
+    
+    if not test_case.cones:
+        return [], []
+    
+    cones = test_case.cones
+    path_points = test_case.path_points
+    
+    left_cones, right_cones = classify_by_simple_path_geometry(cones, path_points)
+
+    return left_cones, right_cones
+
+
+def classify_by_simple_path_geometry(cones, path_points):
+    """
+    Classifica cones em esquerda e direita baseado na geometria de um caminho.
+    
+    Esta função utiliza produto vetorial para determinar em que lado de um caminho
+    cada cone está localizado. Para cada cone, encontra o ponto mais próximo no 
+    caminho e usa a direção do segmento para classificar o cone como esquerdo ou direito.
+    
+    Args:
+        cones: Lista de cones, onde cada cone é uma tupla/lista [x, y, ...]
+        path_points: Lista de pontos que definem o caminho, onde cada ponto é [x, y]
+    
+    Returns:
+        tuple: (left_cones, right_cones) - duas listas contendo os cones classificados
+    
+    Algoritmo:
+        1. Para cada cone, encontra o segmento de caminho mais próximo
+        2. Calcula o ponto mais próximo nesse segmento
+        3. Usa produto vetorial para determinar o lado (positivo = esquerda, negativo = direita)
+    """
+    left_cones = []
+    right_cones = []
+    
+    # Processa cada cone individualmente
+    for cone in cones:
+        # Extrai as coordenadas x, y do cone
+        cone_pos = np.array([cone[0], cone[1]])
+        
+        # Inicializa variáveis para encontrar o segmento de caminho mais próximo
+        min_distance = float('inf')
+        best_segment_dir = None  # Direção normalizada do melhor segmento
+        best_closest_point = None  # Ponto mais próximo encontrado
+        
+        # Itera através de todos os segmentos do caminho
+        for i in range(len(path_points) - 1):
+            # Define os pontos inicial e final do segmento atual
+            p1 = np.array(path_points[i])
+            p2 = np.array(path_points[i + 1])
+            
+            # Encontra o ponto mais próximo no segmento atual
+            closest_point, distance = closest_point_on_segment(p1, p2, cone_pos)
+            
+            # Verifica se este é o segmento mais próximo encontrado até agora
+            if distance < min_distance:
+                min_distance = distance
+                best_closest_point = closest_point
+                
+                # Calcula e normaliza a direção do segmento
+                segment_vec = p2 - p1
+                segment_length = np.linalg.norm(segment_vec)
+                
+                # Evita divisão por zero para segmentos degenerados
+                if segment_length > 1e-10:
+                    best_segment_dir = segment_vec / segment_length
+        
+        # Classifica o cone usando o melhor segmento encontrado
+        if best_segment_dir is not None and best_closest_point is not None:
+            # Calcula o vetor do ponto no caminho para o cone
+            path_to_cone = cone_pos - best_closest_point
+            
+            # Produto vetorial 2D: determina o lado do cone em relação ao caminho
+            # Produto vetorial positivo = cone à esquerda do caminho
+            # Produto vetorial negativo = cone à direita do caminho
+            # Fórmula 2D: cross(a, b) = a[0]*b[1] - a[1]*b[0]
+            cross_product = best_segment_dir[0] * path_to_cone[1] - best_segment_dir[1] * path_to_cone[0]
+            
+            # Classifica baseado no sinal do produto vetorial
+            if cross_product > 0:
+                left_cones.append(cone)  # Cone à esquerda
+            else:
+                right_cones.append(cone)  # Cone à direita
+        else:
+            # Fallback: se não conseguir determinar a direção, coloca à direita
+            # Isso pode acontecer com caminhos degenerados ou dados inválidos
+            right_cones.append(cone)
     
     return left_cones, right_cones
 
+
+def closest_point_on_segment(p1, p2, point):
+    """
+    Encontra o ponto mais próximo em um segmento de linha para um ponto dado.
+    
+    Esta função projeta um ponto sobre um segmento de linha definido por dois pontos.
+    O resultado é sempre um ponto que está dentro do segmento (não na extensão da linha).
+    
+    Args:
+        p1 (np.array): Ponto inicial do segmento [x, y]
+        p2 (np.array): Ponto final do segmento [x, y]
+        point (np.array): Ponto para o qual encontrar o mais próximo [x, y]
+    
+    Returns:
+        tuple: (closest_point, distance)
+            - closest_point (np.array): Coordenadas do ponto mais próximo no segmento
+            - distance (float): Distância euclidiana entre o ponto e o ponto mais próximo
+    
+    Algoritmo:
+        1. Calcula vetores do segmento e do ponto inicial ao ponto dado
+        2. Projeta o ponto sobre a linha usando produto escalar
+        3. Limita a projeção ao segmento (parâmetro t entre 0 e 1)
+        4. Calcula o ponto final e a distância
+    """
+    # Calcula o vetor que define o segmento de linha
+    segment_vec = p2 - p1
+    
+    # Calcula o vetor do ponto inicial do segmento ao ponto dado
+    point_vec = point - p1
+    
+    # Calcula o comprimento ao quadrado do segmento (evita sqrt desnecessário)
+    segment_length_sq = np.dot(segment_vec, segment_vec)
+    
+    # Verifica se o segmento é degenerado (pontos p1 e p2 são muito próximos)
+    if segment_length_sq < 1e-10:
+        # Para segmento degenerado, o ponto mais próximo é o próprio p1
+        closest_point = p1
+    else:
+        # Projeta o ponto sobre a linha usando produto escalar
+        # t representa a posição ao longo do segmento (0 = p1, 1 = p2)
+        t = np.dot(point_vec, segment_vec) / segment_length_sq
+        
+        # Limita t ao intervalo [0, 1] para garantir que o ponto esteja no segmento
+        # t < 0: ponto mais próximo é p1
+        # t > 1: ponto mais próximo é p2
+        # 0 <= t <= 1: ponto está na projeção dentro do segmento
+        t = max(0, min(1, t))
+        
+        # Calcula o ponto mais próximo usando interpolação linear
+        closest_point = p1 + t * segment_vec
+    
+    # Calcula a distância euclidiana entre o ponto original e o ponto mais próximo
+    distance = np.linalg.norm(point - closest_point)
+    
+    return closest_point, distance
 
 
 def visualize_track(test_case, left_cones, right_cones):
