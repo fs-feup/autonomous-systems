@@ -27,22 +27,14 @@ std::string VEParameters::load_config() {
       ve_config["velocity_estimation"]["imu_acceleration_noise"].as<double>();
   this->imu_rotational_noise_ =
       ve_config["velocity_estimation"]["imu_rotational_noise"].as<double>();
-      this->angular_velocity_process_noise_ =
-        ve_config["velocity_estimation"]["angular_velocity_process_noise"].as<double>();
+  this->angular_velocity_process_noise_ =
+      ve_config["velocity_estimation"]["angular_velocity_process_noise"].as<double>();
   this->wheel_speed_noise_ = ve_config["velocity_estimation"]["wheel_speed_noise"].as<double>();
   this->steering_angle_noise_ =
       ve_config["velocity_estimation"]["steering_angle_noise"].as<double>();
   this->motor_rpm_noise_ = ve_config["velocity_estimation"]["motor_rpm_noise"].as<double>();
 
-  this->car_parameters_.wheel_diameter =
-      car_config["car"]["wheel_diameter"].as<double>();
-  this->car_parameters_.wheelbase = car_config["car"]["wheel_base"].as<double>();
-  this->car_parameters_.rear_axis_to_camera = car_config["car"]["rear_axis_to_camera"].as<double>();
-  this->car_parameters_.axis_length = car_config["car"]["axis_length"].as<double>();
-
-  this->car_parameters_.dist_cg_2_rear_axis = car_config["car"]["dist_cg_2_rear_axis"].as<double>();
-
-  this->car_parameters_.gear_ratio = car_config["car"]["gear_ratio"].as<double>();
+  this->car_parameters_ = common_lib::car_parameters::CarParameters();
 
   return adapter;
 }

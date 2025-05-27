@@ -19,48 +19,29 @@ EKF::EKF(const VEParameters& params) {
   this->process_model = vel_process_models_map.at(params._process_model_name_)();
 }
 
-// void EKF::imu_callback(const common_lib::sensor_data::ImuData& imu_data) {
-//   this->imu_data_ = imu_data;
-//   if (this->imu_data_received_ && this->wss_data_received_ && this->motor_rpm_received_ &&
-//       this->steering_angle_received_) {
-//     RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "1 - State: %f %f %f",
-//     this->state_(0),
-//                  this->state_(1), this->state_(2));
-//     this->predict(this->state_, this->_covariance_, this->_process_noise_matrix_,
-//                   this->_last_update_, this->imu_data_);
-//     RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "2 - State: %f %f %f",
-//     this->state_(0),
-//                  this->state_(1), this->state_(2));
-//     this->correct_wheels(this->state_, this->_covariance_, this->wss_data_, this->motor_rpm_,
-//                          this->steering_angle_);
-//     RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "3 - State: %f %f %f",
-//     this->state_(0),
-//                  this->state_(1), this->state_(2));
-//   }
-//   this->imu_data_received_ = true;
-//   this->_last_update_ = rclcpp::Clock().now();
-// }
-
 void EKF::imu_callback(const common_lib::sensor_data::ImuData& imu_data) {
   this->imu_data_ = imu_data;
   RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "1 - State: %f %f %f", this->_state_(0),
                this->_state_(1), this->_state_(2));
-  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "1 - Covariance: \n" << this->_covariance_);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "1 - Covariance: \n"
+                                                                     << this->_covariance_);
   if (!this->imu_data_received_) {
     this->imu_data_received_ = true;
   } else {
     this->predict(this->_state_, this->_covariance_, this->_process_noise_matrix_,
-      this->_last_update_, this->imu_data_);
+                  this->_last_update_, this->imu_data_);
   }
   this->_last_update_ = rclcpp::Clock().now();
-  RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "2 - State: %f %f %f",
-    this->_state_(0), this->_state_(1), this->_state_(2));
-  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "2 - Covariance: \n" << this->_covariance_);
-  
+  RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "2 - State: %f %f %f", this->_state_(0),
+               this->_state_(1), this->_state_(2));
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "2 - Covariance: \n"
+                                                                     << this->_covariance_);
+
   this->correct_imu(this->_state_, this->_covariance_, this->imu_data_);
-  RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "3 - State: %f %f %f",
-    this->_state_(0), this->_state_(1), this->_state_(2));
-  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "3 - Covariance: \n" << this->_covariance_);
+  RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "3 - State: %f %f %f", this->_state_(0),
+               this->_state_(1), this->_state_(2));
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "3 - Covariance: \n"
+                                                                     << this->_covariance_);
 }
 
 void EKF::wss_callback(const common_lib::sensor_data::WheelEncoderData& wss_data) {
@@ -72,9 +53,10 @@ void EKF::wss_callback(const common_lib::sensor_data::WheelEncoderData& wss_data
     this->wss_data_received_ = false;
     this->steering_angle_received_ = false;
     this->motor_rpm_received_ = false;
-    RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "3 - State: %f %f %f",
-      this->_state_(0), this->_state_(1), this->_state_(2));
-    RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "3 - Covariance: \n" << this->_covariance_);
+    RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "3 - State: %f %f %f", this->_state_(0),
+                 this->_state_(1), this->_state_(2));
+    RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "3 - Covariance: \n"
+                                                                       << this->_covariance_);
   }
 }
 
@@ -87,9 +69,10 @@ void EKF::motor_rpm_callback(double motor_rpm) {
     this->wss_data_received_ = false;
     this->steering_angle_received_ = false;
     this->motor_rpm_received_ = false;
-    RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "3 - State: %f %f %f",
-      this->_state_(0), this->_state_(1), this->_state_(2));
-    RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "3 - Covariance: \n" << this->_covariance_);
+    RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "3 - State: %f %f %f", this->_state_(0),
+                 this->_state_(1), this->_state_(2));
+    RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "3 - Covariance: \n"
+                                                                       << this->_covariance_);
   }
 }
 
@@ -102,9 +85,10 @@ void EKF::steering_callback(double steering_angle) {
     this->wss_data_received_ = false;
     this->steering_angle_received_ = false;
     this->motor_rpm_received_ = false;
-    RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "3 - State: %f %f %f",
-      this->_state_(0), this->_state_(1), this->_state_(2));
-    RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "3 - Covariance: \n" << this->_covariance_);
+    RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "3 - State: %f %f %f", this->_state_(0),
+                 this->_state_(1), this->_state_(2));
+    RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "3 - Covariance: \n"
+                                                                       << this->_covariance_);
   }
 }
 
@@ -130,10 +114,11 @@ void EKF::predict(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
 
   // Process noise for angular velocity greater, the greater the angular velocity
   Eigen::Matrix3d actual_process_noise_matrix = process_noise_matrix;
-  actual_process_noise_matrix(2, 2) += process_noise_matrix(0, 0) * state(2) * dt * 1000.0; 
+  actual_process_noise_matrix(2, 2) += process_noise_matrix(0, 0) * state(2) * dt * 1000.0;
 
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"),
-               "predict - Process noise matrix: \n" << actual_process_noise_matrix);
+                      "predict - Process noise matrix: \n"
+                          << actual_process_noise_matrix);
 
   Eigen::Matrix3d jacobian = this->process_model->get_jacobian_velocities(state, accelerations, dt);
   covariance = jacobian * covariance * jacobian.transpose() + actual_process_noise_matrix;
@@ -156,16 +141,19 @@ void EKF::correct_wheels(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
 
   // DEBUG PRINTS
   RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"),
-               "correct_wheels - Predicted observations: %f %f %f %f %f %f", predicted_observations(0),
-               predicted_observations(1), predicted_observations(2), predicted_observations(3),
-               predicted_observations(4), predicted_observations(5));
-  RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "correct_wheels - Observations: %f %f %f %f %f %f",
-               observations(0), observations(1), observations(2), observations(3), observations(4),
-               observations(5));
-  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - Covariance: \n" << covariance);
+               "correct_wheels - Predicted observations: %f %f %f %f %f %f",
+               predicted_observations(0), predicted_observations(1), predicted_observations(2),
+               predicted_observations(3), predicted_observations(4), predicted_observations(5));
+  RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"),
+               "correct_wheels - Observations: %f %f %f %f %f %f", observations(0), observations(1),
+               observations(2), observations(3), observations(4), observations(5));
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - Covariance: \n"
+                                                                     << covariance);
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - y: \n" << y);
-  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - Jacobian: \n" << jacobian);
-  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - Kalman gain: \n" << kalman_gain);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - Jacobian: \n"
+                                                                     << jacobian);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - Kalman gain: \n"
+                                                                     << kalman_gain);
   state += kalman_gain * y;
   covariance = (Eigen::Matrix3d::Identity() - kalman_gain * jacobian) * covariance;
 }
@@ -180,12 +168,16 @@ void EKF::correct_imu(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
   jacobian(0, 2) = 1;
   Eigen::MatrixXd kalman_gain =
       covariance * jacobian.transpose() *
-      (jacobian * covariance * jacobian.transpose() + this->_imu_measurement_noise_matrix_);
+      (jacobian * covariance * jacobian.transpose() + this->_imu_measurement_noise_matrix_)
+          .inverse();
 
-  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - Covariance: \n" << covariance);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - Covariance: \n"
+                                                                     << covariance);
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - y: \n" << y);
-  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - Jacobian: \n" << jacobian);
-  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - Kalman gain: \n" << kalman_gain);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - Jacobian: \n"
+                                                                     << jacobian);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - Kalman gain: \n"
+                                                                     << kalman_gain);
   state += kalman_gain * y;
   covariance = (Eigen::Matrix3d::Identity() - kalman_gain * jacobian) * covariance;
 }

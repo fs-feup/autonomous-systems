@@ -14,7 +14,8 @@ std::pair<Eigen::Vector3d, Eigen::Vector3d> PoseUpdater::update_pose(
   Eigen::Vector3d pose_difference =
       motion_model->get_pose_difference(this->_last_pose_, *(motion_data.velocities_), delta);
 
-  this->_last_pose_ += pose_difference;
+  this->_last_pose_ =
+      motion_model->get_next_pose(this->_last_pose_, *(motion_data.velocities_), delta);
   this->_last_pose_update_ = motion_data.timestamp_;
 
   return {pose_difference, this->_last_pose_};
