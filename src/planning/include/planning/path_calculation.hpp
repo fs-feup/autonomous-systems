@@ -11,6 +11,11 @@
 #include <utility>
 #include <vector>
 
+
+#include <pcl/registration/icp.h>
+#include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
+
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/path_point.hpp"
 #include "common_lib/structures/pose.hpp"
@@ -20,6 +25,9 @@
 using K = CGAL::Exact_predicates_inexact_constructions_kernel;
 using DT = CGAL::Delaunay_triangulation_2<K>;
 using Point = K::Point_2;
+
+using Vertex_handle = DT::Vertex_handle;
+using Finite_edges_iterator = DT::Finite_edges_iterator;
 
 using Cone = common_lib::structures::Cone;
 using PathPoint = common_lib::structures::PathPoint;
@@ -44,6 +52,7 @@ private:
   // Anchor point for the path, to avoid calculating the path from the position of the car
   common_lib::structures::Pose anchor_point_;
   bool anchor_point_set_ = false;
+  std::vector<Point> global_path_; 
 
 public:
   /**
@@ -51,7 +60,31 @@ public:
    */
   struct MidPoint {
     Point point;
-    std::vector<MidPoint*> close_points;
+    std::vector<MidPoint *> close_points;
+    Cone* cone1;
+    Cone* cone2;
+    bool valid = true;
+
+    bool operator==(const MidPoint& other) const {
+      return point == other.point && cone1 == other.cone1 && cone2 == other.cone2;
+    }
+
+  };
+
+  struct point_hash {
+    std::size_t operator()(const Point& p) const {
+        auto h1 = std::hash<double>()(p.x());
+        auto h2 = std::hash<double>()(p.y());
+        return h1 ^ (h2 << 1);
+    }
+  };
+
+  struct pair_hash {
+    std::size_t operator()(const std::pair<Point, Point>& p) const {
+        auto h1 = point_hash{}(p.first);
+        auto h2 = point_hash{}(p.second);
+        return h1 ^ (h2 << 1);
+    }
   };
 
   /**
@@ -101,7 +134,7 @@ public:
    * @param pose The current pose of the vehicle
    * @return std::vector<PathPoint> The generated path
    */
-  std::vector<PathPoint> no_coloring_planning(const std::vector<Cone>& cone_array,
+  std::vector<PathPoint> no_coloring_planning(std::vector<Cone>& cone_array,
                                               common_lib::structures::Pose pose);
 
   /**
@@ -177,6 +210,7 @@ public:
    */
   std::vector<PathPoint> skidpad_path(std::vector<Cone>& cone_array,
                                       common_lib::structures::Pose pose);
+
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_PATH_CALCULATION_HPP_

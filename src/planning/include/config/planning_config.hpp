@@ -18,6 +18,7 @@ struct PlanningParameters {
   double nc_distance_exponent_;
   double nc_max_cost_;
   int nc_search_depth_;
+  int nc_lookback_points_;
   int nc_max_points_;
   bool use_outlier_removal_;
   int smoothing_spline_order_;
@@ -66,6 +67,7 @@ struct PlanningConfig {
     path_calculation_.max_cost_ = params.nc_max_cost_;
     path_calculation_.search_depth_ = params.nc_search_depth_;
     path_calculation_.max_points_ = params.nc_max_points_;
+    path_calculation_.lookback_points_ = params.nc_lookback_points_;
 
 
     smoothing_.order_ = params.smoothing_spline_order_;

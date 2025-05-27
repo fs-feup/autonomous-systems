@@ -36,6 +36,7 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.nc_max_cost_ = planning_config["nc_max_cost"].as<double>();
   params.nc_search_depth_ = planning_config["nc_search_depth"].as<int>();
   params.nc_max_points_ = planning_config["nc_max_points"].as<int>();
+  params.nc_lookback_points_ = planning_config["nc_lookback_points"].as<int>();
 
   params.outliers_spline_order_ = planning_config["outliers_spline_order"].as<int>();
   params.outliers_spline_coeffs_ratio_ =
@@ -191,8 +192,8 @@ void Planning::run_planning_algorithms() {
   } else {
     triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
     // Smooth the calculated path
-    final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
-                                             this->initial_car_orientation_);
+    final_path = triangulations_path; //path_smoothing_.smooth_path(triangulations_path, this->pose,
+                   //                          this->initial_car_orientation_);
     velocity_planning_.set_velocity(final_path);
   }
 

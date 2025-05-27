@@ -22,6 +22,7 @@ find_package(common_lib REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(visualization_msgs REQUIRED)
 find_package(yaml-cpp REQUIRED)
+find_package(PCL REQUIRED COMPONENTS registration common io)
 # sudo apt-get install libcgal-dev libgmp-dev libmpfr-dev
 
 set(GMP_DIR ${CGAL_INSTALLATION_PACKAGE_DIR}/auxiliary/gmp/)
@@ -64,13 +65,20 @@ set(CMAKE_BUILD_TYPE "Release")
 add_executable(planning src/main.cpp ${IMPLEMENTATION_FILES})
 ament_target_dependencies(planning ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs tf2_ros tf2_geometry_msgs pacsim common_lib std_srvs nav_msgs visualization_msgs)
 
-include_directories(${GSL_INCLUDE_DIRS})
+include_directories(${GSL_INCLUDE_DIRS} ${PCL_INCLUDE_DIRS})
+
+
 # Link the CGAL library and its dependencies to the target
-target_link_libraries(planning ${CGAL_LIBRARIES} ${GMP_LIBRARIES} ${MPFR_LIBRARIES} ${QT5_LIBRARIES} ${GSL_LIBRARIES} yaml-cpp)
+target_link_libraries(planning ${CGAL_LIBRARIES} ${GMP_LIBRARIES} ${MPFR_LIBRARIES} ${QT5_LIBRARIES} ${GSL_LIBRARIES} yaml-cpp ${PCL_LIBRARIES})
+
+
+
 
 target_include_directories(planning PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>)
+  $<INSTALL_INTERFACE:include>
+  ${PCL_INCLUDE_DIRS}
+  )
 target_compile_features(planning PUBLIC c_std_99 cxx_std_17)
 install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
 
@@ -80,8 +88,9 @@ if(BUILD_TESTING)
   ament_target_dependencies(planning_test ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs tf2_ros tf2_geometry_msgs pacsim common_lib std_srvs nav_msgs visualization_msgs)
   target_include_directories(planning_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:include>)
-  target_link_libraries(planning_test ${CGAL_LIBRARIES} ${GMP_LIBRARIES} ${MPFR_LIBRARIES} ${QT5_LIBRARIES} ${GSL_LIBRARIES} yaml-cpp)
+    $<INSTALL_INTERFACE:include>
+    ${PCL_INCLUDE_DIRS})
+  target_link_libraries(planning_test ${CGAL_LIBRARIES} ${GMP_LIBRARIES} ${MPFR_LIBRARIES} ${QT5_LIBRARIES} ${GSL_LIBRARIES} yaml-cpp ${PCL_LIBRARIES})
 
   install(TARGETS
     planning

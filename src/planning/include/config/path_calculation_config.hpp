@@ -13,6 +13,7 @@ struct PathCalculationConfig {
   double distance_gain_ = 5.0;
   double angle_exponent_ = 3.0;
   double distance_exponent_ = 1.0;
+  int lookback_points_ = 20;
   double max_cost_ = 30.0;
   int search_depth_ = 2;
   int max_points_ = 50;
