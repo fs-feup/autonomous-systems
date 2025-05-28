@@ -566,3 +566,14 @@ std::vector<PathPoint> PathCalculation::skidpad_path(std::vector<Cone>& cone_arr
   // set it as the final path
   return std::vector<PathPoint>(predefined_path_.begin(), predefined_path_.begin() + 70);
 }
+
+std::vector<PathPoint> PathCalculation::convertToPathPointsFromGlobalPath() const {
+  std::vector<PathPoint> path_points;
+  for (const auto &point : global_path_) {
+    PathPoint path_point;
+    path_point.position.x = point.x();
+    path_point.position.y = point.y();
+    path_points.push_back(path_point);
+  }
+  return path_points;
+}

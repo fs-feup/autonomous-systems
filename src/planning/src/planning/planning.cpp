@@ -89,6 +89,7 @@ Planning::Planning(const PlanningParameters &params)
 
     this->triangulations_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
         "/path_planning/triangulations", 10);
+    this->global_path_pub_ = this->create_publisher<visualization_msgs::msg::Marker>("/path_planning/global_path", 10);
   }
   // Publishes path from file in Skidpad & Acceleration events
   this->timer_ = this->create_wall_timer(
@@ -168,6 +169,7 @@ void Planning::run_planning_algorithms() {
 
   std::vector<PathPoint> triangulations_path = {};
   std::vector<PathPoint> final_path = {};
+  std::vector<PathPoint> global_path = {};
 
   if (this->mission == common_lib::competition_logic::Mission::SKIDPAD) {
     final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
@@ -177,6 +179,7 @@ void Planning::run_planning_algorithms() {
     // Smooth the calculated path
     final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
                                              this->initial_car_orientation_);
+    global_path = path_calculation_.convertToPathPointsFromGlobalPath();
 
     double dist_from_origin = sqrt(this->pose.position.x * this->pose.position.x +
                                    this->pose.position.y * this->pose.position.y);
@@ -192,8 +195,11 @@ void Planning::run_planning_algorithms() {
   } else {
     triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
     // Smooth the calculated path
-    final_path = triangulations_path; //path_smoothing_.smooth_path(triangulations_path, this->pose,
-                   //                          this->initial_car_orientation_);
+    final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
+                                             this->initial_car_orientation_);
+
+    global_path = path_calculation_.convertToPathPointsFromGlobalPath();
+
     velocity_planning_.set_velocity(final_path);
   }
 
@@ -213,7 +219,7 @@ void Planning::run_planning_algorithms() {
                static_cast<int>(final_path.size()));
 
   if (planning_config_.simulation_.publishing_visualization_msgs_) {
-    publish_visualization_msgs(triangulations_path, final_path);
+    publish_visualization_msgs(triangulations_path, final_path, global_path);
   }
 }
 
@@ -265,9 +271,11 @@ bool Planning::is_predicitve_mission() const {
 }
 
 void Planning::publish_visualization_msgs(const std::vector<PathPoint> &after_triangulations_path,
-                                          const std::vector<PathPoint> &final_path) const {
+                                          const std::vector<PathPoint> &final_path, const std::vector<PathPoint> &global_path) const {
   this->triangulations_pub_->publish(common_lib::communication::marker_array_from_structure_array(
       after_triangulations_path, "after_triangulations_path", this->_map_frame_id_, "orange"));
   this->visualization_pub_->publish(common_lib::communication::line_marker_from_structure_array(
-      final_path, "smoothed_path_planning", this->_map_frame_id_, 12, "green"));
+      final_path, "smoothed_path_planning", this->_map_frame_id_, 12, "green"));  
+  this->global_path_pub_->publish(common_lib::communication::line_marker_from_structure_array(
+      global_path, "global_path_planning", this->_map_frame_id_, 12, "blue"));
 }

@@ -86,6 +86,12 @@ public:
         return h1 ^ (h2 << 1);
     }
   };
+  /**
+   * @brief Convert global_path_ to PathPoint format
+   *
+   * @return std::vector<PathPoint> The converted global path
+   */
+  std::vector<PathPoint> convertToPathPointsFromGlobalPath() const;
 
   /**
    * @brief Construct a new default PathCalculation object
