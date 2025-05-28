@@ -195,8 +195,8 @@ void Planning::run_planning_algorithms() {
   } else {
     triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
     // Smooth the calculated path
-    final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
-                                             this->initial_car_orientation_);
+    final_path = triangulations_path; //path_smoothing_.smooth_path(triangulations_path, this->pose,
+                   //                          this->initial_car_orientation_);
 
     global_path = path_calculation_.convertToPathPointsFromGlobalPath();
 

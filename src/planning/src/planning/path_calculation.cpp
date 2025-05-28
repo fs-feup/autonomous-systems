@@ -93,46 +93,52 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
       std::unordered_map<MidPoint*, std::vector<Point>> triangle_points;
 
       for (Finite_edges_iterator it = dt.finite_edges_begin(); it != dt.finite_edges_end(); ++it) {
-          Vertex_handle v1 = it->first->vertex((it->second + 1) % 3);
-          Vertex_handle v2 = it->first->vertex((it->second + 2) % 3);
-          Point p1 = v1->point();
-          Point p2 = v2->point();
-
-          int id1 = find_cone(cone_array, p1.x(), p1.y());
-          int id2 = find_cone(cone_array, p2.x(), p2.y());
-
-          if (id1 == -1 || id2 == -1) {
-              RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Cone not found in triangulation");
-              continue;
-          }
-
-          auto midPoint = std::make_unique<MidPoint>(MidPoint{Point((p1.x() + p2.x()) / 2, (p1.y() + p2.y()) / 2), {}, &cone_array[id1], &cone_array[id2]});
-          MidPoint* mid_ptr = midPoint.get();
-          midPoints.push_back(std::move(midPoint));
-
-          std::vector<std::pair<Point, Point>> neighbor_edges;
-          auto collect_edges = [&](auto face, int skip_edge_index) {
-              for (int i = 0; i < 3; ++i) {
-                  if (i == skip_edge_index) continue;
-                  Vertex_handle va = face->vertex((i + 1) % 3);
-                  Vertex_handle vb = face->vertex((i + 2) % 3);
-                  neighbor_edges.push_back({va->point(), vb->point()});
-              }
-          };
-
-          collect_edges(it->first, it->second);
-          auto neighbor_face = it->first->neighbor(it->second);
-          if (!dt.is_infinite(neighbor_face)) {
-              int neighbor_index = neighbor_face->index(it->first);
-              collect_edges(neighbor_face, neighbor_index);
-          }
-
-          triangle_points[mid_ptr] = {};
-          for (auto& [pa, pb] : neighbor_edges) {
-              triangle_points[mid_ptr].push_back(pa);
-              triangle_points[mid_ptr].push_back(pb);
-          }
-      }
+        Vertex_handle v1 = it->first->vertex((it->second + 1) % 3);
+        Vertex_handle v2 = it->first->vertex((it->second + 2) % 3);
+        Point p1 = v1->point();
+        Point p2 = v2->point();
+    
+        int id1 = find_cone(cone_array, p1.x(), p1.y());
+        int id2 = find_cone(cone_array, p2.x(), p2.y());
+    
+        if (id1 == -1 || id2 == -1) {
+            RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Cone not found in triangulation");
+            continue;
+        }
+    
+        double sq_dist = CGAL::squared_distance(p1, p2);  // Distância ao quadrado
+        double min_dist = config_.minimum_cone_distance_;
+        if (sq_dist > min_dist * min_dist) {  // Compara com o quadrado da distância mínima
+            auto midPoint = std::make_unique<MidPoint>(
+                MidPoint{Point((p1.x() + p2.x()) / 2, (p1.y() + p2.y()) / 2), {}, &cone_array[id1], &cone_array[id2]}
+            );
+            MidPoint* mid_ptr = midPoint.get();
+            midPoints.push_back(std::move(midPoint));
+    
+            std::vector<std::pair<Point, Point>> neighbor_edges;
+            auto collect_edges = [&](auto face, int skip_edge_index) {
+                for (int i = 0; i < 3; ++i) {
+                    if (i == skip_edge_index) continue;
+                    Vertex_handle va = face->vertex((i + 1) % 3);
+                    Vertex_handle vb = face->vertex((i + 2) % 3);
+                    neighbor_edges.push_back({va->point(), vb->point()});
+                }
+            };
+    
+            collect_edges(it->first, it->second);
+            auto neighbor_face = it->first->neighbor(it->second);
+            if (!dt.is_infinite(neighbor_face)) {
+                int neighbor_index = neighbor_face->index(it->first);
+                collect_edges(neighbor_face, neighbor_index);
+            }
+    
+            triangle_points[mid_ptr] = {};
+            for (auto& [pa, pb] : neighbor_edges) {
+                triangle_points[mid_ptr].push_back(pa);
+                triangle_points[mid_ptr].push_back(pb);
+            }
+        }
+    }
 
       std::unordered_map<std::pair<Point, Point>, MidPoint*, pair_hash> segment_to_midpoint;
       for (auto& q : midPoints) {
