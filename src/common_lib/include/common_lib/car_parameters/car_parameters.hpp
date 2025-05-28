@@ -15,7 +15,7 @@ struct CarParameters {
   double axis_length = 1.2;
   double dist_cg_2_rear_axis = 0.804;
   double gear_ratio = 4;
-  CarParameters() = default;
+  CarParameters();
   CarParameters(double wheel_diameter, double wheelbase, double rear_axis_to_camera,
                 double axis_length, double dist_cg_2_rear_axis, double gear_ratio);
 };
