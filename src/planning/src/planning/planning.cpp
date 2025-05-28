@@ -277,5 +277,5 @@ void Planning::publish_visualization_msgs(const std::vector<PathPoint> &after_tr
   this->visualization_pub_->publish(common_lib::communication::line_marker_from_structure_array(
       final_path, "smoothed_path_planning", this->_map_frame_id_, 12, "green"));  
   this->global_path_pub_->publish(common_lib::communication::line_marker_from_structure_array(
-      global_path, "global_path_planning", this->_map_frame_id_, 12, "blue"));
+      global_path, "global_path_planning", this->_map_frame_id_, 12, "red"));
 }
