@@ -40,6 +40,8 @@ protected:
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr _position_publisher_;
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr _execution_time_publisher_;
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr _covariance_publisher_;
+  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _lap_counter_publisher_;
+  
   std::shared_ptr<tf2_ros::TransformBroadcaster> _tf_broadcaster_;
   rclcpp::TimerBase::SharedPtr _timer_;      /**< timer */
   std::shared_ptr<SLAMSolver> _slam_solver_; /**< SLAM solver object */
@@ -88,6 +90,12 @@ protected:
    *
    */
   void _publish_covariance();
+
+  /**
+   * @brief publishes the lap counter
+   *
+   */
+  void _publish_lap_counter();
 
 public:
   // /**
