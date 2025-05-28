@@ -9,9 +9,9 @@ EufsAdapter::EufsAdapter(const ControlParameters& params)
   // No topic for eufs, just set the go_signal to true
   go_signal_ = true;
 
-  if (using_simulated_se_) {
+  if (using_simulated_slam_) {
     RCLCPP_INFO(this->get_logger(), "Eufs using simulated State Estimation\n");
-    vehicle_state_sub_ = this->create_subscription<eufs_msgs::msg::CarState>(
+    vehicle_pose_sub_ = this->create_subscription<eufs_msgs::msg::CarState>(
         "/odometry_integration/car_state", 10,
         std::bind(&EufsAdapter::vehicle_state_callback, this, std::placeholders::_1));
   }

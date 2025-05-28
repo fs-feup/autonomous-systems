@@ -14,7 +14,7 @@ public:
 
 class MockV2PModel : public V2PMotionModel {
 public:
-  MOCK_METHOD(Eigen::Vector3d, get_next_pose,
+  MOCK_METHOD(Eigen::Vector3d, get_pose_difference,
               (const Eigen::Vector3d& previous_pose, const Eigen::Vector3d& velocities,
                double delta_t),
               (override));
@@ -64,12 +64,12 @@ TEST_F(GraphSlamSolverTest, MotionAndObservation) {
   associations_second(1) = 5;
   associations_second(2) = 7;
   associations_second(3) = 9;
-  EXPECT_CALL(*mock_motion_model_ptr, get_next_pose)
+  EXPECT_CALL(*mock_motion_model_ptr, get_pose_difference)
       .Times(4)
       .WillOnce(testing::Return(Eigen::Vector3d(1.1, 0.0, 0.0)))
-      .WillOnce(testing::Return(Eigen::Vector3d(2.2, 0.0, 0.0)))
-      .WillOnce(testing::Return(Eigen::Vector3d(3.3, 0.0, 0.0)))
-      .WillOnce(testing::Return(Eigen::Vector3d(4.4, 0.0, 0.0)));
+      .WillOnce(testing::Return(Eigen::Vector3d(1.1, 0.0, 0.0)))
+      .WillOnce(testing::Return(Eigen::Vector3d(1.1, 0.0, 0.0)))
+      .WillOnce(testing::Return(Eigen::Vector3d(1.1, 0.0, 0.0)));
   //   EXPECT_CALL(*mock_motion_model_ptr, get_jacobian_velocities)
   //       .Times(4)
   //       .WillRepeatedly(testing::Return(Eigen::Matrix3d::Identity() * 0.1));

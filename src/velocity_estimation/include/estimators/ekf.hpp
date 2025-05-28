@@ -11,15 +11,16 @@
 #include "config/parameters.hpp"
 #include "custom_interfaces/msg/velocities.hpp"
 #include "estimators/estimator.hpp"
-#include "motion_lib/particle_model.hpp"
 #include "motion_lib/s2v_model/map.hpp"
+#include "motion_lib/vel_process_model/map.hpp"
 
 class EKF : public VelocityEstimator {
   rclcpp::Time _last_update_;
-  Eigen::Vector3d state_ = Eigen::Vector3d::Zero();
-  Eigen::Matrix3d covariance_ = Eigen::Matrix3d::Identity();
-  Eigen::Matrix3d process_noise_matrix_;
-  Eigen::MatrixXd measurement_noise_matrix_;
+  Eigen::Vector3d _state_ = Eigen::Vector3d::Zero();
+  Eigen::Matrix3d _covariance_ = Eigen::Matrix3d::Identity();
+  Eigen::Matrix3d _process_noise_matrix_;
+  Eigen::MatrixXd _wheels_measurement_noise_matrix_;
+  Eigen::MatrixXd _imu_measurement_noise_matrix_;
 
   common_lib::sensor_data::ImuData imu_data_;
   common_lib::sensor_data::WheelEncoderData wss_data_;
@@ -36,6 +37,7 @@ class EKF : public VelocityEstimator {
 
   common_lib::car_parameters::CarParameters car_parameters_;
   std::shared_ptr<S2VModel> s2v_model;
+  std::shared_ptr<BaseVelocityProcessModel> process_model;
 
   /**
    * @brief Predict velocities at the next index based on IMU measurements and current state
@@ -64,9 +66,12 @@ class EKF : public VelocityEstimator {
    * @param motor_rpm data representing the motor's rpms.
    * @param steering_angle data representing the steering angle.
    */
-  void correct(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
-               common_lib::sensor_data::WheelEncoderData& wss_data, double motor_rpm,
-               double steering_angle);
+  void correct_wheels(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
+                      common_lib::sensor_data::WheelEncoderData& wss_data, double motor_rpm,
+                      double steering_angle);
+
+  void correct_imu(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
+                   common_lib::sensor_data::ImuData& imu_data);
 
 public:
   EKF(const VEParameters& params);

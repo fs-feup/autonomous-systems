@@ -11,48 +11,39 @@ PacSimAdapter::PacSimAdapter(const ControlParameters& params)
   // No topic for pacsim, just set the go_signal to true
   go_signal_ = true;
 
-  if (using_simulated_se_) {
-    tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->get_clock());
-    tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
+  this->finished_client_ = this->create_client<std_srvs::srv::Empty>("/pacsim/finish_signal");
+  if (using_simulated_slam_) {
+    car_pose_sub_ = this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
+      "/pacsim/pose", 1,
+      std::bind(&PacSimAdapter::_pacsim_gt_pose_callback, this,
+                std::placeholders::_1));
+  }
 
-    // Maybe change time to a lower value if needed: std::chrono::milliseconds(10)
-    RCLCPP_INFO(this->get_logger(), "Creating wall timer");
-    timer_ = this->create_wall_timer(std::chrono::milliseconds(10),
-                                     std::bind(&PacSimAdapter::timer_callback, this));
-
-    this->finished_client_ = this->create_client<std_srvs::srv::Empty>("/pacsim/finish_signal");
-
+  if (using_simulated_velocities_) {
     car_velocity_sub_ = this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
-        "/pacsim/velocity", 10, [this](const geometry_msgs::msg::TwistWithCovarianceStamped& msg) {
-          velocity_ = std::sqrt(std::pow(msg.twist.twist.linear.x, 2) +
-                                std::pow(msg.twist.twist.linear.y, 2) +
-                                std::pow(msg.twist.twist.linear.z, 2));
-        });
+      "/pacsim/velocity", 1,
+      std::bind(&PacSimAdapter::_pacsim_gt_velocities_callback, this,
+                std::placeholders::_1));
   }
 
   RCLCPP_INFO(this->get_logger(), "Pacsim adapter created");
 }
 
-void PacSimAdapter::timer_callback() {
-  if (tf_buffer_->canTransform("map", "car", tf2::TimePointZero)) {
-    custom_interfaces::msg::Pose pose;
-    geometry_msgs::msg::TransformStamped t =
-        tf_buffer_->lookupTransform("map", "car", tf2::TimePointZero);
-    pose.header = t.header;
-    tf2::Quaternion q(t.transform.rotation.x, t.transform.rotation.y, t.transform.rotation.z,
-                      t.transform.rotation.w);
-    tf2::Matrix3x3 m(q);
-    double roll;
-    double pitch;
-    double yaw;
-    m.getRPY(roll, pitch, yaw);
-    pose.theta = yaw;
-    pose.x = t.transform.translation.x;
-    pose.y = t.transform.translation.y;
+void PacSimAdapter::_pacsim_gt_pose_callback(const geometry_msgs::msg::TwistWithCovarianceStamped& msg) {
+  custom_interfaces::msg::Pose pose;
+  pose.header.stamp = msg.header.stamp;
+  pose.theta = msg.twist.twist.angular.z;
+  pose.x = msg.twist.twist.linear.x;
+  pose.y = msg.twist.twist.linear.y;
 
-    RCLCPP_DEBUG(get_logger(), "Pose info. Position:%f, %f, Theta %f", pose.x, pose.y, pose.theta);
-    this->publish_control(pose);
-  }
+  RCLCPP_DEBUG(get_logger(), "Pose info. Position:%f, %f, Theta %f", pose.x, pose.y, pose.theta);
+  this->publish_control(pose);
+}
+
+void PacSimAdapter::_pacsim_gt_velocities_callback(const geometry_msgs::msg::TwistWithCovarianceStamped& msg) {
+  velocity_ = std::sqrt(std::pow(msg.twist.twist.linear.x, 2) +
+                                std::pow(msg.twist.twist.linear.y, 2));
+  RCLCPP_DEBUG(get_logger(), "Velocity set to: %lf", velocity_);
 }
 
 void PacSimAdapter::finish() {

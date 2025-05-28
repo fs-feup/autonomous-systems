@@ -33,8 +33,19 @@ public:
    * @return Eigen::Vector3d
    */
   virtual Eigen::Vector3d get_next_pose(const Eigen::Vector3d &previous_pose,
-                                        const Eigen::Vector3d &velocities,
-                                        const double delta_t) = 0;
+                                        const Eigen::Vector3d &velocities, const double delta_t);
+
+  /**
+   * @brief Gives the increments to the pose instead of the next pose
+   *
+   * @param previous_pose
+   * @param velocities (vx, vy, omega)
+   * @param delta_t
+   * @return Eigen::Vector3d
+   */
+  virtual Eigen::Vector3d get_pose_difference(const Eigen::Vector3d &previous_pose,
+                                              const Eigen::Vector3d &velocities,
+                                              const double delta_t) = 0;
 
   /**
    * @brief Get the Jacobian matrix of the motion model in relation to the pose (state)

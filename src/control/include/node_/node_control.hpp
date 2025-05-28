@@ -21,7 +21,8 @@
 #include "visualization_msgs/msg/marker.hpp"
 
 struct ControlParameters {
-  bool using_simulated_se_;
+  bool using_simulated_slam_;
+  bool using_simulated_velocities_;
   bool use_simulated_planning_;
   double lookahead_gain_;
   double pid_kp_;
@@ -44,7 +45,8 @@ struct ControlParameters {
  */
 class Control : public rclcpp::Node {
 public:
-  bool using_simulated_se_{false};
+  bool using_simulated_slam_{false};
+  bool using_simulated_velocities_{false};
   bool go_signal_{false};
   float velocity_{0.0};
 
@@ -66,7 +68,7 @@ private:
   rclcpp::Publisher<custom_interfaces::msg::EvaluatorControlData>::SharedPtr evaluator_data_pub_;
 
   // General Subscribers
-  rclcpp::Subscription<custom_interfaces::msg::Pose>::SharedPtr vehicle_state_sub_;
+  rclcpp::Subscription<custom_interfaces::msg::Pose>::SharedPtr vehicle_pose_sub_;
   rclcpp::Subscription<custom_interfaces::msg::Velocities>::SharedPtr velocity_sub_;
   rclcpp::Subscription<custom_interfaces::msg::PathPointArray>::SharedPtr path_point_array_sub_;
 

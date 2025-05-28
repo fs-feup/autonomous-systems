@@ -36,6 +36,7 @@ def generate_launch_description():
                         {"report_file_dir" : "/home/ws/src/pacsim/tmp"}, {"main_config_path" : getFullFilePath("mainConfig.yaml", dir="config")}, {"perception_config_path" : getFullFilePath("perception.yaml", dir="config")}, 
                         {"sensors_config_path" : getFullFilePath("sensors.yaml", dir="config")}, {"vehicle_model_config_path" : getFullFilePath("vehicleModel.yaml", dir="config")}, {"discipline" : discipline}],
           output="screen",
+          arguments=["--ros-args", "--log-level", "pacsim_node:=info"],
           emulate_tty=True)
   nodePacsimShutdownEventHandler = RegisterEventHandler(
         OnProcessExit(
