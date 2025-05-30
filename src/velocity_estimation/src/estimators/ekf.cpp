@@ -168,8 +168,7 @@ void EKF::correct_imu(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
   jacobian(0, 2) = 1;
   Eigen::MatrixXd kalman_gain =
       covariance * jacobian.transpose() *
-      (jacobian * covariance * jacobian.transpose() + this->_imu_measurement_noise_matrix_)
-          .inverse();
+      (jacobian * covariance * jacobian.transpose() + this->_imu_measurement_noise_matrix_);
 
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - Covariance: \n"
                                                                      << covariance);

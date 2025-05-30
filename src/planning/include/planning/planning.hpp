@@ -55,6 +55,7 @@ class Planning : public rclcpp::Node {
   VelocityPlanning velocity_planning_;
   double desired_velocity_;
   double initial_car_orientation_;
+  int lap_counter_ = 0;
 
   bool path_orientation_corrected_ = false;                                     // for Skidpad
   std::vector<PathPoint> predefined_path_;                                      // for Skidpad
@@ -81,6 +82,8 @@ class Planning : public rclcpp::Node {
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr triangulations_pub_;
   /**< Timer for the periodic publishing */
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _planning_execution_time_publisher_;
+
+  rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr _lap_counter_subscription_;
   rclcpp::TimerBase::SharedPtr timer_;
   /**
    * @brief Callback for vehicle localization updates (undefined).
