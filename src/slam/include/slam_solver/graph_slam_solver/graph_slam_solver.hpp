@@ -5,6 +5,7 @@
 #include <gtsam/nonlinear/NonlinearFactorGraph.h>
 #include <gtsam/nonlinear/Values.h>
 
+#include <perception_sensor_lib/loop_closure/lap_counter.hpp>
 #include <queue>
 
 #include "slam_solver/graph_slam_solver/factor_data_structures.hpp"
@@ -58,7 +59,8 @@ public:
                   std::shared_ptr<DataAssociationModel> data_association,
                   std::shared_ptr<V2PMotionModel> motion_model,
                   std::shared_ptr<LandmarkFilter> landmark_filter,
-                  std::shared_ptr<std::vector<double>> execution_times);
+                  std::shared_ptr<std::vector<double>> execution_times,
+                  std::shared_ptr<LoopClosure> loop_closure);
 
   ~GraphSLAMSolver() = default;
 
@@ -103,6 +105,13 @@ public:
    * @return Eigen::MatrixXd covariance matrix
    */
   Eigen::MatrixXd get_covariance() override;
+
+  /**
+   * @brief Get the lap counter
+   *
+   * @return int lap counter
+   */
+  int get_lap_counter() override { return lap_counter_; }
 
   /**
    * Timekeeping array

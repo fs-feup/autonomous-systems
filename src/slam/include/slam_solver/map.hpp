@@ -15,23 +15,25 @@ const std::map<std::string,
                std::function<std::shared_ptr<SLAMSolver>(
                    const SLAMParameters&, std::shared_ptr<DataAssociationModel>,
                    std::shared_ptr<V2PMotionModel>, std::shared_ptr<LandmarkFilter>,
-                   std::shared_ptr<std::vector<double>>)>,
+                   std::shared_ptr<std::vector<double>>, std::shared_ptr<LoopClosure>)>,
                std::less<>>
     slam_solver_constructors_map = {
         {"graph_slam",
          [](const SLAMParameters& params, std::shared_ptr<DataAssociationModel> data_association,
             std::shared_ptr<V2PMotionModel> motion_model,
             std::shared_ptr<LandmarkFilter> landmark_filter,
-            std::shared_ptr<std::vector<double>> execution_times) -> std::shared_ptr<SLAMSolver> {
+            std::shared_ptr<std::vector<double>> execution_times,
+            std::shared_ptr<LoopClosure> loop_closure) -> std::shared_ptr<SLAMSolver> {
            return std::make_shared<GraphSLAMSolver>(params, data_association, motion_model,
-                                                    landmark_filter, execution_times);
+                                                    landmark_filter, execution_times, loop_closure);
          }},
         {"ekf_slam",
          [](const SLAMParameters& params, std::shared_ptr<DataAssociationModel> data_association,
             std::shared_ptr<V2PMotionModel> motion_model,
             std::shared_ptr<LandmarkFilter> landmark_filter,
-            std::shared_ptr<std::vector<double>> execution_times) -> std::shared_ptr<SLAMSolver> {
+            std::shared_ptr<std::vector<double>> execution_times,
+            std::shared_ptr<LoopClosure> loop_closure) -> std::shared_ptr<SLAMSolver> {
            return std::make_shared<EKFSLAMSolver>(params, data_association, motion_model,
-                                                  landmark_filter, execution_times);
+                                                  landmark_filter, execution_times, loop_closure);
          }},
 };

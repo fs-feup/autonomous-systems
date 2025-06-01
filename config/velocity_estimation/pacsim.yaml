@@ -1,11 +1,22 @@
 velocity_estimation:
   estimation_method: "ekf"
+  s2v_model_name: "bicycle_model"
+  process_model_name: "ca_particle_model"
   wheel_speed_noise: 0.1
   motor_rpm_noise: 0.1
   steering_angle_noise: 0.0001
   imu_acceleration_noise: 0.05
-  imu_rotational_noise: 0.001
-  wheel_base: 1.6
-  weight_distribution_front: 0.5
-  gear_ratio: 4.0
-  wheel_radius: 0.203
+  imu_rotational_noise: 0.3
+  angular_velocity_process_noise: 0.1
+
+## FSG23 AutoX Track complete working - Best ever
+# velocity_estimation:
+#   estimation_method: "ekf"
+#   s2v_model_name: "bicycle_model"
+#   process_model_name: "ca_particle_model"
+#   wheel_speed_noise: 0.1
+#   motor_rpm_noise: 0.1
+#   steering_angle_noise: 0.0001
+#   imu_acceleration_noise: 0.05
+#   imu_rotational_noise: 0.3
+#   angular_velocity_process_noise: 0.1

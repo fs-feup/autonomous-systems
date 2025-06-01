@@ -20,29 +20,22 @@
 
 #include "common_lib/maths/transformations.hpp"
 #include "slam_solver/graph_slam_solver/optimizer/map.hpp"
-
-gtsam::Pose2 eigen_to_gtsam_pose(const Eigen::Vector3d& pose) {
-  return gtsam::Pose2(pose[0], pose[1], pose[2]);
-}
-
-Eigen::Vector3d gtsam_pose_to_eigen(const gtsam::Pose2& pose) {
-  return Eigen::Vector3d(pose.x(), pose.y(), pose.theta());
-}
+#include "slam_solver/graph_slam_solver/utils.hpp"
 
 GraphSLAMSolver::GraphSLAMSolver(const SLAMParameters& params,
                                  std::shared_ptr<DataAssociationModel> data_association,
                                  std::shared_ptr<V2PMotionModel> motion_model,
                                  std::shared_ptr<LandmarkFilter> landmark_filter,
-                                 std::shared_ptr<std::vector<double>> execution_times)
-    : SLAMSolver(params, data_association, motion_model, landmark_filter, execution_times),
+                                 std::shared_ptr<std::vector<double>> execution_times,
+                                 std::shared_ptr<LoopClosure> loop_closure)
+    : SLAMSolver(params, data_association, motion_model, landmark_filter, execution_times,
+                 loop_closure),
       _graph_slam_instance_(params, graph_slam_optimizer_constructors_map.at(
                                         params.slam_optimization_type_)(params)) {
   // TODO: transform into range and bearing noises
 }
 
-// ------------------------------- GraphSLAMSolver ---------------------------------
-
-void GraphSLAMSolver::init(std::weak_ptr<rclcpp::Node> node) {
+void GraphSLAMSolver::init([[maybe_unused]] std::weak_ptr<rclcpp::Node> node) {
   // Create a timer for asynchronous optimization
   if (this->_params_.slam_optimization_mode_ != "async" ||
       this->_params_.slam_optimization_period_ <= 0.0) {
@@ -73,16 +66,17 @@ void GraphSLAMSolver::add_motion_prior(const common_lib::structures::Velocities&
       std::make_shared<Eigen::Vector3d>(velocities.velocity_x, velocities.velocity_y,
                                         velocities.rotational_velocity),
       velocities.timestamp_);
-  this->_pose_updater_.update_pose(velocities_data, this->_motion_model_);
+  auto [pose_difference, new_pose] =
+      this->_pose_updater_.update_pose(velocities_data, this->_motion_model_);
   if (this->_optimization_under_way_) {
     this->_motion_data_queue_.push(velocities_data);
     RCLCPP_DEBUG(rclcpp::get_logger("slam"),
                  "add_motion_prior - Optimization under way, pushing motion data");
   }
   motion_model_time = rclcpp::Clock().now();
-  this->_graph_slam_instance_.process_pose(
-      eigen_to_gtsam_pose(this->_pose_updater_.get_last_pose()));
+  this->_graph_slam_instance_.process_pose_difference(pose_difference, new_pose);
   factor_graph_time = rclcpp::Clock().now();
+
   // Timekeeping
   if (this->_execution_times_ == nullptr) {
     return;
@@ -114,6 +108,11 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   {
     RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Shared mutex accessed");
     const std::shared_lock lock(this->_mutex_);
+    // Only proceed if the vehicle has moved
+    if (this->_graph_slam_instance_.new_pose_factors()) {
+      this->_graph_slam_instance_.process_pose_difference(
+          Eigen::Vector3d::Zero(), this->_pose_updater_.get_last_pose(), true);
+    }
     state = this->_graph_slam_instance_.get_state_vector();
     observations_global =
         common_lib::maths::local_to_global_coordinates(state.head<3>(), observations);
@@ -164,6 +163,17 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
         break;
       }
     }
+  }
+
+  Eigen::Vector3d pose;
+  pose << state(0), state(1), state(2);
+
+  Eigen::VectorXi landmarks(state.size() - 3);
+  landmarks = state.segment(3, state.size() - 3).cast<int>();
+  LoopClosure::Result result = _loop_closure_->detect(pose, landmarks, associations, observations);
+  if (result.detected) {
+    lap_counter_++;
+    RCLCPP_INFO(rclcpp::get_logger("slam"), "Lap counter: %d", lap_counter_);
   }
 
   {
@@ -242,9 +252,10 @@ void GraphSLAMSolver::_asynchronous_optimization_routine() {
                            this->_motion_data_queue_.front().timestamp_ <
                                this->_observation_data_queue_.front().timestamp_);
       if (process_pose) {
-        pose_updater_copy.update_pose(this->_motion_data_queue_.front(), this->_motion_model_);
-        graph_slam_instance_copy.process_pose(
-            eigen_to_gtsam_pose(pose_updater_copy.get_last_pose()));
+        auto [pose_difference, new_pose] =
+            pose_updater_copy.update_pose(this->_motion_data_queue_.front(), this->_motion_model_);
+        graph_slam_instance_copy.process_pose_difference(pose_difference,
+                                                         new_pose);  // Process the pose difference
         this->_motion_data_queue_.pop();
       } else {
         graph_slam_instance_copy.process_observations(this->_observation_data_queue_.front());

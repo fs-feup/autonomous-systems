@@ -178,6 +178,7 @@ void VehicleModelBicycle::PowertrainModel::calculateWheelTorques(double throttle
 
 double VehicleModelBicycle::PowertrainModel::calculateEfficiency(const Wheels& torques) const {
   // Simple efficiency model based on rear wheel torques
+  // TODO: macros instead of harcoded values
   return 0.002333 * (torques.RL + torques.RR) + 0.594;
 }
 
@@ -246,7 +247,8 @@ void VehicleModelBicycle::calculateSlipAngles(double& kappaFront, double& kappaR
    * the opposite of the velocity vector instead of Vx only. Drag also applied opposite of Vx
    * instead of simply adding the negative value.
    */
-  bool stillstand = (velocity.norm() < 0.03);
+  // bool stillstand = (velocity.norm() < VELOCITY_THRESHOLD) &&
+  //                   (std::abs(angularVelocity.z()) < ANGULAR_VELOCITY_THRESHOLD);
 
   // Calculate wheel positions relative to CoG
   Eigen::Vector3d rFront(lf, 0.0, 0.0);
@@ -263,10 +265,10 @@ void VehicleModelBicycle::calculateSlipAngles(double& kappaFront, double& kappaR
   kappaFront = std::atan2(vFront.y(), std::max(std::abs(vFront.x()), eps)) - steeringFront;
   kappaRear = std::atan2(vRear.y(), std::max(std::abs(vRear.x()), eps));
 
-  if (stillstand) {
-    kappaFront = 0.0;
-    kappaRear = 0.0;
-  }
+  // if (stillstand) {
+  //   kappaFront = 0.0;
+  //   kappaRear = 0.0;
+  // }
 }
 
 // New helper function to calculate wheel positions and velocities
@@ -336,10 +338,11 @@ Eigen::Vector3d VehicleModelBicycle::calculateAccelerations(double steeringFront
   double ayModel = ayTires + friction.y() / m;
 
   // Calculate yaw moment contributions
-  double rdotFx =
-      0.5 * sf * (-Fx_FL * std::cos(steeringAngles.FL) + Fx_FR * std::cos(steeringAngles.FR)) +
-      lf * (Fx_FL * std::sin(steeringAngles.FL) + Fx_FR * std::sin(steeringAngles.FR)) +
-      0.5 * sr * (Fx_RR - Fx_RL);
+  double rdotFx
+      = 0.5 * this->sf * (-Fx_FL * std::cos(this->steeringAngles.FL) + Fx_FR * std::cos(this->steeringAngles.FR))
+      + this->lf * (Fx_FL * std::sin(this->steeringAngles.FL) + Fx_FR * std::sin(this->steeringAngles.FR))
+      + 0.5 * this->sr * (Fx_RR * std::cos(this->steeringAngles.RR) - Fx_RL * std::cos(this->steeringAngles.RL))
+      - this->lr * (Fx_RL * std::sin(this->steeringAngles.RL) + Fx_RR * std::sin(this->steeringAngles.RR));
 
   double rdotFy = lf * (Fy_Front * std::cos(steeringFront)) - lr * (Fy_Rear);
 
@@ -415,40 +418,41 @@ Eigen::Vector3d VehicleModelBicycle::getDynamicStates(double dt) {
 }
 
 void VehicleModelBicycle::forwardIntegrate(double dt) {
-  // Update position based on velocity and orientation
-  Eigen::AngleAxisd yawAngle(orientation.z(), Eigen::Vector3d::UnitZ());
-  position += (yawAngle.matrix() * velocity) * dt;
-
+  
   // Convert throttle to wheel torques (using PowertrainModel)
   powertrainModel.calculateWheelTorques(throttleActuation, torques);
-
+  
   // Calculate dynamic states
   Eigen::Vector3d dynamicStates = getDynamicStates(dt);
-
-  // Update orientation based on angular velocity
-  orientation.z() += dt * angularVelocity.z();
-
+  
   // Update acceleration from dynamic states
   acceleration = Eigen::Vector3d(dynamicStates.x(), dynamicStates.y(), 0.0);
-
+  
   // Update angular velocity and acceleration
   angularVelocity.z() += dynamicStates.z() * dt;
   angularAcceleration.z() = dynamicStates.z();
-
+  
   // Update velocity with acceleration and angular velocity effects
   velocity += dt * (acceleration - angularVelocity.cross(velocity));
+  
+  // Update position based on velocity and orientation
+  Eigen::AngleAxisd yawAngle(orientation.z(), Eigen::Vector3d::UnitZ());
+  position += (yawAngle.matrix() * velocity) * dt;
+  
+  // Update orientation based on angular velocity
+  orientation.z() += dt * angularVelocity.z();
 
   // Update wheel orientations
   const double wheelRotationFactor = TWO_PI / (60.0 * powertrainModel.gearRatio);
-
+  
   wheelOrientations.FL =
-      std::fmod(wheelOrientations.FL + wheelspeeds.FL * dt * wheelRotationFactor, TWO_PI);
+  std::fmod(wheelOrientations.FL + wheelspeeds.FL * dt * wheelRotationFactor, TWO_PI);
   wheelOrientations.FR =
-      std::fmod(wheelOrientations.FR + wheelspeeds.FR * dt * wheelRotationFactor, TWO_PI);
+  std::fmod(wheelOrientations.FR + wheelspeeds.FR * dt * wheelRotationFactor, TWO_PI);
   wheelOrientations.RL =
-      std::fmod(wheelOrientations.RL + wheelspeeds.RL * dt * wheelRotationFactor, TWO_PI);
+  std::fmod(wheelOrientations.RL + wheelspeeds.RL * dt * wheelRotationFactor, TWO_PI);
   wheelOrientations.RR =
-      std::fmod(wheelOrientations.RR + wheelspeeds.RR * dt * wheelRotationFactor, TWO_PI);
+  std::fmod(wheelOrientations.RR + wheelspeeds.RR * dt * wheelRotationFactor, TWO_PI);
 }
 
 std::array<Eigen::Vector3d, 4> VehicleModelBicycle::getWheelPositions() {

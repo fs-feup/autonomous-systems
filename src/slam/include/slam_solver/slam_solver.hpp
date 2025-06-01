@@ -8,6 +8,7 @@
 #include "motion_lib/v2p_models/base_v2p_motion_model.hpp"
 #include "perception_sensor_lib/data_association/base_data_association.hpp"
 #include "perception_sensor_lib/landmark_filter/base_landmark_filter.hpp"
+#include "perception_sensor_lib/loop_closure/loop_closure.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "slam_config/general_config.hpp"
 
@@ -23,14 +24,17 @@ protected:
   std::shared_ptr<V2PMotionModel> _motion_model_;
   std::shared_ptr<LandmarkFilter> _landmark_filter_;
   std::shared_ptr<std::vector<double>>
-      _execution_times_;  //< Execution times: 0 -> total motion; 1 -> total
-                          // observation; the rest are solver specific
+      _execution_times_;                        //< Execution times: 0 -> total motion; 1 -> total
+                                                // observation; the rest are solver specific
+  std::shared_ptr<LoopClosure> _loop_closure_;  //< Loop closure object pointer
 
   rclcpp::Time _last_pose_update_ = rclcpp::Time(0);
   rclcpp::Time _last_observation_update_ = rclcpp::Time(0);
 
   bool _received_first_velocities_ =
       false;  //< Flag to check if the first velocities have been received
+
+  int lap_counter_ = 0;  //< Lap counter for the graph SLAM solver
 
 public:
   /**
@@ -40,11 +44,13 @@ public:
    * @param data_association Data association module
    * @param motion_model Motion model
    * @param execution_times Timekeeping array
+   * @param loop_closure Loop closure model
    */
   SLAMSolver(const SLAMParameters& params, std::shared_ptr<DataAssociationModel> data_association,
              std::shared_ptr<V2PMotionModel> motion_model,
              std::shared_ptr<LandmarkFilter> landmark_filter,
-             std::shared_ptr<std::vector<double>> execution_times);
+             std::shared_ptr<std::vector<double>> execution_times,
+             std::shared_ptr<LoopClosure> loop_closure);
 
   virtual ~SLAMSolver() = default;
 
@@ -55,7 +61,7 @@ public:
    *
    * @param node ROS2 node
    */
-  virtual void init(std::weak_ptr<rclcpp::Node> node) = 0;
+  virtual void init([[maybe_unused]] std::weak_ptr<rclcpp::Node> node) = 0;
 
   /**
    * @brief Add motion prior to the solver (prediction step)
@@ -91,4 +97,11 @@ public:
    * @return Eigen::MatrixXd
    */
   virtual Eigen::MatrixXd get_covariance() = 0;
+
+  /**
+   * @brief Get the lap counter
+   *
+   * @return int lap counter
+   */
+  virtual int get_lap_counter() = 0;
 };

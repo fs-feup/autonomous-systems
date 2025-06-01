@@ -1,8 +1,11 @@
 #pragma once
 
+#include <yaml-cpp/yaml.h>
+
 #include <functional>
 #include <map>
 #include <memory>
+#include <rclcpp/rclcpp.hpp>
 #include <string>
 #include <vector>
 
@@ -17,20 +20,15 @@
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/point_array.hpp"
-#include "custom_interfaces/msg/vehicle_state.hpp"
+#include "custom_interfaces/msg/pose.hpp"
 #include "planning/outliers.hpp"
 #include "planning/path_calculation.hpp"
 #include "planning/smoothing.hpp"
 #include "planning/velocity_planning.hpp"
+#include "rcl_interfaces/srv/get_parameters.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "std_msgs/msg/float64.hpp"
 #include "utils/files.hpp"
-#include <yaml-cpp/yaml.h>
-#include <rclcpp/rclcpp.hpp>
-#include <string>
-
-#include "rcl_interfaces/srv/get_parameters.hpp"
-
 
 using PathPoint = common_lib::structures::PathPoint;
 using Pose = common_lib::structures::Pose;
@@ -58,10 +56,9 @@ class Planning : public rclcpp::Node {
   double desired_velocity_;
   double initial_car_orientation_;
 
-  bool path_orientation_corrected_ = false; // for Skidpad
-  std::vector<PathPoint> predefined_path_; // for Skidpad 
-  rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr param_client_; // for mission logic
-
+  bool path_orientation_corrected_ = false;                                     // for Skidpad
+  std::vector<PathPoint> predefined_path_;                                      // for Skidpad
+  rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr param_client_;  // for mission logic
 
   std::map<common_lib::competition_logic::Mission, std::string> predictive_paths_ = {
       {common_lib::competition_logic::Mission::ACCELERATION, "/events/acceleration.txt"},
@@ -73,7 +70,7 @@ class Planning : public rclcpp::Node {
   bool received_first_pose_ = false;
   std::vector<Cone> cone_array_;
   /**< Subscription to vehicle localization */
-  rclcpp::Subscription<custom_interfaces::msg::VehicleState>::SharedPtr vl_sub_;
+  rclcpp::Subscription<custom_interfaces::msg::Pose>::SharedPtr vl_sub_;
   /**< Subscription to track map */
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr track_sub_;
   /**< Local path points publisher */
@@ -88,9 +85,9 @@ class Planning : public rclcpp::Node {
   /**
    * @brief Callback for vehicle localization updates (undefined).
    *
-   * @param msg The received VehicleState message.
+   * @param msg The received Pose message.
    */
-  void vehicle_localization_callback(const custom_interfaces::msg::VehicleState &msg);
+  void vehicle_localization_callback(const custom_interfaces::msg::Pose &msg);
 
   /**
    * @brief Fetches the mission from the parameters.

@@ -38,7 +38,7 @@ public:
    * @param dist_cg_2_rear_axis disntance between the center of mass and the rear axis in meters
    * @return common_lib::structures::Position
    */
-  common_lib::structures::Position rear_axis_position(common_lib::structures::Position cg,
+  common_lib::structures::Position rear_axis_position(const common_lib::structures::Position& cg,
                                                       double orientation,
                                                       double dist_cg_2_rear_axis) override;
   /**
@@ -50,7 +50,7 @@ public:
    * @return Eigen::VectorXd rpms of the wheels, the steering angle, and motor rpms {fl_rpm, fr_rpm,
    * rl_rpm, rr_rpm, steering_angle, motor_rpm}
    */
-  Eigen::VectorXd cg_velocity_to_wheels(Eigen::Vector3d& cg_velocities) override;
+  Eigen::VectorXd cg_velocity_to_wheels(const Eigen::Vector3d& cg_velocities) override;
 
   /**
    * @brief Calculates the jacobian of the function cg_velocity_to_wheels with respect to the center
@@ -60,5 +60,5 @@ public:
    * rotational_velocity} in m/s and rad/s respectively
    * @return Eigen::MatrixXd jacobian matrix of dimension 6x3
    */
-  Eigen::MatrixXd jacobian_cg_velocity_to_wheels(Eigen::Vector3d& cg_velocities) override;
+  Eigen::MatrixXd jacobian_cg_velocity_to_wheels(const Eigen::Vector3d& cg_velocities) override;
 };

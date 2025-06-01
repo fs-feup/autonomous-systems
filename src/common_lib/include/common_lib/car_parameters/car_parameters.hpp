@@ -5,6 +5,8 @@
 #include <ament_index_cpp/get_package_prefix.hpp>
 #include <string>
 
+#include "common_lib/config_load/config_load.hpp"
+
 namespace common_lib::car_parameters {
 struct CarParameters {
   double wheel_diameter = 0.406;

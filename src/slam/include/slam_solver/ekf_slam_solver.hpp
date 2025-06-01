@@ -102,7 +102,8 @@ public:
                 std::shared_ptr<DataAssociationModel> data_association,
                 std::shared_ptr<V2PMotionModel> motion_model,
                 std::shared_ptr<LandmarkFilter> landmark_filter,
-                std::shared_ptr<std::vector<double>> execution_times);
+                std::shared_ptr<std::vector<double>> execution_times,
+                std::shared_ptr<LoopClosure> loop_closure);
 
   /**
    * @brief Initialize the EKF SLAM solver
@@ -110,7 +111,7 @@ public:
    * aspects that require the node e.g. timer callbacks
    * @param node ROS2 node
    */
-  void init(std::weak_ptr<rclcpp::Node> _) override;
+  void init([[maybe_unused]] std::weak_ptr<rclcpp::Node> _) override;
 
   /**
    * @brief Executed to deal with new velocity data
@@ -132,4 +133,11 @@ public:
    * @return Eigen::MatrixXd covariance matrix
    */
   Eigen::MatrixXd get_covariance() override { return covariance_; }
+
+  /**
+   * @brief Get the lap counter
+   *
+   * @return int lap counter
+   */
+  int get_lap_counter() override { return lap_counter_; }
 };

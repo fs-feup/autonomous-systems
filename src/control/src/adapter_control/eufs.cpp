@@ -1,5 +1,6 @@
 #include "adapter_control/eufs.hpp"
 
+#include "custom_interfaces/msg/pose.hpp"
 #include "node_/node_control.hpp"
 
 EufsAdapter::EufsAdapter(const ControlParameters& params)
@@ -8,9 +9,9 @@ EufsAdapter::EufsAdapter(const ControlParameters& params)
   // No topic for eufs, just set the go_signal to true
   go_signal_ = true;
 
-  if (using_simulated_se_) {
+  if (using_simulated_slam_) {
     RCLCPP_INFO(this->get_logger(), "Eufs using simulated State Estimation\n");
-    vehicle_state_sub_ = this->create_subscription<eufs_msgs::msg::CarState>(
+    vehicle_pose_sub_ = this->create_subscription<eufs_msgs::msg::CarState>(
         "/odometry_integration/car_state", 10,
         std::bind(&EufsAdapter::vehicle_state_callback, this, std::placeholders::_1));
   }
@@ -20,18 +21,15 @@ EufsAdapter::EufsAdapter(const ControlParameters& params)
 
 void EufsAdapter::vehicle_state_callback(const eufs_msgs::msg::CarState& msg) {
   // Update the vehicle state
-  custom_interfaces::msg::VehicleState vehicle_state;
-  vehicle_state.position.x = msg.pose.pose.position.x;
-  vehicle_state.position.y = msg.pose.pose.position.y;
+  custom_interfaces::msg::Pose vehicle_state;
+  vehicle_state.x = msg.pose.pose.position.x;
+  vehicle_state.y = msg.pose.pose.position.y;
   vehicle_state.theta = atan2(2.0f * (msg.pose.pose.orientation.w * msg.pose.pose.orientation.z +
                                       msg.pose.pose.orientation.x * msg.pose.pose.orientation.y),
                               msg.pose.pose.orientation.w * msg.pose.pose.orientation.w +
                                   msg.pose.pose.orientation.x * msg.pose.pose.orientation.x -
                                   msg.pose.pose.orientation.y * msg.pose.pose.orientation.y -
                                   msg.pose.pose.orientation.z * msg.pose.pose.orientation.z);
-
-  vehicle_state.linear_velocity =
-      std::sqrt(std::pow(msg.twist.twist.linear.x, 2) + std::pow(msg.twist.twist.linear.y, 2));
 
   publish_control(vehicle_state);
 }

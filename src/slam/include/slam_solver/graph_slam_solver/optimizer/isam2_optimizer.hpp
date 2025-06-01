@@ -12,6 +12,7 @@ public:
 
   ~ISAM2Optimizer() override = default;
 
-  gtsam::Values optimize(gtsam::NonlinearFactorGraph& factor_graph,
-                         gtsam::Values& graph_values) override;
+  gtsam::Values optimize(gtsam::NonlinearFactorGraph& factor_graph, gtsam::Values& graph_values,
+                         [[maybe_unused]] unsigned int pose_num,
+                         [[maybe_unused]] unsigned int landmark_num) override;
 };

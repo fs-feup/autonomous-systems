@@ -24,7 +24,7 @@ if(OpenMP_CXX_FOUND)
 endif()
 
 set(IMPLEMENTATION_FILES
-  src/particle_model.cpp
+  src/vel_process_model/particle_model.cpp
   src/v2p_models/constant_velocity_model.cpp
   src/v2p_models/base_v2p_motion_model.cpp
   src/s2v_model/bicycle_model.cpp
@@ -61,10 +61,10 @@ if(BUILD_TESTING)
 
   set(TESTFILES
     test/main.cpp
-    test/bicycle_model_test.cpp
+    test/s2v_models/bicycle_model_test.cpp
     test/v2p_models/constant_velocity_model_test.cpp
     test/v2p_models/constant_velocity_turnrate_model_test.cpp
-    test/particle_model_test.cpp
+    test/vel_process_model/particle_model_test.cpp
   )
 
   include_directories(test)  # Include the 'test' directory for your test targets
