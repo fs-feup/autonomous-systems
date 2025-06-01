@@ -51,6 +51,7 @@ set(IMPLEMENTATION_FILES
   src/slam_solver/graph_slam_solver/optimizer/isam2_optimizer.cpp
   src/slam_solver/graph_slam_solver/optimizer/normal_levenberg_optimizer.cpp
   src/slam_solver/graph_slam_solver/optimizer/sliding_window_levenberg_optimizer.cpp
+  src/track_loader/track_loader.cpp
 )
 
 add_executable(slam src/main.cpp ${IMPLEMENTATION_FILES})
@@ -85,20 +86,22 @@ if(BUILD_TESTING)
   include_directories(test)  # Include the 'test' directory for your test targets
   include_directories(${CMAKE_CURRENT_SOURCE_DIR})  # Include the current source directory
 
-  # Unit tests
-  ament_add_gmock(slam_test ${TESTFILES} ${IMPLEMENTATION_FILES} TIMEOUT 600)
-  target_link_libraries(slam_test gmock gmock_main tbb gtsam yaml-cpp) # Necessary to be here before Eigen3
-  ament_target_dependencies(slam_test ${PACKAGES})
-  target_include_directories(slam_test PUBLIC
+  # Only the loader test
+  ament_add_gmock(loader_test
+    test/loader/loader_test.cpp
+    ${IMPLEMENTATION_FILES}
+  )
+  target_link_libraries(loader_test gmock gmock_main tbb gtsam yaml-cpp)
+  ament_target_dependencies(loader_test ${PACKAGES})
+  target_include_directories(loader_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
     ${CMAKE_CURRENT_SOURCE_DIR}
-    ${EIGEN3_INCLUDE_DIR}  
+    ${EIGEN3_INCLUDE_DIR}
   )
+  target_compile_features(loader_test PUBLIC c_std_99 cxx_std_17)
 
-  target_compile_features(slam_test PUBLIC c_std_99 cxx_std_17)
-
-  install(TARGETS ${PROJECT_NAME}_test DESTINATION lib/${PROJECT_NAME})
+  install(TARGETS loader_test DESTINATION lib/${PROJECT_NAME})
 endif()
 
 ament_package()

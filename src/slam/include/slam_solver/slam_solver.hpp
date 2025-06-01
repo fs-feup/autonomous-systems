@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 
+#include "common_lib/competition_logic/mission_logic.hpp"
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/pose.hpp"
 #include "common_lib/structures/position.hpp"
@@ -11,6 +12,7 @@
 #include "perception_sensor_lib/loop_closure/loop_closure.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "slam_config/general_config.hpp"
+#include "track_loader/track_loader.hpp"
 
 /**
  * @brief Interface for SLAM solvers
@@ -23,6 +25,7 @@ protected:
   std::shared_ptr<DataAssociationModel> _data_association_;
   std::shared_ptr<V2PMotionModel> _motion_model_;
   std::shared_ptr<LandmarkFilter> _landmark_filter_;
+  common_lib::competition_logic::Mission _mission_ = common_lib::competition_logic::Mission::NONE;
   std::shared_ptr<std::vector<double>>
       _execution_times_;                        //< Execution times: 0 -> total motion; 1 -> total
                                                 // observation; the rest are solver specific
@@ -78,6 +81,15 @@ public:
   virtual void add_observations(const std::vector<common_lib::structures::Cone>& cones) = 0;
 
   /**
+   * @brief Loads a previously saved map and pose into the solver
+   *
+   * @param map coordinates of the landmarks in the form of [x1, y1, x2, y2, ...] in the global
+   * frame
+   * @param pose initial pose of the robot in the form of [x, y, theta] in the global frame
+   */
+  virtual void load_map(const Eigen::VectorXd& map, const Eigen::VectorXd& pose) = 0;
+
+  /**
    * @brief Get the map estimate object
    *
    * @return std::vector<common_lib::structures::Cone>
@@ -104,4 +116,11 @@ public:
    * @return int lap counter
    */
   virtual int get_lap_counter() = 0;
+
+  /**
+   * @brief Set the mission
+   *
+   * @param mission
+   */
+  void set_mission(common_lib::competition_logic::Mission mission);
 };

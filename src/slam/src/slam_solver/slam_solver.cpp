@@ -12,3 +12,21 @@ SLAMSolver::SLAMSolver(const SLAMParameters& params,
       _landmark_filter_(landmark_filter),
       _execution_times_(execution_times),
       _loop_closure_(loop_closure) {}
+
+void SLAMSolver::set_mission(common_lib::competition_logic::Mission mission) {
+  common_lib::competition_logic::Mission previous_mission_ = this->_mission_;
+  _mission_ = mission;
+  if (previous_mission_ == common_lib::competition_logic::Mission::NONE) {
+    if (_mission_ == common_lib::competition_logic::Mission::SKIDPAD) {
+      Eigen::Vector3d pose;
+      Eigen::VectorXd map;
+      load_skidpad_track(pose, map);
+      this->load_map(map, pose);
+    } else if (_mission_ == common_lib::competition_logic::Mission::ACCELERATION) {
+      Eigen::Vector3d pose;
+      Eigen::VectorXd map;
+      load_acceleration_track(pose, map);
+      this->load_map(map, pose);
+    }
+  }
+}

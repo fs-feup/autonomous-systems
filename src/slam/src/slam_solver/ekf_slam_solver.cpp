@@ -139,6 +139,17 @@ void EKFSLAMSolver::state_augmentation(Eigen::VectorXd& state, Eigen::MatrixXd& 
   state.segment(original_state_size, num_new_entries) = new_landmarks_coordinates;
 }
 
+void EKFSLAMSolver::load_map(const Eigen::VectorXd& map, const Eigen::VectorXd& pose) {
+  if (map.size() % 2 != 0 || pose.size() != 3) {
+    throw std::runtime_error("Invalid map or pose size");
+  }
+  this->state_ = Eigen::VectorXd::Zero(3 + map.size());
+  this->state_.segment(0, 3) = pose;
+  this->state_.segment(3, map.size()) = map;
+  this->covariance_ = Eigen::MatrixXd::Identity(this->state_.size(), this->state_.size()) *
+                      0.4;  // TODO: initialize with the right values
+}
+
 std::vector<common_lib::structures::Cone> EKFSLAMSolver::get_map_estimate() {
   std::vector<common_lib::structures::Cone> map;
   for (int i = 3; i < this->state_.size(); i += 2) {

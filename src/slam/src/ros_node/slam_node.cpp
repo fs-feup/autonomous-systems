@@ -93,7 +93,7 @@ void SLAMNode::_perception_subscription_callback(const custom_interfaces::msg::C
 
   RCLCPP_DEBUG(this->get_logger(), "SUB - Perception: %ld cones", cone_array.size());
 
-  if (!this->_go_) {
+  if (!this->_go_ || this->_mission_ == common_lib::competition_logic::Mission::NONE) {
     RCLCPP_INFO(this->get_logger(), "ATTR - Mission not started yet");
     return;
   }
@@ -131,6 +131,9 @@ void SLAMNode::_perception_subscription_callback(const custom_interfaces::msg::C
 }
 
 void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::Velocities &msg) {
+  if (this->_mission_ == common_lib::competition_logic::Mission::NONE) {
+    return;
+  }
   rclcpp::Time start_time = this->get_clock()->now();
 
   this->_vehicle_state_velocities_ = common_lib::structures::Velocities(
