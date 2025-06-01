@@ -94,7 +94,7 @@ void SLAMNode::_perception_subscription_callback(const custom_interfaces::msg::C
   RCLCPP_DEBUG(this->get_logger(), "SUB - Perception: %ld cones", cone_array.size());
 
   if (!this->_go_) {
-    RCLCPP_WARN(this->get_logger(), "ATTR - Mission not started yet");
+    RCLCPP_INFO(this->get_logger(), "ATTR - Mission not started yet");
     return;
   }
 
