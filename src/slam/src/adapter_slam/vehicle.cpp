@@ -13,7 +13,6 @@ VehicleAdapter::VehicleAdapter(const SLAMParameters& params) : SLAMNode(params) 
             RCLCPP_DEBUG(this->get_logger(), "Operational status received. Mission: %d - Go: %d",
                          msg->as_mission, msg->go_signal);
             _go_ = msg->go_signal;
-            common_lib::competition_logic::Mission previous_mission_ = _mission_;
             _mission_ = common_lib::competition_logic::Mission(msg->as_mission);
             this->_slam_solver_->set_mission(_mission_);
           });

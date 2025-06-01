@@ -88,7 +88,7 @@ if(BUILD_TESTING)
 
   # Only the loader test
   ament_add_gmock(loader_test
-    test/loader/loader_test.cpp
+    test/track_loader/track_loader_test.cpp
     ${IMPLEMENTATION_FILES}
   )
   target_link_libraries(loader_test gmock gmock_main tbb gtsam yaml-cpp)

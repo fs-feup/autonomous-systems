@@ -10,11 +10,11 @@ Node get_child_node(Node parentNode, std::string tag) {
   }
 }
 
-void add_landmarks(Eigen::VectorXd& track, Node* list, int* _coneCounter) {
-  int N = list->size();
+void add_landmarks(Eigen::VectorXd& track, const Node& list) {
+  int N = list.size();
   int track_size = track.size();
   track.conservativeResize(track_size + N * 2);
-  for (const_iterator it = list->begin(); it != list->end(); ++it, track_size += 2) {
+  for (const_iterator it = list.begin(); it != list.end(); ++it, track_size += 2) {
     const Node& position = *it;
     std::vector<double> vi = position["position"].as<std::vector<double>>();
     track.segment(track_size, 2) << vi[0], vi[1];
@@ -39,11 +39,9 @@ void load_map(std::string mapPath, Eigen::Vector3d& start_pose, Eigen::VectorXd&
   }
   start_pose = Eigen::Vector3d(state_pose_vector.data());
 
-  int coneCounter = 0;
-
-  add_landmarks(track, &left, &coneCounter);
-  add_landmarks(track, &right, &coneCounter);
-  add_landmarks(track, &unknown, &coneCounter);
+  add_landmarks(track, left);
+  add_landmarks(track, right);
+  add_landmarks(track, unknown);
 }
 
 void load_acceleration_track(Eigen::Vector3d& start_pose, Eigen::VectorXd& track) {
