@@ -52,7 +52,6 @@ private:
   // Anchor point for the path, to avoid calculating the path from the position of the car
   common_lib::structures::Pose anchor_point_;
   bool anchor_point_set_ = false;
-  std::vector<Point> global_path_; 
 
 public:
   /**
@@ -86,12 +85,6 @@ public:
         return h1 ^ (h2 << 1);
     }
   };
-  /**
-   * @brief Convert global_path_ to PathPoint format
-   *
-   * @return std::vector<PathPoint> The converted global path
-   */
-  std::vector<PathPoint> convertToPathPointsFromGlobalPath() const;
 
   /**
    * @brief Construct a new default PathCalculation object

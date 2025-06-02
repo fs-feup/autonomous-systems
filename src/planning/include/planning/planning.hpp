@@ -138,7 +138,7 @@ class Planning : public rclcpp::Node {
    * @param final_path final path after smoothing
    */
   void publish_visualization_msgs(const std::vector<PathPoint> &after_triangulations_path,
-                                  const std::vector<PathPoint> &final_path, const std::vector<PathPoint> &global_path) const;
+                                  const std::vector<PathPoint> &final_path) const;
 
   /**
    * @brief Checks if the current mission is predictive.

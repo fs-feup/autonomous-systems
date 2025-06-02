@@ -79,6 +79,7 @@ std::pair<double, PathCalculation::MidPoint*> PathCalculation::dfs_cost(int dept
 
 std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& cone_array, common_lib::structures::Pose pose) {
   std::vector<PathPoint> result;
+  std::vector<Point> path;
   auto start_total = std::chrono::high_resolution_clock::now();
 
   if (cone_array.size() >= 4) {
@@ -168,17 +169,14 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
       updateAnchorPoint(pose);
       auto [first, second] = findPathStartPoints(midPoints, anchor_point_);
       if (first != nullptr && second != nullptr) {
-          global_path_.push_back(first->point);
-          global_path_.push_back(second->point);
+        
+        path.push_back(first->point);
+        path.push_back(second->point);
+        
       } else {
           RCLCPP_ERROR(rclcpp::get_logger("planning"), "Failed to find valid starting points");
       }
-      std::vector<Point> path;
-      size_t start_index = 0;
-      if (global_path_.size() > static_cast<size_t>(this->config_.lookback_points_)) {
-          start_index = global_path_.size() - this->config_.lookback_points_;
-      }
-      path.assign(global_path_.begin() + start_index, global_path_.end());
+   
 
       std::unordered_map<Point, MidPoint*, point_hash> point_to_midpoint;
       for (const auto& mp : midPoints) {
@@ -209,7 +207,7 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
               break;
           } else {
               path.push_back(best_point->point);
-              global_path_.push_back(best_point->point);
+  
 
               // Atualizar cones descartados se necessário
               if (path.size() > 2) {
@@ -251,7 +249,7 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
       }
     }
   std::vector<PathPoint> path_points;
-  for (const auto& point : global_path_) {
+  for (const auto& point : path) {
       path_points.emplace_back(point.x(), point.y());
   }
 
@@ -573,13 +571,3 @@ std::vector<PathPoint> PathCalculation::skidpad_path(std::vector<Cone>& cone_arr
   return std::vector<PathPoint>(predefined_path_.begin(), predefined_path_.begin() + 70);
 }
 
-std::vector<PathPoint> PathCalculation::convertToPathPointsFromGlobalPath() const {
-  std::vector<PathPoint> path_points;
-  for (const auto &point : global_path_) {
-    PathPoint path_point;
-    path_point.position.x = point.x();
-    path_point.position.y = point.y();
-    path_points.push_back(path_point);
-  }
-  return path_points;
-}
