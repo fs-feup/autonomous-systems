@@ -12,6 +12,7 @@
 #include "common_lib/structures/position.hpp"
 #include "motion_lib/v2p_models/map.hpp"
 #include "perception_sensor_lib/data_association/map.hpp"
+#include "perception_sensor_lib/loop_closure/lap_counter.hpp"
 #include "slam_solver/map.hpp"
 
 /*---------------------- Constructor --------------------*/
@@ -28,10 +29,11 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
           params.observation_y_noise_));
 
   this->_execution_times_ = std::make_shared<std::vector<double>>(20, 0.0);
+  std::shared_ptr<LoopClosure> loop_closure = std::make_shared<LapCounter>(4,10,5,3);
 
   // Initialize SLAM solver object
   this->_slam_solver_ = slam_solver_constructors_map.at(params.slam_solver_name_)(
-      params, data_association, motion_model, this->_execution_times_);
+      params, data_association, motion_model, this->_execution_times_, loop_closure);
 
   _perception_map_ = std::vector<common_lib::structures::Cone>();
   _vehicle_state_velocities_ = common_lib::structures::Velocities();
@@ -67,6 +69,9 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
       "/state_estimation/slam_execution_time", 10);
   this->_covariance_publisher_ = this->create_publisher<std_msgs::msg::Float64MultiArray>(
       "/state_estimation/slam_covariance", 10);
+  this->_lap_counter_publisher_ = this->create_publisher<std_msgs::msg::Float64>(
+      "/state_estimation/lap_counter", 10);
+
   this->_tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
 
   RCLCPP_INFO(this->get_logger(), "SLAM Node has been initialized");
@@ -106,6 +111,7 @@ void SLAMNode::_perception_subscription_callback(const custom_interfaces::msg::C
 
   this->_publish_vehicle_pose();
   this->_publish_map();
+  this->_publish_lap_counter();
 
   // Timekeeping
   rclcpp::Time end_time = this->get_clock()->now();
@@ -213,4 +219,10 @@ void SLAMNode::_publish_covariance() {
     }
   }
   this->_covariance_publisher_->publish(covariance_msg);
+}
+
+void SLAMNode::_publish_lap_counter() {
+  std_msgs::msg::Float64 lap_counter_msg;
+  lap_counter_msg.data = this->_slam_solver_->get_lap_counter();
+  this->_lap_counter_publisher_->publish(lap_counter_msg);
 }

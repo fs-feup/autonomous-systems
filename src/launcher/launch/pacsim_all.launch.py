@@ -4,11 +4,21 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import PathJoinSubstitution
 from launch_ros.substitutions import FindPackageShare
 
+
 def generate_launch_description():
-    se_launch_description = IncludeLaunchDescription(
+    slam_launch_description = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            PathJoinSubstitution([FindPackageShare("slam"), "launch", "slam.launch.py"])
+        ),
+    )
+    ve_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
-                [FindPackageShare("slam"), "launch", "slam.launch.py"]
+                [
+                    FindPackageShare("velocity_estimation"),
+                    "launch",
+                    "velocity_estimation.launch.py",
+                ]
             )
         ),
     )
@@ -19,6 +29,14 @@ def generate_launch_description():
             )
         ),
     )
+    pacsim_launch_description = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            PathJoinSubstitution(
+                [FindPackageShare("pacsim"), "launch", "autocross.launch.py"]
+            )
+        ),
+    )
+
     planning_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
@@ -33,11 +51,14 @@ def generate_launch_description():
             )
         ),
     )
+
     return LaunchDescription(
         [
-            se_launch_description,
+            evaluator_launch_description,
+            slam_launch_description,
+            ve_launch_description,
+            pacsim_launch_description,
             planning_launch_description,
             control_launch_description,
-            evaluator_launch_description,
         ],
     )

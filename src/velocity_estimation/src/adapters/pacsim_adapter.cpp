@@ -26,8 +26,10 @@ void PacsimAdapter::wss_callback(const pacsim::msg::Wheels::SharedPtr msg) {
   this->_velocity_estimator_->motor_rpm_callback(0.5 *
                                                  this->_parameters_.car_parameters_.gear_ratio *
                                                  (msg->rl + msg->rr));  // Simulate resolver data
+  this->publish_velocities();
 }
 
 void PacsimAdapter::steering_angle_callback(const pacsim::msg::StampedScalar::SharedPtr msg) {
   this->_velocity_estimator_->steering_callback(msg->value);
+  this->publish_velocities();
 }

@@ -9,27 +9,26 @@ ConstantVelocityTurnrateModel::ConstantVelocityTurnrateModel(
 
 ConstantVelocityTurnrateModel::ConstantVelocityTurnrateModel() : V2PMotionModel() {}
 
-Eigen::Vector3d ConstantVelocityTurnrateModel::get_next_pose(const Eigen::Vector3d &previous_pose,
-                                                             const Eigen::Vector3d &velocities,
-                                                             const double delta_t) {
-  Eigen::Vector3d next_pose;
+Eigen::Vector3d ConstantVelocityTurnrateModel::get_pose_difference(
+    const Eigen::Vector3d &previous_pose, const Eigen::Vector3d &velocities, const double delta_t) {
+  Eigen::Vector3d pose_difference;
   if (::abs(velocities(2)) < 0.0001) {  // Avoid division by zero when car is going straight
-    next_pose(0) = previous_pose(0) + (velocities(0) * ::cos(previous_pose(2)) -
-                                       velocities(1) * ::sin(previous_pose(2))) *
-                                          delta_t;
-    next_pose(1) = previous_pose(1) + (velocities(0) * ::sin(previous_pose(2)) +
-                                       velocities(1) * ::cos(previous_pose(2))) *
-                                          delta_t;
+    pose_difference(0) =
+        (velocities(0) * ::cos(previous_pose(2)) - velocities(1) * ::sin(previous_pose(2))) *
+        delta_t;
+    pose_difference(1) =
+        (velocities(0) * ::sin(previous_pose(2)) + velocities(1) * ::cos(previous_pose(2))) *
+        delta_t;
   } else {
-    next_pose(0) = previous_pose(0) + velocities(0) / velocities(2) *
-                                          (::sin(velocities(2) * delta_t + previous_pose(2)) -
-                                           ::sin(previous_pose(2)));
-    next_pose(1) = previous_pose(1) + velocities(0) / velocities(2) *
-                                          (-::cos(velocities(2) * delta_t + previous_pose(2)) +
-                                           ::cos(previous_pose(2)));
+    pose_difference(0) =
+        velocities(0) / velocities(2) *
+        (::sin(velocities(2) * delta_t + previous_pose(2)) - ::sin(previous_pose(2)));
+    pose_difference(1) =
+        velocities(0) / velocities(2) *
+        (-::cos(velocities(2) * delta_t + previous_pose(2)) + ::cos(previous_pose(2)));
   }
-  next_pose(2) = common_lib::maths::normalize_angle(previous_pose(2) + velocities(2) * delta_t);
-  return next_pose;
+  pose_difference(2) = common_lib::maths::normalize_angle(velocities(2) * delta_t);
+  return pose_difference;
 }
 
 Eigen::Matrix3d ConstantVelocityTurnrateModel::get_jacobian_pose(

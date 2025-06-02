@@ -80,6 +80,9 @@ target_include_directories(planning PUBLIC
   ${PCL_INCLUDE_DIRS}
   )
 target_compile_features(planning PUBLIC c_std_99 cxx_std_17)
+install(TARGETS planning
+  DESTINATION lib/${PROJECT_NAME})
+
 install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
 
 if(BUILD_TESTING)
@@ -92,10 +95,7 @@ if(BUILD_TESTING)
     ${PCL_INCLUDE_DIRS})
   target_link_libraries(planning_test ${CGAL_LIBRARIES} ${GMP_LIBRARIES} ${MPFR_LIBRARIES} ${QT5_LIBRARIES} ${GSL_LIBRARIES} yaml-cpp ${PCL_LIBRARIES})
 
-  install(TARGETS
-    planning
-    planning_test
-    DESTINATION lib/${PROJECT_NAME})
+  install(TARGETS ${PROJECT_NAME}_test DESTINATION lib/${PROJECT_NAME})
 endif()
 
 ament_package()

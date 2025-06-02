@@ -38,9 +38,9 @@ public:
    *
    * @return Point
    */
-  virtual common_lib::structures::Position rear_axis_position(common_lib::structures::Position cg,
-                                                              double orientation,
-                                                              double dist_cg_2_rear_axis) = 0;
+  virtual common_lib::structures::Position rear_axis_position(
+      const common_lib::structures::Position& cg, double orientation,
+      double dist_cg_2_rear_axis) = 0;
 
   /**
    * @brief Estimate wheel and motor velocities, as well as steering angle from the velocities of
@@ -51,7 +51,7 @@ public:
    * @return Eigen::VectorXd vector of wheel speeds, steering angle and motor speed
    * {fl_rpm, fr_rpm, rl_rpm, rr_rpm, steering_angle, motor_rpm}
    */
-  virtual Eigen::VectorXd cg_velocity_to_wheels(Eigen::Vector3d& cg_velocities) = 0;
+  virtual Eigen::VectorXd cg_velocity_to_wheels(const Eigen::Vector3d& cg_velocities) = 0;
 
   /**
    * @brief jacobian of the function cg_velocity_to_wheels with respect to the velocities of the
@@ -65,5 +65,5 @@ public:
    * rotational_velocity} in m/s and rad/s respectively
    * @return Eigen::MatrixXd jacobian matrix of the function cg_velocity_to_wheels (dimensions: 6x3)
    */
-  virtual Eigen::MatrixXd jacobian_cg_velocity_to_wheels(Eigen::Vector3d& cg_velocities) = 0;
+  virtual Eigen::MatrixXd jacobian_cg_velocity_to_wheels(const Eigen::Vector3d& cg_velocities) = 0;
 };

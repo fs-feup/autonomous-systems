@@ -35,6 +35,7 @@ set(IMPLEMENTATION_FILES
   src/data_association/nearest_neighbour.cpp
   src/data_association/nearest_neighbor.cpp
   src/observation_model/base_observation_model.cpp
+  src/loop_closure/lap_counter.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})
