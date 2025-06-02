@@ -28,16 +28,12 @@ PacsimAdapter::PacsimAdapter(const SLAMParameters& params) : SLAMNode(params) {
   this->_finished_client_ = this->create_client<std_srvs::srv::Empty>("/pacsim/finish_signal");
   param_client_ =
       this->create_client<rcl_interfaces::srv::GetParameters>("/pacsim/pacsim_node/get_parameters");
-  common_lib::competition_logic::Mission mission = this->_mission_ = fetch_discipline();
-  this->_slam_solver_->set_mission(mission);
+  fetch_discipline();
 
   this->_go_ = true;  // No go signal needed for pacsim
 }
 
-common_lib::competition_logic::Mission PacsimAdapter::fetch_discipline() {
-  common_lib::competition_logic::Mission mission_result =
-      common_lib::competition_logic::Mission::AUTOCROSS;
-
+void PacsimAdapter::fetch_discipline() {
   if (!param_client_->wait_for_service(std::chrono::milliseconds(100))) {
     RCLCPP_ERROR(this->get_logger(), "Service /pacsim/pacsim_node/get_parameters not available.");
   } else {
@@ -62,10 +58,10 @@ common_lib::competition_logic::Mission PacsimAdapter::fetch_discipline() {
           } else {
             RCLCPP_ERROR(this->get_logger(), "Failed to retrieve discipline parameter.");
           }
+          this->_mission_ = mission_result;
+          this->_slam_solver_->set_mission(mission_result);
         });
   }
-
-  return mission_result;
 }
 
 void PacsimAdapter::finish() {

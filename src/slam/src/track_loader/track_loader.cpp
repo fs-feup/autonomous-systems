@@ -46,12 +46,35 @@ void load_map(std::string mapPath, Eigen::Vector3d& start_pose, Eigen::VectorXd&
 
 void load_acceleration_track(Eigen::Vector3d& start_pose, Eigen::VectorXd& track) {
   std::string package_prefix = ament_index_cpp::get_package_prefix("slam");
-  std::string mapPath = package_prefix + "slam/maps/acceleration.yaml";
+  std::string mapPath = package_prefix + "/../../src/slam/maps/acceleration.yaml";
   load_map(mapPath, start_pose, track);
+  transform_track(track, start_pose);
 }
 
 void load_skidpad_track(Eigen::Vector3d& start_pose, Eigen::VectorXd& track) {
   std::string package_prefix = ament_index_cpp::get_package_prefix("slam");
-  std::string mapPath = package_prefix + "slam/maps/skidpad.yaml";
+  std::string mapPath = package_prefix + "/../../src/slam/maps/skidpad.yaml";
   load_map(mapPath, start_pose, track);
+  transform_track(track, start_pose);
+}
+
+void transform_track(Eigen::VectorXd& track, Eigen::Vector3d& start_pose) {
+  double theta = start_pose(2);
+  Eigen::Vector2d translation = start_pose.head<2>();
+
+  // Compute inverse rotation matrix (transpose of rotation matrix)
+  Eigen::Matrix2d rotation_matrix;
+  rotation_matrix << cos(theta), -sin(theta), sin(theta), cos(theta);
+  Eigen::Matrix2d inverse_rotation = rotation_matrix.transpose();
+
+  for (int i = 0; i < track.size(); i += 2) {
+    Eigen::Vector2d point(track[i], track[i + 1]);
+
+    // Translate to pose frame and rotate
+    point = inverse_rotation * (point - translation);
+
+    track[i] = point[0];
+    track[i + 1] = point[1];
+  }
+  start_pose = Eigen::Vector3d(0, 0, 0);  // Reset start pose to origin after transformation
 }

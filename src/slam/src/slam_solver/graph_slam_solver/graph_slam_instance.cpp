@@ -208,6 +208,9 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
 }
 
 void GraphSLAMInstance::load_map(const Eigen::VectorXd& map, const Eigen::VectorXd& pose) {
+  RCLCPP_INFO(rclcpp::get_logger("slam"), "GraphSLAMInstance - Loading map ");
+  this->_pose_counter_ = 0;
+  this->_landmark_counter_ = 0;
   _factor_graph_ = gtsam::NonlinearFactorGraph();
   const gtsam::Pose2 prior_pose(pose(0), pose(1), pose(2));
   const gtsam::Symbol pose_symbol('x', ++(this->_pose_counter_));

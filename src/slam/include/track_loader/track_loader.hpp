@@ -53,4 +53,12 @@ void load_acceleration_track(Eigen::Vector3d& start_pose, Eigen::VectorXd& track
  */
 void load_skidpad_track(Eigen::Vector3d& start_pose, Eigen::VectorXd& track);
 
+/**
+ * @brief Transforms the track as seen from the start pose.
+ *
+ * @param track will be transformed in place to the start pose
+ * @param start_pose will be set to zero after the transformation
+ */
+void transform_track(Eigen::VectorXd& track, Eigen::Vector3d& start_pose);
+
 #endif /* TRACKLOADER_HPP */

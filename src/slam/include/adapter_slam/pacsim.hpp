@@ -37,7 +37,7 @@ class PacsimAdapter : public SLAMNode {
   /**
    * @brief Fetches the mission from the parameters.
    */
-  common_lib::competition_logic::Mission fetch_discipline();
+  void fetch_discipline();
 
 public:
   /**
