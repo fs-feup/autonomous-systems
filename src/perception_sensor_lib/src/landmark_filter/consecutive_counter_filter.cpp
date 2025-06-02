@@ -1,7 +1,5 @@
 #include "perception_sensor_lib/landmark_filter/consecutive_counter_filter.hpp"
 
-#include <iostream>
-
 #include "common_lib/maths/transformations.hpp"
 Eigen::VectorXd ConsecutiveCounterFilter::filter(
     const Eigen::VectorXd& new_observations, const Eigen::VectorXd& new_observation_confidences) {
