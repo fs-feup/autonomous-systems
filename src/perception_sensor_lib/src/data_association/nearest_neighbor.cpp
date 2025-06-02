@@ -17,11 +17,6 @@ Eigen::VectorXi NearestNeighbor::associate(const Eigen::VectorXd& landmarks,
     Eigen::Vector2d obs;
     obs << observations(2 * i), observations(2 * i + 1);
 
-    if (const double distance = std::hypot(obs(0), obs(1));
-        distance > this->_params_.max_landmark_distance) {
-      continue;
-    }
-
     double best_cost = std::numeric_limits<double>::max();
     int best_landmark_index = -1;
 

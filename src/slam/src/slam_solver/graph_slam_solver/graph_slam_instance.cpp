@@ -173,6 +173,7 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
   Eigen::VectorXd& observations = *(observation_data.observations_);
   Eigen::VectorXi& associations = *(observation_data.associations_);
   Eigen::VectorXd& observations_global = *(observation_data.observations_global_);
+  bool new_observation_factors = false;
   for (unsigned int i = 0; i < observations.size() / 2; i++) {
     gtsam::Point2 landmark;
     gtsam::Symbol landmark_symbol;
@@ -190,6 +191,7 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
       // Association to previous landmark
       landmark_symbol = gtsam::Symbol('l', (associations(i)) / 2 + 1);  // Convert to landmark id
     }
+    new_observation_factors = true;
     const Eigen::Vector2d observation_cartesian(observations[i * 2], observations[i * 2 + 1]);
     Eigen::Vector2d observation_cylindrical = common_lib::maths::cartesian_to_cylindrical(
         observation_cartesian);  // Convert to cylindrical coordinates
@@ -203,8 +205,8 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
         gtsam::Symbol('x', this->_pose_counter_), landmark_symbol, observation_rotation,
         observation_cylindrical(0), observation_noise));
   }
-  this->_new_pose_node_ = false;
-  this->_new_observation_factors_ = true;
+  this->_new_pose_node_ = !new_observation_factors;
+  this->_new_observation_factors_ = new_observation_factors;
 }
 
 void GraphSLAMInstance::load_map(const Eigen::VectorXd& map, const Eigen::VectorXd& pose) {
