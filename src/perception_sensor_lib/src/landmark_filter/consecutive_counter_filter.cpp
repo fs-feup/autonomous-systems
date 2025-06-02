@@ -5,6 +5,9 @@
 #include "common_lib/maths/transformations.hpp"
 Eigen::VectorXd ConsecutiveCounterFilter::filter(
     const Eigen::VectorXd& new_observations, const Eigen::VectorXd& new_observation_confidences) {
+  if (this->_params_.minimum_observation_count_ <= 1) {
+    return new_observations;  // No filtering needed
+  }
   // Associate the observations that are considered new with the map stored in this filter
   Eigen::VectorXi new_associations = this->_data_association_->associate(
       this->map, new_observations, {}, new_observation_confidences);
