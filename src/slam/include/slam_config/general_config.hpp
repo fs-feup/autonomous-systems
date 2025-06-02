@@ -35,6 +35,7 @@ struct SLAMParameters {
       5;  // Minimum frequency of the detections of a landmark to add it to the map
   std::string slam_optimization_type_ = "normal_levenberg";
   std::string slam_optimization_mode_ = "sync";
+  double preloaded_map_noise_ = 0.1;  // Noise for preloaded map landmarks
 
   double slam_isam2_relinearize_threshold_ = 0.1;
   double slam_isam2_relinearize_skip_ = 1;
@@ -77,6 +78,7 @@ struct SLAMParameters {
        << ", slam_optimization_mode_: " << params.slam_optimization_mode_
        << ", slam_optimization_type_: " << params.slam_optimization_type_
        << ", slam_optimization_period_: " << params.slam_optimization_period_
+       << ", preloaded_map_noise_: " << params.preloaded_map_noise_
        << ", sliding_window_size_: " << params.sliding_window_size_
        << ", slam_isam2_relinearize_threshold_: " << params.slam_isam2_relinearize_threshold_
        << ", slam_isam2_relinearize_skip_: " << params.slam_isam2_relinearize_skip_

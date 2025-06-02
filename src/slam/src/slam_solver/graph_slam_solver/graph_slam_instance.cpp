@@ -230,7 +230,8 @@ void GraphSLAMInstance::load_map(const Eigen::VectorXd& map, const Eigen::Vector
     gtsam::Symbol landmark_symbol('l', ++(this->_landmark_counter_));
     _graph_values_.insert(landmark_symbol, landmark);
     const gtsam::noiseModel::Diagonal::shared_ptr landmark_noise =
-        gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector2(0.1, 0.1));
+        gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector2(this->_params_.preloaded_map_noise_,
+                                                           this->_params_.preloaded_map_noise_));
     _factor_graph_.add(
         gtsam::PriorFactor<gtsam::Point2>(landmark_symbol, landmark, landmark_noise));
   }

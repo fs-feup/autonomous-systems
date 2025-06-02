@@ -24,6 +24,7 @@ SLAMParameters::SLAMParameters(const SLAMParameters &params) {
   frame_id_ = params.frame_id_;
   slam_optimization_type_ = params.slam_optimization_type_;
   slam_optimization_mode_ = params.slam_optimization_mode_;
+  preloaded_map_noise_ = params.preloaded_map_noise_;
   slam_isam2_relinearize_threshold_ = params.slam_isam2_relinearize_threshold_;
   slam_isam2_relinearize_skip_ = params.slam_isam2_relinearize_skip_;
   slam_isam2_factorization_ = params.slam_isam2_factorization_;
@@ -48,6 +49,7 @@ SLAMParameters &SLAMParameters::operator=(const SLAMParameters &other) {
     frame_id_ = other.frame_id_;
     slam_optimization_type_ = other.slam_optimization_type_;
     slam_optimization_mode_ = other.slam_optimization_mode_;
+    preloaded_map_noise_ = other.preloaded_map_noise_;
     slam_isam2_relinearize_threshold_ = other.slam_isam2_relinearize_threshold_;
     slam_isam2_relinearize_skip_ = other.slam_isam2_relinearize_skip_;
     slam_isam2_factorization_ = other.slam_isam2_factorization_;
@@ -94,6 +96,7 @@ std::string SLAMParameters::load_config() {
       slam_config["slam"]["minimum_frequency_of_detections"].as<double>();
   this->slam_optimization_type_ = slam_config["slam"]["slam_optimization_type"].as<std::string>();
   this->slam_optimization_mode_ = slam_config["slam"]["slam_optimization_mode"].as<std::string>();
+  this->preloaded_map_noise_ = slam_config["slam"]["preloaded_map_noise"].as<double>();
   this->slam_isam2_relinearize_threshold_ =
       slam_config["slam"]["slam_isam2_relinearize_threshold"].as<double>();
   this->slam_isam2_relinearize_skip_ =

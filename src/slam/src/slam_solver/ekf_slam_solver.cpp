@@ -121,6 +121,12 @@ void EKFSLAMSolver::correct(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
 
 void EKFSLAMSolver::state_augmentation(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
                                        const Eigen::VectorXd& new_landmarks_coordinates) {
+  if (this->_mission_ == common_lib::competition_logic::Mission::NONE ||
+      this->_mission_ == common_lib::competition_logic::Mission::SKIDPAD ||
+      this->_mission_ == common_lib::competition_logic::Mission::ACCELERATION ||
+      this->lap_counter_ != 0) {
+    return;
+  }
   // Resize covariance matrix
   int num_new_entries = static_cast<int>(new_landmarks_coordinates.size());
   int covariance_size = static_cast<int>(covariance.rows());
@@ -146,8 +152,12 @@ void EKFSLAMSolver::load_map(const Eigen::VectorXd& map, const Eigen::VectorXd& 
   this->state_ = Eigen::VectorXd::Zero(3 + map.size());
   this->state_.segment(0, 3) = pose;
   this->state_.segment(3, map.size()) = map;
-  this->covariance_ = Eigen::MatrixXd::Identity(this->state_.size(), this->state_.size()) *
-                      0.4;  // TODO: initialize with the right values
+  this->covariance_ =
+      Eigen::MatrixXd::Identity(this->state_.size(), this->state_.size()) *
+      this->_params_.preloaded_map_noise_;  // TODO: initialize with the right values
+  this->covariance_.block(0, 0, 3, 3) =
+      Eigen::MatrixXd::Identity(3, 3) * 0.4;  // TODO: initialize with the right values
+  update_process_noise_matrix();
 }
 
 std::vector<common_lib::structures::Cone> EKFSLAMSolver::get_map_estimate() {
