@@ -3,6 +3,7 @@
 #include "common_lib/structures/position.hpp"
 #include "gtest/gtest.h"
 #include "rclcpp/rclcpp.hpp"
+#include "low_pass_filter/lpf.hpp"
 
 /**< Maximum steering angle in rad */
 constexpr double MAX_STEERING_ANGLE = 0.392699;
@@ -63,6 +64,9 @@ public:
   double calculate_alpha(common_lib::structures::Position vehicle_rear_wheel,
                          common_lib::structures::Position vehicle_cg,
                          common_lib::structures::Position lookahead_point, double rear_wheel_2_c_g);
+
+private:
+  LowPassFilter lpf_;
 
   FRIEND_TEST(PurePursuitTests, Test_calculate_alpha_1);
   FRIEND_TEST(PurePursuitTests, Test_calculate_alpha_2);
