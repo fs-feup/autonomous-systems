@@ -14,6 +14,7 @@ set(IMPLEMENTATION_FILES
   src/adapter_control/vehicle.cpp
   src/pure_pursuit/pp.cpp
   src/point_solver/psolver.cpp
+  src/low_pass_filter/lpf.cpp
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../common_lib/include)
