@@ -80,7 +80,6 @@ std::pair<double, PathCalculation::MidPoint*> PathCalculation::dfs_cost(int dept
 std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& cone_array, common_lib::structures::Pose pose) {
   std::vector<PathPoint> result;
   std::vector<Point> path;
-  auto start_total = std::chrono::high_resolution_clock::now();
 
   if (cone_array.size() >= 4) {
       std::vector<std::unique_ptr<MidPoint>> midPoints;
@@ -165,23 +164,59 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
               }
           }
       }
+      RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Global Path Size: %zu", global_path_.size());
+      
+      int lookback = config_.lookback_points_;
+      int total = static_cast<int>(global_path_.size());
+      int usable_points = total - lookback - 1;
 
-      updateAnchorPoint(pose);
-      auto [first, second] = findPathStartPoints(midPoints, anchor_point_);
-      if (first != nullptr && second != nullptr) {
-        
-        path.push_back(first->point);
-        path.push_back(second->point);
-        
-      } else {
-          RCLCPP_ERROR(rclcpp::get_logger("planning"), "Failed to find valid starting points");
+      RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Usable points: %d", usable_points);
+      
+      bool global_path_valid = true;
+
+      if (usable_points > 5) {
+          std::unordered_map<Point, MidPoint*, point_hash> point_to_midpoint;
+          for (const auto& mp : midPoints) {
+              point_to_midpoint[mp->point] = mp.get();
+          }
+
+          // Verifica apenas os últimos dois pontos
+          for (size_t i = global_path_.size() - 2; i < global_path_.size(); ++i) {
+              const auto& p = global_path_[i];
+              if (point_to_midpoint.find(p) == point_to_midpoint.end()) {
+                  global_path_valid = false;
+                  break;
+              }
+          }
       }
+
+
+
+      path.clear();
+
+      if (usable_points > 5 && global_path_valid) {
+          for(int i = 0; i < usable_points; ++i) {
+              path.push_back(global_path_[i]);
+          }
+      } else {
+          updateAnchorPoint(pose);
+          auto [first, second] = findPathStartPoints(midPoints, anchor_point_);
+          if (first && second) {
+              path.push_back(first->point);
+              path.push_back(second->point);
+          } else {
+              RCLCPP_ERROR(rclcpp::get_logger("planning"), "Failed to find valid starting points.");
+              return {};
+          }
+      }
+
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Chegou aqui com %zu pontos", path.size());
    
 
-      std::unordered_map<Point, MidPoint*, point_hash> point_to_midpoint;
-      for (const auto& mp : midPoints) {
-          point_to_midpoint[mp->point] = mp.get();
-      }
+    std::unordered_map<Point, MidPoint*, point_hash> point_to_midpoint;
+    for (const auto& mp : midPoints) {
+        point_to_midpoint[mp->point] = mp.get();
+    }
 
       if (path.size() < 2) {
           RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "Not enough points to start planning.");
@@ -192,11 +227,31 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
       while (true) {
           double worst_cost = this->config_.max_cost_ * this->config_.search_depth_;
 
+          const auto& prev = path[path.size() - 2];
+          const auto& last = path.back();
+
+          if (!point_to_midpoint.count(prev) || !point_to_midpoint.count(last)) {
+              RCLCPP_ERROR(rclcpp::get_logger("planning"),
+                  "Point(s) not found in point_to_midpoint: prev=(%f,%f), last=(%f,%f)",
+                  prev.x(), prev.y(), last.x(), last.y());
+              break;
+          }
+
+          auto* prev_mp = point_to_midpoint[prev];
+          auto* last_mp = point_to_midpoint[last];
+
+          if (!prev_mp || !last_mp) {
+              RCLCPP_ERROR(rclcpp::get_logger("planning"),
+                  "Nullptr in point_to_midpoint: prev_mp=%p, last_mp=%p", prev_mp, last_mp);
+              break;
+          }
+
           auto [best_cost, best_point] = dfs_cost(
               this->config_.search_depth_, 
-              point_to_midpoint[path[path.size() - 2]], 
-              point_to_midpoint[path.back()], 
+              prev_mp,
+              last_mp,
               this->config_.max_cost_);
+
 
           if (best_cost > worst_cost) {
               break;
@@ -207,7 +262,8 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
               break;
           } else {
               path.push_back(best_point->point);
-  
+              
+                
 
               // Atualizar cones descartados se necessário
               if (path.size() > 2) {
@@ -243,19 +299,17 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
                       }
                   }
               }
-              RCLCPP_INFO(rclcpp::get_logger("debug"), "Added MidPoint (%.2f, %.2f) with %zu close points",
-            best_point->point.x(), best_point->point.y(), best_point->close_points.size());
           }
       }
     }
+  
+  global_path_ = path;
   std::vector<PathPoint> path_points;
   for (const auto& point : path) {
       path_points.emplace_back(point.x(), point.y());
   }
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Path size: %zu", path_points.size());
 
-  auto end_total = std::chrono::high_resolution_clock::now();
-  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Total planning time: %.6f s",
-      std::chrono::duration<double>(end_total - start_total).count());
 
   return path_points;
 }
@@ -571,3 +625,10 @@ std::vector<PathPoint> PathCalculation::skidpad_path(std::vector<Cone>& cone_arr
   return std::vector<PathPoint>(predefined_path_.begin(), predefined_path_.begin() + 70);
 }
 
+std::vector<PathPoint> PathCalculation::getGlobalPath() const {
+  std::vector<PathPoint> path_points;
+  for (const auto& pt : global_path_) {
+      path_points.emplace_back(pt.x(), pt.y());
+  }
+  return path_points;
+}

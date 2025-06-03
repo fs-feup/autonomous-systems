@@ -6,7 +6,7 @@ planning:
   nc_angle_exponent: 2.0
   nc_distance_exponent: 1.0
   nc_max_cost: 90.0
-  nc_lookback_points: 1000
+  nc_lookback_points: 70
   nc_search_depth: 4
   nc_max_points: 400 # --------------------------
   outliers_spline_order: 3

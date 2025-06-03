@@ -48,6 +48,7 @@ class PathCalculation {
 private:
   bool path_orientation_corrected_ = false;
   std::vector<PathPoint> predefined_path_;
+  std::vector<Point> global_path_;
 
   // Anchor point for the path, to avoid calculating the path from the position of the car
   common_lib::structures::Pose anchor_point_;
@@ -209,6 +210,8 @@ public:
    */
   std::vector<PathPoint> skidpad_path(std::vector<Cone>& cone_array,
                                       common_lib::structures::Pose pose);
+
+  std::vector<PathPoint> getGlobalPath() const;
 
 };
 

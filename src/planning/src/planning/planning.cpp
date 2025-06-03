@@ -167,6 +167,8 @@ void Planning::run_planning_algorithms() {
 
   std::vector<PathPoint> triangulations_path = {};
   std::vector<PathPoint> final_path = {};
+  std::vector<PathPoint> global_path_ = {};
+  std::vector<PathPoint> final_global_path = {};
  
   if (this->mission == common_lib::competition_logic::Mission::SKIDPAD) {
     final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
@@ -195,6 +197,11 @@ void Planning::run_planning_algorithms() {
     final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
                                          this->initial_car_orientation_);
 
+    global_path_ = path_calculation_.getGlobalPath();
+
+    final_global_path = path_smoothing_.smooth_path(global_path_, this->pose,
+                                                    this->initial_car_orientation_);
+
 
     velocity_planning_.set_velocity(final_path);
   }
@@ -215,7 +222,7 @@ void Planning::run_planning_algorithms() {
                static_cast<int>(final_path.size()));
 
   if (planning_config_.simulation_.publishing_visualization_msgs_) {
-    publish_visualization_msgs(triangulations_path, final_path);
+    publish_visualization_msgs(triangulations_path, final_path, final_global_path);
   }
 }
 
@@ -266,9 +273,11 @@ bool Planning::is_predicitve_mission() const {
 }
 
 void Planning::publish_visualization_msgs(const std::vector<PathPoint> &after_triangulations_path,
-                                          const std::vector<PathPoint> &final_path) const {
+                                          const std::vector<PathPoint> &final_path, const std::vector<PathPoint> &final_global_path) const {
   this->triangulations_pub_->publish(common_lib::communication::marker_array_from_structure_array(
       after_triangulations_path, "after_triangulations_path", this->_map_frame_id_, "orange"));
   this->visualization_pub_->publish(common_lib::communication::line_marker_from_structure_array(
       final_path, "smoothed_path_planning", this->_map_frame_id_, 12, "green"));  
+  this->global_path_pub_->publish(common_lib::communication::line_marker_from_structure_array(
+      final_global_path, "global_path_planning", this->_map_frame_id_, 12, "red"));
 }
