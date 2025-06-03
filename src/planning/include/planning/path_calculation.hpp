@@ -49,6 +49,11 @@ private:
   bool path_orientation_corrected_ = false;
   std::vector<PathPoint> predefined_path_;
   std::vector<Point> global_path_;
+  Eigen::Matrix4f last_icp_transform_ = Eigen::Matrix4f::Identity();
+  bool has_icp_transform_ = false;
+  bool path_aligned_ = false;
+
+
 
   // Anchor point for the path, to avoid calculating the path from the position of the car
   common_lib::structures::Pose anchor_point_;
