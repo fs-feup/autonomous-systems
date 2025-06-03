@@ -3,7 +3,7 @@
 #include "common_lib/structures/position.hpp"
 #include "gtest/gtest.h"
 #include "rclcpp/rclcpp.hpp"
-#include "low_pass_filter/lpf.hpp"
+#include "filters/lpf.hpp"
 
 /**< Maximum steering angle in rad */
 constexpr double MAX_STEERING_ANGLE = 0.392699;

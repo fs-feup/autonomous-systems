@@ -1,4 +1,5 @@
 #pragma once
+#include "filter.hpp"
 
 /**
  * @brief Low Pass Filter class
@@ -6,7 +7,9 @@
  * @details
  * This class implements a simple first-order low pass filter to be used in the Pure Pursuit controller.
  */
-class LowPassFilter {
+class LowPassFilter : public Filter {
+  // Inherit from the base Filter class
+  // This class implements the filter and reset methods defined in the Filter interface
 public:
   /**
    * @brief Construct a new Low Pass Filter object
@@ -22,14 +25,14 @@ public:
    * @param input New input value
    * @return Filtered value
    */
-  double filter(double input);
+  double filter(double input) override;
 
   /**
    * @brief Reset the filter to a specific value
    *
    * @param value Value to reset the filter to
    */
-  void reset(double value = 0.0);
+  void reset(double value = 0.0) override;
 
 private:
   double alpha_;       /**< Smoothing factor */

@@ -1,4 +1,4 @@
-#include "low_pass_filter/lpf.hpp"
+#include "filters/lpf.hpp"
 #include "gtest/gtest.h"
 
 /**

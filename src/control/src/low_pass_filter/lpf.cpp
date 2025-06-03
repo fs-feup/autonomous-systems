@@ -1,4 +1,4 @@
-#include "low_pass_filter/lpf.hpp"
+#include "filters/lpf.hpp"
 
 LowPassFilter::LowPassFilter(double alpha, double initial_value)
     : alpha_(alpha), prev_value_(initial_value) {}
