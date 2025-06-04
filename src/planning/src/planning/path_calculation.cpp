@@ -342,89 +342,6 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
 }
 
 
-PathCalculation::MidPoint* PathCalculation::find_nearest_point(
-    const Point& target,
-    const std::unordered_map<Point, MidPoint*, point_hash>& map,
-    double tolerance) 
-{
-    double min_dist_sq = tolerance * tolerance;
-    MidPoint* nearest = nullptr;
-
-    for (const auto& [pt, mp] : map) {
-        double dx = pt.x() - target.x();
-        double dy = pt.y() - target.y();
-        double dist_sq = dx * dx + dy * dy;
-
-        if (dist_sq <= min_dist_sq) {
-            min_dist_sq = dist_sq;
-            nearest = mp;
-        }
-    }
-
-    return nearest; // nullptr if none within tolerance
-}
-
-
-
-// std::vector<std::unique_ptr<PathCalculation::MidPoint>> PathCalculation::createMidPointsFromTriangulation(
-//     const std::vector<Cone>& cone_array) {
-//   std::vector<std::unique_ptr<MidPoint>> mid_points;
-//   DT dt;
-
-//   // Insert cones into triangulation
-//   for (auto cone : cone_array) {
-//     auto _ = dt.insert(Point(cone.position.x, cone.position.y));
-//   }
-
-//   // Create midpoints
-//   for (DT::Finite_edges_iterator it = dt.finite_edges_begin(); it != dt.finite_edges_end(); ++it) {
-//     Point p1 = it->first->vertex((it->second + 1) % 3)->point();
-//     Point p2 = it->first->vertex((it->second + 2) % 3)->point();
-
-//     auto midPoint = std::make_unique<MidPoint>(
-//         MidPoint{Point((p1.x() + p2.x()) / 2, (p1.y() + p2.y()) / 2), {}});
-
-//     double dist = std::sqrt(std::pow(p1.x() - p2.x(), 2) + std::pow(p1.y() - p2.y(), 2));
-//     if (dist > config_.minimum_cone_distance_) { // constrained by the rules (cones 3m apart)
-//       mid_points.push_back(std::move(midPoint));
-//     }
-//   }
-
-//   return mid_points;
-// }
-
-
-// void PathCalculation::establishMidPointConnections(
-//     const std::vector<std::unique_ptr<MidPoint>>& mid_points) {
-//   // Comparison function for priority queue
-//   auto cmp = [](const std::pair<double, MidPoint*>& distance_to_midpoint1,
-//                 const std::pair<double, MidPoint*>& distance_to_midpoint2) {
-//     return distance_to_midpoint1.first > distance_to_midpoint2.first;
-//   };
-
-//   // Populate close points for each midpoint
-//   for (const auto& p : mid_points) {
-//     std::priority_queue<std::pair<double, MidPoint*>, std::vector<std::pair<double, MidPoint*>>,
-//                         decltype(cmp)>
-//         pq(cmp);
-
-//     for (const auto& q : mid_points) {
-//       if (p.get() == q.get()) {continue;}
-
-//       double dist = std::sqrt(std::pow(p->point.x() - q->point.x(), 2) +
-//                               std::pow(p->point.y() - q->point.y(), 2));
-//       pq.push({dist, q.get()});
-//     }
-
-//     // Take top 5 close points as pointers
-//     for (int i = 0; i < 6; i++) {
-//       if (pq.empty()) {break;}
-//       p->close_points.push_back(pq.top().second);
-//       pq.pop();
-//     }
-//   }
-// }
-
 void PathCalculation::updateAnchorPoint(const common_lib::structures::Pose& pose) {
   if (!anchor_point_set_) {
     anchor_point_ = pose;
@@ -498,16 +415,6 @@ PathCalculation::MidPoint* PathCalculation::findSecondPoint(
   return second;
 }
 
-
-
-std::vector<PathPoint> PathCalculation::convertToPathPoints(const std::vector<MidPoint*>& path) {
-  std::vector<PathPoint> final_path;
-  for (const MidPoint* p : path) {
-    final_path.push_back(PathPoint(p->point.x(), p->point.y()));
-  }
-
-  return final_path;
-}
 
 std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(
     std::pair<std::vector<Cone>, std::vector<Cone>> refined_cones) const {
