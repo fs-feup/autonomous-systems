@@ -15,6 +15,8 @@
 #include <pcl/registration/icp.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
+#include <pcl/kdtree/kdtree_flann.h>
+
 
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/path_point.hpp"
@@ -217,6 +219,19 @@ public:
                                       common_lib::structures::Pose pose);
 
   std::vector<PathPoint> getGlobalPath() const;
+
+
+ MidPoint* find_nearest_point(
+  const Point& target,
+  const std::unordered_map<Point, MidPoint*, point_hash>& map,
+  double tolerance);
+
+
+MidPoint* find_matching_midpoint_pcl(const Point& query, 
+  const pcl::KdTreeFLANN<pcl::PointXYZ>& kd_tree, 
+  const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud,
+  const std::vector<MidPoint*>& index_map,
+  double radius); 
 
 };
 

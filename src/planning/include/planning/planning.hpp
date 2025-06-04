@@ -80,7 +80,7 @@ class Planning : public rclcpp::Node {
   /**< Publisher for path after triangulations */
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr triangulations_pub_;
   /**< Publisher for global path */
-  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr global_path_pub_;
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr global_path_pub_;
   /**< Timer for the periodic publishing */
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _planning_execution_time_publisher_;
   rclcpp::TimerBase::SharedPtr timer_;

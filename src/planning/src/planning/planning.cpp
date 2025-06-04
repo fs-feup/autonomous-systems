@@ -89,7 +89,7 @@ Planning::Planning(const PlanningParameters &params)
 
     this->triangulations_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
         "/path_planning/triangulations", 10);
-    this->global_path_pub_ = this->create_publisher<visualization_msgs::msg::Marker>("/path_planning/global_path", 10);
+    this->global_path_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>("/path_planning/global_path", 10);
   }
   // Publishes path from file in Skidpad & Acceleration events
   this->timer_ = this->create_wall_timer(
@@ -199,8 +199,7 @@ void Planning::run_planning_algorithms() {
 
     global_path_ = path_calculation_.getGlobalPath();
 
-    final_global_path = path_smoothing_.smooth_path(global_path_, this->pose,
-                                                    this->initial_car_orientation_);
+    final_global_path = global_path_;
 
 
     velocity_planning_.set_velocity(final_path);
@@ -278,6 +277,6 @@ void Planning::publish_visualization_msgs(const std::vector<PathPoint> &after_tr
       after_triangulations_path, "after_triangulations_path", this->_map_frame_id_, "orange"));
   this->visualization_pub_->publish(common_lib::communication::line_marker_from_structure_array(
       final_path, "smoothed_path_planning", this->_map_frame_id_, 12, "green"));  
-  this->global_path_pub_->publish(common_lib::communication::line_marker_from_structure_array(
-      final_global_path, "global_path_planning", this->_map_frame_id_, 12, "red"));
+  this->global_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
+      final_global_path, "global_path", this->_map_frame_id_, "blue", "cylinder", 0.5, visualization_msgs::msg::Marker::MODIFY));
 }
