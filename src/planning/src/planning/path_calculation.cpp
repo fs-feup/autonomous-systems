@@ -211,7 +211,7 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
         constexpr double min_distance = 1.0;
 
         Point snapped_first = global_path_[0];
-        MidPoint* mp_first = find_matching_midpoint_pcl(snapped_first, kd_tree, kd_tree_cloud, kd_tree_midpoints, 0.4);
+        MidPoint* mp_first = find_matching_midpoint_pcl(snapped_first, kd_tree, kd_tree_cloud, kd_tree_midpoints, 1);
         if (mp_first) {
             snapped_first = mp_first->point;
             visited_midpoints.insert(mp_first);
@@ -223,7 +223,7 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
         for (int i = 1; i < usable_points; ++i) {
             Point current_point = global_path_[i];
 
-            MidPoint* current_mp = find_matching_midpoint_pcl(current_point, kd_tree, kd_tree_cloud, kd_tree_midpoints, 0.4);
+            MidPoint* current_mp = find_matching_midpoint_pcl(current_point, kd_tree, kd_tree_cloud, kd_tree_midpoints, 1);
             if (current_mp) {
                 current_point = current_mp->point;
             }
@@ -262,8 +262,8 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
         const auto& prev = path[path.size() - 2];
         const auto& last = path.back();
 
-        MidPoint* prev_mp = find_matching_midpoint_pcl(prev, kd_tree, kd_tree_cloud, kd_tree_midpoints, 0.4);
-        MidPoint* last_mp = find_matching_midpoint_pcl(last, kd_tree, kd_tree_cloud, kd_tree_midpoints, 0.4);
+        MidPoint* prev_mp = find_matching_midpoint_pcl(prev, kd_tree, kd_tree_cloud, kd_tree_midpoints, 1);
+        MidPoint* last_mp = find_matching_midpoint_pcl(last, kd_tree, kd_tree_cloud, kd_tree_midpoints, 1);
 
         auto [best_cost, best_point] = dfs_cost(
             this->config_.search_depth_,
