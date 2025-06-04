@@ -229,7 +229,6 @@ public:
 
 MidPoint* find_matching_midpoint_pcl(const Point& query, 
   const pcl::KdTreeFLANN<pcl::PointXYZ>& kd_tree, 
-  const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud,
   const std::vector<MidPoint*>& index_map,
   double radius); 
 
