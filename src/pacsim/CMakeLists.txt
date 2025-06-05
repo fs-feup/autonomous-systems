@@ -94,3 +94,6 @@ ament_auto_package(INSTALL_TO_SHARE
   config
   launch
 )
+
+#Add the testing directory to fetch the testing cmakelists
+add_subdirectory(test)
