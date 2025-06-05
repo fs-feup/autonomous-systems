@@ -89,8 +89,8 @@ Control::Control(const ControlParameters& params)
       long_controller_(params.pid_kp_, params.pid_ki_, params.pid_kd_, params.pid_tau_,
                        params.pid_t_, params.pid_lim_min_, params.pid_lim_max_,
                        params.pid_anti_windup_),
-      lat_controller_(std::make_shared<common_lib::filter::LowPassFilter>(
-          params.lpf_alpha_, params.lpf_initial_value)) {
+      lat_controller_(std::make_shared<LowPassFilter>(
+          params.lpf_alpha_, params.lpf_initial_value_)) {
   RCLCPP_INFO(this->get_logger(), "Simulated Planning: %d", use_simulated_planning_);
   if (!using_simulated_slam_) {
     vehicle_pose_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
