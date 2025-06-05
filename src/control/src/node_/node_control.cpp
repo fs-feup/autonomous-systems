@@ -58,7 +58,7 @@ ControlParameters Control::load_config(std::string& adapter) {
   params.pid_lim_max_ = control_config["pid_lim_max"].as<double>();
   params.pid_anti_windup_ = control_config["pid_anti_windup"].as<double>();
   params.map_frame_id_ = adapter == "eufs" ? "base_footprint" : "map";
-  params.lpf_smooth_rate_ = control_config["lpf_smooth_rate"].as<double>();
+  params.lpf_alpha_ = control_config["lpf_alpha"].as<double>();
   params.lpf_initial_value_ = control_config["lpf_initial_value"].as<double>();
 
   return params;
@@ -88,7 +88,7 @@ Control::Control(const ControlParameters& params)
       point_solver_(params.lookahead_gain_),
       long_controller_(params.pid_kp_, params.pid_ki_, params.pid_kd_, params.pid_tau_,
                        params.pid_t_, params.pid_lim_min_, params.pid_lim_max_,
-                       params.pid_anti_windup_)
+                       params.pid_anti_windup_),
       lat_controller_(std::make_shared<common_lib::filter::LowPassFilter>(
           params.lpf_alpha_, params.lpf_initial_value)) {
   RCLCPP_INFO(this->get_logger(), "Simulated Planning: %d", use_simulated_planning_);
