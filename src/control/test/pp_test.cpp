@@ -13,16 +13,12 @@ using namespace common_lib::structures;
 class PurePursuitTestFixture : public ::testing::Test {
 protected:
     std::shared_ptr<Filter> lpf_no_effect;
-    PurePursuit* lat_controller_;
+    std::shared_ptr<PurePursuit> lat_controller_;
 
     void SetUp() override {
         // LPF with alpha=1.0 means no filtering
         lpf_no_effect = std::make_shared<LowPassFilter>(1.0, 0.0);
-        lat_controller_ = new PurePursuit(lpf_no_effect);
-    }
-
-    void TearDown() override {
-        delete lat_controller_;
+        lat_controller_ = std::make_shared<PurePursuit>(lpf_no_effect);
     }
 };
 
