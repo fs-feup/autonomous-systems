@@ -8,10 +8,8 @@ using namespace common_lib::structures;
  * @brief Pure Pursuit class Constructor
  *
  */
-PurePursuit::PurePursuit()
-  : lpf_(0.5, 0.0) // Initialize LowPassFilter with alpha=0.5, initial_value=0.0
-  // Alpha parameter of low pass filter still needs to be tuned throw testing !!! IMPORTANT !!!
-{}
+PurePursuit::PurePursuit(std::shared_ptr<Filter> lpf)
+    : lpf_(std::move(lpf)) {}
 
 double PurePursuit::pp_steering_control_law(Position rear_axis, Position cg,
                                             Position lookahead_point, double dist_cg_2_rear_axis) {
@@ -20,7 +18,7 @@ double PurePursuit::pp_steering_control_law(Position rear_axis, Position cg,
   double ld = rear_axis.euclidean_distance(lookahead_point);
 
   double steering_angle = atan(2 * wheel_base_ * sin(alpha) / ld);
-  double filtered_steering_angle = lpf_.filter(steering_angle);
+  double filtered_steering_angle = lpf_->filter(steering_angle);
 
   return std::clamp(filtered_steering_angle, min_steering_angle_, max_steering_angle_);
 }

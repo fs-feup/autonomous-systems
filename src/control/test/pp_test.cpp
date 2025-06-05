@@ -7,6 +7,7 @@
 
 #include "gtest/gtest.h"
 #include "node_/node_control.hpp"
+#include "include/lpf_mock.hpp"
 
 using namespace common_lib::structures;
 
@@ -98,7 +99,11 @@ TEST(PurePursuitTests, Test_calculate_alpha_5) {
  * @brief Test PurePursuit - pp_steering_control_law()
  */
 TEST(PurePursuitTests, Test_pp_steering_control_law_1) {
-  PurePursuit lat_controller_;
+  // Smooth rate of 1 means no filtering, so it does not affect the test.
+  std::shared_ptr<Filter> lpf = std::make_shared<LowPassFilter>(1, 0.0);
+
+  PurePursuit lat_controller_  = PurePursuit(lpf);
+
   Position cg = Position(5, 4.46);
   Position rear_axis = Position(6, 2);
   Position lookahead_point = Position(1, 4);
