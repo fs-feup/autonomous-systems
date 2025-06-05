@@ -51,9 +51,12 @@ private:
   bool path_orientation_corrected_ = false;
   std::vector<PathPoint> predefined_path_;
   std::vector<Point> global_path_;
+  int path_update_counter_ = 0;
+  std::vector<Point> path_to_car;
   Eigen::Matrix4f last_icp_transform_ = Eigen::Matrix4f::Identity();
   bool has_icp_transform_ = false;
-  bool path_aligned_ = false;
+  size_t last_cone_count_ = 0;
+
 
 
 
@@ -185,13 +188,48 @@ public:
   std::vector<PathPoint> skidpad_path(std::vector<Cone>& cone_array,
                                       common_lib::structures::Pose pose);
 
+                                      
   std::vector<PathPoint> getGlobalPath() const;
 
+  void createMidPoints(
+      std::vector<Cone>& cone_array,
+      std::vector<std::unique_ptr<MidPoint>>& midPoints,
+      std::unordered_map<MidPoint*, std::vector<Point>>& triangle_points
+  );
 
-  MidPoint* find_matching_midpoint_pcl(const Point& query, 
-    const pcl::KdTreeFLANN<pcl::PointXYZ>& kd_tree, 
-    const std::vector<MidPoint*>& index_map,
-    double radius); 
+  void connectMidPoints(
+      std::vector<std::unique_ptr<MidPoint>>& midPoints,
+      const std::unordered_map<MidPoint*, std::vector<Point>>& triangle_points
+  );
+
+  void selectInitialPath(
+      std::vector<Point>& path,
+      const std::vector<std::unique_ptr<MidPoint>>& midPoints,
+      const common_lib::structures::Pose& pose,
+      const std::unordered_map<Point, MidPoint*, point_hash>& point_to_midpoint,
+      std::unordered_set<MidPoint*>& visited_midpoints
+  );
+
+  void extendPath(
+    std::vector<Point>& path,
+    const std::vector<std::unique_ptr<MidPoint>>& midPoints,
+    const std::unordered_map<Point, MidPoint*, point_hash>& point_to_midpoint,
+    std::unordered_set<MidPoint*>& visited_midpoints,
+    std::unordered_set<Cone*>& discarded_cones
+  );
+
+  void discard_cones_along_path(
+    const std::vector<Point>& path,
+    const std::vector<std::unique_ptr<MidPoint>>& midPoints,
+    const std::unordered_map<Point, MidPoint*, point_hash>& point_to_midpoint,
+    std::unordered_set<Cone*>& discarded_cones
+  ); 
+
+
+  MidPoint* find_nearest_point(
+    const Point& target,
+    const std::unordered_map<Point, MidPoint*, point_hash>& map,
+    double tolerance);
 
 };
 

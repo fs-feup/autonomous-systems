@@ -18,7 +18,7 @@ def getFullFilePath(name, dir):
 
 
 def generate_launch_description():
-  track_name = "FSE23.yaml"
+  track_name = "FSS22_V2.yaml"
   track_frame = "map"
   realtime_ratio = 1.0
   discipline = "autocross"

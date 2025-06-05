@@ -34,9 +34,12 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.nc_angle_exponent_ = planning_config["nc_angle_exponent"].as<double>();
   params.nc_distance_exponent_ = planning_config["nc_distance_exponent"].as<double>();
   params.nc_max_cost_ = planning_config["nc_max_cost"].as<double>();
+  params.nc_tolerance_ = planning_config["nc_tolerance"].as<double>();
   params.nc_search_depth_ = planning_config["nc_search_depth"].as<int>();
   params.nc_max_points_ = planning_config["nc_max_points"].as<int>();
   params.nc_lookback_points_ = planning_config["nc_lookback_points"].as<int>();
+  params.nc_reset_global_path_ = planning_config["nc_reset_global_path"].as<int>();
+  
 
   params.outliers_spline_order_ = planning_config["outliers_spline_order"].as<int>();
   params.outliers_spline_coeffs_ratio_ =
@@ -168,7 +171,6 @@ void Planning::run_planning_algorithms() {
   std::vector<PathPoint> triangulations_path = {};
   std::vector<PathPoint> final_path = {};
   std::vector<PathPoint> global_path_ = {};
-  std::vector<PathPoint> final_global_path = {};
  
   if (this->mission == common_lib::competition_logic::Mission::SKIDPAD) {
     final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
@@ -199,7 +201,6 @@ void Planning::run_planning_algorithms() {
 
     global_path_ = path_calculation_.getGlobalPath();
 
-    final_global_path = global_path_;
 
 
     velocity_planning_.set_velocity(final_path);
@@ -221,7 +222,7 @@ void Planning::run_planning_algorithms() {
                static_cast<int>(final_path.size()));
 
   if (planning_config_.simulation_.publishing_visualization_msgs_) {
-    publish_visualization_msgs(triangulations_path, final_path, final_global_path);
+    publish_visualization_msgs(triangulations_path, final_path, global_path_);
   }
 }
 
@@ -272,11 +273,11 @@ bool Planning::is_predicitve_mission() const {
 }
 
 void Planning::publish_visualization_msgs(const std::vector<PathPoint> &after_triangulations_path,
-                                          const std::vector<PathPoint> &final_path, const std::vector<PathPoint> &final_global_path) const {
+                                          const std::vector<PathPoint> &final_path, const std::vector<PathPoint> &global_path) const {
   this->triangulations_pub_->publish(common_lib::communication::marker_array_from_structure_array(
       after_triangulations_path, "after_triangulations_path", this->_map_frame_id_, "orange"));
   this->visualization_pub_->publish(common_lib::communication::line_marker_from_structure_array(
       final_path, "smoothed_path_planning", this->_map_frame_id_, 12, "green"));  
   this->global_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      final_global_path, "global_path", this->_map_frame_id_, "blue", "cylinder", 0.5, visualization_msgs::msg::Marker::MODIFY));
+      global_path, "global_path", this->_map_frame_id_, "blue", "cylinder", 0.5, visualization_msgs::msg::Marker::MODIFY));
 }
