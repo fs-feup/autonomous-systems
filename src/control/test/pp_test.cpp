@@ -7,7 +7,6 @@
 
 #include "gtest/gtest.h"
 #include "node_/node_control.hpp"
-#include "include/lpf_mock.hpp"
 
 using namespace common_lib::structures;
 
