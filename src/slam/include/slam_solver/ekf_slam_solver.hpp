@@ -133,7 +133,7 @@ public:
    *
    * @return Eigen::VectorXd state vector
    */
-  void load_map(const Eigen::VectorXd& map, const Eigen::VectorXd& pose) override;
+  void load_initial_state(const Eigen::VectorXd& map, const Eigen::VectorXd& pose) override;
 
   /**
    * @brief Get the covariance matrix of the EKF

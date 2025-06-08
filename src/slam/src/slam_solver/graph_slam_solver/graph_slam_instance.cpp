@@ -209,7 +209,8 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
   this->_new_observation_factors_ = new_observation_factors;
 }
 
-void GraphSLAMInstance::load_map(const Eigen::VectorXd& map, const Eigen::VectorXd& pose) {
+void GraphSLAMInstance::load_initial_state(const Eigen::VectorXd& map, const Eigen::VectorXd& pose,
+                                           double preloaded_map_noise) {
   RCLCPP_INFO(rclcpp::get_logger("slam"), "GraphSLAMInstance - Loading map ");
   this->_pose_counter_ = 0;
   this->_landmark_counter_ = 0;
@@ -230,8 +231,8 @@ void GraphSLAMInstance::load_map(const Eigen::VectorXd& map, const Eigen::Vector
     gtsam::Symbol landmark_symbol('l', ++(this->_landmark_counter_));
     _graph_values_.insert(landmark_symbol, landmark);
     const gtsam::noiseModel::Diagonal::shared_ptr landmark_noise =
-        gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector2(this->_params_.preloaded_map_noise_,
-                                                           this->_params_.preloaded_map_noise_));
+        gtsam::noiseModel::Diagonal::Sigmas(
+            gtsam::Vector2(preloaded_map_noise, preloaded_map_noise));
     _factor_graph_.add(
         gtsam::PriorFactor<gtsam::Point2>(landmark_symbol, landmark, landmark_noise));
   }

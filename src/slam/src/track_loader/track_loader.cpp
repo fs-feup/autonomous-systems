@@ -21,7 +21,7 @@ void add_landmarks(Eigen::VectorXd& track, const Node& list) {
   }
 }
 
-void load_map(std::string mapPath, Eigen::Vector3d& start_pose, Eigen::VectorXd& track) {
+void load_initial_state(std::string mapPath, Eigen::Vector3d& start_pose, Eigen::VectorXd& track) {
   Node map = LoadFile(mapPath);
   // loads the whole track node
   Node track_node = get_child_node(map, "track");
@@ -47,14 +47,14 @@ void load_map(std::string mapPath, Eigen::Vector3d& start_pose, Eigen::VectorXd&
 void load_acceleration_track(Eigen::Vector3d& start_pose, Eigen::VectorXd& track) {
   std::string package_prefix = ament_index_cpp::get_package_prefix("slam");
   std::string mapPath = package_prefix + "/../../src/slam/maps/acceleration.yaml";
-  load_map(mapPath, start_pose, track);
+  load_initial_state(mapPath, start_pose, track);
   transform_track(track, start_pose);
 }
 
 void load_skidpad_track(Eigen::Vector3d& start_pose, Eigen::VectorXd& track) {
   std::string package_prefix = ament_index_cpp::get_package_prefix("slam");
   std::string mapPath = package_prefix + "/../../src/slam/maps/skidpad.yaml";
-  load_map(mapPath, start_pose, track);
+  load_initial_state(mapPath, start_pose, track);
   transform_track(track, start_pose);
 }
 

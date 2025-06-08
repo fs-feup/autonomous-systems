@@ -35,7 +35,7 @@ void add_landmarks(Eigen::VectorXd& track, const Node& list);
  * @param start_pose vector to fill with the start pose [x, y, theta]
  * @param track vector to fill with the track data [x1, y1, x2, y2, ...]
  */
-void load_map(std::string mapPath, Eigen::Vector3d& start_pose, Eigen::VectorXd& track);
+void load_initial_state(std::string mapPath, Eigen::Vector3d& start_pose, Eigen::VectorXd& track);
 
 /**
  * @brief loads the acceleration track from the default path.

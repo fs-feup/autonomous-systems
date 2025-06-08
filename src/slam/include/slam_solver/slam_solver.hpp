@@ -87,7 +87,7 @@ public:
    * frame
    * @param pose initial pose of the robot in the form of [x, y, theta] in the global frame
    */
-  virtual void load_map(const Eigen::VectorXd& map, const Eigen::VectorXd& pose) = 0;
+  virtual void load_initial_state(const Eigen::VectorXd& map, const Eigen::VectorXd& pose) = 0;
 
   /**
    * @brief Get the map estimate object

@@ -221,8 +221,8 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   }
 }
 
-void GraphSLAMSolver::load_map(const Eigen::VectorXd& map, const Eigen::VectorXd& pose) {
-  this->_graph_slam_instance_.load_map(map, pose);
+void GraphSLAMSolver::load_initial_state(const Eigen::VectorXd& map, const Eigen::VectorXd& pose) {
+  this->_graph_slam_instance_.load_initial_state(map, pose, this->_params_.preloaded_map_noise_);
 }
 
 void GraphSLAMSolver::_asynchronous_optimization_routine() {

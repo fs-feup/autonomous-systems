@@ -92,7 +92,7 @@ public:
    * global frame
    * @param pose Pose of the robot in the form of [x, y, theta] relative to the global frame
    */
-  void load_map(const Eigen::VectorXd& map, const Eigen::VectorXd& pose) override;
+  void load_initial_state(const Eigen::VectorXd& map, const Eigen::VectorXd& pose) override;
 
   /**
    * @brief Get the map estimate object

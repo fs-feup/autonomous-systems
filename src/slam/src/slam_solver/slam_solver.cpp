@@ -21,12 +21,12 @@ void SLAMSolver::set_mission(common_lib::competition_logic::Mission mission) {
       Eigen::Vector3d pose;
       Eigen::VectorXd map;
       load_skidpad_track(pose, map);
-      this->load_map(map, pose);
+      this->load_initial_state(map, pose);
     } else if (_mission_ == common_lib::competition_logic::Mission::ACCELERATION) {
       Eigen::Vector3d pose;
       Eigen::VectorXd map;
       load_acceleration_track(pose, map);
-      this->load_map(map, pose);
+      this->load_initial_state(map, pose);
     }
   }
 }

@@ -10,6 +10,9 @@ slam:
   velocity_x_noise: 0.1 # sigma of the noise for the velocity in x
   velocity_y_noise: 0.1 # sigma of the noise for the velocity in y
   angular_velocity_noise: 0.1 # sigma of the noise for the angular velocity
+  pose_x_initial_noise: 0.1 # sigma of the noise for the initial pose in x
+  pose_y_initial_noise: 0.1 # sigma of the noise for the initial pose in y
+  pose_theta_initial_noise: 0.1 # sigma of the noise for the initial pose in yaw
   slam_solver_name: "graph_slam" # "graph_slam" or "ekf_slam" or ... -> name of the slam solver
   minimum_observation_count: 3 # Minimum number of times a new landmark must be observed to be added to the map
   minimum_frequency_of_detections: 5 # Minimum frequency of the detections of a landmark to add it to the map
