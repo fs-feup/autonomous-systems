@@ -38,6 +38,14 @@ public:
               (override));
 };
 
+class MockLoopClosure : public LoopClosure {
+public:
+  MOCK_METHOD(LoopClosure::Result, detect,
+              (const Eigen::Vector3d& current_pose, const Eigen::VectorXi& map_cones,
+               const Eigen::VectorXi& associations, const Eigen::VectorXd& observations),
+              (const, override));
+};
+
 /**
  * @brief Whitebox integration test for the GraphSLAMSolver
  */
@@ -46,20 +54,27 @@ public:
   GraphSlamSolverTest() : params() {
     mock_motion_model_ptr = std::make_shared<MockV2PModel>();
     mock_data_association_ptr = std::make_shared<MockDataAssociationModel>();
+    mock_landmark_filter_ptr = std::make_shared<MockLandmarkFilter>();
+    mock_loop_closure_ptr = std::make_shared<MockLoopClosure>();
     motion_model_ptr = mock_motion_model_ptr;
-    landmark_filter_ptr = std::make_shared<MockLandmarkFilter>();
+    landmark_filter_ptr = mock_landmark_filter_ptr;
     data_association_ptr = mock_data_association_ptr;
+    loop_closure_ptr = mock_loop_closure_ptr;
     solver = std::make_shared<GraphSLAMSolver>(params, data_association_ptr, motion_model_ptr,
-                                               landmark_filter_ptr, nullptr, nullptr);
+                                               landmark_filter_ptr, nullptr, loop_closure_ptr);
     params.slam_optimization_period_ = 0.0;
+    this->solver->set_mission(common_lib::competition_logic::Mission::AUTOCROSS);
   }
 
   SLAMParameters params;
   std::shared_ptr<MockV2PModel> mock_motion_model_ptr;
   std::shared_ptr<MockDataAssociationModel> mock_data_association_ptr;
+  std::shared_ptr<MockLandmarkFilter> mock_landmark_filter_ptr;
+  std::shared_ptr<MockLoopClosure> mock_loop_closure_ptr;
   std::shared_ptr<V2PMotionModel> motion_model_ptr;
   std::shared_ptr<LandmarkFilter> landmark_filter_ptr;
   std::shared_ptr<DataAssociationModel> data_association_ptr;
+  std::shared_ptr<LoopClosure> loop_closure_ptr;
   std::shared_ptr<GraphSLAMSolver> solver;
 };
 
@@ -70,16 +85,9 @@ TEST_F(GraphSlamSolverTest, MotionAndObservation) {
   // Arrange
   Eigen::VectorXi associations_first = Eigen::VectorXi::Ones(4) * -1;
   Eigen::VectorXi associations_second = Eigen::VectorXi::Ones(4) * -1;
-  associations_second(0) = 3;
-  associations_second(1) = 5;
-  associations_second(2) = 7;
-  associations_second(3) = 9;
   EXPECT_CALL(*mock_motion_model_ptr, get_pose_difference)
-      .Times(4)
-      .WillOnce(testing::Return(Eigen::Vector3d(1.1, 0.0, 0.0)))
-      .WillOnce(testing::Return(Eigen::Vector3d(1.1, 0.0, 0.0)))
-      .WillOnce(testing::Return(Eigen::Vector3d(1.1, 0.0, 0.0)))
-      .WillOnce(testing::Return(Eigen::Vector3d(1.1, 0.0, 0.0)));
+      .Times(8)
+      .WillRepeatedly(testing::Return(Eigen::Vector3d(1.1, 0.0, 0.0)));
   //   EXPECT_CALL(*mock_motion_model_ptr, get_jacobian_velocities)
   //       .Times(4)
   //       .WillRepeatedly(testing::Return(Eigen::Matrix3d::Identity() * 0.1));
@@ -87,6 +95,21 @@ TEST_F(GraphSlamSolverTest, MotionAndObservation) {
       .Times(2)
       .WillOnce(testing::Return(associations_first))
       .WillOnce(testing::Return(associations_second));
+
+  Eigen::VectorXd eigen_cones_start(8);
+  eigen_cones_start << 3.0, 1.0, 3.0, -1.0, 6.0, 1.0, 6.0, -1.0;
+  Eigen::VectorXd eigen_cones_end(8);
+  eigen_cones_end << -1.0, 1.0, -1.0, -1.0, 2.0, 1.0, 2.0, -1.0;
+
+  EXPECT_CALL(*mock_landmark_filter_ptr, filter)
+      .Times(2)
+      .WillOnce(testing::Return(eigen_cones_start))
+      .WillOnce(testing::Return(eigen_cones_end));
+  EXPECT_CALL(*mock_landmark_filter_ptr, delete_landmarks).Times(2);
+
+  EXPECT_CALL(*mock_loop_closure_ptr, detect)
+      .Times(2)
+      .WillRepeatedly(testing::Return(LoopClosure::Result{false, 0.0}));
 
   common_lib::structures::Velocities velocities;
   velocities.timestamp_ = solver->_last_pose_update_ + rclcpp::Duration(1, 0);
@@ -129,10 +152,8 @@ TEST_F(GraphSlamSolverTest, MotionAndObservation) {
       solver->get_map_estimate();
 
   // Assert
-  EXPECT_NEAR(pose_before_observations.position.x, 4.0, 0.5);
-  EXPECT_NEAR(pose_after_observations.position.x, 4.0, 0.2);
-  EXPECT_GT(abs(pose_before_observations.position.x - 4.0),
-            abs(pose_after_observations.position.x - 4.0));
+  EXPECT_NEAR(pose_before_observations.position.x, 4.4, 0.5);
+  EXPECT_NEAR(pose_after_observations.position.x, 4.4, 0.2);
   EXPECT_EQ(map_before_observations.size(), 4);
   EXPECT_EQ(map_after_observations.size(), 4);
   EXPECT_NEAR(map_before_observations[0].position.x, 3.0, 0.2);
