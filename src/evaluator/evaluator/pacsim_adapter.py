@@ -55,6 +55,14 @@ class PacsimAdapter(Adapter):
             10,
         )
 
+        self._groundtruth_pose_ = None
+        self.node.pose_groundtruth_subscription_ = self.node.create_subscription(
+            TwistWithCovarianceStamped,
+            "/pacsim/pose",
+            self.groundtruth_pose_callback,
+            10,
+        )
+
         # self._time_sync_slam_ = message_filters.ApproximateTimeSynchronizer(
         #     [
         #         self.node.vehicle_pose_subscription_,
@@ -105,15 +113,11 @@ class PacsimAdapter(Adapter):
         Args:
             vehicle_pose (Pose): Vehicle pose data.
         """
-        if self._groundtruth_map_ is None:
-            self.node.get_logger().warn("Groundtruth map not received")
+        if self._groundtruth_pose_ is None:
+            self.node.get_logger().warn("Groundtruth pose not received")
             return
-        transform: TransformStamped = self.node.transform_buffer_.lookup_transform(
-            "map", "car", rclpy.time.Time()
-        )
-        if transform is None:
-            return
-        groundtruth_pose_treated: np.ndarray = format_transform_stamped_msg(transform)
+        
+        groundtruth_pose_treated: np.ndarray = format_twist_with_covariance_stamped_msg(self._groundtruth_pose_)
         pose_treated: np.ndarray = format_vehicle_pose_msg(vehicle_pose)
         self.node.compute_and_publish_pose(
             pose_treated,
@@ -198,3 +202,14 @@ class PacsimAdapter(Adapter):
             groundtruth_velocity (TwistWithCovarianceStamped): Ground truth velocity data.
         """
         self._groundtruth_velocity_: TwistWithCovarianceStamped = groundtruth_velocity
+
+    def groundtruth_pose_callback(
+        self, groundtruth_pose: TwistWithCovarianceStamped
+    ):
+        """!
+        Callback function to process ground truth pose messages.
+
+        Args:
+            groundtruth_pose (TwistWithCovarianceStamped): Ground truth pose data.
+        """
+        self._groundtruth_pose_: TwistWithCovarianceStamped = groundtruth_pose

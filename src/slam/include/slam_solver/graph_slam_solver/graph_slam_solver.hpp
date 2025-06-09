@@ -12,6 +12,8 @@
 #include "slam_solver/graph_slam_solver/optimizer/base_optimizer.hpp"
 #include "slam_solver/graph_slam_solver/pose_updater.hpp"
 #include "slam_solver/slam_solver.hpp"
+#include <perception_sensor_lib/loop_closure/lap_counter.hpp>
+
 
 /**
  * @brief Graph SLAM solver class
@@ -57,7 +59,8 @@ public:
   GraphSLAMSolver(const SLAMParameters& params,
                   std::shared_ptr<DataAssociationModel> data_association,
                   std::shared_ptr<V2PMotionModel> motion_model,
-                  std::shared_ptr<std::vector<double>> execution_times);
+                  std::shared_ptr<std::vector<double>> execution_times,
+                  std::shared_ptr<LoopClosure> loop_closure);
 
   ~GraphSLAMSolver() = default;
 
@@ -102,6 +105,13 @@ public:
    * @return Eigen::MatrixXd covariance matrix
    */
   Eigen::MatrixXd get_covariance() override;
+
+  /**
+   * @brief Get the lap counter
+   *
+   * @return int lap counter
+   */
+  int get_lap_counter() override { return lap_counter_; }
 
   /**
    * Timekeeping array

@@ -13,7 +13,7 @@
  */
 TEST(ODOMETRY_SUBSCRIBER, CONVERSION_TEST) {
   // Straight Line
-  BicycleModel bicycle_model = BicycleModel(common_lib::car_parameters::CarParameters());
+  BicycleModel bicycle_model = BicycleModel(common_lib::car_parameters::CarParameters(0.516, 1.6, 0.79, 1.2, 0.791, 4.0));
   double rl_speed = 60;
   double rr_speed = 60;
   double fl_speed = 60;
@@ -21,7 +21,7 @@ TEST(ODOMETRY_SUBSCRIBER, CONVERSION_TEST) {
   double steering_angle = 0;
   std::pair<double, double> velocity_data =
       bicycle_model.wheels_velocities_to_cg(rl_speed, rr_speed, fl_speed, fr_speed, steering_angle);
-  EXPECT_NEAR(velocity_data.first, 1.5708, 0.0001);
+  EXPECT_NEAR(velocity_data.first, 1.6210, 0.0001);
   EXPECT_DOUBLE_EQ(velocity_data.second, 0);
 
   // Curving left
@@ -32,8 +32,8 @@ TEST(ODOMETRY_SUBSCRIBER, CONVERSION_TEST) {
   steering_angle = M_PI / 8;
   velocity_data =
       bicycle_model.wheels_velocities_to_cg(rl_speed, rr_speed, fl_speed, fr_speed, steering_angle);
-  EXPECT_GE(velocity_data.first, 1.5708);
-  EXPECT_LE(velocity_data.first, 1.5708 * 2);
+  EXPECT_GE(velocity_data.first, 1.6210);
+  EXPECT_LE(velocity_data.first, 1.6210 * 2);
   EXPECT_LE(velocity_data.second, M_PI);
   EXPECT_GE(velocity_data.second, M_PI / 8);
 
@@ -45,8 +45,8 @@ TEST(ODOMETRY_SUBSCRIBER, CONVERSION_TEST) {
   steering_angle = -M_PI / 8;
   velocity_data =
       bicycle_model.wheels_velocities_to_cg(rl_speed, rr_speed, fl_speed, fr_speed, steering_angle);
-  EXPECT_GE(velocity_data.first, 1.5708);
-  EXPECT_LE(velocity_data.first, 1.5708 * 2);
+  EXPECT_GE(velocity_data.first, 1.6210);
+  EXPECT_LE(velocity_data.first, 1.6210 * 2);
   EXPECT_GE(velocity_data.second, -M_PI);
   EXPECT_LE(velocity_data.second, -M_PI / 8);
 }
@@ -71,7 +71,7 @@ TEST(BicycleModelTest, TestCgVelocityToWheels) {
   EXPECT_NEAR(observations(1), 325.584, 0.01);    // front_wheels_rpm
   EXPECT_NEAR(observations(2), 324.004, 0.01);    // rear_wheels_rpm
   EXPECT_NEAR(observations(3), 324.004, 0.01);    // rear_wheels_rpm
-  EXPECT_NEAR(observations(4), 0.211776, 0.001);  // steering_angle
+  EXPECT_NEAR(observations(4), 0.02450, 0.001);  // steering_angle
   EXPECT_NEAR(observations(5), 1296.02, 0.01);    // motor_rpm
 }
 
@@ -97,7 +97,7 @@ TEST(BicycleModelTest, TestCgVelocityToWheelsNegativeVx) {
   EXPECT_NEAR(observations(1), -325.584, 0.01);    // front_wheels_rpm
   EXPECT_NEAR(observations(2), -324.004, 0.01);    // rear_wheels_rpm
   EXPECT_NEAR(observations(3), -324.004, 0.01);    // rear_wheels_rpm
-  EXPECT_NEAR(observations(4), -0.211776, 0.001);  // steering_angle
+  EXPECT_NEAR(observations(4), 0.02450, 0.001);  // steering_angle
   EXPECT_NEAR(observations(5), -1296.02, 0.01);    // motor_rpm
 }
 
@@ -123,7 +123,7 @@ TEST(BicycleModelTest, TestCgVelocityToWheelsZeroVx) {
   EXPECT_NEAR(observations(1), 68.4366, 0.01);    // front_wheels_rpm
   EXPECT_NEAR(observations(2), 60.47888, 0.01);   // rear_wheels_rpm
   EXPECT_NEAR(observations(3), 60.47888, 0.01);   // rear_wheels_rpm
-  EXPECT_NEAR(observations(4), 0.0, 0.001);       // steering_angle
+  EXPECT_NEAR(observations(4), -0.1243, 0.001);       // steering_angle
   EXPECT_NEAR(observations(5), 241.91552, 0.01);  // motor_rpm
 }
 
@@ -191,9 +191,9 @@ TEST(BicycleModelTest, TestJacobianCgVelocityToWheels) {
   EXPECT_NEAR(jacobian(3, 0), 31.2715, 0.01);
   EXPECT_NEAR(jacobian(3, 1), 5.94159, 0.01);
   EXPECT_NEAR(jacobian(3, 2), -5.9416, 0.01);
-  EXPECT_NEAR(jacobian(4, 0), -0.02055, 0.01);
-  EXPECT_NEAR(jacobian(4, 1), 0.095582, 0.01);
-  EXPECT_NEAR(jacobian(4, 2), 0.143373, 0.01);
+  EXPECT_NEAR(jacobian(4, 0), -0.002355, 0.01);
+  EXPECT_NEAR(jacobian(4, 1), -0.00047, 0.01);
+  EXPECT_NEAR(jacobian(4, 2), 0.24499, 0.01);
   EXPECT_NEAR(jacobian(5, 0), 125.086, 0.01);
   EXPECT_NEAR(jacobian(5, 1), 23.7664, 0.01);
   EXPECT_NEAR(jacobian(5, 2), -23.7664, 0.01);
@@ -239,8 +239,8 @@ TEST(BicycleModelTest, TestJacobianCgVelocityToWheelsZeroVy) {
   EXPECT_NEAR(jacobian(3, 1), -0.3182939, 0.01);
   EXPECT_NEAR(jacobian(3, 2), 0.31829397, 0.01);
   EXPECT_NEAR(jacobian(4, 0), -0.00149966, 0.01);
-  EXPECT_NEAR(jacobian(4, 1), -0.0999775, 0.01);
-  EXPECT_NEAR(jacobian(4, 2), -0.14996626, 0.01);
+  EXPECT_NEAR(jacobian(4, 1), 0.0, 0.01);
+  EXPECT_NEAR(jacobian(4, 2), 0.24984, 0.01);
   EXPECT_NEAR(jacobian(5, 0), 127.3175884, 0.01);
   EXPECT_NEAR(jacobian(5, 1), -1.27316, 0.01);
   EXPECT_NEAR(jacobian(5, 2), 1.27316, 0.01);

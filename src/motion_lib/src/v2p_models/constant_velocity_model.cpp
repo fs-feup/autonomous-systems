@@ -8,18 +8,16 @@ ConstantVelocityModel::ConstantVelocityModel(const Eigen::Vector3d base_process_
 
 ConstantVelocityModel::ConstantVelocityModel() : V2PMotionModel() {}
 
-Eigen::Vector3d ConstantVelocityModel::get_next_pose(const Eigen::Vector3d &previous_pose,
-                                                     const Eigen::Vector3d &velocities,
-                                                     const double delta_t) {
-  Eigen::Vector3d next_pose;
-  next_pose(0) =
-      previous_pose(0) +
+Eigen::Vector3d ConstantVelocityModel::get_pose_difference(const Eigen::Vector3d &previous_pose,
+                                                           const Eigen::Vector3d &velocities,
+                                                           const double delta_t) {
+  Eigen::Vector3d pose_difference;
+  pose_difference(0) =
       (velocities(0) * ::cos(previous_pose(2)) - velocities(1) * ::sin(previous_pose(2))) * delta_t;
-  next_pose(1) =
-      previous_pose(1) +
+  pose_difference(1) =
       (velocities(0) * ::sin(previous_pose(2)) + velocities(1) * ::cos(previous_pose(2))) * delta_t;
-  next_pose(2) = common_lib::maths::normalize_angle(previous_pose(2) + velocities(2) * delta_t);
-  return next_pose;
+  pose_difference(2) = common_lib::maths::normalize_angle(velocities(2) * delta_t);
+  return pose_difference;
 }
 
 Eigen::Matrix3d ConstantVelocityModel::get_jacobian_pose(const Eigen::Vector3d &previous_pose,

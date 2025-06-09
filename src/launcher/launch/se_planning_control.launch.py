@@ -8,7 +8,7 @@ def generate_launch_description():
     se_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
-                [FindPackageShare("ekf_state_est"), "launch", "state_estimation.launch.py"]
+                [FindPackageShare("slam"), "launch", "slam.launch.py"]
             )
         ),
     )

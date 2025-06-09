@@ -31,14 +31,14 @@ std::pair<double, double> BicycleModel::wheels_velocities_to_cg(double rl_rpm,
 }
 
 common_lib::structures::Position BicycleModel::rear_axis_position(
-    common_lib::structures::Position cg, double orientation, double dist_cg_2_rear_axis) {
+    const common_lib::structures::Position& cg, double orientation, double dist_cg_2_rear_axis) {
   common_lib::structures::Position rear_axis;
   rear_axis.x = cg.x - dist_cg_2_rear_axis * cos(orientation);
   rear_axis.y = cg.y - dist_cg_2_rear_axis * sin(orientation);
   return rear_axis;
 }
 
-Eigen::VectorXd BicycleModel::cg_velocity_to_wheels(Eigen::Vector3d& cg_velocities) {
+Eigen::VectorXd BicycleModel::cg_velocity_to_wheels(const Eigen::Vector3d& cg_velocities) {
   const double vx = cg_velocities(0);
   const double vy = cg_velocities(1);
   const double omega = cg_velocities(2);
@@ -77,7 +77,7 @@ Eigen::VectorXd BicycleModel::cg_velocity_to_wheels(Eigen::Vector3d& cg_velociti
   return observations;
 }
 
-Eigen::MatrixXd BicycleModel::jacobian_cg_velocity_to_wheels(Eigen::Vector3d& cg_velocities) {
+Eigen::MatrixXd BicycleModel::jacobian_cg_velocity_to_wheels(const Eigen::Vector3d& cg_velocities) {
   Eigen::MatrixXd jacobian = Eigen::MatrixXd::Zero(6, 3);
   double vx = cg_velocities(0);
   double vy = cg_velocities(1);

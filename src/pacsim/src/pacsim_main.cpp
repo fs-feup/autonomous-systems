@@ -72,6 +72,7 @@ rclcpp::Publisher<pacsim::msg::Wheels>::SharedPtr wheelspeedPub;
 rclcpp::Publisher<pacsim::msg::Wheels>::SharedPtr torquesPub;
 rclcpp::Publisher<pacsim::msg::StampedScalar>::SharedPtr voltageSensorTSPub;
 rclcpp::Publisher<pacsim::msg::StampedScalar>::SharedPtr currentSensorTSPub;
+rclcpp::Publisher<geometry_msgs::msg::TwistWithCovarianceStamped>::SharedPtr pose_pub;
 std::map<std::pair<double, double>, geometry_msgs::msg::Point> detected_cones_map;
 
 
@@ -203,8 +204,12 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
         // geometry_msgs::msg::TransformStamped static_transform = createStaticTransform("map", "center", simTime);
         geometry_msgs::msg::TransformStamped transformStamped
             = createRosTransformMsg(t, rEulerAngles, trackFrame, "car", simTime);
-
         br->sendTransform(transformStamped);
+        geometry_msgs::msg::TwistWithCovarianceStamped poseStamped;
+        poseStamped.twist.twist.linear.x = t.x();
+        poseStamped.twist.twist.linear.y = t.y();
+        poseStamped.twist.twist.angular.z = rEulerAngles.z();
+        pose_pub->publish(poseStamped);
 
         if (deadTimeSteeringFront.availableDeadTime(simTime))
         {
@@ -729,6 +734,8 @@ int main(int argc, char** argv)
         = node->create_subscription<pacsim::msg::StampedScalar>("/pacsim/powerground_setpoint", 1, cbPowerGround);
 
     velocity_pub = node->create_publisher<geometry_msgs::msg::TwistWithCovarianceStamped>("/pacsim/velocity", 3);
+
+    pose_pub = node->create_publisher<geometry_msgs::msg::TwistWithCovarianceStamped>("/pacsim/pose", 3);
 
     clockPub = node->create_publisher<rosgraph_msgs::msg::Clock>("/clock", 1);
 
