@@ -532,126 +532,86 @@ std::vector<PathPoint> PathCalculation::getGlobalPath() const {
     return path_points;
 }
 
-
 std::vector<PathPoint> PathCalculation::skidpad_path(std::vector<Cone>& cone_array,
                                                      common_lib::structures::Pose pose) {
+  if (!path_orientation_corrected_) {
     std::string file = "./src/planning/src/utils/skidpad.txt";
-    std::ifstream infile(file);
+    std::string conesfile = "./src/planning/src/utils/skidpadcones.txt";
+   
+    // 1. Read reference cones and the cones from the files
+    std::ifstream cfile(conesfile);
+    std::vector<std::pair<double, double>> reference_cones;
     std::string line;
+    while (std::getline(cfile, line)) {
+        std::istringstream iss(line);
+        double x, y, z;
+        if (!(iss >> x >> y >> z)) break;
+            reference_cones.emplace_back(x, y);
+    }
+
+    if (reference_cones.size() < 4 || cone_array.size() < 4) {
+        throw std::runtime_error("Too few cones for ICP");
+    }
+
+    std::ifstream infile(file);
+    
     std::vector<PathPoint> hardcoded_path_;
     while (std::getline(infile, line)) {
-        std::istringstream iss(line);
-        double x, y, v;
-        if (!(iss >> x >> y >> v)) break;
-        hardcoded_path_.emplace_back(x, y, v);
+      std::istringstream iss(line);
+      double x, y, v;
+      if (!(iss >> x >> y >> v)) {
+        break;
+      }  // error
+      hardcoded_path_.push_back(PathPoint(x+ config_.tolerance_, y, v));
     }
 
-    if (cone_array.size() < 4 && !has_icp_transform_) {
-        throw std::runtime_error("Insufficient cones and no previous ICP transform");
+  
+
+    // 2. Convert cone_array (LiDAR) to source cloud
+    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_source(new pcl::PointCloud<pcl::PointXYZ>);
+    for (const auto& cone : cone_array) {
+        cloud_source->points.emplace_back(cone.position.x, cone.position.y, 0.0);
     }
 
-    // Prever midpoints
-    std::vector<std::pair<double, double>> midpoint_coords;
-    std::vector<bool> used(cone_array.size(), false);
-
-    for (size_t i = 0; i < cone_array.size(); ++i) {
-        if (used[i]) continue;
-        const auto& cone_i = cone_array[i];
-        double best_dist = std::numeric_limits<double>::max();
-        int best_j = -1;
-
-        for (size_t j = i + 1; j < cone_array.size(); ++j) {
-            if (used[j]) continue;
-            const auto& cone_j = cone_array[j];
-
-            double dist_i = std::hypot(cone_i.position.x - pose.position.x,
-                                       cone_i.position.y - pose.position.y);
-            double dist_j = std::hypot(cone_j.position.x - pose.position.x,
-                                       cone_j.position.y - pose.position.y);
-            double delta_dist = std::abs(dist_i - dist_j);
-            if (delta_dist > 1.5) continue;
-
-            double dx = cone_i.position.x - cone_j.position.x;
-            double dy = cone_i.position.y - cone_j.position.y;
-            double cone_dist = std::hypot(dx, dy);
-            if (cone_dist < 0.5 || cone_dist > 5.0) continue;
-
-            if (cone_dist < best_dist) {
-                best_dist = cone_dist;
-                best_j = j;
-            }
-        }
-
-        if (best_j != -1) {
-            used[i] = true;
-            used[best_j] = true;
-            double mx = (cone_array[i].position.x + cone_array[best_j].position.x) / 2.0;
-            double my = (cone_array[i].position.y + cone_array[best_j].position.y) / 2.0;
-            midpoint_coords.emplace_back(mx, my);
-        }
+    // 3. Convert reference cones to target cloud
+    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_target(new pcl::PointCloud<pcl::PointXYZ>);
+    for (const auto& [x, y] : reference_cones) {
+        cloud_target->points.emplace_back(x, y, 0.0);
     }
 
-    // Criar local_path com base nos midpoints
-    std::vector<PathPoint> local_path;
-    for (const auto& pt : hardcoded_path_) {
-        for (const auto& [x, y] : midpoint_coords) {
-            if (std::hypot(pt.position.x - x, pt.position.y - y) < 5.0) {
-                local_path.push_back(pt);
-                break;
-            }
-        }
+    // 4. Run ICP to align detected cones to map cones
+    pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
+    icp.setInputSource(cloud_source);
+    icp.setInputTarget(cloud_target);
+    icp.setMaxCorrespondenceDistance(0.5); // Set max correspondence distance
+    pcl::PointCloud<pcl::PointXYZ> Final;
+    icp.align(Final);
+
+    if (!icp.hasConverged()) {
+        throw std::runtime_error("ICP did not converge");
     }
 
-    if (local_path.size() >= 5 && midpoint_coords.size() >= 2) {
-        // Converter para nuvens PCL
-        pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_source(new pcl::PointCloud<pcl::PointXYZ>);
-        for (const auto& pt : local_path) {
-            cloud_source->points.emplace_back(pt.position.x, pt.position.y, 0.0);
-        }
+    Eigen::Matrix4f icp_transform = icp.getFinalTransformation();  // LiDAR → MAP
+    Eigen::Matrix4f map_to_lidar_transform = icp_transform.inverse();
 
-        pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_target(new pcl::PointCloud<pcl::PointXYZ>);
-        for (const auto& [x, y] : midpoint_coords) {
-            cloud_target->points.emplace_back(x, y, 0.0);
-        }
-
-        pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
-        icp.setInputSource(cloud_source);
-        icp.setInputTarget(cloud_target);
-        pcl::PointCloud<pcl::PointXYZ> Final;
-        icp.align(Final);
-
-        if (icp.hasConverged()) {
-            last_icp_transform_ = icp.getFinalTransformation();
-            has_icp_transform_ = true;
-           
-        }
-    }
-
-    if (!has_icp_transform_) {
-        throw std::runtime_error("No ICP transform available");
-    }
-
-    // Só atualizar predefined_path_ se ainda não foi alinhado
-    if (!path_aligned_ && has_icp_transform_) {
-      predefined_path_.clear();
-      for (auto pt : hardcoded_path_) {
-          Eigen::Vector4f p(pt.position.x, pt.position.y, 0.0f, 1.0f);
-          Eigen::Vector4f transformed = last_icp_transform_ * p;
-          pt.position.x = transformed[0];
-          pt.position.y = transformed[1];
-          predefined_path_.push_back(pt);
-      }
-      path_aligned_ = true;
+    // 5. Apply transformation to hardcoded path
+    for (auto& point : hardcoded_path_) {
+        Eigen::Vector4f p(point.position.x, point.position.y, 0.0f, 1.0f);
+        Eigen::Vector4f transformed = map_to_lidar_transform * p;
+        point.position.x = transformed[0];
+        point.position.y = transformed[1];
     }
 
 
-    
-    while (predefined_path_.size() > 1 &&
-           pose.position.euclidean_distance(predefined_path_[0].position) >
-           pose.position.euclidean_distance(predefined_path_[1].position)) {
-        predefined_path_.erase(predefined_path_.begin());
-    }
+    predefined_path_ = hardcoded_path_;
+    path_orientation_corrected_ = true;
+  }
 
-    size_t N = std::min<size_t>(70, predefined_path_.size());
-    return std::vector<PathPoint>(predefined_path_.begin(), predefined_path_.begin() + N);
+  while (!predefined_path_.empty() &&
+         pose.position.euclidean_distance(predefined_path_[0].position) < 1) {
+    predefined_path_.erase(predefined_path_.begin());
+  }
+
+  // set it as the final path
+  return std::vector<PathPoint>(predefined_path_.begin(), predefined_path_.begin() + 70);
 }

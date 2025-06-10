@@ -53,9 +53,8 @@ private:
   std::vector<Point> global_path_;
   int path_update_counter_ = 0;
   std::vector<Point> path_to_car;
-  Eigen::Matrix4f last_icp_transform_ = Eigen::Matrix4f::Identity();
   bool has_icp_transform_ = false;
-  size_t last_cone_count_ = 0;
+
 
 
 
