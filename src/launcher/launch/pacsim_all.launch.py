@@ -32,7 +32,7 @@ def generate_launch_description():
     pacsim_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
-                [FindPackageShare("pacsim"), "launch", "autocross.launch.py"]
+                [FindPackageShare("pacsim"), "launch", "skidpad.launch.py"]
             )
         ),
     )
