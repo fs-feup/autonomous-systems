@@ -33,6 +33,8 @@ struct ControlParameters {
   double pid_lim_min_;
   double pid_lim_max_;
   double pid_anti_windup_;
+  double lpf_alpha_;
+  double lpf_initial_value_;
   std::string map_frame_id_;
 };
 

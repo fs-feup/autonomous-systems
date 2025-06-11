@@ -8,3 +8,5 @@ control:
   pid_lim_min: -1.0
   pid_lim_max: 1.0
   pid_anti_windup: 0.7
+  lpf_alpha: 0.003 # Smoothing factor for the low-pass filter (0 = max smoothing, 1 = no smoothing)
+  lpf_initial_value: 0.0
