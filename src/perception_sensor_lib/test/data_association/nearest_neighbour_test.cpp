@@ -1,4 +1,4 @@
-#include "perception_sensor_lib/data_association/maximum_likelihood_md.hpp"
+#include "perception_sensor_lib/data_association/nearest_neighbour.hpp"
 
 #include <gtest/gtest.h>
 
@@ -6,20 +6,16 @@
  * @brief Test with mostly easy matches and a new landmark.
  *
  */
-TEST(MaximumLikelihoodMD, TestCase1) {
+TEST(NearestNeighbour, TestCase1) {
   // Arrange
   Eigen::VectorXd landmarks(10);
   landmarks << 34.5, -7, 12.3, 4.5, 3.2, 5.6, 6.8, 9.1, 1.8, 0.4;
   Eigen::VectorXd observations(10);
-  observations << 4.499999722610841, 13.199999626032849, 34.19999913867148, -7.200000784733975,
-      3.0999999999972934, 5.649999999996787, 6.859999998027547, 9.200000001049675,
-      1.699999998811323, 0.49999999845647614;
+  observations << 4.5, 13.2, 34.2, -7.2, 3.1, 5.65, 6.86, 9.2, 1.7, 0.5;
   Eigen::VectorXd observation_confidences = Eigen::VectorXd::Ones(5);
   Eigen::MatrixXd covariance(10, 10);
-  covariance.setIdentity();
-  covariance *= 0.1;
-  DataAssociationParameters params(50.0, 1.0, 0.8, 0.1, 0.1);
-  MaximumLikelihoodMD ml(params);
+  DataAssociationParameters params(50.0, 0.43, 0.8, 0.1, 0.1);
+  NearestNeighbour ml(params);
   std::vector<int> expected_associations = {-1, 0, 4, 6, 8};
   // Act
   Eigen::VectorXi associations =
@@ -34,7 +30,7 @@ TEST(MaximumLikelihoodMD, TestCase1) {
  * @brief Same case as TestCase1 but with rotation.
  *
  */
-TEST(MaximumLikelihoodMD, TestCase2) {
+TEST(NearestNeighbour, TestCase2) {
   // Arrange
   Eigen::VectorXd landmarks(10);
   landmarks << 34.5, -7, 12.3, 4.5, 3.2, 5.6, 6.8, 9.1, 1.8, 0.4;
@@ -44,10 +40,8 @@ TEST(MaximumLikelihoodMD, TestCase2) {
       1.699999998811323, 0.49999999845647614;
   Eigen::VectorXd observation_confidences = Eigen::VectorXd::Ones(5);
   Eigen::MatrixXd covariance(10, 10);
-  covariance.setIdentity();
-  covariance *= 0.1;
-  DataAssociationParameters params(50.0, 1.0, 0.8, 0.1, 0.1);
-  MaximumLikelihoodMD ml(params);
+  DataAssociationParameters params(50.0, 0.43, 0.8, 0.1, 0.1);
+  NearestNeighbour ml(params);
   std::vector<int> expected_associations = {-1, 0, 4, 6, 8};
   // Act
   Eigen::VectorXi associations =
@@ -62,7 +56,7 @@ TEST(MaximumLikelihoodMD, TestCase2) {
  * @brief Same case as TestCase2 but with translation.
  *
  */
-TEST(MaximumLikelihoodMD, TestCase3) {
+TEST(NearestNeighbour, TestCase3) {
   // Arrange
   Eigen::VectorXd landmarks(10);
   landmarks << 34.5, -7, 12.3, 4.5, 3.2, 5.6, 6.8, 9.1, 1.8, 0.4;
@@ -72,11 +66,9 @@ TEST(MaximumLikelihoodMD, TestCase3) {
       1.6999999970212407, 0.49999999653619254;
   Eigen::VectorXd observation_confidences = Eigen::VectorXd::Ones(5);
   Eigen::MatrixXd covariance(10, 10);
-  covariance.setIdentity();
-  covariance *= 0.2;
-  DataAssociationParameters params(50.0, 1.0, 0.8, 0.1, 0.1);
+  DataAssociationParameters params(50.0, 0.43, 0.8, 0.1, 0.1);
   std::vector<int> expected_associations = {-1, 0, 4, 6, 8};
-  MaximumLikelihoodMD ml(params);
+  NearestNeighbour ml(params);
   // Act
   Eigen::VectorXi associations =
       ml.associate(landmarks, observations, covariance, observation_confidences);
@@ -90,7 +82,7 @@ TEST(MaximumLikelihoodMD, TestCase3) {
  * @brief Only new landmarks with high confidence
  *
  */
-TEST(MaximumLikelihoodMD, TestCase4) {
+TEST(NearestNeighbour, TestCase4) {
   // Arrange
   Eigen::VectorXd landmarks(10);
   landmarks << 34.5, -7, 12.3, 4.5, 3.2, 5.6, 6.8, 9.1, 1.8, 0.4;
@@ -99,10 +91,8 @@ TEST(MaximumLikelihoodMD, TestCase4) {
       1.033044730121015, 10.00589092620211, 8.066244986285891, -4.8905987333937615;
   Eigen::VectorXd observation_confidences = Eigen::VectorXd::Ones(4);
   Eigen::MatrixXd covariance(10, 10);
-  covariance.setIdentity();
-  covariance *= 0.1;
-  DataAssociationParameters params(50.0, 1.0, 0.8, 0.1, 0.1);
-  MaximumLikelihoodMD ml(params);
+  DataAssociationParameters params(50.0, 0.43, 0.8, 0.1, 0.1);
+  NearestNeighbour ml(params);
   std::vector<int> expected_associations = {-1, -1, -1, -1};
   // Act
   Eigen::VectorXi associations =
@@ -117,7 +107,7 @@ TEST(MaximumLikelihoodMD, TestCase4) {
  * @brief Only new landmarks with low confidence
  *
  */
-TEST(MaximumLikelihoodMD, TestCase5) {
+TEST(NearestNeighbour, TestCase5) {
   // Arrange
   Eigen::VectorXd landmarks(10);
   landmarks << 34.5, -7, 12.3, 4.5, 3.2, 5.6, 6.8, 9.1, 1.8, 0.4;
@@ -126,10 +116,8 @@ TEST(MaximumLikelihoodMD, TestCase5) {
       1.033044730121015, 10.00589092620211, 8.066244986285891, -4.8905987333937615;
   Eigen::VectorXd observation_confidences = Eigen::VectorXd::Zero(4);
   Eigen::MatrixXd covariance(10, 10);
-  covariance.setIdentity();
-  covariance *= 0.1;
-  DataAssociationParameters params(50.0, 1.0, 0.8, 0.1, 0.1);
-  MaximumLikelihoodMD ml(params);
+  DataAssociationParameters params(50.0, 0.43, 0.8, 0.1, 0.1);
+  NearestNeighbour ml(params);
   std::vector<int> expected_associations = {-2, -2, -2, -2};
   // Act
   Eigen::VectorXi associations =
@@ -141,10 +129,10 @@ TEST(MaximumLikelihoodMD, TestCase5) {
 }
 
 /**
- * @brief Only new landmarks with high confidence, high covariance and empty state
+ * @brief Only new landmarks with high confidence, high covariance and empty landmarks
  *
  */
-TEST(MaximumLikelihoodMD, TestCase6) {
+TEST(NearestNeighbour, TestCase6) {
   // Arrange
   Eigen::VectorXd landmarks(0);
   Eigen::VectorXd observations(8);
@@ -152,8 +140,8 @@ TEST(MaximumLikelihoodMD, TestCase6) {
       12.7823521, 0.449790270;
   Eigen::VectorXd observation_confidences = Eigen::VectorXd::Ones(4);
   Eigen::MatrixXd covariance(0, 0);
-  DataAssociationParameters params(50.0, 1.0, 0.8, 0.1, 0.1);
-  MaximumLikelihoodMD ml(params);
+  DataAssociationParameters params(50.0, 0.43, 0.8, 0.1, 0.1);
+  NearestNeighbour ml(params);
   std::vector<int> expected_associations = {-1, -1, -1, -1};
   // Act
   Eigen::VectorXi associations =
@@ -165,80 +153,20 @@ TEST(MaximumLikelihoodMD, TestCase6) {
 }
 
 /**
- * @brief Empty state and observations
+ * @brief Empty landmarks and observations
  *
  */
-TEST(MaximumLikelihoodMD, TestCase7) {
+TEST(NearestNeighbour, TestCase7) {
   // Arrange
-  Eigen::VectorXd state(0);
+  Eigen::VectorXd landmarks(0);
   Eigen::VectorXd observations(0);
   Eigen::VectorXd observation_confidences(0);
   Eigen::MatrixXd covariance(0, 0);
-  DataAssociationParameters params(50.0, 1.0, 0.8, 0.1, 0.1);
-  MaximumLikelihoodMD ml(params);
+  DataAssociationParameters params(50.0, 0.43, 0.8, 0.1, 0.1);
+  NearestNeighbour ml(params);
   // Act
   Eigen::VectorXi associations =
-      ml.associate(state, observations, covariance, observation_confidences);
+      ml.associate(landmarks, observations, covariance, observation_confidences);
   // Assert
   EXPECT_EQ(associations.size(), 0);
-}
-
-/**
- * @brief Same case as TestCase3 but covariance is different for some landmarks
- *
- */
-TEST(MaximumLikelihoodMD, TestCase8) {
-  // Arrange
-  Eigen::VectorXd state(10);
-  state << 34.5, -7, 12.3, 4.5, 3.2, 5.6, 6.8, 9.1, 1.8, 0.4;
-  Eigen::VectorXd observations(10);
-  observations << 4.499999823221495, 13.199999786278871, 34.19999419521099, -7.1999951106971025,
-      3.1000000000117893, 5.649999999968996, 6.859999985817916, 9.200000011828031,
-      1.6999999970212407, 0.49999999653619254;
-  Eigen::VectorXd observation_confidences = Eigen::VectorXd::Ones(5);
-  Eigen::MatrixXd covariance(10, 10);
-  covariance.setIdentity();
-  covariance *= 0.2;
-  covariance(2, 2) = 1000;  // Very high uncertainty, should match even though wasn't observed
-  covariance(3, 3) = 1000;
-  DataAssociationParameters params(50.0, 1.0, 0.8, 0.1, 0.1);
-  MaximumLikelihoodMD ml(params);
-  std::vector<int> expected_associations = {2, 0, 4, 6, 8};
-  // Act
-  Eigen::VectorXi associations =
-      ml.associate(state, observations, covariance, observation_confidences);
-  // Assert
-  for (int i = 0; i < static_cast<int>(associations.size()); ++i) {
-    EXPECT_EQ(associations[i], expected_associations[i]);
-  }
-}
-
-/**
- * @brief Same case as TestCase3 but covariance is different for some landmarks
- *
- */
-TEST(MaximumLikelihoodMD, TestCase9) {
-  // Arrange
-  Eigen::VectorXd state(10);
-  state << 34.5, -7, 12.3, 4.5, 3.2, 5.6, 6.8, 9.1, 1.8, 0.4;
-  Eigen::VectorXd observations(10);
-  observations << 4.499999823221495, 13.199999786278871, 34.19999419521099, -7.1999951106971025,
-      3.1000000000117893, 5.649999999968996, 6.859999985817916, 9.200000011828031,
-      1.6999999970212407, 0.49999999653619254;
-  Eigen::VectorXd observation_confidences = Eigen::VectorXd::Ones(5);
-  Eigen::MatrixXd covariance(10, 10);
-  covariance.setIdentity();
-  covariance *= 0.01;
-  covariance(0, 0) = 0;  // Very low uncertainty, should not match even though was observed
-  covariance(1, 1) = 0;
-  DataAssociationParameters params(50.0, 1.0, 0.8, 0.1, 0.1);
-  MaximumLikelihoodMD ml(params);
-  std::vector<int> expected_associations = {-1, -1, 4, 6, 8};
-  // Act
-  Eigen::VectorXi associations =
-      ml.associate(state, observations, covariance, observation_confidences);
-  // Assert
-  for (int i = 0; i < static_cast<int>(associations.size()); ++i) {
-    EXPECT_EQ(associations[i], expected_associations[i]);
-  }
 }

@@ -224,21 +224,21 @@ private:
     double processSlipAngleLat(double alpha_input, double Fz);
 
     // Vehicle state variables
-    Eigen::Vector3d position;         // world x, y, z
-    Eigen::Vector3d orientation;      // roll, pitch, yaw
-    Eigen::Vector3d velocity;         // body x, y, z
-    Eigen::Vector3d angularVelocity;  // roll rate, pitch rate, yaw rate
-    Eigen::Vector3d acceleration;     // body x, y, z
-    Eigen::Vector3d angularAcceleration; // roll acc, pitch acc, yaw acc
+    Eigen::Vector3d position = Eigen::Vector3d::Zero();         // world x, y, z
+    Eigen::Vector3d orientation  = Eigen::Vector3d::Zero();      // roll, pitch, yaw
+    Eigen::Vector3d velocity = Eigen::Vector3d::Zero();         // body x, y, z
+    Eigen::Vector3d angularVelocity = Eigen::Vector3d::Zero();  // roll rate, pitch rate, yaw rate
+    Eigen::Vector3d acceleration = Eigen::Vector3d::Zero();     // body x, y, z
+    Eigen::Vector3d angularAcceleration = Eigen::Vector3d::Zero(); // roll acc, pitch acc, yaw acc
     
     // Wheel state
-    Wheels steeringAngles;
-    Wheels wheelspeeds;
-    Wheels wheelOrientations;
-    Wheels torques;
-    Wheels rpmSetpoints;
-    Wheels maxTorques;
-    Wheels minTorques;
+    Wheels steeringAngles = {0.0, 0.0, 0.0, 0.0, 0.0}; // FL, FR, RL, RR
+    Wheels wheelspeeds = {0.0, 0.0, 0.0, 0.0, 0.0};
+    Wheels wheelOrientations = {0.0, 0.0, 0.0, 0.0, 0.0};
+    Wheels torques = {0.0, 0.0, 0.0, 0.0, 0.0};
+    Wheels rpmSetpoints = {0.0, 0.0, 0.0, 0.0, 0.0};
+    Wheels maxTorques = {0.0, 0.0, 0.0, 0.0, 0.0};
+    Wheels minTorques = {0.0, 0.0, 0.0, 0.0, 0.0};
     
     // Input state
     double throttleActuation = 0.0;

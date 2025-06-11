@@ -3,9 +3,11 @@
 EKFSLAMSolver::EKFSLAMSolver(const SLAMParameters& params,
                              std::shared_ptr<DataAssociationModel> data_association,
                              std::shared_ptr<V2PMotionModel> motion_model,
+                             std::shared_ptr<LandmarkFilter> landmark_filter,
                              std::shared_ptr<std::vector<double>> execution_times,
                              std::shared_ptr<LoopClosure> loop_closure)
-    : SLAMSolver(params, data_association, motion_model, execution_times, loop_closure),
+    : SLAMSolver(params, data_association, motion_model, landmark_filter, execution_times,
+                 loop_closure),
       slam_parameters_(params) {
   this->covariance_ =
       Eigen::MatrixXd::Identity(3, 3) * 0.4;  // TODO: initialize with the right values
@@ -42,31 +44,37 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
   std::vector<int> matched_landmarks_indices;
   Eigen::VectorXd matched_observations(0);
   Eigen::VectorXd new_landmarks(0);
+  Eigen::VectorXd new_confidences(0);
   Eigen::VectorXd observations(2 * num_observations);
   Eigen::VectorXd observation_confidences(num_observations);
-  Eigen::VectorXd new_landmarks_confidences(0);
   common_lib::conversions::cone_vector_to_eigen(cones, observations, observation_confidences);
+  Eigen::VectorXd global_observations =
+      common_lib::maths::local_to_global_coordinates(this->state_.segment(0, 3), observations);
   Eigen::VectorXi associations = this->_data_association_->associate(
-      this->state_, this->covariance_, observations, observation_confidences);
+      this->state_.segment(3, this->state_.size() - 3), global_observations,
+      this->covariance_.block(3, 3, this->state_.size() - 3, this->state_.size() - 3),
+      observation_confidences);
   for (int i = 0; i < num_observations; ++i) {
     if (associations(i) == -2) {
       continue;
     } else if (associations(i) == -1) {
       new_landmarks.conservativeResize(new_landmarks.size() + 2);
-      new_landmarks(new_landmarks.size() - 2) = observations(2 * i);
-      new_landmarks(new_landmarks.size() - 1) = observations(2 * i + 1);
-      new_landmarks_confidences.conservativeResize(new_landmarks_confidences.size() + 1);
-      new_landmarks_confidences(new_landmarks_confidences.size() - 1) = observation_confidences(i);
+      new_landmarks(new_landmarks.size() - 2) = global_observations(2 * i);
+      new_landmarks(new_landmarks.size() - 1) = global_observations(2 * i + 1);
+      new_confidences.conservativeResize(new_confidences.size() + 1);
+      new_confidences(new_confidences.size() - 1) = observation_confidences(i);
     } else {
-      matched_landmarks_indices.push_back(associations(i));
+      matched_landmarks_indices.push_back(associations(i) + 3);
       matched_observations.conservativeResize(matched_observations.size() + 2);
       matched_observations(matched_observations.size() - 2) = observations(2 * i);
       matched_observations(matched_observations.size() - 1) = observations(2 * i + 1);
     }
   }
+  Eigen::VectorXd filtered_new_landmarks =
+      this->_landmark_filter_->filter(new_landmarks, new_confidences);
+  this->_landmark_filter_->delete_landmarks(filtered_new_landmarks);
   this->correct(this->state_, this->covariance_, matched_landmarks_indices, matched_observations);
-  this->state_augmentation(this->state_, this->covariance_, new_landmarks,
-                           new_landmarks_confidences);
+  this->state_augmentation(this->state_, this->covariance_, filtered_new_landmarks);
   this->update_process_noise_matrix();
 }
 
@@ -112,24 +120,23 @@ void EKFSLAMSolver::correct(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
 }
 
 void EKFSLAMSolver::state_augmentation(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
-                                       const Eigen::VectorXd& new_landmarks_coordinates,
-                                       const Eigen::VectorXd& new_landmarks_confidences) {
+                                       const Eigen::VectorXd& new_landmarks_coordinates) {
   // Resize covariance matrix
   int num_new_entries = static_cast<int>(new_landmarks_coordinates.size());
   int covariance_size = static_cast<int>(covariance.rows());
 
   covariance.conservativeResizeLike(
       Eigen::MatrixXd::Zero(covariance_size + num_new_entries, covariance_size + num_new_entries));
-  for (int i = 0; i < new_landmarks_confidences.size(); i++) {
-    covariance(2 * i + covariance_size, 2 * i + covariance_size) = new_landmarks_confidences(i);
+  for (int i = 0; i < num_new_entries / 2; i++) {
+    covariance(2 * i + covariance_size, 2 * i + covariance_size) =
+        this->_params_.observation_x_noise_;
     covariance(2 * i + 1 + covariance_size, 2 * i + 1 + covariance_size) =
-        new_landmarks_confidences(i);
+        _params_.observation_y_noise_;
   }
   // Resize state vector
   int original_state_size = static_cast<int>(state.size());
   state.conservativeResizeLike(Eigen::VectorXd::Zero(original_state_size + num_new_entries));
-  state.segment(original_state_size, num_new_entries) =
-      this->observation_model_->inverse_observation_model(state, new_landmarks_coordinates);
+  state.segment(original_state_size, num_new_entries) = new_landmarks_coordinates;
 }
 
 std::vector<common_lib::structures::Cone> EKFSLAMSolver::get_map_estimate() {

@@ -5,6 +5,7 @@
 #include <gtsam/nonlinear/NonlinearFactorGraph.h>
 #include <gtsam/nonlinear/Values.h>
 
+#include <perception_sensor_lib/loop_closure/lap_counter.hpp>
 #include <queue>
 
 #include "slam_solver/graph_slam_solver/factor_data_structures.hpp"
@@ -12,8 +13,6 @@
 #include "slam_solver/graph_slam_solver/optimizer/base_optimizer.hpp"
 #include "slam_solver/graph_slam_solver/pose_updater.hpp"
 #include "slam_solver/slam_solver.hpp"
-#include <perception_sensor_lib/loop_closure/lap_counter.hpp>
-
 
 /**
  * @brief Graph SLAM solver class
@@ -59,6 +58,7 @@ public:
   GraphSLAMSolver(const SLAMParameters& params,
                   std::shared_ptr<DataAssociationModel> data_association,
                   std::shared_ptr<V2PMotionModel> motion_model,
+                  std::shared_ptr<LandmarkFilter> landmark_filter,
                   std::shared_ptr<std::vector<double>> execution_times,
                   std::shared_ptr<LoopClosure> loop_closure);
 

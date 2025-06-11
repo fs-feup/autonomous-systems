@@ -35,6 +35,7 @@ set(IMPLEMENTATION_FILES
   src/data_association/nearest_neighbour.cpp
   src/data_association/nearest_neighbor.cpp
   src/observation_model/base_observation_model.cpp
+  src/landmark_filter/consecutive_counter_filter.cpp
   src/loop_closure/lap_counter.cpp
 )
 
@@ -71,7 +72,9 @@ if(BUILD_TESTING)
     test/observation_model/base_observation_model_test.cpp
     test/data_association/maximum_likelihood_nll_test.cpp
     test/data_association/nearest_neighbor_test.cpp
+    test/data_association/nearest_neighbour_test.cpp
     test/data_association/maximum_likelihood_md_test.cpp
+    test/landmark_filter/consecutive_counter_filter_test.cpp
   )
 
   include_directories(test)  # Include the 'test' directory for your test targets
