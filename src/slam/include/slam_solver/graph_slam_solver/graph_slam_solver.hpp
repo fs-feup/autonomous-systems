@@ -86,6 +86,15 @@ public:
   void add_observations(const std::vector<common_lib::structures::Cone>& cones) override;
 
   /**
+   * @brief Initialize the graph SLAM solver with a previously saved map and pose
+   *
+   * @param map Coordinates of the landmarks in the form of [x1, y1, x2, y2, ...] relative to the
+   * global frame
+   * @param pose Pose of the robot in the form of [x, y, theta] relative to the global frame
+   */
+  void load_initial_state(const Eigen::VectorXd& map, const Eigen::VectorXd& pose) override;
+
+  /**
    * @brief Get the map estimate object
    *
    * @return std::vector<common_lib::structures::Cone>

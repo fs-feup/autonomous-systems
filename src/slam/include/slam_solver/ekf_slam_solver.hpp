@@ -128,6 +128,14 @@ public:
   void add_observations(const std::vector<common_lib::structures::Cone>& positions) override;
 
   /**
+   * @brief Initialize the EKF SLAM solver with a previously saved map and pose
+   * @details Simply copies the map and pose into the state vector and covariance matrix.
+   *
+   * @return Eigen::VectorXd state vector
+   */
+  void load_initial_state(const Eigen::VectorXd& map, const Eigen::VectorXd& pose) override;
+
+  /**
    * @brief Get the covariance matrix of the EKF
    *
    * @return Eigen::MatrixXd covariance matrix

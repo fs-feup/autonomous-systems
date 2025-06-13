@@ -15,6 +15,9 @@ SLAMParameters::SLAMParameters(const SLAMParameters &params) {
   velocity_x_noise_ = params.velocity_x_noise_;
   velocity_y_noise_ = params.velocity_y_noise_;
   angular_velocity_noise_ = params.angular_velocity_noise_;
+  pose_x_initial_noise_ = params.pose_x_initial_noise_;
+  pose_y_initial_noise_ = params.pose_y_initial_noise_;
+  pose_theta_initial_noise_ = params.pose_theta_initial_noise_;
   slam_solver_name_ = params.slam_solver_name_;
   slam_min_pose_difference_ = params.slam_min_pose_difference_;
   slam_optimization_period_ = params.slam_optimization_period_;
@@ -24,6 +27,7 @@ SLAMParameters::SLAMParameters(const SLAMParameters &params) {
   frame_id_ = params.frame_id_;
   slam_optimization_type_ = params.slam_optimization_type_;
   slam_optimization_mode_ = params.slam_optimization_mode_;
+  preloaded_map_noise_ = params.preloaded_map_noise_;
   slam_isam2_relinearize_threshold_ = params.slam_isam2_relinearize_threshold_;
   slam_isam2_relinearize_skip_ = params.slam_isam2_relinearize_skip_;
   slam_isam2_factorization_ = params.slam_isam2_factorization_;
@@ -42,12 +46,16 @@ SLAMParameters &SLAMParameters::operator=(const SLAMParameters &other) {
     velocity_x_noise_ = other.velocity_x_noise_;
     velocity_y_noise_ = other.velocity_y_noise_;
     angular_velocity_noise_ = other.angular_velocity_noise_;
+    pose_x_initial_noise_ = other.pose_x_initial_noise_;
+    pose_y_initial_noise_ = other.pose_y_initial_noise_;
+    pose_theta_initial_noise_ = other.pose_theta_initial_noise_;
     slam_solver_name_ = other.slam_solver_name_;
     slam_min_pose_difference_ = other.slam_min_pose_difference_;
     slam_optimization_period_ = other.slam_optimization_period_;
     frame_id_ = other.frame_id_;
     slam_optimization_type_ = other.slam_optimization_type_;
     slam_optimization_mode_ = other.slam_optimization_mode_;
+    preloaded_map_noise_ = other.preloaded_map_noise_;
     slam_isam2_relinearize_threshold_ = other.slam_isam2_relinearize_threshold_;
     slam_isam2_relinearize_skip_ = other.slam_isam2_relinearize_skip_;
     slam_isam2_factorization_ = other.slam_isam2_factorization_;
@@ -85,6 +93,9 @@ std::string SLAMParameters::load_config() {
   this->velocity_x_noise_ = slam_config["slam"]["velocity_x_noise"].as<float>();
   this->velocity_y_noise_ = slam_config["slam"]["velocity_y_noise"].as<float>();
   this->angular_velocity_noise_ = slam_config["slam"]["angular_velocity_noise"].as<float>();
+  this->pose_x_initial_noise_ = slam_config["slam"]["pose_x_initial_noise"].as<double>();
+  this->pose_y_initial_noise_ = slam_config["slam"]["pose_y_initial_noise"].as<double>();
+  this->pose_theta_initial_noise_ = slam_config["slam"]["pose_theta_initial_noise"].as<double>();
   this->slam_solver_name_ = slam_config["slam"]["slam_solver_name"].as<std::string>();
   this->slam_min_pose_difference_ = slam_config["slam"]["slam_min_pose_difference"].as<float>();
   this->slam_optimization_period_ = slam_config["slam"]["slam_optimization_period"].as<double>();
@@ -94,6 +105,7 @@ std::string SLAMParameters::load_config() {
       slam_config["slam"]["minimum_frequency_of_detections"].as<double>();
   this->slam_optimization_type_ = slam_config["slam"]["slam_optimization_type"].as<std::string>();
   this->slam_optimization_mode_ = slam_config["slam"]["slam_optimization_mode"].as<std::string>();
+  this->preloaded_map_noise_ = slam_config["slam"]["preloaded_map_noise"].as<double>();
   this->slam_isam2_relinearize_threshold_ =
       slam_config["slam"]["slam_isam2_relinearize_threshold"].as<double>();
   this->slam_isam2_relinearize_skip_ =

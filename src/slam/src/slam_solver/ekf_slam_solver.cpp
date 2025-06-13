@@ -9,8 +9,10 @@ EKFSLAMSolver::EKFSLAMSolver(const SLAMParameters& params,
     : SLAMSolver(params, data_association, motion_model, landmark_filter, execution_times,
                  loop_closure),
       slam_parameters_(params) {
-  this->covariance_ =
-      Eigen::MatrixXd::Identity(3, 3) * 0.4;  // TODO: initialize with the right values
+  this->covariance_ = Eigen::MatrixXd::Zero(3, 3);
+  this->covariance_(0, 0) = params.pose_x_initial_noise_;
+  this->covariance_(1, 1) = params.pose_y_initial_noise_;
+  this->covariance_(2, 2) = params.pose_theta_initial_noise_;
   this->process_noise_matrix_ = Eigen::MatrixXd::Zero(3, 3);
   this->process_noise_matrix_(0, 0) = params.velocity_x_noise_;
   this->process_noise_matrix_(1, 1) = params.velocity_y_noise_;
@@ -74,8 +76,13 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
       this->_landmark_filter_->filter(new_landmarks, new_confidences);
   this->_landmark_filter_->delete_landmarks(filtered_new_landmarks);
   this->correct(this->state_, this->covariance_, matched_landmarks_indices, matched_observations);
-  this->state_augmentation(this->state_, this->covariance_, filtered_new_landmarks);
-  this->update_process_noise_matrix();
+  if (this->_mission_ != common_lib::competition_logic::Mission::NONE &&
+      this->_mission_ != common_lib::competition_logic::Mission::SKIDPAD &&
+      this->_mission_ != common_lib::competition_logic::Mission::ACCELERATION &&
+      this->lap_counter_ == 0) {
+    this->state_augmentation(this->state_, this->covariance_, filtered_new_landmarks);
+    this->update_process_noise_matrix();
+  }
 }
 
 void EKFSLAMSolver::predict(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
@@ -137,6 +144,22 @@ void EKFSLAMSolver::state_augmentation(Eigen::VectorXd& state, Eigen::MatrixXd& 
   int original_state_size = static_cast<int>(state.size());
   state.conservativeResizeLike(Eigen::VectorXd::Zero(original_state_size + num_new_entries));
   state.segment(original_state_size, num_new_entries) = new_landmarks_coordinates;
+}
+
+void EKFSLAMSolver::load_initial_state(const Eigen::VectorXd& map, const Eigen::VectorXd& pose) {
+  if (map.size() % 2 != 0 || pose.size() != 3) {
+    throw std::runtime_error("Invalid map or pose size");
+  }
+  this->state_ = Eigen::VectorXd::Zero(3 + map.size());
+  this->state_.segment(0, 3) = pose;
+  this->state_.segment(3, map.size()) = map;
+  this->covariance_ = Eigen::MatrixXd::Identity(this->state_.size(), this->state_.size()) *
+                      this->_params_.preloaded_map_noise_;
+  this->covariance_.block(0, 0, 3, 3) = Eigen::MatrixXd::Zero(3, 3);
+  this->covariance_(0, 0) = this->slam_parameters_.pose_x_initial_noise_;
+  this->covariance_(1, 1) = this->slam_parameters_.pose_y_initial_noise_;
+  this->covariance_(2, 2) = this->slam_parameters_.pose_theta_initial_noise_;
+  update_process_noise_matrix();
 }
 
 std::vector<common_lib::structures::Cone> EKFSLAMSolver::get_map_estimate() {

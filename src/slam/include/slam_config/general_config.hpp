@@ -23,6 +23,9 @@ struct SLAMParameters {
   float velocity_x_noise_ = 0.1;
   float velocity_y_noise_ = 0.1;
   float angular_velocity_noise_ = 0.1;
+  double pose_x_initial_noise_ = 0.1;      // Initial noise for the pose x
+  double pose_y_initial_noise_ = 0.1;      // Initial noise for the pose y
+  double pose_theta_initial_noise_ = 0.1;  // Initial noise for the pose theta
   double data_association_gate_ = 1.23;
   double new_landmark_confidence_gate_ = 0.6;
   double slam_min_pose_difference_ =
@@ -35,6 +38,7 @@ struct SLAMParameters {
       5;  // Minimum frequency of the detections of a landmark to add it to the map
   std::string slam_optimization_type_ = "normal_levenberg";
   std::string slam_optimization_mode_ = "sync";
+  double preloaded_map_noise_ = 0.1;  // Noise for preloaded map landmarks
 
   double slam_isam2_relinearize_threshold_ = 0.1;
   double slam_isam2_relinearize_skip_ = 1;
@@ -71,12 +75,16 @@ struct SLAMParameters {
        << ", observation_y_noise_: " << params.observation_y_noise_
        << ", velocity_x_noise_: " << params.velocity_x_noise_
        << ", velocity_y_noise_: " << params.velocity_y_noise_
+       << ", pose_x_initial_noise_: " << params.pose_x_initial_noise_
+       << ", pose_y_initial_noise_: " << params.pose_y_initial_noise_
+       << ", pose_theta_initial_noise_: " << params.pose_theta_initial_noise_
        << ", angular_velocity_noise_: " << params.angular_velocity_noise_
        << ", slam_solver_name_: " << params.slam_solver_name_
        << ", slam_min_pose_difference_: " << params.slam_min_pose_difference_
        << ", slam_optimization_mode_: " << params.slam_optimization_mode_
        << ", slam_optimization_type_: " << params.slam_optimization_type_
        << ", slam_optimization_period_: " << params.slam_optimization_period_
+       << ", preloaded_map_noise_: " << params.preloaded_map_noise_
        << ", sliding_window_size_: " << params.sliding_window_size_
        << ", slam_isam2_relinearize_threshold_: " << params.slam_isam2_relinearize_threshold_
        << ", slam_isam2_relinearize_skip_: " << params.slam_isam2_relinearize_skip_

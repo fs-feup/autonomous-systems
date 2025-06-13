@@ -152,15 +152,19 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   }
 
   this->_landmark_filter_->delete_landmarks(filtered_new_observations);
-
-  // Set the associations to -1 for the filtered observations
-  for (int i = 0; i < filtered_new_observations.size() / 2; i++) {
-    for (int j = 0; j < associations.size(); j++) {
-      if (std::hypot(filtered_new_observations(i * 2) - observations_global(j * 2),
-                     filtered_new_observations(i * 2 + 1) - observations_global(j * 2 + 1)) <
-          common_lib::structures::Cone::equality_tolerance) {
-        associations(j) = -1;
-        break;
+  if (this->_mission_ != common_lib::competition_logic::Mission::NONE &&
+      this->_mission_ != common_lib::competition_logic::Mission::SKIDPAD &&
+      this->_mission_ != common_lib::competition_logic::Mission::ACCELERATION &&
+      lap_counter_ == 0) {
+    // Set the associations to -1 for the filtered observations
+    for (int i = 0; i < filtered_new_observations.size() / 2; i++) {
+      for (int j = 0; j < associations.size(); j++) {
+        if (std::hypot(filtered_new_observations(i * 2) - observations_global(j * 2),
+                       filtered_new_observations(i * 2 + 1) - observations_global(j * 2 + 1)) <
+            common_lib::structures::Cone::equality_tolerance) {
+          associations(j) = -1;
+          break;
+        }
       }
     }
   }
@@ -215,6 +219,10 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   if (this->_params_.slam_optimization_mode_ == "sync") {
     this->_execution_times_->at(5) = (optimization_time - factor_graph_time).seconds() * 1000.0;
   }
+}
+
+void GraphSLAMSolver::load_initial_state(const Eigen::VectorXd& map, const Eigen::VectorXd& pose) {
+  this->_graph_slam_instance_.load_initial_state(map, pose, this->_params_.preloaded_map_noise_);
 }
 
 void GraphSLAMSolver::_asynchronous_optimization_routine() {
