@@ -583,7 +583,11 @@ std::vector<PathPoint> PathCalculation::skidpad_path(std::vector<Cone>& cone_arr
     pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
     icp.setInputSource(cloud_source);
     icp.setInputTarget(cloud_target);
-    icp.setMaxCorrespondenceDistance(0.5); // Set max correspondence distance
+    icp.setMaxCorrespondenceDistance(10); // Set max correspondence distance
+    icp.setMaximumIterations (1000000000);
+    icp.setTransformationEpsilon(1e-6);              
+    icp.setEuclideanFitnessEpsilon(1e-3);
+
     pcl::PointCloud<pcl::PointXYZ> Final;
     icp.align(Final);
 
