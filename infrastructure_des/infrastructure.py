@@ -12,7 +12,6 @@ class InfrastructureDesign(Node):
     def __init__(self):
         super().__init__('infrastructure_design_node')
         
-        # Publish all metrics as a flat array
         self.metrics_pub = self.create_publisher(Float32MultiArray, '/infrastructure/metrics', 10)
 
         self.rl_rpm_subscription = Subscriber(self, WheelRPM, "/vehicle/rl_rpm")
@@ -34,7 +33,6 @@ class InfrastructureDesign(Node):
 
         metrics = self.calculate_wheel_rpm_metrics(fl_rpm, rl_rpm, fr_rpm, rr_rpm)
         
-        # Publish as Float32MultiArray: [average_rpm, min_rpm, max_rpm, left_avg_rpm, right_avg_rpm, front_avg_rpm, rear_avg_rpm, front_rear_diff, left_right_diff, rpm_variance, rpm_stddev, average_velocity, fl_vel, rl_vel, fr_vel, rr_vel]
         msg = Float32MultiArray()
         msg.data = [
             metrics["average_rpm"],
@@ -49,7 +47,7 @@ class InfrastructureDesign(Node):
             metrics["rpm_variance"],
             metrics["rpm_stddev"],
             metrics["average_velocity"],
-            *metrics["wheel_velocities"]  # fl, rl, fr, rr
+            *metrics["wheel_velocities"]  
         ]
         self.metrics_pub.publish(msg)
 
@@ -61,12 +59,9 @@ class InfrastructureDesign(Node):
         front_rpms = [fl_rpm, fr_rpm]
         rear_rpms = [rl_rpm, rr_rpm]
 
-        # Convert RPM to angular velocity (rad/s): omega = RPM * 2*pi/60
         omegas = [rpm * 2 * np.pi / 60 for rpm in rpms]
-        # Linear velocity for each wheel: v = omega * R
         velocities = [omega * WHEEL_RADIUS for omega in omegas]
 
-        # Average vehicle velocity (assuming simple average of all wheels)
         avg_velocity = sum(velocities) / 4
 
         metrics = {
@@ -81,7 +76,7 @@ class InfrastructureDesign(Node):
             "left_right_diff": (sum(left_rpms) / 2) - (sum(right_rpms) / 2),
             "rpm_variance": float(np.var(rpms)),
             "rpm_stddev": float(np.std(rpms)),
-            "wheel_velocities": velocities,  # [fl, rl, fr, rr]
+            "wheel_velocities": velocities,
             "average_velocity": avg_velocity,
         }
         return metrics
