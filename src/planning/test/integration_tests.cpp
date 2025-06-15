@@ -442,7 +442,9 @@ TEST_F(IntegrationTest, simple_straight_path) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto _ = run_nodes(cone_array_msg, vehicle_pose);
+  const auto duration = run_nodes(cone_array_msg, vehicle_pose);
+
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
 
   ::save_debug_file(filename, cone_array, this->received_path, vehicle_pose);
 
@@ -485,7 +487,8 @@ TEST_F(IntegrationTest, unbalanced_STRAIGHT_PATH) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto _ = run_nodes(cone_array_msg, vehicle_pose);
+  const auto duration = run_nodes(cone_array_msg, vehicle_pose);
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
 
   ::save_debug_file(filename, cone_array, this->received_path, vehicle_pose);
 
@@ -528,7 +531,8 @@ TEST_F(IntegrationTest, FULL_CURVE_PATH) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto _ = run_nodes(cone_array_msg, vehicle_pose);
+  const auto duration = run_nodes(cone_array_msg, vehicle_pose);
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
 
   ::save_debug_file(filename, cone_array, this->received_path, vehicle_pose);
 
@@ -571,7 +575,8 @@ TEST_F(IntegrationTest, CURVES_AND_CLOSE_TRACKSIDES) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto _ = run_nodes(cone_array_msg, vehicle_pose);
+  const auto duration = run_nodes(cone_array_msg, vehicle_pose);
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
 
   ::save_debug_file(filename, cone_array, this->received_path, vehicle_pose);
 
@@ -614,7 +619,8 @@ TEST_F(IntegrationTest, SHARP_SINOSOIDAL_CURVE) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto _ = run_nodes(cone_array_msg, vehicle_pose);
+  const auto duration = run_nodes(cone_array_msg, vehicle_pose);
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
 
   ::save_debug_file(filename, cone_array, this->received_path, vehicle_pose);
 
@@ -657,7 +663,8 @@ TEST_F(IntegrationTest, ROSBAG_PATH_1) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto _ = run_nodes(cone_array_msg, vehicle_pose);
+  const auto duration = run_nodes(cone_array_msg, vehicle_pose);
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
 
   ::save_debug_file(filename, cone_array, this->received_path, vehicle_pose);
 
@@ -700,7 +707,8 @@ TEST_F(IntegrationTest, ROSBAG_PATH_2) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto _ = run_nodes(cone_array_msg, vehicle_pose);
+  const auto duration = run_nodes(cone_array_msg, vehicle_pose);
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
 
   ::save_debug_file(filename, cone_array, this->received_path, vehicle_pose);
 
@@ -744,7 +752,8 @@ TEST_F(IntegrationTest, ROSBAG_PATH_3) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto _ = run_nodes(cone_array_msg, vehicle_pose);
+  const auto duration = run_nodes(cone_array_msg, vehicle_pose);
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
 
   ::save_debug_file(filename, cone_array, this->received_path, vehicle_pose);
 
@@ -787,7 +796,8 @@ TEST_F(IntegrationTest, ROSBAG_PATH_4) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto _ = run_nodes(cone_array_msg, vehicle_pose);
+  const auto duration = run_nodes(cone_array_msg, vehicle_pose);
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
 
   ::save_debug_file(filename, cone_array, this->received_path, vehicle_pose);
 
@@ -831,7 +841,8 @@ TEST_F(IntegrationTest, ROSBAG_PATH_5) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto _ = run_nodes(cone_array_msg, vehicle_pose);
+  const auto duration = run_nodes(cone_array_msg, vehicle_pose);
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
 
   ::save_debug_file(filename, cone_array, this->received_path, vehicle_pose);
 
@@ -874,7 +885,8 @@ TEST_F(IntegrationTest, CIRCLE) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto _ = run_nodes(cone_array_msg, vehicle_pose);
+  const auto duration = run_nodes(cone_array_msg, vehicle_pose);
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
 
   ::save_debug_file(filename, cone_array, this->received_path, vehicle_pose);
 
@@ -918,7 +930,8 @@ TEST_F(IntegrationTest, STRAIGHT_3) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto _ = run_nodes(cone_array_msg, vehicle_pose);
+  const auto duration = run_nodes(cone_array_msg, vehicle_pose);
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
 
   ::save_debug_file(filename, cone_array, this->received_path, vehicle_pose);
 
@@ -962,7 +975,8 @@ TEST_F(IntegrationTest, TRACK) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto _ = run_nodes(cone_array_msg, vehicle_pose);
+  const auto duration = run_nodes(cone_array_msg, vehicle_pose);
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
 
   ::save_debug_file(filename, cone_array, this->received_path, vehicle_pose);
 
@@ -1005,7 +1019,8 @@ TEST_F(IntegrationTest, TRACK_2) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto _ = run_nodes(cone_array_msg, vehicle_pose);
+  const auto duration = run_nodes(cone_array_msg, vehicle_pose);
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
 
   ::save_debug_file(filename, cone_array, this->received_path, vehicle_pose);
 
@@ -1048,7 +1063,8 @@ TEST_F(IntegrationTest, OUTLIERS_1) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto _ = run_nodes(cone_array_msg, vehicle_pose);
+  const auto duration = run_nodes(cone_array_msg, vehicle_pose);
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
 
   ::save_debug_file(filename, cone_array, this->received_path, vehicle_pose);
 
@@ -1091,7 +1107,8 @@ TEST_F(IntegrationTest, OUTLIERS_2) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto _ = run_nodes(cone_array_msg, vehicle_pose);
+  const auto duration = run_nodes(cone_array_msg, vehicle_pose);
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
 
   ::save_debug_file(filename, cone_array, this->received_path, vehicle_pose);
 
@@ -1134,7 +1151,8 @@ TEST_F(IntegrationTest, OUTLIERS_3) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto _ = run_nodes(cone_array_msg, vehicle_pose);
+  const auto duration = run_nodes(cone_array_msg, vehicle_pose);
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
 
   ::save_debug_file(filename, cone_array, this->received_path, vehicle_pose);
 

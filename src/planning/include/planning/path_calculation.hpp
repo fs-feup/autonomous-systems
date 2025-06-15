@@ -53,7 +53,6 @@ private:
   std::vector<Point> global_path_;
   int path_update_counter_ = 0;
   std::vector<Point> path_to_car;
-  bool has_icp_transform_ = false;
 
 
 
@@ -73,11 +72,6 @@ public:
     Cone* cone1;
     Cone* cone2;
     bool valid = true;
-
-    bool operator==(const MidPoint& other) const {
-      return point == other.point && cone1 == other.cone1 && cone2 == other.cone2;
-    }
-
   };
 
   struct point_hash {
@@ -229,6 +223,8 @@ public:
     const Point& target,
     const std::unordered_map<Point, MidPoint*, point_hash>& map,
     double tolerance);
+
+  std::pair<Point, Point> ordered_segment(const Point& a, const Point& b);
 
 };
 

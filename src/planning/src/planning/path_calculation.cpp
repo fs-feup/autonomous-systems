@@ -11,7 +11,7 @@
 #include "utils/cone.hpp"
 using namespace std;
 
-std::pair<Point, Point> ordered_segment(const Point& a, const Point& b) {
+std::pair<Point, Point> PathCalculation::ordered_segment(const Point& a, const Point& b) {
   if (a.x() < b.x() || (a.x() == b.x() && a.y() < b.y())) {
       return {a, b};
   }
@@ -161,14 +161,18 @@ void PathCalculation::createMidPoints(
         Point p1 = v1->point();
         Point p2 = v2->point();
 
-        int id1 = find_cone(cone_array, p1.x(), p1.y());
-        int id2 = find_cone(cone_array, p2.x(), p2.y());
+        int id1 = ::find_cone(cone_array, p1.x(), p1.y());
+        int id2 = ::find_cone(cone_array, p2.x(), p2.y());
 
-        if (id1 == -1 || id2 == -1) continue;
+        if (id1 == -1 || id2 == -1){
+            continue;
+        }
 
         double sq_dist = CGAL::squared_distance(p1, p2);
         double min_dist = config_.minimum_cone_distance_;
-        if (sq_dist <= min_dist * min_dist) continue;
+        if (sq_dist <= min_dist * min_dist){
+            continue;
+        } 
 
         auto midPoint = std::make_unique<MidPoint>(
             MidPoint{Point((p1.x() + p2.x()) / 2, (p1.y() + p2.y()) / 2), {}, &cone_array[id1], &cone_array[id2]}
@@ -179,7 +183,9 @@ void PathCalculation::createMidPoints(
         std::vector<std::pair<Point, Point>> neighbor_edges;
         auto collect_edges = [&](auto face, int skip_edge_index) {
             for (int i = 0; i < 3; ++i) {
-                if (i == skip_edge_index) continue;
+                if (i == skip_edge_index){
+                    continue;
+                }
                 neighbor_edges.emplace_back(face->vertex((i + 1) % 3)->point(), face->vertex((i + 2) % 3)->point());
             }
         };
@@ -214,7 +220,9 @@ void PathCalculation::connectMidPoints(
 
         for (size_t i = 0; i + 1 < points.size(); i += 2) {
             auto seg = ordered_segment(points[i], points[i + 1]);
-            if (!seen_segments.insert(seg).second) continue;
+            if (!seen_segments.insert(seg).second){
+                continue;
+            }
 
             auto it = segment_to_midpoint.find(seg);
             if (it != segment_to_midpoint.end() && it->second != p.get()) {
@@ -257,16 +265,18 @@ void PathCalculation::selectInitialPath(
             }    
 
             double distance = CGAL::sqrt(CGAL::squared_distance(last_point, current_point));
-            if (distance > config_.tolerance_ && (!current_mp || visited_midpoints.count(current_mp) == 0)) {
+            if (distance > config_.tolerance_ && (current_mp == nullptr || visited_midpoints.count(current_mp) == 0)) {
                 path.push_back(current_point);
                 last_point = current_point;
-                if (current_mp) visited_midpoints.insert(current_mp);
+                if (current_mp) {
+                    visited_midpoints.insert(current_mp);
+                }
             }
         }
     } else {
         updateAnchorPoint(pose);
         auto [first, second] = findPathStartPoints(midPoints, anchor_point_);
-        if (first && second) {
+        if (first != nullptr && second != nullptr) {
             path.push_back(first->point);
             path.push_back(second->point);
             visited_midpoints.insert(first);
@@ -293,18 +303,22 @@ void PathCalculation::extendPath(
         MidPoint* prev_mp = find_nearest_point(prev, point_to_midpoint, config_.tolerance_);
         MidPoint* last_mp = find_nearest_point(last, point_to_midpoint, config_.tolerance_);
 
-        if (!prev_mp || !last_mp) {
+        if (prev_mp == nullptr || last_mp == nullptr) {
             RCLCPP_ERROR(rclcpp::get_logger("planning"), "No valid midpoints found for path extension.");
             break;
         }
 
         auto [best_cost, best_point] = dfs_cost(config_.search_depth_, prev_mp, last_mp, config_.max_cost_);
-        if (best_cost > worst_cost || !best_point || visited_midpoints.count(best_point)) break;
+        if (best_cost > worst_cost || best_point == nullptr || visited_midpoints.count(best_point)){
+            break;
+        }
 
         path.push_back(best_point->point);
         visited_midpoints.insert(best_point);
         n_points++;
-        if (n_points > config_.max_points_) break;
+        if (n_points > config_.max_points_){
+            break;
+        }
 
         if (path.size() > 2) {
             discard_cones_along_path(path, midPoints, point_to_midpoint, discarded_cones);
@@ -324,7 +338,7 @@ void PathCalculation::discard_cones_along_path(
     MidPoint* last_mp = find_nearest_point(last, point_to_midpoint, config_.tolerance_);
     MidPoint* current_mp = find_nearest_point(current, point_to_midpoint, config_.tolerance_);
 
-    if (!last_mp && !current_mp) {
+    if (last_mp == nullptr && current_mp == nullptr) {
         RCLCPP_ERROR(rclcpp::get_logger("planning"), "No valid midpoints found for discarding cones.");
         return;
     }
@@ -340,21 +354,29 @@ void PathCalculation::discard_cones_along_path(
         if (last_mp->cone1 != current_mp->cone1 && last_mp->cone1 != current_mp->cone2) {
             discarded_cone = last_mp->cone1;
         }
+    } else {
+        return;
     }
 
-    if (!discarded_cone) return;
+    if (discarded_cone == nullptr){ 
+        return;
+    }
 
     discarded_cones.insert(discarded_cone);
 
     for (auto& mp : midPoints) {
-        if (!mp->valid) continue;
-        if (discarded_cones.count(mp->cone1) || discarded_cones.count(mp->cone2)) {
+        if (!mp->valid){
+            continue;
+        }
+        if (discarded_cones.count(mp->cone1) > 0 || discarded_cones.count(mp->cone2) > 0) {
             mp->valid = false;
         }
     }
 
     for (auto& mp : midPoints) {
-        if (!mp->valid) continue;
+        if (!mp->valid){
+            continue;
+        }
         mp->close_points.erase(
             std::remove_if(mp->close_points.begin(), mp->close_points.end(),
                 [](MidPoint* neighbor) { return !neighbor->valid; }),
@@ -545,12 +567,15 @@ std::vector<PathPoint> PathCalculation::skidpad_path(std::vector<Cone>& cone_arr
     while (std::getline(cfile, line)) {
         std::istringstream iss(line);
         double x, y, z;
-        if (!(iss >> x >> y >> z)) break;
-            reference_cones.emplace_back(x, y);
+        if (!(iss >> x >> y >> z)){
+            break;
+        }
+        reference_cones.emplace_back(x, y);
     }
 
     if (reference_cones.size() < 4 || cone_array.size() < 4) {
-        throw std::runtime_error("Too few cones for ICP");
+        RCLCPP_ERROR(rclcpp::get_logger("planning"), "Not enough cones to perform ICP alignment.");
+        return {};
     }
 
     std::ifstream infile(file);
@@ -561,28 +586,30 @@ std::vector<PathPoint> PathCalculation::skidpad_path(std::vector<Cone>& cone_arr
       double x, y, v;
       if (!(iss >> x >> y >> v)) {
         break;
-      }  // error
+      }
       hardcoded_path_.push_back(PathPoint(x+ config_.tolerance_, y, v));
     }
 
   
 
     // 2. Convert cone_array (LiDAR) to source cloud
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_source(new pcl::PointCloud<pcl::PointXYZ>);
+    pcl::PointCloud<pcl::PointXYZ> cloud_source;
+    cloud_source.reserve(cone_array.size());
     for (const auto& cone : cone_array) {
-        cloud_source->points.emplace_back(cone.position.x, cone.position.y, 0.0);
+        cloud_source.emplace_back(cone.position.x, cone.position.y, 0.0);
     }
 
     // 3. Convert reference cones to target cloud
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_target(new pcl::PointCloud<pcl::PointXYZ>);
+    pcl::PointCloud<pcl::PointXYZ> cloud_target;
+    cloud_target.reserve(reference_cones.size());
     for (const auto& [x, y] : reference_cones) {
-        cloud_target->points.emplace_back(x, y, 0.0);
+        cloud_target.emplace_back(x, y, 0.0);
     }
 
     // 4. Run ICP to align detected cones to map cones
     pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
-    icp.setInputSource(cloud_source);
-    icp.setInputTarget(cloud_target);
+    icp.setInputSource(cloud_source.makeShared());
+    icp.setInputTarget(cloud_target.makeShared());
     icp.setMaxCorrespondenceDistance(10);
     icp.setMaximumIterations(std::numeric_limits<int>::max()); 
     icp.setTransformationEpsilon(1e-6);              
@@ -592,9 +619,10 @@ std::vector<PathPoint> PathCalculation::skidpad_path(std::vector<Cone>& cone_arr
     icp.align(Final);
 
     if (!icp.hasConverged()) {
-        throw std::runtime_error("ICP did not converge");
+        RCLCPP_ERROR(rclcpp::get_logger("planning"), "ICP did not converge.");
+        return {};
     }
-
+     
     Eigen::Matrix4f icp_transform = icp.getFinalTransformation();  // LiDAR → MAP
     Eigen::Matrix4f map_to_lidar_transform = icp_transform.inverse();
 
