@@ -114,7 +114,7 @@ void EKF::predict(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
 
   // Process noise for angular velocity greater, the greater the angular velocity
   Eigen::Matrix3d actual_process_noise_matrix = process_noise_matrix;
-  actual_process_noise_matrix(2, 2) += process_noise_matrix(0, 0) * state(2) * dt * 1000.0;
+  // actual_process_noise_matrix(2, 2) += process_noise_matrix(0, 0) * state(2) * dt * 1000.0;
 
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"),
                       "predict - Process noise matrix: \n"
@@ -168,7 +168,8 @@ void EKF::correct_imu(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
   jacobian(0, 2) = 1;
   Eigen::MatrixXd kalman_gain =
       covariance * jacobian.transpose() *
-      (jacobian * covariance * jacobian.transpose() + this->_imu_measurement_noise_matrix_);
+      (jacobian * covariance * jacobian.transpose() + this->_imu_measurement_noise_matrix_)
+          .inverse();
 
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - Covariance: \n"
                                                                      << covariance);

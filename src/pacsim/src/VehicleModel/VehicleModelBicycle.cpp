@@ -126,6 +126,9 @@ int VehicleModelBicycle::TireModel::sign(double value) const {
 
 double VehicleModelBicycle::TireModel::calculateLateralForce(double slipAngle,
                                                              double normalForce) const {
+  if (slipAngle == 0.0) {
+    return 0.0;  // No slip angle, no lateral force
+  }
   double dpi = (p_input - NOMPRES) / NOMPRES;
   double Fz_0_prime = LFZO * FNOM;
   double Kya = PKY1 * Fz_0_prime * (1 + PPY1 * dpi) * (1 - PKY3 * abs(y_input)) *
@@ -247,8 +250,8 @@ void VehicleModelBicycle::calculateSlipAngles(double& kappaFront, double& kappaR
    * the opposite of the velocity vector instead of Vx only. Drag also applied opposite of Vx
    * instead of simply adding the negative value.
    */
-  // bool stillstand = (velocity.norm() < VELOCITY_THRESHOLD) &&
-  //                   (std::abs(angularVelocity.z()) < ANGULAR_VELOCITY_THRESHOLD);
+  bool stillstand = (velocity.norm() < VELOCITY_THRESHOLD) &&
+                    (std::abs(angularVelocity.z()) < ANGULAR_VELOCITY_THRESHOLD);
 
   // Calculate wheel positions relative to CoG
   Eigen::Vector3d rFront(lf, 0.0, 0.0);
