@@ -26,8 +26,42 @@ PacsimAdapter::PacsimAdapter(const SLAMParameters& params) : SLAMNode(params) {
   }
 
   this->_finished_client_ = this->create_client<std_srvs::srv::Empty>("/pacsim/finish_signal");
+  param_client_ =
+      this->create_client<rcl_interfaces::srv::GetParameters>("/pacsim/pacsim_node/get_parameters");
+  fetch_discipline();
 
   this->_go_ = true;  // No go signal needed for pacsim
+}
+
+void PacsimAdapter::fetch_discipline() {
+  if (!param_client_->wait_for_service(std::chrono::milliseconds(100))) {
+    RCLCPP_ERROR(this->get_logger(), "Service /pacsim/pacsim_node/get_parameters not available.");
+  } else {
+    auto request = std::make_shared<rcl_interfaces::srv::GetParameters::Request>();
+    request->names.push_back("discipline");
+
+    param_client_->async_send_request(
+        request, [this](rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedFuture future) {
+          auto response = future.get();
+          common_lib::competition_logic::Mission mission_result =
+              common_lib::competition_logic::Mission::AUTOCROSS;
+
+          if (!response->values.empty() && response->values[0].type == 4) {  // Type 4 = string
+            std::string discipline = response->values[0].string_value;
+            RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
+
+            if (discipline == "skidpad") {
+              mission_result = common_lib::competition_logic::Mission::SKIDPAD;
+            } else if (discipline == "acceleration") {
+              mission_result = common_lib::competition_logic::Mission::ACCELERATION;
+            }
+          } else {
+            RCLCPP_ERROR(this->get_logger(), "Failed to retrieve discipline parameter.");
+          }
+          this->_mission_ = mission_result;
+          this->_slam_solver_->set_mission(mission_result);
+        });
+  }
 }
 
 void PacsimAdapter::finish() {

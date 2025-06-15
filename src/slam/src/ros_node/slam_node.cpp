@@ -12,6 +12,7 @@
 #include "common_lib/structures/position.hpp"
 #include "motion_lib/v2p_models/map.hpp"
 #include "perception_sensor_lib/data_association/map.hpp"
+#include "perception_sensor_lib/landmark_filter/map.hpp"
 #include "perception_sensor_lib/loop_closure/lap_counter.hpp"
 #include "slam_solver/map.hpp"
 
@@ -27,13 +28,19 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
           params.data_association_limit_distance_, params.data_association_gate_,
           params.new_landmark_confidence_gate_, params.observation_x_noise_,
           params.observation_y_noise_));
+  std::shared_ptr<LandmarkFilter> landmark_filter =
+      landmark_filters_map.at(params.landmark_filter_name_)(
+          LandmarkFilterParameters(params.minimum_observation_count_,
+                                   params.minimum_frequency_of_detections_),
+          data_association);
 
   this->_execution_times_ = std::make_shared<std::vector<double>>(20, 0.0);
-  std::shared_ptr<LoopClosure> loop_closure = std::make_shared<LapCounter>(4,10,5,3);
+  std::shared_ptr<LoopClosure> loop_closure = std::make_shared<LapCounter>(4, 10, 5, 3);
 
   // Initialize SLAM solver object
   this->_slam_solver_ = slam_solver_constructors_map.at(params.slam_solver_name_)(
-      params, data_association, motion_model, this->_execution_times_, loop_closure);
+      params, data_association, motion_model, landmark_filter, this->_execution_times_,
+      loop_closure);
 
   _perception_map_ = std::vector<common_lib::structures::Cone>();
   _vehicle_state_velocities_ = common_lib::structures::Velocities();
@@ -69,8 +76,8 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
       "/state_estimation/slam_execution_time", 10);
   this->_covariance_publisher_ = this->create_publisher<std_msgs::msg::Float64MultiArray>(
       "/state_estimation/slam_covariance", 10);
-  this->_lap_counter_publisher_ = this->create_publisher<std_msgs::msg::Float64>(
-      "/state_estimation/lap_counter", 10);
+  this->_lap_counter_publisher_ =
+      this->create_publisher<std_msgs::msg::Float64>("/state_estimation/lap_counter", 10);
 
   this->_tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
 
@@ -86,7 +93,8 @@ void SLAMNode::_perception_subscription_callback(const custom_interfaces::msg::C
 
   RCLCPP_DEBUG(this->get_logger(), "SUB - Perception: %ld cones", cone_array.size());
 
-  if (!this->_go_) {
+  if (!this->_go_ || this->_mission_ == common_lib::competition_logic::Mission::NONE) {
+    RCLCPP_INFO(this->get_logger(), "ATTR - Mission not started yet");
     return;
   }
 
@@ -123,6 +131,9 @@ void SLAMNode::_perception_subscription_callback(const custom_interfaces::msg::C
 }
 
 void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::Velocities &msg) {
+  if (this->_mission_ == common_lib::competition_logic::Mission::NONE) {
+    return;
+  }
   rclcpp::Time start_time = this->get_clock()->now();
 
   this->_vehicle_state_velocities_ = common_lib::structures::Velocities(

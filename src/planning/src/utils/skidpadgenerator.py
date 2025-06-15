@@ -8,7 +8,7 @@ numPoints = 100  # Number of points to describe the circle
 
 entryspeed=6
 exitspeed = 7
-circular_speed = 5
+circular_speed = 8.5
 
 file_name = "./src/planning/src/utils/skidpad.txt"
 

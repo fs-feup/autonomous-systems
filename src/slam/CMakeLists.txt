@@ -51,6 +51,7 @@ set(IMPLEMENTATION_FILES
   src/slam_solver/graph_slam_solver/optimizer/isam2_optimizer.cpp
   src/slam_solver/graph_slam_solver/optimizer/normal_levenberg_optimizer.cpp
   src/slam_solver/graph_slam_solver/optimizer/sliding_window_levenberg_optimizer.cpp
+  src/track_loader/track_loader.cpp
 )
 
 add_executable(slam src/main.cpp ${IMPLEMENTATION_FILES})
@@ -93,9 +94,8 @@ if(BUILD_TESTING)
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
     ${CMAKE_CURRENT_SOURCE_DIR}
-    ${EIGEN3_INCLUDE_DIR}  
+    ${EIGEN3_INCLUDE_DIR}
   )
-
   target_compile_features(slam_test PUBLIC c_std_99 cxx_std_17)
 
   install(TARGETS ${PROJECT_NAME}_test DESTINATION lib/${PROJECT_NAME})

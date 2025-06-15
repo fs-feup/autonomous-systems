@@ -105,6 +105,13 @@ Planning::Planning(const PlanningParameters &params)
     // State Estimation map Subscriber
     this->track_sub_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
         "/state_estimation/map", 10, std::bind(&Planning::track_map_callback, this, _1));
+
+    this->_lap_counter_subscription_ =
+      this->create_subscription<std_msgs::msg::Float64>(
+        "/state_estimation/lap_counter", 10,
+        [this](const std_msgs::msg::Float64::SharedPtr msg) {
+          this->lap_counter_ = static_cast<int>(msg->data);
+        });
   }
 
   RCLCPP_INFO(rclcpp::get_logger("planning"), "using simulated state estimation: %d",
@@ -190,7 +197,7 @@ void Planning::run_planning_algorithms() {
       }
     } else {
       for (auto &point : final_path) {
-        point.ideal_velocity = 100.0;
+        point.ideal_velocity = desired_velocity_;
       }
     }
   } else {
@@ -199,11 +206,23 @@ void Planning::run_planning_algorithms() {
     final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
                                          this->initial_car_orientation_);
 
+
+    if ((this->mission == common_lib::competition_logic::Mission::AUTOCROSS && this->lap_counter_ >= 1) ||
+        (this->mission == common_lib::competition_logic::Mission::TRACKDRIVE && this->lap_counter_ >= 10)) {
+      // Correct the path orientation for Autocross
+        for (auto &point : final_path) {
+          point.ideal_velocity = 0.0;
+        }
+    }
+    else{
+  
     global_path_ = path_calculation_.getGlobalPath();
 
 
 
     velocity_planning_.set_velocity(final_path);
+    }
+
   }
 
   if (final_path.size() < 10) {

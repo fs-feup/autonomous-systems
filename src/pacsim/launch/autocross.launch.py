@@ -21,7 +21,7 @@ def generate_launch_description():
   track_name = "FSS22_V2.yaml"
   track_frame = "map"
   realtime_ratio = 1.0
-  discipline = "autocross"
+  discipline = "pacsim"
 
   xacro_file_name = 'separate_model.xacro'
   xacro_path = getFullFilePath(xacro_file_name, "urdf")

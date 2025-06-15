@@ -22,8 +22,7 @@ public:
 
   ~MaximumLikelihoodNLL() = default;
 
-  Eigen::VectorXi associate(const Eigen::VectorXd& state,
-                            [[maybe_unused]] const Eigen::MatrixXd& covariance,
-                            const Eigen::VectorXd& observations,
+  Eigen::VectorXi associate(const Eigen::VectorXd& landmarks, const Eigen::VectorXd& observations,
+                            const Eigen::MatrixXd& covariance,
                             const Eigen::VectorXd& observation_confidences) const override;
 };

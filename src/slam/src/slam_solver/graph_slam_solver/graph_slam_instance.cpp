@@ -71,7 +71,7 @@ Eigen::MatrixXd GraphSLAMInstance::get_covariance_matrix() const {
   // this->_covariance_up_to_date_ = true;
 
   // return _covariance_;
-  return Eigen::MatrixXd::Zero(this->_landmark_counter_, this->_landmark_counter_);
+  return Eigen::MatrixXd::Zero(2 * this->_landmark_counter_, 2 * this->_landmark_counter_);
 }
 
 GraphSLAMInstance::GraphSLAMInstance(const SLAMParameters& params,
@@ -122,11 +122,12 @@ GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) 
 }
 
 void GraphSLAMInstance::process_pose_difference(const Eigen::Vector3d& pose_difference,
-                                                const Eigen::Vector3d& new_pose, bool force_update) {
+                                                const Eigen::Vector3d& new_pose,
+                                                bool force_update) {
   this->_accumulated_pose_difference_ += pose_difference;
   if (double pose_difference_norm = ::sqrt(pow(_accumulated_pose_difference_(0), 2) +
-                                                 pow(_accumulated_pose_difference_(1), 2) +
-                                                 pow(_accumulated_pose_difference_(2), 2));
+                                           pow(_accumulated_pose_difference_(1), 2) +
+                                           pow(_accumulated_pose_difference_(2), 2));
       pose_difference_norm < this->_params_.slam_min_pose_difference_ && !force_update) {
     return;
   }
@@ -172,11 +173,12 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
   Eigen::VectorXd& observations = *(observation_data.observations_);
   Eigen::VectorXi& associations = *(observation_data.associations_);
   Eigen::VectorXd& observations_global = *(observation_data.observations_global_);
+  bool new_observation_factors = false;
   for (unsigned int i = 0; i < observations.size() / 2; i++) {
     gtsam::Point2 landmark;
     gtsam::Symbol landmark_symbol;
     bool landmark_lost_in_optimization =
-        static_cast<int>(this->_landmark_counter_) < (associations(i) - 3) / 2 + 1;
+        static_cast<int>(this->_landmark_counter_) < (associations(i)) / 2;
     if (associations(i) == -2) {
       // No association
       continue;
@@ -187,9 +189,9 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
       this->_graph_values_.insert(landmark_symbol, landmark);
     } else {
       // Association to previous landmark
-      landmark_symbol =
-          gtsam::Symbol('l', (associations(i) - 3) / 2 + 1);  // Convert to landmark id
+      landmark_symbol = gtsam::Symbol('l', (associations(i)) / 2 + 1);  // Convert to landmark id
     }
+    new_observation_factors = true;
     const Eigen::Vector2d observation_cartesian(observations[i * 2], observations[i * 2 + 1]);
     Eigen::Vector2d observation_cylindrical = common_lib::maths::cartesian_to_cylindrical(
         observation_cartesian);  // Convert to cylindrical coordinates
@@ -203,17 +205,45 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
         gtsam::Symbol('x', this->_pose_counter_), landmark_symbol, observation_rotation,
         observation_cylindrical(0), observation_noise));
   }
-  this->_new_pose_node_ = false;
-  this->_new_observation_factors_ = true;
+  this->_new_pose_node_ = !new_observation_factors;
+  this->_new_observation_factors_ = new_observation_factors;
 }
 
-void GraphSLAMInstance::optimize() {
+void GraphSLAMInstance::load_initial_state(const Eigen::VectorXd& map, const Eigen::VectorXd& pose,
+                                           double preloaded_map_noise) {
+  RCLCPP_INFO(rclcpp::get_logger("slam"), "GraphSLAMInstance - Loading map ");
+  this->_pose_counter_ = 0;
+  this->_landmark_counter_ = 0;
+  _factor_graph_ = gtsam::NonlinearFactorGraph();
+  const gtsam::Pose2 prior_pose(pose(0), pose(1), pose(2));
+  const gtsam::Symbol pose_symbol('x', ++(this->_pose_counter_));
+  const gtsam::noiseModel::Diagonal::shared_ptr prior_noise =
+      gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector3(0.0, 0.0, 0.0));
+  _factor_graph_.add(gtsam::PriorFactor<gtsam::Pose2>(pose_symbol, prior_pose, prior_noise));
+
+  _graph_values_ = gtsam::Values();
+  _graph_values_.insert(pose_symbol, prior_pose);
+  _new_pose_node_ = true;
+
+  unsigned int num_landmarks = map.size() / 2;
+  for (unsigned int i = 0; i < num_landmarks; i++) {
+    gtsam::Point2 landmark(map(i * 2), map(i * 2 + 1));
+    gtsam::Symbol landmark_symbol('l', ++(this->_landmark_counter_));
+    _graph_values_.insert(landmark_symbol, landmark);
+    const gtsam::noiseModel::Diagonal::shared_ptr landmark_noise =
+        gtsam::noiseModel::Diagonal::Sigmas(
+            gtsam::Vector2(preloaded_map_noise, preloaded_map_noise));
+    _factor_graph_.add(
+        gtsam::PriorFactor<gtsam::Point2>(landmark_symbol, landmark, landmark_noise));
+  }
+}
+
+void GraphSLAMInstance::optimize() {  // TODO: implement sliding window and other parameters
   RCLCPP_DEBUG(rclcpp::get_logger("slam"),
                "GraphSLAMInstance - Optimizing1 graph with %ld factors and %ld values",
                this->_factor_graph_.size(), this->_graph_values_.size());
 
   this->_graph_values_ = this->_optimizer_->optimize(
-      this->_factor_graph_, this->_graph_values_, this->_pose_counter_,
-      this->_landmark_counter_);
+      this->_factor_graph_, this->_graph_values_, this->_pose_counter_, this->_landmark_counter_);
   this->_new_observation_factors_ = false;
 }

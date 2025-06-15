@@ -94,6 +94,17 @@ public:
   void process_observations(const ObservationData& observation_data);
 
   /**
+   * @brief Loads a map and an initial pose into the graph
+   *
+   * @param map Coordinates of the map landmarks in the form of an Eigen vector [x1, y1, x2, y2,
+   * ...]
+   * @param pose Initial pose of the robot in the form of an Eigen vector [x, y, theta]
+   * @param preloaded_map_noise Noise to apply to the preloaded map landmarks
+   */
+  void load_initial_state(const Eigen::VectorXd& map, const Eigen::VectorXd& pose,
+                          double preloaded_map_noise);
+
+  /**
    * @brief Add motion prior to the graph
    *
    * @param pose Pose difference to add to the graph

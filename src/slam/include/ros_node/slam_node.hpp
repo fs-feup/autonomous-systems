@@ -52,7 +52,7 @@ protected:
   std::shared_ptr<std::vector<double>>
       _execution_times_;  //< Execution times: 0 -> total motion; 1
                           //-> total observation; the rest are solver specific
-  common_lib::competition_logic::Mission _mission_;
+  common_lib::competition_logic::Mission _mission_ = common_lib::competition_logic::Mission::NONE;
   bool _go_;  /// flag to start the mission
   std::string _adapter_name_;
 
