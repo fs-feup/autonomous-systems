@@ -74,7 +74,7 @@ public:
     bool valid = true;
   };
 
-  struct point_hash {
+  struct PointHash {
     std::size_t operator()(const Point& p) const {
         auto h1 = std::hash<double>()(p.x());
         auto h2 = std::hash<double>()(p.y());
@@ -82,10 +82,10 @@ public:
     }
   };
 
-  struct pair_hash {
+  struct PairHash {
     std::size_t operator()(const std::pair<Point, Point>& p) const {
-        auto h1 = point_hash{}(p.first);
-        auto h2 = point_hash{}(p.second);
+        auto h1 = PointHash{}(p.first);
+        auto h2 = PointHash{}(p.second);
         return h1 ^ (h2 << 1);
     }
   };
@@ -178,7 +178,7 @@ public:
    * @param pose The current pose of the vehicle
    * @return std::vector<PathPoint> The generated path
    */
-  std::vector<PathPoint> skidpad_path(std::vector<Cone>& cone_array,
+  std::vector<PathPoint> skidpad_path(const std::vector<Cone>& cone_array,
                                       common_lib::structures::Pose pose);
 
                                       
@@ -191,7 +191,7 @@ public:
   );
 
   void connectMidPoints(
-      std::vector<std::unique_ptr<MidPoint>>& midPoints,
+      const std::vector<std::unique_ptr<MidPoint>>& midPoints,
       const std::unordered_map<MidPoint*, std::vector<Point>>& triangle_points
   );
 
@@ -199,14 +199,14 @@ public:
       std::vector<Point>& path,
       const std::vector<std::unique_ptr<MidPoint>>& midPoints,
       const common_lib::structures::Pose& pose,
-      const std::unordered_map<Point, MidPoint*, point_hash>& point_to_midpoint,
+      const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
       std::unordered_set<MidPoint*>& visited_midpoints
   );
 
   void extendPath(
     std::vector<Point>& path,
     const std::vector<std::unique_ptr<MidPoint>>& midPoints,
-    const std::unordered_map<Point, MidPoint*, point_hash>& point_to_midpoint,
+    const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
     std::unordered_set<MidPoint*>& visited_midpoints,
     std::unordered_set<Cone*>& discarded_cones
   );
@@ -214,14 +214,14 @@ public:
   void discard_cones_along_path(
     const std::vector<Point>& path,
     const std::vector<std::unique_ptr<MidPoint>>& midPoints,
-    const std::unordered_map<Point, MidPoint*, point_hash>& point_to_midpoint,
+    const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
     std::unordered_set<Cone*>& discarded_cones
   ); 
 
 
   MidPoint* find_nearest_point(
     const Point& target,
-    const std::unordered_map<Point, MidPoint*, point_hash>& map,
+    const std::unordered_map<Point, MidPoint*, PointHash>& map,
     double tolerance);
 
   std::pair<Point, Point> ordered_segment(const Point& a, const Point& b);
