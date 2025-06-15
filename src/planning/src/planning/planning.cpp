@@ -206,6 +206,8 @@ void Planning::run_planning_algorithms() {
     final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
                                          this->initial_car_orientation_);
 
+    global_path_ = path_calculation_.getGlobalPath();
+
 
     if ((this->mission == common_lib::competition_logic::Mission::AUTOCROSS && this->lap_counter_ >= 1) ||
         (this->mission == common_lib::competition_logic::Mission::TRACKDRIVE && this->lap_counter_ >= 10)) {
@@ -215,12 +217,7 @@ void Planning::run_planning_algorithms() {
         }
     }
     else{
-  
-    global_path_ = path_calculation_.getGlobalPath();
-
-
-
-    velocity_planning_.set_velocity(final_path);
+      velocity_planning_.set_velocity(final_path);
     }
 
   }
