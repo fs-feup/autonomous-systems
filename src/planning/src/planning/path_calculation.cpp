@@ -652,7 +652,7 @@ std::vector<PathPoint> PathCalculation::skidpad_path(const std::vector<Cone>& co
 
  
     size_t path_size = predefined_path_.size();
-    size_t count;
+    size_t count = 0;
     if (path_size >= 70) {
         count = 70;
     } else {
