@@ -2,8 +2,8 @@ track:
   version: 1.0
   lanesFirstWithLastConnected: false
   start:
-    position: [-18.68, 1.0, 0.0]
-    orientation: [0.0, 0.0, 0.02]
+    position: [-15.68, 1.0, 0.0]
+    orientation: [0.0, 0.0, 0.0]
   earthToTrack:
     position: [0.0, 0.0, 0.0]
     orientation: [0.0, 0.0, 0.0]

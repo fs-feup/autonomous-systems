@@ -175,6 +175,9 @@ void PathCalculation::createMidPoints(
         if (double min_dist = config_.minimum_cone_distance_; sq_dist <= min_dist * min_dist) {
             continue;
         } 
+        if (double max_dist = config_.maximum_cone_distance_; sq_dist >= max_dist * max_dist) {
+            continue;
+        }
 
         auto midPoint = std::make_unique<MidPoint>(
             MidPoint{Point((p1.x() + p2.x()) / 2, (p1.y() + p2.y()) / 2), {}, &cone_array[id1], &cone_array[id2]}
@@ -257,7 +260,7 @@ void PathCalculation::selectInitialPath(
         path.push_back(snapped_first);
         Point last_point = snapped_first;
 
-        for (int i = 1; i < path_to_car.size(); ++i) {
+        for (std::size_t i = 1; i < path_to_car.size(); ++i) {
             Point current_point = path_to_car[i];
             MidPoint* current_mp = find_nearest_point(current_point, point_to_midpoint, config_.tolerance_);
             if (current_mp){
@@ -269,6 +272,8 @@ void PathCalculation::selectInitialPath(
             double distance = CGAL::sqrt(CGAL::squared_distance(last_point, current_point));
             if (distance > config_.tolerance_ && (current_mp == nullptr || visited_midpoints.count(current_mp) == 0)) {
                 path.push_back(current_point);
+                
+
                 last_point = current_point;
                 if (current_mp) {
                     (void)visited_midpoints.insert(current_mp);
@@ -571,7 +576,8 @@ std::vector<PathPoint> PathCalculation::skidpad_path(const std::vector<Cone>& co
     }
     
 
-    if (reference_cones.size() < 4 || cone_array.size() < 4) {
+    if (reference_cones.size() < static_cast<std::size_t>(config_.skidpad_minimum_cones_) ||
+    cone_array.size() < static_cast<std::size_t>(config_.skidpad_minimum_cones_)){
         RCLCPP_ERROR(rclcpp::get_logger("planning"), "Not enough cones to perform ICP alignment.");
         return {};
     }
@@ -585,7 +591,7 @@ std::vector<PathPoint> PathCalculation::skidpad_path(const std::vector<Cone>& co
       if (!(iss >> x >> y >> v)) {
         break;
       }
-      hardcoded_path_.push_back(PathPoint(x+ config_.tolerance_, y, v));
+      hardcoded_path_.push_back(PathPoint(x+ config_.skidpad_tolerance_, y, v));
     }
 
   

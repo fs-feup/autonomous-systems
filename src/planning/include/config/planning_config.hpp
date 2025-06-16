@@ -10,6 +10,7 @@
 
 struct PlanningParameters {
   double minimum_cone_distance_;
+  double maximum_cone_distance_;
 
   double projected_point_distance_;
   double nc_angle_gain_;
@@ -18,6 +19,8 @@ struct PlanningParameters {
   double nc_distance_exponent_;
   double nc_max_cost_;
   double nc_tolerance_;
+  double skidpad_tolerance_;
+  int skidpad_minimum_cones_;
   int nc_search_depth_;
   int nc_lookback_points_;
   int nc_max_points_;
@@ -72,6 +75,9 @@ struct PlanningConfig {
     path_calculation_.lookback_points_ = params.nc_lookback_points_;
     path_calculation_.tolerance_ = params.nc_tolerance_;
     path_calculation_.reset_global_path_ = params.nc_reset_global_path_;
+    path_calculation_.skidpad_tolerance_ = params.skidpad_tolerance_;
+    path_calculation_.skidpad_minimum_cones_ = params.skidpad_minimum_cones_;
+    path_calculation_.maximum_cone_distance_ = params.maximum_cone_distance_;
 
 
     smoothing_.order_ = params.smoothing_spline_order_;

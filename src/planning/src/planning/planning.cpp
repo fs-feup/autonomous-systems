@@ -28,6 +28,7 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   auto planning_config = planning["planning"];
 
   params.minimum_cone_distance_ = planning_config["minimum_cone_distance"].as<double>();
+  params.maximum_cone_distance_ = planning_config["maximum_cone_distance"].as<double>();
   params.projected_point_distance_ = planning_config["projected_point_distance"].as<double>();
   params.nc_angle_gain_ = planning_config["nc_angle_gain"].as<double>();
   params.nc_distance_gain_ = planning_config["nc_distance_gain"].as<double>();
@@ -39,6 +40,9 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.nc_max_points_ = planning_config["nc_max_points"].as<int>();
   params.nc_lookback_points_ = planning_config["nc_lookback_points"].as<int>();
   params.nc_reset_global_path_ = planning_config["nc_reset_global_path"].as<int>();
+  params.skidpad_tolerance_ = planning_config["skidpad_tolerance"].as<double>();
+  params.skidpad_minimum_cones_ = planning_config["skidpad_minimum_cones"].as<int>();
+
   
 
   params.outliers_spline_order_ = planning_config["outliers_spline_order"].as<int>();
