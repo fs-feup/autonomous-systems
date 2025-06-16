@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "VehicleModel/VehicleModelBicycle.hpp"
+#include "../../include/VehicleModel/VehicleModelBicycle.hpp"
 
 class VehicleModelTest : public ::testing::Test {
 protected:
