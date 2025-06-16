@@ -13,7 +13,7 @@ planning:
   nc_tolerance: 1.0 
   nc_reset_global_path: 10 
   skidpad_minimum_cones: 10 # minimum number of cones to consider the skidpad as valid
-  skidpad_tolerance: 1.0
+  skidpad_tolerance: 1.5
   # --------------------------
   outliers_spline_order: 3
   outliers_spline_coeffs_ratio: 3.0
