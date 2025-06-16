@@ -644,13 +644,13 @@ std::vector<PathPoint> PathCalculation::skidpad_path(const std::vector<Cone>& co
         }
     }
 
-    // Caso a correção já tenha ocorrido, ou após corrigir, remove pontos próximos
+ 
     while (!predefined_path_.empty() &&
-           pose.position.euclidean_distance(predefined_path_.front().position) < 1) {
+           pose.position.euclidean_distance(predefined_path_.front().position) < 1.5) {
         predefined_path_.erase(predefined_path_.begin());
     }
 
-    // Se a predefined_path_ estiver vazia ou menor que 70, evita acesso inválido
+ 
     size_t path_size = predefined_path_.size();
     size_t count = (path_size >= 70) ? 70 : path_size;
 
