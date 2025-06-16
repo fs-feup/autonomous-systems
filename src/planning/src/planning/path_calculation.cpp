@@ -574,7 +574,7 @@ std::vector<PathPoint> PathCalculation::skidpad_path(const std::vector<Cone>& co
             std::istringstream iss(line);
             double x = 0.0, y = 0.0, z = 0.0;
             if (iss >> x >> y >> z) {
-                reference_cones.emplace_back(x, y);
+                (void)reference_cones.emplace_back(x, y);
             } else {
                 break;
             }
@@ -591,7 +591,7 @@ std::vector<PathPoint> PathCalculation::skidpad_path(const std::vector<Cone>& co
                 std::istringstream iss(line);
                 double x = 0.0, y = 0.0, v = 0.0;
                 if (iss >> x >> y >> v) {
-                    result.emplace_back(x + config_.skidpad_tolerance_, y, v);
+                    (void)result.emplace_back(x + config_.skidpad_tolerance_, y, v);
                 } else {
                     break;
                 }
@@ -601,14 +601,14 @@ std::vector<PathPoint> PathCalculation::skidpad_path(const std::vector<Cone>& co
             pcl::PointCloud<pcl::PointXYZ> cloud_source;
             cloud_source.reserve(cone_array.size());
             for (const auto& cone : cone_array) {
-                cloud_source.emplace_back(cone.position.x, cone.position.y, 0.0);
+                (void)cloud_source.emplace_back(cone.position.x, cone.position.y, 0.0);
             }
 
             // 4. Convert reference cones to target cloud
             pcl::PointCloud<pcl::PointXYZ> cloud_target;
             cloud_target.reserve(reference_cones.size());
             for (const auto& [x, y] : reference_cones) {
-                cloud_target.emplace_back(x, y, 0.0);
+                (void)cloud_target.emplace_back(x, y, 0.0);
             }
 
             // 5. Run ICP alignment
@@ -652,7 +652,13 @@ std::vector<PathPoint> PathCalculation::skidpad_path(const std::vector<Cone>& co
 
  
     size_t path_size = predefined_path_.size();
-    size_t count = (path_size >= 70) ? 70 : path_size;
+    size_t count;
+    if (path_size >= 70) {
+        count = 70;
+    } else {
+        count = path_size;
+    }
+
 
     return std::vector<PathPoint>(predefined_path_.begin(), predefined_path_.begin() + count);
 }
