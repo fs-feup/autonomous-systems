@@ -26,13 +26,13 @@ find_package(yaml-cpp REQUIRED)
 FetchContent_MakeAvailable(googletest)
 
 add_executable(unit_tests
-  pacsim_test.cpp
-  ../src/VehicleModel/VehicleModelBicycle.cpp
-  ../src/transform.cpp
+  UnitTests.cpp
+  ../../src/VehicleModel/VehicleModelBicycle.cpp
+  ../../src/transform.cpp
 )
 
 target_include_directories(unit_tests PUBLIC
-  ${CMAKE_CURRENT_SOURCE_DIR}/../include
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../include
   ${EIGEN3_INCLUDE_DIRS}
 )
 

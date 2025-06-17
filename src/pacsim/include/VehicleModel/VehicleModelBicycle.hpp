@@ -28,6 +28,7 @@ public:
     bool readConfig(ConfigElement& config) override;
     
     // State getters
+
     Eigen::Vector3d getPosition() override;
     Eigen::Vector3d getOrientation() override;
     Eigen::Vector3d getVelocity() override;
@@ -194,7 +195,6 @@ private:
         // Calculate steering wheel angle
         double calculateSteeringWheelAngle(const Wheels& steeringAngles) const;
     };
-
     void calculateWheelGeometry(
         double& steeringFront,
         Eigen::Vector3d& rFL, Eigen::Vector3d& rFR,
@@ -255,4 +255,8 @@ private:
     TireModel tireModel;
     PowertrainModel powertrainModel;
     SteeringModel steeringModel;
+    
+    //Testing getters
+    public:
+        const AerodynamicsModel& getAeroModel() const { return aeroModel; }
 };
