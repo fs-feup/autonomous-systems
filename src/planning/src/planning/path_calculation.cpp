@@ -133,11 +133,13 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
 
 
         std::unordered_set<MidPoint*> visited_midpoints;
-        selectInitialPath(path, midPoints, pose, point_to_midpoint, visited_midpoints);
+        selectInitialPath(path, midPoints, pose, point_to_midpoint, visited_midpoints, discarded_cones);
         extendPath(path, midPoints, point_to_midpoint, visited_midpoints, discarded_cones);
 
         std::vector<PathPoint> path_points;
-        for (const auto& point : path) {
+        for (const auto& point : path) {   if (path.size() > 2) {
+            discard_cones_along_path(path, midPoints, point_to_midpoint, discarded_cones);
+        }
             (void)path_points.emplace_back(point.x(), point.y());
         }
         global_path_ = path;  // Update global path with the new path
@@ -244,7 +246,8 @@ void PathCalculation::selectInitialPath(
     const std::vector<std::unique_ptr<MidPoint>>& midPoints,
     const common_lib::structures::Pose& pose,
     const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
-    std::unordered_set<MidPoint*>& visited_midpoints
+    std::unordered_set<MidPoint*>& visited_midpoints,
+    std::unordered_set<Cone*>& discarded_cones
 ) {
 
     if (path_to_car.size() > 2) {
@@ -274,6 +277,10 @@ void PathCalculation::selectInitialPath(
             double distance = CGAL::sqrt(CGAL::squared_distance(last_point, current_point));
             if (distance > config_.tolerance_ && (current_mp == nullptr || visited_midpoints.count(current_mp) == 0)) {
                 path.push_back(current_point);
+
+                if (path.size() > 2) {
+                    discard_cones_along_path(path, midPoints, point_to_midpoint, discarded_cones);
+                }
                 
 
                 last_point = current_point;
@@ -315,6 +322,7 @@ void PathCalculation::extendPath(
         if (prev_mp == nullptr || last_mp == nullptr) {
             RCLCPP_ERROR(rclcpp::get_logger("planning"), "No valid midpoints found for path extension.");
             break;
+            
         }
 
         auto [best_cost, best_point] = dfs_cost(config_.search_depth_, prev_mp, last_mp, config_.max_cost_);
@@ -347,8 +355,9 @@ void PathCalculation::discard_cones_along_path(
     MidPoint* last_mp = find_nearest_point(last, point_to_midpoint, config_.tolerance_);
     const MidPoint* current_mp = find_nearest_point(current, point_to_midpoint, config_.tolerance_);
 
-    if (last_mp == nullptr && current_mp == nullptr) {
+    if (last_mp == nullptr || current_mp == nullptr) {
         RCLCPP_ERROR(rclcpp::get_logger("planning"), "No valid midpoints found for discarding cones.");
+        return;
     }
 
 

@@ -200,7 +200,8 @@ public:
       const std::vector<std::unique_ptr<MidPoint>>& midPoints,
       const common_lib::structures::Pose& pose,
       const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
-      std::unordered_set<MidPoint*>& visited_midpoints
+      std::unordered_set<MidPoint*>& visited_midpoints,
+      std::unordered_set<Cone*>& discarded_cones
   );
 
   void extendPath(
