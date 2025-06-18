@@ -259,4 +259,7 @@ private:
     //Testing getters
     public:
         const AerodynamicsModel& getAeroModel() const { return aeroModel; }
+        void getLongitudinalForces(double& Fx_FL, double& Fx_FR, double& Fx_RL, double& Fx_RR) const { 
+            calculateLongitudinalForces(Fx_FL, Fx_FR, Fx_RL, Fx_RR);}
+        const PowertrainModel& getPowertrainModel() const{return powertrainModel;}
 };
