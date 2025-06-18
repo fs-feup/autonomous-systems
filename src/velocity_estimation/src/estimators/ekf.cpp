@@ -28,8 +28,8 @@ void EKF::imu_callback(const common_lib::sensor_data::ImuData& imu_data) {
   if (!this->imu_data_received_) {
     this->imu_data_received_ = true;
   } else {
-    this->predict(this->_state_, this->_covariance_, this->_process_noise_matrix_,
-                  this->_last_update_, this->imu_data_);
+    // this->predict(this->_state_, this->_covariance_, this->_process_noise_matrix_,
+    //               this->_last_update_, this->imu_data_);
   }
   this->_last_update_ = rclcpp::Clock().now();
   RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "2 - State: %f %f %f", this->_state_(0),
@@ -37,7 +37,7 @@ void EKF::imu_callback(const common_lib::sensor_data::ImuData& imu_data) {
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "2 - Covariance: \n"
                                                                      << this->_covariance_);
 
-  this->correct_imu(this->_state_, this->_covariance_, this->imu_data_);
+  // this->correct_imu(this->_state_, this->_covariance_, this->imu_data_);
   RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "3 - State: %f %f %f", this->_state_(0),
                this->_state_(1), this->_state_(2));
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "3 - Covariance: \n"
@@ -123,6 +123,7 @@ void EKF::predict(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
   Eigen::Matrix3d jacobian = this->process_model->get_jacobian_velocities(state, accelerations, dt);
   covariance = jacobian * covariance * jacobian.transpose() + actual_process_noise_matrix;
   state = this->process_model->get_next_velocities(state, accelerations, dt);
+  this->_has_made_prediction_ = true;
 }
 
 void EKF::correct_wheels(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
@@ -155,7 +156,8 @@ void EKF::correct_wheels(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - Kalman gain: \n"
                                                                      << kalman_gain);
   state += kalman_gain * y;
-  covariance = (Eigen::Matrix3d::Identity() - kalman_gain * jacobian) * covariance;
+  if (this->_has_made_prediction_)
+    covariance = (Eigen::Matrix3d::Identity() - kalman_gain * jacobian) * covariance;
 }
 
 void EKF::correct_imu(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
@@ -179,5 +181,6 @@ void EKF::correct_imu(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - Kalman gain: \n"
                                                                      << kalman_gain);
   state += kalman_gain * y;
-  covariance = (Eigen::Matrix3d::Identity() - kalman_gain * jacobian) * covariance;
+  if (this->_has_made_prediction_)
+    covariance = (Eigen::Matrix3d::Identity() - kalman_gain * jacobian) * covariance;
 }
