@@ -256,10 +256,30 @@ private:
     PowertrainModel powertrainModel;
     SteeringModel steeringModel;
     
-    //Testing getters
+    //Testing getters && setters
     public:
         const AerodynamicsModel& getAeroModel() const { return aeroModel; }
-        void getLongitudinalForces(double& Fx_FL, double& Fx_FR, double& Fx_RL, double& Fx_RR) const { 
-            calculateLongitudinalForces(Fx_FL, Fx_FR, Fx_RL, Fx_RR);}
+        const void getLongitudinalForces(double& Fx_FL, double& Fx_FR, double& Fx_RL, double& Fx_RR) const { calculateLongitudinalForces(Fx_FL, Fx_FR, Fx_RL, Fx_RR);}
         const PowertrainModel& getPowertrainModel() const{return powertrainModel;}
-};
+        const void getNormalForces(double& Fz_Front, double& Fz_Rear) const {calculateNormalForces(Fz_Front, Fz_Rear); }
+        const void getSlipAngles(double& kappaFront, double& kappaRear) const { calculateSlipAngles(kappaFront, kappaRear); }
+        
+        const SteeringModel& getSteeringModel() const { return steeringModel; }
+
+        const void getWheelGeometry(
+            double& steeringFront,
+            Eigen::Vector3d& rFL, Eigen::Vector3d& rFR,
+            Eigen::Vector3d& rRL, Eigen::Vector3d& rRR,
+            Eigen::Vector3d& rFront, Eigen::Vector3d& rRear,
+            Eigen::Vector3d& vFL, Eigen::Vector3d& vFR,
+            Eigen::Vector3d& vRL, Eigen::Vector3d& vRR
+        ) const {
+            calculateWheelGeometry(steeringFront, rFL, rFR, rRL, rRR, rFront, rRear, vFL, vFR, vRL, vRR);
+        }
+
+        const double getSR() const { return sr; }
+
+        void setVelocity(const Eigen::Vector3d& vel) { velocity = vel; }
+
+        void setWheelSpeedsTester(const Eigen::Vector3d& vFL, const Eigen::Vector3d& vFR,const Eigen::Vector3d& vRL, const Eigen::Vector3d& vRR){ updateWheelSpeeds(vFL, vFR, vRL, vRR); }
+ };

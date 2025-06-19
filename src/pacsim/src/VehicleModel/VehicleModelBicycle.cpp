@@ -109,7 +109,8 @@ void VehicleModelBicycle::setOrientation(Eigen::Vector3d newOrientation) {
 double VehicleModelBicycle::processSlipAngleLat(double alpha_input, double Fz) {
   return tireModel.calculateLateralForce(alpha_input, Fz);
 }
-
+ 
+// tested
 void VehicleModelBicycle::AerodynamicsModel::calculateForces(double velocityX, double& downforce,
                                                              double& drag) const {
   double velocitySquared = velocityX * velocityX;
@@ -167,6 +168,7 @@ double VehicleModelBicycle::TireModel::calculateLateralForce(double slipAngle,
   return Fy;
 }
 
+//tested
 void VehicleModelBicycle::PowertrainModel::calculateWheelTorques(double throttleInput,
                                                                  Wheels& torques) const {
   // Simple rear-wheel drive implementation
@@ -176,12 +178,15 @@ void VehicleModelBicycle::PowertrainModel::calculateWheelTorques(double throttle
   torques.RR = throttleInput * MAX_TORQUE * 0.5;
 }
 
+//tested
 double VehicleModelBicycle::PowertrainModel::calculateEfficiency(const Wheels& torques) const {
   // Simple efficiency model based on rear wheel torques
   // TODO: macros instead of harcoded values
-  return 0.002333 * (torques.RL + torques.RR) + 0.594;
+
+  return 0.002333 * (abs(torques.RL) + abs(torques.RR)) + 0.594;
 }
 
+//tested
 double VehicleModelBicycle::PowertrainModel::calculateCurrent(const Wheels& torques,
                                                               const Wheels& wheelspeeds,
                                                               double voltage) const {
@@ -198,6 +203,7 @@ double VehicleModelBicycle::PowertrainModel::calculateCurrent(const Wheels& torq
   return (totalPower / voltage);
 }
 
+// tested
 void VehicleModelBicycle::SteeringModel::calculateSteeringAngles(double steeringInput,
                                                                  Wheels& steeringAngles) const {
   // Apply Ackermann steering geometry
@@ -216,6 +222,7 @@ void VehicleModelBicycle::SteeringModel::calculateSteeringAngles(double steering
   steeringAngles.RR = 0.0;
 }
 
+//tested
 double VehicleModelBicycle::SteeringModel::calculateSteeringWheelAngle(
     const Wheels& steeringAngles) const {
   // Calculate steering wheel angle based on the front left steering angle and appropriate ratio
@@ -223,6 +230,7 @@ double VehicleModelBicycle::SteeringModel::calculateSteeringWheelAngle(
                                  : steeringAngles.FL / outerSteeringRatio;
 }
 
+//tested
 void VehicleModelBicycle::calculateNormalForces(double& Fz_Front, double& Fz_Rear) const {
   double l = lr + lf;
 
@@ -239,6 +247,7 @@ void VehicleModelBicycle::calculateNormalForces(double& Fz_Front, double& Fz_Rea
   Fz_Rear = std::max(0.0, (m * GRAVITY + downforce) * 0.5 * lf / l);
 }
 
+// tested
 void VehicleModelBicycle::calculateSlipAngles(double& kappaFront, double& kappaRear) const {
   constexpr double eps = 0.00001;  // Prevent division by zero
 
@@ -271,6 +280,8 @@ void VehicleModelBicycle::calculateSlipAngles(double& kappaFront, double& kappaR
   // }
 }
 
+
+//tested
 // New helper function to calculate wheel positions and velocities
 void VehicleModelBicycle::calculateWheelGeometry(double& steeringFront, Eigen::Vector3d& rFL,
                                                  Eigen::Vector3d& rFR, Eigen::Vector3d& rRL,
@@ -296,6 +307,7 @@ void VehicleModelBicycle::calculateWheelGeometry(double& steeringFront, Eigen::V
   vRR = velocity + angularVelocity.cross(rRR);
 }
 
+//tested
 // New helper function to calculate longitudinal forces
 void VehicleModelBicycle::calculateLongitudinalForces(double& Fx_FL, double& Fx_FR, double& Fx_RL,
                                                       double& Fx_RR) const {
@@ -311,10 +323,10 @@ void VehicleModelBicycle::calculateLongitudinalForces(double& Fx_FL, double& Fx_
       (powertrainModel.gearRatio * torques.RR / powertrainModel.wheelRadius) * powertrainEfficiency;
 
   // Apply forces only when torque is significant or vehicle is moving
-  Fx_FL *= (torques.FL > TORQUE_THRESHOLD || velocity.x() > VELOCITY_MIN_THRESHOLD) ? 1.0 : 0.0;
-  Fx_FR *= (torques.FR > TORQUE_THRESHOLD || velocity.x() > VELOCITY_MIN_THRESHOLD) ? 1.0 : 0.0;
-  Fx_RL *= (torques.RL > TORQUE_THRESHOLD || velocity.x() > VELOCITY_MIN_THRESHOLD) ? 1.0 : 0.0;
-  Fx_RR *= (torques.RR > TORQUE_THRESHOLD || velocity.x() > VELOCITY_MIN_THRESHOLD) ? 1.0 : 0.0;
+  Fx_FL *= (abs(torques.FL) > TORQUE_THRESHOLD || velocity.x() > VELOCITY_MIN_THRESHOLD) ? 1.0 : 0.0;
+  Fx_FR *= (abs(torques.FR) > TORQUE_THRESHOLD || velocity.x() > VELOCITY_MIN_THRESHOLD) ? 1.0 : 0.0;
+  Fx_RL *= (abs(torques.RL) > TORQUE_THRESHOLD || velocity.x() > VELOCITY_MIN_THRESHOLD) ? 1.0 : 0.0;
+  Fx_RR *= (abs(torques.RR) > TORQUE_THRESHOLD || velocity.x() > VELOCITY_MIN_THRESHOLD) ? 1.0 : 0.0;
 }
 
 // New helper function to calculate accelerations
@@ -352,6 +364,7 @@ Eigen::Vector3d VehicleModelBicycle::calculateAccelerations(double steeringFront
   return Eigen::Vector3d(axModel, ayModel, rdot);
 }
 
+//tested
 // New helper function to update wheel speeds
 void VehicleModelBicycle::updateWheelSpeeds(const Eigen::Vector3d& vFL, const Eigen::Vector3d& vFR,
                                             const Eigen::Vector3d& vRL,
