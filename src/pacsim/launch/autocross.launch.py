@@ -21,7 +21,7 @@ def generate_launch_description():
   track_name = "FSG23.yaml"
   track_frame = "map"
   realtime_ratio = 1.0
-  discipline = "pacsim"
+  discipline = "trackdrive"
 
   xacro_file_name = 'separate_model.xacro'
   xacro_path = getFullFilePath(xacro_file_name, "urdf")

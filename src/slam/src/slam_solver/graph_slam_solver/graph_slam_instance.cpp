@@ -150,8 +150,9 @@ void GraphSLAMInstance::process_pose_difference(const Eigen::Vector3d& pose_diff
   // RCLCPP_DEBUG(rclcpp::get_logger("slam"), "Motion covariance: %f %f %f", motion_covariance(0,
   // 0),
   //              motion_covariance(1, 1), motion_covariance(2, 2));
-  gtsam::noiseModel::Diagonal::shared_ptr prior_noise =
-      gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector3(0.1, 0.1, 0.1));
+  gtsam::noiseModel::Diagonal::shared_ptr prior_noise = gtsam::noiseModel::Diagonal::Sigmas(
+      gtsam::Vector3(this->_params_.velocity_x_noise_, this->_params_.velocity_y_noise_,
+                     this->_params_.angular_velocity_noise_));
 
   // Add the prior factor to the graph (x means pose node)
   gtsam::Symbol previous_pose_symbol('x', this->_pose_counter_);
@@ -246,4 +247,18 @@ void GraphSLAMInstance::optimize() {  // TODO: implement sliding window and othe
   this->_graph_values_ = this->_optimizer_->optimize(
       this->_factor_graph_, this->_graph_values_, this->_pose_counter_, this->_landmark_counter_);
   this->_new_observation_factors_ = false;
+}
+
+void GraphSLAMInstance::lock_landmarks(double locked_landmark_noise) {
+  for (int i = 1; i < this->_landmark_counter_; i++) {
+    gtsam::Symbol landmark_symbol('l', i);
+    if (this->_graph_values_.exists(landmark_symbol)) {
+      gtsam::Point2 landmark = this->_graph_values_.at<gtsam::Point2>(landmark_symbol);
+      const gtsam::noiseModel::Diagonal::shared_ptr landmark_noise =
+          gtsam::noiseModel::Diagonal::Sigmas(
+              gtsam::Vector2(locked_landmark_noise, locked_landmark_noise));
+      this->_factor_graph_.add(
+          gtsam::PriorFactor<gtsam::Point2>(landmark_symbol, landmark, landmark_noise));
+    }
+  }
 }
