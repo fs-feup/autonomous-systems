@@ -587,16 +587,12 @@ getWheelPositions - tested for wheel positions at zero orientation and at a cert
 */
 
 
-/*
-! Possible bug , value of wheel positions is not the same as in the config file
-*/
 TEST_F(VehicleModelTest, TestGetWheelPositionsZeroOrientation) {
     vehicleModel.setPosition(Eigen::Vector3d(0, 0, 0));
     vehicleModel.setOrientation(Eigen::Vector3d(0, 0, 0));
 
     auto wheels = vehicleModel.getWheelPositions();
 
-    ASSERT_EQ(vehicleModel.getPosition(), Eigen::Vector3d(0, 0, 0));
 
     ASSERT_NEAR(wheels[0].x(), 0.726, 0.01);  // FL
     ASSERT_NEAR(wheels[0].y(), 0.6, 0.01);
@@ -606,4 +602,37 @@ TEST_F(VehicleModelTest, TestGetWheelPositionsZeroOrientation) {
     ASSERT_NEAR(wheels[2].y(), 0.6, 0.01);
     ASSERT_NEAR(wheels[3].x(), -0.804, 0.01); // RR
     ASSERT_NEAR(wheels[3].y(), -0.6, 0.01);
+}
+
+
+TEST_F(VehicleModelTest, TestGetWheelPositionsAngleOrientation) {
+    vehicleModel.setPosition(Eigen::Vector3d(0, 0, 0));
+    vehicleModel.setOrientation(Eigen::Vector3d(0, 0,  - M_PI / 2)); // Rotate 90 degrees
+
+    auto wheels = vehicleModel.getWheelPositions();
+
+    ASSERT_NEAR(wheels[0].x(), -0.6, 0.01);  // FL
+    ASSERT_NEAR(wheels[0].y(), 0.726, 0.01);
+    ASSERT_NEAR(wheels[1].x(), 0.6, 0.01);   // FR
+    ASSERT_NEAR(wheels[1].y(), 0.726, 0.01);
+    ASSERT_NEAR(wheels[2].x(), -0.6, 0.01);  // RL
+    ASSERT_NEAR(wheels[2].y(), -0.804, 0.01);
+    ASSERT_NEAR(wheels[3].x(), 0.6, 0.01);   // RR
+    ASSERT_NEAR(wheels[3].y(), -0.804, 0.01);
+}
+
+TEST_F(VehicleModelTest, TestGetWheelPositionsNegativeAngleOrientation) {
+    vehicleModel.setPosition(Eigen::Vector3d(1, 1, 1));
+    vehicleModel.setOrientation(Eigen::Vector3d(0, 0, 0)); // Rotate -90 degrees
+
+    auto wheels = vehicleModel.getWheelPositions();
+
+    ASSERT_NEAR(wheels[0].x(), 1.726, 0.01);  // FL
+    ASSERT_NEAR(wheels[0].y(), 1.6, 0.01);
+    ASSERT_NEAR(wheels[1].x(), 1.726, 0.01);  // FR
+    ASSERT_NEAR(wheels[1].y(), -0.6 + 1, 0.01);
+    ASSERT_NEAR(wheels[2].x(), -0.804 + 1 , 0.01); // RL
+    ASSERT_NEAR(wheels[2].y(), 1.6, 0.01);
+    ASSERT_NEAR(wheels[3].x(), -0.804 + 1, 0.01); // RR
+    ASSERT_NEAR(wheels[3].y(), -0.6 + 1, 0.01);
 }

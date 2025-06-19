@@ -468,9 +468,12 @@ void VehicleModelBicycle::forwardIntegrate(double dt) {
   std::fmod(wheelOrientations.RR + wheelspeeds.RR * dt * wheelRotationFactor, TWO_PI);
 }
 
+//tested
 std::array<Eigen::Vector3d, 4> VehicleModelBicycle::getWheelPositions() {
   // Transform wheel positions from vehicle coordinates to world coordinates
-  auto rotMat = eulerAnglesToRotMat(orientation).transpose();
+  //auto rotMat = eulerAnglesToRotMat(orientation).transpose(); 
+  // ^ removed because it was causing a bug
+  auto rotMat = eulerAnglesToRotMat(orientation);
 
   Eigen::Vector3d FL = rotMat * Eigen::Vector3d(lf, sf * 0.5, 0.0) + position;
   Eigen::Vector3d FR = rotMat * Eigen::Vector3d(lf, -sf * 0.5, 0.0) + position;

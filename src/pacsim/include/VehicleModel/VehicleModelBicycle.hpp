@@ -277,7 +277,7 @@ private:
             calculateWheelGeometry(steeringFront, rFL, rFR, rRL, rRR, rFront, rRear, vFL, vFR, vRL, vRR);
         }
 
-        const double getSR() const { return sr; }
+        const double getLF() const { return lf; }
 
         void setVelocity(const Eigen::Vector3d& vel) { velocity = vel; }
 
