@@ -177,6 +177,11 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   LoopClosure::Result result = _loop_closure_->detect(pose, landmarks, associations, observations);
   if (result.detected) {
     lap_counter_++;
+    // Uncomment to create a soft lock on the landmarks' positions after the first lap.
+    // Currently working worse than without it in PacSim.
+    // if (lap_counter_ == 1) {
+    //   this->_graph_slam_instance_.lock_landmarks(this->_params_.preloaded_map_noise_);
+    // }
     RCLCPP_INFO(rclcpp::get_logger("slam"), "Lap counter: %d", lap_counter_);
   }
 

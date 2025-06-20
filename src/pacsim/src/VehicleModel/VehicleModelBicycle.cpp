@@ -268,10 +268,10 @@ void VehicleModelBicycle::calculateSlipAngles(double& kappaFront, double& kappaR
   kappaFront = std::atan2(vFront.y(), std::max(std::abs(vFront.x()), eps)) - steeringFront;
   kappaRear = std::atan2(vRear.y(), std::max(std::abs(vRear.x()), eps));
 
-  // if (stillstand) {
-  //   kappaFront = 0.0;
-  //   kappaRear = 0.0;
-  // }
+  if (stillstand) {
+    kappaFront = 0.0;
+    kappaRear = 0.0;
+  }
 }
 
 // New helper function to calculate wheel positions and velocities
