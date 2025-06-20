@@ -250,7 +250,7 @@ void GraphSLAMInstance::optimize() {  // TODO: implement sliding window and othe
 }
 
 void GraphSLAMInstance::lock_landmarks(double locked_landmark_noise) {
-  for (int i = 1; i < this->_landmark_counter_; i++) {
+  for (unsigned int i = 1; i < this->_landmark_counter_; i++) {
     gtsam::Symbol landmark_symbol('l', i);
     if (this->_graph_values_.exists(landmark_symbol)) {
       gtsam::Point2 landmark = this->_graph_values_.at<gtsam::Point2>(landmark_symbol);
