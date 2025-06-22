@@ -277,7 +277,16 @@ private:
             calculateWheelGeometry(steeringFront, rFL, rFR, rRL, rRR, rFront, rRear, vFL, vFR, vRL, vRR);
         }
 
-        const double getLF() const { return lf; }
+        const Eigen::Vector3d getCalculateAccelerations(double steeringFront, double Fx_FL, double Fx_FR, double Fx_RL, double Fx_RR,
+    double Fy_Front, double Fy_Rear, double drag, const Eigen::Vector3d& friction) const {
+        return calculateAccelerations(steeringFront,  Fx_FL , Fx_FR, Fx_RL, Fx_RR,
+    Fy_Front, Fy_Rear, drag, friction);
+    }
+    
+    Eigen::Vector3d getGetDynamicStates(double dt)  {
+        return getDynamicStates(dt);
+    }
+
 
         void setVelocity(const Eigen::Vector3d& vel) { velocity = vel; }
 

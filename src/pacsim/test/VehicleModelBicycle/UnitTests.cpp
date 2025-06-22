@@ -119,9 +119,9 @@ TEST_F(VehicleModelTest, CalculateLongitudinalNeg){
 }
 
 /*
-----------------------------------------------------
-calculateEfficency tests - test for Low , Mid , High
-----------------------------------------------------
+---------------------------------------------------------------
+calculateEfficency tests - test for Low , Mid , High , Negative
+---------------------------------------------------------------
 */
 
 TEST_F(VehicleModelTest , testEfficencyLowT){
@@ -636,3 +636,98 @@ TEST_F(VehicleModelTest, TestGetWheelPositionsNegativeAngleOrientation) {
     ASSERT_NEAR(wheels[3].x(), -0.804 + 1, 0.01); // RR
     ASSERT_NEAR(wheels[3].y(), -0.6 + 1, 0.01);
 }
+
+/*
+-------------------------------------------------------------------------------------------------------------
+calculateAccelerations - zero , straigth acceleration , straight braking , turning , drag and friction , yaw
+-------------------------------------------------------------------------------------------------------------
+*/
+
+TEST_F(VehicleModelTest , TestcalcAccelZero){
+  Eigen::Vector3d friction =  Eigen::Vector3d(0, 0, 0);
+  Eigen::Vector3d result = vehicleModel.getCalculateAccelerations(0,0,0,0,0,0,0,0,friction);
+  ASSERT_EQ(result.x() , 0);
+  ASSERT_EQ(result.y() , 0);
+  ASSERT_EQ(result.z() , 0);
+}
+
+/*
+! Friction is being added like simple acceleration this is not very realistic from a standstill point could be an error/bug in the sim
+*/
+TEST_F(VehicleModelTest , TestcalcAccelZeroWFriction){
+  Eigen::Vector3d friction =  Eigen::Vector3d(10, 0, 0);
+  Eigen::Vector3d result = vehicleModel.getCalculateAccelerations(0,0,0,0,0,0,0,0,friction);
+  ASSERT_NEAR(result.x() , 0.0498 , 0.01);
+  ASSERT_EQ(result.y() , 0);
+  ASSERT_EQ(result.z() , 0);
+}
+
+TEST_F(VehicleModelTest , TestcalcAccelStraight){
+  Eigen::Vector3d friction =  Eigen::Vector3d(0, 0, 0);
+  Eigen::Vector3d result = vehicleModel.getCalculateAccelerations(0,0,0,5,5,0,0,0,friction);
+  ASSERT_NEAR(result.x() , 0.0498 , 0.01);
+  ASSERT_EQ(result.y() , 0);
+  ASSERT_EQ(result.z() , 0);
+}
+
+TEST_F(VehicleModelTest , TestcalcAccelStraightBraking){
+  Eigen::Vector3d friction =  Eigen::Vector3d(2, 0, 0);
+  Eigen::Vector3d result = vehicleModel.getCalculateAccelerations(0,0,0,-5,-5,0,0,0,friction);
+  ASSERT_NEAR(result.x() , -8/200.707 , 0.01);
+  ASSERT_EQ(result.y() , 0);
+  ASSERT_EQ(result.z() , 0);
+}
+
+TEST_F(VehicleModelTest , TestcalcAccelTurning){
+  Eigen::Vector3d friction =  Eigen::Vector3d(0, 0, 0);
+  Eigen::Vector3d result = vehicleModel.getCalculateAccelerations(0,0,0,5,5,0.1,0,0,friction);
+  ASSERT_NEAR(result.x() , 0.0498 , 0.01);
+  ASSERT_NEAR(result.y() , -0.005 , 0.01); // Small lateral acceleration due to turning
+  ASSERT_NEAR(result.z() , 0 , 0.01); // Very small rotation (not noticable in this case)
+}
+
+/*
+------------------------------------------------------
+getDynamicStates - test for zero and positive velocity
+------------------------------------------------------
+*/
+
+// !Currently the fuction is dependent on the processSlipAngleLat function (which is wrong) so every y value will be 0.067313 instead of zero
+// !Same thing applies for the yaw which will always be the expect value + 0.00331369
+
+TEST_F(VehicleModelTest, TestGetDynamicStatesPositive) {
+  vehicleModel.setVelocity(Eigen::Vector3d(0, 0, 0)); // Set velocity to zero
+  vehicleModel.setSteeringSetpointFront(0.0); // Set steering angle to zero
+
+  Eigen::Vector3d result = vehicleModel.getGetDynamicStates(1);
+
+  ASSERT_EQ(result.x(), 0);
+  ASSERT_NEAR(result.y(), 0.067313 , 0.001 );
+  ASSERT_NEAR(result.z(), 0 + 0.00331369 , 0.001); 
+
+}
+
+
+TEST_F(VehicleModelTest, TestGetDynamicStatesAccelerating) {
+  vehicleModel.setVelocity(Eigen::Vector3d(0, 0, 0));
+  vehicleModel.setSteeringSetpointFront(0.0);
+  vehicleModel.setTorques(Wheels{0, 0, 60, 60}); // Set back wheel torques to maximum (full acceleration)
+
+  Eigen::Vector3d result  = vehicleModel.getGetDynamicStates(1);
+
+  ASSERT_NEAR(result.x(), 10.3 , 0.1);
+  ASSERT_NEAR(result.y(), 0.067313 , 0.001 );
+  ASSERT_NEAR(result.z(), 0+ 0.00331369, 0.001); 
+}
+
+TEST_F(VehicleModelTest, TestGetDynamicStatesBraking) {
+  vehicleModel.setVelocity(Eigen::Vector3d(0, 0, 0));
+  vehicleModel.setSteeringSetpointFront(0);
+  vehicleModel.setTorques(Wheels{0, 0, -60, -60}); // Set back wheel torques to maximum (full braking)
+  Eigen::Vector3d result = vehicleModel.getGetDynamicStates(1);
+
+  ASSERT_NEAR(result.x(), -10.3 , 0.1);
+  ASSERT_NEAR(result.y(), 0.067313 , 0.001 );
+  ASSERT_NEAR(result.z(), 0 + 0.00331369, 0.001); 
+}
+

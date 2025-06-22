@@ -330,6 +330,7 @@ void VehicleModelBicycle::calculateLongitudinalForces(double& Fx_FL, double& Fx_
 }
 
 // New helper function to calculate accelerations
+//tested
 Eigen::Vector3d VehicleModelBicycle::calculateAccelerations(double steeringFront, double Fx_FL,
                                                             double Fx_FR, double Fx_RL,
                                                             double Fx_RR, double Fy_Front,
