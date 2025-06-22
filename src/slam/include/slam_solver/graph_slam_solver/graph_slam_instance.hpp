@@ -101,7 +101,7 @@ public:
    * @param pose Initial pose of the robot in the form of an Eigen vector [x, y, theta]
    * @param preloaded_map_noise Noise to apply to the preloaded map landmarks
    */
-  void load_initial_state(const Eigen::VectorXd& map, const Eigen::VectorXd& pose,
+  void load_initial_state(const Eigen::VectorXd& map, const Eigen::Vector3d& pose,
                           double preloaded_map_noise);
 
   /**
@@ -109,8 +109,9 @@ public:
    *
    * @param pose Pose difference to add to the graph
    */
-  void process_pose_difference(const Eigen::Vector3d& pose_difference,
-                               const Eigen::Vector3d& new_pose, bool force_update = false);
+  void process_pose_differences(
+      const std::vector<std::pair<Eigen::Vector3d, Eigen::Vector3d>>& pose_differences,
+      const Eigen::Vector3d& new_pose);
 
   /**
    * @brief Runs optimization on the graph

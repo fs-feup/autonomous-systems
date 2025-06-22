@@ -1,5 +1,7 @@
 #include "perception_sensor_lib/landmark_filter/consecutive_counter_filter.hpp"
 
+#include <map>
+
 #include "common_lib/maths/transformations.hpp"
 Eigen::VectorXd ConsecutiveCounterFilter::filter(
     const Eigen::VectorXd& new_observations, const Eigen::VectorXd& new_observation_confidences) {
@@ -14,41 +16,35 @@ Eigen::VectorXd ConsecutiveCounterFilter::filter(
 
   // Calculate which observations should be added to this filter's map and which landmarks in the
   // map were observed
-  std::vector<bool> was_observed(num_landmarks, false);
+  std::vector<int> was_observed_as(num_landmarks, -1);  // Map landmark index to observation index
   Eigen::VectorXd to_be_added_to_map;
-  for (int i = 0; i < num_new_observations; i++) {
-    if (new_associations(i) != -1 && new_associations(i) != -2) {
-      was_observed[new_associations(i) / 2] = true;
-    } else if (new_associations(i) == -1) {
+  for (int observation_index = 0; observation_index < num_new_observations; observation_index++) {
+    if (new_associations(observation_index) != -1 && new_associations(observation_index) != -2) {
+      was_observed_as[new_associations(observation_index) / 2] =
+          observation_index;  // Map landmark index to observation index
+    } else if (new_associations(observation_index) == -1) {
       to_be_added_to_map.conservativeResize(to_be_added_to_map.size() + 2);
       to_be_added_to_map.segment(to_be_added_to_map.size() - 2, 2) =
-          new_observations.segment(i * 2, 2);
+          new_observations.segment(observation_index * 2, 2);
     }
   }
   // Update counter
   Eigen::VectorXd new_map;
   Eigen::VectorXi new_counter;
   Eigen::VectorXd filtered_observations;
-  for (int i = 0; i < num_landmarks; i++) {
-    if (!was_observed[i]) {
+  for (int landmark_index = 0; landmark_index < num_landmarks; landmark_index++) {
+    if (was_observed_as[landmark_index] < 0) {
       continue;
     }
-    if (this->counter(i) >= this->_params_.minimum_observation_count_ - 1) {
+    if (this->counter(landmark_index) >= this->_params_.minimum_observation_count_ - 1) {
       filtered_observations.conservativeResize(filtered_observations.size() + 2);
-      for (int j = 0; j < num_new_observations; j++) {
-        if (new_associations[j] == i * 2) {
-          filtered_observations.segment(filtered_observations.size() - 2, 2) =
-              new_observations.segment(j * 2, 2);
-          break;
-        }
-      }
       filtered_observations.segment(filtered_observations.size() - 2, 2) =
-          this->map.segment(i * 2, 2);
+          new_observations.segment(was_observed_as[landmark_index] * 2, 2);
     }
     new_map.conservativeResize(new_map.size() + 2);
-    new_map.segment(new_map.size() - 2, 2) = this->map.segment(i * 2, 2);
+    new_map.segment(new_map.size() - 2, 2) = this->map.segment(landmark_index * 2, 2);
     new_counter.conservativeResize(new_counter.size() + 1);
-    new_counter(new_counter.size() - 1) = this->counter(i) + 1;
+    new_counter(new_counter.size() - 1) = this->counter(landmark_index) + 1;
   }
   new_map.conservativeResize(new_map.size() + to_be_added_to_map.size());
   new_map.tail(to_be_added_to_map.size()) = to_be_added_to_map;

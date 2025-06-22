@@ -12,11 +12,11 @@
  * pose
  */
 class PoseUpdater {
+protected:
   Eigen::Vector3d _last_pose_;
   rclcpp::Time _last_pose_update_ = rclcpp::Time(0);
-
-  bool _received_first_velocities_ =
-      false;  //< Flag to check if the first velocities have been received
+  Eigen::Vector3d _accumulated_pose_difference_ =
+      Eigen::Vector3d::Zero();  ///< Accumulated pose difference since the last pose update
 
 public:
   PoseUpdater() = default;
@@ -30,15 +30,20 @@ public:
    *
    * @param motion_data Motion data containing the velocities and timestamp
    * @param motion_model Motion model to apply the velocities
-   * @return std::pair<Eigen::Vector3d, Eigen::Vector3d> Pose difference (x, y, theta) from the last
-   * pose, updated pose
    */
-  std::pair<Eigen::Vector3d, Eigen::Vector3d> update_pose(
-      const MotionData& motion_data, std::shared_ptr<V2PMotionModel> motion_model);
+  virtual void predict_pose(const MotionData& motion_data,
+                            std::shared_ptr<V2PMotionModel> motion_model) = 0;
 
   Eigen::Vector3d get_last_pose() const { return _last_pose_; }
 
   rclcpp::Time get_last_pose_update() const { return _last_pose_update_; }
 
-  void set_last_pose(const Eigen::Vector3d& last_pose) { _last_pose_ = last_pose; }
+  Eigen::Vector3d get_accumulated_pose_difference() const { return _accumulated_pose_difference_; }
+
+  /**
+   * @brief Updates the last pose with the given pose
+   * @details This method is used to set the last pose directly, for example after an optimization
+   * or when the pose is known from another source. It resets the accumulated pose difference.
+   */
+  void update_pose(const Eigen::Vector3d& last_pose);
 };

@@ -8,11 +8,15 @@
 #include <perception_sensor_lib/loop_closure/lap_counter.hpp>
 #include <queue>
 
+#include "motion_lib/v2p_models/odometry_model.hpp"
 #include "slam_solver/graph_slam_solver/factor_data_structures.hpp"
 #include "slam_solver/graph_slam_solver/graph_slam_instance.hpp"
 #include "slam_solver/graph_slam_solver/optimizer/base_optimizer.hpp"
-#include "slam_solver/graph_slam_solver/pose_updater.hpp"
+#include "slam_solver/graph_slam_solver/pose_updater/base_pose_updater.hpp"
 #include "slam_solver/slam_solver.hpp"
+#include "slam_solver/solver_traits/node_controller_trait.hpp"
+#include "slam_solver/solver_traits/odometry_integrator_trait.hpp"
+#include "slam_solver/solver_traits/velocities_integrator_trait.hpp"
 
 /**
  * @brief Graph SLAM solver class
@@ -22,9 +26,13 @@
  * This specific class controls the access to the models used in the SLAM implementation,
  * including measures for parallel execution
  */
-class GraphSLAMSolver : public SLAMSolver {
-  GraphSLAMInstance _graph_slam_instance_;  //< Instance of the graph SLAM solver
-  PoseUpdater _pose_updater_;               //< Pose updater for the graph SLAM solver
+class GraphSLAMSolver : public SLAMSolver,
+                        public VelocitiesIntegratorTrait,
+                        public OdometryIntegratorTrait,
+                        public NodeControllerTrait {
+  std::shared_ptr<GraphSLAMInstance> _graph_slam_instance_;  //< Instance of the graph SLAM solver
+  std::shared_ptr<PoseUpdater> _pose_updater_;  //< Pose updater for the graph SLAM solver
+  std::shared_ptr<V2PMotionModel> _odometry_model = std::make_shared<OdometryModel>();
   std::queue<MotionData>
       _motion_data_queue_;  //< Queue of velocities received while optimization ran
   std::queue<ObservationData>
@@ -43,6 +51,10 @@ class GraphSLAMSolver : public SLAMSolver {
    * It also updates the pose and the graph values accordingly afterwards
    */
   void _asynchronous_optimization_routine();
+
+  bool _add_motion_data_to_graph(const std::shared_ptr<PoseUpdater> pose_updater,
+                                 const std::shared_ptr<GraphSLAMInstance> graph_slam_instance,
+                                 bool force_update = false);
 
   friend class GraphSlamSolverTest_MotionAndObservation_Test;
 
@@ -76,7 +88,14 @@ public:
   /**
    * @brief Add motion prior to the solver (prediction step)
    */
-  void add_motion_prior(const common_lib::structures::Velocities& velocities) override;
+  void add_velocities(const common_lib::structures::Velocities& velocities) override;
+
+  /**
+   * @brief Add odometry data to the solver (for prediction step)
+   *
+   * @param pose_difference Pose difference in the form of [dx, dy, dtheta]
+   */
+  void add_odometry(const common_lib::structures::Pose& pose_difference) override;
 
   /**
    * @brief Add observations to the solver (correction step)
@@ -92,7 +111,7 @@ public:
    * global frame
    * @param pose Pose of the robot in the form of [x, y, theta] relative to the global frame
    */
-  void load_initial_state(const Eigen::VectorXd& map, const Eigen::VectorXd& pose) override;
+  void load_initial_state(const Eigen::VectorXd& map, const Eigen::Vector3d& pose) override;
 
   /**
    * @brief Get the map estimate object
@@ -134,6 +153,8 @@ public:
    * - 7: redo time in optimization routine
    * - 8: total asynchronous optimization routine time
    * - 9: motion model time
-   * - 10: factor graph time (in add_motion_prior)
+   * - 10: factor graph time (in add_velocities)
+   * - 11: perception filter time
+   * - 12: loop closure time
    */
 };

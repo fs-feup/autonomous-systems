@@ -13,6 +13,7 @@ set(PACKAGES
     sensor_msgs
     custom_interfaces
     eufs_msgs
+    nav_msgs
     std_srvs
     fs_msgs
     pacsim

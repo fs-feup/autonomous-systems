@@ -4,6 +4,7 @@
 #include <tf2_ros/transform_broadcaster.h>
 
 #include <memory>
+#include <nav_msgs/msg/odometry.hpp>
 #include <string>
 #include <visualization_msgs/msg/marker_array.hpp>
 
@@ -32,6 +33,7 @@ class SLAMNode : public rclcpp::Node {
 protected:
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr _perception_subscription_;
   rclcpp::Subscription<custom_interfaces::msg::Velocities>::SharedPtr _velocities_subscription_;
+  rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr _lidar_odometry_subscription_;
   rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr _vehicle_pose_publisher_;
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr _map_publisher_;
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr _visualization_map_publisher_;
@@ -41,7 +43,7 @@ protected:
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr _execution_time_publisher_;
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr _covariance_publisher_;
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _lap_counter_publisher_;
-  
+
   std::shared_ptr<tf2_ros::TransformBroadcaster> _tf_broadcaster_;
   rclcpp::TimerBase::SharedPtr _timer_;      /**< timer */
   std::shared_ptr<SLAMSolver> _slam_solver_; /**< SLAM solver object */
@@ -71,6 +73,8 @@ protected:
    * @param msg Message containing the velocitites of the vehicle
    */
   void _velocities_subscription_callback(const custom_interfaces::msg::Velocities& msg);
+
+  void _lidar_odometry_subscription_callback(const nav_msgs::msg::Odometry& msg);
 
   /**
    * @brief publishes the localization ('vehicle_pose') to the topic

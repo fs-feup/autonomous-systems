@@ -4,17 +4,24 @@
 #include <memory>
 #include <rclcpp/rclcpp.hpp>
 
+enum class MotionInputType {
+  VELOCITIES,  ///< Vehicle velocities
+  ODOMETRY     ///< Pose difference from odometry
+};
+
 /**
  * @brief Data structure to hold motion data
  * @details used to record the velocities received and to redo their processing after optimization
  */
 struct MotionData {
-  std::shared_ptr<Eigen::Vector3d> velocities_;
+  std::shared_ptr<Eigen::VectorXd> motion_data_;
   rclcpp::Time timestamp_;
+  MotionInputType type_ = MotionInputType::VELOCITIES;  ///< Type of motion input
 
   MotionData() = default;
-  MotionData(std::shared_ptr<Eigen::Vector3d> velocities, rclcpp::Time timestamp)
-      : velocities_(velocities), timestamp_(timestamp) {}
+  MotionData(std::shared_ptr<Eigen::VectorXd> motion_data, rclcpp::Time timestamp,
+             MotionInputType type = MotionInputType::VELOCITIES)
+      : motion_data_(motion_data), timestamp_(timestamp), type_(type) {}
 };
 
 /**

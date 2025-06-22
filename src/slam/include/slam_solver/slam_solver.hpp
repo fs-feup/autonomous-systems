@@ -58,22 +58,6 @@ public:
   virtual ~SLAMSolver() = default;
 
   /**
-   * @brief Initialize the SLAM solver
-   * @description This method is used to initialize the SLAM solver's
-   * aspects that require the node e.g. timer callbacks
-   *
-   * @param node ROS2 node
-   */
-  virtual void init([[maybe_unused]] std::weak_ptr<rclcpp::Node> node) = 0;
-
-  /**
-   * @brief Add motion prior to the solver (prediction step)
-   *
-   * @param velocities Velocities of the robot
-   */
-  virtual void add_motion_prior(const common_lib::structures::Velocities& velocities) = 0;
-
-  /**
    * @brief Add observations to the solver (correction step)
    *
    * @param cones Positions of the observations
@@ -87,7 +71,7 @@ public:
    * frame
    * @param pose initial pose of the robot in the form of [x, y, theta] in the global frame
    */
-  virtual void load_initial_state(const Eigen::VectorXd& map, const Eigen::VectorXd& pose) = 0;
+  virtual void load_initial_state(const Eigen::VectorXd& map, const Eigen::Vector3d& pose) = 0;
 
   /**
    * @brief Get the map estimate object

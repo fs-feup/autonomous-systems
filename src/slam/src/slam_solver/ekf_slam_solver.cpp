@@ -20,8 +20,6 @@ EKFSLAMSolver::EKFSLAMSolver(const SLAMParameters& params,
   this->observation_model_ = std::make_shared<ObservationModel>();
 }
 
-void EKFSLAMSolver::init([[maybe_unused]] std::weak_ptr<rclcpp::Node> _) {}
-
 Eigen::MatrixXd EKFSLAMSolver::get_observation_noise_matrix(int num_landmarks) const {
   Eigen::MatrixXd observation_noise_matrix =
       Eigen::MatrixXd::Zero(num_landmarks * 2, num_landmarks * 2);
@@ -32,7 +30,7 @@ Eigen::MatrixXd EKFSLAMSolver::get_observation_noise_matrix(int num_landmarks) c
   return observation_noise_matrix;
 }
 
-void EKFSLAMSolver::add_motion_prior(const common_lib::structures::Velocities& velocities) {
+void EKFSLAMSolver::add_velocities(const common_lib::structures::Velocities& velocities) {
   if (velocities_received_) {
     predict(this->state_, this->covariance_, process_noise_matrix_, this->last_update_, velocities);
   } else {
@@ -80,7 +78,9 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
       this->_mission_ != common_lib::competition_logic::Mission::SKIDPAD &&
       this->_mission_ != common_lib::competition_logic::Mission::ACCELERATION &&
       this->lap_counter_ == 0) {
-    this->state_augmentation(this->state_, this->covariance_, filtered_new_landmarks);
+    this->state_augmentation(
+        this->state_, this->covariance_,
+        filtered_new_landmarks);  // TODO: Erro aqui, isto são coordenadas relativas
     this->update_process_noise_matrix();
   }
 }
@@ -146,7 +146,7 @@ void EKFSLAMSolver::state_augmentation(Eigen::VectorXd& state, Eigen::MatrixXd& 
   state.segment(original_state_size, num_new_entries) = new_landmarks_coordinates;
 }
 
-void EKFSLAMSolver::load_initial_state(const Eigen::VectorXd& map, const Eigen::VectorXd& pose) {
+void EKFSLAMSolver::load_initial_state(const Eigen::VectorXd& map, const Eigen::Vector3d& pose) {
   if (map.size() % 2 != 0 || pose.size() != 3) {
     throw std::runtime_error("Invalid map or pose size");
   }
