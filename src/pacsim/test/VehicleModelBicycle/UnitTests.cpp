@@ -61,6 +61,7 @@ TEST_F(VehicleModelTest, CalculateLongitudinalHigh){
   newTorques.FR = 0;
   newTorques.RL = 60;
   newTorques.RR = 60;
+  newTorques.timestamp = 0;
   vehicleModel.setTorques(newTorques);
   vehicleModel.getLongitudinalForces(Fx_FL, Fx_FR, Fx_RL, Fx_RR);
   //ASSERT_EQ(vehicleModel.getPowertrainModel().calculateEfficiency(newTorques), 1); // 0.87396
@@ -77,6 +78,7 @@ TEST_F(VehicleModelTest, CalculateLongitudinalMid){
   newTorques.FR = 0;
   newTorques.RL = 30;
   newTorques.RR = 30;
+  newTorques.timestamp = 0;
   vehicleModel.setTorques(newTorques);
   vehicleModel.getLongitudinalForces(Fx_FL, Fx_FR, Fx_RL, Fx_RR);
   //ASSERT_EQ(vehicleModel.getPowertrainModel().calculateEfficiency(newTorques), 1); // 0.732
@@ -93,6 +95,7 @@ TEST_F(VehicleModelTest, CalculateLongitudinalLow){
   newTorques.FR = 0;
   newTorques.RL = 10;
   newTorques.RR = 10;
+  newTorques.timestamp = 0;
   vehicleModel.setTorques(newTorques);
   vehicleModel.getLongitudinalForces(Fx_FL, Fx_FR, Fx_RL, Fx_RR);
   //ASSERT_EQ(vehicleModel.getPowertrainModel().calculateEfficiency(newTorques), 1); // 0.64
@@ -109,6 +112,7 @@ TEST_F(VehicleModelTest, CalculateLongitudinalNeg){
   newTorques.FR = 0;
   newTorques.RL = -10;
   newTorques.RR = -10;
+  newTorques.timestamp = 0;
   vehicleModel.setTorques(newTorques);
   vehicleModel.getLongitudinalForces(Fx_FL, Fx_FR, Fx_RL, Fx_RR);
   //ASSERT_EQ(vehicleModel.getPowertrainModel().calculateEfficiency(newTorques), 1); // 0.64
@@ -130,6 +134,7 @@ TEST_F(VehicleModelTest , testEfficencyLowT){
   newTorques.FR = 0;
   newTorques.RL = 5;
   newTorques.RR = 5;
+  newTorques.timestamp = 0;
   vehicleModel.setTorques(newTorques);
   ASSERT_NEAR(vehicleModel.getPowertrainModel().calculateEfficiency(newTorques) , 0.617 , 0.01);
 }
@@ -140,6 +145,7 @@ TEST_F(VehicleModelTest , testEfficencyMidT){
   newTorques.FR = 0;
   newTorques.RL = 30;
   newTorques.RR = 30;
+  newTorques.timestamp = 0;
   vehicleModel.setTorques(newTorques);
   ASSERT_NEAR(vehicleModel.getPowertrainModel().calculateEfficiency(newTorques) , 0.732 , 0.01);
 }
@@ -150,6 +156,7 @@ TEST_F(VehicleModelTest , testEfficencyHighT){
   newTorques.FR = 0;
   newTorques.RL = 60;
   newTorques.RR = 60;
+  newTorques.timestamp = 0;
   vehicleModel.setTorques(newTorques);
   ASSERT_NEAR(vehicleModel.getPowertrainModel().calculateEfficiency(newTorques) , 0.879 , 0.01);
 }
@@ -160,6 +167,7 @@ TEST_F(VehicleModelTest, testEfficiencyNegT){
   newTorques.FR = 0;
   newTorques.RL = -5;
   newTorques.RR = -5;
+  newTorques.timestamp = 0;
   vehicleModel.setTorques(newTorques);
   ASSERT_NEAR(vehicleModel.getPowertrainModel().calculateEfficiency(newTorques) , 0.617 , 0.01);
 }
