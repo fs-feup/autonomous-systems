@@ -25,6 +25,8 @@
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "std_msgs/msg/float64.hpp"
+#include "track_filtering/track_filter.hpp"
+#include "utils/precone.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
 
 using Mission = common_lib::competition_logic::Mission;
@@ -40,7 +42,8 @@ struct PerceptionParameters {     ///< Struct containing parameters and interfac
       cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
   std::shared_ptr<ConeEvaluator> cone_evaluator_;  ///< Shared pointer to ConeEvaluator object.
   std::unordered_map<std::string, double>
-      weight_values;          ///< Map containing all weight value parameters for cone evaluation.
+      weight_values;  ///< Map containing all weight value parameters for cone evaluation.
+  std::shared_ptr<TrackFilter> track_filter_;
   std::shared_ptr<ICP> icp_;  ///< Shared pointer to ICP object.
 };
 
@@ -65,7 +68,8 @@ private:
   std::shared_ptr<ConeDifferentiation>
       _cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
   std::shared_ptr<ConeEvaluator> _cone_evaluator_;  ///< Shared pointer to ConeEvaluator object.
-  std::shared_ptr<ICP> _icp_;                       ///< Shared pointer to ICP object.
+  std::shared_ptr<TrackFilter> _track_filter_;
+  std::shared_ptr<ICP> _icp_;  ///< Shared pointer to ICP object.
   rclcpp::Subscription<custom_interfaces::msg::MasterLog>::SharedPtr
       _master_log_subscription;  ///< Master Log subscription to aquire mission type
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
@@ -89,7 +93,9 @@ private:
    * @param cones A reference to a vector of Cluster objects representing the clusters (cones)
    * to be published.
    */
-  void publish_cones(std::vector<Cluster>* cones);
+  void publish_cones(std::vector<PreCone>* cones);
+
+  std::vector<PreCone> convert_clusters_to_precones(std::vector<Cluster>& clusters);
 
 public:
   /**

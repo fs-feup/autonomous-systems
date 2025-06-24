@@ -15,6 +15,7 @@
 #include "common_lib/communication/marker.hpp"
 #include "common_lib/competition_logic/mission_logic.hpp"
 #include "common_lib/config_load/config_load.hpp"
+#include "common_lib/structures/cone.hpp"
 #include "std_msgs/msg/header.hpp"
 #include "yaml-cpp/yaml.h"
 
@@ -173,7 +174,14 @@ PerceptionParameters Perception::load_config() {
   // Minimum confidence needed for a cluster to be considered a cone.
   eval_params->min_confidence = perception_config["min_confidence"].as<double>();
 
-  params.cone_evaluator_ = params.cone_evaluator_ = std::make_shared<ConeEvaluator>(eval_params);
+  params.cone_evaluator_ = std::make_shared<ConeEvaluator>(eval_params);
+
+  double track_min_distance = perception_config["track_min_distance"].as<double>();
+  double track_max_distance = perception_config["track_max_distance"].as<double>();
+  double track_n_cones = perception_config["track_n_cones"].as<int>();
+
+  params.track_filter_ =
+      std::make_shared<TrackFilter>(track_min_distance, track_max_distance, track_n_cones);
 
   return params;
 }
@@ -187,6 +195,7 @@ Perception::Perception(const PerceptionParameters& params)
       _clustering_(params.clustering_),
       _cone_differentiator_(params.cone_differentiator_),
       _cone_evaluator_(params.cone_evaluator_),
+      _track_filter_(params.track_filter_),
       _icp_(params.icp_) {
   this->_cones_publisher =
       this->create_publisher<custom_interfaces::msg::ConeArray>("/perception/cones", 10);
@@ -267,6 +276,11 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
     }
   }
 
+  std::vector<PreCone> cones = Perception::convert_clusters_to_precones(filtered_clusters);
+
+  // Filter by removing clusters that are not in the track
+  _track_filter_->filter(&cones);
+
   // Execution Time calculation
   rclcpp::Time end_time = this->now();
   std_msgs::msg::Float64 perception_execution_time;
@@ -282,24 +296,26 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Clustering: %ld clusters", clusters.size());
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Validations: %ld clusters",
                filtered_clusters.size());
+  RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Track Filters: %ld precones", cones.size());
 
-  publish_cones(&filtered_clusters);
+  publish_cones(&cones);
 }
 
-void Perception::publish_cones(std::vector<Cluster>* cones) {
+void Perception::publish_cones(std::vector<PreCone>* cones) {
   auto message = custom_interfaces::msg::ConeArray();
   std::vector<custom_interfaces::msg::Cone> message_array = {};
   message.header = header;
   for (int i = 0; i < static_cast<int>(cones->size()); i++) {
     auto position = custom_interfaces::msg::Point2d();
-    position.x = cones->at(i).get_centroid().x();
-    position.y = cones->at(i).get_centroid().y();
+    position.x = cones->at(i).get_position().x;
+    position.y = cones->at(i).get_position().y;
 
     auto cone_message = custom_interfaces::msg::Cone();
     cone_message.position = position;
-    cone_message.color = cones->at(i).get_color();
+    cone_message.color = 'unknown';  // Default color
     cone_message.is_large = cones->at(i).get_is_large();
     cone_message.confidence = cones->at(i).get_confidence();
+
     message.cone_array.push_back(cone_message);
     message_array.push_back(cone_message);
   }
@@ -308,4 +324,14 @@ void Perception::publish_cones(std::vector<Cluster>* cones) {
   // TODO: correct frame id to LiDAR instead of vehicle
   this->_cone_marker_array_->publish(common_lib::communication::marker_array_from_structure_array(
       message_array, "perception", this->_vehicle_frame_id_, "green"));
+}
+
+std::vector<PreCone> Perception::convert_clusters_to_precones(std::vector<Cluster>& clusters) {
+  std::vector<PreCone> cones;
+  for (auto& cluster : clusters) {
+    Eigen::Vector4f centroid = cluster.get_centroid();
+    PreCone pre_cone(centroid.x(), centroid.y(), cluster.get_is_large(), cluster.get_confidence());
+    cones.push_back(pre_cone);
+  }
+  return cones;
 }

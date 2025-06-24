@@ -8,15 +8,15 @@ perception:
   lidar_height: 0.92
   lidar_rotation: 90.0
   lidar_pitch: -3.90
-  min_range: 1.0
-  max_height: 0.7
+  min_range: 1.7
+  max_height: 0.8
 
     #TRACKDRIVE/AUTOCROSS TRIMMING
-  max_range: 30.0
-  fov_trim_angle: 45.0
+  max_range: 17.0
+  fov_trim_angle: 70.0
 
     #ACCELERATION TRIMMING
-  acc_max_range: 20.25
+  acc_max_range: 30.0
   acc_fov_trim_angle: 90.0
   acc_max_y: 2.5
 
@@ -24,14 +24,15 @@ perception:
   skid_max_range: 20.25
   skid_min_distance_to_cone: 2.3
   
+
   #Ground Removal
   ground_removal: "grid_ransac"
-  ransac_epsilon: 0.13
-  ransac_iterations: 30
+  ransac_epsilon: 0.15
+  ransac_iterations: 40
 
     #TRACKDRIVE/AUTOCROSS GROUND REMOVAL
-  n_angular_grids: 2
-  radius_resolution: 6.5
+  n_angular_grids: 3
+  radius_resolution: 9.0
 
     #ACCELERATION GROUND REMOVAL
   acc_n_angular_grids: 2
@@ -46,36 +47,55 @@ perception:
   clustering_n_neighbours: 1
   clustering_epsilon: 0.5
 
+
   #Evaluator
+  min_confidence: 0.80
+  min_points_large: 2
+
+    #Height Validator
   min_height: 0.15
-  large_max_height: 0.57
-  small_max_height: 0.42
-  height_cap: 0.5
+  large_max_height: 0.6
+  small_max_height: 0.4
+  height_out_weight: 10.0
+  height_in_weight: 8.0
+  height_cap: 0.40
+
+    #Cylinder Validator
+  cylinder_radius_weight: 17.5
+  cylinder_height_weight: 12.0
+  cylinder_npoints_weight: 13.0
+  out_distance_cap: 0.85
+
+    #Npoints Validator
+  min_n_points: 6
+  npoints_weight: 8.0
+
+    #Displacement Validator
+  min_distance_x: 0.04
+  min_distance_y: 0.06
+  min_distance_z: 0.11
+  displacement_x_weight: 9.0
+  displacement_y_weight: 10.0
+  displacement_z_weight: 10.5
+
+  min_z_score_x: -100000
+  min_z_score_y: -100000
+  max_z_score_x: 100000
+  max_z_score_y: 100000
+
+
+    #Standard Deviation Validator
   min_xoy: 0.0
   max_xoy: 0.3
   min_z: 0.00001
   max_z: 0.6
-  min_z_score_x: -100000000.0
-  max_z_score_x: 100000000000.0
-  min_z_score_y: -1000000000.0
-  max_z_score_y: 1000000000.0
-  out_distance_cap: 0.5
-  min_distance_x: 0.02
-  min_distance_y: 0.04
-  min_distance_z: 0.11
-  min_n_points: 4
-  min_confidence: 0.912
-  height_out_weight: 12.0
-  height_in_weight: 5.0
-  cylinder_radius_weight: 20.0
-  cylinder_height_weight: 8.0
-  cylinder_npoints_weight: 10.0
-  npoints_weight: 11.0
-  displacement_x_weight: 7.0
-  displacement_y_weight: 8.0
-  displacement_z_weight: 10.5
-  deviation_xoy_weight: 10.0
-  deviation_z_weight: 10.0
+  deviation_xoy_weight: 5.0
+  deviation_z_weight: 5.0
+  
+  track_min_distance: 0.2
+  track_max_distance: 5.0
+  track_n_cones: 2
+
 
   #ICP
   target_file: "cone.pcd"
@@ -84,4 +104,3 @@ perception:
   transformation_epsilon: 1e-8
   euclidean_fitness_epsilon: 1e-6
 
-  
