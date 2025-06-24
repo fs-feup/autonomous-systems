@@ -17,6 +17,7 @@ VELOCITY_ESTIMATION_PATH = "config/velocity_estimation/vehicle.yaml"
 class DataInfrastructureNode(Node):
     def __init__(self):
         super().__init__('data_infrastructure_node')
+        self.shutdown = False
         self.get_logger().info('Subscribing the publishers.')
         #Control publishers
         self.create_subscription(EvaluatorControlData,'/control/evaluator_data', self.common_callback, 10)
@@ -217,7 +218,7 @@ class DataInfrastructureNode(Node):
         parameters = self.load_yaml(VELOCITY_ESTIMATION_PATH,"velocity_estimation")
         velocity_msg.estimation_method = parameters.get("estimation_method", "")
         velocity_msg.s2v_model_name = parameters.get("s2v_model_name","")
-        velocity_msg.process_model_name = parameters.get("process_model_name")
+        velocity_msg.process_model_name = parameters.get("process_model_name","")
         velocity_msg.wheel_speed_noise = float(parameters.get("wheel_speed_noise", 0.0))
         velocity_msg.motor_rpm_noise = float(parameters.get("motor_rpm_noise", 0.0))
         velocity_msg.steering_angle_noise = float(parameters.get("steering_angle_noise", 0.0))
@@ -226,19 +227,23 @@ class DataInfrastructureNode(Node):
         velocity_msg.angular_velocity_process_noise = float(parameters.get("angular_velocity_process_noise", 0.0))
         self.velocity_par_pub.publish(velocity_msg)
 
-    #fazer documentação minima
-    def common_callback(self):
+    def common_callback(self,msg):
+        self.get_logger().info('Publishing the parameters.')
         self.control_parameters()
         self.perception_parameters()
         self.planning_parameters()
         self.slam_parameters()
-        rclpy.shutdown()
+        self.velocity_parameters()
+        self.shutdown = True
         
 def main(args=None):
     rclpy.init(args=args)
     node = DataInfrastructureNode()
-    rclpy.spin(node)
+    while(not node.shutdown):
+        rclpy.spin_once(node, timeout_sec=0.1)
+        
     node.destroy_node()
-
+    rclpy.shutdown()
+    
 if __name__ == '__main__':
     main()
