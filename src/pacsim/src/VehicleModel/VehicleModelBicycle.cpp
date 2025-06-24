@@ -204,7 +204,7 @@ void VehicleModelBicycle::SteeringModel::calculateSteeringAngles(double steering
   double avgRatio = 0.5 * (innerSteeringRatio + outerSteeringRatio);
 
   if (steeringInput > 0) {
-    steeringAngles.FL = innerSteeringRatio * steeringInput / avgRatio;
+    steeringAngles.FL = innerSteeringRatio  * steeringInput / avgRatio;
     steeringAngles.FR = outerSteeringRatio * steeringInput / avgRatio;
   } else {
     steeringAngles.FL = outerSteeringRatio * steeringInput / avgRatio;
