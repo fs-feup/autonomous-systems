@@ -127,45 +127,63 @@ int VehicleModelBicycle::TireModel::sign(double value) const {
 
 double VehicleModelBicycle::TireModel::calculateLateralForce(double slipAngle,
                                                              double normalForce) const {
-  double dpi = (p_input - NOMPRES) / NOMPRES;
-  double Fz_0_prime = LFZO * FNOM;
-  double Kya = PKY1 * Fz_0_prime * (1 + PPY1 * dpi) * (1 - PKY3 * abs(y_input)) *
-               sin(PKY4 * atan((normalForce / Fz_0_prime) /
-                               ((PKY2 + PKY5 * y_input * y_input) * (1 + PPY2 * dpi)))) *
-               zeta_3 * LKY;
-  double dfz = (normalForce - Fz_0_prime) / Fz_0_prime;
-  double Kyg0 = normalForce * (PKY6 + PKY7 * dfz) * (1 + PPY5 * dpi) * LKYC;
-  double Vs_y = tan(slipAngle) * abs(V_cx);
-  double Vs_x = -slip_ratio * abs(V_cx);
-  double Vs = sqrt(Vs_x * Vs_x + Vs_y * Vs_y);
-  double V0 = LONGVL;
-  double LMUY_star = LMUY / (1.0 + LMUV * (Vs / V0));
-  double SVyg = normalForce * (PVY3 + PVY4 * dfz) * y_input * LKYC * LMUY_star * zeta_2;
-  double SHy = (PHY1 + PHY2 * dfz) +
-               ((Kyg0 * y_input - SVyg) / (Kya + eps_k * sign(Kya))) * zeta_0 + zeta_4 - 1.0;
-  double alpha_y = slipAngle + SHy;
-  double Ey = (PEY1 + PEY2 * dfz) *
-              (1 + PEY5 * y_input * y_input - (PEY3 + PEY4 * y_input) * sign(alpha_y)) * LEY;
-  double Cy = PCY1 * LCY;
-  double mu_y = (PDY1 + PDY2 * dfz) * (1.0 + PPY3 * dpi + PPY4 * dpi * dpi) *
-                (1.0 - PDY3 * y_input * y_input) * LMUY_star;
-  double Dy = mu_y * normalForce * zeta_2;
-  double By = Kya / (Cy * Dy + eps_y * sign(Dy));
-  double DVyk = mu_y * normalForce * (RVY1 + RVY2 * dfz + RVY3 * y_input) *
-                cos(atan(RVY4 * slipAngle)) * zeta_2;
-  double SVyk = DVyk * sin(RVY5 * atan(RVY6 * slip_ratio)) * LVYKA;
-  double Eyk = REY1 + REY2 * dfz;
-  double SHyk = RHY1 + RHY2 * dfz;
-  double ks = slip_ratio + SHyk;
-  double Byk = (RBY1 + RBY4 * y_input * y_input) * cos(atan(RBY2 * (slipAngle - RBY3))) * LYKA;
-  double Cyk = RCY1;
-  double Gyk_0 = cos(Cyk * atan(Byk * SHyk - Eyk * (Byk * SHyk - atan(Byk * SHyk))));
-  double Gyk = (cos(Cyk * atan(Byk * ks - Eyk * (Byk * ks - atan(Byk * ks)))) / Gyk_0);
-  double SVy = normalForce * (PVY1 + PVY2 * dfz) * LVY * LMUY_star * zeta_2 + SVyg;
-  double Fy_0 = Dy * sin(Cy * atan(By * alpha_y - Ey * (By * alpha_y - atan(By * alpha_y)))) + SVy;
-  double Fy = Gyk * Fy_0 + SVyk;
+struct MFStruct {
+    double Fz0;
+    double pCy1;
+    double pDy1, pDy2;
+    double pKy1, pKy2, pKy3;
+    double pHy1, pHy2;
+    double pVy1, pVy2;
+    double pEy1, pEy2, pEy3, pEy4;
+  };                                                  
+  MFStruct MF;
+  const double SA = slipAngle;       // Slip angle em radianos
+    const double Fz = normalForce;     // Força normal [N]
+    const double Fz0 = MF.Fz0;         // Força normal nominal
+    const double gamma = 0.0;          // Inclinação (assumida zero para simplificação)
+    
+    // CY: Forma da curva lateral
+    const double pCy1 = MF.pCy1;
+    double Cy = pCy1;
 
-  return Fy;
+    // DY: Pico da curva
+    const double pDy1 = MF.pDy1;
+    const double pDy2 = MF.pDy2;
+    double mu_y = pDy1 + pDy2 * ((Fz - Fz0) / Fz0);
+    double Dy = mu_y * Fz;
+
+    // SHY: Deslocamento horizontal
+    const double pHy1 = MF.pHy1;
+    const double pHy2 = MF.pHy2;
+    double SHy = pHy1 + pHy2 * ((Fz - Fz0) / Fz0);
+
+    // SVY: Deslocamento vertical
+    const double pVy1 = MF.pVy1;
+    const double pVy2 = MF.pVy2;
+    double SVy = Fz * (pVy1 + pVy2 * ((Fz - Fz0) / Fz0));
+
+    // KY: Rigidez
+    const double pKy1 = MF.pKy1;
+    const double pKy2 = MF.pKy2;
+    const double pKy3 = MF.pKy3;
+    double Kya = pKy1 * Fz0 * std::sin(2.0 * std::atan(Fz / (Fz0 * pKy2))) * (1.0 - pKy3 * std::abs(gamma));
+
+    // BY: Fator de rigidez
+    double By = Kya / (Cy * Dy);
+
+    // EY: Curvatura
+    const double pEy1 = MF.pEy1;
+    const double pEy2 = MF.pEy2;
+    const double pEy3 = MF.pEy3;
+    const double pEy4 = MF.pEy4;
+    double Ey = (pEy1 + pEy2 * ((Fz - Fz0) / Fz0)) * (1.0 + pEy3 * gamma + pEy4 * std::abs(gamma));
+    if (Ey > 1.0) Ey = 1.0;
+
+    // Curva de força lateral: Magic Formula
+    double alpha = SA + SHy;
+    double fy = Dy * std::sin(Cy * std::atan(By * alpha - Ey * (By * alpha - std::atan(By * alpha)))) + SVy;
+
+    return fy;
 }
 
 //tested
