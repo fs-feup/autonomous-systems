@@ -53,8 +53,3 @@ float64 displacement_y_weight
 float64 displacement_z_weight
 float64 deviation_xoy_weight
 float64 deviation_z_weight
-string  target_file
-float64 max_correspondence_distance
-int32   max_iteration
-float64 transformation_epsilon
-float64 euclidean_fitness_epsilon
