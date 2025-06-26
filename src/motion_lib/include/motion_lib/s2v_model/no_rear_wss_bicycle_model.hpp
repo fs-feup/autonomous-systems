@@ -19,8 +19,6 @@ public:
    *
    * @param rl_rpm rear left wheel velocity in rpm
    * @param fl_rpm front left wheel velocity in rpm
-   * @param rr_rpm rear right wheel velocity in rpm
-   * @param fr_rpm front right wheel velocity in rpm
    * @param steering_angle steering angle in radians
    * @return std::pair<double, double> translational and rotational velocities of the center of mass
    * in m/s and rad/s respectively
@@ -48,7 +46,7 @@ public:
    * @param cg_velocities vector of velocities on the Center of Gravity {velocity_x, velocity_y,
    * rotational_velocity} in m/s and rad/s respectively
    * @return Eigen::VectorXd rpms of the wheels, the steering angle, and motor rpms {fl_rpm, fr_rpm,
-   * rl_rpm, rr_rpm, steering_angle, motor_rpm}
+   * steering_angle, motor_rpm}
    */
   Eigen::VectorXd cg_velocity_to_wheels(const Eigen::Vector3d& cg_velocities) override;
 
