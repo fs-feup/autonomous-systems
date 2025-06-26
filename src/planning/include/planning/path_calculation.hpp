@@ -11,6 +11,13 @@
 #include <utility>
 #include <vector>
 
+
+#include <pcl/registration/icp.h>
+#include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
+#include <pcl/kdtree/kdtree_flann.h>
+
+
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/path_point.hpp"
 #include "common_lib/structures/pose.hpp"
@@ -20,6 +27,9 @@
 using K = CGAL::Exact_predicates_inexact_constructions_kernel;
 using DT = CGAL::Delaunay_triangulation_2<K>;
 using Point = K::Point_2;
+
+using Vertex_handle = DT::Vertex_handle;
+using Finite_edges_iterator = DT::Finite_edges_iterator;
 
 using Cone = common_lib::structures::Cone;
 using PathPoint = common_lib::structures::PathPoint;
@@ -40,6 +50,13 @@ class PathCalculation {
 private:
   bool path_orientation_corrected_ = false;
   std::vector<PathPoint> predefined_path_;
+  std::vector<Point> global_path_;
+  int path_update_counter_ = 0;
+  std::vector<Point> path_to_car;
+
+
+
+
 
   // Anchor point for the path, to avoid calculating the path from the position of the car
   common_lib::structures::Pose anchor_point_;
@@ -51,7 +68,26 @@ public:
    */
   struct MidPoint {
     Point point;
-    std::vector<MidPoint*> close_points;
+    std::vector<MidPoint *> close_points;
+    Cone* cone1;
+    Cone* cone2;
+    bool valid = true;
+  };
+
+  struct PointHash {
+    std::size_t operator()(const Point& p) const {
+        auto h1 = std::hash<double>()(p.x());
+        auto h2 = std::hash<double>()(p.y());
+        return h1 ^ (h2 << 1);
+    }
+  };
+
+  struct PairHash {
+    std::size_t operator()(const std::pair<Point, Point>& p) const {
+        auto h1 = PointHash{}(p.first);
+        auto h2 = PointHash{}(p.second);
+        return h1 ^ (h2 << 1);
+    }
   };
 
   /**
@@ -101,24 +137,8 @@ public:
    * @param pose The current pose of the vehicle
    * @return std::vector<PathPoint> The generated path
    */
-  std::vector<PathPoint> no_coloring_planning(const std::vector<Cone>& cone_array,
+  std::vector<PathPoint> no_coloring_planning(std::vector<Cone>& cone_array,
                                               common_lib::structures::Pose pose);
-
-  /**
-   * @brief Creates midpoints from triangulation of cone positions
-   *
-   * @param cone_array The array of cones
-   * @return std::vector<std::unique_ptr<MidPoint>> Vector of midpoints
-   */
-  std::vector<std::unique_ptr<MidPoint>> createMidPointsFromTriangulation(
-      const std::vector<Cone>& cone_array);
-
-  /**
-   * @brief Establishes connections between close midpoints
-   *
-   * @param mid_points Vector of midpoints to connect
-   */
-  void establishMidPointConnections(const std::vector<std::unique_ptr<MidPoint>>& mid_points);
 
   /**
    * @brief Updates the anchor point if not already set
@@ -152,31 +172,61 @@ public:
                             const common_lib::structures::Pose& anchor_pose);
 
   /**
-   * @brief Generate a path using DFS cost search
-   *
-   * @param first The first point of the path
-   * @param second The second point of the path
-   * @return std::vector<MidPoint*> The generated path as midpoints
-   */
-  std::vector<MidPoint*> generatePath(MidPoint* first, MidPoint* second);
-
-  /**
-   * @brief Convert midpoint path to path points
-   *
-   * @param path Vector of midpoints representing the path
-   * @return std::vector<PathPoint> The final path points
-   */
-  std::vector<PathPoint> convertToPathPoints(const std::vector<MidPoint*>& path);
-
-  /**
    * @brief Generate a path for skidpad course
    *
    * @param cone_array The array of cones representing the track
    * @param pose The current pose of the vehicle
    * @return std::vector<PathPoint> The generated path
    */
-  std::vector<PathPoint> skidpad_path(std::vector<Cone>& cone_array,
+  std::vector<PathPoint> skidpad_path(const std::vector<Cone>& cone_array,
                                       common_lib::structures::Pose pose);
+
+                                      
+  std::vector<PathPoint> getGlobalPath() const;
+
+  void createMidPoints(
+      std::vector<Cone>& cone_array,
+      std::vector<std::unique_ptr<MidPoint>>& midPoints,
+      std::unordered_map<MidPoint*, std::vector<Point>>& triangle_points
+  );
+
+  void connectMidPoints(
+      const std::vector<std::unique_ptr<MidPoint>>& midPoints,
+      const std::unordered_map<MidPoint*, std::vector<Point>>& triangle_points
+  );
+
+  void selectInitialPath(
+      std::vector<Point>& path,
+      const std::vector<std::unique_ptr<MidPoint>>& midPoints,
+      const common_lib::structures::Pose& pose,
+      const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
+      std::unordered_set<MidPoint*>& visited_midpoints,
+      std::unordered_set<Cone*>& discarded_cones
+  );
+
+  void extendPath(
+    std::vector<Point>& path,
+    const std::vector<std::unique_ptr<MidPoint>>& midPoints,
+    const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
+    std::unordered_set<MidPoint*>& visited_midpoints,
+    std::unordered_set<Cone*>& discarded_cones
+  );
+
+  void discard_cones_along_path(
+    const std::vector<Point>& path,
+    const std::vector<std::unique_ptr<MidPoint>>& midPoints,
+    const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
+    std::unordered_set<Cone*>& discarded_cones
+  ); 
+
+
+  MidPoint* find_nearest_point(
+    const Point& target,
+    const std::unordered_map<Point, MidPoint*, PointHash>& map,
+    double tolerance);
+
+  std::pair<Point, Point> ordered_segment(const Point& a, const Point& b);
+
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_PATH_CALCULATION_HPP_

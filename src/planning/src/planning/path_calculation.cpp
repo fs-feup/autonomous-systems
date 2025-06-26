@@ -11,6 +11,17 @@
 #include "utils/cone.hpp"
 using namespace std;
 
+std::pair<Point, Point> PathCalculation::ordered_segment(const Point& a, const Point& b) {
+    std::pair<Point, Point> result;
+    if (a.x() < b.x() || (a.x() == b.x() && a.y() < b.y())) {
+        result = {a, b};
+    } else {
+        result = {b, a};
+    }
+    return result;
+}
+
+
 std::pair<double, PathCalculation::MidPoint*> PathCalculation::dfs_cost(int depth,
                                                                         const MidPoint* previous,
                                                                         MidPoint* current,
@@ -68,100 +79,331 @@ std::pair<double, PathCalculation::MidPoint*> PathCalculation::dfs_cost(int dept
   return {min_cost, min_point};
 }
 
-std::vector<PathPoint> PathCalculation::no_coloring_planning(const std::vector<Cone>& cone_array,
-                                                             common_lib::structures::Pose pose) {
-  std::vector<PathPoint> result;
+std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& cone_array, common_lib::structures::Pose pose) {
+    std::vector<PathPoint> result;
+    std::vector<Point> path;
 
-  if (cone_array.size() >= 4) {
-    // Create Delaunay triangulation and midpoints
-    std::vector<std::unique_ptr<MidPoint>> mid_points =
-        createMidPointsFromTriangulation(cone_array);
+    if (cone_array.size() < 4) {
+        RCLCPP_ERROR(rclcpp::get_logger("planning"), "Not enough cones to create a path.");
+        result = {};
+    }
+    else{
+        std::vector<std::unique_ptr<MidPoint>> midPoints;
+        std::unordered_map<MidPoint*, std::vector<Point>> triangle_points;
+        std::unordered_set<Cone*> discarded_cones;
 
-    // Create connections between midpoints
-    establishMidPointConnections(mid_points);
+        createMidPoints(cone_array, midPoints, triangle_points);
+        connectMidPoints(midPoints, triangle_points);
 
-    // Update anchor point if needed
-    updateAnchorPoint(pose);
+        std::unordered_map<Point, MidPoint*, PointHash> point_to_midpoint;
+        for (const auto& mp : midPoints) {
+            point_to_midpoint[mp->point] = mp.get();
+        }
 
-    // Find starting points for path
-    auto [first, second] = findPathStartPoints(mid_points, anchor_point_);
-    if (first != nullptr && second != nullptr) {
-      // Generate path using DFS
-      std::vector<MidPoint*> path = generatePath(first, second);
+        Point car_point(pose.position.x, pose.position.y);
 
-      // Convert to final path points
-      result = convertToPathPoints(path);
+    
+
+        path_update_counter_++;
+        if (path_update_counter_ >= config_.reset_global_path_) {
+            global_path_.clear();
+            path_update_counter_ = 0;
+            RCLCPP_INFO(rclcpp::get_logger("planning"), "Global path reset");
+        }
+        // Find the closest point in the path to the car
+        int cutoff_index = -1;
+        double min_dist = std::numeric_limits<double>::max();
+
+        for (size_t i = 0; i < global_path_.size(); ++i) {
+            double dist = CGAL::squared_distance(global_path_[i], car_point);
+            if (dist < min_dist) {
+                min_dist = dist;
+                cutoff_index = static_cast<int>(i);
+            }
+        }
+
+        if (cutoff_index == -1) {
+            RCLCPP_ERROR(rclcpp::get_logger("planning"), "No valid path points found.");
+        }
+
+        path_to_car.clear();
+        if (cutoff_index != -1 && cutoff_index > config_.lookback_points_) {
+            (void)path_to_car.insert(path_to_car.end(), global_path_.begin(), global_path_.begin() + cutoff_index - config_.lookback_points_);
+        }
+
+
+        std::unordered_set<MidPoint*> visited_midpoints;
+        selectInitialPath(path, midPoints, pose, point_to_midpoint, visited_midpoints, discarded_cones);
+        extendPath(path, midPoints, point_to_midpoint, visited_midpoints, discarded_cones);
+
+        std::vector<PathPoint> path_points;
+        for (const auto& point : path) {   if (path.size() > 2) {
+            discard_cones_along_path(path, midPoints, point_to_midpoint, discarded_cones);
+        }
+            (void)path_points.emplace_back(point.x(), point.y());
+        }
+        global_path_ = path;  // Update global path with the new path
+        result = path_points;
+    }
+    return result;
+}
+
+
+void PathCalculation::createMidPoints(
+    std::vector<Cone>& cone_array,
+    std::vector<std::unique_ptr<MidPoint>>& midPoints,
+    std::unordered_map<MidPoint*, std::vector<Point>>& triangle_points
+) {
+    DT dt;
+    for (const auto& cone : cone_array) {
+        (void)dt.insert(Point(cone.position.x, cone.position.y));
+    }
+
+    for (Finite_edges_iterator it = dt.finite_edges_begin(); it != dt.finite_edges_end(); ++it) {
+        Vertex_handle v1 = it->first->vertex((it->second + 1) % 3);
+        Vertex_handle v2 = it->first->vertex((it->second + 2) % 3);
+        Point p1 = v1->point();
+        Point p2 = v2->point();
+
+        int id1 = ::find_cone(cone_array, p1.x(), p1.y());
+        int id2 = ::find_cone(cone_array, p2.x(), p2.y());
+
+        if (id1 == -1 || id2 == -1){
+            continue;
+        }
+
+        double sq_dist = CGAL::squared_distance(p1, p2);
+        
+        if (double min_dist = config_.minimum_cone_distance_; sq_dist <= min_dist * min_dist) {
+            continue;
+        } 
+        if (double max_dist = config_.maximum_cone_distance_; sq_dist >= max_dist * max_dist) {
+            continue;
+        }
+
+        auto midPoint = std::make_unique<MidPoint>(
+            MidPoint{Point((p1.x() + p2.x()) / 2, (p1.y() + p2.y()) / 2), {}, &cone_array[id1], &cone_array[id2]}
+        );
+        MidPoint* mid_ptr = midPoint.get();
+        midPoints.push_back(std::move(midPoint));
+
+        std::vector<std::pair<Point, Point>> neighbor_edges;
+        auto collect_edges = [&](auto face, int skip_edge_index) {
+            for (int i = 0; i < 3; ++i) {
+                if (i == skip_edge_index){
+                    continue;
+                }
+                (void)neighbor_edges.emplace_back(face->vertex((i + 1) % 3)->point(), face->vertex((i + 2) % 3)->point());
+            }
+        };
+        collect_edges(it->first, it->second);
+        
+        if (auto neighbor_face = it->first->neighbor(it->second); !dt.is_infinite(neighbor_face)) {
+            collect_edges(neighbor_face, neighbor_face->index(it->first));
+        }
+
+        triangle_points[mid_ptr] = {};
+        for (const auto& [pa, pb] : neighbor_edges) {
+            triangle_points[mid_ptr].push_back(pa);
+            triangle_points[mid_ptr].push_back(pb);
+        }
+    }
+}
+
+void PathCalculation::connectMidPoints(
+    const std::vector<std::unique_ptr<MidPoint>>& midPoints,
+    const std::unordered_map<MidPoint*, std::vector<Point>>& triangle_points
+) {
+    std::unordered_map<std::pair<Point, Point>, MidPoint*, PairHash> segment_to_midpoint;
+    for (const auto& q : midPoints) {
+        segment_to_midpoint[ordered_segment(
+            Point(q->cone1->position.x, q->cone1->position.y),
+            Point(q->cone2->position.x, q->cone2->position.y))] = q.get();
+    }
+
+    for (const auto& p : midPoints) {
+        auto& points = triangle_points.at(p.get());
+        std::unordered_set<std::pair<Point, Point>, PairHash> seen_segments;
+
+        size_t i = 0;
+        while (i + 1 < points.size()) {
+            auto seg = ordered_segment(points[i], points[i + 1]);
+            i += 2;
+            if (!seen_segments.insert(seg).second) {
+                continue;
+            }
+
+            auto it = segment_to_midpoint.find(seg);
+            if (it != segment_to_midpoint.end() && it->second != p.get()) {
+                p->close_points.push_back(it->second);
+            }
+        }
+    }
+}
+
+void PathCalculation::selectInitialPath(
+    std::vector<Point>& path,
+    const std::vector<std::unique_ptr<MidPoint>>& midPoints,
+    const common_lib::structures::Pose& pose,
+    const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
+    std::unordered_set<MidPoint*>& visited_midpoints,
+    std::unordered_set<Cone*>& discarded_cones
+) {
+
+    if (path_to_car.size() > 2) {
+
+        RCLCPP_INFO(rclcpp::get_logger("planning"), "Selecting initial path from %zu points.", path_to_car.size());
+
+        Point snapped_first = path_to_car[0];
+        
+        if (MidPoint* mp_first = find_nearest_point(snapped_first, point_to_midpoint, config_.tolerance_); mp_first) {
+            snapped_first = mp_first->point;
+            (void)visited_midpoints.insert(mp_first);
+        } else {
+            RCLCPP_ERROR(rclcpp::get_logger("planning"), "No valid midpoints found for the first point.");
+        }
+        path.push_back(snapped_first);
+        Point last_point = snapped_first;
+
+        for (std::size_t i = 1; i < path_to_car.size(); ++i) {
+            Point current_point = path_to_car[i];
+            MidPoint* current_mp = find_nearest_point(current_point, point_to_midpoint, config_.tolerance_);
+            if (current_mp){
+                current_point = current_mp->point;
+            } else {
+                RCLCPP_ERROR(rclcpp::get_logger("planning"), "No valid midpoints found for the current point.");
+            }    
+
+            double distance = CGAL::sqrt(CGAL::squared_distance(last_point, current_point));
+            if (distance > config_.tolerance_ && (current_mp == nullptr || visited_midpoints.count(current_mp) == 0)) {
+                path.push_back(current_point);
+
+                if (path.size() > 2) {
+                    discard_cones_along_path(path, midPoints, point_to_midpoint, discarded_cones);
+                }
+                
+
+                last_point = current_point;
+                if (current_mp) {
+                    (void)visited_midpoints.insert(current_mp);
+                }
+            }
+        }
     } else {
-      RCLCPP_ERROR(rclcpp::get_logger("planning"), "Failed to find valid starting points");
+        updateAnchorPoint(pose);
+        auto [first, second] = findPathStartPoints(midPoints, anchor_point_);
+        if (first != nullptr && second != nullptr) {
+            path.push_back(first->point);
+            path.push_back(second->point);
+            (void)visited_midpoints.insert(first);
+            (void)visited_midpoints.insert(second);
+        } else {
+            RCLCPP_ERROR(rclcpp::get_logger("planning"), "Failed to find valid starting points.");
+        }
     }
-  }
+}
+void PathCalculation::extendPath(
+    std::vector<Point>& path,
+    const std::vector<std::unique_ptr<MidPoint>>& midPoints,
+    const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
+    std::unordered_set<MidPoint*>& visited_midpoints,
+    std::unordered_set<Cone*>& discarded_cones
+) {
+    int n_points = 0;
 
-  return result;
+    while (true) {
+        double worst_cost = config_.max_cost_ * config_.search_depth_;
+        const auto& prev = path[path.size() - 2];
+        const auto& last = path.back();
+
+        const MidPoint* prev_mp = find_nearest_point(prev, point_to_midpoint, config_.tolerance_);
+        MidPoint* last_mp = find_nearest_point(last, point_to_midpoint, config_.tolerance_);
+
+        if (prev_mp == nullptr || last_mp == nullptr) {
+            RCLCPP_ERROR(rclcpp::get_logger("planning"), "No valid midpoints found for path extension.");
+            break;
+            
+        }
+
+        auto [best_cost, best_point] = dfs_cost(config_.search_depth_, prev_mp, last_mp, config_.max_cost_);
+        if (best_cost > worst_cost || best_point == nullptr || visited_midpoints.count(best_point) > 0){
+            break;
+        }
+
+        path.push_back(best_point->point);
+        (void)visited_midpoints.insert(best_point);
+        n_points++;
+        if (n_points > config_.max_points_){
+            break;
+        }
+
+        if (path.size() > 2) {
+            discard_cones_along_path(path, midPoints, point_to_midpoint, discarded_cones);
+        }
+    }
 }
 
-std::vector<std::unique_ptr<PathCalculation::MidPoint>> PathCalculation::createMidPointsFromTriangulation(
-    const std::vector<Cone>& cone_array) {
-  std::vector<std::unique_ptr<MidPoint>> mid_points;
-  DT dt;
+void PathCalculation::discard_cones_along_path(
+    const std::vector<Point>& path,
+    const std::vector<std::unique_ptr<MidPoint>>& midPoints,
+    const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
+    std::unordered_set<Cone*>& discarded_cones
+) {
+    const auto& last = path[path.size() - 2];
+    const auto& current = path.back();
 
-  // Insert cones into triangulation
-  for (auto cone : cone_array) {
-    auto _ = dt.insert(Point(cone.position.x, cone.position.y));
-  }
+    MidPoint* last_mp = find_nearest_point(last, point_to_midpoint, config_.tolerance_);
+    const MidPoint* current_mp = find_nearest_point(current, point_to_midpoint, config_.tolerance_);
 
-  // Create midpoints
-  for (DT::Finite_edges_iterator it = dt.finite_edges_begin(); it != dt.finite_edges_end(); ++it) {
-    Point p1 = it->first->vertex((it->second + 1) % 3)->point();
-    Point p2 = it->first->vertex((it->second + 2) % 3)->point();
-
-    auto midPoint = std::make_unique<MidPoint>(
-        MidPoint{Point((p1.x() + p2.x()) / 2, (p1.y() + p2.y()) / 2), {}});
-
-    double dist = std::sqrt(std::pow(p1.x() - p2.x(), 2) + std::pow(p1.y() - p2.y(), 2));
-    if (dist > config_.minimum_cone_distance_) { // constrained by the rules (cones 3m apart)
-      mid_points.push_back(std::move(midPoint));
+    if (last_mp == nullptr || current_mp == nullptr) {
+        RCLCPP_ERROR(rclcpp::get_logger("planning"), "No valid midpoints found for discarding cones.");
+        return;
     }
-  }
 
-  return mid_points;
+
+    Cone* discarded_cone = nullptr;
+
+    if (last_mp->cone1 == current_mp->cone1 || last_mp->cone1 == current_mp->cone2) {
+        if (last_mp->cone2 != current_mp->cone1 && last_mp->cone2 != current_mp->cone2) {
+            discarded_cone = last_mp->cone2;
+        }
+    } else if (last_mp->cone2 == current_mp->cone1 || last_mp->cone2 == current_mp->cone2) {
+        if (last_mp->cone1 != current_mp->cone1 && last_mp->cone1 != current_mp->cone2) {
+            discarded_cone = last_mp->cone1;
+        }
+    } else {
+        RCLCPP_DEBUG(rclcpp::get_logger("planning"), "No valid cones found for discarding.");
+    }
+
+
+    (void)discarded_cones.insert(discarded_cone);
+
+    for (auto& mp : midPoints) {
+        if (!mp->valid){
+            continue;
+        }
+        if (discarded_cones.count(mp->cone1) > 0 || discarded_cones.count(mp->cone2) > 0) {
+            mp->valid = false;
+        }
+    }
+
+    for (auto& mp : midPoints) {
+        if (!mp->valid){
+            continue;
+        }
+        (void)mp->close_points.erase(
+            std::remove_if(mp->close_points.begin(), mp->close_points.end(),
+                [](const MidPoint* neighbor) { return !neighbor->valid; }),
+            mp->close_points.end()
+        );
+    }
 }
 
-
-void PathCalculation::establishMidPointConnections(
-    const std::vector<std::unique_ptr<MidPoint>>& mid_points) {
-  // Comparison function for priority queue
-  auto cmp = [](const std::pair<double, MidPoint*>& distance_to_midpoint1,
-                const std::pair<double, MidPoint*>& distance_to_midpoint2) {
-    return distance_to_midpoint1.first > distance_to_midpoint2.first;
-  };
-
-  // Populate close points for each midpoint
-  for (const auto& p : mid_points) {
-    std::priority_queue<std::pair<double, MidPoint*>, std::vector<std::pair<double, MidPoint*>>,
-                        decltype(cmp)>
-        pq(cmp);
-
-    for (const auto& q : mid_points) {
-      if (p.get() == q.get()) {continue;}
-
-      double dist = std::sqrt(std::pow(p->point.x() - q->point.x(), 2) +
-                              std::pow(p->point.y() - q->point.y(), 2));
-      pq.push({dist, q.get()});
-    }
-
-    // Take top 5 close points as pointers
-    for (int i = 0; i < 6; i++) {
-      if (pq.empty()) {break;}
-      p->close_points.push_back(pq.top().second);
-      pq.pop();
-    }
-  }
-}
 
 void PathCalculation::updateAnchorPoint(const common_lib::structures::Pose& pose) {
   if (!anchor_point_set_) {
     anchor_point_ = pose;
-    anchor_point_set_ = true;
+    anchor_point_set_ = true; 
   }
 }
 
@@ -188,7 +430,7 @@ PathCalculation::findPathStartPoints(const std::vector<std::unique_ptr<MidPoint>
     MidPoint projected = {
       Point(first->point.x() + std::cos(anchor_pose.orientation) * config_.projected_point_distance_,
             first->point.y() + std::sin(anchor_pose.orientation) * config_.projected_point_distance_),
-      {}
+      {}, nullptr, nullptr
     };
 
     // Find second point based on projected point
@@ -231,42 +473,28 @@ PathCalculation::MidPoint* PathCalculation::findSecondPoint(
   return second;
 }
 
-std::vector<PathCalculation::MidPoint*> PathCalculation::generatePath(MidPoint* first,
-                                                                      MidPoint* second) {
-  std::vector<MidPoint*> path;
-  path.push_back(first);
-  path.push_back(second);
+PathCalculation::MidPoint* PathCalculation::find_nearest_point(
+    const Point& target,
+    const std::unordered_map<Point, MidPoint*, PointHash>& map,
+    double tolerance) 
+{
+    double min_dist_sq = tolerance * tolerance;
+    MidPoint* nearest = nullptr;
 
-  int n_points = 0;
-  while (true) {
-    double worst_cost = this->config_.max_cost_ * this->config_.search_depth_;
+    for (const auto& [pt, mp] : map) {
+        double dx = pt.x() - target.x();
+        double dy = pt.y() - target.y();
+        double dist_sq = dx * dx + dy * dy;
 
-    auto [best_cost, best_point] = dfs_cost(
-        this->config_.search_depth_, path[path.size() - 2], path.back(), this->config_.max_cost_);
-
-    if (best_cost > worst_cost) {
-      break;
+        if (dist_sq <= min_dist_sq) {
+            min_dist_sq = dist_sq;
+            nearest = mp;
+        }
     }
 
-    n_points++;
-    if ((n_points > this->config_.max_points_) || (best_point == path.back())) {
-      break;
-    } else {
-      path.push_back(best_point);
-    }
-  }
-
-  return path;
+    return nearest; // nullptr if none within tolerance
 }
 
-std::vector<PathPoint> PathCalculation::convertToPathPoints(const std::vector<MidPoint*>& path) {
-  std::vector<PathPoint> final_path;
-  for (const MidPoint* p : path) {
-    final_path.push_back(PathPoint(p->point.x(), p->point.y()));
-  }
-
-  return final_path;
-}
 
 std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(
     std::pair<std::vector<Cone>, std::vector<Cone>> refined_cones) const {
@@ -328,69 +556,118 @@ std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(
   return unordered_path;
 }
 
-std::vector<PathPoint> PathCalculation::skidpad_path(std::vector<Cone>& cone_array,
+std::vector<PathPoint> PathCalculation::getGlobalPath() const {
+    std::vector<PathPoint> path_points;
+
+
+    for (const auto& pt : path_to_car) {
+        (void)path_points.emplace_back(pt.x(), pt.y());
+    }    
+
+    return path_points;
+}
+
+std::vector<PathPoint> PathCalculation::skidpad_path(const std::vector<Cone>& cone_array,
                                                      common_lib::structures::Pose pose) {
-  if (!path_orientation_corrected_) {
-    std::string file = "./src/planning/src/utils/skidpad.txt";  // --------------------
-    // open and read file line by line
-    std::ifstream infile(file);
-    std::string line;
-    std::vector<PathPoint> hardcoded_path_;
-    while (std::getline(infile, line)) {
-      std::istringstream iss(line);
-      double x, y, v;
-      if (!(iss >> x >> y >> v)) {
-        break;
-      }  // error
-      hardcoded_path_.push_back(PathPoint(x, y, v));
+    std::vector<PathPoint> result;
+
+    if (!path_orientation_corrected_) {
+        const std::string file = "./src/planning/src/utils/skidpad.txt";
+        const std::string conesfile = "./src/planning/src/utils/skidpadcones.txt";
+
+        // 1. Read reference cones from file
+        std::ifstream cfile(conesfile);
+        std::vector<std::pair<double, double>> reference_cones;
+        std::string line;
+        while (std::getline(cfile, line)) {
+            std::istringstream iss(line);
+            double x = 0.0, y = 0.0, z = 0.0;
+            if (iss >> x >> y >> z) {
+                (void)reference_cones.emplace_back(x, y);
+            } else {
+                break;
+            }
+        }
+
+        if (reference_cones.size() < static_cast<std::size_t>(config_.skidpad_minimum_cones_) ||
+            cone_array.size() < static_cast<std::size_t>(config_.skidpad_minimum_cones_)) {
+            RCLCPP_ERROR(rclcpp::get_logger("planning"), "Not enough cones to perform ICP alignment.");
+            result.clear();  // vazio para indicar falha
+        } else {
+            // 2. Read hardcoded path
+            std::ifstream infile(file);
+            while (std::getline(infile, line)) {
+                std::istringstream iss(line);
+                double x = 0.0, y = 0.0, v = 0.0;
+                if (iss >> x >> y >> v) {
+                    (void)result.emplace_back(x + config_.skidpad_tolerance_, y, v);
+                } else {
+                    break;
+                }
+            }
+
+            // 3. Convert cone_array (LiDAR) to source cloud
+            pcl::PointCloud<pcl::PointXYZ> cloud_source;
+            cloud_source.reserve(cone_array.size());
+            for (const auto& cone : cone_array) {
+                (void)cloud_source.emplace_back(cone.position.x, cone.position.y, 0.0);
+            }
+
+            // 4. Convert reference cones to target cloud
+            pcl::PointCloud<pcl::PointXYZ> cloud_target;
+            cloud_target.reserve(reference_cones.size());
+            for (const auto& [x, y] : reference_cones) {
+                (void)cloud_target.emplace_back(x, y, 0.0);
+            }
+
+            // 5. Run ICP alignment
+            pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
+            icp.setInputSource(cloud_source.makeShared());
+            icp.setInputTarget(cloud_target.makeShared());
+            icp.setMaxCorrespondenceDistance(10);
+            icp.setMaximumIterations(std::numeric_limits<int>::max());
+            icp.setTransformationEpsilon(1e-6);
+            icp.setEuclideanFitnessEpsilon(1e-3);
+
+            pcl::PointCloud<pcl::PointXYZ> Final;
+            icp.align(Final);
+
+            if (!icp.hasConverged()) {
+                RCLCPP_ERROR(rclcpp::get_logger("planning"), "ICP did not converge.");
+                result.clear();  // vazio para indicar falha
+            } else {
+                Eigen::Matrix4f icp_transform = icp.getFinalTransformation();  // LiDAR → MAP
+                Eigen::Matrix4f map_to_lidar_transform = icp_transform.inverse();
+
+                // 6. Apply transformation to hardcoded path
+                for (auto& point : result) {
+                    Eigen::Vector4f p(point.position.x, point.position.y, 0.0f, 1.0f);
+                    Eigen::Vector4f transformed = map_to_lidar_transform * p;
+                    point.position.x = transformed[0];
+                    point.position.y = transformed[1];
+                }
+
+                predefined_path_ = result;
+                path_orientation_corrected_ = true;
+            }
+        }
     }
 
-    if (cone_array.size() < 4) {
-      throw std::runtime_error("Insufficient cones to calculate path");  // --------------------
-    }
-    // sort the cones by distance
-    std::sort(cone_array.begin(), cone_array.end(), [&pose](Cone& a, Cone& b) {
-      return std::sqrt(std::pow((a.position.x - pose.position.x), 2) +
-                  std::pow((a.position.y - pose.position.y), 2)) <
-             std::sqrt(std::pow((b.position.x - pose.position.x), 2) +
-                  std::pow((b.position.y - pose.position.y), 2));
-    });
-
-    // get the middle point between the two closest points
-    PathPoint middle_closest =
-        PathPoint((cone_array[0].position.x + cone_array[1].position.x) / 2,
-                  (cone_array[0].position.y + cone_array[1].position.y) / 2, 0);
-
-    // get the middle point between the two farthest points
-    PathPoint middle_farthest =
-        PathPoint((cone_array[2].position.x + cone_array[3].position.x) / 2,
-                  (cone_array[2].position.y + cone_array[3].position.y) / 2, 0);
-
-    // Find the slope of the line between the two middle points
-    double dx = middle_farthest.position.x - middle_closest.position.x;  // --------------------
-    double dy = middle_farthest.position.y - middle_closest.position.y;  // --------------------
-    double slope = (dx != 0) ? (dy / dx) : 10000000000;                  // --------------------
-
-    // calculate the angle
-    double angle = std::atan(slope);
-
-    // rotate all the points by the angle and add the origin point
-    for (auto& point : hardcoded_path_) {
-      double x = point.position.x;
-      double y = point.position.y;
-      point.position.x = x * std::cos(angle) - y * std::sin(angle) + middle_closest.position.x;
-      point.position.y = x * std::sin(angle) + y * std::cos(angle) + middle_closest.position.y;
+ 
+    while (!predefined_path_.empty() &&
+           pose.position.euclidean_distance(predefined_path_.front().position) < 1.5) {
+        predefined_path_.erase(predefined_path_.begin());
     }
 
-    predefined_path_ = hardcoded_path_;
-    path_orientation_corrected_ = true;
-  }
+ 
+    size_t path_size = predefined_path_.size();
+    size_t count = 0;
+    if (path_size >= 70) {
+        count = 70;
+    } else {
+        count = path_size;
+    }
 
-  while (!predefined_path_.empty() &&
-         pose.position.euclidean_distance(predefined_path_[0].position) < 1) {
-    predefined_path_.erase(predefined_path_.begin());
-  }
 
-  // set it as the final path
-  return std::vector<PathPoint>(predefined_path_.begin(), predefined_path_.begin() + 70);
+    return std::vector<PathPoint>(predefined_path_.begin(), predefined_path_.begin() + count);
 }
