@@ -65,6 +65,7 @@ set(TEST_INCLUDE_FILES
   test/cone_validator/standard_deviation_validator_test.cpp
   #test/z_score_validator_test.cpp
   test/cone_evaluator/cone_evaluator_test.cpp
+  test/track_filter/track_filter_test.cpp
   test/icp/icp_test.cpp
   test/performance_test.cpp
   test/perception_integration_tests/perception_integration_tests.cpp

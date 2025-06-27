@@ -282,7 +282,7 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
 
   // Filter by removing clusters that are not in the track
   if (_track_filter_enabled_) {
-    _track_filter_->filter(&cones);
+    _track_filter_->filter(cones);
   }
 
   // Execution Time calculation

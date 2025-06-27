@@ -8,15 +8,12 @@ void TrackFilter::filter(std::vector<PreCone>& cones) {
     int count = 0;
     for (const auto& other_cone : cones) {
       if (cone == other_cone) continue;
-      double distance = cone.get_position().euclidean_distance(other_cone.get_position());
-      if (distance < min_distance_) {
-        return true;
-      }
-      if (distance < max_distance_) {
-        count++;
-      }
+      double distance = cone.position.euclidean_distance(other_cone.position);
+      if (distance < min_distance_) return true;
+      if (distance < max_distance_) count++;
     }
     return count < n_cones_;
   };
+
   cones.erase(std::remove_if(cones.begin(), cones.end(), is_invalid), cones.end());
 }
