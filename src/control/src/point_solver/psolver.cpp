@@ -7,23 +7,24 @@ using namespace common_lib::structures;
 /**
  * @brief PointSolver Constructer
  */
-PointSolver::PointSolver(double k) : k_(k) {}
+PointSolver::PointSolver(double k, double lookahead_minimum)
+    : k_(k),
+      lookahead_minimum_(lookahead_minimum),
+      bicycle_model_(common_lib::car_parameters::CarParameters()) {}
 
 /**
  * @brief Update vehicle pose
  *
  * @param pose msg
  */
-void PointSolver::update_vehicle_pose(const custom_interfaces::msg::Pose &pose,
-                                      double velocity) {
+void PointSolver::update_vehicle_pose(const custom_interfaces::msg::Pose &pose, double velocity) {
   // update to Rear Wheel position
   this->vehicle_pose_.position.x = pose.x;
   this->vehicle_pose_.position.y = pose.y;
 
   this->vehicle_pose_.velocity_ = velocity;
   this->vehicle_pose_.orientation = pose.theta;
-  BicycleModel bicycle_model = BicycleModel(common_lib::car_parameters::CarParameters());
-  this->vehicle_pose_.rear_axis_ = bicycle_model.rear_axis_position(
+  this->vehicle_pose_.rear_axis_ = this->bicycle_model_.rear_axis_position(
       this->vehicle_pose_.position, this->vehicle_pose_.orientation, this->dist_cg_2_rear_axis_);
 
   return;
@@ -58,8 +59,7 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
     const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array,
     int closest_point_id) const {
   Position rear_axis_point = this->vehicle_pose_.rear_axis_;
-  double ld = std::max(this->k_ * this->vehicle_pose_.velocity_, 2.0);
-  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Current ld: %f", ld);
+  double ld = std::max(this->k_ * this->vehicle_pose_.velocity_, this->lookahead_minimum_);
 
   for (size_t i = 0; i < pathpoint_array.size(); i++) {
     size_t index_a = (closest_point_id + i) % pathpoint_array.size();
