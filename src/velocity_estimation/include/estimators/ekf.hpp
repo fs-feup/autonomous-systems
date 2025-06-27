@@ -27,6 +27,8 @@ class EKF : public VelocityEstimator {
   double motor_rpm_;
   double steering_angle_;
 
+  bool _has_made_prediction_ = false;
+
   // The following flags are used to keep track of which sensors have provided at least one
   // measurement. This is necessary to ensure that the estimator is not used before all sensors have
   // provided at least one measurement.

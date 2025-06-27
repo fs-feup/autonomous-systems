@@ -21,8 +21,8 @@ Eigen::Matrix3d CAParticleModel::get_jacobian_velocities(
   Eigen::Matrix3d jacobian_matrix = Eigen::Matrix3d::Identity();
   jacobian_matrix(0, 1) = previous_velocities(2) * time_interval;
   jacobian_matrix(0, 2) = previous_velocities(1) * time_interval;
-  jacobian_matrix(1, 0) = previous_velocities(2) * time_interval;
-  jacobian_matrix(1, 2) = previous_velocities(0) * time_interval;
+  jacobian_matrix(1, 0) = -previous_velocities(2) * time_interval;
+  jacobian_matrix(1, 2) = -previous_velocities(0) * time_interval;
 
   return jacobian_matrix;
 }

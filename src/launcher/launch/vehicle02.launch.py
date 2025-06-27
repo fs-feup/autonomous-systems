@@ -1,16 +1,26 @@
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription
+from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import PathJoinSubstitution
 from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
-    slam_launch_description = IncludeLaunchDescription(
+    perception_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            PathJoinSubstitution([FindPackageShare("slam"), "launch", "slam.launch.py"])
+            PathJoinSubstitution(
+                [FindPackageShare("perception"), "launch", "perception.launch.py"]
+            )
         ),
     )
+    slam_launch_description = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            PathJoinSubstitution(
+                [FindPackageShare("slam"), "launch", "slam.launch.py"]
+            )
+        ),
+    )
+    
     ve_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
@@ -22,21 +32,6 @@ def generate_launch_description():
             )
         ),
     )
-    evaluator_launch_description = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            PathJoinSubstitution(
-                [FindPackageShare("evaluator"), "launch", "evaluator.launch.py"]
-            )
-        ),
-    )
-    pacsim_launch_description = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            PathJoinSubstitution(
-                [FindPackageShare("pacsim"), "launch", "autocross.launch.py"]
-            )
-        ),
-    )
-
     planning_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
@@ -51,13 +46,11 @@ def generate_launch_description():
             )
         ),
     )
-
     return LaunchDescription(
         [
-            evaluator_launch_description,
+            perception_launch_description,
             slam_launch_description,
             ve_launch_description,
-            pacsim_launch_description,
             planning_launch_description,
             control_launch_description,
         ],
