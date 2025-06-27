@@ -176,6 +176,7 @@ PerceptionParameters Perception::load_config() {
 
   params.cone_evaluator_ = std::make_shared<ConeEvaluator>(eval_params);
 
+  params.track_filter_enabled_ = perception_config["track_filter"].as<bool>();
   double track_min_distance = perception_config["track_min_distance"].as<double>();
   double track_max_distance = perception_config["track_max_distance"].as<double>();
   double track_n_cones = perception_config["track_n_cones"].as<int>();
@@ -195,6 +196,7 @@ Perception::Perception(const PerceptionParameters& params)
       _clustering_(params.clustering_),
       _cone_differentiator_(params.cone_differentiator_),
       _cone_evaluator_(params.cone_evaluator_),
+      _track_filter_enabled_(params.track_filter_enabled_),
       _track_filter_(params.track_filter_),
       _icp_(params.icp_) {
   this->_cones_publisher =
@@ -279,7 +281,9 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   std::vector<PreCone> cones = Perception::convert_clusters_to_precones(filtered_clusters);
 
   // Filter by removing clusters that are not in the track
-  _track_filter_->filter(&cones);
+  if (_track_filter_enabled_) {
+    _track_filter_->filter(&cones);
+  }
 
   // Execution Time calculation
   rclcpp::Time end_time = this->now();
@@ -312,7 +316,7 @@ void Perception::publish_cones(std::vector<PreCone>* cones) {
 
     auto cone_message = custom_interfaces::msg::Cone();
     cone_message.position = position;
-    cone_message.color = 'unknown';  // Default color
+    cone_message.color = 'n';  // Default color
     cone_message.is_large = cones->at(i).get_is_large();
     cone_message.confidence = cones->at(i).get_confidence();
 

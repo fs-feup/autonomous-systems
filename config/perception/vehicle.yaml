@@ -6,8 +6,8 @@ perception:
 
   #FOV trimming
   lidar_height: 0.92
-  lidar_rotation: 90.0
-  lidar_pitch: -3.90
+  lidar_rotation: 0.0
+  lidar_pitch: 0.0
   min_range: 1.7
   max_height: 0.8
 
@@ -91,10 +91,13 @@ perception:
   max_z: 0.6
   deviation_xoy_weight: 5.0
   deviation_z_weight: 5.0
-  
+
+
+    #Track Filter
+  track_filter: true
   track_min_distance: 0.2
-  track_max_distance: 5.0
-  track_n_cones: 2
+  track_max_distance: 4.5
+  track_n_cones: 3
 
 
   #ICP

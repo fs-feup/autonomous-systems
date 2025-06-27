@@ -42,7 +42,8 @@ struct PerceptionParameters {     ///< Struct containing parameters and interfac
       cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
   std::shared_ptr<ConeEvaluator> cone_evaluator_;  ///< Shared pointer to ConeEvaluator object.
   std::unordered_map<std::string, double>
-      weight_values;  ///< Map containing all weight value parameters for cone evaluation.
+      weight_values;           ///< Map containing all weight value parameters for cone evaluation.
+  bool track_filter_enabled_;  ///< Boolean to enable or disable the track filter.
   std::shared_ptr<TrackFilter> track_filter_;
   std::shared_ptr<ICP> icp_;  ///< Shared pointer to ICP object.
 };
@@ -68,6 +69,7 @@ private:
   std::shared_ptr<ConeDifferentiation>
       _cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
   std::shared_ptr<ConeEvaluator> _cone_evaluator_;  ///< Shared pointer to ConeEvaluator object.
+  bool _track_filter_enabled_;  ///< Boolean to enable or disable the track filter.
   std::shared_ptr<TrackFilter> _track_filter_;
   std::shared_ptr<ICP> _icp_;  ///< Shared pointer to ICP object.
   rclcpp::Subscription<custom_interfaces::msg::MasterLog>::SharedPtr
