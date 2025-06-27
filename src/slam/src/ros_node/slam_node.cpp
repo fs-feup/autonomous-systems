@@ -93,6 +93,11 @@ void SLAMNode::_perception_subscription_callback(const custom_interfaces::msg::C
 
   RCLCPP_DEBUG(this->get_logger(), "SUB - Perception: %ld cones", cone_array.size());
 
+  if (!this->_go_ || this->_mission_ == common_lib::competition_logic::Mission::NONE) {
+    RCLCPP_INFO(this->get_logger(), "ATTR - Mission not started yet");
+    return;
+  }
+
   rclcpp::Time start_time = this->get_clock()->now();
 
   this->_perception_map_.clear();
