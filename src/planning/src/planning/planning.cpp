@@ -101,10 +101,8 @@ Planning::Planning(const PlanningParameters &params)
     this->track_sub_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
         "/state_estimation/map", 10, std::bind(&Planning::track_map_callback, this, _1));
 
-    this->_lap_counter_subscription_ =
-      this->create_subscription<std_msgs::msg::Float64>(
-        "/state_estimation/lap_counter", 10,
-        [this](const std_msgs::msg::Float64::SharedPtr msg) {
+    this->_lap_counter_subscription_ = this->create_subscription<std_msgs::msg::Float64>(
+        "/state_estimation/lap_counter", 10, [this](const std_msgs::msg::Float64::SharedPtr msg) {
           this->lap_counter_ = static_cast<int>(msg->data);
         });
   }
@@ -137,6 +135,8 @@ void Planning::fetch_discipline() {
               mission_result = common_lib::competition_logic::Mission::SKIDPAD;
             } else if (discipline == "acceleration") {
               mission_result = common_lib::competition_logic::Mission::ACCELERATION;
+            } else if (discipline == "trackdrive") {
+              mission_result = common_lib::competition_logic::Mission::TRACKDRIVE;
             }
           } else {
             RCLCPP_ERROR(this->get_logger(), "Failed to retrieve discipline parameter.");
@@ -199,18 +199,17 @@ void Planning::run_planning_algorithms() {
     final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
                                              this->initial_car_orientation_);
 
-
-    if ((this->mission == common_lib::competition_logic::Mission::AUTOCROSS && this->lap_counter_ >= 1) ||
-        (this->mission == common_lib::competition_logic::Mission::TRACKDRIVE && this->lap_counter_ >= 10)) {
+    if ((this->mission == common_lib::competition_logic::Mission::AUTOCROSS &&
+         this->lap_counter_ >= 1) ||
+        (this->mission == common_lib::competition_logic::Mission::TRACKDRIVE &&
+         this->lap_counter_ >= 10)) {
       // Correct the path orientation for Autocross
-        for (auto &point : final_path) {
-          point.ideal_velocity = 0.0;
-        }
-    }
-    else{
+      for (auto &point : final_path) {
+        point.ideal_velocity = 0.0;
+      }
+    } else {
       velocity_planning_.set_velocity(final_path);
     }
-
   }
 
   if (final_path.size() < 10) {
