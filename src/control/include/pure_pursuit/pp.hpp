@@ -70,4 +70,14 @@ public:
   FRIEND_TEST(PurePursuitTests, Test_calculate_alpha_4);
   FRIEND_TEST(PurePursuitTests, Test_calculate_alpha_5);
   FRIEND_TEST(PurePursuitTests, Test_pp_steering_control_law_1);
+
+  private:
+  // === CASCADED PURE PURSUIT ADDITIONS ===
+  double emergency_cross_track_threshold_{0.8};    // meters - when to activate cascaded mode
+  double emergency_max_steering_angle_{0.7};       // radians - emergency steering limit  
+  bool cascaded_mode_active_{false};               // debug flag
+  
+  // Helper function for cross-track error
+  double calculate_cross_track_error(common_lib::structures::Position rear_axis, 
+                                   common_lib::structures::Position cg);
 };
