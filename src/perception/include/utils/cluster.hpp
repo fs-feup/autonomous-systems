@@ -43,11 +43,24 @@ public:
   Eigen::Vector4f get_centroid();
 
   /**
+   * @brief Set the centroid of the cluster.
+   * @param new_centroid The new centroid to be set.
+   */
+  void set_centroid(const Eigen::Vector4f& new_centroid);
+
+  /**
    * @brief Get the Center of the cone's cluster
    *
    * @return Eigen::Vector4f representing the center
    */
   Eigen::Vector4f get_center(Plane& plane);
+
+  /**
+   * @brief Set the center of the cone's cluster
+   *
+   * @param new_center The new center to be set
+   */
+  void set_center(const Eigen::Vector4f& new_center);
 
   /**
    * @brief Get the color associated with the cluster.

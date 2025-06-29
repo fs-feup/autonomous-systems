@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "utils/precone.hpp"
+#include "utils/cluster.hpp"
 
 class TrackFilter {
 public:
@@ -16,7 +16,7 @@ public:
    *
    * @param cones A vector of cones to be filtered.
    */
-  void filter(std::vector<PreCone>& cones);
+  void filter(std::vector<Cluster>& cones);
 
 private:
   double min_distance_;  ///< Minimum distance from the track center.

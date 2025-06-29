@@ -3,12 +3,14 @@
 TrackFilter::TrackFilter(double min_distance, double max_distance, int n_cones)
     : min_distance_(min_distance), max_distance_(max_distance), n_cones_(n_cones) {}
 
-void TrackFilter::filter(std::vector<PreCone>& cones) {
-  auto is_invalid = [this, &cones](const PreCone& cone) {
+void TrackFilter::filter(std::vector<Cluster>& cones) {
+  auto is_invalid = [this, &cones](Cluster& cone) {
     int count = 0;
-    for (const auto& other_cone : cones) {
-      if (cone == other_cone) continue;
-      double distance = cone.get_position().euclidean_distance(other_cone.get_position());
+    for (auto& other_cone : cones) {
+      double distance = (cone.get_centroid() - other_cone.get_centroid()).norm();
+      if (distance == 0){
+        continue;
+      }
       if (distance < min_distance_) {
         return true;
       }

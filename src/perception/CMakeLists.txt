@@ -46,7 +46,6 @@ set(IMPLEMENTATION_FILES
   src/icp/icp.cpp
   src/center_calculation/circunference_center_calculation.cpp
   src/track_filtering/track_filter.cpp
-  src/utils/precone.cpp
 )
 
 set(TEST_INCLUDE_FILES

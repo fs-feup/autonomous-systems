@@ -11,6 +11,11 @@ Eigen::Vector4f Cluster::get_centroid() {
   return _centroid_;
 }
 
+void Cluster::set_centroid(const Eigen::Vector4f& new_centroid) {
+  this->_centroid_ = new_centroid;
+  this->_centroid_is_defined_ = true;
+}
+
 Eigen::Vector4f Cluster::get_center(Plane& plane) {
   if (_center_is_defined_) return this->_center_;
 
@@ -18,6 +23,11 @@ Eigen::Vector4f Cluster::get_center(Plane& plane) {
   this->_center_is_defined_ = true;
 
   return this->_center_;
+}
+
+void Cluster::set_center(const Eigen::Vector4f& new_center) {
+  this->_center_ = new_center;
+  this->_center_is_defined_ = true;
 }
 
 std::string Cluster::get_color() { return _color_; }

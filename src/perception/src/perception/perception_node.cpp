@@ -278,11 +278,9 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
     }
   }
 
-  std::vector<PreCone> cones = Perception::convert_clusters_to_precones(filtered_clusters);
-
   // Filter by removing clusters that are not in the track
   if (_track_filter_enabled_) {
-    _track_filter_->filter(cones);
+    _track_filter_->filter(filtered_clusters);
   }
 
   // Execution Time calculation
@@ -300,19 +298,18 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Clustering: %ld clusters", clusters.size());
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Validations: %ld clusters",
                filtered_clusters.size());
-  RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Track Filters: %ld precones", cones.size());
 
-  publish_cones(&cones);
+  publish_cones(&filtered_clusters);
 }
 
-void Perception::publish_cones(std::vector<PreCone>* cones) {
+void Perception::publish_cones(std::vector<Cluster>* cones) {
   auto message = custom_interfaces::msg::ConeArray();
   std::vector<custom_interfaces::msg::Cone> message_array = {};
   message.header = header;
   for (int i = 0; i < static_cast<int>(cones->size()); i++) {
     auto position = custom_interfaces::msg::Point2d();
-    position.x = cones->at(i).get_position().x;
-    position.y = cones->at(i).get_position().y;
+    position.x = cones->at(i).get_centroid().x();
+    position.y = cones->at(i).get_centroid().y();
 
     auto cone_message = custom_interfaces::msg::Cone();
     cone_message.position = position;
@@ -328,14 +325,4 @@ void Perception::publish_cones(std::vector<PreCone>* cones) {
   // TODO: correct frame id to LiDAR instead of vehicle
   this->_cone_marker_array_->publish(common_lib::communication::marker_array_from_structure_array(
       message_array, "perception", this->_vehicle_frame_id_, "green"));
-}
-
-std::vector<PreCone> Perception::convert_clusters_to_precones(std::vector<Cluster>& clusters) {
-  std::vector<PreCone> cones;
-  for (auto& cluster : clusters) {
-    Eigen::Vector4f centroid = cluster.get_centroid();
-    PreCone pre_cone(centroid.x(), centroid.y(), cluster.get_is_large(), cluster.get_confidence());
-    cones.push_back(pre_cone);
-  }
-  return cones;
 }

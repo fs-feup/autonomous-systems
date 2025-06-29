@@ -1,42 +1,57 @@
 #include "track_filtering/track_filter.hpp"
 
 #include <gtest/gtest.h>
+#include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
 
-TEST(TrackFilterTest, KeepsConesWithEnoughNeighbors) {
-  std::vector<PreCone> cones = {
-      PreCone(0.0, 0.0, false, 1.0), PreCone(1.0, 0.0, false, 1.0), PreCone(0.0, 1.0, false, 1.0),
-      PreCone(5.0, 5.0, false, 1.0)  // far away cone, should be removed
+class TrackFilterTest : public ::testing::Test {
+protected:
+  pcl::PointCloud<pcl::PointXYZI>::Ptr dummy_cloud;
+
+  void SetUp() override {
+    dummy_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+    pcl::PointXYZI pt;
+    pt.x = pt.y = pt.z = pt.intensity = 0;
+    dummy_cloud->points.push_back(pt);
+  }
+
+  Cluster createCluster(float x, float y, float z = 0.0f) {
+    Cluster cluster(dummy_cloud);
+    Eigen::Vector4f centroid(x, y, z, 0.0f);
+    cluster.set_centroid(centroid);
+    return cluster;
+  }
+};
+
+TEST_F(TrackFilterTest, FiltersConesThatAreTooClose) {
+  std::vector<Cluster> clusters = {
+      createCluster(0, 0), createCluster(0.1, 0.1),  // First and Second Too Close
+      createCluster(5, 5)                            // Distant, valid
   };
 
-  TrackFilter filter(0.1, 2.0, 2);  // Need at least 2 cones within 2.0 units
-  filter.filter(cones);
+  TrackFilter filter(0.5, 10.0, 1);
+  filter.filter(clusters);
 
-  EXPECT_EQ(cones.size(), 3);
-  EXPECT_TRUE(std::find(cones.begin(), cones.end(), PreCone(0.0, 0.0, false, 1.0)) != cones.end());
-  EXPECT_TRUE(std::find(cones.begin(), cones.end(), PreCone(1.0, 0.0, false, 1.0)) != cones.end());
-  EXPECT_TRUE(std::find(cones.begin(), cones.end(), PreCone(0.0, 1.0, false, 1.0)) != cones.end());
+  ASSERT_EQ(clusters.size(), 1);
+  EXPECT_NEAR(clusters[0].get_centroid().x(), 5.0f, 1e-4);
+  EXPECT_NEAR(clusters[0].get_centroid().y(), 5.0f, 1e-4);
 }
 
-TEST(TrackFilterTest, RemovesTooCloseCones) {
-  std::vector<PreCone> cones = {PreCone(0.0, 0.0, false, 1.0),   // too close
-                                PreCone(0.05, 0.0, false, 1.0),  // too close
-                                PreCone(2.0, 0.0, false, 1.0)};
+TEST_F(TrackFilterTest, KeepsValidCones) {
+  std::vector<Cluster> clusters = {createCluster(0, 0), createCluster(2, 2), createCluster(4, 4)};
 
-  TrackFilter filter(0.1, 5.0, 1);
-  filter.filter(cones);
+  TrackFilter filter(0.5, 5.0, 1);
+  filter.filter(clusters);
 
-  // The 0.0 and 0.05 cones are too close, so they will be removed
-  EXPECT_EQ(cones.size(), 1);
+  ASSERT_EQ(clusters.size(), 3);
 }
 
-TEST(TrackFilterTest, RemovesIsolatedCone) {
-  std::vector<PreCone> cones = {PreCone(0.0, 0.0, false, 1.0), PreCone(1.0, 1.0, false, 1.0),
-                                PreCone(10.0, 10.0, false, 1.0)};
+TEST_F(TrackFilterTest, FiltersConesWithNotEnoughNeighbors) {
+  std::vector<Cluster> clusters = {createCluster(0, 0), createCluster(10, 10),
+                                   createCluster(20, 20)};
 
-  TrackFilter filter(0.1, 2.0, 1);  // Cone at (10, 10) is isolated
-  filter.filter(cones);
+  TrackFilter filter(0.5, 5.0, 2);  // Require at least 2 nearby cones
+  filter.filter(clusters);
 
-  EXPECT_EQ(cones.size(), 2);
-  EXPECT_EQ(cones[0].get_position(), common_lib::structures::Position(0.0, 0.0));
-  EXPECT_EQ(cones[1].get_position(), common_lib::structures::Position(1.0, 1.0));
+  ASSERT_EQ(clusters.size(), 0);
 }

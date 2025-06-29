@@ -26,7 +26,6 @@
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "std_msgs/msg/float64.hpp"
 #include "track_filtering/track_filter.hpp"
-#include "utils/precone.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
 
 using Mission = common_lib::competition_logic::Mission;
@@ -95,9 +94,7 @@ private:
    * @param cones A reference to a vector of Cluster objects representing the clusters (cones)
    * to be published.
    */
-  void publish_cones(std::vector<PreCone>* cones);
-
-  std::vector<PreCone> convert_clusters_to_precones(std::vector<Cluster>& clusters);
+  void publish_cones(std::vector<Cluster>* cones);
 
 public:
   /**
