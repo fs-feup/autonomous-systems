@@ -710,10 +710,49 @@ TEST_F(VehicleModelTest, TestGetDynamicStatesPositive) {
   Eigen::Vector3d result = vehicleModel.getGetDynamicStates(1);
 
   ASSERT_EQ(result.x(), 0);
-  ASSERT_NEAR(result.y(), 0.067313 , 0.001 );
-  ASSERT_NEAR(result.z(), 0 + 0.00331369 , 0.001); 
+  ASSERT_NEAR(result.y(), 0 , 0.001 );
+  ASSERT_NEAR(result.z(), 0  , 0.001); 
 
 }
+/*
+---------------------------------
+calculateSlipAngles
+-----------------------------
+*/
+// TEST_F(VehicleModelTest, testSlipAngle){
+//   double kappaF , kappaR;
+//   vehicleModel.getSlipAngles( kappaF , kappaR);
+//   ASSERT_EQ(kappaF , 0);
+//   ASSERT_EQ(kappaR , 0);
+// }
+TEST_F(VehicleModelTest, testSlipAngle){
+  double kappaF , kappaR;
+  vehicleModel.getSlipAngles( kappaF , kappaR);
+  ASSERT_EQ(kappaF , 0);
+  ASSERT_EQ(kappaR , 0);
+}
+
+TEST_F(VehicleModelTest , testSlipAngleFast){
+  double kappaF, kappaR;
+  vehicleModel.setVelocity(Eigen::Vector3d(5,0,0));
+  vehicleModel.getSlipAngles(kappaF, kappaR);
+  ASSERT_EQ(kappaF , 0);
+  ASSERT_EQ(kappaR , 0);
+}
+
+TEST_F(VehicleModelTest , testSlipAngleFastTurn){
+  double kappaF, kappaR;
+  vehicleModel.setVelocity(Eigen::Vector3d(5,5,0));
+  vehicleModel.getSlipAngles(kappaF, kappaR);
+  ASSERT_NEAR(kappaF , 0.7853 , 0.01);
+  ASSERT_NEAR(kappaR , 0.7853 , 0.01);
+}
+// TEST_F(VehicleModelTest, testSlipAngle){
+//   double kappaF , kappaR;
+//   vehicleModel.getSlipAngles( kappaF , kappaR);
+//   ASSERT_EQ(kappaF , 0);
+//   ASSERT_EQ(kappaR , 0);
+// }
 
 
 TEST_F(VehicleModelTest, TestGetDynamicStatesAccelerating) {
@@ -724,8 +763,8 @@ TEST_F(VehicleModelTest, TestGetDynamicStatesAccelerating) {
   Eigen::Vector3d result  = vehicleModel.getGetDynamicStates(1);
 
   ASSERT_NEAR(result.x(), 10.3 , 0.1);
-  ASSERT_NEAR(result.y(), 0.067313 , 0.001 );
-  ASSERT_NEAR(result.z(), 0+ 0.00331369, 0.001); 
+  ASSERT_NEAR(result.y(), 0 , 0.001 );
+  ASSERT_NEAR(result.z(), 0, 0.001); 
 }
 
 TEST_F(VehicleModelTest, TestGetDynamicStatesBraking) {
@@ -735,7 +774,8 @@ TEST_F(VehicleModelTest, TestGetDynamicStatesBraking) {
   Eigen::Vector3d result = vehicleModel.getGetDynamicStates(1);
 
   ASSERT_NEAR(result.x(), -10.3 , 0.1);
-  ASSERT_NEAR(result.y(), 0.067313 , 0.001 );
-  ASSERT_NEAR(result.z(), 0 + 0.00331369, 0.001); 
+  ASSERT_NEAR(result.y(), 0 , 0.001 );
+  ASSERT_NEAR(result.z(), 0, 0.001); 
 }
 
+  

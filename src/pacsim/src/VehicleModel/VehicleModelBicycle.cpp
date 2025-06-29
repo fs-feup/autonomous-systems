@@ -139,7 +139,7 @@ struct MFStruct {
   MFStruct MF;
   const double SA = slipAngle;       // Slip angle em radianos
     const double Fz = normalForce;     // Força normal [N]
-    const double Fz0 = MF.Fz0;         // Força normal nominal
+    const double Fz0 = MF.Fz0;    
     const double gamma = 0.0;          // Inclinação (assumida zero para simplificação)
     
     // CY: Forma da curva lateral
@@ -355,6 +355,7 @@ Eigen::Vector3d VehicleModelBicycle::calculateAccelerations(double steeringFront
                                                             double Fy_Rear, double drag,
                                                             const Eigen::Vector3d& friction) const {
   // Calculate longitudinal acceleration from tire forces
+  cout << "mass" << m << endl;
   double axTires = (std::cos(steeringAngles.FL) * Fx_FL + std::cos(steeringAngles.FR) * Fx_FR +
                     Fx_RL + Fx_RR - std::sin(steeringFront) * Fy_Front) /
                    m;
@@ -432,6 +433,7 @@ Eigen::Vector3d VehicleModelBicycle::getDynamicStates(double dt) {
   // Calculate slip angles
   double kappaFront, kappaRear;
   calculateSlipAngles(kappaFront, kappaRear);
+  cout << "KappaF:" << kappaFront << "KappaR:" << kappaRear << endl;
 
   // Calculate lateral forces using tire model
   double Fy_Front = processSlipAngleLat(kappaFront, Fz_Front / 2) * 2;
