@@ -58,6 +58,10 @@ private:
 
   double _motor_rpm_ = 0.0;  /// Rotations per minute of the motor
 
+  bool is_velocity_reached_ = false;
+
+  bool in_jacks_ = false;
+
   /**
    * @brief Function for communication of end of mission
    * (or emergency according to the mission)

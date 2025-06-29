@@ -25,7 +25,7 @@ def generate_launch_description():
                 description="Time to perform a full turning cycle in inspection",
                 default_value="2.0",
             ),  # seconds
-            DeclareLaunchArgument("wheel_radius", default_value="0.254"),
+            DeclareLaunchArgument("wheel_radius", default_value="0.203"),
             DeclareLaunchArgument(
                 "inspection_gain",
                 description="Gains for longitudinal P controllers of inspection",
@@ -42,6 +42,11 @@ def generate_launch_description():
                 description="Normal mode or testing regenerative braking mode",
                 default_value="False",
             ),
+            DeclareLaunchArgument(
+                "in_jacks",
+                description="Whether the car is in jacks or not",
+                default_value="False",
+            )
             Node(
                 package="inspection",
                 executable="inspection",

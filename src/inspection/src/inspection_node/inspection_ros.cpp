@@ -15,6 +15,7 @@ InspectionMission::InspectionMission() : Node("inspection") {
   declare_parameter<double>("ebs_test_gain");
   declare_parameter<double>("inspection_ideal_velocity");
   declare_parameter<double>("inspection_gain");
+  in_jacks_ = declare_parameter<bool>("in_jacks", false);
 
   // creates publisher that should yield throttle/acceleration/...
   _control_command_publisher_ =
@@ -108,12 +109,21 @@ void InspectionMission::inspection_script() {
   double average_rpm = _motor_rpm_ / 4;
   RCLCPP_DEBUG(this->get_logger(), "average_rpm %f", average_rpm);
   double current_velocity = _inspection_object_.rpm_to_velocity(average_rpm);
+  if (in_jacks_){
+    if ((current_velocity >= 0.8 * _inspection_object_.ideal_velocity_) && !is_velocity_reached_) {
+      is_velocity_reached_ = true;
+    }
+  }
   RCLCPP_DEBUG(this->get_logger(), "current_velocity %f", current_velocity);
   
   // calculate steering
   double calculated_steering = _mission_ == common_lib::competition_logic::Mission::INSPECTION
                                    ? _inspection_object_.calculate_steering(elapsed_time)
                                    : 0;
+
+  if (!is_velocity_reached_) {
+    calculated_steering = 0.0;
+  }
 
   // if the time is over, the car should be stopped
   bool steering_straight = calculated_steering < 0.1 && calculated_steering > -0.1;
