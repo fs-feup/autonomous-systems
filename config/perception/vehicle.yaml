@@ -5,9 +5,9 @@ perception:
   default_mission: "trackdrive"
 
   #FOV trimming
-  lidar_height: 0.92
-  lidar_rotation: 0.0
-  lidar_pitch: 0.0
+  lidar_height: 0.92 # Not updated
+  lidar_rotation: 90.0
+  lidar_pitch: -1.75
   min_range: 1.7
   max_height: 0.8
 

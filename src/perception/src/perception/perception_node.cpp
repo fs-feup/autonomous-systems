@@ -133,11 +133,6 @@ PerceptionParameters Perception::load_config() {
   double min_distance_y = perception_config["min_distance_y"].as<double>();
   double min_distance_z = perception_config["min_distance_z"].as<double>();
 
-  double min_z_score_x = perception_config["min_z_score_x"].as<double>();
-  double max_z_score_x = perception_config["max_z_score_x"].as<double>();
-  double min_z_score_y = perception_config["min_z_score_y"].as<double>();
-  double max_z_score_y = perception_config["max_z_score_y"].as<double>();
-
   double out_distance_cap = perception_config["out_distance_cap"].as<double>();
 
   // Evaluator Parameters (ConeValidators + weights + minimum confidence)
@@ -153,8 +148,6 @@ PerceptionParameters Perception::load_config() {
       std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z);
   eval_params->displacement_validator =
       std::make_shared<DisplacementValidator>(min_distance_x, min_distance_y, min_distance_z);
-  eval_params->zscore_validator =
-      std::make_shared<ZScoreValidator>(min_z_score_x, max_z_score_x, min_z_score_y, max_z_score_y);
 
   // Weight values for cone evaluator
   eval_params->height_out_weight = perception_config["height_out_weight"].as<double>();
@@ -265,9 +258,6 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   // Clustering
   std::vector<Cluster> clusters;
   _clustering_->clustering(ground_removed_cloud, &clusters);
-
-  // Z-scores calculation for future validations
-  Cluster::set_z_scores(clusters);
 
   // Filtering
   std::vector<Cluster> filtered_clusters;

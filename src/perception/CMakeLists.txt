@@ -38,7 +38,6 @@ set(IMPLEMENTATION_FILES
   src/cone_validator/height_validator.cpp
   src/cone_validator/displacement_validator.cpp
   src/cone_validator/deviation_validator.cpp
-  src/cone_validator/z_score_validator.cpp
   src/utils/plane.cpp
   src/utils/evaluator_parameters.cpp
   src/cone_evaluator/cone_evaluator.cpp
@@ -62,7 +61,6 @@ set(TEST_INCLUDE_FILES
   test/cone_validator/displacement_validator_test.cpp
   test/cone_validator/npoints_validator_test.cpp
   test/cone_validator/standard_deviation_validator_test.cpp
-  #test/z_score_validator_test.cpp
   test/cone_evaluator/cone_evaluator_test.cpp
   test/track_filter/track_filter_test.cpp
   test/icp/icp_test.cpp
