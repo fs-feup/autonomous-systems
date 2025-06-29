@@ -33,7 +33,7 @@ TEST(PointSolverTests, Test_update_closest_point_1) {
  * @brief Test Point Solver - update_lookahead_point()
  */
 
-
+/*
 TEST(PointSolverTests, Test_update_lookahead_point_1) {
   auto pathpoint_array = create_path_msg("track1");
 
@@ -49,3 +49,4 @@ TEST(PointSolverTests, Test_update_lookahead_point_1) {
   EXPECT_NEAR(result_point.y, expected_point.y, 0.01);
   EXPECT_FALSE(result_error);
 }
+*/

@@ -1,19 +1,33 @@
 #pragma once
+#include <cone_validator/cone_validator.hpp>
 #include <utils/cluster.hpp>
+#include <utils/evaluator_parameters.hpp>
+#include <utils/plane.hpp>
 
 /**
  * @class ConeEvaluator
  *
- * @brief Abstract class that represents an heurisic that evaluates the cluster as a cone
+ * @brief class that evaluates the cluster as a cone on a [0,1] confidence value
  *
  */
 class ConeEvaluator {
- public:
+private:
+  std::shared_ptr<EvaluatorParameters> params_;
+
+public:
   /**
-   * @brief Perform the cluster evaluation
-   *
-   * @param cluster Cluster to evaluate
-   * @return double Cluster's confidence &isin; [0,1]
+   * @brief Constructs a new DeviationValidator object with specified intervals on the deviation.
+   * @param params Struct with all validators, weights and minimum confidence.
    */
-  virtual double evaluateCluster(Cluster& cluster) const = 0;
+  ConeEvaluator(std::shared_ptr<EvaluatorParameters> params);
+
+  /**
+   * @brief Perform the cluster evaluation, changes the clusters confidence attribute to the
+   * obtained result.
+   *
+   * @param cluster Cluster to evaluate.
+   * @param ground_plane The plane against which some validators compare the cluster.
+   * @return True if cluster is equal or above minimum confidence and false if below.
+   */
+  bool evaluateCluster(Cluster& cluster, Plane& ground_plane);
 };

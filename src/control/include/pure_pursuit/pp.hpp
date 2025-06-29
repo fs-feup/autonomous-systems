@@ -1,14 +1,17 @@
 #pragma once
 
+#include <memory>
+
 #include "common_lib/structures/position.hpp"
+#include "filters/lpf.hpp"
 #include "gtest/gtest.h"
 #include "rclcpp/rclcpp.hpp"
 
 /**< Maximum steering angle in rad */
-constexpr double MAX_STEERING_ANGLE = 0.392699;
+constexpr double MAX_STEERING_ANGLE = 0.1699;
 
 /**< Minimum steering angle in rad */
-constexpr double MIN_STEERING_ANGLE = -0.392699;
+constexpr double MIN_STEERING_ANGLE = -0.1699;
 
 /**< Wheel base of the vehicle in m */
 constexpr double WHEEL_BASE = 1.5;
@@ -24,6 +27,9 @@ constexpr double WHEEL_BASE = 1.5;
  */
 
 class PurePursuit {
+private:
+  std::shared_ptr<Filter> lpf_;
+
 public:
   double max_steering_angle_{MAX_STEERING_ANGLE}; /**< Maximum steering angle */
   double min_steering_angle_{MIN_STEERING_ANGLE}; /**< Minimum steering angle */
@@ -31,8 +37,10 @@ public:
 
   /**
    * @brief Construct a new Pure Pursuit object
+   *
+   * @param lpf Pointer to a low-pass filter
    */
-  PurePursuit();
+  PurePursuit(std::shared_ptr<Filter> lpf);
 
   /**
    * @brief Pure Pursuit control law
@@ -71,13 +79,14 @@ public:
   FRIEND_TEST(PurePursuitTests, Test_calculate_alpha_5);
   FRIEND_TEST(PurePursuitTests, Test_pp_steering_control_law_1);
 
-  private:
+private:
   // === CASCADED PURE PURSUIT ADDITIONS ===
-  double emergency_cross_track_threshold_{0.8};    // meters - when to activate cascaded mode
-  double emergency_max_steering_angle_{0.7};       // radians - emergency steering limit  
-  bool cascaded_mode_active_{false};               // debug flag
-  
+  double emergency_cross_track_threshold_{0.0};  // meters - when to activate cascaded mode
+  double emergency_max_steering_angle_{0.7};     // radians - emergency steering limit
+  bool cascaded_mode_active_{false};             // debug flag
+
   // Helper function for cross-track error
-  double calculate_cross_track_error(common_lib::structures::Position rear_axis, 
-                                   common_lib::structures::Position cg);
+  double calculate_cross_track_error(common_lib::structures::Position rear_axis,
+                                     common_lib::structures::Position cg,
+                                    common_lib::structures::Position lookahead_point);
 };

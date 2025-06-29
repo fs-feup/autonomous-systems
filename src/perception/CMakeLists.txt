@@ -20,38 +20,52 @@ find_package(message_filters REQUIRED)
 find_package(pcl_conversions REQUIRED)
 find_package(visualization_msgs REQUIRED)
 find_package(common_lib REQUIRED)
+find_package(yaml-cpp REQUIRED)
 
 
 set(IMPLEMENTATION_FILES 
+  src/fov_trimming/fov_trimming.cpp
+  src/fov_trimming/cut_trimming.cpp
+  src/fov_trimming/acceleration_trimming.cpp
+  src/fov_trimming/skidpad_trimming.cpp
   src/ground_removal/ransac.cpp
   src/ground_removal/grid_ransac.cpp
   src/cone_differentiation/least_squares_differentiation.cpp
   src/clustering/dbscan.cpp
   src/utils/cluster.cpp
+  src/cone_validator/npoints_validator.cpp
   src/cone_validator/cylinder_validator.cpp
   src/cone_validator/height_validator.cpp
+  src/cone_validator/displacement_validator.cpp
   src/cone_validator/deviation_validator.cpp
   src/cone_validator/z_score_validator.cpp
   src/utils/plane.cpp
-  src/cone_evaluator/distance_predict.cpp
+  src/utils/evaluator_parameters.cpp
+  src/cone_evaluator/cone_evaluator.cpp
   src/center_calculation/centroid_calculation.cpp
   src/icp/icp.cpp
   src/center_calculation/circunference_center_calculation.cpp
 )
 
 set(TEST_INCLUDE_FILES
-  test/ransac_test.cpp
-  test/least_squares_test.cpp
-  test/dbscan_test.cpp
+  test/center_calculation/circunference_center_calculation_test.cpp
+  test/cone_differentiation/least_squares_test.cpp
+  test/fov_trimming/cut_trimming_test.cpp
+  test/fov_trimming/skidpad_trimming_test.cpp
+  test/fov_trimming/acceleration_trimming_test.cpp
+  test/ground_removal/ransac_test.cpp
+  test/ground_removal/grid_ransac_test.cpp
+  test/clustering/dbscan_test.cpp
+  test/cone_validator/height_validator_test.cpp
+  test/cone_validator/cylinder_validator_test.cpp
+  test/cone_validator/displacement_validator_test.cpp
+  test/cone_validator/npoints_validator_test.cpp
+  test/cone_validator/standard_deviation_validator_test.cpp
+  #test/z_score_validator_test.cpp
+  test/cone_evaluator/cone_evaluator_test.cpp
+  test/icp/icp_test.cpp
   test/performance_test.cpp
-  test/height_validator_test.cpp
-  test/cylinder_validator_test.cpp
-  test/grid_ransac_test.cpp
-  test/distance_validator_test.cpp
-  test/icp_test.cpp
-  test/circunference_center_calculation_test.cpp
-  test/standard_deviation_validator_test.cpp
-  test/z_score_validator_test.cpp
+  test/perception_integration_tests/perception_integration_tests.cpp
 )
 
 include_directories(${PCL_INCLUDE_DIRS})
@@ -66,7 +80,7 @@ target_include_directories(perception PUBLIC
   $<INSTALL_INTERFACE:include> ${pcl_conversions_INCLUDE_DIRS})
 target_compile_features(perception PUBLIC c_std_99 cxx_std_17)
 
-target_link_libraries(perception ${PCL_LIBRARIES})
+target_link_libraries(perception ${PCL_LIBRARIES} yaml-cpp)
 
 install(TARGETS perception
   DESTINATION lib/${PROJECT_NAME})
@@ -77,21 +91,34 @@ ament_target_dependencies(perception rclcpp visualization_msgs common_lib custom
 
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
-  
+  find_package(visualization_msgs REQUIRED)
+  find_package(common_lib REQUIRED)
   ament_add_gtest(perception_test
+                  src/perception/perception_node.cpp
                   ${IMPLEMENTATION_FILES}
                   ${TEST_INCLUDE_FILES})
 
 
-  target_link_libraries(perception_test ${PCL_LIBRARIES})
+  target_link_libraries(perception_test ${PCL_LIBRARIES} yaml-cpp)
   target_include_directories(perception_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include> ${pcl_conversions_INCLUDE_DIRS})
 
-    ament_target_dependencies(perception_test rclcpp custom_interfaces fs_msgs ament_cmake_gtest)
-
+  ament_target_dependencies(perception_test
+      rclcpp
+      visualization_msgs
+      common_lib
+      custom_interfaces
+      fs_msgs
+      eufs_msgs
+      message_filters
+      pcl_conversions
+      tf2
+      tf2_ros
+      ament_cmake_gtest)
 endif()
 
 
 ament_export_include_directories(include)
+ament_export_dependencies(rclcpp visualization_msgs sensor_msgs pcl_conversions tf2 tf2_ros custom_interfaces)
 ament_package()

@@ -30,11 +30,13 @@ RUN apt update && apt upgrade -y \
     && apt install curl -y \
     && curl -s https://deb.nodesource.com/setup_18.x | sudo bash \
     && apt install nodejs -y \
+    && apt install openjdk-17-jre -y \
     && pip install black \
     && pip install rosbags \
     && apt clean
 
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/"$USERNAME"/.bashrc
+# Needed to link with GTSAM
 ENV SHELL /bin/bash
 USER $USERNAME
 CMD ["/bin/bash"]

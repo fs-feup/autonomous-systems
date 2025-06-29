@@ -38,7 +38,7 @@ def generate_launch_description():
     mocker_node_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
-                [FindPackageShare("mocker_node"), "launch", "pacsim.launch.py"]
+                [FindPackageShare("mocker_node"), "launch", "mocker_node.launch.py"]
             )
         ),
     )

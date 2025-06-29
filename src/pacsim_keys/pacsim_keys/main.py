@@ -10,10 +10,10 @@ import math
 
 from rclpy.node import Node
 import rclpy
-from pacsim.msg import Wheels, StampedScalar
+from pacsim.msg import StampedScalar
 
 lateral_command_msg = StampedScalar()
-longitudinal_command_msg = Wheels()
+longitudinal_command_msg = StampedScalar()
 
 help_msg = """
 w/s:    increase/decrease acceleration
@@ -40,7 +40,7 @@ class PublishThread(threading.Thread):
             StampedScalar, "/pacsim/steering_setpoint", 10
         )
         self.acceleration_publisher = self.node.create_publisher(
-            Wheels, "/pacsim/torques_max", 10
+            StampedScalar, "/pacsim/throttle_setpoint", 10
         )
         self.acceleration: float = 0.0
         self.steering_angle: float = 0.0
@@ -87,10 +87,7 @@ class PublishThread(threading.Thread):
             self.condition.acquire()
 
             lateral_command_msg.value = self.steering_angle
-            longitudinal_command_msg.fl = self.acceleration
-            longitudinal_command_msg.fr = self.acceleration
-            longitudinal_command_msg.rl = self.acceleration
-            longitudinal_command_msg.rr = self.acceleration
+            longitudinal_command_msg.value = self.acceleration
 
             # Release the condition and publish
             self.condition.release()
@@ -101,10 +98,7 @@ class PublishThread(threading.Thread):
 
         # Publish stop message when thread exits
         lateral_command_msg.value = 0.0
-        longitudinal_command_msg.fl = 0.0
-        longitudinal_command_msg.fr = 0.0
-        longitudinal_command_msg.rl = 0.0
-        longitudinal_command_msg.rr = 0.0
+        longitudinal_command_msg.value = 0.0
         self.acceleration_publisher.publish(longitudinal_command_msg)
         self.steering_publisher.publish(lateral_command_msg)
 
@@ -147,7 +141,7 @@ def main():
             if key == "w":
                 pub_thread.new_command = True
                 clicked = True
-                acceleration = 0.6 if acceleration < 0.6 else acceleration + 0.1
+                acceleration += 0.1
                 acceleration = min(acceleration, 1.0)
             elif key == "s":
                 pub_thread.new_command = True
@@ -157,12 +151,12 @@ def main():
             if key == "a":
                 pub_thread.new_command = True
                 clicked = True
-                steering += math.pi / 16
+                steering += math.pi / 32
                 steering = min(steering, math.pi / 8)
             elif key == "d":
                 pub_thread.new_command = True
                 clicked = True
-                steering += -math.pi / 16
+                steering += -math.pi / 32
                 steering = max(steering, -math.pi / 8)
             if key == "q":
                 break

@@ -1,26 +1,25 @@
 vehicle_model:
   simple_bicycle_model:
-  # some made up values
     kinematics:
-      lr: 0.791
-      lf: 0.809
-      sf: 1.2
-      sr: 1.2
+      lr: 0.804 # Distance from the center of mass to the rear axle
+      lf: 0.726 # Distance from the center of mass to the front axle
+      sf: 1.2 # Track width front
+      sr: 1.2 # Track width rear
     tire:
       Blat: 9.63
       Clat: -1.39
       Dlat: 1.6
       Elat: 1.0
     aero:
-      cla: 3.7
-      cda: 1.1
-      aeroArea: 1.1
-    m: 275
-    Izz: 111.0
-    wheelRadius: 0.258
+      cla: 0.86
+      cda: 0.73
+      aeroArea: 0.44
+    m: 200.707
+    Izz: 101.082
+    wheelRadius: 0.203
     gearRatio: 4.0
-    innerSteeringRatio: 0.255625
-    outerSteeringRaito: 0.20375
-    nominalVoltageTS: 550.0
-    powerGroundForce: 700.0
-    powertrainEfficiency: 0.95
+    innerSteeringRatio: 0.1869
+    outerSteeringRatio: 0.1582
+    nominalVoltageTS: 600.0
+    powerGroundForce: 0.0
+    # powertrainEfficiency: 0.95

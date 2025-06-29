@@ -45,7 +45,7 @@ public:
 
   /**
    * @brief Calculate expected state vector from
-   * motion estimation. Corresponds to f in LaTeX documentation
+   * motion estimation. Corresponds to g in documentation
    *
    * @param expected_state
    * @param motion_prediction_data
@@ -58,7 +58,7 @@ public:
 
   /**
    * @brief Calculate state covariance matrix from
-   * motion estimation. Corresponds to F in LaTeX documentation
+   * motion estimation. Corresponds to G in documentation
    *
    * @param expected_state
    * @param motion_prediction_data

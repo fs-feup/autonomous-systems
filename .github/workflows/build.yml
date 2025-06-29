@@ -3,61 +3,62 @@ name: Testing and Building
 on:
   push:
     branches:
-      - main
+      [main, dev]
   pull_request:
     types: [opened, synchronize, reopened]
 
 jobs:
 
-  #build: # Sonarcloud analysis
-  #  name: sonarcloud-build
+  build: # Sonarcloud analysis
+    name: sonarcloud-build
+    if: github.event_name == 'pull_request'
 
-  #  runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-  #  container:
-  #    image: ros:humble-ros-base-jammy
+    container:
+      image: ros:humble-ros-base-jammy
 
-  #  defaults:
-  #    run:
-  #      shell: bash
+    defaults:
+      run:
+        shell: bash
 
-  #  env:
-  #    SONAR_SCANNER_VERSION: 6.0.0.4432
-  #    SONAR_SERVER_URL: "https://sonarcloud.io"
-  #    BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
-  #    SONAR_SCANNER_DOWNLOAD_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.0.0.4432-linux.zip
+    env:
+      SONAR_SCANNER_VERSION: 6.0.0.4432
+      SONAR_SERVER_URL: "https://sonarcloud.io"
+      BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
+      SONAR_SCANNER_DOWNLOAD_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.0.0.4432-linux.zip
       
-  #  steps:
-  #    - uses: actions/checkout@v4
-  #      with:
-  #        submodules: 'true'
-  #        fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
-  #    - name: Install dependencies
-  #      run: |
-  #        echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
-  #        ./dependencies_install.sh
-  #        sudo apt install curl -y
-  #        sudo apt install unzip -y
-  #        sudo apt install bear -y
+      - name: Install dependencies
+        run: |
+          echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
+          ./dependencies_install.sh
+          sudo apt install curl -y
+          sudo apt install unzip -y
+          sudo apt install bear -y
 
-  #    - name: Download and set up sonar-scanner
-  #      run: |
-  #        curl ${{ env.SONAR_SCANNER_DOWNLOAD_URL }} --output sonar-scanner-cli-${{env.SONAR_SCANNER_VERSION}}-linux.zip
-  #        unzip ./sonar-scanner-cli-${{env.SONAR_SCANNER_VERSION}}-linux.zip
-  #        echo "./sonar-scanner-${{env.SONAR_SCANNER_VERSION}}-linux/bin" >> $GITHUB_PATH
+      - name: Download and set up sonar-scanner
+        run: |
+          curl ${{ env.SONAR_SCANNER_DOWNLOAD_URL }} --output sonar-scanner-cli-${{env.SONAR_SCANNER_VERSION}}-linux.zip
+          unzip ./sonar-scanner-cli-${{env.SONAR_SCANNER_VERSION}}-linux.zip
+          echo "./sonar-scanner-${{env.SONAR_SCANNER_VERSION}}-linux/bin" >> $GITHUB_PATH
     
-  #    - name: Compile with bear
-  #      run: |
-  #        source /opt/ros/$ROS_DISTRO/setup.bash
-  #        bear -- colcon build --packages-up-to common_lib perception ekf_state_est control planning inspection mocker_node evaluator
+      - name: Compile with bear
+        run: |
+          source /opt/ros/$ROS_DISTRO/setup.bash
+          bear -- colcon build --packages-up-to common_lib perception ekf_state_est control planning inspection mocker_node evaluator
           
-  #    - name: Run sonar-scanner
-  #      env:
-  #        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  #      run: |
-  #        sonar-scanner --define sonar.cfamily.compile-commands="./compile_commands.json"
+      - name: Run sonar-scanner
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          sonar-scanner --define sonar.cfamily.compile-commands="./compile_commands.json"
 
 
   perception:
@@ -98,7 +99,45 @@ jobs:
           colcon test --packages-select perception
           colcon test-result --all --verbose
 
-  ekf_state_est:
+  #ekf_state_est:
+  #  runs-on: ubuntu-latest
+
+  #  container:
+  #    image: ros:humble-ros-base-jammy
+
+  #  defaults:
+  #    run:
+  #      shell: bash
+
+  # steps:
+  #    - uses: actions/checkout@v4
+  #      with:
+  #        submodules: 'true'
+
+  #    - name: Install dependencies
+  #      run: |
+  #        echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
+  #        ./dependencies_install.sh
+      
+  #    - name: Rosdep
+  #      run: |
+  #        source /opt/ros/$ROS_DISTRO/setup.bash
+  #        rosdep update
+  #        rosdep install --from-paths src --ignore-src -r -y
+      
+  #    - name: Build Dependencies
+  #     run: |
+  #        source /opt/ros/$ROS_DISTRO/setup.bash
+  #        colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim motion_lib perception_sensor_lib
+
+  #    - name: Build and Test EKF State Estimation
+  #      run: |
+  #        source install/setup.bash
+  #        colcon build --packages-select ekf_state_est
+  #        colcon test --packages-select ekf_state_est
+  #        colcon test-result --all --verbose
+
+  slam:
     runs-on: ubuntu-latest
 
     container:
@@ -117,6 +156,11 @@ jobs:
         run: |
           echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
           ./dependencies_install.sh
+          ./src/slam/dependencies_install.sh
+
+      - name: Set up GTSAM path
+        run: |
+          echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> /home/$USERNAME/.bashrc
       
       - name: Rosdep
         run: |
@@ -127,15 +171,55 @@ jobs:
       - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim motion_lib perception_sensor_lib
 
-      - name: Build and Test Localization and Mapping
+      - name: Build and Test SLAM
         run: |
           source install/setup.bash
-          colcon build --packages-select ekf_state_est
-          colcon test --packages-select ekf_state_est
+          export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+          echo $LD_LIBRARY_PATH
+          cat ~/.bashrc
+          colcon build --packages-select slam
+          colcon test --packages-select slam
           colcon test-result --all --verbose
 
+  velocity_estimation:
+            runs-on: ubuntu-latest
+        
+            container:
+              image: ros:humble-ros-base-jammy
+        
+            defaults:
+              run:
+                shell: bash
+        
+            steps:
+              - uses: actions/checkout@v4
+                with:
+                  submodules: 'true'
+        
+              - name: Install dependencies
+                run: |
+                  echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
+                  ./dependencies_install.sh
+              
+              - name: Rosdep
+                run: |
+                  source /opt/ros/$ROS_DISTRO/setup.bash
+                  rosdep update
+                  rosdep install --from-paths src --ignore-src -r -y
+              
+              - name: Build Dependencies
+                run: |
+                  source /opt/ros/$ROS_DISTRO/setup.bash
+                  colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim motion_lib
+        
+              - name: Build and Test Velocity Estimation
+                run: |
+                  source install/setup.bash
+                  colcon build --packages-select velocity_estimation
+                  colcon test --packages-select velocity_estimation
+                  colcon test-result --all --verbose
       
   control:
     runs-on: ubuntu-latest
@@ -166,7 +250,7 @@ jobs:
       - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim motion_lib
 
       - name: Build and Test Control
         run: |
