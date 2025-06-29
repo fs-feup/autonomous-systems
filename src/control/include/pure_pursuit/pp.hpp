@@ -22,13 +22,18 @@ constexpr double WHEEL_BASE = 1.5;
  * @details
  * This class implements a Pure Pursuit controller.
  * The two main functions are:
- * - Calculate the lookahead point
- * - Calculate the steering angle (Pure Pursuit Controll Law)
+ * - pp_steering_control_law: Computes the steering angle output
+ * - calculate_alpha: Computes the angle between the vehicle and the lookahead point
  */
 
 class PurePursuit {
 private:
   std::shared_ptr<Filter> lpf_;
+  double ki_;
+  double anti_windup_factor_;
+  double t_;
+  double yaw_integrator_{0.0};
+  double prev_yaw_error_{0.0};
 
 public:
   double max_steering_angle_{MAX_STEERING_ANGLE}; /**< Maximum steering angle */
@@ -39,8 +44,10 @@ public:
    * @brief Construct a new Pure Pursuit object
    *
    * @param lpf Pointer to a low-pass filter
+   * @param ki Integral gain parameter
+   * @param anti_windup_factor Factor to limit the integral term to prevent windup
    */
-  PurePursuit(std::shared_ptr<Filter> lpf);
+  PurePursuit(std::shared_ptr<Filter> lpf, double ki, double anti_windup_factor, double t);
 
   /**
    * @brief Pure Pursuit control law
@@ -49,6 +56,7 @@ public:
    * @param cg
    * @param lookahead_point
    * @param dist_cg_2_rear_axis
+   * @param current_yaw
    *
    * @return Steering angle
    */
@@ -56,7 +64,7 @@ public:
   double pp_steering_control_law(common_lib::structures::Position rear_axis,
                                  common_lib::structures::Position cg,
                                  common_lib::structures::Position lookahead_point,
-                                 double dist_cg_2_rear_axis);
+                                 double dist_cg_2_rear_axis, double current_yaw);
 
   /**
    * @brief Calculate alpha (angle between the vehicle and lookahead point)

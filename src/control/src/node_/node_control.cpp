@@ -62,6 +62,9 @@ ControlParameters Control::load_config(std::string& adapter) {
   params.map_frame_id_ = adapter == "eufs" ? "base_footprint" : "map";
   params.lpf_alpha_ = control_config["lpf_alpha"].as<double>();
   params.lpf_initial_value_ = control_config["lpf_initial_value"].as<double>();
+  params.pp_ki_ = control_config["pp_ki"].as<double>();
+  params.pp_anti_windup_ = control_config["pp_anti_windup"].as<double>();
+  params.pp_t_ = control_config["pp_t"].as<double>();
 
   return params;
 }
@@ -91,8 +94,8 @@ Control::Control(const ControlParameters& params)
       long_controller_(params.pid_kp_, params.pid_ki_, params.pid_kd_, params.pid_tau_,
                        params.pid_t_, params.pid_lim_min_, params.pid_lim_max_,
                        params.pid_anti_windup_),
-      lat_controller_(
-          std::make_shared<LowPassFilter>(params.lpf_alpha_, params.lpf_initial_value_)) {
+      lat_controller_(std::make_shared<LowPassFilter>(params.lpf_alpha_, params.lpf_initial_value_),
+                      params.pp_ki_, params.pp_anti_windup_, params.pp_t_) {
   RCLCPP_INFO(this->get_logger(), "Simulated Planning: %d", use_simulated_planning_);
   if (!using_simulated_slam_) {
     vehicle_pose_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
@@ -154,12 +157,12 @@ void Control::publish_control(const custom_interfaces::msg::Pose& vehicle_state_
   }
 
   // calculate longitudinal control: PI-D
-  double torque = this->long_controller_.update(lookahead_velocity, this->velocity_);
+  double torque = this->long_controller_.update(closest_point_velocity, this->velocity_);
 
   // calculate Lateral Control: Pure Pursuit
   double steering_angle = this->lat_controller_.pp_steering_control_law(
       this->point_solver_.vehicle_pose_.rear_axis_, this->point_solver_.vehicle_pose_.position,
-      lookahead_point, this->point_solver_.dist_cg_2_rear_axis_);
+      lookahead_point, this->point_solver_.dist_cg_2_rear_axis_, vehicle_state_msg.theta);
   // check if steering is Nan
   if (std::isnan(steering_angle) || std::isnan(torque)) {
     RCLCPP_ERROR(rclcpp::get_logger("control"), "Steering Angle or Torque is NaN");
