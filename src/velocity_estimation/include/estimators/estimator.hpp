@@ -24,7 +24,7 @@ public:
    * @brief callback for motor RPM data that the VENode should call when new motor RPM data is
    * received
    */
-  virtual void motor_rpm_callback(double motor_rom) = 0;
+  virtual void motor_rpm_callback(double motor_rpm) = 0;
   /**
    * @brief callback for steering angle data that the VENode should call when new steering angle
    * data is received
