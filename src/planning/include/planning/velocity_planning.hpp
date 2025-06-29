@@ -59,4 +59,10 @@ public:
   explicit VelocityPlanning(VelocityPlanningConfig config) : config_(config) {}
 
   void set_velocity(std::vector<PathPoint> &final_path);
+
+  void stop(std::vector<PathPoint> &final_path) {
+    for (auto &point : final_path) {
+      point.ideal_velocity = 0.0;
+    }
+  }
 };

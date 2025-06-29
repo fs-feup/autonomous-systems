@@ -186,13 +186,12 @@ void Planning::run_planning_algorithms() {
     case common_lib::competition_logic::Mission::SKIDPAD:
       final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
       break;
-      
+
     case common_lib::competition_logic::Mission::ACCELERATION:
       triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
       // Smooth the calculated path
       final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
                                                this->initial_car_orientation_);
-
       {
         double dist_from_origin = sqrt(this->pose.position.x * this->pose.position.x +
                                        this->pose.position.y * this->pose.position.y);
@@ -209,26 +208,35 @@ void Planning::run_planning_algorithms() {
       break;
 
     case common_lib::competition_logic::Mission::AUTOCROSS:
-    case common_lib::competition_logic::Mission::TRACKDRIVE:
-    default:
       triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
-      // Smooth the calculated path
       final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
                                                this->initial_car_orientation_);
-
       global_path_ = path_calculation_.getGlobalPath();
 
-      if ((this->mission == common_lib::competition_logic::Mission::AUTOCROSS &&
-           this->lap_counter_ >= 1) ||
-          (this->mission == common_lib::competition_logic::Mission::TRACKDRIVE &&
-           this->lap_counter_ >= 10)) {
-        // Correct the path orientation for Autocross
-        for (auto &point : final_path) {
-          point.ideal_velocity = 0.0;
-        }
+      if (this->lap_counter_ >= 1) {
+        velocity_planning_.stop(final_path);
       } else {
         velocity_planning_.set_velocity(final_path);
       }
+      break;
+    case common_lib::competition_logic::Mission::TRACKDRIVE:
+      triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
+      final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
+                                               this->initial_car_orientation_);
+      global_path_ = path_calculation_.getGlobalPath();
+
+      if (this->lap_counter_ >= 10) {
+        velocity_planning_.stop(final_path);
+      } else {
+        velocity_planning_.set_velocity(final_path);
+      }
+      break;
+    default:
+      triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
+      final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
+                                               this->initial_car_orientation_);
+      global_path_ = path_calculation_.getGlobalPath();
+      velocity_planning_.set_velocity(final_path);
       break;
   }
 
