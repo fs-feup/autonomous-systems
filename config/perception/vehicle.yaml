@@ -9,7 +9,7 @@ perception:
   lidar_rotation: 90.0
   lidar_pitch: -3.90
   min_range: 1.0
-  max_height: 0.7
+  max_height: 0.5
 
     #TRACKDRIVE/AUTOCROSS TRIMMING
   max_range: 30.0
@@ -30,7 +30,7 @@ perception:
   ransac_iterations: 30
 
     #TRACKDRIVE/AUTOCROSS GROUND REMOVAL
-  n_angular_grids: 2
+  n_angular_grids: 3
   radius_resolution: 6.5
 
     #ACCELERATION GROUND REMOVAL
@@ -44,11 +44,11 @@ perception:
 
   #Clustering
   clustering_n_neighbours: 1
-  clustering_epsilon: 0.5
+  clustering_epsilon: 0.7
 
   #Evaluator
   min_height: 0.15
-  large_max_height: 0.57
+  large_max_height: 0.3
   small_max_height: 0.42
   height_cap: 0.5
   min_xoy: 0.0
@@ -67,7 +67,7 @@ perception:
   min_confidence: 0.912
   height_out_weight: 12.0
   height_in_weight: 5.0
-  cylinder_radius_weight: 20.0
+  cylinder_radius_weight: 40.0
   cylinder_height_weight: 8.0
   cylinder_npoints_weight: 10.0
   npoints_weight: 11.0
