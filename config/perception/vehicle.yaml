@@ -45,7 +45,7 @@ perception:
 
   #Clustering
   clustering_n_neighbours: 1
-  clustering_epsilon: 0.5
+  clustering_epsilon: 0.7
 
 
   #Evaluator
@@ -98,7 +98,6 @@ perception:
   track_min_distance: 0.2
   track_max_distance: 4.5
   track_n_cones: 3
-
 
   #ICP
   target_file: "cone.pcd"

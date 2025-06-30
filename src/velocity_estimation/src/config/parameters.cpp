@@ -34,7 +34,5 @@ std::string VEParameters::load_config() {
       ve_config["velocity_estimation"]["steering_angle_noise"].as<double>();
   this->motor_rpm_noise_ = ve_config["velocity_estimation"]["motor_rpm_noise"].as<double>();
 
-  this->car_parameters_ = common_lib::car_parameters::CarParameters();
-
   return adapter;
 }
