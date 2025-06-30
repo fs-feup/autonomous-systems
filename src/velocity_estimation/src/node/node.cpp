@@ -11,8 +11,8 @@ void VENode::publish_velocities() const {
   common_lib::structures::Velocities state = this->_velocity_estimator_->get_velocities();
   custom_interfaces::msg::Velocities velocities_msg;
   velocities_msg.header.stamp = state.timestamp_;
-  velocities_msg.velocity_x = state.velocity_x;
-  velocities_msg.velocity_y = state.velocity_y;
+  velocities_msg.velocity_x = state.velocity_y;
+  velocities_msg.velocity_y = state.velocity_x;
   velocities_msg.angular_velocity = state.rotational_velocity;
   velocities_msg.covariance[0] = state.velocity_x_noise_;
   velocities_msg.covariance[4] = state.velocity_y_noise_;

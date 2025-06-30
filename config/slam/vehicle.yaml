@@ -14,8 +14,8 @@ slam:
   pose_y_initial_noise: 0.1 # sigma of the noise for the initial pose in y
   pose_theta_initial_noise: 0.1 # sigma of the noise for the initial pose in yaw
   slam_solver_name: "graph_slam" # "graph_slam" or "ekf_slam" or ... -> name of the slam solver
-  minimum_observation_count: 3 # Minimum number of times a new landmark must be observed to be added to the map
-  minimum_frequency_of_detections: 5 # Minimum frequency of the detections of a landmark to add it to the map
+  minimum_observation_count: 1 # Minimum number of times a new landmark must be observed to be added to the map
+  minimum_frequency_of_detections: 1 # Minimum frequency of the detections of a landmark to add it to the map
   slam_min_pose_difference: 0.3 # Minimum distance between poses to consider adding to factor graph
   slam_optimization_mode: "sync" # "sync" or "async" or ... -> name of the optimization mode, in which sync is at every factor added, async is at every time step
   slam_optimization_type: "normal_levenberg" # "normal_levenberg" or "isam2" or "sliding_window_levenberg" or ... -> name of the optimization type

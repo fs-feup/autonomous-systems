@@ -12,7 +12,7 @@ std::pair<double, double> NoRearWSSBicycleModel::wheels_velocities_to_cg(
     velocities.first = (rl_velocity + rr_velocity) / 2;
   } else if (steering_angle > 0) {
     double rear_axis_center_rotation_radius = this->car_parameters_.wheelbase / tan(steering_angle);
-    velocities.second =
+    velocities.second = 
         rl_velocity / (rear_axis_center_rotation_radius - (this->car_parameters_.axis_length / 2));
     velocities.first = sqrt(pow(rear_axis_center_rotation_radius, 2) +
                             pow(this->car_parameters_.rear_axis_to_camera, 2)) *
@@ -38,7 +38,7 @@ common_lib::structures::Position NoRearWSSBicycleModel::rear_axis_position(
 
 Eigen::VectorXd NoRearWSSBicycleModel::cg_velocity_to_wheels(const Eigen::Vector3d& cg_velocities) {
   const double vx = cg_velocities(0);
-  const double vy = cg_velocities(1);
+  const double vy = 0;
   const double omega = cg_velocities(2);
   const double lr =
       this->car_parameters_
@@ -74,7 +74,7 @@ Eigen::MatrixXd NoRearWSSBicycleModel::jacobian_cg_velocity_to_wheels(
     const Eigen::Vector3d& cg_velocities) {
   Eigen::MatrixXd jacobian = Eigen::MatrixXd::Zero(4, 3);
   double vx = cg_velocities(0);
-  double vy = cg_velocities(1);
+  double vy = 0;
   double omega = cg_velocities(2);
   double lr = this->car_parameters_
                   .dist_cg_2_rear_axis;  // distance from the center of mass to the rear wheels

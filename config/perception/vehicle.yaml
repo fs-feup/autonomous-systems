@@ -8,7 +8,7 @@ perception:
   lidar_height: 0.92
   lidar_rotation: 90.0
   lidar_pitch: -3.90
-  min_range: 1.0
+  min_range: 1.5
   max_height: 0.7
 
     #TRACKDRIVE/AUTOCROSS TRIMMING
@@ -64,7 +64,7 @@ perception:
   min_distance_y: 0.04
   min_distance_z: 0.11
   min_n_points: 4
-  min_confidence: 0.912
+  min_confidence: 0.750
   height_out_weight: 12.0
   height_in_weight: 5.0
   cylinder_radius_weight: 20.0
