@@ -24,11 +24,19 @@ void NoRearWSSEKF::imu_callback(const common_lib::sensor_data::ImuData& imu_data
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "1 - Covariance: \n"
                                                                      << this->_covariance_);
   if (!this->imu_data_received_) {
-    this->imu_data_received_ = true;
-  } else {
-    this->predict(this->_state_, this->_covariance_, this->_process_noise_matrix_,
-                  this->_last_update_, this->imu_data_);
+        this->imu_data_received_ = true;
+  }else {
+    // Choose prediction method based on steering data availability
+    if(this->steering_angle_received_) {
+      this->predict_with_steering(this->_state_, this->_covariance_, 
+                                      this->_process_noise_matrix_, this->_last_update_, 
+                                      this->imu_data_, this->steering_angle_);
+    }else {
+      this->predict(this->_state_, this->_covariance_, this->_process_noise_matrix_,
+                      this->_last_update_, this->imu_data_);
+    }
   }
+
   this->_last_update_ = rclcpp::Clock().now();
   RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "2 - State: %f %f %f", this->_state_(0),
                this->_state_(1), this->_state_(2));
@@ -77,6 +85,7 @@ void NoRearWSSEKF::motor_rpm_callback(double motor_rpm) {
 void NoRearWSSEKF::steering_callback(double steering_angle) {
   this->steering_angle_ = steering_angle;
   this->steering_angle_received_ = true;
+
   if (this->wss_data_received_ && this->motor_rpm_received_) {
     this->correct_wheels(this->_state_, this->_covariance_, this->wss_data_, this->motor_rpm_,
                          this->steering_angle_);
@@ -123,6 +132,41 @@ void NoRearWSSEKF::predict(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
   state = this->process_model->get_next_velocities(state, accelerations, dt);
   this->_has_made_prediction_ = true;
 }
+
+void NoRearWSSEKF::predict_with_steering(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
+                                            const Eigen::Matrix3d& process_noise_matrix,
+                                            const rclcpp::Time last_update,
+                                            const common_lib::sensor_data::ImuData& imu_data,
+                                            double steering_angle) {
+
+  rclcpp::Time current_time_point = rclcpp::Clock().now();
+  double dt = (current_time_point - last_update).seconds();
+  Eigen::Vector3d accelerations(imu_data.acceleration_x, imu_data.acceleration_y, 0.0);
+
+  // Compute adaptive process noise considering steering angle
+  Eigen::Matrix3d actual_process_noise_matrix = 
+        this->compute_adaptive_process_noise(process_noise_matrix, steering_angle);
+
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"),
+                      "predict_with_steering - Process noise matrix: \n"
+                          << actual_process_noise_matrix);
+
+  RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"),
+               "predict_with_steering - Steering angle: %f rad", steering_angle);
+ 
+  // Compute Jacobian for covariance propagation
+  Eigen::Matrix3d jacobian = this->compute_steering_jacobian(state, accelerations, dt, steering_angle);
+
+  // Propagate covariance
+  covariance = jacobian * covariance * jacobian.transpose() + actual_process_noise_matrix;
+
+  // Update state using steering-aware model
+  state = this->compute_steering_state_update(state, accelerations, dt, steering_angle, 
+                                               imu_data.rotational_velocity);
+
+  this->_has_made_prediction_ = true;
+}
+
 
 void NoRearWSSEKF::correct_wheels(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
                                   common_lib::sensor_data::WheelEncoderData& wss_data,
@@ -181,3 +225,100 @@ void NoRearWSSEKF::correct_imu(Eigen::Vector3d& state, Eigen::Matrix3d& covarian
   if (this->_has_made_prediction_)
     covariance = (Eigen::Matrix3d::Identity() - kalman_gain * jacobian) * covariance;
 }
+
+
+Eigen::Matrix3d NoRearWSSEKF::compute_adaptive_process_noise(const Eigen::Matrix3d& base_noise_matrix,
+                                                           double steering_angle) {
+    Eigen::Matrix3d adaptive_noise = base_noise_matrix;
+    
+    double steering_noise_factor = 1.0 + 0.5 * std::abs(steering_angle);
+
+    adaptive_noise(0, 0) *= steering_noise_factor;       // Longitudinal velocity noise
+    adaptive_noise(1, 1) *= steering_noise_factor * 2.0; // Lateral velocity noise (higher)
+    adaptive_noise(2, 2) *= steering_noise_factor;       // Angular velocity noise
+    
+    return adaptive_noise;
+}
+
+
+Eigen::Matrix3d NoRearWSSEKF::compute_steering_jacobian(
+    const Eigen::Vector3d &previous_pose,
+    const Eigen::Vector3d &velocities,
+    const double steering_angle,
+    const double delta_t) {
+
+  Eigen::Matrix3d jacobian = Eigen::Matrix3d::Zero();
+  
+  const double v = velocities(0);
+  const double delta = steering_angle;
+  const double theta = previous_pose(2);
+
+  if (::abs(delta) < 1e-4) {
+    jacobian(0, 0) = ::cos(theta) * delta_t;
+    jacobian(1, 0) = ::sin(theta) * delta_t;
+    jacobian(2, 0) = (delta / this->car_parameters_.wheelbase) * delta_t;
+    jacobian(2, 2) = (v / this->car_parameters_.wheelbase) * delta_t;
+  } else {
+    const double L = this->car_parameters_.wheelbase;
+    const double dt = delta_t;
+    const double tan_delta = ::tan(delta);
+    const double omega = (v / L) * tan_delta;
+    const double theta_new = theta + omega * dt;
+
+    // Partial derivatives with respect to velocity 'v'
+    jacobian(0, 0) = ::cos(theta_new) * dt;
+    jacobian(1, 0) = ::sin(theta_new) * dt;
+    jacobian(2, 0) = (tan_delta / L) * dt;
+
+    // Partial derivatives with respect to steering_angle 'delta'
+    const double cos_delta_sq = ::cos(delta) * ::cos(delta);
+    const double d_omega_d_delta = v / (L * cos_delta_sq);
+    
+    const double d_x_d_omega = (v / (omega * omega)) * (-::sin(theta_new) + omega * dt * ::cos(theta_new) + ::sin(theta));
+    const double d_y_d_omega = (v / (omega * omega)) *
+        (::cos(theta_new) + omega * dt * ::sin(theta_new) - ::cos(theta));
+        
+    jacobian(0, 2) = d_x_d_omega * d_omega_d_delta;
+    jacobian(1, 2) = d_y_d_omega * d_omega_d_delta;
+    jacobian(2, 2) = dt * d_omega_d_delta;
+  }
+  return jacobian;
+}
+
+
+
+Eigen::Vector3d NoRearWSSEKF::compute_steering_state_update(const Eigen::Vector3d& state,
+                                                           const Eigen::Vector3d& velocities,
+                                                           double dt, double steering_angle,
+                                                           double imu_angular_velocity) {
+    double vx = state(0);
+    double vy = state(1);
+    double omega = state(2);
+    
+    double ax = velocities(0);
+    double ay = velocities(1);
+
+    Eigen::Vector3d next_velocities;
+    double v_magnitude = sqrt(vx*vx + vy*vy);
+    
+    // If steering angle is significant and vehicle is moving, use bicycle model
+    if (std::abs(steering_angle) > 1e-4 && v_magnitude > 0.1) {
+
+        next_velocities(0) = vx + dt * (ax - vy * omega);
+        next_velocities(1) = vy + dt * (ay + vx * omega);
+
+        double L = this->car_parameters_.wheelbase;
+        double omega_bicycle = (v_magnitude * tan(steering_angle)) / L;
+        double alpha = 0.3;  // Blending parameter
+
+        next_velocities(2) = alpha * omega_bicycle + (1.0 - alpha) * imu_angular_velocity;
+
+    } 
+    // if steering angle is negligible or vehicle is stationary, use simple kinematics
+    else {
+        return this->process_model->get_next_velocities(state, velocities, dt);
+    }
+    
+    return next_velocities;
+}
+

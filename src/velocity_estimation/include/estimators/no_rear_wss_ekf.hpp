@@ -55,6 +55,14 @@ class NoRearWSSEKF : public VelocityEstimator {
                const Eigen::Matrix3d& process_noise_matrix, const rclcpp::Time last_update,
                common_lib::sensor_data::ImuData& imu_data);
 
+
+  
+  void predict_with_steering(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
+                              const Eigen::Matrix3d& process_noise_matrix,
+                              const rclcpp::Time last_update,
+                              const common_lib::sensor_data::ImuData& imu_data,
+                              double steering_angle);
+
   /**
    * @brief Correct the state estimate based on wheel speed sensor, resolver, and steering data.
    *
@@ -98,4 +106,16 @@ public:
    */
   void steering_callback(double steering_angle) override;
   common_lib::structures::Velocities get_velocities() override;
+
+  Eigen::Matrix3d compute_adaptive_process_noise(const Eigen::Matrix3d& base_noise_matrix,
+                                                  double steering_angle);
+
+  Eigen::Matrix3d compute_steering_jacobian(const Eigen::Vector3d& state,
+                                             const Eigen::Vector3d& velocities,
+                                             double dt, double steering_angle);
+
+  Eigen::Vector3d compute_steering_state_update(const Eigen::Vector3d& state,
+                                                 const Eigen::Vector3d& velocities,
+                                                 double dt, double steering_angle,
+                                                 double imu_angular_velocity);
 };
