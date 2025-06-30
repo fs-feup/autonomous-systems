@@ -30,6 +30,8 @@ set(IMPLEMENTATION_FILES
   src/s2v_model/bicycle_model.cpp
   src/s2v_model/no_rear_wss_bicycle_model.cpp
   src/v2p_models/constant_velocity_turnrate_model.cpp
+  src/aero_model/default_aero_model.cpp
+  src/tire_model/pacejka_combined_slip.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})
