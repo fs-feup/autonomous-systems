@@ -111,11 +111,11 @@ public:
                                                   double steering_angle);
 
   Eigen::Matrix3d compute_steering_jacobian(const Eigen::Vector3d& state,
-                                             const Eigen::Vector3d& velocities,
+                                             const Eigen::Vector3d& accelerations,
                                              double dt, double steering_angle);
 
   Eigen::Vector3d compute_steering_state_update(const Eigen::Vector3d& state,
-                                                 const Eigen::Vector3d& velocities,
+                                                 const Eigen::Vector3d& accelerations,
                                                  double dt, double steering_angle,
                                                  double imu_angular_velocity);
 };

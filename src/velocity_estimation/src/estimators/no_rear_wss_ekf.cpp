@@ -227,6 +227,10 @@ void NoRearWSSEKF::correct_imu(Eigen::Vector3d& state, Eigen::Matrix3d& covarian
 }
 
 
+
+
+
+
 Eigen::Matrix3d NoRearWSSEKF::compute_adaptive_process_noise(const Eigen::Matrix3d& base_noise_matrix,
                                                            double steering_angle) {
     Eigen::Matrix3d adaptive_noise = base_noise_matrix;
@@ -243,13 +247,13 @@ Eigen::Matrix3d NoRearWSSEKF::compute_adaptive_process_noise(const Eigen::Matrix
 
 Eigen::Matrix3d NoRearWSSEKF::compute_steering_jacobian(
     const Eigen::Vector3d &previous_pose,
-    const Eigen::Vector3d &velocities,
+    const Eigen::Vector3d &accelerations,
     const double steering_angle,
     const double delta_t) {
 
   Eigen::Matrix3d jacobian = Eigen::Matrix3d::Zero();
-  
-  const double v = velocities(0);
+
+  const double v = accelerations(0);
   const double delta = steering_angle;
   const double theta = previous_pose(2);
 
@@ -288,37 +292,34 @@ Eigen::Matrix3d NoRearWSSEKF::compute_steering_jacobian(
 
 
 Eigen::Vector3d NoRearWSSEKF::compute_steering_state_update(const Eigen::Vector3d& state,
-                                                           const Eigen::Vector3d& velocities,
+                                                           const Eigen::Vector3d& accelerations,
                                                            double dt, double steering_angle,
                                                            double imu_angular_velocity) {
     double vx = state(0);
     double vy = state(1);
     double omega = state(2);
-    
-    double ax = velocities(0);
-    double ay = velocities(1);
 
-    Eigen::Vector3d next_velocities;
+    double ax = accelerations(0);
+    double ay = accelerations(1);
+
+    Eigen::Vector3d next_accelerations;
     double v_magnitude = sqrt(vx*vx + vy*vy);
     
     // If steering angle is significant and vehicle is moving, use bicycle model
     if (std::abs(steering_angle) > 1e-4 && v_magnitude > 0.1) {
 
-        next_velocities(0) = vx + dt * (ax - vy * omega);
-        next_velocities(1) = vy + dt * (ay + vx * omega);
+        next_accelerations(0) = vx + dt * (ax - vy * omega);
+        next_accelerations(1) = vy + dt * (ay + vx * omega);
 
         double L = this->car_parameters_.wheelbase;
-        double omega_bicycle = (v_magnitude * tan(steering_angle)) / L;
-        double alpha = 0.3;  // Blending parameter
-
-        next_velocities(2) = alpha * omega_bicycle + (1.0 - alpha) * imu_angular_velocity;
+        next_accelerations(2) = (v_magnitude * tan(steering_angle)) / L;
 
     } 
     // if steering angle is negligible or vehicle is stationary, use simple kinematics
     else {
-        return this->process_model->get_next_velocities(state, velocities, dt);
+        return this->process_model->get_next_velocities(state, accelerations, dt);
     }
     
-    return next_velocities;
+    return next_accelerations;
 }
 
