@@ -1,5 +1,7 @@
 ![Project logo](doc/logo_full.png)
+
 # PacSim
+
 PacSim (Planning and Controls Simuluator) is a simulator for Formula Student Driverless competitions originally developed at [Elbflorace](https://elbflorace.de/).
 
 Example of a pipeline running in PacSim with visualizations in Foxglove:
@@ -7,6 +9,7 @@ Example of a pipeline running in PacSim with visualizations in Foxglove:
 ![Demo gif](doc/demo.gif)
 
 # Features
+
 * Closed loop simulation of the autonomous system.
   * Simulation of vehicle dynamics
   * Simulation of all the relevant sensors (except for raw perception data) for autonomous operation. All sensors simulated are specified by at least their rate, dead time (delay), noise and some sensor-specific additional attributes.
@@ -21,13 +24,15 @@ Example of a pipeline running in PacSim with visualizations in Foxglove:
   * Converter from [FSSIM](https://github.com/AMZ-Driverless/fssim) sdf to our track format.
 
 # Prerequisites
-This package is developed and tested on Ubuntu 22.04 with ROS2 Iron. 
+
+This package is developed and tested on Ubuntu 22.04 with ROS2 Iron.
 
 Install dependencies:
 
 `sudo apt install ros-iron-desktop ros-iron-xacro`
 
 # How to get started
+
 To use PacSim with your autonomous system, you need to create a message converter node to match your own interfaces with the simulator.
 
 We provide an example launch file (example.launch.py) which shows an example of how to start the simulator node and the robot_state_publisher for the 3d visualization of the car.
@@ -41,18 +46,92 @@ The default vehicle model provided is rather simple and just meant to be a start
 A [Dockerfile](./.devcontainer/Dockerfile) is configured that already contains all the dependencies. It can be used with a [dev container environment](./.devcontainer) or launched independently wiht the [docker-compose](./docker-compose.yml) file. For more info, check the [docs folder](./doc/docker_usage.md).
 
 # Contributing
+
 Contributions in any form (reports, feedback, requests, submissions) are welcome. Preferably create an Issue or Pull request for that.
 
 The project also has a [discord server](https://discord.gg/Ay3XzB5p33).
 
 # Known issues
+
 * In Foxglove Studio (in contrast to RViz) the mesh of the car is displayed incorrectly using default settings. To fix this go to the left sidebar of the 3d panel -> Scene -> Mesh up axis and select Z-up. Restart to apply the change.
 * Currently the track editor can't handle the skidpad and acceleration tracks (lanesFirstWithLastConnected = False) properly.
 * Currently there exists no editor and visualization for the grip map.
 
 # Acknowledgements
+
 The initial version was developed at Elbflorace by:
+
 * Alexander Phieler (Main development)
 * Niklas Leukroth (Track and Config file parser)
 * Sergio Antuna (Artwork)
 * Tim Hanel (3d car model integration)
+
+# Fidelidade do PACSIM
+
+Durante o processo de validação do modelo PACSIM, foram efetuadas as seguintes verificações para assegurar a sua consistência e fidelidade face às especificações:
+
+    Inicialização correta das variáveis: Todas as variáveis relevantes foram devidamente inicializadas, garantindo o comportamento esperado do sistema desde o início da simulação.
+
+wheelspeeds:
+
+```bash
+    rate: 200; 
+    dead_time: 0.005
+```
+
+Vehicle_model:
+
+```bash
+    kinematics:
+        lr: 0.804 
+        lf: 0.726 
+        sf: 1.2 
+        sr: 1.2 
+    m: 200.707
+    wheelRadius: 0.203
+    gearRatio: 4.0
+    innerSteeringRatio: 0.1869
+    outerSteeringRatio: 0.1582
+```
+
+Noise:
+
+```bash
+    position: 
+      mean: [0.0, 0.0, 0.0]
+      sigma: [0.03, 0.03, 1.3]
+    velocity: 
+      mean: [0.0, 0.0, 0.0]
+      sigma: [0.02, 0.02, 0.02]
+    orientation: 
+      mean: [0.0, 0.0, 0.0]
+      sigma: [0.02, 0.02, 0.02]
+```
+
+    Coerência entre variáveis e parâmetros: Foi verificada a consistência entre as diferentes variáveis do modelo, assegurando que não existem conflitos ou incongruências lógicas entre os seus valores e interdependências.
+
+    Sensor noise coincidente com o sensor noise especificado: O ruído atribuído aos sensores no modelo é compatível com as características do sensor real, garantindo que o comportamento simulado representa adequadamente as incertezas associadas às medições.
+
+Validação dos tópicos:
+  Grande parte dos tópicos são validados, com exceção do WSS que não mostra resultados nos gráficos da foxglove.
+
+Tópicos validados corretamente:
+/steering_setpoint.value
+velocity.twist.twist.angular.x /y/z
+gnss/gnss_front.altitude
+steeringRear.value
+steeringFront.value
+torques.rl
+imu/cog_imu.angular_velocity.x /y/z
+imu/cog_imu.linear_acceleration.x /y/z
+perception/lidar/landmarks.detections[0].pose.pose.position.x
+gnss/gnss_front.velocity_north
+gnss/gnss_front.longitude
+mu/cog_imu.orientation.w
+
+Não mostram resultados:
+powerground_setpoint.value
+perception/lidar/visualization.markers[:]{id==0}.colors[0].r
+ts/voltage
+torques_max.rl
+map.markers[:]{id==0}.colors[0].r
