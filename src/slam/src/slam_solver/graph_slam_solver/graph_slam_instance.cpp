@@ -133,6 +133,13 @@ void GraphSLAMInstance::process_new_pose(const Eigen::Vector3d& pose_difference,
   _graph_values_.insert(new_pose_symbol, new_pose_gtsam);
   this->_new_pose_node_ = true;
 
+  RCLCPP_INFO(rclcpp::get_logger("slam"),
+              "GraphSLAMInstance - Adding prior pose %lf %lf %lf with noise %lf %lf %lf and "
+              "pose difference %lf %lf %lf",
+              new_pose_gtsam.x(), new_pose_gtsam.y(), new_pose_gtsam.theta(), noise_vector(0),
+              noise_vector(1), noise_vector(2), pose_difference(0), pose_difference(1),
+              pose_difference(2));
+
   this->process_pose_difference(pose_difference, noise_vector);
 }
 

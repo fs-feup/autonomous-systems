@@ -15,6 +15,7 @@
 class VelocitiesBasedPoseUpdater : public DifferenceBasedReadyPoseUpdater {
   bool _received_first_velocities_ =
       false;  //< Flag to check if the first velocities have been received
+  rclcpp::Time _last_velocities_receive_time_ = rclcpp::Time(0);  ///< Last pose update timestamp
 
 public:
   explicit VelocitiesBasedPoseUpdater(const SLAMParameters& params);

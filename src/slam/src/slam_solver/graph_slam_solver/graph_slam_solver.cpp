@@ -73,8 +73,8 @@ bool GraphSLAMSolver::_add_motion_data_to_graph(
   // TODO: add noise thingy
   if (pose_updater->pose_ready_for_graph_update() || force_update) {
     // If the pose updater is ready to update the pose, we can proceed with the pose update
-    graph_slam_instance->process_new_pose(pose_updater->get_last_pose(), pose_difference_vector,
-                                          Eigen::Vector3d(0.1, 0.1, 0.1));
+    graph_slam_instance->process_new_pose(pose_difference_vector, Eigen::Vector3d(0.01, 0.01, 0.01),
+                                          pose_updater->get_last_pose());
 
     pose_updater->update_pose(pose_updater->get_last_pose());
   } else if (std::shared_ptr<SecondPoseInputTrait> secondary_input_pose_updater =
@@ -142,6 +142,7 @@ void GraphSLAMSolver::add_velocities(const common_lib::structures::Velocities& v
   MotionData velocities_data(std::make_shared<Eigen::VectorXd>(3), velocities.timestamp_);
   velocities_data.motion_data_->head<3>() << velocities.velocity_x, velocities.velocity_y,
       velocities.rotational_velocity;
+  velocities_data.timestamp_ = velocities.timestamp_;
   start_time = rclcpp::Clock().now();
   if (this->_optimization_under_way_) {
     this->_motion_data_queue_.push(velocities_data);
@@ -223,8 +224,9 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Associations calculated");
 
   // Landmark filtering
-  Eigen::VectorXd filtered_new_observations =
-      this->_landmark_filter_->filter(observations_global, observations_confidences, associations);
+  // Eigen::VectorXd filtered_new_observations =
+  //     this->_landmark_filter_->filter(observations_global, observations_confidences,
+  //     associations);
 
   // Loop closure detection
   LoopClosure::Result result = _loop_closure_->detect(pose, landmarks, associations, observations);
@@ -257,7 +259,7 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
     // was added by the motion callback
     this->_add_motion_data_to_graph(this->_pose_updater_, this->_graph_slam_instance_);
     this->_graph_slam_instance_->process_observations(observation_data);
-    this->_landmark_filter_->delete_landmarks(filtered_new_observations);
+    // this->_landmark_filter_->delete_landmarks(filtered_new_observations);
   }
   factor_graph_time = rclcpp::Clock().now();
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Mutex unlocked - Factors added");

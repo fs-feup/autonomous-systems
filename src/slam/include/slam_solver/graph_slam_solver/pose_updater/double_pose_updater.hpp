@@ -17,6 +17,9 @@ class DoublePoseUpdater : public DifferenceBasedReadyPoseUpdater, public SecondP
       false;  //< Flag to check if the first velocities have been received
   bool _received_first_odometry_ = false;  //< Flag to check if the first odometry has been received
 
+  rclcpp::Time _last_velocities_receive_time_ =
+      rclcpp::Time(0);  ///< Last pose update timestamp for velocities
+
   Eigen::Vector3d _accumulated_odometry_pose_difference_ =
       Eigen::Vector3d::Zero();  ///< Accumulated odometry pose difference since the last pose update
 
