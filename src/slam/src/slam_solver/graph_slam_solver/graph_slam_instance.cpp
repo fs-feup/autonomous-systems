@@ -121,82 +121,45 @@ GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) 
   return *this;
 }
 
-void GraphSLAMInstance::process_pose_differences(
-    const std::vector<std::pair<Eigen::Vector3d, Eigen::Vector3d>>& pose_differences,
-    const Eigen::Vector3d& new_pose) {
+void GraphSLAMInstance::process_new_pose(const Eigen::Vector3d& pose_difference,
+                                         const Eigen::Vector3d& noise_vector,
+                                         const Eigen::Vector3d& new_pose) {
   gtsam::Pose2 new_pose_gtsam = eigen_to_gtsam_pose(new_pose);
-  // Add the prior factor to the graph (x means pose node)
-  gtsam::Symbol previous_pose_symbol('x', this->_pose_counter_);
+
+  // X means pose node, l means landmark node
   gtsam::Symbol new_pose_symbol('x', ++(this->_pose_counter_));
 
   // Add the prior pose to the values
   _graph_values_.insert(new_pose_symbol, new_pose_gtsam);
   this->_new_pose_node_ = true;
 
-  // Calculate noise
-  // // TODO: Implement noise -> this was shit because covariance from velocity estimation had too
-  // // small error
-  // Eigen::Matrix3d velocities_noise = Eigen::Matrix3d::Identity(); velocities_noise(0,
-  // 0) = velocities.velocity_x_noise_; velocities_noise(1, 1) = velocities.velocity_y_noise_;
-  // velocities_noise(2, 2) = velocities.rotational_velocity_noise_;
-  // RCLCPP_DEBUG(rclcpp::get_logger("slam"), "Velocities noise: %f %f %f", velocities_noise(0, 0),
-  //              velocities_noise(1, 1), velocities_noise(2, 2));
-  // Eigen::Matrix3d velocities_jacobian =
-  //     this->_motion_model_->get_jacobian_velocities(previous_pose, velocities_vector, delta_t);
-  // Eigen::Matrix3d motion_covariance =
-  //     velocities_jacobian * velocities_noise * velocities_jacobian.transpose();
-  // RCLCPP_DEBUG(rclcpp::get_logger("slam"), "Motion covariance: %f %f %f", motion_covariance(0,
-  // 0),
-  //              motion_covariance(1, 1), motion_covariance(2, 2));
-  for (auto [pose_difference, noise_vector] : pose_differences) {
-    gtsam::noiseModel::Diagonal::shared_ptr motion_noise =
-        gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector3(0.1, 0.1, 0.1));
-    gtsam::Pose2 pose_difference_gtsam = eigen_to_gtsam_pose(pose_difference);
-    this->_factor_graph_.add(gtsam::BetweenFactor<gtsam::Pose2>(
-        previous_pose_symbol, new_pose_symbol, pose_difference_gtsam, motion_noise));
-  }
-
-  return;
+  this->process_pose_difference(pose_difference, noise_vector);
 }
 
-void GraphSLAMInstance::process_observations(const ObservationData& observation_data) {
-  Eigen::VectorXd& observations = *(observation_data.observations_);
-  Eigen::VectorXi& associations = *(observation_data.associations_);
-  Eigen::VectorXd& observations_global = *(observation_data.observations_global_);
-  bool new_observation_factors = false;
-  for (unsigned int i = 0; i < observations.size() / 2; i++) {
-    gtsam::Point2 landmark;
-    gtsam::Symbol landmark_symbol;
-    bool landmark_lost_in_optimization =
-        static_cast<int>(this->_landmark_counter_) < (associations(i)) / 2;
-    if (associations(i) == -2) {
-      // No association
-      continue;
-    } else if (associations(i) == -1 || landmark_lost_in_optimization) {
-      // Create new landmark
-      landmark_symbol = gtsam::Symbol('l', ++(this->_landmark_counter_));
-      landmark = gtsam::Point2(observations_global(i * 2), observations_global(i * 2 + 1));
-      this->_graph_values_.insert(landmark_symbol, landmark);
-    } else {
-      // Association to previous landmark
-      landmark_symbol = gtsam::Symbol('l', (associations(i)) / 2 + 1);  // Convert to landmark id
-    }
-    new_observation_factors = true;
-    const Eigen::Vector2d observation_cartesian(observations[i * 2], observations[i * 2 + 1]);
-    Eigen::Vector2d observation_cylindrical = common_lib::maths::cartesian_to_cylindrical(
-        observation_cartesian);  // Convert to cylindrical coordinates
-    const gtsam::Rot2 observation_rotation(observation_cylindrical(1));
+void GraphSLAMInstance::process_pose_difference(const Eigen::Vector3d& pose_difference,
+                                                const Eigen::Vector3d& noise_vector,
+                                                unsigned int before_pose_id,
+                                                unsigned int after_pose_id) {
+  gtsam::Symbol before_pose_symbol('x', before_pose_id);
+  gtsam::Symbol after_pose_symbol('x', after_pose_id);
+  gtsam::noiseModel::Diagonal::shared_ptr motion_noise = gtsam::noiseModel::Diagonal::Sigmas(
+      gtsam::Vector3(noise_vector(0), noise_vector(1), noise_vector(2)));
+  gtsam::Pose2 pose_difference_gtsam = eigen_to_gtsam_pose(pose_difference);
+  this->_factor_graph_.add(gtsam::BetweenFactor<gtsam::Pose2>(before_pose_symbol, after_pose_symbol,
+                                                              pose_difference_gtsam, motion_noise));
+}
 
-    const gtsam::noiseModel::Diagonal::shared_ptr observation_noise =
-        gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector2(this->_params_.observation_x_noise_,
-                                                           this->_params_.observation_y_noise_));
+void GraphSLAMInstance::process_pose_difference(const Eigen::Vector3d& pose_difference,
+                                                const Eigen::Vector3d& noise_vector,
+                                                unsigned int before_pose_id) {
+  this->process_pose_difference(pose_difference, noise_vector, before_pose_id,
+                                this->_pose_counter_);
+}
 
-    this->_factor_graph_.add(gtsam::BearingRangeFactor<gtsam::Pose2, gtsam::Point2>(
-        gtsam::Symbol('x', this->_pose_counter_), landmark_symbol, observation_rotation,
-        observation_cylindrical(0), observation_noise));
-  }
-  this->_new_pose_node_ = !new_observation_factors;
-  this->_new_observation_factors_ = new_observation_factors;
+void GraphSLAMInstance::process_pose_difference(const Eigen::Vector3d& pose_difference,
+                                                const Eigen::Vector3d& noise_vector) {
+  this->process_pose_difference(pose_difference, noise_vector, this->_pose_counter_ - 1,
+                                this->_pose_counter_);
 }
 
 void GraphSLAMInstance::process_observations(const ObservationData& observation_data) {

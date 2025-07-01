@@ -32,7 +32,7 @@ class GraphSLAMSolver : public SLAMSolver,
                         public NodeControllerTrait {
   std::shared_ptr<GraphSLAMInstance> _graph_slam_instance_;  //< Instance of the graph SLAM solver
   std::shared_ptr<PoseUpdater> _pose_updater_;  //< Pose updater for the graph SLAM solver
-  std::shared_ptr<V2PMotionModel> _odometry_model = std::make_shared<OdometryModel>();
+  std::shared_ptr<OdometryModel> _odometry_model;
   std::queue<MotionData>
       _motion_data_queue_;  //< Queue of velocities received while optimization ran
   std::queue<ObservationData>
@@ -156,5 +156,6 @@ public:
    * - 10: factor graph time (in add_velocities)
    * - 11: perception filter time
    * - 12: loop closure time
+   * - 13: optimization time in pose update
    */
 };

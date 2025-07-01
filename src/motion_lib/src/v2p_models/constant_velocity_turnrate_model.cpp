@@ -3,77 +3,66 @@
 
 #include "common_lib/maths/transformations.hpp"
 
-ConstantVelocityTurnrateModel::ConstantVelocityTurnrateModel(
-    const Eigen::Vector3d base_process_noise)
-    : V2PMotionModel(base_process_noise) {}
-
-ConstantVelocityTurnrateModel::ConstantVelocityTurnrateModel() : V2PMotionModel() {}
-
 Eigen::Vector3d ConstantVelocityTurnrateModel::get_pose_difference(
-    const Eigen::Vector3d &previous_pose, const Eigen::Vector3d &velocities, const double delta_t) {
+    const Eigen::Vector3d &previous_pose, const Eigen::VectorXd &motion_data,
+    const double delta_t) {
   Eigen::Vector3d pose_difference;
-  if (::abs(velocities(2)) < 0.0001) {  // Avoid division by zero when car is going straight
-    pose_difference(0) =
-        (velocities(0) * ::cos(previous_pose(2)) - velocities(1) * ::sin(previous_pose(2))) *
-        delta_t;
-    pose_difference(1) =
-        (velocities(0) * ::sin(previous_pose(2)) + velocities(1) * ::cos(previous_pose(2))) *
-        delta_t;
+  if (::abs(motion_data(2)) < 0.0001) {  // Avoid division by zero when car is going straight
+    pose_difference(0) = motion_data(0) * ::cos(previous_pose(2)) * delta_t;
+    pose_difference(1) = motion_data(0) * ::sin(previous_pose(2)) * delta_t;
   } else {
     pose_difference(0) =
-        velocities(0) / velocities(2) *
-        (::sin(velocities(2) * delta_t + previous_pose(2)) - ::sin(previous_pose(2)));
+        motion_data(0) / motion_data(2) *
+        (::sin(motion_data(2) * delta_t + previous_pose(2)) - ::sin(previous_pose(2)));
     pose_difference(1) =
-        velocities(0) / velocities(2) *
-        (-::cos(velocities(2) * delta_t + previous_pose(2)) + ::cos(previous_pose(2)));
+        motion_data(0) / motion_data(2) *
+        (-::cos(motion_data(2) * delta_t + previous_pose(2)) + ::cos(previous_pose(2)));
   }
-  pose_difference(2) = common_lib::maths::normalize_angle(velocities(2) * delta_t);
+  pose_difference(2) = common_lib::maths::normalize_angle(motion_data(2) * delta_t);
   return pose_difference;
 }
 
 Eigen::Matrix3d ConstantVelocityTurnrateModel::get_jacobian_pose(
-    const Eigen::Vector3d &previous_pose, const Eigen::Vector3d &velocities, const double delta_t) {
+    const Eigen::Vector3d &previous_pose, const Eigen::VectorXd &motion_data,
+    const double delta_t) {
   Eigen::Matrix3d jacobian = Eigen::Matrix3d::Identity();
-  if (::abs(velocities(2)) < 0.001) {  // Avoid division by zero when car is going straight
-    jacobian(0, 2) =
-        -(velocities(0) * ::sin(previous_pose(2)) + velocities(1) * ::cos(previous_pose(2))) *
-        delta_t;
-    jacobian(1, 2) =
-        (velocities(0) * ::cos(previous_pose(2)) - velocities(1) * ::sin(previous_pose(2))) *
-        delta_t;
+  if (::abs(motion_data(2)) < 0.001) {  // Avoid division by zero when car is going straight
+    jacobian(0, 2) = -motion_data(0) * ::sin(previous_pose(2)) * delta_t;
+    jacobian(1, 2) = motion_data(0) * ::cos(previous_pose(2)) * delta_t;
   } else {
-    jacobian(0, 2) = velocities(0) / velocities(2) *
-                     (::cos(velocities(2) * delta_t + previous_pose(2)) - ::cos(previous_pose(2)));
-    jacobian(1, 2) = velocities(0) / velocities(2) *
-                     (::sin(velocities(2) * delta_t + previous_pose(2)) - ::sin(previous_pose(2)));
+    jacobian(0, 2) = motion_data(0) / motion_data(2) *
+                     (::cos(motion_data(2) * delta_t + previous_pose(2)) - ::cos(previous_pose(2)));
+    jacobian(1, 2) = motion_data(0) / motion_data(2) *
+                     (::sin(motion_data(2) * delta_t + previous_pose(2)) - ::sin(previous_pose(2)));
   }
   return jacobian;
 }
 
-Eigen::Matrix3d ConstantVelocityTurnrateModel::get_jacobian_velocities(
-    const Eigen::Vector3d &previous_pose, const Eigen::Vector3d &velocities, const double delta_t) {
+Eigen::MatrixXd ConstantVelocityTurnrateModel::get_jacobian_motion_data(
+    const Eigen::Vector3d &previous_pose, const Eigen::VectorXd &motion_data,
+    const double delta_t) {
   Eigen::Matrix3d jacobian = Eigen::Matrix3d::Zero();
-  if (::abs(velocities(2)) < 0.001) {
+  if (::abs(motion_data(2)) < 0.001) {
     jacobian(0, 0) = ::cos(previous_pose(2)) * delta_t;
-    jacobian(0, 1) = -::sin(previous_pose(2)) * delta_t;
     jacobian(1, 0) = ::sin(previous_pose(2)) * delta_t;
-    jacobian(1, 1) = ::cos(previous_pose(2)) * delta_t;
   } else {
-    jacobian(0, 0) = 1 / velocities(2) *
-                     (::sin(velocities(2) * delta_t + previous_pose(2)) - ::sin(previous_pose(2)));
+    jacobian(0, 0) = 1 / motion_data(2) *
+                     (::sin(motion_data(2) * delta_t + previous_pose(2)) - ::sin(previous_pose(2)));
     jacobian(0, 2) =
-        -(velocities(0) *
-          (::sin(velocities(2) * delta_t + previous_pose(2)) -
-           velocities(2) * delta_t * ::cos(velocities(2) * delta_t + previous_pose(2)) -
+        -(motion_data(0) *
+          (::sin(motion_data(2) * delta_t + previous_pose(2)) -
+           motion_data(2) * delta_t * ::cos(motion_data(2) * delta_t + previous_pose(2)) -
            ::sin(previous_pose(2))) /
-          (velocities(2) * velocities(2)));
-    jacobian(1, 0) = 1 / velocities(2) *
-                     (-::cos(velocities(2) * delta_t + previous_pose(2)) + ::cos(previous_pose(2)));
-    jacobian(1, 2) = (velocities(0) *
-                      (::cos(velocities(2) * delta_t + previous_pose(2)) +
-                       velocities(2) * delta_t * ::sin(velocities(2) * delta_t + previous_pose(2)) -
-                       ::cos(previous_pose(2))) /
-                      (velocities(2) * velocities(2)));
+          (motion_data(2) * motion_data(2)));
+    jacobian(1, 0) =
+        1 / motion_data(2) *
+        (-::cos(motion_data(2) * delta_t + previous_pose(2)) + ::cos(previous_pose(2)));
+    jacobian(1, 2) =
+        (motion_data(0) *
+         (::cos(motion_data(2) * delta_t + previous_pose(2)) +
+          motion_data(2) * delta_t * ::sin(motion_data(2) * delta_t + previous_pose(2)) -
+          ::cos(previous_pose(2))) /
+         (motion_data(2) * motion_data(2)));
   }
   jacobian(2, 2) = delta_t;
   return jacobian;

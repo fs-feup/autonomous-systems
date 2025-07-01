@@ -6,9 +6,9 @@
 
 /**
  * @brief Motion model that predicts the pose of the robot given the velocities
- * with a constant velocity model
+ * with a constant acceleration and turnrate model
  */
-class ConstantVelocityModel : public V2PMotionModel {
+class ConstantAccelerationTurnrateModel : public V2PMotionModel {
 public:
 
   /**
@@ -42,6 +42,6 @@ public:
    * @return Eigen::Matrix3d
    */
   Eigen::MatrixXd get_jacobian_motion_data(const Eigen::Vector3d &previous_pose,
-                                           [[maybe_unused]] const Eigen::VectorXd &motion_data,
+                                           const Eigen::VectorXd &motion_data,
                                            const double delta_t) override;
 };

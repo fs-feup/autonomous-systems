@@ -9,7 +9,7 @@ LapCounter::LapCounter(double threshold_dist, int first_x_cones, int border_widt
       border_width_(border_width),
       minimum_confidence_(minimum_confidence) {}
 
-// TODO: solve this fuck up, not using map_cones and Xi
+// TODO: solve this, not using map_cones or observations
 LoopClosure::Result LapCounter::detect(const Eigen::Vector3d& current_pose,
                                        const Eigen::VectorXd& map_cones,
                                        const Eigen::VectorXi& associations,

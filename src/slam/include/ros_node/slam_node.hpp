@@ -33,7 +33,6 @@ class SLAMNode : public rclcpp::Node {
 protected:
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr _perception_subscription_;
   rclcpp::Subscription<custom_interfaces::msg::Velocities>::SharedPtr _velocities_subscription_;
-  rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr _lidar_odometry_subscription_;
   rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr _vehicle_pose_publisher_;
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr _map_publisher_;
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr _visualization_map_publisher_;
@@ -73,8 +72,6 @@ protected:
    * @param msg Message containing the velocitites of the vehicle
    */
   void _velocities_subscription_callback(const custom_interfaces::msg::Velocities& msg);
-
-  void _lidar_odometry_subscription_callback(const nav_msgs::msg::Odometry& msg);
 
   /**
    * @brief publishes the localization ('vehicle_pose') to the topic

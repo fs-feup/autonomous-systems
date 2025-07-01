@@ -43,6 +43,10 @@ public:
 
   ~GraphSLAMInstance() = default;
 
+  std::shared_ptr<GraphSLAMInstance> clone() const {
+    return std::make_shared<GraphSLAMInstance>(*this);
+  }
+
   /**
    * @brief Checks if new observation factors should be added
    *
@@ -104,14 +108,18 @@ public:
   void load_initial_state(const Eigen::VectorXd& map, const Eigen::Vector3d& pose,
                           double preloaded_map_noise);
 
-  /**
-   * @brief Add motion prior to the graph
-   *
-   * @param pose Pose difference to add to the graph
-   */
-  void process_pose_differences(
-      const std::vector<std::pair<Eigen::Vector3d, Eigen::Vector3d>>& pose_differences,
-      const Eigen::Vector3d& new_pose);
+  void process_new_pose(const Eigen::Vector3d& pose_difference, const Eigen::Vector3d& noise_vector,
+                        const Eigen::Vector3d& new_pose);
+
+  void process_pose_difference(const Eigen::Vector3d& pose_difference,
+                               const Eigen::Vector3d& noise_vector, unsigned int before_pose_id,
+                               unsigned int after_pose_id);
+
+  void process_pose_difference(const Eigen::Vector3d& pose_difference,
+                               const Eigen::Vector3d& noise_vector, unsigned int before_pose_id);
+
+  void process_pose_difference(const Eigen::Vector3d& pose_difference,
+                               const Eigen::Vector3d& noise_vector);
 
   /**
    * @brief Runs optimization on the graph

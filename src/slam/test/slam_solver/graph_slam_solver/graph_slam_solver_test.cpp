@@ -15,7 +15,8 @@ public:
 class MockLandmarkFilter : public LandmarkFilter {
 public:
   MOCK_METHOD(Eigen::VectorXd, filter,
-              (const Eigen::VectorXd& observations, const Eigen::VectorXd& observation_confidences),
+              (const Eigen::VectorXd& observations, const Eigen::VectorXd& observation_confidences,
+               Eigen::VectorXi& associations),
               (override));
   MOCK_METHOD(void, delete_landmarks, (const Eigen::VectorXd& some_landmarks), (override));
 };
@@ -23,17 +24,17 @@ public:
 class MockV2PModel : public V2PMotionModel {
 public:
   MOCK_METHOD(Eigen::Vector3d, get_pose_difference,
-              (const Eigen::Vector3d& previous_pose, const Eigen::Vector3d& velocities,
+              (const Eigen::Vector3d& previous_pose, const Eigen::VectorXd& motion_data,
                double delta_t),
               (override));
 
   MOCK_METHOD(Eigen::Matrix3d, get_jacobian_pose,
-              (const Eigen::Vector3d& previous_pose, const Eigen::Vector3d& velocities,
+              (const Eigen::Vector3d& previous_pose, const Eigen::VectorXd& motion_data,
                const double delta_t),
               (override));
 
-  MOCK_METHOD(Eigen::Matrix3d, get_jacobian_velocities,
-              (const Eigen::Vector3d& previous_pose, const Eigen::Vector3d& velocities,
+  MOCK_METHOD(Eigen::MatrixXd, get_jacobian_motion_data,
+              (const Eigen::Vector3d& previous_pose, const Eigen::VectorXd& motion_data,
                const double delta_t),
               (override));
 };
@@ -41,7 +42,7 @@ public:
 class MockLoopClosure : public LoopClosure {
 public:
   MOCK_METHOD(LoopClosure::Result, detect,
-              (const Eigen::Vector3d& current_pose, const Eigen::VectorXi& map_cones,
+              (const Eigen::Vector3d& current_pose, const Eigen::VectorXd& map_cones,
                const Eigen::VectorXi& associations, const Eigen::VectorXd& observations),
               (const, override));
 };
@@ -88,7 +89,7 @@ TEST_F(GraphSlamSolverTest, MotionAndObservation) {
   EXPECT_CALL(*mock_motion_model_ptr, get_pose_difference)
       .Times(8)
       .WillRepeatedly(testing::Return(Eigen::Vector3d(1.1, 0.0, 0.0)));
-  //   EXPECT_CALL(*mock_motion_model_ptr, get_jacobian_velocities)
+  //   EXPECT_CALL(*mock_motion_model_ptr, get_jacobian_motion_data)
   //       .Times(4)
   //       .WillRepeatedly(testing::Return(Eigen::Matrix3d::Identity() * 0.1));
   EXPECT_CALL(*mock_data_association_ptr, associate)

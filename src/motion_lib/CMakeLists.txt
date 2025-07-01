@@ -29,6 +29,8 @@ set(IMPLEMENTATION_FILES
   src/v2p_models/base_v2p_motion_model.cpp
   src/s2v_model/bicycle_model.cpp
   src/v2p_models/constant_velocity_turnrate_model.cpp
+  src/v2p_models/constant_acceleration_turnrate_model.cpp
+  src/v2p_models/odometry_model.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})
@@ -64,6 +66,7 @@ if(BUILD_TESTING)
     test/s2v_models/bicycle_model_test.cpp
     test/v2p_models/constant_velocity_model_test.cpp
     test/v2p_models/constant_velocity_turnrate_model_test.cpp
+    test/v2p_models/constant_acceleration_turnrate_model_test.cpp
     test/vel_process_model/particle_model_test.cpp
   )
 

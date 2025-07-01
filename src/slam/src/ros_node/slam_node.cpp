@@ -58,9 +58,6 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
         "/state_estimation/velocities", 1,
         std::bind(&SLAMNode::_velocities_subscription_callback, this, std::placeholders::_1));
   }
-  this->_lidar_odometry_subscription_ = this->create_subscription<nav_msgs::msg::Odometry>(
-      "/state_estimation/lidar_odometry", 1,
-      std::bind(&SLAMNode::_lidar_odometry_subscription_callback, this, std::placeholders::_1));
 
   // Publishers
   this->_map_publisher_ =
@@ -155,25 +152,6 @@ void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::V
   this->_vehicle_pose_ = this->_slam_solver_->get_pose_estimate();
 
   // this->_publish_covariance(); // TODO: get covariance to work fast
-  this->_publish_vehicle_pose();
-
-  rclcpp::Time end_time = this->get_clock()->now();
-  this->_execution_times_->at(0) = (end_time - start_time).seconds() * 1000.0;
-  std_msgs::msg::Float64MultiArray execution_time_msg;
-  execution_time_msg.data = *this->_execution_times_;
-  this->_execution_time_publisher_->publish(execution_time_msg);
-}
-
-void SLAMNode::_lidar_odometry_subscription_callback(const nav_msgs::msg::Odometry &msg) {
-  if (this->_mission_ == common_lib::competition_logic::Mission::NONE) {
-    return;
-  }
-
-  rclcpp::Time start_time = this->get_clock()->now();
-  if (auto solver_ptr = std::dynamic_pointer_cast<OdometryIntegratorTrait>(this->_slam_solver_)) {
-    // TODO: process lidar odometry
-  }
-
   this->_publish_vehicle_pose();
 
   rclcpp::Time end_time = this->get_clock()->now();

@@ -1,9 +1,14 @@
 #include "adapter_slam/vehicle.hpp"
 
+#include <tf2/LinearMath/Matrix3x3.h>
+#include <tf2/LinearMath/Quaternion.h>
+
+#include <geometry_msgs/msg/quaternion.hpp>
 #include <geometry_msgs/msg/transform_stamped.hpp>
 
 #include "common_lib/competition_logic/color.hpp"
 #include "ros_node/slam_node.hpp"
+#include "slam_solver/solver_traits/odometry_integrator_trait.hpp"
 
 VehicleAdapter::VehicleAdapter(const SLAMParameters& params) : SLAMNode(params) {
   _operational_status_subscription_ =
@@ -17,6 +22,11 @@ VehicleAdapter::VehicleAdapter(const SLAMParameters& params) : SLAMNode(params) 
             this->_slam_solver_->set_mission(_mission_);
           });
   _finished_client_ = this->create_client<std_srvs::srv::Trigger>("/as_srv/mission_finished");
+
+  this->_lidar_odometry_subscription_ = this->create_subscription<nav_msgs::msg::Odometry>(
+      params.lidar_odometry_topic_, 1,
+      std::bind(&VehicleAdapter::_lidar_odometry_subscription_callback, this,
+                std::placeholders::_1));
 
   // Create a static map frame
   _tf_static_broadcaster_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(*this);
@@ -49,4 +59,33 @@ void VehicleAdapter::finish() {
           RCLCPP_ERROR(this->get_logger(), "Failed to send finished signal");
         }
       });
+}
+
+void VehicleAdapter::_lidar_odometry_subscription_callback(const nav_msgs::msg::Odometry& msg) {
+  if (this->_mission_ == common_lib::competition_logic::Mission::NONE) {
+    return;
+  }
+
+  rclcpp::Time start_time = this->get_clock()->now();
+  if (auto solver_ptr = std::dynamic_pointer_cast<OdometryIntegratorTrait>(this->_slam_solver_)) {
+    common_lib::structures::Pose pose;
+    pose.position.x = msg.pose.pose.position.x;
+    pose.position.y = msg.pose.pose.position.y;
+    tf2::Quaternion quat(msg.pose.pose.orientation.x, msg.pose.pose.orientation.y,
+                         msg.pose.pose.orientation.z, msg.pose.pose.orientation.w);
+
+    tf2::Matrix3x3 mat(quat);
+    double roll, pitch, yaw;
+    mat.getRPY(roll, pitch, yaw);
+    pose.orientation = yaw;  // Use yaw as the orientation
+    pose.timestamp = msg.header.stamp;
+  }
+
+  this->_publish_vehicle_pose();
+
+  rclcpp::Time end_time = this->get_clock()->now();
+  this->_execution_times_->at(0) = (end_time - start_time).seconds() * 1000.0;
+  std_msgs::msg::Float64MultiArray execution_time_msg;
+  execution_time_msg.data = *this->_execution_times_;
+  this->_execution_time_publisher_->publish(execution_time_msg);
 }

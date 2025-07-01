@@ -31,7 +31,7 @@ public:
                 const Eigen::VectorXd& observations) const override;
 
 private:
-  double threshold_dist_;  // TODO: make this const
+  double threshold_dist_;  // TODO: make this const or create parameters struct
   int first_x_cones_;
   int border_width_;
   int minimum_confidence_;

@@ -14,46 +14,37 @@
  */
 class OdometryModel : public V2PMotionModel {
 public:
-  explicit OdometryModel();
-
-  /**
-   * @brief Construct a new OdometryModel object with a base process noise
-   *
-   * @param base_process_noise standard non variating noise if used
-   */
-  explicit OdometryModel(const Eigen::Vector3d base_process_noise);
-
   /**
    * @brief Gives the increments to the pose instead of the next pose
    *
    * @param previous_pose
-   * @param velocities (vx, vy, omega)
+   * @param motion_data (Deltax, Deltay, Delta_theta)
    * @param delta_t
    * @return Eigen::Vector3d
    */
   Eigen::Vector3d get_pose_difference(const Eigen::Vector3d &previous_pose,
-                                      const Eigen::Vector3d &velocities,
+                                      const Eigen::VectorXd &motion_data,
                                       const double delta_t) override;
 
   /**
-   * @brief Get the Jacobian matrix of the motion model in relation to velocities (commands)
+   * @brief Get the Jacobian matrix of the motion model in relation to motion_data (commands)
    * @param previous_pose
-   * @param velocities
+   * @param motion_data (Deltax, Deltay, Delta_theta)
    * @param delta_t
    * @return Eigen::Matrix3d
    */
   Eigen::Matrix3d get_jacobian_pose(const Eigen::Vector3d &previous_pose,
-                                    const Eigen::Vector3d &velocities,
+                                    const Eigen::VectorXd &motion_data,
                                     const double delta_t) override;
 
   /**
-   * @brief Get the Jacobian matrix of the motion model in relation to velocities (commands)
+   * @brief Get the Jacobian matrix of the motion model in relation to motion_data (commands)
    * @param previous_pose
-   * @param velocities
+   * @param motion_data (Deltax, Deltay, Delta_theta)
    * @param delta_t
    * @return Eigen::Matrix3d
    */
-  Eigen::Matrix3d get_jacobian_velocities(const Eigen::Vector3d &previous_pose,
-                                          [[maybe_unused]] const Eigen::Vector3d &velocities,
-                                          const double delta_t) override;
+  Eigen::MatrixXd get_jacobian_motion_data(const Eigen::Vector3d &previous_pose,
+                                           [[maybe_unused]] const Eigen::VectorXd &motion_data,
+                                           const double delta_t) override;
 };

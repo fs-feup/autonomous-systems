@@ -13,8 +13,9 @@ public:
                            std::shared_ptr<DataAssociationModel> data_association)
       : LandmarkFilter(params, data_association), map(Eigen::VectorXd::Zero(0)) {}
 
-  Eigen::VectorXd filter(const Eigen::VectorXd& new_observations,
-                         const Eigen::VectorXd& new_observation_confidences) override;
+  Eigen::VectorXd filter(const Eigen::VectorXd& observations,
+                         const Eigen::VectorXd& observation_confidences,
+                         Eigen::VectorXi& associations) override;
 
   void delete_landmarks(const Eigen::VectorXd& some_landmarks) override;
   friend class ConsecutiveCounterFilter_TestCase1_Test;

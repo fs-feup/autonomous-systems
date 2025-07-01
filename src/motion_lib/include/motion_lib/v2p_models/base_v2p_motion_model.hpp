@@ -9,18 +9,7 @@
  * robot given the velocities
  */
 class V2PMotionModel {
-  Eigen::Vector3d
-      _base_process_noise_;  //< Equivalent to the diagonal of the process noise covariance matrix
-
 public:
-  explicit V2PMotionModel();
-
-  /**
-   * @brief Construct a new ConstantVelocityModel object with a base process noise
-   *
-   * @param base_process_noise standard non variating noise if used
-   */
-  explicit V2PMotionModel(const Eigen::Vector3d base_process_noise);
 
   virtual ~V2PMotionModel() = default;
 
@@ -33,7 +22,7 @@ public:
    * @return Eigen::Vector3d
    */
   virtual Eigen::Vector3d get_next_pose(const Eigen::Vector3d &previous_pose,
-                                        const Eigen::Vector3d &velocities, const double delta_t);
+                                        const Eigen::VectorXd &motion_data, const double delta_t);
 
   /**
    * @brief Gives the increments to the pose instead of the next pose
@@ -44,7 +33,7 @@ public:
    * @return Eigen::Vector3d
    */
   virtual Eigen::Vector3d get_pose_difference(const Eigen::Vector3d &previous_pose,
-                                              const Eigen::Vector3d &velocities,
+                                              const Eigen::VectorXd &motion_data,
                                               const double delta_t) = 0;
 
   /**
@@ -55,7 +44,7 @@ public:
    * @return Eigen::Matrix3d
    */
   virtual Eigen::Matrix3d get_jacobian_pose(const Eigen::Vector3d &previous_pose,
-                                            const Eigen::Vector3d &velocities,
+                                            const Eigen::VectorXd &motion_data,
                                             const double delta_t) = 0;
 
   /**
@@ -65,17 +54,7 @@ public:
    * @param delta_t
    * @return Eigen::Matrix3d
    */
-  virtual Eigen::Matrix3d get_jacobian_velocities(
-      const Eigen::Vector3d &previous_pose, [[maybe_unused]] const Eigen::Vector3d &velocities,
+  virtual Eigen::MatrixXd get_jacobian_motion_data(
+      const Eigen::Vector3d &previous_pose, [[maybe_unused]] const Eigen::VectorXd &motion_data,
       const double delta_t) = 0;
-
-  /**
-   * @brief Get the process noise matrix
-   */
-  Eigen::Matrix3d get_base_process_noise_matrix();
-
-  /**
-   * @brief Get the process noise vector
-   */
-  Eigen::Vector3d get_base_process_noise();
 };

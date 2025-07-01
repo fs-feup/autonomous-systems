@@ -20,8 +20,14 @@
 
 #include "common_lib/maths/transformations.hpp"
 #include "slam_solver/graph_slam_solver/optimizer/map.hpp"
-#include "slam_solver/graph_slam_solver/pose_updater/linear_fusion_pose_updater.hpp"
+#include "slam_solver/graph_slam_solver/pose_updater/map.hpp"
+#include "slam_solver/graph_slam_solver/pose_updater/pose_updater_traits/second_pose_input_trait.hpp"
 #include "slam_solver/graph_slam_solver/utils.hpp"
+
+// TODO: more based on traits, so that you can choose the trait of having callback based or timer
+// based
+
+// TODO: create another optimizer with sliding window but that takes into account all poses
 
 GraphSLAMSolver::GraphSLAMSolver(const SLAMParameters& params,
                                  std::shared_ptr<DataAssociationModel> data_association,
@@ -31,9 +37,10 @@ GraphSLAMSolver::GraphSLAMSolver(const SLAMParameters& params,
                                  std::shared_ptr<LoopClosure> loop_closure)
     : SLAMSolver(params, data_association, motion_model, landmark_filter, execution_times,
                  loop_closure) {
-  // TODO: transform into range and bearing noises
   this->_graph_slam_instance_ = std::make_shared<GraphSLAMInstance>(
       params, graph_slam_optimizer_constructors_map.at(params.slam_optimization_type_)(params));
+  this->_pose_updater_ = pose_updater_constructors_map.at(params.pose_updater_name_)(params);
+  this->_odometry_model = std::make_shared<OdometryModel>();
 }
 
 void GraphSLAMSolver::init([[maybe_unused]] std::weak_ptr<rclcpp::Node> node) {
@@ -63,30 +70,29 @@ bool GraphSLAMSolver::_add_motion_data_to_graph(
     const std::shared_ptr<GraphSLAMInstance> graph_slam_instance, bool force_update) {
   Eigen::Vector3d pose_difference_vector = pose_updater->get_accumulated_pose_difference();
 
-  if (double pose_difference_norm =
-          ::sqrt(pow(pose_difference_vector(0), 2) + pow(pose_difference_vector(1), 2) +
-                 pow(pose_difference_vector(2), 2));
-      pose_difference_norm < this->_params_.slam_min_pose_difference_ && !force_update) {
-    return false;
-  }
-
   // TODO: add noise thingy
-  std::vector<std::pair<Eigen::Vector3d, Eigen::Vector3d>> pose_differences = {
-      {pose_difference_vector, Eigen::Vector3d(0.1, 0.1, 0.1)}};
-  if (auto pose_updater_ptr = std::dynamic_pointer_cast<LinearFusionPoseUpdater>(pose_updater)) {
-    if (pose_updater_ptr->odometry_pose_difference_ready()) {
-      pose_differences.push_back({pose_updater_ptr->get_accumulated_odometry_pose_difference(),
-                                  Eigen::Vector3d(0.1, 0.1, 0.1)});
+  if (pose_updater->pose_ready_for_graph_update() || force_update) {
+    // If the pose updater is ready to update the pose, we can proceed with the pose update
+    graph_slam_instance->process_new_pose(pose_updater->get_last_pose(), pose_difference_vector,
+                                          Eigen::Vector3d(0.1, 0.1, 0.1));
+
+    pose_updater->update_pose(pose_updater->get_last_pose());
+  } else if (std::shared_ptr<SecondPoseInputTrait> secondary_input_pose_updater =
+                 std::dynamic_pointer_cast<SecondPoseInputTrait>(pose_updater)) {
+    if (secondary_input_pose_updater->second_pose_difference_ready()) {
+      // graph_slam_instance->process_pose_difference();
     }
   }
-  graph_slam_instance->process_pose_differences(pose_differences, pose_updater->get_last_pose());
-  pose_updater->update_pose(pose_updater->get_last_pose());
+
+  return true;
 }
 
 void GraphSLAMSolver::add_odometry(const common_lib::structures::Pose& odometry) {
   std::unique_lock lock(this->_mutex_);
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_odometry - Mutex accessed");
-  rclcpp::Time start_time, motion_model_time, factor_graph_time;
+  rclcpp::Time start_time, motion_model_time, factor_graph_time, optimization_time;
+
+  // Apply motion model
   MotionData odometry_data(std::make_shared<Eigen::VectorXd>(3), odometry.timestamp);
   odometry_data.motion_data_->head<3>() << odometry.position.x, odometry.position.y,
       odometry.orientation;
@@ -96,15 +102,26 @@ void GraphSLAMSolver::add_odometry(const common_lib::structures::Pose& odometry)
     RCLCPP_DEBUG(rclcpp::get_logger("slam"),
                  "add_odometry - Optimization under way, pushing motion data");
   }
-
-  this->_pose_updater_->predict_pose(odometry_data, this->_motion_model_);
+  this->_pose_updater_->predict_pose(odometry_data, this->_odometry_model);
   motion_model_time = rclcpp::Clock().now();
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_odometry - Pose updated");
 
-  if (!this->_add_motion_data_to_graph(this->_pose_updater_, this->_graph_slam_instance_)) {
-    RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_odometry - No new pose added to the graph");
-  }
+  // Add motion data to the graph
+  bool added_factors =
+      this->_add_motion_data_to_graph(this->_pose_updater_, this->_graph_slam_instance_);
   factor_graph_time = rclcpp::Clock().now();
+
+  // Optimization
+  if (!added_factors) {
+    RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_odometry - No new pose added to the graph");
+  } else if (this->_params_.slam_optimization_in_poses_ &&
+             this->_params_.slam_optimization_mode_ == "sync") {  // Optimization
+    RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_odometry - Mutex locked - optimizing graph");
+    this->_graph_slam_instance_->optimize();
+    this->_pose_updater_->update_pose(gtsam_pose_to_eigen(this->_graph_slam_instance_->get_pose()));
+    RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_odometry - Mutex unlocked - graph optimized");
+  }
+  optimization_time = rclcpp::Clock().now();
 
   // Timekeeping
   if (this->_execution_times_ == nullptr) {
@@ -112,13 +129,16 @@ void GraphSLAMSolver::add_odometry(const common_lib::structures::Pose& odometry)
   }
   this->_execution_times_->at(9) = (motion_model_time - start_time).seconds() * 1000.0;
   this->_execution_times_->at(10) = (factor_graph_time - motion_model_time).seconds() * 1000.0;
+  this->_execution_times_->at(13) = (optimization_time - factor_graph_time).seconds() * 1000.0;
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_odometry - Mutex unlocked");
 }
 
 void GraphSLAMSolver::add_velocities(const common_lib::structures::Velocities& velocities) {
   std::unique_lock lock(this->_mutex_);
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_velocities - Mutex accessed");
-  rclcpp::Time start_time, motion_model_time, factor_graph_time;
+  rclcpp::Time start_time, motion_model_time, factor_graph_time, optimization_time;
+
+  // Apply motion model
   MotionData velocities_data(std::make_shared<Eigen::VectorXd>(3), velocities.timestamp_);
   velocities_data.motion_data_->head<3>() << velocities.velocity_x, velocities.velocity_y,
       velocities.rotational_velocity;
@@ -128,15 +148,26 @@ void GraphSLAMSolver::add_velocities(const common_lib::structures::Velocities& v
     RCLCPP_DEBUG(rclcpp::get_logger("slam"),
                  "add_velocities - Optimization under way, pushing motion data");
   }
-
   this->_pose_updater_->predict_pose(velocities_data, this->_motion_model_);
   motion_model_time = rclcpp::Clock().now();
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_velocities - Pose updated");
 
-  if (!this->_add_motion_data_to_graph(this->_pose_updater_, this->_graph_slam_instance_)) {
-    RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_velocities - No new pose added to the graph");
-  }
+  // Add motion data to the graph
+  bool added_factors =
+      this->_add_motion_data_to_graph(this->_pose_updater_, this->_graph_slam_instance_);
   factor_graph_time = rclcpp::Clock().now();
+
+  // Optimization
+  if (!added_factors) {
+    RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_velocities - No new pose added to the graph");
+  } else if (this->_params_.slam_optimization_in_poses_ &&
+             this->_params_.slam_optimization_mode_ == "sync") {
+    RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_velocities - Mutex locked - optimizing graph");
+    this->_graph_slam_instance_->optimize();
+    this->_pose_updater_->update_pose(gtsam_pose_to_eigen(this->_graph_slam_instance_->get_pose()));
+    RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_velocities - Mutex unlocked - graph optimized");
+  }
+  optimization_time = rclcpp::Clock().now();
 
   // Timekeeping
   if (this->_execution_times_ == nullptr) {
@@ -144,6 +175,7 @@ void GraphSLAMSolver::add_velocities(const common_lib::structures::Velocities& v
   }
   this->_execution_times_->at(9) = (motion_model_time - start_time).seconds() * 1000.0;
   this->_execution_times_->at(10) = (factor_graph_time - motion_model_time).seconds() * 1000.0;
+  this->_execution_times_->at(13) = (optimization_time - factor_graph_time).seconds() * 1000.0;
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_velocities - Mutex unlocked");
 }
 
@@ -184,48 +216,15 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   }
 
   // Data association
-  Eigen::VectorXi associations(cones.size());
-  associations = this->_data_association_->associate(
+  Eigen::VectorXi associations = this->_data_association_->associate(
       landmarks, observations_global, covariance,
       observations_confidences);  // TODO: implement different mahalanobis distance
   association_time = rclcpp::Clock().now();
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Associations calculated");
 
   // Landmark filtering
-  Eigen::VectorXd unfiltered_new_observations;
-  Eigen::VectorXd unfiltered_new_observations_confidences;
-  for (int i = 0; i < associations.size(); i++) {
-    if (associations(i) == -1) {
-      unfiltered_new_observations.conservativeResize(unfiltered_new_observations.size() + 2);
-      unfiltered_new_observations(unfiltered_new_observations.size() - 2) =
-          observations_global(i * 2);
-      unfiltered_new_observations(unfiltered_new_observations.size() - 1) =
-          observations_global(i * 2 + 1);
-      unfiltered_new_observations_confidences.conservativeResize(
-          unfiltered_new_observations_confidences.size() + 1);
-      unfiltered_new_observations_confidences(unfiltered_new_observations_confidences.size() - 1) =
-          observations_confidences(i);
-      associations(i) = -2;  // Mark as not ready to be added to the graph
-    }
-  }
-  Eigen::VectorXd filtered_new_observations = this->_landmark_filter_->filter(
-      unfiltered_new_observations, unfiltered_new_observations_confidences);
-  if (this->_mission_ != common_lib::competition_logic::Mission::NONE &&
-      this->_mission_ != common_lib::competition_logic::Mission::SKIDPAD &&
-      this->_mission_ != common_lib::competition_logic::Mission::ACCELERATION &&
-      lap_counter_ == 0) {
-    // Set the associations to -1 for the filtered observations
-    for (int i = 0; i < filtered_new_observations.size() / 2; i++) {  // TODO: clean this up
-      for (int j = 0; j < associations.size(); j++) {
-        if (std::hypot(filtered_new_observations(i * 2) - observations_global(j * 2),
-                       filtered_new_observations(i * 2 + 1) - observations_global(j * 2 + 1)) <
-            common_lib::structures::Cone::equality_tolerance) {
-          associations(j) = -1;
-          break;
-        }
-      }
-    }
-  }
+  Eigen::VectorXd filtered_new_observations =
+      this->_landmark_filter_->filter(observations_global, observations_confidences, associations);
 
   // Loop closure detection
   LoopClosure::Result result = _loop_closure_->detect(pose, landmarks, associations, observations);
@@ -290,6 +289,7 @@ void GraphSLAMSolver::load_initial_state(const Eigen::VectorXd& map, const Eigen
   this->_pose_updater_->update_pose(pose);  // Update the pose in the pose updater
 }
 
+// TODO: maybe this be called also without timer, just for optimization to run in parallel
 void GraphSLAMSolver::_asynchronous_optimization_routine() {  // TODO: maybe one day make a copy of
                                                               // the entire solver, it is cleaner
   rclcpp::Time start_time = rclcpp::Clock().now();
@@ -302,8 +302,8 @@ void GraphSLAMSolver::_asynchronous_optimization_routine() {  // TODO: maybe one
     if (!this->_graph_slam_instance_->new_observation_factors()) {
       return;
     }
-    graph_slam_instance_copy = this->_graph_slam_instance_;
-    pose_updater_copy = std::make_shared<PoseUpdater>(*this->_pose_updater_);
+    graph_slam_instance_copy = this->_graph_slam_instance_->clone();
+    pose_updater_copy = this->_pose_updater_->clone();
   }
   {
     std::unique_lock lock(this->_mutex_);
@@ -332,12 +332,12 @@ void GraphSLAMSolver::_asynchronous_optimization_routine() {  // TODO: maybe one
                 : this->_odometry_model;
         pose_updater_copy->predict_pose(this->_motion_data_queue_.front(),
                                         motion_model_ptr);  // Predict the pose
-        this->_add_motion_data_to_graph(
-            pose_updater_copy, std::make_shared<GraphSLAMInstance>(graph_slam_instance_copy));
+        this->_add_motion_data_to_graph(pose_updater_copy, graph_slam_instance_copy);
         this->_motion_data_queue_.pop();
       } else {
         this->_add_motion_data_to_graph(
-            pose_updater_copy, std::make_shared<GraphSLAMInstance>(graph_slam_instance_copy));
+            pose_updater_copy,
+            graph_slam_instance_copy);  // To update graph pose before connecting factors
         graph_slam_instance_copy->process_observations(this->_observation_data_queue_.front());
         this->_observation_data_queue_.pop();
       }

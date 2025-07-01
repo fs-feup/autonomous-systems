@@ -3,16 +3,37 @@
 #include <map>
 
 #include "common_lib/maths/transformations.hpp"
-Eigen::VectorXd ConsecutiveCounterFilter::filter(
-    const Eigen::VectorXd& new_observations, const Eigen::VectorXd& new_observation_confidences) {
+Eigen::VectorXd ConsecutiveCounterFilter::filter(const Eigen::VectorXd& observations,
+                                                 const Eigen::VectorXd& observation_confidences,
+                                                 Eigen::VectorXi& associations) {
   if (this->_params_.minimum_observation_count_ <= 1) {
-    return new_observations;  // No filtering needed
+    return observations;  // No filtering needed
   }
+
+  std::vector<int>
+      filter_to_global_observation_map;  // TODO: change to more efficient data structure
+
+  Eigen::VectorXd unfiltered_new_observations;
+  Eigen::VectorXd unfiltered_new_observations_confidences;
+  for (int i = 0; i < associations.size(); i++) {
+    if (associations(i) < 0) {
+      unfiltered_new_observations.conservativeResize(unfiltered_new_observations.size() + 2);
+      unfiltered_new_observations(unfiltered_new_observations.size() - 2) = observations(i * 2);
+      unfiltered_new_observations(unfiltered_new_observations.size() - 1) = observations(i * 2 + 1);
+      unfiltered_new_observations_confidences.conservativeResize(
+          unfiltered_new_observations_confidences.size() + 1);
+      unfiltered_new_observations_confidences(unfiltered_new_observations_confidences.size() - 1) =
+          observation_confidences(i);
+      associations(i) = -2;  // Mark as not ready to be added to the graph
+      filter_to_global_observation_map.push_back(i);
+    }
+  }
+
   // Associate the observations that are considered new with the map stored in this filter
   Eigen::VectorXi new_associations = this->_data_association_->associate(
-      this->map, new_observations, {}, new_observation_confidences);
+      this->map, unfiltered_new_observations, {}, unfiltered_new_observations_confidences);
   const int num_landmarks = this->map.size() / 2;
-  const int num_new_observations = new_observations.size() / 2;
+  const int num_new_observations = unfiltered_new_observations.size() / 2;
 
   // Calculate which observations should be added to this filter's map and which landmarks in the
   // map were observed
@@ -25,10 +46,10 @@ Eigen::VectorXd ConsecutiveCounterFilter::filter(
     } else if (new_associations(observation_index) == -1) {
       to_be_added_to_map.conservativeResize(to_be_added_to_map.size() + 2);
       to_be_added_to_map.segment(to_be_added_to_map.size() - 2, 2) =
-          new_observations.segment(observation_index * 2, 2);
+          unfiltered_new_observations.segment(observation_index * 2, 2);
     }
   }
-  // Update counter
+  // Update counter and set filtered observations
   Eigen::VectorXd new_map;
   Eigen::VectorXi new_counter;
   Eigen::VectorXd filtered_observations;
@@ -39,7 +60,9 @@ Eigen::VectorXd ConsecutiveCounterFilter::filter(
     if (this->counter(landmark_index) >= this->_params_.minimum_observation_count_ - 1) {
       filtered_observations.conservativeResize(filtered_observations.size() + 2);
       filtered_observations.segment(filtered_observations.size() - 2, 2) =
-          new_observations.segment(was_observed_as[landmark_index] * 2, 2);
+          unfiltered_new_observations.segment(was_observed_as[landmark_index] * 2, 2);
+      associations(filter_to_global_observation_map[was_observed_as[landmark_index]]) =
+          -1;  // Mark as ready to be added to the graph
     }
     new_map.conservativeResize(new_map.size() + 2);
     new_map.segment(new_map.size() - 2, 2) = this->map.segment(landmark_index * 2, 2);

@@ -40,6 +40,7 @@ void EKFSLAMSolver::add_velocities(const common_lib::structures::Velocities& vel
 }
 
 void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::Cone>& cones) {
+  // Prepare data structures
   int num_observations = static_cast<int>(cones.size());
   std::vector<int> matched_landmarks_indices;
   Eigen::VectorXd matched_observations(0);
@@ -50,10 +51,16 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
   common_lib::conversions::cone_vector_to_eigen(cones, observations, observation_confidences);
   Eigen::VectorXd global_observations =
       common_lib::maths::local_to_global_coordinates(this->state_.segment(0, 3), observations);
+
+  // Data association
   Eigen::VectorXi associations = this->_data_association_->associate(
       this->state_.segment(3, this->state_.size() - 3), global_observations,
       this->covariance_.block(3, 3, this->state_.size() - 3, this->state_.size() - 3),
       observation_confidences);
+
+  // Perception Filter
+  Eigen::VectorXd filtered_landmarks =
+      this->_landmark_filter_->filter(global_observations, observation_confidences, associations);
   for (int i = 0; i < num_observations; ++i) {
     if (associations(i) == -2) {
       continue;
@@ -70,19 +77,17 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
       matched_observations(matched_observations.size() - 1) = observations(2 * i + 1);
     }
   }
-  Eigen::VectorXd filtered_new_landmarks =
-      this->_landmark_filter_->filter(new_landmarks, new_confidences);
-  this->_landmark_filter_->delete_landmarks(filtered_new_landmarks);
+
+  // Update Kalman Filter
   this->correct(this->state_, this->covariance_, matched_landmarks_indices, matched_observations);
   if (this->_mission_ != common_lib::competition_logic::Mission::NONE &&
       this->_mission_ != common_lib::competition_logic::Mission::SKIDPAD &&
       this->_mission_ != common_lib::competition_logic::Mission::ACCELERATION &&
       this->lap_counter_ == 0) {
-    this->state_augmentation(
-        this->state_, this->covariance_,
-        filtered_new_landmarks);  // TODO: Erro aqui, isto são coordenadas relativas
+    this->state_augmentation(this->state_, this->covariance_, new_landmarks);
     this->update_process_noise_matrix();
   }
+  this->_landmark_filter_->delete_landmarks(new_landmarks);
 }
 
 void EKFSLAMSolver::predict(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
