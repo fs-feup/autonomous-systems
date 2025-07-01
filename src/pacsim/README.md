@@ -56,3 +56,6 @@ The initial version was developed at Elbflorace by:
 * Niklas Leukroth (Track and Config file parser)
 * Sergio Antuna (Artwork)
 * Tim Hanel (3d car model integration)
+
+
+
