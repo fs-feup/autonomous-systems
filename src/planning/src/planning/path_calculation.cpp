@@ -302,6 +302,7 @@ void PathCalculation::selectInitialPath(
         }
     }
 }
+
 void PathCalculation::extendPath(
     std::vector<Point>& path,
     const std::vector<std::unique_ptr<MidPoint>>& midPoints,
@@ -329,6 +330,7 @@ void PathCalculation::extendPath(
         if (best_cost > worst_cost || best_point == nullptr || visited_midpoints.count(best_point) > 0){
             break;
         }
+        RCLCPP_WARN(rclcpp::get_logger("planning"), "Best cost: %f, Worst_cost: %f", best_cost, worst_cost);
 
         path.push_back(best_point->point);
         (void)visited_midpoints.insert(best_point);

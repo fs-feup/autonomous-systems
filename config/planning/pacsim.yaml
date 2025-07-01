@@ -6,8 +6,8 @@ planning:
   nc_distance_gain: 5.0
   nc_angle_exponent: 2.0
   nc_distance_exponent: 1.0
-  nc_max_cost: 60.0
-  nc_lookback_points: 30
+  nc_max_cost: 30.0
+  nc_lookback_points: 10
   nc_search_depth: 4
   nc_max_points: 400
   nc_tolerance: 1 
@@ -29,7 +29,7 @@ planning:
   minimum_velocity: 2.0
   braking_acceleration: -1.0
   normal_acceleration: 4.0
-  use_velocity_planning: true
+  use_velocity_planning: false
 
 
 # Parameters for skidpad

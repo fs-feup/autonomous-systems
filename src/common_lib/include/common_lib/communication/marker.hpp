@@ -84,6 +84,7 @@ visualization_msgs::msg::MarkerArray marker_array_from_structure_array(
     marker.id = static_cast<int>(i);
     marker.type = marker_shape_map.at(shape);
     marker.action = action;
+    marker.lifetime = rclcpp::Duration::from_seconds(0.2);
 
     marker.pose.orientation.x = 0.0;
     marker.pose.orientation.y = 0.0;
