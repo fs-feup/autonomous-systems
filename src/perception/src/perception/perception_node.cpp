@@ -149,7 +149,7 @@ PerceptionParameters Perception::load_config() {
   eval_params->height_validator =
       std::make_shared<HeightValidator>(min_height, large_max_height, small_max_height, height_cap);
   eval_params->cylinder_validator =
-      std::make_shared<CylinderValidator>(0.228, 0.325, 0.285, 0.505, out_distance_cap);
+      std::make_shared<CylinderValidator>(0.23, 0.33, 0.228, 0.325, out_distance_cap);
   eval_params->deviation_validator =
       std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z);
   eval_params->displacement_validator =
