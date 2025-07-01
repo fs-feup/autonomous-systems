@@ -109,8 +109,8 @@ void InspectionMission::inspection_script() {
   double average_rpm = _motor_rpm_ / 4;
   RCLCPP_DEBUG(this->get_logger(), "average_rpm %f", average_rpm);
   double current_velocity = _inspection_object_.rpm_to_velocity(average_rpm);
-  if (in_jacks_){
-    if ((current_velocity >= 0.8 * _inspection_object_.ideal_velocity_) && !is_velocity_reached_) {
+  if (!in_jacks_){
+    if ((current_velocity >= 0.8 * _inspection_object_.ideal_velocity_)) {
       is_velocity_reached_ = true;
     }
   }
@@ -121,7 +121,7 @@ void InspectionMission::inspection_script() {
                                    ? _inspection_object_.calculate_steering(elapsed_time)
                                    : 0;
 
-  if (!is_velocity_reached_) {
+  if (!is_velocity_reached_ && !in_jacks_) {
     calculated_steering = 0.0;
   }
 
@@ -183,11 +183,13 @@ void InspectionMission::publish_controls(double throttle, double steering) const
 void InspectionMission::end_of_mission() {
   RCLCPP_INFO(this->get_logger(), "Sending ending signal...");
   if (this->_mission_ == common_lib::competition_logic::Mission::INSPECTION) {
+    RCLCPP_INFO(this->get_logger(), "Sending finished");
     this->_finish_client_->async_send_request(
         std::make_shared<std_srvs::srv::Trigger::Request>(),
         std::bind(&InspectionMission::handle_end_of_mission_response, this, std::placeholders::_1));
   } else if (this->_mission_ == common_lib::competition_logic::Mission::EBS_TEST) {
-    this->_emergency_client_->async_send_request(
+    RCLCPP_INFO(this->get_logger(), "Sending Emergency");    
+this->_emergency_client_->async_send_request(
         std::make_shared<std_srvs::srv::Trigger::Request>(),
         std::bind(&InspectionMission::handle_end_of_mission_response, this, std::placeholders::_1));
   } else {

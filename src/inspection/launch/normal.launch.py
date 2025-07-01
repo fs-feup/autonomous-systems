@@ -12,7 +12,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "max_angle",
                 description="max angle for the turning of the inspection script",
-                default_value="0.3491",
+                default_value="0.33",
             ),  # Pi / 6.0, rad; 20 degrees in rad
             DeclareLaunchArgument(
                 "inspection_ideal_velocity", default_value="1.0"
@@ -29,7 +29,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "inspection_gain",
                 description="Gains for longitudinal P controllers of inspection",
-                default_value="2.0",
+                default_value="0.5",
             ),
             DeclareLaunchArgument(
                 "ebs_test_gain",
@@ -45,8 +45,8 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "in_jacks",
                 description="Whether the car is in jacks or not",
-                default_value="False",
-            )
+                default_value="True",
+            ),
             Node(
                 package="inspection",
                 executable="inspection",
