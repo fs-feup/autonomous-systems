@@ -96,7 +96,9 @@ PerceptionParameters Perception::load_config() {
       {static_cast<uint8_t>(Mission::ACCELERATION), acceleration_trimming},
       {static_cast<uint8_t>(Mission::SKIDPAD), skidpad_trimming},
       {static_cast<uint8_t>(Mission::TRACKDRIVE), cut_trimming},
-      {static_cast<uint8_t>(Mission::AUTOCROSS), cut_trimming}};
+      {static_cast<uint8_t>(Mission::AUTOCROSS), cut_trimming},
+      {static_cast<uint8_t>(Mission::EBS_TEST), cut_trimming},
+      {static_cast<uint8_t>(Mission::INSPECTION), cut_trimming}};
 
   params.fov_trim_map_ =
       std::make_shared<std::unordered_map<uint8_t, std::shared_ptr<FovTrimming>>>(

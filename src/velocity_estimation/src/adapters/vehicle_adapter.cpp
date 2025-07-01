@@ -31,6 +31,11 @@ void VehicleAdapter::wss_callback(const custom_interfaces::msg::WheelRPM& fl_whe
   wss_data.rr_rpm = 0;
   wss_data.fl_rpm = fl_wheel_rpm_msg.fl_rpm;
   wss_data.fr_rpm = fr_wheel_rpm_msg.fr_rpm;
+  if (wss_data.fl_rpm < wss_data.fr_rpm - 40) {
+    wss_data.fl_rpm = this->last_decent_fl_wss_reading;
+  } else {
+    this->last_decent_fl_wss_reading = wss_data.fl_rpm;
+  }
   if (fl_wheel_rpm_msg.fl_rpm > 800 || fr_wheel_rpm_msg.fr_rpm > 800) {
     RCLCPP_WARN(this->get_logger(), "Wheel RPM is too high");
     return;
@@ -46,7 +51,7 @@ void VehicleAdapter::imu_callback(
     const geometry_msgs::msg::Vector3Stamped::SharedPtr& free_acceleration_msg,
     const geometry_msgs::msg::Vector3Stamped::SharedPtr& angular_velocity_msg) {
   common_lib::sensor_data::ImuData imu_data;
-  imu_data.rotational_velocity = angular_velocity_msg->vector.z;
+  imu_data.rotational_velocity = -(angular_velocity_msg->vector.z + 0.001838);
   imu_data.acceleration_x = free_acceleration_msg->vector.x;
   imu_data.acceleration_y = free_acceleration_msg->vector.y;
   this->_velocity_estimator_->imu_callback(imu_data);
