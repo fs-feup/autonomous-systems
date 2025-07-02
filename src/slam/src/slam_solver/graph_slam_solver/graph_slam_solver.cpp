@@ -224,9 +224,8 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Associations calculated");
 
   // Landmark filtering
-  // Eigen::VectorXd filtered_new_observations =
-  //     this->_landmark_filter_->filter(observations_global, observations_confidences,
-  //     associations);
+  Eigen::VectorXd filtered_new_observations =
+      this->_landmark_filter_->filter(observations_global, observations_confidences, associations);
 
   // Loop closure detection
   LoopClosure::Result result = _loop_closure_->detect(pose, landmarks, associations, observations);

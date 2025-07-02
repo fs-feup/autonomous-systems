@@ -31,13 +31,11 @@ void OdometryBasedPoseUpdater::predict_pose(const MotionData& motion_data,
     this->_received_first_odometry_ = true;
     return;
   }
-  double delta = (motion_data.timestamp_ - this->_last_pose_update_).seconds() +
-                 (motion_data.timestamp_ - this->_last_pose_update_).nanoseconds() / 1000000000;
   Eigen::Vector3d pose_difference = motion_model->get_pose_difference(
-      this->_last_odometry_pose_, *(motion_data.motion_data_), delta);
+      this->_last_odometry_pose_, *(motion_data.motion_data_), 0.0);
   this->_accumulated_pose_difference_ += pose_difference;
   this->_last_odometry_pose_ = *(motion_data.motion_data_);
   this->_last_pose_ =
-      motion_model->get_next_pose(this->_last_pose_, *(motion_data.motion_data_), delta);
+      motion_model->get_next_pose(this->_last_pose_, *(motion_data.motion_data_), 0.0);
   this->_last_pose_update_ = motion_data.timestamp_;
 }

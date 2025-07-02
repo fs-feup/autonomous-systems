@@ -95,13 +95,13 @@ void SLAMNode::init() {
 void SLAMNode::_perception_subscription_callback(const custom_interfaces::msg::ConeArray &msg) {
   auto const &cone_array = msg.cone_array;
 
-  RCLCPP_DEBUG(this->get_logger(), "SUB - Perception: %ld cones", cone_array.size());
+  RCLCPP_INFO(this->get_logger(), "SUB - Perception: %ld cones received", cone_array.size());
 
-  if (!this->_go_ || this->_mission_ == common_lib::competition_logic::Mission::NONE) {
-    RCLCPP_INFO(this->get_logger(), "ATTR - Mission not started yet. Mission: %d - Go: %d ",
-                static_cast<int>(this->_mission_), this->_go_);
-    return;
-  }
+  // if (!this->_go_ || this->_mission_ == common_lib::competition_logic::Mission::NONE) {
+  //   RCLCPP_INFO(this->get_logger(), "ATTR - Mission not started yet. Mission: %d - Go: %d ",
+  //               static_cast<int>(this->_mission_), this->_go_);
+  //   return;
+  // }
 
   rclcpp::Time start_time = this->get_clock()->now();
 

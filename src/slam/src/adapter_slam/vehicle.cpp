@@ -23,6 +23,9 @@ VehicleAdapter::VehicleAdapter(const SLAMParameters& params) : SLAMNode(params) 
           });
   _finished_client_ = this->create_client<std_srvs::srv::Trigger>("/as_srv/mission_finished");
 
+  RCLCPP_DEBUG(this->get_logger(), "VehicleAdapter initialized, topic for lidar odometry: %s",
+               params.lidar_odometry_topic_.c_str());
+
   this->_lidar_odometry_subscription_ = this->create_subscription<nav_msgs::msg::Odometry>(
       params.lidar_odometry_topic_, 1,
       std::bind(&VehicleAdapter::_lidar_odometry_subscription_callback, this,
@@ -79,6 +82,9 @@ void VehicleAdapter::_lidar_odometry_subscription_callback(const nav_msgs::msg::
     mat.getRPY(roll, pitch, yaw);
     pose.orientation = yaw;  // Use yaw as the orientation
     pose.timestamp = msg.header.stamp;
+
+    solver_ptr->add_odometry(pose);
+    this->_vehicle_pose_ = this->_slam_solver_->get_pose_estimate();
   }
 
   this->_publish_vehicle_pose();
