@@ -30,17 +30,19 @@ std::pair<double, PathCalculation::MidPoint*> PathCalculation::dfs_cost(int dept
 
     // Distance calculation
     double distance = std::sqrt(std::pow(current->point.x() - next->point.x(), 2) +
-                           std::pow(current->point.y() - next->point.y(), 2));
+                                std::pow(current->point.y() - next->point.y(), 2));
 
     // Angle calculation
-    double angle_with_previous =
-        std::atan2(current->point.y() - previous->point.y(), current->point.x() - previous->point.x());
+    double angle_with_previous = std::atan2(current->point.y() - previous->point.y(),
+                                            current->point.x() - previous->point.x());
     double angle_with_next =
         std::atan2(next->point.y() - current->point.y(), next->point.x() - current->point.x());
 
     // Normalize angle to be between 0 and π
     double angle = std::abs(angle_with_next - angle_with_previous);
-    if (angle > M_PI) {angle = 2 * M_PI - angle;}
+    if (angle > M_PI) {
+      angle = 2 * M_PI - angle;
+    }
 
     // Local cost calculation
     double local_cost =
@@ -99,8 +101,8 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(const std::vector<C
   return result;
 }
 
-std::vector<std::unique_ptr<PathCalculation::MidPoint>> PathCalculation::createMidPointsFromTriangulation(
-    const std::vector<Cone>& cone_array) {
+std::vector<std::unique_ptr<PathCalculation::MidPoint>>
+PathCalculation::createMidPointsFromTriangulation(const std::vector<Cone>& cone_array) {
   std::vector<std::unique_ptr<MidPoint>> mid_points;
   DT dt;
 
@@ -118,14 +120,13 @@ std::vector<std::unique_ptr<PathCalculation::MidPoint>> PathCalculation::createM
         MidPoint{Point((p1.x() + p2.x()) / 2, (p1.y() + p2.y()) / 2), {}});
 
     double dist = std::sqrt(std::pow(p1.x() - p2.x(), 2) + std::pow(p1.y() - p2.y(), 2));
-    if (dist > config_.minimum_cone_distance_) { // constrained by the rules (cones 3m apart)
+    if (dist > config_.minimum_cone_distance_) {  // constrained by the rules (cones 3m apart)
       mid_points.push_back(std::move(midPoint));
     }
   }
 
   return mid_points;
 }
-
 
 void PathCalculation::establishMidPointConnections(
     const std::vector<std::unique_ptr<MidPoint>>& mid_points) {
@@ -142,7 +143,9 @@ void PathCalculation::establishMidPointConnections(
         pq(cmp);
 
     for (const auto& q : mid_points) {
-      if (p.get() == q.get()) {continue;}
+      if (p.get() == q.get()) {
+        continue;
+      }
 
       double dist = std::sqrt(std::pow(p->point.x() - q->point.x(), 2) +
                               std::pow(p->point.y() - q->point.y(), 2));
@@ -151,7 +154,9 @@ void PathCalculation::establishMidPointConnections(
 
     // Take top 5 close points as pointers
     for (int i = 0; i < 6; i++) {
-      if (pq.empty()) {break;}
+      if (pq.empty()) {
+        break;
+      }
       p->close_points.push_back(pq.top().second);
       pq.pop();
     }
@@ -170,65 +175,59 @@ PathCalculation::findPathStartPoints(const std::vector<std::unique_ptr<MidPoint>
                                      const common_lib::structures::Pose& anchor_pose) {
   std::pair<MidPoint*, MidPoint*> result{nullptr, nullptr};
 
-  // Find the first point closest to the anchor pose
-  MidPoint* first = nullptr;
-  double min_dist = std::numeric_limits<double>::max();
+  auto cmp = [](const std::pair<double, MidPoint*>& distance_to_midpoint1,
+                const std::pair<double, MidPoint*>& distance_to_midpoint2) {
+    return distance_to_midpoint1.first > distance_to_midpoint2.first;
+  };
+  std::priority_queue<std::pair<double, MidPoint*>, std::vector<std::pair<double, MidPoint*>>,
+                      decltype(cmp)>
+      pq(cmp);
+
+  // Get the 5 closest points to the car (regardless of direction)
   for (const auto& p : mid_points) {
     double dx = p->point.x() - anchor_pose.position.x;
     double dy = p->point.y() - anchor_pose.position.y;
-    double dist = std::sqrt(dx * dx + dy * dy);
-    if (dist < min_dist) {
-      min_dist = dist;
-      first = p.get();
-    }
+    double dist = std::sqrt(std::pow(dx, 2) + std::pow(dy, 2));
+    pq.push({dist, p.get()});
   }
 
-  if (first != nullptr) {
-    // Project a point based on pose orientation
-    MidPoint projected = {
-      Point(first->point.x() + std::cos(anchor_pose.orientation) * config_.projected_point_distance_,
-            first->point.y() + std::sin(anchor_pose.orientation) * config_.projected_point_distance_),
-      {}
-    };
+  // Extract the 5 closest points
+  std::vector<MidPoint*> closest_points;
+  for (int i = 0; i < 5 && !pq.empty(); i++) {
+    closest_points.push_back(pq.top().second);
+    pq.pop();
+  }
 
-    // Find second point based on projected point
-    MidPoint* second = findSecondPoint(mid_points, first, projected, anchor_pose);
-    result = {first, second};
+  double car_direction_x = std::cos(anchor_pose.orientation);
+  double car_direction_y = std::sin(anchor_pose.orientation);
+  double best_cost = this->config_.max_cost_ * this->config_.search_depth_;
+
+  // For each of the 5 closest points (potential first points)
+  for (MidPoint* first : closest_points) {
+    // For each of their close points (potential second points)
+    for (MidPoint* second : first->close_points) {
+      // Check if the second point is in front of the first point relative to car orientation
+      double dx = second->point.x() - first->point.x();
+      double dy = second->point.y() - first->point.y();
+      
+      // Dot product to check if second point is in the direction of car orientation from first point
+      if ((dx * car_direction_x + dy * car_direction_y) <= 0.0) {
+        continue;
+      }
+
+      // Run DFS from first->second and get the cost
+      auto [cost, _] = dfs_cost(this->config_.search_depth_, first, second, this->config_.max_cost_);
+
+      // Update best result if this path has lower cost
+      if (cost < best_cost) {
+        result.first = first;
+        result.second = second;
+        best_cost = cost;
+      }
+    }
   }
 
   return result;
-}
-
-
-PathCalculation::MidPoint* PathCalculation::findSecondPoint(
-    const std::vector<std::unique_ptr<MidPoint>>& mid_points, const MidPoint* first,
-    const MidPoint& projected, const common_lib::structures::Pose& anchor_pose) {
-  MidPoint* second = nullptr;
-  double min_dist = std::numeric_limits<double>::max();
-
-  // Calculate the car's direction vector
-  double car_direction_x = std::cos(anchor_pose.orientation);
-  double car_direction_y = std::sin(anchor_pose.orientation);
-
-  for (auto& p : mid_points) {
-    if (p.get() == first) {continue;}
-
-    // Compute vector from the first point to this candidate point
-    double dx = p->point.x() - first->point.x();
-    double dy = p->point.y() - first->point.y();
-
-    // Dot product checks whether the candidate is in front of the first point
-    if ((dx * car_direction_x + dy * car_direction_y) <= 0.0) {continue;}  // Skip points not in front
-
-    double dist = std::sqrt(std::pow(p->point.x() - projected.point.x(), 2) +
-                       std::pow(p->point.y() - projected.point.y(), 2));
-    if (dist < min_dist) {
-      min_dist = dist;
-      second = p.get();
-    }
-  }
-
-  return second;
 }
 
 std::vector<PathCalculation::MidPoint*> PathCalculation::generatePath(MidPoint* first,
@@ -241,8 +240,8 @@ std::vector<PathCalculation::MidPoint*> PathCalculation::generatePath(MidPoint* 
   while (true) {
     double worst_cost = this->config_.max_cost_ * this->config_.search_depth_;
 
-    auto [best_cost, best_point] = dfs_cost(
-        this->config_.search_depth_, path[path.size() - 2], path.back(), this->config_.max_cost_);
+    auto [best_cost, best_point] = dfs_cost(this->config_.search_depth_, path[path.size() - 2],
+                                            path.back(), this->config_.max_cost_);
 
     if (best_cost > worst_cost) {
       break;
@@ -351,9 +350,9 @@ std::vector<PathPoint> PathCalculation::skidpad_path(std::vector<Cone>& cone_arr
     // sort the cones by distance
     std::sort(cone_array.begin(), cone_array.end(), [&pose](Cone& a, Cone& b) {
       return std::sqrt(std::pow((a.position.x - pose.position.x), 2) +
-                  std::pow((a.position.y - pose.position.y), 2)) <
+                       std::pow((a.position.y - pose.position.y), 2)) <
              std::sqrt(std::pow((b.position.x - pose.position.x), 2) +
-                  std::pow((b.position.y - pose.position.y), 2));
+                       std::pow((b.position.y - pose.position.y), 2));
     });
 
     // get the middle point between the two closest points
