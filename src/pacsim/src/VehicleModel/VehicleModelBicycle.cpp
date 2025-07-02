@@ -242,6 +242,31 @@ void VehicleModelBicycle::calculateNormalForces(double& Fz_Front, double& Fz_Rea
   Fz_Rear = std::max(0.0, (m * GRAVITY + downforce) * 0.5 * lf / l);
 }
 
+
+/*
+Currently this function depends on the longitudinal forces applied on the wheels and therefore can only be called after calling calculateLongitudinalForces.
+This can be changed but it would imply calling the calculation of longitudinal forces twice.
+
+Also note that this only accounts for longitudinal weight transfer, because we are using a bycicle model , lateral weight transfer cannot be applied as we only have one wheel in each axle.
+
+To apply lateral weight transfer it would be necessary to account for each of the 4 wheels seperately.
+*/
+void VehicleModelBicycle::calculateWeightTransfer(double& Fz_Front, double& Fz_Rear , double& Fx_FL , double& Fx_FR , double& Fx_RL , double& Fx_RR) const {
+    // Calculate total longitudinal force (traction + braking)
+    double Fx_total = Fx_FL + Fx_FR + Fx_RL + Fx_RR;
+
+    double Hm = 0.245; // In meters
+
+    double l = lf + lr; // wheelbase
+    double deltaW = (Fx_total * Hm) / l;
+
+    // Positive Fx_total (acceleration): weight shifts to rear
+    // Negative Fx_total (braking): weight shifts to front
+    Fz_Front -= deltaW;
+    Fz_Rear  += deltaW;
+}
+
+
 void VehicleModelBicycle::calculateSlipAngles(double& kappaFront, double& kappaRear) const {
   constexpr double eps = 0.00001;  // Prevent division by zero
 
@@ -399,6 +424,9 @@ Eigen::Vector3d VehicleModelBicycle::getDynamicStates(double dt) {
   // Calculate longitudinal forces
   double Fx_FL, Fx_FR, Fx_RL, Fx_RR;
   calculateLongitudinalForces(Fx_FL, Fx_FR, Fx_RL, Fx_RR);
+
+  // Calculate weight transfer based on longitudinal forces -> this works because fz front and rear were calculate above
+  calculateWeightTransfer(Fz_Front, Fz_Rear, Fx_FL, Fx_FR, Fx_RL, Fx_RR);
 
   // Calculate slip angles
   double kappaFront, kappaRear;
