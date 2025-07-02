@@ -22,9 +22,9 @@
  */
 class VehicleAdapter : public VENode {
   message_filters::Subscriber<custom_interfaces::msg::WheelRPM>
-      _rl_wheel_rpm_subscription_;  ///< Subscriber for rl wheel rpm
+      _fl_wheel_rpm_subscription_;  ///< Subscriber for fl wheel rpm
   message_filters::Subscriber<custom_interfaces::msg::WheelRPM>
-      _rr_wheel_rpm_subscription_;  ///< Subscriber for rr wheel rpm
+      _fr_wheel_rpm_subscription_;  ///< Subscriber for fr wheel rpm
 
   message_filters::Subscriber<geometry_msgs::msg::Vector3Stamped> _free_acceleration_subscription_;
   message_filters::Subscriber<geometry_msgs::msg::Vector3Stamped> _angular_velocity_subscription_;
@@ -40,6 +40,10 @@ class VehicleAdapter : public VENode {
 
   rclcpp::Subscription<custom_interfaces::msg::SteeringAngle>::SharedPtr _steering_angle_sub_;
 
+  rclcpp::Subscription<custom_interfaces::msg::WheelRPM>::SharedPtr _resolver_sub_;
+
+  double last_decent_fl_wss_reading = 0;
+
 public:
   explicit VehicleAdapter(const VEParameters& parameters);
   /**
@@ -54,5 +58,14 @@ public:
    */
   void wss_callback(const custom_interfaces::msg::WheelRPM& rl_wheel_rpm_msg,
                     const custom_interfaces::msg::WheelRPM& rr_wheel_rpm_msg);
+
+  /**
+   * @brief Callback for the subscription of the steering angle sensor
+   */
   void steering_angle_callback(const custom_interfaces::msg::SteeringAngle msg);
+
+  /**
+   * @brief Callback for the subscription of the resolver which measures the motor RPM
+   */
+  void resolver_callback(custom_interfaces::msg::WheelRPM msg);
 };

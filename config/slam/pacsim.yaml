@@ -11,7 +11,7 @@ slam:
   observation_y_noise: 0.01 # sigma of the noise for cone positions in y (bearing in Graph SLAM)
   velocity_x_noise: 0.2 # sigma of the noise for the velocity in x
   velocity_y_noise: 0.2 # sigma of the noise for the velocity in y
-  angular_velocity_noise: 0.3 # sigma of the noise for the angular velocity
+  angular_velocity_noise: 0.1 # sigma of the noise for the angular velocity
   pose_x_initial_noise: 0.1 # sigma of the noise for the initial pose in x
   pose_y_initial_noise: 0.1 # sigma of the noise for the initial pose in y
   pose_theta_initial_noise: 0.1 # sigma of the noise for the initial pose in yaw

@@ -8,34 +8,39 @@ VehicleAdapter::VehicleAdapter(const VEParameters& parameters) : VENode(paramete
       xsens_imu_policy, _free_acceleration_subscription_, _angular_velocity_subscription_);
   this->_xsens_imu_sync_->registerCallback(&VehicleAdapter::imu_callback, this);
 
-  this->_rl_wheel_rpm_subscription_.subscribe(this, "/vehicle/rl_rpm");
-  this->_rr_wheel_rpm_subscription_.subscribe(this, "/vehicle/rr_rpm");
+  this->_fl_wheel_rpm_subscription_.subscribe(this, "/vehicle/fl_rpm");
+  this->_fr_wheel_rpm_subscription_.subscribe(this, "/vehicle/fr_rpm");
 
   const WheelSSPolicy policy(10);
   this->_wss_sync_ = std::make_shared<message_filters::Synchronizer<WheelSSPolicy>>(
-      policy, _rl_wheel_rpm_subscription_, _rr_wheel_rpm_subscription_);
+      policy, _fl_wheel_rpm_subscription_, _fr_wheel_rpm_subscription_);
   this->_wss_sync_->registerCallback(&VehicleAdapter::wss_callback, this);
 
   this->_steering_angle_sub_ = this->create_subscription<custom_interfaces::msg::SteeringAngle>(
       "/vehicle/bosch_steering_angle", 1,
       std::bind(&VehicleAdapter::steering_angle_callback, this, std::placeholders::_1));
+  this->_resolver_sub_ = this->create_subscription<custom_interfaces::msg::WheelRPM>(
+      "/vehicle/motor_rpm", 1,
+      std::bind(&VehicleAdapter::resolver_callback, this, std::placeholders::_1));
 }
 
-void VehicleAdapter::wss_callback(const custom_interfaces::msg::WheelRPM& rl_wheel_rpm_msg,
-                                  const custom_interfaces::msg::WheelRPM& rr_wheel_rpm_msg) {
+void VehicleAdapter::wss_callback(const custom_interfaces::msg::WheelRPM& fl_wheel_rpm_msg,
+                                  const custom_interfaces::msg::WheelRPM& fr_wheel_rpm_msg) {
   common_lib::sensor_data::WheelEncoderData wss_data;
-  wss_data.rl_rpm = rl_wheel_rpm_msg.rl_rpm;
-  wss_data.rr_rpm = rr_wheel_rpm_msg.rr_rpm;
-  wss_data.fl_rpm = rl_wheel_rpm_msg.rl_rpm;
-  wss_data.fr_rpm = rr_wheel_rpm_msg.rr_rpm;
-  if (rr_wheel_rpm_msg.rr_rpm > 1000 || rr_wheel_rpm_msg.rr_rpm > 1000) {
+  wss_data.rl_rpm = 0;
+  wss_data.rr_rpm = 0;
+  wss_data.fl_rpm = fl_wheel_rpm_msg.fl_rpm;
+  wss_data.fr_rpm = fr_wheel_rpm_msg.fr_rpm;
+  if (wss_data.fl_rpm < wss_data.fr_rpm - 40) {
+    wss_data.fl_rpm = this->last_decent_fl_wss_reading;
+  } else {
+    this->last_decent_fl_wss_reading = wss_data.fl_rpm;
+  }
+  if (fl_wheel_rpm_msg.fl_rpm > 800 || fr_wheel_rpm_msg.fr_rpm > 800) {
     RCLCPP_WARN(this->get_logger(), "Wheel RPM is too high");
     return;
   }
   this->_velocity_estimator_->wss_callback(wss_data);
-  this->_velocity_estimator_->motor_rpm_callback(
-      (rl_wheel_rpm_msg.rl_rpm + rr_wheel_rpm_msg.rr_rpm) * 0.5 *
-      this->_parameters_.car_parameters_.gear_ratio);  // simulate resolver data
 }
 
 void VehicleAdapter::steering_angle_callback(const custom_interfaces::msg::SteeringAngle msg) {
@@ -46,9 +51,13 @@ void VehicleAdapter::imu_callback(
     const geometry_msgs::msg::Vector3Stamped::SharedPtr& free_acceleration_msg,
     const geometry_msgs::msg::Vector3Stamped::SharedPtr& angular_velocity_msg) {
   common_lib::sensor_data::ImuData imu_data;
-  imu_data.rotational_velocity = angular_velocity_msg->vector.z;
+  imu_data.rotational_velocity = -(angular_velocity_msg->vector.z + 0.001838);
   imu_data.acceleration_x = free_acceleration_msg->vector.x;
   imu_data.acceleration_y = free_acceleration_msg->vector.y;
   this->_velocity_estimator_->imu_callback(imu_data);
   this->publish_velocities();
+}
+
+void VehicleAdapter::resolver_callback(custom_interfaces::msg::WheelRPM msg) {
+  this->_velocity_estimator_->motor_rpm_callback(msg.rr_rpm);
 }

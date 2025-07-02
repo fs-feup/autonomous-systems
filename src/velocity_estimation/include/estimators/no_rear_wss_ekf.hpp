@@ -14,10 +14,10 @@
 #include "motion_lib/s2v_model/map.hpp"
 #include "motion_lib/vel_process_model/map.hpp"
 
-class EKF : public VelocityEstimator {
+class NoRearWSSEKF : public VelocityEstimator {
   rclcpp::Time _last_update_;
   Eigen::Vector3d _state_ = Eigen::Vector3d::Zero();
-  Eigen::Matrix3d _covariance_ = Eigen::Matrix3d::Identity();
+  Eigen::Matrix3d _covariance_ = Eigen::Matrix3d::Identity() * 0.05;
   Eigen::Matrix3d _process_noise_matrix_;
   Eigen::MatrixXd _wheels_measurement_noise_matrix_;
   Eigen::MatrixXd _imu_measurement_noise_matrix_;
@@ -76,7 +76,7 @@ class EKF : public VelocityEstimator {
                    common_lib::sensor_data::ImuData& imu_data);
 
 public:
-  EKF(const VEParameters& params);
+  NoRearWSSEKF(const VEParameters& params);
   /**
    * @brief Callback function for the IMU data that should be called by adapters when new IMU data
    * is available.

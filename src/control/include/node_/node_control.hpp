@@ -25,6 +25,7 @@ struct ControlParameters {
   bool using_simulated_velocities_;
   bool use_simulated_planning_;
   double lookahead_gain_;
+  double lookahead_minimum_;
   double pid_kp_;
   double pid_ki_;
   double pid_kd_;

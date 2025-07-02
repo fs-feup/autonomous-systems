@@ -247,3 +247,17 @@ void GraphSLAMInstance::optimize() {
       this->_factor_graph_, this->_graph_values_, this->_pose_counter_, this->_landmark_counter_);
   this->_new_observation_factors_ = false;
 }
+
+void GraphSLAMInstance::lock_landmarks(double locked_landmark_noise) {
+  for (unsigned int i = 1; i < this->_landmark_counter_; i++) {
+    gtsam::Symbol landmark_symbol('l', i);
+    if (this->_graph_values_.exists(landmark_symbol)) {
+      gtsam::Point2 landmark = this->_graph_values_.at<gtsam::Point2>(landmark_symbol);
+      const gtsam::noiseModel::Diagonal::shared_ptr landmark_noise =
+          gtsam::noiseModel::Diagonal::Sigmas(
+              gtsam::Vector2(locked_landmark_noise, locked_landmark_noise));
+      this->_factor_graph_.add(
+          gtsam::PriorFactor<gtsam::Point2>(landmark_symbol, landmark, landmark_noise));
+    }
+  }
+}
