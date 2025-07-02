@@ -102,14 +102,11 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
 
         Point car_point(pose.position.x, pose.position.y);
 
+        int max_points = config_.max_points_;
     
 
         path_update_counter_++;
-        if (path_update_counter_ >= config_.reset_global_path_) {
-            global_path_.clear();
-            path_update_counter_ = 0;
-            RCLCPP_INFO(rclcpp::get_logger("planning"), "Global path reset");
-        }
+       
         // Find the closest point in the path to the car
         int cutoff_index = -1;
         double min_dist = std::numeric_limits<double>::max();
@@ -130,11 +127,18 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
         if (cutoff_index != -1 && cutoff_index > config_.lookback_points_) {
             (void)path_to_car.insert(path_to_car.end(), global_path_.begin(), global_path_.begin() + cutoff_index - config_.lookback_points_);
         }
+        if (path_update_counter_ >= config_.reset_global_path_) {
+            max_points = path_to_car.size() + config_.max_points_;
+            path_to_car.clear();
+            global_path_.clear();
+            path_update_counter_ = 0;
+            RCLCPP_INFO(rclcpp::get_logger("planning"), "Global path reset");
+        }
 
-
+        
         std::unordered_set<MidPoint*> visited_midpoints;
         selectInitialPath(path, midPoints, pose, point_to_midpoint, visited_midpoints, discarded_cones);
-        extendPath(path, midPoints, point_to_midpoint, visited_midpoints, discarded_cones);
+        extendPath(path, midPoints, point_to_midpoint, visited_midpoints, discarded_cones, max_points);
 
         std::vector<PathPoint> path_points;
         for (const auto& point : path) {   if (path.size() > 2) {
@@ -307,7 +311,8 @@ void PathCalculation::extendPath(
     const std::vector<std::unique_ptr<MidPoint>>& midPoints,
     const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
     std::unordered_set<MidPoint*>& visited_midpoints,
-    std::unordered_set<Cone*>& discarded_cones
+    std::unordered_set<Cone*>& discarded_cones,
+    int max_points
 ) {
     int n_points = 0;
 
@@ -333,7 +338,7 @@ void PathCalculation::extendPath(
         path.push_back(best_point->point);
         (void)visited_midpoints.insert(best_point);
         n_points++;
-        if (n_points > config_.max_points_){
+        if (n_points > max_points){
             break;
         }
 

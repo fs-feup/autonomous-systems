@@ -209,7 +209,8 @@ public:
     const std::vector<std::unique_ptr<MidPoint>>& midPoints,
     const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
     std::unordered_set<MidPoint*>& visited_midpoints,
-    std::unordered_set<Cone*>& discarded_cones
+    std::unordered_set<Cone*>& discarded_cones,
+    int max_points
   );
 
   void discard_cones_along_path(
