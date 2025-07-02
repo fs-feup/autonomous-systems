@@ -159,19 +159,6 @@ public:
       const common_lib::structures::Pose& anchor_pose);
 
   /**
-   * @brief Find the second point for the path based on the first point and projection
-   *
-   * @param mid_points Vector of available midpoints
-   * @param first The first point of the path
-   * @param projected The projected point based on vehicle orientation
-   * @param anchor_pose The anchor pose for reference
-   * @return MidPoint* The second point for the path
-   */
-  MidPoint* findSecondPoint(const std::vector<std::unique_ptr<MidPoint>>& mid_points,
-                            const MidPoint* first, const MidPoint& projected,
-                            const common_lib::structures::Pose& anchor_pose);
-
-  /**
    * @brief Generate a path for skidpad course
    *
    * @param cone_array The array of cones representing the track
