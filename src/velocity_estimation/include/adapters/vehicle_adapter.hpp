@@ -43,6 +43,8 @@ class VehicleAdapter : public VENode {
   rclcpp::Subscription<custom_interfaces::msg::WheelRPM>::SharedPtr _resolver_sub_;
 
   double last_decent_fl_wss_reading = 0;
+  double average_imu_bias = 0.0;
+  int number_of_imu_readings = 0;
 
 public:
   explicit VehicleAdapter(const VEParameters& parameters);
