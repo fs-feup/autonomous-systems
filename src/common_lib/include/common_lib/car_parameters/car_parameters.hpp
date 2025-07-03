@@ -18,6 +18,7 @@ struct CarParameters {
   double cog_height = 0.5;
   double lift_coefficient = -0.86;
   double drag_coefficient = 0.73;
+  double aero_side_force_coefficient = 0.0;
   double aero_balance_front = 0.5;
   double frontal_area = 0.44;
   double mass = 145.0;

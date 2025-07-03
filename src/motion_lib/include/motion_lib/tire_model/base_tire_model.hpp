@@ -1,8 +1,12 @@
 #pragma once
 
 #include "common_lib/car_parameters/car_parameters.hpp"
-
+/**
+ * @brief Class used to model tires. Currently used to model tire forces based on slip.
+ *
+ */
 class TireModel {
+protected:
   std::shared_ptr<common_lib::car_parameters::CarParameters> car_parameters_;
 
 public:
@@ -10,7 +14,8 @@ public:
       : car_parameters_(
             std::make_shared<common_lib::car_parameters::CarParameters>(car_parameters)) {}
   /**
-   * @brief Calculate the tire forces based on the tire model
+   * @brief Calculate the forces acting in a tire based on the tire characteristics and dynamic
+   * state.
    *
    * @param slip_angle Slip angle of the tire in radians
    * @param slip_ratio Slip ratio of the tire

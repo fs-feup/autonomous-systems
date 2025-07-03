@@ -32,6 +32,7 @@ set(IMPLEMENTATION_FILES
   src/v2p_models/constant_velocity_turnrate_model.cpp
   src/aero_model/default_aero_model.cpp
   src/tire_model/pacejka_combined_slip.cpp
+  src/steering_model/parallel_front_steering.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})

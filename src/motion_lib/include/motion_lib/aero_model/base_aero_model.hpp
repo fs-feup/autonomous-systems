@@ -5,6 +5,7 @@
 #include "common_lib/car_parameters/car_parameters.hpp"
 
 class AeroModel {
+protected:
   std::shared_ptr<common_lib::car_parameters::CarParameters> car_parameters_;
 
 public:
