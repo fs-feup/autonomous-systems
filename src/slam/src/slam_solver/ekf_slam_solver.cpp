@@ -31,10 +31,14 @@ Eigen::MatrixXd EKFSLAMSolver::get_observation_noise_matrix(int num_landmarks) c
 }
 
 void EKFSLAMSolver::add_velocities(const common_lib::structures::Velocities& velocities) {
-  if (velocities_received_) {
-    predict(this->state_, this->covariance_, process_noise_matrix_, this->last_update_, velocities);
+  if (this->_params_.pose_updater_name_ != "velocities_based") {
+    return;
+  }
+  if (motion_data_received_) {
+    predict_with_velocities(this->state_, this->covariance_, process_noise_matrix_,
+                            this->last_update_, velocities);
   } else {
-    velocities_received_ = true;
+    motion_data_received_ = true;
   }
   this->last_update_ = velocities.timestamp_;
 }
@@ -90,10 +94,10 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
   this->_landmark_filter_->delete_landmarks(new_landmarks);
 }
 
-void EKFSLAMSolver::predict(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
-                            const Eigen::MatrixXd& process_noise_matrix,
-                            const rclcpp::Time last_update,
-                            const common_lib::structures::Velocities& velocities) {
+void EKFSLAMSolver::predict_with_velocities(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
+                                            const Eigen::MatrixXd& process_noise_matrix,
+                                            const rclcpp::Time last_update,
+                                            const common_lib::structures::Velocities& velocities) {
   auto time_interval = velocities.timestamp_.seconds() - last_update.seconds();
 
   Eigen::Vector3d previous_pose = state.segment(0, 3);
@@ -187,4 +191,30 @@ void EKFSLAMSolver::update_process_noise_matrix() {
   this->process_noise_matrix_(0, 0) = this->slam_parameters_.velocity_x_noise_;
   this->process_noise_matrix_(1, 1) = this->slam_parameters_.velocity_y_noise_;
   this->process_noise_matrix_(2, 2) = this->slam_parameters_.angular_velocity_noise_;
+}
+
+void EKFSLAMSolver::add_odometry(const common_lib::structures::Pose& pose_difference) {
+  if (this->_params_.pose_updater_name_ != "odometry_based") {
+    return;
+  }
+  if (this->motion_data_received_) {
+    predict_with_odometry(pose_difference);
+  } else {
+    motion_data_received_ = true;
+  }
+  this->last_update_ = pose_difference.timestamp;
+}
+
+void EKFSLAMSolver::predict_with_odometry(const common_lib::structures::Pose& pose_difference) {
+  Eigen::Vector3d previous_pose = this->state_.segment(0, 3);
+  Eigen::Vector3d next_pose = Eigen::Vector3d(
+      pose_difference.position.x, pose_difference.position.y, pose_difference.orientation);
+  this->state_.segment(0, 3) = next_pose;
+  this->pose = next_pose;
+
+  // Update covariance
+  Eigen::MatrixXd jacobian =
+      Eigen::MatrixXd::Identity(this->covariance_.cols(), this->covariance_.rows());
+  this->covariance_ =
+      jacobian * this->covariance_ * jacobian.transpose() + this->process_noise_matrix_;
 }

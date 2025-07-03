@@ -7,9 +7,12 @@
 #include "common_lib/maths/transformations.hpp"
 #include "perception_sensor_lib/observation_model/base_observation_model.hpp"
 #include "slam_solver/slam_solver.hpp"
+#include "solver_traits/odometry_integrator_trait.hpp"
 #include "solver_traits/velocities_integrator_trait.hpp"
 
-class EKFSLAMSolver : public SLAMSolver, public VelocitiesIntegratorTrait {
+class EKFSLAMSolver : public SLAMSolver,
+                      public VelocitiesIntegratorTrait,
+                      public OdometryIntegratorTrait {
   SLAMParameters slam_parameters_;
   std::shared_ptr<ObservationModel> observation_model_;
   Eigen::VectorXd state_ = Eigen::VectorXd::Zero(3);
@@ -19,7 +22,7 @@ class EKFSLAMSolver : public SLAMSolver, public VelocitiesIntegratorTrait {
 
   rclcpp::Time last_update_;
 
-  bool velocities_received_ = false;
+  bool motion_data_received_ = false;
   bool cones_receieved_ = false;
 
   /**
@@ -42,9 +45,12 @@ class EKFSLAMSolver : public SLAMSolver, public VelocitiesIntegratorTrait {
    * @param last_update last time velocity data was received
    * @param velocities new velocity data
    */
-  void predict(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
-               const Eigen::MatrixXd& process_noise_matrix, const rclcpp::Time last_update,
-               const common_lib::structures::Velocities& velocities);
+  void predict_with_velocities(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
+                               const Eigen::MatrixXd& process_noise_matrix,
+                               const rclcpp::Time last_update,
+                               const common_lib::structures::Velocities& velocities);
+
+  void predict_with_odometry(const common_lib::structures::Pose& pose_difference);
 
   /**
    * @brief correction step of the EKF that updates the state and covariance based on the observed
@@ -141,4 +147,11 @@ public:
    * @return int lap counter
    */
   int get_lap_counter() override { return lap_counter_; }
+
+  /**
+   * @brief Add odometry data to the solver (for prediction step)
+   *
+   * @param pose_difference Pose difference in the form of [dx, dy, dtheta]
+   */
+  void add_odometry(const common_lib::structures::Pose& pose_difference) override;
 };
