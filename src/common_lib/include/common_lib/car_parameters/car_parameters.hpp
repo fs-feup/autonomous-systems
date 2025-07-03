@@ -9,6 +9,7 @@
 
 namespace common_lib::car_parameters {
 struct CarParameters {
+  // TODO: refactor to create substructs for each category (e.g. aero, tires)
   double wheel_diameter = 0.406;
   double wheelbase = 1.530;
   double rear_axis_to_camera = 0.79;

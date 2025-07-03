@@ -1,6 +1,6 @@
 velocity_estimation:
   estimation_method: "no_rear_wss_ekf"
-  s2v_model_name: "no_rear_wss_bicycle_model"
+  ve_observation_model_name: "no_slip_bicycle_model"
   process_model_name: "ca_particle_model"
   wheel_speed_noise: 0.7
   motor_rpm_noise: 0.7

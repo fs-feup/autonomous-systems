@@ -34,7 +34,8 @@ set(IMPLEMENTATION_FILES
   src/data_association/maximum_likelihood_md.cpp
   src/data_association/nearest_neighbour.cpp
   src/data_association/nearest_neighbor.cpp
-  src/observation_model/base_observation_model.cpp
+  src/observation_model/slam_observation_model/default_observation_model.cpp
+  src/observation_model/ve_observation_model/no_slip_bicycle_model.cpp
   src/landmark_filter/consecutive_counter_filter.cpp
   src/loop_closure/lap_counter.cpp
 )
@@ -69,7 +70,7 @@ if(BUILD_TESTING)
 
   set(TESTFILES
     test/main.cpp
-    test/observation_model/base_observation_model_test.cpp
+    test/observation_model/slam_observation_model/default_observation_model_test.cpp
     test/data_association/maximum_likelihood_nll_test.cpp
     test/data_association/nearest_neighbor_test.cpp
     test/data_association/nearest_neighbour_test.cpp

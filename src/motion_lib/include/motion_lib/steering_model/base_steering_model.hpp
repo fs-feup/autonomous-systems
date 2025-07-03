@@ -9,7 +9,7 @@ protected:
   std::shared_ptr<common_lib::car_parameters::CarParameters> car_parameters_;
 
 public:
-  SteeringModel(common_lib::car_parameters::CarParameters car_parameters)
+  SteeringModel(const common_lib::car_parameters::CarParameters& car_parameters)
       : car_parameters_(
             std::make_shared<common_lib::car_parameters::CarParameters>(car_parameters)) {}
   /**

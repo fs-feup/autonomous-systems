@@ -23,6 +23,7 @@ set(PACKAGES
     message_filters
     motion_lib
     yaml-cpp
+    perception_sensor_lib
 )
 
 foreach(pkg ${PACKAGES})

@@ -5,7 +5,7 @@
 
 #include "common_lib/conversions/cones.hpp"
 #include "common_lib/maths/transformations.hpp"
-#include "perception_sensor_lib/observation_model/base_observation_model.hpp"
+#include "perception_sensor_lib/observation_model/slam_observation_model/default_observation_model.hpp"
 #include "slam_solver/slam_solver.hpp"
 
 class EKFSLAMSolver : public SLAMSolver {

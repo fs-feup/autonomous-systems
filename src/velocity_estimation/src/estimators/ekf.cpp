@@ -15,7 +15,8 @@ EKF::EKF(const VEParameters& params) {
   this->_imu_measurement_noise_matrix_ = Eigen::MatrixXd(1, 1);
   this->_imu_measurement_noise_matrix_(0, 0) = params.imu_rotational_noise_;
   this->car_parameters_ = params.car_parameters_;
-  this->s2v_model = s2v_models_map.at(params._s2v_model_name_)(params.car_parameters_);
+  this->observation_model_ =
+      ve_observation_models_map.at(params._ve_observation_model_name_)(params.car_parameters_);
   this->process_model = vel_process_models_map.at(params._process_model_name_)();
 }
 
@@ -129,12 +130,12 @@ void EKF::predict(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
 void EKF::correct_wheels(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
                          common_lib::sensor_data::WheelEncoderData& wss_data, double motor_rpm,
                          double steering_angle) {
-  Eigen::VectorXd predicted_observations = this->s2v_model->cg_velocity_to_wheels(state);
+  Eigen::VectorXd predicted_observations = this->observation_model_->expected_observations(state);
   Eigen::VectorXd observations = Eigen::VectorXd::Zero(6);
   observations << wss_data.fl_rpm, wss_data.fr_rpm, wss_data.rl_rpm, wss_data.rr_rpm,
       steering_angle, motor_rpm;
   Eigen::VectorXd y = observations - predicted_observations;
-  Eigen::MatrixXd jacobian = this->s2v_model->jacobian_cg_velocity_to_wheels(state);
+  Eigen::MatrixXd jacobian = this->observation_model_->expected_observations_jacobian(state);
   Eigen::MatrixXd kalman_gain =
       covariance * jacobian.transpose() *
       (jacobian * covariance * jacobian.transpose() + this->_wheels_measurement_noise_matrix_)
