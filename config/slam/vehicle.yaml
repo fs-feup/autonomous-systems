@@ -9,9 +9,9 @@ slam:
   new_landmark_confidence_gate: 0.6 # Minimum confidence to consider an observation as a new landmark in data asociation
   observation_x_noise: 0.01 # sigma of the noise for cone positions in x (range in Graph SLAM)
   observation_y_noise: 0.01 # sigma of the noise for cone positions in y (bearing in Graph SLAM)
-  velocity_x_noise: 0.2 # sigma of the noise for the velocity in x
-  velocity_y_noise: 0.2 # sigma of the noise for the velocity in y
-  angular_velocity_noise: 0.3 # sigma of the noise for the angular velocity
+  velocity_x_noise: 0.05 # sigma of the noise for the velocity in x
+  velocity_y_noise: 0.05 # sigma of the noise for the velocity in y
+  angular_velocity_noise: 0.4 # sigma of the noise for the angular velocity
   pose_x_initial_noise: 0.1 # sigma of the noise for the initial pose in x
   pose_y_initial_noise: 0.1 # sigma of the noise for the initial pose in y
   pose_theta_initial_noise: 0.1 # sigma of the noise for the initial pose in yaw
@@ -31,7 +31,7 @@ slam:
   # slam_solver_name: "ekf_slam" # "graph_slam" or "ekf_slam" or ... -> name of the slam solver
   # minimum_observation_count: 3 # Minimum number of times a new landmark must be observed to be added to the map
   # minimum_frequency_of_detections: 5 # Minimum frequency of the detections of a landmark to add it to the map
-  slam_min_pose_difference: 0.3 # Minimum distance between poses to consider adding to factor graph
+  slam_min_pose_difference: 0.2 # Minimum distance between poses to consider adding to factor graph
   slam_optimization_mode: "sync" # "sync" or "async" or ... -> name of the optimization mode, in which sync is at every factor added, async is at every time step
   slam_optimization_in_poses: false # If true, the optimization will be done also when poses are added, not only when observations are added
   slam_optimization_type: "sliding_window_levenberg" # "normal_levenberg" or "isam2" or "sliding_window_levenberg" or ... -> name of the optimization type
@@ -48,7 +48,7 @@ slam:
   sliding_window_size: 80 # Number of poses to keep in the sliding window
 
   # Perception data filters
-  minimum_observation_count: 5 # Minimum number of times a new landmark must be observed to be added to the map
+  minimum_observation_count: 3 # Minimum number of times a new landmark must be observed to be added to the map
   minimum_frequency_of_detections: 5 # Minimum frequency of detections to consider a landmark as valid
 
   # Loop closure paramteters
@@ -114,3 +114,63 @@ slam:
 
   # # Only for slam_optimization_type: "sliding_window_levenberg"
   # sliding_window_size: 40 # Number of poses to keep in the sliding window
+
+## Europarque Manual VSV Modo 1 Inversor
+# slam:
+#   motion_model_name: "constant_velocity_turnrate" # "constant_velocity" or "constant_velocity_turnrate" or ... -> name of the motion model for velocities
+#   pose_updater_name: "odometry_based" # "velocities_based" or "odometry_based" or "linear_fusion" -> name of the pose updater object, responsible for keeping pose estimate
+#   landmark_filter_name: "consecutive_count" # "consecutive_count" or other names of filters of perception data
+#   lidar_odometry_topic: "/genz/odometry" # "/fast_limo/state" or "/kiss/odometry" or "/genz/odometry" -> topic for pose from lidar odometry
+#   data_association_model_name: "nearest_neighbor" # "maximum_likelihood_md" or "maximum_likelihood_nll" or "nearest_neighbor" or... -> name of the data association model
+#   data_association_limit_distance: 30 # maximum distance to consider a cone for data association
+#   data_association_gate: 1.23 # Maximum allowed Malahanobis distance (or euclidean distance for nearest neighbor) between an observation and matched landmark
+#   new_landmark_confidence_gate: 0.6 # Minimum confidence to consider an observation as a new landmark in data asociation
+#   observation_x_noise: 0.01 # sigma of the noise for cone positions in x (range in Graph SLAM)
+#   observation_y_noise: 0.01 # sigma of the noise for cone positions in y (bearing in Graph SLAM)
+#   velocity_x_noise: 0.05 # sigma of the noise for the velocity in x
+#   velocity_y_noise: 0.05 # sigma of the noise for the velocity in y
+#   angular_velocity_noise: 0.4 # sigma of the noise for the angular velocity
+#   pose_x_initial_noise: 0.1 # sigma of the noise for the initial pose in x
+#   pose_y_initial_noise: 0.1 # sigma of the noise for the initial pose in y
+#   pose_theta_initial_noise: 0.1 # sigma of the noise for the initial pose in yaw
+#   preloaded_map_noise: 0.001 # sigma of the noise for preloaded map landmarks used for skidpad and acceleration
+#   slam_solver_name: "graph_slam" # "graph_slam" or "ekf_slam" or ... -> name of the slam solver
+#   # data_association_limit_distance: 70 # maximum distance to consider a cone for data association
+#   # data_association_gate: 2 # Maximum allowed Malahanobis distance (or euclidean distance for nearest neighbor) between an observation and matched landmark
+#   # new_landmark_confidence_gate: 0.6 # Minimum confidence to consider an observation as a new landmark in data asociation
+#   # observation_x_noise: 0.01 # sigma of the noise for cone positions in x
+#   # observation_y_noise: 0.01 # sigma of the noise for cone positions in y
+#   # velocity_x_noise: 0.2 # sigma of the noise for the velocity in x
+#   # velocity_y_noise: 0.2 # sigma of the noise for the velocity in y
+#   # angular_velocity_noise: 0.2 # sigma of the noise for the angular velocity
+#   # pose_x_initial_noise: 0.1 # sigma of the noise for the initial pose in x
+#   # pose_y_initial_noise: 0.1 # sigma of the noise for the initial pose in y
+#   # pose_theta_initial_noise: 0.1 # sigma of the noise for the initial pose in yaw
+#   # slam_solver_name: "ekf_slam" # "graph_slam" or "ekf_slam" or ... -> name of the slam solver
+#   # minimum_observation_count: 3 # Minimum number of times a new landmark must be observed to be added to the map
+#   # minimum_frequency_of_detections: 5 # Minimum frequency of the detections of a landmark to add it to the map
+#   slam_min_pose_difference: 0.2 # Minimum distance between poses to consider adding to factor graph
+#   slam_optimization_mode: "sync" # "sync" or "async" or ... -> name of the optimization mode, in which sync is at every factor added, async is at every time step
+#   slam_optimization_in_poses: false # If true, the optimization will be done also when poses are added, not only when observations are added
+#   slam_optimization_type: "sliding_window_levenberg" # "normal_levenberg" or "isam2" or "sliding_window_levenberg" or ... -> name of the optimization type
+
+#   # Only for slam_optimization_mode: "async"
+#   slam_optimization_period: 0.2 # Time between optimization steps in seconds, 0.0 means optimization every time observations are added
+
+#   # Only for slam_optimization_type: "isam2"
+#   slam_isam2_relinearize_threshold: 0.005 # Threshold for relinearizing the graph in isam2
+#   slam_isam2_relinearize_skip: 1 # Number of steps to skip before relinearizing the graph in isam2
+#   slam_isam2_factorization: "QR" # QR" or "CHOLESKY" -> Factorization method for isam2
+
+#   # Only for slam_optimization_type: "sliding_window_levenberg"
+#   sliding_window_size: 80 # Number of poses to keep in the sliding window
+
+#   # Perception data filters
+#   minimum_observation_count: 3 # Minimum number of times a new landmark must be observed to be added to the map
+#   minimum_frequency_of_detections: 5 # Minimum frequency of detections to consider a landmark as valid
+
+#   # Loop closure paramteters
+#   threshold_dist: 4.0 # Distance around origin to trigger loop closure
+#   first_x_cones: 10 # consider a loop if you see any of these first X cones
+#   border_width: 5  # distance to givve to start searching for loop closure again
+#   minimum_confidence: 3 # minimum number of observations to confirm loop closure

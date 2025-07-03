@@ -57,6 +57,7 @@ protected:
       common_lib::competition_logic::Mission::AUTOCROSS;
   bool _go_ = true;  /// flag to start the mission
   std::string _adapter_name_;
+  std::string _vehicle_frame_id_;
 
   /**
    * @brief Callback that updates everytime information

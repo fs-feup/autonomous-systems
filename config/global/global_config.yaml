@@ -6,4 +6,4 @@ global:
   use_simulated_planning: false # use simulated planning from the mocker_node
   use_simulated_velocities: true # use simulated velocities from the simulator
   track_name: "FSE23" 
-  vehicle_frame_id: "map" # "map" or ... -> frame_id for the visualization messages
+  vehicle_frame_id: "vehicle_state" #  -> vehicle frame for transforms

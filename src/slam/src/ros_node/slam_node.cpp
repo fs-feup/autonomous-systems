@@ -41,6 +41,7 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
   this->_slam_solver_ = slam_solver_constructors_map.at(params.slam_solver_name_)(
       params, data_association, motion_model, landmark_filter, this->_execution_times_,
       loop_closure);
+  this->_vehicle_frame_id_ = params.frame_id_;
 
   _perception_map_ = std::vector<common_lib::structures::Cone>();
   _vehicle_state_velocities_ = common_lib::structures::Velocities();
@@ -179,7 +180,7 @@ void SLAMNode::_publish_vehicle_pose() {
   // Publish the transform
   tf_message.header.stamp = message.header.stamp;
   tf_message.header.frame_id = "map";
-  tf_message.child_frame_id = "vehicle_estimate";
+  tf_message.child_frame_id = this->_vehicle_frame_id_;
 
   tf2::Quaternion q;
   q.setRPY(0.0, 0.0, message.theta);

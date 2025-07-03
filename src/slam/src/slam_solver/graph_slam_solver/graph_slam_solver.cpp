@@ -70,11 +70,19 @@ bool GraphSLAMSolver::_add_motion_data_to_graph(
     const std::shared_ptr<GraphSLAMInstance> graph_slam_instance, bool force_update) {
   Eigen::Vector3d pose_difference_vector = pose_updater->get_accumulated_pose_difference();
 
+  RCLCPP_INFO(rclcpp::get_logger("slam"), "GraphSLAMSolver - Pose difference: %f, %f, %f",
+              pose_difference_vector(0), pose_difference_vector(1), pose_difference_vector(2));
+
   // TODO: add noise thingy
   if (pose_updater->pose_ready_for_graph_update() || force_update) {
     // If the pose updater is ready to update the pose, we can proceed with the pose update
-    graph_slam_instance->process_new_pose(pose_difference_vector, Eigen::Vector3d(0.01, 0.01, 0.01),
-                                          pose_updater->get_last_pose());
+    graph_slam_instance->process_new_pose(
+        pose_difference_vector,
+        Eigen::Vector3d(this->_params_.velocity_x_noise_, this->_params_.velocity_y_noise_,
+                        this->_params_.angular_velocity_noise_),
+        pose_updater->get_last_pose());
+
+    RCLCPP_DEBUG(rclcpp::get_logger("slam"), "GraphSLAMSolver - Pose updated in the graph");
 
     pose_updater->update_pose(pose_updater->get_last_pose());
   } else if (std::shared_ptr<SecondPoseInputTrait> secondary_input_pose_updater =
@@ -239,15 +247,11 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
     RCLCPP_INFO(rclcpp::get_logger("slam"), "Lap counter: %d", lap_counter_);
   }
 
+  // Add observations to the graph
   {
     RCLCPP_DEBUG(rclcpp::get_logger("slam"),
                  "add_observations - Mutex locked - processing observations");
     std::unique_lock uniq_lock(this->_mutex_);
-
-    // Only proceed if the vehicle has moved
-    if (!this->_graph_slam_instance_->new_pose_factors()) {
-      return;
-    }
 
     ObservationData observation_data(std::make_shared<Eigen::VectorXd>(observations),
                                      std::make_shared<Eigen::VectorXi>(associations),
@@ -261,9 +265,9 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
     }
     // Update the pose in the graph, as the vehicle might have moved since the last time a factor
     // was added by the motion callback
-    this->_add_motion_data_to_graph(this->_pose_updater_, this->_graph_slam_instance_);
+    this->_add_motion_data_to_graph(this->_pose_updater_, this->_graph_slam_instance_, true);
     this->_graph_slam_instance_->process_observations(observation_data);
-    // this->_landmark_filter_->delete_landmarks(filtered_new_observations);
+    this->_landmark_filter_->delete_landmarks(filtered_new_observations);
   }
   factor_graph_time = rclcpp::Clock().now();
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Mutex unlocked - Factors added");

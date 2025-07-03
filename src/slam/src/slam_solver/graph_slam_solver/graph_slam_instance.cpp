@@ -188,6 +188,9 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
       landmark = gtsam::Point2(observations_global(i * 2), observations_global(i * 2 + 1));
       this->_graph_values_.insert(landmark_symbol, landmark);
     } else {
+      if (!this->new_pose_factors()) {  // Only add old observations if the vehicle has moved
+        continue;
+      }
       // Association to previous landmark
       landmark_symbol = gtsam::Symbol('l', (associations(i)) / 2 + 1);  // Convert to landmark id
     }
