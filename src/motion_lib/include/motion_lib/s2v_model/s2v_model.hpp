@@ -41,29 +41,4 @@ public:
   virtual common_lib::structures::Position rear_axis_position(
       const common_lib::structures::Position& cg, double orientation,
       double dist_cg_2_rear_axis) = 0;
-
-  /**
-   * @brief Estimate wheel and motor velocities, as well as steering angle from the velocities of
-   * the center of gravity
-   *
-   * @param cg_velocities vector of velocities on the Center of Gravity {velocity_x, velocity_y,
-   * rotational_velocity} in m/s and rad/s respectively
-   * @return Eigen::VectorXd vector of wheel speeds, steering angle and motor speed
-   * {fl_rpm, fr_rpm, rl_rpm, rr_rpm, steering_angle, motor_rpm}
-   */
-  virtual Eigen::VectorXd cg_velocity_to_wheels(const Eigen::Vector3d& cg_velocities) = 0;
-
-  /**
-   * @brief jacobian of the function cg_velocity_to_wheels with respect to the velocities of the
-   * center of gravity
-   *
-   * @details Each entry at row i and column j of the resulting matrix is the partial derivative of
-   * the i-th element of the output of function cg_velocity_to_wheels with respect to the j-th
-   * element of the vector cg_velocities
-   *
-   * @param cg_velocities vector of velocities on the Center of Gravity {velocity_x, velocity_y,
-   * rotational_velocity} in m/s and rad/s respectively
-   * @return Eigen::MatrixXd jacobian matrix of the function cg_velocity_to_wheels (dimensions: 6x3)
-   */
-  virtual Eigen::MatrixXd jacobian_cg_velocity_to_wheels(const Eigen::Vector3d& cg_velocities) = 0;
 };
