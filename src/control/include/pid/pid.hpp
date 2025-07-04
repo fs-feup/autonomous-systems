@@ -1,6 +1,7 @@
 #pragma once
 
 #include "gtest/gtest.h"
+#include "node_/control_parameters.hpp"
 
 /**
  * @brief PI-D Controller class
@@ -79,18 +80,9 @@ public:
   /**
    * @brief Construct a new PID object
    *
-   * @param kp Proporcional gain
-   * @param ki Integral gain
-   * @param kd Derivative gain
-   * @param anti_windup Anti-windup constant
-   * @param tau Derivative low pass filter time constant
-   * @param t Sampling time
-   * @param lim_min Minimum output value
-   * @param lim_max Maximum output value
-   * @param antiWindup Anti-windup constant
+   * @param params ControlParameters struct
    */
-  PID(double Kp, double Ki, double Kd, double tau, double T, double limMin, double limMax,
-      double antiWindup);
+  PID(const ControlParameters& params);
 
   /**
    * @brief PID default constructor

@@ -15,6 +15,7 @@ set(IMPLEMENTATION_FILES
   src/pure_pursuit/pp.cpp
   src/point_solver/psolver.cpp
   src/low_pass_filter/lpf.cpp
+  src/stanley/stanley.cpp
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../common_lib/include)

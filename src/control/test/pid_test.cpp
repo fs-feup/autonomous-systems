@@ -1,14 +1,20 @@
 #include "pid/pid.hpp"
 
 #include "gtest/gtest.h"
+#include "node_/control_parameters.hpp"
 
-/**
- * @brief Test PID class - AntiWindUp
- * Anti windup when output is saturated (limMax)
- */
 TEST(PidTests, TestAntiWindUp1) {
-  float antiWindupConst = 0.7;
-  PID pid(0.4, 0.3, 0.09, 0.5, 0.01, -1, 1, antiWindupConst);
+  ControlParameters params;
+  params.pid_kp_ = 0.4;
+  params.pid_ki_ = 0.3;
+  params.pid_kd_ = 0.09;
+  params.pid_tau_ = 0.5;
+  params.pid_t_ = 0.01;
+  params.pid_lim_min_ = -1;
+  params.pid_lim_max_ = 1;
+  params.pid_anti_windup_ = 0.7;
+  float antiWindupConst = params.pid_anti_windup_;
+  PID pid(params);
   pid.proportional_ = 0.3;
   pid.integrator_ = 0.7;
   pid.differentiator_ = 0.2;
@@ -16,13 +22,18 @@ TEST(PidTests, TestAntiWindUp1) {
   EXPECT_FLOAT_EQ(0.7 * antiWindupConst, pid.integrator_);
 }
 
-/**
- * @brief Test PID class - AntiWindUp
- * Anti windup when output is saturated (limMin)
- */
 TEST(PidTests, TestAntiWindUp2) {
-  float antiWindupConst = 0.7;
-  PID pid(0.4, 0.3, 0.09, 0.5, 0.01, -1, 1, antiWindupConst);
+  ControlParameters params;
+  params.pid_kp_ = 0.4;
+  params.pid_ki_ = 0.3;
+  params.pid_kd_ = 0.09;
+  params.pid_tau_ = 0.5;
+  params.pid_t_ = 0.01;
+  params.pid_lim_min_ = -1;
+  params.pid_lim_max_ = 1;
+  params.pid_anti_windup_ = 0.7;
+  float antiWindupConst = params.pid_anti_windup_;
+  PID pid(params);
   pid.proportional_ = -0.3;
   pid.integrator_ = -0.7;
   pid.differentiator_ = -0.2;
@@ -30,13 +41,17 @@ TEST(PidTests, TestAntiWindUp2) {
   EXPECT_FLOAT_EQ(-0.7 * antiWindupConst, pid.integrator_);
 }
 
-/**
- * @brief Test PID class - AntiWindUp
- * Anti windup when output isnt saturated
- */
 TEST(PidTests, TestAntiWindUp3) {
-  float antiWindupConst = 0.7;
-  PID pid(0.4, 0.3, 0.09, 0.5, 0.01, -1, 1, antiWindupConst);
+  ControlParameters params;
+  params.pid_kp_ = 0.4;
+  params.pid_ki_ = 0.3;
+  params.pid_kd_ = 0.09;
+  params.pid_tau_ = 0.5;
+  params.pid_t_ = 0.01;
+  params.pid_lim_min_ = -1;
+  params.pid_lim_max_ = 1;
+  params.pid_anti_windup_ = 0.7;
+  PID pid(params);
   pid.proportional_ = 0.3;
   pid.integrator_ = 0.3;
   pid.differentiator_ = 0.2;
@@ -44,74 +59,105 @@ TEST(PidTests, TestAntiWindUp3) {
   EXPECT_FLOAT_EQ(0.3, pid.integrator_);
 }
 
-/**
- * @brief Test PID class - calculate_proportional_term
- */
 TEST(PidTests, ProportionalTerm) {
+  ControlParameters params;
+  params.pid_kp_ = 0.4;
+  params.pid_ki_ = 0.3;
+  params.pid_kd_ = 0.09;
+  params.pid_tau_ = 0.7;
+  params.pid_t_ = 0.1;
+  params.pid_lim_min_ = -1;
+  params.pid_lim_max_ = 1;
+  params.pid_anti_windup_ = 0.5;
   float error = 4;
-  PID pid(0.4, 0.3, 0.09, 0.7, 0.1, -1, 1, 0.5);
+  PID pid(params);
   pid.calculate_proportional_term(error);
   EXPECT_FLOAT_EQ(1.6, pid.proportional_);
 }
 
-/**
- * @brief Test PID class - calculate_integral_term
- * error positive
- */
 TEST(PidTests, IntegralTerm1) {
+  ControlParameters params;
+  params.pid_kp_ = 0.4;
+  params.pid_ki_ = 0.3;
+  params.pid_kd_ = 0.09;
+  params.pid_tau_ = 0.7;
+  params.pid_t_ = 0.1;
+  params.pid_lim_min_ = -1;
+  params.pid_lim_max_ = 1;
+  params.pid_anti_windup_ = 0.5;
   float error = 3;
-  PID pid(0.4, 0.3, 0.09, 0.7, 0.1, -1, 1, 0.5);
+  PID pid(params);
   pid.integrator_ = 0.3;
   pid.prev_error_ = 4;
   pid.calculate_integral_term(error);
   EXPECT_FLOAT_EQ(0.405, pid.integrator_);
 }
 
-/**
- * @brief Test PID class - calculate_integral_term
- * error negative
- */
 TEST(PidTests, IntegralTerm2) {
+  ControlParameters params;
+  params.pid_kp_ = 0.4;
+  params.pid_ki_ = 0.3;
+  params.pid_kd_ = 0.09;
+  params.pid_tau_ = 0.7;
+  params.pid_t_ = 0.1;
+  params.pid_lim_min_ = -1;
+  params.pid_lim_max_ = 1;
+  params.pid_anti_windup_ = 0.5;
   float error = -3;
-  PID pid(0.4, 0.3, 0.09, 0.7, 0.1, -1, 1, 0.5);
+  PID pid(params);
   pid.integrator_ = 0.3;
   pid.prev_error_ = -4;
   pid.calculate_integral_term(error);
   EXPECT_FLOAT_EQ(0.195, pid.integrator_);
 }
 
-/**
- * @brief Test PID class - calculate_derivative_term
- * measurement positive
- */
 TEST(PidTests, DerivativeTerm1) {
+  ControlParameters params;
+  params.pid_kp_ = 0.4;
+  params.pid_ki_ = 0.3;
+  params.pid_kd_ = 0.1;
+  params.pid_tau_ = 0.7;
+  params.pid_t_ = 0.1;
+  params.pid_lim_min_ = -1;
+  params.pid_lim_max_ = 1;
+  params.pid_anti_windup_ = 0.45;
   float measurement = 3;
-  PID pid(0.4, 0.3, 0.1, 0.7, 0.1, -1, 1, 0.45);
+  PID pid(params);
   pid.differentiator_ = 0.4;
   pid.prev_measurement_ = 4;
   pid.calculate_derivative_term(measurement);
   EXPECT_FLOAT_EQ(0.48, pid.differentiator_);
 }
 
-/**
- * @brief Test PID class - calculate_derivative_term
- * measurement negative
- */
 TEST(PidTests, DerivativeTerm2) {
+  ControlParameters params;
+  params.pid_kp_ = 0.4;
+  params.pid_ki_ = 0.3;
+  params.pid_kd_ = 0.1;
+  params.pid_tau_ = 0.7;
+  params.pid_t_ = 0.1;
+  params.pid_lim_min_ = -1;
+  params.pid_lim_max_ = 1;
+  params.pid_anti_windup_ = 0.45;
   float measurement = -4;
-  PID pid(0.4, 0.3, 0.1, 0.7, 0.1, -1, 1, 0.45);
+  PID pid(params);
   pid.differentiator_ = 0.4;
   pid.prev_measurement_ = -1.2;
   pid.calculate_derivative_term(measurement);
   EXPECT_FLOAT_EQ(0.72, pid.differentiator_);
 }
 
-/**
- * @brief Test PID class - compute_output
- * output not saturated
- */
 TEST(PidTests, Output1) {
-  PID pid(0.4, 0.3, 0.09, 0.7, 0.1, -1, 1, 0.45);
+  ControlParameters params;
+  params.pid_kp_ = 0.4;
+  params.pid_ki_ = 0.3;
+  params.pid_kd_ = 0.09;
+  params.pid_tau_ = 0.7;
+  params.pid_t_ = 0.1;
+  params.pid_lim_min_ = -1;
+  params.pid_lim_max_ = 1;
+  params.pid_anti_windup_ = 0.45;
+  PID pid(params);
   pid.proportional_ = 0.3;
   pid.integrator_ = 0.1;
   pid.differentiator_ = 0.4;
@@ -119,12 +165,17 @@ TEST(PidTests, Output1) {
   EXPECT_FLOAT_EQ(0.8, pid.out_);
 }
 
-/**
- * @brief Test PID class - compute_output
- * output saturated LimMax
- */
 TEST(PidTests, Output2) {
-  PID pid(0.4, 0.3, 0.09, 0.7, 0.1, -1, 1, 0.45);
+  ControlParameters params;
+  params.pid_kp_ = 0.4;
+  params.pid_ki_ = 0.3;
+  params.pid_kd_ = 0.09;
+  params.pid_tau_ = 0.7;
+  params.pid_t_ = 0.1;
+  params.pid_lim_min_ = -1;
+  params.pid_lim_max_ = 1;
+  params.pid_anti_windup_ = 0.45;
+  PID pid(params);
   pid.proportional_ = 0.3;
   pid.integrator_ = 0.3;
   pid.differentiator_ = 0.6;
@@ -132,12 +183,17 @@ TEST(PidTests, Output2) {
   EXPECT_FLOAT_EQ(1, pid.out_);
 }
 
-/**
- * @brief Test PID class - compute_output
- * output saturated LimMin
- */
 TEST(PidTests, Output3) {
-  PID pid(0.4, 0.3, 0.09, 0.7, 0.1, -1, 1, 0.45);
+  ControlParameters params;
+  params.pid_kp_ = 0.4;
+  params.pid_ki_ = 0.3;
+  params.pid_kd_ = 0.09;
+  params.pid_tau_ = 0.7;
+  params.pid_t_ = 0.1;
+  params.pid_lim_min_ = -1;
+  params.pid_lim_max_ = 1;
+  params.pid_anti_windup_ = 0.45;
+  PID pid(params);
   pid.proportional_ = -0.3;
   pid.integrator_ = -0.3;
   pid.differentiator_ = -0.6;
@@ -145,17 +201,19 @@ TEST(PidTests, Output3) {
   EXPECT_FLOAT_EQ(-1, pid.out_);
 }
 
-// -2*kd(Measur - oldMeasur)+((2*tua-T)*oldDiffere)/(2*tau+T) + kp*Error + oldIntegra +
-// 0.5*ki*T*(Error+OldErro)
-
-/**
- * @brief Test PID class - update
- * Test all the methods
- */
 TEST(PidTests, Update1) {
+  ControlParameters params;
+  params.pid_kp_ = 0.4;
+  params.pid_ki_ = 0.3;
+  params.pid_kd_ = 0.1;
+  params.pid_tau_ = 0.7;
+  params.pid_t_ = 0.1;
+  params.pid_lim_min_ = -1;
+  params.pid_lim_max_ = 1;
+  params.pid_anti_windup_ = 0.45;
   float measurement = 2;
   float setpoint = 3;
-  PID pid(0.4, 0.3, 0.1, 0.7, 0.1, -1, 1, 0.45);
+  PID pid(params);
   pid.integrator_ = 0.2;
   pid.differentiator_ = 0.1;
   pid.prev_error_ = 1.5;

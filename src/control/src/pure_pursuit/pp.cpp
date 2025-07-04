@@ -8,19 +8,19 @@ using namespace common_lib::structures;
  * @brief Pure Pursuit class Constructor
  *
  */
-PurePursuit::PurePursuit(std::shared_ptr<Filter> lpf)
-    : lpf_(std::move(lpf)) {}
 
-double PurePursuit::pp_steering_control_law(Position rear_axis, Position cg,
-                                            Position lookahead_point, double dist_cg_2_rear_axis) {
-  double alpha = calculate_alpha(rear_axis, cg, lookahead_point, dist_cg_2_rear_axis);
-  // update lookahead distance to the actual distance
-  double ld = rear_axis.euclidean_distance(lookahead_point);
+PurePursuit::PurePursuit(std::shared_ptr<Filter> lpf, const ControlParameters& params)
+    : LateralController(std::move(lpf), params) {}
 
-  double steering_angle = atan(2 * wheel_base_ * sin(alpha) / ld);
-  double filtered_steering_angle = lpf_->filter(steering_angle);
+double PurePursuit::steering_control_law(const LateralControlInput& input) {
+    // Use the Position fields directly from input
+    double alpha = calculate_alpha(input.rear_axis, input.cg, input.lookahead_point, input.dist_cg_2_rear_axis);
+    double ld = input.rear_axis.euclidean_distance(input.lookahead_point);
 
-  return std::clamp(filtered_steering_angle, min_steering_angle_, max_steering_angle_);
+    double steering_angle = atan(2 * WHEEL_BASE * sin(alpha) / ld);
+    double filtered_steering_angle = lpf_->filter(steering_angle);
+
+    return std::clamp(filtered_steering_angle, MIN_STEERING_ANGLE, MAX_STEERING_ANGLE);
 }
 
 double PurePursuit::calculate_alpha(Position vehicle_rear_wheel, Position vehicle_cg,

@@ -11,3 +11,4 @@ control:
   pid_anti_windup: 0.7
   lpf_alpha: 1 # Smoothing factor for the low-pass filter (0 = max smoothing, 1 = no smoothing)
   lpf_initial_value: 0.0
+  stanley_k: 0.5

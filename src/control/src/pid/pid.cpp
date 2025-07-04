@@ -5,25 +5,17 @@
 /**
  * @brief Construct a new PID object
  *
- * @param kp Proporcional gain
- * @param ki Integral gain
- * @param kd Derivative gain
- * @param anti_windup Anti-windup constant
- * @param tau Derivative low pass filter time constant
- * @param t Sampling time
- * @param lim_min Minimum output value
- * @param lim_max Maximum output value
+ * @param params ControlParameters struct containing PID parameters
  */
-PID::PID(double kp, double ki, double kd, double tau, double t, double lim_min, double lim_max,
-         double anti_windup)
-    : kp_(kp),
-      ki_(ki),
-      kd_(kd),
-      anti_windup_(anti_windup),
-      tau_(tau),
-      t_(t),
-      lim_min_(lim_min),
-      lim_max_(lim_max) {}
+PID::PID(const ControlParameters& params)
+    : kp_(params.pid_kp_),
+      ki_(params.pid_ki_),
+      kd_(params.pid_kd_),
+      anti_windup_(params.pid_anti_windup_),
+      tau_(params.pid_tau_),
+      t_(params.pid_t_),
+      lim_min_(params.pid_lim_min_),
+      lim_max_(params.pid_lim_max_) {}
 
 /**
  * @brief Calculate the output value

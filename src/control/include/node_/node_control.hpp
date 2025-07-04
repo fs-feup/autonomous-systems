@@ -13,31 +13,15 @@
 #include "custom_interfaces/msg/pose.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
 #include "custom_interfaces/msg/velocities.hpp"
+#include "lateral_controller/lateral_controller.hpp"
+#include "node_/control_parameters.hpp"
 #include "pid/pid.hpp"
 #include "point_solver/psolver.hpp"
 #include "pure_pursuit/pp.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "stanley/stanley.hpp"
 #include "std_msgs/msg/string.hpp"
 #include "visualization_msgs/msg/marker.hpp"
-
-struct ControlParameters {
-  bool using_simulated_slam_;
-  bool using_simulated_velocities_;
-  bool use_simulated_planning_;
-  double lookahead_gain_;
-  double lookahead_minimum_;
-  double pid_kp_;
-  double pid_ki_;
-  double pid_kd_;
-  double pid_tau_;
-  double pid_t_;
-  double pid_lim_min_;
-  double pid_lim_max_;
-  double pid_anti_windup_;
-  double lpf_alpha_;
-  double lpf_initial_value_;
-  std::string map_frame_id_;
-};
 
 /**
  * @class Control
@@ -81,7 +65,7 @@ private:
   std::vector<custom_interfaces::msg::PathPoint> pathpoint_array_{};
   PointSolver point_solver_; /**< Point Solver */
   PID long_controller_;
-  PurePursuit lat_controller_; /**< Lateral Controller*/
+  std::shared_ptr<LateralController> lat_controller_; /**< Lateral Controller*/
 
   void publish_evaluator_data(double lookahead_velocity,
                               common_lib::structures::Position lookahead_point,

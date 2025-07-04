@@ -19,7 +19,8 @@ protected:
   void SetUp() override {
     // LPF with alpha=1.0 means no filtering
     lpf_no_effect = std::make_shared<LowPassFilter>(1.0, 0.0);
-    lat_controller_ = std::make_shared<PurePursuit>(lpf_no_effect);
+    ControlParameters empty_params;
+    lat_controller_ = std::make_shared<PurePursuit>(lpf_no_effect, empty_params);
   }
 };
 
@@ -111,8 +112,13 @@ TEST_F(PurePursuitTestFixture, Test_pp_steering_control_law_1) {
   Position lookahead_point = Position(1, 4);
   double dist_cg_2_rear_axis = 2.655484889;
 
-  double steering_cmd =
-      lat_controller_->pp_steering_control_law(rear_axis, cg, lookahead_point, dist_cg_2_rear_axis);
+  LateralControlInput lat_input;
+  lat_input.rear_axis = rear_axis;
+  lat_input.cg = cg;
+  lat_input.lookahead_point = lookahead_point;
+  lat_input.dist_cg_2_rear_axis = dist_cg_2_rear_axis;
+
+  double steering_cmd = lat_controller_->steering_control_law(lat_input);
 
   //  Alpha: 0.804189
   //  ld_: 5.38516

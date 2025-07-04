@@ -5,11 +5,11 @@
 using namespace common_lib::structures;
 
 /**
- * @brief PointSolver Constructer
+ * @brief PointSolver Constructor
  */
-PointSolver::PointSolver(double k, double lookahead_minimum)
-    : k_(k),
-      lookahead_minimum_(lookahead_minimum),
+PointSolver::PointSolver(const ControlParameters &params)
+    : k_(params.lookahead_gain_),
+      lookahead_minimum_(params.lookahead_minimum_),
       bicycle_model_(common_lib::car_parameters::CarParameters()) {}
 
 /**

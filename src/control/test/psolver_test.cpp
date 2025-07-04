@@ -17,7 +17,10 @@ using namespace common_lib::structures;
 TEST(PointSolverTests, Test_update_closest_point_1) {
   auto pathpoint_array = create_path_msg("track1");
 
-  PointSolver point_solver_(0, 0.0);
+  ControlParameters params;
+  params.lookahead_gain_ = 0.0;
+  params.lookahead_minimum_ = 0.0;
+  PointSolver point_solver_(params);
   point_solver_.vehicle_pose_.rear_axis_ = Position(47.0, -13.0);
   Position expected_point = Position(46.5, -12.37);
   int expected_id = 76;

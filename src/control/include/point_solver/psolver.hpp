@@ -13,6 +13,7 @@
 #include "gtest/gtest.h"
 #include "motion_lib/car_parameters.hpp"
 #include "motion_lib/s2v_model/bicycle_model.hpp"
+#include "node_/control_parameters.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 class PointSolver {
@@ -25,10 +26,11 @@ public:
   double dist_cg_2_rear_axis_ =
       DIST_CG_2_REAR_AXIS; /**< Distance from the center of gravity to the rear axis */
   common_lib::structures::VehiclePose vehicle_pose_; /**< Vehicle pose */
+
   /**
-   * @brief PointSolver Constructor
+   * @brief PointSolver Constructor using ControlParameters
    */
-  explicit PointSolver(double k, double lookahead_minimum);
+  explicit PointSolver(const ControlParameters &params);
 
   /**
    * @brief Find the closest point on the path
