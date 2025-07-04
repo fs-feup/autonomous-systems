@@ -13,16 +13,16 @@ std::pair<double, double> NoRearWSSBicycleModel::wheels_velocities_to_cg(
   } else if (steering_angle > 0) {
     double rear_axis_center_rotation_radius = this->car_parameters_.wheelbase / tan(steering_angle);
     velocities.second =
-        rl_velocity / (rear_axis_center_rotation_radius - (this->car_parameters_.axis_length / 2));
+        rl_velocity / (rear_axis_center_rotation_radius - (this->car_parameters_.track_width / 2));
     velocities.first = sqrt(pow(rear_axis_center_rotation_radius, 2) +
-                            pow(this->car_parameters_.rear_axis_to_camera, 2)) *
+                            pow(this->car_parameters_.dist_cg_2_rear_axis, 2)) *
                        fabs(velocities.second);
   } else {
     double rear_axis_center_rotation_radius = this->car_parameters_.wheelbase / tan(steering_angle);
     velocities.second =
-        rr_velocity / (rear_axis_center_rotation_radius + (this->car_parameters_.axis_length / 2));
+        rr_velocity / (rear_axis_center_rotation_radius + (this->car_parameters_.track_width / 2));
     velocities.first = sqrt(pow(rear_axis_center_rotation_radius, 2) +
-                            pow(this->car_parameters_.rear_axis_to_camera, 2)) *
+                            pow(this->car_parameters_.dist_cg_2_rear_axis, 2)) *
                        fabs(velocities.second);
   }
   return velocities;

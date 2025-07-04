@@ -19,7 +19,7 @@ Eigen::Vector4d RigidBodyLoadTransferModel::compute_loads(
   double front_weight_distribution =
       this->car_parameters_->dist_cg_2_rear_axis / this->car_parameters_->wheelbase;
   double rear_weight_distribution = 1.0 - front_weight_distribution;
-  double track_width = this->car_parameters_->axis_length;
+  double track_width = this->car_parameters_->track_width;
 
   // Static load per wheel
   double Fz_total = mass * g;

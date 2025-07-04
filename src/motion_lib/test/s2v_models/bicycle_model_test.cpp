@@ -13,7 +13,8 @@
  */
 TEST(ODOMETRY_SUBSCRIBER, CONVERSION_TEST) {
   // Straight Line
-  BicycleModel bicycle_model = BicycleModel(common_lib::car_parameters::CarParameters(0.516, 1.6, 0.79, 1.2, 0.791, 4.0));
+  BicycleModel bicycle_model =
+      BicycleModel(common_lib::car_parameters::CarParameters(0.516, 1.6, 1.2, 0.791, 4.0));
   double rl_speed = 60;
   double rr_speed = 60;
   double fl_speed = 60;
@@ -67,12 +68,12 @@ TEST(BicycleModelTest, TestCgVelocityToWheels) {
 
   ASSERT_EQ(observations.size(), 6);
 
-  EXPECT_NEAR(observations(0), 325.584, 0.01);    // front_wheels_rpm
-  EXPECT_NEAR(observations(1), 325.584, 0.01);    // front_wheels_rpm
-  EXPECT_NEAR(observations(2), 324.004, 0.01);    // rear_wheels_rpm
-  EXPECT_NEAR(observations(3), 324.004, 0.01);    // rear_wheels_rpm
+  EXPECT_NEAR(observations(0), 325.584, 0.01);   // front_wheels_rpm
+  EXPECT_NEAR(observations(1), 325.584, 0.01);   // front_wheels_rpm
+  EXPECT_NEAR(observations(2), 324.004, 0.01);   // rear_wheels_rpm
+  EXPECT_NEAR(observations(3), 324.004, 0.01);   // rear_wheels_rpm
   EXPECT_NEAR(observations(4), 0.02450, 0.001);  // steering_angle
-  EXPECT_NEAR(observations(5), 1296.02, 0.01);    // motor_rpm
+  EXPECT_NEAR(observations(5), 1296.02, 0.01);   // motor_rpm
 }
 
 /**
@@ -93,12 +94,12 @@ TEST(BicycleModelTest, TestCgVelocityToWheelsNegativeVx) {
   // Check the size of the observations vector
   ASSERT_EQ(observations.size(), 6);
 
-  EXPECT_NEAR(observations(0), -325.584, 0.01);    // front_wheels_rpm
-  EXPECT_NEAR(observations(1), -325.584, 0.01);    // front_wheels_rpm
-  EXPECT_NEAR(observations(2), -324.004, 0.01);    // rear_wheels_rpm
-  EXPECT_NEAR(observations(3), -324.004, 0.01);    // rear_wheels_rpm
+  EXPECT_NEAR(observations(0), -325.584, 0.01);  // front_wheels_rpm
+  EXPECT_NEAR(observations(1), -325.584, 0.01);  // front_wheels_rpm
+  EXPECT_NEAR(observations(2), -324.004, 0.01);  // rear_wheels_rpm
+  EXPECT_NEAR(observations(3), -324.004, 0.01);  // rear_wheels_rpm
   EXPECT_NEAR(observations(4), 0.02450, 0.001);  // steering_angle
-  EXPECT_NEAR(observations(5), -1296.02, 0.01);    // motor_rpm
+  EXPECT_NEAR(observations(5), -1296.02, 0.01);  // motor_rpm
 }
 
 /**
@@ -123,7 +124,7 @@ TEST(BicycleModelTest, TestCgVelocityToWheelsZeroVx) {
   EXPECT_NEAR(observations(1), 68.4366, 0.01);    // front_wheels_rpm
   EXPECT_NEAR(observations(2), 60.47888, 0.01);   // rear_wheels_rpm
   EXPECT_NEAR(observations(3), 60.47888, 0.01);   // rear_wheels_rpm
-  EXPECT_NEAR(observations(4), -0.1243, 0.001);       // steering_angle
+  EXPECT_NEAR(observations(4), -0.1243, 0.001);   // steering_angle
   EXPECT_NEAR(observations(5), 241.91552, 0.01);  // motor_rpm
 }
 

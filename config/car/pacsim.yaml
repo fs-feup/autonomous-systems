@@ -1,8 +1,7 @@
 car:
   wheel_diameter: 0.406
   wheel_base: 1.53
-  rear_axis_to_camera: 0.79
-  axis_length: 1.2
+  track_width: 1.2
   dist_cg_2_rear_axis: 0.804
   gear_ratio: 4.0
   cog_height: 0.5
