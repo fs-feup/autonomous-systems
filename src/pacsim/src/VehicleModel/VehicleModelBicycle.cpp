@@ -76,6 +76,7 @@ Wheels VehicleModelBicycle::getWheelspeeds() { return wheelspeeds; }
 
 Wheels VehicleModelBicycle::getWheelOrientations() { return wheelOrientations; }
 
+
 Wheels VehicleModelBicycle::getTorques() { return torques; }
 
 void VehicleModelBicycle::setTorques(Wheels in) { torques = in; }
@@ -106,6 +107,7 @@ void VehicleModelBicycle::setOrientation(Eigen::Vector3d newOrientation) {
   orientation = newOrientation;
 }
 
+
 double VehicleModelBicycle::processSlipAngleLat(double alpha_input, double Fz) {
   return tireModel.calculateLateralForce(alpha_input, Fz);
 }
@@ -129,46 +131,32 @@ double VehicleModelBicycle::TireModel::calculateLateralForce(double slipAngle,
   if (slipAngle == 0.0) {
     return 0.0;  // No slip angle, no lateral force
   }
-  double dpi = (p_input - NOMPRES) / NOMPRES;
-  double Fz_0_prime = LFZO * FNOM;
-  double Kya = PKY1 * Fz_0_prime * (1 + PPY1 * dpi) * (1 - PKY3 * abs(y_input)) *
-               sin(PKY4 * atan((normalForce / Fz_0_prime) /
-                               ((PKY2 + PKY5 * y_input * y_input) * (1 + PPY2 * dpi)))) *
-               zeta_3 * LKY;
-  double dfz = (normalForce - Fz_0_prime) / Fz_0_prime;
-  double Kyg0 = normalForce * (PKY6 + PKY7 * dfz) * (1 + PPY5 * dpi) * LKYC;
-  double Vs_y = tan(slipAngle) * abs(V_cx);
-  double Vs_x = -slip_ratio * abs(V_cx);
-  double Vs = sqrt(Vs_x * Vs_x + Vs_y * Vs_y);
-  double V0 = LONGVL;
-  double LMUY_star = LMUY / (1.0 + LMUV * (Vs / V0));
-  double SVyg = normalForce * (PVY3 + PVY4 * dfz) * y_input * LKYC * LMUY_star * zeta_2;
-  double SHy = (PHY1 + PHY2 * dfz) +
-               ((Kyg0 * y_input - SVyg) / (Kya + eps_k * sign(Kya))) * zeta_0 + zeta_4 - 1.0;
-  double alpha_y = slipAngle + SHy;
-  double Ey = (PEY1 + PEY2 * dfz) *
-              (1 + PEY5 * y_input * y_input - (PEY3 + PEY4 * y_input) * sign(alpha_y)) * LEY;
+  double alpha = slipAngle * M_PI / 180.0;
+            
+  double Fz0 = FNOM * LFZO;  
+  double dfz = (normalForce / Fz0) - 1.0; 
+            
+  double Dy = normalForce * (PDY1 + PDY2 * dfz) * (1.0 - PDY3 * y_input * y_input);
+            
+  double Kya = normalForce * (PKY1 + PKY2 * dfz) * exp(PKY3 * dfz) * (1.0 - PKY4 * y_input * y_input) * LMUY;
+            
   double Cy = PCY1 * LCY;
-  double mu_y = (PDY1 + PDY2 * dfz) * (1.0 + PPY3 * dpi + PPY4 * dpi * dpi) *
-                (1.0 - PDY3 * y_input * y_input) * LMUY_star;
-  double Dy = mu_y * normalForce * zeta_2;
-  double By = Kya / (Cy * Dy + eps_y * sign(Dy));
-  double DVyk = mu_y * normalForce * (RVY1 + RVY2 * dfz + RVY3 * y_input) *
-                cos(atan(RVY4 * slipAngle)) * zeta_2;
-  double SVyk = DVyk * sin(RVY5 * atan(RVY6 * slip_ratio)) * LVYKA;
-  double Eyk = REY1 + REY2 * dfz;
-  double SHyk = RHY1 + RHY2 * dfz;
-  double ks = slip_ratio + SHyk;
-  double Byk = (RBY1 + RBY4 * y_input * y_input) * cos(atan(RBY2 * (slipAngle - RBY3))) * LYKA;
-  double Cyk = RCY1;
-  double Gyk_0 = cos(Cyk * atan(Byk * SHyk - Eyk * (Byk * SHyk - atan(Byk * SHyk))));
-  double Gyk = (cos(Cyk * atan(Byk * ks - Eyk * (Byk * ks - atan(Byk * ks)))) / Gyk_0);
-  double SVy = normalForce * (PVY1 + PVY2 * dfz) * LVY * LMUY_star * zeta_2 + SVyg;
-  double Fy_0 = Dy * sin(Cy * atan(By * alpha_y - Ey * (By * alpha_y - atan(By * alpha_y)))) + SVy;
-  double Fy = Gyk * Fy_0 + SVyk;
-
+            
+  double By = Kya / (Cy * Dy + 1e-9); 
+            
+  double Ey = (PEY1 + PEY2 * dfz) * (1.0 - (PEY3 + PEY4 * y_input) * sign(alpha));
+            
+  double Shy = PHY1 + PHY2 * dfz + RHY1 * y_input + RHY2 * slip_ratio;
+            
+  double alpha_y = alpha + Shy;
+            
+  double Vy = normalForce * (PVY1 + PVY2 * dfz + PVY3 * y_input) * LVY;
+            
+  double Fy = Dy * std::sin(Cy * std::atan(By * alpha_y - Ey * (By * alpha_y - std::atan(By * alpha_y)))) + Vy;
+            
   return Fy;
 }
+
 
 void VehicleModelBicycle::PowertrainModel::calculateWheelTorques(double throttleInput,
                                                                  Wheels& torques) const {
@@ -179,7 +167,8 @@ void VehicleModelBicycle::PowertrainModel::calculateWheelTorques(double throttle
   torques.RR = throttleInput * MAX_TORQUE * 0.5;
 }
 
-double VehicleModelBicycle::PowertrainModel::calculateEfficiency(const Wheels& torques) const {
+double VehicleModelBicycle::PowertrainModel::calculateEfficiency(const Wheels& torqueMECÂNICA 1 – L.M006 – (MV2025)s) const {
+  // Simple efficiency model based on rear wheel torquestorqueMECÂNICA 1 – L.M006 – (MV2025)s) const {
   // Simple efficiency model based on rear wheel torques
   // TODO: macros instead of harcoded values
   return 0.002333 * (torques.RL + torques.RR) + 0.594;
@@ -241,6 +230,22 @@ void VehicleModelBicycle::calculateNormalForces(double& Fz_Front, double& Fz_Rea
   Fz_Front = std::max(0.0, (m * GRAVITY + downforce) * 0.5 * lr / l);
   Fz_Rear = std::max(0.0, (m * GRAVITY + downforce) * 0.5 * lf / l);
 }
+
+void VehicleModelBicycle::calculateWeightTransfer(double& Fz_Front, double& Fz_Rear , double& Fx_FL , double& Fx_FR , double& Fx_RL , double& Fx_RR) const {
+    // Calculate total longitudinal force (traction + braking)
+    double Fx_total = Fx_FL + Fx_FR + Fx_RL + Fx_RR;
+
+    double Hm = 0.245; // In meters
+
+    double l = lf + lr; // wheelbase
+    double deltaW = (Fx_total * Hm) / l;
+
+    // Positive Fx_total (acceleration): weight shifts to rear
+    // Negative Fx_total (braking): weight shifts to front
+    Fz_Front -= deltaW;
+    Fz_Rear  += deltaW;
+}
+
 
 void VehicleModelBicycle::calculateSlipAngles(double& kappaFront, double& kappaRear) const {
   constexpr double eps = 0.00001;  // Prevent division by zero
@@ -408,6 +413,8 @@ Eigen::Vector3d VehicleModelBicycle::getDynamicStates(double dt) {
   double Fy_Front = processSlipAngleLat(kappaFront, Fz_Front / 2) * 2;
   double Fy_Rear = processSlipAngleLat(kappaRear, Fz_Rear / 2) * 2;
 
+  calculateWeightTransfer(Fz_Front, Fz_Rear, Fx_FL, Fx_FR, Fx_RL, Fx_RR);
+  
   // Update wheel speeds
   updateWheelSpeeds(vFL, vFR, vRL, vRR);
 
