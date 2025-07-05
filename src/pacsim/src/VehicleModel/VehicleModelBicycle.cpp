@@ -21,6 +21,7 @@ bool VehicleModelBicycle::readConfig(ConfigElement& config) {
   kinematics.getElement<double>(&lr, "lr");
   kinematics.getElement<double>(&sf, "sf");
   kinematics.getElement<double>(&sr, "sr");
+  kinematics.getElement<double>(&h_cg, "h_cg");
 
   // Read tire model parameters
   auto tire = configModel["tire"];
@@ -255,10 +256,9 @@ void VehicleModelBicycle::calculateWeightTransfer(double& Fz_Front, double& Fz_R
     // Calculate total longitudinal force (traction + braking)
     double Fx_total = Fx_FL + Fx_FR + Fx_RL + Fx_RR;
 
-    double Hm = 0.245; // In meters
 
     double l = lf + lr; // wheelbase
-    double deltaW = (Fx_total * Hm) / l;
+    double deltaW = (Fx_total * h_cg) / l;
 
     // Positive Fx_total (acceleration): weight shifts to rear
     // Negative Fx_total (braking): weight shifts to front

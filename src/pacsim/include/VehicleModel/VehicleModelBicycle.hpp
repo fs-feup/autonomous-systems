@@ -250,6 +250,7 @@ private:
     double sf, sr;  // Track width front/rear
     double m;       // Vehicle mass
     double Izz;     // Yaw moment of inertia
+    double h_cg;    // Height of center of gravity
     
     // Component models
     AerodynamicsModel aeroModel;
