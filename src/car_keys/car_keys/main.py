@@ -192,11 +192,11 @@ def main():
                 acceleration = max(acceleration, -1.0)
                 command_changed = True
             elif key == "a":
-                steering += 0.02
+                steering += 0.05
                 steering = min(steering, 0.34)
                 command_changed = True
             elif key == "d":
-                steering -= 0.02
+                steering -= 0.05
                 steering = max(steering, -0.34)
                 command_changed = True
             elif key == "q":
