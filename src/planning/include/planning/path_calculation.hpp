@@ -168,7 +168,14 @@ public:
   std::vector<PathPoint> skidpad_path(const std::vector<Cone>& cone_array,
                                       common_lib::structures::Pose pose);
 
-                                      
+  
+  /**
+   * @brief Generate a path for trackdrive course
+   * @returns a vector of PathPoint objects representing the path.
+   */
+  std::vector<PathPoint> calculate_trackdrive(std::vector<Cone>& cone_array, common_lib::structures::Pose pose);
+
+
   std::vector<PathPoint> getGlobalPath() const;
 
   void createMidPoints(
@@ -212,6 +219,7 @@ public:
     const Point& target,
     const std::unordered_map<Point, MidPoint*, PointHash>& map,
     double tolerance);
+
 
   std::pair<Point, Point> ordered_segment(const Point& a, const Point& b);
 

@@ -220,15 +220,22 @@ void Planning::run_planning_algorithms() {
       }
       break;
     case common_lib::competition_logic::Mission::TRACKDRIVE:
-      triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
-      final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
-                                               this->initial_car_orientation_);
-      global_path_ = path_calculation_.getGlobalPath();
 
-      if (this->lap_counter_ >= 10) {
-        velocity_planning_.stop(final_path);
-      } else {
+      if (this->lap_counter_ == 0) {
+        triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
+        final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
+                                                 this->initial_car_orientation_);
+        global_path_ = path_calculation_.getGlobalPath();
         velocity_planning_.set_velocity(final_path);
+      }
+      else if (this->lap_counter_ >= 1 && this->lap_counter_ < 10) {
+        triangulations_path = path_calculation_.calculate_trackdrive(this->cone_array_, this->pose);
+        final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
+                                                 this->initial_car_orientation_);
+        global_path_ = final_path;
+        velocity_planning_.trackdrive_velocity(final_path);
+      } else if (this->lap_counter_ >= 10) {
+        velocity_planning_.stop(final_path);
       }
       break;
     default:

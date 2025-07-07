@@ -60,9 +60,12 @@ public:
 
   void set_velocity(std::vector<PathPoint> &final_path);
 
+  void trackdrive_velocity(std::vector<PathPoint> &final_path);
+
   void stop(std::vector<PathPoint> &final_path) {
-    for (auto &point : final_path) {
-      point.ideal_velocity = 0.0;
+    int size = final_path.size();
+    for (int i = 0; i < size/2; ++i) {
+      final_path[i].ideal_velocity = 0.0;
     }
   }
 };
