@@ -11,3 +11,6 @@ control:
   pid_anti_windup: 0.7
   lpf_alpha: 1 # Smoothing factor for the low-pass filter (0 = max smoothing, 1 = no smoothing)
   lpf_initial_value: 0.0
+  command_time_interval: 50 # Milliseconds
+  test_mode: "default" # "default" to run the default control loop, "const_torque" for constant torque control
+  const_torque_value: 0.2 # Value of torque for const_torque mode
