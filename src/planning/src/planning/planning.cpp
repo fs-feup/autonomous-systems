@@ -233,7 +233,7 @@ void Planning::run_planning_algorithms() {
           this->found_full_path_ = true;
           triangulations_path = path_calculation_.calculate_trackdrive(this->cone_array_, this->pose);
           final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
-                                                  this->initial_car_orientation_);
+                                                 this->initial_car_orientation_);
           global_path_ = final_path;
           velocity_planning_.trackdrive_velocity(final_path);
           full_path_ = final_path;

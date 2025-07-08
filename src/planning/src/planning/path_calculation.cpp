@@ -504,11 +504,11 @@ std::vector<PathPoint> PathCalculation::calculate_trackdrive(std::vector<Cone>& 
 
   PathPoint first_point = result[0];
   PathPoint last_point = result.back();
-  
+
   // Find the best point to close the loop by checking cost to connect back to first point
   double min_cost = std::numeric_limits<double>::max();
-  int best_cutoff_index = result.size() - 1; // Default to last point
-  
+  int best_cutoff_index = result.size() - 1;  // Default to last point
+
   // Check each point in the path to find the best one to close the loop
   for (int i = 2; i < static_cast<int>(result.size()); ++i) {
     PathPoint current = result[i];
@@ -530,8 +530,9 @@ std::vector<PathPoint> PathCalculation::calculate_trackdrive(std::vector<Cone>& 
     }
 
     // Local cost calculation
-    double cost = std::pow(angle, this->config_.angle_exponent_) * this->config_.angle_gain_ +
-                  std::pow(distance, this->config_.distance_exponent_) * this->config_.distance_gain_;
+    double cost =
+        std::pow(angle, this->config_.angle_exponent_) * this->config_.angle_gain_ +
+        std::pow(distance, this->config_.distance_exponent_) * this->config_.distance_gain_;
 
     if (cost < min_cost) {
       min_cost = cost;
@@ -539,10 +540,39 @@ std::vector<PathPoint> PathCalculation::calculate_trackdrive(std::vector<Cone>& 
     }
   }
 
+  // Trim the path to the best cutoff point
   result.erase(result.begin() + best_cutoff_index + 1, result.end());
-  
+
+  // Add X intermediate points between the last point and the first point
+  int X = 4;  // You can adjust this value as needed
+  if (X > 0 && result.size() > 0) {
+    PathPoint last_point = result.back();
+    PathPoint first_point = result[0];
+
+    // Calculate the vector from last to first point
+    float dx = first_point.position.x - last_point.position.x;
+    float dy = first_point.position.y - last_point.position.y;
+
+    // Add X evenly spaced intermediate points
+    for (int i = 1; i <= X; ++i) {
+      float t = static_cast<float>(i) / (X + 1);  // Interpolation parameter
+      PathPoint intermediate;
+      intermediate.position.x = last_point.position.x + t * dx;
+      intermediate.position.y = last_point.position.y + t * dy;
+      result.push_back(intermediate);
+    }
+  }
+
+  // Close the loop by adding the first point again
   result.push_back(first_point);
-  
+
+  // Add overlap points (10 points or as many as available)
+  int overlap_count = std::min(10, static_cast<int>(result.size()) -
+                                       1);  // -1 to exclude the duplicate first point we just added
+  for (int i = 1; i <= overlap_count; ++i) {
+    result.push_back(result[i]);
+  }
+
   return result;
 }
 
