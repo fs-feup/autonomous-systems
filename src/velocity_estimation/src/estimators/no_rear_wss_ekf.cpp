@@ -135,24 +135,24 @@ void NoRearWSSEKF::correct_wheels(Eigen::Vector3d& state, Eigen::Matrix3d& covar
           .inverse();
 
   // DEBUG PRINTS
-  RCLCPP_INFO(rclcpp::get_logger("velocity_estimation"),
-              "correct_wheels - Predicted observations: %f %f %f %f", predicted_observations(0),
-              predicted_observations(1), predicted_observations(2), predicted_observations(3));
-  RCLCPP_INFO(rclcpp::get_logger("velocity_estimation"),
-              "correct_wheels - Observations: %f %f %f %f", observations(0), observations(1),
-              observations(2), observations(3));
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - Covariance: \n"
-                                                                    << covariance);
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - y: \n" << y);
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - Jacobian: \n"
-                                                                    << jacobian);
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - Kalman gain: \n"
-                                                                    << kalman_gain);
+  RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"),
+               "correct_wheels - Predicted observations: %f %f %f %f", predicted_observations(0),
+               predicted_observations(1), predicted_observations(2), predicted_observations(3));
+  RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"),
+               "correct_wheels - Observations: %f %f %f %f", observations(0), observations(1),
+               observations(2), observations(3));
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - Covariance: \n"
+                                                                     << covariance);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - y: \n" << y);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - Jacobian: \n"
+                                                                     << jacobian);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - Kalman gain: \n"
+                                                                     << kalman_gain);
   double prev_omega = state(2);
   state += kalman_gain * y;
   state(2) = prev_omega;
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - New State: \n"
-                                                                    << state);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - New State: \n"
+                                                                     << state);
   if (this->_has_made_prediction_)
     covariance = (Eigen::Matrix3d::Identity() - kalman_gain * jacobian) * covariance;
 }
@@ -170,16 +170,16 @@ void NoRearWSSEKF::correct_imu(Eigen::Vector3d& state, Eigen::Matrix3d& covarian
       (jacobian * covariance * jacobian.transpose() + this->_imu_measurement_noise_matrix_)
           .inverse();
 
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - Covariance: \n"
-                                                                    << covariance);
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - y: \n" << y);
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - Jacobian: \n"
-                                                                    << jacobian);
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - Kalman gain: \n"
-                                                                    << kalman_gain);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - Covariance: \n"
+                                                                     << covariance);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - y: \n" << y);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - Jacobian: \n"
+                                                                     << jacobian);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - Kalman gain: \n"
+                                                                     << kalman_gain);
   state += kalman_gain * y;
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - New State: \n"
-                                                                    << state);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - New State: \n"
+                                                                     << state);
   if (this->_has_made_prediction_)
     covariance = (Eigen::Matrix3d::Identity() - kalman_gain * jacobian) * covariance;
 }
