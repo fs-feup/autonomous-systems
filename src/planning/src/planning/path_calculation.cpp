@@ -8,7 +8,6 @@
 #include <utility>
 #include <vector>
 
-#include "path_calculation.hpp"
 #include "utils/cone.hpp"
 using namespace std;
 
@@ -334,9 +333,6 @@ void PathCalculation::extendPath(
         visited_midpoints.count(best_point) > 0) {
       break;
     }
-    RCLCPP_WARN(rclcpp::get_logger("planning"), "Best cost: %f, Worst_cost: %f", best_cost,
-                worst_cost);
-
     path.push_back(best_point->point);
     (void)visited_midpoints.insert(best_point);
     n_points++;
@@ -500,15 +496,23 @@ std::vector<PathPoint> PathCalculation::calculate_trackdrive(std::vector<Cone>& 
                                                              common_lib::structures::Pose pose) {
   vector<PathPoint> result = no_coloring_planning(cone_array, pose);
 
+  // Check if we have enough points to form a loop
+  if (result.size() < 3) {
+    RCLCPP_WARN(rclcpp::get_logger("planning"), "Not enough points to create trackdrive loop");
+    return result;
+  }
+
   PathPoint first_point = result[0];
-
-  // Check what point has the smaller cost to the first point
-  PathPoint last_point;
-  double cost, min_cost = std::numeric_limits<double>::max();
-
-  while (cost <= min_cost) {
-    PathPoint current = result.back();
-    PathPoint previous = result[result.size() - 2];
+  PathPoint last_point = result.back();
+  
+  // Find the best point to close the loop by checking cost to connect back to first point
+  double min_cost = std::numeric_limits<double>::max();
+  int best_cutoff_index = result.size() - 1; // Default to last point
+  
+  // Check each point in the path to find the best one to close the loop
+  for (int i = 2; i < static_cast<int>(result.size()); ++i) {
+    PathPoint current = result[i];
+    PathPoint previous = result[i - 1];
 
     double dx = current.position.x - first_point.position.x;
     double dy = current.position.y - first_point.position.y;
@@ -526,20 +530,19 @@ std::vector<PathPoint> PathCalculation::calculate_trackdrive(std::vector<Cone>& 
     }
 
     // Local cost calculation
-    cost =
-        std::pow(angle, this->config_.angle_exponent_) * this->config_.angle_gain_ +
-        std::pow(distance, this->config_.distance_exponent_) * this->config_.distance_gain_;
+    double cost = std::pow(angle, this->config_.angle_exponent_) * this->config_.angle_gain_ +
+                  std::pow(distance, this->config_.distance_exponent_) * this->config_.distance_gain_;
 
     if (cost < min_cost) {
       min_cost = cost;
-      last_point = current;
-      result.pop_back();  // Remove the last point if it has a lower cost
-    } else {
-      break;
+      best_cutoff_index = i;
     }
   }
-    result.push_back(last_point);
-    result.push_back(first_point);  // Close the loop by adding the first point again
+
+  result.erase(result.begin() + best_cutoff_index + 1, result.end());
+  
+  result.push_back(first_point);
+  
   return result;
 }
 

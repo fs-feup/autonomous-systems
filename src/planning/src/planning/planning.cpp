@@ -229,11 +229,19 @@ void Planning::run_planning_algorithms() {
         velocity_planning_.set_velocity(final_path);
       }
       else if (this->lap_counter_ >= 1 && this->lap_counter_ < 10) {
-        triangulations_path = path_calculation_.calculate_trackdrive(this->cone_array_, this->pose);
-        final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
-                                                 this->initial_car_orientation_);
-        global_path_ = final_path;
-        velocity_planning_.trackdrive_velocity(final_path);
+        if (!this->found_full_path_) {
+          this->found_full_path_ = true;
+          triangulations_path = path_calculation_.calculate_trackdrive(this->cone_array_, this->pose);
+          final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
+                                                  this->initial_car_orientation_);
+          global_path_ = final_path;
+          velocity_planning_.trackdrive_velocity(final_path);
+          full_path_ = final_path;
+        } else{
+          // Use the full path for the next laps
+          final_path = full_path_;
+          global_path_ = full_path_;
+        }
       } else if (this->lap_counter_ >= 10) {
         velocity_planning_.stop(final_path);
       }

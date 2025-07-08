@@ -1,5 +1,4 @@
 #include "planning/velocity_planning.hpp"
-#include "velocity_planning.hpp"
 
 double VelocityPlanning::find_circle_center(PathPoint &point1, PathPoint &point2,
                                             PathPoint &point3) {

@@ -3,6 +3,10 @@
 
 #include <CGAL/Delaunay_triangulation_2.h>
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
+#include <pcl/kdtree/kdtree_flann.h>
+#include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
+#include <pcl/registration/icp.h>
 
 #include <cmath>
 #include <map>
@@ -10,13 +14,6 @@
 #include <queue>
 #include <utility>
 #include <vector>
-
-
-#include <pcl/registration/icp.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
-#include <pcl/kdtree/kdtree_flann.h>
-
 
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/path_point.hpp"
@@ -54,10 +51,6 @@ private:
   int path_update_counter_ = 0;
   std::vector<Point> path_to_car;
 
-
-
-
-
   // Anchor point for the path, to avoid calculating the path from the position of the car
   common_lib::structures::Pose anchor_point_;
   bool anchor_point_set_ = false;
@@ -68,7 +61,7 @@ public:
    */
   struct MidPoint {
     Point point;
-    std::vector<MidPoint *> close_points;
+    std::vector<MidPoint*> close_points;
     Cone* cone1;
     Cone* cone2;
     bool valid = true;
@@ -76,17 +69,17 @@ public:
 
   struct PointHash {
     std::size_t operator()(const Point& p) const {
-        auto h1 = std::hash<double>()(p.x());
-        auto h2 = std::hash<double>()(p.y());
-        return h1 ^ (h2 << 1);
+      auto h1 = std::hash<double>()(p.x());
+      auto h2 = std::hash<double>()(p.y());
+      return h1 ^ (h2 << 1);
     }
   };
 
   struct PairHash {
     std::size_t operator()(const std::pair<Point, Point>& p) const {
-        auto h1 = PointHash{}(p.first);
-        auto h2 = PointHash{}(p.second);
-        return h1 ^ (h2 << 1);
+      auto h1 = PointHash{}(p.first);
+      auto h2 = PointHash{}(p.second);
+      return h1 ^ (h2 << 1);
     }
   };
 
@@ -168,61 +161,44 @@ public:
   std::vector<PathPoint> skidpad_path(const std::vector<Cone>& cone_array,
                                       common_lib::structures::Pose pose);
 
-  
   /**
    * @brief Generate a path for trackdrive course
    * @returns a vector of PathPoint objects representing the path.
    */
-  std::vector<PathPoint> calculate_trackdrive(std::vector<Cone>& cone_array, common_lib::structures::Pose pose);
-
+  std::vector<PathPoint> calculate_trackdrive(std::vector<Cone>& cone_array,
+                                              common_lib::structures::Pose pose);
 
   std::vector<PathPoint> getGlobalPath() const;
 
-  void createMidPoints(
-      std::vector<Cone>& cone_array,
-      std::vector<std::unique_ptr<MidPoint>>& midPoints,
-      std::unordered_map<MidPoint*, std::vector<Point>>& triangle_points
-  );
+  void createMidPoints(std::vector<Cone>& cone_array,
+                       std::vector<std::unique_ptr<MidPoint>>& midPoints,
+                       std::unordered_map<MidPoint*, std::vector<Point>>& triangle_points);
 
-  void connectMidPoints(
-      const std::vector<std::unique_ptr<MidPoint>>& midPoints,
-      const std::unordered_map<MidPoint*, std::vector<Point>>& triangle_points
-  );
+  void connectMidPoints(const std::vector<std::unique_ptr<MidPoint>>& midPoints,
+                        const std::unordered_map<MidPoint*, std::vector<Point>>& triangle_points);
 
-  void selectInitialPath(
-      std::vector<Point>& path,
-      const std::vector<std::unique_ptr<MidPoint>>& midPoints,
-      const common_lib::structures::Pose& pose,
-      const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
-      std::unordered_set<MidPoint*>& visited_midpoints,
-      std::unordered_set<Cone*>& discarded_cones
-  );
+  void selectInitialPath(std::vector<Point>& path,
+                         const std::vector<std::unique_ptr<MidPoint>>& midPoints,
+                         const common_lib::structures::Pose& pose,
+                         const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
+                         std::unordered_set<MidPoint*>& visited_midpoints,
+                         std::unordered_set<Cone*>& discarded_cones);
 
-  void extendPath(
-    std::vector<Point>& path,
-    const std::vector<std::unique_ptr<MidPoint>>& midPoints,
-    const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
-    std::unordered_set<MidPoint*>& visited_midpoints,
-    std::unordered_set<Cone*>& discarded_cones,
-    int max_points
-  );
+  void extendPath(std::vector<Point>& path, const std::vector<std::unique_ptr<MidPoint>>& midPoints,
+                  const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
+                  std::unordered_set<MidPoint*>& visited_midpoints,
+                  std::unordered_set<Cone*>& discarded_cones, int max_points);
 
   void discard_cones_along_path(
-    const std::vector<Point>& path,
-    const std::vector<std::unique_ptr<MidPoint>>& midPoints,
-    const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
-    std::unordered_set<Cone*>& discarded_cones
-  ); 
+      const std::vector<Point>& path, const std::vector<std::unique_ptr<MidPoint>>& midPoints,
+      const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
+      std::unordered_set<Cone*>& discarded_cones);
 
-
-  MidPoint* find_nearest_point(
-    const Point& target,
-    const std::unordered_map<Point, MidPoint*, PointHash>& map,
-    double tolerance);
-
+  MidPoint* find_nearest_point(const Point& target,
+                               const std::unordered_map<Point, MidPoint*, PointHash>& map,
+                               double tolerance);
 
   std::pair<Point, Point> ordered_segment(const Point& a, const Point& b);
-
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_PATH_CALCULATION_HPP_
