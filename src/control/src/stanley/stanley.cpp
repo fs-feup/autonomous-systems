@@ -10,22 +10,19 @@ double Stanley::steering_control_law(const LateralControlInput& input) {
   double path_yaw = std::atan2(input.next_closest_point.y - input.closest_point.y,
                                input.next_closest_point.x - input.closest_point.x);
 
-  // Heading error (difference between vehicle yaw and path yaw at closest point)
-  double heading_error = normalize_angle(input.yaw - path_yaw);
+  double heading_error = normalize_angle(path_yaw - input.yaw);
 
-  // Cross-track error (distance from CG to closest point, sign based on path orientation)
-  double dx = input.closest_point.x - input.cg.x;
-  double dy = input.closest_point.y - input.cg.y;
-  double cross_track_error = dx * std::sin(path_yaw) - dy * std::cos(path_yaw);
+  double dx = input.cg.x - input.closest_point.x;
+  double dy = input.cg.y - input.closest_point.y;
+  double cross_track_error = std::sin(path_yaw) * dx - std::cos(path_yaw) * dy;
 
-  // Stanley control law
   double velocity = std::max(input.velocity, 0.001);  // avoid divide by zero
+
   double cte_term = std::atan2(stanley_k_ * cross_track_error, velocity);
 
   double steering = heading_error + cte_term;
 
-  // Filter and clamp
-  double filtered_steering = lpf_ ? lpf_->filter(steering) : steering;
+  double filtered_steering = lpf_->filter(steering);
   return std::clamp(filtered_steering, MIN_STEERING_ANGLE, MAX_STEERING_ANGLE);
 }
 
