@@ -169,7 +169,7 @@ void Control::publish_control(const custom_interfaces::msg::Pose& vehicle_state_
   }
 
   // calculate longitudinal control: PI-D
-  double torque = this->long_controller_.update(lookahead_velocity, this->velocity_);
+  double torque = this->long_controller_.update(closest_point_velocity, this->velocity_);
 
   // calculate Lateral Control: Pure Pursuit
   double steering_angle = this->lat_controller_.pp_steering_control_law(
@@ -208,7 +208,7 @@ void Control::publish_control(const custom_interfaces::msg::Pose& vehicle_state_
   publish_evaluator_data(lookahead_velocity, lookahead_point, closest_point, vehicle_state,
                          closest_point_velocity, execution_time);
   publish_visualization_data(lookahead_point, closest_point);
-  publish_cmd(torque, 0);
+
   this->throttle_command_ = torque;
   this->steering_command_ = steering_angle;
   // Adapter to communicate with the car
