@@ -34,6 +34,7 @@ set(IMPLEMENTATION_FILES
   src/tire_model/pacejka_combined_slip.cpp
   src/steering_model/parallel_front_steering.cpp
   src/load_transfer_model/rigid_body_model.cpp
+  src/steering_motor_model/pid_steering_motor.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})
