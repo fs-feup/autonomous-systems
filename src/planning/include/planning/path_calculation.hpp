@@ -74,6 +74,12 @@ public:
     bool valid = true;
   };
 
+  /**
+   * @brief PointHash struct for hashing Point objects
+   *
+   * This struct is used to create a hash function for Point objects, allowing them
+   * to be used as keys in unordered maps.
+   */
   struct PointHash {
     std::size_t operator()(const Point& p) const {
         auto h1 = std::hash<double>()(p.x());
@@ -81,7 +87,12 @@ public:
         return h1 ^ (h2 << 1);
     }
   };
-
+  /**
+   * @brief PairHash struct for hashing pairs of Point objects
+   *
+   * This struct is used to create a hash function for pairs of Point objects, allowing
+   * them to be used as keys in unordered maps.
+   */
   struct PairHash {
     std::size_t operator()(const std::pair<Point, Point>& p) const {
         auto h1 = PointHash{}(p.first);
@@ -168,20 +179,48 @@ public:
   std::vector<PathPoint> skidpad_path(const std::vector<Cone>& cone_array,
                                       common_lib::structures::Pose pose);
 
-                                      
+  /**
+   * @brief Get the global path
+   * 
+   * @return std::vector<PathPoint> The global path
+   */                                  
   std::vector<PathPoint> getGlobalPath() const;
 
+
+  /**
+   * @brief Create midpoints from the cone array
+   * 
+   * @param cone_array The array of cones to create midpoints from
+   * @param midPoints Vector to store created midpoints
+   * @param triangle_points Map to store points associated with each midpoint
+   */
   void createMidPoints(
       std::vector<Cone>& cone_array,
       std::vector<std::unique_ptr<MidPoint>>& midPoints,
       std::unordered_map<MidPoint*, std::vector<Point>>& triangle_points
   );
 
+  /**
+   * @brief Connect midpoints based on the triangulation
+   * 
+   * @param midPoints Vector of midpoints to connect
+   * @param triangle_points Map of points associated with each midpoint
+   */
   void connectMidPoints(
       const std::vector<std::unique_ptr<MidPoint>>& midPoints,
       const std::unordered_map<MidPoint*, std::vector<Point>>& triangle_points
   );
 
+  /**
+   * @brief Selects the initial path based on the current pose and midpoints
+   * 
+   * @param path Vector to store the selected path points
+   * @param midPoints Vector of available midpoints
+   * @param pose Current pose of the vehicle
+   * @param point_to_midpoint Map from Point to MidPoint for quick access
+   * @param visited_midpoints Set of already visited midpoints
+   * @param discarded_cones Set of cones that should be discarded along the path
+   */
   void selectInitialPath(
       std::vector<Point>& path,
       const std::vector<std::unique_ptr<MidPoint>>& midPoints,
@@ -191,6 +230,16 @@ public:
       std::unordered_set<Cone*>& discarded_cones
   );
 
+  /**
+   * @brief Extend the path with additional points
+   * 
+   * @param path Vector to store the extended path points
+   * @param midPoints Vector of available midpoints
+   * @param point_to_midpoint Map from Point to MidPoint for quick access
+   * @param visited_midpoints Set of already visited midpoints
+   * @param discarded_cones Set of cones that should be discarded along the path
+   * @param max_points Maximum number of points to extend the path
+   */
   void extendPath(
     std::vector<Point>& path,
     const std::vector<std::unique_ptr<MidPoint>>& midPoints,
@@ -200,6 +249,14 @@ public:
     int max_points
   );
 
+  /**
+   * @brief Discard cones along the path based on the last two points
+   * 
+   * @param path The current path to check for cones
+   * @param midPoints Vector of available midpoints
+   * @param point_to_midpoint Map from Point to MidPoint for quick access
+   * @param discarded_cones Set to store discarded cones
+   */
   void discard_cones_along_path(
     const std::vector<Point>& path,
     const std::vector<std::unique_ptr<MidPoint>>& midPoints,
@@ -207,12 +264,26 @@ public:
     std::unordered_set<Cone*>& discarded_cones
   ); 
 
-
+/**
+ * @brief Find the nearest midpoint to a target point within a tolerance
+ * 
+ * @param target The target point to find the nearest midpoint for
+ * @param map Map of points to midpoints for quick access
+ * @param tolerance The maximum distance to consider a point as "near"
+ * @return MidPoint* Pointer to the nearest midpoint, or nullptr if none found
+ */
   MidPoint* find_nearest_point(
     const Point& target,
     const std::unordered_map<Point, MidPoint*, PointHash>& map,
     double tolerance);
-
+  
+  /**
+ * @brief Order a segment defined by two points
+ * 
+ * @param a First point of the segment
+ * @param b Second point of the segment
+ * @return std::pair<Point, Point> A pair of points ordered by their coordinates
+ */  
   std::pair<Point, Point> ordered_segment(const Point& a, const Point& b);
 
 };

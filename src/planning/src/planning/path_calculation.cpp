@@ -425,59 +425,48 @@ PathCalculation::findPathStartPoints(const std::vector<std::unique_ptr<MidPoint>
                       decltype(cmp)>
       pq(cmp);
 
-  // Create anchor midpoint (temporary, should be cleaned up)
-  MidPoint* anchor_midpoint =
-      new MidPoint{Point(anchor_pose.position.x, anchor_pose.position.y), {}, nullptr, nullptr};
+MidPoint anchor_midpoint{
+    Point(anchor_pose.position.x, anchor_pose.position.y), {}, nullptr, nullptr};
 
-  // Find midpoints that are in front of the car
-  for (const auto& p : mid_points) {
-    // Compute vector from the anchor point to the midpoint
-    double dx = p->point.x() - anchor_midpoint->point.x();
-    double dy = p->point.y() - anchor_midpoint->point.y();
-
+// Find midpoints that are in front of the car
+for (const auto& p : mid_points) {
+    double dx = p->point.x() - anchor_midpoint.point.x();
+    double dy = p->point.y() - anchor_midpoint.point.y();
     double car_direction_x = std::cos(anchor_pose.orientation);
     double car_direction_y = std::sin(anchor_pose.orientation);
-
-    // Dot product checks whether the midpoint is in front of the car
     if ((dx * car_direction_x + dy * car_direction_y) <= 0.0) {
-      continue;
+        continue;
     }
-
     double dist = std::sqrt(std::pow(dx, 2) + std::pow(dy, 2));
     pq.push({dist, p.get()});
-  }
+}
 
-  // Get the closest midpoints in front of the car
-  std::vector<MidPoint*> candidate_points;
-  for (int i = 0; i < 6 && !pq.empty(); i++) {  // Fixed: was i <= 5
+// Get the closest midpoints in front of the car
+std::vector<MidPoint*> candidate_points;
+for (int i = 0; i < 6 && !pq.empty(); i++) {
     candidate_points.push_back(pq.top().second);
     pq.pop();
-  }
+}
 
-  // Set the anchor point's connections to these candidates
-  anchor_midpoint->close_points = candidate_points;
+// Set the anchor point's connections to these candidates
+anchor_midpoint.close_points = candidate_points;
 
-  double best_cost = this->config_.max_cost_ * this->config_.search_depth_;
-
-  // For each candidate first point, find the best second point using DFS
-  for (MidPoint* first : anchor_midpoint->close_points) {
-    auto [cost, second] =
-        dfs_cost(this->config_.search_depth_, anchor_midpoint, first, this->config_.max_cost_);
-
-    cost += std::pow(std::sqrt(std::pow(first->point.x() - anchor_midpoint->point.x(), 2) +
-                               std::pow(first->point.y() - anchor_midpoint->point.y(), 2)),
-                     this->config_.distance_exponent_) *
+double best_cost = this->config_.max_cost_ * this->config_.search_depth_;
+for (MidPoint* first : anchor_midpoint.close_points) {
+    auto [cost, second] = dfs_cost(this->config_.search_depth_, &anchor_midpoint, first, this->config_.max_cost_);
+    cost += std::pow(std::sqrt(std::pow(first->point.x() - anchor_midpoint.point.x(), 2) +
+                                std::pow(first->point.y() - anchor_midpoint.point.y(), 2)),
+                    this->config_.distance_exponent_) *
             this->config_.distance_gain_;
     if (cost < best_cost) {
-      result.first = first;
-      result.second = second;
-      best_cost = cost;
+        result.first = first;
+        result.second = second;
+        best_cost = cost;
     }
-  }
+}
 
-  delete anchor_midpoint;
-
-  return result;
+// No delete needed
+return result;
 }
 
 
