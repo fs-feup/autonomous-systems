@@ -59,8 +59,15 @@ public:
 
   /**
    * @brief Callback for the subscription of the steering angle sensor
+   * for Bosch vehicles
    */
-  void steering_angle_callback(const custom_interfaces::msg::SteeringAngle msg);
+  void steering_angle_callback_bosch(const custom_interfaces::msg::SteeringAngle msg);
+
+  /**
+    * @brief Callback for the subscription of the steering angle sensor
+    * for Cubemars vehicles
+    */
+  void steering_angle_callback_cubemars(const custom_interfaces::msg::SteeringAngle msg);
 
   /**
    * @brief Callback for the subscription of the resolver which measures the motor RPM

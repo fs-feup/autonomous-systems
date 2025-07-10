@@ -8,3 +8,4 @@ velocity_estimation:
   imu_acceleration_noise: 0.1
   imu_rotational_noise: 0.1
   angular_velocity_process_noise: 0.1
+  steering_motor_value_origin: "bosch"   # "bosch" or "cubemars"

@@ -16,9 +16,20 @@ VehicleAdapter::VehicleAdapter(const VEParameters& parameters) : VENode(paramete
       policy, _fl_wheel_rpm_subscription_, _fr_wheel_rpm_subscription_);
   this->_wss_sync_->registerCallback(&VehicleAdapter::wss_callback, this);
 
-  this->_steering_angle_sub_ = this->create_subscription<custom_interfaces::msg::SteeringAngle>(
+  if(parameters.steering_motor_value_origin_ == "bosch"){
+    this->_steering_angle_sub_ = this->create_subscription<custom_interfaces::msg::SteeringAngle>(
       "/vehicle/bosch_steering_angle", 1,
-      std::bind(&VehicleAdapter::steering_angle_callback, this, std::placeholders::_1));
+      std::bind(&VehicleAdapter::steering_angle_callback_bosch, this, std::placeholders::_1));
+  }
+  else if(parameters.steering_motor_value_origin_ == "cubemars"){
+    this->_steering_angle_sub_ = this->create_subscription<custom_interfaces::msg::SteeringAngle>(
+      "/vehicle/steering_motor_state", 1,
+      std::bind(&VehicleAdapter::steering_angle_callback_cubemars, this, std::placeholders::_1));
+  } else {
+    RCLCPP_ERROR(this->get_logger(), "Unknown steering motor value origin: %s",
+                 parameters.steering_motor_value_origin_.c_str());
+  }
+
   this->_resolver_sub_ = this->create_subscription<custom_interfaces::msg::WheelRPM>(
       "/vehicle/motor_rpm", 1,
       std::bind(&VehicleAdapter::resolver_callback, this, std::placeholders::_1));
@@ -38,8 +49,13 @@ void VehicleAdapter::wss_callback(const custom_interfaces::msg::WheelRPM& fl_whe
   this->_velocity_estimator_->wss_callback(wss_data);
 }
 
-void VehicleAdapter::steering_angle_callback(const custom_interfaces::msg::SteeringAngle msg) {
+void VehicleAdapter::steering_angle_callback_bosch(const custom_interfaces::msg::SteeringAngle msg) {
   this->_velocity_estimator_->steering_callback(msg.steering_angle);
+}
+
+void VehicleAdapter::steering_angle_callback_cubemars(const custom_interfaces::msg::SteeringAngle msg) {
+  double steering_ratio = 5.835;
+  this->_velocity_estimator_->steering_callback(msg.steering_angle / steering_ratio);
 }
 
 void VehicleAdapter::imu_callback(

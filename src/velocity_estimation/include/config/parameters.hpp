@@ -22,6 +22,8 @@ struct VEParameters {
   double steering_angle_noise_;            // Noise to be added to the steering angle measurements
   common_lib::car_parameters::CarParameters car_parameters_;
 
+  std::string steering_motor_value_origin_;  // Origin of the steering motor value, e.g., "bosch" or "cubemars"
+
   /**
    * @brief Load the configuration for the Velocity Estimation node from YAML file
    *
