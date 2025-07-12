@@ -1,0 +1,80 @@
+track:
+  version: 1.0
+  lanesFirstWithLastConnected: true
+  start:
+    position: [0.0, 0.0, 0.0]
+    orientation: [0.0, 0.0, 0.0]
+  earthToTrack:
+    position: [0.0, 0.0, 0.0]
+    orientation: [0.0, 0.0, 0.0]
+left:
+- position: [0.0, 0.0, 0.0]
+  class: blue
+- position: [5.0, 0.5, 0.0]
+  class: blue
+- position: [10.0, 1.5, 0.0]
+  class: blue
+- position: [15.0, 3.0, 0.0]
+  class: blue
+- position: [20.0, 6.0, 0.0]
+  class: blue
+- position: [22.0, 9.0, 0.0]
+  class: blue
+- position: [23.0, 13.0, 0.0]
+  class: blue
+- position: [22.5, 17.0, 0.0]
+  class: blue
+- position: [20.0, 21.0, 0.0]
+  class: blue
+- position: [15.0, 24.0, 0.0]
+  class: blue
+- position: [10.0, 25.0, 0.0]
+  class: blue
+- position: [5.0, 24.0, 0.0]
+  class: blue
+- position: [1.0, 21.0, 0.0]
+  class: blue
+- position: [-1.0, 17.0, 0.0]
+  class: blue
+- position: [-1.5, 13.0, 0.0]
+  class: blue
+- position: [-1.0, 9.0, 0.0]
+  class: blue
+- position: [0.0, 5.0, 0.0]
+  class: blue
+
+right:
+- position: [2.0, 2.0, 0.0]
+  class: yellow
+- position: [7.0, 2.5, 0.0]
+  class: yellow
+- position: [12.0, 3.5, 0.0]
+  class: yellow
+- position: [17.0, 5.5, 0.0]
+  class: yellow
+- position: [21.0, 8.5, 0.0]
+  class: yellow
+- position: [23.0, 12.0, 0.0]
+  class: yellow
+- position: [23.5, 16.0, 0.0]
+  class: yellow
+- position: [23.0, 20.5, 0.0]
+  class: yellow
+- position: [20.5, 24.0, 0.0]
+  class: yellow
+- position: [16.0, 26.0, 0.0]
+  class: yellow
+- position: [11.0, 26.0, 0.0]
+  class: yellow
+- position: [6.0, 25.0, 0.0]
+  class: yellow
+- position: [3.0, 22.0, 0.0]
+  class: yellow
+- position: [1.5, 18.0, 0.0]
+  class: yellow
+- position: [1.5, 14.0, 0.0]
+  class: yellow
+- position: [2.0, 10.0, 0.0]
+  class: yellow
+- position: [3.0, 6.0, 0.0]
+  class: yellow
