@@ -18,5 +18,7 @@ struct ControlParameters {
   double lpf_alpha_;
   double lpf_initial_value_;
   double stanley_k_;
+  double stanley_epsilon_;
   std::string map_frame_id_;
+  std::string lat_controller;
 };

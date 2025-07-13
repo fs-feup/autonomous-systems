@@ -1,6 +1,6 @@
 control:
   lookahead_gain: 0.5
-  lookahead_minimum: 2.0
+  lookahead_minimum: 4.0
   pid_kp: 0.4
   pid_ki: 0.3
   pid_kd: 0.09
@@ -11,4 +11,6 @@ control:
   pid_anti_windup: 0.7
   lpf_alpha: 1 # Smoothing factor for the low-pass filter (0 = max smoothing, 1 = no smoothing)
   lpf_initial_value: 0.0
-  stanley_k: 5.0
+  stanley_k: 4.0
+  stanley_epsilon: 0.001
+  lat_controller: "pure_pursuit" # Options: "pure_pursuit", "stanley"

@@ -32,6 +32,7 @@
  */
 class Control : public rclcpp::Node {
 public:
+  ControlParameters control_params_;
   bool using_simulated_slam_{false};
   bool using_simulated_velocities_{false};
   bool go_signal_{false};
@@ -63,8 +64,8 @@ private:
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr lookahead_point_pub_;
 
   std::vector<custom_interfaces::msg::PathPoint> pathpoint_array_{};
-  PointSolver point_solver_; /**< Point Solver */
-  PID long_controller_;
+  PointSolver point_solver_;                          /**< Point Solver */
+  PID long_controller_;                               /**< Longitudinal Controller */
   std::shared_ptr<LateralController> lat_controller_; /**< Lateral Controller*/
 
   void publish_evaluator_data(double lookahead_velocity,

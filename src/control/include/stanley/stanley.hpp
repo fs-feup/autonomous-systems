@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "filters/filter.hpp"
+#include "gtest/gtest.h"
 #include "lateral_controller/lateral_controller.hpp"
 #include "node_/control_parameters.hpp"
 
@@ -26,7 +27,8 @@ public:
   double steering_control_law(const LateralControlInput& input) override;
 
 private:
-  double stanley_k_;  // Stanley gain
+  double k_;        // Gain parameter
+  double epsilon_;  // Smoothing parameter for low-speed
 
   /**
    * @brief Normalize an angle to the range [-pi, pi].
@@ -34,4 +36,10 @@ private:
    * @return Normalized angle in radians.
    */
   double normalize_angle(double angle);
+
+  FRIEND_TEST(StanleyTestFixture, HeadingErrorZero);
+  FRIEND_TEST(StanleyTestFixture, CrossTrackErrorZero);
+  FRIEND_TEST(StanleyTestFixture, SteeringZeroError);
+  FRIEND_TEST(StanleyTestFixture, SteeringWithHeadingErrorOnly);
+  FRIEND_TEST(StanleyTestFixture, SteeringWithHeadingAndCrossTrackError);
 };

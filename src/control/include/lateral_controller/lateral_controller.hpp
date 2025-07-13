@@ -18,10 +18,10 @@ constexpr double MIN_STEERING_ANGLE = -0.349066;
 constexpr double WHEEL_BASE = 1.5;
 
 /**
- * @brief Struct to hold all necessary arguments for the steering control law.
+ * @brief Struct to hold all necessary arguments for the steering control law for the various
+ * lateral controllers.
  */
 struct LateralControlInput {
-  // Pure Pursuit specific inputs
   Position rear_axis;
   Position cg;
   Position lookahead_point;
@@ -30,10 +30,6 @@ struct LateralControlInput {
   double dist_cg_2_rear_axis;
   double yaw;
   double velocity;
-
-  // Stanley specific inputs
-
-  // Other controllers ...
 };
 
 /**

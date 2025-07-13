@@ -14,6 +14,7 @@
 #include "custom_interfaces/msg/pose.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
 #include "lateral_controller/lateral_controller.hpp"
+#include "lateral_controller/map.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
@@ -64,12 +65,15 @@ ControlParameters Control::load_config(std::string& adapter) {
   params.lpf_alpha_ = control_config["lpf_alpha"].as<double>();
   params.lpf_initial_value_ = control_config["lpf_initial_value"].as<double>();
   params.stanley_k_ = control_config["stanley_k"].as<double>();
+  params.stanley_epsilon_ = control_config["stanley_epsilon"].as<double>();
+  params.lat_controller = control_config["lat_controller"].as<std::string>();
 
   return params;
 }
 
 Control::Control(const ControlParameters& params)
     : Node("control"),
+      control_params_(params),
       using_simulated_slam_(params.using_simulated_slam_),
       using_simulated_velocities_(params.using_simulated_velocities_),
       use_simulated_planning_(params.use_simulated_planning_),
@@ -90,10 +94,20 @@ Control::Control(const ControlParameters& params)
       lookahead_point_pub_(create_publisher<visualization_msgs::msg::Marker>(
           "/control/visualization/lookahead_point", 10)),
       point_solver_(params),
-      long_controller_(params),
-      lat_controller_(std::make_shared<Stanley>(
-          std::make_shared<LowPassFilter>(params.lpf_alpha_, params.lpf_initial_value_), params)) {
-  RCLCPP_INFO(this->get_logger(), "Simulated Planning: %d", use_simulated_planning_);
+      long_controller_(params) {
+  // Select lateral controller based on control config
+  auto it = lateral_controller_map.find(params.lat_controller);
+  if (it != lateral_controller_map.end()) {
+    lat_controller_ = it->second(
+        std::make_shared<LowPassFilter>(params.lpf_alpha_, params.lpf_initial_value_), params);
+    RCLCPP_INFO(this->get_logger(), "Using lateral controller: %s", params.lat_controller.c_str());
+  } else {
+    RCLCPP_ERROR(this->get_logger(), "Unknown lateral controller: %s, defaulting to Pure Pursuit",
+                 params.lat_controller.c_str());
+    lat_controller_ = std::make_shared<PurePursuit>(
+        std::make_shared<LowPassFilter>(params.lpf_alpha_, params.lpf_initial_value_), params);
+  }
+
   if (!using_simulated_slam_) {
     vehicle_pose_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
         "/state_estimation/vehicle_pose", 10,
@@ -153,25 +167,21 @@ void Control::publish_control(const custom_interfaces::msg::Pose& vehicle_state_
     RCLCPP_ERROR(rclcpp::get_logger("control"), "PurePursuit: Failed to update lookahed point");
   }
 
-  // calculate longitudinal control: PI-D
-  double torque = this->long_controller_.update(lookahead_velocity, this->velocity_);
+  // calculate Longitudinal control
+  double torque = this->long_controller_.update(closest_point_velocity, this->velocity_);
 
-  // calculate Lateral Control: Pure Pursuit
+  // calculate Lateral Control
   LateralControlInput lat_input;
   lat_input.rear_axis = this->point_solver_.vehicle_pose_.rear_axis_;
   lat_input.cg = this->point_solver_.vehicle_pose_.position;
   lat_input.closest_point = closest_point;
 
-  // Set next_closest_point as the next point in the path (if available)
+  // Next point after closest point, needed by stanley to know the path yaw
   if (closest_point_id >= 0 &&
       static_cast<size_t>(closest_point_id + 1) < pathpoint_array_.size()) {
-    // Convert PathPoint to Position
-    const auto& next_path_point = pathpoint_array_[closest_point_id + 1];
-    lat_input.next_closest_point.x = next_path_point.x;
-    lat_input.next_closest_point.y = next_path_point.y;
-    // If Position has more fields (e.g., z), set them here as needed
+    lat_input.next_closest_point = Position{pathpoint_array_[closest_point_id + 1].x,
+                                            pathpoint_array_[closest_point_id + 1].y};
   } else {
-    // If at the end of the path, just repeat the closest point
     lat_input.next_closest_point = closest_point;
   }
 
@@ -181,6 +191,7 @@ void Control::publish_control(const custom_interfaces::msg::Pose& vehicle_state_
   lat_input.velocity = this->point_solver_.vehicle_pose_.velocity_;
 
   double steering_angle = this->lat_controller_->steering_control_law(lat_input);
+
   // check if steering is Nan
   if (std::isnan(steering_angle) || std::isnan(torque)) {
     RCLCPP_ERROR(rclcpp::get_logger("control"), "Steering Angle or Torque is NaN");
