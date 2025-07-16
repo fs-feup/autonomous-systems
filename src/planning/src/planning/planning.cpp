@@ -210,7 +210,7 @@ void Planning::run_planning_algorithms() {
     final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
                                          this->initial_car_orientation_);
 
-    global_path_ = path_calculation_.getGlobalPath();
+    global_path_ = path_calculation_.get_global_path();
 
 
     if ((this->mission == common_lib::competition_logic::Mission::AUTOCROSS && this->lap_counter_ >= 1) ||

@@ -53,13 +53,9 @@ private:
   std::vector<Point> global_path_;
   int path_update_counter_ = 0;
   std::vector<Point> path_to_car;
-
-
-
-
-
-  // Anchor point for the path, to avoid calculating the path from the position of the car
-  common_lib::structures::Pose anchor_point_;
+  
+  // Anchor pose for the path, to avoid calculating the path from the position of the car
+  common_lib::structures::Pose anchor_pose_;
   bool anchor_point_set_ = false;
 
 public:
@@ -68,7 +64,7 @@ public:
    */
   struct MidPoint {
     Point point;
-    std::vector<MidPoint *> close_points;
+    std::vector<std::shared_ptr<MidPoint>> close_points;
     Cone* cone1;
     Cone* cone2;
     bool valid = true;
@@ -166,7 +162,7 @@ public:
    * @return std::pair<MidPoint*, MidPoint*> First and second points for the path
    */
   std::pair<MidPoint*, MidPoint*> find_path_start_points(
-      const std::vector<std::unique_ptr<MidPoint>>& mid_points,
+      const std::vector<std::shared_ptr<MidPoint>>& mid_points,
       const common_lib::structures::Pose& anchor_pose);
 
   /**
@@ -188,42 +184,38 @@ public:
 
 
   /**
-   * @brief Create midpoints from the cone array
+   * @brief Creates midpoints between cones based on Delaunay triangulation.
    * 
-   * @param cone_array The array of cones to create midpoints from
-   * @param midPoints Vector to store created midpoints
-   * @param triangle_points Map to store points associated with each midpoint
+   * Generates midpoints for cone pairs within configured distance thresholds,
+   * avoiding duplicates, and connects neighboring midpoints sharing the same triangle.
+   * 
+   * @param cone_array Input vector of cones with 2D positions.
+   * @param midPoints Output vector storing the created midpoints as shared pointers.
    */
   void create_mid_points(
-      std::vector<Cone>& cone_array,
-      std::vector<std::unique_ptr<MidPoint>>& midPoints,
-      std::unordered_map<MidPoint*, std::vector<Point>>& triangle_points
-  );
+    std::vector<Cone>& cone_array,
+    std::vector<std::shared_ptr<MidPoint>>& midPoints
+); 
+
+
 
   /**
-   * @brief Connect midpoints based on the triangulation
+   * @brief Initializes the path using the current pose and the nearest midpoints.
    * 
-   * @param midPoints Vector of midpoints to connect
-   * @param triangle_points Map of points associated with each midpoint
-   */
-  void connect_mid_points(
-      const std::vector<std::unique_ptr<MidPoint>>& midPoints,
-      const std::unordered_map<MidPoint*, std::vector<Point>>& triangle_points
-  );
-
-  /**
-   * @brief Selects the initial path based on the current pose and midpoints
+   * If a precomputed path exists, it snaps to the nearest midpoints and filters out
+   * close or already-visited points. Otherwise, it selects the best two starting midpoints
+   * based on the vehicle's current pose. Also updates the set of discarded cones along the way.
    * 
-   * @param path Vector to store the selected path points
-   * @param midPoints Vector of available midpoints
-   * @param pose Current pose of the vehicle
-   * @param point_to_midpoint Map from Point to MidPoint for quick access
-   * @param visited_midpoints Set of already visited midpoints
-   * @param discarded_cones Set of cones that should be discarded along the path
+   * @param path Output vector to store the selected path points.
+   * @param midPoints Vector of available midpoints.
+   * @param pose Current pose of the vehicle.
+   * @param point_to_midpoint Map for fast lookup from CGAL point to midpoint.
+   * @param visited_midpoints Set of midpoints already used in the path.
+   * @param discarded_cones Set of cones to discard along the generated path.
    */
   void calculate_initial_path(
       std::vector<Point>& path,
-      const std::vector<std::unique_ptr<MidPoint>>& midPoints,
+      const std::vector<std::shared_ptr<MidPoint>>& midPoints,
       const common_lib::structures::Pose& pose,
       const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
       std::unordered_set<MidPoint*>& visited_midpoints,
@@ -231,18 +223,22 @@ public:
   );
 
   /**
-   * @brief Extend the path with additional points
+   * @brief Extends the current path by exploring nearby midpoints.
    * 
-   * @param path Vector to store the extended path points
-   * @param midPoints Vector of available midpoints
-   * @param point_to_midpoint Map from Point to MidPoint for quick access
-   * @param visited_midpoints Set of already visited midpoints
-   * @param discarded_cones Set of cones that should be discarded along the path
-   * @param max_points Maximum number of points to extend the path
+   * Iteratively adds new midpoints to the path using a DFS-based cost search,
+   * respecting a maximum number of points and cost constraints. 
+   * Updates the set of visited midpoints and discards cones along the extended path.
+   * 
+   * @param path Output path to be extended.
+   * @param midPoints Vector of available midpoints.
+   * @param point_to_midpoint Map for fast lookup from CGAL point to midpoint.
+   * @param visited_midpoints Set of midpoints already used in the path.
+   * @param discarded_cones Set of cones to discard along the extended path.
+   * @param max_points Maximum number of new points to add to the path.
    */
   void extend_path(
     std::vector<Point>& path,
-    const std::vector<std::unique_ptr<MidPoint>>& midPoints,
+    const std::vector<std::shared_ptr<MidPoint>>& midPoints,
     const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
     std::unordered_set<MidPoint*>& visited_midpoints,
     std::unordered_set<Cone*>& discarded_cones,
@@ -250,16 +246,19 @@ public:
   );
 
   /**
-   * @brief Discard cones along the path based on the last two points
+   * @brief Invalidates cones and midpoints based on the last path segment.
    * 
-   * @param path The current path to check for cones
-   * @param midPoints Vector of available midpoints
-   * @param point_to_midpoint Map from Point to MidPoint for quick access
-   * @param discarded_cones Set to store discarded cones
+   * Identifies which cone between the last two midpoints should be discarded,
+   * marks associated midpoints as invalid, and removes invalid neighbors from their connections.
+   * 
+   * @param path Current path used to determine which cone to discard.
+   * @param midPoints Vector of all available midpoints.
+   * @param point_to_midpoint Map for quick access from CGAL point to midpoint.
+   * @param discarded_cones Set to store cones marked as discarded.
    */
   void discard_cones_along_path(
     const std::vector<Point>& path,
-    const std::vector<std::unique_ptr<MidPoint>>& midPoints,
+    const std::vector<std::shared_ptr<MidPoint>>& midPoints,
     const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
     std::unordered_set<Cone*>& discarded_cones
   ); 
@@ -274,8 +273,8 @@ public:
  */
   MidPoint* find_nearest_point(
     const Point& target,
-    const std::unordered_map<Point, MidPoint*, PointHash>& map,
-    double tolerance);
+    const std::unordered_map<Point, MidPoint*, PointHash>& map
+  );
   
   /**
  * @brief Order a segment defined by two points
