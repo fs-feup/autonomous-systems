@@ -8,16 +8,38 @@ using namespace common_lib::structures;
  * @brief Pure Pursuit class Constructor
  *
  */
-PurePursuit::PurePursuit(std::shared_ptr<Filter> lpf)
-    : lpf_(std::move(lpf)) {}
+PurePursuit::PurePursuit(std::shared_ptr<Filter> lpf, double ki, double anti_windup_factor,
+                         double t)
+    : lpf_(std::move(lpf)), ki_(ki), anti_windup_factor_(anti_windup_factor), t_(t) {}
 
 double PurePursuit::pp_steering_control_law(Position rear_axis, Position cg,
-                                            Position lookahead_point, double dist_cg_2_rear_axis) {
+                                            Position lookahead_point, double dist_cg_2_rear_axis,
+                                            double current_yaw) {
   double alpha = calculate_alpha(rear_axis, cg, lookahead_point, dist_cg_2_rear_axis);
-  // update lookahead distance to the actual distance
   double ld = rear_axis.euclidean_distance(lookahead_point);
 
+  double dx = lookahead_point.x - rear_axis.x;
+  double dy = lookahead_point.y - rear_axis.y;
+  double desired_yaw = atan2(dy, dx);
+
+  // Normalize the yaws to the range [-pi, pi]
+  current_yaw = std::atan2(std::sin(current_yaw), std::cos(current_yaw));
+  desired_yaw = std::atan2(std::sin(desired_yaw), std::cos(desired_yaw));
+
+  double yaw_error =
+      std::atan2(std::sin(desired_yaw - current_yaw), std::cos(desired_yaw - current_yaw));
+
+  yaw_integrator_ += 0.5 * ki_ * t_ * (yaw_error + prev_yaw_error_);
+  prev_yaw_error_ = yaw_error;
+
   double steering_angle = atan(2 * wheel_base_ * sin(alpha) / ld);
+  steering_angle += yaw_integrator_;
+
+  double unclamped = steering_angle;
+  if (unclamped > max_steering_angle_ || unclamped < min_steering_angle_) {
+    yaw_integrator_ *= anti_windup_factor_;
+  }
+
   double filtered_steering_angle = lpf_->filter(steering_angle);
 
   return std::clamp(filtered_steering_angle, min_steering_angle_, max_steering_angle_);
@@ -32,10 +54,9 @@ double PurePursuit::calculate_alpha(Position vehicle_rear_wheel, Position vehicl
   double cos_alpha = (pow(lookhead_point_2_rear_wheel, 2) + pow(dist_cg_2_rear_axis, 2) -
                       pow(lookhead_point_2_cg, 2)) /
                      (2 * lookhead_point_2_rear_wheel * dist_cg_2_rear_axis);
-  
+
   cos_alpha = std::clamp(cos_alpha, -1.0, 1.0);
   double alpha = acos(cos_alpha);
-
 
   if (cross_product(vehicle_rear_wheel, vehicle_cg, lookahead_point) < 0) {
     alpha = -alpha;

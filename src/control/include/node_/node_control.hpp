@@ -36,6 +36,9 @@ struct ControlParameters {
   double pid_anti_windup_;
   double lpf_alpha_;
   double lpf_initial_value_;
+  double pp_ki_;
+  double pp_anti_windup_;
+  double pp_t_;
   std::string map_frame_id_;
 };
 
