@@ -92,8 +92,8 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
         std::unordered_map<MidPoint*, std::vector<Point>> triangle_points;
         std::unordered_set<Cone*> discarded_cones;
 
-        createMidPoints(cone_array, midPoints, triangle_points);
-        connectMidPoints(midPoints, triangle_points);
+        create_mid_points(cone_array, midPoints, triangle_points);
+        connect_mid_points(midPoints, triangle_points);
 
         std::unordered_map<Point, MidPoint*, PointHash> point_to_midpoint;
         for (const auto& mp : midPoints) {
@@ -137,8 +137,8 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
 
         
         std::unordered_set<MidPoint*> visited_midpoints;
-        selectInitialPath(path, midPoints, pose, point_to_midpoint, visited_midpoints, discarded_cones);
-        extendPath(path, midPoints, point_to_midpoint, visited_midpoints, discarded_cones, max_points);
+        calculate_initial_path(path, midPoints, pose, point_to_midpoint, visited_midpoints, discarded_cones);
+        extend_path(path, midPoints, point_to_midpoint, visited_midpoints, discarded_cones, max_points);
 
         std::vector<PathPoint> path_points;
         for (const auto& point : path) {   if (path.size() > 2) {
@@ -153,7 +153,7 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
 }
 
 
-void PathCalculation::createMidPoints(
+void PathCalculation::create_mid_points(
     std::vector<Cone>& cone_array,
     std::vector<std::unique_ptr<MidPoint>>& midPoints,
     std::unordered_map<MidPoint*, std::vector<Point>>& triangle_points
@@ -214,7 +214,7 @@ void PathCalculation::createMidPoints(
     }
 }
 
-void PathCalculation::connectMidPoints(
+void PathCalculation::connect_mid_points(
     const std::vector<std::unique_ptr<MidPoint>>& midPoints,
     const std::unordered_map<MidPoint*, std::vector<Point>>& triangle_points
 ) {
@@ -245,7 +245,7 @@ void PathCalculation::connectMidPoints(
     }
 }
 
-void PathCalculation::selectInitialPath(
+void PathCalculation::calculate_initial_path(
     std::vector<Point>& path,
     const std::vector<std::unique_ptr<MidPoint>>& midPoints,
     const common_lib::structures::Pose& pose,
@@ -294,8 +294,8 @@ void PathCalculation::selectInitialPath(
             }
         }
     } else {
-        updateAnchorPoint(pose);
-        auto [first, second] = findPathStartPoints(midPoints, anchor_point_);
+        update_anchor_point(pose);
+        auto [first, second] = find_path_start_points(midPoints, anchor_point_);
         if (first != nullptr && second != nullptr) {
             path.push_back(first->point);
             path.push_back(second->point);
@@ -306,7 +306,7 @@ void PathCalculation::selectInitialPath(
         }
     }
 }
-void PathCalculation::extendPath(
+void PathCalculation::extend_path(
     std::vector<Point>& path,
     const std::vector<std::unique_ptr<MidPoint>>& midPoints,
     const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
@@ -405,7 +405,7 @@ void PathCalculation::discard_cones_along_path(
 }
 
 
-void PathCalculation::updateAnchorPoint(const common_lib::structures::Pose& pose) {
+void PathCalculation::update_anchor_point(const common_lib::structures::Pose& pose) {
   if (!anchor_point_set_) {
     anchor_point_ = pose;
     anchor_point_set_ = true; 
@@ -413,7 +413,7 @@ void PathCalculation::updateAnchorPoint(const common_lib::structures::Pose& pose
 }
 
 std::pair<PathCalculation::MidPoint*, PathCalculation::MidPoint*>
-PathCalculation::findPathStartPoints(const std::vector<std::unique_ptr<MidPoint>>& mid_points,
+PathCalculation::find_path_start_points(const std::vector<std::unique_ptr<MidPoint>>& mid_points,
                                      const common_lib::structures::Pose& anchor_pose) {
   std::pair<MidPoint*, MidPoint*> result{nullptr, nullptr};
 
@@ -553,7 +553,7 @@ std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(
   return unordered_path;
 }
 
-std::vector<PathPoint> PathCalculation::getGlobalPath() const {
+std::vector<PathPoint> PathCalculation::get_global_path() const {
     std::vector<PathPoint> path_points;
 
 

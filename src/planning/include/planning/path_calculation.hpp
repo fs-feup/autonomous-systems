@@ -156,7 +156,7 @@ public:
    *
    * @param pose The current vehicle pose
    */
-  void updateAnchorPoint(const common_lib::structures::Pose& pose);
+  void update_anchor_point(const common_lib::structures::Pose& pose);
 
   /**
    * @brief Finds the first and second points to start the path
@@ -165,7 +165,7 @@ public:
    * @param anchor_pose The anchor pose for reference
    * @return std::pair<MidPoint*, MidPoint*> First and second points for the path
    */
-  std::pair<MidPoint*, MidPoint*> findPathStartPoints(
+  std::pair<MidPoint*, MidPoint*> find_path_start_points(
       const std::vector<std::unique_ptr<MidPoint>>& mid_points,
       const common_lib::structures::Pose& anchor_pose);
 
@@ -184,7 +184,7 @@ public:
    * 
    * @return std::vector<PathPoint> The global path
    */                                  
-  std::vector<PathPoint> getGlobalPath() const;
+  std::vector<PathPoint> get_global_path() const;
 
 
   /**
@@ -194,7 +194,7 @@ public:
    * @param midPoints Vector to store created midpoints
    * @param triangle_points Map to store points associated with each midpoint
    */
-  void createMidPoints(
+  void create_mid_points(
       std::vector<Cone>& cone_array,
       std::vector<std::unique_ptr<MidPoint>>& midPoints,
       std::unordered_map<MidPoint*, std::vector<Point>>& triangle_points
@@ -206,7 +206,7 @@ public:
    * @param midPoints Vector of midpoints to connect
    * @param triangle_points Map of points associated with each midpoint
    */
-  void connectMidPoints(
+  void connect_mid_points(
       const std::vector<std::unique_ptr<MidPoint>>& midPoints,
       const std::unordered_map<MidPoint*, std::vector<Point>>& triangle_points
   );
@@ -221,7 +221,7 @@ public:
    * @param visited_midpoints Set of already visited midpoints
    * @param discarded_cones Set of cones that should be discarded along the path
    */
-  void selectInitialPath(
+  void calculate_initial_path(
       std::vector<Point>& path,
       const std::vector<std::unique_ptr<MidPoint>>& midPoints,
       const common_lib::structures::Pose& pose,
@@ -240,7 +240,7 @@ public:
    * @param discarded_cones Set of cones that should be discarded along the path
    * @param max_points Maximum number of points to extend the path
    */
-  void extendPath(
+  void extend_path(
     std::vector<Point>& path,
     const std::vector<std::unique_ptr<MidPoint>>& midPoints,
     const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
