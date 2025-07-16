@@ -83,19 +83,6 @@ public:
         return h1 ^ (h2 << 1);
     }
   };
-  /**
-   * @brief PairHash struct for hashing pairs of Point objects
-   *
-   * This struct is used to create a hash function for pairs of Point objects, allowing
-   * them to be used as keys in unordered maps.
-   */
-  struct PairHash {
-    std::size_t operator()(const std::pair<Point, Point>& p) const {
-        auto h1 = PointHash{}(p.first);
-        auto h2 = PointHash{}(p.second);
-        return h1 ^ (h2 << 1);
-    }
-  };
 
   /**
    * @brief Construct a new default PathCalculation object
@@ -276,14 +263,6 @@ public:
     const std::unordered_map<Point, MidPoint*, PointHash>& map
   );
   
-  /**
- * @brief Order a segment defined by two points
- * 
- * @param a First point of the segment
- * @param b Second point of the segment
- * @return std::pair<Point, Point> A pair of points ordered by their coordinates
- */  
-  std::pair<Point, Point> ordered_segment(const Point& a, const Point& b);
 
 };
 

@@ -11,17 +11,6 @@
 #include "utils/cone.hpp"
 using namespace std;
 
-std::pair<Point, Point> PathCalculation::ordered_segment(const Point& a, const Point& b) {
-    std::pair<Point, Point> result;
-    if (a.x() < b.x() || (a.x() == b.x() && a.y() < b.y())) {
-        result = {a, b};
-    } else {
-        result = {b, a};
-    }
-    return result;
-}
-
-
 std::pair<double, PathCalculation::MidPoint*> PathCalculation::dfs_cost(int depth,
                                                                         const MidPoint* previous,
                                                                         MidPoint* current,
@@ -181,15 +170,16 @@ void PathCalculation::create_mid_points(
             Point p1 = va->point();
             Point p2 = vb->point();
 
-            int id1 = find_cone(cone_array, p1.x(), p1.y());
-            int id2 = find_cone(cone_array, p2.x(), p2.y());
+            int id1 = ::find_cone(cone_array, p1.x(), p1.y());
+            int id2 = ::find_cone(cone_array, p2.x(), p2.y());
 
-            if (id1 == -1 || id2 == -1)
+            if (id1 == -1 || id2 == -1){
                 continue;
+            }
 
             double sq_dist = CGAL::squared_distance(p1, p2);
-            if (sq_dist <= config_.minimum_cone_distance_ * config_.minimum_cone_distance_ ||
-                sq_dist >= config_.maximum_cone_distance_ * config_.maximum_cone_distance_) {
+            if ((sq_dist <= config_.minimum_cone_distance_ * config_.minimum_cone_distance_) ||
+                (sq_dist >= config_.maximum_cone_distance_ * config_.maximum_cone_distance_)) {
                 continue;
             }
 
@@ -211,9 +201,13 @@ void PathCalculation::create_mid_points(
 
         // Connect midpoints if they share the same triangle
         for (int i = 0; i < 3; ++i) {
-            if (!mids[i]) continue;
+            if (!mids[i]){
+                continue;
+            }
             for (int j = 0; j < 3; ++j) {
-                if (i == j || !mids[j]) continue;
+                if (i == j || !mids[j]){
+                    continue;
+                }
                 mids[i]->close_points.push_back(mids[j]);
             }
         }
@@ -375,7 +369,9 @@ void PathCalculation::discard_cones_along_path(
 
     // Invalidate midpoints that rely on discarded cones
     for (auto& mp : midPoints) {
-        if (!mp->valid) continue;
+        if (!mp->valid) {
+            continue;
+        }
         if (discarded_cones.count(mp->cone1) > 0 || discarded_cones.count(mp->cone2) > 0) {
             mp->valid = false;
         }
@@ -383,7 +379,9 @@ void PathCalculation::discard_cones_along_path(
 
     // Remove invalid neighbors from each midpoint's connections
     for (auto& mp : midPoints) {
-        if (!mp->valid) continue;
+        if (!mp->valid){ 
+            continue;
+        }
         (void)mp->close_points.erase(
             std::remove_if(mp->close_points.begin(), mp->close_points.end(),
                 [](const std::shared_ptr<MidPoint>& neighbor) { return !neighbor->valid; }),
@@ -432,9 +430,11 @@ for (const auto& p : mid_points) {
 
 // Get the closest midpoints in front of the car
 std::vector<MidPoint*> candidate_points;
-for (int i = 0; i < 6 && !pq.empty(); i++) {
+int count = 0;
+while (count < 6 && !pq.empty()) {
     candidate_points.push_back(pq.top().second);
     pq.pop();
+    count++;
 }
 
 // Set the anchor point's connections to these candidates
