@@ -10,7 +10,8 @@ using namespace common_lib::structures;
 PointSolver::PointSolver(const ControlParameters &params)
     : k_(params.lookahead_gain_),
       lookahead_minimum_(params.lookahead_minimum_),
-      bicycle_model_(common_lib::car_parameters::CarParameters()) {}
+      bicycle_model_(common_lib::car_parameters::CarParameters()),
+      params_(params) {}
 
 /**
  * @brief Update vehicle pose
@@ -25,7 +26,8 @@ void PointSolver::update_vehicle_pose(const custom_interfaces::msg::Pose &pose, 
   this->vehicle_pose_.velocity_ = velocity;
   this->vehicle_pose_.orientation = pose.theta;
   this->vehicle_pose_.rear_axis_ = this->bicycle_model_.rear_axis_position(
-      this->vehicle_pose_.position, this->vehicle_pose_.orientation, this->dist_cg_2_rear_axis_);
+      this->vehicle_pose_.position, this->vehicle_pose_.orientation,
+      params_.car_parameters_.dist_cg_2_rear_axis);
 
   return;
 }
@@ -145,3 +147,22 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
 double PointSolver::update_lookahead_distance(double k, double velocity) const {
   return k * velocity;
 };
+
+/**
+ * @brief Get the next point in the path after the closest point
+ */
+std::tuple<common_lib::structures::Position, bool> PointSolver::next_closest_point(
+    const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array,
+    int closest_point_id) const {
+  if (closest_point_id < 0 || pathpoint_array.empty()) {
+    return {Position(), true};
+  }
+  if (static_cast<size_t>(closest_point_id + 1) < pathpoint_array.size()) {
+    return {
+        Position{pathpoint_array[closest_point_id + 1].x, pathpoint_array[closest_point_id + 1].y},
+        false};
+  } else {
+    return {Position{pathpoint_array[closest_point_id].x, pathpoint_array[closest_point_id].y},
+            false};
+  }
+}

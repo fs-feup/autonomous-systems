@@ -16,8 +16,8 @@ double Stanley::steering_control_law(const LateralControlInput& input) {
   double heading_error = normalize_angle(path_yaw - input.yaw);
 
   // Calculate the cross-track error
-  double dx = input.cg.x - input.closest_point.x;
-  double dy = input.cg.y - input.closest_point.y;
+  double dx = input.global_cg_position.x - input.closest_point.x;
+  double dy = input.global_cg_position.y - input.closest_point.y;
   double cross_track_error = std::sin(path_yaw) * dx - std::cos(path_yaw) * dy;
 
   // Calculate the cross-track error correction term

@@ -7,6 +7,7 @@
 #include <memory>
 #include <string>
 
+#include "common_lib/car_parameters/car_parameters.hpp"
 #include "common_lib/communication/marker.hpp"
 #include "common_lib/config_load/config_load.hpp"
 #include "custom_interfaces/msg/evaluator_control_data.hpp"
@@ -29,6 +30,8 @@ bool received_path_point_array = false;
 
 ControlParameters Control::load_config(std::string& adapter) {
   ControlParameters params;
+  params.car_parameters_ = common_lib::car_parameters::CarParameters();
+
   std::string global_config_path =
       common_lib::config_load::get_config_yaml_path("control", "global", "global_config");
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Loading global config from: %s",
@@ -93,8 +96,8 @@ Control::Control(const ControlParameters& params)
           "/control/visualization/closest_point", 10)),
       lookahead_point_pub_(create_publisher<visualization_msgs::msg::Marker>(
           "/control/visualization/lookahead_point", 10)),
-      point_solver_(params),
-      long_controller_(params) {
+      point_solver_(std::make_shared<PointSolver>(params)),
+      long_controller_(std::make_shared<PID>(params)) {
   // Select lateral controller based on control config
   auto it = lateral_controller_map.find(params.lat_controller);
   if (it != lateral_controller_map.end()) {
@@ -147,48 +150,46 @@ void Control::publish_control(const custom_interfaces::msg::Pose& vehicle_state_
   rclcpp::Time start = this->now();
 
   // update vehicle pose
-  this->point_solver_.update_vehicle_pose(vehicle_state_msg, this->velocity_);
+  this->point_solver_->update_vehicle_pose(vehicle_state_msg, this->velocity_);
 
   // find the closest point on the path
   // print pathpoint array size
   auto [closest_point, closest_point_id, closest_point_velocity] =
-      this->point_solver_.update_closest_point(pathpoint_array_);
+      this->point_solver_->update_closest_point(pathpoint_array_);
   if (closest_point_id == -1) {
     RCLCPP_ERROR(rclcpp::get_logger("control"),
-                 "PurePursuit: Failed to update closest point, size of pathpoint_array: %ld",
+                 "PointSolver: Failed to update closest point, size of pathpoint_array: %ld",
                  pathpoint_array_.size());
   }
 
   // update the Lookahead point
   auto [lookahead_point, lookahead_velocity, lookahead_error] =
-      this->point_solver_.update_lookahead_point(pathpoint_array_, closest_point_id);
+      this->point_solver_->update_lookahead_point(pathpoint_array_, closest_point_id);
 
   if (lookahead_error) {
-    RCLCPP_ERROR(rclcpp::get_logger("control"), "PurePursuit: Failed to update lookahed point");
+    RCLCPP_ERROR(rclcpp::get_logger("control"), "PointSolver: Failed to update lookahed point");
   }
 
   // calculate Longitudinal control
-  double torque = this->long_controller_.update(closest_point_velocity, this->velocity_);
-
-  // calculate Lateral Control
-  LateralControlInput lat_input;
-  lat_input.rear_axis = this->point_solver_.vehicle_pose_.rear_axis_;
-  lat_input.cg = this->point_solver_.vehicle_pose_.position;
-  lat_input.closest_point = closest_point;
+  double torque = this->long_controller_->update(closest_point_velocity, this->velocity_);
 
   // Next point after closest point, needed by stanley to know the path yaw
-  if (closest_point_id >= 0 &&
-      static_cast<size_t>(closest_point_id + 1) < pathpoint_array_.size()) {
-    lat_input.next_closest_point = Position{pathpoint_array_[closest_point_id + 1].x,
-                                            pathpoint_array_[closest_point_id + 1].y};
-  } else {
-    lat_input.next_closest_point = closest_point;
+  auto [next_closest_point, next_closest_error] =
+      this->point_solver_->next_closest_point(pathpoint_array_, closest_point_id);
+
+  if (next_closest_error) {
+    RCLCPP_ERROR(rclcpp::get_logger("control"), "PointSolver: Failed to get next closest point");
   }
 
-  lat_input.lookahead_point = lookahead_point;
-  lat_input.dist_cg_2_rear_axis = this->point_solver_.dist_cg_2_rear_axis_;
-  lat_input.yaw = this->point_solver_.vehicle_pose_.orientation;
-  lat_input.velocity = this->point_solver_.vehicle_pose_.velocity_;
+  LateralControlInput lat_input(
+      this->point_solver_->vehicle_pose_.rear_axis_,   // Position global_rear_axis_position
+      this->point_solver_->vehicle_pose_.position,     // Position global_cg_position
+      lookahead_point,                                 // Position lookahead_point
+      closest_point,                                   // Position closest_point
+      next_closest_point,                              // Position next_closest_point
+      this->point_solver_->vehicle_pose_.orientation,  // double yaw
+      this->point_solver_->vehicle_pose_.velocity_     // double velocity
+  );
 
   double steering_angle = this->lat_controller_->steering_control_law(lat_input);
 
@@ -201,10 +202,10 @@ void Control::publish_control(const custom_interfaces::msg::Pose& vehicle_state_
   double execution_time = (this->now() - start).seconds() * 1000;
 
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Current vehicle velocity: %f",
-               this->point_solver_.vehicle_pose_.velocity_);
+               this->point_solver_->vehicle_pose_.velocity_);
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Rear axis coords: %f, %f",
-               this->point_solver_.vehicle_pose_.rear_axis_.x,
-               this->point_solver_.vehicle_pose_.rear_axis_.y);
+               this->point_solver_->vehicle_pose_.rear_axis_.x,
+               this->point_solver_->vehicle_pose_.rear_axis_.y);
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Closest Point: %f, %f, ID %d", closest_point.x,
                closest_point.y, closest_point_id);
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Lookahead Point: %f, %f", lookahead_point.x,
@@ -217,10 +218,10 @@ void Control::publish_control(const custom_interfaces::msg::Pose& vehicle_state_
   // have control evalution data
   custom_interfaces::msg::VehicleState vehicle_state;
   vehicle_state.header = std_msgs::msg::Header();
-  vehicle_state.position.x = this->point_solver_.vehicle_pose_.rear_axis_.x;
-  vehicle_state.position.y = this->point_solver_.vehicle_pose_.rear_axis_.y;
-  vehicle_state.theta = this->point_solver_.vehicle_pose_.orientation;
-  vehicle_state.linear_velocity = this->point_solver_.vehicle_pose_.velocity_;
+  vehicle_state.position.x = this->point_solver_->vehicle_pose_.rear_axis_.x;
+  vehicle_state.position.y = this->point_solver_->vehicle_pose_.rear_axis_.y;
+  vehicle_state.theta = this->point_solver_->vehicle_pose_.orientation;
+  vehicle_state.linear_velocity = this->point_solver_->vehicle_pose_.velocity_;
   vehicle_state.angular_velocity = 0.0;
   publish_evaluator_data(lookahead_velocity, lookahead_point, closest_point, vehicle_state,
                          closest_point_velocity, execution_time);
@@ -237,8 +238,8 @@ void Control::publish_evaluator_data(double lookahead_velocity, Position lookahe
   evaluator_data.header = std_msgs::msg::Header();
   evaluator_data.header.stamp = this->now();
   evaluator_data.vehicle_state = vehicle_state_msg;
-  evaluator_data.vehicle_state.position.x = this->point_solver_.vehicle_pose_.rear_axis_.x;
-  evaluator_data.vehicle_state.position.y = this->point_solver_.vehicle_pose_.rear_axis_.y;
+  evaluator_data.vehicle_state.position.x = this->point_solver_->vehicle_pose_.rear_axis_.x;
+  evaluator_data.vehicle_state.position.y = this->point_solver_->vehicle_pose_.rear_axis_.y;
   evaluator_data.lookahead_point.x = lookahead_point.x;
   evaluator_data.lookahead_point.y = lookahead_point.y;
   evaluator_data.closest_point.x = closest_point.x;

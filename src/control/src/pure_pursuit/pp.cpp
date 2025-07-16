@@ -10,18 +10,19 @@ using namespace common_lib::structures;
  */
 
 PurePursuit::PurePursuit(std::shared_ptr<Filter> lpf, const ControlParameters& params)
-    : LateralController(std::move(lpf), params) {}
+    : LateralController(lpf, params) {}
 
 double PurePursuit::steering_control_law(const LateralControlInput& input) {
   // Calculate the alpha angle between the vehicle's rear axis and the lookahead point
   double alpha =
-      calculate_alpha(input.rear_axis, input.cg, input.lookahead_point, input.dist_cg_2_rear_axis);
+      calculate_alpha(input.global_rear_axis_position, input.global_cg_position,
+                      input.lookahead_point, control_params_.car_parameters_.dist_cg_2_rear_axis);
 
   // Calculate the distance from the rear axis to the lookahead point
-  double ld = input.rear_axis.euclidean_distance(input.lookahead_point);
+  double ld = input.global_rear_axis_position.euclidean_distance(input.lookahead_point);
 
   // Calculate the steering angle
-  double steering_angle = atan(2 * WHEEL_BASE * sin(alpha) / ld);
+  double steering_angle = atan(2 * control_params_.car_parameters_.wheelbase * sin(alpha) / ld);
 
   // Apply low-pass filter to the steering angle
   double filtered_steering_angle = lpf_->filter(steering_angle);

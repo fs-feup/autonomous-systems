@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 
+#include "common_lib/car_parameters/car_parameters.hpp"
 struct ControlParameters {
   bool using_simulated_slam_;
   bool using_simulated_velocities_;
@@ -21,4 +22,5 @@ struct ControlParameters {
   double stanley_epsilon_;
   std::string map_frame_id_;
   std::string lat_controller;
+  common_lib::car_parameters::CarParameters car_parameters_;
 };

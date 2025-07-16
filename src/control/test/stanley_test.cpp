@@ -24,7 +24,7 @@ protected:
 
 TEST_F(StanleyTestFixture, HeadingErrorZero) {
   LateralControlInput input;
-  input.cg = Position{0, 0};
+  input.global_cg_position = Position{0, 0};
   input.closest_point = Position{1, 0};
   input.next_closest_point = Position{2, 0};
   input.yaw = 0.0;
@@ -38,7 +38,7 @@ TEST_F(StanleyTestFixture, HeadingErrorZero) {
 
 TEST_F(StanleyTestFixture, CrossTrackErrorZero) {
   LateralControlInput input;
-  input.cg = Position{1, 0};
+  input.global_cg_position = Position{1, 0};
   input.closest_point = Position{1, 0};
   input.next_closest_point = Position{2, 0};
   input.yaw = 0.0;
@@ -46,15 +46,15 @@ TEST_F(StanleyTestFixture, CrossTrackErrorZero) {
 
   double path_yaw = std::atan2(input.next_closest_point.y - input.closest_point.y,
                                input.next_closest_point.x - input.closest_point.x);
-  double dx = input.cg.x - input.closest_point.x;
-  double dy = input.cg.y - input.closest_point.y;
+  double dx = input.global_cg_position.x - input.closest_point.x;
+  double dy = input.global_cg_position.y - input.closest_point.y;
   double cross_track_error = std::sin(path_yaw) * dx - std::cos(path_yaw) * dy;
   EXPECT_NEAR(cross_track_error, 0.0, 1e-6);
 }
 
 TEST_F(StanleyTestFixture, SteeringZeroError) {
   LateralControlInput input;
-  input.cg = Position{0, 0};
+  input.global_cg_position = Position{0, 0};
   input.closest_point = Position{1, 0};
   input.next_closest_point = Position{2, 0};
   input.yaw = 0.0;
@@ -66,7 +66,7 @@ TEST_F(StanleyTestFixture, SteeringZeroError) {
 
 TEST_F(StanleyTestFixture, SteeringWithHeadingErrorOnly) {
   LateralControlInput input;
-  input.cg = Position{1, 0};
+  input.global_cg_position = Position{1, 0};
   input.closest_point = Position{1, 0};
   input.next_closest_point = Position{2, 0.1};  // Path_yaw = atan2(0.1, 1) ≈ 0.0997
   input.yaw = 0.0;
@@ -79,7 +79,7 @@ TEST_F(StanleyTestFixture, SteeringWithHeadingErrorOnly) {
 
 TEST_F(StanleyTestFixture, SteeringWithHeadingAndCrossTrackError) {
   LateralControlInput input;
-  input.cg = Position{0, 1};
+  input.global_cg_position = Position{0, 1};
   input.closest_point = Position{1, 0};
   input.next_closest_point = Position{2, 0};  // Path_yaw = atan2(0,1) = 0
   input.yaw = 0.0;

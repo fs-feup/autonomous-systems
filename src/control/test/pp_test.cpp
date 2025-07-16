@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 
+#include "common_lib/car_parameters/car_parameters.hpp"
 #include "node_/node_control.hpp"
 
 using namespace common_lib::structures;
@@ -15,12 +16,13 @@ class PurePursuitTestFixture : public ::testing::Test {
 protected:
   std::shared_ptr<Filter> lpf_no_effect;
   std::shared_ptr<PurePursuit> lat_controller_;
+  ControlParameters params;
 
   void SetUp() override {
-    // LPF with alpha=1.0 means no filtering
     lpf_no_effect = std::make_shared<LowPassFilter>(1.0, 0.0);
-    ControlParameters empty_params;
-    lat_controller_ = std::make_shared<PurePursuit>(lpf_no_effect, empty_params);
+    params.car_parameters_.wheelbase = 1.530;
+    params.car_parameters_.dist_cg_2_rear_axis = 2.655484889;
+    lat_controller_ = std::make_shared<PurePursuit>(lpf_no_effect, params);
   }
 };
 
@@ -110,13 +112,15 @@ TEST_F(PurePursuitTestFixture, Test_pp_steering_control_law_1) {
   Position cg = Position(5, 4.46);
   Position rear_axis = Position(6, 2);
   Position lookahead_point = Position(1, 4);
-  double dist_cg_2_rear_axis = 2.655484889;
 
-  LateralControlInput lat_input;
-  lat_input.rear_axis = rear_axis;
-  lat_input.cg = cg;
-  lat_input.lookahead_point = lookahead_point;
-  lat_input.dist_cg_2_rear_axis = dist_cg_2_rear_axis;
+  LateralControlInput lat_input(rear_axis,        // global_rear_axis_position
+                                cg,               // global_cg_position
+                                lookahead_point,  // lookahead_point
+                                Position(),       // closest_point
+                                Position(),       // next_closest_point
+                                0.0,              // yaw
+                                0.0               // velocity
+  );
 
   double steering_cmd = lat_controller_->steering_control_law(lat_input);
 

@@ -19,6 +19,22 @@
  */
 
 class PurePursuit : public LateralController {
+private:
+  /**
+   * @brief Calculate alpha (angle between the vehicle and lookahead point)
+   *
+   * @param vehicle_rear_wheel
+   * @param vehicle_cg
+   * @param lookahead_point
+   * @param dist_cg_2_rear_axis
+   *
+   * @return alpha angle in radians
+   */
+  double calculate_alpha(common_lib::structures::Position vehicle_rear_wheel,
+                         common_lib::structures::Position vehicle_cg,
+                         common_lib::structures::Position lookahead_point,
+                         double dist_cg_2_rear_axis);
+
 public:
   /**
    * @brief Construct a new Pure Pursuit object
@@ -29,27 +45,14 @@ public:
   PurePursuit(std::shared_ptr<Filter> lpf, const ControlParameters& params);
 
   /**
-   * @brief Compute the steering control law (override)
+   * @brief Compute the steering control law using the Pure Pursuit method.
+   * @details It calculates the steering angle based on the lookahead point and the vehicle's rear
+   * axis. It is calculated using the Pure Pursuit formula.
    *
    * @param input Struct containing all necessary input data for the controller.
    * @return Steering angle in radians.
    */
   double steering_control_law(const LateralControlInput& input) override;
-
-private:
-  /**
-   * @brief Calculate alpha (angle between the vehicle and lookahead point)
-   *
-   * @param vehicle_rear_wheel
-   * @param vehicle_cg
-   * @param lookahead_point
-   * @param dist_cg_2_rear_axis
-   *
-   * @return double
-   */
-  double calculate_alpha(common_lib::structures::Position vehicle_rear_wheel,
-                         common_lib::structures::Position vehicle_cg,
-                         common_lib::structures::Position lookahead_point, double rear_wheel_2_c_g);
 
   FRIEND_TEST(PurePursuitTestFixture, Test_calculate_alpha_1);
   FRIEND_TEST(PurePursuitTestFixture, Test_calculate_alpha_2);
