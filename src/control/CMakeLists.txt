@@ -15,6 +15,7 @@ set(IMPLEMENTATION_FILES
   src/pure_pursuit/pp.cpp
   src/point_solver/psolver.cpp
   src/low_pass_filter/lpf.cpp
+  src/stanley/stanley.cpp
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../common_lib/include)
@@ -68,6 +69,8 @@ if(BUILD_TESTING)
     test/pp_test.cpp
     test/psolver_test.cpp
     test/include/utils.cpp
+    test/lpf_test.cpp
+    test/stanley_test.cpp
   )
   include_directories(test)  # Include the 'test' directory for your test targets
   include_directories(${CMAKE_CURRENT_SOURCE_DIR})  # Include the current source directory

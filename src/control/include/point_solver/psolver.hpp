@@ -13,6 +13,7 @@
 #include "gtest/gtest.h"
 #include "motion_lib/car_parameters.hpp"
 #include "motion_lib/s2v_model/bicycle_model.hpp"
+#include "node_/control_parameters.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 class PointSolver {
@@ -20,15 +21,15 @@ private:
   double k_;                   /**< Lookahead gain */
   double lookahead_minimum_;   /**< Minimum lookahead distance */
   BicycleModel bicycle_model_; /**< Bicycle model for vehicle dynamics */
+  ControlParameters params_;   /**< Control parameters */
 
 public:
-  double dist_cg_2_rear_axis_ =
-      DIST_CG_2_REAR_AXIS; /**< Distance from the center of gravity to the rear axis */
   common_lib::structures::VehiclePose vehicle_pose_; /**< Vehicle pose */
+
   /**
    * @brief PointSolver Constructor
    */
-  explicit PointSolver(double k, double lookahead_minimum);
+  explicit PointSolver(const ControlParameters &params);
 
   /**
    * @brief Find the closest point on the path
@@ -64,6 +65,17 @@ public:
    */
   void update_vehicle_pose(const custom_interfaces::msg::Pose &vehicle_state_msg,
                            double velocity = 0.0);
+
+  /**
+   * @brief Get the next point in the path after the closest point
+   *
+   * @param pathpoint_array
+   * @param closest_point_id
+   * @return Position of the next closest point in path
+   */
+  std::tuple<common_lib::structures::Position, bool> next_closest_point(
+      const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array,
+      int closest_point_id) const;
 
   FRIEND_TEST(PointSolverTests, Test_update_closest_point_1);
   FRIEND_TEST(PointSolverTests, Test_update_lookahead_point_1);
