@@ -221,7 +221,6 @@ private:
     void calculateNormalForces(double& Fz_Front, double& Fz_Rear) const;
     void calculateWeightTransfer(double& Fz_Front, double& Fz_Rear , double& Fx_FL, double& Fx_FR, double& Fx_RL, double& Fx_RR) const;
     void calculateSlipAngles(double& kappaFront, double& kappaRear) const;
-    void calculateWeightTransfer(double& Fz_Front, double& Fz_Rear , double& Fx_FL , double& Fx_FR , double& Fx_RL , double& Fx_RR) const ;
     void updateWheelSpeeds(double dt);
     double processSlipAngleLat(double alpha_input, double Fz);
 
