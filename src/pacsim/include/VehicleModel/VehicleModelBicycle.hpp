@@ -219,6 +219,7 @@ private:
     // Physics calculation methods
     Eigen::Vector3d getDynamicStates(double dt);
     void calculateNormalForces(double& Fz_Front, double& Fz_Rear) const;
+    void calculateWeightTransfer(double& Fz_Front, double& Fz_Rear , double& Fx_FL, double& Fx_FR, double& Fx_RL, double& Fx_RR) const;
     void calculateSlipAngles(double& kappaFront, double& kappaRear) const;
     void calculateWeightTransfer(double& Fz_Front, double& Fz_Rear , double& Fx_FL , double& Fx_FR , double& Fx_RL , double& Fx_RR) const ;
     void updateWheelSpeeds(double dt);
@@ -250,6 +251,7 @@ private:
     double sf, sr;  // Track width front/rear
     double m;       // Vehicle mass
     double Izz;     // Yaw moment of inertia
+    double h_cg;    // Height of center of gravity
     
     // Component models
     AerodynamicsModel aeroModel;
