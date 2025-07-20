@@ -1,1 +1,4 @@
 uint32 dc_voltage
+bool pneumatic1
+bool pneumatic2
+bool master_shutdown_circuit_close
