@@ -169,7 +169,14 @@ void Control::publish_control(const custom_interfaces::msg::Pose& vehicle_state_
   }
 
   // calculate longitudinal control: PI-D
-  double torque = this->long_controller_.update(lookahead_velocity, this->velocity_);
+  double torque;
+  ;
+  if (params_.mission_ == static_cast<int16_t>(common_lib::competition_logic::Mission::EBS_TEST)) {
+    RCLCPP_INFO(rclcpp::get_logger("control"), "EBS Test Mission, pre-programmed control");
+    torque = this->params_.const_torque_value_;  // OOOAOAOOAOAOAOOA
+  } else {
+    torque = this->long_controller_.update(lookahead_velocity, this->velocity_);
+  }
 
   // calculate Lateral Control: Pure Pursuit
   double steering_angle = this->lat_controller_.pp_steering_control_law(
