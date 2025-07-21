@@ -46,6 +46,7 @@ void NoRearWSSEKF::wss_callback(const common_lib::sensor_data::WheelEncoderData&
   this->wss_data_ = wss_data;
   this->wss_data_received_ = true;
   if (this->steering_angle_received_ && this->motor_rpm_received_) {
+    RCLCPP_INFO(rclcpp::get_logger("velocity_estimation"), "WSS callback");
     this->correct_wheels(this->_state_, this->_covariance_, this->wss_data_, this->motor_rpm_,
                          this->steering_angle_);
     this->wss_data_received_ = false;
@@ -62,6 +63,7 @@ void NoRearWSSEKF::motor_rpm_callback(double motor_rpm) {
   this->motor_rpm_ = motor_rpm;
   this->motor_rpm_received_ = true;
   if (this->steering_angle_received_ && this->wss_data_received_) {
+    RCLCPP_INFO(rclcpp::get_logger("velocity_estimation"), "Motors callback");
     this->correct_wheels(this->_state_, this->_covariance_, this->wss_data_, this->motor_rpm_,
                          this->steering_angle_);
     this->wss_data_received_ = false;
@@ -78,6 +80,7 @@ void NoRearWSSEKF::steering_callback(double steering_angle) {
   this->steering_angle_ = steering_angle;
   this->steering_angle_received_ = true;
   if (this->wss_data_received_ && this->motor_rpm_received_) {
+    RCLCPP_INFO(rclcpp::get_logger("velocity_estimation"), "Steering callback");
     this->correct_wheels(this->_state_, this->_covariance_, this->wss_data_, this->motor_rpm_,
                          this->steering_angle_);
     this->wss_data_received_ = false;

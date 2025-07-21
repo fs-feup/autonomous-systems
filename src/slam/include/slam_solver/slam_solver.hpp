@@ -117,6 +117,12 @@ public:
    */
   virtual int get_lap_counter() = 0;
 
+  virtual Eigen::VectorXi get_associations() const = 0;
+
+  virtual Eigen::VectorXd get_observations_global() const = 0;
+
+  virtual Eigen::VectorXd get_map_coordinates() const = 0;
+
   /**
    * @brief Set the mission
    *

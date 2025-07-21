@@ -164,10 +164,14 @@ void EKFSLAMSolver::load_initial_state(const Eigen::VectorXd& map, const Eigen::
 
 std::vector<common_lib::structures::Cone> EKFSLAMSolver::get_map_estimate() {
   std::vector<common_lib::structures::Cone> map;
+  std::string mapa = "";
   for (int i = 3; i < this->state_.size(); i += 2) {
+    mapa +=
+        "(" + std::to_string(this->state_(i)) + ", " + std::to_string(this->state_(i + 1)) + "), ";
     map.push_back(common_lib::structures::Cone(this->state_(i), this->state_(i + 1), "unknown", 1.0,
                                                this->last_update_));
   }
+  RCLCPP_INFO(rclcpp::get_logger("slam_solver"), "Map estimate: %s", mapa.c_str());
   return map;
 }
 

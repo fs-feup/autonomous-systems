@@ -36,10 +36,12 @@ void VehicleAdapter::wss_callback(const custom_interfaces::msg::WheelRPM& fl_whe
     return;
   }
   this->_velocity_estimator_->wss_callback(wss_data);
+  this->publish_velocities();
 }
 
 void VehicleAdapter::steering_angle_callback(const custom_interfaces::msg::SteeringAngle msg) {
   this->_velocity_estimator_->steering_callback(msg.steering_angle);
+  this->publish_velocities();
 }
 
 void VehicleAdapter::imu_callback(
@@ -63,4 +65,5 @@ void VehicleAdapter::imu_callback(
 
 void VehicleAdapter::resolver_callback(custom_interfaces::msg::WheelRPM msg) {
   this->_velocity_estimator_->motor_rpm_callback(msg.rr_rpm);
+  this->publish_velocities();
 }
