@@ -8,6 +8,7 @@
 #include <string>
 
 #include "common_lib/communication/marker.hpp"
+#include "common_lib/competition_logic/mission_logic.hpp"
 #include "common_lib/config_load/config_load.hpp"
 #include "custom_interfaces/msg/evaluator_control_data.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
@@ -65,6 +66,7 @@ ControlParameters Control::load_config(std::string& adapter) {
   params.command_time_interval_ = control_config["command_time_interval"].as<int>();
   params.test_mode_ = control_config["test_mode"].as<std::string>();
   params.const_torque_value_ = control_config["const_torque_value"].as<double>();
+  params.ebs_torque_value_ = control_config["ebs_torque_value"].as<double>();
 
   return params;
 }
@@ -170,10 +172,9 @@ void Control::publish_control(const custom_interfaces::msg::Pose& vehicle_state_
 
   // calculate longitudinal control: PI-D
   double torque;
-  ;
   if (params_.mission_ == static_cast<int16_t>(common_lib::competition_logic::Mission::EBS_TEST)) {
     RCLCPP_INFO(rclcpp::get_logger("control"), "EBS Test Mission, pre-programmed control");
-    torque = this->params_.const_torque_value_;  // OOOAOAOOAOAOAOOA
+    torque = this->params_.ebs_torque_value_;
   } else {
     torque = this->long_controller_.update(lookahead_velocity, this->velocity_);
   }

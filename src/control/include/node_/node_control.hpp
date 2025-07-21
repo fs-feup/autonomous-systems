@@ -42,6 +42,7 @@ struct ControlParameters {
   uint command_time_interval_;
   std::string test_mode_;
   double const_torque_value_;
+  double ebs_torque_value_;
 };
 
 /**
