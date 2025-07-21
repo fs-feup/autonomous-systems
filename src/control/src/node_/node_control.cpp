@@ -216,7 +216,7 @@ void Control::publish_control(const custom_interfaces::msg::Pose& vehicle_state_
   publish_evaluator_data(lookahead_velocity, lookahead_point, closest_point, vehicle_state,
                          closest_point_velocity, execution_time);
   publish_visualization_data(lookahead_point, closest_point);
-  // publish_cmd(torque, steering_angle);
+
   this->throttle_command_ = torque;
   this->steering_command_ = steering_angle;
   // Adapter to communicate with the car
