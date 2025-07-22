@@ -14,16 +14,15 @@
 #include "motion_lib/s2v_model/map.hpp"
 #include "motion_lib/vel_process_model/map.hpp"
 
-class NoRearWSSEKF : public VelocityEstimator {
+class NoWSSEKF : public VelocityEstimator {
   rclcpp::Time _last_update_;
   Eigen::Vector3d _state_ = Eigen::Vector3d::Zero();
   Eigen::Matrix3d _covariance_ = Eigen::Matrix3d::Identity() * 0.05;
   Eigen::Matrix3d _process_noise_matrix_;
-  Eigen::MatrixXd _wheels_measurement_noise_matrix_;
+  Eigen::MatrixXd _motor_and_steering_measurement_noise_matrix_;
   Eigen::MatrixXd _imu_measurement_noise_matrix_;
 
   common_lib::sensor_data::ImuData imu_data_;
-  common_lib::sensor_data::WheelEncoderData wss_data_;
   double motor_rpm_;
   double steering_angle_;
 
@@ -33,7 +32,6 @@ class NoRearWSSEKF : public VelocityEstimator {
   // measurement. This is necessary to ensure that the estimator is not used before all sensors have
   // provided at least one measurement.
   bool imu_data_received_ = false;
-  bool wss_data_received_ = false;
   bool motor_rpm_received_ = false;
   bool steering_angle_received_ = false;
 
@@ -56,7 +54,7 @@ class NoRearWSSEKF : public VelocityEstimator {
                common_lib::sensor_data::ImuData& imu_data);
 
   /**
-   * @brief Correct the state estimate based on wheel speed sensor, resolver, and steering data.
+   * @brief Correct the state estimate based on resolver, and steering data.
    *
    * This function updates the state and covariance estimates using measurements from the wheel
    * speed sensor, resolver, and steering angle sensor. It corrects the predicted state to better
@@ -64,19 +62,17 @@ class NoRearWSSEKF : public VelocityEstimator {
    *
    * @param state Vector of velocities {velocity_x, velocity_y, rotational_velocity}
    * @param covariance Covariance matrix representing the uncertainty in the state estimate.
-   * @param wss_data Wheel speed sensor data containing wheel speeds.
    * @param motor_rpm data representing the motor's rpms.
    * @param steering_angle data representing the steering angle.
    */
-  void correct_wheels(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
-                      common_lib::sensor_data::WheelEncoderData& wss_data, double motor_rpm,
-                      double steering_angle);
+  void correct_motor_and_steering(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
+                                  double motor_rpm, double steering_angle);
 
   void correct_imu(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
                    common_lib::sensor_data::ImuData& imu_data);
 
 public:
-  NoRearWSSEKF(const VEParameters& params);
+  NoWSSEKF(const VEParameters& params);
   /**
    * @brief Callback function for the IMU data that should be called by adapters when new IMU data
    * is available.

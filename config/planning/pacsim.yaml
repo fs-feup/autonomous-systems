@@ -22,7 +22,7 @@ planning:
   minimum_velocity: 2.0
   braking_acceleration: -1.0
   normal_acceleration: 4.0
-  use_velocity_planning: true
+  use_velocity_planning: false
 
 
 # Parameters for skidpad

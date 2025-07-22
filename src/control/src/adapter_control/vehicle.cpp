@@ -1,4 +1,5 @@
 #include "adapter_control/vehicle.hpp"
+
 #include "common_lib/competition_logic/mission_logic.hpp"
 
 VehicleAdapter::VehicleAdapter(const ControlParameters& params)
@@ -23,12 +24,13 @@ void VehicleAdapter::publish_cmd(double acceleration, double steering) {
 
 void VehicleAdapter::go_signal_callback(const custom_interfaces::msg::OperationalStatus msg) {
   // No need to do anything with the message, just set the go_signal to true
+  params_.mission_ = msg.as_mission;
   go_signal_ = msg.go_signal;
-  if (!(msg.as_mission == common_lib::competition_logic::Mission::TRACKDRIVE) && 
+  if (!(msg.as_mission == common_lib::competition_logic::Mission::TRACKDRIVE) &&
       !(msg.as_mission == common_lib::competition_logic::Mission::AUTOCROSS) &&
       !(msg.as_mission == common_lib::competition_logic::Mission::SKIDPAD) &&
-      !(msg.as_mission == common_lib::competition_logic::Mission::ACCELERATION)) {
-      
-      go_signal_ = false;
+      !(msg.as_mission == common_lib::competition_logic::Mission::ACCELERATION) &&
+      !(msg.as_mission == common_lib::competition_logic::Mission::EBS_TEST)) {
+    go_signal_ = false;
   }
 }
