@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 
+#include "perception_sensor_lib/data_association/jcbb.hpp"
 #include "perception_sensor_lib/data_association/maximum_likelihood_md.hpp"
 #include "perception_sensor_lib/data_association/maximum_likelihood_nll.hpp"
 #include "perception_sensor_lib/data_association/nearest_neighbor.hpp"
@@ -34,5 +35,9 @@ const std::map<
         {"nearest_neighbor",
          [](const DataAssociationParameters& params) -> std::shared_ptr<DataAssociationModel> {
            return std::make_shared<NearestNeighbor>(params);
+         }},
+        {"jcbb",
+         [](const DataAssociationParameters& params) -> std::shared_ptr<DataAssociationModel> {
+           return std::make_shared<JCBB>(params);
          }},
 };

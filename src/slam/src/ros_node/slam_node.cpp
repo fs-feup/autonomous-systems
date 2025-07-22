@@ -143,6 +143,10 @@ void SLAMNode::_perception_subscription_callback(const custom_interfaces::msg::C
   RCLCPP_INFO(this->get_logger(), "Perception - Observations global: %s",
               observations_global.c_str());
 
+  if (this->_is_mission_finished()) {
+    this->finish();
+  }
+
   // this->_publish_covariance(); // TODO: get covariance to work fast
 
   this->_publish_vehicle_pose();
@@ -333,4 +337,31 @@ void SLAMNode::_publish_associations() {
     }
   }
   this->_associations_visualization_publisher_->publish(marker_array_msg);
+}
+
+/* -------------- Checks if the mission is finished --------*/
+bool SLAMNode::_is_mission_finished() const {
+  if (this->_vehicle_state_velocities_.velocity_x > 0.1 ||
+      this->_vehicle_state_velocities_.velocity_y > 0.1 ||
+      this->_vehicle_state_velocities_.rotational_velocity > 0.05) {
+    return false;
+  }
+
+  if (this->_mission_ == common_lib::competition_logic::Mission::ACCELERATION &&
+      this->_vehicle_pose_.position.x > 75.0) {
+    return true;
+  }
+  if (this->_mission_ == common_lib::competition_logic::Mission::SKIDPAD &&
+      this->_vehicle_pose_.position.x > 22.0) {
+    return true;
+  }
+  if (this->_mission_ == common_lib::competition_logic::Mission::AUTOCROSS &&
+      this->_slam_solver_->get_lap_counter() >= 1) {
+    return true;
+  }
+  if (this->_mission_ == common_lib::competition_logic::Mission::TRACKDRIVE &&
+      this->_slam_solver_->get_lap_counter() >= 10) {
+    return true;
+  }
+  return false;
 }

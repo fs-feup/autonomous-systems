@@ -109,6 +109,14 @@ protected:
    */
   void _publish_lap_counter();
 
+  /**
+   * @brief Checks if the mission is finished
+   *
+   * @return true if the mission is finished
+   * @return false if the mission is not finished
+   */
+  bool _is_mission_finished() const;
+
 public:
   // /**
   //  * @brief Constructor of the main node, most things are received by launch parameter
@@ -125,4 +133,9 @@ public:
    * @description This method is used to initialize things that require the constructed node
    */
   void init();
+
+  /**
+   * @brief Finish the mission
+   */
+  virtual void finish() = 0;
 };

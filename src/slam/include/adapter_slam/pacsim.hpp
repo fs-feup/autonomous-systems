@@ -45,5 +45,5 @@ public:
    */
   PacsimAdapter(const SLAMParameters& params);
 
-  void finish();
+  void finish() override;
 };
