@@ -30,17 +30,19 @@ std::pair<double, PathCalculation::MidPoint*> PathCalculation::dfs_cost(int dept
 
     // Distance calculation
     double distance = std::sqrt(std::pow(current->point.x() - next->point.x(), 2) +
-                           std::pow(current->point.y() - next->point.y(), 2));
+                                std::pow(current->point.y() - next->point.y(), 2));
 
     // Angle calculation
-    double angle_with_previous =
-        std::atan2(current->point.y() - previous->point.y(), current->point.x() - previous->point.x());
+    double angle_with_previous = std::atan2(current->point.y() - previous->point.y(),
+                                            current->point.x() - previous->point.x());
     double angle_with_next =
         std::atan2(next->point.y() - current->point.y(), next->point.x() - current->point.x());
 
     // Normalize angle to be between 0 and π
     double angle = std::abs(angle_with_next - angle_with_previous);
-    if (angle > M_PI) {angle = 2 * M_PI - angle;}
+    if (angle > M_PI) {
+      angle = 2 * M_PI - angle;
+    }
 
     // Local cost calculation
     double local_cost =

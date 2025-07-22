@@ -153,6 +153,23 @@ public:
       const common_lib::structures::Pose& anchor_pose);
 
   /**
+   * @brief Generate a path using DFS cost search
+   *
+   * @param first The first point of the path
+   * @param second The second point of the path
+   * @return std::vector<MidPoint*> The generated path as midpoints
+   */
+  std::vector<MidPoint*> generatePath(MidPoint* first, MidPoint* second);
+
+  /**
+   * @brief Convert midpoint path to path points
+   *
+   * @param path Vector of midpoints representing the path
+   * @return std::vector<PathPoint> The final path points
+   */
+  std::vector<PathPoint> convertToPathPoints(const std::vector<MidPoint*>& path);
+
+  /**
    * @brief Generate a path for skidpad course
    *
    * @param cone_array The array of cones representing the track

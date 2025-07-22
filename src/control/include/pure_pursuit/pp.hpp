@@ -1,16 +1,17 @@
 #pragma once
 
+#include <memory>
+
 #include "common_lib/structures/position.hpp"
+#include "filters/lpf.hpp"
 #include "gtest/gtest.h"
 #include "rclcpp/rclcpp.hpp"
-#include <memory>
-#include "filters/lpf.hpp"
 
 /**< Maximum steering angle in rad */
-constexpr double MAX_STEERING_ANGLE = 0.392699;
+constexpr double MAX_STEERING_ANGLE = 0.335;
 
 /**< Minimum steering angle in rad */
-constexpr double MIN_STEERING_ANGLE = -0.392699;
+constexpr double MIN_STEERING_ANGLE = -0.335;
 
 /**< Wheel base of the vehicle in m */
 constexpr double WHEEL_BASE = 1.5;
@@ -36,7 +37,7 @@ public:
 
   /**
    * @brief Construct a new Pure Pursuit object
-   * 
+   *
    * @param lpf Pointer to a low-pass filter
    */
   PurePursuit(std::shared_ptr<Filter> lpf);

@@ -28,6 +28,7 @@ public:
     bool readConfig(ConfigElement& config) override;
     
     // State getters
+
     Eigen::Vector3d getPosition() override;
     Eigen::Vector3d getOrientation() override;
     Eigen::Vector3d getVelocity() override;
@@ -194,7 +195,6 @@ private:
         // Calculate steering wheel angle
         double calculateSteeringWheelAngle(const Wheels& steeringAngles) const;
     };
-
     void calculateWheelGeometry(
         double& steeringFront,
         Eigen::Vector3d& rFL, Eigen::Vector3d& rFR,
@@ -219,6 +219,7 @@ private:
     // Physics calculation methods
     Eigen::Vector3d getDynamicStates(double dt);
     void calculateNormalForces(double& Fz_Front, double& Fz_Rear) const;
+    void calculateWeightTransfer(double& Fz_Front, double& Fz_Rear , double& Fx_FL, double& Fx_FR, double& Fx_RL, double& Fx_RR) const;
     void calculateSlipAngles(double& kappaFront, double& kappaRear) const;
     void updateWheelSpeeds(double dt);
     double processSlipAngleLat(double alpha_input, double Fz);
@@ -249,10 +250,47 @@ private:
     double sf, sr;  // Track width front/rear
     double m;       // Vehicle mass
     double Izz;     // Yaw moment of inertia
+    double h_cg;    // Height of center of gravity
     
     // Component models
     AerodynamicsModel aeroModel;
     TireModel tireModel;
     PowertrainModel powertrainModel;
     SteeringModel steeringModel;
-};
+    
+    //Testing getters && setters
+    public:
+        const AerodynamicsModel& getAeroModel() const { return aeroModel; }
+        const void getLongitudinalForces(double& Fx_FL, double& Fx_FR, double& Fx_RL, double& Fx_RR) const { calculateLongitudinalForces(Fx_FL, Fx_FR, Fx_RL, Fx_RR);}
+        const PowertrainModel& getPowertrainModel() const{return powertrainModel;}
+        const void getNormalForces(double& Fz_Front, double& Fz_Rear) const {calculateNormalForces(Fz_Front, Fz_Rear); }
+        const void getSlipAngles(double& kappaFront, double& kappaRear) const { calculateSlipAngles(kappaFront, kappaRear); }
+        
+        const SteeringModel& getSteeringModel() const { return steeringModel; }
+
+        const void getWheelGeometry(
+            double& steeringFront,
+            Eigen::Vector3d& rFL, Eigen::Vector3d& rFR,
+            Eigen::Vector3d& rRL, Eigen::Vector3d& rRR,
+            Eigen::Vector3d& rFront, Eigen::Vector3d& rRear,
+            Eigen::Vector3d& vFL, Eigen::Vector3d& vFR,
+            Eigen::Vector3d& vRL, Eigen::Vector3d& vRR
+        ) const {
+            calculateWheelGeometry(steeringFront, rFL, rFR, rRL, rRR, rFront, rRear, vFL, vFR, vRL, vRR);
+        }
+
+        const Eigen::Vector3d getCalculateAccelerations(double steeringFront, double Fx_FL, double Fx_FR, double Fx_RL, double Fx_RR,
+    double Fy_Front, double Fy_Rear, double drag, const Eigen::Vector3d& friction) const {
+        return calculateAccelerations(steeringFront,  Fx_FL , Fx_FR, Fx_RL, Fx_RR,
+    Fy_Front, Fy_Rear, drag, friction);
+    }
+    
+    Eigen::Vector3d getGetDynamicStates(double dt)  {
+        return getDynamicStates(dt);
+    }
+
+
+        void setVelocity(const Eigen::Vector3d& vel) { velocity = vel; }
+
+        void setWheelSpeedsTester(const Eigen::Vector3d& vFL, const Eigen::Vector3d& vFR,const Eigen::Vector3d& vRL, const Eigen::Vector3d& vRR){ updateWheelSpeeds(vFL, vFR, vRL, vRR); }
+ };

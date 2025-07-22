@@ -5,15 +5,15 @@ perception:
   default_mission: "trackdrive"
 
   #FOV trimming
-  lidar_height: 0.92
+  lidar_height: 1.1
   lidar_rotation: 90.0
-  lidar_pitch: -3.90
-  min_range: 1.0
-  max_height: 0.7
+  lidar_pitch: -1.75
+  min_range: 1.93
+  max_height: 0.55
 
     #TRACKDRIVE/AUTOCROSS TRIMMING
-  max_range: 30.0
-  fov_trim_angle: 45.0
+  max_range: 21.0
+  fov_trim_angle: 60.0
 
     #ACCELERATION TRIMMING
   acc_max_range: 20.25
@@ -26,12 +26,12 @@ perception:
   
   #Ground Removal
   ground_removal: "grid_ransac"
-  ransac_epsilon: 0.13
-  ransac_iterations: 30
+  ransac_epsilon: 0.15
+  ransac_iterations: 40
 
     #TRACKDRIVE/AUTOCROSS GROUND REMOVAL
-  n_angular_grids: 2
-  radius_resolution: 6.5
+  n_angular_grids: 3
+  radius_resolution: 7.0
 
     #ACCELERATION GROUND REMOVAL
   acc_n_angular_grids: 2
@@ -44,11 +44,11 @@ perception:
 
   #Clustering
   clustering_n_neighbours: 1
-  clustering_epsilon: 0.5
+  clustering_epsilon: 0.7
 
   #Evaluator
   min_height: 0.15
-  large_max_height: 0.57
+  large_max_height: 0.3
   small_max_height: 0.42
   height_cap: 0.5
   min_xoy: 0.0
@@ -63,11 +63,11 @@ perception:
   min_distance_x: 0.02
   min_distance_y: 0.04
   min_distance_z: 0.11
-  min_n_points: 4
+  min_n_points: 6
   min_confidence: 0.912
   height_out_weight: 12.0
   height_in_weight: 5.0
-  cylinder_radius_weight: 20.0
+  cylinder_radius_weight: 40.0
   cylinder_height_weight: 8.0
   cylinder_npoints_weight: 10.0
   npoints_weight: 11.0

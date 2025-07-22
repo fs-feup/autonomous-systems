@@ -64,7 +64,7 @@ Eigen::VectorXd BicycleModel::cg_velocity_to_wheels(const Eigen::Vector3d& cg_ve
   }
   double v = sqrt(pow(vx, 2) + pow(vy, 2));
   double steering_angle =
-      (std::fabs(v) <= 0.01) ? 0 : atan(omega * (this->car_parameters_.wheelbase) / v);
+      (std::fabs(v) <= 0.1) ? 0 : atan(omega * (this->car_parameters_.wheelbase) / v);
   double motor_rpm = 60 * this->car_parameters_.gear_ratio * rear_wheel_velocity /
                      (M_PI * this->car_parameters_.wheel_diameter);
   if (vx < 0) {
@@ -88,18 +88,14 @@ Eigen::MatrixXd BicycleModel::jacobian_cg_velocity_to_wheels(const Eigen::Vector
               this->car_parameters_
                   .dist_cg_2_rear_axis;  // distance from the center of mass to the front wheels
   double rear_wheel_velocity = sqrt(pow(vx, 2) + pow(vy - omega * lr, 2));
-  if (rear_wheel_velocity == 0) {
-    rear_wheel_velocity = 0.00001;
-  }
   double front_wheel_velocity = sqrt(pow(vx, 2) + pow(vy + omega * lf, 2));
-  if (front_wheel_velocity == 0) {
-    front_wheel_velocity = 0.00001;
+
+  const double epsilon = 1e-3;
+  if (std::fabs(rear_wheel_velocity) < epsilon || std::fabs(front_wheel_velocity) < epsilon) {
+    jacobian(0, 0) = epsilon;
+    return jacobian;
   }
-  double temp_vx = (std::fabs(vx) <= 0.001) ? 0.001 : vx;
-  if (vx < 0 && temp_vx > 0) {
-    temp_vx = -temp_vx;
-  }
-  vx = temp_vx;
+
   double sign = (vx < 0) ? -1.0 : 1.0;
   jacobian(0, 0) =
       sign * 60 * vx / (M_PI * this->car_parameters_.wheel_diameter * front_wheel_velocity);
@@ -120,18 +116,20 @@ Eigen::MatrixXd BicycleModel::jacobian_cg_velocity_to_wheels(const Eigen::Vector
   jacobian(3, 0) = jacobian(2, 0);
   jacobian(3, 1) = jacobian(2, 1);
   jacobian(3, 2) = jacobian(2, 2);
-  double L = this->car_parameters_.wheelbase;
-  double v = sqrt(pow(vx, 2) + pow(vy, 2));
-  if (std::fabs(v) > 0.01) {
-    jacobian(4, 0) = -((omega * L) / (v * v + (omega * L) * (omega * L))) * (vx / v);
-    jacobian(4, 1) = -((omega * L) / (v * v + (omega * L) * (omega * L))) * (vy / v);
-    jacobian(4, 2) = (L * v) / (v * v + (omega * L) * (omega * L));
-  }
+
   jacobian(5, 0) = sign * this->car_parameters_.gear_ratio * 60 * vx /
                    (M_PI * this->car_parameters_.wheel_diameter * rear_wheel_velocity);
   jacobian(5, 1) = sign * this->car_parameters_.gear_ratio * 60 * (vy - omega * lr) /
                    (M_PI * this->car_parameters_.wheel_diameter * rear_wheel_velocity);
   jacobian(5, 2) = sign * this->car_parameters_.gear_ratio * 60 * (-lr) * (vy - omega * lr) /
                    (M_PI * this->car_parameters_.wheel_diameter * rear_wheel_velocity);
+  double L = this->car_parameters_.wheelbase;
+  double v = sqrt(pow(vx, 2) + pow(vy, 2));
+  if (std::fabs(v) > epsilon) {
+    jacobian(4, 0) = -((omega * L) / (v * v + (omega * L) * (omega * L))) * (vx / v);
+    jacobian(4, 1) = -((omega * L) / (v * v + (omega * L) * (omega * L))) * (vy / v);
+    jacobian(4, 2) = (L * v) / (v * v + (omega * L) * (omega * L));
+  }
+
   return jacobian;
 }

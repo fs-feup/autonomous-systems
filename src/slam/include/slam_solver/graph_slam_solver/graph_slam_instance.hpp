@@ -116,4 +116,10 @@ public:
    * @brief Runs optimization on the graph
    */
   void optimize();
+
+  /**
+   * @brief Soft locks the positions of the landmarks, can be used after the first lap
+   *
+   */
+  void lock_landmarks(double locked_landmark_noise);
 };
