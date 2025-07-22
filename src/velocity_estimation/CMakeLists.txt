@@ -42,6 +42,7 @@ set(IMPLEMENTATION_FILES
   src/adapters/vehicle_adapter.cpp
   src/estimators/ekf.cpp
   src/estimators/no_rear_wss_ekf.cpp
+  src/estimators/no_wss_ekf.cpp
   src/config/parameters.cpp
 )
 
