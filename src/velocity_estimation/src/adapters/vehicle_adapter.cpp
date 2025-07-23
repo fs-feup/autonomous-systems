@@ -40,7 +40,7 @@ void VehicleAdapter::wss_callback(const custom_interfaces::msg::WheelRPM& fl_whe
 }
 
 void VehicleAdapter::steering_angle_callback(const custom_interfaces::msg::SteeringAngle msg) {
-  this->_velocity_estimator_->steering_callback(msg.steering_angle);
+  this->_velocity_estimator_->steering_callback(-msg.steering_angle);
   this->publish_velocities();
 }
 

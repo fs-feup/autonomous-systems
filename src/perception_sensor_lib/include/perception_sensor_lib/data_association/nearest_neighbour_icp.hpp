@@ -16,7 +16,7 @@
  * as criterion to make observation matches.
  *
  */
-class NearestNeighbour : public DataAssociationModel {
+class NearestNeighbourICP : public DataAssociationModel {
   /**
    * @brief Uses ICP to transform the observations to the landmarks frame. Used to make ICNN
    * reliable to bad pose estimates.
@@ -30,9 +30,9 @@ class NearestNeighbour : public DataAssociationModel {
                                    const Eigen::VectorXd& observations) const;
 
 public:
-  NearestNeighbour(const DataAssociationParameters& params) : DataAssociationModel(params) {}
+  NearestNeighbourICP(const DataAssociationParameters& params) : DataAssociationModel(params) {}
 
-  ~NearestNeighbour() = default;
+  ~NearestNeighbourICP() = default;
 
   Eigen::VectorXi associate(const Eigen::VectorXd& landmarks, const Eigen::VectorXd& observations,
                             const Eigen::MatrixXd& covariance,

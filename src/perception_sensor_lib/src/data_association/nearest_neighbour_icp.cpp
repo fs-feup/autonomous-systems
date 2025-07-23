@@ -1,7 +1,7 @@
-#include "perception_sensor_lib/data_association/nearest_neighbour.hpp"
+#include "perception_sensor_lib/data_association/nearest_neighbour_icp.hpp"
 
-Eigen::VectorXd NearestNeighbour::transform_points(const Eigen::VectorXd& landmarks,
-                                                   const Eigen::VectorXd& observations) const {
+Eigen::VectorXd NearestNeighbourICP::transform_points(const Eigen::VectorXd& landmarks,
+                                                      const Eigen::VectorXd& observations) const {
   const int num_landmarks = landmarks.size() / 2;
   const int num_observations = observations.size() / 2;
 
@@ -33,7 +33,7 @@ Eigen::VectorXd NearestNeighbour::transform_points(const Eigen::VectorXd& landma
 
   // Check if ICP has converged
   if (!icp.hasConverged()) {
-    RCLCPP_WARN(rclcpp::get_logger("NearestNeighbour"), "ICP did not converge");
+    RCLCPP_WARN(rclcpp::get_logger("NearestNeighbourICP"), "ICP did not converge");
     return observations;  // Return original observations if ICP fails
   }
 
@@ -55,10 +55,9 @@ Eigen::VectorXd NearestNeighbour::transform_points(const Eigen::VectorXd& landma
   return transformed_observations;
 }
 
-Eigen::VectorXi NearestNeighbour::associate(const Eigen::VectorXd& landmarks,
-                                            const Eigen::VectorXd& observations,
-                                            const Eigen::MatrixXd& covariance,
-                                            const Eigen::VectorXd& observation_confidences) const {
+Eigen::VectorXi NearestNeighbourICP::associate(
+    const Eigen::VectorXd& landmarks, const Eigen::VectorXd& observations,
+    const Eigen::MatrixXd& covariance, const Eigen::VectorXd& observation_confidences) const {
   const int num_observations = observations.size() / 2;
   const int num_landmarks = landmarks.size() / 2;
 

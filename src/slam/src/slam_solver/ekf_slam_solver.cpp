@@ -77,7 +77,10 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
   this->_landmark_filter_->delete_landmarks(filtered_new_landmarks);
   this->correct(this->state_, this->covariance_, matched_landmarks_indices, matched_observations);
   if (this->_mission_ != common_lib::competition_logic::Mission::NONE &&
-      !this->_params_.using_preloaded_map_ && this->lap_counter_ == 0) {
+      !(this->_params_.using_preloaded_map_ &&
+        (this->_mission_ == common_lib::competition_logic::Mission::SKIDPAD ||
+         this->_mission_ == common_lib::competition_logic::Mission::ACCELERATION)) &&
+      this->lap_counter_ == 0) {
     this->state_augmentation(this->state_, this->covariance_, filtered_new_landmarks);
     this->update_process_noise_matrix();
   }

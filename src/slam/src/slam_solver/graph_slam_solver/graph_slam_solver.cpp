@@ -174,7 +174,10 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
 
   this->_landmark_filter_->delete_landmarks(filtered_new_observations);
   if (this->_mission_ != common_lib::competition_logic::Mission::NONE &&
-      !this->_params_.using_preloaded_map_ && lap_counter_ == 0) {
+      !(this->_params_.using_preloaded_map_ &&
+        (this->_mission_ == common_lib::competition_logic::Mission::SKIDPAD ||
+         this->_mission_ == common_lib::competition_logic::Mission::ACCELERATION)) &&
+      lap_counter_ == 0) {
     // Set the associations to -1 for the filtered observations
     for (int i = 0; i < filtered_new_observations.size() / 2; i++) {
       for (int j = 0; j < associations.size(); j++) {
