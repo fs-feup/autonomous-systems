@@ -9,7 +9,7 @@ NearestNeighbor::NearestNeighbor(const DataAssociationParameters& params)
 struct TripleComparator {
   bool operator()(const std::tuple<double, unsigned int, unsigned int>& a,
                   const std::tuple<double, unsigned int, unsigned int>& b) const {
-    return std::get<0>(a) < std::get<0>(b);
+    return std::get<0>(a) > std::get<0>(b);
   }
 };
 
@@ -30,6 +30,7 @@ Eigen::VectorXi NearestNeighbor::associate(const Eigen::VectorXd& landmarks,
   double euclidean_distance;
   for (int i = 0; i < num_observations; ++i) {
     if (observation_confidences(i) < this->_params_.new_landmark_confidence_gate) {
+      associations(i) = -2;
       continue;
     }
     for (int j = 0; j < num_landmarks; ++j) {
@@ -48,7 +49,7 @@ Eigen::VectorXi NearestNeighbor::associate(const Eigen::VectorXd& landmarks,
     distances.pop();
 
     if (associated_landmarks.find(std::get<2>(current_tuple)) == associated_landmarks.end() &&
-        associations(std::get<1>(current_tuple) == -1)) {
+        associations(std::get<1>(current_tuple)) == -1) {
       associations(std::get<1>(current_tuple)) = 2 * std::get<2>(current_tuple);
       associated_landmarks.insert(std::get<2>(current_tuple));
     }
