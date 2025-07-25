@@ -5,6 +5,7 @@ vehicle_model:
       lf: 0.726 # Distance from the center of mass to the front axle
       sf: 1.2 # Track width front
       sr: 1.2 # Track width rear
+      h_cg: 0.245 # Height of center of gravity
     tire:
       Blat: 9.63
       Clat: -1.39

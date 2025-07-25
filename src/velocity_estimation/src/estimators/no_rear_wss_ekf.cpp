@@ -4,7 +4,7 @@ NoRearWSSEKF::NoRearWSSEKF(const VEParameters& params) {
   this->_process_noise_matrix_ = Eigen::Matrix3d::Zero();
   this->_process_noise_matrix_(0, 0) = params.imu_acceleration_noise_;
   this->_process_noise_matrix_(1, 1) = params.imu_acceleration_noise_;
-  this->_process_noise_matrix_(2, 2) = params.angular_velocity_process_noise_;
+  this->_process_noise_matrix_(2, 2) = 0;
   this->_wheels_measurement_noise_matrix_ = Eigen::MatrixXd::Identity(4, 4);
   this->_wheels_measurement_noise_matrix_(0, 0) = params.wheel_speed_noise_;
   this->_wheels_measurement_noise_matrix_(1, 1) = params.wheel_speed_noise_;
@@ -26,7 +26,7 @@ void NoRearWSSEKF::imu_callback(const common_lib::sensor_data::ImuData& imu_data
   if (!this->imu_data_received_) {
     this->imu_data_received_ = true;
   } else {
-    //this->predict(this->_state_, this->_covariance_, this->_process_noise_matrix_,
+    // this->predict(this->_state_, this->_covariance_, this->_process_noise_matrix_,
     //              this->_last_update_, this->imu_data_);
   }
   this->_last_update_ = rclcpp::Clock().now();
@@ -111,15 +111,12 @@ void NoRearWSSEKF::predict(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
   double dt = (current_time_point - last_update).seconds();
   Eigen::Vector3d accelerations(imu_data.acceleration_x, imu_data.acceleration_y, 0.0);
 
-  // Process noise for angular velocity greater, the greater the angular velocity
-  Eigen::Matrix3d actual_process_noise_matrix = process_noise_matrix;
-
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"),
                       "predict - Process noise matrix: \n"
-                          << actual_process_noise_matrix);
+                          << process_noise_matrix);
 
   Eigen::Matrix3d jacobian = this->process_model->get_jacobian_velocities(state, accelerations, dt);
-  covariance = jacobian * covariance * jacobian.transpose() + actual_process_noise_matrix;
+  covariance = jacobian * covariance * jacobian.transpose() + process_noise_matrix;
   state = this->process_model->get_next_velocities(state, accelerations, dt);
   this->_has_made_prediction_ = true;
 }
@@ -139,12 +136,11 @@ void NoRearWSSEKF::correct_wheels(Eigen::Vector3d& state, Eigen::Matrix3d& covar
 
   // DEBUG PRINTS
   RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"),
-               "correct_wheels - Predicted observations: %f %f %f %f %f %f",
-               predicted_observations(0), predicted_observations(1), predicted_observations(2),
-               predicted_observations(3), predicted_observations(4), predicted_observations(5));
+               "correct_wheels - Predicted observations: %f %f %f %f", predicted_observations(0),
+               predicted_observations(1), predicted_observations(2), predicted_observations(3));
   RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"),
-               "correct_wheels - Observations: %f %f %f %f %f %f", observations(0), observations(1),
-               observations(2), observations(3), observations(4), observations(5));
+               "correct_wheels - Observations: %f %f %f %f", observations(0), observations(1),
+               observations(2), observations(3));
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - Covariance: \n"
                                                                      << covariance);
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - y: \n" << y);
@@ -152,7 +148,11 @@ void NoRearWSSEKF::correct_wheels(Eigen::Vector3d& state, Eigen::Matrix3d& covar
                                                                      << jacobian);
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - Kalman gain: \n"
                                                                      << kalman_gain);
+  double prev_omega = state(2);
   state += kalman_gain * y;
+  state(2) = prev_omega;
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - New State: \n"
+                                                                     << state);
   if (this->_has_made_prediction_)
     covariance = (Eigen::Matrix3d::Identity() - kalman_gain * jacobian) * covariance;
 }
@@ -178,6 +178,8 @@ void NoRearWSSEKF::correct_imu(Eigen::Vector3d& state, Eigen::Matrix3d& covarian
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - Kalman gain: \n"
                                                                      << kalman_gain);
   state += kalman_gain * y;
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - New State: \n"
+                                                                     << state);
   if (this->_has_made_prediction_)
     covariance = (Eigen::Matrix3d::Identity() - kalman_gain * jacobian) * covariance;
 }
