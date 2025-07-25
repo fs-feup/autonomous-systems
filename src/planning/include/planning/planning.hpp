@@ -29,6 +29,7 @@
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "std_msgs/msg/float64.hpp"
 #include "utils/files.hpp"
+#include "std_srvs/srv/trigger.hpp"
 
 using PathPoint = common_lib::structures::PathPoint;
 using Pose = common_lib::structures::Pose;
@@ -85,6 +86,8 @@ class Planning : public rclcpp::Node {
 
   rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr _lap_counter_subscription_;
   rclcpp::TimerBase::SharedPtr timer_;
+
+  rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr mission_finished_client_;
   /**
    * @brief Callback for vehicle localization updates (undefined).
    *
