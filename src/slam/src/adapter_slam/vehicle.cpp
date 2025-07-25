@@ -10,10 +10,10 @@ VehicleAdapter::VehicleAdapter(const SLAMParameters& params) : SLAMNode(params) 
       this->create_subscription<custom_interfaces::msg::OperationalStatus>(
           "/vehicle/operational_status", 10,
           [this](const custom_interfaces::msg::OperationalStatus::SharedPtr msg) {
-            RCLCPP_INFO(this->get_logger(), "Operational status received. Mission: %d - Go: %d",
-                        msg->as_mission, msg->go_signal);
+            RCLCPP_DEBUG(this->get_logger(), "Operational status received. Mission: %d - Go: %d",
+                         msg->as_mission, msg->go_signal);
             _go_ = true;  // msg->go_signal;
-            _mission_ = common_lib::competition_logic::Mission::SKIDPAD;
+            _mission_ = common_lib::competition_logic::Mission(msg->as_mission);
             this->_slam_solver_->set_mission(_mission_);
           });
   _finished_client_ = this->create_client<std_srvs::srv::Trigger>("/as_srv/mission_finished");

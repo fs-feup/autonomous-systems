@@ -92,16 +92,17 @@ PerceptionParameters Perception::load_config() {
   auto skidpad_trimming = std::make_shared<SkidpadTrimming>(trim_params);
   auto cut_trimming = std::make_shared<CutTrimming>(trim_params);
 
-  auto temp_fov_trim_map = std::unordered_map<uint8_t, std::shared_ptr<FovTrimming>>{
-      {static_cast<uint8_t>(Mission::ACCELERATION), acceleration_trimming},
-      {static_cast<uint8_t>(Mission::SKIDPAD), skidpad_trimming},
-      {static_cast<uint8_t>(Mission::TRACKDRIVE), cut_trimming},
-      {static_cast<uint8_t>(Mission::AUTOCROSS), cut_trimming},
-      {static_cast<uint8_t>(Mission::EBS_TEST), cut_trimming},
-      {static_cast<uint8_t>(Mission::INSPECTION), cut_trimming}};
+  auto temp_fov_trim_map = std::unordered_map<int16_t, std::shared_ptr<FovTrimming>>{
+      {static_cast<int16_t>(Mission::ACCELERATION), acceleration_trimming},
+      {static_cast<int16_t>(Mission::SKIDPAD), skidpad_trimming},
+      {static_cast<int16_t>(Mission::TRACKDRIVE), cut_trimming},
+      {static_cast<int16_t>(Mission::AUTOCROSS), cut_trimming},
+      {static_cast<int16_t>(Mission::EBS_TEST), cut_trimming},
+      {static_cast<int16_t>(Mission::INSPECTION), cut_trimming},
+      {static_cast<int16_t>(Mission::EBS_TEST), acceleration_trimming}};
 
   params.fov_trim_map_ =
-      std::make_shared<std::unordered_map<uint8_t, std::shared_ptr<FovTrimming>>>(
+      std::make_shared<std::unordered_map<int16_t, std::shared_ptr<FovTrimming>>>(
           temp_fov_trim_map);
 
   std::string ground_removal_algorithm = perception_config["ground_removal"].as<std::string>();
@@ -199,11 +200,12 @@ Perception::Perception(const PerceptionParameters& params)
   this->_perception_execution_time_publisher_ =
       this->create_publisher<std_msgs::msg::Float64>("/perception/execution_time", 10);
 
-  this->_master_log_subscription = this->create_subscription<custom_interfaces::msg::MasterLog>(
-      "/vehicle/master_log", rclcpp::QoS(10),
-      [this](const custom_interfaces::msg::MasterLog::SharedPtr msg) {
-        _mission_type_ = msg->mission;
-      });
+  this->_operational_status_subscription =
+      this->create_subscription<custom_interfaces::msg::OperationalStatus>(
+          "/vehicle/operational_status", rclcpp::QoS(10),
+          [this](const custom_interfaces::msg::OperationalStatus::SharedPtr msg) {
+            _mission_type_ = msg->as_mission;
+          });
 
   // Determine which adapter is being used
   std::unordered_map<std::string, std::tuple<std::string, rclcpp::QoS>> adapter_topic_map = {

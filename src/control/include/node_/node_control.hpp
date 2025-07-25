@@ -9,6 +9,7 @@
 
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/evaluator_control_data.hpp"
+#include "custom_interfaces/msg/operational_status.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/pose.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
@@ -21,6 +22,7 @@
 #include "visualization_msgs/msg/marker.hpp"
 
 struct ControlParameters {
+  int16_t mission_;
   bool using_simulated_slam_;
   bool using_simulated_velocities_;
   bool use_simulated_planning_;
@@ -40,6 +42,7 @@ struct ControlParameters {
   uint command_time_interval_;
   std::string test_mode_;
   double const_torque_value_;
+  double ebs_torque_value_;
 };
 
 /**

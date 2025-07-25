@@ -1,3 +1,3 @@
-uint8 min_temp
-uint8 max_temp
-uint8 avg_temp
+int8 min_temp
+int8 max_temp
+int8 avg_temp
