@@ -176,7 +176,7 @@ void Planning::run_planning_algorithms() {
   if (this->mission == common_lib::competition_logic::Mission::SKIDPAD) {
     final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
 
-  } else if (this->mission == common_lib::competition_logic::Mission::ACCELERATION ||
+  } else if (this->mission == common_lib::competition_logic::Mission::AUTOCROSS ||
              this->mission == common_lib::competition_logic::Mission::EBS_TEST) {
     triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
     // Smooth the calculated path
