@@ -87,6 +87,7 @@ struct PlanningConfig {
     simulation_.using_simulated_se_ = params.using_simulated_se_;
 
     velocity_planning_.minimum_velocity_ = params.minimum_velocity_;
+    velocity_planning_.desired_velocity_ = params.desired_velocity_;
     velocity_planning_.braking_acceleration_ = params.braking_acceleration_;
     velocity_planning_.normal_acceleration_ = params.normal_acceleration_;
     velocity_planning_.use_velocity_planning_ = params.use_velocity_planning_;
