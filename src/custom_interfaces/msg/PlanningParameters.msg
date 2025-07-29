@@ -13,7 +13,7 @@ int32   smoothing_spline_order
 float64 smoothing_spline_coeffs_ratio
 int32   smoothing_spline_precision
 bool    publishing_visualization_msg
-float64 pre_defined_velocity_planning
+float64 desired_velocity
 bool    use_outlier_removal
 bool    use_path_smoothing
 float64 minimum_velocity

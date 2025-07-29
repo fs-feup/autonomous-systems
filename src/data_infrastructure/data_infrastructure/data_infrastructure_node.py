@@ -172,7 +172,7 @@ class DataInfrastructureNode(Node):
         planning_msg.smoothing_spline_coeffs_ratio = float(parameters.get("smoothing_spline_coeffs_ratio", 0.0))
         planning_msg.smoothing_spline_precision = int(parameters.get("smoothing_spline_precision", 0))
         planning_msg.publishing_visualization_msg = bool(parameters.get("publishing_visualization_msg", False))
-        planning_msg.pre_defined_velocity_planning = float(parameters.get("pre_defined_velocity_planning", 0.0))
+        planning_msg.desired_velocity = float(parameters.get("desired_velocity", 0.0))
         planning_msg.use_outlier_removal = bool(parameters.get("use_outlier_removal", False))
         planning_msg.use_path_smoothing = bool(parameters.get("use_path_smoothing", False))
         planning_msg.minimum_velocity = float(parameters.get("minimum_velocity", 0.0))

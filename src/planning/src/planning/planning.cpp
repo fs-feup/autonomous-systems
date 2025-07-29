@@ -54,7 +54,7 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.smoothing_spline_precision_ = planning_config["smoothing_spline_precision"].as<int>();
   params.publishing_visualization_msgs_ =
       planning_config["publishing_visualization_msg"].as<bool>();
-  params.desired_velocity_ = planning_config["pre_defined_velocity_planning"].as<double>();
+  params.desired_velocity_ = planning_config["desired_velocity"].as<double>();
   params.use_outlier_removal_ = planning_config["use_outlier_removal"].as<bool>();
   params.use_path_smoothing_ = planning_config["use_path_smoothing"].as<bool>();
   params.map_frame_id_ = adapter == "eufs" ? "base_footprint" : "map";
