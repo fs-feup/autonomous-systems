@@ -2,7 +2,7 @@ std_msgs/Header header
 
 uint16 error_bitmap_1
 uint16 error_bitmap_2
-uint8 bms_current
+float32 bms_current
 
 bool discharge_limit_enforcement_fault      # P0A07 - Bit 1
 bool charger_safety_relay_fault             # P0A08 - Bit 2

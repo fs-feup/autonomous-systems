@@ -85,6 +85,8 @@ Planning::Planning(const PlanningParameters &params)
   this->local_pub_ =
       this->create_publisher<custom_interfaces::msg::PathPointArray>("/path_planning/path", 10);
 
+  this->mission_finished_client_ = this->create_client<std_srvs::srv::Trigger>("/as_srv/mission_finished");
+
   // Publisher for execution time
   this->_planning_execution_time_publisher_ =
       this->create_publisher<std_msgs::msg::Float64>("/path_planning/execution_time", 10);
@@ -114,6 +116,7 @@ Planning::Planning(const PlanningParameters &params)
         "/state_estimation/lap_counter", 10, [this](const std_msgs::msg::Float64::SharedPtr msg) {
           this->lap_counter_ = static_cast<int>(msg->data);
         });
+
   }
 
   RCLCPP_INFO(rclcpp::get_logger("planning"), "using simulated state estimation: %d",
@@ -186,7 +189,7 @@ void Planning::run_planning_algorithms() {
   if (this->mission == common_lib::competition_logic::Mission::SKIDPAD) {
     final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
 
-  } else if (this->mission == common_lib::competition_logic::Mission::ACCELERATION ||
+  } else if (this->mission == common_lib::competition_logic::Mission::AUTOCROSS ||
              this->mission == common_lib::competition_logic::Mission::EBS_TEST) {
     triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
     // Smooth the calculated path
@@ -200,6 +203,11 @@ void Planning::run_planning_algorithms() {
       for (auto &point : final_path) {
         point.ideal_velocity = 0.0;
       }
+
+      auto request = std::make_shared<std_srvs::srv::Trigger::Request>();
+
+      mission_finished_client_->async_send_request(request);
+      
     } else {
       for (auto &point : final_path) {
         point.ideal_velocity = desired_velocity_;
