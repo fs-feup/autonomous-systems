@@ -97,7 +97,6 @@ PerceptionParameters Perception::load_config() {
       {static_cast<int16_t>(Mission::SKIDPAD), skidpad_trimming},
       {static_cast<int16_t>(Mission::TRACKDRIVE), cut_trimming},
       {static_cast<int16_t>(Mission::AUTOCROSS), cut_trimming},
-      {static_cast<int16_t>(Mission::EBS_TEST), cut_trimming},
       {static_cast<int16_t>(Mission::INSPECTION), cut_trimming},
       {static_cast<int16_t>(Mission::EBS_TEST), acceleration_trimming}};
 
