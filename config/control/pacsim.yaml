@@ -13,5 +13,5 @@ control:
   lpf_initial_value: 0.0
   command_time_interval: 50 # Milliseconds
   test_mode: "default" # "default" to run the default control loop, "const_torque" for constant torque control
-  const_torque_value: 0.2 # Value of torque for const_torque mode
-  ebs_torque_value: 0.2 # Value for torque in ebs test
+  const_torque_value: 0.1 # Value of torque for const_torque mode
+  steering_limiting_factor: 0.5 # Multiplier for steering command

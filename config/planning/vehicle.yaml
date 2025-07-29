@@ -26,7 +26,7 @@ planning:
   desired_velocity: 10.0
   use_outlier_removal: false
   use_path_smoothing: true
-  minimum_velocity: 2.0
+  minimum_velocity: 12.0
   braking_acceleration: -1.0
   normal_acceleration: 4.0
   use_velocity_planning: false

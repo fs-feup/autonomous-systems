@@ -12,6 +12,6 @@ control:
   lpf_alpha: 1 # Smoothing factor for the low-pass filter (0 = max smoothing, 1 = no smoothing)
   lpf_initial_value: 0.0
   command_time_interval: 50 # Milliseconds
-  test_mode: "default" # "default" to run the default control loop, "const_torque" for constant torque control
+  test_mode: "default" # "default" to run the default control loop, "const_torque", "const_torque_fixed_steering", "limited_steering"
   const_torque_value: 0.2 # Value of torque for const_torque mode
-  ebs_torque_value: 0.2 # Value for torque in ebs test
+  steering_limiting_factor: 0.5 # Multiplier for steering command
