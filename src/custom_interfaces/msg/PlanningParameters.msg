@@ -1,4 +1,3 @@
-float64 projected_point_distance
 float64 nc_angle_gain
 float64 nc_distance_gain
 float64 nc_angle_exponent

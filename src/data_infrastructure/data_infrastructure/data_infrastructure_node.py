@@ -157,7 +157,6 @@ class DataInfrastructureNode(Node):
     def planning_parameters(self):
         planning_msg = PlanningParameters()
         parameters = self.load_yaml(PLANNING_PATH, "planning")
-        planning_msg.projected_point_distance = float(parameters.get("projected_point_distance", 0.0))
         planning_msg.nc_angle_gain = float(parameters.get("nc_angle_gain", 0.0))
         planning_msg.nc_distance_gain = float(parameters.get("nc_distance_gain", 0.0))
         planning_msg.nc_angle_exponent = float(parameters.get("nc_angle_exponent", 0.0))

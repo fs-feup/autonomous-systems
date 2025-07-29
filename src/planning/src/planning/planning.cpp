@@ -29,7 +29,6 @@ PlanningParameters Planning::load_config(std::string &adapter) {
 
   params.minimum_cone_distance_ = planning_config["minimum_cone_distance"].as<double>();
   params.maximum_cone_distance_ = planning_config["maximum_cone_distance"].as<double>();
-  params.projected_point_distance_ = planning_config["projected_point_distance"].as<double>();
   params.nc_angle_gain_ = planning_config["nc_angle_gain"].as<double>();
   params.nc_distance_gain_ = planning_config["nc_distance_gain"].as<double>();
   params.nc_angle_exponent_ = planning_config["nc_angle_exponent"].as<double>();

@@ -12,7 +12,6 @@ struct PlanningParameters {
   double minimum_cone_distance_;
   double maximum_cone_distance_;
 
-  double projected_point_distance_;
   double nc_angle_gain_;
   double nc_distance_gain_;
   double nc_angle_exponent_;
@@ -64,7 +63,6 @@ struct PlanningConfig {
     outliers_.use_outlier_removal_ = params.use_outlier_removal_;
 
     path_calculation_.minimum_cone_distance_ = params.minimum_cone_distance_;
-    path_calculation_.projected_point_distance_ = params.projected_point_distance_;
     path_calculation_.angle_gain_ = params.nc_angle_gain_;
     path_calculation_.distance_gain_ = params.nc_distance_gain_;
     path_calculation_.angle_exponent_ = params.nc_angle_exponent_;
