@@ -23,13 +23,14 @@ planning:
   smoothing_spline_coeffs_ratio: 3.0
   smoothing_spline_precision: 10 
   publishing_visualization_msg: true
-  desired_velocity: 10.0
   use_outlier_removal: false
   use_path_smoothing: true
-  minimum_velocity: 2.0
+  minimum_velocity: 4.0
   braking_acceleration: -1.0
   normal_acceleration: 4.0
   use_velocity_planning: false
+  desired_velocity: 3.0
+
 
 
 # Parameters for skidpad
