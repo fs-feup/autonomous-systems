@@ -14,3 +14,4 @@ control:
   command_time_interval: 100 # Milliseconds
   test_mode: "default" # "default" to run the default control loop, "const_torque" for constant torque control
   const_torque_value: 0.1 # Value of torque for const_torque mode
+  steering_limiting_factor: 0.5 # Multiplier for steering command
