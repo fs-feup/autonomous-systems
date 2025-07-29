@@ -734,13 +734,29 @@ std::vector<PathPoint> PathCalculation::skidpad_path(const std::vector<Cone>& co
         }
     }
 
- 
-    while (!predefined_path_.empty() &&
-           pose.position.euclidean_distance(predefined_path_.front().position) < 1.5) {
-        predefined_path_.erase(predefined_path_.begin());
+    // Get the closest points to the car pose
+    if (predefined_path_.empty()) {
+      RCLCPP_ERROR(rclcpp::get_logger("planning"), "Predefined path is empty.");
+      return result;
     }
 
- 
+    double min_dist = std::numeric_limits<double>::max();
+    size_t closest_index = 0;
+    for (size_t i = 0; i < predefined_path_.size(); ++i) {
+      double dx = predefined_path_[i].position.x - pose.position.x;
+      double dy = predefined_path_[i].position.y - pose.position.y;
+      double dist = std::sqrt(dx * dx + dy * dy);
+      if (dist < min_dist) {
+        min_dist = dist;
+        closest_index = i;
+      } else if (dist > min_dist) {
+        break;  // Stop searching if distance starts increasing
+      }
+    }
+
+    // Remove all the points before the closest point not removing the closest point itself
+    predefined_path_.erase(predefined_path_.begin(), predefined_path_.begin() + closest_index);
+
     size_t path_size = predefined_path_.size();
     size_t count = 0;
     if (path_size >= 70) {

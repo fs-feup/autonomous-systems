@@ -131,13 +131,6 @@ class Planning : public rclcpp::Node {
    */
 
   void publish_track_points(const std::vector<PathPoint> &path) const;
-  /**
-   * @brief Publishes predictive track points.
-   * @details Depending on the selected mission, this function publishes
-   * predicted path points (published the path for the missions we previously
-   * know the track for).
-   */
-  void publish_predicitive_track_points();
 
   /**
    * @brief publish all visualization messages from the planning node

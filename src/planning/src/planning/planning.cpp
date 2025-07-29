@@ -99,9 +99,7 @@ Planning::Planning(const PlanningParameters &params)
         "/path_planning/triangulations", 10);
     this->global_path_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>("/path_planning/global_path", 10);
   }
-  // Publishes path from file in Skidpad & Acceleration events
-  this->timer_ = this->create_wall_timer(
-      std::chrono::milliseconds(100), std::bind(&Planning::publish_predicitive_track_points, this));
+  
   if (!planning_config_.simulation_.using_simulated_se_) {
     // Vehicle Localization Subscriber
     this->vl_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
@@ -298,23 +296,15 @@ void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose 
  */
 void Planning::publish_track_points(const std::vector<PathPoint> &path) const {
   auto message = common_lib::communication::custom_interfaces_array_from_vector(path);
-
+  // Linux terminal color code for green
+    const char* GREEN = "\033[1;32m";
+    const char* RESET = "\033[0m";
+    const char* RED = "\033[1;31m";
+    if (path.size() <=10) {
+      RCLCPP_ERROR(rclcpp::get_logger("planning"), "%sNo points to publish%s", RED, RESET);
+      return;
+    }
   local_pub_->publish(message);
-}
-
-void Planning::publish_predicitive_track_points() {
-  // RCLCPP_INFO(this->get_logger(), "[mission] (%d)", this->mission);
-  if (!this->is_predicitve_mission()) {
-    return;
-  }
-  std::vector<PathPoint> path = read_path_file(this->predictive_paths_[this->mission]);
-
-  // TODO: Remove this when velocity planning is a reality
-  for (auto &path_point : path) {
-    path_point.ideal_velocity = desired_velocity_;
-  }
-
-  this->publish_track_points(path);
 }
 
 void Planning::set_mission(common_lib::competition_logic::Mission new_mission) {
