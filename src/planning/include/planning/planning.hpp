@@ -58,6 +58,10 @@ class Planning : public rclcpp::Node {
   double initial_car_orientation_;
   int lap_counter_ = 0;
 
+  // For Trackdrive
+  std::vector<PathPoint> full_path_;  // for Trackdrive
+  bool found_full_path_ = false;  // for Trackdrive
+
   bool path_orientation_corrected_ = false;                                     // for Skidpad
   std::vector<PathPoint> predefined_path_;                                      // for Skidpad
   rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr param_client_;  // for mission logic

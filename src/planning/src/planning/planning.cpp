@@ -185,53 +185,80 @@ void Planning::run_planning_algorithms() {
   std::vector<PathPoint> final_path = {};
   std::vector<PathPoint> global_path_ = {};
  
-  if (this->mission == common_lib::competition_logic::Mission::SKIDPAD) {
-    final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
+  switch (this->mission) {
+    case common_lib::competition_logic::Mission::SKIDPAD:
+      final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
+      break;
 
-  } else if (this->mission == common_lib::competition_logic::Mission::ACCELERATION ||
-             this->mission == common_lib::competition_logic::Mission::EBS_TEST) {
-    triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
-    // Smooth the calculated path
-    final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
-                                             this->initial_car_orientation_);
-
-
-    double dist_from_origin = sqrt(this->pose.position.x * this->pose.position.x +
-                                   this->pose.position.y * this->pose.position.y);
-    if (dist_from_origin > 75.0) {
-      for (auto &point : final_path) {
-        point.ideal_velocity = 0.0;
+    case common_lib::competition_logic::Mission::ACCELERATION:
+    case common_lib::competition_logic::Mission::EBS_TEST:
+      triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
+      // Smooth the calculated path
+      final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
+                                               this->initial_car_orientation_);
+      {
+        double dist_from_origin = sqrt(this->pose.position.x * this->pose.position.x +
+                                       this->pose.position.y * this->pose.position.y);
+        if (dist_from_origin > 75.0) {
+          for (auto &point : final_path) {
+            point.ideal_velocity = 0.0;
+          }
+        } else {
+          for (auto &point : final_path) {
+            point.ideal_velocity = desired_velocity_;
+          }
+        }
       }
+      break;
 
-      auto request = std::make_shared<std_srvs::srv::Trigger::Request>();
+    case common_lib::competition_logic::Mission::AUTOCROSS:
+      triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
+      final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
+                                               this->initial_car_orientation_);
+      global_path_ = path_calculation_.get_global_path();
 
-      mission_finished_client_->async_send_request(request);
-      
-    } else {
-      for (auto &point : final_path) {
-        point.ideal_velocity = desired_velocity_;
+      if (this->lap_counter_ >= 1) {
+        velocity_planning_.stop(final_path);
+      } else {
+        velocity_planning_.set_velocity(final_path);
       }
-    }
-  } else {
-    triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
-    // Smooth the calculated path
-    final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
-                                         this->initial_car_orientation_);
+      break;
+    case common_lib::competition_logic::Mission::TRACKDRIVE:
 
-    global_path_ = path_calculation_.get_global_path();
-
-    if ((this->mission == common_lib::competition_logic::Mission::AUTOCROSS &&
-         this->lap_counter_ >= 1) ||
-        (this->mission == common_lib::competition_logic::Mission::TRACKDRIVE &&
-         this->lap_counter_ >= 10)) {
-      // Correct the path orientation for Autocross
-      for (auto &point : final_path) {
-        point.ideal_velocity = 0.0;
+      if (this->lap_counter_ == 0) {
+        triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
+        final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
+                                                 this->initial_car_orientation_);
+        global_path_ = path_calculation_.get_global_path();
+        velocity_planning_.set_velocity(final_path);
       }
-    } else {
+      else if (this->lap_counter_ >= 1 && this->lap_counter_ < 10) {
+        if (!this->found_full_path_) {
+          this->found_full_path_ = true;
+          triangulations_path = path_calculation_.calculate_trackdrive(this->cone_array_, this->pose);
+          final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
+                                                 this->initial_car_orientation_);
+          global_path_ = final_path;
+          velocity_planning_.trackdrive_velocity(final_path);
+          full_path_ = final_path;
+        } else{
+          // Use the full path for the next laps
+          final_path = full_path_;
+          global_path_ = full_path_;
+        }
+      } else if (this->lap_counter_ >= 10) {
+        velocity_planning_.stop(final_path);
+      }
+      break;
+    default:
+      triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
+      final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
+                                               this->initial_car_orientation_);
+      global_path_ = path_calculation_.get_global_path();
       velocity_planning_.set_velocity(final_path);
-    }
-  }
+      break;
+      }
+      
 
   if (final_path.size() < 10) {
     RCLCPP_INFO(rclcpp::get_logger("planning"), "Final path size: %d",

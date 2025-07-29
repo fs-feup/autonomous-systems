@@ -180,6 +180,14 @@ public:
                                       common_lib::structures::Pose pose);
 
   /**
+   * @brief Generate a path for trackdrive course
+   * @returns a vector of PathPoint objects representing the path.
+   */
+  std::vector<PathPoint> calculate_trackdrive(std::vector<Cone>& cone_array,
+                                              common_lib::structures::Pose pose);
+
+
+  /**
    * @brief Get the global path
    * 
    * @return std::vector<PathPoint> The global path
