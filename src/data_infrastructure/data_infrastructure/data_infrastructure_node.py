@@ -157,7 +157,6 @@ class DataInfrastructureNode(Node):
     def planning_parameters(self):
         planning_msg = PlanningParameters()
         parameters = self.load_yaml(PLANNING_PATH, "planning")
-        planning_msg.projected_point_distance = float(parameters.get("projected_point_distance", 0.0))
         planning_msg.nc_angle_gain = float(parameters.get("nc_angle_gain", 0.0))
         planning_msg.nc_distance_gain = float(parameters.get("nc_distance_gain", 0.0))
         planning_msg.nc_angle_exponent = float(parameters.get("nc_angle_exponent", 0.0))
@@ -173,7 +172,7 @@ class DataInfrastructureNode(Node):
         planning_msg.smoothing_spline_coeffs_ratio = float(parameters.get("smoothing_spline_coeffs_ratio", 0.0))
         planning_msg.smoothing_spline_precision = int(parameters.get("smoothing_spline_precision", 0))
         planning_msg.publishing_visualization_msg = bool(parameters.get("publishing_visualization_msg", False))
-        planning_msg.pre_defined_velocity_planning = float(parameters.get("pre_defined_velocity_planning", 0.0))
+        planning_msg.desired_velocity = float(parameters.get("desired_velocity", 0.0))
         planning_msg.use_outlier_removal = bool(parameters.get("use_outlier_removal", False))
         planning_msg.use_path_smoothing = bool(parameters.get("use_path_smoothing", False))
         planning_msg.minimum_velocity = float(parameters.get("minimum_velocity", 0.0))

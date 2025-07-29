@@ -1,6 +1,6 @@
 control:
   lookahead_gain: 0.5
-  lookahead_minimum: 2.0
+  lookahead_minimum: 5.0
   pid_kp: 0.4
   pid_ki: 0.3
   pid_kd: 0.09
@@ -11,7 +11,7 @@ control:
   pid_anti_windup: 0.7
   lpf_alpha: 1 # Smoothing factor for the low-pass filter (0 = max smoothing, 1 = no smoothing)
   lpf_initial_value: 0.0
-  command_time_interval: 100 # Milliseconds
+  command_time_interval: 50 # Milliseconds
   test_mode: "default" # "default" to run the default control loop, "const_torque" for constant torque control
   const_torque_value: 0.1 # Value of torque for const_torque mode
   steering_limiting_factor: 0.5 # Multiplier for steering command

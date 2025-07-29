@@ -58,6 +58,10 @@ class Planning : public rclcpp::Node {
   double initial_car_orientation_;
   int lap_counter_ = 0;
 
+  // For Trackdrive
+  std::vector<PathPoint> full_path_;  // for Trackdrive
+  bool found_full_path_ = false;  // for Trackdrive
+
   bool path_orientation_corrected_ = false;                                     // for Skidpad
   std::vector<PathPoint> predefined_path_;                                      // for Skidpad
   rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr param_client_;  // for mission logic
@@ -81,6 +85,8 @@ class Planning : public rclcpp::Node {
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr visualization_pub_;
   /**< Publisher for path after triangulations */
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr triangulations_pub_;
+  /**< Publisher for global path */
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr global_path_pub_;
   /**< Timer for the periodic publishing */
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _planning_execution_time_publisher_;
 
@@ -142,7 +148,7 @@ class Planning : public rclcpp::Node {
    * @param final_path final path after smoothing
    */
   void publish_visualization_msgs(const std::vector<PathPoint> &after_triangulations_path,
-                                  const std::vector<PathPoint> &final_path) const;
+                                  const std::vector<PathPoint> &final_path, const std::vector<PathPoint> &final_global_path) const;
 
   /**
    * @brief Checks if the current mission is predictive.
