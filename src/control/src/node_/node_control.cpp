@@ -66,7 +66,7 @@ ControlParameters Control::load_config(std::string& adapter) {
   params.command_time_interval_ = control_config["command_time_interval"].as<int>();
   params.test_mode_ = control_config["test_mode"].as<std::string>();
   params.const_torque_value_ = control_config["const_torque_value"].as<double>();
-  params.ebs_torque_value_ = control_config["ebs_torque_value"].as<double>();
+  params.steering_limiting_factor_ = control_config["steering_limiting_factor"].as<double>();
 
   return params;
 }
@@ -120,10 +120,16 @@ Control::Control(const ControlParameters& params)
 
 void Control::control_timer_callback() {
   double throttle_command = this->throttle_command_;
+  double steering_command = this->steering_command_;
   if (this->params_.test_mode_ == "const_torque") {
     throttle_command = this->params_.const_torque_value_;
+  } else if (this->params_.test_mode_ == "const_torque_fixed_steering") {
+    throttle_command = this->params_.const_torque_value_;
+    steering_command = 0;
+  } else if (this->params_.test_mode_ == "limited_steering") {
+    steering_command *= this->params_.steering_limiting_factor_;
   }
-  publish_cmd(throttle_command, this->steering_command_);
+  publish_cmd(throttle_command, steering_command);
 }
 
 // This function is called when a new pose is received
@@ -171,24 +177,24 @@ void Control::publish_control(const custom_interfaces::msg::Pose& vehicle_state_
   }
 
   // calculate longitudinal control: PI-D
-  double torque;
-  if (params_.mission_ == static_cast<int16_t>(common_lib::competition_logic::Mission::EBS_TEST)) {
-    RCLCPP_INFO(rclcpp::get_logger("control"), "EBS Test Mission, pre-programmed control");
-    torque = this->params_.ebs_torque_value_;
-  } else {
-    torque = this->long_controller_.update(lookahead_velocity, this->velocity_);
-  }
+  double torque = this->long_controller_.update(lookahead_velocity, this->velocity_);
 
   // calculate Lateral Control: Pure Pursuit
   double steering_angle = this->lat_controller_.pp_steering_control_law(
       this->point_solver_.vehicle_pose_.rear_axis_, this->point_solver_.vehicle_pose_.position,
       lookahead_point, this->point_solver_.dist_cg_2_rear_axis_);
 
-  RCLCPP_INFO(rclcpp::get_logger("control"), "Rear Axis: %f", this->point_solver_.vehicle_pose_.rear_axis_);
-  RCLCPP_INFO(rclcpp::get_logger("control"), "CG to rear axis Rear Axis: %f", this->point_solver_.dist_cg_2_rear_axis_);
-  RCLCPP_INFO(rclcpp::get_logger("control"), "Position: (%f, %f)", this->point_solver_.vehicle_pose_.position.x, this->point_solver_.vehicle_pose_.position.y);
-  RCLCPP_INFO(rclcpp::get_logger("control"), "Lookahead Point: (%f, %f)", lookahead_point.x, lookahead_point.y);
-  RCLCPP_INFO(rclcpp::get_logger("control"), "CG to rear axis Rear Axis: %f", this->point_solver_.dist_cg_2_rear_axis_);
+  RCLCPP_INFO(rclcpp::get_logger("control"), "Rear Axis: %f",
+              this->point_solver_.vehicle_pose_.rear_axis_);
+  RCLCPP_INFO(rclcpp::get_logger("control"), "CG to rear axis Rear Axis: %f",
+              this->point_solver_.dist_cg_2_rear_axis_);
+  RCLCPP_INFO(rclcpp::get_logger("control"), "Position: (%f, %f)",
+              this->point_solver_.vehicle_pose_.position.x,
+              this->point_solver_.vehicle_pose_.position.y);
+  RCLCPP_INFO(rclcpp::get_logger("control"), "Lookahead Point: (%f, %f)", lookahead_point.x,
+              lookahead_point.y);
+  RCLCPP_INFO(rclcpp::get_logger("control"), "CG to rear axis Rear Axis: %f",
+              this->point_solver_.dist_cg_2_rear_axis_);
   // check if steering is Nan
   if (std::isnan(steering_angle) || std::isnan(torque)) {
     RCLCPP_ERROR(rclcpp::get_logger("control"), "Steering Angle or Torque is NaN");
