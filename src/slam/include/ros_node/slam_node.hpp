@@ -3,6 +3,7 @@
 #include <gtest/gtest_prod.h>
 #include <tf2_ros/transform_broadcaster.h>
 
+#include <Eigen/Dense>
 #include <memory>
 #include <string>
 #include <visualization_msgs/msg/marker_array.hpp>
@@ -37,6 +38,8 @@ protected:
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr _visualization_map_publisher_;
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
       _visualization_perception_map_publisher_;
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
+      _associations_visualization_publisher_;
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr _position_publisher_;
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr _execution_time_publisher_;
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr _covariance_publisher_;
@@ -48,12 +51,14 @@ protected:
   std::vector<common_lib::structures::Cone> _perception_map_;
   common_lib::structures::Velocities _vehicle_state_velocities_;
   std::vector<common_lib::structures::Cone> _track_map_;
+  Eigen::VectorXi _associations_;        /**< Associations of the cones in the map */
+  Eigen::VectorXd _observations_global_; /**< Global observations of the cones */
+  Eigen::VectorXd _map_coordinates_;     /**< Coordinates of the cones in the map */
   common_lib::structures::Pose _vehicle_pose_;
   std::shared_ptr<std::vector<double>>
       _execution_times_;  //< Execution times: 0 -> total motion; 1
                           //-> total observation; the rest are solver specific
-  common_lib::competition_logic::Mission _mission_ =
-      common_lib::competition_logic::Mission::AUTOCROSS;
+  common_lib::competition_logic::Mission _mission_ = common_lib::competition_logic::Mission::NONE;
   bool _go_ = true;  /// flag to start the mission
   std::string _adapter_name_;
 
@@ -87,6 +92,12 @@ protected:
   void _publish_map();
 
   /**
+   * @brief Publishes the visualization of the associations by data association
+   *
+   */
+  void _publish_associations();
+
+  /**
    * @brief publishes the covariance of the state
    *
    */
@@ -97,6 +108,14 @@ protected:
    *
    */
   void _publish_lap_counter();
+
+  /**
+   * @brief Checks if the mission is finished
+   *
+   * @return true if the mission is finished
+   * @return false if the mission is not finished
+   */
+  bool _is_mission_finished() const;
 
 public:
   // /**
@@ -114,4 +133,9 @@ public:
    * @description This method is used to initialize things that require the constructed node
    */
   void init();
+
+  /**
+   * @brief Finish the mission
+   */
+  virtual void finish() = 0;
 };

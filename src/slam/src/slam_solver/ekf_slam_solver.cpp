@@ -77,8 +77,9 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
   this->_landmark_filter_->delete_landmarks(filtered_new_landmarks);
   this->correct(this->state_, this->covariance_, matched_landmarks_indices, matched_observations);
   if (this->_mission_ != common_lib::competition_logic::Mission::NONE &&
-      this->_mission_ != common_lib::competition_logic::Mission::SKIDPAD &&
-      this->_mission_ != common_lib::competition_logic::Mission::ACCELERATION &&
+      !(this->_params_.using_preloaded_map_ &&
+        (this->_mission_ == common_lib::competition_logic::Mission::SKIDPAD ||
+         this->_mission_ == common_lib::competition_logic::Mission::ACCELERATION)) &&
       this->lap_counter_ == 0) {
     this->state_augmentation(this->state_, this->covariance_, filtered_new_landmarks);
     this->update_process_noise_matrix();
@@ -164,10 +165,14 @@ void EKFSLAMSolver::load_initial_state(const Eigen::VectorXd& map, const Eigen::
 
 std::vector<common_lib::structures::Cone> EKFSLAMSolver::get_map_estimate() {
   std::vector<common_lib::structures::Cone> map;
+  std::string mapa = "";
   for (int i = 3; i < this->state_.size(); i += 2) {
+    mapa +=
+        "(" + std::to_string(this->state_(i)) + ", " + std::to_string(this->state_(i + 1)) + "), ";
     map.push_back(common_lib::structures::Cone(this->state_(i), this->state_(i + 1), "unknown", 1.0,
                                                this->last_update_));
   }
+  RCLCPP_INFO(rclcpp::get_logger("slam_solver"), "Map estimate: %s", mapa.c_str());
   return map;
 }
 

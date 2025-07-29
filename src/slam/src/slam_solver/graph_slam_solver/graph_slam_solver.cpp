@@ -88,6 +88,9 @@ void GraphSLAMSolver::add_motion_prior(const common_lib::structures::Velocities&
 
 void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures::Cone>& cones) {
   if (cones.empty()) {
+    this->_landmark_filter_->filter(Eigen::VectorXd::Zero(0), Eigen::VectorXd::Zero(0));
+    this->_observations_global_ = Eigen::VectorXd::Zero(0);
+    this->_associations_ = Eigen::VectorXi::Zero(0);
     return;
   }
   rclcpp::Time start_time, initialization_time, covariance_time, association_time,
@@ -126,6 +129,15 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   associations = this->_data_association_->associate(
       state.segment(3, state.size() - 3), observations_global, covariance,
       observations_confidences);  // TODO: implement different mahalanobis distance
+  std::string associations_str = "";
+  for (int i = 0; i < associations.size(); i++) {
+    associations_str += std::to_string(associations(i)) + ", ";
+  }
+  RCLCPP_INFO(rclcpp::get_logger("slam"), "add_observations - Associations: %s",
+              associations_str.c_str());
+  this->_associations_ = associations;
+  this->_observations_global_ = observations_global;
+  this->_map_coordinates_ = state.segment(3, state.size() - 3);
   association_time = rclcpp::Clock().now();
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Associations calculated");
   Eigen::VectorXd unfiltered_new_observations;
@@ -146,28 +158,49 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   }
   Eigen::VectorXd filtered_new_observations = this->_landmark_filter_->filter(
       unfiltered_new_observations, unfiltered_new_observations_confidences);
+  std::string filtered_observations_str = "";
+  for (int i = 0; i < filtered_new_observations.size() / 2; i++) {
+    filtered_observations_str += "(" + std::to_string(filtered_new_observations(i * 2)) + ", " +
+                                 std::to_string(filtered_new_observations(i * 2 + 1)) + "), ";
+  }
+  RCLCPP_INFO(rclcpp::get_logger("slam"), "add_observations - Filtered observations: %s",
+              filtered_observations_str.c_str());
 
   if (!this->_graph_slam_instance_.new_pose_factors()) {
+    RCLCPP_INFO(rclcpp::get_logger("slam"),
+                "add_observations - No new pose factors, skipping observations");
     return;
   }
 
   this->_landmark_filter_->delete_landmarks(filtered_new_observations);
   if (this->_mission_ != common_lib::competition_logic::Mission::NONE &&
-      this->_mission_ != common_lib::competition_logic::Mission::SKIDPAD &&
-      this->_mission_ != common_lib::competition_logic::Mission::ACCELERATION &&
+      !(this->_params_.using_preloaded_map_ &&
+        (this->_mission_ == common_lib::competition_logic::Mission::SKIDPAD ||
+         this->_mission_ == common_lib::competition_logic::Mission::ACCELERATION)) &&
       lap_counter_ == 0) {
     // Set the associations to -1 for the filtered observations
     for (int i = 0; i < filtered_new_observations.size() / 2; i++) {
       for (int j = 0; j < associations.size(); j++) {
         if (std::hypot(filtered_new_observations(i * 2) - observations_global(j * 2),
                        filtered_new_observations(i * 2 + 1) - observations_global(j * 2 + 1)) <
-            common_lib::structures::Cone::equality_tolerance) {
+            this->_params_.data_association_gate_) {
           associations(j) = -1;
           break;
         }
       }
     }
+  } else {
+    RCLCPP_INFO(rclcpp::get_logger("slam"),
+                "add_observations - Mission is %d, not filtering "
+                "associations",
+                static_cast<int>(this->_mission_));
   }
+  std::string filtered_associations_str = "";
+  for (int i = 0; i < associations.size(); i++) {
+    filtered_associations_str += std::to_string(associations(i)) + ", ";
+  }
+  RCLCPP_INFO(rclcpp::get_logger("slam"), "add_observations - Filtered associations: %s",
+              filtered_associations_str.c_str());
 
   Eigen::Vector3d pose;
   pose << state(0), state(1), state(2);
@@ -196,8 +229,8 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
                                      cones.at(0).timestamp);
     if (this->_optimization_under_way_) {
       this->_observation_data_queue_.push(observation_data);
-      RCLCPP_DEBUG(rclcpp::get_logger("slam"),
-                   "add_observations - Optimization under way, pushing observation data");
+      RCLCPP_INFO(rclcpp::get_logger("slam"),
+                  "add_observations - Optimization under way, pushing observation data");
     }
     this->_graph_slam_instance_.process_observations(observation_data);
   }
@@ -339,3 +372,11 @@ common_lib::structures::Pose GraphSLAMSolver::get_pose_estimate() {
 Eigen::MatrixXd GraphSLAMSolver::get_covariance() {
   return this->_graph_slam_instance_.get_covariance_matrix();
 }
+
+Eigen::VectorXi GraphSLAMSolver::get_associations() const { return this->_associations_; }
+
+Eigen::VectorXd GraphSLAMSolver::get_observations_global() const {
+  return this->_observations_global_;
+}
+
+Eigen::VectorXd GraphSLAMSolver::get_map_coordinates() const { return this->_map_coordinates_; }

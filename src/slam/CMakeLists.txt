@@ -31,6 +31,9 @@ foreach(pkg ${PACKAGES})
   find_package(${pkg} REQUIRED)
 endforeach()
 
+# Find PCL
+find_package(PCL REQUIRED COMPONENTS registration common io)
+
 # Enable OpenMP
 find_package(OpenMP)
 if(OpenMP_CXX_FOUND)
