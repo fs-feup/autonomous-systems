@@ -93,6 +93,7 @@ PerceptionParameters Perception::load_config() {
   auto cut_trimming = std::make_shared<CutTrimming>(trim_params);
 
   auto temp_fov_trim_map = std::unordered_map<int16_t, std::shared_ptr<FovTrimming>>{
+      {static_cast<int16_t>(Mission::MANUAL), cut_trimming},
       {static_cast<int16_t>(Mission::ACCELERATION), acceleration_trimming},
       {static_cast<int16_t>(Mission::SKIDPAD), skidpad_trimming},
       {static_cast<int16_t>(Mission::TRACKDRIVE), cut_trimming},

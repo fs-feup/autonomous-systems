@@ -453,9 +453,9 @@ for (auto* raw_ptr : candidate_points) {
 }
 
 
-double best_cost = this->config_.max_cost_ * this->config_.search_depth_;
+double best_cost = std::numeric_limits<double>::max();
 for (const auto& first : anchor_midpoint.close_points) {
-    auto [cost, second] = dfs_cost(this->config_.search_depth_, &anchor_midpoint, first.get(), this->config_.max_cost_);
+    auto [cost, second] = dfs_cost(this->config_.search_depth_, &anchor_midpoint, first.get(), std::numeric_limits<double>::max());
     cost += std::pow(std::sqrt(std::pow(first->point.x() - anchor_midpoint.point.x(), 2) +
                                 std::pow(first->point.y() - anchor_midpoint.point.y(), 2)),
                     this->config_.distance_exponent_) *
@@ -681,7 +681,7 @@ std::vector<PathPoint> PathCalculation::skidpad_path(const std::vector<Cone>& co
                 std::istringstream iss(line);
                 double x = 0.0, y = 0.0, v = 0.0;
                 if (iss >> x >> y >> v) {
-                    (void)result.emplace_back(x + config_.skidpad_tolerance_, y, v);
+                    (void)result.emplace_back(x, y, v);
                 } else {
                     break;
                 }
@@ -705,7 +705,7 @@ std::vector<PathPoint> PathCalculation::skidpad_path(const std::vector<Cone>& co
             pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
             icp.setInputSource(cloud_source.makeShared());
             icp.setInputTarget(cloud_target.makeShared());
-            icp.setMaxCorrespondenceDistance(10);
+            icp.setMaxCorrespondenceDistance(config_.skidpad_tolerance_);
             icp.setMaximumIterations(std::numeric_limits<int>::max());
             icp.setTransformationEpsilon(1e-6);
             icp.setEuclideanFitnessEpsilon(1e-3);
