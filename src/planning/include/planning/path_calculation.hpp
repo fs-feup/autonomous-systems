@@ -59,6 +59,7 @@ private:
   bool anchor_point_set_ = false;
 
 public:
+
   /**
    * @brief MidPoint struct represents a potential path point with connections
    */
@@ -69,6 +70,9 @@ public:
     Cone* cone2;
     bool valid = true;
   };
+
+  std::vector<MidPoint> midPoints;
+
 
   /**
    * @brief PointHash struct for hashing Point objects
