@@ -28,8 +28,8 @@
 #include "rcl_interfaces/srv/get_parameters.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "std_msgs/msg/float64.hpp"
-#include "utils/files.hpp"
 #include "std_srvs/srv/trigger.hpp"
+#include "utils/files.hpp"
 
 using PathPoint = common_lib::structures::PathPoint;
 using Pose = common_lib::structures::Pose;
@@ -60,7 +60,7 @@ class Planning : public rclcpp::Node {
 
   // For Trackdrive
   std::vector<PathPoint> full_path_;  // for Trackdrive
-  bool found_full_path_ = false;  // for Trackdrive
+  bool found_full_path_ = false;      // for Trackdrive
 
   bool path_orientation_corrected_ = false;                                     // for Skidpad
   std::vector<PathPoint> predefined_path_;                                      // for Skidpad
@@ -81,6 +81,9 @@ class Planning : public rclcpp::Node {
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr track_sub_;
   /**< Local path points publisher */
   rclcpp::Publisher<custom_interfaces::msg::PathPointArray>::SharedPtr local_pub_;
+  /**< Publisher for the midpoints */
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr midpoints_pub_;
+
   /**< Publisher for the final path*/
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr visualization_pub_;
   /**< Publisher for path after triangulations */
@@ -140,8 +143,10 @@ class Planning : public rclcpp::Node {
    * @param after_triangulations_path path after triangulations
    * @param final_path final path after smoothing
    */
-  void publish_visualization_msgs(const std::vector<PathPoint> &after_triangulations_path,
-                                  const std::vector<PathPoint> &final_path, const std::vector<PathPoint> &final_global_path) const;
+  void publish_visualization_msgs(const std::vector<PathPoint> &midPoints,
+                                  const std::vector<PathPoint> &after_triangulations_path,
+                                  const std::vector<PathPoint> &final_path,
+                                  const std::vector<PathPoint> &final_global_path) const;
 
   /**
    * @brief Checks if the current mission is predictive.

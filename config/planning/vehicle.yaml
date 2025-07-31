@@ -24,7 +24,7 @@ planning:
   smoothing_spline_precision: 10 
   publishing_visualization_msg: true
   use_outlier_removal: false
-  use_path_smoothing: true
+  use_path_smoothing: false
   minimum_velocity: 4.0
   braking_acceleration: -1.0
   normal_acceleration: 4.0

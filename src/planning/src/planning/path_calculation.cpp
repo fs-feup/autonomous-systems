@@ -51,7 +51,7 @@ std::pair<double, PathCalculation::MidPoint*> PathCalculation::dfs_cost(int dept
 
     // Skip if local cost exceeds maximum allowed cost
     if (local_cost > maxcost) {
-      continue;
+        continue;
     }
 
     // Recursive cost calculation
@@ -139,7 +139,7 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
             (void)path_points.emplace_back(point.x(), point.y());
         }
 
-        global_path_ = global_path;  // Update global path for next iteration
+        global_path_ = global_path;  // Update global path for next iteration        
     }
 
     return path_points;
@@ -151,6 +151,7 @@ void PathCalculation::create_mid_points(
     std::vector<Cone>& cone_array,
     std::vector<std::shared_ptr<MidPoint>>& midPoints
 ) {
+    this->midPoints.clear();
     DT dt;
 
     // Insert all cone positions into the Delaunay triangulation
@@ -200,7 +201,7 @@ void PathCalculation::create_mid_points(
                 mids[i] = midpoint;
             }
         }
-
+    
         // Connect midpoints if they share the same triangle
         for (int i = 0; i < 3; ++i) {
             if (!mids[i]){
@@ -213,6 +214,9 @@ void PathCalculation::create_mid_points(
                 mids[i]->close_points.push_back(mids[j]);
             }
         }
+    }
+    for (const auto& p : midPoints) {
+        this->midPoints.push_back(*p);
     }
 }
 
