@@ -74,8 +74,10 @@ void GraphSLAMSolver::add_motion_prior(const common_lib::structures::Velocities&
                  "add_motion_prior - Optimization under way, pushing motion data");
   }
   motion_model_time = rclcpp::Clock().now();
-  this->_graph_slam_instance_.process_pose_difference(pose_difference, new_pose);
+  bool new_factor = this->_graph_slam_instance_.process_pose_difference(pose_difference, new_pose);
   factor_graph_time = rclcpp::Clock().now();
+
+  this->_is_stopped_at_beginning_ &= !new_factor;
 
   // Timekeeping
   if (this->_execution_times_ == nullptr) {
@@ -111,11 +113,6 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   {
     RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Shared mutex accessed");
     const std::shared_lock lock(this->_mutex_);
-    // Only proceed if the vehicle has moved
-    if (this->_graph_slam_instance_.new_pose_factors()) {
-      this->_graph_slam_instance_.process_pose_difference(
-          Eigen::Vector3d::Zero(), this->_pose_updater_.get_last_pose(), true);
-    }
     state = this->_graph_slam_instance_.get_state_vector();
     observations_global =
         common_lib::maths::local_to_global_coordinates(state.head<3>(), observations);
@@ -166,10 +163,16 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Filtered observations: %s",
                filtered_observations_str.c_str());
 
-  if (!this->_graph_slam_instance_.new_pose_factors()) {
+  if (!this->_graph_slam_instance_.new_pose_factors() && !this->_is_stopped_at_beginning_) {
     RCLCPP_DEBUG(rclcpp::get_logger("slam"),
                  "add_observations - No new pose factors, skipping observations");
     return;
+  }
+
+  if (this->_is_stopped_at_beginning_) {
+    for (int j = 0; j < associations.size(); j++) {
+      if (associations(j) >= 0) associations(j) = -2;
+    }
   }
 
   this->_landmark_filter_->delete_landmarks(filtered_new_observations);
