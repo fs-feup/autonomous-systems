@@ -37,7 +37,7 @@ class PublishThread(threading.Thread):
         @param rate: Rate at which to publish control commands
         """
         super(PublishThread, self).__init__()
-        self.node = Node("pacsim_keys")
+        self.node = Node("car_keys")
         self.control_publisher = self.node.create_publisher(
             custom_interfaces.msg._control_command.ControlCommand, "/as_msgs/controls", 10
         )

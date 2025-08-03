@@ -25,7 +25,7 @@ perception:
   skid_min_distance_to_cone: 2.3
   
   #Ground Removal
-  ground_removal: "ransac"
+  ground_removal: "grid_ransac"
   ransac_epsilon: 0.15
   ransac_iterations: 40
 

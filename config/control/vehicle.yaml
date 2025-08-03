@@ -1,8 +1,8 @@
 control:
   lookahead_gain: 0.5
-  lookahead_minimum: 5.0
-  pid_kp: 0.4
-  pid_ki: 0.3
+  lookahead_minimum: 3.5
+  pid_kp: 0.05
+  pid_ki: 0.04
   pid_kd: 0.09
   pid_tau: 0.5
   pid_t: 0.01
