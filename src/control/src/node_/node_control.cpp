@@ -52,6 +52,7 @@ ControlParameters Control::load_config(std::string& adapter) {
 
   params.lookahead_gain_ = control_config["lookahead_gain"].as<double>();
   params.lookahead_minimum_ = control_config["lookahead_minimum"].as<double>();
+  params.first_last_max_dist_ = control_config["first_last_max_dist"].as<double>();
   params.pid_kp_ = control_config["pid_kp"].as<double>();
   params.pid_ki_ = control_config["pid_ki"].as<double>();
   params.pid_kd_ = control_config["pid_kd"].as<double>();
@@ -93,7 +94,7 @@ Control::Control(const ControlParameters& params)
           "/control/visualization/closest_point", 10)),
       lookahead_point_pub_(create_publisher<visualization_msgs::msg::Marker>(
           "/control/visualization/lookahead_point", 10)),
-      point_solver_(params.lookahead_gain_, params.lookahead_minimum_),
+      point_solver_(params.lookahead_gain_, params.lookahead_minimum_, params.first_last_max_dist_),
       long_controller_(params.pid_kp_, params.pid_ki_, params.pid_kd_, params.pid_tau_,
                        params.pid_t_, params.pid_lim_min_, params.pid_lim_max_,
                        params.pid_anti_windup_),
