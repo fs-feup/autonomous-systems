@@ -6,9 +6,9 @@ centerY = 9.125
 radius = 9.125
 numPoints = 100  # Number of points to describe the circle
 
-entryspeed=6
+entryspeed=7
 exitspeed = 7
-circular_speed = 8.5
+circular_speed = 7
 
 file_name = "./src/planning/src/utils/skidpad.txt"
 

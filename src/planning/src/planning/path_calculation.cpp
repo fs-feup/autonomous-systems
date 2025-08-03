@@ -51,7 +51,7 @@ std::pair<double, PathCalculation::MidPoint*> PathCalculation::dfs_cost(int dept
 
     // Skip if local cost exceeds maximum allowed cost
     if (local_cost > maxcost) {
-      continue;
+        continue;
     }
 
     // Recursive cost calculation
@@ -139,7 +139,7 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
             (void)path_points.emplace_back(point.x(), point.y());
         }
 
-        global_path_ = global_path;  // Update global path for next iteration
+        global_path_ = global_path;  // Update global path for next iteration        
     }
 
     return path_points;
@@ -151,6 +151,7 @@ void PathCalculation::create_mid_points(
     std::vector<Cone>& cone_array,
     std::vector<std::shared_ptr<MidPoint>>& midPoints
 ) {
+    this->midPoints.clear();
     DT dt;
 
     // Insert all cone positions into the Delaunay triangulation
@@ -200,7 +201,7 @@ void PathCalculation::create_mid_points(
                 mids[i] = midpoint;
             }
         }
-
+    
         // Connect midpoints if they share the same triangle
         for (int i = 0; i < 3; ++i) {
             if (!mids[i]){
@@ -213,6 +214,9 @@ void PathCalculation::create_mid_points(
                 mids[i]->close_points.push_back(mids[j]);
             }
         }
+    }
+    for (const auto& p : midPoints) {
+        this->midPoints.push_back(*p);
     }
 }
 
@@ -453,9 +457,9 @@ for (auto* raw_ptr : candidate_points) {
 }
 
 
-double best_cost = this->config_.max_cost_ * this->config_.search_depth_;
+double best_cost = std::numeric_limits<double>::max();
 for (const auto& first : anchor_midpoint.close_points) {
-    auto [cost, second] = dfs_cost(this->config_.search_depth_, &anchor_midpoint, first.get(), this->config_.max_cost_);
+    auto [cost, second] = dfs_cost(this->config_.search_depth_, &anchor_midpoint, first.get(), std::numeric_limits<double>::max());
     cost += std::pow(std::sqrt(std::pow(first->point.x() - anchor_midpoint.point.x(), 2) +
                                 std::pow(first->point.y() - anchor_midpoint.point.y(), 2)),
                     this->config_.distance_exponent_) *
@@ -681,7 +685,7 @@ std::vector<PathPoint> PathCalculation::skidpad_path(const std::vector<Cone>& co
                 std::istringstream iss(line);
                 double x = 0.0, y = 0.0, v = 0.0;
                 if (iss >> x >> y >> v) {
-                    (void)result.emplace_back(x + config_.skidpad_tolerance_, y, v);
+                    (void)result.emplace_back(x, y, v);
                 } else {
                     break;
                 }
@@ -705,7 +709,7 @@ std::vector<PathPoint> PathCalculation::skidpad_path(const std::vector<Cone>& co
             pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
             icp.setInputSource(cloud_source.makeShared());
             icp.setInputTarget(cloud_target.makeShared());
-            icp.setMaxCorrespondenceDistance(10);
+            icp.setMaxCorrespondenceDistance(config_.skidpad_tolerance_);
             icp.setMaximumIterations(std::numeric_limits<int>::max());
             icp.setTransformationEpsilon(1e-6);
             icp.setEuclideanFitnessEpsilon(1e-3);
@@ -734,13 +738,29 @@ std::vector<PathPoint> PathCalculation::skidpad_path(const std::vector<Cone>& co
         }
     }
 
- 
-    while (!predefined_path_.empty() &&
-           pose.position.euclidean_distance(predefined_path_.front().position) < 1.5) {
-        predefined_path_.erase(predefined_path_.begin());
+    // Get the closest points to the car pose
+    if (predefined_path_.empty()) {
+      RCLCPP_ERROR(rclcpp::get_logger("planning"), "Predefined path is empty.");
+      return result;
     }
 
- 
+    double min_dist = std::numeric_limits<double>::max();
+    size_t closest_index = 0;
+    for (size_t i = 0; i < predefined_path_.size(); ++i) {
+      double dx = predefined_path_[i].position.x - pose.position.x;
+      double dy = predefined_path_[i].position.y - pose.position.y;
+      double dist = std::sqrt(dx * dx + dy * dy);
+      if (dist < min_dist) {
+        min_dist = dist;
+        closest_index = i;
+      } else if (dist > min_dist) {
+        break;  // Stop searching if distance starts increasing
+      }
+    }
+
+    // Remove all the points before the closest point not removing the closest point itself
+    predefined_path_.erase(predefined_path_.begin(), predefined_path_.begin() + closest_index);
+
     size_t path_size = predefined_path_.size();
     size_t count = 0;
     if (path_size >= 70) {

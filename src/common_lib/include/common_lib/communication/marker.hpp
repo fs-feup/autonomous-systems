@@ -80,6 +80,7 @@ visualization_msgs::msg::MarkerArray marker_array_from_structure_array(
 
     marker.header.frame_id = frame_id;
     marker.header.stamp = rclcpp::Clock().now();
+    marker.lifetime = rclcpp::Duration::from_seconds(0.2);
     marker.ns = name_space;
     marker.id = static_cast<int>(i);
     marker.type = marker_shape_map.at(shape);
@@ -158,6 +159,7 @@ visualization_msgs::msg::Marker line_marker_from_structure_array(
   marker.header.frame_id = frame_id;
   marker.header.stamp = rclcpp::Clock().now();
   marker.ns = name_space;
+  marker.lifetime = rclcpp::Duration::from_seconds(0.2);
   marker.id = id;
   marker.type = marker_shape_map.at(shape);
   marker.action = action;

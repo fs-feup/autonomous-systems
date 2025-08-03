@@ -42,8 +42,6 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.skidpad_tolerance_ = planning_config["skidpad_tolerance"].as<double>();
   params.skidpad_minimum_cones_ = planning_config["skidpad_minimum_cones"].as<int>();
 
-  
-
   params.outliers_spline_order_ = planning_config["outliers_spline_order"].as<int>();
   params.outliers_spline_coeffs_ratio_ =
       planning_config["outliers_spline_coeffs_ratio"].as<float>();
@@ -84,7 +82,8 @@ Planning::Planning(const PlanningParameters &params)
   this->local_pub_ =
       this->create_publisher<custom_interfaces::msg::PathPointArray>("/path_planning/path", 10);
 
-  this->mission_finished_client_ = this->create_client<std_srvs::srv::Trigger>("/as_srv/mission_finished");
+  this->mission_finished_client_ =
+      this->create_client<std_srvs::srv::Trigger>("/as_srv/mission_finished");
 
   // Publisher for execution time
   this->_planning_execution_time_publisher_ =
@@ -92,16 +91,17 @@ Planning::Planning(const PlanningParameters &params)
 
   if (planning_config_.simulation_.publishing_visualization_msgs_) {
     // Publisher for visualization
+    this->midpoints_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
+        "/path_planning/midpoints", 10);
     this->visualization_pub_ =
         this->create_publisher<visualization_msgs::msg::Marker>("/path_planning/smoothed_path", 10);
 
     this->triangulations_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
         "/path_planning/triangulations", 10);
-    this->global_path_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>("/path_planning/global_path", 10);
+    this->global_path_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
+        "/path_planning/global_path", 10);
   }
-  // Publishes path from file in Skidpad & Acceleration events
-  this->timer_ = this->create_wall_timer(
-      std::chrono::milliseconds(100), std::bind(&Planning::publish_predicitive_track_points, this));
+
   if (!planning_config_.simulation_.using_simulated_se_) {
     // Vehicle Localization Subscriber
     this->vl_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
@@ -115,7 +115,6 @@ Planning::Planning(const PlanningParameters &params)
         "/state_estimation/lap_counter", 10, [this](const std_msgs::msg::Float64::SharedPtr msg) {
           this->lap_counter_ = static_cast<int>(msg->data);
         });
-
   }
 
   RCLCPP_INFO(rclcpp::get_logger("planning"), "using simulated state estimation: %d",
@@ -184,7 +183,7 @@ void Planning::run_planning_algorithms() {
   std::vector<PathPoint> triangulations_path = {};
   std::vector<PathPoint> final_path = {};
   std::vector<PathPoint> global_path_ = {};
- 
+
   switch (this->mission) {
     case common_lib::competition_logic::Mission::SKIDPAD:
       final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
@@ -193,9 +192,11 @@ void Planning::run_planning_algorithms() {
     case common_lib::competition_logic::Mission::ACCELERATION:
     case common_lib::competition_logic::Mission::EBS_TEST:
       triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
+      
       // Smooth the calculated path
       final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
                                                this->initial_car_orientation_);
+        
       {
         double dist_from_origin = sqrt(this->pose.position.x * this->pose.position.x +
                                        this->pose.position.y * this->pose.position.y);
@@ -209,9 +210,11 @@ void Planning::run_planning_algorithms() {
           }
         }
       }
+      
       break;
 
     case common_lib::competition_logic::Mission::AUTOCROSS:
+
       triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
       final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
                                                this->initial_car_orientation_);
@@ -223,6 +226,7 @@ void Planning::run_planning_algorithms() {
         velocity_planning_.set_velocity(final_path);
       }
       break;
+
     case common_lib::competition_logic::Mission::TRACKDRIVE:
 
       if (this->lap_counter_ == 0) {
@@ -231,17 +235,17 @@ void Planning::run_planning_algorithms() {
                                                  this->initial_car_orientation_);
         global_path_ = path_calculation_.get_global_path();
         velocity_planning_.set_velocity(final_path);
-      }
-      else if (this->lap_counter_ >= 1 && this->lap_counter_ < 10) {
+      } else if (this->lap_counter_ >= 1 && this->lap_counter_ < 10) {
         if (!this->found_full_path_) {
           this->found_full_path_ = true;
-          triangulations_path = path_calculation_.calculate_trackdrive(this->cone_array_, this->pose);
+          triangulations_path =
+              path_calculation_.calculate_trackdrive(this->cone_array_, this->pose);
           final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
-                                                 this->initial_car_orientation_);
+                                                   this->initial_car_orientation_);
           global_path_ = final_path;
           velocity_planning_.trackdrive_velocity(final_path);
           full_path_ = final_path;
-        } else{
+        } else {
           // Use the full path for the next laps
           final_path = full_path_;
           global_path_ = full_path_;
@@ -251,14 +255,14 @@ void Planning::run_planning_algorithms() {
       }
       break;
     default:
+
       triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
       final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
                                                this->initial_car_orientation_);
       global_path_ = path_calculation_.get_global_path();
       velocity_planning_.set_velocity(final_path);
       break;
-      }
-      
+  }
 
   if (final_path.size() < 10) {
     RCLCPP_INFO(rclcpp::get_logger("planning"), "Final path size: %d",
@@ -270,13 +274,35 @@ void Planning::run_planning_algorithms() {
   std_msgs::msg::Float64 planning_execution_time;
   planning_execution_time.data = (end_time - start_time).seconds() * 1000;
   this->_planning_execution_time_publisher_->publish(planning_execution_time);
-
   publish_track_points(final_path);
   RCLCPP_DEBUG(this->get_logger(), "Planning will publish %i path points\n",
                static_cast<int>(final_path.size()));
 
+  int errorcounter = 0;
   if (planning_config_.simulation_.publishing_visualization_msgs_) {
-    publish_visualization_msgs(triangulations_path, final_path, global_path_);
+    std::vector<PathCalculation::MidPoint> &midPoints = path_calculation_.midPoints;
+    std::vector<PathPoint> published_midpoints;
+    for (auto &p : midPoints) {
+      if(p.point.x() != triangulations_path.back().position.x && p.point.y() != triangulations_path.back().position.y) {
+        continue;
+      } else {
+        // add all the close points to the published midpoints
+        for (auto &q: p.close_points){
+          PathPoint m;
+          m.position.x = q->point.x();
+          m.position.y = q->point.y();
+          published_midpoints.push_back(m);
+        }
+      }
+      if (p.close_points.size() < 2) {
+        errorcounter++;
+      }
+      
+    }
+    publish_visualization_msgs(published_midpoints, triangulations_path, final_path, global_path_);
+  }
+  if (errorcounter != 0) {
+    RCLCPP_ERROR(this->get_logger(), "Number of midpoints with no close points: %d", errorcounter);
   }
 }
 
@@ -298,23 +324,7 @@ void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose 
  */
 void Planning::publish_track_points(const std::vector<PathPoint> &path) const {
   auto message = common_lib::communication::custom_interfaces_array_from_vector(path);
-
   local_pub_->publish(message);
-}
-
-void Planning::publish_predicitive_track_points() {
-  // RCLCPP_INFO(this->get_logger(), "[mission] (%d)", this->mission);
-  if (!this->is_predicitve_mission()) {
-    return;
-  }
-  std::vector<PathPoint> path = read_path_file(this->predictive_paths_[this->mission]);
-
-  // TODO: Remove this when velocity planning is a reality
-  for (auto &path_point : path) {
-    path_point.ideal_velocity = desired_velocity_;
-  }
-
-  this->publish_track_points(path);
 }
 
 void Planning::set_mission(common_lib::competition_logic::Mission new_mission) {
@@ -326,12 +336,18 @@ bool Planning::is_predicitve_mission() const {
          this->mission == common_lib::competition_logic::Mission::ACCELERATION;
 }
 
-void Planning::publish_visualization_msgs(const std::vector<PathPoint> &after_triangulations_path,
-                                          const std::vector<PathPoint> &final_path, const std::vector<PathPoint> &global_path) const {
+void Planning::publish_visualization_msgs(const std::vector<PathPoint> &midPoints,
+                                          const std::vector<PathPoint> &after_triangulations_path,
+                                          const std::vector<PathPoint> &final_path,
+                                          const std::vector<PathPoint> &global_path) const {
+  this->midpoints_pub_->publish(common_lib::communication::marker_array_from_structure_array(
+      midPoints, "midPoints", this->_map_frame_id_, "white"));
+
   this->triangulations_pub_->publish(common_lib::communication::marker_array_from_structure_array(
       after_triangulations_path, "after_triangulations_path", this->_map_frame_id_, "orange"));
   this->visualization_pub_->publish(common_lib::communication::line_marker_from_structure_array(
-      final_path, "smoothed_path_planning", this->_map_frame_id_, 12, "green"));  
+      final_path, "smoothed_path_planning", this->_map_frame_id_, 12, "green"));
   this->global_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      global_path, "global_path", this->_map_frame_id_, "blue", "cylinder", 0.5, visualization_msgs::msg::Marker::MODIFY));
+      global_path, "global_path", this->_map_frame_id_, "blue", "cylinder", 0.5,
+      visualization_msgs::msg::Marker::MODIFY));
 }

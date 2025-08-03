@@ -28,6 +28,7 @@ struct ControlParameters {
   bool use_simulated_planning_;
   double lookahead_gain_;
   double lookahead_minimum_;
+  double first_last_max_dist_;
   double pid_kp_;
   double pid_ki_;
   double pid_kd_;
