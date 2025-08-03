@@ -19,6 +19,8 @@ class PointSolver {
 private:
   double k_;                   /**< Lookahead gain */
   double lookahead_minimum_;   /**< Minimum lookahead distance */
+  double first_last_max_dist_; /**< Max dist between first and last point of the path to
+                                  be considered a closed track*/
   BicycleModel bicycle_model_; /**< Bicycle model for vehicle dynamics */
 
 public:
@@ -28,7 +30,7 @@ public:
   /**
    * @brief PointSolver Constructor
    */
-  explicit PointSolver(double k, double lookahead_minimum);
+  explicit PointSolver(double k, double lookahead_minimum, double first_last_max_dist);
 
   /**
    * @brief Find the closest point on the path

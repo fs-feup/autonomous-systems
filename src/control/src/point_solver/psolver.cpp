@@ -7,9 +7,10 @@ using namespace common_lib::structures;
 /**
  * @brief PointSolver Constructer
  */
-PointSolver::PointSolver(double k, double lookahead_minimum)
+PointSolver::PointSolver(double k, double lookahead_minimum, double first_last_max_dist)
     : k_(k),
       lookahead_minimum_(lookahead_minimum),
+      first_last_max_dist_(first_last_max_dist),
       bicycle_model_(common_lib::car_parameters::CarParameters()) {}
 
 /**
@@ -64,6 +65,24 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
   for (size_t i = 0; i < pathpoint_array.size(); i++) {
     size_t index_a = (closest_point_id + i) % pathpoint_array.size();
     size_t index_b = (closest_point_id + i + 1) % pathpoint_array.size();
+
+    // We reached the end of the path
+    if (index_b < index_a) {
+      Position first_point(pathpoint_array.front().x, pathpoint_array.front().y);
+      Position last_point(pathpoint_array.back().x, pathpoint_array.back().y);
+      double start_end_distance = first_point.euclidean_distance(last_point);
+
+      //  If the path is not a closed track, the lookahead point is the last point
+      //  If the path is a closed track, we continue normally, the first point is the continuation
+      if (start_end_distance > this->first_last_max_dist_) {
+        RCLCPP_INFO(rclcpp::get_logger("control"),
+                    "Lookahead extends beyond path end and it is not a closed track, using last "
+                    "point of the path as lookahead point");
+        return std::make_tuple(Position(pathpoint_array.back().x, pathpoint_array.back().y),
+                               pathpoint_array.back().v, false);
+      }
+    }
+
     auto point_a = Position(pathpoint_array[index_a].x, pathpoint_array[index_a].y);
     auto point_b = Position(pathpoint_array[index_b].x, pathpoint_array[index_b].y);
 
