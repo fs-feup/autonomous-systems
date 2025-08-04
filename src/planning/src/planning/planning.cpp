@@ -198,9 +198,14 @@ void Planning::run_planning_algorithms() {
       {
         double dist_from_origin = sqrt(this->pose.position.x * this->pose.position.x +
                                        this->pose.position.y * this->pose.position.y);
-        if (dist_from_origin > 85.0) {
+        if (dist_from_origin > 80.0) {
+           if (!braking_) {
+            this->braking_ = true;
+            this->brake_time_ = std::chrono::steady_clock::now();
+           }
           for (auto &point : final_path) {
-            point.ideal_velocity = 0.0;
+            std::chrono::duration<double> time_since_brake_start =  std::chrono::steady_clock::now() - this->brake_time_;
+            point.ideal_velocity = std::max((desired_velocity_ + ( planning_config_.velocity_planning_.braking_acceleration_* time_since_brake_start.count())), 0.0);
           }
         } else {
           for (auto &point : final_path) {
