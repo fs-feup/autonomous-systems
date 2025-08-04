@@ -18,7 +18,7 @@ perception:
     #ACCELERATION TRIMMING
   acc_max_range: 20.25
   acc_fov_trim_angle: 90.0
-  acc_max_y: 2.5
+  acc_max_y: 4.2
 
     #SKIDPAD TRIMMING
   skid_max_range: 20.25
@@ -26,7 +26,7 @@ perception:
   
   #Ground Removal
   ground_removal: "grid_ransac"
-  ransac_epsilon: 0.12
+  ransac_epsilon: 0.05
   ransac_iterations: 40
 
     #TRACKDRIVE/AUTOCROSS GROUND REMOVAL

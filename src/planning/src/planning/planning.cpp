@@ -82,8 +82,6 @@ Planning::Planning(const PlanningParameters &params)
   this->local_pub_ =
       this->create_publisher<custom_interfaces::msg::PathPointArray>("/path_planning/path", 10);
 
-  this->mission_finished_client_ =
-      this->create_client<std_srvs::srv::Trigger>("/as_srv/mission_finished");
 
   // Publisher for execution time
   this->_planning_execution_time_publisher_ =
@@ -200,7 +198,7 @@ void Planning::run_planning_algorithms() {
       {
         double dist_from_origin = sqrt(this->pose.position.x * this->pose.position.x +
                                        this->pose.position.y * this->pose.position.y);
-        if (dist_from_origin > 75.0) {
+        if (dist_from_origin > 85.0) {
           for (auto &point : final_path) {
             point.ideal_velocity = 0.0;
           }
