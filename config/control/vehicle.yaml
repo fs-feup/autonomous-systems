@@ -1,8 +1,8 @@
 control:
   lookahead_gain: 0.5
-  lookahead_minimum: 3.5
-  pid_kp: 0.05
-  pid_ki: 0.04
+  lookahead_minimum: 5.0
+  pid_kp: 0.10
+  pid_ki: 0.02
   first_last_max_dist: 1.0 # Maximum distance between first and last point in the path to consider it a closed track
   pid_kd: 0.09
   pid_tau: 0.5

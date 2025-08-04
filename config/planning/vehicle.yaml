@@ -25,11 +25,11 @@ planning:
   publishing_visualization_msg: true
   use_outlier_removal: false
   use_path_smoothing: false
-  minimum_velocity: 4.0
+  minimum_velocity: 2.0
   braking_acceleration: -1.0
   normal_acceleration: 4.0
   use_velocity_planning: false
-  desired_velocity: 3.0
+  desired_velocity: 10.55
 
 
 
