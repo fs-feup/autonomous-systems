@@ -1,10 +1,8 @@
-# DataLogInfo2.msg - Message definition for data log info 2
-# Contains pneumatic line pressure readings and master SDC status
+# DataLogInfo3.msg - Message definition for data log info 3
+# Contains hydraulic line pressure readings
 
 std_msgs/Header header
 
-# Boolean flags for pneumatic line pressures and master SDC
-bool pneumatic_line_pressure_1
-bool pneumatic_line_pressure_2
-bool master_sdc_closed
-bool pneumatic_line_pressure
+# Hydraulic pressure readings (32-bit values)
+uint32 hydraulic_line_front_pressure
+uint32 hydraulic_line_pressure

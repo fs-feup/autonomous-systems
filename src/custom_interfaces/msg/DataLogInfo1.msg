@@ -32,3 +32,11 @@ uint32 dc_voltage
 # Mission and state (4 bits each from msg[7])
 uint8 mission
 uint8 state
+
+# Additional pneumatic line pressure readings
+bool pneumatic_line_pressure_1
+bool pneumatic_line_pressure_2
+bool pneumatic_line_pressure_main
+
+# Placeholder field
+bool placeholder
