@@ -2,7 +2,7 @@ import rclpy
 from rclpy.node import Node
 from rclpy.executors import SingleThreadedExecutor
 from rclpy.qos import QoSProfile
-from custom_interfaces.msg import MasterLog
+from custom_interfaces.msg import DataLogInfo1
 
 import subprocess
 import signal
@@ -34,7 +34,7 @@ class Supervisor(Node):
         ******************** Related to recording rosbag ********************
         """
         self.rosbag_process = None
-        self.master_topic = '/vehicle/master_log'
+        self.master_topic = '/vehicle/data_log_info_1'
         self.record_rosbag_command = 'source install/setup.bash && ros2 bag record -s mcap --all'
         self.consecutive_ts_on_count = 0
         self.consecutive_ts_off_count = 0
@@ -43,7 +43,7 @@ class Supervisor(Node):
         # Subscribe to the master
         qos_profile = QoSProfile(depth=10)
         self.subscription = self.create_subscription(
-            MasterLog,
+            DataLogInfo1,
             self.master_topic,
             self.master_callback,
             qos_profile
