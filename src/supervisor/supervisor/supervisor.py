@@ -151,7 +151,7 @@ class Supervisor(Node):
             return
         current_time = time.time()
         time_diff = current_time - self.last_received_time
-        self.distance += (fr_msg.rpm + fl_msg.rpm) / 2 * WHEEL_DIAMETER * 3.14159 / 60.0 * time_diff
+        self.distance += (fr_msg.fr_rpm + fl_msg.fl_rpm) / 2 * WHEEL_DIAMETER * 3.14159 / 60.0 * time_diff
 
     def should_start_recording(self, msg):
         if self.rosbag_process is not None:
