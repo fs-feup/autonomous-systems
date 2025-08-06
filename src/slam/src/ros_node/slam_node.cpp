@@ -169,29 +169,29 @@ void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::V
   if (this->_mission_ == common_lib::competition_logic::Mission::NONE) {
     return;
   }
-  RCLCPP_INFO(this->get_logger(),
-              "=============================== \n SUB - Velocities: (%f, %f, %f), timestamp: %f",
-              msg.velocity_x, msg.velocity_y, msg.angular_velocity,
-              msg.header.stamp.sec + msg.header.stamp.nanosec * 1e-9);
+  //RCLCPP_INFO(this->get_logger(),
+  //            "=============================== \n SUB - Velocities: (%f, %f, %f), timestamp: %f",
+  //            msg.velocity_x, msg.velocity_y, msg.angular_velocity,
+  //            msg.header.stamp.sec + msg.header.stamp.nanosec * 1e-9);
   rclcpp::Time start_time = this->get_clock()->now();
 
   this->_vehicle_state_velocities_ = common_lib::structures::Velocities(
       msg.velocity_x, msg.velocity_y, msg.angular_velocity, msg.covariance[0], msg.covariance[4],
       msg.covariance[8], msg.header.stamp);
-  RCLCPP_DEBUG(this->get_logger(), "SUB - Velocities: (%f, %f, %f)", msg.velocity_x, msg.velocity_y,
-               msg.angular_velocity);
+  //RCLCPP_DEBUG(this->get_logger(), "SUB - Velocities: (%f, %f, %f)", msg.velocity_x, msg.velocity_y,
+  //             msg.angular_velocity);
 
   this->_slam_solver_->add_motion_prior(this->_vehicle_state_velocities_);
   this->_vehicle_pose_ = this->_slam_solver_->get_pose_estimate();
-  RCLCPP_INFO(this->get_logger(), "Velocity - Vehicle pose: (%f, %f, %f)",
-              this->_vehicle_pose_.position.x, this->_vehicle_pose_.position.y,
-              this->_vehicle_pose_.orientation);
+  // RCLCPP_INFO(this->get_logger(), "Velocity - Vehicle pose: (%f, %f, %f)",
+  //             this->_vehicle_pose_.position.x, this->_vehicle_pose_.position.y,
+  //             this->_vehicle_pose_.orientation);
   this->_track_map_ = this->_slam_solver_->get_map_estimate();
   std::string mapa = "";
   for (const auto &cone : this->_track_map_) {
     mapa += "(" + std::to_string(cone.position.x) + ", " + std::to_string(cone.position.y) + "), ";
   }
-  RCLCPP_INFO(this->get_logger(), "Velocity - Track map: %s", mapa.c_str());
+  //RCLCPP_INFO(this->get_logger(), "Velocity - Track map: %s", mapa.c_str());
 
   // this->_publish_covariance(); // TODO: get covariance to work fast
   this->_publish_vehicle_pose();
