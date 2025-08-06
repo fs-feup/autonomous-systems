@@ -18,6 +18,7 @@ WHEEL_DIAMETER = 0.406
 class Supervisor(Node):
     def __init__(self):
         super().__init__('supervisor')
+        self.creation_time = time.time()
 
         """
         ******************** Related to keeping nodes alive ********************
@@ -76,15 +77,16 @@ class Supervisor(Node):
     """
     def check_up(self):
         # Check if nodes are running and restart if necessary
-        active_nodes_output = subprocess.check_output(['ros2', 'node', 'list'], text=True)
+        active_nodes_output = subprocess.check_output(['ros2', 'node', 'list'], text=True, timeout=1)
         active_nodes = set(active_nodes_output.splitlines())
 
         for node in active_nodes:
             if node[1:] in self.nodes_being_initialized:
                 self.nodes_being_initialized.remove(node[1:])
-
+        
+        current_time = time.time()
         for name in self.node_names_to_watch:
-            if f'/{name}' not in active_nodes and name not in self.nodes_being_initialized:
+            if (f'/{name}' not in active_nodes) and (name not in self.nodes_being_initialized) and (current_time - self.creation_time > 4):
                 self.get_logger().warn(f'Node "{name}" not found! Restarting...')
                 self.restart_node(name)
 
@@ -132,27 +134,6 @@ class Supervisor(Node):
             self.stop_rosbag()
             self.write_distance(self.distance)
 
-    def read_distance(self):
-        try:
-            with open(FILE_PATH, 'r') as f:
-                self.distance = float(f.read())
-        except FileNotFoundError:
-            return
-
-    def write_distance(self, total_distance):
-        with open(FILE_PATH, 'w') as f:
-            f.write(str(total_distance))
-            f.flush()
-            os.fsync(f.fileno())
-
-    def rpm_callback(self, fr_msg, fl_msg):
-        if self.last_received_time == 0.0:
-            self.last_received_time = time.time()
-            return
-        current_time = time.time()
-        time_diff = current_time - self.last_received_time
-        self.distance += (fr_msg.fr_rpm + fl_msg.fl_rpm) / 2 * WHEEL_DIAMETER * 3.14159 / 60.0 * time_diff
-
     def should_start_recording(self, msg):
         if self.rosbag_process is not None:
             return False
@@ -172,6 +153,35 @@ class Supervisor(Node):
         self.get_logger().info('Stopping rosbag recording...')
         self.rosbag_process.send_signal(signal.SIGINT)
         self.rosbag_process = None
+        
+    """ *************** Related to recording travelled distance *************** """
+
+    def read_distance(self):
+        try:
+            with open(FILE_PATH, 'r') as f:
+                self.distance = float(f.read())
+        except FileNotFoundError:
+            return
+        except:
+            self.get_logger().error('Unexpected error reading distance')
+
+    def write_distance(self, total_distance):
+        try:
+            with open(FILE_PATH, 'w') as f:
+                f.write(str(total_distance))
+                f.flush()
+                os.fsync(f.fileno())
+        except:
+            self.get_logger().error('Unexpected error writing distance:')
+
+    def rpm_callback(self, fr_msg, fl_msg):
+        if self.last_received_time == 0.0:
+            self.last_received_time = time.time()
+            return
+        current_time = time.time()
+        time_diff = current_time - self.last_received_time
+        self.distance += (fr_msg.fr_rpm + fl_msg.fl_rpm) / 2 * WHEEL_DIAMETER * 3.14159 / 60.0 * time_diff
+        self.last_received_time = current_time
 
 
 def main(args=None):
