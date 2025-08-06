@@ -10,17 +10,17 @@ std::pair<Eigen::Vector3d, Eigen::Vector3d> PoseUpdater::update_pose(
   }
 
   double delta = (motion_data.timestamp_ - this->_last_pose_update_).nanoseconds() / 1e9;
-  //RCLCPP_INFO(rclcpp::get_logger("slam"), "PoseUpdater - Delta time for pose update: %f seconds",
-  //            delta);
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "PoseUpdater - Delta time for pose update: %f seconds",
+               delta);
   Eigen::Vector3d pose_difference =
       motion_model->get_pose_difference(this->_last_pose_, *(motion_data.velocities_), delta);
-  //RCLCPP_INFO(rclcpp::get_logger("slam"), "PoseUpdater - Pose difference: %f %f %f",
-  //            pose_difference(0), pose_difference(1), pose_difference(2));
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "PoseUpdater - Pose difference: %f %f %f",
+               pose_difference(0), pose_difference(1), pose_difference(2));
 
   this->_last_pose_ =
       motion_model->get_next_pose(this->_last_pose_, *(motion_data.velocities_), delta);
-  //RCLCPP_INFO(rclcpp::get_logger("slam"), "PoseUpdater - Updated pose: %f %f %f",
-  //            this->_last_pose_(0), this->_last_pose_(1), this->_last_pose_(2));
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "PoseUpdater - Updated pose: %f %f %f",
+               this->_last_pose_(0), this->_last_pose_(1), this->_last_pose_(2));
   this->_last_pose_update_ = motion_data.timestamp_;
 
   return {pose_difference, this->_last_pose_};
