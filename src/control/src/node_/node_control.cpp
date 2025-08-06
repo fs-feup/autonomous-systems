@@ -88,7 +88,6 @@ Control::Control(const ControlParameters& params)
             RCLCPP_DEBUG(this->get_logger(), "Received pathpoint array");
             pathpoint_array_ = msg.pathpoint_array;
             received_path_point_array = true;
-            received_vehicle_state = false;
           })),
       closest_point_pub_(create_publisher<visualization_msgs::msg::Marker>(
           "/control/visualization/closest_point", 10)),

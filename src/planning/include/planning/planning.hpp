@@ -58,6 +58,9 @@ class Planning : public rclcpp::Node {
   double initial_car_orientation_;
   int lap_counter_ = 0;
 
+  bool braking_ = false; /**< Flag to indicate if it is braking */
+  std::chrono::steady_clock::time_point brake_time_;
+
   // For Trackdrive
   std::vector<PathPoint> full_path_;  // for Trackdrive
   bool found_full_path_ = false;      // for Trackdrive
