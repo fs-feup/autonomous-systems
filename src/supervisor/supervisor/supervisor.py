@@ -180,7 +180,7 @@ class Supervisor(Node):
             return
         current_time = time.time()
         time_diff = current_time - self.last_received_time
-        self.distance += (fr_msg.fl_rpm + fl_msg.fr_rpm) / 2 * WHEEL_DIAMETER * 3.14159 / 60.0 * time_diff
+        self.distance += (fr_msg.fr_rpm + fl_msg.fl_rpm) / 2 * WHEEL_DIAMETER * 3.14159 / 60.0 * time_diff
         self.last_received_time = current_time
 
 
