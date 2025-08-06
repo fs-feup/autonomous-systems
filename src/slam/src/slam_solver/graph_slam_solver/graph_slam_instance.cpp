@@ -121,7 +121,7 @@ GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) 
   return *this;
 }
 
-void GraphSLAMInstance::process_pose_difference(const Eigen::Vector3d& pose_difference,
+bool GraphSLAMInstance::process_pose_difference(const Eigen::Vector3d& pose_difference,
                                                 const Eigen::Vector3d& new_pose,
                                                 bool force_update) {
   this->_accumulated_pose_difference_ += pose_difference;
@@ -129,7 +129,7 @@ void GraphSLAMInstance::process_pose_difference(const Eigen::Vector3d& pose_diff
                                            pow(_accumulated_pose_difference_(1), 2) +
                                            pow(_accumulated_pose_difference_(2), 2));
       pose_difference_norm < this->_params_.slam_min_pose_difference_ && !force_update) {
-    return;
+    return false;
   }
 
   gtsam::Pose2 new_pose_gtsam = eigen_to_gtsam_pose(new_pose);
@@ -167,7 +167,7 @@ void GraphSLAMInstance::process_pose_difference(const Eigen::Vector3d& pose_diff
   this->_new_pose_node_ = true;
   this->_accumulated_pose_difference_ = Eigen::Vector3d::Zero();  // Reset the accumulated pose
 
-  return;
+  return true;
 }
 
 void GraphSLAMInstance::process_observations(const ObservationData& observation_data) {
