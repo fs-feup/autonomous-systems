@@ -2,12 +2,18 @@ import rclpy
 from rclpy.node import Node
 from rclpy.executors import SingleThreadedExecutor
 from rclpy.qos import QoSProfile
-from custom_interfaces.msg import DataLogInfo1
+from custom_interfaces.msg import DataLogInfo1, WheelRPM
 
+from message_filters import Subscriber, ApproximateTimeSynchronizer
+
+import time
 import subprocess
 import signal
 import os
 import time
+
+FILE_PATH = "/home/fsfeup/.vehicle_odometer"
+WHEEL_DIAMETER = 0.406
 
 class Supervisor(Node):
     def __init__(self):
@@ -16,10 +22,10 @@ class Supervisor(Node):
         """
         ******************** Related to keeping nodes alive ********************
         """
-        self.node_names_to_watch = ['ros_can', 'xsens_mti_ros2_driver']
+        self.node_names_to_watch = ['ros_can', 'xsens_mti_node']
         self.node_start_cmds = {
             'ros_can': 'source install/setup.bash && ros2 run ros_can ros_can',
-            'xsens_mti_ros2_driver': 'source install/setup.bash && ros2 launch xsens_mti_ros2_driver xsens_mti_node.launch.py'
+            'xsens_mti_node': 'source install/setup.bash && ros2 launch xsens_mti_ros2_driver xsens_mti_node.launch.py'
         }
         self.nodes_being_initialized = set()
         
@@ -48,6 +54,23 @@ class Supervisor(Node):
             self.master_callback,
             qos_profile
         )
+
+        """
+        ******************** Related to recording distance travelled ********************
+        """
+        # Subscribe wheel RPMs with a filter to synchronize them
+        self.distance = 0.0
+        self.last_received_time = 0.0
+        self.fr_rpm_subscription = Subscriber(self, WheelRPM, '/vehicle/fr_rpm')
+        self.fl_rpm_subscription = Subscriber(self, WheelRPM, '/vehicle/fl_rpm')
+        self.ts = ApproximateTimeSynchronizer(
+            [self.fr_rpm_subscription, self.fl_rpm_subscription],  # List of subscribers
+            queue_size=10,
+            slop=0.1  # seconds
+        )
+        self.ts.registerCallback(self.rpm_callback)
+
+
     """
     ******************** General purpose checkup ********************
     """
@@ -104,8 +127,31 @@ class Supervisor(Node):
             self.consecutive_ts_on_count = 0
         if self.should_start_recording(msg):
             self.start_recording_rosbag()
+            self.read_distance()
         elif self.should_stop_recording(msg):
             self.stop_rosbag()
+            self.write_distance(self.distance)
+
+    def read_distance(self):
+        try:
+            with open(FILE_PATH, 'r') as f:
+                self.distance = float(f.read())
+        except FileNotFoundError:
+            return
+
+    def write_distance(self, total_distance):
+        with open(FILE_PATH, 'w') as f:
+            f.write(str(total_distance))
+            f.flush()
+            os.fsync(f.fileno())
+
+    def rpm_callback(self, fr_msg, fl_msg):
+        if self.last_received_time == 0.0:
+            self.last_received_time = time.time()
+            return
+        current_time = time.time()
+        time_diff = current_time - self.last_received_time
+        self.distance += (fr_msg.rpm + fl_msg.rpm) / 2 * WHEEL_DIAMETER * 3.14159 / 60.0 * time_diff
 
     def should_start_recording(self, msg):
         if self.rosbag_process is not None:
