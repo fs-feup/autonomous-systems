@@ -12,6 +12,10 @@ find_package(builtin_interfaces REQUIRED)
 find_package(std_msgs REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/BamocarErrors.msg"
+  "msg/BmsErrors.msg"
+  "msg/CanStatistics.msg"
+  "msg/CellsTemps.msg"
   "msg/Cone.msg"
   "msg/ConeArray.msg"
   "msg/ControlCommand.msg"
@@ -22,7 +26,6 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/VehicleState.msg"
   "msg/BoundingBox.msg"
   "msg/BoundingBoxes.msg"
-  "msg/CanStatistics.msg"
   "msg/VcuCommand.msg"
   "msg/PathPoint.msg"
   "msg/PathPointArray.msg"
@@ -45,8 +48,6 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/PlanningParameters.msg"
   "msg/VelocityEstimationParameters.msg"
   "msg/SlamParameters.msg"
-  "msg/BmsErrors.msg"
-  "msg/CellsTemps.msg"
   DEPENDENCIES builtin_interfaces std_msgs 
 )
 
