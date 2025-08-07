@@ -18,7 +18,7 @@ def getFullFilePath(name, dir):
 
 
 def generate_launch_description():
-  track_name = "FSG24.yaml"
+  track_name = "Autocross_Europarque.yaml"
   track_frame = "map"
   realtime_ratio = 1.0
   discipline = "trackdrive"
