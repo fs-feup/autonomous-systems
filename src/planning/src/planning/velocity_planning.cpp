@@ -52,7 +52,8 @@ void VelocityPlanning::speed_limiter(std::vector<PathPoint> &points,
       double max_terminal_speed =
           sqrt(std::max(0.0, pow(velocities[j], 2) - 2 * config_.braking_acceleration_ * distance));
 
-      max_speed = std::min(max_speed, max_terminal_speed, config_.desired_velocity_);
+      max_speed = std::min(max_speed, max_terminal_speed);
+      max_speed = std::min(max_speed, config_.desired_velocity_);
     //}
     velocities[i] = max_speed;
   }
