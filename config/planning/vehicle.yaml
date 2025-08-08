@@ -12,7 +12,7 @@ planning:
   nc_max_points: 100
   nc_tolerance: 1 
   nc_reset_global_path: 100
-  skidpad_minimum_cones: 10 # minimum number of cones to consider the skidpad as valid
+  skidpad_minimum_cones: 8 # minimum number of cones to consider the skidpad as valid
   skidpad_tolerance: 1.5
   # --------------------------
   outliers_spline_order: 3
@@ -25,11 +25,13 @@ planning:
   publishing_visualization_msg: true
   use_outlier_removal: false
   use_path_smoothing: false
+
+  # Velocity Planning
   minimum_velocity: 2.0
-  braking_acceleration: -8.0
+  braking_acceleration: -7.0
   normal_acceleration: 4.0
   use_velocity_planning: false  
-  desired_velocity: 2.0
+  desired_velocity: 4.0    # The target speed for fixed velocity, or the maximum speed for velocity planning
 
 # Parameters for EBS Test
 # planning:
