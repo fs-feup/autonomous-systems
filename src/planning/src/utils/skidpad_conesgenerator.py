@@ -13,6 +13,13 @@ numPoints = 100  # Number of points to describe the circle
 file_name = "./src/planning/src/utils/skidpadcones1.txt"
 
 with open(file_name, "w") as file:
+    # Generate the straight lines
+    for i in range(0,int(centerX*2+5)*2):
+        x = i/2
+        if math.sqrt((x-centerX)**2 + (centerY-1.5)**2) > outerRadius:
+            file.write(f"{x:.3f} {1.5:.3f} {0}\n")
+            file.write(f"{x:.3f} {-1.5:.3f} {0}\n")
+
     # Generate and print circular path points
     for i in range(numPoints):
         theta = (2 * math.pi / numPoints) * i - math.pi / 2  # Angle in radians, start at x=15, y=0
