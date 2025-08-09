@@ -229,6 +229,9 @@ Perception::Perception(const PerceptionParameters& params)
     RCLCPP_ERROR(this->get_logger(), "Adapter not recognized: %s", params.adapter_.c_str());
   }
 
+  this->_velocities_subscription_ = this->create_subscription<custom_interfaces::msg::Velocities>(
+    "/state_estimation/velocities",
+    rclcpp::QoS(10),  std::bind(&Perception::velocities_callback, this, std::placeholders::_1));
   this->_cone_marker_array_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
       "/perception/visualization/cones", 10);
 
@@ -251,6 +254,8 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   _ground_removal_->ground_removal(pcl_cloud, ground_removed_cloud, _ground_plane_, split_params);
 
+  //this->_deskew_->deskew_point_cloud(ground_removed_cloud, this->_vehicle_velocity_);
+
   // Debugging utils -> Useful to check the ground removed point cloud
   sensor_msgs::msg::PointCloud2 ground_removed_msg;
   pcl::toROSMsg(*ground_removed_cloud, ground_removed_msg);
@@ -272,6 +277,8 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
       filtered_clusters.push_back(cluster);
     }
   }
+
+  this->deskewed_cones = this->_deskew_->deskew_clusters(filtered_clusters, this->_vehicle_velocity_);
 
   // Execution Time calculation
   rclcpp::Time end_time = this->now();
@@ -298,8 +305,8 @@ void Perception::publish_cones(std::vector<Cluster>* cones) {
   message.header = header;
   for (int i = 0; i < static_cast<int>(cones->size()); i++) {
     auto position = custom_interfaces::msg::Point2d();
-    position.x = cones->at(i).get_centroid().x();
-    position.y = cones->at(i).get_centroid().y();
+    position.x = deskewed_cones[i].first;
+    position.y = deskewed_cones[i].second;
 
     auto cone_message = custom_interfaces::msg::Cone();
     cone_message.position = position;
@@ -314,4 +321,8 @@ void Perception::publish_cones(std::vector<Cluster>* cones) {
   // TODO: correct frame id to LiDAR instead of vehicle
   this->_cone_marker_array_->publish(common_lib::communication::marker_array_from_structure_array(
       message_array, "perception", this->_vehicle_frame_id_, "green"));
+}
+
+void Perception::velocities_callback(const custom_interfaces::msg::Velocities& msg) {
+  this->_vehicle_velocity_ = common_lib::structures::Velocities(msg.velocity_x, msg.velocity_y, msg.angular_velocity);
 }
