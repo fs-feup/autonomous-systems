@@ -2,7 +2,7 @@ velocity_estimation:
   estimation_method: "no_rear_wss_ekf"
   s2v_model_name: "no_rear_wss_bicycle_model"
   process_model_name: "ca_particle_model"
-  wheel_speed_noise: 0.1
+  wheel_speed_noise: 1.5 # TODO: investigate this
   motor_rpm_noise: 0.1
   steering_angle_noise: 0.01
   imu_acceleration_noise: 1.0

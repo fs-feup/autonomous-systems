@@ -21,6 +21,7 @@ SLAMParameters::SLAMParameters(const SLAMParameters &params) {
   pose_x_initial_noise_ = params.pose_x_initial_noise_;
   pose_y_initial_noise_ = params.pose_y_initial_noise_;
   pose_theta_initial_noise_ = params.pose_theta_initial_noise_;
+  using_preloaded_map_ = params.using_preloaded_map_;
   slam_solver_name_ = params.slam_solver_name_;
   slam_min_pose_difference_ = params.slam_min_pose_difference_;
   slam_optimization_period_ = params.slam_optimization_period_;
@@ -61,6 +62,7 @@ SLAMParameters &SLAMParameters::operator=(const SLAMParameters &other) {
     pose_x_initial_noise_ = other.pose_x_initial_noise_;
     pose_y_initial_noise_ = other.pose_y_initial_noise_;
     pose_theta_initial_noise_ = other.pose_theta_initial_noise_;
+    using_preloaded_map_ = other.using_preloaded_map_;
     slam_solver_name_ = other.slam_solver_name_;
     slam_min_pose_difference_ = other.slam_min_pose_difference_;
     slam_optimization_period_ = other.slam_optimization_period_;
@@ -120,6 +122,7 @@ std::string SLAMParameters::load_config() {
   this->pose_x_initial_noise_ = slam_config["slam"]["pose_x_initial_noise"].as<double>();
   this->pose_y_initial_noise_ = slam_config["slam"]["pose_y_initial_noise"].as<double>();
   this->pose_theta_initial_noise_ = slam_config["slam"]["pose_theta_initial_noise"].as<double>();
+  this->using_preloaded_map_ = slam_config["slam"]["using_preloaded_map"].as<bool>();
   this->slam_solver_name_ = slam_config["slam"]["slam_solver_name"].as<std::string>();
   this->slam_min_pose_difference_ = slam_config["slam"]["slam_min_pose_difference"].as<float>();
   this->slam_optimization_period_ = slam_config["slam"]["slam_optimization_period"].as<double>();

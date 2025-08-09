@@ -1,12 +1,12 @@
-#include "perception_sensor_lib/data_association/nearest_neighbour.hpp"
-
 #include <gtest/gtest.h>
+
+#include "perception_sensor_lib/data_association/nearest_neighbour_icp.hpp"
 
 /**
  * @brief Test with mostly easy matches and a new landmark.
  *
  */
-TEST(NearestNeighbour, TestCase1) {
+TEST(NearestNeighbourICP, TestCase1) {
   // Arrange
   Eigen::VectorXd landmarks(10);
   landmarks << 34.5, -7, 12.3, 4.5, 3.2, 5.6, 6.8, 9.1, 1.8, 0.4;
@@ -15,7 +15,7 @@ TEST(NearestNeighbour, TestCase1) {
   Eigen::VectorXd observation_confidences = Eigen::VectorXd::Ones(5);
   Eigen::MatrixXd covariance(10, 10);
   DataAssociationParameters params(50.0, 0.43, 0.8, 0.1, 0.1);
-  NearestNeighbour ml(params);
+  NearestNeighbourICP ml(params);
   std::vector<int> expected_associations = {-1, 0, 4, 6, 8};
   // Act
   Eigen::VectorXi associations =
@@ -30,7 +30,7 @@ TEST(NearestNeighbour, TestCase1) {
  * @brief Same case as TestCase1 but with rotation.
  *
  */
-TEST(NearestNeighbour, TestCase2) {
+TEST(NearestNeighbourICP, TestCase2) {
   // Arrange
   Eigen::VectorXd landmarks(10);
   landmarks << 34.5, -7, 12.3, 4.5, 3.2, 5.6, 6.8, 9.1, 1.8, 0.4;
@@ -41,7 +41,7 @@ TEST(NearestNeighbour, TestCase2) {
   Eigen::VectorXd observation_confidences = Eigen::VectorXd::Ones(5);
   Eigen::MatrixXd covariance(10, 10);
   DataAssociationParameters params(50.0, 0.43, 0.8, 0.1, 0.1);
-  NearestNeighbour ml(params);
+  NearestNeighbourICP ml(params);
   std::vector<int> expected_associations = {-1, 0, 4, 6, 8};
   // Act
   Eigen::VectorXi associations =
@@ -56,7 +56,7 @@ TEST(NearestNeighbour, TestCase2) {
  * @brief Same case as TestCase2 but with translation.
  *
  */
-TEST(NearestNeighbour, TestCase3) {
+TEST(NearestNeighbourICP, TestCase3) {
   // Arrange
   Eigen::VectorXd landmarks(10);
   landmarks << 34.5, -7, 12.3, 4.5, 3.2, 5.6, 6.8, 9.1, 1.8, 0.4;
@@ -68,7 +68,7 @@ TEST(NearestNeighbour, TestCase3) {
   Eigen::MatrixXd covariance(10, 10);
   DataAssociationParameters params(50.0, 0.43, 0.8, 0.1, 0.1);
   std::vector<int> expected_associations = {-1, 0, 4, 6, 8};
-  NearestNeighbour ml(params);
+  NearestNeighbourICP ml(params);
   // Act
   Eigen::VectorXi associations =
       ml.associate(landmarks, observations, covariance, observation_confidences);
@@ -82,7 +82,7 @@ TEST(NearestNeighbour, TestCase3) {
  * @brief Only new landmarks with high confidence
  *
  */
-TEST(NearestNeighbour, TestCase4) {
+TEST(NearestNeighbourICP, TestCase4) {
   // Arrange
   Eigen::VectorXd landmarks(10);
   landmarks << 34.5, -7, 12.3, 4.5, 3.2, 5.6, 6.8, 9.1, 1.8, 0.4;
@@ -92,7 +92,7 @@ TEST(NearestNeighbour, TestCase4) {
   Eigen::VectorXd observation_confidences = Eigen::VectorXd::Ones(4);
   Eigen::MatrixXd covariance(10, 10);
   DataAssociationParameters params(50.0, 0.43, 0.8, 0.1, 0.1);
-  NearestNeighbour ml(params);
+  NearestNeighbourICP ml(params);
   std::vector<int> expected_associations = {-1, -1, -1, -1};
   // Act
   Eigen::VectorXi associations =
@@ -107,7 +107,7 @@ TEST(NearestNeighbour, TestCase4) {
  * @brief Only new landmarks with low confidence
  *
  */
-TEST(NearestNeighbour, TestCase5) {
+TEST(NearestNeighbourICP, TestCase5) {
   // Arrange
   Eigen::VectorXd landmarks(10);
   landmarks << 34.5, -7, 12.3, 4.5, 3.2, 5.6, 6.8, 9.1, 1.8, 0.4;
@@ -117,7 +117,7 @@ TEST(NearestNeighbour, TestCase5) {
   Eigen::VectorXd observation_confidences = Eigen::VectorXd::Zero(4);
   Eigen::MatrixXd covariance(10, 10);
   DataAssociationParameters params(50.0, 0.43, 0.8, 0.1, 0.1);
-  NearestNeighbour ml(params);
+  NearestNeighbourICP ml(params);
   std::vector<int> expected_associations = {-2, -2, -2, -2};
   // Act
   Eigen::VectorXi associations =
@@ -132,7 +132,7 @@ TEST(NearestNeighbour, TestCase5) {
  * @brief Only new landmarks with high confidence, high covariance and empty landmarks
  *
  */
-TEST(NearestNeighbour, TestCase6) {
+TEST(NearestNeighbourICP, TestCase6) {
   // Arrange
   Eigen::VectorXd landmarks(0);
   Eigen::VectorXd observations(8);
@@ -141,7 +141,7 @@ TEST(NearestNeighbour, TestCase6) {
   Eigen::VectorXd observation_confidences = Eigen::VectorXd::Ones(4);
   Eigen::MatrixXd covariance(0, 0);
   DataAssociationParameters params(50.0, 0.43, 0.8, 0.1, 0.1);
-  NearestNeighbour ml(params);
+  NearestNeighbourICP ml(params);
   std::vector<int> expected_associations = {-1, -1, -1, -1};
   // Act
   Eigen::VectorXi associations =
@@ -156,14 +156,14 @@ TEST(NearestNeighbour, TestCase6) {
  * @brief Empty landmarks and observations
  *
  */
-TEST(NearestNeighbour, TestCase7) {
+TEST(NearestNeighbourICP, TestCase7) {
   // Arrange
   Eigen::VectorXd landmarks(0);
   Eigen::VectorXd observations(0);
   Eigen::VectorXd observation_confidences(0);
   Eigen::MatrixXd covariance(0, 0);
   DataAssociationParameters params(50.0, 0.43, 0.8, 0.1, 0.1);
-  NearestNeighbour ml(params);
+  NearestNeighbourICP ml(params);
   // Act
   Eigen::VectorXi associations =
       ml.associate(landmarks, observations, covariance, observation_confidences);

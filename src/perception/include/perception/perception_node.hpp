@@ -15,7 +15,7 @@
 #include "cone_differentiation/least_squares_differentiation.hpp"
 #include "cone_validator/height_validator.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
-#include "custom_interfaces/msg/master_log.hpp"
+#include "custom_interfaces/msg/operational_status.hpp"
 #include "fov_trimming/acceleration_trimming.hpp"
 #include "fov_trimming/cut_trimming.hpp"
 #include "fov_trimming/skidpad_trimming.hpp"
@@ -33,7 +33,7 @@ struct PerceptionParameters {     ///< Struct containing parameters and interfac
   std::string vehicle_frame_id_;  ///< String for the vehicle's frame id.
   std::string adapter_;           ///< String for the name of the current adapter.
   uint8_t default_mission_;
-  std::shared_ptr<std::unordered_map<uint8_t, std::shared_ptr<FovTrimming>>> fov_trim_map_;
+  std::shared_ptr<std::unordered_map<int16_t, std::shared_ptr<FovTrimming>>> fov_trim_map_;
   std::shared_ptr<GroundRemoval> ground_removal_;  ///< Shared pointer to the GroundRemoval object.
   std::shared_ptr<DBSCAN> clustering_;             ///< Shared pointer to the DBSCAN object.
   std::shared_ptr<LeastSquaresDifferentiation>
@@ -56,9 +56,9 @@ class Perception : public rclcpp::Node {
 private:
   std::string _vehicle_frame_id_;  ///< String for the vehicle's frame id.
   std::string _adapter_;           ///< String for the current adapter being used.
-  uint8_t _mission_type_;          ///< integer value for the current mission type running.
+  int16_t _mission_type_;          ///< integer value for the current mission type running.
   Plane _ground_plane_;            ///< Model for the ground plane.
-  std::shared_ptr<std::unordered_map<uint8_t, std::shared_ptr<FovTrimming>>>
+  std::shared_ptr<std::unordered_map<int16_t, std::shared_ptr<FovTrimming>>>
       _fov_trim_map_;                               ///< Shared pointer to the FovTrimming object.
   std::shared_ptr<GroundRemoval> _ground_removal_;  ///< Shared pointer to the GroundRemoval object.
   std::shared_ptr<Clustering> _clustering_;         ///< Shared pointer to the Clustering object.
@@ -66,8 +66,8 @@ private:
       _cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
   std::shared_ptr<ConeEvaluator> _cone_evaluator_;  ///< Shared pointer to ConeEvaluator object.
   std::shared_ptr<ICP> _icp_;                       ///< Shared pointer to ICP object.
-  rclcpp::Subscription<custom_interfaces::msg::MasterLog>::SharedPtr
-      _master_log_subscription;  ///< Master Log subscription to aquire mission type
+  rclcpp::Subscription<custom_interfaces::msg::OperationalStatus>::SharedPtr
+      _operational_status_subscription;  ///< Master Log subscription to aquire mission type
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
       _point_cloud_subscription;  ///< PointCloud2 subscription.
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr

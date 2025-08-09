@@ -162,11 +162,37 @@ TEST(NearestNeighbor, TestCase7) {
   Eigen::VectorXd observations(0);
   Eigen::VectorXd observation_confidences(0);
   Eigen::MatrixXd covariance(0, 0);
-  DataAssociationParameters params(50.0, 0.43, 0.8, 0.1, 0.1);
+  DataAssociationParameters params(50.0, 1.5, 0.8, 0.1, 0.1);
   NearestNeighbor ml(params);
   // Act
   Eigen::VectorXi associations =
       ml.associate(landmarks, observations, covariance, observation_confidences);
   // Assert
   EXPECT_EQ(associations.size(), 0);
+}
+
+TEST(NearestNeighbor, TestCase8) {
+  // Arrange
+  Eigen::VectorXd landmarks(28);
+  landmarks << 1.395321, 1.702726, 4.554022, -1.237558, 8.210190, 4.143576, 3.203739, 4.371034,
+      6.414619, 6.287142, 10.785306, 2.572242, 7.224374, -3.087130, 13.088638, -7.904575, 13.266725,
+      2.447038, 4.708611, 1.970104, 9.944443, -1.026403, 5.617912, -8.881818, 12.886412, -0.762993,
+      7.856627, -13.420066;
+  Eigen::VectorXd observations(30);
+  observations << 1.415478, 1.678782, 4.581321, -1.253966, 3.242400, 4.364834, 8.236903, 4.121514,
+      4.720761, 1.951072, 6.461193, 6.287533, 10.826837, 2.560291, 9.981289, -1.036438, 5.655921,
+      -8.897340, 20.887318, -0.297938, 13.148567, -7.931385, 9.667393, -14.61736, 18.244286,
+      4.775482, 7.306300, -3.099958, 16.092053, -1.154598;
+  Eigen::VectorXd observation_confidences = Eigen::VectorXd::Ones(15);
+  Eigen::MatrixXd covariance(10, 10);
+  DataAssociationParameters params(50.0, 0.43, 0.8, 0.1, 0.1);
+  NearestNeighbor ml(params);
+  std::vector<int> expected_associations = {0, 2, 6, 4, 18, 8, 10, 20, 22, -1, 14, -1, -1, 12, -1};
+  // Act
+  Eigen::VectorXi associations =
+      ml.associate(landmarks, observations, covariance, observation_confidences);
+  // Assert
+  for (int i = 0; i < static_cast<int>(associations.size()); ++i) {
+    EXPECT_EQ(associations[i], expected_associations[i]);
+  }
 }

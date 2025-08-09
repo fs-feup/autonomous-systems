@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 project(slam)
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic -O3 -DNDEBUG)
+  add_compile_options(-Wall -Wextra -Wpedantic -O2 -DNDEBUG)
 endif()
 
 # find dependencies
@@ -32,6 +32,9 @@ find_package(GTSAM REQUIRED) # Outside because it is not ament package
 foreach(pkg ${PACKAGES})
   find_package(${pkg} REQUIRED)
 endforeach()
+
+# Find PCL
+find_package(PCL REQUIRED COMPONENTS registration common io)
 
 # Enable OpenMP
 find_package(OpenMP)

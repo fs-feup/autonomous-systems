@@ -10,15 +10,20 @@
 
 struct PlanningParameters {
   double minimum_cone_distance_;
+  double maximum_cone_distance_;
 
-  double projected_point_distance_;
   double nc_angle_gain_;
   double nc_distance_gain_;
   double nc_angle_exponent_;
   double nc_distance_exponent_;
   double nc_max_cost_;
+  double nc_tolerance_;
+  double skidpad_tolerance_;
+  int skidpad_minimum_cones_;
   int nc_search_depth_;
+  int nc_lookback_points_;
   int nc_max_points_;
+  int nc_reset_global_path_;
   bool use_outlier_removal_;
   int smoothing_spline_order_;
   float smoothing_spline_coeffs_ratio_;
@@ -58,7 +63,6 @@ struct PlanningConfig {
     outliers_.use_outlier_removal_ = params.use_outlier_removal_;
 
     path_calculation_.minimum_cone_distance_ = params.minimum_cone_distance_;
-    path_calculation_.projected_point_distance_ = params.projected_point_distance_;
     path_calculation_.angle_gain_ = params.nc_angle_gain_;
     path_calculation_.distance_gain_ = params.nc_distance_gain_;
     path_calculation_.angle_exponent_ = params.nc_angle_exponent_;
@@ -66,6 +70,12 @@ struct PlanningConfig {
     path_calculation_.max_cost_ = params.nc_max_cost_;
     path_calculation_.search_depth_ = params.nc_search_depth_;
     path_calculation_.max_points_ = params.nc_max_points_;
+    path_calculation_.lookback_points_ = params.nc_lookback_points_;
+    path_calculation_.tolerance_ = params.nc_tolerance_;
+    path_calculation_.reset_global_path_ = params.nc_reset_global_path_;
+    path_calculation_.skidpad_tolerance_ = params.skidpad_tolerance_;
+    path_calculation_.skidpad_minimum_cones_ = params.skidpad_minimum_cones_;
+    path_calculation_.maximum_cone_distance_ = params.maximum_cone_distance_;
 
 
     smoothing_.order_ = params.smoothing_spline_order_;
@@ -77,6 +87,7 @@ struct PlanningConfig {
     simulation_.using_simulated_se_ = params.using_simulated_se_;
 
     velocity_planning_.minimum_velocity_ = params.minimum_velocity_;
+    velocity_planning_.desired_velocity_ = params.desired_velocity_;
     velocity_planning_.braking_acceleration_ = params.braking_acceleration_;
     velocity_planning_.normal_acceleration_ = params.normal_acceleration_;
     velocity_planning_.use_velocity_planning_ = params.use_velocity_planning_;

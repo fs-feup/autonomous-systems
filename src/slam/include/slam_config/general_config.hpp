@@ -32,6 +32,7 @@ struct SLAMParameters {
   double preloaded_map_noise_ = 0.1;       // Noise for preloaded map landmarks
   double data_association_gate_ = 1.23;
   double new_landmark_confidence_gate_ = 0.6;
+  bool using_preloaded_map_ = false;  // Use preloaded map for SLAM
   double slam_min_pose_difference_ =
       0.3;  //< Minimum pose difference to add a new pose to the graph
   double slam_optimization_period_ = 0.0;  //< Period for running optimization of the graph (s),
@@ -94,6 +95,7 @@ struct SLAMParameters {
        << ", pose_y_initial_noise_: " << params.pose_y_initial_noise_
        << ", pose_theta_initial_noise_: " << params.pose_theta_initial_noise_
        << ", angular_velocity_noise_: " << params.angular_velocity_noise_
+       << ", using_preloaded_map_: " << params.using_preloaded_map_
        << ", slam_solver_name_: " << params.slam_solver_name_
        << ", slam_min_pose_difference_: " << params.slam_min_pose_difference_
        << ", slam_optimization_mode_: " << params.slam_optimization_mode_

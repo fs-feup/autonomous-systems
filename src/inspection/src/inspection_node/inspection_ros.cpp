@@ -37,8 +37,8 @@ InspectionMission::InspectionMission() : Node("inspection") {
       std::bind(&InspectionMission::inspection_script, this));  // Timer for end of mission
 
   _motor_rpm_subscription_ = this->create_subscription<custom_interfaces::msg::WheelRPM>(
-        "/vehicle/motor_rpm", 10,
-        std::bind(&InspectionMission::update_rpms_callback, this, std::placeholders::_1));
+      "/vehicle/motor_rpm", 10,
+      std::bind(&InspectionMission::update_rpms_callback, this, std::placeholders::_1));
 
   RCLCPP_INFO(this->get_logger(), "Inspection node has been started.");
 }
@@ -56,10 +56,12 @@ void InspectionMission::mission_decider(
       _inspection_object_.ideal_velocity_ = get_parameter("inspection_ideal_velocity").as_double();
       _inspection_object_.gain_ = get_parameter("inspection_gain").as_double();
       this->_mission_ = common_lib::competition_logic::Mission::INSPECTION;
-    } else if (mission_signal->as_mission == common_lib::competition_logic::Mission::EBS_TEST) {
-      _inspection_object_.ideal_velocity_ = get_parameter("ebs_test_ideal_velocity").as_double();
-      _inspection_object_.gain_ = get_parameter("ebs_test_gain").as_double();
-      this->_mission_ = common_lib::competition_logic::Mission::EBS_TEST;
+      // } else if (mission_signal->as_mission == common_lib::competition_logic::Mission::EBS_TEST)
+      // {
+      //   _inspection_object_.ideal_velocity_ =
+      //   get_parameter("ebs_test_ideal_velocity").as_double(); _inspection_object_.gain_ =
+      //   get_parameter("ebs_test_gain").as_double(); this->_mission_ =
+      //   common_lib::competition_logic::Mission::EBS_TEST;
     } else {
       RCLCPP_WARN(this->get_logger(), "Invalid mission for inspection: %s", mission_string.c_str());
       return;
@@ -73,7 +75,7 @@ void InspectionMission::mission_decider(
     RCLCPP_INFO(this->get_logger(), "Starting timer");
     _initial_time_ = this->_clock_.now();
     _inspection_object_.stop_oscilating_ = false;
-    _inspection_object_.current_goal_velocity_ = _inspection_object_.ideal_velocity_; 
+    _inspection_object_.current_goal_velocity_ = _inspection_object_.ideal_velocity_;
     this->_mission_end_timer_started_ = false;
     this->_car_stopped_ = false;
   }
@@ -81,7 +83,7 @@ void InspectionMission::mission_decider(
 }
 
 void InspectionMission::update_rpms_callback(const custom_interfaces::msg::WheelRPM& motor_rpm) {
-  RCLCPP_DEBUG(this->get_logger(), "Motor RPM: %f",motor_rpm.rr_rpm);
+  RCLCPP_DEBUG(this->get_logger(), "Motor RPM: %f", motor_rpm.rr_rpm);
   _motor_rpm_ = motor_rpm.rl_rpm / 4.0;
 }
 
@@ -109,7 +111,7 @@ void InspectionMission::inspection_script() {
   RCLCPP_DEBUG(this->get_logger(), "average_rpm %f", average_rpm);
   double current_velocity = _inspection_object_.rpm_to_velocity(average_rpm);
   RCLCPP_DEBUG(this->get_logger(), "current_velocity %f", current_velocity);
-  
+
   // calculate steering
   double calculated_steering = _mission_ == common_lib::competition_logic::Mission::INSPECTION
                                    ? _inspection_object_.calculate_steering(elapsed_time)
@@ -121,42 +123,39 @@ void InspectionMission::inspection_script() {
     _inspection_object_.current_goal_velocity_ = 0;
     if (steering_straight) {
       _inspection_object_.stop_oscilating_ = true;
-    } 
+    }
   }
 
   // calculate throttle and convert to control command
   double calculated_throttle = _inspection_object_.calculate_throttle(current_velocity);
 
-  if (elapsed_time >= _inspection_object_.finish_time_ && 
-    std::abs(current_velocity) <= WHEELS_STOPPED_THRESHOLD) {
-        calculated_throttle = 0.0;
-      }
-  
-  //if (elapsed_time >= _inspection_object_.finish_time_){
-   //// calculated_throttle = 0.0;
+  if (elapsed_time >= _inspection_object_.finish_time_ &&
+      std::abs(current_velocity) <= WHEELS_STOPPED_THRESHOLD) {
+    calculated_throttle = 0.0;
+  }
+
+  // if (elapsed_time >= _inspection_object_.finish_time_){
+  //// calculated_throttle = 0.0;
   //}
-  
+
   if (elapsed_time >= _inspection_object_.finish_time_ && steering_straight) {
     calculated_steering = 0.0;
   }
 
-  if (current_velocity < 0.85 && !finished) {
-    calculated_steering = 0.0;
-    finished = true;
-  }
 
   if (elapsed_time >= _inspection_object_.finish_time_ &&
       std::abs(current_velocity) <= WHEELS_STOPPED_THRESHOLD && steering_straight) {
-      this->_car_stopped_ = true;
+    this->_car_stopped_ = true;
   }
 
   // publish suitable message
-  double scaled_throttle = _inspection_object_.throttle_to_adequate_range(calculated_throttle); 
-  publish_controls(scaled_throttle,calculated_steering);
+  double scaled_throttle = _inspection_object_.throttle_to_adequate_range(calculated_throttle);
+  publish_controls(scaled_throttle, calculated_steering);
   RCLCPP_DEBUG(this->get_logger(),
-                 "Publishing control command. Steering: %lf; Torque after conversion - before: %lf - %lf; Elapsed Time: %lf",
-                 calculated_steering, scaled_throttle, calculated_throttle, elapsed_time);
-                 
+               "Publishing control command. Steering: %lf; Torque after conversion - before: %lf - "
+               "%lf; Elapsed Time: %lf",
+               calculated_steering, scaled_throttle, calculated_throttle, elapsed_time);
+
   // update ideal velocity if necessary
   _inspection_object_.redefine_goal_velocity(current_velocity);
 }
@@ -176,10 +175,11 @@ void InspectionMission::end_of_mission() {
     this->_finish_client_->async_send_request(
         std::make_shared<std_srvs::srv::Trigger::Request>(),
         std::bind(&InspectionMission::handle_end_of_mission_response, this, std::placeholders::_1));
-  } else if (this->_mission_ == common_lib::competition_logic::Mission::EBS_TEST) {
-    this->_emergency_client_->async_send_request(
-        std::make_shared<std_srvs::srv::Trigger::Request>(),
-        std::bind(&InspectionMission::handle_end_of_mission_response, this, std::placeholders::_1));
+    //} else if (this->_mission_ == common_lib::competition_logic::Mission::EBS_TEST) {
+    //  this->_emergency_client_->async_send_request(
+    //      std::make_shared<std_srvs::srv::Trigger::Request>(),
+    //      std::bind(&InspectionMission::handle_end_of_mission_response, this,
+    //      std::placeholders::_1));
   } else {
     RCLCPP_ERROR(
         this->get_logger(), "Invalid mission at mission end: %s",

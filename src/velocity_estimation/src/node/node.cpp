@@ -11,6 +11,7 @@ void VENode::publish_velocities() const {
   common_lib::structures::Velocities state = this->_velocity_estimator_->get_velocities();
   custom_interfaces::msg::Velocities velocities_msg;
   velocities_msg.header.stamp = state.timestamp_;
+  RCLCPP_INFO(this->get_logger(), "Publishing velocities at time: %f", state.timestamp_.seconds());
   velocities_msg.velocity_x = state.velocity_x;
   velocities_msg.velocity_y = state.velocity_y;
   velocities_msg.angular_velocity = state.rotational_velocity;

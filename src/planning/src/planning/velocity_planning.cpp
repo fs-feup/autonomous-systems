@@ -80,7 +80,36 @@ void VelocityPlanning::set_velocity(std::vector<PathPoint> &final_path) {
 
   else {
     for (auto &path_point : final_path) {
-      path_point.ideal_velocity = config_.minimum_velocity_;
+      path_point.ideal_velocity = config_.desired_velocity_;
+    }
+  }
+}
+
+void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
+  if ((config_.use_velocity_planning_) && (final_path.size() > 2)) {
+    std::vector<double> radiuses;
+    radiuses.push_back(0);
+    for (int i = 1; i < static_cast<int>(final_path.size()) - 1; i++) {
+      radiuses.push_back(find_circle_center(final_path[i - 1], final_path[i], final_path[i + 1]));
+    }
+    radiuses[0] = radiuses[1];
+    radiuses.push_back(radiuses.back());
+
+    std::vector<double> velocities;
+    point_speed(radiuses, velocities);
+    velocities.back() = velocities[0];
+    speed_limiter(final_path, velocities);
+    velocities.back() = velocities[0];
+    speed_limiter(final_path, velocities);
+
+    for (int i = 0; i < static_cast<int>(final_path.size()); i++) {
+      final_path[i].ideal_velocity = velocities[i];
+    }
+  }
+
+  else {
+    for (auto &path_point : final_path) {
+      path_point.ideal_velocity = config_.desired_velocity_;
     }
   }
 }

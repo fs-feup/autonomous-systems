@@ -8,6 +8,7 @@
 #include <string>
 
 #include "common_lib/communication/marker.hpp"
+#include "common_lib/competition_logic/mission_logic.hpp"
 #include "common_lib/config_load/config_load.hpp"
 #include "custom_interfaces/msg/evaluator_control_data.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
@@ -51,6 +52,7 @@ ControlParameters Control::load_config(std::string& adapter) {
 
   params.lookahead_gain_ = control_config["lookahead_gain"].as<double>();
   params.lookahead_minimum_ = control_config["lookahead_minimum"].as<double>();
+  params.first_last_max_dist_ = control_config["first_last_max_dist"].as<double>();
   params.pid_kp_ = control_config["pid_kp"].as<double>();
   params.pid_ki_ = control_config["pid_ki"].as<double>();
   params.pid_kd_ = control_config["pid_kd"].as<double>();
@@ -62,12 +64,17 @@ ControlParameters Control::load_config(std::string& adapter) {
   params.map_frame_id_ = adapter == "eufs" ? "base_footprint" : "map";
   params.lpf_alpha_ = control_config["lpf_alpha"].as<double>();
   params.lpf_initial_value_ = control_config["lpf_initial_value"].as<double>();
+  params.command_time_interval_ = control_config["command_time_interval"].as<int>();
+  params.test_mode_ = control_config["test_mode"].as<std::string>();
+  params.const_torque_value_ = control_config["const_torque_value"].as<double>();
+  params.steering_limiting_factor_ = control_config["steering_limiting_factor"].as<double>();
 
   return params;
 }
 
 Control::Control(const ControlParameters& params)
     : Node("control"),
+      params_(params),
       using_simulated_slam_(params.using_simulated_slam_),
       using_simulated_velocities_(params.using_simulated_velocities_),
       use_simulated_planning_(params.use_simulated_planning_),
@@ -81,19 +88,21 @@ Control::Control(const ControlParameters& params)
             RCLCPP_DEBUG(this->get_logger(), "Received pathpoint array");
             pathpoint_array_ = msg.pathpoint_array;
             received_path_point_array = true;
-            received_vehicle_state = false;
           })),
       closest_point_pub_(create_publisher<visualization_msgs::msg::Marker>(
           "/control/visualization/closest_point", 10)),
       lookahead_point_pub_(create_publisher<visualization_msgs::msg::Marker>(
           "/control/visualization/lookahead_point", 10)),
-      point_solver_(params.lookahead_gain_, params.lookahead_minimum_),
+      point_solver_(params.lookahead_gain_, params.lookahead_minimum_, params.first_last_max_dist_),
       long_controller_(params.pid_kp_, params.pid_ki_, params.pid_kd_, params.pid_tau_,
                        params.pid_t_, params.pid_lim_min_, params.pid_lim_max_,
                        params.pid_anti_windup_),
       lat_controller_(
           std::make_shared<LowPassFilter>(params.lpf_alpha_, params.lpf_initial_value_)) {
   RCLCPP_INFO(this->get_logger(), "Simulated Planning: %d", use_simulated_planning_);
+  this->control_timer_ =
+      this->create_wall_timer(std::chrono::milliseconds(this->params_.command_time_interval_),
+                              std::bind(&Control::control_timer_callback, this));
   if (!using_simulated_slam_) {
     vehicle_pose_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
         "/state_estimation/vehicle_pose", 10,
@@ -107,6 +116,20 @@ Control::Control(const ControlParameters& params)
               std::sqrt(msg->velocity_x * msg->velocity_x + msg->velocity_y * msg->velocity_y);
         });
   }
+}
+
+void Control::control_timer_callback() {
+  double throttle_command = this->throttle_command_;
+  double steering_command = this->steering_command_;
+  if (this->params_.test_mode_ == "const_torque") {
+    throttle_command = this->params_.const_torque_value_;
+  } else if (this->params_.test_mode_ == "const_torque_fixed_steering") {
+    throttle_command = this->params_.const_torque_value_;
+    steering_command = 0;
+  } else if (this->params_.test_mode_ == "limited_steering") {
+    steering_command *= this->params_.steering_limiting_factor_;
+  }
+  publish_cmd(throttle_command, steering_command);
 }
 
 // This function is called when a new pose is received
@@ -160,6 +183,18 @@ void Control::publish_control(const custom_interfaces::msg::Pose& vehicle_state_
   double steering_angle = this->lat_controller_.pp_steering_control_law(
       this->point_solver_.vehicle_pose_.rear_axis_, this->point_solver_.vehicle_pose_.position,
       lookahead_point, this->point_solver_.dist_cg_2_rear_axis_);
+
+  RCLCPP_INFO(rclcpp::get_logger("control"), "Rear Axis: %f",
+              this->point_solver_.vehicle_pose_.rear_axis_);
+  RCLCPP_INFO(rclcpp::get_logger("control"), "CG to rear axis Rear Axis: %f",
+              this->point_solver_.dist_cg_2_rear_axis_);
+  RCLCPP_INFO(rclcpp::get_logger("control"), "Position: (%f, %f)",
+              this->point_solver_.vehicle_pose_.position.x,
+              this->point_solver_.vehicle_pose_.position.y);
+  RCLCPP_INFO(rclcpp::get_logger("control"), "Lookahead Point: (%f, %f)", lookahead_point.x,
+              lookahead_point.y);
+  RCLCPP_INFO(rclcpp::get_logger("control"), "CG to rear axis Rear Axis: %f",
+              this->point_solver_.dist_cg_2_rear_axis_);
   // check if steering is Nan
   if (std::isnan(steering_angle) || std::isnan(torque)) {
     RCLCPP_ERROR(rclcpp::get_logger("control"), "Steering Angle or Torque is NaN");
@@ -193,7 +228,9 @@ void Control::publish_control(const custom_interfaces::msg::Pose& vehicle_state_
   publish_evaluator_data(lookahead_velocity, lookahead_point, closest_point, vehicle_state,
                          closest_point_velocity, execution_time);
   publish_visualization_data(lookahead_point, closest_point);
-  publish_cmd(torque, steering_angle);
+
+  this->throttle_command_ = torque;
+  this->steering_command_ = steering_angle;
   // Adapter to communicate with the car
 }
 

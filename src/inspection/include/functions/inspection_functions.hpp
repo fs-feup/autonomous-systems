@@ -1,8 +1,8 @@
 #ifndef INSPECTION_FUNCTIONS_HPP
 #define INSPECTION_FUNCTIONS_HPP
 
-#define MAX_THROTTLE (2.5)
-#define MAX_ANGLE 0.392699  // 22.5 degrees in rad
+#define MAX_THROTTLE (1.0)
+#define MAX_ANGLE 0.34  // 22.5 degrees in rad
 
 #include <chrono>
 #include <cmath>
@@ -19,9 +19,9 @@ public:
   double ideal_velocity_ = 2.0;
   double turning_period_ = 4.0;
   double wheel_radius_ = 0.254;
-  double gain_ = 0.25;
+  double gain_ = 0.05;
   double finish_time_ = 26.0;
-  double current_goal_velocity_ = 2.0;
+  double current_goal_velocity_ = 1.0;
   bool start_and_stop_ = false;
 
   /// Used to stop the oscilation near zero and avoid violent wheel movements

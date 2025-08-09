@@ -50,6 +50,19 @@ gtsam::Values SlidingWindowLevenbergOptimizer::optimize(
     }
   }
 
+  // Add prior factors for included landmarks only
+  for (const auto& factor : factor_graph) {
+    const auto& keys = factor->keys();
+
+    // Check if this is a prior factor on a landmark in the current window
+    if (keys.size() == 1) {
+      gtsam::Symbol symbol(keys[0]);
+      if (symbol.chr() == 'l' && relevant_keys.count(keys[0]) > 0) {
+        sliding_window_graph.add(factor);
+      }
+    }
+  }
+
   // Add relevant values
   for (const auto& key : relevant_keys) {
     sliding_window_values.insert(key, graph_values.at(key));

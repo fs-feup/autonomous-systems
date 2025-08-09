@@ -15,8 +15,11 @@ SLAMSolver::SLAMSolver(const SLAMParameters& params,
 
 void SLAMSolver::set_mission(common_lib::competition_logic::Mission mission) {
   common_lib::competition_logic::Mission previous_mission_ = this->_mission_;
-  _mission_ = mission;
-  if (previous_mission_ == common_lib::competition_logic::Mission::NONE) {
+  this->_mission_ = mission;
+  if (previous_mission_ == common_lib::competition_logic::Mission::NONE &&
+      (this->_mission_ == common_lib::competition_logic::Mission::SKIDPAD ||
+       this->_mission_ == common_lib::competition_logic::Mission::ACCELERATION) &&
+      this->_params_.using_preloaded_map_) {
     if (_mission_ == common_lib::competition_logic::Mission::SKIDPAD) {
       Eigen::Vector3d pose;
       Eigen::VectorXd map;

@@ -141,4 +141,8 @@ public:
    * @return int lap counter
    */
   int get_lap_counter() override { return lap_counter_; }
+
+  Eigen::VectorXi get_associations() const override { return Eigen::VectorXi::Zero(0); }
+  Eigen::VectorXd get_observations_global() const override { return Eigen::VectorXd::Zero(0); }
+  Eigen::VectorXd get_map_coordinates() const override { return Eigen::VectorXd::Zero(0); }
 };

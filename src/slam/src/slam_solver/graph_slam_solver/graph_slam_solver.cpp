@@ -192,6 +192,10 @@ void GraphSLAMSolver::add_velocities(const common_lib::structures::Velocities& v
 
 void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures::Cone>& cones) {
   if (cones.empty()) {
+    // this->_landmark_filter_->filter(Eigen::VectorXd::Zero(0), Eigen::VectorXd::Zero(0),
+    //                                 Eigen::VectorXi::Zero(0));
+    this->_observations_global_ = Eigen::VectorXd::Zero(0);
+    this->_associations_ = Eigen::VectorXi::Zero(0);
     return;
   }
 
@@ -228,6 +232,15 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   Eigen::VectorXi associations = this->_data_association_->associate(
       landmarks, observations_global, covariance,
       observations_confidences);  // TODO: implement different mahalanobis distance
+  std::string associations_str = "";
+  for (int i = 0; i < associations.size(); i++) {
+    associations_str += std::to_string(associations(i)) + ", ";
+  }
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Associations: %s",
+               associations_str.c_str());
+  this->_associations_ = associations;
+  this->_observations_global_ = observations_global;
+  this->_map_coordinates_ = state.segment(3, state.size() - 3);
   association_time = rclcpp::Clock().now();
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Associations calculated");
 
@@ -239,11 +252,12 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   LoopClosure::Result result = _loop_closure_->detect(pose, landmarks, associations, observations);
   if (result.detected) {
     lap_counter_++;
-    // Uncomment to create a soft lock on the landmarks' positions after the first lap.
-    // Currently working worse than without it in PacSim.
-    // if (lap_counter_ == 1) {
-    //   this->_graph_slam_instance_.lock_landmarks(this->_params_.preloaded_map_noise_);
-    // }
+    // Create a (hard-ish) lock on the landmarks' positions after the first lap.
+    if (lap_counter_ == 1) {
+      RCLCPP_INFO(rclcpp::get_logger("slam"),
+                  "add_observations - First lap detected, locking landmarks");
+      this->_graph_slam_instance_->lock_landmarks(0);
+    }
     RCLCPP_INFO(rclcpp::get_logger("slam"), "Lap counter: %d", lap_counter_);
   }
 
@@ -260,8 +274,8 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
                                      cones.at(0).timestamp);
     if (this->_optimization_under_way_) {
       this->_observation_data_queue_.push(observation_data);
-      RCLCPP_DEBUG(rclcpp::get_logger("slam"),
-                   "add_observations - Optimization under way, pushing observation data");
+      RCLCPP_INFO(rclcpp::get_logger("slam"),
+                  "add_observations - Optimization under way, pushing observation data");
     }
     // Update the pose in the graph, as the vehicle might have moved since the last time a factor
     // was added by the motion callback
@@ -416,3 +430,11 @@ common_lib::structures::Pose GraphSLAMSolver::get_pose_estimate() {
 Eigen::MatrixXd GraphSLAMSolver::get_covariance() {
   return this->_graph_slam_instance_->get_covariance_matrix();
 }
+
+Eigen::VectorXi GraphSLAMSolver::get_associations() const { return this->_associations_; }
+
+Eigen::VectorXd GraphSLAMSolver::get_observations_global() const {
+  return this->_observations_global_;
+}
+
+Eigen::VectorXd GraphSLAMSolver::get_map_coordinates() const { return this->_map_coordinates_; }
