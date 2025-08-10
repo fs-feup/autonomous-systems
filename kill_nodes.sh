@@ -6,6 +6,7 @@ NODE_PATTERNS=(
   "perception_adapter"
   "velocity_estimation"
   "inspection"
+  "xsens_mti_node"
 )
 
 
