@@ -121,7 +121,7 @@ Planning::Planning(const PlanningParameters &params)
 
 void Planning::fetch_discipline() {
   common_lib::competition_logic::Mission mission_result =
-      common_lib::competition_logic::Mission::AUTOCROSS;
+      common_lib::competition_logic::Mission::NONE;
 
   if (!param_client_->wait_for_service(std::chrono::milliseconds(100))) {
     RCLCPP_ERROR(this->get_logger(), "Service /pacsim/pacsim_node/get_parameters not available.");
@@ -183,6 +183,9 @@ void Planning::run_planning_algorithms() {
   std::vector<PathPoint> global_path_ = {};
 
   switch (this->mission) {
+    case common_lib::competition_logic::Mission::NONE:
+      RCLCPP_ERROR(this->get_logger(), "Mission is NONE, cannot run planning algorithms.");
+      return;
     case common_lib::competition_logic::Mission::SKIDPAD:
       final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
       break;
@@ -258,7 +261,6 @@ void Planning::run_planning_algorithms() {
       }
       break;
     default:
-
       triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
       final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
                                                this->initial_car_orientation_);
