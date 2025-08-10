@@ -85,8 +85,6 @@ private:
       _ground_removed_publisher_;  ///< point cloud after ground removal publisher.
   common_lib::structures::Velocities _vehicle_velocity_; // Last received vehicle velocity, used to deskew the point cloud
 
-  std::vector<std::pair<double,double>> deskewed_cones;
-
   /**
    * @brief Publishes information about clusters (cones) using a custom ROS2 message.
    *

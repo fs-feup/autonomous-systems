@@ -254,7 +254,7 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   _ground_removal_->ground_removal(pcl_cloud, ground_removed_cloud, _ground_plane_, split_params);
 
-  //this->_deskew_->deskew_point_cloud(ground_removed_cloud, this->_vehicle_velocity_);
+  this->_deskew_->deskew_point_cloud(ground_removed_cloud, this->_vehicle_velocity_);
 
   // Debugging utils -> Useful to check the ground removed point cloud
   sensor_msgs::msg::PointCloud2 ground_removed_msg;
@@ -278,7 +278,6 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
     }
   }
 
-  this->deskewed_cones = this->_deskew_->deskew_clusters(filtered_clusters, this->_vehicle_velocity_);
 
   // Execution Time calculation
   rclcpp::Time end_time = this->now();
@@ -305,8 +304,8 @@ void Perception::publish_cones(std::vector<Cluster>* cones) {
   message.header = header;
   for (int i = 0; i < static_cast<int>(cones->size()); i++) {
     auto position = custom_interfaces::msg::Point2d();
-    position.x = deskewed_cones[i].first;
-    position.y = deskewed_cones[i].second;
+    position.x = cones->at(i).get_centroid().x();
+    position.y = cones->at(i).get_centroid().y();
 
     auto cone_message = custom_interfaces::msg::Cone();
     cone_message.position = position;
