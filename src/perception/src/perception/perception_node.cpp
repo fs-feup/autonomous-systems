@@ -229,6 +229,9 @@ Perception::Perception(const PerceptionParameters& params)
     RCLCPP_ERROR(this->get_logger(), "Adapter not recognized: %s", params.adapter_.c_str());
   }
 
+  this->_velocities_subscription_ = this->create_subscription<custom_interfaces::msg::Velocities>(
+    "/state_estimation/velocities",
+    rclcpp::QoS(10),  std::bind(&Perception::velocities_callback, this, std::placeholders::_1));
   this->_cone_marker_array_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
       "/perception/visualization/cones", 10);
 
@@ -251,6 +254,8 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   _ground_removal_->ground_removal(pcl_cloud, ground_removed_cloud, _ground_plane_, split_params);
 
+  this->_deskew_->deskew_point_cloud(ground_removed_cloud, this->_vehicle_velocity_);
+
   // Debugging utils -> Useful to check the ground removed point cloud
   sensor_msgs::msg::PointCloud2 ground_removed_msg;
   pcl::toROSMsg(*ground_removed_cloud, ground_removed_msg);
@@ -272,6 +277,7 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
       filtered_clusters.push_back(cluster);
     }
   }
+
 
   // Execution Time calculation
   rclcpp::Time end_time = this->now();
@@ -314,4 +320,8 @@ void Perception::publish_cones(std::vector<Cluster>* cones) {
   // TODO: correct frame id to LiDAR instead of vehicle
   this->_cone_marker_array_->publish(common_lib::communication::marker_array_from_structure_array(
       message_array, "perception", this->_vehicle_frame_id_, "green"));
+}
+
+void Perception::velocities_callback(const custom_interfaces::msg::Velocities& msg) {
+  this->_vehicle_velocity_ = common_lib::structures::Velocities(msg.velocity_x, msg.velocity_y, msg.angular_velocity);
 }

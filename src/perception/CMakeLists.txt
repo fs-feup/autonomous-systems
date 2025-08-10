@@ -39,6 +39,7 @@ set(IMPLEMENTATION_FILES
   src/cone_validator/displacement_validator.cpp
   src/cone_validator/deviation_validator.cpp
   src/cone_validator/z_score_validator.cpp
+  src/deskew/deskew.cpp
   src/utils/plane.cpp
   src/utils/evaluator_parameters.cpp
   src/cone_evaluator/cone_evaluator.cpp
