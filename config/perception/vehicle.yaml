@@ -21,8 +21,8 @@ perception:
   acc_max_y: 4.2
 
     #SKIDPAD TRIMMING
-  skid_max_range: 20.25
-  skid_min_distance_to_cone: 2.3
+  skid_max_range: 26.25
+  skid_fov_trim_angle: 90.0
   
   #Ground Removal
   ground_removal: "grid_ransac"

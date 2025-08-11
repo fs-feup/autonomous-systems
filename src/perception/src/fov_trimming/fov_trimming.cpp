@@ -1,42 +1,52 @@
 #include "fov_trimming/fov_trimming.hpp"
 
-void FovTrimming::process_point(pcl::PointXYZI& point, const double rotation, const double pitch,
-                                double& distance, double& angle) const {
-  const double x_rot = point.x;
-  const double y_rot = point.y;
+FovTrimming::FovTrimming(const TrimmingParameters params) { params_ = params; }
 
-  // Convert rotation angle to radians
-  const double rot_rad = rotation * M_PI / 180.0;
+void FovTrimming::compute_rotation_constants(double max_range, double fov_trim_angle) {
+  height_limit_ = params_.max_height - params_.lidar_height;
+  squared_min_range_ = params_.min_range * params_.min_range;
+  squared_max_range_ = params_.max_range * max_range;
 
-  // Apply rotation transformation
-  point.x = x_rot * std::cos(rot_rad) - y_rot * std::sin(rot_rad);
-  point.y = x_rot * std::sin(rot_rad) + y_rot * std::cos(rot_rad);
+  rot_rad_ = params_.lidar_rotation * M_PI / 180.0;
+  cos_rot_ = std::cos(rot_rad_);
+  sin_rot_ = std::sin(rot_rad_);
 
-  const double z_pitch = point.z;
-  const double x_pitch = point.x;
+  pitch_rad_ = params_.lidar_pitch * M_PI / 180.0;
+  cos_pitch_ = std::cos(pitch_rad_);
+  sin_pitch_ = std::sin(pitch_rad_);
 
-  // Convert pitch angle to radians
-  const double pitch_rad = pitch * M_PI / 180.0;
-
-  // Apply pitch transformation
-  point.x = x_pitch * std::cos(pitch_rad) - z_pitch * std::sin(pitch_rad);
-  point.z = x_pitch * std::sin(pitch_rad) + z_pitch * std::cos(pitch_rad);
-
-  // Calculate distance from LIDAR on the x0y plane
-  distance = std::sqrt(point.x * point.x + point.y * point.y);
-
-  // Calculate the angle of the point in the XY plane in degrees
-  angle = std::atan2(point.y, point.x) * 180 / M_PI;
+  fov_angle_rad_ = fov_trim_angle * M_PI / 180.0;
+  min_angle_ = -fov_angle_rad_;
+  max_angle_ = fov_angle_rad_;
 }
 
-bool FovTrimming::within_limits(pcl::PointXYZI& point, const TrimmingParameters& params,
-                                const double max_range, const double fov_trim_angle) const {
-  double distance = 0, angle = 0;
-  process_point(point, params.lidar_rotation, params.lidar_pitch, distance, angle);
+void FovTrimming::process_point(pcl::PointXYZI& point, double& squared_distance,
+                                double& angle) const {
+  // Apply rotation
+  double x_rot = point.x * cos_rot_ - point.y * sin_rot_;
+  double y_rot = point.x * sin_rot_ + point.y * cos_rot_;
 
-  const bool within_height = point.z < (params.max_height - params.lidar_height);
-  const bool within_range = (distance > params.min_range) && (distance <= max_range);
-  const bool within_fov = (angle >= -fov_trim_angle) && (angle <= fov_trim_angle);
+  // Apply pitch
+  double x_pitch = x_rot * cos_pitch_ - point.z * sin_pitch_;
+  double z_pitch = x_rot * sin_pitch_ + point.z * cos_pitch_;
+
+  // Update the point coordinates in-place
+  point.x = x_pitch;
+  point.y = y_rot;
+  point.z = z_pitch;
+
+  squared_distance = point.x * point.x + point.y * point.y;
+  angle = std::atan2(point.y, point.x);
+}
+
+bool FovTrimming::within_limits(pcl::PointXYZI& point) const {
+  double squared_distance = 0, angle = 0;
+  process_point(point, squared_distance, angle);
+
+  bool within_height = point.z < height_limit_;
+  bool within_range =
+      (squared_distance > squared_min_range_) && (squared_distance <= squared_max_range_);
+  bool within_fov = (angle >= min_angle_) && (angle <= max_angle_);
 
   return within_height && within_range && within_fov;
 }

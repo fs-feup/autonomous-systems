@@ -79,9 +79,7 @@ PerceptionParameters Perception::load_config() {
   trim_params.acc_split_params.fov_angle = 2 * trim_params.acc_fov_trim_angle;
 
   trim_params.skid_max_range = perception_config["skid_max_range"].as<double>();
-  const double min_distance_to_cone = perception_config["skid_min_distance_to_cone"].as<double>();
-  trim_params.skid_fov_trim_angle =
-      90 - std::acos(1.5 / std::max(min_distance_to_cone, 1.5)) * 180 / M_PI;
+  trim_params.skid_fov_trim_angle = perception_config["skid_fov_trim_angle"].as<double>();
   trim_params.skid_split_params.n_angular_grids =
       perception_config["skid_n_angular_grids"].as<int>();
   trim_params.skid_split_params.radius_resolution =
@@ -100,7 +98,6 @@ PerceptionParameters Perception::load_config() {
       {static_cast<int16_t>(Mission::AUTOCROSS), cut_trimming},
       {static_cast<int16_t>(Mission::INSPECTION), cut_trimming},
       {static_cast<int16_t>(Mission::EBS_TEST), acceleration_trimming},
-      {static_cast<int16_t>(Mission::MANUAL), cut_trimming},
       {static_cast<int16_t>(Mission::NONE), cut_trimming}};
 
   params.fov_trim_map_ =
@@ -230,8 +227,8 @@ Perception::Perception(const PerceptionParameters& params)
   }
 
   this->_velocities_subscription_ = this->create_subscription<custom_interfaces::msg::Velocities>(
-    "/state_estimation/velocities",
-    rclcpp::QoS(10),  std::bind(&Perception::velocities_callback, this, std::placeholders::_1));
+      "/state_estimation/velocities", rclcpp::QoS(10),
+      std::bind(&Perception::velocities_callback, this, std::placeholders::_1));
   this->_cone_marker_array_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
       "/perception/visualization/cones", 10);
 
@@ -247,9 +244,10 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   header = (*msg).header;
   pcl::fromROSMsg(*msg, *pcl_cloud);
 
+  rclcpp::Time s_time = this->now();
   // Pass-trough Filter (trim Pcl)
   const SplitParameters split_params = _fov_trim_map_->at(_mission_type_)->fov_trimming(pcl_cloud);
-
+  rclcpp::Time f_time = this->now();
   // Ground Removal
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   _ground_removal_->ground_removal(pcl_cloud, ground_removed_cloud, _ground_plane_, split_params);
@@ -266,9 +264,6 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   std::vector<Cluster> clusters;
   _clustering_->clustering(ground_removed_cloud, &clusters);
 
-  // Z-scores calculation for future validations
-  Cluster::set_z_scores(clusters);
-
   // Filtering
   std::vector<Cluster> filtered_clusters;
 
@@ -277,7 +272,6 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
       filtered_clusters.push_back(cluster);
     }
   }
-
 
   // Execution Time calculation
   rclcpp::Time end_time = this->now();
@@ -294,7 +288,9 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Clustering: %ld clusters", clusters.size());
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Validations: %ld clusters",
                filtered_clusters.size());
-
+  RCLCPP_DEBUG(this->get_logger(), "Perception Execution Time: %.2f ms",
+               perception_execution_time.data);
+  RCLCPP_INFO(this->get_logger(), "FOV Trimming Time: %.2f ms", (f_time - s_time).seconds() * 1000);
   publish_cones(&filtered_clusters);
 }
 
@@ -323,5 +319,6 @@ void Perception::publish_cones(std::vector<Cluster>* cones) {
 }
 
 void Perception::velocities_callback(const custom_interfaces::msg::Velocities& msg) {
-  this->_vehicle_velocity_ = common_lib::structures::Velocities(msg.velocity_x, msg.velocity_y, msg.angular_velocity);
+  this->_vehicle_velocity_ =
+      common_lib::structures::Velocities(msg.velocity_x, msg.velocity_y, msg.angular_velocity);
 }
