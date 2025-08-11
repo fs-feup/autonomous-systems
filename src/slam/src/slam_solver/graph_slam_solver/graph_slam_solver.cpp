@@ -70,8 +70,8 @@ bool GraphSLAMSolver::_add_motion_data_to_graph(
     const std::shared_ptr<GraphSLAMInstance> graph_slam_instance, bool force_update) {
   Eigen::Vector3d pose_difference_vector = pose_updater->get_accumulated_pose_difference();
 
-  RCLCPP_INFO(rclcpp::get_logger("slam"), "GraphSLAMSolver - Pose difference: %f, %f, %f",
-              pose_difference_vector(0), pose_difference_vector(1), pose_difference_vector(2));
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "GraphSLAMSolver - Pose difference: %f, %f, %f",
+               pose_difference_vector(0), pose_difference_vector(1), pose_difference_vector(2));
 
   // TODO: add noise thingy
   if (pose_updater->pose_ready_for_graph_update() || force_update) {
@@ -84,7 +84,8 @@ bool GraphSLAMSolver::_add_motion_data_to_graph(
 
     RCLCPP_DEBUG(rclcpp::get_logger("slam"), "GraphSLAMSolver - Pose updated in the graph");
 
-    pose_updater->update_pose(pose_updater->get_last_pose());
+    pose_updater->update_pose(
+        pose_updater->get_last_pose());  // Reset the accumulated pose difference
   } else if (std::shared_ptr<SecondPoseInputTrait> secondary_input_pose_updater =
                  std::dynamic_pointer_cast<SecondPoseInputTrait>(pose_updater)) {
     if (secondary_input_pose_updater->second_pose_difference_ready()) {
@@ -159,7 +160,9 @@ void GraphSLAMSolver::add_velocities(const common_lib::structures::Velocities& v
   }
   this->_pose_updater_->predict_pose(velocities_data, this->_motion_model_);
   motion_model_time = rclcpp::Clock().now();
-  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_velocities - Pose updated");
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_velocities - Pose updated: (%f, %f, %f)",
+               this->_pose_updater_->get_last_pose()(0), this->_pose_updater_->get_last_pose()(1),
+               this->_pose_updater_->get_last_pose()(2));
 
   // Add motion data to the graph
   bool added_factors =
@@ -232,12 +235,12 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   Eigen::VectorXi associations = this->_data_association_->associate(
       landmarks, observations_global, covariance,
       observations_confidences);  // TODO: implement different mahalanobis distance
-  std::string associations_str = "";
-  for (int i = 0; i < associations.size(); i++) {
-    associations_str += std::to_string(associations(i)) + ", ";
-  }
-  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Associations: %s",
-               associations_str.c_str());
+  // std::string associations_str = "";
+  // for (int i = 0; i < associations.size(); i++) {
+  //   associations_str += std::to_string(associations(i)) + ", ";
+  // }
+  // RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Associations: %s",
+  //              associations_str.c_str());
   this->_associations_ = associations;
   this->_observations_global_ = observations_global;
   this->_map_coordinates_ = state.segment(3, state.size() - 3);

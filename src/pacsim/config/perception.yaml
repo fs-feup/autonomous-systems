@@ -4,7 +4,7 @@ perception_sensors:
     enabled: true
     rate: 10 # sampling rate of sensor
     delay:
-      mean: 0.05 # deadtime processing delay (signal won't be available for processing for 0.1s)
+      mean: 0.00 # deadtime processing delay (signal won't be available for processing for 0.1s)
     pose:
       position: [0.0, 0.0, 0.115] # relative position to car's center of mass
       orientation: [0.0, 0.0, 0.0] # relative orientation relative to car's orientation
