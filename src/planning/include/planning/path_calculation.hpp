@@ -53,6 +53,12 @@ private:
   std::vector<Point> global_path_;
   int path_update_counter_ = 0;
   std::vector<Point> path_to_car;
+
+  // SKIDPAD
+  bool skidpad_data_loaded_ = false;
+  std::vector<std::pair<double, double>> reference_cones_;
+  std::vector<PathPoint> hardcoded_path_;
+
   
   // Anchor pose for the path, to avoid calculating the path from the position of the car
   common_lib::structures::Pose anchor_pose_;

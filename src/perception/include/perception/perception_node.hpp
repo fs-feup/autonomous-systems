@@ -12,7 +12,10 @@
 
 #include "clustering/dbscan.hpp"
 #include "common_lib/competition_logic/mission_logic.hpp"
+#include "common_lib/structures/velocities.hpp"
 #include "cone_differentiation/least_squares_differentiation.hpp"
+#include "deskew/deskew.hpp"
+#include "custom_interfaces/msg/velocities.hpp"
 #include "cone_validator/height_validator.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/operational_status.hpp"
@@ -66,10 +69,12 @@ private:
       _cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
   std::shared_ptr<ConeEvaluator> _cone_evaluator_;  ///< Shared pointer to ConeEvaluator object.
   std::shared_ptr<ICP> _icp_;                       ///< Shared pointer to ICP object.
+  std::shared_ptr<Deskew> _deskew_;
   rclcpp::Subscription<custom_interfaces::msg::OperationalStatus>::SharedPtr
       _operational_status_subscription;  ///< Master Log subscription to aquire mission type
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
       _point_cloud_subscription;  ///< PointCloud2 subscription.
+  rclcpp::Subscription<custom_interfaces::msg::Velocities>::SharedPtr _velocities_subscription_;
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr
       _cones_publisher;  ///< ConeArray publisher.
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
@@ -78,6 +83,7 @@ private:
       _perception_execution_time_publisher_;  ///< Perception execution time publisher.
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr
       _ground_removed_publisher_;  ///< point cloud after ground removal publisher.
+  common_lib::structures::Velocities _vehicle_velocity_; // Last received vehicle velocity, used to deskew the point cloud
 
   /**
    * @brief Publishes information about clusters (cones) using a custom ROS2 message.
@@ -90,6 +96,9 @@ private:
    * to be published.
    */
   void publish_cones(std::vector<Cluster>* cones);
+
+
+  void velocities_callback(const custom_interfaces::msg::Velocities& msg);
 
 public:
   /**

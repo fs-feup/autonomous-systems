@@ -3,12 +3,12 @@ import os
 # Circle parameters
 centerX = 15.0
 centerY = 9.125
-radius = 9.125
+radius = 8.8
 numPoints = 100  # Number of points to describe the circle
 
-entryspeed = 3
-exitspeed = 3
-circular_speed = 3
+entryspeed = 2.5
+exitspeed = 3.5
+circular_speed = 3.5
 
 file_name = "./src/planning/src/utils/skidpad.txt"
 
@@ -47,11 +47,11 @@ with open(file_name, "w") as file:
         file.write(f"{x:.3f} {y:.3f} {circular_speed}\n")
 
 
-    for i in range(0,20):
+    for i in range(0,30):
         file.write(f"{15+i/2:.3f} 0 {exitspeed}\n")
 
     for i in range(0,40):
-        file.write(f"{25+i/2:.3f} 0 {0}\n")
+        file.write(f"{30+i/2:.3f} 0 {0}\n")
         
     file_path = os.path.abspath(file_name)
     print(f"File written to: {file_path}")
