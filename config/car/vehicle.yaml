@@ -4,4 +4,4 @@ car:
   rear_axis_to_camera: 0.79
   axis_length: 1.2
   dist_cg_2_rear_axis: 0.804
-  gear_ratio: 3.67
+  gear_ratio: 4.0

@@ -174,30 +174,37 @@ void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::V
   //            msg.velocity_x, msg.velocity_y, msg.angular_velocity,
   //            msg.header.stamp.sec + msg.header.stamp.nanosec * 1e-9);
   rclcpp::Time start_time = this->get_clock()->now();
+  rclcpp::Time time1, time2, time3, time4, time5, time6;
 
   this->_vehicle_state_velocities_ = common_lib::structures::Velocities(
       msg.velocity_x, msg.velocity_y, msg.angular_velocity, msg.covariance[0], msg.covariance[4],
       msg.covariance[8], msg.header.stamp);
+  time2 = this->get_clock()->now();
   //RCLCPP_DEBUG(this->get_logger(), "SUB - Velocities: (%f, %f, %f)", msg.velocity_x, msg.velocity_y,
   //             msg.angular_velocity);
 
   this->_slam_solver_->add_motion_prior(this->_vehicle_state_velocities_);
+  time3 = this->get_clock()->now();
   this->_vehicle_pose_ = this->_slam_solver_->get_pose_estimate();
   // RCLCPP_INFO(this->get_logger(), "Velocity - Vehicle pose: (%f, %f, %f)",
   //             this->_vehicle_pose_.position.x, this->_vehicle_pose_.position.y,
   //             this->_vehicle_pose_.orientation);
+  time4 = this->get_clock()->now();
   this->_track_map_ = this->_slam_solver_->get_map_estimate();
-  std::string mapa = "";
-  for (const auto &cone : this->_track_map_) {
-    mapa += "(" + std::to_string(cone.position.x) + ", " + std::to_string(cone.position.y) + "), ";
-  }
+  time5 = this->get_clock()->now();
   //RCLCPP_INFO(this->get_logger(), "Velocity - Track map: %s", mapa.c_str());
 
   // this->_publish_covariance(); // TODO: get covariance to work fast
   this->_publish_vehicle_pose();
+  time6 = this->get_clock()->now();
 
   rclcpp::Time end_time = this->get_clock()->now();
   this->_execution_times_->at(0) = (end_time - start_time).seconds() * 1000.0;
+  this->_execution_times_->at(11) = (time2 - start_time).seconds() * 1000.0;
+  this->_execution_times_->at(12) = (time3 - time2).seconds() * 1000.0;
+  this->_execution_times_->at(13) = (time4 - time3).seconds() * 1000.0;
+  this->_execution_times_->at(14) = (time5 - time4).seconds() * 1000.0;
+  this->_execution_times_->at(15) = (time6 - time5).seconds() * 1000.0;
   std_msgs::msg::Float64MultiArray execution_time_msg;
   execution_time_msg.data = *this->_execution_times_;
   this->_execution_time_publisher_->publish(execution_time_msg);
