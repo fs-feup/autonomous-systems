@@ -1,3 +1,4 @@
+import re
 import rclpy
 from rclpy.node import Node
 from rclpy.executors import SingleThreadedExecutor
@@ -35,7 +36,10 @@ class Supervisor(Node):
         """
         self.rosbag_process = None
         self.master_topic = '/vehicle/data_log_info_1'
+        self.bags_dir = os.path.join(os.getcwd(), "bags")
+        os.makedirs(self.bags_dir, exist_ok=True)  # Creates if missing, does nothing if exists
         self.record_rosbag_command = 'source install/setup.bash && ros2 bag record -s mcap --all'
+        self.mission = "Unknown"
         self.consecutive_ts_on_count = 0
         self.consecutive_ts_off_count = 0
         self.last_received_master_msg_time = 0
@@ -87,9 +91,33 @@ class Supervisor(Node):
     """
     ******************** Related to recording rosbag ********************
     """
+    def convert_mission(self,msg):
+        if msg.mission is None:
+            self.mission = "Unknown"
+            return
+        if msg.mission == 0:
+            self.mission = "Manual"
+        elif msg.mission == 1:
+            self.mission = "Acceleration"
+        elif msg.mission == 2:
+            self.mission = "Skidpad"
+        elif msg.mission == 3:
+            self.mission = "Autocross"
+        elif msg.mission == 4:
+            self.mission = "Trackdrive"
+        elif msg.mission == 5:
+            self.mission = "EBS Test"
+        elif msg.mission == 6:
+            self.mission = "Inspection"
+        elif msg.mission == 7:
+            self.mission = "None"
+        else:
+            self.mission = "Unknown"
 
     def master_callback(self, msg):
         self.last_received_master_msg_time = time.time()
+        if msg.mission is not None:
+            self.convert_mission(msg)
         if self.rosbag_process is None:
             if (msg.ts_on):
                 self.consecutive_ts_on_count += 1
@@ -117,9 +145,32 @@ class Supervisor(Node):
             return False
         return self.consecutive_ts_off_count >= 6
 
+    def get_rosbag_naming(self):
+        # Folder where rosbags are stored (adjust if needed)
+        rosbag_dir = self.bags_dir
+        # Regex to match names like "Skidpad 1", "Skidpad 2", etc.
+        pattern = re.compile(rf"^{re.escape(self.mission)}\s+(\d+)\s*$")
+
+
+        max_num = 0
+        for name in os.listdir(rosbag_dir):
+            if os.path.isdir(os.path.join(rosbag_dir, name)):
+                match = pattern.match(name)
+                if match:
+                    num = int(match.group(1))
+                    max_num = max(max_num, num)
+
+        # Next available number
+        next_num = max_num + 1
+        return f"{self.mission} {next_num}"
+
     def start_recording_rosbag(self):
-        self.get_logger().info('Starting rosbag recording...')
-        cmd = self.record_rosbag_command
+        rosbag_name = self.get_rosbag_naming()
+        save_path = os.path.join(self.bags_dir, rosbag_name)
+        os.makedirs(save_path, exist_ok=True)  # ensures the folder for this recording exists
+
+        self.get_logger().info(f'Starting rosbag recording: {save_path}')
+        cmd = f'{self.record_rosbag_command} -o "{save_path}"'
         self.rosbag_process = subprocess.Popen(['bash', '-c', cmd])
     
     def stop_rosbag(self):
