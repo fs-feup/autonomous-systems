@@ -31,18 +31,18 @@ protected:
     cloud_empty.points.clear();
 
     // Set initial trimming parameters.
-    params.max_range = 1000.0;
-    params.min_range = 0.0;
-    params.max_height = 1000.0;
-    params.lidar_height = 0.0;
-    params.fov_trim_angle = 120.0;
-    params.lidar_rotation = 90.0;
+    params->max_range = 1000.0;
+    params->min_range = 0.0;
+    params->max_height = 1000.0;
+    params->lidar_height = 0.0;
+    params->fov_trim_angle = 120.0;
+    params->lidar_rotation = 90.0;
   }
 
   // Stack-allocated point clouds.
   pcl::PointCloud<pcl::PointXYZI> cloud;
   pcl::PointCloud<pcl::PointXYZI> cloud_empty;
-  TrimmingParameters params;
+  std::shared_ptr<TrimmingParameters> params;
 };
 
 /**
@@ -50,7 +50,7 @@ protected:
  *
  */
 TEST_F(CutTrimmingTest, TestMaxRange) {
-  params.max_range = 15.0;
+  params->max_range = 15.0;
   // Wrap the stack object in a non-owning shared pointer.
   const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
       &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
@@ -65,7 +65,7 @@ TEST_F(CutTrimmingTest, TestMaxRange) {
  *
  */
 TEST_F(CutTrimmingTest, TestMaxHeight) {
-  params.max_height = 2.0;
+  params->max_height = 2.0;
   const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
       &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
   CutTrimming cut_trimming(params);
@@ -79,7 +79,7 @@ TEST_F(CutTrimmingTest, TestMaxHeight) {
  *
  */
 TEST_F(CutTrimmingTest, TestMinRange) {
-  params.min_range = 0.5;
+  params->min_range = 0.5;
   const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
       &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
   CutTrimming cut_trimming(params);
@@ -93,7 +93,7 @@ TEST_F(CutTrimmingTest, TestMinRange) {
  *
  */
 TEST_F(CutTrimmingTest, TestFOVAngle) {
-  params.fov_trim_angle = 60.0;
+  params->fov_trim_angle = 60.0;
   const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
       &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
   CutTrimming cut_trimming(params);
@@ -120,11 +120,11 @@ TEST_F(CutTrimmingTest, TestEmptyPointCloud) {
  *
  */
 TEST_F(CutTrimmingTest, TestGeneralResult) {
-  params.max_range = 10.0;
-  params.min_range = 0.2;
-  params.max_height = 2.5;
-  params.lidar_height = 0.0;
-  params.fov_trim_angle = 45.0;
+  params->max_range = 10.0;
+  params->min_range = 0.2;
+  params->max_height = 2.5;
+  params->lidar_height = 0.0;
+  params->fov_trim_angle = 45.0;
   const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
       &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
   CutTrimming cut_trimming(params);

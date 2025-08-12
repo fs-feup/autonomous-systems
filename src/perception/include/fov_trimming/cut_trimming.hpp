@@ -14,7 +14,7 @@ public:
    * @brief Constructor for the Cut Point Cloud Trimming algorithm.
    * @param params All trimming related parameters.
    */
-  CutTrimming(const TrimmingParameters params);
+  CutTrimming(const std::shared_ptr<TrimmingParameters> params);
 
   /**
    * @brief Default constructor.

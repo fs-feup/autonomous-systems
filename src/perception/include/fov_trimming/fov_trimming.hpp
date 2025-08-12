@@ -15,7 +15,7 @@ public:
    * @brief Constructor for FovTrimming class.
    * @param params Trimming parameters containing configuration for the FOV trimming.
    */
-  explicit FovTrimming(const TrimmingParameters params);
+  explicit FovTrimming(const std::shared_ptr<TrimmingParameters> params);
 
   /**
    * @brief Perform fov trimming on the input point cloud.
@@ -39,9 +39,8 @@ public:
   void compute_rotation_constants(double max_range, double fov_trim_angle);
 
 protected:
-  TrimmingParameters params_;
+  const std::shared_ptr<TrimmingParameters> params_;
 
-  common_lib::competition_logic::Mission current_mission_type_;
   double height_limit_;
   double squared_min_range_;
   double squared_max_range_;

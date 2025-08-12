@@ -14,7 +14,7 @@ public:
    * @brief Constructor for the Skidpad Point Cloud Trimming algorithm.
    * @param params trimming related parameters.
    */
-  SkidpadTrimming(const TrimmingParameters params);
+  SkidpadTrimming(const std::shared_ptr<TrimmingParameters> params);
 
   /**
    * @brief Default constructor.

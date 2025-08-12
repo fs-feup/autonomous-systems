@@ -31,19 +31,19 @@ protected:
     cloud_empty.points.clear();
 
     // Set trimming parameters.
-    params.acc_max_range = 20.25;
-    params.acc_fov_trim_angle = 90.0;
-    params.min_range = 0.0;
-    params.max_height = 10.0;
-    params.lidar_height = 0;
-    params.acc_max_y = 10.0;
-    params.lidar_rotation = 90.0;
+    params->acc_max_range = 20.25;
+    params->acc_fov_trim_angle = 90.0;
+    params->min_range = 0.0;
+    params->max_height = 10.0;
+    params->lidar_height = 0;
+    params->acc_max_y = 10.0;
+    params->lidar_rotation = 90.0;
   }
 
   // Stack-allocated point clouds.
   pcl::PointCloud<pcl::PointXYZI> cloud;
   pcl::PointCloud<pcl::PointXYZI> cloud_empty;
-  TrimmingParameters params;
+  std::shared_ptr<TrimmingParameters> params;
 };
 
 /**
@@ -65,7 +65,7 @@ TEST_F(AccelerationTrimmingTest, TestMaxRange) {
  *
  */
 TEST_F(AccelerationTrimmingTest, TestMaxHeight) {
-  params.max_height = 2.0;
+  params->max_height = 2.0;
   const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
       &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
   AccelerationTrimming acc_trimming(params);
@@ -79,7 +79,7 @@ TEST_F(AccelerationTrimmingTest, TestMaxHeight) {
  *
  */
 TEST_F(AccelerationTrimmingTest, TestMinRange) {
-  params.min_range = 0.2;
+  params->min_range = 0.2;
   const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
       &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
   AccelerationTrimming acc_trimming(params);
@@ -93,7 +93,7 @@ TEST_F(AccelerationTrimmingTest, TestMinRange) {
  *
  */
 TEST_F(AccelerationTrimmingTest, TestMaxY) {
-  params.acc_max_y = 4.0;
+  params->acc_max_y = 4.0;
   const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
       &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
   AccelerationTrimming acc_trimming(params);
@@ -107,10 +107,10 @@ TEST_F(AccelerationTrimmingTest, TestMaxY) {
  *
  */
 TEST_F(AccelerationTrimmingTest, TestEmptyPointCloud) {
-  params.min_range = 0.2;
-  params.max_height = 2.0;
-  params.lidar_height = 0;
-  params.acc_max_y = 4.0;
+  params->min_range = 0.2;
+  params->max_height = 2.0;
+  params->lidar_height = 0;
+  params->acc_max_y = 4.0;
   const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_empty_ptr(
       &cloud_empty, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
   AccelerationTrimming acc_trimming(params);
@@ -124,10 +124,10 @@ TEST_F(AccelerationTrimmingTest, TestEmptyPointCloud) {
  *
  */
 TEST_F(AccelerationTrimmingTest, TestGeneralResult) {
-  params.min_range = 0.2;
-  params.max_height = 2.0;
-  params.lidar_height = 0;
-  params.acc_max_y = 4.0;
+  params->min_range = 0.2;
+  params->max_height = 2.0;
+  params->lidar_height = 0;
+  params->acc_max_y = 4.0;
   const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
       &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
   AccelerationTrimming acc_trimming(params);

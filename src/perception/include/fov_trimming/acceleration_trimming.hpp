@@ -14,7 +14,7 @@ public:
    * @brief Constructor for the Acceleration Point Cloud Trimming algorithm.
    * @param params All trimming related parameters.
    */
-  AccelerationTrimming(const TrimmingParameters params);
+  AccelerationTrimming(const std::shared_ptr<TrimmingParameters> params);
 
   /**
    * @brief Default constructor.

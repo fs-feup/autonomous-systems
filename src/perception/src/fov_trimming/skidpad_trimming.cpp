@@ -4,12 +4,13 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 
-SkidpadTrimming::SkidpadTrimming(const TrimmingParameters params) : FovTrimming(params) {}
+SkidpadTrimming::SkidpadTrimming(const std::shared_ptr<TrimmingParameters> params)
+    : FovTrimming(params) {}
 
 SplitParameters SkidpadTrimming::fov_trimming(const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud) {
-  if (current_mission_type_ != common_lib::competition_logic::Mission::SKIDPAD) {
-    compute_rotation_constants(params_.skid_max_range, params_.skid_fov_trim_angle);
-    current_mission_type_ = common_lib::competition_logic::Mission::SKIDPAD;
+  if (params_->current_mission_type != common_lib::competition_logic::Mission::SKIDPAD) {
+    compute_rotation_constants(params_->skid_max_range, params_->skid_fov_trim_angle);
+    params_->current_mission_type = common_lib::competition_logic::Mission::SKIDPAD;
   }
 
   auto& points = cloud->points;
@@ -31,5 +32,5 @@ SplitParameters SkidpadTrimming::fov_trimming(const pcl::PointCloud<pcl::PointXY
   cloud->height = 1;
   cloud->is_dense = true;
 
-  return params_.skid_split_params;
+  return params_->skid_split_params;
 }

@@ -28,19 +28,19 @@ protected:
     cloud_empty.points.clear();
 
     // Set initial trimming parameters.
-    params.skid_max_range = 20.25;
-    params.min_range = 0.0;
-    params.max_height = 1000.0;
-    params.lidar_height = 0.0;
-    params.skid_fov_trim_angle = 90.0;
-    params.lidar_rotation = 90.0;
+    params->skid_max_range = 20.25;
+    params->min_range = 0.0;
+    params->max_height = 1000.0;
+    params->lidar_height = 0.0;
+    params->skid_fov_trim_angle = 90.0;
+    params->lidar_rotation = 90.0;
     // fov_trim_angle is not set here for every test, but will be adjusted in tests as needed.
   }
 
   // Stack-allocated point clouds.
   pcl::PointCloud<pcl::PointXYZI> cloud;
   pcl::PointCloud<pcl::PointXYZI> cloud_empty;
-  TrimmingParameters params;
+  std::shared_ptr<TrimmingParameters> params;
 };
 
 /**
@@ -61,7 +61,7 @@ TEST_F(SkidpadTrimmingTest, TestMaxRange) {
  *
  */
 TEST_F(SkidpadTrimmingTest, TestMaxHeight) {
-  params.max_height = 2.5;
+  params->max_height = 2.5;
   const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
       &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
   SkidpadTrimming skidpad_trimming(params);
@@ -74,7 +74,7 @@ TEST_F(SkidpadTrimmingTest, TestMaxHeight) {
  *
  */
 TEST_F(SkidpadTrimmingTest, TestMinRange) {
-  params.min_range = 0.3;
+  params->min_range = 0.3;
   const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
       &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
   SkidpadTrimming skidpad_trimming(params);
@@ -87,7 +87,7 @@ TEST_F(SkidpadTrimmingTest, TestMinRange) {
  *
  */
 TEST_F(SkidpadTrimmingTest, TestFOVAngle) {
-  params.skid_fov_trim_angle = 75.0;
+  params->skid_fov_trim_angle = 75.0;
   const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
       &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
   SkidpadTrimming skidpad_trimming(params);
@@ -112,9 +112,9 @@ TEST_F(SkidpadTrimmingTest, TestEmptyPointCloud) {
  *
  */
 TEST_F(SkidpadTrimmingTest, TestGeneralResult) {
-  params.min_range = 0.4;
-  params.max_height = 2.5;
-  params.skid_fov_trim_angle = 35.0;
+  params->min_range = 0.4;
+  params->max_height = 2.5;
+  params->skid_fov_trim_angle = 35.0;
   const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
       &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
   SkidpadTrimming skidpad_trimming(params);

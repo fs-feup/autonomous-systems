@@ -48,7 +48,7 @@ perception:
 
   #Evaluator
   min_height: 0.15
-  large_max_height: 0.3
+  large_max_height: 0.42
   small_max_height: 0.42
   height_cap: 0.5
   min_xoy: 0.0

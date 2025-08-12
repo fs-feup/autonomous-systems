@@ -1,17 +1,17 @@
 #include "fov_trimming/fov_trimming.hpp"
 
-FovTrimming::FovTrimming(const TrimmingParameters params) { params_ = params; }
+FovTrimming::FovTrimming(const std::shared_ptr<TrimmingParameters> params) : params_(params) {}
 
 void FovTrimming::compute_rotation_constants(double max_range, double fov_trim_angle) {
-  height_limit_ = params_.max_height - params_.lidar_height;
-  squared_min_range_ = params_.min_range * params_.min_range;
-  squared_max_range_ = params_.max_range * max_range;
+  height_limit_ = params_->max_height - params_->lidar_height;
+  squared_min_range_ = params_->min_range * params_->min_range;
+  squared_max_range_ = params_->max_range * max_range;
 
-  rot_rad_ = params_.lidar_rotation * M_PI / 180.0;
+  rot_rad_ = params_->lidar_rotation * M_PI / 180.0;
   cos_rot_ = std::cos(rot_rad_);
   sin_rot_ = std::sin(rot_rad_);
 
-  pitch_rad_ = params_.lidar_pitch * M_PI / 180.0;
+  pitch_rad_ = params_->lidar_pitch * M_PI / 180.0;
   cos_pitch_ = std::cos(pitch_rad_);
   sin_pitch_ = std::sin(pitch_rad_);
 
@@ -51,6 +51,6 @@ bool FovTrimming::within_limits(pcl::PointXYZI& point) const {
   return within_height && within_range && within_fov;
 }
 
-void FovTrimming::set_lidar_rotation(const double rotation) { params_.lidar_rotation = rotation; }
+void FovTrimming::set_lidar_rotation(const double rotation) { params_->lidar_rotation = rotation; }
 
-void FovTrimming::set_lidar_pitch(const double pitch) { params_.lidar_pitch = pitch; }
+void FovTrimming::set_lidar_pitch(const double pitch) { params_->lidar_pitch = pitch; }

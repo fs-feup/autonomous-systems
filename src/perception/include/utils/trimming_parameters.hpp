@@ -2,7 +2,11 @@
 
 #include <utils/split_parameters.hpp>
 
+#include "common_lib/competition_logic/mission_logic.hpp"
+
 struct TrimmingParameters {
+  common_lib::competition_logic::Mission current_mission_type;
+
   double lidar_height;    ///< LIDAR current height.
   double lidar_rotation;  ///< LIDAR rotation angle in degrees.
   double lidar_pitch;     ///< LIDAR pitch angle in degrees.

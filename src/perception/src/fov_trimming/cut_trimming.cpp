@@ -4,15 +4,15 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 
-CutTrimming::CutTrimming(const TrimmingParameters params) : FovTrimming(params) {}
+CutTrimming::CutTrimming(const std::shared_ptr<TrimmingParameters> params) : FovTrimming(params) {}
 
 SplitParameters CutTrimming::fov_trimming(const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud) {
   auto& points = cloud->points;
   const size_t n = points.size();
 
-  if (current_mission_type_ != common_lib::competition_logic::Mission::TRACKDRIVE) {
-    compute_rotation_constants(params_.acc_max_range, params_.acc_fov_trim_angle);
-    current_mission_type_ = common_lib::competition_logic::Mission::TRACKDRIVE;
+  if (params_->current_mission_type != common_lib::competition_logic::Mission::TRACKDRIVE) {
+    compute_rotation_constants(params_->acc_max_range, params_->acc_fov_trim_angle);
+    params_->current_mission_type = common_lib::competition_logic::Mission::TRACKDRIVE;
   }
 
   size_t out_idx = 0;
@@ -31,5 +31,5 @@ SplitParameters CutTrimming::fov_trimming(const pcl::PointCloud<pcl::PointXYZI>:
   cloud->height = 1;
   cloud->is_dense = true;
 
-  return params_.split_params;
+  return params_->split_params;
 }
