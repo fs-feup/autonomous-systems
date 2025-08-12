@@ -9,7 +9,7 @@ perception:
   lidar_rotation: 90.0
   lidar_pitch: -1.75
   min_range: 1.93
-  max_height: 0.55
+  max_height: 0.7
 
     #TRACKDRIVE/AUTOCROSS TRIMMING
   max_range: 21.0
