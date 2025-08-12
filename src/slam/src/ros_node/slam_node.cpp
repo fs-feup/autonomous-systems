@@ -58,6 +58,10 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
         "/state_estimation/velocities", 50,
         std::bind(&SLAMNode::_velocities_subscription_callback, this, std::placeholders::_1));
   }
+  this->_operational_status_ = this->create_subscription<custom_interfaces::msg::OperationalStatus>(
+      "/vehicle/operational_status", 50,
+      std::bind(&SLAMNode::_operational_status_callback, this, std::placeholders::_1));
+
 
   // Publishers
   this->_map_publisher_ =
@@ -208,6 +212,19 @@ void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::V
   std_msgs::msg::Float64MultiArray execution_time_msg;
   execution_time_msg.data = *this->_execution_times_;
   this->_execution_time_publisher_->publish(execution_time_msg);
+}
+
+void SLAMNode::_operational_status_callback(const custom_interfaces::msg::OperationalStatus &msg) {
+  bool go_signal_now = msg.go_signal;
+  if(go_signal_now != this->go_signal){
+    if(!go_signal_now){
+      //reset slam (map and pose)
+      this->_track_map_.clear();
+      this->_vehicle_pose_ = common_lib::structures::Pose();
+    }
+    this->go_signal = go_signal_now;
+  }
+  
 }
 
 /*---------------------- Publications --------------------*/

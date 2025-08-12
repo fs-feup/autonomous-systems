@@ -16,6 +16,7 @@
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/pose.hpp"
 #include "custom_interfaces/msg/velocities.hpp"
+#include "custom_interfaces/msg/operational_status.hpp"
 #include "perception_sensor_lib/data_association/maximum_likelihood_md.hpp"
 #include "perception_sensor_lib/data_association/maximum_likelihood_nll.hpp"
 #include "rclcpp/rclcpp.hpp"
@@ -33,6 +34,9 @@ class SLAMNode : public rclcpp::Node {
 protected:
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr _perception_subscription_;
   rclcpp::Subscription<custom_interfaces::msg::Velocities>::SharedPtr _velocities_subscription_;
+
+  rclcpp::Subscription<custom_interfaces::msg::OperationalStatus>::SharedPtr _operational_status_;
+
   rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr _vehicle_pose_publisher_;
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr _map_publisher_;
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr _visualization_map_publisher_;
@@ -62,6 +66,10 @@ protected:
   bool _go_ = true;  /// flag to start the mission
   std::string _adapter_name_;
 
+  bool go_signal = false;
+
+
+
   /**
    * @brief Callback that updates everytime information
    * is received from the perception module
@@ -77,6 +85,8 @@ protected:
    * @param msg Message containing the velocitites of the vehicle
    */
   void _velocities_subscription_callback(const custom_interfaces::msg::Velocities& msg);
+
+  void _operational_status_callback(const custom_interfaces::msg::OperationalStatus& msg);
 
   /**
    * @brief publishes the localization ('vehicle_pose') to the topic
