@@ -1,4 +1,3 @@
-import os
 import re
 import rclpy
 from rclpy.node import Node
@@ -150,7 +149,8 @@ class Supervisor(Node):
         # Folder where rosbags are stored (adjust if needed)
         rosbag_dir = self.bags_dir
         # Regex to match names like "Skidpad 1", "Skidpad 2", etc.
-        pattern = re.compile(rf"^{re.escape(self.mission)}\s+(\d+)$")
+        pattern = re.compile(rf"^{re.escape(self.mission)}\s+(\d+)\s*$")
+
 
         max_num = 0
         for name in os.listdir(rosbag_dir):
