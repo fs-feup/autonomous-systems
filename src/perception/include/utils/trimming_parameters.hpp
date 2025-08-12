@@ -10,6 +10,7 @@ struct TrimmingParameters {
   double lidar_height;    ///< LIDAR current height.
   double lidar_rotation;  ///< LIDAR rotation angle in degrees.
   double lidar_pitch;     ///< LIDAR pitch angle in degrees.
+  double lidar_roll;      ///< LIDAR roll angle in degrees.
   double max_height;      ///< Maximum point cloud height after trimming.
   double min_range;       ///< Maximum point cloud distance after trimming.
 

@@ -53,6 +53,10 @@ protected:
   double cos_pitch_;
   double sin_pitch_;
 
+  double roll_rad_;
+  double cos_roll_;
+  double sin_roll_;
+
   double fov_angle_rad_;
   double min_angle_;
   double max_angle_;

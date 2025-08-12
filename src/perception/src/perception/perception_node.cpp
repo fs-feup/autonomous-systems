@@ -59,7 +59,9 @@ PerceptionParameters Perception::load_config() {
 
   const std::shared_ptr<TrimmingParameters> trim_params = std::make_shared<TrimmingParameters>();
   perception_config["lidar_rotation"].as<double>();
+  trim_params->lidar_rotation = perception_config["lidar_rotation"].as<double>();
   trim_params->lidar_pitch = perception_config["lidar_pitch"].as<double>();
+  trim_params->lidar_roll = perception_config["lidar_roll"].as<double>();
   trim_params->min_range = perception_config["min_range"].as<double>();
   trim_params->max_height = perception_config["max_height"].as<double>();
   trim_params->lidar_height = perception_config["lidar_height"].as<double>();
@@ -272,6 +274,9 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
       filtered_clusters.push_back(cluster);
     }
   }
+
+  // Publish cones
+  this->publish_cones(&filtered_clusters);
 
   // Execution Time calculation
   rclcpp::Time end_time = this->now();

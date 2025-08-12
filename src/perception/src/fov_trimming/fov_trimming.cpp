@@ -5,7 +5,7 @@ FovTrimming::FovTrimming(const std::shared_ptr<TrimmingParameters> params) : par
 void FovTrimming::compute_rotation_constants(double max_range, double fov_trim_angle) {
   height_limit_ = params_->max_height - params_->lidar_height;
   squared_min_range_ = params_->min_range * params_->min_range;
-  squared_max_range_ = params_->max_range * max_range;
+  squared_max_range_ = max_range * max_range;
 
   rot_rad_ = params_->lidar_rotation * M_PI / 180.0;
   cos_rot_ = std::cos(rot_rad_);
@@ -14,6 +14,10 @@ void FovTrimming::compute_rotation_constants(double max_range, double fov_trim_a
   pitch_rad_ = params_->lidar_pitch * M_PI / 180.0;
   cos_pitch_ = std::cos(pitch_rad_);
   sin_pitch_ = std::sin(pitch_rad_);
+
+  roll_rad_ = params_->lidar_roll * M_PI / 180.0;
+  cos_roll_ = std::cos(roll_rad_);
+  sin_roll_ = std::sin(roll_rad_);
 
   fov_angle_rad_ = fov_trim_angle * M_PI / 180.0;
   min_angle_ = -fov_angle_rad_;
@@ -30,10 +34,14 @@ void FovTrimming::process_point(pcl::PointXYZI& point, double& squared_distance,
   double x_pitch = x_rot * cos_pitch_ - point.z * sin_pitch_;
   double z_pitch = x_rot * sin_pitch_ + point.z * cos_pitch_;
 
+  // Apply roll
+  double y_roll = y_rot * cos_roll_ - z_pitch * sin_roll_;
+  double z_roll = y_rot * sin_roll_ + z_pitch * cos_roll_;
+
   // Update the point coordinates in-place
   point.x = x_pitch;
-  point.y = y_rot;
-  point.z = z_pitch;
+  point.y = y_roll;
+  point.z = z_roll;
 
   squared_distance = point.x * point.x + point.y * point.y;
   angle = std::atan2(point.y, point.x);

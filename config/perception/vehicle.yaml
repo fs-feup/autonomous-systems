@@ -7,9 +7,10 @@ perception:
   #FOV trimming
   lidar_height: 1.1
   lidar_rotation: 90.0
-  lidar_pitch: -1.75
+  lidar_pitch: 0.76
+  lidar_roll: 0.4
   min_range: 1.93
-  max_height: 0.55
+  max_height: 0.8
 
     #TRACKDRIVE/AUTOCROSS TRIMMING
   max_range: 21.0
@@ -21,12 +22,12 @@ perception:
   acc_max_y: 4.2
 
     #SKIDPAD TRIMMING
-  skid_max_range: 26.25
+  skid_max_range: 32.0
   skid_fov_trim_angle: 90.0
   
   #Ground Removal
   ground_removal: "grid_ransac"
-  ransac_epsilon: 0.05
+  ransac_epsilon: 0.1
   ransac_iterations: 40
 
     #TRACKDRIVE/AUTOCROSS GROUND REMOVAL
