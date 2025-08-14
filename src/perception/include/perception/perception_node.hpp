@@ -30,6 +30,9 @@
 #include "std_msgs/msg/float64.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
 
+#include "std_srvs/srv/empty.hpp"
+#include "std_srvs/srv/trigger.hpp"
+
 using Mission = common_lib::competition_logic::Mission;
 struct PerceptionParameters {     ///< Struct containing parameters and interfaces used in
                                   ///< perception.
@@ -85,6 +88,10 @@ private:
       _ground_removed_publisher_;  ///< point cloud after ground removal publisher.
   common_lib::structures::Velocities _vehicle_velocity_; // Last received vehicle velocity, used to deskew the point cloud
 
+  rclcpp::TimerBase::SharedPtr lidar_off_timer_;
+  rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr
+      emergency_client_;
+
   /**
    * @brief Publishes information about clusters (cones) using a custom ROS2 message.
    *
@@ -99,6 +106,8 @@ private:
 
 
   void velocities_callback(const custom_interfaces::msg::Velocities& msg);
+
+  void lidar_timer_callback();
 
 public:
   /**
