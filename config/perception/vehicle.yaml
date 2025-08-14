@@ -18,7 +18,7 @@ perception:
     #ACCELERATION TRIMMING
   acc_max_range: 20.25
   acc_fov_trim_angle: 90.0
-  acc_max_y: 4.2
+  acc_max_y: 6
 
     #SKIDPAD TRIMMING
   skid_max_range: 20.25

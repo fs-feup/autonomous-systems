@@ -29,7 +29,7 @@ planning:
   braking_acceleration: -8.0
   normal_acceleration: 4.0
   use_velocity_planning: false  
-  desired_velocity: 2.0
+  desired_velocity: 12.5
 
 # Parameters for EBS Test
 # planning:

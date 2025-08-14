@@ -64,15 +64,14 @@ class Supervisor(Node):
         for node in active_nodes:
             if node[1:] in self.nodes_being_initialized:
                 self.nodes_being_initialized.remove(node[1:])
-
+        current_time = time.time()
         for name in self.node_names_to_watch:
-            if f'/{name}' not in active_nodes and name not in self.nodes_being_initialized:
+            if (f'/{name}' not in active_nodes ) and (name not in self.nodes_being_initialized) and (current_time - self.creation_time > 10):
                 self.get_logger().warn(f'Node "{name}" not found! Restarting...')
                 self.restart_node(name)
 
         # Check if the rosbag process is running for too long
         if self.rosbag_process is not None:
-            current_time = time.time()
             if current_time - self.last_received_master_msg_time > 2:
                 self.get_logger().warn('No master message received for over 2 seconds.')
                 self.stop_rosbag()

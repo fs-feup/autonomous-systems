@@ -38,7 +38,11 @@ double PID::update(double setpoint, double measurement) {
    * Error signal
    */
   double error = calculate_error(setpoint, measurement);
-
+  if (error > 4){
+    error = 4;
+  } else if (error < -2) {
+    error = -2;
+  }
   /*
    * Proportional term
    */
