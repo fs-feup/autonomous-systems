@@ -247,8 +247,9 @@ Perception::Perception(const PerceptionParameters& params)
 void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
   rclcpp::Time time = this->now();
 
-  this->lidar_off_timer_.reset();
+  this->lidar_off_timer_ = this->create_wall_timer(std::chrono::milliseconds(2000), std::bind(&Perception::lidar_timer_callback, this));
 
+  
   // Message Read
   pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   header = (*msg).header;
