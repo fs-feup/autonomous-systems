@@ -8,7 +8,8 @@
  * @details Tests if the particle model updates the velocities correctly
  */
 TEST(CAParticleModelTest, TestUpdateVelocities) {
-  CAParticleModel particle_model;
+  common_lib::car_parameters::CarParameters params;
+  CAParticleModel particle_model(params);
   Eigen::Vector3d velocities(1.0, 2.0, 0.5);
   Eigen::Vector3d accelerations(0.1, 0.2, 0.3);
 
@@ -28,7 +29,8 @@ TEST(CAParticleModelTest, TestUpdateVelocities) {
  * @details Tests if the particle model jacobian is filled out correctly
  */
 TEST(CAParticleModelTest, TestJacobianOfVelocityUpdate) {
-  CAParticleModel particle_model;
+  common_lib::car_parameters::CarParameters params;
+  CAParticleModel particle_model(params);
   Eigen::Vector3d velocities(1.0, 2.0, 0.5);
   Eigen::Vector3d accelerations(0.1, 0.2, 0.3);
 

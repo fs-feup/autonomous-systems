@@ -12,7 +12,8 @@ NoWSSEKF::NoWSSEKF(const VEParameters& params) {
   this->_imu_measurement_noise_matrix_(0, 0) = params.imu_rotational_noise_;
   this->car_parameters_ = params.car_parameters_;
   this->s2v_model = s2v_models_map.at(params._s2v_model_name_)(params.car_parameters_);
-  this->process_model = vel_process_models_map.at(params._process_model_name_)();
+  this->process_model =
+      vel_process_models_map.at(params._process_model_name_)(params.car_parameters_);
 }
 
 void NoWSSEKF::imu_callback(const common_lib::sensor_data::ImuData& imu_data) {

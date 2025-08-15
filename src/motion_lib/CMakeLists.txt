@@ -25,11 +25,13 @@ endif()
 
 set(IMPLEMENTATION_FILES
   src/vel_process_model/particle_model.cpp
+  src/vel_process_model/kinematic_bicycle.cpp
   src/v2p_models/constant_velocity_model.cpp
   src/v2p_models/base_v2p_motion_model.cpp
   src/s2v_model/bicycle_model.cpp
   src/s2v_model/no_rear_wss_bicycle_model.cpp
   src/s2v_model/no_wss_bicycle_model.cpp
+  src/s2v_model/kinematic_bicycle.cpp
   src/v2p_models/constant_velocity_turnrate_model.cpp
 )
 

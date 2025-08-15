@@ -8,3 +8,13 @@ velocity_estimation:
   imu_acceleration_noise: 1.0
   imu_rotational_noise: 0.1
   angular_velocity_process_noise: 0.1
+
+#  estimation_method: "kinematic_bicycle"
+#  s2v_model_name: "kinematic_bicycle"
+#  process_model_name: "kinematic_bicycle"
+#  wheel_speed_noise: 25.0
+#  motor_rpm_noise: 20.0
+#  steering_angle_noise: 0.25
+#  imu_acceleration_noise: 20.0
+#  imu_rotational_noise: 0.01
+#  angular_velocity_process_noise: 10.0

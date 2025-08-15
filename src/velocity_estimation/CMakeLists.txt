@@ -43,6 +43,7 @@ set(IMPLEMENTATION_FILES
   src/estimators/ekf.cpp
   src/estimators/no_rear_wss_ekf.cpp
   src/estimators/no_wss_ekf.cpp
+  src/estimators/kinematic_bicycle_ekf.cpp
   src/config/parameters.cpp
 )
 

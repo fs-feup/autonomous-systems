@@ -3,13 +3,19 @@
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
 
+#include "common_lib/car_parameters/car_parameters.hpp"
+
 /**
  * @brief Base class for velocity process models, used to predict the next velocities
  * based on previous velocities and accelerations.
  */
 class BaseVelocityProcessModel {
+protected:
+  std::shared_ptr<common_lib::car_parameters::CarParameters> _params_;
+
 public:
-  BaseVelocityProcessModel() = default;
+  BaseVelocityProcessModel(const common_lib::car_parameters::CarParameters& params)
+      : _params_(std::make_shared<common_lib::car_parameters::CarParameters>(params)) {}
 
   /**
    * @brief Returns the next velocities based on the previous velocities and accelerations.

@@ -5,6 +5,7 @@
 #include <string>
 
 #include "estimators/ekf.hpp"
+#include "estimators/kinematic_bicycle_ekf.hpp"
 #include "estimators/no_rear_wss_ekf.hpp"
 #include "estimators/no_wss_ekf.hpp"
 
@@ -27,4 +28,6 @@ const std::map<std::string, std::function<std::shared_ptr<VelocityEstimator>(con
          [](const VEParameters& params) -> std::shared_ptr<VelocityEstimator> {
            return std::make_shared<NoWSSEKF>(params);
          }},
-};
+        {"kinematic_bicycle", [](const VEParameters& params) -> std::shared_ptr<VelocityEstimator> {
+           return std::make_shared<KinematicEKF>(params);
+         }}};
