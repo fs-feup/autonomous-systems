@@ -133,7 +133,7 @@ bool GraphSLAMInstance::process_pose_difference(const Eigen::Vector3d& pose_diff
   }
 
   gtsam::Pose2 new_pose_gtsam = eigen_to_gtsam_pose(new_pose);
-  gtsam::Pose2 pose_difference_gtsam = eigen_to_gtsam_pose(_accumulated_pose_difference_);
+  gtsam::Pose2 pose_difference_gtsam = this->get_pose().between(new_pose_gtsam);
 
   // Calculate noise
   // // TODO: Implement noise -> this was shit because covariance from velocity estimation had too
