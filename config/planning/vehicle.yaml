@@ -7,8 +7,8 @@ planning:
   nc_angle_exponent: 2.0
   nc_distance_exponent: 1.0
   nc_max_cost: 70.0
-  nc_lookback_points: 2
-  nc_search_depth: 5
+  nc_lookback_points: 5
+  nc_search_depth: 4
   nc_max_points: 100
   nc_tolerance: 1
   nc_reset_global_path: 1000
