@@ -114,7 +114,7 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
     RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Shared mutex accessed");
     const std::shared_lock lock(this->_mutex_);
     // Reduce error associated to accumulated pose difference by creating new factor
-    if (this->_graph_slam_instance_.new_pose_factors()) {
+    if (this->_graph_slam_instance_.new_pose_factors() && !_is_stopped_at_beginning_) {
       this->_graph_slam_instance_.process_pose_difference(
           Eigen::Vector3d::Zero(), this->_pose_updater_.get_last_pose(), true);
     }
@@ -242,7 +242,8 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Mutex unlocked - Factors added");
 
   // Optimize the graph
-  if (this->_params_.slam_optimization_mode_ == "sync") {  // If optimization is synchronous
+  if (this->_params_.slam_optimization_mode_ == "sync" &&
+      !_is_stopped_at_beginning_) {  // If optimization is synchronous
     RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Mutex locked - optimizing graph");
     std::unique_lock uniq_lock(this->_mutex_);
     this->_graph_slam_instance_.optimize();
