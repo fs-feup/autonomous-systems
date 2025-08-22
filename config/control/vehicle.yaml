@@ -1,6 +1,6 @@
 control:
   lookahead_gain: 0.5
-  lookahead_minimum: 4.0  # Acceleration: 6.0 , Skidpad: 4.0 , Autocross: 4.0 , Trackdrive: 4.0
+  lookahead_minimum: 6.0  # Acceleration: 6.0 , Skidpad: 4.0 , Autocross: 4.0 , Trackdrive: 4.0
   pid_kp: 0.07
   pid_ki: 0.0025
   first_last_max_dist: 1.0 # Maximum distance between first and last point in the path to consider it a closed track

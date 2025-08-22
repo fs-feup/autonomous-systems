@@ -3,7 +3,7 @@ slam:
   landmark_filter_name: "consecutive_count" # "consecutive_count" or other names of filters of perception data
   data_association_model_name: "nearest_neighbor" # "maximum_likelihood_md" or "maximum_likelihood_nll" or "nearest_neighbor" or... -> name of the data association model
   data_association_limit_distance: 70 # maximum distance to consider a cone for data association
-  data_association_gate: 1.5 # Maximum allowed Malahanobis distance (or euclidean distance for nearest neighbor) between an observation and matched landmark
+  data_association_gate: 0.8 # Maximum allowed Malahanobis distance (or euclidean distance for nearest neighbor) between an observation and matched landmark
   new_landmark_confidence_gate: 0.6 # Minimum confidence to consider an observation as a new landmark in data asociation
   observation_x_noise: 0.2 # sigma of the noise for cone positions in x
   observation_y_noise: 0.2 # sigma of the noise for cone positions in y
