@@ -135,8 +135,8 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   for (int i = 0; i < associations.size(); i++) {
     associations_str += std::to_string(associations(i)) + ", ";
   }
-  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Associations: %s",
-               associations_str.c_str());
+  RCLCPP_INFO(rclcpp::get_logger("slam"), "add_observations - Associations: %s",
+              associations_str.c_str());
   this->_associations_ = associations;
   this->_observations_global_ = observations_global;
   this->_map_coordinates_ = state.segment(3, state.size() - 3);
@@ -165,12 +165,12 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
     filtered_observations_str += "(" + std::to_string(filtered_new_observations(i * 2)) + ", " +
                                  std::to_string(filtered_new_observations(i * 2 + 1)) + "), ";
   }
-  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Filtered observations: %s",
-               filtered_observations_str.c_str());
+  RCLCPP_INFO(rclcpp::get_logger("slam"), "add_observations - Filtered observations: %s",
+              filtered_observations_str.c_str());
 
   if (!this->_graph_slam_instance_.new_pose_factors() && !this->_is_stopped_at_beginning_) {
-    RCLCPP_DEBUG(rclcpp::get_logger("slam"),
-                 "add_observations - No new pose factors, skipping observations");
+    RCLCPP_INFO(rclcpp::get_logger("slam"),
+                "add_observations - No new pose factors, skipping observations");
     return;
   }
 
@@ -202,8 +202,8 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   for (int i = 0; i < associations.size(); i++) {
     filtered_associations_str += std::to_string(associations(i)) + ", ";
   }
-  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Filtered associations: %s",
-               filtered_associations_str.c_str());
+  RCLCPP_INFO(rclcpp::get_logger("slam"), "add_observations - Filtered associations: %s",
+              filtered_associations_str.c_str());
 
   Eigen::Vector3d pose;
   pose << state(0), state(1), state(2);
