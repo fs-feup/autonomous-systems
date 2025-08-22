@@ -12,7 +12,7 @@ perception:
   max_height: 0.7
 
     #TRACKDRIVE/AUTOCROSS TRIMMING
-  max_range: 21.0
+  max_range: 27.0
   fov_trim_angle: 90.0
 
     #ACCELERATION TRIMMING

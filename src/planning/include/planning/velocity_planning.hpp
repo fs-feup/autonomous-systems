@@ -64,7 +64,7 @@ public:
 
   void stop(std::vector<PathPoint> &final_path) {
     int size = final_path.size();
-    for (int i = 0; i < size/2; ++i) {
+    for (int i = 6; i < size/2; ++i) {
       final_path[i].ideal_velocity = 0.0;
     }
   }
