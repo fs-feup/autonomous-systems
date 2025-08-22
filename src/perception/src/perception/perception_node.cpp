@@ -355,16 +355,3 @@ void Perception::velocities_callback(const custom_interfaces::msg::Velocities& m
   this->_vehicle_velocity_ =
       common_lib::structures::Velocities(msg.velocity_x, msg.velocity_y, msg.angular_velocity);
 }
-
-void Perception::lidar_timer_callback(){
-  emergency_client_->async_send_request(
-      std::make_shared<std_srvs::srv::Trigger::Request>(),
-      [this](rclcpp::Client<std_srvs::srv::Trigger>::SharedFuture future) {
-        if (future.get()->success) {
-          RCLCPP_WARN(this->get_logger(), "Emergency signal sent");
-        } else {
-          RCLCPP_ERROR(this->get_logger(), "Failed to send emergency signal");
-        }
-      });
-  return;
-}
