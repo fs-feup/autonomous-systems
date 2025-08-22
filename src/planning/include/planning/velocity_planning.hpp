@@ -64,8 +64,12 @@ public:
 
   void stop(std::vector<PathPoint> &final_path) {
     int size = final_path.size();
+    double dist = 0.0;
     for (int i = 0; i < size/2; ++i) {
-      final_path[i].ideal_velocity = 0.0;
+      dist += final_path[i].position.euclidean_distance(final_path[i + 1].position);
+      if(dist > 15){
+        final_path[i].ideal_velocity = 0.0;
+      }
     }
   }
 };

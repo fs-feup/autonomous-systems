@@ -26,7 +26,7 @@ perception:
   
   #Ground Removal
   ground_removal: "grid_ransac"
-  ransac_epsilon: 0.05
+  ransac_epsilon: 0.10
   ransac_iterations: 40
 
     #TRACKDRIVE/AUTOCROSS GROUND REMOVAL
@@ -44,7 +44,7 @@ perception:
 
   #Clustering
   clustering_n_neighbours: 1
-  clustering_epsilon: 0.4
+  clustering_epsilon: 0.25
 
   #Evaluator
   min_height: 0.15

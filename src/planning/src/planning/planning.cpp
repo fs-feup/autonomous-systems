@@ -220,12 +220,11 @@ void Planning::run_planning_algorithms() {
       break;
 
     case common_lib::competition_logic::Mission::AUTOCROSS:
-
       triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
       final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
-                                               this->initial_car_orientation_);
+                                                this->initial_car_orientation_);
       global_path_ = path_calculation_.get_global_path();
-
+      velocity_planning_.set_velocity(final_path);
       if (this->lap_counter_ >= 1) {
         velocity_planning_.stop(final_path);
       } else {
