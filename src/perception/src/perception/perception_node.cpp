@@ -71,6 +71,7 @@ PerceptionParameters Perception::load_config() {
   trim_params->split_params.n_angular_grids = perception_config["n_angular_grids"].as<int>();
   trim_params->split_params.radius_resolution = perception_config["radius_resolution"].as<double>();
   trim_params->split_params.fov_angle = 2 * trim_params->fov_trim_angle;
+  trim_params->split_params.max_distance = trim_params->max_range;
 
   trim_params->acc_max_range = perception_config["acc_max_range"].as<double>();
   trim_params->acc_fov_trim_angle = perception_config["acc_fov_trim_angle"].as<double>();
@@ -80,6 +81,7 @@ PerceptionParameters Perception::load_config() {
   trim_params->acc_split_params.radius_resolution =
       perception_config["acc_radius_resolution"].as<double>();
   trim_params->acc_split_params.fov_angle = 2 * trim_params->acc_fov_trim_angle;
+  trim_params->acc_split_params.max_distance = trim_params->acc_max_range;
 
   trim_params->skid_max_range = perception_config["skid_max_range"].as<double>();
   trim_params->skid_fov_trim_angle = perception_config["skid_fov_trim_angle"].as<double>();
@@ -88,6 +90,7 @@ PerceptionParameters Perception::load_config() {
   trim_params->skid_split_params.radius_resolution =
       perception_config["skid_radius_resolution"].as<double>();
   trim_params->skid_split_params.fov_angle = 2 * trim_params->skid_fov_trim_angle;
+  trim_params->skid_split_params.max_distance = trim_params->skid_max_range;
 
   auto acceleration_trimming = std::make_shared<AccelerationTrimming>(trim_params);
   auto skidpad_trimming = std::make_shared<SkidpadTrimming>(trim_params);
@@ -246,25 +249,31 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   header = (*msg).header;
   pcl::fromROSMsg(*msg, *pcl_cloud);
+  rclcpp::Time message_time = this->now();
 
   // Pass-trough Filter (trim Pcl)
   const SplitParameters split_params = _fov_trim_map_->at(_mission_type_)->fov_trimming(pcl_cloud);
+  rclcpp::Time trim_time = this->now();
 
   // Ground Removal
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   _ground_removal_->ground_removal(pcl_cloud, ground_removed_cloud, _ground_plane_, split_params);
+  rclcpp::Time ground_time = this->now();
 
   this->_deskew_->deskew_point_cloud(ground_removed_cloud, this->_vehicle_velocity_);
+  rclcpp::Time deskew_time = this->now();
 
   // Debugging utils -> Useful to check the ground removed point cloud
   sensor_msgs::msg::PointCloud2 ground_removed_msg;
   pcl::toROSMsg(*ground_removed_cloud, ground_removed_msg);
   ground_removed_msg.header.frame_id = _vehicle_frame_id_;
   this->_ground_removed_publisher_->publish(ground_removed_msg);
+  rclcpp::Time ground_pub_time = this->now();
 
   // Clustering
   std::vector<Cluster> clusters;
   _clustering_->clustering(ground_removed_cloud, &clusters);
+  rclcpp::Time clustering_time = this->now();
 
   // Filtering
   std::vector<Cluster> filtered_clusters;
@@ -274,6 +283,7 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
       filtered_clusters.push_back(cluster);
     }
   }
+  rclcpp::Time validation_time = this->now();
 
   // Publish cones
   this->publish_cones(&filtered_clusters);
@@ -293,6 +303,18 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Clustering: %ld clusters", clusters.size());
   RCLCPP_INFO(this->get_logger(), "Point Cloud after Validations: %ld clusters",
               filtered_clusters.size());
+  RCLCPP_DEBUG(this->get_logger(), "Message read time %2f", (message_time - time).seconds() * 1000);
+  RCLCPP_DEBUG(this->get_logger(), "FOV Trimming time %2f",
+               (trim_time - message_time).seconds() * 1000);
+  RCLCPP_DEBUG(this->get_logger(), "Ground Removal time %2f",
+               (ground_time - trim_time).seconds() * 1000);
+  RCLCPP_DEBUG(this->get_logger(), "Deskew Time %2f", (deskew_time - ground_time).seconds() * 1000);
+  RCLCPP_DEBUG(this->get_logger(), "Ground Removal pub time %2f",
+               (ground_pub_time - deskew_time).seconds() * 1000);
+  RCLCPP_DEBUG(this->get_logger(), "Clustering time %2f",
+               (clustering_time - deskew_time).seconds() * 1000);
+  RCLCPP_DEBUG(this->get_logger(), "Validation time %2f",
+               (validation_time - clustering_time).seconds() * 1000);
   RCLCPP_INFO(this->get_logger(), "Perception Execution Time: %.2f ms",
               perception_execution_time.data);
 }

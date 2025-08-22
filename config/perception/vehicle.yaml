@@ -14,10 +14,10 @@ perception:
 
     #TRACKDRIVE/AUTOCROSS TRIMMING
   max_range: 21.0
-  fov_trim_angle: 90.0
+  fov_trim_angle: 80.0
 
     #ACCELERATION TRIMMING
-  acc_max_range: 20.25
+  acc_max_range: 27.0
   acc_fov_trim_angle: 90.0
   acc_max_y: 4.2
 
@@ -36,7 +36,7 @@ perception:
 
     #ACCELERATION GROUND REMOVAL
   acc_n_angular_grids: 2
-  acc_radius_resolution: 7.5
+  acc_radius_resolution: 9.0
 
     #SKIDPAD GROUND REMOVAL
   skid_n_angular_grids: 2
@@ -45,7 +45,7 @@ perception:
 
   #Clustering
   clustering_n_neighbours: 1
-  clustering_epsilon: 0.4
+  clustering_epsilon: 0.15
 
   #Evaluator
   min_height: 0.15
