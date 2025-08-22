@@ -3,7 +3,7 @@ import os
 # Circle parameters
 centerX = 15.0
 centerY = 9.125
-radius = 8.8
+radius = 8.7
 numPoints = 100  # Number of points to describe the circle
 
 entryspeed = 2.5

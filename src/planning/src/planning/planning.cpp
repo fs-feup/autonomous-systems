@@ -201,7 +201,7 @@ void Planning::run_planning_algorithms() {
       {
         double dist_from_origin = sqrt(this->pose.position.x * this->pose.position.x +
                                        this->pose.position.y * this->pose.position.y);
-        if (dist_from_origin > 80.0) {
+        if (dist_from_origin > 90.0) {
            if (!braking_) {
             this->braking_ = true;
             this->brake_time_ = std::chrono::steady_clock::now();
