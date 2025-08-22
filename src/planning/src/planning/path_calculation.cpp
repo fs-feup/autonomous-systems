@@ -397,9 +397,9 @@ PathCalculation::find_path_start_points(const std::vector<std::shared_ptr<MidPoi
                                         const common_lib::structures::Pose& anchor_pose) {
   std::pair<MidPoint*, MidPoint*> result{nullptr, nullptr};
 
-  auto cmp = [](const std::pair<double, MidPoint*>& distance_to_midpoint1,
-                const std::pair<double, MidPoint*>& distance_to_midpoint2) {
-    return distance_to_midpoint1.first > distance_to_midpoint2.first;
+  auto cmp = [](const std::pair<double, MidPoint*>& cost1,
+                const std::pair<double, MidPoint*>& cost2) {
+    return cost1.first > cost2.first;
   };
   std::priority_queue<std::pair<double, MidPoint*>, std::vector<std::pair<double, MidPoint*>>,
                       decltype(cmp)>
@@ -418,18 +418,23 @@ PathCalculation::find_path_start_points(const std::vector<std::shared_ptr<MidPoi
       continue;
     }
     double dist = std::sqrt(std::pow(dx, 2) + std::pow(dy, 2));
-    pq.push({dist, p.get()});
+    double angle = std::atan2(p->point.y() - anchor_midpoint.point.y(),
+                                            p->point.x() - anchor_midpoint.point.x());
+    double cost =
+        std::pow(angle, this->config_.angle_exponent_) * this->config_.angle_gain_ +
+        std::pow(dist, this->config_.distance_exponent_) * this->config_.distance_gain_;
+    pq.push({cost, p.get()});
   }
 
   // Get the closest midpoints in front of the car
   std::vector<MidPoint*> candidate_points;
   int count = 0;
-  while (count < 6 && !pq.empty()) {
+  while (count < 8 && !pq.empty()) {
     candidate_points.push_back(pq.top().second);
     pq.pop();
     count++;
   }
-
+  
   // Set the anchor point's connections to these candidates
   anchor_midpoint.close_points.clear();
   anchor_midpoint.close_points.reserve(candidate_points.size());

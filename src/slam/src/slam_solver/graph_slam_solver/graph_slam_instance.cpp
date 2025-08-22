@@ -133,7 +133,7 @@ bool GraphSLAMInstance::process_pose_difference(const Eigen::Vector3d& pose_diff
   }
 
   gtsam::Pose2 new_pose_gtsam = eigen_to_gtsam_pose(new_pose);
-  gtsam::Pose2 pose_difference_gtsam = eigen_to_gtsam_pose(_accumulated_pose_difference_);
+  gtsam::Pose2 pose_difference_gtsam = this->get_pose().between(new_pose_gtsam);
 
   // Calculate noise
   // // TODO: Implement noise -> this was shit because covariance from velocity estimation had too
@@ -160,6 +160,9 @@ bool GraphSLAMInstance::process_pose_difference(const Eigen::Vector3d& pose_diff
 
   this->_factor_graph_.add(gtsam::BetweenFactor<gtsam::Pose2>(previous_pose_symbol, new_pose_symbol,
                                                               pose_difference_gtsam, prior_noise));
+  RCLCPP_INFO(rclcpp::get_logger("slam"), "NEW FACTOR: x%d, x%d: diff: (%f, %f, %f)",
+              previous_pose_symbol.index(), new_pose_symbol.index(), pose_difference_gtsam.x(),
+              pose_difference_gtsam.y(), pose_difference_gtsam.theta());
 
   // Add the prior pose to the values
   _graph_values_.insert(new_pose_symbol, new_pose_gtsam);
@@ -205,6 +208,9 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
     this->_factor_graph_.add(gtsam::BearingRangeFactor<gtsam::Pose2, gtsam::Point2>(
         gtsam::Symbol('x', this->_pose_counter_), landmark_symbol, observation_rotation,
         observation_cylindrical(0), observation_noise));
+    RCLCPP_INFO(rclcpp::get_logger("slam"), "NEW FACTOR: x%d, l%d: Observation: (%f, %f)",
+                this->_pose_counter_, landmark_symbol.index(), observations[i * 2],
+                observations[i * 2 + 1]);
   }
   this->_new_pose_node_ = !new_observation_factors;
   this->_new_observation_factors_ = new_observation_factors;

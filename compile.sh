@@ -11,4 +11,4 @@ echo "Sourcing workspace..."
 source install/setup.bash
 
 echo "Building selected packages with -j2 parallelism..."
-MAKEFLAGS=-j2 colcon build --packages-up-to perception slam velocity_estimation planning control
+MAKEFLAGS=-j2 colcon build --packages-up-to perception slam velocity_estimation planning control launcher

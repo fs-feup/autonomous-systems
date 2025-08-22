@@ -10,7 +10,7 @@ perception:
   lidar_pitch: 0.76
   lidar_roll: 0.4
   min_range: 1.93
-  max_height: 0.8
+  max_height: 0.7
 
     #TRACKDRIVE/AUTOCROSS TRIMMING
   max_range: 21.0
@@ -19,7 +19,7 @@ perception:
     #ACCELERATION TRIMMING
   acc_max_range: 27.0
   acc_fov_trim_angle: 90.0
-  acc_max_y: 4.2
+  acc_max_y: 3.5
 
     #SKIDPAD TRIMMING
   skid_max_range: 32.0
@@ -27,7 +27,7 @@ perception:
   
   #Ground Removal
   ground_removal: "grid_ransac"
-  ransac_epsilon: 0.1
+  ransac_epsilon: 0.10
   ransac_iterations: 40
 
     #TRACKDRIVE/AUTOCROSS GROUND REMOVAL
@@ -45,7 +45,7 @@ perception:
 
   #Clustering
   clustering_n_neighbours: 1
-  clustering_epsilon: 0.15
+  clustering_epsilon: 0.25
 
   #Evaluator
   min_height: 0.15

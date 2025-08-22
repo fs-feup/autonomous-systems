@@ -82,6 +82,9 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
   this->_lap_counter_publisher_ =
       this->create_publisher<std_msgs::msg::Float64>("/state_estimation/lap_counter", 10);
 
+  this->_perception_delta_publisher_ =
+      this->create_publisher<std_msgs::msg::Float64>("/perception_delta", 10);
+
   this->_tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
 
   RCLCPP_INFO(this->get_logger(), "SLAM Node has been initialized");
@@ -104,6 +107,18 @@ void SLAMNode::_perception_subscription_callback(const custom_interfaces::msg::C
   }
 
   rclcpp::Time start_time = this->get_clock()->now();
+  rclcpp::Time current_stamp(msg.header.stamp);
+  if (_last_perception_message_time_.nanoseconds() != 0) {
+    double delta_ms = (current_stamp - _last_perception_message_time_).seconds() * 1000.0;
+    RCLCPP_INFO(rclcpp::get_logger("slam"), "Perception Delta: %f", delta_ms);
+
+    std_msgs::msg::Float64 msg;
+    msg.data = delta_ms;
+    _perception_delta_publisher_->publish(msg);
+  }
+
+  // Update last timestamp
+  _last_perception_message_time_ = current_stamp;
 
   this->_perception_map_.clear();
   std::string observations = "";
@@ -169,10 +184,10 @@ void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::V
   if (this->_mission_ == common_lib::competition_logic::Mission::NONE) {
     return;
   }
-  //RCLCPP_INFO(this->get_logger(),
-  //            "=============================== \n SUB - Velocities: (%f, %f, %f), timestamp: %f",
-  //            msg.velocity_x, msg.velocity_y, msg.angular_velocity,
-  //            msg.header.stamp.sec + msg.header.stamp.nanosec * 1e-9);
+  RCLCPP_INFO(this->get_logger(),
+              "=============================== \n SUB - Velocities: (%f, %f, %f), timestamp: %f",
+              msg.velocity_x, msg.velocity_y, msg.angular_velocity,
+              msg.header.stamp.sec + msg.header.stamp.nanosec * 1e-9);
   rclcpp::Time start_time = this->get_clock()->now();
   rclcpp::Time time1, time2, time3, time4, time5, time6;
 
@@ -180,19 +195,18 @@ void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::V
       msg.velocity_x, msg.velocity_y, msg.angular_velocity, msg.covariance[0], msg.covariance[4],
       msg.covariance[8], msg.header.stamp);
   time2 = this->get_clock()->now();
-  //RCLCPP_DEBUG(this->get_logger(), "SUB - Velocities: (%f, %f, %f)", msg.velocity_x, msg.velocity_y,
-  //             msg.angular_velocity);
+  RCLCPP_INFO(this->get_logger(), "SUB - Velocities: (%f, %f, %f)", msg.velocity_x, msg.velocity_y,
+              msg.angular_velocity);
 
   this->_slam_solver_->add_motion_prior(this->_vehicle_state_velocities_);
   time3 = this->get_clock()->now();
   this->_vehicle_pose_ = this->_slam_solver_->get_pose_estimate();
-  // RCLCPP_INFO(this->get_logger(), "Velocity - Vehicle pose: (%f, %f, %f)",
-  //             this->_vehicle_pose_.position.x, this->_vehicle_pose_.position.y,
-  //             this->_vehicle_pose_.orientation);
+  RCLCPP_INFO(this->get_logger(), "Velocity - Vehicle pose: (%f, %f, %f)",
+              this->_vehicle_pose_.position.x, this->_vehicle_pose_.position.y,
+              this->_vehicle_pose_.orientation);
   time4 = this->get_clock()->now();
   this->_track_map_ = this->_slam_solver_->get_map_estimate();
   time5 = this->get_clock()->now();
-  //RCLCPP_INFO(this->get_logger(), "Velocity - Track map: %s", mapa.c_str());
 
   // this->_publish_covariance(); // TODO: get covariance to work fast
   this->_publish_vehicle_pose();
@@ -221,7 +235,7 @@ void SLAMNode::_publish_vehicle_pose() {
   // TODO(marhcouto): add covariance
   message.header.stamp = this->get_clock()->now();
 
-  RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f)", message.x, message.y, message.theta);
+  RCLCPP_INFO(this->get_logger(), "PUB - Pose: (%f, %f, %f)", message.x, message.y, message.theta);
   this->_vehicle_pose_publisher_->publish(message);
 
   // Publish the transform
@@ -245,8 +259,8 @@ void SLAMNode::_publish_map() {
   auto cone_array_msg = custom_interfaces::msg::ConeArray();
   auto marker_array_msg = visualization_msgs::msg::MarkerArray();
   auto marker_array_msg_perception = visualization_msgs::msg::MarkerArray();
-  RCLCPP_DEBUG(this->get_logger(), "PUB - cone map %ld", this->_track_map_.size());
-  // RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
+  RCLCPP_INFO(this->get_logger(), "PUB - cone map %ld", this->_track_map_.size());
+  RCLCPP_INFO(this->get_logger(), "--------------------------------------");
   for (common_lib::structures::Cone const &cone : this->_track_map_) {
     auto cone_message = custom_interfaces::msg::Cone();
     cone_message.position.x = cone.position.x;
