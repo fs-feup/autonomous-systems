@@ -104,6 +104,12 @@ void SLAMNode::_perception_subscription_callback(const custom_interfaces::msg::C
   }
 
   rclcpp::Time start_time = this->get_clock()->now();
+  if (this->_last_perception_message_time_ != rclcpp::Time(0)) {
+    std_msgs::msg::Float64 msg;
+    msg.data = (this->_last_perception_message_time_ - start_time).seconds() * 1000.0;
+    this->_perception_delta_publisher_->publish(msg);
+  }
+  this->_last_perception_message_time_ = start_time;
 
   this->_perception_map_.clear();
   std::string observations = "";

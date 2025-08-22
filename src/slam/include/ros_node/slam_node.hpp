@@ -44,6 +44,8 @@ protected:
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr _execution_time_publisher_;
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr _covariance_publisher_;
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _lap_counter_publisher_;
+  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _perception_delta_publisher_;
+  rclcpp::Time _last_perception_message_time_ = rclcpp::Time(0);
 
   std::shared_ptr<tf2_ros::TransformBroadcaster> _tf_broadcaster_;
   rclcpp::TimerBase::SharedPtr _timer_;      /**< timer */
