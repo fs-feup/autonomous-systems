@@ -7,6 +7,36 @@ track:
     position: [0.0, 0.0, 0.0]
     orientation: [0.0, 0.0, 0.0]
   unknown:
+  - position: [-3.932941786010416, -2.0436352666004924, 0.0]
+    class: unknown
+  - position: [-5.072080214319033, 1.2535919107821611, 0.0]
+    class: unknown
+  - position: [-0.5722046181447417, -1.3587974076191134, 0.0]
+    class: unknown
+  - position: [-1.0530786978574391, 1.913300994600631, 0.0]
+    class: unknown
+  - position: [5.076833724975586, -1.4492740631103516, 0.0]
+    class: unknown
+  - position: [1.6377781629562378, 1.987723469734192, 0.0]
+    class: unknown
+  - position: [12.790818214416504, 1.757738471031189, 0.0]
+    class: unknown
+  - position: [5.128137111663818, 2.010254144668579, 0.0]
+    class: unknown
+  - position: [12.800914764404297, -1.7448102235794067, 0.0]
+    class: unknown
+  - position: [16.977638244628906, 1.7025628089904785, 0.0]
+    class: unknown
+  - position: [17.379533767700195, -1.7349836826324463, 0.0]
+    class: unknown
+  - position: [8.054586410522461, 1.8665956258773804, 0.0]
+    class: unknown
+  - position: [7.704288959503174, 1.9294309616088867, 0.0]
+    class: unknown
+  - position: [7.400172710418701, -1.576185703277588, 0.0]
+    class: unknown
+  - position: [2.10587, -1.63374, 0.0]
+    class: unknown
   - position: [21.389288006241067, 1.6259677215598272, 0.0]
     class: unknown
   - position: [21.67373532803474, -1.8342692908291565, 0.0]
@@ -370,34 +400,4 @@ track:
   - position: [-6.901599357884838, -3.254962737017922, 0.0]
     class: unknown
   - position: [-9.048161831977438, -0.5171521389053673, 0.0]
-    class: unknown
-  - position: [-3.932941786010416, -2.0436352666004924, 0.0]
-    class: unknown
-  - position: [-5.072080214319033, 1.2535919107821611, 0.0]
-    class: unknown
-  - position: [-0.5722046181447417, -1.3587974076191134, 0.0]
-    class: unknown
-  - position: [-1.0530786978574391, 1.913300994600631, 0.0]
-    class: unknown
-  - position: [5.076833724975586, -1.4492740631103516, 0.0]
-    class: unknown
-  - position: [1.6377781629562378, 1.987723469734192, 0.0]
-    class: unknown
-  - position: [12.790818214416504, 1.757738471031189, 0.0]
-    class: unknown
-  - position: [5.128137111663818, 2.010254144668579, 0.0]
-    class: unknown
-  - position: [12.800914764404297, -1.7448102235794067, 0.0]
-    class: unknown
-  - position: [16.977638244628906, 1.7025628089904785, 0.0]
-    class: unknown
-  - position: [17.379533767700195, -1.7349836826324463, 0.0]
-    class: unknown
-  - position: [8.054586410522461, 1.8665956258773804, 0.0]
-    class: unknown
-  - position: [7.704288959503174, 1.9294309616088867, 0.0]
-    class: unknown
-  - position: [7.400172710418701, -1.576185703277588, 0.0]
-    class: unknown
-  - position: [2.10587, -1.63374, 0.0]
     class: unknown
