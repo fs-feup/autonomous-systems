@@ -184,7 +184,9 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   if (this->_mission_ != common_lib::competition_logic::Mission::NONE &&
       !(this->_params_.using_preloaded_map_ &&
         (this->_mission_ == common_lib::competition_logic::Mission::SKIDPAD ||
-         this->_mission_ == common_lib::competition_logic::Mission::ACCELERATION)) &&
+         this->_mission_ == common_lib::competition_logic::Mission::ACCELERATION ||
+         this->_mission_ == common_lib::competition_logic::Mission::AUTOCROSS ||
+         this->_mission_ == common_lib::competition_logic::Mission::TRACKDRIVE)) &&
       lap_counter_ == 0) {
     // Set the associations to -1 for the filtered observations
     for (int i = 0; i < filtered_new_observations.size() / 2; i++) {
