@@ -44,15 +44,15 @@ perception:
 
   #Clustering
   clustering_n_neighbours: 1
-  clustering_epsilon: 0.25
+  clustering_epsilon: 0.55
 
   #Evaluator
-  min_height: 0.15
-  large_max_height: 0.3
+  min_height: 0.26
+  large_max_height: 0.42
   small_max_height: 0.42
   height_cap: 0.5
   min_xoy: 0.0
-  max_xoy: 0.3
+  max_xoy: 0.1
   min_z: 0.00001
   max_z: 0.6
   min_z_score_x: -100000000.0
@@ -67,15 +67,15 @@ perception:
   min_confidence: 0.850
   height_out_weight: 12.0
   height_in_weight: 5.0
-  cylinder_radius_weight: 40.0
+  cylinder_radius_weight: 35.0
   cylinder_height_weight: 8.0
-  cylinder_npoints_weight: 10.0
+  cylinder_npoints_weight: 20.0
   npoints_weight: 11.0
   displacement_x_weight: 7.0
   displacement_y_weight: 8.0
   displacement_z_weight: 10.5
-  deviation_xoy_weight: 10.0
-  deviation_z_weight: 10.0
+  deviation_xoy_weight: 5.0
+  deviation_z_weight: 5.0
 
   #ICP
   target_file: "cone.pcd"
