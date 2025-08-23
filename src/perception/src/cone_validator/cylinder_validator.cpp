@@ -8,13 +8,9 @@ CylinderValidator::CylinderValidator(double small_width, double small_height, do
       large_height(large_height),
       out_distance_cap(out_distance_cap) {}
 
-double CylinderValidator::small_getRadius() const {
-  return std::sqrt(2 * small_width * small_width) / 2;
-}
+double CylinderValidator::small_getRadius() const { return small_width / 2; }
 
-double CylinderValidator::large_getRadius() const {
-  return std::sqrt(2 * large_width * large_width) / 2;
-}
+double CylinderValidator::large_getRadius() const { return large_width / 2; }
 
 std::vector<double> CylinderValidator::coneValidator(Cluster* cone_point_cloud,
                                                      [[maybe_unused]] Plane& plane) const {

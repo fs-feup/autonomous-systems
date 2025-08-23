@@ -152,7 +152,7 @@ PerceptionParameters Perception::load_config() {
   eval_params->height_validator =
       std::make_shared<HeightValidator>(min_height, large_max_height, small_max_height, height_cap);
   eval_params->cylinder_validator =
-      std::make_shared<CylinderValidator>(0.24, 0.35, 0.24, 0.35, out_distance_cap);
+      std::make_shared<CylinderValidator>(0.18, 0.320, 0.24, 0.35, out_distance_cap);
   eval_params->deviation_validator =
       std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z);
   eval_params->displacement_validator =
@@ -230,15 +230,15 @@ Perception::Perception(const PerceptionParameters& params)
   }
 
   this->_velocities_subscription_ = this->create_subscription<custom_interfaces::msg::Velocities>(
-    "/state_estimation/velocities",
-    rclcpp::QoS(10),  std::bind(&Perception::velocities_callback, this, std::placeholders::_1));
+      "/state_estimation/velocities", rclcpp::QoS(10),
+      std::bind(&Perception::velocities_callback, this, std::placeholders::_1));
   this->_cone_marker_array_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
       "/perception/visualization/cones", 10);
 
-  this->lidar_off_timer_ = this->create_wall_timer(std::chrono::milliseconds(2000), std::bind(&Perception::lidar_timer_callback, this));
+  this->lidar_off_timer_ = this->create_wall_timer(
+      std::chrono::milliseconds(2000), std::bind(&Perception::lidar_timer_callback, this));
 
   emergency_client_ = this->create_client<std_srvs::srv::Trigger>("/as_srv/emergency");
-
 
   RCLCPP_INFO(this->get_logger(), "Perception Node created with adapter: %s",
               params.adapter_.c_str());
@@ -247,9 +247,9 @@ Perception::Perception(const PerceptionParameters& params)
 void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
   rclcpp::Time time = this->now();
 
-  this->lidar_off_timer_ = this->create_wall_timer(std::chrono::milliseconds(2000), std::bind(&Perception::lidar_timer_callback, this));
+  this->lidar_off_timer_ = this->create_wall_timer(
+      std::chrono::milliseconds(2000), std::bind(&Perception::lidar_timer_callback, this));
 
-  
   // Message Read
   pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   header = (*msg).header;
@@ -285,7 +285,6 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
       filtered_clusters.push_back(cluster);
     }
   }
-
 
   // Execution Time calculation
   rclcpp::Time end_time = this->now();
@@ -331,10 +330,11 @@ void Perception::publish_cones(std::vector<Cluster>* cones) {
 }
 
 void Perception::velocities_callback(const custom_interfaces::msg::Velocities& msg) {
-  this->_vehicle_velocity_ = common_lib::structures::Velocities(msg.velocity_x, msg.velocity_y, msg.angular_velocity);
+  this->_vehicle_velocity_ =
+      common_lib::structures::Velocities(msg.velocity_x, msg.velocity_y, msg.angular_velocity);
 }
 
-void Perception::lidar_timer_callback(){
+void Perception::lidar_timer_callback() {
   emergency_client_->async_send_request(
       std::make_shared<std_srvs::srv::Trigger::Request>(),
       [this](rclcpp::Client<std_srvs::srv::Trigger>::SharedFuture future) {
