@@ -13,7 +13,7 @@ slam:
   pose_x_initial_noise: 0.1 # sigma of the noise for the initial pose in x
   pose_y_initial_noise: 0.1 # sigma of the noise for the initial pose in y
   pose_theta_initial_noise: 0.1 # sigma of the noise for the initial pose in yaw
-  using_preloaded_map: false # Use preloaded map for SLAM, if true, the map will be loaded from the file, only for skidpad and acceleration
+  using_preloaded_map: true # Use preloaded map for SLAM, if true, the map will be loaded from the file, only for skidpad and acceleration
   slam_solver_name: "graph_slam" # "graph_slam" or "ekf_slam" or ... -> name of the slam solver
   minimum_observation_count: 3 # Minimum number of times a new landmark must be observed to be added to the map
   minimum_frequency_of_detections: 5 # Minimum frequency of the detections of a landmark to add it to the map
