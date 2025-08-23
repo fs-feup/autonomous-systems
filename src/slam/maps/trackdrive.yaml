@@ -261,8 +261,6 @@ track:
     class: unknown
   - position: [-8.944542691983884, 47.08762936056697, 0.0]
     class: unknown
-  - position: [-11.765303689099271, 44.21650895668713, 0.0]
-    class: unknown
   - position: [-4.825187560842522, 49.713970275569196, 0.0]
     class: unknown
   - position: [-0.5268312118643621, 51.94179440642197, 0.0]
@@ -282,8 +280,6 @@ track:
   - position: [56.003335578323416, 24.790311192580084, 0.0]
     class: unknown
   - position: [54.001235466584404, 18.679249348494384, 0.0]
-    class: unknown
-  - position: [53.93422536336323, 19.961937157173615, 0.0]
     class: unknown
   - position: [57.04912372217787, 22.224526030989374, 0.0]
     class: unknown
@@ -306,8 +302,6 @@ track:
   - position: [54.893164845903556, 13.045646552545303, 0.0]
     class: unknown
   - position: [54.08746891787395, 10.946295923727913, 0.0]
-    class: unknown
-  - position: [52.88117435522763, 7.22027763272623, 0.0]
     class: unknown
   - position: [51.09990850274246, 3.2218714717358052, 0.0]
     class: unknown
@@ -401,15 +395,9 @@ track:
     class: unknown
   - position: [8.054586410522461, 1.8665956258773804, 0.0]
     class: unknown
-  - position: [7.39292573928833, -1.5718032121658325, 0.0]
-    class: unknown
   - position: [7.704288959503174, 1.9294309616088867, 0.0]
     class: unknown
   - position: [7.400172710418701, -1.576185703277588, 0.0]
-    class: unknown
-  - position: [7.697709083557129, 1.9342889785766602, 0.0]
-    class: unknown
-  - position: [7.400914192199707, -1.5711385011672974, 0.0]
     class: unknown
   - position: [2.10587, -1.63374, 0.0]
     class: unknown
