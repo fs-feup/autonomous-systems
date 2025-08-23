@@ -35,6 +35,7 @@ def example_function(cone):
         and out_of_square(0, 17, 4, 15, x, y)
         and out_of_square(-10, -8, 34, 36, x, y)
         and out_of_square(34, 38, -28, -24, x, y)
+        and out_of_square(0, 20, -2, 3, x, y)
     )  # Example: Keep cones in the first quadrant
 
 
