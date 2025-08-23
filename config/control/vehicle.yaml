@@ -1,5 +1,5 @@
 control:
-  lookahead_gain: 1.4
+  lookahead_gain: 1.5
   lookahead_minimum: 3.0  # Acceleration: 6.0 , Skidpad: 4.0 , Autocross: 4.0 , Trackdrive: 4.0
   pid_kp: 0.07
   pid_ki: 0.0025

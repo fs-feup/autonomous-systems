@@ -21,15 +21,15 @@ planning:
   path_calculation_dist_threshold: 7.0
   smoothing_spline_order: 3
   smoothing_spline_coeffs_ratio: 3.0
-  smoothing_spline_precision: 10 
+  smoothing_spline_precision: 10
   publishing_visualization_msg: true
   use_outlier_removal: false
   use_path_smoothing: false
   minimum_velocity: 2.0
-  braking_acceleration: -8.0
-  normal_acceleration: 2.0
+  braking_acceleration: -1.5
+  normal_acceleration: 0.9
   use_velocity_planning: true  
-  desired_velocity: 2.0
+  desired_velocity: 6.0
 # Parameters for EBS Test
 # planning:
 #   minimum_cone_distance: 2.0 # minimum distance between cones -> The rules say 3m, but we should keep it lower for safety
