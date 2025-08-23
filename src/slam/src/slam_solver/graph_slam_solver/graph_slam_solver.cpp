@@ -39,8 +39,6 @@ void GraphSLAMSolver::init([[maybe_unused]] std::weak_ptr<rclcpp::Node> node) {
   // Create a timer for asynchronous optimization
   if (this->_params_.slam_optimization_mode_ != "async" ||
       this->_params_.slam_optimization_period_ <= 0.0) {
-    RCLCPP_INFO(rclcpp::get_logger("slam"),
-                "Optimization period is zero, optimization is synchronous");
   } else if (const auto node_ptr = node.lock()) {
     this->_reentrant_group_ = node_ptr->create_callback_group(
         rclcpp::CallbackGroupType::Reentrant);  // Allow callbacks to execute in parallel
@@ -48,19 +46,14 @@ void GraphSLAMSolver::init([[maybe_unused]] std::weak_ptr<rclcpp::Node> node) {
         std::chrono::milliseconds(
             static_cast<int>(this->_params_.slam_optimization_period_ * 1000)),
         [this]() { this->_asynchronous_optimization_routine(); }, this->_reentrant_group_);
-    RCLCPP_INFO(rclcpp::get_logger("slam"), "Optimization timer created with period %f seconds",
-                this->_params_.slam_optimization_period_);
   } else {
     this->_params_.slam_optimization_period_ = 0.0;  // Trigger optimization on observations
-    RCLCPP_ERROR(rclcpp::get_logger("slam"),
-                 "Failed to create optimization timer, node is not valid");
   }
 }
 
 void GraphSLAMSolver::add_motion_prior(const common_lib::structures::Velocities& velocities) {
   std::unique_lock lock(this->_mutex_);
   rclcpp::Time start_time, motion_model_time, factor_graph_time;
-  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_motion_prior - Mutex accessed");
   start_time = rclcpp::Clock().now();
   MotionData velocities_data(
       std::make_shared<Eigen::Vector3d>(velocities.velocity_x, velocities.velocity_y,
@@ -70,8 +63,6 @@ void GraphSLAMSolver::add_motion_prior(const common_lib::structures::Velocities&
       this->_pose_updater_.update_pose(velocities_data, this->_motion_model_);
   if (this->_optimization_under_way_) {
     this->_motion_data_queue_.push(velocities_data);
-    RCLCPP_DEBUG(rclcpp::get_logger("slam"),
-                 "add_motion_prior - Optimization under way, pushing motion data");
   }
   motion_model_time = rclcpp::Clock().now();
   bool new_factor = this->_graph_slam_instance_.process_pose_difference(pose_difference, new_pose);
@@ -85,7 +76,6 @@ void GraphSLAMSolver::add_motion_prior(const common_lib::structures::Velocities&
   }
   this->_execution_times_->at(9) = (motion_model_time - start_time).seconds() * 1000.0;
   this->_execution_times_->at(10) = (factor_graph_time - motion_model_time).seconds() * 1000.0;
-  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_motion_prior - Mutex unlocked");
 }
 
 void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures::Cone>& cones) {
@@ -111,7 +101,6 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   }
 
   {
-    RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Shared mutex accessed");
     const std::shared_lock lock(this->_mutex_);
     // Reduce error associated to accumulated pose difference by creating new factor
     if (this->_graph_slam_instance_.new_pose_factors() && !_is_stopped_at_beginning_) {
@@ -131,17 +120,10 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   associations = this->_data_association_->associate(
       state.segment(3, state.size() - 3), observations_global, covariance,
       observations_confidences);  // TODO: implement different mahalanobis distance
-  std::string associations_str = "";
-  for (int i = 0; i < associations.size(); i++) {
-    associations_str += std::to_string(associations(i)) + ", ";
-  }
-  RCLCPP_INFO(rclcpp::get_logger("slam"), "add_observations - Associations: %s",
-              associations_str.c_str());
   this->_associations_ = associations;
   this->_observations_global_ = observations_global;
   this->_map_coordinates_ = state.segment(3, state.size() - 3);
   association_time = rclcpp::Clock().now();
-  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Associations calculated");
   Eigen::VectorXd unfiltered_new_observations;
   Eigen::VectorXd unfiltered_new_observations_confidences;
   for (int i = 0; i < associations.size(); i++) {
@@ -160,17 +142,7 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   }
   Eigen::VectorXd filtered_new_observations = this->_landmark_filter_->filter(
       unfiltered_new_observations, unfiltered_new_observations_confidences);
-  std::string filtered_observations_str = "";
-  for (int i = 0; i < filtered_new_observations.size() / 2; i++) {
-    filtered_observations_str += "(" + std::to_string(filtered_new_observations(i * 2)) + ", " +
-                                 std::to_string(filtered_new_observations(i * 2 + 1)) + "), ";
-  }
-  RCLCPP_INFO(rclcpp::get_logger("slam"), "add_observations - Filtered observations: %s",
-              filtered_observations_str.c_str());
-
   if (!this->_graph_slam_instance_.new_pose_factors() && !this->_is_stopped_at_beginning_) {
-    RCLCPP_INFO(rclcpp::get_logger("slam"),
-                "add_observations - No new pose factors, skipping observations");
     return;
   }
 
@@ -200,12 +172,6 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
       }
     }
   }
-  std::string filtered_associations_str = "";
-  for (int i = 0; i < associations.size(); i++) {
-    filtered_associations_str += std::to_string(associations(i)) + ", ";
-  }
-  RCLCPP_INFO(rclcpp::get_logger("slam"), "add_observations - Filtered associations: %s",
-              filtered_associations_str.c_str());
 
   Eigen::Vector3d pose;
   pose << state(0), state(1), state(2);
@@ -217,16 +183,11 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
     lap_counter_++;
     // Create a (hard-ish) lock on the landmarks' positions after the first lap.
     if (lap_counter_ == 1) {
-      RCLCPP_INFO(rclcpp::get_logger("slam"),
-                  "add_observations - First lap detected, locking landmarks");
       this->_graph_slam_instance_.lock_landmarks(0);
     }
-    RCLCPP_INFO(rclcpp::get_logger("slam"), "Lap counter: %d", lap_counter_);
   }
 
   {
-    RCLCPP_DEBUG(rclcpp::get_logger("slam"),
-                 "add_observations - Mutex locked - processing observations");
     std::unique_lock uniq_lock(this->_mutex_);
     ObservationData observation_data(std::make_shared<Eigen::VectorXd>(observations),
                                      std::make_shared<Eigen::VectorXi>(associations),
@@ -235,23 +196,18 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
                                      cones.at(0).timestamp);
     if (this->_optimization_under_way_) {
       this->_observation_data_queue_.push(observation_data);
-      RCLCPP_INFO(rclcpp::get_logger("slam"),
-                  "add_observations - Optimization under way, pushing observation data");
     }
     this->_graph_slam_instance_.process_observations(observation_data);
   }
   factor_graph_time = rclcpp::Clock().now();
-  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Mutex unlocked - Factors added");
 
   // Optimize the graph
   if (this->_params_.slam_optimization_mode_ == "sync" &&
       !_is_stopped_at_beginning_) {  // If optimization is synchronous
-    RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Mutex locked - optimizing graph");
     std::unique_lock uniq_lock(this->_mutex_);
     this->_graph_slam_instance_.optimize();
     optimization_time = rclcpp::Clock().now();
     this->_pose_updater_.set_last_pose(gtsam_pose_to_eigen(this->_graph_slam_instance_.get_pose()));
-    RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Mutex unlocked - graph optimized");
   }
 
   // Timekeeping
@@ -276,8 +232,6 @@ void GraphSLAMSolver::_asynchronous_optimization_routine() {
   PoseUpdater pose_updater_copy;
   {
     const std::shared_lock lock(this->_mutex_);
-    RCLCPP_DEBUG(rclcpp::get_logger("slam"),
-                 "_asynchronous_optimization_routine - Shared mutex accessed");
     if (!this->_graph_slam_instance_.new_observation_factors()) {
       return;
     }
@@ -290,15 +244,11 @@ void GraphSLAMSolver::_asynchronous_optimization_routine() {
   }
   rclcpp::Time initialization_time = rclcpp::Clock().now();
   // Optimize the graph
-  RCLCPP_DEBUG(rclcpp::get_logger("slam"),
-               "_asynchronous_optimization_routine - Starting optimization");
   graph_slam_instance_copy.optimize();
-  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "_asynchronous_optimization_routine - Graph optimized");
   rclcpp::Time optimization_time = rclcpp::Clock().now();
   {
     std::unique_lock lock(this->_mutex_);
     this->_optimization_under_way_ = false;
-    RCLCPP_DEBUG(rclcpp::get_logger("slam"), "_asynchronous_optimization_routine - Mutex locked");
     while (this->_motion_data_queue_.size() > 0 || this->_observation_data_queue_.size() > 0) {
       bool process_pose = this->_observation_data_queue_.size() <= 0 ||
                           (this->_motion_data_queue_.size() > 0 &&
@@ -314,13 +264,6 @@ void GraphSLAMSolver::_asynchronous_optimization_routine() {
         graph_slam_instance_copy.process_observations(this->_observation_data_queue_.front());
         this->_observation_data_queue_.pop();
       }
-      // Print number of landmarks and poses
-      RCLCPP_DEBUG(rclcpp::get_logger("slam"),
-                   "_asynchronous_optimization_routine - Number of landmarks: %d",
-                   graph_slam_instance_copy.get_landmark_counter());
-      RCLCPP_DEBUG(rclcpp::get_logger("slam"),
-                   "_asynchronous_optimization_routine - Number of poses: %d",
-                   graph_slam_instance_copy.get_pose_counter());
     }
     this->_graph_slam_instance_ = graph_slam_instance_copy;
     this->_pose_updater_ = pose_updater_copy;
@@ -336,8 +279,6 @@ void GraphSLAMSolver::_asynchronous_optimization_routine() {
     this->_execution_times_->at(8) =
         (end_time - start_time).seconds() * 1000.0;  // Optimization time
   }
-  RCLCPP_DEBUG(rclcpp::get_logger("slam"),
-               "_asynchronous_optimization_routine - Mutex unlocked - Graph updated");
 }
 
 std::vector<common_lib::structures::Cone>

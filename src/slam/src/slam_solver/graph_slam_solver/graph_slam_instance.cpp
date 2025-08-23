@@ -160,9 +160,6 @@ bool GraphSLAMInstance::process_pose_difference(const Eigen::Vector3d& pose_diff
 
   this->_factor_graph_.add(gtsam::BetweenFactor<gtsam::Pose2>(previous_pose_symbol, new_pose_symbol,
                                                               pose_difference_gtsam, prior_noise));
-  RCLCPP_INFO(rclcpp::get_logger("slam"), "NEW FACTOR: x%d, x%d: diff: (%f, %f, %f)",
-              previous_pose_symbol.index(), new_pose_symbol.index(), pose_difference_gtsam.x(),
-              pose_difference_gtsam.y(), pose_difference_gtsam.theta());
 
   // Add the prior pose to the values
   _graph_values_.insert(new_pose_symbol, new_pose_gtsam);
@@ -208,9 +205,6 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
     this->_factor_graph_.add(gtsam::BearingRangeFactor<gtsam::Pose2, gtsam::Point2>(
         gtsam::Symbol('x', this->_pose_counter_), landmark_symbol, observation_rotation,
         observation_cylindrical(0), observation_noise));
-    RCLCPP_INFO(rclcpp::get_logger("slam"), "NEW FACTOR: x%d, l%d: Observation: (%f, %f)",
-                this->_pose_counter_, landmark_symbol.index(), observations[i * 2],
-                observations[i * 2 + 1]);
   }
   this->_new_pose_node_ = !new_observation_factors;
   this->_new_observation_factors_ = new_observation_factors;
@@ -218,7 +212,6 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
 
 void GraphSLAMInstance::load_initial_state(const Eigen::VectorXd& map, const Eigen::VectorXd& pose,
                                            double preloaded_map_noise) {
-  RCLCPP_INFO(rclcpp::get_logger("slam"), "GraphSLAMInstance - Loading map ");
   this->_pose_counter_ = 0;
   this->_landmark_counter_ = 0;
   _factor_graph_ = gtsam::NonlinearFactorGraph();
@@ -246,9 +239,6 @@ void GraphSLAMInstance::load_initial_state(const Eigen::VectorXd& map, const Eig
 }
 
 void GraphSLAMInstance::optimize() {  // TODO: implement sliding window and other parameters
-  RCLCPP_DEBUG(rclcpp::get_logger("slam"),
-               "GraphSLAMInstance - Optimizing1 graph with %ld factors and %ld values",
-               this->_factor_graph_.size(), this->_graph_values_.size());
   if (!this->_new_observation_factors_) return;
 
   this->_graph_values_ = this->_optimizer_->optimize(
