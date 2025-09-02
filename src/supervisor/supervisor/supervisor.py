@@ -13,6 +13,7 @@ import time
 class Supervisor(Node):
     def __init__(self):
         super().__init__('supervisor')
+        self.creation_time = time.time()
 
         """
         ******************** Related to keeping nodes alive ********************
@@ -39,7 +40,7 @@ class Supervisor(Node):
         self.bags_dir = os.path.join(os.getcwd(), "bags")
         os.makedirs(self.bags_dir, exist_ok=True)  # Creates if missing, does nothing if exists
         self.get_logger().info(f"Dir: {self.bags_dir}")
-        self.record_rosbag_command = 'source install/setup.bash && ros2 bag record -s mcap --all'
+        self.record_rosbag_command = 'source install/setup.bash && ros2 bag record -s mcap -a --exclude /lidar_points'
         self.mission = "Unknown"
         self.consecutive_ts_on_count = 0
         self.consecutive_ts_off_count = 0

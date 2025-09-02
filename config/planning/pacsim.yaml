@@ -2,34 +2,67 @@ planning:
   minimum_cone_distance: 2.0 # minimum distance between cones -> The rules say 3m, but we should keep it lower for safety
   maximum_cone_distance: 20.0 # maximum distance between cones
   projected_point_distance: 1.0 # the distamce from the first point to the projected point to search for the second point
-  nc_angle_gain: 35.0  # Parameters for path planning with no coloring (nc)
-  nc_distance_gain: 5.0
+  nc_angle_gain: 70.0  # Parameters for path planning with no coloring (nc)
+  nc_distance_gain: 6.0
   nc_angle_exponent: 2.0
   nc_distance_exponent: 1.0
-  nc_max_cost: 90.0
-  nc_lookback_points: 5
-  nc_search_depth: 3
-  nc_max_points: 100
-  nc_tolerance: 1 
-  nc_reset_global_path: 100
+  nc_max_cost: 75.0
+  nc_lookback_points: 4
+  nc_search_depth: 4
+  nc_max_points: 20
+  nc_tolerance: 1
+  nc_reset_global_path: 1000000000
   skidpad_minimum_cones: 10 # minimum number of cones to consider the skidpad as valid
   skidpad_tolerance: 5
-  # --------------------------
+  # ------------------------------------
   outliers_spline_order: 3
   outliers_spline_coeffs_ratio: 3.0
   outliers_spline_precision: 1
   path_calculation_dist_threshold: 7.0
   smoothing_spline_order: 3
   smoothing_spline_coeffs_ratio: 3.0
-  smoothing_spline_precision: 10 
+  smoothing_spline_precision: 10
   publishing_visualization_msg: true
   use_outlier_removal: false
   use_path_smoothing: false
   minimum_velocity: 2.0
-  braking_acceleration: -6.0
-  normal_acceleration: 4.0
-  use_velocity_planning: false  
-  desired_velocity: 8.0
+  braking_acceleration: -1.8
+  normal_acceleration: 0.9
+  use_velocity_planning: true  
+  desired_velocity: 6.0
+# Parameters for EBS Test
+# planning:
+#   minimum_cone_distance: 2.0 # minimum distance between cones -> The rules say 3m, but we should keep it lower for safety
+#   maximum_cone_distance: 20.0 # maximum distance between cones
+#   projected_point_distance: 1.0 # the distamce from the first point to the projected point to search for the second point
+#   nc_angle_gain: 35.0  # Parameters for path planning with no coloring (nc)
+#   nc_distance_gain: 5.0
+#   nc_angle_exponent: 2.0
+#   nc_distance_exponent: 1.0
+#   nc_max_cost: 90.0
+#   nc_lookback_points: 5
+#   nc_search_depth: 3
+#   nc_max_points: 100
+#   nc_tolerance: 1 
+#   nc_reset_global_path: 100
+#   skidpad_minimum_cones: 10 # minimum number of cones to consider the skidpad as valid
+#   skidpad_tolerance: 1
+#   # --------------------------
+#   outliers_spline_order: 3
+#   outliers_spline_coeffs_ratio: 3.0
+#   outliers_spline_precision: 1
+#   path_calculation_dist_threshold: 7.0
+#   smoothing_spline_order: 3
+#   smoothing_spline_coeffs_ratio: 3.0
+#   smoothing_spline_precision: 10 
+#   publishing_visualization_msg: true
+#   use_outlier_removal: false
+#   use_path_smoothing: false
+#   minimum_velocity: 2.0
+#   braking_acceleration: -1.0
+#   normal_acceleration: 4.0
+#   use_velocity_planning: false
+#   desired_velocity: 10.55
 
 
 
@@ -59,3 +92,72 @@ planning:
   # braking_acceleration: -1.0
   # normal_acceleration: 4.0
   # use_velocity_planning: false
+
+
+# Parameters for Acceleration
+# planning:
+#   minimum_cone_distance: 2.0 # minimum distance between cones -> The rules say 3m, but we should keep it lower for safety
+#   maximum_cone_distance: 20.0 # maximum distance between cones
+#   projected_point_distance: 1.0 # the distamce from the first point to the projected point to search for the second point
+#   nc_angle_gain: 35.0  # Parameters for path planning with no coloring (nc)
+#   nc_distance_gain: 5.0
+#   nc_angle_exponent: 2.0
+#   nc_distance_exponent: 1.0
+#   nc_max_cost: 90.0
+#   nc_lookback_points: 5
+#   nc_search_depth: 3
+#   nc_max_points: 100
+#   nc_tolerance: 1 
+#   nc_reset_global_path: 100
+#   skidpad_minimum_cones: 10 # minimum number of cones to consider the skidpad as valid
+#   skidpad_tolerance: 1
+#   # --------------------------
+#   outliers_spline_order: 3
+#   outliers_spline_coeffs_ratio: 3.0
+#   outliers_spline_precision: 1
+#   path_calculation_dist_threshold: 7.0
+#   smoothing_spline_order: 3
+#   smoothing_spline_coeffs_ratio: 3.0
+#   smoothing_spline_precision: 10 
+#   publishing_visualization_msg: true
+#   use_outlier_removal: false
+#   use_path_smoothing: false
+#   minimum_velocity: 2.0
+#   braking_acceleration: -8.0
+#   normal_acceleration: 4.0
+#   use_velocity_planning: false  
+#   desired_velocity: 8.0
+
+# Parameters for Skidpad / AutoX
+# planning:
+#   minimum_cone_distance: 2.0 # minimum distance between cones -> The rules say 3m, but we should keep it lower for safety
+#   maximum_cone_distance: 20.0 # maximum distance between cones
+#   projected_point_distance: 1.0 # the distamce from the first point to the projected point to search for the second point
+#   nc_angle_gain: 35.0  # Parameters for path planning with no coloring (nc)
+#   nc_distance_gain: 6.0
+#   nc_angle_exponent: 2.0
+#   nc_distance_exponent: 1.0
+#   nc_max_cost: 80.0
+#   nc_lookback_points: 5
+#   nc_search_depth: 3
+#   nc_max_points: 100
+#   nc_tolerance: 1 
+#   nc_reset_global_path: 100
+#   skidpad_minimum_cones: 10 # minimum number of cones to consider the skidpad as valid
+#   skidpad_tolerance: 1.5
+#   # --------------------------
+#   outliers_spline_order: 3
+#   outliers_spline_coeffs_ratio: 3.0
+#   outliers_spline_precision: 1
+#   path_calculation_dist_threshold: 7.0
+#   smoothing_spline_order: 3
+#   smoothing_spline_coeffs_ratio: 3.0
+#   smoothing_spline_precision: 10 
+#   publishing_visualization_msg: true
+#   use_outlier_removal: false
+#   use_path_smoothing: false
+#   minimum_velocity: 2.0
+#   braking_acceleration: -8.0
+#   normal_acceleration: 4.0
+#   use_velocity_planning: false  
+#   desired_velocity: 2.0

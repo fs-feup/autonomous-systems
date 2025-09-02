@@ -5,7 +5,7 @@ perception:
   default_mission: "trackdrive"
 
   #FOV trimming
-  lidar_height: 1.1
+  lidar_height: 1.2
   lidar_rotation: 90.0
   lidar_pitch: -1.75
   min_range: 1.93
@@ -15,10 +15,10 @@ perception:
   max_range: 21.0
   fov_trim_angle: 90.0
 
-    #ACCELERATION TRIMMING
+  #ACCELERATION TRIMMING
   acc_max_range: 20.25
   acc_fov_trim_angle: 90.0
-  acc_max_y: 6
+  acc_max_y: 3.5
 
     #SKIDPAD TRIMMING
   skid_max_range: 20.25
@@ -26,7 +26,7 @@ perception:
   
   #Ground Removal
   ground_removal: "grid_ransac"
-  ransac_epsilon: 0.05
+  ransac_epsilon: 0.10
   ransac_iterations: 40
 
     #TRACKDRIVE/AUTOCROSS GROUND REMOVAL
@@ -44,15 +44,15 @@ perception:
 
   #Clustering
   clustering_n_neighbours: 1
-  clustering_epsilon: 0.4
+  clustering_epsilon: 0.32
 
   #Evaluator
-  min_height: 0.15
-  large_max_height: 0.3
+  min_height: 0.26
+  large_max_height: 0.42
   small_max_height: 0.42
   height_cap: 0.5
   min_xoy: 0.0
-  max_xoy: 0.3
+  max_xoy: 0.1
   min_z: 0.00001
   max_z: 0.6
   min_z_score_x: -100000000.0
@@ -67,15 +67,15 @@ perception:
   min_confidence: 0.850
   height_out_weight: 12.0
   height_in_weight: 5.0
-  cylinder_radius_weight: 40.0
+  cylinder_radius_weight: 35.0
   cylinder_height_weight: 8.0
-  cylinder_npoints_weight: 10.0
+  cylinder_npoints_weight: 20.0
   npoints_weight: 11.0
   displacement_x_weight: 7.0
   displacement_y_weight: 8.0
   displacement_z_weight: 10.5
-  deviation_xoy_weight: 10.0
-  deviation_z_weight: 10.0
+  deviation_xoy_weight: 5.0
+  deviation_z_weight: 5.0
 
   #ICP
   target_file: "cone.pcd"

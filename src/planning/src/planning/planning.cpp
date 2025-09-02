@@ -201,7 +201,7 @@ void Planning::run_planning_algorithms() {
       {
         double dist_from_origin = sqrt(this->pose.position.x * this->pose.position.x +
                                        this->pose.position.y * this->pose.position.y);
-        if (dist_from_origin > 80.0) {
+        if (dist_from_origin > 90.0) {
            if (!braking_) {
             this->braking_ = true;
             this->brake_time_ = std::chrono::steady_clock::now();
@@ -220,18 +220,18 @@ void Planning::run_planning_algorithms() {
       break;
 
     case common_lib::competition_logic::Mission::AUTOCROSS:
-
-      triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
-      final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
-                                               this->initial_car_orientation_);
-      global_path_ = path_calculation_.get_global_path();
-
-      if (this->lap_counter_ >= 1) {
-        velocity_planning_.stop(final_path);
-      } else {
-        velocity_planning_.set_velocity(final_path);
-      }
-      break;
+    // UNCOMMENT LATER
+      // triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
+      // final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
+      //                                           this->initial_car_orientation_);
+      // global_path_ = path_calculation_.get_global_path();
+      // velocity_planning_.set_velocity(final_path);
+      // if (this->lap_counter_ >= 1) {
+      //   velocity_planning_.stop(final_path);
+      // } else {
+      //   velocity_planning_.set_velocity(final_path);
+      // }
+      // break;
 
     case common_lib::competition_logic::Mission::TRACKDRIVE:
 
@@ -257,6 +257,8 @@ void Planning::run_planning_algorithms() {
           global_path_ = full_path_;
         }
       } else if (this->lap_counter_ >= 10) {
+        final_path = full_path_;
+        global_path_ = full_path_;
         velocity_planning_.stop(final_path);
       }
       break;
@@ -287,23 +289,24 @@ void Planning::run_planning_algorithms() {
   if (planning_config_.simulation_.publishing_visualization_msgs_) {
     std::vector<PathCalculation::MidPoint> &midPoints = path_calculation_.midPoints;
     std::vector<PathPoint> published_midpoints;
-    for (auto &p : midPoints) {
-      if(p.point.x() != triangulations_path.back().position.x && p.point.y() != triangulations_path.back().position.y) {
-        continue;
-      } else {
-        // add all the close points to the published midpoints
-        for (auto &q: p.close_points){
-          PathPoint m;
-          m.position.x = q->point.x();
-          m.position.y = q->point.y();
-          published_midpoints.push_back(m);
-        }
-      }
-      if (p.close_points.size() < 2) {
-        errorcounter++;
-      }
+    // THIS CODE  WAS GIVING SEGMENTATION FAULT ON TRACKRIVE
+    // for (auto &p : midPoints) {
+    //   if(p.point.x() != triangulations_path.back().position.x && p.point.y() != triangulations_path.back().position.y) {
+    //     continue;
+    //   } else {
+    //     // add all the close points to the published midpoints
+    //     for (auto &q: p.close_points){
+    //       PathPoint m;
+    //       m.position.x = q->point.x();
+    //       m.position.y = q->point.y();
+    //       published_midpoints.push_back(m);
+    //     }
+    //   }
+    //   if (p.close_points.size() < 2) {
+    //     errorcounter++;
+    //   }
       
-    }
+    // }
     publish_visualization_msgs(published_midpoints, triangulations_path, final_path, global_path_);
   }
   if (errorcounter != 0) {

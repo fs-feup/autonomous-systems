@@ -133,7 +133,7 @@ bool GraphSLAMInstance::process_pose_difference(const Eigen::Vector3d& pose_diff
   }
 
   gtsam::Pose2 new_pose_gtsam = eigen_to_gtsam_pose(new_pose);
-  gtsam::Pose2 pose_difference_gtsam = eigen_to_gtsam_pose(_accumulated_pose_difference_);
+  gtsam::Pose2 pose_difference_gtsam = this->get_pose().between(new_pose_gtsam);
 
   // Calculate noise
   // // TODO: Implement noise -> this was shit because covariance from velocity estimation had too
@@ -212,7 +212,6 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
 
 void GraphSLAMInstance::load_initial_state(const Eigen::VectorXd& map, const Eigen::VectorXd& pose,
                                            double preloaded_map_noise) {
-  RCLCPP_INFO(rclcpp::get_logger("slam"), "GraphSLAMInstance - Loading map ");
   this->_pose_counter_ = 0;
   this->_landmark_counter_ = 0;
   _factor_graph_ = gtsam::NonlinearFactorGraph();
@@ -240,9 +239,6 @@ void GraphSLAMInstance::load_initial_state(const Eigen::VectorXd& map, const Eig
 }
 
 void GraphSLAMInstance::optimize() {  // TODO: implement sliding window and other parameters
-  RCLCPP_DEBUG(rclcpp::get_logger("slam"),
-               "GraphSLAMInstance - Optimizing1 graph with %ld factors and %ld values",
-               this->_factor_graph_.size(), this->_graph_values_.size());
   if (!this->_new_observation_factors_) return;
 
   this->_graph_values_ = this->_optimizer_->optimize(
