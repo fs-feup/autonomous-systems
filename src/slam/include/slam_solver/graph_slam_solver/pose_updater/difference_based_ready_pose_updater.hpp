@@ -10,9 +10,11 @@
 #include "slam_solver/graph_slam_solver/pose_updater/base_pose_updater.hpp"
 
 /**
- * @brief Class to update the pose of the vehicle
+ * @brief Class to update the pose of the vehicle, including a method to check if the pose is ready
+ * for graph update depending on the accumulated pose difference
  * @details This class is the one to apply the motion model and keep track of the most up to date
- * pose
+ * pose. The pose is considered ready for graph update if the accumulated pose difference is greater
+ * than a minimum threshold
  */
 class DifferenceBasedReadyPoseUpdater : public PoseUpdater {
   double minimum_pose_difference_ = 0.3;
@@ -40,5 +42,9 @@ public:
   virtual void predict_pose(const MotionData& motion_data,
                             std::shared_ptr<V2PMotionModel> motion_model) = 0;
 
+  /**
+   * @brief Check if the accumulated pose difference is greater than the minimum threshold
+   * @return true if the pose is ready for graph update, false otherwise
+   */
   virtual bool pose_ready_for_graph_update() const override;
 };

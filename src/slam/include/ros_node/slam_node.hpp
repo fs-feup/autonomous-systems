@@ -6,6 +6,7 @@
 #include <Eigen/Dense>
 #include <memory>
 #include <nav_msgs/msg/odometry.hpp>
+#include <sensor_msgs/msg/imu.hpp>
 #include <string>
 #include <visualization_msgs/msg/marker_array.hpp>
 
@@ -79,6 +80,8 @@ protected:
    * @param msg Message containing the velocitites of the vehicle
    */
   void _velocities_subscription_callback(const custom_interfaces::msg::Velocities& msg);
+
+  void _imu_subscription_callback(const sensor_msgs::msg::Imu& msg);
 
   /**
    * @brief publishes the localization ('vehicle_pose') to the topic

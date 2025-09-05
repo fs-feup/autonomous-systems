@@ -170,13 +170,13 @@ void NoRearWSSEKF::correct_imu(Eigen::Vector3d& state, Eigen::Matrix3d& covarian
       (jacobian * covariance * jacobian.transpose() + this->_imu_measurement_noise_matrix_)
           .inverse();
 
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - Covariance: \n"
-                                                                    << covariance);
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - y: \n" << y);
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - Jacobian: \n"
-                                                                    << jacobian);
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - Kalman gain: \n"
-                                                                    << kalman_gain);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - Covariance: \n"
+                                                                     << covariance);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - y: \n" << y);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - Jacobian: \n"
+                                                                     << jacobian);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - Kalman gain: \n"
+                                                                     << kalman_gain);
   state += kalman_gain * y;
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_imu - New State: \n"
                                                                      << state);

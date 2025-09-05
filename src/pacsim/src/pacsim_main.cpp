@@ -75,7 +75,8 @@ rclcpp::Publisher<pacsim::msg::StampedScalar>::SharedPtr currentSensorTSPub;
 rclcpp::Publisher<geometry_msgs::msg::TwistWithCovarianceStamped>::SharedPtr pose_pub;
 std::map<std::pair<double, double>, geometry_msgs::msg::Point> detected_cones_map;
 
-
+rclcpp::Clock ros_clock(RCL_ROS_TIME);
+rclcpp::Time last_iteration_time = ros_clock.now();
 
 rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr jointStatePublisher;
 
@@ -138,7 +139,8 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
 
     std::unique_ptr<tf2_ros::TransformBroadcaster> br = std::make_unique<tf2_ros::TransformBroadcaster>(node);
 
-    double timestep = 1.0 / 1000.0;
+    double timestep = 5.0 / 1000.0; // TODO: there is a problem with this: the loop takes longer than the interval
+                                    // (1 ms), so it never sleeps and is always a bit late, bumped to 5 ms
     double egoMotionSensorRate = 200.0;
     double lastEgoMotionSensorSampleTime = 0.0;
     std::string framePerception = "perception";
@@ -188,15 +190,24 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
     bool finish = false;
     std::mutex mtxClockTrigger;
     std::unique_lock<std::mutex> lockClockTrigger(mtxClockTrigger);
+    last_iteration_time = ros_clock.now() - rclcpp::Duration::from_seconds(timestep);
 
     while (rclcpp::ok() && !(finish))
     {
+        // This is more accurate than sleep_for
+        double interval = (ros_clock.now() - last_iteration_time).seconds();
+        if (interval <= 5.0 / 1000.0)
+        {
+            continue;
+        }
+        last_iteration_time = ros_clock.now();
         rosgraph_msgs::msg::Clock clockMsg;
         clockMsg.clock = rclcpp::Time(static_cast<uint64_t>(simTime * 1e9));
         clockPub->publish(clockMsg);
         auto wheelPositions = model->getWheelPositions();
         Wheels gripValues = gm.getGripValues(wheelPositions);
-        model->forwardIntegrate(timestep/* , gripValues */);
+        model->forwardIntegrate(timestep /* , gripValues */); // TODO: this breaks completely if not always the same
+                                                              // value, ideally would use interval variable here
         auto t = model->getPosition();
         auto rEulerAngles = model->getOrientation();
         auto alpha = model->getAngularAcceleration();
@@ -206,6 +217,7 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
             = createRosTransformMsg(t, rEulerAngles, trackFrame, "car", simTime);
         br->sendTransform(transformStamped);
         geometry_msgs::msg::TwistWithCovarianceStamped poseStamped;
+        poseStamped.header.stamp = ros_clock.now();
         poseStamped.twist.twist.linear.x = t.x();
         poseStamped.twist.twist.linear.y = t.y();
         poseStamped.twist.twist.angular.z = rEulerAngles.z();
@@ -258,6 +270,7 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
             Eigen::Vector3d vel = model->getVelocity();
             Eigen::Vector3d rot = model->getAngularVelocity();
             geometry_msgs::msg::TwistWithCovarianceStamped velMsg = createRosTwistMsg(vel, rot, "car", simTime);
+            velMsg.header.stamp = ros_clock.now();
             velocity_pub->publish(velMsg);
         }
 
@@ -394,7 +407,7 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
             nextLoopTime = std::chrono::steady_clock::now();
         }
         nextLoopTime += std::chrono::microseconds((int)((timestep / realtimeRatio) * 1000000.0));
-        std::this_thread::sleep_until(nextLoopTime);
+        // std::this_thread::sleep_until(nextLoopTime); // New solution with busy waiting is more accurate
     }
     logger->logWarning("Ros status, 1 is OK, 0 is not OK: " + to_string(rclcpp::ok()));
     logger->logWarning("Simulation finished, generating report");
@@ -518,21 +531,20 @@ void initPerceptionSensors()
 
 void updateStateEstimation(const pacsim::msg::PerceptionDetections msg)
 {
-    std::lock_guard<std::mutex> lock(mutexSimTime);  // Ensure thread safety
+    std::lock_guard<std::mutex> lock(mutexSimTime); // Ensure thread safety
 
     // Get vehicle position and orientation from the model
     Eigen::Vector3d vehicle_position = model->getPosition();
     Eigen::Vector3d vehicle_orientation = model->getOrientation();
 
-    double yaw = vehicle_orientation.z();  // Extract yaw (rotation around Z-axis)
+    double yaw = vehicle_orientation.z(); // Extract yaw (rotation around Z-axis)
 
     // Create 2D rotation matrix for transforming perception detections
     Eigen::Matrix2d rotation_matrix;
-    rotation_matrix << cos(yaw), -sin(yaw),
-                       sin(yaw),  cos(yaw);
+    rotation_matrix << cos(yaw), -sin(yaw), sin(yaw), cos(yaw);
 
     // Set duplicate removal threshold (meters)
-    const double epsilon = 2.5;  // Ignore detections closer than 30cm to existing cones
+    const double epsilon = 2.5; // Ignore detections closer than 30cm to existing cones
 
     for (const auto& detection : msg.detections)
     {
@@ -541,14 +553,14 @@ void updateStateEstimation(const pacsim::msg::PerceptionDetections msg)
 
         // Transform to map frame
         Eigen::Vector2d global_point = rotation_matrix * local_point;
-        global_point += vehicle_position.head<2>();  // Apply translation
+        global_point += vehicle_position.head<2>(); // Apply translation
 
         // Check if a cone already exists nearby
         bool is_duplicate = false;
         for (const auto& existing_cone : detected_cones_map)
         {
-            double dist = std::hypot(global_point.x() - existing_cone.first.first,
-                                     global_point.y() - existing_cone.first.second);
+            double dist = std::hypot(
+                global_point.x() - existing_cone.first.first, global_point.y() - existing_cone.first.second);
             if (dist < epsilon)
             {
                 is_duplicate = true;
@@ -559,40 +571,39 @@ void updateStateEstimation(const pacsim::msg::PerceptionDetections msg)
         if (!is_duplicate)
         {
             // Round positions to avoid tiny variations (grid-based key system)
-            double rounded_x = std::round(global_point.x() * 100.0) / 100.0;  // Round to 2 decimal places
+            double rounded_x = std::round(global_point.x() * 100.0) / 100.0; // Round to 2 decimal places
             double rounded_y = std::round(global_point.y() * 100.0) / 100.0;
 
-            std::pair<double, double> key = {rounded_x, rounded_y};
+            std::pair<double, double> key = { rounded_x, rounded_y };
             geometry_msgs::msg::Point point;
             point.x = global_point.x();
             point.y = global_point.y();
-            point.z = detection.pose.pose.position.z;  // Keep Z as detected
+            point.z = detection.pose.pose.position.z; // Keep Z as detected
 
             detected_cones_map[key] = point;
         }
     }
 }
 
-
 void publishStateEstimation()
 {
     visualization_msgs::msg::MarkerArray marker_array;
-    int id = 0;  // Unique ID for each marker
+    int id = 0; // Unique ID for each marker
 
     for (const auto& entry : detected_cones_map)
     {
         visualization_msgs::msg::Marker marker;
-        marker.header.frame_id = "map";  // Map reference frame
+        marker.header.frame_id = "map"; // Map reference frame
         marker.header.stamp = rclcpp::Time(simTime * 1e9);
         marker.ns = "seen_cones";
-        marker.id = id++;  // Assign unique ID
+        marker.id = id++; // Assign unique ID
         marker.type = visualization_msgs::msg::Marker::SPHERE;
         marker.action = visualization_msgs::msg::Marker::ADD;
         marker.pose.position = entry.second;
         marker.pose.orientation.w = 1.0;
 
         // Marker Size
-        marker.scale.x = 0.2;  // Adjust based on cone size
+        marker.scale.x = 0.2; // Adjust based on cone size
         marker.scale.y = 0.2;
         marker.scale.z = 0.2;
 
@@ -604,9 +615,8 @@ void publishStateEstimation()
         marker_array.markers.push_back(marker);
     }
 
-    stateEstimationPub->publish(marker_array);  // Publish all seen cones
+    stateEstimationPub->publish(marker_array); // Publish all seen cones
 }
-
 
 void initSensors()
 {
@@ -723,9 +733,8 @@ int main(int argc, char** argv)
     auto torquessubmax
         = node->create_subscription<pacsim::msg::Wheels>("/pacsim/torques_max", 1, cbFuncTorquesInverterMax);
 
-    auto throttleSub = node->create_subscription<pacsim::msg::StampedScalar>("/pacsim/throttle_setpoint", 1, cbFuncLong);
-    RCLCPP_INFO_STREAM(rclcpp::get_logger("pacsim_logger"), "Createdsubscription for throttle");
-
+    auto throttleSub
+        = node->create_subscription<pacsim::msg::StampedScalar>("/pacsim/throttle_setpoint", 1, cbFuncLong);
 
     auto wspdSetpointSub
         = node->create_subscription<pacsim::msg::Wheels>("/pacsim/wheelspeed_setpoints", 1, cbWheelspeeds);
@@ -750,7 +759,6 @@ int main(int argc, char** argv)
         "/pacsim/clock_trigger/relative", cbClockTriggerRelative);
 
     stateEstimationPub = node->create_publisher<visualization_msgs::msg::MarkerArray>("/pacsim/state_estimation", 1);
-
 
     getRos2Params(node);
     mainConfig = fillMainConfig(main_config_path);

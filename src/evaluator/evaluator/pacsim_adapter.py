@@ -40,41 +40,50 @@ class PacsimAdapter(Adapter):
             10,
         )  # because the map gets published only once at the beginning
 
-        self.node.velocities_subscription_ = self.node.create_subscription(
-            Velocities,
-            "/state_estimation/velocities",
-            self.velocities_callback,
-            10,
-        )
+        # self.node.velocities_subscription_ = self.node.create_subscription(
+        #     Velocities,
+        #     "/state_estimation/velocities",
+        #     self.velocities_callback,
+        #     10,
+        # )
 
         self._groundtruth_velocity_ = None
-        self.node.velocities_groundtruth_subscription_ = self.node.create_subscription(
-            TwistWithCovarianceStamped,
-            "/pacsim/velocity",
-            self.groundtruth_velocity_callback,
-            10,
+        # self.node.velocities_groundtruth_subscription_ = self.node.create_subscription(
+        #     TwistWithCovarianceStamped,
+        #     "/pacsim/velocity",
+        #     self.groundtruth_velocity_callback,
+        #     10,
+        # )
+        self.node.velocities_groundtruth_subscription_ = message_filters.Subscriber(
+            self.node, TwistWithCovarianceStamped, "/pacsim/velocity"
         )
+        self._time_sync_velocities_ = message_filters.ApproximateTimeSynchronizer(
+            [
+                self.node.velocities_subscription_,
+                self.node.velocities_groundtruth_subscription_,
+            ],
+            10,
+            0.001,
+            allow_headerless=True,
+        )
+        self._time_sync_velocities_.registerCallback(self.velocities_sync_callback)
 
         self._groundtruth_pose_ = None
-        self.node.pose_groundtruth_subscription_ = self.node.create_subscription(
-            TwistWithCovarianceStamped,
-            "/pacsim/pose",
-            self.groundtruth_pose_callback,
-            10,
+        self.node.pose_groundtruth_subscription_ = message_filters.Subscriber(
+            self.node, TwistWithCovarianceStamped, "/pacsim/pose"
         )
+        self._time_sync_pose_ = message_filters.ApproximateTimeSynchronizer(
+            [
+                self.node.vehicle_pose_subscription_,
+                self.node.pose_groundtruth_subscription_,
+            ],
+            10,
+            0.001,
+            allow_headerless=True,
+        )
+        self._time_sync_pose_.registerCallback(self.pose_sync_callback)
 
-        # self._time_sync_slam_ = message_filters.ApproximateTimeSynchronizer(
-        #     [
-        #         self.node.vehicle_pose_subscription_,
-        #         self.node.map_subscription_,
-        #     ],
-        #     10,
-        #     0.1,
-        # )
-        self.node.vehicle_pose_subscription_.registerCallback(self.pose_callback)
         self.node.map_subscription_.registerCallback(self.map_callback)
-
-        # self._time_sync_velocities_.registerCallback(self.velocities_callback)
 
         self._planning_time_sync_ = message_filters.ApproximateTimeSynchronizer(
             [
@@ -106,27 +115,33 @@ class PacsimAdapter(Adapter):
             groundtruth_map_treated,
         )
 
-    def pose_callback(self, vehicle_pose: Pose):
+    def pose_sync_callback(
+        self, vehicle_pose: Pose, groundtruth_pose: TwistWithCovarianceStamped
+    ):
         """!
-        Callback function to process vehicle pose messages.
-
+        Callback for synchronized vehicle pose and groundtruth pose messages.
         Args:
             vehicle_pose (Pose): Vehicle pose data.
+            groundtruth_pose (TwistWithCovarianceStamped): Groundtruth pose data.
         """
-        if self._groundtruth_pose_ is None:
+        if groundtruth_pose is None:
             self.node.get_logger().warn("Groundtruth pose not received")
             return
-        
-        groundtruth_pose_treated: np.ndarray = format_twist_with_covariance_stamped_msg(self._groundtruth_pose_)
+
+        groundtruth_pose_treated: np.ndarray = format_twist_with_covariance_stamped_msg(
+            groundtruth_pose
+        )
         pose_treated: np.ndarray = format_vehicle_pose_msg(vehicle_pose)
+
         self.node.compute_and_publish_pose(
             pose_treated,
             groundtruth_pose_treated,
         )
 
-    def velocities_callback(
+    def velocities_sync_callback(
         self,
         velocities: Velocities,
+        groundtruth_velocity: TwistWithCovarianceStamped,
     ):
         """!
         Callback function to process synchronized messages
@@ -134,14 +149,15 @@ class PacsimAdapter(Adapter):
 
         Args:
             velocities (Velocities): Vehicle velocities estimation data.
+            groundtruth_velocity (TwistWithCovarianceStamped): Groundtruth velocity data.
         """
 
-        if self._groundtruth_velocity_ is None:
+        if groundtruth_velocity is None:
             self.node.get_logger().warn("Groundtruth velocity not received")
             return
 
         groundtruth_velocities_treated: np.ndarray = (
-            format_twist_with_covariance_stamped_msg(self._groundtruth_velocity_)
+            format_twist_with_covariance_stamped_msg(groundtruth_velocity)
         )  # [vx, vy, w]
         velocities_treated = format_velocities_msg(velocities)  # [vx, vy, w]
         self.node.compute_and_publish_velocities(
@@ -192,24 +208,22 @@ class PacsimAdapter(Adapter):
         """
         self._groundtruth_map_: MarkerArray = groundtruth_map
 
-    def groundtruth_velocity_callback(
-        self, groundtruth_velocity: TwistWithCovarianceStamped
-    ):
-        """!
-        Callback function to process ground truth velocity messages.
+    # def groundtruth_velocity_callback(
+    #     self, groundtruth_velocity: TwistWithCovarianceStamped
+    # ):
+    #     """!
+    #     Callback function to process ground truth velocity messages.
 
-        Args:
-            groundtruth_velocity (TwistWithCovarianceStamped): Ground truth velocity data.
-        """
-        self._groundtruth_velocity_: TwistWithCovarianceStamped = groundtruth_velocity
+    #     Args:
+    #         groundtruth_velocity (TwistWithCovarianceStamped): Ground truth velocity data.
+    #     """
+    #     self._groundtruth_velocity_: TwistWithCovarianceStamped = groundtruth_velocity
 
-    def groundtruth_pose_callback(
-        self, groundtruth_pose: TwistWithCovarianceStamped
-    ):
-        """!
-        Callback function to process ground truth pose messages.
+    # def groundtruth_pose_callback(self, groundtruth_pose: TwistWithCovarianceStamped):
+    #     """!
+    #     Callback function to process ground truth pose messages.
 
-        Args:
-            groundtruth_pose (TwistWithCovarianceStamped): Ground truth pose data.
-        """
-        self._groundtruth_pose_: TwistWithCovarianceStamped = groundtruth_pose
+    #     Args:
+    #         groundtruth_pose (TwistWithCovarianceStamped): Ground truth pose data.
+    #     """
+    #     self._groundtruth_pose_: TwistWithCovarianceStamped = groundtruth_pose

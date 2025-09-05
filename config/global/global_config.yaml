@@ -4,6 +4,6 @@ global:
   use_simulated_se: true # use simulated state estimator from the simulator
   use_simulated_perception: true # use simulated perception from the simulator
   use_simulated_planning: false # use simulated planning from the mocker_node
-  use_simulated_velocities: true # use simulated velocities from the simulator
+  use_simulated_velocities: false # use simulated velocities from the simulator
   track_name: "FSG23"
-  vehicle_frame_id: "vehicle_state" # "map" or ... -> frame_id for the visualization messages TODO: fix this
+  vehicle_frame_id: "vehicle_state" # "vehicle_state" or ... -> frame_id for the visualization messages TODO: fix this

@@ -2,10 +2,7 @@ import rclpy
 from rclpy.node import Node
 from custom_interfaces.msg import (
     ConeArray,
-    VehicleState,
     PathPointArray,
-    PathPoint,
-    VehicleState,
     Velocities,
     EvaluatorControlData,
     Pose,
@@ -43,9 +40,7 @@ from std_msgs.msg import Float32, Float32MultiArray, MultiArrayDimension, Int32,
 from sensor_msgs.msg import PointCloud2
 import datetime
 from math import sqrt
-from evaluator.formats import format_path_point_array_msg
-from message_filters import TimeSynchronizer
-from std_msgs.msg import Float32
+from std_msgs.msg import Float32, Float64MultiArray
 
 import csv
 import signal
@@ -94,6 +89,12 @@ class Evaluator(Node):
         self.vehicle_pose_subscription_ = message_filters.Subscriber(
             self, Pose, "/state_estimation/vehicle_pose"
         )
+        self.slam_execution_times_subscription_ = self.create_subscription(
+            Float64MultiArray,
+            "/state_estimation/slam_execution_time",
+            self.slam_execution_times_callback,
+            10,
+        )
         self.planning_subscription_ = message_filters.Subscriber(
             self, PathPointArray, "/path_planning/path"
         )
@@ -106,18 +107,6 @@ class Evaluator(Node):
             EvaluatorControlData,
             "/control/evaluator_data",
             self.compute_and_publish_control,
-            10,
-        )
-        self._correction_step_time_subscription_ = self.create_subscription(
-            Float64,
-            "/state_estimation/execution_time/correction_step",
-            self.correction_step_time_callback,
-            10,
-        )
-        self._prediction_step_time_subscription_ = self.create_subscription(
-            Float64,
-            "/state_estimation/execution_time/prediction_step",
-            self.prediction_step_time_callback,
             10,
         )
         self._planning_execution_time_subscription_ = self.create_subscription(
@@ -252,8 +241,7 @@ class Evaluator(Node):
         self.vel_estimation_metrics = []
         self.planning_metrics = []
         self.control_metrics = []
-        self._se_correction_execution_time_ = []
-        self._se_prediction_execution_time_ = []
+        self.slam_execution_times_ = []
         self._control_execution_time_ = []
         self._planning_execution_time_ = []
         self._perception_execution_time_ = []
@@ -505,16 +493,18 @@ class Evaluator(Node):
             # Start the program
             evaluator.run()
         """
+        self.get_logger().info("Received Ctrl+C")
         if self.generate_csv:
+            self.get_logger().info("Writing metrics to csv")
             finish_time = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
             metrics_dict = {
                 "perception": self.perception_metrics,
                 "map": self.map_metrics,
                 "pose": self.pose_metrics,
+                "velocities": self.vel_estimation_metrics,
                 "planning": self.planning_metrics,
                 "control": self.control_metrics,
-                "se_correction_execution_time": self._se_correction_execution_time_,
-                "se_prediction_execution_time": self._se_prediction_execution_time_,
+                "slam_execution_times": self.slam_execution_times_,
                 "control_execution_time": self._control_execution_time_,
                 "planning_execution_time": self._planning_execution_time_,
                 "perception_execution_time": self._perception_execution_time_,
@@ -550,31 +540,6 @@ class Evaluator(Node):
             writer.writeheader()
             writer.writerows(metrics)
 
-    def correction_step_time_callback(self, msg: Float64) -> None:
-        """!
-        Callback function to store the execution time of the correction step.
-
-        Args:
-            msg (Float64): Message containing the correction step execution time.
-        Returns:
-            None
-        """
-        self._se_correction_execution_time_.append(
-            {"timestamp": datetime.datetime.now(), "execution_time": msg.data}
-        )
-
-    def prediction_step_time_callback(self, msg: Float64) -> None:
-        """
-        Callback function to store the execution time of the prediction step.
-        Args:
-            msg (Float64): Message containing the prediction step execution time.
-        Returns:
-            None
-        """
-        self._se_prediction_execution_time_.append(
-            {"timestamp": datetime.datetime.now(), "execution_time": msg.data}
-        )
-
     def perception_execution_time_callback(self, msg: Float64) -> None:
         """!
         Callback function to store the perception execution time.
@@ -599,6 +564,97 @@ class Evaluator(Node):
         """
         self._planning_execution_time_.append(
             {"timestamp": datetime.datetime.now(), "execution_time": msg.data}
+        )
+
+    def slam_execution_times_callback(self, msg: Float64MultiArray) -> None:
+        """!
+        Callback function to store the SLAM execution times.
+
+        Args:
+            msg (Float64MultiArray): Message containing the SLAM execution times.
+                                      msg.data[0]: prediction step time
+                                      msg.data[1]: correction step time
+                                      ...
+        Returns:
+            None
+        """
+        if len(msg.data) < 2:
+            self.get_logger().error(
+                "SLAM execution times message has insufficient data."
+            )
+            return
+
+        self.slam_execution_times_.append(
+            {
+                "timestamp": datetime.datetime.now(),
+                "velocities_callback_time": msg.data[0],
+            }
+        )
+        self.slam_execution_times_.append(
+            {
+                "timestamp": datetime.datetime.now(),
+                "observations_callback_time": msg.data[1],
+            }
+        )
+        self.slam_execution_times_.append(
+            {
+                "timestamp": datetime.datetime.now(),
+                "data_association_time": msg.data[2],
+            }
+        )
+        self.slam_execution_times_.append(
+            {
+                "timestamp": datetime.datetime.now(),
+                "optimization_time": msg.data[5],
+            }
+        )
+        self.slam_execution_times_.append(
+            {
+                "timestamp": datetime.datetime.now(),
+                "optimisation_velocities_time": msg.data[13],
+            }
+        )
+        self.slam_execution_times_.append(
+            {
+                "timestamp": datetime.datetime.now(),
+                "factor_graph_observations_time": msg.data[4],
+            }
+        )
+        self.slam_execution_times_.append(
+            {
+                "timestamp": datetime.datetime.now(),
+                "factor_graph_velocities_time": msg.data[10],
+            }
+        )
+        self.slam_execution_times_.append(
+            {
+                "timestamp": datetime.datetime.now(),
+                "perception_filter_time": msg.data[11],
+            }
+        )
+        self.slam_execution_times_.append(
+            {
+                "timestamp": datetime.datetime.now(),
+                "loop_closure_time": msg.data[12],
+            }
+        )
+        self.slam_execution_times_.append(
+            {
+                "timestamp": datetime.datetime.now(),
+                "async_opt_routine_time": msg.data[8],
+            }
+        )
+        self.slam_execution_times_.append(
+            {
+                "timestamp": datetime.datetime.now(),
+                "async_opt_copy_time": msg.data[6],
+            }
+        )
+        self.slam_execution_times_.append(
+            {
+                "timestamp": datetime.datetime.now(),
+                "async_opt_redo_time": msg.data[7],
+            }
         )
 
     def compute_and_publish_pose(

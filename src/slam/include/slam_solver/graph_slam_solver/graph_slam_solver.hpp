@@ -14,6 +14,7 @@
 #include "slam_solver/graph_slam_solver/optimizer/base_optimizer.hpp"
 #include "slam_solver/graph_slam_solver/pose_updater/base_pose_updater.hpp"
 #include "slam_solver/slam_solver.hpp"
+#include "slam_solver/solver_traits/imu_integrator_trait.hpp"
 #include "slam_solver/solver_traits/node_controller_trait.hpp"
 #include "slam_solver/solver_traits/odometry_integrator_trait.hpp"
 #include "slam_solver/solver_traits/velocities_integrator_trait.hpp"
@@ -29,6 +30,7 @@
 class GraphSLAMSolver : public SLAMSolver,
                         public VelocitiesIntegratorTrait,
                         public OdometryIntegratorTrait,
+                        public ImuIntegratorTrait,
                         public NodeControllerTrait {
   std::shared_ptr<GraphSLAMInstance> _graph_slam_instance_;  //< Instance of the graph SLAM solver
   std::shared_ptr<PoseUpdater> _pose_updater_;  //< Pose updater for the graph SLAM solver
@@ -44,6 +46,9 @@ class GraphSLAMSolver : public SLAMSolver,
   Eigen::VectorXd _observations_global_;  //< Global observations of the cones
   Eigen::VectorXd _map_coordinates_;      //< Coordinates of the landmarks in the map
   bool _is_stopped_at_beginning_ = true;
+  bool _first_velocities_ = true;
+
+  common_lib::sensor_data::ImuData _last_imu_data_;
 
   rclcpp::CallbackGroup::SharedPtr
       _reentrant_group_;  //< Reentrant callback group for the timer callback
@@ -100,6 +105,8 @@ public:
    * @param pose_difference Pose difference in the form of [dx, dy, dtheta]
    */
   void add_odometry(const common_lib::structures::Pose& pose_difference) override;
+
+  void add_imu_data(const common_lib::sensor_data::ImuData& imu_data) override;
 
   /**
    * @brief Add observations to the solver (correction step)

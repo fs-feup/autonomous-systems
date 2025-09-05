@@ -14,6 +14,9 @@ class PacsimAdapter : public SLAMNode {
   rclcpp::Subscription<geometry_msgs::msg::TwistWithCovarianceStamped>::SharedPtr
       _velocities_subscription_;  ///< Subscriber for simulated velocities
 
+  rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr
+      _imu_subscription_;  ///< Subscriber for simulated IMU data
+
   rclcpp::Client<std_srvs::srv::Empty>::SharedPtr
       _finished_client_;  ///< Client for finished signal
 
@@ -33,6 +36,12 @@ class PacsimAdapter : public SLAMNode {
    */
   void _pacsim_velocities_subscription_callback(
       const geometry_msgs::msg::TwistWithCovarianceStamped& msg);
+
+  /**
+   * @brief Callback for simulated IMU data from pacsim
+   * @param msg Message containing the IMU data of the vehicle
+   */
+  void _pacsim_imu_subscription_callback(const sensor_msgs::msg::Imu& msg);
 
   /**
    * @brief Fetches the mission from the parameters.

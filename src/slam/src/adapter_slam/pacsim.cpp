@@ -25,6 +25,10 @@ PacsimAdapter::PacsimAdapter(const SLAMParameters& params) : SLAMNode(params) {
                       std::placeholders::_1));
   }
 
+  this->_imu_subscription_ = this->create_subscription<sensor_msgs::msg::Imu>(
+      "/pacsim/imu/cog_imu", 1,
+      std::bind(&PacsimAdapter::_pacsim_imu_subscription_callback, this, std::placeholders::_1));
+
   this->_finished_client_ = this->create_client<std_srvs::srv::Empty>("/pacsim/finish_signal");
   param_client_ =
       this->create_client<rcl_interfaces::srv::GetParameters>("/pacsim/pacsim_node/get_parameters");
@@ -104,4 +108,8 @@ void PacsimAdapter::_pacsim_velocities_subscription_callback(
     velocities.covariance[i] = 0.0;
   }
   _velocities_subscription_callback(velocities);
+}
+
+void PacsimAdapter::_pacsim_imu_subscription_callback(const sensor_msgs::msg::Imu& msg) {
+  _imu_subscription_callback(msg);
 }

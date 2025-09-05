@@ -207,6 +207,21 @@ void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::V
   this->_execution_time_publisher_->publish(execution_time_msg);
 }
 
+void SLAMNode::_imu_subscription_callback(const sensor_msgs::msg::Imu &msg) {
+  if (this->_mission_ == common_lib::competition_logic::Mission::NONE) {
+    return;
+  }
+  RCLCPP_DEBUG(this->get_logger(), "SUB - IMU data received");
+  if (auto solver_ptr = std::dynamic_pointer_cast<ImuIntegratorTrait>(this->_slam_solver_)) {
+    auto imu_data = common_lib::sensor_data::ImuData(
+        msg.angular_velocity.z, msg.linear_acceleration.x, msg.linear_acceleration.y,
+        msg.header.stamp, msg.angular_velocity_covariance[8], msg.linear_acceleration_covariance[0],
+        msg.linear_acceleration_covariance[4]);
+
+    solver_ptr->add_imu_data(imu_data);
+  }
+}
+
 /*---------------------- Publications --------------------*/
 
 void SLAMNode::_publish_vehicle_pose() {

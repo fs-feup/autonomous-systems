@@ -16,6 +16,7 @@
 #include <gtsam/slam/ProjectionFactor.h>
 
 #include "common_lib/maths/transformations.hpp"
+#include "slam_solver/graph_slam_solver/optimizer/isam2_optimizer.hpp"
 #include "slam_solver/graph_slam_solver/utils.hpp"
 
 bool GraphSLAMInstance::new_pose_factors() const { return this->_new_pose_node_; }
@@ -84,6 +85,11 @@ GraphSLAMInstance::GraphSLAMInstance(const SLAMParameters& params,
   const gtsam::noiseModel::Diagonal::shared_ptr prior_noise =
       gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector3(0.0, 0.0, 0.0));
   _factor_graph_.add(gtsam::PriorFactor<gtsam::Pose2>(pose_symbol, prior_pose, prior_noise));
+  if (const auto optimizer_ptr = std::dynamic_pointer_cast<ISAM2Optimizer>(this->_optimizer_)) {
+    optimizer_ptr->_new_factors_.add(
+        gtsam::PriorFactor<gtsam::Pose2>(pose_symbol, prior_pose, prior_noise));
+    optimizer_ptr->_new_values_.insert(pose_symbol, prior_pose);
+  }
 
   // Create a new values object
   _graph_values_ = gtsam::Values();
@@ -133,6 +139,10 @@ void GraphSLAMInstance::process_new_pose(const Eigen::Vector3d& pose_difference,
   _graph_values_.insert(new_pose_symbol, new_pose_gtsam);
   this->_new_pose_node_ = true;
 
+  if (const auto optimizer_ptr = std::dynamic_pointer_cast<ISAM2Optimizer>(this->_optimizer_)) {
+    optimizer_ptr->_new_values_.insert(new_pose_symbol, new_pose_gtsam);
+  }
+
   RCLCPP_DEBUG(rclcpp::get_logger("slam"),
                "GraphSLAMInstance - Adding prior pose %lf %lf %lf with noise %lf %lf %lf and "
                "pose difference %lf %lf %lf",
@@ -154,6 +164,10 @@ void GraphSLAMInstance::process_pose_difference(const Eigen::Vector3d& pose_diff
   gtsam::Pose2 pose_difference_gtsam = eigen_to_gtsam_pose(pose_difference);
   this->_factor_graph_.add(gtsam::BetweenFactor<gtsam::Pose2>(before_pose_symbol, after_pose_symbol,
                                                               pose_difference_gtsam, motion_noise));
+  if (const auto optimizer_ptr = std::dynamic_pointer_cast<ISAM2Optimizer>(this->_optimizer_)) {
+    optimizer_ptr->_new_factors_.add(gtsam::BetweenFactor<gtsam::Pose2>(
+        before_pose_symbol, after_pose_symbol, pose_difference_gtsam, motion_noise));
+  }
 }
 
 void GraphSLAMInstance::process_pose_difference(const Eigen::Vector3d& pose_difference,
@@ -187,6 +201,9 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
       landmark_symbol = gtsam::Symbol('l', ++(this->_landmark_counter_));
       landmark = gtsam::Point2(observations_global(i * 2), observations_global(i * 2 + 1));
       this->_graph_values_.insert(landmark_symbol, landmark);
+      if (const auto optimizer_ptr = std::dynamic_pointer_cast<ISAM2Optimizer>(this->_optimizer_)) {
+        optimizer_ptr->_new_values_.insert(landmark_symbol, landmark);
+      }
     } else {
       if (!this->new_pose_factors()) {  // Only add old observations if the vehicle has moved
         continue;
@@ -201,9 +218,18 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
     const gtsam::Rot2 observation_rotation(observation_cylindrical(1));
 
     const gtsam::noiseModel::Diagonal::shared_ptr observation_noise =
-        gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector2(this->_params_.observation_x_noise_,
-                                                           this->_params_.observation_y_noise_));
+        gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector2(this->_params_.observation_y_noise_,
+                                                           this->_params_.observation_x_noise_));
 
+    if (const auto optimizer_ptr = std::dynamic_pointer_cast<ISAM2Optimizer>(this->_optimizer_)) {
+      // optimizer_ptr->_factor_set_.add(
+      //     boost::make_shared<gtsam::BearingRangeFactor<gtsam::Pose2, gtsam::Point2>>(
+      //         gtsam::Symbol('x', this->_pose_counter_), landmark_symbol, observation_rotation,
+      //         observation_cylindrical(0), observation_noise));
+      optimizer_ptr->_new_factors_.add(gtsam::BearingRangeFactor<gtsam::Pose2, gtsam::Point2>(
+          gtsam::Symbol('x', this->_pose_counter_), landmark_symbol, observation_rotation,
+          observation_cylindrical(0), observation_noise));
+    }
     this->_factor_graph_.add(gtsam::BearingRangeFactor<gtsam::Pose2, gtsam::Point2>(
         gtsam::Symbol('x', this->_pose_counter_), landmark_symbol, observation_rotation,
         observation_cylindrical(0), observation_noise));

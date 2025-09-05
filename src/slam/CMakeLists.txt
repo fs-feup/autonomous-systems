@@ -17,6 +17,7 @@ set(PACKAGES
     std_srvs
     fs_msgs
     pacsim
+    sensor_msgs
     geometry_msgs
     common_lib
     visualization_msgs

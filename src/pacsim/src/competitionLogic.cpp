@@ -671,7 +671,8 @@ bool CompetitionLogic::checkDNF(Track track, double time, Eigen::Vector3d positi
         }
     }
     isDNF = isDNF || ret;
-    if (isDNF) {
+    if (isDNF)
+    {
         RCLCPP_INFO_STREAM(rclcpp::get_logger("pacsim_logger"), "checkDNF returned DNF = true");
     }
     return isDNF;
@@ -738,13 +739,13 @@ bool CompetitionLogic::performAllChecks(
     bool ret = false;
     if (properTrack)
     {
-        evaluateOffCourse(track, time, position, orientation);
+        evaluateOffCourse(track, time, position, orientation); // TODO: too slow, takes 500 us
         evaluateTimeKeepings(track, position, orientation, time);
         checkFinishConditionsMet(time);
         ussTriggered = ussTriggered || checkUSS(track, time, position);
         ret = ret || checkDNF(track, time, position);
     }
-    evaluateConeHit(track, time, position, orientation);
+    evaluateConeHit(track, time, position, orientation); // TODO: too slow, taskes 400 us
     ret = ret || checkTimeout(time);
     ret = ret || finishSignal;
     return ret;
