@@ -109,10 +109,16 @@ PerceptionParameters Perception::load_config() {
   std::string ground_removal_algorithm = perception_config["ground_removal"].as<std::string>();
   double ransac_epsilon = perception_config["ransac_epsilon"].as<double>();
   int ransac_iterations = perception_config["ransac_iterations"].as<int>();
+  double plane_angle_diff = perception_config["plane_angle_diff"].as<double>();
   if (ground_removal_algorithm == "ransac") {
     params.ground_removal_ = std::make_shared<RANSAC>(ransac_epsilon, ransac_iterations);
   } else if (ground_removal_algorithm == "grid_ransac") {
     params.ground_removal_ = std::make_shared<GridRANSAC>(ransac_epsilon, ransac_iterations);
+  } else if (ground_removal_algorithm == "ransac2") {
+    params.ground_removal_ =
+        std::make_shared<RANSAC2>(ransac_epsilon, ransac_iterations, plane_angle_diff);
+    RCLCPP_INFO(rclcpp::get_logger("perception"), "using limited ransac with angle diff: %f",
+                plane_angle_diff);
   }
 
   int clustering_n_neighbours = perception_config["clustering_n_neighbours"].as<int>();

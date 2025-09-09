@@ -21,6 +21,7 @@
 #include "fov_trimming/skidpad_trimming.hpp"
 #include "ground_removal/grid_ransac.hpp"
 #include "ground_removal/ransac.hpp"
+#include "ground_removal/ransac2.hpp"
 #include "icp/icp.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"

@@ -2,11 +2,13 @@
 
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
+
+#include <Eigen/Dense>
 #include <utils/plane.hpp>
 #include <utils/split_parameters.hpp>
-#include "ground_removal/ground_removal.hpp"
 #include <vector>
-#include <Eigen/Dense>
+
+#include "ground_removal/ground_removal.hpp"
 
 /**
  * @class RANSAC
@@ -21,8 +23,9 @@ public:
    * @brief Constructor for the RANSAC ground removal algorithm.
    * @param epsilon Epsilon threshold for ground removal.
    * @param n_tries Number of RANSAC iterations.
+   * @param plane_angle_diff Maximum allowed angle deviation from the base plane.
    */
-  RANSAC2(const double epsilon, const int n_tries);
+  RANSAC2(const double epsilon, const int n_tries, const double plane_angle_diff);
 
   /**
    * @brief Default constructor.
@@ -43,13 +46,13 @@ public:
    * @param split_params Split parameters (unused in this implementation).
    */
   void ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                      const pcl::PointCloud<pcl::PointXYZI>::Ptr ret, 
-                      Plane& plane,
+                      const pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
                       [[maybe_unused]] const SplitParameters split_params) const override;
 
 private:
-  double epsilon;  ///< Epsilon threshold for ground removal.
-  int n_tries;     ///< Number of RANSAC iterations.
+  double epsilon;           ///< Epsilon threshold for ground removal.
+  int n_tries;              ///< Number of RANSAC iterations.
+  double plane_angle_diff;  ///< Maximum allowed angle deviation from base plane.
 
   /**
    * @brief Calculate the best-fit plane using RANSAC algorithm.
@@ -57,8 +60,8 @@ private:
    * @param target_plane Target plane for angle constraint (optional).
    * @return Best-fit plane found by RANSAC.
    */
-  Plane calculate_plane(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud, 
-                       const Plane& target_plane) const;
+  Plane calculate_plane(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
+                        const Plane& target_plane) const;
 
   /**
    * @brief Fit a plane to three points.

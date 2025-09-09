@@ -99,7 +99,8 @@
         "nonlinearoptimization": "cpp",
         "*.txx": "cpp",
         "dense": "cpp",
-        "hash_map": "cpp"
+        "hash_map": "cpp",
+        "tensor": "cpp"
     },
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
