@@ -16,10 +16,10 @@ void RANSAC2::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cl
   if (point_cloud->points.size() < 3) {
     throw std::invalid_argument("Point cloud must contain at least 3 points to fit a plane.");
   }
+  Plane default_plane = plane;
 
   // Calculate the best plane
-  Plane best_plane =
-      calculate_plane(point_cloud, Plane(0, 0, 1, 0));  // Default target plane is horizontal (z=0)
+  Plane best_plane = calculate_plane(point_cloud, default_plane);
 
   plane = best_plane;
 
@@ -41,10 +41,6 @@ void RANSAC2::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cl
 
   auto end_time = std::chrono::high_resolution_clock::now();
   auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
-
-  std::cout << "Ground removal completed in " << duration.count() << " milliseconds" << std::endl;
-  std::cout << "Input points: " << point_cloud->points.size()
-            << ", Output points: " << ret->points.size() << std::endl;
 }
 
 Plane RANSAC2::calculate_plane(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
@@ -57,6 +53,8 @@ Plane RANSAC2::calculate_plane(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_
   int best_plane_inliers = 0;
   double best_plane_max_deviation = 0.0;
   bool best_plane_found = false;
+  double best_angle_diff;
+  int n_skips = 0;
 
   for (int i = 0; i < n_tries; ++i) {
     // Randomly sample 3 different points
@@ -75,12 +73,15 @@ Plane RANSAC2::calculate_plane(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_
     Plane candidate_plane = fit_plane_to_points(sampled_points);
 
     // Check angle constraint if target plane is provided
+    double angle_diff_degrees;
     if (target_plane.get_a() != 0 || target_plane.get_b() != 0 || target_plane.get_c() != 0) {
       double angle_diff = calculate_angle_difference(candidate_plane, target_plane);
-      double angle_diff_degrees = angle_diff * (180.0 / M_PI);
+      angle_diff_degrees = angle_diff * (180.0 / M_PI);
 
       // Skip if angle difference is bigger than defined threshold
-      if (angle_diff_degrees > plane_angle_diff) {
+      if (angle_diff_degrees > plane_angle_diff || std::abs(candidate_plane.get_d()) > 1.80 ||
+          std::abs(candidate_plane.get_d()) < 0.80) {
+        n_skips++;
         continue;
       }
     }
@@ -105,16 +106,17 @@ Plane RANSAC2::calculate_plane(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_
       best_plane_inliers = inliers;
       best_plane_max_deviation = max_deviation;
       best_plane_found = true;
+      best_angle_diff = angle_diff_degrees;
 
-      std::cout << "New best plane found with " << inliers << " inliers and max deviation "
-                << max_deviation << std::endl;
     } else if (inliers == best_plane_inliers && max_deviation < best_plane_max_deviation) {
       best_plane = candidate_plane;
       best_plane_inliers = inliers;
       best_plane_max_deviation = max_deviation;
-
-      std::cout << "New best plane found with max deviation " << max_deviation << std::endl;
+      best_angle_diff = angle_diff_degrees;
     }
+  }
+  if (!best_plane_found || n_skips == n_tries) {
+    return target_plane;
   }
 
   return best_plane;

@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "ground_removal/ground_removal.hpp"
+#include "rclcpp/rclcpp.hpp"
 
 /**
  * @class RANSAC

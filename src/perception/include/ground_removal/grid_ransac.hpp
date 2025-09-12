@@ -5,7 +5,8 @@
 #include <utils/split_parameters.hpp>
 
 #include "ground_removal/ground_removal.hpp"
-#include "ground_removal/ransac.hpp"
+#include "ground_removal/ransac2.hpp"
+#include "rclcpp/rclcpp.hpp"
 
 /**
  * @class GridRANSAC
@@ -23,9 +24,11 @@ public:
    *
    * @param epsilon Epsilon value for RANSAC algorithm.
    * @param n_tries Number of RANSAC iterations.
+   * @param plane_angle_diff Maximum allowed angle deviation from the base plane.
+   *
    *
    */
-  GridRANSAC(const double epsilon, const int n_tries);
+  GridRANSAC(const double epsilon, const int n_tries, const double plane_angle_diff = 90.0);
 
   /**
    * @brief Perform ground removal on the input point cloud using grid-based RANSAC.
@@ -65,5 +68,5 @@ public:
                          const SplitParameters split_params) const;
 
 private:
-  RANSAC _ransac_;  ///< RANSAC object for ground plane fitting.
+  RANSAC2 _ransac_;  ///< RANSAC object for ground plane fitting.
 };
