@@ -110,14 +110,17 @@ PerceptionParameters Perception::load_config() {
   double ransac_epsilon = perception_config["ransac_epsilon"].as<double>();
   int ransac_iterations = perception_config["ransac_iterations"].as<int>();
   double plane_angle_diff = perception_config["plane_angle_diff"].as<double>();
+
   if (ground_removal_algorithm == "ransac") {
     params.ground_removal_ = std::make_shared<RANSAC>(ransac_epsilon, ransac_iterations);
   } else if (ground_removal_algorithm == "grid_ransac") {
-    params.ground_removal_ =
-        std::make_shared<GridRANSAC>(ransac_epsilon, ransac_iterations, plane_angle_diff);
+    params.ground_removal_ = std::make_shared<GridRANSAC>(ransac_epsilon, ransac_iterations);
   } else if (ground_removal_algorithm == "constrained_ransac") {
     params.ground_removal_ =
         std::make_shared<ConstrainedRANSAC>(ransac_epsilon, ransac_iterations, plane_angle_diff);
+  } else if (ground_removal_algorithm == "constrained_grid_ransac") {
+    params.ground_removal_ = std::make_shared<ConstrainedGridRANSAC>(
+        ransac_epsilon, ransac_iterations, plane_angle_diff);
   }
 
   int clustering_n_neighbours = perception_config["clustering_n_neighbours"].as<int>();
@@ -254,9 +257,6 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   // Ground Removal
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   _ground_removal_->ground_removal(pcl_cloud, ground_removed_cloud, _ground_plane_, split_params);
-  rclcpp::Time ground_removal_time = this->now();
-  RCLCPP_INFO(this->get_logger(), "Ground removal time: %f ms",
-              (ground_removal_time - time).seconds() * 1000);
 
   // Debugging utils -> Useful to check the ground removed point cloud
   sensor_msgs::msg::PointCloud2 ground_removed_msg;

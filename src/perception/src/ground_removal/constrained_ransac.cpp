@@ -5,19 +5,21 @@
 #include <iostream>
 #include <random>
 
-ConstrainedRANSAC::ConstrainedRANSAC(const double epsilon, const int n_tries, const double plane_angle_diff)
+ConstrainedRANSAC::ConstrainedRANSAC(const double epsilon, const int n_tries,
+                                     const double plane_angle_diff)
     : epsilon(epsilon), n_tries(n_tries), plane_angle_diff(plane_angle_diff) {}
 
 void ConstrainedRANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                                        const pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
-                                        [[maybe_unused]] const SplitParameters split_params) const {
+                                       const pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
+                                       [[maybe_unused]] const SplitParameters split_params) const {
   auto start_time = std::chrono::high_resolution_clock::now();
 
   if (point_cloud->points.size() < 3) {
     throw std::invalid_argument("Point cloud must contain at least 3 points to fit a plane.");
   }
 
-  // Calculate the best plane, the plane parameter is used as a default plane if no better plane is found
+  // Calculate the best plane, the plane parameter is used as a default plane if no better plane is
+  // found
   Plane default_plane = plane;
   plane = calculate_plane(point_cloud, default_plane);
 
@@ -42,7 +44,7 @@ void ConstrainedRANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Pt
 }
 
 Plane ConstrainedRANSAC::calculate_plane(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                               const Plane& target_plane) const {
+                                         const Plane& target_plane) const {
   std::random_device rd;
   std::mt19937 gen(rd());
   std::uniform_int_distribution<> dis(0, point_cloud->points.size() - 1);
@@ -147,7 +149,8 @@ double ConstrainedRANSAC::distance_to_plane(const pcl::PointXYZI& point, const P
   return std::abs(A * point.x + B * point.y + C * point.z + D) / std::sqrt(A * A + B * B + C * C);
 }
 
-double ConstrainedRANSAC::calculate_angle_difference(const Plane& plane1, const Plane& plane2) const {
+double ConstrainedRANSAC::calculate_angle_difference(const Plane& plane1,
+                                                     const Plane& plane2) const {
   Eigen::Vector3d normal1(plane1.get_a(), plane1.get_b(), plane1.get_c());
   Eigen::Vector3d normal2(plane2.get_a(), plane2.get_b(), plane2.get_c());
   normal1.normalize();

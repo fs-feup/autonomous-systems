@@ -1,4 +1,4 @@
-#include "ground_removal/grid_ransac.hpp"
+#include "ground_removal/constrained_grid_ransac.hpp"
 
 #include <omp.h>
 #include <pcl/ModelCoefficients.h>
@@ -13,12 +13,12 @@
 #include <utils/plane.hpp>
 #include <vector>
 
-#include "ground_removal/ransac.hpp"
+ConstrainedGridRANSAC::ConstrainedGridRANSAC(const double epsilon, const int n_tries,
+                                             const double plane_angle_diff)
+    : _ransac_(ConstrainedRANSAC(epsilon, n_tries, plane_angle_diff)) {}
 
-GridRANSAC::GridRANSAC(const double epsilon, const int n_tries)
-    : _ransac_(RANSAC(epsilon, n_tries)) {}
-
-double GridRANSAC::get_furthest_point(const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud) {
+double ConstrainedGridRANSAC::get_furthest_point(
+    const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud) {
   double max_distance = 0.0;
   for (const auto& point : *cloud) {
     double distance = std::sqrt(point.x * point.x + point.y * point.y);
@@ -29,7 +29,7 @@ double GridRANSAC::get_furthest_point(const pcl::PointCloud<pcl::PointXYZI>::Ptr
   return max_distance;
 }
 
-void GridRANSAC::split_point_cloud(
+void ConstrainedGridRANSAC::split_point_cloud(
     const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud,
     std::vector<std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>>& grids,
     const SplitParameters split_params) const {
@@ -66,11 +66,16 @@ void GridRANSAC::split_point_cloud(
   }
 }
 
-void GridRANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                                const pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
-                                const SplitParameters split_params) const {
+void ConstrainedGridRANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
+                                           const pcl::PointCloud<pcl::PointXYZI>::Ptr ret,
+                                           Plane& plane, const SplitParameters split_params) const {
   ret->clear();
   plane = Plane(0, 0, 0, 0);
+
+  // Calculate a default plane using a constrained RANSAC on the entire point cloud, the base plane
+  // is the XY plane
+  Plane default_plane = Plane(0, 0, 1, 0);
+  this->_ransac_.ground_removal(point_cloud, ret, default_plane, split_params);
 
   std::vector<std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>> grids;
   split_point_cloud(point_cloud, grids, split_params);
@@ -82,7 +87,7 @@ void GridRANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point
     for (auto& grid_cell : grid_row) {
       if (grid_cell->points.size() < 3) continue;
 
-      Plane grid_plane;
+      Plane grid_plane = default_plane;
       pcl::PointCloud<pcl::PointXYZI>::Ptr grid_ret(new pcl::PointCloud<pcl::PointXYZI>);
       this->_ransac_.ground_removal(grid_cell, grid_ret, grid_plane, split_params);
 
