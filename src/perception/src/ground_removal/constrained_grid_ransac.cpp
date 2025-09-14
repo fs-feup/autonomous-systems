@@ -69,6 +69,10 @@ void ConstrainedGridRANSAC::split_point_cloud(
 void ConstrainedGridRANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
                                            const pcl::PointCloud<pcl::PointXYZI>::Ptr ret,
                                            Plane& plane, const SplitParameters split_params) const {
+  if (point_cloud->points.size() < 3) {
+    throw std::invalid_argument("Point cloud must contain at least 3 points to fit a plane.");
+  }
+
   ret->clear();
   plane = Plane(0, 0, 0, 0);
 

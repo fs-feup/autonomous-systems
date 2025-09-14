@@ -1,3 +1,5 @@
+#pragma once
+
 #include <pcl/sample_consensus/ransac.h>
 
 #include <string>
