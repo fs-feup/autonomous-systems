@@ -15,10 +15,12 @@ SLAMSolver::SLAMSolver(const SLAMParameters& params,
 
 void SLAMSolver::set_mission(common_lib::competition_logic::Mission mission) {
   common_lib::competition_logic::Mission previous_mission_ = this->_mission_;
-  _mission_ = mission;
+  this->_mission_ = mission;
   if (previous_mission_ == common_lib::competition_logic::Mission::NONE &&
       (this->_mission_ == common_lib::competition_logic::Mission::SKIDPAD ||
-       this->_mission_ == common_lib::competition_logic::Mission::ACCELERATION) &&
+       this->_mission_ == common_lib::competition_logic::Mission::ACCELERATION ||
+       this->_mission_ == common_lib::competition_logic::Mission::TRACKDRIVE ||
+       this->_mission_ == common_lib::competition_logic::Mission::AUTOCROSS) &&
       this->_params_.using_preloaded_map_) {
     if (_mission_ == common_lib::competition_logic::Mission::SKIDPAD) {
       Eigen::Vector3d pose;
@@ -29,6 +31,12 @@ void SLAMSolver::set_mission(common_lib::competition_logic::Mission mission) {
       Eigen::Vector3d pose;
       Eigen::VectorXd map;
       load_acceleration_track(pose, map);
+      this->load_initial_state(map, pose);
+    } else if (_mission_ == common_lib::competition_logic::Mission::TRACKDRIVE ||
+               _mission_ == common_lib::competition_logic::Mission::AUTOCROSS) {
+      Eigen::Vector3d pose;
+      Eigen::VectorXd map;
+      load_trackdrive_track(pose, map);
       this->load_initial_state(map, pose);
     }
   }

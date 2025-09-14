@@ -52,6 +52,7 @@ ControlParameters Control::load_config(std::string& adapter) {
 
   params.lookahead_gain_ = control_config["lookahead_gain"].as<double>();
   params.lookahead_minimum_ = control_config["lookahead_minimum"].as<double>();
+  params.first_last_max_dist_ = control_config["first_last_max_dist"].as<double>();
   params.pid_kp_ = control_config["pid_kp"].as<double>();
   params.pid_ki_ = control_config["pid_ki"].as<double>();
   params.pid_kd_ = control_config["pid_kd"].as<double>();
@@ -87,13 +88,12 @@ Control::Control(const ControlParameters& params)
             RCLCPP_DEBUG(this->get_logger(), "Received pathpoint array");
             pathpoint_array_ = msg.pathpoint_array;
             received_path_point_array = true;
-            received_vehicle_state = false;
           })),
       closest_point_pub_(create_publisher<visualization_msgs::msg::Marker>(
           "/control/visualization/closest_point", 10)),
       lookahead_point_pub_(create_publisher<visualization_msgs::msg::Marker>(
           "/control/visualization/lookahead_point", 10)),
-      point_solver_(params.lookahead_gain_, params.lookahead_minimum_),
+      point_solver_(params.lookahead_gain_, params.lookahead_minimum_, params.first_last_max_dist_),
       long_controller_(params.pid_kp_, params.pid_ki_, params.pid_kd_, params.pid_tau_,
                        params.pid_t_, params.pid_lim_min_, params.pid_lim_max_,
                        params.pid_anti_windup_),
@@ -177,7 +177,7 @@ void Control::publish_control(const custom_interfaces::msg::Pose& vehicle_state_
   }
 
   // calculate longitudinal control: PI-D
-  double torque = this->long_controller_.update(lookahead_velocity, this->velocity_);
+  double torque = this->long_controller_.update(closest_point_velocity, this->velocity_);
 
   // calculate Lateral Control: Pure Pursuit
   double steering_angle = this->lat_controller_.pp_steering_control_law(

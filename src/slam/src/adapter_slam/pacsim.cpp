@@ -9,7 +9,6 @@
 
 PacsimAdapter::PacsimAdapter(const SLAMParameters& params) : SLAMNode(params) {
   if (params.use_simulated_perception_) {
-    RCLCPP_DEBUG(this->get_logger(), "Using simulated perception");
     this->_perception_detections_subscription_ =
         this->create_subscription<pacsim::msg::PerceptionDetections>(
             "/pacsim/perception/lidar/landmarks", 1,
@@ -48,7 +47,6 @@ void PacsimAdapter::fetch_discipline() {
 
           if (!response->values.empty() && response->values[0].type == 4) {  // Type 4 = string
             std::string discipline = response->values[0].string_value;
-            RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
 
             if (discipline == "skidpad") {
               mission_result = common_lib::competition_logic::Mission::SKIDPAD;
@@ -69,9 +67,7 @@ void PacsimAdapter::fetch_discipline() {
 void PacsimAdapter::finish() {
   this->_finished_client_->async_send_request(
       std::make_shared<std_srvs::srv::Empty::Request>(),
-      [this](rclcpp::Client<std_srvs::srv::Empty>::SharedFuture) {
-        RCLCPP_INFO(this->get_logger(), "Finished signal sent");
-      });
+      [this](rclcpp::Client<std_srvs::srv::Empty>::SharedFuture) {});
 }
 
 void PacsimAdapter::_pacsim_perception_subscription_callback(

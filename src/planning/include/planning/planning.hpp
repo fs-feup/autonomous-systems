@@ -28,8 +28,8 @@
 #include "rcl_interfaces/srv/get_parameters.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "std_msgs/msg/float64.hpp"
-#include "utils/files.hpp"
 #include "std_srvs/srv/trigger.hpp"
+#include "utils/files.hpp"
 
 using PathPoint = common_lib::structures::PathPoint;
 using Pose = common_lib::structures::Pose;
@@ -58,9 +58,12 @@ class Planning : public rclcpp::Node {
   double initial_car_orientation_;
   int lap_counter_ = 0;
 
+  bool braking_ = false; /**< Flag to indicate if it is braking */
+  std::chrono::steady_clock::time_point brake_time_;
+
   // For Trackdrive
   std::vector<PathPoint> full_path_;  // for Trackdrive
-  bool found_full_path_ = false;  // for Trackdrive
+  bool found_full_path_ = false;      // for Trackdrive
 
   bool path_orientation_corrected_ = false;                                     // for Skidpad
   std::vector<PathPoint> predefined_path_;                                      // for Skidpad
@@ -81,6 +84,9 @@ class Planning : public rclcpp::Node {
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr track_sub_;
   /**< Local path points publisher */
   rclcpp::Publisher<custom_interfaces::msg::PathPointArray>::SharedPtr local_pub_;
+  /**< Publisher for the midpoints */
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr midpoints_pub_;
+
   /**< Publisher for the final path*/
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr visualization_pub_;
   /**< Publisher for path after triangulations */
@@ -131,13 +137,6 @@ class Planning : public rclcpp::Node {
    */
 
   void publish_track_points(const std::vector<PathPoint> &path) const;
-  /**
-   * @brief Publishes predictive track points.
-   * @details Depending on the selected mission, this function publishes
-   * predicted path points (published the path for the missions we previously
-   * know the track for).
-   */
-  void publish_predicitive_track_points();
 
   /**
    * @brief publish all visualization messages from the planning node
@@ -147,8 +146,10 @@ class Planning : public rclcpp::Node {
    * @param after_triangulations_path path after triangulations
    * @param final_path final path after smoothing
    */
-  void publish_visualization_msgs(const std::vector<PathPoint> &after_triangulations_path,
-                                  const std::vector<PathPoint> &final_path, const std::vector<PathPoint> &final_global_path) const;
+  void publish_visualization_msgs(const std::vector<PathPoint> &midPoints,
+                                  const std::vector<PathPoint> &after_triangulations_path,
+                                  const std::vector<PathPoint> &final_path,
+                                  const std::vector<PathPoint> &final_global_path) const;
 
   /**
    * @brief Checks if the current mission is predictive.

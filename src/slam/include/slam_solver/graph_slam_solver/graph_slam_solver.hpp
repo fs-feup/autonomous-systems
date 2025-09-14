@@ -35,6 +35,7 @@ class GraphSLAMSolver : public SLAMSolver {
   Eigen::VectorXi _associations_;         //< Associations of the cones in the map
   Eigen::VectorXd _observations_global_;  //< Global observations of the cones
   Eigen::VectorXd _map_coordinates_;      //< Coordinates of the landmarks in the map
+  bool _is_stopped_at_beginning_ = true;
 
   rclcpp::CallbackGroup::SharedPtr
       _reentrant_group_;  //< Reentrant callback group for the timer callback

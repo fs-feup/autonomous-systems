@@ -29,18 +29,18 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "inspection_gain",
                 description="Gains for longitudinal P controllers of inspection",
-                default_value="0.5",
+                default_value="0.05",
             ),
             DeclareLaunchArgument(
                 "ebs_test_gain",
                 description="Gains for longitudinal P controllers of inspection",
-                default_value="2.0",
+                default_value="0.1",
             ),
             DeclareLaunchArgument("finish_time", default_value="28.0"),  # seconds
             DeclareLaunchArgument(
                 "start_and_stop",
                 description="Normal mode or testing regenerative braking mode",
-                default_value="True",
+                default_value="False",
             ),
             Node(
                 package="inspection",

@@ -3,10 +3,12 @@ import rclpy
 from rclpy.node import Node
 import psutil
 from std_msgs.msg import Float32, Float32MultiArray, Int64MultiArray
+from custom_interfaces.msg import ProcessUsage, ProcessUsageArray
 import csv
 import signal
 import datetime
 import sys
+import time
 
 
 class PowerNode(Node):
@@ -19,9 +21,13 @@ class PowerNode(Node):
         self.temperature_publisher = self.create_publisher(
             Float32, "cpu_temperature", 10
         )
-        self.create_timer(0.1, self.timer_callback)
+        self.processes_usage_publisher = self.create_publisher(
+            ProcessUsageArray, "processes_usage", 10
+        )
+        self.create_timer(1.0, self.timer_callback)
 
         self.metrics_list = []
+        self.processes_usage = []
 
         signal.signal(signal.SIGINT, self.signal_handler)
 
@@ -64,6 +70,29 @@ class PowerNode(Node):
             writer.writeheader()
             writer.writerows(metrics)
 
+    def get_process_usage(self, top_n=20):
+        # First call to cpu_percent initializes counters
+        for proc in psutil.process_iter(["pid", "name"]):
+            try:
+                proc.cpu_percent(interval=None)
+            except (psutil.NoSuchProcess, psutil.AccessDenied):
+                pass
+
+        processes = []
+
+        for proc in psutil.process_iter(["pid", "name"]):
+            try:
+                cpu = proc.cpu_percent(interval=None)
+                mem = proc.memory_info().rss / (1024 * 1024)  # MB
+                processes.append((cpu, mem, proc.info["pid"], proc.info["name"]))
+            except (psutil.NoSuchProcess, psutil.AccessDenied):
+                continue
+
+        # Sort by CPU usage
+        processes.sort(key=lambda x: x[0], reverse=True)
+
+        return processes[:top_n]  # Return top N processes
+
     def pc_stats(self):
         """!
         Returns a dictionary with the CPU core usage, memory usage and CPU temperature.
@@ -87,10 +116,24 @@ class PowerNode(Node):
         Callback function that publishes CPU core usage, memory usage and CPU temperature.
         """
         stats = self.pc_stats()
+        processes = self.get_process_usage()
 
         cpu_core_usage_msg = Float32MultiArray()
         cpu_core_usage_msg.data = stats["cpu_core_usage"]
         self.cpu_publisher.publish(cpu_core_usage_msg)
+
+        processes_usage_msg = ProcessUsageArray()
+        processes_usage_msg.header.stamp = self.get_clock().now().to_msg()
+        processes_usage_msg.process_usages = []
+        for cpu, mem, pid, name in processes:
+            process_usage = ProcessUsage()
+            process_usage.header.stamp = processes_usage_msg.header.stamp
+            process_usage.usage = cpu
+            process_usage.memory = mem
+            process_usage.process_name = name
+            processes_usage_msg.process_usages.append(process_usage)
+
+        self.processes_usage_publisher.publish(processes_usage_msg)
 
         memory_msg = Float32()
         memory_msg.data = stats["memory_usage"]
