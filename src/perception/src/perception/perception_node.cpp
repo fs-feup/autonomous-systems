@@ -117,7 +117,7 @@ PerceptionParameters Perception::load_config() {
         std::make_shared<GridRANSAC>(ransac_epsilon, ransac_iterations, plane_angle_diff);
   } else if (ground_removal_algorithm == "ransac2") {
     params.ground_removal_ =
-        std::make_shared<RANSAC2>(ransac_epsilon, ransac_iterations, plane_angle_diff);
+        std::make_shared<ConstrainedRANSAC>(ransac_epsilon, ransac_iterations, plane_angle_diff);
   }
 
   int clustering_n_neighbours = perception_config["clustering_n_neighbours"].as<int>();

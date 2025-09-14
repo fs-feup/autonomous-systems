@@ -12,13 +12,13 @@
 #include "rclcpp/rclcpp.hpp"
 
 /**
- * @class RANSAC
- * @brief Ground removal using the RANSAC algorithm.
+ * @class Constrained RANSAC
+ * @brief Ground removal using the Constrained RANSAC algorithm.
  *
  * This class implements the GroundRemoval interface and performs ground removal
- * on a point cloud using the Random Sample Consensus (RANSAC) algorithm.
+ * on a point cloud using the Constrained Random Sample Consensus (RANSAC) algorithm.
  */
-class RANSAC2 : public GroundRemoval {
+class ConstrainedRANSAC : public GroundRemoval {
 public:
   /**
    * @brief Constructor for the RANSAC ground removal algorithm.
@@ -26,14 +26,14 @@ public:
    * @param n_tries Number of RANSAC iterations.
    * @param plane_angle_diff Maximum allowed angle deviation from the base plane.
    */
-  RANSAC2(const double epsilon, const int n_tries, const double plane_angle_diff);
+  ConstrainedRANSAC(const double epsilon, const int n_tries, const double plane_angle_diff);
 
   /**
    * @brief Default constructor.
    *
    * This constructor is provided as a default constructor.
    */
-  RANSAC2() = default;
+  ConstrainedRANSAC() = default;
 
   /**
    * @brief Perform ground removal using the RANSAC algorithm.

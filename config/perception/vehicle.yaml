@@ -28,7 +28,7 @@ perception:
   ground_removal: "grid_ransac"
   ransac_epsilon: 0.15
   ransac_iterations: 40
-  plane_angle_diff: 8.0 
+  plane_angle_diff: 10.0 
 
     #TRACKDRIVE/AUTOCROSS GROUND REMOVAL
   n_angular_grids: 3

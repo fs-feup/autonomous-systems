@@ -5,7 +5,7 @@
 #include <utils/split_parameters.hpp>
 
 #include "ground_removal/ground_removal.hpp"
-#include "ground_removal/ransac2.hpp"
+#include "ground_removal/constrained_ransac.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 /**
@@ -68,5 +68,5 @@ public:
                          const SplitParameters split_params) const;
 
 private:
-  RANSAC2 _ransac_;  ///< RANSAC object for ground plane fitting.
+  ConstrainedRANSAC _ransac_;  ///< Constrained RANSAC object for ground plane fitting.
 };
