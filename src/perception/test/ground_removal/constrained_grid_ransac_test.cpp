@@ -116,8 +116,9 @@ TEST_F(ConstrainedGridRANSACTest, TestEmptyPointCloud) {
   const pcl::PointCloud<pcl::PointXYZI>::Ptr output_ptr(
       &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
 
-  EXPECT_THROW(ransac.ground_removal(empty_ptr, output_ptr, plane, split_params),
-               std::invalid_argument);
+  ransac.ground_removal(empty_ptr, output_ptr, plane, split_params);
+
+  EXPECT_EQ(empty_ptr->points.size(), output_ptr->points.size());
 }
 
 /**

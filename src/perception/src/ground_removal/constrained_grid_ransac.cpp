@@ -96,8 +96,8 @@ void ConstrainedGridRANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>
   // - schedule(dynamic): iterations are assigned to threads dynamically to better balance variable
   // workloads
 #pragma omp parallel for reduction(+ : count) schedule(dynamic)
-  for (auto& grid_row : grids) {
-    for (auto& grid_cell : grid_row) {
+  for (const auto& grid_row : grids) {
+    for (const auto& grid_cell : grid_row) {
       if (grid_cell->points.size() < 3) {
         continue;
       }
