@@ -10,6 +10,7 @@ sudo apt install -y python3-rosdep
 sudo apt install -y ros-humble-message-filters
 sudo apt install -y ros-humble-tf-transformations
 sudo apt install -y ros-humble-rosbag2-storage-mcap
+sudo apt install ninja-build build-essential cmake -y
 
 # planning
 sudo apt-get install libcgal-dev -y
@@ -25,6 +26,10 @@ sudo apt-get install ros-humble-pcl-ros -y
 sudo apt install rospack-tools -y
 rospack find sensor_msgs -y
 sudo apt-get install libpcap-dev -y
+
+# slam 
+sudo add-apt-repository ppa:borglab/gtsam-develop
+sudo apt install libgtsam-dev libgtsam-unstable-dev -y
 
 # ground truth generation
 pip install pandas

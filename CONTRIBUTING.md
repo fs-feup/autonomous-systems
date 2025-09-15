@@ -29,7 +29,7 @@ You work with your **shell always in the root directory**. In it, you can find m
 - Program
 - Compile (see guide at the end of this file)
   ```sh
-  colcon build
+  colcon build --cmake-args -G Ninja
   ```
   you can and should use bear to update the compile_commands.json file for Sonarlint to be kept up to date, especially if you have added new files
   ```sh
