@@ -27,6 +27,7 @@ std::pair<double, PathCalculation::MidPoint*> PathCalculation::dfs_cost(int dept
     if (next.get() == previous) {
       continue;
     }
+    //the cost part should be a function it is used in various places
 
     // Distance calculation
     double distance = std::sqrt(std::pow(current->point.x() - next->point.x(), 2) +
@@ -79,6 +80,7 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
     RCLCPP_ERROR(rclcpp::get_logger("planning"), "Not enough cones to create a path.");
     path_points = {};
   } else {
+    //qual o sentido de ter este vetor e ter um this->midPoints
     std::vector<std::shared_ptr<MidPoint>> midPoints;
     std::unordered_set<Cone*> discarded_cones;
 
@@ -95,6 +97,7 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
     int max_points = config_.max_points_;
     path_update_counter_++;
 
+    // se isto vier da primeira volta, não há global_path_ definido!!! ver como isto funciona!
     // Find the point in the current global path closest to the car
     int cutoff_index = -1;
     double min_dist = std::numeric_limits<double>::max();
@@ -112,12 +115,14 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
 
     path_to_car.clear();
     // Retain part of the existing path leading to the car
+    //Pq é que exite os lookbackpoints, os pontos perto do carro não são computados!?
     if (cutoff_index != -1 && cutoff_index > config_.lookback_points_) {
       (void)path_to_car.insert(path_to_car.end(), global_path_.begin(),
                                global_path_.begin() + cutoff_index - config_.lookback_points_);
     }
 
     // Reset the path periodically to avoid long-term drift or degradation
+    //como é que isto funciona ao certo, teoricamente falando no caso??
     if (path_update_counter_ >= config_.reset_global_path_) {
       max_points = path_to_car.size() + config_.max_points_;
       path_to_car.clear();
@@ -140,7 +145,8 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
         discard_cones_along_path(global_path, midPoints, point_to_midpoint, discarded_cones);
       }
       (void)path_points.emplace_back(point.x(), point.y());
-    }
+    }      (void)path_points.emplace_back(point.x(), point.y());
+
 
     global_path_ = global_path;  // Update global path for next iteration
   }
@@ -148,13 +154,36 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
   return path_points;
 }
 
+//qual a vantagem de aqui não usar o midpoints da classe? Alias aqui uso o da classe pq não o faço em no_colloring? e depois copio
 void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
                                         std::vector<std::shared_ptr<MidPoint>>& midPoints) {
+  std::vector<Cone> active_cones;
+  active_cones.reserve(cone_array.size());
+                                          
+  if(config_.is_sliding_window_) {
+    for (const auto& cone : cone_array) {
+      double dx = cone.position.x - anchor_pose_.position.x;
+      double dy = cone.position.y - anchor_pose_.position.y;
+      double sq_d = dx*dx + dy*dy;
+
+      if (dx*dx + dy*dy <= config_.sliding_window_radius_*config_.sliding_window_radius_) {
+          active_cones.push_back(cone);
+      }
+    }
+
+    if (active_cones.size() < 2) {
+      RCLCPP_WARN(rclcpp::get_logger("planning"),"[Planning] Not enough cones in sliding window to compute midpoints");
+      return;
+    }
+  }else {
+    active_cones = std::move(cone_array);
+  }
+     
   this->midPoints.clear();
   DT dt;
 
   // Insert all cone positions into the Delaunay triangulation
-  for (const auto& cone : cone_array) {
+  for (const auto& cone : active_cones) {
     (void)dt.insert(Point(cone.position.x, cone.position.y));
   }
 
@@ -172,8 +201,9 @@ void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
       Point p1 = va->point();
       Point p2 = vb->point();
 
-      int id1 = ::find_cone(cone_array, p1.x(), p1.y());
-      int id2 = ::find_cone(cone_array, p2.x(), p2.y());
+      //using a map should be faster than searching every time!!! If unorder map is used it could be 0(1)
+      int id1 = ::find_cone(active_cones, p1.x(), p1.y());
+      int id2 = ::find_cone(active_cones, p2.x(), p2.y());
 
       if (id1 == -1 || id2 == -1) {
         continue;
@@ -186,20 +216,19 @@ void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
       }
 
       // Use ordered cone IDs to uniquely identify the segment
-      auto key = std::minmax(id1, id2);
+      auto key = std::minmax(id1, id2); // std::pair<min(a,b), max(a,b)>
       auto it = segment_to_midpoint.find(key);
 
       if (it != segment_to_midpoint.end()) {
         mids[i] = it->second;
       } else {
         auto midpoint = std::make_shared<MidPoint>(
-            MidPoint{CGAL::midpoint(p1, p2), {}, &cone_array[id1], &cone_array[id2]});
+            MidPoint{CGAL::midpoint(p1, p2), {}, &active_cones[id1], &active_cones[id2]});
         segment_to_midpoint[key] = midpoint;
         midPoints.push_back(midpoint);
         mids[i] = midpoint;
       }
     }
-
     // Connect midpoints if they share the same triangle
     for (int i = 0; i < 3; ++i) {
       if (!mids[i]) {
@@ -213,6 +242,7 @@ void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
       }
     }
   }
+  //possivelmente isto não é necessário, com as outras mudanças mencionadas
   for (const auto& p : midPoints) {
     this->midPoints.push_back(*p);
   }
@@ -239,8 +269,11 @@ void PathCalculation::calculate_initial_path(
 
     path.push_back(snapped_first);
     Point last_point = snapped_first;
+    //Qual o objetivo de isto começar com o segundo ponto de path_to_car?
 
     // Iterate over the remaining points from previous path
+    //qual a logica exata desta parte toda!?
+    // depois começa na segunda, logo vai ter um ponto repetido enão vai ter o 1º ponto???!!
     for (std::size_t i = 1; i < path_to_car.size(); ++i) {
       Point current_point = path_to_car[i];
       MidPoint* current_mp = find_nearest_point(current_point, point_to_midpoint);
@@ -254,6 +287,7 @@ void PathCalculation::calculate_initial_path(
       double distance = CGAL::sqrt(CGAL::squared_distance(last_point, current_point));
 
       // Only add the point if it is far enough and not yet visited
+      // what is the logic/theory of this??
       if (distance > config_.tolerance_ &&
           (current_mp == nullptr || visited_midpoints.count(current_mp) == 0)) {
         path.push_back(current_point);
@@ -270,6 +304,7 @@ void PathCalculation::calculate_initial_path(
     }
   } else {
     // Not enough path history, use pose to find start points
+    //A podia ser atualizada sempre que houvesse nova pose para evitar, sempre que quero mudar ir buscar a uma função...
     update_anchor_point(pose);
     auto [first, second] = find_path_start_points(midPoints, anchor_pose_);
     if (first != nullptr && second != nullptr) {
@@ -392,6 +427,7 @@ void PathCalculation::update_anchor_point(const common_lib::structures::Pose& po
   }
 }
 
+//Pq é que a anchor_pose é passada aqui?
 std::pair<PathCalculation::MidPoint*, PathCalculation::MidPoint*>
 PathCalculation::find_path_start_points(const std::vector<std::shared_ptr<MidPoint>>& mid_points,
                                         const common_lib::structures::Pose& anchor_pose) {
@@ -417,6 +453,7 @@ PathCalculation::find_path_start_points(const std::vector<std::shared_ptr<MidPoi
     if ((dx * car_direction_x + dy * car_direction_y) <= 0.0) {
       continue;
     }
+    //esta função de cost é feita com base em quê?
     double dist = std::sqrt(std::pow(dx, 2) + std::pow(dy, 2));
     double angle = std::atan2(p->point.y() - anchor_midpoint.point.y(),
                                             p->point.x() - anchor_midpoint.point.x());
@@ -439,6 +476,7 @@ PathCalculation::find_path_start_points(const std::vector<std::shared_ptr<MidPoi
   anchor_midpoint.close_points.clear();
   anchor_midpoint.close_points.reserve(candidate_points.size());
 
+  //Há formas mais eficientes de fazer isto!!
   for (auto* raw_ptr : candidate_points) {
     for (const auto& mp : mid_points) {
       if (mp.get() == raw_ptr) {
@@ -447,7 +485,7 @@ PathCalculation::find_path_start_points(const std::vector<std::shared_ptr<MidPoi
       }
     }
   }
-
+  //esta função garante sempre o melhor caminha, ja que so vê os 8 melhores pontos?
   double best_cost = std::numeric_limits<double>::max();
   for (const auto& first : anchor_midpoint.close_points) {
     auto [cost, second] = dfs_cost(this->config_.search_depth_, &anchor_midpoint, first.get(),

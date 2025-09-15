@@ -1,6 +1,6 @@
 #ifndef SRC_PLANNING_INCLUDE_CONFIG_SIMULATION_CONFIG_HPP_
 #define SRC_PLANNING_INCLUDE_CONFIG_SIMULATION_CONFIG_HPP_
-
+//struct for the "configuration of the smoothing algorithm"!??
 /**
  * @brief struct for the configuration of the smoothing algorithm
  *

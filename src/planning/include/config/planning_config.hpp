@@ -42,8 +42,12 @@ struct PlanningParameters {
   double normal_acceleration_;
   bool use_velocity_planning_;
   std::string map_frame_id_;
+
+  int sliding_window_radius_;
+  bool is_sliding_window_;
 };
 
+//struct for the "configuration of the outliers removal algorithm."!??
 /**
  * @brief struct for the configuration of the outliers removal algorithm.
  *
@@ -76,7 +80,8 @@ struct PlanningConfig {
     path_calculation_.skidpad_tolerance_ = params.skidpad_tolerance_;
     path_calculation_.skidpad_minimum_cones_ = params.skidpad_minimum_cones_;
     path_calculation_.maximum_cone_distance_ = params.maximum_cone_distance_;
-
+    path_calculation_.sliding_window_radius_ = params.sliding_window_radius_;
+    path_calculation_.is_sliding_window_ = params.is_sliding_window_;
 
     smoothing_.order_ = params.smoothing_spline_order_;
     smoothing_.precision_ = params.smoothing_spline_precision_;

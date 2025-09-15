@@ -1,6 +1,7 @@
 #ifndef SRC_PLANNING_INCLUDE_CONFIG_PATH_CALCULATION_CONFIG_HPP_
 #define SRC_PLANNING_INCLUDE_CONFIG_PATH_CALCULATION_CONFIG_HPP_
 
+//struct for the "configuration of the outliers removal algorithm."!??
 /**
  * @brief struct for the configuration of the outliers removal algorithm.
  *
@@ -21,6 +22,9 @@ struct PathCalculationConfig {
   int max_points_ = 50;
   int reset_global_path_ = 10;
   int skidpad_minimum_cones_ = 10.0;
+
+  int sliding_window_radius_ = 30;
+  bool is_sliding_window_ = true;
 
   PathCalculationConfig() = default;
 };

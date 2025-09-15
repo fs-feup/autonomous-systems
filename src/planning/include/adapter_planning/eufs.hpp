@@ -6,6 +6,8 @@
 #include "eufs_msgs/srv/set_can_state.hpp"
 #include "planning/planning.hpp"
 
+//Probably useless
+
 class EufsAdapter : public Planning {
   rclcpp::Subscription<eufs_msgs::msg::CanState>::SharedPtr eufs_state_subscription_;
   rclcpp::Subscription<eufs_msgs::msg::CarState>::SharedPtr eufs_pose_subscription_;

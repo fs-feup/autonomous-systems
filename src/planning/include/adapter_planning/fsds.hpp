@@ -18,6 +18,8 @@
 #include "tf2_ros/buffer.h"
 #include "tf2_ros/transform_listener.h"
 
+//Probably useless
+
 class FsdsAdapter : public Planning {
   rclcpp::Subscription<fs_msgs::msg::GoSignal>::SharedPtr fsds_state_subscription_;
   rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr fsds_position_subscription_;

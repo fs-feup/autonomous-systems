@@ -66,6 +66,7 @@ private:
 
 public:
 
+  //Qual a vantagem de esta organização!!??
   /**
    * @brief MidPoint struct represents a potential path point with connections
    */

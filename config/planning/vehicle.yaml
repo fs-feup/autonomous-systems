@@ -30,6 +30,10 @@ planning:
   normal_acceleration: 0.9
   use_velocity_planning: true
   desired_velocity: 6.0
+
+  is_sliding_window: true
+  sliding_window_: 30
+
 # Parameters for EBS Test
 # planning:
 #   minimum_cone_distance: 2.0 # minimum distance between cones -> The rules say 3m, but we should keep it lower for safety

@@ -8,14 +8,16 @@
 
 using std::placeholders::_1;
 
+//ele precisa de dar um config global e só depois pega nas coisas de planning?
 PlanningParameters Planning::load_config(std::string &adapter) {
   PlanningParameters params;
   std::string global_config_path =
       common_lib::config_load::get_config_yaml_path("planning", "global", "global_config");
-  RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Loading global config from: %s",
+  RCLCPP_DEBUG(rclcpp::get_logger("planning"), "fLoading global config from: %s",
                global_config_path.c_str());
   YAML::Node global_config = YAML::LoadFile(global_config_path);
 
+  //o que é isto?
   adapter = global_config["global"]["adapter"].as<std::string>();
   params.using_simulated_se_ = global_config["global"]["use_simulated_se"].as<bool>();
 
@@ -60,7 +62,9 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.braking_acceleration_ = planning_config["braking_acceleration"].as<double>();
   params.normal_acceleration_ = planning_config["normal_acceleration"].as<double>();
   params.use_velocity_planning_ = planning_config["use_velocity_planning"].as<bool>();
-
+  params.sliding_window_radius_ = planning_config["sliding_window_cones"].as<int>();
+  params.is_sliding_window_ = planning_config["is_sliding_window_cones"].as<bool>();
+  
   return params;
 }
 
@@ -73,15 +77,17 @@ Planning::Planning(const PlanningParameters &params)
   path_calculation_ = PathCalculation(planning_config_.path_calculation_);
   path_smoothing_ = PathSmoothing(planning_config_.smoothing_);
   velocity_planning_ = VelocityPlanning(planning_config_.velocity_planning_);
-
+  
+  //Pq é que isto tem necessáriamente o pacsim, tem que depois ser mudado com a mudança do simulador!??
+  //Pq é que o default é o pacsim!?!?
   param_client_ =
       this->create_client<rcl_interfaces::srv::GetParameters>("/pacsim/pacsim_node/get_parameters");
+  //fazer uma confição
   fetch_discipline();
 
   // Control Publisher
   this->local_pub_ =
-      this->create_publisher<custom_interfaces::msg::PathPointArray>("/path_planning/path", 10);
-
+      this->create_publisher<custom_interfaces::msg::PathPointArray>("/path_planning/path", 10); 
 
   // Publisher for execution time
   this->_planning_execution_time_publisher_ =
@@ -115,6 +121,7 @@ Planning::Planning(const PlanningParameters &params)
         });
   }
 
+  //Isto não devia estar dentro do if anterior?
   RCLCPP_INFO(rclcpp::get_logger("planning"), "using simulated state estimation: %d",
               planning_config_.simulation_.using_simulated_se_);
 }
@@ -162,6 +169,10 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) 
   RCLCPP_DEBUG(this->get_logger(), "Planning received %i cones", number_of_cones_received);
   this->cone_array_ = common_lib::communication::cone_vector_from_custom_interfaces(msg);
   this->received_first_track_ = true;
+  // Pq não isto?
+  // if(this->received_first_pose_){
+  //   run_planning_algorithms();
+  // }
   if (!(this->received_first_pose_)) {
     return;
   } else {
@@ -232,7 +243,6 @@ void Planning::run_planning_algorithms() {
       //   velocity_planning_.set_velocity(final_path);
       // }
       // break;
-
     case common_lib::competition_logic::Mission::TRACKDRIVE:
 
       if (this->lap_counter_ == 0) {
