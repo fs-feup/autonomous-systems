@@ -12,10 +12,11 @@ ConstrainedRANSAC::ConstrainedRANSAC(const double epsilon, const int n_tries,
 void ConstrainedRANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
                                        const pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
                                        [[maybe_unused]] const SplitParameters split_params) const {
-  auto start_time = std::chrono::high_resolution_clock::now();
-
   if (point_cloud->points.size() < 3) {
-    throw std::invalid_argument("Point cloud must contain at least 3 points to fit a plane.");
+    RCLCPP_INFO(rclcpp::get_logger("ConstrainedGridRANSAC"),
+                "Point cloud has less than 3 points, skipping ground removal.");
+    *ret = *point_cloud;
+    return;
   }
 
   // Calculate the best plane, the plane parameter is used as a default plane if no better plane is
@@ -38,9 +39,6 @@ void ConstrainedRANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Pt
       ret->width++;
     }
   }
-
-  auto end_time = std::chrono::high_resolution_clock::now();
-  auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
 }
 
 Plane ConstrainedRANSAC::calculate_plane(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
@@ -53,7 +51,6 @@ Plane ConstrainedRANSAC::calculate_plane(const pcl::PointCloud<pcl::PointXYZI>::
   int best_plane_inliers = 0;
   double best_plane_max_deviation = 0.0;
   bool best_plane_found = false;
-  double best_angle_diff;
   int n_skips = 0;
 
   for (int i = 0; i < n_tries; ++i) {
@@ -73,9 +70,8 @@ Plane ConstrainedRANSAC::calculate_plane(const pcl::PointCloud<pcl::PointXYZI>::
     Plane candidate_plane = fit_plane_to_points(sampled_points);
 
     // Check angle constraint if target plane is provided
-    double angle_diff;
     if (target_plane.get_a() != 0 || target_plane.get_b() != 0 || target_plane.get_c() != 0) {
-      angle_diff = calculate_angle_difference(candidate_plane, target_plane);
+      double angle_diff = calculate_angle_difference(candidate_plane, target_plane);
 
       // Skip if angle difference is bigger than defined threshold
       if (angle_diff > plane_angle_diff) {
@@ -104,18 +100,18 @@ Plane ConstrainedRANSAC::calculate_plane(const pcl::PointCloud<pcl::PointXYZI>::
       best_plane_inliers = inliers;
       best_plane_max_deviation = max_deviation;
       best_plane_found = true;
-      best_angle_diff = angle_diff;
 
     } else if (inliers == best_plane_inliers && max_deviation < best_plane_max_deviation) {
       best_plane = candidate_plane;
       best_plane_inliers = inliers;
       best_plane_max_deviation = max_deviation;
-      best_angle_diff = angle_diff;
+    } else {
+      // No update
     }
   }
 
   if (!best_plane_found || n_skips == n_tries) {
-    return target_plane;
+    best_plane = target_plane;
   }
   return best_plane;
 }

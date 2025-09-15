@@ -44,7 +44,7 @@ void GridRANSAC::split_point_cloud(
   for (int radius = 0; radius < n_radius_grids; ++radius) {
     grids[radius].resize(split_params.n_angular_grids);
     for (int angle = 0; angle < split_params.n_angular_grids; ++angle) {
-      grids[radius][angle].reset(new pcl::PointCloud<pcl::PointXYZI>());
+      grids[radius][angle] = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
     }
   }
 
@@ -77,15 +77,25 @@ void GridRANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point
 
   int count = 0;
 
+  // Parallelize outer loop:
+  // - parallel for: run iterations of the following for-loop on multiple threads
+  // - reduction(+ : count): each thread keeps a private 'count' and the values are summed at the
+  // end
+  // - schedule(dynamic): iterations are assigned to threads dynamically to better balance variable
+  // workloads
 #pragma omp parallel for reduction(+ : count) schedule(dynamic)
-  for (auto& grid_row : grids) {
-    for (auto& grid_cell : grid_row) {
-      if (grid_cell->points.size() < 3) continue;
+  for (const auto& grid_row : grids) {
+    for (const auto& grid_cell : grid_row) {
+      if (grid_cell->points.size() < 3) {
+        continue;
+      }
 
       Plane grid_plane;
-      pcl::PointCloud<pcl::PointXYZI>::Ptr grid_ret(new pcl::PointCloud<pcl::PointXYZI>);
+      auto grid_ret = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
       this->_ransac_.ground_removal(grid_cell, grid_ret, grid_plane, split_params);
 
+      // Critical section: only one thread at a time may execute this block.
+      // Protects concurrent modification of shared variables
 #pragma omp critical
       {
         *ret += *grid_ret;

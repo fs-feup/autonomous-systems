@@ -122,6 +122,11 @@ PerceptionParameters Perception::load_config() {
   } else if (ground_removal_algorithm == "constrained_grid_ransac") {
     params.ground_removal_ = std::make_shared<ConstrainedGridRANSAC>(
         ransac_epsilon, ransac_iterations, plane_angle_diff);
+  } else {
+    RCLCPP_ERROR(rclcpp::get_logger("perception"),
+                 "Ground removal algorithm not recognized: %s, using GridRANSAC as default",
+                 ground_removal_algorithm.c_str());
+    params.ground_removal_ = std::make_shared<GridRANSAC>(ransac_epsilon, ransac_iterations);
   }
 
   int clustering_n_neighbours = perception_config["clustering_n_neighbours"].as<int>();
