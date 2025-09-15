@@ -117,4 +117,6 @@
     "ros.distro": "humble",
     "sonarlint.pathToCompileCommands": "${workspaceFolder}/compile_commands.json",
     "C_Cpp.errorSquiggles": "enabled",
+    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "python-envs.pythonProjects": [],
 }

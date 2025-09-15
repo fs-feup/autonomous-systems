@@ -99,17 +99,17 @@ class Supervisor(Node):
         if msg.mission == 0:
             self.mission = "Manual"
         elif msg.mission == 1:
-            self.mission = "Acceleration"
+            self.mission = "DV Acceleration"
         elif msg.mission == 2:
-            self.mission = "Skidpad"
+            self.mission = "DV Skidpad"
         elif msg.mission == 3:
-            self.mission = "Autocross"
+            self.mission = "DV Autocross"
         elif msg.mission == 4:
             self.mission = "Trackdrive"
         elif msg.mission == 5:
             self.mission = "EBS Test"
         elif msg.mission == 6:
-            self.mission = "Inspection"
+            self.mission = "DV Inspection"
         elif msg.mission == 7:
             self.mission = "None"
         else:
