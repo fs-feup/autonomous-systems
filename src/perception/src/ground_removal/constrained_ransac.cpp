@@ -16,27 +16,26 @@ void ConstrainedRANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Pt
     RCLCPP_INFO(rclcpp::get_logger("ConstrainedGridRANSAC"),
                 "Point cloud has less than 3 points, skipping ground removal.");
     *ret = *point_cloud;
-    return;
-  }
+  } else {
+    // Calculate the best plane, the plane parameter is used as a default plane if no better plane
+    // is found
+    Plane default_plane = plane;
+    plane = calculate_plane(point_cloud, default_plane);
 
-  // Calculate the best plane, the plane parameter is used as a default plane if no better plane is
-  // found
-  Plane default_plane = plane;
-  plane = calculate_plane(point_cloud, default_plane);
+    // Clear the output point cloud
+    ret->clear();
+    ret->header = point_cloud->header;
+    ret->width = 0;
+    ret->height = 1;
+    ret->is_dense = point_cloud->is_dense;
 
-  // Clear the output point cloud
-  ret->clear();
-  ret->header = point_cloud->header;
-  ret->width = 0;
-  ret->height = 1;
-  ret->is_dense = point_cloud->is_dense;
-
-  // Remove ground points based on the best plane
-  for (const auto& point : point_cloud->points) {
-    double distance = distance_to_plane(point, plane);
-    if (distance >= epsilon) {  // Keep non-ground points
-      ret->points.push_back(point);
-      ret->width++;
+    // Remove ground points based on the best plane
+    for (const auto& point : point_cloud->points) {
+      double distance = distance_to_plane(point, plane);
+      if (distance >= epsilon) {  // Keep non-ground points
+        ret->points.push_back(point);
+        ret->width++;
+      }
     }
   }
 }
