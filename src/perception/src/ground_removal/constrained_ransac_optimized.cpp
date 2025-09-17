@@ -37,6 +37,8 @@ void ConstrainedRANSACOptimized::ground_removal(
   seg.setInputCloud(point_cloud);
   seg.segment(*inliers_indices, *coefficients);
 
+  bool accepted_plane = false;
+
   if (coefficients->values.size() >= 4) {
     plane = Plane(coefficients->values[0], coefficients->values[1], coefficients->values[2],
                   coefficients->values[3]);
@@ -44,7 +46,7 @@ void ConstrainedRANSACOptimized::ground_removal(
     // If no default plane provided, or angle check is okay, use candidate plane, if not, use
     // default
     if ((default_plane.get_a() == 0.0 && default_plane.get_b() == 0.0 &&
-         default_plane.get_c() == 0.0 && default_plane.get_d() == 0.0) ||
+         default_plane.get_c() == 0.0) ||
         (calculate_angle_difference(plane, default_plane) <= plane_angle_diff)) {
       pcl::ExtractIndices<pcl::PointXYZI> extract;
       extract.setInputCloud(point_cloud);
@@ -52,22 +54,24 @@ void ConstrainedRANSACOptimized::ground_removal(
 
       extract.setNegative(true);  // Extract outliers
       extract.filter(*ret);
-      return;
+      accepted_plane = true;
     }
   }
 
-  plane = default_plane;
+  if (!accepted_plane) {  // No plane found or angle check failed, use default
+    plane = default_plane;
 
-  ret->clear();
-  ret->header = point_cloud->header;
-  ret->width = 0;
-  ret->height = 1;
-  ret->is_dense = point_cloud->is_dense;
+    ret->clear();
+    ret->header = point_cloud->header;
+    ret->width = 0;
+    ret->height = 1;
+    ret->is_dense = point_cloud->is_dense;
 
-  for (const auto& point : *point_cloud) {
-    double distance = distance_to_plane(point, default_plane);
-    if (distance > epsilon) {
-      ret->points.push_back(point);
+    for (const auto& point : *point_cloud) {
+      double distance = distance_to_plane(point, default_plane);
+      if (distance > epsilon) {
+        ret->points.push_back(point);
+      }
     }
   }
 }
