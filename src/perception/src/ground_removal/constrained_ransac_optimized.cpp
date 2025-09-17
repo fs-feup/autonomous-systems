@@ -18,8 +18,8 @@ void ConstrainedRANSACOptimized::ground_removal(
     const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
     const pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
     [[maybe_unused]] const SplitParameters split_params) const {
-  pcl::ModelCoefficients::Ptr coefficients(new pcl::ModelCoefficients);
-  pcl::PointIndices::Ptr inliers_indices(new pcl::PointIndices);
+  pcl::ModelCoefficients::Ptr coefficients = std::make_shared<pcl::ModelCoefficients>();
+  pcl::PointIndices::Ptr inliers_indices = std::make_shared<pcl::PointIndices>();
   Plane default_plane = plane;
 
   // Segmentation Object creation
