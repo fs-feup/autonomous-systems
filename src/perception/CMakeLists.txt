@@ -34,6 +34,7 @@ set(IMPLEMENTATION_FILES
   src/ground_removal/grid_ransac.cpp
   src/ground_removal/constrained_ransac.cpp
   src/ground_removal/constrained_grid_ransac.cpp
+  src/ground_removal/constrained_ransac_optimized.cpp
   src/cone_differentiation/least_squares_differentiation.cpp
   src/clustering/dbscan.cpp
   src/utils/cluster.cpp

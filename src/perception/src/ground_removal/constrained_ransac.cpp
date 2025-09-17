@@ -3,7 +3,6 @@
 #include <chrono>
 #include <cmath>
 #include <iostream>
-#include <random>
 
 ConstrainedRANSAC::ConstrainedRANSAC(const double epsilon, const int n_tries,
                                      const double plane_angle_diff)
@@ -44,7 +43,6 @@ Plane ConstrainedRANSAC::calculate_plane(const pcl::PointCloud<pcl::PointXYZI>::
                                          const Plane& target_plane) const {
   std::random_device rd;
   std::mt19937 gen(rd());
-  std::uniform_int_distribution<> dis(0, point_cloud->points.size() - 1);
 
   Plane best_plane;
   int best_plane_inliers = 0;
@@ -57,13 +55,10 @@ Plane ConstrainedRANSAC::calculate_plane(const pcl::PointCloud<pcl::PointXYZI>::
     std::vector<pcl::PointXYZI> sampled_points(3);
     std::vector<int> indices(3);
 
-    // Ensure 3 different points
-    do {
-      for (int j = 0; j < 3; ++j) {
-        indices[j] = dis(gen);
-        sampled_points[j] = point_cloud->points[indices[j]];
-      }
-    } while (indices[0] == indices[1] || indices[0] == indices[2] || indices[1] == indices[2]);
+    indices = pick_3_random_indices(static_cast<int>(point_cloud->points.size()), gen);
+    sampled_points[0] = point_cloud->points[indices[0]];
+    sampled_points[1] = point_cloud->points[indices[1]];
+    sampled_points[2] = point_cloud->points[indices[2]];
 
     // Calculate plane from 3 points
     Plane candidate_plane = fit_plane_to_points(sampled_points);
@@ -126,11 +121,16 @@ Plane ConstrainedRANSAC::fit_plane_to_points(const std::vector<pcl::PointXYZI>& 
 
   // Calculate normal vector using cross product
   Eigen::Vector3d normal = v1.cross(v2);
-  normal.normalize();
+  double nrm = normal.norm();
+
+  // Check for case where points are collinear
+  if (nrm < 1e-12) {
+    return Plane(0.0, 0.0, 0.0, 0.0);
+  }
+  normal /= nrm;
 
   Plane plane(normal.x(), normal.y(), normal.z(),
               -(normal.x() * p1.x + normal.y() * p1.y + normal.z() * p1.z));
-
   return plane;
 }
 
@@ -141,7 +141,12 @@ double ConstrainedRANSAC::distance_to_plane(const pcl::PointXYZI& point, const P
   double C = plane.get_c();
   double D = plane.get_d();
 
-  return std::abs(A * point.x + B * point.y + C * point.z + D) / std::sqrt(A * A + B * B + C * C);
+  double denom = std::sqrt(A * A + B * B + C * C);
+  // Avoid possible division by zero
+  if (denom < 1e-12) {
+    return std::numeric_limits<double>::infinity();
+  }
+  return std::abs(A * point.x + B * point.y + C * point.z + D) / denom;
 }
 
 double ConstrainedRANSAC::calculate_angle_difference(const Plane& plane1,
@@ -158,4 +163,22 @@ double ConstrainedRANSAC::calculate_angle_difference(const Plane& plane1,
   // Calculate angle between the normals
   double radian_angle = std::acos(std::abs(dot_product));
   return radian_angle * (180.0 / M_PI);  // Convert to degrees
+}
+
+std::vector<int> ConstrainedRANSAC::pick_3_random_indices(int max_index, std::mt19937& gen) const {
+  std::uniform_int_distribution<int> dis1(0, max_index - 1);
+  int i1 = dis1(gen);
+
+  // Do not choose the last element, because we may need to increment it
+  std::uniform_int_distribution<int> dis2(0, max_index - 2);
+  int i2 = dis2(gen);
+  if (i2 == i1) ++i2;
+
+  // Do not choose the last two elements, because we may need to increment it twice
+  std::uniform_int_distribution<int> dis3(0, max_index - 3);
+  int i3 = dis3(gen);
+  if (i3 == i1 || i3 == i2) ++i3;
+  if (i3 == i1 || i3 == i2) ++i3;
+
+  return {i1, i2, i3};
 }

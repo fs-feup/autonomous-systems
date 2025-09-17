@@ -4,6 +4,7 @@
 #include <pcl/point_types.h>
 
 #include <Eigen/Dense>
+#include <random>
 #include <utils/plane.hpp>
 #include <utils/split_parameters.hpp>
 #include <vector>
@@ -86,4 +87,12 @@ private:
    * @return Angle difference in radians.
    */
   double calculate_angle_difference(const Plane& plane1, const Plane& plane2) const;
+
+  /**
+   * @brief Pick 3 unique random indices from the range [0, max_index).
+   * @param max_index The exclusive upper bound for index selection.
+   * @param gen Random number generator.
+   * @return Vector of 3 unique random indices.
+   */
+  std::vector<int> pick_3_random_indices(int max_index, std::mt19937& gen) const;
 };
