@@ -142,7 +142,7 @@ double ConstrainedRANSAC::distance_to_plane(const pcl::PointXYZI& point, const P
   double D = plane.get_d();
 
   double denom = std::sqrt(A * A + B * B + C * C);
-  double result;
+  double result = 0;
   // Avoid possible division by zero
   if (denom < 1e-12) {
     result = std::numeric_limits<double>::infinity();
