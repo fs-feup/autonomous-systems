@@ -83,7 +83,7 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
     std::unordered_set<Cone*> discarded_cones;
 
     // Generate midpoints between cone pairs using Delaunay triangulation
-    create_mid_points(cone_array, midPoints);
+    create_mid_points(cone_array, midPoints, pose);
 
     // Map for quick access from Point to corresponding MidPoint
     std::unordered_map<Point, MidPoint*, PointHash> point_to_midpoint;
@@ -149,12 +149,51 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
 }
 
 void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
-                                        std::vector<std::shared_ptr<MidPoint>>& midPoints) {
+                                        std::vector<std::shared_ptr<MidPoint>>& midPoints,
+                                        const common_lib::structures::Pose& pose) {
+  std::vector<Cone> active_cones;
+  active_cones.reserve(cone_array.size());
+                                          
+  if(config_.use_sliding_window_) {
+    for (const auto& cone : cone_array) {
+      long long dx = cone.position.x - pose.position.x;
+      long long dy = cone.position.y - pose.position.y;
+
+      // long long sq_d = config_.sliding_window_radius_ * config_.sliding_window_radius_;
+
+      // RCLCPP_WARN(rclcpp::get_logger("planning"), "cone_X: %.3f cone_Y: %.3f", cone.position.x,
+      //             cone.position.y);
+
+      // RCLCPP_WARN(rclcpp::get_logger("planning"), "sliding_window: %.3f",
+      //             config_.sliding_window_radius_);
+
+      if (dx * dx + dy * dy <= 400) {
+        active_cones.push_back(cone);
+        RCLCPP_WARN(rclcpp::get_logger("planning"),
+                    "pose_X: %.3f pose_Y: %.3f",  // print with 3 decimal places
+                    pose.position.x, pose.position.y);
+        //possivelmente tirar isto!
+      } else if (pose.position.x == 0 && pose.position.y == 0) {
+        active_cones.push_back(cone);
+        RCLCPP_WARN(rclcpp::get_logger("planning"), "jjjjjjjjjj");
+      } else {
+        RCLCPP_WARN(rclcpp::get_logger("planning"),"[Planning] Not herree");
+      }
+    }
+
+    if (active_cones.size() < 2) {
+      RCLCPP_WARN(rclcpp::get_logger("planning"),"[Planning] Not enough cones in sliding window to compute midpoints");
+      return;
+    }
+  }else {
+    active_cones = std::move(cone_array);
+  }
+     
   this->midPoints.clear();
   DT dt;
 
   // Insert all cone positions into the Delaunay triangulation
-  for (const auto& cone : cone_array) {
+  for (const auto& cone : active_cones) {
     (void)dt.insert(Point(cone.position.x, cone.position.y));
   }
 
@@ -172,8 +211,9 @@ void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
       Point p1 = va->point();
       Point p2 = vb->point();
 
-      int id1 = ::find_cone(cone_array, p1.x(), p1.y());
-      int id2 = ::find_cone(cone_array, p2.x(), p2.y());
+      //using a map should be faster than searching every time!!! If unorder map is used it could be 0(1)
+      int id1 = ::find_cone(active_cones, p1.x(), p1.y());
+      int id2 = ::find_cone(active_cones, p2.x(), p2.y());
 
       if (id1 == -1 || id2 == -1) {
         continue;
@@ -186,20 +226,19 @@ void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
       }
 
       // Use ordered cone IDs to uniquely identify the segment
-      auto key = std::minmax(id1, id2);
+      auto key = std::minmax(id1, id2); // std::pair<min(a,b), max(a,b)>
       auto it = segment_to_midpoint.find(key);
 
       if (it != segment_to_midpoint.end()) {
         mids[i] = it->second;
       } else {
         auto midpoint = std::make_shared<MidPoint>(
-            MidPoint{CGAL::midpoint(p1, p2), {}, &cone_array[id1], &cone_array[id2]});
+            MidPoint{CGAL::midpoint(p1, p2), {}, &active_cones[id1], &active_cones[id2]});
         segment_to_midpoint[key] = midpoint;
         midPoints.push_back(midpoint);
         mids[i] = midpoint;
       }
     }
-
     // Connect midpoints if they share the same triangle
     for (int i = 0; i < 3; ++i) {
       if (!mids[i]) {
@@ -213,6 +252,7 @@ void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
       }
     }
   }
+  //possivelmente isto não é necessário, com as outras mudanças mencionadas
   for (const auto& p : midPoints) {
     this->midPoints.push_back(*p);
   }

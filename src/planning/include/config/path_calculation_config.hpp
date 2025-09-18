@@ -21,6 +21,8 @@ struct PathCalculationConfig {
   int max_points_ = 50;
   int reset_global_path_ = 10;
   int skidpad_minimum_cones_ = 10.0;
+  int sliding_window_radius_ = 30;
+  bool use_sliding_window_ = true;
 
   PathCalculationConfig() = default;
 };

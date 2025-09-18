@@ -216,7 +216,8 @@ public:
    */
   void create_mid_points(
     std::vector<Cone>& cone_array,
-    std::vector<std::shared_ptr<MidPoint>>& midPoints
+    std::vector<std::shared_ptr<MidPoint>>& midPoints,
+    const common_lib::structures::Pose& pose
 ); 
 
 
