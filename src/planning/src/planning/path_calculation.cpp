@@ -117,14 +117,14 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
                                global_path_.begin() + cutoff_index - config_.lookback_points_);
     }
 
-    // Reset the path periodically to avoid long-term drift or degradation
-    if (path_update_counter_ >= config_.reset_global_path_) {
-      max_points = path_to_car.size() + config_.max_points_;
-      path_to_car.clear();
-      global_path_.clear();
-      path_update_counter_ = 0;
-      RCLCPP_INFO(rclcpp::get_logger("planning"), "Global path reset");
-    }
+    // // Reset the path periodically to avoid long-term drift or degradation
+    // if (path_update_counter_ >= config_.reset_global_path_) {
+    //   max_points = path_to_car.size() + config_.max_points_;
+    //   path_to_car.clear();
+    //   global_path_.clear();
+    //   path_update_counter_ = 0;
+    //   RCLCPP_INFO(rclcpp::get_logger("planning"), "Global path reset");
+    // }
 
     std::unordered_set<MidPoint*> visited_midpoints;
 
@@ -159,25 +159,10 @@ void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
       long long dx = cone.position.x - pose.position.x;
       long long dy = cone.position.y - pose.position.y;
 
-      // long long sq_d = config_.sliding_window_radius_ * config_.sliding_window_radius_;
+      int window_distance = config_.sliding_window_radius_ * config_.sliding_window_radius_; 
 
-      // RCLCPP_WARN(rclcpp::get_logger("planning"), "cone_X: %.3f cone_Y: %.3f", cone.position.x,
-      //             cone.position.y);
-
-      // RCLCPP_WARN(rclcpp::get_logger("planning"), "sliding_window: %.3f",
-      //             config_.sliding_window_radius_);
-
-      if (dx * dx + dy * dy <= 400) {
+      if (dx * dx + dy * dy <= window_distance) {
         active_cones.push_back(cone);
-        RCLCPP_WARN(rclcpp::get_logger("planning"),
-                    "pose_X: %.3f pose_Y: %.3f",  // print with 3 decimal places
-                    pose.position.x, pose.position.y);
-        //possivelmente tirar isto!
-      } else if (pose.position.x == 0 && pose.position.y == 0) {
-        active_cones.push_back(cone);
-        RCLCPP_WARN(rclcpp::get_logger("planning"), "jjjjjjjjjj");
-      } else {
-        RCLCPP_WARN(rclcpp::get_logger("planning"),"[Planning] Not herree");
       }
     }
 
