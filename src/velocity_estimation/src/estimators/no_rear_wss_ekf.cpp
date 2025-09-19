@@ -4,7 +4,7 @@ NoRearWSSEKF::NoRearWSSEKF(const VEParameters& params) {
   this->_process_noise_matrix_ = Eigen::Matrix3d::Zero();
   this->_process_noise_matrix_(0, 0) = params.imu_acceleration_noise_;
   this->_process_noise_matrix_(1, 1) = params.imu_acceleration_noise_;
-  this->_process_noise_matrix_(2, 2) = 0;
+  this->_process_noise_matrix_(2, 2) = params.angular_velocity_process_noise_;
   this->_wheels_measurement_noise_matrix_ = Eigen::MatrixXd::Identity(4, 4);
   this->_wheels_measurement_noise_matrix_(0, 0) = params.wheel_speed_noise_;
   this->_wheels_measurement_noise_matrix_(1, 1) = params.wheel_speed_noise_;
@@ -116,7 +116,10 @@ void NoRearWSSEKF::predict(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
                           << process_noise_matrix);
 
   Eigen::Matrix3d jacobian = this->process_model->get_jacobian_velocities(state, accelerations, dt);
-  covariance = jacobian * covariance * jacobian.transpose() + process_noise_matrix;
+  Eigen::Matrix3d process_noise_jacobian =
+      this->process_model->get_jacobian_sensor_data(state, accelerations, dt);
+  covariance = jacobian * covariance * jacobian.transpose() +
+               process_noise_jacobian * process_noise_matrix * process_noise_jacobian.transpose();
   state = this->process_model->get_next_velocities(state, accelerations, dt);
   this->_has_made_prediction_ = true;
 }

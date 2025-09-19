@@ -46,10 +46,10 @@ sensors:
       dead_time: 0.005
       error_acc:
         mean: 0.0
-        sigma: 0.05
+        sigma: 0.2
       error_rot:
         mean: 0.0
-        sigma: 0.001
+        sigma: 0.1
   gnssSensors:
   - gnss:
     name: "gnss_front"

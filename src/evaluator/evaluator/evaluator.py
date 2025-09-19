@@ -578,81 +578,20 @@ class Evaluator(Node):
         Returns:
             None
         """
-        if len(msg.data) < 2:
-            self.get_logger().error(
-                "SLAM execution times message has insufficient data."
-            )
-            return
 
         self.slam_execution_times_.append(
             {
                 "timestamp": datetime.datetime.now(),
                 "velocities_callback_time": msg.data[0],
-            }
-        )
-        self.slam_execution_times_.append(
-            {
-                "timestamp": datetime.datetime.now(),
                 "observations_callback_time": msg.data[1],
-            }
-        )
-        self.slam_execution_times_.append(
-            {
-                "timestamp": datetime.datetime.now(),
                 "data_association_time": msg.data[2],
-            }
-        )
-        self.slam_execution_times_.append(
-            {
-                "timestamp": datetime.datetime.now(),
                 "optimization_time": msg.data[5],
-            }
-        )
-        self.slam_execution_times_.append(
-            {
-                "timestamp": datetime.datetime.now(),
-                "optimisation_velocities_time": msg.data[13],
-            }
-        )
-        self.slam_execution_times_.append(
-            {
-                "timestamp": datetime.datetime.now(),
                 "factor_graph_observations_time": msg.data[4],
-            }
-        )
-        self.slam_execution_times_.append(
-            {
-                "timestamp": datetime.datetime.now(),
                 "factor_graph_velocities_time": msg.data[10],
-            }
-        )
-        self.slam_execution_times_.append(
-            {
-                "timestamp": datetime.datetime.now(),
                 "perception_filter_time": msg.data[11],
-            }
-        )
-        self.slam_execution_times_.append(
-            {
-                "timestamp": datetime.datetime.now(),
                 "loop_closure_time": msg.data[12],
-            }
-        )
-        self.slam_execution_times_.append(
-            {
-                "timestamp": datetime.datetime.now(),
                 "async_opt_routine_time": msg.data[8],
-            }
-        )
-        self.slam_execution_times_.append(
-            {
-                "timestamp": datetime.datetime.now(),
                 "async_opt_copy_time": msg.data[6],
-            }
-        )
-        self.slam_execution_times_.append(
-            {
-                "timestamp": datetime.datetime.now(),
                 "async_opt_redo_time": msg.data[7],
             }
         )
@@ -680,8 +619,10 @@ class Evaluator(Node):
         if groundtruth_pose != []:
             vehicle_pose_error.data[0] = abs(pose[0] - groundtruth_pose[0])
             vehicle_pose_error.data[1] = abs(pose[1] - groundtruth_pose[1])
-            vehicle_pose_error.data[2] = abs(pose[2] - groundtruth_pose[2]) % (
-                2 * np.pi
+            vehicle_pose_error.data[2] = abs(pose[2] - groundtruth_pose[2])
+            vehicle_pose_error.data[2] = min(
+                abs(vehicle_pose_error.data[2]),
+                abs(abs(vehicle_pose_error.data[2]) - 2 * np.pi),
             )
 
         self.get_logger().debug(
@@ -719,8 +660,8 @@ class Evaluator(Node):
             mean_squared_vehicle_pose_error.data[i] = (
                 self._sum_squared_vehicle_pose_error.data[i] / self._pose_count_
             )
-            mean_root_squared_vehicle_pose_error.data[i] = (
-                sqrt(self._sum_squared_vehicle_pose_error.data[i]) / self._pose_count_
+            mean_root_squared_vehicle_pose_error.data[i] = sqrt(
+                self._sum_squared_vehicle_pose_error.data[i] / self._pose_count_
             )
 
         # Publish vehicle state errors over time
@@ -789,6 +730,12 @@ class Evaluator(Node):
             cone_positions, groundtruth_cone_positions
         )
 
+        if mean_difference.data > 1000:
+            self.get_logger().error(
+                "Mean difference is too high, something is wrong. Skipping this iteration."
+            )
+            return
+
         mean_squared_difference = Float32()
         mean_squared_difference.data = get_mean_squared_difference(
             cone_positions, groundtruth_cone_positions
@@ -798,9 +745,7 @@ class Evaluator(Node):
         num_duplicates.data = int(get_duplicates(cone_positions, 0.1))
 
         root_mean_squared_difference = Float32()
-        root_mean_squared_difference.data = sqrt(
-            get_mean_squared_difference(cone_positions, groundtruth_cone_positions)
-        )
+        root_mean_squared_difference.data = sqrt(mean_squared_difference.data)
 
         false_positives = Int32()
         false_positives.data = int(
@@ -928,8 +873,8 @@ class Evaluator(Node):
             mean_squared_velocities_error.data[i] = (
                 self._sum_squared_velocities_error.data[i] / self._ve_count_
             )
-            mean_root_squared_velocities_error.data[i] = (
-                sqrt(self._sum_squared_velocities_error.data[i]) / self._ve_count_
+            mean_root_squared_velocities_error.data[i] = sqrt(
+                self._sum_squared_velocities_error.data[i] / self._ve_count_
             )
 
         # Publish vehicle state errors over time
