@@ -89,8 +89,10 @@ class Planning : public rclcpp::Node {
 
   /**< Publisher for the final path*/
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr visualization_pub_;
-  /**< Publisher for path after triangulations */
-  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr triangulations_pub_;
+  // /**< Publisher for path after triangulations */
+  // rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr triangulations_pub_;
+  /**< Publisher for the full path*/
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr full_path_pub_;
   /**< Publisher for global path */
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr global_path_pub_;
   /**< Timer for the periodic publishing */
@@ -140,23 +142,13 @@ class Planning : public rclcpp::Node {
 
   /**
    * @brief publish all visualization messages from the planning node
-   *
-   * @param current_left_cones left cones after cone coloring
-   * @param current_right_cones right cones after cone coloring
-   * @param after_triangulations_path path after triangulations
-   * @param final_path final path after smoothing
+   *MUDAR!!
    */
   void publish_visualization_msgs(const std::vector<PathPoint> &midPoints,
-                                  const std::vector<PathPoint> &after_triangulations_path,
-                                  const std::vector<PathPoint> &final_path,
-                                  const std::vector<PathPoint> &final_global_path) const;
+                                          const std::vector<PathPoint> &full_path,
+                                          const std::vector<PathPoint> &final_path,
+                                          const std::vector<PathPoint> &global_path) const;
 
-  /**
-   * @brief Checks if the current mission is predictive.
-   *
-   * @return True if the mission is predictive, false otherwise.
-   */
-  bool is_predicitve_mission() const;
 
   virtual void finish() = 0;
 
