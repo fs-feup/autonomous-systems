@@ -11,7 +11,7 @@
 #include "utils/cone.hpp"
 using namespace std;
 
-std::pair<double, PathCalculation::MidPoint*> PathCalculation::dfs_cost(int depth,
+std::pair<double, MidPoint*> PathCalculation::dfs_cost(int depth,
                                                                         const MidPoint* previous,
                                                                         MidPoint* current,
                                                                         double maxcost) {
@@ -86,7 +86,7 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
     create_mid_points(cone_array, midPoints, pose);
 
     // Map for quick access from Point to corresponding MidPoint
-    std::unordered_map<Point, MidPoint*, PointHash> point_to_midpoint;
+    std::unordered_map<Point, MidPoint*> point_to_midpoint;
     for (const auto& mp : midPoints) {
       point_to_midpoint[mp->point] = mp.get();
     }
@@ -246,7 +246,7 @@ void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
 void PathCalculation::calculate_initial_path(
     std::vector<Point>& path, const std::vector<std::shared_ptr<MidPoint>>& midPoints,
     const common_lib::structures::Pose& pose,
-    const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
+    const std::unordered_map<Point, MidPoint*>& point_to_midpoint,
     std::unordered_set<MidPoint*>& visited_midpoints, std::unordered_set<Cone*>& discarded_cones) {
   if (path_to_car.size() > 2) {
     RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Selecting initial path from %zu points.",
@@ -310,7 +310,7 @@ void PathCalculation::calculate_initial_path(
 
 void PathCalculation::extend_path(
     std::vector<Point>& path, const std::vector<std::shared_ptr<MidPoint>>& midPoints,
-    const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
+    const std::unordered_map<Point, MidPoint*>& point_to_midpoint,
     std::unordered_set<MidPoint*>& visited_midpoints, std::unordered_set<Cone*>& discarded_cones,
     int max_points) {
   int n_points = 0;
@@ -357,7 +357,7 @@ void PathCalculation::extend_path(
 
 void PathCalculation::discard_cones_along_path(
     const std::vector<Point>& path, const std::vector<std::shared_ptr<MidPoint>>& midPoints,
-    const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
+    const std::unordered_map<Point, MidPoint*>& point_to_midpoint,
     std::unordered_set<Cone*>& discarded_cones) {
   const auto& last = path[path.size() - 2];
   const auto& current = path.back();
@@ -417,7 +417,7 @@ void PathCalculation::update_anchor_point(const common_lib::structures::Pose& po
   }
 }
 
-std::pair<PathCalculation::MidPoint*, PathCalculation::MidPoint*>
+std::pair<MidPoint*, MidPoint*>
 PathCalculation::find_path_start_points(const std::vector<std::shared_ptr<MidPoint>>& mid_points,
                                         const common_lib::structures::Pose& anchor_pose) {
   std::pair<MidPoint*, MidPoint*> result{nullptr, nullptr};
@@ -491,8 +491,8 @@ PathCalculation::find_path_start_points(const std::vector<std::shared_ptr<MidPoi
   return result;
 }
 
-PathCalculation::MidPoint* PathCalculation::find_nearest_point(
-    const Point& target, const std::unordered_map<Point, MidPoint*, PointHash>& map) {
+MidPoint* PathCalculation::find_nearest_point(
+    const Point& target, const std::unordered_map<Point, MidPoint*>& map) {
   double min_dist_sq = config_.tolerance_ * config_.tolerance_;
   MidPoint* nearest = nullptr;
 

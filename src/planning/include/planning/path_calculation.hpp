@@ -21,6 +21,7 @@
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/path_point.hpp"
 #include "common_lib/structures/pose.hpp"
+#include "common_lib/structures/mid_point.hpp"
 #include "config/path_calculation_config.hpp"
 #include "rclcpp/rclcpp.hpp"
 
@@ -33,6 +34,7 @@ using Finite_edges_iterator = DT::Finite_edges_iterator;
 
 using Cone = common_lib::structures::Cone;
 using PathPoint = common_lib::structures::PathPoint;
+using MidPoint = common_lib::structures::MidPoint;
 
 /**
  * @brief PathCalculation class for generating local paths.
@@ -66,33 +68,7 @@ private:
 
 public:
 
-  /**
-   * @brief MidPoint struct represents a potential path point with connections
-   */
-  struct MidPoint {
-    Point point;
-    std::vector<std::shared_ptr<MidPoint>> close_points;
-    Cone* cone1;
-    Cone* cone2;
-    bool valid = true;
-  };
-
   std::vector<MidPoint> midPoints;
-
-
-  /**
-   * @brief PointHash struct for hashing Point objects
-   *
-   * This struct is used to create a hash function for Point objects, allowing them
-   * to be used as keys in unordered maps.
-   */
-  struct PointHash {
-    std::size_t operator()(const Point& p) const {
-        auto h1 = std::hash<double>()(p.x());
-        auto h2 = std::hash<double>()(p.y());
-        return h1 ^ (h2 << 1);
-    }
-  };
 
   /**
    * @brief Construct a new default PathCalculation object
@@ -240,7 +216,7 @@ public:
       std::vector<Point>& path,
       const std::vector<std::shared_ptr<MidPoint>>& midPoints,
       const common_lib::structures::Pose& pose,
-      const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
+      const std::unordered_map<Point, MidPoint*>& point_to_midpoint,
       std::unordered_set<MidPoint*>& visited_midpoints,
       std::unordered_set<Cone*>& discarded_cones
   );
@@ -262,7 +238,7 @@ public:
   void extend_path(
     std::vector<Point>& path,
     const std::vector<std::shared_ptr<MidPoint>>& midPoints,
-    const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
+    const std::unordered_map<Point, MidPoint*>& point_to_midpoint,
     std::unordered_set<MidPoint*>& visited_midpoints,
     std::unordered_set<Cone*>& discarded_cones,
     int max_points
@@ -282,7 +258,7 @@ public:
   void discard_cones_along_path(
     const std::vector<Point>& path,
     const std::vector<std::shared_ptr<MidPoint>>& midPoints,
-    const std::unordered_map<Point, MidPoint*, PointHash>& point_to_midpoint,
+    const std::unordered_map<Point, MidPoint*>& point_to_midpoint,
     std::unordered_set<Cone*>& discarded_cones
   ); 
 
@@ -296,7 +272,7 @@ public:
  */
   MidPoint* find_nearest_point(
     const Point& target,
-    const std::unordered_map<Point, MidPoint*, PointHash>& map
+    const std::unordered_map<Point, MidPoint*>& map
   );
   
 

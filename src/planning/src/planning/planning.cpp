@@ -289,7 +289,7 @@ void Planning::run_planning_algorithms() {
 
   int errorcounter = 0;
   if (planning_config_.simulation_.publishing_visualization_msgs_) {
-    std::vector<PathCalculation::MidPoint> &midPoints = path_calculation_.midPoints;
+    std::vector<MidPoint> &midPoints = path_calculation_.midPoints;
     std::vector<PathPoint> published_midpoints;
     // THIS CODE  WAS GIVING SEGMENTATION FAULT ON TRACKRIVE
     // for (auto &p : midPoints) {
