@@ -1,0 +1,14 @@
+{
+    "/imu/angular_velocity": {
+        "enabled": true,
+        "type": "vector3_stamped"
+    },
+    "/vehicle_state/velocities": {
+        "enabled": true,
+        "type": "velocities"
+    },
+    "/some_string_topic": {
+        "enabled": false,
+        "type": "string"
+    }
+}
