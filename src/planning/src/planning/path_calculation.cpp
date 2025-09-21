@@ -156,8 +156,8 @@ void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
                                           
   if(config_.use_sliding_window_) {
     for (const auto& cone : cone_array) {
-      long long dx = cone.position.x - pose.position.x;
-      long long dy = cone.position.y - pose.position.y;
+      double dx = cone.position.x - pose.position.x;
+      double dy = cone.position.y - pose.position.y;
 
       int window_distance = config_.sliding_window_radius_ * config_.sliding_window_radius_; 
 
