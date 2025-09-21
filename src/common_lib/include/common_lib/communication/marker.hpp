@@ -212,18 +212,17 @@ visualization_msgs::msg::Marker marker_from_position(
     const std::string& color = "red", float scale = 0.5, const std::string& frame_id = "map",
     const std::string& shape = "sphere", int action = visualization_msgs::msg::Marker::ADD);
 
-//MUDAR!!!
 /**
  * @brief Converts a vector of triangulation edges to a marker
  *
- * @param triangulations Vector of edges, where each edge is a pair of CGAL Points (start, end).
- * @param name_space Namespace of the marker, used in conjunction with ID to identify the marker.
- * @param frame_id Frame ID of the marker, used for transforms (e.g., "map").
- * @param id ID of the marker, unique within the namespace.
- * @param color Color of the lines (default = "purple"). Supported keys are in marker_color_map.
- * @param scale Thickness of the lines (default = 0.05).
- * @param action Action of the marker (default = visualization_msgs::msg::Marker::MODIFY).
- * @return visualization_msgs::msg::Marker A LINE_LIST marker representing the triangulation edges.
+ * @param triangulations Vector of edges, where each edge is a pair of Points
+ * @param name_space Namespace of the marker, used in conjunction with ID to identify the marker
+ * @param frame_id Frame id of the marker
+ * @param id Id of the marker
+ * @param color Color of the marker 
+ * @param scale Thickness of the lines 
+ * @param action action of the marker
+ * @return visualization_msgs::msg::Marker
  */
 visualization_msgs::msg::Marker line_marker_from_triangulations(
     const std::vector<std::pair<Point, Point>>& triangulations,
