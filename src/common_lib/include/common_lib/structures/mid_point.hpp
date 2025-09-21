@@ -17,8 +17,6 @@ namespace common_lib::structures {
 struct MidPoint {
     Point point;
     std::vector<std::shared_ptr<MidPoint>> close_points; 
-    // mudar para isto!!!
-    // std::vector<int> close_points;
     Cone* cone1;
     Cone* cone2;
     bool valid = true;

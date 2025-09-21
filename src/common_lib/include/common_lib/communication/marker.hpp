@@ -229,7 +229,7 @@ visualization_msgs::msg::Marker line_marker_from_triangulations(
     const std::string& name_space,
     const std::string& frame_id,
     int id,
-    const std::string& color = "purple",
+    const std::string& color = "white",
     float scale = 0.05f,
     int action = visualization_msgs::msg::Marker::MODIFY);
 
