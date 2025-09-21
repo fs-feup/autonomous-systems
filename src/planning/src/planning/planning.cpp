@@ -60,7 +60,7 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.braking_acceleration_ = planning_config["braking_acceleration"].as<double>();
   params.normal_acceleration_ = planning_config["normal_acceleration"].as<double>();
   params.use_velocity_planning_ = planning_config["use_velocity_planning"].as<bool>();
-  params.use_sliding_window_= planning_config["use_sliding_window"].as<bool>();
+  params.use_sliding_window_ = planning_config["use_sliding_window"].as<bool>();
   params.sliding_window_radius_ = planning_config["sliding_window_radius"].as<int>();
 
   return params;
