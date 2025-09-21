@@ -142,7 +142,11 @@ class Planning : public rclcpp::Node {
 
   /**
    * @brief publish all visualization messages from the planning node
-   *MUDAR!!
+   * 
+   * @param midPoints   Vector of path points representing midpoints in the trajectory.
+   * @param full_path   Vector of path points representing the full path.
+   * @param final_path  Vector of path points representing the final smoothed path used for planning.
+   * @param global_path Vector of path points representing the global path.
    */
   void publish_visualization_msgs(const std::vector<PathPoint> &midPoints,
                                           const std::vector<PathPoint> &full_path,

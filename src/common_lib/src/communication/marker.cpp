@@ -54,11 +54,11 @@ visualization_msgs::msg::Marker line_marker_from_triangulations(
   marker.header.stamp = rclcpp::Clock().now();
   marker.ns = name_space;
   marker.id = id;
-  marker.type = visualization_msgs::msg::Marker::LINE_LIST;  // edges
+  marker.type = visualization_msgs::msg::Marker::LINE_LIST;
   marker.action = action;
 
   marker.pose.orientation.w = 1.0;
-  marker.scale.x = scale;   // only x matters for LINE_LIST thickness
+  marker.scale.x = scale; 
 
   marker.color.r = color_array[0];
   marker.color.g = color_array[1];
