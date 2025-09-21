@@ -66,9 +66,11 @@ private:
   common_lib::structures::Pose anchor_pose_;
   bool anchor_point_set_ = false;
 
+
 public:
 
   std::vector<MidPoint> midPoints;
+  std::vector<std::pair<Point, Point>> triangulations;
 
   /**
    * @brief Construct a new default PathCalculation object

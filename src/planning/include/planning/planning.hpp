@@ -89,8 +89,8 @@ class Planning : public rclcpp::Node {
 
   /**< Publisher for the final path*/
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr visualization_pub_;
-  // /**< Publisher for path after triangulations */
-  // rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr triangulations_pub_;
+  // /**< Publisher for triangulations */
+  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr triangulations_pub_;
   /**< Publisher for the full path*/
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr full_path_pub_;
   /**< Publisher for global path */

@@ -175,6 +175,7 @@ void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
   }
      
   this->midPoints.clear();
+  this->triangulations.clear();
   DT dt;
 
   // Insert all cone positions into the Delaunay triangulation
@@ -222,7 +223,10 @@ void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
         segment_to_midpoint[key] = midpoint;
         midPoints.push_back(midpoint);
         mids[i] = midpoint;
+        //for the triagulations visualization
+        triangulations.push_back({p1, p2});
       }
+      
     }
     // Connect midpoints if they share the same triangle
     for (int i = 0; i < 3; ++i) {
@@ -237,7 +241,7 @@ void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
       }
     }
   }
-  //possivelmente isto não é necessário, com as outras mudanças mencionadas
+
   for (const auto& p : midPoints) {
     this->midPoints.push_back(*p);
   }

@@ -10,7 +10,10 @@
 #include "std_msgs/msg/color_rgba.hpp"
 #include "visualization_msgs/msg/marker.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
+#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 
+using K = CGAL::Exact_predicates_inexact_constructions_kernel;
+using Point = K::Point_2;
 namespace common_lib::communication {
 
 const std::map<std::string, std::array<float, 4>, std::less<>> marker_color_map = {
@@ -208,4 +211,28 @@ visualization_msgs::msg::Marker marker_from_position(
     const common_lib::structures::Position& position, const std::string& name_space, const int id,
     const std::string& color = "red", float scale = 0.5, const std::string& frame_id = "map",
     const std::string& shape = "sphere", int action = visualization_msgs::msg::Marker::ADD);
+
+//MUDAR!!!
+/**
+ * @brief Converts a vector of triangulation edges to a marker
+ *
+ * @param triangulations Vector of edges, where each edge is a pair of CGAL Points (start, end).
+ * @param name_space Namespace of the marker, used in conjunction with ID to identify the marker.
+ * @param frame_id Frame ID of the marker, used for transforms (e.g., "map").
+ * @param id ID of the marker, unique within the namespace.
+ * @param color Color of the lines (default = "purple"). Supported keys are in marker_color_map.
+ * @param scale Thickness of the lines (default = 0.05).
+ * @param action Action of the marker (default = visualization_msgs::msg::Marker::MODIFY).
+ * @return visualization_msgs::msg::Marker A LINE_LIST marker representing the triangulation edges.
+ */
+visualization_msgs::msg::Marker line_marker_from_triangulations(
+    const std::vector<std::pair<Point, Point>>& triangulations,
+    const std::string& name_space,
+    const std::string& frame_id,
+    int id,
+    const std::string& color = "purple",
+    float scale = 0.05f,
+    int action = visualization_msgs::msg::Marker::MODIFY);
+
+
 }  // namespace common_lib::communication

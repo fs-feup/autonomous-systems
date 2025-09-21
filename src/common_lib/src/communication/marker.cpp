@@ -38,4 +38,48 @@ visualization_msgs::msg::Marker marker_from_position(
   return marker;
 }
 
+visualization_msgs::msg::Marker line_marker_from_triangulations(
+    const std::vector<std::pair<Point, Point>>& triangulations,
+    const std::string& name_space,
+    const std::string& frame_id,
+    int id,
+    const std::string& color,
+    float scale,
+    int action) 
+{
+  std::array<float, 4> color_array = marker_color_map.at(color);
+
+  visualization_msgs::msg::Marker marker;
+  marker.header.frame_id = frame_id;
+  marker.header.stamp = rclcpp::Clock().now();
+  marker.ns = name_space;
+  marker.id = id;
+  marker.type = visualization_msgs::msg::Marker::LINE_LIST;  // edges
+  marker.action = action;
+
+  marker.pose.orientation.w = 1.0;
+  marker.scale.x = scale;   // only x matters for LINE_LIST thickness
+
+  marker.color.r = color_array[0];
+  marker.color.g = color_array[1];
+  marker.color.b = color_array[2];
+  marker.color.a = color_array[3];
+
+  for (const auto& edge : triangulations) {
+    geometry_msgs::msg::Point p1, p2;
+    p1.x = edge.first.x();
+    p1.y = edge.first.y();
+    p1.z = 0.0;
+
+    p2.x = edge.second.x();
+    p2.y = edge.second.y();
+    p2.z = 0.0;
+
+    marker.points.push_back(p1);
+    marker.points.push_back(p2);
+  }
+
+  return marker;
+}
+
 }  // namespace common_lib::communication
