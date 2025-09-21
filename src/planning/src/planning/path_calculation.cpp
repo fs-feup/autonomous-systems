@@ -197,7 +197,7 @@ void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
       Point p1 = va->point();
       Point p2 = vb->point();
 
-      //using a map should be faster than searching every time!!! If unorder map is used it could be 0(1)
+      // Using a map should be faster than searching every time! If an unordered map is used, it could be O(1).
       int id1 = ::find_cone(active_cones, p1.x(), p1.y());
       int id2 = ::find_cone(active_cones, p2.x(), p2.y());
 
