@@ -223,7 +223,7 @@ void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
         segment_to_midpoint[key] = midpoint;
         midPoints.push_back(midpoint);
         mids[i] = midpoint;
-        //for the triagulations visualization
+        //for the triangulations visualization
         triangulations.push_back({p1, p2});
       }
       
