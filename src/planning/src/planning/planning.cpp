@@ -92,7 +92,7 @@ Planning::Planning(const PlanningParameters &params)
   if (planning_config_.simulation_.publishing_visualization_msgs_) {
     // Publisher for visualization
     this->triangulations_pub_ = this->create_publisher<visualization_msgs::msg::Marker>(
-    "triangulations", 10);
+    "/path_planning/triangulations", 10);
     this->midpoints_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
         "/path_planning/midpoints", 10);
     this->visualization_pub_ =
@@ -349,14 +349,14 @@ void Planning::publish_visualization_msgs(const std::vector<PathPoint> &midPoint
                                           const std::vector<PathPoint> &global_path) const {
   this->midpoints_pub_->publish(common_lib::communication::marker_array_from_structure_array(
       midPoints, "midPoints", this->_map_frame_id_, "white"));
-  // this->triangulations_pub_->publish(common_lib::communication::line_marker_from_triangulations(
-  //     path_calculation_.triangulations, "triangulations", this->_map_frame_id_, 20, "purple"));
+  this->triangulations_pub_->publish(common_lib::communication::line_marker_from_triangulations(
+    path_calculation_.triangulations, "triangulations", this->_map_frame_id_, 20, "white"));
 
   this->full_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
       full_path, "full_path", this->_map_frame_id_, "orange"));
   this->visualization_pub_->publish(common_lib::communication::line_marker_from_structure_array(
       final_path, "smoothed_path_planning", this->_map_frame_id_, 12, "green"));
   this->global_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      global_path, "global_path", this->_map_frame_id_, "blue", "cylinder", 0.5,
+      global_path, "global_path", this->_map_frame_id_, "blue", "cylinder", 0.8,
       visualization_msgs::msg::Marker::MODIFY));
 }
