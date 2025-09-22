@@ -13,6 +13,7 @@
 #include "common_lib/structures/pose.hpp"
 #include "common_lib/structures/velocities.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
+#include "custom_interfaces/msg/perception_output.hpp"
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/pose.hpp"
 #include "custom_interfaces/msg/velocities.hpp"
@@ -31,7 +32,8 @@
  */
 class SLAMNode : public rclcpp::Node {
 protected:
-  rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr _perception_subscription_;
+  rclcpp::Subscription<custom_interfaces::msg::PerceptionOutput>::SharedPtr
+      _perception_subscription_;
   rclcpp::Subscription<custom_interfaces::msg::Velocities>::SharedPtr _velocities_subscription_;
   rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr _vehicle_pose_publisher_;
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr _map_publisher_;
@@ -70,7 +72,7 @@ protected:
    *
    * @param msg Message containing the array of perceived cones
    */
-  void _perception_subscription_callback(const custom_interfaces::msg::ConeArray& msg);
+  void _perception_subscription_callback(const custom_interfaces::msg::PerceptionOutput& msg);
 
   /**
    * @brief Callback that updates everytime information

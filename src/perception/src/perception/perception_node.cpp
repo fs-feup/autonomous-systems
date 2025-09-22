@@ -194,7 +194,7 @@ Perception::Perception(const PerceptionParameters& params)
       _cone_evaluator_(params.cone_evaluator_),
       _icp_(params.icp_) {
   this->_cones_publisher =
-      this->create_publisher<custom_interfaces::msg::ConeArray>("/perception/cones", 10);
+      this->create_publisher<custom_interfaces::msg::PerceptionOutput>("/perception/cones", 10);
 
   this->_ground_removed_publisher_ =
       this->create_publisher<sensor_msgs::msg::PointCloud2>("/perception/ground_removed_cloud", 10);
@@ -289,7 +289,8 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   // Execution Time calculation
   rclcpp::Time end_time = this->now();
   std_msgs::msg::Float64 perception_execution_time;
-  perception_execution_time.data = (end_time - time).seconds() * 1000;
+  double perception_execution_time_seconds = (end_time - time).seconds();
+  perception_execution_time.data = perception_execution_time_seconds * 1000;
   this->_perception_execution_time_publisher_->publish(perception_execution_time);
 
   // Logging
@@ -302,11 +303,11 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Validations: %ld clusters",
                filtered_clusters.size());
 
-  publish_cones(&filtered_clusters);
+  publish_cones(&filtered_clusters, perception_execution_time_seconds);
 }
 
-void Perception::publish_cones(std::vector<Cluster>* cones) {
-  auto message = custom_interfaces::msg::ConeArray();
+void Perception::publish_cones(std::vector<Cluster>* cones, double exec_time) {
+  auto message = custom_interfaces::msg::PerceptionOutput();
   std::vector<custom_interfaces::msg::Cone> message_array = {};
   message.header = header;
   for (int i = 0; i < static_cast<int>(cones->size()); i++) {
@@ -319,9 +320,10 @@ void Perception::publish_cones(std::vector<Cluster>* cones) {
     cone_message.color = cones->at(i).get_color();
     cone_message.is_large = cones->at(i).get_is_large();
     cone_message.confidence = cones->at(i).get_confidence();
-    message.cone_array.push_back(cone_message);
+    message.cones.cone_array.push_back(cone_message);
     message_array.push_back(cone_message);
   }
+  message.exec_time = exec_time;
 
   this->_cones_publisher->publish(message);
   // TODO: correct frame id to LiDAR instead of vehicle
