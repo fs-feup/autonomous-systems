@@ -27,10 +27,6 @@ sudo apt install rospack-tools -y
 rospack find sensor_msgs -y
 sudo apt-get install libpcap-dev -y
 
-# slam 
-sudo add-apt-repository ppa:borglab/gtsam-develop
-sudo apt install libgtsam-dev libgtsam-unstable-dev -y
-
 # ground truth generation
 pip install pandas
 sudo apt-get install python3-matplotlib -y
