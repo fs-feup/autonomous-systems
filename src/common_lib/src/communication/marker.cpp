@@ -65,14 +65,14 @@ visualization_msgs::msg::Marker line_marker_from_triangulations(
   marker.color.b = color_array[2];
   marker.color.a = color_array[3];
 
-  for (const auto& edge : triangulations) {
+  for (const auto& [point1,point2] : triangulations) {
     geometry_msgs::msg::Point p1, p2;
-    p1.x = edge.first.x();
-    p1.y = edge.first.y();
+    p1.x = point1.x();
+    p1.y = point1.y();
     p1.z = 0.0;
 
-    p2.x = edge.second.x();
-    p2.y = edge.second.y();
+    p2.x = point2.x();
+    p2.y = point2.y();
     p2.z = 0.0;
 
     marker.points.push_back(p1);
