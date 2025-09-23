@@ -231,7 +231,7 @@ visualization_msgs::msg::Marker line_marker_from_triangulations(
     int id,
     const std::string& color,
     float scale,
-    int action = visualization_msgs::msg::Marker::MODIFY);
+    int action);
 
 
 }  // namespace common_lib::communication
