@@ -117,15 +117,6 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
                                global_path_.begin() + cutoff_index - config_.lookback_points_);
     }
 
-    // // Reset the path periodically to avoid long-term drift or degradation
-    // if (path_update_counter_ >= config_.reset_global_path_) {
-    //   max_points = path_to_car.size() + config_.max_points_;
-    //   path_to_car.clear();
-    //   global_path_.clear();
-    //   path_update_counter_ = 0;
-    //   RCLCPP_INFO(rclcpp::get_logger("planning"), "Global path reset");
-    // }
-
     std::unordered_set<MidPoint*> visited_midpoints;
 
     // Build initial path segment and extend it
