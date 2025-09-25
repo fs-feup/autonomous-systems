@@ -328,7 +328,7 @@ void Planning::publish_visualization_msgs(const std::vector<PathPoint> &midPoint
                                           const std::vector<PathPoint> &global_path) const {
   this->midpoints_pub_->publish(common_lib::communication::marker_array_from_structure_array(
       midPoints, "midPoints", this->_map_frame_id_, "white"));
-  this->triangulations_pub_->publish(common_lib::communication::line_marker_from_triangulations(
+  this->triangulations_pub_->publish(common_lib::communication::lines_marker_from_triangulations(
     path_calculation_.triangulations, "triangulations", this->_map_frame_id_, 20, "white",0.05f,visualization_msgs::msg::Marker::MODIFY));
 
   this->full_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(

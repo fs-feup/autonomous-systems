@@ -224,7 +224,7 @@ visualization_msgs::msg::Marker marker_from_position(
  * @param action action of the marker
  * @return visualization_msgs::msg::Marker
  */
-visualization_msgs::msg::Marker line_marker_from_triangulations(
+visualization_msgs::msg::Marker lines_marker_from_triangulations(
     const std::vector<std::pair<Point, Point>>& triangulations,
     const std::string& name_space,
     const std::string& frame_id,
