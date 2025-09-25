@@ -3,8 +3,11 @@
 namespace common_lib::structures {
 
 // Constructor from a Point
-MidPoint::MidPoint(const Point& p, Cone* c1, Cone* c2, const std::vector<Point>& close_points)
-    : point(p), cone1(c1), cone2(c2), close_points(close_points), valid(true) {}
+MidPoint::MidPoint(const Point& p,
+                   const std::vector<std::shared_ptr<MidPoint>>& close_points,
+                   Cone* c1, Cone* c2)
+    : point(p), close_points(close_points), cone1(c1), cone2(c2), valid(true) {}
+
 
 
 }  // namespace common_lib::structures

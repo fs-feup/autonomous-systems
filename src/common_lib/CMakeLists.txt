@@ -48,6 +48,7 @@ set(IMPLEMENTATION_FILES
   src/config_load/config_load.cpp
   src/conversions/cones.cpp
   src/car_parameters/car_parameters.cpp
+  src/structures/mid_point.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})
