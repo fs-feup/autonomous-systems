@@ -229,6 +229,7 @@ void Planning::run_planning_algorithms() {
       final_path = path_smoothing_.smooth_path(full_path, this->pose,
                                                 this->initial_car_orientation_);
       global_path_ = path_calculation_.get_global_path();
+      //velocity_planning_.trackdrive_velocity(final_path);
       if (this->lap_counter_ >= 1) {
         velocity_planning_.stop(final_path);
       } else {
