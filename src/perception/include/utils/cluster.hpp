@@ -1,11 +1,8 @@
 #pragma once
 
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
-
-#include <pcl/common/impl/centroid.hpp>
 #include <string>
 #include <tuple>
+#include <utils/pcl_point_types.hpp>
 
 #include "center_calculation/circunferece_center_calculation.hpp"
 
@@ -14,10 +11,10 @@
  */
 class Cluster {
 private:
-  pcl::PointCloud<pcl::PointXYZI>::Ptr _point_cloud_;  ///< Pointer to the Point Cloud data.
-  std::string _color_ = "undefined";                   ///< Color associated with the cluster.
-  Eigen::Vector4f _centroid_;                          ///< Centroid of the cluster.
-  Eigen::Vector4f _center_;                            ///< Center of the cone's cluster.
+  pcl::PointCloud<PointXYZIR>::Ptr _point_cloud_;  ///< Pointer to the Point Cloud data.
+  std::string _color_ = "undefined";               ///< Color associated with the cluster.
+  Eigen::Vector4f _centroid_;                      ///< Centroid of the cluster.
+  Eigen::Vector4f _center_;                        ///< Center of the cone's cluster.
   bool _centroid_is_defined_ = false;  ///< Flag indicating whether the centroid is defined or not.
   bool _center_is_defined_ = false;    ///< Flag indicating whether the center is defined or not.
   double _confidence_ = 0;             ///< Confidence on the cluster to be (or not) a cone
@@ -34,7 +31,7 @@ public:
    * @brief Constructor for the Cluster class.
    * @param point_cloud Pointer to the Point Cloud data of the cluster.
    */
-  explicit Cluster(pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud);
+  explicit Cluster(pcl::PointCloud<PointXYZIR>::Ptr point_cloud);
 
   /**
    * @brief Get the centroid of the cluster.
@@ -65,13 +62,13 @@ public:
    * @brief Set the Point Cloud data for the cluster.
    * @param new_point_cloud Pointer to the new Point Cloud data.
    */
-  void set_point_cloud(pcl::PointCloud<pcl::PointXYZI>::Ptr new_point_cloud);
+  void set_point_cloud(pcl::PointCloud<PointXYZIR>::Ptr new_point_cloud);
 
   /**
    * @brief Get the Point Cloud data of the cluster.
-   * @return pcl::PointCloud<pcl::PointXYZI>::Ptr representing the Point Cloud data.
+   * @return pcl::PointCloud<PointXYZIR>::Ptr representing the Point Cloud data.
    */
-  pcl::PointCloud<pcl::PointXYZI>::Ptr get_point_cloud();
+  pcl::PointCloud<PointXYZIR>::Ptr get_point_cloud();
 
   /**
    * @brief Set the Confidence of the cluster to be or not to be a cone

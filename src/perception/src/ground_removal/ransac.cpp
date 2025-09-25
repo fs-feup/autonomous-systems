@@ -1,23 +1,15 @@
 #include "ground_removal/ransac.hpp"
 
-#include <pcl/ModelCoefficients.h>
-#include <pcl/filters/extract_indices.h>
-#include <pcl/io/pcd_io.h>
-#include <pcl/point_types.h>
-#include <pcl/sample_consensus/method_types.h>
-#include <pcl/sample_consensus/model_types.h>
-#include <pcl/segmentation/sac_segmentation.h>
-
 RANSAC::RANSAC(const double epsilon, const int n_tries) : epsilon(epsilon), n_tries(n_tries) {}
 
-void RANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                            const pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
+void RANSAC::ground_removal(const pcl::PointCloud<PointXYZIR>::Ptr point_cloud,
+                            const pcl::PointCloud<PointXYZIR>::Ptr ret, Plane& plane,
                             [[maybe_unused]] const SplitParameters split_params) const {
   pcl::ModelCoefficients::Ptr coefficients(new pcl::ModelCoefficients);
   pcl::PointIndices::Ptr inliers_indices(new pcl::PointIndices);
 
   // Segmentation Object creation
-  pcl::SACSegmentation<pcl::PointXYZI> seg;
+  pcl::SACSegmentation<PointXYZIR> seg;
 
   // Optional: Increases Accuracy
   seg.setOptimizeCoefficients(true);
@@ -40,7 +32,7 @@ void RANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_clo
                   coefficients->values[3]);
   }
 
-  pcl::ExtractIndices<pcl::PointXYZI> extract;
+  pcl::ExtractIndices<PointXYZIR> extract;
   extract.setInputCloud(point_cloud);
   extract.setIndices(inliers_indices);
 

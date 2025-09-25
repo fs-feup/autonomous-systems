@@ -1,11 +1,4 @@
 #pragma once
-
-#include <pcl/sample_consensus/ransac.h>
-
-#include <string>
-#include <utils/plane.hpp>
-#include <utils/split_parameters.hpp>
-
 #include "ground_removal/ground_removal.hpp"
 
 /**
@@ -40,8 +33,8 @@ public:
    * @param point_cloud The input point cloud to be processed.
    * @param[out] ret The resulting point cloud after ground removal.
    */
-  void ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                      const pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
+  void ground_removal(const pcl::PointCloud<PointXYZIR>::Ptr point_cloud,
+                      const pcl::PointCloud<PointXYZIR>::Ptr ret, Plane& plane,
                       [[maybe_unused]] const SplitParameters split_params) const override;
 
 private:

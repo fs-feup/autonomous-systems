@@ -1,3 +1,4 @@
+#pragma once
 #include <cone_differentiation/cone_differentiation.hpp>
 
 /**
@@ -7,7 +8,7 @@
  *
  */
 class LeastSquaresDifferentiation : public ConeDifferentiation {
- public:
+public:
   /**
    * @brief Perform cone differentiation on a cone's point cloud using the Least Squares Method.
    *

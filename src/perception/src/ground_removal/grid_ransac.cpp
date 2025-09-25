@@ -1,24 +1,9 @@
 #include "ground_removal/grid_ransac.hpp"
 
-#include <omp.h>
-#include <pcl/ModelCoefficients.h>
-#include <pcl/filters/extract_indices.h>
-#include <pcl/io/pcd_io.h>
-#include <pcl/point_types.h>
-#include <pcl/sample_consensus/method_types.h>
-#include <pcl/sample_consensus/model_types.h>
-#include <pcl/segmentation/sac_segmentation.h>
-
-#include <cmath>
-#include <utils/plane.hpp>
-#include <vector>
-
-#include "ground_removal/ransac.hpp"
-
 GridRANSAC::GridRANSAC(const double epsilon, const int n_tries)
     : _ransac_(RANSAC(epsilon, n_tries)) {}
 
-double GridRANSAC::get_furthest_point(const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud) {
+double GridRANSAC::get_furthest_point(const pcl::PointCloud<PointXYZIR>::Ptr& cloud) {
   double max_distance = 0.0;
   for (const auto& point : *cloud) {
     double distance = std::sqrt(point.x * point.x + point.y * point.y);
@@ -30,8 +15,8 @@ double GridRANSAC::get_furthest_point(const pcl::PointCloud<pcl::PointXYZI>::Ptr
 }
 
 void GridRANSAC::split_point_cloud(
-    const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud,
-    std::vector<std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>>& grids,
+    const pcl::PointCloud<PointXYZIR>::Ptr& cloud,
+    std::vector<std::vector<pcl::PointCloud<PointXYZIR>::Ptr>>& grids,
     const SplitParameters split_params) const {
   grids.clear();
 
@@ -44,7 +29,7 @@ void GridRANSAC::split_point_cloud(
   for (int radius = 0; radius < n_radius_grids; ++radius) {
     grids[radius].resize(split_params.n_angular_grids);
     for (int angle = 0; angle < split_params.n_angular_grids; ++angle) {
-      grids[radius][angle].reset(new pcl::PointCloud<pcl::PointXYZI>());
+      grids[radius][angle].reset(new pcl::PointCloud<PointXYZIR>());
     }
   }
 
@@ -66,13 +51,13 @@ void GridRANSAC::split_point_cloud(
   }
 }
 
-void GridRANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                                const pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
+void GridRANSAC::ground_removal(const pcl::PointCloud<PointXYZIR>::Ptr point_cloud,
+                                const pcl::PointCloud<PointXYZIR>::Ptr ret, Plane& plane,
                                 const SplitParameters split_params) const {
   ret->clear();
   plane = Plane(0, 0, 0, 0);
 
-  std::vector<std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>> grids;
+  std::vector<std::vector<pcl::PointCloud<PointXYZIR>::Ptr>> grids;
   split_point_cloud(point_cloud, grids, split_params);
 
   int count = 0;
@@ -83,7 +68,7 @@ void GridRANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point
       if (grid_cell->points.size() < 3) continue;
 
       Plane grid_plane;
-      pcl::PointCloud<pcl::PointXYZI>::Ptr grid_ret(new pcl::PointCloud<pcl::PointXYZI>);
+      pcl::PointCloud<PointXYZIR>::Ptr grid_ret(new pcl::PointCloud<PointXYZIR>());
       this->_ransac_.ground_removal(grid_cell, grid_ret, grid_plane, split_params);
 
 #pragma omp critical

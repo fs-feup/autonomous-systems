@@ -1,6 +1,4 @@
 #include <gtest/gtest.h>
-#include <pcl/io/pcd_io.h>
-#include <pcl_conversions/pcl_conversions.h>
 
 #include <chrono>
 #include <ctime>
@@ -10,9 +8,7 @@
 #include <sstream>
 #include <string>
 
-#include "clustering/dbscan.hpp"
-#include "cone_differentiation/least_squares_differentiation.hpp"
-#include "ground_removal/ransac.hpp"
+#include "perception/perception_node.hpp"
 
 /**
  * @struct PerceptionExecutionData
@@ -43,7 +39,7 @@ public:
    * @brief Set up the test fixture.
    */
   void SetUp() override {
-    pcl_cloud = std::make_unique<pcl::PointCloud<pcl::PointXYZI>>();
+    pcl_cloud = std::make_unique<pcl::PointCloud<PointXYZIR>>();
     ground_removal = std::make_unique<RANSAC>(RANSAC_eps, RANSAC_Iter);
     clustering = std::make_unique<DBSCAN>(DBSCAN_neighbours_threshold, DBSCAN_dist_threshold);
     cone_differentiator = std::make_unique<LeastSquaresDifferentiation>();
@@ -117,7 +113,7 @@ public:
   std::unique_ptr<GroundRemoval> ground_removal;
   std::unique_ptr<Clustering> clustering;
   std::unique_ptr<ConeDifferentiation> cone_differentiator;
-  pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud;
+  pcl::PointCloud<PointXYZIR>::Ptr pcl_cloud;
 
   float RANSAC_eps = 0.1;
   int RANSAC_Iter = 20;
@@ -138,10 +134,10 @@ TEST_F(PerceptionPerformanceTest, TestPerformance) {
     struct PerceptionExecutionData executionTime;
 
     // Point cloud loading and transform into ROS msg
-    pcl::io::loadPCDFile<pcl::PointXYZI>(file_name, *pcl_cloud);
+    pcl::io::loadPCDFile<PointXYZIR>(file_name, *pcl_cloud);
     sensor_msgs::msg::PointCloud2 msg;
     pcl::toROSMsg(*pcl_cloud, msg);
-    pcl_cloud.reset(new pcl::PointCloud<pcl::PointXYZI>);
+    pcl_cloud.reset(new pcl::PointCloud<PointXYZIR>);
 
     auto start_time = std::chrono::high_resolution_clock::now();
 
@@ -152,8 +148,7 @@ TEST_F(PerceptionPerformanceTest, TestPerformance) {
     executionTime.conversion_duration =
         std::chrono::duration_cast<std::chrono::milliseconds>(start_time - conversion_time).count();
 
-    const pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(
-        new pcl::PointCloud<pcl::PointXYZI>);
+    const pcl::PointCloud<PointXYZIR>::Ptr ground_removed_cloud(new pcl::PointCloud<PointXYZIR>);
 
     Plane plane;
     const SplitParameters split_params;

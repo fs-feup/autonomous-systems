@@ -1,6 +1,6 @@
 #include "fov_trimming/fov_trimming.hpp"
 
-void FovTrimming::process_point(pcl::PointXYZI& point, const double rotation, const double pitch,
+void FovTrimming::process_point(PointXYZIR& point, const double rotation, const double pitch,
                                 double& distance, double& angle) const {
   const double x_rot = point.x;
   const double y_rot = point.y;
@@ -29,7 +29,7 @@ void FovTrimming::process_point(pcl::PointXYZI& point, const double rotation, co
   angle = std::atan2(point.y, point.x) * 180 / M_PI;
 }
 
-bool FovTrimming::within_limits(pcl::PointXYZI& point, const TrimmingParameters& params,
+bool FovTrimming::within_limits(PointXYZIR& point, const TrimmingParameters& params,
                                 const double max_range, const double fov_trim_angle) const {
   double distance = 0, angle = 0;
   process_point(point, params.lidar_rotation, params.lidar_pitch, distance, angle);

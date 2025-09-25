@@ -19,7 +19,7 @@ public:
    */
   void SetUp() override { _point_cloud_ptr_ = nullptr; }
   // We will create stack instances in each test.
-  pcl::PointCloud<pcl::PointXYZI>* _point_cloud_ptr_;
+  pcl::PointCloud<PointXYZIR>* _point_cloud_ptr_;
   Plane _plane_;
 };
 
@@ -28,13 +28,13 @@ public:
  */
 TEST_F(StandardDeviationTest, ZeroZDeviation) {
   // Create a stack-allocated point cloud.
-  pcl::PointCloud<pcl::PointXYZI> cloud;
+  pcl::PointCloud<PointXYZIR> cloud;
   (void)cloud.emplace_back(1.0, 2.0, 10, 0.1);
   (void)cloud.emplace_back(4.0, 5.0, 10, 0.2);
   (void)cloud.emplace_back(7.0, 8.0, 10, 0.3);
   // Wrap the stack object with a non-owning shared pointer.
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const pcl::PointCloud<PointXYZIR>::Ptr cloud_ptr(&cloud,
+                                                   NonOwningDeleter<pcl::PointCloud<PointXYZIR>>());
 
   // Create cluster using the wrapped point cloud.
   auto cluster = Cluster(cloud_ptr);
@@ -51,12 +51,12 @@ TEST_F(StandardDeviationTest, ZeroZDeviation) {
  * @brief Test case to validate a cluster with non-zero Z standard deviation.
  */
 TEST_F(StandardDeviationTest, NonZeroZDeviation) {
-  pcl::PointCloud<pcl::PointXYZI> cloud;
+  pcl::PointCloud<PointXYZIR> cloud;
   (void)cloud.emplace_back(0.0, 0.0, 0.8, 0.8);
   (void)cloud.emplace_back(0.0, 0.0, 0.1, 0.1);
   (void)cloud.emplace_back(0.0, 0.0, 0.3, 0.3);
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const pcl::PointCloud<PointXYZIR>::Ptr cloud_ptr(&cloud,
+                                                   NonOwningDeleter<pcl::PointCloud<PointXYZIR>>());
 
   auto cluster = Cluster(cloud_ptr);
   const auto deviation_validator = DeviationValidator(-1, 100, 0.1, 100);
@@ -71,12 +71,12 @@ TEST_F(StandardDeviationTest, NonZeroZDeviation) {
  * @brief Test case to validate a cluster with zero XoY standard deviation.
  */
 TEST_F(StandardDeviationTest, ZeroXoYDeviation) {
-  pcl::PointCloud<pcl::PointXYZI> cloud;
+  pcl::PointCloud<PointXYZIR> cloud;
   (void)cloud.emplace_back(1.0, 2.0, 10, 0.1);
   (void)cloud.emplace_back(1.0, 2.0, 100, 0.2);
   (void)cloud.emplace_back(1.0, 2.0, 100, 0.3);
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const pcl::PointCloud<PointXYZIR>::Ptr cloud_ptr(&cloud,
+                                                   NonOwningDeleter<pcl::PointCloud<PointXYZIR>>());
 
   auto cluster = Cluster(cloud_ptr);
   const auto deviation_validator = DeviationValidator(0.1, 100, -1, 100);
@@ -92,12 +92,12 @@ TEST_F(StandardDeviationTest, ZeroXoYDeviation) {
  * @brief Test case to validate a cluster with non-zero XoY standard deviation.
  */
 TEST_F(StandardDeviationTest, NonZeroXoYDeviation) {
-  pcl::PointCloud<pcl::PointXYZI> cloud;
+  pcl::PointCloud<PointXYZIR> cloud;
   (void)cloud.emplace_back(1.0, 2.0, 10, 0.1);
   (void)cloud.emplace_back(3.0, 5.0, 100, 0.2);
   (void)cloud.emplace_back(10.0, -6.0, 100, 0.3);
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const pcl::PointCloud<PointXYZIR>::Ptr cloud_ptr(&cloud,
+                                                   NonOwningDeleter<pcl::PointCloud<PointXYZIR>>());
 
   auto cluster = Cluster(cloud_ptr);
   const auto deviation_validator = DeviationValidator(0.1, 100, -1, 100);
@@ -112,12 +112,12 @@ TEST_F(StandardDeviationTest, NonZeroXoYDeviation) {
  * @brief Test case to validate the a cluster with zero xOy and Z standard deviation.
  */
 TEST_F(StandardDeviationTest, ZeroXoYAndZDeviation) {
-  pcl::PointCloud<pcl::PointXYZI> cloud;
+  pcl::PointCloud<PointXYZIR> cloud;
   (void)cloud.emplace_back(1.0, 2.0, 10, 0.1);
   (void)cloud.emplace_back(1.0, 2.0, 10, 0.2);
   (void)cloud.emplace_back(1.0, 2.0, 10, 0.3);
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const pcl::PointCloud<PointXYZIR>::Ptr cloud_ptr(&cloud,
+                                                   NonOwningDeleter<pcl::PointCloud<PointXYZIR>>());
 
   auto cluster = Cluster(cloud_ptr);
   const auto deviation_validator = DeviationValidator(0.1, 100, 0.1, 100);
@@ -133,12 +133,12 @@ TEST_F(StandardDeviationTest, ZeroXoYAndZDeviation) {
  * @brief Test case to validate the a cluster with non-zero xOy and Z standard deviation.
  */
 TEST_F(StandardDeviationTest, NonZeroXoYAndZDeviation) {
-  pcl::PointCloud<pcl::PointXYZI> cloud;
+  pcl::PointCloud<PointXYZIR> cloud;
   (void)cloud.emplace_back(1.0, 2.0, 0.8, 0.1);
   (void)cloud.emplace_back(3.0, 5.0, 0.1, 0.2);
   (void)cloud.emplace_back(10.0, -6.0, 0.3, 0.3);
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const pcl::PointCloud<PointXYZIR>::Ptr cloud_ptr(&cloud,
+                                                   NonOwningDeleter<pcl::PointCloud<PointXYZIR>>());
 
   auto cluster = Cluster(cloud_ptr);
   const auto deviation_validator = DeviationValidator(0.1, 100, 0.1, 100);

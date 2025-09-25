@@ -1,9 +1,6 @@
 #pragma once
 
-#include <pcl/PCLPointField.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
-
+#include <utils/pcl_point_types.hpp>
 #include <utils/split_parameters.hpp>
 #include <utils/trimming_parameters.hpp>
 
@@ -19,13 +16,13 @@ public:
    * for GridRANSAC.
    */
   virtual SplitParameters fov_trimming(
-      const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud) const = 0;
+      const pcl::PointCloud<PointXYZIR>::Ptr point_cloud) const = 0;
 
-  void process_point(pcl::PointXYZI& point, const double rotation, const double pitch,
-                     double& distance, double& angle) const;
+  void process_point(PointXYZIR& point, const double rotation, const double pitch, double& distance,
+                     double& angle) const;
 
-  bool within_limits(pcl::PointXYZI& point, const TrimmingParameters& params,
-                     const double max_range, const double fov_trim_angle) const;
+  bool within_limits(PointXYZIR& point, const TrimmingParameters& params, const double max_range,
+                     const double fov_trim_angle) const;
 
   void set_lidar_rotation(const double rotation);
 

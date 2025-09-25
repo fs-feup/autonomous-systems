@@ -1,7 +1,5 @@
 #pragma once
-
 #include <cone_validator/cone_validator.hpp>
-#include <utils/cluster.hpp>
 
 /**
  * @brief The SizeValidator class is responsible for validating cones based on the minimum distance

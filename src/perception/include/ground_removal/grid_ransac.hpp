@@ -1,8 +1,10 @@
-#include <pcl/sample_consensus/ransac.h>
+#pragma once
 
-#include <string>
+#include <omp.h>
+
+#include <cmath>
 #include <utils/plane.hpp>
-#include <utils/split_parameters.hpp>
+#include <vector>
 
 #include "ground_removal/ground_removal.hpp"
 #include "ground_removal/ransac.hpp"
@@ -38,8 +40,8 @@ public:
    * @param[out] ret The resulting point cloud after ground removal.
    * @param plane The estimated ground plane model.
    */
-  void ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                      const pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
+  void ground_removal(const pcl::PointCloud<PointXYZIR>::Ptr point_cloud,
+                      const pcl::PointCloud<PointXYZIR>::Ptr ret, Plane& plane,
                       const SplitParameters split_params) const override;
 
   /**
@@ -50,7 +52,7 @@ public:
    * @param cloud The input point cloud.
    * @return The distance of the furthest point from the origin.
    */
-  static double get_furthest_point(const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud);
+  static double get_furthest_point(const pcl::PointCloud<PointXYZIR>::Ptr& cloud);
 
   /**
    * @brief Split the input point cloud into grids.
@@ -60,8 +62,8 @@ public:
    * @param cloud The input point cloud to be split.
    * @param[out] grids Vector of vectors representing the grids.
    */
-  void split_point_cloud(const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud,
-                         std::vector<std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>>& grids,
+  void split_point_cloud(const pcl::PointCloud<PointXYZIR>::Ptr& cloud,
+                         std::vector<std::vector<pcl::PointCloud<PointXYZIR>::Ptr>>& grids,
                          const SplitParameters split_params) const;
 
 private:

@@ -1,17 +1,14 @@
 #include "clustering/dbscan.hpp"
 
-#include <pcl/kdtree/kdtree_flann.h>
-#include <pcl/segmentation/extract_clusters.h>
-
 DBSCAN::DBSCAN(int min_cluster_size, double neighbours_dist_threshold)
     : min_cluster_size(min_cluster_size), neighbours_dist_threshold(neighbours_dist_threshold) {}
 
-void DBSCAN::clustering(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
+void DBSCAN::clustering(const pcl::PointCloud<PointXYZIR>::Ptr point_cloud,
                         std::vector<Cluster>* clusters) const {
-  pcl::search::KdTree<pcl::PointXYZI>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZI>);
+  pcl::search::KdTree<PointXYZIR>::Ptr tree(new pcl::search::KdTree<PointXYZIR>);
   tree->setInputCloud(point_cloud);
 
-  pcl::EuclideanClusterExtraction<pcl::PointXYZI> ec;
+  pcl::EuclideanClusterExtraction<PointXYZIR> ec;
   ec.setClusterTolerance(neighbours_dist_threshold);
   ec.setMinClusterSize(min_cluster_size);
 
@@ -24,7 +21,7 @@ void DBSCAN::clustering(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
 
   // Iterate over clusters to get the values of the points
   for (const auto& indices : cluster_indices) {
-    pcl::PointCloud<pcl::PointXYZI>::Ptr cluster(new pcl::PointCloud<pcl::PointXYZI>);
+    pcl::PointCloud<PointXYZIR>::Ptr cluster(new pcl::PointCloud<PointXYZIR>);
     for (const int& index : indices.indices) {
       cluster->points.push_back(point_cloud->points[index]);
     }

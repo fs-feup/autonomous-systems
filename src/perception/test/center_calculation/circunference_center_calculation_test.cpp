@@ -1,11 +1,8 @@
 #include <gtest/gtest.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
 
 #include <center_calculation/circunferece_center_calculation.hpp>
 #include <cone_validator/cylinder_validator.hpp>
-#include <utils/cluster.hpp>
-#include <utils/plane.hpp>
+
 
 /**
  * @brief Test class for setting up data and testing CircinferenceCenterCalculation algorithm.
@@ -13,9 +10,9 @@
  */
 class CircunferenceCenterCalculationTest : public ::testing::Test {
 public:
-  std::shared_ptr<pcl::PointCloud<pcl::PointXYZI>>
+  std::shared_ptr<pcl::PointCloud<PointXYZIR>>
       pcl_cloud;  ///< Point Cloud representing the circumference (x - 2)^2 + y^2 = 4
-  std::shared_ptr<pcl::PointCloud<pcl::PointXYZI>>
+  std::shared_ptr<pcl::PointCloud<PointXYZIR>>
       pcl_cloud2;  ///< Point Cloud representing the circumference x^2 + (y-3)^2 = 9
   CircunferenceCenterCalculation center_calculator_;  ///< Center Calculator
   Plane plane_;                                       ///< Plane z = 0
@@ -27,17 +24,17 @@ protected:
   void SetUp() override {
     center_calculator_ = CircunferenceCenterCalculation();
 
-    pcl_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-    pcl_cloud->points.push_back(pcl::PointXYZI{0.0, 0.0, 1.0, 0.5});
-    pcl_cloud->points.push_back(pcl::PointXYZI{2.0, 2.0, 1.0, 1.0});
-    pcl_cloud->points.push_back(pcl::PointXYZI{4.0, 0.0, 1.0, 1.5});
-    pcl_cloud->points.push_back(pcl::PointXYZI{2.0, -2.0, 1.0, 1.5});
+    pcl_cloud = std::make_shared<pcl::PointCloud<PointXYZIR>>();
+    pcl_cloud->points.push_back(PointXYZIR{0.0, 0.0, 1.0, 0.5});
+    pcl_cloud->points.push_back(PointXYZIR{2.0, 2.0, 1.0, 1.0});
+    pcl_cloud->points.push_back(PointXYZIR{4.0, 0.0, 1.0, 1.5});
+    pcl_cloud->points.push_back(PointXYZIR{2.0, -2.0, 1.0, 1.5});
 
-    pcl_cloud2 = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-    pcl_cloud2->points.push_back(pcl::PointXYZI{0.0, 0.0, 2.0, 0.5});
-    pcl_cloud2->points.push_back(pcl::PointXYZI{3.0, 3.0, 2.0, 1.0});
-    pcl_cloud2->points.push_back(pcl::PointXYZI{-3.0, 3.0, 2.0, 1.5});
-    pcl_cloud2->points.push_back(pcl::PointXYZI{0.0, 6.0, 2.0, 1.5});
+    pcl_cloud2 = std::make_shared<pcl::PointCloud<PointXYZIR>>();
+    pcl_cloud2->points.push_back(PointXYZIR{0.0, 0.0, 2.0, 0.5});
+    pcl_cloud2->points.push_back(PointXYZIR{3.0, 3.0, 2.0, 1.0});
+    pcl_cloud2->points.push_back(PointXYZIR{-3.0, 3.0, 2.0, 1.5});
+    pcl_cloud2->points.push_back(PointXYZIR{0.0, 6.0, 2.0, 1.5});
 
     plane_ = Plane(0, 0, 1, 0);  // Plane z = 0
   }

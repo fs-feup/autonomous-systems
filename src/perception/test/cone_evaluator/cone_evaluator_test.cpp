@@ -1,13 +1,8 @@
 #include <gtest/gtest.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
 
 #include <cone_evaluator/cone_evaluator.hpp>
 #include <memory>
-#include <string>
 #include <unordered_map>
-#include <utils/cluster.hpp>
-#include <utils/plane.hpp>
 
 // Non-owning deleter: does nothing.
 template <typename T>
@@ -63,10 +58,10 @@ TEST(ConeEvaluatorTest, EvaluateClusterConfidenceSufficient) {
   ConeEvaluator cone_evaluator(eval_params);
 
   // Create a stack-allocated point cloud.
-  pcl::PointCloud<pcl::PointXYZI> cloud;
+  pcl::PointCloud<PointXYZIR> cloud;
   // Wrap the stack object with a non-owning shared pointer.
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const pcl::PointCloud<PointXYZIR>::Ptr cloud_ptr(&cloud,
+                                                   NonOwningDeleter<pcl::PointCloud<PointXYZIR>>());
 
   Cluster cluster(cloud_ptr);
   Plane ground_plane;
@@ -111,10 +106,10 @@ TEST(ConeEvaluatorTest, EvaluateClusterConfidenceInsufficient) {
   ConeEvaluator cone_evaluator(eval_params);
 
   // Create a stack-allocated point cloud.
-  pcl::PointCloud<pcl::PointXYZI> cloud;
+  pcl::PointCloud<PointXYZIR> cloud;
   // Wrap the stack object with a non-owning shared pointer.
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const pcl::PointCloud<PointXYZIR>::Ptr cloud_ptr(&cloud,
+                                                   NonOwningDeleter<pcl::PointCloud<PointXYZIR>>());
 
   Cluster cluster(cloud_ptr);
   Plane ground_plane;

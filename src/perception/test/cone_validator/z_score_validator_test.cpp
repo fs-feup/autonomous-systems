@@ -1,31 +1,30 @@
-#include "clustering/dbscan.hpp"
 #include "cone_validator/z_score_validator.hpp"
 
 #include <gtest/gtest.h>
+
 #include <memory>
+
+#include "clustering/dbscan.hpp"
 
 /**
  * @brief Fixture for testing the ZScoreValidatorTest class.
  */
 class ZScoreValidatorTest : public ::testing::Test {
- public:
+public:
   /**
    * @brief Set up the test fixtures.
    */
-  void SetUp() override {
-    _clusters_ = {};
-  }
+  void SetUp() override { _clusters_ = {}; }
 
   void add_cluster(float centroid_x, float centroid_y) {
-    auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-    point_cloud->push_back(pcl::PointXYZI{centroid_x, centroid_y, 42, 42});
+    auto point_cloud = std::make_shared<pcl::PointCloud<PointXYZIR>>();
+    point_cloud->push_back(PointXYZIR{centroid_x, centroid_y, 42, 42});
     _clusters_.emplace_back(point_cloud);
   }
 
   std::vector<Cluster> _clusters_;
   Plane _plane_;
 };
-
 
 /**
  * @brief Test case to validate the a vector with only one cluster
@@ -58,7 +57,7 @@ TEST_F(ZScoreValidatorTest, TwoPointsPerfectZScores) {
 
 /**
  * @brief Test case to validate a perfectly distributed vector of clusters
- * 
+ *
  */
 TEST_F(ZScoreValidatorTest, PerfectZScore) {
   auto validator = ZScoreValidator(1, 1, 1, 1);
@@ -74,8 +73,9 @@ TEST_F(ZScoreValidatorTest, PerfectZScore) {
 }
 
 /**
- * @brief Test case to validate a perfectly distributed vector of clusters with 1 outlier (not perfect)
- * 
+ * @brief Test case to validate a perfectly distributed vector of clusters with 1 outlier (not
+ * perfect)
+ *
  */
 TEST_F(ZScoreValidatorTest, PerfectZScoreWith1Outlier) {
   auto validator = ZScoreValidator(1, 1, 1, 1);
@@ -92,8 +92,9 @@ TEST_F(ZScoreValidatorTest, PerfectZScoreWith1Outlier) {
 }
 
 /**
- * @brief Test case to validate a perfectly distributed vector of clusters with 1 outlier (all points except the outlier)
- * 
+ * @brief Test case to validate a perfectly distributed vector of clusters with 1 outlier (all
+ * points except the outlier)
+ *
  */
 TEST_F(ZScoreValidatorTest, PerfectZScoreWith1Outlier2) {
   auto validator = ZScoreValidator(0, 1, 0, 1);
@@ -106,7 +107,7 @@ TEST_F(ZScoreValidatorTest, PerfectZScoreWith1Outlier2) {
   }
   add_cluster(8, 8);
   Cluster::set_z_scores(_clusters_);
-  
+
   ASSERT_TRUE(validator.coneValidator(&_clusters_[0], _plane_));
   ASSERT_TRUE(validator.coneValidator(&_clusters_[1], _plane_));
   ASSERT_TRUE(validator.coneValidator(&_clusters_[2], _plane_));

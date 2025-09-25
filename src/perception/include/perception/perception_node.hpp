@@ -3,7 +3,10 @@
 #include <cone_evaluator/cone_evaluator.hpp>
 #include <cone_validator/cylinder_validator.hpp>
 #include <cone_validator/deviation_validator.hpp>
+#include <cone_validator/displacement_validator.hpp>
+#include <cone_validator/npoints_validator.hpp>
 #include <cone_validator/z_score_validator.hpp>
+#include <cstdio>
 #include <string>
 #include <unordered_map>
 #include <utils/plane.hpp>
@@ -11,7 +14,9 @@
 #include <vector>
 
 #include "clustering/dbscan.hpp"
+#include "common_lib/communication/marker.hpp"
 #include "common_lib/competition_logic/mission_logic.hpp"
+#include "common_lib/config_load/config_load.hpp"
 #include "common_lib/structures/velocities.hpp"
 #include "cone_differentiation/least_squares_differentiation.hpp"
 #include "cone_validator/height_validator.hpp"
@@ -24,14 +29,18 @@
 #include "fov_trimming/cut_trimming.hpp"
 #include "fov_trimming/skidpad_trimming.hpp"
 #include "ground_removal/grid_ransac.hpp"
+#include "ground_removal/himmelsbach.hpp"
 #include "ground_removal/ransac.hpp"
 #include "icp/icp.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "std_msgs/msg/float64.hpp"
+#include "std_msgs/msg/header.hpp"
 #include "std_srvs/srv/empty.hpp"
 #include "std_srvs/srv/trigger.hpp"
+#include "utils/pcl_point_types.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
+#include "yaml-cpp/yaml.h"
 
 using Mission = common_lib::competition_logic::Mission;
 struct PerceptionParameters {     ///< Struct containing parameters and interfaces used in

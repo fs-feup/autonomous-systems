@@ -14,7 +14,7 @@ double CylinderValidator::large_getRadius() const { return large_width / 2; }
 
 std::vector<double> CylinderValidator::coneValidator(Cluster* cone_point_cloud,
                                                      [[maybe_unused]] Plane& plane) const {
-  pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud = cone_point_cloud->get_point_cloud();
+  pcl::PointCloud<PointXYZIR>::Ptr point_cloud = cone_point_cloud->get_point_cloud();
 
   double out_distanceXY = 1;
   double out_distanceZ = 1;

@@ -1,6 +1,6 @@
 #include <utils/cluster.hpp>
 
-Cluster::Cluster(pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud) : _point_cloud_(point_cloud) {}
+Cluster::Cluster(pcl::PointCloud<PointXYZIR>::Ptr point_cloud) : _point_cloud_(point_cloud) {}
 
 Eigen::Vector4f Cluster::get_centroid() {
   if (_centroid_is_defined_) return this->_centroid_;
@@ -27,7 +27,7 @@ void Cluster::set_color(const std::string& new_color) {
 }
 
 // cppcheck-suppress unusedFunction
-void Cluster::set_point_cloud(pcl::PointCloud<pcl::PointXYZI>::Ptr new_point_cloud) {
+void Cluster::set_point_cloud(pcl::PointCloud<PointXYZIR>::Ptr new_point_cloud) {
   _point_cloud_.reset();
 
   this->_point_cloud_ = new_point_cloud;
@@ -35,7 +35,7 @@ void Cluster::set_point_cloud(pcl::PointCloud<pcl::PointXYZI>::Ptr new_point_clo
   _centroid_is_defined_ = false;
 }
 
-pcl::PointCloud<pcl::PointXYZI>::Ptr Cluster::get_point_cloud() { return this->_point_cloud_; }
+pcl::PointCloud<PointXYZIR>::Ptr Cluster::get_point_cloud() { return this->_point_cloud_; }
 
 void Cluster::set_confidence(double new_confidence) { this->_confidence_ = new_confidence; }
 
