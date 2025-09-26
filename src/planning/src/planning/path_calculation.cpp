@@ -156,13 +156,13 @@ void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
         active_cones.push_back(cone);
       }
     }
-
-    if (active_cones.size() < 2) {
-      RCLCPP_WARN(rclcpp::get_logger("planning"),"[Planning] Not enough cones in sliding window to compute midpoints");
-      return;
-    }
   }else {
     active_cones = std::move(cone_array);
+  }
+
+  if (active_cones.size() < 2) {
+    RCLCPP_WARN(rclcpp::get_logger("planning"),"[Planning] Not enough cones to compute midpoints");
+    return;
   }
      
   this->midPoints.clear();
