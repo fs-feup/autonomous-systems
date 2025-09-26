@@ -110,6 +110,19 @@ public:
    */
   std::pair<double, MidPoint*> dfs_cost(int depth, const MidPoint* previous, MidPoint* current,
                                         double maxcost);
+  /**
+   * @brief Filters cones to find the ones that will be used for the triangulations.
+   *
+   * If sliding window mode is enabled, only cones within the configured
+   * radius of pose are kept. Otherwise all cones are kept.
+   *
+   * @param cone_array Input list of all cones
+   * @param pose Current pose o the car
+   * @param active_cones Cones that pass the filter
+   */
+  void select_active_cones(std::vector<Cone>& cone_array,
+                                            const common_lib::structures::Pose& pose,
+                                            std::vector<Cone>& active_cones);
 
   /**
    * @brief Generate a path from cone array without color information

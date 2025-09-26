@@ -138,13 +138,9 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
 
   return path_points;
 }
-
-void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
-                                        std::vector<std::shared_ptr<MidPoint>>& midPoints,
-                                        const common_lib::structures::Pose& pose) {
-  std::vector<Cone> active_cones;
-  active_cones.reserve(cone_array.size());
-                                          
+void PathCalculation::select_active_cones(std::vector<Cone>& cone_array,
+                                          const common_lib::structures::Pose& pose,
+                                          std::vector<Cone>& active_cones){
   if(config_.use_sliding_window_) {
     for (const auto& cone : cone_array) {
       double dx = cone.position.x - pose.position.x;
@@ -164,6 +160,15 @@ void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
     RCLCPP_WARN(rclcpp::get_logger("planning"),"[Planning] Not enough cones to compute midpoints");
     return;
   }
+
+}
+void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
+                                        std::vector<std::shared_ptr<MidPoint>>& midPoints,
+                                        const common_lib::structures::Pose& pose) {
+  std::vector<Cone> active_cones;
+  active_cones.reserve(cone_array.size());
+  
+  select_active_cones(cone_array,pose,active_cones);
      
   this->triangulations.clear();
   DT dt;
