@@ -17,14 +17,15 @@ namespace common_lib::structures {
 struct MidPoint {
     Point point;
     std::vector<std::shared_ptr<MidPoint>> close_points; 
-    Cone* cone1;
-    Cone* cone2;
+    std::shared_ptr<Cone> cone1;
+    std::shared_ptr<Cone> cone2;
     bool valid = true;
 
     MidPoint() = default; 
     MidPoint(const Point& p,
-         const std::vector<std::shared_ptr<MidPoint>>& close_points,
-         Cone* c1, Cone* c2);
+        const std::vector<std::shared_ptr<MidPoint>>& close_points,
+        std::shared_ptr<Cone> c1,
+        std::shared_ptr<Cone> c2);
 
     friend bool operator==(const MidPoint& a, const MidPoint& b) {
         return a.point == b.point;

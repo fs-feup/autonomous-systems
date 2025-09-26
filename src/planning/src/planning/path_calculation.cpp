@@ -80,7 +80,7 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
     path_points = {};
   } else {
     std::vector<std::shared_ptr<MidPoint>> midPoints;
-    std::unordered_set<Cone*> discarded_cones;
+    std::unordered_set<std::shared_ptr<Cone>> discarded_cones;
 
     // Generate midpoints between cone pairs using Delaunay triangulation
     create_mid_points(cone_array, midPoints, pose);
@@ -169,9 +169,16 @@ void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
   this->triangulations.clear();
   DT dt;
 
-  // Insert all cone positions into the Delaunay triangulation
+  // Create shared_ptr for each cone for efficient sharing
+  std::vector<std::shared_ptr<Cone>> cone_ptrs;
+  cone_ptrs.reserve(active_cones.size());
   for (const auto& cone : active_cones) {
-    (void)dt.insert(Point(cone.position.x, cone.position.y));
+    cone_ptrs.push_back(std::make_shared<Cone>(cone));
+  }
+
+  // Insert all cone positions into the Delaunay triangulation
+  for (const auto& cone_ptr : cone_ptrs) {
+    (void)dt.insert(Point(cone_ptr->position.x, cone_ptr->position.y));
   }
 
   // Avoid duplicate midpoints for the same cone pair
@@ -210,7 +217,11 @@ void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
         mids[i] = it->second;
       } else {
         auto midpoint = std::make_shared<MidPoint>(
-            MidPoint{CGAL::midpoint(p1, p2), {}, &active_cones[id1], &active_cones[id2]});
+            CGAL::midpoint(p1, p2), 
+            std::vector<std::shared_ptr<MidPoint>>{}, 
+            cone_ptrs[id1], 
+            cone_ptrs[id2]
+        );
         segment_to_midpoint[key] = midpoint;
         midPoints.push_back(midpoint);
         mids[i] = midpoint;
@@ -242,7 +253,8 @@ void PathCalculation::calculate_initial_path(
     std::vector<Point>& path, const std::vector<std::shared_ptr<MidPoint>>& midPoints,
     const common_lib::structures::Pose& pose,
     const std::unordered_map<Point, MidPoint*>& point_to_midpoint,
-    std::unordered_set<MidPoint*>& visited_midpoints, std::unordered_set<Cone*>& discarded_cones) {
+    std::unordered_set<MidPoint*>& visited_midpoints, 
+    std::unordered_set<std::shared_ptr<Cone>>& discarded_cones) {
   if (path_to_car.size() > 2) {
     RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Selecting initial path from %zu points.",
                  path_to_car.size());
@@ -306,7 +318,8 @@ void PathCalculation::calculate_initial_path(
 void PathCalculation::extend_path(
     std::vector<Point>& path, const std::vector<std::shared_ptr<MidPoint>>& midPoints,
     const std::unordered_map<Point, MidPoint*>& point_to_midpoint,
-    std::unordered_set<MidPoint*>& visited_midpoints, std::unordered_set<Cone*>& discarded_cones,
+    std::unordered_set<MidPoint*>& visited_midpoints, 
+    std::unordered_set<std::shared_ptr<Cone>>& discarded_cones,
     int max_points) {
   int n_points = 0;
   // Define cost threshold for discarding poor path options
@@ -351,9 +364,10 @@ void PathCalculation::extend_path(
 }
 
 void PathCalculation::discard_cones_along_path(
-    const std::vector<Point>& path, const std::vector<std::shared_ptr<MidPoint>>& midPoints,
+    const std::vector<Point>& path, 
+    const std::vector<std::shared_ptr<MidPoint>>& midPoints,
     const std::unordered_map<Point, MidPoint*>& point_to_midpoint,
-    std::unordered_set<Cone*>& discarded_cones) {
+    std::unordered_set<std::shared_ptr<Cone>>& discarded_cones) {
   const auto& last = path[path.size() - 2];
   const auto& current = path.back();
 
@@ -366,7 +380,7 @@ void PathCalculation::discard_cones_along_path(
   }
 
   // Identify a cone that was likely passed and should be discarded
-  Cone* discarded_cone = nullptr;
+  std::shared_ptr<Cone> discarded_cone = nullptr;
 
   if (last_mp->cone1 == current_mp->cone1 || last_mp->cone1 == current_mp->cone2) {
     if (last_mp->cone2 != current_mp->cone1 && last_mp->cone2 != current_mp->cone2) {
@@ -381,7 +395,9 @@ void PathCalculation::discard_cones_along_path(
   }
 
   // Mark cone as discarded
-  (void)discarded_cones.insert(discarded_cone);
+  if (discarded_cone) {
+    (void)discarded_cones.insert(discarded_cone);
+  }
 
   // Invalidate midpoints that rely on discarded cones
   for (auto& mp : midPoints) {

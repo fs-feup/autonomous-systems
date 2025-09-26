@@ -220,7 +220,7 @@ public:
       const common_lib::structures::Pose& pose,
       const std::unordered_map<Point, MidPoint*>& point_to_midpoint,
       std::unordered_set<MidPoint*>& visited_midpoints,
-      std::unordered_set<Cone*>& discarded_cones
+      std::unordered_set<std::shared_ptr<Cone>>& discarded_cones
   );
 
   /**
@@ -242,7 +242,7 @@ public:
     const std::vector<std::shared_ptr<MidPoint>>& midPoints,
     const std::unordered_map<Point, MidPoint*>& point_to_midpoint,
     std::unordered_set<MidPoint*>& visited_midpoints,
-    std::unordered_set<Cone*>& discarded_cones,
+    std::unordered_set<std::shared_ptr<Cone>>& discarded_cones,
     int max_points
   );
 
@@ -261,7 +261,7 @@ public:
     const std::vector<Point>& path,
     const std::vector<std::shared_ptr<MidPoint>>& midPoints,
     const std::unordered_map<Point, MidPoint*>& point_to_midpoint,
-    std::unordered_set<Cone*>& discarded_cones
+    std::unordered_set<std::shared_ptr<Cone>>& discarded_cones
   ); 
 
 /**
