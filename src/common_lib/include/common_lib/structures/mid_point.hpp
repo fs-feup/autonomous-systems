@@ -23,7 +23,6 @@ struct MidPoint {
 
     MidPoint() = default; 
     MidPoint(const Point& p,
-        const std::vector<std::shared_ptr<MidPoint>>& close_points,
         std::shared_ptr<Cone> c1,
         std::shared_ptr<Cone> c2);
 

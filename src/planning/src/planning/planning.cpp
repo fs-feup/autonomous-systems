@@ -93,8 +93,6 @@ Planning::Planning(const PlanningParameters &params)
     // Publisher for visualization
     this->triangulations_pub_ = this->create_publisher<visualization_msgs::msg::Marker>(
     "/path_planning/triangulations", 10);
-    this->midpoints_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
-        "/path_planning/midpoints", 10);
     this->visualization_pub_ =
         this->create_publisher<visualization_msgs::msg::Marker>("/path_planning/smoothed_path", 10);
 
@@ -288,8 +286,7 @@ void Planning::run_planning_algorithms() {
 
   int errorcounter = 0;
   if (planning_config_.simulation_.publishing_visualization_msgs_) {
-    std::vector<PathPoint> published_midpoints;
-    publish_visualization_msgs(published_midpoints, full_path, final_path, global_path_);
+    publish_visualization_msgs(full_path, final_path, global_path_);
   }
   if (errorcounter != 0) {
     RCLCPP_ERROR(this->get_logger(), "Number of midpoints with no close points: %d", errorcounter);
@@ -322,12 +319,9 @@ void Planning::set_mission(common_lib::competition_logic::Mission new_mission) {
 }
 
 
-void Planning::publish_visualization_msgs(const std::vector<PathPoint> &midPoints,
-                                          const std::vector<PathPoint> &full_path,
+void Planning::publish_visualization_msgs(const std::vector<PathPoint> &full_path,
                                           const std::vector<PathPoint> &final_path,
                                           const std::vector<PathPoint> &global_path) const {
-  this->midpoints_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      midPoints, "midPoints", this->_map_frame_id_, "white"));
   this->triangulations_pub_->publish(common_lib::communication::lines_marker_from_triangulations(
     path_calculation_.triangulations, "triangulations", this->_map_frame_id_, 20, "white",0.05f,visualization_msgs::msg::Marker::MODIFY));
 

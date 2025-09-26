@@ -165,7 +165,6 @@ void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
     return;
   }
      
-  this->midPoints.clear();
   this->triangulations.clear();
   DT dt;
 
@@ -218,7 +217,6 @@ void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
       } else {
         auto midpoint = std::make_shared<MidPoint>(
             CGAL::midpoint(p1, p2), 
-            std::vector<std::shared_ptr<MidPoint>>{}, 
             cone_ptrs[id1], 
             cone_ptrs[id2]
         );
@@ -242,10 +240,6 @@ void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
         mids[i]->close_points.push_back(mids[j]);
       }
     }
-  }
-
-  for (const auto& p : midPoints) {
-    this->midPoints.push_back(*p);
   }
 }
 
@@ -442,7 +436,7 @@ PathCalculation::find_path_start_points(const std::vector<std::shared_ptr<MidPoi
       pq(cmp);
 
   MidPoint anchor_midpoint{
-      Point(anchor_pose.position.x, anchor_pose.position.y), {}, nullptr, nullptr};
+      Point(anchor_pose.position.x, anchor_pose.position.y), nullptr, nullptr};
 
   // Find midpoints that are in front of the car
   for (const auto& p : mid_points) {

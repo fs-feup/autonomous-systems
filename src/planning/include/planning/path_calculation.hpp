@@ -69,7 +69,6 @@ private:
 
 public:
 
-  std::vector<MidPoint> midPoints;
   std::vector<std::pair<Point, Point>> triangulations;
 
   /**

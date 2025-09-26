@@ -84,8 +84,6 @@ class Planning : public rclcpp::Node {
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr track_sub_;
   /**< Local path points publisher */
   rclcpp::Publisher<custom_interfaces::msg::PathPointArray>::SharedPtr local_pub_;
-  /**< Publisher for the midpoints */
-  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr midpoints_pub_;
 
   /**< Publisher for the final path*/
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr visualization_pub_;
@@ -143,15 +141,13 @@ class Planning : public rclcpp::Node {
   /**
    * @brief publish all visualization messages from the planning node
    * 
-   * @param midPoints   Vector of path points representing midpoints in the trajectory.
    * @param full_path   Vector of path points representing the full path.
    * @param final_path  Vector of path points representing the final smoothed path used for planning.
    * @param global_path Vector of path points representing the global path.
    */
-  void publish_visualization_msgs(const std::vector<PathPoint> &midPoints,
-                                          const std::vector<PathPoint> &full_path,
-                                          const std::vector<PathPoint> &final_path,
-                                          const std::vector<PathPoint> &global_path) const;
+  void publish_visualization_msgs(const std::vector<PathPoint> &full_path,
+                                  const std::vector<PathPoint> &final_path,
+                                  const std::vector<PathPoint> &global_path) const;
 
 
   virtual void finish() = 0;
