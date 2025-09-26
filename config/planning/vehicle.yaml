@@ -30,7 +30,7 @@ planning:
   normal_acceleration: 0.9
   use_velocity_planning: true
   desired_velocity: 6.0
-  sliding_window_radius: 10
+  sliding_window_radius: 20.0
   use_sliding_window: true
 
 # Parameters for EBS Test

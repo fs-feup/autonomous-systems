@@ -43,7 +43,7 @@ struct PlanningParameters {
   bool use_velocity_planning_;
   std::string map_frame_id_;
 
-  int sliding_window_radius_;
+  double sliding_window_radius_;
   bool use_sliding_window_;  
 };
 

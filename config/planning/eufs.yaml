@@ -22,5 +22,5 @@ planning:
   braking_acceleration: -4.0
   normal_acceleration: 7.0
   use_velocity_planning: true
-  sliding_window_radius: 10
+  sliding_window_radius: 20.0
   use_sliding_window: true
