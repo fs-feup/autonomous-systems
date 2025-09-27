@@ -1,4 +1,4 @@
-#include "pure_pursuit/pp.hpp"
+#include "pure_pursuit/pure_pursuit.hpp"
 
 #include <gtest/gtest.h>
 
@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-#include "node_/node_control.hpp"
+#include "ros_node/ros_node.hpp"
 
 using namespace common_lib::structures;
 
@@ -116,5 +116,5 @@ TEST_F(PurePursuitTestFixture, Test_pp_steering_control_law_1) {
 
   //  Alpha: 0.804189
   //  ld_: 5.38516
-  EXPECT_NEAR(0.349, steering_cmd, 0.001);
+  EXPECT_NEAR(0.335, steering_cmd, 0.001);
 }

@@ -1,5 +1,7 @@
 #pragma once
+#include <memory>
 
+#include "config/parameters.hpp"
 #include "gtest/gtest.h"
 
 /**
@@ -11,9 +13,9 @@
  * feedback signal (measurement).
  *
  */
-
 class PID {
 private:
+  std::shared_ptr<ControlParameters> params_;
   double kp_;          /**< Proporcional gain */
   double ki_;          /**< Integral gain */
   double kd_;          /**< Derivative gain */
@@ -89,8 +91,7 @@ public:
    * @param lim_max Maximum output value
    * @param antiWindup Anti-windup constant
    */
-  PID(double Kp, double Ki, double Kd, double tau, double T, double limMin, double limMax,
-      double antiWindup);
+  PID(const ControlParameters &params);
 
   /**
    * @brief PID default constructor

@@ -1,15 +1,15 @@
-#include "adapter_control/eufs.hpp"
+#include "adapter/eufs.hpp"
 
 #include "custom_interfaces/msg/pose.hpp"
-#include "node_/node_control.hpp"
+#include "ros_node/ros_node.hpp"
 
 EufsAdapter::EufsAdapter(const ControlParameters& params)
-    : Control(params),
+    : ControlNode(params),
       control_pub_(create_publisher<ackermann_msgs::msg::AckermannDriveStamped>("/cmd", 10)) {
   // No topic for eufs, just set the go_signal to true
   go_signal_ = true;
 
-  if (using_simulated_slam_) {
+  if (this->params_.using_simulated_slam_) {
     RCLCPP_INFO(this->get_logger(), "Eufs using simulated State Estimation\n");
     vehicle_pose_sub_ = this->create_subscription<eufs_msgs::msg::CarState>(
         "/odometry_integration/car_state", 10,

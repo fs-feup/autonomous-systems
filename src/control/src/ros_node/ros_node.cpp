@@ -1,4 +1,4 @@
-#include "node_/node_control.hpp"
+#include "ros_node/ros_node.hpp"
 
 #include <yaml-cpp/yaml.h>
 
@@ -10,6 +10,7 @@
 #include "common_lib/communication/marker.hpp"
 #include "common_lib/competition_logic/mission_logic.hpp"
 #include "common_lib/config_load/config_load.hpp"
+#include "config/parameters.hpp"
 #include "custom_interfaces/msg/evaluator_control_data.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/pose.hpp"
@@ -26,63 +27,13 @@ using namespace common_lib::communication;
 bool received_vehicle_state = false;
 bool received_path_point_array = false;
 
-ControlParameters Control::load_config(std::string& adapter) {
-  ControlParameters params;
-  std::string global_config_path =
-      common_lib::config_load::get_config_yaml_path("control", "global", "global_config");
-  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Loading global config from: %s",
-               global_config_path.c_str());
-  YAML::Node global_config = YAML::LoadFile(global_config_path);
-
-  adapter = global_config["global"]["adapter"].as<std::string>();
-  params.using_simulated_slam_ = global_config["global"]["use_simulated_se"].as<bool>();
-  params.using_simulated_velocities_ =
-      global_config["global"]["use_simulated_velocities"].as<bool>();
-  params.use_simulated_planning_ = global_config["global"]["use_simulated_planning"].as<bool>();
-
-  std::string control_path =
-      common_lib::config_load::get_config_yaml_path("control", "control", adapter);
-  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Loading control config from: %s",
-               control_path.c_str());
-  YAML::Node control = YAML::LoadFile(control_path);
-
-  auto control_config = control["control"];
-  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Control config contents: %s",
-               YAML::Dump(control_config).c_str());
-
-  params.lookahead_gain_ = control_config["lookahead_gain"].as<double>();
-  params.lookahead_minimum_ = control_config["lookahead_minimum"].as<double>();
-  params.first_last_max_dist_ = control_config["first_last_max_dist"].as<double>();
-  params.pid_kp_ = control_config["pid_kp"].as<double>();
-  params.pid_ki_ = control_config["pid_ki"].as<double>();
-  params.pid_kd_ = control_config["pid_kd"].as<double>();
-  params.pid_tau_ = control_config["pid_tau"].as<double>();
-  params.pid_t_ = control_config["pid_t"].as<double>();
-  params.pid_lim_min_ = control_config["pid_lim_min"].as<double>();
-  params.pid_lim_max_ = control_config["pid_lim_max"].as<double>();
-  params.pid_anti_windup_ = control_config["pid_anti_windup"].as<double>();
-  params.map_frame_id_ = adapter == "eufs" ? "base_footprint" : "map";
-  params.lpf_alpha_ = control_config["lpf_alpha"].as<double>();
-  params.lpf_initial_value_ = control_config["lpf_initial_value"].as<double>();
-  params.command_time_interval_ = control_config["command_time_interval"].as<int>();
-  params.test_mode_ = control_config["test_mode"].as<std::string>();
-  params.const_torque_value_ = control_config["const_torque_value"].as<double>();
-  params.steering_limiting_factor_ = control_config["steering_limiting_factor"].as<double>();
-
-  return params;
-}
-
-Control::Control(const ControlParameters& params)
+ControlNode::ControlNode(const ControlParameters& params)
     : Node("control"),
       params_(params),
-      using_simulated_slam_(params.using_simulated_slam_),
-      using_simulated_velocities_(params.using_simulated_velocities_),
-      use_simulated_planning_(params.use_simulated_planning_),
-      _map_frame_id_(params.map_frame_id_),
       evaluator_data_pub_(create_publisher<custom_interfaces::msg::EvaluatorControlData>(
           "/control/evaluator_data", 10)),
       path_point_array_sub_(create_subscription<custom_interfaces::msg::PathPointArray>(
-          use_simulated_planning_ ? "/path_planning/mock_path" : "/path_planning/path",
+          params.use_simulated_planning_ ? "/path_planning/mock_path" : "/path_planning/path",
           rclcpp::QoS(10),
           [this](const custom_interfaces::msg::PathPointArray& msg) {
             RCLCPP_DEBUG(this->get_logger(), "Received pathpoint array");
@@ -93,22 +44,20 @@ Control::Control(const ControlParameters& params)
           "/control/visualization/closest_point", 10)),
       lookahead_point_pub_(create_publisher<visualization_msgs::msg::Marker>(
           "/control/visualization/lookahead_point", 10)),
-      point_solver_(params.lookahead_gain_, params.lookahead_minimum_, params.first_last_max_dist_),
-      long_controller_(params.pid_kp_, params.pid_ki_, params.pid_kd_, params.pid_tau_,
-                       params.pid_t_, params.pid_lim_min_, params.pid_lim_max_,
-                       params.pid_anti_windup_),
+      point_solver_(params_),
+      long_controller_(params_),
       lat_controller_(
           std::make_shared<LowPassFilter>(params.lpf_alpha_, params.lpf_initial_value_)) {
-  RCLCPP_INFO(this->get_logger(), "Simulated Planning: %d", use_simulated_planning_);
+  RCLCPP_INFO(this->get_logger(), "Simulated Planning: %d", params.use_simulated_planning_);
   this->control_timer_ =
       this->create_wall_timer(std::chrono::milliseconds(this->params_.command_time_interval_),
-                              std::bind(&Control::control_timer_callback, this));
-  if (!using_simulated_slam_) {
+                              std::bind(&ControlNode::control_timer_callback, this));
+  if (!params_.using_simulated_slam_) {
     vehicle_pose_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
         "/state_estimation/vehicle_pose", 10,
-        std::bind(&Control::publish_control, this, std::placeholders::_1));
+        std::bind(&ControlNode::publish_control, this, std::placeholders::_1));
   }
-  if (!using_simulated_velocities_) {
+  if (!params_.using_simulated_velocities_) {
     velocity_sub_ = this->create_subscription<custom_interfaces::msg::Velocities>(
         "/state_estimation/velocities", 10,
         [this](const custom_interfaces::msg::Velocities::SharedPtr msg) {
@@ -118,22 +67,12 @@ Control::Control(const ControlParameters& params)
   }
 }
 
-void Control::control_timer_callback() {
-  double throttle_command = this->throttle_command_;
-  double steering_command = this->steering_command_;
-  if (this->params_.test_mode_ == "const_torque") {
-    throttle_command = this->params_.const_torque_value_;
-  } else if (this->params_.test_mode_ == "const_torque_fixed_steering") {
-    throttle_command = this->params_.const_torque_value_;
-    steering_command = 0;
-  } else if (this->params_.test_mode_ == "limited_steering") {
-    steering_command *= this->params_.steering_limiting_factor_;
-  }
-  publish_cmd(throttle_command, steering_command);
+void ControlNode::control_timer_callback() {
+  publish_cmd(this->throttle_command_, this->steering_command_);
 }
 
 // This function is called when a new pose is received
-void Control::publish_control(const custom_interfaces::msg::Pose& vehicle_state_msg) {
+void ControlNode::publish_control(const custom_interfaces::msg::Pose& vehicle_state_msg) {
   if (!go_signal_) {
     RCLCPP_INFO(rclcpp::get_logger("control"), "Go Signal Not received");
 
@@ -184,8 +123,9 @@ void Control::publish_control(const custom_interfaces::msg::Pose& vehicle_state_
       this->point_solver_.vehicle_pose_.rear_axis_, this->point_solver_.vehicle_pose_.position,
       lookahead_point, this->point_solver_.dist_cg_2_rear_axis_);
 
-  RCLCPP_INFO(rclcpp::get_logger("control"), "Rear Axis: %f",
-              this->point_solver_.vehicle_pose_.rear_axis_);
+  RCLCPP_INFO(rclcpp::get_logger("control"), "Rear Axis: (%f,%f)",
+              this->point_solver_.vehicle_pose_.rear_axis_.x,
+              this->point_solver_.vehicle_pose_.rear_axis_.y);
   RCLCPP_INFO(rclcpp::get_logger("control"), "CG to rear axis Rear Axis: %f",
               this->point_solver_.dist_cg_2_rear_axis_);
   RCLCPP_INFO(rclcpp::get_logger("control"), "Position: (%f, %f)",
@@ -234,10 +174,10 @@ void Control::publish_control(const custom_interfaces::msg::Pose& vehicle_state_
   // Adapter to communicate with the car
 }
 
-void Control::publish_evaluator_data(double lookahead_velocity, Position lookahead_point,
-                                     Position closest_point,
-                                     const custom_interfaces::msg::VehicleState& vehicle_state_msg,
-                                     double closest_point_velocity, double execution_time) const {
+void ControlNode::publish_evaluator_data(
+    double lookahead_velocity, Position lookahead_point, Position closest_point,
+    const custom_interfaces::msg::VehicleState& vehicle_state_msg, double closest_point_velocity,
+    double execution_time) const {
   custom_interfaces::msg::EvaluatorControlData evaluator_data;
   evaluator_data.header = std_msgs::msg::Header();
   evaluator_data.header.stamp = this->now();
@@ -254,12 +194,12 @@ void Control::publish_evaluator_data(double lookahead_velocity, Position lookahe
   this->evaluator_data_pub_->publish(evaluator_data);
 }
 
-void Control::publish_visualization_data(const Position& lookahead_point,
-                                         const Position& closest_point) const {
+void ControlNode::publish_visualization_data(const Position& lookahead_point,
+                                             const Position& closest_point) const {
   auto lookahead_msg = common_lib::communication::marker_from_position(
-      lookahead_point, "control", 0, "green", 0.5, _map_frame_id_);
-  auto closest_msg = common_lib::communication::marker_from_position(closest_point, "control", 1,
-                                                                     "red", 0.5, _map_frame_id_);
+      lookahead_point, "control", 0, "green", 0.5, this->params_.map_frame_id_);
+  auto closest_msg = common_lib::communication::marker_from_position(
+      closest_point, "control", 1, "red", 0.5, this->params_.map_frame_id_);
 
   this->closest_point_pub_->publish(closest_msg);
   this->lookahead_point_pub_->publish(lookahead_msg);

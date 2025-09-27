@@ -1,9 +1,9 @@
-#include "adapter_control/vehicle.hpp"
+#include "adapter/vehicle.hpp"
 
 #include "common_lib/competition_logic/mission_logic.hpp"
 
 VehicleAdapter::VehicleAdapter(const ControlParameters& params)
-    : Control(params),
+    : ControlNode(params),
       go_sub_(create_subscription<custom_interfaces::msg::OperationalStatus>(
           "/vehicle/operational_status", 10,
           std::bind(&VehicleAdapter::go_signal_callback, this, std::placeholders::_1))),

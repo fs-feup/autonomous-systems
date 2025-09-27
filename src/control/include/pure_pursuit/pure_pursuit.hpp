@@ -3,7 +3,7 @@
 #include <memory>
 
 #include "common_lib/structures/position.hpp"
-#include "filters/lpf.hpp"
+#include "common_lib/filters/low_pass_filter.hpp"
 #include "gtest/gtest.h"
 #include "rclcpp/rclcpp.hpp"
 

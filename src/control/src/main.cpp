@@ -1,36 +1,20 @@
 #include <memory>
 #include <string>
 
-#include "adapter_control/eufs.hpp"
-#include "adapter_control/fsds.hpp"
-#include "adapter_control/pacsim.hpp"
-#include "adapter_control/vehicle.hpp"
-#include "node_/node_control.hpp"
+#include "adapter/map.hpp"
+#include "config/parameters.hpp"
 #include "rclcpp/rclcpp.hpp"
-
-
+#include "ros_node/ros_node.hpp"
 
 int main(int argc, char* argv[]) {
   rclcpp::init(argc, argv);
 
-  std::string adapter;
-  ControlParameters params = Control::load_config(adapter);
+  ControlParameters params;
+  std::string adapter = params.load_config();
 
-  std::shared_ptr<Control> control;
-  if (adapter == "vehicle") {
-    control = std::make_shared<VehicleAdapter>(params);
-  } else if (adapter == "pacsim") {
-    control = std::make_shared<PacSimAdapter>(params);
-  } else if (adapter == "eufs") {
-    control = std::make_shared<EufsAdapter>(params);
-  } else if (adapter == "fsds") {
-    control = std::make_shared<FsdsAdapter>(params);
-  } else {
-    RCLCPP_ERROR(rclcpp::get_logger("control"), "Adapter type not recognized");
-    return 1;
-  }
+  std::shared_ptr<ControlNode> control_node = adapter_map.at(adapter)(params);
 
-  rclcpp::spin(control);
+  rclcpp::spin(control_node);
   rclcpp::shutdown();
   return 0;
 }

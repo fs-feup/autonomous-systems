@@ -1,16 +1,14 @@
-#include "point_solver/psolver.hpp"
+#include "pure_pursuit/point_solver.hpp"
 
 #include "custom_interfaces/msg/pose.hpp"
 
 using namespace common_lib::structures;
 
 /**
- * @brief PointSolver Constructer
+ * @brief PointSolver Constructor\
  */
-PointSolver::PointSolver(double k, double lookahead_minimum, double first_last_max_dist)
-    : k_(k),
-      lookahead_minimum_(lookahead_minimum),
-      first_last_max_dist_(first_last_max_dist),
+PointSolver::PointSolver(const ControlParameters &params)
+    : params_(std::make_shared<ControlParameters>(params)),
       bicycle_model_(common_lib::car_parameters::CarParameters()) {}
 
 /**
@@ -60,7 +58,8 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
     const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array,
     int closest_point_id) const {
   Position rear_axis_point = this->vehicle_pose_.rear_axis_;
-  double ld = std::max(this->k_ * this->vehicle_pose_.velocity_, this->lookahead_minimum_);
+  double ld = std::max(this->params_->lookahead_gain_ * this->vehicle_pose_.velocity_,
+                       this->params_->lookahead_minimum_);
 
   for (size_t i = 0; i < pathpoint_array.size(); i++) {
     size_t index_a = (closest_point_id + i) % pathpoint_array.size();
@@ -74,7 +73,7 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
 
       //  If the path is not a closed track, the lookahead point is the last point
       //  If the path is a closed track, we continue normally, the first point is the continuation
-      if (start_end_distance > this->first_last_max_dist_) {
+      if (start_end_distance > this->params_->first_last_max_dist_) {
         RCLCPP_INFO(rclcpp::get_logger("control"),
                     "Lookahead extends beyond path end and it is not a closed track, using last "
                     "point of the path as lookahead point");
