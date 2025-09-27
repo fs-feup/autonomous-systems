@@ -84,15 +84,19 @@ class Planning : public rclcpp::Node {
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr track_sub_;
   /**< Local path points publisher */
   rclcpp::Publisher<custom_interfaces::msg::PathPointArray>::SharedPtr local_pub_;
-
-  /**< Publisher for the final path*/
-  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr visualization_pub_;
-  // /**< Publisher for triangulations */
+  
+  //Visualization publishers:
+  // /**< Publisher for Delaunay triangulations */
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr triangulations_pub_;
-  /**< Publisher for the full path*/
+  /**< Publisher for the past portion of the path 
+    (from the start to a lookback distance behind the car’s current position) */
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr past_path_pub_;
+  /**< Publisher for the entire planned path (from start to finish)*/
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr full_path_pub_;
-  /**< Publisher for global path */
-  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr global_path_pub_;
+  /**< Publisher for the smoothed path*/
+  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr final_path_pub_;
+
+  
   /**< Timer for the periodic publishing */
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _planning_execution_time_publisher_;
 
@@ -141,13 +145,14 @@ class Planning : public rclcpp::Node {
   /**
    * @brief publish all visualization messages from the planning node
    * 
-   * @param full_path   Vector of path points representing the full path.
+   * @param full_path   Vector of path points representing the complete planned path from start to finish..
    * @param final_path  Vector of path points representing the final smoothed path used for planning.
-   * @param global_path Vector of path points representing the global path.
+   * @param past_path Vector of path points representing the past portion of the path 
+   *  (from the start to a lookback distance behind the car’s current position)
    */
   void publish_visualization_msgs(const std::vector<PathPoint> &full_path,
                                   const std::vector<PathPoint> &final_path,
-                                  const std::vector<PathPoint> &global_path) const;
+                                  const std::vector<PathPoint> &past_path) const;
 
 
   virtual void finish() = 0;
