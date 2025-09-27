@@ -118,11 +118,11 @@ public:
    *
    * @param cone_array Input list of all cones
    * @param pose Current pose o the car
-   * @param active_cones Cones that pass the filter
+   * @param filtered_cones Cones that pass the filter
    */
-  void select_active_cones(std::vector<Cone>& cone_array,
+  void filter_cones(std::vector<Cone>& cone_array,
                                             const common_lib::structures::Pose& pose,
-                                            std::vector<Cone>& active_cones);
+                                            std::vector<std::shared_ptr<Cone>>& filtered_cones);
 
   /**
    * @brief Generate a path from cone array without color information

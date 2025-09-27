@@ -138,9 +138,9 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
 
   return path_points;
 }
-void PathCalculation::select_active_cones(std::vector<Cone>& cone_array,
+void PathCalculation::filter_cones(std::vector<Cone>& cone_array,
                                           const common_lib::structures::Pose& pose,
-                                          std::vector<Cone>& active_cones){
+                                          std::vector<std::shared_ptr<Cone>>& filtered_cones){
   if(config_.use_sliding_window_) {
     for (const auto& cone : cone_array) {
       double dx = cone.position.x - pose.position.x;
@@ -149,40 +149,37 @@ void PathCalculation::select_active_cones(std::vector<Cone>& cone_array,
       double sq_window_distance = config_.sliding_window_radius_ * config_.sliding_window_radius_; 
 
       if (dx * dx + dy * dy <= sq_window_distance) {
-        active_cones.push_back(cone);
+        filtered_cones.push_back(std::make_shared<Cone>(cone));
       }
     }
   }else {
-    active_cones = std::move(cone_array);
+    filtered_cones.reserve(cone_array.size());
+    for (const auto& cone : cone_array) {
+        filtered_cones.push_back(std::make_shared<Cone>(cone));
+    }
   }
 
-  if (active_cones.size() < 2) {
+  if (filtered_cones.size() < 2) {
     RCLCPP_WARN(rclcpp::get_logger("planning"),"[Planning] Not enough cones to compute midpoints");
     return;
   }
 
 }
+
 void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
                                         std::vector<std::shared_ptr<MidPoint>>& midPoints,
                                         const common_lib::structures::Pose& pose) {
-  std::vector<Cone> active_cones;
-  active_cones.reserve(cone_array.size());
+  std::vector<std::shared_ptr<Cone>> filtered_cones;
+  filtered_cones.reserve(cone_array.size());
   
-  select_active_cones(cone_array,pose,active_cones);
+  filter_cones(cone_array,pose,filtered_cones);
      
   this->triangulations.clear();
   DT dt;
 
-  // Create shared_ptr for each cone for efficient sharing
-  std::vector<std::shared_ptr<Cone>> cone_ptrs;
-  cone_ptrs.reserve(active_cones.size());
-  for (const auto& cone : active_cones) {
-    cone_ptrs.push_back(std::make_shared<Cone>(cone));
-  }
-
   // Insert all cone positions into the Delaunay triangulation
-  for (const auto& cone_ptr : cone_ptrs) {
-    (void)dt.insert(Point(cone_ptr->position.x, cone_ptr->position.y));
+  for (const auto& cone : filtered_cones) {
+    (void)dt.insert(Point(cone->position.x, cone->position.y));
   }
 
   // Avoid duplicate midpoints for the same cone pair
@@ -200,8 +197,8 @@ void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
       Point p2 = vb->point();
 
       // Using a map should be faster than searching every time! If an unordered map is used, it could be O(1).
-      int id1 = ::find_cone(active_cones, p1.x(), p1.y());
-      int id2 = ::find_cone(active_cones, p2.x(), p2.y());
+      int id1 = ::find_cone(filtered_cones, p1.x(), p1.y());
+      int id2 = ::find_cone(filtered_cones, p2.x(), p2.y());
 
       if (id1 == -1 || id2 == -1) {
         continue;
@@ -222,8 +219,8 @@ void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
       } else {
         auto midpoint = std::make_shared<MidPoint>(
             CGAL::midpoint(p1, p2), 
-            cone_ptrs[id1], 
-            cone_ptrs[id2]
+            filtered_cones[id1], 
+            filtered_cones[id2]
         );
         segment_to_midpoint[key] = midpoint;
         midPoints.push_back(midpoint);
@@ -634,8 +631,8 @@ std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(
     double y2 = it->first->vertex((it->second + 2) % 3)->point().y();
 
     // Find corresponding cones for the vertices
-    int id_cone1 = find_cone(cones, x1, y1);
-    int id_cone2 = find_cone(cones, x2, y2);
+    int id_cone1 = find_cone_temp(cones, x1, y1);
+    int id_cone2 = find_cone_temp(cones, x2, y2);
     // Check both cones have been found
     if (id_cone1 == -1 || id_cone2 == -1) {
       RCLCPP_INFO(rclcpp::get_logger("planning"), "Cone not found in triangulations");
