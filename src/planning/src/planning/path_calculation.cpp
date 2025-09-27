@@ -82,8 +82,13 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
     std::vector<std::shared_ptr<MidPoint>> midPoints;
     std::unordered_set<std::shared_ptr<Cone>> discarded_cones;
 
+    std::vector<std::shared_ptr<Cone>> filtered_cones;
+    filtered_cones.reserve(cone_array.size());
+    
+    filter_cones(cone_array,pose,filtered_cones);
+
     // Generate midpoints between cone pairs using Delaunay triangulation
-    create_mid_points(cone_array, midPoints, pose);
+    create_mid_points(filtered_cones, midPoints);
 
     // Map for quick access from Point to corresponding MidPoint
     std::unordered_map<Point, MidPoint*> point_to_midpoint;
@@ -166,13 +171,8 @@ void PathCalculation::filter_cones(std::vector<Cone>& cone_array,
 
 }
 
-void PathCalculation::create_mid_points(std::vector<Cone>& cone_array,
-                                        std::vector<std::shared_ptr<MidPoint>>& midPoints,
-                                        const common_lib::structures::Pose& pose) {
-  std::vector<std::shared_ptr<Cone>> filtered_cones;
-  filtered_cones.reserve(cone_array.size());
-  
-  filter_cones(cone_array,pose,filtered_cones);
+void PathCalculation::create_mid_points(std::vector<std::shared_ptr<Cone>>& filtered_cones,
+                                        std::vector<std::shared_ptr<MidPoint>>& midPoints) {
      
   this->triangulations.clear();
   DT dt;

@@ -201,13 +201,12 @@ public:
    * Generates midpoints for cone pairs within configured distance thresholds,
    * avoiding duplicates, and connects neighboring midpoints sharing the same triangle.
    * 
-   * @param cone_array Input vector of cones with 2D positions.
+   * @param filtered_cones Input vector of cones with 2D positions.
    * @param midPoints Output vector storing the created midpoints as shared pointers.
    */
   void create_mid_points(
-    std::vector<Cone>& cone_array,
-    std::vector<std::shared_ptr<MidPoint>>& midPoints,
-    const common_lib::structures::Pose& pose
+    std::vector<std::shared_ptr<Cone>>& filtered_cones,
+    std::vector<std::shared_ptr<MidPoint>>& midPoints
 ); 
 
 
