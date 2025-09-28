@@ -9,6 +9,7 @@
 #include "common_lib/config_load/config_load.hpp"
 #include "steering_motor_parameters.hpp"
 #include "tire_parameters.hpp"
+#include "steering_parameters.hpp"
 
 namespace common_lib::car_parameters {
 struct CarParameters {
@@ -25,6 +26,7 @@ struct CarParameters {
   common_lib::car_parameters::TireParameters tire_parameters;
   common_lib::car_parameters::AeroParameters aero_parameters;
   common_lib::car_parameters::SteeringMotorParameters steering_motor_parameters;
+  common_lib::car_parameters::SteeringParameters steering_parameters;
   CarParameters();
   CarParameters(double wheel_diameter, double wheelbase, double track_width,
                 double dist_cg_2_rear_axis, double gear_ratio);
