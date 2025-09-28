@@ -25,8 +25,4 @@ const std::map<
          [](const common_lib::car_parameters::CarParameters& params) -> std::shared_ptr<S2VModel> {
            return std::make_shared<NoRearWSSBicycleModel>(params);
          }},
-        {"no_wss_bicycle_model",
-         [](const common_lib::car_parameters::CarParameters& params) -> std::shared_ptr<S2VModel> {
-           return std::make_shared<NoWSSBicycleModel>(params);
-         }},
 };

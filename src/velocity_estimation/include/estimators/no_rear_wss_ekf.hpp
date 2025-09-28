@@ -11,13 +11,13 @@
 #include "config/parameters.hpp"
 #include "custom_interfaces/msg/velocities.hpp"
 #include "estimators/estimator.hpp"
-#include "motion_lib/s2v_model/map.hpp"
 #include "motion_lib/vel_process_model/map.hpp"
+#include "perception_sensor_lib/observation_model/ve_observation_model/map.hpp"
 
 class NoRearWSSEKF : public VelocityEstimator {
   rclcpp::Time _last_update_;
   Eigen::Vector3d _state_ = Eigen::Vector3d::Zero();
-  Eigen::Matrix3d _covariance_ = Eigen::Matrix3d::Identity() * 0.05;
+  Eigen::Matrix3d _covariance_ = Eigen::Matrix3d::Identity();
   Eigen::Matrix3d _process_noise_matrix_;
   Eigen::MatrixXd _wheels_measurement_noise_matrix_;
   Eigen::MatrixXd _imu_measurement_noise_matrix_;
@@ -38,7 +38,7 @@ class NoRearWSSEKF : public VelocityEstimator {
   bool steering_angle_received_ = false;
 
   common_lib::car_parameters::CarParameters car_parameters_;
-  std::shared_ptr<S2VModel> s2v_model;
+  std::shared_ptr<VEObservationModel> observation_model_;
   std::shared_ptr<BaseVelocityProcessModel> process_model;
 
   /**

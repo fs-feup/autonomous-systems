@@ -8,17 +8,19 @@
 #include "tf2_ros/buffer.h"
 #include "tf2_ros/transform_listener.h"
 
+/**
+ * @brief Adapter for the PacSim simulator. Works on a publish-subscribe model.
+ *
+ */
 class PacSimAdapter : public ControlNode {
 private:
+  // Publishers of commands to PacSim
   rclcpp::Publisher<pacsim::msg::StampedScalar>::SharedPtr steering_pub_;
   rclcpp::Publisher<pacsim::msg::StampedScalar>::SharedPtr acceleration_pub_;
-  rclcpp::Client<std_srvs::srv::Empty>::SharedPtr finished_client_;
+
+  // If using simulated (ground truth) State Estimation (and SLAM) from PacSim
   rclcpp::Subscription<geometry_msgs::msg::TwistWithCovarianceStamped>::SharedPtr car_velocity_sub_;
   rclcpp::Subscription<geometry_msgs::msg::TwistWithCovarianceStamped>::SharedPtr car_pose_sub_;
-
-  double last_stored_velocity_{0.0};
-
-  // TODO: MISSION FINISHED IS A SERVICE NOT A TOPIC,
 
 public:
   explicit PacSimAdapter(const ControlParameters &params);
@@ -33,9 +35,5 @@ public:
    */
   void _pacsim_gt_velocities_callback(const geometry_msgs::msg::TwistWithCovarianceStamped &msg);
 
-  /**
-   * @brief send signal to finish mission
-   */
-  void finish();
   void publish_cmd(double acceleration = 0, double steering = 0) override;
 };

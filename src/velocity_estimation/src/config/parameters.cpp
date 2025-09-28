@@ -20,7 +20,8 @@ std::string VEParameters::load_config() {
 
   this->_estimation_method_ =
       ve_config["velocity_estimation"]["estimation_method"].as<std::string>();
-  this->_s2v_model_name_ = ve_config["velocity_estimation"]["s2v_model_name"].as<std::string>();
+  this->_ve_observation_model_name_ =
+      ve_config["velocity_estimation"]["ve_observation_model_name"].as<std::string>();
   this->_process_model_name_ =
       ve_config["velocity_estimation"]["process_model_name"].as<std::string>();
   this->imu_acceleration_noise_ =

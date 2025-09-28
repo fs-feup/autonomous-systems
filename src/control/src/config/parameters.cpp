@@ -1,13 +1,13 @@
-#include "config/parameters.hpp"
+#include "control/include/config/parameters.hpp"
 
 ControlParameters::ControlParameters(const ControlParameters &params) {
-  mission_ = params.mission_;
+  car_parameters_ = params.car_parameters_;
   using_simulated_slam_ = params.using_simulated_slam_;
   using_simulated_velocities_ = params.using_simulated_velocities_;
   use_simulated_planning_ = params.use_simulated_planning_;
-  lookahead_gain_ = params.lookahead_gain_;
-  lookahead_minimum_ = params.lookahead_minimum_;
-  first_last_max_dist_ = params.first_last_max_dist_;
+  pure_pursuit_lookahead_gain_ = params.pure_pursuit_lookahead_gain_;
+  pure_pursuit_lookahead_minimum_ = params.pure_pursuit_lookahead_minimum_;
+  pure_pursuit_first_last_max_dist_ = params.pure_pursuit_first_last_max_dist_;
   pid_kp_ = params.pid_kp_;
   pid_ki_ = params.pid_ki_;
   pid_kd_ = params.pid_kd_;
@@ -26,13 +26,13 @@ ControlParameters::ControlParameters(const ControlParameters &params) {
 
 ControlParameters &ControlParameters::operator=(const ControlParameters &other) {
   if (this != &other) {
-    mission_ = other.mission_;
+    car_parameters_ = other.car_parameters_;
     using_simulated_slam_ = other.using_simulated_slam_;
     using_simulated_velocities_ = other.using_simulated_velocities_;
     use_simulated_planning_ = other.use_simulated_planning_;
-    lookahead_gain_ = other.lookahead_gain_;
-    lookahead_minimum_ = other.lookahead_minimum_;
-    first_last_max_dist_ = other.first_last_max_dist_;
+    pure_pursuit_lookahead_gain_ = other.pure_pursuit_lookahead_gain_;
+    pure_pursuit_lookahead_minimum_ = other.pure_pursuit_lookahead_minimum_;
+    pure_pursuit_first_last_max_dist_ = other.pure_pursuit_first_last_max_dist_;
     pid_kp_ = other.pid_kp_;
     pid_ki_ = other.pid_ki_;
     pid_kd_ = other.pid_kd_;
@@ -74,9 +74,9 @@ std::string ControlParameters::load_config() {
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Control config contents: %s",
                YAML::Dump(control_config).c_str());
 
-  this->lookahead_gain_ = control_config["lookahead_gain"].as<double>();
-  this->lookahead_minimum_ = control_config["lookahead_minimum"].as<double>();
-  this->first_last_max_dist_ = control_config["first_last_max_dist"].as<double>();
+  this->pure_pursuit_lookahead_gain_ = control_config["lookahead_gain"].as<double>();
+  this->pure_pursuit_lookahead_minimum_ = control_config["lookahead_minimum"].as<double>();
+  this->pure_pursuit_first_last_max_dist_ = control_config["first_last_max_dist"].as<double>();
   this->pid_kp_ = control_config["pid_kp"].as<double>();
   this->pid_ki_ = control_config["pid_ki"].as<double>();
   this->pid_kd_ = control_config["pid_kd"].as<double>();

@@ -43,8 +43,6 @@ public:
    */
   void publish_control(const custom_interfaces::msg::Pose &vehicle_state_msg);
 
-  static ControlParameters load_config(std::string &adapter);
-
 private:
   // Evaluator Publisher
   rclcpp::Publisher<custom_interfaces::msg::EvaluatorControlData>::SharedPtr evaluator_data_pub_;

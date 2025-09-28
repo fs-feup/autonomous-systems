@@ -1,8 +1,8 @@
-#include "perception_sensor_lib/observation_model/base_observation_model.hpp"
-
 #include <gtest/gtest.h>
 
 #include <cmath>
+
+#include "perception_sensor_lib/observation_model/slam_observation_model/default_observation_model.hpp"
 
 /**
  * @brief Test the observation model with trivial state

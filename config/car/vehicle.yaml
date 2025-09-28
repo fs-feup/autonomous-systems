@@ -1,7 +1,22 @@
 car:
   wheel_diameter: 0.406
   wheel_base: 1.53
-  rear_axis_to_camera: 0.79
-  axis_length: 1.2
+  track_width: 1.2
   dist_cg_2_rear_axis: 0.804
   gear_ratio: 3.67
+  cog_height: 0.5
+  lift_coefficient: -0.86
+  drag_coefficient: 0.73
+  aero_balance_front: 0.5 # distribution of downforce
+  frontal_area: 0.44
+  mass: 145.0
+  powertrainEfficiency: 0.95
+  tire_B_lateral: 9.63
+  tire_C_lateral: -1.39
+  tire_D_lateral: 1.6
+  tire_E_lateral: 1.0
+  tire_B_longitudinal: 9.63
+  tire_C_longitudinal: -1.39
+  tire_D_longitudinal: 1.6
+  tire_E_longitudinal: 1.0
+  Izz: 101.082

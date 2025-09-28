@@ -11,7 +11,6 @@ PacSimAdapter::PacSimAdapter(const ControlParameters& params)
   // No topic for pacsim, just set the go_signal to true
   go_signal_ = true;
 
-  this->finished_client_ = this->create_client<std_srvs::srv::Empty>("/pacsim/finish_signal");
   if (this->params_.using_simulated_slam_) {
     car_pose_sub_ = this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
         "/pacsim/pose", 1,
@@ -44,14 +43,6 @@ void PacSimAdapter::_pacsim_gt_velocities_callback(
   velocity_ =
       std::sqrt(std::pow(msg.twist.twist.linear.x, 2) + std::pow(msg.twist.twist.linear.y, 2));
   RCLCPP_DEBUG(get_logger(), "Velocity set to: %lf", velocity_);
-}
-
-void PacSimAdapter::finish() {
-  this->finished_client_->async_send_request(
-      std::make_shared<std_srvs::srv::Empty::Request>(),
-      [this](rclcpp::Client<std_srvs::srv::Empty>::SharedFuture) {
-        RCLCPP_INFO(this->get_logger(), "Finished signal sent");
-      });
 }
 
 void PacSimAdapter::publish_cmd(double acceleration, double steering) {

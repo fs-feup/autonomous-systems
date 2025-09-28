@@ -5,11 +5,12 @@
  * @brief Low Pass Filter class
  *
  * @details
- * This class implements a simple first-order low pass filter to be used in the Pure Pursuit controller.
+ * This class implements a simple first-order low pass filter.
  */
 class LowPassFilter : public Filter {
-  // Inherit from the base Filter class
-  // This class implements the filter and reset methods defined in the Filter interface
+private:
+  double alpha_;      /**< Smoothing factor */
+  double prev_value_; /**< Previous filtered value */
 public:
   /**
    * @brief Construct a new Low Pass Filter object
@@ -33,8 +34,4 @@ public:
    * @param value Value to reset the filter to
    */
   void reset(double value = 0.0) override;
-
-private:
-  double alpha_;       /**< Smoothing factor */
-  double prev_value_;  /**< Previous filtered value */
 };

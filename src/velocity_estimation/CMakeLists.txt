@@ -23,6 +23,7 @@ set(PACKAGES
     message_filters
     motion_lib
     yaml-cpp
+    perception_sensor_lib
 )
 
 foreach(pkg ${PACKAGES})
@@ -42,7 +43,6 @@ set(IMPLEMENTATION_FILES
   src/adapters/vehicle_adapter.cpp
   src/estimators/ekf.cpp
   src/estimators/no_rear_wss_ekf.cpp
-  src/estimators/no_wss_ekf.cpp
   src/config/parameters.cpp
 )
 

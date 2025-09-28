@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 
-#include "config/parameters.hpp"
+#include "control/include/config/parameters.hpp"
 #include "gtest/gtest.h"
 
 /**
@@ -16,26 +16,15 @@
 class PID {
 private:
   std::shared_ptr<ControlParameters> params_;
-  double kp_;          /**< Proporcional gain */
-  double ki_;          /**< Integral gain */
-  double kd_;          /**< Derivative gain */
-  double anti_windup_; /**< Gain of integrator impact when saturated */
 
-  double tau_; /**< Derivative low pass filter time constant */
-
-  double t_; /**< Sampling time */
-
-  double lim_min_; /**< Minimum output value */
-  double lim_max_; /**< Maximum output value */
-
-  double proportional_{0.0f};   /**< Integrator value */
-  double integrator_{0.0f};     /**< Integrator value */
-  double differentiator_{0.0f}; /**< Differentiator value */
+  double proportional_{0.0f};   /**< Proportional term current value */
+  double integrator_{0.0f};     /**< Integrator term current value */
+  double differentiator_{0.0f}; /**< Differentiator term current value */
 
   double prev_error_{0.0f};       /**< Previous error value, required for integrator */
   double prev_measurement_{0.0f}; /**< Previous measurement value, required for defferentiator */
 
-  double out_{0.0f}; /**< Output value */
+  double out_{0.0f}; /**< Current output value */
 
   /**
    * @brief Calculate the error signal
@@ -80,16 +69,7 @@ private:
 public:
   /**
    * @brief Construct a new PID object
-   *
-   * @param kp Proporcional gain
-   * @param ki Integral gain
-   * @param kd Derivative gain
-   * @param anti_windup Anti-windup constant
-   * @param tau Derivative low pass filter time constant
-   * @param t Sampling time
-   * @param lim_min Minimum output value
-   * @param lim_max Maximum output value
-   * @param antiWindup Anti-windup constant
+   * @param params Control parameters
    */
   PID(const ControlParameters &params);
 
