@@ -96,6 +96,35 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
     }
 
     Point car_point(pose.position.x, pose.position.y);
+
+    // Find the point in the current global path closest to the car
+    int cutoff_index = -1;
+    double min_dist = std::numeric_limits<double>::max();
+    for (size_t i = 0; i < global_path_.size(); ++i) {
+      double dist = CGAL::squared_distance(global_path_[i], car_point);
+      if (dist < min_dist) {
+        min_dist = dist;
+        cutoff_index = static_cast<int>(i);
+      }
+    }
+
+    if (cutoff_index == -1) {
+      RCLCPP_ERROR(rclcpp::get_logger("planning"), "No valid path points found.");
+    }
+
+    path_to_car.clear();
+    // Retain part of the existing path leading to the car
+    if (cutoff_index != -1 && cutoff_index > config_.lookback_points_) {
+      (void)path_to_car.insert(path_to_car.end(), global_path_.begin(),
+                               global_path_.begin() + cutoff_index - config_.lookback_points_);
+    }
+
+    int max_points = reset_path(cone_array);
+    std::unordered_set<MidPoint*> visited_midpoints;
+
+    // Build initial path segment and extend it
+    calculate_initial_path(global_path, pose, point_to_midpoint, visited_midpoints,
+                           discarded_cones);
     extend_path(global_path, point_to_midpoint, visited_midpoints, discarded_cones,
                 max_points);
 
@@ -114,7 +143,7 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
 }
 
 int PathCalculation::reset_path(std::vector<Cone>& cone_array){
-  //Maximum number of points to use in the path.
+
   int max_points = config_.max_points_;
   path_update_counter_++;
 
@@ -418,8 +447,7 @@ void PathCalculation::update_anchor_point(const common_lib::structures::Pose& po
 }
 
 std::pair<MidPoint*, MidPoint*>
-PathCalculation::find_path_start_points(const std::vector<std::shared_ptr<MidPoint>>& mid_points,
-                                        const common_lib::structures::Pose& anchor_pose) {
+PathCalculation::find_path_start_points(const common_lib::structures::Pose& anchor_pose) {
   std::pair<MidPoint*, MidPoint*> result{nullptr, nullptr};
 
   auto cmp = [](const std::pair<double, MidPoint*>& cost1,
@@ -434,7 +462,7 @@ PathCalculation::find_path_start_points(const std::vector<std::shared_ptr<MidPoi
       Point(anchor_pose.position.x, anchor_pose.position.y), nullptr, nullptr};
 
   // Find midpoints that are in front of the car
-  for (const auto& p : mid_points) {
+  for (const auto& p : mid_points_) {
     double dx = p->point.x() - anchor_midpoint.point.x();
     double dy = p->point.y() - anchor_midpoint.point.y();
     double car_direction_x = std::cos(anchor_pose.orientation);
@@ -465,7 +493,7 @@ PathCalculation::find_path_start_points(const std::vector<std::shared_ptr<MidPoi
   anchor_midpoint.close_points.reserve(candidate_points.size());
 
   for (auto* raw_ptr : candidate_points) {
-    for (const auto& mp : mid_points) {
+    for (const auto& mp : mid_points_) {
       if (mp.get() == raw_ptr) {
         anchor_midpoint.close_points.push_back(mp);
         break;
