@@ -15,7 +15,7 @@ planning:
   smoothing_spline_coeffs_ratio: 3.0
   smoothing_spline_precision: 10
   publishing_visualization_msg: true
-  pre_defined_velocity_planning: 1.0
+  desired_velocity: 1.0
   use_outlier_removal: false
   use_path_smoothing: true
   minimum_velocity: 3.0

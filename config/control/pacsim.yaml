@@ -1,12 +1,78 @@
 control:
-  lookahead_gain: 1.0
-  pid_kp: 0.4
-  pid_ki: 0.3
-  pid_kd: 0.09
+  lookahead_gain: 1.5
+  lookahead_minimum: 3.0  # Acceleration: 6.0 , Skidpad: 4.0 , Autocross: 4.0 , Trackdrive: 4.0
+  pid_kp: 0.07
+  pid_ki: 0.0025
+  first_last_max_dist: 1.0 # Maximum distance between first and last point in the path to consider it a closed track
+  pid_kd: 0.0
   pid_tau: 0.5
   pid_t: 0.01
   pid_lim_min: -1.0
   pid_lim_max: 1.0
   pid_anti_windup: 0.7
-  lpf_alpha: 0.003 # Smoothing factor for the low-pass filter (0 = max smoothing, 1 = no smoothing)
+  lpf_alpha: 1 # Smoothing factor for the low-pass filter (0 = max smoothing, 1 = no smoothing)
   lpf_initial_value: 0.0
+  command_time_interval: 30 # Milliseconds
+  test_mode: "default" # "default" to run the default control loop, "const_torque", "const_torque_fixed_steering", "limited_steering">
+  const_torque_value: 0.2 # Value of torque for const_torque mode
+  steering_limiting_factor: 1.0 # Multiplier for steering command
+
+# Parameters for EBS Test
+# control:
+#   lookahead_gain: 0.5
+#   lookahead_minimum: 5.0
+#   pid_kp: 0.10
+#   pid_ki: 0.02
+#   first_last_max_dist: 1.0 # Maximum distance between first and last point in the path to consider it a closed track
+#   pid_kd: 0.09
+#   pid_tau: 0.5
+#   pid_t: 0.01
+#   pid_lim_min: -1.0
+#   pid_lim_max: 1.0
+#   pid_anti_windup: 0.7
+#   lpf_alpha: 1 # Smoothing factor for the low-pass filter (0 = max smoothing, 1 = no smoothing)
+#   lpf_initial_value: 0.0
+#   command_time_interval: 50 # Milliseconds
+#   test_mode: "default" # "default" to run the default control loop, "const_torque", "const_torque_fixed_steering", "limited_steering"
+#   const_torque_value: 0.2 # Value of torque for const_torque mode
+#   steering_limiting_factor: 0.5 # Multiplier for steering command
+
+# Parameters for Acceleration
+# control:
+#   lookahead_gain: 0.5
+#   lookahead_minimum: 6.0
+#   pid_kp: 0.07
+#   pid_ki: 0.0025
+#   first_last_max_dist: 1.0 # Maximum distance between first and last point in the path to consider it a closed track
+#   pid_kd: 0.0
+#   pid_tau: 0.5
+#   pid_t: 0.01
+#   pid_lim_min: -1.0
+#   pid_lim_max: 1.0
+#   pid_anti_windup: 0.7
+#   lpf_alpha: 1 # Smoothing factor for the low-pass filter (0 = max smoothing, 1 = no smoothing)
+#   lpf_initial_value: 0.0
+#   command_time_interval: 30 # Milliseconds
+#   test_mode: "default" # "default" to run the default control loop, "const_torque", "const_torque_fixed_steering", "limited_steering">
+#   const_torque_value: 0.2 # Value of torque for const_torque mode
+#   steering_limiting_factor: 1.0 # Multiplier for steering command
+
+# Parameters for Skidpad / AutoX
+# control:
+#   lookahead_gain: 0.5
+#   lookahead_minimum: 5.0
+#   pid_kp: 0.07
+#   pid_ki: 0.0025
+#   first_last_max_dist: 1.0 # Maximum distance between first and last point in the path to consider it a closed track
+#   pid_kd: 0.0
+#   pid_tau: 0.5
+#   pid_t: 0.01
+#   pid_lim_min: -1.0
+#   pid_lim_max: 1.0
+#   pid_anti_windup: 0.7
+#   lpf_alpha: 1 # Smoothing factor for the low-pass filter (0 = max smoothing, 1 = no smoothing)
+#   lpf_initial_value: 0.0
+#   command_time_interval: 30 # Milliseconds
+#   test_mode: "default" # "default" to run the default control loop, "const_torque", "const_torque_fixed_steering", "limited_steering">
+#   const_torque_value: 0.2 # Value of torque for const_torque mode
+#   steering_limiting_factor: 1.0 # Multiplier for steering command

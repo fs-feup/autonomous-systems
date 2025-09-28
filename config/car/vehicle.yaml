@@ -3,7 +3,7 @@ car:
   wheel_base: 1.53
   track_width: 1.2
   dist_cg_2_rear_axis: 0.804
-  gear_ratio: 3.2
+  gear_ratio: 3.67
   cog_height: 0.5
   lift_coefficient: -0.86
   drag_coefficient: 0.73

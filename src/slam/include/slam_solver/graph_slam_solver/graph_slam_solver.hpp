@@ -32,6 +32,10 @@ class GraphSLAMSolver : public SLAMSolver {
   rclcpp::TimerBase::SharedPtr _optimization_timer_;  //< Timer for asynchronous optimization
   std::shared_mutex _mutex_;  //< Mutex for the graph SLAM solver, locks access to the graph
   bool _optimization_under_way_ = false;  //< Flag to check if the optimization is under way
+  Eigen::VectorXi _associations_;         //< Associations of the cones in the map
+  Eigen::VectorXd _observations_global_;  //< Global observations of the cones
+  Eigen::VectorXd _map_coordinates_;      //< Coordinates of the landmarks in the map
+  bool _is_stopped_at_beginning_ = true;
 
   rclcpp::CallbackGroup::SharedPtr
       _reentrant_group_;  //< Reentrant callback group for the timer callback
@@ -121,6 +125,12 @@ public:
    * @return int lap counter
    */
   int get_lap_counter() override { return lap_counter_; }
+
+  Eigen::VectorXi get_associations() const override;
+
+  Eigen::VectorXd get_observations_global() const override;
+
+  Eigen::VectorXd get_map_coordinates() const override;
 
   /**
    * Timekeeping array

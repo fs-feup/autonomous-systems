@@ -92,14 +92,19 @@ PerceptionParameters Perception::load_config() {
   auto skidpad_trimming = std::make_shared<SkidpadTrimming>(trim_params);
   auto cut_trimming = std::make_shared<CutTrimming>(trim_params);
 
-  auto temp_fov_trim_map = std::unordered_map<uint8_t, std::shared_ptr<FovTrimming>>{
-      {static_cast<uint8_t>(Mission::ACCELERATION), acceleration_trimming},
-      {static_cast<uint8_t>(Mission::SKIDPAD), skidpad_trimming},
-      {static_cast<uint8_t>(Mission::TRACKDRIVE), cut_trimming},
-      {static_cast<uint8_t>(Mission::AUTOCROSS), cut_trimming}};
+  auto temp_fov_trim_map = std::unordered_map<int16_t, std::shared_ptr<FovTrimming>>{
+      {static_cast<int16_t>(Mission::MANUAL), cut_trimming},
+      {static_cast<int16_t>(Mission::ACCELERATION), acceleration_trimming},
+      {static_cast<int16_t>(Mission::SKIDPAD), cut_trimming},
+      {static_cast<int16_t>(Mission::TRACKDRIVE), cut_trimming},
+      {static_cast<int16_t>(Mission::AUTOCROSS), cut_trimming},
+      {static_cast<int16_t>(Mission::INSPECTION), cut_trimming},
+      {static_cast<int16_t>(Mission::EBS_TEST), acceleration_trimming},
+      {static_cast<int16_t>(Mission::MANUAL), cut_trimming},
+      {static_cast<int16_t>(Mission::NONE), cut_trimming}};
 
   params.fov_trim_map_ =
-      std::make_shared<std::unordered_map<uint8_t, std::shared_ptr<FovTrimming>>>(
+      std::make_shared<std::unordered_map<int16_t, std::shared_ptr<FovTrimming>>>(
           temp_fov_trim_map);
 
   std::string ground_removal_algorithm = perception_config["ground_removal"].as<std::string>();
@@ -147,7 +152,7 @@ PerceptionParameters Perception::load_config() {
   eval_params->height_validator =
       std::make_shared<HeightValidator>(min_height, large_max_height, small_max_height, height_cap);
   eval_params->cylinder_validator =
-      std::make_shared<CylinderValidator>(0.228, 0.325, 0.285, 0.505, out_distance_cap);
+      std::make_shared<CylinderValidator>(0.18, 0.320, 0.24, 0.35, out_distance_cap);
   eval_params->deviation_validator =
       std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z);
   eval_params->displacement_validator =
@@ -189,7 +194,7 @@ Perception::Perception(const PerceptionParameters& params)
       _cone_evaluator_(params.cone_evaluator_),
       _icp_(params.icp_) {
   this->_cones_publisher =
-      this->create_publisher<custom_interfaces::msg::ConeArray>("/perception/cones", 10);
+      this->create_publisher<custom_interfaces::msg::PerceptionOutput>("/perception/cones", 10);
 
   this->_ground_removed_publisher_ =
       this->create_publisher<sensor_msgs::msg::PointCloud2>("/perception/ground_removed_cloud", 10);
@@ -197,11 +202,12 @@ Perception::Perception(const PerceptionParameters& params)
   this->_perception_execution_time_publisher_ =
       this->create_publisher<std_msgs::msg::Float64>("/perception/execution_time", 10);
 
-  this->_master_log_subscription = this->create_subscription<custom_interfaces::msg::MasterLog>(
-      "/vehicle/master_log", rclcpp::QoS(10),
-      [this](const custom_interfaces::msg::MasterLog::SharedPtr msg) {
-        _mission_type_ = msg->mission;
-      });
+  this->_operational_status_subscription =
+      this->create_subscription<custom_interfaces::msg::OperationalStatus>(
+          "/vehicle/operational_status", rclcpp::QoS(10),
+          [this](const custom_interfaces::msg::OperationalStatus::SharedPtr msg) {
+            _mission_type_ = msg->as_mission;
+          });
 
   // Determine which adapter is being used
   std::unordered_map<std::string, std::tuple<std::string, rclcpp::QoS>> adapter_topic_map = {
@@ -223,8 +229,16 @@ Perception::Perception(const PerceptionParameters& params)
     RCLCPP_ERROR(this->get_logger(), "Adapter not recognized: %s", params.adapter_.c_str());
   }
 
+  this->_velocities_subscription_ = this->create_subscription<custom_interfaces::msg::Velocities>(
+      "/state_estimation/velocities", rclcpp::QoS(10),
+      std::bind(&Perception::velocities_callback, this, std::placeholders::_1));
   this->_cone_marker_array_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
       "/perception/visualization/cones", 10);
+
+  this->lidar_off_timer_ = this->create_wall_timer(
+      std::chrono::milliseconds(2000), std::bind(&Perception::lidar_timer_callback, this));
+
+  emergency_client_ = this->create_client<std_srvs::srv::Trigger>("/as_srv/emergency");
 
   RCLCPP_INFO(this->get_logger(), "Perception Node created with adapter: %s",
               params.adapter_.c_str());
@@ -232,6 +246,9 @@ Perception::Perception(const PerceptionParameters& params)
 
 void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
   rclcpp::Time time = this->now();
+
+  this->lidar_off_timer_ = this->create_wall_timer(
+      std::chrono::milliseconds(2000), std::bind(&Perception::lidar_timer_callback, this));
 
   // Message Read
   pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud(new pcl::PointCloud<pcl::PointXYZI>);
@@ -244,6 +261,8 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   // Ground Removal
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   _ground_removal_->ground_removal(pcl_cloud, ground_removed_cloud, _ground_plane_, split_params);
+
+  this->_deskew_->deskew_point_cloud(ground_removed_cloud, this->_vehicle_velocity_);
 
   // Debugging utils -> Useful to check the ground removed point cloud
   sensor_msgs::msg::PointCloud2 ground_removed_msg;
@@ -270,7 +289,8 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   // Execution Time calculation
   rclcpp::Time end_time = this->now();
   std_msgs::msg::Float64 perception_execution_time;
-  perception_execution_time.data = (end_time - time).seconds() * 1000;
+  double perception_execution_time_seconds = (end_time - time).seconds();
+  perception_execution_time.data = perception_execution_time_seconds * 1000;
   this->_perception_execution_time_publisher_->publish(perception_execution_time);
 
   // Logging
@@ -283,11 +303,11 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Validations: %ld clusters",
                filtered_clusters.size());
 
-  publish_cones(&filtered_clusters);
+  publish_cones(&filtered_clusters, perception_execution_time_seconds);
 }
 
-void Perception::publish_cones(std::vector<Cluster>* cones) {
-  auto message = custom_interfaces::msg::ConeArray();
+void Perception::publish_cones(std::vector<Cluster>* cones, double exec_time) {
+  auto message = custom_interfaces::msg::PerceptionOutput();
   std::vector<custom_interfaces::msg::Cone> message_array = {};
   message.header = header;
   for (int i = 0; i < static_cast<int>(cones->size()); i++) {
@@ -300,12 +320,31 @@ void Perception::publish_cones(std::vector<Cluster>* cones) {
     cone_message.color = cones->at(i).get_color();
     cone_message.is_large = cones->at(i).get_is_large();
     cone_message.confidence = cones->at(i).get_confidence();
-    message.cone_array.push_back(cone_message);
+    message.cones.cone_array.push_back(cone_message);
     message_array.push_back(cone_message);
   }
+  message.exec_time = exec_time;
 
   this->_cones_publisher->publish(message);
   // TODO: correct frame id to LiDAR instead of vehicle
   this->_cone_marker_array_->publish(common_lib::communication::marker_array_from_structure_array(
       message_array, "perception", this->_vehicle_frame_id_, "green"));
+}
+
+void Perception::velocities_callback(const custom_interfaces::msg::Velocities& msg) {
+  this->_vehicle_velocity_ =
+      common_lib::structures::Velocities(msg.velocity_x, msg.velocity_y, msg.angular_velocity);
+}
+
+void Perception::lidar_timer_callback() {
+  emergency_client_->async_send_request(
+      std::make_shared<std_srvs::srv::Trigger::Request>(),
+      [this](rclcpp::Client<std_srvs::srv::Trigger>::SharedFuture future) {
+        if (future.get()->success) {
+          RCLCPP_WARN(this->get_logger(), "Emergency signal sent");
+        } else {
+          RCLCPP_ERROR(this->get_logger(), "Failed to send emergency signal");
+        }
+      });
+  return;
 }

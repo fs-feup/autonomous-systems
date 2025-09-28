@@ -59,4 +59,17 @@ public:
   explicit VelocityPlanning(VelocityPlanningConfig config) : config_(config) {}
 
   void set_velocity(std::vector<PathPoint> &final_path);
+
+  void trackdrive_velocity(std::vector<PathPoint> &final_path);
+
+  void stop(std::vector<PathPoint> &final_path) {
+    int size = final_path.size();
+    double dist = 0.0;
+    for (int i = 0; i < size/2; ++i) {
+      dist += final_path[i].position.euclidean_distance(final_path[i + 1].position);
+      if(dist > 10){
+        final_path[i].ideal_velocity = 0.0;
+      }
+    }
+  }
 };

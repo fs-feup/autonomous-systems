@@ -9,8 +9,7 @@ std::pair<Eigen::Vector3d, Eigen::Vector3d> PoseUpdater::update_pose(
     return {Eigen::Vector3d::Zero(), Eigen::Vector3d::Zero()};
   }
 
-  double delta = (motion_data.timestamp_ - this->_last_pose_update_).seconds() +
-                 (motion_data.timestamp_ - this->_last_pose_update_).nanoseconds() / 1000000000;
+  double delta = (motion_data.timestamp_ - this->_last_pose_update_).nanoseconds() / 1e9;
   Eigen::Vector3d pose_difference =
       motion_model->get_pose_difference(this->_last_pose_, *(motion_data.velocities_), delta);
 

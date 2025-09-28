@@ -17,16 +17,20 @@
 
 class PointSolver {
 private:
-  double k_; /**< Lookahead gain */
-  /**< Distance from the center of gravity to the rear axis */
+  double k_;                   /**< Lookahead gain */
+  double lookahead_minimum_;   /**< Minimum lookahead distance */
+  double first_last_max_dist_; /**< Max dist between first and last point of the path to
+                                  be considered a closed track*/
+  BicycleModel bicycle_model_; /**< Bicycle model for vehicle dynamics */
 
 public:
-  double dist_cg_2_rear_axis_ = DIST_CG_2_REAR_AXIS;
+  double dist_cg_2_rear_axis_ =
+      DIST_CG_2_REAR_AXIS; /**< Distance from the center of gravity to the rear axis */
   common_lib::structures::VehiclePose vehicle_pose_; /**< Vehicle pose */
   /**
    * @brief PointSolver Constructor
    */
-  explicit PointSolver(double k);
+  explicit PointSolver(double k, double lookahead_minimum, double first_last_max_dist);
 
   /**
    * @brief Find the closest point on the path

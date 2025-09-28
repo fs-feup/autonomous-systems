@@ -10,9 +10,7 @@ VehicleAdapter::VehicleAdapter(const SLAMParameters& params) : SLAMNode(params) 
       this->create_subscription<custom_interfaces::msg::OperationalStatus>(
           "/vehicle/operational_status", 10,
           [this](const custom_interfaces::msg::OperationalStatus::SharedPtr msg) {
-            RCLCPP_DEBUG(this->get_logger(), "Operational status received. Mission: %d - Go: %d",
-                         msg->as_mission, msg->go_signal);
-            _go_ = msg->go_signal;
+            _go_ = true;  // msg->go_signal;
             _mission_ = common_lib::competition_logic::Mission(msg->as_mission);
             this->_slam_solver_->set_mission(_mission_);
           });
@@ -44,7 +42,6 @@ void VehicleAdapter::finish() {
       std::make_shared<std_srvs::srv::Trigger::Request>(),
       [this](rclcpp::Client<std_srvs::srv::Trigger>::SharedFuture future) {
         if (future.get()->success) {
-          RCLCPP_INFO(this->get_logger(), "Finished signal sent");
         } else {
           RCLCPP_ERROR(this->get_logger(), "Failed to send finished signal");
         }

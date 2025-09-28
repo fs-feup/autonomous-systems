@@ -12,9 +12,16 @@ find_package(builtin_interfaces REQUIRED)
 find_package(std_msgs REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/BamocarErrors.msg"
+  "msg/BmsErrors.msg"
+  "msg/CanStatistics.msg"
+  "msg/CellsTemps.msg"
   "msg/Cone.msg"
   "msg/ConeArray.msg"
+  "msg/PerceptionOutput.msg"
   "msg/ControlCommand.msg"
+  "msg/DataLogInfo1.msg"
+  "msg/DataLogInfo2.msg"
   "msg/Point2d.msg"
   "msg/PointArray.msg"
   "msg/VehicleState.msg"
@@ -35,10 +42,15 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/YawPitchRoll.msg"
   "msg/ImuAcceleration.msg"
   "msg/HydraulicLinePressure.msg"
-  "msg/MasterLog.msg"
-  "msg/MasterLog2.msg"
   "msg/Temperature.msg"
   "msg/Velocities.msg"
+  "msg/ControlParameters.msg"
+  "msg/PerceptionParameters.msg"
+  "msg/PlanningParameters.msg"
+  "msg/VelocityEstimationParameters.msg"
+  "msg/SlamParameters.msg"
+  "msg/ProcessUsage.msg"
+  "msg/ProcessUsageArray.msg"
   DEPENDENCIES builtin_interfaces std_msgs 
 )
 

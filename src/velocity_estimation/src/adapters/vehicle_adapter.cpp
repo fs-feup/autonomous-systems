@@ -36,17 +36,27 @@ void VehicleAdapter::wss_callback(const custom_interfaces::msg::WheelRPM& fl_whe
     return;
   }
   this->_velocity_estimator_->wss_callback(wss_data);
+  this->publish_velocities();
 }
 
 void VehicleAdapter::steering_angle_callback(const custom_interfaces::msg::SteeringAngle msg) {
   this->_velocity_estimator_->steering_callback(msg.steering_angle);
+  this->publish_velocities();
 }
 
 void VehicleAdapter::imu_callback(
     const geometry_msgs::msg::Vector3Stamped::SharedPtr& free_acceleration_msg,
     const geometry_msgs::msg::Vector3Stamped::SharedPtr& angular_velocity_msg) {
   common_lib::sensor_data::ImuData imu_data;
-  imu_data.rotational_velocity = angular_velocity_msg->vector.z;
+  if (this->number_of_imu_readings < 250) {
+    this->average_imu_bias =
+        (this->average_imu_bias * this->number_of_imu_readings + angular_velocity_msg->vector.z) /
+        (this->number_of_imu_readings + 1);
+    this->number_of_imu_readings++;
+    return;
+  }
+  imu_data.rotational_velocity =
+      -(angular_velocity_msg->vector.z - this->average_imu_bias);  // + 0.001838);
   imu_data.acceleration_x = free_acceleration_msg->vector.x;
   imu_data.acceleration_y = free_acceleration_msg->vector.y;
   this->_velocity_estimator_->imu_callback(imu_data);
@@ -55,4 +65,5 @@ void VehicleAdapter::imu_callback(
 
 void VehicleAdapter::resolver_callback(custom_interfaces::msg::WheelRPM msg) {
   this->_velocity_estimator_->motor_rpm_callback(msg.rr_rpm);
+  this->publish_velocities();
 }

@@ -109,7 +109,7 @@ public:
    *
    * @param pose Pose difference to add to the graph
    */
-  void process_pose_difference(const Eigen::Vector3d& pose_difference,
+  bool process_pose_difference(const Eigen::Vector3d& pose_difference,
                                const Eigen::Vector3d& new_pose, bool force_update = false);
 
   /**

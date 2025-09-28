@@ -21,6 +21,8 @@ find_package(pcl_conversions REQUIRED)
 find_package(visualization_msgs REQUIRED)
 find_package(common_lib REQUIRED)
 find_package(yaml-cpp REQUIRED)
+find_package(std_srvs REQUIRED)
+
 
 
 set(IMPLEMENTATION_FILES 
@@ -39,6 +41,7 @@ set(IMPLEMENTATION_FILES
   src/cone_validator/displacement_validator.cpp
   src/cone_validator/deviation_validator.cpp
   src/cone_validator/z_score_validator.cpp
+  src/deskew/deskew.cpp
   src/utils/plane.cpp
   src/utils/evaluator_parameters.cpp
   src/cone_evaluator/cone_evaluator.cpp
@@ -87,7 +90,7 @@ install(TARGETS perception
 
 install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
 
-ament_target_dependencies(perception rclcpp visualization_msgs common_lib custom_interfaces sensor_msgs fs_msgs message_filters eufs_msgs)
+ament_target_dependencies(perception rclcpp visualization_msgs common_lib custom_interfaces sensor_msgs fs_msgs message_filters eufs_msgs std_srvs)
 
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
@@ -115,7 +118,8 @@ if(BUILD_TESTING)
       pcl_conversions
       tf2
       tf2_ros
-      ament_cmake_gtest)
+      ament_cmake_gtest
+      std_srvs)
 endif()
 
 

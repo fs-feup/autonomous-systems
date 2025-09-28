@@ -2,9 +2,9 @@ velocity_estimation:
   estimation_method: "no_rear_wss_ekf"
   ve_observation_model_name: "no_slip_bicycle_model"
   process_model_name: "ca_particle_model"
-  wheel_speed_noise: 0.7
-  motor_rpm_noise: 0.7
-  steering_angle_noise: 0.1
-  imu_acceleration_noise: 0.1
+  wheel_speed_noise: 1.5
+  motor_rpm_noise: 0.1
+  steering_angle_noise: 0.01
+  imu_acceleration_noise: 1.0
   imu_rotational_noise: 0.1
   angular_velocity_process_noise: 0.1

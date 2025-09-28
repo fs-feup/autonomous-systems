@@ -25,5 +25,5 @@ public:
   /**
    * @brief Sends the finished signal to the vehicle control
    */
-  void finish();
+  void finish() override;
 };

@@ -9,7 +9,6 @@
 
 PacsimAdapter::PacsimAdapter(const SLAMParameters& params) : SLAMNode(params) {
   if (params.use_simulated_perception_) {
-    RCLCPP_DEBUG(this->get_logger(), "Using simulated perception");
     this->_perception_detections_subscription_ =
         this->create_subscription<pacsim::msg::PerceptionDetections>(
             "/pacsim/perception/lidar/landmarks", 1,
@@ -48,7 +47,6 @@ void PacsimAdapter::fetch_discipline() {
 
           if (!response->values.empty() && response->values[0].type == 4) {  // Type 4 = string
             std::string discipline = response->values[0].string_value;
-            RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
 
             if (discipline == "skidpad") {
               mission_result = common_lib::competition_logic::Mission::SKIDPAD;
@@ -69,14 +67,12 @@ void PacsimAdapter::fetch_discipline() {
 void PacsimAdapter::finish() {
   this->_finished_client_->async_send_request(
       std::make_shared<std_srvs::srv::Empty::Request>(),
-      [this](rclcpp::Client<std_srvs::srv::Empty>::SharedFuture) {
-        RCLCPP_INFO(this->get_logger(), "Finished signal sent");
-      });
+      [this](rclcpp::Client<std_srvs::srv::Empty>::SharedFuture) {});
 }
 
 void PacsimAdapter::_pacsim_perception_subscription_callback(
     const pacsim::msg::PerceptionDetections& msg) {
-  custom_interfaces::msg::ConeArray cone_array_msg;
+  custom_interfaces::msg::PerceptionOutput cone_array_msg;
   for (const pacsim::msg::PerceptionDetection& detection : msg.detections) {
     custom_interfaces::msg::Point2d position = custom_interfaces::msg::Point2d();
     position.x = detection.pose.pose.position.x;
@@ -86,9 +82,10 @@ void PacsimAdapter::_pacsim_perception_subscription_callback(
     cone_message.confidence = detection.detection_probability;
     cone_message.color = common_lib::competition_logic::get_color_string(
         common_lib::competition_logic::Color::UNKNOWN);
-    cone_array_msg.cone_array.push_back(cone_message);
+    cone_array_msg.cones.cone_array.push_back(cone_message);
   }
   cone_array_msg.header.stamp = msg.header.stamp;
+  cone_array_msg.exec_time = 0.01;
   _perception_subscription_callback(cone_array_msg);
 }
 
