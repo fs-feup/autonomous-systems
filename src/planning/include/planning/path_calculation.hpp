@@ -65,6 +65,7 @@ private:
   // Anchor pose for the path, to avoid calculating the path from the position of the car
   common_lib::structures::Pose anchor_pose_;
   bool anchor_point_set_ = false;
+  std::vector<std::shared_ptr<MidPoint>> mid_points_;
 
 
 public:
@@ -144,13 +145,10 @@ public:
   /**
    * @brief Finds the first and second points to start the path
    *
-   * @param mid_points Vector of available midpoints
    * @param anchor_pose The anchor pose for reference
    * @return std::pair<MidPoint*, MidPoint*> First and second points for the path
    */
-  std::pair<MidPoint*, MidPoint*> find_path_start_points(
-      const std::vector<std::shared_ptr<MidPoint>>& mid_points,
-      const common_lib::structures::Pose& anchor_pose);
+  std::pair<MidPoint*, MidPoint*> find_path_start_points(const common_lib::structures::Pose& anchor_pose);
 
   /**
    * @brief Generate a path using DFS cost search
@@ -202,12 +200,8 @@ public:
    * avoiding duplicates, and connects neighboring midpoints sharing the same triangle.
    * 
    * @param filtered_cones Input vector of cones with 2D positions.
-   * @param midPoints Output vector storing the created midpoints as shared pointers.
    */
-  void create_mid_points(
-    std::vector<std::shared_ptr<Cone>>& filtered_cones,
-    std::vector<std::shared_ptr<MidPoint>>& midPoints
-); 
+  void create_mid_points(std::vector<std::shared_ptr<Cone>>& filtered_cones); 
 
 
 
@@ -219,7 +213,6 @@ public:
    * based on the vehicle's current pose. Also updates the set of discarded cones along the way.
    * 
    * @param path Output vector to store the selected path points.
-   * @param midPoints Vector of available midpoints.
    * @param pose Current pose of the vehicle.
    * @param point_to_midpoint Map for fast lookup from CGAL point to midpoint.
    * @param visited_midpoints Set of midpoints already used in the path.
@@ -227,7 +220,6 @@ public:
    */
   void calculate_initial_path(
       std::vector<Point>& path,
-      const std::vector<std::shared_ptr<MidPoint>>& midPoints,
       const common_lib::structures::Pose& pose,
       const std::unordered_map<Point, MidPoint*>& point_to_midpoint,
       std::unordered_set<MidPoint*>& visited_midpoints,
@@ -242,7 +234,6 @@ public:
    * Updates the set of visited midpoints and discards cones along the extended path.
    * 
    * @param path Output path to be extended.
-   * @param midPoints Vector of available midpoints.
    * @param point_to_midpoint Map for fast lookup from CGAL point to midpoint.
    * @param visited_midpoints Set of midpoints already used in the path.
    * @param discarded_cones Set of cones to discard along the extended path.
@@ -250,7 +241,6 @@ public:
    */
   void extend_path(
     std::vector<Point>& path,
-    const std::vector<std::shared_ptr<MidPoint>>& midPoints,
     const std::unordered_map<Point, MidPoint*>& point_to_midpoint,
     std::unordered_set<MidPoint*>& visited_midpoints,
     std::unordered_set<std::shared_ptr<Cone>>& discarded_cones,
@@ -264,13 +254,11 @@ public:
    * marks associated midpoints as invalid, and removes invalid neighbors from their connections.
    * 
    * @param path Current path used to determine which cone to discard.
-   * @param midPoints Vector of all available midpoints.
    * @param point_to_midpoint Map for quick access from CGAL point to midpoint.
    * @param discarded_cones Set to store cones marked as discarded.
    */
   void discard_cones_along_path(
     const std::vector<Point>& path,
-    const std::vector<std::shared_ptr<MidPoint>>& midPoints,
     const std::unordered_map<Point, MidPoint*>& point_to_midpoint,
     std::unordered_set<std::shared_ptr<Cone>>& discarded_cones
   ); 
@@ -288,7 +276,16 @@ public:
     const std::unordered_map<Point, MidPoint*>& map
   );
   
-
+  /**
+   * @brief Resets the path periodically to avoid long-term drift or degradation
+   *
+   * If use_sliding_window_ is enabled, updates mid_points_ 
+   * to allow the path to be reconstructed again. 
+   *
+   * @param cone_array   Vector of cones representing the current detected cones.
+   * @return int         Updated maximum number of points for the path.
+   */
+  int reset_path(std::vector<Cone>& cone_array);
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_PATH_CALCULATION_HPP_
