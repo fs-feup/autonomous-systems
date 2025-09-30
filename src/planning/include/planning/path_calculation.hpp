@@ -85,20 +85,6 @@ public:
    */
   explicit PathCalculation(const PathCalculationConfig& config) : config_(config) {}
 
-  /**
-   * @brief Process an array of cones to generate a local path.
-   *
-   * This function processes an array of cones representing a track and
-   * generates a local path by selecting positions based on certain criteria.
-   *
-   * @param cone_array Pointer to the array of cones representing the track.
-   * @return A vector of pointers to PathPoint objects representing the generated
-   * path.
-   * @details The function utilizes Delaunay triangulation (CGAL) and
-   * direction-based selection of positions to create a meaningful local path.
-   */
-  std::vector<PathPoint> process_delaunay_triangulations(
-      std::pair<std::vector<Cone>, std::vector<Cone>> refined_cones) const;
 
   /**
    * @brief Depth-first search for path cost calculation
