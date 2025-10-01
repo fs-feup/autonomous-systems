@@ -1,15 +1,6 @@
 #pragma once
 
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
-
-#include <Eigen/Dense>
-#include <utils/plane.hpp>
-#include <utils/split_parameters.hpp>
-#include <vector>
-
 #include "ground_removal/ground_removal.hpp"
-#include "rclcpp/rclcpp.hpp"
 
 /**
  * @class ConstrainedRANSACOptimized
@@ -39,8 +30,8 @@ public:
    * @param[out] plane plane chosen (or left as provided/default when no candidate accepted).
    * @param split_params grid / split parameters (may be unused).
    */
-  void ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                      const pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
+  void ground_removal(const pcl::PointCloud<PointXYZIR>::Ptr point_cloud,
+                      const pcl::PointCloud<PointXYZIR>::Ptr ret, Plane& plane,
                       [[maybe_unused]] const SplitParameters split_params) const override;
 
 private:
@@ -51,7 +42,7 @@ private:
   /**
    * @brief Compute absolute distance from point to plane.
    */
-  double distance_to_plane(const pcl::PointXYZI& point, const Plane& plane) const;
+  double distance_to_plane(const PointXYZIR& point, const Plane& plane) const;
 
   /**
    * @brief Compute acute angle difference (degrees) between two plane normals.

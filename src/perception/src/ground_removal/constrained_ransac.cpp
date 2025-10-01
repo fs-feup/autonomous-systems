@@ -1,15 +1,11 @@
 #include "ground_removal/constrained_ransac.hpp"
 
-#include <chrono>
-#include <cmath>
-#include <iostream>
-
 ConstrainedRANSAC::ConstrainedRANSAC(const double epsilon, const int n_tries,
                                      const double plane_angle_diff)
     : epsilon(epsilon), n_tries(n_tries), plane_angle_diff(plane_angle_diff) {}
 
-void ConstrainedRANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                                       const pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
+void ConstrainedRANSAC::ground_removal(const pcl::PointCloud<PointXYZIR>::Ptr point_cloud,
+                                       const pcl::PointCloud<PointXYZIR>::Ptr ret, Plane& plane,
                                        [[maybe_unused]] const SplitParameters split_params) const {
   if (point_cloud->points.size() < 3) {
     RCLCPP_INFO(rclcpp::get_logger("ConstrainedGridRANSAC"),
@@ -39,7 +35,7 @@ void ConstrainedRANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Pt
   }
 }
 
-Plane ConstrainedRANSAC::calculate_plane(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
+Plane ConstrainedRANSAC::calculate_plane(const pcl::PointCloud<PointXYZIR>::Ptr point_cloud,
                                          const Plane& target_plane) const {
   std::random_device rd;
   std::mt19937 gen(rd());
@@ -52,7 +48,7 @@ Plane ConstrainedRANSAC::calculate_plane(const pcl::PointCloud<pcl::PointXYZI>::
 
   for (int i = 0; i < n_tries; ++i) {
     // Randomly sample 3 different points
-    std::vector<pcl::PointXYZI> sampled_points(3);
+    std::vector<PointXYZIR> sampled_points(3);
     std::vector<int> indices(3);
 
     indices = pick_3_random_indices(static_cast<int>(point_cloud->points.size()), gen);
@@ -110,7 +106,7 @@ Plane ConstrainedRANSAC::calculate_plane(const pcl::PointCloud<pcl::PointXYZI>::
   return best_plane;
 }
 
-Plane ConstrainedRANSAC::fit_plane_to_points(const std::vector<pcl::PointXYZI>& points) const {
+Plane ConstrainedRANSAC::fit_plane_to_points(const std::vector<PointXYZIR>& points) const {
   const auto& p1 = points[0];
   const auto& p2 = points[1];
   const auto& p3 = points[2];
@@ -134,7 +130,7 @@ Plane ConstrainedRANSAC::fit_plane_to_points(const std::vector<pcl::PointXYZI>& 
   return plane;
 }
 
-double ConstrainedRANSAC::distance_to_plane(const pcl::PointXYZI& point, const Plane& plane) const {
+double ConstrainedRANSAC::distance_to_plane(const PointXYZIR& point, const Plane& plane) const {
   // Plane equation: Ax + By + Cz + D = 0
   double A = plane.get_a();
   double B = plane.get_b();

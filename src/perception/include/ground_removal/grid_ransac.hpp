@@ -44,19 +44,6 @@ public:
                       const SplitParameters split_params) const override;
 
   /**
-<<<<<<< HEAD
-   * @brief Get the furthest point from the input point cloud.
-   *
-   * This method calculates the furthest point from the input point cloud.
-   *
-   * @param cloud The input point cloud.
-   * @return The distance of the furthest point from the origin.
-   */
-  static double get_furthest_point(const pcl::PointCloud<PointXYZIR>::Ptr& cloud);
-
-  /**
-=======
->>>>>>> dev
    * @brief Split the input point cloud into grids.
    *
    * This method splits the input point cloud into grids based on the specified parameters.

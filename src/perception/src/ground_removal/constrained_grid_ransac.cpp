@@ -1,25 +1,12 @@
 #include "ground_removal/constrained_grid_ransac.hpp"
 
-#include <omp.h>
-#include <pcl/ModelCoefficients.h>
-#include <pcl/filters/extract_indices.h>
-#include <pcl/io/pcd_io.h>
-#include <pcl/point_types.h>
-#include <pcl/sample_consensus/method_types.h>
-#include <pcl/sample_consensus/model_types.h>
-#include <pcl/segmentation/sac_segmentation.h>
-
-#include <cmath>
-#include <utils/plane.hpp>
-#include <vector>
-
 ConstrainedGridRANSAC::ConstrainedGridRANSAC(const double epsilon, const int n_tries,
                                              const double plane_angle_diff)
     : _ransac_(ConstrainedRANSACOptimized(epsilon, n_tries, plane_angle_diff)) {}
 
 void ConstrainedGridRANSAC::split_point_cloud(
-    const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud,
-    std::vector<std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>>& grids,
+    const pcl::PointCloud<PointXYZIR>::Ptr& cloud,
+    std::vector<std::vector<pcl::PointCloud<PointXYZIR>::Ptr>>& grids,
     const SplitParameters split_params) const {
   grids.clear();
 
@@ -32,7 +19,7 @@ void ConstrainedGridRANSAC::split_point_cloud(
   for (int radius = 0; radius < n_radius_grids; ++radius) {
     grids[radius].resize(split_params.n_angular_grids);
     for (int angle = 0; angle < split_params.n_angular_grids; ++angle) {
-      grids[radius][angle] = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+      grids[radius][angle] = std::make_shared<pcl::PointCloud<PointXYZIR>>();
     }
   }
 
@@ -54,9 +41,9 @@ void ConstrainedGridRANSAC::split_point_cloud(
   }
 }
 
-void ConstrainedGridRANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                                           const pcl::PointCloud<pcl::PointXYZI>::Ptr ret,
-                                           Plane& plane, const SplitParameters split_params) const {
+void ConstrainedGridRANSAC::ground_removal(const pcl::PointCloud<PointXYZIR>::Ptr point_cloud,
+                                           const pcl::PointCloud<PointXYZIR>::Ptr ret, Plane& plane,
+                                           const SplitParameters split_params) const {
   ret->clear();
   plane = Plane(0, 0, 0, 0);
 
@@ -69,7 +56,7 @@ void ConstrainedGridRANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>
     Plane default_plane;
     this->_ransac_.ground_removal(point_cloud, ret, default_plane, split_params);
 
-    std::vector<std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>> grids;
+    std::vector<std::vector<pcl::PointCloud<PointXYZIR>::Ptr>> grids;
     split_point_cloud(point_cloud, grids, split_params);
 
     int count = 0;
@@ -81,7 +68,7 @@ void ConstrainedGridRANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>
         }
 
         Plane grid_plane = default_plane;
-        auto grid_ret = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+        auto grid_ret = std::make_shared<pcl::PointCloud<PointXYZIR>>();
         this->_ransac_.ground_removal(grid_cell, grid_ret, grid_plane, split_params);
 
         *ret += *grid_ret;

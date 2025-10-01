@@ -1,29 +1,18 @@
 #include "ground_removal/constrained_ransac_optimized.hpp"
 
-#include <pcl/ModelCoefficients.h>
-#include <pcl/filters/extract_indices.h>
-#include <pcl/io/pcd_io.h>
-#include <pcl/point_types.h>
-#include <pcl/sample_consensus/method_types.h>
-#include <pcl/sample_consensus/model_types.h>
-#include <pcl/segmentation/sac_segmentation.h>
-
-#include "ground_removal/ransac.hpp"
-
 ConstrainedRANSACOptimized::ConstrainedRANSACOptimized(const double epsilon, const int n_tries,
                                                        const double plane_angle_diff)
     : epsilon(epsilon), n_tries(n_tries), plane_angle_diff(plane_angle_diff) {}
 
 void ConstrainedRANSACOptimized::ground_removal(
-    const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-    const pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
-    [[maybe_unused]] const SplitParameters split_params) const {
+    const pcl::PointCloud<PointXYZIR>::Ptr point_cloud, const pcl::PointCloud<PointXYZIR>::Ptr ret,
+    Plane& plane, [[maybe_unused]] const SplitParameters split_params) const {
   pcl::ModelCoefficients::Ptr coefficients = std::make_shared<pcl::ModelCoefficients>();
   pcl::PointIndices::Ptr inliers_indices = std::make_shared<pcl::PointIndices>();
   Plane default_plane = plane;
 
   // Segmentation Object creation
-  pcl::SACSegmentation<pcl::PointXYZI> seg;
+  pcl::SACSegmentation<PointXYZIR> seg;
 
   // Optional: Increases Accuracy
   seg.setOptimizeCoefficients(true);
@@ -48,7 +37,7 @@ void ConstrainedRANSACOptimized::ground_removal(
     if ((default_plane.get_a() == 0.0 && default_plane.get_b() == 0.0 &&
          default_plane.get_c() == 0.0) ||
         (calculate_angle_difference(plane, default_plane) <= plane_angle_diff)) {
-      pcl::ExtractIndices<pcl::PointXYZI> extract;
+      pcl::ExtractIndices<PointXYZIR> extract;
       extract.setInputCloud(point_cloud);
       extract.setIndices(inliers_indices);
 
@@ -92,7 +81,7 @@ double ConstrainedRANSACOptimized::calculate_angle_difference(const Plane& plane
   return radian_angle * (180.0 / M_PI);  // Convert to degrees
 }
 
-double ConstrainedRANSACOptimized::distance_to_plane(const pcl::PointXYZI& point,
+double ConstrainedRANSACOptimized::distance_to_plane(const PointXYZIR& point,
                                                      const Plane& plane) const {
   // Plane equation: Ax + By + Cz + D = 0
   double A = plane.get_a();
