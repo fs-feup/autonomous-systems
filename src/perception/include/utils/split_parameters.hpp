@@ -6,6 +6,7 @@ struct SplitParameters {
   double radius_resolution = 0;  ///< Resolution of the radius for grid splitting.
   double angle_resolution = 0;   ///< Resolution of the angle for slice splitting in Himmelsbach.
   double lidar_horizontal_resolution = 0;  ///< Horizontal angular resolution of the LiDAR sensor.
+  double max_range = 0;          ///< Maximum range of the pcl after trimming.
 
   SplitParameters() = default;
 };

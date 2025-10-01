@@ -3,33 +3,22 @@
 GridRANSAC::GridRANSAC(const double epsilon, const int n_tries)
     : _ransac_(RANSAC(epsilon, n_tries)) {}
 
-double GridRANSAC::get_furthest_point(const pcl::PointCloud<PointXYZIR>::Ptr& cloud) {
-  double max_distance = 0.0;
-  for (const auto& point : *cloud) {
-    double distance = std::sqrt(point.x * point.x + point.y * point.y);
-    if (distance > max_distance) {
-      max_distance = distance;
-    }
-  }
-  return max_distance;
-}
-
 void GridRANSAC::split_point_cloud(
     const pcl::PointCloud<PointXYZIR>::Ptr& cloud,
     std::vector<std::vector<pcl::PointCloud<PointXYZIR>::Ptr>>& grids,
     const SplitParameters split_params) const {
   grids.clear();
 
-  double max_distance = get_furthest_point(cloud);
   const double angle_increment = split_params.fov_angle / split_params.n_angular_grids;
-  const int n_radius_grids = static_cast<int>(max_distance / split_params.radius_resolution) + 1;
+  const int n_radius_grids =
+      static_cast<int>(split_params.max_range / split_params.radius_resolution) + 1;
 
   // Matrix Initialization
   grids.resize(n_radius_grids);
   for (int radius = 0; radius < n_radius_grids; ++radius) {
     grids[radius].resize(split_params.n_angular_grids);
     for (int angle = 0; angle < split_params.n_angular_grids; ++angle) {
-      grids[radius][angle].reset(new pcl::PointCloud<PointXYZIR>());
+      grids[radius][angle] = std::make_shared<pcl::PointCloud<PointXYZIR>>();
     }
   }
 
@@ -62,21 +51,20 @@ void GridRANSAC::ground_removal(const pcl::PointCloud<PointXYZIR>::Ptr point_clo
 
   int count = 0;
 
-#pragma omp parallel for reduction(+ : count) schedule(dynamic)
-  for (auto& grid_row : grids) {
-    for (auto& grid_cell : grid_row) {
-      if (grid_cell->points.size() < 3) continue;
+  for (const auto& grid_row : grids) {
+    for (const auto& grid_cell : grid_row) {
+      if (grid_cell->points.size() < 3) {
+        continue;
+      }
 
       Plane grid_plane;
-      pcl::PointCloud<PointXYZIR>::Ptr grid_ret(new pcl::PointCloud<PointXYZIR>());
+
+      auto grid_ret = std::make_shared<pcl::PointCloud<PointXYZIR>>();
       this->_ransac_.ground_removal(grid_cell, grid_ret, grid_plane, split_params);
 
-#pragma omp critical
-      {
-        *ret += *grid_ret;
-        plane += grid_plane;
-        count++;
-      }
+      *ret += *grid_ret;
+      plane += grid_plane;
+      count++;
     }
   }
 

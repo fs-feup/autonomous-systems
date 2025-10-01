@@ -100,7 +100,9 @@
         "*.txx": "cpp",
         "dense": "cpp",
         "hash_map": "cpp",
-        "ranges": "cpp"
+        "ranges": "cpp",
+        "tensor": "cpp",
+        "bvh": "cpp"
     },
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",

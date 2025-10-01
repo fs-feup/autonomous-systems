@@ -5,8 +5,8 @@ RANSAC::RANSAC(const double epsilon, const int n_tries) : epsilon(epsilon), n_tr
 void RANSAC::ground_removal(const pcl::PointCloud<PointXYZIR>::Ptr point_cloud,
                             const pcl::PointCloud<PointXYZIR>::Ptr ret, Plane& plane,
                             [[maybe_unused]] const SplitParameters split_params) const {
-  pcl::ModelCoefficients::Ptr coefficients(new pcl::ModelCoefficients);
-  pcl::PointIndices::Ptr inliers_indices(new pcl::PointIndices);
+  pcl::ModelCoefficients::Ptr coefficients = std::make_shared<pcl::ModelCoefficients>();
+  pcl::PointIndices::Ptr inliers_indices = std::make_shared<pcl::PointIndices>();
 
   // Segmentation Object creation
   pcl::SACSegmentation<PointXYZIR> seg;
