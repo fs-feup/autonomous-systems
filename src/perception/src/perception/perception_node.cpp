@@ -69,6 +69,7 @@ PerceptionParameters Perception::load_config() {
   trim_params.split_params.n_angular_grids = perception_config["n_angular_grids"].as<int>();
   trim_params.split_params.radius_resolution = perception_config["radius_resolution"].as<double>();
   trim_params.split_params.fov_angle = 2 * trim_params.fov_trim_angle;
+  trim_params.split_params.max_range = trim_params.max_range;
 
   trim_params.acc_max_range = perception_config["acc_max_range"].as<double>();
   trim_params.acc_fov_trim_angle = perception_config["acc_fov_trim_angle"].as<double>();
@@ -77,6 +78,7 @@ PerceptionParameters Perception::load_config() {
   trim_params.acc_split_params.radius_resolution =
       perception_config["acc_radius_resolution"].as<double>();
   trim_params.acc_split_params.fov_angle = 2 * trim_params.acc_fov_trim_angle;
+  trim_params.acc_split_params.max_range = trim_params.acc_max_range;
 
   trim_params.skid_max_range = perception_config["skid_max_range"].as<double>();
   const double min_distance_to_cone = perception_config["skid_min_distance_to_cone"].as<double>();
@@ -87,6 +89,7 @@ PerceptionParameters Perception::load_config() {
   trim_params.skid_split_params.radius_resolution =
       perception_config["skid_radius_resolution"].as<double>();
   trim_params.skid_split_params.fov_angle = 2 * trim_params.skid_fov_trim_angle;
+  trim_params.skid_split_params.max_range = trim_params.skid_max_range;
 
   auto acceleration_trimming = std::make_shared<AccelerationTrimming>(trim_params);
   auto skidpad_trimming = std::make_shared<SkidpadTrimming>(trim_params);
@@ -110,9 +113,22 @@ PerceptionParameters Perception::load_config() {
   std::string ground_removal_algorithm = perception_config["ground_removal"].as<std::string>();
   double ransac_epsilon = perception_config["ransac_epsilon"].as<double>();
   int ransac_iterations = perception_config["ransac_iterations"].as<int>();
+  double plane_angle_diff = perception_config["plane_angle_diff"].as<double>();
+
   if (ground_removal_algorithm == "ransac") {
     params.ground_removal_ = std::make_shared<RANSAC>(ransac_epsilon, ransac_iterations);
   } else if (ground_removal_algorithm == "grid_ransac") {
+    params.ground_removal_ = std::make_shared<GridRANSAC>(ransac_epsilon, ransac_iterations);
+  } else if (ground_removal_algorithm == "constrained_ransac") {
+    params.ground_removal_ =
+        std::make_shared<ConstrainedRANSAC>(ransac_epsilon, ransac_iterations, plane_angle_diff);
+  } else if (ground_removal_algorithm == "constrained_grid_ransac") {
+    params.ground_removal_ = std::make_shared<ConstrainedGridRANSAC>(
+        ransac_epsilon, ransac_iterations, plane_angle_diff);
+  } else {
+    RCLCPP_ERROR(rclcpp::get_logger("perception"),
+                 "Ground removal algorithm not recognized: %s, using GridRANSAC as default",
+                 ground_removal_algorithm.c_str());
     params.ground_removal_ = std::make_shared<GridRANSAC>(ransac_epsilon, ransac_iterations);
   }
 

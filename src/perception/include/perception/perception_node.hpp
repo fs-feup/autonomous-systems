@@ -23,6 +23,8 @@
 #include "fov_trimming/acceleration_trimming.hpp"
 #include "fov_trimming/cut_trimming.hpp"
 #include "fov_trimming/skidpad_trimming.hpp"
+#include "ground_removal/constrained_grid_ransac.hpp"
+#include "ground_removal/constrained_ransac.hpp"
 #include "ground_removal/grid_ransac.hpp"
 #include "ground_removal/ransac.hpp"
 #include "icp/icp.hpp"
