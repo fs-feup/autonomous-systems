@@ -11,7 +11,7 @@ VehicleAdapter::VehicleAdapter(const PlanningParameters& params) : Planning(para
 }
 
 void VehicleAdapter::mission_state_callback(const custom_interfaces::msg::OperationalStatus& msg) {
-  this->mission = common_lib::competition_logic::Mission(msg.as_mission);
+  this->mission_ = common_lib::competition_logic::Mission(msg.as_mission);
 }
 
 void VehicleAdapter::finish() {

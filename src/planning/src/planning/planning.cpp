@@ -148,11 +148,11 @@ void Planning::fetch_discipline() {
             RCLCPP_ERROR(this->get_logger(), "Failed to retrieve discipline parameter.");
           }
 
-          this->mission = mission_result;
+          mission_ = mission_result;
         });
   }
 
-  this->mission = mission_result;
+  mission_ = mission_result;
 }
 
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) {
@@ -167,11 +167,11 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) 
   }
 }
 
-void Planning::ebs_test(std::vector<PathPoint>& full_path, std::vector<PathPoint>& final_path){
-      full_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
+void Planning::run_ebs_test(){
+      full_path_ = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
       
       // Smooth the calculated path
-      final_path = path_smoothing_.smooth_path(full_path, this->pose,
+      final_path_ = path_smoothing_.smooth_path(full_path_, this->pose,
                                                this->initial_car_orientation_);
         
       {
@@ -182,55 +182,55 @@ void Planning::ebs_test(std::vector<PathPoint>& full_path, std::vector<PathPoint
             this->braking_ = true;
             this->brake_time_ = std::chrono::steady_clock::now();
            }
-          for (auto &point : final_path) {
+          for (auto &point : final_path_) {
             std::chrono::duration<double> time_since_brake_start =  std::chrono::steady_clock::now() - this->brake_time_;
             point.ideal_velocity = std::max((desired_velocity_ + ( planning_config_.velocity_planning_.braking_acceleration_* time_since_brake_start.count())), 0.0);
           }
         } else {
-          for (auto &point : final_path) {
+          for (auto &point : final_path_) {
             point.ideal_velocity = desired_velocity_;
           }
         }
       }
 }
 
-void Planning::trackdrive(std::vector<PathPoint>& full_path, std::vector<PathPoint>& final_path, std::vector<PathPoint>& past_path){
+void Planning::run_trackdrive(){
   if (this->lap_counter_ == 0) {
-    full_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
-    final_path = path_smoothing_.smooth_path(full_path, this->pose,
+    full_path_ = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
+    final_path_ = path_smoothing_.smooth_path(full_path_, this->pose,
                                               this->initial_car_orientation_);
-    past_path = path_calculation_.get_global_path();
-    velocity_planning_.set_velocity(final_path);
+    past_path_ = path_calculation_.get_global_path();
+    velocity_planning_.set_velocity(final_path_);
   } else if (this->lap_counter_ >= 1 && this->lap_counter_ < 10) {
     if (!this->found_full_path_) {
       this->found_full_path_ = true;
-      full_path =
+      full_path_ =
           path_calculation_.calculate_trackdrive(this->cone_array_, this->pose);
-      final_path = path_smoothing_.smooth_path(full_path, this->pose,
+      final_path_ = path_smoothing_.smooth_path(full_path_, this->pose,
                                                 this->initial_car_orientation_);
-      past_path = final_path;
-      velocity_planning_.trackdrive_velocity(final_path);
-      full_path_ = final_path;
+      past_path_ = final_path_;
+      velocity_planning_.trackdrive_velocity(final_path_);
+      full_path_ = final_path_;
     } else {
       // Use the full path for the next laps
-      final_path = full_path_;
-      past_path = full_path_;
+      final_path_ = full_path_;
+      past_path_ = full_path_;
     }
   } else if (this->lap_counter_ >= 10) {
-    final_path = full_path_;
-    past_path = full_path_;
-    velocity_planning_.stop(final_path);
+    final_path_ = full_path_;
+    past_path_ = full_path_;
+    velocity_planning_.stop(final_path_);
   }
 }
 
-void Planning::autocross(std::vector<PathPoint>& full_path, std::vector<PathPoint>& final_path, std::vector<PathPoint>& past_path){
-  full_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
-  final_path = path_smoothing_.smooth_path(full_path, this->pose,
+void Planning::run_autocross(){
+  full_path_ = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
+  final_path_ = path_smoothing_.smooth_path(full_path_, this->pose,
                                             this->initial_car_orientation_);
-  past_path = path_calculation_.get_global_path();
-  velocity_planning_.trackdrive_velocity(final_path);
+  past_path_ = path_calculation_.get_global_path();
+  velocity_planning_.trackdrive_velocity(final_path_);
   if (this->lap_counter_ >= 1) {
-    velocity_planning_.stop(final_path);
+    velocity_planning_.stop(final_path_);
   }
 }
 
@@ -245,67 +245,56 @@ void Planning::publish_execution_time(rclcpp::Time start_time){
 void Planning::run_planning_algorithms() {
   RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Running Planning Algorithms");
   if (this->cone_array_.empty()) {
-    publish_track_points({});
+    publish_track_points();
     return;
   }
 
   rclcpp::Time start_time = this->now();
 
-  std::vector<PathPoint> full_path = {};
-  std::vector<PathPoint> final_path = {};
-  std::vector<PathPoint> past_path = {};
-
-  switch (this->mission) {
+  switch (this->mission_) {
     case Mission::NONE:
       RCLCPP_ERROR(this->get_logger(), "Mission is NONE, cannot run planning algorithms.");
       return;
     case Mission::SKIDPAD:
-      final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
+      final_path_ = path_calculation_.skidpad_path(this->cone_array_, this->pose);
       break;
 
     case Mission::ACCELERATION:
     case Mission::EBS_TEST:
-      ebs_test(full_path,final_path);
+      run_ebs_test();
       break;
 
     case Mission::AUTOCROSS:
-      full_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
-      final_path = path_smoothing_.smooth_path(full_path, this->pose,
-                                                this->initial_car_orientation_);
-      past_path = path_calculation_.get_global_path();
-      velocity_planning_.trackdrive_velocity(final_path);
-      if (this->lap_counter_ >= 1) {
-        velocity_planning_.stop(final_path);
-      }
+      run_autocross();
       break;
 
     case Mission::TRACKDRIVE:
-      trackdrive(full_path,final_path,past_path);
+      run_trackdrive();
       break;
     
     default:
-      full_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
-      final_path = path_smoothing_.smooth_path(full_path, this->pose,
+      full_path_ = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
+      final_path_ = path_smoothing_.smooth_path(full_path_, this->pose,
                                                this->initial_car_orientation_);
-      past_path = path_calculation_.get_global_path();
-      velocity_planning_.set_velocity(final_path);
+      past_path_ = path_calculation_.get_global_path();
+      velocity_planning_.set_velocity(final_path_);
       break;
   }
 
-  if (final_path.size() < 10) {
+  if (final_path_.size() < 10) {
     RCLCPP_INFO(rclcpp::get_logger("planning"), "Final path size: %d",
-                static_cast<int>(final_path.size()));
+                static_cast<int>(final_path_.size()));
   }
 
   publish_execution_time(start_time);
 
-  publish_track_points(final_path);
+  publish_track_points();
   RCLCPP_DEBUG(this->get_logger(), "Planning will publish %i path points\n",
-               static_cast<int>(final_path.size()));
+               static_cast<int>(final_path_.size()));
 
   int errorcounter = 0;
   if (planning_config_.simulation_.publishing_visualization_msgs_) {
-    publish_visualization_msgs(full_path, final_path, past_path);
+    publish_visualization_msgs();
   }
   if (errorcounter != 0) {
     RCLCPP_ERROR(this->get_logger(), "Number of midpoints with no close points: %d", errorcounter);
@@ -328,26 +317,24 @@ void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose 
 /**
  * Publisher point by point
  */
-void Planning::publish_track_points(const std::vector<PathPoint> &path) const {
-  auto message = common_lib::communication::custom_interfaces_array_from_vector(path);
+void Planning::publish_track_points() const {
+  auto message = common_lib::communication::custom_interfaces_array_from_vector(final_path_);
   local_pub_->publish(message);
 }
 
-void Planning::set_mission(Mission new_mission) {
-  this->mission = new_mission;
+void Planning::set_mission(Mission mission) {
+  mission_ = mission;
 }
 
 
-void Planning::publish_visualization_msgs(const std::vector<PathPoint> &full_path,
-                                          const std::vector<PathPoint> &final_path,
-                                          const std::vector<PathPoint> &past_path) const {
+void Planning::publish_visualization_msgs() const {
   this->triangulations_pub_->publish(common_lib::communication::lines_marker_from_triangulations(
     path_calculation_.triangulations, "triangulations", this->_map_frame_id_, 20, "white",0.05f,visualization_msgs::msg::Marker::MODIFY));
   this->full_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      full_path, "full_path", this->_map_frame_id_, "orange"));
+      full_path_, "full_path", this->_map_frame_id_, "orange"));
   this->final_path_pub_->publish(common_lib::communication::line_marker_from_structure_array(
-      final_path, "smoothed_path_planning", this->_map_frame_id_, 12, "green"));
+      final_path_, "smoothed_path_planning", this->_map_frame_id_, 12, "green"));
   this->past_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      past_path, "global_path", this->_map_frame_id_, "blue", "cylinder", 0.8,
+      past_path_, "global_path", this->_map_frame_id_, "blue", "cylinder", 0.8,
       visualization_msgs::msg::Marker::MODIFY));
 }

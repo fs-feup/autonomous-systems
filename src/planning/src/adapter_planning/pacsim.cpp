@@ -14,7 +14,7 @@ PacSimAdapter::PacSimAdapter(const PlanningParameters& params) : Planning(params
         "/pacsim/map", 10, std::bind(&PacSimAdapter::track_callback, this, std::placeholders::_1));
   }
   RCLCPP_DEBUG(this->get_logger(), "Planning : Pacsim adapter created");
-  this->mission = common_lib::competition_logic::Mission::AUTOCROSS;
+  this->mission_ = common_lib::competition_logic::Mission::AUTOCROSS;
 }
 
 void PacSimAdapter::timer_callback() {

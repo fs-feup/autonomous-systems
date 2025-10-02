@@ -46,7 +46,8 @@ using std::placeholders::_1;
  * map topics, and publishing planned path points.
  */
 class Planning : public rclcpp::Node {
-  Mission mission = Mission::NONE; /**< Current planning mission */
+private: 
+  Mission mission_ = Mission::NONE; /**< Current planning mission */
 
   PlanningConfig planning_config_;
 
@@ -61,8 +62,15 @@ class Planning : public rclcpp::Node {
   bool braking_ = false; /**< Flag to indicate if it is braking */
   std::chrono::steady_clock::time_point brake_time_;
 
+  /**< Vector of path points representing the complete planned path from start to finish. */
+  std::vector<PathPoint> full_path_ = {};
+  /**< Vector of path points representing the final smoothed path used for planning. */
+  std::vector<PathPoint> final_path_ = {}; 
+  /**< Vector of path points representing the past portion of the path 
+   *  (from the start to a lookback distance behind the car’s current position) */
+  std::vector<PathPoint> past_path_ = {};
+
   // For Trackdrive
-  std::vector<PathPoint> full_path_;  // for Trackdrive
   bool found_full_path_ = false;      // for Trackdrive
 
   bool path_orientation_corrected_ = false;                                     // for Skidpad
@@ -135,29 +143,23 @@ class Planning : public rclcpp::Node {
    * created PointArray message.
    */
 
-  void publish_track_points(const std::vector<PathPoint> &path) const;
+  void publish_track_points() const;
 
   /**
    * @brief publish all visualization messages from the planning node
    * 
-   * @param full_path   Vector of path points representing the complete planned path from start to finish..
-   * @param final_path  Vector of path points representing the final smoothed path used for planning.
-   * @param past_path Vector of path points representing the past portion of the path 
-   *  (from the start to a lookback distance behind the car’s current position)
    */
-  void publish_visualization_msgs(const std::vector<PathPoint> &full_path,
-                                  const std::vector<PathPoint> &final_path,
-                                  const std::vector<PathPoint> &past_path) const;
+  void publish_visualization_msgs() const;
   
   
-  //hhhh
-  void ebs_test(std::vector<PathPoint>& full_path, std::vector<PathPoint>& final_path);
-  //teste
-  void trackdrive(std::vector<PathPoint>& full_path, std::vector<PathPoint>& final_path, std::vector<PathPoint>& past_path);
-  //same
+
+  void run_ebs_test();
+
+  void run_trackdrive();
+
   void publish_execution_time(rclcpp::Time start_time);
-  //same
-  void autocross(std::vector<PathPoint>& full_path, std::vector<PathPoint>& final_path, std::vector<PathPoint>& past_path);
+  
+  void run_autocross();
 
 
   virtual void finish() = 0;
