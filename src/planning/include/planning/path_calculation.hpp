@@ -107,7 +107,7 @@ public:
    * @param pose Current pose o the car
    * @param filtered_cones Cones that pass the filter
    */
-  void filter_cones(std::vector<Cone>& cone_array,
+  void filter_cones(const std::vector<Cone>& cone_array,
                                             const common_lib::structures::Pose& pose,
                                             std::vector<std::shared_ptr<Cone>>& filtered_cones);
 
@@ -271,7 +271,7 @@ public:
    * @param cone_array   Vector of cones representing the current detected cones.
    * @return int         Updated maximum number of points for the path.
    */
-  int reset_path(std::vector<Cone>& cone_array);
+  int reset_path(const std::vector<Cone>& cone_array);
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_PATH_CALCULATION_HPP_

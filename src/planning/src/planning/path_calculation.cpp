@@ -142,7 +142,7 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
   return path_points;
 }
 
-int PathCalculation::reset_path(std::vector<Cone>& cone_array){
+int PathCalculation::reset_path(const std::vector<Cone>& cone_array){
 
   int max_points = config_.max_points_;
   path_update_counter_++;
@@ -170,7 +170,7 @@ int PathCalculation::reset_path(std::vector<Cone>& cone_array){
   return max_points;
 }
 
-void PathCalculation::filter_cones(std::vector<Cone>& cone_array,
+void PathCalculation::filter_cones(const std::vector<Cone>& cone_array,
                                           const common_lib::structures::Pose& pose,
                                           std::vector<std::shared_ptr<Cone>>& filtered_cones){
   if(config_.use_sliding_window_) {
@@ -192,7 +192,6 @@ void PathCalculation::filter_cones(std::vector<Cone>& cone_array,
 
   if (filtered_cones.size() < 2) {
     RCLCPP_WARN(rclcpp::get_logger("planning"),"[Planning] Not enough cones to compute midpoints");
-    return;
   }
 
 }
@@ -418,7 +417,7 @@ void PathCalculation::discard_cones_along_path(
   }
 
   // Invalidate midpoints that rely on discarded cones
-  for (auto& mp : mid_points_) {
+  for (const auto& mp : mid_points_) {
     if (!mp->valid) {
       continue;
     }
@@ -428,7 +427,7 @@ void PathCalculation::discard_cones_along_path(
   }
 
   // Remove invalid neighbors from each midpoint's connections
-  for (auto& mp : mid_points_) {
+  for (const auto& mp : mid_points_) {
     if (!mp->valid) {
       continue;
     }

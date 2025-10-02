@@ -33,6 +33,7 @@
 
 using PathPoint = common_lib::structures::PathPoint;
 using Pose = common_lib::structures::Pose;
+using Mission = common_lib::competition_logic::Mission;
 
 using std::placeholders::_1;
 
@@ -45,8 +46,7 @@ using std::placeholders::_1;
  * map topics, and publishing planned path points.
  */
 class Planning : public rclcpp::Node {
-  common_lib::competition_logic::Mission mission =
-      common_lib::competition_logic::Mission::NONE; /**< Current planning mission */
+  Mission mission = Mission::NONE; /**< Current planning mission */
 
   PlanningConfig planning_config_;
 
@@ -68,11 +68,6 @@ class Planning : public rclcpp::Node {
   bool path_orientation_corrected_ = false;                                     // for Skidpad
   std::vector<PathPoint> predefined_path_;                                      // for Skidpad
   rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr param_client_;  // for mission logic
-
-  std::map<common_lib::competition_logic::Mission, std::string> predictive_paths_ = {
-      {common_lib::competition_logic::Mission::ACCELERATION, "/events/acceleration.txt"},
-      {common_lib::competition_logic::Mission::SKIDPAD,
-       "/events/skidpad.txt"}}; /**< Predictive paths for different missions */
 
   std::string _map_frame_id_; /**< Frame ID for the map */
   bool received_first_track_ = false;
@@ -153,6 +148,16 @@ class Planning : public rclcpp::Node {
   void publish_visualization_msgs(const std::vector<PathPoint> &full_path,
                                   const std::vector<PathPoint> &final_path,
                                   const std::vector<PathPoint> &past_path) const;
+  
+  
+  //hhhh
+  void ebs_test(std::vector<PathPoint>& full_path, std::vector<PathPoint>& final_path);
+  //teste
+  void trackdrive(std::vector<PathPoint>& full_path, std::vector<PathPoint>& final_path, std::vector<PathPoint>& past_path);
+  //same
+  void publish_execution_time(rclcpp::Time start_time);
+  //same
+  void autocross(std::vector<PathPoint>& full_path, std::vector<PathPoint>& final_path, std::vector<PathPoint>& past_path);
 
 
   virtual void finish() = 0;
@@ -187,7 +192,7 @@ public:
    * @details This method configures the Planning node for a specific mission
    * type, possibly affecting its behavior if used.
    */
-  void set_mission(common_lib::competition_logic::Mission mission);
+  void set_mission(Mission mission);
 
   friend class PacSimAdapter;
 

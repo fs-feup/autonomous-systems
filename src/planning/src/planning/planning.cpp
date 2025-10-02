@@ -120,8 +120,7 @@ Planning::Planning(const PlanningParameters &params)
 }
 
 void Planning::fetch_discipline() {
-  common_lib::competition_logic::Mission mission_result =
-      common_lib::competition_logic::Mission::NONE;
+  Mission mission_result = Mission::NONE;
 
   if (!param_client_->wait_for_service(std::chrono::milliseconds(100))) {
     RCLCPP_ERROR(this->get_logger(), "Service /pacsim/pacsim_node/get_parameters not available.");
@@ -132,19 +131,18 @@ void Planning::fetch_discipline() {
     param_client_->async_send_request(
         request, [this](rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedFuture future) {
           auto response = future.get();
-          common_lib::competition_logic::Mission mission_result =
-              common_lib::competition_logic::Mission::AUTOCROSS;
+          Mission mission_result = Mission::AUTOCROSS;
 
           if (!response->values.empty() && response->values[0].type == 4) {  // Type 4 = string
             std::string discipline = response->values[0].string_value;
             RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
 
             if (discipline == "skidpad") {
-              mission_result = common_lib::competition_logic::Mission::SKIDPAD;
+              mission_result = Mission::SKIDPAD;
             } else if (discipline == "acceleration") {
-              mission_result = common_lib::competition_logic::Mission::ACCELERATION;
+              mission_result = Mission::ACCELERATION;
             } else if (discipline == "trackdrive") {
-              mission_result = common_lib::competition_logic::Mission::TRACKDRIVE;
+              mission_result = Mission::TRACKDRIVE;
             }
           } else {
             RCLCPP_ERROR(this->get_logger(), "Failed to retrieve discipline parameter.");
@@ -169,29 +167,7 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) 
   }
 }
 
-void Planning::run_planning_algorithms() {
-  RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Running Planning Algorithms");
-  if (this->cone_array_.empty()) {
-    publish_track_points({});
-    return;
-  }
-
-  rclcpp::Time start_time = this->now();
-
-  std::vector<PathPoint> full_path = {};
-  std::vector<PathPoint> final_path = {};
-  std::vector<PathPoint> past_path = {};
-
-  switch (this->mission) {
-    case common_lib::competition_logic::Mission::NONE:
-      RCLCPP_ERROR(this->get_logger(), "Mission is NONE, cannot run planning algorithms.");
-      return;
-    case common_lib::competition_logic::Mission::SKIDPAD:
-      final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
-      break;
-
-    case common_lib::competition_logic::Mission::ACCELERATION:
-    case common_lib::competition_logic::Mission::EBS_TEST:
+void Planning::ebs_test(std::vector<PathPoint>& full_path, std::vector<PathPoint>& final_path){
       full_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
       
       // Smooth the calculated path
@@ -216,10 +192,83 @@ void Planning::run_planning_algorithms() {
           }
         }
       }
-      
+}
+
+void Planning::trackdrive(std::vector<PathPoint>& full_path, std::vector<PathPoint>& final_path, std::vector<PathPoint>& past_path){
+  if (this->lap_counter_ == 0) {
+    full_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
+    final_path = path_smoothing_.smooth_path(full_path, this->pose,
+                                              this->initial_car_orientation_);
+    past_path = path_calculation_.get_global_path();
+    velocity_planning_.set_velocity(final_path);
+  } else if (this->lap_counter_ >= 1 && this->lap_counter_ < 10) {
+    if (!this->found_full_path_) {
+      this->found_full_path_ = true;
+      full_path =
+          path_calculation_.calculate_trackdrive(this->cone_array_, this->pose);
+      final_path = path_smoothing_.smooth_path(full_path, this->pose,
+                                                this->initial_car_orientation_);
+      past_path = final_path;
+      velocity_planning_.trackdrive_velocity(final_path);
+      full_path_ = final_path;
+    } else {
+      // Use the full path for the next laps
+      final_path = full_path_;
+      past_path = full_path_;
+    }
+  } else if (this->lap_counter_ >= 10) {
+    final_path = full_path_;
+    past_path = full_path_;
+    velocity_planning_.stop(final_path);
+  }
+}
+
+void Planning::autocross(std::vector<PathPoint>& full_path, std::vector<PathPoint>& final_path, std::vector<PathPoint>& past_path){
+  full_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
+  final_path = path_smoothing_.smooth_path(full_path, this->pose,
+                                            this->initial_car_orientation_);
+  past_path = path_calculation_.get_global_path();
+  velocity_planning_.trackdrive_velocity(final_path);
+  if (this->lap_counter_ >= 1) {
+    velocity_planning_.stop(final_path);
+  }
+}
+
+void Planning::publish_execution_time(rclcpp::Time start_time){
+  // Execution Time calculation
+  rclcpp::Time end_time = this->now();
+  std_msgs::msg::Float64 planning_execution_time;
+  planning_execution_time.data = (end_time - start_time).seconds() * 1000;
+  this->_planning_execution_time_publisher_->publish(planning_execution_time);
+}
+
+void Planning::run_planning_algorithms() {
+  RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Running Planning Algorithms");
+  if (this->cone_array_.empty()) {
+    publish_track_points({});
+    return;
+  }
+
+  rclcpp::Time start_time = this->now();
+
+  std::vector<PathPoint> full_path = {};
+  std::vector<PathPoint> final_path = {};
+  std::vector<PathPoint> past_path = {};
+
+  switch (this->mission) {
+    case Mission::NONE:
+      RCLCPP_ERROR(this->get_logger(), "Mission is NONE, cannot run planning algorithms.");
+      return;
+    case Mission::SKIDPAD:
+      final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
       break;
 
-    case common_lib::competition_logic::Mission::AUTOCROSS:
+    case Mission::ACCELERATION:
+    case Mission::EBS_TEST:
+      ebs_test(full_path,final_path);
+      break;
+
+    case Mission::AUTOCROSS:
       full_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
       final_path = path_smoothing_.smooth_path(full_path, this->pose,
                                                 this->initial_car_orientation_);
@@ -230,35 +279,10 @@ void Planning::run_planning_algorithms() {
       }
       break;
 
-    case common_lib::competition_logic::Mission::TRACKDRIVE:
-
-      if (this->lap_counter_ == 0) {
-        full_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
-        final_path = path_smoothing_.smooth_path(full_path, this->pose,
-                                                 this->initial_car_orientation_);
-        past_path = path_calculation_.get_global_path();
-        velocity_planning_.set_velocity(final_path);
-      } else if (this->lap_counter_ >= 1 && this->lap_counter_ < 10) {
-        if (!this->found_full_path_) {
-          this->found_full_path_ = true;
-          full_path =
-              path_calculation_.calculate_trackdrive(this->cone_array_, this->pose);
-          final_path = path_smoothing_.smooth_path(full_path, this->pose,
-                                                   this->initial_car_orientation_);
-          past_path = final_path;
-          velocity_planning_.trackdrive_velocity(final_path);
-          full_path_ = final_path;
-        } else {
-          // Use the full path for the next laps
-          final_path = full_path_;
-          past_path = full_path_;
-        }
-      } else if (this->lap_counter_ >= 10) {
-        final_path = full_path_;
-        past_path = full_path_;
-        velocity_planning_.stop(final_path);
-      }
+    case Mission::TRACKDRIVE:
+      trackdrive(full_path,final_path,past_path);
       break;
+    
     default:
       full_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
       final_path = path_smoothing_.smooth_path(full_path, this->pose,
@@ -273,11 +297,8 @@ void Planning::run_planning_algorithms() {
                 static_cast<int>(final_path.size()));
   }
 
-  // Execution Time calculation
-  rclcpp::Time end_time = this->now();
-  std_msgs::msg::Float64 planning_execution_time;
-  planning_execution_time.data = (end_time - start_time).seconds() * 1000;
-  this->_planning_execution_time_publisher_->publish(planning_execution_time);
+  publish_execution_time(start_time);
+
   publish_track_points(final_path);
   RCLCPP_DEBUG(this->get_logger(), "Planning will publish %i path points\n",
                static_cast<int>(final_path.size()));
@@ -312,7 +333,7 @@ void Planning::publish_track_points(const std::vector<PathPoint> &path) const {
   local_pub_->publish(message);
 }
 
-void Planning::set_mission(common_lib::competition_logic::Mission new_mission) {
+void Planning::set_mission(Mission new_mission) {
   this->mission = new_mission;
 }
 
