@@ -115,34 +115,37 @@ private:
   void vehicle_localization_callback(const custom_interfaces::msg::Pose &msg);
 
   /**
-   * @brief Fetches the mission from the parameters.
+   * @brief Fetches the mission from pacsim and updates the mission_ member variable.
+   * 
+   * Defaults to Mission::AUTOCROSS if parameter retrieval fails.
    */
   void fetch_discipline();
 
   /**
    * @brief Callback for track map updates(when msg received).
-   *
+   * 
+   * Processes incoming cone map and calls run_planning_algorithm if vehicle pose
+   * has already been received.
+   * 
    * @param msg The received ConeArray message.
-   * @details creates track with the received cones(position), then calculates
-   * path by calling method from the local path planner and finnaly publishes
-   * the path by calling the publish method
    */
   void track_map_callback(const custom_interfaces::msg::ConeArray &msg);
 
   /**
    * @brief Runs the planning algorithms. Called from the callbacks
-   * @details This function creates a Track instance, a ConeColoring instance, a
-   * PathSmoothing instance, and runs the planning algorithms to generate a path.
+   * 
+   * Dispatches to appropriate mission-specific planning method based on current 
+   * mission type. Handles empty cone arrays, publishes execution time, track points,
+   * and visualization messages
    */
   void run_planning_algorithms();
-  /**
-   * @brief Publishes a list of path points.
-   *
-   * @param path A vector of Position pointers representing the path points.
-   * @details This function publishes the provided path points as a custom
-   * created PointArray message.
-   */
 
+  /**
+   * @brief Publishes a list of path points to Control.
+   *
+   * Converts final_path_ member to an PathPointArray and publishes
+   * to /path_planning/path topic for control.
+   */
   void publish_track_points() const;
 
   /**
@@ -151,14 +154,41 @@ private:
    */
   void publish_visualization_msgs() const;
   
-  
-
+  /**
+   * @brief Executes planning for EBS (Emergency Brake System) test mission
+   * 
+   * Calculates the path, smooths it, and implements distance-based
+   * braking logic. Starts braking when vehicle is more than 90m from origin,
+   * applying deceleration until vehicle stops.
+   */
   void run_ebs_test();
 
+  /**
+   * @brief Executes planning for trackdrive mission
+   * 
+   * Implements multi-lap logic:
+   * - Lap 0: Explores track and builds path
+   * - Laps 1-9: Uses optimized full track path with velocity planning
+   * - Lap 10+: Brings vehicle to stop
+   */
   void run_trackdrive();
 
+  /**
+   * @brief Calculates and publishes planning algorithm execution time
+   * 
+   * Computes time elapsed since start_time and publishes result in milliseconds
+   * to /path_planning/execution_time topic.
+   * 
+   * @param start_time ROS time when planning algorithms started execution
+   */
   void publish_execution_time(rclcpp::Time start_time);
-  
+
+  /**
+   * @brief Executes planning for autocross mission
+   * 
+   * Calculates the path, smooths it, applies the velocity planning,
+   * and stops vehicle after completing one lap.
+   */
   void run_autocross();
 
 
@@ -166,7 +196,6 @@ private:
 
   /**
    * @brief current vehicle pose
-   *
    */
   Pose pose;
 
@@ -185,12 +214,20 @@ public:
    */
   explicit Planning(const PlanningParameters &params);
 
+  /**
+   * @brief Loads planning configuration parameters from YAML files
+   * 
+   * @param adapter Reference to string that will store the adapter type ("eufs", "pacsim", "vehicle")
+   * @return PlanningParameters Struct containing all loaded configuration parameters
+   */
   static PlanningParameters load_config(std::string &adapter);
+
   /**
    * @brief Set the mission for planning.
    *
    * @param mission The mission to set for planning (e.g.,
    * Mission::acceleration, Mission::skidpad).
+   * 
    * @details This method configures the Planning node for a specific mission
    * type, possibly affecting its behavior if used.
    */
