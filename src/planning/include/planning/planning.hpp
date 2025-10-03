@@ -59,7 +59,7 @@ private:
   double initial_car_orientation_;
   int lap_counter_ = 0;
 
-  bool braking_ = false; /**< Flag to indicate if it is braking */
+  bool is_braking_ = false; /**< Flag to indicate if it is braking */
   std::chrono::steady_clock::time_point brake_time_;
 
   /**< Vector of path points representing the complete planned path from start to finish. */
@@ -71,15 +71,15 @@ private:
   std::vector<PathPoint> past_path_ = {};
 
   // For Trackdrive
-  bool found_full_path_ = false;      // for Trackdrive
+  bool has_found_full_path_ = false;      // for Trackdrive
 
-  bool path_orientation_corrected_ = false;                                     // for Skidpad
+  //bool path_orientation_corrected_ = false;                                     // for Skidpad
   std::vector<PathPoint> predefined_path_;                                      // for Skidpad
   rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr param_client_;  // for mission logic
 
   std::string map_frame_id_; /**< Frame ID for the map */
-  bool received_first_track_ = false;
-  bool received_first_pose_ = false;
+  bool has_received_track_ = false;
+  bool has_received_pose_ = false;
   std::vector<Cone> cone_array_;
   /**< Subscription to vehicle localization */
   rclcpp::Subscription<custom_interfaces::msg::Pose>::SharedPtr vl_sub_;

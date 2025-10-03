@@ -158,11 +158,9 @@ void Planning::fetch_discipline() {
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) {
   auto number_of_cones_received = static_cast<int>(msg.cone_array.size());
   RCLCPP_DEBUG(this->get_logger(), "Planning received %i cones", number_of_cones_received);
-  this->cone_array_ = common_lib::communication::cone_vector_from_custom_interfaces(msg);
-  this->received_first_track_ = true;
-  if (!(this->received_first_pose_)) {
-    return;
-  } else {
+  cone_array_ = common_lib::communication::cone_vector_from_custom_interfaces(msg);
+  has_received_track_ = true;
+  if (has_received_pose_) {
     run_planning_algorithms();
   }
 }
@@ -178,8 +176,8 @@ void Planning::run_ebs_test(){
         double dist_from_origin = sqrt(pose_.position.x * pose_.position.x +
                                        pose_.position.y * pose_.position.y);
         if (dist_from_origin > 90.0) {
-           if (!braking_) {
-            this->braking_ = true;
+           if (!is_braking_) {
+            is_braking_ = true;
             this->brake_time_ = std::chrono::steady_clock::now();
            }
           for (auto &point : final_path_) {
@@ -202,8 +200,8 @@ void Planning::run_trackdrive(){
     past_path_ = path_calculation_.get_global_path();
     velocity_planning_.set_velocity(final_path_);
   } else if (this->lap_counter_ >= 1 && this->lap_counter_ < 10) {
-    if (!this->found_full_path_) {
-      this->found_full_path_ = true;
+    if (!this->has_found_full_path_) {
+      has_found_full_path_ = true;
       full_path_ =
           path_calculation_.calculate_trackdrive(cone_array_);
       final_path_ = path_smoothing_.smooth_path(full_path_, pose_,
@@ -307,14 +305,14 @@ void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose 
   path_calculation_.update_vehicle_pose(pose_);
 
 
-  if (!this->received_first_pose_) {
-    this->initial_car_orientation_ = msg.theta;
+  if (!this->has_received_pose_) {
+    initial_car_orientation_ = msg.theta;
   }
 
-  if (this->received_first_track_ && !this->received_first_pose_) {
+  if (has_received_track_ && !has_received_pose_) {
     run_planning_algorithms();
   }
-  this->received_first_pose_ = true;
+  has_received_pose_= true;
 }
 
 /**
