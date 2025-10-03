@@ -318,7 +318,8 @@ void PathCalculation::calculate_initial_path(
       }
     }
   } else {
-    // Not enough path history, use pose to find start points
+    // Not enough path history, use anchor_pose to find start points
+    update_anchor_pose();
     auto [first, second] = find_path_start_points();
     if (first != nullptr && second != nullptr) {
       path.push_back(first->point);
@@ -439,6 +440,13 @@ void PathCalculation::update_vehicle_pose(const common_lib::structures::Pose& ve
   vehicle_pose_ = vehicle_pose;
 }
 
+void PathCalculation::update_anchor_pose() {
+  if (!anchor_pose_set_) {
+    anchor_pose_ = vehicle_pose_;
+    anchor_pose_set_ = true;
+  }
+}
+
 std::pair<MidPoint*, MidPoint*>
 PathCalculation::find_path_start_points() {
   std::pair<MidPoint*, MidPoint*> result{nullptr, nullptr};
@@ -451,21 +459,21 @@ PathCalculation::find_path_start_points() {
                       decltype(cmp)>
       pq(cmp);
 
-  MidPoint vehicle_pose_midpoint{
-      Point(vehicle_pose_.position.x, vehicle_pose_.position.y), nullptr, nullptr};
+  MidPoint anchor_pose_midpoint{
+      Point(anchor_pose_.position.x, anchor_pose_.position.y), nullptr, nullptr};
 
   // Find midpoints that are in front of the car
   for (const auto& p : mid_points_) {
-    double dx = p->point.x() - vehicle_pose_midpoint.point.x();
-    double dy = p->point.y() - vehicle_pose_midpoint.point.y();
-    double car_direction_x = std::cos(vehicle_pose_.orientation);
-    double car_direction_y = std::sin(vehicle_pose_.orientation);
+    double dx = p->point.x() - anchor_pose_midpoint.point.x();
+    double dy = p->point.y() - anchor_pose_midpoint.point.y();
+    double car_direction_x = std::cos(anchor_pose_.orientation);
+    double car_direction_y = std::sin(anchor_pose_.orientation);
     if ((dx * car_direction_x + dy * car_direction_y) <= 0.0) {
       continue;
     }
     double dist = std::sqrt(std::pow(dx, 2) + std::pow(dy, 2));
-    double angle = std::atan2(p->point.y() - vehicle_pose_midpoint.point.y(),
-                                            p->point.x() - vehicle_pose_midpoint.point.x());
+    double angle = std::atan2(p->point.y() - anchor_pose_midpoint.point.y(),
+                                            p->point.x() - anchor_pose_midpoint.point.x());
     double cost =
         std::pow(angle, this->config_.angle_exponent_) * config_.angle_gain_ +
         std::pow(dist, this->config_.distance_exponent_) * config_.distance_gain_;
@@ -482,24 +490,24 @@ PathCalculation::find_path_start_points() {
   }
   
   // Set the anchor point's connections to these candidates
-  vehicle_pose_midpoint.close_points.clear();
-  vehicle_pose_midpoint.close_points.reserve(candidate_points.size());
+  anchor_pose_midpoint.close_points.clear();
+  anchor_pose_midpoint.close_points.reserve(candidate_points.size());
 
   for (auto* raw_ptr : candidate_points) {
     for (const auto& mp : mid_points_) {
       if (mp.get() == raw_ptr) {
-        vehicle_pose_midpoint.close_points.push_back(mp);
+        anchor_pose_midpoint.close_points.push_back(mp);
         break;
       }
     }
   }
 
   double best_cost = std::numeric_limits<double>::max();
-  for (const auto& first : vehicle_pose_midpoint.close_points) {
-    auto [cost, second] = dfs_cost(this->config_.search_depth_, &vehicle_pose_midpoint, first.get(),
+  for (const auto& first : anchor_pose_midpoint.close_points) {
+    auto [cost, second] = dfs_cost(this->config_.search_depth_, &anchor_pose_midpoint, first.get(),
                                    std::numeric_limits<double>::max());
-    cost += std::pow(std::sqrt(std::pow(first->point.x() - vehicle_pose_midpoint.point.x(), 2) +
-                               std::pow(first->point.y() - vehicle_pose_midpoint.point.y(), 2)),
+    cost += std::pow(std::sqrt(std::pow(first->point.x() - anchor_pose_midpoint.point.x(), 2) +
+                               std::pow(first->point.y() - anchor_pose_midpoint.point.y(), 2)),
                      this->config_.distance_exponent_) *
             this->config_.distance_gain_;
     if (cost < best_cost) {

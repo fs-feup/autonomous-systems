@@ -70,7 +70,7 @@ Planning::Planning(const PlanningParameters &params)
     : Node("planning"),
       planning_config_(params),
       desired_velocity_(params.desired_velocity_),
-      _map_frame_id_(params.map_frame_id_) {
+      map_frame_id_(params.map_frame_id_) {
   outliers_ = Outliers(planning_config_.outliers_);
   path_calculation_ = PathCalculation(planning_config_.path_calculation_);
   path_smoothing_ = PathSmoothing(planning_config_.smoothing_);
@@ -310,7 +310,7 @@ void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose 
   if (!this->received_first_pose_) {
     this->initial_car_orientation_ = msg.theta;
   }
-  //ver se esta parte é necessária?
+
   if (this->received_first_track_ && !this->received_first_pose_) {
     run_planning_algorithms();
   }
@@ -332,12 +332,12 @@ void Planning::set_mission(Mission mission) {
 
 void Planning::publish_visualization_msgs() const {
   this->triangulations_pub_->publish(common_lib::communication::lines_marker_from_triangulations(
-    path_calculation_.triangulations, "triangulations", this->_map_frame_id_, 20, "white",0.05f,visualization_msgs::msg::Marker::MODIFY));
+    path_calculation_.triangulations, "triangulations", this->map_frame_id_, 20, "white",0.05f,visualization_msgs::msg::Marker::MODIFY));
   this->full_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      full_path_, "full_path", this->_map_frame_id_, "orange"));
+      full_path_, "full_path", this->map_frame_id_, "orange"));
   this->final_path_pub_->publish(common_lib::communication::line_marker_from_structure_array(
-      final_path_, "smoothed_path_planning", this->_map_frame_id_, 12, "green"));
+      final_path_, "smoothed_path_planning", this->map_frame_id_, 12, "green"));
   this->past_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      past_path_, "global_path", this->_map_frame_id_, "blue", "cylinder", 0.8,
+      past_path_, "global_path", this->map_frame_id_, "blue", "cylinder", 0.8,
       visualization_msgs::msg::Marker::MODIFY));
 }

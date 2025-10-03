@@ -63,8 +63,10 @@ private:
 
   
   // Anchor pose for the path, to avoid calculating the path from the position of the car
+  common_lib::structures::Pose anchor_pose_;
+  // The current vehicle pose  
   common_lib::structures::Pose vehicle_pose_;
-  bool anchor_point_set_ = false;
+  bool anchor_pose_set_ = false;
   std::vector<std::shared_ptr<MidPoint>> mid_points_;
 
 
@@ -123,6 +125,13 @@ public:
    * @param pose The current vehicle pose
    */
   void update_vehicle_pose(const common_lib::structures::Pose& vehicle_pose);
+
+  /**
+   * @brief Updates the anchor point if not already set
+   *
+   * @param pose The current vehicle pose
+   */
+  void update_anchor_pose();
 
   /**
    * @brief Finds the first and second points to start the path

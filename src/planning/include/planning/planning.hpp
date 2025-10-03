@@ -77,7 +77,7 @@ private:
   std::vector<PathPoint> predefined_path_;                                      // for Skidpad
   rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr param_client_;  // for mission logic
 
-  std::string _map_frame_id_; /**< Frame ID for the map */
+  std::string map_frame_id_; /**< Frame ID for the map */
   bool received_first_track_ = false;
   bool received_first_pose_ = false;
   std::vector<Cone> cone_array_;
@@ -107,6 +107,7 @@ private:
   rclcpp::TimerBase::SharedPtr timer_;
 
   rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr mission_finished_client_;
+
   /**
    * @brief Callback for vehicle localization updates (undefined).
    *
