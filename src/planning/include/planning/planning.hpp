@@ -197,7 +197,7 @@ private:
   /**
    * @brief current vehicle pose
    */
-  Pose pose;
+  Pose pose_;
 
 public:
   /**

@@ -168,15 +168,15 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) 
 }
 
 void Planning::run_ebs_test(){
-      full_path_ = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
+      full_path_ = path_calculation_.no_coloring_planning(this->cone_array_);
       
       // Smooth the calculated path
-      final_path_ = path_smoothing_.smooth_path(full_path_, this->pose,
+      final_path_ = path_smoothing_.smooth_path(full_path_, pose_,
                                                this->initial_car_orientation_);
         
       {
-        double dist_from_origin = sqrt(this->pose.position.x * this->pose.position.x +
-                                       this->pose.position.y * this->pose.position.y);
+        double dist_from_origin = sqrt(pose_.position.x * pose_.position.x +
+                                       pose_.position.y * pose_.position.y);
         if (dist_from_origin > 90.0) {
            if (!braking_) {
             this->braking_ = true;
@@ -196,8 +196,8 @@ void Planning::run_ebs_test(){
 
 void Planning::run_trackdrive(){
   if (this->lap_counter_ == 0) {
-    full_path_ = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
-    final_path_ = path_smoothing_.smooth_path(full_path_, this->pose,
+    full_path_ = path_calculation_.no_coloring_planning(cone_array_);
+    final_path_ = path_smoothing_.smooth_path(full_path_, pose_,
                                               this->initial_car_orientation_);
     past_path_ = path_calculation_.get_global_path();
     velocity_planning_.set_velocity(final_path_);
@@ -205,8 +205,8 @@ void Planning::run_trackdrive(){
     if (!this->found_full_path_) {
       this->found_full_path_ = true;
       full_path_ =
-          path_calculation_.calculate_trackdrive(this->cone_array_, this->pose);
-      final_path_ = path_smoothing_.smooth_path(full_path_, this->pose,
+          path_calculation_.calculate_trackdrive(cone_array_);
+      final_path_ = path_smoothing_.smooth_path(full_path_, pose_,
                                                 this->initial_car_orientation_);
       past_path_ = final_path_;
       velocity_planning_.trackdrive_velocity(final_path_);
@@ -224,8 +224,8 @@ void Planning::run_trackdrive(){
 }
 
 void Planning::run_autocross(){
-  full_path_ = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
-  final_path_ = path_smoothing_.smooth_path(full_path_, this->pose,
+  full_path_ = path_calculation_.no_coloring_planning(this->cone_array_);
+  final_path_ = path_smoothing_.smooth_path(full_path_, pose_,
                                             this->initial_car_orientation_);
   past_path_ = path_calculation_.get_global_path();
   velocity_planning_.trackdrive_velocity(final_path_);
@@ -256,7 +256,7 @@ void Planning::run_planning_algorithms() {
       RCLCPP_ERROR(this->get_logger(), "Mission is NONE, cannot run planning algorithms.");
       return;
     case Mission::SKIDPAD:
-      final_path_ = path_calculation_.skidpad_path(this->cone_array_, this->pose);
+      final_path_ = path_calculation_.skidpad_path(this->cone_array_, pose_);
       break;
 
     case Mission::ACCELERATION:
@@ -273,8 +273,8 @@ void Planning::run_planning_algorithms() {
       break;
     
     default:
-      full_path_ = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
-      final_path_ = path_smoothing_.smooth_path(full_path_, this->pose,
+      full_path_ = path_calculation_.no_coloring_planning(this->cone_array_);
+      final_path_ = path_smoothing_.smooth_path(full_path_, pose_,
                                                this->initial_car_orientation_);
       past_path_ = path_calculation_.get_global_path();
       velocity_planning_.set_velocity(final_path_);
@@ -303,11 +303,14 @@ void Planning::run_planning_algorithms() {
 
 void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose &msg) {
   RCLCPP_DEBUG(this->get_logger(), "Received Pose: %lf - %lf - %lf", msg.x, msg.y, msg.theta);
-  this->pose = Pose(msg.x, msg.y, msg.theta);
+  pose_ = Pose(msg.x, msg.y, msg.theta);
+  path_calculation_.update_vehicle_pose(pose_);
+
 
   if (!this->received_first_pose_) {
     this->initial_car_orientation_ = msg.theta;
   }
+  //ver se esta parte é necessária?
   if (this->received_first_track_ && !this->received_first_pose_) {
     run_planning_algorithms();
   }

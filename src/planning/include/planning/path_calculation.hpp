@@ -63,7 +63,7 @@ private:
 
   
   // Anchor pose for the path, to avoid calculating the path from the position of the car
-  common_lib::structures::Pose anchor_pose_;
+  common_lib::structures::Pose vehicle_pose_;
   bool anchor_point_set_ = false;
   std::vector<std::shared_ptr<MidPoint>> mid_points_;
 
@@ -101,40 +101,35 @@ public:
    * @brief Filters cones to find the ones that will be used for the triangulations.
    *
    * If sliding window mode is enabled, only cones within the configured
-   * radius of pose are kept. Otherwise all cones are kept.
+   * radius of the vehicle_pose_ are kept. Otherwise all cones are kept.
    *
    * @param cone_array Input list of all cones
-   * @param pose Current pose o the car
    * @param filtered_cones Cones that pass the filter
    */
   void filter_cones(const std::vector<Cone>& cone_array,
-                                            const common_lib::structures::Pose& pose,
                                             std::vector<std::shared_ptr<Cone>>& filtered_cones);
 
   /**
    * @brief Generate a path from cone array without color information
    *
    * @param cone_array The array of cones representing the track
-   * @param pose The current pose of the vehicle
    * @return std::vector<PathPoint> The generated path
    */
-  std::vector<PathPoint> no_coloring_planning(std::vector<Cone>& cone_array,
-                                              common_lib::structures::Pose pose);
+  std::vector<PathPoint> no_coloring_planning(std::vector<Cone>& cone_array);
 
   /**
    * @brief Updates the anchor point if not already set
    *
    * @param pose The current vehicle pose
    */
-  void update_anchor_point(const common_lib::structures::Pose& pose);
+  void update_vehicle_pose(const common_lib::structures::Pose& vehicle_pose);
 
   /**
    * @brief Finds the first and second points to start the path
    *
-   * @param anchor_pose The anchor pose for reference
    * @return std::pair<MidPoint*, MidPoint*> First and second points for the path
    */
-  std::pair<MidPoint*, MidPoint*> find_path_start_points(const common_lib::structures::Pose& anchor_pose);
+  std::pair<MidPoint*, MidPoint*> find_path_start_points();
 
   /**
    * @brief Generate a path using DFS cost search
@@ -167,8 +162,7 @@ public:
    * @brief Generate a path for trackdrive course
    * @returns a vector of PathPoint objects representing the path.
    */
-  std::vector<PathPoint> calculate_trackdrive(std::vector<Cone>& cone_array,
-                                              common_lib::structures::Pose pose);
+  std::vector<PathPoint> calculate_trackdrive(std::vector<Cone>& cone_array);
 
 
   /**
@@ -199,14 +193,12 @@ public:
    * based on the vehicle's current pose. Also updates the set of discarded cones along the way.
    * 
    * @param path Output vector to store the selected path points.
-   * @param pose Current pose of the vehicle.
    * @param point_to_midpoint Map for fast lookup from CGAL point to midpoint.
    * @param visited_midpoints Set of midpoints already used in the path.
    * @param discarded_cones Set of cones to discard along the generated path.
    */
   void calculate_initial_path(
       std::vector<Point>& path,
-      const common_lib::structures::Pose& pose,
       const std::unordered_map<Point, MidPoint*>& point_to_midpoint,
       std::unordered_set<MidPoint*>& visited_midpoints,
       std::unordered_set<std::shared_ptr<Cone>>& discarded_cones

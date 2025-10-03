@@ -70,8 +70,7 @@ std::pair<double, MidPoint*> PathCalculation::dfs_cost(int depth,
   return {min_cost, min_point};
 }
 
-std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& cone_array,
-                                                             common_lib::structures::Pose pose) {
+std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& cone_array) {
   std::vector<PathPoint> path_points;
   std::vector<Point> global_path;
 
@@ -84,7 +83,7 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
     std::vector<std::shared_ptr<Cone>> filtered_cones;
     filtered_cones.reserve(cone_array.size());
     
-    filter_cones(cone_array,pose,filtered_cones);
+    filter_cones(cone_array, filtered_cones);
 
     // Generate midpoints between cone pairs using Delaunay triangulation
     create_mid_points(filtered_cones);
@@ -95,7 +94,7 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
       point_to_midpoint[mp->point] = mp.get();
     }
 
-    Point car_point(pose.position.x, pose.position.y);
+    Point car_point(vehicle_pose_.position.x, vehicle_pose_.position.y);
 
     // Find the point in the current global path closest to the car
     int cutoff_index = -1;
@@ -123,7 +122,7 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
     std::unordered_set<MidPoint*> visited_midpoints;
 
     // Build initial path segment and extend it
-    calculate_initial_path(global_path, pose, point_to_midpoint, visited_midpoints,
+    calculate_initial_path(global_path, point_to_midpoint, visited_midpoints,
                            discarded_cones);
     extend_path(global_path, point_to_midpoint, visited_midpoints, discarded_cones,
                 max_points);
@@ -171,12 +170,11 @@ int PathCalculation::reset_path(const std::vector<Cone>& cone_array){
 }
 
 void PathCalculation::filter_cones(const std::vector<Cone>& cone_array,
-                                          const common_lib::structures::Pose& pose,
                                           std::vector<std::shared_ptr<Cone>>& filtered_cones){
   if(config_.use_sliding_window_) {
     for (const auto& cone : cone_array) {
-      double dx = cone.position.x - pose.position.x;
-      double dy = cone.position.y - pose.position.y;
+      double dx = cone.position.x - vehicle_pose_.position.x;
+      double dy = cone.position.y - vehicle_pose_.position.y;
 
       double sq_window_distance = config_.sliding_window_radius_ * config_.sliding_window_radius_; 
 
@@ -270,7 +268,7 @@ void PathCalculation::create_mid_points(std::vector<std::shared_ptr<Cone>>& filt
 }
 
 void PathCalculation::calculate_initial_path(
-    std::vector<Point>& path, const common_lib::structures::Pose& pose,
+    std::vector<Point>& path,
     const std::unordered_map<Point, MidPoint*>& point_to_midpoint,
     std::unordered_set<MidPoint*>& visited_midpoints, 
     std::unordered_set<std::shared_ptr<Cone>>& discarded_cones) {
@@ -321,8 +319,7 @@ void PathCalculation::calculate_initial_path(
     }
   } else {
     // Not enough path history, use pose to find start points
-    update_anchor_point(pose);
-    auto [first, second] = find_path_start_points(anchor_pose_);
+    auto [first, second] = find_path_start_points();
     if (first != nullptr && second != nullptr) {
       path.push_back(first->point);
       path.push_back(second->point);
@@ -438,15 +435,12 @@ void PathCalculation::discard_cones_along_path(
   }
 }
 
-void PathCalculation::update_anchor_point(const common_lib::structures::Pose& pose) {
-  if (!anchor_point_set_) {
-    anchor_pose_ = pose;
-    anchor_point_set_ = true;
-  }
+void PathCalculation::update_vehicle_pose(const common_lib::structures::Pose& vehicle_pose) {
+  vehicle_pose_ = vehicle_pose;
 }
 
 std::pair<MidPoint*, MidPoint*>
-PathCalculation::find_path_start_points(const common_lib::structures::Pose& anchor_pose) {
+PathCalculation::find_path_start_points() {
   std::pair<MidPoint*, MidPoint*> result{nullptr, nullptr};
 
   auto cmp = [](const std::pair<double, MidPoint*>& cost1,
@@ -457,24 +451,24 @@ PathCalculation::find_path_start_points(const common_lib::structures::Pose& anch
                       decltype(cmp)>
       pq(cmp);
 
-  MidPoint anchor_midpoint{
-      Point(anchor_pose.position.x, anchor_pose.position.y), nullptr, nullptr};
+  MidPoint vehicle_pose_midpoint{
+      Point(vehicle_pose_.position.x, vehicle_pose_.position.y), nullptr, nullptr};
 
   // Find midpoints that are in front of the car
   for (const auto& p : mid_points_) {
-    double dx = p->point.x() - anchor_midpoint.point.x();
-    double dy = p->point.y() - anchor_midpoint.point.y();
-    double car_direction_x = std::cos(anchor_pose.orientation);
-    double car_direction_y = std::sin(anchor_pose.orientation);
+    double dx = p->point.x() - vehicle_pose_midpoint.point.x();
+    double dy = p->point.y() - vehicle_pose_midpoint.point.y();
+    double car_direction_x = std::cos(vehicle_pose_.orientation);
+    double car_direction_y = std::sin(vehicle_pose_.orientation);
     if ((dx * car_direction_x + dy * car_direction_y) <= 0.0) {
       continue;
     }
     double dist = std::sqrt(std::pow(dx, 2) + std::pow(dy, 2));
-    double angle = std::atan2(p->point.y() - anchor_midpoint.point.y(),
-                                            p->point.x() - anchor_midpoint.point.x());
+    double angle = std::atan2(p->point.y() - vehicle_pose_midpoint.point.y(),
+                                            p->point.x() - vehicle_pose_midpoint.point.x());
     double cost =
-        std::pow(angle, this->config_.angle_exponent_) * this->config_.angle_gain_ +
-        std::pow(dist, this->config_.distance_exponent_) * this->config_.distance_gain_;
+        std::pow(angle, this->config_.angle_exponent_) * config_.angle_gain_ +
+        std::pow(dist, this->config_.distance_exponent_) * config_.distance_gain_;
     pq.push({cost, p.get()});
   }
 
@@ -488,24 +482,24 @@ PathCalculation::find_path_start_points(const common_lib::structures::Pose& anch
   }
   
   // Set the anchor point's connections to these candidates
-  anchor_midpoint.close_points.clear();
-  anchor_midpoint.close_points.reserve(candidate_points.size());
+  vehicle_pose_midpoint.close_points.clear();
+  vehicle_pose_midpoint.close_points.reserve(candidate_points.size());
 
   for (auto* raw_ptr : candidate_points) {
     for (const auto& mp : mid_points_) {
       if (mp.get() == raw_ptr) {
-        anchor_midpoint.close_points.push_back(mp);
+        vehicle_pose_midpoint.close_points.push_back(mp);
         break;
       }
     }
   }
 
   double best_cost = std::numeric_limits<double>::max();
-  for (const auto& first : anchor_midpoint.close_points) {
-    auto [cost, second] = dfs_cost(this->config_.search_depth_, &anchor_midpoint, first.get(),
+  for (const auto& first : vehicle_pose_midpoint.close_points) {
+    auto [cost, second] = dfs_cost(this->config_.search_depth_, &vehicle_pose_midpoint, first.get(),
                                    std::numeric_limits<double>::max());
-    cost += std::pow(std::sqrt(std::pow(first->point.x() - anchor_midpoint.point.x(), 2) +
-                               std::pow(first->point.y() - anchor_midpoint.point.y(), 2)),
+    cost += std::pow(std::sqrt(std::pow(first->point.x() - vehicle_pose_midpoint.point.x(), 2) +
+                               std::pow(first->point.y() - vehicle_pose_midpoint.point.y(), 2)),
                      this->config_.distance_exponent_) *
             this->config_.distance_gain_;
     if (cost < best_cost) {
@@ -537,9 +531,8 @@ MidPoint* PathCalculation::find_nearest_point(
   return nearest;  // nullptr if none within tolerance
 }
 
-std::vector<PathPoint> PathCalculation::calculate_trackdrive(std::vector<Cone>& cone_array,
-                                                             common_lib::structures::Pose pose) {
-  vector<PathPoint> result = no_coloring_planning(cone_array, pose);
+std::vector<PathPoint> PathCalculation::calculate_trackdrive(std::vector<Cone>& cone_array) {
+  vector<PathPoint> result = no_coloring_planning(cone_array);
 
   // Check if we have enough points to form a loop
   if (result.size() < 3) {
