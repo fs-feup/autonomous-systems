@@ -77,41 +77,41 @@ Planning::Planning(const PlanningParameters &params)
   velocity_planning_ = VelocityPlanning(planning_config_.velocity_planning_);
 
   param_client_ =
-      this->create_client<rcl_interfaces::srv::GetParameters>("/pacsim/pacsim_node/get_parameters");
+      create_client<rcl_interfaces::srv::GetParameters>("/pacsim/pacsim_node/get_parameters");
   fetch_discipline();
 
   // Control Publisher
-  this->local_pub_ =
-      this->create_publisher<custom_interfaces::msg::PathPointArray>("/path_planning/path", 10);
+  local_pub_ =
+      create_publisher<custom_interfaces::msg::PathPointArray>("/path_planning/path", 10);
 
   // Publisher for execution time
-  this->_planning_execution_time_publisher_ =
-      this->create_publisher<std_msgs::msg::Float64>("/path_planning/execution_time", 10);
+  _planning_execution_time_publisher_ =
+      create_publisher<std_msgs::msg::Float64>("/path_planning/execution_time", 10);
 
   if (planning_config_.simulation_.publishing_visualization_msgs_) {
     //Visualization publishers
-    this->past_path_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
+    past_path_pub_ = create_publisher<visualization_msgs::msg::MarkerArray>(
         "/path_planning/past_path", 10);
-    this->full_path_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
+    full_path_pub_ = create_publisher<visualization_msgs::msg::MarkerArray>(
         "/path_planning/full_path", 10);
-    this->final_path_pub_ =
-        this->create_publisher<visualization_msgs::msg::Marker>("/path_planning/smoothed_path", 10);
-    this->triangulations_pub_ = this->create_publisher<visualization_msgs::msg::Marker>(
+    final_path_pub_ =
+        create_publisher<visualization_msgs::msg::Marker>("/path_planning/smoothed_path", 10);
+    triangulations_pub_ = create_publisher<visualization_msgs::msg::Marker>(
     "/path_planning/triangulations", 10);
   }
 
   if (!planning_config_.simulation_.using_simulated_se_) {
     // Vehicle Localization Subscriber
-    this->vl_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
+    vl_sub_ = create_subscription<custom_interfaces::msg::Pose>(
         "/state_estimation/vehicle_pose", 10,
         std::bind(&Planning::vehicle_localization_callback, this, _1));
     // State Estimation map Subscriber
-    this->track_sub_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
+    track_sub_ = create_subscription<custom_interfaces::msg::ConeArray>(
         "/state_estimation/map", 10, std::bind(&Planning::track_map_callback, this, _1));
 
-    this->_lap_counter_subscription_ = this->create_subscription<std_msgs::msg::Float64>(
+    _lap_counter_subscription_ = create_subscription<std_msgs::msg::Float64>(
         "/state_estimation/lap_counter", 10, [this](const std_msgs::msg::Float64::SharedPtr msg) {
-          this->lap_counter_ = static_cast<int>(msg->data);
+          lap_counter_ = static_cast<int>(msg->data);
         });
   }
 
@@ -123,7 +123,7 @@ void Planning::fetch_discipline() {
   Mission mission_result = Mission::NONE;
 
   if (!param_client_->wait_for_service(std::chrono::milliseconds(100))) {
-    RCLCPP_ERROR(this->get_logger(), "Service /pacsim/pacsim_node/get_parameters not available.");
+    RCLCPP_ERROR(get_logger(), "Service /pacsim/pacsim_node/get_parameters not available.");
   } else {
     auto request = std::make_shared<rcl_interfaces::srv::GetParameters::Request>();
     request->names.push_back("discipline");
@@ -135,7 +135,7 @@ void Planning::fetch_discipline() {
 
           if (!response->values.empty() && response->values[0].type == 4) {  // Type 4 = string
             std::string discipline = response->values[0].string_value;
-            RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
+            RCLCPP_INFO(get_logger(), "Discipline received: %s", discipline.c_str());
 
             if (discipline == "skidpad") {
               mission_result = Mission::SKIDPAD;
@@ -145,7 +145,7 @@ void Planning::fetch_discipline() {
               mission_result = Mission::TRACKDRIVE;
             }
           } else {
-            RCLCPP_ERROR(this->get_logger(), "Failed to retrieve discipline parameter.");
+            RCLCPP_ERROR(get_logger(), "Failed to retrieve discipline parameter.");
           }
 
           mission_ = mission_result;
@@ -157,7 +157,7 @@ void Planning::fetch_discipline() {
 
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) {
   auto number_of_cones_received = static_cast<int>(msg.cone_array.size());
-  RCLCPP_DEBUG(this->get_logger(), "Planning received %i cones", number_of_cones_received);
+  RCLCPP_DEBUG(get_logger(), "Planning received %i cones", number_of_cones_received);
   cone_array_ = common_lib::communication::cone_vector_from_custom_interfaces(msg);
   has_received_track_ = true;
   if (has_received_pose_) {
@@ -166,11 +166,11 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) 
 }
 
 void Planning::run_ebs_test(){
-      full_path_ = path_calculation_.no_coloring_planning(this->cone_array_);
+      full_path_ = path_calculation_.no_coloring_planning(cone_array_);
       
       // Smooth the calculated path
       final_path_ = path_smoothing_.smooth_path(full_path_, pose_,
-                                               this->initial_car_orientation_);
+                                               initial_car_orientation_);
         
       {
         double dist_from_origin = sqrt(pose_.position.x * pose_.position.x +
@@ -178,10 +178,10 @@ void Planning::run_ebs_test(){
         if (dist_from_origin > 90.0) {
            if (!is_braking_) {
             is_braking_ = true;
-            this->brake_time_ = std::chrono::steady_clock::now();
+            brake_time_ = std::chrono::steady_clock::now();
            }
           for (auto &point : final_path_) {
-            std::chrono::duration<double> time_since_brake_start =  std::chrono::steady_clock::now() - this->brake_time_;
+            std::chrono::duration<double> time_since_brake_start =  std::chrono::steady_clock::now() - brake_time_;
             point.ideal_velocity = std::max((desired_velocity_ + ( planning_config_.velocity_planning_.braking_acceleration_* time_since_brake_start.count())), 0.0);
           }
         } else {
@@ -193,19 +193,19 @@ void Planning::run_ebs_test(){
 }
 
 void Planning::run_trackdrive(){
-  if (this->lap_counter_ == 0) {
+  if (lap_counter_ == 0) {
     full_path_ = path_calculation_.no_coloring_planning(cone_array_);
     final_path_ = path_smoothing_.smooth_path(full_path_, pose_,
-                                              this->initial_car_orientation_);
+                                              initial_car_orientation_);
     past_path_ = path_calculation_.get_global_path();
     velocity_planning_.set_velocity(final_path_);
-  } else if (this->lap_counter_ >= 1 && this->lap_counter_ < 10) {
-    if (!this->has_found_full_path_) {
+  } else if (lap_counter_ >= 1 && lap_counter_ < 10) {
+    if (!has_found_full_path_) {
       has_found_full_path_ = true;
       full_path_ =
           path_calculation_.calculate_trackdrive(cone_array_);
       final_path_ = path_smoothing_.smooth_path(full_path_, pose_,
-                                                this->initial_car_orientation_);
+                                                initial_car_orientation_);
       past_path_ = final_path_;
       velocity_planning_.trackdrive_velocity(final_path_);
       full_path_ = final_path_;
@@ -214,7 +214,7 @@ void Planning::run_trackdrive(){
       final_path_ = full_path_;
       past_path_ = full_path_;
     }
-  } else if (this->lap_counter_ >= 10) {
+  } else if (lap_counter_ >= 10) {
     final_path_ = full_path_;
     past_path_ = full_path_;
     velocity_planning_.stop(final_path_);
@@ -222,39 +222,39 @@ void Planning::run_trackdrive(){
 }
 
 void Planning::run_autocross(){
-  full_path_ = path_calculation_.no_coloring_planning(this->cone_array_);
+  full_path_ = path_calculation_.no_coloring_planning(cone_array_);
   final_path_ = path_smoothing_.smooth_path(full_path_, pose_,
-                                            this->initial_car_orientation_);
+                                            initial_car_orientation_);
   past_path_ = path_calculation_.get_global_path();
   velocity_planning_.trackdrive_velocity(final_path_);
-  if (this->lap_counter_ >= 1) {
+  if (lap_counter_ >= 1) {
     velocity_planning_.stop(final_path_);
   }
 }
 
 void Planning::publish_execution_time(rclcpp::Time start_time){
   // Execution Time calculation
-  rclcpp::Time end_time = this->now();
+  rclcpp::Time end_time = now();
   std_msgs::msg::Float64 planning_execution_time;
   planning_execution_time.data = (end_time - start_time).seconds() * 1000;
-  this->_planning_execution_time_publisher_->publish(planning_execution_time);
+  _planning_execution_time_publisher_->publish(planning_execution_time);
 }
 
 void Planning::run_planning_algorithms() {
   RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Running Planning Algorithms");
-  if (this->cone_array_.empty()) {
+  if (cone_array_.empty()) {
     publish_track_points();
     return;
   }
 
-  rclcpp::Time start_time = this->now();
+  rclcpp::Time start_time = now();
 
-  switch (this->mission_) {
+  switch (mission_) {
     case Mission::NONE:
-      RCLCPP_ERROR(this->get_logger(), "Mission is NONE, cannot run planning algorithms.");
+      RCLCPP_ERROR(get_logger(), "Mission is NONE, cannot run planning algorithms.");
       return;
     case Mission::SKIDPAD:
-      final_path_ = path_calculation_.skidpad_path(this->cone_array_, pose_);
+      final_path_ = path_calculation_.skidpad_path(cone_array_, pose_);
       break;
 
     case Mission::ACCELERATION:
@@ -271,9 +271,9 @@ void Planning::run_planning_algorithms() {
       break;
     
     default:
-      full_path_ = path_calculation_.no_coloring_planning(this->cone_array_);
+      full_path_ = path_calculation_.no_coloring_planning(cone_array_);
       final_path_ = path_smoothing_.smooth_path(full_path_, pose_,
-                                               this->initial_car_orientation_);
+                                               initial_car_orientation_);
       past_path_ = path_calculation_.get_global_path();
       velocity_planning_.set_velocity(final_path_);
       break;
@@ -287,7 +287,7 @@ void Planning::run_planning_algorithms() {
   publish_execution_time(start_time);
 
   publish_track_points();
-  RCLCPP_DEBUG(this->get_logger(), "Planning will publish %i path points\n",
+  RCLCPP_DEBUG(get_logger(), "Planning will publish %i path points\n",
                static_cast<int>(final_path_.size()));
 
   int errorcounter = 0;
@@ -295,17 +295,17 @@ void Planning::run_planning_algorithms() {
     publish_visualization_msgs();
   }
   if (errorcounter != 0) {
-    RCLCPP_ERROR(this->get_logger(), "Number of midpoints with no close points: %d", errorcounter);
+    RCLCPP_ERROR(get_logger(), "Number of midpoints with no close points: %d", errorcounter);
   }
 }
 
 void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose &msg) {
-  RCLCPP_DEBUG(this->get_logger(), "Received Pose: %lf - %lf - %lf", msg.x, msg.y, msg.theta);
+  RCLCPP_DEBUG(get_logger(), "Received Pose: %lf - %lf - %lf", msg.x, msg.y, msg.theta);
   pose_ = Pose(msg.x, msg.y, msg.theta);
   path_calculation_.update_vehicle_pose(pose_);
 
 
-  if (!this->has_received_pose_) {
+  if (!has_received_pose_) {
     initial_car_orientation_ = msg.theta;
   }
 
@@ -329,13 +329,13 @@ void Planning::set_mission(Mission mission) {
 
 
 void Planning::publish_visualization_msgs() const {
-  this->triangulations_pub_->publish(common_lib::communication::lines_marker_from_triangulations(
-    path_calculation_.triangulations, "triangulations", this->map_frame_id_, 20, "white",0.05f,visualization_msgs::msg::Marker::MODIFY));
-  this->full_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      full_path_, "full_path", this->map_frame_id_, "orange"));
-  this->final_path_pub_->publish(common_lib::communication::line_marker_from_structure_array(
-      final_path_, "smoothed_path_planning", this->map_frame_id_, 12, "green"));
-  this->past_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      past_path_, "global_path", this->map_frame_id_, "blue", "cylinder", 0.8,
+  triangulations_pub_->publish(common_lib::communication::lines_marker_from_triangulations(
+    path_calculation_.triangulations, "triangulations", map_frame_id_, 20, "white",0.05f,visualization_msgs::msg::Marker::MODIFY));
+  full_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
+      full_path_, "full_path", map_frame_id_, "orange"));
+  final_path_pub_->publish(common_lib::communication::line_marker_from_structure_array(
+      final_path_, "smoothed_path_planning", map_frame_id_, 12, "green"));
+  past_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
+      past_path_, "global_path", map_frame_id_, "blue", "cylinder", 0.8,
       visualization_msgs::msg::Marker::MODIFY));
 }
