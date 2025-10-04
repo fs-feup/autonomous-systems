@@ -238,29 +238,6 @@ protected:
     std::vector<std::tuple<float, float, bool, bool>> ground_truth;
     ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
 
-    // --- DEBUG PRINT START ---
-    std::cout << "\n==========================" << std::endl;
-    std::cout << " Test: " << test_name << std::endl;
-    std::cout << " Expected cones: " << cone_gt << " (large: " << large_cone_gt << ")" << std::endl;
-
-    std::cout << "--- Ground Truth Cones ---" << std::endl;
-    for (const auto& [x, y, is_large, _] : ground_truth) {
-      std::cout << "GT -> x=" << x << ", y=" << y << ", large=" << (is_large ? "true" : "false")
-                << std::endl;
-    }
-
-    std::cout << "--- Detected Cones ---" << std::endl;
-    if (!cones_result_) {
-      std::cout << "No cones detected!" << std::endl;
-    } else {
-      for (const auto& cone : cones_result_->cone_array) {
-        std::cout << "Detected -> x=" << cone.position.x << ", y=" << cone.position.y
-                  << ", large=" << (cone.is_large ? "true" : "false") << std::endl;
-      }
-    }
-    std::cout << "==========================\n" << std::endl;
-    // --- DEBUG PRINT END ---
-
     double correctness = computeCorrectness(cones_result_, ground_truth);
     RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %.2f%%", correctness);
     EXPECT_GT(correctness, min_correctness)
