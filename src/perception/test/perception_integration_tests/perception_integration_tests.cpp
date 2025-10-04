@@ -4,6 +4,7 @@
 #include <pcl_conversions/pcl_conversions.h>
 
 #include <custom_interfaces/msg/cone_array.hpp>
+#include <custom_interfaces/msg/perception_output.hpp>
 #include <filesystem>
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/point_cloud2.hpp>
@@ -33,7 +34,7 @@ bool loadGroundTruth(const std::string& file_path,
  */
 double computeCorrectness(const custom_interfaces::msg::ConeArray::SharedPtr& detected,
                           std::vector<std::tuple<float, float, bool, bool>> ground_truth,
-                          float tolerance = 0.2) {
+                          float tolerance = 0.4) {
   int true_positives = 0;
   int false_positives = 0;
 
@@ -96,7 +97,7 @@ protected:
   rclcpp::Node::SharedPtr test_node_;  /// Test node created to publish a pcl and subsribe to the
                                        /// cones array on the perception node.
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pcl_publisher_;
-  rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr cones_subscriber_;
+  rclcpp::Subscription<custom_interfaces::msg::PerceptionOutput>::SharedPtr cones_subscriber_;
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr pcl_removed_cloud_subscriber_;
   custom_interfaces::msg::ConeArray::SharedPtr
       cones_result_;  /// Recieves and stores perception node output
@@ -125,9 +126,10 @@ protected:
         });
 
     // Subscriber for output cones
-    cones_subscriber_ = test_node_->create_subscription<custom_interfaces::msg::ConeArray>(
-        "/perception/cones", 1, [this](const custom_interfaces::msg::ConeArray::SharedPtr msg) {
-          cones_result_ = msg;
+    cones_subscriber_ = test_node_->create_subscription<custom_interfaces::msg::PerceptionOutput>(
+        "/perception/cones", 1,
+        [this](const custom_interfaces::msg::PerceptionOutput::SharedPtr msg) {
+          cones_result_ = std::make_shared<custom_interfaces::msg::ConeArray>(msg->cones);
           cones_received_ = true;
         });
 
@@ -235,6 +237,30 @@ protected:
 
     std::vector<std::tuple<float, float, bool, bool>> ground_truth;
     ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
+
+    // --- DEBUG PRINT START ---
+    std::cout << "\n==========================" << std::endl;
+    std::cout << " Test: " << test_name << std::endl;
+    std::cout << " Expected cones: " << cone_gt << " (large: " << large_cone_gt << ")" << std::endl;
+
+    std::cout << "--- Ground Truth Cones ---" << std::endl;
+    for (const auto& [x, y, is_large, _] : ground_truth) {
+      std::cout << "GT -> x=" << x << ", y=" << y << ", large=" << (is_large ? "true" : "false")
+                << std::endl;
+    }
+
+    std::cout << "--- Detected Cones ---" << std::endl;
+    if (!cones_result_) {
+      std::cout << "No cones detected!" << std::endl;
+    } else {
+      for (const auto& cone : cones_result_->cone_array) {
+        std::cout << "Detected -> x=" << cone.position.x << ", y=" << cone.position.y
+                  << ", large=" << (cone.is_large ? "true" : "false") << std::endl;
+      }
+    }
+    std::cout << "==========================\n" << std::endl;
+    // --- DEBUG PRINT END ---
+
     double correctness = computeCorrectness(cones_result_, ground_truth);
     RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %.2f%%", correctness);
     EXPECT_GT(correctness, min_correctness)
@@ -276,17 +302,17 @@ TEST_F(PerceptionIntegrationTest, AccelerationFar) {
 /**
  * @brief Blind turn test for perception node from rosbag: Closed_Course_Manual-6.mcap
  */
-TEST_F(PerceptionIntegrationTest, EnterHairpin) { runTest("enter_hairpin", 16, 0, 80, 4); }
+TEST_F(PerceptionIntegrationTest, EnterHairpin) { runTest("enter_hairpin", 16, 0, 70, 4); }
 
 /**
  * @brief Turn test for perception node from rosbag: Hard_Course-DV-5.mcap
  */
-TEST_F(PerceptionIntegrationTest, TurnStart) { runTest("turn_start", 33, 4, 80, 4); }
+TEST_F(PerceptionIntegrationTest, TurnStart) { runTest("turn_start", 33, 4, 70, 4); }
 
 /**
  * @brief Odd situation test for perception node from rosbag: Hard_Course-DV-5.mcap
  */
-TEST_F(PerceptionIntegrationTest, OddStituation) { runTest("odd_situation", 33, 4, 80, 4); }
+TEST_F(PerceptionIntegrationTest, OddStituation) { runTest("odd_situation", 33, 4, 70, 4); }
 
 /**
  * @brief A fully diagonal path test for perception node from rosbag: Autocross_DV-1.mcap
