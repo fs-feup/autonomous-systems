@@ -4,17 +4,9 @@
 
 #include "common_lib/structures/position.hpp"
 #include "common_lib/filters/low_pass_filter.hpp"
+#include "control/include/config/parameters.hpp"
 #include "gtest/gtest.h"
 #include "rclcpp/rclcpp.hpp"
-
-/**< Maximum steering angle in rad */
-constexpr double MAX_STEERING_ANGLE = 0.335;
-
-/**< Minimum steering angle in rad */
-constexpr double MIN_STEERING_ANGLE = -0.335;
-
-/**< Wheel base of the vehicle in m */
-constexpr double WHEEL_BASE = 1.5;
 
 /**
  * @brief Pure Pursuit class
@@ -28,19 +20,15 @@ constexpr double WHEEL_BASE = 1.5;
 
 class PurePursuit {
 private:
+  std::shared_ptr<ControlParameters> params_;
   std::shared_ptr<Filter> lpf_;
 
 public:
-  double max_steering_angle_{MAX_STEERING_ANGLE}; /**< Maximum steering angle */
-  double min_steering_angle_{MIN_STEERING_ANGLE}; /**< Minimum steering angle */
-  double wheel_base_{WHEEL_BASE};                 /**< Wheel base of the vehicle */
-
   /**
    * @brief Construct a new Pure Pursuit object
-   *
-   * @param lpf Pointer to a low-pass filter
+   * @param params Control parameters
    */
-  PurePursuit(std::shared_ptr<Filter> lpf);
+  PurePursuit(const ControlParameters& params);
 
   /**
    * @brief Pure Pursuit control law

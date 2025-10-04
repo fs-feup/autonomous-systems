@@ -27,8 +27,8 @@ void NoRearWSSEKF::imu_callback(const common_lib::sensor_data::ImuData& imu_data
   if (!this->imu_data_received_) {
     this->imu_data_received_ = true;
   } else {
-    this->predict(this->_state_, this->_covariance_, this->_process_noise_matrix_,
-                  this->_last_update_, this->imu_data_);
+    // this->predict(this->_state_, this->_covariance_, this->_process_noise_matrix_,
+    //              this->_last_update_, this->imu_data_);
   }
   this->_last_update_ = rclcpp::Clock().now();
   RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "2 - State: %f %f %f", this->_state_(0),

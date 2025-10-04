@@ -1,41 +1,18 @@
-#include "pure_pursuit/point_solver.hpp"
-
-#include "custom_interfaces/msg/pose.hpp"
+#include "utils/utils.hpp"
 
 using namespace common_lib::structures;
 
-/**
- * @brief PointSolver Constructor\
- */
-PointSolver::PointSolver(const ControlParameters &params)
-    : params_(std::make_shared<ControlParameters>(params)),
-      bicycle_model_(common_lib::car_parameters::CarParameters()) {}
-
-/**
- * @brief Update vehicle pose
- *
- * @param pose msg
- */
-void PointSolver::update_vehicle_pose(const custom_interfaces::msg::Pose &pose, double velocity) {
-  // update to Rear Wheel position
-  this->vehicle_pose_.position.x = pose.x;
-  this->vehicle_pose_.position.y = pose.y;
-
-  this->vehicle_pose_.velocity_ = velocity;
-  this->vehicle_pose_.orientation = pose.theta;
-  this->vehicle_pose_.rear_axis_ = this->bicycle_model_.rear_axis_position(
-      this->vehicle_pose_.position, this->vehicle_pose_.orientation, this->params_->car_parameters_.dist_cg_2_rear_axis);
-
-  return;
+Position rear_axis_position(
+    const Position& cg, double orientation, double dist_cg_2_rear_axis) {
+  Position rear_axis;
+  rear_axis.x = cg.x - dist_cg_2_rear_axis * cos(orientation);
+  rear_axis.y = cg.y - dist_cg_2_rear_axis * sin(orientation);
+  return rear_axis;
 }
 
-/**
- * @brief Find the closest point on the path
- *
- * @param path
- */
-std::tuple<Position, int, double> PointSolver::update_closest_point(
-    const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array) const {
+
+std::tuple<Position, int, double> get_closest_point(
+    const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array, const Position& position) {
   double min_distance = 1e9;
   double closest_point_velocity = 0;
   Position closest_point = Position();
@@ -43,7 +20,7 @@ std::tuple<Position, int, double> PointSolver::update_closest_point(
   int closest_point_id = -1;
   for (size_t i = 1; i < pathpoint_array.size(); i++) {
     aux_point = Position(pathpoint_array[i].x, pathpoint_array[i].y);
-    double distance = this->vehicle_pose_.rear_axis_.euclidean_distance(aux_point);
+    double distance = position.euclidean_distance(aux_point);
     if (distance < min_distance) {
       min_distance = distance;
       closest_point = aux_point;
@@ -54,12 +31,11 @@ std::tuple<Position, int, double> PointSolver::update_closest_point(
   return std::make_tuple(closest_point, closest_point_id, closest_point_velocity);
 }
 
-std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
+
+std::tuple<Position, double, bool> get_lookahead_point(
     const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array,
-    int closest_point_id) const {
-  Position rear_axis_point = this->vehicle_pose_.rear_axis_;
-  double ld = std::max(this->params_->pure_pursuit_lookahead_gain_ * this->vehicle_pose_.velocity_,
-                       this->params_->pure_pursuit_lookahead_minimum_);
+    int closest_point_id, double lookahead_distance, Position rear_axis_position, double last_to_first_max_dist) {
+  Position rear_axis_point = rear_axis_position;
 
   for (size_t i = 0; i < pathpoint_array.size(); i++) {
     size_t index_a = (closest_point_id + i) % pathpoint_array.size();
@@ -73,7 +49,7 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
 
       //  If the path is not a closed track, the lookahead point is the last point
       //  If the path is a closed track, we continue normally, the first point is the continuation
-      if (start_end_distance > this->params_->pure_pursuit_first_last_max_dist_) {
+      if (start_end_distance > last_to_first_max_dist) {
         RCLCPP_INFO(rclcpp::get_logger("control"),
                     "Lookahead extends beyond path end and it is not a closed track, using last "
                     "point of the path as lookahead point");
@@ -85,8 +61,8 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
     auto point_a = Position(pathpoint_array[index_a].x, pathpoint_array[index_a].y);
     auto point_b = Position(pathpoint_array[index_b].x, pathpoint_array[index_b].y);
 
-    if (!(rear_axis_point.euclidean_distance(point_a) < ld &&
-          rear_axis_point.euclidean_distance(point_b) > ld)) {
+    if (!(rear_axis_point.euclidean_distance(point_a) < lookahead_distance &&
+          rear_axis_point.euclidean_distance(point_b) > lookahead_distance)) {
       continue;
     }
 
@@ -97,7 +73,7 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
     if (point_a.x == point_b.x) {
       RCLCPP_DEBUG(rclcpp::get_logger("control"), "Vertical line!!");
       result_x = point_a.x;
-      double delta = ld * ld - std::pow(result_x - rear_axis_point.x, 2);
+      double delta = lookahead_distance * lookahead_distance - std::pow(result_x - rear_axis_point.x, 2);
       if (delta < 0) {
         continue;
       }
@@ -116,7 +92,7 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
       double c = point_a.y - m * point_a.x;
 
       // (x - x0)^2 + (y - y0)^2 = r^2
-      // with x0 = rear_axis_point.x, y0 = rear_axis_point.y, r = ld
+      // with x0 = rear_axis_point.x, y0 = rear_axis_point.y, r = lookahead_distance
 
       // with this information we can find the intersection point between the circle and the line
       // and obtain the lookahead point.
@@ -125,7 +101,7 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
       double A = 1 + m * m;
       double B = 2 * (m * c - rear_axis_point.x - m * rear_axis_point.y);
       double C = rear_axis_point.x * rear_axis_point.x + c * c +
-                 rear_axis_point.y * rear_axis_point.y - 2 * c * rear_axis_point.y - ld * ld;
+                 rear_axis_point.y * rear_axis_point.y - 2 * c * rear_axis_point.y - lookahead_distance * lookahead_distance;
 
       double delta = B * B - 4 * A * C;
 
@@ -156,10 +132,3 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "No lookahead point found");
   return std::make_tuple(Position(), 0.0, true);
 }
-
-/**
- * @brief update the LookaheadDistance based on a new velocity
- */
-double PointSolver::update_lookahead_distance(double k, double velocity) const {
-  return k * velocity;
-};

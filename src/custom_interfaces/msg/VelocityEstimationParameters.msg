@@ -1,5 +1,5 @@
 string estimation_method
-string s2v_model_name
+string ve_observation_model_name
 string process_model_name
 float64 wheel_speed_noise
 float64 motor_rpm_noise

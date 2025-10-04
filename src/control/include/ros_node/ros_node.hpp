@@ -14,7 +14,7 @@
 #include "custom_interfaces/msg/vehicle_state.hpp"
 #include "custom_interfaces/msg/velocities.hpp"
 #include "pid/pid.hpp"
-#include "pure_pursuit/point_solver.hpp"
+#include "utils/utils.hpp"
 #include "pure_pursuit/pure_pursuit.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
@@ -33,6 +33,7 @@ public:
   float velocity_{0.0};
   double throttle_command_{0.0};
   double steering_command_{0.0};
+  double vehicle_orientation_{0.0};
   ControlParameters params_;
 
   explicit ControlNode(const ControlParameters &params);
@@ -60,14 +61,12 @@ private:
   void control_timer_callback();
 
   std::vector<custom_interfaces::msg::PathPoint> pathpoint_array_{};
-  PointSolver point_solver_; /**< Point Solver */
   PID long_controller_;
   PurePursuit lat_controller_; /**< Lateral Controller*/
 
-  void publish_evaluator_data(double lookahead_velocity,
+  void publish_evaluator_data(common_lib::structures::Position rear_axis, double lookahead_velocity,
                               common_lib::structures::Position lookahead_point,
                               common_lib::structures::Position closest_point,
-                              const custom_interfaces::msg::VehicleState &vehicle_state_msg,
                               double closest_point_velocity, double execution_time) const;
 
   virtual void publish_cmd(double acceleration, double steering) = 0;

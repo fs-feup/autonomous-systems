@@ -12,8 +12,9 @@ set(IMPLEMENTATION_FILES
   src/adapter/eufs.cpp
   src/adapter/vehicle.cpp
   src/pure_pursuit/pure_pursuit.cpp
-  src/pure_pursuit/point_solver.cpp
   src/config/parameters.cpp
+  src/control_solver/base_decoupled_controller.cpp
+  src/utils/utils.cpp
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../common_lib/include)
@@ -66,7 +67,7 @@ if(BUILD_TESTING)
     test/main.cpp
     test/pid/pid_test.cpp
     test/pure_pursuit/pure_pursuit_test.cpp
-    test/pure_pursuit/point_solver_test.cpp
+    test/utils/utils_test.cpp
     test/include/utils.cpp
   )
   include_directories(test)  # Include the 'test' directory for your test targets

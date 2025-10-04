@@ -1,4 +1,4 @@
-#include "pure_pursuit/point_solver.hpp"
+#include "utils/utils.hpp"
 
 #include <fstream>
 #include <sstream>
@@ -6,13 +6,12 @@
 #include <vector>
 
 #include "gtest/gtest.h"
-#include "ros_node/ros_node.hpp"
 #include "test/include/utils.hpp"
 
 using namespace common_lib::structures;
 
 /**
- * @brief Test Point Solver - update_closest_point()
+ * @brief Test Point Solver - get_closest_point()
  */
 TEST(PointSolverTests, Test_update_closest_point_1) {
   auto pathpoint_array = create_path_msg("track1");
@@ -20,13 +19,11 @@ TEST(PointSolverTests, Test_update_closest_point_1) {
   params.pure_pursuit_lookahead_gain_ = 0.0;
   params.pure_pursuit_lookahead_minimum_ = 0.0;
   params.pure_pursuit_first_last_max_dist_ = 0.0;
-  PointSolver point_solver_(params);
-  point_solver_.vehicle_pose_.rear_axis_ = Position(47.0, -13.0);
   Position expected_point = Position(46.5, -12.37);
   int expected_id = 76;
 
   auto [path, rear_axis_point, closest_point_velocity] =
-      point_solver_.update_closest_point(pathpoint_array);
+      get_closest_point(pathpoint_array, Position(47.0, -13.0));
 
   EXPECT_EQ(path.x, expected_point.x);
   EXPECT_EQ(path.y, expected_point.y);

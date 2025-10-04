@@ -16,7 +16,7 @@ void VehicleAdapter::publish_cmd(double acceleration, double steering) {
   auto message = custom_interfaces::msg::ControlCommand();
 
   // Convert values to range according to the units sent by AS
-  message.throttle = acceleration;
+  message.throttle_rr = acceleration;
   message.steering = steering;
 
   this->control_pub_->publish(message);
