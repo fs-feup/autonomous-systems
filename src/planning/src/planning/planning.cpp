@@ -165,6 +165,12 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) 
   }
 }
 
+void Planning::calculate_and_smooth_path() {
+  full_path_ = path_calculation_.no_coloring_planning(cone_array_);
+  past_path_ = path_calculation_.get_global_path();
+  final_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
+}
+
 void Planning::run_ebs_test(){
       full_path_ = path_calculation_.no_coloring_planning(cone_array_);
       
@@ -194,10 +200,7 @@ void Planning::run_ebs_test(){
 
 void Planning::run_trackdrive(){
   if (lap_counter_ == 0) {
-    full_path_ = path_calculation_.no_coloring_planning(cone_array_);
-    final_path_ = path_smoothing_.smooth_path(full_path_, pose_,
-                                              initial_car_orientation_);
-    past_path_ = path_calculation_.get_global_path();
+    calculate_and_smooth_path();
     velocity_planning_.set_velocity(final_path_);
   } else if (lap_counter_ >= 1 && lap_counter_ < 10) {
     if (!has_found_full_path_) {
@@ -222,10 +225,7 @@ void Planning::run_trackdrive(){
 }
 
 void Planning::run_autocross(){
-  full_path_ = path_calculation_.no_coloring_planning(cone_array_);
-  final_path_ = path_smoothing_.smooth_path(full_path_, pose_,
-                                            initial_car_orientation_);
-  past_path_ = path_calculation_.get_global_path();
+  calculate_and_smooth_path();
   velocity_planning_.trackdrive_velocity(final_path_);
   if (lap_counter_ >= 1) {
     velocity_planning_.stop(final_path_);
@@ -271,10 +271,7 @@ void Planning::run_planning_algorithms() {
       break;
     
     default:
-      full_path_ = path_calculation_.no_coloring_planning(cone_array_);
-      final_path_ = path_smoothing_.smooth_path(full_path_, pose_,
-                                               initial_car_orientation_);
-      past_path_ = path_calculation_.get_global_path();
+      calculate_and_smooth_path();
       velocity_planning_.set_velocity(final_path_);
       break;
   }

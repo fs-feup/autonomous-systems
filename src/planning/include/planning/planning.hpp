@@ -73,7 +73,6 @@ private:
   // For Trackdrive
   bool has_found_full_path_ = false;      // for Trackdrive
 
-  //bool path_orientation_corrected_ = false;                                     // for Skidpad
   std::vector<PathPoint> predefined_path_;                                      // for Skidpad
   rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr param_client_;  // for mission logic
 
@@ -173,6 +172,8 @@ private:
    * - Lap 10+: Brings vehicle to stop
    */
   void run_trackdrive();
+
+  void calculate_and_smooth_path() ;
 
   /**
    * @brief Calculates and publishes planning algorithm execution time
