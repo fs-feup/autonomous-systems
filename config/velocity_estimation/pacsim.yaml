@@ -12,7 +12,7 @@ velocity_estimation:
 ## FSG23 AutoX Track complete working - Best ever
 # velocity_estimation:
 #   estimation_method: "ekf"
-#   s2v_model_name: "bicycle_model"
+#   ve_observation_model_name: "bicycle_model"
 #   process_model_name: "ca_particle_model"
 #   wheel_speed_noise: 0.1
 #   motor_rpm_noise: 0.1
