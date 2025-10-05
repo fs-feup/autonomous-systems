@@ -172,30 +172,29 @@ void Planning::calculate_and_smooth_path() {
 }
 
 void Planning::run_ebs_test(){
-      full_path_ = path_calculation_.no_coloring_planning(cone_array_);
-      
-      // Smooth the calculated path
-      final_path_ = path_smoothing_.smooth_path(full_path_, pose_,
-                                               initial_car_orientation_);
-        
-      {
-        double dist_from_origin = sqrt(pose_.position.x * pose_.position.x +
-                                       pose_.position.y * pose_.position.y);
-        if (dist_from_origin > 90.0) {
-           if (!is_braking_) {
-            is_braking_ = true;
-            brake_time_ = std::chrono::steady_clock::now();
-           }
-          for (auto &point : final_path_) {
-            std::chrono::duration<double> time_since_brake_start =  std::chrono::steady_clock::now() - brake_time_;
-            point.ideal_velocity = std::max((desired_velocity_ + ( planning_config_.velocity_planning_.braking_acceleration_* time_since_brake_start.count())), 0.0);
-          }
-        } else {
-          for (auto &point : final_path_) {
-            point.ideal_velocity = desired_velocity_;
-          }
+  full_path_ = path_calculation_.no_coloring_planning(cone_array_);
+  // Smooth the calculated path
+  final_path_ = path_smoothing_.smooth_path(full_path_, pose_,
+                                            initial_car_orientation_);
+    
+  {
+    double dist_from_origin = sqrt(pose_.position.x * pose_.position.x +
+                                    pose_.position.y * pose_.position.y);
+    if (dist_from_origin > 90.0) {
+        if (!is_braking_) {
+        is_braking_ = true;
+        brake_time_ = std::chrono::steady_clock::now();
         }
+      for (auto &point : final_path_) {
+        std::chrono::duration<double> time_since_brake_start =  std::chrono::steady_clock::now() - brake_time_;
+        point.ideal_velocity = std::max((desired_velocity_ + ( planning_config_.velocity_planning_.braking_acceleration_* time_since_brake_start.count())), 0.0);
       }
+    } else {
+      for (auto &point : final_path_) {
+        point.ideal_velocity = desired_velocity_;
+      }
+    }
+  }
 }
 
 void Planning::run_trackdrive(){
@@ -327,7 +326,7 @@ void Planning::set_mission(Mission mission) {
 
 void Planning::publish_visualization_msgs() const {
   triangulations_pub_->publish(common_lib::communication::lines_marker_from_triangulations(
-    path_calculation_.triangulations, "triangulations", map_frame_id_, 20, "white",0.05f,visualization_msgs::msg::Marker::MODIFY));
+    path_calculation_.get_triangulations(), "triangulations", map_frame_id_, 20, "white",0.05f,visualization_msgs::msg::Marker::MODIFY));
   full_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
       full_path_, "full_path", map_frame_id_, "orange"));
   final_path_pub_->publish(common_lib::communication::line_marker_from_structure_array(

@@ -11,12 +11,10 @@
 #include <utility>
 #include <vector>
 
-
 #include <pcl/registration/icp.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <pcl/kdtree/kdtree_flann.h>
-
 
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/path_point.hpp"
@@ -68,12 +66,12 @@ private:
   common_lib::structures::Pose vehicle_pose_;
   bool anchor_pose_set_ = false;
   std::vector<std::shared_ptr<MidPoint>> mid_points_;
+  /* Stores the edges of the Delaunay triangulation as pairs of points,
+  used for visualization (each pair represents one edge of a triangle).*/
+  std::vector<std::pair<Point, Point>> triangulations_;
 
 
 public:
-
-  std::vector<std::pair<Point, Point>> triangulations;
-
   /**
    * @brief Construct a new default PathCalculation object
    *
@@ -95,10 +93,14 @@ public:
    * @param previous Previous point in the path
    * @param current Current point being evaluated
    * @param maxcost Maximum cost allowed for path segment
-   * @return std::pair<double, MidPoint*> Cost and next point pair
+   * @return std::pair<double, std::shared_ptr<MidPoint>> Cost and next point pair
    */
-  std::pair<double, MidPoint*> dfs_cost(int depth, const MidPoint* previous, MidPoint* current,
-                                        double maxcost);
+  std::pair<double, std::shared_ptr<MidPoint>> dfs_cost(
+      int depth, 
+      const std::shared_ptr<MidPoint>& previous, 
+      const std::shared_ptr<MidPoint>& current,
+      double maxcost);
+
   /**
    * @brief Filters cones to find the ones that will be used for the triangulations.
    *
@@ -109,7 +111,7 @@ public:
    * @param filtered_cones Cones that pass the filter
    */
   void filter_cones(const std::vector<Cone>& cone_array,
-                                            std::vector<std::shared_ptr<Cone>>& filtered_cones);
+                    std::vector<std::shared_ptr<Cone>>& filtered_cones);
 
   /**
    * @brief Generate a path from cone array without color information
@@ -136,18 +138,20 @@ public:
   /**
    * @brief Finds the first and second points to start the path
    *
-   * @return std::pair<MidPoint*, MidPoint*> First and second points for the path
+   * @return std::pair<std::shared_ptr<MidPoint>, std::shared_ptr<MidPoint>> First and second points for the path
    */
-  std::pair<MidPoint*, MidPoint*> find_path_start_points();
+  std::pair<std::shared_ptr<MidPoint>, std::shared_ptr<MidPoint>> find_path_start_points();
 
   /**
    * @brief Generate a path using DFS cost search
    *
    * @param first The first point of the path
    * @param second The second point of the path
-   * @return std::vector<MidPoint*> The generated path as midpoints
+   * @return std::vector<std::shared_ptr<MidPoint>> The generated path as midpoints
    */
-  std::vector<MidPoint*> generatePath(MidPoint* first, MidPoint* second);
+  std::vector<std::shared_ptr<MidPoint>> generatePath(
+      std::shared_ptr<MidPoint> first, 
+      std::shared_ptr<MidPoint> second);
 
   /**
    * @brief Convert midpoint path to path points
@@ -155,7 +159,8 @@ public:
    * @param path Vector of midpoints representing the path
    * @return std::vector<PathPoint> The final path points
    */
-  std::vector<PathPoint> convertToPathPoints(const std::vector<MidPoint*>& path);
+  std::vector<PathPoint> convertToPathPoints(
+      const std::vector<std::shared_ptr<MidPoint>>& path);
 
   /**
    * @brief Generate a path for skidpad course
@@ -208,8 +213,8 @@ public:
    */
   void calculate_initial_path(
       std::vector<Point>& path,
-      const std::unordered_map<Point, MidPoint*>& point_to_midpoint,
-      std::unordered_set<MidPoint*>& visited_midpoints,
+      const std::unordered_map<Point, std::shared_ptr<MidPoint>>& point_to_midpoint,
+      std::unordered_set<std::shared_ptr<MidPoint>>& visited_midpoints,
       std::unordered_set<std::shared_ptr<Cone>>& discarded_cones
   );
 
@@ -228,8 +233,8 @@ public:
    */
   void extend_path(
     std::vector<Point>& path,
-    const std::unordered_map<Point, MidPoint*>& point_to_midpoint,
-    std::unordered_set<MidPoint*>& visited_midpoints,
+    const std::unordered_map<Point, std::shared_ptr<MidPoint>>& point_to_midpoint,
+    std::unordered_set<std::shared_ptr<MidPoint>>& visited_midpoints,
     std::unordered_set<std::shared_ptr<Cone>>& discarded_cones,
     int max_points
   );
@@ -246,7 +251,7 @@ public:
    */
   void discard_cones_along_path(
     const std::vector<Point>& path,
-    const std::unordered_map<Point, MidPoint*>& point_to_midpoint,
+    const std::unordered_map<Point, std::shared_ptr<MidPoint>>& point_to_midpoint,
     std::unordered_set<std::shared_ptr<Cone>>& discarded_cones
   ); 
 
@@ -255,12 +260,11 @@ public:
  * 
  * @param target The target point to find the nearest midpoint for
  * @param map Map of points to midpoints for quick access
- * @param tolerance The maximum distance to consider a point as "near"
- * @return MidPoint* Pointer to the nearest midpoint, or nullptr if none found
+ * @return std::shared_ptr<MidPoint> Pointer to the nearest midpoint, or nullptr if none found
  */
-  MidPoint* find_nearest_point(
+  std::shared_ptr<MidPoint> find_nearest_point(
     const Point& target,
-    const std::unordered_map<Point, MidPoint*>& map
+    const std::unordered_map<Point, std::shared_ptr<MidPoint>>& map
   );
   
   /**
@@ -273,6 +277,8 @@ public:
    * @return int         Updated maximum number of points for the path.
    */
   int reset_path(const std::vector<Cone>& cone_array);
+
+  const std::vector<std::pair<Point, Point>>& get_triangulations() const;
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_PATH_CALCULATION_HPP_

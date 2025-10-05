@@ -173,7 +173,7 @@ private:
    */
   void run_trackdrive();
 
-  void calculate_and_smooth_path() ;
+  void calculate_and_smooth_path();
 
   /**
    * @brief Calculates and publishes planning algorithm execution time
