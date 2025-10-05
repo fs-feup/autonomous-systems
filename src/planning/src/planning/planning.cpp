@@ -166,16 +166,12 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) 
 }
 
 void Planning::calculate_and_smooth_path() {
-  full_path_ = path_calculation_.no_coloring_planning(cone_array_);
-  past_path_ = path_calculation_.get_global_path();
+  full_path_ = path_calculation_.calculate_path(cone_array_);
   final_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
 }
 
 void Planning::run_ebs_test(){
-  full_path_ = path_calculation_.no_coloring_planning(cone_array_);
-  // Smooth the calculated path
-  final_path_ = path_smoothing_.smooth_path(full_path_, pose_,
-                                            initial_car_orientation_);
+  calculate_and_smooth_path();
     
   {
     double dist_from_origin = sqrt(pose_.position.x * pose_.position.x +
@@ -208,17 +204,14 @@ void Planning::run_trackdrive(){
           path_calculation_.calculate_trackdrive(cone_array_);
       final_path_ = path_smoothing_.smooth_path(full_path_, pose_,
                                                 initial_car_orientation_);
-      past_path_ = final_path_;
       velocity_planning_.trackdrive_velocity(final_path_);
       full_path_ = final_path_;
     } else {
       // Use the full path for the next laps
       final_path_ = full_path_;
-      past_path_ = full_path_;
     }
   } else if (lap_counter_ >= 10) {
     final_path_ = full_path_;
-    past_path_ = full_path_;
     velocity_planning_.stop(final_path_);
   }
 }
@@ -332,6 +325,6 @@ void Planning::publish_visualization_msgs() const {
   final_path_pub_->publish(common_lib::communication::line_marker_from_structure_array(
       final_path_, "smoothed_path_planning", map_frame_id_, 12, "green"));
   past_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      past_path_, "global_path", map_frame_id_, "blue", "cylinder", 0.8,
+      path_calculation_.get_global_path(), "global_path", map_frame_id_, "blue", "cylinder", 0.8,
       visualization_msgs::msg::Marker::MODIFY));
 }
