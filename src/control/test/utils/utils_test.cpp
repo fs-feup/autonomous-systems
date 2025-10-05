@@ -1,4 +1,4 @@
-#include "utils/utils.hpp"
+#include "control/include/utils/utils.hpp"
 
 #include <fstream>
 #include <sstream>
@@ -18,7 +18,7 @@ TEST(PointSolverTests, Test_update_closest_point_1) {
   ControlParameters params;
   params.pure_pursuit_lookahead_gain_ = 0.0;
   params.pure_pursuit_lookahead_minimum_ = 0.0;
-  params.pure_pursuit_first_last_max_dist_ = 0.0;
+  params.first_last_max_dist_ = 0.0;
   Position expected_point = Position(46.5, -12.37);
   int expected_id = 76;
 
@@ -34,20 +34,17 @@ TEST(PointSolverTests, Test_update_closest_point_1) {
  * @brief Test Point Solver - update_lookahead_point()
  */
 
-/*
 TEST(PointSolverTests, Test_update_lookahead_point_1) {
   auto pathpoint_array = create_path_msg("track1");
 
-  PointSolver point_solver_(1.5);
-  point_solver_.vehicle_pose_.rear_axis_ = Position(47.0, -13.0);
+  Position rear_axis_ = Position(47.0, -13.0);
   int closest_point_id = 76;
-  Position expected_point = Position(49.56, -9.30);
+  Position expected_point = Position(48.576, -10.447);
 
   auto [result_point, result_velocity, result_error] =
-      point_solver_.update_lookahead_point(pathpoint_array, closest_point_id);
+      get_lookahead_point(pathpoint_array, closest_point_id, 3.0, rear_axis_, 1.0);
 
   EXPECT_NEAR(result_point.x, expected_point.x, 0.01);
   EXPECT_NEAR(result_point.y, expected_point.y, 0.01);
   EXPECT_FALSE(result_error);
 }
-*/

@@ -6,7 +6,11 @@
 #include "control/include/config/parameters.hpp"
 #include "common_lib/structures/control_command.hpp"
 
-class BaseControlSolver {
+/**
+ * @brief Base class for control solvers, that calculate both lateral and longitudinal control commands
+ * 
+ */
+class ControlSolver {
 protected:
   std::shared_ptr<ControlParameters> params_;
 public:
@@ -18,18 +22,18 @@ public:
   /**
    * @brief Called when the car state (currently just velocity) is updated
    */
-  virtual void vehicle_state_callback(const custom_interfaces::msg::Velocities::SharedPtr msg) = 0;
+  virtual void vehicle_state_callback(const custom_interfaces::msg::Velocities& msg) = 0;
 
   /**
    * @brief Called when the car pose is updated by SLAM
    */
-  virtual void vehicle_pose_callback(const custom_interfaces::msg::Pose& vehicle_state_msg) = 0;
+  virtual void vehicle_pose_callback(const custom_interfaces::msg::Pose& msg) = 0;
 
   /**
    * @brief Returns the control command calculated by the solver
    */
   virtual common_lib::structures::ControlCommand get_control_command() = 0;
 
-  BaseControlSolver(const ControlParameters& params) : params_(std::make_shared<ControlParameters>(params)) {};
-  virtual ~BaseControlSolver() = default;
+  ControlSolver(const ControlParameters& params) : params_(std::make_shared<ControlParameters>(params)) {};
+  virtual ~ControlSolver() = default;
 };

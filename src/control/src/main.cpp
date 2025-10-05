@@ -1,10 +1,4 @@
-#include <memory>
-#include <string>
-
 #include "adapter/map.hpp"
-#include "config/parameters.hpp"
-#include "rclcpp/rclcpp.hpp"
-#include "ros_node/ros_node.hpp"
 
 int main(int argc, char* argv[]) {
   rclcpp::init(argc, argv);

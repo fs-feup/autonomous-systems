@@ -39,7 +39,9 @@ class PublishThread(threading.Thread):
         super(PublishThread, self).__init__()
         self.node = Node("car_keys")
         self.control_publisher = self.node.create_publisher(
-            custom_interfaces.msg._control_command.ControlCommand, "/as_msgs/controls", 10
+            custom_interfaces.msg._control_command.ControlCommand,
+            "/control/command",
+            10,
         )
         self.acceleration: float = 0.0
         self.steering_angle: float = 0.0
@@ -81,32 +83,34 @@ class PublishThread(threading.Thread):
         while not self.done:
             # Lock the condition and wait for notification
             self.condition.acquire()
-            
+
             # Wait for new command or timeout
             if not self.new_command:
-                self.condition.wait(timeout=1.0/self.rate)
-            
+                self.condition.wait(timeout=1.0 / self.rate)
+
             if self.done:
                 self.condition.release()
                 break
-                
+
             # Create and publish message
             message = custom_interfaces.msg._control_command.ControlCommand()
-            message.throttle = self.acceleration
+            message.throttle_rl = self.acceleration
+            message.throttle_rr = self.acceleration
             message.steering = self.steering_angle
-            
+
             # Release the condition and publish
             self.condition.release()
-            
+
             self.control_publisher.publish(message)
             self.new_command = False
-            
+
             # Sleep to maintain rate
-            time.sleep(1.0/self.rate)
+            time.sleep(1.0 / self.rate)
 
         # Publish stop message when thread exits
         message = custom_interfaces.msg._control_command.ControlCommand()
-        message.throttle = 0.0
+        message.throttle_rl = 0.0
+        message.throttle_rr = 0.0
         message.steering = 0.0
         self.control_publisher.publish(message)
 
@@ -127,14 +131,14 @@ def print_status(acceleration, steering):
     @brief Print current status without clearing the screen
     """
     # Move cursor to beginning of line and clear it
-    sys.stdout.write('\r')
-    sys.stdout.write(' ' * 80)  # Clear the line
-    sys.stdout.write('\r')
-    
+    sys.stdout.write("\r")
+    sys.stdout.write(" " * 80)  # Clear the line
+    sys.stdout.write("\r")
+
     # Print current status
     accel_bar = create_bar(acceleration, -1.0, 1.0, 20)
     steer_bar = create_bar(steering, -0.34, 0.34, 20)
-    
+
     status = f"Throttle: {acceleration:+.2f} {accel_bar} | Steering: {steering:+.2f} {steer_bar}"
     sys.stdout.write(status)
     sys.stdout.flush()
@@ -147,11 +151,11 @@ def create_bar(value, min_val, max_val, length):
     # Normalize value to 0-1 range
     normalized = (value - min_val) / (max_val - min_val)
     normalized = max(0, min(1, normalized))  # Clamp to 0-1
-    
+
     # Create bar
     filled = int(normalized * length)
-    bar = '█' * filled + '░' * (length - filled)
-    
+    bar = "█" * filled + "░" * (length - filled)
+
     return f"[{bar}]"
 
 
@@ -170,7 +174,7 @@ def main():
     pub_thread = PublishThread(50)  # 50 Hz publishing rate
     acceleration: float = 0.0
     steering: float = 0.0
-    
+
     # Print initial help and status
     print(help_msg)
     print("=" * 80)
@@ -180,9 +184,9 @@ def main():
         pub_thread.update(acceleration, steering)
         while True:
             key: str = str(get_key(settings, key_timeout))
-            
+
             command_changed = False
-            
+
             if key == "w":
                 acceleration += 0.05
                 acceleration = min(acceleration, 1.0)
@@ -203,7 +207,7 @@ def main():
                 break
             elif key == "\x03":  # Ctrl+C
                 break
-            
+
             if command_changed:
                 pub_thread.update(acceleration, steering)
                 print_status(acceleration, steering)

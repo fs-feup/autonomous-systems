@@ -6,7 +6,6 @@ from rclpy.node import Node
 from std_msgs.msg import Float64, Float64MultiArray
 from visualization_msgs.msg import Marker, MarkerArray
 from custom_interfaces.msg import (
-    EvaluatorControlData,
     PathPointArray,
     Velocities,
     ConeArray,
@@ -31,9 +30,6 @@ class DataInfrastructureNode(Node):
         self.shutdown = False
         self.get_logger().info("Subscribing the publishers.")
         # Control publishers
-        self.create_subscription(
-            EvaluatorControlData, "/control/evaluator_data", self.common_callback, 10
-        )
         self.create_subscription(
             Marker, "/control/visualization/closest_point", self.common_callback, 10
         )

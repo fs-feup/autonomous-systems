@@ -18,6 +18,9 @@ private:
 
 public:
   explicit EufsAdapter(const ControlParameters& params);
+  /**
+   * @brief Callback function for velocities and poses, which are coupled in EUFS.
+   */
   void vehicle_state_callback(const eufs_msgs::msg::CarState& msg);
-  void publish_cmd(double acceleration = 0, double steering = 0) override;
+  void publish_command(common_lib::structures::ControlCommand cmd) override;
 };

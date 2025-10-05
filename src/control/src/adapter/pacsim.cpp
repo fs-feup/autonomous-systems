@@ -1,8 +1,5 @@
 #include "adapter/pacsim.hpp"
 
-#include "custom_interfaces/msg/pose.hpp"
-#include "ros_node/ros_node.hpp"
-
 PacSimAdapter::PacSimAdapter(const ControlParameters& params)
     : ControlNode(params),
       steering_pub_(create_publisher<pacsim::msg::StampedScalar>("/pacsim/steering_setpoint", 10)),
@@ -34,23 +31,25 @@ void PacSimAdapter::_pacsim_gt_pose_callback(
   pose.x = msg.twist.twist.linear.x;
   pose.y = msg.twist.twist.linear.y;
 
-  RCLCPP_DEBUG(get_logger(), "Pose info. Position:%f, %f, Theta %f", pose.x, pose.y, pose.theta);
-  this->publish_control(pose);
+  this->vehicle_pose_callback(pose);
 }
 
 void PacSimAdapter::_pacsim_gt_velocities_callback(
     const geometry_msgs::msg::TwistWithCovarianceStamped& msg) {
-  velocity_ =
-      std::sqrt(std::pow(msg.twist.twist.linear.x, 2) + std::pow(msg.twist.twist.linear.y, 2));
-  RCLCPP_DEBUG(get_logger(), "Velocity set to: %lf", velocity_);
+  custom_interfaces::msg::Velocities vel_msg;
+  vel_msg.header.stamp = msg.header.stamp;
+  vel_msg.velocity_x = msg.twist.twist.linear.x;
+  vel_msg.velocity_y = msg.twist.twist.linear.y;
+  vel_msg.angular_velocity = msg.twist.twist.angular.z;
+  this->vehicle_state_callback(vel_msg);
 }
 
-void PacSimAdapter::publish_cmd(double acceleration, double steering) {
+void PacSimAdapter::publish_command(common_lib::structures::ControlCommand cmd) {
   auto steering_msg = pacsim::msg::StampedScalar();
   auto acceleration_msg = pacsim::msg::StampedScalar();
 
-  acceleration_msg.value = acceleration;
-  steering_msg.value = steering;
+  acceleration_msg.value = (cmd.throttle_rr + cmd.throttle_rl) / 2.0;
+  steering_msg.value = cmd.steering_angle;
 
   this->steering_pub_->publish(steering_msg);
   this->acceleration_pub_->publish(acceleration_msg);

@@ -1,4 +1,4 @@
-#include "pure_pursuit/pure_pursuit.hpp"
+#include "lateral_controller/pure_pursuit.hpp"
 
 #include <gtest/gtest.h>
 
@@ -18,8 +18,8 @@ protected:
 
   void SetUp() override {
     // LPF with alpha=1.0 means no filtering
-    params_.lpf_alpha_ = 1.0;
-    params_.lpf_initial_value_ = 0.0;
+    params_.pure_pursuit_lpf_alpha_ = 1.0;
+    params_.pure_pursuit_lpf_initial_value_ = 0.0;
     lat_controller_ = std::make_shared<PurePursuit>(params_);
   }
 };

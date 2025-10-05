@@ -15,6 +15,7 @@ from evaluator.formats import (
     format_path_point_array_msg,
     get_blue_and_yellow_cones_after_msg_treatment,
 )
+from math import sqrt
 
 
 class EufsAdapter(Adapter):
@@ -214,3 +215,14 @@ class EufsAdapter(Adapter):
         """
         self.node.get_logger().debug("Received groundtruth vehicle state")
         self.groundtruth_vehicle_state_ = vehicle_state
+        if self.node.use_simulated_se_:
+            self.node.position = [
+                vehicle_state.pose.pose.position.x,
+                vehicle_state.pose.pose.position.y,
+            ]
+
+        if self.node.use_simulated_velocities_:
+            self.node.absolute_velocity = sqrt(
+                vehicle_state.twist.twist.linear.x**2
+                + vehicle_state.twist.twist.linear.y**2
+            )

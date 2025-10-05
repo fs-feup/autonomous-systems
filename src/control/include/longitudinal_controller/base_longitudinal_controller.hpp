@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/velocities.hpp"
@@ -6,7 +7,11 @@
 #include "control/include/config/parameters.hpp"
 #include "common_lib/structures/control_command.hpp"
 
-class BaseLongitudinalController {
+/**
+ * @brief Base (abstract) class for longitudinal controllers (the ones that calculate throttle)
+ */
+class LongitudinalController {
+protected:
   std::shared_ptr<ControlParameters> params_;
 public:
   /**
@@ -17,18 +22,18 @@ public:
   /**
    * @brief Called when the car state (currently just velocity) is updated
    */
-  virtual void vehicle_state_callback(const custom_interfaces::msg::Velocities::SharedPtr msg) = 0;
+  virtual void vehicle_state_callback(const custom_interfaces::msg::Velocities& msg) = 0;
 
   /**
    * @brief Called when the car pose is updated by SLAM
    */
-  virtual void vehicle_pose_callback(const custom_interfaces::msg::Pose& vehicle_state_msg) = 0;
+  virtual void vehicle_pose_callback(const custom_interfaces::msg::Pose& msg) = 0;
 
   /**
    * @brief Returns the throttle command calculated by the solver (only throttle)
    */
   virtual common_lib::structures::ControlCommand get_throttle_command() = 0;
 
-  BaseLongitudinalController(const ControlParameters& params) : params_(std::make_shared<ControlParameters>(params)) {};
-  virtual ~BaseLongitudinalController() = default;
+  LongitudinalController(const ControlParameters& params) : params_(std::make_shared<ControlParameters>(params)) {};
+  virtual ~LongitudinalController() = default;
 };

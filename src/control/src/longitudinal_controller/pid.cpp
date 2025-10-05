@@ -1,12 +1,12 @@
-#include "pid/pid.hpp"
+#include "longitudinal_controller/pid.hpp"
 
-#include <rclcpp/rclcpp.hpp>
+using namespace common_lib::structures;
 
 /**
  * @brief Construct a new PID object
  *
  */
-PID::PID(const ControlParameters& params) : params_(std::make_shared<ControlParameters>(params)) {}
+PID::PID(const ControlParameters& params) : LongitudinalController(params) {}
 
 /**
  * @brief Calculate the output value
@@ -74,7 +74,6 @@ void PID::calculate_integral_term(double error) {
 
 void PID::anti_wind_up() {
   double curr_output = this->proportional_ + this->integrator_ + this->differentiator_;
-
   if (curr_output > this->params_->pid_lim_max_ || curr_output < this->params_->pid_lim_min_) {
     this->integrator_ = this->integrator_ * this->params_->pid_anti_windup_;
   }
@@ -97,4 +96,43 @@ void PID::compute_output() {
   }
 }
 
-PID::PID() = default;
+void PID::path_callback(const custom_interfaces::msg::PathPointArray& msg)  {
+  this->last_path_msg_ = msg.pathpoint_array;
+  this->received_first_path_ = true;
+}
+void PID::vehicle_state_callback(const custom_interfaces::msg::Velocities& msg)  {
+  this->last_velocity_msg_ = msg;
+  this->absolute_velocity_ = std::sqrt(msg.velocity_x * msg.velocity_x + msg.velocity_y * msg.velocity_y);
+  this->received_first_state_ = true;
+}
+void PID::vehicle_pose_callback(const custom_interfaces::msg::Pose& msg)  {
+  this->last_pose_msg_ = msg;
+  this->received_first_pose_ = true;
+}
+
+common_lib::structures::ControlCommand PID::get_throttle_command()  {
+  common_lib::structures::ControlCommand command;
+  if (!this->received_first_path_ || !this->received_first_state_ || !this->received_first_pose_) {
+    return command;
+  }
+
+  custom_interfaces::msg::PathPoint car_position;
+  car_position.x = this->last_pose_msg_.x;
+  car_position.y = this->last_pose_msg_.y;
+  car_position.v = this->absolute_velocity_;
+  this->last_path_msg_.insert(this->last_path_msg_.begin(), car_position);
+
+  Position vehicle_cog = Position(this->last_pose_msg_.x, this->last_pose_msg_.y);
+  Position rear_axis = rear_axis_position(vehicle_cog, this->last_pose_msg_.theta,
+      this->params_->car_parameters_.dist_cg_2_rear_axis);
+
+  auto [closest_point, closest_point_id, closest_point_velocity] =
+      get_closest_point(this->last_path_msg_, rear_axis);
+
+  if (closest_point_id == -1) {
+    return command;
+  }
+
+  command.throttle_rl = command.throttle_rr = update(closest_point_velocity, this->absolute_velocity_);
+  return command;
+}

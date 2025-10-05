@@ -2,12 +2,17 @@
 
 ControlParameters::ControlParameters(const ControlParameters &params) {
   car_parameters_ = params.car_parameters_;
+  control_solver_ = params.control_solver_;
+  lateral_controller_ = params.lateral_controller_;
+  longitudinal_controller_ = params.longitudinal_controller_;
   using_simulated_slam_ = params.using_simulated_slam_;
   using_simulated_velocities_ = params.using_simulated_velocities_;
   use_simulated_planning_ = params.use_simulated_planning_;
   pure_pursuit_lookahead_gain_ = params.pure_pursuit_lookahead_gain_;
   pure_pursuit_lookahead_minimum_ = params.pure_pursuit_lookahead_minimum_;
-  pure_pursuit_first_last_max_dist_ = params.pure_pursuit_first_last_max_dist_;
+  pure_pursuit_lpf_alpha_ = params.pure_pursuit_lpf_alpha_;
+  pure_pursuit_lpf_initial_value_ = params.pure_pursuit_lpf_initial_value_;
+  first_last_max_dist_ = params.first_last_max_dist_;
   pid_kp_ = params.pid_kp_;
   pid_ki_ = params.pid_ki_;
   pid_kd_ = params.pid_kd_;
@@ -18,8 +23,6 @@ ControlParameters::ControlParameters(const ControlParameters &params) {
   pid_anti_windup_ = params.pid_anti_windup_;
   pid_max_positive_error_ = params.pid_max_positive_error_;
   pid_max_negative_error_ = params.pid_max_negative_error_;
-  lpf_alpha_ = params.lpf_alpha_;
-  lpf_initial_value_ = params.lpf_initial_value_;
   map_frame_id_ = params.map_frame_id_;
   command_time_interval_ = params.command_time_interval_;
 }
@@ -27,12 +30,17 @@ ControlParameters::ControlParameters(const ControlParameters &params) {
 ControlParameters &ControlParameters::operator=(const ControlParameters &other) {
   if (this != &other) {
     car_parameters_ = other.car_parameters_;
+    control_solver_ = other.control_solver_;
+    lateral_controller_ = other.lateral_controller_;
+    longitudinal_controller_ = other.longitudinal_controller_;
     using_simulated_slam_ = other.using_simulated_slam_;
     using_simulated_velocities_ = other.using_simulated_velocities_;
     use_simulated_planning_ = other.use_simulated_planning_;
     pure_pursuit_lookahead_gain_ = other.pure_pursuit_lookahead_gain_;
     pure_pursuit_lookahead_minimum_ = other.pure_pursuit_lookahead_minimum_;
-    pure_pursuit_first_last_max_dist_ = other.pure_pursuit_first_last_max_dist_;
+    pure_pursuit_lpf_alpha_ = other.pure_pursuit_lpf_alpha_;
+    pure_pursuit_lpf_initial_value_ = other.pure_pursuit_lpf_initial_value_;
+    first_last_max_dist_ = other.first_last_max_dist_;
     pid_kp_ = other.pid_kp_;
     pid_ki_ = other.pid_ki_;
     pid_kd_ = other.pid_kd_;
@@ -43,8 +51,6 @@ ControlParameters &ControlParameters::operator=(const ControlParameters &other) 
     pid_anti_windup_ = other.pid_anti_windup_;
     pid_max_positive_error_ = other.pid_max_positive_error_;
     pid_max_negative_error_ = other.pid_max_negative_error_;
-    lpf_alpha_ = other.lpf_alpha_;
-    lpf_initial_value_ = other.lpf_initial_value_;
     map_frame_id_ = other.map_frame_id_;
     command_time_interval_ = other.command_time_interval_;
   }
@@ -74,9 +80,14 @@ std::string ControlParameters::load_config() {
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Control config contents: %s",
                YAML::Dump(control_config).c_str());
 
-  this->pure_pursuit_lookahead_gain_ = control_config["lookahead_gain"].as<double>();
-  this->pure_pursuit_lookahead_minimum_ = control_config["lookahead_minimum"].as<double>();
-  this->pure_pursuit_first_last_max_dist_ = control_config["first_last_max_dist"].as<double>();
+  this->control_solver_ = control_config["control_solver"].as<std::string>();
+  this->lateral_controller_ = control_config["lateral_controller"].as<std::string>();
+  this->longitudinal_controller_ = control_config["longitudinal_controller"].as<std::string>();
+  this->pure_pursuit_lookahead_gain_ = control_config["pure_pursuit_lookahead_gain"].as<double>();
+  this->pure_pursuit_lookahead_minimum_ = control_config["pure_pursuit_lookahead_minimum"].as<double>();
+  this->pure_pursuit_lpf_alpha_ = control_config["pure_pursuit_lpf_alpha"].as<double>();
+  this->pure_pursuit_lpf_initial_value_ = control_config["pure_pursuit_lpf_initial_value"].as<double>();
+  this->first_last_max_dist_ = control_config["first_last_max_dist"].as<double>();
   this->pid_kp_ = control_config["pid_kp"].as<double>();
   this->pid_ki_ = control_config["pid_ki"].as<double>();
   this->pid_kd_ = control_config["pid_kd"].as<double>();
@@ -88,8 +99,6 @@ std::string ControlParameters::load_config() {
   this->pid_max_positive_error_ = control_config["pid_max_positive_error"].as<double>();
   this->pid_max_negative_error_ = control_config["pid_max_negative_error"].as<double>();
   this->map_frame_id_ = adapter == "eufs" ? "base_footprint" : "map";
-  this->lpf_alpha_ = control_config["lpf_alpha"].as<double>();
-  this->lpf_initial_value_ = control_config["lpf_initial_value"].as<double>();
   this->command_time_interval_ = control_config["command_time_interval"].as<int>();
 
   return adapter;

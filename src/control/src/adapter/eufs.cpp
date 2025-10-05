@@ -1,8 +1,5 @@
 #include "adapter/eufs.hpp"
 
-#include "custom_interfaces/msg/pose.hpp"
-#include "ros_node/ros_node.hpp"
-
 EufsAdapter::EufsAdapter(const ControlParameters& params)
     : ControlNode(params),
       control_pub_(create_publisher<ackermann_msgs::msg::AckermannDriveStamped>("/cmd", 10)) {
@@ -31,15 +28,15 @@ void EufsAdapter::vehicle_state_callback(const eufs_msgs::msg::CarState& msg) {
                                   msg.pose.pose.orientation.y * msg.pose.pose.orientation.y -
                                   msg.pose.pose.orientation.z * msg.pose.pose.orientation.z);
 
-  publish_control(vehicle_state);
+  this->vehicle_pose_callback(vehicle_state);
 }
 
-void EufsAdapter::publish_cmd(double torque, double steering) {
+void EufsAdapter::publish_command(common_lib::structures::ControlCommand cmd) {
   auto control_msg = ackermann_msgs::msg::AckermannDriveStamped();
 
   // Maybe normalize values if needed??
-  control_msg.drive.acceleration = torque;
-  control_msg.drive.steering_angle = steering;
+  control_msg.drive.acceleration = (cmd.throttle_rr + cmd.throttle_rl) / 2.0;
+  control_msg.drive.steering_angle = cmd.steering_angle;
   // control_msg.drive.jerk and control_msg.drive.steering_angle_velocity
   // should maybe be filled as well based on PID
 

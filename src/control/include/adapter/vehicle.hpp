@@ -3,6 +3,7 @@
 #include "custom_interfaces/msg/control_command.hpp"
 #include "custom_interfaces/msg/operational_status.hpp"
 #include "ros_node/ros_node.hpp"
+#include "common_lib/competition_logic/mission_logic.hpp"
 
 /**
  * @brief Adapter for interfacing with the real vehicle hardware.
@@ -24,6 +25,6 @@ private:
 
 public:
   explicit VehicleAdapter(const ControlParameters &params);
-  void publish_cmd(double acceleration, double steering) override;
+  void publish_command(common_lib::structures::ControlCommand cmd) override;
   void go_signal_callback(const custom_interfaces::msg::OperationalStatus msg);
 };

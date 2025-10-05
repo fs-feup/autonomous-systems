@@ -6,7 +6,12 @@
 #include "control/include/config/parameters.hpp"
 #include "common_lib/structures/control_command.hpp"
 
-class BaseLateralController {
+/**
+ * @brief Base (abstract) class for lateral control solvers (that calculate steering command)
+ * 
+ */
+class LateralController {
+protected:
   std::shared_ptr<ControlParameters> params_;
 public:
   /**
@@ -17,18 +22,18 @@ public:
   /**
    * @brief Called when the car state (currently just velocity) is updated
    */
-  virtual void vehicle_state_callback(const custom_interfaces::msg::Velocities::SharedPtr msg) = 0;
+  virtual void vehicle_state_callback(const custom_interfaces::msg::Velocities& msg) = 0;
 
   /**
    * @brief Called when the car pose is updated by SLAM
    */
-  virtual void vehicle_pose_callback(const custom_interfaces::msg::Pose& vehicle_state_msg) = 0;
+  virtual void vehicle_pose_callback(const custom_interfaces::msg::Pose& msg) = 0;
 
   /**
    * @brief Returns the steering command calculated by the solver
    */
   virtual double get_steering_command() = 0;
 
-  BaseLateralController(const ControlParameters& params) : params_(std::make_shared<ControlParameters>(params)) {};
-  virtual ~BaseLateralController() = default;
+  LateralController(const ControlParameters& params) : params_(std::make_shared<ControlParameters>(params)) {};
+  virtual ~LateralController() = default;
 };

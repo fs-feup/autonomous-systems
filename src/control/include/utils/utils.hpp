@@ -10,8 +10,6 @@
 #include "control/include/config/parameters.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/pose.hpp"
-#include "custom_interfaces/msg/vehicle_state.hpp"
-#include "gtest/gtest.h"
 #include "utils/utils.hpp"
 #include "rclcpp/rclcpp.hpp"
 

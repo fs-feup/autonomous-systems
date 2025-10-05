@@ -1,23 +1,23 @@
 #include "adapter/vehicle.hpp"
 
-#include "common_lib/competition_logic/mission_logic.hpp"
-
 VehicleAdapter::VehicleAdapter(const ControlParameters& params)
     : ControlNode(params),
       go_sub_(create_subscription<custom_interfaces::msg::OperationalStatus>(
           "/vehicle/operational_status", 10,
           std::bind(&VehicleAdapter::go_signal_callback, this, std::placeholders::_1))),
       control_pub_(
-          create_publisher<custom_interfaces::msg::ControlCommand>("/as_msgs/controls", 10)) {
+          create_publisher<custom_interfaces::msg::ControlCommand>("/control/command", 10)) {
   RCLCPP_INFO(this->get_logger(), "Vehicle adapter created");
 }
 
-void VehicleAdapter::publish_cmd(double acceleration, double steering) {
+void VehicleAdapter::publish_command(common_lib::structures::ControlCommand cmd) {
   auto message = custom_interfaces::msg::ControlCommand();
 
-  // Convert values to range according to the units sent by AS
-  message.throttle_rr = acceleration;
-  message.steering = steering;
+  message.throttle_rr = cmd.throttle_rr;
+  message.throttle_rl = cmd.throttle_rl;
+  message.throttle_fr = cmd.throttle_fr;
+  message.throttle_fl = cmd.throttle_fl;
+  message.steering = cmd.steering_angle;
 
   this->control_pub_->publish(message);
 }

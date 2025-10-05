@@ -6,71 +6,76 @@
 #include <string>
 
 #include "config/parameters.hpp"
-#include "custom_interfaces/msg/cone_array.hpp"
-#include "custom_interfaces/msg/evaluator_control_data.hpp"
 #include "custom_interfaces/msg/operational_status.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/pose.hpp"
-#include "custom_interfaces/msg/vehicle_state.hpp"
 #include "custom_interfaces/msg/velocities.hpp"
-#include "pid/pid.hpp"
 #include "utils/utils.hpp"
-#include "pure_pursuit/pure_pursuit.hpp"
 #include "rclcpp/rclcpp.hpp"
-#include "std_msgs/msg/string.hpp"
-#include "visualization_msgs/msg/marker.hpp"
+#include "control_solver/map.hpp"
+#include "std_msgs/msg/float64_multi_array.hpp"
+
 
 /**
- * @class Control
- * @brief Class responsible for the control of the car
+ * @class ControlNode
+ * @brief Class responsible for the ROS2 communication of the control module
  *
- * This class inherits from rclcpp::Node, subscribing to current velocity
- * and ideal path topics, and publishing torque (or other output to the actuators).
+ * This class inherits from rclcpp::Node, subscribing to current state (velocity), pose
+ * and path topics, and publishing a control command.
  */
 class ControlNode : public rclcpp::Node {
-public:
+protected:
   bool go_signal_{false};
-  float velocity_{0.0};
-  double throttle_command_{0.0};
-  double steering_command_{0.0};
-  double vehicle_orientation_{0.0};
   ControlParameters params_;
 
-  explicit ControlNode(const ControlParameters &params);
+  /**
+   * @brief Called when a new vehicle pose is received
+   * @param msg The received pose message
+   */
+  void vehicle_pose_callback(const custom_interfaces::msg::Pose &msg);
 
   /**
-   * @brief Publishes the steering angle to the car based on the path and pose using cache
-   *
+   * @brief Called when a new path is received
+   * @param msg The received path message
    */
-  void publish_control(const custom_interfaces::msg::Pose &vehicle_state_msg);
+  void path_callback(const custom_interfaces::msg::PathPointArray &msg);
 
+  /**
+   * @brief Called when a new velocity is received
+   * @param msg The received velocity message
+   */
+  void vehicle_state_callback(const custom_interfaces::msg::Velocities &msg);
 private:
-  // Evaluator Publisher
-  rclcpp::Publisher<custom_interfaces::msg::EvaluatorControlData>::SharedPtr evaluator_data_pub_;
+  // Vector of execution times for different parts of the control loop 
+  // Currently just the first element is used, which is the total execution time
+  std::shared_ptr<std::vector<double>> _execution_times_;
 
-  // General Subscribers
-  rclcpp::Subscription<custom_interfaces::msg::Pose>::SharedPtr vehicle_pose_sub_;
-  rclcpp::Subscription<custom_interfaces::msg::Velocities>::SharedPtr velocity_sub_;
-  rclcpp::Subscription<custom_interfaces::msg::PathPointArray>::SharedPtr path_point_array_sub_;
+  // Control solver (lateral + longitudinal)
+  std::shared_ptr<ControlSolver> control_solver_;
 
-  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr closest_point_pub_;
-  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr lookahead_point_pub_;
+  // Publishers
+  rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr execution_time_pub_;
 
+  // Timers
   rclcpp::TimerBase::SharedPtr control_timer_;
 
+  // Subscriptions
+  rclcpp::Subscription<custom_interfaces::msg::PathPointArray>::SharedPtr path_point_array_sub_;
+  rclcpp::Subscription<custom_interfaces::msg::Pose>::SharedPtr vehicle_pose_sub_;
+  rclcpp::Subscription<custom_interfaces::msg::Velocities>::SharedPtr velocity_sub_;
+
+  /**
+   * @brief Function that publishes control commands on timer ticks
+   */
   void control_timer_callback();
 
-  std::vector<custom_interfaces::msg::PathPoint> pathpoint_array_{};
-  PID long_controller_;
-  PurePursuit lat_controller_; /**< Lateral Controller*/
+  /**
+   * @brief Adapters override this function to publish control commands in
+   * their environment
+   * @param cmd Control command to be published
+   */
+  virtual void publish_command(common_lib::structures::ControlCommand cmd) = 0;
 
-  void publish_evaluator_data(common_lib::structures::Position rear_axis, double lookahead_velocity,
-                              common_lib::structures::Position lookahead_point,
-                              common_lib::structures::Position closest_point,
-                              double closest_point_velocity, double execution_time) const;
-
-  virtual void publish_cmd(double acceleration, double steering) = 0;
-
-  void publish_visualization_data(const common_lib::structures::Position &lookahead_point,
-                                  const common_lib::structures::Position &closest_point) const;
+public:
+  explicit ControlNode(const ControlParameters &params);
 };

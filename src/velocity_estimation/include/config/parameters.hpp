@@ -11,7 +11,7 @@
 
 struct VEParameters {
   std::string _estimation_method_;  // Used to choose between different velocity estimation methods
-  std::string _ve_observation_model_name_;  // Used to choose between different S2V models
+  std::string _ve_observation_model_name_;  // Used to choose between different velocity estimation observation models
   std::string _process_model_name_;         // Used to choose between different process models
   double imu_acceleration_noise_;  // Noise to be added to the IMU acceleration measurements
   double imu_rotational_noise_;    // Noise to be added to the IMU rotational velocity measurements

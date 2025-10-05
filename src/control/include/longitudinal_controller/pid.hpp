@@ -1,8 +1,10 @@
 #pragma once
-#include <memory>
 
-#include "control/include/config/parameters.hpp"
+#include "base_longitudinal_controller.hpp"
+#include "common_lib/structures/position.hpp"
+#include "utils/utils.hpp"
 #include "gtest/gtest.h"
+#include <rclcpp/rclcpp.hpp>
 
 /**
  * @brief PI-D Controller class
@@ -13,9 +15,16 @@
  * feedback signal (measurement).
  *
  */
-class PID {
+class PID : public LongitudinalController {
 private:
-  std::shared_ptr<ControlParameters> params_;
+  std::vector<custom_interfaces::msg::PathPoint> last_path_msg_;
+  custom_interfaces::msg::Velocities last_velocity_msg_;
+  custom_interfaces::msg::Pose last_pose_msg_;
+  double absolute_velocity_ = 0.0;
+
+  bool received_first_path_ = false;
+  bool received_first_state_ = false;
+  bool received_first_pose_ = false;
 
   double proportional_{0.0f};   /**< Proportional term current value */
   double integrator_{0.0f};     /**< Integrator term current value */
@@ -66,6 +75,15 @@ private:
    */
   void compute_output();
 
+  /**
+   * @brief Calculate the output value
+   *
+   * @param setpoint goal value
+   * @param measurement current value
+   * @return double
+   */
+  double update(double setpoint, double measurement);
+
 public:
   /**
    * @brief Construct a new PID object
@@ -73,19 +91,10 @@ public:
    */
   PID(const ControlParameters &params);
 
-  /**
-   * @brief PID default constructor
-   */
-  PID();
-
-  /**
-   * @brief Calculate the output value
-   *
-   * @param setpoint
-   * @param measurement
-   * @return double
-   */
-  double update(double setpoint, double measurement);
+  void path_callback(const custom_interfaces::msg::PathPointArray& msg) override;
+  void vehicle_state_callback(const custom_interfaces::msg::Velocities& msg) override;
+  void vehicle_pose_callback(const custom_interfaces::msg::Pose& msg) override;
+  common_lib::structures::ControlCommand get_throttle_command() override;
 
   FRIEND_TEST(PidTests, TestAntiWindUp1);
   FRIEND_TEST(PidTests, TestAntiWindUp2);

@@ -11,7 +11,7 @@ struct ControlCommand {
 
   ControlCommand() = default;
   ControlCommand(double throttle_fl, double throttle_fr, double throttle_rl, double throttle_rr, double steering_angle)
-      : steering_angle(steering_angle), throttle_fl(throttle_fl), throttle_fr(throttle_fr), throttle_rl(throttle_rl), throttle_rr(throttle_rr) {}
+      : throttle_fl(throttle_fl), throttle_fr(throttle_fr), throttle_rl(throttle_rl), throttle_rr(throttle_rr), steering_angle(steering_angle) {}
 };
 
 }  // namespace common_lib::structures

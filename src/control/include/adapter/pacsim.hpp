@@ -26,14 +26,14 @@ public:
   explicit PacSimAdapter(const ControlParameters &params);
 
   /**
-   * @brief Callback for the pacsim ground truth pose topic
+   * @brief Callback for the pacsim ground truth pose topic, used when using simulated SLAM
    */
   void _pacsim_gt_pose_callback(const geometry_msgs::msg::TwistWithCovarianceStamped &msg);
 
   /**
-   * @brief Callback for the pacsim ground truth velocity topic
+   * @brief Callback for the pacsim ground truth velocity topic, used when using simulated velocity estimation
    */
   void _pacsim_gt_velocities_callback(const geometry_msgs::msg::TwistWithCovarianceStamped &msg);
 
-  void publish_cmd(double acceleration = 0, double steering = 0) override;
+  void publish_command(common_lib::structures::ControlCommand cmd) override;
 };

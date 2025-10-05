@@ -4,29 +4,21 @@
 
 ### Description
 
-The Control node uses Planning (pathpoints with expected velocity values) and State Estimation (current vehicle pose) data to effectively calculate longitudinal (torque) and lateral values (steering angle) using PID and Pure Pursuit controllers, respectively. 
+The Control node uses Planning (pathpoints with expected velocity values) and State Estimation (current vehicle pose and velocity) data to calculate longitudinal (throttle) and lateral (steering angle) controls. 
 
 
 ### Folder Structure
 
-- [adapter_control](./include/adapter_control/): Adapters to change ros2 interfaces according to simulator or environment
-- [node_](./include/node_/): Node class and main control class
-- [pid](./include/pid/): PI-D controller class, used for longitudinal control
-- [point_solver](./include/point_solver/): Point Solver class, used to calculate the reference point for the Pure Pursuit controller and the PID controller
-- [pure_pursuit](./include/pure_pursuit/): Pure Pursuit controller class, used for lateral control
-
-
-
-### Launch Configurations
-
-- [eufs.launch.py](./launch/eufs.launch.py): Launch file for the EUFS simulator
-- [pacsim.launch.py](./launch/pacsim.launch.py): Launch file for the PacSim simulator
-- [vehicle.launch.py](./launch/vehicle.launch.py): Launch file for the 01 vehicle
+- [adapter](./include/adapter/): Adapters to change ros2 interfaces according to simulator or environment
+- [config](./include/config/): Parameters struct definition, which will be read from the [config](../../config/control/) folder
+- [control_solver](./include/control_solver/): algorithms that calculate both lateral and longitudinal controls (full control solvers)
+- [lateral_controller](./include/lateral_controller/): algorithms that calculate lateral control only (steering angle)
+- [longitudinal_controller](./include/longitudinal_controller/): algorithms that calculate longitudinal control only (throttle)
+- [ros_node](./include/ros_node/): ROS2 Node class
+- [utils](./include/utils/): helper functions used in the other folders
 
 
 ### Important Dependencies
-
-
 
 ## How to Run
 
@@ -54,24 +46,28 @@ colcon test-result --all --verbose
 ```
 ### Running
 
-Run with ros2 launch. You may select custom parameters for testing such as simulated state estimation or the mocker node. Check the [launch file](./launch/control.launch.py) for more details. Example:
+Run with ros2 launch. Example:
 
 ```sh
 source ./install/setup.bash # If in a new terminal
-ros2 launch control control.launch.py 'adapter:=pacsim' 'use_simulated_se:=true' 'mocker_node:=true'
+ros2 launch control control.launch.py
 ```
-Using simulated state estimation allows you to independently test control without using the state estimation module, by using information directly from the simulator. The mocker node allows for the same thing but for planning, by using a hand-picked pathpoint array. The lookahead_gain is for tuning purposes.
+
+To configure the node's inputs and environment, use the [global config file](../../config/global/global_config.yaml). Using simulated state estimation (use_simulated_se) allows you to independently test control without using the pose estimate from the state estimation module, by using information directly from the simulator. The mocker node allows for the same thing but for planning (use_simulated_planning), by using a hand-picked pathpoint array. To do the same thing for velocities use use_simulated_velocities. To run the node in different environments, use the adapter parameter.
+
+To tune the node's parameters, use the [control node's config file](../../config/control/) for the environment you're using.
 
 ## Design
 The following class diagram illustrates the structure of the Control package:
 
-![Class Diagram](../../docs/assets/Control/controlClassDiagram.jpg)
-We have the following classes:    
-* Control: The node itself and the main class that initializes the other classes and runs the control callback.
-* PSolver: The class that receives Planning information and calculates the reference for the controllers.
-* PID: The class that implements the PID controller, for Longitudinal Control.
-* PP: The class that implements the Pure Pursuit controller, for Lateral Control.
-* Adapter: Provides an interface to correctly subscribe/publish, as well as parse and normalize values as needed by the different simulators we use.
+![Class Diagram](../../docs/assets/Control/control_class_diagram.drawio.png)
 
-The actions taken when the node gets spinning are the following:
-![Sequence Diagram](../../docs/assets/Control/ControlSequenceDiagram.drawio.png)
+We have the following classes:    
+* ControlNode: The node abstract class itself, from which adapters inherit. This is the main class that initializes the other classes and interacts with ROS2.
+* Adapters: Provide an interface to correctly subscribe/publish, as well as parse and normalize values as needed by the different simulators we use and for the actual vehicle.
+* ControlSolver: The generic controller, from which other full controllers must inherit.
+* DecoupledController: The generic decoupled controller, i.e. the lateral and longitudinal controllers work independently of each other.
+* LateralController: The generic lateral controller, from which other lateral controllers must inherit.
+* LongitudinalController: The generic longitudinal controller, from which other longitudinal controllers must inherit.
+* PID: The class that implements the PID controller, for Longitudinal Control.
+* PurePursuit: The class that implements the Pure Pursuit controller, for Lateral Control.
