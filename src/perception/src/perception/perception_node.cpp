@@ -107,14 +107,16 @@ PerceptionParameters Perception::load_config() {
   double ransac_epsilon = perception_config["ransac_epsilon"].as<double>();
   int ransac_iterations = perception_config["ransac_iterations"].as<int>();
   double plane_angle_diff = perception_config["plane_angle_diff"].as<double>();
+  double himmelsbach_max_slope = perception_config["himmelsbach_max_slope"].as<double>();
+  double himmelsbach_epsilon = perception_config["himmelsbach_epsilon"].as<double>();
 
   if (ground_removal_algorithm == "ransac") {
     params.ground_removal_ = std::make_shared<RANSAC>(ransac_epsilon, ransac_iterations);
   } else if (ground_removal_algorithm == "grid_ransac") {
     params.ground_removal_ = std::make_shared<GridRANSAC>(ransac_epsilon, ransac_iterations);
   } else if (ground_removal_algorithm == "himmelsbach") {
-    double max_slope = perception_config["himmelsbach_max_slope"].as<double>();
-    params.ground_removal_ = std::make_shared<Himmelsbach>(max_slope);
+    params.ground_removal_ =
+        std::make_shared<Himmelsbach>(himmelsbach_max_slope, himmelsbach_epsilon);
   } else if (ground_removal_algorithm == "constrained_ransac") {
     params.ground_removal_ =
         std::make_shared<ConstrainedRANSAC>(ransac_epsilon, ransac_iterations, plane_angle_diff);
@@ -272,6 +274,7 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   RCLCPP_INFO(this->get_logger(), "Time to convert ROS to PCL: %f ms",
               (end_time_1 - start_time_1).seconds() * 1000);
 
+  /*
   // Write point data to file for debugging in perception package root
   static int frame_count = 0;
   std::string filename =
@@ -304,14 +307,21 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
     RCLCPP_INFO(this->get_logger(),
                 "Debug CSV writing complete. Files saved in perception package root.");
   }
+ */
 
   // Pass-trough Filter (trim Pcl)
   const SplitParameters split_params = _fov_trim_map_->at(_mission_type_)->fov_trimming(pcl_cloud);
+
+  rclcpp::Time start_time_2 = this->now();
 
   // Ground Removal
   pcl::PointCloud<PointXYZIR>::Ptr ground_removed_cloud =
       std::make_shared<pcl::PointCloud<PointXYZIR>>();
   _ground_removal_->ground_removal(pcl_cloud, ground_removed_cloud, _ground_plane_, split_params);
+
+  rclcpp::Time end_time_2 = this->now();
+  RCLCPP_INFO(this->get_logger(), "Time for Ground Removal: %f ms",
+              (end_time_2 - start_time_2).seconds() * 1000);
 
   this->_deskew_->deskew_point_cloud(ground_removed_cloud, this->_vehicle_velocity_);
 

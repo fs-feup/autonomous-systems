@@ -1,12 +1,22 @@
 #pragma once
 #include "ground_removal/ground_removal.hpp"
 
+int constexpr NUM_RINGS = 40;
+
 struct Ring {
-  std::vector<int> indices;
+  // Each pair contains the index of the point in the original point cloud and a boolean indicating
+  // whether it is ground or not
+  std::vector<std::pair<int, bool>> indices;
+  int indices_min_height_idx =
+      -1;  // Index in indices vector of the point with minimum height in the ring
+
+  Ring() = default;
 };
 
 struct Slice {
-  std::vector<Ring> rings;
+  std::vector<Ring> rings{NUM_RINGS};
+
+  Slice() = default;
 };
 
 /**
@@ -21,8 +31,9 @@ public:
   /**
    * @brief Constructor for the Himmelsbach ground removal algorithm.
    * @param max_slope
+   * @param epsilon
    */
-  Himmelsbach(const double max_slope);
+  Himmelsbach(const double max_slope, const double epsilon);
 
   /**
    * @brief Default constructor.
@@ -46,8 +57,12 @@ public:
 
 private:
   double max_slope;  ///< Maximum slope for Himmelsbach algorithm.
+  double epsilon;    ///< Maximum distance from a ground point to still be considered ground
 
   void split_point_cloud(const pcl::PointCloud<PointXYZIR>::Ptr& cloud,
                          std::vector<Slice>& splited_cloud,
                          const SplitParameters split_params) const;
+
+  void process_slice(const pcl::PointCloud<PointXYZIR>::Ptr& cloud, Slice& slice,
+                     const float ground_height_reference) const;
 };

@@ -1,35 +1,55 @@
 #include "ground_removal/himmelsbach.hpp"
 
-Himmelsbach::Himmelsbach(const double max_slope) : max_slope(max_slope) {}
+Himmelsbach::Himmelsbach(const double max_slope, const double epsilon)
+    : max_slope(max_slope), epsilon(epsilon) {}
 
 void Himmelsbach::ground_removal(const pcl::PointCloud<PointXYZIR>::Ptr point_cloud,
                                  const pcl::PointCloud<PointXYZIR>::Ptr ret, Plane& plane,
                                  [[maybe_unused]] const SplitParameters split_params) const {
   // Slip the point cloud into slices, each slice contains several rings
-  // std::vector<Slice> splited_cloud;
-  // split_point_cloud(point_cloud, splited_cloud, split_params);
+  int n_slices =
+      static_cast<int>(std::ceil(split_params.fov_angle / split_params.angle_resolution));
+  std::vector<Slice> splited_cloud{static_cast<size_t>(n_slices)};
+  split_point_cloud(point_cloud, splited_cloud, split_params);
 
-  // for (int i = 0; i < static_cast<int>(splited_cloud.size()); ++i) {
-  //   for (int j = 0; j < static_cast<int>(splited_cloud[i].rings.size()); ++j) {
-  //     RCLCPP_INFO(rclcpp::get_logger("Himmelsbach"), "Slice %d, Ring %d, Number of points: %d",
-  //     i,
-  //                 j, static_cast<int>(splited_cloud[i].rings[j].indices.size()));
-  //   }
-  // }
-
-  ret->points.clear();
-  ret->width = 0;
-  ret->height = 1;
-  ret->is_dense = true;
-
-  int n = 30000;
-  for (auto point : point_cloud->points) {
-    if (n >= 0) {
-      ret->points.push_back(point);
-      ret->width++;
-      n--;
+  // Use the middle slice as reference to determine ground height
+  float ground_height_reference = 0.0f;
+  int mid_slice_index = static_cast<int>(n_slices / 2);
+  // Find the closest ring that contains points
+  for (int i = NUM_RINGS - 1; i >= 0; i--) {
+    int min_height_index = splited_cloud[mid_slice_index].rings[i].indices_min_height_idx;
+    if (min_height_index != -1) {
+      ground_height_reference =
+          point_cloud
+              ->points[splited_cloud[mid_slice_index].rings[i].indices[min_height_index].first]
+              .z;
+      break;
     }
   }
+
+  for (auto& slice : splited_cloud) {
+    process_slice(point_cloud, slice, ground_height_reference);
+  }
+
+  ret->points.clear();
+  ret->height = 1;
+  ret->width = 0;
+  ret->is_dense = false;
+
+  for (int i = 0; i < static_cast<int>(splited_cloud.size()); ++i) {
+    for (int j = 0; j < static_cast<int>(splited_cloud[i].rings.size()); ++j) {
+      for (int k = 0; k < static_cast<int>(splited_cloud[i].rings[j].indices.size()); ++k) {
+        int index = splited_cloud[i].rings[j].indices[k].first;
+        bool is_ground = splited_cloud[i].rings[j].indices[k].second;
+        if (!is_ground) {
+          ret->points.push_back(point_cloud->points[index]);
+          ret->width++;
+        }
+      }
+    }
+  }
+
+  plane = Plane(1, 1, 1, 1);
 }
 
 void Himmelsbach::split_point_cloud(const pcl::PointCloud<PointXYZIR>::Ptr& cloud,
@@ -39,45 +59,100 @@ void Himmelsbach::split_point_cloud(const pcl::PointCloud<PointXYZIR>::Ptr& clou
       static_cast<int>(std::ceil(split_params.fov_angle / split_params.angle_resolution));
   int n_points_per_ring = static_cast<int>(
       std::ceil(split_params.angle_resolution / split_params.lidar_horizontal_resolution));
-  splited_cloud.resize(n_slices);
-
-  for (auto& slice : splited_cloud) {
-    slice.rings.resize(40);  // max rings
-    for (auto& ring : slice.rings) {
-      ring.indices.reserve(n_points_per_ring);
-    }
-  }
-
   int slice_idx = 0;
   int prev_ring = -1;
   int lines_for_next_slice = n_points_per_ring;
   int slice_count = 0;
 
+  // For each point in the cloud assign to its corresponding slice and ring
   for (int i = 0; i < static_cast<int>(cloud->points.size()); ++i) {
     const auto& pt = cloud->points[i];
-    splited_cloud[slice_idx].rings[pt.ring].indices.push_back(i);
+    // Mark every point as non-ground initially
+    splited_cloud[slice_idx].rings[pt.ring].indices.push_back(std::make_pair(i, false));
     slice_count++;
 
-    if (pt.ring == 32) {
-      // RCLCPP_INFO(rclcpp::get_logger("Himmelsbach"),
-      //            "Point: ring %d, slice %d, lines for next slice %d, remaining points: %d",
-      //            pt.ring, slice_idx, lines_for_next_slice,
-      //            static_cast<int>(cloud->points.size()) - i);
+    int idx_in_ring = static_cast<int>(splited_cloud[slice_idx].rings[pt.ring].indices.size()) - 1;
+    // Update min height index per ring
+    if (splited_cloud[slice_idx].rings[pt.ring].indices_min_height_idx == -1) {
+      splited_cloud[slice_idx].rings[pt.ring].indices_min_height_idx = idx_in_ring;
+    } else if (pt.z <
+               cloud->points[splited_cloud[slice_idx].rings[pt.ring].indices_min_height_idx].z) {
+      splited_cloud[slice_idx].rings[pt.ring].indices_min_height_idx = idx_in_ring;
     }
+
+    // If the current ring if smaller than the previous ring, we are in a new vertical line of lidar
+    // points
     if (pt.ring < prev_ring) {
       lines_for_next_slice--;
     }
 
+    // Processed all vertical lines of the current slice, go to the next slice
     if (lines_for_next_slice <= 0) {
       slice_idx++;
       slice_count = 0;
       lines_for_next_slice = n_points_per_ring;
       if (slice_idx >= n_slices) {
-        // RCLCPP_INFO(rclcpp::get_logger("Himmelsbach"),
-        //            "All slices done------------------------------------------.");
+        RCLCPP_ERROR(rclcpp::get_logger("Himmelsbach"),
+                     "Still missing points and all slices were occupied");
         break;  // stop if done
       }
     }
     prev_ring = pt.ring;
+  }
+}
+
+void Himmelsbach::process_slice(const pcl::PointCloud<PointXYZIR>::Ptr& cloud, Slice& slice,
+                                const float ground_height_reference) const {
+  bool first_ring = true;
+  long previous_ground_point_index = -1;
+  for (int i = NUM_RINGS - 1; i >= 0; i--) {
+    if (slice.rings[i].indices.empty()) {
+      continue;  // Skip empty rings
+    }
+
+    // Idx in the indices vector of the lowest point in the ring
+    int min_height_idx = slice.rings[i].indices_min_height_idx;
+    // Point index in the original point cloud of the lowest point in the ring
+    long min_height_pt_idx = slice.rings[i].indices[min_height_idx].first;
+
+    if (first_ring) {
+      // If the lowest point in the first ring is close enough to the ground height reference, mark
+      // it as ground
+      if (std::abs(cloud->points[min_height_pt_idx].z - ground_height_reference) < epsilon) {
+        slice.rings[i].indices[min_height_idx].second = true;  // Mark as ground
+        previous_ground_point_index = min_height_pt_idx;
+        first_ring = false;
+      } else {
+        continue;  // If not close enough, skip this ring
+      }
+    } else {
+      // For subsequent rings, check the slope between the lowest point and the previous ground
+      // point
+      float dz = cloud->points[min_height_pt_idx].z - cloud->points[previous_ground_point_index].z;
+      float dr = std::hypot(
+          cloud->points[min_height_pt_idx].x - cloud->points[previous_ground_point_index].x,
+          cloud->points[min_height_pt_idx].y - cloud->points[previous_ground_point_index].y);
+
+      float slope = std::abs(dz / dr);
+
+      if (slope < max_slope) {
+        slice.rings[i].indices[min_height_idx].second = true;  // Mark as ground
+        previous_ground_point_index = min_height_pt_idx;
+      } else {
+        // If the slope is too steep, do not mark any more points in this ring as ground
+        continue;
+      }
+    }
+
+    // Optionally, mark additional points in the ring as ground if they are close enough in height
+    for (int j = 0; j < static_cast<int>(slice.rings[i].indices.size()); j++) {
+      long index = slice.rings[i].indices[j].first;
+      if (index == min_height_idx) {
+        continue;  // Skip the already marked lowest point
+      }
+      if (std::abs(cloud->points[index].z - cloud->points[min_height_pt_idx].z) < epsilon) {
+        slice.rings[i].indices[j].second = true;  // Mark as ground
+      }
+    }
   }
 }
