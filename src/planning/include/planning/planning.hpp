@@ -25,6 +25,7 @@
 #include "planning/path_calculation.hpp"
 #include "planning/smoothing.hpp"
 #include "planning/velocity_planning.hpp"
+#include "planning/skidpad.hpp"
 #include "rcl_interfaces/srv/get_parameters.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "std_msgs/msg/float64.hpp"
@@ -55,6 +56,7 @@ private:
   PathCalculation path_calculation_;
   PathSmoothing path_smoothing_;
   VelocityPlanning velocity_planning_;
+  Skidpad skidpad_;
   double desired_velocity_;
   double initial_car_orientation_;
   int lap_counter_ = 0;
@@ -66,9 +68,6 @@ private:
   std::vector<PathPoint> full_path_ = {};
   /**< Vector of path points representing the final smoothed path used for planning. */
   std::vector<PathPoint> final_path_ = {}; 
-  /**< Vector of path points representing the past portion of the path 
-   *  (from the start to a lookback distance behind the car’s current position) */
-  std::vector<PathPoint> past_path_ = {};
 
   // For Trackdrive
   bool has_found_full_path_ = false;      // for Trackdrive

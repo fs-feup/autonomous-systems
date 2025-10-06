@@ -6,6 +6,7 @@
 #include "simulation_config.hpp"
 #include "smoothing_config.hpp"
 #include "velocity_config.hpp"
+#include "skidpad_config.hpp"
 #include <string>
 
 struct PlanningParameters {
@@ -57,6 +58,7 @@ struct PlanningConfig {
   PathSmoothingConfig smoothing_;
   SimulationConfig simulation_;
   VelocityPlanningConfig velocity_planning_;
+  SkidpadConfig skidpad_;
 
   PlanningConfig() = default;
   explicit PlanningConfig(const PlanningParameters &params) {
@@ -76,12 +78,12 @@ struct PlanningConfig {
     path_calculation_.lookback_points_ = params.nc_lookback_points_;
     path_calculation_.tolerance_ = params.nc_tolerance_;
     path_calculation_.reset_global_path_ = params.nc_reset_global_path_;
-    path_calculation_.skidpad_tolerance_ = params.skidpad_tolerance_;
-    path_calculation_.skidpad_minimum_cones_ = params.skidpad_minimum_cones_;
     path_calculation_.maximum_cone_distance_ = params.maximum_cone_distance_;
     path_calculation_.use_sliding_window_ = params.use_sliding_window_;
     path_calculation_.sliding_window_radius_ = params.sliding_window_radius_;
 
+    skidpad_.skidpad_minimum_cones_ = params.skidpad_minimum_cones_;
+    skidpad_.skidpad_tolerance_ = params.skidpad_tolerance_;
 
     smoothing_.order_ = params.smoothing_spline_order_;
     smoothing_.precision_ = params.smoothing_spline_precision_;

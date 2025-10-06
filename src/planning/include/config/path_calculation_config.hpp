@@ -14,13 +14,11 @@ struct PathCalculationConfig {
   double angle_exponent_ = 3.0;
   double distance_exponent_ = 1.0;
   double tolerance_ = 1.0;
-  double skidpad_tolerance_ = 1.0;
   double max_cost_ = 30.0;
   int lookback_points_ = 20;
   int search_depth_ = 2;
   int max_points_ = 50;
   int reset_global_path_ = 10;
-  int skidpad_minimum_cones_ = 10.0;
   double sliding_window_radius_ = 20.0;
   bool use_sliding_window_ = true;
 

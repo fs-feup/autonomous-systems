@@ -75,6 +75,7 @@ Planning::Planning(const PlanningParameters &params)
   path_calculation_ = PathCalculation(planning_config_.path_calculation_);
   path_smoothing_ = PathSmoothing(planning_config_.smoothing_);
   velocity_planning_ = VelocityPlanning(planning_config_.velocity_planning_);
+  skidpad_ = Skidpad(planning_config_.skidpad_);
 
   param_client_ =
       create_client<rcl_interfaces::srv::GetParameters>("/pacsim/pacsim_node/get_parameters");
@@ -246,7 +247,7 @@ void Planning::run_planning_algorithms() {
       RCLCPP_ERROR(get_logger(), "Mission is NONE, cannot run planning algorithms.");
       return;
     case Mission::SKIDPAD:
-      final_path_ = path_calculation_.skidpad_path(cone_array_, pose_);
+      final_path_ = skidpad_.skidpad_path(cone_array_, pose_);
       break;
 
     case Mission::ACCELERATION:

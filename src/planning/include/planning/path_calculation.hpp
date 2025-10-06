@@ -50,7 +50,7 @@ class PathCalculation {
 private:
   std::vector<PathPoint> predefined_path_;
   std::vector<Point> past_path_;
-  int path_update_counter_ = 0;
+  int reset_path_counter_ = 0;
   std::vector<Point> path_to_car;
 
   // SKIDPAD
@@ -76,19 +76,32 @@ private:
   std::unordered_set<std::shared_ptr<Cone>> discarded_cones_;
 
   /**
-   * @brief Recursively finds the best next point in the path using depth-first search
+   * @brief Recursively finds the best next midpoint in the path using depth-first search
    *
    * @param depth Maximum depth to search
-   * @param previous Previous point in the path
-   * @param current Current point being evaluated
+   * @param previous Previous midpoint in the path
+   * @param current Current midpoint being evaluated
    * @param maxcost Maximum cost allowed for path segment
-   * @return std::pair<double, std::shared_ptr<MidPoint>> Cost and next point pair
+   * @return std::pair<double, std::shared_ptr<MidPoint>> Cost and next midpoint pair
    */
-  std::pair<double, std::shared_ptr<MidPoint>> find_best_next_point(
+  std::pair<double, std::shared_ptr<MidPoint>> find_best_next_midpoint(
       int depth, 
       const std::shared_ptr<MidPoint>& previous, 
       const std::shared_ptr<MidPoint>& current,
       double maxcost);
+
+  /**
+   * @brief Calculates the cost between two midpoints
+   * 
+   * @param previous Previous midpoint
+   * @param current Current midpoint
+   * @param next Next midpoint candidate
+   * @return double The calculated cost
+   */
+  double calculate_midpoint_cost(
+      const std::shared_ptr<MidPoint>& previous,
+      const std::shared_ptr<MidPoint>& current,
+      const std::shared_ptr<MidPoint>& next);
 
   /**
    * @brief Initializes the path using the current pose and the nearest midpoints.
@@ -97,7 +110,18 @@ private:
    * close or already-visited points. Otherwise, it selects the best two starting midpoints
    * based on the vehicle's current pose. Also updates the set of discarded cones along the way.
    */
-  void setup_initial_path();
+  void calculate_initial_path();
+
+  /**
+   * @brief Snaps points from previous path to valid midpoints
+   * 
+   */
+  void update_path_from_past_path();
+
+  /**
+   * @brief Selects initial path from anchor pose when no previous path exists
+   */
+  void initialize_path_from_anchor();
 
   /**
    * @brief Extends the current path by exploring nearby midpoints.
@@ -117,6 +141,26 @@ private:
    * marks associated midpoints as invalid, and removes invalid neighbors from their connections.
    */
   void discard_cones_along_path();
+
+  /**
+   * @brief Identifies the cone to discard between two consecutive midpoints
+   * 
+   * @param last_mp Previous midpoint
+   * @param current_mp Current midpoint
+   */
+  void discard_cone(
+      const std::shared_ptr<MidPoint>& last_mp,
+      const std::shared_ptr<MidPoint>& current_mp);
+
+  /**
+   * @brief Marks midpoints as invalid if they use discarded cones
+   */
+  void invalidate_midpoints_with_discarded_cones();
+
+  /**
+   * @brief Removes invalid neighbors from all midpoints
+   */
+  void remove_invalid_neighbors();
 
   /**
    * @brief Find the nearest midpoint to a target point within a tolerance
@@ -145,6 +189,94 @@ private:
    */
   void clear_path_state();
 
+  /**
+   * @brief Filters cones to find the ones that will be used for the triangulations.
+   *
+   * If sliding window mode is enabled, only cones within the configured
+   * radius of the vehicle_pose_ are kept. Otherwise all cones are kept.
+   *
+   * @param cone_array Input list of all cones
+   * @param filtered_cones Cones that pass the filter
+   */
+  void filter_cones(const std::vector<Cone>& cone_array,
+                    std::vector<std::shared_ptr<Cone>>& filtered_cones);
+  
+  /**
+   * @brief Creates midpoints between cones based on Delaunay triangulation.
+   * 
+   * Generates midpoints for cone pairs within configured distance thresholds,
+   * avoiding duplicates, and connects neighboring midpoints sharing the same triangle.
+   * 
+   * @param filtered_cones Input vector of cones with 2D positions.
+   */
+  void create_midpoints(std::vector<std::shared_ptr<Cone>>& filtered_cones); 
+
+  /**
+   * @brief Finds the first and second points to start the path
+   *
+   * @return std::pair<std::shared_ptr<MidPoint>, std::shared_ptr<MidPoint>> First and second points for the path
+   */
+  std::pair<std::shared_ptr<MidPoint>, std::shared_ptr<MidPoint>> select_starting_midpoints();
+
+  /**
+   * @brief Processes a single edge of a Delaunay triangle
+   * 
+   * @param va First vertex of the edge
+   * @param vb Second vertex of the edge
+   * @param filtered_cones Vector of all cones
+   * @param segment_to_midpoint Map to track unique midpoints
+   * @return std::shared_ptr<MidPoint> Created or existing midpoint, or nullptr if invalid
+   */
+  std::shared_ptr<MidPoint> process_triangle_edge(
+      const Vertex_handle& va,
+      const Vertex_handle& vb,
+      std::vector<std::shared_ptr<Cone>>& filtered_cones,
+      std::map<std::pair<int, int>, std::shared_ptr<MidPoint>>& segment_to_midpoint);
+
+  /**
+   * @brief Connects midpoints that share the same triangle
+   * 
+   * @param triangle_midpoints Array of 3 midpoints from a triangle
+   */
+  void connect_triangle_midpoints(
+      const std::array<std::shared_ptr<MidPoint>, 3>& triangle_midpoints);
+
+  /**
+   * @brief Selects candidate midpoints in front of the vehicle
+   * 
+   * @param anchor_pose Reference pose to select from
+   * @param num_candidates Number of candidates to select
+   * @return std::vector<std::shared_ptr<MidPoint>> Selected candidate midpoints
+   */
+  std::vector<std::shared_ptr<MidPoint>> select_candidate_midpoints(
+      const MidPoint& anchor_pose,
+      int num_candidates);
+
+  /**
+   * @brief Finds the best point to close the track loop
+   * 
+   * @param path The path to analyze
+   * @return int Index of the best cutoff point
+   */
+  int find_best_loop_closure(const std::vector<PathPoint>& path);
+
+  /**
+   * @brief Adds interpolated points between two path points
+   * 
+   * @param start Starting point
+   * @param end Ending point
+   * @param num_points Number of intermediate points to add
+   * @return std::vector<PathPoint> Interpolated points
+   */
+  std::vector<PathPoint> add_interpolated_points(
+      const PathPoint& start,
+      const PathPoint& end,
+      int num_points);
+
+  
+
+  
+
 public:
   /**
    * @brief Construct a new default PathCalculation object
@@ -159,17 +291,6 @@ public:
    */
   explicit PathCalculation(const PathCalculationConfig& config) : config_(config) {}
 
-  /**
-   * @brief Filters cones to find the ones that will be used for the triangulations.
-   *
-   * If sliding window mode is enabled, only cones within the configured
-   * radius of the vehicle_pose_ are kept. Otherwise all cones are kept.
-   *
-   * @param cone_array Input list of all cones
-   * @param filtered_cones Cones that pass the filter
-   */
-  void filter_cones(const std::vector<Cone>& cone_array,
-                    std::vector<std::shared_ptr<Cone>>& filtered_cones);
 
   /**
    * @brief Generate a path from cone array without color information
@@ -180,35 +301,13 @@ public:
   std::vector<PathPoint> calculate_path(std::vector<Cone>& cone_array);
 
   /**
-   * @brief Updates the anchor point if not already set
+   * @brief Updates the vehicle pose
    *
-   * @param pose The current vehicle pose
+   * @param vehicle_pose The current vehicle pose
    */
   void update_vehicle_pose(const common_lib::structures::Pose& vehicle_pose);
 
-  /**
-   * @brief Updates the anchor point if not already set
-   *
-   * @param pose The current vehicle pose
-   */
-  void update_anchor_pose();
-
-  /**
-   * @brief Finds the first and second points to start the path
-   *
-   * @return std::pair<std::shared_ptr<MidPoint>, std::shared_ptr<MidPoint>> First and second points for the path
-   */
-  std::pair<std::shared_ptr<MidPoint>, std::shared_ptr<MidPoint>> select_starting_midpoints();
-
-  /**
-   * @brief Generate a path for skidpad course
-   *
-   * @param cone_array The array of cones representing the track
-   * @param pose The current pose of the vehicle
-   * @return std::vector<PathPoint> The generated path
-   */
-  std::vector<PathPoint> skidpad_path(const std::vector<Cone>& cone_array,
-                                      common_lib::structures::Pose pose);
+  
 
   /**
    * @brief Generate a path for trackdrive course
@@ -222,16 +321,6 @@ public:
    * @return std::vector<PathPoint> The global path
    */                                  
   std::vector<PathPoint> get_global_path() const;
-
-  /**
-   * @brief Creates midpoints between cones based on Delaunay triangulation.
-   * 
-   * Generates midpoints for cone pairs within configured distance thresholds,
-   * avoiding duplicates, and connects neighboring midpoints sharing the same triangle.
-   * 
-   * @param filtered_cones Input vector of cones with 2D positions.
-   */
-  void create_mid_points(std::vector<std::shared_ptr<Cone>>& filtered_cones); 
 
   const std::vector<std::pair<Point, Point>>& get_triangulations() const;
 };
