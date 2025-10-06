@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 
-#include "base_longitudinal_controller.hpp"
+#include "pid.hpp"
 
 /*
  * Map of longitudinal control solvers, with the key being the type of the solver and the value being a lambda
@@ -12,4 +12,9 @@
  */
 const std::map<std::string, std::function<std::shared_ptr<LongitudinalController>(const ControlParameters&)>,
                std::less<>>
-    longitudinal_controller_map = {};
+    longitudinal_controller_map = {
+        {"pid",
+         [](const ControlParameters& params) -> std::shared_ptr<LongitudinalController> {
+           return std::make_shared<PID>(params);
+         }},
+    };
