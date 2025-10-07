@@ -62,6 +62,7 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.use_velocity_planning_ = planning_config["use_velocity_planning"].as<bool>();
   params.use_sliding_window_ = planning_config["use_sliding_window"].as<bool>();
   params.sliding_window_radius_ = planning_config["sliding_window_radius"].as<double>();
+  params.use_reset_path_ = planning_config["use_reset_path"].as<bool>();
 
   return params;
 }
@@ -326,6 +327,6 @@ void Planning::publish_visualization_msgs() const {
   final_path_pub_->publish(common_lib::communication::line_marker_from_structure_array(
       final_path_, "smoothed_path_planning", map_frame_id_, 12, "green"));
   past_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      path_calculation_.get_global_path(), "global_path", map_frame_id_, "blue", "cylinder", 0.8,
+      path_calculation_.get_path_to_car(), "global_path", map_frame_id_, "blue", "cylinder", 0.8,
       visualization_msgs::msg::Marker::MODIFY));
 }

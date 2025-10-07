@@ -46,6 +46,7 @@ struct PlanningParameters {
 
   double sliding_window_radius_;
   bool use_sliding_window_;  
+  bool use_reset_path_;
 };
 
 /**
@@ -67,7 +68,6 @@ struct PlanningConfig {
     outliers_.coeffs_ratio_ = params.outliers_spline_coeffs_ratio_;
     outliers_.use_outlier_removal_ = params.use_outlier_removal_;
 
-    path_calculation_.minimum_cone_distance_ = params.minimum_cone_distance_;
     path_calculation_.angle_gain_ = params.nc_angle_gain_;
     path_calculation_.distance_gain_ = params.nc_distance_gain_;
     path_calculation_.angle_exponent_ = params.nc_angle_exponent_;
@@ -78,9 +78,16 @@ struct PlanningConfig {
     path_calculation_.lookback_points_ = params.nc_lookback_points_;
     path_calculation_.tolerance_ = params.nc_tolerance_;
     path_calculation_.reset_global_path_ = params.nc_reset_global_path_;
-    path_calculation_.maximum_cone_distance_ = params.maximum_cone_distance_;
-    path_calculation_.use_sliding_window_ = params.use_sliding_window_;
-    path_calculation_.sliding_window_radius_ = params.sliding_window_radius_;
+    path_calculation_.use_reset_path_ = params.use_reset_path_;
+
+    path_calculation_.midpoint_generator_.minimum_cone_distance_ = 
+      params.minimum_cone_distance_;
+    path_calculation_.midpoint_generator_.maximum_cone_distance_ = 
+        params.maximum_cone_distance_;
+    path_calculation_.midpoint_generator_.use_sliding_window_ = 
+        params.use_sliding_window_;
+    path_calculation_.midpoint_generator_.sliding_window_radius_ = 
+        params.sliding_window_radius_;
 
     skidpad_.skidpad_minimum_cones_ = params.skidpad_minimum_cones_;
     skidpad_.skidpad_tolerance_ = params.skidpad_tolerance_;

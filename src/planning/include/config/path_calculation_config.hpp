@@ -1,13 +1,13 @@
 #ifndef SRC_PLANNING_INCLUDE_CONFIG_PATH_CALCULATION_CONFIG_HPP_
 #define SRC_PLANNING_INCLUDE_CONFIG_PATH_CALCULATION_CONFIG_HPP_
 
+#include "config/midpoint_generator_config.hpp"
 /**
  * @brief struct for the configuration of the outliers removal algorithm.
  *
  */
 struct PathCalculationConfig {
-  double minimum_cone_distance_ = 2.5;
-  double maximum_cone_distance_ = 10.0;
+  MidpointGeneratorConfig midpoint_generator_;
   double dist_threshold_ = 7.0;
   double angle_gain_ = 20.0;
   double distance_gain_ = 5.0;
@@ -19,8 +19,7 @@ struct PathCalculationConfig {
   int search_depth_ = 2;
   int max_points_ = 50;
   int reset_global_path_ = 10;
-  double sliding_window_radius_ = 20.0;
-  bool use_sliding_window_ = true;
+  bool use_reset_path_ = false;
 
   PathCalculationConfig() = default;
 };

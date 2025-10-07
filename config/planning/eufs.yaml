@@ -24,3 +24,4 @@ planning:
   use_velocity_planning: true
   sliding_window_radius: 20.0
   use_sliding_window: true
+  use_reset_path: false

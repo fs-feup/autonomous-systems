@@ -12,9 +12,9 @@
 using namespace std;
 
 double PathCalculation::calculate_midpoint_cost(
-    const std::shared_ptr<MidPoint>& previous,
-    const std::shared_ptr<MidPoint>& current,
-    const std::shared_ptr<MidPoint>& next) {
+    const std::shared_ptr<Midpoint>& previous,     
+    const std::shared_ptr<Midpoint>& current,       
+    const std::shared_ptr<Midpoint>& next) {        
   
   // Distance calculation
   double distance = std::sqrt(std::pow(current->point.x() - next->point.x(), 2) +
@@ -37,10 +37,10 @@ double PathCalculation::calculate_midpoint_cost(
          std::pow(distance, this->config_.distance_exponent_) * this->config_.distance_gain_;
 }
 
-std::pair<double, std::shared_ptr<MidPoint>> PathCalculation::find_best_next_midpoint(
+std::pair<double, std::shared_ptr<Midpoint>> PathCalculation::find_best_next_midpoint(  
     int depth,
-    const std::shared_ptr<MidPoint>& previous,
-    const std::shared_ptr<MidPoint>& current,
+    const std::shared_ptr<Midpoint>& previous,     
+    const std::shared_ptr<Midpoint>& current,       
     double maxcost) {
 
   if (depth == 0) {
@@ -48,7 +48,7 @@ std::pair<double, std::shared_ptr<MidPoint>> PathCalculation::find_best_next_mid
   }
 
   double min_cost = this->config_.max_cost_ * this->config_.search_depth_;
-  std::shared_ptr<MidPoint> min_point = current;  // Default to current point
+  std::shared_ptr<Midpoint> min_point = current;  // Default to current point
 
   for (const auto& next : current->close_points) {
     // Avoid revisiting the previous point
@@ -94,18 +94,16 @@ std::vector<PathPoint> PathCalculation::calculate_path(std::vector<Cone>& cone_a
     return {};
   }
 
-  // Clear state from previous calculation
   clear_path_state();
 
-  std::vector<std::shared_ptr<Cone>> filtered_cones;
-  filtered_cones.reserve(cone_array.size());
+  // Determine if we should regenerate all midpoints (path reset)
+  bool should_reset = (config_.use_reset_path_ && 
+                       reset_path_counter_ >= config_.reset_global_path_);
   
-  filter_cones(cone_array, filtered_cones);
+  // Generate midpoints using the generator
+  midpoints_ = midpoint_generator_.generate_midpoints(cone_array, should_reset);
 
-  // Generate midpoints between cone pairs using Delaunay triangulation
-  create_midpoints(filtered_cones);
-
-  // Map for quick access from Point to corresponding MidPoint
+  // Map for quick access from Point to corresponding Midpoint
   for (const auto& mp : midpoints_) {
     point_to_midpoint_[mp->point] = mp;
   }
@@ -134,7 +132,7 @@ std::vector<PathPoint> PathCalculation::calculate_path(std::vector<Cone>& cone_a
                              past_path_.begin() + cutoff_index - config_.lookback_points_);
   }
 
-  int max_points = reset_path(cone_array);
+  int max_points = reset_path(should_reset);
 
   // Build initial path segment and it
   calculate_initial_path();
@@ -153,24 +151,11 @@ std::vector<PathPoint> PathCalculation::calculate_path(std::vector<Cone>& cone_a
   return path_points;
 }
 
-int PathCalculation::reset_path(const std::vector<Cone>& cone_array){
-
+int PathCalculation::reset_path(bool should_reset) {
   int max_points = config_.max_points_;
   reset_path_counter_++;
 
-  if (reset_path_counter_ >= config_.reset_global_path_) {
-
-    if(config_.use_sliding_window_){
-
-      std::vector<std::shared_ptr<Cone>> cones_ptr;
-
-      for (const auto& cone : cone_array) {
-        cones_ptr.push_back(std::make_shared<Cone>(cone));
-      }
-
-      create_midpoints(cones_ptr);
-    }
-
+  if (should_reset) {
     max_points = path_to_car.size() + config_.max_points_;
     path_to_car.clear();
     past_path_.clear();
@@ -181,131 +166,14 @@ int PathCalculation::reset_path(const std::vector<Cone>& cone_array){
   return max_points;
 }
 
-void PathCalculation::filter_cones(const std::vector<Cone>& cone_array,
-                                          std::vector<std::shared_ptr<Cone>>& filtered_cones){
-  if(config_.use_sliding_window_) {
-    for (const auto& cone : cone_array) {
-      double dx = cone.position.x - vehicle_pose_.position.x;
-      double dy = cone.position.y - vehicle_pose_.position.y;
-
-      double sq_window_radius = config_.sliding_window_radius_ * config_.sliding_window_radius_; 
-
-      if (dx * dx + dy * dy <= sq_window_radius) {
-        filtered_cones.push_back(std::make_shared<Cone>(cone));
-      }
-    }
-  }else {
-    for (const auto& cone : cone_array) {
-        filtered_cones.push_back(std::make_shared<Cone>(cone));
-    }
-  }
-
-  if (filtered_cones.size() < 2) {
-    RCLCPP_WARN(rclcpp::get_logger("planning"),"[Planning] Not enough cones to compute midpoints");
-  }
-
-}
-
-std::shared_ptr<MidPoint> PathCalculation::process_triangle_edge(
-    const Vertex_handle& va,
-    const Vertex_handle& vb,
-    std::vector<std::shared_ptr<Cone>>& filtered_cones,
-    std::map<std::pair<int, int>, std::shared_ptr<MidPoint>>& segment_to_midpoint) {
-  
-  Point p1 = va->point();
-  Point p2 = vb->point();
-
-  // Find corresponding cone IDs
-  int id1 = ::find_cone(filtered_cones, p1.x(), p1.y());
-  int id2 = ::find_cone(filtered_cones, p2.x(), p2.y());
-
-  if (id1 == -1 || id2 == -1) {
-    return nullptr;
-  }
-
-  // Check distance constraints
-  double squared_distance = CGAL::squared_distance(p1, p2);
-  if ((squared_distance <= config_.minimum_cone_distance_ * config_.minimum_cone_distance_) ||
-      (squared_distance >= config_.maximum_cone_distance_ * config_.maximum_cone_distance_)) {
-    return nullptr;
-  }
-
-  // Use ordered cone IDs to uniquely identify the segment
-  auto key = std::minmax(id1, id2);
-  auto it = segment_to_midpoint.find(key);
-
-  if (it != segment_to_midpoint.end()) {
-    return it->second;
-  }
-
-  // Create new midpoint
-  auto midpoint = std::make_shared<MidPoint>(
-      CGAL::midpoint(p1, p2), 
-      filtered_cones[id1], 
-      filtered_cones[id2]
-  );
-  
-  segment_to_midpoint[key] = midpoint;
-  midpoints_.push_back(midpoint);
-  triangulations_.push_back({p1, p2});
-  
-  return midpoint;
-}
-
-void PathCalculation::connect_triangle_midpoints(
-    const std::array<std::shared_ptr<MidPoint>, 3>& triangle_midpoints) {
-  
-  for (int i = 0; i < 3; ++i) {
-    if (!triangle_midpoints[i]) {
-      continue;
-    }
-    for (int j = 0; j < 3; ++j) {
-      if (i == j || !triangle_midpoints[j]) {
-        continue;
-      }
-      triangle_midpoints[i]->close_points.push_back(triangle_midpoints[j]);
-    }
-  }
-}
-
-void PathCalculation::create_midpoints(std::vector<std::shared_ptr<Cone>>& filtered_cones) {
-     
-  this->triangulations_.clear();
-  DT dt;
-
-  // Insert all cone positions into the Delaunay triangulation
-  for (const auto& cone : filtered_cones) {
-    (void)dt.insert(Point(cone->position.x, cone->position.y));
-  }
-
-  // Avoid duplicate midpoints for the same cone pair
-  std::map<std::pair<int, int>, std::shared_ptr<MidPoint>> segment_to_midpoint;
-
-  for (auto triangle_it = dt.finite_faces_begin(); triangle_it != dt.finite_faces_end(); ++triangle_it) {
-    std::array<std::shared_ptr<MidPoint>, 3> triangle_midpoints;
-
-    // Iterate over the 3 edges of the triangle
-    for (int i = 0; i < 3; ++i) {
-      Vertex_handle va = triangle_it->vertex((i + 1) % 3);
-      Vertex_handle vb = triangle_it->vertex((i + 2) % 3);
-
-      triangle_midpoints[i] = process_triangle_edge(va, vb, filtered_cones, segment_to_midpoint);
-    }
-    
-    // Connect midpoints if they share the same triangle
-    connect_triangle_midpoints(triangle_midpoints);
-  }
-}
-
 void PathCalculation::update_path_from_past_path() {
-
   RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Selecting initial path from %zu points.",
                path_to_car.size());
 
   Point snapped_first = path_to_car[0];
 
   // Snap the first point to the nearest valid midpoint
-  std::shared_ptr<MidPoint> first_mp = find_nearest_midpoint(snapped_first);
+  std::shared_ptr<Midpoint> first_mp = find_nearest_midpoint(snapped_first);  
   if (first_mp) {
     snapped_first = first_mp->point;
     (void)visited_midpoints_.insert(first_mp);
@@ -319,7 +187,7 @@ void PathCalculation::update_path_from_past_path() {
   // Iterate over the remaining points from previous path
   for (std::size_t i = 1; i < path_to_car.size(); ++i) {
     Point current_point = path_to_car[i];
-    std::shared_ptr<MidPoint> current_midpoint = find_nearest_midpoint(current_point);
+    std::shared_ptr<Midpoint> current_midpoint = find_nearest_midpoint(current_point);  
     if (current_midpoint) {
       current_point = current_midpoint->point;
     } else {
@@ -365,7 +233,7 @@ void PathCalculation::initialize_path_from_anchor() {
 void PathCalculation::calculate_initial_path() {
   if (path_to_car.size() <= 2) {
     initialize_path_from_anchor();
-  }else{
+  } else {
     update_path_from_past_path();
   }
 }
@@ -379,8 +247,8 @@ void PathCalculation::extend_path(int max_points) {
     const auto& prev = current_path_[current_path_.size() - 2];
     const auto& last = current_path_.back();
 
-    std::shared_ptr<MidPoint> prev_mp = find_nearest_midpoint(prev);
-    std::shared_ptr<MidPoint> last_mp = find_nearest_midpoint(last);
+    std::shared_ptr<Midpoint> prev_mp = find_nearest_midpoint(prev);     
+    std::shared_ptr<Midpoint> last_mp = find_nearest_midpoint(last);     
 
     // Abort if midpoints can't be matched
     if (prev_mp == nullptr || last_mp == nullptr) {
@@ -414,8 +282,8 @@ void PathCalculation::extend_path(int max_points) {
 }
 
 void PathCalculation::discard_cone(
-    const std::shared_ptr<MidPoint>& last_mp,
-    const std::shared_ptr<MidPoint>& current_mp) {
+    const std::shared_ptr<Midpoint>& last_mp,        
+    const std::shared_ptr<Midpoint>& current_mp) {   
   
   if (last_mp->cone1 == current_mp->cone1 || last_mp->cone1 == current_mp->cone2) {
     if (last_mp->cone2 != current_mp->cone1 && last_mp->cone2 != current_mp->cone2) {
@@ -448,7 +316,9 @@ void PathCalculation::remove_invalid_neighbors() {
     }
     (void)mp->close_points.erase(
         std::remove_if(mp->close_points.begin(), mp->close_points.end(),
-                       [](const std::shared_ptr<MidPoint>& neighbor) { return !neighbor->valid; }),
+                       [](const std::shared_ptr<Midpoint>& neighbor) {  
+                         return !neighbor->valid;
+                       }),
         mp->close_points.end());
   }
 }
@@ -457,8 +327,8 @@ void PathCalculation::discard_cones_along_path() {
   const auto& last = current_path_[current_path_.size() - 2];
   const auto& current = current_path_.back();
 
-  std::shared_ptr<MidPoint> last_mp = find_nearest_midpoint(last);
-  std::shared_ptr<MidPoint> current_midpoint = find_nearest_midpoint(current);
+  std::shared_ptr<Midpoint> last_mp = find_nearest_midpoint(last);              
+  std::shared_ptr<Midpoint> current_midpoint = find_nearest_midpoint(current);  
 
   if (last_mp == nullptr || current_midpoint == nullptr) {
     RCLCPP_ERROR(rclcpp::get_logger("planning"), "No valid midpoints found for discarding cones.");
@@ -476,19 +346,20 @@ void PathCalculation::discard_cones_along_path() {
 }
 
 void PathCalculation::update_vehicle_pose(const common_lib::structures::Pose& vehicle_pose) {
+  midpoint_generator_.set_vehicle_pose(vehicle_pose);
   vehicle_pose_ = vehicle_pose;
 }
 
-std::vector<std::shared_ptr<MidPoint>> PathCalculation::select_candidate_midpoints(
-    const MidPoint& anchor_pose,
+std::vector<std::shared_ptr<Midpoint>> PathCalculation::select_candidate_midpoints(  
+    const Midpoint& anchor_pose,                                                     
     int num_candidates) {
   
-  auto cmp = [](const std::pair<double, std::shared_ptr<MidPoint>>& cost1,
-                const std::pair<double, std::shared_ptr<MidPoint>>& cost2) {
+  auto cmp = [](const std::pair<double, std::shared_ptr<Midpoint>>& cost1,  
+                const std::pair<double, std::shared_ptr<Midpoint>>& cost2) { 
     return cost1.first > cost2.first;
   };
-  std::priority_queue<std::pair<double, std::shared_ptr<MidPoint>>, 
-                      std::vector<std::pair<double, std::shared_ptr<MidPoint>>>,
+  std::priority_queue<std::pair<double, std::shared_ptr<Midpoint>>,         
+                      std::vector<std::pair<double, std::shared_ptr<Midpoint>>>,  
                       decltype(cmp)> pq(cmp);
 
   // Find midpoints that are in front of the car
@@ -512,7 +383,7 @@ std::vector<std::shared_ptr<MidPoint>> PathCalculation::select_candidate_midpoin
   }
 
   // Get the closest midpoints in front of the car
-  std::vector<std::shared_ptr<MidPoint>> candidate_points;
+  std::vector<std::shared_ptr<Midpoint>> candidate_points;  
   int count = 0;
   while (count < num_candidates && !pq.empty()) {
     candidate_points.push_back(pq.top().second);
@@ -523,11 +394,11 @@ std::vector<std::shared_ptr<MidPoint>> PathCalculation::select_candidate_midpoin
   return candidate_points;
 }
 
-std::pair<std::shared_ptr<MidPoint>, std::shared_ptr<MidPoint>>
+std::pair<std::shared_ptr<Midpoint>, std::shared_ptr<Midpoint>>  
 PathCalculation::select_starting_midpoints() {
-  std::pair<std::shared_ptr<MidPoint>, std::shared_ptr<MidPoint>> result{nullptr, nullptr};
+  std::pair<std::shared_ptr<Midpoint>, std::shared_ptr<Midpoint>> result{nullptr, nullptr};  
 
-  MidPoint anchor_pose_midpoint{
+  Midpoint anchor_pose_midpoint{  
       Point(initial_pose_.position.x, initial_pose_.position.y), nullptr, nullptr};
 
   // Get candidate midpoints
@@ -535,7 +406,7 @@ PathCalculation::select_starting_midpoints() {
 
   double best_cost = std::numeric_limits<double>::max();
   for (const auto& first : anchor_pose_midpoint.close_points) {
-    auto anchor_mp = std::make_shared<MidPoint>(anchor_pose_midpoint);
+    auto anchor_mp = std::make_shared<Midpoint>(anchor_pose_midpoint);  
     auto [cost, second] = find_best_next_midpoint(this->config_.search_depth_, anchor_mp, first,
                                    std::numeric_limits<double>::max());
     cost += std::pow(std::sqrt(std::pow(first->point.x() - anchor_pose_midpoint.point.x(), 2) +
@@ -552,9 +423,9 @@ PathCalculation::select_starting_midpoints() {
   return result;
 }
 
-std::shared_ptr<MidPoint> PathCalculation::find_nearest_midpoint(const Point& target) {
+std::shared_ptr<Midpoint> PathCalculation::find_nearest_midpoint(const Point& target) {  
   double min_dist_sq = config_.tolerance_ * config_.tolerance_;
-  std::shared_ptr<MidPoint> nearest = nullptr;
+  std::shared_ptr<Midpoint> nearest = nullptr;  
 
   for (const auto& [pt, mp] : point_to_midpoint_) {
     double dx = pt.x() - target.x();
@@ -674,7 +545,7 @@ std::vector<PathPoint> PathCalculation::calculate_trackdrive(std::vector<Cone>& 
   return result;
 }
 
-std::vector<PathPoint> PathCalculation::get_global_path() const {
+std::vector<PathPoint> PathCalculation::get_path_to_car() const {
   std::vector<PathPoint> path_points;
 
   for (const auto& pt : path_to_car) {
@@ -685,6 +556,5 @@ std::vector<PathPoint> PathCalculation::get_global_path() const {
 }
 
 const std::vector<std::pair<Point, Point>>& PathCalculation::get_triangulations() const {
-    return triangulations_;
+  return midpoint_generator_.get_triangulations();
 }
-

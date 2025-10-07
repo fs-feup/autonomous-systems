@@ -14,19 +14,19 @@ namespace common_lib::structures {
 /**
  * @brief MidPoint struct represents a potential path point with connections
  */
-struct MidPoint {
+struct Midpoint {
     Point point;
-    std::vector<std::shared_ptr<MidPoint>> close_points; 
+    std::vector<std::shared_ptr<Midpoint>> close_points; 
     std::shared_ptr<Cone> cone1;
     std::shared_ptr<Cone> cone2;
     bool valid = true;
 
-    MidPoint() = default; 
-    MidPoint(const Point& p,
+    Midpoint() = default; 
+    Midpoint(const Point& p,
         std::shared_ptr<Cone> c1,
         std::shared_ptr<Cone> c2);
 
-    friend bool operator==(const MidPoint& a, const MidPoint& b) {
+    friend bool operator==(const Midpoint& a, const Midpoint& b) {
         return a.point == b.point;
     }
 };
@@ -47,8 +47,8 @@ namespace std {
   };
 
   template <>
-  struct hash<common_lib::structures::MidPoint> {
-    size_t operator()(const common_lib::structures::MidPoint& mid) const noexcept {
+  struct hash<common_lib::structures::Midpoint> {
+    size_t operator()(const common_lib::structures::Midpoint& mid) const noexcept {
       return std::hash<Point>()(mid.point);
     }
   };

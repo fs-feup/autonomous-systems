@@ -32,6 +32,7 @@ planning:
   desired_velocity: 6.0
   sliding_window_radius: 20.0
   use_sliding_window: true
+  use_reset_path: false
 
 # Parameters for EBS Test
 # planning:
