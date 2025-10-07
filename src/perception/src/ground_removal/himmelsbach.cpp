@@ -1,34 +1,18 @@
 #include "ground_removal/himmelsbach.hpp"
 
-Himmelsbach::Himmelsbach(const double max_slope, const double epsilon)
-    : max_slope(max_slope), epsilon(epsilon) {}
+Himmelsbach::Himmelsbach(const double max_slope, const double epsilon, const int adjacent_slices)
+    : max_slope(max_slope), epsilon(epsilon), adjacent_slices(adjacent_slices) {}
 
 void Himmelsbach::ground_removal(const pcl::PointCloud<PointXYZIR>::Ptr point_cloud,
                                  const pcl::PointCloud<PointXYZIR>::Ptr ret, Plane& plane,
                                  [[maybe_unused]] const SplitParameters split_params) const {
   // Slip the point cloud into slices, each slice contains several rings
-  int n_slices =
-      static_cast<int>(std::ceil(split_params.fov_angle / split_params.angle_resolution));
-  std::vector<Slice> splited_cloud{static_cast<size_t>(n_slices)};
+  std::vector<Slice> splited_cloud;
   split_point_cloud(point_cloud, splited_cloud, split_params);
 
-  // Use the middle slice as reference to determine ground height
-  float ground_height_reference = 0.0f;
-  int mid_slice_index = static_cast<int>(n_slices / 2);
-  // Find the closest ring that contains points
-  for (int i = NUM_RINGS - 1; i >= 0; i--) {
-    int min_height_index = splited_cloud[mid_slice_index].rings[i].indices_min_height_idx;
-    if (min_height_index != -1) {
-      ground_height_reference =
-          point_cloud
-              ->points[splited_cloud[mid_slice_index].rings[i].indices[min_height_index].first]
-              .z;
-      break;
-    }
-  }
-
-  for (auto& slice : splited_cloud) {
-    process_slice(point_cloud, slice, ground_height_reference);
+  for (int i = 0; i < static_cast<int>(splited_cloud.size()); ++i) {
+    float ground_height_reference = calculate_height_reference(point_cloud, splited_cloud, i);
+    process_slice(point_cloud, splited_cloud[i], ground_height_reference);
   }
 
   ret->points.clear();
@@ -63,6 +47,7 @@ void Himmelsbach::split_point_cloud(const pcl::PointCloud<PointXYZIR>::Ptr& clou
   int prev_ring = -1;
   int lines_for_next_slice = n_points_per_ring;
   int slice_count = 0;
+  splited_cloud.push_back(Slice());
 
   // For each point in the cloud assign to its corresponding slice and ring
   for (int i = 0; i < static_cast<int>(cloud->points.size()); ++i) {
@@ -80,8 +65,8 @@ void Himmelsbach::split_point_cloud(const pcl::PointCloud<PointXYZIR>::Ptr& clou
       splited_cloud[slice_idx].rings[pt.ring].indices_min_height_idx = idx_in_ring;
     }
 
-    // If the current ring if smaller than the previous ring, we are in a new vertical line of lidar
-    // points
+    // If the current ring if smaller than the previous ring, we are in a new vertical line of
+    // lidar points
     if (pt.ring < prev_ring) {
       lines_for_next_slice--;
     }
@@ -89,6 +74,7 @@ void Himmelsbach::split_point_cloud(const pcl::PointCloud<PointXYZIR>::Ptr& clou
     // Processed all vertical lines of the current slice, go to the next slice
     if (lines_for_next_slice <= 0) {
       slice_idx++;
+      splited_cloud.push_back(Slice());
       slice_count = 0;
       lines_for_next_slice = n_points_per_ring;
       if (slice_idx >= n_slices) {
@@ -116,43 +102,97 @@ void Himmelsbach::process_slice(const pcl::PointCloud<PointXYZIR>::Ptr& cloud, S
     long min_height_pt_idx = slice.rings[i].indices[min_height_idx].first;
 
     if (first_ring) {
-      // If the lowest point in the first ring is close enough to the ground height reference, mark
-      // it as ground
-      if (std::abs(cloud->points[min_height_pt_idx].z - ground_height_reference) < epsilon) {
+      // If the lowest point in the first ring is close enough to the ground height reference,
+      // mark it as ground
+      if (std::abs(cloud->points[min_height_pt_idx].z - ground_height_reference) < this->epsilon) {
         slice.rings[i].indices[min_height_idx].second = true;  // Mark as ground
+
+        for (int j = 0; j < static_cast<int>(slice.rings[i].indices.size()); j++) {
+          int idx = slice.rings[i].indices[j].first;
+          if (std::abs(cloud->points[idx].z - cloud->points[min_height_pt_idx].z) < this->epsilon) {
+            slice.rings[i].indices[j].second = true;  // Mark as ground
+          }
+        }
+
         previous_ground_point_index = min_height_pt_idx;
         first_ring = false;
       } else {
         continue;  // If not close enough, skip this ring
       }
-    } else {
-      // For subsequent rings, check the slope between the lowest point and the previous ground
-      // point
-      float dz = cloud->points[min_height_pt_idx].z - cloud->points[previous_ground_point_index].z;
-      float dr = std::hypot(
-          cloud->points[min_height_pt_idx].x - cloud->points[previous_ground_point_index].x,
-          cloud->points[min_height_pt_idx].y - cloud->points[previous_ground_point_index].y);
+    }
 
-      float slope = std::abs(dz / dr);
+    long lowest_ground_idx_in_ring = -1;
+    float lowest_ground_z_in_ring = std::numeric_limits<float>::max();
 
-      if (slope < max_slope) {
-        slice.rings[i].indices[min_height_idx].second = true;  // Mark as ground
-        previous_ground_point_index = min_height_pt_idx;
-      } else {
-        // If the slope is too steep, do not mark any more points in this ring as ground
-        continue;
+    for (int j = 0; j < static_cast<int>(slice.rings[i].indices.size()); j++) {
+      long idx = slice.rings[i].indices[j].first;
+      float dz = cloud->points[idx].z - cloud->points[previous_ground_point_index].z;
+      float dr = std::hypot(cloud->points[idx].x - cloud->points[previous_ground_point_index].x,
+                            cloud->points[idx].y - cloud->points[previous_ground_point_index].y);
+
+      float slope = (dr > 1e-6f) ? std::abs(dz / dr) : 0.0f;
+
+      if (slope < this->max_slope) {
+        slice.rings[i].indices[j].second = true;
+
+        // Track lowest ground point in this ring for next reference
+        if (cloud->points[idx].z < lowest_ground_z_in_ring) {
+          lowest_ground_z_in_ring = cloud->points[idx].z;
+          lowest_ground_idx_in_ring = idx;
+        }
       }
     }
 
-    // Optionally, mark additional points in the ring as ground if they are close enough in height
-    for (int j = 0; j < static_cast<int>(slice.rings[i].indices.size()); j++) {
-      long index = slice.rings[i].indices[j].first;
-      if (index == min_height_idx) {
-        continue;  // Skip the already marked lowest point
-      }
-      if (std::abs(cloud->points[index].z - cloud->points[min_height_pt_idx].z) < epsilon) {
-        slice.rings[i].indices[j].second = true;  // Mark as ground
-      }
+    // Update previous ground point for next ring
+    if (lowest_ground_idx_in_ring != -1) {
+      previous_ground_point_index = lowest_ground_idx_in_ring;
     }
   }
+}
+
+float Himmelsbach::calculate_height_reference(const pcl::PointCloud<PointXYZIR>::Ptr& point_cloud,
+                                              const std::vector<Slice>& splited_cloud,
+                                              int cur_slice_idx) const {
+  std::vector<int> slice_min_indices;
+
+  // Compute range of slices to consider
+  int half_window = this->adjacent_slices / 2;
+  int start_idx = std::max(0, cur_slice_idx - half_window);
+  int end_idx = std::min(static_cast<int>(splited_cloud.size()) - 1, cur_slice_idx + half_window);
+
+  // Collect the min height indices for all slices in the window
+  for (int j = start_idx; j <= end_idx; ++j) {
+    int min_idx = find_closest_ring_min_height_idx(point_cloud, splited_cloud[j]);
+    slice_min_indices.push_back(min_idx);
+  }
+
+  // Calculate ground reference as the minimum z among valid slice indices
+  float ground_height_reference = std::numeric_limits<float>::max();
+  for (int idx : slice_min_indices) {
+    if (idx != -1) {
+      ground_height_reference = std::min(ground_height_reference, point_cloud->points[idx].z);
+    }
+  }
+
+  // Optional: fallback if no valid indices
+  if (ground_height_reference == std::numeric_limits<float>::max()) {
+    ground_height_reference = 0.0f;
+  }
+  return ground_height_reference;
+}
+
+int Himmelsbach::find_closest_ring_min_height_idx(const pcl::PointCloud<PointXYZIR>::Ptr& cloud,
+                                                  const Slice& slice) const {
+  int min_height_idx = -1;
+
+  for (int i = NUM_RINGS - 1; i >= 0; i--) {
+    if (slice.rings[i].indices.empty()) {
+      continue;  // Skip empty rings
+    }
+
+    int idx_in_ring = slice.rings[i].indices_min_height_idx;
+    min_height_idx = slice.rings[i].indices[idx_in_ring].first;
+    break;
+  }
+  return min_height_idx;
 }

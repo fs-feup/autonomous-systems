@@ -109,14 +109,15 @@ PerceptionParameters Perception::load_config() {
   double plane_angle_diff = perception_config["plane_angle_diff"].as<double>();
   double himmelsbach_max_slope = perception_config["himmelsbach_max_slope"].as<double>();
   double himmelsbach_epsilon = perception_config["himmelsbach_epsilon"].as<double>();
+  int himmelsbach_adjacent_slices = perception_config["himmelsbach_adjacent_slices"].as<int>();
 
   if (ground_removal_algorithm == "ransac") {
     params.ground_removal_ = std::make_shared<RANSAC>(ransac_epsilon, ransac_iterations);
   } else if (ground_removal_algorithm == "grid_ransac") {
     params.ground_removal_ = std::make_shared<GridRANSAC>(ransac_epsilon, ransac_iterations);
   } else if (ground_removal_algorithm == "himmelsbach") {
-    params.ground_removal_ =
-        std::make_shared<Himmelsbach>(himmelsbach_max_slope, himmelsbach_epsilon);
+    params.ground_removal_ = std::make_shared<Himmelsbach>(
+        himmelsbach_max_slope, himmelsbach_epsilon, himmelsbach_adjacent_slices);
   } else if (ground_removal_algorithm == "constrained_ransac") {
     params.ground_removal_ =
         std::make_shared<ConstrainedRANSAC>(ransac_epsilon, ransac_iterations, plane_angle_diff);
@@ -307,7 +308,7 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
     RCLCPP_INFO(this->get_logger(),
                 "Debug CSV writing complete. Files saved in perception package root.");
   }
- */
+                */
 
   // Pass-trough Filter (trim Pcl)
   const SplitParameters split_params = _fov_trim_map_->at(_mission_type_)->fov_trimming(pcl_cloud);

@@ -8,7 +8,7 @@ perception:
   lidar_height: 1.2
   lidar_rotation: 90.0
   lidar_pitch: -1.75
-  lidar_horizontal_resolution: 0.09
+  lidar_horizontal_resolution: 0.095
   min_range: 1.93
   max_height: 0.7
 
@@ -31,23 +31,24 @@ perception:
   ransac_epsilon: 0.10
   ransac_iterations: 40
   plane_angle_diff: 15.0 
-  himmelsbach_max_slope: 0.2
+  himmelsbach_max_slope: 0.12
   himmelsbach_epsilon: 0.10
+  himmelsbach_adjacent_slices: 5
 
     #TRACKDRIVE/AUTOCROSS GROUND REMOVAL
   n_angular_grids: 3
   radius_resolution: 7.0
-  angle_resolution: 1.0
+  angle_resolution: 2.0
 
     #ACCELERATION GROUND REMOVAL
   acc_n_angular_grids: 2
   acc_radius_resolution: 7.5
-  acc_angle_resolution: 1.0
+  acc_angle_resolution: 2.0
 
     #SKIDPAD GROUND REMOVAL
   skid_n_angular_grids: 2
   skid_radius_resolution: 7.5
-  skid_angle_resolution: 1.0
+  skid_angle_resolution: 2.0
 
 
   #Clustering
