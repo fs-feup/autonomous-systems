@@ -1,20 +1,24 @@
 #include "node/mocker_node.hpp"
 
+#include <yaml-cpp/yaml.h>
+
 #include <filesystem>
 
-MockerNode::MockerNode(const std::string &track_name, const std::string &sim)
-    : rclcpp::Node("mocker_node") {
-  std::string planning_gtruth_default_file_path = std::string(std::filesystem::current_path()) +
-                                                  "/gtruths/tracks/" + sim + "/" + track_name +
-                                                  "/" + track_name + "_gtruth.csv";
-  std::string se_gtruth_default_file_path = std::string(std::filesystem::current_path()) +
-                                            "/gtruths/tracks/" + sim + "/" + track_name + "/" +
-                                            track_name + ".csv";
+#include "common_lib/config_load/config_load.hpp"
 
-  std::string planning_gtruth_file = declare_parameter<std::string>(
-      "planning_gtruth_file_path", planning_gtruth_default_file_path);
-  std::string se_gtruth_file =
-      declare_parameter<std::string>("se_gtruth_file_path", se_gtruth_default_file_path);
+MockerNode::MockerNode() : rclcpp::Node("mocker_node") {
+  auto mocker_config_path =
+      common_lib::config_load::get_config_yaml_path("mocker_node", "global", "global_config");
+  auto mocker_config = YAML::LoadFile(mocker_config_path);
+
+  auto track_name = mocker_config["global"]["track_name"].as<std::string>();
+  auto sim = mocker_config["global"]["adapter"].as<std::string>();
+
+  std::string planning_gtruth_file = std::string(std::filesystem::current_path()) +
+                                     "/gtruths/tracks/" + sim + "/" + track_name + "/" +
+                                     track_name + "_gtruth.csv";
+  std::string se_gtruth_file = std::string(std::filesystem::current_path()) + "/gtruths/tracks/" +
+                               sim + "/" + track_name + "/" + track_name + ".csv";
 
   gtruth_planning = planning_gtruth_fromfile(open_file_as_stream(planning_gtruth_file));
   gtruth_se = se_gtruth_fromfile(open_file_as_stream(se_gtruth_file));

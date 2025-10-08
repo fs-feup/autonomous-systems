@@ -21,9 +21,18 @@ class VehicleAdapter(Adapter):
 
         super().__init__(node)
 
+        self._state_ground_truth = None
+
+        self.node.state_ground_truth_subscription_ = self.node.create_subscription(
+            MarkerArray,
+            "/ground_truth_data",
+            self.state_ground_truth_callback,
+            10,
+        )
+
         self.node.g_truth_subscription_ = self.node.create_subscription(
             MarkerArray,
-            "/perception/visualization/ground_truth/cones",
+            "/ground_truth_data",
             self.g_truth_callback,
             10,
         )
@@ -35,10 +44,41 @@ class VehicleAdapter(Adapter):
                 self.node.perception_subscription_,
             ],
             10,
-            0.1
+            0.1,
         )
 
         self._perception_sync_.registerCallback(self.perception_callback)
+
+        self.node.state_estimation_ = self.node.create_subscription(
+            ConeArray,
+            "/state_estimation/map",
+            self.state_estimation_callback,
+            10,
+        )
+
+    def state_estimation_callback(self, map: ConeArray):
+        """
+        Callback function for state estimation data.
+
+        Args:
+            map (ConeArray): The state estimation output received.
+        Returns: None
+        """
+        map_treated: np.ndarray = format_cone_array_msg(map)
+
+        if self._state_ground_truth is not None:
+            groundtruth_map_treated: np.ndarray = format_marker_array_msg(
+                self._state_ground_truth
+            )
+        else:
+            self.node.get_logger().warn(
+                "State ground truth is not set yet. Skipping processing."
+            )
+            groundtruth_map_treated = np.array([])
+        self.node.compute_and_publish_state_map(
+            map_treated,
+            groundtruth_map_treated,
+        )
 
     def perception_callback(self, perception: ConeArray):
         """
@@ -63,3 +103,12 @@ class VehicleAdapter(Adapter):
 
         if self._g_truth.size == 0:
             self._g_truth = format_marker_array_msg(g_truth)
+
+    def state_ground_truth_callback(self, state_ground_truth: MarkerArray):
+        """!
+        Callback function to process ground truth map messages.
+
+        Args:
+            state_ground_truth (MarkerArray): Ground truth map data.
+        """
+        self._state_ground_truth: MarkerArray = state_ground_truth

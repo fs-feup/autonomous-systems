@@ -6,8 +6,11 @@ from custom_interfaces.msg import (
     PathPointArray,
     PathPoint,
     VehicleState,
+    Velocities,
     EvaluatorControlData,
+    Pose,
 )
+from geometry_msgs.msg import TwistWithCovarianceStamped, TransformStamped
 from evaluator.adapter import Adapter
 from evaluator.metrics import (
     get_mean_squared_difference,
@@ -46,6 +49,9 @@ from std_msgs.msg import Float32
 
 import csv
 import signal
+import yaml
+import os
+from ament_index_python.packages import get_package_prefix
 
 
 class Evaluator(Node):
@@ -66,27 +72,9 @@ class Evaluator(Node):
         super().__init__("evaluator")
         self.get_logger().info("Evaluator Node has started")
 
-        # Parameters
-        self._adapter_name_: str = (
-            self.declare_parameter("adapter", "vehicle")
-            .get_parameter_value()
-            .string_value
-        )
-        self.use_simulated_perception_: bool = (
-            self.declare_parameter("use_simulated_perception", False)
-            .get_parameter_value()
-            .bool_value
-        )
-        self.use_simulated_se_: bool = (
-            self.declare_parameter("use_simulated_se", False)
-            .get_parameter_value()
-            .bool_value
-        )
-        self.use_simulated_planning_: bool = (
-            self.declare_parameter("use_simulated_planning", False)
-            .get_parameter_value()
-            .bool_value
-        )
+        # Load configuration from YAML file
+        self.load_config()
+
         if (self._adapter_name_ == "fsds") and (self.use_simulated_perception_):
             self.get_logger().error(
                 "Simulated perception is not supported for FSDS adapter"
@@ -100,8 +88,11 @@ class Evaluator(Node):
         self.map_subscription_ = message_filters.Subscriber(
             self, ConeArray, "/state_estimation/map"
         )
-        self.vehicle_state_subscription_ = message_filters.Subscriber(
-            self, VehicleState, "/state_estimation/vehicle_state"
+        self.velocities_subscription_ = message_filters.Subscriber(
+            self, Velocities, "/state_estimation/velocities"
+        )
+        self.vehicle_pose_subscription_ = message_filters.Subscriber(
+            self, Pose, "/state_estimation/vehicle_pose"
         )
         self.planning_subscription_ = message_filters.Subscriber(
             self, PathPointArray, "/path_planning/path"
@@ -158,14 +149,25 @@ class Evaluator(Node):
         self._perception_false_positives_ = self.create_publisher(
             Int32, "/evaluator/perception/false_positives", 10
         )
+        self._perception_precision_ = self.create_publisher(
+            Float32, "/evaluator/perception/precision", 10
+        )
+        self._perception_recall_ = self.create_publisher(
+            Float32, "/evaluator/perception/recall", 10
+        )
         self._perception_number_duplicates = self.create_publisher(
             Int32, "/evaluator/perception/number_duplicates", 10
         )
 
         # Publishers for state estimation metrics
-        self._vehicle_state_difference_ = self.create_publisher(
+        self._velocities_difference_ = self.create_publisher(
             Float32MultiArray,
-            "/evaluator/state_estimation/vehicle_state_difference",
+            "/evaluator/state_estimation/velocities_difference",
+            10,
+        )
+        self._vehicle_pose_difference_ = self.create_publisher(
+            Float32MultiArray,
+            "/evaluator/state_estimation/vehicle_pose_difference",
             10,
         )
         self._map_mean_squared_difference_ = self.create_publisher(
@@ -240,24 +242,14 @@ class Evaluator(Node):
             Float32, "/evaluator/control/velocity/lookahead/difference", 10
         )
 
-        # Retrieve the 'generate_csv' parameter
-        self.declare_parameter("generate_csv", False)
-        self.generate_csv = (
-            self.get_parameter("generate_csv").get_parameter_value().bool_value
-        )
-
-        # Retrieve the 'csv_suffix' parameter
-        self.declare_parameter("csv_suffix", "")
-        self.csv_suffix = (
-            self.get_parameter("csv_suffix").get_parameter_value().string_value
-        )
-
         # Replace spaces with underscores in csv_suffix
         self.csv_suffix = self.csv_suffix.replace(" ", "_")
 
         # Metrics over time
         self.perception_metrics = []
-        self.se_metrics = []
+        self.map_metrics = []
+        self.pose_metrics = []
+        self.vel_estimation_metrics = []
         self.planning_metrics = []
         self.control_metrics = []
         self._se_correction_execution_time_ = []
@@ -277,21 +269,33 @@ class Evaluator(Node):
         self._perception_sum_error = 0
         self._perception_squared_sum_error = 0
         self._perception_root_squared_sum_error = 0
+        self._perception_precision_sum = 0
+        self._perception_recall_sum = 0
         self._perception_count = 0
 
         self._se_map_sum_error = 0
         self._se_map_squared_sum_error = 0
         self._se_map_mean_root_squared_sum_error = 0
-        self._se_count = 0
+        self._map_count_ = 0
+        self._pose_count_ = 0
+        self._ve_count_ = 0
 
-        self._sum_vehicle_state_error = Float32MultiArray()
-        self._sum_squared_vehicle_state_error = Float32MultiArray()
-        self._sum_vehicle_state_error.layout.dim = [MultiArrayDimension()]
-        self._sum_squared_vehicle_state_error.layout.dim = [MultiArrayDimension()]
-        self._sum_vehicle_state_error.layout.dim[0].size = 6
-        self._sum_squared_vehicle_state_error.layout.dim[0].size = 6
-        self._sum_vehicle_state_error.data = [0.0] * 6
-        self._sum_squared_vehicle_state_error.data = [0.0] * 6
+        self._sum_velocities_error = Float32MultiArray()
+        self._sum_squared_velocities_error = Float32MultiArray()
+        self._sum_velocities_error.layout.dim = [MultiArrayDimension()]
+        self._sum_squared_velocities_error.layout.dim = [MultiArrayDimension()]
+        self._sum_velocities_error.layout.dim[0].size = 3
+        self._sum_squared_velocities_error.layout.dim[0].size = 3
+        self._sum_velocities_error.data = [0.0] * 3
+        self._sum_squared_velocities_error.data = [0.0] * 3
+        self._sum_vehicle_pose_error = Float32MultiArray()
+        self._sum_squared_vehicle_pose_error = Float32MultiArray()
+        self._sum_vehicle_pose_error.layout.dim = [MultiArrayDimension()]
+        self._sum_squared_vehicle_pose_error.layout.dim = [MultiArrayDimension()]
+        self._sum_vehicle_pose_error.layout.dim[0].size = 3
+        self._sum_squared_vehicle_pose_error.layout.dim[0].size = 3
+        self._sum_vehicle_pose_error.data = [0.0] * 3
+        self._sum_squared_vehicle_pose_error.data = [0.0] * 3
         self._planning_sum_error = 0
         self._planning_squared_sum_error = 0
         self._planning_mean_root_squared_sum_error = 0
@@ -310,6 +314,14 @@ class Evaluator(Node):
             Float32, "/evaluator/perception/mean_mean_root_squared_error", 10
         )
 
+        self._perception_mean_precision = self.create_publisher(
+            Float32, "/evaluator/perception/mean_precision", 10
+        )
+
+        self._perception_mean_recall = self.create_publisher(
+            Float32, "/evaluator/perception/mean_recall", 10
+        )
+
         # State estimation metrics over time
         self._map_mean_mean_error = self.create_publisher(
             Float32, "/evaluator/state_estimation/map_mean_mean_difference", 10
@@ -325,22 +337,44 @@ class Evaluator(Node):
             10,
         )
 
-        self._state_estimation_mean_vehicle_state_error = self.create_publisher(
+        self._state_estimation_mean_vehicle_pose_error = self.create_publisher(
             Float32MultiArray,
-            "/evaluator/state_estimation/vehicle_state_mean_difference",
+            "/evaluator/state_estimation/vehicle_pose_mean_difference",
             10,
         )
 
-        self._state_estimation_mean_squared_vehicle_state_error = self.create_publisher(
+        self._state_estimation_mean_squared_vehicle_pose_error = self.create_publisher(
             Float32MultiArray,
-            "/evaluator/state_estimation/vehicle_state_mean_squared_difference",
+            "/evaluator/state_estimation/vehicle_pose_mean_squared_difference",
             10,
         )
 
-        self._state_estimation_root_mean_squared_vehicle_state_error = self.create_publisher(
+        self._state_estimation_root_mean_squared_vehicle_pose_error = (
+            self.create_publisher(
+                Float32MultiArray,
+                "/evaluator/state_estimation/vehicle_pose_mean_root_squared_difference",
+                10,
+            )
+        )
+
+        self._state_estimation_mean_velocities_error = self.create_publisher(
             Float32MultiArray,
-            "/evaluator/state_estimation/vehicle_state_mean_root_squared_difference",
+            "/evaluator/state_estimation/velocities_mean_difference",
             10,
+        )
+
+        self._state_estimation_mean_squared_velocities_error = self.create_publisher(
+            Float32MultiArray,
+            "/evaluator/state_estimation/velocities_mean_squared_difference",
+            10,
+        )
+
+        self._state_estimation_root_mean_squared_velocities_error = (
+            self.create_publisher(
+                Float32MultiArray,
+                "/evaluator/state_estimation/velocities_mean_root_squared_difference",
+                10,
+            )
         )
 
         # Planning metrics over time
@@ -409,15 +443,46 @@ class Evaluator(Node):
             )
         )
 
-        if self._adapter_name_ == "vehicle":
-            return
-
         # Adapter selection
         self._adapter_: Adapter = ADAPTER_CONSTRUCTOR_DICTINARY[self._adapter_name_](
             self
         )
 
         signal.signal(signal.SIGINT, self.signal_handler)
+
+    def get_config_yaml_path(self, package_name, dir, filename):
+        package_share_directory = get_package_prefix(package_name)
+        config_path = os.path.join(
+            package_share_directory, "..", "..", "config", dir, f"{filename}.yaml"
+        )
+        return config_path
+
+    def load_config(self):
+        """Load configuration from YAML file."""
+        global_config_path = self.get_config_yaml_path(
+            "evaluator", "global", "global_config"
+        )
+        self.get_logger().debug(f"Loading global config from: {global_config_path}")
+        with open(global_config_path, "r") as file:
+            global_config = yaml.safe_load(file)
+
+        adapter = global_config["global"]["adapter"]
+        self._adapter_name_ = adapter
+        self.use_simulated_perception_ = global_config["global"][
+            "use_simulated_perception"
+        ]
+        self.use_simulated_se_ = global_config["global"]["use_simulated_se"]
+        self.use_simulated_planning_ = global_config["global"]["use_simulated_planning"]
+
+        specific_config_path = self.get_config_yaml_path(
+            "evaluator", "evaluator", adapter
+        )
+        self.get_logger().debug(f"Loading specific config from: {specific_config_path}")
+        with open(specific_config_path, "r") as file:
+            specific_config = yaml.safe_load(file)
+
+        self.generate_csv = specific_config["evaluator"]["generate_csv"]
+        self.csv_suffix = specific_config["evaluator"]["csv_suffix"].replace(" ", "_")
 
     def signal_handler(self, sig: int, frame) -> None:
         """!
@@ -444,7 +509,8 @@ class Evaluator(Node):
             finish_time = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
             metrics_dict = {
                 "perception": self.perception_metrics,
-                "se": self.se_metrics,
+                "map": self.map_metrics,
+                "pose": self.pose_metrics,
                 "planning": self.planning_metrics,
                 "control": self.control_metrics,
                 "se_correction_execution_time": self._se_correction_execution_time_,
@@ -535,12 +601,113 @@ class Evaluator(Node):
             {"timestamp": datetime.datetime.now(), "execution_time": msg.data}
         )
 
-    def compute_and_publish_state_estimation(
+    def compute_and_publish_pose(
         self,
         pose: np.ndarray,
         groundtruth_pose: np.ndarray,
-        velocities: np.ndarray,
-        groundtruth_velocities: np.ndarray,
+    ) -> None:
+        """!
+        Computes state estimation metrics and publishes them.
+        Args:
+            pose (np.ndarray): Vehicle state estimation data. [x,y,theta]
+            groundtruth_pose (np.ndarray): Ground truth vehicle state data. [x,y,theta]
+        """
+
+        self.get_logger().debug("Received pose")
+
+        # Compute instantaneous vehicle pose metrics
+        vehicle_pose_error = Float32MultiArray()
+        vehicle_pose_error.layout.dim = [MultiArrayDimension()]
+        vehicle_pose_error.layout.dim[0].size = 3
+        vehicle_pose_error.layout.dim[0].label = "Vehicle Pose Error: [x, y, theta]"
+        vehicle_pose_error.data = [0.0] * 3
+        if groundtruth_pose != []:
+            vehicle_pose_error.data[0] = abs(pose[0] - groundtruth_pose[0])
+            vehicle_pose_error.data[1] = abs(pose[1] - groundtruth_pose[1])
+            vehicle_pose_error.data[2] = abs(pose[2] - groundtruth_pose[2]) % (
+                2 * np.pi
+            )
+
+        self.get_logger().debug(
+            "Computed slam metrics:\n \
+                            Vehicle state error: {}".format(
+                vehicle_pose_error,
+            )
+        )
+
+        # Publishes computed state estimation metrics
+        self._vehicle_pose_difference_.publish(vehicle_pose_error)
+
+        # Compute vehicle pose metrics over time
+        mean_vehicle_pose_error = Float32MultiArray()
+        mean_squared_vehicle_pose_error = Float32MultiArray()
+        mean_root_squared_vehicle_pose_error = Float32MultiArray()
+        mean_vehicle_pose_error.layout.dim = [MultiArrayDimension()]
+        mean_squared_vehicle_pose_error.layout.dim = [MultiArrayDimension()]
+        mean_root_squared_vehicle_pose_error.layout.dim = [MultiArrayDimension()]
+        mean_vehicle_pose_error.layout.dim[0].size = 3
+        mean_squared_vehicle_pose_error.layout.dim[0].size = 3
+        mean_root_squared_vehicle_pose_error.layout.dim[0].size = 3
+        mean_vehicle_pose_error.data = [0.0] * 3
+        mean_squared_vehicle_pose_error.data = [0.0] * 3
+        mean_root_squared_vehicle_pose_error.data = [0.0] * 3
+        self._pose_count_ += 1
+        for i in range(3):
+            self._sum_vehicle_pose_error.data[i] += vehicle_pose_error.data[i]
+            self._sum_squared_vehicle_pose_error.data[i] += (
+                vehicle_pose_error.data[i] ** 2
+            )
+            mean_vehicle_pose_error.data[i] = (
+                self._sum_vehicle_pose_error.data[i] / self._pose_count_
+            )
+            mean_squared_vehicle_pose_error.data[i] = (
+                self._sum_squared_vehicle_pose_error.data[i] / self._pose_count_
+            )
+            mean_root_squared_vehicle_pose_error.data[i] = (
+                sqrt(self._sum_squared_vehicle_pose_error.data[i]) / self._pose_count_
+            )
+
+        # Publish vehicle state errors over time
+        self._state_estimation_mean_vehicle_pose_error.publish(mean_vehicle_pose_error)
+        self._state_estimation_mean_squared_vehicle_pose_error.publish(
+            mean_squared_vehicle_pose_error
+        )
+        self._state_estimation_root_mean_squared_vehicle_pose_error.publish(
+            mean_root_squared_vehicle_pose_error
+        )
+
+        # For exporting metrics to csv
+        metrics = {
+            "timestamp": datetime.datetime.now(),
+            "vehicle_pose_error_x": vehicle_pose_error.data[0],
+            "vehicle_pose_error_y": vehicle_pose_error.data[1],
+            "vehicle_pose_error_theta": vehicle_pose_error.data[2],
+            "mean_vehicle_pose_error_x": mean_vehicle_pose_error.data[0],
+            "mean_vehicle_pose_error_y": mean_vehicle_pose_error.data[1],
+            "mean_vehicle_pose_error_theta": mean_vehicle_pose_error.data[2],
+            "mean_squared_vehicle_pose_error_x": mean_squared_vehicle_pose_error.data[
+                0
+            ],
+            "mean_squared_vehicle_pose_error_y": mean_squared_vehicle_pose_error.data[
+                1
+            ],
+            "mean_squared_vehicle_pose_error_theta": mean_squared_vehicle_pose_error.data[
+                2
+            ],
+            "mean_root_squared_vehicle_pose_error_x": mean_root_squared_vehicle_pose_error.data[
+                0
+            ],
+            "mean_root_squared_vehicle_pose_error_y": mean_root_squared_vehicle_pose_error.data[
+                1
+            ],
+            "mean_root_squared_vehicle_pose_error_theta": mean_root_squared_vehicle_pose_error.data[
+                2
+            ],
+        }
+        self.pose_metrics.append(metrics)
+
+    def compute_and_publish_map(
+        self,
         map: np.ndarray,
         groundtruth_map: np.ndarray,
     ) -> None:
@@ -550,39 +717,13 @@ class Evaluator(Node):
         Args:
             pose (np.ndarray): Vehicle state estimation data. [x,y,theta]
             groundtruth_pose (np.ndarray): Ground truth vehicle state data. [x,y,theta]
-            veloevaluator-eufs.launch.pyndtruth_velocities (np.ndarray): Ground truth vehicle state velocities. [vx, vy, w]
             map (np.ndarray): Map data. [[x,y,color,confidence]]
             groundtruth_map (np.ndarray): Ground truth map data. [[x,y,color,confidence]]
         """
         if map.size == 0 or groundtruth_map.size == 0:
             return
 
-        self.get_logger().debug("Received state estimation")
-
-        # Compute instantaneous vehicle state metrics
-        vehicle_state_error = Float32MultiArray()
-        vehicle_state_error.layout.dim = [MultiArrayDimension()]
-        vehicle_state_error.layout.dim[0].size = 6
-        vehicle_state_error.layout.dim[0].label = (
-            "vehicle state error: [x, y, theta, v, v, w]"
-        )
-        vehicle_state_error.data = [0.0] * 6
-        vehicle_state_error.data[0] = abs(pose[0] - groundtruth_pose[0])
-        vehicle_state_error.data[1] = abs(pose[1] - groundtruth_pose[1])
-        vehicle_state_error.data[2] = abs(pose[2] - groundtruth_pose[2]) % (2 * np.pi)
-        vehicle_state_error.data[3] = abs(
-            velocities[0]
-            - sqrt(
-                pow(groundtruth_velocities[0], 2) + pow(groundtruth_velocities[1], 2)
-            )
-        )
-        vehicle_state_error.data[4] = abs(
-            velocities[1]
-            - sqrt(
-                pow(groundtruth_velocities[0], 2) + pow(groundtruth_velocities[1], 2)
-            )
-        )
-        vehicle_state_error.data[5] = abs(velocities[2] - groundtruth_velocities[2])
+        self.get_logger().debug("Received map")
 
         # Compute instantaneous map metrics
         cone_positions = map[:, :2]
@@ -614,12 +755,10 @@ class Evaluator(Node):
         difference_with_map.data = cone_positions.size - groundtruth_cone_positions.size
 
         self.get_logger().debug(
-            "Computed state estimation metrics:\n \
-                                Vehicle state error: {}\n \
+            "Computed slam metrics:\n \
                                 Mean difference: {}\n \
                                 Mean squared difference: {}\n \
                                 Root mean squared difference: {}".format(
-                vehicle_state_error,
                 mean_difference,
                 mean_squared_difference,
                 root_mean_squared_difference,
@@ -627,7 +766,6 @@ class Evaluator(Node):
         )
 
         # Publishes computed state estimation metrics
-        self._vehicle_state_difference_.publish(vehicle_state_error)
         self._map_mean_difference_.publish(mean_difference)
         self._map_mean_squared_difference_.publish(mean_squared_difference)
         self._map_root_mean_squared_difference_.publish(root_mean_squared_difference)
@@ -645,53 +783,14 @@ class Evaluator(Node):
         self._se_map_mean_root_squared_sum_error += get_mean_squared_difference(
             cone_positions, groundtruth_cone_positions
         ) ** (1 / 2)
-        self._se_count += 1
+        self._map_count_ += 1
         mean_mean_error = Float32()
-        mean_mean_error.data = self._se_map_sum_error / self._se_count
+        mean_mean_error.data = self._se_map_sum_error / self._map_count_
         mean_mean_squared_error = Float32()
-        mean_mean_squared_error.data = self._se_map_squared_sum_error / self._se_count
+        mean_mean_squared_error.data = self._se_map_squared_sum_error / self._map_count_
         mean_mean_root_squared_error = Float32()
         mean_mean_root_squared_error.data = (
-            self._se_map_mean_root_squared_sum_error / self._se_count
-        )
-
-        # Compute vehicle state metrics over time
-        mean_vehicle_state_error = Float32MultiArray()
-        mean_squared_vehicle_state_error = Float32MultiArray()
-        mean_root_squared_vehicle_state_error = Float32MultiArray()
-        mean_vehicle_state_error.layout.dim = [MultiArrayDimension()]
-        mean_squared_vehicle_state_error.layout.dim = [MultiArrayDimension()]
-        mean_root_squared_vehicle_state_error.layout.dim = [MultiArrayDimension()]
-        mean_vehicle_state_error.layout.dim[0].size = 6
-        mean_squared_vehicle_state_error.layout.dim[0].size = 6
-        mean_root_squared_vehicle_state_error.layout.dim[0].size = 6
-        mean_vehicle_state_error.data = [0.0] * 6
-        mean_squared_vehicle_state_error.data = [0.0] * 6
-        mean_root_squared_vehicle_state_error.data = [0.0] * 6
-        for i in range(6):
-            self._sum_vehicle_state_error.data[i] += vehicle_state_error.data[i]
-            self._sum_squared_vehicle_state_error.data[i] += (
-                vehicle_state_error.data[i] ** 2
-            )
-            mean_vehicle_state_error.data[i] = (
-                self._sum_vehicle_state_error.data[i] / self._se_count
-            )
-            mean_squared_vehicle_state_error.data[i] = (
-                self._sum_squared_vehicle_state_error.data[i] / self._se_count
-            )
-            mean_root_squared_vehicle_state_error.data[i] = (
-                sqrt(self._sum_squared_vehicle_state_error.data[i]) / self._se_count
-            )
-
-        # Publish vehicle state errors over time
-        self._state_estimation_mean_vehicle_state_error.publish(
-            mean_vehicle_state_error
-        )
-        self._state_estimation_mean_squared_vehicle_state_error.publish(
-            mean_squared_vehicle_state_error
-        )
-        self._state_estimation_root_mean_squared_vehicle_state_error.publish(
-            mean_root_squared_vehicle_state_error
+            self._se_map_mean_root_squared_sum_error / self._map_count_
         )
 
         # Publish map metrics over time
@@ -702,57 +801,9 @@ class Evaluator(Node):
         # For exporting metrics to csv
         metrics = {
             "timestamp": datetime.datetime.now(),
-            "vehicle_state_error_x": vehicle_state_error.data[0],
-            "vehicle_state_error_y": vehicle_state_error.data[1],
-            "vehicle_state_error_theta": vehicle_state_error.data[2],
-            "vehicle_state_error_v1": vehicle_state_error.data[3],
-            "vehicle_state_error_v2": vehicle_state_error.data[4],
-            "vehicle_state_error_w": vehicle_state_error.data[5],
             "mean_difference": mean_difference.data,
             "mean_squared_difference": mean_squared_difference.data,
             "root_mean_squared_difference": root_mean_squared_difference.data,
-            "mean_vehicle_state_error_x": mean_vehicle_state_error.data[0],
-            "mean_vehicle_state_error_y": mean_vehicle_state_error.data[1],
-            "mean_vehicle_state_error_theta": mean_vehicle_state_error.data[2],
-            "mean_vehicle_state_error_v1": mean_vehicle_state_error.data[3],
-            "mean_vehicle_state_error_v2": mean_vehicle_state_error.data[4],
-            "mean_vehicle_state_error_w": mean_vehicle_state_error.data[5],
-            "mean_squared_vehicle_state_error_x": mean_squared_vehicle_state_error.data[
-                0
-            ],
-            "mean_squared_vehicle_state_error_y": mean_squared_vehicle_state_error.data[
-                1
-            ],
-            "mean_squared_vehicle_state_error_theta": mean_squared_vehicle_state_error.data[
-                2
-            ],
-            "mean_squared_vehicle_state_error_v1": mean_squared_vehicle_state_error.data[
-                3
-            ],
-            "mean_squared_vehicle_state_error_v2": mean_squared_vehicle_state_error.data[
-                4
-            ],
-            "mean_squared_vehicle_state_error_w": mean_squared_vehicle_state_error.data[
-                5
-            ],
-            "mean_root_squared_vehicle_state_error_x": mean_root_squared_vehicle_state_error.data[
-                0
-            ],
-            "mean_root_squared_vehicle_state_error_y": mean_root_squared_vehicle_state_error.data[
-                1
-            ],
-            "mean_root_squared_vehicle_state_error_theta": mean_root_squared_vehicle_state_error.data[
-                2
-            ],
-            "mean_root_squared_vehicle_state_error_v1": mean_root_squared_vehicle_state_error.data[
-                3
-            ],
-            "mean_root_squared_vehicle_state_error_v2": mean_root_squared_vehicle_state_error.data[
-                4
-            ],
-            "mean_root_squared_vehicle_state_error_w": mean_root_squared_vehicle_state_error.data[
-                5
-            ],
             "mean_mean_error": mean_mean_error.data,
             "mean_mean_squared_error": mean_mean_squared_error.data,
             "mean_mean_root_squared_error": mean_mean_root_squared_error.data,
@@ -760,7 +811,103 @@ class Evaluator(Node):
             "difference_with_map": difference_with_map.data,
             "num_duplicates": num_duplicates.data,
         }
-        self.se_metrics.append(metrics)
+        self.map_metrics.append(metrics)
+
+    def compute_and_publish_velocities(
+        self,
+        velocities: np.ndarray,
+        groundtruth_velocities: np.ndarray,
+    ) -> None:
+        """!
+        Computes state estimation metrics and publishes them.
+
+        Args:
+            velocities (np.ndarray): Vehicle state velocities. [vx, vy, w]
+            groundtruth_velocities (np.ndarray): Ground truth vehicle state velocities. [vx, vy, w]
+        """
+
+        self.get_logger().debug("Received vehicle speed estimation")
+
+        # Compute instantaneous vehicle state metrics
+        velocities_error = Float32MultiArray()
+        velocities_error.layout.dim = [MultiArrayDimension()]
+        velocities_error.layout.dim[0].size = 3
+        velocities_error.layout.dim[0].label = "vehicle state error: [vx, vy, w]"
+        velocities_error.data = [0.0] * 3
+        if groundtruth_velocities != []:
+            velocities_error.data[0] = abs(velocities[0] - groundtruth_velocities[0])
+            velocities_error.data[1] = abs(velocities[1] - groundtruth_velocities[1])
+            velocities_error.data[2] = abs(velocities[2] - groundtruth_velocities[2])
+
+        self.get_logger().debug(
+            "Computed state estimation metrics:\n \
+                                Vehicle velocities error: {}".format(
+                velocities_error,
+            )
+        )
+
+        # Publishes computed state estimation metrics
+        self._velocities_difference_.publish(velocities_error)
+
+        # Compute vehicle velocity metrics over time
+        self._ve_count_ += 1
+        mean_velocities_error = Float32MultiArray()
+        mean_squared_velocities_error = Float32MultiArray()
+        mean_root_squared_velocities_error = Float32MultiArray()
+        mean_velocities_error.layout.dim = [MultiArrayDimension()]
+        mean_squared_velocities_error.layout.dim = [MultiArrayDimension()]
+        mean_root_squared_velocities_error.layout.dim = [MultiArrayDimension()]
+        mean_velocities_error.layout.dim[0].size = 3
+        mean_squared_velocities_error.layout.dim[0].size = 3
+        mean_root_squared_velocities_error.layout.dim[0].size = 3
+        mean_velocities_error.data = [0.0] * 3
+        mean_squared_velocities_error.data = [0.0] * 3
+        mean_root_squared_velocities_error.data = [0.0] * 3
+        for i in range(3):
+            self._sum_velocities_error.data[i] += velocities_error.data[i]
+            self._sum_squared_velocities_error.data[i] += velocities_error.data[i] ** 2
+            mean_velocities_error.data[i] = (
+                self._sum_velocities_error.data[i] / self._ve_count_
+            )
+            mean_squared_velocities_error.data[i] = (
+                self._sum_squared_velocities_error.data[i] / self._ve_count_
+            )
+            mean_root_squared_velocities_error.data[i] = (
+                sqrt(self._sum_squared_velocities_error.data[i]) / self._ve_count_
+            )
+
+        # Publish vehicle state errors over time
+        self._state_estimation_mean_velocities_error.publish(mean_velocities_error)
+        self._state_estimation_mean_squared_velocities_error.publish(
+            mean_squared_velocities_error
+        )
+        self._state_estimation_root_mean_squared_velocities_error.publish(
+            mean_root_squared_velocities_error
+        )
+
+        # For exporting metrics to csv
+        metrics = {
+            "timestamp": datetime.datetime.now(),
+            "velocities_error_v1": velocities_error.data[0],
+            "velocities_error_v2": velocities_error.data[1],
+            "velocities_error_w": velocities_error.data[2],
+            "mean_velocities_error_v1": mean_velocities_error.data[0],
+            "mean_velocities_error_v2": mean_velocities_error.data[1],
+            "mean_velocities_error_w": mean_velocities_error.data[2],
+            "mean_squared_velocities_error_v1": mean_squared_velocities_error.data[0],
+            "mean_squared_velocities_error_v2": mean_squared_velocities_error.data[1],
+            "mean_squared_velocities_error_w": mean_squared_velocities_error.data[2],
+            "mean_root_squared_velocities_error_v1": mean_root_squared_velocities_error.data[
+                0
+            ],
+            "mean_root_squared_velocities_error_v2": mean_root_squared_velocities_error.data[
+                1
+            ],
+            "mean_root_squared_velocities_error_w": mean_root_squared_velocities_error.data[
+                2
+            ],
+        }
+        self.vel_estimation_metrics.append(metrics)
 
     def compute_and_publish_perception(
         self, perception_output: np.ndarray, perception_ground_truth: np.ndarray
@@ -773,9 +920,12 @@ class Evaluator(Node):
             perception_ground_truth (np.ndarray): Ground truth cones.
         """
 
+        if len(perception_output) == 0 or len(perception_ground_truth) == 0:
+            self.get_logger().debug("Perception, ground truth or cones info missing")
+            return
+
         # Compute instantaneous perception metrics
 
-        # TODO: include confidence in evaluator
         cone_positions = perception_output[:, :2]
         groundtruth_cone_positions = perception_ground_truth[:, :2]
         mean_difference = Float32()
@@ -795,6 +945,15 @@ class Evaluator(Node):
         false_positives.data = int(
             get_false_positives(cone_positions, groundtruth_cone_positions, 0.1)
         )
+        precision = Float32()
+        precision.data = float(
+            (len(cone_positions) - false_positives.data) / len(cone_positions)
+        )
+        recall = Float32()
+        recall.data = float(
+            (len(cone_positions) - false_positives.data)
+            / len(groundtruth_cone_positions)
+        )
 
         num_duplicates = Int32()
         num_duplicates.data = int(get_duplicates(perception_output, 0.1))
@@ -806,12 +965,16 @@ class Evaluator(Node):
                                Mean squared difference: {}\n \
                                Root mean squared difference: {}\n \
                                False positives: {}\n \
+                               Precision: {}\n \
+                               Recall: {}\n \
                                Duplicates: {}".format(
                 mean_difference,
                 inter_cones_distance,
                 mean_squared_error,
                 root_mean_squared_difference,
                 false_positives,
+                precision,
+                recall,
                 num_duplicates,
             )
         )
@@ -824,6 +987,8 @@ class Evaluator(Node):
             root_mean_squared_difference
         )
         self._perception_false_positives_.publish(false_positives)
+        self._perception_precision_.publish(precision)
+        self._perception_recall_.publish(recall)
         self._perception_number_duplicates.publish(num_duplicates)
 
         # Compute perception metrics over time
@@ -836,6 +1001,20 @@ class Evaluator(Node):
         self._perception_root_squared_sum_error += get_mean_squared_difference(
             cone_positions, groundtruth_cone_positions
         ) ** (1 / 2)
+        self._perception_precision_sum += float(
+            (
+                len(cone_positions)
+                - get_false_positives(cone_positions, groundtruth_cone_positions, 0.1)
+            )
+            / len(cone_positions)
+        )
+        self._perception_recall_sum += float(
+            (
+                len(cone_positions)
+                - get_false_positives(cone_positions, groundtruth_cone_positions, 0.1)
+            )
+            / len(groundtruth_cone_positions)
+        )
         self._perception_count += 1
         mean_mean_error = Float32()
         mean_mean_error.data = self._perception_sum_error / self._perception_count
@@ -847,6 +1026,10 @@ class Evaluator(Node):
         mean_mean_root_squared_error.data = (
             self._perception_root_squared_sum_error / self._perception_count
         )
+        mean_precision = Float32()
+        mean_precision.data = self._perception_precision_sum / self._perception_count
+        mean_recall = Float32()
+        mean_recall.data = self._perception_recall_sum / self._perception_count
 
         # Publish perception metrics over time
         self._perception_mean_mean_error.publish(mean_mean_error)
@@ -854,6 +1037,8 @@ class Evaluator(Node):
         self._perception_mean_mean_root_squared_error.publish(
             mean_mean_root_squared_error
         )
+        self._perception_mean_precision.publish(mean_precision)
+        self._perception_mean_recall.publish(mean_recall)
 
         # For exporting metrics to csv
         metrics = {
@@ -866,6 +1051,10 @@ class Evaluator(Node):
             "mean_mean_squared_error": mean_mean_squared_error.data,
             "mean_mean_root_squared_error": mean_mean_root_squared_error.data,
             "false_positives": false_positives.data,
+            "precision": precision.data,
+            "recall": recall.data,
+            "mean_precision": mean_precision.data,
+            "mean_recall": mean_recall.data,
             "duplicates": num_duplicates.data,
         }
         self.perception_metrics.append(metrics)

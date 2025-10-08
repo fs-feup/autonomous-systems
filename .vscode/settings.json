@@ -97,7 +97,11 @@
         "*.ipp": "cpp",
         "filesystem": "cpp",
         "nonlinearoptimization": "cpp",
-        "*.txx": "cpp"
+        "*.txx": "cpp",
+        "dense": "cpp",
+        "hash_map": "cpp",
+        "tensor": "cpp",
+        "bvh": "cpp"
     },
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
@@ -108,9 +112,13 @@
         "editor.formatOnSave": true
     },
     "sonarlint.connectedMode.project": {
-        "connectionId": "FS FEUP",
+        "connectionId": "fs-feup",
         "projectKey": "fs-feup_autonomous-systems"
     },
     "C_Cpp.default.compilerPath": "/usr/bin/g++",
     "ros.distro": "humble",
+    "sonarlint.pathToCompileCommands": "${workspaceFolder}/compile_commands.json",
+    "C_Cpp.errorSquiggles": "enabled",
+    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "python-envs.pythonProjects": [],
 }

@@ -8,12 +8,13 @@
 #include <pcl/sample_consensus/model_types.h>
 #include <pcl/segmentation/sac_segmentation.h>
 
-RANSAC::RANSAC(double epsilon, int n_tries) : epsilon(epsilon), n_tries(n_tries) {}
+RANSAC::RANSAC(const double epsilon, const int n_tries) : epsilon(epsilon), n_tries(n_tries) {}
 
 void RANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                           pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane) const {
-  pcl::ModelCoefficients::Ptr coefficients(new pcl::ModelCoefficients);
-  pcl::PointIndices::Ptr inliers_indices(new pcl::PointIndices);
+                            const pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
+                            [[maybe_unused]] const SplitParameters split_params) const {
+  pcl::ModelCoefficients::Ptr coefficients = std::make_shared<pcl::ModelCoefficients>();
+  pcl::PointIndices::Ptr inliers_indices = std::make_shared<pcl::PointIndices>();
 
   // Segmentation Object creation
   pcl::SACSegmentation<pcl::PointXYZI> seg;
@@ -30,12 +31,13 @@ void RANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_clo
   seg.setInputCloud(point_cloud);
   seg.segment(*inliers_indices, *coefficients);
 
-  if (coefficients->values.size() <= 0){
-    plane = Plane(0,0,0,0);
+  if (coefficients->values.size() <= 0) {
+    plane = Plane(0, 0, 0, 0);
   }
 
-  else{
-    plane = Plane(coefficients->values[0], coefficients->values[1], coefficients->values[2], coefficients->values[3]);
+  else {
+    plane = Plane(coefficients->values[0], coefficients->values[1], coefficients->values[2],
+                  coefficients->values[3]);
   }
 
   pcl::ExtractIndices<pcl::PointXYZI> extract;

@@ -7,25 +7,30 @@
 
 #include "common_lib/structures/pose.hpp"
 #include "common_lib/structures/position.hpp"
-#include "common_lib/vehicle_dynamics/bicycle_model.hpp"
-#include "common_lib/vehicle_dynamics/car_parameters.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
+#include "custom_interfaces/msg/pose.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
 #include "gtest/gtest.h"
+#include "motion_lib/car_parameters.hpp"
+#include "motion_lib/s2v_model/bicycle_model.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 class PointSolver {
 private:
-  double k_; /**< Lookahead gain */
-  /**< Distance from the center of gravity to the rear axis */
+  double k_;                   /**< Lookahead gain */
+  double lookahead_minimum_;   /**< Minimum lookahead distance */
+  double first_last_max_dist_; /**< Max dist between first and last point of the path to
+                                  be considered a closed track*/
+  BicycleModel bicycle_model_; /**< Bicycle model for vehicle dynamics */
 
 public:
-  double dist_cg_2_rear_axis_ = DIST_CG_2_REAR_AXIS;
+  double dist_cg_2_rear_axis_ =
+      DIST_CG_2_REAR_AXIS; /**< Distance from the center of gravity to the rear axis */
   common_lib::structures::VehiclePose vehicle_pose_; /**< Vehicle pose */
   /**
    * @brief PointSolver Constructor
    */
-  explicit PointSolver(double k);
+  explicit PointSolver(double k, double lookahead_minimum, double first_last_max_dist);
 
   /**
    * @brief Find the closest point on the path
@@ -59,7 +64,8 @@ public:
    *
    * @param pose msg
    */
-  void update_vehicle_pose(const custom_interfaces::msg::VehicleState &vehicle_state_msg);
+  void update_vehicle_pose(const custom_interfaces::msg::Pose &vehicle_state_msg,
+                           double velocity = 0.0);
 
   FRIEND_TEST(PointSolverTests, Test_update_closest_point_1);
   FRIEND_TEST(PointSolverTests, Test_update_lookahead_point_1);

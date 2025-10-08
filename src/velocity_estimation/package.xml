@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>velocity_estimation</name>
+  <version>0.0.0</version>
+  <description>TODO: Package description</description>
+  <maintainer email="lourenco@todo.todo"></maintainer>
+  <license>TODO: License declaration</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <exec_depend>custom_interfaces</exec_depend>
+  <exec_depend>eufs_msgs</exec_depend>
+  <exec_depend>fs_msgs</exec_depend>
+  <exec_depend>common_lib</exec_depend>
+  <exec_depend>message_filters</exec_depend>
+  <exec_depend>pacsim</exec_depend>
+  <exec_depend>std_srvs</exec_depend>
+  <exec_depend>visualization_msgs</exec_depend>
+  <exec_depend>motion_lib</exec_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

@@ -39,5 +39,5 @@ public:
    * @param track_name desired mock track_name file / folder
    * @param sim desired simulator that contains a track
    */
-  MockerNode(const std::string &track_name, const std::string &sim);
+  MockerNode();
 };

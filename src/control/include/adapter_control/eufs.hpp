@@ -7,7 +7,7 @@
 class EufsAdapter : public Control {
  private:
   rclcpp::Publisher<ackermann_msgs::msg::AckermannDriveStamped>::SharedPtr control_pub_;
-  rclcpp::Subscription<eufs_msgs::msg::CarState>::SharedPtr vehicle_state_sub_;
+  rclcpp::Subscription<eufs_msgs::msg::CarState>::SharedPtr vehicle_pose_sub_;
 
  public:
   explicit EufsAdapter(const ControlParameters &params);

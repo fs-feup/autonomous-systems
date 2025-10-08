@@ -3,6 +3,7 @@
 **/.DS_Store
 **/build/*
 **/install/*
+**/src/planning/test/integration_tests/results/*.txt
 **/log/*
 **/doxygen/html/** 
 **/bags/*
@@ -17,3 +18,5 @@ compile_commands.json
 # the folder structure on a fresh clone.
 !.vscode/settings.json
 !.vscode/c_cpp_properties.json
+rosbag2*
+*.mcap

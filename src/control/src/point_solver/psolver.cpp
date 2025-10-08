@@ -1,27 +1,32 @@
 #include "point_solver/psolver.hpp"
 
+#include "custom_interfaces/msg/pose.hpp"
+
 using namespace common_lib::structures;
-using namespace common_lib::vehicle_dynamics;
 
 /**
  * @brief PointSolver Constructer
  */
-PointSolver::PointSolver(double k) : k_(k) {}
+PointSolver::PointSolver(double k, double lookahead_minimum, double first_last_max_dist)
+    : k_(k),
+      lookahead_minimum_(lookahead_minimum),
+      first_last_max_dist_(first_last_max_dist),
+      bicycle_model_(common_lib::car_parameters::CarParameters()) {}
 
 /**
  * @brief Update vehicle pose
  *
  * @param pose msg
  */
-void PointSolver::update_vehicle_pose(
-    const custom_interfaces::msg::VehicleState &vehicle_state_msg) {
+void PointSolver::update_vehicle_pose(const custom_interfaces::msg::Pose &pose, double velocity) {
   // update to Rear Wheel position
-  this->vehicle_pose_.position.x = vehicle_state_msg.position.x;
-  this->vehicle_pose_.position.y = vehicle_state_msg.position.y;
+  this->vehicle_pose_.position.x = pose.x;
+  this->vehicle_pose_.position.y = pose.y;
 
-  this->vehicle_pose_.velocity_ = vehicle_state_msg.linear_velocity;
-  this->vehicle_pose_.orientation = vehicle_state_msg.theta;
-  this->vehicle_pose_.rear_axis_ = cg_2_rear_axis(
+  this->vehicle_pose_.velocity_ = velocity;
+  this->vehicle_pose_.orientation = pose.theta;
+  this->vehicle_pose_.rear_axis_ = this->bicycle_model_.rear_axis_position(
+
       this->vehicle_pose_.position, this->vehicle_pose_.orientation, this->dist_cg_2_rear_axis_);
 
   return;
@@ -39,7 +44,7 @@ std::tuple<Position, int, double> PointSolver::update_closest_point(
   Position closest_point = Position();
   Position aux_point = Position();
   int closest_point_id = -1;
-  for (size_t i = 0; i < pathpoint_array.size(); i++) {
+  for (size_t i = 1; i < pathpoint_array.size(); i++) {
     aux_point = Position(pathpoint_array[i].x, pathpoint_array[i].y);
     double distance = this->vehicle_pose_.rear_axis_.euclidean_distance(aux_point);
     if (distance < min_distance) {
@@ -56,12 +61,29 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
     const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array,
     int closest_point_id) const {
   Position rear_axis_point = this->vehicle_pose_.rear_axis_;
-  double ld = this->k_ * std::max(this->vehicle_pose_.velocity_, 3.0);
-  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Current ld: %f", ld);
+  double ld = std::max(this->k_ * this->vehicle_pose_.velocity_, this->lookahead_minimum_);
 
   for (size_t i = 0; i < pathpoint_array.size(); i++) {
     size_t index_a = (closest_point_id + i) % pathpoint_array.size();
     size_t index_b = (closest_point_id + i + 1) % pathpoint_array.size();
+
+    // We reached the end of the path
+    if (index_b < index_a) {
+      Position first_point(pathpoint_array.front().x, pathpoint_array.front().y);
+      Position last_point(pathpoint_array.back().x, pathpoint_array.back().y);
+      double start_end_distance = first_point.euclidean_distance(last_point);
+
+      //  If the path is not a closed track, the lookahead point is the last point
+      //  If the path is a closed track, we continue normally, the first point is the continuation
+      if (start_end_distance > this->first_last_max_dist_) {
+        RCLCPP_INFO(rclcpp::get_logger("control"),
+                    "Lookahead extends beyond path end and it is not a closed track, using last "
+                    "point of the path as lookahead point");
+        return std::make_tuple(Position(pathpoint_array.back().x, pathpoint_array.back().y),
+                               pathpoint_array.back().v, false);
+      }
+    }
+
     auto point_a = Position(pathpoint_array[index_a].x, pathpoint_array[index_a].y);
     auto point_b = Position(pathpoint_array[index_b].x, pathpoint_array[index_b].y);
 
