@@ -1,0 +1,8 @@
+<map id="ConstrainedGridRANSAC" name="ConstrainedGridRANSAC">
+<area shape="rect" id="Node000001" title="Implementation of ground removal using a grid&#45;based RANSAC algorithm." alt="" coords="5,368,185,474"/>
+<area shape="rect" id="Node000002" href="$dc/d84/class_ground_removal.html" title="Abstract class for ground removal from a point cloud." alt="" coords="28,5,152,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,85,97,368,92,369,88,86"/>
+<area shape="rect" id="Node000003" href="$d2/d37/class_constrained_r_a_n_s_a_c_optimized.html" title="Constrained RANSAC with simple optimizations / pruning heuristics." alt="" coords="111,120,325,305"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="124,81,152,119,148,122,120,84"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="166,306,137,356,132,353,162,303"/>
+</map>

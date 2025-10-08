@@ -1,0 +1,19 @@
+<map id="SLAMNode::_perception_subscription_callback" name="SLAMNode::_perception_subscription_callback">
+<area shape="rect" id="Node000001" title="Callback that updates everytime information is received from the perception module." alt="" coords="5,165,168,206"/>
+<area shape="rect" id="Node000002" href="$d8/d84/class_s_l_a_m_node.html#a9a6dee802bbbb070a0556ee1dd01826a" title="Checks if the mission is finished." alt="" coords="221,5,386,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,163,149,111,180,82,214,57,224,51,226,56,217,61,184,86,153,115,106,167"/>
+<area shape="rect" id="Node000003" href="$d8/d84/class_s_l_a_m_node.html#a91b66a755ba32f65e90666fe56bc9629" title="Publishes the visualization of the associations by data association." alt="" coords="232,71,375,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="128,163,215,122,231,115,233,120,217,127,130,167"/>
+<area shape="rect" id="Node000004" href="$d8/d84/class_s_l_a_m_node.html#a3e323b58014b3f31d0574d4be9ab092f" title="publishes the lap counter" alt="" coords="232,136,375,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="168,172,216,165,216,171,169,177"/>
+<area shape="rect" id="Node000005" href="$d8/d84/class_s_l_a_m_node.html#a976a75ca26892057e2b0c2ea11a25496" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="216,201,391,227"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="169,194,200,198,200,203,168,199"/>
+<area shape="rect" id="Node000008" href="$d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="232,251,375,291"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="138,204,217,237,231,242,230,247,215,241,136,209"/>
+<area shape="rect" id="Node000009" href="$d8/d84/class_s_l_a_m_node.html#a4fe92c9a730b5fd9c1f4ebc9b007e4ae" title="Finish the mission." alt="" coords="241,316,366,341"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="107,205,154,253,184,279,217,301,230,307,228,312,214,305,181,283,150,257,103,208"/>
+<area shape="rect" id="Node000006" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="471,161,635,202"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="391,200,455,191,456,197,392,205"/>
+<area shape="rect" id="Node000007" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="439,227,667,267"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="392,223,424,227,423,232,391,228"/>
+</map>

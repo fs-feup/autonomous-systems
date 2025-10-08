@@ -1,0 +1,20 @@
+<map id="src/perception/include/fov_trimming/cut_trimming.hpp" name="src/perception/include/fov_trimming/cut_trimming.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="220,5,423,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,168,142,193"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="285,49,200,96,104,161,101,156,197,92,282,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="166,168,285,193"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="267,49,236,68,212,95,207,109,207,124,215,153,210,154,202,124,202,108,207,93,232,64,264,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="578,168,697,193"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="363,44,600,158,598,163,361,49"/>
+<area shape="rect" id="Node000005" href="$d9/d6e/trimming__parameters_8hpp.html" title=" " alt="" coords="359,168,554,193"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="373,44,407,64,436,92,450,122,457,152,452,153,445,124,431,96,403,69,370,49"/>
+<area shape="rect" id="Node000007" href="$d7/da0/fov__trimming_8hpp.html" title=" " alt="" coords="222,94,421,120"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="324,46,324,78,319,78,319,46"/>
+<area shape="rect" id="Node000006" href="$d0/d1d/split__parameters_8hpp.html" title=" " alt="" coords="304,241,473,267"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="447,195,412,232,408,228,443,192"/>
+<area shape="poly" id="edge7_Node000007_Node000002" title=" " alt="" coords="280,123,131,165,130,160,279,118"/>
+<area shape="poly" id="edge8_Node000007_Node000003" title=" " alt="" coords="307,122,255,161,252,156,304,118"/>
+<area shape="poly" id="edge9_Node000007_Node000004" title=" " alt="" coords="376,118,569,161,568,166,375,123"/>
+<area shape="poly" id="edge11_Node000007_Node000005" title=" " alt="" coords="346,118,421,158,419,162,343,123"/>
+<area shape="poly" id="edge10_Node000007_Node000006" title=" " alt="" coords="326,120,335,153,349,192,371,228,367,230,344,195,330,155,321,121"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="power_log.power_log_node.PowerNode.get_process_usage" name="power_log.power_log_node.PowerNode.get_process_usage">
+<area shape="rect" id="Node000001" title=" " alt="" coords="213,5,361,61"/>
+<area shape="rect" id="Node000002" href="$db/d78/classpower__log_1_1power__log__node_1_1_power_node.html#a585a68f88210f3d8700982cc1b5370fc" title="Callback function that publishes CPU core usage, memory usage and CPU temperature." alt="" coords="5,5,165,61"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="197,36,165,36,165,31,197,31"/>
+</map>

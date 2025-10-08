@@ -1,0 +1,7 @@
+<map id="car_keys.main.create_bar" name="car_keys.main.create_bar">
+<area shape="rect" id="Node000001" title="Create a visual bar representation of a value." alt="" coords="369,13,537,39"/>
+<area shape="rect" id="Node000002" href="$d1/d85/namespacecar__keys_1_1main.html#af9dc479531d0e28ff11ab64520588ca2" title="Print current status without clearing the screen." alt="" coords="189,5,321,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="354,28,321,28,321,23,354,23"/>
+<area shape="rect" id="Node000003" href="$d1/d85/namespacecar__keys_1_1main.html#a97c0f921f50eabde22ffe996058e9319" title="Main function to control the pacsim robot using the keyboard." alt="" coords="5,13,141,39"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="173,28,141,28,141,23,173,23"/>
+</map>

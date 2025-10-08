@@ -1,0 +1,5 @@
+<map id="GraphSLAMInstance::lock_landmarks" name="GraphSLAMInstance::lock_landmarks">
+<area shape="rect" id="Node000001" title="Soft locks the positions of the landmarks, can be used after the first lap." alt="" coords="211,5,360,46"/>
+<area shape="rect" id="Node000002" href="$d9/d73/class_graph_s_l_a_m_solver.html#a7ab911e5d048186ee5a58fdef4fb71ae" title="Add observations to the solver (correction step)" alt="" coords="5,5,163,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,28,163,28,163,23,195,23"/>
+</map>

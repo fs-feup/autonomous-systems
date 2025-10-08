@@ -1,0 +1,5 @@
+<map id="PacsimAdapter::steering_angle_callback" name="PacsimAdapter::steering_angle_callback">
+<area shape="rect" id="Node000001" title="callback that gets called when the steering angle is received" alt="" coords="5,5,168,46"/>
+<area shape="rect" id="Node000002" href="$d3/d43/class_v_e_node.html#a2aa9d39822eb3178f0a16a84d02e946e" title=" " alt="" coords="216,13,394,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,23,200,23,200,28,168,28"/>
+</map>

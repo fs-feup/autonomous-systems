@@ -1,6 +1,6 @@
 var class_integration_test =
 [
-    [ "run_nodes", "d7/d4e/class_integration_test.html#ad20f18ea2e23d8795940642acea752c2", null ],
+    [ "run_nodes", "d7/d4e/class_integration_test.html#af3ec5dd4e401c7da17219482afa4de66", null ],
     [ "SetUp", "d7/d4e/class_integration_test.html#a86a6d164c257739c10d039798dc7a500", null ],
     [ "TearDown", "d7/d4e/class_integration_test.html#acde71c3acb359b885267d348dc5cc290", null ],
     [ "cone_array_msg", "d7/d4e/class_integration_test.html#aeb55460044bd8b51d5e293967d4dbc05", null ],
@@ -10,5 +10,5 @@ var class_integration_test =
     [ "map_publisher", "d7/d4e/class_integration_test.html#ace3137e20526657e891b8ffc9531f3f9", null ],
     [ "planning_test_", "d7/d4e/class_integration_test.html#ac421562effc6788a8c83278783010028", null ],
     [ "received_path", "d7/d4e/class_integration_test.html#a7f5f7d0147cdfe8ef63181290a414d25", null ],
-    [ "vehicle_state_publisher_", "d7/d4e/class_integration_test.html#ae323c1bfaacc88dbbe0525479fa21894", null ]
+    [ "vehicle_pose_publisher_", "d7/d4e/class_integration_test.html#ab5118aaab331dae2f9adf714109a02a3", null ]
 ];

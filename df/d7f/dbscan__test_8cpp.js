@@ -1,5 +1,6 @@
 var dbscan__test_8cpp =
 [
+    [ "NonOwningDeleter< T >", "dd/d52/struct_non_owning_deleter.html", "dd/d52/struct_non_owning_deleter" ],
     [ "DBSCANTest", "d8/d90/class_d_b_s_c_a_n_test.html", "d8/d90/class_d_b_s_c_a_n_test" ],
     [ "TEST_F", "df/d7f/dbscan__test_8cpp.html#a9f34e040babd078459d7fcca631a473f", null ],
     [ "TEST_F", "df/d7f/dbscan__test_8cpp.html#ac375e72b29c50ba4ca3411b8788a6951", null ],

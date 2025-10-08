@@ -1,0 +1,5 @@
+<map id="EKFSLAMSolver::correct" name="EKFSLAMSolver::correct">
+<area shape="rect" id="Node000001" title="correction step of the EKF that updates the state and covariance based on the observed landmarks" alt="" coords="5,13,172,39"/>
+<area shape="rect" id="Node000002" href="$d7/d79/class_e_k_f_s_l_a_m_solver.html#a06313688bd8135164153301754db464f" title="Get the observation noise matrix object used in the correction step of the EKF with the right dimensi..." alt="" coords="220,5,395,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="172,23,204,23,204,28,172,28"/>
+</map>

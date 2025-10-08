@@ -1,32 +1,9 @@
 <map id="main" name="main">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,252,55,278"/>
-<area shape="rect" id="Node000002" href="$d9/d46/cpp-python-bridge_8cpp.html#a9ae92c90568fcd2e8a6f65376a61456b" title=" " alt="" coords="103,252,226,278"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="55,263,87,263,87,268,55,268"/>
-<area shape="rect" id="Node000003" href="$dd/d52/class_cone_coloring.html#a1baaec47531589cb1eb5c70d634782a5" title="color all cones" alt="" coords="287,184,419,224"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="206,249,273,227,275,232,207,254"/>
-<area shape="rect" id="Node000014" href="$d9/d46/cpp-python-bridge_8cpp.html#a484ba4830a782999be902ea8661db19c" title=" " alt="" coords="274,280,431,306"/>
-<area shape="poly" id="edge14_Node000002_Node000014" title=" " alt="" coords="227,272,259,277,258,282,226,277"/>
-<area shape="rect" id="Node000004" href="$dd/d52/class_cone_coloring.html#a9a86a8144ed4098c288947b5de39d8f7" title="function to filter the cones which have been colored previously" alt="" coords="479,20,657,60"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="367,181,413,127,444,97,478,71,487,65,490,70,481,75,447,101,417,131,371,185"/>
-<area shape="rect" id="Node000005" href="$dd/d52/class_cone_coloring.html#a5edc083feecc117f00edf4468b2928fa" title="function to place the initial cones, including the virtual ones" alt="" coords="500,85,636,126"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="390,181,478,136,494,129,496,134,480,141,392,185"/>
-<area shape="rect" id="Node000009" href="$dd/d52/class_cone_coloring.html#a2bf7e41855a5a2e1cca355ec8ae2b321" title="function to remove duplicates from a vector of cones" alt="" coords="494,150,642,191"/>
-<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="419,191,478,182,479,187,419,196"/>
-<area shape="rect" id="Node000010" href="$dd/d52/class_cone_coloring.html#aafe5e30f212d3003208aa4024815de2d" title="Useful when using memory to delete cones which after some times being detected become too close." alt="" coords="494,216,642,256"/>
-<area shape="poly" id="edge9_Node000003_Node000010" title=" " alt="" coords="419,211,479,220,478,225,419,216"/>
-<area shape="rect" id="Node000013" href="$dd/d52/class_cone_coloring.html#ad5fa063af400585b82f1320a756fc4a4" title="select the next cone (which minimizes the cost) to be colored if its cost is less than the maximum es..." alt="" coords="500,281,636,322"/>
-<area shape="poly" id="edge12_Node000003_Node000013" title=" " alt="" coords="394,222,480,265,497,272,495,277,478,270,391,227"/>
-<area shape="rect" id="Node000006" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a7ce25e8e5e8c05f720cd644b35134051" title=" " alt="" coords="721,5,877,61"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="635,82,705,59,707,65,636,87"/>
-<area shape="rect" id="Node000007" href="$dd/d52/class_cone_coloring.html#a4d5383a83dcfeda441351086839c22fd" title="calculate the expected position of the initial cones" alt="" coords="721,85,877,126"/>
-<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="636,103,705,103,705,108,636,108"/>
-<area shape="rect" id="Node000008" href="$dd/d52/class_cone_coloring.html#ad8d401f43b2988c73e31c635caff75de" title="function to place the second cones by selecting the closest to initial cones" alt="" coords="731,150,867,191"/>
-<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="637,122,717,145,715,150,635,127"/>
-<area shape="rect" id="Node000011" href="$dd/d52/class_cone_coloring.html#a248d064be09d7eb7ebc907f466ac73be" title="calculate the cost of coloring a cone" alt="" coords="705,255,893,281"/>
-<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="643,243,689,250,689,255,642,249"/>
-<area shape="rect" id="Node000012" href="$d2/d32/namespacecommon__lib_1_1maths.html#a158ecb4f5554792fc31db938539c8008" title="Function used to calculate the angle between two vectors and their norms." alt="" coords="941,248,1080,288"/>
-<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="893,265,925,265,925,271,893,271"/>
-<area shape="poly" id="edge13_Node000013_Node000011" title=" " alt="" coords="636,289,690,281,691,286,637,294"/>
-<area shape="rect" id="Node000015" href="$d9/d46/cpp-python-bridge_8cpp.html#aec7fac6342cbab8b936322ea240dab85" title=" " alt="" coords="514,346,622,371"/>
-<area shape="poly" id="edge15_Node000014_Node000015" title=" " alt="" coords="396,304,480,331,506,338,504,343,479,336,394,309"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,55,31"/>
+<area shape="rect" id="Node000002" href="$d9/d46/cpp-python-bridge_8cpp.html#a9ae92c90568fcd2e8a6f65376a61456b" title=" " alt="" coords="103,5,226,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="55,16,87,16,87,21,55,21"/>
+<area shape="rect" id="Node000003" href="$d9/d46/cpp-python-bridge_8cpp.html#a484ba4830a782999be902ea8661db19c" title=" " alt="" coords="274,5,431,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="226,16,258,16,258,21,226,21"/>
+<area shape="rect" id="Node000004" href="$d9/d46/cpp-python-bridge_8cpp.html#aec7fac6342cbab8b936322ea240dab85" title=" " alt="" coords="479,5,587,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="432,16,464,16,464,21,432,21"/>
 </map>

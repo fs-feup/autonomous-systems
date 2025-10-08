@@ -1,0 +1,13 @@
+<map id="debug_plot.main" name="debug_plot.main">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,42,121,68"/>
+<area shape="rect" id="Node000002" href="$d1/d88/namespacedebug__plot.html#a72fd117e5e8eeed450e12e000859448e" title=" " alt="" coords="176,5,302,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,43,161,36,161,41,121,48"/>
+<area shape="rect" id="Node000003" href="$d1/d88/namespacedebug__plot.html#ab4936fbc7b02f2ce0ed71704cff696c3" title=" " alt="" coords="169,70,309,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="121,62,154,67,153,72,121,67"/>
+<area shape="rect" id="Node000004" href="$d1/d88/namespacedebug__plot.html#a0ff53163b56dab1a8e70abeed4f7e39d" title=" " alt="" coords="363,45,537,71"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="309,72,347,67,348,73,310,77"/>
+<area shape="rect" id="Node000005" href="$d1/d88/namespacedebug__plot.html#a55917055793760209bc5e5d822d2da36" title=" " alt="" coords="357,94,543,120"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="310,88,342,92,341,97,309,94"/>
+<area shape="rect" id="Node000006" href="$d1/d88/namespacedebug__plot.html#aa0b9365e0b1c730ac2b3da9ab182ee0e" title=" " alt="" coords="591,87,729,127"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="544,104,576,104,576,110,544,110"/>
+</map>

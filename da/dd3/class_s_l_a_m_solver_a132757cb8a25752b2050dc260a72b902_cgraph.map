@@ -1,0 +1,23 @@
+<map id="SLAMSolver::set_mission" name="SLAMSolver::set_mission">
+<area shape="rect" id="Node000001" title="Set the mission." alt="" coords="5,80,177,106"/>
+<area shape="rect" id="Node000002" href="$d8/deb/track__loader_8cpp.html#a8fdf54bc79463c04ac8098b65da37f8a" title="loads the acceleration track from the default path." alt="" coords="227,5,385,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="124,77,224,40,242,34,244,39,226,45,126,82"/>
+<area shape="rect" id="Node000007" href="$da/dd3/class_s_l_a_m_solver.html#a5719e97c83e64cd5828c3e0f817f8256" title="Loads a previously saved map and pose into the solver." alt="" coords="225,154,387,195"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="128,104,237,145,235,150,126,109"/>
+<area shape="rect" id="Node000008" href="$d8/deb/track__loader_8cpp.html#ad4e86aefb67cb6fdc1592f2d6c02bfa0" title="loads the skidpad track from the default path." alt="" coords="239,55,373,80"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="176,80,223,75,224,80,177,85"/>
+<area shape="rect" id="Node000009" href="$d8/deb/track__loader_8cpp.html#a08c49ab3cd9080d5784f370b7f23631e" title="loads the trackdrive track from the default path." alt="" coords="233,104,379,130"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="177,100,218,104,217,110,176,105"/>
+<area shape="rect" id="Node000003" href="$d8/deb/track__loader_8cpp.html#a5c744bddb2fdcd908259e5e0058bf229" title="loads the map from the specified path and fills the start pose and track." alt="" coords="435,31,553,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="386,26,420,31,419,36,385,31"/>
+<area shape="rect" id="Node000006" href="$d8/deb/track__loader_8cpp.html#a90eb72a3528fcbb695757997ea85cb43" title="Transforms the track as seen from the start pose." alt="" coords="438,80,550,106"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="359,29,388,40,436,66,446,71,444,76,434,71,386,45,357,34"/>
+<area shape="rect" id="Node000004" href="$d8/deb/track__loader_8cpp.html#aba21ebec4d5bd866eb855c49014ab80f" title="adds the landmarks in the list to the track." alt="" coords="601,5,711,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="553,32,586,26,587,32,554,37"/>
+<area shape="rect" id="Node000005" href="$d8/deb/track__loader_8cpp.html#af45ff32e62996694d5ee0ff3f09b9755" title="Get the child node from a parent node by tag." alt="" coords="602,55,710,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="554,50,587,55,586,60,553,55"/>
+<area shape="poly" id="edge8_Node000008_Node000003" title=" " alt="" coords="373,56,419,50,420,56,373,62"/>
+<area shape="poly" id="edge9_Node000008_Node000006" title=" " alt="" coords="374,74,423,81,422,86,373,79"/>
+<area shape="poly" id="edge11_Node000009_Node000003" title=" " alt="" coords="356,101,386,90,434,65,444,61,446,65,436,70,388,95,358,106"/>
+<area shape="poly" id="edge12_Node000009_Node000006" title=" " alt="" coords="379,105,422,99,423,105,379,110"/>
+</map>

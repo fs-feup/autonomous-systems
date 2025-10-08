@@ -1,0 +1,5 @@
+<map id="BaseVelocityProcessModel" name="BaseVelocityProcessModel">
+<area shape="rect" id="Node000001" title="Base class for velocity process models, used to predict the next velocities based on previous velocit..." alt="" coords="5,5,196,111"/>
+<area shape="rect" id="Node000002" href="$d6/dba/class_c_a_particle_model.html" title=" " alt="" coords="17,159,184,264"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,125,103,159,98,159,98,125"/>
+</map>

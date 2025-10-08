@@ -110,7 +110,7 @@ Collaboration diagram for Cluster:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/dc7/class_cluster__coll__graph.png" border="0" usemap="#a_cluster_coll__map" alt="Collaboration graph"/></div>
 <map name="a_cluster_coll__map" id="a_cluster_coll__map">
-<area shape="rect" title="Represents a cluster of 3D points using PCL (Point Cloud Library)." alt="" coords="5,5,153,525"/>
+<area shape="rect" title="Represents a cluster of 3D points using PCL (Point Cloud Library)." alt="" coords="5,5,153,585"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -152,6 +152,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1fc31827aa9b5b3e7fcc526a7a9427b3" id="r_a1fc31827aa9b5b3e7fcc526a7a9427b3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d23/class_cluster.html#a1fc31827aa9b5b3e7fcc526a7a9427b3">get_z_score_y</a> () const</td></tr>
 <tr class="memdesc:a1fc31827aa9b5b3e7fcc526a7a9427b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the z score on y-axis of an object.  <br /></td></tr>
 <tr class="separator:a1fc31827aa9b5b3e7fcc526a7a9427b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4b5c99b0ed908d7799c13719d4a5892" id="r_ac4b5c99b0ed908d7799c13719d4a5892"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d23/class_cluster.html#ac4b5c99b0ed908d7799c13719d4a5892">get_is_large</a> ()</td></tr>
+<tr class="memdesc:ac4b5c99b0ed908d7799c13719d4a5892"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get cluster's corresponding cone size.  <br /></td></tr>
+<tr class="separator:ac4b5c99b0ed908d7799c13719d4a5892"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13de51fe61b04955625822be9483d2f0" id="r_a13de51fe61b04955625822be9483d2f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d23/class_cluster.html#a13de51fe61b04955625822be9483d2f0">set_is_large</a> ()</td></tr>
+<tr class="memdesc:a13de51fe61b04955625822be9483d2f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set cluster as a contender for a large cone.  <br /></td></tr>
+<tr class="separator:a13de51fe61b04955625822be9483d2f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -189,17 +195,20 @@ Private Attributes</h2></td></tr>
 <tr class="separator:ac0f3a10dee7e80d69bc7787fe99c81d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80fd9d15cad14da1bc022607fb9f3140" id="r_a80fd9d15cad14da1bc022607fb9f3140"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d23/class_cluster.html#a80fd9d15cad14da1bc022607fb9f3140">_z_score_y_</a> = 0</td></tr>
 <tr class="separator:a80fd9d15cad14da1bc022607fb9f3140"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1871cad40c9f84cc2f4a6f0ae03ecd8" id="r_ae1871cad40c9f84cc2f4a6f0ae03ecd8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d23/class_cluster.html#ae1871cad40c9f84cc2f4a6f0ae03ecd8">_is_large_</a> = false</td></tr>
+<tr class="memdesc:ae1871cad40c9f84cc2f4a6f0ae03ecd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating the size of the cluster : true = large cluster.  <br /></td></tr>
+<tr class="separator:ae1871cad40c9f84cc2f4a6f0ae03ecd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
-<tr class="memitem:ae390e51fd252f0dcde317675ebcab417" id="r_ae390e51fd252f0dcde317675ebcab417"><td class="memItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d23/class_cluster.html#ae390e51fd252f0dcde317675ebcab417">center_calculator</a> = <a class="el" href="../../d8/d0d/class_circunference_center_calculation.html">CircunferenceCenterCalculation</a>()</td></tr>
+<tr class="memitem:ae390e51fd252f0dcde317675ebcab417" id="r_ae390e51fd252f0dcde317675ebcab417"><td class="memItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d23/class_cluster.html#ae390e51fd252f0dcde317675ebcab417">center_calculator</a></td></tr>
 <tr class="memdesc:ae390e51fd252f0dcde317675ebcab417"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the center of the cone.  <br /></td></tr>
 <tr class="separator:ae390e51fd252f0dcde317675ebcab417"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents a cluster of 3D points using PCL (Point Cloud Library). </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d49/cluster_8hpp_source.html#l00014">14</a> of file <a class="el" href="../../d2/d49/cluster_8hpp_source.html">cluster.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d49/cluster_8hpp_source.html#l00015">15</a> of file <a class="el" href="../../d2/d49/cluster_8hpp_source.html">cluster.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae654220b3efbcb24863d4f7c3d844a39" name="ae654220b3efbcb24863d4f7c3d844a39"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae654220b3efbcb24863d4f7c3d844a39">&#9670;&#160;</a></span>Cluster()</h2>
@@ -271,29 +280,27 @@ Static Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>std::tuple&lt;double, double, double, double&gt; (mean x, mean y, standard deviation x, standard deviation y) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00060">60</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00055">55</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d2/d23/class_cluster_ae8851c19294d2e0022b2c4ebf061fe9b_icgraph.png" border="0" usemap="#ad2/d23/class_cluster_ae8851c19294d2e0022b2c4ebf061fe9b_icgraph" alt=""/></div>
 <map name="ad2/d23/class_cluster_ae8851c19294d2e0022b2c4ebf061fe9b_icgraph" id="ad2/d23/class_cluster_ae8851c19294d2e0022b2c4ebf061fe9b_icgraph">
-<area shape="rect" title="Calculates the mean and standard deviation on x and y axis." alt="" coords="601,137,743,178"/>
-<area shape="rect" href="../../d2/d23/class_cluster.html#a9018afcce64d5b973aeef0bd395f87f8" title="Set the z scores object on every cluster of the vector." alt="" coords="408,145,553,171"/>
-<area shape="poly" title=" " alt="" coords="586,160,554,160,554,155,586,155"/>
-<area shape="rect" href="../../de/d07/class_perception.html#a592f3cc2120d974b503f5934970ac5db" title="Callback function for the PointCloud2 subscription." alt="" coords="205,5,360,46"/>
-<area shape="poly" title=" " alt="" coords="454,136,411,98,359,60,338,49,341,44,361,55,414,94,457,132"/>
-<area shape="rect" href="../../d3/d74/z__score__validator__test_8cpp.html#aee2f802a1755206bbd1c0b0d53195044" title="Test case to validate a perfectly distributed vector of clusters." alt="" coords="248,70,317,96"/>
-<area shape="poly" title=" " alt="" coords="435,141,359,110,317,95,318,90,361,104,437,136"/>
-<area shape="rect" href="../../d3/d74/z__score__validator__test_8cpp.html#a4f7100bece7335d55809d6d71ca3601c" title="Test case to validate a perfectly distributed vector of clusters with 1 outlier (not perfect)" alt="" coords="248,120,317,145"/>
-<area shape="poly" title=" " alt="" coords="392,149,317,139,318,134,393,144"/>
-<area shape="rect" href="../../d3/d74/z__score__validator__test_8cpp.html#aaf061c6dbf9981d8a48d5aa83eb8b5d7" title="Test case to validate a perfectly distributed vector of clusters with 1 outlier (all points except th..." alt="" coords="248,169,317,195"/>
-<area shape="poly" title=" " alt="" coords="393,171,318,180,317,175,392,166"/>
-<area shape="rect" href="../../d3/d74/z__score__validator__test_8cpp.html#a7f0ace492ca1a6d1dd2322ce52070b57" title="Test case to validate the a vector with only one cluster." alt="" coords="248,218,317,244"/>
-<area shape="poly" title=" " alt="" coords="436,179,361,210,318,224,316,219,359,204,434,174"/>
-<area shape="rect" href="../../d3/d74/z__score__validator__test_8cpp.html#a7db70aacf614ee8f07fba7ca9d3b46d3" title="Test case to validate the a vector with only two clusters." alt="" coords="248,268,317,293"/>
-<area shape="poly" title=" " alt="" coords="458,184,415,222,361,259,318,275,317,270,359,254,412,218,454,180"/>
-<area shape="rect" href="../../de/d07/class_perception.html#a99447b0f39e7b103d320b6072021a3af" title="Constructor for the Perception node." alt="" coords="5,13,157,39"/>
-<area shape="poly" title=" " alt="" coords="189,28,157,28,157,23,189,23"/>
+<area shape="rect" title="Calculates the mean and standard deviation on x and y axis." alt="" coords="402,137,543,178"/>
+<area shape="rect" href="../../d2/d23/class_cluster.html#a9018afcce64d5b973aeef0bd395f87f8" title="Set the z scores object on every cluster of the vector." alt="" coords="209,145,354,171"/>
+<area shape="poly" title=" " alt="" coords="386,160,355,160,355,155,386,155"/>
+<area shape="rect" href="../../de/d07/class_perception.html#a592f3cc2120d974b503f5934970ac5db" title="Callback function for the PointCloud2 subscription." alt="" coords="5,5,161,46"/>
+<area shape="poly" title=" " alt="" coords="254,136,212,98,159,60,139,49,141,44,162,55,215,94,258,132"/>
+<area shape="rect" href="../../d3/d74/z__score__validator__test_8cpp.html#aee2f802a1755206bbd1c0b0d53195044" title="Test case to validate a perfectly distributed vector of clusters." alt="" coords="48,70,118,96"/>
+<area shape="poly" title=" " alt="" coords="236,141,160,110,117,95,119,90,162,104,238,136"/>
+<area shape="rect" href="../../d3/d74/z__score__validator__test_8cpp.html#a4f7100bece7335d55809d6d71ca3601c" title="Test case to validate a perfectly distributed vector of clusters with 1 outlier (not perfect)" alt="" coords="48,120,118,145"/>
+<area shape="poly" title=" " alt="" coords="193,149,118,139,119,134,194,144"/>
+<area shape="rect" href="../../d3/d74/z__score__validator__test_8cpp.html#aaf061c6dbf9981d8a48d5aa83eb8b5d7" title="Test case to validate a perfectly distributed vector of clusters with 1 outlier (all points except th..." alt="" coords="48,169,118,195"/>
+<area shape="poly" title=" " alt="" coords="194,171,119,180,118,175,193,166"/>
+<area shape="rect" href="../../d3/d74/z__score__validator__test_8cpp.html#a7f0ace492ca1a6d1dd2322ce52070b57" title="Test case to validate the a vector with only one cluster." alt="" coords="48,218,118,244"/>
+<area shape="poly" title=" " alt="" coords="237,179,162,210,119,224,117,219,160,204,235,174"/>
+<area shape="rect" href="../../d3/d74/z__score__validator__test_8cpp.html#a7db70aacf614ee8f07fba7ca9d3b46d3" title="Test case to validate the a vector with only two clusters." alt="" coords="48,268,118,293"/>
+<area shape="poly" title=" " alt="" coords="259,184,216,222,162,259,119,275,117,270,159,254,212,218,255,180"/>
 </map>
 </div>
 
@@ -318,7 +325,7 @@ Here is the caller graph for this function:</div>
 <p>Get the Center of the cone's cluster. </p>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::Vector4f representing the center </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00015">15</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00014">14</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
 
 </div>
 </div>
@@ -340,23 +347,25 @@ Here is the caller graph for this function:</div>
 <p>Get the centroid of the cluster. </p>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::Vector4f representing the centroid. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00006">6</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00005">5</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d2/d23/class_cluster_ab0b0056112da3ff27a13304f38f5f4d1_icgraph.png" border="0" usemap="#ad2/d23/class_cluster_ab0b0056112da3ff27a13304f38f5f4d1_icgraph" alt=""/></div>
 <map name="ad2/d23/class_cluster_ab0b0056112da3ff27a13304f38f5f4d1_icgraph" id="ad2/d23/class_cluster_ab0b0056112da3ff27a13304f38f5f4d1_icgraph">
-<area shape="rect" title="Get the centroid of the cluster." alt="" coords="339,95,478,120"/>
-<area shape="rect" href="../../dd/def/class_cylinder_validator.html#a206a8bd25bfb5b16d71e3881af9a4111" title="Validates a cluster using cylinder approximation." alt="" coords="145,22,269,63"/>
-<area shape="poly" title=" " alt="" coords="351,92,268,65,270,60,353,87"/>
-<area shape="rect" href="../../d0/d47/class_distance_predict.html#a30fefe0b7264263220f3a38b6a873838" title="Perform the cluster evaluation based on distance." alt="" coords="123,87,291,128"/>
-<area shape="poly" title=" " alt="" coords="324,110,292,110,292,105,324,105"/>
-<area shape="rect" href="../../d2/d23/class_cluster.html#a317f4cd731722a6d21cbfecf8e112c87" title="Set the z score object on the x and y axis." alt="" coords="138,152,276,178"/>
-<area shape="poly" title=" " alt="" coords="347,128,256,154,254,149,346,123"/>
-<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#ac6b9d4a0b0d87a638097ed16b4386464" title="Test case to validate if a point is inside the cylinder." alt="" coords="5,5,75,31"/>
-<area shape="poly" title=" " alt="" coords="129,34,74,26,75,20,130,28"/>
-<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#a2f203a643e8c68f6c812c3ec1874fa52" title="Test case to validate if a point is outside the cylinder." alt="" coords="5,55,75,80"/>
-<area shape="poly" title=" " alt="" coords="130,57,75,65,74,60,129,51"/>
+<area shape="rect" title="Get the centroid of the cluster." alt="" coords="309,109,448,135"/>
+<area shape="rect" href="../../dd/def/class_cylinder_validator.html#a15a79c63182d06ed4cea29cc91649123" title="Validates a cluster using cylinder approximation." alt="" coords="130,73,254,113"/>
+<area shape="poly" title=" " alt="" coords="294,112,254,105,255,100,294,106"/>
+<area shape="rect" href="../../d2/d23/class_cluster.html#a317f4cd731722a6d21cbfecf8e112c87" title="Set the z score object on the x and y axis." alt="" coords="123,137,261,163"/>
+<area shape="poly" title=" " alt="" coords="294,138,262,142,261,137,293,132"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#a8f0329c82e1158d8442662c9d30f899e" title="Test case to validate if points are outside all cylinders." alt="" coords="5,5,75,31"/>
+<area shape="poly" title=" " alt="" coords="134,68,67,34,69,29,137,63"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#a95f1f05e16deae388b0227d0cf0609d6" title="Test case to validate if points are inside the large cylinder." alt="" coords="5,55,75,80"/>
+<area shape="poly" title=" " alt="" coords="114,83,75,76,76,71,115,77"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#ae5a55af411072ca2ab25e1d01c462f18" title="Test case to validate if points are inside the small cylinder." alt="" coords="5,104,75,130"/>
+<area shape="poly" title=" " alt="" coords="115,108,76,114,75,109,114,102"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#a8c491530e433149e04636f4d0defc52e" title="Test case to validate if points are outside all cylinders." alt="" coords="5,153,75,179"/>
+<area shape="poly" title=" " alt="" coords="133,123,124,127,68,155,66,150,121,122,131,118"/>
 </map>
 </div>
 
@@ -380,18 +389,18 @@ Here is the caller graph for this function:</div>
 <p>Get the color associated with the cluster. </p>
 <dl class="section return"><dt>Returns</dt><dd>std::string representing the color. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00024">24</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00023">23</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d2/d23/class_cluster_a9bc9c6da53ae214a1ca2fd9f841f240f_icgraph.png" border="0" usemap="#ad2/d23/class_cluster_a9bc9c6da53ae214a1ca2fd9f841f240f_icgraph" alt=""/></div>
 <map name="ad2/d23/class_cluster_a9bc9c6da53ae214a1ca2fd9f841f240f_icgraph" id="ad2/d23/class_cluster_a9bc9c6da53ae214a1ca2fd9f841f240f_icgraph">
 <area shape="rect" title="Get the color associated with the cluster." alt="" coords="123,55,244,80"/>
-<area shape="rect" href="../../d5/dfa/least__squares__test_8cpp.html#a19610686f2b6d67c91c49de4d825b8b6" title="Test case to validate the cone differentiation for a blue cone." alt="" coords="5,5,75,31"/>
+<area shape="rect" href="../../d5/dfa/least__squares__test_8cpp.html#a19610686f2b6d67c91c49de4d825b8b6" title=" " alt="" coords="5,5,75,31"/>
 <area shape="poly" title=" " alt="" coords="129,52,74,32,76,27,130,47"/>
-<area shape="rect" href="../../d5/dfa/least__squares__test_8cpp.html#a3ef79ab5a18c4b61fb65aec48c7505a6" title="Test case to validate the cone differentiation for an undefined cone." alt="" coords="5,55,75,80"/>
+<area shape="rect" href="../../d5/dfa/least__squares__test_8cpp.html#a3ef79ab5a18c4b61fb65aec48c7505a6" title=" " alt="" coords="5,55,75,80"/>
 <area shape="poly" title=" " alt="" coords="107,70,75,70,75,65,107,65"/>
-<area shape="rect" href="../../d5/dfa/least__squares__test_8cpp.html#a7e94e5064b07a818c4129c6075136f4c" title="Test case to validate the cone differentiation for a yellow cone." alt="" coords="5,104,75,130"/>
+<area shape="rect" href="../../d5/dfa/least__squares__test_8cpp.html#a7e94e5064b07a818c4129c6075136f4c" title=" " alt="" coords="5,104,75,130"/>
 <area shape="poly" title=" " alt="" coords="130,88,76,108,74,103,129,83"/>
 </map>
 </div>
@@ -416,7 +425,69 @@ Here is the caller graph for this function:</div>
 <p>Get the Confidence of the cluster to be (or not to be) a cone. </p>
 <dl class="section return"><dt>Returns</dt><dd>double <a class="el" href="../../d2/d23/class_cluster.html" title="Represents a cluster of 3D points using PCL (Point Cloud Library).">Cluster</a>'s confidence </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00043">43</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00042">42</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d2/d23/class_cluster_a890486439eb28ec20126fbad4b1ad968_icgraph.png" border="0" usemap="#ad2/d23/class_cluster_a890486439eb28ec20126fbad4b1ad968_icgraph" alt=""/></div>
+<map name="ad2/d23/class_cluster_a890486439eb28ec20126fbad4b1ad968_icgraph" id="ad2/d23/class_cluster_a890486439eb28ec20126fbad4b1ad968_icgraph">
+<area shape="rect" title="Get the Confidence of the cluster to be (or not to be) a cone." alt="" coords="108,31,263,56"/>
+<area shape="rect" href="../../d1/d69/cone__evaluator__test_8cpp.html#ab5e55810325802b3dc0b3c707dd44ff5" title="Test when confidence is insufficient." alt="" coords="5,5,60,31"/>
+<area shape="poly" title=" " alt="" coords="92,31,60,25,61,20,93,25"/>
+<area shape="rect" href="../../d1/d69/cone__evaluator__test_8cpp.html#a3986a0a05e70445cc0095f943c977beb" title="Test when confidence is sufficient." alt="" coords="5,55,60,80"/>
+<area shape="poly" title=" " alt="" coords="93,61,61,66,60,61,92,56"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ac4b5c99b0ed908d7799c13719d4a5892" name="ac4b5c99b0ed908d7799c13719d4a5892"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4b5c99b0ed908d7799c13719d4a5892">&#9670;&#160;</a></span>get_is_large()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Cluster::get_is_large </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get cluster's corresponding cone size. </p>
+<dl class="section return"><dt>Returns</dt><dd>bool representing size . </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00087">87</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d2/d23/class_cluster_ac4b5c99b0ed908d7799c13719d4a5892_icgraph.png" border="0" usemap="#ad2/d23/class_cluster_ac4b5c99b0ed908d7799c13719d4a5892_icgraph" alt=""/></div>
+<map name="ad2/d23/class_cluster_ac4b5c99b0ed908d7799c13719d4a5892_icgraph" id="ad2/d23/class_cluster_ac4b5c99b0ed908d7799c13719d4a5892_icgraph">
+<area shape="rect" title="Get cluster&#39;s corresponding cone size." alt="" coords="295,212,433,238"/>
+<area shape="rect" href="../../dd/def/class_cylinder_validator.html#a15a79c63182d06ed4cea29cc91649123" title="Validates a cluster using cylinder approximation." alt="" coords="123,73,247,113"/>
+<area shape="poly" title=" " alt="" coords="337,203,296,166,245,127,227,116,230,111,249,123,299,162,341,199"/>
+<area shape="rect" href="../../d6/d1c/height__validator__test_8cpp.html#a49b23bfcd16f41133864011621f0e190" title="Test case to validate if the cone height is below the minimum height threshold." alt="" coords="150,137,220,163"/>
+<area shape="poly" title=" " alt="" coords="318,208,246,177,219,166,221,161,248,172,321,203"/>
+<area shape="rect" href="../../d6/d1c/height__validator__test_8cpp.html#ac8293f13fa8e7f3e1bc497f96df90662" title="Test case to validate if the cone height exceeds all thresholds." alt="" coords="150,187,220,212"/>
+<area shape="poly" title=" " alt="" coords="280,216,219,207,220,202,280,210"/>
+<area shape="rect" href="../../d6/d1c/height__validator__test_8cpp.html#a9959cf05d335f7f67544f5191c5ccb01" title="Test case to validate if the cone height is near the minimum threshold but valid." alt="" coords="150,236,220,262"/>
+<area shape="poly" title=" " alt="" coords="280,239,220,247,219,242,280,233"/>
+<area shape="rect" href="../../d6/d1c/height__validator__test_8cpp.html#a7c92bbcd8d6dcce6be0ab3642a6f19c1" title="Test case to validate if the cone height exceeds the small cone threshold but is within the large con..." alt="" coords="150,285,220,311"/>
+<area shape="poly" title=" " alt="" coords="319,247,248,277,221,288,219,283,246,272,317,242"/>
+<area shape="rect" href="../../d6/d1c/height__validator__test_8cpp.html#a5e7059785b091e3fa4bf8442c1c3dca2" title="Test case to validate if the cone height is within the small cone height threshold." alt="" coords="150,335,220,360"/>
+<area shape="poly" title=" " alt="" coords="342,251,300,288,248,326,221,339,219,334,246,321,297,284,338,247"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#a8f0329c82e1158d8442662c9d30f899e" title="Test case to validate if points are outside all cylinders." alt="" coords="5,5,75,31"/>
+<area shape="poly" title=" " alt="" coords="129,67,65,34,68,29,132,63"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#a95f1f05e16deae388b0227d0cf0609d6" title="Test case to validate if points are inside the large cylinder." alt="" coords="5,55,75,80"/>
+<area shape="poly" title=" " alt="" coords="107,82,75,76,75,71,108,77"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#ae5a55af411072ca2ab25e1d01c462f18" title="Test case to validate if points are inside the small cylinder." alt="" coords="5,104,75,130"/>
+<area shape="poly" title=" " alt="" coords="108,108,75,114,75,109,107,103"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#a8c491530e433149e04636f4d0defc52e" title="Test case to validate if points are outside all cylinders." alt="" coords="5,153,75,179"/>
+<area shape="poly" title=" " alt="" coords="131,123,69,155,66,150,128,118"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -438,35 +509,57 @@ Here is the caller graph for this function:</div>
 <p>Get the Point Cloud data of the cluster. </p>
 <dl class="section return"><dt>Returns</dt><dd>pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr representing the Point Cloud data. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00039">39</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00038">38</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d2/d23/class_cluster_a763032aa726408defaea180f280f55f3_icgraph.png" border="0" usemap="#ad2/d23/class_cluster_a763032aa726408defaea180f280f55f3_icgraph" alt=""/></div>
 <map name="ad2/d23/class_cluster_a763032aa726408defaea180f280f55f3_icgraph" id="ad2/d23/class_cluster_a763032aa726408defaea180f280f55f3_icgraph">
-<area shape="rect" title="Get the Point Cloud data of the cluster." alt="" coords="366,136,487,177"/>
-<area shape="rect" href="../../d7/d15/class_least_squares_differentiation.html#af0f7274fca147b1718e68d87df20e83c" title="Perform cone differentiation on a cone&#39;s point cloud using the Least Squares Method." alt="" coords="130,5,311,46"/>
-<area shape="poly" title=" " alt="" coords="395,126,359,92,317,61,291,49,294,44,319,57,363,88,399,122"/>
-<area shape="rect" href="../../dd/def/class_cylinder_validator.html#a206a8bd25bfb5b16d71e3881af9a4111" title="Validates a cluster using cylinder approximation." alt="" coords="158,71,283,111"/>
-<area shape="poly" title=" " alt="" coords="351,135,282,113,284,108,352,130"/>
-<area shape="rect" href="../../d2/d55/class_deviation_validator.html#ae312d8b85e3c0f5d52acc37ad686a670" title="Validates a cluster using standard deviation." alt="" coords="157,136,284,177"/>
-<area shape="poly" title=" " alt="" coords="351,159,284,159,284,154,351,154"/>
-<area shape="rect" href="../../d9/d1f/class_height_validator.html#ac32f47cd9bcfc58e8951b151bf356752" title="Validates a cone based on its height relative to a plane." alt="" coords="123,201,318,227"/>
-<area shape="poly" title=" " alt="" coords="352,181,319,191,275,203,274,198,317,186,351,176"/>
-<area shape="rect" href="../../d0/d47/class_distance_predict.html#a30fefe0b7264263220f3a38b6a873838" title="Perform the cluster evaluation based on distance." alt="" coords="136,251,305,291"/>
-<area shape="poly" title=" " alt="" coords="394,189,359,216,319,241,295,252,293,248,317,237,356,212,390,185"/>
-<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#ac6b9d4a0b0d87a638097ed16b4386464" title="Test case to validate if a point is inside the cylinder." alt="" coords="5,34,75,60"/>
-<area shape="poly" title=" " alt="" coords="143,75,74,58,76,53,144,70"/>
-<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#a2f203a643e8c68f6c812c3ec1874fa52" title="Test case to validate if a point is outside the cylinder." alt="" coords="5,84,75,109"/>
-<area shape="poly" title=" " alt="" coords="143,96,75,98,75,93,143,91"/>
-<area shape="rect" href="../../d6/d1c/height__validator__test_8cpp.html#a49b23bfcd16f41133864011621f0e190" title="Test case to validate if the cone height is below the minimum height threshold." alt="" coords="5,145,75,171"/>
-<area shape="poly" title=" " alt="" coords="148,199,122,191,74,174,76,169,123,186,150,194"/>
-<area shape="rect" href="../../d6/d1c/height__validator__test_8cpp.html#ac8293f13fa8e7f3e1bc497f96df90662" title="Test case to validate if the cone height exceeds the height threshold." alt="" coords="5,194,75,220"/>
-<area shape="poly" title=" " alt="" coords="107,212,75,211,75,206,107,207"/>
-<area shape="rect" href="../../d6/d1c/height__validator__test_8cpp.html#a1d8c6c6fe02a42b6eb6508a997247a33" title="Test case to validate if the cone height isn&#39;t below the minimum height threshold." alt="" coords="5,244,75,269"/>
-<area shape="poly" title=" " alt="" coords="149,233,76,251,74,246,148,228"/>
-<area shape="rect" href="../../d6/d1c/height__validator__test_8cpp.html#a2e6994d881991166aa0ecaa3c0d06c17" title="Test case to validate if the cone height is within the height threshold." alt="" coords="5,293,75,319"/>
-<area shape="poly" title=" " alt="" coords="138,235,124,241,99,261,76,284,62,294,59,290,73,280,96,257,121,237,136,230"/>
+<area shape="rect" title="Get the Point Cloud data of the cluster." alt="" coords="375,242,496,283"/>
+<area shape="rect" href="../../d7/d15/class_least_squares_differentiation.html#af0f7274fca147b1718e68d87df20e83c" title="Perform cone differentiation on a cone&#39;s point cloud using the Least Squares Method." alt="" coords="134,57,316,97"/>
+<area shape="poly" title=" " alt="" coords="416,229,379,169,354,139,325,112,304,100,307,95,329,108,358,135,384,166,421,226"/>
+<area shape="rect" href="../../dd/def/class_cylinder_validator.html#a15a79c63182d06ed4cea29cc91649123" title="Validates a cluster using cylinder approximation." alt="" coords="163,122,287,163"/>
+<area shape="poly" title=" " alt="" coords="387,236,326,199,264,165,267,161,328,195,390,231"/>
+<area shape="rect" href="../../d2/d55/class_deviation_validator.html#a29d91e117f19ffe319cb162a9599f9d9" title="Validates a cluster using standard deviation." alt="" coords="162,209,288,249"/>
+<area shape="poly" title=" " alt="" coords="359,253,288,241,289,236,360,248"/>
+<area shape="rect" href="../../db/d6b/class_displacement_validator.html#a7c369e7de6133338f85f4aec712dad5d" title="Validates a cone based on the maximum distance between its points in all axis." alt="" coords="149,274,301,315"/>
+<area shape="poly" title=" " alt="" coords="360,276,301,285,301,280,359,271"/>
+<area shape="rect" href="../../d9/d1f/class_height_validator.html#ac4d61b8c54bfc4f2cef252c9e05a1c71" title="Validates a cone based on its height relative to a plane." alt="" coords="127,475,323,500"/>
+<area shape="poly" title=" " alt="" coords="407,296,240,476,236,473,403,292"/>
+<area shape="rect" href="../../d2/ddf/class_n_points_validator.html#a4fa2eff881f343c78be08fc09a804063" title="Validates a cone based on its number of points." alt="" coords="123,671,327,696"/>
+<area shape="poly" title=" " alt="" coords="424,297,384,396,329,514,279,605,237,672,233,669,274,602,325,512,379,394,419,295"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#a8f0329c82e1158d8442662c9d30f899e" title="Test case to validate if points are outside all cylinders." alt="" coords="5,5,75,31"/>
+<area shape="poly" title=" " alt="" coords="147,125,121,111,104,95,95,78,87,62,73,44,61,34,64,30,77,40,91,59,100,76,108,91,124,107,149,121"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#a95f1f05e16deae388b0227d0cf0609d6" title="Test case to validate if points are inside the large cylinder." alt="" coords="5,55,75,80"/>
+<area shape="poly" title=" " alt="" coords="147,121,122,111,64,83,67,79,124,106,149,116"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#ae5a55af411072ca2ab25e1d01c462f18" title="Test case to validate if points are inside the small cylinder." alt="" coords="5,104,75,130"/>
+<area shape="poly" title=" " alt="" coords="147,134,75,124,75,119,148,129"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#a8c491530e433149e04636f4d0defc52e" title="Test case to validate if points are outside all cylinders." alt="" coords="5,153,75,179"/>
+<area shape="poly" title=" " alt="" coords="148,155,75,164,75,159,147,150"/>
+<area shape="rect" href="../../d9/d6f/displacement__validator__test_8cpp.html#acfca5e9d60442034c442845f0b850ae8" title="Test case to validate points below the minimum distance on the x&#45;axis." alt="" coords="5,203,75,228"/>
+<area shape="poly" title=" " alt="" coords="139,271,122,263,62,231,64,227,124,258,141,266"/>
+<area shape="rect" href="../../d9/d6f/displacement__validator__test_8cpp.html#a0acfbbaca1db4a08bd57440d7d93803d" title="Test case to validate points below the minimum distance on the y&#45;axis." alt="" coords="5,252,75,278"/>
+<area shape="poly" title=" " alt="" coords="133,282,75,273,76,268,134,277"/>
+<area shape="rect" href="../../d9/d6f/displacement__validator__test_8cpp.html#a9076d99f3f09063c9584ebd938087b48" title="Test case to validate points below the minimum distance on the z&#45;axis." alt="" coords="5,301,75,327"/>
+<area shape="poly" title=" " alt="" coords="134,307,76,313,75,308,133,301"/>
+<area shape="rect" href="../../d9/d6f/displacement__validator__test_8cpp.html#afa5756a1fa424e23639857a0980d2c34" title="Test case to validate if the cluster is well&#45;distributed across all axes." alt="" coords="5,351,75,376"/>
+<area shape="poly" title=" " alt="" coords="155,323,76,353,74,348,153,318"/>
+<area shape="rect" href="../../d6/d1c/height__validator__test_8cpp.html#a49b23bfcd16f41133864011621f0e190" title="Test case to validate if the cone height is below the minimum height threshold." alt="" coords="5,400,75,426"/>
+<area shape="poly" title=" " alt="" coords="176,471,73,429,75,424,178,466"/>
+<area shape="rect" href="../../d6/d1c/height__validator__test_8cpp.html#ac8293f13fa8e7f3e1bc497f96df90662" title="Test case to validate if the cone height exceeds all thresholds." alt="" coords="5,449,75,475"/>
+<area shape="poly" title=" " alt="" coords="111,475,75,469,75,464,112,469"/>
+<area shape="rect" href="../../d6/d1c/height__validator__test_8cpp.html#a9959cf05d335f7f67544f5191c5ccb01" title="Test case to validate if the cone height is near the minimum threshold but valid." alt="" coords="5,499,75,524"/>
+<area shape="poly" title=" " alt="" coords="112,505,75,510,75,504,111,500"/>
+<area shape="rect" href="../../d6/d1c/height__validator__test_8cpp.html#a7c92bbcd8d6dcce6be0ab3642a6f19c1" title="Test case to validate if the cone height exceeds the small cone threshold but is within the large con..." alt="" coords="5,548,75,574"/>
+<area shape="poly" title=" " alt="" coords="177,509,76,550,74,545,175,504"/>
+<area shape="rect" href="../../d6/d1c/height__validator__test_8cpp.html#a5e7059785b091e3fa4bf8442c1c3dca2" title="Test case to validate if the cone height is within the small cone height threshold." alt="" coords="5,597,75,623"/>
+<area shape="poly" title=" " alt="" coords="193,511,63,599,60,595,190,507"/>
+<area shape="rect" href="../../d5/d3c/npoints__validator__test_8cpp.html#a9398a52ef9d8cfd9b48bff8bbf6cca39" title="Test case to validate a cluster with exactly the minimum threshold number of points." alt="" coords="5,647,75,672"/>
+<area shape="poly" title=" " alt="" coords="107,671,75,667,75,661,108,666"/>
+<area shape="rect" href="../../d5/d3c/npoints__validator__test_8cpp.html#a22a9ffe572a615fcbeec1f2f34be2da7" title="Test case to validate a cluster with fewer points than the minimum threshold." alt="" coords="5,696,75,722"/>
+<area shape="poly" title=" " alt="" coords="112,702,75,707,75,702,111,696"/>
+<area shape="rect" href="../../d5/d3c/npoints__validator__test_8cpp.html#a3105505a327e8e3403f3e706d3aa9e29" title="Test case to validate a cluster with more points than the minimum threshold." alt="" coords="5,745,75,771"/>
+<area shape="poly" title=" " alt="" coords="178,705,75,747,73,742,176,700"/>
 </map>
 </div>
 
@@ -490,17 +583,7 @@ Here is the caller graph for this function:</div>
 <p>Get the z score on x-axis of an object. </p>
 <dl class="section return"><dt>Returns</dt><dd>double Z-score on x axis </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00052">52</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d2/d23/class_cluster_a546235e71e16eda065ed02e54750330d_icgraph.png" border="0" usemap="#ad2/d23/class_cluster_a546235e71e16eda065ed02e54750330d_icgraph" alt=""/></div>
-<map name="ad2/d23/class_cluster_a546235e71e16eda065ed02e54750330d_icgraph" id="ad2/d23/class_cluster_a546235e71e16eda065ed02e54750330d_icgraph">
-<area shape="rect" title="Get the z score on x&#45;axis of an object." alt="" coords="253,5,404,31"/>
-<area shape="rect" href="../../d5/d4f/class_z_score_validator.html#aaf6b2a5606e79fad89d30046020be0c8" title="Validates the cluster based on the z&#45;score distribution." alt="" coords="5,5,205,31"/>
-<area shape="poly" title=" " alt="" coords="237,21,205,21,205,16,237,16"/>
-</map>
-</div>
+<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00051">51</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
 
 </div>
 </div>
@@ -522,17 +605,7 @@ Here is the caller graph for this function:</div>
 <p>Get the z score on y-axis of an object. </p>
 <dl class="section return"><dt>Returns</dt><dd>double Z-score on y axis </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00056">56</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d2/d23/class_cluster_a1fc31827aa9b5b3e7fcc526a7a9427b3_icgraph.png" border="0" usemap="#ad2/d23/class_cluster_a1fc31827aa9b5b3e7fcc526a7a9427b3_icgraph" alt=""/></div>
-<map name="ad2/d23/class_cluster_a1fc31827aa9b5b3e7fcc526a7a9427b3_icgraph" id="ad2/d23/class_cluster_a1fc31827aa9b5b3e7fcc526a7a9427b3_icgraph">
-<area shape="rect" title="Get the z score on y&#45;axis of an object." alt="" coords="253,5,404,31"/>
-<area shape="rect" href="../../d5/d4f/class_z_score_validator.html#aaf6b2a5606e79fad89d30046020be0c8" title="Validates the cluster based on the z&#45;score distribution." alt="" coords="5,5,205,31"/>
-<area shape="poly" title=" " alt="" coords="237,21,205,21,205,16,237,16"/>
-</map>
-</div>
+<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00053">53</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
 
 </div>
 </div>
@@ -560,7 +633,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00026">26</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00025">25</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -598,7 +671,64 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00041">41</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00040">40</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d2/d23/class_cluster_a1f3911dcb4349857b466d5f09627c47d_icgraph.png" border="0" usemap="#ad2/d23/class_cluster_a1f3911dcb4349857b466d5f09627c47d_icgraph" alt=""/></div>
+<map name="ad2/d23/class_cluster_a1f3911dcb4349857b466d5f09627c47d_icgraph" id="ad2/d23/class_cluster_a1f3911dcb4349857b466d5f09627c47d_icgraph">
+<area shape="rect" title="Set the Confidence of the cluster to be or not to be a cone." alt="" coords="357,31,512,56"/>
+<area shape="rect" href="../../df/d8f/class_cone_evaluator.html#a2b94fae114035f93a4356d406bc669bf" title="Perform the cluster evaluation, changes the clusters confidence attribute to the obtained result." alt="" coords="108,31,309,56"/>
+<area shape="poly" title=" " alt="" coords="341,46,309,46,309,41,341,41"/>
+<area shape="rect" href="../../d1/d69/cone__evaluator__test_8cpp.html#ab5e55810325802b3dc0b3c707dd44ff5" title="Test when confidence is insufficient." alt="" coords="5,5,60,31"/>
+<area shape="poly" title=" " alt="" coords="100,30,60,25,61,19,100,25"/>
+<area shape="rect" href="../../d1/d69/cone__evaluator__test_8cpp.html#a3986a0a05e70445cc0095f943c977beb" title="Test when confidence is sufficient." alt="" coords="5,55,60,80"/>
+<area shape="poly" title=" " alt="" coords="95,62,60,67,60,61,95,56"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a13de51fe61b04955625822be9483d2f0" name="a13de51fe61b04955625822be9483d2f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13de51fe61b04955625822be9483d2f0">&#9670;&#160;</a></span>set_is_large()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Cluster::set_is_large </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set cluster as a contender for a large cone. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00089">89</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d2/d23/class_cluster_a13de51fe61b04955625822be9483d2f0_icgraph.png" border="0" usemap="#ad2/d23/class_cluster_a13de51fe61b04955625822be9483d2f0_icgraph" alt=""/></div>
+<map name="ad2/d23/class_cluster_a13de51fe61b04955625822be9483d2f0_icgraph" id="ad2/d23/class_cluster_a13de51fe61b04955625822be9483d2f0_icgraph">
+<area shape="rect" title="Set cluster as a contender for a large cone." alt="" coords="366,129,504,155"/>
+<area shape="rect" href="../../d9/d1f/class_height_validator.html#ac4d61b8c54bfc4f2cef252c9e05a1c71" title="Validates a cone based on its height relative to a plane." alt="" coords="123,104,318,130"/>
+<area shape="poly" title=" " alt="" coords="350,135,318,131,319,126,351,130"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#a95f1f05e16deae388b0227d0cf0609d6" title="Test case to validate if points are inside the large cylinder." alt="" coords="186,153,255,179"/>
+<area shape="poly" title=" " alt="" coords="351,154,256,165,255,160,350,149"/>
+<area shape="rect" href="../../d6/d1c/height__validator__test_8cpp.html#a49b23bfcd16f41133864011621f0e190" title="Test case to validate if the cone height is below the minimum height threshold." alt="" coords="5,5,75,31"/>
+<area shape="poly" title=" " alt="" coords="181,99,64,34,67,29,183,94"/>
+<area shape="rect" href="../../d6/d1c/height__validator__test_8cpp.html#ac8293f13fa8e7f3e1bc497f96df90662" title="Test case to validate if the cone height exceeds all thresholds." alt="" coords="5,55,75,80"/>
+<area shape="poly" title=" " alt="" coords="155,102,74,79,76,74,157,97"/>
+<area shape="rect" href="../../d6/d1c/height__validator__test_8cpp.html#a9959cf05d335f7f67544f5191c5ccb01" title="Test case to validate if the cone height is near the minimum threshold but valid." alt="" coords="5,104,75,130"/>
+<area shape="poly" title=" " alt="" coords="107,120,75,120,75,114,107,114"/>
+<area shape="rect" href="../../d6/d1c/height__validator__test_8cpp.html#a7c92bbcd8d6dcce6be0ab3642a6f19c1" title="Test case to validate if the cone height exceeds the small cone threshold but is within the large con..." alt="" coords="5,153,75,179"/>
+<area shape="poly" title=" " alt="" coords="149,137,123,143,76,158,74,153,122,138,148,131"/>
+<area shape="rect" href="../../d6/d1c/height__validator__test_8cpp.html#a5e7059785b091e3fa4bf8442c1c3dca2" title="Test case to validate if the cone height is within the small cone height threshold." alt="" coords="5,203,75,228"/>
+<area shape="poly" title=" " alt="" coords="133,138,124,143,109,154,99,166,77,193,63,204,60,200,73,190,95,163,105,151,121,139,131,133"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -626,7 +756,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00031">31</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00030">30</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
 
 </div>
 </div>
@@ -679,7 +809,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00045">45</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00044">44</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -725,7 +855,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00084">84</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d0d/cluster_8cpp_source.html#l00080">80</a> of file <a class="el" href="../../db/d0d/cluster_8cpp_source.html">cluster.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -741,21 +871,19 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d2/d23/class_cluster_a9018afcce64d5b973aeef0bd395f87f8_icgraph.png" border="0" usemap="#ad2/d23/class_cluster_a9018afcce64d5b973aeef0bd395f87f8_icgraph" alt=""/></div>
 <map name="ad2/d23/class_cluster_a9018afcce64d5b973aeef0bd395f87f8_icgraph" id="ad2/d23/class_cluster_a9018afcce64d5b973aeef0bd395f87f8_icgraph">
-<area shape="rect" title="Set the z scores object on every cluster of the vector." alt="" coords="408,145,553,171"/>
-<area shape="rect" href="../../de/d07/class_perception.html#a592f3cc2120d974b503f5934970ac5db" title="Callback function for the PointCloud2 subscription." alt="" coords="205,5,360,46"/>
-<area shape="poly" title=" " alt="" coords="454,136,411,98,359,60,338,49,341,44,361,55,414,94,457,132"/>
-<area shape="rect" href="../../d3/d74/z__score__validator__test_8cpp.html#aee2f802a1755206bbd1c0b0d53195044" title="Test case to validate a perfectly distributed vector of clusters." alt="" coords="248,70,317,96"/>
-<area shape="poly" title=" " alt="" coords="435,141,359,110,317,95,318,90,361,104,437,136"/>
-<area shape="rect" href="../../d3/d74/z__score__validator__test_8cpp.html#a4f7100bece7335d55809d6d71ca3601c" title="Test case to validate a perfectly distributed vector of clusters with 1 outlier (not perfect)" alt="" coords="248,120,317,145"/>
-<area shape="poly" title=" " alt="" coords="392,149,317,139,318,134,393,144"/>
-<area shape="rect" href="../../d3/d74/z__score__validator__test_8cpp.html#aaf061c6dbf9981d8a48d5aa83eb8b5d7" title="Test case to validate a perfectly distributed vector of clusters with 1 outlier (all points except th..." alt="" coords="248,169,317,195"/>
-<area shape="poly" title=" " alt="" coords="393,171,318,180,317,175,392,166"/>
-<area shape="rect" href="../../d3/d74/z__score__validator__test_8cpp.html#a7f0ace492ca1a6d1dd2322ce52070b57" title="Test case to validate the a vector with only one cluster." alt="" coords="248,218,317,244"/>
-<area shape="poly" title=" " alt="" coords="436,179,361,210,318,224,316,219,359,204,434,174"/>
-<area shape="rect" href="../../d3/d74/z__score__validator__test_8cpp.html#a7db70aacf614ee8f07fba7ca9d3b46d3" title="Test case to validate the a vector with only two clusters." alt="" coords="248,268,317,293"/>
-<area shape="poly" title=" " alt="" coords="458,184,415,222,361,259,318,275,317,270,359,254,412,218,454,180"/>
-<area shape="rect" href="../../de/d07/class_perception.html#a99447b0f39e7b103d320b6072021a3af" title="Constructor for the Perception node." alt="" coords="5,13,157,39"/>
-<area shape="poly" title=" " alt="" coords="189,28,157,28,157,23,189,23"/>
+<area shape="rect" title="Set the z scores object on every cluster of the vector." alt="" coords="209,145,354,171"/>
+<area shape="rect" href="../../de/d07/class_perception.html#a592f3cc2120d974b503f5934970ac5db" title="Callback function for the PointCloud2 subscription." alt="" coords="5,5,161,46"/>
+<area shape="poly" title=" " alt="" coords="254,136,212,98,159,60,139,49,141,44,162,55,215,94,258,132"/>
+<area shape="rect" href="../../d3/d74/z__score__validator__test_8cpp.html#aee2f802a1755206bbd1c0b0d53195044" title="Test case to validate a perfectly distributed vector of clusters." alt="" coords="48,70,118,96"/>
+<area shape="poly" title=" " alt="" coords="236,141,160,110,117,95,119,90,162,104,238,136"/>
+<area shape="rect" href="../../d3/d74/z__score__validator__test_8cpp.html#a4f7100bece7335d55809d6d71ca3601c" title="Test case to validate a perfectly distributed vector of clusters with 1 outlier (not perfect)" alt="" coords="48,120,118,145"/>
+<area shape="poly" title=" " alt="" coords="193,149,118,139,119,134,194,144"/>
+<area shape="rect" href="../../d3/d74/z__score__validator__test_8cpp.html#aaf061c6dbf9981d8a48d5aa83eb8b5d7" title="Test case to validate a perfectly distributed vector of clusters with 1 outlier (all points except th..." alt="" coords="48,169,118,195"/>
+<area shape="poly" title=" " alt="" coords="194,171,119,180,118,175,193,166"/>
+<area shape="rect" href="../../d3/d74/z__score__validator__test_8cpp.html#a7f0ace492ca1a6d1dd2322ce52070b57" title="Test case to validate the a vector with only one cluster." alt="" coords="48,218,118,244"/>
+<area shape="poly" title=" " alt="" coords="237,179,162,210,119,224,117,219,160,204,235,174"/>
+<area shape="rect" href="../../d3/d74/z__score__validator__test_8cpp.html#a7db70aacf614ee8f07fba7ca9d3b46d3" title="Test case to validate the a vector with only two clusters." alt="" coords="48,268,118,293"/>
+<area shape="poly" title=" " alt="" coords="259,184,216,222,162,259,119,275,117,270,159,254,212,218,255,180"/>
 </map>
 </div>
 
@@ -784,7 +912,7 @@ Here is the caller graph for this function:</div>
 
 <p>Center of the cone's cluster. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d49/cluster_8hpp_source.html#l00019">19</a> of file <a class="el" href="../../d2/d49/cluster_8hpp_source.html">cluster.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d49/cluster_8hpp_source.html#l00020">20</a> of file <a class="el" href="../../d2/d49/cluster_8hpp_source.html">cluster.hpp</a>.</p>
 
 </div>
 </div>
@@ -810,7 +938,7 @@ Here is the caller graph for this function:</div>
 
 <p>Flag indicating whether the center is defined or not. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d49/cluster_8hpp_source.html#l00021">21</a> of file <a class="el" href="../../d2/d49/cluster_8hpp_source.html">cluster.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d49/cluster_8hpp_source.html#l00022">22</a> of file <a class="el" href="../../d2/d49/cluster_8hpp_source.html">cluster.hpp</a>.</p>
 
 </div>
 </div>
@@ -836,7 +964,7 @@ Here is the caller graph for this function:</div>
 
 <p>Centroid of the cluster. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d49/cluster_8hpp_source.html#l00018">18</a> of file <a class="el" href="../../d2/d49/cluster_8hpp_source.html">cluster.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d49/cluster_8hpp_source.html#l00019">19</a> of file <a class="el" href="../../d2/d49/cluster_8hpp_source.html">cluster.hpp</a>.</p>
 
 </div>
 </div>
@@ -862,7 +990,7 @@ Here is the caller graph for this function:</div>
 
 <p>Flag indicating whether the centroid is defined or not. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d49/cluster_8hpp_source.html#l00020">20</a> of file <a class="el" href="../../d2/d49/cluster_8hpp_source.html">cluster.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d49/cluster_8hpp_source.html#l00021">21</a> of file <a class="el" href="../../d2/d49/cluster_8hpp_source.html">cluster.hpp</a>.</p>
 
 </div>
 </div>
@@ -888,7 +1016,7 @@ Here is the caller graph for this function:</div>
 
 <p>Color associated with the cluster. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d49/cluster_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../d2/d49/cluster_8hpp_source.html">cluster.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d49/cluster_8hpp_source.html#l00018">18</a> of file <a class="el" href="../../d2/d49/cluster_8hpp_source.html">cluster.hpp</a>.</p>
 
 </div>
 </div>
@@ -914,7 +1042,34 @@ Here is the caller graph for this function:</div>
 
 <p>Confidence on the cluster to be (or not) a cone. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d49/cluster_8hpp_source.html#l00022">22</a> of file <a class="el" href="../../d2/d49/cluster_8hpp_source.html">cluster.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d49/cluster_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../d2/d49/cluster_8hpp_source.html">cluster.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae1871cad40c9f84cc2f4a6f0ae03ecd8" name="ae1871cad40c9f84cc2f4a6f0ae03ecd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1871cad40c9f84cc2f4a6f0ae03ecd8">&#9670;&#160;</a></span>_is_large_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Cluster::_is_large_ = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Flag indicating the size of the cluster : true = large cluster. </p>
+<p>false = small = cluster. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d49/cluster_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../d2/d49/cluster_8hpp_source.html">cluster.hpp</a>.</p>
 
 </div>
 </div>
@@ -940,7 +1095,7 @@ Here is the caller graph for this function:</div>
 
 <p>Pointer to the Point Cloud data. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d49/cluster_8hpp_source.html#l00016">16</a> of file <a class="el" href="../../d2/d49/cluster_8hpp_source.html">cluster.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d49/cluster_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../d2/d49/cluster_8hpp_source.html">cluster.hpp</a>.</p>
 
 </div>
 </div>
@@ -964,7 +1119,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d49/cluster_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../d2/d49/cluster_8hpp_source.html">cluster.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d49/cluster_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../d2/d49/cluster_8hpp_source.html">cluster.hpp</a>.</p>
 
 </div>
 </div>
@@ -988,7 +1143,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d49/cluster_8hpp_source.html#l00025">25</a> of file <a class="el" href="../../d2/d49/cluster_8hpp_source.html">cluster.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d49/cluster_8hpp_source.html#l00027">27</a> of file <a class="el" href="../../d2/d49/cluster_8hpp_source.html">cluster.hpp</a>.</p>
 
 </div>
 </div>
@@ -1002,7 +1157,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr auto Cluster::center_calculator = <a class="el" href="../../d8/d0d/class_circunference_center_calculation.html">CircunferenceCenterCalculation</a>()</td>
+          <td class="memname">constexpr auto Cluster::center_calculator</td>
         </tr>
       </table>
   </td>
@@ -1011,10 +1166,13 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">      <a class="code hl_class" href="../../d8/d0d/class_circunference_center_calculation.html">CircunferenceCenterCalculation</a>()</div>
+<div class="ttc" id="aclass_circunference_center_calculation_html"><div class="ttname"><a href="../../d8/d0d/class_circunference_center_calculation.html">CircunferenceCenterCalculation</a></div><div class="ttdoc">Concrete class representing a circumference-based method for estimating the center position of a cone...</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d7e/circunferece__center__calculation_8hpp_source.html#l00016">circunferece_center_calculation.hpp:16</a></div></div>
+</div><!-- fragment -->
 <p>Calculates the center of the cone. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d49/cluster_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../d2/d49/cluster_8hpp_source.html">cluster.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d49/cluster_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../d2/d49/cluster_8hpp_source.html">cluster.hpp</a>.</p>
 
 </div>
 </div>

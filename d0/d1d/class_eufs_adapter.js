@@ -23,5 +23,5 @@ var class_eufs_adapter =
     [ "eufs_mission_state_client_", "d0/d1d/class_eufs_adapter.html#a5cd360cf2c2e31a921ab97cb42b083e6", null ],
     [ "eufs_pose_subscription_", "d0/d1d/class_eufs_adapter.html#a91187e708588875c32c54d43e233c052", null ],
     [ "eufs_state_subscription_", "d0/d1d/class_eufs_adapter.html#aff83aed83227bb2bc53cb2618a881f86", null ],
-    [ "vehicle_state_sub_", "d0/d1d/class_eufs_adapter.html#afe51c85dc293e49acdb9d976f75ea357", null ]
+    [ "vehicle_pose_sub_", "d0/d1d/class_eufs_adapter.html#a40e56429064be399558659e03cfb4d26", null ]
 ];

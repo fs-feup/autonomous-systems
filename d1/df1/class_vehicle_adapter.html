@@ -101,22 +101,31 @@ $(document).ready(function(){initNavTree('d1/df1/class_vehicle_adapter.html','..
 </div><!--header-->
 <div class="contents">
 
+<p><a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a> class for the vehicle.  
+ <a href="../../d1/df1/class_vehicle_adapter.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="../../d4/d49/control_2include_2adapter__control_2vehicle_8hpp_source.html">vehicle.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for VehicleAdapter:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d1/d01/class_vehicle_adapter__inherit__graph.png" border="0" usemap="#a_vehicle_adapter_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_vehicle_adapter_inherit__map" id="a_vehicle_adapter_inherit__map">
-<area shape="rect" title=" " alt="" coords="181,656,389,1260"/>
-<area shape="rect" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="5,163,175,563"/>
-<area shape="poly" title=" " alt="" coords="163,577,188,656,183,657,157,578"/>
-<area shape="rect" title=" " alt="" coords="145,5,230,71"/>
-<area shape="poly" title=" " alt="" coords="176,85,152,164,147,163,171,84"/>
-<area shape="rect" href="../../d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="199,119,371,608"/>
-<area shape="poly" title=" " alt="" coords="204,84,214,118,209,119,198,85"/>
-<area shape="rect" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="395,291,579,436"/>
-<area shape="poly" title=" " alt="" coords="461,451,390,657,385,655,456,449"/>
-<area shape="poly" title=" " alt="" coords="287,623,287,656,282,656,282,623"/>
+<area shape="rect" title="Adapter class for the vehicle." alt="" coords="401,747,609,1411"/>
+<area shape="rect" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="5,119,192,699"/>
+<area shape="poly" title=" " alt="" coords="201,688,206,697,251,770,301,841,403,965,399,968,297,844,247,773,202,700,197,691"/>
+<area shape="rect" title=" " alt="" coords="361,5,447,71"/>
+<area shape="poly" title=" " alt="" coords="347,51,312,61,274,75,238,95,206,121,194,134,190,131,202,117,235,90,272,70,310,56,346,46"/>
+<area shape="rect" href="../../d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="217,161,389,656"/>
+<area shape="poly" title=" " alt="" coords="394,85,373,162,368,161,389,84"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="413,139,597,678"/>
+<area shape="poly" title=" " alt="" coords="419,84,434,139,429,140,414,85"/>
+<area shape="rect" href="../../d3/d43/class_v_e_node.html" title="Node class for the velocity estimation node." alt="" coords="622,346,765,471"/>
+<area shape="poly" title=" " alt="" coords="462,45,499,54,539,68,578,89,611,117,631,142,648,171,672,231,687,292,694,346,688,346,681,293,667,233,643,173,627,145,607,121,575,93,537,73,498,59,461,50"/>
+<area shape="rect" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="789,336,973,481"/>
+<area shape="poly" title=" " alt="" coords="860,496,826,596,780,700,741,767,698,834,611,953,607,950,694,831,737,765,775,697,821,594,855,495"/>
+<area shape="poly" title=" " alt="" coords="384,669,408,746,402,748,379,671"/>
+<area shape="poly" title=" " alt="" coords="508,693,508,747,503,747,503,693"/>
+<area shape="poly" title=" " alt="" coords="675,486,601,747,596,746,669,485"/>
 </map>
 </div>
 <div class="dynheader">
@@ -124,54 +133,75 @@ Collaboration diagram for VehicleAdapter:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d46/class_vehicle_adapter__coll__graph.png" border="0" usemap="#a_vehicle_adapter_coll__map" alt="Collaboration graph"/></div>
 <map name="a_vehicle_adapter_coll__map" id="a_vehicle_adapter_coll__map">
-<area shape="rect" title=" " alt="" coords="1098,2052,1306,2656"/>
-<area shape="rect" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="1117,1588,1287,1928"/>
-<area shape="poly" title=" " alt="" coords="1205,1943,1205,2052,1199,2052,1199,1943"/>
-<area shape="rect" title=" " alt="" coords="1019,1033,1105,1098"/>
-<area shape="poly" title=" " alt="" coords="1069,1113,1088,1263,1119,1449,1153,1587,1148,1589,1114,1451,1082,1264,1064,1113"/>
-<area shape="rect" href="../../d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="695,1513,867,2002"/>
-<area shape="poly" title=" " alt="" coords="1066,1113,1064,1188,1056,1284,1037,1388,1022,1440,1003,1490,975,1543,942,1592,868,1678,864,1675,937,1589,971,1540,998,1488,1017,1439,1032,1387,1051,1283,1059,1188,1061,1113"/>
-<area shape="rect" href="../../d9/da5/class_point_solver.html" title=" " alt="" coords="1299,963,1491,1168"/>
-<area shape="poly" title=" " alt="" coords="1377,1168,1342,1320,1298,1490,1272,1572,1267,1571,1293,1488,1337,1319,1372,1167"/>
-<area shape="rect" href="../../de/d41/structcommon__lib_1_1structures_1_1_vehicle_pose.html" title=" " alt="" coords="1109,448,1255,548"/>
-<area shape="poly" title=" " alt="" coords="1216,546,1253,608,1288,680,1314,747,1337,816,1372,946,1367,947,1332,818,1309,749,1284,682,1249,611,1212,549"/>
-<area shape="rect" href="../../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="987,208,1134,328"/>
-<area shape="poly" title=" " alt="" coords="1101,340,1158,446,1154,449,1097,343"/>
-<area shape="poly" title=" " alt="" coords="1055,328,1033,487,1010,681,1000,798,995,898,991,1067,981,1236,970,1335,950,1451,938,1497,921,1542,878,1626,873,1624,916,1540,933,1495,945,1449,964,1334,976,1235,985,1067,989,897,995,798,1005,680,1028,487,1049,328"/>
-<area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="1047,5,1194,145"/>
-<area shape="poly" title=" " alt="" coords="1149,144,1155,169,1167,238,1176,308,1183,431,1178,431,1170,309,1162,239,1150,170,1144,146"/>
-<area shape="poly" title=" " alt="" coords="1102,146,1087,193,1082,191,1097,144"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html" title="PI&#45;D Controller class." alt="" coords="1515,681,1665,1450"/>
-<area shape="poly" title=" " alt="" coords="1517,1437,1505,1452,1479,1473,1452,1481,1424,1485,1389,1492,1363,1497,1341,1498,1322,1502,1301,1515,1276,1543,1255,1575,1251,1572,1272,1539,1298,1511,1320,1497,1340,1493,1362,1491,1388,1486,1423,1479,1451,1476,1476,1468,1501,1448,1513,1434"/>
-<area shape="rect" href="../../dc/dde/class_pure_pursuit.html" title="Pure Pursuit class." alt="" coords="1129,925,1275,1205"/>
-<area shape="poly" title=" " alt="" coords="1205,1205,1205,1571,1199,1571,1199,1205"/>
-<area shape="rect" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="1311,1685,1495,1830"/>
-<area shape="poly" title=" " alt="" coords="1377,1845,1306,2053,1301,2051,1372,1843"/>
-<area shape="poly" title=" " alt="" coords="877,1891,1100,2204,1096,2208,873,1894"/>
-<area shape="rect" href="../../df/dec/struct_planning_config.html" title="struct for the configuration of the outliers removal algorithm." alt="" coords="647,1023,765,1108"/>
-<area shape="poly" title=" " alt="" coords="707,1108,707,1275,712,1381,722,1489,723,1496,717,1496,716,1489,706,1382,702,1275,702,1108"/>
-<area shape="rect" href="../../d1/df2/struct_cone_coloring_config.html" title="struct for the configuration of the cone coloring algorithm." alt="" coords="42,378,189,618"/>
-<area shape="poly" title=" " alt="" coords="160,616,177,637,197,654,214,662,236,668,289,671,418,662,485,656,546,655,598,661,619,668,636,679,666,713,689,752,705,796,715,841,722,930,717,1006,712,1005,716,930,710,842,700,797,684,755,662,716,632,683,617,673,597,666,546,660,485,661,418,667,289,676,235,673,213,667,195,659,173,641,156,619"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html" title=" " alt="" coords="5,881,185,1250"/>
-<area shape="poly" title=" " alt="" coords="97,618,94,642,88,753,89,864,83,864,83,753,89,641,91,617"/>
-<area shape="rect" href="../../d7/d4c/struct_outliers_config.html" title="struct for the configuration of the outliers removal algorithm." alt="" coords="231,425,378,570"/>
-<area shape="poly" title=" " alt="" coords="352,568,374,593,398,616,423,631,443,640,494,654,535,659,570,656,602,658,619,665,636,679,665,714,687,755,702,798,712,844,719,932,716,1006,711,1006,714,932,707,844,697,800,682,757,661,717,632,683,616,670,601,663,570,661,535,664,494,659,442,645,420,636,395,620,370,597,348,572"/>
-<area shape="rect" href="../../d9/d53/class_outliers.html" title="Class to deal with outliers." alt="" coords="212,1005,379,1125"/>
-<area shape="poly" title=" " alt="" coords="304,570,302,642,298,988,293,988,297,642,299,570"/>
-<area shape="rect" href="../../df/d7d/struct_path_calculation_config.html" title="struct for the configuration of the outliers removal algorithm." alt="" coords="409,455,568,540"/>
-<area shape="poly" title=" " alt="" coords="504,539,531,599,551,629,574,655,590,663,605,665,621,668,636,679,662,717,682,758,696,802,706,847,715,934,714,1006,709,1006,709,934,701,848,691,804,677,760,657,719,632,683,619,673,604,670,588,668,571,659,546,632,526,601,499,541"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html" title="PathCalculation class for generating local paths." alt="" coords="403,1013,623,1118"/>
-<area shape="poly" title=" " alt="" coords="454,542,409,597,381,642,381,656,386,668,392,680,453,849,497,995,492,997,448,851,388,682,381,670,375,657,375,641,405,594,450,538"/>
-<area shape="rect" href="../../de/dce/struct_path_smoothing_config.html" title="struct for the configuration of the smoothing algorithm" alt="" coords="791,415,947,580"/>
-<area shape="poly" title=" " alt="" coords="823,581,796,643,766,741,743,840,715,1006,710,1005,738,839,761,739,791,641,818,579"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html" title="class that defines the path smoothing algorithm" alt="" coords="815,1003,935,1128"/>
-<area shape="poly" title=" " alt="" coords="877,580,879,642,881,827,880,986,874,986,876,827,874,642,871,580"/>
-<area shape="rect" href="../../d3/db0/struct_simulation_config.html" title="struct for the configuration of the smoothing algorithm" alt="" coords="606,438,766,558"/>
-<area shape="poly" title=" " alt="" coords="690,557,693,657,706,1006,701,1006,688,657,685,557"/>
-<area shape="poly" title=" " alt="" coords="116,1249,129,1301,147,1353,171,1403,201,1448,252,1503,310,1552,372,1594,438,1631,503,1663,567,1689,679,1727,678,1732,565,1694,501,1668,435,1636,370,1599,307,1556,248,1507,197,1452,167,1406,143,1355,124,1303,111,1251"/>
-<area shape="poly" title=" " alt="" coords="301,1125,308,1195,324,1279,351,1367,370,1409,392,1449,422,1489,455,1528,530,1597,609,1655,682,1701,679,1706,606,1660,527,1601,451,1531,418,1493,388,1451,365,1411,346,1368,319,1280,303,1196,295,1126"/>
-<area shape="poly" title=" " alt="" coords="520,1118,530,1192,547,1286,572,1388,607,1488,644,1562,688,1631,683,1634,640,1564,602,1490,567,1390,542,1287,525,1193,515,1118"/>
-<area shape="poly" title=" " alt="" coords="871,1128,825,1489,824,1496,818,1496,819,1489,865,1128"/>
+<area shape="rect" title="Adapter class for the vehicle." alt="" coords="829,2567,1037,3231"/>
+<area shape="rect" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="464,2017,651,2517"/>
+<area shape="poly" title=" " alt="" coords="661,2445,702,2516,832,2729,827,2732,698,2519,656,2448"/>
+<area shape="rect" title=" " alt="" coords="716,867,801,932"/>
+<area shape="poly" title=" " alt="" coords="737,946,688,1053,663,1119,644,1186,620,1306,608,1409,603,1501,604,1586,608,1765,606,1870,597,1994,595,2018,590,2017,592,1993,601,1870,603,1765,598,1586,598,1500,602,1409,615,1305,639,1184,658,1117,683,1051,732,944"/>
+<area shape="rect" href="../../d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="1357,1322,1541,1817"/>
+<area shape="poly" title=" " alt="" coords="761,947,765,989,774,1036,793,1082,806,1102,822,1120,844,1138,865,1148,886,1154,907,1156,954,1154,1011,1158,1063,1162,1105,1159,1145,1163,1168,1170,1192,1183,1242,1220,1287,1265,1326,1315,1360,1366,1355,1369,1322,1318,1283,1269,1239,1224,1189,1187,1165,1175,1144,1168,1105,1165,1063,1167,1010,1164,954,1160,907,1161,885,1159,864,1153,841,1142,818,1124,801,1105,788,1084,769,1037,759,990,755,947"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="995,1300,1179,1839"/>
+<area shape="poly" title=" " alt="" coords="760,947,763,997,774,1055,796,1112,812,1137,832,1159,851,1171,869,1175,906,1170,945,1166,965,1170,984,1183,1009,1208,1029,1237,1059,1299,1054,1302,1024,1239,1004,1212,981,1187,963,1175,944,1171,907,1176,869,1180,849,1176,829,1163,808,1140,791,1114,769,1056,758,998,755,947"/>
+<area shape="rect" href="../../d3/d43/class_v_e_node.html" title="Node class for the velocity estimation node." alt="" coords="827,1517,970,1622"/>
+<area shape="poly" title=" " alt="" coords="759,947,759,993,764,1048,775,1105,794,1160,805,1171,817,1183,837,1227,854,1272,878,1363,892,1448,899,1517,893,1518,887,1449,872,1364,848,1273,832,1229,812,1187,801,1175,790,1162,770,1107,759,1048,754,993,754,947"/>
+<area shape="rect" href="../../d4/de1/struct_control_parameters.html" title=" " alt="" coords="392,1437,579,1702"/>
+<area shape="poly" title=" " alt="" coords="502,1702,532,2000,527,2001,496,1702"/>
+<area shape="rect" href="../../d9/da5/class_point_solver.html" title=" " alt="" coords="5,1447,197,1692"/>
+<area shape="poly" title=" " alt="" coords="120,1692,134,1755,153,1822,178,1890,212,1953,264,2024,326,2089,391,2146,452,2194,449,2198,387,2150,322,2093,260,2028,207,1956,174,1892,148,1824,128,1756,115,1693"/>
+<area shape="rect" href="../../d6/d89/class_bicycle_model.html" title=" " alt="" coords="28,819,201,979"/>
+<area shape="poly" title=" " alt="" coords="116,979,107,1430,101,1430,110,979"/>
+<area shape="rect" href="../../db/d7d/class_s2_v_model.html" title="Interface for models that convert data from sensor reference frame to vehicle reference frame and vic..." alt="" coords="28,371,201,511"/>
+<area shape="poly" title=" " alt="" coords="117,526,117,819,112,819,112,526"/>
+<area shape="rect" href="../../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html" title=" " alt="" coords="231,341,409,541"/>
+<area shape="poly" title=" " alt="" coords="278,542,159,805,155,803,273,540"/>
+<area shape="rect" href="../../d5/db7/struct_v_e_parameters.html" title=" " alt="" coords="422,779,591,1019"/>
+<area shape="poly" title=" " alt="" coords="363,540,454,763,449,765,358,542"/>
+<area shape="rect" href="../../de/d41/structcommon__lib_1_1structures_1_1_vehicle_pose.html" title=" " alt="" coords="251,849,397,949"/>
+<area shape="poly" title=" " alt="" coords="305,950,260,1057,212,1186,172,1311,139,1432,134,1430,167,1310,207,1184,255,1055,300,948"/>
+<area shape="rect" href="../../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="776,361,923,521"/>
+<area shape="poly" title=" " alt="" coords="766,510,651,586,585,623,517,655,486,662,460,662,436,665,411,679,379,717,356,762,341,808,332,850,327,849,336,807,351,760,374,714,408,675,434,660,459,657,485,657,515,650,583,618,648,581,763,505"/>
+<area shape="poly" title=" " alt="" coords="924,479,978,514,1036,559,1091,613,1114,643,1134,675,1161,738,1173,793,1175,845,1171,895,1165,945,1162,997,1167,1055,1184,1121,1217,1205,1259,1287,1305,1364,1350,1433,1346,1436,1300,1367,1254,1290,1212,1208,1178,1123,1162,1056,1157,998,1160,944,1165,894,1170,845,1168,794,1156,739,1130,678,1110,646,1087,616,1033,563,975,518,921,483"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html" title="PathCalculation class for generating local paths." alt="" coords="1227,677,1447,1122"/>
+<area shape="poly" title=" " alt="" coords="924,472,983,502,1050,540,1118,585,1182,636,1219,675,1215,679,1178,640,1115,589,1047,544,980,507,921,477"/>
+<area shape="poly" title=" " alt="" coords="844,521,832,667,825,843,827,930,833,1008,845,1074,864,1121,876,1136,890,1145,920,1153,953,1160,969,1169,985,1183,1017,1231,1041,1283,1036,1286,1012,1234,981,1187,966,1173,951,1165,919,1158,887,1149,872,1140,859,1123,840,1075,828,1009,821,930,820,843,826,667,838,520"/>
+<area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="408,5,555,205"/>
+<area shape="poly" title=" " alt="" coords="479,205,461,396,445,506,424,614,390,732,353,835,348,833,385,730,419,613,440,505,455,395,473,205"/>
+<area shape="poly" title=" " alt="" coords="556,171,765,360,762,364,553,175"/>
+<area shape="rect" href="../../d6/d5a/class_p_i_d.html" title="PI&#45;D Controller class." alt="" coords="653,1185,803,1954"/>
+<area shape="poly" title=" " alt="" coords="656,1917,637,1994,635,2002,630,2000,632,1993,651,1916"/>
+<area shape="rect" href="../../dc/dde/class_pure_pursuit.html" title="Pure Pursuit class." alt="" coords="222,1420,367,1720"/>
+<area shape="poly" title=" " alt="" coords="320,1719,345,1835,382,1953,417,2032,458,2107,453,2110,413,2034,378,1955,340,1837,314,1720"/>
+<area shape="rect" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="712,2195,896,2340"/>
+<area shape="poly" title=" " alt="" coords="824,2354,868,2566,863,2567,819,2355"/>
+<area shape="poly" title=" " alt="" coords="1354,1822,1040,2631,1035,2629,1349,1820"/>
+<area shape="rect" href="../../df/dec/struct_planning_config.html" title="struct for the configuration of the outliers removal algorithm." alt="" coords="1675,857,1792,942"/>
+<area shape="poly" title=" " alt="" coords="1723,943,1696,1027,1661,1123,1607,1249,1551,1370,1546,1368,1603,1247,1656,1121,1691,1025,1718,941"/>
+<area shape="rect" href="../../d7/d4c/struct_outliers_config.html" title="struct for the configuration of the outliers removal algorithm." alt="" coords="1657,368,1804,514"/>
+<area shape="poly" title=" " alt="" coords="1734,514,1736,840,1730,840,1728,514"/>
+<area shape="rect" href="../../d9/d53/class_outliers.html" title="Class to deal with outliers." alt="" coords="1479,839,1646,959"/>
+<area shape="poly" title=" " alt="" coords="1707,514,1593,825,1588,823,1702,513"/>
+<area shape="rect" href="../../df/d7d/struct_path_calculation_config.html" title="struct for the configuration of the outliers removal algorithm." alt="" coords="1254,268,1431,614"/>
+<area shape="poly" title=" " alt="" coords="1408,612,1426,633,1447,650,1475,664,1501,669,1527,666,1553,660,1579,655,1605,653,1632,658,1660,675,1692,710,1713,753,1726,797,1733,839,1728,840,1721,799,1708,755,1687,713,1657,679,1630,663,1605,658,1579,660,1554,665,1528,671,1501,674,1473,670,1444,655,1422,637,1404,615"/>
+<area shape="poly" title=" " alt="" coords="1333,613,1332,638,1331,660,1326,659,1327,638,1328,613"/>
+<area shape="rect" href="../../de/dce/struct_path_smoothing_config.html" title="struct for the configuration of the smoothing algorithm" alt="" coords="1843,358,1999,524"/>
+<area shape="poly" title=" " alt="" coords="1886,525,1836,639,1757,842,1752,840,1832,637,1881,523"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html" title="class that defines the path smoothing algorithm" alt="" coords="1853,837,1973,962"/>
+<area shape="poly" title=" " alt="" coords="1923,523,1917,820,1912,820,1917,523"/>
+<area shape="rect" href="../../d3/db0/struct_simulation_config.html" title="struct for the configuration of the smoothing algorithm" alt="" coords="1469,381,1629,501"/>
+<area shape="poly" title=" " alt="" coords="1543,501,1541,538,1545,578,1555,617,1576,651,1585,659,1594,663,1615,663,1637,663,1649,667,1660,675,1690,712,1710,755,1724,799,1731,840,1726,841,1718,800,1705,757,1685,715,1657,679,1647,671,1637,668,1615,668,1593,668,1582,663,1572,654,1550,619,1539,579,1536,538,1537,501"/>
+<area shape="rect" href="../../d2/d0d/struct_velocity_planning_config.html" title="struct for the configuration of the velocity planning algorithm" alt="" coords="2053,358,2217,524"/>
+<area shape="poly" title=" " alt="" coords="2097,525,2073,561,2045,597,2011,630,1972,655,1953,662,1935,665,1904,664,1874,664,1859,669,1843,679,1808,714,1782,756,1762,800,1749,841,1743,839,1757,798,1777,753,1804,710,1840,675,1857,664,1873,659,1904,659,1935,660,1951,657,1969,650,2007,625,2041,594,2069,558,2092,522"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html" title="class that defines the path smoothing algorithm" alt="" coords="2063,797,2203,1002"/>
+<area shape="poly" title=" " alt="" coords="2137,523,2136,779,2131,779,2132,523"/>
+<area shape="poly" title=" " alt="" coords="1555,960,1497,1306,1491,1305,1550,959"/>
+<area shape="poly" title=" " alt="" coords="1377,1121,1408,1305,1403,1306,1372,1122"/>
+<area shape="poly" title=" " alt="" coords="1890,963,1853,1041,1806,1123,1746,1213,1680,1301,1555,1454,1551,1451,1676,1298,1741,1210,1802,1121,1848,1038,1885,961"/>
+<area shape="poly" title=" " alt="" coords="2077,1003,2035,1064,1987,1124,1880,1233,1765,1335,1653,1424,1557,1497,1553,1492,1650,1420,1761,1331,1876,1229,1983,1120,2031,1061,2072,1000"/>
+<area shape="poly" title=" " alt="" coords="1057,1854,974,2568,969,2567,1051,1853"/>
+<area shape="rect" href="../../d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html" title=" " alt="" coords="973,782,1120,1017"/>
+<area shape="poly" title=" " alt="" coords="1032,1017,1020,1146,1019,1214,1025,1284,1019,1284,1014,1215,1014,1146,1027,1016"/>
+<area shape="poly" title=" " alt="" coords="903,1637,927,2567,922,2567,898,1638"/>
+<area shape="poly" title=" " alt="" coords="566,1018,592,1057,621,1095,655,1129,692,1159,709,1167,725,1169,755,1167,785,1166,801,1172,816,1183,845,1217,867,1256,884,1298,895,1341,906,1426,907,1500,902,1500,901,1427,890,1342,879,1299,862,1258,841,1220,813,1187,799,1176,785,1172,756,1172,724,1175,707,1172,690,1163,651,1133,617,1098,587,1060,562,1021"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -195,12 +225,32 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad686d31fd37cb1282857c8d7a720d0db" id="r_ad686d31fd37cb1282857c8d7a720d0db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#ad686d31fd37cb1282857c8d7a720d0db">finish</a> () override</td></tr>
 <tr class="memdesc:ad686d31fd37cb1282857c8d7a720d0db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function that sends the finish signal to the respective node.  <br /></td></tr>
 <tr class="separator:ad686d31fd37cb1282857c8d7a720d0db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab308f8a9d24015aae1274f75e75f8e9f" id="r_ab308f8a9d24015aae1274f75e75f8e9f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#ab308f8a9d24015aae1274f75e75f8e9f">VehicleAdapter</a> (const <a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html">SLAMParameters</a> &amp;params)</td></tr>
+<tr class="memdesc:ab308f8a9d24015aae1274f75e75f8e9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor of the vehicle adapter node.  <br /></td></tr>
+<tr class="separator:ab308f8a9d24015aae1274f75e75f8e9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad686d31fd37cb1282857c8d7a720d0db" id="r_ad686d31fd37cb1282857c8d7a720d0db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#ad686d31fd37cb1282857c8d7a720d0db">finish</a> () override</td></tr>
+<tr class="memdesc:ad686d31fd37cb1282857c8d7a720d0db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends the finished signal to the vehicle control.  <br /></td></tr>
+<tr class="separator:ad686d31fd37cb1282857c8d7a720d0db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebeaec32c8cdc951d1b3d41817890cf9" id="r_aebeaec32c8cdc951d1b3d41817890cf9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#aebeaec32c8cdc951d1b3d41817890cf9">VehicleAdapter</a> (const <a class="el" href="../../d5/db7/struct_v_e_parameters.html">VEParameters</a> &amp;parameters)</td></tr>
+<tr class="separator:aebeaec32c8cdc951d1b3d41817890cf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9060aa6d8c595e00c59f92621edff3c5" id="r_a9060aa6d8c595e00c59f92621edff3c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#a9060aa6d8c595e00c59f92621edff3c5">imu_callback</a> (const geometry_msgs::msg::Vector3Stamped::SharedPtr &amp;free_acceleration_msg, const geometry_msgs::msg::Vector3Stamped::SharedPtr &amp;angular_velocity_msg)</td></tr>
+<tr class="memdesc:a9060aa6d8c595e00c59f92621edff3c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">IMU subscription callback, which receives both free acceleration and angular velocity through a synchronizer message filter.  <br /></td></tr>
+<tr class="separator:a9060aa6d8c595e00c59f92621edff3c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4af19314f0fc8a4643c8f8a4a6abfc3d" id="r_a4af19314f0fc8a4643c8f8a4a6abfc3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#a4af19314f0fc8a4643c8f8a4a6abfc3d">wss_callback</a> (const custom_interfaces::msg::WheelRPM &amp;rl_wheel_rpm_msg, const custom_interfaces::msg::WheelRPM &amp;rr_wheel_rpm_msg)</td></tr>
+<tr class="memdesc:a4af19314f0fc8a4643c8f8a4a6abfc3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wheel speed subscription callback, which receives both wheel speeds through a synchronizer message filter.  <br /></td></tr>
+<tr class="separator:a4af19314f0fc8a4643c8f8a4a6abfc3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8c38dbfb560f06fdd1000ff1eb40448" id="r_ac8c38dbfb560f06fdd1000ff1eb40448"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#ac8c38dbfb560f06fdd1000ff1eb40448">steering_angle_callback</a> (const custom_interfaces::msg::SteeringAngle msg)</td></tr>
+<tr class="memdesc:ac8c38dbfb560f06fdd1000ff1eb40448"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for the subscription of the steering angle sensor.  <br /></td></tr>
+<tr class="separator:ac8c38dbfb560f06fdd1000ff1eb40448"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad764a66db05e6ac5dbdf62bae1c8db6e" id="r_ad764a66db05e6ac5dbdf62bae1c8db6e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#ad764a66db05e6ac5dbdf62bae1c8db6e">resolver_callback</a> (custom_interfaces::msg::WheelRPM msg)</td></tr>
+<tr class="memdesc:ad764a66db05e6ac5dbdf62bae1c8db6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for the subscription of the resolver which measures the motor RPM.  <br /></td></tr>
+<tr class="separator:ad764a66db05e6ac5dbdf62bae1c8db6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_control"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_control')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d7/d49/class_control.html">Control</a></td></tr>
 <tr class="memitem:a6e25ac7cb5a0e306e072388e62f5c84d inherit pub_methods_class_control" id="r_a6e25ac7cb5a0e306e072388e62f5c84d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#a6e25ac7cb5a0e306e072388e62f5c84d">Control</a> (const <a class="el" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a> &amp;params)</td></tr>
 <tr class="separator:a6e25ac7cb5a0e306e072388e62f5c84d inherit pub_methods_class_control"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4953afbe68bf1d7a023972985c8083d6 inherit pub_methods_class_control" id="r_a4953afbe68bf1d7a023972985c8083d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6">publish_control</a> (const custom_interfaces::msg::VehicleState &amp;vehicle_state_msg)</td></tr>
-<tr class="memdesc:a4953afbe68bf1d7a023972985c8083d6 inherit pub_methods_class_control"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes the steering angle to the car based on the path and pose using cache.  <br /></td></tr>
-<tr class="separator:a4953afbe68bf1d7a023972985c8083d6 inherit pub_methods_class_control"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad14d8041b3b0b0c567e6ef8adc09488f inherit pub_methods_class_control" id="r_ad14d8041b3b0b0c567e6ef8adc09488f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#ad14d8041b3b0b0c567e6ef8adc09488f">publish_control</a> (const custom_interfaces::msg::Pose &amp;vehicle_state_msg)</td></tr>
+<tr class="memdesc:ad14d8041b3b0b0c567e6ef8adc09488f inherit pub_methods_class_control"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes the steering angle to the car based on the path and pose using cache.  <br /></td></tr>
+<tr class="separator:ad14d8041b3b0b0c567e6ef8adc09488f inherit pub_methods_class_control"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_adapter"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_adapter')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d3/d7f/class_adapter.html">Adapter</a></td></tr>
 <tr class="memitem:af30f4341ffb2562f3684d0c9647081d4 inherit pub_methods_class_adapter" id="r_af30f4341ffb2562f3684d0c9647081d4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#af30f4341ffb2562f3684d0c9647081d4">Adapter</a> (std::shared_ptr&lt; <a class="el" href="../../d4/d43/class_s_e_node.html">SENode</a> &gt; se_node)</td></tr>
 <tr class="separator:af30f4341ffb2562f3684d0c9647081d4 inherit pub_methods_class_adapter"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -216,6 +266,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a24479f35b4d9a0dff0b990f10a60872c inherit pub_methods_class_planning" id="r_a24479f35b4d9a0dff0b990f10a60872c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#a24479f35b4d9a0dff0b990f10a60872c">set_mission</a> (<a class="el" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140">common_lib::competition_logic::Mission</a> <a class="el" href="../../d9/db5/class_planning.html#a5fe5e85ca8878e7a1a05f6c61e491384">mission</a>)</td></tr>
 <tr class="memdesc:a24479f35b4d9a0dff0b990f10a60872c inherit pub_methods_class_planning"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the mission for planning.  <br /></td></tr>
 <tr class="separator:a24479f35b4d9a0dff0b990f10a60872c inherit pub_methods_class_planning"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_s_l_a_m_node"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_s_l_a_m_node')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d8/d84/class_s_l_a_m_node.html">SLAMNode</a></td></tr>
+<tr class="memitem:a8543b5442579202f4ead10fbe347033c inherit pub_methods_class_s_l_a_m_node" id="r_a8543b5442579202f4ead10fbe347033c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a8543b5442579202f4ead10fbe347033c">SLAMNode</a> (const <a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html">SLAMParameters</a> &amp;params)</td></tr>
+<tr class="memdesc:a8543b5442579202f4ead10fbe347033c inherit pub_methods_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor that uses the parameters structure.  <br /></td></tr>
+<tr class="separator:a8543b5442579202f4ead10fbe347033c inherit pub_methods_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2a2b6652cbb1dcfdf324c72fb1a7598 inherit pub_methods_class_s_l_a_m_node" id="r_af2a2b6652cbb1dcfdf324c72fb1a7598"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#af2a2b6652cbb1dcfdf324c72fb1a7598">init</a> ()</td></tr>
+<tr class="memdesc:af2a2b6652cbb1dcfdf324c72fb1a7598 inherit pub_methods_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize functions @description This method is used to initialize things that require the constructed node.  <br /></td></tr>
+<tr class="separator:af2a2b6652cbb1dcfdf324c72fb1a7598 inherit pub_methods_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_v_e_node"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_v_e_node')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d3/d43/class_v_e_node.html">VENode</a></td></tr>
+<tr class="memitem:ade88ced43f6b95b98d3356db2a6707ee inherit pub_methods_class_v_e_node" id="r_ade88ced43f6b95b98d3356db2a6707ee"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d43/class_v_e_node.html#ade88ced43f6b95b98d3356db2a6707ee">VENode</a> (const <a class="el" href="../../d5/db7/struct_v_e_parameters.html">VEParameters</a> &amp;parameters)</td></tr>
+<tr class="separator:ade88ced43f6b95b98d3356db2a6707ee inherit pub_methods_class_v_e_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-types" name="pri-types"></a>
 Private Types</h2></td></tr>
@@ -228,6 +288,12 @@ Private Types</h2></td></tr>
 <tr class="memitem:ab5dda75ba22b48e7b2b2f0315f107525" id="r_ab5dda75ba22b48e7b2b2f0315f107525"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#ab5dda75ba22b48e7b2b2f0315f107525">WheelSteerPolicy</a> = message_filters::sync_policies::ApproximateTime&lt; custom_interfaces::msg::WheelRPM, custom_interfaces::msg::WheelRPM, custom_interfaces::msg::SteeringAngle &gt;</td></tr>
 <tr class="memdesc:ab5dda75ba22b48e7b2b2f0315f107525"><td class="mdescLeft">&#160;</td><td class="mdescRight">Policy for synchronizing wheel speeds and steering angle.  <br /></td></tr>
 <tr class="separator:ab5dda75ba22b48e7b2b2f0315f107525"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90421a56d996a70720764d27100259dd" id="r_a90421a56d996a70720764d27100259dd"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#a90421a56d996a70720764d27100259dd">XsensImuPolicy</a> = message_filters::sync_policies::ApproximateTime&lt; geometry_msgs::msg::Vector3Stamped, geometry_msgs::msg::Vector3Stamped &gt;</td></tr>
+<tr class="memdesc:a90421a56d996a70720764d27100259dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Policy for synchronizing Xsens IMU data.  <br /></td></tr>
+<tr class="separator:a90421a56d996a70720764d27100259dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcdcc8be770dd7499ab6249f17fc66e2" id="r_adcdcc8be770dd7499ab6249f17fc66e2"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#adcdcc8be770dd7499ab6249f17fc66e2">WheelSSPolicy</a> = message_filters::sync_policies::ApproximateTime&lt; custom_interfaces::msg::WheelRPM, custom_interfaces::msg::WheelRPM &gt;</td></tr>
+<tr class="memdesc:adcdcc8be770dd7499ab6249f17fc66e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Policy for synchronizing wheel speeds.  <br /></td></tr>
+<tr class="separator:adcdcc8be770dd7499ab6249f17fc66e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -256,13 +322,13 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a4e5f692cc9fc8d9e4e41d73f9c43ef15" id="r_a4e5f692cc9fc8d9e4e41d73f9c43ef15"><td class="memItemLeft" align="right" valign="top">message_filters::Subscriber&lt; custom_interfaces::msg::SteeringAngle &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#a4e5f692cc9fc8d9e4e41d73f9c43ef15">_steering_angle_subscription_</a></td></tr>
 <tr class="memdesc:a4e5f692cc9fc8d9e4e41d73f9c43ef15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscriber for steering angle.  <br /></td></tr>
 <tr class="separator:a4e5f692cc9fc8d9e4e41d73f9c43ef15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adaf85c5e41974dced460b3c0b4fac4d9" id="r_adaf85c5e41974dced460b3c0b4fac4d9"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; custom_interfaces::msg::OperationalStatus &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#adaf85c5e41974dced460b3c0b4fac4d9">_operational_status_subscription_</a></td></tr>
-<tr class="memdesc:adaf85c5e41974dced460b3c0b4fac4d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscriber for operational status.  <br /></td></tr>
-<tr class="separator:adaf85c5e41974dced460b3c0b4fac4d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41175a0d66e0dc4415087206628d53b1" id="r_a41175a0d66e0dc4415087206628d53b1"><td class="memItemLeft" align="right" valign="top">message_filters::Subscriber&lt; geometry_msgs::msg::Vector3Stamped &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#a41175a0d66e0dc4415087206628d53b1">_free_acceleration_subscription_</a></td></tr>
-<tr class="separator:a41175a0d66e0dc4415087206628d53b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab10c1a2bd4bf02d49f165a7adb33f554" id="r_ab10c1a2bd4bf02d49f165a7adb33f554"><td class="memItemLeft" align="right" valign="top">message_filters::Subscriber&lt; geometry_msgs::msg::Vector3Stamped &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#ab10c1a2bd4bf02d49f165a7adb33f554">_angular_velocity_subscription_</a></td></tr>
-<tr class="separator:ab10c1a2bd4bf02d49f165a7adb33f554"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf126fd5dd5b3e49b1e8d7bccfa87aa9" id="r_aaf126fd5dd5b3e49b1e8d7bccfa87aa9"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; custom_interfaces::msg::OperationalStatus &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#aaf126fd5dd5b3e49b1e8d7bccfa87aa9">_operational_status_subscription_</a></td></tr>
+<tr class="memdesc:aaf126fd5dd5b3e49b1e8d7bccfa87aa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscriber for operational status.  <br /></td></tr>
+<tr class="separator:aaf126fd5dd5b3e49b1e8d7bccfa87aa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adad0d56c309c1a970cf81a313100684c" id="r_adad0d56c309c1a970cf81a313100684c"><td class="memItemLeft" align="right" valign="top">message_filters::Subscriber&lt; geometry_msgs::msg::Vector3Stamped &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#adad0d56c309c1a970cf81a313100684c">_free_acceleration_subscription_</a></td></tr>
+<tr class="separator:adad0d56c309c1a970cf81a313100684c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af436bfa3fcfb2b4f1680cb014e608ecb" id="r_af436bfa3fcfb2b4f1680cb014e608ecb"><td class="memItemLeft" align="right" valign="top">message_filters::Subscriber&lt; geometry_msgs::msg::Vector3Stamped &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#af436bfa3fcfb2b4f1680cb014e608ecb">_angular_velocity_subscription_</a></td></tr>
+<tr class="separator:af436bfa3fcfb2b4f1680cb014e608ecb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49a7f199e87d7e9b6c644471812b5561" id="r_a49a7f199e87d7e9b6c644471812b5561"><td class="memItemLeft" align="right" valign="top">message_filters::Subscriber&lt; custom_interfaces::msg::ImuData &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#a49a7f199e87d7e9b6c644471812b5561">_roll_accx_imu_subscription_</a></td></tr>
 <tr class="separator:a49a7f199e87d7e9b6c644471812b5561"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a158f10a0ee94e7bf0d47b2a390d27ce4" id="r_a158f10a0ee94e7bf0d47b2a390d27ce4"><td class="memItemLeft" align="right" valign="top">message_filters::Subscriber&lt; custom_interfaces::msg::ImuData &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#a158f10a0ee94e7bf0d47b2a390d27ce4">_yaw_accy_imu_subscription_</a></td></tr>
@@ -272,29 +338,165 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a7b97acc77e4ed1bed7e04ff941ff8640"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae09fd9b4776ada18091ca83952c060c0" id="r_ae09fd9b4776ada18091ca83952c060c0"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; message_filters::Synchronizer&lt; <a class="el" href="../../d1/df1/class_vehicle_adapter.html#a3f4df8352b4709f3fed5410770264a96">ImuPolicy</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#ae09fd9b4776ada18091ca83952c060c0">_imu_sync_</a></td></tr>
 <tr class="separator:ae09fd9b4776ada18091ca83952c060c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf474d4a292425f0b18040b1513325ce" id="r_aaf474d4a292425f0b18040b1513325ce"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; message_filters::Synchronizer&lt; <a class="el" href="../../d1/df1/class_vehicle_adapter.html#a90421a56d996a70720764d27100259dd">XsensImuPolicy</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#aaf474d4a292425f0b18040b1513325ce">_xsens_imu_sync_</a></td></tr>
-<tr class="separator:aaf474d4a292425f0b18040b1513325ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b5cd2783b10ea8dbfaf7ed629f54c07" id="r_a8b5cd2783b10ea8dbfaf7ed629f54c07"><td class="memItemLeft" align="right" valign="top">rclcpp::Client&lt; std_srvs::srv::Trigger &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#a8b5cd2783b10ea8dbfaf7ed629f54c07">_finished_client_</a></td></tr>
-<tr class="memdesc:a8b5cd2783b10ea8dbfaf7ed629f54c07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Client for finished signal.  <br /></td></tr>
-<tr class="separator:a8b5cd2783b10ea8dbfaf7ed629f54c07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af88f92d3173430717c22208bc4b9af61" id="r_af88f92d3173430717c22208bc4b9af61"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; message_filters::Synchronizer&lt; <a class="el" href="../../d1/df1/class_vehicle_adapter.html#a90421a56d996a70720764d27100259dd">XsensImuPolicy</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#af88f92d3173430717c22208bc4b9af61">_xsens_imu_sync_</a></td></tr>
+<tr class="separator:af88f92d3173430717c22208bc4b9af61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1302b809d223c331399b642994193dee" id="r_a1302b809d223c331399b642994193dee"><td class="memItemLeft" align="right" valign="top">rclcpp::Client&lt; std_srvs::srv::Trigger &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#a1302b809d223c331399b642994193dee">_finished_client_</a></td></tr>
+<tr class="memdesc:a1302b809d223c331399b642994193dee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Client for finished signal.  <br /></td></tr>
+<tr class="separator:a1302b809d223c331399b642994193dee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83498734d02faf50ca37a548f6165884" id="r_a83498734d02faf50ca37a548f6165884"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; custom_interfaces::msg::OperationalStatus &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#a83498734d02faf50ca37a548f6165884">mission_subscription_</a></td></tr>
 <tr class="separator:a83498734d02faf50ca37a548f6165884"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76aafb1eb08204264471fb91fe0c8539" id="r_a76aafb1eb08204264471fb91fe0c8539"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; tf2_ros::StaticTransformBroadcaster &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#a76aafb1eb08204264471fb91fe0c8539">_tf_static_broadcaster_</a></td></tr>
+<tr class="memdesc:a76aafb1eb08204264471fb91fe0c8539"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static transform broadcaster.  <br /></td></tr>
+<tr class="separator:a76aafb1eb08204264471fb91fe0c8539"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5a2b30993e915eb41e390e209101118" id="r_ab5a2b30993e915eb41e390e209101118"><td class="memItemLeft" align="right" valign="top">message_filters::Subscriber&lt; custom_interfaces::msg::WheelRPM &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#ab5a2b30993e915eb41e390e209101118">_fl_wheel_rpm_subscription_</a></td></tr>
+<tr class="memdesc:ab5a2b30993e915eb41e390e209101118"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscriber for fl wheel rpm.  <br /></td></tr>
+<tr class="separator:ab5a2b30993e915eb41e390e209101118"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea540442d85f282373cb5405d58b4a83" id="r_aea540442d85f282373cb5405d58b4a83"><td class="memItemLeft" align="right" valign="top">message_filters::Subscriber&lt; custom_interfaces::msg::WheelRPM &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#aea540442d85f282373cb5405d58b4a83">_fr_wheel_rpm_subscription_</a></td></tr>
+<tr class="memdesc:aea540442d85f282373cb5405d58b4a83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscriber for fr wheel rpm.  <br /></td></tr>
+<tr class="separator:aea540442d85f282373cb5405d58b4a83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4feaadd0c5ebc8aaa0d7bd62b426b21a" id="r_a4feaadd0c5ebc8aaa0d7bd62b426b21a"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; message_filters::Synchronizer&lt; <a class="el" href="../../d1/df1/class_vehicle_adapter.html#adcdcc8be770dd7499ab6249f17fc66e2">WheelSSPolicy</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#a4feaadd0c5ebc8aaa0d7bd62b426b21a">_wss_sync_</a></td></tr>
+<tr class="memdesc:a4feaadd0c5ebc8aaa0d7bd62b426b21a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Synchronizer for wheel speeds.  <br /></td></tr>
+<tr class="separator:a4feaadd0c5ebc8aaa0d7bd62b426b21a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72c11d6af91ea4e26e4fadf3c7fa1352" id="r_a72c11d6af91ea4e26e4fadf3c7fa1352"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; custom_interfaces::msg::SteeringAngle &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#a72c11d6af91ea4e26e4fadf3c7fa1352">_steering_angle_sub_</a></td></tr>
+<tr class="separator:a72c11d6af91ea4e26e4fadf3c7fa1352"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a189d97a29de3d851bb5f89282cee0fa2" id="r_a189d97a29de3d851bb5f89282cee0fa2"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; custom_interfaces::msg::WheelRPM &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#a189d97a29de3d851bb5f89282cee0fa2">_resolver_sub_</a></td></tr>
+<tr class="separator:a189d97a29de3d851bb5f89282cee0fa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab787f55c3b0d984fd7bf4d77cf37a603" id="r_ab787f55c3b0d984fd7bf4d77cf37a603"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#ab787f55c3b0d984fd7bf4d77cf37a603">last_decent_fl_wss_reading</a> = 0</td></tr>
+<tr class="separator:ab787f55c3b0d984fd7bf4d77cf37a603"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad475edfbd408dc19581b676d1294f1ec" id="r_ad475edfbd408dc19581b676d1294f1ec"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#ad475edfbd408dc19581b676d1294f1ec">average_imu_bias</a> = 0.0</td></tr>
+<tr class="separator:ad475edfbd408dc19581b676d1294f1ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a970fbbe335333937092f00fc5e3bab94" id="r_a970fbbe335333937092f00fc5e3bab94"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df1/class_vehicle_adapter.html#a970fbbe335333937092f00fc5e3bab94">number_of_imu_readings</a> = 0</td></tr>
+<tr class="separator:a970fbbe335333937092f00fc5e3bab94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_static_methods_class_control"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_control')"><img src="../../closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="../../d7/d49/class_control.html">Control</a></td></tr>
+<tr class="memitem:a7ad204d3b2598bfc0551e604872b8354 inherit pub_static_methods_class_control" id="r_a7ad204d3b2598bfc0551e604872b8354"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#a7ad204d3b2598bfc0551e604872b8354">load_config</a> (std::string &amp;adapter)</td></tr>
+<tr class="separator:a7ad204d3b2598bfc0551e604872b8354 inherit pub_static_methods_class_control"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_methods_class_planning"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_planning')"><img src="../../closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="../../d9/db5/class_planning.html">Planning</a></td></tr>
+<tr class="memitem:a5650d2ddb277b0e80fed4c8bc72957fa inherit pub_static_methods_class_planning" id="r_a5650d2ddb277b0e80fed4c8bc72957fa"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d2/deb/struct_planning_parameters.html">PlanningParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#a5650d2ddb277b0e80fed4c8bc72957fa">load_config</a> (std::string &amp;adapter)</td></tr>
+<tr class="separator:a5650d2ddb277b0e80fed4c8bc72957fa inherit pub_static_methods_class_planning"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_class_control"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_control')"><img src="../../closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="../../d7/d49/class_control.html">Control</a></td></tr>
-<tr class="memitem:a24e436accce661da6fc26e937c2e9fe4 inherit pub_attribs_class_control" id="r_a24e436accce661da6fc26e937c2e9fe4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#a24e436accce661da6fc26e937c2e9fe4">using_simulated_se_</a> {false}</td></tr>
-<tr class="separator:a24e436accce661da6fc26e937c2e9fe4 inherit pub_attribs_class_control"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5be2565669a71d9d52221b16499479d inherit pub_attribs_class_control" id="r_ab5be2565669a71d9d52221b16499479d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#ab5be2565669a71d9d52221b16499479d">using_simulated_slam_</a> {false}</td></tr>
+<tr class="separator:ab5be2565669a71d9d52221b16499479d inherit pub_attribs_class_control"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3716b2ba4bb4995e5d1c91a668a0409c inherit pub_attribs_class_control" id="r_a3716b2ba4bb4995e5d1c91a668a0409c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#a3716b2ba4bb4995e5d1c91a668a0409c">using_simulated_velocities_</a> {false}</td></tr>
+<tr class="separator:a3716b2ba4bb4995e5d1c91a668a0409c inherit pub_attribs_class_control"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a7d5c79dcea2577ef224feeddcdac99 inherit pub_attribs_class_control" id="r_a8a7d5c79dcea2577ef224feeddcdac99"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#a8a7d5c79dcea2577ef224feeddcdac99">go_signal_</a> {false}</td></tr>
 <tr class="separator:a8a7d5c79dcea2577ef224feeddcdac99 inherit pub_attribs_class_control"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b5f62e2d4243eaf69750f13c6b4c8d8 inherit pub_attribs_class_control" id="r_a4b5f62e2d4243eaf69750f13c6b4c8d8"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#a4b5f62e2d4243eaf69750f13c6b4c8d8">velocity_</a> {0.0}</td></tr>
+<tr class="separator:a4b5f62e2d4243eaf69750f13c6b4c8d8 inherit pub_attribs_class_control"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d9e18fcc518294945ebeef9cab2aa56 inherit pub_attribs_class_control" id="r_a8d9e18fcc518294945ebeef9cab2aa56"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#a8d9e18fcc518294945ebeef9cab2aa56">throttle_command_</a> {0.0}</td></tr>
+<tr class="separator:a8d9e18fcc518294945ebeef9cab2aa56 inherit pub_attribs_class_control"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1774ac17f35218f64d069ae70c807f37 inherit pub_attribs_class_control" id="r_a1774ac17f35218f64d069ae70c807f37"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#a1774ac17f35218f64d069ae70c807f37">steering_command_</a> {0.0}</td></tr>
+<tr class="separator:a1774ac17f35218f64d069ae70c807f37 inherit pub_attribs_class_control"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a861e02bc97a09435921bb476e29001b1 inherit pub_attribs_class_control" id="r_a861e02bc97a09435921bb476e29001b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#a861e02bc97a09435921bb476e29001b1">params_</a></td></tr>
+<tr class="separator:a861e02bc97a09435921bb476e29001b1 inherit pub_attribs_class_control"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_class_adapter"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_adapter')"><img src="../../closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="../../d3/d7f/class_adapter.html">Adapter</a></td></tr>
 <tr class="memitem:a702c7aa0062af19c90ba6148d2683079 inherit pub_attribs_class_adapter" id="r_a702c7aa0062af19c90ba6148d2683079"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d4/d43/class_s_e_node.html">SENode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a702c7aa0062af19c90ba6148d2683079">node_</a></td></tr>
 <tr class="separator:a702c7aa0062af19c90ba6148d2683079 inherit pub_attribs_class_adapter"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54d44dae043d0daa8a2ca95c8ddd4048 inherit pub_attribs_class_adapter" id="r_a54d44dae043d0daa8a2ca95c8ddd4048"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; sensor_msgs::msg::Imu &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a54d44dae043d0daa8a2ca95c8ddd4048">_imu_subscription_</a></td></tr>
 <tr class="separator:a54d44dae043d0daa8a2ca95c8ddd4048 inherit pub_attribs_class_adapter"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_class_s_l_a_m_node"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_s_l_a_m_node')"><img src="../../closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="../../d8/d84/class_s_l_a_m_node.html">SLAMNode</a></td></tr>
+<tr class="memitem:aac21a292783c53d1f41cfaa255b3e9bf inherit pro_methods_class_s_l_a_m_node" id="r_aac21a292783c53d1f41cfaa255b3e9bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#aac21a292783c53d1f41cfaa255b3e9bf">_perception_subscription_callback</a> (const custom_interfaces::msg::PerceptionOutput &amp;msg)</td></tr>
+<tr class="memdesc:aac21a292783c53d1f41cfaa255b3e9bf inherit pro_methods_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback that updates everytime information is received from the perception module.  <br /></td></tr>
+<tr class="separator:aac21a292783c53d1f41cfaa255b3e9bf inherit pro_methods_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e228ce696c330a4a43ae5807c632df7 inherit pro_methods_class_s_l_a_m_node" id="r_a6e228ce696c330a4a43ae5807c632df7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a6e228ce696c330a4a43ae5807c632df7">_velocities_subscription_callback</a> (const custom_interfaces::msg::Velocities &amp;msg)</td></tr>
+<tr class="memdesc:a6e228ce696c330a4a43ae5807c632df7 inherit pro_methods_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback that updates everytime information is received from vehicle state estimation node.  <br /></td></tr>
+<tr class="separator:a6e228ce696c330a4a43ae5807c632df7 inherit pro_methods_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a695c062e0021d33622b6c1a59cee0379 inherit pro_methods_class_s_l_a_m_node" id="r_a695c062e0021d33622b6c1a59cee0379"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379">_publish_vehicle_pose</a> ()</td></tr>
+<tr class="memdesc:a695c062e0021d33622b6c1a59cee0379 inherit pro_methods_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">publishes the localization ('vehicle_pose') to the topic vehicle_pose  <br /></td></tr>
+<tr class="separator:a695c062e0021d33622b6c1a59cee0379 inherit pro_methods_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a976a75ca26892057e2b0c2ea11a25496 inherit pro_methods_class_s_l_a_m_node" id="r_a976a75ca26892057e2b0c2ea11a25496"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a976a75ca26892057e2b0c2ea11a25496">_publish_map</a> ()</td></tr>
+<tr class="memdesc:a976a75ca26892057e2b0c2ea11a25496 inherit pro_methods_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">publishes the map ('track_map') to the topic track_map  <br /></td></tr>
+<tr class="separator:a976a75ca26892057e2b0c2ea11a25496 inherit pro_methods_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91b66a755ba32f65e90666fe56bc9629 inherit pro_methods_class_s_l_a_m_node" id="r_a91b66a755ba32f65e90666fe56bc9629"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a91b66a755ba32f65e90666fe56bc9629">_publish_associations</a> ()</td></tr>
+<tr class="memdesc:a91b66a755ba32f65e90666fe56bc9629 inherit pro_methods_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes the visualization of the associations by data association.  <br /></td></tr>
+<tr class="separator:a91b66a755ba32f65e90666fe56bc9629 inherit pro_methods_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75b8a3f5d616163b602ec78c148dd270 inherit pro_methods_class_s_l_a_m_node" id="r_a75b8a3f5d616163b602ec78c148dd270"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a75b8a3f5d616163b602ec78c148dd270">_publish_covariance</a> ()</td></tr>
+<tr class="memdesc:a75b8a3f5d616163b602ec78c148dd270 inherit pro_methods_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">publishes the covariance of the state  <br /></td></tr>
+<tr class="separator:a75b8a3f5d616163b602ec78c148dd270 inherit pro_methods_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e323b58014b3f31d0574d4be9ab092f inherit pro_methods_class_s_l_a_m_node" id="r_a3e323b58014b3f31d0574d4be9ab092f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a3e323b58014b3f31d0574d4be9ab092f">_publish_lap_counter</a> ()</td></tr>
+<tr class="memdesc:a3e323b58014b3f31d0574d4be9ab092f inherit pro_methods_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">publishes the lap counter  <br /></td></tr>
+<tr class="separator:a3e323b58014b3f31d0574d4be9ab092f inherit pro_methods_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a6dee802bbbb070a0556ee1dd01826a inherit pro_methods_class_s_l_a_m_node" id="r_a9a6dee802bbbb070a0556ee1dd01826a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a9a6dee802bbbb070a0556ee1dd01826a">_is_mission_finished</a> () const</td></tr>
+<tr class="memdesc:a9a6dee802bbbb070a0556ee1dd01826a inherit pro_methods_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the mission is finished.  <br /></td></tr>
+<tr class="separator:a9a6dee802bbbb070a0556ee1dd01826a inherit pro_methods_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_class_v_e_node"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_v_e_node')"><img src="../../closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="../../d3/d43/class_v_e_node.html">VENode</a></td></tr>
+<tr class="memitem:a2aa9d39822eb3178f0a16a84d02e946e inherit pro_methods_class_v_e_node" id="r_a2aa9d39822eb3178f0a16a84d02e946e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d43/class_v_e_node.html#a2aa9d39822eb3178f0a16a84d02e946e">publish_velocities</a> () const</td></tr>
+<tr class="separator:a2aa9d39822eb3178f0a16a84d02e946e inherit pro_methods_class_v_e_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_class_s_l_a_m_node"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_s_l_a_m_node')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d8/d84/class_s_l_a_m_node.html">SLAMNode</a></td></tr>
+<tr class="memitem:a1721a1eea113db4ac143c79ad95fa493 inherit pro_attribs_class_s_l_a_m_node" id="r_a1721a1eea113db4ac143c79ad95fa493"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; custom_interfaces::msg::PerceptionOutput &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a1721a1eea113db4ac143c79ad95fa493">_perception_subscription_</a></td></tr>
+<tr class="separator:a1721a1eea113db4ac143c79ad95fa493 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47984fc565819b847ece298a12046994 inherit pro_attribs_class_s_l_a_m_node" id="r_a47984fc565819b847ece298a12046994"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; custom_interfaces::msg::Velocities &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a47984fc565819b847ece298a12046994">_velocities_subscription_</a></td></tr>
+<tr class="separator:a47984fc565819b847ece298a12046994 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74972175f55d6fe55f92c62a937af50b inherit pro_attribs_class_s_l_a_m_node" id="r_a74972175f55d6fe55f92c62a937af50b"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; custom_interfaces::msg::Pose &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a74972175f55d6fe55f92c62a937af50b">_vehicle_pose_publisher_</a></td></tr>
+<tr class="separator:a74972175f55d6fe55f92c62a937af50b inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad46f24819e0d4c5d23081a8a78a96911 inherit pro_attribs_class_s_l_a_m_node" id="r_ad46f24819e0d4c5d23081a8a78a96911"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; custom_interfaces::msg::ConeArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#ad46f24819e0d4c5d23081a8a78a96911">_map_publisher_</a></td></tr>
+<tr class="separator:ad46f24819e0d4c5d23081a8a78a96911 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a000a98b07d79146cab0fb142df0d64b0 inherit pro_attribs_class_s_l_a_m_node" id="r_a000a98b07d79146cab0fb142df0d64b0"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; visualization_msgs::msg::MarkerArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a000a98b07d79146cab0fb142df0d64b0">_visualization_map_publisher_</a></td></tr>
+<tr class="separator:a000a98b07d79146cab0fb142df0d64b0 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab46f66a1c06470f244e49962d2b7a242 inherit pro_attribs_class_s_l_a_m_node" id="r_ab46f66a1c06470f244e49962d2b7a242"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; visualization_msgs::msg::MarkerArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#ab46f66a1c06470f244e49962d2b7a242">_visualization_perception_map_publisher_</a></td></tr>
+<tr class="separator:ab46f66a1c06470f244e49962d2b7a242 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1b1ab9005204ecb332cf7a83e4ae757 inherit pro_attribs_class_s_l_a_m_node" id="r_ae1b1ab9005204ecb332cf7a83e4ae757"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; visualization_msgs::msg::MarkerArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#ae1b1ab9005204ecb332cf7a83e4ae757">_associations_visualization_publisher_</a></td></tr>
+<tr class="separator:ae1b1ab9005204ecb332cf7a83e4ae757 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa8234fb7666d11d542ac4ab76504615 inherit pro_attribs_class_s_l_a_m_node" id="r_aaa8234fb7666d11d542ac4ab76504615"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; visualization_msgs::msg::Marker &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#aaa8234fb7666d11d542ac4ab76504615">_position_publisher_</a></td></tr>
+<tr class="separator:aaa8234fb7666d11d542ac4ab76504615 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab50e60d83b64ce5d918d0bb825f279d1 inherit pro_attribs_class_s_l_a_m_node" id="r_ab50e60d83b64ce5d918d0bb825f279d1"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; std_msgs::msg::Float64MultiArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#ab50e60d83b64ce5d918d0bb825f279d1">_execution_time_publisher_</a></td></tr>
+<tr class="separator:ab50e60d83b64ce5d918d0bb825f279d1 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a927581e5015a831614e83747817fad89 inherit pro_attribs_class_s_l_a_m_node" id="r_a927581e5015a831614e83747817fad89"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; std_msgs::msg::Float64MultiArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a927581e5015a831614e83747817fad89">_covariance_publisher_</a></td></tr>
+<tr class="separator:a927581e5015a831614e83747817fad89 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5d94ee3a9cfc2d1eba7f9a65ca00ad0 inherit pro_attribs_class_s_l_a_m_node" id="r_ab5d94ee3a9cfc2d1eba7f9a65ca00ad0"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; std_msgs::msg::Float64 &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#ab5d94ee3a9cfc2d1eba7f9a65ca00ad0">_lap_counter_publisher_</a></td></tr>
+<tr class="separator:ab5d94ee3a9cfc2d1eba7f9a65ca00ad0 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ffa4a70db05336200f0be0d11b0052d inherit pro_attribs_class_s_l_a_m_node" id="r_a1ffa4a70db05336200f0be0d11b0052d"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; std_msgs::msg::Float64 &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a1ffa4a70db05336200f0be0d11b0052d">_perception_delta_publisher_</a></td></tr>
+<tr class="separator:a1ffa4a70db05336200f0be0d11b0052d inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75bbee88cb4cdc4c4496d26af7d9926e inherit pro_attribs_class_s_l_a_m_node" id="r_a75bbee88cb4cdc4c4496d26af7d9926e"><td class="memItemLeft" align="right" valign="top">rclcpp::Time&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a75bbee88cb4cdc4c4496d26af7d9926e">_last_perception_message_time_</a> = rclcpp::Time(0)</td></tr>
+<tr class="separator:a75bbee88cb4cdc4c4496d26af7d9926e inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ba46c641cb43c8c45c6a5d23eb89877 inherit pro_attribs_class_s_l_a_m_node" id="r_a5ba46c641cb43c8c45c6a5d23eb89877"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; tf2_ros::TransformBroadcaster &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a5ba46c641cb43c8c45c6a5d23eb89877">_tf_broadcaster_</a></td></tr>
+<tr class="separator:a5ba46c641cb43c8c45c6a5d23eb89877 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4e860a8ee092a7ba1d4f3014086b30a inherit pro_attribs_class_s_l_a_m_node" id="r_ae4e860a8ee092a7ba1d4f3014086b30a"><td class="memItemLeft" align="right" valign="top">rclcpp::TimerBase::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#ae4e860a8ee092a7ba1d4f3014086b30a">_timer_</a></td></tr>
+<tr class="memdesc:ae4e860a8ee092a7ba1d4f3014086b30a inherit pro_attribs_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">timer  <br /></td></tr>
+<tr class="separator:ae4e860a8ee092a7ba1d4f3014086b30a inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0a0e9342c89e3e1276226d43f7cc264 inherit pro_attribs_class_s_l_a_m_node" id="r_ae0a0e9342c89e3e1276226d43f7cc264"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../da/dd3/class_s_l_a_m_solver.html">SLAMSolver</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#ae0a0e9342c89e3e1276226d43f7cc264">_slam_solver_</a></td></tr>
+<tr class="memdesc:ae0a0e9342c89e3e1276226d43f7cc264 inherit pro_attribs_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">SLAM solver object.  <br /></td></tr>
+<tr class="separator:ae0a0e9342c89e3e1276226d43f7cc264 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16321bf55abc92f9a1e0f809fe2f846e inherit pro_attribs_class_s_l_a_m_node" id="r_a16321bf55abc92f9a1e0f809fe2f846e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a16321bf55abc92f9a1e0f809fe2f846e">_perception_map_</a></td></tr>
+<tr class="separator:a16321bf55abc92f9a1e0f809fe2f846e inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10b8e6d0bb30193b123cce2b1786e848 inherit pro_attribs_class_s_l_a_m_node" id="r_a10b8e6d0bb30193b123cce2b1786e848"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html">common_lib::structures::Velocities</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a10b8e6d0bb30193b123cce2b1786e848">_vehicle_state_velocities_</a></td></tr>
+<tr class="separator:a10b8e6d0bb30193b123cce2b1786e848 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adce67daf7d4e3505b834cd3f46e12120 inherit pro_attribs_class_s_l_a_m_node" id="r_adce67daf7d4e3505b834cd3f46e12120"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#adce67daf7d4e3505b834cd3f46e12120">_track_map_</a></td></tr>
+<tr class="separator:adce67daf7d4e3505b834cd3f46e12120 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a834717deba8f26cf0bcab4bcf7ba96df inherit pro_attribs_class_s_l_a_m_node" id="r_a834717deba8f26cf0bcab4bcf7ba96df"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a834717deba8f26cf0bcab4bcf7ba96df">_associations_</a></td></tr>
+<tr class="memdesc:a834717deba8f26cf0bcab4bcf7ba96df inherit pro_attribs_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associations of the cones in the map.  <br /></td></tr>
+<tr class="separator:a834717deba8f26cf0bcab4bcf7ba96df inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7adfcd99e21d33e67b885bdccd80a1b2 inherit pro_attribs_class_s_l_a_m_node" id="r_a7adfcd99e21d33e67b885bdccd80a1b2"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a7adfcd99e21d33e67b885bdccd80a1b2">_observations_global_</a></td></tr>
+<tr class="memdesc:a7adfcd99e21d33e67b885bdccd80a1b2 inherit pro_attribs_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global observations of the cones.  <br /></td></tr>
+<tr class="separator:a7adfcd99e21d33e67b885bdccd80a1b2 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cb658b74e7f0aa61c50cd656decf772 inherit pro_attribs_class_s_l_a_m_node" id="r_a0cb658b74e7f0aa61c50cd656decf772"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a0cb658b74e7f0aa61c50cd656decf772">_map_coordinates_</a></td></tr>
+<tr class="memdesc:a0cb658b74e7f0aa61c50cd656decf772 inherit pro_attribs_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coordinates of the cones in the map.  <br /></td></tr>
+<tr class="separator:a0cb658b74e7f0aa61c50cd656decf772 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac527349861230422bc845da7e53b4dee inherit pro_attribs_class_s_l_a_m_node" id="r_ac527349861230422bc845da7e53b4dee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html">common_lib::structures::Pose</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#ac527349861230422bc845da7e53b4dee">_vehicle_pose_</a></td></tr>
+<tr class="separator:ac527349861230422bc845da7e53b4dee inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cbc623f4847d7be03e6aa44b3a465bc inherit pro_attribs_class_s_l_a_m_node" id="r_a3cbc623f4847d7be03e6aa44b3a465bc"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; std::vector&lt; double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a3cbc623f4847d7be03e6aa44b3a465bc">_execution_times_</a></td></tr>
+<tr class="separator:a3cbc623f4847d7be03e6aa44b3a465bc inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d4aa8a5769a0e2a22615b2dfa5d7c79 inherit pro_attribs_class_s_l_a_m_node" id="r_a6d4aa8a5769a0e2a22615b2dfa5d7c79"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140">common_lib::competition_logic::Mission</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a6d4aa8a5769a0e2a22615b2dfa5d7c79">_mission_</a> = common_lib::competition_logic::Mission::NONE</td></tr>
+<tr class="separator:a6d4aa8a5769a0e2a22615b2dfa5d7c79 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ef95e60736fc2d4357344be82943469 inherit pro_attribs_class_s_l_a_m_node" id="r_a7ef95e60736fc2d4357344be82943469"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a7ef95e60736fc2d4357344be82943469">_go_</a> = true</td></tr>
+<tr class="separator:a7ef95e60736fc2d4357344be82943469 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49291ebab4b682076348626ed832c989 inherit pro_attribs_class_s_l_a_m_node" id="r_a49291ebab4b682076348626ed832c989"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a49291ebab4b682076348626ed832c989">_adapter_name_</a></td></tr>
+<tr class="memdesc:a49291ebab4b682076348626ed832c989 inherit pro_attribs_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">flag to start the mission  <br /></td></tr>
+<tr class="separator:a49291ebab4b682076348626ed832c989 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_class_v_e_node"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_v_e_node')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d3/d43/class_v_e_node.html">VENode</a></td></tr>
+<tr class="memitem:acaefc26c843cfe5c0f8ab0b413c596a5 inherit pro_attribs_class_v_e_node" id="r_acaefc26c843cfe5c0f8ab0b413c596a5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/db7/struct_v_e_parameters.html">VEParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d43/class_v_e_node.html#acaefc26c843cfe5c0f8ab0b413c596a5">_parameters_</a></td></tr>
+<tr class="separator:acaefc26c843cfe5c0f8ab0b413c596a5 inherit pro_attribs_class_v_e_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec08ed5c969d45ec71e3a726f6e4fe56 inherit pro_attribs_class_v_e_node" id="r_aec08ed5c969d45ec71e3a726f6e4fe56"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d9/d08/class_velocity_estimator.html">VelocityEstimator</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d43/class_v_e_node.html#aec08ed5c969d45ec71e3a726f6e4fe56">_velocity_estimator_</a></td></tr>
+<tr class="separator:aec08ed5c969d45ec71e3a726f6e4fe56 inherit pro_attribs_class_v_e_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80d3415aa3c7fda838da1816ae9f146c inherit pro_attribs_class_v_e_node" id="r_a80d3415aa3c7fda838da1816ae9f146c"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; custom_interfaces::msg::Velocities &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d43/class_v_e_node.html#a80d3415aa3c7fda838da1816ae9f146c">_velocities_pub_</a></td></tr>
+<tr class="separator:a80d3415aa3c7fda838da1816ae9f146c inherit pro_attribs_class_v_e_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
+<div class="textblock"><p><a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a> class for the vehicle. </p>
+<p>This class subscribes to the IMU, wheel speed sensors, and steering angle topics published by the vehicle. It then passes the data to the velocity estimator for processing. </p>
+
 <p class="definition">Definition at line <a class="el" href="../../d4/d49/control_2include_2adapter__control_2vehicle_8hpp_source.html#l00009">9</a> of file <a class="el" href="../../d4/d49/control_2include_2adapter__control_2vehicle_8hpp_source.html">vehicle.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a3f4df8352b4709f3fed5410770264a96" name="a3f4df8352b4709f3fed5410770264a96"></a>
@@ -320,6 +522,32 @@ Additional Inherited Members</h2></td></tr>
 <p>Policy for synchronizing IMU data. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../de/d21/ekf__state__est_2include_2adapter__ekf__state__est_2vehicle_8hpp_source.html#l00035">35</a> of file <a class="el" href="../../de/d21/ekf__state__est_2include_2adapter__ekf__state__est_2vehicle_8hpp_source.html">vehicle.hpp</a>.</p>
+
+</div>
+</div>
+<a id="adcdcc8be770dd7499ab6249f17fc66e2" name="adcdcc8be770dd7499ab6249f17fc66e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcdcc8be770dd7499ab6249f17fc66e2">&#9670;&#160;</a></span>WheelSSPolicy</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="../../d1/df1/class_vehicle_adapter.html#adcdcc8be770dd7499ab6249f17fc66e2">VehicleAdapter::WheelSSPolicy</a> =  message_filters::sync_policies::ApproximateTime&lt; custom_interfaces::msg::WheelRPM, custom_interfaces::msg::WheelRPM&gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Policy for synchronizing wheel speeds. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d1/d6d/vehicle__adapter_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../d1/d6d/vehicle__adapter_8hpp_source.html">vehicle_adapter.hpp</a>.</p>
 
 </div>
 </div>
@@ -350,7 +578,7 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <a id="a90421a56d996a70720764d27100259dd" name="a90421a56d996a70720764d27100259dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90421a56d996a70720764d27100259dd">&#9670;&#160;</a></span>XsensImuPolicy</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a90421a56d996a70720764d27100259dd">&#9670;&#160;</a></span>XsensImuPolicy <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -375,9 +603,35 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a90421a56d996a70720764d27100259dd" name="a90421a56d996a70720764d27100259dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90421a56d996a70720764d27100259dd">&#9670;&#160;</a></span>XsensImuPolicy <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="../../d1/df1/class_vehicle_adapter.html#a90421a56d996a70720764d27100259dd">VehicleAdapter::XsensImuPolicy</a> =  message_filters::sync_policies::ApproximateTime&lt; geometry_msgs::msg::Vector3Stamped, geometry_msgs::msg::Vector3Stamped&gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Policy for synchronizing Xsens IMU data. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d1/d6d/vehicle__adapter_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../d1/d6d/vehicle__adapter_8hpp_source.html">vehicle_adapter.hpp</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a5f319fa3d13a1e28440950d5ae856500" name="a5f319fa3d13a1e28440950d5ae856500"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f319fa3d13a1e28440950d5ae856500">&#9670;&#160;</a></span>VehicleAdapter() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f319fa3d13a1e28440950d5ae856500">&#9670;&#160;</a></span>VehicleAdapter() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -400,12 +654,12 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d7c/control_2src_2adapter__control_2vehicle_8cpp_source.html#l00004">4</a> of file <a class="el" href="../../de/d7c/control_2src_2adapter__control_2vehicle_8cpp_source.html">vehicle.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d7c/control_2src_2adapter__control_2vehicle_8cpp_source.html#l00005">5</a> of file <a class="el" href="../../de/d7c/control_2src_2adapter__control_2vehicle_8cpp_source.html">vehicle.cpp</a>.</p>
 
 </div>
 </div>
 <a id="a895abdaf64b451c11cde895cf8a3464c" name="a895abdaf64b451c11cde895cf8a3464c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a895abdaf64b451c11cde895cf8a3464c">&#9670;&#160;</a></span>VehicleAdapter() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a895abdaf64b451c11cde895cf8a3464c">&#9670;&#160;</a></span>VehicleAdapter() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -447,7 +701,7 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <a id="abe49db684ec2a81ff997c0fc5cf172df" name="abe49db684ec2a81ff997c0fc5cf172df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe49db684ec2a81ff997c0fc5cf172df">&#9670;&#160;</a></span>VehicleAdapter() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abe49db684ec2a81ff997c0fc5cf172df">&#9670;&#160;</a></span>VehicleAdapter() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -484,9 +738,80 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
+<a id="ab308f8a9d24015aae1274f75e75f8e9f" name="ab308f8a9d24015aae1274f75e75f8e9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab308f8a9d24015aae1274f75e75f8e9f">&#9670;&#160;</a></span>VehicleAdapter() <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">VehicleAdapter::VehicleAdapter </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html">SLAMParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>params</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor of the vehicle adapter node. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d6/d3c/slam_2src_2adapter__slam_2vehicle_8cpp_source.html#l00008">8</a> of file <a class="el" href="../../d6/d3c/slam_2src_2adapter__slam_2vehicle_8cpp_source.html">vehicle.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aebeaec32c8cdc951d1b3d41817890cf9" name="aebeaec32c8cdc951d1b3d41817890cf9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebeaec32c8cdc951d1b3d41817890cf9">&#9670;&#160;</a></span>VehicleAdapter() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VehicleAdapter::VehicleAdapter </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d5/db7/struct_v_e_parameters.html">VEParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>parameters</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/dae/vehicle__adapter_8cpp_source.html#l00003">3</a> of file <a class="el" href="../../d7/dae/vehicle__adapter_8cpp_source.html">vehicle_adapter.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d1/df1/class_vehicle_adapter_aebeaec32c8cdc951d1b3d41817890cf9_cgraph.png" border="0" usemap="#ad1/df1/class_vehicle_adapter_aebeaec32c8cdc951d1b3d41817890cf9_cgraph" alt=""/></div>
+<map name="ad1/df1/class_vehicle_adapter_aebeaec32c8cdc951d1b3d41817890cf9_cgraph" id="ad1/df1/class_vehicle_adapter_aebeaec32c8cdc951d1b3d41817890cf9_cgraph">
+<area shape="rect" title=" " alt="" coords="5,112,209,137"/>
+<area shape="rect" href="../../d1/df1/class_vehicle_adapter.html#a9060aa6d8c595e00c59f92621edff3c5" title="IMU subscription callback, which receives both free acceleration and angular velocity through a synch..." alt="" coords="269,5,406,46"/>
+<area shape="poly" title=" " alt="" coords="137,108,256,57,271,50,273,55,258,61,139,113"/>
+<area shape="rect" href="../../d1/df1/class_vehicle_adapter.html#ad764a66db05e6ac5dbdf62bae1c8db6e" title="Callback for the subscription of the resolver which measures the motor RPM." alt="" coords="257,71,418,111"/>
+<area shape="poly" title=" " alt="" coords="200,108,241,102,241,108,201,114"/>
+<area shape="rect" href="../../d1/df1/class_vehicle_adapter.html#ac8c38dbfb560f06fdd1000ff1eb40448" title="Callback for the subscription of the steering angle sensor." alt="" coords="257,136,418,177"/>
+<area shape="poly" title=" " alt="" coords="205,135,241,140,241,146,204,140"/>
+<area shape="rect" href="../../d1/df1/class_vehicle_adapter.html#a4af19314f0fc8a4643c8f8a4a6abfc3d" title="Wheel speed subscription callback, which receives both wheel speeds through a synchronizer message fi..." alt="" coords="268,201,407,242"/>
+<area shape="poly" title=" " alt="" coords="140,135,258,186,273,192,271,197,256,191,138,140"/>
+<area shape="rect" href="../../d3/d43/class_v_e_node.html#a2aa9d39822eb3178f0a16a84d02e946e" title=" " alt="" coords="466,112,644,137"/>
+<area shape="poly" title=" " alt="" coords="391,44,419,57,515,102,512,107,417,61,389,49"/>
+<area shape="poly" title=" " alt="" coords="419,101,453,106,452,111,418,106"/>
+<area shape="poly" title=" " alt="" coords="418,142,450,137,451,142,419,147"/>
+<area shape="poly" title=" " alt="" coords="388,198,417,186,512,142,514,147,419,191,390,203"/>
+</map>
+</div>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="af5a6a00282ad3c88150f115127a8a34c" name="af5a6a00282ad3c88150f115127a8a34c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5a6a00282ad3c88150f115127a8a34c">&#9670;&#160;</a></span>finish() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af5a6a00282ad3c88150f115127a8a34c">&#9670;&#160;</a></span>finish() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -517,7 +842,7 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <a id="ad686d31fd37cb1282857c8d7a720d0db" name="ad686d31fd37cb1282857c8d7a720d0db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad686d31fd37cb1282857c8d7a720d0db">&#9670;&#160;</a></span>finish() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad686d31fd37cb1282857c8d7a720d0db">&#9670;&#160;</a></span>finish() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -545,6 +870,35 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
+<a id="ad686d31fd37cb1282857c8d7a720d0db" name="ad686d31fd37cb1282857c8d7a720d0db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad686d31fd37cb1282857c8d7a720d0db">&#9670;&#160;</a></span>finish() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void VehicleAdapter::finish </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sends the finished signal to the vehicle control. </p>
+
+<p>Implements <a class="el" href="../../d3/d7f/class_adapter.html#a02f2211c1a8595dbfb00946cacaaabc9">Adapter</a>.</p>
+
+</div>
+</div>
 <a id="a5d86f6cffd7825dab4e92cdb2739f54b" name="a5d86f6cffd7825dab4e92cdb2739f54b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5d86f6cffd7825dab4e92cdb2739f54b">&#9670;&#160;</a></span>go_signal_callback()</h2>
 
@@ -561,7 +915,59 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d7c/control_2src_2adapter__control_2vehicle_8cpp_source.html#l00024">24</a> of file <a class="el" href="../../de/d7c/control_2src_2adapter__control_2vehicle_8cpp_source.html">vehicle.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d7c/control_2src_2adapter__control_2vehicle_8cpp_source.html#l00025">25</a> of file <a class="el" href="../../de/d7c/control_2src_2adapter__control_2vehicle_8cpp_source.html">vehicle.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9060aa6d8c595e00c59f92621edff3c5" name="a9060aa6d8c595e00c59f92621edff3c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9060aa6d8c595e00c59f92621edff3c5">&#9670;&#160;</a></span>imu_callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void VehicleAdapter::imu_callback </td>
+          <td>(</td>
+          <td class="paramtype">const geometry_msgs::msg::Vector3Stamped::SharedPtr &amp;&#160;</td>
+          <td class="paramname"><em>free_acceleration_msg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const geometry_msgs::msg::Vector3Stamped::SharedPtr &amp;&#160;</td>
+          <td class="paramname"><em>angular_velocity_msg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>IMU subscription callback, which receives both free acceleration and angular velocity through a synchronizer message filter. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d7/dae/vehicle__adapter_8cpp_source.html#l00047">47</a> of file <a class="el" href="../../d7/dae/vehicle__adapter_8cpp_source.html">vehicle_adapter.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d1/df1/class_vehicle_adapter_a9060aa6d8c595e00c59f92621edff3c5_cgraph.png" border="0" usemap="#ad1/df1/class_vehicle_adapter_a9060aa6d8c595e00c59f92621edff3c5_cgraph" alt=""/></div>
+<map name="ad1/df1/class_vehicle_adapter_a9060aa6d8c595e00c59f92621edff3c5_cgraph" id="ad1/df1/class_vehicle_adapter_a9060aa6d8c595e00c59f92621edff3c5_cgraph">
+<area shape="rect" title="IMU subscription callback, which receives both free acceleration and angular velocity through a synch..." alt="" coords="5,5,142,46"/>
+<area shape="rect" href="../../d3/d43/class_v_e_node.html#a2aa9d39822eb3178f0a16a84d02e946e" title=" " alt="" coords="190,13,368,39"/>
+<area shape="poly" title=" " alt="" coords="142,23,174,23,174,28,142,28"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d1/df1/class_vehicle_adapter_a9060aa6d8c595e00c59f92621edff3c5_icgraph.png" border="0" usemap="#ad1/df1/class_vehicle_adapter_a9060aa6d8c595e00c59f92621edff3c5_icgraph" alt=""/></div>
+<map name="ad1/df1/class_vehicle_adapter_a9060aa6d8c595e00c59f92621edff3c5_icgraph" id="ad1/df1/class_vehicle_adapter_a9060aa6d8c595e00c59f92621edff3c5_icgraph">
+<area shape="rect" title="IMU subscription callback, which receives both free acceleration and angular velocity through a synch..." alt="" coords="257,5,393,46"/>
+<area shape="rect" href="../../d1/df1/class_vehicle_adapter.html#aebeaec32c8cdc951d1b3d41817890cf9" title=" " alt="" coords="5,13,209,39"/>
+<area shape="poly" title=" " alt="" coords="241,28,209,28,209,23,241,23"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -688,7 +1094,91 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="../../d7/d49/class_control.html#a23d410d03e7229c173efb6c39e8d271e">Control</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d7c/control_2src_2adapter__control_2vehicle_8cpp_source.html#l00014">14</a> of file <a class="el" href="../../de/d7c/control_2src_2adapter__control_2vehicle_8cpp_source.html">vehicle.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d7c/control_2src_2adapter__control_2vehicle_8cpp_source.html#l00015">15</a> of file <a class="el" href="../../de/d7c/control_2src_2adapter__control_2vehicle_8cpp_source.html">vehicle.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad764a66db05e6ac5dbdf62bae1c8db6e" name="ad764a66db05e6ac5dbdf62bae1c8db6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad764a66db05e6ac5dbdf62bae1c8db6e">&#9670;&#160;</a></span>resolver_callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void VehicleAdapter::resolver_callback </td>
+          <td>(</td>
+          <td class="paramtype">custom_interfaces::msg::WheelRPM&#160;</td>
+          <td class="paramname"><em>msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback for the subscription of the resolver which measures the motor RPM. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d7/dae/vehicle__adapter_8cpp_source.html#l00066">66</a> of file <a class="el" href="../../d7/dae/vehicle__adapter_8cpp_source.html">vehicle_adapter.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d1/df1/class_vehicle_adapter_ad764a66db05e6ac5dbdf62bae1c8db6e_cgraph.png" border="0" usemap="#ad1/df1/class_vehicle_adapter_ad764a66db05e6ac5dbdf62bae1c8db6e_cgraph" alt=""/></div>
+<map name="ad1/df1/class_vehicle_adapter_ad764a66db05e6ac5dbdf62bae1c8db6e_cgraph" id="ad1/df1/class_vehicle_adapter_ad764a66db05e6ac5dbdf62bae1c8db6e_cgraph">
+<area shape="rect" title="Callback for the subscription of the resolver which measures the motor RPM." alt="" coords="5,5,167,46"/>
+<area shape="rect" href="../../d3/d43/class_v_e_node.html#a2aa9d39822eb3178f0a16a84d02e946e" title=" " alt="" coords="215,13,393,39"/>
+<area shape="poly" title=" " alt="" coords="167,23,199,23,199,28,167,28"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d1/df1/class_vehicle_adapter_ad764a66db05e6ac5dbdf62bae1c8db6e_icgraph.png" border="0" usemap="#ad1/df1/class_vehicle_adapter_ad764a66db05e6ac5dbdf62bae1c8db6e_icgraph" alt=""/></div>
+<map name="ad1/df1/class_vehicle_adapter_ad764a66db05e6ac5dbdf62bae1c8db6e_icgraph" id="ad1/df1/class_vehicle_adapter_ad764a66db05e6ac5dbdf62bae1c8db6e_icgraph">
+<area shape="rect" title="Callback for the subscription of the resolver which measures the motor RPM." alt="" coords="257,5,418,46"/>
+<area shape="rect" href="../../d1/df1/class_vehicle_adapter.html#aebeaec32c8cdc951d1b3d41817890cf9" title=" " alt="" coords="5,13,209,39"/>
+<area shape="poly" title=" " alt="" coords="241,28,209,28,209,23,241,23"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ac8c38dbfb560f06fdd1000ff1eb40448" name="ac8c38dbfb560f06fdd1000ff1eb40448"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8c38dbfb560f06fdd1000ff1eb40448">&#9670;&#160;</a></span>steering_angle_callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void VehicleAdapter::steering_angle_callback </td>
+          <td>(</td>
+          <td class="paramtype">const custom_interfaces::msg::SteeringAngle&#160;</td>
+          <td class="paramname"><em>msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback for the subscription of the steering angle sensor. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d7/dae/vehicle__adapter_8cpp_source.html#l00042">42</a> of file <a class="el" href="../../d7/dae/vehicle__adapter_8cpp_source.html">vehicle_adapter.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d1/df1/class_vehicle_adapter_ac8c38dbfb560f06fdd1000ff1eb40448_cgraph.png" border="0" usemap="#ad1/df1/class_vehicle_adapter_ac8c38dbfb560f06fdd1000ff1eb40448_cgraph" alt=""/></div>
+<map name="ad1/df1/class_vehicle_adapter_ac8c38dbfb560f06fdd1000ff1eb40448_cgraph" id="ad1/df1/class_vehicle_adapter_ac8c38dbfb560f06fdd1000ff1eb40448_cgraph">
+<area shape="rect" title="Callback for the subscription of the steering angle sensor." alt="" coords="5,5,167,46"/>
+<area shape="rect" href="../../d3/d43/class_v_e_node.html#a2aa9d39822eb3178f0a16a84d02e946e" title=" " alt="" coords="215,13,393,39"/>
+<area shape="poly" title=" " alt="" coords="167,23,199,23,199,28,167,28"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d1/df1/class_vehicle_adapter_ac8c38dbfb560f06fdd1000ff1eb40448_icgraph.png" border="0" usemap="#ad1/df1/class_vehicle_adapter_ac8c38dbfb560f06fdd1000ff1eb40448_icgraph" alt=""/></div>
+<map name="ad1/df1/class_vehicle_adapter_ac8c38dbfb560f06fdd1000ff1eb40448_icgraph" id="ad1/df1/class_vehicle_adapter_ac8c38dbfb560f06fdd1000ff1eb40448_icgraph">
+<area shape="rect" title="Callback for the subscription of the steering angle sensor." alt="" coords="257,5,418,46"/>
+<area shape="rect" href="../../d1/df1/class_vehicle_adapter.html#aebeaec32c8cdc951d1b3d41817890cf9" title=" " alt="" coords="5,13,209,39"/>
+<area shape="poly" title=" " alt="" coords="241,28,209,28,209,23,241,23"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -743,6 +1233,58 @@ Here is the caller graph for this function:</div>
 <area shape="rect" title="Wheel speed subscription callback, which receives both wheel speeds and steering angle through a sync..." alt="" coords="257,5,406,61"/>
 <area shape="rect" href="../../d1/df1/class_vehicle_adapter.html#a895abdaf64b451c11cde895cf8a3464c" title=" " alt="" coords="5,20,209,46"/>
 <area shape="poly" title=" " alt="" coords="241,36,209,36,209,31,241,31"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a4af19314f0fc8a4643c8f8a4a6abfc3d" name="a4af19314f0fc8a4643c8f8a4a6abfc3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4af19314f0fc8a4643c8f8a4a6abfc3d">&#9670;&#160;</a></span>wss_callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void VehicleAdapter::wss_callback </td>
+          <td>(</td>
+          <td class="paramtype">const custom_interfaces::msg::WheelRPM &amp;&#160;</td>
+          <td class="paramname"><em>rl_wheel_rpm_msg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const custom_interfaces::msg::WheelRPM &amp;&#160;</td>
+          <td class="paramname"><em>rr_wheel_rpm_msg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Wheel speed subscription callback, which receives both wheel speeds through a synchronizer message filter. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d7/dae/vehicle__adapter_8cpp_source.html#l00027">27</a> of file <a class="el" href="../../d7/dae/vehicle__adapter_8cpp_source.html">vehicle_adapter.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d1/df1/class_vehicle_adapter_a4af19314f0fc8a4643c8f8a4a6abfc3d_cgraph.png" border="0" usemap="#ad1/df1/class_vehicle_adapter_a4af19314f0fc8a4643c8f8a4a6abfc3d_cgraph" alt=""/></div>
+<map name="ad1/df1/class_vehicle_adapter_a4af19314f0fc8a4643c8f8a4a6abfc3d_cgraph" id="ad1/df1/class_vehicle_adapter_a4af19314f0fc8a4643c8f8a4a6abfc3d_cgraph">
+<area shape="rect" title="Wheel speed subscription callback, which receives both wheel speeds through a synchronizer message fi..." alt="" coords="5,5,145,46"/>
+<area shape="rect" href="../../d3/d43/class_v_e_node.html#a2aa9d39822eb3178f0a16a84d02e946e" title=" " alt="" coords="193,13,371,39"/>
+<area shape="poly" title=" " alt="" coords="145,23,177,23,177,28,145,28"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d1/df1/class_vehicle_adapter_a4af19314f0fc8a4643c8f8a4a6abfc3d_icgraph.png" border="0" usemap="#ad1/df1/class_vehicle_adapter_a4af19314f0fc8a4643c8f8a4a6abfc3d_icgraph" alt=""/></div>
+<map name="ad1/df1/class_vehicle_adapter_a4af19314f0fc8a4643c8f8a4a6abfc3d_icgraph" id="ad1/df1/class_vehicle_adapter_a4af19314f0fc8a4643c8f8a4a6abfc3d_icgraph">
+<area shape="rect" title="Wheel speed subscription callback, which receives both wheel speeds through a synchronizer message fi..." alt="" coords="257,5,396,46"/>
+<area shape="rect" href="../../d1/df1/class_vehicle_adapter.html#aebeaec32c8cdc951d1b3d41817890cf9" title=" " alt="" coords="5,13,209,39"/>
+<area shape="poly" title=" " alt="" coords="241,28,209,28,209,23,241,23"/>
 </map>
 </div>
 
@@ -806,8 +1348,8 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="ab10c1a2bd4bf02d49f165a7adb33f554" name="ab10c1a2bd4bf02d49f165a7adb33f554"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab10c1a2bd4bf02d49f165a7adb33f554">&#9670;&#160;</a></span>_angular_velocity_subscription_</h2>
+<a id="af436bfa3fcfb2b4f1680cb014e608ecb" name="af436bfa3fcfb2b4f1680cb014e608ecb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af436bfa3fcfb2b4f1680cb014e608ecb">&#9670;&#160;</a></span>_angular_velocity_subscription_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -816,7 +1358,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">message_filters::Subscriber&lt;geometry_msgs::msg::Vector3Stamped&gt; VehicleAdapter::_angular_velocity_subscription_</td>
+          <td class="memname">message_filters::Subscriber&lt; geometry_msgs::msg::Vector3Stamped &gt; VehicleAdapter::_angular_velocity_subscription_</td>
         </tr>
       </table>
   </td>
@@ -830,8 +1372,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a8b5cd2783b10ea8dbfaf7ed629f54c07" name="a8b5cd2783b10ea8dbfaf7ed629f54c07"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b5cd2783b10ea8dbfaf7ed629f54c07">&#9670;&#160;</a></span>_finished_client_</h2>
+<a id="a1302b809d223c331399b642994193dee" name="a1302b809d223c331399b642994193dee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1302b809d223c331399b642994193dee">&#9670;&#160;</a></span>_finished_client_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -840,7 +1382,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">rclcpp::Client&lt;std_srvs::srv::Trigger&gt;::SharedPtr VehicleAdapter::_finished_client_</td>
+          <td class="memname">rclcpp::Client&lt; std_srvs::srv::Trigger &gt;::SharedPtr VehicleAdapter::_finished_client_</td>
         </tr>
       </table>
   </td>
@@ -856,8 +1398,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a41175a0d66e0dc4415087206628d53b1" name="a41175a0d66e0dc4415087206628d53b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41175a0d66e0dc4415087206628d53b1">&#9670;&#160;</a></span>_free_acceleration_subscription_</h2>
+<a id="ab5a2b30993e915eb41e390e209101118" name="ab5a2b30993e915eb41e390e209101118"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5a2b30993e915eb41e390e209101118">&#9670;&#160;</a></span>_fl_wheel_rpm_subscription_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -866,7 +1408,59 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">message_filters::Subscriber&lt;geometry_msgs::msg::Vector3Stamped&gt; VehicleAdapter::_free_acceleration_subscription_</td>
+          <td class="memname">message_filters::Subscriber&lt;custom_interfaces::msg::WheelRPM&gt; VehicleAdapter::_fl_wheel_rpm_subscription_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Subscriber for fl wheel rpm. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d1/d6d/vehicle__adapter_8hpp_source.html#l00025">25</a> of file <a class="el" href="../../d1/d6d/vehicle__adapter_8hpp_source.html">vehicle_adapter.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aea540442d85f282373cb5405d58b4a83" name="aea540442d85f282373cb5405d58b4a83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea540442d85f282373cb5405d58b4a83">&#9670;&#160;</a></span>_fr_wheel_rpm_subscription_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">message_filters::Subscriber&lt;custom_interfaces::msg::WheelRPM&gt; VehicleAdapter::_fr_wheel_rpm_subscription_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Subscriber for fr wheel rpm. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d1/d6d/vehicle__adapter_8hpp_source.html#l00027">27</a> of file <a class="el" href="../../d1/d6d/vehicle__adapter_8hpp_source.html">vehicle_adapter.hpp</a>.</p>
+
+</div>
+</div>
+<a id="adad0d56c309c1a970cf81a313100684c" name="adad0d56c309c1a970cf81a313100684c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adad0d56c309c1a970cf81a313100684c">&#9670;&#160;</a></span>_free_acceleration_subscription_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">message_filters::Subscriber&lt; geometry_msgs::msg::Vector3Stamped &gt; VehicleAdapter::_free_acceleration_subscription_</td>
         </tr>
       </table>
   </td>
@@ -904,8 +1498,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="adaf85c5e41974dced460b3c0b4fac4d9" name="adaf85c5e41974dced460b3c0b4fac4d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adaf85c5e41974dced460b3c0b4fac4d9">&#9670;&#160;</a></span>_operational_status_subscription_</h2>
+<a id="aaf126fd5dd5b3e49b1e8d7bccfa87aa9" name="aaf126fd5dd5b3e49b1e8d7bccfa87aa9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf126fd5dd5b3e49b1e8d7bccfa87aa9">&#9670;&#160;</a></span>_operational_status_subscription_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -914,7 +1508,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">rclcpp::Subscription&lt;custom_interfaces::msg::OperationalStatus&gt;::SharedPtr VehicleAdapter::_operational_status_subscription_</td>
+          <td class="memname">rclcpp::Subscription&lt; custom_interfaces::msg::OperationalStatus &gt;::SharedPtr VehicleAdapter::_operational_status_subscription_</td>
         </tr>
       </table>
   </td>
@@ -927,6 +1521,30 @@ Here is the caller graph for this function:</div>
 <p>Subscriber for operational status. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../de/d21/ekf__state__est_2include_2adapter__ekf__state__est_2vehicle_8hpp_source.html#l00027">27</a> of file <a class="el" href="../../de/d21/ekf__state__est_2include_2adapter__ekf__state__est_2vehicle_8hpp_source.html">vehicle.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a189d97a29de3d851bb5f89282cee0fa2" name="a189d97a29de3d851bb5f89282cee0fa2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a189d97a29de3d851bb5f89282cee0fa2">&#9670;&#160;</a></span>_resolver_sub_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Subscription&lt;custom_interfaces::msg::WheelRPM&gt;::SharedPtr VehicleAdapter::_resolver_sub_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d1/d6d/vehicle__adapter_8hpp_source.html#l00043">43</a> of file <a class="el" href="../../d1/d6d/vehicle__adapter_8hpp_source.html">vehicle_adapter.hpp</a>.</p>
 
 </div>
 </div>
@@ -1006,6 +1624,30 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="a72c11d6af91ea4e26e4fadf3c7fa1352" name="a72c11d6af91ea4e26e4fadf3c7fa1352"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72c11d6af91ea4e26e4fadf3c7fa1352">&#9670;&#160;</a></span>_steering_angle_sub_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Subscription&lt;custom_interfaces::msg::SteeringAngle&gt;::SharedPtr VehicleAdapter::_steering_angle_sub_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d1/d6d/vehicle__adapter_8hpp_source.html#l00041">41</a> of file <a class="el" href="../../d1/d6d/vehicle__adapter_8hpp_source.html">vehicle_adapter.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a4e5f692cc9fc8d9e4e41d73f9c43ef15" name="a4e5f692cc9fc8d9e4e41d73f9c43ef15"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4e5f692cc9fc8d9e4e41d73f9c43ef15">&#9670;&#160;</a></span>_steering_angle_subscription_</h2>
 
@@ -1058,8 +1700,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="aaf474d4a292425f0b18040b1513325ce" name="aaf474d4a292425f0b18040b1513325ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf474d4a292425f0b18040b1513325ce">&#9670;&#160;</a></span>_xsens_imu_sync_</h2>
+<a id="a76aafb1eb08204264471fb91fe0c8539" name="a76aafb1eb08204264471fb91fe0c8539"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76aafb1eb08204264471fb91fe0c8539">&#9670;&#160;</a></span>_tf_static_broadcaster_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1068,7 +1710,59 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;message_filters::Synchronizer&lt;<a class="el" href="../../d1/df1/class_vehicle_adapter.html#a90421a56d996a70720764d27100259dd">XsensImuPolicy</a>&gt; &gt; VehicleAdapter::_xsens_imu_sync_</td>
+          <td class="memname">std::shared_ptr&lt;tf2_ros::StaticTransformBroadcaster&gt; VehicleAdapter::_tf_static_broadcaster_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static transform broadcaster. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d8/d34/slam_2include_2adapter__slam_2vehicle_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../d8/d34/slam_2include_2adapter__slam_2vehicle_8hpp_source.html">vehicle.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4feaadd0c5ebc8aaa0d7bd62b426b21a" name="a4feaadd0c5ebc8aaa0d7bd62b426b21a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4feaadd0c5ebc8aaa0d7bd62b426b21a">&#9670;&#160;</a></span>_wss_sync_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;message_filters::Synchronizer&lt;<a class="el" href="../../d1/df1/class_vehicle_adapter.html#adcdcc8be770dd7499ab6249f17fc66e2">WheelSSPolicy</a>&gt; &gt; VehicleAdapter::_wss_sync_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Synchronizer for wheel speeds. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d1/d6d/vehicle__adapter_8hpp_source.html#l00038">38</a> of file <a class="el" href="../../d1/d6d/vehicle__adapter_8hpp_source.html">vehicle_adapter.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af88f92d3173430717c22208bc4b9af61" name="af88f92d3173430717c22208bc4b9af61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af88f92d3173430717c22208bc4b9af61">&#9670;&#160;</a></span>_xsens_imu_sync_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; message_filters::Synchronizer&lt; <a class="el" href="../../d1/df1/class_vehicle_adapter.html#a90421a56d996a70720764d27100259dd">XsensImuPolicy</a> &gt; &gt; VehicleAdapter::_xsens_imu_sync_</td>
         </tr>
       </table>
   </td>
@@ -1103,6 +1797,30 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="../../de/d21/ekf__state__est_2include_2adapter__ekf__state__est_2vehicle_8hpp_source.html#l00033">33</a> of file <a class="el" href="../../de/d21/ekf__state__est_2include_2adapter__ekf__state__est_2vehicle_8hpp_source.html">vehicle.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad475edfbd408dc19581b676d1294f1ec" name="ad475edfbd408dc19581b676d1294f1ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad475edfbd408dc19581b676d1294f1ec">&#9670;&#160;</a></span>average_imu_bias</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleAdapter::average_imu_bias = 0.0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d1/d6d/vehicle__adapter_8hpp_source.html#l00046">46</a> of file <a class="el" href="../../d1/d6d/vehicle__adapter_8hpp_source.html">vehicle_adapter.hpp</a>.</p>
 
 </div>
 </div>
@@ -1154,6 +1872,30 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="ab787f55c3b0d984fd7bf4d77cf37a603" name="ab787f55c3b0d984fd7bf4d77cf37a603"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab787f55c3b0d984fd7bf4d77cf37a603">&#9670;&#160;</a></span>last_decent_fl_wss_reading</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleAdapter::last_decent_fl_wss_reading = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d1/d6d/vehicle__adapter_8hpp_source.html#l00045">45</a> of file <a class="el" href="../../d1/d6d/vehicle__adapter_8hpp_source.html">vehicle_adapter.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a83498734d02faf50ca37a548f6165884" name="a83498734d02faf50ca37a548f6165884"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a83498734d02faf50ca37a548f6165884">&#9670;&#160;</a></span>mission_subscription_</h2>
 
@@ -1178,13 +1920,41 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="a970fbbe335333937092f00fc5e3bab94" name="a970fbbe335333937092f00fc5e3bab94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a970fbbe335333937092f00fc5e3bab94">&#9670;&#160;</a></span>number_of_imu_readings</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int VehicleAdapter::number_of_imu_readings = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d1/d6d/vehicle__adapter_8hpp_source.html#l00047">47</a> of file <a class="el" href="../../d1/d6d/vehicle__adapter_8hpp_source.html">vehicle_adapter.hpp</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/control/include/adapter_control/<a class="el" href="../../d4/d49/control_2include_2adapter__control_2vehicle_8hpp_source.html">vehicle.hpp</a></li>
 <li>src/ekf_state_est/include/adapter_ekf_state_est/<a class="el" href="../../de/d21/ekf__state__est_2include_2adapter__ekf__state__est_2vehicle_8hpp_source.html">vehicle.hpp</a></li>
+<li>src/velocity_estimation/include/adapters/<a class="el" href="../../d1/d6d/vehicle__adapter_8hpp_source.html">vehicle_adapter.hpp</a></li>
 <li>src/planning/include/adapter_planning/<a class="el" href="../../dc/d8f/planning_2include_2adapter__planning_2vehicle_8hpp_source.html">vehicle.hpp</a></li>
+<li>src/slam/include/adapter_slam/<a class="el" href="../../d8/d34/slam_2include_2adapter__slam_2vehicle_8hpp_source.html">vehicle.hpp</a></li>
 <li>src/control/src/adapter_control/<a class="el" href="../../de/d7c/control_2src_2adapter__control_2vehicle_8cpp_source.html">vehicle.cpp</a></li>
 <li>src/ekf_state_est/src/adapter_ekf_state_est/<a class="el" href="../../d5/d2a/ekf__state__est_2src_2adapter__ekf__state__est_2vehicle_8cpp_source.html">vehicle.cpp</a></li>
 <li>src/planning/src/adapter_planning/<a class="el" href="../../d5/da0/planning_2src_2adapter__planning_2vehicle_8cpp_source.html">vehicle.cpp</a></li>
+<li>src/slam/src/adapter_slam/<a class="el" href="../../d6/d3c/slam_2src_2adapter__slam_2vehicle_8cpp_source.html">vehicle.cpp</a></li>
+<li>src/velocity_estimation/src/adapters/<a class="el" href="../../d7/dae/vehicle__adapter_8cpp_source.html">vehicle_adapter.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

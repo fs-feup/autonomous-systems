@@ -1,0 +1,5 @@
+<map id="NPointsValidator" name="NPointsValidator">
+<area shape="rect" id="Node000001" title="The NPointsValidator class is responsible for validating cones based on the number of points they con..." alt="" coords="5,119,141,224"/>
+<area shape="rect" id="Node000002" href="$d3/d57/class_cone_validator.html" title="Abstract class responsible for validating clusters as cones." alt="" coords="18,5,129,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="76,85,76,119,71,119,71,85"/>
+</map>

@@ -109,6 +109,8 @@ Include dependency graph for transformations.cpp:</div>
 <area shape="poly" title=" " alt="" coords="198,48,157,85,153,81,194,44"/>
 <area shape="rect" title=" " alt="" coords="279,94,336,120"/>
 <area shape="poly" title=" " alt="" coords="242,44,284,82,281,86,238,48"/>
+<area shape="rect" title=" " alt="" coords="83,168,177,193"/>
+<area shape="poly" title=" " alt="" coords="133,120,133,152,127,152,127,120"/>
 </map>
 </div>
 </div>
@@ -124,11 +126,23 @@ Namespaces</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:acd35b7873c51d71ad7ee2396007da7a3" id="r_acd35b7873c51d71ad7ee2396007da7a3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d32/namespacecommon__lib_1_1maths.html#acd35b7873c51d71ad7ee2396007da7a3">common_lib::maths::normalize_angle</a> (double angle)</td></tr>
-<tr class="memdesc:acd35b7873c51d71ad7ee2396007da7a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to keep angle between 0 and 2Pi radians.  <br /></td></tr>
+<tr class="memdesc:acd35b7873c51d71ad7ee2396007da7a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to keep angle in [-Pi, Pi[ radians.  <br /></td></tr>
 <tr class="separator:acd35b7873c51d71ad7ee2396007da7a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4068519b32978679e461dc19e2b3a5fd" id="r_a4068519b32978679e461dc19e2b3a5fd"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d32/namespacecommon__lib_1_1maths.html#a4068519b32978679e461dc19e2b3a5fd">common_lib::maths::get_wheel_velocity_from_rpm</a> (const double rpm, const double wheel_diameter)</td></tr>
 <tr class="memdesc:a4068519b32978679e461dc19e2b3a5fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to get the translational velocity of a wheel from rpm and wheel diameter.  <br /></td></tr>
 <tr class="separator:a4068519b32978679e461dc19e2b3a5fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3155563fdd77267916f4362c3c976f11" id="r_a3155563fdd77267916f4362c3c976f11"><td class="memItemLeft" align="right" valign="top">Eigen::Matrix2d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d32/namespacecommon__lib_1_1maths.html#a3155563fdd77267916f4362c3c976f11">common_lib::maths::get_rotation_matrix</a> (const double angle)</td></tr>
+<tr class="memdesc:a3155563fdd77267916f4362c3c976f11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to get the rotation matrix for a given angle.  <br /></td></tr>
+<tr class="separator:a3155563fdd77267916f4362c3c976f11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa410135a945d4a6a152c17faf6e9ee5e" id="r_aa410135a945d4a6a152c17faf6e9ee5e"><td class="memItemLeft" align="right" valign="top">Eigen::Vector2d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d32/namespacecommon__lib_1_1maths.html#aa410135a945d4a6a152c17faf6e9ee5e">common_lib::maths::cartesian_to_cylindrical</a> (const Eigen::Vector2d &amp;cartesian)</td></tr>
+<tr class="memdesc:aa410135a945d4a6a152c17faf6e9ee5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to convert cartesian coordinates to cylindrical coordinates.  <br /></td></tr>
+<tr class="separator:aa410135a945d4a6a152c17faf6e9ee5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0ad3296dc284d5471c4035f3d63ad82" id="r_ab0ad3296dc284d5471c4035f3d63ad82"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d32/namespacecommon__lib_1_1maths.html#ab0ad3296dc284d5471c4035f3d63ad82">common_lib::maths::global_to_local_coordinates</a> (const Eigen::Vector3d &amp;local_reference_frame, const Eigen::VectorXd &amp;global_points)</td></tr>
+<tr class="memdesc:ab0ad3296dc284d5471c4035f3d63ad82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform points from a global reference frame to a local reference frame.  <br /></td></tr>
+<tr class="separator:ab0ad3296dc284d5471c4035f3d63ad82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae863ab27f119e71801d039179cba64b7" id="r_ae863ab27f119e71801d039179cba64b7"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d32/namespacecommon__lib_1_1maths.html#ae863ab27f119e71801d039179cba64b7">common_lib::maths::local_to_global_coordinates</a> (const Eigen::Vector3d &amp;local_reference_frame, const Eigen::VectorXd &amp;local_points)</td></tr>
+<tr class="memdesc:ae863ab27f119e71801d039179cba64b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform points from a local reference frame to a global reference frame.  <br /></td></tr>
+<tr class="separator:ae863ab27f119e71801d039179cba64b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

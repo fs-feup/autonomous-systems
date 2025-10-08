@@ -96,41 +96,48 @@ $(document).ready(function(){initNavTree('de/d67/_vehicle_model_interface_8hpp.h
   <div class="headertitle"><div class="title">VehicleModelInterface.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="../../d2/dcb/config_parser_8hpp_source.html">configParser.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;Eigen/Dense&gt;</code><br />
+<code>#include &lt;array&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
 <code>#include &quot;<a class="el" href="../../dd/de3/types_8hpp_source.html">types.hpp</a>&quot;</code><br />
-<code>#include &lt;Eigen/Core&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d2/dcb/config_parser_8hpp_source.html">configParser.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for VehicleModelInterface.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/d34/_vehicle_model_interface_8hpp__incl.png" border="0" usemap="#asrc_2pacsim_2include_2_vehicle_model_2_vehicle_model_interface_8hpp" alt=""/></div>
 <map name="asrc_2pacsim_2include_2_vehicle_model_2_vehicle_model_interface_8hpp" id="asrc_2pacsim_2include_2_vehicle_model_2_vehicle_model_interface_8hpp">
-<area shape="rect" title=" " alt="" coords="243,5,428,61"/>
-<area shape="rect" href="../../d2/dcb/config_parser_8hpp.html" title=" " alt="" coords="277,109,394,135"/>
-<area shape="poly" title=" " alt="" coords="338,61,338,93,333,93,333,61"/>
-<area shape="rect" href="../../dd/de3/types_8hpp.html" title=" " alt="" coords="534,183,611,208"/>
-<area shape="poly" title=" " alt="" coords="377,59,544,172,541,176,374,64"/>
-<area shape="rect" title=" " alt="" coords="489,330,573,356"/>
-<area shape="poly" title=" " alt="" coords="243,52,150,74,105,89,64,107,33,128,13,151,9,164,9,177,13,191,23,207,52,232,99,254,157,274,223,291,360,317,474,333,473,338,359,322,222,296,155,279,97,259,50,236,19,210,8,194,3,178,4,163,8,149,29,124,62,102,103,84,149,69,241,47"/>
-<area shape="rect" title=" " alt="" coords="340,183,459,208"/>
-<area shape="poly" title=" " alt="" coords="348,133,380,169,376,173,344,137"/>
-<area shape="poly" title=" " alt="" coords="376,133,520,176,519,181,375,138"/>
-<area shape="rect" title=" " alt="" coords="468,256,525,282"/>
-<area shape="poly" title=" " alt="" coords="391,133,434,151,455,164,473,181,490,210,497,240,492,242,485,212,469,184,452,169,432,156,389,138"/>
-<area shape="rect" title=" " alt="" coords="33,183,147,208"/>
-<area shape="poly" title=" " alt="" coords="294,138,147,180,145,175,293,133"/>
-<area shape="rect" title=" " alt="" coords="171,183,238,208"/>
-<area shape="poly" title=" " alt="" coords="314,138,241,177,238,173,312,133"/>
-<area shape="rect" title=" " alt="" coords="262,183,315,208"/>
-<area shape="poly" title=" " alt="" coords="330,136,307,171,302,168,325,133"/>
-<area shape="rect" href="../../db/d65/quaternion_8hpp.html" title=" " alt="" coords="601,256,707,282"/>
-<area shape="poly" title=" " alt="" coords="588,207,631,244,627,248,585,211"/>
-<area shape="poly" title=" " alt="" coords="572,209,541,316,536,314,567,208"/>
-<area shape="poly" title=" " alt="" coords="561,211,522,248,518,244,558,207"/>
-<area shape="poly" title=" " alt="" coords="634,285,566,324,563,320,632,280"/>
-<area shape="rect" title=" " alt="" coords="597,330,711,356"/>
-<area shape="poly" title=" " alt="" coords="657,282,657,314,651,314,651,282"/>
-<area shape="rect" title=" " alt="" coords="735,330,792,356"/>
-<area shape="poly" title=" " alt="" coords="674,280,734,319,731,324,671,285"/>
+<area shape="rect" title=" " alt="" coords="141,5,327,61"/>
+<area shape="rect" title=" " alt="" coords="5,109,100,135"/>
+<area shape="poly" title=" " alt="" coords="178,64,93,104,90,100,176,59"/>
+<area shape="rect" title=" " alt="" coords="124,109,173,135"/>
+<area shape="poly" title=" " alt="" coords="209,63,173,100,169,96,205,59"/>
+<area shape="rect" title=" " alt="" coords="197,109,271,135"/>
+<area shape="poly" title=" " alt="" coords="237,61,237,93,231,93,231,61"/>
+<area shape="rect" href="../../dd/de3/types_8hpp.html" title=" " alt="" coords="232,183,308,208"/>
+<area shape="poly" title=" " alt="" coords="260,60,274,83,286,108,288,140,282,169,277,167,283,139,281,110,270,85,255,63"/>
+<area shape="rect" href="../../d2/dcb/config_parser_8hpp.html" title=" " alt="" coords="385,109,502,135"/>
+<area shape="poly" title=" " alt="" coords="301,59,401,100,399,105,298,64"/>
+<area shape="rect" href="../../db/d65/quaternion_8hpp.html" title=" " alt="" coords="203,256,308,282"/>
+<area shape="poly" title=" " alt="" coords="270,209,263,241,258,240,265,208"/>
+<area shape="rect" title=" " alt="" coords="98,330,183,356"/>
+<area shape="poly" title=" " alt="" coords="251,211,221,231,192,258,170,288,154,317,149,315,166,285,188,255,218,227,248,207"/>
+<area shape="rect" title=" " alt="" coords="332,256,389,282"/>
+<area shape="poly" title=" " alt="" coords="287,207,335,245,332,249,284,211"/>
+<area shape="poly" title=" " alt="" coords="237,285,174,324,172,319,234,280"/>
+<area shape="rect" title=" " alt="" coords="207,330,320,356"/>
+<area shape="poly" title=" " alt="" coords="259,282,263,314,257,315,254,283"/>
+<area shape="rect" title=" " alt="" coords="344,330,401,356"/>
+<area shape="poly" title=" " alt="" coords="276,280,341,319,338,324,274,285"/>
+<area shape="poly" title=" " alt="" coords="415,138,314,179,312,174,413,133"/>
+<area shape="poly" title=" " alt="" coords="423,137,396,157,373,184,364,213,362,241,356,241,359,211,369,181,392,153,419,133"/>
+<area shape="rect" title=" " alt="" coords="384,183,503,208"/>
+<area shape="poly" title=" " alt="" coords="446,135,446,167,441,167,441,135"/>
+<area shape="rect" title=" " alt="" coords="527,183,642,208"/>
+<area shape="poly" title=" " alt="" coords="468,133,548,173,546,178,466,138"/>
+<area shape="rect" title=" " alt="" coords="666,183,733,208"/>
+<area shape="poly" title=" " alt="" coords="487,133,651,178,650,183,486,138"/>
+<area shape="rect" title=" " alt="" coords="757,183,810,208"/>
+<area shape="poly" title=" " alt="" coords="503,131,610,151,742,180,741,185,609,156,502,136"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -138,11 +145,16 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/d86/_vehicle_model_interface_8hpp__dep__incl.png" border="0" usemap="#asrc_2pacsim_2include_2_vehicle_model_2_vehicle_model_interface_8hppdep" alt=""/></div>
 <map name="asrc_2pacsim_2include_2_vehicle_model_2_vehicle_model_interface_8hppdep" id="asrc_2pacsim_2include_2_vehicle_model_2_vehicle_model_interface_8hppdep">
-<area shape="rect" title=" " alt="" coords="7,5,193,61"/>
-<area shape="rect" href="../../d7/d4c/_vehicle_model_bicycle_8cpp.html" title=" " alt="" coords="5,109,195,150"/>
-<area shape="poly" title=" " alt="" coords="103,77,103,109,97,109,97,77"/>
-<area shape="rect" href="../../d9/d88/pacsim__main_8cpp.html" title=" " alt="" coords="23,198,177,238"/>
-<area shape="poly" title=" " alt="" coords="103,165,103,197,97,197,97,165"/>
+<area shape="rect" title=" " alt="" coords="105,5,290,61"/>
+<area shape="rect" href="../../dc/d1e/_vehicle_model_bicycle_8hpp.html" title=" " alt="" coords="186,109,371,165"/>
+<area shape="poly" title=" " alt="" coords="231,72,259,107,255,110,227,75"/>
+<area shape="rect" href="../../d7/d4c/_vehicle_model_bicycle_8cpp.html" title=" " alt="" coords="5,213,195,253"/>
+<area shape="poly" title=" " alt="" coords="180,76,112,213,107,211,175,74"/>
+<area shape="poly" title=" " alt="" coords="215,175,139,214,136,210,212,170"/>
+<area shape="rect" href="../../d9/d88/pacsim__main_8cpp.html" title=" " alt="" coords="219,213,373,253"/>
+<area shape="poly" title=" " alt="" coords="289,180,295,212,290,213,284,181"/>
+<area shape="rect" href="../../d3/de7/_unit_tests_8cpp.html" title=" " alt="" coords="397,213,590,253"/>
+<area shape="poly" title=" " alt="" coords="355,169,449,210,447,215,353,174"/>
 </map>
 </div>
 </div>

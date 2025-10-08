@@ -1,0 +1,11 @@
+<map id="SLAMNode::_publish_map" name="SLAMNode::_publish_map">
+<area shape="rect" id="Node000001" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="682,54,858,79"/>
+<area shape="rect" id="Node000002" href="$d8/d84/class_s_l_a_m_node.html#aac21a292783c53d1f41cfaa255b3e9bf" title="Callback that updates everytime information is received from the perception module." alt="" coords="472,46,634,87"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="667,69,635,69,635,64,667,64"/>
+<area shape="rect" id="Node000003" href="$d1/dcb/class_pacsim_adapter.html#a55a7901c609a7ad1eeced10bb2ce466f" title="Callback for simulated perception detections from pacsim." alt="" coords="259,5,424,61"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="456,54,424,49,425,44,457,49"/>
+<area shape="rect" id="Node000005" href="$d8/d84/class_s_l_a_m_node.html#a8543b5442579202f4ead10fbe347033c" title="Constructor that uses the parameters structure." alt="" coords="260,86,423,111"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="457,84,424,89,423,84,456,78"/>
+<area shape="rect" id="Node000004" href="$d1/dcb/class_pacsim_adapter.html#ad557c789fd4da581c9d487abb5af4dc5" title="Constructor of the pacsim adapter node." alt="" coords="5,20,211,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="243,36,211,36,211,31,243,31"/>
+</map>

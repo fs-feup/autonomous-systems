@@ -1,0 +1,9 @@
+<map id="ICP::executeICP" name="ICP::executeICP">
+<area shape="rect" id="Node000001" title="Execute the ICP registration." alt="" coords="123,55,239,80"/>
+<area shape="rect" id="Node000002" href="$dd/d8c/icp__test_8cpp.html#a20318fac68be4c9975dd3ec3abf9953f" title="Test case to check if ICP aligns source cloud properly." alt="" coords="5,5,75,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,51,74,33,76,28,128,46"/>
+<area shape="rect" id="Node000003" href="$dd/d8c/icp__test_8cpp.html#a4c018671d970a66eb30ffcfff05c954f" title="Test case to check if ICP fails to align properly." alt="" coords="5,55,75,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="107,70,75,70,75,65,107,65"/>
+<area shape="rect" id="Node000004" href="$dd/d8c/icp__test_8cpp.html#a54b87ff00aaefa2d7284aaef2d9f5f65" title="Test case to check if ICP initializes properly." alt="" coords="5,104,75,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="128,89,76,107,74,102,127,84"/>
+</map>

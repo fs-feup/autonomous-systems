@@ -1,0 +1,10 @@
+<map id="scenario_generator.PointTracker.remove_marker" name="scenario_generator.PointTracker.remove_marker">
+<area shape="rect" id="Node000001" title=" " alt="" coords="431,49,595,90"/>
+<area shape="rect" id="Node000002" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#a2945d4a46ea549cdc88933d50f7f4761" title=" " alt="" coords="218,5,383,61"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="415,55,383,50,384,44,416,50"/>
+<area shape="rect" id="Node000004" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#a8350be08cbb6b3ac0421cb8e1f273e12" title=" " alt="" coords="218,85,383,126"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="416,88,384,94,383,89,415,83"/>
+<area shape="rect" id="Node000003" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#a51fb7f705a9bd871d132d224f0de5380" title=" " alt="" coords="5,49,170,90"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="203,52,171,58,170,53,203,47"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="202,91,170,86,171,80,203,86"/>
+</map>

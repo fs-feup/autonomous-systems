@@ -1,0 +1,6 @@
+<map id="JCBB::search_branch_and_bound" name="JCBB::search_branch_and_bound">
+<area shape="rect" id="Node000001" title="Recursive branch and bound search to find the best hypothesis." alt="" coords="5,29,152,70"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="39,29,37,19,43,10,57,5,79,3,101,5,115,11,113,16,100,10,78,8,58,10,46,15,42,20,44,28"/>
+<area shape="rect" id="Node000002" href="$df/dd3/class_j_c_b_b.html#a3810be0eee640d7b51ca23dc5ae50c96" title="Check if a landmark is already assigned in the current hypothesis." alt="" coords="200,29,379,70"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,47,184,47,184,52,152,52"/>
+</map>

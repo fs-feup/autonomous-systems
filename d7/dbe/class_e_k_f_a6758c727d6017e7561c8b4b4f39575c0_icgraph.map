@@ -1,0 +1,5 @@
+<map id="EKF::predict" name="EKF::predict">
+<area shape="rect" id="Node000001" title="Predict velocities at the next index based on IMU measurements and current state." alt="" coords="182,5,273,31"/>
+<area shape="rect" id="Node000002" href="$d7/dbe/class_e_k_f.html#aa9b8bb5ae1df27f800988736e5598d67" title="Callback function for the IMU data that should be called by adapters when new IMU data is available." alt="" coords="5,5,134,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="166,21,134,21,134,16,166,16"/>
+</map>

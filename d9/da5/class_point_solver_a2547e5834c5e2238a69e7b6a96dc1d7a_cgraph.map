@@ -1,5 +1,0 @@
-<map id="PointSolver::update_vehicle_pose" name="PointSolver::update_vehicle_pose">
-<area shape="rect" id="Node000001" title="Update vehicle pose." alt="" coords="5,5,139,46"/>
-<area shape="rect" id="Node000002" href="$d4/d1a/namespacecommon__lib_1_1vehicle__dynamics.html#aecf44e20f904287db0e4c2b8f4b426a4" title="Calculate rear axis coordinates." alt="" coords="187,5,363,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,23,171,23,171,28,139,28"/>
-</map>

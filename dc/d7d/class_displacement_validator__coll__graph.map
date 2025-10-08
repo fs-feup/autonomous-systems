@@ -1,0 +1,5 @@
+<map id="DisplacementValidator" name="DisplacementValidator">
+<area shape="rect" id="Node000001" title="The SizeValidator class is responsible for validating cones based on the minimum distance between the..." alt="" coords="5,119,173,264"/>
+<area shape="rect" id="Node000002" href="$d3/d57/class_cone_validator.html" title="Abstract class responsible for validating clusters as cones." alt="" coords="34,5,145,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,86,92,119,87,119,87,86"/>
+</map>

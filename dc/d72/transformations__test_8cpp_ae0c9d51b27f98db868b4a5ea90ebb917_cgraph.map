@@ -1,0 +1,14 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title="Randomized scenario where coordinates are transformed from local to global and then back to local." alt="" coords="5,84,60,110"/>
+<area shape="rect" id="Node000002" href="$dc/d72/transformations__test_8cpp.html#a498e8c034011430ba60e06960eab526f" title=" " alt="" coords="115,5,282,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="46,82,73,60,106,40,119,34,122,39,109,45,76,65,50,86"/>
+<area shape="rect" id="Node000003" href="$dc/d72/transformations__test_8cpp.html#a46b2a4f9fdad0f18f1bbfdaac520ccc8" title=" " alt="" coords="115,55,282,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="60,89,107,81,108,86,61,95"/>
+<area shape="rect" id="Node000004" href="$d2/d32/namespacecommon__lib_1_1maths.html#ab0ad3296dc284d5471c4035f3d63ad82" title="Transform points from a global reference frame to a local reference frame." alt="" coords="108,105,289,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="60,99,93,104,92,110,60,104"/>
+<area shape="rect" id="Node000006" href="$d2/d32/namespacecommon__lib_1_1maths.html#ae863ab27f119e71801d039179cba64b7" title="Transform points from a local reference frame to a global reference frame." alt="" coords="108,170,289,211"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="49,108,76,132,109,155,121,161,118,165,106,159,73,136,46,112"/>
+<area shape="rect" id="Node000005" href="$d2/d32/namespacecommon__lib_1_1maths.html#a3155563fdd77267916f4362c3c976f11" title="Function to get the rotation matrix for a given angle." alt="" coords="337,138,476,179"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="290,137,322,142,321,147,289,142"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="289,174,321,169,322,174,290,179"/>
+</map>

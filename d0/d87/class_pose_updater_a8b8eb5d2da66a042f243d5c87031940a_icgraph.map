@@ -1,0 +1,7 @@
+<map id="PoseUpdater::update_pose" name="PoseUpdater::update_pose">
+<area shape="rect" id="Node000001" title="Updates the last pose and returns the pose difference." alt="" coords="277,46,454,72"/>
+<area shape="rect" id="Node000002" href="$d9/d73/class_graph_s_l_a_m_solver.html#a40faaba4cec75f1aeda8b35b756512c2" title="Asynchronous optimization routine." alt="" coords="5,5,229,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="261,48,229,43,230,38,261,42"/>
+<area shape="rect" id="Node000003" href="$d9/d73/class_graph_s_l_a_m_solver.html#a816e40dadd947eda5023fa030ce7f4ea" title="Add motion prior to the solver (prediction step)" alt="" coords="38,71,196,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="261,75,196,84,196,78,261,70"/>
+</map>

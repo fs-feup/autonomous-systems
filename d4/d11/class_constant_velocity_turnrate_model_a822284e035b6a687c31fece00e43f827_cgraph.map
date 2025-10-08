@@ -1,0 +1,5 @@
+<map id="ConstantVelocityTurnrateModel::get_pose_difference" name="ConstantVelocityTurnrateModel::get_pose_difference">
+<area shape="rect" id="Node000001" title="Gives the increments to the pose instead of the next pose." alt="" coords="5,5,184,46"/>
+<area shape="rect" id="Node000002" href="$d2/d32/namespacecommon__lib_1_1maths.html#acd35b7873c51d71ad7ee2396007da7a3" title="Function to keep angle in [&#45;Pi, Pi[ radians." alt="" coords="232,5,371,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="184,23,216,23,216,28,184,28"/>
+</map>

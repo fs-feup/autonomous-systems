@@ -1,0 +1,5 @@
+<map id="Perception::load_config" name="Perception::load_config">
+<area shape="rect" id="Node000001" title="Turns the parameters in the yaml file into PerceptionParameters class." alt="" coords="5,13,160,39"/>
+<area shape="rect" id="Node000002" href="$de/dca/namespacecommon__lib_1_1config__load.html#a1b7b070d3b2eb3e25bf4d0effc5fea08" title=" " alt="" coords="208,5,391,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="160,23,192,23,192,28,160,28"/>
+</map>

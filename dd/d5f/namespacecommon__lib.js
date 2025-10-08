@@ -1,5 +1,6 @@
 var namespacecommon__lib =
 [
+    [ "car_parameters", "dc/dd9/namespacecommon__lib_1_1car__parameters.html", "dc/dd9/namespacecommon__lib_1_1car__parameters" ],
     [ "communication", "d1/dd0/namespacecommon__lib_1_1communication.html", "d1/dd0/namespacecommon__lib_1_1communication" ],
     [ "competition_logic", "d9/d2b/namespacecommon__lib_1_1competition__logic.html", [
       [ "Color", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#a36deec2ca2854e7543cc4d5caab92feb", [
@@ -36,11 +37,13 @@ var namespacecommon__lib =
       [ "STRING_COLOR_MAP", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#af39f271694f6e7e236ff4640e7ae6208", null ],
       [ "STRING_TO_COLOR", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#a35040fcb9b3c0dd185484dcad9c645c6", null ]
     ] ],
+    [ "config_load", "de/dca/namespacecommon__lib_1_1config__load.html", [
+      [ "get_config_yaml_path", "de/dca/namespacecommon__lib_1_1config__load.html#a1b7b070d3b2eb3e25bf4d0effc5fea08", null ]
+    ] ],
+    [ "conversions", "dc/ddb/namespacecommon__lib_1_1conversions.html", [
+      [ "cone_vector_to_eigen", "dc/ddb/namespacecommon__lib_1_1conversions.html#ac07b7b31e53897cce43dc7a0163e759a", null ]
+    ] ],
     [ "maths", "d2/d32/namespacecommon__lib_1_1maths.html", "d2/d32/namespacecommon__lib_1_1maths" ],
     [ "sensor_data", "dc/d34/namespacecommon__lib_1_1sensor__data.html", "dc/d34/namespacecommon__lib_1_1sensor__data" ],
-    [ "structures", "d9/d8a/namespacecommon__lib_1_1structures.html", "d9/d8a/namespacecommon__lib_1_1structures" ],
-    [ "vehicle_dynamics", "d4/d1a/namespacecommon__lib_1_1vehicle__dynamics.html", [
-      [ "cg_2_rear_axis", "d4/d1a/namespacecommon__lib_1_1vehicle__dynamics.html#aecf44e20f904287db0e4c2b8f4b426a4", null ],
-      [ "odometry_to_velocities_transform", "d4/d1a/namespacecommon__lib_1_1vehicle__dynamics.html#a6f4e302b6228b2dbd52b6d37a9685677", null ]
-    ] ]
+    [ "structures", "d9/d8a/namespacecommon__lib_1_1structures.html", "d9/d8a/namespacecommon__lib_1_1structures" ]
 ];

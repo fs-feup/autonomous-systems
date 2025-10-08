@@ -1,0 +1,25 @@
+<map id="ConstrainedRANSAC::calculate_plane" name="ConstrainedRANSAC::calculate_plane">
+<area shape="rect" id="Node000001" title="Calculate the best&#45;fit plane using RANSAC algorithm." alt="" coords="5,126,157,166"/>
+<area shape="rect" id="Node000002" href="$d2/d16/class_constrained_r_a_n_s_a_c.html#ac2a3051c2801e094c09b937c11ac3123" title="Calculate angle difference between two planes." alt="" coords="205,60,379,101"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,122,208,103,210,109,150,128"/>
+<area shape="rect" id="Node000003" href="$d2/d8d/class_plane.html#a3a227b9e6e6f5214c9ce9a6f757a14eb" title="Getter &#45; Get the a component of the plane." alt="" coords="427,22,519,48"/>
+<area shape="poly" id="edge11_Node000001_Node000003" title=" " alt="" coords="93,124,136,69,168,42,204,21,257,6,313,3,366,7,413,16,412,21,365,13,313,8,258,12,206,26,171,46,140,73,97,127"/>
+<area shape="rect" id="Node000004" href="$d2/d8d/class_plane.html#a14d7de844717d5fa9546a02849d6fb4a" title="Getter &#45; Get the b component of the plane." alt="" coords="427,72,519,97"/>
+<area shape="poly" id="edge12_Node000001_Node000004" title=" " alt="" coords="98,123,143,81,172,61,204,46,252,33,291,31,330,36,380,46,432,62,430,68,378,51,329,42,291,36,252,38,206,51,174,66,146,86,102,127"/>
+<area shape="rect" id="Node000005" href="$d2/d8d/class_plane.html#a54f2a7b06bb383ac1ea43d010c3fa79d" title="Getter &#45; Get the c component of the plane." alt="" coords="427,129,519,155"/>
+<area shape="poly" id="edge13_Node000001_Node000005" title=" " alt="" coords="150,164,205,175,292,184,330,183,378,175,430,159,432,164,380,180,331,188,292,190,204,180,149,169"/>
+<area shape="rect" id="Node000006" href="$d2/d16/class_constrained_r_a_n_s_a_c.html#a9711c564303cb722de05badfb1ae53cf" title="Calculate distance from a point to a plane." alt="" coords="216,126,368,166"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="157,143,201,143,201,149,157,149"/>
+<area shape="rect" id="Node000008" href="$d2/d16/class_constrained_r_a_n_s_a_c.html#af8cc782d09957a484f9ee377cc44dec2" title="Fit a plane to three points." alt="" coords="216,240,368,281"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="115,164,206,219,228,231,226,236,203,224,112,169"/>
+<area shape="rect" id="Node000009" href="$d2/d16/class_constrained_r_a_n_s_a_c.html#a7be690f3e599076f8df643ac74c45ba0" title="Pick 3 unique random indices from the range [0, max_index)." alt="" coords="213,306,371,346"/>
+<area shape="poly" id="edge14_Node000001_Node000009" title=" " alt="" coords="97,165,141,226,171,260,206,290,214,296,211,300,203,295,168,264,137,230,93,168"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="375,57,411,48,413,53,376,62"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="379,80,411,80,411,86,379,85"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="355,99,420,121,418,126,353,104"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="356,123,377,110,392,97,401,85,411,72,425,57,429,54,432,58,429,61,415,75,406,88,396,101,381,115,359,127"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="353,122,418,100,420,105,355,127"/>
+<area shape="poly" id="edge8_Node000006_Node000005" title=" " alt="" coords="368,141,411,141,411,146,368,147"/>
+<area shape="rect" id="Node000007" href="$d2/d8d/class_plane.html#ad0e5724dd5a95ef65b6c642bb848c4bf" title="Getter &#45; Get the d component of the plane." alt="" coords="427,178,519,204"/>
+<area shape="poly" id="edge9_Node000006_Node000007" title=" " alt="" coords="369,162,412,173,411,178,367,167"/>
+</map>

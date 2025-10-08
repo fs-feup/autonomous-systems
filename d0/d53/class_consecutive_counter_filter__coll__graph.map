@@ -1,0 +1,7 @@
+<map id="ConsecutiveCounterFilter" name="ConsecutiveCounterFilter">
+<area shape="rect" id="Node000001" title=" " alt="" coords="9,398,187,523"/>
+<area shape="rect" id="Node000002" href="$d2/d5d/class_landmark_filter.html" title="This class is meant to filter observations from perception to try to reduce the presence of outliers." alt="" coords="30,203,166,348"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,363,101,398,95,398,95,363"/>
+<area shape="rect" id="Node000003" href="$d4/de4/struct_landmark_filter_parameters.html" title=" " alt="" coords="5,5,191,140"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="101,140,101,186,95,186,95,140"/>
+</map>

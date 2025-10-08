@@ -1,11 +1,13 @@
 <map id="SENode::SENode" name="SENode::SENode">
-<area shape="rect" id="Node000001" title="Constructor of the main node, most things are received by launch parameter." alt="" coords="5,112,129,137"/>
+<area shape="rect" id="Node000001" title="Constructor of the main node, most things are received by launch parameter." alt="" coords="5,148,129,173"/>
 <area shape="rect" id="Node000002" href="$d4/d43/class_s_e_node.html#ae87a4d5f2baf38b9fb9a34a81b9149ad" title="Mutex used to lock EKF access." alt="" coords="223,39,376,79"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,108,176,90,207,81,208,86,177,95,114,113"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,145,125,117,176,90,207,78,209,83,178,95,128,122,87,149"/>
 <area shape="rect" id="Node000006" href="$d7/d64/class_observation_model.html#acfcc0193919d34ab7f34c9f19f1b1412" title="Create a Q matrix from a given noise value." alt="" coords="177,104,422,145"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="129,122,161,122,161,127,129,127"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="129,148,161,143,162,148,130,153"/>
 <area shape="rect" id="Node000007" href="$db/d66/class_motion_model.html#a54ca36f8c78bbb93ec99b8207a988363" title=" " alt="" coords="208,169,391,224"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="112,135,194,161,192,166,110,140"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="130,167,193,177,192,182,129,173"/>
+<area shape="rect" id="Node000008" href="$de/dca/namespacecommon__lib_1_1config__load.html#a1b7b070d3b2eb3e25bf4d0effc5fea08" title=" " alt="" coords="208,248,391,289"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="85,171,125,203,178,234,194,241,192,246,175,239,122,207,82,176"/>
 <area shape="rect" id="Node000003" href="$d4/d43/class_s_e_node.html#a6f3571b56b21f6d5fa7191fae4e21681" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="470,46,625,72"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="376,56,454,56,454,62,376,62"/>
 <area shape="rect" id="Node000004" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="705,5,870,46"/>

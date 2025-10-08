@@ -1,0 +1,9 @@
+<map id="VelocityEstimator" name="VelocityEstimator">
+<area shape="rect" id="Node000001" title="Interface for velocity estimators." alt="" coords="219,5,367,151"/>
+<area shape="rect" id="Node000002" href="$d7/dbe/class_e_k_f.html" title=" " alt="" coords="5,199,181,653"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="221,163,196,200,184,220,179,217,191,197,217,160"/>
+<area shape="rect" id="Node000003" href="$dd/da2/class_no_rear_w_s_s_e_k_f.html" title=" " alt="" coords="205,199,381,653"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="296,166,296,199,291,199,291,166"/>
+<area shape="rect" id="Node000004" href="$d4/dae/class_no_w_s_s_e_k_f.html" title=" " alt="" coords="406,199,602,653"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="369,161,396,197,408,218,404,220,391,200,365,164"/>
+</map>

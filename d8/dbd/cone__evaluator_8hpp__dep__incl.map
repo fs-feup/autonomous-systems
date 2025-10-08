@@ -1,20 +1,15 @@
 <map id="src/perception/include/cone_evaluator/cone_evaluator.hpp" name="src/perception/include/cone_evaluator/cone_evaluator.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="251,5,480,46"/>
-<area shape="rect" id="Node000002" href="$d3/d3a/distance__predict_8hpp.html" title=" " alt="" coords="342,94,508,150"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="388,58,410,92,406,95,384,61"/>
-<area shape="rect" id="Node000003" href="$de/da5/perception__node_8hpp.html" title=" " alt="" coords="231,198,380,253"/>
-<area shape="poly" id="edge10_Node000001_Node000003" title=" " alt="" coords="348,60,333,95,319,149,311,198,306,197,314,148,328,93,344,58"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="383,162,339,199,336,195,380,158"/>
-<area shape="rect" id="Node000005" href="$d9/dc1/perception_8cpp.html" title=" " alt="" coords="135,405,260,446"/>
-<area shape="poly" id="edge8_Node000002_Node000005" title=" " alt="" coords="435,165,438,209,436,260,424,312,413,337,398,359,369,385,334,404,296,416,261,422,260,417,295,410,332,399,366,381,394,355,408,334,419,310,430,260,433,209,430,165"/>
-<area shape="rect" id="Node000007" href="$db/d57/distance__predict_8cpp.html" title=" " alt="" coords="458,198,624,253"/>
-<area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="469,158,512,195,508,199,466,162"/>
-<area shape="rect" id="Node000008" href="$dc/d87/distance__validator__test_8cpp.html" title=" " alt="" coords="648,198,778,253"/>
-<area shape="poly" id="edge9_Node000002_Node000008" title=" " alt="" coords="517,153,648,199,647,204,516,158"/>
-<area shape="rect" id="Node000004" href="$d7/d69/perception_2include_2perception_2parameters__factory_8hpp.html" title=" " alt="" coords="5,301,160,357"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="233,263,143,303,141,298,231,258"/>
-<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="256,266,239,283,225,303,213,329,206,356,200,405,195,404,201,355,208,327,220,300,235,280,252,262"/>
-<area shape="rect" id="Node000006" href="$dc/dfb/perception__node_8cpp.html" title=" " alt="" coords="235,301,384,357"/>
-<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="310,269,311,301,305,301,304,269"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="129,365,175,402,171,407,126,369"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="287,5,516,46"/>
+<area shape="rect" id="Node000002" href="$de/da5/perception__node_8hpp.html" title=" " alt="" coords="155,94,304,150"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="354,56,280,96,278,91,351,51"/>
+<area shape="rect" id="Node000006" href="$d4/d25/cone__evaluator_8cpp.html" title=" " alt="" coords="329,94,474,150"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="404,61,404,93,399,93,399,61"/>
+<area shape="rect" id="Node000007" href="$d1/d69/cone__evaluator__test_8cpp.html" title=" " alt="" coords="498,94,643,150"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="452,52,523,91,520,96,449,56"/>
+<area shape="rect" id="Node000003" href="$d9/dc1/perception_8cpp.html" title=" " alt="" coords="5,213,131,253"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="178,161,99,214,96,210,175,156"/>
+<area shape="rect" id="Node000004" href="$dc/dfb/perception__node_8cpp.html" title=" " alt="" coords="155,205,304,261"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="232,165,232,205,227,205,227,165"/>
+<area shape="rect" id="Node000005" href="$df/da9/perception__integration__tests_8cpp.html" title=" " alt="" coords="329,198,517,268"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="292,155,362,195,360,199,289,160"/>
 </map>

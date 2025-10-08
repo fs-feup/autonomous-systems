@@ -1,0 +1,5 @@
+<map id="Perception::publish_cones" name="Perception::publish_cones">
+<area shape="rect" id="Node000001" title="Publishes information about clusters (cones) using a custom ROS2 message." alt="" coords="209,5,339,46"/>
+<area shape="rect" id="Node000002" href="$de/d07/class_perception.html#a592f3cc2120d974b503f5934970ac5db" title="Callback function for the PointCloud2 subscription." alt="" coords="5,5,161,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,28,161,28,161,23,193,23"/>
+</map>

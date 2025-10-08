@@ -1,0 +1,13 @@
+<map id="PointSolver::update_vehicle_pose" name="PointSolver::update_vehicle_pose">
+<area shape="rect" id="Node000001" title="Update vehicle pose." alt="" coords="681,39,815,79"/>
+<area shape="rect" id="Node000002" href="$d7/d49/class_control.html#ad14d8041b3b0b0c567e6ef8adc09488f" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="478,46,633,72"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="666,62,634,62,634,56,666,56"/>
+<area shape="rect" id="Node000003" href="$db/d68/class_pac_sim_adapter.html#ae0ee1acf54556bbbd4dfde3da216a3f3" title="Callback for the pacsim ground truth pose topic." alt="" coords="263,5,430,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="462,47,430,42,431,36,463,42"/>
+<area shape="rect" id="Node000005" href="$d0/d1d/class_eufs_adapter.html#acf7089ed69eb7488fae4904f66f1e2b8" title=" " alt="" coords="277,71,416,111"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="463,76,417,83,416,78,462,71"/>
+<area shape="rect" id="Node000004" href="$db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868" title=" " alt="" coords="5,13,215,39"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="248,28,215,28,215,23,248,23"/>
+<area shape="rect" id="Node000006" href="$d0/d1d/class_eufs_adapter.html#af96e527b6595820c565d6beeafe3da5f" title=" " alt="" coords="25,78,195,104"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="261,94,195,94,195,88,261,88"/>
+</map>

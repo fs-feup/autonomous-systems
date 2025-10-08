@@ -1,5 +1,17 @@
 <map id="DataAssociationModel" name="DataAssociationModel">
-<area shape="rect" id="Node000001" title="Data Association Method class, used to match observations to landmarks in the map." alt="" coords="5,5,201,131"/>
-<area shape="rect" id="Node000002" href="$dd/d06/class_max_likelihood.html" title="Maximum Likelihood Method class, used to match observations to landmarks in the map with maximum like..." alt="" coords="30,179,177,284"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,146,106,179,101,179,101,146"/>
+<area shape="rect" id="Node000001" title="Data Association Method class, used to match observations to landmarks in the map." alt="" coords="611,5,807,231"/>
+<area shape="rect" id="Node000002" href="$df/dd3/class_j_c_b_b.html" title="Data association implementation that uses the Malhanobis Distance only as criterion to make observati..." alt="" coords="5,279,192,439"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="598,146,510,168,410,198,306,236,205,281,193,288,191,283,203,276,304,231,408,193,508,163,596,141"/>
+<area shape="rect" id="Node000003" href="$dd/d06/class_max_likelihood.html" title="Maximum Likelihood Method class, used to match observations to landmarks in the map with maximum like..." alt="" coords="216,306,363,411"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="598,165,488,216,431,247,376,281,342,308,338,304,373,276,428,242,486,211,596,160"/>
+<area shape="rect" id="Node000004" href="$db/d23/class_maximum_likelihood_m_d.html" title="Data association implementation that uses the Malhanobis Distance only as criterion to make observati..." alt="" coords="387,299,586,419"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="603,237,543,301,539,297,599,233"/>
+<area shape="rect" id="Node000005" href="$d1/d4f/class_maximum_likelihood_n_l_l.html" title="Data association implementation that uses the Negative Log&#45;Likehood as criterion to make observation ..." alt="" coords="610,299,809,419"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="712,245,712,299,707,299,707,245"/>
+<area shape="rect" id="Node000006" href="$df/df5/class_mock_data_association_model.html" title=" " alt="" coords="833,326,1007,391"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="819,239,894,324,890,328,815,243"/>
+<area shape="rect" id="Node000007" href="$dd/db5/class_nearest_neighbor.html" title="Data association implementation that uses the Malhanobis Distance only as criterion to make observati..." alt="" coords="1032,306,1168,411"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="822,164,922,214,1022,277,1054,304,1051,308,1018,281,919,219,820,169"/>
+<area shape="rect" id="Node000008" href="$d5/d7e/class_nearest_neighbour_i_c_p.html" title="Data association implementation that uses the Malhanobis Distance only as criterion to make observati..." alt="" coords="1192,296,1357,421"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="822,142,904,165,996,195,1091,232,1181,276,1208,294,1206,298,1179,281,1088,237,994,200,902,170,821,148"/>
 </map>

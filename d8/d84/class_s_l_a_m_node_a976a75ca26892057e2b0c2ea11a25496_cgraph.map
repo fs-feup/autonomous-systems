@@ -1,0 +1,7 @@
+<map id="SLAMNode::_publish_map" name="SLAMNode::_publish_map">
+<area shape="rect" id="Node000001" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="5,46,181,72"/>
+<area shape="rect" id="Node000002" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="261,5,425,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="181,45,245,36,246,41,181,50"/>
+<area shape="rect" id="Node000003" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="229,71,457,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="181,68,213,72,213,77,181,73"/>
+</map>

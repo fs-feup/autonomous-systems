@@ -1,0 +1,5 @@
+<map id="NoWSSEKF::steering_callback" name="NoWSSEKF::steering_callback">
+<area shape="rect" id="Node000001" title="Callback function for the steering angle data that should be called by adapters when new steering ang..." alt="" coords="5,5,151,46"/>
+<area shape="rect" id="Node000002" href="$d4/dae/class_no_w_s_s_e_k_f.html#a8af9ab80f3f4f3bcdd1801d1bc173f07" title="Correct the state estimate based on resolver, and steering data." alt="" coords="199,5,378,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,23,183,23,183,28,151,28"/>
+</map>

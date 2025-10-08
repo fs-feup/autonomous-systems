@@ -1,0 +1,5 @@
+<map id="PacsimAdapter::imu_callback" name="PacsimAdapter::imu_callback">
+<area shape="rect" id="Node000001" title="callback that gets called when the IMU data is received" alt="" coords="5,5,143,46"/>
+<area shape="rect" id="Node000002" href="$d3/d43/class_v_e_node.html#a2aa9d39822eb3178f0a16a84d02e946e" title=" " alt="" coords="191,13,369,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,23,175,23,175,28,143,28"/>
+</map>

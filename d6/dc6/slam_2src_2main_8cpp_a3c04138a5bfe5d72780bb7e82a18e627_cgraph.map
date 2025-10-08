@@ -1,0 +1,7 @@
+<map id="main" name="main">
+<area shape="rect" id="Node000001" title="Main function." alt="" coords="5,13,55,39"/>
+<area shape="rect" id="Node000002" href="$d5/d51/struct_s_l_a_m_parameters.html#af7dc4f8199814586ebe7355aa202e248" title="Load the configuration for the SLAM node from YAML file." alt="" coords="103,5,258,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="55,23,87,23,87,28,55,28"/>
+<area shape="rect" id="Node000003" href="$de/dca/namespacecommon__lib_1_1config__load.html#a1b7b070d3b2eb3e25bf4d0effc5fea08" title=" " alt="" coords="306,5,489,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="259,23,291,23,291,28,259,28"/>
+</map>

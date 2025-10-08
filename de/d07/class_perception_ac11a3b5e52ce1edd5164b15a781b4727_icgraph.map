@@ -1,7 +1,0 @@
-<map id="Perception::fov_trimming" name="Perception::fov_trimming">
-<area shape="rect" id="Node000001" title=" " alt="" coords="408,13,572,39"/>
-<area shape="rect" id="Node000002" href="$de/d07/class_perception.html#a592f3cc2120d974b503f5934970ac5db" title="Callback function for the PointCloud2 subscription." alt="" coords="205,5,360,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="393,28,360,28,360,23,393,23"/>
-<area shape="rect" id="Node000003" href="$de/d07/class_perception.html#a99447b0f39e7b103d320b6072021a3af" title="Constructor for the Perception node." alt="" coords="5,13,157,39"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="189,28,157,28,157,23,189,23"/>
-</map>

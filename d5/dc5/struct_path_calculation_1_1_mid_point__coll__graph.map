@@ -1,0 +1,7 @@
+<map id="PathCalculation::MidPoint" name="PathCalculation::MidPoint">
+<area shape="rect" id="Node000001" title="MidPoint struct represents a potential path point with connections." alt="" coords="5,546,167,652"/>
+<area shape="rect" id="Node000002" href="$d6/dd0/structcommon__lib_1_1structures_1_1_cone.html" title=" " alt="" coords="13,268,159,468"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,468,89,530,83,530,83,468"/>
+<area shape="rect" id="Node000003" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="13,5,159,205"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="89,205,89,251,83,251,83,205"/>
+</map>

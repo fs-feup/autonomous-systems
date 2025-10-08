@@ -1,0 +1,5 @@
+<map id="NearestNeighbourICP" name="NearestNeighbourICP">
+<area shape="rect" id="Node000001" title="Data association implementation that uses the Malhanobis Distance only as criterion to make observati..." alt="" coords="21,279,186,404"/>
+<area shape="rect" id="Node000002" href="$d1/d14/class_data_association_model.html" title="Data Association Method class, used to match observations to landmarks in the map." alt="" coords="5,5,201,231"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,246,106,279,101,279,101,246"/>
+</map>

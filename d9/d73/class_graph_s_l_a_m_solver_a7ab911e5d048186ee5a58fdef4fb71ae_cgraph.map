@@ -1,0 +1,36 @@
+<map id="GraphSLAMSolver::add_observations" name="GraphSLAMSolver::add_observations">
+<area shape="rect" id="Node000001" title="Add observations to the solver (correction step)" alt="" coords="5,323,163,363"/>
+<area shape="rect" id="Node000002" href="$d4/dca/class_graph_s_l_a_m_instance.html#afbc8813c42bd09a49d6a396a17b35dcf" title="Get the covariance matrix of the graph." alt="" coords="227,5,379,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="86,322,98,269,120,198,156,122,180,87,209,56,213,52,216,56,213,60,185,90,161,125,125,200,103,270,91,323"/>
+<area shape="rect" id="Node000003" href="$d0/d87/class_pose_updater.html#acb720ab694ef2d83e75171c00686f0d7" title=" " alt="" coords="211,70,395,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="88,321,102,277,126,218,161,158,183,130,209,106,216,101,219,105,212,110,187,134,165,161,131,221,107,278,93,323"/>
+<area shape="rect" id="Node000004" href="$d4/dca/class_graph_s_l_a_m_instance.html#a9ffa9f55d63ac219cf762c41434bc265" title=" " alt="" coords="452,391,601,431"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="163,328,215,324,274,322,335,326,396,336,444,355,486,380,484,384,442,360,394,342,335,331,274,327,215,329,163,333"/>
+<area shape="rect" id="Node000005" href="$d4/dca/class_graph_s_l_a_m_instance.html#a2fbea953d0b846a351d67c1944ce9d03" title="Get the state vector, EKF style." alt="" coords="228,185,378,226"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="103,320,150,278,209,235,218,231,221,235,212,240,153,282,107,324"/>
+<area shape="rect" id="Node000006" href="$da/df5/slam_2src_2slam__solver_2graph__slam__solver_2utils_8cpp.html#a635cf55ec76c73af7d115883037b3f51" title=" " alt="" coords="229,250,377,276"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="138,320,210,292,247,279,249,284,212,298,140,325"/>
+<area shape="rect" id="Node000007" href="$d2/d32/namespacecommon__lib_1_1maths.html#ae863ab27f119e71801d039179cba64b7" title="Transform points from a local reference frame to a global reference frame." alt="" coords="212,120,394,161"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="93,321,137,249,170,207,209,172,217,166,220,171,212,176,174,211,142,252,98,324"/>
+<area shape="rect" id="Node000009" href="$d4/dca/class_graph_s_l_a_m_instance.html#ab134f5e296e166b422886837569f515c" title="Soft locks the positions of the landmarks, can be used after the first lap." alt="" coords="228,351,378,391"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="163,350,213,357,212,362,162,356"/>
+<area shape="rect" id="Node000010" href="$d4/dca/class_graph_s_l_a_m_instance.html#a44f9717f4a2e5e89d23780c2f7b036aa" title="Checks if new observation factors should be added." alt="" coords="228,416,378,457"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="127,361,212,401,229,408,227,413,210,405,125,366"/>
+<area shape="rect" id="Node000011" href="$d4/dca/class_graph_s_l_a_m_instance.html#a9edc0e262f98c42acef29418df13a2dd" title="Runs optimization on the graph." alt="" coords="228,481,378,522"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="103,362,149,414,179,442,212,466,222,472,219,477,209,471,176,446,145,417,99,366"/>
+<area shape="rect" id="Node000012" href="$d4/dca/class_graph_s_l_a_m_instance.html#a7501de0af12933b297d61ca341fb3171" title="Add observation factors to the graph." alt="" coords="228,612,378,653"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="92,363,106,411,129,473,164,539,187,570,212,597,218,601,214,605,209,601,183,573,160,542,124,476,101,412,87,365"/>
+<area shape="rect" id="Node000015" href="$d4/dca/class_graph_s_l_a_m_instance.html#abed120ec1c30b4339a6d590518893971" title="Add motion prior to the graph." alt="" coords="220,547,386,587"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="96,363,113,399,138,444,172,491,212,532,219,537,216,541,209,536,168,494,134,447,108,401,91,365"/>
+<area shape="rect" id="Node000017" href="$d0/d87/class_pose_updater.html#a91ebc3177cad65dd3890a16dcfcefc46" title=" " alt="" coords="211,677,395,703"/>
+<area shape="poly" id="edge17_Node000001_Node000017" title=" " alt="" coords="90,363,99,423,119,503,135,547,156,589,181,628,212,662,218,667,214,671,209,666,177,631,151,591,130,549,114,505,93,424,85,364"/>
+<area shape="rect" id="Node000008" href="$d2/d32/namespacecommon__lib_1_1maths.html#a3155563fdd77267916f4362c3c976f11" title="Function to get the rotation matrix for a given angle." alt="" coords="457,120,596,161"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="394,138,441,138,441,143,394,143"/>
+<area shape="rect" id="Node000013" href="$d2/d32/namespacecommon__lib_1_1maths.html#aa410135a945d4a6a152c17faf6e9ee5e" title="Function to convert cartesian coordinates to cylindrical coordinates." alt="" coords="448,673,604,714"/>
+<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="378,650,436,666,434,671,377,655"/>
+<area shape="rect" id="Node000014" href="$d4/dca/class_graph_s_l_a_m_instance.html#af4e27c53cbdfeeddb3e81bbb3f3637fa" title="Checks if it is worth running optimization." alt="" coords="443,608,609,649"/>
+<area shape="poly" id="edge13_Node000012_Node000014" title=" " alt="" coords="378,628,427,627,427,633,378,634"/>
+<area shape="poly" id="edge16_Node000015_Node000004" title=" " alt="" coords="369,544,394,531,450,487,496,441,499,445,454,491,396,536,372,549"/>
+<area shape="rect" id="Node000016" href="$da/df5/slam_2src_2slam__solver_2graph__slam__solver_2utils_8cpp.html#a8649e3a40d3996e6a7eca0c02fbbc3a3" title=" " alt="" coords="452,554,600,580"/>
+<area shape="poly" id="edge15_Node000015_Node000016" title=" " alt="" coords="386,564,436,564,436,570,386,570"/>
+</map>

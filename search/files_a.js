@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['least_5fsquares_5fdifferentiation_2ecpp_0',['least_squares_differentiation.cpp',['../d7/d4b/least__squares__differentiation_8cpp.html',1,'']]],
-  ['least_5fsquares_5fdifferentiation_2ehpp_1',['least_squares_differentiation.hpp',['../d1/d27/least__squares__differentiation_8hpp.html',1,'']]],
-  ['least_5fsquares_5ftest_2ecpp_2',['least_squares_test.cpp',['../d5/dfa/least__squares__test_8cpp.html',1,'']]],
-  ['logger_2ehpp_3',['logger.hpp',['../d6/da3/logger_8hpp.html',1,'']]]
+  ['jcbb_2ecpp_0',['jcbb.cpp',['../d6/dbe/jcbb_8cpp.html',1,'']]],
+  ['jcbb_2ehpp_1',['jcbb.hpp',['../d9/dff/jcbb_8hpp.html',1,'']]]
 ];

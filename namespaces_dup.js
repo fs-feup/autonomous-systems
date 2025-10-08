@@ -1,5 +1,10 @@
 var namespaces_dup =
 [
+    [ "_debug_plot", "d5/df5/namespace__debug__plot.html", [
+      [ "list_txt_files", "d5/df5/namespace__debug__plot.html#afa5f8f5755b914cc7a1b05c8cdb36c6c", null ],
+      [ "main", "d5/df5/namespace__debug__plot.html#ab36e2852a33b5d805e41bba1e887c15b", null ],
+      [ "plot_data", "d5/df5/namespace__debug__plot.html#a71af10297bdb2b3d10c7e9b09c171321", null ]
+    ] ],
     [ "acceleration_mapper", "d9/de5/namespaceacceleration__mapper.html", [
       [ "c", "d9/de5/namespaceacceleration__mapper.html#a260cf49747c22b3e8fab97cd94f57730", null ],
       [ "colorList", "d9/de5/namespaceacceleration__mapper.html#ae0d5296fa448c433a17a5665e6a7678b", null ],
@@ -54,6 +59,7 @@ var namespaces_dup =
       [ "setup_gcs_client", "d8/dc7/namespacebucket__operations.html#aa94a609f0d95546119319696d87c5ccf", null ],
       [ "upload_csv_to_bucket", "d8/dc7/namespacebucket__operations.html#aa899ad61fdb53bd44dd8c1bf7e94cc28", null ]
     ] ],
+    [ "car_keys", "d1/d0f/namespacecar__keys.html", "d1/d0f/namespacecar__keys" ],
     [ "common_lib", "dd/d5f/namespacecommon__lib.html", "dd/d5f/namespacecommon__lib" ],
     [ "convert_fssim_sdf_to_yaml", "da/d44/namespaceconvert__fssim__sdf__to__yaml.html", "da/d44/namespaceconvert__fssim__sdf__to__yaml" ],
     [ "dashboard", "df/d91/namespacedashboard.html", [
@@ -70,8 +76,33 @@ var namespaces_dup =
       [ "layout", "df/d91/namespacedashboard.html#a651edf1f918ca2f360e565e52f64ff33", null ],
       [ "suppress_callback_exceptions", "df/d91/namespacedashboard.html#abbd08efe3761a9696345c9c5907053c3", null ]
     ] ],
+    [ "data_infrastructure", "d3/dac/namespacedata__infrastructure.html", "d3/dac/namespacedata__infrastructure" ],
+    [ "debug_plot", "d1/d88/namespacedebug__plot.html", [
+      [ "compute_limits", "d1/d88/namespacedebug__plot.html#aa0b9365e0b1c730ac2b3da9ab182ee0e", null ],
+      [ "list_txt_files", "d1/d88/namespacedebug__plot.html#a72fd117e5e8eeed450e12e000859448e", null ],
+      [ "main", "d1/d88/namespacedebug__plot.html#a9bd18ce135bbaf2faeb9e6f23721adab", null ],
+      [ "parse_data_file", "d1/d88/namespacedebug__plot.html#a0ff53163b56dab1a8e70abeed4f7e39d", null ],
+      [ "plot_data", "d1/d88/namespacedebug__plot.html#ab4936fbc7b02f2ce0ed71704cff696c3", null ],
+      [ "plot_parsed_data", "d1/d88/namespacedebug__plot.html#a55917055793760209bc5e5d822d2da36", null ]
+    ] ],
     [ "drawView", "d2/dfb/namespacedraw_view.html", "d2/dfb/namespacedraw_view" ],
     [ "evaluator", "db/d6f/namespaceevaluator.html", "db/d6f/namespaceevaluator" ],
+    [ "filter", "d1/da4/namespacefilter.html", [
+      [ "example_function", "d1/da4/namespacefilter.html#aada42942a7c101053d8cd46bb40d2762", null ],
+      [ "filter_cones", "d1/da4/namespacefilter.html#ad403cdd1d5d2126bbc1f5999f253a5e1", null ],
+      [ "format_cones", "d1/da4/namespacefilter.html#a691363effb91be3134840601b615b1ea", null ],
+      [ "out_of_square", "d1/da4/namespacefilter.html#a2ac598eb914f9be6fd6b0a68951014fe", null ],
+      [ "parse_cones", "d1/da4/namespacefilter.html#aeb8f713eb5c3a3d6b31cba400ea753bd", null ],
+      [ "cones_input", "d1/da4/namespacefilter.html#aa156043337e7e6e494e3c33934d3a363", null ],
+      [ "result", "d1/da4/namespacefilter.html#a04d6bba66cd070f4f3499c7240e50b8a", null ]
+    ] ],
+    [ "format", "da/ddb/namespaceformat.html", [
+      [ "filter_cones", "da/ddb/namespaceformat.html#aa56705364db4d4e1fa13e58c0ab9cce2", null ],
+      [ "parse_cones", "da/ddb/namespaceformat.html#ad7207d650a38ae5a91a7da3363b10734", null ],
+      [ "write_cone", "da/ddb/namespaceformat.html#ab4fce879d94ab92aa76b3e5eed23e9a0", null ],
+      [ "input_cones", "da/ddb/namespaceformat.html#a71357371301ffb2dd342b40c1d85741f", null ],
+      [ "output_string", "da/ddb/namespaceformat.html#af8b4353ac83e6db6c2d75cb1b2428832", null ]
+    ] ],
     [ "guiLogic", "db/d15/namespacegui_logic.html", "db/d15/namespacegui_logic" ],
     [ "main", "d2/dc1/namespacemain.html", "d2/dc1/namespacemain" ],
     [ "mapFile", "d6/dff/namespacemap_file.html", "d6/dff/namespacemap_file" ],
@@ -99,6 +130,7 @@ var namespaces_dup =
       [ "yTrackList", "dc/d1a/namespaceplot__track.html#a7246ba4a12b317bbdf17f284b716a171", null ]
     ] ],
     [ "power_log", "d0/daf/namespacepower__log.html", "d0/daf/namespacepower__log" ],
+    [ "printer", "d5/d08/namespaceprinter.html", "d5/d08/namespaceprinter" ],
     [ "random_points", "de/da7/namespacerandom__points.html", [
       [ "color", "de/da7/namespacerandom__points.html#a047d34e53b4e5d11b5601455c31473fe", null ],
       [ "f", "de/da7/namespacerandom__points.html#a14a62e2a87bab023adc792ba94a4a259", null ],
@@ -111,6 +143,8 @@ var namespaces_dup =
       [ "output", "de/da3/namespacereport__evaluation.html#af052ab547a7ee991f10d9d6a4505438a", null ],
       [ "path", "de/da3/namespacereport__evaluation.html#abe626143f2e4e27687a9c5375eeefd4d", null ]
     ] ],
+    [ "rosbag_groundtruth", "da/d75/namespacerosbag__groundtruth.html", "da/d75/namespacerosbag__groundtruth" ],
+    [ "scenario_generator", "db/d19/namespacescenario__generator.html", "db/d19/namespacescenario__generator" ],
     [ "send_bucket", "de/dd5/namespacesend__bucket.html", [
       [ "list_files", "de/dd5/namespacesend__bucket.html#a3f7f7c05a2fda444d135c47e0890404f", null ],
       [ "main", "de/dd5/namespacesend__bucket.html#ac4bf96beb1f8b005f0612588c53302a2", null ],
@@ -130,6 +164,25 @@ var namespaces_dup =
       [ "tests_require", "dd/dc4/namespacesetup.html#a6369bb060267ccf90b93519796e7cc2c", null ],
       [ "version", "dd/dc4/namespacesetup.html#a2aa722b36a933088812b50ea79b97a5c", null ],
       [ "zip_safe", "dd/dc4/namespacesetup.html#a13510753661cb74083a0c664db11dde9", null ]
+    ] ],
+    [ "skidpad_conesgenerator", "df/d9a/namespaceskidpad__conesgenerator.html", [
+      [ "bbox_inches", "df/d9a/namespaceskidpad__conesgenerator.html#abeea49823034d21640349ab7f789b05f", null ],
+      [ "c", "df/d9a/namespaceskidpad__conesgenerator.html#ae2aef5e5e895f8509e3649a819ad6405", null ],
+      [ "centerX", "df/d9a/namespaceskidpad__conesgenerator.html#a67ccc5c3c317ffdbbb7dc15070570bcf", null ],
+      [ "centerY", "df/d9a/namespaceskidpad__conesgenerator.html#ab0d3992cc76609e709aee1f1e02cdcda", null ],
+      [ "cmap", "df/d9a/namespaceskidpad__conesgenerator.html#a8c5e1394d5f674405feb77c05bf53c98", null ],
+      [ "dpi", "df/d9a/namespaceskidpad__conesgenerator.html#a38cb09c509d67b869ae30badde5cf2f0", null ],
+      [ "figsize", "df/d9a/namespaceskidpad__conesgenerator.html#aae96075edd162c220d3bc71ea5ffdc4e", null ],
+      [ "file_name", "df/d9a/namespaceskidpad__conesgenerator.html#a9c85ee062db92c91149359f474da5871", null ],
+      [ "file_path", "df/d9a/namespaceskidpad__conesgenerator.html#a5456b5d01262c2e3cdca002a5b9b8ccd", null ],
+      [ "label", "df/d9a/namespaceskidpad__conesgenerator.html#a9ee5e023eac2cb5b2975148d2d42ea80", null ],
+      [ "numPoints", "df/d9a/namespaceskidpad__conesgenerator.html#a923cc138c0f4dec651689448cb40d104", null ],
+      [ "outerRadius", "df/d9a/namespaceskidpad__conesgenerator.html#ac980bac4674e3bc71783d807c638e1bd", null ],
+      [ "points", "df/d9a/namespaceskidpad__conesgenerator.html#a37053ae75a6f5c7581ce4f7b8fe2bad2", null ],
+      [ "radius", "df/d9a/namespaceskidpad__conesgenerator.html#a64689e02214b8a3f39cbc7cb6b1f534f", null ],
+      [ "theta", "df/d9a/namespaceskidpad__conesgenerator.html#ac399c9fe14e377b74408706de88e3d0c", null ],
+      [ "x", "df/d9a/namespaceskidpad__conesgenerator.html#a3c80ccf4254ee4c59b469a5f9cda2eb6", null ],
+      [ "y", "df/d9a/namespaceskidpad__conesgenerator.html#a2413686ccee611b20d3e1c53e9dedf5b", null ]
     ] ],
     [ "skidpad_mapper", "d2/de4/namespaceskidpad__mapper.html", [
       [ "shift", "d2/de4/namespaceskidpad__mapper.html#a525cc4232cf215956ee076464a1c476d", null ],
@@ -156,6 +209,20 @@ var namespaces_dup =
       [ "yCones", "d2/de4/namespaceskidpad__mapper.html#a32dbc2e413cc67c7ae7ff0b0e40ebaa5", null ],
       [ "yPoints", "d2/de4/namespaceskidpad__mapper.html#acc783a98e45b5dcf067f749e5f1ba916", null ]
     ] ],
+    [ "skidpadgenerator", "db/d61/namespaceskidpadgenerator.html", [
+      [ "centerX", "db/d61/namespaceskidpadgenerator.html#ad93a0a6f8c57dc9a1d3969097f52d631", null ],
+      [ "centerY", "db/d61/namespaceskidpadgenerator.html#a172eaddd063d6b20928fcfe92838234a", null ],
+      [ "circular_speed", "db/d61/namespaceskidpadgenerator.html#ac075cd537a68405a0b5a40495769473f", null ],
+      [ "entryspeed", "db/d61/namespaceskidpadgenerator.html#a143806682283d50ad56f17691a9e8437", null ],
+      [ "exitspeed", "db/d61/namespaceskidpadgenerator.html#a9fcb074be198e3d0468486da09f8962e", null ],
+      [ "file_name", "db/d61/namespaceskidpadgenerator.html#aa5a943f37f20bc64239f539860b3a9de", null ],
+      [ "file_path", "db/d61/namespaceskidpadgenerator.html#a022247aaf0d0a342a2a035dee6dd6fde", null ],
+      [ "numPoints", "db/d61/namespaceskidpadgenerator.html#af064634c2aa59ae3d87deae531584ca8", null ],
+      [ "radius", "db/d61/namespaceskidpadgenerator.html#af9b5a88bb94a8f7c34b9b15a9f19fb69", null ],
+      [ "theta", "db/d61/namespaceskidpadgenerator.html#a308d08f962a436e8e9295e88b5784ed1", null ],
+      [ "x", "db/d61/namespaceskidpadgenerator.html#ad6403dbad684e5a8e523f74857eef78b", null ],
+      [ "y", "db/d61/namespaceskidpadgenerator.html#a230b533827778a0f5913127d01b42f70", null ]
+    ] ],
     [ "spline", "d7/dc1/namespacespline.html", [
       [ "axis", "d7/dc1/namespacespline.html#ab8ba046c9c8639715623a604b0d35fcc", null ],
       [ "c", "d7/dc1/namespacespline.html#adcb92c1b2308379ecffcbb7a299c2c2b", null ],
@@ -178,82 +245,18 @@ var namespaces_dup =
       [ "y_values1", "d7/dc1/namespacespline.html#a1bb02af9cadbf53b53d01fb995d5ef22", null ]
     ] ],
     [ "std", "d8/dcc/namespacestd.html", "d8/dcc/namespacestd" ],
+    [ "supervisor", "d4/dd8/namespacesupervisor.html", "d4/dd8/namespacesupervisor" ],
+    [ "test", "df/d04/namespacetest.html", "df/d04/namespacetest" ],
     [ "test_copyright", "d0/d36/namespacetest__copyright.html", [
-      [ "test_copyright", "d0/d36/namespacetest__copyright.html#a2f0d547fdc7431d3dd7641ff4e01c102", null ]
+      [ "test_copyright", "d0/d36/namespacetest__copyright.html#a006aa5870d5f4a2f60991ed4868abe33", null ]
     ] ],
     [ "test_data_association_metrics", "d9/dae/namespacetest__data__association__metrics.html", "d9/dae/namespacetest__data__association__metrics" ],
     [ "test_flake8", "d9/d0d/namespacetest__flake8.html", [
-      [ "test_flake8", "d9/d0d/namespacetest__flake8.html#aa03dada197705fd5e8d710de753ca95c", null ]
+      [ "test_flake8", "d9/d0d/namespacetest__flake8.html#a982900ee0a36d4aa72c32b73dc1b3fdb", null ]
     ] ],
     [ "test_formats", "d1/d64/namespacetest__formats.html", "d1/d64/namespacetest__formats" ],
     [ "test_pep257", "d0/d5e/namespacetest__pep257.html", [
-      [ "test_pep257", "d0/d5e/namespacetest__pep257.html#a25dd726750a66bf2fc6439546bfdfcd9", null ]
+      [ "test_pep257", "d0/d5e/namespacetest__pep257.html#ab7a6c2326534d69991f8f775f6e96f4d", null ]
     ] ],
-    [ "VehicleModelConstants", "d9/d21/namespace_vehicle_model_constants.html", [
-      [ "eps_k", "d9/d21/namespace_vehicle_model_constants.html#ad184802c2e4454995cf7de82b82e270f", null ],
-      [ "eps_y", "d9/d21/namespace_vehicle_model_constants.html#a3b0b4b52919b0fe06d0da4585cdc4f20", null ],
-      [ "FNOM", "d9/d21/namespace_vehicle_model_constants.html#a4b9945cda6d9bbb5d94afa4720e7ff22", null ],
-      [ "LCY", "d9/d21/namespace_vehicle_model_constants.html#acc29106a1cc7182c16ea3f3cfd318704", null ],
-      [ "LEY", "d9/d21/namespace_vehicle_model_constants.html#aa176873254e928fc0a160591ede0cfae", null ],
-      [ "LFZO", "d9/d21/namespace_vehicle_model_constants.html#a66ba699cd82389778da201faf5a5158f", null ],
-      [ "LKY", "d9/d21/namespace_vehicle_model_constants.html#a2aa765304bc98b4d89e55beefa22c400", null ],
-      [ "LKYC", "d9/d21/namespace_vehicle_model_constants.html#a0e6834c954f3d1486e03b3ae046c28cd", null ],
-      [ "LMUV", "d9/d21/namespace_vehicle_model_constants.html#a948219ff5ffbfbfae7cda0be1cb9840e", null ],
-      [ "LMUY", "d9/d21/namespace_vehicle_model_constants.html#a612e75df47bb4b03e7fd4ef717e3bae4", null ],
-      [ "LONGVL", "d9/d21/namespace_vehicle_model_constants.html#aea240ae5b914821f6ae0ac7cdef4a861", null ],
-      [ "LVY", "d9/d21/namespace_vehicle_model_constants.html#a2deffbed753e36877a333c0707eb7a62", null ],
-      [ "LVYKA", "d9/d21/namespace_vehicle_model_constants.html#a09057c02a3ba387dc05227eebe1cba64", null ],
-      [ "LYKA", "d9/d21/namespace_vehicle_model_constants.html#ae88e072354bb0313088a43a653fc1854", null ],
-      [ "NOMPRES", "d9/d21/namespace_vehicle_model_constants.html#a67bbaec14a05189eeed4a320a4c163f8", null ],
-      [ "p_input", "d9/d21/namespace_vehicle_model_constants.html#ab702c936a15f776f1fa724982e6f505a", null ],
-      [ "PCY1", "d9/d21/namespace_vehicle_model_constants.html#adecc8c8373c0ffb3e9f71a177e26ae4b", null ],
-      [ "PDY1", "d9/d21/namespace_vehicle_model_constants.html#a312bf94485ff807b9e4ba7c8ce32e134", null ],
-      [ "PDY2", "d9/d21/namespace_vehicle_model_constants.html#a4b90ed02a479c672d54cfe96d66b75cd", null ],
-      [ "PDY3", "d9/d21/namespace_vehicle_model_constants.html#a61ef425b3a1963a9b0ee4b68d92e1e32", null ],
-      [ "PEY1", "d9/d21/namespace_vehicle_model_constants.html#af39cc22af16bb3e57156f2a2aedee84e", null ],
-      [ "PEY2", "d9/d21/namespace_vehicle_model_constants.html#a80dd08529b9085a31a5b7ee1efa74369", null ],
-      [ "PEY3", "d9/d21/namespace_vehicle_model_constants.html#adcf5ec59341b0e2a90338b8f0be41546", null ],
-      [ "PEY4", "d9/d21/namespace_vehicle_model_constants.html#a8ac68cbacaf07eca74a9d0ecadfd9823", null ],
-      [ "PEY5", "d9/d21/namespace_vehicle_model_constants.html#adfa28cb64207b2d277db4004bca3d9a8", null ],
-      [ "PHY1", "d9/d21/namespace_vehicle_model_constants.html#a1de7e53971a222b6d7f5db4aa934644f", null ],
-      [ "PHY2", "d9/d21/namespace_vehicle_model_constants.html#afdda553471d6e8a6a6ad863a47b95c23", null ],
-      [ "PKY1", "d9/d21/namespace_vehicle_model_constants.html#a71546aca6f7da258e52eee3300ae6663", null ],
-      [ "PKY2", "d9/d21/namespace_vehicle_model_constants.html#a09a8c2ef053f2b8770f342191777b9d0", null ],
-      [ "PKY3", "d9/d21/namespace_vehicle_model_constants.html#aae901c4d6e8778c94e6ef62f20c910b5", null ],
-      [ "PKY4", "d9/d21/namespace_vehicle_model_constants.html#a8668ea29dee1afe319d759c153f73958", null ],
-      [ "PKY5", "d9/d21/namespace_vehicle_model_constants.html#ae4713c60ec21ce6baefccfa20ffb2d19", null ],
-      [ "PKY6", "d9/d21/namespace_vehicle_model_constants.html#a9848015d71effe9fad67906e15bfd30f", null ],
-      [ "PKY7", "d9/d21/namespace_vehicle_model_constants.html#ab60f77ea21437e62ad8a4723056cc107", null ],
-      [ "PPY1", "d9/d21/namespace_vehicle_model_constants.html#a7d32fc275d6d19a60d96e9142d0ae39d", null ],
-      [ "PPY2", "d9/d21/namespace_vehicle_model_constants.html#aa9b7a4593c8eee11e0cf491757b80994", null ],
-      [ "PPY3", "d9/d21/namespace_vehicle_model_constants.html#a1985f66be0ba1fb440b855fe7f0714cb", null ],
-      [ "PPY4", "d9/d21/namespace_vehicle_model_constants.html#a06143f8414a7d5c4e39a3a08c4eead13", null ],
-      [ "PPY5", "d9/d21/namespace_vehicle_model_constants.html#a1f917f435c9404826548b6f7359f3b50", null ],
-      [ "PVY1", "d9/d21/namespace_vehicle_model_constants.html#ad33507a2e05673d2457ae002757ebfad", null ],
-      [ "PVY2", "d9/d21/namespace_vehicle_model_constants.html#abe57023b0767eb917e11535d1c7946e1", null ],
-      [ "PVY3", "d9/d21/namespace_vehicle_model_constants.html#abb8900909633a14d23c9981f4e3d2736", null ],
-      [ "PVY4", "d9/d21/namespace_vehicle_model_constants.html#acc66becd52a1ed38a8a343c31fabd4cb", null ],
-      [ "RBY1", "d9/d21/namespace_vehicle_model_constants.html#a67655c914ac0c712e84ebbf3ef1fd3db", null ],
-      [ "RBY2", "d9/d21/namespace_vehicle_model_constants.html#a2e9889c6e4b62f5869fd5c68e91668cd", null ],
-      [ "RBY3", "d9/d21/namespace_vehicle_model_constants.html#af73baf3d8660865021f3280227e39c29", null ],
-      [ "RBY4", "d9/d21/namespace_vehicle_model_constants.html#ac5501bd38de8dfcc37bf02d4e1769e1a", null ],
-      [ "RCY1", "d9/d21/namespace_vehicle_model_constants.html#ada2b8e3c50250b39a9494bb3efefa6be", null ],
-      [ "REY1", "d9/d21/namespace_vehicle_model_constants.html#a5c3bdc0c5fb62f976ca05473a5c52869", null ],
-      [ "REY2", "d9/d21/namespace_vehicle_model_constants.html#a0c434c5d432934a1c44b7ecf1985ef95", null ],
-      [ "RHY1", "d9/d21/namespace_vehicle_model_constants.html#ab98f46dd2ce5fa7e906c1f413d7b50e7", null ],
-      [ "RHY2", "d9/d21/namespace_vehicle_model_constants.html#ad612cf4f84d2f343ebb834c1c69395c3", null ],
-      [ "RVY1", "d9/d21/namespace_vehicle_model_constants.html#aa8e68a9a6c7df4b2c266e3284b8ebb20", null ],
-      [ "RVY2", "d9/d21/namespace_vehicle_model_constants.html#aef21b850093a317df6cd4060f923fafb", null ],
-      [ "RVY3", "d9/d21/namespace_vehicle_model_constants.html#a3de0394a2dac51b9f3b7cfe050762645", null ],
-      [ "RVY4", "d9/d21/namespace_vehicle_model_constants.html#a7b177f2c1e1e8e0e07eb54d0e4a72b81", null ],
-      [ "RVY5", "d9/d21/namespace_vehicle_model_constants.html#a2a8818ac098d5203fb9ff3deca63d0f2", null ],
-      [ "RVY6", "d9/d21/namespace_vehicle_model_constants.html#ad37b0198f02ac5b02b7bf7f27b7ed52d", null ],
-      [ "slip_ratio", "d9/d21/namespace_vehicle_model_constants.html#ae68ce0ef95d8d52213aa6772f03f4995", null ],
-      [ "V_cx", "d9/d21/namespace_vehicle_model_constants.html#a28608a0f6eaa4ad1df12e42a1178f4ae", null ],
-      [ "y_input", "d9/d21/namespace_vehicle_model_constants.html#a757465e676a7e32c7c1533d1775c0646", null ],
-      [ "zeta_0", "d9/d21/namespace_vehicle_model_constants.html#a471937df4e00092fed0c3b3dbc3f13f6", null ],
-      [ "zeta_2", "d9/d21/namespace_vehicle_model_constants.html#a78d82d4b5985b92ce0b97780943c296c", null ],
-      [ "zeta_3", "d9/d21/namespace_vehicle_model_constants.html#ac8b2269b717cb907fb933c7d3efecfab", null ],
-      [ "zeta_4", "d9/d21/namespace_vehicle_model_constants.html#a45ab82dabe7130010aabcb17c50fd6d4", null ]
-    ] ]
+    [ "vehicle_dynamics_node", "d2/d1d/namespacevehicle__dynamics__node.html", "d2/d1d/namespacevehicle__dynamics__node" ]
 ];

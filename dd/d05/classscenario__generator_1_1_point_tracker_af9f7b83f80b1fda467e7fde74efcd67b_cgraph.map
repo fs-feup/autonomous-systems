@@ -1,0 +1,21 @@
+<map id="scenario_generator.PointTracker.on_click" name="scenario_generator.PointTracker.on_click">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,201,170,242"/>
+<area shape="rect" id="Node000002" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#a4dcde918b74f5fc12ffd65aef3e7240e" title=" " alt="" coords="221,136,387,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="156,198,219,179,221,184,158,203"/>
+<area shape="rect" id="Node000009" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#a651bb0f935b2aa4fd1ce59e853a77cdc" title=" " alt="" coords="218,233,390,274"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="171,231,202,236,202,241,170,236"/>
+<area shape="rect" id="Node000003" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#a1c26775a7d6f7b2b5a4c5620dcca26a2" title=" " alt="" coords="447,5,611,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="328,133,376,95,437,57,449,50,452,55,439,61,379,100,331,138"/>
+<area shape="rect" id="Node000004" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#a1772b842dc38b48ec423e698dad48993" title=" " alt="" coords="438,71,619,111"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="375,133,441,114,442,119,377,138"/>
+<area shape="rect" id="Node000006" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#ac3f729da3d0e88be67f6ba04e4836075" title=" " alt="" coords="441,136,616,177"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="387,154,425,154,425,159,387,159"/>
+<area shape="rect" id="Node000007" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#a32f370c3352d809da62415631189dcc2" title=" " alt="" coords="447,201,611,242"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="377,175,442,194,441,199,375,180"/>
+<area shape="rect" id="Node000005" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#aaacbbf7662e5cf506fdb6f3643afe81d" title=" " alt="" coords="667,71,832,111"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="620,88,652,88,652,94,620,94"/>
+<area shape="rect" id="Node000008" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#a2be9e097e750cac624ddf93d3a46a789" title=" " alt="" coords="667,201,832,242"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="611,219,652,219,652,224,611,224"/>
+<area shape="rect" id="Node000010" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#ab7fc273a8ff57d568c0e82fee40d56b7" title=" " alt="" coords="447,267,611,307"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="391,264,431,270,431,275,390,269"/>
+</map>

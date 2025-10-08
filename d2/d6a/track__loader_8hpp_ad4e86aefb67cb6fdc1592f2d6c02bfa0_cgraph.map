@@ -1,0 +1,11 @@
+<map id="load_skidpad_track" name="load_skidpad_track">
+<area shape="rect" id="Node000001" title="loads the skidpad track from the default path." alt="" coords="5,55,139,80"/>
+<area shape="rect" id="Node000002" href="$d8/deb/track__loader_8cpp.html#a5c744bddb2fdcd908259e5e0058bf229" title="loads the map from the specified path and fills the start pose and track." alt="" coords="187,29,305,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,55,171,50,172,56,139,60"/>
+<area shape="rect" id="Node000005" href="$d8/deb/track__loader_8cpp.html#a90eb72a3528fcbb695757997ea85cb43" title="Transforms the track as seen from the start pose." alt="" coords="190,79,302,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="139,74,175,79,174,84,139,79"/>
+<area shape="rect" id="Node000003" href="$d8/deb/track__loader_8cpp.html#aba21ebec4d5bd866eb855c49014ab80f" title="adds the landmarks in the list to the track." alt="" coords="353,5,462,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="305,31,337,26,338,31,306,36"/>
+<area shape="rect" id="Node000004" href="$d8/deb/track__loader_8cpp.html#af45ff32e62996694d5ee0ff3f09b9755" title="Get the child node from a parent node by tag." alt="" coords="354,55,462,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="306,49,339,54,338,59,305,54"/>
+</map>

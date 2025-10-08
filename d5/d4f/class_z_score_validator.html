@@ -129,9 +129,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afb2ba6fa58124cd8a0f12557dbe3a787" id="r_afb2ba6fa58124cd8a0f12557dbe3a787"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4f/class_z_score_validator.html#afb2ba6fa58124cd8a0f12557dbe3a787">ZScoreValidator</a> (double min_z_score_x, double max_z_score_x, double min_z_score_y, double max_z_score_y)</td></tr>
 <tr class="memdesc:afb2ba6fa58124cd8a0f12557dbe3a787"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="../../d5/d4f/class_z_score_validator.html" title="The ZScoreValidator class is responsible for validating cones based on the approximation of z-score o...">ZScoreValidator</a> object with the specific thresholds.  <br /></td></tr>
 <tr class="separator:afb2ba6fa58124cd8a0f12557dbe3a787"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf6b2a5606e79fad89d30046020be0c8" id="r_aaf6b2a5606e79fad89d30046020be0c8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4f/class_z_score_validator.html#aaf6b2a5606e79fad89d30046020be0c8">coneValidator</a> (<a class="el" href="../../d2/d23/class_cluster.html">Cluster</a> *cluster, <a class="el" href="../../d2/d8d/class_plane.html">Plane</a> &amp;plane) const override</td></tr>
-<tr class="memdesc:aaf6b2a5606e79fad89d30046020be0c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates the cluster based on the z-score distribution.  <br /></td></tr>
-<tr class="separator:aaf6b2a5606e79fad89d30046020be0c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac99faf1038a4eef6018bfc668b342fe" id="r_aac99faf1038a4eef6018bfc668b342fe"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4f/class_z_score_validator.html#aac99faf1038a4eef6018bfc668b342fe">coneValidator</a> (<a class="el" href="../../d2/d23/class_cluster.html">Cluster</a> *cluster, <a class="el" href="../../d2/d8d/class_plane.html">Plane</a> &amp;plane) const override</td></tr>
+<tr class="memdesc:aac99faf1038a4eef6018bfc668b342fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates the cluster based on the z-score distribution.  <br /></td></tr>
+<tr class="separator:aac99faf1038a4eef6018bfc668b342fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a999992567a10a7339440e6cc6cba91bb" id="r_a999992567a10a7339440e6cc6cba91bb"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4f/class_z_score_validator.html#a999992567a10a7339440e6cc6cba91bb">~ZScoreValidator</a> ()=default</td></tr>
 <tr class="memdesc:a999992567a10a7339440e6cc6cba91bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor for <a class="el" href="../../d5/d4f/class_z_score_validator.html" title="The ZScoreValidator class is responsible for validating cones based on the approximation of z-score o...">ZScoreValidator</a>.  <br /></td></tr>
 <tr class="separator:a999992567a10a7339440e6cc6cba91bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -239,8 +239,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aaf6b2a5606e79fad89d30046020be0c8" name="aaf6b2a5606e79fad89d30046020be0c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf6b2a5606e79fad89d30046020be0c8">&#9670;&#160;</a></span>coneValidator()</h2>
+<a id="aac99faf1038a4eef6018bfc668b342fe" name="aac99faf1038a4eef6018bfc668b342fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac99faf1038a4eef6018bfc668b342fe">&#9670;&#160;</a></span>coneValidator()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -249,7 +249,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool ZScoreValidator::coneValidator </td>
+          <td class="memname">std::vector&lt; double &gt; ZScoreValidator::coneValidator </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d2/d23/class_cluster.html">Cluster</a> *&#160;</td>
           <td class="paramname"><em>cluster</em>, </td>
@@ -282,21 +282,9 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the cluster is valid, false otherwise </dd></dl>
 
-<p>Implements <a class="el" href="../../d3/d57/class_cone_validator.html#af4b8db84756b3ec7ac2c88ec97e0aec0">ConeValidator</a>.</p>
+<p>Implements <a class="el" href="../../d3/d57/class_cone_validator.html#a0bf5797599921668f8de1182e145b545">ConeValidator</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d87/z__score__validator_8cpp_source.html#l00006">6</a> of file <a class="el" href="../../d6/d87/z__score__validator_8cpp_source.html">z_score_validator.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d5/d4f/class_z_score_validator_aaf6b2a5606e79fad89d30046020be0c8_cgraph.png" border="0" usemap="#ad5/d4f/class_z_score_validator_aaf6b2a5606e79fad89d30046020be0c8_cgraph" alt=""/></div>
-<map name="ad5/d4f/class_z_score_validator_aaf6b2a5606e79fad89d30046020be0c8_cgraph" id="ad5/d4f/class_z_score_validator_aaf6b2a5606e79fad89d30046020be0c8_cgraph">
-<area shape="rect" title="Validates the cluster based on the z&#45;score distribution." alt="" coords="5,31,205,56"/>
-<area shape="rect" href="../../d2/d23/class_cluster.html#a546235e71e16eda065ed02e54750330d" title="Get the z score on x&#45;axis of an object." alt="" coords="253,5,404,31"/>
-<area shape="poly" title=" " alt="" coords="205,30,237,26,237,31,205,35"/>
-<area shape="rect" href="../../d2/d23/class_cluster.html#a1fc31827aa9b5b3e7fcc526a7a9427b3" title="Get the z score on y&#45;axis of an object." alt="" coords="253,55,404,80"/>
-<area shape="poly" title=" " alt="" coords="205,52,237,55,237,60,205,57"/>
-</map>
-</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/d87/z__score__validator_8cpp_source.html#l00010">10</a> of file <a class="el" href="../../d6/d87/z__score__validator_8cpp_source.html">z_score_validator.cpp</a>.</p>
 
 </div>
 </div>

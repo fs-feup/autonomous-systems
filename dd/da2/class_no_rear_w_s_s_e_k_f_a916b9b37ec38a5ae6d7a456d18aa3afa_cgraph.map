@@ -1,0 +1,5 @@
+<map id="NoRearWSSEKF::motor_rpm_callback" name="NoRearWSSEKF::motor_rpm_callback">
+<area shape="rect" id="Node000001" title="Callback function for the motor RPM data that should be called by adapters when new motor RPM data is..." alt="" coords="5,5,165,46"/>
+<area shape="rect" id="Node000002" href="$dd/da2/class_no_rear_w_s_s_e_k_f.html#a72111cc9163a4510141eedfb9b591c97" title="Correct the state estimate based on wheel speed sensor, resolver, and steering data." alt="" coords="213,5,379,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,23,197,23,197,28,165,28"/>
+</map>

@@ -103,15 +103,28 @@ $(document).ready(function(){initNavTree('d3/d89/pose_8cpp_source.html','../../'
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d9/d8a/namespacecommon__lib_1_1structures.html">common_lib::structures</a> {</div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="../../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html#a3ebfc008f45cbdf5447cf07f9c624a78">    5</a></span><a class="code hl_function" href="../../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html#acb1f9b8923c7f1cb1e6a43929171b49c">Pose::Pose</a>(<a class="code hl_struct" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">Position</a> position, <span class="keywordtype">double</span> orientation) : position(position), orientation(orientation) {}</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="../../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html#af9a1a731c1fee60373995bab1120043c">    7</a></span><a class="code hl_function" href="../../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html#acb1f9b8923c7f1cb1e6a43929171b49c">Pose::Pose</a>(<span class="keywordtype">double</span> x, <span class="keywordtype">double</span> y, <span class="keywordtype">double</span> theta) : position(x, y), orientation(theta) {}</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>}  <span class="comment">// namespace common_lib::structures</span></div>
+<div class="foldopen" id="foldopen00005" data-start="{" data-end="}">
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="../../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html#afccb751951669a32ca39e184c9426b51">    5</a></span><a class="code hl_function" href="../../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html#acb1f9b8923c7f1cb1e6a43929171b49c">Pose::Pose</a>(<a class="code hl_struct" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">Position</a> position, <span class="keywordtype">double</span> orientation, <span class="keywordtype">double</span> orientation_noise, rclcpp::Time timestamp)</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    : position(position),</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>      orientation(orientation),</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>      orientation_noise(orientation_noise),</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>      timestamp(timestamp) {}</div>
+</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="../../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html#a415254207ed26705a7372a2d92bcd062">   11</a></span><a class="code hl_function" href="../../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html#acb1f9b8923c7f1cb1e6a43929171b49c">Pose::Pose</a>(<span class="keywordtype">double</span> x, <span class="keywordtype">double</span> y, <span class="keywordtype">double</span> theta, <span class="keywordtype">double</span> x_noise, <span class="keywordtype">double</span> y_noise, <span class="keywordtype">double</span> theta_noise,</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>           rclcpp::Time timestamp)</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    : position(x, y, x_noise, y_noise, timestamp),</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>      orientation(theta),</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>      orientation_noise(theta_noise),</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>      timestamp(timestamp) {}</div>
+</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>}  <span class="comment">// namespace common_lib::structures</span></div>
 <div class="ttc" id="anamespacecommon__lib_1_1structures_html"><div class="ttname"><a href="../../d9/d8a/namespacecommon__lib_1_1structures.html">common_lib::structures</a></div><div class="ttdef"><b>Definition</b> <a href="../../d5/d13/common__lib_2include_2common__lib_2structures_2cone_8hpp_source.html#l00010">cone.hpp:10</a></div></div>
 <div class="ttc" id="apose_8hpp_html"><div class="ttname"><a href="../../de/d59/pose_8hpp.html">pose.hpp</a></div></div>
-<div class="ttc" id="astructcommon__lib_1_1structures_1_1_pose_html_acb1f9b8923c7f1cb1e6a43929171b49c"><div class="ttname"><a href="../../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html#acb1f9b8923c7f1cb1e6a43929171b49c">common_lib::structures::Pose::Pose</a></div><div class="ttdeci">Pose()=default</div><div class="ttdoc">theta in radians</div></div>
-<div class="ttc" id="astructcommon__lib_1_1structures_1_1_position_html"><div class="ttname"><a href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a></div><div class="ttdef"><b>Definition</b> <a href="../../d5/d91/position_8hpp_source.html#l00006">position.hpp:6</a></div></div>
+<div class="ttc" id="astructcommon__lib_1_1structures_1_1_pose_html_acb1f9b8923c7f1cb1e6a43929171b49c"><div class="ttname"><a href="../../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html#acb1f9b8923c7f1cb1e6a43929171b49c">common_lib::structures::Pose::Pose</a></div><div class="ttdeci">Pose()=default</div></div>
+<div class="ttc" id="astructcommon__lib_1_1structures_1_1_position_html"><div class="ttname"><a href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a></div><div class="ttdef"><b>Definition</b> <a href="../../d5/d91/position_8hpp_source.html#l00007">position.hpp:7</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

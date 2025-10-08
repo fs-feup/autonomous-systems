@@ -1,18 +1,13 @@
 <map id="get_current_date_time_as_string" name="get_current_date_time_as_string">
-<area shape="rect" id="Node000001" title="Get current date and time as a string." alt="" coords="297,97,447,137"/>
-<area shape="rect" id="Node000002" href="$d3/d72/planning_2test_2performance__test_8cpp.html#a0545f40dd80c8f8d8814704bd67bad25" title=" " alt="" coords="124,5,233,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="327,90,248,45,222,34,224,29,250,40,329,85"/>
-<area shape="rect" id="Node000004" href="$d3/d72/planning_2test_2performance__test_8cpp.html#aab2295277d22fafb888111e66fdac82f" title="Iterates the Outliers algorithm repeatedly and measures the average time." alt="" coords="125,55,232,80"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="281,96,231,84,232,78,282,91"/>
-<area shape="rect" id="Node000005" href="$d3/d72/planning_2test_2performance__test_8cpp.html#ace1de27c0d0025682943b154a203ad8a" title="Iterates the Smoothing algorithm repeatedly and measures the average time." alt="" coords="116,104,241,130"/>
-<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="281,120,241,120,241,114,281,114"/>
-<area shape="rect" id="Node000006" href="$d3/d72/planning_2test_2performance__test_8cpp.html#a808870244af80707b55103c95bfdb4ed" title="Iterates the Path Calculation algorithm repeatedly and measures the average time." alt="" coords="108,153,249,179"/>
-<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="282,142,232,155,231,150,281,137"/>
-<area shape="rect" id="Node000007" href="$d2/de6/cone__coloring__tests_8cpp.html#ae0eb2417c307a7e6015466adfe20b14d" title="test the full cone coloring algorithm in 20 tracks." alt="" coords="151,203,206,228"/>
-<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="329,148,250,194,207,210,205,205,248,189,327,144"/>
-<area shape="rect" id="Node000003" href="$d3/d72/planning_2test_2performance__test_8cpp.html#aa6ecce2c7b96e4c5050d5a21b52107d0" title="Execution Time Test." alt="" coords="5,80,60,106"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="120,39,109,44,52,82,49,77,106,40,118,35"/>
-<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="110,82,61,91,60,86,109,77"/>
-<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="101,107,60,100,61,95,102,101"/>
-<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="118,150,106,145,49,108,52,104,109,140,120,145"/>
+<area shape="rect" id="Node000001" title="Get current date and time as a string." alt="" coords="297,47,447,88"/>
+<area shape="rect" id="Node000002" href="$d3/d72/planning_2test_2performance__test_8cpp.html#aab2295277d22fafb888111e66fdac82f" title="Iterates the Outliers algorithm repeatedly and measures the average time." alt="" coords="125,5,232,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="281,47,231,34,232,29,282,42"/>
+<area shape="rect" id="Node000004" href="$d3/d72/planning_2test_2performance__test_8cpp.html#ace1de27c0d0025682943b154a203ad8a" title="Iterates the Smoothing algorithm repeatedly and measures the average time." alt="" coords="116,55,241,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="281,70,241,70,241,65,281,65"/>
+<area shape="rect" id="Node000005" href="$d3/d72/planning_2test_2performance__test_8cpp.html#a808870244af80707b55103c95bfdb4ed" title="Iterates the Path Calculation algorithm repeatedly and measures the average time." alt="" coords="108,104,249,130"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="282,93,232,106,231,101,281,88"/>
+<area shape="rect" id="Node000003" href="$d3/d72/planning_2test_2performance__test_8cpp.html#aa6ecce2c7b96e4c5050d5a21b52107d0" title="Execution Time Test." alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="124,39,61,61,59,56,123,34"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="101,70,60,70,60,65,101,65"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="123,101,59,79,61,74,124,96"/>
 </map>

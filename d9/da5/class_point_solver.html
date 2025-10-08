@@ -106,22 +106,28 @@ Collaboration diagram for PointSolver:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d6/df7/class_point_solver__coll__graph.png" border="0" usemap="#a_point_solver_coll__map" alt="Collaboration graph"/></div>
 <map name="a_point_solver_coll__map" id="a_point_solver_coll__map">
-<area shape="rect" title=" " alt="" coords="11,541,203,746"/>
-<area shape="rect" href="../../de/d41/structcommon__lib_1_1structures_1_1_vehicle_pose.html" title=" " alt="" coords="33,378,180,478"/>
-<area shape="poly" title=" " alt="" coords="109,477,109,524,104,524,104,477"/>
-<area shape="rect" href="../../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="152,208,299,328"/>
-<area shape="poly" title=" " alt="" coords="174,342,146,379,141,376,170,338"/>
-<area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="5,5,152,145"/>
-<area shape="poly" title=" " alt="" coords="71,145,66,233,67,281,73,328,81,361,76,362,67,329,62,281,60,233,66,145"/>
-<area shape="poly" title=" " alt="" coords="133,143,172,194,168,197,129,146"/>
+<area shape="rect" title=" " alt="" coords="275,754,467,1000"/>
+<area shape="rect" href="../../d6/d89/class_bicycle_model.html" title=" " alt="" coords="193,531,367,691"/>
+<area shape="poly" title=" " alt="" coords="310,690,326,738,321,739,305,692"/>
+<area shape="rect" href="../../db/d7d/class_s2_v_model.html" title="Interface for models that convert data from sensor reference frame to vehicle reference frame and vic..." alt="" coords="5,298,179,438"/>
+<area shape="poly" title=" " alt="" coords="157,448,221,530,216,533,153,451"/>
+<area shape="rect" href="../../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html" title=" " alt="" coords="203,268,381,468"/>
+<area shape="poly" title=" " alt="" coords="290,468,287,515,282,514,284,468"/>
+<area shape="rect" href="../../de/d41/structcommon__lib_1_1structures_1_1_vehicle_pose.html" title=" " alt="" coords="391,561,537,661"/>
+<area shape="poly" title=" " alt="" coords="449,662,422,739,417,737,444,660"/>
+<area shape="rect" href="../../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="547,288,693,448"/>
+<area shape="poly" title=" " alt="" coords="563,462,498,563,493,560,559,459"/>
+<area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="400,5,547,205"/>
+<area shape="poly" title=" " alt="" coords="470,205,467,268,466,545,460,544,462,268,465,205"/>
+<area shape="poly" title=" " alt="" coords="531,204,570,272,565,275,526,206"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab80a2213cf74b5f27e567dc326accc0c" id="r_ab80a2213cf74b5f27e567dc326accc0c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/class_point_solver.html#ab80a2213cf74b5f27e567dc326accc0c">PointSolver</a> (double k)</td></tr>
-<tr class="memdesc:ab80a2213cf74b5f27e567dc326accc0c"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d9/da5/class_point_solver.html">PointSolver</a> Constructor.  <br /></td></tr>
-<tr class="separator:ab80a2213cf74b5f27e567dc326accc0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabe2a8461b86a9de5771695e77d24698" id="r_aabe2a8461b86a9de5771695e77d24698"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/class_point_solver.html#aabe2a8461b86a9de5771695e77d24698">PointSolver</a> (double k, double lookahead_minimum, double first_last_max_dist)</td></tr>
+<tr class="memdesc:aabe2a8461b86a9de5771695e77d24698"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d9/da5/class_point_solver.html">PointSolver</a> Constructor.  <br /></td></tr>
+<tr class="separator:aabe2a8461b86a9de5771695e77d24698"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94c8ce68f4b5c7808885e713850365db" id="r_a94c8ce68f4b5c7808885e713850365db"><td class="memItemLeft" align="right" valign="top">std::tuple&lt; <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>, int, double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/class_point_solver.html#a94c8ce68f4b5c7808885e713850365db">update_closest_point</a> (const std::vector&lt; custom_interfaces::msg::PathPoint &gt; &amp;pathpoint_array) const</td></tr>
 <tr class="memdesc:a94c8ce68f4b5c7808885e713850365db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the closest point on the path.  <br /></td></tr>
 <tr class="separator:a94c8ce68f4b5c7808885e713850365db"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -131,9 +137,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aab352d6a615eb4e265d8eb9454e45ff8" id="r_aab352d6a615eb4e265d8eb9454e45ff8"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/class_point_solver.html#aab352d6a615eb4e265d8eb9454e45ff8">update_lookahead_distance</a> (double k, double velocity) const</td></tr>
 <tr class="memdesc:aab352d6a615eb4e265d8eb9454e45ff8"><td class="mdescLeft">&#160;</td><td class="mdescRight">update the LookaheadDistance based on a new velocity  <br /></td></tr>
 <tr class="separator:aab352d6a615eb4e265d8eb9454e45ff8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2547e5834c5e2238a69e7b6a96dc1d7a" id="r_a2547e5834c5e2238a69e7b6a96dc1d7a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/class_point_solver.html#a2547e5834c5e2238a69e7b6a96dc1d7a">update_vehicle_pose</a> (const custom_interfaces::msg::VehicleState &amp;vehicle_state_msg)</td></tr>
-<tr class="memdesc:a2547e5834c5e2238a69e7b6a96dc1d7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update vehicle pose.  <br /></td></tr>
-<tr class="separator:a2547e5834c5e2238a69e7b6a96dc1d7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0c3ff7898b19034c85d7d2a096651d2" id="r_aa0c3ff7898b19034c85d7d2a096651d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/class_point_solver.html#aa0c3ff7898b19034c85d7d2a096651d2">update_vehicle_pose</a> (const custom_interfaces::msg::Pose &amp;vehicle_state_msg, double velocity=0.0)</td></tr>
+<tr class="memdesc:aa0c3ff7898b19034c85d7d2a096651d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update vehicle pose.  <br /></td></tr>
+<tr class="separator:aa0c3ff7898b19034c85d7d2a096651d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa71dd65767138784dede3d6623ede3e7" id="r_aa71dd65767138784dede3d6623ede3e7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/class_point_solver.html#aa71dd65767138784dede3d6623ede3e7">FRIEND_TEST</a> (PointSolverTests, Test_update_closest_point_1)</td></tr>
 <tr class="separator:aa71dd65767138784dede3d6623ede3e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8327b873b13a66161792b443097ad0f0" id="r_a8327b873b13a66161792b443097ad0f0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/class_point_solver.html#a8327b873b13a66161792b443097ad0f0">FRIEND_TEST</a> (PointSolverTests, Test_update_lookahead_point_1)</td></tr>
@@ -141,7 +147,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a5ae26697c29c779b29f6ce4a0d34702a" id="r_a5ae26697c29c779b29f6ce4a0d34702a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/class_point_solver.html#a5ae26697c29c779b29f6ce4a0d34702a">dist_cg_2_rear_axis_</a> = <a class="el" href="../../d2/da6/car__parameters_8hpp.html#a7b26123754d1a8572624cb977780b1a8">DIST_CG_2_REAR_AXIS</a></td></tr>
+<tr class="memitem:a5ae26697c29c779b29f6ce4a0d34702a" id="r_a5ae26697c29c779b29f6ce4a0d34702a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/class_point_solver.html#a5ae26697c29c779b29f6ce4a0d34702a">dist_cg_2_rear_axis_</a></td></tr>
+<tr class="memdesc:a5ae26697c29c779b29f6ce4a0d34702a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distance from the center of gravity to the rear axis.  <br /></td></tr>
 <tr class="separator:a5ae26697c29c779b29f6ce4a0d34702a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19035ea0333217b136d55621b91c19f5" id="r_a19035ea0333217b136d55621b91c19f5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d41/structcommon__lib_1_1structures_1_1_vehicle_pose.html">common_lib::structures::VehiclePose</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/class_point_solver.html#a19035ea0333217b136d55621b91c19f5">vehicle_pose_</a></td></tr>
 <tr class="memdesc:a19035ea0333217b136d55621b91c19f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vehicle pose.  <br /></td></tr>
@@ -152,13 +159,22 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a8c1f911c86d00e8cde4d665447366d99" id="r_a8c1f911c86d00e8cde4d665447366d99"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/class_point_solver.html#a8c1f911c86d00e8cde4d665447366d99">k_</a></td></tr>
 <tr class="memdesc:a8c1f911c86d00e8cde4d665447366d99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lookahead gain.  <br /></td></tr>
 <tr class="separator:a8c1f911c86d00e8cde4d665447366d99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc24b0f8ff36471fa79233da5b55c372" id="r_abc24b0f8ff36471fa79233da5b55c372"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/class_point_solver.html#abc24b0f8ff36471fa79233da5b55c372">lookahead_minimum_</a></td></tr>
+<tr class="memdesc:abc24b0f8ff36471fa79233da5b55c372"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimum lookahead distance.  <br /></td></tr>
+<tr class="separator:abc24b0f8ff36471fa79233da5b55c372"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f2fbd783ac84c43d8813b0f36ac802f" id="r_a0f2fbd783ac84c43d8813b0f36ac802f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/class_point_solver.html#a0f2fbd783ac84c43d8813b0f36ac802f">first_last_max_dist_</a></td></tr>
+<tr class="memdesc:a0f2fbd783ac84c43d8813b0f36ac802f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max dist between first and last point of the path to be considered a closed track.  <br /></td></tr>
+<tr class="separator:a0f2fbd783ac84c43d8813b0f36ac802f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac612944a17758d625a4a12f6f7e3e602" id="r_ac612944a17758d625a4a12f6f7e3e602"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d89/class_bicycle_model.html">BicycleModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/class_point_solver.html#ac612944a17758d625a4a12f6f7e3e602">bicycle_model_</a></td></tr>
+<tr class="memdesc:ac612944a17758d625a4a12f6f7e3e602"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bicycle model for vehicle dynamics.  <br /></td></tr>
+<tr class="separator:ac612944a17758d625a4a12f6f7e3e602"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="../../d7/db2/psolver_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../d7/db2/psolver_8hpp_source.html">psolver.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/db2/psolver_8hpp_source.html#l00018">18</a> of file <a class="el" href="../../d7/db2/psolver_8hpp_source.html">psolver.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ab80a2213cf74b5f27e567dc326accc0c" name="ab80a2213cf74b5f27e567dc326accc0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab80a2213cf74b5f27e567dc326accc0c">&#9670;&#160;</a></span>PointSolver()</h2>
+<a id="aabe2a8461b86a9de5771695e77d24698" name="aabe2a8461b86a9de5771695e77d24698"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabe2a8461b86a9de5771695e77d24698">&#9670;&#160;</a></span>PointSolver()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -170,8 +186,24 @@ Private Attributes</h2></td></tr>
           <td class="memname">PointSolver::PointSolver </td>
           <td>(</td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>k</em></td><td>)</td>
+          <td class="paramname"><em>k</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>lookahead_minimum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>first_last_max_dist</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -184,7 +216,7 @@ Private Attributes</h2></td></tr>
 <p><a class="el" href="../../d9/da5/class_point_solver.html">PointSolver</a> Constructor. </p>
 <p><a class="el" href="../../d9/da5/class_point_solver.html">PointSolver</a> Constructer. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/db4/psolver_8cpp_source.html#l00009">9</a> of file <a class="el" href="../../d9/db4/psolver_8cpp_source.html">psolver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/db4/psolver_8cpp_source.html#l00010">10</a> of file <a class="el" href="../../d9/db4/psolver_8cpp_source.html">psolver.cpp</a>.</p>
 
 </div>
 </div>
@@ -277,7 +309,7 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/db4/psolver_8cpp_source.html#l00035">35</a> of file <a class="el" href="../../d9/db4/psolver_8cpp_source.html">psolver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/db4/psolver_8cpp_source.html#l00040">40</a> of file <a class="el" href="../../d9/db4/psolver_8cpp_source.html">psolver.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -293,21 +325,19 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/da5/class_point_solver_a94c8ce68f4b5c7808885e713850365db_icgraph.png" border="0" usemap="#ad9/da5/class_point_solver_a94c8ce68f4b5c7808885e713850365db_icgraph" alt=""/></div>
 <map name="ad9/da5/class_point_solver_a94c8ce68f4b5c7808885e713850365db_icgraph" id="ad9/da5/class_point_solver_a94c8ce68f4b5c7808885e713850365db_icgraph">
-<area shape="rect" title="Find the closest point on the path." alt="" coords="661,98,795,139"/>
-<area shape="rect" href="../../d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="458,80,613,106"/>
-<area shape="poly" title=" " alt="" coords="646,110,613,106,614,100,646,105"/>
-<area shape="rect" href="../../d8/d8c/psolver__test_8cpp.html#a8d74cb064ec790a0f3d4db3ab2cd4172" title="Test Point Solver &#45; update_closest_point()" alt="" coords="509,129,563,155"/>
-<area shape="poly" title=" " alt="" coords="646,131,564,142,563,136,646,126"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="263,39,410,80"/>
-<area shape="poly" title=" " alt="" coords="442,80,410,74,411,69,443,75"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#acf7089ed69eb7488fae4904f66f1e2b8" title=" " alt="" coords="267,105,406,145"/>
-<area shape="poly" title=" " alt="" coords="443,110,406,116,406,111,442,105"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868" title=" " alt="" coords="5,5,215,31"/>
-<area shape="poly" title=" " alt="" coords="247,46,184,34,185,29,248,41"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,55,215,80"/>
-<area shape="poly" title=" " alt="" coords="247,65,215,66,215,61,247,60"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#af96e527b6595820c565d6beeafe3da5f" title=" " alt="" coords="25,112,195,138"/>
-<area shape="poly" title=" " alt="" coords="251,128,195,128,195,122,251,122"/>
+<area shape="rect" title="Find the closest point on the path." alt="" coords="681,64,815,105"/>
+<area shape="rect" href="../../d7/d49/class_control.html#ad14d8041b3b0b0c567e6ef8adc09488f" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="478,46,633,72"/>
+<area shape="poly" title=" " alt="" coords="666,76,633,72,634,67,666,71"/>
+<area shape="rect" href="../../d8/d8c/psolver__test_8cpp.html#a8d74cb064ec790a0f3d4db3ab2cd4172" title="Test Point Solver &#45; update_closest_point()" alt="" coords="529,96,583,121"/>
+<area shape="poly" title=" " alt="" coords="666,97,584,108,583,102,666,92"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#ae0ee1acf54556bbbd4dfde3da216a3f3" title="Callback for the pacsim ground truth pose topic." alt="" coords="263,5,430,46"/>
+<area shape="poly" title=" " alt="" coords="462,47,430,42,431,36,463,42"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#acf7089ed69eb7488fae4904f66f1e2b8" title=" " alt="" coords="277,71,416,111"/>
+<area shape="poly" title=" " alt="" coords="463,76,417,83,416,78,462,71"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868" title=" " alt="" coords="5,13,215,39"/>
+<area shape="poly" title=" " alt="" coords="248,28,215,28,215,23,248,23"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#af96e527b6595820c565d6beeafe3da5f" title=" " alt="" coords="25,78,195,104"/>
+<area shape="poly" title=" " alt="" coords="261,94,195,94,195,88,261,88"/>
 </map>
 </div>
 
@@ -341,7 +371,7 @@ Here is the caller graph for this function:</div>
 
 <p>update the LookaheadDistance based on a new velocity </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/db4/psolver_8cpp_source.html#l00143">143</a> of file <a class="el" href="../../d9/db4/psolver_8cpp_source.html">psolver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/db4/psolver_8cpp_source.html#l00165">165</a> of file <a class="el" href="../../d9/db4/psolver_8cpp_source.html">psolver.cpp</a>.</p>
 
 </div>
 </div>
@@ -380,7 +410,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>std::tuple&lt;common_lib::structures::Position, double, bool&gt; lookahead point, velocity and error status (1 = error) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/db4/psolver_8cpp_source.html#l00055">55</a> of file <a class="el" href="../../d9/db4/psolver_8cpp_source.html">psolver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/db4/psolver_8cpp_source.html#l00060">60</a> of file <a class="el" href="../../d9/db4/psolver_8cpp_source.html">psolver.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -396,28 +426,24 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/da5/class_point_solver_ad11abaf305721e003e1c952e37e1320e_icgraph.png" border="0" usemap="#ad9/da5/class_point_solver_ad11abaf305721e003e1c952e37e1320e_icgraph" alt=""/></div>
 <map name="ad9/da5/class_point_solver_ad11abaf305721e003e1c952e37e1320e_icgraph" id="ad9/da5/class_point_solver_ad11abaf305721e003e1c952e37e1320e_icgraph">
-<area shape="rect" title="Update Lookahead point." alt="" coords="661,98,795,139"/>
-<area shape="rect" href="../../d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="458,80,613,106"/>
-<area shape="poly" title=" " alt="" coords="646,110,613,106,614,100,646,105"/>
-<area shape="rect" href="../../d8/d8c/psolver__test_8cpp.html#aa527f0a4d89eafe54c175d40ef51193a" title="Test Point Solver &#45; update_lookahead_point()" alt="" coords="509,129,563,155"/>
-<area shape="poly" title=" " alt="" coords="646,131,564,142,563,136,646,126"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="263,39,410,80"/>
-<area shape="poly" title=" " alt="" coords="442,80,410,74,411,69,443,75"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#acf7089ed69eb7488fae4904f66f1e2b8" title=" " alt="" coords="267,105,406,145"/>
-<area shape="poly" title=" " alt="" coords="443,110,406,116,406,111,442,105"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868" title=" " alt="" coords="5,5,215,31"/>
-<area shape="poly" title=" " alt="" coords="247,46,184,34,185,29,248,41"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,55,215,80"/>
-<area shape="poly" title=" " alt="" coords="247,65,215,66,215,61,247,60"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#af96e527b6595820c565d6beeafe3da5f" title=" " alt="" coords="25,112,195,138"/>
-<area shape="poly" title=" " alt="" coords="251,128,195,128,195,122,251,122"/>
+<area shape="rect" title="Update Lookahead point." alt="" coords="681,39,815,79"/>
+<area shape="rect" href="../../d7/d49/class_control.html#ad14d8041b3b0b0c567e6ef8adc09488f" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="478,46,633,72"/>
+<area shape="poly" title=" " alt="" coords="666,62,634,62,634,56,666,56"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#ae0ee1acf54556bbbd4dfde3da216a3f3" title="Callback for the pacsim ground truth pose topic." alt="" coords="263,5,430,46"/>
+<area shape="poly" title=" " alt="" coords="462,47,430,42,431,36,463,42"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#acf7089ed69eb7488fae4904f66f1e2b8" title=" " alt="" coords="277,71,416,111"/>
+<area shape="poly" title=" " alt="" coords="463,76,417,83,416,78,462,71"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868" title=" " alt="" coords="5,13,215,39"/>
+<area shape="poly" title=" " alt="" coords="248,28,215,28,215,23,248,23"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#af96e527b6595820c565d6beeafe3da5f" title=" " alt="" coords="25,78,195,104"/>
+<area shape="poly" title=" " alt="" coords="261,94,195,94,195,88,261,88"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a2547e5834c5e2238a69e7b6a96dc1d7a" name="a2547e5834c5e2238a69e7b6a96dc1d7a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2547e5834c5e2238a69e7b6a96dc1d7a">&#9670;&#160;</a></span>update_vehicle_pose()</h2>
+<a id="aa0c3ff7898b19034c85d7d2a096651d2" name="aa0c3ff7898b19034c85d7d2a096651d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0c3ff7898b19034c85d7d2a096651d2">&#9670;&#160;</a></span>update_vehicle_pose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -425,9 +451,19 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void PointSolver::update_vehicle_pose </td>
           <td>(</td>
-          <td class="paramtype">const custom_interfaces::msg::VehicleState &amp;&#160;</td>
-          <td class="paramname"><em>vehicle_state_msg</em></td><td>)</td>
+          <td class="paramtype">const custom_interfaces::msg::Pose &amp;&#160;</td>
+          <td class="paramname"><em>pose</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>velocity</em> = <code>0.0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -440,41 +476,65 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/db4/psolver_8cpp_source.html#l00016">16</a> of file <a class="el" href="../../d9/db4/psolver_8cpp_source.html">psolver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/db4/psolver_8cpp_source.html#l00021">21</a> of file <a class="el" href="../../d9/db4/psolver_8cpp_source.html">psolver.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d9/da5/class_point_solver_a2547e5834c5e2238a69e7b6a96dc1d7a_cgraph.png" border="0" usemap="#ad9/da5/class_point_solver_a2547e5834c5e2238a69e7b6a96dc1d7a_cgraph" alt=""/></div>
-<map name="ad9/da5/class_point_solver_a2547e5834c5e2238a69e7b6a96dc1d7a_cgraph" id="ad9/da5/class_point_solver_a2547e5834c5e2238a69e7b6a96dc1d7a_cgraph">
+<div class="center"><img src="../../d9/da5/class_point_solver_aa0c3ff7898b19034c85d7d2a096651d2_cgraph.png" border="0" usemap="#ad9/da5/class_point_solver_aa0c3ff7898b19034c85d7d2a096651d2_cgraph" alt=""/></div>
+<map name="ad9/da5/class_point_solver_aa0c3ff7898b19034c85d7d2a096651d2_cgraph" id="ad9/da5/class_point_solver_aa0c3ff7898b19034c85d7d2a096651d2_cgraph">
 <area shape="rect" title="Update vehicle pose." alt="" coords="5,5,139,46"/>
-<area shape="rect" href="../../d4/d1a/namespacecommon__lib_1_1vehicle__dynamics.html#aecf44e20f904287db0e4c2b8f4b426a4" title="Calculate rear axis coordinates." alt="" coords="187,5,363,46"/>
+<area shape="rect" href="../../d6/d89/class_bicycle_model.html#af0255660859d8df684381332a87114a7" title="Calculates the position of the rear axis given the position of the center of mass,..." alt="" coords="187,5,313,46"/>
 <area shape="poly" title=" " alt="" coords="139,23,171,23,171,28,139,28"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d9/da5/class_point_solver_a2547e5834c5e2238a69e7b6a96dc1d7a_icgraph.png" border="0" usemap="#ad9/da5/class_point_solver_a2547e5834c5e2238a69e7b6a96dc1d7a_icgraph" alt=""/></div>
-<map name="ad9/da5/class_point_solver_a2547e5834c5e2238a69e7b6a96dc1d7a_icgraph" id="ad9/da5/class_point_solver_a2547e5834c5e2238a69e7b6a96dc1d7a_icgraph">
-<area shape="rect" title="Update vehicle pose." alt="" coords="661,73,795,113"/>
-<area shape="rect" href="../../d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="458,80,613,106"/>
-<area shape="poly" title=" " alt="" coords="646,96,614,96,614,90,646,90"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="263,39,410,80"/>
-<area shape="poly" title=" " alt="" coords="442,80,410,74,411,69,443,75"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#acf7089ed69eb7488fae4904f66f1e2b8" title=" " alt="" coords="267,105,406,145"/>
-<area shape="poly" title=" " alt="" coords="443,110,406,116,406,111,442,105"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868" title=" " alt="" coords="5,5,215,31"/>
-<area shape="poly" title=" " alt="" coords="247,46,184,34,185,29,248,41"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,55,215,80"/>
-<area shape="poly" title=" " alt="" coords="247,65,215,66,215,61,247,60"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#af96e527b6595820c565d6beeafe3da5f" title=" " alt="" coords="25,112,195,138"/>
-<area shape="poly" title=" " alt="" coords="251,128,195,128,195,122,251,122"/>
+<div class="center"><img src="../../d9/da5/class_point_solver_aa0c3ff7898b19034c85d7d2a096651d2_icgraph.png" border="0" usemap="#ad9/da5/class_point_solver_aa0c3ff7898b19034c85d7d2a096651d2_icgraph" alt=""/></div>
+<map name="ad9/da5/class_point_solver_aa0c3ff7898b19034c85d7d2a096651d2_icgraph" id="ad9/da5/class_point_solver_aa0c3ff7898b19034c85d7d2a096651d2_icgraph">
+<area shape="rect" title="Update vehicle pose." alt="" coords="681,39,815,79"/>
+<area shape="rect" href="../../d7/d49/class_control.html#ad14d8041b3b0b0c567e6ef8adc09488f" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="478,46,633,72"/>
+<area shape="poly" title=" " alt="" coords="666,62,634,62,634,56,666,56"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#ae0ee1acf54556bbbd4dfde3da216a3f3" title="Callback for the pacsim ground truth pose topic." alt="" coords="263,5,430,46"/>
+<area shape="poly" title=" " alt="" coords="462,47,430,42,431,36,463,42"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#acf7089ed69eb7488fae4904f66f1e2b8" title=" " alt="" coords="277,71,416,111"/>
+<area shape="poly" title=" " alt="" coords="463,76,417,83,416,78,462,71"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868" title=" " alt="" coords="5,13,215,39"/>
+<area shape="poly" title=" " alt="" coords="248,28,215,28,215,23,248,23"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#af96e527b6595820c565d6beeafe3da5f" title=" " alt="" coords="25,78,195,104"/>
+<area shape="poly" title=" " alt="" coords="261,94,195,94,195,88,261,88"/>
 </map>
 </div>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="ac612944a17758d625a4a12f6f7e3e602" name="ac612944a17758d625a4a12f6f7e3e602"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac612944a17758d625a4a12f6f7e3e602">&#9670;&#160;</a></span>bicycle_model_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d6/d89/class_bicycle_model.html">BicycleModel</a> PointSolver::bicycle_model_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bicycle model for vehicle dynamics. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d7/db2/psolver_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../d7/db2/psolver_8hpp_source.html">psolver.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a5ae26697c29c779b29f6ce4a0d34702a" name="a5ae26697c29c779b29f6ce4a0d34702a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5ae26697c29c779b29f6ce4a0d34702a">&#9670;&#160;</a></span>dist_cg_2_rear_axis_</h2>
 
@@ -482,12 +542,43 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double PointSolver::dist_cg_2_rear_axis_ = <a class="el" href="../../d2/da6/car__parameters_8hpp.html#a7b26123754d1a8572624cb977780b1a8">DIST_CG_2_REAR_AXIS</a></td>
+          <td class="memname">double PointSolver::dist_cg_2_rear_axis_</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">      <a class="code hl_variable" href="../../d2/dcd/motion__lib_2include_2motion__lib_2car__parameters_8hpp.html#a7b26123754d1a8572624cb977780b1a8">DIST_CG_2_REAR_AXIS</a></div>
+<div class="ttc" id="amotion__lib_2include_2motion__lib_2car__parameters_8hpp_html_a7b26123754d1a8572624cb977780b1a8"><div class="ttname"><a href="../../d2/dcd/motion__lib_2include_2motion__lib_2car__parameters_8hpp.html#a7b26123754d1a8572624cb977780b1a8">DIST_CG_2_REAR_AXIS</a></div><div class="ttdeci">constexpr double DIST_CG_2_REAR_AXIS</div><div class="ttdef"><b>Definition</b> <a href="../../d2/dcd/motion__lib_2include_2motion__lib_2car__parameters_8hpp_source.html#l00007">car_parameters.hpp:7</a></div></div>
+</div><!-- fragment -->
+<p>Distance from the center of gravity to the rear axis. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/db2/psolver_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../d7/db2/psolver_8hpp_source.html">psolver.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/db2/psolver_8hpp_source.html#l00027">27</a> of file <a class="el" href="../../d7/db2/psolver_8hpp_source.html">psolver.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0f2fbd783ac84c43d8813b0f36ac802f" name="a0f2fbd783ac84c43d8813b0f36ac802f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f2fbd783ac84c43d8813b0f36ac802f">&#9670;&#160;</a></span>first_last_max_dist_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double PointSolver::first_last_max_dist_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Max dist between first and last point of the path to be considered a closed track. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d7/db2/psolver_8hpp_source.html#l00022">22</a> of file <a class="el" href="../../d7/db2/psolver_8hpp_source.html">psolver.hpp</a>.</p>
 
 </div>
 </div>
@@ -512,9 +603,34 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Lookahead gain. </p>
-<p>Distance from the center of gravity to the rear axis </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/db2/psolver_8hpp_source.html#l00019">19</a> of file <a class="el" href="../../d7/db2/psolver_8hpp_source.html">psolver.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/db2/psolver_8hpp_source.html#l00020">20</a> of file <a class="el" href="../../d7/db2/psolver_8hpp_source.html">psolver.hpp</a>.</p>
+
+</div>
+</div>
+<a id="abc24b0f8ff36471fa79233da5b55c372" name="abc24b0f8ff36471fa79233da5b55c372"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc24b0f8ff36471fa79233da5b55c372">&#9670;&#160;</a></span>lookahead_minimum_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double PointSolver::lookahead_minimum_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Minimum lookahead distance. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d7/db2/psolver_8hpp_source.html#l00021">21</a> of file <a class="el" href="../../d7/db2/psolver_8hpp_source.html">psolver.hpp</a>.</p>
 
 </div>
 </div>
@@ -532,7 +648,7 @@ Here is the caller graph for this function:</div>
 
 <p>Vehicle pose. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/db2/psolver_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../d7/db2/psolver_8hpp_source.html">psolver.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/db2/psolver_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../d7/db2/psolver_8hpp_source.html">psolver.hpp</a>.</p>
 
 </div>
 </div>

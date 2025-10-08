@@ -1,0 +1,6 @@
+<map id="JCBB::search_branch_and_bound" name="JCBB::search_branch_and_bound">
+<area shape="rect" id="Node000001" title="Recursive branch and bound search to find the best hypothesis." alt="" coords="171,29,317,70"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="273,16,262,10,244,8,227,10,217,14,213,20,215,28,209,29,208,19,213,10,226,5,244,3,264,5,275,11"/>
+<area shape="rect" id="Node000002" href="$df/dd3/class_j_c_b_b.html#a4d6cd448ce584b69a3d4b37bd309f07f" title="Perform data association using the Joint Compatibility Branch &amp; Bound algorithm." alt="" coords="5,37,123,63"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="155,52,123,52,123,47,155,47"/>
+</map>

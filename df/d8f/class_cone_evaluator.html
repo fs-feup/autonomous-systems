@@ -93,47 +93,138 @@ $(document).ready(function(){initNavTree('df/d8f/class_cone_evaluator.html','../
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d2/d97/class_cone_evaluator-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">ConeEvaluator Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+  <div class="headertitle"><div class="title">ConeEvaluator Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Abstract class that represents an heurisic that evaluates the cluster as a cone.  
+<p>class that evaluates the cluster as a cone on a [0,1] confidence value  
  <a href="../../df/d8f/class_cone_evaluator.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../de/d4e/cone__evaluator_8hpp_source.html">cone_evaluator.hpp</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for ConeEvaluator:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../df/db7/class_cone_evaluator__inherit__graph.png" border="0" usemap="#a_cone_evaluator_inherit__map" alt="Inheritance graph"/></div>
-<map name="a_cone_evaluator_inherit__map" id="a_cone_evaluator_inherit__map">
-<area shape="rect" title="Abstract class that represents an heurisic that evaluates the cluster as a cone." alt="" coords="11,5,132,71"/>
-<area shape="rect" href="../../d0/d47/class_distance_predict.html" title="Cone heurisitic evaluation based on distance." alt="" coords="5,119,137,224"/>
-<area shape="poly" title=" " alt="" coords="74,85,74,119,69,119,69,85"/>
-</map>
-</div>
 <div class="dynheader">
 Collaboration diagram for ConeEvaluator:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d2/dbc/class_cone_evaluator__coll__graph.png" border="0" usemap="#a_cone_evaluator_coll__map" alt="Collaboration graph"/></div>
 <map name="a_cone_evaluator_coll__map" id="a_cone_evaluator_coll__map">
-<area shape="rect" title="Abstract class that represents an heurisic that evaluates the cluster as a cone." alt="" coords="5,5,127,71"/>
+<area shape="rect" title="class that evaluates the cluster as a cone on a [0,1] confidence value" alt="" coords="5,5,127,91"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1851f3d4634f725c6581d58a03cb0c3c" id="r_a1851f3d4634f725c6581d58a03cb0c3c"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d8f/class_cone_evaluator.html#a1851f3d4634f725c6581d58a03cb0c3c">evaluateCluster</a> (<a class="el" href="../../d2/d23/class_cluster.html">Cluster</a> &amp;cluster) const =0</td></tr>
-<tr class="memdesc:a1851f3d4634f725c6581d58a03cb0c3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform the cluster evaluation.  <br /></td></tr>
-<tr class="separator:a1851f3d4634f725c6581d58a03cb0c3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0858b5a585761e01c34d76ea33d41899" id="r_a0858b5a585761e01c34d76ea33d41899"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d8f/class_cone_evaluator.html#a0858b5a585761e01c34d76ea33d41899">ConeEvaluator</a> (std::shared_ptr&lt; <a class="el" href="../../d9/d9f/struct_evaluator_parameters.html">EvaluatorParameters</a> &gt; params)</td></tr>
+<tr class="memdesc:a0858b5a585761e01c34d76ea33d41899"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new <a class="el" href="../../d2/d55/class_deviation_validator.html" title="Validates clusters using the standard deviation on xOy plane and on the z axis.">DeviationValidator</a> object with specified intervals on the deviation.  <br /></td></tr>
+<tr class="separator:a0858b5a585761e01c34d76ea33d41899"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b94fae114035f93a4356d406bc669bf" id="r_a2b94fae114035f93a4356d406bc669bf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d8f/class_cone_evaluator.html#a2b94fae114035f93a4356d406bc669bf">evaluateCluster</a> (<a class="el" href="../../d2/d23/class_cluster.html">Cluster</a> &amp;cluster, <a class="el" href="../../d2/d8d/class_plane.html">Plane</a> &amp;ground_plane)</td></tr>
+<tr class="memdesc:a2b94fae114035f93a4356d406bc669bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform the cluster evaluation, changes the clusters confidence attribute to the obtained result.  <br /></td></tr>
+<tr class="separator:a2b94fae114035f93a4356d406bc669bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a679382457df2fd1c091429e819d7446b" id="r_a679382457df2fd1c091429e819d7446b"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d9/d9f/struct_evaluator_parameters.html">EvaluatorParameters</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d8f/class_cone_evaluator.html#a679382457df2fd1c091429e819d7446b">params_</a></td></tr>
+<tr class="separator:a679382457df2fd1c091429e819d7446b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Abstract class that represents an heurisic that evaluates the cluster as a cone. </p>
+<div class="textblock"><p>class that evaluates the cluster as a cone on a [0,1] confidence value </p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d4e/cone__evaluator_8hpp_source.html#l00010">10</a> of file <a class="el" href="../../de/d4e/cone__evaluator_8hpp_source.html">cone_evaluator.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a1851f3d4634f725c6581d58a03cb0c3c" name="a1851f3d4634f725c6581d58a03cb0c3c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1851f3d4634f725c6581d58a03cb0c3c">&#9670;&#160;</a></span>evaluateCluster()</h2>
+<p class="definition">Definition at line <a class="el" href="../../de/d4e/cone__evaluator_8hpp_source.html#l00013">13</a> of file <a class="el" href="../../de/d4e/cone__evaluator_8hpp_source.html">cone_evaluator.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a0858b5a585761e01c34d76ea33d41899" name="a0858b5a585761e01c34d76ea33d41899"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0858b5a585761e01c34d76ea33d41899">&#9670;&#160;</a></span>ConeEvaluator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ConeEvaluator::ConeEvaluator </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="../../d9/d9f/struct_evaluator_parameters.html">EvaluatorParameters</a> &gt;&#160;</td>
+          <td class="paramname"><em>params</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructs a new <a class="el" href="../../d2/d55/class_deviation_validator.html" title="Validates clusters using the standard deviation on xOy plane and on the z axis.">DeviationValidator</a> object with specified intervals on the deviation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">params</td><td>Struct with all validators, weights and minimum confidence. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/d25/cone__evaluator_8cpp_source.html#l00003">3</a> of file <a class="el" href="../../d4/d25/cone__evaluator_8cpp_source.html">cone_evaluator.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a2b94fae114035f93a4356d406bc669bf" name="a2b94fae114035f93a4356d406bc669bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b94fae114035f93a4356d406bc669bf">&#9670;&#160;</a></span>evaluateCluster()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ConeEvaluator::evaluateCluster </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d2/d23/class_cluster.html">Cluster</a> &amp;&#160;</td>
+          <td class="paramname"><em>cluster</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d2/d8d/class_plane.html">Plane</a> &amp;&#160;</td>
+          <td class="paramname"><em>ground_plane</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Perform the cluster evaluation, changes the clusters confidence attribute to the obtained result. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cluster</td><td><a class="el" href="../../d2/d23/class_cluster.html" title="Represents a cluster of 3D points using PCL (Point Cloud Library).">Cluster</a> to evaluate. </td></tr>
+    <tr><td class="paramname">ground_plane</td><td>The plane against which some validators compare the cluster. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if cluster is equal or above minimum confidence and false if below. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/d25/cone__evaluator_8cpp_source.html#l00005">5</a> of file <a class="el" href="../../d4/d25/cone__evaluator_8cpp_source.html">cone_evaluator.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../df/d8f/class_cone_evaluator_a2b94fae114035f93a4356d406bc669bf_cgraph.png" border="0" usemap="#adf/d8f/class_cone_evaluator_a2b94fae114035f93a4356d406bc669bf_cgraph" alt=""/></div>
+<map name="adf/d8f/class_cone_evaluator_a2b94fae114035f93a4356d406bc669bf_cgraph" id="adf/d8f/class_cone_evaluator_a2b94fae114035f93a4356d406bc669bf_cgraph">
+<area shape="rect" title="Perform the cluster evaluation, changes the clusters confidence attribute to the obtained result." alt="" coords="5,5,207,31"/>
+<area shape="rect" href="../../d2/d23/class_cluster.html#a1f3911dcb4349857b466d5f09627c47d" title="Set the Confidence of the cluster to be or not to be a cone." alt="" coords="255,5,410,31"/>
+<area shape="poly" title=" " alt="" coords="207,16,239,16,239,21,207,21"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../df/d8f/class_cone_evaluator_a2b94fae114035f93a4356d406bc669bf_icgraph.png" border="0" usemap="#adf/d8f/class_cone_evaluator_a2b94fae114035f93a4356d406bc669bf_icgraph" alt=""/></div>
+<map name="adf/d8f/class_cone_evaluator_a2b94fae114035f93a4356d406bc669bf_icgraph" id="adf/d8f/class_cone_evaluator_a2b94fae114035f93a4356d406bc669bf_icgraph">
+<area shape="rect" title="Perform the cluster evaluation, changes the clusters confidence attribute to the obtained result." alt="" coords="108,31,309,56"/>
+<area shape="rect" href="../../d1/d69/cone__evaluator__test_8cpp.html#ab5e55810325802b3dc0b3c707dd44ff5" title="Test when confidence is insufficient." alt="" coords="5,5,60,31"/>
+<area shape="poly" title=" " alt="" coords="100,30,60,25,61,19,100,25"/>
+<area shape="rect" href="../../d1/d69/cone__evaluator__test_8cpp.html#a3986a0a05e70445cc0095f943c977beb" title="Test when confidence is sufficient." alt="" coords="5,55,60,80"/>
+<area shape="poly" title=" " alt="" coords="95,62,60,67,60,61,95,56"/>
+</map>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a679382457df2fd1c091429e819d7446b" name="a679382457df2fd1c091429e819d7446b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a679382457df2fd1c091429e819d7446b">&#9670;&#160;</a></span>params_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -142,35 +233,23 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual double ConeEvaluator::evaluateCluster </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d2/d23/class_cluster.html">Cluster</a> &amp;&#160;</td>
-          <td class="paramname"><em>cluster</em></td><td>)</td>
-          <td> const</td>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d9/d9f/struct_evaluator_parameters.html">EvaluatorParameters</a>&gt; ConeEvaluator::params_</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Perform the cluster evaluation. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cluster</td><td><a class="el" href="../../d2/d23/class_cluster.html" title="Represents a cluster of 3D points using PCL (Point Cloud Library).">Cluster</a> to evaluate </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>double <a class="el" href="../../d2/d23/class_cluster.html" title="Represents a cluster of 3D points using PCL (Point Cloud Library).">Cluster</a>'s confidence &isin; [0,1] </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d0/d47/class_distance_predict.html#a30fefe0b7264263220f3a38b6a873838">DistancePredict</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d4e/cone__evaluator_8hpp_source.html#l00015">15</a> of file <a class="el" href="../../de/d4e/cone__evaluator_8hpp_source.html">cone_evaluator.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/perception/include/cone_evaluator/<a class="el" href="../../de/d4e/cone__evaluator_8hpp_source.html">cone_evaluator.hpp</a></li>
+<li>src/perception/src/cone_evaluator/<a class="el" href="../../d4/d25/cone__evaluator_8cpp_source.html">cone_evaluator.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

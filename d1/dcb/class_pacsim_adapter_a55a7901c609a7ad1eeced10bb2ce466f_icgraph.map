@@ -1,0 +1,5 @@
+<map id="PacsimAdapter::_pacsim_perception_subscription_callback" name="PacsimAdapter::_pacsim_perception_subscription_callback">
+<area shape="rect" id="Node000001" title="Callback for simulated perception detections from pacsim." alt="" coords="259,5,424,61"/>
+<area shape="rect" id="Node000002" href="$d1/dcb/class_pacsim_adapter.html#ad557c789fd4da581c9d487abb5af4dc5" title="Constructor of the pacsim adapter node." alt="" coords="5,20,211,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="243,36,211,36,211,31,243,31"/>
+</map>

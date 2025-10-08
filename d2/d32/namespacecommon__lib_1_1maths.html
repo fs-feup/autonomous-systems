@@ -118,11 +118,23 @@ Functions</h2></td></tr>
 <tr class="memitem:ad0d064c1af2031dc0a6bd45d4ca0981d" id="r_ad0d064c1af2031dc0a6bd45d4ca0981d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d32/namespacecommon__lib_1_1maths.html#ad0d064c1af2031dc0a6bd45d4ca0981d">copy_eigen_sparse_matrix</a> (const Eigen::SparseMatrix&lt; float &gt; &amp;original, Eigen::SparseMatrix&lt; float &gt; &amp;copy)</td></tr>
 <tr class="separator:ad0d064c1af2031dc0a6bd45d4ca0981d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd35b7873c51d71ad7ee2396007da7a3" id="r_acd35b7873c51d71ad7ee2396007da7a3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d32/namespacecommon__lib_1_1maths.html#acd35b7873c51d71ad7ee2396007da7a3">normalize_angle</a> (double angle)</td></tr>
-<tr class="memdesc:acd35b7873c51d71ad7ee2396007da7a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to keep angle between 0 and 2Pi radians.  <br /></td></tr>
+<tr class="memdesc:acd35b7873c51d71ad7ee2396007da7a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to keep angle in [-Pi, Pi[ radians.  <br /></td></tr>
 <tr class="separator:acd35b7873c51d71ad7ee2396007da7a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4068519b32978679e461dc19e2b3a5fd" id="r_a4068519b32978679e461dc19e2b3a5fd"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d32/namespacecommon__lib_1_1maths.html#a4068519b32978679e461dc19e2b3a5fd">get_wheel_velocity_from_rpm</a> (const double rpm, const double wheel_diameter)</td></tr>
 <tr class="memdesc:a4068519b32978679e461dc19e2b3a5fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to get the translational velocity of a wheel from rpm and wheel diameter.  <br /></td></tr>
 <tr class="separator:a4068519b32978679e461dc19e2b3a5fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3155563fdd77267916f4362c3c976f11" id="r_a3155563fdd77267916f4362c3c976f11"><td class="memItemLeft" align="right" valign="top">Eigen::Matrix2d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d32/namespacecommon__lib_1_1maths.html#a3155563fdd77267916f4362c3c976f11">get_rotation_matrix</a> (const double angle)</td></tr>
+<tr class="memdesc:a3155563fdd77267916f4362c3c976f11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to get the rotation matrix for a given angle.  <br /></td></tr>
+<tr class="separator:a3155563fdd77267916f4362c3c976f11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa410135a945d4a6a152c17faf6e9ee5e" id="r_aa410135a945d4a6a152c17faf6e9ee5e"><td class="memItemLeft" align="right" valign="top">Eigen::Vector2d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d32/namespacecommon__lib_1_1maths.html#aa410135a945d4a6a152c17faf6e9ee5e">cartesian_to_cylindrical</a> (const Eigen::Vector2d &amp;cartesian)</td></tr>
+<tr class="memdesc:aa410135a945d4a6a152c17faf6e9ee5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to convert cartesian coordinates to cylindrical coordinates.  <br /></td></tr>
+<tr class="separator:aa410135a945d4a6a152c17faf6e9ee5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0ad3296dc284d5471c4035f3d63ad82" id="r_ab0ad3296dc284d5471c4035f3d63ad82"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d32/namespacecommon__lib_1_1maths.html#ab0ad3296dc284d5471c4035f3d63ad82">global_to_local_coordinates</a> (const Eigen::Vector3d &amp;local_reference_frame, const Eigen::VectorXd &amp;global_points)</td></tr>
+<tr class="memdesc:ab0ad3296dc284d5471c4035f3d63ad82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform points from a global reference frame to a local reference frame.  <br /></td></tr>
+<tr class="separator:ab0ad3296dc284d5471c4035f3d63ad82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae863ab27f119e71801d039179cba64b7" id="r_ae863ab27f119e71801d039179cba64b7"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d32/namespacecommon__lib_1_1maths.html#ae863ab27f119e71801d039179cba64b7">local_to_global_coordinates</a> (const Eigen::Vector3d &amp;local_reference_frame, const Eigen::VectorXd &amp;local_points)</td></tr>
+<tr class="memdesc:ae863ab27f119e71801d039179cba64b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform points from a local reference frame to a global reference frame.  <br /></td></tr>
+<tr class="separator:ae863ab27f119e71801d039179cba64b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="aa8a0bc2a3bbcbb54e11a8c1862cab93a" name="aa8a0bc2a3bbcbb54e11a8c1862cab93a"></a>
@@ -184,48 +196,52 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d2/d32/namespacecommon__lib_1_1maths_a158ecb4f5554792fc31db938539c8008_icgraph.png" border="0" usemap="#ad2/d32/namespacecommon__lib_1_1maths_a158ecb4f5554792fc31db938539c8008_icgraph" alt=""/></div>
 <map name="ad2/d32/namespacecommon__lib_1_1maths_a158ecb4f5554792fc31db938539c8008_icgraph" id="ad2/d32/namespacecommon__lib_1_1maths_a158ecb4f5554792fc31db938539c8008_icgraph">
-<area shape="rect" title="Function used to calculate the angle between two vectors and their norms." alt="" coords="1572,35,1711,75"/>
-<area shape="rect" href="../../de/df9/structcommon__lib_1_1maths_1_1_angle_and_norms.html#a792ab711f237f3f0350a3e8eed525d0b" title=" " alt="" coords="1306,5,1524,46"/>
-<area shape="poly" title=" " alt="" coords="1556,47,1524,42,1524,37,1556,41"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a248d064be09d7eb7ebc907f466ac73be" title="calculate the cost of coloring a cone" alt="" coords="1321,70,1509,96"/>
-<area shape="poly" title=" " alt="" coords="1557,68,1510,74,1509,69,1556,63"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#aafe5e30f212d3003208aa4024815de2d" title="Useful when using memory to delete cones which after some times being detected become too close." alt="" coords="1111,29,1258,70"/>
-<area shape="poly" title=" " alt="" coords="1306,70,1258,63,1259,58,1307,65"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#ad5fa063af400585b82f1320a756fc4a4" title="select the next cone (which minimizes the cost) to be colored if its cost is less than the maximum es..." alt="" coords="1117,95,1253,135"/>
-<area shape="poly" title=" " alt="" coords="1306,101,1254,108,1253,103,1305,96"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a1baaec47531589cb1eb5c70d634782a5" title="color all cones" alt="" coords="931,63,1063,103"/>
-<area shape="poly" title=" " alt="" coords="1096,68,1064,74,1063,69,1095,63"/>
-<area shape="rect" href="../../d9/d46/cpp-python-bridge_8cpp.html#a9ae92c90568fcd2e8a6f65376a61456b" title=" " alt="" coords="746,13,869,39"/>
-<area shape="poly" title=" " alt="" coords="915,61,852,42,853,37,917,56"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="732,63,883,103"/>
-<area shape="poly" title=" " alt="" coords="915,86,883,86,883,80,915,80"/>
-<area shape="rect" href="../../d2/de6/cone__coloring__tests_8cpp.html#ae0eb2417c307a7e6015466adfe20b14d" title="test the full cone coloring algorithm in 20 tracks." alt="" coords="780,128,835,153"/>
-<area shape="poly" title=" " alt="" coords="917,110,836,135,834,130,915,105"/>
-<area shape="rect" href="../../d9/d46/cpp-python-bridge_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="565,13,614,39"/>
-<area shape="poly" title=" " alt="" coords="730,28,615,28,615,23,730,23"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="521,136,659,177"/>
-<area shape="poly" title=" " alt="" coords="732,111,653,138,652,133,730,106"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a53d5a67d438860be75a3d9e0bc0df8c3" title="Callback for vehicle localization updates (undefined)." alt="" coords="495,63,684,103"/>
-<area shape="poly" title=" " alt="" coords="717,86,685,86,685,80,717,80"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,160,444,185"/>
-<area shape="poly" title=" " alt="" coords="505,165,445,169,444,164,505,159"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructor for the Planning class." alt="" coords="291,110,419,136"/>
-<area shape="poly" title=" " alt="" coords="505,147,419,135,419,129,505,142"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,209,429,250"/>
-<area shape="poly" title=" " alt="" coords="509,184,423,211,422,206,507,179"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,110,195,136"/>
-<area shape="poly" title=" " alt="" coords="272,158,177,139,178,134,273,153"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,217,215,243"/>
-<area shape="poly" title=" " alt="" coords="266,232,215,232,215,227,266,227"/>
-<area shape="poly" title=" " alt="" coords="480,104,419,115,419,110,479,99"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,61,446,87"/>
-<area shape="poly" title=" " alt="" coords="479,81,446,80,446,75,480,76"/>
-<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,12,447,37"/>
-<area shape="poly" title=" " alt="" coords="490,61,409,40,410,35,492,56"/>
-<area shape="poly" title=" " alt="" coords="273,93,178,112,177,107,272,88"/>
-<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,12,198,37"/>
-<area shape="poly" title=" " alt="" coords="247,27,198,27,198,22,247,22"/>
-<area shape="poly" title=" " alt="" coords="1101,103,1063,97,1064,92,1102,98"/>
+<area shape="rect" title="Function used to calculate the angle between two vectors and their norms." alt="" coords="271,5,410,46"/>
+<area shape="rect" href="../../de/df9/structcommon__lib_1_1maths_1_1_angle_and_norms.html#a792ab711f237f3f0350a3e8eed525d0b" title=" " alt="" coords="5,5,223,46"/>
+<area shape="poly" title=" " alt="" coords="255,28,223,28,223,23,255,23"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aa410135a945d4a6a152c17faf6e9ee5e" name="aa410135a945d4a6a152c17faf6e9ee5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa410135a945d4a6a152c17faf6e9ee5e">&#9670;&#160;</a></span>cartesian_to_cylindrical()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::Vector2d common_lib::maths::cartesian_to_cylindrical </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::Vector2d &amp;&#160;</td>
+          <td class="paramname"><em>cartesian</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to convert cartesian coordinates to cylindrical coordinates. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cartesian</td><td>Coordinates in cartesian </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Eigen::Vector2d Coordinates in cylindrical [range, angle] </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d6/dd0/transformations_8cpp_source.html#l00027">27</a> of file <a class="el" href="../../d6/dd0/transformations_8cpp_source.html">transformations.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d2/d32/namespacecommon__lib_1_1maths_aa410135a945d4a6a152c17faf6e9ee5e_icgraph.png" border="0" usemap="#ad2/d32/namespacecommon__lib_1_1maths_aa410135a945d4a6a152c17faf6e9ee5e_icgraph" alt=""/></div>
+<map name="ad2/d32/namespacecommon__lib_1_1maths_aa410135a945d4a6a152c17faf6e9ee5e_icgraph" id="ad2/d32/namespacecommon__lib_1_1maths_aa410135a945d4a6a152c17faf6e9ee5e_icgraph">
+<area shape="rect" title="Function to convert cartesian coordinates to cylindrical coordinates." alt="" coords="474,39,630,79"/>
+<area shape="rect" href="../../d4/dca/class_graph_s_l_a_m_instance.html#a7501de0af12933b297d61ca341fb3171" title="Add observation factors to the graph." alt="" coords="277,39,426,79"/>
+<area shape="poly" title=" " alt="" coords="458,62,426,62,426,56,458,56"/>
+<area shape="rect" href="../../d9/d73/class_graph_s_l_a_m_solver.html#a40faaba4cec75f1aeda8b35b756512c2" title="Asynchronous optimization routine." alt="" coords="5,5,229,46"/>
+<area shape="poly" title=" " alt="" coords="261,49,229,44,230,39,261,44"/>
+<area shape="rect" href="../../d9/d73/class_graph_s_l_a_m_solver.html#a7ab911e5d048186ee5a58fdef4fb71ae" title="Add observations to the solver (correction step)" alt="" coords="38,71,196,111"/>
+<area shape="poly" title=" " alt="" coords="262,74,196,83,196,78,261,69"/>
 </map>
 </div>
 
@@ -258,6 +274,77 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="../../dc/da8/matrixes_8cpp_source.html#l00004">4</a> of file <a class="el" href="../../dc/da8/matrixes_8cpp_source.html">matrixes.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3155563fdd77267916f4362c3c976f11" name="a3155563fdd77267916f4362c3c976f11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3155563fdd77267916f4362c3c976f11">&#9670;&#160;</a></span>get_rotation_matrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::Matrix2d common_lib::maths::get_rotation_matrix </td>
+          <td>(</td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>angle</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to get the rotation matrix for a given angle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">angle</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Eigen::Matrix2d </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d6/dd0/transformations_8cpp_source.html#l00021">21</a> of file <a class="el" href="../../d6/dd0/transformations_8cpp_source.html">transformations.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d2/d32/namespacecommon__lib_1_1maths_a3155563fdd77267916f4362c3c976f11_icgraph.png" border="0" usemap="#ad2/d32/namespacecommon__lib_1_1maths_a3155563fdd77267916f4362c3c976f11_icgraph" alt=""/></div>
+<map name="ad2/d32/namespacecommon__lib_1_1maths_a3155563fdd77267916f4362c3c976f11_icgraph" id="ad2/d32/namespacecommon__lib_1_1maths_a3155563fdd77267916f4362c3c976f11_icgraph">
+<area shape="rect" title="Function to get the rotation matrix for a given angle." alt="" coords="482,415,621,455"/>
+<area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#ab0ad3296dc284d5471c4035f3d63ad82" title="Transform points from a global reference frame to a local reference frame." alt="" coords="253,513,434,554"/>
+<area shape="poly" title=" " alt="" coords="494,465,389,515,387,510,492,460"/>
+<area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#ae863ab27f119e71801d039179cba64b7" title="Transform points from a local reference frame to a global reference frame." alt="" coords="253,268,434,309"/>
+<area shape="poly" title=" " alt="" coords="507,408,372,311,375,307,511,403"/>
+<area shape="rect" href="../../d7/d64/class_observation_model.html#aa84d2f1da536483d055c75f4b4d2a74c" title="transform landmarks&#39; positions from global frame to the car&#39;s frame" alt="" coords="5,596,205,637"/>
+<area shape="poly" title=" " alt="" coords="274,562,206,587,173,598,171,593,204,582,272,557"/>
+<area shape="rect" href="../../dc/d72/transformations__test_8cpp.html#aeecfe6845ab7f7dbe601cf38fb330e2c" title="Randomized scenario where coordinates are transformed from global to local and then back to global." alt="" coords="78,398,132,424"/>
+<area shape="poly" title=" " alt="" coords="306,505,259,470,204,437,167,425,132,417,133,412,168,420,206,433,262,465,309,501"/>
+<area shape="rect" href="../../dc/d72/transformations__test_8cpp.html#ae0c9d51b27f98db868b4a5ea90ebb917" title="Randomized scenario where coordinates are transformed from local to global and then back to local." alt="" coords="78,448,132,473"/>
+<area shape="poly" title=" " alt="" coords="273,510,204,487,132,469,133,463,205,482,275,505"/>
+<area shape="rect" href="../../dc/d72/transformations__test_8cpp.html#ae0c929fe2f12c0fad375743da4c871a6" title="Trivial scenario of transformation from global to local coordinates with no landmarks and trivial sta..." alt="" coords="78,661,132,687"/>
+<area shape="poly" title=" " alt="" coords="314,567,266,610,237,632,206,651,168,665,133,673,132,668,167,660,204,646,234,628,263,606,311,563"/>
+<area shape="rect" href="../../dc/d72/transformations__test_8cpp.html#a96d5c0610f2c1899368deeddd1f89a4d" title="Trivial scenario of transformation from global to local coordinates with no landmarks and non trivial..." alt="" coords="78,710,132,736"/>
+<area shape="poly" title=" " alt="" coords="325,569,277,637,244,672,206,701,169,717,133,724,132,718,168,712,203,697,240,668,273,633,321,566"/>
+<area shape="rect" href="../../dc/d72/transformations__test_8cpp.html#abfa84011adf94b7d5707929a5890d34b" title="test transformation from global to local coordinates with trivial state" alt="" coords="78,497,132,523"/>
+<area shape="poly" title=" " alt="" coords="237,526,133,515,133,510,237,520"/>
+<area shape="rect" href="../../dc/d72/transformations__test_8cpp.html#ab7baadeb17299a3595acf24c2e863182" title="test transformation from global to local coordinates" alt="" coords="78,546,132,572"/>
+<area shape="poly" title=" " alt="" coords="237,548,133,559,133,554,237,542"/>
+<area shape="poly" title=" " alt="" coords="309,321,262,357,206,389,168,402,133,410,132,405,167,397,204,385,259,352,306,317"/>
+<area shape="poly" title=" " alt="" coords="322,323,274,383,242,413,206,439,169,454,133,461,132,455,167,449,203,434,238,409,270,379,318,320"/>
+<area shape="rect" href="../../d9/d73/class_graph_s_l_a_m_solver.html#a7ab911e5d048186ee5a58fdef4fb71ae" title="Add observations to the solver (correction step)" alt="" coords="26,5,184,46"/>
+<area shape="poly" title=" " alt="" coords="328,255,309,210,282,158,247,106,203,61,183,48,186,44,206,57,251,103,287,156,314,208,332,252"/>
+<area shape="rect" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#aa696fa02d40dfc09759fae9473d0d828" title="process obervations of landmarks" alt="" coords="31,71,179,111"/>
+<area shape="poly" title=" " alt="" coords="320,256,271,190,239,156,203,127,178,113,180,108,206,122,243,152,275,187,324,253"/>
+<area shape="rect" href="../../d7/d64/class_observation_model.html#a47e41aea63d317c81b66bd4af0a5b322" title="transforms the landmarks&#39; coordinates from the car&#39;s frame to the global frame" alt="" coords="18,136,192,177"/>
+<area shape="poly" title=" " alt="" coords="305,260,258,224,203,191,178,180,180,175,206,186,261,220,308,256"/>
+<area shape="rect" href="../../dc/d72/transformations__test_8cpp.html#abf14692c40a7f73cd48963d581edf8a8" title="Trivial scenario of transformation from local to global coordinates with no landmarks and trivial sta..." alt="" coords="78,201,132,227"/>
+<area shape="poly" title=" " alt="" coords="275,265,204,240,132,222,133,217,205,235,276,260"/>
+<area shape="rect" href="../../dc/d72/transformations__test_8cpp.html#a9cb48e45588ff42bfa73f76b37ac9996" title="Test with no landmarks and non trivial state." alt="" coords="78,250,132,276"/>
+<area shape="poly" title=" " alt="" coords="237,280,133,268,133,263,237,274"/>
+<area shape="rect" href="../../dc/d72/transformations__test_8cpp.html#ae377b83c82edce760d818c1db2692357" title="Test with trivial state and some landmarks." alt="" coords="78,300,132,325"/>
+<area shape="poly" title=" " alt="" coords="237,302,133,312,133,307,237,296"/>
+<area shape="rect" href="../../dc/d72/transformations__test_8cpp.html#ae6ba48a9f45b22941789c7c9d436ff6a" title="Test transformation from local to global coordinates." alt="" coords="78,349,132,375"/>
+<area shape="poly" title=" " alt="" coords="275,317,205,340,133,359,132,353,204,335,273,312"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -295,13 +382,163 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d2/d32/namespacecommon__lib_1_1maths_a4068519b32978679e461dc19e2b3a5fd_icgraph.png" border="0" usemap="#ad2/d32/namespacecommon__lib_1_1maths_a4068519b32978679e461dc19e2b3a5fd_icgraph" alt=""/></div>
 <map name="ad2/d32/namespacecommon__lib_1_1maths_a4068519b32978679e461dc19e2b3a5fd_icgraph" id="ad2/d32/namespacecommon__lib_1_1maths_a4068519b32978679e461dc19e2b3a5fd_icgraph">
-<area shape="rect" title="Function to get the translational velocity of a wheel from rpm and wheel diameter." alt="" coords="430,35,623,75"/>
-<area shape="rect" href="../../d4/d1a/namespacecommon__lib_1_1vehicle__dynamics.html#a6f4e302b6228b2dbd52b6d37a9685677" title="Converts the odometry data to translational and rotational velocities." alt="" coords="219,27,382,83"/>
-<area shape="poly" title=" " alt="" coords="415,58,382,58,382,52,415,52"/>
-<area shape="rect" href="../../d4/d43/class_s_e_node.html#a5134a7c33ca9cd292c9840f748b36f09" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="5,5,171,46"/>
-<area shape="poly" title=" " alt="" coords="203,44,171,40,172,34,204,39"/>
-<area shape="rect" href="../../d0/d08/vehicle__dynamics__test_8cpp.html#a2e006feda9100c097f7afbbf79420825" title="Tests the conversion from wheel revolutions to velocities using the bycicle model." alt="" coords="61,70,115,96"/>
-<area shape="poly" title=" " alt="" coords="204,70,116,82,115,77,203,65"/>
+<area shape="rect" title="Function to get the translational velocity of a wheel from rpm and wheel diameter." alt="" coords="328,71,521,111"/>
+<area shape="rect" href="../../d6/d89/class_bicycle_model.html#a6241f7fc08de4fbdeeb1307468a7169d" title="assumes a bicycle model and a set of parameters about the vehicle to calculate the velocities of the ..." alt="" coords="121,5,267,46"/>
+<area shape="poly" title=" " alt="" coords="335,69,266,49,268,44,337,63"/>
+<area shape="rect" href="../../d6/d99/class_no_rear_w_s_s_bicycle_model.html#a70b76256be8c9357852c95e870b99dad" title="assumes a bicycle model and a set of parameters about the vehicle to calculate the velocities of the ..." alt="" coords="108,71,280,111"/>
+<area shape="poly" title=" " alt="" coords="313,94,280,94,280,88,313,88"/>
+<area shape="rect" href="../../d9/d8e/class_no_w_s_s_bicycle_model.html#a1b581196f0286cb94f038e5c672f5d47" title="assumes a bicycle model and a set of parameters about the vehicle to calculate the velocities of the ..." alt="" coords="112,136,276,177"/>
+<area shape="poly" title=" " alt="" coords="337,119,269,138,268,133,335,113"/>
+<area shape="rect" href="../../de/d8a/bicycle__model__test_8cpp.html#a2e006feda9100c097f7afbbf79420825" title="Tests the conversion from wheel revolutions to velocities using the bycicle model." alt="" coords="5,13,60,39"/>
+<area shape="poly" title=" " alt="" coords="105,28,60,28,60,23,105,23"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ab0ad3296dc284d5471c4035f3d63ad82" name="ab0ad3296dc284d5471c4035f3d63ad82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0ad3296dc284d5471c4035f3d63ad82">&#9670;&#160;</a></span>global_to_local_coordinates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXd common_lib::maths::global_to_local_coordinates </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::Vector3d &amp;&#160;</td>
+          <td class="paramname"><em>local_reference_frame</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>global_points</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Transform points from a global reference frame to a local reference frame. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">local_reference_frame</td><td>coordinates of the local reference frame in the global reference frame [x, y, rotation angle] </td></tr>
+    <tr><td class="paramname">global_points</td><td>points in the global reference frame in format [x1, y1, x2, y2, ...] </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Eigen::VectorXd points in the local reference frame in format [x1, y1, x2, y2, ...] </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d6/dd0/transformations_8cpp_source.html#l00033">33</a> of file <a class="el" href="../../d6/dd0/transformations_8cpp_source.html">transformations.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d2/d32/namespacecommon__lib_1_1maths_ab0ad3296dc284d5471c4035f3d63ad82_cgraph.png" border="0" usemap="#ad2/d32/namespacecommon__lib_1_1maths_ab0ad3296dc284d5471c4035f3d63ad82_cgraph" alt=""/></div>
+<map name="ad2/d32/namespacecommon__lib_1_1maths_ab0ad3296dc284d5471c4035f3d63ad82_cgraph" id="ad2/d32/namespacecommon__lib_1_1maths_ab0ad3296dc284d5471c4035f3d63ad82_cgraph">
+<area shape="rect" title="Transform points from a global reference frame to a local reference frame." alt="" coords="5,5,187,46"/>
+<area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#a3155563fdd77267916f4362c3c976f11" title="Function to get the rotation matrix for a given angle." alt="" coords="235,5,374,46"/>
+<area shape="poly" title=" " alt="" coords="187,23,219,23,219,28,187,28"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d2/d32/namespacecommon__lib_1_1maths_ab0ad3296dc284d5471c4035f3d63ad82_icgraph.png" border="0" usemap="#ad2/d32/namespacecommon__lib_1_1maths_ab0ad3296dc284d5471c4035f3d63ad82_icgraph" alt=""/></div>
+<map name="ad2/d32/namespacecommon__lib_1_1maths_ab0ad3296dc284d5471c4035f3d63ad82_icgraph" id="ad2/d32/namespacecommon__lib_1_1maths_ab0ad3296dc284d5471c4035f3d63ad82_icgraph">
+<area shape="rect" title="Transform points from a global reference frame to a local reference frame." alt="" coords="253,161,434,202"/>
+<area shape="rect" href="../../d7/d64/class_observation_model.html#aa84d2f1da536483d055c75f4b4d2a74c" title="transform landmarks&#39; positions from global frame to the car&#39;s frame" alt="" coords="5,5,205,46"/>
+<area shape="poly" title=" " alt="" coords="312,152,264,104,234,81,203,60,181,49,183,44,206,55,238,76,267,100,316,148"/>
+<area shape="rect" href="../../dc/d72/transformations__test_8cpp.html#aeecfe6845ab7f7dbe601cf38fb330e2c" title="Randomized scenario where coordinates are transformed from global to local and then back to global." alt="" coords="78,70,132,96"/>
+<area shape="poly" title=" " alt="" coords="295,155,252,131,204,110,132,90,133,85,206,104,254,126,298,151"/>
+<area shape="rect" href="../../dc/d72/transformations__test_8cpp.html#ae0c9d51b27f98db868b4a5ea90ebb917" title="Randomized scenario where coordinates are transformed from local to global and then back to local." alt="" coords="78,120,132,145"/>
+<area shape="poly" title=" " alt="" coords="237,162,132,140,133,135,238,157"/>
+<area shape="rect" href="../../dc/d72/transformations__test_8cpp.html#ae0c929fe2f12c0fad375743da4c871a6" title="Trivial scenario of transformation from global to local coordinates with no landmarks and trivial sta..." alt="" coords="78,169,132,195"/>
+<area shape="poly" title=" " alt="" coords="237,184,133,184,133,179,237,179"/>
+<area shape="rect" href="../../dc/d72/transformations__test_8cpp.html#a96d5c0610f2c1899368deeddd1f89a4d" title="Trivial scenario of transformation from global to local coordinates with no landmarks and non trivial..." alt="" coords="78,218,132,244"/>
+<area shape="poly" title=" " alt="" coords="238,206,133,228,132,223,237,201"/>
+<area shape="rect" href="../../dc/d72/transformations__test_8cpp.html#abfa84011adf94b7d5707929a5890d34b" title="test transformation from global to local coordinates with trivial state" alt="" coords="78,268,132,293"/>
+<area shape="poly" title=" " alt="" coords="298,213,254,237,206,259,133,278,132,273,204,254,252,232,295,208"/>
+<area shape="rect" href="../../dc/d72/transformations__test_8cpp.html#ab7baadeb17299a3595acf24c2e863182" title="test transformation from global to local coordinates" alt="" coords="78,317,132,343"/>
+<area shape="poly" title=" " alt="" coords="317,215,269,263,238,288,206,308,169,322,133,329,132,324,167,317,203,303,235,283,265,260,313,212"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ae863ab27f119e71801d039179cba64b7" name="ae863ab27f119e71801d039179cba64b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae863ab27f119e71801d039179cba64b7">&#9670;&#160;</a></span>local_to_global_coordinates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXd common_lib::maths::local_to_global_coordinates </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::Vector3d &amp;&#160;</td>
+          <td class="paramname"><em>local_reference_frame</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>local_points</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Transform points from a local reference frame to a global reference frame. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">local_reference_frame</td><td>coordinates of the local reference frame in the global reference frame [x, y, rotation angle] </td></tr>
+    <tr><td class="paramname">local_points</td><td>points in the local reference frame in format [x1, y1, x2, y2, ...] </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Eigen::VectorXd points in the global reference frame in format [x1, y1, x2, y2, ...] </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d6/dd0/transformations_8cpp_source.html#l00051">51</a> of file <a class="el" href="../../d6/dd0/transformations_8cpp_source.html">transformations.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d2/d32/namespacecommon__lib_1_1maths_ae863ab27f119e71801d039179cba64b7_cgraph.png" border="0" usemap="#ad2/d32/namespacecommon__lib_1_1maths_ae863ab27f119e71801d039179cba64b7_cgraph" alt=""/></div>
+<map name="ad2/d32/namespacecommon__lib_1_1maths_ae863ab27f119e71801d039179cba64b7_cgraph" id="ad2/d32/namespacecommon__lib_1_1maths_ae863ab27f119e71801d039179cba64b7_cgraph">
+<area shape="rect" title="Transform points from a local reference frame to a global reference frame." alt="" coords="5,5,187,46"/>
+<area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#a3155563fdd77267916f4362c3c976f11" title="Function to get the rotation matrix for a given angle." alt="" coords="235,5,374,46"/>
+<area shape="poly" title=" " alt="" coords="187,23,219,23,219,28,187,28"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d2/d32/namespacecommon__lib_1_1maths_ae863ab27f119e71801d039179cba64b7_icgraph.png" border="0" usemap="#ad2/d32/namespacecommon__lib_1_1maths_ae863ab27f119e71801d039179cba64b7_icgraph" alt=""/></div>
+<map name="ad2/d32/namespacecommon__lib_1_1maths_ae863ab27f119e71801d039179cba64b7_icgraph" id="ad2/d32/namespacecommon__lib_1_1maths_ae863ab27f119e71801d039179cba64b7_icgraph">
+<area shape="rect" title="Transform points from a local reference frame to a global reference frame." alt="" coords="228,243,409,283"/>
+<area shape="rect" href="../../d9/d73/class_graph_s_l_a_m_solver.html#a7ab911e5d048186ee5a58fdef4fb71ae" title="Add observations to the solver (correction step)" alt="" coords="14,5,171,46"/>
+<area shape="poly" title=" " alt="" coords="300,230,280,191,253,146,218,101,178,61,159,49,162,44,181,57,222,97,257,143,285,189,304,228"/>
+<area shape="rect" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#aa696fa02d40dfc09759fae9473d0d828" title="process obervations of landmarks" alt="" coords="19,71,166,111"/>
+<area shape="poly" title=" " alt="" coords="290,232,241,179,211,151,178,127,156,114,158,110,181,122,214,147,245,175,294,229"/>
+<area shape="rect" href="../../d7/d64/class_observation_model.html#a47e41aea63d317c81b66bd4af0a5b322" title="transforms the landmarks&#39; coordinates from the car&#39;s frame to the global frame" alt="" coords="5,136,180,177"/>
+<area shape="poly" title=" " alt="" coords="268,237,179,191,152,180,154,175,181,186,270,232"/>
+<area shape="rect" href="../../dc/d72/transformations__test_8cpp.html#aeecfe6845ab7f7dbe601cf38fb330e2c" title="Randomized scenario where coordinates are transformed from global to local and then back to global." alt="" coords="65,201,120,227"/>
+<area shape="poly" title=" " alt="" coords="212,243,120,222,121,217,213,237"/>
+<area shape="rect" href="../../dc/d72/transformations__test_8cpp.html#ae0c9d51b27f98db868b4a5ea90ebb917" title="Randomized scenario where coordinates are transformed from local to global and then back to local." alt="" coords="65,250,120,276"/>
+<area shape="poly" title=" " alt="" coords="212,266,120,266,120,260,212,260"/>
+<area shape="rect" href="../../dc/d72/transformations__test_8cpp.html#abf14692c40a7f73cd48963d581edf8a8" title="Trivial scenario of transformation from local to global coordinates with no landmarks and trivial sta..." alt="" coords="65,300,120,325"/>
+<area shape="poly" title=" " alt="" coords="213,289,121,309,120,304,212,283"/>
+<area shape="rect" href="../../dc/d72/transformations__test_8cpp.html#a9cb48e45588ff42bfa73f76b37ac9996" title="Test with no landmarks and non trivial state." alt="" coords="65,349,120,375"/>
+<area shape="poly" title=" " alt="" coords="272,294,228,318,181,340,121,358,119,353,179,335,226,313,269,289"/>
+<area shape="rect" href="../../dc/d72/transformations__test_8cpp.html#ae377b83c82edce760d818c1db2692357" title="Test with trivial state and some landmarks." alt="" coords="65,398,120,424"/>
+<area shape="poly" title=" " alt="" coords="291,297,243,345,213,369,181,389,150,402,121,409,120,404,149,397,178,385,210,364,239,341,288,293"/>
+<area shape="rect" href="../../dc/d72/transformations__test_8cpp.html#ae6ba48a9f45b22941789c7c9d436ff6a" title="Test transformation from local to global coordinates." alt="" coords="65,448,120,473"/>
+<area shape="poly" title=" " alt="" coords="301,298,253,370,220,407,181,439,151,453,121,460,119,455,149,448,178,434,216,403,249,366,297,295"/>
 </map>
 </div>
 
@@ -323,7 +560,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Function to keep angle between 0 and 2Pi radians. </p>
+<p>Function to keep angle in [-Pi, Pi[ radians. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">angle</td><td></td></tr>
@@ -338,29 +575,87 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d2/d32/namespacecommon__lib_1_1maths_acd35b7873c51d71ad7ee2396007da7a3_icgraph.png" border="0" usemap="#ad2/d32/namespacecommon__lib_1_1maths_acd35b7873c51d71ad7ee2396007da7a3_icgraph" alt=""/></div>
 <map name="ad2/d32/namespacecommon__lib_1_1maths_acd35b7873c51d71ad7ee2396007da7a3_icgraph" id="ad2/d32/namespacecommon__lib_1_1maths_acd35b7873c51d71ad7ee2396007da7a3_icgraph">
-<area shape="rect" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="325,195,464,236"/>
-<area shape="rect" href="../../d2/d58/class_imu_velocity_model.html#a83c9e2d4b8e321ab0fcfbef5f52b5447" title="Calculate expected state vector from velocity model using IMU data and linear functions Uses translat..." alt="" coords="108,97,277,137"/>
-<area shape="poly" title=" " alt="" coords="336,190,235,140,237,135,338,185"/>
-<area shape="rect" href="../../d7/df9/class_normal_velocity_model.html#a32beb590c4af5f21172b64b34d5f3ea1" title="Calculate expected state vector from velocity model using normal motion data Uses translation velocit..." alt="" coords="112,269,273,309"/>
-<area shape="poly" title=" " alt="" coords="323,244,252,270,250,265,321,239"/>
-<area shape="rect" href="../../d8/dbd/motion__model__test_8cpp.html#ae0937a30b47fc882eb19bb57e6ca6bbf" title=" " alt="" coords="5,5,60,31"/>
-<area shape="poly" title=" " alt="" coords="144,90,54,34,56,29,146,86"/>
-<area shape="rect" href="../../d8/dbd/motion__model__test_8cpp.html#a9c31f0345da32c0c5eaa421433ba5ec3" title=" " alt="" coords="5,55,60,80"/>
-<area shape="poly" title=" " alt="" coords="109,94,59,78,61,73,111,89"/>
-<area shape="rect" href="../../d8/dbd/motion__model__test_8cpp.html#a13d66ed5f0bcb51eb59eaeb8da3fe292" title=" " alt="" coords="5,104,60,130"/>
-<area shape="poly" title=" " alt="" coords="92,120,60,120,60,114,92,114"/>
-<area shape="rect" href="../../d8/dbd/motion__model__test_8cpp.html#a6fbede91fc0c55e0beeee30fb29a34bf" title=" " alt="" coords="5,153,60,179"/>
-<area shape="poly" title=" " alt="" coords="111,145,61,160,59,155,109,140"/>
-<area shape="rect" href="../../d8/dbd/motion__model__test_8cpp.html#a89bd5d192ba500ce6cd5d7ff246df691" title=" " alt="" coords="5,203,60,228"/>
-<area shape="poly" title=" " alt="" coords="131,264,59,230,61,225,134,259"/>
-<area shape="rect" href="../../d8/dbd/motion__model__test_8cpp.html#a4b4be8c03914d03c683a1fecbcbdf310" title=" " alt="" coords="5,252,60,278"/>
-<area shape="poly" title=" " alt="" coords="96,277,60,272,61,266,96,272"/>
-<area shape="rect" href="../../d8/dbd/motion__model__test_8cpp.html#ac536fb8afc350c3ccd4907c25a507b81" title=" " alt="" coords="5,301,60,327"/>
-<area shape="poly" title=" " alt="" coords="97,307,61,313,60,307,96,301"/>
-<area shape="rect" href="../../d8/dbd/motion__model__test_8cpp.html#a985258fd91e481fac6ee05ad73bab7fd" title=" " alt="" coords="5,351,60,376"/>
-<area shape="poly" title=" " alt="" coords="134,319,61,353,59,349,132,314"/>
-<area shape="rect" href="../../d8/dbd/motion__model__test_8cpp.html#abaac5c4600343357227b100565bf0831" title=" " alt="" coords="5,400,60,426"/>
-<area shape="poly" title=" " alt="" coords="155,321,52,402,49,398,151,317"/>
+<area shape="rect" title="Function to keep angle in [&#45;Pi, Pi[ radians." alt="" coords="334,1290,473,1331"/>
+<area shape="rect" href="../../d0/d20/class_v2_p_motion_model.html#a2ba15f03cb8601a500c99519ae32ae15" title="Predict the pose of the robot given the velocities." alt="" coords="125,639,269,680"/>
+<area shape="poly" title=" " alt="" coords="389,1276,202,681,207,679,394,1274"/>
+<area shape="rect" href="../../df/d42/class_constant_velocity_model.html#a55dbcfea1c6e5a7e8023dc349f4e02e7" title="Gives the increments to the pose instead of the next pose." alt="" coords="120,1225,274,1265"/>
+<area shape="poly" title=" " alt="" coords="322,1287,263,1268,265,1263,323,1282"/>
+<area shape="rect" href="../../d4/d11/class_constant_velocity_turnrate_model.html#a822284e035b6a687c31fece00e43f827" title="Gives the increments to the pose instead of the next pose." alt="" coords="108,1290,286,1331"/>
+<area shape="poly" title=" " alt="" coords="319,1313,286,1313,286,1308,319,1308"/>
+<area shape="rect" href="../../d2/d58/class_imu_velocity_model.html#a83c9e2d4b8e321ab0fcfbef5f52b5447" title="Calculate expected state vector from velocity model using IMU data and linear functions Uses translat..." alt="" coords="112,1355,282,1396"/>
+<area shape="poly" title=" " alt="" coords="323,1338,265,1357,263,1352,322,1333"/>
+<area shape="rect" href="../../d7/df9/class_normal_velocity_model.html#a32beb590c4af5f21172b64b34d5f3ea1" title="Calculate expected state vector from velocity model using normal motion data Uses translation velocit..." alt="" coords="116,1551,278,1592"/>
+<area shape="poly" title=" " alt="" coords="379,1345,216,1552,212,1549,374,1342"/>
+<area shape="rect" href="../../d9/df6/constant__velocity__model__test_8cpp.html#ab9ede4b4809354d036af4ebba5af3f91" title="Test the constant velocity model with a backwards movement in the x axis &#45; negative vx." alt="" coords="5,5,60,31"/>
+<area shape="poly" title=" " alt="" coords="192,624,186,520,166,371,149,288,126,204,95,121,57,44,49,33,53,30,62,41,100,119,131,202,154,287,171,370,191,519,198,624"/>
+<area shape="rect" href="../../d9/df6/constant__velocity__model__test_8cpp.html#a5c3cd577551fc32e7f39fd84638a2947" title="Test the constant velocity model with a backwards movement in the x axis &#45; positive vx (paradox)" alt="" coords="5,55,60,80"/>
+<area shape="poly" title=" " alt="" coords="191,624,183,527,162,391,145,315,122,238,93,163,57,93,49,83,53,79,62,90,98,161,127,237,150,314,167,390,188,526,197,624"/>
+<area shape="rect" href="../../d9/df6/constant__velocity__model__test_8cpp.html#a22948b747a4b8d343e4de3b4c2b04ee8" title="Test the constant velocity model with a backwards movement in the x axis &#45; negative vy (paradox)" alt="" coords="5,104,60,130"/>
+<area shape="poly" title=" " alt="" coords="190,624,180,534,157,410,140,342,118,273,91,206,57,142,49,132,53,128,62,139,95,203,123,271,145,341,163,409,185,533,196,623"/>
+<area shape="rect" href="../../d9/df6/constant__velocity__model__test_8cpp.html#a37921664d77b3f0d1b9e609df1acbebd" title="Test the constant velocity model in a straight line movement with a non&#45;zero orientation." alt="" coords="5,153,60,179"/>
+<area shape="poly" title=" " alt="" coords="189,624,177,542,153,431,135,370,114,308,88,248,57,192,49,181,53,177,62,189,93,246,119,306,141,368,158,430,182,541,194,623"/>
+<area shape="rect" href="../../d9/df6/constant__velocity__model__test_8cpp.html#ad51528196f977bfdba6fde03b039daa9" title="Test the constant velocity model in a straight line movement with a negative orientation." alt="" coords="5,203,60,228"/>
+<area shape="poly" title=" " alt="" coords="188,624,173,550,148,452,110,344,86,291,57,241,48,230,53,227,62,238,90,288,115,342,153,450,179,549,193,623"/>
+<area shape="rect" href="../../d9/df6/constant__velocity__model__test_8cpp.html#a9545e5098addd196866fae0dd1799e35" title="Test the constant velocity model in a straight line movement with a perpendicular orientation." alt="" coords="5,252,60,278"/>
+<area shape="poly" title=" " alt="" coords="186,624,170,558,143,473,106,379,83,333,58,290,48,280,52,276,62,287,88,331,111,377,148,471,175,557,191,623"/>
+<area shape="rect" href="../../d9/df6/constant__velocity__model__test_8cpp.html#ac81fa79265d2063b29ac2b3d4daf71b6" title="Test the constant velocity model for angle cap on the orientation update &#45; 2PI." alt="" coords="5,301,60,327"/>
+<area shape="poly" title=" " alt="" coords="183,625,165,568,138,494,102,415,58,340,48,329,52,326,62,337,107,413,143,492,170,566,189,624"/>
+<area shape="rect" href="../../d9/df6/constant__velocity__model__test_8cpp.html#a41b7e43b25e4c4fd173a72e657ff2040" title="Test the constant velocity model for angle cap on the orientation update &#45; 3PI." alt="" coords="5,351,60,376"/>
+<area shape="poly" title=" " alt="" coords="180,626,133,516,98,451,58,389,48,379,52,375,62,386,103,448,138,514,185,623"/>
+<area shape="rect" href="../../d9/df6/constant__velocity__model__test_8cpp.html#a9027258f750be3d24500dc17b87cc1e2" title="Test the constant velocity model for angle cap on the orientation update &#45; &#45;3PI." alt="" coords="5,400,60,426"/>
+<area shape="poly" title=" " alt="" coords="176,627,127,538,94,487,58,439,47,428,51,424,62,435,98,484,131,536,181,624"/>
+<area shape="rect" href="../../d9/df6/constant__velocity__model__test_8cpp.html#a3af3beeb9114e6143a5ed76155e9c624" title="Test the constant velocity model for angle cap on the orientation update &#45; 3PI/2." alt="" coords="5,449,60,475"/>
+<area shape="poly" title=" " alt="" coords="170,628,120,562,58,488,47,477,51,474,62,484,124,559,174,625"/>
+<area shape="rect" href="../../d9/df6/constant__velocity__model__test_8cpp.html#adb4f70bc4ea978177cad561e02e2fc1b" title="Test the constant velocity model for angle cap on the orientation update &#45; &#45;5PI/2." alt="" coords="5,499,60,524"/>
+<area shape="poly" title=" " alt="" coords="160,630,47,527,50,523,163,626"/>
+<area shape="rect" href="../../d9/df6/constant__velocity__model__test_8cpp.html#a3460640d11824d95c81547583b563452" title="Test the constant velocity model with a straight line movement in the x axis &#45; positive vx." alt="" coords="5,548,60,574"/>
+<area shape="poly" title=" " alt="" coords="147,633,54,576,57,572,150,628"/>
+<area shape="rect" href="../../d9/df6/constant__velocity__model__test_8cpp.html#a55475e6da5ba3ce92cfeb8b22fda13df" title="Test the constant velocity model with a straight line movement in the x axis &#45; positive vx." alt="" coords="5,597,60,623"/>
+<area shape="poly" title=" " alt="" coords="112,637,59,621,61,616,113,632"/>
+<area shape="rect" href="../../d9/d91/constant__velocity__turnrate__model__test_8cpp.html#a3c07b286480bb44164e6b0fa0193de76" title="Test the constant velocity and turnrate model with a backwards movement in the x axis &#45; negative vx." alt="" coords="5,647,60,672"/>
+<area shape="poly" title=" " alt="" coords="109,662,60,662,60,657,109,657"/>
+<area shape="rect" href="../../d9/d91/constant__velocity__turnrate__model__test_8cpp.html#a29b0f13dfd988c65f839657bd76ba6f9" title="Test the constant velocity and turnrate model with a backwards movement in the x axis &#45; positive vx (..." alt="" coords="5,696,60,722"/>
+<area shape="poly" title=" " alt="" coords="113,687,61,703,59,698,112,682"/>
+<area shape="rect" href="../../d9/d91/constant__velocity__turnrate__model__test_8cpp.html#a78f14b071d3e3671c583b1dd7aef2e18" title="Test the constant velocity and turnrate model with a backwards movement in the x axis &#45; negative vy (..." alt="" coords="5,745,60,771"/>
+<area shape="poly" title=" " alt="" coords="150,691,57,747,54,743,147,686"/>
+<area shape="rect" href="../../d9/d91/constant__velocity__turnrate__model__test_8cpp.html#a0f24e244f3bb42cb91ae872ccfb7ef60" title="Test the constant velocity and turnrate model in a curvilinear movement with a non&#45;zero orientation." alt="" coords="5,795,60,820"/>
+<area shape="poly" title=" " alt="" coords="163,693,50,796,47,792,160,689"/>
+<area shape="rect" href="../../d9/d91/constant__velocity__turnrate__model__test_8cpp.html#a9b33b71337821d154340654c1590df96" title="Test the constant velocity and turnrate model in a curvilinear movement with a negative orientation." alt="" coords="5,844,60,870"/>
+<area shape="poly" title=" " alt="" coords="174,694,124,760,62,835,51,845,47,842,58,831,120,757,170,691"/>
+<area shape="rect" href="../../d9/d91/constant__velocity__turnrate__model__test_8cpp.html#ad07e3fb4c1f3f0fa757803bb8e53afc2" title="Test the constant velocity and turnrate model in a straight line movement with a perpendicular orient..." alt="" coords="5,893,60,919"/>
+<area shape="poly" title=" " alt="" coords="181,695,131,783,98,835,62,884,51,895,47,891,58,880,94,832,127,781,176,692"/>
+<area shape="rect" href="../../d9/d91/constant__velocity__turnrate__model__test_8cpp.html#a389e4b162b49b14ec7bea8edfe46b265" title="Test the constant velocity and turnrate model for angle cap on the orientation update &#45; 2PI." alt="" coords="5,943,60,968"/>
+<area shape="poly" title=" " alt="" coords="185,696,138,805,103,871,62,933,52,944,48,940,58,930,98,868,133,803,180,693"/>
+<area shape="rect" href="../../d9/d91/constant__velocity__turnrate__model__test_8cpp.html#ae7c7ab06cb95f97d96970e0452714b71" title="Test the constant velocity and turnrate model for angle cap on the orientation update &#45; 3PI." alt="" coords="5,992,60,1018"/>
+<area shape="poly" title=" " alt="" coords="189,695,170,753,143,827,107,906,62,982,52,993,48,990,58,979,102,904,138,825,165,751,183,694"/>
+<area shape="rect" href="../../d9/d91/constant__velocity__turnrate__model__test_8cpp.html#a6ed0c76643c325cd728daf2247d2acdd" title="Test the constant velocity and turnrate model for angle cap on the orientation update &#45; &#45;3PI." alt="" coords="5,1041,60,1067"/>
+<area shape="poly" title=" " alt="" coords="191,696,175,762,148,848,111,942,88,988,62,1032,52,1043,48,1039,58,1029,83,986,106,940,143,846,170,761,186,695"/>
+<area shape="rect" href="../../d9/d91/constant__velocity__turnrate__model__test_8cpp.html#a118bc37361beeac4be468d456374894f" title="Test the constant velocity and turnrate model for angle cap on the orientation update &#45; 3PI/2." alt="" coords="5,1091,60,1116"/>
+<area shape="poly" title=" " alt="" coords="193,696,179,770,153,869,115,977,90,1031,62,1081,53,1092,48,1089,57,1078,86,1028,110,975,148,867,173,769,188,695"/>
+<area shape="rect" href="../../d9/d91/constant__velocity__turnrate__model__test_8cpp.html#a708527f75768972a3495c39dc3defc28" title="Test the constant velocity and turnrate model for angle cap on the orientation update &#45; &#45;5PI/2." alt="" coords="5,1140,60,1166"/>
+<area shape="poly" title=" " alt="" coords="194,696,182,778,158,889,141,951,119,1013,93,1073,62,1130,53,1142,49,1138,57,1127,88,1071,114,1011,135,949,153,888,177,777,189,695"/>
+<area shape="rect" href="../../d9/d91/constant__velocity__turnrate__model__test_8cpp.html#a83efbcac87fba88a6ae8c43f014501c7" title="Test the constant velocity and turnrate model with a straight line movement in the x axis." alt="" coords="5,1189,60,1215"/>
+<area shape="poly" title=" " alt="" coords="196,696,185,786,163,910,145,978,123,1048,95,1116,62,1180,53,1191,49,1187,57,1177,91,1113,118,1046,140,977,157,909,180,785,190,695"/>
+<area shape="rect" href="../../d9/d91/constant__velocity__turnrate__model__test_8cpp.html#a2e485de52fbba29260d7b6848765accb" title="Test the constant velocity and turnrate model with a straight line movement in the x axis." alt="" coords="5,1239,60,1264"/>
+<area shape="poly" title=" " alt="" coords="197,695,188,793,167,929,150,1005,127,1082,98,1158,62,1229,53,1240,49,1236,57,1226,93,1156,122,1081,145,1004,162,928,183,792,191,695"/>
+<area shape="rect" href="../../d8/dbd/motion__model__test_8cpp.html#ae0937a30b47fc882eb19bb57e6ca6bbf" title=" " alt="" coords="5,1288,60,1314"/>
+<area shape="poly" title=" " alt="" coords="122,1351,106,1345,54,1316,57,1312,109,1340,124,1347"/>
+<area shape="rect" href="../../d8/dbd/motion__model__test_8cpp.html#a9c31f0345da32c0c5eaa421433ba5ec3" title=" " alt="" coords="5,1337,60,1363"/>
+<area shape="poly" title=" " alt="" coords="97,1363,60,1357,61,1352,97,1357"/>
+<area shape="rect" href="../../d8/dbd/motion__model__test_8cpp.html#a13d66ed5f0bcb51eb59eaeb8da3fe292" title=" " alt="" coords="5,1387,60,1412"/>
+<area shape="poly" title=" " alt="" coords="97,1393,61,1398,60,1393,97,1387"/>
+<area shape="rect" href="../../d8/dbd/motion__model__test_8cpp.html#a6fbede91fc0c55e0beeee30fb29a34bf" title=" " alt="" coords="5,1436,60,1462"/>
+<area shape="poly" title=" " alt="" coords="137,1405,61,1439,59,1434,135,1400"/>
+<area shape="rect" href="../../d8/dbd/motion__model__test_8cpp.html#a89bd5d192ba500ce6cd5d7ff246df691" title=" " alt="" coords="5,1485,60,1511"/>
+<area shape="poly" title=" " alt="" coords="135,1547,59,1513,61,1508,137,1542"/>
+<area shape="rect" href="../../d8/dbd/motion__model__test_8cpp.html#a4b4be8c03914d03c683a1fecbcbdf310" title=" " alt="" coords="5,1535,60,1560"/>
+<area shape="poly" title=" " alt="" coords="100,1560,60,1554,61,1549,101,1555"/>
+<area shape="rect" href="../../d8/dbd/motion__model__test_8cpp.html#ac536fb8afc350c3ccd4907c25a507b81" title=" " alt="" coords="5,1584,60,1610"/>
+<area shape="poly" title=" " alt="" coords="101,1589,61,1595,60,1590,100,1584"/>
+<area shape="rect" href="../../d8/dbd/motion__model__test_8cpp.html#a985258fd91e481fac6ee05ad73bab7fd" title=" " alt="" coords="5,1633,60,1659"/>
+<area shape="poly" title=" " alt="" coords="137,1601,61,1636,59,1632,135,1596"/>
+<area shape="rect" href="../../d8/dbd/motion__model__test_8cpp.html#abaac5c4600343357227b100565bf0831" title=" " alt="" coords="5,1683,60,1708"/>
+<area shape="poly" title=" " alt="" coords="158,1604,53,1684,49,1680,155,1599"/>
 </map>
 </div>
 

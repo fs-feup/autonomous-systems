@@ -93,7 +93,6 @@ $(document).ready(function(){initNavTree('d1/d5c/class_i_vehicle_model.html','..
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="../../d6/d7b/class_i_vehicle_model-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">IVehicleModel Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
@@ -105,9 +104,9 @@ Inheritance diagram for IVehicleModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../db/d25/class_i_vehicle_model__inherit__graph.png" border="0" usemap="#a_i_vehicle_model_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_i_vehicle_model_inherit__map" id="a_i_vehicle_model_inherit__map">
-<area shape="rect" title=" " alt="" coords="6,5,171,471"/>
-<area shape="rect" href="../../dd/d52/class_vehicle_model_bicycle.html" title=" " alt="" coords="5,519,172,984"/>
-<area shape="poly" title=" " alt="" coords="91,486,91,519,86,519,86,486"/>
+<area shape="rect" title=" " alt="" coords="46,5,213,271"/>
+<area shape="rect" href="../../dd/d52/class_vehicle_model_bicycle.html" title=" " alt="" coords="5,319,253,1179"/>
+<area shape="poly" title=" " alt="" coords="132,286,132,319,127,319,127,286"/>
 </map>
 </div>
 <div class="dynheader">
@@ -115,96 +114,99 @@ Collaboration diagram for IVehicleModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d53/class_i_vehicle_model__coll__graph.png" border="0" usemap="#a_i_vehicle_model_coll__map" alt="Collaboration graph"/></div>
 <map name="a_i_vehicle_model_coll__map" id="a_i_vehicle_model_coll__map">
-<area shape="rect" title=" " alt="" coords="5,179,171,564"/>
-<area shape="rect" title=" " alt="" coords="60,5,116,71"/>
-<area shape="poly" title=" " alt="" coords="91,70,91,162,85,162,85,70"/>
+<area shape="rect" title=" " alt="" coords="5,5,172,271"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:abae9c76bbed49f7709b2d818684fa508" id="r_abae9c76bbed49f7709b2d818684fa508"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#abae9c76bbed49f7709b2d818684fa508">~IVehicleModel</a> ()=default</td></tr>
+<tr class="separator:abae9c76bbed49f7709b2d818684fa508"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af742260557307ef8f7281fb0c8b8be40" id="r_af742260557307ef8f7281fb0c8b8be40"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#af742260557307ef8f7281fb0c8b8be40">readConfig</a> (class <a class="el" href="../../d0/d11/class_config_element.html">ConfigElement</a> &amp;config)=0</td></tr>
+<tr class="separator:af742260557307ef8f7281fb0c8b8be40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a630c1dfbea656feeed68e1ea45239fcb" id="r_a630c1dfbea656feeed68e1ea45239fcb"><td class="memItemLeft" align="right" valign="top">virtual Eigen::Vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a630c1dfbea656feeed68e1ea45239fcb">getPosition</a> ()=0</td></tr>
 <tr class="separator:a630c1dfbea656feeed68e1ea45239fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a568b03a3bfbbccb83efb8ea5020d2c8b" id="r_a568b03a3bfbbccb83efb8ea5020d2c8b"><td class="memItemLeft" align="right" valign="top">virtual Eigen::Vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a568b03a3bfbbccb83efb8ea5020d2c8b">getOrientation</a> ()=0</td></tr>
 <tr class="separator:a568b03a3bfbbccb83efb8ea5020d2c8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cbbbaafe4052fe86b75ac237c72fa34" id="r_a9cbbbaafe4052fe86b75ac237c72fa34"><td class="memItemLeft" align="right" valign="top">virtual Eigen::Vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a9cbbbaafe4052fe86b75ac237c72fa34">getAngularVelocity</a> ()=0</td></tr>
-<tr class="separator:a9cbbbaafe4052fe86b75ac237c72fa34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62130def760f49693c6b12eb00d44b43" id="r_a62130def760f49693c6b12eb00d44b43"><td class="memItemLeft" align="right" valign="top">virtual Eigen::Vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a62130def760f49693c6b12eb00d44b43">getAngularAcceleration</a> ()=0</td></tr>
-<tr class="separator:a62130def760f49693c6b12eb00d44b43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20026e0a2cdb44a094aada9c250f809e" id="r_a20026e0a2cdb44a094aada9c250f809e"><td class="memItemLeft" align="right" valign="top">virtual Eigen::Vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a20026e0a2cdb44a094aada9c250f809e">getVelocity</a> ()=0</td></tr>
 <tr class="separator:a20026e0a2cdb44a094aada9c250f809e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5c6ba2aae450b01408caafa2213b6ed" id="r_ac5c6ba2aae450b01408caafa2213b6ed"><td class="memItemLeft" align="right" valign="top">virtual Eigen::Vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#ac5c6ba2aae450b01408caafa2213b6ed">getAcceleration</a> ()=0</td></tr>
 <tr class="separator:ac5c6ba2aae450b01408caafa2213b6ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cbbbaafe4052fe86b75ac237c72fa34" id="r_a9cbbbaafe4052fe86b75ac237c72fa34"><td class="memItemLeft" align="right" valign="top">virtual Eigen::Vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a9cbbbaafe4052fe86b75ac237c72fa34">getAngularVelocity</a> ()=0</td></tr>
+<tr class="separator:a9cbbbaafe4052fe86b75ac237c72fa34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62130def760f49693c6b12eb00d44b43" id="r_a62130def760f49693c6b12eb00d44b43"><td class="memItemLeft" align="right" valign="top">virtual Eigen::Vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a62130def760f49693c6b12eb00d44b43">getAngularAcceleration</a> ()=0</td></tr>
+<tr class="separator:a62130def760f49693c6b12eb00d44b43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a727c2cfe569c44887ce131ef54064223" id="r_a727c2cfe569c44887ce131ef54064223"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../de/d84/struct_wheels.html">Wheels</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a727c2cfe569c44887ce131ef54064223">getSteeringAngles</a> ()=0</td></tr>
 <tr class="separator:a727c2cfe569c44887ce131ef54064223"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cbc028c1cd15102169ff167efad7500" id="r_a9cbc028c1cd15102169ff167efad7500"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../de/d84/struct_wheels.html">Wheels</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a9cbc028c1cd15102169ff167efad7500">getWheelspeeds</a> ()=0</td></tr>
-<tr class="separator:a9cbc028c1cd15102169ff167efad7500"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6358fb4a0fae07958152ce7af1f4cb78" id="r_a6358fb4a0fae07958152ce7af1f4cb78"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../de/d84/struct_wheels.html">Wheels</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a6358fb4a0fae07958152ce7af1f4cb78">getTorques</a> ()=0</td></tr>
-<tr class="separator:a6358fb4a0fae07958152ce7af1f4cb78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a7a6837b18d1847e388cf1788b9e1f0" id="r_a8a7a6837b18d1847e388cf1788b9e1f0"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../de/d84/struct_wheels.html">Wheels</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a8a7a6837b18d1847e388cf1788b9e1f0">getWheelOrientations</a> ()=0</td></tr>
-<tr class="separator:a8a7a6837b18d1847e388cf1788b9e1f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a135f9035a0e1be21c173668e0952a1cc" id="r_a135f9035a0e1be21c173668e0952a1cc"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a135f9035a0e1be21c173668e0952a1cc">getSteeringWheelAngle</a> ()=0</td></tr>
 <tr class="separator:a135f9035a0e1be21c173668e0952a1cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af808984e345b11892278fe8ac55fe6e2" id="r_af808984e345b11892278fe8ac55fe6e2"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#af808984e345b11892278fe8ac55fe6e2">getVoltageTS</a> ()=0</td></tr>
 <tr class="separator:af808984e345b11892278fe8ac55fe6e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f42ed2ad90f33c998549b834816fc6a" id="r_a0f42ed2ad90f33c998549b834816fc6a"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a0f42ed2ad90f33c998549b834816fc6a">getCurrentTS</a> ()=0</td></tr>
 <tr class="separator:a0f42ed2ad90f33c998549b834816fc6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15cfd65c142325a2f7d79201dad75b68" id="r_a15cfd65c142325a2f7d79201dad75b68"><td class="memItemLeft" align="right" valign="top">virtual std::array&lt; Eigen::Vector3d, 4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a15cfd65c142325a2f7d79201dad75b68">getWheelPositions</a> ()=0</td></tr>
-<tr class="separator:a15cfd65c142325a2f7d79201dad75b68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d04b0926b29086320e90beff638343f" id="r_a7d04b0926b29086320e90beff638343f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a7d04b0926b29086320e90beff638343f">readConfig</a> (<a class="el" href="../../d0/d11/class_config_element.html">ConfigElement</a> &amp;config)=0</td></tr>
-<tr class="separator:a7d04b0926b29086320e90beff638343f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cbc028c1cd15102169ff167efad7500" id="r_a9cbc028c1cd15102169ff167efad7500"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../de/d84/struct_wheels.html">Wheels</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a9cbc028c1cd15102169ff167efad7500">getWheelspeeds</a> ()=0</td></tr>
+<tr class="separator:a9cbc028c1cd15102169ff167efad7500"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a7a6837b18d1847e388cf1788b9e1f0" id="r_a8a7a6837b18d1847e388cf1788b9e1f0"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../de/d84/struct_wheels.html">Wheels</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a8a7a6837b18d1847e388cf1788b9e1f0">getWheelOrientations</a> ()=0</td></tr>
+<tr class="separator:a8a7a6837b18d1847e388cf1788b9e1f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6358fb4a0fae07958152ce7af1f4cb78" id="r_a6358fb4a0fae07958152ce7af1f4cb78"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../de/d84/struct_wheels.html">Wheels</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a6358fb4a0fae07958152ce7af1f4cb78">getTorques</a> ()=0</td></tr>
+<tr class="separator:a6358fb4a0fae07958152ce7af1f4cb78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0342fefcb831a455d92e9aa27f50cd8" id="r_aa0342fefcb831a455d92e9aa27f50cd8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#aa0342fefcb831a455d92e9aa27f50cd8">setTorques</a> (<a class="el" href="../../de/d84/struct_wheels.html">Wheels</a> in)=0</td></tr>
 <tr class="separator:aa0342fefcb831a455d92e9aa27f50cd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6bae3ecf1b1c9d82313db623490c6b34" id="r_a6bae3ecf1b1c9d82313db623490c6b34"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a6bae3ecf1b1c9d82313db623490c6b34">setRpmSetpoints</a> (<a class="el" href="../../de/d84/struct_wheels.html">Wheels</a> in)=0</td></tr>
 <tr class="separator:a6bae3ecf1b1c9d82313db623490c6b34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5af5a3b47cc73b60b0d3fd929406676" id="r_aa5af5a3b47cc73b60b0d3fd929406676"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#aa5af5a3b47cc73b60b0d3fd929406676">setMinTorques</a> (<a class="el" href="../../de/d84/struct_wheels.html">Wheels</a> in)=0</td></tr>
-<tr class="separator:aa5af5a3b47cc73b60b0d3fd929406676"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19bbef0fc15a86e037045406af4b198d" id="r_a19bbef0fc15a86e037045406af4b198d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a19bbef0fc15a86e037045406af4b198d">setMaxTorques</a> (<a class="el" href="../../de/d84/struct_wheels.html">Wheels</a> in)=0</td></tr>
 <tr class="separator:a19bbef0fc15a86e037045406af4b198d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5af5a3b47cc73b60b0d3fd929406676" id="r_aa5af5a3b47cc73b60b0d3fd929406676"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#aa5af5a3b47cc73b60b0d3fd929406676">setMinTorques</a> (<a class="el" href="../../de/d84/struct_wheels.html">Wheels</a> in)=0</td></tr>
+<tr class="separator:aa5af5a3b47cc73b60b0d3fd929406676"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a243b4fd7ff3afe5202bf352b3891e050" id="r_a243b4fd7ff3afe5202bf352b3891e050"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a243b4fd7ff3afe5202bf352b3891e050">setSteeringSetpointFront</a> (double in)=0</td></tr>
 <tr class="separator:a243b4fd7ff3afe5202bf352b3891e050"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab571f54e9c52df1f95c22df5ae17f094" id="r_ab571f54e9c52df1f95c22df5ae17f094"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#ab571f54e9c52df1f95c22df5ae17f094">setSteeringSetpointRear</a> (double in)=0</td></tr>
 <tr class="separator:ab571f54e9c52df1f95c22df5ae17f094"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5731ac15ee4ae8bf24816c3a29885e12" id="r_a5731ac15ee4ae8bf24816c3a29885e12"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a5731ac15ee4ae8bf24816c3a29885e12">setThrottle</a> (double in)=0</td></tr>
+<tr class="separator:a5731ac15ee4ae8bf24816c3a29885e12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad3d69a783398215b9f57dcee49a1d4c9" id="r_ad3d69a783398215b9f57dcee49a1d4c9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#ad3d69a783398215b9f57dcee49a1d4c9">setPowerGroundSetpoint</a> (double in)=0</td></tr>
 <tr class="separator:ad3d69a783398215b9f57dcee49a1d4c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57dc0e83aad06b2d012ea5c55fa0b723" id="r_a57dc0e83aad06b2d012ea5c55fa0b723"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a57dc0e83aad06b2d012ea5c55fa0b723">setPosition</a> (Eigen::Vector3d <a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a0fe6702236f8bb19118777ecb7c3672c">position</a>)=0</td></tr>
+<tr class="memitem:a57dc0e83aad06b2d012ea5c55fa0b723" id="r_a57dc0e83aad06b2d012ea5c55fa0b723"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a57dc0e83aad06b2d012ea5c55fa0b723">setPosition</a> (Eigen::Vector3d position)=0</td></tr>
 <tr class="separator:a57dc0e83aad06b2d012ea5c55fa0b723"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70da564740452e3665f707809cd686b3" id="r_a70da564740452e3665f707809cd686b3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a70da564740452e3665f707809cd686b3">setOrientation</a> (Eigen::Vector3d <a class="el" href="../../d1/d5c/class_i_vehicle_model.html#aa0ddcd2b7788f2a618141047736f1386">orientation</a>)=0</td></tr>
+<tr class="memitem:a70da564740452e3665f707809cd686b3" id="r_a70da564740452e3665f707809cd686b3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a70da564740452e3665f707809cd686b3">setOrientation</a> (Eigen::Vector3d orientation)=0</td></tr>
 <tr class="separator:a70da564740452e3665f707809cd686b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28be58e7b3bf2c03eb46fb4fe6e35248" id="r_a28be58e7b3bf2c03eb46fb4fe6e35248"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a28be58e7b3bf2c03eb46fb4fe6e35248">forwardIntegrate</a> (double dt, <a class="el" href="../../de/d84/struct_wheels.html">Wheels</a> frictionCoefficients)=0</td></tr>
-<tr class="separator:a28be58e7b3bf2c03eb46fb4fe6e35248"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:a0fe6702236f8bb19118777ecb7c3672c" id="r_a0fe6702236f8bb19118777ecb7c3672c"><td class="memItemLeft" align="right" valign="top">Eigen::Vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a0fe6702236f8bb19118777ecb7c3672c">position</a></td></tr>
-<tr class="separator:a0fe6702236f8bb19118777ecb7c3672c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0ddcd2b7788f2a618141047736f1386" id="r_aa0ddcd2b7788f2a618141047736f1386"><td class="memItemLeft" align="right" valign="top">Eigen::Vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#aa0ddcd2b7788f2a618141047736f1386">orientation</a></td></tr>
-<tr class="separator:aa0ddcd2b7788f2a618141047736f1386"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4adb86648210a2e3e78485383ca10006" id="r_a4adb86648210a2e3e78485383ca10006"><td class="memItemLeft" align="right" valign="top">Eigen::Vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a4adb86648210a2e3e78485383ca10006">velocity</a></td></tr>
-<tr class="separator:a4adb86648210a2e3e78485383ca10006"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a143bcffc31341c7467b131a3a931869f" id="r_a143bcffc31341c7467b131a3a931869f"><td class="memItemLeft" align="right" valign="top">Eigen::Vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a143bcffc31341c7467b131a3a931869f">acceleration</a></td></tr>
-<tr class="separator:a143bcffc31341c7467b131a3a931869f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac62ad014af43e82aef42fd3de6f30105" id="r_ac62ad014af43e82aef42fd3de6f30105"><td class="memItemLeft" align="right" valign="top">Eigen::Vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#ac62ad014af43e82aef42fd3de6f30105">angularVelocity</a></td></tr>
-<tr class="separator:ac62ad014af43e82aef42fd3de6f30105"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69d200c1ee3da8198d2f9a00a4afde31" id="r_a69d200c1ee3da8198d2f9a00a4afde31"><td class="memItemLeft" align="right" valign="top">Eigen::Vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a69d200c1ee3da8198d2f9a00a4afde31">angularAcceleration</a></td></tr>
-<tr class="separator:a69d200c1ee3da8198d2f9a00a4afde31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a595478d625d90c04bf8cd9aa8c0e7e2c" id="r_a595478d625d90c04bf8cd9aa8c0e7e2c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d84/struct_wheels.html">Wheels</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a595478d625d90c04bf8cd9aa8c0e7e2c">wheelOrientations</a></td></tr>
-<tr class="separator:a595478d625d90c04bf8cd9aa8c0e7e2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8f68803f523bac7bc6b3d943d516571" id="r_af8f68803f523bac7bc6b3d943d516571"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d84/struct_wheels.html">Wheels</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#af8f68803f523bac7bc6b3d943d516571">wheelspeeds</a></td></tr>
-<tr class="separator:af8f68803f523bac7bc6b3d943d516571"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afda92d39bcc922d699385052a4e01138" id="r_afda92d39bcc922d699385052a4e01138"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d84/struct_wheels.html">Wheels</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#afda92d39bcc922d699385052a4e01138">torques</a></td></tr>
-<tr class="separator:afda92d39bcc922d699385052a4e01138"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae445ba0bcbdfede975088ff20d9bef58" id="r_ae445ba0bcbdfede975088ff20d9bef58"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d84/struct_wheels.html">Wheels</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#ae445ba0bcbdfede975088ff20d9bef58">steeringAngles</a></td></tr>
-<tr class="separator:ae445ba0bcbdfede975088ff20d9bef58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a970af523165362191fb0ee1eed02b0e7" id="r_a970af523165362191fb0ee1eed02b0e7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a970af523165362191fb0ee1eed02b0e7">time</a></td></tr>
-<tr class="separator:a970af523165362191fb0ee1eed02b0e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cc7bf613f40d64ccbfa3710b43bd6e4" id="r_a1cc7bf613f40d64ccbfa3710b43bd6e4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a1cc7bf613f40d64ccbfa3710b43bd6e4">forwardIntegrate</a> (double dt)=0</td></tr>
+<tr class="separator:a1cc7bf613f40d64ccbfa3710b43bd6e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15cfd65c142325a2f7d79201dad75b68" id="r_a15cfd65c142325a2f7d79201dad75b68"><td class="memItemLeft" align="right" valign="top">virtual std::array&lt; Eigen::Vector3d, 4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5c/class_i_vehicle_model.html#a15cfd65c142325a2f7d79201dad75b68">getWheelPositions</a> ()=0</td></tr>
+<tr class="separator:a15cfd65c142325a2f7d79201dad75b68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html#l00008">8</a> of file <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html">VehicleModelInterface.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a28be58e7b3bf2c03eb46fb4fe6e35248" name="a28be58e7b3bf2c03eb46fb4fe6e35248"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28be58e7b3bf2c03eb46fb4fe6e35248">&#9670;&#160;</a></span>forwardIntegrate()</h2>
+<p class="definition">Definition at line <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html#l00010">10</a> of file <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html">VehicleModelInterface.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="abae9c76bbed49f7709b2d818684fa508" name="abae9c76bbed49f7709b2d818684fa508"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abae9c76bbed49f7709b2d818684fa508">&#9670;&#160;</a></span>~IVehicleModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual IVehicleModel::~IVehicleModel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a1cc7bf613f40d64ccbfa3710b43bd6e4" name="a1cc7bf613f40d64ccbfa3710b43bd6e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cc7bf613f40d64ccbfa3710b43bd6e4">&#9670;&#160;</a></span>forwardIntegrate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -216,18 +218,8 @@ Protected Attributes</h2></td></tr>
           <td class="memname">virtual void IVehicleModel::forwardIntegrate </td>
           <td>(</td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>dt</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../de/d84/struct_wheels.html">Wheels</a>&#160;</td>
-          <td class="paramname"><em>frictionCoefficients</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -237,7 +229,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a6f0e4a3a37d89b3d2c1e2525c3a9746d">VehicleModelBicycle</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#ae10b575631a2fad7f3db845aa19c7b8f">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>
@@ -264,7 +256,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#ac93f823402d9b4fe578d850d47309841">VehicleModelBicycle</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#aff2ca17720303f69a82ceaaed474cd23">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>
@@ -291,7 +283,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a527fc84f1e10d714238af79986dff54f">VehicleModelBicycle</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a251e7a42e95c4da567e9ed7962d9a879">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>
@@ -318,7 +310,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#ac7c7b8435efdbeaa1773893c8804a2af">VehicleModelBicycle</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#afff760451e722812c1e0a850140cf21f">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>
@@ -345,7 +337,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a7f801e980243fcf299c332ef07b89fc4">VehicleModelBicycle</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a10db26792483bebe59112d0db24c9f76">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>
@@ -372,7 +364,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a1da417acb51e770cdd2ff627fb7e71fb">VehicleModelBicycle</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#aefa2218bae8d8a6a924d96f4f993069c">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>
@@ -399,7 +391,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#af0aaa3e79211b551df8e959d4f130d82">VehicleModelBicycle</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#ad5c765b15ab285db139d0e1c26706779">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>
@@ -426,7 +418,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a913bfc79fe6a62ea2989f9e1f2606160">VehicleModelBicycle</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a5565bb5365489626c4fbf0e78217f085">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>
@@ -453,7 +445,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#aa424c1d2426a95224d6e698551de3a56">VehicleModelBicycle</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a201172a1167c91746a5cbb617fd60d53">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>
@@ -480,7 +472,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#ab57ba4f6d2f03d17bb68214a37387277">VehicleModelBicycle</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a09d5b45909f2922c8f30ec5ce181c63b">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>
@@ -507,7 +499,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#adaa94f5cc41164f3c50021be0f5e6036">VehicleModelBicycle</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a4c6660fb2387e891f489323a254aa50a">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>
@@ -534,7 +526,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#abec2c540904f4fc09332c12922e41ee2">VehicleModelBicycle</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#af6f19c956330e73d4453a961a6b9a445">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>
@@ -561,7 +553,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a594b08d6a153673bdc70fa4b989c1278">VehicleModelBicycle</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#aa07dff57313a56cfab989bf01008e22d">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>
@@ -588,7 +580,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a14fc67d49fa63a23266a80d5b5887dc4">VehicleModelBicycle</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a07448d526d749c5d69b95cc637184fdc">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>
@@ -615,12 +607,12 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a3f43caac7b8a542afd01f6f8dc636460">VehicleModelBicycle</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a5a828ad40b431af132217466e18fb0e6">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>
-<a id="a7d04b0926b29086320e90beff638343f" name="a7d04b0926b29086320e90beff638343f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d04b0926b29086320e90beff638343f">&#9670;&#160;</a></span>readConfig()</h2>
+<a id="af742260557307ef8f7281fb0c8b8be40" name="af742260557307ef8f7281fb0c8b8be40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af742260557307ef8f7281fb0c8b8be40">&#9670;&#160;</a></span>readConfig()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -631,7 +623,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">virtual bool IVehicleModel::readConfig </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d0/d11/class_config_element.html">ConfigElement</a> &amp;&#160;</td>
+          <td class="paramtype">class <a class="el" href="../../d0/d11/class_config_element.html">ConfigElement</a> &amp;&#160;</td>
           <td class="paramname"><em>config</em></td><td>)</td>
           <td></td>
         </tr>
@@ -643,7 +635,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a73890bf28715fe5ea80c951f3844bed4">VehicleModelBicycle</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#ab3b51a9dc30b76808e1e1a09fcf9ff8e">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>
@@ -671,7 +663,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#abf6c5d4f48895654854416986fcbec98">VehicleModelBicycle</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#ad9d249ad9f3b94ea4f5e3b1e3cec72ee">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>
@@ -699,7 +691,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#ab57a363eec292a2b5a97281383daf29c">VehicleModelBicycle</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a575910123fce3a577178cf30a0b40b80">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>
@@ -727,7 +719,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#ad03375a5f2090712edcb21a1810851d3">VehicleModelBicycle</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a457e3babaf93c4906861342c1e38d1a9">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>
@@ -755,7 +747,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a41b4a8a95977e7781d80c95945c7bd5c">VehicleModelBicycle</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a152cef389ee2ae6359db6c0b814f9542">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>
@@ -783,7 +775,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#aae3b75a1369439216dee0d0ad7dac545">VehicleModelBicycle</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#aa864425034c789ae6baf227828f4575d">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>
@@ -811,7 +803,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a3bcbe2cd2f242540c9297d39495d6fa8">VehicleModelBicycle</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a3cbf06d7bdacdc959ca7a8dce6b7796b">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>
@@ -839,7 +831,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a6cf16b5ead649a45e3ab014351ac94ed">VehicleModelBicycle</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a7ea8d35f6966990896fa80a8e0bc6f21">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>
@@ -867,7 +859,35 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#af7183b18824141783032e7bf58db6fb1">VehicleModelBicycle</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a1ce084af9900304dddf6294654989e24">VehicleModelBicycle</a>.</p>
+
+</div>
+</div>
+<a id="a5731ac15ee4ae8bf24816c3a29885e12" name="a5731ac15ee4ae8bf24816c3a29885e12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5731ac15ee4ae8bf24816c3a29885e12">&#9670;&#160;</a></span>setThrottle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void IVehicleModel::setThrottle </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>in</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a24e1c19605209116b79e06c53e596519">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>
@@ -895,272 +915,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#afd1d1e04ac9bb3939cdce177dafc4956">VehicleModelBicycle</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a143bcffc31341c7467b131a3a931869f" name="a143bcffc31341c7467b131a3a931869f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a143bcffc31341c7467b131a3a931869f">&#9670;&#160;</a></span>acceleration</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::Vector3d IVehicleModel::acceleration</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html#l00047">47</a> of file <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html">VehicleModelInterface.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a69d200c1ee3da8198d2f9a00a4afde31" name="a69d200c1ee3da8198d2f9a00a4afde31"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a69d200c1ee3da8198d2f9a00a4afde31">&#9670;&#160;</a></span>angularAcceleration</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::Vector3d IVehicleModel::angularAcceleration</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html#l00050">50</a> of file <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html">VehicleModelInterface.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ac62ad014af43e82aef42fd3de6f30105" name="ac62ad014af43e82aef42fd3de6f30105"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac62ad014af43e82aef42fd3de6f30105">&#9670;&#160;</a></span>angularVelocity</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::Vector3d IVehicleModel::angularVelocity</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html#l00049">49</a> of file <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html">VehicleModelInterface.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aa0ddcd2b7788f2a618141047736f1386" name="aa0ddcd2b7788f2a618141047736f1386"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0ddcd2b7788f2a618141047736f1386">&#9670;&#160;</a></span>orientation</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::Vector3d IVehicleModel::orientation</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html#l00044">44</a> of file <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html">VehicleModelInterface.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a0fe6702236f8bb19118777ecb7c3672c" name="a0fe6702236f8bb19118777ecb7c3672c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0fe6702236f8bb19118777ecb7c3672c">&#9670;&#160;</a></span>position</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::Vector3d IVehicleModel::position</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html#l00043">43</a> of file <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html">VehicleModelInterface.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ae445ba0bcbdfede975088ff20d9bef58" name="ae445ba0bcbdfede975088ff20d9bef58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae445ba0bcbdfede975088ff20d9bef58">&#9670;&#160;</a></span>steeringAngles</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../de/d84/struct_wheels.html">Wheels</a> IVehicleModel::steeringAngles</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html#l00056">56</a> of file <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html">VehicleModelInterface.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a970af523165362191fb0ee1eed02b0e7" name="a970af523165362191fb0ee1eed02b0e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a970af523165362191fb0ee1eed02b0e7">&#9670;&#160;</a></span>time</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double IVehicleModel::time</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html#l00058">58</a> of file <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html">VehicleModelInterface.hpp</a>.</p>
-
-</div>
-</div>
-<a id="afda92d39bcc922d699385052a4e01138" name="afda92d39bcc922d699385052a4e01138"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afda92d39bcc922d699385052a4e01138">&#9670;&#160;</a></span>torques</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../de/d84/struct_wheels.html">Wheels</a> IVehicleModel::torques</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html#l00055">55</a> of file <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html">VehicleModelInterface.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a4adb86648210a2e3e78485383ca10006" name="a4adb86648210a2e3e78485383ca10006"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4adb86648210a2e3e78485383ca10006">&#9670;&#160;</a></span>velocity</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::Vector3d IVehicleModel::velocity</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html#l00046">46</a> of file <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html">VehicleModelInterface.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a595478d625d90c04bf8cd9aa8c0e7e2c" name="a595478d625d90c04bf8cd9aa8c0e7e2c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a595478d625d90c04bf8cd9aa8c0e7e2c">&#9670;&#160;</a></span>wheelOrientations</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../de/d84/struct_wheels.html">Wheels</a> IVehicleModel::wheelOrientations</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html#l00052">52</a> of file <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html">VehicleModelInterface.hpp</a>.</p>
-
-</div>
-</div>
-<a id="af8f68803f523bac7bc6b3d943d516571" name="af8f68803f523bac7bc6b3d943d516571"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8f68803f523bac7bc6b3d943d516571">&#9670;&#160;</a></span>wheelspeeds</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../de/d84/struct_wheels.html">Wheels</a> IVehicleModel::wheelspeeds</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html#l00053">53</a> of file <a class="el" href="../../de/d67/_vehicle_model_interface_8hpp_source.html">VehicleModelInterface.hpp</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#a48ddcd5bca75a997d6bc54e1a67ae22a">VehicleModelBicycle</a>.</p>
 
 </div>
 </div>

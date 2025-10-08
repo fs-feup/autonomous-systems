@@ -1,5 +1,5 @@
 <map id="RANSACTest" name="RANSACTest">
-<area shape="rect" id="Node000001" title="Test class for setting up data and testing RANSAC algorithm." alt="" coords="5,119,139,224"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="30,5,114,71"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,85,75,119,69,119,69,85"/>
+<area shape="rect" id="Node000001" title="Test class for setting up data and testing RANSAC algorithm." alt="" coords="5,119,161,264"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="41,5,125,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="86,86,86,119,81,119,81,86"/>
 </map>

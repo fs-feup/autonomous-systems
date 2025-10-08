@@ -1,9 +1,0 @@
-<map id="TEST" name="TEST">
-<area shape="rect" id="Node000001" title="test the full cone coloring algorithm in a large track" alt="" coords="5,31,60,56"/>
-<area shape="rect" id="Node000002" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a7581946a647c2a991f5e80cbcf2980af" title="Retrieves a cone vector from a file." alt="" coords="108,5,256,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,36,92,31,93,36,61,42"/>
-<area shape="rect" id="Node000004" href="$d2/de6/cone__coloring__tests_8cpp.html#a4d88be56ae76d2a3e3608c9b5251d9b2" title="Function to validate cone coloring." alt="" coords="117,55,247,80"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="60,45,102,52,101,57,60,50"/>
-<area shape="rect" id="Node000003" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a82e479b6e5401fd9ab2dc0a0851f0a55" title="Opens a file for reading." alt="" coords="304,5,408,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="256,16,289,16,289,21,256,21"/>
-</map>

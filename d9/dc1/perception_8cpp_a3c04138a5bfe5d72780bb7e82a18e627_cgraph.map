@@ -1,5 +1,7 @@
 <map id="main" name="main">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,55,31"/>
-<area shape="rect" id="Node000002" href="$d7/d69/perception_2include_2perception_2parameters__factory_8hpp.html#a77e91e2c05753c6d34d8316e7433294c" title=" " alt="" coords="103,5,270,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="55,16,87,16,87,21,55,21"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,13,55,39"/>
+<area shape="rect" id="Node000002" href="$de/d07/class_perception.html#a386ba1a3deb02d41931aeef1c52645f5" title="Turns the parameters in the yaml file into PerceptionParameters class." alt="" coords="103,13,257,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="55,23,87,23,87,28,55,28"/>
+<area shape="rect" id="Node000003" href="$de/dca/namespacecommon__lib_1_1config__load.html#a1b7b070d3b2eb3e25bf4d0effc5fea08" title=" " alt="" coords="305,5,488,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="257,23,289,23,289,28,257,28"/>
 </map>

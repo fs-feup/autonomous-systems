@@ -1,0 +1,9 @@
+<map id="VENode" name="VENode">
+<area shape="rect" id="Node000001" title="Node class for the velocity estimation node." alt="" coords="147,119,289,244"/>
+<area shape="rect" id="Node000003" href="$d1/dcb/class_pacsim_adapter.html" title="Adapter class for the pacsim simulator." alt="" coords="5,337,204,911"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="201,259,181,338,175,337,196,258"/>
+<area shape="rect" id="Node000004" href="$d1/df1/class_vehicle_adapter.html" title="Adapter class for the vehicle." alt="" coords="229,292,437,956"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="240,258,249,292,244,293,235,259"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="175,5,261,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="221,86,221,119,215,119,215,86"/>
+</map>

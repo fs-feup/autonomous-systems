@@ -1,5 +1,7 @@
 <map id="ExtendedKalmanFilter::update" name="ExtendedKalmanFilter::update">
-<area shape="rect" id="Node000001" title="Updates vehicle state and map variables according to the state vector x_vector" alt="" coords="228,5,375,46"/>
-<area shape="rect" id="Node000002" href="$db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#abc9743c5e60d6794e50b918cf5c12f15" title="Stop the thread." alt="" coords="5,5,180,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="212,28,180,28,180,23,212,23"/>
+<area shape="rect" id="Node000001" title="Updates vehicle state and map variables according to the state vector x_vector" alt="" coords="272,27,419,68"/>
+<area shape="rect" id="Node000002" href="$d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a8a079d78fabe3578dc7038a75af16fb9" title="Stop the thread." alt="" coords="5,5,224,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="256,39,220,34,221,29,257,34"/>
+<area shape="rect" id="Node000003" href="$db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#abc9743c5e60d6794e50b918cf5c12f15" title="Stop the thread." alt="" coords="27,55,202,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="256,61,203,68,202,62,256,56"/>
 </map>

@@ -5,6 +5,8 @@ var dir_afda8ecf9b6e07e6d6de6966570c3753 =
     [ "cone_differentiation", "dir_26da03fa71fe530075369c7d94f7fcf1.html", "dir_26da03fa71fe530075369c7d94f7fcf1" ],
     [ "cone_evaluator", "dir_d8c4ad9b0d3691cbed065bd7ab1473fb.html", "dir_d8c4ad9b0d3691cbed065bd7ab1473fb" ],
     [ "cone_validator", "dir_ca8d338fdbf757a3af6e8bb2d4e899d1.html", "dir_ca8d338fdbf757a3af6e8bb2d4e899d1" ],
+    [ "deskew", "dir_5470d62c5edbfe4888c1ee359263e808.html", "dir_5470d62c5edbfe4888c1ee359263e808" ],
+    [ "fov_trimming", "dir_90b302eb30a86fd0e23e92a95287dd23.html", "dir_90b302eb30a86fd0e23e92a95287dd23" ],
     [ "ground_removal", "dir_cfffb8e24a6699345e950f1d267d6872.html", "dir_cfffb8e24a6699345e950f1d267d6872" ],
     [ "icp", "dir_993a9e231d6afeed81f01c63200ff565.html", "dir_993a9e231d6afeed81f01c63200ff565" ],
     [ "perception", "dir_7a6f4da30c641d92d3bb5b6ac70555c9.html", "dir_7a6f4da30c641d92d3bb5b6ac70555c9" ],

@@ -1,5 +1,9 @@
 <map id="LeastSquaresDifferentiationTest" name="LeastSquaresDifferentiationTest">
-<area shape="rect" id="Node000001" title="Fixture for testing the LeastSquaresDifferentiation class." alt="" coords="5,119,204,244"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="63,5,147,71"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,86,107,119,102,119,102,86"/>
+<area shape="rect" id="Node000001" title="Fixture for testing the LeastSquaresDifferentiation class." alt="" coords="5,248,204,374"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="41,120,125,185"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,200,99,248,94,249,87,200"/>
+<area shape="rect" id="Node000003" href="$d7/d15/class_least_squares_differentiation.html" title="Class for Cone Differentiation using the Least Squares Method." alt="" coords="150,120,323,185"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="212,187,170,237,166,234,208,183"/>
+<area shape="rect" id="Node000004" href="$d7/d4e/class_cone_differentiation.html" title="Abstract class for cone differentiation based on cone reflectivity patterns." alt="" coords="167,5,306,71"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="239,86,239,120,234,120,234,86"/>
 </map>

@@ -1,12 +1,19 @@
 var searchData=
 [
-  ['gnsssensor_2ecpp_0',['gnssSensor.cpp',['../d0/deb/gnss_sensor_8cpp.html',1,'']]],
-  ['gnsssensor_2ehpp_1',['gnssSensor.hpp',['../dc/d9d/gnss_sensor_8hpp.html',1,'']]],
-  ['grid_5fransac_2ecpp_2',['grid_ransac.cpp',['../d5/d70/grid__ransac_8cpp.html',1,'']]],
-  ['grid_5fransac_2ehpp_3',['grid_ransac.hpp',['../d1/db4/grid__ransac_8hpp.html',1,'']]],
-  ['grid_5fransac_5ftest_2ecpp_4',['grid_ransac_test.cpp',['../d1/d37/grid__ransac__test_8cpp.html',1,'']]],
-  ['gripmap_2ecpp_5',['gripMap.cpp',['../d6/df8/grip_map_8cpp.html',1,'']]],
-  ['gripmap_2ehpp_6',['gripMap.hpp',['../d9/d32/grip_map_8hpp.html',1,'']]],
-  ['ground_5fremoval_2ehpp_7',['ground_removal.hpp',['../d2/d96/ground__removal_8hpp.html',1,'']]],
-  ['guilogic_2epy_8',['guiLogic.py',['../d1/dba/gui_logic_8py.html',1,'']]]
+  ['general_5fconfig_2ecpp_0',['general_config.cpp',['../da/d73/general__config_8cpp.html',1,'']]],
+  ['general_5fconfig_2ehpp_1',['general_config.hpp',['../de/d57/general__config_8hpp.html',1,'']]],
+  ['gnsssensor_2ecpp_2',['gnssSensor.cpp',['../d0/deb/gnss_sensor_8cpp.html',1,'']]],
+  ['gnsssensor_2ehpp_3',['gnssSensor.hpp',['../dc/d9d/gnss_sensor_8hpp.html',1,'']]],
+  ['graph_5fslam_5finstance_2ecpp_4',['graph_slam_instance.cpp',['../de/dac/graph__slam__instance_8cpp.html',1,'']]],
+  ['graph_5fslam_5finstance_2ehpp_5',['graph_slam_instance.hpp',['../d1/dfe/graph__slam__instance_8hpp.html',1,'']]],
+  ['graph_5fslam_5fsolver_2ecpp_6',['graph_slam_solver.cpp',['../df/d98/graph__slam__solver_8cpp.html',1,'']]],
+  ['graph_5fslam_5fsolver_2ehpp_7',['graph_slam_solver.hpp',['../d2/d4d/graph__slam__solver_8hpp.html',1,'']]],
+  ['graph_5fslam_5fsolver_5ftest_2ecpp_8',['graph_slam_solver_test.cpp',['../d2/d9b/graph__slam__solver__test_8cpp.html',1,'']]],
+  ['grid_5fransac_2ecpp_9',['grid_ransac.cpp',['../d5/d70/grid__ransac_8cpp.html',1,'']]],
+  ['grid_5fransac_2ehpp_10',['grid_ransac.hpp',['../d1/db4/grid__ransac_8hpp.html',1,'']]],
+  ['grid_5fransac_5ftest_2ecpp_11',['grid_ransac_test.cpp',['../d1/d37/grid__ransac__test_8cpp.html',1,'']]],
+  ['gripmap_2ecpp_12',['gripMap.cpp',['../d6/df8/grip_map_8cpp.html',1,'']]],
+  ['gripmap_2ehpp_13',['gripMap.hpp',['../d9/d32/grip_map_8hpp.html',1,'']]],
+  ['ground_5fremoval_2ehpp_14',['ground_removal.hpp',['../d2/d96/ground__removal_8hpp.html',1,'']]],
+  ['guilogic_2epy_15',['guiLogic.py',['../d1/dba/gui_logic_8py.html',1,'']]]
 ];

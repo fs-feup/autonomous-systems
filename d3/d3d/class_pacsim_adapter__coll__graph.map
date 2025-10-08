@@ -1,5 +1,22 @@
 <map id="PacsimAdapter" name="PacsimAdapter">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,199,204,463"/>
-<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="13,5,197,151"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,166,107,199,102,199,102,166"/>
+<area shape="rect" id="Node000001" title="Adapter class for the pacsim simulator." alt="" coords="186,1159,385,1733"/>
+<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="5,768,189,913"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,927,199,1159,194,1160,121,928"/>
+<area shape="rect" id="Node000003" href="$d8/d84/class_s_l_a_m_node.html" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="381,571,565,1110"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="388,1125,377,1160,372,1159,383,1123"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="291,356,376,421"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="350,435,393,571,388,573,345,436"/>
+<area shape="rect" id="Node000008" href="$d3/d43/class_v_e_node.html" title="Node class for the velocity estimation node." alt="" coords="214,788,357,893"/>
+<area shape="poly" id="edge8_Node000008_Node000004" title=" " alt="" coords="331,436,293,789,288,788,326,436"/>
+<area shape="rect" id="Node000005" href="$d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html" title=" " alt="" coords="571,271,717,506"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="603,506,574,582,569,580,598,505"/>
+<area shape="rect" id="Node000006" href="$d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="400,308,547,468"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="476,468,476,555,471,555,471,468"/>
+<area shape="rect" id="Node000007" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="400,5,547,205"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="476,205,476,291,471,291,471,205"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="288,908,288,1160,283,1160,283,908"/>
+<area shape="rect" id="Node000009" href="$d5/db7/struct_v_e_parameters.html" title=" " alt="" coords="97,268,266,508"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="211,507,272,771,267,772,206,508"/>
+<area shape="rect" id="Node000010" href="$dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html" title=" " alt="" coords="92,5,271,205"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="184,205,184,252,179,252,179,205"/>
 </map>

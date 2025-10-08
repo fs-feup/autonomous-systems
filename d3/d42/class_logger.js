@@ -1,5 +1,6 @@
 var class_logger =
 [
+    [ "logDebug", "d3/d42/class_logger.html#a5fadec05ee5cdeeec3221a1521e7d559", null ],
     [ "logError", "d3/d42/class_logger.html#a4da9226699d64443aa5c726664e22532", null ],
     [ "logFatal", "d3/d42/class_logger.html#a870052753e059df75edf1b0a79002276", null ],
     [ "logInfo", "d3/d42/class_logger.html#ac6fdd89609e04d73093401cf23fc44dc", null ],

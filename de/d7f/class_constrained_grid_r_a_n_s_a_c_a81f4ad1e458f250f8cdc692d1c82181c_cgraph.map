@@ -1,0 +1,25 @@
+<map id="ConstrainedGridRANSAC::ground_removal" name="ConstrainedGridRANSAC::ground_removal">
+<area shape="rect" id="Node000001" title="Perform ground removal on the input point cloud using grid&#45;based RANSAC." alt="" coords="5,82,175,122"/>
+<area shape="rect" id="Node000002" href="$d2/d37/class_constrained_r_a_n_s_a_c_optimized.html#af4395279f575f67e08ce5c46614a880d" title="Perform ground removal." alt="" coords="223,48,426,89"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,87,207,83,207,88,175,92"/>
+<area shape="rect" id="Node000009" href="$de/d7f/class_constrained_grid_r_a_n_s_a_c.html#a86e545abfdd157f3aa952bcdfbf8bb28" title="Split the input point cloud into grids." alt="" coords="240,114,409,154"/>
+<area shape="poly" id="edge14_Node000001_Node000009" title=" " alt="" coords="175,111,225,118,224,123,175,116"/>
+<area shape="rect" id="Node000003" href="$d2/d37/class_constrained_r_a_n_s_a_c_optimized.html#a790a10e4bb8b458247a83311a07b8e62" title="Compute acute angle difference (degrees) between two plane normals." alt="" coords="474,48,677,89"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="426,66,458,66,458,71,426,71"/>
+<area shape="rect" id="Node000004" href="$d2/d8d/class_plane.html#a3a227b9e6e6f5214c9ce9a6f757a14eb" title="Getter &#45; Get the a component of the plane." alt="" coords="725,10,818,36"/>
+<area shape="poly" id="edge11_Node000002_Node000004" title=" " alt="" coords="368,45,418,26,474,11,536,4,600,3,710,11,710,17,600,8,537,9,474,17,420,31,370,50"/>
+<area shape="rect" id="Node000005" href="$d2/d8d/class_plane.html#a14d7de844717d5fa9546a02849d6fb4a" title="Getter &#45; Get the b component of the plane." alt="" coords="725,60,818,85"/>
+<area shape="poly" id="edge12_Node000002_Node000005" title=" " alt="" coords="407,45,474,34,576,24,621,26,678,34,730,51,729,56,677,39,620,31,576,29,474,39,408,50"/>
+<area shape="rect" id="Node000006" href="$d2/d8d/class_plane.html#a54f2a7b06bb383ac1ea43d010c3fa79d" title="Getter &#45; Get the c component of the plane." alt="" coords="725,117,818,143"/>
+<area shape="poly" id="edge13_Node000002_Node000006" title=" " alt="" coords="405,87,428,100,443,117,451,135,459,150,475,164,507,175,540,181,575,182,609,180,674,165,727,147,729,152,675,170,610,185,575,188,540,187,505,181,473,168,455,154,446,137,439,120,424,104,403,92"/>
+<area shape="rect" id="Node000007" href="$d2/d37/class_constrained_r_a_n_s_a_c_optimized.html#a0a1958f87a555303c6d55e659bf17609" title="Compute absolute distance from point to plane." alt="" coords="474,114,677,154"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="406,87,481,107,479,112,405,92"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="666,45,710,35,711,40,667,50"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="678,68,710,69,710,74,677,73"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="644,87,715,110,713,115,642,92"/>
+<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="653,111,676,98,691,86,700,73,709,60,724,45,728,42,731,46,727,49,713,63,704,76,695,89,679,103,655,115"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="642,110,713,88,715,93,644,115"/>
+<area shape="poly" id="edge9_Node000007_Node000006" title=" " alt="" coords="677,129,710,128,710,134,678,134"/>
+<area shape="rect" id="Node000008" href="$d2/d8d/class_plane.html#ad0e5724dd5a95ef65b6c642bb848c4bf" title="Getter &#45; Get the d component of the plane." alt="" coords="725,166,818,192"/>
+<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="667,152,711,163,710,168,666,157"/>
+</map>

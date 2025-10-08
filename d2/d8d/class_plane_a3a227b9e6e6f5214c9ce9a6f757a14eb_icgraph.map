@@ -1,5 +1,48 @@
 <map id="Plane::get_a" name="Plane::get_a">
-<area shape="rect" id="Node000001" title="Getter &#45; Get the a component of the plane." alt="" coords="257,13,349,39"/>
-<area shape="rect" id="Node000002" href="$d8/d0d/class_circunference_center_calculation.html#ac6f4e1903547a8958784b4db940dddab" title="Estimates the center position of a cone using a circumference&#45;based approach." alt="" coords="5,5,209,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="241,28,209,28,209,23,241,23"/>
+<area shape="rect" id="Node000001" title="Getter &#45; Get the a component of the plane." alt="" coords="843,305,935,331"/>
+<area shape="rect" id="Node000002" href="$d2/d16/class_constrained_r_a_n_s_a_c.html#ac2a3051c2801e094c09b937c11ac3123" title="Calculate angle difference between two planes." alt="" coords="606,183,780,224"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="861,296,830,270,793,244,757,227,759,222,796,240,833,266,865,292"/>
+<area shape="rect" id="Node000003" href="$d2/d16/class_constrained_r_a_n_s_a_c.html#a9b20760ce6828bb19c90f40e1bee90d0" title="Calculate the best&#45;fit plane using RANSAC algorithm." alt="" coords="366,181,517,221"/>
+<area shape="poly" id="edge19_Node000001_Node000003" title=" " alt="" coords="836,302,794,289,517,221,518,216,795,284,838,297"/>
+<area shape="rect" id="Node000011" href="$d2/d37/class_constrained_r_a_n_s_a_c_optimized.html#a790a10e4bb8b458247a83311a07b8e62" title="Compute acute angle difference (degrees) between two plane normals." alt="" coords="591,298,795,339"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="827,321,795,321,795,316,827,316"/>
+<area shape="rect" id="Node000012" href="$d2/d37/class_constrained_r_a_n_s_a_c_optimized.html#af4395279f575f67e08ce5c46614a880d" title="Perform ground removal." alt="" coords="340,421,543,461"/>
+<area shape="poly" id="edge25_Node000001_Node000012" title=" " alt="" coords="873,346,841,384,820,403,796,418,733,440,667,452,603,456,544,455,544,450,603,451,667,447,732,435,794,413,817,399,837,381,869,342"/>
+<area shape="rect" id="Node000019" href="$d8/d0d/class_circunference_center_calculation.html#ac6f4e1903547a8958784b4db940dddab" title="Estimates the center position of a cone using a circumference&#45;based approach." alt="" coords="591,363,795,404"/>
+<area shape="poly" id="edge18_Node000001_Node000019" title=" " alt="" coords="835,339,796,353,758,365,757,360,794,348,834,334"/>
+<area shape="rect" id="Node000020" href="$d2/d16/class_constrained_r_a_n_s_a_c.html#a9711c564303cb722de05badfb1ae53cf" title="Calculate distance from a point to a plane." alt="" coords="617,118,769,159"/>
+<area shape="poly" id="edge20_Node000001_Node000020" title=" " alt="" coords="875,292,844,232,821,201,793,174,768,159,770,154,796,169,825,197,848,229,879,290"/>
+<area shape="rect" id="Node000021" href="$d2/d37/class_constrained_r_a_n_s_a_c_optimized.html#a0a1958f87a555303c6d55e659bf17609" title="Compute absolute distance from point to plane." alt="" coords="591,478,795,519"/>
+<area shape="poly" id="edge23_Node000001_Node000021" title=" " alt="" coords="878,346,847,404,824,435,796,462,767,480,764,475,793,457,820,431,842,401,874,344"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="590,205,518,204,518,199,590,200"/>
+<area shape="rect" id="Node000004" href="$d2/d16/class_constrained_r_a_n_s_a_c.html#ada317723a343aedb4d33bee30623bc26" title="Perform ground removal using the RANSAC algorithm." alt="" coords="132,133,283,173"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="351,185,283,171,284,166,352,180"/>
+<area shape="rect" id="Node000005" href="$dd/ded/constrained__ransac__test_8cpp.html#af7d8d720f4eee844f8275d6f5a8e3fa4" title="Test: Accept planes only if angle diff &lt;= threshold." alt="" coords="5,252,75,278"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="164,184,62,254,59,249,161,180"/>
+<area shape="rect" id="Node000006" href="$dd/ded/constrained__ransac__test_8cpp.html#a1d6ecd000ca72f1fe34afffd66b2df68" title="Test: Huge epsilon &#45;&gt; all points treated as ground &#45;&gt; output empty." alt="" coords="5,5,75,31"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="169,124,73,44,59,34,62,29,76,40,172,120"/>
+<area shape="rect" id="Node000007" href="$dd/ded/constrained__ransac__test_8cpp.html#a76affcf1e023f91526cf450fb7056899" title="Test: Reject planes if angle diff &gt; threshold (fallback uses base_plane)." alt="" coords="5,55,75,80"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="151,127,66,83,69,79,153,123"/>
+<area shape="rect" id="Node000008" href="$dd/ded/constrained__ransac__test_8cpp.html#ac7cf23ac286a5f11bcd0a2256f0bbd12" title="Test: Small epsilon &#45;&gt; only points in the plane are removed." alt="" coords="5,104,75,130"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="116,136,74,127,76,122,117,131"/>
+<area shape="rect" id="Node000009" href="$dd/ded/constrained__ransac__test_8cpp.html#a7ff9ef4c4bf996c6c91582bc26e7411d" title="Test: With 3 points and epsilon=0, none are removed." alt="" coords="5,153,75,179"/>
+<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="117,163,75,166,75,161,116,157"/>
+<area shape="rect" id="Node000010" href="$dd/ded/constrained__ransac__test_8cpp.html#a3185b737cfea20c888a1271f0cbeb0ea" title="Test: Cloud with &lt;3 points throws exception." alt="" coords="5,203,75,228"/>
+<area shape="poly" id="edge9_Node000004_Node000010" title=" " alt="" coords="138,181,76,205,74,200,136,176"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="609,347,592,354,528,388,475,422,472,418,526,383,590,349,607,342"/>
+<area shape="rect" id="Node000013" href="$de/d7f/class_constrained_grid_r_a_n_s_a_c.html#a81f4ad1e458f250f8cdc692d1c82181c" title="Perform ground removal on the input point cloud using grid&#45;based RANSAC." alt="" coords="123,421,292,461"/>
+<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="324,444,293,444,293,438,324,438"/>
+<area shape="rect" id="Node000014" href="$d0/d51/constrained__grid__ransac__test_8cpp.html#a1feee57ef9b28e6b4a8fa9ef115f57e4" title="Test: With a very large epsilon, almost all points are considered ground." alt="" coords="5,379,75,404"/>
+<area shape="poly" id="edge13_Node000013_Node000014" title=" " alt="" coords="121,418,74,404,76,399,122,413"/>
+<area shape="rect" id="Node000015" href="$d0/d51/constrained__grid__ransac__test_8cpp.html#a4386049638dc85000a73e413f669ba01" title="Test: Typical scenario where some points are removed, some remain." alt="" coords="5,428,75,454"/>
+<area shape="poly" id="edge14_Node000013_Node000015" title=" " alt="" coords="107,444,75,444,75,438,107,438"/>
+<area shape="rect" id="Node000016" href="$d0/d51/constrained__grid__ransac__test_8cpp.html#a95ff32c87625da8a23d6b52f2b29dd83" title="Test: Passing an empty point cloud should throw an exception." alt="" coords="5,477,75,503"/>
+<area shape="poly" id="edge15_Node000013_Node000016" title=" " alt="" coords="122,469,76,483,74,478,121,464"/>
+<area shape="rect" id="Node000017" href="$d0/d51/constrained__grid__ransac__test_8cpp.html#acf664fa247f30ffaa17fecb555876ac0" title="Test: When candidate planes are rejected, fallback to base plane is used." alt="" coords="5,527,75,552"/>
+<area shape="poly" id="edge16_Node000013_Node000017" title=" " alt="" coords="160,472,65,528,62,524,157,467"/>
+<area shape="rect" id="Node000018" href="$d0/d51/constrained__grid__ransac__test_8cpp.html#a8cb911ca72fb088584fd37c90b93049c" title="Test: Points in two separate grids should be removed if they fit their planes." alt="" coords="5,329,75,355"/>
+<area shape="poly" id="edge17_Node000013_Node000018" title=" " alt="" coords="157,415,62,358,65,353,160,410"/>
+<area shape="poly" id="edge21_Node000020_Node000003" title=" " alt="" coords="603,163,518,185,517,179,601,158"/>
+<area shape="poly" id="edge22_Node000020_Node000004" title=" " alt="" coords="602,144,283,153,283,148,602,138"/>
+<area shape="poly" id="edge24_Node000021_Node000012" title=" " alt="" coords="586,476,533,464,535,459,587,471"/>
 </map>

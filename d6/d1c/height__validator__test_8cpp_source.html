@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Formula Student Autonomous Systems: src/perception/test/height_validator_test.cpp Source File</title>
+<title>Formula Student Autonomous Systems: src/perception/test/cone_validator/height_validator_test.cpp Source File</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -110,89 +110,120 @@ $(document).ready(function(){initNavTree('d6/d1c/height__validator__test_8cpp_so
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="foldopen" id="foldopen00013" data-start="{" data-end="};">
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="../../d9/d7c/class_height_validator_test.html">   13</a></span><span class="keyword">class </span><a class="code hl_class" href="../../d9/d7c/class_height_validator_test.html">HeightValidatorTest</a> : <span class="keyword">public</span> ::testing::Test {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="../../d9/d7c/class_height_validator_test.html#aab8661e87d59d2d197c59d48b2034404">   18</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d7c/class_height_validator_test.html#aab8661e87d59d2d197c59d48b2034404">SetUp</a>()<span class="keyword"> override </span>{ <a class="code hl_variable" href="../../d9/d7c/class_height_validator_test.html#a29beee3abdb7a25c8997601307ed65d9">plane</a> = <a class="code hl_class" href="../../d2/d8d/class_plane.html">Plane</a>(1, 0, 0, 0); }</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="../../d9/d7c/class_height_validator_test.html#a29beee3abdb7a25c8997601307ed65d9">   20</a></span>  <a class="code hl_class" href="../../d2/d8d/class_plane.html">Plane</a> <a class="code hl_variable" href="../../d9/d7c/class_height_validator_test.html#a29beee3abdb7a25c8997601307ed65d9">plane</a>;  </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>};</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">protected</span>:</div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="}">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="../../d9/d7c/class_height_validator_test.html#aab8661e87d59d2d197c59d48b2034404">   18</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d7c/class_height_validator_test.html#aab8661e87d59d2d197c59d48b2034404">SetUp</a>()<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <a class="code hl_variable" href="../../d9/d7c/class_height_validator_test.html#a29beee3abdb7a25c8997601307ed65d9">plane</a> = <a class="code hl_class" href="../../d2/d8d/class_plane.html">Plane</a>(0, 0, 1, 0);  <span class="comment">// Horizontal plane (z=0)</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  }</div>
 </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="foldopen" id="foldopen00026" data-start="{" data-end="}">
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="../../d6/d1c/height__validator__test_8cpp.html#a2e6994d881991166aa0ecaa3c0d06c17">   26</a></span><a class="code hl_function" href="../../d6/d1c/height__validator__test_8cpp.html#a2e6994d881991166aa0ecaa3c0d06c17">TEST_F</a>(<a class="code hl_class" href="../../d9/d7c/class_height_validator_test.html">HeightValidatorTest</a>, ConeWithinHeightThreshold) {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <a class="code hl_class" href="../../d9/d1f/class_height_validator.html">HeightValidator</a> validator = <a class="code hl_class" href="../../d9/d1f/class_height_validator.html">HeightValidator</a>(0.1, 0.375);</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  <span class="keyword">auto</span> point_cloud = std::make_shared&lt;pcl::PointCloud&lt;pcl::PointXYZI&gt;&gt;();</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  point_cloud-&gt;points.emplace_back(0.3, 0.0, 0, 0);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  <a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a> cone_point_cloud = <a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a>(point_cloud);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="../../d9/d7c/class_height_validator_test.html#a29beee3abdb7a25c8997601307ed65d9">   22</a></span>  <a class="code hl_class" href="../../d2/d8d/class_plane.html">Plane</a> <a class="code hl_variable" href="../../d9/d7c/class_height_validator_test.html#a29beee3abdb7a25c8997601307ed65d9">plane</a>;  </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>};</div>
+</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="foldopen" id="foldopen00028" data-start="{" data-end="}">
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="../../d6/d1c/height__validator__test_8cpp.html#a5e7059785b091e3fa4bf8442c1c3dca2">   28</a></span><a class="code hl_function" href="../../d6/d1c/height__validator__test_8cpp.html#a5e7059785b091e3fa4bf8442c1c3dca2">TEST_F</a>(<a class="code hl_class" href="../../d9/d7c/class_height_validator_test.html">HeightValidatorTest</a>, ConeWithinSmallHeightThreshold) {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  <span class="keyword">const</span> <a class="code hl_class" href="../../d9/d1f/class_height_validator.html">HeightValidator</a> validator(0.1, 0.5, 0.375, 0.5);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  <span class="keyword">const</span> <span class="keyword">auto</span> point_cloud = std::make_shared&lt;pcl::PointCloud&lt;pcl::PointXYZI&gt;&gt;();</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  (void)point_cloud-&gt;points.emplace_back(0.0, 0.0, 0.3, 0);</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  <span class="keywordtype">bool</span> result = validator.<a class="code hl_function" href="../../d9/d1f/class_height_validator.html#ac32f47cd9bcfc58e8951b151bf356752">coneValidator</a>(&amp;cone_point_cloud, plane);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  <a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a> cone_point_cloud = <a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a>(point_cloud);</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  ASSERT_TRUE(result);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  std::vector&lt;double&gt; result = validator.<a class="code hl_function" href="../../d9/d1f/class_height_validator.html#ac4d61b8c54bfc4f2cef252c9e05a1c71">coneValidator</a>(&amp;cone_point_cloud, plane);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  ASSERT_DOUBLE_EQ(result[0], 1.0);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  ASSERT_NEAR(result[1], 0.8, 1e-6);  <span class="comment">// 0.3/0.375</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  ASSERT_FALSE(cone_point_cloud.<a class="code hl_function" href="../../d2/d23/class_cluster.html#ac4b5c99b0ed908d7799c13719d4a5892">get_is_large</a>());</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
 </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="foldopen" id="foldopen00042" data-start="{" data-end="}">
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="../../d6/d1c/height__validator__test_8cpp.html#ac8293f13fa8e7f3e1bc497f96df90662">   42</a></span><a class="code hl_function" href="../../d6/d1c/height__validator__test_8cpp.html#a2e6994d881991166aa0ecaa3c0d06c17">TEST_F</a>(<a class="code hl_class" href="../../d9/d7c/class_height_validator_test.html">HeightValidatorTest</a>, ConeExceedsHeightThreshold) {</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  <a class="code hl_class" href="../../d9/d1f/class_height_validator.html">HeightValidator</a> validator = <a class="code hl_class" href="../../d9/d1f/class_height_validator.html">HeightValidator</a>(0.1, 0.375);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  <span class="keyword">auto</span> point_cloud = std::make_shared&lt;pcl::PointCloud&lt;pcl::PointXYZI&gt;&gt;();</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  point_cloud-&gt;points.emplace_back(1.0, 0.0, 0, 0);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  <a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a> cone_point_cloud = <a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a>(point_cloud);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="../../d6/d1c/height__validator__test_8cpp.html#a7c92bbcd8d6dcce6be0ab3642a6f19c1">   47</a></span><a class="code hl_function" href="../../d6/d1c/height__validator__test_8cpp.html#a5e7059785b091e3fa4bf8442c1c3dca2">TEST_F</a>(<a class="code hl_class" href="../../d9/d7c/class_height_validator_test.html">HeightValidatorTest</a>, ConeWithinLargeHeightThreshold) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  <span class="keyword">const</span> <a class="code hl_class" href="../../d9/d1f/class_height_validator.html">HeightValidator</a> validator(0.1, 0.5, 0.375, 0.5);</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  <span class="keywordtype">bool</span> result = validator.<a class="code hl_function" href="../../d9/d1f/class_height_validator.html#ac32f47cd9bcfc58e8951b151bf356752">coneValidator</a>(&amp;cone_point_cloud, plane);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  ASSERT_FALSE(result);</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
-</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  <span class="keyword">const</span> <span class="keyword">auto</span> point_cloud = std::make_shared&lt;pcl::PointCloud&lt;pcl::PointXYZI&gt;&gt;();</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  (void)point_cloud-&gt;points.emplace_back(0.0, 0.0, 0.4, 0);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a> cone_point_cloud = <a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a>(point_cloud);</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="foldopen" id="foldopen00058" data-start="{" data-end="}">
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="../../d6/d1c/height__validator__test_8cpp.html#a49b23bfcd16f41133864011621f0e190">   58</a></span><a class="code hl_function" href="../../d6/d1c/height__validator__test_8cpp.html#a2e6994d881991166aa0ecaa3c0d06c17">TEST_F</a>(<a class="code hl_class" href="../../d9/d7c/class_height_validator_test.html">HeightValidatorTest</a>, ConeBelowHeightThreshold) {</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  <a class="code hl_class" href="../../d9/d1f/class_height_validator.html">HeightValidator</a> validator = <a class="code hl_class" href="../../d9/d1f/class_height_validator.html">HeightValidator</a>(0.1, 0.375);</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>  <span class="keyword">auto</span> point_cloud = std::make_shared&lt;pcl::PointCloud&lt;pcl::PointXYZI&gt;&gt;();</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  point_cloud-&gt;points.emplace_back(0.01, 0.0, 0, 0);</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  <a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a> cone_point_cloud = <a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a>(point_cloud);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  <span class="keywordtype">bool</span> result = validator.<a class="code hl_function" href="../../d9/d1f/class_height_validator.html#ac32f47cd9bcfc58e8951b151bf356752">coneValidator</a>(&amp;cone_point_cloud, plane);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  std::vector&lt;double&gt; result = validator.<a class="code hl_function" href="../../d9/d1f/class_height_validator.html#ac4d61b8c54bfc4f2cef252c9e05a1c71">coneValidator</a>(&amp;cone_point_cloud, plane);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  ASSERT_DOUBLE_EQ(result[0], 1.0);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  ASSERT_NEAR(result[1], 0.8, 1e-6);  <span class="comment">// 0.4/0.5</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  ASSERT_TRUE(cone_point_cloud.<a class="code hl_function" href="../../d2/d23/class_cluster.html#ac4b5c99b0ed908d7799c13719d4a5892">get_is_large</a>());</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
+</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="foldopen" id="foldopen00065" data-start="{" data-end="}">
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="../../d6/d1c/height__validator__test_8cpp.html#ac8293f13fa8e7f3e1bc497f96df90662">   65</a></span><a class="code hl_function" href="../../d6/d1c/height__validator__test_8cpp.html#a5e7059785b091e3fa4bf8442c1c3dca2">TEST_F</a>(<a class="code hl_class" href="../../d9/d7c/class_height_validator_test.html">HeightValidatorTest</a>, ConeExceedsHeightThreshold) {</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  <span class="keyword">const</span> <a class="code hl_class" href="../../d9/d1f/class_height_validator.html">HeightValidator</a> validator(0.1, 0.5, 0.375, 0.5);</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  ASSERT_FALSE(result);</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>}</div>
-</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  <span class="keyword">const</span> <span class="keyword">auto</span> point_cloud = std::make_shared&lt;pcl::PointCloud&lt;pcl::PointXYZI&gt;&gt;();</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  (void)point_cloud-&gt;points.emplace_back(0.0, 0.0, 0.6, 0);</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="foldopen" id="foldopen00074" data-start="{" data-end="}">
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="../../d6/d1c/height__validator__test_8cpp.html#a1d8c6c6fe02a42b6eb6508a997247a33">   74</a></span><a class="code hl_function" href="../../d6/d1c/height__validator__test_8cpp.html#a2e6994d881991166aa0ecaa3c0d06c17">TEST_F</a>(<a class="code hl_class" href="../../d9/d7c/class_height_validator_test.html">HeightValidatorTest</a>, ConeHeightThreshold) {</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>  <a class="code hl_class" href="../../d9/d1f/class_height_validator.html">HeightValidator</a> validator = <a class="code hl_class" href="../../d9/d1f/class_height_validator.html">HeightValidator</a>(0.1, 0.375);</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  <span class="keyword">auto</span> point_cloud = std::make_shared&lt;pcl::PointCloud&lt;pcl::PointXYZI&gt;&gt;();</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>  point_cloud-&gt;points.emplace_back(0.15, 0.0, 0, 0);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>  <a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a> cone_point_cloud = <a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a>(point_cloud);</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>  <span class="keywordtype">bool</span> result = validator.<a class="code hl_function" href="../../d9/d1f/class_height_validator.html#ac32f47cd9bcfc58e8951b151bf356752">coneValidator</a>(&amp;cone_point_cloud, plane);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>  ASSERT_TRUE(result);</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>}</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  <a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a> cone_point_cloud = <a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a>(point_cloud);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  std::vector&lt;double&gt; result = validator.<a class="code hl_function" href="../../d9/d1f/class_height_validator.html#ac4d61b8c54bfc4f2cef252c9e05a1c71">coneValidator</a>(&amp;cone_point_cloud, plane);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>  ASSERT_LT(result[0], 1.0);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>  ASSERT_GE(result[0], 0.0);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  ASSERT_DOUBLE_EQ(result[1], 0.0);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>  ASSERT_TRUE(cone_point_cloud.<a class="code hl_function" href="../../d2/d23/class_cluster.html#ac4b5c99b0ed908d7799c13719d4a5892">get_is_large</a>());</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>}</div>
 </div>
-<div class="ttc" id="aclass_cluster_html"><div class="ttname"><a href="../../d2/d23/class_cluster.html">Cluster</a></div><div class="ttdoc">Represents a cluster of 3D points using PCL (Point Cloud Library).</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d49/cluster_8hpp_source.html#l00014">cluster.hpp:14</a></div></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="foldopen" id="foldopen00084" data-start="{" data-end="}">
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="../../d6/d1c/height__validator__test_8cpp.html#a49b23bfcd16f41133864011621f0e190">   84</a></span><a class="code hl_function" href="../../d6/d1c/height__validator__test_8cpp.html#a5e7059785b091e3fa4bf8442c1c3dca2">TEST_F</a>(<a class="code hl_class" href="../../d9/d7c/class_height_validator_test.html">HeightValidatorTest</a>, ConeBelowHeightThreshold) {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>  <span class="keyword">const</span> <a class="code hl_class" href="../../d9/d1f/class_height_validator.html">HeightValidator</a> validator(0.1, 0.5, 0.375, 0.5);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>  <span class="keyword">const</span> <span class="keyword">auto</span> point_cloud = std::make_shared&lt;pcl::PointCloud&lt;pcl::PointXYZI&gt;&gt;();</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>  (void)point_cloud-&gt;points.emplace_back(0.0, 0.0, 0.03, 0);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>  <a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a> cone_point_cloud = <a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a>(point_cloud);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>  std::vector&lt;double&gt; result = validator.<a class="code hl_function" href="../../d9/d1f/class_height_validator.html#ac4d61b8c54bfc4f2cef252c9e05a1c71">coneValidator</a>(&amp;cone_point_cloud, plane);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>  ASSERT_DOUBLE_EQ(result[0], 0.0);  <span class="comment">// Lower than cap</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>  ASSERT_DOUBLE_EQ(result[1], 0.0);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>  ASSERT_FALSE(cone_point_cloud.<a class="code hl_function" href="../../d2/d23/class_cluster.html#ac4b5c99b0ed908d7799c13719d4a5892">get_is_large</a>());</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>}</div>
+</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="foldopen" id="foldopen00102" data-start="{" data-end="}">
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="../../d6/d1c/height__validator__test_8cpp.html#a9959cf05d335f7f67544f5191c5ccb01">  102</a></span><a class="code hl_function" href="../../d6/d1c/height__validator__test_8cpp.html#a5e7059785b091e3fa4bf8442c1c3dca2">TEST_F</a>(<a class="code hl_class" href="../../d9/d7c/class_height_validator_test.html">HeightValidatorTest</a>, ConeNearMinimumHeight) {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>  <span class="keyword">const</span> <a class="code hl_class" href="../../d9/d1f/class_height_validator.html">HeightValidator</a> validator(0.1, 0.5, 0.375, 0.5);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>  <span class="keyword">const</span> <span class="keyword">auto</span> point_cloud = std::make_shared&lt;pcl::PointCloud&lt;pcl::PointXYZI&gt;&gt;();</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>  (void)point_cloud-&gt;points.emplace_back(0.0, 0.0, 0.15, 0);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>  <a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a> cone_point_cloud = <a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a>(point_cloud);</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>  std::vector&lt;double&gt; result = validator.<a class="code hl_function" href="../../d9/d1f/class_height_validator.html#ac4d61b8c54bfc4f2cef252c9e05a1c71">coneValidator</a>(&amp;cone_point_cloud, plane);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>  ASSERT_DOUBLE_EQ(result[0], 1.0);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>  ASSERT_NEAR(result[1], 0.4, 1e-6);  <span class="comment">// 0.15/0.375</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>  ASSERT_FALSE(cone_point_cloud.<a class="code hl_function" href="../../d2/d23/class_cluster.html#ac4b5c99b0ed908d7799c13719d4a5892">get_is_large</a>());</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>}</div>
+</div>
+<div class="ttc" id="aclass_cluster_html"><div class="ttname"><a href="../../d2/d23/class_cluster.html">Cluster</a></div><div class="ttdoc">Represents a cluster of 3D points using PCL (Point Cloud Library).</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d49/cluster_8hpp_source.html#l00015">cluster.hpp:15</a></div></div>
+<div class="ttc" id="aclass_cluster_html_ac4b5c99b0ed908d7799c13719d4a5892"><div class="ttname"><a href="../../d2/d23/class_cluster.html#ac4b5c99b0ed908d7799c13719d4a5892">Cluster::get_is_large</a></div><div class="ttdeci">bool get_is_large()</div><div class="ttdoc">Get cluster's corresponding cone size.</div><div class="ttdef"><b>Definition</b> <a href="../../db/d0d/cluster_8cpp_source.html#l00087">cluster.cpp:87</a></div></div>
 <div class="ttc" id="aclass_height_validator_html"><div class="ttname"><a href="../../d9/d1f/class_height_validator.html">HeightValidator</a></div><div class="ttdoc">The HeightValidator class is responsible for validating cones based on their height.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d64/height__validator_8hpp_source.html#l00012">height_validator.hpp:12</a></div></div>
-<div class="ttc" id="aclass_height_validator_html_ac32f47cd9bcfc58e8951b151bf356752"><div class="ttname"><a href="../../d9/d1f/class_height_validator.html#ac32f47cd9bcfc58e8951b151bf356752">HeightValidator::coneValidator</a></div><div class="ttdeci">bool coneValidator(Cluster *cone_point_cloud, Plane &amp;plane) const override</div><div class="ttdoc">Validates a cone based on its height relative to a plane.</div><div class="ttdef"><b>Definition</b> <a href="../../de/d70/height__validator_8cpp_source.html#l00005">height_validator.cpp:5</a></div></div>
+<div class="ttc" id="aclass_height_validator_html_ac4d61b8c54bfc4f2cef252c9e05a1c71"><div class="ttname"><a href="../../d9/d1f/class_height_validator.html#ac4d61b8c54bfc4f2cef252c9e05a1c71">HeightValidator::coneValidator</a></div><div class="ttdeci">std::vector&lt; double &gt; coneValidator(Cluster *cone_point_cloud, Plane &amp;plane) const override</div><div class="ttdoc">Validates a cone based on its height relative to a plane.</div><div class="ttdef"><b>Definition</b> <a href="../../de/d70/height__validator_8cpp_source.html#l00010">height_validator.cpp:10</a></div></div>
 <div class="ttc" id="aclass_height_validator_test_html"><div class="ttname"><a href="../../d9/d7c/class_height_validator_test.html">HeightValidatorTest</a></div><div class="ttdoc">Test fixture for HeightValidator class.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d1c/height__validator__test_8cpp_source.html#l00013">height_validator_test.cpp:13</a></div></div>
-<div class="ttc" id="aclass_height_validator_test_html_a29beee3abdb7a25c8997601307ed65d9"><div class="ttname"><a href="../../d9/d7c/class_height_validator_test.html#a29beee3abdb7a25c8997601307ed65d9">HeightValidatorTest::plane</a></div><div class="ttdeci">Plane plane</div><div class="ttdoc">Plane object for testing.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d1c/height__validator__test_8cpp_source.html#l00020">height_validator_test.cpp:20</a></div></div>
+<div class="ttc" id="aclass_height_validator_test_html_a29beee3abdb7a25c8997601307ed65d9"><div class="ttname"><a href="../../d9/d7c/class_height_validator_test.html#a29beee3abdb7a25c8997601307ed65d9">HeightValidatorTest::plane</a></div><div class="ttdeci">Plane plane</div><div class="ttdoc">Plane object for testing.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d1c/height__validator__test_8cpp_source.html#l00022">height_validator_test.cpp:22</a></div></div>
 <div class="ttc" id="aclass_height_validator_test_html_aab8661e87d59d2d197c59d48b2034404"><div class="ttname"><a href="../../d9/d7c/class_height_validator_test.html#aab8661e87d59d2d197c59d48b2034404">HeightValidatorTest::SetUp</a></div><div class="ttdeci">void SetUp() override</div><div class="ttdoc">Set up function to initialize a plane.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d1c/height__validator__test_8cpp_source.html#l00018">height_validator_test.cpp:18</a></div></div>
 <div class="ttc" id="aclass_plane_html"><div class="ttname"><a href="../../d2/d8d/class_plane.html">Plane</a></div><div class="ttdoc">The Plane class represents a 3D plane defined by its equation ax + by + cz + d = 0.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d82/plane_8hpp_source.html#l00013">plane.hpp:13</a></div></div>
 <div class="ttc" id="acluster_8hpp_html"><div class="ttname"><a href="../../d2/d49/cluster_8hpp.html">cluster.hpp</a></div></div>
 <div class="ttc" id="aheight__validator_8hpp_html"><div class="ttname"><a href="../../d6/d64/height__validator_8hpp.html">height_validator.hpp</a></div></div>
-<div class="ttc" id="aheight__validator__test_8cpp_html_a2e6994d881991166aa0ecaa3c0d06c17"><div class="ttname"><a href="../../d6/d1c/height__validator__test_8cpp.html#a2e6994d881991166aa0ecaa3c0d06c17">TEST_F</a></div><div class="ttdeci">TEST_F(HeightValidatorTest, ConeWithinHeightThreshold)</div><div class="ttdoc">Test case to validate if the cone height is within the height threshold.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d1c/height__validator__test_8cpp_source.html#l00026">height_validator_test.cpp:26</a></div></div>
+<div class="ttc" id="aheight__validator__test_8cpp_html_a5e7059785b091e3fa4bf8442c1c3dca2"><div class="ttname"><a href="../../d6/d1c/height__validator__test_8cpp.html#a5e7059785b091e3fa4bf8442c1c3dca2">TEST_F</a></div><div class="ttdeci">TEST_F(HeightValidatorTest, ConeWithinSmallHeightThreshold)</div><div class="ttdoc">Test case to validate if the cone height is within the small cone height threshold.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d1c/height__validator__test_8cpp_source.html#l00028">height_validator_test.cpp:28</a></div></div>
 <div class="ttc" id="aplane_8hpp_html"><div class="ttname"><a href="../../d7/d82/plane_8hpp.html">plane.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_346c2aea098094a6f11a0f66feef12e0.html">perception</a></li><li class="navelem"><a class="el" href="../../dir_05d7e00720df82d3895fca5824bbbee7.html">test</a></li><li class="navelem"><a class="el" href="../../d6/d1c/height__validator__test_8cpp.html">height_validator_test.cpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_346c2aea098094a6f11a0f66feef12e0.html">perception</a></li><li class="navelem"><a class="el" href="../../dir_05d7e00720df82d3895fca5824bbbee7.html">test</a></li><li class="navelem"><a class="el" href="../../dir_12704a94d8440f164e7361e43e55a548.html">cone_validator</a></li><li class="navelem"><a class="el" href="../../d6/d1c/height__validator__test_8cpp.html">height_validator_test.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

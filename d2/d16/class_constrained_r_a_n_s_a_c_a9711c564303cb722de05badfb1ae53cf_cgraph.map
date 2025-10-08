@@ -1,0 +1,11 @@
+<map id="ConstrainedRANSAC::distance_to_plane" name="ConstrainedRANSAC::distance_to_plane">
+<area shape="rect" id="Node000001" title="Calculate distance from a point to a plane." alt="" coords="5,73,157,113"/>
+<area shape="rect" id="Node000002" href="$d2/d8d/class_plane.html#a3a227b9e6e6f5214c9ce9a6f757a14eb" title="Getter &#45; Get the a component of the plane." alt="" coords="205,5,297,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,69,205,35,207,40,130,74"/>
+<area shape="rect" id="Node000003" href="$d2/d8d/class_plane.html#a14d7de844717d5fa9546a02849d6fb4a" title="Getter &#45; Get the b component of the plane." alt="" coords="205,55,297,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="157,79,188,74,189,79,158,84"/>
+<area shape="rect" id="Node000004" href="$d2/d8d/class_plane.html#a54f2a7b06bb383ac1ea43d010c3fa79d" title="Getter &#45; Get the c component of the plane." alt="" coords="205,104,297,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="157,101,189,105,188,111,157,106"/>
+<area shape="rect" id="Node000005" href="$d2/d8d/class_plane.html#ad0e5724dd5a95ef65b6c642bb848c4bf" title="Getter &#45; Get the d component of the plane." alt="" coords="205,153,297,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="131,111,206,144,204,149,129,116"/>
+</map>

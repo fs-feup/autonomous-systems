@@ -1,0 +1,5 @@
+<map id="VehicleAdapter::imu_callback" name="VehicleAdapter::imu_callback">
+<area shape="rect" id="Node000001" title="IMU subscription callback, which receives both free acceleration and angular velocity through a synch..." alt="" coords="5,5,142,46"/>
+<area shape="rect" id="Node000002" href="$d3/d43/class_v_e_node.html#a2aa9d39822eb3178f0a16a84d02e946e" title=" " alt="" coords="190,13,368,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,23,174,23,174,28,142,28"/>
+</map>

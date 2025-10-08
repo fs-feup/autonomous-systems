@@ -1,19 +1,20 @@
 <map id="src/ekf_state_est/src/kalman_filter/observation_models.cpp" name="src/ekf_state_est/src/kalman_filter/observation_models.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="245,5,414,61"/>
-<area shape="rect" id="Node000002" href="$d9/def/observation__models_8hpp.html" title=" " alt="" coords="164,109,330,150"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="308,63,276,99,272,96,304,60"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="354,117,473,142"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="356,60,395,103,391,107,352,63"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="310,5,480,61"/>
+<area shape="rect" id="Node000002" href="$d9/def/observation__models_8hpp.html" title=" " alt="" coords="252,109,418,150"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="380,63,358,97,353,94,375,60"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="483,286,603,312"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="422,60,471,120,496,157,519,197,533,235,541,271,536,272,528,237,514,199,492,160,467,123,418,63"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="5,205,142,231"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="209,153,112,200,110,196,206,148"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="276,153,126,202,124,197,275,148"/>
 <area shape="rect" id="Node000004" href="$d6/dfd/color_8hpp.html" title=" " alt="" coords="166,198,328,238"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="250,150,250,182,244,182,244,150"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="317,152,279,189,276,185,313,148"/>
 <area shape="rect" id="Node000007" href="$d5/d91/position_8hpp.html" title=" " alt="" coords="352,198,505,238"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="289,148,375,188,372,193,287,153"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="358,148,398,185,394,189,354,152"/>
 <area shape="rect" id="Node000005" title=" " alt="" coords="188,286,234,312"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="240,240,225,273,220,271,236,238"/>
 <area shape="rect" id="Node000006" title=" " alt="" coords="258,286,311,312"/>
 <area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="258,238,274,271,269,273,254,240"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="390,286,467,312"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="431,239,431,271,426,271,426,239"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="382,286,459,312"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="429,239,426,271,420,270,424,238"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="458,237,514,275,511,280,455,241"/>
 </map>

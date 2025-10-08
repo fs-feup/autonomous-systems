@@ -1,0 +1,7 @@
+<map id="scenario_generator.PointTracker.add_cone" name="scenario_generator.PointTracker.add_cone">
+<area shape="rect" id="Node000001" title=" " alt="" coords="431,5,595,46"/>
+<area shape="rect" id="Node000002" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#a4dcde918b74f5fc12ffd65aef3e7240e" title=" " alt="" coords="218,5,383,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="416,28,383,28,383,23,416,23"/>
+<area shape="rect" id="Node000003" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#af9f7b83f80b1fda467e7fde74efcd67b" title=" " alt="" coords="5,5,170,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="202,28,170,28,170,23,202,23"/>
+</map>

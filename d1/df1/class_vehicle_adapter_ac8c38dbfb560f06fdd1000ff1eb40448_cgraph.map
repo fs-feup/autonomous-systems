@@ -1,0 +1,5 @@
+<map id="VehicleAdapter::steering_angle_callback" name="VehicleAdapter::steering_angle_callback">
+<area shape="rect" id="Node000001" title="Callback for the subscription of the steering angle sensor." alt="" coords="5,5,167,46"/>
+<area shape="rect" id="Node000002" href="$d3/d43/class_v_e_node.html#a2aa9d39822eb3178f0a16a84d02e946e" title=" " alt="" coords="215,13,393,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,23,199,23,199,28,167,28"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="NPointsValidator::coneValidator" name="NPointsValidator::coneValidator">
+<area shape="rect" id="Node000001" title="Validates a cone based on its number of points." alt="" coords="123,55,327,80"/>
+<area shape="rect" id="Node000002" href="$d5/d3c/npoints__validator__test_8cpp.html#a9398a52ef9d8cfd9b48bff8bbf6cca39" title="Test case to validate a cluster with exactly the minimum threshold number of points." alt="" coords="5,5,75,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,53,74,30,76,25,160,48"/>
+<area shape="rect" id="Node000003" href="$d5/d3c/npoints__validator__test_8cpp.html#a22a9ffe572a615fcbeec1f2f34be2da7" title="Test case to validate a cluster with fewer points than the minimum threshold." alt="" coords="5,55,75,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="107,70,75,70,75,65,107,65"/>
+<area shape="rect" id="Node000004" href="$d5/d3c/npoints__validator__test_8cpp.html#a3105505a327e8e3403f3e706d3aa9e29" title="Test case to validate a cluster with more points than the minimum threshold." alt="" coords="5,104,75,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="160,87,76,110,74,105,159,82"/>
+</map>

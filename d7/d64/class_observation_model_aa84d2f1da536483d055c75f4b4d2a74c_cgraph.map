@@ -1,0 +1,7 @@
+<map id="ObservationModel::observation_model" name="ObservationModel::observation_model">
+<area shape="rect" id="Node000001" title="transform landmarks&#39; positions from global frame to the car&#39;s frame" alt="" coords="5,5,205,46"/>
+<area shape="rect" id="Node000002" href="$d2/d32/namespacecommon__lib_1_1maths.html#ab0ad3296dc284d5471c4035f3d63ad82" title="Transform points from a global reference frame to a local reference frame." alt="" coords="253,5,434,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="205,23,237,23,237,28,205,28"/>
+<area shape="rect" id="Node000003" href="$d2/d32/namespacecommon__lib_1_1maths.html#a3155563fdd77267916f4362c3c976f11" title="Function to get the rotation matrix for a given angle." alt="" coords="482,5,621,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="434,23,466,23,466,28,434,28"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="PoseUpdater::get_last_pose_update" name="PoseUpdater::get_last_pose_update">
+<area shape="rect" id="Node000001" title=" " alt="" coords="208,5,357,46"/>
+<area shape="rect" id="Node000002" href="$d9/d73/class_graph_s_l_a_m_solver.html#aa4d26a6e1dd550dbbb68aef2fa17fc03" title="Get the pose estimate object." alt="" coords="5,5,160,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,28,160,28,160,23,192,23"/>
+</map>

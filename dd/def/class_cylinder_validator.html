@@ -108,7 +108,7 @@ Inheritance diagram for CylinderValidator:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/d58/class_cylinder_validator__inherit__graph.png" border="0" usemap="#a_cylinder_validator_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_cylinder_validator_inherit__map" id="a_cylinder_validator_inherit__map">
-<area shape="rect" title="Validates clusters using a cylinder approximation." alt="" coords="5,119,133,244"/>
+<area shape="rect" title="Validates clusters using a cylinder approximation." alt="" coords="5,119,133,324"/>
 <area shape="rect" href="../../d3/d57/class_cone_validator.html" title="Abstract class responsible for validating clusters as cones." alt="" coords="14,5,125,71"/>
 <area shape="poly" title=" " alt="" coords="72,86,72,119,67,119,67,86"/>
 </map>
@@ -118,7 +118,7 @@ Collaboration diagram for CylinderValidator:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d21/class_cylinder_validator__coll__graph.png" border="0" usemap="#a_cylinder_validator_coll__map" alt="Collaboration graph"/></div>
 <map name="a_cylinder_validator_coll__map" id="a_cylinder_validator_coll__map">
-<area shape="rect" title="Validates clusters using a cylinder approximation." alt="" coords="5,119,133,244"/>
+<area shape="rect" title="Validates clusters using a cylinder approximation." alt="" coords="5,119,133,324"/>
 <area shape="rect" href="../../d3/d57/class_cone_validator.html" title="Abstract class responsible for validating clusters as cones." alt="" coords="14,5,125,71"/>
 <area shape="poly" title=" " alt="" coords="72,86,72,119,67,119,67,86"/>
 </map>
@@ -126,24 +126,36 @@ Collaboration diagram for CylinderValidator:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a482395a7af7ecf85c4ffdecc87c14e2f" id="r_a482395a7af7ecf85c4ffdecc87c14e2f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/def/class_cylinder_validator.html#a482395a7af7ecf85c4ffdecc87c14e2f">CylinderValidator</a> (double <a class="el" href="../../dd/def/class_cylinder_validator.html#aa0342e2afbd2b0cd291fc69dc00ef24e">width</a>, double <a class="el" href="../../dd/def/class_cylinder_validator.html#a711be512bc3f5a82b806b199b6146219">height</a>)</td></tr>
-<tr class="memdesc:a482395a7af7ecf85c4ffdecc87c14e2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new <a class="el" href="../../dd/def/class_cylinder_validator.html" title="Validates clusters using a cylinder approximation.">CylinderValidator</a> object with specified width and height.  <br /></td></tr>
-<tr class="separator:a482395a7af7ecf85c4ffdecc87c14e2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0cc9f8c03c5ae430dd00246494112875" id="r_a0cc9f8c03c5ae430dd00246494112875"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/def/class_cylinder_validator.html#a0cc9f8c03c5ae430dd00246494112875">getRadius</a> () const</td></tr>
-<tr class="memdesc:a0cc9f8c03c5ae430dd00246494112875"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the radius of the cylinder.  <br /></td></tr>
-<tr class="separator:a0cc9f8c03c5ae430dd00246494112875"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a206a8bd25bfb5b16d71e3881af9a4111" id="r_a206a8bd25bfb5b16d71e3881af9a4111"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/def/class_cylinder_validator.html#a206a8bd25bfb5b16d71e3881af9a4111">coneValidator</a> (<a class="el" href="../../d2/d23/class_cluster.html">Cluster</a> *cone_point_cloud, <a class="el" href="../../d2/d8d/class_plane.html">Plane</a> &amp;plane) const override</td></tr>
-<tr class="memdesc:a206a8bd25bfb5b16d71e3881af9a4111"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates a cluster using cylinder approximation.  <br /></td></tr>
-<tr class="separator:a206a8bd25bfb5b16d71e3881af9a4111"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3e78585f77365b799209c7950df68ad" id="r_aa3e78585f77365b799209c7950df68ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/def/class_cylinder_validator.html#aa3e78585f77365b799209c7950df68ad">CylinderValidator</a> (double <a class="el" href="../../dd/def/class_cylinder_validator.html#a5f5e2774da7f0d259e7efce681ab9bc0">small_width</a>, double <a class="el" href="../../dd/def/class_cylinder_validator.html#ae53898730b00ca0bcd4ddf646c4f0698">small_height</a>, double <a class="el" href="../../dd/def/class_cylinder_validator.html#a928b68afca3227b10c00dd85eed3eb5e">large_width</a>, double <a class="el" href="../../dd/def/class_cylinder_validator.html#a4dab5a63322491520bf6d7e5c0b36ac3">large_height</a>, double <a class="el" href="../../dd/def/class_cylinder_validator.html#ab584fd0cf8deb03054797f7c3207562a">out_distance_cap</a>)</td></tr>
+<tr class="memdesc:aa3e78585f77365b799209c7950df68ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new <a class="el" href="../../dd/def/class_cylinder_validator.html" title="Validates clusters using a cylinder approximation.">CylinderValidator</a> object with specified width and height.  <br /></td></tr>
+<tr class="separator:aa3e78585f77365b799209c7950df68ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ec778f355470ef1ba95c33920e943c7" id="r_a5ec778f355470ef1ba95c33920e943c7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/def/class_cylinder_validator.html#a5ec778f355470ef1ba95c33920e943c7">small_getRadius</a> () const</td></tr>
+<tr class="memdesc:a5ec778f355470ef1ba95c33920e943c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the radius of the cylinder for small cones.  <br /></td></tr>
+<tr class="separator:a5ec778f355470ef1ba95c33920e943c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacc79ebd1f5a5dae11d2a43f1f1b2add" id="r_aacc79ebd1f5a5dae11d2a43f1f1b2add"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/def/class_cylinder_validator.html#aacc79ebd1f5a5dae11d2a43f1f1b2add">large_getRadius</a> () const</td></tr>
+<tr class="memdesc:aacc79ebd1f5a5dae11d2a43f1f1b2add"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the radius of the cylinder for large cones.  <br /></td></tr>
+<tr class="separator:aacc79ebd1f5a5dae11d2a43f1f1b2add"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15a79c63182d06ed4cea29cc91649123" id="r_a15a79c63182d06ed4cea29cc91649123"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/def/class_cylinder_validator.html#a15a79c63182d06ed4cea29cc91649123">coneValidator</a> (<a class="el" href="../../d2/d23/class_cluster.html">Cluster</a> *cone_point_cloud, <a class="el" href="../../d2/d8d/class_plane.html">Plane</a> &amp;plane) const override</td></tr>
+<tr class="memdesc:a15a79c63182d06ed4cea29cc91649123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates a cluster using cylinder approximation.  <br /></td></tr>
+<tr class="separator:a15a79c63182d06ed4cea29cc91649123"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:aa0342e2afbd2b0cd291fc69dc00ef24e" id="r_aa0342e2afbd2b0cd291fc69dc00ef24e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/def/class_cylinder_validator.html#aa0342e2afbd2b0cd291fc69dc00ef24e">width</a></td></tr>
-<tr class="memdesc:aa0342e2afbd2b0cd291fc69dc00ef24e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Width of the cylinder.  <br /></td></tr>
-<tr class="separator:aa0342e2afbd2b0cd291fc69dc00ef24e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a711be512bc3f5a82b806b199b6146219" id="r_a711be512bc3f5a82b806b199b6146219"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/def/class_cylinder_validator.html#a711be512bc3f5a82b806b199b6146219">height</a></td></tr>
-<tr class="memdesc:a711be512bc3f5a82b806b199b6146219"><td class="mdescLeft">&#160;</td><td class="mdescRight">Height of the cylinder.  <br /></td></tr>
-<tr class="separator:a711be512bc3f5a82b806b199b6146219"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f5e2774da7f0d259e7efce681ab9bc0" id="r_a5f5e2774da7f0d259e7efce681ab9bc0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/def/class_cylinder_validator.html#a5f5e2774da7f0d259e7efce681ab9bc0">small_width</a></td></tr>
+<tr class="memdesc:a5f5e2774da7f0d259e7efce681ab9bc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Width of the cylinder for a small cone.  <br /></td></tr>
+<tr class="separator:a5f5e2774da7f0d259e7efce681ab9bc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae53898730b00ca0bcd4ddf646c4f0698" id="r_ae53898730b00ca0bcd4ddf646c4f0698"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/def/class_cylinder_validator.html#ae53898730b00ca0bcd4ddf646c4f0698">small_height</a></td></tr>
+<tr class="memdesc:ae53898730b00ca0bcd4ddf646c4f0698"><td class="mdescLeft">&#160;</td><td class="mdescRight">Height of the cylinder for a small cone.  <br /></td></tr>
+<tr class="separator:ae53898730b00ca0bcd4ddf646c4f0698"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a928b68afca3227b10c00dd85eed3eb5e" id="r_a928b68afca3227b10c00dd85eed3eb5e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/def/class_cylinder_validator.html#a928b68afca3227b10c00dd85eed3eb5e">large_width</a></td></tr>
+<tr class="memdesc:a928b68afca3227b10c00dd85eed3eb5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Width of the cylinder for a large cone.  <br /></td></tr>
+<tr class="separator:a928b68afca3227b10c00dd85eed3eb5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4dab5a63322491520bf6d7e5c0b36ac3" id="r_a4dab5a63322491520bf6d7e5c0b36ac3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/def/class_cylinder_validator.html#a4dab5a63322491520bf6d7e5c0b36ac3">large_height</a></td></tr>
+<tr class="memdesc:a4dab5a63322491520bf6d7e5c0b36ac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Height of the cylinder for a large cone.  <br /></td></tr>
+<tr class="separator:a4dab5a63322491520bf6d7e5c0b36ac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab584fd0cf8deb03054797f7c3207562a" id="r_ab584fd0cf8deb03054797f7c3207562a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/def/class_cylinder_validator.html#ab584fd0cf8deb03054797f7c3207562a">out_distance_cap</a></td></tr>
+<tr class="memdesc:ab584fd0cf8deb03054797f7c3207562a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimum out_distance value for it to be 0.  <br /></td></tr>
+<tr class="separator:ab584fd0cf8deb03054797f7c3207562a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Validates clusters using a cylinder approximation. </p>
@@ -151,8 +163,8 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="../../db/dff/cylinder__validator_8hpp_source.html#l00014">14</a> of file <a class="el" href="../../db/dff/cylinder__validator_8hpp_source.html">cylinder_validator.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a482395a7af7ecf85c4ffdecc87c14e2f" name="a482395a7af7ecf85c4ffdecc87c14e2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a482395a7af7ecf85c4ffdecc87c14e2f">&#9670;&#160;</a></span>CylinderValidator()</h2>
+<a id="aa3e78585f77365b799209c7950df68ad" name="aa3e78585f77365b799209c7950df68ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3e78585f77365b799209c7950df68ad">&#9670;&#160;</a></span>CylinderValidator()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -161,13 +173,31 @@ Private Attributes</h2></td></tr>
           <td class="memname">CylinderValidator::CylinderValidator </td>
           <td>(</td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
+          <td class="paramname"><em>small_width</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>height</em>&#160;</td>
+          <td class="paramname"><em>small_height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>large_width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>large_height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>out_distance_cap</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -180,8 +210,11 @@ Private Attributes</h2></td></tr>
 <p>Constructs a new <a class="el" href="../../dd/def/class_cylinder_validator.html" title="Validates clusters using a cylinder approximation.">CylinderValidator</a> object with specified width and height. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">width</td><td>The width of the cylinder. </td></tr>
-    <tr><td class="paramname">height</td><td>The height of the cylinder. </td></tr>
+    <tr><td class="paramname">small_width</td><td>The width of the cylinder for a small cone. </td></tr>
+    <tr><td class="paramname">small_height</td><td>The height of the cylinder for a small cone. </td></tr>
+    <tr><td class="paramname">large_width</td><td>The width of the cylinder for a large cone. </td></tr>
+    <tr><td class="paramname">large_height</td><td>The height of the cylinder for a large cone. </td></tr>
+    <tr><td class="paramname">out_distance_cap</td><td>Minimum out_distance value for a cluster to have a 0 result. </td></tr>
   </table>
   </dd>
 </dl>
@@ -191,8 +224,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a206a8bd25bfb5b16d71e3881af9a4111" name="a206a8bd25bfb5b16d71e3881af9a4111"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a206a8bd25bfb5b16d71e3881af9a4111">&#9670;&#160;</a></span>coneValidator()</h2>
+<a id="a15a79c63182d06ed4cea29cc91649123" name="a15a79c63182d06ed4cea29cc91649123"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15a79c63182d06ed4cea29cc91649123">&#9670;&#160;</a></span>coneValidator()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -201,7 +234,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool CylinderValidator::coneValidator </td>
+          <td class="memname">std::vector&lt; double &gt; CylinderValidator::coneValidator </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d2/d23/class_cluster.html">Cluster</a> *&#160;</td>
           <td class="paramname"><em>cone_point_cloud</em>, </td>
@@ -232,48 +265,57 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the cluster is valid, false otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Vector containing: <br  />
+Index 0 -&gt; Ratio of between distance to the farthest point and the cylinder radius.| Index 1 -&gt; Ratio of between distance to the farthest point and the cylinder heigth.| Index 2 -&gt; Ratio between the number of points outside the cylinder and the total. </dd></dl>
 
-<p>Implements <a class="el" href="../../d3/d57/class_cone_validator.html#af4b8db84756b3ec7ac2c88ec97e0aec0">ConeValidator</a>.</p>
+<p>Implements <a class="el" href="../../d3/d57/class_cone_validator.html#a0bf5797599921668f8de1182e145b545">ConeValidator</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/de5/cylinder__validator_8cpp_source.html#l00007">7</a> of file <a class="el" href="../../df/de5/cylinder__validator_8cpp_source.html">cylinder_validator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/de5/cylinder__validator_8cpp_source.html#l00015">15</a> of file <a class="el" href="../../df/de5/cylinder__validator_8cpp_source.html">cylinder_validator.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../dd/def/class_cylinder_validator_a206a8bd25bfb5b16d71e3881af9a4111_cgraph.png" border="0" usemap="#add/def/class_cylinder_validator_a206a8bd25bfb5b16d71e3881af9a4111_cgraph" alt=""/></div>
-<map name="add/def/class_cylinder_validator_a206a8bd25bfb5b16d71e3881af9a4111_cgraph" id="add/def/class_cylinder_validator_a206a8bd25bfb5b16d71e3881af9a4111_cgraph">
-<area shape="rect" title="Validates a cluster using cylinder approximation." alt="" coords="5,55,130,96"/>
+<div class="center"><img src="../../dd/def/class_cylinder_validator_a15a79c63182d06ed4cea29cc91649123_cgraph.png" border="0" usemap="#add/def/class_cylinder_validator_a15a79c63182d06ed4cea29cc91649123_cgraph" alt=""/></div>
+<map name="add/def/class_cylinder_validator_a15a79c63182d06ed4cea29cc91649123_cgraph" id="add/def/class_cylinder_validator_a15a79c63182d06ed4cea29cc91649123_cgraph">
+<area shape="rect" title="Validates a cluster using cylinder approximation." alt="" coords="5,105,130,145"/>
 <area shape="rect" href="../../d2/d23/class_cluster.html#ab0b0056112da3ff27a13304f38f5f4d1" title="Get the centroid of the cluster." alt="" coords="178,5,317,31"/>
-<area shape="poly" title=" " alt="" coords="129,53,190,34,191,39,131,58"/>
-<area shape="rect" href="../../d2/d23/class_cluster.html#a763032aa726408defaea180f280f55f3" title="Get the Point Cloud data of the cluster." alt="" coords="187,55,308,96"/>
-<area shape="poly" title=" " alt="" coords="130,73,171,73,171,78,130,78"/>
-<area shape="rect" href="../../dd/def/class_cylinder_validator.html#a0cc9f8c03c5ae430dd00246494112875" title="Gets the radius of the cylinder." alt="" coords="185,121,310,161"/>
-<area shape="poly" title=" " alt="" coords="126,94,176,112,174,117,124,99"/>
+<area shape="poly" title=" " alt="" coords="90,102,129,71,176,40,186,35,189,40,179,44,132,75,93,106"/>
+<area shape="rect" href="../../d2/d23/class_cluster.html#ac4b5c99b0ed908d7799c13719d4a5892" title="Get cluster&#39;s corresponding cone size." alt="" coords="178,55,317,80"/>
+<area shape="poly" title=" " alt="" coords="129,102,190,83,191,88,131,107"/>
+<area shape="rect" href="../../d2/d23/class_cluster.html#a763032aa726408defaea180f280f55f3" title="Get the Point Cloud data of the cluster." alt="" coords="187,105,308,145"/>
+<area shape="poly" title=" " alt="" coords="130,122,171,122,171,128,130,128"/>
+<area shape="rect" href="../../dd/def/class_cylinder_validator.html#aacc79ebd1f5a5dae11d2a43f1f1b2add" title="Gets the radius of the cylinder for large cones." alt="" coords="185,170,310,211"/>
+<area shape="poly" title=" " alt="" coords="126,143,176,162,174,167,124,148"/>
+<area shape="rect" href="../../dd/def/class_cylinder_validator.html#a5ec778f355470ef1ba95c33920e943c7" title="Gets the radius of the cylinder for small cones." alt="" coords="185,235,310,276"/>
+<area shape="poly" title=" " alt="" coords="91,144,130,181,179,220,187,225,185,230,176,224,127,185,87,148"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../dd/def/class_cylinder_validator_a206a8bd25bfb5b16d71e3881af9a4111_icgraph.png" border="0" usemap="#add/def/class_cylinder_validator_a206a8bd25bfb5b16d71e3881af9a4111_icgraph" alt=""/></div>
-<map name="add/def/class_cylinder_validator_a206a8bd25bfb5b16d71e3881af9a4111_icgraph" id="add/def/class_cylinder_validator_a206a8bd25bfb5b16d71e3881af9a4111_icgraph">
-<area shape="rect" title="Validates a cluster using cylinder approximation." alt="" coords="123,23,247,64"/>
-<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#ac6b9d4a0b0d87a638097ed16b4386464" title="Test case to validate if a point is inside the cylinder." alt="" coords="5,5,75,31"/>
-<area shape="poly" title=" " alt="" coords="107,33,75,27,75,22,108,27"/>
-<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#a2f203a643e8c68f6c812c3ec1874fa52" title="Test case to validate if a point is outside the cylinder." alt="" coords="5,55,75,80"/>
-<area shape="poly" title=" " alt="" coords="108,59,75,64,75,59,107,54"/>
+<div class="center"><img src="../../dd/def/class_cylinder_validator_a15a79c63182d06ed4cea29cc91649123_icgraph.png" border="0" usemap="#add/def/class_cylinder_validator_a15a79c63182d06ed4cea29cc91649123_icgraph" alt=""/></div>
+<map name="add/def/class_cylinder_validator_a15a79c63182d06ed4cea29cc91649123_icgraph" id="add/def/class_cylinder_validator_a15a79c63182d06ed4cea29cc91649123_icgraph">
+<area shape="rect" title="Validates a cluster using cylinder approximation." alt="" coords="123,73,247,113"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#a8f0329c82e1158d8442662c9d30f899e" title="Test case to validate if points are outside all cylinders." alt="" coords="5,5,75,31"/>
+<area shape="poly" title=" " alt="" coords="129,67,65,34,68,29,132,63"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#a95f1f05e16deae388b0227d0cf0609d6" title="Test case to validate if points are inside the large cylinder." alt="" coords="5,55,75,80"/>
+<area shape="poly" title=" " alt="" coords="107,82,75,76,75,71,108,77"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#ae5a55af411072ca2ab25e1d01c462f18" title="Test case to validate if points are inside the small cylinder." alt="" coords="5,104,75,130"/>
+<area shape="poly" title=" " alt="" coords="108,108,75,114,75,109,107,103"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#a8c491530e433149e04636f4d0defc52e" title="Test case to validate if points are outside all cylinders." alt="" coords="5,153,75,179"/>
+<area shape="poly" title=" " alt="" coords="131,123,69,155,66,150,128,118"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a0cc9f8c03c5ae430dd00246494112875" name="a0cc9f8c03c5ae430dd00246494112875"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0cc9f8c03c5ae430dd00246494112875">&#9670;&#160;</a></span>getRadius()</h2>
+<a id="aacc79ebd1f5a5dae11d2a43f1f1b2add" name="aacc79ebd1f5a5dae11d2a43f1f1b2add"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacc79ebd1f5a5dae11d2a43f1f1b2add">&#9670;&#160;</a></span>large_getRadius()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double CylinderValidator::getRadius </td>
+          <td class="memname">double CylinderValidator::large_getRadius </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -281,30 +323,74 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Gets the radius of the cylinder. </p>
-<dl class="section return"><dt>Returns</dt><dd>The radius of the cylinder. </dd></dl>
+<p>Gets the radius of the cylinder for large cones. </p>
+<dl class="section return"><dt>Returns</dt><dd>The radius of the cylinder for large cones. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/de5/cylinder__validator_8cpp_source.html#l00005">5</a> of file <a class="el" href="../../df/de5/cylinder__validator_8cpp_source.html">cylinder_validator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/de5/cylinder__validator_8cpp_source.html#l00013">13</a> of file <a class="el" href="../../df/de5/cylinder__validator_8cpp_source.html">cylinder_validator.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../dd/def/class_cylinder_validator_a0cc9f8c03c5ae430dd00246494112875_icgraph.png" border="0" usemap="#add/def/class_cylinder_validator_a0cc9f8c03c5ae430dd00246494112875_icgraph" alt=""/></div>
-<map name="add/def/class_cylinder_validator_a0cc9f8c03c5ae430dd00246494112875_icgraph" id="add/def/class_cylinder_validator_a0cc9f8c03c5ae430dd00246494112875_icgraph">
-<area shape="rect" title="Gets the radius of the cylinder." alt="" coords="295,23,419,64"/>
-<area shape="rect" href="../../dd/def/class_cylinder_validator.html#a206a8bd25bfb5b16d71e3881af9a4111" title="Validates a cluster using cylinder approximation." alt="" coords="123,23,247,64"/>
-<area shape="poly" title=" " alt="" coords="280,46,247,46,247,41,280,41"/>
-<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#ac6b9d4a0b0d87a638097ed16b4386464" title="Test case to validate if a point is inside the cylinder." alt="" coords="5,5,75,31"/>
-<area shape="poly" title=" " alt="" coords="107,33,75,27,75,22,108,27"/>
-<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#a2f203a643e8c68f6c812c3ec1874fa52" title="Test case to validate if a point is outside the cylinder." alt="" coords="5,55,75,80"/>
-<area shape="poly" title=" " alt="" coords="108,59,75,64,75,59,107,54"/>
+<div class="center"><img src="../../dd/def/class_cylinder_validator_aacc79ebd1f5a5dae11d2a43f1f1b2add_icgraph.png" border="0" usemap="#add/def/class_cylinder_validator_aacc79ebd1f5a5dae11d2a43f1f1b2add_icgraph" alt=""/></div>
+<map name="add/def/class_cylinder_validator_aacc79ebd1f5a5dae11d2a43f1f1b2add_icgraph" id="add/def/class_cylinder_validator_aacc79ebd1f5a5dae11d2a43f1f1b2add_icgraph">
+<area shape="rect" title="Gets the radius of the cylinder for large cones." alt="" coords="295,73,419,113"/>
+<area shape="rect" href="../../dd/def/class_cylinder_validator.html#a15a79c63182d06ed4cea29cc91649123" title="Validates a cluster using cylinder approximation." alt="" coords="123,73,247,113"/>
+<area shape="poly" title=" " alt="" coords="280,96,247,96,247,90,280,90"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#a8f0329c82e1158d8442662c9d30f899e" title="Test case to validate if points are outside all cylinders." alt="" coords="5,5,75,31"/>
+<area shape="poly" title=" " alt="" coords="129,67,65,34,68,29,132,63"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#a95f1f05e16deae388b0227d0cf0609d6" title="Test case to validate if points are inside the large cylinder." alt="" coords="5,55,75,80"/>
+<area shape="poly" title=" " alt="" coords="107,82,75,76,75,71,108,77"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#ae5a55af411072ca2ab25e1d01c462f18" title="Test case to validate if points are inside the small cylinder." alt="" coords="5,104,75,130"/>
+<area shape="poly" title=" " alt="" coords="108,108,75,114,75,109,107,103"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#a8c491530e433149e04636f4d0defc52e" title="Test case to validate if points are outside all cylinders." alt="" coords="5,153,75,179"/>
+<area shape="poly" title=" " alt="" coords="131,123,69,155,66,150,128,118"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a5ec778f355470ef1ba95c33920e943c7" name="a5ec778f355470ef1ba95c33920e943c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ec778f355470ef1ba95c33920e943c7">&#9670;&#160;</a></span>small_getRadius()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double CylinderValidator::small_getRadius </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the radius of the cylinder for small cones. </p>
+<dl class="section return"><dt>Returns</dt><dd>The radius of the cylinder for small cones. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../df/de5/cylinder__validator_8cpp_source.html#l00011">11</a> of file <a class="el" href="../../df/de5/cylinder__validator_8cpp_source.html">cylinder_validator.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dd/def/class_cylinder_validator_a5ec778f355470ef1ba95c33920e943c7_icgraph.png" border="0" usemap="#add/def/class_cylinder_validator_a5ec778f355470ef1ba95c33920e943c7_icgraph" alt=""/></div>
+<map name="add/def/class_cylinder_validator_a5ec778f355470ef1ba95c33920e943c7_icgraph" id="add/def/class_cylinder_validator_a5ec778f355470ef1ba95c33920e943c7_icgraph">
+<area shape="rect" title="Gets the radius of the cylinder for small cones." alt="" coords="295,73,419,113"/>
+<area shape="rect" href="../../dd/def/class_cylinder_validator.html#a15a79c63182d06ed4cea29cc91649123" title="Validates a cluster using cylinder approximation." alt="" coords="123,73,247,113"/>
+<area shape="poly" title=" " alt="" coords="280,96,247,96,247,90,280,90"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#a8f0329c82e1158d8442662c9d30f899e" title="Test case to validate if points are outside all cylinders." alt="" coords="5,5,75,31"/>
+<area shape="poly" title=" " alt="" coords="129,67,65,34,68,29,132,63"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#a95f1f05e16deae388b0227d0cf0609d6" title="Test case to validate if points are inside the large cylinder." alt="" coords="5,55,75,80"/>
+<area shape="poly" title=" " alt="" coords="107,82,75,76,75,71,108,77"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#ae5a55af411072ca2ab25e1d01c462f18" title="Test case to validate if points are inside the small cylinder." alt="" coords="5,104,75,130"/>
+<area shape="poly" title=" " alt="" coords="108,108,75,114,75,109,107,103"/>
+<area shape="rect" href="../../dc/da5/cylinder__validator__test_8cpp.html#a8c491530e433149e04636f4d0defc52e" title="Test case to validate if points are outside all cylinders." alt="" coords="5,153,75,179"/>
+<area shape="poly" title=" " alt="" coords="131,123,69,155,66,150,128,118"/>
 </map>
 </div>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a711be512bc3f5a82b806b199b6146219" name="a711be512bc3f5a82b806b199b6146219"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a711be512bc3f5a82b806b199b6146219">&#9670;&#160;</a></span>height</h2>
+<a id="a4dab5a63322491520bf6d7e5c0b36ac3" name="a4dab5a63322491520bf6d7e5c0b36ac3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dab5a63322491520bf6d7e5c0b36ac3">&#9670;&#160;</a></span>large_height</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -313,7 +399,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double CylinderValidator::height</td>
+          <td class="memname">double CylinderValidator::large_height</td>
         </tr>
       </table>
   </td>
@@ -323,14 +409,92 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Height of the cylinder. </p>
+<p>Height of the cylinder for a large cone. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../db/dff/cylinder__validator_8hpp_source.html#l00019">19</a> of file <a class="el" href="../../db/dff/cylinder__validator_8hpp_source.html">cylinder_validator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a928b68afca3227b10c00dd85eed3eb5e" name="a928b68afca3227b10c00dd85eed3eb5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a928b68afca3227b10c00dd85eed3eb5e">&#9670;&#160;</a></span>large_width</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double CylinderValidator::large_width</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Width of the cylinder for a large cone. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../db/dff/cylinder__validator_8hpp_source.html#l00018">18</a> of file <a class="el" href="../../db/dff/cylinder__validator_8hpp_source.html">cylinder_validator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab584fd0cf8deb03054797f7c3207562a" name="ab584fd0cf8deb03054797f7c3207562a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab584fd0cf8deb03054797f7c3207562a">&#9670;&#160;</a></span>out_distance_cap</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double CylinderValidator::out_distance_cap</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Minimum out_distance value for it to be 0. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../db/dff/cylinder__validator_8hpp_source.html#l00020">20</a> of file <a class="el" href="../../db/dff/cylinder__validator_8hpp_source.html">cylinder_validator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae53898730b00ca0bcd4ddf646c4f0698" name="ae53898730b00ca0bcd4ddf646c4f0698"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae53898730b00ca0bcd4ddf646c4f0698">&#9670;&#160;</a></span>small_height</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double CylinderValidator::small_height</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Height of the cylinder for a small cone. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../db/dff/cylinder__validator_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../db/dff/cylinder__validator_8hpp_source.html">cylinder_validator.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aa0342e2afbd2b0cd291fc69dc00ef24e" name="aa0342e2afbd2b0cd291fc69dc00ef24e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0342e2afbd2b0cd291fc69dc00ef24e">&#9670;&#160;</a></span>width</h2>
+<a id="a5f5e2774da7f0d259e7efce681ab9bc0" name="a5f5e2774da7f0d259e7efce681ab9bc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f5e2774da7f0d259e7efce681ab9bc0">&#9670;&#160;</a></span>small_width</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -339,7 +503,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double CylinderValidator::width</td>
+          <td class="memname">double CylinderValidator::small_width</td>
         </tr>
       </table>
   </td>
@@ -349,7 +513,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Width of the cylinder. </p>
+<p>Width of the cylinder for a small cone. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../db/dff/cylinder__validator_8hpp_source.html#l00016">16</a> of file <a class="el" href="../../db/dff/cylinder__validator_8hpp_source.html">cylinder_validator.hpp</a>.</p>
 

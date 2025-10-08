@@ -1,0 +1,5 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title="Test inverse observation model with trivial state and a single observation." alt="" coords="5,13,60,39"/>
+<area shape="rect" id="Node000002" href="$d7/d64/class_observation_model.html#a1e57d72d1b32a2260c9dfc8d25bd802d" title="Calculate landmark position from observation." alt="" coords="108,5,282,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,23,92,23,92,28,60,28"/>
+</map>

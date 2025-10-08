@@ -1,0 +1,11 @@
+<map id="VehicleModelBicycle::calculateAccelerations" name="VehicleModelBicycle::calculateAccelerations">
+<area shape="rect" id="Node000001" title=" " alt="" coords="434,39,592,79"/>
+<area shape="rect" id="Node000002" href="$dd/d52/class_vehicle_model_bicycle.html#a055f045c99e12130f52e279de4689d6a" title=" " alt="" coords="208,5,386,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="418,47,386,42,387,37,419,42"/>
+<area shape="rect" id="Node000003" href="$dd/d52/class_vehicle_model_bicycle.html#a4d87d6b145a90af103b362c4f6ff9f82" title=" " alt="" coords="226,71,368,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="419,76,368,83,368,78,418,70"/>
+<area shape="rect" id="Node000004" href="$dd/d52/class_vehicle_model_bicycle.html#ae10b575631a2fad7f3db845aa19c7b8f" title=" " alt="" coords="12,37,153,78"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="210,80,153,71,154,66,211,75"/>
+<area shape="rect" id="Node000005" href="$dd/d52/class_vehicle_model_bicycle.html#a66471b72c81aac3b7405c0534b6899f7" title=" " alt="" coords="5,103,160,143"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="211,106,161,114,160,109,210,101"/>
+</map>

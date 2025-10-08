@@ -1,15 +1,17 @@
 <map id="Plane::get_distance_to_point" name="Plane::get_distance_to_point">
-<area shape="rect" id="Node000001" title="Calculates the distance from a point to the plane." alt="" coords="374,45,508,85"/>
-<area shape="rect" id="Node000002" href="$d8/d0d/class_circunference_center_calculation.html#ac6f4e1903547a8958784b4db940dddab" title="Estimates the center position of a cone using a circumference&#45;based approach." alt="" coords="123,15,326,56"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="358,56,326,52,327,47,359,51"/>
-<area shape="rect" id="Node000003" href="$d9/d1f/class_height_validator.html#ac32f47cd9bcfc58e8951b151bf356752" title="Validates a cone based on its height relative to a plane." alt="" coords="127,80,322,106"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="359,78,323,83,322,78,358,73"/>
+<area shape="rect" id="Node000001" title="Calculates the distance from a point to the plane." alt="" coords="374,69,508,109"/>
+<area shape="rect" id="Node000002" href="$d8/d0d/class_circunference_center_calculation.html#ac6f4e1903547a8958784b4db940dddab" title="Estimates the center position of a cone using a circumference&#45;based approach." alt="" coords="123,39,326,80"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="358,80,326,76,327,71,359,75"/>
+<area shape="rect" id="Node000003" href="$d9/d1f/class_height_validator.html#ac4d61b8c54bfc4f2cef252c9e05a1c71" title="Validates a cone based on its height relative to a plane." alt="" coords="127,104,322,130"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="359,102,323,107,322,102,358,97"/>
 <area shape="rect" id="Node000004" href="$d6/d1c/height__validator__test_8cpp.html#a49b23bfcd16f41133864011621f0e190" title="Test case to validate if the cone height is below the minimum height threshold." alt="" coords="5,5,75,31"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="142,78,122,70,87,52,58,34,61,29,90,48,124,65,144,73"/>
-<area shape="rect" id="Node000005" href="$d6/d1c/height__validator__test_8cpp.html#ac8293f13fa8e7f3e1bc497f96df90662" title="Test case to validate if the cone height exceeds the height threshold." alt="" coords="5,55,75,80"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="111,80,75,75,75,70,112,75"/>
-<area shape="rect" id="Node000006" href="$d6/d1c/height__validator__test_8cpp.html#a1d8c6c6fe02a42b6eb6508a997247a33" title="Test case to validate if the cone height isn&#39;t below the minimum height threshold." alt="" coords="5,104,75,130"/>
-<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="112,110,75,115,75,110,111,105"/>
-<area shape="rect" id="Node000007" href="$d6/d1c/height__validator__test_8cpp.html#a2e6994d881991166aa0ecaa3c0d06c17" title="Test case to validate if the cone height is within the height threshold." alt="" coords="5,153,75,179"/>
-<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="177,114,75,155,73,150,175,109"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="135,100,121,94,105,82,95,70,73,44,60,34,63,29,77,40,99,67,109,78,124,89,137,96"/>
+<area shape="rect" id="Node000005" href="$d6/d1c/height__validator__test_8cpp.html#ac8293f13fa8e7f3e1bc497f96df90662" title="Test case to validate if the cone height exceeds all thresholds." alt="" coords="5,55,75,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="153,102,122,94,75,80,76,75,123,89,154,97"/>
+<area shape="rect" id="Node000006" href="$d6/d1c/height__validator__test_8cpp.html#a9959cf05d335f7f67544f5191c5ccb01" title="Test case to validate if the cone height is near the minimum threshold but valid." alt="" coords="5,104,75,130"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="111,120,75,120,75,114,111,114"/>
+<area shape="rect" id="Node000007" href="$d6/d1c/height__validator__test_8cpp.html#a7c92bbcd8d6dcce6be0ab3642a6f19c1" title="Test case to validate if the cone height exceeds the small cone threshold but is within the large con..." alt="" coords="5,153,75,179"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="159,137,76,160,74,154,158,132"/>
+<area shape="rect" id="Node000008" href="$d6/d1c/height__validator__test_8cpp.html#a5e7059785b091e3fa4bf8442c1c3dca2" title="Test case to validate if the cone height is within the small cone height threshold." alt="" coords="5,203,75,228"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="187,140,67,204,65,200,184,135"/>
 </map>

@@ -1,0 +1,5 @@
+<map id="EKFSLAMSolver::load_initial_state" name="EKFSLAMSolver::load_initial_state">
+<area shape="rect" id="Node000001" title="Initialize the EKF SLAM solver with a previously saved map and pose." alt="" coords="5,5,156,46"/>
+<area shape="rect" id="Node000002" href="$d7/d79/class_e_k_f_s_l_a_m_solver.html#a1040c52356d980f7f67c6e8358a2e427" title="update the process noise matrix so that its dimensions match the covariance matrix" alt="" coords="204,5,369,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="156,23,188,23,188,28,156,28"/>
+</map>

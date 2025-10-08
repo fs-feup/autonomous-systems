@@ -1,5 +1,5 @@
 <map id="CylinderValidator" name="CylinderValidator">
-<area shape="rect" id="Node000001" title="Validates clusters using a cylinder approximation." alt="" coords="5,119,133,244"/>
+<area shape="rect" id="Node000001" title="Validates clusters using a cylinder approximation." alt="" coords="5,119,133,324"/>
 <area shape="rect" id="Node000002" href="$d3/d57/class_cone_validator.html" title="Abstract class responsible for validating clusters as cones." alt="" coords="14,5,125,71"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="72,86,72,119,67,119,67,86"/>
 </map>

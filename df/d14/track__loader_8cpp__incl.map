@@ -1,0 +1,17 @@
+<map id="src/slam/src/track_loader/track_loader.cpp" name="src/slam/src/track_loader/track_loader.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="326,5,488,46"/>
+<area shape="rect" id="Node000002" href="$d2/d6a/track__loader_8hpp.html" title=" " alt="" coords="345,94,470,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="410,47,410,78,405,78,405,47"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,190,100,216"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="345,131,236,155,113,185,105,188,103,183,112,180,235,150,344,126"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="124,183,269,223"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="360,138,259,179,257,174,358,133"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="293,190,412,216"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="397,137,370,179,366,176,393,134"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="437,190,490,216"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="422,134,450,176,445,179,418,137"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="515,190,572,216"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="439,133,513,179,510,184,437,137"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="595,190,710,216"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="464,133,605,182,603,187,462,138"/>
+</map>

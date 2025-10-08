@@ -107,9 +107,9 @@ Inheritance diagram for evaluator.pacsim_adapter.PacsimAdapter:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/d87/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter__inherit__graph.png" border="0" usemap="#aevaluator_8pacsim__adapter_8_pacsim_adapter_inherit__map" alt="Inheritance graph"/></div>
 <map name="aevaluator_8pacsim__adapter_8_pacsim_adapter_inherit__map" id="aevaluator_8pacsim__adapter_8_pacsim_adapter_inherit__map">
-<area shape="rect" title="Adapter class to manage the use of Pacsim." alt="" coords="5,119,189,448"/>
-<area shape="rect" href="../../d7/dff/classevaluator_1_1adapter_1_1_adapter.html" title="Class for subscribing to a point cloud topic and synchronizing messages with a ROS2 node." alt="" coords="17,5,177,71"/>
-<area shape="poly" title=" " alt="" coords="100,86,100,119,95,119,95,86"/>
+<area shape="rect" title="Adapter class to manage the use of Pacsim." alt="" coords="5,119,192,568"/>
+<area shape="rect" href="../../d7/dff/classevaluator_1_1adapter_1_1_adapter.html" title="Class for subscribing to a point cloud topic and synchronizing messages with a ROS2 node." alt="" coords="19,5,179,71"/>
+<area shape="poly" title=" " alt="" coords="101,86,101,119,96,119,96,86"/>
 </map>
 </div>
 <div class="dynheader">
@@ -117,9 +117,9 @@ Collaboration diagram for evaluator.pacsim_adapter.PacsimAdapter:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../db/d50/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter__coll__graph.png" border="0" usemap="#aevaluator_8pacsim__adapter_8_pacsim_adapter_coll__map" alt="Collaboration graph"/></div>
 <map name="aevaluator_8pacsim__adapter_8_pacsim_adapter_coll__map" id="aevaluator_8pacsim__adapter_8_pacsim_adapter_coll__map">
-<area shape="rect" title="Adapter class to manage the use of Pacsim." alt="" coords="5,119,189,448"/>
-<area shape="rect" href="../../d7/dff/classevaluator_1_1adapter_1_1_adapter.html" title="Class for subscribing to a point cloud topic and synchronizing messages with a ROS2 node." alt="" coords="17,5,177,71"/>
-<area shape="poly" title=" " alt="" coords="100,86,100,119,95,119,95,86"/>
+<area shape="rect" title="Adapter class to manage the use of Pacsim." alt="" coords="5,119,192,568"/>
+<area shape="rect" href="../../d7/dff/classevaluator_1_1adapter_1_1_adapter.html" title="Class for subscribing to a point cloud topic and synchronizing messages with a ROS2 node." alt="" coords="19,5,179,71"/>
+<area shape="poly" title=" " alt="" coords="101,86,101,119,96,119,96,86"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -128,45 +128,60 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aaa13b93720fede19b44b8c758c808fcc" id="r_aaa13b93720fede19b44b8c758c808fcc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#aaa13b93720fede19b44b8c758c808fcc">__init__</a> (self, rclpy.node.Node node)</td></tr>
 <tr class="memdesc:aaa13b93720fede19b44b8c758c808fcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the PacSim <a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a>.  <br /></td></tr>
 <tr class="separator:aaa13b93720fede19b44b8c758c808fcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab900a1a8a00c0393418580c9f8cdac5" id="r_aab900a1a8a00c0393418580c9f8cdac5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#aab900a1a8a00c0393418580c9f8cdac5">state_estimation_callback</a> (self, VehicleState vehicle_state, ConeArray map)</td></tr>
-<tr class="memdesc:aab900a1a8a00c0393418580c9f8cdac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function to process synchronized messages and compute state estimation metrics.  <br /></td></tr>
-<tr class="separator:aab900a1a8a00c0393418580c9f8cdac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad18439e1d2ed3bed7f8c74beac57384e" id="r_ad18439e1d2ed3bed7f8c74beac57384e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#ad18439e1d2ed3bed7f8c74beac57384e">map_callback</a> (self, ConeArray map)</td></tr>
+<tr class="memdesc:ad18439e1d2ed3bed7f8c74beac57384e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function to process map messages.  <br /></td></tr>
+<tr class="separator:ad18439e1d2ed3bed7f8c74beac57384e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaff60992003529abc28460533cd9c5e" id="r_afaff60992003529abc28460533cd9c5e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#afaff60992003529abc28460533cd9c5e">pose_callback</a> (self, <a class="el" href="../../d8/d11/struct_pose.html">Pose</a> vehicle_pose)</td></tr>
+<tr class="memdesc:afaff60992003529abc28460533cd9c5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function to process vehicle pose messages.  <br /></td></tr>
+<tr class="separator:afaff60992003529abc28460533cd9c5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae95772156af7541139653fe74e60a987" id="r_ae95772156af7541139653fe74e60a987"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#ae95772156af7541139653fe74e60a987">velocities_callback</a> (self, Velocities velocities)</td></tr>
+<tr class="memdesc:ae95772156af7541139653fe74e60a987"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function to process synchronized messages and compute state estimation metrics.  <br /></td></tr>
+<tr class="separator:ae95772156af7541139653fe74e60a987"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2684790b377953832969bb9a8e5efb5d" id="r_a2684790b377953832969bb9a8e5efb5d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#a2684790b377953832969bb9a8e5efb5d">planning_callback</a> (self, PathPointArray planning_output, PathPointArray path_ground_truth)</td></tr>
 <tr class="memdesc:a2684790b377953832969bb9a8e5efb5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function to process synchronized messages and compute planning metrics.  <br /></td></tr>
 <tr class="separator:a2684790b377953832969bb9a8e5efb5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f91f435364b09b91bba2402313607a7" id="r_a0f91f435364b09b91bba2402313607a7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#a0f91f435364b09b91bba2402313607a7">groundtruth_velocity_callback</a> (self, TwistWithCovarianceStamped groundtruth_velocity)</td></tr>
-<tr class="memdesc:a0f91f435364b09b91bba2402313607a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function to process ground truth velocity messages.  <br /></td></tr>
-<tr class="separator:a0f91f435364b09b91bba2402313607a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa171feec600e33928cad2eea382382a6" id="r_aa171feec600e33928cad2eea382382a6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#aa171feec600e33928cad2eea382382a6">groundtruth_map_callback</a> (self, MarkerArray groundtruth_map)</td></tr>
 <tr class="memdesc:aa171feec600e33928cad2eea382382a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function to process ground truth map messages.  <br /></td></tr>
 <tr class="separator:aa171feec600e33928cad2eea382382a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f91f435364b09b91bba2402313607a7" id="r_a0f91f435364b09b91bba2402313607a7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#a0f91f435364b09b91bba2402313607a7">groundtruth_velocity_callback</a> (self, TwistWithCovarianceStamped groundtruth_velocity)</td></tr>
+<tr class="memdesc:a0f91f435364b09b91bba2402313607a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function to process ground truth velocity messages.  <br /></td></tr>
+<tr class="separator:a0f91f435364b09b91bba2402313607a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25d023ca9bafaa07b4fc1f4e4b68b3e5" id="r_a25d023ca9bafaa07b4fc1f4e4b68b3e5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#a25d023ca9bafaa07b4fc1f4e4b68b3e5">groundtruth_pose_callback</a> (self, TwistWithCovarianceStamped groundtruth_pose)</td></tr>
+<tr class="memdesc:a25d023ca9bafaa07b4fc1f4e4b68b3e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function to process ground truth pose messages.  <br /></td></tr>
+<tr class="separator:a25d023ca9bafaa07b4fc1f4e4b68b3e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a46674b75d3ff2ffedb697bc8db642763" id="r_a46674b75d3ff2ffedb697bc8db642763"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#a46674b75d3ff2ffedb697bc8db642763">groundtruth_map_callback</a></td></tr>
 <tr class="separator:a46674b75d3ff2ffedb697bc8db642763"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f96c2ef61f96292bdc32e193d797273" id="r_a1f96c2ef61f96292bdc32e193d797273"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#a1f96c2ef61f96292bdc32e193d797273">velocities_callback</a></td></tr>
+<tr class="separator:a1f96c2ef61f96292bdc32e193d797273"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6df0a5170929e40df8d8929a8ac0a57" id="r_aa6df0a5170929e40df8d8929a8ac0a57"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#aa6df0a5170929e40df8d8929a8ac0a57">groundtruth_velocity_callback</a></td></tr>
 <tr class="separator:aa6df0a5170929e40df8d8929a8ac0a57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a935a704a025d6d2f8aece56c2393ba1c" id="r_a935a704a025d6d2f8aece56c2393ba1c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#a935a704a025d6d2f8aece56c2393ba1c">state_estimation_callback</a></td></tr>
-<tr class="separator:a935a704a025d6d2f8aece56c2393ba1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2fd94b6e77a4281969043431ca3f046" id="r_ad2fd94b6e77a4281969043431ca3f046"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#ad2fd94b6e77a4281969043431ca3f046">groundtruth_pose_callback</a></td></tr>
+<tr class="separator:ad2fd94b6e77a4281969043431ca3f046"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae47daf450bdc6340680d0f62d325883e" id="r_ae47daf450bdc6340680d0f62d325883e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#ae47daf450bdc6340680d0f62d325883e">pose_callback</a></td></tr>
+<tr class="separator:ae47daf450bdc6340680d0f62d325883e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10f0a427e8bce29fd3d10784e90f24db" id="r_a10f0a427e8bce29fd3d10784e90f24db"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#a10f0a427e8bce29fd3d10784e90f24db">map_callback</a></td></tr>
+<tr class="separator:a10f0a427e8bce29fd3d10784e90f24db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a159edb564cb7ef6368c2213565eafab6" id="r_a159edb564cb7ef6368c2213565eafab6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#a159edb564cb7ef6368c2213565eafab6">planning_callback</a></td></tr>
 <tr class="separator:a159edb564cb7ef6368c2213565eafab6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a13bf1ae42a9ffe3b475e160156c513f0" id="r_a13bf1ae42a9ffe3b475e160156c513f0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#a13bf1ae42a9ffe3b475e160156c513f0">_groundtruth_velocity_</a></td></tr>
-<tr class="separator:a13bf1ae42a9ffe3b475e160156c513f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3aed82c9ada3bceee082c97db110183d" id="r_a3aed82c9ada3bceee082c97db110183d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#a3aed82c9ada3bceee082c97db110183d">_groundtruth_map_</a></td></tr>
 <tr class="separator:a3aed82c9ada3bceee082c97db110183d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a348ccba71982ff902d6360cbb46b81ed" id="r_a348ccba71982ff902d6360cbb46b81ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#a348ccba71982ff902d6360cbb46b81ed">_time_sync_</a></td></tr>
-<tr class="separator:a348ccba71982ff902d6360cbb46b81ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13bf1ae42a9ffe3b475e160156c513f0" id="r_a13bf1ae42a9ffe3b475e160156c513f0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#a13bf1ae42a9ffe3b475e160156c513f0">_groundtruth_velocity_</a></td></tr>
+<tr class="separator:a13bf1ae42a9ffe3b475e160156c513f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1cef79492150c426025c8da0cec4722" id="r_ab1cef79492150c426025c8da0cec4722"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#ab1cef79492150c426025c8da0cec4722">_groundtruth_pose_</a></td></tr>
+<tr class="separator:ab1cef79492150c426025c8da0cec4722"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f3f54b25123d0523b749011f842b6f6" id="r_a2f3f54b25123d0523b749011f842b6f6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#a2f3f54b25123d0523b749011f842b6f6">_planning_time_sync_</a></td></tr>
 <tr class="separator:a2f3f54b25123d0523b749011f842b6f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a> class to manage the use of Pacsim. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00021">21</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00022">22</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aaa13b93720fede19b44b8c758c808fcc" name="aaa13b93720fede19b44b8c758c808fcc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaa13b93720fede19b44b8c758c808fcc">&#9670;&#160;</a></span>__init__()</h2>
@@ -199,7 +214,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="../../d7/dff/classevaluator_1_1adapter_1_1_adapter.html#aac75a6f48e287ce1562d7ea624b89244">evaluator.adapter.Adapter</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00026">26</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00027">27</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -252,7 +267,41 @@ Here is the caller graph for this function:</div>
 <p>It also marks the planning's initial timestamp</p>
 <p>Args: groundtruth_map (MarkerArray): Ground truth map data. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00156">156</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00185">185</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
+
+</div>
+</div>
+<a id="a25d023ca9bafaa07b4fc1f4e4b68b3e5" name="a25d023ca9bafaa07b4fc1f4e4b68b3e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25d023ca9bafaa07b4fc1f4e4b68b3e5">&#9670;&#160;</a></span>groundtruth_pose_callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.pacsim_adapter.PacsimAdapter.groundtruth_pose_callback </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TwistWithCovarianceStamped
+    &#160;</td>
+          <td class="paramname"><em>groundtruth_pose</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback function to process ground truth pose messages. </p>
+<p>Args: groundtruth_pose (TwistWithCovarianceStamped): Ground truth pose data. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00206">206</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
 
 </div>
 </div>
@@ -286,7 +335,40 @@ Here is the caller graph for this function:</div>
 <p>Callback function to process ground truth velocity messages. </p>
 <p>Args: groundtruth_velocity (TwistWithCovarianceStamped): Ground truth velocity data. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00145">145</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00195">195</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
+
+</div>
+</div>
+<a id="ad18439e1d2ed3bed7f8c74beac57384e" name="ad18439e1d2ed3bed7f8c74beac57384e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad18439e1d2ed3bed7f8c74beac57384e">&#9670;&#160;</a></span>map_callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.pacsim_adapter.PacsimAdapter.map_callback </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ConeArray&#160;</td>
+          <td class="paramname"><em>map</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback function to process map messages. </p>
+<p>Args: map (ConeArray): <a class="el" href="../../df/d91/struct_map.html">Map</a> data. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00090">90</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
 
 </div>
 </div>
@@ -325,18 +407,18 @@ Here is the caller graph for this function:</div>
 <p>Callback function to process synchronized messages and compute planning metrics. </p>
 <p>Args: planning_output (PathPointArray): <a class="el" href="../../d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car.">Planning</a> output. path_ground_truth (PathPointArray): Groundtruth path message. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00112">112</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00152">152</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
 
 </div>
 </div>
-<a id="aab900a1a8a00c0393418580c9f8cdac5" name="aab900a1a8a00c0393418580c9f8cdac5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab900a1a8a00c0393418580c9f8cdac5">&#9670;&#160;</a></span>state_estimation_callback()</h2>
+<a id="afaff60992003529abc28460533cd9c5e" name="afaff60992003529abc28460533cd9c5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afaff60992003529abc28460533cd9c5e">&#9670;&#160;</a></span>pose_callback()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">evaluator.pacsim_adapter.PacsimAdapter.state_estimation_callback </td>
+          <td class="memname">evaluator.pacsim_adapter.PacsimAdapter.pose_callback </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -344,14 +426,41 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">VehicleState&#160;</td>
-          <td class="paramname"><em>vehicle_state</em>, </td>
+          <td class="paramtype"><a class="el" href="../../d8/d11/struct_pose.html">Pose</a>&#160;</td>
+          <td class="paramname"><em>vehicle_pose</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback function to process vehicle pose messages. </p>
+<p>Args: vehicle_pose (<a class="el" href="../../d8/d11/struct_pose.html">Pose</a>): Vehicle pose data. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00109">109</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
+
+</div>
+</div>
+<a id="ae95772156af7541139653fe74e60a987" name="ae95772156af7541139653fe74e60a987"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae95772156af7541139653fe74e60a987">&#9670;&#160;</a></span>velocities_callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.pacsim_adapter.PacsimAdapter.velocities_callback </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ConeArray&#160;</td>
-          <td class="paramname"><em>map</em>&#160;</td>
+          <td class="paramtype">Velocities&#160;</td>
+          <td class="paramname"><em>velocities</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -362,9 +471,9 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Callback function to process synchronized messages and compute state estimation metrics. </p>
-<p>Args: vehicle_state (VehicleState): Vehicle state estimation data. map (ConeArray): <a class="el" href="../../df/d91/struct_map.html">Map</a> data. </p>
+<p>Args: velocities (Velocities): Vehicle velocities estimation data. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00072">72</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00127">127</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
 
 </div>
 </div>
@@ -393,6 +502,30 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="ab1cef79492150c426025c8da0cec4722" name="ab1cef79492150c426025c8da0cec4722"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1cef79492150c426025c8da0cec4722">&#9670;&#160;</a></span>_groundtruth_pose_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.pacsim_adapter.PacsimAdapter._groundtruth_pose_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00058">58</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
+
+</div>
+</div>
 <a id="a13bf1ae42a9ffe3b475e160156c513f0" name="a13bf1ae42a9ffe3b475e160156c513f0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a13bf1ae42a9ffe3b475e160156c513f0">&#9670;&#160;</a></span>_groundtruth_velocity_</h2>
 
@@ -413,7 +546,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00034">34</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00050">50</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
 
 </div>
 </div>
@@ -437,31 +570,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00061">61</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
-
-</div>
-</div>
-<a id="a348ccba71982ff902d6360cbb46b81ed" name="a348ccba71982ff902d6360cbb46b81ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a348ccba71982ff902d6360cbb46b81ed">&#9670;&#160;</a></span>_time_sync_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">evaluator.pacsim_adapter.PacsimAdapter._time_sync_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00050">50</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00079">79</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
 
 </div>
 </div>
@@ -481,6 +590,22 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="ad2fd94b6e77a4281969043431ca3f046" name="ad2fd94b6e77a4281969043431ca3f046"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2fd94b6e77a4281969043431ca3f046">&#9670;&#160;</a></span>groundtruth_pose_callback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.pacsim_adapter.PacsimAdapter.groundtruth_pose_callback</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00062">62</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
+
+</div>
+</div>
 <a id="aa6df0a5170929e40df8d8929a8ac0a57" name="aa6df0a5170929e40df8d8929a8ac0a57"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa6df0a5170929e40df8d8929a8ac0a57">&#9670;&#160;</a></span>groundtruth_velocity_callback</h2>
 
@@ -493,7 +618,23 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00046">46</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00054">54</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
+
+</div>
+</div>
+<a id="a10f0a427e8bce29fd3d10784e90f24db" name="a10f0a427e8bce29fd3d10784e90f24db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10f0a427e8bce29fd3d10784e90f24db">&#9670;&#160;</a></span>map_callback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.pacsim_adapter.PacsimAdapter.map_callback</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00075">75</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
 
 </div>
 </div>
@@ -509,23 +650,39 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00070">70</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00088">88</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
 
 </div>
 </div>
-<a id="a935a704a025d6d2f8aece56c2393ba1c" name="a935a704a025d6d2f8aece56c2393ba1c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a935a704a025d6d2f8aece56c2393ba1c">&#9670;&#160;</a></span>state_estimation_callback</h2>
+<a id="ae47daf450bdc6340680d0f62d325883e" name="ae47daf450bdc6340680d0f62d325883e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae47daf450bdc6340680d0f62d325883e">&#9670;&#160;</a></span>pose_callback</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">evaluator.pacsim_adapter.PacsimAdapter.state_estimation_callback</td>
+          <td class="memname">evaluator.pacsim_adapter.PacsimAdapter.pose_callback</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00059">59</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00074">74</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
+
+</div>
+</div>
+<a id="a1f96c2ef61f96292bdc32e193d797273" name="a1f96c2ef61f96292bdc32e193d797273"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f96c2ef61f96292bdc32e193d797273">&#9670;&#160;</a></span>velocities_callback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.pacsim_adapter.PacsimAdapter.velocities_callback</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html#l00046">46</a> of file <a class="el" href="../../da/de1/pacsim__adapter_8py_source.html">pacsim_adapter.py</a>.</p>
 
 </div>
 </div>

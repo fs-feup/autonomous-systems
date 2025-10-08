@@ -1,7 +1,14 @@
 var struct_control_parameters =
 [
+    [ "command_time_interval_", "d4/de1/struct_control_parameters.html#a005f9d25aed7701bf926116ae00bcda3", null ],
+    [ "const_torque_value_", "d4/de1/struct_control_parameters.html#ab8cca24c4a20362bfb639009c23843c8", null ],
+    [ "first_last_max_dist_", "d4/de1/struct_control_parameters.html#ae6d21ffcbd6d757076c43a1975b4b67a", null ],
     [ "lookahead_gain_", "d4/de1/struct_control_parameters.html#a180a5d003f919098d113d2ed021b37da", null ],
+    [ "lookahead_minimum_", "d4/de1/struct_control_parameters.html#ad488bfb6b020dffae2a7adcce049b60b", null ],
+    [ "lpf_alpha_", "d4/de1/struct_control_parameters.html#aac68cd9faf79c6116819a935f4c1b225", null ],
+    [ "lpf_initial_value_", "d4/de1/struct_control_parameters.html#a33018a59a1e1acb6ab3ed9ffefcce005", null ],
     [ "map_frame_id_", "d4/de1/struct_control_parameters.html#ad583dff74c07eb7bd8ffe630137b7cdc", null ],
+    [ "mission_", "d4/de1/struct_control_parameters.html#a53da002a944d13035048288ff8f51845", null ],
     [ "pid_anti_windup_", "d4/de1/struct_control_parameters.html#a85edaba74014e6ec6a2efce0ef3434c8", null ],
     [ "pid_kd_", "d4/de1/struct_control_parameters.html#a5f2680748995a2b6cf9a678360f98319", null ],
     [ "pid_ki_", "d4/de1/struct_control_parameters.html#a44ccca9d008ec4137ef9c6c21206f086", null ],
@@ -10,6 +17,9 @@ var struct_control_parameters =
     [ "pid_lim_min_", "d4/de1/struct_control_parameters.html#aa99a13e24b70bbab07eba1e02066a7ed", null ],
     [ "pid_t_", "d4/de1/struct_control_parameters.html#ad1411cbd9ac605fa2f9d9e11c226ef27", null ],
     [ "pid_tau_", "d4/de1/struct_control_parameters.html#a8fa20f824ceff20002fe72da1abb0e9a", null ],
+    [ "steering_limiting_factor_", "d4/de1/struct_control_parameters.html#a7d08657d751c0451851f0d59c945d70f", null ],
+    [ "test_mode_", "d4/de1/struct_control_parameters.html#a3ca0c8e134d85b5362823606fc9dd130", null ],
     [ "use_simulated_planning_", "d4/de1/struct_control_parameters.html#aa3382215cf22ddf385d779a96d059936", null ],
-    [ "using_simulated_se_", "d4/de1/struct_control_parameters.html#a12264a08b94581b6c9cab99ed89a6156", null ]
+    [ "using_simulated_slam_", "d4/de1/struct_control_parameters.html#aa25152fbc32273040f961b849293ef29", null ],
+    [ "using_simulated_velocities_", "d4/de1/struct_control_parameters.html#ad3d5abbb9cc1d589a1126a430f3047b4", null ]
 ];

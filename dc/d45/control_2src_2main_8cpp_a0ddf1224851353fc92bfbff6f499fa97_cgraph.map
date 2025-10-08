@@ -1,7 +1,7 @@
 <map id="main" name="main">
-<area shape="rect" id="Node000001" title="Main function for the Ros Can node." alt="" coords="5,31,55,56"/>
-<area shape="rect" id="Node000002" href="$df/d6e/control_2include_2adapter__control_2parameters__factory_8hpp.html#ad164ce6d2dfd79f5770f8f1fbafd67fe" title=" " alt="" coords="135,5,238,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="54,37,119,26,120,32,55,42"/>
-<area shape="rect" id="Node000003" href="$d7/d69/perception_2include_2perception_2parameters__factory_8hpp.html#a77e91e2c05753c6d34d8316e7433294c" title=" " alt="" coords="103,55,270,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="55,45,88,50,87,55,54,50"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,13,55,39"/>
+<area shape="rect" id="Node000002" href="$d7/d49/class_control.html#a7ad204d3b2598bfc0551e604872b8354" title=" " alt="" coords="103,13,236,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="55,23,87,23,87,28,55,28"/>
+<area shape="rect" id="Node000003" href="$de/dca/namespacecommon__lib_1_1config__load.html#a1b7b070d3b2eb3e25bf4d0effc5fea08" title=" " alt="" coords="284,5,467,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="236,23,269,23,269,28,236,28"/>
 </map>

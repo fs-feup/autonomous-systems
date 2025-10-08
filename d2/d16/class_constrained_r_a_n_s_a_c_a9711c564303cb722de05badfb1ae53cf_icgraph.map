@@ -1,0 +1,20 @@
+<map id="ConstrainedRANSAC::distance_to_plane" name="ConstrainedRANSAC::distance_to_plane">
+<area shape="rect" id="Node000001" title="Calculate distance from a point to a plane." alt="" coords="521,122,673,163"/>
+<area shape="rect" id="Node000002" href="$d2/d16/class_constrained_r_a_n_s_a_c.html#a9b20760ce6828bb19c90f40e1bee90d0" title="Calculate the best&#45;fit plane using RANSAC algorithm." alt="" coords="322,93,473,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="505,131,473,127,474,121,506,126"/>
+<area shape="rect" id="Node000003" href="$d2/d16/class_constrained_r_a_n_s_a_c.html#ada317723a343aedb4d33bee30623bc26" title="Perform ground removal using the RANSAC algorithm." alt="" coords="123,122,274,163"/>
+<area shape="poly" id="edge9_Node000001_Node000003" title=" " alt="" coords="506,147,473,147,322,147,274,147,274,141,322,142,473,142,506,142"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="307,129,275,134,274,128,306,124"/>
+<area shape="rect" id="Node000004" href="$dd/ded/constrained__ransac__test_8cpp.html#af7d8d720f4eee844f8275d6f5a8e3fa4" title="Test: Accept planes only if angle diff &lt;= threshold." alt="" coords="5,5,75,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="160,114,73,44,59,34,62,29,76,40,163,110"/>
+<area shape="rect" id="Node000005" href="$dd/ded/constrained__ransac__test_8cpp.html#a1d6ecd000ca72f1fe34afffd66b2df68" title="Test: Huge epsilon &#45;&gt; all points treated as ground &#45;&gt; output empty." alt="" coords="5,55,75,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="138,117,68,83,70,78,141,112"/>
+<area shape="rect" id="Node000006" href="$dd/ded/constrained__ransac__test_8cpp.html#a76affcf1e023f91526cf450fb7056899" title="Test: Reject planes if angle diff &gt; threshold (fallback uses base_plane)." alt="" coords="5,104,75,130"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="107,130,75,125,76,120,108,125"/>
+<area shape="rect" id="Node000007" href="$dd/ded/constrained__ransac__test_8cpp.html#ac7cf23ac286a5f11bcd0a2256f0bbd12" title="Test: Small epsilon &#45;&gt; only points in the plane are removed." alt="" coords="5,153,75,179"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="108,159,76,164,75,158,107,153"/>
+<area shape="rect" id="Node000008" href="$dd/ded/constrained__ransac__test_8cpp.html#a7ff9ef4c4bf996c6c91582bc26e7411d" title="Test: With 3 points and epsilon=0, none are removed." alt="" coords="5,203,75,228"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="140,172,71,204,69,200,138,167"/>
+<area shape="rect" id="Node000009" href="$dd/ded/constrained__ransac__test_8cpp.html#a3185b737cfea20c888a1271f0cbeb0ea" title="Test: Cloud with &lt;3 points throws exception." alt="" coords="5,252,75,278"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="162,175,76,243,62,254,59,249,73,239,159,171"/>
+</map>

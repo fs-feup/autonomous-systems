@@ -1,0 +1,5 @@
+<map id="PacsimAdapter::fetch_discipline" name="PacsimAdapter::fetch_discipline">
+<area shape="rect" id="Node000001" title="Fetches the mission from the parameters." alt="" coords="259,5,404,46"/>
+<area shape="rect" id="Node000002" href="$d1/dcb/class_pacsim_adapter.html#ad557c789fd4da581c9d487abb5af4dc5" title="Constructor of the pacsim adapter node." alt="" coords="5,13,211,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="243,28,211,28,211,23,243,23"/>
+</map>

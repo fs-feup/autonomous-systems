@@ -104,22 +104,24 @@ $(document).ready(function(){initNavTree('d7/d70/wheel__encoders_8cpp_source.htm
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../dc/d34/namespacecommon__lib_1_1sensor__data.html">common_lib::sensor_data</a> {</div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="foldopen" id="foldopen00005" data-start="{" data-end="}">
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="../../d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data.html#ad345719e8c75352257c24b5400399f5c">    5</a></span><a class="code hl_function" href="../../d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data.html#a6b5ae336042c50c9ba061b82e254663b">WheelEncoderData::WheelEncoderData</a>(<span class="keywordtype">double</span> rl_rpm, <span class="keywordtype">double</span> rr_rpm, <span class="keywordtype">double</span> steering_angle)</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    : rl_rpm(rl_rpm), rr_rpm(rr_rpm), steering_angle(steering_angle) {}</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="../../d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data.html#ae10cb9387d9e28a59f4337bb27e9c910">    5</a></span><a class="code hl_function" href="../../d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data.html#a6b5ae336042c50c9ba061b82e254663b">WheelEncoderData::WheelEncoderData</a>(<span class="keywordtype">double</span> rl_rpm, <span class="keywordtype">double</span> rr_rpm, <span class="keywordtype">double</span> steering_angle,</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>                                   rclcpp::Time timestamp)</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    : rl_rpm(rl_rpm), rr_rpm(rr_rpm), steering_angle(steering_angle), timestamp_(timestamp) {}</div>
 </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="foldopen" id="foldopen00008" data-start="{" data-end="}">
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="../../d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data.html#ae29587452ac6ed4faf52f15079ffb0dc">    8</a></span><a class="code hl_function" href="../../d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data.html#a6b5ae336042c50c9ba061b82e254663b">WheelEncoderData::WheelEncoderData</a>(<span class="keywordtype">double</span> rl_rpm, <span class="keywordtype">double</span> rr_rpm, <span class="keywordtype">double</span> fl_rpm, <span class="keywordtype">double</span> fr_rpm,</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>                                   <span class="keywordtype">double</span> steering_angle)</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    : rl_rpm(rl_rpm),</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>      rr_rpm(rr_rpm),</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>      fl_rpm(fl_rpm),</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>      fr_rpm(fr_rpm),</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>      steering_angle(steering_angle) {}</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="../../d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data.html#a590578f265a2d7180357bf82c015f8f7">    9</a></span><a class="code hl_function" href="../../d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data.html#a6b5ae336042c50c9ba061b82e254663b">WheelEncoderData::WheelEncoderData</a>(<span class="keywordtype">double</span> rl_rpm, <span class="keywordtype">double</span> rr_rpm, <span class="keywordtype">double</span> fl_rpm, <span class="keywordtype">double</span> fr_rpm,</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>                                   <span class="keywordtype">double</span> steering_angle, rclcpp::Time timestamp)</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    : rl_rpm(rl_rpm),</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>      rr_rpm(rr_rpm),</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>      fl_rpm(fl_rpm),</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>      fr_rpm(fr_rpm),</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>      steering_angle(steering_angle),</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>      timestamp_(timestamp) {}</div>
 </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}  <span class="comment">// namespace common_lib::sensor_data</span></div>
-<div class="ttc" id="anamespacecommon__lib_1_1sensor__data_html"><div class="ttname"><a href="../../dc/d34/namespacecommon__lib_1_1sensor__data.html">common_lib::sensor_data</a></div><div class="ttdef"><b>Definition</b> <a href="../../d9/d4e/imu_8hpp_source.html#l00003">imu.hpp:3</a></div></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>}  <span class="comment">// namespace common_lib::sensor_data</span></div>
+<div class="ttc" id="anamespacecommon__lib_1_1sensor__data_html"><div class="ttname"><a href="../../dc/d34/namespacecommon__lib_1_1sensor__data.html">common_lib::sensor_data</a></div><div class="ttdef"><b>Definition</b> <a href="../../d9/d4e/imu_8hpp_source.html#l00005">imu.hpp:5</a></div></div>
 <div class="ttc" id="astructcommon__lib_1_1sensor__data_1_1_wheel_encoder_data_html_a6b5ae336042c50c9ba061b82e254663b"><div class="ttname"><a href="../../d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data.html#a6b5ae336042c50c9ba061b82e254663b">common_lib::sensor_data::WheelEncoderData::WheelEncoderData</a></div><div class="ttdeci">WheelEncoderData()=default</div></div>
 <div class="ttc" id="awheel__encoders_8hpp_html"><div class="ttname"><a href="../../de/de3/wheel__encoders_8hpp.html">wheel_encoders.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

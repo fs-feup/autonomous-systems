@@ -1,0 +1,5 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title="Test the particle model." alt="" coords="5,13,60,39"/>
+<area shape="rect" id="Node000002" href="$d6/dba/class_c_a_particle_model.html#a0a6800f9051998fb548e0bc375c96581" title="Predicts the next velocities based on the previous velocities and accelerations from IMU." alt="" coords="108,5,250,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,23,93,23,93,28,60,28"/>
+</map>

@@ -100,6 +100,12 @@ $(document).ready(function(){initNavTree('da/dad/namespaceevaluator_1_1formats.h
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a432e033dc9748042261c25c0601b7a48" id="r_a432e033dc9748042261c25c0601b7a48"><td class="memItemLeft" align="right" valign="top">tuple[np.ndarray, np.ndarray]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dad/namespaceevaluator_1_1formats.html#a432e033dc9748042261c25c0601b7a48">format_vehicle_pose_msg</a> (<a class="el" href="../../d8/d11/struct_pose.html">Pose</a> msg)</td></tr>
+<tr class="memdesc:a432e033dc9748042261c25c0601b7a48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats the <a class="el" href="../../d8/d11/struct_pose.html">Pose</a> message into a numpy array.  <br /></td></tr>
+<tr class="separator:a432e033dc9748042261c25c0601b7a48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e2cd4ac9fc5b2b47e936038cb1223cb" id="r_a9e2cd4ac9fc5b2b47e936038cb1223cb"><td class="memItemLeft" align="right" valign="top">tuple[np.ndarray, np.ndarray]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dad/namespaceevaluator_1_1formats.html#a9e2cd4ac9fc5b2b47e936038cb1223cb">format_velocities_msg</a> (Velocities msg)</td></tr>
+<tr class="memdesc:a9e2cd4ac9fc5b2b47e936038cb1223cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats the Velocities message into a numpy array.  <br /></td></tr>
+<tr class="separator:a9e2cd4ac9fc5b2b47e936038cb1223cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a449a370e62235551471659402f5f43c3" id="r_a449a370e62235551471659402f5f43c3"><td class="memItemLeft" align="right" valign="top">tuple[np.ndarray, np.ndarray]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dad/namespaceevaluator_1_1formats.html#a449a370e62235551471659402f5f43c3">format_vehicle_state_msg</a> (VehicleState msg)</td></tr>
 <tr class="memdesc:a449a370e62235551471659402f5f43c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats the VehicleState message into a numpy array.  <br /></td></tr>
 <tr class="separator:a449a370e62235551471659402f5f43c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -178,7 +184,7 @@ Args:
 Returns:
     np.ndarray: array of elements from arr2 that are the closest to at least one element in arr1
 </pre> 
-<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00296">296</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00340">340</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
 
 </div>
 </div>
@@ -202,7 +208,7 @@ Returns:
 <p>Args: msg (CarState): CarState message from eufs</p>
 <p>Returns: tuple[np.ndarray, np.ndarray]: (state, velocities) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00151">151</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00195">195</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
 
 </div>
 </div>
@@ -226,7 +232,7 @@ Returns:
 <p>Args: msg (ConeArray): Cone array message.</p>
 <p>Returns: np.ndarray: Numpy array of arrays. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00042">42</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00086">86</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
 
 </div>
 </div>
@@ -249,7 +255,7 @@ Returns:
 <p>Args: msg (ConeArrayWithCovariance): cone array message from eufs. </p>
 <p>Returns: np.ndarray[np.ndarray]: [[x, y, color, confidence], ...] </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00187">187</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00231">231</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
 
 </div>
 </div>
@@ -273,7 +279,7 @@ Returns:
 <p>Args: msg (MarkerArray): Marker array message.</p>
 <p>Returns: np.ndarray: Numpy array of arrays. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00078">78</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00122">122</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -307,7 +313,7 @@ Here is the call graph for this function:</div>
 <p>Args: msg (Odometry): Odometry message.</p>
 <p>Returns: np.ndarray: Numpy array of odometry. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00222">222</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00266">266</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
 
 </div>
 </div>
@@ -331,7 +337,7 @@ Here is the call graph for this function:</div>
 <p>Args: path_point_array (PathPointArray): PathPointArray message.</p>
 <p>Returns: np.ndarray: Numpy array of path points. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00257">257</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00301">301</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
 
 </div>
 </div>
@@ -355,7 +361,7 @@ Here is the call graph for this function:</div>
 <p>Args: msg: Point2D message.</p>
 <p>Returns: np.ndarray: Numpy array of point. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00283">283</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00327">327</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
 
 </div>
 </div>
@@ -379,7 +385,7 @@ Here is the call graph for this function:</div>
 <p>Args: msg (TransformStamped): TransformStamped message.</p>
 <p>Returns: np.ndarray: Numpy array of transform. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00107">107</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00151">151</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
 
 </div>
 </div>
@@ -403,7 +409,31 @@ Here is the call graph for this function:</div>
 <p>Args: msg (TwistWithCovarianceStamped): TwistWithCovarianceStamped message.</p>
 <p>Returns: np.ndarray: Numpy array of twist (used for velocities). </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00134">134</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00178">178</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+
+</div>
+</div>
+<a id="a432e033dc9748042261c25c0601b7a48" name="a432e033dc9748042261c25c0601b7a48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a432e033dc9748042261c25c0601b7a48">&#9670;&#160;</a></span>format_vehicle_pose_msg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> tuple[np.ndarray, np.ndarray] evaluator.formats.format_vehicle_pose_msg </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d11/struct_pose.html">Pose</a>&#160;</td>
+          <td class="paramname"><em>msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Formats the <a class="el" href="../../d8/d11/struct_pose.html">Pose</a> message into a numpy array. </p>
+<p>Args: msg (<a class="el" href="../../d8/d11/struct_pose.html">Pose</a>): Vehicle pose message.</p>
+<p>Returns: np.ndarray: Numpy array of vehicle pose. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00026">26</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
 
 </div>
 </div>
@@ -427,7 +457,31 @@ Here is the call graph for this function:</div>
 <p>Args: msg (VehicleState): Vehicle state message.</p>
 <p>Returns: np.ndarray: Numpy array of vehicle state. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00020">20</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00064">64</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+
+</div>
+</div>
+<a id="a9e2cd4ac9fc5b2b47e936038cb1223cb" name="a9e2cd4ac9fc5b2b47e936038cb1223cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e2cd4ac9fc5b2b47e936038cb1223cb">&#9670;&#160;</a></span>format_velocities_msg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> tuple[np.ndarray, np.ndarray] evaluator.formats.format_velocities_msg </td>
+          <td>(</td>
+          <td class="paramtype">Velocities&#160;</td>
+          <td class="paramname"><em>msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Formats the Velocities message into a numpy array. </p>
+<p>Args: msg (Velocities): Vehicle velocities message.</p>
+<p>Returns: np.ndarray: Numpy array of vehicle velocities. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00045">45</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
 
 </div>
 </div>
@@ -451,7 +505,7 @@ Here is the call graph for this function:</div>
 <p>Args: arr (np.ndarray): Array of cones with the following attributes: x, y, index, confidence, type.</p>
 <p>Returns: tuple[np.ndarray, np.ndarray]: the first array is the array of blue cones and the second contains yellow cones. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00324">324</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00368">368</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
 
 </div>
 </div>
@@ -487,7 +541,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00069">69</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00113">113</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -520,10 +574,10 @@ Here is the caller graph for this function:</div>
 <div class="line"><span class="lineno">    5</span>    <span class="stringliteral">&quot;yellow&quot;</span>: 1,</div>
 <div class="line"><span class="lineno">    6</span>    <span class="stringliteral">&quot;orange_cone&quot;</span>: 2,</div>
 <div class="line"><span class="lineno">    7</span>    <span class="stringliteral">&quot;large_orange_cone&quot;</span>: 3,</div>
-<div class="line"><span class="lineno">    8</span>    <span class="stringliteral">&quot;undefined&quot;</span>: 4,</div>
+<div class="line"><span class="lineno">    8</span>    <span class="stringliteral">&quot;unknown&quot;</span>: 4,</div>
 <div class="line"><span class="lineno">    9</span>}</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00009">9</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00015">15</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
 
 </div>
 </div>

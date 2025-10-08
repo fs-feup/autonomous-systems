@@ -1,0 +1,7 @@
+<map id="TEST_F" name="TEST_F">
+<area shape="rect" id="Node000001" title="Test case to validate points below the minimum distance on the y&#45;axis." alt="" coords="5,13,75,39"/>
+<area shape="rect" id="Node000002" href="$db/d6b/class_displacement_validator.html#a7c369e7de6133338f85f4aec712dad5d" title="Validates a cone based on the maximum distance between its points in all axis." alt="" coords="123,5,274,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,23,107,23,107,28,75,28"/>
+<area shape="rect" id="Node000003" href="$d2/d23/class_cluster.html#a763032aa726408defaea180f280f55f3" title="Get the Point Cloud data of the cluster." alt="" coords="322,5,443,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="275,23,306,23,306,28,275,28"/>
+</map>

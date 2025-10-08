@@ -1,0 +1,5 @@
+<map id="ConstrainedRANSAC" name="ConstrainedRANSAC">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,119,189,364"/>
+<area shape="rect" id="Node000002" href="$dc/d84/class_ground_removal.html" title="Abstract class for ground removal from a point cloud." alt="" coords="35,5,159,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,85,100,119,95,119,95,85"/>
+</map>

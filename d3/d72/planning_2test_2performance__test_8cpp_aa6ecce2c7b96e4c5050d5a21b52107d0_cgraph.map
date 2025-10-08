@@ -1,31 +1,24 @@
 <map id="TEST" name="TEST">
-<area shape="rect" id="Node000001" title="Execution Time Test." alt="" coords="5,104,60,130"/>
+<area shape="rect" id="Node000001" title="Execution Time Test." alt="" coords="5,80,60,106"/>
 <area shape="rect" id="Node000002" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a52c2960346523b12ecb7da88a3c7a41a" title="Extracts the size and number of outliers from a filename." alt="" coords="134,5,223,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="42,102,69,71,106,40,119,33,121,38,109,44,73,75,46,105"/>
-<area shape="rect" id="Node000003" href="$d3/d72/planning_2test_2performance__test_8cpp.html#a0545f40dd80c8f8d8814704bd67bad25" title=" " alt="" coords="124,55,233,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="59,105,123,83,124,88,61,110"/>
-<area shape="rect" id="Node000008" href="$d3/d72/planning_2test_2performance__test_8cpp.html#aab2295277d22fafb888111e66fdac82f" title="Iterates the Outliers algorithm repeatedly and measures the average time." alt="" coords="125,203,232,228"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="46,129,73,159,109,189,117,194,114,198,106,194,69,163,42,132"/>
-<area shape="rect" id="Node000010" href="$d3/d72/planning_2test_2performance__test_8cpp.html#ace1de27c0d0025682943b154a203ad8a" title="Iterates the Smoothing algorithm repeatedly and measures the average time." alt="" coords="116,104,241,130"/>
-<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="60,114,101,114,101,120,60,120"/>
-<area shape="rect" id="Node000011" href="$d3/d72/planning_2test_2performance__test_8cpp.html#a808870244af80707b55103c95bfdb4ed" title="Iterates the Path Calculation algorithm repeatedly and measures the average time." alt="" coords="108,153,249,179"/>
-<area shape="poly" id="edge15_Node000001_Node000011" title=" " alt="" coords="61,123,124,145,123,150,59,128"/>
-<area shape="rect" id="Node000004" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a7581946a647c2a991f5e80cbcf2980af" title="Retrieves a cone vector from a file." alt="" coords="298,47,446,72"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="233,63,282,61,282,66,234,68"/>
-<area shape="rect" id="Node000006" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a2c3bbc9fd458920b2aa9308286235fd9" title="Get current date and time as a string." alt="" coords="297,146,447,187"/>
-<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="228,79,250,89,275,110,299,132,305,136,302,140,295,136,271,114,248,94,226,83"/>
-<area shape="rect" id="Node000007" href="$dd/d8b/files_8cpp.html#a31528f6190bb65cd23060103e913aa53" title=" " alt="" coords="322,96,422,122"/>
-<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="234,77,307,92,306,98,233,82"/>
-<area shape="rect" id="Node000005" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a82e479b6e5401fd9ab2dc0a0851f0a55" title="Opens a file for reading." alt="" coords="495,129,600,155"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="421,70,448,81,515,118,513,123,446,86,419,75"/>
-<area shape="poly" id="edge8_Node000008_Node000006" title=" " alt="" coords="231,199,281,187,282,192,233,205"/>
-<area shape="poly" id="edge9_Node000008_Node000007" title=" " alt="" coords="228,200,247,189,262,176,271,161,280,147,295,132,306,126,309,130,299,136,284,150,275,164,266,179,251,194,231,204"/>
-<area shape="rect" id="Node000009" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#ae4770494f4382a6811df453c4e3c5c6b" title="Retrieves a track (a pair of colored cone vectors from each side) from a file." alt="" coords="319,211,425,236"/>
-<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="232,215,304,218,304,223,232,220"/>
-<area shape="poly" id="edge11_Node000009_Node000005" title=" " alt="" coords="416,208,446,196,511,161,514,166,448,201,418,213"/>
-<area shape="poly" id="edge13_Node000010_Node000006" title=" " alt="" coords="233,128,282,141,281,146,231,133"/>
-<area shape="poly" id="edge14_Node000010_Node000007" title=" " alt="" coords="241,112,307,109,307,114,241,117"/>
-<area shape="poly" id="edge16_Node000011_Node000006" title=" " alt="" coords="249,164,281,164,281,169,249,169"/>
-<area shape="poly" id="edge17_Node000011_Node000007" title=" " alt="" coords="224,150,311,124,312,129,225,155"/>
-<area shape="poly" id="edge18_Node000011_Node000009" title=" " alt="" coords="225,177,312,203,311,208,224,182"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="49,77,106,40,119,34,121,39,109,45,52,82"/>
+<area shape="rect" id="Node000003" href="$d3/d72/planning_2test_2performance__test_8cpp.html#aab2295277d22fafb888111e66fdac82f" title="Iterates the Outliers algorithm repeatedly and measures the average time." alt="" coords="125,104,232,130"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="61,95,111,103,110,108,60,100"/>
+<area shape="rect" id="Node000008" href="$d3/d72/planning_2test_2performance__test_8cpp.html#ace1de27c0d0025682943b154a203ad8a" title="Iterates the Smoothing algorithm repeatedly and measures the average time." alt="" coords="116,55,241,80"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="60,86,101,78,102,84,61,91"/>
+<area shape="rect" id="Node000009" href="$d3/d72/planning_2test_2performance__test_8cpp.html#a808870244af80707b55103c95bfdb4ed" title="Iterates the Path Calculation algorithm repeatedly and measures the average time." alt="" coords="108,153,249,179"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="52,104,109,140,120,145,118,150,106,145,49,108"/>
+<area shape="rect" id="Node000004" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a2c3bbc9fd458920b2aa9308286235fd9" title="Get current date and time as a string." alt="" coords="297,101,447,141"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="232,115,282,116,282,122,232,121"/>
+<area shape="rect" id="Node000005" href="$dd/d8b/files_8cpp.html#a31528f6190bb65cd23060103e913aa53" title=" " alt="" coords="322,51,422,76"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="227,101,307,78,309,84,229,106"/>
+<area shape="rect" id="Node000006" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#ae4770494f4382a6811df453c4e3c5c6b" title="Retrieves a track (a pair of colored cone vectors from each side) from a file." alt="" coords="319,165,425,191"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="222,128,315,158,314,163,221,133"/>
+<area shape="rect" id="Node000007" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a82e479b6e5401fd9ab2dc0a0851f0a55" title="Opens a file for reading." alt="" coords="495,165,600,191"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="426,176,480,176,480,181,426,181"/>
+<area shape="poly" id="edge8_Node000008_Node000004" title=" " alt="" coords="229,78,282,93,281,99,227,84"/>
+<area shape="poly" id="edge9_Node000008_Node000005" title=" " alt="" coords="241,64,307,62,307,68,241,69"/>
+<area shape="poly" id="edge11_Node000009_Node000004" title=" " alt="" coords="236,150,281,139,282,145,237,155"/>
+<area shape="poly" id="edge12_Node000009_Node000005" title=" " alt="" coords="227,150,247,140,262,127,271,114,280,100,295,87,306,80,309,85,299,91,284,104,275,117,266,131,251,144,230,155"/>
+<area shape="poly" id="edge13_Node000009_Node000006" title=" " alt="" coords="249,168,304,171,303,177,249,173"/>
 </map>

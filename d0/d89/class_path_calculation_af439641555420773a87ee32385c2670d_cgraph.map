@@ -1,0 +1,27 @@
+<map id="PathCalculation::no_coloring_planning" name="PathCalculation::no_coloring_planning">
+<area shape="rect" id="Node000001" title="Generate a path from cone array without color information." alt="" coords="5,213,138,254"/>
+<area shape="rect" id="Node000002" href="$d0/d89/class_path_calculation.html#a86e2800e0b7d76789f4798a12c118900" title="Initializes the path using the current pose and the nearest midpoints." alt="" coords="195,128,365,169"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="122,210,213,173,215,178,124,215"/>
+<area shape="rect" id="Node000003" href="$d0/d89/class_path_calculation.html#a5c7fb5065112883aec914d0739f5848f" title="Invalidates cones and midpoints based on the last path segment." alt="" coords="422,185,582,226"/>
+<area shape="poly" id="edge11_Node000001_Node000003" title=" " alt="" coords="138,227,406,209,406,215,138,232"/>
+<area shape="rect" id="Node000008" href="$d0/d89/class_path_calculation.html#aadf68a0a35692651f23fc475a0a1c894" title="Creates midpoints between cones based on Delaunay triangulation." alt="" coords="203,320,357,361"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="114,252,226,310,224,315,112,257"/>
+<area shape="rect" id="Node000010" href="$d0/d89/class_path_calculation.html#acab3473f2c9dd9f34ab9d03e43047468" title="Extends the current path by exploring nearby midpoints." alt="" coords="186,249,374,275"/>
+<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="138,240,171,244,170,250,138,245"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="362,167,408,179,406,184,360,172"/>
+<area shape="rect" id="Node000004" href="$d0/d89/class_path_calculation.html#a4444ee6d08b3e17df55f41586030cb8d" title="Find the nearest midpoint to a target point within a tolerance." alt="" coords="645,185,784,226"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="366,149,470,157,583,171,631,181,630,186,582,176,469,162,365,155"/>
+<area shape="rect" id="Node000005" href="$d0/d89/class_path_calculation.html#a25add0f21e8ce4a8fab7860abf2a1472" title="Finds the first and second points to start the path." alt="" coords="433,5,571,46"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="309,125,360,92,421,57,433,50,436,55,423,61,363,96,312,130"/>
+<area shape="rect" id="Node000007" href="$d0/d89/class_path_calculation.html#ad8646d68f53b1f2a260b84368003b4f3" title="Updates the anchor point if not already set." alt="" coords="424,71,581,111"/>
+<area shape="poly" id="edge8_Node000002_Node000007" title=" " alt="" coords="360,125,408,112,409,118,362,130"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="583,203,630,203,630,208,583,208"/>
+<area shape="rect" id="Node000006" href="$d0/d89/class_path_calculation.html#aa0e5b1444ad85379197270b612ada0eb" title="Depth&#45;first search for path cost calculation." alt="" coords="630,74,799,100"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="572,43,654,67,652,72,571,48"/>
+<area shape="poly" id="edge7_Node000006_Node000006" title=" " alt="" coords="679,75,672,66,676,56,691,50,715,48,741,50,754,57,751,62,739,55,714,53,692,55,680,60,677,65,683,72"/>
+<area shape="rect" id="Node000009" href="$d8/dbc/planning_2src_2utils_2cone_8cpp.html#a7b69d8ec416740df4516705b6b92ca2e" title=" " alt="" coords="464,352,540,377"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="358,346,449,356,448,361,357,351"/>
+<area shape="poly" id="edge14_Node000010_Node000003" title=" " alt="" coords="333,246,406,227,408,232,334,251"/>
+<area shape="poly" id="edge15_Node000010_Node000004" title=" " alt="" coords="333,273,386,282,449,289,516,290,582,279,630,259,673,233,676,238,633,264,583,284,516,295,448,295,385,288,332,278"/>
+<area shape="poly" id="edge13_Node000010_Node000006" title=" " alt="" coords="374,271,424,271,478,267,531,256,581,235,598,222,607,208,615,191,628,172,687,109,691,112,632,175,620,194,612,211,602,226,584,240,533,261,479,272,424,277,374,276"/>
+</map>

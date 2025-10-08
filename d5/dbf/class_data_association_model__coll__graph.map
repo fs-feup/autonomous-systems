@@ -1,3 +1,5 @@
 <map id="DataAssociationModel" name="DataAssociationModel">
-<area shape="rect" id="Node000001" title="Data Association Method class, used to match observations to landmarks in the map." alt="" coords="5,5,201,131"/>
+<area shape="rect" id="Node000001" title="Data Association Method class, used to match observations to landmarks in the map." alt="" coords="11,234,207,439"/>
+<area shape="rect" id="Node000002" href="$d9/d66/struct_data_association_parameters.html" title=" " alt="" coords="5,5,213,171"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,170,112,217,107,217,107,170"/>
 </map>

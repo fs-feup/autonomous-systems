@@ -1,0 +1,5 @@
+<map id="SLAMNode::_velocities_subscription_callback" name="SLAMNode::_velocities_subscription_callback">
+<area shape="rect" id="Node000001" title="Callback that updates everytime information is received from vehicle state estimation node." alt="" coords="5,5,163,46"/>
+<area shape="rect" id="Node000002" href="$d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="211,5,354,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="163,23,195,23,195,28,163,28"/>
+</map>

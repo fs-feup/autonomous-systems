@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['acceleration_5fmapper_0',['acceleration_mapper',['../d9/de5/namespaceacceleration__mapper.html',1,'']]],
-  ['adapt_1',['adapt',['../d5/d03/namespaceadapt.html',1,'']]]
+  ['_5fdebug_5fplot_0',['_debug_plot',['../d5/df5/namespace__debug__plot.html',1,'']]]
 ];

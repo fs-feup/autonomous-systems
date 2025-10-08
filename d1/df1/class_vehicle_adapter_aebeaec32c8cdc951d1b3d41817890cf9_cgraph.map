@@ -1,0 +1,16 @@
+<map id="VehicleAdapter::VehicleAdapter" name="VehicleAdapter::VehicleAdapter">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,112,209,137"/>
+<area shape="rect" id="Node000002" href="$d1/df1/class_vehicle_adapter.html#a9060aa6d8c595e00c59f92621edff3c5" title="IMU subscription callback, which receives both free acceleration and angular velocity through a synch..." alt="" coords="269,5,406,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,108,256,57,271,50,273,55,258,61,139,113"/>
+<area shape="rect" id="Node000004" href="$d1/df1/class_vehicle_adapter.html#ad764a66db05e6ac5dbdf62bae1c8db6e" title="Callback for the subscription of the resolver which measures the motor RPM." alt="" coords="257,71,418,111"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="200,108,241,102,241,108,201,114"/>
+<area shape="rect" id="Node000005" href="$d1/df1/class_vehicle_adapter.html#ac8c38dbfb560f06fdd1000ff1eb40448" title="Callback for the subscription of the steering angle sensor." alt="" coords="257,136,418,177"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="205,135,241,140,241,146,204,140"/>
+<area shape="rect" id="Node000006" href="$d1/df1/class_vehicle_adapter.html#a4af19314f0fc8a4643c8f8a4a6abfc3d" title="Wheel speed subscription callback, which receives both wheel speeds through a synchronizer message fi..." alt="" coords="268,201,407,242"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="140,135,258,186,273,192,271,197,256,191,138,140"/>
+<area shape="rect" id="Node000003" href="$d3/d43/class_v_e_node.html#a2aa9d39822eb3178f0a16a84d02e946e" title=" " alt="" coords="466,112,644,137"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="391,44,419,57,515,102,512,107,417,61,389,49"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="419,101,453,106,452,111,418,106"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="418,142,450,137,451,142,419,147"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="388,198,417,186,512,142,514,147,419,191,390,203"/>
+</map>

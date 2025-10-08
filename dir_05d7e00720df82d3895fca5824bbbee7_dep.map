@@ -1,7 +1,34 @@
 <map id="src/perception/test" name="src/perception/test">
-<area shape="rect" id="node1" href="dir_afda8ecf9b6e07e6d6de6966570c3753.html" title="include" alt="" coords="26,126,89,152"/>
-<area shape="rect" id="node2" href="dir_05d7e00720df82d3895fca5824bbbee7.html" title="test" alt="" coords="36,52,79,78"/>
-<area shape="poly" id="edge1" href="dir_000105_000048.html" alt="" coords="60,78,60,110,55,110,55,78"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000105_000048.html" title="27" alt="" coords="59,100,73,115"/>
-<area shape="rect" id="clust1" href="dir_346c2aea098094a6f11a0f66feef12e0.html" title="perception" alt="" coords="16,16,99,162"/>
+<area shape="rect" id="node1" href="dir_afda8ecf9b6e07e6d6de6966570c3753.html" title="include" alt="" coords="618,152,681,177"/>
+<area shape="poly" id="edge1" href="dir_000188_000086.html" alt="" coords="1217,98,1192,117,1149,130,1093,140,953,154,810,162,696,165,696,160,809,157,953,149,1092,135,1148,124,1189,112,1214,94"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000188_000086.html" title="41" alt="" coords="692,163,706,178"/>
+<area shape="rect" id="node3" href="dir_3c3470172e35d61478318baf1ff5bf32.html" title="center_calculation" alt="" coords="1053,71,1179,96"/>
+<area shape="poly" id="edge2" href="dir_000017_000086.html" alt="" coords="1091,99,1042,117,947,137,851,151,696,164,696,159,850,145,946,132,1041,112,1089,94"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000017_000086.html" title="4" alt="" coords="696,162,703,177"/>
+<area shape="rect" id="node4" href="dir_394573941f342672012cdb4809a4ba2e.html" title="clustering" alt="" coords="952,71,1029,96"/>
+<area shape="poly" id="edge3" href="dir_000021_000086.html" alt="" coords="975,99,941,117,876,136,809,150,696,163,696,158,809,144,875,131,939,112,972,94"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000021_000086.html" title="1" alt="" coords="696,161,703,176"/>
+<area shape="rect" id="node5" href="dir_e4c97512ad18a7ad4632d731735f6cd9.html" title="cone_differentiation" alt="" coords="795,71,928,96"/>
+<area shape="poly" id="edge4" href="dir_000031_000086.html" alt="" coords="831,99,784,117,696,149,694,144,782,112,829,94"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000031_000086.html" title="2" alt="" coords="698,146,705,161"/>
+<area shape="rect" id="node6" href="dir_251a676efb974818dc83145c7c98a8ac.html" title="cone_evaluator" alt="" coords="661,71,771,96"/>
+<area shape="poly" id="edge5" href="dir_000034_000086.html" alt="" coords="708,98,671,141,667,138,704,95"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000034_000086.html" title="3" alt="" coords="674,135,681,150"/>
+<area shape="rect" id="node7" href="dir_12704a94d8440f164e7361e43e55a548.html" title="cone_validator" alt="" coords="531,71,637,96"/>
+<area shape="poly" id="edge6" href="dir_000037_000086.html" alt="" coords="596,95,632,138,628,141,592,98"/>
+<area shape="rect" id="edge6-headlabel" href="dir_000037_000086.html" title="16" alt="" coords="627,124,641,139"/>
+<area shape="rect" id="node8" href="dir_70c2868455a500db7ad443a36b144f0f.html" title="fov_trimming" alt="" coords="411,71,507,96"/>
+<area shape="poly" id="edge7" href="dir_000066_000086.html" alt="" coords="483,94,521,112,604,144,602,149,519,117,481,99"/>
+<area shape="rect" id="edge7-headlabel" href="dir_000066_000086.html" title="4" alt="" coords="600,131,607,146"/>
+<area shape="rect" id="node9" href="dir_68262bf83883e75aa53a904eed78c562.html" title="ground_removal" alt="" coords="273,71,386,96"/>
+<area shape="poly" id="edge8" href="dir_000074_000086.html" alt="" coords="355,94,399,112,508,138,603,154,602,160,507,144,398,117,353,99"/>
+<area shape="rect" id="edge8-headlabel" href="dir_000074_000086.html" title="6" alt="" coords="597,141,604,156"/>
+<area shape="rect" id="node10" href="dir_14ddae5e627874cb84883f392a4f18c4.html" title="icp" alt="" coords="210,71,249,96"/>
+<area shape="poly" id="edge9" href="dir_000077_000086.html" alt="" coords="240,94,263,112,290,122,328,130,421,144,603,158,603,164,421,149,327,135,289,127,260,117,237,99"/>
+<area shape="rect" id="edge9-headlabel" href="dir_000077_000086.html" title="1" alt="" coords="597,145,604,160"/>
+<area shape="rect" id="node11" href="dir_254881105f14724b4e7c9ec1cb494e64.html" title="perception_integration\l_tests" alt="" coords="38,63,186,104"/>
+<area shape="poly" id="edge10" href="dir_000128_000086.html" alt="" coords="164,102,199,112,312,132,424,146,603,159,602,164,424,151,311,137,198,117,163,107"/>
+<area shape="rect" id="edge10-headlabel" href="dir_000128_000086.html" title="1" alt="" coords="597,145,604,160"/>
+<area shape="rect" id="clust2" href="dir_05d7e00720df82d3895fca5824bbbee7.html" alt="" coords="27,52,1257,114"/>
+<area shape="rect" id="clust1" href="dir_346c2aea098094a6f11a0f66feef12e0.html" title="perception" alt="" coords="16,16,1268,188"/>
 </map>

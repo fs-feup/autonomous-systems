@@ -1,0 +1,7 @@
+<map id="SlidingWindowLevenbergOptimizer" name="SlidingWindowLevenbergOptimizer">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,612,245,718"/>
+<area shape="rect" id="Node000002" href="$df/dc2/class_base_optimizer.html" title=" " alt="" coords="63,458,187,563"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,578,128,613,123,613,123,578"/>
+<area shape="rect" id="Node000003" href="$d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="35,5,216,395"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="128,394,128,441,123,441,123,394"/>
+</map>

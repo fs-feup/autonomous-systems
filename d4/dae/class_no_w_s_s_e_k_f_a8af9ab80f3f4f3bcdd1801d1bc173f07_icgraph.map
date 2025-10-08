@@ -1,0 +1,7 @@
+<map id="NoWSSEKF::correct_motor_and_steering" name="NoWSSEKF::correct_motor_and_steering">
+<area shape="rect" id="Node000001" title="Correct the state estimate based on resolver, and steering data." alt="" coords="215,39,394,79"/>
+<area shape="rect" id="Node000002" href="$d4/dae/class_no_w_s_s_e_k_f.html#a31d1760e13a622df6fe060f7395bff47" title="Callback function for the motor RPM data that should be called by adapters when new motor RPM data is..." alt="" coords="5,5,167,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="199,46,167,41,168,35,199,40"/>
+<area shape="rect" id="Node000003" href="$d4/dae/class_no_w_s_s_e_k_f.html#ad062bf35b39340b606366c0022b828bb" title="Callback function for the steering angle data that should be called by adapters when new steering ang..." alt="" coords="13,71,159,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="199,77,160,83,159,78,199,72"/>
+</map>

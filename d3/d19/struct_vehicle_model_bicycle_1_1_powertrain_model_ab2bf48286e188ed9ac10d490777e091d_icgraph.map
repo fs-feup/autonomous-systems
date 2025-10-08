@@ -1,0 +1,13 @@
+<map id="VehicleModelBicycle::PowertrainModel::calculateEfficiency" name="VehicleModelBicycle::PowertrainModel::calculateEfficiency">
+<area shape="rect" id="Node000001" title=" " alt="" coords="648,65,831,120"/>
+<area shape="rect" id="Node000002" href="$dd/d52/class_vehicle_model_bicycle.html#ad7b9752214947d2f2117487428fd36d8" title=" " alt="" coords="411,72,600,113"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="633,95,601,95,601,90,633,90"/>
+<area shape="rect" id="Node000003" href="$dd/d52/class_vehicle_model_bicycle.html#a4d87d6b145a90af103b362c4f6ff9f82" title=" " alt="" coords="215,39,356,79"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="395,78,356,72,357,67,396,73"/>
+<area shape="rect" id="Node000006" href="$dd/d52/class_vehicle_model_bicycle.html#aeb6230b2bc06fa4afd4b5828e4bebadd" title=" " alt="" coords="208,104,363,145"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="396,111,364,116,363,110,395,106"/>
+<area shape="rect" id="Node000004" href="$dd/d52/class_vehicle_model_bicycle.html#ae10b575631a2fad7f3db845aa19c7b8f" title=" " alt="" coords="12,5,153,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="199,48,153,40,154,35,200,42"/>
+<area shape="rect" id="Node000005" href="$dd/d52/class_vehicle_model_bicycle.html#a66471b72c81aac3b7405c0534b6899f7" title=" " alt="" coords="5,71,160,111"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="200,75,160,81,160,76,199,70"/>
+</map>

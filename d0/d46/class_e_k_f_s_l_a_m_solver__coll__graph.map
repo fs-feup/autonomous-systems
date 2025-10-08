@@ -1,0 +1,8 @@
+<map id="EKFSLAMSolver" name="EKFSLAMSolver">
+<area shape="rect" id="Node000001" title=" " alt="" coords="54,1012,226,1567"/>
+<area shape="rect" id="Node000002" href="$da/dd3/class_s_l_a_m_solver.html" title="Interface for SLAM solvers." alt="" coords="213,458,392,963"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="230,978,220,1013,215,1012,225,977"/>
+<area shape="rect" id="Node000003" href="$d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="5,5,187,395"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="91,395,90,458,82,711,82,821,90,963,93,995,88,996,85,963,77,821,76,711,85,458,86,394"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="177,393,209,473,204,475,172,395"/>
+</map>

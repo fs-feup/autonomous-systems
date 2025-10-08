@@ -1,0 +1,5 @@
+<map id="NearestNeighbourICP::associate" name="NearestNeighbourICP::associate">
+<area shape="rect" id="Node000001" title="This function associates the landmarks with the observations." alt="" coords="5,5,154,46"/>
+<area shape="rect" id="Node000002" href="$d5/d7e/class_nearest_neighbour_i_c_p.html#a96b49541d2b30fb02fe3788a98367862" title="Uses ICP to transform the observations to the landmarks frame." alt="" coords="202,5,350,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,23,186,23,186,28,154,28"/>
+</map>

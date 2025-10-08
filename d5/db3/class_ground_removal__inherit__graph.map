@@ -1,7 +1,13 @@
 <map id="GroundRemoval" name="GroundRemoval">
-<area shape="rect" id="Node000001" title="Abstract class for ground removal from a point cloud." alt="" coords="89,5,213,71"/>
-<area shape="rect" id="Node000002" href="$de/d59/class_grid_r_a_n_s_a_c.html" title="Implementation of ground removal using a grid&#45;based RANSAC algorithm." alt="" coords="5,119,141,284"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,85,115,120,110,118,127,83"/>
-<area shape="rect" id="Node000003" href="$d6/dc3/class_r_a_n_s_a_c.html" title="Ground removal using the RANSAC algorithm." alt="" coords="166,139,290,264"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="175,83,201,138,196,140,170,85"/>
+<area shape="rect" id="Node000001" title="Abstract class for ground removal from a point cloud." alt="" coords="463,5,587,71"/>
+<area shape="rect" id="Node000002" href="$de/d7f/class_constrained_grid_r_a_n_s_a_c.html" title="Implementation of ground removal using a grid&#45;based RANSAC algorithm." alt="" coords="5,189,185,294"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="448,47,391,55,326,69,261,91,199,121,161,153,129,191,125,187,157,149,197,116,259,86,325,64,390,50,448,42"/>
+<area shape="rect" id="Node000003" href="$d2/d16/class_constrained_r_a_n_s_a_c.html" title=" " alt="" coords="210,119,394,364"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="460,81,408,121,395,132,392,128,404,117,457,77"/>
+<area shape="rect" id="Node000004" href="$d2/d37/class_constrained_r_a_n_s_a_c_optimized.html" title="Constrained RANSAC with simple optimizations / pruning heuristics." alt="" coords="418,149,631,334"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="527,85,527,149,522,149,522,85"/>
+<area shape="rect" id="Node000005" href="$de/d59/class_grid_r_a_n_s_a_c.html" title="Implementation of ground removal using a grid&#45;based RANSAC algorithm." alt="" coords="655,189,783,294"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="596,76,645,117,673,151,696,187,691,190,669,154,641,121,592,81"/>
+<area shape="rect" id="Node000006" href="$d6/dc3/class_r_a_n_s_a_c.html" title="Ground removal using the RANSAC algorithm." alt="" coords="808,179,932,304"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="602,44,649,53,700,67,751,88,797,117,825,145,846,178,842,180,821,148,794,121,748,93,698,72,648,58,601,49"/>
 </map>

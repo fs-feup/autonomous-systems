@@ -94,13 +94,13 @@ $(document).ready(function(){initNavTree('d7/d97/md_src_2control_2_r_e_a_d_m_e.h
   <div class="headertitle"><div class="title">Control Module</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md30"></a> </p>
-<h1><a class="anchor" id="autotoc_md31"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md38"></a> </p>
+<h1><a class="anchor" id="autotoc_md39"></a>
 Package Information</h1>
-<h2><a class="anchor" id="autotoc_md32"></a>
+<h2><a class="anchor" id="autotoc_md40"></a>
 Description</h2>
 <p>The <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a> node uses <a class="el" href="../../d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car.">Planning</a> (pathpoints with expected velocity values) and State Estimation (current vehicle pose) data to effectively calculate longitudinal (torque) and lateral values (steering angle) using <a class="el" href="../../d6/d5a/class_p_i_d.html" title="PI-D Controller class.">PID</a> and Pure Pursuit controllers, respectively.</p>
-<h2><a class="anchor" id="autotoc_md33"></a>
+<h2><a class="anchor" id="autotoc_md41"></a>
 Folder Structure</h2>
 <ul>
 <li><a href="../.././include/adapter_control/">adapter_control</a>: Adapters to change ros2 interfaces according to simulator or environment</li>
@@ -109,34 +109,34 @@ Folder Structure</h2>
 <li><a href="../.././include/point_solver/">point_solver</a>: Point Solver class, used to calculate the reference point for the Pure Pursuit controller and the <a class="el" href="../../d6/d5a/class_p_i_d.html" title="PI-D Controller class.">PID</a> controller</li>
 <li><a href="../.././include/pure_pursuit/">pure_pursuit</a>: Pure Pursuit controller class, used for lateral control</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md34"></a>
+<h2><a class="anchor" id="autotoc_md42"></a>
 Launch Configurations</h2>
 <ul>
 <li><a href="../.././launch/eufs.launch.py">eufs.launch.py</a>: Launch file for the EUFS simulator</li>
 <li><a href="../.././launch/pacsim.launch.py">pacsim.launch.py</a>: Launch file for the PacSim simulator</li>
 <li><a href="../.././launch/vehicle.launch.py">vehicle.launch.py</a>: Launch file for the 01 vehicle</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md35"></a>
+<h2><a class="anchor" id="autotoc_md43"></a>
 Important Dependencies</h2>
-<h1><a class="anchor" id="autotoc_md36"></a>
+<h1><a class="anchor" id="autotoc_md44"></a>
 How to Run</h1>
-<h2><a class="anchor" id="autotoc_md37"></a>
+<h2><a class="anchor" id="autotoc_md45"></a>
 Install Dependencies</h2>
 <div class="fragment"><div class="line">./dependencies_install.sh</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md38"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md46"></a>
 Compiling</h2>
 <div class="fragment"><div class="line">colcon build --packages-up-to control</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md39"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md47"></a>
 Testing</h2>
 <div class="fragment"><div class="line">colcon test --packages-select control # use event-handler=console_direct+ for imediate output</div>
 </div><!-- fragment --><p>To check test results: </p><div class="fragment"><div class="line">colcon test-result --all --verbose</div>
-</div><!-- fragment --> <h2><a class="anchor" id="autotoc_md40"></a>
+</div><!-- fragment --> <h2><a class="anchor" id="autotoc_md48"></a>
 Running</h2>
 <p>Run with ros2 launch. You may select custom parameters for testing such as simulated state estimation or the mocker node. Check the <a href="../.././launch/control.launch.py">launch file</a> for more details. Example:</p>
 <div class="fragment"><div class="line">source ./install/setup.bash # If in a new terminal</div>
 <div class="line">ros2 launch control control.launch.py &#39;adapter:=pacsim&#39; &#39;use_simulated_se:=true&#39; &#39;mocker_node:=true&#39;</div>
 </div><!-- fragment --><p> Using simulated state estimation allows you to independently test control without using the state estimation module, by using information directly from the simulator. The mocker node allows for the same thing but for planning, by using a hand-picked pathpoint array. The lookahead_gain is for tuning purposes.</p>
-<h1><a class="anchor" id="autotoc_md41"></a>
+<h1><a class="anchor" id="autotoc_md49"></a>
 Design</h1>
 <p>The following class diagram illustrates the structure of the <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a> package:</p>
 <p><img src="../../../../docs/assets/Control/controlClassDiagram.jpg" alt="Class Diagram" class="inline"/> We have the following classes: <br  />

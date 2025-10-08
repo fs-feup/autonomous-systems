@@ -1,0 +1,11 @@
+<map id="GraphSLAMSolver::add_motion_prior" name="GraphSLAMSolver::add_motion_prior">
+<area shape="rect" id="Node000001" title="Add motion prior to the solver (prediction step)" alt="" coords="5,57,163,97"/>
+<area shape="rect" id="Node000002" href="$d4/dca/class_graph_s_l_a_m_instance.html#abed120ec1c30b4339a6d590518893971" title="Add motion prior to the graph." alt="" coords="217,27,382,68"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="163,63,201,58,202,63,164,69"/>
+<area shape="rect" id="Node000005" href="$d0/d87/class_pose_updater.html#a8b8eb5d2da66a042f243d5c87031940a" title="Updates the last pose and returns the pose difference." alt="" coords="211,92,388,118"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="164,84,196,89,195,94,163,90"/>
+<area shape="rect" id="Node000003" href="$da/df5/slam_2src_2slam__solver_2graph__slam__solver_2utils_8cpp.html#a8649e3a40d3996e6a7eca0c02fbbc3a3" title=" " alt="" coords="437,5,585,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="382,33,421,28,421,33,383,39"/>
+<area shape="rect" id="Node000004" href="$d4/dca/class_graph_s_l_a_m_instance.html#a9ffa9f55d63ac219cf762c41434bc265" title=" " alt="" coords="436,55,585,96"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="383,56,421,61,420,66,382,61"/>
+</map>

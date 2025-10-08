@@ -1,0 +1,5 @@
+<map id="EKF::motor_rpm_callback" name="EKF::motor_rpm_callback">
+<area shape="rect" id="Node000001" title="Callback function for the motor RPM data that should be called by adapters when new motor RPM data is..." alt="" coords="5,5,175,31"/>
+<area shape="rect" id="Node000002" href="$d7/dbe/class_e_k_f.html#a2e293a7d506fc7312ad6d80f49cab701" title="Correct the state estimate based on wheel speed sensor, resolver, and steering data." alt="" coords="223,5,363,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,16,207,16,207,21,175,21"/>
+</map>

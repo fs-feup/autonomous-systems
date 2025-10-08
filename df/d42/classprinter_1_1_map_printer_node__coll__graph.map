@@ -1,0 +1,5 @@
+<map id="printer.MapPrinterNode" name="printer.MapPrinterNode">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,119,151,224"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="56,5,100,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,85,81,119,75,119,75,85"/>
+</map>

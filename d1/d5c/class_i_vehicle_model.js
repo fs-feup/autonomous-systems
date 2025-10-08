@@ -1,6 +1,7 @@
 var class_i_vehicle_model =
 [
-    [ "forwardIntegrate", "d1/d5c/class_i_vehicle_model.html#a28be58e7b3bf2c03eb46fb4fe6e35248", null ],
+    [ "~IVehicleModel", "d1/d5c/class_i_vehicle_model.html#abae9c76bbed49f7709b2d818684fa508", null ],
+    [ "forwardIntegrate", "d1/d5c/class_i_vehicle_model.html#a1cc7bf613f40d64ccbfa3710b43bd6e4", null ],
     [ "getAcceleration", "d1/d5c/class_i_vehicle_model.html#ac5c6ba2aae450b01408caafa2213b6ed", null ],
     [ "getAngularAcceleration", "d1/d5c/class_i_vehicle_model.html#a62130def760f49693c6b12eb00d44b43", null ],
     [ "getAngularVelocity", "d1/d5c/class_i_vehicle_model.html#a9cbbbaafe4052fe86b75ac237c72fa34", null ],
@@ -15,7 +16,7 @@ var class_i_vehicle_model =
     [ "getWheelOrientations", "d1/d5c/class_i_vehicle_model.html#a8a7a6837b18d1847e388cf1788b9e1f0", null ],
     [ "getWheelPositions", "d1/d5c/class_i_vehicle_model.html#a15cfd65c142325a2f7d79201dad75b68", null ],
     [ "getWheelspeeds", "d1/d5c/class_i_vehicle_model.html#a9cbc028c1cd15102169ff167efad7500", null ],
-    [ "readConfig", "d1/d5c/class_i_vehicle_model.html#a7d04b0926b29086320e90beff638343f", null ],
+    [ "readConfig", "d1/d5c/class_i_vehicle_model.html#af742260557307ef8f7281fb0c8b8be40", null ],
     [ "setMaxTorques", "d1/d5c/class_i_vehicle_model.html#a19bbef0fc15a86e037045406af4b198d", null ],
     [ "setMinTorques", "d1/d5c/class_i_vehicle_model.html#aa5af5a3b47cc73b60b0d3fd929406676", null ],
     [ "setOrientation", "d1/d5c/class_i_vehicle_model.html#a70da564740452e3665f707809cd686b3", null ],
@@ -24,16 +25,6 @@ var class_i_vehicle_model =
     [ "setRpmSetpoints", "d1/d5c/class_i_vehicle_model.html#a6bae3ecf1b1c9d82313db623490c6b34", null ],
     [ "setSteeringSetpointFront", "d1/d5c/class_i_vehicle_model.html#a243b4fd7ff3afe5202bf352b3891e050", null ],
     [ "setSteeringSetpointRear", "d1/d5c/class_i_vehicle_model.html#ab571f54e9c52df1f95c22df5ae17f094", null ],
-    [ "setTorques", "d1/d5c/class_i_vehicle_model.html#aa0342fefcb831a455d92e9aa27f50cd8", null ],
-    [ "acceleration", "d1/d5c/class_i_vehicle_model.html#a143bcffc31341c7467b131a3a931869f", null ],
-    [ "angularAcceleration", "d1/d5c/class_i_vehicle_model.html#a69d200c1ee3da8198d2f9a00a4afde31", null ],
-    [ "angularVelocity", "d1/d5c/class_i_vehicle_model.html#ac62ad014af43e82aef42fd3de6f30105", null ],
-    [ "orientation", "d1/d5c/class_i_vehicle_model.html#aa0ddcd2b7788f2a618141047736f1386", null ],
-    [ "position", "d1/d5c/class_i_vehicle_model.html#a0fe6702236f8bb19118777ecb7c3672c", null ],
-    [ "steeringAngles", "d1/d5c/class_i_vehicle_model.html#ae445ba0bcbdfede975088ff20d9bef58", null ],
-    [ "time", "d1/d5c/class_i_vehicle_model.html#a970af523165362191fb0ee1eed02b0e7", null ],
-    [ "torques", "d1/d5c/class_i_vehicle_model.html#afda92d39bcc922d699385052a4e01138", null ],
-    [ "velocity", "d1/d5c/class_i_vehicle_model.html#a4adb86648210a2e3e78485383ca10006", null ],
-    [ "wheelOrientations", "d1/d5c/class_i_vehicle_model.html#a595478d625d90c04bf8cd9aa8c0e7e2c", null ],
-    [ "wheelspeeds", "d1/d5c/class_i_vehicle_model.html#af8f68803f523bac7bc6b3d943d516571", null ]
+    [ "setThrottle", "d1/d5c/class_i_vehicle_model.html#a5731ac15ee4ae8bf24816c3a29885e12", null ],
+    [ "setTorques", "d1/d5c/class_i_vehicle_model.html#aa0342fefcb831a455d92e9aa27f50cd8", null ]
 ];

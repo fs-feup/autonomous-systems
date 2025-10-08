@@ -1,0 +1,7 @@
+<map id="EKF::imu_callback" name="EKF::imu_callback">
+<area shape="rect" id="Node000001" title="Callback function for the IMU data that should be called by adapters when new IMU data is available." alt="" coords="5,31,134,56"/>
+<area shape="rect" id="Node000002" href="$d7/dbe/class_e_k_f.html#aa57f029d04b85391d7753abfd159f1ac" title=" " alt="" coords="182,5,302,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="134,31,166,27,167,32,134,37"/>
+<area shape="rect" id="Node000003" href="$d7/dbe/class_e_k_f.html#a6758c727d6017e7561c8b4b4f39575c0" title="Predict velocities at the next index based on IMU measurements and current state." alt="" coords="196,55,288,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="134,50,181,56,181,62,134,55"/>
+</map>

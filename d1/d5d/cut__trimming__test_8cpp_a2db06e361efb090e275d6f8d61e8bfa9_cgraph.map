@@ -1,0 +1,9 @@
+<map id="TEST_F" name="TEST_F">
+<area shape="rect" id="Node000001" title="Test case where points within min range should be removed." alt="" coords="5,13,75,39"/>
+<area shape="rect" id="Node000002" href="$d4/d48/class_cut_trimming.html#a525e63453d0785200b53ba4a4f2c50e9" title="Perform ground removal on the input point cloud." alt="" coords="123,13,299,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,23,107,23,107,28,75,28"/>
+<area shape="rect" id="Node000003" href="$de/dd9/class_fov_trimming.html#ad348ad3bc1386bf9a5fe2fcb201774c9" title=" " alt="" coords="347,5,484,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="300,23,332,23,332,28,300,28"/>
+<area shape="rect" id="Node000004" href="$de/dd9/class_fov_trimming.html#a3db8bbe8d8190a8024707d522a39152a" title=" " alt="" coords="532,5,682,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="485,23,517,23,517,28,485,28"/>
+</map>

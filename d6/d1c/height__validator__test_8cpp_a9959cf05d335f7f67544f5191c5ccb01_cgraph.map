@@ -1,0 +1,13 @@
+<map id="TEST_F" name="TEST_F">
+<area shape="rect" id="Node000001" title="Test case to validate if the cone height is near the minimum threshold but valid." alt="" coords="5,104,75,129"/>
+<area shape="rect" id="Node000002" href="$d9/d1f/class_height_validator.html#ac4d61b8c54bfc4f2cef252c9e05a1c71" title="Validates a cone based on its height relative to a plane." alt="" coords="123,78,318,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,109,109,104,110,109,76,114"/>
+<area shape="rect" id="Node000006" href="$d2/d23/class_cluster.html#ac4b5c99b0ed908d7799c13719d4a5892" title="Get cluster&#39;s corresponding cone size." alt="" coords="151,128,290,153"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="76,118,136,126,136,132,75,124"/>
+<area shape="rect" id="Node000003" href="$d2/d8d/class_plane.html#afe168b482b5979fc6e259b1848510b30" title="Calculates the distance from a point to the plane." alt="" coords="368,5,502,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="264,75,352,48,354,53,266,80"/>
+<area shape="rect" id="Node000004" href="$d2/d23/class_cluster.html#a763032aa726408defaea180f280f55f3" title="Get the Point Cloud data of the cluster." alt="" coords="375,71,496,111"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="318,88,359,88,359,94,318,94"/>
+<area shape="rect" id="Node000005" href="$d2/d23/class_cluster.html#a13de51fe61b04955625822be9483d2f0" title="Set cluster as a contender for a large cone." alt="" coords="366,136,504,161"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="278,102,319,112,375,128,373,133,317,118,277,107"/>
+</map>

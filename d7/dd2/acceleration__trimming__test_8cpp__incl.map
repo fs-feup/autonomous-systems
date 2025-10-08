@@ -1,0 +1,27 @@
+<map id="src/perception/test/fov_trimming/acceleration_trimming_test.cpp" name="src/perception/test/fov_trimming/acceleration_trimming_test.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="472,5,646,61"/>
+<area shape="rect" id="Node000002" href="$dd/dc3/acceleration__trimming_8hpp.html" title=" " alt="" coords="293,109,463,150"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="508,64,430,104,428,99,505,59"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,271,124,297"/>
+<area shape="poly" id="edge14_Node000001_Node000004" title=" " alt="" coords="473,53,379,76,282,111,212,149,149,200,86,262,82,258,145,196,209,145,279,107,377,71,471,48"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="579,271,697,297"/>
+<area shape="poly" id="edge15_Node000001_Node000005" title=" " alt="" coords="570,61,632,255,627,257,565,62"/>
+<area shape="rect" id="Node000006" href="$d9/d6e/trimming__parameters_8hpp.html" title=" " alt="" coords="359,271,554,297"/>
+<area shape="poly" id="edge16_Node000001_Node000006" title=" " alt="" coords="550,63,470,258,465,256,546,61"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="647,117,741,142"/>
+<area shape="poly" id="edge13_Node000001_Node000009" title=" " alt="" coords="600,59,666,105,663,110,597,64"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="148,271,285,297"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="293,146,247,166,227,181,211,199,205,212,203,227,209,257,203,258,198,227,200,211,206,196,223,177,244,161,291,141"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="315,153,257,174,198,200,142,232,94,264,91,260,139,228,195,195,255,169,313,148"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="413,148,606,261,603,266,410,153"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="399,149,418,170,435,196,447,226,454,255,449,257,442,228,430,199,414,174,395,152"/>
+<area shape="rect" id="Node000008" href="$d7/da0/fov__trimming_8hpp.html" title=" " alt="" coords="221,198,420,223"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="366,152,341,186,336,183,362,148"/>
+<area shape="rect" id="Node000007" href="$d0/d1d/split__parameters_8hpp.html" title=" " alt="" coords="304,345,473,371"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="447,299,412,336,408,332,443,295"/>
+<area shape="poly" id="edge8_Node000008_Node000003" title=" " alt="" coords="304,226,248,265,245,260,301,222"/>
+<area shape="poly" id="edge9_Node000008_Node000004" title=" " alt="" coords="278,226,123,269,122,264,276,221"/>
+<area shape="poly" id="edge10_Node000008_Node000005" title=" " alt="" coords="375,221,570,265,569,270,374,227"/>
+<area shape="poly" id="edge12_Node000008_Node000006" title=" " alt="" coords="345,222,421,261,419,266,342,226"/>
+<area shape="poly" id="edge11_Node000008_Node000007" title=" " alt="" coords="326,223,335,257,350,296,372,331,367,334,345,298,329,258,320,225"/>
+</map>

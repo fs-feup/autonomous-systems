@@ -1,7 +1,0 @@
-<map id="ConeColoring::remove_too_close_cones" name="ConeColoring::remove_too_close_cones">
-<area shape="rect" id="Node000001" title="Useful when using memory to delete cones which after some times being detected become too close." alt="" coords="5,5,153,46"/>
-<area shape="rect" id="Node000002" href="$dd/d52/class_cone_coloring.html#a248d064be09d7eb7ebc907f466ac73be" title="calculate the cost of coloring a cone" alt="" coords="201,13,389,39"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,23,185,23,185,28,153,28"/>
-<area shape="rect" id="Node000003" href="$d2/d32/namespacecommon__lib_1_1maths.html#a158ecb4f5554792fc31db938539c8008" title="Function used to calculate the angle between two vectors and their norms." alt="" coords="437,5,576,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="389,23,421,23,421,28,389,28"/>
-</map>

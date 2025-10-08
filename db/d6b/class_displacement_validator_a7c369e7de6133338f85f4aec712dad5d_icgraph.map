@@ -1,0 +1,11 @@
+<map id="DisplacementValidator::coneValidator" name="DisplacementValidator::coneValidator">
+<area shape="rect" id="Node000001" title="Validates a cone based on the maximum distance between its points in all axis." alt="" coords="123,73,274,113"/>
+<area shape="rect" id="Node000002" href="$d9/d6f/displacement__validator__test_8cpp.html#acfca5e9d60442034c442845f0b850ae8" title="Test case to validate points below the minimum distance on the x&#45;axis." alt="" coords="5,5,75,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="138,68,68,34,70,29,141,63"/>
+<area shape="rect" id="Node000003" href="$d9/d6f/displacement__validator__test_8cpp.html#a0acfbbaca1db4a08bd57440d7d93803d" title="Test case to validate points below the minimum distance on the y&#45;axis." alt="" coords="5,55,75,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="107,81,75,76,76,70,108,76"/>
+<area shape="rect" id="Node000004" href="$d9/d6f/displacement__validator__test_8cpp.html#a9076d99f3f09063c9584ebd938087b48" title="Test case to validate points below the minimum distance on the z&#45;axis." alt="" coords="5,104,75,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="108,109,76,114,75,109,107,104"/>
+<area shape="rect" id="Node000005" href="$d9/d6f/displacement__validator__test_8cpp.html#afa5756a1fa424e23639857a0980d2c34" title="Test case to validate if the cluster is well&#45;distributed across all axes." alt="" coords="5,153,75,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="140,122,71,155,69,150,138,118"/>
+</map>

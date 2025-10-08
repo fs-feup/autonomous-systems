@@ -1,0 +1,28 @@
+<map id="ConstrainedRANSAC::ground_removal" name="ConstrainedRANSAC::ground_removal">
+<area shape="rect" id="Node000001" title="Perform ground removal using the RANSAC algorithm." alt="" coords="5,114,157,155"/>
+<area shape="rect" id="Node000002" href="$d2/d16/class_constrained_r_a_n_s_a_c.html#a9b20760ce6828bb19c90f40e1bee90d0" title="Calculate the best&#45;fit plane using RANSAC algorithm." alt="" coords="205,142,356,183"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="158,142,190,147,189,152,157,147"/>
+<area shape="rect" id="Node000007" href="$d2/d16/class_constrained_r_a_n_s_a_c.html#a9711c564303cb722de05badfb1ae53cf" title="Calculate distance from a point to a plane." alt="" coords="416,43,567,84"/>
+<area shape="poly" id="edge16_Node000001_Node000007" title=" " alt="" coords="157,119,399,76,400,82,158,124"/>
+<area shape="rect" id="Node000003" href="$d2/d16/class_constrained_r_a_n_s_a_c.html#ac2a3051c2801e094c09b937c11ac3123" title="Calculate angle difference between two planes." alt="" coords="404,109,578,149"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="356,148,388,142,389,148,357,153"/>
+<area shape="rect" id="Node000004" href="$d2/d8d/class_plane.html#a3a227b9e6e6f5214c9ce9a6f757a14eb" title="Getter &#45; Get the a component of the plane." alt="" coords="626,55,719,80"/>
+<area shape="poly" id="edge12_Node000002_Node000004" title=" " alt="" coords="291,140,309,113,334,82,366,52,403,29,432,20,463,15,524,17,581,30,629,46,627,51,580,35,523,22,463,20,433,25,405,34,369,56,338,85,313,116,296,143"/>
+<area shape="rect" id="Node000005" href="$d2/d8d/class_plane.html#a14d7de844717d5fa9546a02849d6fb4a" title="Getter &#45; Get the b component of the plane." alt="" coords="626,112,719,138"/>
+<area shape="poly" id="edge13_Node000002_Node000005" title=" " alt="" coords="313,181,355,205,405,224,454,237,494,245,533,242,577,224,594,208,602,190,609,169,624,147,627,145,630,149,628,151,614,171,607,191,599,211,580,228,534,247,494,250,453,242,403,229,353,210,310,185"/>
+<area shape="rect" id="Node000006" href="$d2/d8d/class_plane.html#a54f2a7b06bb383ac1ea43d010c3fa79d" title="Getter &#45; Get the c component of the plane." alt="" coords="626,161,719,187"/>
+<area shape="poly" id="edge14_Node000002_Node000006" title=" " alt="" coords="291,182,306,219,330,263,363,306,383,324,405,338,452,359,492,366,532,360,577,339,610,310,635,273,652,235,662,201,668,203,657,237,639,276,614,314,580,343,533,365,492,372,450,364,403,343,380,328,359,309,325,266,301,221,286,184"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="317,139,403,94,418,88,420,93,405,99,319,144"/>
+<area shape="rect" id="Node000009" href="$d2/d16/class_constrained_r_a_n_s_a_c.html#af8cc782d09957a484f9ee377cc44dec2" title="Fit a plane to three points." alt="" coords="416,174,567,215"/>
+<area shape="poly" id="edge11_Node000002_Node000009" title=" " alt="" coords="357,171,400,178,400,183,356,176"/>
+<area shape="rect" id="Node000010" href="$d2/d16/class_constrained_r_a_n_s_a_c.html#a7be690f3e599076f8df643ac74c45ba0" title="Pick 3 unique random indices from the range [0, max_index)." alt="" coords="413,289,570,329"/>
+<area shape="poly" id="edge15_Node000002_Node000010" title=" " alt="" coords="303,181,348,224,405,268,424,279,422,284,403,272,345,228,299,185"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="553,105,617,83,619,88,554,110"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="579,124,611,124,611,129,579,130"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="576,147,612,156,611,162,574,152"/>
+<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="567,63,611,63,611,69,567,68"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="554,82,619,104,617,109,553,87"/>
+<area shape="poly" id="edge9_Node000007_Node000006" title=" " alt="" coords="558,82,580,95,595,108,605,121,614,134,628,148,632,151,629,155,625,152,610,138,601,124,591,112,577,99,555,87"/>
+<area shape="rect" id="Node000008" href="$d2/d8d/class_plane.html#ad0e5724dd5a95ef65b6c642bb848c4bf" title="Getter &#45; Get the d component of the plane." alt="" coords="626,5,719,31"/>
+<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="567,42,610,31,612,36,568,47"/>
+</map>

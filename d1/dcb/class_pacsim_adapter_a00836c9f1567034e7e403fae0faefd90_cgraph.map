@@ -1,0 +1,13 @@
+<map id="PacsimAdapter::PacsimAdapter" name="PacsimAdapter::PacsimAdapter">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,78,211,104"/>
+<area shape="rect" id="Node000002" href="$d1/dcb/class_pacsim_adapter.html#a84f8050582171d9ede535e6a73d1ce79" title="callback that gets called when the IMU data is received" alt="" coords="271,5,409,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="156,75,255,47,257,52,157,80"/>
+<area shape="rect" id="Node000004" href="$d1/dcb/class_pacsim_adapter.html#a2bd95ac09a4e727a01672da8c0831dd5" title="callback that gets called when the steering angle is received" alt="" coords="259,71,421,111"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="211,88,243,88,243,94,211,94"/>
+<area shape="rect" id="Node000005" href="$d1/dcb/class_pacsim_adapter.html#a77b1b534a8cd331a964cba15532cb01f" title="callback that gets called when the wheel speeds are received" alt="" coords="270,136,410,177"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="157,102,255,130,254,135,156,107"/>
+<area shape="rect" id="Node000003" href="$d3/d43/class_v_e_node.html#a2aa9d39822eb3178f0a16a84d02e946e" title=" " alt="" coords="469,78,647,104"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="410,44,499,71,497,76,408,49"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="421,88,453,88,453,94,421,94"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="409,133,497,106,499,111,411,138"/>
+</map>

@@ -1,0 +1,13 @@
+<map id="src/velocity_estimation/include/estimators/estimator.hpp" name="src/velocity_estimation/include/estimators/estimator.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="173,5,386,46"/>
+<area shape="rect" id="Node000002" href="$d9/d4e/imu_8hpp.html" title=" " alt="" coords="5,94,172,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="237,49,146,90,144,85,235,44"/>
+<area shape="rect" id="Node000004" href="$de/de3/wheel__encoders_8hpp.html" title=" " alt="" coords="196,94,362,135"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="282,47,282,78,277,78,277,47"/>
+<area shape="rect" id="Node000005" href="$d1/d90/velocities_8hpp.html" title=" " alt="" coords="387,94,540,135"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="322,44,409,85,407,90,320,49"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="220,183,339,208"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="137,133,237,174,235,179,135,138"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="282,135,282,167,277,167,277,135"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="418,138,322,179,320,174,416,133"/>
+</map>

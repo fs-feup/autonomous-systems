@@ -94,6 +94,7 @@ $(document).ready(function(){initNavTree('dc/dde/class_pure_pursuit.html','../..
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d9/d80/class_pure_pursuit-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">PurePursuit Class Reference</div></div>
 </div><!--header-->
@@ -108,15 +109,15 @@ Collaboration diagram for PurePursuit:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/da8/class_pure_pursuit__coll__graph.png" border="0" usemap="#a_pure_pursuit_coll__map" alt="Collaboration graph"/></div>
 <map name="a_pure_pursuit_coll__map" id="a_pure_pursuit_coll__map">
-<area shape="rect" title="Pure Pursuit class." alt="" coords="5,5,151,285"/>
+<area shape="rect" title="Pure Pursuit class." alt="" coords="5,5,151,305"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0033cad8d2f591460f05ba72695d8574" id="r_a0033cad8d2f591460f05ba72695d8574"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a0033cad8d2f591460f05ba72695d8574">PurePursuit</a> ()</td></tr>
-<tr class="memdesc:a0033cad8d2f591460f05ba72695d8574"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Pure Pursuit object.  <br /></td></tr>
-<tr class="separator:a0033cad8d2f591460f05ba72695d8574"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5932a9986607f540b1272060ca2bdf1b" id="r_a5932a9986607f540b1272060ca2bdf1b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a5932a9986607f540b1272060ca2bdf1b">PurePursuit</a> (std::shared_ptr&lt; <a class="el" href="../../d2/d70/class_filter.html">Filter</a> &gt; lpf)</td></tr>
+<tr class="memdesc:a5932a9986607f540b1272060ca2bdf1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Pure Pursuit object.  <br /></td></tr>
+<tr class="separator:a5932a9986607f540b1272060ca2bdf1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab921e5033e736078b4adb269525f6dde" id="r_ab921e5033e736078b4adb269525f6dde"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#ab921e5033e736078b4adb269525f6dde">pp_steering_control_law</a> (<a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> rear_axis, <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> cg, <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> lookahead_point, double dist_cg_2_rear_axis)</td></tr>
 <tr class="memdesc:ab921e5033e736078b4adb269525f6dde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pure Pursuit control law.  <br /></td></tr>
 <tr class="separator:ab921e5033e736078b4adb269525f6dde"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -147,6 +148,11 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a38b664f4020d7176b903ba231ec0a237" id="r_a38b664f4020d7176b903ba231ec0a237"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a38b664f4020d7176b903ba231ec0a237">wheel_base_</a> {<a class="el" href="../../d2/db6/pp_8hpp.html#a72c6821ab1d592bdd6fe0e498d1a9c23">WHEEL_BASE</a>}</td></tr>
 <tr class="memdesc:a38b664f4020d7176b903ba231ec0a237"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wheel base of the vehicle.  <br /></td></tr>
 <tr class="separator:a38b664f4020d7176b903ba231ec0a237"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a438e7399db2c34125f6545da0691877a" id="r_a438e7399db2c34125f6545da0691877a"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d2/d70/class_filter.html">Filter</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a438e7399db2c34125f6545da0691877a">lpf_</a></td></tr>
+<tr class="separator:a438e7399db2c34125f6545da0691877a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Pure Pursuit class. </p>
@@ -155,33 +161,34 @@ Public Attributes</h2></td></tr>
 <li>Calculate the steering angle (Pure Pursuit Controll Law) </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/db6/pp_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../d2/db6/pp_8hpp_source.html">pp.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/db6/pp_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../d2/db6/pp_8hpp_source.html">pp.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a0033cad8d2f591460f05ba72695d8574" name="a0033cad8d2f591460f05ba72695d8574"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0033cad8d2f591460f05ba72695d8574">&#9670;&#160;</a></span>PurePursuit()</h2>
+<a id="a5932a9986607f540b1272060ca2bdf1b" name="a5932a9986607f540b1272060ca2bdf1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5932a9986607f540b1272060ca2bdf1b">&#9670;&#160;</a></span>PurePursuit()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">PurePursuit::PurePursuit </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="../../d2/d70/class_filter.html">Filter</a> &gt;&#160;</td>
+          <td class="paramname"><em>lpf</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Construct a new Pure Pursuit object. </p>
-<p>Pure Pursuit class Constructor. </p>
+<p>Pure Pursuit class Constructor.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lpf</td><td>Pointer to a low-pass filter </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/de5/pp_8cpp_source.html#l00011">11</a> of file <a class="el" href="../../d2/de5/pp_8cpp_source.html">pp.cpp</a>.</p>
 
 </div>
 </div>
@@ -236,7 +243,7 @@ Public Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>double </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de5/pp_8cpp_source.html#l00024">24</a> of file <a class="el" href="../../d2/de5/pp_8cpp_source.html">pp.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/de5/pp_8cpp_source.html#l00026">26</a> of file <a class="el" href="../../d2/de5/pp_8cpp_source.html">pp.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -254,33 +261,19 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dc/dde/class_pure_pursuit_ae07038f1c02256819e50a7878797d1ac_icgraph.png" border="0" usemap="#adc/dde/class_pure_pursuit_ae07038f1c02256819e50a7878797d1ac_icgraph" alt=""/></div>
 <map name="adc/dde/class_pure_pursuit_ae07038f1c02256819e50a7878797d1ac_icgraph" id="adc/dde/class_pure_pursuit_ae07038f1c02256819e50a7878797d1ac_icgraph">
-<area shape="rect" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="872,230,1019,271"/>
-<area shape="rect" href="../../dc/dde/class_pure_pursuit.html#ab921e5033e736078b4adb269525f6dde" title="Pure Pursuit control law." alt="" coords="661,98,824,139"/>
-<area shape="poly" title=" " alt="" coords="910,221,870,186,822,152,801,141,803,137,825,148,873,182,914,217"/>
-<area shape="rect" href="../../dd/d88/pp__test_8cpp.html#a1ec7089f8e844e5c955b89854b34cdc9" title="Test PurePursuit &#45; calculate_alpha() typical angle &#45; path point left." alt="" coords="715,163,770,188"/>
-<area shape="poly" title=" " alt="" coords="883,226,823,202,770,185,771,180,825,197,885,221"/>
-<area shape="rect" href="../../dd/d88/pp__test_8cpp.html#a4e77a0f3d3da35627de29e1edf47ef11" title="Test PurePursuit &#45; calculate_alpha() typical angle &#45; path point right." alt="" coords="715,212,770,238"/>
-<area shape="poly" title=" " alt="" coords="856,242,770,231,770,225,856,236"/>
-<area shape="rect" href="../../dd/d88/pp__test_8cpp.html#a3ab5b31ec6f9af40e97816c2f98a1346" title="Test PurePursuit &#45; calculate_alpha() 90 degrees angle." alt="" coords="715,261,770,287"/>
-<area shape="poly" title=" " alt="" coords="856,263,770,274,770,268,856,258"/>
-<area shape="rect" href="../../dd/d88/pp__test_8cpp.html#a9a240517e306e0820a2a08e4c96009d3" title="Test PurePursuit &#45; calculate_alpha() 0 degrees angle." alt="" coords="715,311,770,336"/>
-<area shape="poly" title=" " alt="" coords="883,279,825,302,771,319,769,314,823,297,882,274"/>
-<area shape="rect" href="../../dd/d88/pp__test_8cpp.html#ae68834f79cf7d46aa148126f41c81571" title="Test PurePursuit &#45; calculate_alpha() 180 degrees angle." alt="" coords="715,360,770,386"/>
-<area shape="poly" title=" " alt="" coords="914,284,874,319,825,351,797,363,771,370,769,365,796,358,822,346,870,315,911,280"/>
-<area shape="rect" href="../../d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="458,80,613,106"/>
-<area shape="poly" title=" " alt="" coords="646,109,613,105,614,100,646,104"/>
-<area shape="rect" href="../../dd/d88/pp__test_8cpp.html#a2ac7920b349c45c0eb6e7e70be3ed660" title="Test PurePursuit &#45; pp_steering_control_law()" alt="" coords="509,129,563,155"/>
-<area shape="poly" title=" " alt="" coords="647,132,563,142,563,136,646,127"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="263,39,410,80"/>
-<area shape="poly" title=" " alt="" coords="442,80,410,74,411,69,443,75"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#acf7089ed69eb7488fae4904f66f1e2b8" title=" " alt="" coords="267,105,406,145"/>
-<area shape="poly" title=" " alt="" coords="443,110,406,116,406,111,442,105"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868" title=" " alt="" coords="5,5,215,31"/>
-<area shape="poly" title=" " alt="" coords="247,46,184,34,185,29,248,41"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,55,215,80"/>
-<area shape="poly" title=" " alt="" coords="247,65,215,66,215,61,247,60"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#af96e527b6595820c565d6beeafe3da5f" title=" " alt="" coords="25,112,195,138"/>
-<area shape="poly" title=" " alt="" coords="251,128,195,128,195,122,251,122"/>
+<area shape="rect" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="892,39,1039,79"/>
+<area shape="rect" href="../../dc/dde/class_pure_pursuit.html#ab921e5033e736078b4adb269525f6dde" title="Pure Pursuit control law." alt="" coords="681,39,844,79"/>
+<area shape="poly" title=" " alt="" coords="876,62,844,62,844,56,876,56"/>
+<area shape="rect" href="../../d7/d49/class_control.html#ad14d8041b3b0b0c567e6ef8adc09488f" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="478,46,633,72"/>
+<area shape="poly" title=" " alt="" coords="666,62,634,62,634,56,666,56"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#ae0ee1acf54556bbbd4dfde3da216a3f3" title="Callback for the pacsim ground truth pose topic." alt="" coords="263,5,430,46"/>
+<area shape="poly" title=" " alt="" coords="462,47,430,42,431,36,463,42"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#acf7089ed69eb7488fae4904f66f1e2b8" title=" " alt="" coords="277,71,416,111"/>
+<area shape="poly" title=" " alt="" coords="463,76,417,83,416,78,462,71"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868" title=" " alt="" coords="5,13,215,39"/>
+<area shape="poly" title=" " alt="" coords="248,28,215,28,215,23,248,23"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#af96e527b6595820c565d6beeafe3da5f" title=" " alt="" coords="25,78,195,104"/>
+<area shape="poly" title=" " alt="" coords="261,94,195,94,195,88,261,88"/>
 </map>
 </div>
 
@@ -525,27 +518,47 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dc/dde/class_pure_pursuit_ab921e5033e736078b4adb269525f6dde_icgraph.png" border="0" usemap="#adc/dde/class_pure_pursuit_ab921e5033e736078b4adb269525f6dde_icgraph" alt=""/></div>
 <map name="adc/dde/class_pure_pursuit_ab921e5033e736078b4adb269525f6dde_icgraph" id="adc/dde/class_pure_pursuit_ab921e5033e736078b4adb269525f6dde_icgraph">
-<area shape="rect" title="Pure Pursuit control law." alt="" coords="661,98,824,139"/>
-<area shape="rect" href="../../d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="458,80,613,106"/>
-<area shape="poly" title=" " alt="" coords="646,109,613,105,614,100,646,104"/>
-<area shape="rect" href="../../dd/d88/pp__test_8cpp.html#a2ac7920b349c45c0eb6e7e70be3ed660" title="Test PurePursuit &#45; pp_steering_control_law()" alt="" coords="509,129,563,155"/>
-<area shape="poly" title=" " alt="" coords="647,132,563,142,563,136,646,127"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="263,39,410,80"/>
-<area shape="poly" title=" " alt="" coords="442,80,410,74,411,69,443,75"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#acf7089ed69eb7488fae4904f66f1e2b8" title=" " alt="" coords="267,105,406,145"/>
-<area shape="poly" title=" " alt="" coords="443,110,406,116,406,111,442,105"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868" title=" " alt="" coords="5,5,215,31"/>
-<area shape="poly" title=" " alt="" coords="247,46,184,34,185,29,248,41"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,55,215,80"/>
-<area shape="poly" title=" " alt="" coords="247,65,215,66,215,61,247,60"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#af96e527b6595820c565d6beeafe3da5f" title=" " alt="" coords="25,112,195,138"/>
-<area shape="poly" title=" " alt="" coords="251,128,195,128,195,122,251,122"/>
+<area shape="rect" title="Pure Pursuit control law." alt="" coords="681,39,844,79"/>
+<area shape="rect" href="../../d7/d49/class_control.html#ad14d8041b3b0b0c567e6ef8adc09488f" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="478,46,633,72"/>
+<area shape="poly" title=" " alt="" coords="666,62,634,62,634,56,666,56"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#ae0ee1acf54556bbbd4dfde3da216a3f3" title="Callback for the pacsim ground truth pose topic." alt="" coords="263,5,430,46"/>
+<area shape="poly" title=" " alt="" coords="462,47,430,42,431,36,463,42"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#acf7089ed69eb7488fae4904f66f1e2b8" title=" " alt="" coords="277,71,416,111"/>
+<area shape="poly" title=" " alt="" coords="463,76,417,83,416,78,462,71"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868" title=" " alt="" coords="5,13,215,39"/>
+<area shape="poly" title=" " alt="" coords="248,28,215,28,215,23,248,23"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#af96e527b6595820c565d6beeafe3da5f" title=" " alt="" coords="25,78,195,104"/>
+<area shape="poly" title=" " alt="" coords="261,94,195,94,195,88,261,88"/>
 </map>
 </div>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a438e7399db2c34125f6545da0691877a" name="a438e7399db2c34125f6545da0691877a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a438e7399db2c34125f6545da0691877a">&#9670;&#160;</a></span>lpf_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d2/d70/class_filter.html">Filter</a>&gt; PurePursuit::lpf_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/db6/pp_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../d2/db6/pp_8hpp_source.html">pp.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a3c9883db0681203f0a821f4b0e1668d7" name="a3c9883db0681203f0a821f4b0e1668d7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3c9883db0681203f0a821f4b0e1668d7">&#9670;&#160;</a></span>max_steering_angle_</h2>
 
@@ -560,7 +573,7 @@ Here is the caller graph for this function:</div>
 
 <p>Maximum steering angle. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/db6/pp_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../d2/db6/pp_8hpp_source.html">pp.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/db6/pp_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../d2/db6/pp_8hpp_source.html">pp.hpp</a>.</p>
 
 </div>
 </div>
@@ -578,7 +591,7 @@ Here is the caller graph for this function:</div>
 
 <p>Minimum steering angle. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/db6/pp_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../d2/db6/pp_8hpp_source.html">pp.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/db6/pp_8hpp_source.html#l00035">35</a> of file <a class="el" href="../../d2/db6/pp_8hpp_source.html">pp.hpp</a>.</p>
 
 </div>
 </div>
@@ -596,7 +609,7 @@ Here is the caller graph for this function:</div>
 
 <p>Wheel base of the vehicle. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/db6/pp_8hpp_source.html#l00030">30</a> of file <a class="el" href="../../d2/db6/pp_8hpp_source.html">pp.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/db6/pp_8hpp_source.html#l00036">36</a> of file <a class="el" href="../../d2/db6/pp_8hpp_source.html">pp.hpp</a>.</p>
 
 </div>
 </div>

@@ -129,9 +129,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2243d3a52264e9f12f00e8b47b1261fe" id="r_a2243d3a52264e9f12f00e8b47b1261fe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d55/class_deviation_validator.html#a2243d3a52264e9f12f00e8b47b1261fe">DeviationValidator</a> (double min_xoy, double max_xoy, double min_z, double max_z)</td></tr>
 <tr class="memdesc:a2243d3a52264e9f12f00e8b47b1261fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new <a class="el" href="../../d2/d55/class_deviation_validator.html" title="Validates clusters using the standard deviation on xOy plane and on the z axis.">DeviationValidator</a> object with specified intervals on the deviation.  <br /></td></tr>
 <tr class="separator:a2243d3a52264e9f12f00e8b47b1261fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae312d8b85e3c0f5d52acc37ad686a670" id="r_ae312d8b85e3c0f5d52acc37ad686a670"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d55/class_deviation_validator.html#ae312d8b85e3c0f5d52acc37ad686a670">coneValidator</a> (<a class="el" href="../../d2/d23/class_cluster.html">Cluster</a> *cone_point_cloud, <a class="el" href="../../d2/d8d/class_plane.html">Plane</a> &amp;plane) const override</td></tr>
-<tr class="memdesc:ae312d8b85e3c0f5d52acc37ad686a670"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates a cluster using standard deviation.  <br /></td></tr>
-<tr class="separator:ae312d8b85e3c0f5d52acc37ad686a670"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29d91e117f19ffe319cb162a9599f9d9" id="r_a29d91e117f19ffe319cb162a9599f9d9"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d55/class_deviation_validator.html#a29d91e117f19ffe319cb162a9599f9d9">coneValidator</a> (<a class="el" href="../../d2/d23/class_cluster.html">Cluster</a> *cone_point_cloud, <a class="el" href="../../d2/d8d/class_plane.html">Plane</a> &amp;plane) const override</td></tr>
+<tr class="memdesc:a29d91e117f19ffe319cb162a9599f9d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates a cluster using standard deviation.  <br /></td></tr>
+<tr class="separator:a29d91e117f19ffe319cb162a9599f9d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2165f9ada8b34a3d99d24ba773c5a423" id="r_a2165f9ada8b34a3d99d24ba773c5a423"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d55/class_deviation_validator.html#a2165f9ada8b34a3d99d24ba773c5a423">~DeviationValidator</a> ()=default</td></tr>
 <tr class="memdesc:a2165f9ada8b34a3d99d24ba773c5a423"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor for <a class="el" href="../../d2/d55/class_deviation_validator.html" title="Validates clusters using the standard deviation on xOy plane and on the z axis.">DeviationValidator</a>.  <br /></td></tr>
 <tr class="separator:a2165f9ada8b34a3d99d24ba773c5a423"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -206,7 +206,7 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/de3/deviation__validator_8cpp_source.html#l00007">7</a> of file <a class="el" href="../../d1/de3/deviation__validator_8cpp_source.html">deviation_validator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/de3/deviation__validator_8cpp_source.html#l00008">8</a> of file <a class="el" href="../../d1/de3/deviation__validator_8cpp_source.html">deviation_validator.cpp</a>.</p>
 
 </div>
 </div>
@@ -238,8 +238,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae312d8b85e3c0f5d52acc37ad686a670" name="ae312d8b85e3c0f5d52acc37ad686a670"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae312d8b85e3c0f5d52acc37ad686a670">&#9670;&#160;</a></span>coneValidator()</h2>
+<a id="a29d91e117f19ffe319cb162a9599f9d9" name="a29d91e117f19ffe319cb162a9599f9d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29d91e117f19ffe319cb162a9599f9d9">&#9670;&#160;</a></span>coneValidator()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -248,7 +248,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool DeviationValidator::coneValidator </td>
+          <td class="memname">std::vector&lt; double &gt; DeviationValidator::coneValidator </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d2/d23/class_cluster.html">Cluster</a> *&#160;</td>
           <td class="paramname"><em>cone_point_cloud</em>, </td>
@@ -279,16 +279,16 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the cluster is valid, false otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>vector containing: Index 0 -&gt; if not in xoy interval, ratio between the cluster std deviation and the closest limit on the xoy plane| Index 1 -&gt; if not z in interval, ratio between cluster std deviation and the closest limit on the z axis. </dd></dl>
 
-<p>Implements <a class="el" href="../../d3/d57/class_cone_validator.html#af4b8db84756b3ec7ac2c88ec97e0aec0">ConeValidator</a>.</p>
+<p>Implements <a class="el" href="../../d3/d57/class_cone_validator.html#a0bf5797599921668f8de1182e145b545">ConeValidator</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="../../d1/de3/deviation__validator_8cpp_source.html#l00011">11</a> of file <a class="el" href="../../d1/de3/deviation__validator_8cpp_source.html">deviation_validator.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d2/d55/class_deviation_validator_ae312d8b85e3c0f5d52acc37ad686a670_cgraph.png" border="0" usemap="#ad2/d55/class_deviation_validator_ae312d8b85e3c0f5d52acc37ad686a670_cgraph" alt=""/></div>
-<map name="ad2/d55/class_deviation_validator_ae312d8b85e3c0f5d52acc37ad686a670_cgraph" id="ad2/d55/class_deviation_validator_ae312d8b85e3c0f5d52acc37ad686a670_cgraph">
+<div class="center"><img src="../../d2/d55/class_deviation_validator_a29d91e117f19ffe319cb162a9599f9d9_cgraph.png" border="0" usemap="#ad2/d55/class_deviation_validator_a29d91e117f19ffe319cb162a9599f9d9_cgraph" alt=""/></div>
+<map name="ad2/d55/class_deviation_validator_a29d91e117f19ffe319cb162a9599f9d9_cgraph" id="ad2/d55/class_deviation_validator_a29d91e117f19ffe319cb162a9599f9d9_cgraph">
 <area shape="rect" title="Validates a cluster using standard deviation." alt="" coords="5,5,132,46"/>
 <area shape="rect" href="../../d2/d23/class_cluster.html#a763032aa726408defaea180f280f55f3" title="Get the Point Cloud data of the cluster." alt="" coords="180,5,301,46"/>
 <area shape="poly" title=" " alt="" coords="132,23,164,23,164,28,132,28"/>

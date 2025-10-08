@@ -1,0 +1,11 @@
+<map id="VehicleModelBicycle::calculateSlipAngles" name="VehicleModelBicycle::calculateSlipAngles">
+<area shape="rect" id="Node000001" title=" " alt="" coords="397,72,538,113"/>
+<area shape="rect" id="Node000002" href="$dd/d52/class_vehicle_model_bicycle.html#a4d87d6b145a90af103b362c4f6ff9f82" title=" " alt="" coords="208,39,349,79"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="382,80,349,74,350,69,382,75"/>
+<area shape="rect" id="Node000005" href="$dd/d52/class_vehicle_model_bicycle.html#a1fa5d07bc9009a5754bdeb9d8079af38" title=" " alt="" coords="208,104,349,145"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="382,109,350,115,349,110,382,104"/>
+<area shape="rect" id="Node000003" href="$dd/d52/class_vehicle_model_bicycle.html#ae10b575631a2fad7f3db845aa19c7b8f" title=" " alt="" coords="12,5,153,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="192,47,153,40,154,35,193,42"/>
+<area shape="rect" id="Node000004" href="$dd/d52/class_vehicle_model_bicycle.html#a66471b72c81aac3b7405c0534b6899f7" title=" " alt="" coords="5,71,160,111"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="193,76,160,81,160,76,192,70"/>
+</map>

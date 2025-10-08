@@ -1,33 +1,41 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
 <area shape="rect" id="Node000000" href="$d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="177,252,243,278"/>
-<area shape="rect" id="Node000001" href="$d0/d1d/class_eufs_adapter.html" title=" " alt="" coords="331,153,423,179"/>
-<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="256,247,271,239,286,226,295,214,304,201,319,188,339,177,341,182,323,192,308,205,299,217,290,230,275,243,258,252"/>
-<area shape="rect" id="Node000003" href="$d7/d8e/class_fsds_adapter.html" title=" " alt="" coords="330,203,425,228"/>
-<area shape="poly" id="edge2_Node000000_Node000003" title=" " alt="" coords="257,248,331,226,332,231,258,253"/>
-<area shape="rect" id="Node000012" href="$d1/dcb/class_pacsim_adapter.html" title=" " alt="" coords="322,301,432,327"/>
-<area shape="poly" id="edge3_Node000000_Node000012" title=" " alt="" coords="258,276,332,298,331,303,257,281"/>
-<area shape="rect" id="Node000006" href="$d1/df1/class_vehicle_adapter.html" title=" " alt="" coords="323,252,432,278"/>
-<area shape="poly" id="edge4_Node000000_Node000006" title=" " alt="" coords="258,262,322,262,322,268,258,268"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="5,129,99,155"/>
+<area shape="rect" id="Node000001" href="$d0/d1d/class_eufs_adapter.html" title=" " alt="" coords="331,179,423,204"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="256,245,272,238,320,213,343,202,345,207,322,218,274,243,258,250"/>
+<area shape="rect" id="Node000003" href="$d7/d8e/class_fsds_adapter.html" title=" " alt="" coords="330,228,425,254"/>
+<area shape="poly" id="edge2_Node000000_Node000003" title=" " alt="" coords="258,255,329,245,330,250,258,261"/>
+<area shape="rect" id="Node000008" href="$d1/dcb/class_pacsim_adapter.html" title="Adapter class for the pacsim simulator." alt="" coords="322,327,432,352"/>
+<area shape="poly" id="edge3_Node000000_Node000008" title=" " alt="" coords="259,280,274,286,322,313,345,324,343,328,320,318,272,291,256,284"/>
+<area shape="rect" id="Node000006" href="$d1/df1/class_vehicle_adapter.html" title="Adapter class for the vehicle." alt="" coords="323,277,432,303"/>
+<area shape="poly" id="edge4_Node000000_Node000006" title=" " alt="" coords="258,269,323,279,322,285,257,275"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="5,179,99,204"/>
 <area shape="rect" id="Node000002" href="$d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="179,203,241,228"/>
-<area shape="poly" id="edge5_Node000007_Node000002" title=" " alt="" coords="91,160,148,189,179,202,177,207,146,194,89,165"/>
-<area shape="rect" id="Node000008" href="$de/d3d/class_inspection_mission.html" title="Class responsible for the Inspection Mission of the car." alt="" coords="147,301,273,327"/>
-<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="66,168,98,228,121,260,148,288,165,299,163,303,145,292,117,264,93,231,62,171"/>
-<area shape="rect" id="Node000009" href="$d1/d4c/class_mocker_node.html" title=" " alt="" coords="162,5,258,31"/>
-<area shape="poly" id="edge11_Node000007_Node000009" title=" " alt="" coords="70,115,102,77,145,40,165,29,168,34,148,44,106,81,74,119"/>
-<area shape="rect" id="Node000010" href="$de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="168,55,252,80"/>
-<area shape="poly" id="edge12_Node000007_Node000010" title=" " alt="" coords="88,119,146,89,171,78,173,83,148,94,90,124"/>
+<area shape="poly" id="edge5_Node000010_Node000002" title=" " alt="" coords="114,198,179,208,178,213,114,204"/>
+<area shape="rect" id="Node000011" href="$de/d3d/class_inspection_mission.html" title="Class responsible for the Inspection Mission of the car." alt="" coords="147,400,273,426"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="62,218,73,256,90,301,115,347,148,387,164,397,161,402,145,391,111,350,86,303,68,258,57,220"/>
+<area shape="rect" id="Node000012" href="$d1/d4c/class_mocker_node.html" title=" " alt="" coords="162,5,258,31"/>
+<area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="61,163,93,102,117,69,145,40,163,29,165,34,148,44,121,72,98,105,66,166"/>
+<area shape="rect" id="Node000013" href="$de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="168,55,252,80"/>
+<area shape="poly" id="edge12_Node000010_Node000013" title=" " alt="" coords="70,164,102,126,145,89,167,78,169,83,148,94,106,130,74,168"/>
 <area shape="rect" id="Node000004" href="$d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="174,153,246,179"/>
-<area shape="poly" id="edge13_Node000007_Node000004" title=" " alt="" coords="115,149,174,158,174,163,114,154"/>
-<area shape="rect" id="Node000011" href="$d4/d43/class_s_e_node.html" title="Class representing the main speed_est node responsible for publishing the calculated vehicle state wi..." alt="" coords="175,104,245,130"/>
-<area shape="poly" id="edge18_Node000007_Node000011" title=" " alt="" coords="113,130,174,120,175,125,114,135"/>
-<area shape="poly" id="edge6_Node000002_Node000001" title=" " alt="" coords="255,200,330,177,332,182,257,205"/>
-<area shape="poly" id="edge7_Node000002_Node000003" title=" " alt="" coords="256,213,329,213,329,218,256,218"/>
-<area shape="poly" id="edge9_Node000002_Node000006" title=" " alt="" coords="257,226,332,249,330,254,255,231"/>
-<area shape="rect" id="Node000005" href="$db/d68/class_pac_sim_adapter.html" title=" " alt="" coords="321,104,433,130"/>
-<area shape="poly" id="edge8_Node000002_Node000005" title=" " alt="" coords="254,199,271,189,286,177,295,165,304,152,319,139,339,128,341,132,323,143,308,156,299,168,290,181,275,194,257,203"/>
-<area shape="poly" id="edge14_Node000004_Node000001" title=" " alt="" coords="261,164,331,164,331,169,261,169"/>
-<area shape="poly" id="edge15_Node000004_Node000003" title=" " alt="" coords="261,178,332,199,330,205,259,183"/>
-<area shape="poly" id="edge17_Node000004_Node000006" title=" " alt="" coords="261,180,275,188,290,201,299,214,308,226,323,239,341,249,339,254,319,243,304,230,295,217,286,205,271,192,258,185"/>
-<area shape="poly" id="edge16_Node000004_Node000005" title=" " alt="" coords="259,149,330,128,332,133,261,154"/>
+<area shape="poly" id="edge13_Node000010_Node000004" title=" " alt="" coords="114,179,174,169,174,174,115,184"/>
+<area shape="rect" id="Node000014" href="$d4/d43/class_s_e_node.html" title="Class representing the main speed_est node responsible for publishing the calculated vehicle state wi..." alt="" coords="175,104,245,130"/>
+<area shape="poly" id="edge18_Node000010_Node000014" title=" " alt="" coords="88,169,146,138,174,127,176,131,148,143,90,173"/>
+<area shape="rect" id="Node000007" href="$d8/d84/class_s_l_a_m_node.html" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="165,351,255,376"/>
+<area shape="poly" id="edge19_Node000010_Node000007" title=" " alt="" coords="66,217,98,278,121,310,148,337,166,348,163,353,145,342,117,313,93,280,62,220"/>
+<area shape="rect" id="Node000009" href="$d3/d43/class_v_e_node.html" title="Node class for the velocity estimation node." alt="" coords="175,301,245,327"/>
+<area shape="poly" id="edge22_Node000010_Node000009" title=" " alt="" coords="74,215,106,252,148,288,176,302,174,307,145,292,102,256,70,218"/>
+<area shape="poly" id="edge6_Node000002_Node000001" title=" " alt="" coords="256,206,331,195,331,201,257,212"/>
+<area shape="poly" id="edge7_Node000002_Node000003" title=" " alt="" coords="257,220,329,231,329,236,256,225"/>
+<area shape="poly" id="edge9_Node000002_Node000006" title=" " alt="" coords="256,229,274,237,322,264,345,274,343,279,320,269,272,242,254,234"/>
+<area shape="rect" id="Node000005" href="$db/d68/class_pac_sim_adapter.html" title=" " alt="" coords="321,129,433,155"/>
+<area shape="poly" id="edge8_Node000002_Node000005" title=" " alt="" coords="255,196,272,189,320,164,343,153,345,158,322,169,274,194,257,201"/>
+<area shape="poly" id="edge14_Node000004_Node000001" title=" " alt="" coords="261,171,331,182,331,187,260,176"/>
+<area shape="poly" id="edge15_Node000004_Node000003" title=" " alt="" coords="260,182,274,188,322,214,345,225,343,230,320,219,272,193,258,187"/>
+<area shape="poly" id="edge17_Node000004_Node000006" title=" " alt="" coords="261,179,275,188,292,208,300,227,307,246,323,264,339,275,336,279,319,268,303,248,295,229,287,210,271,192,258,184"/>
+<area shape="poly" id="edge16_Node000004_Node000005" title=" " alt="" coords="261,156,320,148,321,153,262,162"/>
+<area shape="poly" id="edge20_Node000007_Node000008" title=" " alt="" coords="270,352,322,345,322,350,270,358"/>
+<area shape="poly" id="edge21_Node000007_Node000006" title=" " alt="" coords="260,342,272,337,320,312,343,301,345,306,322,317,274,342,263,347"/>
+<area shape="poly" id="edge23_Node000009_Node000008" title=" " alt="" coords="260,319,322,328,321,334,259,324"/>
+<area shape="poly" id="edge24_Node000009_Node000006" title=" " alt="" coords="259,304,322,295,322,301,260,310"/>
 </map>

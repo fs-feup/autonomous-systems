@@ -1,21 +1,23 @@
 <map id="pacsim_keys.main.PublishThread.stop" name="pacsim_keys.main.PublishThread.stop">
-<area shape="rect" id="Node000001" title="Stop the thread." alt="" coords="5,179,180,220"/>
-<area shape="rect" id="Node000002" href="$d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="271,129,359,155"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,176,255,155,256,160,174,181"/>
-<area shape="rect" id="Node000009" href="$db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a76e679b059edaa88f597bdc83f7ad948" title="Update the control commands to be published." alt="" coords="228,179,402,220"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="180,197,212,197,212,202,180,202"/>
-<area shape="rect" id="Node000010" href="$da/da6/class_extended_kalman_filter.html#acf5d4c31b01020285ad184c55cfcf928" title="Updates vehicle state and map variables according to the state vector x_vector" alt="" coords="241,245,389,285"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="165,218,229,237,228,242,163,223"/>
-<area shape="rect" id="Node000003" href="$d6/d5a/class_p_i_d.html#aa587fab53433af6127bbc5c7fdf50a35" title="Anti&#45;wind&#45;up via dynamic integrator clamping." alt="" coords="492,5,617,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="328,127,378,84,412,60,449,40,476,30,478,35,451,45,415,65,382,88,331,131"/>
-<area shape="rect" id="Node000004" href="$d6/d5a/class_p_i_d.html#a5748127c7eb3f374fd599576a822abcd" title="Calculate the derivative term (derivative on measurement)" alt="" coords="456,55,653,80"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="347,126,449,89,474,82,476,87,451,94,349,131"/>
-<area shape="rect" id="Node000005" href="$d6/d5a/class_p_i_d.html#abbd48a33a97a7dbc49e75050bef0146c" title="Calculate the error signal." alt="" coords="487,104,621,130"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="359,135,471,123,472,128,360,140"/>
-<area shape="rect" id="Node000006" href="$d6/d5a/class_p_i_d.html#a05352c1a64fe0e13588291ccf450bace" title="Calculate the integral term." alt="" coords="463,153,646,179"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="360,144,447,153,447,158,359,149"/>
-<area shape="rect" id="Node000007" href="$d6/d5a/class_p_i_d.html#afeb910407a0ec97035fd19f97cbfae1c" title="Calculate the proportional term." alt="" coords="450,203,658,228"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="360,151,403,165,427,177,451,189,472,196,470,201,449,194,425,182,401,170,359,156"/>
-<area shape="rect" id="Node000008" href="$d6/d5a/class_p_i_d.html#a5a8397dc4b3e36d1db9ea2f1b8fb91a4" title="Compute the output value and apply limits." alt="" coords="483,252,625,278"/>
-<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="360,146,383,154,404,165,420,184,428,204,436,222,452,239,470,249,468,253,448,243,431,225,423,206,416,187,400,170,380,159,359,151"/>
+<area shape="rect" id="Node000001" title="Stop the thread." alt="" coords="5,201,180,241"/>
+<area shape="rect" id="Node000002" href="$d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="300,129,388,155"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="138,198,227,164,284,150,285,155,228,169,140,203"/>
+<area shape="rect" id="Node000009" href="$d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a1c4b727850931641ea67a7aa7293c2d3" title="Update the control commands to be published." alt="" coords="228,179,460,204"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="180,208,213,204,213,209,180,213"/>
+<area shape="rect" id="Node000010" href="$db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a76e679b059edaa88f597bdc83f7ad948" title="Update the control commands to be published." alt="" coords="257,229,431,269"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="180,228,242,235,241,240,180,233"/>
+<area shape="rect" id="Node000011" href="$da/da6/class_extended_kalman_filter.html#acf5d4c31b01020285ad184c55cfcf928" title="Updates vehicle state and map variables according to the state vector x_vector" alt="" coords="270,294,418,335"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="137,239,229,278,256,288,254,293,227,283,135,244"/>
+<area shape="rect" id="Node000003" href="$d6/d5a/class_p_i_d.html#aa587fab53433af6127bbc5c7fdf50a35" title="Anti&#45;wind&#45;up via dynamic integrator clamping." alt="" coords="550,5,675,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="361,127,423,84,464,60,507,40,534,31,536,36,509,45,467,65,426,88,364,131"/>
+<area shape="rect" id="Node000004" href="$d6/d5a/class_p_i_d.html#a5748127c7eb3f374fd599576a822abcd" title="Calculate the derivative term (derivative on measurement)" alt="" coords="514,55,711,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="385,126,507,89,535,82,536,87,509,94,386,131"/>
+<area shape="rect" id="Node000005" href="$d6/d5a/class_p_i_d.html#abbd48a33a97a7dbc49e75050bef0146c" title="Calculate the error signal." alt="" coords="545,104,679,130"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="388,135,530,122,530,127,389,141"/>
+<area shape="rect" id="Node000006" href="$d6/d5a/class_p_i_d.html#a05352c1a64fe0e13588291ccf450bace" title="Calculate the integral term." alt="" coords="521,153,704,179"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="389,143,506,154,505,159,388,149"/>
+<area shape="rect" id="Node000007" href="$d6/d5a/class_p_i_d.html#afeb910407a0ec97035fd19f97cbfae1c" title="Calculate the proportional term." alt="" coords="508,203,716,228"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="389,146,461,164,485,176,509,189,528,195,527,201,507,194,483,181,459,169,388,151"/>
+<area shape="rect" id="Node000008" href="$d6/d5a/class_p_i_d.html#a5a8397dc4b3e36d1db9ea2f1b8fb91a4" title="Compute the output value and apply limits." alt="" coords="541,252,683,278"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="389,141,426,148,462,164,479,183,487,202,494,221,510,239,528,249,526,253,506,243,489,224,482,204,474,185,458,168,424,153,388,146"/>
 </map>

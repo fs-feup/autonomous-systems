@@ -1,0 +1,5 @@
+<map id="MockLandmarkFilter" name="MockLandmarkFilter">
+<area shape="rect" id="Node000001" title=" " alt="" coords="7,219,140,304"/>
+<area shape="rect" id="Node000002" href="$d2/d5d/class_landmark_filter.html" title="This class is meant to filter observations from perception to try to reduce the presence of outliers." alt="" coords="5,5,141,171"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="76,185,76,219,71,219,71,185"/>
+</map>

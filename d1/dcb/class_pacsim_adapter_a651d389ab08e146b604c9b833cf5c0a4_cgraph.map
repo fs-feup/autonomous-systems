@@ -1,0 +1,7 @@
+<map id="PacsimAdapter::_pacsim_velocities_subscription_callback" name="PacsimAdapter::_pacsim_velocities_subscription_callback">
+<area shape="rect" id="Node000001" title="Callback for simulated velocities from pacsim." alt="" coords="5,5,171,61"/>
+<area shape="rect" id="Node000002" href="$d8/d84/class_s_l_a_m_node.html#a6e228ce696c330a4a43ae5807c632df7" title="Callback that updates everytime information is received from vehicle state estimation node." alt="" coords="219,13,376,54"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,31,203,31,203,36,171,36"/>
+<area shape="rect" id="Node000003" href="$d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="424,13,567,54"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="377,31,408,31,408,36,377,36"/>
+</map>

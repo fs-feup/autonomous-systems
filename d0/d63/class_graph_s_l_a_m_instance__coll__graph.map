@@ -1,0 +1,5 @@
+<map id="GraphSLAMInstance" name="GraphSLAMInstance">
+<area shape="rect" id="Node000001" title="Graph SLAM instance class &#45; class to hold the factor graph and the values." alt="" coords="5,458,215,863"/>
+<area shape="rect" id="Node000002" href="$d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="19,5,201,395"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,394,113,441,107,441,107,394"/>
+</map>

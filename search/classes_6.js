@@ -1,19 +1,13 @@
 var searchData=
 [
-  ['hasdefaultconstructor_0',['HasDefaultConstructor',['../d2/de8/struct_has_default_constructor.html',1,'']]],
-  ['hasdefaultconstructor_3c_20t_2c_20std_3a_3avoid_5ft_3c_20decltype_28t_28_29_29_3e_20_3e_1',['HasDefaultConstructor&lt; T, std::void_t&lt; decltype(T())&gt; &gt;',['../d1/d5a/struct_has_default_constructor_3_01_t_00_01std_1_1void__t_3_01decltype_07_t_07_08_08_4_01_4.html',1,'']]],
-  ['hasequalityoperator_2',['HasEqualityOperator',['../d3/dd8/struct_has_equality_operator.html',1,'']]],
-  ['hasequalityoperator_3c_20t_2c_20std_3a_3avoid_5ft_3c_20decltype_28std_3a_3adeclval_3c_20t_20_3e_28_29_3d_3dstd_3a_3adeclval_3c_20t_20_3e_28_29_29_3e_20_3e_3',['HasEqualityOperator&lt; T, std::void_t&lt; decltype(std::declval&lt; T &gt;()==std::declval&lt; T &gt;())&gt; &gt;',['../dd/d59/struct_has_equality_operator_3_01_t_00_01std_1_1void__t_3_01decltype_07std_1_1declval_3_01_t_01_def808c9cf5a85b640be170f337607f6.html',1,'']]],
-  ['haseuclideandistance_4',['HasEuclideanDistance',['../d2/d8c/struct_has_euclidean_distance.html',1,'']]],
-  ['haseuclideandistance_3c_20t_2c_20std_3a_3avoid_5ft_3c_20decltype_28std_3a_3adeclval_3c_20t_20_3e_28_29_2eposition_2eeuclidean_5fdistance_28std_3a_3adeclval_3c_20t_20_3e_28_29_2eposition_29_29_3e_20_3e_5',['HasEuclideanDistance&lt; T, std::void_t&lt; decltype(std::declval&lt; T &gt;().position.euclidean_distance(std::declval&lt; T &gt;().position))&gt; &gt;',['../dc/d16/struct_has_euclidean_distance_3_01_t_00_01std_1_1void__t_3_01decltype_07std_1_1declval_3_01_t_01220e586b84eba3363386e4d3fefa434b.html',1,'']]],
-  ['hash_3c_20common_5flib_3a_3astructures_3a_3acone_20_3e_6',['hash&lt; common_lib::structures::Cone &gt;',['../dc/d41/structstd_1_1hash_3_01common__lib_1_1structures_1_1_cone_01_4.html',1,'std']]],
-  ['hash_3c_20common_5flib_3a_3astructures_3a_3apathpoint_20_3e_7',['hash&lt; common_lib::structures::PathPoint &gt;',['../db/d69/structstd_1_1hash_3_01common__lib_1_1structures_1_1_path_point_01_4.html',1,'std']]],
-  ['hash_3c_20common_5flib_3a_3astructures_3a_3aposition_20_3e_8',['hash&lt; common_lib::structures::Position &gt;',['../d2/dff/structstd_1_1hash_3_01common__lib_1_1structures_1_1_position_01_4.html',1,'std']]],
-  ['hasposition_9',['hasposition',['../d3/d65/structcommon__lib_1_1communication_1_1_has_position.html',1,'common_lib::communication::HasPosition&lt; T, typename &gt;'],['../db/d42/struct_has_position.html',1,'HasPosition&lt; T, typename &gt;']]],
-  ['hasposition_3c_20t_2c_20std_3a_3aenable_5fif_5ft_3c_20std_3a_3ais_5farithmetic_5fv_3c_20decltype_28std_3a_3adeclval_3c_20t_20_3e_28_29_2eposition_2ex_29_3e_20_26_26std_3a_3ais_5farithmetic_5fv_3c_20decltype_28std_3a_3adeclval_3c_20t_20_3e_28_29_2eposition_2ey_29_3e_20_3e_20_3e_10',['HasPosition&lt; T, std::enable_if_t&lt; std::is_arithmetic_v&lt; decltype(std::declval&lt; T &gt;().position.x)&gt; &amp;&amp;std::is_arithmetic_v&lt; decltype(std::declval&lt; T &gt;().position.y)&gt; &gt; &gt;',['../d0/d78/structcommon__lib_1_1communication_1_1_has_position_3_01_t_00_01std_1_1enable__if__t_3_01std_1_1f92f66d3afd606fa0b7fa2e397b76781.html',1,'common_lib::communication']]],
-  ['hasposition_3c_20t_2c_20std_3a_3avoid_5ft_3c_20decltype_28std_3a_3adeclval_3c_20t_20_3e_28_29_2eposition_29_3e_20_3e_11',['HasPosition&lt; T, std::void_t&lt; decltype(std::declval&lt; T &gt;().position)&gt; &gt;',['../d8/da8/struct_has_position_3_01_t_00_01std_1_1void__t_3_01decltype_07std_1_1declval_3_01_t_01_4_07_08_8position_08_4_01_4.html',1,'']]],
-  ['haspositionxy_12',['HasPositionXY',['../dd/d5d/struct_has_position_x_y.html',1,'']]],
-  ['haspositionxy_3c_20t_2c_20std_3a_3avoid_5ft_3c_20decltype_28std_3a_3adeclval_3c_20t_20_3e_28_29_2eposition_2ex_29_2c_20decltype_28std_3a_3adeclval_3c_20t_20_3e_28_29_2eposition_2ey_29_3e_20_3e_13',['HasPositionXY&lt; T, std::void_t&lt; decltype(std::declval&lt; T &gt;().position.x), decltype(std::declval&lt; T &gt;().position.y)&gt; &gt;',['../d9/d5e/struct_has_position_x_y_3_01_t_00_01std_1_1void__t_3_01decltype_07std_1_1declval_3_01_t_01_4_07_455e40f4ff60de8f354a633d607f673c.html',1,'']]],
-  ['heightvalidator_14',['HeightValidator',['../d9/d1f/class_height_validator.html',1,'']]],
-  ['heightvalidatortest_15',['HeightValidatorTest',['../d9/d7c/class_height_validator_test.html',1,'']]]
+  ['gnssdata_0',['GnssData',['../da/d17/struct_gnss_data.html',1,'']]],
+  ['gnsssensor_1',['GnssSensor',['../d9/df9/class_gnss_sensor.html',1,'']]],
+  ['graphslaminstance_2',['GraphSLAMInstance',['../d4/dca/class_graph_s_l_a_m_instance.html',1,'']]],
+  ['graphslamsolver_3',['GraphSLAMSolver',['../d9/d73/class_graph_s_l_a_m_solver.html',1,'']]],
+  ['graphslamsolvertest_4',['GraphSlamSolverTest',['../d7/d05/class_graph_slam_solver_test.html',1,'']]],
+  ['gridransac_5',['GridRANSAC',['../de/d59/class_grid_r_a_n_s_a_c.html',1,'']]],
+  ['gridransactest_6',['GridRANSACTest',['../d0/d78/class_grid_r_a_n_s_a_c_test.html',1,'']]],
+  ['gripmap_7',['gripMap',['../de/d10/classgrip_map.html',1,'']]],
+  ['groundremoval_8',['GroundRemoval',['../dc/d84/class_ground_removal.html',1,'']]],
+  ['guilogic_9',['guiLogic',['../d2/de2/classgui_logic_1_1gui_logic.html',1,'guiLogic']]]
 ];

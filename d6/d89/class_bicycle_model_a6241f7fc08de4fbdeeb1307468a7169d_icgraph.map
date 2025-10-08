@@ -1,0 +1,5 @@
+<map id="BicycleModel::wheels_velocities_to_cg" name="BicycleModel::wheels_velocities_to_cg">
+<area shape="rect" id="Node000001" title="assumes a bicycle model and a set of parameters about the vehicle to calculate the velocities of the ..." alt="" coords="108,5,253,46"/>
+<area shape="rect" id="Node000002" href="$de/d8a/bicycle__model__test_8cpp.html#a2e006feda9100c097f7afbbf79420825" title="Tests the conversion from wheel revolutions to velocities using the bycicle model." alt="" coords="5,13,60,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,28,60,28,60,23,92,23"/>
+</map>

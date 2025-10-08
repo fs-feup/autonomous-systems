@@ -1,0 +1,9 @@
+<map id="VENode" name="VENode">
+<area shape="rect" id="Node000001" title="Node class for the velocity estimation node." alt="" coords="5,571,148,677"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="13,356,98,421"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="62,435,75,571,69,572,57,436"/>
+<area shape="rect" id="Node000003" href="$d5/db7/struct_v_e_parameters.html" title=" " alt="" coords="123,268,292,508"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="143,510,116,558,112,555,139,507"/>
+<area shape="rect" id="Node000004" href="$dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html" title=" " alt="" coords="118,5,297,205"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="210,205,210,252,205,252,205,205"/>
+</map>

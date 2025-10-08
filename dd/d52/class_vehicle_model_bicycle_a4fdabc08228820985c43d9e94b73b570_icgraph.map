@@ -1,7 +1,9 @@
 <map id="VehicleModelBicycle::processSlipAngleLat" name="VehicleModelBicycle::processSlipAngleLat">
-<area shape="rect" id="Node000001" title=" " alt="" coords="384,5,531,46"/>
-<area shape="rect" id="Node000002" href="$dd/d52/class_vehicle_model_bicycle.html#a4d87d6b145a90af103b362c4f6ff9f82" title=" " alt="" coords="195,5,336,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="368,28,336,28,336,23,368,23"/>
-<area shape="rect" id="Node000003" href="$dd/d52/class_vehicle_model_bicycle.html#a6f0e4a3a37d89b3d2c1e2525c3a9746d" title=" " alt="" coords="5,5,147,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="179,28,147,28,147,23,179,23"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="397,39,544,79"/>
+<area shape="rect" id="Node000002" href="$dd/d52/class_vehicle_model_bicycle.html#a4d87d6b145a90af103b362c4f6ff9f82" title=" " alt="" coords="208,39,349,79"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="381,62,349,62,349,56,381,56"/>
+<area shape="rect" id="Node000003" href="$dd/d52/class_vehicle_model_bicycle.html#ae10b575631a2fad7f3db845aa19c7b8f" title=" " alt="" coords="12,5,153,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="192,47,153,40,154,35,193,42"/>
+<area shape="rect" id="Node000004" href="$dd/d52/class_vehicle_model_bicycle.html#a66471b72c81aac3b7405c0534b6899f7" title=" " alt="" coords="5,71,160,111"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="193,76,160,81,160,76,192,70"/>
 </map>

@@ -1,0 +1,10 @@
+<map id="SLAMParameters::load_config" name="SLAMParameters::load_config">
+<area shape="rect" id="Node000001" title="Load the configuration for the SLAM node from YAML file." alt="" coords="244,87,399,127"/>
+<area shape="rect" id="Node000002" href="$dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aa18ac7a345a445145c329fadb7da9746" title=" " alt="" coords="5,29,196,70"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="228,85,181,73,182,68,229,80"/>
+<area shape="rect" id="Node000003" href="$d6/dc6/slam_2src_2main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main function." alt="" coords="76,94,125,120"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="228,110,126,110,126,104,228,104"/>
+<area shape="rect" id="Node000004" href="$d3/d78/class_e_k_f_s_l_a_m_solver_test.html#a2c0cdd4492895c2006bc024824598faa" title=" " alt="" coords="24,144,177,185"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="229,134,178,147,177,142,228,129"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="136,16,123,10,100,8,79,10,67,15,62,21,64,28,59,29,57,19,64,10,78,5,101,3,124,5,139,11"/>
+</map>

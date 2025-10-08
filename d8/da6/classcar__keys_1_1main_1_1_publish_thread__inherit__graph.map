@@ -1,0 +1,5 @@
+<map id="car_keys.main.PublishThread" name="car_keys.main.PublishThread">
+<area shape="rect" id="Node000001" title="Thread to publish control commands to the robot." alt="" coords="5,119,187,384"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="40,5,152,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,86,99,119,93,119,93,86"/>
+</map>

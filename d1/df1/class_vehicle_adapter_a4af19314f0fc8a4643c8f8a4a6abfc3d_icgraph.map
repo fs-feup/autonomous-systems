@@ -1,0 +1,5 @@
+<map id="VehicleAdapter::wss_callback" name="VehicleAdapter::wss_callback">
+<area shape="rect" id="Node000001" title="Wheel speed subscription callback, which receives both wheel speeds through a synchronizer message fi..." alt="" coords="257,5,396,46"/>
+<area shape="rect" id="Node000002" href="$d1/df1/class_vehicle_adapter.html#aebeaec32c8cdc951d1b3d41817890cf9" title=" " alt="" coords="5,13,209,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="241,28,209,28,209,23,241,23"/>
+</map>

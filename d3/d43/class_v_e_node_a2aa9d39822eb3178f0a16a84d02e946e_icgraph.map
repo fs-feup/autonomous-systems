@@ -1,0 +1,26 @@
+<map id="VENode::publish_velocities" name="VENode::publish_velocities">
+<area shape="rect" id="Node000001" title=" " alt="" coords="469,209,647,235"/>
+<area shape="rect" id="Node000002" href="$d1/df1/class_vehicle_adapter.html#a9060aa6d8c595e00c59f92621edff3c5" title="IMU subscription callback, which receives both free acceleration and angular velocity through a synch..." alt="" coords="272,5,408,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="539,197,490,130,457,94,419,61,399,49,402,44,423,57,460,90,494,127,543,194"/>
+<area shape="rect" id="Node000004" href="$d1/dcb/class_pacsim_adapter.html#a84f8050582171d9ede535e6a73d1ce79" title="callback that gets called when the IMU data is received" alt="" coords="271,267,409,307"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="499,242,410,269,408,264,497,237"/>
+<area shape="rect" id="Node000006" href="$d1/df1/class_vehicle_adapter.html#ad764a66db05e6ac5dbdf62bae1c8db6e" title="Callback for the subscription of the resolver which measures the motor RPM." alt="" coords="259,71,421,111"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="528,201,478,164,420,127,395,114,397,110,422,122,481,160,531,197"/>
+<area shape="rect" id="Node000007" href="$d1/df1/class_vehicle_adapter.html#ac8c38dbfb560f06fdd1000ff1eb40448" title="Callback for the subscription of the steering angle sensor." alt="" coords="259,136,421,177"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="497,206,410,180,411,175,499,201"/>
+<area shape="rect" id="Node000008" href="$d1/dcb/class_pacsim_adapter.html#a2bd95ac09a4e727a01672da8c0831dd5" title="callback that gets called when the steering angle is received" alt="" coords="259,332,421,373"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="531,246,481,284,422,321,397,334,395,329,420,317,478,279,528,242"/>
+<area shape="rect" id="Node000009" href="$d1/df1/class_vehicle_adapter.html#a4af19314f0fc8a4643c8f8a4a6abfc3d" title="Wheel speed subscription callback, which receives both wheel speeds through a synchronizer message fi..." alt="" coords="270,201,410,242"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="453,224,410,224,410,219,453,219"/>
+<area shape="rect" id="Node000010" href="$d1/dcb/class_pacsim_adapter.html#a77b1b534a8cd331a964cba15532cb01f" title="callback that gets called when the wheel speeds are received" alt="" coords="270,397,410,438"/>
+<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="543,249,494,316,460,354,423,386,402,399,399,394,419,382,457,350,490,313,539,246"/>
+<area shape="rect" id="Node000003" href="$d1/df1/class_vehicle_adapter.html#aebeaec32c8cdc951d1b3d41817890cf9" title=" " alt="" coords="6,112,210,137"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="275,55,260,61,141,113,139,108,258,57,273,50"/>
+<area shape="rect" id="Node000005" href="$d1/dcb/class_pacsim_adapter.html#a00836c9f1567034e7e403fae0faefd90" title=" " alt="" coords="5,340,211,365"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="257,313,157,341,156,336,256,308"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="245,107,202,113,202,108,244,102"/>
+<area shape="poly" id="edge8_Node000007_Node000003" title=" " alt="" coords="243,146,205,140,206,135,244,140"/>
+<area shape="poly" id="edge10_Node000008_Node000005" title=" " alt="" coords="243,355,211,355,211,350,243,350"/>
+<area shape="poly" id="edge12_Node000009_Node000003" title=" " alt="" coords="273,197,258,191,139,140,141,135,260,186,275,192"/>
+<area shape="poly" id="edge14_Node000010_Node000005" title=" " alt="" coords="254,396,156,368,157,363,255,391"/>
+</map>

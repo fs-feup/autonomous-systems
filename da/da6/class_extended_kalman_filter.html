@@ -101,10 +101,10 @@ $(document).ready(function(){initNavTree('da/da6/class_extended_kalman_filter.ht
 </div><!--header-->
 <div class="contents">
 
-<p>Extended Kalman Filter class.  
+<p>Extended Kalman <a class="el" href="../../d2/d70/class_filter.html" title="Abstract base class for filters.">Filter</a> class.  
  <a href="../../da/da6/class_extended_kalman_filter.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html">ekf.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for ExtendedKalmanFilter:</div>
 <div class="dyncontent">
@@ -117,7 +117,7 @@ Collaboration diagram for ExtendedKalmanFilter:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa39eb53750719608d37389cd7391c202" id="r_aa39eb53750719608d37389cd7391c202"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#aa39eb53750719608d37389cd7391c202">ExtendedKalmanFilter</a> (std::shared_ptr&lt; <a class="el" href="../../d7/d64/class_observation_model.html">ObservationModel</a> &gt; observation_model, std::shared_ptr&lt; <a class="el" href="../../d1/d14/class_data_association_model.html">DataAssociationModel</a> &gt; data_association_model)</td></tr>
-<tr class="memdesc:aa39eb53750719608d37389cd7391c202"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extended Kalman Filter constructor declaration.  <br /></td></tr>
+<tr class="memdesc:aa39eb53750719608d37389cd7391c202"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extended Kalman <a class="el" href="../../d2/d70/class_filter.html" title="Abstract base class for filters.">Filter</a> constructor declaration.  <br /></td></tr>
 <tr class="separator:aa39eb53750719608d37389cd7391c202"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf5d4c31b01020285ad184c55cfcf928" id="r_acf5d4c31b01020285ad184c55cfcf928"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#acf5d4c31b01020285ad184c55cfcf928">update</a> (std::shared_ptr&lt; <a class="el" href="../../d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html">common_lib::structures::VehicleState</a> &gt; vehicle_state, std::shared_ptr&lt; std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &gt; track_map)</td></tr>
 <tr class="memdesc:acf5d4c31b01020285ad184c55cfcf928"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates vehicle state and map variables according to the state vector <em>x_vector</em>  <br /></td></tr>
@@ -186,10 +186,10 @@ Friends</h2></td></tr>
 <tr class="separator:ae0e771f9638af561129027caf0500917"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Extended Kalman Filter class. </p>
-<p>The Extended Kalman Filter (EKF) is a recursive state estimator for nonlinear systems. It is a nonlinear version of the Kalman Filter (KF). This implementation is used to perform state estimation for the localization of the vehicle and the map. </p>
+<div class="textblock"><p>Extended Kalman <a class="el" href="../../d2/d70/class_filter.html" title="Abstract base class for filters.">Filter</a> class. </p>
+<p>The Extended Kalman <a class="el" href="../../d2/d70/class_filter.html" title="Abstract base class for filters.">Filter</a> (<a class="el" href="../../d7/dbe/class_e_k_f.html">EKF</a>) is a recursive state estimator for nonlinear systems. It is a nonlinear version of the Kalman <a class="el" href="../../d2/d70/class_filter.html" title="Abstract base class for filters.">Filter</a> (KF). This implementation is used to perform state estimation for the localization of the vehicle and the map. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html">ekf.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa39eb53750719608d37389cd7391c202" name="aa39eb53750719608d37389cd7391c202"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa39eb53750719608d37389cd7391c202">&#9670;&#160;</a></span>ExtendedKalmanFilter()</h2>
@@ -217,7 +217,7 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Extended Kalman Filter constructor declaration. </p>
+<p>Extended Kalman <a class="el" href="../../d2/d70/class_filter.html" title="Abstract base class for filters.">Filter</a> constructor declaration. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">motion_model</td><td>motion model chosen for prediction step </td></tr>
@@ -226,7 +226,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00014">14</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db1/ekf__state__est_2src_2kalman__filter_2ekf_8cpp_source.html#l00014">14</a> of file <a class="el" href="../../d4/db1/ekf__state__est_2src_2kalman__filter_2ekf_8cpp_source.html">ekf.cpp</a>.</p>
 
 </div>
 </div>
@@ -274,7 +274,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00116">116</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html#l00116">116</a> of file <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -302,7 +302,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00114">114</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db1/ekf__state__est_2src_2kalman__filter_2ekf_8cpp_source.html#l00114">114</a> of file <a class="el" href="../../d4/db1/ekf__state__est_2src_2kalman__filter_2ekf_8cpp_source.html">ekf.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -351,7 +351,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00073">73</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db1/ekf__state__est_2src_2kalman__filter_2ekf_8cpp_source.html#l00073">73</a> of file <a class="el" href="../../d4/db1/ekf__state__est_2src_2kalman__filter_2ekf_8cpp_source.html">ekf.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -400,7 +400,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00095">95</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db1/ekf__state__est_2src_2kalman__filter_2ekf_8cpp_source.html#l00095">95</a> of file <a class="el" href="../../d4/db1/ekf__state__est_2src_2kalman__filter_2ekf_8cpp_source.html">ekf.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -444,7 +444,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00053">53</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db1/ekf__state__est_2src_2kalman__filter_2ekf_8cpp_source.html#l00053">53</a> of file <a class="el" href="../../d4/db1/ekf__state__est_2src_2kalman__filter_2ekf_8cpp_source.html">ekf.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -486,7 +486,7 @@ Here is the call graph for this function:</div>
 <p>Get the state covariance matrix. </p>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::MatrixXf covariance matrix </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00143">143</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html#l00143">143</a> of file <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -542,7 +542,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::MatrixXf kalman gain matrix </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00165">165</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db1/ekf__state__est_2src_2kalman__filter_2ekf_8cpp_source.html#l00165">165</a> of file <a class="el" href="../../d4/db1/ekf__state__est_2src_2kalman__filter_2ekf_8cpp_source.html">ekf.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -582,7 +582,7 @@ Here is the caller graph for this function:</div>
 <p>Get the last update timestamp. </p>
 <dl class="section return"><dt>Returns</dt><dd>rclcpp::Time timestamp </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00151">151</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html#l00151">151</a> of file <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -612,7 +612,7 @@ Here is the caller graph for this function:</div>
 <p>Get the state vector. </p>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::VectorXf state vector </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00136">136</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html#l00136">136</a> of file <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -654,7 +654,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00023">23</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db1/ekf__state__est_2src_2kalman__filter_2ekf_8cpp_source.html#l00023">23</a> of file <a class="el" href="../../d4/db1/ekf__state__est_2src_2kalman__filter_2ekf_8cpp_source.html">ekf.cpp</a>.</p>
 
 </div>
 </div>
@@ -693,15 +693,17 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00178">178</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db1/ekf__state__est_2src_2kalman__filter_2ekf_8cpp_source.html#l00178">178</a> of file <a class="el" href="../../d4/db1/ekf__state__est_2src_2kalman__filter_2ekf_8cpp_source.html">ekf.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../da/da6/class_extended_kalman_filter_acf5d4c31b01020285ad184c55cfcf928_icgraph.png" border="0" usemap="#ada/da6/class_extended_kalman_filter_acf5d4c31b01020285ad184c55cfcf928_icgraph" alt=""/></div>
 <map name="ada/da6/class_extended_kalman_filter_acf5d4c31b01020285ad184c55cfcf928_icgraph" id="ada/da6/class_extended_kalman_filter_acf5d4c31b01020285ad184c55cfcf928_icgraph">
-<area shape="rect" title="Updates vehicle state and map variables according to the state vector x_vector" alt="" coords="228,5,375,46"/>
-<area shape="rect" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#abc9743c5e60d6794e50b918cf5c12f15" title="Stop the thread." alt="" coords="5,5,180,46"/>
-<area shape="poly" title=" " alt="" coords="212,28,180,28,180,23,212,23"/>
+<area shape="rect" title="Updates vehicle state and map variables according to the state vector x_vector" alt="" coords="272,27,419,68"/>
+<area shape="rect" href="../../d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a8a079d78fabe3578dc7038a75af16fb9" title="Stop the thread." alt="" coords="5,5,224,31"/>
+<area shape="poly" title=" " alt="" coords="256,39,220,34,221,29,257,34"/>
+<area shape="rect" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#abc9743c5e60d6794e50b918cf5c12f15" title="Stop the thread." alt="" coords="27,55,202,96"/>
+<area shape="poly" title=" " alt="" coords="256,61,203,68,202,62,256,56"/>
 </map>
 </div>
 
@@ -728,7 +730,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00153">153</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html#l00153">153</a> of file <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -755,7 +757,7 @@ Here is the caller graph for this function:</div>
 
 <p>Data Association Model. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00037">37</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html#l00037">37</a> of file <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -779,7 +781,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00040">40</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html#l00040">40</a> of file <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -805,7 +807,7 @@ Here is the caller graph for this function:</div>
 
 <p>Flag to indicate if the map is fixed. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00039">39</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html#l00039">39</a> of file <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -831,7 +833,7 @@ Here is the caller graph for this function:</div>
 
 <p>Timestamp of last update. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00032">32</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html#l00032">32</a> of file <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -855,7 +857,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -881,7 +883,7 @@ Here is the caller graph for this function:</div>
 
 <p>Observation Model chosen for correction step. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00036">36</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html#l00036">36</a> of file <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -905,7 +907,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -933,13 +935,13 @@ Here is the caller graph for this function:</div>
 </div><!-- fragment -->
 <p>Expected state vector (localization + mapping) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/ekf_state_est/include/kalman_filter/<a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a></li>
-<li>src/ekf_state_est/src/kalman_filter/<a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a></li>
+<li>src/ekf_state_est/include/kalman_filter/<a class="el" href="../../d9/d50/ekf__state__est_2include_2kalman__filter_2ekf_8hpp_source.html">ekf.hpp</a></li>
+<li>src/ekf_state_est/src/kalman_filter/<a class="el" href="../../d4/db1/ekf__state__est_2src_2kalman__filter_2ekf_8cpp_source.html">ekf.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

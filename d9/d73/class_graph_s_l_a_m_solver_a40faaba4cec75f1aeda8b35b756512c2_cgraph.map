@@ -1,0 +1,20 @@
+<map id="GraphSLAMSolver::_asynchronous_optimization_routine" name="GraphSLAMSolver::_asynchronous_optimization_routine">
+<area shape="rect" id="Node000001" title="Asynchronous optimization routine." alt="" coords="5,99,229,139"/>
+<area shape="rect" id="Node000002" href="$d4/dca/class_graph_s_l_a_m_instance.html#af4e27c53cbdfeeddb3e81bbb3f3637fa" title="Checks if it is worth running optimization." alt="" coords="502,5,668,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,96,200,54,237,34,276,19,329,8,384,4,487,8,487,13,384,9,330,14,277,24,239,39,202,59,144,100"/>
+<area shape="rect" id="Node000003" href="$d4/dca/class_graph_s_l_a_m_instance.html#a9edc0e262f98c42acef29418df13a2dd" title="Runs optimization on the graph." alt="" coords="291,33,440,74"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="196,96,275,75,276,80,198,101"/>
+<area shape="rect" id="Node000004" href="$d4/dca/class_graph_s_l_a_m_instance.html#a7501de0af12933b297d61ca341fb3171" title="Add observation factors to the graph." alt="" coords="291,99,440,139"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="229,116,275,116,275,122,229,122"/>
+<area shape="rect" id="Node000006" href="$d4/dca/class_graph_s_l_a_m_instance.html#abed120ec1c30b4339a6d590518893971" title="Add motion prior to the graph." alt="" coords="283,164,448,205"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="198,137,271,157,270,162,196,143"/>
+<area shape="rect" id="Node000009" href="$d0/d87/class_pose_updater.html#a8b8eb5d2da66a042f243d5c87031940a" title="Updates the last pose and returns the pose difference." alt="" coords="277,229,454,255"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="148,138,207,176,278,214,296,221,294,226,276,219,204,181,145,142"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="422,96,453,83,526,50,528,55,455,88,424,101"/>
+<area shape="rect" id="Node000005" href="$d2/d32/namespacecommon__lib_1_1maths.html#aa410135a945d4a6a152c17faf6e9ee5e" title="Function to convert cartesian coordinates to cylindrical coordinates." alt="" coords="507,99,663,139"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="440,116,492,116,492,122,440,122"/>
+<area shape="rect" id="Node000007" href="$da/df5/slam_2src_2slam__solver_2graph__slam__solver_2utils_8cpp.html#a8649e3a40d3996e6a7eca0c02fbbc3a3" title=" " alt="" coords="511,168,659,193"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="448,180,495,179,495,185,448,186"/>
+<area shape="rect" id="Node000008" href="$d4/dca/class_graph_s_l_a_m_instance.html#a9ffa9f55d63ac219cf762c41434bc265" title=" " alt="" coords="511,217,660,258"/>
+<area shape="poly" id="edge8_Node000006_Node000008" title=" " alt="" coords="449,202,496,213,495,219,448,207"/>
+</map>

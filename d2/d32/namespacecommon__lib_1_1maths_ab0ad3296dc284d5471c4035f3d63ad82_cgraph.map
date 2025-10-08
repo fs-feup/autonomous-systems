@@ -1,0 +1,5 @@
+<map id="common_lib::maths::global_to_local_coordinates" name="common_lib::maths::global_to_local_coordinates">
+<area shape="rect" id="Node000001" title="Transform points from a global reference frame to a local reference frame." alt="" coords="5,5,187,46"/>
+<area shape="rect" id="Node000002" href="$d2/d32/namespacecommon__lib_1_1maths.html#a3155563fdd77267916f4362c3c976f11" title="Function to get the rotation matrix for a given angle." alt="" coords="235,5,374,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="187,23,219,23,219,28,187,28"/>
+</map>

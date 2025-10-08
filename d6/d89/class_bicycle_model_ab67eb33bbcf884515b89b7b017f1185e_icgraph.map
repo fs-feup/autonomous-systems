@@ -1,0 +1,7 @@
+<map id="BicycleModel::jacobian_cg_velocity_to_wheels" name="BicycleModel::jacobian_cg_velocity_to_wheels">
+<area shape="rect" id="Node000001" title="Calculates the jacobian of the function cg_velocity_to_wheels with respect to the center of mass velo..." alt="" coords="108,23,267,64"/>
+<area shape="rect" id="Node000002" href="$de/d8a/bicycle__model__test_8cpp.html#aadf49a49c19a9b7826cd79c09c5e0500" title="Test the jacobian of the conversion from cg velocities to wheel velocities with regular values of the..." alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,31,60,25,61,20,93,25"/>
+<area shape="rect" id="Node000003" href="$de/d8a/bicycle__model__test_8cpp.html#ae2aa73646714864db5d558a73f7f7ca7" title="Test the jacobian of the conversion from cg velocities to wheel velocities when the velocity in x is ..." alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="93,61,61,66,60,61,92,56"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="PacsimAdapter::wss_callback" name="PacsimAdapter::wss_callback">
+<area shape="rect" id="Node000001" title="callback that gets called when the wheel speeds are received" alt="" coords="5,5,146,46"/>
+<area shape="rect" id="Node000002" href="$d3/d43/class_v_e_node.html#a2aa9d39822eb3178f0a16a84d02e946e" title=" " alt="" coords="194,13,372,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,23,178,23,178,28,146,28"/>
+</map>

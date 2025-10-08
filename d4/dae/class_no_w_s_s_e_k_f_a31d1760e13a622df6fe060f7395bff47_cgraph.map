@@ -1,0 +1,5 @@
+<map id="NoWSSEKF::motor_rpm_callback" name="NoWSSEKF::motor_rpm_callback">
+<area shape="rect" id="Node000001" title="Callback function for the motor RPM data that should be called by adapters when new motor RPM data is..." alt="" coords="5,5,167,46"/>
+<area shape="rect" id="Node000002" href="$d4/dae/class_no_w_s_s_e_k_f.html#a8af9ab80f3f4f3bcdd1801d1bc173f07" title="Correct the state estimate based on resolver, and steering data." alt="" coords="215,5,394,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,23,199,23,199,28,167,28"/>
+</map>

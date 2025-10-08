@@ -1,0 +1,5 @@
+<map id="SLAMSolver::load_initial_state" name="SLAMSolver::load_initial_state">
+<area shape="rect" id="Node000001" title="Loads a previously saved map and pose into the solver." alt="" coords="225,5,387,46"/>
+<area shape="rect" id="Node000002" href="$da/dd3/class_s_l_a_m_solver.html#a132757cb8a25752b2050dc260a72b902" title="Set the mission." alt="" coords="5,13,177,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="209,28,177,28,177,23,209,23"/>
+</map>

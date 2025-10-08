@@ -1,6 +1,6 @@
 <map id="eulerAnglesToRotMat" name="eulerAnglesToRotMat">
 <area shape="rect" id="Node000001" title=" " alt="" coords="865,146,1011,172"/>
-<area shape="rect" id="Node000002" href="$dd/d52/class_vehicle_model_bicycle.html#a14fc67d49fa63a23266a80d5b5887dc4" title=" " alt="" coords="672,5,814,46"/>
+<area shape="rect" id="Node000002" href="$dd/d52/class_vehicle_model_bicycle.html#a07448d526d749c5d69b95cc637184fdc" title=" " alt="" coords="672,5,814,46"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="908,138,866,103,815,67,785,49,788,44,818,62,869,99,912,134"/>
 <area shape="rect" id="Node000003" href="$d8/d8c/transform_8cpp.html#a5802f88edbf2aaf4c4f336181a05334a" title=" " alt="" coords="679,121,807,147"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="849,150,806,145,807,139,850,145"/>

@@ -1,0 +1,7 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title="Empty landmarks and observations." alt="" coords="5,13,60,39"/>
+<area shape="rect" id="Node000002" href="$d5/d7e/class_nearest_neighbour_i_c_p.html#a3c035f3836a49de071522a4f3549911c" title="This function associates the landmarks with the observations." alt="" coords="108,5,256,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,23,92,23,92,28,60,28"/>
+<area shape="rect" id="Node000003" href="$d5/d7e/class_nearest_neighbour_i_c_p.html#a96b49541d2b30fb02fe3788a98367862" title="Uses ICP to transform the observations to the landmarks frame." alt="" coords="304,5,452,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="256,23,288,23,288,28,256,28"/>
+</map>

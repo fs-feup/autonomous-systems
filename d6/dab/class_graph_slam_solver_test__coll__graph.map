@@ -1,0 +1,7 @@
+<map id="GraphSlamSolverTest" name="GraphSlamSolverTest">
+<area shape="rect" id="Node000001" title="Whitebox integration test for the GraphSLAMSolver." alt="" coords="35,458,217,683"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,167,89,233"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,246,105,457,100,459,54,247"/>
+<area shape="rect" id="Node000003" href="$d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="114,5,295,395"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="166,395,156,442,151,441,161,394"/>
+</map>

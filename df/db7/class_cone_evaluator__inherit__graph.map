@@ -1,5 +1,0 @@
-<map id="ConeEvaluator" name="ConeEvaluator">
-<area shape="rect" id="Node000001" title="Abstract class that represents an heurisic that evaluates the cluster as a cone." alt="" coords="11,5,132,71"/>
-<area shape="rect" id="Node000002" href="$d0/d47/class_distance_predict.html" title="Cone heurisitic evaluation based on distance." alt="" coords="5,119,137,224"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="74,85,74,119,69,119,69,85"/>
-</map>

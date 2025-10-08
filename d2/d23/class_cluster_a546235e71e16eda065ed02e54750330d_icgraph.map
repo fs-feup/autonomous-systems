@@ -1,5 +1,0 @@
-<map id="Cluster::get_z_score_x" name="Cluster::get_z_score_x">
-<area shape="rect" id="Node000001" title="Get the z score on x&#45;axis of an object." alt="" coords="253,5,404,31"/>
-<area shape="rect" id="Node000002" href="$d5/d4f/class_z_score_validator.html#aaf6b2a5606e79fad89d30046020be0c8" title="Validates the cluster based on the z&#45;score distribution." alt="" coords="5,5,205,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="237,21,205,21,205,16,237,16"/>
-</map>

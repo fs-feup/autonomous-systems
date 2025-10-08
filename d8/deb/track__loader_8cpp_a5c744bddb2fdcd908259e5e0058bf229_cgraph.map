@@ -1,0 +1,7 @@
+<map id="load_initial_state" name="load_initial_state">
+<area shape="rect" id="Node000001" title="loads the map from the specified path and fills the start pose and track." alt="" coords="5,31,124,56"/>
+<area shape="rect" id="Node000002" href="$d8/deb/track__loader_8cpp.html#aba21ebec4d5bd866eb855c49014ab80f" title="adds the landmarks in the list to the track." alt="" coords="172,5,281,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="124,32,156,26,157,32,125,37"/>
+<area shape="rect" id="Node000003" href="$d8/deb/track__loader_8cpp.html#af45ff32e62996694d5ee0ff3f09b9755" title="Get the child node from a parent node by tag." alt="" coords="172,55,281,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="125,50,157,55,156,60,124,55"/>
+</map>

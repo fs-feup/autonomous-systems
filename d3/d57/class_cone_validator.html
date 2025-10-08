@@ -107,15 +107,21 @@ Inheritance diagram for ConeValidator:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d1/daf/class_cone_validator__inherit__graph.png" border="0" usemap="#a_cone_validator_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_cone_validator_inherit__map" id="a_cone_validator_inherit__map">
-<area shape="rect" title="Abstract class responsible for validating clusters as cones." alt="" coords="254,5,365,71"/>
-<area shape="rect" href="../../dd/def/class_cylinder_validator.html" title="Validates clusters using a cylinder approximation." alt="" coords="5,139,133,264"/>
-<area shape="poly" title=" " alt="" coords="241,68,193,92,147,121,124,141,120,137,144,117,191,87,239,64"/>
-<area shape="rect" href="../../d2/d55/class_deviation_validator.html" title="Validates clusters using the standard deviation on xOy plane and on the z axis." alt="" coords="157,119,301,284"/>
-<area shape="poly" title=" " alt="" coords="290,85,272,120,267,118,285,83"/>
-<area shape="rect" href="../../d9/d1f/class_height_validator.html" title="The HeightValidator class is responsible for validating cones based on their height." alt="" coords="325,139,453,264"/>
-<area shape="poly" title=" " alt="" coords="334,83,361,138,357,140,329,85"/>
-<area shape="rect" href="../../d5/d4f/class_z_score_validator.html" title="The ZScoreValidator class is responsible for validating cones based on the approximation of z&#45;score o..." alt="" coords="478,119,610,284"/>
-<area shape="poly" title=" " alt="" coords="380,66,424,89,467,116,480,127,476,131,464,121,421,94,377,71"/>
+<area shape="rect" title="Abstract class responsible for validating clusters as cones." alt="" coords="533,5,643,71"/>
+<area shape="rect" href="../../dd/def/class_cylinder_validator.html" title="Validates clusters using a cylinder approximation." alt="" coords="5,119,133,324"/>
+<area shape="poly" title=" " alt="" coords="518,48,423,59,315,75,215,95,175,108,147,121,134,130,131,125,144,116,174,103,214,90,314,69,422,54,518,43"/>
+<area shape="rect" href="../../d2/d55/class_deviation_validator.html" title="Validates clusters using the standard deviation on xOy plane and on the z axis." alt="" coords="157,139,301,304"/>
+<area shape="poly" title=" " alt="" coords="518,50,471,60,418,74,364,94,315,121,290,141,287,137,312,116,362,89,416,69,469,55,517,45"/>
+<area shape="rect" href="../../db/d6b/class_displacement_validator.html" title="The SizeValidator class is responsible for validating cones based on the minimum distance between the..." alt="" coords="325,149,493,294"/>
+<area shape="poly" title=" " alt="" coords="546,83,507,121,478,151,474,147,503,117,542,79"/>
+<area shape="rect" href="../../d9/d1f/class_height_validator.html" title="The HeightValidator class is responsible for validating cones based on their height." alt="" coords="517,139,659,304"/>
+<area shape="poly" title=" " alt="" coords="591,86,591,139,585,139,585,86"/>
+<area shape="rect" href="../../d2/ddf/class_n_points_validator.html" title="The NPointsValidator class is responsible for validating cones based on the number of points they con..." alt="" coords="683,169,819,274"/>
+<area shape="poly" title=" " alt="" coords="635,79,673,117,715,167,710,171,669,120,632,83"/>
+<area shape="rect" href="../../d7/d35/class_test_cone_validator.html" title="Mock ConeValidator class." alt="" coords="843,179,981,264"/>
+<area shape="poly" title=" " alt="" coords="658,48,745,73,790,92,832,117,864,145,890,178,885,181,860,149,829,121,788,97,743,78,657,54"/>
+<area shape="rect" href="../../d5/d4f/class_z_score_validator.html" title="The ZScoreValidator class is responsible for validating cones based on the approximation of z&#45;score o..." alt="" coords="1006,139,1138,304"/>
+<area shape="poly" title=" " alt="" coords="659,36,732,40,819,53,910,77,954,94,995,116,1020,137,1017,141,992,121,951,99,908,82,818,58,732,46,658,41"/>
 </map>
 </div>
 <div class="dynheader">
@@ -129,17 +135,17 @@ Collaboration diagram for ConeValidator:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af4b8db84756b3ec7ac2c88ec97e0aec0" id="r_af4b8db84756b3ec7ac2c88ec97e0aec0"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d57/class_cone_validator.html#af4b8db84756b3ec7ac2c88ec97e0aec0">coneValidator</a> (<a class="el" href="../../d2/d23/class_cluster.html">Cluster</a> *cone_point_cloud, <a class="el" href="../../d2/d8d/class_plane.html">Plane</a> &amp;plane) const =0</td></tr>
-<tr class="memdesc:af4b8db84756b3ec7ac2c88ec97e0aec0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validate a <a class="el" href="../../d2/d23/class_cluster.html" title="Represents a cluster of 3D points using PCL (Point Cloud Library).">Cluster</a> as a cone.  <br /></td></tr>
-<tr class="separator:af4b8db84756b3ec7ac2c88ec97e0aec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bf5797599921668f8de1182e145b545" id="r_a0bf5797599921668f8de1182e145b545"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d57/class_cone_validator.html#a0bf5797599921668f8de1182e145b545">coneValidator</a> (<a class="el" href="../../d2/d23/class_cluster.html">Cluster</a> *cone_point_cloud, <a class="el" href="../../d2/d8d/class_plane.html">Plane</a> &amp;plane) const =0</td></tr>
+<tr class="memdesc:a0bf5797599921668f8de1182e145b545"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validate a <a class="el" href="../../d2/d23/class_cluster.html" title="Represents a cluster of 3D points using PCL (Point Cloud Library).">Cluster</a> as a cone.  <br /></td></tr>
+<tr class="separator:a0bf5797599921668f8de1182e145b545"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract class responsible for validating clusters as cones. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d1/d42/cone__validator_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../d1/d42/cone__validator_8hpp_source.html">cone_validator.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="af4b8db84756b3ec7ac2c88ec97e0aec0" name="af4b8db84756b3ec7ac2c88ec97e0aec0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4b8db84756b3ec7ac2c88ec97e0aec0">&#9670;&#160;</a></span>coneValidator()</h2>
+<a id="a0bf5797599921668f8de1182e145b545" name="a0bf5797599921668f8de1182e145b545"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bf5797599921668f8de1182e145b545">&#9670;&#160;</a></span>coneValidator()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -148,7 +154,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool ConeValidator::coneValidator </td>
+          <td class="memname">virtual std::vector&lt; double &gt; ConeValidator::coneValidator </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d2/d23/class_cluster.html">Cluster</a> *&#160;</td>
           <td class="paramname"><em>cone_point_cloud</em>, </td>
@@ -179,11 +185,9 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if the cluster is considered a cone </dd>
-<dd>
-false if the cluster is not considered a cone </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>vector with all double values for the respective validator </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d5/d4f/class_z_score_validator.html#aaf6b2a5606e79fad89d30046020be0c8">ZScoreValidator</a>, <a class="el" href="../../dd/def/class_cylinder_validator.html#a206a8bd25bfb5b16d71e3881af9a4111">CylinderValidator</a>, <a class="el" href="../../d2/d55/class_deviation_validator.html#ae312d8b85e3c0f5d52acc37ad686a670">DeviationValidator</a>, and <a class="el" href="../../d9/d1f/class_height_validator.html#ac32f47cd9bcfc58e8951b151bf356752">HeightValidator</a>.</p>
+<p>Implemented in <a class="el" href="../../d7/d35/class_test_cone_validator.html#a8f25faea4c9320d8c73f39276b363274">TestConeValidator</a>, <a class="el" href="../../d5/d4f/class_z_score_validator.html#aac99faf1038a4eef6018bfc668b342fe">ZScoreValidator</a>, <a class="el" href="../../dd/def/class_cylinder_validator.html#a15a79c63182d06ed4cea29cc91649123">CylinderValidator</a>, <a class="el" href="../../d2/d55/class_deviation_validator.html#a29d91e117f19ffe319cb162a9599f9d9">DeviationValidator</a>, <a class="el" href="../../db/d6b/class_displacement_validator.html#a7c369e7de6133338f85f4aec712dad5d">DisplacementValidator</a>, <a class="el" href="../../d9/d1f/class_height_validator.html#ac4d61b8c54bfc4f2cef252c9e05a1c71">HeightValidator</a>, and <a class="el" href="../../d2/ddf/class_n_points_validator.html#a4fa2eff881f343c78be08fc09a804063">NPointsValidator</a>.</p>
 
 </div>
 </div>

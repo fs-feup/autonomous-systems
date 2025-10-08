@@ -1,0 +1,7 @@
+<map id="generate_random_integer" name="generate_random_integer">
+<area shape="rect" id="Node000001" title=" " alt="" coords="108,31,275,56"/>
+<area shape="rect" id="Node000002" href="$dc/d72/transformations__test_8cpp.html#aeecfe6845ab7f7dbe601cf38fb330e2c" title="Randomized scenario where coordinates are transformed from global to local and then back to global." alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,30,60,25,61,20,93,25"/>
+<area shape="rect" id="Node000003" href="$dc/d72/transformations__test_8cpp.html#ae0c9d51b27f98db868b4a5ea90ebb917" title="Randomized scenario where coordinates are transformed from local to global and then back to local." alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="93,61,61,66,60,61,92,56"/>
+</map>

@@ -1,0 +1,19 @@
+<map id="PerceptionIntegrationTest::runTest" name="PerceptionIntegrationTest::runTest">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,126,176,167"/>
+<area shape="rect" id="Node000002" href="$df/da9/perception__integration__tests_8cpp.html#a7a2fabe62934fac9e32c321dbea1be50" title="Helper function to compute correctness for a specific test case." alt="" coords="238,5,380,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,123,160,81,222,40,234,34,237,39,225,44,163,85,115,127"/>
+<area shape="rect" id="Node000003" href="$de/d07/class_perception.html#a386ba1a3deb02d41931aeef1c52645f5" title="Turns the parameters in the yaml file into PerceptionParameters class." alt="" coords="232,55,386,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="137,123,223,89,242,83,244,88,225,94,139,128"/>
+<area shape="rect" id="Node000005" href="$df/da9/perception__integration__tests_8cpp.html#a1dc55f811c6ade10e0353f0b6af17cf3" title="Helper function to load ground truth cone positions from a file." alt="" coords="250,104,368,130"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="175,132,235,124,236,129,176,137"/>
+<area shape="rect" id="Node000006" href="$de/de3/class_perception_integration_test.html#a6bff0aa7a1d4330e4785c62b341319d6" title=" " alt="" coords="224,154,394,195"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="176,154,208,159,208,164,175,160"/>
+<area shape="rect" id="Node000007" href="$de/de3/class_perception_integration_test.html#a045f748961f884cd5c2025251de63359" title=" " alt="" coords="224,219,394,260"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="137,165,225,204,241,210,238,215,223,209,135,169"/>
+<area shape="rect" id="Node000008" href="$de/de3/class_perception_integration_test.html#aa4fa851c03a8209c2babfe24263e700c" title=" " alt="" coords="224,285,394,325"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="111,165,160,216,191,244,225,269,234,275,232,279,222,274,188,248,156,220,107,169"/>
+<area shape="rect" id="Node000004" href="$de/dca/namespacecommon__lib_1_1config__load.html#a1b7b070d3b2eb3e25bf4d0effc5fea08" title=" " alt="" coords="442,47,625,88"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="387,65,426,65,426,70,387,70"/>
+<area shape="rect" id="Node000009" href="$df/da9/perception__integration__tests_8cpp.html#ab4120b3faa04b0e5c7cfd1dc095e341a" title="Generates a cylinder made of pcl points, used to add the found cones in the results pcl." alt="" coords="475,292,592,318"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="394,302,460,302,460,308,394,308"/>
+</map>

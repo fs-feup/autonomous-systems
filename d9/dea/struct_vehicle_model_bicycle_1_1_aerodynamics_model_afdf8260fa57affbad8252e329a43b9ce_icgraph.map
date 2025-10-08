@@ -1,0 +1,14 @@
+<map id="VehicleModelBicycle::AerodynamicsModel::calculateForces" name="VehicleModelBicycle::AerodynamicsModel::calculateForces">
+<area shape="rect" id="Node000001" title=" " alt="" coords="606,59,751,115"/>
+<area shape="rect" id="Node000002" href="$dd/d52/class_vehicle_model_bicycle.html#a041f13ab6c8822ed3c3c90f6d46f4a07" title=" " alt="" coords="397,95,558,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="592,102,559,106,559,101,591,97"/>
+<area shape="rect" id="Node000003" href="$dd/d52/class_vehicle_model_bicycle.html#a4d87d6b145a90af103b362c4f6ff9f82" title=" " alt="" coords="208,37,349,78"/>
+<area shape="poly" id="edge6_Node000001_Node000003" title=" " alt="" coords="591,83,349,65,350,60,591,78"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="389,92,349,81,350,75,391,87"/>
+<area shape="rect" id="Node000006" href="$dd/d52/class_vehicle_model_bicycle.html#affffa60e1a92bc8bcca165f18089a3c0" title=" " alt="" coords="208,103,349,143"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="381,122,350,123,349,117,381,116"/>
+<area shape="rect" id="Node000004" href="$dd/d52/class_vehicle_model_bicycle.html#ae10b575631a2fad7f3db845aa19c7b8f" title=" " alt="" coords="12,5,153,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="192,46,153,40,154,35,193,41"/>
+<area shape="rect" id="Node000005" href="$dd/d52/class_vehicle_model_bicycle.html#a66471b72c81aac3b7405c0534b6899f7" title=" " alt="" coords="5,71,160,111"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="193,75,160,80,160,75,192,70"/>
+</map>

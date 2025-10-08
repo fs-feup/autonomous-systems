@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Formula Student Autonomous Systems: src/common_lib/include/common_lib/vehicle_dynamics/bicycle_model.hpp File Reference</title>
+<title>Formula Student Autonomous Systems: src/motion_lib/include/motion_lib/s2v_model/bicycle_model.hpp File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -92,108 +92,158 @@ $(document).ready(function(){initNavTree('d0/d88/bicycle__model_8hpp.html','../.
 
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle"><div class="title">bicycle_model.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;utility&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../d5/d91/position_8hpp_source.html">common_lib/structures/position.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d8/d71/transformations_8hpp_source.html">common_lib/maths/transformations.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d7/dde/s2v__model_8hpp_source.html">motion_lib/s2v_model/s2v_model.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for bicycle_model.hpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../dc/d51/bicycle__model_8hpp__incl.png" border="0" usemap="#asrc_2common__lib_2include_2common__lib_2vehicle__dynamics_2bicycle__model_8hpp" alt=""/></div>
-<map name="asrc_2common__lib_2include_2common__lib_2vehicle__dynamics_2bicycle__model_8hpp" id="asrc_2common__lib_2include_2common__lib_2vehicle__dynamics_2bicycle__model_8hpp">
-<area shape="rect" title=" " alt="" coords="5,5,208,61"/>
-<area shape="rect" title=" " alt="" coords="18,117,70,142"/>
-<area shape="poly" title=" " alt="" coords="91,63,62,105,58,102,86,60"/>
-<area shape="rect" href="../../d5/d91/position_8hpp.html" title=" " alt="" coords="94,109,247,150"/>
-<area shape="poly" title=" " alt="" coords="127,60,151,95,147,98,123,63"/>
-<area shape="rect" title=" " alt="" coords="132,198,209,223"/>
-<area shape="poly" title=" " alt="" coords="173,150,173,182,168,182,168,150"/>
+<div class="center"><img src="../../dc/d51/bicycle__model_8hpp__incl.png" border="0" usemap="#asrc_2motion__lib_2include_2motion__lib_2s2v__model_2bicycle__model_8hpp" alt=""/></div>
+<map name="asrc_2motion__lib_2include_2motion__lib_2s2v__model_2bicycle__model_8hpp" id="asrc_2motion__lib_2include_2motion__lib_2s2v__model_2bicycle__model_8hpp">
+<area shape="rect" title=" " alt="" coords="120,5,271,61"/>
+<area shape="rect" title=" " alt="" coords="5,117,63,142"/>
+<area shape="poly" title=" " alt="" coords="150,64,69,111,66,106,147,59"/>
+<area shape="rect" title=" " alt="" coords="86,117,158,142"/>
+<area shape="poly" title=" " alt="" coords="176,63,143,106,138,103,172,60"/>
+<area shape="rect" title=" " alt="" coords="218,205,269,231"/>
+<area shape="poly" title=" " alt="" coords="203,61,223,149,236,190,231,191,218,150,198,62"/>
+<area shape="rect" href="../../d8/d71/transformations_8hpp.html" title=" " alt="" coords="233,117,483,142"/>
+<area shape="poly" title=" " alt="" coords="244,59,326,106,323,111,241,64"/>
+<area shape="rect" href="../../d7/dde/s2v__model_8hpp.html" title=" " alt="" coords="507,109,654,150"/>
+<area shape="poly" title=" " alt="" coords="272,50,493,104,491,109,271,56"/>
+<area shape="rect" title=" " alt="" coords="326,205,420,231"/>
+<area shape="poly" title=" " alt="" coords="363,142,371,190,365,190,357,143"/>
+<area shape="poly" title=" " alt="" coords="507,152,315,200,285,208,283,203,313,195,506,146"/>
+<area shape="poly" title=" " alt="" coords="534,153,417,201,415,196,532,148"/>
+<area shape="rect" href="../../da/de9/common__lib_2include_2common__lib_2car__parameters_2car__parameters_8hpp.html" title=" " alt="" coords="473,198,659,238"/>
+<area shape="poly" title=" " alt="" coords="580,151,575,183,569,182,575,150"/>
+<area shape="rect" href="../../d5/d91/position_8hpp.html" title=" " alt="" coords="683,198,836,238"/>
+<area shape="poly" title=" " alt="" coords="622,148,707,188,704,193,620,153"/>
+<area shape="rect" title=" " alt="" coords="516,294,630,320"/>
+<area shape="poly" title=" " alt="" coords="570,239,573,278,568,279,565,239"/>
+<area shape="rect" title=" " alt="" coords="499,375,644,416"/>
+<area shape="poly" title=" " alt="" coords="601,237,625,258,644,285,650,307,644,328,632,349,615,367,611,363,627,346,640,326,645,307,640,287,621,261,597,241"/>
+<area shape="rect" title=" " alt="" coords="326,383,379,408"/>
+<area shape="poly" title=" " alt="" coords="474,235,381,257,344,271,321,288,314,307,316,328,325,349,336,369,331,371,320,352,311,329,309,306,317,285,341,267,379,252,472,230"/>
+<area shape="rect" href="../../d0/d20/config__load_8hpp.html" title=" " alt="" coords="331,286,492,327"/>
+<area shape="poly" title=" " alt="" coords="532,241,461,281,458,276,530,237"/>
+<area shape="poly" title=" " alt="" coords="449,325,523,365,521,370,446,330"/>
+<area shape="poly" title=" " alt="" coords="400,329,371,371,367,368,396,326"/>
+<area shape="rect" title=" " alt="" coords="715,294,793,320"/>
+<area shape="poly" title=" " alt="" coords="761,239,758,279,753,278,755,239"/>
+<area shape="rect" title=" " alt="" coords="817,294,936,320"/>
+<area shape="poly" title=" " alt="" coords="788,237,850,282,847,287,784,241"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d3/df3/bicycle__model_8hpp__dep__incl.png" border="0" usemap="#asrc_2common__lib_2include_2common__lib_2vehicle__dynamics_2bicycle__model_8hppdep" alt=""/></div>
-<map name="asrc_2common__lib_2include_2common__lib_2vehicle__dynamics_2bicycle__model_8hppdep" id="asrc_2common__lib_2include_2common__lib_2vehicle__dynamics_2bicycle__model_8hppdep">
-<area shape="rect" title=" " alt="" coords="1053,5,1256,61"/>
-<area shape="rect" href="../../d7/de6/bicycle__model_8cpp.html" title=" " alt="" coords="670,109,842,165"/>
-<area shape="poly" title=" " alt="" coords="1039,65,855,112,843,115,842,110,854,106,1038,60"/>
-<area shape="rect" href="../../d0/d08/vehicle__dynamics__test_8cpp.html" title=" " alt="" coords="866,117,1048,157"/>
-<area shape="poly" title=" " alt="" coords="1089,71,996,118,994,114,1087,66"/>
-<area shape="rect" href="../../d7/db2/psolver_8hpp.html" title=" " alt="" coords="1072,117,1237,157"/>
-<area shape="poly" title=" " alt="" coords="1157,77,1157,116,1152,116,1152,77"/>
-<area shape="rect" href="../../d0/d48/se__node_8cpp.html" title=" " alt="" coords="1261,117,1416,157"/>
-<area shape="poly" title=" " alt="" coords="1218,67,1304,114,1302,118,1216,71"/>
-<area shape="rect" href="../../d8/dbd/motion__model__test_8cpp.html" title=" " alt="" coords="1440,117,1599,157"/>
-<area shape="poly" title=" " alt="" coords="1270,63,1428,106,1453,113,1451,118,1427,112,1269,68"/>
-<area shape="rect" href="../../da/d3d/node__control_8hpp.html" title=" " alt="" coords="711,213,873,253"/>
-<area shape="poly" title=" " alt="" coords="1071,164,1060,167,873,215,872,209,1059,162,1070,159"/>
-<area shape="rect" href="../../d8/d8c/psolver__test_8cpp.html" title=" " alt="" coords="1323,301,1477,342"/>
-<area shape="poly" title=" " alt="" coords="1156,172,1162,214,1170,234,1182,251,1204,266,1238,280,1323,303,1321,308,1237,285,1201,271,1178,255,1165,236,1157,215,1151,173"/>
-<area shape="rect" href="../../d9/db4/psolver_8cpp.html" title=" " alt="" coords="1192,213,1328,253"/>
-<area shape="poly" title=" " alt="" coords="1189,166,1240,210,1236,214,1186,170"/>
-<area shape="rect" href="../../d3/d4a/control_2include_2adapter__control_2eufs_8hpp.html" title=" " alt="" coords="769,301,937,342"/>
-<area shape="poly" title=" " alt="" coords="817,265,841,299,837,302,812,268"/>
-<area shape="rect" href="../../df/d6e/control_2include_2adapter__control_2parameters__factory_8hpp.html" title=" " alt="" coords="399,390,582,446"/>
-<area shape="poly" title=" " alt="" coords="696,247,637,256,579,268,530,284,512,293,500,303,489,323,484,345,487,389,481,389,479,344,484,321,496,300,510,289,528,279,577,263,636,250,695,241"/>
-<area shape="rect" href="../../d0/dd0/control_2src_2adapter__control_2eufs_8cpp.html" title=" " alt="" coords="807,398,958,438"/>
-<area shape="poly" title=" " alt="" coords="889,239,1114,262,1210,279,1243,289,1261,299,1274,318,1280,334,1278,350,1270,363,1238,384,1192,398,1135,409,1074,415,959,420,958,414,1074,410,1135,403,1191,393,1236,379,1266,359,1273,348,1274,335,1270,320,1258,303,1241,294,1209,284,1113,268,888,244"/>
-<area shape="rect" href="../../d6/dfc/control_2include_2adapter__control_2fsds_8hpp.html" title=" " alt="" coords="60,301,227,342"/>
-<area shape="poly" title=" " alt="" coords="695,247,486,270,240,304,228,306,227,301,239,299,485,265,695,241"/>
-<area shape="rect" href="../../dd/d7f/control_2src_2adapter__control_2fsds_8cpp.html" title=" " alt="" coords="5,398,157,438"/>
-<area shape="poly" title=" " alt="" coords="695,239,519,244,316,255,221,264,140,275,81,288,61,295,50,303,43,313,40,324,43,349,54,374,68,395,63,398,49,376,38,350,35,324,38,311,46,299,59,291,79,283,140,269,221,258,315,250,519,239,695,233"/>
-<area shape="rect" href="../../de/d90/control_2include_2adapter__control_2pacsim_8hpp.html" title=" " alt="" coords="510,301,695,342"/>
-<area shape="poly" title=" " alt="" coords="736,262,646,303,644,298,734,258"/>
-<area shape="rect" href="../../d3/d3d/control_2src_2adapter__control_2pacsim_8cpp.html" title=" " alt="" coords="625,398,777,438"/>
-<area shape="poly" title=" " alt="" coords="777,268,759,303,713,398,708,396,755,300,772,266"/>
-<area shape="rect" href="../../d4/d49/control_2include_2adapter__control_2vehicle_8hpp.html" title=" " alt="" coords="252,301,435,342"/>
-<area shape="poly" title=" " alt="" coords="696,255,436,305,435,300,695,250"/>
-<area shape="rect" href="../../d1/da2/node__control_8cpp.html" title=" " alt="" coords="961,301,1097,342"/>
-<area shape="poly" title=" " alt="" coords="861,256,976,298,974,303,859,261"/>
-<area shape="rect" href="../../dd/d88/pp__test_8cpp.html" title=" " alt="" coords="1122,301,1248,342"/>
-<area shape="poly" title=" " alt="" coords="889,251,1110,299,1122,302,1121,307,1108,304,888,256"/>
-<area shape="poly" title=" " alt="" coords="889,242,1081,266,1304,299,1323,302,1322,307,1303,304,1080,271,888,248"/>
-<area shape="poly" title=" " alt="" coords="763,349,583,395,582,390,762,344"/>
-<area shape="poly" title=" " alt="" coords="866,356,879,396,874,398,861,358"/>
-<area shape="rect" href="../../dc/d45/control_2src_2main_8cpp.html" title=" " alt="" coords="410,494,571,519"/>
-<area shape="poly" title=" " alt="" coords="493,461,493,493,488,493,488,461"/>
-<area shape="poly" title=" " alt="" coords="232,344,399,389,398,394,230,349"/>
-<area shape="poly" title=" " alt="" coords="124,356,96,399,92,396,120,354"/>
-<area shape="poly" title=" " alt="" coords="569,354,525,391,521,387,566,350"/>
-<area shape="poly" title=" " alt="" coords="636,351,682,395,679,399,632,355"/>
-<area shape="poly" title=" " alt="" coords="389,348,449,387,447,392,386,353"/>
-<area shape="rect" href="../../de/d7c/control_2src_2adapter__control_2vehicle_8cpp.html" title=" " alt="" coords="223,398,374,438"/>
-<area shape="poly" title=" " alt="" coords="330,357,310,398,305,396,325,355"/>
+<div class="center"><img src="../../d3/df3/bicycle__model_8hpp__dep__incl.png" border="0" usemap="#asrc_2motion__lib_2include_2motion__lib_2s2v__model_2bicycle__model_8hppdep" alt=""/></div>
+<map name="asrc_2motion__lib_2include_2motion__lib_2s2v__model_2bicycle__model_8hppdep" id="asrc_2motion__lib_2include_2motion__lib_2s2v__model_2bicycle__model_8hppdep">
+<area shape="rect" title=" " alt="" coords="1703,5,1854,61"/>
+<area shape="rect" href="../../d7/db2/psolver_8hpp.html" title=" " alt="" coords="1241,117,1406,157"/>
+<area shape="poly" title=" " alt="" coords="1688,54,1419,112,1392,119,1391,113,1418,106,1687,49"/>
+<area shape="rect" href="../../d0/d48/se__node_8cpp.html" title=" " alt="" coords="1430,117,1585,157"/>
+<area shape="poly" title=" " alt="" coords="1692,69,1561,118,1559,113,1691,64"/>
+<area shape="rect" href="../../d8/dbd/motion__model__test_8cpp.html" title=" " alt="" coords="1609,117,1769,157"/>
+<area shape="poly" title=" " alt="" coords="1746,75,1708,118,1704,115,1742,71"/>
+<area shape="rect" href="../../d4/da8/motion__lib_2include_2motion__lib_2s2v__model_2map_8hpp.html" title=" " alt="" coords="1793,109,1945,165"/>
+<area shape="poly" title=" " alt="" coords="1815,71,1847,107,1843,110,1811,75"/>
+<area shape="rect" href="../../d7/de6/bicycle__model_8cpp.html" title=" " alt="" coords="1969,117,2167,157"/>
+<area shape="poly" title=" " alt="" coords="1869,63,2012,113,2010,118,1868,69"/>
+<area shape="rect" href="../../de/d8a/bicycle__model__test_8cpp.html" title=" " alt="" coords="2191,109,2331,165"/>
+<area shape="poly" title=" " alt="" coords="1870,45,2016,71,2179,106,2192,110,2190,115,2178,112,2015,76,1869,51"/>
+<area shape="rect" href="../../da/d3d/node__control_8hpp.html" title=" " alt="" coords="661,220,824,261"/>
+<area shape="poly" title=" " alt="" coords="1226,158,825,228,824,222,1225,153"/>
+<area shape="rect" href="../../d8/d8c/psolver__test_8cpp.html" title=" " alt="" coords="1291,324,1445,365"/>
+<area shape="poly" title=" " alt="" coords="1332,172,1352,268,1365,323,1360,324,1346,269,1327,173"/>
+<area shape="rect" href="../../d9/db4/psolver_8cpp.html" title=" " alt="" coords="1361,220,1497,261"/>
+<area shape="poly" title=" " alt="" coords="1357,166,1411,218,1407,222,1353,170"/>
+<area shape="rect" href="../../d3/d4a/control_2include_2adapter__control_2eufs_8hpp.html" title=" " alt="" coords="597,324,765,365"/>
+<area shape="poly" title=" " alt="" coords="725,275,695,325,691,322,720,273"/>
+<area shape="rect" href="../../d0/dd0/control_2src_2adapter__control_2eufs_8cpp.html" title=" " alt="" coords="364,420,515,461"/>
+<area shape="poly" title=" " alt="" coords="646,248,486,257,304,271,148,291,96,304,68,318,60,331,57,344,60,357,68,370,87,385,116,398,193,416,281,428,364,434,363,439,281,433,192,422,114,403,84,390,64,374,55,359,52,344,55,329,65,314,94,299,147,286,303,265,485,251,645,243"/>
+<area shape="rect" href="../../dc/d45/control_2src_2main_8cpp.html" title=" " alt="" coords="697,428,857,453"/>
+<area shape="poly" title=" " alt="" coords="764,273,780,316,784,347,785,378,781,427,776,427,780,378,779,347,774,317,759,275"/>
+<area shape="rect" href="../../d6/dfc/control_2include_2adapter__control_2fsds_8hpp.html" title=" " alt="" coords="1048,324,1215,365"/>
+<area shape="poly" title=" " alt="" coords="837,263,1036,314,1062,321,1061,326,1035,319,835,268"/>
+<area shape="rect" href="../../dd/d7f/control_2src_2adapter__control_2fsds_8cpp.html" title=" " alt="" coords="1116,420,1267,461"/>
+<area shape="poly" title=" " alt="" coords="839,240,946,245,1063,256,1117,266,1165,279,1203,295,1230,315,1237,327,1241,341,1237,370,1224,398,1209,421,1205,418,1220,395,1232,369,1235,341,1232,329,1226,318,1201,299,1163,284,1116,271,1062,262,946,250,839,245"/>
+<area shape="rect" href="../../de/d90/control_2include_2adapter__control_2pacsim_8hpp.html" title=" " alt="" coords="78,324,263,365"/>
+<area shape="poly" title=" " alt="" coords="646,257,473,283,275,319,245,326,243,321,274,314,472,278,646,252"/>
+<area shape="rect" href="../../d3/d3d/control_2src_2adapter__control_2pacsim_8cpp.html" title=" " alt="" coords="5,420,157,461"/>
+<area shape="poly" title=" " alt="" coords="646,248,482,256,294,270,134,290,79,304,51,318,44,329,41,341,44,368,55,395,69,418,64,421,50,397,39,369,36,341,39,327,47,314,78,299,133,285,294,265,481,251,646,243"/>
+<area shape="rect" href="../../d4/d49/control_2include_2adapter__control_2vehicle_8hpp.html" title=" " alt="" coords="840,324,1023,365"/>
+<area shape="poly" title=" " alt="" coords="793,266,897,321,894,326,791,271"/>
+<area shape="rect" href="../../d1/da2/node__control_8cpp.html" title=" " alt="" coords="286,324,423,365"/>
+<area shape="poly" title=" " alt="" coords="647,266,436,319,414,326,412,321,435,314,645,261"/>
+<area shape="rect" href="../../dd/d88/pp__test_8cpp.html" title=" " alt="" coords="447,324,574,365"/>
+<area shape="poly" title=" " alt="" coords="685,270,556,326,554,321,683,265"/>
+<area shape="poly" title=" " alt="" coords="840,249,1040,274,1156,292,1272,314,1301,321,1300,326,1271,319,1156,297,1039,279,839,254"/>
+<area shape="poly" title=" " alt="" coords="617,373,491,422,489,417,615,368"/>
+<area shape="poly" title=" " alt="" coords="713,373,767,425,763,429,710,377"/>
+<area shape="poly" title=" " alt="" coords="1047,372,1036,375,825,429,824,424,1035,369,1046,367"/>
+<area shape="poly" title=" " alt="" coords="1154,376,1181,418,1177,421,1150,379"/>
+<area shape="poly" title=" " alt="" coords="258,366,275,369,504,406,697,429,696,434,503,411,274,375,257,371"/>
+<area shape="poly" title=" " alt="" coords="143,378,101,421,98,418,139,374"/>
+<area shape="poly" title=" " alt="" coords="888,375,798,429,796,425,885,371"/>
+<area shape="rect" href="../../de/d7c/control_2src_2adapter__control_2vehicle_8cpp.html" title=" " alt="" coords="881,420,1033,461"/>
+<area shape="poly" title=" " alt="" coords="943,379,954,419,949,420,938,380"/>
+<area shape="rect" href="../../d4/d76/velocity__estimation_2include_2estimators_2ekf_8hpp.html" title=" " alt="" coords="1591,220,1768,261"/>
+<area shape="poly" title=" " alt="" coords="1806,175,1717,222,1715,217,1804,170"/>
+<area shape="rect" href="../../d4/d96/no__rear__wss__ekf_8hpp.html" title=" " alt="" coords="1792,213,1946,268"/>
+<area shape="poly" title=" " alt="" coords="1872,180,1872,212,1866,212,1866,180"/>
+<area shape="rect" href="../../d6/de8/no__wss__ekf_8hpp.html" title=" " alt="" coords="1971,213,2125,268"/>
+<area shape="poly" title=" " alt="" coords="1931,170,2001,210,1998,214,1929,175"/>
+<area shape="rect" href="../../dd/d4d/velocity__estimation_2include_2estimators_2map_8hpp.html" title=" " alt="" coords="1913,324,2097,365"/>
+<area shape="poly" title=" " alt="" coords="1758,263,1943,321,1941,326,1757,269"/>
+<area shape="rect" href="../../d7/dba/velocity__estimation_2src_2estimators_2ekf_8cpp.html" title=" " alt="" coords="1556,324,1710,365"/>
+<area shape="poly" title=" " alt="" coords="1667,276,1644,325,1640,322,1662,274"/>
+<area shape="rect" href="../../d3/d09/node_8hpp.html" title=" " alt="" coords="1928,420,2082,461"/>
+<area shape="poly" title=" " alt="" coords="2008,380,2008,420,2002,420,2002,380"/>
+<area shape="rect" href="../../d0/deb/pacsim__adapter_8hpp.html" title=" " alt="" coords="1733,509,1899,564"/>
+<area shape="poly" title=" " alt="" coords="1953,470,1872,511,1869,506,1951,466"/>
+<area shape="rect" href="../../d1/d6d/vehicle__adapter_8hpp.html" title=" " alt="" coords="1922,509,2088,564"/>
+<area shape="poly" title=" " alt="" coords="2008,476,2008,508,2002,508,2002,476"/>
+<area shape="rect" href="../../d7/d70/node_8cpp.html" title=" " alt="" coords="2112,516,2266,557"/>
+<area shape="poly" title=" " alt="" coords="2058,466,2152,513,2149,518,2056,471"/>
+<area shape="rect" href="../../dd/dfe/velocity__estimation_2include_2adapters_2map_8hpp.html" title=" " alt="" coords="1825,620,1998,661"/>
+<area shape="poly" title=" " alt="" coords="1854,574,1895,618,1892,622,1850,578"/>
+<area shape="rect" href="../../d7/d72/pacsim__adapter_8cpp.html" title=" " alt="" coords="1583,620,1800,661"/>
+<area shape="poly" title=" " alt="" coords="1772,577,1717,621,1714,617,1769,572"/>
+<area shape="rect" href="../../d6/d1d/velocity__estimation_2src_2main_8cpp.html" title=" " alt="" coords="1835,716,1989,757"/>
+<area shape="poly" title=" " alt="" coords="1914,676,1914,716,1909,716,1909,676"/>
+<area shape="poly" title=" " alt="" coords="1972,578,1931,622,1927,618,1968,574"/>
+<area shape="rect" href="../../d7/dae/vehicle__adapter_8cpp.html" title=" " alt="" coords="2023,612,2177,668"/>
+<area shape="poly" title=" " alt="" coords="2043,574,2076,610,2072,614,2039,578"/>
+<area shape="poly" title=" " alt="" coords="1919,276,1980,321,1977,326,1916,280"/>
+<area shape="rect" href="../../de/dea/no__rear__wss__ekf_8cpp.html" title=" " alt="" coords="1734,316,1889,372"/>
+<area shape="poly" title=" " alt="" coords="1848,283,1829,317,1825,314,1844,281"/>
+<area shape="poly" title=" " alt="" coords="2033,284,2016,325,2011,323,2028,282"/>
+<area shape="rect" href="../../d3/d25/no__wss__ekf_8cpp.html" title=" " alt="" coords="2121,316,2278,372"/>
+<area shape="poly" title=" " alt="" coords="2103,275,2160,313,2157,318,2100,280"/>
 </map>
 </div>
 </div>
 <p><a href="../../d0/d88/bicycle__model_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:dd/d5f/namespacecommon__lib" id="r_dd/d5f/namespacecommon__lib"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d5f/namespacecommon__lib.html">common_lib</a></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d89/class_bicycle_model.html">BicycleModel</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:d4/d1a/namespacecommon__lib_1_1vehicle__dynamics" id="r_d4/d1a/namespacecommon__lib_1_1vehicle__dynamics"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d1a/namespacecommon__lib_1_1vehicle__dynamics.html">common_lib::vehicle_dynamics</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a6f4e302b6228b2dbd52b6d37a9685677" id="r_a6f4e302b6228b2dbd52b6d37a9685677"><td class="memItemLeft" align="right" valign="top">std::pair&lt; double, double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d1a/namespacecommon__lib_1_1vehicle__dynamics.html#a6f4e302b6228b2dbd52b6d37a9685677">common_lib::vehicle_dynamics::odometry_to_velocities_transform</a> (double rl_rpm, double fl_rpm, double rr_rpm, double fr_rpm, double steering_angle)</td></tr>
-<tr class="memdesc:a6f4e302b6228b2dbd52b6d37a9685677"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the odometry data to translational and rotational velocities.  <br /></td></tr>
-<tr class="separator:a6f4e302b6228b2dbd52b6d37a9685677"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecf44e20f904287db0e4c2b8f4b426a4" id="r_aecf44e20f904287db0e4c2b8f4b426a4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d1a/namespacecommon__lib_1_1vehicle__dynamics.html#aecf44e20f904287db0e4c2b8f4b426a4">common_lib::vehicle_dynamics::cg_2_rear_axis</a> (<a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> cg, double orientation, double dist_cg_2_rear_axis)</td></tr>
-<tr class="memdesc:aecf44e20f904287db0e4c2b8f4b426a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate rear axis coordinates.  <br /></td></tr>
-<tr class="separator:aecf44e20f904287db0e4c2b8f4b426a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_fbb9b9995ef8067d47a7284d7a4afe92.html">common_lib</a></li><li class="navelem"><a class="el" href="../../dir_a03a94d7e3b326317b7e34c559c3bb57.html">include</a></li><li class="navelem"><a class="el" href="../../dir_fd518ae2c01d0a2dbe90ac0b53fe65d9.html">common_lib</a></li><li class="navelem"><a class="el" href="../../dir_e05cffe714e577abee320881e44e193d.html">vehicle_dynamics</a></li><li class="navelem"><a class="el" href="../../d0/d88/bicycle__model_8hpp.html">bicycle_model.hpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_210454f116ce343abf712708069f431c.html">motion_lib</a></li><li class="navelem"><a class="el" href="../../dir_95e32b406795ac5711417db88d5b687c.html">include</a></li><li class="navelem"><a class="el" href="../../dir_23b1e2baf60b1178cab28c925184cd73.html">motion_lib</a></li><li class="navelem"><a class="el" href="../../dir_79f67e4d6b21e8e4a7b4a2451e7440f7.html">s2v_model</a></li><li class="navelem"><a class="el" href="../../d0/d88/bicycle__model_8hpp.html">bicycle_model.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

@@ -6,6 +6,8 @@
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="114,60,138,95,134,98,110,63"/>
 <area shape="rect" id="Node000004" href="$d5/d91/position_8hpp.html" title=" " alt="" coords="81,198,234,238"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="160,150,160,182,155,182,155,150"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="119,286,196,312"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="160,239,160,271,155,271,155,239"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="58,286,135,312"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="145,240,117,275,113,272,140,237"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="159,286,279,312"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="175,237,202,272,198,275,171,240"/>
 </map>

@@ -1,9 +1,11 @@
 <map id="src/common_lib/src/structures/pose.cpp" name="src/common_lib/src/structures/pose.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="12,5,152,46"/>
-<area shape="rect" id="Node000002" href="$de/d59/pose_8hpp.html" title=" " alt="" coords="5,94,159,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="85,47,85,78,79,78,79,47"/>
-<area shape="rect" id="Node000003" href="$d5/d91/position_8hpp.html" title=" " alt="" coords="5,183,159,223"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="85,135,85,167,79,167,79,135"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="43,271,121,297"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="85,224,85,256,79,256,79,224"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="36,5,175,46"/>
+<area shape="rect" id="Node000002" href="$de/d59/pose_8hpp.html" title=" " alt="" coords="29,94,182,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,47,108,78,103,78,103,47"/>
+<area shape="rect" id="Node000003" href="$d5/d91/position_8hpp.html" title=" " alt="" coords="29,183,182,223"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="108,135,108,167,103,167,103,135"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,271,83,297"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="92,225,65,260,61,257,88,222"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="107,271,226,297"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="123,222,150,257,146,260,118,225"/>
 </map>

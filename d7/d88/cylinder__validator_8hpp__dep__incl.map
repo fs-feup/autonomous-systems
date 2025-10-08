@@ -1,18 +1,17 @@
 <map id="src/perception/include/cone_validator/cylinder_validator.hpp" name="src/perception/include/cone_validator/cylinder_validator.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="384,5,541,61"/>
-<area shape="rect" id="Node000002" href="$de/da5/perception__node_8hpp.html" title=" " alt="" coords="123,109,272,165"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="378,69,269,111,268,106,376,64"/>
-<area shape="rect" id="Node000006" href="$df/de5/cylinder__validator_8cpp.html" title=" " alt="" coords="296,109,453,165"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="431,75,400,110,396,107,427,71"/>
-<area shape="rect" id="Node000007" href="$d1/d13/circunference__center__calculation__test_8cpp.html" title=" " alt="" coords="477,109,624,165"/>
-<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="498,71,529,107,525,110,494,75"/>
-<area shape="rect" id="Node000008" href="$dc/da5/cylinder__validator__test_8cpp.html" title=" " alt="" coords="647,109,777,165"/>
-<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="544,65,648,107,646,112,542,70"/>
-<area shape="rect" id="Node000003" href="$d7/d69/perception_2include_2perception_2parameters__factory_8hpp.html" title=" " alt="" coords="5,213,160,268"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="157,177,115,214,112,210,153,173"/>
-<area shape="rect" id="Node000004" href="$d9/dc1/perception_8cpp.html" title=" " alt="" coords="77,316,203,357"/>
-<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="194,181,186,224,174,269,153,317,148,315,169,267,181,223,189,180"/>
-<area shape="rect" id="Node000005" href="$dc/dfb/perception__node_8cpp.html" title=" " alt="" coords="235,213,384,268"/>
-<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="240,173,281,210,277,214,236,177"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="109,280,130,315,126,317,105,283"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="416,5,573,61"/>
+<area shape="rect" id="Node000002" href="$de/da5/perception__node_8hpp.html" title=" " alt="" coords="155,117,304,172"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="415,70,297,118,295,113,413,65"/>
+<area shape="rect" id="Node000006" href="$df/de5/cylinder__validator_8cpp.html" title=" " alt="" coords="328,117,485,172"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="466,75,431,118,426,114,461,71"/>
+<area shape="rect" id="Node000007" href="$d1/d13/circunference__center__calculation__test_8cpp.html" title=" " alt="" coords="510,109,656,180"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="528,71,557,107,553,110,524,75"/>
+<area shape="rect" id="Node000008" href="$dc/da5/cylinder__validator__test_8cpp.html" title=" " alt="" coords="680,117,837,172"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="576,65,694,113,692,118,574,70"/>
+<area shape="rect" id="Node000003" href="$d9/dc1/perception_8cpp.html" title=" " alt="" coords="5,243,131,283"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="181,184,97,244,94,240,178,179"/>
+<area shape="rect" id="Node000004" href="$dc/dfb/perception__node_8cpp.html" title=" " alt="" coords="155,235,304,291"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="232,187,232,235,227,235,227,187"/>
+<area shape="rect" id="Node000005" href="$df/da9/perception__integration__tests_8cpp.html" title=" " alt="" coords="329,228,517,298"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="288,178,367,225,364,229,286,183"/>
 </map>

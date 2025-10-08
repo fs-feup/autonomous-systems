@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Formula Student Autonomous Systems: src/perception/test/icp_test.cpp File Reference</title>
+<title>Formula Student Autonomous Systems: src/perception/test/icp/icp_test.cpp File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -100,18 +100,21 @@ $(document).ready(function(){initNavTree('dd/d8c/icp__test_8cpp.html','../../');
 
 <p>Unit tests for the <a class="el" href="../../dd/d10/class_i_c_p.html" title="Class for performing Iterative Closest Point (ICP) registration.">ICP</a> class.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;gtest/gtest.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../d3/d94/icp_8hpp_source.html">icp/icp.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d3/d94/icp_8hpp_source.html">icp/icp.hpp</a>&quot;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for icp_test.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../da/dfa/icp__test_8cpp__incl.png" border="0" usemap="#asrc_2perception_2test_2icp__test_8cpp" alt=""/></div>
-<map name="asrc_2perception_2test_2icp__test_8cpp" id="asrc_2perception_2test_2icp__test_8cpp">
-<area shape="rect" title="Unit tests for the ICP class." alt="" coords="100,5,230,46"/>
-<area shape="rect" title=" " alt="" coords="62,94,156,120"/>
-<area shape="poly" title=" " alt="" coords="153,48,129,83,124,79,149,45"/>
+<div class="center"><img src="../../da/dfa/icp__test_8cpp__incl.png" border="0" usemap="#asrc_2perception_2test_2icp_2icp__test_8cpp" alt=""/></div>
+<map name="asrc_2perception_2test_2icp_2icp__test_8cpp" id="asrc_2perception_2test_2icp_2icp__test_8cpp">
+<area shape="rect" title="Unit tests for the ICP class." alt="" coords="268,5,398,46"/>
 <area shape="rect" href="../../d3/d94/icp_8hpp.html" title=" " alt="" coords="179,94,263,120"/>
-<area shape="poly" title=" " alt="" coords="181,45,206,79,201,83,177,48"/>
+<area shape="poly" title=" " alt="" coords="307,49,252,87,249,82,304,44"/>
+<area shape="rect" title=" " alt="" coords="286,94,380,120"/>
+<area shape="poly" title=" " alt="" coords="336,46,336,78,330,78,330,46"/>
+<area shape="rect" title=" " alt="" coords="403,94,471,120"/>
+<area shape="poly" title=" " alt="" coords="360,44,410,82,407,86,357,49"/>
 <area shape="rect" title=" " alt="" coords="5,168,77,193"/>
 <area shape="poly" title=" " alt="" coords="191,123,87,164,85,159,189,118"/>
 <area shape="rect" title=" " alt="" coords="101,168,205,193"/>
@@ -176,7 +179,17 @@ Functions</h2></td></tr>
 
 <p>Test case to check if <a class="el" href="../../dd/d10/class_i_c_p.html" title="Class for performing Iterative Closest Point (ICP) registration.">ICP</a> aligns source cloud properly. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d8c/icp__test_8cpp_source.html#l00046">46</a> of file <a class="el" href="../../dd/d8c/icp__test_8cpp_source.html">icp_test.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d8c/icp__test_8cpp_source.html#l00047">47</a> of file <a class="el" href="../../dd/d8c/icp__test_8cpp_source.html">icp_test.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dd/d8c/icp__test_8cpp_a20318fac68be4c9975dd3ec3abf9953f_cgraph.png" border="0" usemap="#add/d8c/icp__test_8cpp_a20318fac68be4c9975dd3ec3abf9953f_cgraph" alt=""/></div>
+<map name="add/d8c/icp__test_8cpp_a20318fac68be4c9975dd3ec3abf9953f_cgraph" id="add/d8c/icp__test_8cpp_a20318fac68be4c9975dd3ec3abf9953f_cgraph">
+<area shape="rect" title="Test case to check if ICP aligns source cloud properly." alt="" coords="5,5,75,31"/>
+<area shape="rect" href="../../dd/d10/class_i_c_p.html#ac7aa77bae1ac288c7447654ff910a669" title="Execute the ICP registration." alt="" coords="123,5,239,31"/>
+<area shape="poly" title=" " alt="" coords="75,16,107,16,107,21,75,21"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -208,7 +221,17 @@ Functions</h2></td></tr>
 
 <p>Test case to check if <a class="el" href="../../dd/d10/class_i_c_p.html" title="Class for performing Iterative Closest Point (ICP) registration.">ICP</a> fails to align properly. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d8c/icp__test_8cpp_source.html#l00060">60</a> of file <a class="el" href="../../dd/d8c/icp__test_8cpp_source.html">icp_test.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d8c/icp__test_8cpp_source.html#l00061">61</a> of file <a class="el" href="../../dd/d8c/icp__test_8cpp_source.html">icp_test.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dd/d8c/icp__test_8cpp_a4c018671d970a66eb30ffcfff05c954f_cgraph.png" border="0" usemap="#add/d8c/icp__test_8cpp_a4c018671d970a66eb30ffcfff05c954f_cgraph" alt=""/></div>
+<map name="add/d8c/icp__test_8cpp_a4c018671d970a66eb30ffcfff05c954f_cgraph" id="add/d8c/icp__test_8cpp_a4c018671d970a66eb30ffcfff05c954f_cgraph">
+<area shape="rect" title="Test case to check if ICP fails to align properly." alt="" coords="5,5,75,31"/>
+<area shape="rect" href="../../dd/d10/class_i_c_p.html#ac7aa77bae1ac288c7447654ff910a669" title="Execute the ICP registration." alt="" coords="123,5,239,31"/>
+<area shape="poly" title=" " alt="" coords="75,16,107,16,107,21,75,21"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -240,7 +263,17 @@ Functions</h2></td></tr>
 
 <p>Test case to check if <a class="el" href="../../dd/d10/class_i_c_p.html" title="Class for performing Iterative Closest Point (ICP) registration.">ICP</a> initializes properly. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d8c/icp__test_8cpp_source.html#l00036">36</a> of file <a class="el" href="../../dd/d8c/icp__test_8cpp_source.html">icp_test.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d8c/icp__test_8cpp_source.html#l00037">37</a> of file <a class="el" href="../../dd/d8c/icp__test_8cpp_source.html">icp_test.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dd/d8c/icp__test_8cpp_a54b87ff00aaefa2d7284aaef2d9f5f65_cgraph.png" border="0" usemap="#add/d8c/icp__test_8cpp_a54b87ff00aaefa2d7284aaef2d9f5f65_cgraph" alt=""/></div>
+<map name="add/d8c/icp__test_8cpp_a54b87ff00aaefa2d7284aaef2d9f5f65_cgraph" id="add/d8c/icp__test_8cpp_a54b87ff00aaefa2d7284aaef2d9f5f65_cgraph">
+<area shape="rect" title="Test case to check if ICP initializes properly." alt="" coords="5,5,75,31"/>
+<area shape="rect" href="../../dd/d10/class_i_c_p.html#ac7aa77bae1ac288c7447654ff910a669" title="Execute the ICP registration." alt="" coords="123,5,239,31"/>
+<area shape="poly" title=" " alt="" coords="75,16,107,16,107,21,75,21"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -249,7 +282,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_346c2aea098094a6f11a0f66feef12e0.html">perception</a></li><li class="navelem"><a class="el" href="../../dir_05d7e00720df82d3895fca5824bbbee7.html">test</a></li><li class="navelem"><a class="el" href="../../dd/d8c/icp__test_8cpp.html">icp_test.cpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_346c2aea098094a6f11a0f66feef12e0.html">perception</a></li><li class="navelem"><a class="el" href="../../dir_05d7e00720df82d3895fca5824bbbee7.html">test</a></li><li class="navelem"><a class="el" href="../../dir_14ddae5e627874cb84883f392a4f18c4.html">icp</a></li><li class="navelem"><a class="el" href="../../dd/d8c/icp__test_8cpp.html">icp_test.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

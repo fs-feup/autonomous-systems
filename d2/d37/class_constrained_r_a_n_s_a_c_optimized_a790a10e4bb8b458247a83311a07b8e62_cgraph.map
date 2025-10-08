@@ -1,0 +1,9 @@
+<map id="ConstrainedRANSACOptimized::calculate_angle_difference" name="ConstrainedRANSACOptimized::calculate_angle_difference">
+<area shape="rect" id="Node000001" title="Compute acute angle difference (degrees) between two plane normals." alt="" coords="5,47,209,88"/>
+<area shape="rect" id="Node000002" href="$d2/d8d/class_plane.html#a3a227b9e6e6f5214c9ce9a6f757a14eb" title="Getter &#45; Get the a component of the plane." alt="" coords="257,5,349,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="190,44,241,31,243,36,191,49"/>
+<area shape="rect" id="Node000003" href="$d2/d8d/class_plane.html#a14d7de844717d5fa9546a02849d6fb4a" title="Getter &#45; Get the b component of the plane." alt="" coords="257,55,349,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="209,65,241,65,241,70,209,70"/>
+<area shape="rect" id="Node000004" href="$d2/d8d/class_plane.html#a54f2a7b06bb383ac1ea43d010c3fa79d" title="Getter &#45; Get the c component of the plane." alt="" coords="257,104,349,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="191,86,243,99,241,104,190,91"/>
+</map>

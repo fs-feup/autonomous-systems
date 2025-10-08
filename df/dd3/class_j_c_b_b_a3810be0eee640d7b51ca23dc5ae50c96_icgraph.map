@@ -1,0 +1,8 @@
+<map id="JCBB::is_landmark_already_assigned" name="JCBB::is_landmark_already_assigned">
+<area shape="rect" id="Node000001" title="Check if a landmark is already assigned in the current hypothesis." alt="" coords="365,29,544,70"/>
+<area shape="rect" id="Node000002" href="$df/dd3/class_j_c_b_b.html#a7bbd59f9c9f071db3b28c6e2ee7f5123" title="Recursive branch and bound search to find the best hypothesis." alt="" coords="171,29,317,70"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="349,52,317,52,317,47,349,47"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="273,16,262,10,244,8,227,10,217,14,213,20,215,28,209,29,208,19,213,10,226,5,244,3,264,5,275,11"/>
+<area shape="rect" id="Node000003" href="$df/dd3/class_j_c_b_b.html#a4d6cd448ce584b69a3d4b37bd309f07f" title="Perform data association using the Joint Compatibility Branch &amp; Bound algorithm." alt="" coords="5,37,123,63"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="155,52,123,52,123,47,155,47"/>
+</map>

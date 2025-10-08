@@ -1,0 +1,9 @@
+<map id="GraphSLAMInstance::process_pose_difference" name="GraphSLAMInstance::process_pose_difference">
+<area shape="rect" id="Node000001" title="Add motion prior to the graph." alt="" coords="277,71,442,111"/>
+<area shape="rect" id="Node000002" href="$d9/d73/class_graph_s_l_a_m_solver.html#a40faaba4cec75f1aeda8b35b756512c2" title="Asynchronous optimization routine." alt="" coords="5,5,229,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="266,69,195,49,196,44,267,64"/>
+<area shape="rect" id="Node000003" href="$d9/d73/class_graph_s_l_a_m_solver.html#a816e40dadd947eda5023fa030ce7f4ea" title="Add motion prior to the solver (prediction step)" alt="" coords="38,71,196,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="261,94,196,94,196,88,261,88"/>
+<area shape="rect" id="Node000004" href="$d9/d73/class_graph_s_l_a_m_solver.html#a7ab911e5d048186ee5a58fdef4fb71ae" title="Add observations to the solver (correction step)" alt="" coords="38,136,196,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="267,118,196,138,195,133,266,113"/>
+</map>

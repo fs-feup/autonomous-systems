@@ -1,0 +1,10 @@
+<map id="GraphSLAMInstance::new_observation_factors" name="GraphSLAMInstance::new_observation_factors">
+<area shape="rect" id="Node000001" title="Checks if it is worth running optimization." alt="" coords="474,35,640,75"/>
+<area shape="rect" id="Node000002" href="$d9/d73/class_graph_s_l_a_m_solver.html#a40faaba4cec75f1aeda8b35b756512c2" title="Asynchronous optimization routine." alt="" coords="5,5,229,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="458,51,229,36,229,30,459,46"/>
+<area shape="rect" id="Node000003" href="$d4/dca/class_graph_s_l_a_m_instance.html#a7501de0af12933b297d61ca341fb3171" title="Add observation factors to the graph." alt="" coords="277,63,426,103"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="459,71,427,75,426,70,458,66"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="261,64,202,49,203,44,262,59"/>
+<area shape="rect" id="Node000004" href="$d9/d73/class_graph_s_l_a_m_solver.html#a7ab911e5d048186ee5a58fdef4fb71ae" title="Add observations to the solver (correction step)" alt="" coords="38,71,196,111"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="261,89,196,91,196,86,261,83"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="LandmarkFilter" name="LandmarkFilter">
+<area shape="rect" id="Node000001" title="This class is meant to filter observations from perception to try to reduce the presence of outliers." alt="" coords="115,5,251,171"/>
+<area shape="rect" id="Node000002" href="$dd/d5e/class_consecutive_counter_filter.html" title=" " alt="" coords="5,219,183,344"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,185,125,220,120,218,137,183"/>
+<area shape="rect" id="Node000003" href="$d3/d91/class_mock_landmark_filter.html" title=" " alt="" coords="207,239,341,324"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="231,182,257,238,252,240,226,185"/>
+</map>

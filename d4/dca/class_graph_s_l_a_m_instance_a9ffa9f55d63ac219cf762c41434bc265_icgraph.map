@@ -1,0 +1,12 @@
+<map id="GraphSLAMInstance::get_pose" name="GraphSLAMInstance::get_pose">
+<area shape="rect" id="Node000001" title=" " alt="" coords="490,39,639,79"/>
+<area shape="rect" id="Node000002" href="$d9/d73/class_graph_s_l_a_m_solver.html#a7ab911e5d048186ee5a58fdef4fb71ae" title="Add observations to the solver (correction step)" alt="" coords="38,5,196,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="474,55,196,34,196,29,474,50"/>
+<area shape="rect" id="Node000003" href="$d4/dca/class_graph_s_l_a_m_instance.html#abed120ec1c30b4339a6d590518893971" title="Add motion prior to the graph." alt="" coords="277,67,442,107"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="475,74,443,78,442,73,474,69"/>
+<area shape="poly" id="edge5_Node000003_Node000002" title=" " alt="" coords="261,65,195,48,197,43,262,60"/>
+<area shape="rect" id="Node000004" href="$d9/d73/class_graph_s_l_a_m_solver.html#a40faaba4cec75f1aeda8b35b756512c2" title="Asynchronous optimization routine." alt="" coords="5,71,229,111"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="261,91,229,92,229,86,261,86"/>
+<area shape="rect" id="Node000005" href="$d9/d73/class_graph_s_l_a_m_solver.html#a816e40dadd947eda5023fa030ce7f4ea" title="Add motion prior to the solver (prediction step)" alt="" coords="38,136,196,177"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="272,115,191,138,190,133,270,110"/>
+</map>

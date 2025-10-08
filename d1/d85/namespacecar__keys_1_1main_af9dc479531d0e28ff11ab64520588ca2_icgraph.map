@@ -1,0 +1,5 @@
+<map id="car_keys.main.print_status" name="car_keys.main.print_status">
+<area shape="rect" id="Node000001" title="Print current status without clearing the screen." alt="" coords="189,5,321,46"/>
+<area shape="rect" id="Node000002" href="$d1/d85/namespacecar__keys_1_1main.html#a97c0f921f50eabde22ffe996058e9319" title="Main function to control the pacsim robot using the keyboard." alt="" coords="5,13,141,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,28,141,28,141,23,173,23"/>
+</map>

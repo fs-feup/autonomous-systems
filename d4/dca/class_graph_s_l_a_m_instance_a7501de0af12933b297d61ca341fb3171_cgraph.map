@@ -1,0 +1,7 @@
+<map id="GraphSLAMInstance::process_observations" name="GraphSLAMInstance::process_observations">
+<area shape="rect" id="Node000001" title="Add observation factors to the graph." alt="" coords="5,39,155,79"/>
+<area shape="rect" id="Node000002" href="$d2/d32/namespacecommon__lib_1_1maths.html#aa410135a945d4a6a152c17faf6e9ee5e" title="Function to convert cartesian coordinates to cylindrical coordinates." alt="" coords="208,5,364,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="155,44,192,38,193,43,156,50"/>
+<area shape="rect" id="Node000003" href="$d4/dca/class_graph_s_l_a_m_instance.html#af4e27c53cbdfeeddb3e81bbb3f3637fa" title="Checks if it is worth running optimization." alt="" coords="203,71,369,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="156,68,187,73,187,78,155,73"/>
+</map>

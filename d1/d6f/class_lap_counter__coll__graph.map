@@ -1,0 +1,5 @@
+<map id="LapCounter" name="LapCounter">
+<area shape="rect" id="Node000001" title="Implementation of LoopClosure that detects when the robot returns near the origin and re‑observes any..." alt="" coords="5,139,157,304"/>
+<area shape="rect" id="Node000002" href="$d2/d8e/class_loop_closure.html" title="Interface for detecting loop closures." alt="" coords="25,5,137,91"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,106,84,139,79,139,79,106"/>
+</map>

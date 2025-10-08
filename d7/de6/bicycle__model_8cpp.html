@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Formula Student Autonomous Systems: src/common_lib/src/vehicle_dynamics/bicycle_model.cpp File Reference</title>
+<title>Formula Student Autonomous Systems: src/motion_lib/src/s2v_model/bicycle_model.cpp File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -91,68 +91,60 @@ $(document).ready(function(){initNavTree('d7/de6/bicycle__model_8cpp.html','../.
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">bicycle_model.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="../../d0/d88/bicycle__model_8hpp_source.html">common_lib/vehicle_dynamics/bicycle_model.hpp</a>&quot;</code><br />
-<code>#include &lt;cmath&gt;</code><br />
-<code>#include &lt;iostream&gt;</code><br />
-<code>#include &lt;utility&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../d8/d71/transformations_8hpp_source.html">common_lib/maths/transformations.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d2/da6/car__parameters_8hpp_source.html">common_lib/vehicle_dynamics/car_parameters.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d0/d88/bicycle__model_8hpp_source.html">motion_lib/s2v_model/bicycle_model.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for bicycle_model.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../dc/dad/bicycle__model_8cpp__incl.png" border="0" usemap="#asrc_2common__lib_2src_2vehicle__dynamics_2bicycle__model_8cpp" alt=""/></div>
-<map name="asrc_2common__lib_2src_2vehicle__dynamics_2bicycle__model_8cpp" id="asrc_2common__lib_2src_2vehicle__dynamics_2bicycle__model_8cpp">
-<area shape="rect" title=" " alt="" coords="269,5,441,61"/>
-<area shape="rect" href="../../d0/d88/bicycle__model_8hpp.html" title=" " alt="" coords="65,109,258,150"/>
-<area shape="poly" title=" " alt="" coords="300,64,217,104,214,100,298,59"/>
-<area shape="rect" title=" " alt="" coords="5,205,57,231"/>
-<area shape="poly" title=" " alt="" coords="269,48,143,73,90,90,70,100,56,111,44,128,36,149,32,190,27,189,31,148,39,126,52,107,67,96,88,85,142,68,268,43"/>
-<area shape="rect" title=" " alt="" coords="282,117,340,142"/>
-<area shape="poly" title=" " alt="" coords="345,63,325,104,321,101,340,60"/>
-<area shape="rect" title=" " alt="" coords="363,117,435,142"/>
-<area shape="poly" title=" " alt="" coords="370,60,389,101,385,104,365,63"/>
-<area shape="rect" href="../../d8/d71/transformations_8hpp.html" title=" " alt="" coords="458,117,708,142"/>
-<area shape="poly" title=" " alt="" coords="422,59,541,108,539,113,420,64"/>
-<area shape="rect" href="../../d2/da6/car__parameters_8hpp.html" title=" " alt="" coords="732,109,933,150"/>
-<area shape="poly" title=" " alt="" coords="442,49,718,103,717,108,441,54"/>
-<area shape="poly" title=" " alt="" coords="133,152,64,198,61,194,131,148"/>
-<area shape="rect" href="../../d5/d91/position_8hpp.html" title=" " alt="" coords="85,198,238,238"/>
-<area shape="poly" title=" " alt="" coords="164,150,164,182,159,182,159,150"/>
-<area shape="rect" title=" " alt="" coords="123,286,200,312"/>
-<area shape="poly" title=" " alt="" coords="164,239,164,271,159,271,159,239"/>
+<div class="center"><img src="../../dc/dad/bicycle__model_8cpp__incl.png" border="0" usemap="#asrc_2motion__lib_2src_2s2v__model_2bicycle__model_8cpp" alt=""/></div>
+<map name="asrc_2motion__lib_2src_2s2v__model_2bicycle__model_8cpp" id="asrc_2motion__lib_2src_2s2v__model_2bicycle__model_8cpp">
+<area shape="rect" title=" " alt="" coords="96,5,295,46"/>
+<area shape="rect" href="../../d0/d88/bicycle__model_8hpp.html" title=" " alt="" coords="122,94,269,135"/>
+<area shape="poly" title=" " alt="" coords="198,47,198,78,193,78,193,47"/>
+<area shape="rect" title=" " alt="" coords="5,190,63,216"/>
+<area shape="poly" title=" " alt="" coords="160,138,71,185,69,180,157,133"/>
+<area shape="rect" title=" " alt="" coords="86,190,158,216"/>
+<area shape="poly" title=" " alt="" coords="181,137,144,180,140,177,177,133"/>
+<area shape="rect" title=" " alt="" coords="218,279,269,305"/>
+<area shape="poly" title=" " alt="" coords="202,135,223,223,236,263,231,265,218,224,197,136"/>
+<area shape="rect" href="../../d8/d71/transformations_8hpp.html" title=" " alt="" coords="233,190,483,216"/>
+<area shape="poly" title=" " alt="" coords="233,133,323,180,321,185,231,138"/>
+<area shape="rect" href="../../d7/dde/s2v__model_8hpp.html" title=" " alt="" coords="507,183,654,223"/>
+<area shape="poly" title=" " alt="" coords="270,130,492,179,491,184,269,135"/>
+<area shape="rect" title=" " alt="" coords="326,279,420,305"/>
+<area shape="poly" title=" " alt="" coords="363,216,371,263,365,264,357,217"/>
+<area shape="poly" title=" " alt="" coords="507,225,315,274,285,282,283,277,313,269,506,220"/>
+<area shape="poly" title=" " alt="" coords="534,226,417,275,415,270,532,221"/>
+<area shape="rect" href="../../da/de9/common__lib_2include_2common__lib_2car__parameters_2car__parameters_8hpp.html" title=" " alt="" coords="473,271,659,312"/>
+<area shape="poly" title=" " alt="" coords="580,224,575,256,569,255,575,223"/>
+<area shape="rect" href="../../d5/d91/position_8hpp.html" title=" " alt="" coords="683,271,836,312"/>
+<area shape="poly" title=" " alt="" coords="622,221,707,262,704,267,620,226"/>
+<area shape="rect" title=" " alt="" coords="516,368,630,393"/>
+<area shape="poly" title=" " alt="" coords="570,312,573,352,568,352,565,313"/>
+<area shape="rect" title=" " alt="" coords="499,449,644,489"/>
+<area shape="poly" title=" " alt="" coords="601,310,625,331,644,359,650,380,644,402,632,423,615,440,611,437,627,420,640,400,645,380,640,361,621,335,597,315"/>
+<area shape="rect" title=" " alt="" coords="326,456,379,482"/>
+<area shape="poly" title=" " alt="" coords="474,309,381,331,344,345,321,362,314,381,316,402,325,423,336,442,331,445,320,425,311,403,309,380,317,358,341,340,379,325,472,304"/>
+<area shape="rect" href="../../d0/d20/config__load_8hpp.html" title=" " alt="" coords="331,360,492,401"/>
+<area shape="poly" title=" " alt="" coords="532,315,461,355,458,350,530,310"/>
+<area shape="poly" title=" " alt="" coords="449,399,523,439,521,443,446,404"/>
+<area shape="poly" title=" " alt="" coords="400,403,371,445,367,442,396,400"/>
+<area shape="rect" title=" " alt="" coords="715,368,793,393"/>
+<area shape="poly" title=" " alt="" coords="761,313,758,352,753,352,755,312"/>
+<area shape="rect" title=" " alt="" coords="817,368,936,393"/>
+<area shape="poly" title=" " alt="" coords="788,310,850,356,847,360,784,315"/>
 </map>
 </div>
 </div>
 <p><a href="../../d7/de6/bicycle__model_8cpp_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:dd/d5f/namespacecommon__lib" id="r_dd/d5f/namespacecommon__lib"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d5f/namespacecommon__lib.html">common_lib</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:d4/d1a/namespacecommon__lib_1_1vehicle__dynamics" id="r_d4/d1a/namespacecommon__lib_1_1vehicle__dynamics"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d1a/namespacecommon__lib_1_1vehicle__dynamics.html">common_lib::vehicle_dynamics</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a6f4e302b6228b2dbd52b6d37a9685677" id="r_a6f4e302b6228b2dbd52b6d37a9685677"><td class="memItemLeft" align="right" valign="top">std::pair&lt; double, double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d1a/namespacecommon__lib_1_1vehicle__dynamics.html#a6f4e302b6228b2dbd52b6d37a9685677">common_lib::vehicle_dynamics::odometry_to_velocities_transform</a> (double rl_rpm, double fl_rpm, double rr_rpm, double fr_rpm, double steering_angle)</td></tr>
-<tr class="memdesc:a6f4e302b6228b2dbd52b6d37a9685677"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the odometry data to translational and rotational velocities.  <br /></td></tr>
-<tr class="separator:a6f4e302b6228b2dbd52b6d37a9685677"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecf44e20f904287db0e4c2b8f4b426a4" id="r_aecf44e20f904287db0e4c2b8f4b426a4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d1a/namespacecommon__lib_1_1vehicle__dynamics.html#aecf44e20f904287db0e4c2b8f4b426a4">common_lib::vehicle_dynamics::cg_2_rear_axis</a> (<a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> cg, double orientation, double dist_cg_2_rear_axis)</td></tr>
-<tr class="memdesc:aecf44e20f904287db0e4c2b8f4b426a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate rear axis coordinates.  <br /></td></tr>
-<tr class="separator:aecf44e20f904287db0e4c2b8f4b426a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_fbb9b9995ef8067d47a7284d7a4afe92.html">common_lib</a></li><li class="navelem"><a class="el" href="../../dir_63f5c3fd73aeb2e511e31be25d77a61b.html">src</a></li><li class="navelem"><a class="el" href="../../dir_a03e8c109704de3db63a10bc95ef5fd6.html">vehicle_dynamics</a></li><li class="navelem"><a class="el" href="../../d7/de6/bicycle__model_8cpp.html">bicycle_model.cpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_210454f116ce343abf712708069f431c.html">motion_lib</a></li><li class="navelem"><a class="el" href="../../dir_b58e8ed06fa191e5af0459072519b812.html">src</a></li><li class="navelem"><a class="el" href="../../dir_e62ba3a0bc1f3eb2e40928d0b1fbdf0b.html">s2v_model</a></li><li class="navelem"><a class="el" href="../../d7/de6/bicycle__model_8cpp.html">bicycle_model.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

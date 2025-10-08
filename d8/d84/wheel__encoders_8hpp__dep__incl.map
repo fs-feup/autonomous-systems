@@ -1,5 +1,42 @@
 <map id="src/common_lib/include/common_lib/sensor_data/wheel_encoders.hpp" name="src/common_lib/include/common_lib/sensor_data/wheel_encoders.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="29,5,200,61"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="176,5,346,61"/>
 <area shape="rect" id="Node000002" href="$d7/d70/wheel__encoders_8cpp.html" title=" " alt="" coords="5,109,224,150"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,77,117,109,112,109,112,77"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,72,147,111,144,106,205,67"/>
+<area shape="rect" id="Node000003" href="$d0/deb/pacsim__adapter_8hpp.html" title=" " alt="" coords="379,494,546,549"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="264,77,264,224,264,330,267,358,277,383,292,406,310,428,355,464,401,491,399,495,352,468,307,431,287,410,272,385,262,359,259,331,259,224,259,77"/>
+<area shape="rect" id="Node000007" href="$de/daa/estimator_8hpp.html" title=" " alt="" coords="556,109,769,150"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="362,55,579,106,578,111,361,60"/>
+<area shape="rect" id="Node000004" href="$dd/dfe/velocity__estimation_2include_2adapters_2map_8hpp.html" title=" " alt="" coords="576,605,749,646"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="531,554,625,602,623,607,528,559"/>
+<area shape="rect" id="Node000006" href="$d7/d72/pacsim__adapter_8cpp.html" title=" " alt="" coords="334,605,551,646"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="457,565,449,605,444,604,452,564"/>
+<area shape="rect" id="Node000005" href="$d6/d1d/velocity__estimation_2src_2main_8cpp.html" title=" " alt="" coords="585,701,740,742"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="665,661,665,701,660,701,660,661"/>
+<area shape="rect" id="Node000008" href="$d4/d76/velocity__estimation_2include_2estimators_2ekf_8hpp.html" title=" " alt="" coords="385,205,562,246"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="610,159,514,207,512,202,608,155"/>
+<area shape="rect" id="Node000010" href="$d3/d09/node_8hpp.html" title=" " alt="" coords="671,405,825,446"/>
+<area shape="poly" id="edge22_Node000007_Node000010" title=" " alt="" coords="785,142,857,161,930,191,963,212,992,237,1017,266,1036,300,1045,330,1044,344,1035,359,1022,371,1002,381,949,398,886,411,826,419,825,414,886,405,947,393,1000,376,1019,366,1031,355,1038,343,1040,331,1031,302,1013,269,989,240,960,216,927,196,855,166,784,147"/>
+<area shape="rect" id="Node000015" href="$d4/d96/no__rear__wss__ekf_8hpp.html" title=" " alt="" coords="585,198,740,253"/>
+<area shape="poly" id="edge16_Node000007_Node000015" title=" " alt="" coords="665,165,665,197,660,197,660,165"/>
+<area shape="rect" id="Node000017" href="$d6/de8/no__wss__ekf_8hpp.html" title=" " alt="" coords="764,198,918,253"/>
+<area shape="poly" id="edge19_Node000007_Node000017" title=" " alt="" coords="715,155,791,195,788,200,712,160"/>
+<area shape="rect" id="Node000009" href="$dd/d4d/velocity__estimation_2include_2estimators_2map_8hpp.html" title=" " alt="" coords="656,309,840,350"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="541,249,695,306,694,311,539,254"/>
+<area shape="rect" id="Node000014" href="$d7/dba/velocity__estimation_2src_2estimators_2ekf_8cpp.html" title=" " alt="" coords="299,309,453,350"/>
+<area shape="poly" id="edge15_Node000008_Node000014" title=" " alt="" coords="446,259,396,310,393,307,442,255"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="751,365,751,405,745,405,745,365"/>
+<area shape="poly" id="edge10_Node000010_Node000003" title=" " alt="" coords="675,453,546,496,544,491,673,448"/>
+<area shape="rect" id="Node000011" href="$d1/d6d/vehicle__adapter_8hpp.html" title=" " alt="" coords="757,494,923,549"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="779,455,815,491,811,495,775,459"/>
+<area shape="rect" id="Node000013" href="$d7/d70/node_8cpp.html" title=" " alt="" coords="579,501,733,542"/>
+<area shape="poly" id="edge14_Node000010_Node000013" title=" " alt="" coords="720,459,677,503,673,499,716,455"/>
+<area shape="poly" id="edge12_Node000011_Node000004" title=" " alt="" coords="780,560,698,607,695,602,778,555"/>
+<area shape="rect" id="Node000012" href="$d7/dae/vehicle__adapter_8cpp.html" title=" " alt="" coords="773,597,928,653"/>
+<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="847,565,850,596,845,597,842,565"/>
+<area shape="poly" id="edge17_Node000015_Node000009" title=" " alt="" coords="697,264,734,307,730,310,693,267"/>
+<area shape="rect" id="Node000016" href="$de/dea/no__rear__wss__ekf_8cpp.html" title=" " alt="" coords="477,301,632,357"/>
+<area shape="poly" id="edge18_Node000015_Node000016" title=" " alt="" coords="624,266,585,303,582,299,621,262"/>
+<area shape="poly" id="edge20_Node000017_Node000009" title=" " alt="" coords="808,267,767,311,764,307,804,263"/>
+<area shape="rect" id="Node000018" href="$d3/d25/no__wss__ekf_8cpp.html" title=" " alt="" coords="864,301,1021,357"/>
+<area shape="poly" id="edge21_Node000017_Node000018" title=" " alt="" coords="881,263,917,299,913,303,877,266"/>
 </map>

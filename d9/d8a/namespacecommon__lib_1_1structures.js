@@ -6,6 +6,7 @@ var namespacecommon__lib_1_1structures =
     [ "Position", "dc/d1b/structcommon__lib_1_1structures_1_1_position.html", "dc/d1b/structcommon__lib_1_1structures_1_1_position" ],
     [ "VehiclePose", "de/d41/structcommon__lib_1_1structures_1_1_vehicle_pose.html", "de/d41/structcommon__lib_1_1structures_1_1_vehicle_pose" ],
     [ "VehicleState", "d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html", "d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state" ],
+    [ "Velocities", "d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html", "d0/d4e/structcommon__lib_1_1structures_1_1_velocities" ],
     [ "TrackSide", "d9/d8a/namespacecommon__lib_1_1structures.html#a215a4ec12608ced25978cf0e507d24e4", [
       [ "RIGHT", "d9/d8a/namespacecommon__lib_1_1structures.html#a215a4ec12608ced25978cf0e507d24e4a21507b40c80068eda19865706fdc2403", null ],
       [ "LEFT", "d9/d8a/namespacecommon__lib_1_1structures.html#a215a4ec12608ced25978cf0e507d24e4a684d325a7303f52e64011467ff5c5758", null ]

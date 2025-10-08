@@ -1,0 +1,9 @@
+<map id="EKF::correct_wheels" name="EKF::correct_wheels">
+<area shape="rect" id="Node000001" title="Correct the state estimate based on wheel speed sensor, resolver, and steering data." alt="" coords="223,55,363,80"/>
+<area shape="rect" id="Node000002" href="$d7/dbe/class_e_k_f.html#a3096950da58bfc0628de2b858ddc893e" title="Callback function for the motor RPM data that should be called by adapters when new motor RPM data is..." alt="" coords="5,5,175,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="221,53,145,34,147,29,223,48"/>
+<area shape="rect" id="Node000003" href="$d7/dbe/class_e_k_f.html#ab4f012548b6ac24149143943e6427c66" title="Callback function for the steering angle data that should be called by adapters when new steering ang..." alt="" coords="13,55,167,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="207,70,167,70,167,65,207,65"/>
+<area shape="rect" id="Node000004" href="$d7/dbe/class_e_k_f.html#acb60c0c5bde517ab68ed0c408419a62c" title="Callback function for the wheel speed sensor data that should be called by adapters when new wheel sp..." alt="" coords="24,104,156,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="223,87,147,106,145,101,221,82"/>
+</map>

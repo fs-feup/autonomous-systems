@@ -1,0 +1,17 @@
+<map id="ConstrainedRANSACOptimized::calculate_angle_difference" name="ConstrainedRANSACOptimized::calculate_angle_difference">
+<area shape="rect" id="Node000001" title="Compute acute angle difference (degrees) between two plane normals." alt="" coords="591,97,795,137"/>
+<area shape="rect" id="Node000002" href="$d2/d37/class_constrained_r_a_n_s_a_c_optimized.html#af4395279f575f67e08ce5c46614a880d" title="Perform ground removal." alt="" coords="340,97,543,137"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="576,120,544,120,544,114,576,114"/>
+<area shape="rect" id="Node000003" href="$de/d7f/class_constrained_grid_r_a_n_s_a_c.html#a81f4ad1e458f250f8cdc692d1c82181c" title="Perform ground removal on the input point cloud using grid&#45;based RANSAC." alt="" coords="123,97,292,137"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="324,120,293,120,293,114,324,114"/>
+<area shape="rect" id="Node000004" href="$d0/d51/constrained__grid__ransac__test_8cpp.html#a1feee57ef9b28e6b4a8fa9ef115f57e4" title="Test: With a very large epsilon, almost all points are considered ground." alt="" coords="5,5,75,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="157,91,62,34,65,29,160,86"/>
+<area shape="rect" id="Node000005" href="$d0/d51/constrained__grid__ransac__test_8cpp.html#a4386049638dc85000a73e413f669ba01" title="Test: Typical scenario where some points are removed, some remain." alt="" coords="5,55,75,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="121,94,74,80,76,75,122,89"/>
+<area shape="rect" id="Node000006" href="$d0/d51/constrained__grid__ransac__test_8cpp.html#a95ff32c87625da8a23d6b52f2b29dd83" title="Test: Passing an empty point cloud should throw an exception." alt="" coords="5,104,75,130"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="107,120,75,120,75,114,107,114"/>
+<area shape="rect" id="Node000007" href="$d0/d51/constrained__grid__ransac__test_8cpp.html#acf664fa247f30ffaa17fecb555876ac0" title="Test: When candidate planes are rejected, fallback to base plane is used." alt="" coords="5,153,75,179"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="122,145,76,159,74,154,121,140"/>
+<area shape="rect" id="Node000008" href="$d0/d51/constrained__grid__ransac__test_8cpp.html#a8cb911ca72fb088584fd37c90b93049c" title="Test: Points in two separate grids should be removed if they fit their planes." alt="" coords="5,203,75,228"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="160,148,65,204,62,200,157,143"/>
+</map>

@@ -1,4 +1,24 @@
 <map id="evaluator.evaluator.Evaluator.__init__" name="evaluator.evaluator.Evaluator.__init__">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,196,70"/>
-<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="64,29,62,19,68,10,81,5,101,3,121,5,134,11,131,16,120,10,100,8,83,10,72,15,68,20,69,28"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,150,196,191"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="54,150,51,140,59,131,75,125,101,123,127,126,143,132,142,137,126,131,100,128,77,130,62,135,56,141,59,149"/>
+<area shape="rect" id="Node000002" href="$de/d07/class_perception.html#a386ba1a3deb02d41931aeef1c52645f5" title="Turns the parameters in the yaml file into PerceptionParameters class." alt="" coords="274,5,428,31"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="117,148,169,94,204,65,242,41,258,34,260,39,245,46,207,70,173,98,121,152"/>
+<area shape="rect" id="Node000004" href="$d5/d51/struct_s_l_a_m_parameters.html#af7dc4f8199814586ebe7355aa202e248" title="Load the configuration for the SLAM node from YAML file." alt="" coords="273,55,429,96"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="146,147,243,106,265,99,266,104,245,111,148,152"/>
+<area shape="rect" id="Node000005" href="$d5/db7/struct_v_e_parameters.html#ad2c4fdeba93716b72e5cb94241dc4fcc" title="Load the configuration for the Velocity Estimation node from YAML file." alt="" coords="283,121,419,161"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="196,156,268,148,268,153,196,162"/>
+<area shape="rect" id="Node000006" href="$dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a25ccca52d1fab54f9aeef3bb4d998e6c" title=" " alt="" coords="244,285,458,325"/>
+<area shape="poly" id="edge8_Node000001_Node000006" title=" " alt="" coords="127,189,179,230,245,270,257,276,255,281,242,275,176,234,124,193"/>
+<area shape="rect" id="Node000008" href="$d7/d49/class_control.html#a7ad204d3b2598bfc0551e604872b8354" title=" " alt="" coords="284,185,418,211"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="196,178,269,186,269,192,196,183"/>
+<area shape="rect" id="Node000009" href="$d9/db5/class_planning.html#a5650d2ddb277b0e80fed4c8bc72957fa" title=" " alt="" coords="280,235,422,260"/>
+<area shape="poly" id="edge12_Node000001_Node000009" title=" " alt="" coords="153,189,244,221,270,228,268,233,243,226,152,194"/>
+<area shape="rect" id="Node000003" href="$de/dca/namespacecommon__lib_1_1config__load.html#a1b7b070d3b2eb3e25bf4d0effc5fea08" title=" " alt="" coords="519,121,702,161"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="424,29,459,41,520,73,572,109,569,113,517,78,457,46,422,34"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="429,92,513,114,511,119,428,98"/>
+<area shape="poly" id="edge7_Node000005_Node000003" title=" " alt="" coords="419,138,503,138,503,144,419,144"/>
+<area shape="rect" id="Node000007" href="$dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a045d2aade7ae44938acc85ed13dc607e" title=" " alt="" coords="506,285,714,325"/>
+<area shape="poly" id="edge9_Node000006_Node000007" title=" " alt="" coords="458,302,491,302,491,308,458,308"/>
+<area shape="poly" id="edge11_Node000008_Node000003" title=" " alt="" coords="412,182,503,162,504,167,413,187"/>
+<area shape="poly" id="edge13_Node000009_Node000003" title=" " alt="" coords="422,232,457,221,513,196,563,167,565,172,515,200,459,226,423,237"/>
 </map>

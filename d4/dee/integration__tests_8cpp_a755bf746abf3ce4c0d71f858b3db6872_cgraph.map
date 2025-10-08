@@ -1,0 +1,5 @@
+<map id="read_from_file" name="read_from_file">
+<area shape="rect" id="Node000001" title="Reads a file and processes its contents to initialize vehicle state, cones, and final position range." alt="" coords="5,13,108,39"/>
+<area shape="rect" id="Node000002" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#a72953c74cbe411c7b5ac5aa72e437b05" title=" " alt="" coords="156,5,320,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,23,140,23,140,28,108,28"/>
+</map>

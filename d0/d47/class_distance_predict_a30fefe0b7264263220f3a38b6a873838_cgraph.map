@@ -1,7 +1,0 @@
-<map id="DistancePredict::evaluateCluster" name="DistancePredict::evaluateCluster">
-<area shape="rect" id="Node000001" title="Perform the cluster evaluation based on distance." alt="" coords="5,27,174,68"/>
-<area shape="rect" id="Node000002" href="$d2/d23/class_cluster.html#ab0b0056112da3ff27a13304f38f5f4d1" title="Get the centroid of the cluster." alt="" coords="222,5,361,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,33,206,28,207,33,175,38"/>
-<area shape="rect" id="Node000003" href="$d2/d23/class_cluster.html#a763032aa726408defaea180f280f55f3" title="Get the Point Cloud data of the cluster." alt="" coords="231,55,352,96"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="175,57,216,62,215,68,174,62"/>
-</map>

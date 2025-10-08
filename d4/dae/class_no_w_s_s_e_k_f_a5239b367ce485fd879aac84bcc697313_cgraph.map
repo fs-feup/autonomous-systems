@@ -1,0 +1,5 @@
+<map id="NoWSSEKF::imu_callback" name="NoWSSEKF::imu_callback">
+<area shape="rect" id="Node000001" title="Callback function for the IMU data that should be called by adapters when new IMU data is available." alt="" coords="5,5,181,31"/>
+<area shape="rect" id="Node000002" href="$d4/dae/class_no_w_s_s_e_k_f.html#a7c43325b4fc7f472f16a65c24560ba5a" title=" " alt="" coords="229,5,396,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="181,16,213,16,213,21,181,21"/>
+</map>
