@@ -134,8 +134,12 @@ std::vector<PathPoint> PathCalculation::calculate_path(std::vector<Cone>& cone_a
 
   int max_points = reset_path(should_reset);
 
-  // Build initial path segment and it
-  calculate_initial_path();
+  // Build initial path segment
+  if (path_to_car.size() <= 2) {
+    initialize_path_from_initial_pose();
+  } else {
+    update_path_from_past_path();
+  }
   extend_path(max_points);
 
   // Final processing: discard cones along the path and convert points
@@ -211,10 +215,10 @@ void PathCalculation::update_path_from_past_path() {
   }
 }
 
-void PathCalculation::initialize_path_from_anchor() {
-  if (!anchor_pose_set_) {
+void PathCalculation::initialize_path_from_initial_pose() {
+  if (!initial_pose_set_) {
     initial_pose_ = vehicle_pose_;
-    anchor_pose_set_ = true;
+    initial_pose_set_ = true;
   }
   auto [first, second] = select_starting_midpoints();
   if (first != nullptr && second != nullptr) {
@@ -224,14 +228,6 @@ void PathCalculation::initialize_path_from_anchor() {
     (void)visited_midpoints_.insert(second);
   } else {
     RCLCPP_ERROR(rclcpp::get_logger("planning"), "Failed to find valid starting points.");
-  }
-}
-
-void PathCalculation::calculate_initial_path() {
-  if (path_to_car.size() <= 2) {
-    initialize_path_from_anchor();
-  } else {
-    update_path_from_past_path();
   }
 }
 

@@ -45,7 +45,7 @@ private:
   common_lib::structures::Pose initial_pose_;
   // The current vehicle pose  
   common_lib::structures::Pose vehicle_pose_;
-  bool anchor_pose_set_ = false;
+  bool initial_pose_set_ = false;
   std::vector<std::shared_ptr<Midpoint>> midpoints_;
 
   // Path construction state members (used during path calculation)
@@ -83,15 +83,6 @@ private:
       const std::shared_ptr<Midpoint>& next);
 
   /**
-   * @brief Initializes the path using the current pose and the nearest midpoints.
-   * 
-   * If a precomputed path exists, it snaps to the nearest midpoints and filters out
-   * close or already-visited points. Otherwise, it selects the best two starting midpoints
-   * based on the vehicle's current pose. Also updates the set of discarded cones along the way.
-   */
-  void calculate_initial_path();
-
-  /**
    * @brief Snaps points from previous path to valid midpoints
    * 
    */
@@ -100,7 +91,7 @@ private:
   /**
    * @brief Selects initial path from anchor pose when no previous path exists
    */
-  void initialize_path_from_anchor();
+  void initialize_path_from_initial_pose();
 
   /**
    * @brief Extends the current path by exploring nearby midpoints.

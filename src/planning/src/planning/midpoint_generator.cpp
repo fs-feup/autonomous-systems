@@ -6,6 +6,8 @@ std::vector<std::shared_ptr<Midpoint>>& MidpointGenerator::generate_midpoints(st
   triangulations_.clear();
   DT dt;
 
+  midpoints_.clear();
+
   std::vector<std::shared_ptr<Cone>> filtered_cones;
   filtered_cones.reserve(cone_array.size());
   
