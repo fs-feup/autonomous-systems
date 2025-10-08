@@ -46,11 +46,11 @@ namespace std {
     }
   };
 
-  template <>
-  struct hash<common_lib::structures::Midpoint> {
-    size_t operator()(const common_lib::structures::Midpoint& mid) const noexcept {
-      return std::hash<Point>()(mid.point);
-    }
-  };
+  // template <>
+  // struct hash<common_lib::structures::Midpoint> {
+  //   size_t operator()(const common_lib::structures::Midpoint& mid) const noexcept {
+  //     return std::hash<Point>()(mid.point);
+  //   }
+  // };
 
 }  // namespace std

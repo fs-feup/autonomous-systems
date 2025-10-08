@@ -140,13 +140,13 @@ std::vector<PathPoint> PathCalculation::calculate_path(std::vector<Cone>& cone_a
 
   // Final processing: discard cones along the path and convert points
   for (const auto& point : current_path_) {
-    if (current_path_.size() > 2) {
-      discard_cones_along_path();
-    }
+    // if (current_path_.size() > 2) {
+    //   discard_cones_along_path();
+    // }
     (void)path_points.emplace_back(point.x(), point.y());
   }
 
-  past_path_ = current_path_;  // Update global path for next iteration
+  past_path_ = current_path_;  // Update the path for next iteration
 
   return path_points;
 }
@@ -170,47 +170,44 @@ void PathCalculation::update_path_from_past_path() {
   RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Selecting initial path from %zu points.",
                path_to_car.size());
 
-  Point snapped_first = path_to_car[0];
+  Point last_added_point;
+  bool first_point_added = false;
 
-  // Snap the first point to the nearest valid midpoint
-  std::shared_ptr<Midpoint> first_mp = find_nearest_midpoint(snapped_first);  
-  if (first_mp) {
-    snapped_first = first_mp->point;
-    (void)visited_midpoints_.insert(first_mp);
-  } else {
-    RCLCPP_ERROR(rclcpp::get_logger("planning"), "No valid midpoints found for the first point.");
-  }
+  for(const Point& path_to_car_point : path_to_car) {
+    //By default, use the original point
+    Point candidate_point = path_to_car_point;
 
-  current_path_.push_back(snapped_first);
-  Point last_point = snapped_first;
+    //Snap to nearest valid midpoint
+    std::shared_ptr<Midpoint> candidate_midpoint = find_nearest_midpoint(path_to_car_point);
 
-  // Iterate over the remaining points from previous path
-  for (std::size_t i = 1; i < path_to_car.size(); ++i) {
-    Point current_point = path_to_car[i];
-    std::shared_ptr<Midpoint> current_midpoint = find_nearest_midpoint(current_point);  
-    if (current_midpoint) {
-      current_point = current_midpoint->point;
-    } else {
-      RCLCPP_ERROR(rclcpp::get_logger("planning"),
-                   "No valid midpoints found for the current point.");
+    //If found a valid midpoint, use it
+    if(candidate_midpoint){
+      candidate_point = candidate_midpoint->point;
     }
 
-    double distance = CGAL::sqrt(CGAL::squared_distance(last_point, current_point));
+    //Check if already visited
+    if(candidate_midpoint && visited_midpoints_.count(candidate_midpoint) > 0){
+      RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Skipping point: Already visited.");
+      continue;
+    }
 
-    // Only add the point if it is far enough and not yet visited
-    if (distance > config_.tolerance_ &&
-        (current_midpoint == nullptr || visited_midpoints_.count(current_midpoint) == 0)) {
-      current_path_.push_back(current_point);
-
-      if (current_path_.size() > 2) {
-        discard_cones_along_path();
-      }
-
-      last_point = current_point;
-      if (current_midpoint) {
-        (void)visited_midpoints_.insert(current_midpoint);
+    //For non-first points, check distance from last added point
+    if(first_point_added){
+      double distance = CGAL::sqrt(CGAL::squared_distance(last_added_point, candidate_point));
+      if(distance <= config_.tolerance_){
+        RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Skipping point: Too close to last added point.");
+        continue;
       }
     }
+
+    //If the candidate_midpoint is valid add it to visited set
+    if(candidate_midpoint){
+      (void)visited_midpoints_.insert(candidate_midpoint);
+    }
+    current_path_.push_back(candidate_point);
+    last_added_point = candidate_point;
+    first_point_added = true;
+
   }
 }
 

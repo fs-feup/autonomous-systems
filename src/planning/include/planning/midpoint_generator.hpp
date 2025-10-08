@@ -7,19 +7,16 @@
 #include <vector>
 #include <rclcpp/rclcpp.hpp>
 
-#include "common_lib/structures/path_point.hpp"
 #include "common_lib/structures/pose.hpp"
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/midpoint.hpp"
-#include "config/path_calculation_config.hpp"
+#include "config/midpoint_generator_config.hpp"
 
 using K = CGAL::Exact_predicates_inexact_constructions_kernel;
 using DT = CGAL::Delaunay_triangulation_2<K>;
 using Point = K::Point_2;
 
-//using Finite_edges_iterator = DT::Finite_edges_iterator;
 using Vertex_handle = DT::Vertex_handle;
-using PathPoint = common_lib::structures::PathPoint;
 using Pose = common_lib::structures::Pose;
 using Cone = common_lib::structures::Cone;
 using Midpoint = common_lib::structures::Midpoint;
