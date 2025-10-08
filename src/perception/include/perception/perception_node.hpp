@@ -37,6 +37,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "std_msgs/msg/float64.hpp"
+#include "std_msgs/msg/float64_multi_array.hpp"
 #include "std_msgs/msg/header.hpp"
 #include "std_srvs/srv/empty.hpp"
 #include "std_srvs/srv/trigger.hpp"
@@ -93,12 +94,13 @@ private:
       _cones_publisher;  ///< ConeArray + exec publisher.
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
       _cone_marker_array_;  ///< MarkerArray publisher.
-  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr
+  rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr
       _perception_execution_time_publisher_;  ///< Perception execution time publisher.
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr
       _ground_removed_publisher_;  ///< point cloud after ground removal publisher.
   common_lib::structures::Velocities
       _vehicle_velocity_;  // Last received vehicle velocity, used to deskew the point cloud
+  std::shared_ptr<std::vector<double>> _execution_times_;  ///< Vector to store execution times.
 
   rclcpp::TimerBase::SharedPtr lidar_off_timer_;
   rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr emergency_client_;

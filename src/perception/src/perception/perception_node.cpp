@@ -128,7 +128,8 @@ PerceptionParameters Perception::load_config() {
     RCLCPP_ERROR(rclcpp::get_logger("perception"),
                  "Ground removal algorithm not recognized: %s, using GridRANSAC as default",
                  ground_removal_algorithm.c_str());
-    params.ground_removal_ = std::make_shared<GridRANSAC>(ransac_epsilon, ransac_iterations);
+    params.ground_removal_ = std::make_shared<Himmelsbach>(
+        himmelsbach_max_slope, himmelsbach_epsilon, himmelsbach_adjacent_slices);
   }
 
   int clustering_n_neighbours = perception_config["clustering_n_neighbours"].as<int>();
@@ -215,7 +216,7 @@ Perception::Perception(const PerceptionParameters& params)
       this->create_publisher<sensor_msgs::msg::PointCloud2>("/perception/ground_removed_cloud", 10);
 
   this->_perception_execution_time_publisher_ =
-      this->create_publisher<std_msgs::msg::Float64>("/perception/execution_time", 10);
+      this->create_publisher<std_msgs::msg::Float64MultiArray>("/perception/execution_time", 10);
 
   this->_operational_status_subscription =
       this->create_subscription<custom_interfaces::msg::OperationalStatus>(
@@ -254,77 +255,59 @@ Perception::Perception(const PerceptionParameters& params)
       std::chrono::milliseconds(2000), std::bind(&Perception::lidar_timer_callback, this));
 
   emergency_client_ = this->create_client<std_srvs::srv::Trigger>("/as_srv/emergency");
+  this->_execution_times_ = std::make_shared<std::vector<double>>(7, 0.0);
 
   RCLCPP_INFO(this->get_logger(), "Perception Node created with adapter: %s",
               params.adapter_.c_str());
 }
 
 void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
-  rclcpp::Time time = this->now();
-
   this->lidar_off_timer_ = this->create_wall_timer(
       std::chrono::milliseconds(2000), std::bind(&Perception::lidar_timer_callback, this));
 
-  rclcpp::Time start_time_1 = this->now();
-  // Message Read
+  rclcpp::Time start_time = this->now();
+  rclcpp::Time time1, time2, time3, time4, time5, time6;
+
+  // Message Conversion
   pcl::PointCloud<PointXYZIR>::Ptr pcl_cloud = std::make_shared<pcl::PointCloud<PointXYZIR>>();
   header = (*msg).header;
   pcl::fromROSMsg(*msg, *pcl_cloud);
 
-  rclcpp::Time end_time_1 = this->now();
-  RCLCPP_INFO(this->get_logger(), "Time to convert ROS to PCL: %f ms",
-              (end_time_1 - start_time_1).seconds() * 1000);
+  time1 = this->get_clock()->now();
 
-  /*
-  // Write point data to file for debugging in perception package root
-  static int frame_count = 0;
-  std::string filename =
-      "/home/ws/src/perception/point_debug_frame_" + std::to_string(frame_count++) + ".csv";
-
-  // Only create first 3 files to avoid filling disk
-  if (frame_count <= 3) {
-    std::ofstream debug_file(filename);
-
-    if (debug_file.is_open()) {
-      // Write CSV header
-      debug_file << "x,y,z,intensity,ring,angle_deg,range\n";
-
-      // Write point data
-      for (const auto& point : pcl_cloud->points) {
-        float angle = std::atan2(point.y, point.x) * 180.0f / M_PI;
-        float range = std::sqrt(point.x * point.x + point.y * point.y + point.z * point.z);
-
-        debug_file << point.x << "," << point.y << "," << point.z << "," << point.intensity << ","
-                   << point.ring << "," << angle << "," << range << "\n";
-      }
-
-      debug_file.close();
-      RCLCPP_INFO(this->get_logger(), "Point data written to: %s (%ld points)", filename.c_str(),
-                  pcl_cloud->points.size());
-    } else {
-      RCLCPP_ERROR(this->get_logger(), "Failed to open debug file: %s", filename.c_str());
-    }
-  } else if (frame_count == 4) {
-    RCLCPP_INFO(this->get_logger(),
-                "Debug CSV writing complete. Files saved in perception package root.");
-  }
-                */
-
-  // Pass-trough Filter (trim Pcl)
+  // Pass-trough Filter (Fov trimming)
   const SplitParameters split_params = _fov_trim_map_->at(_mission_type_)->fov_trimming(pcl_cloud);
 
-  rclcpp::Time start_time_2 = this->now();
+  time2 = this->get_clock()->now();
 
   // Ground Removal
   pcl::PointCloud<PointXYZIR>::Ptr ground_removed_cloud =
       std::make_shared<pcl::PointCloud<PointXYZIR>>();
   _ground_removal_->ground_removal(pcl_cloud, ground_removed_cloud, _ground_plane_, split_params);
 
-  rclcpp::Time end_time_2 = this->now();
-  RCLCPP_INFO(this->get_logger(), "Time for Ground Removal: %f ms",
-              (end_time_2 - start_time_2).seconds() * 1000);
+  time3 = this->get_clock()->now();
 
+  // Deskewing
   this->_deskew_->deskew_point_cloud(ground_removed_cloud, this->_vehicle_velocity_);
+
+  time4 = this->get_clock()->now();
+
+  // Clustering
+  std::vector<Cluster> clusters;
+  _clustering_->clustering(ground_removed_cloud, &clusters);
+
+  time5 = this->get_clock()->now();
+
+  // Differentiation + Evaluation
+  Cluster::set_z_scores(clusters);
+  std::vector<Cluster> filtered_clusters;
+  for (auto& cluster : clusters) {
+    if (_cone_evaluator_->evaluateCluster(cluster, _ground_plane_)) {
+      filtered_clusters.push_back(cluster);
+    }
+  }
+
+  time6 = this->get_clock()->now();
 
   // Debugging utils -> Useful to check the ground removed point cloud
   sensor_msgs::msg::PointCloud2 ground_removed_msg;
@@ -332,28 +315,19 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   ground_removed_msg.header.frame_id = _vehicle_frame_id_;
   this->_ground_removed_publisher_->publish(ground_removed_msg);
 
-  // Clustering
-  std::vector<Cluster> clusters;
-  _clustering_->clustering(ground_removed_cloud, &clusters);
+  double perception_execution_time_seconds = (time6 - start_time).seconds();
 
-  // Z-scores calculation for future validations
-  Cluster::set_z_scores(clusters);
-
-  // Filtering
-  std::vector<Cluster> filtered_clusters;
-
-  for (auto& cluster : clusters) {
-    if (_cone_evaluator_->evaluateCluster(cluster, _ground_plane_)) {
-      filtered_clusters.push_back(cluster);
-    }
-  }
-
-  // Execution Time calculation
-  rclcpp::Time end_time = this->now();
-  std_msgs::msg::Float64 perception_execution_time;
-  double perception_execution_time_seconds = (end_time - time).seconds();
-  perception_execution_time.data = perception_execution_time_seconds * 1000;
-  this->_perception_execution_time_publisher_->publish(perception_execution_time);
+  // Execution time calculation
+  this->_execution_times_->at(0) = perception_execution_time_seconds * 1000.0;
+  this->_execution_times_->at(1) = (time1 - start_time).seconds() * 1000.0;
+  this->_execution_times_->at(2) = (time2 - time1).seconds() * 1000.0;
+  this->_execution_times_->at(3) = (time3 - time2).seconds() * 1000.0;
+  this->_execution_times_->at(4) = (time4 - time3).seconds() * 1000.0;
+  this->_execution_times_->at(5) = (time5 - time4).seconds() * 1000.0;
+  this->_execution_times_->at(6) = (time6 - time5).seconds() * 1000.0;
+  std_msgs::msg::Float64MultiArray exec_time_msg;
+  exec_time_msg.data = *(this->_execution_times_);
+  this->_perception_execution_time_publisher_->publish(exec_time_msg);
 
   // Logging
   RCLCPP_DEBUG(this->get_logger(), "---------- Point Cloud Received ----------");
