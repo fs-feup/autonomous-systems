@@ -33,8 +33,13 @@ public:
    * @param max_slope
    * @param epsilon
    * @param adjacent_slices Number of adjacent slices to use for ground height
+   * @param slope_reduction Slope reduction for farther rings
+   * @param distance_reduction Distance interval for slope reduction
+   * @param min_slope Minimum slope to consider
    */
-  Himmelsbach(const double max_slope, const double epsilon, const int adjacent_slices);
+  Himmelsbach(const double max_slope, const double epsilon, const int adjacent_slices,
+              const double slope_reduction, const double distance_reduction,
+              const double min_slope);
 
   /**
    * @brief Default constructor.
@@ -57,10 +62,12 @@ public:
                       const SplitParameters split_params) const override;
 
 private:
-  double max_slope;     ///< Maximum slope for Himmelsbach algorithm.
-  double epsilon;       ///< Maximum distance from a ground point to still be considered ground
-  int adjacent_slices;  ///< Number of adjacent slices to use for ground height
-                        ///< reference
+  double max_slope;        ///< Maximum slope for Himmelsbach algorithm.
+  double epsilon;          ///< Maximum distance from a ground point to still be considered ground
+  int adjacent_slices;     ///< Number of adjacent slices to use for ground height reference
+  double slope_reduction;  ///< Slope reduction for farther rings
+  double distance_reduction;  ///< Distance interval for slope reduction
+  double min_slope;           ///< Minimum slope to consider
 
   void split_point_cloud(const pcl::PointCloud<PointXYZIR>::Ptr& cloud,
                          std::vector<Slice>& splited_cloud,

@@ -1,7 +1,14 @@
 #include "ground_removal/himmelsbach.hpp"
 
-Himmelsbach::Himmelsbach(const double max_slope, const double epsilon, const int adjacent_slices)
-    : max_slope(max_slope), epsilon(epsilon), adjacent_slices(adjacent_slices) {}
+Himmelsbach::Himmelsbach(const double max_slope, const double epsilon, const int adjacent_slices,
+                         const double slope_reduction, const double distance_reduction,
+                         const double min_slope)
+    : max_slope(max_slope),
+      epsilon(epsilon),
+      adjacent_slices(adjacent_slices),
+      slope_reduction(slope_reduction),
+      distance_reduction(distance_reduction),
+      min_slope(min_slope) {}
 
 void Himmelsbach::ground_removal(const pcl::PointCloud<PointXYZIR>::Ptr point_cloud,
                                  const pcl::PointCloud<PointXYZIR>::Ptr ret, Plane& plane,
@@ -33,7 +40,9 @@ void Himmelsbach::ground_removal(const pcl::PointCloud<PointXYZIR>::Ptr point_cl
     }
   }
 
-  plane = Plane(1, 1, 1, 1);
+  // MISSING: Define a solution for the plane need in evaluator, himmelsbach does not estimate a
+  // plane
+  plane = Plane(0, 0, 1, -1.2);
 }
 
 void Himmelsbach::split_point_cloud(const pcl::PointCloud<PointXYZIR>::Ptr& cloud,
@@ -123,6 +132,13 @@ void Himmelsbach::process_slice(const pcl::PointCloud<PointXYZIR>::Ptr& cloud, S
 
     long lowest_ground_idx_in_ring = -1;
     float lowest_ground_z_in_ring = std::numeric_limits<float>::max();
+    double distance =
+        std::hypot(cloud->points[min_height_pt_idx].x, cloud->points[min_height_pt_idx].y);
+
+    // Reduce max allowed slope every distance_reduction meters
+    double adjusted_max_slope =
+        std::max(this->max_slope - (this->slope_reduction * (distance / this->distance_reduction)),
+                 this->min_slope);
 
     for (int j = 0; j < static_cast<int>(slice.rings[i].indices.size()); j++) {
       long idx = slice.rings[i].indices[j].first;
@@ -132,7 +148,7 @@ void Himmelsbach::process_slice(const pcl::PointCloud<PointXYZIR>::Ptr& cloud, S
 
       float slope = (dr > 1e-6f) ? std::abs(dz / dr) : 0.0f;
 
-      if (slope < this->max_slope) {
+      if (slope < adjusted_max_slope) {
         slice.rings[i].indices[j].second = true;
 
         // Track lowest ground point in this ring for next reference

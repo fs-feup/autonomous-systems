@@ -13,11 +13,11 @@ perception:
   max_height: 0.7
 
     #TRACKDRIVE/AUTOCROSS TRIMMING
-  max_range: 21.0
+  max_range: 30
   fov_trim_angle: 90.0
 
   #ACCELERATION TRIMMING
-  acc_max_range: 20.25
+  acc_max_range: 45
   acc_fov_trim_angle: 90.0
   acc_max_y: 3.5
 
@@ -31,9 +31,12 @@ perception:
   ransac_epsilon: 0.10
   ransac_iterations: 40
   plane_angle_diff: 15.0 
-  himmelsbach_max_slope: 0.12
+  himmelsbach_max_slope: 0.10
   himmelsbach_epsilon: 0.10
   himmelsbach_adjacent_slices: 5
+  himmelsbach_slope_reduction: 0.01
+  himmelsbach_distance_reduction: 15.0
+  himmelsbach_min_slope: 0.065
 
     #TRACKDRIVE/AUTOCROSS GROUND REMOVAL
   n_angular_grids: 3

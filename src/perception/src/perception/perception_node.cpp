@@ -110,6 +110,11 @@ PerceptionParameters Perception::load_config() {
   double himmelsbach_max_slope = perception_config["himmelsbach_max_slope"].as<double>();
   double himmelsbach_epsilon = perception_config["himmelsbach_epsilon"].as<double>();
   int himmelsbach_adjacent_slices = perception_config["himmelsbach_adjacent_slices"].as<int>();
+  double himmelsbach_slope_reduction =
+      perception_config["himmelsbach_slope_reduction"].as<double>();
+  double himmelsbach_distance_reduction =
+      perception_config["himmelsbach_distance_reduction"].as<double>();
+  double himmelsbach_min_slope = perception_config["himmelsbach_min_slope"].as<double>();
 
   if (ground_removal_algorithm == "ransac") {
     params.ground_removal_ = std::make_shared<RANSAC>(ransac_epsilon, ransac_iterations);
@@ -117,7 +122,8 @@ PerceptionParameters Perception::load_config() {
     params.ground_removal_ = std::make_shared<GridRANSAC>(ransac_epsilon, ransac_iterations);
   } else if (ground_removal_algorithm == "himmelsbach") {
     params.ground_removal_ = std::make_shared<Himmelsbach>(
-        himmelsbach_max_slope, himmelsbach_epsilon, himmelsbach_adjacent_slices);
+        himmelsbach_max_slope, himmelsbach_epsilon, himmelsbach_adjacent_slices,
+        himmelsbach_slope_reduction, himmelsbach_distance_reduction, himmelsbach_min_slope);
   } else if (ground_removal_algorithm == "constrained_ransac") {
     params.ground_removal_ =
         std::make_shared<ConstrainedRANSAC>(ransac_epsilon, ransac_iterations, plane_angle_diff);
@@ -129,7 +135,8 @@ PerceptionParameters Perception::load_config() {
                  "Ground removal algorithm not recognized: %s, using GridRANSAC as default",
                  ground_removal_algorithm.c_str());
     params.ground_removal_ = std::make_shared<Himmelsbach>(
-        himmelsbach_max_slope, himmelsbach_epsilon, himmelsbach_adjacent_slices);
+        himmelsbach_max_slope, himmelsbach_epsilon, himmelsbach_adjacent_slices,
+        himmelsbach_slope_reduction, himmelsbach_distance_reduction, himmelsbach_min_slope);
   }
 
   int clustering_n_neighbours = perception_config["clustering_n_neighbours"].as<int>();
