@@ -5,9 +5,7 @@
 #include <string>
 
 #include "slam_solver/graph_slam_solver/pose_updater/base_pose_updater.hpp"
-#include "slam_solver/graph_slam_solver/pose_updater/double_pose_updater.hpp"
-#include "slam_solver/graph_slam_solver/pose_updater/odometry_based_pose_updater.hpp"
-#include "slam_solver/graph_slam_solver/pose_updater/velocities_based_pose_updater.hpp"
+#include "slam_solver/graph_slam_solver/pose_updater/difference_based_ready_pose_updater.hpp"
 
 /*
  * Map of slam_solvers, with the key being the type of the slam_solver and the value being a lambda
@@ -16,16 +14,12 @@
 const std::map<std::string, std::function<std::shared_ptr<PoseUpdater>(const SLAMParameters&)>,
                std::less<>>
     pose_updater_constructors_map = {
-        {"velocities_based",
+        {"difference_based_ready",
          [](const SLAMParameters& params) -> std::shared_ptr<PoseUpdater> {
-           return std::make_shared<VelocitiesBasedPoseUpdater>(params);
+           return std::make_shared<DifferenceBasedReadyPoseUpdater>(params);
          }},
-        {"double pose_updater",
+        {"base_pose_updater",
          [](const SLAMParameters& params) -> std::shared_ptr<PoseUpdater> {
-           return std::make_shared<DoublePoseUpdater>(params);
-         }},
-        {"odometry_based",
-         [](const SLAMParameters& params) -> std::shared_ptr<PoseUpdater> {
-           return std::make_shared<OdometryBasedPoseUpdater>(params);
+           return std::make_shared<PoseUpdater>(params);
          }},
 };

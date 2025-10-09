@@ -1,6 +1,6 @@
 slam:
   motion_model_name: "constant_velocity_turnrate" # "constant_velocity" or "constant_velocity_turnrate" or ... -> name of the motion model for velocities
-  pose_updater_name: "velocities_based" # "velocities_based" or "odometry_based" or "linear_fusion" -> name of the pose updater object, responsible for keeping pose estimate
+  pose_updater_name: "difference_based_ready" # "difference_based_ready" or "base_pose_updater" -> name of the pose updater object, responsible for keeping pose estimate
   landmark_filter_name: "consecutive_count" # "consecutive_count" or other names of filters of perception data
   lidar_odometry_topic: "/genz/odometry" # "/fast_limo/state" or "/kiss/odometry" or "/genz/odometry" -> topic for pose from lidar odometry
   data_association_model_name: "nearest_neighbor" # "maximum_likelihood_md" or "maximum_likelihood_nll" or "nearest_neighbor" or... -> name of the data association model
@@ -25,7 +25,7 @@ slam:
 
   # FROM THESIS
     # motion_model_name: "constant_velocity_turnrate" # "constant_velocity" or "constant_velocity_turnrate" or ... -> name of the motion model for velocities
-  # pose_updater_name: "velocities_based" # "velocities_based" or "odometry_based" or "linear_fusion" -> name of the pose updater object, responsible for keeping pose estimate
+  # pose_updater_name: "difference_based_ready" # "difference_based_ready" or "base_pose_updater" -> name of the pose updater object, responsible for keeping pose estimate
   # landmark_filter_name: "consecutive_count" # "consecutive_count" or other names of filters of perception data
   # lidar_odometry_topic: "/genz/odometry" # "/fast_limo/state" or "/kiss/odometry" or "/genz/odometry" -> topic for pose from lidar odometry
   # data_association_model_name: "nearest_neighbor" # "maximum_likelihood_md" or "maximum_likelihood_nll" or "nearest_neighbor" or... -> name of the data association model
@@ -148,7 +148,7 @@ slam:
 ## Europarque Manual VSV Modo 1 Inversor
 # slam:
 #   motion_model_name: "constant_velocity_turnrate" # "constant_velocity" or "constant_velocity_turnrate" or ... -> name of the motion model for velocities
-#   pose_updater_name: "odometry_based" # "velocities_based" or "odometry_based" or "linear_fusion" -> name of the pose updater object, responsible for keeping pose estimate
+#   pose_updater_name: "difference_based_ready" # "base_pose_updater" or "difference_based_ready" -> name of the pose updater object, responsible for keeping pose estimate
 #   landmark_filter_name: "consecutive_count" # "consecutive_count" or other names of filters of perception data
 #   lidar_odometry_topic: "/genz/odometry" # "/fast_limo/state" or "/kiss/odometry" or "/genz/odometry" -> topic for pose from lidar odometry
 #   data_association_model_name: "nearest_neighbor" # "maximum_likelihood_md" or "maximum_likelihood_nll" or "nearest_neighbor" or... -> name of the data association model

@@ -5,10 +5,10 @@
 #include <gtsam/nonlinear/NonlinearFactorGraph.h>
 #include <gtsam/nonlinear/Values.h>
 
-#include <perception_sensor_lib/loop_closure/lap_counter.hpp>
 #include <queue>
 
 #include "motion_lib/v2p_models/odometry_model.hpp"
+#include "perception_sensor_lib/loop_closure/lap_counter.hpp"
 #include "slam_solver/graph_slam_solver/factor_data_structures.hpp"
 #include "slam_solver/graph_slam_solver/graph_slam_instance.hpp"
 #include "slam_solver/graph_slam_solver/optimizer/base_optimizer.hpp"

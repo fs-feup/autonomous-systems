@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 
 #include <Eigen/Dense>
 #include <utility>
@@ -26,21 +25,12 @@ public:
 
   DifferenceBasedReadyPoseUpdater& operator=(const DifferenceBasedReadyPoseUpdater& other);
 
-  virtual ~DifferenceBasedReadyPoseUpdater() = default;
+  virtual ~DifferenceBasedReadyPoseUpdater();
 
   /**
    * @brief Clones the PoseUpdater instance
    */
-  virtual std::shared_ptr<PoseUpdater> clone() const = 0;
-
-  /**
-   * @brief Updates the last pose and returns the pose difference
-   *
-   * @param motion_data Motion data containing the velocities and timestamp
-   * @param motion_model Motion model to apply the velocities
-   */
-  virtual void predict_pose(const MotionData& motion_data,
-                            std::shared_ptr<V2PMotionModel> motion_model) = 0;
+  virtual std::shared_ptr<PoseUpdater> clone() const override;
 
   /**
    * @brief Check if the accumulated pose difference is greater than the minimum threshold

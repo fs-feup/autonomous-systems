@@ -13,8 +13,8 @@ struct SLAMParameters {
   bool use_simulated_perception_ = false;
   bool use_simulated_velocities_ = false;
   std::string motion_model_name_ = "constant_velocity";
-  std::string pose_updater_name_ =
-      "velocities_based";  // Name of the pose updater object, responsible for keeping pose estimate
+  std::string pose_updater_name_ = "base_pose_updater";  // Name of the pose updater object,
+                                                         // responsible for keeping pose estimate
   std::string data_association_model_name_ = "nearest_neighbor";
   std::string lidar_odometry_topic_ = "/fast_limo/state";  // Topic for pose from lidar odometry
   std::string slam_solver_name_ = "graph_slam";

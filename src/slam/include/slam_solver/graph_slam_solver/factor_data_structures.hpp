@@ -15,13 +15,18 @@ enum class MotionInputType {
  */
 struct MotionData {
   std::shared_ptr<Eigen::VectorXd> motion_data_;
+  std::shared_ptr<Eigen::VectorXd> motion_data_noise_;
   rclcpp::Time timestamp_;
   MotionInputType type_ = MotionInputType::VELOCITIES;  ///< Type of motion input
 
   MotionData() = default;
-  MotionData(std::shared_ptr<Eigen::VectorXd> motion_data, rclcpp::Time timestamp,
+  MotionData(std::shared_ptr<Eigen::VectorXd> motion_data,
+             std::shared_ptr<Eigen::VectorXd> motion_data_noise, rclcpp::Time timestamp,
              MotionInputType type = MotionInputType::VELOCITIES)
-      : motion_data_(motion_data), timestamp_(timestamp), type_(type) {}
+      : motion_data_(motion_data),
+        motion_data_noise_(motion_data_noise),
+        timestamp_(timestamp),
+        type_(type) {}
 };
 
 /**

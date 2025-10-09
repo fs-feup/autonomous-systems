@@ -29,6 +29,8 @@ std::string VEParameters::load_config() {
       ve_config["velocity_estimation"]["imu_rotational_noise"].as<double>();
   this->angular_velocity_process_noise_ =
       ve_config["velocity_estimation"]["angular_velocity_process_noise"].as<double>();
+  this->angular_velocity_process_noise_multiplier_ =
+      ve_config["velocity_estimation"]["angular_velocity_process_noise_multiplier"].as<double>();
   this->wheel_speed_noise_ = ve_config["velocity_estimation"]["wheel_speed_noise"].as<double>();
   this->steering_angle_noise_ =
       ve_config["velocity_estimation"]["steering_angle_noise"].as<double>();

@@ -52,10 +52,8 @@ set(IMPLEMENTATION_FILES
   src/slam_solver/ekf_slam_solver.cpp
   src/slam_solver/graph_slam_solver/graph_slam_solver.cpp
   src/slam_solver/graph_slam_solver/pose_updater/base_pose_updater.cpp
-  src/slam_solver/graph_slam_solver/pose_updater/double_pose_updater.cpp
-  src/slam_solver/graph_slam_solver/pose_updater/odometry_based_pose_updater.cpp
+  # src/slam_solver/graph_slam_solver/pose_updater/double_pose_updater.cpp
   src/slam_solver/graph_slam_solver/pose_updater/difference_based_ready_pose_updater.cpp
-  src/slam_solver/graph_slam_solver/pose_updater/velocities_based_pose_updater.cpp
   src/slam_solver/graph_slam_solver/graph_slam_instance.cpp
   src/slam_solver/graph_slam_solver/utils.cpp
   src/slam_solver/graph_slam_solver/optimizer/isam2_optimizer.cpp

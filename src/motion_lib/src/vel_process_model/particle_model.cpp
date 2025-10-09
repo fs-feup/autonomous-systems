@@ -33,5 +33,6 @@ Eigen::Matrix3d CAParticleModel::get_jacobian_sensor_data(
   Eigen::Matrix3d jacobian_matrix = Eigen::Matrix3d::Zero();
   jacobian_matrix(0, 0) = time_interval;
   jacobian_matrix(1, 1) = time_interval;
+  jacobian_matrix(2, 2) = time_interval;
   return jacobian_matrix;
 }

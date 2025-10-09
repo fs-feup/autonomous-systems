@@ -107,7 +107,6 @@ GraphSLAMInstance::GraphSLAMInstance(const GraphSLAMInstance& other) {
   _new_observation_factors_ = other._new_observation_factors_;
   _optimizer_ = other._optimizer_;
   _params_ = other._params_;
-  _accumulated_pose_difference_ = other._accumulated_pose_difference_;
 }
 
 GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) {
@@ -122,7 +121,6 @@ GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) 
   _new_observation_factors_ = other._new_observation_factors_;
   _optimizer_ = other._optimizer_;
   _params_ = other._params_;
-  _accumulated_pose_difference_ = other._accumulated_pose_difference_;
 
   return *this;
 }

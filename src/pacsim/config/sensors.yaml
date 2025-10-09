@@ -49,7 +49,7 @@ sensors:
         sigma: 0.2
       error_rot:
         mean: 0.0
-        sigma: 0.1
+        sigma: 0.01
   gnssSensors:
   - gnss:
     name: "gnss_front"

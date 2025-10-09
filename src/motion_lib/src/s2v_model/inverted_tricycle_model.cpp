@@ -1,6 +1,6 @@
-#include "motion_lib/s2v_model/no_rear_wss_bicycle_model.hpp"
+#include "motion_lib/s2v_model/inverted_tricycle_model.hpp"
 
-std::pair<double, double> NoRearWSSBicycleModel::wheels_velocities_to_cg(
+std::pair<double, double> InvertedTricycleModel::wheels_velocities_to_cg(
     double rl_rpm, [[maybe_unused]] double fl_rpm, double rr_rpm, [[maybe_unused]] double fr_rpm,
     double steering_angle) {
   std::pair<double, double> velocities = {0, 0};
@@ -28,7 +28,7 @@ std::pair<double, double> NoRearWSSBicycleModel::wheels_velocities_to_cg(
   return velocities;
 }
 
-common_lib::structures::Position NoRearWSSBicycleModel::rear_axis_position(
+common_lib::structures::Position InvertedTricycleModel::rear_axis_position(
     const common_lib::structures::Position& cg, double orientation, double dist_cg_2_rear_axis) {
   common_lib::structures::Position rear_axis;
   rear_axis.x = cg.x - dist_cg_2_rear_axis * cos(orientation);
@@ -36,7 +36,7 @@ common_lib::structures::Position NoRearWSSBicycleModel::rear_axis_position(
   return rear_axis;
 }
 
-Eigen::VectorXd NoRearWSSBicycleModel::cg_velocity_to_wheels(const Eigen::Vector3d& cg_velocities) {
+Eigen::VectorXd InvertedTricycleModel::cg_velocity_to_wheels(const Eigen::Vector3d& cg_velocities) {
   const double vx = cg_velocities(0);
   const double vy = cg_velocities(1);
   const double omega = cg_velocities(2);
@@ -48,12 +48,32 @@ Eigen::VectorXd NoRearWSSBicycleModel::cg_velocity_to_wheels(const Eigen::Vector
       this->car_parameters_
           .dist_cg_2_rear_axis;  // distance from the center of mass to the front wheels
 
+  // Calculating wheel velocities
   double rear_wheel_velocity = sqrt(pow(vx, 2) + pow(vy - omega * lr, 2));
-
   double front_wheel_velocity = sqrt(pow(vx, 2) + pow(vy + omega * lf, 2));
+  double front_wheel_turning_radius = front_wheel_velocity / omega;
+  double fl_wheel_velocity, fr_wheel_velocity;
+  if (std::fabs(omega) < 1e-6) {
+    fl_wheel_velocity = front_wheel_velocity;
+    fr_wheel_velocity = front_wheel_velocity;
+  } else if (omega < 0) {
+    fl_wheel_velocity =
+        omega * (front_wheel_turning_radius + this->car_parameters_.axis_length / 2);
+    fr_wheel_velocity =
+        omega * (front_wheel_turning_radius - this->car_parameters_.axis_length / 2);
+  } else {
+    fl_wheel_velocity =
+        omega * (front_wheel_turning_radius - this->car_parameters_.axis_length / 2);
+    fr_wheel_velocity =
+        omega * (front_wheel_turning_radius + this->car_parameters_.axis_length / 2);
+  }
+
+  // Converting to rpms
   double sign = (vx < 0) ? -1.0 : 1.0;
-  double front_wheels_rpm =
-      sign * 60 * front_wheel_velocity / (M_PI * this->car_parameters_.wheel_diameter);
+  double fr_wheels_rpm =
+      sign * 60 * fr_wheel_velocity / (M_PI * this->car_parameters_.wheel_diameter);
+  double fl_wheels_rpm =
+      sign * 60 * fl_wheel_velocity / (M_PI * this->car_parameters_.wheel_diameter);
   double v = sqrt(pow(vx, 2) + pow(vy, 2));
   double steering_angle =
       (std::fabs(v) <= 1e-2) ? 0 : atan(omega * (this->car_parameters_.wheelbase) / v);
@@ -61,11 +81,11 @@ Eigen::VectorXd NoRearWSSBicycleModel::cg_velocity_to_wheels(const Eigen::Vector
                      (M_PI * this->car_parameters_.wheel_diameter);
 
   Eigen::VectorXd observations = Eigen::VectorXd::Zero(4);
-  observations << front_wheels_rpm, front_wheels_rpm, steering_angle, motor_rpm;
+  observations << fl_wheels_rpm, fr_wheels_rpm, steering_angle, motor_rpm;
   return observations;
 }
 
-Eigen::MatrixXd NoRearWSSBicycleModel::jacobian_cg_velocity_to_wheels(
+Eigen::MatrixXd InvertedTricycleModel::jacobian_cg_velocity_to_wheels(
     const Eigen::Vector3d& cg_velocities) {
   Eigen::MatrixXd jacobian = Eigen::MatrixXd::Zero(4, 3);
   double vx = cg_velocities(0);
@@ -76,19 +96,48 @@ Eigen::MatrixXd NoRearWSSBicycleModel::jacobian_cg_velocity_to_wheels(
   double lf = this->car_parameters_.wheelbase -
               this->car_parameters_
                   .dist_cg_2_rear_axis;  // distance from the center of mass to the front wheels
+  double L = this->car_parameters_.wheelbase;
+
+  // Calculating wheel velocities
   double rear_wheel_velocity = sqrt(pow(vx, 2) + pow(vy - omega * lr, 2));
   double front_wheel_velocity = sqrt(pow(vx, 2) + pow(vy + omega * lf, 2));
+  double front_wheel_turning_radius = front_wheel_velocity / omega;
+  double fl_wheel_velocity, fr_wheel_velocity;
 
+  // Filling out the jacobian matrix
   double sign = (vx < 0) ? -1.0 : 1.0;
   jacobian(0, 0) =
       sign * 60 * vx / (M_PI * this->car_parameters_.wheel_diameter * front_wheel_velocity);
   jacobian(0, 1) = sign * 60 * (vy + omega * lf) /
                    (M_PI * this->car_parameters_.wheel_diameter * front_wheel_velocity);
-  jacobian(0, 2) = sign * 60 * lf * (vy + omega * lf) /
+  jacobian(1, 0) =
+      sign * 60 * vx / (M_PI * this->car_parameters_.wheel_diameter * front_wheel_velocity);
+  jacobian(1, 1) = sign * 60 * (vy + omega * lf) /
                    (M_PI * this->car_parameters_.wheel_diameter * front_wheel_velocity);
-  jacobian(1, 0) = jacobian(0, 0);
-  jacobian(1, 1) = jacobian(0, 1);
-  jacobian(1, 2) = jacobian(0, 2);
+  if (std::fabs(omega) < 1e-6) {
+    jacobian(0, 2) = sign * 60 * lf * (vy + omega * lf) /
+                     (M_PI * this->car_parameters_.wheel_diameter * front_wheel_velocity);
+    jacobian(1, 2) = sign * 60 * lf * (vy + omega * lf) /
+                     (M_PI * this->car_parameters_.wheel_diameter * front_wheel_velocity);
+  } else if (omega < 0) {
+    jacobian(0, 2) =
+        sign * 60 * lf *
+        ((vy + omega * lf) / front_wheel_velocity + this->car_parameters_.axis_length / 2) /
+        (M_PI * this->car_parameters_.wheel_diameter);
+    jacobian(1, 2) =
+        sign * 60 * lf *
+        ((vy + omega * lf) / front_wheel_velocity - this->car_parameters_.axis_length / 2) /
+        (M_PI * this->car_parameters_.wheel_diameter);
+  } else {
+    jacobian(0, 2) =
+        sign * 60 * lf *
+        ((vy + omega * lf) / front_wheel_velocity - this->car_parameters_.axis_length / 2) /
+        (M_PI * this->car_parameters_.wheel_diameter);
+    jacobian(1, 2) =
+        sign * 60 * lf *
+        ((vy + omega * lf) / front_wheel_velocity + this->car_parameters_.axis_length / 2) /
+        (M_PI * this->car_parameters_.wheel_diameter);
+  }
 
   jacobian(3, 0) = sign * this->car_parameters_.gear_ratio * 60 * vx /
                    (M_PI * this->car_parameters_.wheel_diameter * rear_wheel_velocity);
@@ -96,7 +145,6 @@ Eigen::MatrixXd NoRearWSSBicycleModel::jacobian_cg_velocity_to_wheels(
                    (M_PI * this->car_parameters_.wheel_diameter * rear_wheel_velocity);
   jacobian(3, 2) = sign * this->car_parameters_.gear_ratio * 60 * (-lr) * (vy - omega * lr) /
                    (M_PI * this->car_parameters_.wheel_diameter * rear_wheel_velocity);
-  double L = this->car_parameters_.wheelbase;
   double v = sqrt(pow(vx, 2) + pow(vy, 2));
 
   jacobian(2, 0) =

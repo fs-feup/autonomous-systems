@@ -7,4 +7,5 @@ velocity_estimation:
   steering_angle_noise: 0.01
   imu_acceleration_noise: 1.0
   imu_rotational_noise: 0.1
-  angular_velocity_process_noise: 0.1
+  angular_velocity_process_noise: 5.0
+  angular_velocity_process_noise_multiplier: 0.0

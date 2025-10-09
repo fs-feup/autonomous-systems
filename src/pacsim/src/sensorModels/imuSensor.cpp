@@ -57,6 +57,9 @@ ImuData ImuSensor::applyError(ImuData input)
     input.rot.y() += distRotError(generator);
     input.rot.z() += distRotError(generator);
 
+    // RCLCPP_INFO(
+    //     rclcpp::get_logger("pacsim"), "Noise added: rot z: %f, error: %f", input.rot.z(), distRotError(generator));
+
     input.rot_cov(0, 0) = error_sigma_rot * error_sigma_rot;
     input.rot_cov(1, 1) = error_sigma_rot * error_sigma_rot;
     input.rot_cov(2, 2) = error_sigma_rot * error_sigma_rot;

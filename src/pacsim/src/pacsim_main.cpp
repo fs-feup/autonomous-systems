@@ -270,7 +270,6 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
             Eigen::Vector3d vel = model->getVelocity();
             Eigen::Vector3d rot = model->getAngularVelocity();
             geometry_msgs::msg::TwistWithCovarianceStamped velMsg = createRosTwistMsg(vel, rot, "car", simTime);
-            velMsg.header.stamp = ros_clock.now();
             velocity_pub->publish(velMsg);
         }
 
