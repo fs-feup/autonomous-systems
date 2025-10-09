@@ -38,9 +38,12 @@ private:
   double epsilon;           ///< RANSAC distance threshold.
   int n_tries;              ///< RANSAC max iterations.
   double plane_angle_diff;  ///< Max allowed angle difference in degrees.
-
   /**
    * @brief Compute absolute distance from point to plane.
+   *
+   * @param point The point to measure distance from.
+   * @param plane The plane to measure distance to.
+   * @return The absolute distance from the point to the plane.
    */
   double distance_to_plane(const PointXYZIR& point, const Plane& plane) const;
 

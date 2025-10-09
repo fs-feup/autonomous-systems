@@ -51,8 +51,7 @@ private:
   /**
    * @brief Calculate the best-fit plane using RANSAC algorithm.
    * @param point_cloud Input point cloud.
-   * @param target_plane Target plane for angle constraint (optional).
-   * @return Best-fit plane found by RANSAC.
+   * @param target_lane
    */
   Plane calculate_plane(const pcl::PointCloud<PointXYZIR>::Ptr point_cloud,
                         const Plane& target_plane) const;
@@ -65,19 +64,13 @@ private:
   Plane fit_plane_to_points(const std::vector<PointXYZIR>& points) const;
 
   /**
-   * @brief Calculate distance from a point to a plane.
-   * @param point The point.
-   * @param plane The plane.
+   * @brief Calculate the distance of a point to the plane.
+   *
+   * @param point
    * @return Distance from point to plane.
    */
   double distance_to_plane(const PointXYZIR& point, const Plane& plane) const;
 
-  /**
-   * @brief Calculate angle difference between two planes.
-   * @param plane1 First plane.
-   * @param plane2 Second plane.
-   * @return Angle difference in radians.
-   */
   double calculate_angle_difference(const Plane& plane1, const Plane& plane2) const;
 
   /**

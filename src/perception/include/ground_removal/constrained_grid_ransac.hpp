@@ -43,7 +43,6 @@ public:
   /**
    * @brief Split the input point cloud into grids.
    *
-   * This method splits the input point cloud into grids based on the specified parameters.
    *
    * @param cloud The input point cloud to be split.
    * @param[out] grids Vector of vectors representing the grids.

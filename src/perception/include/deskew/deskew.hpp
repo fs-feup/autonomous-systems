@@ -3,7 +3,7 @@
 #include "common_lib/structures/velocities.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "utils/cluster.hpp"
-#include "utils/pcl_point_types.hpp"    
+#include "utils/pcl_point_types.hpp"
 
 class Deskew {
 public:

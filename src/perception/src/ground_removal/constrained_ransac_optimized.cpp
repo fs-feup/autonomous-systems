@@ -14,9 +14,6 @@ void ConstrainedRANSACOptimized::ground_removal(
   // Segmentation Object creation
   pcl::SACSegmentation<PointXYZIR> seg;
 
-  // Optional: Increases Accuracy
-  seg.setOptimizeCoefficients(true);
-
   // Defining RANSAC properties in the segmentation Object
   seg.setModelType(pcl::SACMODEL_PLANE);
   seg.setMethodType(pcl::SAC_RANSAC);
@@ -40,7 +37,6 @@ void ConstrainedRANSACOptimized::ground_removal(
       pcl::ExtractIndices<PointXYZIR> extract;
       extract.setInputCloud(point_cloud);
       extract.setIndices(inliers_indices);
-
       extract.setNegative(true);  // Extract outliers
       extract.filter(*ret);
       accepted_plane = true;

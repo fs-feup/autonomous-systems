@@ -3,9 +3,9 @@
 #include <center_calculation/circunferece_center_calculation.hpp>
 #include <cone_validator/cylinder_validator.hpp>
 
-
 /**
- * @brief Test class for setting up data and testing CircinferenceCenterCalculation algorithm.
+ * @brief Test class for setting up data and testing CircinferenceCenterCalculation
+ * algorithm.
  *
  */
 class CircunferenceCenterCalculationTest : public ::testing::Test {
