@@ -20,22 +20,22 @@ struct Slice {
 };
 
 /**
- * @class RANSAC
- * @brief Ground removal using the RANSAC algorithm.
+ * @class Himmelsbach
+ * @brief Ground removal using the Himmelsbach algorithm.
  *
  * This class implements the GroundRemoval interface and performs ground removal
- * on a point cloud using the Random Sample Consensus (RANSAC) algorithm.
+ * on a point cloud using the Himmelsbach algorithm.
  */
 class Himmelsbach : public GroundRemoval {
 public:
   /**
    * @brief Constructor for the Himmelsbach ground removal algorithm.
-   * @param max_slope
-   * @param epsilon
-   * @param adjacent_slices Number of adjacent slices to use for ground height
+   * @param max_slope Maximum slope between ground points
+   * @param epsilon Maximum distance from a ground point to still be considered ground
+   * @param adjacent_slices Number of adjacent slices to use for ground height reference
    * @param slope_reduction Slope reduction for farther rings
    * @param distance_reduction Distance interval for slope reduction
-   * @param min_slope Minimum slope to consider
+   * @param min_slope Minimum slope for the distance reduction
    */
   Himmelsbach(const double max_slope, const double epsilon, const int adjacent_slices,
               const double slope_reduction, const double distance_reduction,
@@ -62,24 +62,50 @@ public:
                       const SplitParameters split_params) const override;
 
 private:
-  double max_slope;        ///< Maximum slope for Himmelsbach algorithm.
+  double max_slope;        ///< Maximum slope between ground points
   double epsilon;          ///< Maximum distance from a ground point to still be considered ground
   int adjacent_slices;     ///< Number of adjacent slices to use for ground height reference
   double slope_reduction;  ///< Slope reduction for farther rings
   double distance_reduction;  ///< Distance interval for slope reduction
-  double min_slope;           ///< Minimum slope to consider
+  double min_slope;           ///< Minimum slope for the distance reduction
 
+  /**
+   * @brief Split the point cloud into slices and rings. Using the ring information from the point
+   * cloud to not compute the azimuth angle.
+   *
+   * @param cloud The input point cloud to be split.
+   * @param splited_cloud The resulting vector of slices after splitting.
+   * @param split_params Parameters for splitting the point cloud.
+   */
   void split_point_cloud(const pcl::PointCloud<PointXYZIR>::Ptr& cloud,
                          std::vector<Slice>& splited_cloud,
                          const SplitParameters split_params) const;
 
+  /**
+   * @brief Process a single slice to identify ground points based on slope between rings and height
+   * reference.
+   *
+   * @param cloud The input point cloud.
+   * @param slice The slice to be processed.
+   * @param ground_height_reference The reference height for ground points in the slice.
+   */
   void process_slice(const pcl::PointCloud<PointXYZIR>::Ptr& cloud, Slice& slice,
-                     const float ground_height_reference) const;
+                     const double ground_height_reference) const;
 
-  float calculate_height_reference(const pcl::PointCloud<PointXYZIR>::Ptr& cloud,
-                                   const std::vector<Slice>& splited_cloud,
-                                   const int cur_slice_idx) const;
+  /**
+   * @brief Calculate the ground height reference for a given slice based on adjacent slices.
+   * @param cloud The input point cloud.
+   * @param splited_cloud The vector of all slices.
+   * @param cur_slice_idx The index of the current slice for which to calculate the reference.
+   */
+  double calculate_height_reference(const pcl::PointCloud<PointXYZIR>::Ptr& cloud,
+                                    const std::vector<Slice>& splited_cloud,
+                                    const int cur_slice_idx) const;
 
-  int find_closest_ring_min_height_idx(const pcl::PointCloud<PointXYZIR>::Ptr& cloud,
-                                       const Slice& slice) const;
+  /**
+   * @brief Find the index of the point with the minimum height in the closest non-empty ring of a
+   * slice.
+   * @param slice The slice to be searched.
+   */
+  int find_closest_ring_min_height_idx(const Slice& slice) const;
 };

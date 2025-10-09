@@ -13,11 +13,11 @@ perception:
   max_height: 0.7
 
     #TRACKDRIVE/AUTOCROSS TRIMMING
-  max_range: 30
+  max_range: 21.25
   fov_trim_angle: 90.0
 
   #ACCELERATION TRIMMING
-  acc_max_range: 45
+  acc_max_range: 20.25
   acc_fov_trim_angle: 90.0
   acc_max_y: 3.5
 
@@ -27,7 +27,7 @@ perception:
   
   #Ground Removal
   
-  ground_removal: "himmelsbach"  #options: "ransac", "constrained_ransac", "grid_ransac", "constrained_grid_ransac"
+  ground_removal: "himmelsbach"  #options: "ransac", "constrained_ransac", "grid_ransac", "constrained_grid_ransac", "himmelsbach"
   ransac_epsilon: 0.10
   ransac_iterations: 40
   plane_angle_diff: 15.0 
