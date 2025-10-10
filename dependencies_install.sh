@@ -10,6 +10,7 @@ sudo apt install -y python3-rosdep
 sudo apt install -y ros-humble-message-filters
 sudo apt install -y ros-humble-tf-transformations
 sudo apt install -y ros-humble-rosbag2-storage-mcap
+sudo apt install nano -y
 
 # planning
 sudo apt-get install libcgal-dev -y

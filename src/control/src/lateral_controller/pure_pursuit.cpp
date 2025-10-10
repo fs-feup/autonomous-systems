@@ -30,13 +30,6 @@ double PurePursuit::get_steering_command()  {
     return 0;
   }
 
-  // Add the car's current pose to the beginning of the path
-  custom_interfaces::msg::PathPoint current_pose;
-  current_pose.x = this->last_pose_msg_.x;
-  current_pose.y = this->last_pose_msg_.y;
-  current_pose.v = this->absolute_velocity_;
-  this->last_path_msg_.insert(last_path_msg_.begin(), current_pose);
-
   // Prepare inputs for the Pure Pursuit control law
   Position vehicle_cog = Position(this->last_pose_msg_.x, this->last_pose_msg_.y);
   Position rear_axis = rear_axis_position(vehicle_cog, this->last_pose_msg_.theta,

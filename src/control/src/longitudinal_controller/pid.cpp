@@ -116,12 +116,6 @@ common_lib::structures::ControlCommand PID::get_throttle_command()  {
     return command;
   }
 
-  custom_interfaces::msg::PathPoint car_position;
-  car_position.x = this->last_pose_msg_.x;
-  car_position.y = this->last_pose_msg_.y;
-  car_position.v = this->absolute_velocity_;
-  this->last_path_msg_.insert(this->last_path_msg_.begin(), car_position);
-
   Position vehicle_cog = Position(this->last_pose_msg_.x, this->last_pose_msg_.y);
   Position rear_axis = rear_axis_position(vehicle_cog, this->last_pose_msg_.theta,
       this->params_->car_parameters_.dist_cg_2_rear_axis);
