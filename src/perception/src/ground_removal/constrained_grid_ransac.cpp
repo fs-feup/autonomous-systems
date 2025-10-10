@@ -1,4 +1,4 @@
-#include "ground_removal/grid_ransac.hpp"
+#include "ground_removal/constrained_grid_ransac.hpp"
 
 #include <omp.h>
 #include <pcl/ModelCoefficients.h>
@@ -13,12 +13,11 @@
 #include <utils/plane.hpp>
 #include <vector>
 
-#include "ground_removal/ransac.hpp"
+ConstrainedGridRANSAC::ConstrainedGridRANSAC(const double epsilon, const int n_tries,
+                                             const double plane_angle_diff)
+    : _ransac_(ConstrainedRANSACOptimized(epsilon, n_tries, plane_angle_diff)) {}
 
-GridRANSAC::GridRANSAC(const double epsilon, const int n_tries)
-    : _ransac_(RANSAC(epsilon, n_tries)) {}
-
-void GridRANSAC::split_point_cloud(
+void ConstrainedGridRANSAC::split_point_cloud(
     const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud,
     std::vector<std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>>& grids,
     const SplitParameters split_params) const {
@@ -55,34 +54,44 @@ void GridRANSAC::split_point_cloud(
   }
 }
 
-void GridRANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                                const pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
-                                const SplitParameters split_params) const {
+void ConstrainedGridRANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
+                                           const pcl::PointCloud<pcl::PointXYZI>::Ptr ret,
+                                           Plane& plane, const SplitParameters split_params) const {
   ret->clear();
   plane = Plane(0, 0, 0, 0);
 
-  std::vector<std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>> grids;
-  split_point_cloud(point_cloud, grids, split_params);
+  if (point_cloud->points.size() < 3) {
+    RCLCPP_ERROR(rclcpp::get_logger("ConstrainedGridRANSAC"),
+                 "Point cloud has less than 3 points, skipping ground removal.");
+    *ret = *point_cloud;
+  } else {
+    // First, estimate a global plane to use as a fallback
+    Plane default_plane;
+    this->_ransac_.ground_removal(point_cloud, ret, default_plane, split_params);
 
-  int count = 0;
+    std::vector<std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>> grids;
+    split_point_cloud(point_cloud, grids, split_params);
 
-  for (const auto& grid_row : grids) {
-    for (const auto& grid_cell : grid_row) {
-      if (grid_cell->points.size() < 3) {
-        continue;
+    int count = 0;
+
+    for (const auto& grid_row : grids) {
+      for (const auto& grid_cell : grid_row) {
+        if (grid_cell->points.size() < 3) {
+          continue;
+        }
+
+        Plane grid_plane = default_plane;
+        auto grid_ret = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+        this->_ransac_.ground_removal(grid_cell, grid_ret, grid_plane, split_params);
+
+        *ret += *grid_ret;
+        plane += grid_plane;
+        count++;
       }
-
-      Plane grid_plane;
-      auto grid_ret = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-      this->_ransac_.ground_removal(grid_cell, grid_ret, grid_plane, split_params);
-
-      *ret += *grid_ret;
-      plane += grid_plane;
-      count++;
     }
-  }
 
-  if (count > 0) {
-    plane /= count;
+    if (count > 0) {
+      plane /= count;
+    }
   }
 }
