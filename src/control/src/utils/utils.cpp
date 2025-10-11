@@ -50,7 +50,7 @@ std::tuple<Position, double, bool> get_lookahead_point(
       //  If the path is not a closed track, the lookahead point is the last point
       //  If the path is a closed track, we continue normally, the first point is the continuation
       if (start_end_distance > last_to_first_max_dist) {
-        RCLCPP_INFO(rclcpp::get_logger("control"),
+        RCLCPP_DEBUG(rclcpp::get_logger("control"),
                     "Lookahead extends beyond path end and it is not a closed track, using last "
                     "point of the path as lookahead point");
         return std::make_tuple(Position(pathpoint_array.back().x, pathpoint_array.back().y),
