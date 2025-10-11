@@ -98,7 +98,7 @@ std::vector<PathPoint> PathCalculation::calculate_path(std::vector<Cone>& cone_a
 
   // Determine if we should regenerate all midpoints (path reset)
   bool should_reset = (config_.use_reset_path_ && 
-                       reset_path_counter_ >= config_.reset_global_path_);
+                       reset_path_counter_ >= config_.reset_path_);
   
   // Generate midpoints using the generator
   midpoints_ = midpoint_generator_.generate_midpoints(cone_array, should_reset);
@@ -125,6 +125,7 @@ std::vector<PathPoint> PathCalculation::calculate_path(std::vector<Cone>& cone_a
     RCLCPP_ERROR(rclcpp::get_logger("planning"), "No valid path points found near the car.");
   }
 
+  //mudar!!
   path_to_car.clear();
   // Retain part of the existing path leading to the car
   if (cutoff_index != -1 && cutoff_index > config_.lookback_points_) {
@@ -140,13 +141,11 @@ std::vector<PathPoint> PathCalculation::calculate_path(std::vector<Cone>& cone_a
   } else {
     update_path_from_past_path();
   }
+  //mudar!!
   extend_path(max_points);
 
   // Final processing: discard cones along the path and convert points
   for (const auto& point : current_path_) {
-    // if (current_path_.size() > 2) {
-    //   discard_cones_along_path();
-    // }
     (void)path_points.emplace_back(point.x(), point.y());
   }
 
@@ -154,7 +153,7 @@ std::vector<PathPoint> PathCalculation::calculate_path(std::vector<Cone>& cone_a
 
   return path_points;
 }
-
+//adaptar!!
 int PathCalculation::reset_path(bool should_reset) {
   int max_points = config_.max_points_;
   reset_path_counter_++;
@@ -404,8 +403,8 @@ PathCalculation::select_starting_midpoints() {
                                    std::numeric_limits<double>::max());
     cost += std::pow(std::sqrt(std::pow(first->point.x() - anchor_pose_midpoint.point.x(), 2) +
                                std::pow(first->point.y() - anchor_pose_midpoint.point.y(), 2)),
-                     this->config_.distance_exponent_) *
-            this->config_.distance_gain_;
+                    config_.distance_exponent_) *
+            config_.distance_gain_;
     if (cost < best_cost) {
       result.first = first;
       result.second = second;
@@ -415,7 +414,7 @@ PathCalculation::select_starting_midpoints() {
 
   return result;
 }
-
+//mudar!! -colocar num utils.cpp
 std::shared_ptr<Midpoint> PathCalculation::find_nearest_midpoint(const Point& target) {  
   double min_dist_sq = config_.tolerance_ * config_.tolerance_;
   std::shared_ptr<Midpoint> nearest = nullptr;  

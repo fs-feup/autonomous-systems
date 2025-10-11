@@ -6,12 +6,13 @@
  *
  */
 struct SkidpadConfig {
-  int skidpad_minimum_cones_ = 10.0;
-  double skidpad_tolerance_ = 1.0;
+  int minimum_cones_ = 10.0;
+  double tolerance_ = 1.0;
+
   SkidpadConfig() = default;
-  SkidpadConfig(int skidpad_minimum_cones, double skidpad_tolerance)
-      : skidpad_minimum_cones_(skidpad_minimum_cones),
-      skidpad_tolerance_(skidpad_tolerance) {}
+  SkidpadConfig(int minimum_cones, double tolerance)
+      : minimum_cones_(minimum_cones),
+      tolerance_(tolerance) {}
 };
 
 #endif  // SRC_PLANNING_INCLUDE_CONFIG_SKIDPAD_CONFIG_HPP_

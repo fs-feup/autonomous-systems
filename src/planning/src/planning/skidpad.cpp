@@ -17,8 +17,8 @@
 
 Eigen::Matrix4f Skidpad::align_cones_with_icp(const std::vector<Cone>& cone_array) {
   // Check if we have enough cones for ICP
-  if (reference_cones_.size() < static_cast<std::size_t>(config_.skidpad_minimum_cones_) ||
-      cone_array.size() < static_cast<std::size_t>(config_.skidpad_minimum_cones_)) {
+  if (reference_cones_.size() < static_cast<std::size_t>(config_.minimum_cones_) ||
+      cone_array.size() < static_cast<std::size_t>(config_.minimum_cones_)) {
     RCLCPP_ERROR(rclcpp::get_logger("planning"), "Not enough cones to perform ICP alignment.");
     return Eigen::Matrix4f::Identity();
   }
@@ -41,7 +41,7 @@ Eigen::Matrix4f Skidpad::align_cones_with_icp(const std::vector<Cone>& cone_arra
   pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
   icp.setInputSource(cloud_source.makeShared());
   icp.setInputTarget(cloud_target.makeShared());
-  icp.setMaxCorrespondenceDistance(config_.skidpad_tolerance_);
+  icp.setMaxCorrespondenceDistance(config_.tolerance_);
   icp.setMaximumIterations(std::numeric_limits<int>::max());
   icp.setTransformationEpsilon(1e-6);
   icp.setEuclideanFitnessEpsilon(1e-3);

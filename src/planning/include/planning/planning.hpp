@@ -2,6 +2,7 @@
 
 #include <yaml-cpp/yaml.h>
 
+#include <chrono>
 #include <functional>
 #include <map>
 #include <memory>
@@ -24,13 +25,11 @@
 #include "planning/outliers.hpp"
 #include "planning/path_calculation.hpp"
 #include "planning/smoothing.hpp"
-#include "planning/velocity_planning.hpp"
 #include "planning/skidpad.hpp"
+#include "planning/velocity_planning.hpp"
 #include "rcl_interfaces/srv/get_parameters.hpp"
-#include "sensor_msgs/msg/point_cloud2.hpp"
 #include "std_msgs/msg/float64.hpp"
 #include "std_srvs/srv/trigger.hpp"
-#include "utils/files.hpp"
 
 using PathPoint = common_lib::structures::PathPoint;
 using Pose = common_lib::structures::Pose;
@@ -40,205 +39,212 @@ using std::placeholders::_1;
 
 /**
  * @class Planning
- * @brief Class responsible for planning and path generation for our car.
+ * @brief Responsible for path planning and trajectory generation for the autonomous vehicle.
  *
- * This class inherits from rclcpp::Node and provides functionalities for
- * handling different missions, subscribing to vehicle localization and track
- * map topics, and publishing planned path points.
+ * The Planning class handles multiple mission types (acceleration, skidpad, autocross, trackdrive)
+ * and generates optimal paths based on cone positions. It subscribes to vehicle localization and
+ * track map data, performs path calculation and smoothing, applies velocity planning, and publishes
+ * the final trajectory for the control module.
+ *
+ * This class integrates several planning modules:
+ * - Outlier removal for noisy cone data
+ * - Path calculation using computational geometry
+ * - Path smoothing using spline interpolation
+ * - Velocity planning with acceleration constraints
+ * - Skidpad-specific planning
+ *
+ * @note This class inherits from rclcpp::Node and operates as a ROS 2 node.
  */
 class Planning : public rclcpp::Node {
-private: 
-  Mission mission_ = Mission::NONE; /**< Current planning mission */
-
+private:
+  /*--------------------- Mission and Configuration --------------------*/
+  Mission mission_ = Mission::NONE;
   PlanningConfig planning_config_;
+  Pose pose_;
+  std::string map_frame_id_;
+  double desired_velocity_;
+  double initial_car_orientation_;
+  int lap_counter_ = 0;
 
+  /*--------------------- Planning Modules --------------------*/
   Outliers outliers_;
   PathCalculation path_calculation_;
   PathSmoothing path_smoothing_;
   VelocityPlanning velocity_planning_;
   Skidpad skidpad_;
-  double desired_velocity_;
-  double initial_car_orientation_;
-  int lap_counter_ = 0;
 
-  bool is_braking_ = false; /**< Flag to indicate if it is braking */
-  std::chrono::steady_clock::time_point brake_time_;
-
-  /**< Vector of path points representing the complete planned path from start to finish. */
-  std::vector<PathPoint> full_path_ = {};
-  /**< Vector of path points representing the final smoothed path used for planning. */
-  std::vector<PathPoint> final_path_ = {}; 
-
-  // For Trackdrive
-  bool has_found_full_path_ = false;      // for Trackdrive
-
-  std::vector<PathPoint> predefined_path_;                                      // for Skidpad
-  rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr param_client_;  // for mission logic
-
-  std::string map_frame_id_; /**< Frame ID for the map */
+  /*--------------------- State Tracking --------------------*/
+  bool is_braking_ = false;
   bool has_received_track_ = false;
   bool has_received_pose_ = false;
-  std::vector<Cone> cone_array_;
-  /**< Subscription to vehicle localization */
-  rclcpp::Subscription<custom_interfaces::msg::Pose>::SharedPtr vl_sub_;
-  /**< Subscription to track map */
-  rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr track_sub_;
-  /**< Local path points publisher */
-  rclcpp::Publisher<custom_interfaces::msg::PathPointArray>::SharedPtr local_pub_;
+  bool has_found_full_path_ = false;
+  std::chrono::steady_clock::time_point brake_time_;
+
+  /*--------------------- Path Data --------------------*/
   
-  //Visualization publishers:
-  // /**< Publisher for Delaunay triangulations */
+  std::vector<PathPoint> full_path_;
+  std::vector<PathPoint> final_path_;
+  std::vector<Cone> cone_array_;
+
+  /*--------------------- Subscriptions --------------------*/
+  rclcpp::Subscription<custom_interfaces::msg::Pose>::SharedPtr vehicle_localization_sub_;
+  rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr track_map_sub_;
+  rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr lap_counter_sub_;
+
+  /*--------------------- Publishers --------------------*/
+  /**< Publisher of the smoothed path to control */
+  rclcpp::Publisher<custom_interfaces::msg::PathPointArray>::SharedPtr path_pub_;
+  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr planning_execution_time_pub_;
+
+  /*--------------------- Visualization Publishers --------------------*/
+  /**< Publisher for Delaunay triangulations */
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr triangulations_pub_;
   /**< Publisher for the past portion of the path 
     (from the start to a lookback distance behind the car’s current position) */
-  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr past_path_pub_;
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr path_to_car_pub_;
   /**< Publisher for the entire planned path (from start to finish)*/
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr full_path_pub_;
   /**< Publisher for the smoothed path*/
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr final_path_pub_;
 
-  
-  /**< Timer for the periodic publishing */
-  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _planning_execution_time_publisher_;
+  /*--------------------- Service Clients --------------------*/
+  rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr param_client_;
 
-  rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr _lap_counter_subscription_;
-  rclcpp::TimerBase::SharedPtr timer_;
-
-  rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr mission_finished_client_;
-
+  /*--------------------- Callbacks --------------------*/
   /**
-   * @brief Callback for vehicle localization updates (undefined).
+   * @brief Callback for vehicle localization pose updates.
    *
-   * @param msg The received Pose message.
+   * Updates the current vehicle pose and triggers run_planning_algorithms() if
+   * track map have been received.
+   *
+   * @param message The received Pose message containing vehicle position and orientation
    */
-  void vehicle_localization_callback(const custom_interfaces::msg::Pose &msg);
+  void vehicle_localization_callback(const custom_interfaces::msg::Pose &message);
 
   /**
-   * @brief Fetches the mission from pacsim and updates the mission_ member variable.
-   * 
-   * Defaults to Mission::AUTOCROSS if parameter retrieval fails.
-   */
-  void fetch_discipline();
-
-  /**
-   * @brief Callback for track map updates(when msg received).
-   * 
-   * Processes incoming cone map and calls run_planning_algorithm if vehicle pose
+   * @brief Callback for track map updates.
+   *
+   * Processes incoming cone detections and triggers run_planning_algorithms() if vehicle pose
    * has already been received.
-   * 
-   * @param msg The received ConeArray message.
-   */
-  void track_map_callback(const custom_interfaces::msg::ConeArray &msg);
-
-  /**
-   * @brief Runs the planning algorithms. Called from the callbacks
-   * 
-   * Dispatches to appropriate mission-specific planning method based on current 
-   * mission type. Handles empty cone arrays, publishes execution time, track points,
-   * and visualization messages
-   */
-  void run_planning_algorithms();
-
-  /**
-   * @brief Publishes a list of path points to Control.
    *
-   * Converts final_path_ member to an PathPointArray and publishes
-   * to /path_planning/path topic for control.
+   * @param message The received ConeArray message
    */
-  void publish_track_points() const;
+  void track_map_callback(const custom_interfaces::msg::ConeArray &message);
 
+  /*--------------------- Mission-Specific Planning --------------------*/
   /**
-   * @brief publish all visualization messages from the planning node
-   * 
-   */
-  void publish_visualization_msgs() const;
-  
-  /**
-   * @brief Executes planning for EBS (Emergency Brake System) test mission
-   * 
-   * Calculates the path, smooths it, and implements distance-based
-   * braking logic. Starts braking when vehicle is more than 90m from origin,
-   * applying deceleration until vehicle stops.
+   * @brief Executes planning for the EBS (Emergency Braking System) test mission.
+   *
+   * Calculates and smooths the path, then implements distance-based braking logic.
+   * Braking is triggered when the vehicle is more than 90m from origin, applying
+   * deceleration until the vehicle stops.
    */
   void run_ebs_test();
 
   /**
-   * @brief Executes planning for trackdrive mission
-   * 
-   * Implements multi-lap logic:
-   * - Lap 0: Explores track and builds path
-   * - Laps 1-9: Uses optimized full track path with velocity planning
-   * - Lap 10+: Brings vehicle to stop
-   */
-  void run_trackdrive();
-
-  void calculate_and_smooth_path();
-
-  /**
-   * @brief Calculates and publishes planning algorithm execution time
-   * 
-   * Computes time elapsed since start_time and publishes result in milliseconds
-   * to /path_planning/execution_time topic.
-   * 
-   * @param start_time ROS time when planning algorithms started execution
-   */
-  void publish_execution_time(rclcpp::Time start_time);
-
-  /**
-   * @brief Executes planning for autocross mission
-   * 
-   * Calculates the path, smooths it, applies the velocity planning,
-   * and stops vehicle after completing one lap.
+   * @brief Executes planning for the autocross mission.
+   *
+   * On the first lap, calculates and smooths the path with velocity planning.
+   * On subsequent laps, reuses the calculated full path and applies stopping logic
+   * after the first lap completion.
    */
   void run_autocross();
 
+  /**
+   * @brief Executes planning for the trackdrive mission.
+   *
+   * Implements multi-lap logic:
+   * - Lap 0: Explores track and builds initial path
+   * - Laps 1-9: Uses optimized full track path with trackdrive velocity planning
+   * - Lap 10+: Brings vehicle to stop using full path
+   */
+  void run_trackdrive();
 
-  virtual void finish() = 0;
+  /*--------------------- Core Planning Operations --------------------*/
+  /**
+   * @brief Fetches the current mission/discipline from the pacsim simulation service.
+   *
+   */
+  void fetch_discipline();
 
   /**
-   * @brief current vehicle pose
+   * @brief Calculates path and applies smoothing.
+   *
+   * Performs path calculation based on cone positions and then smooths the path.
    */
-  Pose pose_;
+  void calculate_and_smooth_path();
 
+  /**
+   * @brief Runs the appropriate planning algorithm based on current mission.
+   *
+   * Dispatches to mission-specific planning functions and publishes the resulting
+   * trajectory.
+   */
+  void run_planning_algorithms();
+
+  /*--------------------- Publishing --------------------*/
+  /**
+   * @brief Publishes the final planned path to the control module.
+   *
+   */
+  void publish_path_points() const;
+
+  /**
+   * @brief Publishes all visualization markers.
+   *
+   * Publishes triangulation, full path, smoothed path, and path_to_car markers.
+   * 
+   */
+  void publish_visualization_msgs() const;
+
+  /**
+   * @brief Publishes the planning algorithm execution time.
+   *
+   *
+   * @param start_time ROS time when planning algorithms began execution
+   */
+  void publish_execution_time(rclcpp::Time start_time);
+
+  /*--------------------- Abstract Methods --------------------*/
+  /**
+   * @brief Called when planning mission is completed.
+   *
+   */
+  virtual void finish() = 0;
 public:
   /**
-   * @brief Constructor for the Planning class.
+   * @brief Constructs a Planning node with the specified configuration parameters.
    *
-   * Initializes an instance of the Planning class (a ROS node) with essential
-   * communication components.
+   * Initializes all planning modules, subscriptions, and publishers. Sets up communication
+   * with state estimation and pacsim services. Determines the operating adapter type
+   * and configures frame IDs accordingly.
    *
-   * This constructor sets up subscriptions to vehicle localization and mapping
-   * topics, and creates publishers for local and (global X) path planning
-   * results. It also establishes a timer for periodic tasks related to (local)
-   * publishing info to topics. Additionally, it initializes an Adapter instance
-   * for communication with external systems.
+   * @param params Configuration parameters loaded from YAML files
    */
   explicit Planning(const PlanningParameters &params);
 
   /**
-   * @brief Loads planning configuration parameters from YAML files
-   * 
-   * @param adapter Reference to string that will store the adapter type ("eufs", "pacsim", "vehicle")
+   * @brief Loads planning configuration from YAML files.
+   *
+   * Reads global configuration to determine the adapter type, then loads adapter-specific
+   * planning parameters from the corresponding YAML file.
+   *
+   * @param adapter Output parameter that stores the adapter type ("eufs", "pacsim", "vehicle")
    * @return PlanningParameters Struct containing all loaded configuration parameters
    */
   static PlanningParameters load_config(std::string &adapter);
 
   /**
-   * @brief Set the mission for planning.
+   * @brief Sets the mission type for planning execution.
    *
-   * @param mission The mission to set for planning (e.g.,
-   * Mission::acceleration, Mission::skidpad).
-   * 
-   * @details This method configures the Planning node for a specific mission
-   * type, possibly affecting its behavior if used.
+   * @param mission The mission type to execute
    */
   void set_mission(Mission mission);
 
   friend class PacSimAdapter;
-
   friend class EufsAdapter;
-
   friend class FsdsAdapter;
-
   friend class VehicleAdapter;
+
+
 };
