@@ -4,7 +4,7 @@ NoRearWSSEKF::NoRearWSSEKF(const VEParameters& params) {
   this->_process_noise_matrix_ = Eigen::Matrix3d::Zero();
   this->_process_noise_matrix_(0, 0) = params.imu_acceleration_noise_;
   this->_process_noise_matrix_(1, 1) = params.imu_acceleration_noise_;
-  this->_process_noise_matrix_(2, 2) = params.angular_velocity_process_noise_;
+  this->_process_noise_matrix_(2, 2) = 0;
   this->_wheels_measurement_noise_matrix_ = Eigen::MatrixXd::Identity(4, 4);
   this->_wheels_measurement_noise_matrix_(0, 0) = params.wheel_speed_noise_;
   this->_wheels_measurement_noise_matrix_(1, 1) = params.wheel_speed_noise_;
@@ -136,6 +136,9 @@ void NoRearWSSEKF::correct_wheels(Eigen::Vector3d& state, Eigen::Matrix3d& covar
   Eigen::MatrixXd used_jacobian = Eigen::MatrixXd::Zero(4, 3);
   used_jacobian.block(0, 0, 2, 3) = jacobian.block(0, 0, 2, 3);  // Skip rear wss
   used_jacobian.block(2, 0, 2, 3) = jacobian.block(4, 0, 2, 3);  // Skip rear wss
+  double steering_to_vy = used_jacobian(2, 1);
+  used_jacobian.col(1).setZero();
+  used_jacobian(2, 1) = steering_to_vy;
   Eigen::MatrixXd kalman_gain = covariance * used_jacobian.transpose() *
                                 (used_jacobian * covariance * used_jacobian.transpose() +
                                  this->_wheels_measurement_noise_matrix_)
@@ -156,7 +159,9 @@ void NoRearWSSEKF::correct_wheels(Eigen::Vector3d& state, Eigen::Matrix3d& covar
                                                                      << used_jacobian);
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - Kalman gain: \n"
                                                                      << kalman_gain);
+  double prev_omega = state(2);
   state += kalman_gain * y;
+  state(2) = prev_omega;
   if (this->_has_made_prediction_)
     covariance = (Eigen::Matrix3d::Identity() - kalman_gain * used_jacobian) * covariance;
 }

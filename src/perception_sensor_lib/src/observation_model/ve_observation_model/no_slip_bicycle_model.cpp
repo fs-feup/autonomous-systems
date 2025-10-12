@@ -28,7 +28,7 @@ Eigen::VectorXd NoSlipBicycleModel::expected_observations(
   }
   double v = sqrt(pow(vx, 2) + pow(vy, 2));
   double steering_angle =
-      (std::fabs(v) <= 0.1) ? 0 : atan(omega * (this->car_parameters_->wheelbase) / v);
+      (std::fabs(v) <= 1e-2) ? 0 : atan(omega * (this->car_parameters_->wheelbase) / v);
   double motor_rpm = 60 * this->car_parameters_->gear_ratio * rear_wheel_velocity /
                      (M_PI * this->car_parameters_->wheel_diameter);
   if (vx < 0) {
@@ -55,15 +55,15 @@ Eigen::MatrixXd NoSlipBicycleModel::expected_observations_jacobian(
   double rear_wheel_velocity = sqrt(pow(vx, 2) + pow(vy - omega * lr, 2));
   double front_wheel_velocity = sqrt(pow(vx, 2) + pow(vy + omega * lf, 2));
 
-  const double epsilon = 1e-3;
+  const double epsilon = 1e-2;
   if (std::fabs(rear_wheel_velocity) < epsilon || std::fabs(front_wheel_velocity) < epsilon) {
-    jacobian(0, 0) = epsilon;
+    jacobian(5, 0) = epsilon;
     return jacobian;
   }
 
   double sign = (vx < 0) ? -1.0 : 1.0;
-  jacobian(0, 0) =
-      sign * 60 * vx / (M_PI * this->car_parameters_->wheel_diameter * front_wheel_velocity);
+  jacobian(0, 0) = std::max(
+      0.0, sign * 60 * vx / (M_PI * this->car_parameters_->wheel_diameter * front_wheel_velocity));
   jacobian(0, 1) = sign * 60 * (vy + omega * lf) /
                    (M_PI * this->car_parameters_->wheel_diameter * front_wheel_velocity);
   jacobian(0, 2) = sign * 60 * lf * (vy + omega * lf) /

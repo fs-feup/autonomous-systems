@@ -17,7 +17,7 @@
 class NoRearWSSEKF : public VelocityEstimator {
   rclcpp::Time _last_update_;
   Eigen::Vector3d _state_ = Eigen::Vector3d::Zero();
-  Eigen::Matrix3d _covariance_ = Eigen::Matrix3d::Identity();
+  Eigen::Matrix3d _covariance_ = Eigen::Matrix3d::Identity() * 0.05;
   Eigen::Matrix3d _process_noise_matrix_;
   Eigen::MatrixXd _wheels_measurement_noise_matrix_;
   Eigen::MatrixXd _imu_measurement_noise_matrix_;
