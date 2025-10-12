@@ -21,222 +21,281 @@ using PathPoint = common_lib::structures::PathPoint;
 using Midpoint = common_lib::structures::Midpoint;
 
 /**
- * @brief PathCalculation class for generating local paths.
- *
- * The PathCalculation class contains methods for calculating the best local
- * path and stores input data and results related to path planning.
+ * @class PathCalculation
+ * @brief Generates optimal local paths.
+ * 
+ * PathCalculation computes navigation paths by creating midpoints between
+ * track cones and searching for optimal sequences using depth-first search
+ * with cost-based evaluation. It maintains continuity with previous paths
+ * and discards cones as they are passed.
  */
 class PathCalculation {
-
 private:
-  /**
-   * @brief configuration of the outliers removal algorithm
-   *
-   */
+  // ===================== Configuration and State =====================
+
   PathCalculationConfig config_;
   MidpointGenerator midpoint_generator_;
 
-  std::vector<PathPoint> predefined_path_;
-  std::vector<Point> past_path_;
-  int reset_path_counter_ = 0;
-  std::vector<Point> path_to_car;
-  
-  // Anchor pose for the path, to avoid calculating the path from the position of the car
+  // Vehicle and path state
   common_lib::structures::Pose initial_pose_;
-  // The current vehicle pose  
   common_lib::structures::Pose vehicle_pose_;
   bool initial_pose_set_ = false;
+
+  // Path storage
+  std::vector<Point> path_to_car_;
+  std::vector<Point> past_path_;
+  int reset_path_counter_ = 0;
+
+  // Midpoints for the current track
   std::vector<std::shared_ptr<Midpoint>> midpoints_;
 
-  // Path construction state members (used during path calculation)
+  // Path construction state (temporary during calculation)
   std::vector<Point> current_path_;
   std::unordered_map<Point, std::shared_ptr<Midpoint>> point_to_midpoint_;
   std::unordered_set<std::shared_ptr<Midpoint>> visited_midpoints_;
   std::unordered_set<std::shared_ptr<Cone>> discarded_cones_;
 
+  // ===================== Path Calculation Methods =====================
+
   /**
-   * @brief Recursively finds the best next midpoint in the path using depth-first search
+   * @brief Initialize the path from the vehicle's initial pose.
    *
-   * @param depth Maximum depth to search
-   * @param previous Previous midpoint in the path
-   * @param current Current midpoint being evaluated
-   * @param maxcost Maximum cost allowed for path segment
-   * @return std::pair<double, std::shared_ptr<Midpoint>> Cost and next midpoint pair
-   */
-  std::pair<double, std::shared_ptr<Midpoint>> find_best_next_midpoint(
-      int depth, 
-      const std::shared_ptr<Midpoint>& previous, 
-      const std::shared_ptr<Midpoint>& current,
-      double maxcost);
-
-  /**
-   * @brief Calculates the cost between two midpoints
-   * 
-   * @param previous Previous midpoint
-   * @param current Current midpoint
-   * @param next Next midpoint candidate
-   * @return double The calculated cost
-   */
-  double calculate_midpoint_cost(
-      const std::shared_ptr<Midpoint>& previous,
-      const std::shared_ptr<Midpoint>& current,
-      const std::shared_ptr<Midpoint>& next);
-
-  /**
-   * @brief Snaps points from previous path to valid midpoints
-   * 
-   */
-  void update_path_from_past_path();
-
-  /**
-   * @brief Selects initial path from anchor pose when no previous path exists
+   * Selects the first two midpoints ahead of the vehicle to start the path
+   * when no previous path exists.
    */
   void initialize_path_from_initial_pose();
 
   /**
-   * @brief Extends the current path by exploring nearby midpoints.
-   * 
-   * Iteratively adds new midpoints to the path using a DFS-based cost search,
-   * respecting a maximum number of points and cost constraints. 
-   * Updates the set of visited midpoints and discards cones along the extended path.
-   * 
-   * @param max_points Maximum number of new points to add to the path.
+   * @brief Initialize the path from the previous path.
+   *
+   * Snaps past path points to valid midpoints and carries forward as much
+   * of the previous path as possible, respecting distance constraints.
+   */
+  void update_path_from_past_path();
+
+  /**
+   * @brief Extend the path by adding midpoints.
+   *
+   * Iteratively searches for optimal next midpoints using depth-first search
+   * until reaching the maximum point limit or exhausting valid options.
+   *
+   * @param max_points Maximum number of new points to add.
    */
   void extend_path(int max_points);
 
   /**
-   * @brief Invalidates cones and midpoints based on the last path segment.
-   * 
-   * Identifies which cone between the last two midpoints should be discarded,
-   * marks associated midpoints as invalid, and removes invalid neighbors from their connections.
-   */
-  void discard_cones_along_path();
-
-  /**
-   * @brief Identifies the cone to discard between two consecutive midpoints
-   * 
-   * @param last_mp Previous midpoint
-   * @param current_mp Current midpoint
-   */
-  void discard_cone(
-      const std::shared_ptr<Midpoint>& last_mp,
-      const std::shared_ptr<Midpoint>& current_mp);
-
-  /**
-   * @brief Marks midpoints as invalid if they use discarded cones
-   */
-  void invalidate_midpoints_with_discarded_cones();
-
-  /**
-   * @brief Removes invalid neighbors from all midpoints
-   */
-  void remove_invalid_neighbors();
-
-  /**
-   * @brief Find the nearest midpoint to a target point within a tolerance
-   * 
-   * @param target The target point to find the nearest midpoint for
-   * @return std::shared_ptr<MidPoint> Pointer to the nearest midpoint, or nullptr if none found
-   */
-  std::shared_ptr<Midpoint> find_nearest_midpoint(const Point& target);
-  
-
-  int reset_path(bool reset);
-
-  /**
-   * @brief Clears all path construction state variables
-   * 
-   * Resets current_path_, point_to_midpoint_, visited_midpoints_, and discarded_cones_
-   * to prepare for a new path calculation.
+   * @brief Reset path construction state.
+   *
+   * Clears all internal tracking structures (current path, visited midpoints,
+   * discarded cones) to prepare for a fresh path calculation.
    */
   void clear_path_state();
 
   /**
-   * @brief Finds the first and second points to start the path
+   * @brief Handle path reset when completing a lap.
    *
-   * @return std::pair<std::shared_ptr<MidPoint>, std::shared_ptr<MidPoint>> First and second points for the path
+   * Adjusts the maximum points allowed and clears historical path data
+   * when completing a circuit.
+   *
+   * @param should_reset Whether to trigger a full path reset.
+   * @return Adjusted maximum points for path extension.
+   */
+  int reset_path(bool should_reset);
+
+  // ===================== Path Search and Optimization =====================
+
+  /**
+   * @brief Select the first two midpoints to start the path.
+   *
+   * Identifies candidate midpoints ahead of the vehicle and performs a
+   * cost-based search to select the best starting pair.
+   *
+   * @return Pair of midpoint pointers for path initialization.
    */
   std::pair<std::shared_ptr<Midpoint>, std::shared_ptr<Midpoint>> select_starting_midpoints();
 
   /**
-   * @brief Selects candidate midpoints in front of the vehicle
-   * 
-   * @param anchor_pose Reference pose to select from
-   * @param num_candidates Number of candidates to select
-   * @return std::vector<std::shared_ptr<MidPoint>> Selected candidate midpoints
+   * @brief Select candidate midpoints in front of the vehicle.
+   *
+   * Uses a priority queue to identify the most promising midpoints ahead
+   * of the vehicle based on combined distance and angle cost.
+   *
+   * @param anchor_pose Reference pose to evaluate candidates from.
+   * @param num_candidates Number of candidates to return.
+   * @return Vector of candidate midpoint pointers.
    */
   std::vector<std::shared_ptr<Midpoint>> select_candidate_midpoints(
-      const Midpoint& anchor_pose,
-      int num_candidates);
+      const Midpoint& anchor_pose, int num_candidates) const;
 
   /**
-   * @brief Finds the best point to close the track loop
-   * 
-   * @param path The path to analyze
-   * @return int Index of the best cutoff point
+   * @brief Recursively find the best next midpoint using depth-first search.
+   *
+   * Performs a bounded DFS to evaluate continuation paths from the current
+   * midpoint, balancing between direction consistency and distance.
+   *
+   * @param depth Current search depth (decrements toward base case).
+   * @param previous Previous midpoint in the path.
+   * @param current Current midpoint being evaluated.
+   * @param max_cost Cost threshold for pruning branches.
+   * @return Pair of accumulated cost and best next midpoint pointer.
    */
-  int find_best_loop_closure(const std::vector<PathPoint>& path);
+  std::pair<double, std::shared_ptr<Midpoint>> find_best_next_midpoint(
+      int depth, const std::shared_ptr<Midpoint>& previous,
+      const std::shared_ptr<Midpoint>& current, double max_cost) const;
 
   /**
-   * @brief Adds interpolated points between two path points
-   * 
-   * @param start Starting point
-   * @param end Ending point
-   * @param num_points Number of intermediate points to add
-   * @return std::vector<PathPoint> Interpolated points
+   * @brief Calculate the cost of transitioning through three consecutive midpoints.
+   *
+   * Combines angle deviation (penalizing sharp turns) and distance (penalizing
+   * inefficient routing) with configurable exponents and gains.
+   *
+   * @param previous The midpoint before current.
+   * @param current The current midpoint.
+   * @param next The candidate next midpoint.
+   * @return Combined cost of the transition.
    */
-  std::vector<PathPoint> add_interpolated_points(
-      const PathPoint& start,
-      const PathPoint& end,
-      int num_points);
+  double calculate_midpoint_cost(const std::shared_ptr<Midpoint>& previous,
+                                  const std::shared_ptr<Midpoint>& current,
+                                  const std::shared_ptr<Midpoint>& next) const;
+
+  // ===================== Cone Discarding Methods =====================
+
+  /**
+   * @brief Invalidate cones and midpoints along the last path segment.
+   *
+   * Marks cones as discarded if they were on the side of the path that
+   * has been passed. Invalidates any midpoints that depend on discarded
+   * cones and removes invalid neighbors from connectivity lists.
+   */
+  void discard_cones_along_path();
+
+  /**
+   * @brief Determine which cone to discard between two consecutive midpoints.
+   *
+   * Identifies the cone from the previous midpoint that is not used by
+   * the current midpoint, indicating it has been passed.
+   *
+   * @param last_mp The previous midpoint in the path.
+   * @param current_mp The current midpoint in the path.
+   */
+  void discard_cone(const std::shared_ptr<Midpoint>& last_mp,
+                    const std::shared_ptr<Midpoint>& current_mp);
+
+  /**
+   * @brief Mark midpoints as invalid if they use discarded cones.
+   *
+   * Iterates through all midpoints and invalidates those whose defining
+   * cones have been marked as discarded.
+   */
+  void invalidate_midpoints_with_discarded_cones();
+
+  /**
+   * @brief Remove invalid neighbors from all midpoint connection lists.
+   *
+   * Filters out neighbors that have been invalidated from each midpoint's
+   * close_points list to maintain consistency.
+   */
+  void remove_invalid_neighbors();
+
+  // ===================== Utility Methods =====================
+
+  /**
+   * @brief Find the nearest valid midpoint to a target position.
+   *
+   * Performs a linear search through all midpoints to locate the closest
+   * one within the tolerance distance.
+   *
+   * @param target The target point to search around.
+   * @return Pointer to the nearest midpoint, or nullptr if none within tolerance.
+   */
+  std::shared_ptr<Midpoint> find_nearest_midpoint(const Point& target) const;
+
+  /**
+   * @brief Find the optimal point to close a track loop.
+   *
+   * Evaluates each point in the path to determine which produces the
+   * smoothest closure back to the starting point.
+   *
+   * @param path The path points to analyze.
+   * @return Index of the best cutoff point.
+   */
+  int find_best_loop_closure(const std::vector<PathPoint>& path) const;
+
+  /**
+   * @brief Generate interpolated points between two path endpoints.
+   *
+   * Creates evenly-spaced intermediate points for smooth trajectory between
+   * a start and end point.
+   *
+   * @param start Starting path point.
+   * @param end Ending path point.
+   * @param num_points Number of intermediate points to generate.
+   * @return Vector of interpolated path points.
+   */
+  std::vector<PathPoint> add_interpolated_points(const PathPoint& start, const PathPoint& end,
+                                                  int num_points) const;
 
 public:
   /**
-   * @brief Construct a new default PathCalculation object
-   *
+   * @brief Construct a new default PathCalculation object.
    */
   PathCalculation() = default;
 
   /**
-   * @brief Constructor for PathCalculation with a given configuration.
-   *
-   * @param config Config object with PathCalculation configs.
+   * @brief Construct a new PathCalculation object with configuration.
+   * @param config Configuration parameters for path calculation behavior.
    */
-  explicit PathCalculation(const PathCalculationConfig& config) 
-    : config_(config),
-    midpoint_generator_(config.midpoint_generator_) {}
+  explicit PathCalculation(const PathCalculationConfig& config)
+      : config_(config), midpoint_generator_(config.midpoint_generator_) {}
 
+  // ===================== Public Core Methods =====================
 
   /**
-   * @brief Generate a path from cone array without color information
+   * @brief Generate a path from an array of cones.
    *
-   * @param cone_array The array of cones representing the track
-   * @return std::vector<PathPoint> The generated path
+   * Processes cone positions to create an optimal navigation path. Updates
+   * the internal state to maintain path continuity between invocations.
+   *
+   * @param cone_array Array of cones representing the track.
+   * @return Vector of path points representing the calculated path.
    */
   std::vector<PathPoint> calculate_path(std::vector<Cone>& cone_array);
 
   /**
-   * @brief Updates the vehicle pose
+   * @brief Generate a closed loop path for trackdrive competition.
    *
-   * @param vehicle_pose The current vehicle pose
-   */
-  void update_vehicle_pose(const common_lib::structures::Pose& vehicle_pose);
-  /**
-   * @brief Generate a path for trackdrive course
-   * @returns a vector of PathPoint objects representing the path.
+   * Creates a path that forms a complete loop around the track, with
+   * interpolated connections and overlap points for continuous traversal.
+   *
+   * @param cone_array Array of cones representing the track.
+   * @return Vector of path points forming a closed loop.
    */
   std::vector<PathPoint> calculate_trackdrive(std::vector<Cone>& cone_array);
 
   /**
-   * @brief Get the global path
-   * 
-   * @return std::vector<PathPoint> The global path
-   */                                  
+   * @brief Set the current vehicle position and orientation.
+   *
+   * Propagates the vehicle pose to the midpoint generator and maintains
+   * the current pose for path calculations.
+   *
+   * @param vehicle_pose The current vehicle position and orientation.
+   */
+  void set_vehicle_pose(const common_lib::structures::Pose& vehicle_pose);
+
+  // ===================== Public Accessor Methods =====================
+
+  /**
+   * @brief Get the path from the start to a lookback distance behind the car’s current position.
+   * @return Vector of path points representing the global path.
+   */
   std::vector<PathPoint> get_path_to_car() const;
 
+  /**
+   * @brief Get the triangulation segments used in path generation.
+   * @return Reference to vector of point pairs representing triangulation edges.
+   */
   const std::vector<std::pair<Point, Point>>& get_triangulations() const;
 
-  
 };
 
-#endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_PATH_CALCULATION_HPP_
+#endif  // SRC_PLANNING_INCLUDE_PLANNING_PATH_CALCULATION_HPP_

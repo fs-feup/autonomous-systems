@@ -184,7 +184,7 @@ void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose 
   RCLCPP_DEBUG(get_logger(), "Received Pose: %lf - %lf - %lf", message.x, message.y, message.theta);
   
   pose_ = Pose(message.x, message.y, message.theta);
-  path_calculation_.update_vehicle_pose(pose_);
+  path_calculation_.set_vehicle_pose(pose_);
 
   if (!has_received_pose_) {
     initial_car_orientation_ = message.theta;

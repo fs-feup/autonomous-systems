@@ -13,7 +13,7 @@ planning:
   pc_lookback_points: 4
   pc_search_depth: 4
   pc_max_points: 20
-  pc_tolerance: 1
+  pc_tolerance: 0.2
   pc_reset_path: 1000000000
   pc_use_reset_path: false
   #---------------------- Skidpad (skidpad_) ------------------
@@ -30,7 +30,7 @@ planning:
   smoothing_spline_precision: 10
   smoothing_use_path_smoothing: false
   #---------------------- Velocity Planning (vp_) -----------------------
-  vp_minimum_velocity: 2.0
+  vp_minimum_velocity: 5.0
   vp_braking_acceleration: -1.5
   vp_normal_acceleration: 0.9
   vp_use_velocity_planning: true
