@@ -92,7 +92,7 @@ void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
     radiuses.push_back(0);
     for (int i = 1; i < static_cast<int>(final_path.size()) - 1; i++) {
       radiuses.push_back(find_circle_center(final_path[i - 1], final_path[i], final_path[i + 1]));
-    }VelocityPlanning::
+    }
     radiuses[0] = radiuses[1];
     radiuses.push_back(radiuses.back());
 

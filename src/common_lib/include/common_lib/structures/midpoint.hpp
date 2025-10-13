@@ -25,25 +25,7 @@ struct Midpoint {
     Midpoint(const Point& p,
         std::shared_ptr<Cone> c1,
         std::shared_ptr<Cone> c2);
-
-    // friend bool operator==(const Midpoint& a, const Midpoint& b) {
-    //     return a.point == b.point;
-    // }
 };
 
 }  // namespace common_lib::structures
 
-/**
- * @brief Hash functions for Points
- */
-namespace std {
-  // template <>
-  // struct hash<Point> {
-  //   size_t operator()(const Point& p) const noexcept {
-  //     auto hx = std::hash<double>()(p.x());
-  //     auto hy = std::hash<double>()(p.y());
-  //     return hx ^ (hy << 1); 
-  //   }
-  // };
-
-}  // namespace std
