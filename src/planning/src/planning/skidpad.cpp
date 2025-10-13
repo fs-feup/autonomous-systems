@@ -27,14 +27,14 @@ Eigen::Matrix4f Skidpad::align_cones_with_icp(const std::vector<Cone>& cone_arra
   pcl::PointCloud<pcl::PointXYZ> cloud_source;
   cloud_source.reserve(cone_array.size());
   for (const auto& cone : cone_array) {
-    cloud_source.emplace_back(cone.position.x, cone.position.y, 0.0);
+    (void)cloud_source.emplace_back(cone.position.x, cone.position.y, 0.0);
   }
 
   // Convert reference cones to target cloud
   pcl::PointCloud<pcl::PointXYZ> cloud_target;
   cloud_target.reserve(reference_cones_.size());
   for (const auto& [x, y] : reference_cones_) {
-    cloud_target.emplace_back(x, y, 0.0);
+    (void)cloud_target.emplace_back(x, y, 0.0);
   }
 
   // Run ICP alignment
@@ -68,13 +68,15 @@ size_t Skidpad::find_closest_path_index(
     double dx = path[i].position.x - pose.position.x;
     double dy = path[i].position.y - pose.position.y;
     double dist = std::sqrt(dx * dx + dy * dy);
+
+    if (dist > min_dist) {
+      break;  // Stop searching if distance starts increasing
+    }
     
     if (dist < min_dist) {
       min_dist = dist;
       closest_index = i;
-    } else if (dist > min_dist) {
-      break;  // Stop searching if distance starts increasing
-    }
+    } 
   }
   
   return closest_index;
@@ -97,7 +99,7 @@ std::vector<PathPoint> Skidpad::skidpad_path(const std::vector<Cone>& cone_array
       std::istringstream iss(line);
       double x = 0.0, y = 0.0, z = 0.0;
       if (iss >> x >> y >> z) {
-        reference_cones_.emplace_back(x, y);
+        (void)reference_cones_.emplace_back(x, y);
       } else {
         break;
       }
@@ -110,7 +112,7 @@ std::vector<PathPoint> Skidpad::skidpad_path(const std::vector<Cone>& cone_array
       std::istringstream iss(line);
       double x = 0.0, y = 0.0, v = 0.0;
       if (iss >> x >> y >> v) {
-        hardcoded_path_.emplace_back(x, y, v);
+        (void)hardcoded_path_.emplace_back(x, y, v);
       } else {
         break;
       }
@@ -153,11 +155,14 @@ std::vector<PathPoint> Skidpad::skidpad_path(const std::vector<Cone>& cone_array
               predefined_path_.size(), closest_index, hardcoded_path_.size());
   
   // Remove all the points before the closest point not removing the closest point itself
-  predefined_path_.erase(predefined_path_.begin(), predefined_path_.begin() + closest_index);
-  hardcoded_path_.erase(hardcoded_path_.begin(), hardcoded_path_.begin() + closest_index);
+  (void)predefined_path_.erase(predefined_path_.begin(), predefined_path_.begin() + closest_index);
+  (void)hardcoded_path_.erase(hardcoded_path_.begin(), hardcoded_path_.begin() + closest_index);
 
   size_t path_size = predefined_path_.size();
-  size_t count = (path_size >= 70) ? 70 : path_size;
+  size_t count = 70;
+  if (path_size < 70) {
+    count = path_size;
+  }
 
   return std::vector<PathPoint>(predefined_path_.begin(), predefined_path_.begin() + count);
 }

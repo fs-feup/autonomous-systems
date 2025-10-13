@@ -30,6 +30,67 @@ using Midpoint = common_lib::structures::Midpoint;
  * and discards cones as they are passed.
  */
 class PathCalculation {
+public:
+  /**
+   * @brief Construct a new default PathCalculation object.
+   */
+  PathCalculation() = default;
+
+  /**
+   * @brief Construct a new PathCalculation object with configuration.
+   * @param config Configuration parameters for path calculation behavior.
+   */
+  explicit PathCalculation(const PathCalculationConfig& config)
+      : config_(config), midpoint_generator_(config.midpoint_generator_) {}
+
+  // ===================== Public Core Methods =====================
+
+  /**
+   * @brief Generate a path from an array of cones.
+   *
+   * Processes cone positions to create an optimal navigation path. Updates
+   * the internal state to maintain path continuity between invocations.
+   *
+   * @param cone_array Array of cones representing the track.
+   * @return Vector of path points representing the calculated path.
+   */
+  std::vector<PathPoint> calculate_path(std::vector<Cone>& cone_array);
+
+  /**
+   * @brief Generate a closed loop path for trackdrive competition.
+   *
+   * Creates a path that forms a complete loop around the track, with
+   * interpolated connections and overlap points for continuous traversal.
+   *
+   * @param cone_array Array of cones representing the track.
+   * @return Vector of path points forming a closed loop.
+   */
+  std::vector<PathPoint> calculate_trackdrive(std::vector<Cone>& cone_array);
+
+  /**
+   * @brief Set the current vehicle position and orientation.
+   *
+   * Propagates the vehicle pose to the midpoint generator and maintains
+   * the current pose for path calculations.
+   *
+   * @param vehicle_pose The current vehicle position and orientation.
+   */
+  void set_vehicle_pose(const common_lib::structures::Pose& vehicle_pose);
+
+  // ===================== Public Accessor Methods =====================
+
+  /**
+   * @brief Get the path from the start to a lookback distance behind the car’s current position.
+   * @return Vector of path points representing the global path.
+   */
+  std::vector<PathPoint> get_path_to_car() const;
+
+  /**
+   * @brief Get the triangulation segments used in path generation.
+   * @return Reference to vector of point pairs representing triangulation edges.
+   */
+  const std::vector<std::pair<Point, Point>>& get_triangulations() const;
+
 private:
   // ===================== Configuration and State =====================
 
@@ -235,66 +296,13 @@ private:
   std::vector<PathPoint> add_interpolated_points(const PathPoint& start, const PathPoint& end,
                                                   int num_points) const;
 
-public:
   /**
-   * @brief Construct a new default PathCalculation object.
-   */
-  PathCalculation() = default;
-
-  /**
-   * @brief Construct a new PathCalculation object with configuration.
-   * @param config Configuration parameters for path calculation behavior.
-   */
-  explicit PathCalculation(const PathCalculationConfig& config)
-      : config_(config), midpoint_generator_(config.midpoint_generator_) {}
-
-  // ===================== Public Core Methods =====================
-
-  /**
-   * @brief Generate a path from an array of cones.
-   *
-   * Processes cone positions to create an optimal navigation path. Updates
-   * the internal state to maintain path continuity between invocations.
-   *
-   * @param cone_array Array of cones representing the track.
-   * @return Vector of path points representing the calculated path.
-   */
-  std::vector<PathPoint> calculate_path(std::vector<Cone>& cone_array);
-
-  /**
-   * @brief Generate a closed loop path for trackdrive competition.
-   *
-   * Creates a path that forms a complete loop around the track, with
-   * interpolated connections and overlap points for continuous traversal.
-   *
-   * @param cone_array Array of cones representing the track.
-   * @return Vector of path points forming a closed loop.
-   */
-  std::vector<PathPoint> calculate_trackdrive(std::vector<Cone>& cone_array);
-
-  /**
-   * @brief Set the current vehicle position and orientation.
-   *
-   * Propagates the vehicle pose to the midpoint generator and maintains
-   * the current pose for path calculations.
-   *
-   * @param vehicle_pose The current vehicle position and orientation.
-   */
-  void set_vehicle_pose(const common_lib::structures::Pose& vehicle_pose);
-
-  // ===================== Public Accessor Methods =====================
-
-  /**
-   * @brief Get the path from the start to a lookback distance behind the car’s current position.
-   * @return Vector of path points representing the global path.
-   */
-  std::vector<PathPoint> get_path_to_car() const;
-
-  /**
-   * @brief Get the triangulation segments used in path generation.
-   * @return Reference to vector of point pairs representing triangulation edges.
-   */
-  const std::vector<std::pair<Point, Point>>& get_triangulations() const;
+ * @brief Converts a vector of Point objects into a vector of PathPoint objects.
+ *
+ * @param points A vector containing the input Point objects.
+ * @return A vector of PathPoint objects constructed from the given points.
+ */
+  std::vector<PathPoint> get_path_points_from_points(const std::vector<Point>& points) const;
 
 };
 

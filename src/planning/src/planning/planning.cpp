@@ -275,7 +275,7 @@ void Planning::run_trackdrive() {
     } else {
       final_path_ = full_path_;
     }
-  } else if (lap_counter_ >= 10) {
+  } else {
     final_path_ = full_path_;
     velocity_planning_.stop(final_path_);
   }

@@ -21,6 +21,21 @@ using Cone = common_lib::structures::Cone;
  *
  */
 class Skidpad {
+public:
+
+  Skidpad() = default;
+
+  explicit Skidpad(SkidpadConfig config) : config_(config) {}
+
+  /**
+   * @brief Generate a path for skidpad course
+   *
+   * @param cone_array The array of cones representing the track
+   * @param pose The current pose of the vehicle
+   * @return std::vector<PathPoint> The generated path
+   */
+  std::vector<PathPoint> skidpad_path(const std::vector<Cone>& cone_array,
+                                      common_lib::structures::Pose pose);
 private:
 
   SkidpadConfig config_;
@@ -48,21 +63,6 @@ private:
   size_t find_closest_path_index(
       const std::vector<PathPoint>& path,
       const common_lib::structures::Pose& pose);
-public:
-
-  Skidpad() = default;
-
-  explicit Skidpad(SkidpadConfig config) : config_(config) {}
-
-  /**
-   * @brief Generate a path for skidpad course
-   *
-   * @param cone_array The array of cones representing the track
-   * @param pose The current pose of the vehicle
-   * @return std::vector<PathPoint> The generated path
-   */
-  std::vector<PathPoint> skidpad_path(const std::vector<Cone>& cone_array,
-                                      common_lib::structures::Pose pose);
 };
 
 #endif // SRC_PLANNING_INCLUDE_PLANNING_SKIDPAD_HPP_

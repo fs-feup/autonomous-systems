@@ -14,13 +14,7 @@ using Color = common_lib::competition_logic::Color;
  *
  */
 class Outliers {
-private:
-  /**
-   * @brief configuration of the outliers removal algorithm
-   *
-   */
-  OutliersConfig config_;
-
+  
 public:
   /**
    * @brief Construct a new default Outliers object
@@ -42,6 +36,14 @@ public:
    */
   std::pair<std::vector<Cone>, std::vector<Cone>> approximate_cones_with_spline(
       std::pair<std::vector<Cone>, std::vector<Cone>>& cones) const;
+
+private:
+  /**
+   * @brief configuration of the outliers removal algorithm
+   *
+   */
+  OutliersConfig config_;
+
 };
 
 #endif  // SRC_PLANNING_INCLUDE_PLANNING_OUTLIERS_HPP_

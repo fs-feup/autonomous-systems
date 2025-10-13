@@ -56,6 +56,41 @@ using std::placeholders::_1;
  * @note This class inherits from rclcpp::Node and operates as a ROS 2 node.
  */
 class Planning : public rclcpp::Node {
+public:
+  /**
+   * @brief Constructs a Planning node with the specified configuration parameters.
+   *
+   * Initializes all planning modules, subscriptions, and publishers. Sets up communication
+   * with state estimation and pacsim services. Determines the operating adapter type
+   * and configures frame IDs accordingly.
+   *
+   * @param params Configuration parameters loaded from YAML files
+   */
+  explicit Planning(const PlanningParameters &params);
+
+  /**
+   * @brief Loads planning configuration from YAML files.
+   *
+   * Reads global configuration to determine the adapter type, then loads adapter-specific
+   * planning parameters from the corresponding YAML file.
+   *
+   * @param adapter Output parameter that stores the adapter type ("eufs", "pacsim", "vehicle")
+   * @return PlanningParameters Struct containing all loaded configuration parameters
+   */
+  static PlanningParameters load_config(std::string &adapter);
+
+  /**
+   * @brief Sets the mission type for planning execution.
+   *
+   * @param mission The mission type to execute
+   */
+  void set_mission(Mission mission);
+
+  friend class PacSimAdapter;
+  friend class EufsAdapter;
+  friend class FsdsAdapter;
+  friend class VehicleAdapter;
+
 private:
   /*--------------------- Mission and Configuration --------------------*/
   Mission mission_ = Mission::NONE;
@@ -211,40 +246,4 @@ private:
    *
    */
   virtual void finish() = 0;
-public:
-  /**
-   * @brief Constructs a Planning node with the specified configuration parameters.
-   *
-   * Initializes all planning modules, subscriptions, and publishers. Sets up communication
-   * with state estimation and pacsim services. Determines the operating adapter type
-   * and configures frame IDs accordingly.
-   *
-   * @param params Configuration parameters loaded from YAML files
-   */
-  explicit Planning(const PlanningParameters &params);
-
-  /**
-   * @brief Loads planning configuration from YAML files.
-   *
-   * Reads global configuration to determine the adapter type, then loads adapter-specific
-   * planning parameters from the corresponding YAML file.
-   *
-   * @param adapter Output parameter that stores the adapter type ("eufs", "pacsim", "vehicle")
-   * @return PlanningParameters Struct containing all loaded configuration parameters
-   */
-  static PlanningParameters load_config(std::string &adapter);
-
-  /**
-   * @brief Sets the mission type for planning execution.
-   *
-   * @param mission The mission type to execute
-   */
-  void set_mission(Mission mission);
-
-  friend class PacSimAdapter;
-  friend class EufsAdapter;
-  friend class FsdsAdapter;
-  friend class VehicleAdapter;
-
-
 };

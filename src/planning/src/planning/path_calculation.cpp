@@ -15,7 +15,6 @@ using namespace std;
 // ===================== Path Calculation (Core) =====================
 
 vector<PathPoint> PathCalculation::calculate_path(vector<Cone>& cone_array) {
-  vector<PathPoint> path_points;
 
   if (cone_array.size() < 4) {
     RCLCPP_ERROR(rclcpp::get_logger("planning"), "Not enough cones to create a path.");
@@ -55,7 +54,7 @@ vector<PathPoint> PathCalculation::calculate_path(vector<Cone>& cone_array) {
   path_to_car_.clear();
   // Retain part of the existing path leading to the car
   if (cutoff_index != -1 && cutoff_index > config_.lookback_points_) {
-    path_to_car_.insert(path_to_car_.end(), past_path_.begin(),
+    (void)path_to_car_.insert(path_to_car_.end(), past_path_.begin(),
                         past_path_.begin() + cutoff_index - config_.lookback_points_);
   }
 
@@ -70,14 +69,9 @@ vector<PathPoint> PathCalculation::calculate_path(vector<Cone>& cone_array) {
 
   extend_path(max_points);
 
-  // Final processing: convert points to PathPoint objects
-  for (const auto& point : current_path_) {
-    path_points.emplace_back(point.x(), point.y());
-  }
-
   past_path_ = current_path_;  // Update the path for next iteration
 
-  return path_points;
+  return get_path_points_from_points(current_path_);
 }
 
 vector<PathPoint> PathCalculation::calculate_trackdrive(vector<Cone>& cone_array) {
@@ -93,7 +87,7 @@ vector<PathPoint> PathCalculation::calculate_trackdrive(vector<Cone>& cone_array
   int best_cutoff_index = find_best_loop_closure(result);
 
   // Trim the path to the best cutoff point
-  result.erase(result.begin() + best_cutoff_index + 1, result.end());
+  (void)result.erase(result.begin() + best_cutoff_index + 1, result.end());
 
   // Add interpolated points between the last point and the first point
   if (!result.empty()) {
@@ -101,7 +95,7 @@ vector<PathPoint> PathCalculation::calculate_trackdrive(vector<Cone>& cone_array
     const PathPoint& first_point = result.front();
 
     vector<PathPoint> interpolated = add_interpolated_points(last_point, first_point, 4);
-    result.insert(result.end(), interpolated.begin(), interpolated.end());
+    (void)result.insert(result.end(), interpolated.begin(), interpolated.end());
   }
 
   // Close the loop by adding the first point again
@@ -153,14 +147,13 @@ void PathCalculation::initialize_path_from_initial_pose() {
     initial_pose_set_ = true;
   }
 
-  pair<shared_ptr<Midpoint>, shared_ptr<Midpoint>> starting_points =
-      select_starting_midpoints();
+  const auto [first_point, second_point] = select_starting_midpoints();
 
-  if (starting_points.first && starting_points.second) {
-    current_path_.push_back(starting_points.first->point);
-    current_path_.push_back(starting_points.second->point);
-    visited_midpoints_.insert(starting_points.first);
-    visited_midpoints_.insert(starting_points.second);
+  if (first_point && second_point) {
+    current_path_.push_back(first_point->point);
+    current_path_.push_back(second_point->point);
+    (void)visited_midpoints_.insert(first_point);
+    (void)visited_midpoints_.insert(second_point);
   } else {
     RCLCPP_ERROR(rclcpp::get_logger("planning"), "Failed to find valid starting points.");
   }
@@ -203,7 +196,7 @@ void PathCalculation::update_path_from_past_path() {
 
     // If the candidate_midpoint is valid, add it to visited set
     if (candidate_midpoint) {
-      visited_midpoints_.insert(candidate_midpoint);
+      (void)visited_midpoints_.insert(candidate_midpoint);
     }
 
     current_path_.push_back(candidate_point);
@@ -238,11 +231,8 @@ void PathCalculation::extend_path(int max_points) {
     }
 
     // Search for the best continuation from the current midpoint
-    pair<double, shared_ptr<Midpoint>> best_result = find_best_next_midpoint(
+    auto [best_cost, best_point] = find_best_next_midpoint(
         config_.search_depth_, prev_mp, last_mp, config_.max_cost_);
-
-    double best_cost = best_result.first;
-    shared_ptr<Midpoint> best_point = best_result.second;
 
     // Stop if no good extension is found or point was already visited
     if (best_cost > worst_cost || !best_point || visited_midpoints_.count(best_point) > 0) {
@@ -250,7 +240,7 @@ void PathCalculation::extend_path(int max_points) {
     }
 
     current_path_.push_back(best_point->point);
-    visited_midpoints_.insert(best_point);
+    (void)visited_midpoints_.insert(best_point);
     n_points++;
 
     if (n_points >= max_points) {
@@ -279,10 +269,9 @@ pair<shared_ptr<Midpoint>, shared_ptr<Midpoint>> PathCalculation::select_startin
   for (const auto& first : anchor_pose_midpoint.close_points) {
     shared_ptr<Midpoint> anchor_mp = make_shared<Midpoint>(anchor_pose_midpoint);
 
-    pair<double, shared_ptr<Midpoint>> dfs_result = find_best_next_midpoint(
+    auto [cost, midpoint] = find_best_next_midpoint(
         config_.search_depth_, anchor_mp, first, numeric_limits<double>::max());
 
-    double cost = dfs_result.first;
     double dx = first->point.x() - anchor_pose_midpoint.point.x();
     double dy = first->point.y() - anchor_pose_midpoint.point.y();
     double initial_distance =
@@ -292,7 +281,7 @@ pair<shared_ptr<Midpoint>, shared_ptr<Midpoint>> PathCalculation::select_startin
 
     if (cost < best_cost) {
       result.first = first;
-      result.second = dfs_result.second;
+      result.second = midpoint;
       best_cost = cost;
     }
   }
@@ -440,11 +429,11 @@ void PathCalculation::discard_cone(const shared_ptr<Midpoint>& last_mp,
                                     const shared_ptr<Midpoint>& current_mp) {
   if (last_mp->cone1 == current_mp->cone1 || last_mp->cone1 == current_mp->cone2) {
     if (last_mp->cone2 != current_mp->cone1 && last_mp->cone2 != current_mp->cone2) {
-      discarded_cones_.insert(last_mp->cone2);
+      (void)discarded_cones_.insert(last_mp->cone2);
     }
   } else if (last_mp->cone2 == current_mp->cone1 || last_mp->cone2 == current_mp->cone2) {
     if (last_mp->cone1 != current_mp->cone1 && last_mp->cone1 != current_mp->cone2) {
-      discarded_cones_.insert(last_mp->cone1);
+      (void)discarded_cones_.insert(last_mp->cone1);
     }
   } else {
     RCLCPP_DEBUG(rclcpp::get_logger("planning"), "No valid cones found for discarding.");
@@ -467,7 +456,7 @@ void PathCalculation::remove_invalid_neighbors() {
     if (!mp->valid) {
       continue;
     }
-    mp->close_points.erase(
+    (void)mp->close_points.erase(
         remove_if(mp->close_points.begin(), mp->close_points.end(),
                   [](const shared_ptr<Midpoint>& neighbor) { return !neighbor->valid; }),
         mp->close_points.end());
@@ -560,17 +549,20 @@ vector<PathPoint> PathCalculation::add_interpolated_points(const PathPoint& star
   return interpolated;
 }
 
-// ===================== Accessor Methods =====================
-
-vector<PathPoint> PathCalculation::get_path_to_car() const {
+std::vector<PathPoint> PathCalculation::get_path_points_from_points(const std::vector<Point>& points) const{
   vector<PathPoint> path_points;
-  path_points.reserve(path_to_car_.size());
+  path_points.reserve(points.size());
 
-  for (const auto& pt : path_to_car_) {
-    path_points.emplace_back(pt.x(), pt.y());
+  for(Point pt : points){
+    (void)path_points.emplace_back(pt.x(), pt.y());
   }
 
   return path_points;
+}
+// ===================== Accessor Methods =====================
+
+vector<PathPoint> PathCalculation::get_path_to_car() const {
+  return get_path_points_from_points(path_to_car_);
 }
 
 const vector<pair<Point, Point>>& PathCalculation::get_triangulations() const {

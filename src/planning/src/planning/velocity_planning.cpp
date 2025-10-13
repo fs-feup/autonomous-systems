@@ -92,7 +92,7 @@ void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
     radiuses.push_back(0);
     for (int i = 1; i < static_cast<int>(final_path.size()) - 1; i++) {
       radiuses.push_back(find_circle_center(final_path[i - 1], final_path[i], final_path[i + 1]));
-    }
+    }VelocityPlanning::
     radiuses[0] = radiuses[1];
     radiuses.push_back(radiuses.back());
 
@@ -111,6 +111,17 @@ void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
   else {
     for (auto &path_point : final_path) {
       path_point.ideal_velocity = config_.desired_velocity_;
+    }
+  }
+}
+
+void VelocityPlanning::stop(std::vector<PathPoint> &final_path) {
+  int size = final_path.size();
+  double dist = 0.0;
+  for (int i = 0; i < size/2; ++i) {
+    dist += final_path[i].position.euclidean_distance(final_path[i + 1].position);
+    if(dist > 10){
+      final_path[i].ideal_velocity = 0.0;
     }
   }
 }
