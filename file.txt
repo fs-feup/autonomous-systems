@@ -1,0 +1,3188 @@
+diff --git a/config/planning/eufs.yaml b/config/planning/eufs.yaml
+index 20ccc2931..6b027fa71 100644
+--- a/config/planning/eufs.yaml
++++ b/config/planning/eufs.yaml
+@@ -1,27 +1,39 @@
+-planning:
+-  angle_gain: 10.246
+-  distance_gain: 6.657
+-  ncones_gain: 20.7
+-  angle_exponent: 2.0
+-  distance_exponent: 0.998
+-  cost_max: 35.0
+-  same_cone_distance_threshold: 0.6
+-  use_memory_cone_coloring: true
++planning: 
++  # ---------------------- Midpoint Generator (mg_) ----------------------
++  mg_minimum_cone_distance: 2.0 # minimum distance between cones -> The rules say 3m, but we should keep it lower for safety
++  mg_maximum_cone_distance: 10.0 # maximum distance between cones
++  mg_sliding_window_radius: 20.0
++  mg_use_sliding_window: true
++  #---------------------- Path Calculation (pc_) ------------------------
++  pc_angle_gain: 70.0  
++  pc_distance_gain: 6.0
++  pc_angle_exponent: 2.0
++  pc_distance_exponent: 1.0
++  pc_max_cost: 75.0
++  pc_lookback_points: 4
++  pc_search_depth: 4
++  pc_max_points: 20
++  pc_tolerance: 0.5
++  pc_reset_path: 1000000000
++  pc_use_reset_path: false
++  #---------------------- Skidpad (skidpad_) ------------------
++  skidpad_minimum_cones: 10 # minimum number of cones to consider the skidpad as valid
++  skidpad_tolerance: 5
++  #---------------------- Outlier Removal (outliers_) -------------------
+   outliers_spline_order: 3
+   outliers_spline_coeffs_ratio: 3.0
+   outliers_spline_precision: 1
+-  path_calculation_dist_threshold: 7.0
++  outliers_use_outlier_removal: false
++  #---------------------- Path Smoothing (smoothing_) -------------------
+   smoothing_spline_order: 3
+   smoothing_spline_coeffs_ratio: 3.0
+   smoothing_spline_precision: 10
+-  publishing_visualization_msg: true
+-  desired_velocity: 1.0
+-  use_outlier_removal: false
+-  use_path_smoothing: true
+-  minimum_velocity: 3.0
+-  braking_acceleration: -4.0
+-  normal_acceleration: 7.0
+-  use_velocity_planning: true
+-  sliding_window_radius: 20.0
+-  use_sliding_window: true
+-  use_reset_path: false
+\ No newline at end of file
++  smoothing_use_path_smoothing: false
++  #---------------------- Velocity Planning (vp_) -----------------------
++  vp_minimum_velocity: 2.0
++  vp_braking_acceleration: -1.5
++  vp_normal_acceleration: 0.9
++  vp_use_velocity_planning: true
++  vp_desired_velocity: 6.0
++  #---------------------- Simulation Config (simulation_) ---------------------------
++  simulation_publishing_visualization_msgs: true
+\ No newline at end of file
+diff --git a/config/planning/pacsim.yaml b/config/planning/pacsim.yaml
+index 1aef69d83..7af7efd73 100644
+--- a/config/planning/pacsim.yaml
++++ b/config/planning/pacsim.yaml
+@@ -1,38 +1,44 @@
+-planning:
+-  minimum_cone_distance: 1.0 # minimum distance between cones -> The rules say 3m, but we should keep it lower for safety
+-  maximum_cone_distance: 10.0 # maximum distance between cones
+-  projected_point_distance: 1.0 # the distamce from the first point to the projected point to search for the second point
+-  nc_angle_gain: 70.0  # Parameters for path planning with no coloring (nc)
+-  nc_distance_gain: 6.0
+-  nc_angle_exponent: 2.0
+-  nc_distance_exponent: 1.0
+-  nc_max_cost: 75.0
+-  nc_lookback_points: 4
+-  nc_search_depth: 4
+-  nc_max_points: 2000
+-  nc_tolerance: 0.5
+-  nc_reset_global_path: 1000000000
++planning: 
++  # ---------------------- Midpoint Generator (mg_) ----------------------
++  mg_minimum_cone_distance: 2.0 # minimum distance between cones -> The rules say 3m, but we should keep it lower for safety
++  mg_maximum_cone_distance: 10.0 # maximum distance between cones
++  mg_sliding_window_radius: 20.0
++  mg_use_sliding_window: true
++  #---------------------- Path Calculation (pc_) ------------------------
++  pc_angle_gain: 70.0  
++  pc_distance_gain: 6.0
++  pc_angle_exponent: 2.0
++  pc_distance_exponent: 1.0
++  pc_max_cost: 75.0
++  pc_lookback_points: 4
++  pc_search_depth: 4
++  pc_max_points: 20
++  pc_tolerance: 0.5
++  pc_reset_path: 1000000000
++  pc_use_reset_path: false
++  #---------------------- Skidpad (skidpad_) ------------------
+   skidpad_minimum_cones: 10 # minimum number of cones to consider the skidpad as valid
+   skidpad_tolerance: 5
+-  # ------------------------------------
++  #---------------------- Outlier Removal (outliers_) -------------------
+   outliers_spline_order: 3
+   outliers_spline_coeffs_ratio: 3.0
+   outliers_spline_precision: 1
+-  path_calculation_dist_threshold: 7.0
++  outliers_use_outlier_removal: false
++  #---------------------- Path Smoothing (smoothing_) -------------------
+   smoothing_spline_order: 3
+   smoothing_spline_coeffs_ratio: 3.0
+   smoothing_spline_precision: 10
+-  publishing_visualization_msg: true
+-  use_outlier_removal: false
+-  use_path_smoothing: false
+-  minimum_velocity: 2.0
+-  braking_acceleration: -1.8
+-  normal_acceleration: 0.9
+-  use_velocity_planning: true  
+-  desired_velocity: 6.0
+-  sliding_window_radius: 20.0
+-  use_sliding_window: true
+-  use_reset_path: false
++  smoothing_use_path_smoothing: false
++  #---------------------- Velocity Planning (vp_) -----------------------
++  vp_minimum_velocity: 2.0
++  vp_braking_acceleration: -1.5
++  vp_normal_acceleration: 0.9
++  vp_use_velocity_planning: true
++  vp_desired_velocity: 6.0
++  #---------------------- Simulation Config (simulation_) ---------------------------
++  simulation_publishing_visualization_msgs: true
++
++  
+   
+ # Parameters for EBS Test
+ # planning:
+diff --git a/config/planning/vehicle.yaml b/config/planning/vehicle.yaml
+index e7878ec61..bc32be66e 100644
+--- a/config/planning/vehicle.yaml
++++ b/config/planning/vehicle.yaml
+@@ -1,38 +1,44 @@
+-planning:
+-  minimum_cone_distance: 2.0 # minimum distance between cones -> The rules say 3m, but we should keep it lower for safety
+-  maximum_cone_distance: 10.0 # maximum distance between cones
+-  projected_point_distance: 1.0 # the distamce from the first point to the projected point to search for the second point
+-  nc_angle_gain: 70.0  # Parameters for path planning with no coloring (nc)
+-  nc_distance_gain: 6.0
+-  nc_angle_exponent: 2.0
+-  nc_distance_exponent: 1.0
+-  nc_max_cost: 75.0
+-  nc_lookback_points: 4
+-  nc_search_depth: 4
+-  nc_max_points: 20
+-  nc_tolerance: 0.5
+-  nc_reset_global_path: 1000000000
++planning: 
++  # ---------------------- Midpoint Generator (mg_) ----------------------
++  mg_minimum_cone_distance: 2.0 # minimum distance between cones -> The rules say 3m, but we should keep it lower for safety
++  mg_maximum_cone_distance: 10.0 # maximum distance between cones
++  mg_sliding_window_radius: 20.0
++  mg_use_sliding_window: true
++  #---------------------- Path Calculation (pc_) ------------------------
++  pc_angle_gain: 70.0  
++  pc_distance_gain: 6.0
++  pc_angle_exponent: 2.0
++  pc_distance_exponent: 1.0
++  pc_max_cost: 75.0
++  pc_lookback_points: 4
++  pc_search_depth: 4
++  pc_max_points: 20
++  pc_tolerance: 0.2
++  pc_reset_path: 1000000000
++  pc_use_reset_path: false
++  #---------------------- Skidpad (skidpad_) ------------------
+   skidpad_minimum_cones: 10 # minimum number of cones to consider the skidpad as valid
+   skidpad_tolerance: 5
+-  # ------------------------------------
++  #---------------------- Outlier Removal (outliers_) -------------------
+   outliers_spline_order: 3
+   outliers_spline_coeffs_ratio: 3.0
+   outliers_spline_precision: 1
+-  path_calculation_dist_threshold: 7.0
++  outliers_use_outlier_removal: false
++  #---------------------- Path Smoothing (smoothing_) -------------------
+   smoothing_spline_order: 3
+   smoothing_spline_coeffs_ratio: 3.0
+   smoothing_spline_precision: 10
+-  publishing_visualization_msg: true
+-  use_outlier_removal: false
+-  use_path_smoothing: false
+-  minimum_velocity: 2.0
+-  braking_acceleration: -1.5
+-  normal_acceleration: 0.9
+-  use_velocity_planning: true
+-  desired_velocity: 6.0
+-  sliding_window_radius: 20.0
+-  use_sliding_window: true
+-  use_reset_path: false
++  smoothing_use_path_smoothing: false
++  #---------------------- Velocity Planning (vp_) -----------------------
++  vp_minimum_velocity: 2.0
++  vp_braking_acceleration: -1.5
++  vp_normal_acceleration: 0.9
++  vp_use_velocity_planning: true
++  vp_desired_velocity: 6.0
++  #---------------------- Simulation Config (simulation_) ---------------------------
++  simulation_publishing_visualization_msgs: true
++
++  
+ 
+ # Parameters for EBS Test
+ # planning:
+diff --git a/ext/hesai-lidar b/ext/hesai-lidar
+--- a/ext/hesai-lidar
++++ b/ext/hesai-lidar
+@@ -1 +1 @@
+-Subproject commit 0329ec593891a4bcddcccb903972eada54a68594
++Subproject commit 0329ec593891a4bcddcccb903972eada54a68594-dirty
+diff --git a/ext/xsens-imu b/ext/xsens-imu
+--- a/ext/xsens-imu
++++ b/ext/xsens-imu
+@@ -1 +1 @@
+-Subproject commit 5f0c222098ce759ba3a8904b528bd22a457b7897
++Subproject commit 5f0c222098ce759ba3a8904b528bd22a457b7897-dirty
+diff --git a/src/common_lib/include/common_lib/structures/midpoint.hpp b/src/common_lib/include/common_lib/structures/midpoint.hpp
+index be8d542c8..15df4b2c0 100644
+--- a/src/common_lib/include/common_lib/structures/midpoint.hpp
++++ b/src/common_lib/include/common_lib/structures/midpoint.hpp
+@@ -25,32 +25,7 @@ struct Midpoint {
+     Midpoint(const Point& p,
+         std::shared_ptr<Cone> c1,
+         std::shared_ptr<Cone> c2);
+-
+-    friend bool operator==(const Midpoint& a, const Midpoint& b) {
+-        return a.point == b.point;
+-    }
+ };
+ 
+ }  // namespace common_lib::structures
+ 
+-/**
+- * @brief Hash functions for Points and MidPoints
+- */
+-namespace std {
+-  template <>
+-  struct hash<Point> {
+-    size_t operator()(const Point& p) const noexcept {
+-      auto hx = std::hash<double>()(p.x());
+-      auto hy = std::hash<double>()(p.y());
+-      return hx ^ (hy << 1); 
+-    }
+-  };
+-
+-  // template <>
+-  // struct hash<common_lib::structures::Midpoint> {
+-  //   size_t operator()(const common_lib::structures::Midpoint& mid) const noexcept {
+-  //     return std::hash<Point>()(mid.point);
+-  //   }
+-  // };
+-
+-}  // namespace std
+\ No newline at end of file
+diff --git a/src/data_infrastructure/data_infrastructure/data_infrastructure_node.py b/src/data_infrastructure/data_infrastructure/data_infrastructure_node.py
+index eb4bdcb5f..6eea4efb7 100644
+--- a/src/data_infrastructure/data_infrastructure/data_infrastructure_node.py
++++ b/src/data_infrastructure/data_infrastructure/data_infrastructure_node.py
+@@ -157,9 +157,9 @@ class DataInfrastructureNode(Node):
+     def planning_parameters(self):
+         planning_msg = PlanningParameters()
+         parameters = self.load_yaml(PLANNING_PATH, "planning")
+-        planning_msg.nc_angle_gain = float(parameters.get("nc_angle_gain", 0.0))
++        planning_msg.angle_gain = float(parameters.get("angle_gain", 0.0))
+         planning_msg.nc_distance_gain = float(parameters.get("nc_distance_gain", 0.0))
+-        planning_msg.nc_angle_exponent = float(parameters.get("nc_angle_exponent", 0.0))
++        planning_msg.angle_exponent = float(parameters.get("angle_exponent", 0.0))
+         planning_msg.nc_distance_exponent = float(parameters.get("nc_distance_exponent", 0.0))
+         planning_msg.nc_max_cost = float(parameters.get("nc_max_cost", 0.0))
+         planning_msg.nc_search_depth = int(parameters.get("nc_search_depth", 0))
+diff --git a/src/planning/include/config/path_calculation_config.hpp b/src/planning/include/config/path_calculation_config.hpp
+index c155ce1ad..0b575a9e7 100644
+--- a/src/planning/include/config/path_calculation_config.hpp
++++ b/src/planning/include/config/path_calculation_config.hpp
+@@ -8,7 +8,6 @@
+  */
+ struct PathCalculationConfig {
+   MidpointGeneratorConfig midpoint_generator_;
+-  double dist_threshold_ = 7.0;
+   double angle_gain_ = 20.0;
+   double distance_gain_ = 5.0;
+   double angle_exponent_ = 3.0;
+@@ -18,7 +17,7 @@ struct PathCalculationConfig {
+   int lookback_points_ = 20;
+   int search_depth_ = 2;
+   int max_points_ = 50;
+-  int reset_global_path_ = 10;
++  int reset_path_ = 10;
+   bool use_reset_path_ = false;
+ 
+   PathCalculationConfig() = default;
+diff --git a/src/planning/include/config/planning_config.hpp b/src/planning/include/config/planning_config.hpp
+index 90e5dacdc..9700b37ff 100644
+--- a/src/planning/include/config/planning_config.hpp
++++ b/src/planning/include/config/planning_config.hpp
+@@ -10,49 +10,55 @@
+ #include <string>
+ 
+ struct PlanningParameters {
+-  double minimum_cone_distance_;
+-  double maximum_cone_distance_;
+-
+-  double nc_angle_gain_;
+-  double nc_distance_gain_;
+-  double nc_angle_exponent_;
+-  double nc_distance_exponent_;
+-  double nc_max_cost_;
+-  double nc_tolerance_;
+-  double skidpad_tolerance_;
++  /*---------------------- Midpoint Generator (mg_) ----------------------*/
++  double mg_minimum_cone_distance_;
++  double mg_maximum_cone_distance_;
++  double mg_sliding_window_radius_;
++  bool mg_use_sliding_window_;
++
++  /*---------------------- Path Calculation (pc_) ------------------------*/
++  double pc_angle_gain_;
++  double pc_distance_gain_;
++  double pc_angle_exponent_;
++  double pc_distance_exponent_;
++  double pc_max_cost_;
++  int pc_lookback_points_;
++  int pc_search_depth_;
++  int pc_max_points_;
++  double pc_tolerance_;
++  int pc_reset_path_;
++  bool pc_use_reset_path_;
++
++  /*---------------------- Skidpad (skidpad_) ----------------------------*/
+   int skidpad_minimum_cones_;
+-  int nc_search_depth_;
+-  int nc_lookback_points_;
+-  int nc_max_points_;
+-  int nc_reset_global_path_;
+-  bool use_outlier_removal_;
+-  int smoothing_spline_order_;
+-  float smoothing_spline_coeffs_ratio_;
+-  int smoothing_spline_precision_;
+-  bool use_path_smoothing_;
+-  bool publishing_visualization_msgs_;
+-  bool using_simulated_se_;
++  double skidpad_tolerance_;
+ 
++  /*---------------------- Outlier Removal (outliers_) -------------------*/
+   int outliers_spline_order_;
+   float outliers_spline_coeffs_ratio_;
+   int outliers_spline_precision_;
++  bool outliers_use_outlier_removal_;
+ 
+-  double desired_velocity_;
+-  double minimum_velocity_;
+-  double braking_acceleration_;
+-  double normal_acceleration_;
+-  bool use_velocity_planning_;
+-  std::string map_frame_id_;
++  /*---------------------- Path Smoothing (smoothing_) -------------------*/
++  int smoothing_spline_order_;
++  float smoothing_spline_coeffs_ratio_;
++  int smoothing_spline_precision_;
++  bool smoothing_use_path_smoothing_;
++
++  /*---------------------- Velocity Planning (vp_) -----------------------*/
++  double vp_minimum_velocity_;
++  double vp_braking_acceleration_;
++  double vp_normal_acceleration_;
++  bool vp_use_velocity_planning_;
++  double vp_desired_velocity_;
+ 
+-  double sliding_window_radius_;
+-  bool use_sliding_window_;  
+-  bool use_reset_path_;
++  /*---------------------- Simulation (simulation_) ----------------------*/
++  bool simulation_publishing_visualization_msgs_;
++  bool simulation_using_simulated_se_;
++
++  std::string map_frame_id_;
+ };
+ 
+-/**
+- * @brief struct for the configuration of the outliers removal algorithm.
+- *
+- */
+ struct PlanningConfig {
+   OutliersConfig outliers_;
+   PathCalculationConfig path_calculation_;
+@@ -62,50 +68,58 @@ struct PlanningConfig {
+   SkidpadConfig skidpad_;
+ 
+   PlanningConfig() = default;
++
+   explicit PlanningConfig(const PlanningParameters &params) {
++    /*------------------------ Outliers (outliers_) --------------------------*/
+     outliers_.order_ = params.outliers_spline_order_;
+     outliers_.precision_ = params.outliers_spline_precision_;
+     outliers_.coeffs_ratio_ = params.outliers_spline_coeffs_ratio_;
+-    outliers_.use_outlier_removal_ = params.use_outlier_removal_;
+-
+-    path_calculation_.angle_gain_ = params.nc_angle_gain_;
+-    path_calculation_.distance_gain_ = params.nc_distance_gain_;
+-    path_calculation_.angle_exponent_ = params.nc_angle_exponent_;
+-    path_calculation_.distance_exponent_ = params.nc_distance_exponent_;
+-    path_calculation_.max_cost_ = params.nc_max_cost_;
+-    path_calculation_.search_depth_ = params.nc_search_depth_;
+-    path_calculation_.max_points_ = params.nc_max_points_;
+-    path_calculation_.lookback_points_ = params.nc_lookback_points_;
+-    path_calculation_.tolerance_ = params.nc_tolerance_;
+-    path_calculation_.reset_global_path_ = params.nc_reset_global_path_;
+-    path_calculation_.use_reset_path_ = params.use_reset_path_;
+-
+-    path_calculation_.midpoint_generator_.minimum_cone_distance_ = 
+-      params.minimum_cone_distance_;
+-    path_calculation_.midpoint_generator_.maximum_cone_distance_ = 
+-        params.maximum_cone_distance_;
+-    path_calculation_.midpoint_generator_.use_sliding_window_ = 
+-        params.use_sliding_window_;
+-    path_calculation_.midpoint_generator_.sliding_window_radius_ = 
+-        params.sliding_window_radius_;
+-
+-    skidpad_.skidpad_minimum_cones_ = params.skidpad_minimum_cones_;
+-    skidpad_.skidpad_tolerance_ = params.skidpad_tolerance_;
++    outliers_.use_outlier_removal_ = params.outliers_use_outlier_removal_;
++
++    /*---------------------- Path Calculation (pc_) ------------------------*/
++    path_calculation_.angle_gain_ = params.pc_angle_gain_;
++    path_calculation_.distance_gain_ = params.pc_distance_gain_;
++    path_calculation_.angle_exponent_ = params.pc_angle_exponent_;
++    path_calculation_.distance_exponent_ = params.pc_distance_exponent_;
++    path_calculation_.max_cost_ = params.pc_max_cost_;
++    path_calculation_.lookback_points_ = params.pc_lookback_points_;
++    path_calculation_.search_depth_ = params.pc_search_depth_;
++    path_calculation_.max_points_ = params.pc_max_points_;
++    path_calculation_.tolerance_ = params.pc_tolerance_;
++    path_calculation_.reset_path_ = params.pc_reset_path_;
++    path_calculation_.use_reset_path_ = params.pc_use_reset_path_;
++
++    /*---------------------- Midpoint Generator (mg_) ----------------------*/
++    path_calculation_.midpoint_generator_.minimum_cone_distance_ =
++        params.mg_minimum_cone_distance_;
++    path_calculation_.midpoint_generator_.maximum_cone_distance_ =
++        params.mg_maximum_cone_distance_;
++    path_calculation_.midpoint_generator_.use_sliding_window_ =
++        params.mg_use_sliding_window_;
++    path_calculation_.midpoint_generator_.sliding_window_radius_ =
++        params.mg_sliding_window_radius_;
++
++    /*---------------------- Skidpad (skidpad_) ----------------------------*/
++    skidpad_.minimum_cones_ = params.skidpad_minimum_cones_;
++    skidpad_.tolerance_ = params.skidpad_tolerance_;
+ 
++    /*---------------------- Path Smoothing (smoothing_) -------------------*/
+     smoothing_.order_ = params.smoothing_spline_order_;
+     smoothing_.precision_ = params.smoothing_spline_precision_;
+     smoothing_.coeffs_ratio_ = params.smoothing_spline_coeffs_ratio_;
+-    smoothing_.use_path_smoothing_ = params.use_path_smoothing_;
++    smoothing_.use_path_smoothing_ = params.smoothing_use_path_smoothing_;
+ 
+-    simulation_.publishing_visualization_msgs_ = params.publishing_visualization_msgs_;
+-    simulation_.using_simulated_se_ = params.using_simulated_se_;
++    /*---------------------- Velocity Planning (vp_) -----------------------*/
++    velocity_planning_.minimum_velocity_ = params.vp_minimum_velocity_;
++    velocity_planning_.desired_velocity_ = params.vp_desired_velocity_;
++    velocity_planning_.braking_acceleration_ = params.vp_braking_acceleration_;
++    velocity_planning_.normal_acceleration_ = params.vp_normal_acceleration_;
++    velocity_planning_.use_velocity_planning_ = params.vp_use_velocity_planning_;
+ 
+-    velocity_planning_.minimum_velocity_ = params.minimum_velocity_;
+-    velocity_planning_.desired_velocity_ = params.desired_velocity_;
+-    velocity_planning_.braking_acceleration_ = params.braking_acceleration_;
+-    velocity_planning_.normal_acceleration_ = params.normal_acceleration_;
+-    velocity_planning_.use_velocity_planning_ = params.use_velocity_planning_;
++    /*---------------------- Simulation (simulation_) ----------------------*/
++    simulation_.publishing_visualization_msgs_ = params.simulation_publishing_visualization_msgs_;
++    simulation_.using_simulated_se_ = params.simulation_using_simulated_se_;
+   }
+ };
+ 
+-#endif  // SRC_PLANNING_INCLUDE_CONFIG_PLANNING_CONFIG_HPP_
+\ No newline at end of file
++#endif  // SRC_PLANNING_INCLUDE_CONFIG_PLANNING_CONFIG_HPP_
+diff --git a/src/planning/include/config/skidpad_config.hpp b/src/planning/include/config/skidpad_config.hpp
+index ca690f75e..439c543bc 100644
+--- a/src/planning/include/config/skidpad_config.hpp
++++ b/src/planning/include/config/skidpad_config.hpp
+@@ -6,12 +6,13 @@
+  *
+  */
+ struct SkidpadConfig {
+-  int skidpad_minimum_cones_ = 10.0;
+-  double skidpad_tolerance_ = 1.0;
++  int minimum_cones_ = 10.0;
++  double tolerance_ = 1.0;
++
+   SkidpadConfig() = default;
+-  SkidpadConfig(int skidpad_minimum_cones, double skidpad_tolerance)
+-      : skidpad_minimum_cones_(skidpad_minimum_cones),
+-      skidpad_tolerance_(skidpad_tolerance) {}
++  SkidpadConfig(int minimum_cones, double tolerance)
++      : minimum_cones_(minimum_cones),
++      tolerance_(tolerance) {}
+ };
+ 
+ #endif  // SRC_PLANNING_INCLUDE_CONFIG_SKIDPAD_CONFIG_HPP_
+\ No newline at end of file
+diff --git a/src/planning/include/planning/midpoint_generator.hpp b/src/planning/include/planning/midpoint_generator.hpp
+index 2877f0d75..b0b0fd9f0 100644
+--- a/src/planning/include/planning/midpoint_generator.hpp
++++ b/src/planning/include/planning/midpoint_generator.hpp
+@@ -15,38 +15,103 @@
+ using K = CGAL::Exact_predicates_inexact_constructions_kernel;
+ using DT = CGAL::Delaunay_triangulation_2<K>;
+ using Point = K::Point_2;
+-
+ using Vertex_handle = DT::Vertex_handle;
++
+ using Pose = common_lib::structures::Pose;
+ using Cone = common_lib::structures::Cone;
+ using Midpoint = common_lib::structures::Midpoint;
+ 
+ /**
+- * @brief class that defines the skidpad path algorithm
++ * @class MidpointGenerator
++ * @brief Generates midpoints between cones using Delaunay triangulation.
+  *
++ * The algorithm performs the following main steps:
++ * - Filters cones using a sliding window based on the vehicle’s position (if enabled).
++ * - Builds a Delaunay triangulation from the cone coordinates.
++ * - Creates midpoints for valid cone pairs (within configured distance limits).
++ * - Connects midpoints belonging to the same triangle.
+  */
+ class MidpointGenerator {
++
++public:
++  /**
++   * @brief Default constructor.
++   */
++  MidpointGenerator() = default;
++
++  /**
++   * @brief Constructs a new MidpointGenerator with a specific configuration.
++   *
++   * @param config Configuration object defining thresholds and filtering behavior.
++   */
++  explicit MidpointGenerator(const MidpointGeneratorConfig& config)
++      : config_(config) {}
++
++  /**
++   * @brief Generates midpoints from a set of cones.
++   *
++   * This method filters cones (if enabled), computes the Delaunay triangulation,
++   * and generates valid midpoints between cone pairs that meet distance constraints.
++   *
++   * @param cone_array Input vector of cone objects.
++   * @param should_reset Whether to bypass the sliding window and use all cones.
++   * @return Reference to the vector containing all generated midpoints.
++   */
++  std::vector<std::shared_ptr<Midpoint>>& generate_midpoints(
++      const std::vector<Cone>& cone_array, bool should_reset);
++
++  /**
++   * @brief Returns the current set of Delaunay edges used for visualization.
++   *
++   * @return A const reference to the vector of triangulated edges.
++   */
++  const std::vector<std::pair<Point, Point>>& get_triangulations() const;
++
++  /**
++   * @brief Updates the vehicle pose for dynamic filtering.
++   *
++   * This pose is used to center the sliding window for filtering relevant cones.
++   *
++   * @param vehicle_pose The current vehicle pose.
++   */
++  void set_vehicle_pose(const Pose& vehicle_pose);
++
+ private:
+-  /* Stores the edges of the Delaunay triangulation as pairs of points,
+-  used for visualization (each pair represents one edge of a triangle).*/
++
++  // Stores Delaunay triangulation edges for visualization and debugging.
+   std::vector<std::pair<Point, Point>> triangulations_;
++
++  // Current vehicle pose.
+   Pose vehicle_pose_;
++
++  // Vector containing all generated midpoints.
+   std::vector<std::shared_ptr<Midpoint>> midpoints_;
+-  MidpointGeneratorConfig config_;
+ 
++  MidpointGeneratorConfig config_;
+ 
++  /**
++   * @brief Filters input cones based on proximity to the vehicle pose.
++   *
++   *
++   * @param cone_array Input array of detected cones.
++   * @param filtered_cones Output vector containing cones after filtering.
++   * @param should_reset Whether to reset filtering and include all cones.
++   */
+   void filter_cones(const std::vector<Cone>& cone_array,
+                     std::vector<std::shared_ptr<Cone>>& filtered_cones,
+                     bool should_reset);
+ 
+   /**
+-   * @brief Processes a single edge of a Delaunay triangle
+-   * 
+-   * @param va First vertex of the edge
+-   * @param vb Second vertex of the edge
+-   * @param filtered_cones Vector of all cones
+-   * @param segment_to_midpoint Map to track unique midpoints
+-   * @return std::shared_ptr<Midpoint> Created or existing midpoint, or nullptr if invalid
++   * @brief Processes a single edge of a Delaunay triangle and creates its midpoint if valid.
++   *
++   * This function verifies the corresponding cones for the edge, checks distance constraints,
++   * and either creates a new midpoint or reuses an existing one to prevent duplication.
++   *
++   * @param va First vertex of the triangle edge.
++   * @param vb Second vertex of the triangle edge.
++   * @param filtered_cones Vector of all filtered cones.
++   * @param segment_to_midpoint Map used to ensure unique midpoint creation per cone pair.
++   * @return A shared pointer to the created or existing midpoint, or nullptr if invalid.
+    */
+   std::shared_ptr<Midpoint> process_triangle_edge(
+       const Vertex_handle& va,
+@@ -54,37 +119,13 @@ private:
+       std::vector<std::shared_ptr<Cone>>& filtered_cones,
+       std::map<std::pair<int, int>, std::shared_ptr<Midpoint>>& segment_to_midpoint);
+ 
+-
+   /**
+-   * @brief Connects midpoints that share the same triangle
+-   * 
+-   * @param triangle_midpoints Array of 3 midpoints from a triangle
++   * @brief Connects midpoints that belong to the same Delaunay triangle.
++   *
++   * @param triangle_midpoints Array of up to three midpoints from one triangle.
+    */
+   void connect_triangle_midpoints(
+       const std::array<std::shared_ptr<Midpoint>, 3>& triangle_midpoints);
+-  
+-  
+-
+-public:
+-    MidpointGenerator() = default;
+-     /**
+-     * @brief Construct a new DelaunayMidpointGenerator
+-     * 
+-     * @param config Configuration for distance thresholds and filtering
+-     */
+-    explicit MidpointGenerator(const MidpointGeneratorConfig& config): config_(config) {}
+-
+-    std::vector<std::shared_ptr<Midpoint>>& generate_midpoints(std::vector<Cone>& cone_array, bool should_reset); 
+-
+-    const std::vector<std::pair<Point, Point>>& get_triangulations() const;
+-
+-    /**
+-     * @brief Updates the vehicle pose
+-     *
+-     * @param vehicle_pose The current vehicle pose
+-     */
+-    void set_vehicle_pose(const Pose& vehicle_pose);
+-
+ };
+ 
+-#endif // SRC_PLANNING_INCLUDE_PLANNING_DELAUNY_MIDPOINT_GENERATOR_HPP_
+\ No newline at end of file
++#endif  // SRC_PLANNING_INCLUDE_PLANNING_DELAUNY_MIDPOINT_GENERATOR_HPP_
+diff --git a/src/planning/include/planning/outliers.hpp b/src/planning/include/planning/outliers.hpp
+index 568c1314d..f2189593c 100644
+--- a/src/planning/include/planning/outliers.hpp
++++ b/src/planning/include/planning/outliers.hpp
+@@ -14,13 +14,7 @@ using Color = common_lib::competition_logic::Color;
+  *
+  */
+ class Outliers {
+-private:
+-  /**
+-   * @brief configuration of the outliers removal algorithm
+-   *
+-   */
+-  OutliersConfig config_;
+-
++  
+ public:
+   /**
+    * @brief Construct a new default Outliers object
+@@ -42,6 +36,14 @@ public:
+    */
+   std::pair<std::vector<Cone>, std::vector<Cone>> approximate_cones_with_spline(
+       std::pair<std::vector<Cone>, std::vector<Cone>>& cones) const;
++
++private:
++  /**
++   * @brief configuration of the outliers removal algorithm
++   *
++   */
++  OutliersConfig config_;
++
+ };
+ 
+ #endif  // SRC_PLANNING_INCLUDE_PLANNING_OUTLIERS_HPP_
+\ No newline at end of file
+diff --git a/src/planning/include/planning/path_calculation.hpp b/src/planning/include/planning/path_calculation.hpp
+index 7bb8b07b5..1a9bb7231 100644
+--- a/src/planning/include/planning/path_calculation.hpp
++++ b/src/planning/include/planning/path_calculation.hpp
+@@ -21,222 +21,289 @@ using PathPoint = common_lib::structures::PathPoint;
+ using Midpoint = common_lib::structures::Midpoint;
+ 
+ /**
+- * @brief PathCalculation class for generating local paths.
+- *
+- * The PathCalculation class contains methods for calculating the best local
+- * path and stores input data and results related to path planning.
++ * @class PathCalculation
++ * @brief Generates optimal local paths.
++ * 
++ * PathCalculation computes navigation paths by creating midpoints between
++ * track cones and searching for optimal sequences using depth-first search
++ * with cost-based evaluation. It maintains continuity with previous paths
++ * and discards cones as they are passed.
+  */
+ class PathCalculation {
++public:
++  /**
++   * @brief Construct a new default PathCalculation object.
++   */
++  PathCalculation() = default;
+ 
+-private:
+   /**
+-   * @brief configuration of the outliers removal algorithm
++   * @brief Construct a new PathCalculation object with configuration.
++   * @param config Configuration parameters for path calculation behavior.
++   */
++  explicit PathCalculation(const PathCalculationConfig& config)
++      : config_(config), midpoint_generator_(config.midpoint_generator_) {}
++
++  // ===================== Public Core Methods =====================
++
++  /**
++   * @brief Generate a path from an array of cones.
+    *
++   * Processes cone positions to create an optimal navigation path. Updates
++   * the internal state to maintain path continuity between invocations.
++   *
++   * @param cone_array Array of cones representing the track.
++   * @return Vector of path points representing the calculated path.
++   */
++  std::vector<PathPoint> calculate_path(std::vector<Cone>& cone_array);
++
++  /**
++   * @brief Generate a closed loop path for trackdrive competition.
++   *
++   * Creates a path that forms a complete loop around the track, with
++   * interpolated connections and overlap points for continuous traversal.
++   *
++   * @param cone_array Array of cones representing the track.
++   * @return Vector of path points forming a closed loop.
++   */
++  std::vector<PathPoint> calculate_trackdrive(std::vector<Cone>& cone_array);
++
++  /**
++   * @brief Set the current vehicle position and orientation.
++   *
++   * Propagates the vehicle pose to the midpoint generator and maintains
++   * the current pose for path calculations.
++   *
++   * @param vehicle_pose The current vehicle position and orientation.
++   */
++  void set_vehicle_pose(const common_lib::structures::Pose& vehicle_pose);
++
++  // ===================== Public Accessor Methods =====================
++
++  /**
++   * @brief Get the path from the start to a lookback distance behind the car’s current position.
++   * @return Vector of path points representing the global path.
+    */
++  std::vector<PathPoint> get_path_to_car() const;
++
++  /**
++   * @brief Get the triangulation segments used in path generation.
++   * @return Reference to vector of point pairs representing triangulation edges.
++   */
++  const std::vector<std::pair<Point, Point>>& get_triangulations() const;
++
++private:
++  // ===================== Configuration and State =====================
++
+   PathCalculationConfig config_;
+   MidpointGenerator midpoint_generator_;
+ 
+-  std::vector<PathPoint> predefined_path_;
+-  std::vector<Point> past_path_;
+-  int reset_path_counter_ = 0;
+-  std::vector<Point> path_to_car;
+-  
+-  // Anchor pose for the path, to avoid calculating the path from the position of the car
++  // Vehicle and path state
+   common_lib::structures::Pose initial_pose_;
+-  // The current vehicle pose  
+   common_lib::structures::Pose vehicle_pose_;
+   bool initial_pose_set_ = false;
++
++  // Path storage
++  std::vector<Point> path_to_car_;
++  std::vector<Point> past_path_;
++  int reset_path_counter_ = 0;
++
++  // Midpoints for the current track
+   std::vector<std::shared_ptr<Midpoint>> midpoints_;
+ 
+-  // Path construction state members (used during path calculation)
++  // Path construction state (temporary during calculation)
+   std::vector<Point> current_path_;
+   std::unordered_map<Point, std::shared_ptr<Midpoint>> point_to_midpoint_;
+   std::unordered_set<std::shared_ptr<Midpoint>> visited_midpoints_;
+   std::unordered_set<std::shared_ptr<Cone>> discarded_cones_;
+ 
+-  /**
+-   * @brief Recursively finds the best next midpoint in the path using depth-first search
+-   *
+-   * @param depth Maximum depth to search
+-   * @param previous Previous midpoint in the path
+-   * @param current Current midpoint being evaluated
+-   * @param maxcost Maximum cost allowed for path segment
+-   * @return std::pair<double, std::shared_ptr<Midpoint>> Cost and next midpoint pair
+-   */
+-  std::pair<double, std::shared_ptr<Midpoint>> find_best_next_midpoint(
+-      int depth, 
+-      const std::shared_ptr<Midpoint>& previous, 
+-      const std::shared_ptr<Midpoint>& current,
+-      double maxcost);
++  // ===================== Path Calculation Methods =====================
+ 
+   /**
+-   * @brief Calculates the cost between two midpoints
+-   * 
+-   * @param previous Previous midpoint
+-   * @param current Current midpoint
+-   * @param next Next midpoint candidate
+-   * @return double The calculated cost
++   * @brief Initialize the path from the vehicle's initial pose.
++   *
++   * Selects the first two midpoints ahead of the vehicle to start the path
++   * when no previous path exists.
+    */
+-  double calculate_midpoint_cost(
+-      const std::shared_ptr<Midpoint>& previous,
+-      const std::shared_ptr<Midpoint>& current,
+-      const std::shared_ptr<Midpoint>& next);
++  void initialize_path_from_initial_pose();
+ 
+   /**
+-   * @brief Snaps points from previous path to valid midpoints
+-   * 
++   * @brief Initialize the path from the previous path.
++   *
++   * Snaps past path points to valid midpoints and carries forward as much
++   * of the previous path as possible, respecting distance constraints.
+    */
+   void update_path_from_past_path();
+ 
+   /**
+-   * @brief Selects initial path from anchor pose when no previous path exists
+-   */
+-  void initialize_path_from_initial_pose();
+-
+-  /**
+-   * @brief Extends the current path by exploring nearby midpoints.
+-   * 
+-   * Iteratively adds new midpoints to the path using a DFS-based cost search,
+-   * respecting a maximum number of points and cost constraints. 
+-   * Updates the set of visited midpoints and discards cones along the extended path.
+-   * 
+-   * @param max_points Maximum number of new points to add to the path.
++   * @brief Extend the path by adding midpoints.
++   *
++   * Iteratively searches for optimal next midpoints using depth-first search
++   * until reaching the maximum point limit or exhausting valid options.
++   *
++   * @param max_points Maximum number of new points to add.
+    */
+   void extend_path(int max_points);
+ 
+   /**
+-   * @brief Invalidates cones and midpoints based on the last path segment.
+-   * 
+-   * Identifies which cone between the last two midpoints should be discarded,
+-   * marks associated midpoints as invalid, and removes invalid neighbors from their connections.
++   * @brief Reset path construction state.
++   *
++   * Clears all internal tracking structures (current path, visited midpoints,
++   * discarded cones) to prepare for a fresh path calculation.
+    */
+-  void discard_cones_along_path();
++  void clear_path_state();
+ 
+   /**
+-   * @brief Identifies the cone to discard between two consecutive midpoints
+-   * 
+-   * @param last_mp Previous midpoint
+-   * @param current_mp Current midpoint
++   * @brief Handle path reset when completing a lap.
++   *
++   * Adjusts the maximum points allowed and clears historical path data
++   * when completing a circuit.
++   *
++   * @param should_reset Whether to trigger a full path reset.
++   * @return Adjusted maximum points for path extension.
+    */
+-  void discard_cone(
+-      const std::shared_ptr<Midpoint>& last_mp,
+-      const std::shared_ptr<Midpoint>& current_mp);
++  int reset_path(bool should_reset);
+ 
+-  /**
+-   * @brief Marks midpoints as invalid if they use discarded cones
+-   */
+-  void invalidate_midpoints_with_discarded_cones();
++  // ===================== Path Search and Optimization =====================
+ 
+   /**
+-   * @brief Removes invalid neighbors from all midpoints
++   * @brief Select the first two midpoints to start the path.
++   *
++   * Identifies candidate midpoints ahead of the vehicle and performs a
++   * cost-based search to select the best starting pair.
++   *
++   * @return Pair of midpoint pointers for path initialization.
+    */
+-  void remove_invalid_neighbors();
++  std::pair<std::shared_ptr<Midpoint>, std::shared_ptr<Midpoint>> select_starting_midpoints();
+ 
+   /**
+-   * @brief Find the nearest midpoint to a target point within a tolerance
+-   * 
+-   * @param target The target point to find the nearest midpoint for
+-   * @return std::shared_ptr<MidPoint> Pointer to the nearest midpoint, or nullptr if none found
++   * @brief Select candidate midpoints in front of the vehicle.
++   *
++   * Uses a priority queue to identify the most promising midpoints ahead
++   * of the vehicle based on combined distance and angle cost.
++   *
++   * @param anchor_pose Reference pose to evaluate candidates from.
++   * @param num_candidates Number of candidates to return.
++   * @return Vector of candidate midpoint pointers.
+    */
+-  std::shared_ptr<Midpoint> find_nearest_midpoint(const Point& target);
+-  
+-
+-  int reset_path(bool reset);
++  std::vector<std::shared_ptr<Midpoint>> select_candidate_midpoints(
++      const Midpoint& anchor_pose, int num_candidates) const;
+ 
+   /**
+-   * @brief Clears all path construction state variables
+-   * 
+-   * Resets current_path_, point_to_midpoint_, visited_midpoints_, and discarded_cones_
+-   * to prepare for a new path calculation.
++   * @brief Recursively find the best next midpoint using depth-first search.
++   *
++   * Performs a bounded DFS to evaluate continuation paths from the current
++   * midpoint, balancing between direction consistency and distance.
++   *
++   * @param depth Current search depth (decrements toward base case).
++   * @param previous Previous midpoint in the path.
++   * @param current Current midpoint being evaluated.
++   * @param max_cost Cost threshold for pruning branches.
++   * @return Pair of accumulated cost and best next midpoint pointer.
+    */
+-  void clear_path_state();
++  std::pair<double, std::shared_ptr<Midpoint>> find_best_next_midpoint(
++      int depth, const std::shared_ptr<Midpoint>& previous,
++      const std::shared_ptr<Midpoint>& current, double max_cost) const;
+ 
+   /**
+-   * @brief Finds the first and second points to start the path
++   * @brief Calculate the cost of transitioning through three consecutive midpoints.
++   *
++   * Combines angle deviation (penalizing sharp turns) and distance (penalizing
++   * inefficient routing) with configurable exponents and gains.
+    *
+-   * @return std::pair<std::shared_ptr<MidPoint>, std::shared_ptr<MidPoint>> First and second points for the path
++   * @param previous The midpoint before current.
++   * @param current The current midpoint.
++   * @param next The candidate next midpoint.
++   * @return Combined cost of the transition.
+    */
+-  std::pair<std::shared_ptr<Midpoint>, std::shared_ptr<Midpoint>> select_starting_midpoints();
++  double calculate_midpoint_cost(const std::shared_ptr<Midpoint>& previous,
++                                  const std::shared_ptr<Midpoint>& current,
++                                  const std::shared_ptr<Midpoint>& next) const;
+ 
+-  /**
+-   * @brief Selects candidate midpoints in front of the vehicle
+-   * 
+-   * @param anchor_pose Reference pose to select from
+-   * @param num_candidates Number of candidates to select
+-   * @return std::vector<std::shared_ptr<MidPoint>> Selected candidate midpoints
+-   */
+-  std::vector<std::shared_ptr<Midpoint>> select_candidate_midpoints(
+-      const Midpoint& anchor_pose,
+-      int num_candidates);
++  // ===================== Cone Discarding Methods =====================
+ 
+   /**
+-   * @brief Finds the best point to close the track loop
+-   * 
+-   * @param path The path to analyze
+-   * @return int Index of the best cutoff point
++   * @brief Invalidate cones and midpoints along the last path segment.
++   *
++   * Marks cones as discarded if they were on the side of the path that
++   * has been passed. Invalidates any midpoints that depend on discarded
++   * cones and removes invalid neighbors from connectivity lists.
+    */
+-  int find_best_loop_closure(const std::vector<PathPoint>& path);
++  void discard_cones_along_path();
+ 
+   /**
+-   * @brief Adds interpolated points between two path points
+-   * 
+-   * @param start Starting point
+-   * @param end Ending point
+-   * @param num_points Number of intermediate points to add
+-   * @return std::vector<PathPoint> Interpolated points
++   * @brief Determine which cone to discard between two consecutive midpoints.
++   *
++   * Identifies the cone from the previous midpoint that is not used by
++   * the current midpoint, indicating it has been passed.
++   *
++   * @param last_mp The previous midpoint in the path.
++   * @param current_mp The current midpoint in the path.
+    */
+-  std::vector<PathPoint> add_interpolated_points(
+-      const PathPoint& start,
+-      const PathPoint& end,
+-      int num_points);
++  void discard_cone(const std::shared_ptr<Midpoint>& last_mp,
++                    const std::shared_ptr<Midpoint>& current_mp);
+ 
+-public:
+   /**
+-   * @brief Construct a new default PathCalculation object
++   * @brief Mark midpoints as invalid if they use discarded cones.
+    *
++   * Iterates through all midpoints and invalidates those whose defining
++   * cones have been marked as discarded.
+    */
+-  PathCalculation() = default;
++  void invalidate_midpoints_with_discarded_cones();
+ 
+   /**
+-   * @brief Constructor for PathCalculation with a given configuration.
++   * @brief Remove invalid neighbors from all midpoint connection lists.
+    *
+-   * @param config Config object with PathCalculation configs.
++   * Filters out neighbors that have been invalidated from each midpoint's
++   * close_points list to maintain consistency.
+    */
+-  explicit PathCalculation(const PathCalculationConfig& config) 
+-    : config_(config),
+-    midpoint_generator_(config.midpoint_generator_) {}
++  void remove_invalid_neighbors();
+ 
++  // ===================== Utility Methods =====================
+ 
+   /**
+-   * @brief Generate a path from cone array without color information
++   * @brief Find the nearest valid midpoint to a target position.
+    *
+-   * @param cone_array The array of cones representing the track
+-   * @return std::vector<PathPoint> The generated path
++   * Performs a linear search through all midpoints to locate the closest
++   * one within the tolerance distance.
++   *
++   * @param target The target point to search around.
++   * @return Pointer to the nearest midpoint, or nullptr if none within tolerance.
+    */
+-  std::vector<PathPoint> calculate_path(std::vector<Cone>& cone_array);
++  std::shared_ptr<Midpoint> find_nearest_midpoint(const Point& target) const;
+ 
+   /**
+-   * @brief Updates the vehicle pose
++   * @brief Find the optimal point to close a track loop.
++   *
++   * Evaluates each point in the path to determine which produces the
++   * smoothest closure back to the starting point.
+    *
+-   * @param vehicle_pose The current vehicle pose
++   * @param path The path points to analyze.
++   * @return Index of the best cutoff point.
+    */
+-  void update_vehicle_pose(const common_lib::structures::Pose& vehicle_pose);
++  int find_best_loop_closure(const std::vector<PathPoint>& path) const;
++
+   /**
+-   * @brief Generate a path for trackdrive course
+-   * @returns a vector of PathPoint objects representing the path.
++   * @brief Generate interpolated points between two path endpoints.
++   *
++   * Creates evenly-spaced intermediate points for smooth trajectory between
++   * a start and end point.
++   *
++   * @param start Starting path point.
++   * @param end Ending path point.
++   * @param num_points Number of intermediate points to generate.
++   * @return Vector of interpolated path points.
+    */
+-  std::vector<PathPoint> calculate_trackdrive(std::vector<Cone>& cone_array);
++  std::vector<PathPoint> add_interpolated_points(const PathPoint& start, const PathPoint& end,
++                                                  int num_points) const;
+ 
+   /**
+-   * @brief Get the global path
+-   * 
+-   * @return std::vector<PathPoint> The global path
+-   */                                  
+-  std::vector<PathPoint> get_path_to_car() const;
+-
+-  const std::vector<std::pair<Point, Point>>& get_triangulations() const;
++ * @brief Converts a vector of Point objects into a vector of PathPoint objects.
++ *
++ * @param points A vector containing the input Point objects.
++ * @return A vector of PathPoint objects constructed from the given points.
++ */
++  std::vector<PathPoint> get_path_points_from_points(const std::vector<Point>& points) const;
+ 
+-  
+ };
+ 
+-#endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_PATH_CALCULATION_HPP_
+\ No newline at end of file
++#endif  // SRC_PLANNING_INCLUDE_PLANNING_PATH_CALCULATION_HPP_
+\ No newline at end of file
+diff --git a/src/planning/include/planning/planning.hpp b/src/planning/include/planning/planning.hpp
+index 7b4bd679d..38d8af217 100644
+--- a/src/planning/include/planning/planning.hpp
++++ b/src/planning/include/planning/planning.hpp
+@@ -2,6 +2,7 @@
+ 
+ #include <yaml-cpp/yaml.h>
+ 
++#include <chrono>
+ #include <functional>
+ #include <map>
+ #include <memory>
+@@ -24,13 +25,11 @@
+ #include "planning/outliers.hpp"
+ #include "planning/path_calculation.hpp"
+ #include "planning/smoothing.hpp"
+-#include "planning/velocity_planning.hpp"
+ #include "planning/skidpad.hpp"
++#include "planning/velocity_planning.hpp"
+ #include "rcl_interfaces/srv/get_parameters.hpp"
+-#include "sensor_msgs/msg/point_cloud2.hpp"
+ #include "std_msgs/msg/float64.hpp"
+ #include "std_srvs/srv/trigger.hpp"
+-#include "utils/files.hpp"
+ 
+ using PathPoint = common_lib::structures::PathPoint;
+ using Pose = common_lib::structures::Pose;
+@@ -40,205 +39,211 @@ using std::placeholders::_1;
+ 
+ /**
+  * @class Planning
+- * @brief Class responsible for planning and path generation for our car.
++ * @brief Responsible for path planning and trajectory generation for the autonomous vehicle.
++ *
++ * The Planning class handles multiple mission types (acceleration, skidpad, autocross, trackdrive)
++ * and generates optimal paths based on cone positions. It subscribes to vehicle localization and
++ * track map data, performs path calculation and smoothing, applies velocity planning, and publishes
++ * the final trajectory for the control module.
++ *
++ * This class integrates several planning modules:
++ * - Outlier removal for noisy cone data
++ * - Path calculation using computational geometry
++ * - Path smoothing using spline interpolation
++ * - Velocity planning with acceleration constraints
++ * - Skidpad-specific planning
+  *
+- * This class inherits from rclcpp::Node and provides functionalities for
+- * handling different missions, subscribing to vehicle localization and track
+- * map topics, and publishing planned path points.
++ * @note This class inherits from rclcpp::Node and operates as a ROS 2 node.
+  */
+ class Planning : public rclcpp::Node {
+-private: 
+-  Mission mission_ = Mission::NONE; /**< Current planning mission */
++public:
++  /**
++   * @brief Constructs a Planning node with the specified configuration parameters.
++   *
++   * Initializes all planning modules, subscriptions, and publishers. Sets up communication
++   * with state estimation and pacsim services. Determines the operating adapter type
++   * and configures frame IDs accordingly.
++   *
++   * @param params Configuration parameters loaded from YAML files
++   */
++  explicit Planning(const PlanningParameters &params);
++
++  /**
++   * @brief Loads planning configuration from YAML files.
++   *
++   * Reads global configuration to determine the adapter type, then loads adapter-specific
++   * planning parameters from the corresponding YAML file.
++   *
++   * @param adapter Output parameter that stores the adapter type ("eufs", "pacsim", "vehicle")
++   * @return PlanningParameters Struct containing all loaded configuration parameters
++   */
++  static PlanningParameters load_config(std::string &adapter);
++
++  /**
++   * @brief Sets the mission type for planning execution.
++   *
++   * @param mission The mission type to execute
++   */
++  void set_mission(Mission mission);
+ 
++  friend class PacSimAdapter;
++  friend class EufsAdapter;
++  friend class FsdsAdapter;
++  friend class VehicleAdapter;
++
++private:
++  /*--------------------- Mission and Configuration --------------------*/
++  Mission mission_ = Mission::NONE;
+   PlanningConfig planning_config_;
++  Pose pose_;
++  std::string map_frame_id_;
++  double desired_velocity_;
++  double initial_car_orientation_;
++  int lap_counter_ = 0;
+ 
++  /*--------------------- Planning Modules --------------------*/
+   Outliers outliers_;
+   PathCalculation path_calculation_;
+   PathSmoothing path_smoothing_;
+   VelocityPlanning velocity_planning_;
+   Skidpad skidpad_;
+-  double desired_velocity_;
+-  double initial_car_orientation_;
+-  int lap_counter_ = 0;
+ 
+-  bool is_braking_ = false; /**< Flag to indicate if it is braking */
++  /*--------------------- State Tracking --------------------*/
++  bool is_braking_ = false;
++  bool has_received_track_ = false;
++  bool has_received_pose_ = false;
++  bool has_found_full_path_ = false;
+   std::chrono::steady_clock::time_point brake_time_;
+ 
+-  /**< Vector of path points representing the complete planned path from start to finish. */
+-  std::vector<PathPoint> full_path_ = {};
+-  /**< Vector of path points representing the final smoothed path used for planning. */
+-  std::vector<PathPoint> final_path_ = {}; 
++  /*--------------------- Path Data --------------------*/
++  
++  std::vector<PathPoint> full_path_;
++  std::vector<PathPoint> final_path_;
++  std::vector<Cone> cone_array_;
+ 
+-  // For Trackdrive
+-  bool has_found_full_path_ = false;      // for Trackdrive
++  /*--------------------- Subscriptions --------------------*/
++  rclcpp::Subscription<custom_interfaces::msg::Pose>::SharedPtr vehicle_localization_sub_;
++  rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr track_map_sub_;
++  rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr lap_counter_sub_;
+ 
+-  std::vector<PathPoint> predefined_path_;                                      // for Skidpad
+-  rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr param_client_;  // for mission logic
++  /*--------------------- Publishers --------------------*/
++  /**< Publisher of the smoothed path to control */
++  rclcpp::Publisher<custom_interfaces::msg::PathPointArray>::SharedPtr path_pub_;
++  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr planning_execution_time_pub_;
+ 
+-  std::string map_frame_id_; /**< Frame ID for the map */
+-  bool has_received_track_ = false;
+-  bool has_received_pose_ = false;
+-  std::vector<Cone> cone_array_;
+-  /**< Subscription to vehicle localization */
+-  rclcpp::Subscription<custom_interfaces::msg::Pose>::SharedPtr vl_sub_;
+-  /**< Subscription to track map */
+-  rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr track_sub_;
+-  /**< Local path points publisher */
+-  rclcpp::Publisher<custom_interfaces::msg::PathPointArray>::SharedPtr local_pub_;
+-  
+-  //Visualization publishers:
+-  // /**< Publisher for Delaunay triangulations */
++  /*--------------------- Visualization Publishers --------------------*/
++  /**< Publisher for Delaunay triangulations */
+   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr triangulations_pub_;
+   /**< Publisher for the past portion of the path 
+     (from the start to a lookback distance behind the car’s current position) */
+-  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr past_path_pub_;
++  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr path_to_car_pub_;
+   /**< Publisher for the entire planned path (from start to finish)*/
+   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr full_path_pub_;
+   /**< Publisher for the smoothed path*/
+   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr final_path_pub_;
+ 
+-  
+-  /**< Timer for the periodic publishing */
+-  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _planning_execution_time_publisher_;
+-
+-  rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr _lap_counter_subscription_;
+-  rclcpp::TimerBase::SharedPtr timer_;
+-
+-  rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr mission_finished_client_;
++  /*--------------------- Service Clients --------------------*/
++  rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr param_client_;
+ 
++  /*--------------------- Callbacks --------------------*/
+   /**
+-   * @brief Callback for vehicle localization updates (undefined).
++   * @brief Callback for vehicle localization pose updates.
+    *
+-   * @param msg The received Pose message.
+-   */
+-  void vehicle_localization_callback(const custom_interfaces::msg::Pose &msg);
+-
+-  /**
+-   * @brief Fetches the mission from pacsim and updates the mission_ member variable.
+-   * 
+-   * Defaults to Mission::AUTOCROSS if parameter retrieval fails.
++   * Updates the current vehicle pose and triggers run_planning_algorithms() if
++   * track map have been received.
++   *
++   * @param message The received Pose message containing vehicle position and orientation
+    */
+-  void fetch_discipline();
++  void vehicle_localization_callback(const custom_interfaces::msg::Pose &message);
+ 
+   /**
+-   * @brief Callback for track map updates(when msg received).
+-   * 
+-   * Processes incoming cone map and calls run_planning_algorithm if vehicle pose
++   * @brief Callback for track map updates.
++   *
++   * Processes incoming cone detections and triggers run_planning_algorithms() if vehicle pose
+    * has already been received.
+-   * 
+-   * @param msg The received ConeArray message.
+-   */
+-  void track_map_callback(const custom_interfaces::msg::ConeArray &msg);
+-
+-  /**
+-   * @brief Runs the planning algorithms. Called from the callbacks
+-   * 
+-   * Dispatches to appropriate mission-specific planning method based on current 
+-   * mission type. Handles empty cone arrays, publishes execution time, track points,
+-   * and visualization messages
++   *
++   * @param message The received ConeArray message
+    */
+-  void run_planning_algorithms();
++  void track_map_callback(const custom_interfaces::msg::ConeArray &message);
+ 
++  /*--------------------- Mission-Specific Planning --------------------*/
+   /**
+-   * @brief Publishes a list of path points to Control.
++   * @brief Executes planning for the EBS (Emergency Braking System) test mission.
+    *
+-   * Converts final_path_ member to an PathPointArray and publishes
+-   * to /path_planning/path topic for control.
++   * Calculates and smooths the path, then implements distance-based braking logic.
++   * Braking is triggered when the vehicle is more than 90m from origin, applying
++   * deceleration until the vehicle stops.
+    */
+-  void publish_track_points() const;
++  void run_ebs_test();
+ 
+   /**
+-   * @brief publish all visualization messages from the planning node
+-   * 
+-   */
+-  void publish_visualization_msgs() const;
+-  
+-  /**
+-   * @brief Executes planning for EBS (Emergency Brake System) test mission
+-   * 
+-   * Calculates the path, smooths it, and implements distance-based
+-   * braking logic. Starts braking when vehicle is more than 90m from origin,
+-   * applying deceleration until vehicle stops.
++   * @brief Executes planning for the autocross mission.
++   *
++   * On the first lap, calculates and smooths the path with velocity planning.
++   * On subsequent laps, reuses the calculated full path and applies stopping logic
++   * after the first lap completion.
+    */
+-  void run_ebs_test();
++  void run_autocross();
+ 
+   /**
+-   * @brief Executes planning for trackdrive mission
+-   * 
++   * @brief Executes planning for the trackdrive mission.
++   *
+    * Implements multi-lap logic:
+-   * - Lap 0: Explores track and builds path
+-   * - Laps 1-9: Uses optimized full track path with velocity planning
+-   * - Lap 10+: Brings vehicle to stop
++   * - Lap 0: Explores track and builds initial path
++   * - Laps 1-9: Uses optimized full track path with trackdrive velocity planning
++   * - Lap 10+: Brings vehicle to stop using full path
+    */
+   void run_trackdrive();
+ 
+-  void calculate_and_smooth_path();
+-
++  /*--------------------- Core Planning Operations --------------------*/
+   /**
+-   * @brief Calculates and publishes planning algorithm execution time
+-   * 
+-   * Computes time elapsed since start_time and publishes result in milliseconds
+-   * to /path_planning/execution_time topic.
+-   * 
+-   * @param start_time ROS time when planning algorithms started execution
++   * @brief Fetches the current mission/discipline from the pacsim simulation service.
++   *
+    */
+-  void publish_execution_time(rclcpp::Time start_time);
++  void fetch_discipline();
+ 
+   /**
+-   * @brief Executes planning for autocross mission
+-   * 
+-   * Calculates the path, smooths it, applies the velocity planning,
+-   * and stops vehicle after completing one lap.
++   * @brief Calculates path and applies smoothing.
++   *
++   * Performs path calculation based on cone positions and then smooths the path.
+    */
+-  void run_autocross();
+-
+-
+-  virtual void finish() = 0;
++  void calculate_and_smooth_path();
+ 
+   /**
+-   * @brief current vehicle pose
++   * @brief Runs the appropriate planning algorithm based on current mission.
++   *
++   * Dispatches to mission-specific planning functions and publishes the resulting
++   * trajectory.
+    */
+-  Pose pose_;
++  void run_planning_algorithms();
+ 
+-public:
++  /*--------------------- Publishing --------------------*/
+   /**
+-   * @brief Constructor for the Planning class.
+-   *
+-   * Initializes an instance of the Planning class (a ROS node) with essential
+-   * communication components.
++   * @brief Publishes the final planned path to the control module.
+    *
+-   * This constructor sets up subscriptions to vehicle localization and mapping
+-   * topics, and creates publishers for local and (global X) path planning
+-   * results. It also establishes a timer for periodic tasks related to (local)
+-   * publishing info to topics. Additionally, it initializes an Adapter instance
+-   * for communication with external systems.
+    */
+-  explicit Planning(const PlanningParameters &params);
++  void publish_path_points() const;
+ 
+   /**
+-   * @brief Loads planning configuration parameters from YAML files
++   * @brief Publishes all visualization markers.
++   *
++   * Publishes triangulation, full path, smoothed path, and path_to_car markers.
+    * 
+-   * @param adapter Reference to string that will store the adapter type ("eufs", "pacsim", "vehicle")
+-   * @return PlanningParameters Struct containing all loaded configuration parameters
+    */
+-  static PlanningParameters load_config(std::string &adapter);
++  void publish_visualization_msgs() const;
+ 
+   /**
+-   * @brief Set the mission for planning.
++   * @brief Publishes the planning algorithm execution time.
+    *
+-   * @param mission The mission to set for planning (e.g.,
+-   * Mission::acceleration, Mission::skidpad).
+-   * 
+-   * @details This method configures the Planning node for a specific mission
+-   * type, possibly affecting its behavior if used.
++   *
++   * @param start_time ROS time when planning algorithms began execution
+    */
+-  void set_mission(Mission mission);
+-
+-  friend class PacSimAdapter;
+-
+-  friend class EufsAdapter;
+-
+-  friend class FsdsAdapter;
++  void publish_execution_time(rclcpp::Time start_time);
+ 
+-  friend class VehicleAdapter;
+-};
++  /*--------------------- Abstract Methods --------------------*/
++  /**
++   * @brief Called when planning mission is completed.
++   *
++   */
++  virtual void finish() = 0;
++};
+\ No newline at end of file
+diff --git a/src/planning/include/planning/skidpad.hpp b/src/planning/include/planning/skidpad.hpp
+index 0f8baeeb9..234eb3f5f 100644
+--- a/src/planning/include/planning/skidpad.hpp
++++ b/src/planning/include/planning/skidpad.hpp
+@@ -21,6 +21,21 @@ using Cone = common_lib::structures::Cone;
+  *
+  */
+ class Skidpad {
++public:
++
++  Skidpad() = default;
++
++  explicit Skidpad(SkidpadConfig config) : config_(config) {}
++
++  /**
++   * @brief Generate a path for skidpad course
++   *
++   * @param cone_array The array of cones representing the track
++   * @param pose The current pose of the vehicle
++   * @return std::vector<PathPoint> The generated path
++   */
++  std::vector<PathPoint> skidpad_path(const std::vector<Cone>& cone_array,
++                                      common_lib::structures::Pose pose);
+ private:
+ 
+   SkidpadConfig config_;
+@@ -48,21 +63,6 @@ private:
+   size_t find_closest_path_index(
+       const std::vector<PathPoint>& path,
+       const common_lib::structures::Pose& pose);
+-public:
+-
+-  Skidpad() = default;
+-
+-  explicit Skidpad(SkidpadConfig config) : config_(config) {}
+-
+-  /**
+-   * @brief Generate a path for skidpad course
+-   *
+-   * @param cone_array The array of cones representing the track
+-   * @param pose The current pose of the vehicle
+-   * @return std::vector<PathPoint> The generated path
+-   */
+-  std::vector<PathPoint> skidpad_path(const std::vector<Cone>& cone_array,
+-                                      common_lib::structures::Pose pose);
+ };
+ 
+ #endif // SRC_PLANNING_INCLUDE_PLANNING_SKIDPAD_HPP_
+\ No newline at end of file
+diff --git a/src/planning/include/planning/smoothing.hpp b/src/planning/include/planning/smoothing.hpp
+index 3b32bedcd..6d9d1a3f7 100644
+--- a/src/planning/include/planning/smoothing.hpp
++++ b/src/planning/include/planning/smoothing.hpp
+@@ -18,22 +18,6 @@ using Pose = common_lib::structures::Pose;
+  *
+  */
+ class PathSmoothing {
+-private:
+-  /**
+-   * @brief configuration of the smoothing algorithm
+-   *
+-   */
+-  PathSmoothingConfig config_;
+-  /**
+-   * @brief function to order the path points to be used in the spline fitting
+-   *
+-   * @param unord_path unoredred path points
+-   * @param car_pose pose of the car to start ordering according to the closest point
+-   * @param initial_car_orientation initial orientation of the car (usually 0 but not on some tests)
+-   */
+-  void order_path(std::vector<PathPoint>& unord_path, const Pose& car_pose,
+-                  const double initial_car_orientation) const;
+-
+ public:
+   /**
+    * @brief Construct a new default Path Smoothing object
+@@ -56,6 +40,22 @@ public:
+    */
+   std::vector<PathPoint> smooth_path(std::vector<PathPoint>& unordered_path, const Pose& car_pose,
+                                      const double initial_car_orientation) const;
++                                     
++private:
++  /**
++   * @brief configuration of the smoothing algorithm
++   *
++   */
++  PathSmoothingConfig config_;
++  /**
++   * @brief function to order the path points to be used in the spline fitting
++   *
++   * @param unord_path unoredred path points
++   * @param car_pose pose of the car to start ordering according to the closest point
++   * @param initial_car_orientation initial orientation of the car (usually 0 but not on some tests)
++   */
++  void order_path(std::vector<PathPoint>& unord_path, const Pose& car_pose,
++                  const double initial_car_orientation) const;
+ };
+ 
+ #endif  // SRC_PLANNING_INCLUDE_PLANNING_SMOOTHING2_HPP_
+\ No newline at end of file
+diff --git a/src/planning/include/planning/velocity_planning.hpp b/src/planning/include/planning/velocity_planning.hpp
+index 7837e9047..b8bdbe986 100644
+--- a/src/planning/include/planning/velocity_planning.hpp
++++ b/src/planning/include/planning/velocity_planning.hpp
+@@ -8,13 +8,54 @@
+ using PathPoint = common_lib::structures::PathPoint;
+ 
+ /**
+- * @brief class that defines the path smoothing algorithm
++ * @brief Computes velocity profiles for a planned path based on curvature and dynamics constraints.
+  *
++ * The VelocityPlanning class generates a velocity profile along a path by:
++ * - Estimating curvature (via circle fitting between consecutive path points),
++ * - Deriving maximum allowable velocities from lateral acceleration limits,
++ * - Propagating braking constraints backward along the path.
+  */
+ class VelocityPlanning {
++
++public:
++  /**
++   * @brief Construct a new default Velocity Planning object
++   *
++   */
++  VelocityPlanning() = default;
++  /**
++   * @brief Construct a new Velocity Planning object with a given configuration
++   *
++   */
++  explicit VelocityPlanning(VelocityPlanningConfig config) : config_(config) {}
++
++  /**
++   * @brief Assigns an ideal velocity to each point of the path.
++   *
++   * @param final_path Vector of path points to update with planned velocities.
++   */
++  void set_velocity(std::vector<PathPoint> &final_path);
++
++  /**
++   * @brief Computes velocity for track driving scenarios with repeated smoothing.
++   *
++   * @param final_path Vector of path points to update with planned velocities.
++   */
++  void trackdrive_velocity(std::vector<PathPoint> &final_path);
++
++    /**
++   * @brief Gradually reduces velocity to zero along the first half of the path.
++   *
++   * Used for controlled stopping. It accumulates distance along the path and sets the
++   * velocity to zero once a specified distance threshold is reached.
++   *
++   * @param final_path Vector of path points to update for stopping behavior.
++   */
++  void stop(std::vector<PathPoint> &final_path);
++  
+ private:
+   /**
+-   * @brief configuration of the smoothing algorithm
++   * @brief configuration of the velocity planning algorithm
+    *
+    */
+   VelocityPlanningConfig config_;
+@@ -46,30 +87,4 @@ private:
+    */
+   void point_speed(std::vector<double> &radiuses, std::vector<double> &velocities);
+ 
+-public:
+-  /**
+-   * @brief Construct a new default Path Smoothing object
+-   *
+-   */
+-  VelocityPlanning() = default;
+-  /**
+-   * @brief Construct a new Path Smoothing object with a given configuration
+-   *
+-   */
+-  explicit VelocityPlanning(VelocityPlanningConfig config) : config_(config) {}
+-
+-  void set_velocity(std::vector<PathPoint> &final_path);
+-
+-  void trackdrive_velocity(std::vector<PathPoint> &final_path);
+-
+-  void stop(std::vector<PathPoint> &final_path) {
+-    int size = final_path.size();
+-    double dist = 0.0;
+-    for (int i = 0; i < size/2; ++i) {
+-      dist += final_path[i].position.euclidean_distance(final_path[i + 1].position);
+-      if(dist > 10){
+-        final_path[i].ideal_velocity = 0.0;
+-      }
+-    }
+-  }
+ };
+\ No newline at end of file
+diff --git a/src/planning/src/adapter_planning/pacsim.cpp b/src/planning/src/adapter_planning/pacsim.cpp
+index 8d2e8f9ee..ccb41307a 100644
+--- a/src/planning/src/adapter_planning/pacsim.cpp
++++ b/src/planning/src/adapter_planning/pacsim.cpp
+@@ -1,7 +1,7 @@
+ #include "adapter_planning/pacsim.hpp"
+ 
+ PacSimAdapter::PacSimAdapter(const PlanningParameters& params) : Planning(params) {
+-  if (params.using_simulated_se_) {
++  if (params.simulation_using_simulated_se_) {
+     RCLCPP_INFO(this->get_logger(), "Planning : Pacsim using simulated State Estimation");
+     tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->get_clock());
+     tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
+diff --git a/src/planning/src/planning/midpoint_generator.cpp b/src/planning/src/planning/midpoint_generator.cpp
+index 617f6233c..ea28371a7 100644
+--- a/src/planning/src/planning/midpoint_generator.cpp
++++ b/src/planning/src/planning/midpoint_generator.cpp
+@@ -1,7 +1,8 @@
+ #include "planning/midpoint_generator.hpp"
+ #include "utils/cone.hpp"
+ 
+-std::vector<std::shared_ptr<Midpoint>>& MidpointGenerator::generate_midpoints(std::vector<Cone>& cone_array, bool should_reset) {
++std::vector<std::shared_ptr<Midpoint>>& MidpointGenerator::generate_midpoints(
++                    const std::vector<Cone>& cone_array, bool should_reset) {
+      
+   triangulations_.clear();
+   DT dt;
+@@ -84,20 +85,21 @@ std::shared_ptr<Midpoint> MidpointGenerator::process_triangle_edge(
+   }
+ 
+   // Check distance constraints
+-  double squared_distance = CGAL::squared_distance(p1, p2);
+-  if ((squared_distance <= config_.minimum_cone_distance_ * config_.minimum_cone_distance_) ||
+-      (squared_distance >= config_.maximum_cone_distance_ * config_.maximum_cone_distance_)) {
++  if (double squared_distance = CGAL::squared_distance(p1, p2);
++    (squared_distance <= config_.minimum_cone_distance_ * config_.minimum_cone_distance_) ||
++    (squared_distance >= config_.maximum_cone_distance_ * config_.maximum_cone_distance_)) {
+     return nullptr;
+   }
+ 
+   // Use ordered cone IDs to uniquely identify the segment
+   auto key = std::minmax(id1, id2);
+-  auto it = segment_to_midpoint.find(key);
+ 
+-  if (it != segment_to_midpoint.end()) {
++  // Check if this segment was already processed. If so, return existing midpoint
++  if (auto it = segment_to_midpoint.find(key); it != segment_to_midpoint.end()) {
+     return it->second;
+   }
+ 
++
+   // Create new midpoint
+   auto midpoint = std::make_shared<Midpoint>(
+       CGAL::midpoint(p1, p2), 
+diff --git a/src/planning/src/planning/path_calculation.cpp b/src/planning/src/planning/path_calculation.cpp
+index 027f04092..b7917b512 100644
+--- a/src/planning/src/planning/path_calculation.cpp
++++ b/src/planning/src/planning/path_calculation.cpp
+@@ -9,85 +9,12 @@
+ #include <vector>
+ 
+ #include "utils/cone.hpp"
+-using namespace std;
+-
+-double PathCalculation::calculate_midpoint_cost(
+-    const std::shared_ptr<Midpoint>& previous,     
+-    const std::shared_ptr<Midpoint>& current,       
+-    const std::shared_ptr<Midpoint>& next) {        
+-  
+-  // Distance calculation
+-  double distance = std::sqrt(std::pow(current->point.x() - next->point.x(), 2) +
+-                              std::pow(current->point.y() - next->point.y(), 2));
+-
+-  // Angle calculation
+-  double angle_with_previous = std::atan2(current->point.y() - previous->point.y(),
+-                                          current->point.x() - previous->point.x());
+-  double angle_with_next =
+-      std::atan2(next->point.y() - current->point.y(), next->point.x() - current->point.x());
+-
+-  // Normalize angle to be between 0 and π
+-  double angle = std::abs(angle_with_next - angle_with_previous);
+-  if (angle > M_PI) {
+-    angle = 2 * M_PI - angle;
+-  }
+-
+-  // Local cost calculation
+-  return std::pow(angle, this->config_.angle_exponent_) * this->config_.angle_gain_ +
+-         std::pow(distance, this->config_.distance_exponent_) * this->config_.distance_gain_;
+-}
+-
+-std::pair<double, std::shared_ptr<Midpoint>> PathCalculation::find_best_next_midpoint(  
+-    int depth,
+-    const std::shared_ptr<Midpoint>& previous,     
+-    const std::shared_ptr<Midpoint>& current,       
+-    double maxcost) {
+-
+-  if (depth == 0) {
+-    return {0, current};  // Return current point if depth is 0
+-  }
+-
+-  double min_cost = this->config_.max_cost_ * this->config_.search_depth_;
+-  std::shared_ptr<Midpoint> min_point = current;  // Default to current point
+-
+-  for (const auto& next : current->close_points) {
+-    // Avoid revisiting the previous point
+-    if (next == previous) {
+-      continue;
+-    }
+-
+-    double local_cost = calculate_midpoint_cost(previous, current, next);
+-
+-    // Skip if local cost exceeds maximum allowed cost
+-    if (local_cost > maxcost) {
+-      continue;
+-    }
+ 
+-    // Recursive cost calculation
+-    auto [cost, selected_point] = find_best_next_midpoint(depth - 1, current, next, maxcost);
+-
+-    // Total cost calculation
+-    double total_cost = local_cost + cost;
+-
+-    // Update minimum cost and corresponding point
+-    if (total_cost < min_cost) {
+-      min_cost = total_cost;
+-      min_point = next;
+-    }
+-  }
+-
+-  return {min_cost, min_point};
+-}
++using namespace std;
+ 
+-void PathCalculation::clear_path_state() {
+-  current_path_.clear();
+-  point_to_midpoint_.clear();
+-  visited_midpoints_.clear();
+-  discarded_cones_.clear();
+-}
++// ===================== Path Calculation (Core) =====================
+ 
+-std::vector<PathPoint> PathCalculation::calculate_path(std::vector<Cone>& cone_array) {
+-  std::vector<PathPoint> path_points;
++vector<PathPoint> PathCalculation::calculate_path(vector<Cone>& cone_array) {
+ 
+   if (cone_array.size() < 4) {
+     RCLCPP_ERROR(rclcpp::get_logger("planning"), "Not enough cones to create a path.");
+@@ -97,9 +24,8 @@ std::vector<PathPoint> PathCalculation::calculate_path(std::vector<Cone>& cone_a
+   clear_path_state();
+ 
+   // Determine if we should regenerate all midpoints (path reset)
+-  bool should_reset = (config_.use_reset_path_ && 
+-                       reset_path_counter_ >= config_.reset_global_path_);
+-  
++  bool should_reset = config_.use_reset_path_ && reset_path_counter_ >= config_.reset_path_;
++
+   // Generate midpoints using the generator
+   midpoints_ = midpoint_generator_.generate_midpoints(cone_array, should_reset);
+ 
+@@ -112,7 +38,7 @@ std::vector<PathPoint> PathCalculation::calculate_path(std::vector<Cone>& cone_a
+ 
+   // Find the point in the past_path_ closest to the car
+   int cutoff_index = -1;
+-  double min_dist = std::numeric_limits<double>::max();
++  double min_dist = numeric_limits<double>::max();
+   for (size_t i = 0; i < past_path_.size(); ++i) {
+     double dist = CGAL::squared_distance(past_path_[i], car_point);
+     if (dist < min_dist) {
+@@ -122,37 +48,75 @@ std::vector<PathPoint> PathCalculation::calculate_path(std::vector<Cone>& cone_a
+   }
+ 
+   if (cutoff_index == -1) {
+-    RCLCPP_ERROR(rclcpp::get_logger("planning"), "No valid path points found near the car.");
++    RCLCPP_WARN(rclcpp::get_logger("planning"), "No valid path points found near the car.");
+   }
+ 
+-  path_to_car.clear();
++  path_to_car_.clear();
+   // Retain part of the existing path leading to the car
+   if (cutoff_index != -1 && cutoff_index > config_.lookback_points_) {
+-    (void)path_to_car.insert(path_to_car.end(), past_path_.begin(),
+-                             past_path_.begin() + cutoff_index - config_.lookback_points_);
++    (void)path_to_car_.insert(path_to_car_.end(), past_path_.begin(),
++                        past_path_.begin() + cutoff_index - config_.lookback_points_);
+   }
+ 
+   int max_points = reset_path(should_reset);
+ 
+   // Build initial path segment
+-  if (path_to_car.size() <= 2) {
++  if (path_to_car_.size() <= 2) {
+     initialize_path_from_initial_pose();
+   } else {
+     update_path_from_past_path();
+   }
++
+   extend_path(max_points);
+ 
+-  // Final processing: discard cones along the path and convert points
+-  for (const auto& point : current_path_) {
+-    // if (current_path_.size() > 2) {
+-    //   discard_cones_along_path();
+-    // }
+-    (void)path_points.emplace_back(point.x(), point.y());
++  past_path_ = current_path_;  // Update the path for next iteration
++
++  return get_path_points_from_points(current_path_);
++}
++
++vector<PathPoint> PathCalculation::calculate_trackdrive(vector<Cone>& cone_array) {
++  vector<PathPoint> result = calculate_path(cone_array);
++
++  // Check if we have enough points to form a loop
++  if (result.size() < 3) {
++    RCLCPP_WARN(rclcpp::get_logger("planning"), "Not enough points to create trackdrive loop");
++    return result;
+   }
+ 
+-  past_path_ = current_path_;  // Update the path for next iteration
++  // Find the best point to close the loop
++  int best_cutoff_index = find_best_loop_closure(result);
+ 
+-  return path_points;
++  // Trim the path to the best cutoff point
++  (void)result.erase(result.begin() + best_cutoff_index + 1, result.end());
++
++  // Add interpolated points between the last point and the first point
++  if (!result.empty()) {
++    const PathPoint& last_point = result.back();
++    const PathPoint& first_point = result.front();
++
++    vector<PathPoint> interpolated = add_interpolated_points(last_point, first_point, 4);
++    (void)result.insert(result.end(), interpolated.begin(), interpolated.end());
++  }
++
++  // Close the loop by adding the first point again
++  result.push_back(result[0]);
++
++  // Add overlap points (10 points or as many as available)
++  int overlap_count = min(10, static_cast<int>(result.size()) - 1);
++  for (int i = 1; i <= overlap_count; ++i) {
++    result.push_back(result[i]);
++  }
++
++  return result;
++}
++
++// ===================== State Management =====================
++
++void PathCalculation::clear_path_state() {
++  current_path_.clear();
++  point_to_midpoint_.clear();
++  visited_midpoints_.clear();
++  discarded_cones_.clear();
+ }
+ 
+ int PathCalculation::reset_path(bool should_reset) {
+@@ -160,8 +124,8 @@ int PathCalculation::reset_path(bool should_reset) {
+   reset_path_counter_++;
+ 
+   if (should_reset) {
+-    max_points = path_to_car.size() + config_.max_points_;
+-    path_to_car.clear();
++    max_points = static_cast<int>(path_to_car_.size()) + config_.max_points_;
++    path_to_car_.clear();
+     past_path_.clear();
+     reset_path_counter_ = 0;
+     RCLCPP_INFO(rclcpp::get_logger("planning"), "Global path reset");
+@@ -170,92 +134,108 @@ int PathCalculation::reset_path(bool should_reset) {
+   return max_points;
+ }
+ 
++void PathCalculation::set_vehicle_pose(const common_lib::structures::Pose& vehicle_pose) {
++  midpoint_generator_.set_vehicle_pose(vehicle_pose);
++  vehicle_pose_ = vehicle_pose;
++}
++
++// ===================== Path Initialization =====================
++
++void PathCalculation::initialize_path_from_initial_pose() {
++  if (!initial_pose_set_) {
++    initial_pose_ = vehicle_pose_;
++    initial_pose_set_ = true;
++  }
++
++  const auto [first_point, second_point] = select_starting_midpoints();
++
++  if (first_point && second_point) {
++    current_path_.push_back(first_point->point);
++    current_path_.push_back(second_point->point);
++    (void)visited_midpoints_.insert(first_point);
++    (void)visited_midpoints_.insert(second_point);
++  } else {
++    RCLCPP_ERROR(rclcpp::get_logger("planning"), "Failed to find valid starting points.");
++  }
++}
++
+ void PathCalculation::update_path_from_past_path() {
+   RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Selecting initial path from %zu points.",
+-               path_to_car.size());
++               path_to_car_.size());
+ 
+   Point last_added_point;
+   bool first_point_added = false;
+ 
+-  for(const Point& path_to_car_point : path_to_car) {
+-    //By default, use the original point
++  for (const Point& path_to_car_point : path_to_car_) {
++    // By default, use the original point
+     Point candidate_point = path_to_car_point;
+ 
+-    //Snap to nearest valid midpoint
+-    std::shared_ptr<Midpoint> candidate_midpoint = find_nearest_midpoint(path_to_car_point);
++    // Snap to nearest valid midpoint
++    shared_ptr<Midpoint> candidate_midpoint = find_nearest_midpoint(path_to_car_point);
+ 
+-    //If found a valid midpoint, use it
+-    if(candidate_midpoint){
++    // If found a valid midpoint, use it
++    if (candidate_midpoint) {
+       candidate_point = candidate_midpoint->point;
+     }
+ 
+-    //Check if already visited
+-    if(candidate_midpoint && visited_midpoints_.count(candidate_midpoint) > 0){
++    // Check if already visited
++    if (candidate_midpoint && visited_midpoints_.count(candidate_midpoint) > 0) {
+       RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Skipping point: Already visited.");
+       continue;
+     }
+ 
+-    //For non-first points, check distance from last added point
+-    if(first_point_added){
+-      double distance = CGAL::sqrt(CGAL::squared_distance(last_added_point, candidate_point));
+-      if(distance <= config_.tolerance_){
+-        RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Skipping point: Too close to last added point.");
++    // For non-first points, check distance from last added point
++    if (first_point_added) {
++      double distance = sqrt(CGAL::squared_distance(last_added_point, candidate_point));
++      if (distance <= config_.tolerance_) {
++        RCLCPP_DEBUG(rclcpp::get_logger("planning"),
++                     "Skipping point: Too close to last added point.");
+         continue;
+       }
+     }
+ 
+-    //If the candidate_midpoint is valid add it to visited set
+-    if(candidate_midpoint){
++    // If the candidate_midpoint is valid, add it to visited set
++    if (candidate_midpoint) {
+       (void)visited_midpoints_.insert(candidate_midpoint);
+     }
++
+     current_path_.push_back(candidate_point);
+     last_added_point = candidate_point;
+     first_point_added = true;
+-
+   }
+ }
+ 
+-void PathCalculation::initialize_path_from_initial_pose() {
+-  if (!initial_pose_set_) {
+-    initial_pose_ = vehicle_pose_;
+-    initial_pose_set_ = true;
+-  }
+-  auto [first, second] = select_starting_midpoints();
+-  if (first != nullptr && second != nullptr) {
+-    current_path_.push_back(first->point);
+-    current_path_.push_back(second->point);
+-    (void)visited_midpoints_.insert(first);
+-    (void)visited_midpoints_.insert(second);
+-  } else {
+-    RCLCPP_ERROR(rclcpp::get_logger("planning"), "Failed to find valid starting points.");
+-  }
+-}
++// ===================== Path Extension =====================
+ 
+ void PathCalculation::extend_path(int max_points) {
+   int n_points = 0;
+   // Define cost threshold for discarding poor path options
+-  double worst_cost = config_.max_cost_ * config_.search_depth_;
++  const double worst_cost = config_.max_cost_ * config_.search_depth_;
+ 
+   while (true) {
+-    const auto& prev = current_path_[current_path_.size() - 2];
+-    const auto& last = current_path_.back();
++    if (current_path_.size() < 2) {
++      break;
++    }
++
++    const Point& prev = current_path_[current_path_.size() - 2];
++    const Point& last = current_path_.back();
+ 
+-    std::shared_ptr<Midpoint> prev_mp = find_nearest_midpoint(prev);     
+-    std::shared_ptr<Midpoint> last_mp = find_nearest_midpoint(last);     
++    shared_ptr<Midpoint> prev_mp = find_nearest_midpoint(prev);
++    shared_ptr<Midpoint> last_mp = find_nearest_midpoint(last);
+ 
+     // Abort if midpoints can't be matched
+-    if (prev_mp == nullptr || last_mp == nullptr) {
+-      RCLCPP_ERROR(rclcpp::get_logger("planning"), "No valid midpoints found for path extension.");
++    if (!prev_mp || !last_mp) {
++      RCLCPP_WARN(rclcpp::get_logger("planning"),
++                  "No valid midpoints found for path extension.");
+       break;
+     }
+ 
+     // Search for the best continuation from the current midpoint
+-    auto [best_cost, best_point] =
+-        find_best_next_midpoint(config_.search_depth_, prev_mp, last_mp, config_.max_cost_);
++    auto [best_cost, best_point] = find_best_next_midpoint(
++        config_.search_depth_, prev_mp, last_mp, config_.max_cost_);
+ 
+     // Stop if no good extension is found or point was already visited
+-    if (best_cost > worst_cost || best_point == nullptr ||
+-        visited_midpoints_.count(best_point) > 0) {
++    if (best_cost > worst_cost || !best_point || visited_midpoints_.count(best_point) > 0) {
+       break;
+     }
+ 
+@@ -263,7 +243,7 @@ void PathCalculation::extend_path(int max_points) {
+     (void)visited_midpoints_.insert(best_point);
+     n_points++;
+ 
+-    if (n_points > max_points) {
++    if (n_points >= max_points) {
+       break;
+     }
+ 
+@@ -274,109 +254,74 @@ void PathCalculation::extend_path(int max_points) {
+   }
+ }
+ 
+-void PathCalculation::discard_cone(
+-    const std::shared_ptr<Midpoint>& last_mp,        
+-    const std::shared_ptr<Midpoint>& current_mp) {   
+-  
+-  if (last_mp->cone1 == current_mp->cone1 || last_mp->cone1 == current_mp->cone2) {
+-    if (last_mp->cone2 != current_mp->cone1 && last_mp->cone2 != current_mp->cone2) {
+-      (void)discarded_cones_.insert(last_mp->cone2);
+-    }
+-  } else if (last_mp->cone2 == current_mp->cone1 || last_mp->cone2 == current_mp->cone2) {
+-    if (last_mp->cone1 != current_mp->cone1 && last_mp->cone1 != current_mp->cone2) {
+-      (void)discarded_cones_.insert(last_mp->cone1);
+-    }
+-  } else {
+-    RCLCPP_DEBUG(rclcpp::get_logger("planning"), "No valid cones found for discarding.");
+-  }
+-}
++// ================================ Path Search ================================
+ 
+-void PathCalculation::invalidate_midpoints_with_discarded_cones() {
+-  for (const auto& mp : midpoints_) {
+-    if (!mp->valid) {
+-      continue;
+-    }
+-    if (discarded_cones_.count(mp->cone1) > 0 || discarded_cones_.count(mp->cone2) > 0) {
+-      mp->valid = false;
+-    }
+-  }
+-}
++pair<shared_ptr<Midpoint>, shared_ptr<Midpoint>> PathCalculation::select_starting_midpoints() {
++  pair<shared_ptr<Midpoint>, shared_ptr<Midpoint>> result{nullptr, nullptr};
+ 
+-void PathCalculation::remove_invalid_neighbors() {
+-  for (const auto& mp : midpoints_) {
+-    if (!mp->valid) {
+-      continue;
+-    }
+-    (void)mp->close_points.erase(
+-        std::remove_if(mp->close_points.begin(), mp->close_points.end(),
+-                       [](const std::shared_ptr<Midpoint>& neighbor) {  
+-                         return !neighbor->valid;
+-                       }),
+-        mp->close_points.end());
+-  }
+-}
++  Midpoint anchor_pose_midpoint{
++      Point(initial_pose_.position.x, initial_pose_.position.y), nullptr, nullptr};
+ 
+-void PathCalculation::discard_cones_along_path() {
+-  const auto& last = current_path_[current_path_.size() - 2];
+-  const auto& current = current_path_.back();
++  // Get candidate midpoints
++  anchor_pose_midpoint.close_points = select_candidate_midpoints(anchor_pose_midpoint, 8);
+ 
+-  std::shared_ptr<Midpoint> last_mp = find_nearest_midpoint(last);              
+-  std::shared_ptr<Midpoint> current_midpoint = find_nearest_midpoint(current);  
++  double best_cost = numeric_limits<double>::max();
++  for (const auto& first : anchor_pose_midpoint.close_points) {
++    shared_ptr<Midpoint> anchor_mp = make_shared<Midpoint>(anchor_pose_midpoint);
+ 
+-  if (last_mp == nullptr || current_midpoint == nullptr) {
+-    RCLCPP_ERROR(rclcpp::get_logger("planning"), "No valid midpoints found for discarding cones.");
+-    return;
+-  }
++    auto [cost, midpoint] = find_best_next_midpoint(
++        config_.search_depth_, anchor_mp, first, numeric_limits<double>::max());
+ 
+-  // Discard a cone that was likely passed and should be discarded
+-  discard_cone(last_mp, current_midpoint);
++    double dx = first->point.x() - anchor_pose_midpoint.point.x();
++    double dy = first->point.y() - anchor_pose_midpoint.point.y();
++    double initial_distance =
++        pow(sqrt(dx * dx + dy * dy), config_.distance_exponent_) * config_.distance_gain_;
+ 
+-  // Invalidate midpoints that rely on discarded cones
+-  invalidate_midpoints_with_discarded_cones();
++    cost += initial_distance;
+ 
+-  // Remove invalid neighbors from each midpoint's connections
+-  remove_invalid_neighbors();
+-}
++    if (cost < best_cost) {
++      result.first = first;
++      result.second = midpoint;
++      best_cost = cost;
++    }
++  }
+ 
+-void PathCalculation::update_vehicle_pose(const common_lib::structures::Pose& vehicle_pose) {
+-  midpoint_generator_.set_vehicle_pose(vehicle_pose);
+-  vehicle_pose_ = vehicle_pose;
++  return result;
+ }
+ 
+-std::vector<std::shared_ptr<Midpoint>> PathCalculation::select_candidate_midpoints(  
+-    const Midpoint& anchor_pose,                                                     
+-    int num_candidates) {
+-  
+-  auto cmp = [](const std::pair<double, std::shared_ptr<Midpoint>>& cost1,  
+-                const std::pair<double, std::shared_ptr<Midpoint>>& cost2) { 
++vector<shared_ptr<Midpoint>> PathCalculation::select_candidate_midpoints(
++    const Midpoint& anchor_pose, int num_candidates) const {
++  auto cmp = [](const pair<double, shared_ptr<Midpoint>>& cost1,
++                const pair<double, shared_ptr<Midpoint>>& cost2) {
+     return cost1.first > cost2.first;
+   };
+-  std::priority_queue<std::pair<double, std::shared_ptr<Midpoint>>,         
+-                      std::vector<std::pair<double, std::shared_ptr<Midpoint>>>,  
+-                      decltype(cmp)> pq(cmp);
++
++  priority_queue<pair<double, shared_ptr<Midpoint>>,
++                 vector<pair<double, shared_ptr<Midpoint>>>, decltype(cmp)>
++      pq(cmp);
++
++  double car_direction_x = cos(initial_pose_.orientation);
++  double car_direction_y = sin(initial_pose_.orientation);
+ 
+   // Find midpoints that are in front of the car
+   for (const auto& mp : midpoints_) {
+     double dx = mp->point.x() - anchor_pose.point.x();
+     double dy = mp->point.y() - anchor_pose.point.y();
+-    double car_direction_x = std::cos(initial_pose_.orientation);
+-    double car_direction_y = std::sin(initial_pose_.orientation);
+-    
++
++    // Skip points behind the car
+     if ((dx * car_direction_x + dy * car_direction_y) <= 0.0) {
+       continue;
+     }
+-    
+-    double dist = std::sqrt(std::pow(dx, 2) + std::pow(dy, 2));
+-    double angle = std::atan2(mp->point.y() - anchor_pose.point.y(),
+-                              mp->point.x() - anchor_pose.point.x());
+-    double cost =
+-        std::pow(angle, this->config_.angle_exponent_) * config_.angle_gain_ +
+-        std::pow(dist, this->config_.distance_exponent_) * config_.distance_gain_;
++
++    double dist = sqrt(dx * dx + dy * dy);
++    double angle = atan2(dy, dx);
++    double cost = pow(angle, config_.angle_exponent_) * config_.angle_gain_ +
++                  pow(dist, config_.distance_exponent_) * config_.distance_gain_;
+     pq.push({cost, mp});
+   }
+ 
+   // Get the closest midpoints in front of the car
+-  std::vector<std::shared_ptr<Midpoint>> candidate_points;  
++  vector<shared_ptr<Midpoint>> candidate_points;
+   int count = 0;
+   while (count < num_candidates && !pq.empty()) {
+     candidate_points.push_back(pq.top().second);
+@@ -387,38 +332,142 @@ std::vector<std::shared_ptr<Midpoint>> PathCalculation::select_candidate_midpoin
+   return candidate_points;
+ }
+ 
+-std::pair<std::shared_ptr<Midpoint>, std::shared_ptr<Midpoint>>  
+-PathCalculation::select_starting_midpoints() {
+-  std::pair<std::shared_ptr<Midpoint>, std::shared_ptr<Midpoint>> result{nullptr, nullptr};  
++pair<double, shared_ptr<Midpoint>> PathCalculation::find_best_next_midpoint(
++    int depth, const shared_ptr<Midpoint>& previous, const shared_ptr<Midpoint>& current,
++    double max_cost) const {
++  if (depth == 0) {
++    return {0.0, current};
++  }
+ 
+-  Midpoint anchor_pose_midpoint{  
+-      Point(initial_pose_.position.x, initial_pose_.position.y), nullptr, nullptr};
++  double min_cost = config_.max_cost_ * config_.search_depth_;
++  shared_ptr<Midpoint> min_point = current;
+ 
+-  // Get candidate midpoints
+-  anchor_pose_midpoint.close_points = select_candidate_midpoints(anchor_pose_midpoint, 8);
++  for (const auto& next : current->close_points) {
++    // Avoid revisiting the previous point
++    if (next == previous) {
++      continue;
++    }
+ 
+-  double best_cost = std::numeric_limits<double>::max();
+-  for (const auto& first : anchor_pose_midpoint.close_points) {
+-    auto anchor_mp = std::make_shared<Midpoint>(anchor_pose_midpoint);  
+-    auto [cost, second] = find_best_next_midpoint(this->config_.search_depth_, anchor_mp, first,
+-                                   std::numeric_limits<double>::max());
+-    cost += std::pow(std::sqrt(std::pow(first->point.x() - anchor_pose_midpoint.point.x(), 2) +
+-                               std::pow(first->point.y() - anchor_pose_midpoint.point.y(), 2)),
+-                     this->config_.distance_exponent_) *
+-            this->config_.distance_gain_;
+-    if (cost < best_cost) {
+-      result.first = first;
+-      result.second = second;
+-      best_cost = cost;
++    double local_cost = calculate_midpoint_cost(previous, current, next);
++
++    // Skip if local cost exceeds maximum allowed cost
++    if (local_cost > max_cost) {
++      continue;
++    }
++
++    // Recursive cost calculation
++    pair<double, shared_ptr<Midpoint>> recursive_result =
++        find_best_next_midpoint(depth - 1, current, next, max_cost);
++
++    double total_cost = local_cost + recursive_result.first;
++
++    // Update minimum cost and corresponding point
++    if (total_cost < min_cost) {
++      min_cost = total_cost;
++      min_point = next;
+     }
+   }
+ 
+-  return result;
++  return {min_cost, min_point};
++}
++
++double PathCalculation::calculate_midpoint_cost(const shared_ptr<Midpoint>& previous,
++                                                const shared_ptr<Midpoint>& current,
++                                                const shared_ptr<Midpoint>& next) const {
++  double dx_dist = current->point.x() - next->point.x();
++  double dy_dist = current->point.y() - next->point.y();
++  double distance = sqrt(dx_dist * dx_dist + dy_dist * dy_dist);
++
++  // Angle calculation
++  double angle_with_previous =
++      atan2(current->point.y() - previous->point.y(),
++            current->point.x() - previous->point.x());
++  double angle_with_next = atan2(next->point.y() - current->point.y(),
++                                  next->point.x() - current->point.x());
++
++  // Normalize angle to be between 0 and π
++  double angle = abs(angle_with_next - angle_with_previous);
++  if (angle > M_PI) {
++    angle = 2 * M_PI - angle;
++  }
++
++  // Local cost calculation
++  return pow(angle, config_.angle_exponent_) * config_.angle_gain_ +
++         pow(distance, config_.distance_exponent_) * config_.distance_gain_;
++}
++
++// ===================== Cone Discarding =====================
++
++void PathCalculation::discard_cones_along_path() {
++  if (current_path_.size() < 2) {
++    return;
++  }
++
++  const Point& last = current_path_[current_path_.size() - 2];
++  const Point& current = current_path_.back();
++
++  shared_ptr<Midpoint> last_mp = find_nearest_midpoint(last);
++  shared_ptr<Midpoint> current_midpoint = find_nearest_midpoint(current);
++
++  if (!last_mp || !current_midpoint) {
++    RCLCPP_WARN(rclcpp::get_logger("planning"),
++                "No valid midpoints found for discarding cones.");
++    return;
++  }
++
++  // Discard a cone that was likely passed and should be discarded
++  discard_cone(last_mp, current_midpoint);
++
++  // Invalidate midpoints that rely on discarded cones
++  invalidate_midpoints_with_discarded_cones();
++
++  // Remove invalid neighbors from each midpoint's connections
++  remove_invalid_neighbors();
++}
++
++void PathCalculation::discard_cone(const shared_ptr<Midpoint>& last_mp,
++                                    const shared_ptr<Midpoint>& current_mp) {
++  if (last_mp->cone1 == current_mp->cone1 || last_mp->cone1 == current_mp->cone2) {
++    if (last_mp->cone2 != current_mp->cone1 && last_mp->cone2 != current_mp->cone2) {
++      (void)discarded_cones_.insert(last_mp->cone2);
++    }
++  } else if (last_mp->cone2 == current_mp->cone1 || last_mp->cone2 == current_mp->cone2) {
++    if (last_mp->cone1 != current_mp->cone1 && last_mp->cone1 != current_mp->cone2) {
++      (void)discarded_cones_.insert(last_mp->cone1);
++    }
++  } else {
++    RCLCPP_DEBUG(rclcpp::get_logger("planning"), "No valid cones found for discarding.");
++  }
+ }
+ 
+-std::shared_ptr<Midpoint> PathCalculation::find_nearest_midpoint(const Point& target) {  
++void PathCalculation::invalidate_midpoints_with_discarded_cones() {
++  for (const auto& mp : midpoints_) {
++    if (!mp->valid) {
++      continue;
++    }
++    if (discarded_cones_.count(mp->cone1) > 0 || discarded_cones_.count(mp->cone2) > 0) {
++      mp->valid = false;
++    }
++  }
++}
++
++void PathCalculation::remove_invalid_neighbors() {
++  for (const auto& mp : midpoints_) {
++    if (!mp->valid) {
++      continue;
++    }
++    (void)mp->close_points.erase(
++        remove_if(mp->close_points.begin(), mp->close_points.end(),
++                  [](const shared_ptr<Midpoint>& neighbor) { return !neighbor->valid; }),
++        mp->close_points.end());
++  }
++}
++
++// ===================== Utility Methods =====================
++
++shared_ptr<Midpoint> PathCalculation::find_nearest_midpoint(const Point& target) const {
+   double min_dist_sq = config_.tolerance_ * config_.tolerance_;
+-  std::shared_ptr<Midpoint> nearest = nullptr;  
++  shared_ptr<Midpoint> nearest = nullptr;
+ 
+   for (const auto& [pt, mp] : point_to_midpoint_) {
+     double dx = pt.x() - target.x();
+@@ -431,42 +480,41 @@ std::shared_ptr<Midpoint> PathCalculation::find_nearest_midpoint(const Point& ta
+     }
+   }
+ 
+-  return nearest;  // nullptr if none within tolerance
++  return nearest;
+ }
+ 
+-int PathCalculation::find_best_loop_closure(const std::vector<PathPoint>& path) {
++int PathCalculation::find_best_loop_closure(const vector<PathPoint>& path) const {
+   if (path.size() < 3) {
+     return path.size() - 1;
+   }
+ 
+-  PathPoint first_point = path[0];
+-  double min_cost = std::numeric_limits<double>::max();
+-  int best_cutoff_index = path.size() - 1;  // Default to last point
++  const PathPoint& first_point = path[0];
++  double min_cost = numeric_limits<double>::max();
++  int best_cutoff_index = static_cast<int>(path.size() - 1);
+ 
+   // Check each point in the path to find the best one to close the loop
+   for (int i = 2; i < static_cast<int>(path.size()); ++i) {
+-    PathPoint current = path[i];
+-    PathPoint previous = path[i - 1];
++    const PathPoint& current = path[i];
++    const PathPoint& previous = path[i - 1];
+ 
+     double dx = current.position.x - first_point.position.x;
+     double dy = current.position.y - first_point.position.y;
+-    double distance = std::sqrt(dx * dx + dy * dy);
++    double distance = sqrt(dx * dx + dy * dy);
+ 
+-    double angle_with_previous = std::atan2(current.position.y - previous.position.y,
+-                                            current.position.x - previous.position.x);
+-    double angle_with_first = std::atan2(first_point.position.y - current.position.y,
+-                                         first_point.position.x - current.position.x);
++    double angle_with_previous = atan2(current.position.y - previous.position.y,
++                                       current.position.x - previous.position.x);
++    double angle_with_first = atan2(first_point.position.y - current.position.y,
++                                    first_point.position.x - current.position.x);
+ 
+     // Normalize angle to be between 0 and π
+-    double angle = std::abs(angle_with_first - angle_with_previous);
++    double angle = abs(angle_with_first - angle_with_previous);
+     if (angle > M_PI) {
+       angle = 2 * M_PI - angle;
+     }
+ 
+     // Local cost calculation
+-    double cost =
+-        std::pow(angle, this->config_.angle_exponent_) * this->config_.angle_gain_ +
+-        std::pow(distance, this->config_.distance_exponent_) * this->config_.distance_gain_;
++    double cost = pow(angle, config_.angle_exponent_) * config_.angle_gain_ +
++                  pow(distance, config_.distance_exponent_) * config_.distance_gain_;
+ 
+     if (cost < min_cost) {
+       min_cost = cost;
+@@ -477,13 +525,12 @@ int PathCalculation::find_best_loop_closure(const std::vector<PathPoint>& path)
+   return best_cutoff_index;
+ }
+ 
+-std::vector<PathPoint> PathCalculation::add_interpolated_points(
+-    const PathPoint& start,
+-    const PathPoint& end,
+-    int num_points) {
+-  
+-  std::vector<PathPoint> interpolated;
+-  
++vector<PathPoint> PathCalculation::add_interpolated_points(const PathPoint& start,
++                                                            const PathPoint& end,
++                                                            int num_points) const {
++  vector<PathPoint> interpolated;
++  interpolated.reserve(num_points);
++
+   if (num_points <= 0) {
+     return interpolated;
+   }
+@@ -502,52 +549,22 @@ std::vector<PathPoint> PathCalculation::add_interpolated_points(
+   return interpolated;
+ }
+ 
+-std::vector<PathPoint> PathCalculation::calculate_trackdrive(std::vector<Cone>& cone_array) {
+-  vector<PathPoint> result = calculate_path(cone_array);
++std::vector<PathPoint> PathCalculation::get_path_points_from_points(const std::vector<Point>& points) const{
++  vector<PathPoint> path_points;
++  path_points.reserve(points.size());
+ 
+-  // Check if we have enough points to form a loop
+-  if (result.size() < 3) {
+-    RCLCPP_WARN(rclcpp::get_logger("planning"), "Not enough points to create trackdrive loop");
+-    return result;
+-  }
+-
+-  // Find the best point to close the loop
+-  int best_cutoff_index = find_best_loop_closure(result);
+-
+-  // Trim the path to the best cutoff point
+-  result.erase(result.begin() + best_cutoff_index + 1, result.end());
+-
+-  // Add interpolated points between the last point and the first point
+-  if (result.size() > 0) {
+-    PathPoint last_point = result.back();
+-    PathPoint first_point = result[0];
+-    
+-    std::vector<PathPoint> interpolated = add_interpolated_points(last_point, first_point, 4);
+-    result.insert(result.end(), interpolated.begin(), interpolated.end());
+-  }
+-
+-  // Close the loop by adding the first point again
+-  result.push_back(result[0]);
+-
+-  // Add overlap points (10 points or as many as available)
+-  int overlap_count = std::min(10, static_cast<int>(result.size()) - 1);
+-  for (int i = 1; i <= overlap_count; ++i) {
+-    result.push_back(result[i]);
+-  }
+-
+-  return result;
+-}
+-
+-std::vector<PathPoint> PathCalculation::get_path_to_car() const {
+-  std::vector<PathPoint> path_points;
+-
+-  for (const auto& pt : path_to_car) {
++  for(Point pt : points){
+     (void)path_points.emplace_back(pt.x(), pt.y());
+   }
+ 
+   return path_points;
+ }
++// ===================== Accessor Methods =====================
++
++vector<PathPoint> PathCalculation::get_path_to_car() const {
++  return get_path_points_from_points(path_to_car_);
++}
+ 
+-const std::vector<std::pair<Point, Point>>& PathCalculation::get_triangulations() const {
++const vector<pair<Point, Point>>& PathCalculation::get_triangulations() const {
+   return midpoint_generator_.get_triangulations();
+ }
+\ No newline at end of file
+diff --git a/src/planning/src/planning/planning.cpp b/src/planning/src/planning/planning.cpp
+index 7bf29a663..e962183e7 100644
+--- a/src/planning/src/planning/planning.cpp
++++ b/src/planning/src/planning/planning.cpp
+@@ -8,16 +8,19 @@
+ 
+ using std::placeholders::_1;
+ 
++/*--------------------- Configuration Loading --------------------*/
++
+ PlanningParameters Planning::load_config(std::string &adapter) {
+   PlanningParameters params;
++  
+   std::string global_config_path =
+       common_lib::config_load::get_config_yaml_path("planning", "global", "global_config");
+   RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Loading global config from: %s",
+                global_config_path.c_str());
++  
+   YAML::Node global_config = YAML::LoadFile(global_config_path);
+-
+   adapter = global_config["global"]["adapter"].as<std::string>();
+-  params.using_simulated_se_ = global_config["global"]["use_simulated_se"].as<bool>();
++  params.simulation_using_simulated_se_ = global_config["global"]["use_simulated_se"].as<bool>();
+ 
+   std::string planning_config_path =
+       common_lib::config_load::get_config_yaml_path("planning", "planning", adapter);
+@@ -25,53 +28,69 @@ PlanningParameters Planning::load_config(std::string &adapter) {
+                planning_config_path.c_str());
+ 
+   YAML::Node planning = YAML::LoadFile(planning_config_path);
+-  auto planning_config = planning["planning"];
+-
+-  params.minimum_cone_distance_ = planning_config["minimum_cone_distance"].as<double>();
+-  params.maximum_cone_distance_ = planning_config["maximum_cone_distance"].as<double>();
+-  params.nc_angle_gain_ = planning_config["nc_angle_gain"].as<double>();
+-  params.nc_distance_gain_ = planning_config["nc_distance_gain"].as<double>();
+-  params.nc_angle_exponent_ = planning_config["nc_angle_exponent"].as<double>();
+-  params.nc_distance_exponent_ = planning_config["nc_distance_exponent"].as<double>();
+-  params.nc_max_cost_ = planning_config["nc_max_cost"].as<double>();
+-  params.nc_tolerance_ = planning_config["nc_tolerance"].as<double>();
+-  params.nc_search_depth_ = planning_config["nc_search_depth"].as<int>();
+-  params.nc_max_points_ = planning_config["nc_max_points"].as<int>();
+-  params.nc_lookback_points_ = planning_config["nc_lookback_points"].as<int>();
+-  params.nc_reset_global_path_ = planning_config["nc_reset_global_path"].as<int>();
++  YAML::Node planning_config = planning["planning"];
++
++  /*--------------------- Midpoint Generator Parameters --------------------*/
++  params.mg_minimum_cone_distance_ = planning_config["mg_minimum_cone_distance"].as<double>();
++  params.mg_maximum_cone_distance_ = planning_config["mg_maximum_cone_distance"].as<double>();
++  params.mg_sliding_window_radius_ = planning_config["mg_sliding_window_radius"].as<double>();
++  params.mg_use_sliding_window_ = planning_config["mg_use_sliding_window"].as<bool>();
++
++  /*--------------------- Path Calculation Parameters --------------------*/
++  params.pc_angle_gain_ = planning_config["pc_angle_gain"].as<double>();
++  params.pc_distance_gain_ = planning_config["pc_distance_gain"].as<double>();
++  params.pc_angle_exponent_ = planning_config["pc_angle_exponent"].as<double>();
++  params.pc_distance_exponent_ = planning_config["pc_distance_exponent"].as<double>();
++  params.pc_max_cost_ = planning_config["pc_max_cost"].as<double>();
++  params.pc_lookback_points_ = planning_config["pc_lookback_points"].as<int>();
++  params.pc_search_depth_ = planning_config["pc_search_depth"].as<int>();
++  params.pc_max_points_ = planning_config["pc_max_points"].as<int>();
++  params.pc_tolerance_ = planning_config["pc_tolerance"].as<double>();
++  params.pc_reset_path_ = planning_config["pc_reset_path"].as<int>();
++  params.pc_use_reset_path_ = planning_config["pc_use_reset_path"].as<bool>();
++
++  /*--------------------- Skidpad Parameters --------------------*/
+   params.skidpad_tolerance_ = planning_config["skidpad_tolerance"].as<double>();
+   params.skidpad_minimum_cones_ = planning_config["skidpad_minimum_cones"].as<int>();
+ 
++  /*--------------------- Outlier Removal Parameters --------------------*/
+   params.outliers_spline_order_ = planning_config["outliers_spline_order"].as<int>();
+   params.outliers_spline_coeffs_ratio_ =
+       planning_config["outliers_spline_coeffs_ratio"].as<float>();
+   params.outliers_spline_precision_ = planning_config["outliers_spline_precision"].as<int>();
++  params.outliers_use_outlier_removal_ = planning_config["outliers_use_outlier_removal"].as<bool>();
++
++  /*--------------------- Path Smoothing Parameters --------------------*/
+   params.smoothing_spline_order_ = planning_config["smoothing_spline_order"].as<int>();
+   params.smoothing_spline_coeffs_ratio_ =
+       planning_config["smoothing_spline_coeffs_ratio"].as<float>();
+   params.smoothing_spline_precision_ = planning_config["smoothing_spline_precision"].as<int>();
+-  params.publishing_visualization_msgs_ =
+-      planning_config["publishing_visualization_msg"].as<bool>();
+-  params.desired_velocity_ = planning_config["desired_velocity"].as<double>();
+-  params.use_outlier_removal_ = planning_config["use_outlier_removal"].as<bool>();
+-  params.use_path_smoothing_ = planning_config["use_path_smoothing"].as<bool>();
++  params.smoothing_use_path_smoothing_ = planning_config["smoothing_use_path_smoothing"].as<bool>();
++
++  /*--------------------- Velocity Planning Parameters --------------------*/
++  params.vp_minimum_velocity_ = planning_config["vp_minimum_velocity"].as<double>();
++  params.vp_braking_acceleration_ = planning_config["vp_braking_acceleration"].as<double>();
++  params.vp_normal_acceleration_ = planning_config["vp_normal_acceleration"].as<double>();
++  params.vp_use_velocity_planning_ = planning_config["vp_use_velocity_planning"].as<bool>();
++  params.vp_desired_velocity_ = planning_config["vp_desired_velocity"].as<double>();
++
++  /*--------------------- Simulation Configuration Parameters --------------------*/
++  params.simulation_publishing_visualization_msgs_ =
++      planning_config["simulation_publishing_visualization_msgs"].as<bool>();
++
+   params.map_frame_id_ = adapter == "eufs" ? "base_footprint" : "map";
+-  params.minimum_velocity_ = planning_config["minimum_velocity"].as<double>();
+-  params.braking_acceleration_ = planning_config["braking_acceleration"].as<double>();
+-  params.normal_acceleration_ = planning_config["normal_acceleration"].as<double>();
+-  params.use_velocity_planning_ = planning_config["use_velocity_planning"].as<bool>();
+-  params.use_sliding_window_ = planning_config["use_sliding_window"].as<bool>();
+-  params.sliding_window_radius_ = planning_config["sliding_window_radius"].as<double>();
+-  params.use_reset_path_ = planning_config["use_reset_path"].as<bool>();
+ 
+   return params;
+ }
+ 
++/*--------------------- Constructor --------------------*/
++
+ Planning::Planning(const PlanningParameters &params)
+     : Node("planning"),
+       planning_config_(params),
+-      desired_velocity_(params.desired_velocity_),
+-      map_frame_id_(params.map_frame_id_) {
++      map_frame_id_(params.map_frame_id_),
++      desired_velocity_(params.vp_desired_velocity_) {
++  
+   outliers_ = Outliers(planning_config_.outliers_);
+   path_calculation_ = PathCalculation(planning_config_.path_calculation_);
+   path_smoothing_ = PathSmoothing(planning_config_.smoothing_);
+@@ -82,45 +101,43 @@ Planning::Planning(const PlanningParameters &params)
+       create_client<rcl_interfaces::srv::GetParameters>("/pacsim/pacsim_node/get_parameters");
+   fetch_discipline();
+ 
+-  // Control Publisher
+-  local_pub_ =
++  path_pub_ =
+       create_publisher<custom_interfaces::msg::PathPointArray>("/path_planning/path", 10);
+ 
+-  // Publisher for execution time
+-  _planning_execution_time_publisher_ =
++  planning_execution_time_pub_ =
+       create_publisher<std_msgs::msg::Float64>("/path_planning/execution_time", 10);
+ 
+   if (planning_config_.simulation_.publishing_visualization_msgs_) {
+-    //Visualization publishers
+-    past_path_pub_ = create_publisher<visualization_msgs::msg::MarkerArray>(
+-        "/path_planning/past_path", 10);
++    triangulations_pub_ = create_publisher<visualization_msgs::msg::Marker>(
++        "/path_planning/triangulations", 10);
++    path_to_car_pub_ = create_publisher<visualization_msgs::msg::MarkerArray>(
++        "/path_planning/path_to_car", 10);
+     full_path_pub_ = create_publisher<visualization_msgs::msg::MarkerArray>(
+         "/path_planning/full_path", 10);
+     final_path_pub_ =
+         create_publisher<visualization_msgs::msg::Marker>("/path_planning/smoothed_path", 10);
+-    triangulations_pub_ = create_publisher<visualization_msgs::msg::Marker>(
+-    "/path_planning/triangulations", 10);
+   }
+ 
+   if (!planning_config_.simulation_.using_simulated_se_) {
+-    // Vehicle Localization Subscriber
+-    vl_sub_ = create_subscription<custom_interfaces::msg::Pose>(
++    vehicle_localization_sub_ = create_subscription<custom_interfaces::msg::Pose>(
+         "/state_estimation/vehicle_pose", 10,
+         std::bind(&Planning::vehicle_localization_callback, this, _1));
+-    // State Estimation map Subscriber
+-    track_sub_ = create_subscription<custom_interfaces::msg::ConeArray>(
++
++    track_map_sub_ = create_subscription<custom_interfaces::msg::ConeArray>(
+         "/state_estimation/map", 10, std::bind(&Planning::track_map_callback, this, _1));
+ 
+-    _lap_counter_subscription_ = create_subscription<std_msgs::msg::Float64>(
++    lap_counter_sub_ = create_subscription<std_msgs::msg::Float64>(
+         "/state_estimation/lap_counter", 10, [this](const std_msgs::msg::Float64::SharedPtr msg) {
+           lap_counter_ = static_cast<int>(msg->data);
+         });
+   }
+ 
+-  RCLCPP_INFO(rclcpp::get_logger("planning"), "using simulated state estimation: %d",
++  RCLCPP_INFO(rclcpp::get_logger("planning"), "Using simulated state estimation: %d",
+               planning_config_.simulation_.using_simulated_se_);
+ }
+ 
++/*--------------------- Mission Management in Pacsim --------------------*/
++
+ void Planning::fetch_discipline() {
+   Mission mission_result = Mission::NONE;
+ 
+@@ -135,7 +152,7 @@ void Planning::fetch_discipline() {
+           auto response = future.get();
+           Mission mission_result = Mission::AUTOCROSS;
+ 
+-          if (!response->values.empty() && response->values[0].type == 4) {  // Type 4 = string
++          if (!response->values.empty() && response->values[0].type == 4) {
+             std::string discipline = response->values[0].string_value;
+             RCLCPP_INFO(get_logger(), "Discipline received: %s", discipline.c_str());
+ 
+@@ -157,87 +174,120 @@ void Planning::fetch_discipline() {
+   mission_ = mission_result;
+ }
+ 
+-void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) {
+-  auto number_of_cones_received = static_cast<int>(msg.cone_array.size());
++void Planning::set_mission(Mission mission) {
++  mission_ = mission;
++}
++
++/*--------------------- Callbacks --------------------*/
++
++void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose &message) {
++  RCLCPP_DEBUG(get_logger(), "Received Pose: %lf - %lf - %lf", message.x, message.y, message.theta);
++  
++  pose_ = Pose(message.x, message.y, message.theta);
++  path_calculation_.set_vehicle_pose(pose_);
++
++  if (!has_received_pose_) {
++    initial_car_orientation_ = message.theta;
++  }
++
++  if (has_received_track_ && !has_received_pose_) {
++    run_planning_algorithms();
++  }
++  
++  has_received_pose_ = true;
++}
++
++void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &message) {
++  int number_of_cones_received = static_cast<int>(message.cone_array.size());
+   RCLCPP_DEBUG(get_logger(), "Planning received %i cones", number_of_cones_received);
+-  cone_array_ = common_lib::communication::cone_vector_from_custom_interfaces(msg);
++  
++  cone_array_ = common_lib::communication::cone_vector_from_custom_interfaces(message);
+   has_received_track_ = true;
++  
+   if (has_received_pose_) {
+     run_planning_algorithms();
+   }
+ }
+ 
++/*--------------------- Core Path Calculation --------------------*/
++
+ void Planning::calculate_and_smooth_path() {
+   full_path_ = path_calculation_.calculate_path(cone_array_);
+   final_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
+ }
+ 
+-void Planning::run_ebs_test(){
++/*--------------------- Mission-Specific Planning --------------------*/
++
++void Planning::run_ebs_test() {
+   calculate_and_smooth_path();
++
++  double distance_from_origin = std::sqrt(pose_.position.x * pose_.position.x +
++                                          pose_.position.y * pose_.position.y);
++  
++  if (distance_from_origin > 90.0) {
++    if (!is_braking_) {
++      is_braking_ = true;
++      brake_time_ = std::chrono::steady_clock::now();
++    }
+     
+-  {
+-    double dist_from_origin = sqrt(pose_.position.x * pose_.position.x +
+-                                    pose_.position.y * pose_.position.y);
+-    if (dist_from_origin > 90.0) {
+-        if (!is_braking_) {
+-        is_braking_ = true;
+-        brake_time_ = std::chrono::steady_clock::now();
+-        }
+-      for (auto &point : final_path_) {
+-        std::chrono::duration<double> time_since_brake_start =  std::chrono::steady_clock::now() - brake_time_;
+-        point.ideal_velocity = std::max((desired_velocity_ + ( planning_config_.velocity_planning_.braking_acceleration_* time_since_brake_start.count())), 0.0);
+-      }
+-    } else {
+-      for (auto &point : final_path_) {
+-        point.ideal_velocity = desired_velocity_;
+-      }
++    for (PathPoint &point : final_path_) {
++      std::chrono::duration<double> time_since_brake_start =
++          std::chrono::steady_clock::now() - brake_time_;
++      point.ideal_velocity = std::max(
++          (desired_velocity_ + (planning_config_.velocity_planning_.braking_acceleration_ *
++                                time_since_brake_start.count())),
++          0.0);
++    }
++  } else {
++    for (PathPoint &point : final_path_) {
++      point.ideal_velocity = desired_velocity_;
++    }
++  }
++}
++
++void Planning::run_autocross() {
++  calculate_and_smooth_path();
++  velocity_planning_.set_velocity(final_path_);
++
++  if (lap_counter_ >= 1) {
++    if (!has_found_full_path_) {
++      has_found_full_path_ = true;
++      full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
++      final_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
++      velocity_planning_.trackdrive_velocity(final_path_);
++      full_path_ = final_path_;
+     }
++    velocity_planning_.stop(final_path_);
+   }
+ }
+ 
+-void Planning::run_trackdrive(){
++void Planning::run_trackdrive() {
+   if (lap_counter_ == 0) {
+     calculate_and_smooth_path();
+     velocity_planning_.set_velocity(final_path_);
+   } else if (lap_counter_ >= 1 && lap_counter_ < 10) {
+     if (!has_found_full_path_) {
+       has_found_full_path_ = true;
+-      full_path_ =
+-          path_calculation_.calculate_trackdrive(cone_array_);
+-      final_path_ = path_smoothing_.smooth_path(full_path_, pose_,
+-                                                initial_car_orientation_);
++      full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
++      final_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
+       velocity_planning_.trackdrive_velocity(final_path_);
+       full_path_ = final_path_;
+     } else {
+-      // Use the full path for the next laps
+       final_path_ = full_path_;
+     }
+-  } else if (lap_counter_ >= 10) {
++  } else {
+     final_path_ = full_path_;
+     velocity_planning_.stop(final_path_);
+   }
+ }
+ 
+-void Planning::run_autocross(){
+-  calculate_and_smooth_path();
+-  velocity_planning_.trackdrive_velocity(final_path_);
+-  if (lap_counter_ >= 1) {
+-    velocity_planning_.stop(final_path_);
+-  }
+-}
+-
+-void Planning::publish_execution_time(rclcpp::Time start_time){
+-  // Execution Time calculation
+-  rclcpp::Time end_time = now();
+-  std_msgs::msg::Float64 planning_execution_time;
+-  planning_execution_time.data = (end_time - start_time).seconds() * 1000;
+-  _planning_execution_time_publisher_->publish(planning_execution_time);
+-}
++/*--------------------- Planning Algorithm Execution --------------------*/
+ 
+ void Planning::run_planning_algorithms() {
+   RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Running Planning Algorithms");
++  
+   if (cone_array_.empty()) {
+-    publish_track_points();
++    publish_path_points();
+     return;
+   }
+ 
+@@ -247,6 +297,7 @@ void Planning::run_planning_algorithms() {
+     case Mission::NONE:
+       RCLCPP_ERROR(get_logger(), "Mission is NONE, cannot run planning algorithms.");
+       return;
++
+     case Mission::SKIDPAD:
+       final_path_ = skidpad_.skidpad_path(cone_array_, pose_);
+       break;
+@@ -263,7 +314,7 @@ void Planning::run_planning_algorithms() {
+     case Mission::TRACKDRIVE:
+       run_trackdrive();
+       break;
+-    
++
+     default:
+       calculate_and_smooth_path();
+       velocity_planning_.set_velocity(final_path_);
+@@ -276,57 +327,47 @@ void Planning::run_planning_algorithms() {
+   }
+ 
+   publish_execution_time(start_time);
+-
+-  publish_track_points();
++  publish_path_points();
++  
+   RCLCPP_DEBUG(get_logger(), "Planning will publish %i path points\n",
+                static_cast<int>(final_path_.size()));
+ 
+-  int errorcounter = 0;
+   if (planning_config_.simulation_.publishing_visualization_msgs_) {
+     publish_visualization_msgs();
+   }
+-  if (errorcounter != 0) {
+-    RCLCPP_ERROR(get_logger(), "Number of midpoints with no close points: %d", errorcounter);
+-  }
+ }
+ 
+-void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose &msg) {
+-  RCLCPP_DEBUG(get_logger(), "Received Pose: %lf - %lf - %lf", msg.x, msg.y, msg.theta);
+-  pose_ = Pose(msg.x, msg.y, msg.theta);
+-  path_calculation_.update_vehicle_pose(pose_);
+-
+-
+-  if (!has_received_pose_) {
+-    initial_car_orientation_ = msg.theta;
+-  }
++/*--------------------- Publishing --------------------*/
+ 
+-  if (has_received_track_ && !has_received_pose_) {
+-    run_planning_algorithms();
+-  }
+-  has_received_pose_= true;
++void Planning::publish_path_points() const {
++  custom_interfaces::msg::PathPointArray message =
++      common_lib::communication::custom_interfaces_array_from_vector(final_path_);
++  path_pub_->publish(message);
+ }
+ 
+-/**
+- * Publisher point by point
+- */
+-void Planning::publish_track_points() const {
+-  auto message = common_lib::communication::custom_interfaces_array_from_vector(final_path_);
+-  local_pub_->publish(message);
+-}
+-
+-void Planning::set_mission(Mission mission) {
+-  mission_ = mission;
++void Planning::publish_execution_time(rclcpp::Time start_time) {
++  rclcpp::Time end_time = now();
++  std_msgs::msg::Float64 planning_execution_time;
++  planning_execution_time.data = (end_time - start_time).seconds() * 1000;
++  planning_execution_time_pub_->publish(planning_execution_time);
+ }
+ 
+-
+ void Planning::publish_visualization_msgs() const {
+-  triangulations_pub_->publish(common_lib::communication::lines_marker_from_triangulations(
+-    path_calculation_.get_triangulations(), "triangulations", map_frame_id_, 20, "white",0.05f,visualization_msgs::msg::Marker::MODIFY));
+-  full_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
+-      full_path_, "full_path", map_frame_id_, "orange"));
+-  final_path_pub_->publish(common_lib::communication::line_marker_from_structure_array(
+-      final_path_, "smoothed_path_planning", map_frame_id_, 12, "green"));
+-  past_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
+-      path_calculation_.get_path_to_car(), "global_path", map_frame_id_, "blue", "cylinder", 0.8,
+-      visualization_msgs::msg::Marker::MODIFY));
+-}
++  triangulations_pub_->publish(
++      common_lib::communication::lines_marker_from_triangulations(
++          path_calculation_.get_triangulations(), "triangulations", map_frame_id_, 20, "white",
++          0.05f, visualization_msgs::msg::Marker::MODIFY));
++
++  full_path_pub_->publish(
++      common_lib::communication::marker_array_from_structure_array(
++          full_path_, "full_path", map_frame_id_, "orange"));
++
++  final_path_pub_->publish(
++      common_lib::communication::line_marker_from_structure_array(
++          final_path_, "smoothed_path_planning", map_frame_id_, 12, "green"));
++
++  path_to_car_pub_->publish(
++      common_lib::communication::marker_array_from_structure_array(
++          path_calculation_.get_path_to_car(), "global_path", map_frame_id_, "blue", "cylinder",
++          0.8, visualization_msgs::msg::Marker::MODIFY));
++}
+\ No newline at end of file
+diff --git a/src/planning/src/planning/skidpad.cpp b/src/planning/src/planning/skidpad.cpp
+index 692c85450..4d96e3cf7 100644
+--- a/src/planning/src/planning/skidpad.cpp
++++ b/src/planning/src/planning/skidpad.cpp
+@@ -17,8 +17,8 @@
+ 
+ Eigen::Matrix4f Skidpad::align_cones_with_icp(const std::vector<Cone>& cone_array) {
+   // Check if we have enough cones for ICP
+-  if (reference_cones_.size() < static_cast<std::size_t>(config_.skidpad_minimum_cones_) ||
+-      cone_array.size() < static_cast<std::size_t>(config_.skidpad_minimum_cones_)) {
++  if (reference_cones_.size() < static_cast<std::size_t>(config_.minimum_cones_) ||
++      cone_array.size() < static_cast<std::size_t>(config_.minimum_cones_)) {
+     RCLCPP_ERROR(rclcpp::get_logger("planning"), "Not enough cones to perform ICP alignment.");
+     return Eigen::Matrix4f::Identity();
+   }
+@@ -27,21 +27,21 @@ Eigen::Matrix4f Skidpad::align_cones_with_icp(const std::vector<Cone>& cone_arra
+   pcl::PointCloud<pcl::PointXYZ> cloud_source;
+   cloud_source.reserve(cone_array.size());
+   for (const auto& cone : cone_array) {
+-    cloud_source.emplace_back(cone.position.x, cone.position.y, 0.0);
++    (void)cloud_source.emplace_back(cone.position.x, cone.position.y, 0.0);
+   }
+ 
+   // Convert reference cones to target cloud
+   pcl::PointCloud<pcl::PointXYZ> cloud_target;
+   cloud_target.reserve(reference_cones_.size());
+   for (const auto& [x, y] : reference_cones_) {
+-    cloud_target.emplace_back(x, y, 0.0);
++    (void)cloud_target.emplace_back(x, y, 0.0);
+   }
+ 
+   // Run ICP alignment
+   pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
+   icp.setInputSource(cloud_source.makeShared());
+   icp.setInputTarget(cloud_target.makeShared());
+-  icp.setMaxCorrespondenceDistance(config_.skidpad_tolerance_);
++  icp.setMaxCorrespondenceDistance(config_.tolerance_);
+   icp.setMaximumIterations(std::numeric_limits<int>::max());
+   icp.setTransformationEpsilon(1e-6);
+   icp.setEuclideanFitnessEpsilon(1e-3);
+@@ -68,13 +68,15 @@ size_t Skidpad::find_closest_path_index(
+     double dx = path[i].position.x - pose.position.x;
+     double dy = path[i].position.y - pose.position.y;
+     double dist = std::sqrt(dx * dx + dy * dy);
++
++    if (dist > min_dist) {
++      break;  // Stop searching if distance starts increasing
++    }
+     
+     if (dist < min_dist) {
+       min_dist = dist;
+       closest_index = i;
+-    } else if (dist > min_dist) {
+-      break;  // Stop searching if distance starts increasing
+-    }
++    } 
+   }
+   
+   return closest_index;
+@@ -97,7 +99,7 @@ std::vector<PathPoint> Skidpad::skidpad_path(const std::vector<Cone>& cone_array
+       std::istringstream iss(line);
+       double x = 0.0, y = 0.0, z = 0.0;
+       if (iss >> x >> y >> z) {
+-        reference_cones_.emplace_back(x, y);
++        (void)reference_cones_.emplace_back(x, y);
+       } else {
+         break;
+       }
+@@ -110,7 +112,7 @@ std::vector<PathPoint> Skidpad::skidpad_path(const std::vector<Cone>& cone_array
+       std::istringstream iss(line);
+       double x = 0.0, y = 0.0, v = 0.0;
+       if (iss >> x >> y >> v) {
+-        hardcoded_path_.emplace_back(x, y, v);
++        (void)hardcoded_path_.emplace_back(x, y, v);
+       } else {
+         break;
+       }
+@@ -153,11 +155,14 @@ std::vector<PathPoint> Skidpad::skidpad_path(const std::vector<Cone>& cone_array
+               predefined_path_.size(), closest_index, hardcoded_path_.size());
+   
+   // Remove all the points before the closest point not removing the closest point itself
+-  predefined_path_.erase(predefined_path_.begin(), predefined_path_.begin() + closest_index);
+-  hardcoded_path_.erase(hardcoded_path_.begin(), hardcoded_path_.begin() + closest_index);
++  (void)predefined_path_.erase(predefined_path_.begin(), predefined_path_.begin() + closest_index);
++  (void)hardcoded_path_.erase(hardcoded_path_.begin(), hardcoded_path_.begin() + closest_index);
+ 
+   size_t path_size = predefined_path_.size();
+-  size_t count = (path_size >= 70) ? 70 : path_size;
++  size_t count = 70;
++  if (path_size < 70) {
++    count = path_size;
++  }
+ 
+   return std::vector<PathPoint>(predefined_path_.begin(), predefined_path_.begin() + count);
+ }
+\ No newline at end of file
+diff --git a/src/planning/src/planning/velocity_planning.cpp b/src/planning/src/planning/velocity_planning.cpp
+index 315f1495f..b2d1682c2 100644
+--- a/src/planning/src/planning/velocity_planning.cpp
++++ b/src/planning/src/planning/velocity_planning.cpp
+@@ -113,4 +113,15 @@ void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
+       path_point.ideal_velocity = config_.desired_velocity_;
+     }
+   }
+-}
+\ No newline at end of file
++}
++
++void VelocityPlanning::stop(std::vector<PathPoint> &final_path) {
++  int size = final_path.size();
++  double dist = 0.0;
++  for (int i = 0; i < size/2; ++i) {
++    dist += final_path[i].position.euclidean_distance(final_path[i + 1].position);
++    if(dist > 10){
++      final_path[i].ideal_velocity = 0.0;
++    }
++  }
++}
