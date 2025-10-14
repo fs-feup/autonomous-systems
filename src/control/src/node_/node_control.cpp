@@ -207,23 +207,6 @@ void Control::publish_control(const custom_interfaces::msg::Pose& vehicle_state_
     return;
   }
 
-  RCLCPP_INFO(rclcpp::get_logger("control"), "Rear Axis: %f",
-              this->point_solver_.vehicle_pose_.rear_axis_);
-  RCLCPP_INFO(rclcpp::get_logger("control"), "CG to rear axis Rear Axis: %f",
-              this->point_solver_.dist_cg_2_rear_axis_);
-  RCLCPP_INFO(rclcpp::get_logger("control"), "Position: (%f, %f)",
-              this->point_solver_.vehicle_pose_.position.x,
-              this->point_solver_.vehicle_pose_.position.y);
-  RCLCPP_INFO(rclcpp::get_logger("control"), "Lookahead Point: (%f, %f)", lookahead_point.x,
-              lookahead_point.y);
-  RCLCPP_INFO(rclcpp::get_logger("control"), "CG to rear axis Rear Axis: %f",
-              this->point_solver_.dist_cg_2_rear_axis_);
-  // check if steering is Nan
-  if (std::isnan(steering_angle) || std::isnan(torque)) {
-    RCLCPP_ERROR(rclcpp::get_logger("control"), "Steering Angle or Torque is NaN");
-    return;
-  }
-
   double execution_time = (this->now() - start).seconds() * 1000;
 
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Current vehicle velocity: %f",
