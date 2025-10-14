@@ -18,6 +18,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/CellsTemps.msg"
   "msg/Cone.msg"
   "msg/ConeArray.msg"
+  "msg/PerceptionOutput.msg"
   "msg/ControlCommand.msg"
   "msg/DataLogInfo1.msg"
   "msg/DataLogInfo2.msg"

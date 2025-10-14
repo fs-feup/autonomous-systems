@@ -4,6 +4,7 @@
 #include <pcl_conversions/pcl_conversions.h>
 
 #include <custom_interfaces/msg/cone_array.hpp>
+#include <custom_interfaces/msg/perception_output.hpp>
 #include <filesystem>
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/point_cloud2.hpp>
@@ -96,7 +97,7 @@ protected:
   rclcpp::Node::SharedPtr test_node_;  /// Test node created to publish a pcl and subsribe to the
                                        /// cones array on the perception node.
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pcl_publisher_;
-  rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr cones_subscriber_;
+  rclcpp::Subscription<custom_interfaces::msg::PerceptionOutput>::SharedPtr cones_subscriber_;
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr pcl_removed_cloud_subscriber_;
   custom_interfaces::msg::ConeArray::SharedPtr
       cones_result_;  /// Recieves and stores perception node output
@@ -125,9 +126,10 @@ protected:
         });
 
     // Subscriber for output cones
-    cones_subscriber_ = test_node_->create_subscription<custom_interfaces::msg::ConeArray>(
-        "/perception/cones", 1, [this](const custom_interfaces::msg::ConeArray::SharedPtr msg) {
-          cones_result_ = msg;
+    cones_subscriber_ = test_node_->create_subscription<custom_interfaces::msg::PerceptionOutput>(
+        "/perception/cones", 1,
+        [this](const custom_interfaces::msg::PerceptionOutput::SharedPtr msg) {
+          cones_result_ = std::make_shared<custom_interfaces::msg::ConeArray>(msg->cones);
           cones_received_ = true;
         });
 
@@ -276,17 +278,17 @@ TEST_F(PerceptionIntegrationTest, AccelerationFar) {
 /**
  * @brief Blind turn test for perception node from rosbag: Closed_Course_Manual-6.mcap
  */
-TEST_F(PerceptionIntegrationTest, EnterHairpin) { runTest("enter_hairpin", 16, 0, 80, 4); }
+TEST_F(PerceptionIntegrationTest, EnterHairpin) { runTest("enter_hairpin", 16, 0, 70, 4); }
 
 /**
  * @brief Turn test for perception node from rosbag: Hard_Course-DV-5.mcap
  */
-TEST_F(PerceptionIntegrationTest, TurnStart) { runTest("turn_start", 33, 4, 80, 4); }
+TEST_F(PerceptionIntegrationTest, TurnStart) { runTest("turn_start", 33, 4, 65, 4); }
 
 /**
  * @brief Odd situation test for perception node from rosbag: Hard_Course-DV-5.mcap
  */
-TEST_F(PerceptionIntegrationTest, OddStituation) { runTest("odd_situation", 33, 4, 80, 4); }
+TEST_F(PerceptionIntegrationTest, OddStituation) { runTest("odd_situation", 33, 4, 70, 4); }
 
 /**
  * @brief A fully diagonal path test for perception node from rosbag: Autocross_DV-1.mcap

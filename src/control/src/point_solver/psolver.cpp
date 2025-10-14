@@ -26,6 +26,7 @@ void PointSolver::update_vehicle_pose(const custom_interfaces::msg::Pose &pose, 
   this->vehicle_pose_.velocity_ = velocity;
   this->vehicle_pose_.orientation = pose.theta;
   this->vehicle_pose_.rear_axis_ = this->bicycle_model_.rear_axis_position(
+
       this->vehicle_pose_.position, this->vehicle_pose_.orientation, this->dist_cg_2_rear_axis_);
 
   return;

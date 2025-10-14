@@ -72,7 +72,7 @@ void PacsimAdapter::finish() {
 
 void PacsimAdapter::_pacsim_perception_subscription_callback(
     const pacsim::msg::PerceptionDetections& msg) {
-  custom_interfaces::msg::ConeArray cone_array_msg;
+  custom_interfaces::msg::PerceptionOutput cone_array_msg;
   for (const pacsim::msg::PerceptionDetection& detection : msg.detections) {
     custom_interfaces::msg::Point2d position = custom_interfaces::msg::Point2d();
     position.x = detection.pose.pose.position.x;
@@ -82,9 +82,10 @@ void PacsimAdapter::_pacsim_perception_subscription_callback(
     cone_message.confidence = detection.detection_probability;
     cone_message.color = common_lib::competition_logic::get_color_string(
         common_lib::competition_logic::Color::UNKNOWN);
-    cone_array_msg.cone_array.push_back(cone_message);
+    cone_array_msg.cones.cone_array.push_back(cone_message);
   }
   cone_array_msg.header.stamp = msg.header.stamp;
+  cone_array_msg.exec_time = 0.01;
   _perception_subscription_callback(cone_array_msg);
 }
 

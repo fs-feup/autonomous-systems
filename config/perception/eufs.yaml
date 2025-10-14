@@ -2,6 +2,7 @@ perception:
   ransac_epsilon: 0.02
   ransac_iterations: 20
   ransac_n_neighbours: 15
+  plane_angle_diff: 10.0 # Only used in limited ransac
   fov_trim_angle: 60.0
   pc_max_range: 30.0
   pc_min_range: 1.0

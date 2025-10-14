@@ -14,24 +14,26 @@
 #include "common_lib/competition_logic/mission_logic.hpp"
 #include "common_lib/structures/velocities.hpp"
 #include "cone_differentiation/least_squares_differentiation.hpp"
-#include "deskew/deskew.hpp"
-#include "custom_interfaces/msg/velocities.hpp"
 #include "cone_validator/height_validator.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/operational_status.hpp"
+#include "custom_interfaces/msg/perception_output.hpp"
+#include "custom_interfaces/msg/velocities.hpp"
+#include "deskew/deskew.hpp"
 #include "fov_trimming/acceleration_trimming.hpp"
 #include "fov_trimming/cut_trimming.hpp"
 #include "fov_trimming/skidpad_trimming.hpp"
+#include "ground_removal/constrained_grid_ransac.hpp"
+#include "ground_removal/constrained_ransac.hpp"
 #include "ground_removal/grid_ransac.hpp"
 #include "ground_removal/ransac.hpp"
 #include "icp/icp.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "std_msgs/msg/float64.hpp"
-#include "visualization_msgs/msg/marker_array.hpp"
-
 #include "std_srvs/srv/empty.hpp"
 #include "std_srvs/srv/trigger.hpp"
+#include "visualization_msgs/msg/marker_array.hpp"
 
 using Mission = common_lib::competition_logic::Mission;
 struct PerceptionParameters {     ///< Struct containing parameters and interfaces used in
@@ -78,19 +80,19 @@ private:
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
       _point_cloud_subscription;  ///< PointCloud2 subscription.
   rclcpp::Subscription<custom_interfaces::msg::Velocities>::SharedPtr _velocities_subscription_;
-  rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr
-      _cones_publisher;  ///< ConeArray publisher.
+  rclcpp::Publisher<custom_interfaces::msg::PerceptionOutput>::SharedPtr
+      _cones_publisher;  ///< ConeArray + exec publisher.
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
       _cone_marker_array_;  ///< MarkerArray publisher.
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr
       _perception_execution_time_publisher_;  ///< Perception execution time publisher.
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr
       _ground_removed_publisher_;  ///< point cloud after ground removal publisher.
-  common_lib::structures::Velocities _vehicle_velocity_; // Last received vehicle velocity, used to deskew the point cloud
+  common_lib::structures::Velocities
+      _vehicle_velocity_;  // Last received vehicle velocity, used to deskew the point cloud
 
   rclcpp::TimerBase::SharedPtr lidar_off_timer_;
-  rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr
-      emergency_client_;
+  rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr emergency_client_;
 
   /**
    * @brief Publishes information about clusters (cones) using a custom ROS2 message.
@@ -102,8 +104,7 @@ private:
    * @param cones A reference to a vector of Cluster objects representing the clusters (cones)
    * to be published.
    */
-  void publish_cones(std::vector<Cluster>* cones);
-
+  void publish_cones(std::vector<Cluster>* cones, double exec_time);
 
   void velocities_callback(const custom_interfaces::msg::Velocities& msg);
 

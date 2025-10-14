@@ -2,8 +2,11 @@
 
 #include <vector>
 
+#include <vector>
+
 #include "adapter_planning/pacsim.hpp"
 #include "adapter_planning/vehicle.hpp"
+#include "common_lib/config_load/config_load.hpp"
 #include "common_lib/config_load/config_load.hpp"
 
 using std::placeholders::_1;
@@ -134,6 +137,44 @@ Planning::Planning(const PlanningParameters &params)
 
   RCLCPP_INFO(rclcpp::get_logger("planning"), "Using simulated state estimation: %d",
               planning_config_.simulation_.using_simulated_se_);
+}
+
+void Planning::fetch_discipline() {
+  common_lib::competition_logic::Mission mission_result =
+      common_lib::competition_logic::Mission::NONE;
+
+  if (!param_client_->wait_for_service(std::chrono::milliseconds(100))) {
+    RCLCPP_ERROR(this->get_logger(), "Service /pacsim/pacsim_node/get_parameters not available.");
+  } else {
+    auto request = std::make_shared<rcl_interfaces::srv::GetParameters::Request>();
+    request->names.push_back("discipline");
+
+    param_client_->async_send_request(
+        request, [this](rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedFuture future) {
+          auto response = future.get();
+          common_lib::competition_logic::Mission mission_result =
+              common_lib::competition_logic::Mission::AUTOCROSS;
+
+          if (!response->values.empty() && response->values[0].type == 4) {  // Type 4 = string
+            std::string discipline = response->values[0].string_value;
+            RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
+
+            if (discipline == "skidpad") {
+              mission_result = common_lib::competition_logic::Mission::SKIDPAD;
+            } else if (discipline == "acceleration") {
+              mission_result = common_lib::competition_logic::Mission::ACCELERATION;
+            } else if (discipline == "trackdrive") {
+              mission_result = common_lib::competition_logic::Mission::TRACKDRIVE;
+            }
+          } else {
+            RCLCPP_ERROR(this->get_logger(), "Failed to retrieve discipline parameter.");
+          }
+
+          this->mission = mission_result;
+        });
+  }
+
+  this->mission = mission_result;
 }
 
 /*--------------------- Mission Management in Pacsim --------------------*/
@@ -332,6 +373,7 @@ void Planning::run_planning_algorithms() {
   RCLCPP_DEBUG(get_logger(), "Planning will publish %i path points\n",
                static_cast<int>(final_path_.size()));
 
+  int errorcounter = 0;
   if (planning_config_.simulation_.publishing_visualization_msgs_) {
     publish_visualization_msgs();
   }

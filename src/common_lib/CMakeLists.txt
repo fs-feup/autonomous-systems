@@ -22,6 +22,22 @@ set(PACKAGES
 foreach(pkg ${PACKAGES})
   find_package(${pkg} REQUIRED)
 endforeach()
+set(PACKAGES
+  ament_cmake
+  Eigen3
+  eufs_msgs
+  fs_msgs
+  visualization_msgs
+  std_msgs
+  rclcpp
+  geometry_msgs
+  custom_interfaces
+  yaml-cpp
+)
+
+foreach(pkg ${PACKAGES})
+  find_package(${pkg} REQUIRED)
+endforeach()
 
 # Enable OpenMP
 find_package(OpenMP)
@@ -41,6 +57,7 @@ set(IMPLEMENTATION_FILES
   src/structures/path_point.cpp
   src/structures/vehicle_state.cpp
   src/structures/velocities.cpp
+  src/structures/velocities.cpp
   src/sensor_data/wheel_encoders.cpp
   src/sensor_data/imu.cpp
   src/communication/marker.cpp
@@ -54,9 +71,17 @@ set(IMPLEMENTATION_FILES
 add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})
 target_link_libraries(${PROJECT_NAME} tbb yaml-cpp)
 ament_target_dependencies(${PROJECT_NAME} ${PACKAGES})
+target_link_libraries(${PROJECT_NAME} tbb yaml-cpp)
+ament_target_dependencies(${PROJECT_NAME} ${PACKAGES})
 
 
 target_include_directories(${PROJECT_NAME} PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+  ${EIGEN3_INCLUDE_DIR}
+)
+
+ament_export_targets(${PROJECT_NAME} HAS_LIBRARY_TARGET)
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
   ${EIGEN3_INCLUDE_DIR}
@@ -85,6 +110,7 @@ if(BUILD_TESTING)
   set(TESTFILES
     test/main.cpp
     test/maths/transformations_test.cpp
+    test/maths/transformations_test.cpp
   )
 
   include_directories(test)  # Include the 'test' directory for your test targets
@@ -94,9 +120,13 @@ if(BUILD_TESTING)
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES} TIMEOUT 600)
   target_link_libraries(${PROJECT_NAME}_test tbb yaml-cpp)
   ament_target_dependencies(${PROJECT_NAME}_test ${PACKAGES})
+  target_link_libraries(${PROJECT_NAME}_test tbb yaml-cpp)
+  ament_target_dependencies(${PROJECT_NAME}_test ${PACKAGES})
   target_include_directories(${PROJECT_NAME}_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
+    ${EIGEN3_INCLUDE_DIR}
+  )
     ${EIGEN3_INCLUDE_DIR}
   )
 

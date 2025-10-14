@@ -7,6 +7,7 @@
 #include <map>
 #include <memory>
 #include <rclcpp/rclcpp.hpp>
+#include <rclcpp/rclcpp.hpp>
 #include <string>
 #include <vector>
 
@@ -21,6 +22,7 @@
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/point_array.hpp"
+#include "custom_interfaces/msg/pose.hpp"
 #include "custom_interfaces/msg/pose.hpp"
 #include "planning/outliers.hpp"
 #include "planning/path_calculation.hpp"

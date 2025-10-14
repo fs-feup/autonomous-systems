@@ -48,9 +48,10 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
 
   // Subscriptions
   if (!params.use_simulated_perception_) {
-    this->_perception_subscription_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
-        "/perception/cones", 1,
-        std::bind(&SLAMNode::_perception_subscription_callback, this, std::placeholders::_1));
+    this->_perception_subscription_ =
+        this->create_subscription<custom_interfaces::msg::PerceptionOutput>(
+            "/perception/cones", 1,
+            std::bind(&SLAMNode::_perception_subscription_callback, this, std::placeholders::_1));
   }
   if (!params.use_simulated_velocities_) {
     this->_velocities_subscription_ = this->create_subscription<custom_interfaces::msg::Velocities>(
@@ -91,8 +92,9 @@ void SLAMNode::init() { this->_slam_solver_->init(this->weak_from_this()); }
 
 /*---------------------- Subscriptions --------------------*/
 
-void SLAMNode::_perception_subscription_callback(const custom_interfaces::msg::ConeArray &msg) {
-  auto const &cone_array = msg.cone_array;
+void SLAMNode::_perception_subscription_callback(
+    const custom_interfaces::msg::PerceptionOutput &msg) {
+  auto const &cone_array = msg.cones.cone_array;
 
   if (!this->_go_ || this->_mission_ == common_lib::competition_logic::Mission::NONE) {
     return;
@@ -112,9 +114,20 @@ void SLAMNode::_perception_subscription_callback(const custom_interfaces::msg::C
   _last_perception_message_time_ = current_stamp;
 
   this->_perception_map_.clear();
+  Eigen::Vector3d velocities(this->_vehicle_state_velocities_.velocity_x,
+                             this->_vehicle_state_velocities_.velocity_y,
+                             this->_vehicle_state_velocities_.rotational_velocity);
+  double perception_exec_time = msg.exec_time;
+  double theta = -velocities(2) * perception_exec_time;
+  double cos_theta = std::cos(theta);
+  double sin_theta = std::sin(theta);
   for (auto &cone : cone_array) {
+    double x_linear_compensated = cone.position.x - velocities(0) * perception_exec_time;
+    double y_linear_compensated = cone.position.y - velocities(1) * perception_exec_time;
+    double x_compensated = cos_theta * x_linear_compensated - sin_theta * y_linear_compensated;
+    double y_compensated = sin_theta * x_linear_compensated + cos_theta * y_linear_compensated;
     this->_perception_map_.push_back(common_lib::structures::Cone(
-        cone.position.x, cone.position.y, cone.color, cone.confidence, msg.header.stamp));
+        x_compensated, y_compensated, cone.color, cone.confidence, msg.header.stamp));
   }
 
   if (this->_slam_solver_ == nullptr) {

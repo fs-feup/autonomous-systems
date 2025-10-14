@@ -69,6 +69,7 @@ PerceptionParameters Perception::load_config() {
   trim_params.split_params.n_angular_grids = perception_config["n_angular_grids"].as<int>();
   trim_params.split_params.radius_resolution = perception_config["radius_resolution"].as<double>();
   trim_params.split_params.fov_angle = 2 * trim_params.fov_trim_angle;
+  trim_params.split_params.max_range = trim_params.max_range;
 
   trim_params.acc_max_range = perception_config["acc_max_range"].as<double>();
   trim_params.acc_fov_trim_angle = perception_config["acc_fov_trim_angle"].as<double>();
@@ -77,6 +78,7 @@ PerceptionParameters Perception::load_config() {
   trim_params.acc_split_params.radius_resolution =
       perception_config["acc_radius_resolution"].as<double>();
   trim_params.acc_split_params.fov_angle = 2 * trim_params.acc_fov_trim_angle;
+  trim_params.acc_split_params.max_range = trim_params.acc_max_range;
 
   trim_params.skid_max_range = perception_config["skid_max_range"].as<double>();
   const double min_distance_to_cone = perception_config["skid_min_distance_to_cone"].as<double>();
@@ -87,6 +89,7 @@ PerceptionParameters Perception::load_config() {
   trim_params.skid_split_params.radius_resolution =
       perception_config["skid_radius_resolution"].as<double>();
   trim_params.skid_split_params.fov_angle = 2 * trim_params.skid_fov_trim_angle;
+  trim_params.skid_split_params.max_range = trim_params.skid_max_range;
 
   auto acceleration_trimming = std::make_shared<AccelerationTrimming>(trim_params);
   auto skidpad_trimming = std::make_shared<SkidpadTrimming>(trim_params);
@@ -110,9 +113,22 @@ PerceptionParameters Perception::load_config() {
   std::string ground_removal_algorithm = perception_config["ground_removal"].as<std::string>();
   double ransac_epsilon = perception_config["ransac_epsilon"].as<double>();
   int ransac_iterations = perception_config["ransac_iterations"].as<int>();
+  double plane_angle_diff = perception_config["plane_angle_diff"].as<double>();
+
   if (ground_removal_algorithm == "ransac") {
     params.ground_removal_ = std::make_shared<RANSAC>(ransac_epsilon, ransac_iterations);
   } else if (ground_removal_algorithm == "grid_ransac") {
+    params.ground_removal_ = std::make_shared<GridRANSAC>(ransac_epsilon, ransac_iterations);
+  } else if (ground_removal_algorithm == "constrained_ransac") {
+    params.ground_removal_ =
+        std::make_shared<ConstrainedRANSAC>(ransac_epsilon, ransac_iterations, plane_angle_diff);
+  } else if (ground_removal_algorithm == "constrained_grid_ransac") {
+    params.ground_removal_ = std::make_shared<ConstrainedGridRANSAC>(
+        ransac_epsilon, ransac_iterations, plane_angle_diff);
+  } else {
+    RCLCPP_ERROR(rclcpp::get_logger("perception"),
+                 "Ground removal algorithm not recognized: %s, using GridRANSAC as default",
+                 ground_removal_algorithm.c_str());
     params.ground_removal_ = std::make_shared<GridRANSAC>(ransac_epsilon, ransac_iterations);
   }
 
@@ -194,7 +210,7 @@ Perception::Perception(const PerceptionParameters& params)
       _cone_evaluator_(params.cone_evaluator_),
       _icp_(params.icp_) {
   this->_cones_publisher =
-      this->create_publisher<custom_interfaces::msg::ConeArray>("/perception/cones", 10);
+      this->create_publisher<custom_interfaces::msg::PerceptionOutput>("/perception/cones", 10);
 
   this->_ground_removed_publisher_ =
       this->create_publisher<sensor_msgs::msg::PointCloud2>("/perception/ground_removed_cloud", 10);
@@ -289,7 +305,8 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   // Execution Time calculation
   rclcpp::Time end_time = this->now();
   std_msgs::msg::Float64 perception_execution_time;
-  perception_execution_time.data = (end_time - time).seconds() * 1000;
+  double perception_execution_time_seconds = (end_time - time).seconds();
+  perception_execution_time.data = perception_execution_time_seconds * 1000;
   this->_perception_execution_time_publisher_->publish(perception_execution_time);
 
   // Logging
@@ -302,11 +319,11 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Validations: %ld clusters",
                filtered_clusters.size());
 
-  publish_cones(&filtered_clusters);
+  publish_cones(&filtered_clusters, perception_execution_time_seconds);
 }
 
-void Perception::publish_cones(std::vector<Cluster>* cones) {
-  auto message = custom_interfaces::msg::ConeArray();
+void Perception::publish_cones(std::vector<Cluster>* cones, double exec_time) {
+  auto message = custom_interfaces::msg::PerceptionOutput();
   std::vector<custom_interfaces::msg::Cone> message_array = {};
   message.header = header;
   for (int i = 0; i < static_cast<int>(cones->size()); i++) {
@@ -319,9 +336,10 @@ void Perception::publish_cones(std::vector<Cluster>* cones) {
     cone_message.color = cones->at(i).get_color();
     cone_message.is_large = cones->at(i).get_is_large();
     cone_message.confidence = cones->at(i).get_confidence();
-    message.cone_array.push_back(cone_message);
+    message.cones.cone_array.push_back(cone_message);
     message_array.push_back(cone_message);
   }
+  message.exec_time = exec_time;
 
   this->_cones_publisher->publish(message);
   // TODO: correct frame id to LiDAR instead of vehicle
