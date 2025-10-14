@@ -5,17 +5,8 @@
 #include <map>
 #include <memory>
 #include <queue>
-#include <memory>
-#include <queue>
 #include <utility>
 #include <vector>
-
-
-#include <pcl/registration/icp.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
-#include <pcl/kdtree/kdtree_flann.h>
-
 
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/path_point.hpp"
