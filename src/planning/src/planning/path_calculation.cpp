@@ -14,7 +14,7 @@ using namespace std;
 
 // ===================== Path Calculation (Core) =====================
 
-vector<PathPoint> PathCalculation::calculate_path(vector<Cone>& cone_array) {
+vector<PathPoint> PathCalculation::calculate_path(const vector<Cone>& cone_array) {
 
   if (cone_array.size() < 4) {
     RCLCPP_ERROR(rclcpp::get_logger("planning"), "Not enough cones to create a path.");
@@ -356,10 +356,10 @@ pair<double, shared_ptr<Midpoint>> PathCalculation::find_best_next_midpoint(
     }
 
     // Recursive cost calculation
-    pair<double, shared_ptr<Midpoint>> recursive_result =
+    auto [best_cost, best_point] =
         find_best_next_midpoint(depth - 1, current, next, max_cost);
 
-    double total_cost = local_cost + recursive_result.first;
+    double total_cost = local_cost + best_cost;
 
     // Update minimum cost and corresponding point
     if (total_cost < min_cost) {

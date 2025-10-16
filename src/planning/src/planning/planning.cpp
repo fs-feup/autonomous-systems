@@ -6,7 +6,6 @@
 #include "adapter_planning/vehicle.hpp"
 #include "common_lib/config_load/config_load.hpp"
 
-using std::placeholders::_1;
 
 /*--------------------- Configuration Loading --------------------*/
 
@@ -78,7 +77,11 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.simulation_publishing_visualization_msgs_ =
       planning_config["simulation_publishing_visualization_msgs"].as<bool>();
 
-  params.map_frame_id_ = adapter == "eufs" ? "base_footprint" : "map";
+  if (adapter == "eufs") {
+    params.map_frame_id_ = "base_footprint";
+  } else {
+      params.map_frame_id_ = "map";
+  }
 
   return params;
 }
@@ -121,10 +124,10 @@ Planning::Planning(const PlanningParameters &params)
   if (!planning_config_.simulation_.using_simulated_se_) {
     vehicle_localization_sub_ = create_subscription<custom_interfaces::msg::Pose>(
         "/state_estimation/vehicle_pose", 10,
-        std::bind(&Planning::vehicle_localization_callback, this, _1));
+        std::bind(&Planning::vehicle_localization_callback, this, std::placeholders::_1));
 
     track_map_sub_ = create_subscription<custom_interfaces::msg::ConeArray>(
-        "/state_estimation/map", 10, std::bind(&Planning::track_map_callback, this, _1));
+        "/state_estimation/map", 10, std::bind(&Planning::track_map_callback, this, std::placeholders::_1));
 
     lap_counter_sub_ = create_subscription<std_msgs::msg::Float64>(
         "/state_estimation/lap_counter", 10, [this](const std_msgs::msg::Float64::SharedPtr msg) {
@@ -147,7 +150,7 @@ void Planning::fetch_discipline() {
     auto request = std::make_shared<rcl_interfaces::srv::GetParameters::Request>();
     request->names.push_back("discipline");
 
-    param_client_->async_send_request(
+    (void)param_client_->async_send_request(
         request, [this](rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedFuture future) {
           auto response = future.get();
           Mission mission_result = Mission::AUTOCROSS;
@@ -162,6 +165,8 @@ void Planning::fetch_discipline() {
               mission_result = Mission::ACCELERATION;
             } else if (discipline == "trackdrive") {
               mission_result = Mission::TRACKDRIVE;
+            }else{
+              mission_result = Mission::AUTOCROSS;
             }
           } else {
             RCLCPP_ERROR(get_logger(), "Failed to retrieve discipline parameter.");

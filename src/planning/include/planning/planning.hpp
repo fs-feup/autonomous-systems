@@ -35,7 +35,6 @@ using PathPoint = common_lib::structures::PathPoint;
 using Pose = common_lib::structures::Pose;
 using Mission = common_lib::competition_logic::Mission;
 
-using std::placeholders::_1;
 
 /**
  * @class Planning

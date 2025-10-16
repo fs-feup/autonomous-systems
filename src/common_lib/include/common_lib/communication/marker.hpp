@@ -16,19 +16,30 @@ using K = CGAL::Exact_predicates_inexact_constructions_kernel;
 using Point = K::Point_2;
 namespace common_lib::communication {
 
-const std::map<std::string, std::array<float, 4>, std::less<>> marker_color_map = {
-    {"blue", {0.0, 0.0, 1.0, 1.0}},   {"yellow", {1.0, 1.0, 0.0, 1.0}},
-    {"orange", {1.0, 0.5, 0.0, 1.0}}, {"red", {1.0, 0.0, 0.0, 1.0}},
-    {"green", {0.0, 1.0, 0.0, 1.0}},  {"white", {1.0, 1.0, 1.0, 1.0}},
-    {"grey", {0.5, 0.5, 0.5, 1.0}}};
+inline const std::map<std::string, std::array<float, 4>, std::less<>>& marker_color_map() {
+  static const std::map<std::string, std::array<float, 4>, std::less<>> map = {
+      {"blue",   {0.0f, 0.0f, 1.0f, 1.0f}},
+      {"yellow", {1.0f, 1.0f, 0.0f, 1.0f}},
+      {"orange", {1.0f, 0.5f, 0.0f, 1.0f}},
+      {"red",    {1.0f, 0.0f, 0.0f, 1.0f}},
+      {"green",  {0.0f, 1.0f, 0.0f, 1.0f}},
+      {"white",  {1.0f, 1.0f, 1.0f, 1.0f}},
+      {"grey",   {0.5f, 0.5f, 0.5f, 1.0f}},
+  };
+  return map;
+}
 
-const std::map<std::string, int, std::less<>> marker_shape_map = {
-    {"cylinder", visualization_msgs::msg::Marker::CYLINDER},
-    {"cube", visualization_msgs::msg::Marker::CUBE},
-    {"sphere", visualization_msgs::msg::Marker::SPHERE},
-    {"line", visualization_msgs::msg::Marker::LINE_STRIP},
-    {"cone", visualization_msgs::msg::Marker::MESH_RESOURCE},
-    {"arrow", visualization_msgs::msg::Marker::ARROW}};
+inline const std::map<std::string, int, std::less<>>& marker_shape_map() {
+  static const std::map<std::string, int, std::less<>> map = {
+      {"cylinder", visualization_msgs::msg::Marker::CYLINDER},
+      {"cube",     visualization_msgs::msg::Marker::CUBE},
+      {"sphere",   visualization_msgs::msg::Marker::SPHERE},
+      {"line",     visualization_msgs::msg::Marker::LINE_STRIP},
+      {"cone",     visualization_msgs::msg::Marker::MESH_RESOURCE},
+      {"arrow",    visualization_msgs::msg::Marker::ARROW},
+  };
+  return map;
+}
 
 /**
  * @brief A helper struct to check if a type T has a member named 'position'.
@@ -38,7 +49,7 @@ const std::map<std::string, int, std::less<>> marker_shape_map = {
  * @tparam typename A helper typename defaulted to void, used for SFINAE.
  */
 template <typename T, typename = void>
-struct HasPosition : std::false_type {};
+struct HasPosition : public std::false_type {};
 
 /**
  * @brief A specialization of the has_position struct for types T that do have a valid 'position'
@@ -51,7 +62,7 @@ template <typename T>
 struct HasPosition<T,
                    std::enable_if_t<std::is_arithmetic_v<decltype(std::declval<T>().position.x)> &&
                                     std::is_arithmetic_v<decltype(std::declval<T>().position.y)>>>
-    : std::true_type {};
+    : public std::true_type {};
 
 /**
  * @brief Converts a vector of cones to a marker array
@@ -76,7 +87,7 @@ visualization_msgs::msg::MarkerArray marker_array_from_structure_array(
       "Template argument T must have a data member named 'position' with 'x' and 'y' sub-members");
 
   visualization_msgs::msg::MarkerArray marker_array;
-  std::array<float, 4> color_array = marker_color_map.at(color);
+  std::array<float, 4> color_array = marker_color_map().at(color);
 
   for (size_t i = 0; i < structure_array.size(); ++i) {
     visualization_msgs::msg::Marker marker;
@@ -85,7 +96,7 @@ visualization_msgs::msg::MarkerArray marker_array_from_structure_array(
     marker.header.stamp = rclcpp::Clock().now();
     marker.ns = name_space;
     marker.id = static_cast<int>(i);
-    marker.type = marker_shape_map.at(shape);
+    marker.type = marker_shape_map().at(shape);
     marker.action = action;
 
     marker.pose.orientation.x = 0.0;
@@ -154,7 +165,7 @@ visualization_msgs::msg::Marker line_marker_from_structure_array(
       HasPosition<T>::value,
       "Template argument T must have a data member named 'position' with 'x' and 'y' sub-members");
 
-  std::array<float, 4> color_array = marker_color_map.at(color);
+  std::array<float, 4> color_array = marker_color_map().at(color);
 
   visualization_msgs::msg::Marker marker;
 
@@ -162,7 +173,7 @@ visualization_msgs::msg::Marker line_marker_from_structure_array(
   marker.header.stamp = rclcpp::Clock().now();
   marker.ns = name_space;
   marker.id = id;
-  marker.type = marker_shape_map.at(shape);
+  marker.type = marker_shape_map().at(shape);
   marker.action = action;
 
   marker.pose.orientation.x = 0.0;

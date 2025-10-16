@@ -13,7 +13,7 @@ visualization_msgs::msg::Marker marker_from_cone_w_covariance(
   marker.header.stamp = rclcpp::Clock().now();
   marker.ns = name_space;
   marker.id = id;
-  marker.type = common_lib::communication::marker_shape_map.at(shape);
+  marker.type = common_lib::communication::marker_shape_map().at(shape);
   marker.action = action;
 
   marker.pose.orientation.x = 0.0;
@@ -46,7 +46,7 @@ visualization_msgs::msg::MarkerArray marker_array_from_cone_array_w_covariance(
   visualization_msgs::msg::MarkerArray marker_array;
   int id = 0;
 
-  auto color_map = common_lib::communication::marker_color_map.at("blue");
+  auto color_map = common_lib::communication::marker_color_map().at("blue");
   for (auto& c : cone_array.blue_cones) {
     auto marker =
         marker_from_cone_w_covariance(id, color_map, c, name_space, frame_id, shape, scale, action);
@@ -54,7 +54,7 @@ visualization_msgs::msg::MarkerArray marker_array_from_cone_array_w_covariance(
     id++;
   }
 
-  color_map = common_lib::communication::marker_color_map.at("yellow");
+  color_map = common_lib::communication::marker_color_map().at("yellow");
   for (auto& c : cone_array.yellow_cones) {
     auto marker =
         marker_from_cone_w_covariance(id, color_map, c, name_space, frame_id, shape, scale, action);
@@ -62,7 +62,7 @@ visualization_msgs::msg::MarkerArray marker_array_from_cone_array_w_covariance(
     id++;
   }
 
-  color_map = common_lib::communication::marker_color_map.at("orange");
+  color_map = common_lib::communication::marker_color_map().at("orange");
   for (auto& c : cone_array.orange_cones) {
     auto marker =
         marker_from_cone_w_covariance(id, color_map, c, name_space, frame_id, shape, scale, action);

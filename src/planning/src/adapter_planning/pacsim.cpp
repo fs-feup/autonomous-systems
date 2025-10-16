@@ -28,9 +28,10 @@ void PacSimAdapter::timer_callback() {
     tf2::Quaternion q(t.transform.rotation.x, t.transform.rotation.y, t.transform.rotation.z,
                       t.transform.rotation.w);
     tf2::Matrix3x3 m(q);
-    double roll;
-    double pitch;
-    double yaw;
+    double roll = 0.0;
+    double pitch = 0.0;
+    double yaw = 0.0;
+
     m.getRPY(roll, pitch, yaw);
     pose.theta = yaw;
     pose.x = t.transform.translation.x;
@@ -44,7 +45,7 @@ void PacSimAdapter::set_mission_state() {
 }
 
 void PacSimAdapter::finish() {
-  this->finished_client_->async_send_request(
+  (void)this->finished_client_->async_send_request(
       std::make_shared<std_srvs::srv::Empty::Request>(),
       [this](rclcpp::Client<std_srvs::srv::Empty>::SharedFuture) {
         RCLCPP_INFO(this->get_logger(), "Planning : Finished signal sent");

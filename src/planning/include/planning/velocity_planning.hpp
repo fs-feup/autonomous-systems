@@ -68,7 +68,7 @@ private:
    * @param point3 third point
    * @return radius of the circle
    */
-  double find_circle_center(PathPoint &point1, PathPoint &point2, PathPoint &point3);
+  double find_circle_center(const PathPoint &point1, const PathPoint &point2, const PathPoint &point3);
 
   /**
    * @brief function to limit the speed of the car according to the curvature of the lookahead path

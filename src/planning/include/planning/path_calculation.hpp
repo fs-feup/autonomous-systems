@@ -54,7 +54,7 @@ public:
    * @param cone_array Array of cones representing the track.
    * @return Vector of path points representing the calculated path.
    */
-  std::vector<PathPoint> calculate_path(std::vector<Cone>& cone_array);
+  std::vector<PathPoint> calculate_path(const std::vector<Cone>& cone_array);
 
   /**
    * @brief Generate a closed loop path for trackdrive competition.
