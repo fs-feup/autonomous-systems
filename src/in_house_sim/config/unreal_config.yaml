@@ -1,0 +1,5 @@
+unreal_engine:
+  ip: 127.0.0.1 # 127.0.0.1 is the default for localhost, use if running Unreal Engine on the same machine
+  port: 3000 # Port should be the same that is set in Unreal Engine, should be greater than 1024
+  num_lidar_points: 360
+  camera_buffer_size: 1024*1024 
