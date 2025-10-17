@@ -7,55 +7,61 @@ ConstrainedRANSACOptimized::ConstrainedRANSACOptimized(const double epsilon, con
 void ConstrainedRANSACOptimized::ground_removal(
     const pcl::PointCloud<PointXYZIR>::Ptr point_cloud, const pcl::PointCloud<PointXYZIR>::Ptr ret,
     Plane& plane, [[maybe_unused]] const SplitParameters split_params) const {
-  pcl::ModelCoefficients::Ptr coefficients = std::make_shared<pcl::ModelCoefficients>();
-  pcl::PointIndices::Ptr inliers_indices = std::make_shared<pcl::PointIndices>();
-  Plane default_plane = plane;
+  if (point_cloud->points.size() < 3) {
+    RCLCPP_ERROR(rclcpp::get_logger("ConstrainedRANSACOptimized"),
+                 "Not enough points to estimate ground plane");
+    *ret = *point_cloud;
+  } else {
+    pcl::ModelCoefficients::Ptr coefficients = std::make_shared<pcl::ModelCoefficients>();
+    pcl::PointIndices::Ptr inliers_indices = std::make_shared<pcl::PointIndices>();
+    Plane default_plane = plane;
 
-  // Segmentation Object creation
-  pcl::SACSegmentation<PointXYZIR> seg;
+    // Segmentation Object creation
+    pcl::SACSegmentation<PointXYZIR> seg;
 
-  // Defining RANSAC properties in the segmentation Object
-  seg.setModelType(pcl::SACMODEL_PLANE);
-  seg.setMethodType(pcl::SAC_RANSAC);
-  seg.setDistanceThreshold(epsilon);
-  seg.setMaxIterations(n_tries);
+    // Defining RANSAC properties in the segmentation Object
+    seg.setModelType(pcl::SACMODEL_PLANE);
+    seg.setMethodType(pcl::SAC_RANSAC);
+    seg.setDistanceThreshold(epsilon);
+    seg.setMaxIterations(n_tries);
 
-  seg.setInputCloud(point_cloud);
-  seg.segment(*inliers_indices, *coefficients);
+    seg.setInputCloud(point_cloud);
+    seg.segment(*inliers_indices, *coefficients);
 
-  bool accepted_plane = false;
+    bool accepted_plane = false;
 
-  if (coefficients->values.size() >= 4) {
-    plane = Plane(coefficients->values[0], coefficients->values[1], coefficients->values[2],
-                  coefficients->values[3]);
+    if (coefficients->values.size() >= 4) {
+      plane = Plane(coefficients->values[0], coefficients->values[1], coefficients->values[2],
+                    coefficients->values[3]);
 
-    // If no default plane provided, or angle check is okay, use candidate plane, if not, use
-    // default
-    if ((default_plane.get_a() == 0.0 && default_plane.get_b() == 0.0 &&
-         default_plane.get_c() == 0.0) ||
-        (calculate_angle_difference(plane, default_plane) <= plane_angle_diff)) {
-      pcl::ExtractIndices<PointXYZIR> extract;
-      extract.setInputCloud(point_cloud);
-      extract.setIndices(inliers_indices);
-      extract.setNegative(true);  // Extract outliers
-      extract.filter(*ret);
-      accepted_plane = true;
+      // If no default plane provided, or angle check is okay, use candidate plane, if not, use
+      // default
+      if ((default_plane.get_a() == 0.0 && default_plane.get_b() == 0.0 &&
+           default_plane.get_c() == 0.0) ||
+          (calculate_angle_difference(plane, default_plane) <= plane_angle_diff)) {
+        pcl::ExtractIndices<PointXYZIR> extract;
+        extract.setInputCloud(point_cloud);
+        extract.setIndices(inliers_indices);
+        extract.setNegative(true);  // Extract outliers
+        extract.filter(*ret);
+        accepted_plane = true;
+      }
     }
-  }
 
-  if (!accepted_plane) {  // No plane found or angle check failed, use default
-    plane = default_plane;
+    if (!accepted_plane) {  // No plane found or angle check failed, use default
+      plane = default_plane;
 
-    ret->clear();
-    ret->header = point_cloud->header;
-    ret->width = 0;
-    ret->height = 1;
-    ret->is_dense = point_cloud->is_dense;
+      ret->clear();
+      ret->header = point_cloud->header;
+      ret->width = 0;
+      ret->height = 1;
+      ret->is_dense = point_cloud->is_dense;
 
-    for (const auto& point : *point_cloud) {
-      double distance = distance_to_plane(point, default_plane);
-      if (distance > epsilon) {
-        ret->points.push_back(point);
+      for (const auto& point : *point_cloud) {
+        double distance = distance_to_plane(point, default_plane);
+        if (distance > epsilon) {
+          ret->points.push_back(point);
+        }
       }
     }
   }

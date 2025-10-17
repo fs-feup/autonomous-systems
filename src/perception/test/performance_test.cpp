@@ -137,7 +137,7 @@ TEST_F(PerceptionPerformanceTest, TestPerformance) {
     pcl::io::loadPCDFile<PointXYZIR>(file_name, *pcl_cloud);
     sensor_msgs::msg::PointCloud2 msg;
     pcl::toROSMsg(*pcl_cloud, msg);
-    pcl_cloud.reset(new pcl::PointCloud<PointXYZIR>);
+    pcl_cloud = std::make_shared<pcl::PointCloud<PointXYZIR>>();
 
     auto start_time = std::chrono::high_resolution_clock::now();
 
@@ -148,7 +148,8 @@ TEST_F(PerceptionPerformanceTest, TestPerformance) {
     executionTime.conversion_duration =
         std::chrono::duration_cast<std::chrono::milliseconds>(start_time - conversion_time).count();
 
-    const pcl::PointCloud<PointXYZIR>::Ptr ground_removed_cloud(new pcl::PointCloud<PointXYZIR>);
+    const pcl::PointCloud<PointXYZIR>::Ptr ground_removed_cloud =
+        std::make_shared<pcl::PointCloud<PointXYZIR>>();
 
     Plane plane;
     const SplitParameters split_params;
