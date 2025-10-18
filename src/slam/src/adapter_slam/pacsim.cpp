@@ -8,13 +8,16 @@
 #include "ros_node/slam_node.hpp"
 
 PacsimAdapter::PacsimAdapter(const SLAMParameters& params) : SLAMNode(params) {
+  rclcpp::SubscriptionOptions subscription_options;
+  subscription_options.callback_group = this->_callback_group_;
   if (params.use_simulated_perception_) {
-    RCLCPP_DEBUG(this->get_logger(), "Using simulated perception");
+    RCLCPP_INFO(this->get_logger(), "Using simulated perception");
     this->_perception_detections_subscription_ =
         this->create_subscription<pacsim::msg::PerceptionDetections>(
             "/pacsim/perception/lidar/landmarks", 1,
             std::bind(&PacsimAdapter::_pacsim_perception_subscription_callback, this,
-                      std::placeholders::_1));
+                      std::placeholders::_1),
+            subscription_options);
   }
 
   if (params.use_simulated_velocities_) {
@@ -22,12 +25,14 @@ PacsimAdapter::PacsimAdapter(const SLAMParameters& params) : SLAMNode(params) {
         this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
             "/pacsim/velocity", 1,
             std::bind(&PacsimAdapter::_pacsim_velocities_subscription_callback, this,
-                      std::placeholders::_1));
+                      std::placeholders::_1),
+            subscription_options);
   }
 
   this->_imu_subscription_ = this->create_subscription<sensor_msgs::msg::Imu>(
       "/pacsim/imu/cog_imu", 1,
-      std::bind(&PacsimAdapter::_pacsim_imu_subscription_callback, this, std::placeholders::_1));
+      std::bind(&PacsimAdapter::_pacsim_imu_subscription_callback, this, std::placeholders::_1),
+      subscription_options);
 
   this->_finished_client_ = this->create_client<std_srvs::srv::Empty>("/pacsim/finish_signal");
   param_client_ =

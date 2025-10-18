@@ -11,12 +11,14 @@ SLAMParameters::SLAMParameters(const SLAMParameters &params) {
   pose_updater_name_ = params.pose_updater_name_;
   landmark_filter_name_ = params.landmark_filter_name_;
   lidar_odometry_topic_ = params.lidar_odometry_topic_;
+  receive_lidar_odometry_ = params.receive_lidar_odometry_;
   data_association_model_name_ = params.data_association_model_name_;
   data_association_limit_distance_ = params.data_association_limit_distance_;
   observation_x_noise_ = params.observation_x_noise_;
   observation_y_noise_ = params.observation_y_noise_;
   velocity_x_noise_ = params.velocity_x_noise_;
   velocity_y_noise_ = params.velocity_y_noise_;
+  imu_acceleration_x_noise_ = params.imu_acceleration_x_noise_;
   angular_velocity_noise_ = params.angular_velocity_noise_;
   pose_x_initial_noise_ = params.pose_x_initial_noise_;
   pose_y_initial_noise_ = params.pose_y_initial_noise_;
@@ -52,12 +54,14 @@ SLAMParameters &SLAMParameters::operator=(const SLAMParameters &other) {
     pose_updater_name_ = other.pose_updater_name_;
     landmark_filter_name_ = other.landmark_filter_name_;
     lidar_odometry_topic_ = other.lidar_odometry_topic_;
+    receive_lidar_odometry_ = other.receive_lidar_odometry_;
     data_association_model_name_ = other.data_association_model_name_;
     data_association_limit_distance_ = other.data_association_limit_distance_;
     observation_x_noise_ = other.observation_x_noise_;
     observation_y_noise_ = other.observation_y_noise_;
     velocity_x_noise_ = other.velocity_x_noise_;
     velocity_y_noise_ = other.velocity_y_noise_;
+    imu_acceleration_x_noise_ = other.imu_acceleration_x_noise_;
     angular_velocity_noise_ = other.angular_velocity_noise_;
     pose_x_initial_noise_ = other.pose_x_initial_noise_;
     pose_y_initial_noise_ = other.pose_y_initial_noise_;
@@ -107,6 +111,7 @@ std::string SLAMParameters::load_config() {
   this->pose_updater_name_ = slam_config["slam"]["pose_updater_name"].as<std::string>();
   this->landmark_filter_name_ = slam_config["slam"]["landmark_filter_name"].as<std::string>();
   this->lidar_odometry_topic_ = slam_config["slam"]["lidar_odometry_topic"].as<std::string>();
+  this->receive_lidar_odometry_ = slam_config["slam"]["receive_lidar_odometry"].as<bool>();
   this->data_association_model_name_ =
       slam_config["slam"]["data_association_model_name"].as<std::string>();
   this->data_association_limit_distance_ =
@@ -118,6 +123,7 @@ std::string SLAMParameters::load_config() {
   this->observation_y_noise_ = slam_config["slam"]["observation_y_noise"].as<float>();
   this->velocity_x_noise_ = slam_config["slam"]["velocity_x_noise"].as<float>();
   this->velocity_y_noise_ = slam_config["slam"]["velocity_y_noise"].as<float>();
+  this->imu_acceleration_x_noise_ = slam_config["slam"]["imu_acceleration_x_noise"].as<float>();
   this->angular_velocity_noise_ = slam_config["slam"]["angular_velocity_noise"].as<float>();
   this->pose_x_initial_noise_ = slam_config["slam"]["pose_x_initial_noise"].as<double>();
   this->pose_y_initial_noise_ = slam_config["slam"]["pose_y_initial_noise"].as<double>();

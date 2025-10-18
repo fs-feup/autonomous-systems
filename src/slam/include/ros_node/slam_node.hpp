@@ -33,6 +33,7 @@
  */
 class SLAMNode : public rclcpp::Node {
 protected:
+  rclcpp::CallbackGroup::SharedPtr _callback_group_;
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr _perception_subscription_;
   rclcpp::Subscription<custom_interfaces::msg::Velocities>::SharedPtr _velocities_subscription_;
   rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr _vehicle_pose_publisher_;

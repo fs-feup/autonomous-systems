@@ -53,7 +53,7 @@ public:
    *
    * @param last_pose The last pose to set
    */
-  virtual void update_pose(const Eigen::Vector3d& last_pose, const rclcpp::Time& timestamp);
+  virtual void update_pose(const Eigen::Vector3d& last_pose);
 
   /**
    * @brief Check if the pose is ready for graph update
@@ -69,7 +69,10 @@ public:
 
   Eigen::Vector3d get_last_graphed_pose() const { return _last_graphed_pose_; }
 
-  Eigen::Vector3d get_pose_difference_noise() const { return _last_pose_covariance_.diagonal(); }
+  Eigen::Vector3d get_pose_difference_noise() const {
+    // Return the square root of the diagonal as standard deviation
+    return _last_pose_covariance_.diagonal().array().sqrt();
+  }
 
   rclcpp::Time get_last_pose_update() const { return _last_pose_update_; }
 };

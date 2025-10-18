@@ -41,10 +41,9 @@ std::shared_ptr<PoseUpdater> PoseUpdater::clone() const {
   return std::make_shared<PoseUpdater>(*this);
 }
 
-void PoseUpdater::update_pose(const Eigen::Vector3d& last_pose, const rclcpp::Time& timestamp) {
+void PoseUpdater::update_pose(const Eigen::Vector3d& last_pose) {
   this->_last_pose_ = last_pose;
   this->_last_graphed_pose_ = last_pose;
-  this->_last_pose_update_ = timestamp;
   this->_last_pose_covariance_ = Eigen::Matrix3d::Zero();
   this->_new_pose_from_graph_ = false;  // Reset the flag for new pose from graph
 }
@@ -57,27 +56,19 @@ void PoseUpdater::predict_pose(const MotionData& motion_data,
     this->_received_first_motion_data_ = true;
     return;
   }
-  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "Timestamps: last %lf, current %lf",
-               this->_last_pose_update_.seconds(), motion_data.timestamp_.seconds());
+  this->_last_pose_update_.seconds(), motion_data.timestamp_.seconds();
   double delta = (motion_data.timestamp_ - this->_last_pose_update_).seconds();
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "Delta time: %f", delta);
   Eigen::Vector3d new_pose =
       motion_model->get_next_pose(this->_last_pose_, *(motion_data.motion_data_), delta);
-  Eigen::MatrixXd motion_noise =
-      motion_model->get_jacobian_motion_data(this->_last_pose_, *(motion_data.motion_data_),
-                                             delta) *
-      *motion_data.motion_data_noise_ *
-      motion_model->get_jacobian_motion_data(this->_last_pose_, *(motion_data.motion_data_), delta)
-          .transpose();
+  Eigen::MatrixXd jacobian_motion_data =
+      motion_model->get_jacobian_motion_data(this->_last_pose_, *(motion_data.motion_data_), delta);
+  Eigen::MatrixXd motion_noise = jacobian_motion_data *
+                                 motion_data.motion_data_noise_->asDiagonal() *
+                                 jacobian_motion_data.transpose();
   Eigen::Vector3d pose_difference = pose_difference_eigen(this->_last_pose_, new_pose);
   Eigen::Matrix3d adjoint_matrix =
       this->get_adjoint_operator_matrix(pose_difference(0), pose_difference(1), pose_difference(2));
-  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("slam"), "Noise: \n" << *motion_data.motion_data_noise_);
-  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("slam"), "Motion noise: \n" << motion_noise);
-  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("slam"),
-                      "Jacobian_motion_data: \n"
-                          << motion_model->get_jacobian_motion_data(
-                                 this->_last_pose_, *(motion_data.motion_data_), delta));
 
   this->_last_pose_ = new_pose;
   this->_last_pose_covariance_ =
@@ -85,7 +76,8 @@ void PoseUpdater::predict_pose(const MotionData& motion_data,
   this->_last_pose_update_ = motion_data.timestamp_;
   this->_new_pose_from_graph_ = true;
 
-  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("slam"), "Covariance: \n" << this->_last_pose_covariance_);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("slam"), "Pose Difference Covariance: \n"
+                                                      << this->_last_pose_covariance_);
 }
 
 bool PoseUpdater::pose_ready_for_graph_update() const { return _new_pose_from_graph_; }

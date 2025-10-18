@@ -68,9 +68,9 @@ Eigen::VectorXd NoRearWSSBicycleModel::cg_velocity_to_wheels(const Eigen::Vector
 Eigen::MatrixXd NoRearWSSBicycleModel::jacobian_cg_velocity_to_wheels(
     const Eigen::Vector3d& cg_velocities) {
   Eigen::MatrixXd jacobian = Eigen::MatrixXd::Zero(4, 3);
-  double vx = cg_velocities(0);
-  double vy = cg_velocities(1);
-  double omega = cg_velocities(2);
+  double vx = cg_velocities(0) == 0.0 ? 1e-6 : cg_velocities(0);
+  double vy = cg_velocities(1) == 0.0 ? 1e-6 : cg_velocities(1);
+  double omega = cg_velocities(2) == 0.0 ? 1e-6 : cg_velocities(2);
   double lr = this->car_parameters_
                   .dist_cg_2_rear_axis;  // distance from the center of mass to the rear wheels
   double lf = this->car_parameters_.wheelbase -

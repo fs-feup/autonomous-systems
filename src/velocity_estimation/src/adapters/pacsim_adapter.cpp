@@ -15,7 +15,8 @@ PacsimAdapter::PacsimAdapter(const VEParameters& parameters) : VENode(parameters
 void PacsimAdapter::imu_callback(const sensor_msgs::msg::Imu::SharedPtr msg) {
   common_lib::sensor_data::ImuData imu_data(msg->angular_velocity.z, msg->linear_acceleration.x,
                                             msg->linear_acceleration.y, msg->header.stamp);
-  this->_velocity_estimator_->imu_callback(imu_data);
+  this->_velocity_estimator_->imu_accel_callback(imu_data);
+  this->_velocity_estimator_->imu_angular_callback(imu_data);
   // this->publish_velocities();
 }
 

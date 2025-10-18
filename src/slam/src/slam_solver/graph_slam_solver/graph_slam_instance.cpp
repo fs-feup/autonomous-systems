@@ -220,10 +220,6 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
                                                            this->_params_.observation_x_noise_));
 
     if (const auto optimizer_ptr = std::dynamic_pointer_cast<ISAM2Optimizer>(this->_optimizer_)) {
-      // optimizer_ptr->_factor_set_.add(
-      //     boost::make_shared<gtsam::BearingRangeFactor<gtsam::Pose2, gtsam::Point2>>(
-      //         gtsam::Symbol('x', this->_pose_counter_), landmark_symbol, observation_rotation,
-      //         observation_cylindrical(0), observation_noise));
       optimizer_ptr->_new_factors_.add(gtsam::BearingRangeFactor<gtsam::Pose2, gtsam::Point2>(
           gtsam::Symbol('x', this->_pose_counter_), landmark_symbol, observation_rotation,
           observation_cylindrical(0), observation_noise));
@@ -267,7 +263,7 @@ void GraphSLAMInstance::load_initial_state(const Eigen::VectorXd& map, const Eig
 
 void GraphSLAMInstance::optimize() {
   RCLCPP_DEBUG(rclcpp::get_logger("slam"),
-               "GraphSLAMInstance - Optimizing1 graph with %ld factors and %ld values",
+               "GraphSLAMInstance - Optimizing graph with %ld factors and %ld values",
                this->_factor_graph_.size(), this->_graph_values_.size());
   if (!this->_new_observation_factors_) return;
 

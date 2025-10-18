@@ -21,7 +21,7 @@ NoRearWSSEKF::NoRearWSSEKF(const VEParameters& params) {
   this->process_model = vel_process_models_map.at(params._process_model_name_)();
 }
 
-void NoRearWSSEKF::imu_callback(const common_lib::sensor_data::ImuData& imu_data) {
+void NoRearWSSEKF::imu_accel_callback(const common_lib::sensor_data::ImuData& imu_data) {
   this->imu_data_ = imu_data;
   RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "Before Prediction: %f %f %f",
                this->_state_(0), this->_state_(1), this->_state_(2));
@@ -33,11 +33,16 @@ void NoRearWSSEKF::imu_callback(const common_lib::sensor_data::ImuData& imu_data
     this->predict(this->_state_, this->_covariance_, this->_process_noise_matrix_,
                   this->_last_update_, this->imu_data_);
   }
-  this->_last_update_ = imu_data.timestamp_;
   RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "After Prediction - State: %f %f %f",
                this->_state_(0), this->_state_(1), this->_state_(2));
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "After Prediction - Covariance: \n"
                                                                      << this->_covariance_);
+  this->_last_update_ = imu_data.timestamp_;
+  this->_last_predict_ = imu_data.timestamp_;
+}
+
+void NoRearWSSEKF::imu_angular_callback(const common_lib::sensor_data::ImuData& imu_data) {
+  this->imu_data_ = imu_data;
 
   this->correct_imu(this->_state_, this->_covariance_, this->imu_data_);
   RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "After IMU Correction - State: %f %f %f",
@@ -45,6 +50,7 @@ void NoRearWSSEKF::imu_callback(const common_lib::sensor_data::ImuData& imu_data
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"),
                       "After IMU Correction - Covariance: \n"
                           << this->_covariance_);
+  this->_last_update_ = imu_data.timestamp_;
 }
 
 void NoRearWSSEKF::wss_callback(const common_lib::sensor_data::WheelEncoderData& wss_data) {
@@ -63,6 +69,7 @@ void NoRearWSSEKF::wss_callback(const common_lib::sensor_data::WheelEncoderData&
                         "After WSS Correction - Covariance: \n"
                             << this->_covariance_);
   }
+  this->_last_update_ = wss_data.timestamp_;
 }
 
 void NoRearWSSEKF::motor_rpm_callback(double motor_rpm) {
@@ -117,9 +124,10 @@ void NoRearWSSEKF::predict(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
                            const Eigen::Matrix3d& process_noise_matrix,
                            const rclcpp::Time last_predict,
                            common_lib::sensor_data::ImuData& imu_data) {
-  rclcpp::Time current_time_point =
-      rclcpp::Clock().now();  // TODO: change calculation to use message timestamps
   double dt = (imu_data.timestamp_ - last_predict).seconds();
+  RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"),
+               "IMU Timestamp: %f, Last Predict: %f, dt: %f", imu_data.timestamp_.seconds(),
+               last_predict.seconds(), dt);
   Eigen::Vector3d accelerations(imu_data.acceleration_x, imu_data.acceleration_y, 0.0);
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"),
                       "predict - dt: " << dt << ", Accel X: " << imu_data.acceleration_x
@@ -135,9 +143,10 @@ void NoRearWSSEKF::predict(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
       this->process_model->get_jacobian_sensor_data(state, accelerations, dt);
   covariance = jacobian * covariance * jacobian.transpose() +
                process_noise_jacobian * process_noise_matrix * process_noise_jacobian.transpose();
-  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "predict - Jacobian: \n"
-                                                                     << jacobian << "\n"
-                                                                     << process_noise_jacobian);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"),
+                      "predict - Jacobian: \n"
+                          << jacobian << "\nProcess Noise Jacobian: \n"
+                          << process_noise_jacobian);
   state = this->process_model->get_next_velocities(state, accelerations, dt);
   this->_has_made_prediction_ = true;
 }
@@ -198,6 +207,9 @@ void NoRearWSSEKF::correct_wheels(Eigen::Vector3d& state, Eigen::Matrix3d& covar
 
 void NoRearWSSEKF::correct_imu(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
                                common_lib::sensor_data::ImuData& imu_data) {
+  RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"),
+               "correct_imu - IMU rotational velocity: %f, State rotational velocity: %f",
+               imu_data.rotational_velocity, state(2));
   Eigen::VectorXd y = Eigen::VectorXd(1);
   y(0) = imu_data.rotational_velocity - state(2);
   Eigen::MatrixXd jacobian = Eigen::MatrixXd(1, 3);

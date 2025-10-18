@@ -48,16 +48,29 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
   _track_map_ = std::vector<common_lib::structures::Cone>();
   _vehicle_pose_ = common_lib::structures::Pose();
 
+  if (params.slam_solver_name_ == "graph_slam") {
+    this->_callback_group_ = this->create_callback_group(
+        rclcpp::CallbackGroupType::Reentrant);  // Allow callbacks to execute in parallel
+  } else {
+    this->_callback_group_ = this->create_callback_group(
+        rclcpp::CallbackGroupType::MutuallyExclusive);  // Default callback group
+  }
+
+  rclcpp::SubscriptionOptions subscription_options;
+  subscription_options.callback_group = this->_callback_group_;
+
   // Subscriptions
   if (!params.use_simulated_perception_) {
     this->_perception_subscription_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
         "/perception/cones", 1,
-        std::bind(&SLAMNode::_perception_subscription_callback, this, std::placeholders::_1));
+        std::bind(&SLAMNode::_perception_subscription_callback, this, std::placeholders::_1),
+        subscription_options);
   }
   if (!params.use_simulated_velocities_) {
     this->_velocities_subscription_ = this->create_subscription<custom_interfaces::msg::Velocities>(
         "/state_estimation/velocities", 50,
-        std::bind(&SLAMNode::_velocities_subscription_callback, this, std::placeholders::_1));
+        std::bind(&SLAMNode::_velocities_subscription_callback, this, std::placeholders::_1),
+        subscription_options);
   }
 
   // Publishers
@@ -180,15 +193,10 @@ void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::V
     this->_vehicle_state_velocities_ = common_lib::structures::Velocities(
         msg.velocity_x, msg.velocity_y, msg.angular_velocity, msg.covariance[0], msg.covariance[4],
         msg.covariance[8], msg.header.stamp);
-    RCLCPP_DEBUG(this->get_logger(), "SUB - Velocities: (%f, %f, %f)", msg.velocity_x,
-                 msg.velocity_y, msg.angular_velocity);
 
     solver_ptr->add_velocities(this->_vehicle_state_velocities_);
   }
   this->_vehicle_pose_ = this->_slam_solver_->get_pose_estimate();
-  RCLCPP_DEBUG(this->get_logger(), "Velocity - Vehicle pose: (%f, %f, %f)",
-               this->_vehicle_pose_.position.x, this->_vehicle_pose_.position.y,
-               this->_vehicle_pose_.orientation);
   // this->_track_map_ = this->_slam_solver_->get_map_estimate();
   // std::string mapa = "";
   // for (const auto &cone : this->_track_map_) {
@@ -258,18 +266,18 @@ void SLAMNode::_publish_map() {
   auto marker_array_msg = visualization_msgs::msg::MarkerArray();
   auto marker_array_msg_perception = visualization_msgs::msg::MarkerArray();
   RCLCPP_DEBUG(this->get_logger(), "PUB - cone map %ld", this->_track_map_.size());
-  // RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
+  RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
   for (common_lib::structures::Cone const &cone : this->_track_map_) {
     auto cone_message = custom_interfaces::msg::Cone();
     cone_message.position.x = cone.position.x;
     cone_message.position.y = cone.position.y;
-    // TODO(marhcouto): add covariance & large cones & confidence
+    // TODO: add covariance & large cones & confidence
     cone_message.color = common_lib::competition_logic::get_color_string(cone.color);
     cone_array_msg.cone_array.push_back(cone_message);
-    // RCLCPP_DEBUG(this->get_logger(), "(%f\t%f)\t%s", cone_message.position.x,
-    //              cone_message.position.y, cone_message.color.c_str());
+    RCLCPP_DEBUG(this->get_logger(), "(%f\t%f)\t%s", cone_message.position.x,
+                 cone_message.position.y, cone_message.color.c_str());
   }
-  // RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
+  RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
   cone_array_msg.header.stamp = this->get_clock()->now();
   this->_map_publisher_->publish(cone_array_msg);
   marker_array_msg = common_lib::communication::marker_array_from_structure_array(

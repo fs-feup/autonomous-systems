@@ -17,6 +17,7 @@ struct SLAMParameters {
                                                          // responsible for keeping pose estimate
   std::string data_association_model_name_ = "nearest_neighbor";
   std::string lidar_odometry_topic_ = "/fast_limo/state";  // Topic for pose from lidar odometry
+  bool receive_lidar_odometry_ = false;  // Whether to use lidar odometry topic or not
   std::string slam_solver_name_ = "graph_slam";
   std::string landmark_filter_name_ = "consecutive_count";
   std::string frame_id_ = "map";
@@ -26,6 +27,7 @@ struct SLAMParameters {
   float velocity_x_noise_ = 0.1;
   float velocity_y_noise_ = 0.1;
   float angular_velocity_noise_ = 0.1;
+  float imu_acceleration_x_noise_ = 0.5;   // sigma of the noise for the acceleration in x from IMU
   double pose_x_initial_noise_ = 0.1;      // Initial noise for the pose x
   double pose_y_initial_noise_ = 0.1;      // Initial noise for the pose y
   double pose_theta_initial_noise_ = 0.1;  // Initial noise for the pose theta
@@ -83,6 +85,7 @@ struct SLAMParameters {
        << ", pose_updater_name_: " << params.pose_updater_name_
        << ", landmark_filter_name_: " << params.landmark_filter_name_
        << ", lidar_odometry_topic_: " << params.lidar_odometry_topic_
+       << ", receive_lidar_odometry_: " << params.receive_lidar_odometry_
        << ", data_association_model_name_: " << params.data_association_model_name_
        << ", data_association_limit_distance_: " << params.data_association_limit_distance_
        << ", data_association_gate_: " << params.data_association_gate_
@@ -91,6 +94,7 @@ struct SLAMParameters {
        << ", observation_y_noise_: " << params.observation_y_noise_
        << ", velocity_x_noise_: " << params.velocity_x_noise_
        << ", velocity_y_noise_: " << params.velocity_y_noise_
+       << ", imu_acceleration_x_noise_: " << params.imu_acceleration_x_noise_
        << ", pose_x_initial_noise_: " << params.pose_x_initial_noise_
        << ", pose_y_initial_noise_: " << params.pose_y_initial_noise_
        << ", pose_theta_initial_noise_: " << params.pose_theta_initial_noise_

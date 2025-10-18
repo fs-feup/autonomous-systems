@@ -15,21 +15,13 @@ VehicleAdapter::VehicleAdapter(const SLAMParameters& params) : SLAMNode(params) 
       this->create_subscription<custom_interfaces::msg::OperationalStatus>(
           "/vehicle/operational_status", 10,
           [this](const custom_interfaces::msg::OperationalStatus::SharedPtr msg) {
-            RCLCPP_DEBUG(this->get_logger(), "Operational status received. Mission: %d - Go: %d",
-                         msg->as_mission, msg->go_signal);
+            RCLCPP_INFO(this->get_logger(), "Operational status received. Mission: %d - Go: %d",
+                        msg->as_mission, msg->go_signal);
             _go_ = true;  // msg->go_signal;
             _mission_ = common_lib::competition_logic::Mission(msg->as_mission);
             this->_slam_solver_->set_mission(_mission_);
           });
   _finished_client_ = this->create_client<std_srvs::srv::Trigger>("/as_srv/mission_finished");
-
-  RCLCPP_DEBUG(this->get_logger(), "VehicleAdapter initialized, topic for lidar odometry: %s",
-               params.lidar_odometry_topic_.c_str());
-
-  this->_lidar_odometry_subscription_ = this->create_subscription<nav_msgs::msg::Odometry>(
-      params.lidar_odometry_topic_, 1,
-      std::bind(&VehicleAdapter::_lidar_odometry_subscription_callback, this,
-                std::placeholders::_1));
 
   // Create a static map frame
   _tf_static_broadcaster_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(*this);
@@ -49,6 +41,23 @@ VehicleAdapter::VehicleAdapter(const SLAMParameters& params) : SLAMNode(params) 
   transformStamped.transform.rotation.w = 1.0;
 
   _tf_static_broadcaster_->sendTransform(transformStamped);
+
+  rclcpp::SubscriptionOptions subscription_options;
+  subscription_options.callback_group = this->_callback_group_;
+
+  // LiDAR odometry subscription
+  if (!params.receive_lidar_odometry_) {
+    RCLCPP_INFO(this->get_logger(), "Not receiving lidar odometry, using only velocities");
+    return;
+  }
+  RCLCPP_INFO(this->get_logger(), "VehicleAdapter initialized, topic for lidar odometry: %s",
+              params.lidar_odometry_topic_.c_str());
+
+  this->_lidar_odometry_subscription_ = this->create_subscription<nav_msgs::msg::Odometry>(
+      params.lidar_odometry_topic_, 1,
+      std::bind(&VehicleAdapter::_lidar_odometry_subscription_callback, this,
+                std::placeholders::_1),
+      subscription_options);
 }
 
 // TODO: implement a more complex logic, like the one in inspection node

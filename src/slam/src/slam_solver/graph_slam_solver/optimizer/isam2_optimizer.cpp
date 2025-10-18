@@ -15,20 +15,6 @@
 #include <string>
 #include <unordered_set>
 
-// ----------------- Usage -----------------
-/*
-FactorSet tracker;
-gtsam::NonlinearFactorGraph newFactors;
-
-auto odom = std::make_shared<gtsam::BetweenFactor<gtsam::Pose2>>(X(1), X(2),
-gtsam::Pose2(1.0,0.0,0.0), noise); if (!tracker.alreadyAdded(odom)) { newFactors.add(odom);
-tracker.add(odom); }
-
-auto br = std::make_shared<gtsam::BearingRangeFactor<gtsam::Pose2, gtsam::Point2>>(X(2), L(5),
-gtsam::Rot2::fromAngle(0.12), 7.34, noise); if (!tracker.alreadyAdded(br)) { newFactors.add(br);
-tracker.add(br); }
-*/
-
 ISAM2Optimizer::ISAM2Optimizer(const SLAMParameters& params) : BaseOptimizer(params) {
   gtsam::ISAM2Params isam_params;
   isam_params.relinearizeThreshold = params.slam_isam2_relinearize_threshold_;
@@ -46,10 +32,13 @@ gtsam::Values ISAM2Optimizer::optimize(gtsam::NonlinearFactorGraph& factor_graph
                                        gtsam::Values& graph_values,
                                        [[maybe_unused]] unsigned int pose_num,
                                        [[maybe_unused]] unsigned int landmark_num) {
-  // Remove values from graph_values that are in _last_estimate_
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "ISAM2Optimizer - Adding %zu new factors",
+               factor_graph.size());
   _isam2_.update(this->_new_factors_, this->_new_values_);
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "ISAM2Optimizer - Updating ISAM2");
   this->_new_factors_.resize(0);
   this->_new_values_.clear();
   _last_estimate_ = _isam2_.calculateEstimate();
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "ISAM2Optimizer - Optimization complete");
   return _last_estimate_;
 }
