@@ -17,7 +17,7 @@ Before starting, check out:
 - [Startup Guide](https://www.notion.so/AS-Startup-Guide-4cb2c120639b4179a5b081926638e4ba?pvs=4)
 
 ## Contributing
-Check [this guide](./CONTRIBUTING.md).
+To contribute and develop the autonomous systems code, check [this guide](./CONTRIBUTING.md) to compile and commit your work.
 
 ## Documentation
 - [Documentation Home](./docs)

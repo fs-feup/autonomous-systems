@@ -2,7 +2,34 @@
 
 This guide aims to clarify the necessary steps for creating code that will result in an accepting pull request following the project's norms.
 
-You work with your **shell always in the root directory**. In it, you can find mutiple scripts that will help you on the upcoming tasks. You need to follow the tutorials listed before this one on the [Startup Guide](https://github.com/fs-feup/tutorials/blob/main/tutorials/startup_guide_as.md).
+You work with your **shell always in the root directory**. In it, you can find multiple scripts that will help you on the upcoming tasks. You need to follow the tutorials listed before this one on the [Startup Guide](https://github.com/fs-feup/tutorials/blob/main/tutorials/startup_guide_as.md).
+
+## Compilation
+
+To compile the AS System, start by installing the dependencies:
+```sh
+./dependencies_install.sh
+
+# If you need SLAM functionality, also run:
+./src/slam/dependencies_install.sh
+```
+
+After installing the project dependencies, compile the AS project:
+```sh
+# For the first compilation
+colcon build --cmake-args -G Ninja
+
+# To compile specific packages
+colcon build --packages-select [your_package_name] --cmake-args -G Ninja
+
+# Shortcut to compile all subsystems
+./compile.sh
+```
+
+**Important:** Before running any AS package, you must source the environment:
+```sh
+source install/setup.bash
+```
 
 ## Natural Workflow 
 
@@ -29,7 +56,7 @@ You work with your **shell always in the root directory**. In it, you can find m
 - Program
 - Compile (see guide at the end of this file)
   ```sh
-  colcon build
+  colcon build --cmake-args -G Ninja
   ```
   you can and should use bear to update the compile_commands.json file for Sonarlint to be kept up to date, especially if you have added new files
   ```sh
