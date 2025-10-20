@@ -186,7 +186,7 @@ void PathCalculation::update_path_from_past_path() {
 
     // For non-first points, check distance from last added point
     if (first_point_added) {
-      double distance = sqrt(CGAL::squared_distance(last_added_point, candidate_point));
+      double distance = std::sqrt(CGAL::squared_distance(last_added_point, candidate_point));
       if (distance <= config_.tolerance_) {
         RCLCPP_DEBUG(rclcpp::get_logger("planning"),
                      "Skipping point: Too close to last added point.");
@@ -275,7 +275,7 @@ pair<shared_ptr<Midpoint>, shared_ptr<Midpoint>> PathCalculation::select_startin
     double dx = first->point.x() - anchor_pose_midpoint.point.x();
     double dy = first->point.y() - anchor_pose_midpoint.point.y();
     double initial_distance =
-        pow(sqrt(dx * dx + dy * dy), config_.distance_exponent_) * config_.distance_gain_;
+        std::pow(std::sqrt(dx * dx + dy * dy), config_.distance_exponent_) * config_.distance_gain_;
 
     cost += initial_distance;
 
@@ -300,8 +300,8 @@ vector<shared_ptr<Midpoint>> PathCalculation::select_candidate_midpoints(
                  vector<pair<double, shared_ptr<Midpoint>>>, decltype(cmp)>
       pq(cmp);
 
-  double car_direction_x = cos(initial_pose_.orientation);
-  double car_direction_y = sin(initial_pose_.orientation);
+  double car_direction_x = std::cos(initial_pose_.orientation);
+  double car_direction_y = std::sin(initial_pose_.orientation);
 
   // Find midpoints that are in front of the car
   for (const auto& mp : midpoints_) {
@@ -313,10 +313,10 @@ vector<shared_ptr<Midpoint>> PathCalculation::select_candidate_midpoints(
       continue;
     }
 
-    double dist = sqrt(dx * dx + dy * dy);
-    double angle = atan2(dy, dx);
-    double cost = pow(angle, config_.angle_exponent_) * config_.angle_gain_ +
-                  pow(dist, config_.distance_exponent_) * config_.distance_gain_;
+    double dist = std::sqrt(dx * dx + dy * dy);
+    double angle = std::atan2(dy, dx);
+    double cost = std::pow(angle, config_.angle_exponent_) * config_.angle_gain_ +
+                  std::pow(dist, config_.distance_exponent_) * config_.distance_gain_;
     pq.push({cost, mp});
   }
 
@@ -376,13 +376,13 @@ double PathCalculation::calculate_midpoint_cost(const shared_ptr<Midpoint>& prev
                                                 const shared_ptr<Midpoint>& next) const {
   double dx_dist = current->point.x() - next->point.x();
   double dy_dist = current->point.y() - next->point.y();
-  double distance = sqrt(dx_dist * dx_dist + dy_dist * dy_dist);
+  double distance = std::sqrt(dx_dist * dx_dist + dy_dist * dy_dist);
 
   // Angle calculation
   double angle_with_previous =
-      atan2(current->point.y() - previous->point.y(),
+      std::atan2(current->point.y() - previous->point.y(),
             current->point.x() - previous->point.x());
-  double angle_with_next = atan2(next->point.y() - current->point.y(),
+  double angle_with_next = std::atan2(next->point.y() - current->point.y(),
                                   next->point.x() - current->point.x());
 
   // Normalize angle to be between 0 and π
@@ -392,8 +392,8 @@ double PathCalculation::calculate_midpoint_cost(const shared_ptr<Midpoint>& prev
   }
 
   // Local cost calculation
-  return pow(angle, config_.angle_exponent_) * config_.angle_gain_ +
-         pow(distance, config_.distance_exponent_) * config_.distance_gain_;
+  return std::pow(angle, config_.angle_exponent_) * config_.angle_gain_ +
+         std::pow(distance, config_.distance_exponent_) * config_.distance_gain_;
 }
 
 // ===================== Cone Discarding =====================
@@ -499,11 +499,11 @@ int PathCalculation::find_best_loop_closure(const vector<PathPoint>& path) const
 
     double dx = current.position.x - first_point.position.x;
     double dy = current.position.y - first_point.position.y;
-    double distance = sqrt(dx * dx + dy * dy);
+    double distance = std::sqrt(dx * dx + dy * dy);
 
-    double angle_with_previous = atan2(current.position.y - previous.position.y,
+    double angle_with_previous = std::atan2(current.position.y - previous.position.y,
                                        current.position.x - previous.position.x);
-    double angle_with_first = atan2(first_point.position.y - current.position.y,
+    double angle_with_first = std::atan2(first_point.position.y - current.position.y,
                                     first_point.position.x - current.position.x);
 
     // Normalize angle to be between 0 and π
@@ -513,8 +513,8 @@ int PathCalculation::find_best_loop_closure(const vector<PathPoint>& path) const
     }
 
     // Local cost calculation
-    double cost = pow(angle, config_.angle_exponent_) * config_.angle_gain_ +
-                  pow(distance, config_.distance_exponent_) * config_.distance_gain_;
+    double cost = std::pow(angle, config_.angle_exponent_) * config_.angle_gain_ +
+                  std::pow(distance, config_.distance_exponent_) * config_.distance_gain_;
 
     if (cost < min_cost) {
       min_cost = cost;

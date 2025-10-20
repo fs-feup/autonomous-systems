@@ -13,7 +13,7 @@ planning:
   pc_lookback_points: 4
   pc_search_depth: 4
   pc_max_points: 20
-  pc_tolerance: 1.0
+  pc_tolerance: 0.5
   pc_reset_path: 1000000000
   pc_use_reset_path: false
   #---------------------- Skidpad (skidpad_) ------------------
