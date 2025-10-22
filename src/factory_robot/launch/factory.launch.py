@@ -5,7 +5,7 @@ import os
 
 def generate_launch_description():
     pkg_share = get_package_share_directory('factory_robot')
-    default_map = os.path.join(pkg_share, 'maps', 'factory1.txt')
+    default_map = os.path.join(pkg_share, 'maps', 'factory4.txt')
 
     return LaunchDescription([
         Node(
