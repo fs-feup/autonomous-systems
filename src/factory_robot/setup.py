@@ -8,7 +8,7 @@ setup(
     data_files=[
         ('share/ament_index/resource_index/packages', [f'resource/{package_name}']),
         (f'share/{package_name}', ['package.xml']),
-        (f'share/{package_name}/maps', ['maps/factory1.txt']),
+        (f'share/{package_name}/maps', ['maps/factory1.txt', 'maps/factory2.txt', 'maps/factory3.txt']),
         (f'share/{package_name}/launch', ['launch/factory.launch.py']),
     ],
     install_requires=['setuptools'],

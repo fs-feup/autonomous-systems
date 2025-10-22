@@ -35,7 +35,7 @@ def raw_nonblocking_stdin():
 class RobotKeys(Node):
     """
     Publishes std_msgs/String to /control/cmd.
-    Arrows/WASD = move, P = PICK, D or X = DROP, Q = quit.
+    Arrows/WASD = UP/DOWN/LEFT/RIGHT (viewer referential), P = PICK, D or X = DROP, Q or Ctrl-C = quit.
     """
     def __init__(self):
         super().__init__('robot_keys')
@@ -56,14 +56,6 @@ class RobotKeys(Node):
 
         # buffer for escape sequences (arrow keys)
         self._esc_buf = ""
-
-        self.get_logger().info(
-            "Keyboard controls:\n"
-            "  Arrows / WASD = move\n"
-            "  P = PICK   |  D or X = DROP\n"
-            "  Q = quit\n"
-            "Focus this terminal and press keys…"
-        )
 
     def destroy_node(self):
         try:
@@ -97,11 +89,14 @@ class RobotKeys(Node):
             data = data_bytes.decode('latin1', errors='ignore')
 
         for ch in data:
+            # Ctrl-C in raw mode appears as '\x03'
+            if ch == '\x03':
+                self.get_logger().info("Ctrl-C pressed; quitting robot_keys")
+                rclpy.shutdown()
+                return
             cmd = self._to_cmd(ch)
             if cmd:
                 self.pub.publish(String(data=cmd))
-                # Uncomment for verbose feedback:
-                # self.get_logger().debug(f"Sent: {cmd}")
 
     def _to_cmd(self, ch: str) -> str | None:
         """Translate raw chars (incl. ESC sequences) into commands."""
@@ -127,7 +122,7 @@ class RobotKeys(Node):
         if ch == 'D' or ch.lower() == 'x': return 'DROP'  # uppercase D or X = drop
         if ch.lower() == 'p': return 'PICK'
         if ch.lower() == 'q':
-            self.get_logger().info("Quitting robot_keys…")
+            self.get_logger().info("Quitting robot_keys...")
             # Graceful shutdown
             rclpy.shutdown()
             return None

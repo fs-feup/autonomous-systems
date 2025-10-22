@@ -8,13 +8,13 @@ from rclpy.node import Node
 from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy, DurabilityPolicy
 
 from std_msgs.msg import String
-from nav_msgs.msg import Odometry
-from geometry_msgs.msg import Pose, Point, Quaternion, Twist, Vector3
+from geometry_msgs.msg import Point
 from visualization_msgs.msg import Marker, MarkerArray
 from ament_index_python.packages import get_package_share_directory
 
 from factory_robot.core.factory_map import FactoryMap
 from factory_robot.core.factory_robot import Robot
+from custom_interfaces.msg import RobotStatus, Point2d
 
 
 class FactoryNode(Node):
@@ -32,6 +32,7 @@ class FactoryNode(Node):
 
         self.declare_parameter('publish_rate_hz', 10.0)
         self.publish_rate_hz = float(self.get_parameter('publish_rate_hz').value)
+        # Fixed-rate timer; 10 Hz => 100 ms
         self.dt = 1.0 / max(1e-6, self.publish_rate_hz)
 
         # --- state ---
@@ -45,10 +46,11 @@ class FactoryNode(Node):
             history=HistoryPolicy.KEEP_LAST,
             depth=1
         )
-        odom_qos = QoSProfile(
+        status_qos = QoSProfile(
             reliability=ReliabilityPolicy.RELIABLE,
+            durability=DurabilityPolicy.TRANSIENT_LOCAL,
             history=HistoryPolicy.KEEP_LAST,
-            depth=10
+            depth=1
         )
         cmd_qos = QoSProfile(
             reliability=ReliabilityPolicy.RELIABLE,
@@ -58,7 +60,7 @@ class FactoryNode(Node):
 
         # --- topics ---
         self.map_pub = self.create_publisher(String, 'robot/map', latched_qos)
-        self.odom_pub = self.create_publisher(Odometry, 'robot/pose', odom_qos)
+        self.status_pub = self.create_publisher(RobotStatus, 'robot/status', status_qos)
 
         # Visualization
         self.viz_map_pub = self.create_publisher(MarkerArray, 'robot/visualization_map', latched_qos)
@@ -81,42 +83,49 @@ class FactoryNode(Node):
 
     # ---------------- publish loop ----------------
     def _on_timer(self):
-        self._publish_all(force=False)
+        # Always publish at the configured rate (e.g., 10 Hz)
+        self._publish_all(force=True)
+        # Clear transient velocity after one publish tick
         if self.robot.velocity != (0.0, 0.0):
             self.robot.clear_velocity()
 
     def _publish_all(self, force: bool):
-        # map (without robot)
-        map_str = self.factory_map.render_without_robot()
-        if force or map_str != self.last_map_str:
-            self.map_pub.publish(String(data=map_str))
-            self.last_map_str = map_str
-            self._publish_map_markers()  # borders, boxes, shelves
-
-        # robot state (odom + robot cube marker)
+        # robot state (status + robot cube marker) — always publish at fixed rate
         r, c = self.robot.position
-        pose_changed = (self.last_pose != (r, c))
-        if force or pose_changed or self.robot.velocity != (0.0, 0.0):
-            self._publish_odom(r, c)
-            self._publish_robot_marker(r, c)
-            self.last_pose = (r, c)
+        # map (with robot overlay 'R') — always publish at fixed rate
+        map_str = self._render_map_with_robot(r, c)
+        self.map_pub.publish(String(data=map_str))
+        self.last_map_str = map_str
+        self._publish_map_markers()  # borders, boxes, shelves
+
+        self._publish_status(r, c)
+        self._publish_robot_marker(r, c)
+        self.last_pose = (r, c)
 
     # ---------------- odom ----------------
-    def _publish_odom(self, r: int, c: int):
-        msg = Odometry()
-        msg.header.stamp = self.get_clock().now().to_msg()
-        msg.header.frame_id = 'map'
-        msg.child_frame_id = 'base_link'
-        msg.pose.pose = Pose(
-            position=Point(x=float(c), y=float(r), z=0.0),
-            orientation=Quaternion(x=0.0, y=0.0, z=0.0, w=1.0),
-        )
-        vx, vy = float(self.robot.velocity[1]), float(self.robot.velocity[0])
-        msg.twist.twist = Twist(
-            linear=Vector3(x=vx, y=vy, z=0.0),
-            angular=Vector3(x=0.0, y=0.0, z=0.0),
-        )
-        self.odom_pub.publish(msg)
+    def _publish_status(self, r: int, c: int):
+        # Map grid (row, col) to world (x, y) where y is up.
+        rows = float(self.factory_map.rows)
+        world_x = float(c)
+        world_y = rows - 1.0 - float(r)
+        vx, vy = float(self.robot.velocity[0]), float(self.robot.velocity[1])
+        msg = RobotStatus()
+        msg.position = Point2d(x=world_x, y=world_y)
+        msg.velocity = Point2d(x=vx, y=vy)
+        msg.holding_box = (self.robot.holding is not None)
+        self.status_pub.publish(msg)
+        # self.get_logger().debug(
+        #     f"status: pose=({world_x:.1f},{world_y:.1f}) vel=({vx:.1f},{vy:.1f}) holding={msg.holding_box}"
+        # )
+
+    def _render_map_with_robot(self, r: int, c: int) -> str:
+        """Return a text map with the robot drawn as 'R' at (r, c)."""
+        base = self.factory_map.render_without_robot().split('\n')
+        if 0 <= r < len(base) and 0 <= c < len(base[r]):
+            row = list(base[r])
+            row[c] = 'R'
+            base[r] = ''.join(row)
+        return '\n'.join(base)
 
     # ---------------- visualization: map ----------------
     def _publish_map_markers(self):
@@ -149,7 +158,7 @@ class FactoryNode(Node):
         ]
         arr.markers.append(borders)
 
-        # Shelves (blue cubes)
+        # Shelves (blue cubes) — flip Y so row 0 is at top
         for (rr, cc), shelf_ch in self.factory_map.shelf_positions.items():
             m = Marker()
             m.header.frame_id = fid
@@ -160,14 +169,14 @@ class FactoryNode(Node):
             m.action = Marker.ADD
             m.scale.x = 1.0; m.scale.y = 1.0; m.scale.z = 0.12
             m.pose.position.x = float(cc) + 0.5
-            m.pose.position.y = float(rr) + 0.5
+            m.pose.position.y = float(self.factory_map.rows - 1 - rr) + 0.5
             m.pose.position.z = z
             m.pose.orientation.w = 1.0
             m.color.r, m.color.g, m.color.b, m.color.a = 0.2, 0.4, 1.0, 0.9
             m.text = shelf_ch
             arr.markers.append(m)
 
-        # Boxes (orange/red cubes)
+        # Boxes (orange/red cubes) — flip Y
         for (rr, cc), box_ch in self.factory_map.box_positions.items():
             m = Marker()
             m.header.frame_id = fid
@@ -178,7 +187,7 @@ class FactoryNode(Node):
             m.action = Marker.ADD
             m.scale.x = 1.0; m.scale.y = 1.0; m.scale.z = 0.1
             m.pose.position.x = float(cc) + 0.5
-            m.pose.position.y = float(rr) + 0.5
+            m.pose.position.y = float(self.factory_map.rows - 1 - rr) + 0.5
             m.pose.position.z = z
             m.pose.orientation.w = 1.0
             m.color.r, m.color.g, m.color.b, m.color.a = 1.0, 0.4, 0.2, 0.9
@@ -199,7 +208,8 @@ class FactoryNode(Node):
         m.action = Marker.ADD
         m.scale.x = 1.0; m.scale.y = 1.0; m.scale.z = 0.14
         m.pose.position.x = float(c) + 0.5
-        m.pose.position.y = float(r) + 0.5
+        # Flip Y to align with standard world up
+        m.pose.position.y = float(self.factory_map.rows - 1 - r) + 0.5
         m.pose.position.z = 0.07
         m.pose.orientation.w = 1.0
         # distinct color for the robot
@@ -209,7 +219,7 @@ class FactoryNode(Node):
     # ---------------- commands ----------------
     def _on_cmd(self, msg: String):
         cmd = msg.data.strip().upper()
-        if cmd in ('UP', 'DOWN', 'LEFT', 'RIGHT'):
+        if cmd in ('UP', 'DOWN', 'LEFT', 'RIGHT', 'FRONT', 'BACK'):
             self._try_move(cmd)
         elif cmd == 'PICK':
             self._try_pick()
@@ -217,14 +227,21 @@ class FactoryNode(Node):
             self._try_drop()
         else:
             self.get_logger().warn(f"Unknown command: '{cmd}'")
-        self._publish_all(force=False)
+        # No immediate publish; timer publishes at 10 Hz
 
     def _try_move(self, direction: str):
+        # Viewer-referential commands (UP/DOWN/LEFT/RIGHT), synonyms FRONT/BACK
+        # Grid deltas (dr, dc) where rows increase downward
+        # Velocity in world axes (x right, y up): vx=dc, vy=-dr
         dr, dc = 0, 0
-        if direction == 'UP': dr = 1
-        elif direction == 'DOWN': dr = -1
-        elif direction == 'LEFT': dc = -1
-        elif direction == 'RIGHT': dc = +1
+        if direction in ('UP', 'FRONT'):
+            dr = -1
+        elif direction in ('DOWN', 'BACK'):
+            dr = +1
+        elif direction == 'LEFT':
+            dc = -1
+        elif direction == 'RIGHT':
+            dc = +1
 
         r, c = self.robot.position
         dest = (r + dr, c + dc)
@@ -232,7 +249,9 @@ class FactoryNode(Node):
             self.get_logger().info(f"Blocked: cannot move {direction} into obstacle at {dest}.")
             return
         self.robot.position = dest
-        self.robot.set_velocity_once((dr, dc), step_dt=self.dt)
+        vx = float(dc)
+        vy = float(-dr)
+        self.robot.set_velocity_once((vx, vy))
 
     def _try_pick(self):
         if self.robot.holding is not None:

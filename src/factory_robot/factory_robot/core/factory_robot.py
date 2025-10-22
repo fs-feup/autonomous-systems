@@ -8,7 +8,8 @@ class Robot:
     """
     Grid robot:
     - position: (row, col)
-    - velocity: (vx, vy) in grid-cells/s for the last command tick; else (0,0)
+    - velocity: (vx, vy) in world/map axes (x right, y up) for the
+      last command tick; values are unit steps (-1, 0, +1), else (0, 0)
     - holding: one box char '1'..'4' or None
     """
 
@@ -17,10 +18,13 @@ class Robot:
         self.velocity: Tuple[float, float] = (0.0, 0.0)
         self.holding: Optional[str] = None
 
-    def set_velocity_once(self, dv: Vec2, step_dt: float = 0.1) -> None:
-        """Set a transient velocity vector for one publish tick."""
-        # 1 cell per command over dt seconds → simple velocity estimate
-        self.velocity = (dv[0] / step_dt, dv[1] / step_dt)
+    def set_velocity_once(self, dv: Vec2) -> None:
+        """
+        Set a transient velocity vector for one publish tick, expressed
+        in world/map coordinates (x right, y up) with unit magnitude
+        per step.
+        """
+        self.velocity = (self.velocity[0] + float(dv[0]), self.velocity[1] + float(dv[1]))
 
     def clear_velocity(self) -> None:
         self.velocity = (0.0, 0.0)
