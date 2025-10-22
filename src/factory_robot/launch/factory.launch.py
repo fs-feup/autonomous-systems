@@ -17,5 +17,5 @@ def generate_launch_description():
                 'publish_rate_hz': 10.0,
             }],
             output='screen'
-        )
+        ) 
     ])
