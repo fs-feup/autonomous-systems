@@ -16,12 +16,9 @@
 
 class NoRearWSSEKF : public VelocityEstimator {
   rclcpp::Time _last_update_;
-  rclcpp::Time _last_predict_;
   Eigen::Vector3d _state_ = Eigen::Vector3d::Zero();
-  Eigen::Matrix3d _covariance_ = Eigen::Matrix3d::Identity() * 0.5;
+  Eigen::Matrix3d _covariance_ = Eigen::Matrix3d::Identity() * 0.05;
   Eigen::Matrix3d _process_noise_matrix_;
-  float _angular_velocity_process_noise_multiplier_ =
-      0.1;  //< used to scale process noise based on angular velocity
   Eigen::MatrixXd _wheels_measurement_noise_matrix_;
   Eigen::MatrixXd _imu_measurement_noise_matrix_;
 
@@ -84,13 +81,7 @@ public:
    * @brief Callback function for the IMU data that should be called by adapters when new IMU data
    * is available.
    */
-  void imu_angular_callback(const common_lib::sensor_data::ImuData& imu_data) override;
-
-  /**
-   * @brief Callback function for the IMU data that should be called by adapters when new IMU data
-   * is available.
-   */
-  void imu_accel_callback(const common_lib::sensor_data::ImuData& imu_data) override;
+  void imu_callback(const common_lib::sensor_data::ImuData& imu_data) override;
   /**
    * @brief Callback function for the wheel speed sensor data that should be called by adapters when
    * new wheel speed sensor data is available.

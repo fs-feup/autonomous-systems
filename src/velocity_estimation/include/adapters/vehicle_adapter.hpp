@@ -26,16 +26,21 @@ class VehicleAdapter : public VENode {
   message_filters::Subscriber<custom_interfaces::msg::WheelRPM>
       _fr_wheel_rpm_subscription_;  ///< Subscriber for fr wheel rpm
 
+  message_filters::Subscriber<geometry_msgs::msg::Vector3Stamped> _free_acceleration_subscription_;
+  message_filters::Subscriber<geometry_msgs::msg::Vector3Stamped> _angular_velocity_subscription_;
+  using XsensImuPolicy = message_filters::sync_policies::ApproximateTime<
+      geometry_msgs::msg::Vector3Stamped,
+      geometry_msgs::msg::Vector3Stamped>;  ///< Policy for synchronizing Xsens IMU data
   using WheelSSPolicy = message_filters::sync_policies::ApproximateTime<
       custom_interfaces::msg::WheelRPM,
       custom_interfaces::msg::WheelRPM>;  ///< Policy for synchronizing wheel speeds
   std::shared_ptr<message_filters::Synchronizer<WheelSSPolicy>>
       _wss_sync_;  ///< Synchronizer for wheel speeds
+  std::shared_ptr<message_filters::Synchronizer<XsensImuPolicy>> _xsens_imu_sync_;
 
   rclcpp::Subscription<custom_interfaces::msg::SteeringAngle>::SharedPtr _steering_angle_sub_;
+
   rclcpp::Subscription<custom_interfaces::msg::WheelRPM>::SharedPtr _resolver_sub_;
-  rclcpp::Subscription<geometry_msgs::msg::Vector3Stamped>::SharedPtr _angular_velocity_sub_;
-  rclcpp::Subscription<geometry_msgs::msg::Vector3Stamped>::SharedPtr _free_acceleration_sub_;
 
   double last_decent_fl_wss_reading = 0;
   double average_imu_bias = 0.0;
@@ -43,10 +48,12 @@ class VehicleAdapter : public VENode {
 
 public:
   explicit VehicleAdapter(const VEParameters& parameters);
-
-  void angular_velocity_callback(const geometry_msgs::msg::Vector3Stamped& angular_velocity_msg);
-
-  void free_acceleration_callback(const geometry_msgs::msg::Vector3Stamped& free_acceleration_msg);
+  /**
+   * @brief IMU subscription callback, which receives both free acceleration and angular velocity
+   * through a synchronizer message filter
+   */
+  void imu_callback(const geometry_msgs::msg::Vector3Stamped::SharedPtr& free_acceleration_msg,
+                    const geometry_msgs::msg::Vector3Stamped::SharedPtr& angular_velocity_msg);
   /**
    * @brief Wheel speed subscription callback, which receives both wheel speeds
    * through a synchronizer message filter

@@ -17,6 +17,7 @@
 #include "slam_solver/solver_traits/imu_integrator_trait.hpp"
 #include "slam_solver/solver_traits/node_controller_trait.hpp"
 #include "slam_solver/solver_traits/odometry_integrator_trait.hpp"
+#include "slam_solver/solver_traits/trajectory_calculator.hpp"
 #include "slam_solver/solver_traits/velocities_integrator_trait.hpp"
 
 /**
@@ -31,7 +32,8 @@ class GraphSLAMSolver : public SLAMSolver,
                         public VelocitiesIntegratorTrait,
                         public OdometryIntegratorTrait,
                         public ImuIntegratorTrait,
-                        public NodeControllerTrait {
+                        public NodeControllerTrait,
+                        public TrajectoryCalculator {
   std::shared_ptr<GraphSLAMInstance> _graph_slam_instance_;  //< Instance of the graph SLAM solver
   std::shared_ptr<PoseUpdater> _pose_updater_;  //< Pose updater for the graph SLAM solver
   std::shared_ptr<OdometryModel> _odometry_model;
@@ -134,9 +136,16 @@ public:
   /**
    * @brief Get the pose estimate object
    *
-   *  @ return common_lib::structures::Pose
+   * @return common_lib::structures::Pose
    */
   common_lib::structures::Pose get_pose_estimate() override;
+
+  /**
+   * @brief Get the trajectory estimate of the car (all poses)
+   *
+   * @return std::vector<common_lib::structures::Pose>
+   */
+  std::vector<common_lib::structures::Pose> get_trajectory_estimate() override;
 
   /**
    * @brief Get the covariance matrix of the graph

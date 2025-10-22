@@ -16,6 +16,8 @@ class ISAM2Optimizer : public BaseOptimizer {
   gtsam::NonlinearFactorGraph _new_factors_;  //< New factors to add to the optimizer
 public:
   ISAM2Optimizer(const SLAMParameters& params);
+  ISAM2Optimizer(const ISAM2Optimizer& other);
+  ISAM2Optimizer& operator=(const ISAM2Optimizer& other);
 
   ~ISAM2Optimizer() override = default;
 

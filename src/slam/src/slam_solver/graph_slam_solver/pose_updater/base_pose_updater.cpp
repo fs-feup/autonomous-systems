@@ -75,7 +75,10 @@ void PoseUpdater::predict_pose(const MotionData& motion_data,
       adjoint_matrix * this->_last_pose_covariance_ * adjoint_matrix.transpose() + motion_noise;
   this->_last_pose_update_ = motion_data.timestamp_;
   this->_new_pose_from_graph_ = true;
-
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("slam"), "Adjoint Matrix: \n" << adjoint_matrix);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("slam"), "Motion Noise: \n" << motion_noise);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("slam"), "Jacobian Motion Data: \n"
+                                                      << jacobian_motion_data);
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("slam"), "Pose Difference Covariance: \n"
                                                       << this->_last_pose_covariance_);
 }

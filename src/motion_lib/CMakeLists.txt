@@ -29,7 +29,6 @@ set(IMPLEMENTATION_FILES
   src/v2p_models/base_v2p_motion_model.cpp
   src/s2v_model/bicycle_model.cpp
   src/s2v_model/no_rear_wss_bicycle_model.cpp
-  src/s2v_model/inverted_tricycle_model.cpp
   src/s2v_model/no_wss_bicycle_model.cpp
   src/v2p_models/constant_velocity_turnrate_model.cpp
   src/v2p_models/constant_acceleration_turnrate_model.cpp

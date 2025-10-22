@@ -28,6 +28,26 @@ ISAM2Optimizer::ISAM2Optimizer(const SLAMParameters& params) : BaseOptimizer(par
   _new_values_ = gtsam::Values();
 };
 
+ISAM2Optimizer::ISAM2Optimizer(const ISAM2Optimizer& other) : BaseOptimizer(other) {
+  this->_isam2_ = other._isam2_;
+  this->_last_estimate_ = other._last_estimate_;
+  this->_new_values_ = other._new_values_;
+  this->_new_factors_ = other._new_factors_;
+}
+
+ISAM2Optimizer& ISAM2Optimizer::operator=(const ISAM2Optimizer& other) {
+  if (this == &other) return *this;  // Prevent self-assignment
+
+  // Copy each member individually
+  BaseOptimizer::operator=(other);
+  this->_isam2_ = other._isam2_;
+  this->_last_estimate_ = other._last_estimate_;
+  this->_new_values_ = other._new_values_;
+  this->_new_factors_ = other._new_factors_;
+
+  return *this;
+}
+
 gtsam::Values ISAM2Optimizer::optimize(gtsam::NonlinearFactorGraph& factor_graph,
                                        gtsam::Values& graph_values,
                                        [[maybe_unused]] unsigned int pose_num,

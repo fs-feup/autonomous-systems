@@ -1,22 +1,10 @@
-# velocity_estimation:
-#   estimation_method: "no_rear_wss_ekf"
-#   s2v_model_name: "no_rear_wss_bicycle_model"
-#   process_model_name: "ca_particle_model"
-#   wheel_speed_noise: 1.5 # TODO: investigate this
-#   motor_rpm_noise: 0.1
-#   steering_angle_noise: 0.01
-#   imu_acceleration_noise: 1.0
-#   imu_rotational_noise: 0.1
-#   angular_velocity_process_noise: 5.0
-#   angular_velocity_process_noise_multiplier: 0.0
 velocity_estimation:
-  estimation_method: "no_rear_wss_ekf" # "ekf" or "no_rear_wss_ekf"
-  s2v_model_name: "no_rear_wss_bicycle_model" # "bicycle_model" or "no_rear_wss_bicycle_model" or "inverted_tricycle_model"
+  estimation_method: "no_rear_wss_ekf"
+  s2v_model_name: "no_rear_wss_bicycle_model"
   process_model_name: "ca_particle_model"
-  wheel_speed_noise: 0.01 # variance of wheel speed distribution
-  motor_rpm_noise: 0.09 # variance of motor rpm distribution
-  steering_angle_noise: 0.000000001 # variance of steering angle distribution
-  imu_acceleration_noise: 1 # variance of imu acceleration distribution
-  imu_rotational_noise: 0.04 # variance of imu rotational distribution
-  angular_velocity_process_noise: 10.0 # variance of angular velocity process distribution
-  angular_velocity_process_noise_multiplier: 0.0 # multiplier to scale process noise based on angular velocity
+  wheel_speed_noise: 1.5 # TODO: investigate this
+  motor_rpm_noise: 0.1
+  steering_angle_noise: 0.01
+  imu_acceleration_noise: 1.0
+  imu_rotational_noise: 0.1
+  angular_velocity_process_noise: 0.1

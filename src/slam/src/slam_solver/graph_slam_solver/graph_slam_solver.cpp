@@ -265,7 +265,8 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   if (this->_params_.slam_optimization_mode_ == "sync") {  // If optimization is synchronous
     // RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Mutex locked - optimizing
     // graph"); std::unique_lock uniq_lock(this->_mutex_);
-    this->_graph_slam_instance_->optimize();
+    // this->_graph_slam_instance_->optimize();
+    this->_asynchronous_optimization_routine();
     // optimization_time = rclcpp::Clock().now();
     // this->_pose_updater_->update_pose(gtsam_pose_to_eigen(this->_graph_slam_instance_->get_pose()));
     // RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Mutex unlocked - graph
@@ -325,11 +326,17 @@ void GraphSLAMSolver::_asynchronous_optimization_routine() {
     this->_optimization_under_way_ = false;
     RCLCPP_DEBUG(rclcpp::get_logger("slam"), "_asynchronous_optimization_routine - Mutex locked");
     while (this->_motion_data_queue_.size() > 0 || this->_observation_data_queue_.size() > 0) {
+      RCLCPP_DEBUG(rclcpp::get_logger("slam"),
+                   "_asynchronous_optimization_routine - Rebuilding graph, motion data queue size: "
+                   "%d, observation data queue size: %d",
+                   this->_motion_data_queue_.size(), this->_observation_data_queue_.size());
       bool process_pose = this->_observation_data_queue_.size() <= 0 ||
                           (this->_motion_data_queue_.size() > 0 &&
                            this->_motion_data_queue_.front().timestamp_ <
                                this->_observation_data_queue_.front().timestamp_);
       if (process_pose) {
+        RCLCPP_DEBUG(rclcpp::get_logger("slam"),
+                     "_asynchronous_optimization_routine - Processing motion data");
         std::shared_ptr<V2PMotionModel> motion_model_ptr =
             this->_motion_data_queue_.front().type_ == MotionInputType::VELOCITIES
                 ? this->_motion_model_
@@ -339,6 +346,8 @@ void GraphSLAMSolver::_asynchronous_optimization_routine() {
         this->_add_motion_data_to_graph(pose_updater_copy, graph_slam_instance_copy);
         this->_motion_data_queue_.pop();
       } else {
+        RCLCPP_DEBUG(rclcpp::get_logger("slam"),
+                     "_asynchronous_optimization_routine - Processing observation data");
         this->_add_motion_data_to_graph(
             pose_updater_copy,
             graph_slam_instance_copy);  // To update graph pose before connecting factors
@@ -409,6 +418,20 @@ common_lib::structures::Pose GraphSLAMSolver::get_pose_estimate() {
 
   return common_lib::structures::Pose(pose_vector(0), pose_vector(1), pose_vector(2), 0.0, 0.0, 0.0,
                                       this->_pose_updater_->get_last_pose_update());
+}
+
+std::vector<common_lib::structures::Pose> GraphSLAMSolver::get_trajectory_estimate() {
+  std::vector<common_lib::structures::Pose> trajectory;
+  const gtsam::Values& graph_values = this->_graph_slam_instance_->get_graph_values_reference();
+  trajectory.reserve(this->_graph_slam_instance_->get_pose_counter());
+  for (auto it = graph_values.begin(); it != graph_values.end(); ++it) {
+    // Iterate through the poses in the _graph_values_
+    if (gtsam::Symbol(it->key).chr() == 'x') {
+      gtsam::Pose2 pose = it->value.cast<gtsam::Pose2>();
+      trajectory.push_back(common_lib::structures::Pose(pose.x(), pose.y(), pose.theta()));
+    }
+  }
+  return trajectory;
 }
 
 Eigen::MatrixXd GraphSLAMSolver::get_covariance() {

@@ -5,7 +5,6 @@
 #include <string>
 
 #include "motion_lib/s2v_model/bicycle_model.hpp"
-#include "motion_lib/s2v_model/inverted_tricycle_model.hpp"
 #include "motion_lib/s2v_model/no_rear_wss_bicycle_model.hpp"
 #include "motion_lib/s2v_model/no_wss_bicycle_model.hpp"
 
@@ -25,10 +24,6 @@ const std::map<
         {"no_rear_wss_bicycle_model",
          [](const common_lib::car_parameters::CarParameters& params) -> std::shared_ptr<S2VModel> {
            return std::make_shared<NoRearWSSBicycleModel>(params);
-         }},
-        {"inverted_tricycle_model",
-         [](const common_lib::car_parameters::CarParameters& params) -> std::shared_ptr<S2VModel> {
-           return std::make_shared<InvertedTricycleModel>(params);
          }},
         {"no_wss_bicycle_model",
          [](const common_lib::car_parameters::CarParameters& params) -> std::shared_ptr<S2VModel> {

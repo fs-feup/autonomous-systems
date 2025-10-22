@@ -12,16 +12,9 @@
 class VelocityEstimator {
 public:
   /**
-   * @brief Callback function for the IMU data that should be called by adapters when new IMU data
-   * is available.
+   * @brief callback for IMU data that the VENode should call when new IMU data is received
    */
-  virtual void imu_angular_callback(const common_lib::sensor_data::ImuData& imu_data) = 0;
-
-  /**
-   * @brief Callback function for the IMU data that should be called by adapters when new IMU data
-   * is available.
-   */
-  virtual void imu_accel_callback(const common_lib::sensor_data::ImuData& imu_data) = 0;
+  virtual void imu_callback(const common_lib::sensor_data::ImuData& imu_data) = 0;
   /**
    * @brief callback for wheel speed sensor data that the VENode should call when new wheel speed
    * sensor data is received

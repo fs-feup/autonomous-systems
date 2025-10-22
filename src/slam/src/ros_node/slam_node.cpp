@@ -50,7 +50,7 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
 
   if (params.slam_solver_name_ == "graph_slam") {
     this->_callback_group_ = this->create_callback_group(
-        rclcpp::CallbackGroupType::Reentrant);  // Allow callbacks to execute in parallel
+        rclcpp::CallbackGroupType::MutuallyExclusive);  // Allow callbacks to execute in parallel
   } else {
     this->_callback_group_ = this->create_callback_group(
         rclcpp::CallbackGroupType::MutuallyExclusive);  // Default callback group
@@ -89,6 +89,9 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
           "/state_estimation/visualization_associations", 10);
   this->_position_publisher_ = this->create_publisher<visualization_msgs::msg::Marker>(
       "/state_estimation/visualization/position", 10);
+  this->_trajectory_visualization_publisher_ =
+      this->create_publisher<visualization_msgs::msg::MarkerArray>(
+          "/state_estimation/visualization/trajectory", 10);
   this->_execution_time_publisher_ = this->create_publisher<std_msgs::msg::Float64MultiArray>(
       "/state_estimation/slam_execution_time", 10);
   this->_covariance_publisher_ = this->create_publisher<std_msgs::msg::Float64MultiArray>(
@@ -219,7 +222,7 @@ void SLAMNode::_imu_subscription_callback(const sensor_msgs::msg::Imu &msg) {
   if (this->_mission_ == common_lib::competition_logic::Mission::NONE) {
     return;
   }
-  RCLCPP_DEBUG(this->get_logger(), "SUB - IMU data received");
+  // RCLCPP_DEBUG(this->get_logger(), "SUB - IMU data received");
   if (auto solver_ptr = std::dynamic_pointer_cast<ImuIntegratorTrait>(this->_slam_solver_)) {
     auto imu_data = common_lib::sensor_data::ImuData(
         msg.angular_velocity.z, msg.linear_acceleration.x, msg.linear_acceleration.y,
@@ -241,7 +244,8 @@ void SLAMNode::_publish_vehicle_pose() {
   // TODO(marhcouto): add covariance
   message.header.stamp = this->get_clock()->now();
 
-  RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f)", message.x, message.y, message.theta);
+  // RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f)", message.x, message.y,
+  // message.theta);
   this->_vehicle_pose_publisher_->publish(message);
 
   // Publish the transform
@@ -259,14 +263,23 @@ void SLAMNode::_publish_vehicle_pose() {
   tf_message.transform.rotation.z = q.z();
   tf_message.transform.rotation.w = q.w();
   this->_tf_broadcaster_->sendTransform(tf_message);
+
+  // Publish trajectory marker
+  if (auto solver_ptr = std::dynamic_pointer_cast<TrajectoryCalculator>(this->_slam_solver_)) {
+    std::vector<common_lib::structures::Pose> trajectory = solver_ptr->get_trajectory_estimate();
+    auto marker_array_msg = visualization_msgs::msg::MarkerArray();
+    marker_array_msg = common_lib::communication::marker_array_from_structure_array(
+        trajectory, "vehicle_trajectory", "map", "blue", "sphere");
+    this->_trajectory_visualization_publisher_->publish(marker_array_msg);
+  }
 }
 
 void SLAMNode::_publish_map() {
   auto cone_array_msg = custom_interfaces::msg::ConeArray();
   auto marker_array_msg = visualization_msgs::msg::MarkerArray();
   auto marker_array_msg_perception = visualization_msgs::msg::MarkerArray();
-  RCLCPP_DEBUG(this->get_logger(), "PUB - cone map %ld", this->_track_map_.size());
-  RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
+  // RCLCPP_DEBUG(this->get_logger(), "PUB - cone map %ld", this->_track_map_.size());
+  // RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
   for (common_lib::structures::Cone const &cone : this->_track_map_) {
     auto cone_message = custom_interfaces::msg::Cone();
     cone_message.position.x = cone.position.x;
@@ -274,10 +287,10 @@ void SLAMNode::_publish_map() {
     // TODO: add covariance & large cones & confidence
     cone_message.color = common_lib::competition_logic::get_color_string(cone.color);
     cone_array_msg.cone_array.push_back(cone_message);
-    RCLCPP_DEBUG(this->get_logger(), "(%f\t%f)\t%s", cone_message.position.x,
-                 cone_message.position.y, cone_message.color.c_str());
+    // RCLCPP_DEBUG(this->get_logger(), "(%f\t%f)\t%s", cone_message.position.x,
+    //              cone_message.position.y, cone_message.color.c_str());
   }
-  RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
+  // RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
   cone_array_msg.header.stamp = this->get_clock()->now();
   this->_map_publisher_->publish(cone_array_msg);
   marker_array_msg = common_lib::communication::marker_array_from_structure_array(
