@@ -3,6 +3,7 @@ slam:
   pose_updater_name: "difference_based_ready" # "base_pose_updater" or "difference_based_ready" -> name of the pose updater object, responsible for keeping pose estimate
   landmark_filter_name: "consecutive_count" # "consecutive_count" or other names of filters of perception data
   lidar_odometry_topic: "-" # "/fast_limo/state" or "/kiss/odometry" or "" -> topic for pose from lidar odometry
+  receive_lidar_odometry: false # Whether to use lidar odometry topic or not
   data_association_model_name: "nearest_neighbor" # "maximum_likelihood_md" or "maximum_likelihood_nll" or "nearest_neighbor" or... -> name of the data association model
   data_association_limit_distance: 30 # maximum distance to consider a cone for data association
   data_association_gate: 1.23 # Maximum allowed Malahanobis distance (or euclidean distance for nearest neighbor) between an observation and matched landmark
