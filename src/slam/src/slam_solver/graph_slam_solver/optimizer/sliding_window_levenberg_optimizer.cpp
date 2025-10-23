@@ -8,21 +8,8 @@
 
 #include <Eigen/SparseCore>
 
-void printJacobianConditionNumber(gtsam::NonlinearFactorGraph& graph, gtsam::Values& values) {
-  // Linearize the factor graph
-  gtsam::GaussianFactorGraph linearizedGraph = *graph.linearize(values);
-
-  // Extract the Jacobian (this will return a dense matrix)
-  gtsam::Matrix J = linearizedGraph.jacobian().first;
-
-  // Print the condition number of the Jacobian
-  // Convert gtsam::Matrix to Eigen for singular value decomposition
-  Eigen::JacobiSVD<Eigen::MatrixXd> svd(J);
-  double condition_number = svd.singularValues().maxCoeff() / svd.singularValues().minCoeff();
-
-  // Debug message with condition number
-  RCLCPP_DEBUG(rclcpp::get_logger("slam"),
-               "SlidingWindowLevenbergOptimizer - Jacobian condition number: %e", condition_number);
+std::shared_ptr<BaseOptimizer> SlidingWindowLevenbergOptimizer::clone() const {
+  return std::make_shared<SlidingWindowLevenbergOptimizer>(*this);
 }
 
 SlidingWindowLevenbergOptimizer::SlidingWindowLevenbergOptimizer(const SLAMParameters& params)
@@ -114,9 +101,7 @@ gtsam::Values SlidingWindowLevenbergOptimizer::optimize(
   // lm_params.setLinearSolverType(gtsam::LevenbergMarquardtParams::MULTIFRONTAL_CHOLESKY);
   // lm_params.setOrderingType(
   //     gtsam::LevenbergMarquardtParams::OrderingType::CUSTOM);  // supply your ordering
-
-  // **Print condition number before optimization starts**
-  // printJacobianConditionNumber(sliding_window_graph, sliding_window_values);
+  // TODO: determine best parameters and expose them to YAML
 
   // Optimize the sliding window
   rclcpp::Time start_time = rclcpp::Clock().now();
@@ -136,6 +121,5 @@ gtsam::Values SlidingWindowLevenbergOptimizer::optimize(
                "SlidingWindowLevenbergOptimizer - Number of iterations: "
                "%ld\nOptimization  time: %f",
                optimizer.iterations(), optimization_time.seconds());
-  // gtsam::timing::print("SlidingWindowLevenbergOptimizer optimization time: ");
   return graph_values;
 }

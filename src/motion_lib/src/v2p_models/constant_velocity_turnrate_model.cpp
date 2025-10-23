@@ -41,7 +41,7 @@ Eigen::Matrix3d ConstantVelocityTurnrateModel::get_jacobian_pose(
 Eigen::MatrixXd ConstantVelocityTurnrateModel::get_jacobian_motion_data(
     const Eigen::Vector3d &previous_pose, const Eigen::VectorXd &motion_data,
     const double delta_t) {
-  Eigen::Matrix3d jacobian = Eigen::Matrix3d::Zero();
+  Eigen::MatrixXd jacobian = Eigen::MatrixXd::Zero(3, 4);
   if (::abs(motion_data(2)) < 0.001) {
     jacobian(0, 0) = ::cos(previous_pose(2)) * delta_t;
     jacobian(1, 0) = ::sin(previous_pose(2)) * delta_t;

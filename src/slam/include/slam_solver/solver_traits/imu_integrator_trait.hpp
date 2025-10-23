@@ -2,6 +2,9 @@
 
 #include "common_lib/sensor_data/imu.hpp"
 
+/**
+ * @brief Trait class for IMU integration in SLAM solvers
+ */
 class ImuIntegratorTrait {
 public:
   /**

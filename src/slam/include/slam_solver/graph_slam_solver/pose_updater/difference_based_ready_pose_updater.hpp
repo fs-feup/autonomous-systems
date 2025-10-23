@@ -28,7 +28,11 @@ public:
   virtual ~DifferenceBasedReadyPoseUpdater();
 
   /**
-   * @brief Clones the PoseUpdater instance
+   * @brief Clone the pose updater
+   * @details This method is used to create a copy of the pose updater
+   * It is useful for polymorphic classes that use pointers to base class
+   *
+   * @return A shared pointer to the cloned pose updater
    */
   virtual std::shared_ptr<PoseUpdater> clone() const override;
 

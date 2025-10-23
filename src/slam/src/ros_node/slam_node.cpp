@@ -34,7 +34,7 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
                                    params.minimum_frequency_of_detections_),
           data_association);
 
-  this->_execution_times_ = std::make_shared<std::vector<double>>(20, 0.0);
+  this->_execution_times_ = std::make_shared<std::vector<double>>(20, 0.0);  // Preallocate 20 slots
   std::shared_ptr<LoopClosure> loop_closure = std::make_shared<LapCounter>(4, 10, 5, 3);
 
   // Initialize SLAM solver object
@@ -48,14 +48,14 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
   _track_map_ = std::vector<common_lib::structures::Cone>();
   _vehicle_pose_ = common_lib::structures::Pose();
 
-  if (params.slam_solver_name_ == "graph_slam") {
+  // To control if callbacks are concurrent or not
+  if (params.slam_solver_name_ == "graph_slam" && params.slam_optimization_mode_ != "sync") {
     this->_callback_group_ = this->create_callback_group(
-        rclcpp::CallbackGroupType::MutuallyExclusive);  // Allow callbacks to execute in parallel
+        rclcpp::CallbackGroupType::Reentrant);  // Allow callbacks to execute in parallel
   } else {
     this->_callback_group_ = this->create_callback_group(
         rclcpp::CallbackGroupType::MutuallyExclusive);  // Default callback group
   }
-
   rclcpp::SubscriptionOptions subscription_options;
   subscription_options.callback_group = this->_callback_group_;
 
@@ -81,14 +81,9 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
   this->_visualization_map_publisher_ =
       this->create_publisher<visualization_msgs::msg::MarkerArray>(
           "/state_estimation/visualization_map", 10);
-  this->_visualization_perception_map_publisher_ =
-      this->create_publisher<visualization_msgs::msg::MarkerArray>(
-          "/state_estimation/visualization_map_perception", 10);
   this->_associations_visualization_publisher_ =
       this->create_publisher<visualization_msgs::msg::MarkerArray>(
           "/state_estimation/visualization_associations", 10);
-  this->_position_publisher_ = this->create_publisher<visualization_msgs::msg::Marker>(
-      "/state_estimation/visualization/position", 10);
   this->_trajectory_visualization_publisher_ =
       this->create_publisher<visualization_msgs::msg::MarkerArray>(
           "/state_estimation/visualization/trajectory", 10);
@@ -98,7 +93,6 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
       "/state_estimation/slam_covariance", 10);
   this->_lap_counter_publisher_ =
       this->create_publisher<std_msgs::msg::Float64>("/state_estimation/lap_counter", 10);
-
   this->_tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
 
   RCLCPP_INFO(this->get_logger(), "SLAM Node has been initialized");
@@ -123,47 +117,26 @@ void SLAMNode::_perception_subscription_callback(const custom_interfaces::msg::C
   //               static_cast<int>(this->_mission_), this->_go_);
   //   return;
   // }
+  // TODO: Não me lembro se isto era p ficar comentado ou n
 
   rclcpp::Time start_time = this->get_clock()->now();
-
-  this->_perception_map_.clear();
-  std::string observations = "";
-  for (auto &cone : cone_array) {
-    this->_perception_map_.push_back(common_lib::structures::Cone(
-        cone.position.x, cone.position.y, cone.color, cone.confidence, msg.header.stamp));
-    // observations +=
-    //     "(" + std::to_string(cone.position.x) + ", " + std::to_string(cone.position.y) + "), ";
-  }
-
   if (this->_slam_solver_ == nullptr) {
     RCLCPP_WARN(this->get_logger(), "ATTR - Slam Solver object is null");
     return;
   }
 
+  this->_perception_map_.clear();
+  for (auto &cone : cone_array) {
+    this->_perception_map_.push_back(common_lib::structures::Cone(
+        cone.position.x, cone.position.y, cone.color, cone.confidence, msg.header.stamp));
+  }
+
   this->_slam_solver_->add_observations(this->_perception_map_);
   this->_track_map_ = this->_slam_solver_->get_map_estimate();
   this->_vehicle_pose_ = this->_slam_solver_->get_pose_estimate();
-  // std::string mapa = "";
-  // for (const auto &cone : this->_track_map_) {
-  //   mapa += "(" + std::to_string(cone.position.x) + ", " + std::to_string(cone.position.y) + "),
-  //   ";
-  // }
-  // RCLCPP_INFO(this->get_logger(), "Perception - Track map: %s", mapa.c_str());
-  // std::string pose = "Pose: (" + std::to_string(this->_vehicle_pose_.position.x) + ", " +
-  //                    std::to_string(this->_vehicle_pose_.position.y) + ", " +
-  //                    std::to_string(this->_vehicle_pose_.orientation) + " )";
-  // RCLCPP_INFO(this->get_logger(), "Perception - %s", pose.c_str());
-  // RCLCPP_INFO(this->get_logger(), "Perception - Observations: %s", observations.c_str());
-  // this->_associations_ = this->_slam_solver_->get_associations();
-  // this->_observations_global_ = this->_slam_solver_->get_observations_global();
-  // this->_map_coordinates_ = this->_slam_solver_->get_map_coordinates();
-  // std::string observations_global = "";
-  // for (int i = 0; i < this->_observations_global_.size() / 2; ++i) {
-  //   observations_global += "(" + std::to_string(this->_observations_global_(i * 2)) + ", " +
-  //                          std::to_string(this->_observations_global_(i * 2 + 1)) + "), ";
-  // }
-  // RCLCPP_INFO(this->get_logger(), "Perception - Observations global: %s",
-  //             observations_global.c_str());
+  this->_associations_ = this->_slam_solver_->get_associations();
+  this->_observations_global_ = this->_slam_solver_->get_observations_global();
+  this->_map_coordinates_ = this->_slam_solver_->get_map_coordinates();
 
   if (this->_is_mission_finished()) {
     this->finish();
@@ -200,13 +173,6 @@ void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::V
     solver_ptr->add_velocities(this->_vehicle_state_velocities_);
   }
   this->_vehicle_pose_ = this->_slam_solver_->get_pose_estimate();
-  // this->_track_map_ = this->_slam_solver_->get_map_estimate();
-  // std::string mapa = "";
-  // for (const auto &cone : this->_track_map_) {
-  //   mapa += "(" + std::to_string(cone.position.x) + ", " + std::to_string(cone.position.y) + "),
-  //   ";
-  // }
-  // RCLCPP_INFO(this->get_logger(), "Velocity - Track map: %s", mapa.c_str());
 
   // this->_publish_covariance(); // TODO: get covariance to work fast
   this->_publish_vehicle_pose();
@@ -222,7 +188,7 @@ void SLAMNode::_imu_subscription_callback(const sensor_msgs::msg::Imu &msg) {
   if (this->_mission_ == common_lib::competition_logic::Mission::NONE) {
     return;
   }
-  // RCLCPP_DEBUG(this->get_logger(), "SUB - IMU data received");
+  RCLCPP_DEBUG(this->get_logger(), "SUB - IMU data received");
   if (auto solver_ptr = std::dynamic_pointer_cast<ImuIntegratorTrait>(this->_slam_solver_)) {
     auto imu_data = common_lib::sensor_data::ImuData(
         msg.angular_velocity.z, msg.linear_acceleration.x, msg.linear_acceleration.y,
@@ -241,11 +207,10 @@ void SLAMNode::_publish_vehicle_pose() {
   message.x = this->_vehicle_pose_.position.x;
   message.y = this->_vehicle_pose_.position.y;
   message.theta = this->_vehicle_pose_.orientation;
-  // TODO(marhcouto): add covariance
+  // TODO: add covariance
   message.header.stamp = this->get_clock()->now();
 
-  // RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f)", message.x, message.y,
-  // message.theta);
+  RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f)", message.x, message.y, message.theta);
   this->_vehicle_pose_publisher_->publish(message);
 
   // Publish the transform

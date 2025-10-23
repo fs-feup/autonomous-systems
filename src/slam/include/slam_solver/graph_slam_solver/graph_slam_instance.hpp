@@ -41,6 +41,13 @@ public:
 
   ~GraphSLAMInstance() = default;
 
+  /**
+   * @brief Clone the graph SLAM instance
+   * @details This method is used to create a copy of the graph SLAM instance
+   * It is useful for polymorphic classes that use pointers
+   *
+   * @return A shared pointer to the cloned graph SLAM instance
+   */
   std::shared_ptr<GraphSLAMInstance> clone() const {
     return std::make_shared<GraphSLAMInstance>(*this);
   }
@@ -59,12 +66,23 @@ public:
    */
   bool new_observation_factors() const;
 
+  /**
+   * @brief Get the number of landmarks
+   * @return unsigned int number of landmarks
+   */
   unsigned int get_landmark_counter() const;
 
+  /**
+   * @brief Get the number of poses
+   * @return unsigned int number of poses
+   */
   unsigned int get_pose_counter() const;
 
-  // TODO: improve copying times and referencing and stuff like that
-
+  /**
+   * @brief Get the current pose estimate
+   *
+   * @return const gtsam::Pose2 current pose
+   */
   const gtsam::Pose2 get_pose() const;
 
   /**
@@ -105,22 +123,50 @@ public:
    */
   void load_initial_state(const Eigen::VectorXd& map, const Eigen::Vector3d& pose,
                           double preloaded_map_noise);
-
+  /**
+   * @brief Process a new pose and respective pose difference
+   * @details This method adds a new pose node to the graph values and calls the
+   * process_pose_difference method to add the respective pose difference factor to the graph
+   * @param pose_difference Pose difference from the last pose
+   * @param noise_vector Noise associated with the pose difference
+   * @param new_pose The new pose to add to the graph
+   */
   void process_new_pose(const Eigen::Vector3d& pose_difference, const Eigen::Vector3d& noise_vector,
                         const Eigen::Vector3d& new_pose);
 
+  /**
+   * @brief Process a pose difference and add the respective factor to the graph
+   * @param pose_difference Pose difference from the last pose
+   * @param noise_vector Noise associated with the pose difference
+   * @param before_pose_id ID of the pose before the difference (optional)
+   * @param after_pose_id ID of the pose after the difference (optional)
+   */
   void process_pose_difference(const Eigen::Vector3d& pose_difference,
                                const Eigen::Vector3d& noise_vector, unsigned int before_pose_id,
                                unsigned int after_pose_id);
 
+  /**
+   * @brief Process a pose difference and add the respective factor to the graph (after pose is
+   * current pose)
+   * @param pose_difference Pose difference from the last pose
+   * @param noise_vector Noise associated with the pose difference
+   * @param before_pose_id ID of the pose before the difference (optional)
+   */
   void process_pose_difference(const Eigen::Vector3d& pose_difference,
                                const Eigen::Vector3d& noise_vector, unsigned int before_pose_id);
 
+  /**
+   * @brief Process a pose difference and add the respective factor to the graph (using current
+   * pose and last graphed pose)
+   * @param pose_difference Pose difference from the last pose
+   * @param noise_vector Noise associated with the pose difference
+   */
   void process_pose_difference(const Eigen::Vector3d& pose_difference,
                                const Eigen::Vector3d& noise_vector);
 
   /**
    * @brief Runs optimization on the graph
+   * @details This method calls the optimizer to run optimization on the current factor graph
    */
   void optimize();
 

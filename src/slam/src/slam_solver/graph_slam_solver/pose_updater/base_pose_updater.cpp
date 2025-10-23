@@ -71,16 +71,26 @@ void PoseUpdater::predict_pose(const MotionData& motion_data,
       this->get_adjoint_operator_matrix(pose_difference(0), pose_difference(1), pose_difference(2));
 
   this->_last_pose_ = new_pose;
+  // RCLCPP_DEBUG_STREAM(rclcpp::get_logger("slam"), "Last Pose Covariance: \n"
+  //                                                     << this->_last_pose_covariance_);
   this->_last_pose_covariance_ =
-      adjoint_matrix * this->_last_pose_covariance_ * adjoint_matrix.transpose() + motion_noise;
+      adjoint_matrix * this->_last_pose_covariance_ * adjoint_matrix.transpose() +
+      motion_noise;  // TODO: to improve further, consider including a noise for the intrinsic error
+                     // of the motion model
   this->_last_pose_update_ = motion_data.timestamp_;
   this->_new_pose_from_graph_ = true;
-  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("slam"), "Adjoint Matrix: \n" << adjoint_matrix);
-  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("slam"), "Motion Noise: \n" << motion_noise);
-  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("slam"), "Jacobian Motion Data: \n"
-                                                      << jacobian_motion_data);
-  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("slam"), "Pose Difference Covariance: \n"
-                                                      << this->_last_pose_covariance_);
+  // RCLCPP_DEBUG_STREAM(rclcpp::get_logger("slam"), "Transposed Jacobian Motion Data: \n"
+  //                                                     << jacobian_motion_data.transpose());
+  // RCLCPP_DEBUG_STREAM(
+  //     rclcpp::get_logger("slam"),
+  //     "Motion Data Noise Diagonal: \n"
+  //         << static_cast<Eigen::Vector3d>(motion_data.motion_data_noise_->asDiagonal()));
+  // RCLCPP_DEBUG_STREAM(rclcpp::get_logger("slam"), "Adjoint Matrix: \n" << adjoint_matrix);
+  // RCLCPP_DEBUG_STREAM(rclcpp::get_logger("slam"), "Motion Noise: \n" << motion_noise);
+  // RCLCPP_DEBUG_STREAM(rclcpp::get_logger("slam"), "Jacobian Motion Data: \n"
+  //                                                     << jacobian_motion_data);
+  // RCLCPP_DEBUG_STREAM(rclcpp::get_logger("slam"), "Pose Difference Covariance: \n"
+  //                                                     << this->_last_pose_covariance_);
 }
 
 bool PoseUpdater::pose_ready_for_graph_update() const { return _new_pose_from_graph_; }

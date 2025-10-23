@@ -110,7 +110,8 @@ void PacsimAdapter::_pacsim_velocities_subscription_callback(
   velocities.angular_velocity = msg.twist.twist.angular.z;
   velocities.header.stamp = msg.header.stamp;
   for (unsigned int i = 0; i < 9; i++) {
-    velocities.covariance[i] = 0.00001;
+    velocities.covariance[i] = 0.00001;  // Pacsim does not provide covariance, assume small value
+                                         // or else shit breaks if used by solver
   }
   _velocities_subscription_callback(velocities);
 }

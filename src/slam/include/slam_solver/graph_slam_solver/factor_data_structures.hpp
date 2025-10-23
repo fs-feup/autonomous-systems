@@ -4,6 +4,9 @@
 #include <memory>
 #include <rclcpp/rclcpp.hpp>
 
+/**
+ * @brief Enum to define the type of motion input
+ */
 enum class MotionInputType {
   VELOCITIES,  ///< Vehicle velocities
   ODOMETRY     ///< Pose difference from odometry
@@ -31,7 +34,8 @@ struct MotionData {
 
 /**
  * @brief Data structure to hold observation data
- * @details used to record the velocities received and to redo their processing after optimization
+ * @details used to record the cone observations received and to redo their processing after
+ * optimization
  */
 struct ObservationData {
   std::shared_ptr<Eigen::VectorXd> observations_;

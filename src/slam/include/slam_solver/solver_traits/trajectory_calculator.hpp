@@ -4,6 +4,11 @@
 
 #include "common_lib/structures/pose.hpp"
 
+/**
+ * @brief Trait class for trajectory calculation in SLAM solvers
+ * @details This trait provides an interface for SLAM solvers to calculate and retrieve
+ * the trajectory estimate based on the integrated sensor data.
+ */
 class TrajectoryCalculator {
 public:
   /**

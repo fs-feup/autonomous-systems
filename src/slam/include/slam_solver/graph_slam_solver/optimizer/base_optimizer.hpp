@@ -5,6 +5,11 @@
 
 #include "slam_config/general_config.hpp"
 
+/**
+ * @brief Base class for graph optimizers
+ * @details This class defines the interface for graph optimizers
+ * It is used to optimize the factor graph and update the pose and graph values accordingly
+ */
 class BaseOptimizer {
 protected:
   const SLAMParameters& _params_;
@@ -19,6 +24,15 @@ public:
     return *this;
   }
 
+  /**
+   * @brief Clone the optimizer
+   * @details This method is used to create a copy of the optimizer
+   * It is useful for polymorphic classes that use pointers to base class
+   *
+   * @return A shared pointer to the cloned optimizer
+   */
+  virtual std::shared_ptr<BaseOptimizer> clone() const = 0;
+
   virtual ~BaseOptimizer() = default;
 
   /**
@@ -29,6 +43,8 @@ public:
    *
    * @param factor_graph The factor graph to optimize
    * @param graph_values The values to optimize
+   * @param pose_num The number of poses in the graph
+   * @param landmark_num The number of landmarks in the graph
    * @return The optimized values
    */
   virtual gtsam::Values optimize(gtsam::NonlinearFactorGraph& factor_graph,

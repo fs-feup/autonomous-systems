@@ -7,6 +7,12 @@
 #include "pacsim/msg/perception_detections.hpp"
 #include "ros_node/slam_node.hpp"
 
+/**
+ * @brief Adapter class to interface with the Pacsim simulator for SLAM
+ *
+ * @details This class subscribes to the necessary topics from Pacsim and adapts the data for use in
+ * the SLAM node
+ */
 class PacsimAdapter : public SLAMNode {
   rclcpp::Subscription<pacsim::msg::PerceptionDetections>::SharedPtr
       _perception_detections_subscription_;  ///< Subscriber for simulated perception detections

@@ -10,17 +10,17 @@ slam:
   new_landmark_confidence_gate: 0.6 # Minimum confidence to consider an observation as a new landmark in data asociation
   observation_x_noise: 0.02 # sigma of the noise for cone positions in x (range in Graph SLAM)
   observation_y_noise: 0.001 # sigma of the noise for cone positions in y (bearing in Graph SLAM)
-  velocity_x_noise: 0.1 # sigma of the noise for the velocity in x
-  velocity_y_noise: 0.8 # sigma of the noise for the velocity in y
-  imu_acceleration_x_noise: 0.005 # sigma of the noise for the acceleration in x from IMU
-  angular_velocity_noise: 0.01 # sigma of the noise for the angular velocity
+  velocity_x_noise: 0.1 # variance of the noise for the velocity in x
+  velocity_y_noise: 0.8 # variance of the noise for the velocity in y
+  imu_acceleration_x_noise: 0.005 # variance of the noise for the acceleration in x from IMU
+  angular_velocity_noise: 0.01 # variance of the noise for the angular velocity
   pose_x_initial_noise: 0.001 # sigma of the noise for the initial pose in x
   pose_y_initial_noise: 0.001 # sigma of the noise for the initial pose in y
   pose_theta_initial_noise: 0.001 # sigma of the noise for the initial pose in yaw
   preloaded_map_noise: 0.001 # sigma of the noise for preloaded map landmarks used for skidpad and acceleration
   using_preloaded_map: false # Use preloaded map for SLAM, if true, the map will be loaded from the file only for skidpad and acceleration
   slam_solver_name: "graph_slam" # "graph_slam" or "ekf_slam" or ... -> name of the slam solver
-  slam_optimization_mode: "async" # "sync" or "async" or ... -> name of the optimization mode, in which sync is at every factor added, async is at every time step
+  slam_optimization_mode: "async" # "sync" or "sync-parallel" or "async" or ... -> name of the optimization mode, in which sync is at every factor added, async is at every time step and sync-parallel is sync but callbacks execute in parallel
   slam_optimization_in_poses: false # If true, the optimization will be done also when poses are added, not only when observations are added
   slam_optimization_type: "sliding_window_levenberg" # "normal_levenberg" or "isam2" or "sliding_window_levenberg" or ... -> name of the optimization type
 

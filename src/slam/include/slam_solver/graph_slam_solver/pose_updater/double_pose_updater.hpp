@@ -8,9 +8,7 @@
 #include "slam_solver/graph_slam_solver/pose_updater/pose_updater_traits/second_pose_input_trait.hpp"
 
 /**
- * @brief Class to update the pose of the vehicle
- * @details This class is the one to apply the motion model and keep track of the most up to date
- * pose
+ * @brief TODO: abandoned for now, not working properly
  */
 class DoublePoseUpdater : public DifferenceBasedReadyPoseUpdater, public SecondPoseInputTrait {
   bool _received_first_velocities_ =

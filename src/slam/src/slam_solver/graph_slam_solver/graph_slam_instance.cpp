@@ -80,7 +80,8 @@ GraphSLAMInstance::GraphSLAMInstance(const SLAMParameters& params,
     : _params_(params), _optimizer_(optimizer) {
   // Create a new factor graph
   _factor_graph_ = gtsam::NonlinearFactorGraph();
-  const gtsam::Pose2 prior_pose(0.0, 0.0, 0.0);
+  const gtsam::Pose2 prior_pose(0.0, 0.0,
+                                0.0);  // Create initial prior pose at origin, to bind graph
   const gtsam::Symbol pose_symbol('x', ++(this->_pose_counter_));
   const gtsam::noiseModel::Diagonal::shared_ptr prior_noise =
       gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector3(0.0, 0.0, 0.0));
@@ -105,7 +106,7 @@ GraphSLAMInstance::GraphSLAMInstance(const GraphSLAMInstance& other) {
   _landmark_counter_ = other._landmark_counter_;
   _new_pose_node_ = other._new_pose_node_;
   _new_observation_factors_ = other._new_observation_factors_;
-  _optimizer_ = other._optimizer_;
+  _optimizer_ = other._optimizer_->clone();  // because it's a shared_ptr
   _params_ = other._params_;
 }
 
@@ -119,7 +120,7 @@ GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) 
   _landmark_counter_ = other._landmark_counter_;
   _new_pose_node_ = other._new_pose_node_;
   _new_observation_factors_ = other._new_observation_factors_;
-  _optimizer_ = other._optimizer_;
+  _optimizer_ = other._optimizer_->clone();  // because it's a shared_ptr
   _params_ = other._params_;
 
   return *this;
@@ -128,6 +129,8 @@ GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) 
 void GraphSLAMInstance::process_new_pose(const Eigen::Vector3d& pose_difference,
                                          const Eigen::Vector3d& noise_vector,
                                          const Eigen::Vector3d& new_pose) {
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "GraphSLAMInstance - Processing new pose %lf %lf %lf",
+               new_pose(0), new_pose(1), new_pose(2));
   gtsam::Pose2 new_pose_gtsam = eigen_to_gtsam_pose(new_pose);
 
   // X means pose node, l means landmark node
@@ -200,7 +203,8 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
       landmark = gtsam::Point2(observations_global(i * 2), observations_global(i * 2 + 1));
       this->_graph_values_.insert(landmark_symbol, landmark);
       if (const auto optimizer_ptr = std::dynamic_pointer_cast<ISAM2Optimizer>(this->_optimizer_)) {
-        optimizer_ptr->_new_values_.insert(landmark_symbol, landmark);
+        optimizer_ptr->_new_values_.insert(
+            landmark_symbol, landmark);  // Most efficient way I found to deal with ISAM2
       }
     } else {
       if (!this->new_pose_factors()) {  // Only add old observations if the vehicle has moved
@@ -222,7 +226,8 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
     if (const auto optimizer_ptr = std::dynamic_pointer_cast<ISAM2Optimizer>(this->_optimizer_)) {
       optimizer_ptr->_new_factors_.add(gtsam::BearingRangeFactor<gtsam::Pose2, gtsam::Point2>(
           gtsam::Symbol('x', this->_pose_counter_), landmark_symbol, observation_rotation,
-          observation_cylindrical(0), observation_noise));
+          observation_cylindrical(0), observation_noise));  // Again, just for ISAM2, because
+                                                            // it's incremental
     }
     this->_factor_graph_.add(gtsam::BearingRangeFactor<gtsam::Pose2, gtsam::Point2>(
         gtsam::Symbol('x', this->_pose_counter_), landmark_symbol, observation_rotation,
@@ -273,6 +278,7 @@ void GraphSLAMInstance::optimize() {
 }
 
 void GraphSLAMInstance::lock_landmarks(double locked_landmark_noise) {
+  // TODO: check if this works
   for (unsigned int i = 1; i < this->_landmark_counter_; i++) {
     gtsam::Symbol landmark_symbol('l', i);
     if (this->_graph_values_.exists(landmark_symbol)) {

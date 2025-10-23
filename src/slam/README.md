@@ -83,13 +83,120 @@ Below, some diagrams are presented that can illustrate the structure and behavio
 
 ### Behaviour
 
+The following diagram illustrates the flow of data through the SLAM node.
+
+![Flow Diagram](../../docs/diagrams/slam/flow-diagram.png)
 
 ### Structure
 
-The node is composed by multiple classes. The diagram below illustrates roughly how they sit in the code structure.
+The node is composed by multiple classes. The diagram below illustrates roughly how they sit in the code structure and interact with other packages.
 
-![Class Diagram](../../docs/diagrams/slam/class.drawio.svg)
+![Class Diagram](../../docs/diagrams/slam/architecture-diagram.png)
+![Class Diagram](../../docs/diagrams/slam/graph_slam_structure.png)
 
+The following are the interfaces for this package:
+```cpp
+// Subscriptions
+  if (!params.use_simulated_perception_) {
+    this->_perception_subscription_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
+        "/perception/cones", 1,
+        std::bind(&SLAMNode::_perception_subscription_callback, this, std::placeholders::_1),
+        subscription_options);
+  }
+  if (!params.use_simulated_velocities_) {
+    this->_velocities_subscription_ = this->create_subscription<custom_interfaces::msg::Velocities>(
+        "/state_estimation/velocities", 50,
+        std::bind(&SLAMNode::_velocities_subscription_callback, this, std::placeholders::_1),
+        subscription_options);
+  }
 
-The following node shows the interfaces of this node.
-![Components Diagram](../../docs/diagrams/slam/components.drawio.svg)
+  // Publishers
+  this->_map_publisher_ =
+      this->create_publisher<custom_interfaces::msg::ConeArray>("/state_estimation/map", 10);
+  this->_vehicle_pose_publisher_ =
+      this->create_publisher<custom_interfaces::msg::Pose>("/state_estimation/vehicle_pose", 10);
+  this->_visualization_map_publisher_ =
+      this->create_publisher<visualization_msgs::msg::MarkerArray>(
+          "/state_estimation/visualization_map", 10);
+  this->_associations_visualization_publisher_ =
+      this->create_publisher<visualization_msgs::msg::MarkerArray>(
+          "/state_estimation/visualization_associations", 10);
+  this->_trajectory_visualization_publisher_ =
+      this->create_publisher<visualization_msgs::msg::MarkerArray>(
+          "/state_estimation/visualization/trajectory", 10);
+  this->_execution_time_publisher_ = this->create_publisher<std_msgs::msg::Float64MultiArray>(
+      "/state_estimation/slam_execution_time", 10);
+  this->_covariance_publisher_ = this->create_publisher<std_msgs::msg::Float64MultiArray>(
+      "/state_estimation/slam_covariance", 10);
+  this->_lap_counter_publisher_ =
+      this->create_publisher<std_msgs::msg::Float64>("/state_estimation/lap_counter", 10);
+  this->_tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
+```
+
+for PacSim adapter:
+```cpp
+if (params.use_simulated_perception_) {
+    RCLCPP_INFO(this->get_logger(), "Using simulated perception");
+    this->_perception_detections_subscription_ =
+        this->create_subscription<pacsim::msg::PerceptionDetections>(
+            "/pacsim/perception/lidar/landmarks", 1,
+            std::bind(&PacsimAdapter::_pacsim_perception_subscription_callback, this,
+                      std::placeholders::_1),
+            subscription_options);
+  }
+
+  if (params.use_simulated_velocities_) {
+    this->_velocities_subscription_ =
+        this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
+            "/pacsim/velocity", 1,
+            std::bind(&PacsimAdapter::_pacsim_velocities_subscription_callback, this,
+                      std::placeholders::_1),
+            subscription_options);
+  }
+
+  this->_imu_subscription_ = this->create_subscription<sensor_msgs::msg::Imu>(
+      "/pacsim/imu/cog_imu", 1,
+      std::bind(&PacsimAdapter::_pacsim_imu_subscription_callback, this, std::placeholders::_1),
+      subscription_options);
+
+  this->_finished_client_ = this->create_client<std_srvs::srv::Empty>("/pacsim/finish_signal");
+  param_client_ =
+      this->create_client<rcl_interfaces::srv::GetParameters>("/pacsim/pacsim_node/get_parameters");
+```
+
+and for vehicle adapter:
+
+```cpp
+_operational_status_subscription_ =
+      this->create_subscription<custom_interfaces::msg::OperationalStatus>(
+          "/vehicle/operational_status", 10,
+          [this](const custom_interfaces::msg::OperationalStatus::SharedPtr msg) {
+            RCLCPP_INFO(this->get_logger(), "Operational status received. Mission: %d - Go: %d",
+                        msg->as_mission, msg->go_signal);
+            _go_ = true;  // msg->go_signal;
+            _mission_ = common_lib::competition_logic::Mission(msg->as_mission);
+            this->_slam_solver_->set_mission(_mission_);
+          });
+  _finished_client_ = this->create_client<std_srvs::srv::Trigger>("/as_srv/mission_finished");
+  // Create a static map frame
+  _tf_static_broadcaster_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(*this);
+
+  geometry_msgs::msg::TransformStamped transformStamped;
+  transformStamped.header.stamp = this->get_clock()->now();
+  transformStamped.header.frame_id = "map";              // Fixed frame: "map"
+  transformStamped.child_frame_id = "vehicle_estimate";  // The child frame: "vehicle"
+
+  /// ....
+
+  // LiDAR odometry subscription
+  if (!params.receive_lidar_odometry_) {
+    RCLCPP_INFO(this->get_logger(), "Not receiving lidar odometry, using only velocities");
+    return;
+  }
+
+  this->_lidar_odometry_subscription_ = this->create_subscription<nav_msgs::msg::Odometry>(
+      params.lidar_odometry_topic_, 1,
+      std::bind(&VehicleAdapter::_lidar_odometry_subscription_callback, this,
+                std::placeholders::_1),
+      subscription_options);
+```

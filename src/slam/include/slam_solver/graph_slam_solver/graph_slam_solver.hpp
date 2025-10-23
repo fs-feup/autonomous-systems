@@ -36,21 +36,21 @@ class GraphSLAMSolver : public SLAMSolver,
                         public TrajectoryCalculator {
   std::shared_ptr<GraphSLAMInstance> _graph_slam_instance_;  //< Instance of the graph SLAM solver
   std::shared_ptr<PoseUpdater> _pose_updater_;  //< Pose updater for the graph SLAM solver
-  std::shared_ptr<OdometryModel> _odometry_model;
+  std::shared_ptr<OdometryModel>
+      _odometry_model;  //< Motion model for odometry integration TODO: improve, I dont like it
   std::queue<MotionData>
       _motion_data_queue_;  //< Queue of velocities received while optimization ran
   std::queue<ObservationData>
       _observation_data_queue_;  //< Queue of observations received while optimization ran
   rclcpp::TimerBase::SharedPtr _optimization_timer_;  //< Timer for asynchronous optimization
-  std::shared_mutex _mutex_;  //< Mutex for the graph SLAM solver, locks access to the graph
+  mutable std::shared_mutex
+      _mutex_;  //< Mutex for the graph SLAM solver, locks access to the graph and other vars
   bool _optimization_under_way_ = false;  //< Flag to check if the optimization is under way
   Eigen::VectorXi _associations_;         //< Associations of the cones in the map
   Eigen::VectorXd _observations_global_;  //< Global observations of the cones
   Eigen::VectorXd _map_coordinates_;      //< Coordinates of the landmarks in the map
-  bool _is_stopped_at_beginning_ = true;
-  bool _first_velocities_ = true;
 
-  common_lib::sensor_data::ImuData _last_imu_data_;
+  common_lib::sensor_data::ImuData _last_imu_data_;  //< Last IMU data received
 
   rclcpp::CallbackGroup::SharedPtr
       _reentrant_group_;  //< Reentrant callback group for the timer callback
@@ -63,6 +63,16 @@ class GraphSLAMSolver : public SLAMSolver,
    */
   void _asynchronous_optimization_routine();
 
+  /**
+   * @brief Adds motion data to the graph if the pose updater is ready
+   * @details This method checks if the pose updater has a new pose to add to the graph
+   * If so, it adds the new pose to the graph and resets the pose updater's accumulated pose
+   * difference
+   * @param pose_updater Pose updater to get the new pose from
+   * @param graph_slam_instance Graph SLAM instance to add the new pose to
+   * @param force_update If true, forces the update even if the pose updater is not ready
+   * @return true if the pose was added to the graph, false otherwise
+   */
   bool _add_motion_data_to_graph(const std::shared_ptr<PoseUpdater> pose_updater,
                                  const std::shared_ptr<GraphSLAMInstance> graph_slam_instance,
                                  bool force_update = false);
@@ -89,7 +99,7 @@ public:
 
   /**
    * @brief Initialize the SLAM solver
-   * @description This method is used to initialize the SLAM solver's
+   * @details This method is used to initialize the SLAM solver's
    * aspects that require the node e.g. timer callbacks
    *
    * @param node ROS2 node
@@ -97,17 +107,26 @@ public:
   void init(std::weak_ptr<rclcpp::Node> node) override;
 
   /**
-   * @brief Add motion prior to the solver (prediction step)
+   * @brief Process new velocities data (prediction step)
+   * @details It calls the pose updater using the motion model to predict the new pose
+   * and may add the motion data to the graph
+   * @param velocities Velocities data
    */
   void add_velocities(const common_lib::structures::Velocities& velocities) override;
 
   /**
    * @brief Add odometry data to the solver (for prediction step)
-   *
+   * @details It calls the pose updater using the motion model to predict the new pose
+   * and may add the motion data to the graph
    * @param pose_difference Pose difference in the form of [dx, dy, dtheta]
    */
   void add_odometry(const common_lib::structures::Pose& pose_difference) override;
 
+  /**
+   * @brief Add IMU data to the solver
+   *
+   * @param imu_data IMU data
+   */
   void add_imu_data(const common_lib::sensor_data::ImuData& imu_data) override;
 
   /**

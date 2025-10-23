@@ -22,9 +22,9 @@
 class SLAMSolver {
 protected:
   SLAMParameters _params_;
-  std::shared_ptr<DataAssociationModel> _data_association_;
-  std::shared_ptr<V2PMotionModel> _motion_model_;
-  std::shared_ptr<LandmarkFilter> _landmark_filter_;
+  std::shared_ptr<DataAssociationModel> _data_association_;  //< Data association pointer
+  std::shared_ptr<V2PMotionModel> _motion_model_;            //< Motion model pointer
+  std::shared_ptr<LandmarkFilter> _landmark_filter_;         //< Landmark filter pointer
   common_lib::competition_logic::Mission _mission_ = common_lib::competition_logic::Mission::NONE;
   std::shared_ptr<std::vector<double>>
       _execution_times_;                        //< Execution times: 0 -> total motion; 1 -> total

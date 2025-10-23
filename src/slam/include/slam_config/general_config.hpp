@@ -20,14 +20,17 @@ struct SLAMParameters {
   bool receive_lidar_odometry_ = false;  // Whether to use lidar odometry topic or not
   std::string slam_solver_name_ = "graph_slam";
   std::string landmark_filter_name_ = "consecutive_count";
-  std::string frame_id_ = "map";
-  float data_association_limit_distance_ = 70;
-  float observation_x_noise_ = 0.01;
-  float observation_y_noise_ = 0.01;
+  std::string frame_id_ = "map";  // Frame for the map
+  float data_association_limit_distance_ =
+      70;  // maximum distance to consider a cone for data association
+  float observation_x_noise_ =
+      0.01;  // standard deviation of the observation noise in x (range in Graph SLAM)
+  float observation_y_noise_ =
+      0.01;  // standard deviation of the observation noise in y (bearing in Graph SLAM)
   float velocity_x_noise_ = 0.1;
   float velocity_y_noise_ = 0.1;
   float angular_velocity_noise_ = 0.1;
-  float imu_acceleration_x_noise_ = 0.5;   // sigma of the noise for the acceleration in x from IMU
+  float imu_acceleration_x_noise_ = 0.5;
   double pose_x_initial_noise_ = 0.1;      // Initial noise for the pose x
   double pose_y_initial_noise_ = 0.1;      // Initial noise for the pose y
   double pose_theta_initial_noise_ = 0.1;  // Initial noise for the pose theta
@@ -70,12 +73,22 @@ struct SLAMParameters {
    */
   std::string load_config();
 
+  /**
+   * @brief Get data association parameters
+   * @return DataAssociationParameters
+   */
   DataAssociationParameters get_data_association_parameters() {
     return DataAssociationParameters(data_association_limit_distance_, data_association_gate_,
                                      new_landmark_confidence_gate_, observation_x_noise_,
                                      observation_y_noise_);
   }
 
+  /**
+   * @brief Overload the output stream operator for SLAMParameters
+   * @param os Output stream
+   * @param params SLAMParameters object
+   * @return std::ostream& Output stream
+   */
   friend std::ostream &operator<<(std::ostream &os, const SLAMParameters &params) {
     os << "SLAMParameters: {"
        << ", frame_id_: " << params.frame_id_
@@ -119,5 +132,10 @@ struct SLAMParameters {
     return os;
   }
 
+  /**
+   * @brief Overload the assignment operator for SLAMParameters
+   * @param other SLAMParameters object to assign from
+   * @return SLAMParameters& Reference to the assigned SLAMParameters object
+   */
   SLAMParameters &operator=(const SLAMParameters &other);
 };

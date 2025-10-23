@@ -8,6 +8,12 @@
 #include "std_srvs/srv/trigger.hpp"
 #include "tf2_ros/static_transform_broadcaster.h"
 
+/**
+ * @brief Adapter class to interface with the vehicle for SLAM
+ *
+ * @details This class subscribes to the necessary topics from the vehicle and adapts the data for
+ * use in the SLAM node
+ */
 class VehicleAdapter : public SLAMNode {
   rclcpp::Subscription<custom_interfaces::msg::OperationalStatus>::SharedPtr
       _operational_status_subscription_;  ///< Subscriber for operational status

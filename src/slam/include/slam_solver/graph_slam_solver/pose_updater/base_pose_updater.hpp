@@ -10,14 +10,16 @@
 /**
  * @brief Class to update the pose of the vehicle
  * @details This class is the one to apply the motion model and keep track of the most up to date
- * pose
+ * pose. It allows for the pose estimate to be calculated independently of the graph optimization,
+ * and only update the graph when needed.
  */
 class PoseUpdater {
 protected:
-  Eigen::Vector3d _last_pose_;
-  Eigen::Vector3d _last_graphed_pose_ = Eigen::Vector3d::Zero();
-  Eigen::Matrix3d _last_pose_covariance_ = Eigen::Matrix3d::Zero();
-  rclcpp::Time _last_pose_update_ = rclcpp::Time(0);
+  Eigen::Vector3d _last_pose_;  ///< Last estimated pose (x, y, theta)
+  Eigen::Vector3d _last_graphed_pose_ = Eigen::Vector3d::Zero();  ///< Last pose added to the graph
+  Eigen::Matrix3d _last_pose_covariance_ =
+      Eigen::Matrix3d::Zero();  ///< Covariance of the pose difference up to the last pose
+  rclcpp::Time _last_pose_update_ = rclcpp::Time(0);  ///< Timestamp of the last pose update
 
   bool _received_first_motion_data_ =
       false;  ///< Flag to indicate if the first motion data has been received
@@ -33,7 +35,11 @@ public:
   virtual ~PoseUpdater();
 
   /**
-   * @brief Clones the PoseUpdater instance
+   * @brief Clone the pose updater
+   * @details This method is used to create a copy of the pose updater
+   * It is useful for polymorphic classes that use pointers to base class
+   *
+   * @return A shared pointer to the cloned pose updater
    */
   virtual std::shared_ptr<PoseUpdater> clone() const;
 
@@ -61,6 +67,15 @@ public:
    */
   virtual bool pose_ready_for_graph_update() const;
 
+  /** @brief Get the adjoint operator matrix for a given pose
+   *  @details The adjoint operator matrix is used to transform the covariance
+   *  of the pose difference when applying the motion model. It accounts for the
+   *  rotation and translation of the pose.
+   *  @param x_translation The x translation
+   *  @param y_translation The y translation
+   *  @param rotation_angle The rotation angle
+   *  @return The adjoint operator matrix
+   */
   Eigen::Matrix3d get_adjoint_operator_matrix(const double x_translation,
                                               const double y_translation,
                                               const double rotation_angle) const;
@@ -69,6 +84,10 @@ public:
 
   Eigen::Vector3d get_last_graphed_pose() const { return _last_graphed_pose_; }
 
+  /**
+   * @brief Get the pose difference noise as standard deviation
+   * @return The pose difference noise (standard deviation for x, y, theta)
+   */
   Eigen::Vector3d get_pose_difference_noise() const {
     // Return the square root of the diagonal as standard deviation
     return _last_pose_covariance_.diagonal().array().sqrt();

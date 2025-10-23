@@ -2,6 +2,11 @@
 
 #include "common_lib/structures/pose.hpp"
 
+/**
+ * @brief Trait class for odometry integration in SLAM solvers
+ * @details This trait provides an interface for SLAM solvers to integrate odometry data,
+ * allowing them to utilize odometry information for improved pose estimation.
+ */
 class OdometryIntegratorTrait {
 public:
   /**
