@@ -65,7 +65,7 @@ public:
    * @param cone_array Array of cones representing the track.
    * @return Vector of path points forming a closed loop.
    */
-  std::vector<PathPoint> calculate_trackdrive(std::vector<Cone>& cone_array);
+  std::vector<PathPoint> calculate_trackdrive(const std::vector<Cone>& cone_array);
 
   /**
    * @brief Set the current vehicle position and orientation.

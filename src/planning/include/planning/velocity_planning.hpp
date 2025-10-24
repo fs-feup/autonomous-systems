@@ -85,6 +85,6 @@ private:
    * @param radiuses radiuses vector of the path points
    * @param velocities velocities vector of the path points
    */
-  void point_speed(std::vector<double> &radiuses, std::vector<double> &velocities);
+  void point_speed(const std::vector<double> &radiuses, std::vector<double> &velocities);
 
 };
