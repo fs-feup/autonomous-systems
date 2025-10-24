@@ -34,7 +34,7 @@ double VelocityPlanning::find_circle_center(const PathPoint &point1,
   } 
   
   if (slope1_perpendicular == slope2_perpendicular) {
-    return 10000;
+    return 10'000;
   }
 
   double center_x = (slope1_perpendicular * mid1.position.x -
@@ -60,7 +60,7 @@ void VelocityPlanning::speed_limiter(std::vector<PathPoint> &points,
   for (int i = static_cast<int>(points.size()) - 2; i >= 0; i--) {
     double distance = 0;
     double max_speed = velocities[i];
-    
+
     // Calculate segment distance
     int j = i+1;
     distance = std::sqrt(std::pow(points[j].position.x - points[j - 1].position.x, 2) +
