@@ -116,15 +116,23 @@ Collaboration diagram for NoRearWSSEKF:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/dfc/class_no_rear_w_s_s_e_k_f__coll__graph.png" border="0" usemap="#a_no_rear_w_s_s_e_k_f_coll__map" alt="Collaboration graph"/></div>
 <map name="a_no_rear_w_s_s_e_k_f_coll__map" id="a_no_rear_w_s_s_e_k_f_coll__map">
-<area shape="rect" title=" " alt="" coords="238,288,414,823"/>
-<area shape="rect" href="../../d9/d08/class_velocity_estimator.html" title="Interface for velocity estimators." alt="" coords="5,43,153,188"/>
-<area shape="poly" title=" " alt="" coords="129,200,241,397,236,400,125,202"/>
-<area shape="rect" href="../../df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html" title=" " alt="" coords="178,35,306,195"/>
-<area shape="poly" title=" " alt="" coords="260,194,274,271,269,272,254,195"/>
-<area shape="rect" href="../../d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data.html" title="Struct for wheel encoder data." alt="" coords="331,5,492,225"/>
-<area shape="poly" title=" " alt="" coords="393,225,384,272,379,271,388,224"/>
-<area shape="rect" href="../../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html" title=" " alt="" coords="517,15,695,215"/>
-<area shape="poly" title=" " alt="" coords="545,216,425,404,421,401,541,213"/>
+<area shape="rect" title=" " alt="" coords="238,611,414,1146"/>
+<area shape="rect" href="../../d9/d08/class_velocity_estimator.html" title="Interface for velocity estimators." alt="" coords="5,346,153,491"/>
+<area shape="poly" title=" " alt="" coords="127,503,241,713,236,716,122,505"/>
+<area shape="rect" href="../../df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html" title=" " alt="" coords="178,338,306,498"/>
+<area shape="poly" title=" " alt="" coords="259,497,277,594,272,595,254,498"/>
+<area shape="rect" href="../../d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data.html" title="Struct for wheel encoder data." alt="" coords="331,308,492,528"/>
+<area shape="poly" title=" " alt="" coords="394,529,381,595,376,594,388,528"/>
+<area shape="rect" href="../../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html" title=" " alt="" coords="517,288,695,548"/>
+<area shape="poly" title=" " alt="" coords="530,549,425,720,421,717,525,546"/>
+<area shape="rect" href="../../dd/d7d/structcommon__lib_1_1car__parameters_1_1_tire_parameters.html" title=" " alt="" coords="211,5,390,225"/>
+<area shape="poly" title=" " alt="" coords="392,211,404,223,424,245,446,262,473,273,504,286,501,291,471,278,444,267,420,248,400,227,388,215"/>
+<area shape="rect" href="../../d5/d5a/structcommon__lib_1_1car__parameters_1_1_aero_parameters.html" title=" " alt="" coords="415,35,595,195"/>
+<area shape="poly" title=" " alt="" coords="534,194,560,271,555,273,529,196"/>
+<area shape="rect" href="../../d2/d2e/structcommon__lib_1_1car__parameters_1_1_steering_motor_parameters.html" title=" " alt="" coords="619,55,798,175"/>
+<area shape="poly" title=" " alt="" coords="695,176,667,265,664,273,659,271,662,264,690,174"/>
+<area shape="rect" href="../../d9/d6f/structcommon__lib_1_1car__parameters_1_1_steering_parameters.html" title=" " alt="" coords="822,65,1001,165"/>
+<area shape="poly" title=" " alt="" coords="899,166,877,217,844,266,814,296,781,324,711,369,708,364,778,319,811,292,840,263,872,214,894,164"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -192,8 +200,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a22237ae20ca784d09d4180574177a493"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed7a6aeb7ec478e4d32e9ac14001bf08" id="r_aed7a6aeb7ec478e4d32e9ac14001bf08"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html">common_lib::car_parameters::CarParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/da2/class_no_rear_w_s_s_e_k_f.html#aed7a6aeb7ec478e4d32e9ac14001bf08">car_parameters_</a></td></tr>
 <tr class="separator:aed7a6aeb7ec478e4d32e9ac14001bf08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb40548374051adb9d709147357f43c3" id="r_aeb40548374051adb9d709147357f43c3"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../db/d7d/class_s2_v_model.html">S2VModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/da2/class_no_rear_w_s_s_e_k_f.html#aeb40548374051adb9d709147357f43c3">s2v_model</a></td></tr>
-<tr class="separator:aeb40548374051adb9d709147357f43c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f343f6123e2ed424b06e9198d9fcfe7" id="r_a3f343f6123e2ed424b06e9198d9fcfe7"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d3/d28/class_v_e_observation_model.html">VEObservationModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/da2/class_no_rear_w_s_s_e_k_f.html#a3f343f6123e2ed424b06e9198d9fcfe7">observation_model_</a></td></tr>
+<tr class="separator:a3f343f6123e2ed424b06e9198d9fcfe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a680a8859c0c31a8d3b4d2af7f3d59f09" id="r_a680a8859c0c31a8d3b4d2af7f3d59f09"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d7/d59/class_base_velocity_process_model.html">BaseVelocityProcessModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/da2/class_no_rear_w_s_s_e_k_f.html#a680a8859c0c31a8d3b4d2af7f3d59f09">process_model</a></td></tr>
 <tr class="separator:a680a8859c0c31a8d3b4d2af7f3d59f09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -262,7 +270,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html#l00160">160</a> of file <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html">no_rear_wss_ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html#l00169">169</a> of file <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html">no_rear_wss_ekf.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -341,7 +349,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html#l00124">124</a> of file <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html">no_rear_wss_ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html#l00125">125</a> of file <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html">no_rear_wss_ekf.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -384,7 +392,7 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="../../d9/d08/class_velocity_estimator.html#ae5917685d0df83233f8992909fd1ed48">VelocityEstimator</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html#l00093">93</a> of file <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html">no_rear_wss_ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html#l00094">94</a> of file <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html">no_rear_wss_ekf.cpp</a>.</p>
 
 </div>
 </div>
@@ -416,7 +424,7 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="../../d9/d08/class_velocity_estimator.html#ae5825d1a63588cbccfd5007e1396349a">VelocityEstimator</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html#l00020">20</a> of file <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html">no_rear_wss_ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html#l00021">21</a> of file <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html">no_rear_wss_ekf.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -458,7 +466,7 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="../../d9/d08/class_velocity_estimator.html#ab626c86968f99c3060477d8a9eecad7a">VelocityEstimator</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html#l00061">61</a> of file <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html">no_rear_wss_ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html#l00062">62</a> of file <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html">no_rear_wss_ekf.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -536,7 +544,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html#l00105">105</a> of file <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html">no_rear_wss_ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html#l00106">106</a> of file <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html">no_rear_wss_ekf.cpp</a>.</p>
 
 </div>
 </div>
@@ -568,7 +576,7 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="../../d9/d08/class_velocity_estimator.html#ad67c5981b31e2422236ad7672f5f8240">VelocityEstimator</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html#l00077">77</a> of file <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html">no_rear_wss_ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html#l00078">78</a> of file <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html">no_rear_wss_ekf.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -610,7 +618,7 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="../../d9/d08/class_velocity_estimator.html#aed76e4cfcadd78f3f6602042d3d21ee8">VelocityEstimator</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html#l00045">45</a> of file <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html">no_rear_wss_ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html#l00046">46</a> of file <a class="el" href="../../de/dea/no__rear__wss__ekf_8cpp_source.html">no_rear_wss_ekf.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -913,6 +921,30 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
+<a id="a3f343f6123e2ed424b06e9198d9fcfe7" name="a3f343f6123e2ed424b06e9198d9fcfe7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f343f6123e2ed424b06e9198d9fcfe7">&#9670;&#160;</a></span>observation_model_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d3/d28/class_v_e_observation_model.html">VEObservationModel</a>&gt; NoRearWSSEKF::observation_model_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d4/d96/no__rear__wss__ekf_8hpp_source.html#l00041">41</a> of file <a class="el" href="../../d4/d96/no__rear__wss__ekf_8hpp_source.html">no_rear_wss_ekf.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a680a8859c0c31a8d3b4d2af7f3d59f09" name="a680a8859c0c31a8d3b4d2af7f3d59f09"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a680a8859c0c31a8d3b4d2af7f3d59f09">&#9670;&#160;</a></span>process_model</h2>
 
@@ -934,30 +966,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="../../d4/d96/no__rear__wss__ekf_8hpp_source.html#l00042">42</a> of file <a class="el" href="../../d4/d96/no__rear__wss__ekf_8hpp_source.html">no_rear_wss_ekf.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aeb40548374051adb9d709147357f43c3" name="aeb40548374051adb9d709147357f43c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb40548374051adb9d709147357f43c3">&#9670;&#160;</a></span>s2v_model</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../db/d7d/class_s2_v_model.html">S2VModel</a>&gt; NoRearWSSEKF::s2v_model</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d4/d96/no__rear__wss__ekf_8hpp_source.html#l00041">41</a> of file <a class="el" href="../../d4/d96/no__rear__wss__ekf_8hpp_source.html">no_rear_wss_ekf.hpp</a>.</p>
 
 </div>
 </div>

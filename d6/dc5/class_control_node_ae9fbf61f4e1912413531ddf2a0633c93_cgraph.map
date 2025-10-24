@@ -1,0 +1,5 @@
+<map id="ControlNode::control_timer_callback" name="ControlNode::control_timer_callback">
+<area shape="rect" id="Node000001" title="Function that publishes control commands on timer ticks." alt="" coords="5,5,144,46"/>
+<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html#a676e3848ca5d5266c7e65e77795623c0" title="Adapters override this function to publish control commands in their environment." alt="" coords="192,5,332,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,23,176,23,176,28,144,28"/>
+</map>

@@ -1,6 +1,6 @@
 <map id="SENode::SENode" name="SENode::SENode">
 <area shape="rect" id="Node000001" title="Constructor of the main node, most things are received by launch parameter." alt="" coords="5,148,129,173"/>
-<area shape="rect" id="Node000002" href="$d4/d43/class_s_e_node.html#ae87a4d5f2baf38b9fb9a34a81b9149ad" title="Mutex used to lock EKF access." alt="" coords="223,39,376,79"/>
+<area shape="rect" id="Node000002" href="$d4/d43/class_s_e_node.html#ae87a4d5f2baf38b9fb9a34a81b9149ad" title="Callback that updates everytime information is received from the perception module." alt="" coords="223,39,376,79"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,145,125,117,176,90,207,78,209,83,178,95,128,122,87,149"/>
 <area shape="rect" id="Node000008" href="$d7/d64/class_observation_model.html#acfcc0193919d34ab7f34c9f19f1b1412" title="Create a Q matrix from a given noise value." alt="" coords="177,104,422,145"/>
 <area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="129,148,161,143,162,148,130,153"/>

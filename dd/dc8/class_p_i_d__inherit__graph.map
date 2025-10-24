@@ -1,0 +1,5 @@
+<map id="PID" name="PID">
+<area shape="rect" id="Node000001" title="PI&#45;D Controller class." alt="" coords="5,219,169,908"/>
+<area shape="rect" id="Node000002" href="$da/ded/class_longitudinal_controller.html" title="Base (abstract) class for longitudinal controllers (the ones that calculate throttle)" alt="" coords="5,5,169,171"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,186,90,219,85,219,85,186"/>
+</map>

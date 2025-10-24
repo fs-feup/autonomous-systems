@@ -6,10 +6,12 @@ var searchData=
   ['dbscan_3',['DBSCAN',['../df/d6a/class_d_b_s_c_a_n.html',1,'']]],
   ['dbscantest_4',['DBSCANTest',['../d8/d90/class_d_b_s_c_a_n_test.html',1,'']]],
   ['deadtime_5',['DeadTime',['../d6/d56/class_dead_time.html',1,'']]],
-  ['deskew_6',['Deskew',['../d1/dab/class_deskew.html',1,'']]],
-  ['deviationvalidator_7',['DeviationValidator',['../d2/d55/class_deviation_validator.html',1,'']]],
-  ['displacementvalidator_8',['DisplacementValidator',['../db/d6b/class_displacement_validator.html',1,'']]],
-  ['displacementvalidatortest_9',['DisplacementValidatorTest',['../d7/d88/class_displacement_validator_test.html',1,'']]],
-  ['drawscene_10',['drawScene',['../d6/d51/classdraw_view_1_1draw_scene.html',1,'drawView']]],
-  ['drawview_11',['drawView',['../d5/da5/classdraw_view_1_1draw_view.html',1,'drawView']]]
+  ['decoupledcontroller_6',['DecoupledController',['../dd/d8f/class_decoupled_controller.html',1,'']]],
+  ['defaultaeromodel_7',['DefaultAeroModel',['../d2/d1b/class_default_aero_model.html',1,'']]],
+  ['deskew_8',['Deskew',['../d1/dab/class_deskew.html',1,'']]],
+  ['deviationvalidator_9',['DeviationValidator',['../d2/d55/class_deviation_validator.html',1,'']]],
+  ['displacementvalidator_10',['DisplacementValidator',['../db/d6b/class_displacement_validator.html',1,'']]],
+  ['displacementvalidatortest_11',['DisplacementValidatorTest',['../d7/d88/class_displacement_validator_test.html',1,'']]],
+  ['drawscene_12',['drawScene',['../d6/d51/classdraw_view_1_1draw_scene.html',1,'drawView']]],
+  ['drawview_13',['drawView',['../d5/da5/classdraw_view_1_1draw_view.html',1,'drawView']]]
 ];

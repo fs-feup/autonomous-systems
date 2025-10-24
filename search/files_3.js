@@ -1,7 +1,7 @@
 var searchData=
 [
   ['car_5fparameters_2ecpp_0',['car_parameters.cpp',['../d1/d51/car__parameters_8cpp.html',1,'']]],
-  ['car_5fparameters_2ehpp_1',['car_parameters.hpp',['../da/de9/common__lib_2include_2common__lib_2car__parameters_2car__parameters_8hpp.html',1,'(Global Namespace)'],['../d2/dcd/motion__lib_2include_2motion__lib_2car__parameters_8hpp.html',1,'(Global Namespace)']]],
+  ['car_5fparameters_2ehpp_1',['car_parameters.hpp',['../d2/da6/car__parameters_8hpp.html',1,'']]],
   ['center_5fcalculation_2ehpp_2',['center_calculation.hpp',['../d6/dfe/center__calculation_8hpp.html',1,'']]],
   ['centroid_5fcalculation_2ecpp_3',['centroid_calculation.cpp',['../de/d77/centroid__calculation_8cpp.html',1,'']]],
   ['centroid_5fcalculation_2ehpp_4',['centroid_calculation.hpp',['../d0/df6/centroid__calculation_8hpp.html',1,'']]],
@@ -46,12 +46,13 @@ var searchData=
   ['constrained_5fransac_5foptimized_2ecpp_43',['constrained_ransac_optimized.cpp',['../d5/d35/constrained__ransac__optimized_8cpp.html',1,'']]],
   ['constrained_5fransac_5foptimized_2ehpp_44',['constrained_ransac_optimized.hpp',['../d3/db8/constrained__ransac__optimized_8hpp.html',1,'']]],
   ['constrained_5fransac_5ftest_2ecpp_45',['constrained_ransac_test.cpp',['../dd/ded/constrained__ransac__test_8cpp.html',1,'']]],
-  ['convert_5ffssim_5fsdf_5fto_5fyaml_2epy_46',['convert_fssim_sdf_to_yaml.py',['../dd/d5f/convert__fssim__sdf__to__yaml_8py.html',1,'']]],
-  ['cpp_2dpython_2dbridge_2ecpp_47',['cpp-python-bridge.cpp',['../d9/d46/cpp-python-bridge_8cpp.html',1,'']]],
-  ['cut_5ftrimming_2ecpp_48',['cut_trimming.cpp',['../dc/d4c/cut__trimming_8cpp.html',1,'']]],
-  ['cut_5ftrimming_2ehpp_49',['cut_trimming.hpp',['../df/d0f/cut__trimming_8hpp.html',1,'']]],
-  ['cut_5ftrimming_5ftest_2ecpp_50',['cut_trimming_test.cpp',['../d1/d5d/cut__trimming__test_8cpp.html',1,'']]],
-  ['cylinder_5fvalidator_2ecpp_51',['cylinder_validator.cpp',['../df/de5/cylinder__validator_8cpp.html',1,'']]],
-  ['cylinder_5fvalidator_2ehpp_52',['cylinder_validator.hpp',['../db/dff/cylinder__validator_8hpp.html',1,'']]],
-  ['cylinder_5fvalidator_5ftest_2ecpp_53',['cylinder_validator_test.cpp',['../dc/da5/cylinder__validator__test_8cpp.html',1,'']]]
+  ['control_5fcommand_2ehpp_46',['control_command.hpp',['../d8/dd3/control__command_8hpp.html',1,'']]],
+  ['convert_5ffssim_5fsdf_5fto_5fyaml_2epy_47',['convert_fssim_sdf_to_yaml.py',['../dd/d5f/convert__fssim__sdf__to__yaml_8py.html',1,'']]],
+  ['cpp_2dpython_2dbridge_2ecpp_48',['cpp-python-bridge.cpp',['../d9/d46/cpp-python-bridge_8cpp.html',1,'']]],
+  ['cut_5ftrimming_2ecpp_49',['cut_trimming.cpp',['../dc/d4c/cut__trimming_8cpp.html',1,'']]],
+  ['cut_5ftrimming_2ehpp_50',['cut_trimming.hpp',['../df/d0f/cut__trimming_8hpp.html',1,'']]],
+  ['cut_5ftrimming_5ftest_2ecpp_51',['cut_trimming_test.cpp',['../d1/d5d/cut__trimming__test_8cpp.html',1,'']]],
+  ['cylinder_5fvalidator_2ecpp_52',['cylinder_validator.cpp',['../df/de5/cylinder__validator_8cpp.html',1,'']]],
+  ['cylinder_5fvalidator_2ehpp_53',['cylinder_validator.hpp',['../db/dff/cylinder__validator_8hpp.html',1,'']]],
+  ['cylinder_5fvalidator_5ftest_2ecpp_54',['cylinder_validator_test.cpp',['../dc/da5/cylinder__validator__test_8cpp.html',1,'']]]
 ];

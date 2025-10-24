@@ -1,11 +1,9 @@
 <map id="common_lib::maths::get_wheel_velocity_from_rpm" name="common_lib::maths::get_wheel_velocity_from_rpm">
-<area shape="rect" id="Node000001" title="Function to get the translational velocity of a wheel from rpm and wheel diameter." alt="" coords="328,71,521,111"/>
-<area shape="rect" id="Node000002" href="$d6/d89/class_bicycle_model.html#a6241f7fc08de4fbdeeb1307468a7169d" title="assumes a bicycle model and a set of parameters about the vehicle to calculate the velocities of the ..." alt="" coords="121,5,267,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="335,69,266,49,268,44,337,63"/>
-<area shape="rect" id="Node000004" href="$d6/d99/class_no_rear_w_s_s_bicycle_model.html#a70b76256be8c9357852c95e870b99dad" title="assumes a bicycle model and a set of parameters about the vehicle to calculate the velocities of the ..." alt="" coords="108,71,280,111"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="313,94,280,94,280,88,313,88"/>
-<area shape="rect" id="Node000005" href="$d9/d8e/class_no_w_s_s_bicycle_model.html#a1b581196f0286cb94f038e5c672f5d47" title="assumes a bicycle model and a set of parameters about the vehicle to calculate the velocities of the ..." alt="" coords="112,136,276,177"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="337,119,269,138,268,133,335,113"/>
-<area shape="rect" id="Node000003" href="$de/d8a/bicycle__model__test_8cpp.html#a2e006feda9100c097f7afbbf79420825" title="Tests the conversion from wheel revolutions to velocities using the bycicle model." alt="" coords="5,13,60,39"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="105,28,60,28,60,23,105,23"/>
+<area shape="rect" id="Node000001" title="Function to get the translational velocity of a wheel from rpm and wheel diameter." alt="" coords="430,35,623,75"/>
+<area shape="rect" id="Node000002" href="$df/d16/ekf__state__est_2src_2utils_2utils_8cpp.html#ac7f5e888134d59355a0cfe1657c5300c" title="Calculates the translational and rotational velocities of the vehicle from wheel rotations and steeri..." alt="" coords="219,42,382,68"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="415,58,382,58,382,52,415,52"/>
+<area shape="rect" id="Node000003" href="$d4/d43/class_s_e_node.html#a5134a7c33ca9cd292c9840f748b36f09" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="5,5,171,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="203,44,171,40,172,34,204,39"/>
+<area shape="rect" id="Node000004" href="$d0/d02/ekf__state__est_2test_2utils__test_8cpp.html#a2e006feda9100c097f7afbbf79420825" title="Tests the conversion from wheel revolutions to velocities using the bycicle model." alt="" coords="61,70,115,96"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="204,70,116,82,115,77,203,65"/>
 </map>

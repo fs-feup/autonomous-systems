@@ -94,17 +94,17 @@ $(document).ready(function(){initNavTree('d6/d5b/md_src_2ekf__state__est_2_r_e_a
   <div class="headertitle"><div class="title">EKF State Estimation Package</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md55"></a> </p>
-<h1><a class="anchor" id="autotoc_md56"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md54"></a> </p>
+<h1><a class="anchor" id="autotoc_md55"></a>
 Package Information</h1>
-<h2><a class="anchor" id="autotoc_md57"></a>
+<h2><a class="anchor" id="autotoc_md56"></a>
 Description</h2>
 <p>The State Estimation module is responsible for the processing of the perception module and localisation sensors' data and its transformation into useful information. In this case, the data is combined to generate the best estimates possible on the pose and speed of the vehicle and the location of the cones that delimit the track.</p>
-<h2><a class="anchor" id="autotoc_md58"></a>
+<h2><a class="anchor" id="autotoc_md57"></a>
 Folder Structure</h2>
 <ul>
 <li><a href="../.././include/adapter_ekf_state_est/">adapter_ekf_state_est</a>: Adapters to change ros2 interfaces according to simulator or environment</li>
-<li><a href="../.././include/ekf/">kalman_filter</a>: Extended Kalman <a class="el" href="../../d2/d70/class_filter.html" title="Abstract base class for filters.">Filter</a> class, used for state estimation<ul>
+<li><a href="../.././include/ekf/">kalman_filter</a>: Extended Kalman <a class="el" href="../../d2/d70/class_filter.html" title="Abstract base class that defines the interface for single variable filters Derived classes must imple...">Filter</a> class, used for state estimation<ul>
 <li><a href="../.././include/ekf/data_association.hpp">kalman_filter/data_association</a>: Data Association class, used to associate observations to landmarks and determine which landmarks are new</li>
 <li><a href="../.././include/ekf/motion_model.hpp">kalman_filter/motion_model</a>: Motion Model class, used to predict the state based on previous states and measurements</li>
 <li><a href="../.././include/ekf/observation_model.hpp">kalman_filter/observation_model</a>: Observation Model class, used to correct the state based on observations</li>
@@ -112,33 +112,33 @@ Folder Structure</h2>
 </li>
 <li><a href="../.././include/ros_node/">ros_node</a>: Node class</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md59"></a>
+<h2><a class="anchor" id="autotoc_md58"></a>
 Launch Configurations</h2>
 <ul>
 <li><a href="../.././launch/eufs.launch.py">eufs.launch.py</a>: Launch file for the EUFS simulator</li>
 <li><a href="../.././launch/pacsim.launch.py">pacsim.launch.py</a>: Launch file for the PacSim simulator</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md60"></a>
+<h2><a class="anchor" id="autotoc_md59"></a>
 Important Dependencies</h2>
 <ul>
 <li><a href="https://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen3</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md61"></a>
+<h1><a class="anchor" id="autotoc_md60"></a>
 How to Run</h1>
-<h2><a class="anchor" id="autotoc_md62"></a>
+<h2><a class="anchor" id="autotoc_md61"></a>
 Install Dependencies</h2>
 <div class="fragment"><div class="line">./dependencies_install.sh</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md63"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md62"></a>
 Compiling</h2>
 <div class="fragment"><div class="line">colcon build --packages-up-to ekf_state_est</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md64"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md63"></a>
 Testing</h2>
 <div class="fragment"><div class="line">colcon test --packages-select ekf_state_est # use event-handler=console_direct+ for imediate output</div>
 </div><!-- fragment --><p>To check test results: </p><div class="fragment"><div class="line">colcon test-result --all --verbose</div>
 </div><!-- fragment --><p>or</p>
 <div class="fragment"><div class="line">source ./install/setup.bash # If in a new terminal</div>
 <div class="line">ros2 run ekf_state_est ekf_state_est_test</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md65"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md64"></a>
 Running</h2>
 <p>Use a launch file:</p>
 <div class="fragment"><div class="line">source ./install/setup.bash # If in a new terminal</div>
@@ -146,10 +146,10 @@ Running</h2>
 </div><!-- fragment --><p>or run directly:</p>
 <div class="fragment"><div class="line">source ./install/setup.bash # If in a new terminal</div>
 <div class="line">ros2 run ekf_state_est ekf_state_est</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md66"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md65"></a>
 Design</h1>
 <p>Below, some diagrams are presented that can illustrate the structure and behaviour of the program.</p>
-<h2><a class="anchor" id="autotoc_md67"></a>
+<h2><a class="anchor" id="autotoc_md66"></a>
 Behaviour</h2>
 <p>The control flow below illustrates briefly the flow of execution and information through the node, you can also checkout <a href="../../../../docs/assets/Loc_map/EKFSlam1.0.pdf">documentation pdf</a> to get a better understanding.</p>
 <p><img src="../../../../docs/assets/Loc_map/locmap-flow-chart.svg" alt="Control Flow Diagram" style="pointer-events: none;" class="inline"/></p>
@@ -157,7 +157,7 @@ Behaviour</h2>
 <p><img src="../../../../docs/assets/Loc_map/main-sequence-diagram.svg" alt="Sequence Diagram" style="pointer-events: none;" class="inline"/></p>
 <ol type="1">
 <li>Information from localisation sensors is received in the adapter (the adapter is a layer for adaptation of the different environments the node runs in).</li>
-<li>LMNode (the localisation and mapping node) processes the information and requests execution of the prediction step to the Extended Kalman <a class="el" href="../../d2/d70/class_filter.html" title="Abstract base class for filters.">Filter</a> cass (illustrated below).<ol type="a">
+<li>LMNode (the localisation and mapping node) processes the information and requests execution of the prediction step to the Extended Kalman <a class="el" href="../../d2/d70/class_filter.html" title="Abstract base class that defines the interface for single variable filters Derived classes must imple...">Filter</a> cass (illustrated below).<ol type="a">
 <li>The Motion Model is used to utilize the Motion data to predict the change in state.</li>
 <li>The Motion Model is used to reaturn the G matrix (maps the transformation from the motion to the state)</li>
 <li>Get the noise matrix, required for the calculation of the predicted covariance matrix P.</li>
@@ -180,9 +180,9 @@ Behaviour</h2>
 <li>The <a class="el" href="../../d7/dbe/class_e_k_f.html">EKF</a> updates the estimates and the node publishes them.</li>
 </ol>
 <p><img src="../../../../docs/assets/Loc_map/correction-sequence-diagram.svg" alt="Sequence Diagram Part 3" style="pointer-events: none;" class="inline"/></p>
-<h2><a class="anchor" id="autotoc_md68"></a>
+<h2><a class="anchor" id="autotoc_md67"></a>
 Structure</h2>
-<p>The node is composed by multiple classes. The diagram below illustrates roughly how they sit in the code structure. The main two are the LMNode, which is the class of the node, and the Extended Kalman <a class="el" href="../../d2/d70/class_filter.html" title="Abstract base class for filters.">Filter</a>, which corresponds to the code of the implementation of the <a class="el" href="../../d7/dbe/class_e_k_f.html">EKF</a> SLAM.</p>
+<p>The node is composed by multiple classes. The diagram below illustrates roughly how they sit in the code structure. The main two are the LMNode, which is the class of the node, and the Extended Kalman <a class="el" href="../../d2/d70/class_filter.html" title="Abstract base class that defines the interface for single variable filters Derived classes must imple...">Filter</a>, which corresponds to the code of the implementation of the <a class="el" href="../../d7/dbe/class_e_k_f.html">EKF</a> SLAM.</p>
 <p><img src="../../../../docs/assets/Loc_map/class-diagram.svg" alt="Class Diagram" style="pointer-events: none;" class="inline"/> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

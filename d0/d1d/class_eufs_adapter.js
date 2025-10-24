@@ -10,7 +10,7 @@ var class_eufs_adapter =
     [ "mission_state_callback", "d0/d1d/class_eufs_adapter.html#a9fec42bb75cef0264ee6f4a3a99000fe", null ],
     [ "perception_detections_subscription_callback", "d0/d1d/class_eufs_adapter.html#ad7b2adb066e44e9d5fee49490d3eda3a", null ],
     [ "pose_callback", "d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b", null ],
-    [ "publish_cmd", "d0/d1d/class_eufs_adapter.html#a3b651290afda6ce152e7fc625302e533", null ],
+    [ "publish_command", "d0/d1d/class_eufs_adapter.html#a86cffd579b46dc464ce9194a45efbacf", null ],
     [ "set_mission_state", "d0/d1d/class_eufs_adapter.html#a3179cfc404f49964f81464b56c6550f8", null ],
     [ "vehicle_state_callback", "d0/d1d/class_eufs_adapter.html#acf7089ed69eb7488fae4904f66f1e2b8", null ],
     [ "wheel_speeds_subscription_callback", "d0/d1d/class_eufs_adapter.html#a21f75aa612f5b12f626e0ebe6ecc4e5b", null ],

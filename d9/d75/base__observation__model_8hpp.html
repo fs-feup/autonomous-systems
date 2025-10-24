@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Formula Student Autonomous Systems: src/perception_sensor_lib/include/perception_sensor_lib/observation_model/base_observation_model.hpp File Reference</title>
+<title>Formula Student Autonomous Systems: src/perception_sensor_lib/include/perception_sensor_lib/observation_model/ve_observation_model/base_observation_model.hpp File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -97,43 +97,98 @@ $(document).ready(function(){initNavTree('d9/d75/base__observation__model_8hpp.h
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;Eigen/Dense&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../d8/d71/transformations_8hpp_source.html">common_lib/maths/transformations.hpp</a>&quot;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d2/da6/car__parameters_8hpp_source.html">common_lib/car_parameters/car_parameters.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for base_observation_model.hpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../de/d8f/base__observation__model_8hpp__incl.png" border="0" usemap="#asrc_2perception__sensor__lib_2include_2perception__sensor__lib_2observation__model_2base__observation__model_8hpp" alt=""/></div>
-<map name="asrc_2perception__sensor__lib_2include_2perception__sensor__lib_2observation__model_2base__observation__model_8hpp" id="asrc_2perception__sensor__lib_2include_2perception__sensor__lib_2observation__model_2base__observation__model_8hpp">
-<area shape="rect" title=" " alt="" coords="5,5,175,91"/>
-<area shape="rect" title=" " alt="" coords="98,213,192,238"/>
-<area shape="poly" title=" " alt="" coords="61,92,46,128,46,146,51,163,71,187,97,204,94,208,67,191,46,166,40,147,41,127,56,90"/>
-<area shape="rect" title=" " alt="" coords="61,139,119,165"/>
-<area shape="poly" title=" " alt="" coords="93,91,93,123,87,123,87,91"/>
-<area shape="rect" href="../../d8/d71/transformations_8hpp.html" title=" " alt="" coords="143,139,392,165"/>
-<area shape="poly" title=" " alt="" coords="165,89,234,129,232,133,162,94"/>
-<area shape="poly" title=" " alt="" coords="248,168,180,207,177,202,245,163"/>
+<div class="center"><img src="../../de/d8f/base__observation__model_8hpp__incl.png" border="0" usemap="#asrc_2perception__sensor__lib_2include_2perception__sensor__lib_2observation__model_2ve__observation__model_2base__observation__model_8hpp" alt=""/></div>
+<map name="asrc_2perception__sensor__lib_2include_2perception__sensor__lib_2observation__model_2ve__observation__model_2base__observation__model_8hpp" id="asrc_2perception__sensor__lib_2include_2perception__sensor__lib_2observation__model_2ve__observation__model_2base__observation__model_8hpp">
+<area shape="rect" title=" " alt="" coords="270,5,467,91"/>
+<area shape="rect" title=" " alt="" coords="216,147,310,172"/>
+<area shape="poly" title=" " alt="" coords="330,93,287,137,284,133,326,89"/>
+<area shape="rect" title=" " alt="" coords="335,147,402,172"/>
+<area shape="poly" title=" " alt="" coords="371,91,371,131,366,131,366,91"/>
+<area shape="rect" href="../../d2/da6/car__parameters_8hpp.html" title=" " alt="" coords="426,139,612,180"/>
+<area shape="poly" title=" " alt="" coords="428,89,481,128,478,132,425,94"/>
+<area shape="rect" title=" " alt="" coords="342,309,456,335"/>
+<area shape="poly" title=" " alt="" coords="507,182,419,298,415,295,502,179"/>
+<area shape="rect" title=" " alt="" coords="347,390,491,431"/>
+<area shape="poly" title=" " alt="" coords="427,180,414,182,325,186,209,187,151,190,99,197,56,210,40,219,28,229,15,248,9,265,10,281,16,295,28,309,45,322,91,344,148,363,211,378,332,397,331,403,210,383,147,368,89,349,42,326,25,313,12,298,4,282,4,264,10,246,24,226,37,214,54,205,98,192,151,185,209,181,325,181,414,177,426,175"/>
+<area shape="rect" title=" " alt="" coords="658,398,711,423"/>
+<area shape="poly" title=" " alt="" coords="612,163,687,170,763,182,828,200,852,212,869,226,878,240,881,254,879,269,873,283,852,312,821,344,799,362,775,377,727,398,725,394,772,372,796,357,817,340,848,309,869,280,874,267,876,254,873,242,865,229,849,216,826,205,762,187,686,175,612,168"/>
+<area shape="rect" href="../../df/db5/aero__parameters_8hpp.html" title=" " alt="" coords="503,228,645,253"/>
+<area shape="poly" title=" " alt="" coords="535,179,559,213,555,216,530,182"/>
+<area shape="rect" href="../../d0/d20/config__load_8hpp.html" title=" " alt="" coords="531,301,691,342"/>
+<area shape="poly" title=" " alt="" coords="596,178,631,197,659,226,664,243,662,260,644,291,640,288,657,258,659,243,654,229,628,201,594,183"/>
+<area shape="rect" href="../../d7/de8/steering__motor__parameters_8hpp.html" title=" " alt="" coords="37,228,241,253"/>
+<area shape="poly" title=" " alt="" coords="427,182,213,227,212,221,426,177"/>
+<area shape="rect" href="../../d9/dea/tire__parameters_8hpp.html" title=" " alt="" coords="719,228,855,253"/>
+<area shape="poly" title=" " alt="" coords="587,178,732,220,731,225,585,183"/>
+<area shape="rect" href="../../d6/db0/steering__parameters_8hpp.html" title=" " alt="" coords="265,228,429,253"/>
+<area shape="poly" title=" " alt="" coords="477,183,388,223,386,218,475,178"/>
+<area shape="poly" title=" " alt="" coords="548,256,441,305,438,300,546,251"/>
+<area shape="poly" title=" " alt="" coords="565,256,449,380,445,377,561,252"/>
+<area shape="poly" title=" " alt="" coords="634,252,674,270,691,283,705,300,713,321,713,343,701,384,696,383,708,343,708,322,701,303,688,287,671,274,632,256"/>
+<area shape="poly" title=" " alt="" coords="582,253,598,286,593,288,577,255"/>
+<area shape="poly" title=" " alt="" coords="569,345,477,386,475,381,566,340"/>
+<area shape="poly" title=" " alt="" coords="630,341,667,384,663,388,626,344"/>
+<area shape="poly" title=" " alt="" coords="180,251,345,301,344,306,178,256"/>
+<area shape="poly" title=" " alt="" coords="155,252,207,293,275,340,357,381,355,386,272,344,203,297,152,256"/>
+<area shape="poly" title=" " alt="" coords="160,252,240,300,315,340,404,366,495,385,643,403,642,409,495,390,403,371,313,344,237,305,157,256"/>
+<area shape="poly" title=" " alt="" coords="212,251,516,302,515,307,211,257"/>
+<area shape="poly" title=" " alt="" coords="728,257,472,308,471,303,727,251"/>
+<area shape="poly" title=" " alt="" coords="783,255,753,299,731,324,705,344,657,368,605,386,554,398,507,405,506,400,553,393,604,381,655,363,702,340,727,320,749,296,778,252"/>
+<area shape="poly" title=" " alt="" coords="795,253,807,294,808,319,800,343,786,362,767,378,727,399,725,394,764,373,782,359,795,341,802,319,802,295,790,255"/>
+<area shape="poly" title=" " alt="" coords="761,256,670,297,668,292,759,251"/>
+<area shape="poly" title=" " alt="" coords="357,252,385,294,381,297,353,255"/>
+<area shape="poly" title=" " alt="" coords="330,256,307,276,288,302,282,322,288,341,308,363,334,381,331,385,305,367,283,343,277,322,283,300,303,272,326,252"/>
+<area shape="poly" title=" " alt="" coords="342,255,333,274,325,297,323,320,332,340,346,349,375,358,461,375,643,401,642,407,460,381,374,363,344,354,328,344,318,321,320,296,328,272,337,253"/>
+<area shape="poly" title=" " alt="" coords="389,251,532,294,530,299,387,256"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../dd/dbf/base__observation__model_8hpp__dep__incl.png" border="0" usemap="#asrc_2perception__sensor__lib_2include_2perception__sensor__lib_2observation__model_2base__observation__model_8hppdep" alt=""/></div>
-<map name="asrc_2perception__sensor__lib_2include_2perception__sensor__lib_2observation__model_2base__observation__model_8hppdep" id="asrc_2perception__sensor__lib_2include_2perception__sensor__lib_2observation__model_2base__observation__model_8hppdep">
-<area shape="rect" title=" " alt="" coords="199,5,368,91"/>
-<area shape="rect" href="../../d1/ddd/base__observation__model_8cpp.html" title=" " alt="" coords="5,139,175,210"/>
-<area shape="poly" title=" " alt="" coords="206,102,146,141,143,136,203,97"/>
-<area shape="rect" href="../../d0/def/base__observation__model__test_8cpp.html" title=" " alt="" coords="199,139,368,210"/>
-<area shape="poly" title=" " alt="" coords="286,107,286,138,281,138,281,107"/>
-<area shape="rect" href="../../db/d50/ekf__slam__solver_8hpp.html" title=" " alt="" coords="392,154,578,195"/>
-<area shape="poly" title=" " alt="" coords="366,97,454,151,451,156,364,102"/>
-<area shape="rect" href="../../df/dc6/slam_2include_2slam__solver_2map_8hpp.html" title=" " alt="" coords="229,265,378,306"/>
-<area shape="poly" title=" " alt="" coords="440,205,337,267,335,262,437,201"/>
-<area shape="rect" href="../../d6/df3/ekf__slam__solver_8cpp.html" title=" " alt="" coords="401,265,568,306"/>
-<area shape="poly" title=" " alt="" coords="487,210,487,265,482,265,482,210"/>
-<area shape="rect" href="../../d8/d80/ekf__slam__solver__test_8cpp.html" title=" " alt="" coords="593,258,755,313"/>
-<area shape="poly" title=" " alt="" coords="533,201,628,255,625,259,531,205"/>
-<area shape="rect" href="../../de/da0/slam__node_8cpp.html" title=" " alt="" coords="228,361,379,402"/>
-<area shape="poly" title=" " alt="" coords="306,321,306,361,301,361,301,321"/>
+<div class="center"><img src="../../dd/dbf/base__observation__model_8hpp__dep__incl.png" border="0" usemap="#asrc_2perception__sensor__lib_2include_2perception__sensor__lib_2observation__model_2ve__observation__model_2base__observation__model_8hppdep" alt=""/></div>
+<map name="asrc_2perception__sensor__lib_2include_2perception__sensor__lib_2observation__model_2ve__observation__model_2base__observation__model_8hppdep" id="asrc_2perception__sensor__lib_2include_2perception__sensor__lib_2observation__model_2ve__observation__model_2base__observation__model_8hppdep">
+<area shape="rect" title=" " alt="" coords="529,5,726,91"/>
+<area shape="rect" href="../../de/dab/no__slip__bicycle__model_8hpp.html" title=" " alt="" coords="529,139,726,225"/>
+<area shape="poly" title=" " alt="" coords="630,106,630,139,625,139,625,106"/>
+<area shape="rect" href="../../dc/dfd/perception__sensor__lib_2include_2perception__sensor__lib_2observation__model_2ve__observation__model_2map_8hpp.html" title=" " alt="" coords="329,273,526,358"/>
+<area shape="poly" title=" " alt="" coords="552,235,493,274,490,270,549,231"/>
+<area shape="rect" href="../../dd/dc0/no__slip__bicycle__model_8cpp.html" title=" " alt="" coords="550,273,705,358"/>
+<area shape="poly" title=" " alt="" coords="630,240,630,272,625,272,625,240"/>
+<area shape="rect" href="../../d4/d69/no__slip__bicycle__model__test_8cpp.html" title=" " alt="" coords="730,273,885,358"/>
+<area shape="poly" title=" " alt="" coords="698,232,751,270,748,274,695,236"/>
+<area shape="rect" href="../../d4/d76/velocity__estimation_2include_2estimators_2ekf_8hpp.html" title=" " alt="" coords="244,414,421,455"/>
+<area shape="poly" title=" " alt="" coords="386,372,351,415,346,412,382,369"/>
+<area shape="rect" href="../../d4/d96/no__rear__wss__ekf_8hpp.html" title=" " alt="" coords="445,406,599,462"/>
+<area shape="poly" title=" " alt="" coords="473,369,502,404,498,408,469,372"/>
+<area shape="rect" href="../../dd/d4d/velocity__estimation_2include_2estimators_2map_8hpp.html" title=" " alt="" coords="335,518,520,558"/>
+<area shape="poly" title=" " alt="" coords="363,464,411,515,407,519,359,468"/>
+<area shape="rect" href="../../d7/dba/velocity__estimation_2src_2estimators_2ekf_8cpp.html" title=" " alt="" coords="157,518,311,558"/>
+<area shape="poly" title=" " alt="" coords="305,468,255,519,251,515,301,464"/>
+<area shape="rect" href="../../d3/d09/node_8hpp.html" title=" " alt="" coords="350,614,505,654"/>
+<area shape="poly" title=" " alt="" coords="430,574,430,613,425,613,425,574"/>
+<area shape="rect" href="../../d0/deb/pacsim__adapter_8hpp.html" title=" " alt="" coords="155,702,321,758"/>
+<area shape="poly" title=" " alt="" coords="375,664,294,704,292,699,373,659"/>
+<area shape="rect" href="../../d1/d6d/vehicle__adapter_8hpp.html" title=" " alt="" coords="345,702,510,758"/>
+<area shape="poly" title=" " alt="" coords="430,670,430,702,425,702,425,670"/>
+<area shape="rect" href="../../d7/d70/node_8cpp.html" title=" " alt="" coords="534,710,689,751"/>
+<area shape="poly" title=" " alt="" coords="481,659,574,707,572,712,478,664"/>
+<area shape="rect" href="../../dd/dfe/velocity__estimation_2include_2adapters_2map_8hpp.html" title=" " alt="" coords="247,814,421,854"/>
+<area shape="poly" title=" " alt="" coords="276,768,318,812,314,815,272,771"/>
+<area shape="rect" href="../../d7/d72/pacsim__adapter_8cpp.html" title=" " alt="" coords="5,814,223,854"/>
+<area shape="poly" title=" " alt="" coords="195,770,140,815,136,811,191,766"/>
+<area shape="rect" href="../../d6/d1d/velocity__estimation_2src_2main_8cpp.html" title=" " alt="" coords="257,910,411,950"/>
+<area shape="poly" title=" " alt="" coords="337,870,337,909,331,909,331,870"/>
+<area shape="poly" title=" " alt="" coords="394,771,354,815,350,812,390,768"/>
+<area shape="rect" href="../../d7/dae/vehicle__adapter_8cpp.html" title=" " alt="" coords="445,806,599,862"/>
+<area shape="poly" title=" " alt="" coords="465,768,499,804,495,807,461,771"/>
+<area shape="poly" title=" " alt="" coords="488,475,447,519,443,516,484,472"/>
+<area shape="rect" href="../../de/dea/no__rear__wss__ekf_8cpp.html" title=" " alt="" coords="543,510,698,566"/>
+<area shape="poly" title=" " alt="" coords="561,471,596,507,592,511,557,475"/>
 </map>
 </div>
 </div>
@@ -141,8 +196,8 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d64/class_observation_model.html">ObservationModel</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observation Model class compiled of functions for observation model.  <a href="../../d7/d64/class_observation_model.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d28/class_v_e_observation_model.html">VEObservationModel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for velocity estimation observation models.  <a href="../../d3/d28/class_v_e_observation_model.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
@@ -150,7 +205,7 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_66efba60156ce7bf89583abd1f523e9d.html">perception_sensor_lib</a></li><li class="navelem"><a class="el" href="../../dir_f5d79ca0a16bbd80ca1595decd214f74.html">include</a></li><li class="navelem"><a class="el" href="../../dir_916f135a6de1fb5a6ed4a2ffe6c1c6ce.html">perception_sensor_lib</a></li><li class="navelem"><a class="el" href="../../dir_ec77cc75245d47bd9a40a072fe47ee35.html">observation_model</a></li><li class="navelem"><a class="el" href="../../d9/d75/base__observation__model_8hpp.html">base_observation_model.hpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_66efba60156ce7bf89583abd1f523e9d.html">perception_sensor_lib</a></li><li class="navelem"><a class="el" href="../../dir_f5d79ca0a16bbd80ca1595decd214f74.html">include</a></li><li class="navelem"><a class="el" href="../../dir_916f135a6de1fb5a6ed4a2ffe6c1c6ce.html">perception_sensor_lib</a></li><li class="navelem"><a class="el" href="../../dir_ec77cc75245d47bd9a40a072fe47ee35.html">observation_model</a></li><li class="navelem"><a class="el" href="../../dir_8cf33fc5d7cb3017f70bff1b1f90f9cc.html">ve_observation_model</a></li><li class="navelem"><a class="el" href="../../d9/d75/base__observation__model_8hpp.html">base_observation_model.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

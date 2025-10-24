@@ -10,7 +10,7 @@
 <area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="307,312,218,322,218,317,306,307"/>
 <area shape="rect" id="Node000013" href="$db/d09/observation__model__test_8cpp.html#a3ad774be8af4a0c5d879a015aa4c2167" title="90 degrees to the right" alt="" coords="164,359,218,384"/>
 <area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="341,327,275,350,219,367,218,362,273,345,339,322"/>
-<area shape="rect" id="Node000014" href="$d0/def/base__observation__model__test_8cpp.html#a8d47d1097341a64f44fa6d29e33c442f" title="Test inverse observation model with trivial state and a single observation." alt="" coords="164,408,218,434"/>
+<area shape="rect" id="Node000014" href="$de/dbc/default__observation__model__test_8cpp.html#a8d47d1097341a64f44fa6d29e33c442f" title="Test inverse observation model with trivial state and a single observation." alt="" coords="164,408,218,434"/>
 <area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="375,331,329,366,275,399,219,418,218,413,273,394,326,362,372,327"/>
 <area shape="rect" id="Node000003" href="$dc/dd5/data__association__test_8cpp.html#ad8e377318ba077cbaf50154f855e1415" title="Test case for when a landmark has a near mismatch." alt="" coords="5,5,60,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="155,137,58,44,46,33,50,29,61,40,159,133"/>

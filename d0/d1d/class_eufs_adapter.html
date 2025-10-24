@@ -99,22 +99,25 @@ $(document).ready(function(){initNavTree('d0/d1d/class_eufs_adapter.html','../..
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="../../d3/d4a/control_2include_2adapter__control_2eufs_8hpp_source.html">eufs.hpp</a>&gt;</code></p>
+<p><a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a> class to interface with the EUFS simulator.  
+ <a href="../../d0/d1d/class_eufs_adapter.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d1/d9c/control_2include_2adapter_2eufs_8hpp_source.html">eufs.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for EufsAdapter:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d6/df5/class_eufs_adapter__inherit__graph.png" border="0" usemap="#a_eufs_adapter_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_eufs_adapter_inherit__map" id="a_eufs_adapter_inherit__map">
-<area shape="rect" title=" " alt="" coords="211,756,395,1335"/>
-<area shape="rect" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="5,123,192,703"/>
-<area shape="poly" title=" " alt="" coords="199,716,213,760,208,761,194,718"/>
-<area shape="rect" title=" " alt="" coords="157,5,243,71"/>
-<area shape="poly" title=" " alt="" coords="190,86,180,124,175,123,185,85"/>
-<area shape="rect" href="../../d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="217,119,389,708"/>
-<area shape="poly" title=" " alt="" coords="215,84,225,118,219,120,210,86"/>
-<area shape="rect" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="413,341,597,486"/>
-<area shape="poly" title=" " alt="" coords="480,501,397,759,392,758,475,499"/>
-<area shape="poly" title=" " alt="" coords="305,723,305,756,300,756,300,723"/>
+<area shape="rect" title="Adapter class to interface with the EUFS simulator." alt="" coords="187,756,371,1335"/>
+<area shape="rect" href="../../d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="5,251,169,576"/>
+<area shape="poly" title=" " alt="" coords="143,589,194,755,189,757,138,591"/>
+<area shape="rect" title=" " alt="" coords="141,5,226,71"/>
+<area shape="poly" title=" " alt="" coords="174,86,131,252,126,250,169,85"/>
+<area shape="rect" href="../../d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="193,119,365,708"/>
+<area shape="poly" title=" " alt="" coords="198,85,206,118,201,120,193,86"/>
+<area shape="rect" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="390,341,574,486"/>
+<area shape="poly" title=" " alt="" coords="457,501,374,759,369,758,452,499"/>
+<area shape="poly" title=" " alt="" coords="282,723,282,756,277,756,277,723"/>
 </map>
 </div>
 <div class="dynheader">
@@ -122,74 +125,68 @@ Collaboration diagram for EufsAdapter:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../db/da4/class_eufs_adapter__coll__graph.png" border="0" usemap="#a_eufs_adapter_coll__map" alt="Collaboration graph"/></div>
 <map name="a_eufs_adapter_coll__map" id="a_eufs_adapter_coll__map">
-<area shape="rect" title=" " alt="" coords="1445,2331,1629,2909"/>
-<area shape="rect" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="1443,1737,1630,2237"/>
-<area shape="poly" title=" " alt="" coords="1539,2252,1539,2331,1534,2331,1534,2252"/>
-<area shape="rect" title=" " alt="" coords="1267,1212,1353,1277"/>
-<area shape="poly" title=" " alt="" coords="1315,1292,1329,1443,1344,1536,1367,1628,1403,1725,1446,1818,1441,1820,1398,1727,1362,1630,1339,1537,1324,1444,1309,1292"/>
-<area shape="rect" href="../../d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="797,1692,969,2281"/>
-<area shape="poly" title=" " alt="" coords="1316,1292,1317,1367,1310,1464,1302,1517,1290,1569,1273,1621,1251,1669,1224,1713,1192,1754,1118,1829,1041,1891,970,1939,967,1934,1038,1886,1115,1825,1188,1751,1219,1710,1246,1667,1268,1619,1285,1568,1297,1516,1305,1464,1312,1367,1311,1292"/>
-<area shape="rect" href="../../d4/de1/struct_control_parameters.html" title=" " alt="" coords="1937,1112,2123,1377"/>
-<area shape="poly" title=" " alt="" coords="2028,1377,2018,1442,1999,1510,1969,1574,1950,1604,1926,1631,1895,1654,1864,1663,1830,1665,1789,1671,1746,1675,1710,1672,1678,1675,1662,1682,1644,1694,1614,1724,1611,1721,1640,1690,1659,1677,1677,1670,1710,1667,1746,1669,1788,1665,1829,1660,1863,1657,1892,1650,1923,1627,1945,1601,1964,1572,1994,1508,2012,1441,2023,1376"/>
-<area shape="rect" href="../../d9/da5/class_point_solver.html" title=" " alt="" coords="1721,1122,1913,1367"/>
-<area shape="poly" title=" " alt="" coords="1791,1368,1756,1495,1711,1630,1704,1651,1692,1670,1679,1679,1666,1682,1655,1686,1644,1694,1621,1724,1617,1721,1640,1690,1653,1681,1665,1677,1677,1674,1688,1666,1699,1649,1706,1628,1751,1494,1786,1366"/>
-<area shape="rect" href="../../d6/d89/class_bicycle_model.html" title=" " alt="" coords="1730,584,1903,744"/>
-<area shape="poly" title=" " alt="" coords="1819,744,1819,1104,1814,1104,1814,744"/>
-<area shape="rect" href="../../db/d7d/class_s2_v_model.html" title="Interface for models that convert data from sensor reference frame to vehicle reference frame and vic..." alt="" coords="1730,298,1903,438"/>
-<area shape="poly" title=" " alt="" coords="1819,453,1819,584,1814,584,1814,453"/>
-<area shape="rect" href="../../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html" title=" " alt="" coords="1527,268,1706,468"/>
-<area shape="poly" title=" " alt="" coords="1683,467,1710,506,1753,569,1749,572,1705,509,1679,470"/>
-<area shape="rect" href="../../de/d41/structcommon__lib_1_1structures_1_1_vehicle_pose.html" title=" " alt="" coords="1559,614,1706,714"/>
-<area shape="poly" title=" " alt="" coords="1656,713,1711,859,1750,985,1784,1105,1779,1106,1745,986,1706,861,1651,715"/>
-<area shape="rect" href="../../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="1357,288,1503,448"/>
-<area shape="poly" title=" " alt="" coords="1495,459,1601,613,1597,616,1490,462"/>
-<area shape="poly" title=" " alt="" coords="1454,448,1467,527,1470,619,1466,666,1457,713,1441,757,1417,798,1404,809,1385,818,1336,831,1288,844,1269,852,1257,861,1241,890,1229,927,1221,969,1215,1016,1213,1122,1216,1237,1221,1352,1223,1462,1218,1557,1211,1596,1200,1630,1181,1671,1157,1711,1102,1786,1042,1852,984,1908,980,1904,1038,1848,1098,1783,1153,1708,1176,1669,1196,1628,1206,1595,1213,1556,1218,1462,1216,1353,1211,1237,1207,1122,1210,1016,1215,968,1224,925,1236,888,1253,858,1266,847,1286,839,1335,826,1383,813,1402,805,1413,795,1436,755,1452,711,1461,665,1465,619,1461,527,1448,449"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html" title="Generates optimal local paths." alt="" coords="994,932,1186,1556"/>
-<area shape="poly" title=" " alt="" coords="1374,450,1351,490,1331,532,1318,577,1314,618,1318,692,1319,727,1315,762,1302,799,1276,838,1260,849,1244,851,1228,853,1213,862,1190,889,1171,919,1166,916,1186,886,1210,858,1226,847,1243,846,1258,844,1272,834,1297,796,1310,761,1314,727,1313,692,1309,618,1313,576,1326,530,1346,487,1370,447"/>
-<area shape="rect" href="../../d8/dab/class_midpoint_generator.html" title="Generates midpoints between cones using Delaunay triangulation." alt="" coords="1071,551,1261,777"/>
-<area shape="poly" title=" " alt="" coords="1358,393,1318,409,1276,431,1236,459,1203,494,1191,514,1182,536,1177,534,1186,512,1199,491,1233,455,1273,427,1315,405,1356,388"/>
-<area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="1617,5,1763,205"/>
-<area shape="poly" title=" " alt="" coords="1764,134,1806,157,1849,187,1888,224,1918,267,1942,322,1952,370,1951,394,1945,418,1918,470,1897,493,1874,505,1850,510,1825,511,1774,512,1747,519,1720,533,1688,564,1663,600,1659,597,1684,561,1716,529,1745,514,1773,507,1825,506,1850,505,1872,500,1893,489,1913,467,1940,416,1945,393,1947,371,1937,323,1913,270,1884,227,1845,191,1803,162,1762,139"/>
-<area shape="poly" title=" " alt="" coords="1619,173,1517,270,1510,278,1506,275,1513,266,1615,169"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html" title="PI&#45;D Controller class." alt="" coords="1377,860,1526,1629"/>
-<area shape="poly" title=" " alt="" coords="1494,1629,1499,1668,1505,1720,1500,1720,1493,1668,1489,1629"/>
-<area shape="rect" href="../../dc/dde/class_pure_pursuit.html" title="Pure Pursuit class." alt="" coords="1551,1094,1696,1394"/>
-<area shape="poly" title=" " alt="" coords="1620,1394,1611,1528,1597,1668,1589,1720,1584,1720,1591,1668,1605,1527,1614,1394"/>
-<area shape="rect" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="1654,1914,1838,2059"/>
-<area shape="poly" title=" " alt="" coords="1720,2074,1631,2343,1626,2341,1715,2073"/>
-<area shape="poly" title=" " alt="" coords="982,2079,1447,2528,1443,2532,978,2083"/>
-<area shape="rect" href="../../df/dec/struct_planning_config.html" title=" " alt="" coords="478,1202,595,1287"/>
-<area shape="poly" title=" " alt="" coords="541,1287,546,1354,557,1441,578,1536,592,1583,610,1628,647,1699,692,1767,741,1830,788,1885,784,1889,736,1833,688,1771,643,1702,605,1630,587,1585,572,1537,552,1442,540,1355,535,1287"/>
-<area shape="rect" href="../../d7/d4c/struct_outliers_config.html" title="struct for the configuration of the outliers removal algorithm." alt="" coords="189,591,335,737"/>
-<area shape="poly" title=" " alt="" coords="304,735,349,795,372,816,398,833,418,844,435,858,460,898,480,940,510,1029,527,1114,536,1185,531,1185,522,1115,505,1030,475,942,455,900,431,861,415,848,395,838,369,820,345,798,300,738"/>
-<area shape="rect" href="../../d9/d53/class_outliers.html" title="Class to deal with outliers." alt="" coords="255,1184,421,1304"/>
-<area shape="poly" title=" " alt="" coords="266,736,273,835,298,1014,325,1167,320,1168,292,1015,267,836,261,737"/>
-<area shape="rect" href="../../df/d7d/struct_path_calculation_config.html" title="struct for the configuration of the outliers removal algorithm." alt="" coords="883,531,1041,797"/>
-<area shape="poly" title=" " alt="" coords="929,798,914,820,894,838,868,848,833,852,748,848,665,846,632,850,609,862,580,895,558,934,542,977,533,1022,526,1110,531,1185,525,1185,521,1110,528,1021,537,976,553,932,575,892,606,858,630,845,664,841,749,843,833,847,867,843,891,833,910,816,925,795"/>
-<area shape="poly" title=" " alt="" coords="1044,779,1061,820,1083,915,1078,916,1055,821,1039,781"/>
-<area shape="rect" href="../../d9/d46/struct_midpoint_generator_config.html" title="Configuration for Delaunay triangulation and midpoint generation." alt="" coords="953,306,1131,431"/>
-<area shape="poly" title=" " alt="" coords="996,432,979,462,966,493,961,515,955,514,961,492,974,459,991,429"/>
-<area shape="poly" title=" " alt="" coords="1070,430,1115,534,1110,536,1065,432"/>
-<area shape="rect" href="../../de/dce/struct_path_smoothing_config.html" title="struct for the configuration of the smoothing algorithm" alt="" coords="5,581,161,747"/>
-<area shape="poly" title=" " alt="" coords="115,745,145,794,164,816,187,833,208,841,238,844,311,843,383,842,413,847,434,858,467,892,492,931,511,975,525,1020,539,1109,542,1185,537,1185,534,1110,520,1021,506,976,488,934,463,895,431,862,411,852,383,848,311,848,238,850,207,846,184,838,161,820,141,797,110,748"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html" title="class that defines the path smoothing algorithm" alt="" coords="86,1182,206,1307"/>
-<area shape="poly" title=" " alt="" coords="85,746,85,821,85,836,106,1013,133,1165,127,1166,101,1014,79,836,79,821,80,746"/>
-<area shape="rect" href="../../d3/db0/struct_simulation_config.html" title="struct for the configuration of the smoothing algorithm" alt="" coords="359,604,519,724"/>
-<area shape="poly" title=" " alt="" coords="450,723,466,835,528,1185,523,1186,461,836,445,724"/>
-<area shape="rect" href="../../d2/d0d/struct_velocity_planning_config.html" title="struct for the configuration of the velocity planning algorithm" alt="" coords="695,581,859,747"/>
-<area shape="poly" title=" " alt="" coords="753,748,727,796,710,818,690,838,668,848,647,849,627,850,609,862,583,898,563,938,548,981,539,1025,531,1112,533,1185,527,1185,525,1112,533,1025,543,980,558,936,578,895,606,858,626,845,646,844,667,843,687,833,706,815,723,793,748,745"/>
-<area shape="rect" href="../../d3/dcc/class_velocity_planning.html" title="Computes velocity profiles for a planned path based on curvature and dynamics constraints." alt="" coords="813,1142,953,1347"/>
-<area shape="poly" title=" " alt="" coords="815,745,839,820,855,898,867,978,881,1124,876,1125,862,979,850,899,834,821,810,747"/>
-<area shape="rect" href="../../d2/de2/struct_skidpad_config.html" title="struct for the configuration of the smoothing algorithm" alt="" coords="545,611,670,717"/>
-<area shape="poly" title=" " alt="" coords="585,717,565,767,550,821,536,920,530,1020,531,1111,534,1185,529,1185,526,1111,525,1020,530,920,544,820,560,765,580,715"/>
-<area shape="rect" href="../../de/d3f/class_skidpad.html" title="class that defines the skidpad path algorithm" alt="" coords="620,1142,789,1347"/>
-<area shape="poly" title=" " alt="" coords="619,716,687,1125,682,1126,613,717"/>
-<area shape="poly" title=" " alt="" coords="350,1304,365,1373,389,1457,423,1545,444,1588,468,1628,502,1673,540,1717,623,1797,708,1866,785,1921,782,1926,704,1870,619,1801,536,1721,498,1677,464,1630,439,1590,418,1547,384,1459,360,1375,345,1305"/>
-<area shape="poly" title=" " alt="" coords="1034,1557,1005,1669,977,1753,972,1752,999,1667,1028,1555"/>
-<area shape="poly" title=" " alt="" coords="1154,777,1136,916,1130,915,1149,776"/>
-<area shape="poly" title=" " alt="" coords="149,1307,156,1378,171,1462,183,1506,199,1549,219,1590,244,1627,301,1691,366,1748,437,1798,511,1841,585,1878,657,1909,782,1954,780,1959,655,1914,583,1883,509,1846,434,1802,363,1752,297,1695,240,1631,215,1592,194,1551,178,1507,166,1463,150,1378,144,1307"/>
-<area shape="poly" title=" " alt="" coords="886,1347,886,1675,881,1675,881,1347"/>
-<area shape="poly" title=" " alt="" coords="732,1346,811,1675,806,1676,727,1348"/>
+<area shape="rect" title="Adapter class to interface with the EUFS simulator." alt="" coords="1419,2205,1603,2784"/>
+<area shape="rect" href="../../d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="1429,1709,1593,2014"/>
+<area shape="poly" title=" " alt="" coords="1513,2029,1513,2206,1508,2206,1508,2029"/>
+<area shape="rect" title=" " alt="" coords="1468,1159,1553,1224"/>
+<area shape="poly" title=" " alt="" coords="1513,1240,1513,1709,1508,1709,1508,1240"/>
+<area shape="rect" href="../../d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="887,1567,1059,2156"/>
+<area shape="poly" title=" " alt="" coords="1516,1239,1516,1303,1508,1382,1488,1466,1472,1507,1451,1544,1060,1806,1057,1801,1447,1541,1467,1504,1483,1465,1503,1382,1511,1303,1511,1239"/>
+<area shape="rect" href="../../d4/de1/struct_control_parameters.html" title=" " alt="" coords="1580,1007,1767,1376"/>
+<area shape="poly" title=" " alt="" coords="1631,1377,1554,1693,1549,1692,1626,1376"/>
+<area shape="rect" href="../../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html" title=" " alt="" coords="1597,554,1776,814"/>
+<area shape="poly" title=" " alt="" coords="1686,813,1681,990,1676,990,1681,813"/>
+<area shape="rect" href="../../dd/d7d/structcommon__lib_1_1car__parameters_1_1_tire_parameters.html" title=" " alt="" coords="1800,268,1979,488"/>
+<area shape="poly" title=" " alt="" coords="1846,489,1824,529,1789,576,1785,573,1819,526,1841,487"/>
+<area shape="rect" href="../../d5/d5a/structcommon__lib_1_1car__parameters_1_1_aero_parameters.html" title=" " alt="" coords="2003,298,2183,458"/>
+<area shape="poly" title=" " alt="" coords="2025,460,1992,490,1892,566,1792,628,1789,624,1889,562,1989,486,2021,456"/>
+<area shape="rect" href="../../d2/d2e/structcommon__lib_1_1car__parameters_1_1_steering_motor_parameters.html" title=" " alt="" coords="1395,318,1573,438"/>
+<area shape="poly" title=" " alt="" coords="1489,438,1497,482,1515,526,1547,571,1587,610,1583,614,1543,574,1510,529,1492,484,1484,439"/>
+<area shape="rect" href="../../d9/d6f/structcommon__lib_1_1car__parameters_1_1_steering_parameters.html" title=" " alt="" coords="1597,328,1776,428"/>
+<area shape="poly" title=" " alt="" coords="1689,428,1689,537,1684,537,1684,428"/>
+<area shape="rect" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="1617,1789,1801,1934"/>
+<area shape="poly" title=" " alt="" coords="1685,1949,1604,2206,1599,2205,1680,1948"/>
+<area shape="poly" title=" " alt="" coords="1071,1973,1421,2384,1417,2387,1067,1976"/>
+<area shape="rect" href="../../df/dec/struct_planning_config.html" title=" " alt="" coords="485,1149,603,1234"/>
+<area shape="poly" title=" " alt="" coords="556,1233,593,1357,622,1431,658,1502,708,1577,764,1647,822,1712,877,1768,873,1772,818,1716,760,1651,704,1580,654,1505,617,1434,588,1359,551,1235"/>
+<area shape="rect" href="../../d7/d4c/struct_outliers_config.html" title="struct for the configuration of the outliers removal algorithm." alt="" coords="5,611,152,757"/>
+<area shape="poly" title=" " alt="" coords="108,755,140,809,161,833,185,853,205,863,223,867,258,865,294,863,314,867,335,877,369,903,401,933,454,1001,496,1071,525,1132,520,1134,491,1073,450,1004,397,937,366,907,332,882,312,872,294,869,259,871,223,873,203,868,183,858,157,837,136,812,103,758"/>
+<area shape="rect" href="../../d9/d53/class_outliers.html" title="Class to deal with outliers." alt="" coords="10,1132,177,1252"/>
+<area shape="poly" title=" " alt="" coords="81,757,83,856,92,1114,87,1114,77,856,76,757"/>
+<area shape="rect" href="../../df/d7d/struct_path_calculation_config.html" title="struct for the configuration of the outliers removal algorithm." alt="" coords="698,551,857,817"/>
+<area shape="poly" title=" " alt="" coords="717,818,689,858,673,869,658,881,621,944,592,1011,571,1077,557,1133,552,1132,566,1075,587,1010,616,942,654,878,669,865,685,854,713,815"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html" title="Generates optimal local paths." alt="" coords="1068,880,1260,1504"/>
+<area shape="poly" title=" " alt="" coords="825,815,842,836,862,853,887,866,911,870,934,868,958,864,982,859,1006,857,1031,863,1056,877,1057,878,1053,882,1053,882,1029,868,1005,863,982,864,959,869,935,874,911,876,885,872,858,858,838,840,821,818"/>
+<area shape="rect" href="../../d9/d46/struct_midpoint_generator_config.html" title="Configuration for Delaunay triangulation and midpoint generation." alt="" coords="859,316,1037,441"/>
+<area shape="poly" title=" " alt="" coords="916,442,862,538,857,535,911,440"/>
+<area shape="rect" href="../../d8/dab/class_midpoint_generator.html" title="Generates midpoints between cones using Delaunay triangulation." alt="" coords="1069,571,1259,797"/>
+<area shape="poly" title=" " alt="" coords="994,439,1077,556,1073,559,990,443"/>
+<area shape="rect" href="../../de/dce/struct_path_smoothing_config.html" title="struct for the configuration of the smoothing algorithm" alt="" coords="177,601,333,767"/>
+<area shape="poly" title=" " alt="" coords="303,765,515,1133,510,1136,299,768"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html" title="class that defines the path smoothing algorithm" alt="" coords="201,1129,321,1254"/>
+<area shape="poly" title=" " alt="" coords="254,766,252,841,253,985,259,1112,254,1112,248,985,247,841,249,766"/>
+<area shape="rect" href="../../d3/db0/struct_simulation_config.html" title="struct for the configuration of the smoothing algorithm" alt="" coords="357,624,517,744"/>
+<area shape="poly" title=" " alt="" coords="447,743,464,855,498,1006,531,1132,525,1133,493,1007,459,856,442,744"/>
+<area shape="rect" href="../../d2/d0d/struct_velocity_planning_config.html" title="struct for the configuration of the velocity planning algorithm" alt="" coords="881,601,1045,767"/>
+<area shape="poly" title=" " alt="" coords="958,767,942,816,928,839,910,858,877,877,844,882,813,879,782,871,751,863,721,859,690,864,658,882,631,907,609,936,592,968,577,1002,559,1071,550,1132,544,1132,553,1070,572,1001,587,966,605,933,627,903,654,878,688,859,720,854,752,858,783,866,814,873,844,877,875,872,906,854,924,836,937,814,953,766"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html" title="Computes velocity profiles for a planned path based on curvature and dynamics constraints." alt="" coords="903,1089,1043,1294"/>
+<area shape="poly" title=" " alt="" coords="1025,765,1044,801,1059,840,1057,874,1046,931,1010,1074,1004,1072,1041,930,1052,873,1053,841,1039,804,1020,768"/>
+<area shape="rect" href="../../d2/de2/struct_skidpad_config.html" title="struct for the configuration of the smoothing algorithm" alt="" coords="545,631,671,737"/>
+<area shape="poly" title=" " alt="" coords="584,738,563,787,548,841,537,919,534,998,540,1132,535,1133,529,998,532,919,542,840,558,785,579,736"/>
+<area shape="rect" href="../../de/d3f/class_skidpad.html" title="class that defines the skidpad path algorithm" alt="" coords="669,1089,838,1294"/>
+<area shape="poly" title=" " alt="" coords="618,736,641,855,674,967,711,1072,706,1074,669,969,636,856,613,737"/>
+<area shape="rect" href="../../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="1224,298,1371,458"/>
+<area shape="poly" title=" " alt="" coords="1359,457,1385,502,1404,551,1415,606,1420,669,1420,739,1416,813,1397,969,1369,1126,1337,1270,1307,1390,1274,1505,1232,1580,1181,1652,1126,1716,1074,1772,1070,1768,1122,1713,1177,1649,1227,1578,1270,1503,1302,1388,1332,1269,1364,1125,1392,968,1411,812,1415,738,1415,669,1410,607,1399,552,1380,504,1355,459"/>
+<area shape="poly" title=" " alt="" coords="1307,458,1311,541,1312,641,1306,749,1292,856,1268,950,1263,949,1287,855,1301,748,1306,641,1305,541,1301,458"/>
+<area shape="poly" title=" " alt="" coords="1232,460,1200,513,1186,556,1180,554,1196,511,1227,457"/>
+<area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="1224,5,1371,205"/>
+<area shape="poly" title=" " alt="" coords="1300,205,1300,281,1295,281,1295,205"/>
+<area shape="poly" title=" " alt="" coords="100,1251,108,1309,125,1375,152,1442,170,1474,191,1502,227,1540,266,1575,351,1637,443,1691,538,1735,631,1772,721,1801,872,1839,870,1844,719,1806,630,1777,535,1740,441,1695,348,1642,263,1579,224,1543,187,1505,165,1477,147,1445,120,1377,103,1310,95,1252"/>
+<area shape="poly" title=" " alt="" coords="1105,1504,1095,1543,1067,1628,1062,1627,1089,1542,1100,1503"/>
+<area shape="poly" title=" " alt="" coords="1167,796,1167,863,1161,863,1161,796"/>
+<area shape="poly" title=" " alt="" coords="297,1253,372,1374,421,1440,475,1502,574,1592,680,1674,784,1745,874,1801,872,1805,781,1749,677,1678,571,1596,471,1506,417,1443,368,1377,292,1256"/>
+<area shape="poly" title=" " alt="" coords="976,1294,976,1550,971,1550,971,1294"/>
+<area shape="poly" title=" " alt="" coords="789,1293,885,1582,879,1584,784,1295"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -198,9 +195,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af96e527b6595820c565d6beeafe3da5f" id="r_af96e527b6595820c565d6beeafe3da5f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d1d/class_eufs_adapter.html#af96e527b6595820c565d6beeafe3da5f">EufsAdapter</a> (const <a class="el" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a> &amp;params)</td></tr>
 <tr class="separator:af96e527b6595820c565d6beeafe3da5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf7089ed69eb7488fae4904f66f1e2b8" id="r_acf7089ed69eb7488fae4904f66f1e2b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d1d/class_eufs_adapter.html#acf7089ed69eb7488fae4904f66f1e2b8">vehicle_state_callback</a> (const eufs_msgs::msg::CarState &amp;msg)</td></tr>
+<tr class="memdesc:acf7089ed69eb7488fae4904f66f1e2b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for velocities and poses, which are coupled in EUFS.  <br /></td></tr>
 <tr class="separator:acf7089ed69eb7488fae4904f66f1e2b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b651290afda6ce152e7fc625302e533" id="r_a3b651290afda6ce152e7fc625302e533"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d1d/class_eufs_adapter.html#a3b651290afda6ce152e7fc625302e533">publish_cmd</a> (double acceleration=0, double steering=0) override</td></tr>
-<tr class="separator:a3b651290afda6ce152e7fc625302e533"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86cffd579b46dc464ce9194a45efbacf" id="r_a86cffd579b46dc464ce9194a45efbacf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d1d/class_eufs_adapter.html#a86cffd579b46dc464ce9194a45efbacf">publish_command</a> (<a class="el" href="../../da/d16/structcommon__lib_1_1structures_1_1_control_command.html">common_lib::structures::ControlCommand</a> cmd) override</td></tr>
+<tr class="memdesc:a86cffd579b46dc464ce9194a45efbacf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adapters override this function to publish control commands in their environment.  <br /></td></tr>
+<tr class="separator:a86cffd579b46dc464ce9194a45efbacf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01050294fc148f252fa283d2828a4613" id="r_a01050294fc148f252fa283d2828a4613"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d1d/class_eufs_adapter.html#a01050294fc148f252fa283d2828a4613">EufsAdapter</a> (std::shared_ptr&lt; <a class="el" href="../../d4/d43/class_s_e_node.html">SENode</a> &gt; se_node)</td></tr>
 <tr class="separator:a01050294fc148f252fa283d2828a4613"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ad951a56a38fd25acd7febf83004f5c" id="r_a7ad951a56a38fd25acd7febf83004f5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d1d/class_eufs_adapter.html#a7ad951a56a38fd25acd7febf83004f5c">mission_state_callback</a> (const eufs_msgs::msg::CanState &amp;msg) const</td></tr>
@@ -225,12 +224,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a501d731335e6ff602ec145d9e655d4e3" id="r_a501d731335e6ff602ec145d9e655d4e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d1d/class_eufs_adapter.html#a501d731335e6ff602ec145d9e655d4e3">finish</a> () override</td></tr>
 <tr class="memdesc:a501d731335e6ff602ec145d9e655d4e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function that sends the finish signal to the respective node.  <br /></td></tr>
 <tr class="separator:a501d731335e6ff602ec145d9e655d4e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_control"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_control')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d7/d49/class_control.html">Control</a></td></tr>
-<tr class="memitem:a6e25ac7cb5a0e306e072388e62f5c84d inherit pub_methods_class_control" id="r_a6e25ac7cb5a0e306e072388e62f5c84d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#a6e25ac7cb5a0e306e072388e62f5c84d">Control</a> (const <a class="el" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a> &amp;params)</td></tr>
-<tr class="separator:a6e25ac7cb5a0e306e072388e62f5c84d inherit pub_methods_class_control"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad14d8041b3b0b0c567e6ef8adc09488f inherit pub_methods_class_control" id="r_ad14d8041b3b0b0c567e6ef8adc09488f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#ad14d8041b3b0b0c567e6ef8adc09488f">publish_control</a> (const custom_interfaces::msg::Pose &amp;vehicle_state_msg)</td></tr>
-<tr class="memdesc:ad14d8041b3b0b0c567e6ef8adc09488f inherit pub_methods_class_control"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes the steering angle to the car based on the path and pose using cache.  <br /></td></tr>
-<tr class="separator:ad14d8041b3b0b0c567e6ef8adc09488f inherit pub_methods_class_control"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_control_node"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_control_node')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d6/dc5/class_control_node.html">ControlNode</a></td></tr>
+<tr class="memitem:abd6f2010c9af09c52a7ac5f49a95c2ad inherit pub_methods_class_control_node" id="r_abd6f2010c9af09c52a7ac5f49a95c2ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dc5/class_control_node.html#abd6f2010c9af09c52a7ac5f49a95c2ad">ControlNode</a> (const <a class="el" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a> &amp;params)</td></tr>
+<tr class="separator:abd6f2010c9af09c52a7ac5f49a95c2ad inherit pub_methods_class_control_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_adapter"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_adapter')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d3/d7f/class_adapter.html">Adapter</a></td></tr>
 <tr class="memitem:af30f4341ffb2562f3684d0c9647081d4 inherit pub_methods_class_adapter" id="r_af30f4341ffb2562f3684d0c9647081d4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#af30f4341ffb2562f3684d0c9647081d4">Adapter</a> (std::shared_ptr&lt; <a class="el" href="../../d4/d43/class_s_e_node.html">SENode</a> &gt; se_node)</td></tr>
 <tr class="separator:af30f4341ffb2562f3684d0c9647081d4 inherit pub_methods_class_adapter"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -274,37 +270,36 @@ Private Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pub_static_methods_class_control"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_control')"><img src="../../closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="../../d7/d49/class_control.html">Control</a></td></tr>
-<tr class="memitem:a7ad204d3b2598bfc0551e604872b8354 inherit pub_static_methods_class_control" id="r_a7ad204d3b2598bfc0551e604872b8354"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#a7ad204d3b2598bfc0551e604872b8354">load_config</a> (std::string &amp;adapter)</td></tr>
-<tr class="separator:a7ad204d3b2598bfc0551e604872b8354 inherit pub_static_methods_class_control"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_methods_class_planning"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_planning')"><img src="../../closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="../../d9/db5/class_planning.html">Planning</a></td></tr>
 <tr class="memitem:a5650d2ddb277b0e80fed4c8bc72957fa inherit pub_static_methods_class_planning" id="r_a5650d2ddb277b0e80fed4c8bc72957fa"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d2/deb/struct_planning_parameters.html">PlanningParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#a5650d2ddb277b0e80fed4c8bc72957fa">load_config</a> (std::string &amp;adapter)</td></tr>
 <tr class="memdesc:a5650d2ddb277b0e80fed4c8bc72957fa inherit pub_static_methods_class_planning"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads planning configuration from YAML files.  <br /></td></tr>
 <tr class="separator:a5650d2ddb277b0e80fed4c8bc72957fa inherit pub_static_methods_class_planning"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_attribs_class_control"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_control')"><img src="../../closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="../../d7/d49/class_control.html">Control</a></td></tr>
-<tr class="memitem:ab5be2565669a71d9d52221b16499479d inherit pub_attribs_class_control" id="r_ab5be2565669a71d9d52221b16499479d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#ab5be2565669a71d9d52221b16499479d">using_simulated_slam_</a> {false}</td></tr>
-<tr class="separator:ab5be2565669a71d9d52221b16499479d inherit pub_attribs_class_control"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3716b2ba4bb4995e5d1c91a668a0409c inherit pub_attribs_class_control" id="r_a3716b2ba4bb4995e5d1c91a668a0409c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#a3716b2ba4bb4995e5d1c91a668a0409c">using_simulated_velocities_</a> {false}</td></tr>
-<tr class="separator:a3716b2ba4bb4995e5d1c91a668a0409c inherit pub_attribs_class_control"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a7d5c79dcea2577ef224feeddcdac99 inherit pub_attribs_class_control" id="r_a8a7d5c79dcea2577ef224feeddcdac99"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#a8a7d5c79dcea2577ef224feeddcdac99">go_signal_</a> {false}</td></tr>
-<tr class="separator:a8a7d5c79dcea2577ef224feeddcdac99 inherit pub_attribs_class_control"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b5f62e2d4243eaf69750f13c6b4c8d8 inherit pub_attribs_class_control" id="r_a4b5f62e2d4243eaf69750f13c6b4c8d8"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#a4b5f62e2d4243eaf69750f13c6b4c8d8">velocity_</a> {0.0}</td></tr>
-<tr class="separator:a4b5f62e2d4243eaf69750f13c6b4c8d8 inherit pub_attribs_class_control"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d9e18fcc518294945ebeef9cab2aa56 inherit pub_attribs_class_control" id="r_a8d9e18fcc518294945ebeef9cab2aa56"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#a8d9e18fcc518294945ebeef9cab2aa56">throttle_command_</a> {0.0}</td></tr>
-<tr class="separator:a8d9e18fcc518294945ebeef9cab2aa56 inherit pub_attribs_class_control"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1774ac17f35218f64d069ae70c807f37 inherit pub_attribs_class_control" id="r_a1774ac17f35218f64d069ae70c807f37"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#a1774ac17f35218f64d069ae70c807f37">steering_command_</a> {0.0}</td></tr>
-<tr class="separator:a1774ac17f35218f64d069ae70c807f37 inherit pub_attribs_class_control"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a861e02bc97a09435921bb476e29001b1 inherit pub_attribs_class_control" id="r_a861e02bc97a09435921bb476e29001b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#a861e02bc97a09435921bb476e29001b1">params_</a></td></tr>
-<tr class="separator:a861e02bc97a09435921bb476e29001b1 inherit pub_attribs_class_control"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_class_adapter"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_adapter')"><img src="../../closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="../../d3/d7f/class_adapter.html">Adapter</a></td></tr>
 <tr class="memitem:a702c7aa0062af19c90ba6148d2683079 inherit pub_attribs_class_adapter" id="r_a702c7aa0062af19c90ba6148d2683079"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d4/d43/class_s_e_node.html">SENode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a702c7aa0062af19c90ba6148d2683079">node_</a></td></tr>
 <tr class="separator:a702c7aa0062af19c90ba6148d2683079 inherit pub_attribs_class_adapter"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54d44dae043d0daa8a2ca95c8ddd4048 inherit pub_attribs_class_adapter" id="r_a54d44dae043d0daa8a2ca95c8ddd4048"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; sensor_msgs::msg::Imu &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a54d44dae043d0daa8a2ca95c8ddd4048">_imu_subscription_</a></td></tr>
 <tr class="separator:a54d44dae043d0daa8a2ca95c8ddd4048 inherit pub_attribs_class_adapter"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_class_control_node"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_control_node')"><img src="../../closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="../../d6/dc5/class_control_node.html">ControlNode</a></td></tr>
+<tr class="memitem:a73f934ff5ed27706be539777807b2a5f inherit pro_methods_class_control_node" id="r_a73f934ff5ed27706be539777807b2a5f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dc5/class_control_node.html#a73f934ff5ed27706be539777807b2a5f">vehicle_pose_callback</a> (const custom_interfaces::msg::Pose &amp;msg)</td></tr>
+<tr class="memdesc:a73f934ff5ed27706be539777807b2a5f inherit pro_methods_class_control_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when a new vehicle pose is received.  <br /></td></tr>
+<tr class="separator:a73f934ff5ed27706be539777807b2a5f inherit pro_methods_class_control_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3d671344ef2d630f7ad32d5daf36f01 inherit pro_methods_class_control_node" id="r_ab3d671344ef2d630f7ad32d5daf36f01"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dc5/class_control_node.html#ab3d671344ef2d630f7ad32d5daf36f01">path_callback</a> (const custom_interfaces::msg::PathPointArray &amp;msg)</td></tr>
+<tr class="memdesc:ab3d671344ef2d630f7ad32d5daf36f01 inherit pro_methods_class_control_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when a new path is received.  <br /></td></tr>
+<tr class="separator:ab3d671344ef2d630f7ad32d5daf36f01 inherit pro_methods_class_control_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56019e5aed0f23a8ff5c9d6f8868c025 inherit pro_methods_class_control_node" id="r_a56019e5aed0f23a8ff5c9d6f8868c025"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dc5/class_control_node.html#a56019e5aed0f23a8ff5c9d6f8868c025">vehicle_state_callback</a> (const custom_interfaces::msg::Velocities &amp;msg)</td></tr>
+<tr class="memdesc:a56019e5aed0f23a8ff5c9d6f8868c025 inherit pro_methods_class_control_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when a new velocity is received.  <br /></td></tr>
+<tr class="separator:a56019e5aed0f23a8ff5c9d6f8868c025 inherit pro_methods_class_control_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_class_control_node"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_control_node')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d6/dc5/class_control_node.html">ControlNode</a></td></tr>
+<tr class="memitem:a52b2b48ad5da99dfbb3a057976283502 inherit pro_attribs_class_control_node" id="r_a52b2b48ad5da99dfbb3a057976283502"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dc5/class_control_node.html#a52b2b48ad5da99dfbb3a057976283502">go_signal_</a> {false}</td></tr>
+<tr class="separator:a52b2b48ad5da99dfbb3a057976283502 inherit pro_attribs_class_control_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6edc6ce661a5de5024c07c0667f10281 inherit pro_attribs_class_control_node" id="r_a6edc6ce661a5de5024c07c0667f10281"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dc5/class_control_node.html#a6edc6ce661a5de5024c07c0667f10281">params_</a></td></tr>
+<tr class="separator:a6edc6ce661a5de5024c07c0667f10281 inherit pro_attribs_class_control_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/control_2include_2adapter__control_2eufs_8hpp_source.html#l00007">7</a> of file <a class="el" href="../../d3/d4a/control_2include_2adapter__control_2eufs_8hpp_source.html">eufs.hpp</a>.</p>
+<div class="textblock"><p><a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a> class to interface with the EUFS simulator. </p>
+<p>Works on a publish-subscribe model. Publishes commands to the simulator in the form of AckermannDriveStamped messages and subscribes to CarState messages if using simulated SLAM. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d1/d9c/control_2include_2adapter_2eufs_8hpp_source.html#l00014">14</a> of file <a class="el" href="../../d1/d9c/control_2include_2adapter_2eufs_8hpp_source.html">eufs.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af96e527b6595820c565d6beeafe3da5f" name="af96e527b6595820c565d6beeafe3da5f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af96e527b6595820c565d6beeafe3da5f">&#9670;&#160;</a></span>EufsAdapter() <span class="overload">[1/3]</span></h2>
@@ -330,60 +325,17 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d0/dd0/control_2src_2adapter__control_2eufs_8cpp_source.html#l00006">6</a> of file <a class="el" href="../../d0/dd0/control_2src_2adapter__control_2eufs_8cpp_source.html">eufs.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d39/control_2src_2adapter_2eufs_8cpp_source.html#l00003">3</a> of file <a class="el" href="../../d9/d39/control_2src_2adapter_2eufs_8cpp_source.html">eufs.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d1d/class_eufs_adapter_af96e527b6595820c565d6beeafe3da5f_cgraph.png" border="0" usemap="#ad0/d1d/class_eufs_adapter_af96e527b6595820c565d6beeafe3da5f_cgraph" alt=""/></div>
 <map name="ad0/d1d/class_eufs_adapter_af96e527b6595820c565d6beeafe3da5f_cgraph" id="ad0/d1d/class_eufs_adapter_af96e527b6595820c565d6beeafe3da5f_cgraph">
-<area shape="rect" title=" " alt="" coords="5,378,175,404"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#acf7089ed69eb7488fae4904f66f1e2b8" title=" " alt="" coords="223,371,362,411"/>
-<area shape="poly" title=" " alt="" coords="175,388,207,388,207,394,175,394"/>
-<area shape="rect" href="../../d7/d49/class_control.html#ad14d8041b3b0b0c567e6ef8adc09488f" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="410,378,565,404"/>
-<area shape="poly" title=" " alt="" coords="362,388,394,388,394,394,362,394"/>
-<area shape="rect" href="../../dc/dde/class_pure_pursuit.html#ab921e5033e736078b4adb269525f6dde" title="Pure Pursuit control law." alt="" coords="642,243,804,283"/>
-<area shape="poly" title=" " alt="" coords="512,375,669,289,672,293,515,380"/>
-<area shape="rect" href="../../d7/d49/class_control.html#a72c77dbeea43a931a035127402075189" title=" " alt="" coords="622,193,824,219"/>
-<area shape="poly" title=" " alt="" coords="493,376,510,346,535,306,570,264,612,229,622,223,625,228,615,233,574,268,540,309,514,349,498,379"/>
-<area shape="rect" href="../../d7/d49/class_control.html#ad54ef9c0479f65c23b5312b926535e75" title=" " alt="" coords="613,101,833,127"/>
-<area shape="poly" title=" " alt="" coords="492,377,534,288,569,231,611,178,643,152,677,132,680,136,646,156,615,182,573,234,538,290,497,379"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="679,378,767,404"/>
-<area shape="poly" title=" " alt="" coords="566,388,663,388,663,394,566,394"/>
-<area shape="rect" href="../../d9/da5/class_point_solver.html#a94c8ce68f4b5c7808885e713850365db" title="Find the closest point on the path." alt="" coords="656,436,790,477"/>
-<area shape="poly" title=" " alt="" coords="537,402,642,431,641,436,536,407"/>
-<area shape="rect" href="../../d9/da5/class_point_solver.html#ad11abaf305721e003e1c952e37e1320e" title="Update Lookahead point." alt="" coords="656,519,790,559"/>
-<area shape="poly" title=" " alt="" coords="506,402,553,442,615,486,658,509,656,514,612,491,550,446,502,407"/>
-<area shape="rect" href="../../d9/da5/class_point_solver.html#aa0c3ff7898b19034c85d7d2a096651d2" title="Update vehicle pose." alt="" coords="656,619,790,659"/>
-<area shape="poly" title=" " alt="" coords="498,403,542,478,576,525,615,569,641,590,668,608,665,613,638,594,611,573,572,529,538,481,493,405"/>
-<area shape="rect" href="../../dc/dde/class_pure_pursuit.html#ae07038f1c02256819e50a7878797d1ac" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="911,136,1059,177"/>
-<area shape="poly" title=" " alt="" coords="803,240,831,229,855,211,879,193,904,181,906,186,882,197,858,215,834,233,805,245"/>
-<area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a7ce25e8e5e8c05f720cd644b35134051" title=" " alt="" coords="1152,367,1307,423"/>
-<area shape="poly" title=" " alt="" coords="804,246,881,236,963,228,1037,227,1067,230,1090,237,1128,259,1160,289,1187,322,1208,352,1203,355,1183,325,1156,293,1124,264,1088,241,1066,235,1037,232,963,233,881,241,805,252"/>
-<area shape="rect" href="../../d9/d8a/namespacecommon__lib_1_1structures.html#a985cd88a640d3c7ccc3f8d5094272843" title="Calculate the cross product of two vectors." alt="" coords="1152,136,1307,177"/>
-<area shape="poly" title=" " alt="" coords="1059,154,1136,154,1136,159,1059,159"/>
-<area shape="poly" title=" " alt="" coords="1060,175,1091,193,1130,230,1163,272,1211,352,1207,355,1159,275,1126,233,1087,197,1057,180"/>
-<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966" title="Converts a position to a marker." alt="" coords="892,71,1078,111"/>
-<area shape="poly" title=" " alt="" coords="833,101,877,98,877,103,833,107"/>
-<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="1137,5,1322,46"/>
-<area shape="poly" title=" " alt="" coords="1063,67,1135,48,1137,53,1064,73"/>
-<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="1137,71,1322,111"/>
-<area shape="poly" title=" " alt="" coords="1078,88,1122,88,1122,94,1078,94"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#aa587fab53433af6127bbc5c7fdf50a35" title="Anti&#45;wind&#45;up via dynamic integrator clamping." alt="" coords="922,252,1048,277"/>
-<area shape="poly" title=" " alt="" coords="739,375,799,331,838,307,880,286,907,276,908,281,882,291,840,312,802,336,742,380"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a5748127c7eb3f374fd599576a822abcd" title="Calculate the derivative term (derivative on measurement)" alt="" coords="886,301,1084,327"/>
-<area shape="poly" title=" " alt="" coords="759,375,880,335,906,328,907,333,881,340,761,380"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#abbd48a33a97a7dbc49e75050bef0146c" title="Calculate the error signal." alt="" coords="918,350,1052,376"/>
-<area shape="poly" title=" " alt="" coords="767,384,902,369,903,374,768,389"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a05352c1a64fe0e13588291ccf450bace" title="Calculate the integral term." alt="" coords="893,400,1077,425"/>
-<area shape="poly" title=" " alt="" coords="768,392,878,401,877,406,767,397"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#afeb910407a0ec97035fd19f97cbfae1c" title="Calculate the proportional term." alt="" coords="881,449,1089,475"/>
-<area shape="poly" title=" " alt="" coords="767,402,881,435,909,442,907,447,880,440,766,407"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a5a8397dc4b3e36d1db9ea2f1b8fb91a4" title="Compute the output value and apply limits." alt="" coords="914,498,1056,524"/>
-<area shape="poly" title=" " alt="" coords="768,395,802,405,834,422,850,438,859,455,867,470,882,485,900,494,898,499,879,489,863,474,854,457,846,441,831,426,800,410,767,400"/>
-<area shape="poly" title=" " alt="" coords="773,475,834,505,857,521,882,534,939,549,986,556,1032,552,1088,534,1122,515,1153,489,1200,434,1204,437,1156,493,1125,519,1090,539,1033,558,986,562,938,555,880,539,855,526,831,509,771,480"/>
-<area shape="poly" title=" " alt="" coords="783,557,848,574,927,586,968,587,1009,584,1050,576,1088,562,1126,537,1159,504,1186,468,1206,435,1210,438,1190,471,1163,508,1130,541,1090,567,1051,581,1010,589,968,592,926,591,847,580,782,562"/>
-<area shape="rect" href="../../d6/d89/class_bicycle_model.html#af0255660859d8df684381332a87114a7" title="Calculates the position of the rear axis given the position of the center of mass,..." alt="" coords="922,649,1048,690"/>
-<area shape="poly" title=" " alt="" coords="790,644,907,658,906,663,790,649"/>
+<area shape="rect" title=" " alt="" coords="5,13,175,39"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#acf7089ed69eb7488fae4904f66f1e2b8" title="Callback function for velocities and poses, which are coupled in EUFS." alt="" coords="223,5,362,46"/>
+<area shape="poly" title=" " alt="" coords="175,23,207,23,207,28,175,28"/>
+<area shape="rect" href="../../d6/dc5/class_control_node.html#a73f934ff5ed27706be539777807b2a5f" title="Called when a new vehicle pose is received." alt="" coords="410,5,550,46"/>
+<area shape="poly" title=" " alt="" coords="363,23,395,23,395,28,363,28"/>
 </map>
 </div>
 
@@ -1081,8 +1033,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a3b651290afda6ce152e7fc625302e533" name="a3b651290afda6ce152e7fc625302e533"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b651290afda6ce152e7fc625302e533">&#9670;&#160;</a></span>publish_cmd()</h2>
+<a id="a86cffd579b46dc464ce9194a45efbacf" name="a86cffd579b46dc464ce9194a45efbacf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86cffd579b46dc464ce9194a45efbacf">&#9670;&#160;</a></span>publish_command()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1091,21 +1043,11 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void EufsAdapter::publish_cmd </td>
+          <td class="memname">void EufsAdapter::publish_command </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>acceleration</em> = <code>0</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="../../da/d16/structcommon__lib_1_1structures_1_1_control_command.html">common_lib::structures::ControlCommand</a>&#160;</td>
+          <td class="paramname"><em>cmd</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>steering</em> = <code>0</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -1115,9 +1057,17 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="../../d7/d49/class_control.html#a23d410d03e7229c173efb6c39e8d271e">Control</a>.</p>
+<p>Adapters override this function to publish control commands in their environment. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmd</td><td>Control command to be published </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/dd0/control_2src_2adapter__control_2eufs_8cpp_source.html#l00037">37</a> of file <a class="el" href="../../d0/dd0/control_2src_2adapter__control_2eufs_8cpp_source.html">eufs.cpp</a>.</p>
+<p>Implements <a class="el" href="../../d6/dc5/class_control_node.html#a676e3848ca5d5266c7e65e77795623c0">ControlNode</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="../../d9/d39/control_2src_2adapter_2eufs_8cpp_source.html#l00034">34</a> of file <a class="el" href="../../d9/d39/control_2src_2adapter_2eufs_8cpp_source.html">eufs.cpp</a>.</p>
 
 </div>
 </div>
@@ -1167,58 +1117,17 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d0/dd0/control_2src_2adapter__control_2eufs_8cpp_source.html#l00022">22</a> of file <a class="el" href="../../d0/dd0/control_2src_2adapter__control_2eufs_8cpp_source.html">eufs.cpp</a>.</p>
+<p>Callback function for velocities and poses, which are coupled in EUFS. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d9/d39/control_2src_2adapter_2eufs_8cpp_source.html#l00019">19</a> of file <a class="el" href="../../d9/d39/control_2src_2adapter_2eufs_8cpp_source.html">eufs.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d1d/class_eufs_adapter_acf7089ed69eb7488fae4904f66f1e2b8_cgraph.png" border="0" usemap="#ad0/d1d/class_eufs_adapter_acf7089ed69eb7488fae4904f66f1e2b8_cgraph" alt=""/></div>
 <map name="ad0/d1d/class_eufs_adapter_acf7089ed69eb7488fae4904f66f1e2b8_cgraph" id="ad0/d1d/class_eufs_adapter_acf7089ed69eb7488fae4904f66f1e2b8_cgraph">
-<area shape="rect" title=" " alt="" coords="5,371,145,411"/>
-<area shape="rect" href="../../d7/d49/class_control.html#ad14d8041b3b0b0c567e6ef8adc09488f" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="193,378,348,404"/>
-<area shape="poly" title=" " alt="" coords="145,388,177,388,177,394,145,394"/>
-<area shape="rect" href="../../dc/dde/class_pure_pursuit.html#ab921e5033e736078b4adb269525f6dde" title="Pure Pursuit control law." alt="" coords="425,243,587,283"/>
-<area shape="poly" title=" " alt="" coords="295,375,452,289,455,293,297,380"/>
-<area shape="rect" href="../../d7/d49/class_control.html#a72c77dbeea43a931a035127402075189" title=" " alt="" coords="405,193,606,219"/>
-<area shape="poly" title=" " alt="" coords="276,376,292,346,318,306,353,264,394,229,405,223,408,228,398,233,356,268,322,309,297,349,280,379"/>
-<area shape="rect" href="../../d7/d49/class_control.html#ad54ef9c0479f65c23b5312b926535e75" title=" " alt="" coords="396,101,615,127"/>
-<area shape="poly" title=" " alt="" coords="274,377,316,288,351,231,394,178,426,152,460,132,463,136,429,156,398,182,356,234,321,290,279,379"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="462,378,550,404"/>
-<area shape="poly" title=" " alt="" coords="348,388,446,388,446,394,348,394"/>
-<area shape="rect" href="../../d9/da5/class_point_solver.html#a94c8ce68f4b5c7808885e713850365db" title="Find the closest point on the path." alt="" coords="439,436,572,477"/>
-<area shape="poly" title=" " alt="" coords="320,402,425,431,423,436,319,407"/>
-<area shape="rect" href="../../d9/da5/class_point_solver.html#ad11abaf305721e003e1c952e37e1320e" title="Update Lookahead point." alt="" coords="439,519,572,559"/>
-<area shape="poly" title=" " alt="" coords="288,402,335,442,397,486,441,509,438,514,395,491,332,446,285,407"/>
-<area shape="rect" href="../../d9/da5/class_point_solver.html#aa0c3ff7898b19034c85d7d2a096651d2" title="Update vehicle pose." alt="" coords="439,619,572,659"/>
-<area shape="poly" title=" " alt="" coords="281,403,325,478,359,525,398,569,423,590,451,608,448,613,420,594,394,573,354,529,320,481,276,405"/>
-<area shape="rect" href="../../dc/dde/class_pure_pursuit.html#ae07038f1c02256819e50a7878797d1ac" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="694,136,841,177"/>
-<area shape="poly" title=" " alt="" coords="586,240,614,229,638,211,662,193,687,181,689,186,665,197,641,215,617,233,588,245"/>
-<area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a7ce25e8e5e8c05f720cd644b35134051" title=" " alt="" coords="935,367,1090,423"/>
-<area shape="poly" title=" " alt="" coords="587,246,663,236,745,228,820,227,850,230,873,237,910,259,943,289,970,322,990,352,986,355,965,325,939,293,907,264,871,241,849,235,819,232,746,233,664,241,588,252"/>
-<area shape="rect" href="../../d9/d8a/namespacecommon__lib_1_1structures.html#a985cd88a640d3c7ccc3f8d5094272843" title="Calculate the cross product of two vectors." alt="" coords="935,136,1090,177"/>
-<area shape="poly" title=" " alt="" coords="841,154,919,154,919,159,841,159"/>
-<area shape="poly" title=" " alt="" coords="843,175,873,193,912,230,946,272,994,352,989,355,941,275,908,233,870,197,840,180"/>
-<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966" title="Converts a position to a marker." alt="" coords="675,71,860,111"/>
-<area shape="poly" title=" " alt="" coords="616,101,659,98,660,103,616,107"/>
-<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="920,5,1105,46"/>
-<area shape="poly" title=" " alt="" coords="846,67,918,48,919,53,847,73"/>
-<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="920,71,1105,111"/>
-<area shape="poly" title=" " alt="" coords="861,88,904,88,904,94,861,94"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#aa587fab53433af6127bbc5c7fdf50a35" title="Anti&#45;wind&#45;up via dynamic integrator clamping." alt="" coords="705,252,830,277"/>
-<area shape="poly" title=" " alt="" coords="522,375,581,331,621,307,662,286,689,276,691,281,664,291,623,312,584,336,525,380"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a5748127c7eb3f374fd599576a822abcd" title="Calculate the derivative term (derivative on measurement)" alt="" coords="669,301,866,327"/>
-<area shape="poly" title=" " alt="" coords="542,375,663,335,689,328,690,333,664,340,544,380"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#abbd48a33a97a7dbc49e75050bef0146c" title="Calculate the error signal." alt="" coords="700,350,835,376"/>
-<area shape="poly" title=" " alt="" coords="550,384,685,369,685,374,551,389"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a05352c1a64fe0e13588291ccf450bace" title="Calculate the integral term." alt="" coords="676,400,859,425"/>
-<area shape="poly" title=" " alt="" coords="551,392,660,401,660,406,550,397"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#afeb910407a0ec97035fd19f97cbfae1c" title="Calculate the proportional term." alt="" coords="663,449,872,475"/>
-<area shape="poly" title=" " alt="" coords="550,402,664,435,691,442,690,447,663,440,549,407"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a5a8397dc4b3e36d1db9ea2f1b8fb91a4" title="Compute the output value and apply limits." alt="" coords="696,498,839,524"/>
-<area shape="poly" title=" " alt="" coords="551,395,585,405,617,422,633,438,641,455,650,470,665,485,683,494,680,499,662,489,645,474,637,457,629,441,614,426,583,410,550,400"/>
-<area shape="poly" title=" " alt="" coords="556,475,617,505,640,521,664,534,722,549,769,556,815,552,871,534,905,515,935,489,983,434,987,437,939,493,908,519,873,539,816,558,769,562,721,555,662,539,637,526,614,509,553,480"/>
-<area shape="poly" title=" " alt="" coords="566,557,631,574,709,586,751,587,792,584,832,576,870,562,909,537,942,504,968,468,989,435,993,438,973,471,946,508,912,541,873,567,834,581,793,589,751,592,709,591,630,580,565,562"/>
-<area shape="rect" href="../../d6/d89/class_bicycle_model.html#af0255660859d8df684381332a87114a7" title="Calculates the position of the rear axis given the position of the center of mass,..." alt="" coords="704,649,831,690"/>
-<area shape="poly" title=" " alt="" coords="573,644,690,658,689,663,572,649"/>
+<area shape="rect" title="Callback function for velocities and poses, which are coupled in EUFS." alt="" coords="5,5,145,46"/>
+<area shape="rect" href="../../d6/dc5/class_control_node.html#a73f934ff5ed27706be539777807b2a5f" title="Called when a new vehicle pose is received." alt="" coords="193,5,333,46"/>
+<area shape="poly" title=" " alt="" coords="145,23,177,23,177,28,145,28"/>
 </map>
 </div>
 <div class="dynheader">
@@ -1226,7 +1135,7 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d1d/class_eufs_adapter_acf7089ed69eb7488fae4904f66f1e2b8_icgraph.png" border="0" usemap="#ad0/d1d/class_eufs_adapter_acf7089ed69eb7488fae4904f66f1e2b8_icgraph" alt=""/></div>
 <map name="ad0/d1d/class_eufs_adapter_acf7089ed69eb7488fae4904f66f1e2b8_icgraph" id="ad0/d1d/class_eufs_adapter_acf7089ed69eb7488fae4904f66f1e2b8_icgraph">
-<area shape="rect" title=" " alt="" coords="223,5,362,46"/>
+<area shape="rect" title="Callback function for velocities and poses, which are coupled in EUFS." alt="" coords="223,5,362,46"/>
 <area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#af96e527b6595820c565d6beeafe3da5f" title=" " alt="" coords="5,13,175,39"/>
 <area shape="poly" title=" " alt="" coords="207,28,175,28,175,23,207,23"/>
 </map>
@@ -1337,7 +1246,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/control_2include_2adapter__control_2eufs_8hpp_source.html#l00009">9</a> of file <a class="el" href="../../d3/d4a/control_2include_2adapter__control_2eufs_8hpp_source.html">eufs.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d9c/control_2include_2adapter_2eufs_8hpp_source.html#l00016">16</a> of file <a class="el" href="../../d1/d9c/control_2include_2adapter_2eufs_8hpp_source.html">eufs.hpp</a>.</p>
 
 </div>
 </div>
@@ -1505,15 +1414,15 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/control_2include_2adapter__control_2eufs_8hpp_source.html#l00010">10</a> of file <a class="el" href="../../d3/d4a/control_2include_2adapter__control_2eufs_8hpp_source.html">eufs.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d9c/control_2include_2adapter_2eufs_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../d1/d9c/control_2include_2adapter_2eufs_8hpp_source.html">eufs.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/control/include/adapter_control/<a class="el" href="../../d3/d4a/control_2include_2adapter__control_2eufs_8hpp_source.html">eufs.hpp</a></li>
+<li>src/control/include/adapter/<a class="el" href="../../d1/d9c/control_2include_2adapter_2eufs_8hpp_source.html">eufs.hpp</a></li>
 <li>src/ekf_state_est/include/adapter_ekf_state_est/<a class="el" href="../../d9/d1b/ekf__state__est_2include_2adapter__ekf__state__est_2eufs_8hpp_source.html">eufs.hpp</a></li>
 <li>src/planning/include/adapter_planning/<a class="el" href="../../d0/d72/planning_2include_2adapter__planning_2eufs_8hpp_source.html">eufs.hpp</a></li>
-<li>src/control/src/adapter_control/<a class="el" href="../../d0/dd0/control_2src_2adapter__control_2eufs_8cpp_source.html">eufs.cpp</a></li>
+<li>src/control/src/adapter/<a class="el" href="../../d9/d39/control_2src_2adapter_2eufs_8cpp_source.html">eufs.cpp</a></li>
 <li>src/ekf_state_est/src/adapter_ekf_state_est/<a class="el" href="../../db/d6b/ekf__state__est_2src_2adapter__ekf__state__est_2eufs_8cpp_source.html">eufs.cpp</a></li>
 <li>src/planning/src/adapter_planning/<a class="el" href="../../d0/dce/planning_2src_2adapter__planning_2eufs_8cpp_source.html">eufs.cpp</a></li>
 </ul>

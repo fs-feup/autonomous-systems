@@ -1,5 +1,7 @@
 <map id="create_path_msg" name="create_path_msg">
-<area shape="rect" id="Node000001" title="Reads track files and creates a PathPointArray message." alt="" coords="108,5,229,31"/>
-<area shape="rect" id="Node000002" href="$d8/d8c/psolver__test_8cpp.html#a8d74cb064ec790a0f3d4db3ab2cd4172" title="Test Point Solver &#45; update_closest_point()" alt="" coords="5,5,60,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,21,60,21,60,16,92,16"/>
+<area shape="rect" id="Node000001" title="Reads track files and creates a PathPointArray message." alt="" coords="108,31,229,56"/>
+<area shape="rect" id="Node000002" href="$dd/d68/control_2test_2utils_2utils__test_8cpp.html#a8d74cb064ec790a0f3d4db3ab2cd4172" title="Test Point Solver &#45; get_closest_point()" alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,32,60,26,61,21,92,27"/>
+<area shape="rect" id="Node000003" href="$dd/d68/control_2test_2utils_2utils__test_8cpp.html#aa527f0a4d89eafe54c175d40ef51193a" title="Test Point Solver &#45; update_lookahead_point()" alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="92,60,61,65,60,60,92,54"/>
 </map>

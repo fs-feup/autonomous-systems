@@ -1,0 +1,23 @@
+<map id="PID::get_throttle_command" name="PID::get_throttle_command">
+<area shape="rect" id="Node000001" title="Returns the throttle command calculated by the solver (only throttle)" alt="" coords="5,103,184,129"/>
+<area shape="rect" id="Node000002" href="$da/d3b/control_2src_2utils_2utils_8cpp.html#abc841ff1f30fff8e3601c0eb3c5a952b" title="Find the closest point on the path." alt="" coords="233,38,356,63"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="135,100,237,66,239,71,137,105"/>
+<area shape="rect" id="Node000004" href="$da/d3b/control_2src_2utils_2utils_8cpp.html#a9459abdcacae96a282cf61ff8545e8a0" title="Calculate rear axis coordinates." alt="" coords="232,103,357,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="184,113,216,113,216,119,184,119"/>
+<area shape="rect" id="Node000005" href="$d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="250,184,339,210"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="129,127,247,175,245,180,127,132"/>
+<area shape="rect" id="Node000003" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a7ce25e8e5e8c05f720cd644b35134051" title=" " alt="" coords="432,5,587,61"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="356,43,416,38,416,43,357,48"/>
+<area shape="rect" id="Node000006" href="$d6/d5a/class_p_i_d.html#aa587fab53433af6127bbc5c7fdf50a35" title="Anti&#45;wind&#45;up via dynamic integrator clamping." alt="" coords="447,86,572,111"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="310,182,351,151,404,120,431,110,433,115,406,125,354,155,313,186"/>
+<area shape="rect" id="Node000007" href="$d6/d5a/class_p_i_d.html#a5748127c7eb3f374fd599576a822abcd" title="Calculate the derivative term (derivative on measurement)" alt="" coords="411,135,608,161"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="339,184,435,162,436,167,340,190"/>
+<area shape="rect" id="Node000008" href="$d6/d5a/class_p_i_d.html#abbd48a33a97a7dbc49e75050bef0146c" title="Calculate the error signal." alt="" coords="442,184,576,210"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="339,195,426,195,426,200,339,200"/>
+<area shape="rect" id="Node000009" href="$d6/d5a/class_p_i_d.html#a05352c1a64fe0e13588291ccf450bace" title="Calculate the integral term." alt="" coords="418,234,601,259"/>
+<area shape="poly" id="edge8_Node000005_Node000009" title=" " alt="" coords="340,205,436,227,435,232,339,210"/>
+<area shape="rect" id="Node000010" href="$d6/d5a/class_p_i_d.html#afeb910407a0ec97035fd19f97cbfae1c" title="Calculate the proportional term." alt="" coords="405,283,613,309"/>
+<area shape="poly" id="edge9_Node000005_Node000010" title=" " alt="" coords="313,208,354,239,406,269,422,275,420,280,404,274,351,244,310,213"/>
+<area shape="rect" id="Node000011" href="$d6/d5a/class_p_i_d.html#a5a8397dc4b3e36d1db9ea2f1b8fb91a4" title="Compute the output value and apply limits." alt="" coords="438,332,580,358"/>
+<area shape="poly" id="edge10_Node000005_Node000011" title=" " alt="" coords="306,209,344,263,373,293,406,319,424,328,422,332,404,323,369,297,340,266,301,212"/>
+</map>

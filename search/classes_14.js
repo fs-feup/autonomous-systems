@@ -12,5 +12,6 @@ var searchData=
   ['velocityplanning_9',['VelocityPlanning',['../d3/dcc/class_velocity_planning.html',1,'']]],
   ['velocityplanningconfig_10',['VelocityPlanningConfig',['../d2/d0d/struct_velocity_planning_config.html',1,'']]],
   ['venode_11',['VENode',['../d3/d43/class_v_e_node.html',1,'']]],
-  ['veparameters_12',['VEParameters',['../d5/db7/struct_v_e_parameters.html',1,'']]]
+  ['veobservationmodel_12',['VEObservationModel',['../d3/d28/class_v_e_observation_model.html',1,'']]],
+  ['veparameters_13',['VEParameters',['../d5/db7/struct_v_e_parameters.html',1,'']]]
 ];

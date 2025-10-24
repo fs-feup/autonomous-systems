@@ -107,6 +107,7 @@ $(document).ready(function(){initNavTree('functions_func_c.html',''); initResiza
 <li>calculate_plane()&#160;:&#160;<a class="el" href="d2/d16/class_constrained_r_a_n_s_a_c.html#a9b20760ce6828bb19c90f40e1bee90d0">ConstrainedRANSAC</a></li>
 <li>calculate_proportional_term()&#160;:&#160;<a class="el" href="d6/d5a/class_p_i_d.html#afeb910407a0ec97035fd19f97cbfae1c">PID</a></li>
 <li>calculate_steering()&#160;:&#160;<a class="el" href="d4/d89/class_inspection_functions.html#a793594cd002fd71ae3501ad057d06128">InspectionFunctions</a></li>
+<li>calculate_steering_angles()&#160;:&#160;<a class="el" href="d2/dab/class_parallel_front_steering.html#a0b3b9bd673bed29edef5a94382770ac6">ParallelFrontSteering</a>, <a class="el" href="d0/db0/class_steering_model.html#a5d3360c6c11efadd99365525fd1d500b">SteeringModel</a></li>
 <li>calculate_theta()&#160;:&#160;<a class="el" href="dd/d05/classscenario__generator_1_1_point_tracker.html#a2be9e097e750cac624ddf93d3a46a789">scenario_generator.PointTracker</a></li>
 <li>calculate_throttle()&#160;:&#160;<a class="el" href="d4/d89/class_inspection_functions.html#a1000128622db49d47cc3f483dbcc9190">InspectionFunctions</a></li>
 <li>calculate_trackdrive()&#160;:&#160;<a class="el" href="d0/d89/class_path_calculation.html#ac2e533377018e222702bf3a7eef53587">PathCalculation</a></li>
@@ -126,7 +127,6 @@ $(document).ready(function(){initNavTree('functions_func_c.html',''); initResiza
 <li>CAParticleModel()&#160;:&#160;<a class="el" href="d6/dba/class_c_a_particle_model.html#a77f40768a8fa70f208ce0c1344fe0f94">CAParticleModel</a></li>
 <li>carConePolyIntersect()&#160;:&#160;<a class="el" href="de/dbe/class_competition_logic.html#a60782b55a3a6fd0a594d4f2bf2e414e5">CompetitionLogic</a></li>
 <li>CarParameters()&#160;:&#160;<a class="el" href="dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html#a77b3158dd942eadfd5a60caccbcae489">common_lib::car_parameters::CarParameters</a></li>
-<li>cg_velocity_to_wheels()&#160;:&#160;<a class="el" href="d6/d89/class_bicycle_model.html#ad6f805147dcc500d0fceb868e685325e">BicycleModel</a>, <a class="el" href="d6/d99/class_no_rear_w_s_s_bicycle_model.html#a29a60ec36428aaa56ce162ec6043a6f5">NoRearWSSBicycleModel</a>, <a class="el" href="d9/d8e/class_no_w_s_s_bicycle_model.html#a23eb1ee7c244ae77293c110fd6a36dd8">NoWSSBicycleModel</a>, <a class="el" href="db/d7d/class_s2_v_model.html#ad409dbc6fe903feb3aed01c1f0cd2072">S2VModel</a></li>
 <li>changeConeType()&#160;:&#160;<a class="el" href="d6/d51/classdraw_view_1_1draw_scene.html#a25d0c446c29b442591cabef854e6e819">drawView.drawScene</a></li>
 <li>changeLandmarkType()&#160;:&#160;<a class="el" href="d7/d8e/classmain_1_1_ui___main_window.html#ac9112ca36e696b731812ecc9f5f801c3">main.Ui_MainWindow</a></li>
 <li>changeSelectedType()&#160;:&#160;<a class="el" href="d5/da5/classdraw_view_1_1draw_view.html#ab32d9f415fa0aeaf596477303937465a">drawView.drawView</a></li>
@@ -142,13 +142,15 @@ $(document).ready(function(){initNavTree('functions_func_c.html',''); initResiza
 <li>clustering()&#160;:&#160;<a class="el" href="d9/d10/class_clustering.html#a17e55a061852f4a7d6bbb48c3dec5bba">Clustering</a>, <a class="el" href="df/d6a/class_d_b_s_c_a_n.html#a9a9605c898a26dbd557113419f4c8c6e">DBSCAN</a></li>
 <li>common_callback()&#160;:&#160;<a class="el" href="d1/daf/classdata__infrastructure_1_1data__infrastructure__node_1_1_data_infrastructure_node.html#ae6419a9a5b0cae7f03db5558002efdbe">data_infrastructure.data_infrastructure_node.DataInfrastructureNode</a></li>
 <li>CompetitionLogic()&#160;:&#160;<a class="el" href="de/dbe/class_competition_logic.html#aaec4d45f7642d3448357423bac8b5857">CompetitionLogic</a></li>
-<li>compute_and_publish_control()&#160;:&#160;<a class="el" href="dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a40a6162ec73ceaf713fba72c18805400">evaluator.evaluator.Evaluator</a></li>
+<li>compute_and_publish_control()&#160;:&#160;<a class="el" href="dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ae161b2e012fa5ccba397b2824452ad3b">evaluator.evaluator.Evaluator</a></li>
 <li>compute_and_publish_map()&#160;:&#160;<a class="el" href="dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aa63418c2499835caffa71a8676d366dd">evaluator.evaluator.Evaluator</a></li>
 <li>compute_and_publish_perception()&#160;:&#160;<a class="el" href="dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a02589b9f82e85fbc7d571fcb5ed7e73c">evaluator.evaluator.Evaluator</a></li>
 <li>compute_and_publish_planning()&#160;:&#160;<a class="el" href="dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a84ad56f4c0fcb9f96c2f93e5b3a0d356">evaluator.evaluator.Evaluator</a></li>
 <li>compute_and_publish_pose()&#160;:&#160;<a class="el" href="dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a20bb7774c5aba1a32675e5b18d0bf7b5">evaluator.evaluator.Evaluator</a></li>
 <li>compute_and_publish_velocities()&#160;:&#160;<a class="el" href="dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a1a21df26c6e62443fabf42f98ef7f6cd">evaluator.evaluator.Evaluator</a></li>
+<li>compute_loads()&#160;:&#160;<a class="el" href="d4/da2/class_load_transfer_model.html#a8a43b018a8ea0fc536890151c59b2b59">LoadTransferModel</a>, <a class="el" href="d1/dde/class_rigid_body_load_transfer_model.html#a7d5a492abff7c6bc44287b1639af94d9">RigidBodyLoadTransferModel</a></li>
 <li>compute_output()&#160;:&#160;<a class="el" href="d6/d5a/class_p_i_d.html#a5a8397dc4b3e36d1db9ea2f1b8fb91a4">PID</a></li>
+<li>compute_steering_rate()&#160;:&#160;<a class="el" href="d0/db2/class_p_i_d_steering_motor.html#aa0cbeeba7568f629e2c4f3658de59a8d">PIDSteeringMotor</a>, <a class="el" href="d1/d48/class_steering_motor_model.html#a21d20addc024a9ac7692eb307641c1a9">SteeringMotorModel</a></li>
 <li>Cone()&#160;:&#160;<a class="el" href="d6/dd0/structcommon__lib_1_1structures_1_1_cone.html#ae7a2ae756c7e9b9be886bb9897e3f473">common_lib::structures::Cone</a></li>
 <li>coneDifferentiation()&#160;:&#160;<a class="el" href="d7/d4e/class_cone_differentiation.html#a0a094ce1ef52e4f23fe34764c948ae7f">ConeDifferentiation</a>, <a class="el" href="d7/d15/class_least_squares_differentiation.html#af0f7274fca147b1718e68d87df20e83c">LeastSquaresDifferentiation</a></li>
 <li>ConeEvaluator()&#160;:&#160;<a class="el" href="df/d8f/class_cone_evaluator.html#a0858b5a585761e01c34d76ea33d41899">ConeEvaluator</a></li>
@@ -161,15 +163,17 @@ $(document).ready(function(){initNavTree('functions_func_c.html',''); initResiza
 <li>ConstantVelocityModel()&#160;:&#160;<a class="el" href="df/d42/class_constant_velocity_model.html#ab9887f099ed680aa3f30de235fabf39b">ConstantVelocityModel</a></li>
 <li>ConstantVelocityTurnrateModel()&#160;:&#160;<a class="el" href="d4/d11/class_constant_velocity_turnrate_model.html#a944816dffc61cf89bd5485aba8068d92">ConstantVelocityTurnrateModel</a></li>
 <li>ConstrainedGridRANSAC()&#160;:&#160;<a class="el" href="de/d7f/class_constrained_grid_r_a_n_s_a_c.html#a81cf2b71db5875fdfbff035db47b61c3">ConstrainedGridRANSAC</a></li>
-<li>ConstrainedRANSAC()&#160;:&#160;<a class="el" href="d2/d16/class_constrained_r_a_n_s_a_c.html#a572e5524f8a2402bf775195d62f7ae75">ConstrainedRANSAC</a></li>
+<li>ConstrainedRANSAC()&#160;:&#160;<a class="el" href="d2/d16/class_constrained_r_a_n_s_a_c.html#a67c067718054bf51385c2786bdaedf2a">ConstrainedRANSAC</a></li>
 <li>ConstrainedRANSACOptimized()&#160;:&#160;<a class="el" href="d2/d37/class_constrained_r_a_n_s_a_c_optimized.html#aaa0c2cb9677305435740106bd8312c8d">ConstrainedRANSACOptimized</a></li>
-<li>Control()&#160;:&#160;<a class="el" href="d7/d49/class_control.html#a6e25ac7cb5a0e306e072388e62f5c84d">Control</a></li>
 <li>control_parameters()&#160;:&#160;<a class="el" href="d1/daf/classdata__infrastructure_1_1data__infrastructure__node_1_1_data_infrastructure_node.html#a62d40f5c6a4426012988b95d3dee3bdf">data_infrastructure.data_infrastructure_node.DataInfrastructureNode</a></li>
-<li>control_timer_callback()&#160;:&#160;<a class="el" href="d7/d49/class_control.html#ac70a1556ee74d3f59d8ff2ffb2d52ea6">Control</a></li>
+<li>control_timer_callback()&#160;:&#160;<a class="el" href="d6/dc5/class_control_node.html#ae9fbf61f4e1912413531ddf2a0633c93">ControlNode</a></li>
+<li>ControlCommand()&#160;:&#160;<a class="el" href="da/d16/structcommon__lib_1_1structures_1_1_control_command.html#a289c2e257c716b270bac4de5faf0dd6e">common_lib::structures::ControlCommand</a></li>
+<li>ControlNode()&#160;:&#160;<a class="el" href="d6/dc5/class_control_node.html#abd6f2010c9af09c52a7ac5f49a95c2ad">ControlNode</a></li>
+<li>ControlParameters()&#160;:&#160;<a class="el" href="d4/de1/struct_control_parameters.html#abf0239a02a3cbf9e1649d70fcb75a22f">ControlParameters</a></li>
+<li>ControlSolver()&#160;:&#160;<a class="el" href="d1/d5f/class_control_solver.html#a31736d3a4421a519337673c865f6e02d">ControlSolver</a></li>
 <li>convert_mission()&#160;:&#160;<a class="el" href="db/da4/classsupervisor_1_1supervisor_1_1_supervisor.html#a5cc26e9c60909277e208580222145569">supervisor.supervisor.Supervisor</a></li>
 <li>correct()&#160;:&#160;<a class="el" href="d7/d79/class_e_k_f_s_l_a_m_solver.html#a5e1386c5f3781870b088f6b600af8657">EKFSLAMSolver</a></li>
-<li>correct_imu()&#160;:&#160;<a class="el" href="d7/dbe/class_e_k_f.html#aa57f029d04b85391d7753abfd159f1ac">EKF</a>, <a class="el" href="dd/da2/class_no_rear_w_s_s_e_k_f.html#a8989f34a2a7dc87258ded4df102ae121">NoRearWSSEKF</a>, <a class="el" href="d4/dae/class_no_w_s_s_e_k_f.html#a7c43325b4fc7f472f16a65c24560ba5a">NoWSSEKF</a></li>
-<li>correct_motor_and_steering()&#160;:&#160;<a class="el" href="d4/dae/class_no_w_s_s_e_k_f.html#a8af9ab80f3f4f3bcdd1801d1bc173f07">NoWSSEKF</a></li>
+<li>correct_imu()&#160;:&#160;<a class="el" href="d7/dbe/class_e_k_f.html#aa57f029d04b85391d7753abfd159f1ac">EKF</a>, <a class="el" href="dd/da2/class_no_rear_w_s_s_e_k_f.html#a8989f34a2a7dc87258ded4df102ae121">NoRearWSSEKF</a></li>
 <li>correct_wheels()&#160;:&#160;<a class="el" href="d7/dbe/class_e_k_f.html#a2e293a7d506fc7312ad6d80f49cab701">EKF</a>, <a class="el" href="dd/da2/class_no_rear_w_s_s_e_k_f.html#a72111cc9163a4510141eedfb9b591c97">NoRearWSSEKF</a></li>
 <li>correct_with_matched_ids()&#160;:&#160;<a class="el" href="da/da6/class_extended_kalman_filter.html#aee1eb85208a6f26cc844eef54ec90b23">ExtendedKalmanFilter</a></li>
 <li>correct_with_matched_ids_full_state()&#160;:&#160;<a class="el" href="da/da6/class_extended_kalman_filter.html#a60cb014dc4d591ec8e47f3086bca35e6">ExtendedKalmanFilter</a></li>

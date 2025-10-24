@@ -99,52 +99,27 @@ $(document).ready(function(){initNavTree('dc/d45/control_2src_2main_8cpp_source.
   <div class="headertitle"><div class="title">main.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="../../dc/d45/control_2src_2main_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="../../d3/d4a/control_2include_2adapter__control_2eufs_8hpp.html">adapter_control/eufs.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="../../d6/dfc/control_2include_2adapter__control_2fsds_8hpp.html">adapter_control/fsds.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="../../de/d90/control_2include_2adapter__control_2pacsim_8hpp.html">adapter_control/pacsim.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="../../d4/d49/control_2include_2adapter__control_2vehicle_8hpp.html">adapter_control/vehicle.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="../../da/d3d/node__control_8hpp.html">node_/node_control.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;rclcpp/rclcpp.hpp&quot;</span></div>
+<a href="../../dc/d45/control_2src_2main_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="../../d6/d3b/control_2include_2adapter_2map_8hpp.html">adapter/map.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="foldopen" id="foldopen00003" data-start="{" data-end="}">
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="../../dc/d45/control_2src_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">    3</a></span><span class="keywordtype">int</span> <a class="code hl_namespace" href="../../d2/dc1/namespacemain.html">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>* argv[]) {</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>  rclcpp::init(argc, argv);</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>  <a class="code hl_struct" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a> params;</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>  std::string adapter = params.<a class="code hl_function" href="../../d4/de1/struct_control_parameters.html#a465c84572833346fefdeba6d964e5883">load_config</a>();</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>  std::shared_ptr&lt;ControlNode&gt; control_node = <a class="code hl_variable" href="../../d6/d3b/control_2include_2adapter_2map_8hpp.html#a8880db47b88663745ec535df61e80312">adapter_map</a>.at(adapter)(params);</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="foldopen" id="foldopen00013" data-start="{" data-end="}">
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="../../dc/d45/control_2src_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">   13</a></span><span class="keywordtype">int</span> <a class="code hl_namespace" href="../../d2/dc1/namespacemain.html">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>* argv[]) {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>  rclcpp::init(argc, argv);</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>  std::string adapter;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  <a class="code hl_struct" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a> params = <a class="code hl_function" href="../../d7/d49/class_control.html#a7ad204d3b2598bfc0551e604872b8354">Control::load_config</a>(adapter);</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  std::shared_ptr&lt;Control&gt; control;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  <span class="keywordflow">if</span> (adapter == <span class="stringliteral">&quot;vehicle&quot;</span>) {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    control = std::make_shared&lt;VehicleAdapter&gt;(params);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (adapter == <span class="stringliteral">&quot;pacsim&quot;</span>) {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    control = std::make_shared&lt;PacSimAdapter&gt;(params);</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (adapter == <span class="stringliteral">&quot;eufs&quot;</span>) {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    control = std::make_shared&lt;EufsAdapter&gt;(params);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (adapter == <span class="stringliteral">&quot;fsds&quot;</span>) {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    control = std::make_shared&lt;FsdsAdapter&gt;(params);</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    RCLCPP_ERROR(rclcpp::get_logger(<span class="stringliteral">&quot;control&quot;</span>), <span class="stringliteral">&quot;Adapter type not recognized&quot;</span>);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  }</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  rclcpp::spin(control);</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  rclcpp::shutdown();</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  rclcpp::spin(control_node);</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>  rclcpp::shutdown();</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>  <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
 </div>
-<div class="ttc" id="aclass_control_html_a7ad204d3b2598bfc0551e604872b8354"><div class="ttname"><a href="../../d7/d49/class_control.html#a7ad204d3b2598bfc0551e604872b8354">Control::load_config</a></div><div class="ttdeci">static ControlParameters load_config(std::string &amp;adapter)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/da2/node__control_8cpp_source.html#l00029">node_control.cpp:29</a></div></div>
-<div class="ttc" id="acontrol_2include_2adapter__control_2eufs_8hpp_html"><div class="ttname"><a href="../../d3/d4a/control_2include_2adapter__control_2eufs_8hpp.html">eufs.hpp</a></div></div>
-<div class="ttc" id="acontrol_2include_2adapter__control_2fsds_8hpp_html"><div class="ttname"><a href="../../d6/dfc/control_2include_2adapter__control_2fsds_8hpp.html">fsds.hpp</a></div></div>
-<div class="ttc" id="acontrol_2include_2adapter__control_2pacsim_8hpp_html"><div class="ttname"><a href="../../de/d90/control_2include_2adapter__control_2pacsim_8hpp.html">pacsim.hpp</a></div></div>
-<div class="ttc" id="acontrol_2include_2adapter__control_2vehicle_8hpp_html"><div class="ttname"><a href="../../d4/d49/control_2include_2adapter__control_2vehicle_8hpp.html">vehicle.hpp</a></div></div>
+<div class="ttc" id="acontrol_2include_2adapter_2map_8hpp_html"><div class="ttname"><a href="../../d6/d3b/control_2include_2adapter_2map_8hpp.html">map.hpp</a></div></div>
+<div class="ttc" id="acontrol_2include_2adapter_2map_8hpp_html_a8880db47b88663745ec535df61e80312"><div class="ttname"><a href="../../d6/d3b/control_2include_2adapter_2map_8hpp.html#a8880db47b88663745ec535df61e80312">adapter_map</a></div><div class="ttdeci">const std::map&lt; std::string, std::function&lt; std::shared_ptr&lt; ControlNode &gt;(const ControlParameters &amp;)&gt;, std::less&lt;&gt; &gt; adapter_map</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d3b/control_2include_2adapter_2map_8hpp_source.html#l00018">map.hpp:18</a></div></div>
 <div class="ttc" id="anamespacemain_html"><div class="ttname"><a href="../../d2/dc1/namespacemain.html">main</a></div><div class="ttdef"><b>Definition</b> <a href="../../dc/da4/pacsim_2track__editor_2main_8py_source.html#l00001">main.py:1</a></div></div>
-<div class="ttc" id="anode__control_8hpp_html"><div class="ttname"><a href="../../da/d3d/node__control_8hpp.html">node_control.hpp</a></div></div>
-<div class="ttc" id="astruct_control_parameters_html"><div class="ttname"><a href="../../d4/de1/struct_control_parameters.html">ControlParameters</a></div><div class="ttdef"><b>Definition</b> <a href="../../da/d3d/node__control_8hpp_source.html#l00024">node_control.hpp:24</a></div></div>
+<div class="ttc" id="astruct_control_parameters_html"><div class="ttname"><a href="../../d4/de1/struct_control_parameters.html">ControlParameters</a></div><div class="ttdef"><b>Definition</b> <a href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00010">parameters.hpp:10</a></div></div>
+<div class="ttc" id="astruct_control_parameters_html_a465c84572833346fefdeba6d964e5883"><div class="ttname"><a href="../../d4/de1/struct_control_parameters.html#a465c84572833346fefdeba6d964e5883">ControlParameters::load_config</a></div><div class="ttdeci">std::string load_config()</div><div class="ttdef"><b>Definition</b> <a href="../../de/d4b/control_2src_2config_2parameters_8cpp_source.html#l00060">parameters.cpp:60</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

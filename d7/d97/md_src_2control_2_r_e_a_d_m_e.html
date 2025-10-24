@@ -99,55 +99,54 @@ $(document).ready(function(){initNavTree('d7/d97/md_src_2control_2_r_e_a_d_m_e.h
 Package Information</h1>
 <h2><a class="anchor" id="autotoc_md40"></a>
 Description</h2>
-<p>The <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a> node uses <a class="el" href="../../d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle.">Planning</a> (pathpoints with expected velocity values) and State Estimation (current vehicle pose) data to effectively calculate longitudinal (torque) and lateral values (steering angle) using <a class="el" href="../../d6/d5a/class_p_i_d.html" title="PI-D Controller class.">PID</a> and Pure Pursuit controllers, respectively.</p>
+<p>The Control node uses <a class="el" href="../../d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle.">Planning</a> (pathpoints with expected velocity values) and State Estimation (current vehicle pose and velocity) data to calculate longitudinal (throttle) and lateral (steering angle) controls.</p>
 <h2><a class="anchor" id="autotoc_md41"></a>
 Folder Structure</h2>
 <ul>
-<li><a href="../.././include/adapter_control/">adapter_control</a>: Adapters to change ros2 interfaces according to simulator or environment</li>
-<li><a href="../.././include/node_/">node_</a>: Node class and main control class</li>
-<li><a href="../.././include/pid/">pid</a>: PI-D controller class, used for longitudinal control</li>
-<li><a href="../.././include/point_solver/">point_solver</a>: Point Solver class, used to calculate the reference point for the Pure Pursuit controller and the <a class="el" href="../../d6/d5a/class_p_i_d.html" title="PI-D Controller class.">PID</a> controller</li>
-<li><a href="../.././include/pure_pursuit/">pure_pursuit</a>: Pure Pursuit controller class, used for lateral control</li>
+<li><a href="../.././include/adapter/">adapter</a>: Adapters to change ros2 interfaces according to simulator or environment</li>
+<li><a href="../.././include/config/">config</a>: Parameters struct definition, which will be read from the <a href="../../../../config/control/">config</a> folder</li>
+<li><a href="../.././include/control_solver/">control_solver</a>: algorithms that calculate both lateral and longitudinal controls (full control solvers)</li>
+<li><a href="../.././include/lateral_controller/">lateral_controller</a>: algorithms that calculate lateral control only (steering angle)</li>
+<li><a href="../.././include/longitudinal_controller/">longitudinal_controller</a>: algorithms that calculate longitudinal control only (throttle)</li>
+<li><a href="../.././include/ros_node/">ros_node</a>: ROS2 Node class</li>
+<li><a href="../.././include/utils/">utils</a>: helper functions used in the other folders</li>
 </ul>
 <h2><a class="anchor" id="autotoc_md42"></a>
-Launch Configurations</h2>
-<ul>
-<li><a href="../.././launch/eufs.launch.py">eufs.launch.py</a>: Launch file for the EUFS simulator</li>
-<li><a href="../.././launch/pacsim.launch.py">pacsim.launch.py</a>: Launch file for the PacSim simulator</li>
-<li><a href="../.././launch/vehicle.launch.py">vehicle.launch.py</a>: Launch file for the 01 vehicle</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md43"></a>
 Important Dependencies</h2>
-<h1><a class="anchor" id="autotoc_md44"></a>
+<h1><a class="anchor" id="autotoc_md43"></a>
 How to Run</h1>
-<h2><a class="anchor" id="autotoc_md45"></a>
+<h2><a class="anchor" id="autotoc_md44"></a>
 Install Dependencies</h2>
 <div class="fragment"><div class="line">./dependencies_install.sh</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md46"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md45"></a>
 Compiling</h2>
 <div class="fragment"><div class="line">colcon build --packages-up-to control</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md47"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md46"></a>
 Testing</h2>
 <div class="fragment"><div class="line">colcon test --packages-select control # use event-handler=console_direct+ for imediate output</div>
 </div><!-- fragment --><p>To check test results: </p><div class="fragment"><div class="line">colcon test-result --all --verbose</div>
-</div><!-- fragment --> <h2><a class="anchor" id="autotoc_md48"></a>
+</div><!-- fragment --> <h2><a class="anchor" id="autotoc_md47"></a>
 Running</h2>
-<p>Run with ros2 launch. You may select custom parameters for testing such as simulated state estimation or the mocker node. Check the <a href="../.././launch/control.launch.py">launch file</a> for more details. Example:</p>
+<p>Run with ros2 launch. Example:</p>
 <div class="fragment"><div class="line">source ./install/setup.bash # If in a new terminal</div>
-<div class="line">ros2 launch control control.launch.py &#39;adapter:=pacsim&#39; &#39;use_simulated_se:=true&#39; &#39;mocker_node:=true&#39;</div>
-</div><!-- fragment --><p> Using simulated state estimation allows you to independently test control without using the state estimation module, by using information directly from the simulator. The mocker node allows for the same thing but for planning, by using a hand-picked pathpoint array. The lookahead_gain is for tuning purposes.</p>
-<h1><a class="anchor" id="autotoc_md49"></a>
+<div class="line">ros2 launch control control.launch.py</div>
+</div><!-- fragment --><p>To configure the node's inputs and environment, use the <a href="../../../../config/global/global_config.yaml">global config file</a>. Using simulated state estimation (use_simulated_se) allows you to independently test control without using the pose estimate from the state estimation module, by using information directly from the simulator. The mocker node allows for the same thing but for planning (use_simulated_planning), by using a hand-picked pathpoint array. To do the same thing for velocities use use_simulated_velocities. To run the node in different environments, use the adapter parameter.</p>
+<p>To tune the node's parameters, use the <a href="../../../../config/control/">control node's config file</a> for the environment you're using.</p>
+<h1><a class="anchor" id="autotoc_md48"></a>
 Design</h1>
-<p>The following class diagram illustrates the structure of the <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a> package:</p>
-<p><img src="../../../../docs/assets/Control/controlClassDiagram.jpg" alt="Class Diagram" class="inline"/> We have the following classes: <br  />
+<p>The following class diagram illustrates the structure of the Control package:</p>
+<p><img src="../../../../docs/assets/Control/control_class_diagram.drawio.png" alt="Class Diagram" class="inline"/></p>
+<p>We have the following classes: <br  />
 </p><ul>
-<li><a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a>: The node itself and the main class that initializes the other classes and runs the control callback.</li>
-<li>PSolver: The class that receives <a class="el" href="../../d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle.">Planning</a> information and calculates the reference for the controllers.</li>
-<li><a class="el" href="../../d6/d5a/class_p_i_d.html" title="PI-D Controller class.">PID</a>: The class that implements the <a class="el" href="../../d6/d5a/class_p_i_d.html" title="PI-D Controller class.">PID</a> controller, for Longitudinal <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a>.</li>
-<li>PP: The class that implements the Pure Pursuit controller, for Lateral <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a>.</li>
-<li><a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a>: Provides an interface to correctly subscribe/publish, as well as parse and normalize values as needed by the different simulators we use.</li>
+<li><a class="el" href="../../d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module.">ControlNode</a>: The node abstract class itself, from which adapters inherit. This is the main class that initializes the other classes and interacts with ROS2.</li>
+<li>Adapters: Provide an interface to correctly subscribe/publish, as well as parse and normalize values as needed by the different simulators we use and for the actual vehicle.</li>
+<li><a class="el" href="../../d1/d5f/class_control_solver.html" title="Base class for control solvers, that calculate both lateral and longitudinal control commands.">ControlSolver</a>: The generic controller, from which other full controllers must inherit.</li>
+<li><a class="el" href="../../dd/d8f/class_decoupled_controller.html">DecoupledController</a>: The generic decoupled controller, i.e. the lateral and longitudinal controllers work independently of each other.</li>
+<li><a class="el" href="../../d7/d69/class_lateral_controller.html" title="Base (abstract) class for lateral control solvers (that calculate steering command)">LateralController</a>: The generic lateral controller, from which other lateral controllers must inherit.</li>
+<li><a class="el" href="../../da/ded/class_longitudinal_controller.html" title="Base (abstract) class for longitudinal controllers (the ones that calculate throttle)">LongitudinalController</a>: The generic longitudinal controller, from which other longitudinal controllers must inherit.</li>
+<li><a class="el" href="../../d6/d5a/class_p_i_d.html" title="PI-D Controller class.">PID</a>: The class that implements the <a class="el" href="../../d6/d5a/class_p_i_d.html" title="PI-D Controller class.">PID</a> controller, for Longitudinal Control.</li>
+<li><a class="el" href="../../dc/dde/class_pure_pursuit.html" title="Pure Pursuit class.">PurePursuit</a>: The class that implements the Pure Pursuit controller, for Lateral Control. </li>
 </ul>
-<p>The actions taken when the node gets spinning are the following: <img src="../../../../docs/assets/Control/ControlSequenceDiagram.drawio.png" alt="Sequence Diagram" class="inline"/> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

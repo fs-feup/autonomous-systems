@@ -1,0 +1,12 @@
+<map id="rear_axis_position" name="rear_axis_position">
+<area shape="rect" id="Node000001" title="Calculate rear axis coordinates." alt="" coords="446,64,571,89"/>
+<area shape="rect" id="Node000002" href="$da/d3b/control_2src_2utils_2utils_8cpp.html#affb99cf5ad23a3e9e3b14b64587fed1e" title="Update Lookahead point." alt="" coords="239,64,379,89"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="430,79,379,79,379,74,430,74"/>
+<area shape="rect" id="Node000003" href="$dc/dde/class_pure_pursuit.html#aa511921b74317316d8e62a5063bb66dd" title="Returns the steering command calculated by the solver." alt="" coords="5,5,172,46"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="441,62,398,54,280,40,172,32,172,27,280,34,398,48,442,57"/>
+<area shape="rect" id="Node000005" href="$d6/d5a/class_p_i_d.html#a92a2db4c3ffd6a0a37ea275d96c55b1c" title="Returns the throttle command calculated by the solver (only throttle)" alt="" coords="220,113,398,139"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="439,96,365,115,363,110,438,91"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="235,62,171,47,173,42,236,57"/>
+<area shape="rect" id="Node000004" href="$dd/d68/control_2test_2utils_2utils__test_8cpp.html#aa527f0a4d89eafe54c175d40ef51193a" title="Test Point Solver &#45; update_lookahead_point()" alt="" coords="61,70,116,96"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="223,82,116,85,116,80,223,76"/>
+</map>

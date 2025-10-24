@@ -1,0 +1,5 @@
+<map id="ParallelFrontSteering" name="ParallelFrontSteering">
+<area shape="rect" id="Node000001" title="Steering model that assumes parallel front steering, meaning that front wheels turn as much as the st..." alt="" coords="5,153,157,253"/>
+<area shape="rect" id="Node000002" href="$d0/db0/class_steering_model.html" title=" " alt="" coords="17,5,145,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,120,84,154,79,154,79,120"/>
+</map>

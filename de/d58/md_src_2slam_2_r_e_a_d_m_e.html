@@ -94,52 +94,52 @@ $(document).ready(function(){initNavTree('de/d58/md_src_2slam_2_r_e_a_d_m_e.html
   <div class="headertitle"><div class="title">SLAM Package</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md207"></a> </p>
-<h1><a class="anchor" id="autotoc_md208"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md206"></a> </p>
+<h1><a class="anchor" id="autotoc_md207"></a>
 Package Information</h1>
-<h2><a class="anchor" id="autotoc_md209"></a>
+<h2><a class="anchor" id="autotoc_md208"></a>
 Description</h2>
 <p>This package defines the SLAM node: a node responsible for performing localization and mapping. It receives linear and angular velocities and perception relative cone coordinates and outputs an estimate of the vehicle's pose and the map of the track.</p>
-<h2><a class="anchor" id="autotoc_md210"></a>
+<h2><a class="anchor" id="autotoc_md209"></a>
 Folder Structure</h2>
 <ul>
 <li><a href="../.././include/slam/">adapter_slam</a>: Adapters to change ros2 interfaces according to simulator or environment</li>
 <li><a href="../.././include/slam_solver/">slam_solver</a>: Includes the actual solvers of the SLAM problem<ul>
 <li><a href="../.././include/slam_solver/graph_slam/">slam_solver/graph_slam</a>: Code for using smoothing based SLAM with GTSAM library</li>
-<li><a href="../.././include/slam_solver/ekf_slam/">slam_solver/ekf_slam</a>: Code for using Extended Kalman <a class="el" href="../../d2/d70/class_filter.html" title="Abstract base class for filters.">Filter</a> based SLAM</li>
+<li><a href="../.././include/slam_solver/ekf_slam/">slam_solver/ekf_slam</a>: Code for using Extended Kalman <a class="el" href="../../d2/d70/class_filter.html" title="Abstract base class that defines the interface for single variable filters Derived classes must imple...">Filter</a> based SLAM</li>
 </ul>
 </li>
 <li><a href="../.././include/ros_node/">ros_node</a>: Node class</li>
 <li><a href="../.././include/slam_config/">slam_config</a>: Configuration files for the SLAM node with parameters for the solvers</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md211"></a>
+<h2><a class="anchor" id="autotoc_md210"></a>
 Launch Configurations</h2>
 <ul>
 <li><a href="../.././launch/vehicle.launch.py">vehicle.launch.py</a>: Launch file for the vehicle environment</li>
 <li><a href="../.././launch/pacsim.launch.py">pacsim.launch.py</a>: Launch file for the PacSim simulator</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md212"></a>
+<h2><a class="anchor" id="autotoc_md211"></a>
 Important Dependencies</h2>
 <ul>
 <li><a href="https://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen3</a></li>
 <li><a href="https://gtsam.org/">GTSAM</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md213"></a>
+<h1><a class="anchor" id="autotoc_md212"></a>
 How to Run</h1>
-<h2><a class="anchor" id="autotoc_md214"></a>
+<h2><a class="anchor" id="autotoc_md213"></a>
 Install Dependencies</h2>
 <div class="fragment"><div class="line">./dependencies_install.sh</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md215"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md214"></a>
 Compiling</h2>
 <div class="fragment"><div class="line">colcon build --packages-up-to slam</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md216"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md215"></a>
 Testing</h2>
 <div class="fragment"><div class="line">colcon test --packages-select slam # use event-handler=console_direct+ for imediate output</div>
 </div><!-- fragment --><p>To check test results: </p><div class="fragment"><div class="line">colcon test-result --all --verbose</div>
 </div><!-- fragment --><p>or</p>
 <div class="fragment"><div class="line">source ./install/setup.bash # If in a new terminal</div>
 <div class="line">ros2 run slam slam_test</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md217"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md216"></a>
 Running</h2>
 <p>Use a launch file:</p>
 <div class="fragment"><div class="line">source ./install/setup.bash # If in a new terminal</div>
@@ -147,12 +147,12 @@ Running</h2>
 </div><!-- fragment --><p>or run directly:</p>
 <div class="fragment"><div class="line">source ./install/setup.bash # If in a new terminal</div>
 <div class="line">ros2 run slam slam</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md218"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md217"></a>
 Design</h1>
 <p>Below, some diagrams are presented that can illustrate the structure and behaviour of the program.</p>
-<h2><a class="anchor" id="autotoc_md219"></a>
+<h2><a class="anchor" id="autotoc_md218"></a>
 Behaviour</h2>
-<h2><a class="anchor" id="autotoc_md220"></a>
+<h2><a class="anchor" id="autotoc_md219"></a>
 Structure</h2>
 <p>The node is composed by multiple classes. The diagram below illustrates roughly how they sit in the code structure.</p>
 <p><img src="../../../../docs/diagrams/slam/class.drawio.svg" alt="Class Diagram" style="pointer-events: none;" class="inline"/></p>

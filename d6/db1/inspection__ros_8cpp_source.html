@@ -120,7 +120,7 @@ $(document).ready(function(){initNavTree('d6/db1/inspection__ros_8cpp_source.htm
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  <span class="comment">// creates publisher that should yield throttle/acceleration/...</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  <a class="code hl_variable" href="../../de/d3d/class_inspection_mission.html#a371abe00ef8f10580b54dc816ef6e7cc">_control_command_publisher_</a> =</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>      this-&gt;create_publisher&lt;custom_interfaces::msg::ControlCommand&gt;(<span class="stringliteral">&quot;/as_msgs/controls&quot;</span>, 10);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>      this-&gt;create_publisher&lt;custom_interfaces::msg::ControlCommand&gt;(<span class="stringliteral">&quot;/control/command&quot;</span>, 10);</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  <span class="comment">// creates client for the end of mission signal</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  <a class="code hl_variable" href="../../de/d3d/class_inspection_mission.html#abee2cdf1caf70d0039fd0707696ad972">_finish_client_</a> = this-&gt;create_client&lt;std_srvs::srv::Trigger&gt;(<span class="stringliteral">&quot;/as_srv/mission_finished&quot;</span>);</div>
@@ -271,7 +271,7 @@ $(document).ready(function(){initNavTree('d6/db1/inspection__ros_8cpp_source.htm
 <div class="foldopen" id="foldopen00163" data-start="{" data-end="}">
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno"><a class="line" href="../../de/d3d/class_inspection_mission.html#a339ccdb1ba8ea723d502946104583148">  163</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../de/d3d/class_inspection_mission.html#a339ccdb1ba8ea723d502946104583148">InspectionMission::publish_controls</a>(<span class="keywordtype">double</span> throttle, <span class="keywordtype">double</span> steering)<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>  custom_interfaces::msg::ControlCommand control_command;</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>  control_command.throttle = throttle;</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>  control_command.throttle_rl = control_command.throttle_rr = throttle;</div>
 <div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>  control_command.steering = steering;</div>
 <div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>  <a class="code hl_variable" href="../../de/d3d/class_inspection_mission.html#a371abe00ef8f10580b54dc816ef6e7cc">_control_command_publisher_</a>-&gt;publish(control_command);</div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>}</div>

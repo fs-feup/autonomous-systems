@@ -1,25 +1,17 @@
 <map id="PID::calculate_integral_term" name="PID::calculate_integral_term">
-<area shape="rect" id="Node000001" title="Calculate the integral term." alt="" coords="881,74,1064,100"/>
-<area shape="rect" id="Node000002" href="$d3/d6a/pid__test_8cpp.html#a48d5dc0bd38dfb02fe54f10303a97fbd" title="Test PID class &#45; calculate_integral_term error positive." alt="" coords="761,25,816,51"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="906,72,816,47,817,42,908,67"/>
-<area shape="rect" id="Node000003" href="$d3/d6a/pid__test_8cpp.html#a5e3e11aeb33cf8c7f9b54c7fc5b53fc3" title="Test PID class &#45; calculate_integral_term error negative." alt="" coords="761,74,816,100"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="866,90,816,90,816,84,866,84"/>
-<area shape="rect" id="Node000004" href="$d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="744,124,833,149"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="907,107,834,127,832,122,906,102"/>
-<area shape="rect" id="Node000005" href="$d7/d49/class_control.html#ad14d8041b3b0b0c567e6ef8adc09488f" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="510,45,665,71"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="748,118,743,115,720,98,695,84,664,74,665,68,697,79,722,94,746,110,751,113"/>
-<area shape="rect" id="Node000010" href="$d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a8a079d78fabe3578dc7038a75af16fb9" title="Stop the thread." alt="" coords="478,94,696,120"/>
-<area shape="poly" id="edge9_Node000004_Node000010" title=" " alt="" coords="729,130,679,123,680,118,730,125"/>
-<area shape="rect" id="Node000011" href="$db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#abc9743c5e60d6794e50b918cf5c12f15" title="Stop the thread." alt="" coords="500,144,674,185"/>
-<area shape="poly" id="edge10_Node000004_Node000011" title=" " alt="" coords="729,147,675,155,674,150,729,142"/>
-<area shape="rect" id="Node000012" href="$d3/d6a/pid__test_8cpp.html#aa955b6a9298278b14ec50652fd165ecb" title="Test PID class &#45; update Test all the methods." alt="" coords="560,209,614,235"/>
-<area shape="poly" id="edge11_Node000004_Node000012" title=" " alt="" coords="760,161,731,181,697,199,655,213,615,221,614,216,653,208,695,194,728,176,757,157"/>
-<area shape="rect" id="Node000006" href="$db/d68/class_pac_sim_adapter.html#ae0ee1acf54556bbbd4dfde3da216a3f3" title="Callback for the pacsim ground truth pose topic." alt="" coords="263,5,430,46"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="494,48,430,39,431,34,494,43"/>
-<area shape="rect" id="Node000008" href="$d0/d1d/class_eufs_adapter.html#acf7089ed69eb7488fae4904f66f1e2b8" title=" " alt="" coords="277,71,416,111"/>
-<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="495,73,417,84,416,79,494,68"/>
-<area shape="rect" id="Node000007" href="$db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868" title=" " alt="" coords="5,13,215,39"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="248,28,215,28,215,23,248,23"/>
-<area shape="rect" id="Node000009" href="$d0/d1d/class_eufs_adapter.html#af96e527b6595820c565d6beeafe3da5f" title=" " alt="" coords="25,78,195,104"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="261,94,195,94,195,88,261,88"/>
+<area shape="rect" id="Node000001" title="Calculate the integral term." alt="" coords="408,55,591,80"/>
+<area shape="rect" id="Node000002" href="$d3/d6a/pid__test_8cpp.html#a48d5dc0bd38dfb02fe54f10303a97fbd" title="Test PID class &#45; calculate_integral_term error positive." alt="" coords="289,5,343,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="434,53,343,28,344,23,435,48"/>
+<area shape="rect" id="Node000003" href="$d3/d6a/pid__test_8cpp.html#a5e3e11aeb33cf8c7f9b54c7fc5b53fc3" title="Test PID class &#45; calculate_integral_term error negative." alt="" coords="289,55,343,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="393,70,344,70,344,65,393,65"/>
+<area shape="rect" id="Node000004" href="$d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="272,104,360,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="435,88,361,108,360,102,433,82"/>
+<area shape="rect" id="Node000005" href="$d6/d5a/class_p_i_d.html#a92a2db4c3ffd6a0a37ea275d96c55b1c" title="Returns the throttle command calculated by the solver (only throttle)" alt="" coords="25,25,204,51"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="275,98,270,95,247,79,223,65,191,54,193,49,225,60,250,74,273,91,278,94"/>
+<area shape="rect" id="Node000006" href="$d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a8a079d78fabe3578dc7038a75af16fb9" title="Stop the thread." alt="" coords="5,75,224,100"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="256,111,207,104,207,98,257,106"/>
+<area shape="rect" id="Node000007" href="$db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#abc9743c5e60d6794e50b918cf5c12f15" title="Stop the thread." alt="" coords="27,125,202,165"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="257,128,202,135,202,130,256,122"/>
+<area shape="rect" id="Node000008" href="$d3/d6a/pid__test_8cpp.html#aa955b6a9298278b14ec50652fd165ecb" title="Test PID class &#45; update Test all the methods." alt="" coords="87,189,142,215"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="288,142,258,161,225,179,182,193,142,201,141,196,180,188,223,174,255,157,285,137"/>
 </map>

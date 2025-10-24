@@ -8,10 +8,13 @@ var searchData=
   ['landmarktype_5',['landmarkType',['../d9/d45/classgui_logic_1_1landmark_type.html',1,'guiLogic']]],
   ['lapcounter_6',['LapCounter',['../d4/deb/class_lap_counter.html',1,'']]],
   ['laptime_7',['LapTime',['../d7/d84/struct_report_1_1_lap_time.html',1,'Report']]],
-  ['leastsquaresdifferentiation_8',['LeastSquaresDifferentiation',['../d7/d15/class_least_squares_differentiation.html',1,'']]],
-  ['leastsquaresdifferentiationtest_9',['LeastSquaresDifferentiationTest',['../de/d1e/class_least_squares_differentiation_test.html',1,'']]],
-  ['locationpublisher_10',['LocationPublisher',['../dc/ddc/classtest_1_1_location_publisher.html',1,'test']]],
-  ['logger_11',['Logger',['../d3/d42/class_logger.html',1,'']]],
-  ['loopclosure_12',['LoopClosure',['../d2/d8e/class_loop_closure.html',1,'']]],
-  ['lowpassfilter_13',['LowPassFilter',['../d7/d25/class_low_pass_filter.html',1,'']]]
+  ['lateralcontroller_8',['LateralController',['../d7/d69/class_lateral_controller.html',1,'']]],
+  ['leastsquaresdifferentiation_9',['LeastSquaresDifferentiation',['../d7/d15/class_least_squares_differentiation.html',1,'']]],
+  ['leastsquaresdifferentiationtest_10',['LeastSquaresDifferentiationTest',['../de/d1e/class_least_squares_differentiation_test.html',1,'']]],
+  ['loadtransfermodel_11',['LoadTransferModel',['../d4/da2/class_load_transfer_model.html',1,'']]],
+  ['locationpublisher_12',['LocationPublisher',['../dc/ddc/classtest_1_1_location_publisher.html',1,'test']]],
+  ['logger_13',['Logger',['../d3/d42/class_logger.html',1,'']]],
+  ['longitudinalcontroller_14',['LongitudinalController',['../da/ded/class_longitudinal_controller.html',1,'']]],
+  ['loopclosure_15',['LoopClosure',['../d2/d8e/class_loop_closure.html',1,'']]],
+  ['lowpassfilter_16',['LowPassFilter',['../d7/d25/class_low_pass_filter.html',1,'']]]
 ];

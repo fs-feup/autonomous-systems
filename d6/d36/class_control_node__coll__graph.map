@@ -1,0 +1,17 @@
+<map id="ControlNode" name="ControlNode">
+<area shape="rect" id="Node000001" title="Class responsible for the ROS2 communication of the control module." alt="" coords="179,1044,343,1349"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="197,763,283,829"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="245,843,256,1044,251,1044,240,843"/>
+<area shape="rect" id="Node000003" href="$d4/de1/struct_control_parameters.html" title=" " alt="" coords="307,611,493,981"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="339,981,322,1029,317,1027,334,980"/>
+<area shape="rect" id="Node000004" href="$dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html" title=" " alt="" coords="311,288,489,548"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="403,548,403,595,397,595,397,548"/>
+<area shape="rect" id="Node000005" href="$dd/d7d/structcommon__lib_1_1car__parameters_1_1_tire_parameters.html" title=" " alt="" coords="5,5,184,225"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="186,211,198,223,300,322,297,326,194,227,182,215"/>
+<area shape="rect" id="Node000006" href="$d5/d5a/structcommon__lib_1_1car__parameters_1_1_aero_parameters.html" title=" " alt="" coords="209,35,389,195"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="328,194,354,271,349,273,323,196"/>
+<area shape="rect" id="Node000007" href="$d2/d2e/structcommon__lib_1_1car__parameters_1_1_steering_motor_parameters.html" title=" " alt="" coords="413,55,592,175"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="489,176,461,265,458,273,453,271,456,264,484,174"/>
+<area shape="rect" id="Node000008" href="$d9/d6f/structcommon__lib_1_1car__parameters_1_1_steering_parameters.html" title=" " alt="" coords="616,65,795,165"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="693,166,671,217,638,266,608,296,575,324,505,369,502,364,572,319,605,292,634,263,666,214,688,164"/>
+</map>

@@ -1,12 +1,9 @@
 <map id="FsdsAdapter" name="FsdsAdapter">
-<area shape="rect" id="Node000001" title=" " alt="" coords="195,756,411,1191"/>
-<area shape="rect" id="Node000002" href="$d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="5,123,192,703"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="200,688,207,707,224,755,219,757,201,709,195,690"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="157,5,243,71"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="190,86,180,124,175,123,185,85"/>
-<area shape="rect" id="Node000005" href="$d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="217,119,389,708"/>
-<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="215,84,225,118,219,120,210,86"/>
-<area shape="rect" id="Node000004" href="$d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="413,341,597,486"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="478,501,404,709,386,757,381,755,399,707,473,499"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="305,723,305,756,300,756,300,723"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="91,756,307,1076"/>
+<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="5,341,189,486"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,500,169,756,164,757,112,501"/>
+<area shape="rect" id="Node000003" href="$d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="214,119,386,708"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="240,723,233,757,228,756,235,722"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="257,5,343,71"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="303,86,303,119,297,119,297,86"/>
 </map>

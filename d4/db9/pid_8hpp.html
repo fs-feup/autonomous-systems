@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Formula Student Autonomous Systems: src/control/include/pid/pid.hpp File Reference</title>
+<title>Formula Student Autonomous Systems: src/control/include/longitudinal_controller/pid.hpp File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -96,60 +96,127 @@ $(document).ready(function(){initNavTree('d4/db9/pid_8hpp.html','../../'); initR
   <div class="headertitle"><div class="title">pid.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;gtest/gtest.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="../../db/d9c/base__longitudinal__controller_8hpp_source.html">base_longitudinal_controller.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/d91/position_8hpp_source.html">common_lib/structures/position.hpp</a>&quot;</code><br />
+<code>#include &quot;utils/utils.hpp&quot;</code><br />
+<code>#include &quot;gtest/gtest.h&quot;</code><br />
+<code>#include &lt;rclcpp/rclcpp.hpp&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for pid.hpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d5/ddf/pid_8hpp__incl.png" border="0" usemap="#asrc_2control_2include_2pid_2pid_8hpp" alt=""/></div>
-<map name="asrc_2control_2include_2pid_2pid_8hpp" id="asrc_2control_2include_2pid_2pid_8hpp">
-<area shape="rect" title=" " alt="" coords="5,5,133,46"/>
-<area shape="rect" title=" " alt="" coords="22,94,116,120"/>
-<area shape="poly" title=" " alt="" coords="72,46,72,78,66,78,66,46"/>
+<div class="center"><img src="../../d5/ddf/pid_8hpp__incl.png" border="0" usemap="#asrc_2control_2include_2longitudinal__controller_2pid_8hpp" alt=""/></div>
+<map name="asrc_2control_2include_2longitudinal__controller_2pid_8hpp" id="asrc_2control_2include_2longitudinal__controller_2pid_8hpp">
+<area shape="rect" title=" " alt="" coords="1460,5,1610,61"/>
+<area shape="rect" href="../../db/d9c/base__longitudinal__controller_8hpp.html" title=" " alt="" coords="847,117,1052,142"/>
+<area shape="poly" title=" " alt="" coords="1460,49,1041,116,1040,111,1459,44"/>
+<area shape="rect" title=" " alt="" coords="1323,294,1443,320"/>
+<area shape="poly" title=" " alt="" coords="1542,61,1544,99,1543,146,1533,195,1524,218,1512,240,1498,256,1481,270,1443,290,1441,285,1478,266,1494,253,1507,237,1519,216,1528,193,1537,145,1539,99,1536,62"/>
+<area shape="rect" href="../../d5/d91/position_8hpp.html" title=" " alt="" coords="1344,109,1497,150"/>
+<area shape="poly" title=" " alt="" coords="1503,64,1458,101,1454,97,1500,59"/>
+<area shape="rect" title=" " alt="" coords="1573,117,1670,142"/>
+<area shape="poly" title=" " alt="" coords="1562,60,1603,104,1599,107,1558,63"/>
+<area shape="rect" title=" " alt="" coords="1695,117,1788,142"/>
+<area shape="poly" title=" " alt="" coords="1596,59,1702,107,1700,112,1594,64"/>
+<area shape="rect" title=" " alt="" coords="916,205,983,231"/>
+<area shape="poly" title=" " alt="" coords="952,143,952,189,947,189,947,143"/>
+<area shape="rect" title=" " alt="" coords="1007,198,1164,238"/>
+<area shape="poly" title=" " alt="" coords="970,140,1043,187,1041,191,967,145"/>
+<area shape="rect" title=" " alt="" coords="1188,198,1346,238"/>
+<area shape="poly" title=" " alt="" coords="995,140,1181,191,1180,196,994,145"/>
+<area shape="rect" title=" " alt="" coords="390,198,547,238"/>
+<area shape="poly" title=" " alt="" coords="874,145,563,200,562,194,873,140"/>
+<area shape="rect" href="../../d3/da8/control_2include_2config_2parameters_8hpp.html" title=" " alt="" coords="571,198,715,238"/>
+<area shape="poly" title=" " alt="" coords="907,145,728,196,727,190,906,140"/>
+<area shape="rect" href="../../d8/dd3/control__command_8hpp.html" title=" " alt="" coords="738,198,892,238"/>
+<area shape="poly" title=" " alt="" coords="932,145,860,191,857,187,929,140"/>
+<area shape="rect" title=" " alt="" coords="614,456,728,482"/>
+<area shape="poly" title=" " alt="" coords="655,238,672,286,678,328,680,370,677,441,671,440,674,370,673,328,667,287,650,240"/>
+<area shape="rect" title=" " alt="" coords="550,545,603,571"/>
+<area shape="poly" title=" " alt="" coords="695,236,762,264,836,299,900,337,924,355,940,374,943,387,940,401,932,451,923,471,905,491,883,504,852,516,775,534,690,547,619,555,618,550,690,542,774,529,851,511,881,500,901,487,919,468,927,450,935,400,938,387,935,376,921,359,897,341,833,304,759,269,693,241"/>
+<area shape="rect" href="../../d2/da6/car__parameters_8hpp.html" title=" " alt="" coords="473,286,658,327"/>
+<area shape="poly" title=" " alt="" coords="627,241,595,276,591,273,623,237"/>
+<area shape="rect" href="../../d0/d20/config__load_8hpp.html" title=" " alt="" coords="277,449,438,489"/>
+<area shape="poly" title=" " alt="" coords="572,239,240,318,89,357,23,377,19,388,24,399,38,411,60,422,121,439,192,452,262,459,262,464,191,457,119,445,58,427,35,416,19,402,14,388,20,373,88,351,238,313,570,234"/>
+<area shape="poly" title=" " alt="" coords="715,234,726,236,888,259,1050,277,1308,298,1308,303,1049,282,887,264,725,241,715,239"/>
+<area shape="poly" title=" " alt="" coords="599,325,625,347,648,374,663,407,671,440,665,441,658,409,643,376,621,350,595,329"/>
+<area shape="poly" title=" " alt="" coords="659,310,733,318,809,330,873,348,897,359,914,373,927,393,932,412,929,430,920,446,906,461,887,475,839,499,782,518,722,534,618,553,617,548,721,528,781,513,837,494,885,470,903,457,916,443,924,428,926,412,922,395,910,377,895,364,871,353,807,335,732,323,658,316"/>
+<area shape="rect" title=" " alt="" coords="201,537,346,578"/>
+<area shape="poly" title=" " alt="" coords="473,316,344,324,203,337,84,355,44,366,23,377,10,401,11,423,24,445,48,466,79,485,114,502,189,530,187,535,112,507,76,489,45,470,20,449,6,425,5,400,20,373,42,361,83,350,202,332,344,319,472,310"/>
+<area shape="rect" href="../../df/db5/aero__parameters_8hpp.html" title=" " alt="" coords="758,375,901,401"/>
+<area shape="poly" title=" " alt="" coords="632,325,775,367,773,373,631,330"/>
+<area shape="poly" title=" " alt="" coords="473,318,409,327,346,339,293,356,274,366,261,377,255,393,262,409,278,425,299,439,296,443,274,429,257,412,250,393,257,373,271,361,291,351,345,334,409,321,472,313"/>
+<area shape="rect" href="../../d7/de8/steering__motor__parameters_8hpp.html" title=" " alt="" coords="271,375,474,401"/>
+<area shape="poly" title=" " alt="" coords="518,330,417,371,415,366,516,325"/>
+<area shape="rect" href="../../d9/dea/tire__parameters_8hpp.html" title=" " alt="" coords="498,375,633,401"/>
+<area shape="poly" title=" " alt="" coords="568,327,568,359,563,359,563,327"/>
+<area shape="rect" href="../../d6/db0/steering__parameters_8hpp.html" title=" " alt="" coords="33,375,197,401"/>
+<area shape="poly" title=" " alt="" coords="473,327,200,374,199,369,472,322"/>
+<area shape="poly" title=" " alt="" coords="806,404,710,451,708,447,804,399"/>
+<area shape="poly" title=" " alt="" coords="831,402,819,445,807,470,790,491,749,519,704,538,658,550,618,556,618,551,657,545,702,533,747,515,786,487,803,467,814,443,825,400"/>
+<area shape="poly" title=" " alt="" coords="823,403,783,452,761,476,742,492,711,504,671,515,571,532,461,545,361,554,361,548,460,540,570,527,670,510,710,499,739,487,757,472,779,449,818,400"/>
+<area shape="poly" title=" " alt="" coords="758,404,453,454,452,449,757,398"/>
+<area shape="poly" title=" " alt="" coords="408,487,536,538,535,543,406,492"/>
+<area shape="poly" title=" " alt="" coords="340,492,305,528,301,524,337,488"/>
+<area shape="poly" title=" " alt="" coords="419,399,611,449,610,454,418,404"/>
+<area shape="poly" title=" " alt="" coords="390,399,451,447,553,532,550,537,448,451,387,403"/>
+<area shape="poly" title=" " alt="" coords="331,404,296,422,280,434,268,450,261,467,259,486,264,522,259,523,254,486,256,466,263,447,276,431,293,417,329,399"/>
+<area shape="poly" title=" " alt="" coords="373,402,367,434,361,433,367,401"/>
+<area shape="poly" title=" " alt="" coords="583,399,645,445,641,449,580,403"/>
+<area shape="poly" title=" " alt="" coords="569,401,577,529,572,529,564,401"/>
+<area shape="poly" title=" " alt="" coords="556,403,513,445,451,492,404,515,357,534,355,529,402,511,448,487,509,441,553,399"/>
+<area shape="poly" title=" " alt="" coords="535,404,425,445,423,440,533,399"/>
+<area shape="poly" title=" " alt="" coords="197,398,599,455,598,460,197,403"/>
+<area shape="poly" title=" " alt="" coords="137,399,213,447,239,469,267,487,338,513,411,532,535,550,534,556,410,537,336,518,264,492,236,473,209,451,134,403"/>
+<area shape="poly" title=" " alt="" coords="128,399,247,524,243,528,124,403"/>
+<area shape="poly" title=" " alt="" coords="153,399,284,441,282,446,152,404"/>
+<area shape="poly" title=" " alt="" coords="1419,151,1391,279,1386,278,1414,149"/>
+<area shape="rect" title=" " alt="" coords="1420,205,1498,231"/>
+<area shape="poly" title=" " alt="" coords="1431,149,1450,190,1445,192,1427,151"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../da/d2e/pid_8hpp__dep__incl.png" border="0" usemap="#asrc_2control_2include_2pid_2pid_8hppdep" alt=""/></div>
-<map name="asrc_2control_2include_2pid_2pid_8hppdep" id="asrc_2control_2include_2pid_2pid_8hppdep">
-<area shape="rect" title=" " alt="" coords="891,5,1018,46"/>
-<area shape="rect" href="../../da/d3d/node__control_8hpp.html" title=" " alt="" coords="705,94,868,135"/>
-<area shape="poly" title=" " alt="" coords="904,56,826,96,823,91,901,51"/>
-<area shape="rect" href="../../d8/dcb/pid_8cpp.html" title=" " alt="" coords="892,94,1017,135"/>
-<area shape="poly" title=" " alt="" coords="957,62,957,94,952,94,952,62"/>
-<area shape="rect" href="../../d3/d6a/pid__test_8cpp.html" title=" " alt="" coords="1042,94,1171,135"/>
-<area shape="poly" title=" " alt="" coords="1003,51,1073,91,1071,96,1000,56"/>
-<area shape="rect" href="../../d3/d4a/control_2include_2adapter__control_2eufs_8hpp.html" title=" " alt="" coords="52,183,219,223"/>
-<area shape="poly" title=" " alt="" coords="690,128,479,151,232,185,220,187,219,182,231,180,479,146,689,122"/>
-<area shape="rect" href="../../d0/dd0/control_2src_2adapter__control_2eufs_8cpp.html" title=" " alt="" coords="5,271,157,312"/>
-<area shape="poly" title=" " alt="" coords="690,120,513,125,309,137,214,145,133,156,73,169,53,177,42,185,36,194,33,204,38,227,50,249,65,269,61,273,45,252,33,228,28,204,31,192,38,181,51,172,71,164,132,151,213,140,308,131,513,120,689,115"/>
-<area shape="rect" href="../../dc/d45/control_2src_2main_8cpp.html" title=" " alt="" coords="404,279,564,305"/>
-<area shape="poly" title=" " alt="" coords="690,128,630,137,572,149,523,165,505,174,492,184,481,207,477,233,483,278,478,279,472,232,476,205,488,181,502,170,521,160,570,144,630,131,689,122"/>
-<area shape="rect" href="../../d6/dfc/control_2include_2adapter__control_2fsds_8hpp.html" title=" " alt="" coords="503,183,670,223"/>
-<area shape="poly" title=" " alt="" coords="728,144,633,185,631,180,726,139"/>
-<area shape="rect" href="../../dd/d7f/control_2src_2adapter__control_2fsds_8cpp.html" title=" " alt="" coords="660,271,811,312"/>
-<area shape="poly" title=" " alt="" coords="851,140,874,158,893,181,900,203,893,225,877,244,857,258,813,278,811,274,854,254,873,240,888,222,895,203,888,184,871,162,848,145"/>
-<area shape="rect" href="../../de/d90/control_2include_2adapter__control_2pacsim_8hpp.html" title=" " alt="" coords="694,183,879,223"/>
-<area shape="poly" title=" " alt="" coords="789,150,789,182,784,182,784,150"/>
-<area shape="rect" href="../../d3/d3d/control_2src_2adapter__control_2pacsim_8cpp.html" title=" " alt="" coords="872,271,1023,312"/>
-<area shape="poly" title=" " alt="" coords="858,139,888,157,914,181,928,203,938,227,948,270,943,271,933,228,923,205,910,184,885,162,855,144"/>
-<area shape="rect" href="../../d4/d49/control_2include_2adapter__control_2vehicle_8hpp.html" title=" " alt="" coords="244,183,427,223"/>
-<area shape="poly" title=" " alt="" coords="690,137,428,187,427,181,689,131"/>
-<area shape="rect" href="../../d1/da2/node__control_8cpp.html" title=" " alt="" coords="1004,183,1140,223"/>
-<area shape="poly" title=" " alt="" coords="867,137,1008,180,1006,185,865,142"/>
-<area shape="rect" href="../../dd/d88/pp__test_8cpp.html" title=" " alt="" coords="1165,183,1291,223"/>
-<area shape="poly" title=" " alt="" coords="883,133,1019,155,1152,180,1164,183,1163,188,1151,185,1019,161,882,138"/>
-<area shape="rect" href="../../d8/d8c/psolver__test_8cpp.html" title=" " alt="" coords="1315,183,1469,223"/>
-<area shape="poly" title=" " alt="" coords="883,132,1002,148,1094,156,1187,164,1303,180,1315,182,1314,187,1302,185,1186,169,1094,161,1001,153,882,138"/>
-<area shape="poly" title=" " alt="" coords="117,238,96,272,91,269,113,235"/>
-<area shape="poly" title=" " alt="" coords="230,225,435,276,434,281,229,230"/>
-<area shape="poly" title=" " alt="" coords="553,236,499,281,496,277,550,231"/>
-<area shape="poly" title=" " alt="" coords="635,229,703,269,701,273,632,234"/>
-<area shape="poly" title=" " alt="" coords="703,231,527,281,526,276,702,226"/>
-<area shape="poly" title=" " alt="" coords="838,229,912,269,910,273,835,233"/>
-<area shape="poly" title=" " alt="" coords="384,229,464,276,462,281,381,234"/>
-<area shape="rect" href="../../de/d7c/control_2src_2adapter__control_2vehicle_8cpp.html" title=" " alt="" coords="228,271,379,312"/>
-<area shape="poly" title=" " alt="" coords="326,239,313,272,308,270,321,237"/>
+<div class="center"><img src="../../da/d2e/pid_8hpp__dep__incl.png" border="0" usemap="#asrc_2control_2include_2longitudinal__controller_2pid_8hppdep" alt=""/></div>
+<map name="asrc_2control_2include_2longitudinal__controller_2pid_8hppdep" id="asrc_2control_2include_2longitudinal__controller_2pid_8hppdep">
+<area shape="rect" title=" " alt="" coords="631,5,782,61"/>
+<area shape="rect" href="../../d8/dbf/control_2include_2longitudinal__controller_2map_8hpp.html" title=" " alt="" coords="446,109,596,165"/>
+<area shape="poly" title=" " alt="" coords="645,71,572,111,570,106,643,66"/>
+<area shape="rect" href="../../d8/dcb/pid_8cpp.html" title=" " alt="" coords="620,117,793,157"/>
+<area shape="poly" title=" " alt="" coords="709,77,709,116,704,116,704,77"/>
+<area shape="rect" href="../../d3/d6a/pid__test_8cpp.html" title=" " alt="" coords="818,117,995,157"/>
+<area shape="poly" title=" " alt="" coords="775,66,869,114,867,118,772,71"/>
+<area shape="rect" href="../../dd/d5f/base__decoupled__controller_8hpp.html" title=" " alt="" coords="435,213,607,268"/>
+<area shape="poly" title=" " alt="" coords="524,180,524,212,518,212,518,180"/>
+<area shape="rect" href="../../d1/da9/control_2include_2control__solver_2map_8hpp.html" title=" " alt="" coords="349,324,509,365"/>
+<area shape="poly" title=" " alt="" coords="488,282,448,325,444,322,484,278"/>
+<area shape="rect" href="../../d5/d8c/base__decoupled__controller_8cpp.html" title=" " alt="" coords="532,316,694,372"/>
+<area shape="poly" title=" " alt="" coords="558,278,590,314,586,317,554,282"/>
+<area shape="rect" href="../../d5/d38/ros__node_8hpp.html" title=" " alt="" coords="349,420,509,461"/>
+<area shape="poly" title=" " alt="" coords="432,380,432,420,426,420,426,380"/>
+<area shape="rect" href="../../d1/d9c/control_2include_2adapter_2eufs_8hpp.html" title=" " alt="" coords="444,516,571,557"/>
+<area shape="poly" title=" " alt="" coords="457,471,493,514,489,518,453,474"/>
+<area shape="rect" href="../../d6/d3b/control_2include_2adapter_2map_8hpp.html" title=" " alt="" coords="181,612,309,653"/>
+<area shape="poly" title=" " alt="" coords="336,467,301,485,272,510,258,535,250,562,246,612,241,612,245,561,253,533,268,507,298,480,333,462"/>
+<area shape="rect" href="../../d7/d96/control_2include_2adapter_2pacsim_8hpp.html" title=" " alt="" coords="69,516,208,557"/>
+<area shape="poly" title=" " alt="" coords="354,468,200,518,198,513,353,463"/>
+<area shape="rect" href="../../da/d4f/control_2include_2adapter_2vehicle_8hpp.html" title=" " alt="" coords="283,516,420,557"/>
+<area shape="poly" title=" " alt="" coords="405,475,370,518,366,514,401,471"/>
+<area shape="rect" href="../../d9/dbc/ros__node_8cpp.html" title=" " alt="" coords="595,516,732,557"/>
+<area shape="poly" title=" " alt="" coords="493,464,616,513,614,518,491,469"/>
+<area shape="rect" href="../../d3/dac/pure__pursuit__test_8cpp.html" title=" " alt="" coords="756,509,913,564"/>
+<area shape="poly" title=" " alt="" coords="525,457,746,506,756,509,755,514,744,511,523,462"/>
+<area shape="poly" title=" " alt="" coords="439,565,301,614,299,609,438,560"/>
+<area shape="rect" href="../../d9/d39/control_2src_2adapter_2eufs_8cpp.html" title=" " alt="" coords="509,612,661,653"/>
+<area shape="poly" title=" " alt="" coords="535,567,571,610,567,614,531,571"/>
+<area shape="rect" href="../../dc/d45/control_2src_2main_8cpp.html" title=" " alt="" coords="165,701,325,727"/>
+<area shape="poly" title=" " alt="" coords="248,669,248,700,242,700,242,669"/>
+<area shape="poly" title=" " alt="" coords="174,565,225,610,221,614,170,569"/>
+<area shape="rect" href="../../d1/d18/control_2src_2adapter_2pacsim_8cpp.html" title=" " alt="" coords="5,612,157,653"/>
+<area shape="poly" title=" " alt="" coords="121,572,95,613,91,611,116,569"/>
+<area shape="poly" title=" " alt="" coords="320,569,269,614,265,610,316,565"/>
+<area shape="rect" href="../../d4/d7b/control_2src_2adapter_2vehicle_8cpp.html" title=" " alt="" coords="333,612,485,653"/>
+<area shape="poly" title=" " alt="" coords="374,569,399,611,395,613,369,572"/>
 </map>
 </div>
 </div>
@@ -166,7 +233,7 @@ Classes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_b81b067251166617f9d0a8c0cfc3a4a9.html">control</a></li><li class="navelem"><a class="el" href="../../dir_586f28d0e269bce34d2fc44ee8f3129e.html">include</a></li><li class="navelem"><a class="el" href="../../dir_f2e49d0d1c1abf0ca23307bfa282dc60.html">pid</a></li><li class="navelem"><a class="el" href="../../d4/db9/pid_8hpp.html">pid.hpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_b81b067251166617f9d0a8c0cfc3a4a9.html">control</a></li><li class="navelem"><a class="el" href="../../dir_586f28d0e269bce34d2fc44ee8f3129e.html">include</a></li><li class="navelem"><a class="el" href="../../dir_a943f39b9da5d194f719dce371538b4f.html">longitudinal_controller</a></li><li class="navelem"><a class="el" href="../../d4/db9/pid_8hpp.html">pid.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

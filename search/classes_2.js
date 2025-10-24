@@ -25,11 +25,13 @@ var searchData=
   ['constrainedransac_22',['ConstrainedRANSAC',['../d2/d16/class_constrained_r_a_n_s_a_c.html',1,'']]],
   ['constrainedransacoptimized_23',['ConstrainedRANSACOptimized',['../d2/d37/class_constrained_r_a_n_s_a_c_optimized.html',1,'']]],
   ['constrainedransactest_24',['ConstrainedRANSACTest',['../da/db1/class_constrained_r_a_n_s_a_c_test.html',1,'']]],
-  ['control_25',['Control',['../d7/d49/class_control.html',1,'']]],
-  ['controlparameters_26',['ControlParameters',['../d4/de1/struct_control_parameters.html',1,'']]],
-  ['customitem_27',['CustomItem',['../df/d25/classdraw_view_1_1_custom_item.html',1,'drawView']]],
-  ['cuttrimming_28',['CutTrimming',['../d4/d48/class_cut_trimming.html',1,'']]],
-  ['cuttrimmingtest_29',['CutTrimmingTest',['../d1/dad/class_cut_trimming_test.html',1,'']]],
-  ['cylindervalidator_30',['CylinderValidator',['../dd/def/class_cylinder_validator.html',1,'']]],
-  ['cylindervalidatortest_31',['CylinderValidatorTest',['../da/dcf/class_cylinder_validator_test.html',1,'']]]
+  ['controlcommand_25',['ControlCommand',['../da/d16/structcommon__lib_1_1structures_1_1_control_command.html',1,'common_lib::structures']]],
+  ['controlnode_26',['ControlNode',['../d6/dc5/class_control_node.html',1,'']]],
+  ['controlparameters_27',['ControlParameters',['../d4/de1/struct_control_parameters.html',1,'']]],
+  ['controlsolver_28',['ControlSolver',['../d1/d5f/class_control_solver.html',1,'']]],
+  ['customitem_29',['CustomItem',['../df/d25/classdraw_view_1_1_custom_item.html',1,'drawView']]],
+  ['cuttrimming_30',['CutTrimming',['../d4/d48/class_cut_trimming.html',1,'']]],
+  ['cuttrimmingtest_31',['CutTrimmingTest',['../d1/dad/class_cut_trimming_test.html',1,'']]],
+  ['cylindervalidator_32',['CylinderValidator',['../dd/def/class_cylinder_validator.html',1,'']]],
+  ['cylindervalidatortest_33',['CylinderValidatorTest',['../da/dcf/class_cylinder_validator_test.html',1,'']]]
 ];

@@ -1,7 +1,0 @@
-<map id="TEST" name="TEST">
-<area shape="rect" id="Node000001" title="Tests the conversion from wheel revolutions to velocities using the bycicle model." alt="" coords="5,13,60,39"/>
-<area shape="rect" id="Node000002" href="$d6/d89/class_bicycle_model.html#a6241f7fc08de4fbdeeb1307468a7169d" title="assumes a bicycle model and a set of parameters about the vehicle to calculate the velocities of the ..." alt="" coords="108,5,253,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,23,92,23,92,28,60,28"/>
-<area shape="rect" id="Node000003" href="$d2/d32/namespacecommon__lib_1_1maths.html#a4068519b32978679e461dc19e2b3a5fd" title="Function to get the translational velocity of a wheel from rpm and wheel diameter." alt="" coords="301,5,494,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="253,23,286,23,286,28,253,28"/>
-</map>

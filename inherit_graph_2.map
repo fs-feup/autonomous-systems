@@ -1,5 +1,9 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$d7/d59/class_base_velocity_process_model.html" title="Base class for velocity process models, used to predict the next velocities based on previous velocit..." alt="" coords="5,5,186,31"/>
-<area shape="rect" id="Node000001" href="$d6/dba/class_c_a_particle_model.html" title=" " alt="" coords="234,5,352,31"/>
-<area shape="poly" id="edge28_Node000000_Node000001" title=" " alt="" coords="201,16,233,16,233,21,201,21"/>
+<area shape="rect" id="Node000000" href="$df/dc2/class_base_optimizer.html" title=" " alt="" coords="5,55,112,80"/>
+<area shape="rect" id="Node000001" href="$d8/dbe/class_i_s_a_m2_optimizer.html" title=" " alt="" coords="213,5,329,31"/>
+<area shape="poly" id="edge25_Node000000_Node000001" title=" " alt="" coords="126,48,159,40,212,28,213,33,160,45,127,53"/>
+<area shape="rect" id="Node000002" href="$d2/dd8/class_normal_levenberg_optimizer.html" title=" " alt="" coords="181,55,361,80"/>
+<area shape="poly" id="edge26_Node000000_Node000002" title=" " alt="" coords="127,65,181,65,181,70,127,70"/>
+<area shape="rect" id="Node000003" href="$d2/d19/class_sliding_window_levenberg_optimizer.html" title=" " alt="" coords="160,104,382,130"/>
+<area shape="poly" id="edge27_Node000000_Node000003" title=" " alt="" coords="127,82,160,90,207,101,206,106,159,95,126,87"/>
 </map>

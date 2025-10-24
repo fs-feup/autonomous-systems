@@ -18,6 +18,7 @@ var class_s_e_node =
     [ "_adapter_", "d4/d43/class_s_e_node.html#aa0b142ec017f45737517251bf99ed0fe", null ],
     [ "_adapter_name_", "d4/d43/class_s_e_node.html#a3f141887108722d089afdeafe7711b3e", null ],
     [ "_car_model_publisher_", "d4/d43/class_s_e_node.html#a20857fa60f1e80f76b6ee44587405a45", null ],
+    [ "_car_parameters_", "d4/d43/class_s_e_node.html#a2731085771d70a03d4e4809f864aef7c", null ],
     [ "_correction_execution_time_publisher_", "d4/d43/class_s_e_node.html#ad394cf37fdd1bf261c930953cced9247", null ],
     [ "_ekf_", "d4/d43/class_s_e_node.html#a293f33b6aacd7c51e7dd6f24af246783", null ],
     [ "_go_", "d4/d43/class_s_e_node.html#accee6cb15f06b3b40b25ac8cb95df97c", null ],

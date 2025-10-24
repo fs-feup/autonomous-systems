@@ -1,0 +1,9 @@
+<map id="ControlNode::vehicle_state_callback" name="ControlNode::vehicle_state_callback">
+<area shape="rect" id="Node000001" title="Called when a new velocity is received." alt="" coords="482,35,622,75"/>
+<area shape="rect" id="Node000002" href="$db/d68/class_pac_sim_adapter.html#ace940c40e28e3fffd0c762adb3de48f3" title="Callback for the pacsim ground truth velocity topic, used when using simulated velocity estimation." alt="" coords="265,5,432,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="466,45,432,40,433,35,467,40"/>
+<area shape="rect" id="Node000004" href="$d6/dc5/class_control_node.html#abd6f2010c9af09c52a7ac5f49a95c2ad" title=" " alt="" coords="263,70,434,96"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="467,69,435,74,434,69,466,64"/>
+<area shape="rect" id="Node000003" href="$db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868" title=" " alt="" coords="5,13,215,39"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="249,28,215,28,215,23,249,23"/>
+</map>

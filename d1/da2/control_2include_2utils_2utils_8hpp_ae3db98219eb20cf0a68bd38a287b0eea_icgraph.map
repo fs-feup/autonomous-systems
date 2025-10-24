@@ -1,0 +1,7 @@
+<map id="get_lookahead_point" name="get_lookahead_point">
+<area shape="rect" id="Node000001" title="Update Lookahead point." alt="" coords="220,42,360,68"/>
+<area shape="rect" id="Node000002" href="$dc/dde/class_pure_pursuit.html#aa511921b74317316d8e62a5063bb66dd" title="Returns the steering command calculated by the solver." alt="" coords="5,5,172,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,45,172,40,173,35,204,40"/>
+<area shape="rect" id="Node000003" href="$dd/d68/control_2test_2utils_2utils__test_8cpp.html#aa527f0a4d89eafe54c175d40ef51193a" title="Test Point Solver &#45; update_lookahead_point()" alt="" coords="61,70,116,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="205,70,116,82,116,77,204,64"/>
+</map>

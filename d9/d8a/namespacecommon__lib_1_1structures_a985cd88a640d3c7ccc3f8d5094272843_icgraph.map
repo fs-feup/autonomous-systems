@@ -1,17 +1,9 @@
 <map id="common_lib::structures::cross_product" name="common_lib::structures::cross_product">
-<area shape="rect" id="Node000001" title="Calculate the cross product of two vectors." alt="" coords="1087,39,1242,79"/>
-<area shape="rect" id="Node000002" href="$dc/dde/class_pure_pursuit.html#ae07038f1c02256819e50a7878797d1ac" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="892,39,1039,79"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1072,62,1040,62,1040,56,1072,56"/>
-<area shape="rect" id="Node000003" href="$dc/dde/class_pure_pursuit.html#ab921e5033e736078b4adb269525f6dde" title="Pure Pursuit control law." alt="" coords="681,39,844,79"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="876,62,844,62,844,56,876,56"/>
-<area shape="rect" id="Node000004" href="$d7/d49/class_control.html#ad14d8041b3b0b0c567e6ef8adc09488f" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="478,46,633,72"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="666,62,634,62,634,56,666,56"/>
-<area shape="rect" id="Node000005" href="$db/d68/class_pac_sim_adapter.html#ae0ee1acf54556bbbd4dfde3da216a3f3" title="Callback for the pacsim ground truth pose topic." alt="" coords="263,5,430,46"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="462,47,430,42,431,36,463,42"/>
-<area shape="rect" id="Node000007" href="$d0/d1d/class_eufs_adapter.html#acf7089ed69eb7488fae4904f66f1e2b8" title=" " alt="" coords="277,71,416,111"/>
-<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="463,76,417,83,416,78,462,71"/>
-<area shape="rect" id="Node000006" href="$db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868" title=" " alt="" coords="5,13,215,39"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="248,28,215,28,215,23,248,23"/>
-<area shape="rect" id="Node000008" href="$d0/d1d/class_eufs_adapter.html#af96e527b6595820c565d6beeafe3da5f" title=" " alt="" coords="25,78,195,104"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="261,94,195,94,195,88,261,88"/>
+<area shape="rect" id="Node000001" title="Calculate the cross product of two vectors." alt="" coords="625,5,781,46"/>
+<area shape="rect" id="Node000002" href="$dc/dde/class_pure_pursuit.html#ae07038f1c02256819e50a7878797d1ac" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="430,5,577,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="610,28,578,28,578,23,610,23"/>
+<area shape="rect" id="Node000003" href="$dc/dde/class_pure_pursuit.html#ab921e5033e736078b4adb269525f6dde" title="Pure Pursuit control law." alt="" coords="220,5,382,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="414,28,382,28,382,23,414,23"/>
+<area shape="rect" id="Node000004" href="$dc/dde/class_pure_pursuit.html#aa511921b74317316d8e62a5063bb66dd" title="Returns the steering command calculated by the solver." alt="" coords="5,5,172,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="204,28,172,28,172,23,204,23"/>
 </map>

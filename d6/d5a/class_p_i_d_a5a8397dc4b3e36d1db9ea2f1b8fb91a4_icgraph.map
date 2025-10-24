@@ -1,27 +1,19 @@
 <map id="PID::compute_output" name="PID::compute_output">
-<area shape="rect" id="Node000001" title="Compute the output value and apply limits." alt="" coords="881,80,1023,106"/>
-<area shape="rect" id="Node000002" href="$d3/d6a/pid__test_8cpp.html#a44a45756cdafa30b67436db1ea322fc2" title="Test PID class &#45; compute_output output not saturated." alt="" coords="761,5,816,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="907,76,815,33,817,28,909,71"/>
-<area shape="rect" id="Node000003" href="$d3/d6a/pid__test_8cpp.html#afe47e0f11fb4c0cfc35c3cf77dfc9b4f" title="Test PID class &#45; compute_output output saturated LimMax." alt="" coords="761,55,816,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="865,82,816,74,816,69,865,77"/>
-<area shape="rect" id="Node000004" href="$d3/d6a/pid__test_8cpp.html#a3e33f5e903dc48e116ff6142c77516cf" title="Test PID class &#45; compute_output output saturated LimMin." alt="" coords="761,104,816,130"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="865,108,816,116,816,110,865,103"/>
-<area shape="rect" id="Node000005" href="$d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="744,153,833,179"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="908,115,820,155,818,150,906,110"/>
-<area shape="rect" id="Node000006" href="$d7/d49/class_control.html#ad14d8041b3b0b0c567e6ef8adc09488f" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="510,75,665,100"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="748,147,743,144,720,128,695,114,664,103,665,98,697,109,722,123,746,140,751,143"/>
-<area shape="rect" id="Node000011" href="$d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a8a079d78fabe3578dc7038a75af16fb9" title="Stop the thread." alt="" coords="478,124,696,150"/>
-<area shape="poly" id="edge10_Node000005_Node000011" title=" " alt="" coords="729,160,679,153,680,148,730,155"/>
-<area shape="rect" id="Node000012" href="$db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#abc9743c5e60d6794e50b918cf5c12f15" title="Stop the thread." alt="" coords="500,174,674,215"/>
-<area shape="poly" id="edge11_Node000005_Node000012" title=" " alt="" coords="729,177,675,185,674,179,729,172"/>
-<area shape="rect" id="Node000013" href="$d3/d6a/pid__test_8cpp.html#aa955b6a9298278b14ec50652fd165ecb" title="Test PID class &#45; update Test all the methods." alt="" coords="560,239,614,264"/>
-<area shape="poly" id="edge12_Node000005_Node000013" title=" " alt="" coords="760,191,731,211,697,229,655,243,615,251,614,245,653,237,695,224,728,206,757,186"/>
-<area shape="rect" id="Node000007" href="$db/d68/class_pac_sim_adapter.html#ae0ee1acf54556bbbd4dfde3da216a3f3" title="Callback for the pacsim ground truth pose topic." alt="" coords="263,35,430,76"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="494,78,430,69,431,64,494,73"/>
-<area shape="rect" id="Node000009" href="$d0/d1d/class_eufs_adapter.html#acf7089ed69eb7488fae4904f66f1e2b8" title=" " alt="" coords="277,101,416,141"/>
-<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="495,103,417,114,416,109,494,98"/>
-<area shape="rect" id="Node000008" href="$db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868" title=" " alt="" coords="5,43,215,68"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="248,58,215,58,215,53,248,53"/>
-<area shape="rect" id="Node000010" href="$d0/d1d/class_eufs_adapter.html#af96e527b6595820c565d6beeafe3da5f" title=" " alt="" coords="25,108,195,134"/>
-<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="261,124,195,124,195,118,261,118"/>
+<area shape="rect" id="Node000001" title="Compute the output value and apply limits." alt="" coords="408,80,550,106"/>
+<area shape="rect" id="Node000002" href="$d3/d6a/pid__test_8cpp.html#a44a45756cdafa30b67436db1ea322fc2" title="Test PID class &#45; compute_output output not saturated." alt="" coords="289,5,343,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="434,76,342,33,345,28,437,71"/>
+<area shape="rect" id="Node000003" href="$d3/d6a/pid__test_8cpp.html#afe47e0f11fb4c0cfc35c3cf77dfc9b4f" title="Test PID class &#45; compute_output output saturated LimMax." alt="" coords="289,55,343,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="392,82,343,74,344,69,393,77"/>
+<area shape="rect" id="Node000004" href="$d3/d6a/pid__test_8cpp.html#a3e33f5e903dc48e116ff6142c77516cf" title="Test PID class &#45; compute_output output saturated LimMin." alt="" coords="289,104,343,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="393,108,344,116,343,110,392,103"/>
+<area shape="rect" id="Node000005" href="$d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="272,153,360,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="436,115,348,155,345,150,433,110"/>
+<area shape="rect" id="Node000006" href="$d6/d5a/class_p_i_d.html#a92a2db4c3ffd6a0a37ea275d96c55b1c" title="Returns the throttle command calculated by the solver (only throttle)" alt="" coords="25,75,204,100"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="275,147,270,144,247,128,223,114,191,103,193,98,225,109,250,123,273,140,278,143"/>
+<area shape="rect" id="Node000007" href="$d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a8a079d78fabe3578dc7038a75af16fb9" title="Stop the thread." alt="" coords="5,124,224,150"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="256,160,207,153,207,148,257,155"/>
+<area shape="rect" id="Node000008" href="$db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#abc9743c5e60d6794e50b918cf5c12f15" title="Stop the thread." alt="" coords="27,174,202,215"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="257,177,202,185,202,179,256,172"/>
+<area shape="rect" id="Node000009" href="$d3/d6a/pid__test_8cpp.html#aa955b6a9298278b14ec50652fd165ecb" title="Test PID class &#45; update Test all the methods." alt="" coords="87,239,142,264"/>
+<area shape="poly" id="edge8_Node000005_Node000009" title=" " alt="" coords="288,191,258,211,225,229,182,243,142,251,141,245,180,237,223,224,255,206,285,186"/>
 </map>

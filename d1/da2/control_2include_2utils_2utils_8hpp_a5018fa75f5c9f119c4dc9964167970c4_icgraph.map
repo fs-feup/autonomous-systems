@@ -1,0 +1,9 @@
+<map id="get_closest_point" name="get_closest_point">
+<area shape="rect" id="Node000001" title="Find the closest point on the path." alt="" coords="232,70,355,96"/>
+<area shape="rect" id="Node000002" href="$dc/dde/class_pure_pursuit.html#aa511921b74317316d8e62a5063bb66dd" title="Returns the steering command calculated by the solver." alt="" coords="11,5,178,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="231,68,167,49,168,44,233,63"/>
+<area shape="rect" id="Node000003" href="$d6/d5a/class_p_i_d.html#a92a2db4c3ffd6a0a37ea275d96c55b1c" title="Returns the throttle command calculated by the solver (only throttle)" alt="" coords="5,70,184,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="216,86,184,86,184,80,216,80"/>
+<area shape="rect" id="Node000004" href="$dd/d68/control_2test_2utils_2utils__test_8cpp.html#a8d74cb064ec790a0f3d4db3ab2cd4172" title="Test Point Solver &#45; get_closest_point()" alt="" coords="67,120,122,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="224,103,122,128,121,123,223,98"/>
+</map>

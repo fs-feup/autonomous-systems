@@ -1,0 +1,5 @@
+<map id="PurePursuit" name="PurePursuit">
+<area shape="rect" id="Node000001" title="Pure Pursuit class." alt="" coords="5,219,172,679"/>
+<area shape="rect" id="Node000002" href="$d7/d69/class_lateral_controller.html" title="Base (abstract) class for lateral control solvers (that calculate steering command)" alt="" coords="5,5,172,171"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,186,91,219,86,219,86,186"/>
+</map>

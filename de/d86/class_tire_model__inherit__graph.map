@@ -1,0 +1,5 @@
+<map id="TireModel" name="TireModel">
+<area shape="rect" id="Node000001" title="Class used to model tires." alt="" coords="15,5,135,91"/>
+<area shape="rect" id="Node000002" href="$d2/db1/class_pacejka_combined_slip.html" title=" " alt="" coords="5,139,145,204"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="78,106,78,139,73,139,73,106"/>
+</map>

@@ -1,7 +1,0 @@
-<map id="BicycleModel" name="BicycleModel">
-<area shape="rect" id="Node000001" title=" " alt="" coords="105,268,279,428"/>
-<area shape="rect" id="Node000002" href="$db/d7d/class_s2_v_model.html" title="Interface for models that convert data from sensor reference frame to vehicle reference frame and vic..." alt="" coords="5,35,179,175"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="129,188,162,267,157,269,124,190"/>
-<area shape="rect" id="Node000003" href="$dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html" title=" " alt="" coords="203,5,381,205"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="253,206,234,254,229,252,249,204"/>
-</map>

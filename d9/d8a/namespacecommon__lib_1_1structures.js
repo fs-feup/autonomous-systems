@@ -1,6 +1,7 @@
 var namespacecommon__lib_1_1structures =
 [
     [ "Cone", "d6/dd0/structcommon__lib_1_1structures_1_1_cone.html", "d6/dd0/structcommon__lib_1_1structures_1_1_cone" ],
+    [ "ControlCommand", "da/d16/structcommon__lib_1_1structures_1_1_control_command.html", "da/d16/structcommon__lib_1_1structures_1_1_control_command" ],
     [ "Midpoint", "db/df1/structcommon__lib_1_1structures_1_1_midpoint.html", "db/df1/structcommon__lib_1_1structures_1_1_midpoint" ],
     [ "PathPoint", "d9/db0/structcommon__lib_1_1structures_1_1_path_point.html", "d9/db0/structcommon__lib_1_1structures_1_1_path_point" ],
     [ "Pose", "d8/d4a/structcommon__lib_1_1structures_1_1_pose.html", "d8/d4a/structcommon__lib_1_1structures_1_1_pose" ],

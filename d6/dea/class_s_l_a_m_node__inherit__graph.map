@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="126,119,310,657"/>
 <area shape="rect" id="Node000003" href="$d1/dcb/class_pacsim_adapter.html" title="Adapter class for the pacsim simulator." alt="" coords="5,751,204,1324"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="171,672,157,751,152,750,166,671"/>
-<area shape="rect" id="Node000004" href="$d1/df1/class_vehicle_adapter.html" title="Adapter class for the vehicle." alt="" coords="229,705,437,1369"/>
+<area shape="rect" id="Node000004" href="$d1/df1/class_vehicle_adapter.html" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="229,705,437,1369"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="271,672,277,705,271,706,266,673"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="175,5,261,71"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="221,85,221,119,215,119,215,85"/>

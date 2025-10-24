@@ -1,0 +1,5 @@
+<map id="wheels_velocities_to_cg" name="wheels_velocities_to_cg">
+<area shape="rect" id="Node000001" title="Calculates the translational and rotational velocities of the vehicle from wheel rotations and steeri..." alt="" coords="5,13,169,39"/>
+<area shape="rect" id="Node000002" href="$d2/d32/namespacecommon__lib_1_1maths.html#a4068519b32978679e461dc19e2b3a5fd" title="Function to get the translational velocity of a wheel from rpm and wheel diameter." alt="" coords="217,5,410,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="169,23,201,23,201,28,169,28"/>
+</map>

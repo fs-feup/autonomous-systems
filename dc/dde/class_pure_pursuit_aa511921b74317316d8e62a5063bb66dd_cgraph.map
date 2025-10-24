@@ -1,0 +1,21 @@
+<map id="PurePursuit::get_steering_command" name="PurePursuit::get_steering_command">
+<area shape="rect" id="Node000001" title="Returns the steering command calculated by the solver." alt="" coords="5,74,172,115"/>
+<area shape="rect" id="Node000002" href="$da/d3b/control_2src_2utils_2utils_8cpp.html#abc841ff1f30fff8e3601c0eb3c5a952b" title="Find the closest point on the path." alt="" coords="442,5,565,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,71,174,54,219,41,327,23,426,17,426,22,328,29,220,46,176,60,135,76"/>
+<area shape="rect" id="Node000004" href="$da/d3b/control_2src_2utils_2utils_8cpp.html#affb99cf5ad23a3e9e3b14b64587fed1e" title="Update Lookahead point." alt="" coords="231,56,371,82"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="172,82,215,76,215,82,172,87"/>
+<area shape="rect" id="Node000005" href="$da/d3b/control_2src_2utils_2utils_8cpp.html#a9459abdcacae96a282cf61ff8545e8a0" title="Calculate rear axis coordinates." alt="" coords="441,107,566,132"/>
+<area shape="poly" id="edge11_Node000001_Node000005" title=" " alt="" coords="172,97,426,112,425,117,172,102"/>
+<area shape="rect" id="Node000006" href="$dc/dde/class_pure_pursuit.html#ab921e5033e736078b4adb269525f6dde" title="Pure Pursuit control law." alt="" coords="220,157,382,197"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="144,113,233,148,231,153,142,118"/>
+<area shape="rect" id="Node000003" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a7ce25e8e5e8c05f720cd644b35134051" title=" " alt="" coords="625,85,781,141"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="537,29,578,48,635,75,632,80,576,53,535,34"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="372,71,578,92,610,96,610,101,577,97,371,77"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="356,80,435,100,434,105,355,85"/>
+<area shape="poly" id="edge10_Node000006_Node000003" title=" " alt="" coords="382,168,476,158,577,142,610,135,611,140,578,147,476,163,382,173"/>
+<area shape="rect" id="Node000007" href="$dc/dde/class_pure_pursuit.html#ae07038f1c02256819e50a7878797d1ac" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="430,207,577,248"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="383,195,416,203,415,208,382,200"/>
+<area shape="poly" id="edge9_Node000007_Node000003" title=" " alt="" coords="544,204,576,187,643,147,645,151,579,191,546,209"/>
+<area shape="rect" id="Node000008" href="$d9/d8a/namespacecommon__lib_1_1structures.html#a985cd88a640d3c7ccc3f8d5094272843" title="Calculate the cross product of two vectors." alt="" coords="625,207,781,248"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="578,225,610,225,610,230,578,230"/>
+</map>

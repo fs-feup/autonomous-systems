@@ -1,5 +1,5 @@
 <map id="evaluator.evaluator.Evaluator" name="evaluator.evaluator.Evaluator">
-<area shape="rect" id="Node000001" title="A ROS2 node for computing and publishing the system&#39;s real&#45;time metrics." alt="" coords="5,119,205,1163"/>
+<area shape="rect" id="Node000001" title="A ROS2 node for computing and publishing the system&#39;s real&#45;time metrics." alt="" coords="5,119,205,1177"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="83,5,127,71"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,86,108,119,103,119,103,86"/>
 </map>

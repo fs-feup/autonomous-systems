@@ -9,6 +9,7 @@ var searchData=
   ['adapter_2ehpp_6',['adapter.hpp',['../d6/dca/adapter_8hpp.html',1,'']]],
   ['adapter_2epy_7',['adapter.py',['../da/da4/adapter_8py.html',1,'']]],
   ['adapter_5fmaps_2epy_8',['adapter_maps.py',['../d8/d8c/adapter__maps_8py.html',1,'']]],
-  ['angle_5fand_5fnorms_2ecpp_9',['angle_and_norms.cpp',['../d6/dd2/angle__and__norms_8cpp.html',1,'']]],
-  ['angle_5fand_5fnorms_2ehpp_10',['angle_and_norms.hpp',['../d2/d3c/angle__and__norms_8hpp.html',1,'']]]
+  ['aero_5fparameters_2ehpp_9',['aero_parameters.hpp',['../df/db5/aero__parameters_8hpp.html',1,'']]],
+  ['angle_5fand_5fnorms_2ecpp_10',['angle_and_norms.cpp',['../d6/dd2/angle__and__norms_8cpp.html',1,'']]],
+  ['angle_5fand_5fnorms_2ehpp_11',['angle_and_norms.hpp',['../d2/d3c/angle__and__norms_8hpp.html',1,'']]]
 ];

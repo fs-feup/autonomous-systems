@@ -10,11 +10,11 @@
 <area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="306,338,218,328,219,322,307,332"/>
 <area shape="rect" id="Node000013" href="$db/d09/observation__model__test_8cpp.html#a3ad774be8af4a0c5d879a015aa4c2167" title="90 degrees to the right" alt="" coords="164,359,218,384"/>
 <area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="307,362,219,371,218,366,306,357"/>
-<area shape="rect" id="Node000014" href="$d0/def/base__observation__model__test_8cpp.html#a733e50eb0c3647fc506a6e8809b6b310" title="Test the observation model with trivial state." alt="" coords="164,408,218,434"/>
+<area shape="rect" id="Node000014" href="$de/dbc/default__observation__model__test_8cpp.html#a733e50eb0c3647fc506a6e8809b6b310" title="Test the observation model with trivial state." alt="" coords="164,408,218,434"/>
 <area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="347,376,275,399,219,416,218,411,273,394,345,371"/>
-<area shape="rect" id="Node000015" href="$d0/def/base__observation__model__test_8cpp.html#acf71e7b5b60bf0907d5282157167d3b6" title="Test observation model with a single landmark and trivial pose." alt="" coords="164,457,218,483"/>
+<area shape="rect" id="Node000015" href="$de/dbc/default__observation__model__test_8cpp.html#acf71e7b5b60bf0907d5282157167d3b6" title="Test observation model with a single landmark and trivial pose." alt="" coords="164,457,218,483"/>
 <area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="385,380,334,415,275,449,219,467,218,462,273,444,331,411,382,375"/>
-<area shape="rect" id="Node000016" href="$d0/def/base__observation__model__test_8cpp.html#ac90eaf9040e477aeffd279aaf622ecec" title="Test observation model with a single landmark and non&#45;trivial pose." alt="" coords="164,507,218,532"/>
+<area shape="rect" id="Node000016" href="$de/dbc/default__observation__model__test_8cpp.html#ac90eaf9040e477aeffd279aaf622ecec" title="Test observation model with a single landmark and non&#45;trivial pose." alt="" coords="164,507,218,532"/>
 <area shape="poly" id="edge15_Node000001_Node000016" title=" " alt="" coords="398,382,346,441,312,472,275,498,247,510,219,518,218,513,245,505,273,493,309,467,342,437,394,379"/>
 <area shape="rect" id="Node000003" href="$dc/dd5/data__association__test_8cpp.html#ad8e377318ba077cbaf50154f855e1415" title="Test case for when a landmark has a near mismatch." alt="" coords="5,5,60,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="155,137,58,44,46,33,50,29,61,40,159,133"/>

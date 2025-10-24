@@ -1,9 +1,0 @@
-<map id="Control::publish_visualization_data" name="Control::publish_visualization_data">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,46,225,72"/>
-<area shape="rect" id="Node000002" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966" title="Converts a position to a marker." alt="" coords="273,39,458,79"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="225,56,257,56,257,62,225,62"/>
-<area shape="rect" id="Node000003" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="506,5,691,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="458,43,490,38,491,44,459,48"/>
-<area shape="rect" id="Node000004" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="506,71,691,111"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="459,69,491,74,490,79,458,74"/>
-</map>

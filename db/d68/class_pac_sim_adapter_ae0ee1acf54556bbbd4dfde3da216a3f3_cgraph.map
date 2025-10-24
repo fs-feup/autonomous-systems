@@ -1,48 +1,5 @@
 <map id="PacSimAdapter::_pacsim_gt_pose_callback" name="PacSimAdapter::_pacsim_gt_pose_callback">
-<area shape="rect" id="Node000001" title="Callback for the pacsim ground truth pose topic." alt="" coords="5,371,173,411"/>
-<area shape="rect" id="Node000002" href="$d7/d49/class_control.html#ad14d8041b3b0b0c567e6ef8adc09488f" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="221,378,376,404"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,388,205,388,205,394,173,394"/>
-<area shape="rect" id="Node000003" href="$dc/dde/class_pure_pursuit.html#ab921e5033e736078b4adb269525f6dde" title="Pure Pursuit control law." alt="" coords="453,243,615,283"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="323,375,480,289,483,293,325,380"/>
-<area shape="rect" id="Node000007" href="$d7/d49/class_control.html#a72c77dbeea43a931a035127402075189" title=" " alt="" coords="433,193,634,219"/>
-<area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="304,376,320,346,346,306,381,264,422,229,433,223,436,228,426,233,384,268,350,309,325,349,308,379"/>
-<area shape="rect" id="Node000008" href="$d7/d49/class_control.html#ad54ef9c0479f65c23b5312b926535e75" title=" " alt="" coords="424,101,643,127"/>
-<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="302,377,344,288,379,231,422,178,454,152,488,132,491,136,457,156,426,182,384,234,349,290,307,379"/>
-<area shape="rect" id="Node000012" href="$d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="490,378,578,404"/>
-<area shape="poly" id="edge12_Node000002_Node000012" title=" " alt="" coords="376,388,474,388,474,394,376,394"/>
-<area shape="rect" id="Node000019" href="$d9/da5/class_point_solver.html#a94c8ce68f4b5c7808885e713850365db" title="Find the closest point on the path." alt="" coords="467,436,600,477"/>
-<area shape="poly" id="edge19_Node000002_Node000019" title=" " alt="" coords="348,402,453,431,451,436,347,407"/>
-<area shape="rect" id="Node000020" href="$d9/da5/class_point_solver.html#ad11abaf305721e003e1c952e37e1320e" title="Update Lookahead point." alt="" coords="467,519,600,559"/>
-<area shape="poly" id="edge21_Node000002_Node000020" title=" " alt="" coords="316,402,363,442,425,486,469,509,466,514,423,491,360,446,313,407"/>
-<area shape="rect" id="Node000021" href="$d9/da5/class_point_solver.html#aa0c3ff7898b19034c85d7d2a096651d2" title="Update vehicle pose." alt="" coords="467,619,600,659"/>
-<area shape="poly" id="edge23_Node000002_Node000021" title=" " alt="" coords="309,403,353,478,387,525,426,569,451,590,479,608,476,613,448,594,422,573,382,529,348,481,304,405"/>
-<area shape="rect" id="Node000004" href="$dc/dde/class_pure_pursuit.html#ae07038f1c02256819e50a7878797d1ac" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="722,136,869,177"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="614,240,642,229,666,211,690,193,715,181,717,186,693,197,669,215,645,233,616,245"/>
-<area shape="rect" id="Node000006" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a7ce25e8e5e8c05f720cd644b35134051" title=" " alt="" coords="963,367,1118,423"/>
-<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="615,246,691,236,773,228,848,227,878,230,901,237,938,259,971,289,998,322,1018,352,1014,355,993,325,967,293,935,264,899,241,877,235,847,232,774,233,692,241,616,252"/>
-<area shape="rect" id="Node000005" href="$d9/d8a/namespacecommon__lib_1_1structures.html#a985cd88a640d3c7ccc3f8d5094272843" title="Calculate the cross product of two vectors." alt="" coords="963,136,1118,177"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="869,154,947,154,947,159,869,159"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="871,175,901,193,940,230,974,272,1022,352,1017,355,969,275,936,233,898,197,868,180"/>
-<area shape="rect" id="Node000009" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966" title="Converts a position to a marker." alt="" coords="703,71,888,111"/>
-<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="644,101,687,98,688,103,644,107"/>
-<area shape="rect" id="Node000010" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="948,5,1133,46"/>
-<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="874,67,946,48,947,53,875,73"/>
-<area shape="rect" id="Node000011" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="948,71,1133,111"/>
-<area shape="poly" id="edge11_Node000009_Node000011" title=" " alt="" coords="889,88,932,88,932,94,889,94"/>
-<area shape="rect" id="Node000013" href="$d6/d5a/class_p_i_d.html#aa587fab53433af6127bbc5c7fdf50a35" title="Anti&#45;wind&#45;up via dynamic integrator clamping." alt="" coords="733,252,858,277"/>
-<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="550,375,609,331,649,307,690,286,717,276,719,281,692,291,651,312,612,336,553,380"/>
-<area shape="rect" id="Node000014" href="$d6/d5a/class_p_i_d.html#a5748127c7eb3f374fd599576a822abcd" title="Calculate the derivative term (derivative on measurement)" alt="" coords="697,301,894,327"/>
-<area shape="poly" id="edge14_Node000012_Node000014" title=" " alt="" coords="570,375,691,335,717,328,718,333,692,340,572,380"/>
-<area shape="rect" id="Node000015" href="$d6/d5a/class_p_i_d.html#abbd48a33a97a7dbc49e75050bef0146c" title="Calculate the error signal." alt="" coords="728,350,863,376"/>
-<area shape="poly" id="edge15_Node000012_Node000015" title=" " alt="" coords="578,384,713,369,713,374,579,389"/>
-<area shape="rect" id="Node000016" href="$d6/d5a/class_p_i_d.html#a05352c1a64fe0e13588291ccf450bace" title="Calculate the integral term." alt="" coords="704,400,887,425"/>
-<area shape="poly" id="edge16_Node000012_Node000016" title=" " alt="" coords="579,392,688,401,688,406,578,397"/>
-<area shape="rect" id="Node000017" href="$d6/d5a/class_p_i_d.html#afeb910407a0ec97035fd19f97cbfae1c" title="Calculate the proportional term." alt="" coords="691,449,900,475"/>
-<area shape="poly" id="edge17_Node000012_Node000017" title=" " alt="" coords="578,402,692,435,719,442,718,447,691,440,577,407"/>
-<area shape="rect" id="Node000018" href="$d6/d5a/class_p_i_d.html#a5a8397dc4b3e36d1db9ea2f1b8fb91a4" title="Compute the output value and apply limits." alt="" coords="724,498,867,524"/>
-<area shape="poly" id="edge18_Node000012_Node000018" title=" " alt="" coords="579,395,613,405,645,422,661,438,669,455,678,470,693,485,711,494,708,499,690,489,673,474,665,457,657,441,642,426,611,410,578,400"/>
-<area shape="poly" id="edge20_Node000019_Node000006" title=" " alt="" coords="584,475,645,505,668,521,692,534,750,549,797,556,843,552,899,534,933,515,963,489,1011,434,1015,437,967,493,936,519,901,539,844,558,797,562,749,555,690,539,665,526,642,509,581,480"/>
-<area shape="poly" id="edge22_Node000020_Node000006" title=" " alt="" coords="594,557,659,574,737,586,779,587,820,584,860,576,898,562,937,537,970,504,996,468,1017,435,1021,438,1001,471,974,508,940,541,901,567,862,581,821,589,779,592,737,591,658,580,593,562"/>
-<area shape="rect" id="Node000022" href="$d6/d89/class_bicycle_model.html#af0255660859d8df684381332a87114a7" title="Calculates the position of the rear axis given the position of the center of mass,..." alt="" coords="732,649,859,690"/>
-<area shape="poly" id="edge24_Node000021_Node000022" title=" " alt="" coords="601,644,718,658,717,663,600,649"/>
+<area shape="rect" id="Node000001" title="Callback for the pacsim ground truth pose topic, used when using simulated SLAM." alt="" coords="5,5,173,46"/>
+<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html#a73f934ff5ed27706be539777807b2a5f" title="Called when a new vehicle pose is received." alt="" coords="221,5,361,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,23,206,23,206,28,173,28"/>
 </map>

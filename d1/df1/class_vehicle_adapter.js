@@ -17,7 +17,7 @@ var class_vehicle_adapter =
     [ "imu_callback", "d1/df1/class_vehicle_adapter.html#a9060aa6d8c595e00c59f92621edff3c5", null ],
     [ "imu_subscription_callback", "d1/df1/class_vehicle_adapter.html#ae04964d74c486580468a81a983c5979c", null ],
     [ "mission_state_callback", "d1/df1/class_vehicle_adapter.html#a0b85cc4eaff00d391bb1b31e98838f11", null ],
-    [ "publish_cmd", "d1/df1/class_vehicle_adapter.html#a38b71330a7c466688649fd0801ff8794", null ],
+    [ "publish_command", "d1/df1/class_vehicle_adapter.html#ab329488a6765ef5c640d44b8d698ddee", null ],
     [ "resolver_callback", "d1/df1/class_vehicle_adapter.html#ad764a66db05e6ac5dbdf62bae1c8db6e", null ],
     [ "steering_angle_callback", "d1/df1/class_vehicle_adapter.html#ac8c38dbfb560f06fdd1000ff1eb40448", null ],
     [ "wheel_speeds_subscription_callback", "d1/df1/class_vehicle_adapter.html#af96b3cf76411fcbfd826a13bd8030649", null ],

@@ -1,0 +1,9 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title="Test Point Solver &#45; get_closest_point()" alt="" coords="5,31,60,56"/>
+<area shape="rect" id="Node000002" href="$d1/d2d/control_2test_2include_2utils_8cpp.html#adb8f61a3dbf0ebe5b413f02d0790415d" title="Reads track files and creates a PathPointArray message." alt="" coords="109,5,230,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,36,93,30,94,35,60,41"/>
+<area shape="rect" id="Node000003" href="$da/d3b/control_2src_2utils_2utils_8cpp.html#abc841ff1f30fff8e3601c0eb3c5a952b" title="Find the closest point on the path." alt="" coords="108,55,231,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="60,46,93,51,92,57,59,51"/>
+<area shape="rect" id="Node000004" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a7ce25e8e5e8c05f720cd644b35134051" title=" " alt="" coords="279,40,434,95"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="232,65,264,65,264,70,232,70"/>
+</map>

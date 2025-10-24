@@ -1,0 +1,5 @@
+<map id="RigidBodyLoadTransferModel" name="RigidBodyLoadTransferModel">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,139,207,224"/>
+<area shape="rect" id="Node000002" href="$d4/da2/class_load_transfer_model.html" title="Base class for models that compute load transfer on a vehicle." alt="" coords="34,5,178,91"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,106,109,139,103,139,103,106"/>
+</map>

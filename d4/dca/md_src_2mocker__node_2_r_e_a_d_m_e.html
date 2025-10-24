@@ -94,27 +94,27 @@ $(document).ready(function(){initNavTree('d4/dca/md_src_2mocker__node_2_r_e_a_d_
   <div class="headertitle"><div class="title">MockerNode package</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md111"></a> </p>
-<h1><a class="anchor" id="autotoc_md112"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md110"></a> </p>
+<h1><a class="anchor" id="autotoc_md111"></a>
 Package Information</h1>
-<h2><a class="anchor" id="autotoc_md113"></a>
+<h2><a class="anchor" id="autotoc_md112"></a>
 Description</h2>
-<p>This package is used to mock outputs from other packages. It has a central ROS2 node that deals with ROS2 communication and will have 4 additional files that separately mock each of the following subsystems: <a class="el" href="../../de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection.">Perception</a>, State Estimation, Path <a class="el" href="../../d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle.">Planning</a> and Driverless <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a>. The configuration should be done by launching with the launch file available at the launch folder.</p>
-<h2><a class="anchor" id="autotoc_md114"></a>
+<p>This package is used to mock outputs from other packages. It has a central ROS2 node that deals with ROS2 communication and will have 4 additional files that separately mock each of the following subsystems: <a class="el" href="../../de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection.">Perception</a>, State Estimation, Path <a class="el" href="../../d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle.">Planning</a> and Driverless Control. The configuration should be done by launching with the launch file available at the launch folder.</p>
+<h2><a class="anchor" id="autotoc_md113"></a>
 Launch Configurations</h2>
 <ul>
 <li><a href="../../launch/eufs.launch.py">eufs.launch.py</a>: Launches the mocker node with the configuration for EUFS simulator.</li>
 <li><a href="../../launch/pacsim.launch.py">pacsim.launch.py</a>: Launches the mocker node with the configuration for PacSim simulator.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md115"></a>
+<h1><a class="anchor" id="autotoc_md114"></a>
 How to Run</h1>
-<h2><a class="anchor" id="autotoc_md116"></a>
+<h2><a class="anchor" id="autotoc_md115"></a>
 Install Dependencies</h2>
 <div class="fragment"><div class="line">./dependencies_install.sh</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md117"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md116"></a>
 Compiling</h2>
 <div class="fragment"><div class="line">colcon build --packages-up-to mocker_node</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md118"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md117"></a>
 Running</h2>
 <p>Use a launch file:</p>
 <div class="fragment"><div class="line">source ./install/setup.bash # If in a new terminal</div>
@@ -122,7 +122,7 @@ Running</h2>
 </div><!-- fragment --><p>or run directly:</p>
 <div class="fragment"><div class="line">source ./install/setup.bash # If in a new terminal</div>
 <div class="line">ros2 run mocker_node mocker_node</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md119"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md118"></a>
 Design</h1>
 <p>The package has one ROS2 node, which communicates via ROS2 with the car or simulator. Each node that will be mocked has a corresponding file that is responsible to mock the node and deliver the mock output to the ROS2 node ready to be published. The following diagram illustrates that.</p>
 <p><img src="../../../../docs/assets/mocker_node/mocker_node.drawio.svg" alt="MockerNode Diagram" style="pointer-events: none;" class="inline"/> </p>

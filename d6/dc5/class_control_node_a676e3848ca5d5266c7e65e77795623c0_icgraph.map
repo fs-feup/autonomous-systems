@@ -1,0 +1,5 @@
+<map id="ControlNode::publish_command" name="ControlNode::publish_command">
+<area shape="rect" id="Node000001" title="Adapters override this function to publish control commands in their environment." alt="" coords="192,5,332,46"/>
+<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html#ae9fbf61f4e1912413531ddf2a0633c93" title="Function that publishes control commands on timer ticks." alt="" coords="5,5,144,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,28,144,28,144,23,176,23"/>
+</map>

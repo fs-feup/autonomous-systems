@@ -1,0 +1,5 @@
+<map id="ControlSolver" name="ControlSolver">
+<area shape="rect" id="Node000001" title="Base class for control solvers, that calculate both lateral and longitudinal control commands." alt="" coords="5,5,169,171"/>
+<area shape="rect" id="Node000002" href="$dd/d8f/class_decoupled_controller.html" title=" " alt="" coords="5,219,169,404"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,185,90,219,85,219,85,185"/>
+</map>

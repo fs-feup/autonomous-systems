@@ -1,0 +1,7 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title="Tests the conversion from wheel revolutions to velocities using the bycicle model." alt="" coords="5,13,60,39"/>
+<area shape="rect" id="Node000002" href="$df/d16/ekf__state__est_2src_2utils_2utils_8cpp.html#ac7f5e888134d59355a0cfe1657c5300c" title="Calculates the translational and rotational velocities of the vehicle from wheel rotations and steeri..." alt="" coords="108,13,271,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,23,92,23,92,28,60,28"/>
+<area shape="rect" id="Node000003" href="$d2/d32/namespacecommon__lib_1_1maths.html#a4068519b32978679e461dc19e2b3a5fd" title="Function to get the translational velocity of a wheel from rpm and wheel diameter." alt="" coords="319,5,512,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="271,23,303,23,303,28,271,28"/>
+</map>

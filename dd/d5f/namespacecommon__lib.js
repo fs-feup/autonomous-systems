@@ -1,5 +1,8 @@
 var namespacecommon__lib =
 [
+    [ "car_model", "dc/de4/namespacecommon__lib_1_1car__model.html", [
+      [ "weight_transfer", "dc/de4/namespacecommon__lib_1_1car__model.html#a3651028136c4732f7d57e1977b30237c", null ]
+    ] ],
     [ "car_parameters", "dc/dd9/namespacecommon__lib_1_1car__parameters.html", "dc/dd9/namespacecommon__lib_1_1car__parameters" ],
     [ "communication", "d1/dd0/namespacecommon__lib_1_1communication.html", "d1/dd0/namespacecommon__lib_1_1communication" ],
     [ "competition_logic", "d9/d2b/namespacecommon__lib_1_1competition__logic.html", [

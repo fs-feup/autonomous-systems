@@ -1,5 +1,0 @@
-<map id="NoRearWSSBicycleModel::wheels_velocities_to_cg" name="NoRearWSSBicycleModel::wheels_velocities_to_cg">
-<area shape="rect" id="Node000001" title="assumes a bicycle model and a set of parameters about the vehicle to calculate the velocities of the ..." alt="" coords="5,5,178,46"/>
-<area shape="rect" id="Node000002" href="$d2/d32/namespacecommon__lib_1_1maths.html#a4068519b32978679e461dc19e2b3a5fd" title="Function to get the translational velocity of a wheel from rpm and wheel diameter." alt="" coords="226,5,419,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="178,23,210,23,210,28,178,28"/>
-</map>

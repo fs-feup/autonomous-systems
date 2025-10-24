@@ -1,0 +1,5 @@
+<map id="ControlSolver::path_callback" name="ControlSolver::path_callback">
+<area shape="rect" id="Node000001" title="Called when a new path is sent by Path Planning." alt="" coords="191,5,321,46"/>
+<area shape="rect" id="Node000002" href="$dd/d8f/class_decoupled_controller.html#a4485d0ea0700b71e2576d5d62b56701c" title="Called when a new path is sent by Path Planning." alt="" coords="5,5,143,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,28,143,28,143,23,175,23"/>
+</map>

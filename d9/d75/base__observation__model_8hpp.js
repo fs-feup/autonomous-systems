@@ -1,4 +1,4 @@
 var base__observation__model_8hpp =
 [
-    [ "ObservationModel", "d7/d64/class_observation_model.html", "d7/d64/class_observation_model" ]
+    [ "VEObservationModel", "d3/d28/class_v_e_observation_model.html", "d3/d28/class_v_e_observation_model" ]
 ];

@@ -1,21 +1,13 @@
 <map id="PID::calculate_error" name="PID::calculate_error">
-<area shape="rect" id="Node000001" title="Calculate the error signal." alt="" coords="881,124,1015,149"/>
-<area shape="rect" id="Node000002" href="$d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="744,124,833,149"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="865,139,833,139,833,134,865,134"/>
-<area shape="rect" id="Node000003" href="$d7/d49/class_control.html#ad14d8041b3b0b0c567e6ef8adc09488f" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="510,45,665,71"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="755,117,727,99,695,84,663,74,665,69,697,79,729,95,758,112"/>
-<area shape="rect" id="Node000008" href="$d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a8a079d78fabe3578dc7038a75af16fb9" title="Stop the thread." alt="" coords="478,94,696,120"/>
-<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="729,130,679,123,680,118,730,125"/>
-<area shape="rect" id="Node000009" href="$db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#abc9743c5e60d6794e50b918cf5c12f15" title="Stop the thread." alt="" coords="500,144,674,185"/>
-<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="729,147,675,155,674,150,729,142"/>
-<area shape="rect" id="Node000010" href="$d3/d6a/pid__test_8cpp.html#aa955b6a9298278b14ec50652fd165ecb" title="Test PID class &#45; update Test all the methods." alt="" coords="560,209,614,235"/>
-<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="760,161,731,181,697,199,655,213,615,221,614,216,653,208,695,194,728,176,757,157"/>
-<area shape="rect" id="Node000004" href="$db/d68/class_pac_sim_adapter.html#ae0ee1acf54556bbbd4dfde3da216a3f3" title="Callback for the pacsim ground truth pose topic." alt="" coords="263,5,430,46"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="494,48,430,39,431,34,494,43"/>
-<area shape="rect" id="Node000006" href="$d0/d1d/class_eufs_adapter.html#acf7089ed69eb7488fae4904f66f1e2b8" title=" " alt="" coords="277,71,416,111"/>
-<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="495,73,417,84,416,79,494,68"/>
-<area shape="rect" id="Node000005" href="$db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868" title=" " alt="" coords="5,13,215,39"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="248,28,215,28,215,23,248,23"/>
-<area shape="rect" id="Node000007" href="$d0/d1d/class_eufs_adapter.html#af96e527b6595820c565d6beeafe3da5f" title=" " alt="" coords="25,78,195,104"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="261,94,195,94,195,88,261,88"/>
+<area shape="rect" id="Node000001" title="Calculate the error signal." alt="" coords="408,84,542,110"/>
+<area shape="rect" id="Node000002" href="$d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="272,84,360,110"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="392,100,361,100,361,94,392,94"/>
+<area shape="rect" id="Node000003" href="$d6/d5a/class_p_i_d.html#a92a2db4c3ffd6a0a37ea275d96c55b1c" title="Returns the throttle command calculated by the solver (only throttle)" alt="" coords="25,5,204,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="282,77,254,60,223,45,190,34,192,29,225,40,257,55,285,73"/>
+<area shape="rect" id="Node000004" href="$d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a8a079d78fabe3578dc7038a75af16fb9" title="Stop the thread." alt="" coords="5,55,224,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="256,91,207,84,207,78,257,86"/>
+<area shape="rect" id="Node000005" href="$db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#abc9743c5e60d6794e50b918cf5c12f15" title="Stop the thread." alt="" coords="27,105,202,145"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="257,108,202,115,202,110,256,102"/>
+<area shape="rect" id="Node000006" href="$d3/d6a/pid__test_8cpp.html#aa955b6a9298278b14ec50652fd165ecb" title="Test PID class &#45; update Test all the methods." alt="" coords="87,169,142,195"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="288,122,258,141,225,159,182,173,142,181,141,176,180,168,223,154,255,137,285,117"/>
 </map>

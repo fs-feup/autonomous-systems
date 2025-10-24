@@ -1,11 +1,11 @@
 <map id="LowPassFilter::filter" name="LowPassFilter::filter">
 <area shape="rect" id="Node000001" title="Apply the low pass filter to a new input." alt="" coords="108,80,243,106"/>
-<area shape="rect" id="Node000002" href="$d1/dc6/lpf__test_8cpp.html#a04e091a94a365c953d4da06758ca93ab" title="Test LowPassFilter &#45; filter() Test the LowPassFilter with alpha = 0.0 (full filtering)." alt="" coords="5,5,60,31"/>
+<area shape="rect" id="Node000002" href="$d1/d38/low__pass__filter__test_8cpp.html#a04e091a94a365c953d4da06758ca93ab" title="Test LowPassFilter &#45; filter() Test the LowPassFilter with alpha = 0.0 (full filtering)." alt="" coords="5,5,60,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="134,75,58,34,60,29,137,70"/>
-<area shape="rect" id="Node000003" href="$d1/dc6/lpf__test_8cpp.html#aee2241703454d52389f92294b9331690" title="Test LowPassFilter &#45; filter() Test the LowPassFilter with alpha = 0.5 (half filtering)." alt="" coords="5,55,60,80"/>
+<area shape="rect" id="Node000003" href="$d1/d38/low__pass__filter__test_8cpp.html#aee2241703454d52389f92294b9331690" title="Test LowPassFilter &#45; filter() Test the LowPassFilter with alpha = 0.5 (half filtering)." alt="" coords="5,55,60,80"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="92,81,60,75,61,70,93,75"/>
-<area shape="rect" id="Node000004" href="$d1/dc6/lpf__test_8cpp.html#ae6e937f184d3aaf7674bf00ad7cdbd9a" title="Test LowPassFilter &#45; filter() Test the LowPassFilter with alpha = 1.0 (no filtering)." alt="" coords="5,104,60,130"/>
+<area shape="rect" id="Node000004" href="$d1/d38/low__pass__filter__test_8cpp.html#ae6e937f184d3aaf7674bf00ad7cdbd9a" title="Test LowPassFilter &#45; filter() Test the LowPassFilter with alpha = 1.0 (no filtering)." alt="" coords="5,104,60,130"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="93,109,61,115,60,110,92,104"/>
-<area shape="rect" id="Node000005" href="$d1/dc6/lpf__test_8cpp.html#a99f4da952738e202ad46200b8e781e79" title="Test LowPassFilter &#45; filter() Test the LowPassFilter with alpha = 0.25 (quarter filtering)." alt="" coords="5,153,60,179"/>
+<area shape="rect" id="Node000005" href="$d1/d38/low__pass__filter__test_8cpp.html#a99f4da952738e202ad46200b8e781e79" title="Test LowPassFilter &#45; filter() Test the LowPassFilter with alpha = 0.25 (quarter filtering)." alt="" coords="5,153,60,179"/>
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="136,116,61,155,58,150,134,111"/>
 </map>
