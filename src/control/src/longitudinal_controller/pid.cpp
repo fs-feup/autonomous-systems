@@ -59,8 +59,8 @@ double PID::calculate_error(double setpoint, double measurement) const {
     error = this->params_->pid_max_positive_error_;
   } else if (error < this->params_->pid_max_negative_error_) {
     error = this->params_->pid_max_negative_error_;
-  } else{
-    error = error;
+  }else {
+    // do nothing, error within limits
   }
   return error;
 }
@@ -96,7 +96,7 @@ void PID::compute_output() {
   } else if (this->out_ < this->params_->pid_lim_min_) {
     this->out_ = this->params_->pid_lim_min_;
   } else {
-    this->out_ = this->out_;
+    // do nothing, output within limits
   }
 }
 
