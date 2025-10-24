@@ -1,0 +1,7 @@
+<map id="Skidpad::skidpad_path" name="Skidpad::skidpad_path">
+<area shape="rect" id="Node000001" title="Generate a path for skidpad course." alt="" coords="5,46,157,72"/>
+<area shape="rect" id="Node000002" href="$de/d3f/class_skidpad.html#a54bb0f607bde268fa3db8e6fce32f522" title="Aligns detected cones with reference cones using ICP." alt="" coords="205,5,348,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="156,43,189,38,190,43,157,49"/>
+<area shape="rect" id="Node000003" href="$de/d3f/class_skidpad.html#afb0ea0b6d869e3a561ff5c755c82fe2a" title="Finds the closest point index in a path to a given pose." alt="" coords="205,71,348,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="157,69,190,74,189,79,156,74"/>
+</map>

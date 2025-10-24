@@ -2,13 +2,13 @@
 <area shape="rect" id="Node000001" title="simple scenario with few points in the path" alt="" coords="5,68,60,94"/>
 <area shape="rect" id="Node000002" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a7aaaf0c9d5c4fc7b67418ee1c748f208" title="Retrieves a path point vector from a file." alt="" coords="127,23,230,48"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,70,120,51,121,56,61,75"/>
-<area shape="rect" id="Node000004" href="$d3/dcc/class_velocity_planning.html#aa0af0b050d79a4efe649c778810ab5ef" title=" " alt="" coords="108,89,249,129"/>
+<area shape="rect" id="Node000004" href="$d3/dcc/class_velocity_planning.html#aa0af0b050d79a4efe649c778810ab5ef" title="Assigns an ideal velocity to each point of the path." alt="" coords="108,89,249,129"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="61,83,93,90,92,95,60,89"/>
 <area shape="rect" id="Node000003" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a82e479b6e5401fd9ab2dc0a0851f0a55" title="Opens a file for reading." alt="" coords="324,5,428,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="230,28,308,21,309,27,230,34"/>
-<area shape="rect" id="Node000005" href="$d3/dcc/class_velocity_planning.html#a22bde2b36b14c926b184939d9a58b444" title="function to calculate the radius of the circle that passes through 3 points" alt="" coords="305,55,448,96"/>
+<area shape="rect" id="Node000005" href="$d3/dcc/class_velocity_planning.html#a64a69a4833bd8054d6d9faa33791d660" title="function to calculate the radius of the circle that passes through 3 points" alt="" coords="305,55,448,96"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="249,94,289,87,290,93,250,100"/>
-<area shape="rect" id="Node000006" href="$d3/dcc/class_velocity_planning.html#a46da78971eebffd3490c34e8bd0a974d" title="function to calculate the speed of the car according to the curvature of the path" alt="" coords="301,121,452,161"/>
+<area shape="rect" id="Node000006" href="$d3/dcc/class_velocity_planning.html#a0fdadea4c9950df53dddfec7aad9e2a0" title="function to calculate the speed of the car according to the curvature of the path" alt="" coords="301,121,452,161"/>
 <area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="250,118,286,123,285,129,249,123"/>
 <area shape="rect" id="Node000007" href="$d3/dcc/class_velocity_planning.html#ab74815515808651d953b291ca59e1f80" title="function to limit the speed of the car according to the curvature of the lookahead path" alt="" coords="297,186,455,227"/>
 <area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="217,127,298,170,312,177,309,182,296,175,214,132"/>

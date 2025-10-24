@@ -111,6 +111,8 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 <li>sector_times&#160;:&#160;<a class="el" href="d7/d84/struct_report_1_1_lap_time.html#ade906f91257ef5b6fa1f0c33a9c106f7">Report::LapTime</a></li>
 <li>sectorTimes&#160;:&#160;<a class="el" href="de/dbe/class_competition_logic.html#a0748d7b8d14df51e946b7b5756e24cbd">CompetitionLogic</a></li>
 <li>seed&#160;:&#160;<a class="el" href="d7/dac/struct_report.html#aa913b8873de42084f4b95e1e1cea98fd">Report</a></li>
+<li>select_candidate_midpoints()&#160;:&#160;<a class="el" href="d0/d89/class_path_calculation.html#abcde61d8c75bae78ce2fd4fa2ade9741">PathCalculation</a></li>
+<li>select_starting_midpoints()&#160;:&#160;<a class="el" href="d0/d89/class_path_calculation.html#a1952735b2b8bde03300519300c3f14c5">PathCalculation</a></li>
 <li>SENode()&#160;:&#160;<a class="el" href="d4/d43/class_s_e_node.html#a5d61b6c80a21c02b29074e434cc6703b">SENode</a></li>
 <li>sensors_config_file&#160;:&#160;<a class="el" href="d7/dac/struct_report.html#a675a5f1af4206421d867671775958fa3">Report</a></li>
 <li>set_color()&#160;:&#160;<a class="el" href="d2/d23/class_cluster.html#acf07cb412ab1990cbfcaf372e6a21dce">Cluster</a></li>
@@ -121,11 +123,12 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 <li>set_last_pose()&#160;:&#160;<a class="el" href="d0/d87/class_pose_updater.html#a91ebc3177cad65dd3890a16dcfcefc46">PoseUpdater</a></li>
 <li>set_lidar_pitch()&#160;:&#160;<a class="el" href="de/dd9/class_fov_trimming.html#a7750da4476d79efbf72f032177239321">FovTrimming</a></li>
 <li>set_lidar_rotation()&#160;:&#160;<a class="el" href="de/dd9/class_fov_trimming.html#a3f026636eedbb6d75b80b7f56904524d">FovTrimming</a></li>
-<li>set_mission()&#160;:&#160;<a class="el" href="d9/db5/class_planning.html#a24479f35b4d9a0dff0b990f10a60872c">Planning</a>, <a class="el" href="da/dd3/class_s_l_a_m_solver.html#a132757cb8a25752b2050dc260a72b902">SLAMSolver</a></li>
+<li>set_mission()&#160;:&#160;<a class="el" href="d9/db5/class_planning.html#a4b1103d56245c7e28e2a2b708d8b3b12">Planning</a>, <a class="el" href="da/dd3/class_s_l_a_m_solver.html#a132757cb8a25752b2050dc260a72b902">SLAMSolver</a></li>
 <li>set_mission_state()&#160;:&#160;<a class="el" href="d0/d1d/class_eufs_adapter.html#a3179cfc404f49964f81464b56c6550f8">EufsAdapter</a>, <a class="el" href="d7/d8e/class_fsds_adapter.html#a7c3191b456d3c3675cebe51cc5f508f5">FsdsAdapter</a>, <a class="el" href="db/d68/class_pac_sim_adapter.html#a1fab8693634ba4c0d73c37899161e815">PacSimAdapter</a></li>
 <li>set_point_cloud()&#160;:&#160;<a class="el" href="d2/d23/class_cluster.html#ad5f937f5042439a81018dc1bc5cea6b4">Cluster</a></li>
 <li>set_target()&#160;:&#160;<a class="el" href="dd/d05/classscenario__generator_1_1_point_tracker.html#a32f370c3352d809da62415631189dcc2">scenario_generator.PointTracker</a></li>
 <li>set_target_mode()&#160;:&#160;<a class="el" href="dd/d05/classscenario__generator_1_1_point_tracker.html#a8350be08cbb6b3ac0421cb8e1f273e12">scenario_generator.PointTracker</a></li>
+<li>set_vehicle_pose()&#160;:&#160;<a class="el" href="d8/dab/class_midpoint_generator.html#a71fd6ccb73482dd6db71de2673ba61f7">MidpointGenerator</a>, <a class="el" href="d0/d89/class_path_calculation.html#aed93cb437cf28eb7cd0a540894f35443">PathCalculation</a></li>
 <li>set_velocity()&#160;:&#160;<a class="el" href="d3/dcc/class_velocity_planning.html#aa0af0b050d79a4efe649c778810ab5ef">VelocityPlanning</a></li>
 <li>set_z_score()&#160;:&#160;<a class="el" href="d2/d23/class_cluster.html#a317f4cd731722a6d21cbfecf8e112c87">Cluster</a></li>
 <li>set_z_scores()&#160;:&#160;<a class="el" href="d2/d23/class_cluster.html#a9018afcce64d5b973aeef0bd395f87f8">Cluster</a></li>
@@ -154,19 +157,24 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 <li>should_stop_recording()&#160;:&#160;<a class="el" href="db/da4/classsupervisor_1_1supervisor_1_1_supervisor.html#a5bb99d6ae72e73efe28184cba5cfdf36">supervisor.supervisor.Supervisor</a></li>
 <li>shutdown&#160;:&#160;<a class="el" href="d1/daf/classdata__infrastructure_1_1data__infrastructure__node_1_1_data_infrastructure_node.html#ab22ded674d867d787babf32a13334e75">data_infrastructure.data_infrastructure_node.DataInfrastructureNode</a></li>
 <li>sign()&#160;:&#160;<a class="el" href="d3/dad/struct_vehicle_model_bicycle_1_1_tire_model.html#a40cec70ee1ffbde32a36b9856271f8e2">VehicleModelBicycle::TireModel</a></li>
-<li>signal_handler&#160;:&#160;<a class="el" href="dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a6d9abe6081566e6df233eec44b45d859">evaluator.evaluator.Evaluator</a>, <a class="el" href="db/d78/classpower__log_1_1power__log__node_1_1_power_node.html#a00fecc31d6c0e12054e2e2c3d551f673">power_log.power_log_node.PowerNode</a></li>
+<li>signal_handler()&#160;:&#160;<a class="el" href="dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a648d1ad6a144d9b2972b9e78d21fdce3">evaluator.evaluator.Evaluator</a>, <a class="el" href="db/d78/classpower__log_1_1power__log__node_1_1_power_node.html#a00fecc31d6c0e12054e2e2c3d551f673">power_log.power_log_node.PowerNode</a></li>
 <li>simulated_vehicle_state_&#160;:&#160;<a class="el" href="dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html#abf6e6b2250fdb0fff10a203d40c89d84">evaluator.eufs_adapter.EufsAdapter</a></li>
 <li>simulated_vehicle_state_callback&#160;:&#160;<a class="el" href="dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html#a2c889192fdb0c6ef10d419bae56baace">evaluator.eufs_adapter.EufsAdapter</a></li>
 <li>simulation_&#160;:&#160;<a class="el" href="df/dec/struct_planning_config.html#aeddfc56b5c7d7666d3f4b2bfa545c807">PlanningConfig</a></li>
+<li>simulation_publishing_visualization_msgs_&#160;:&#160;<a class="el" href="d2/deb/struct_planning_parameters.html#a16ff0410ad879f80fbafca6b95b39d22">PlanningParameters</a></li>
+<li>simulation_using_simulated_se_&#160;:&#160;<a class="el" href="d2/deb/struct_planning_parameters.html#a38115ea426fd1c79dccf108a6b958e62">PlanningParameters</a></li>
 <li>SimulationConfig()&#160;:&#160;<a class="el" href="d3/db0/struct_simulation_config.html#a59b67ef66d0cc8ceb0045b049b809909">SimulationConfig</a></li>
 <li>skid_fov_trim_angle&#160;:&#160;<a class="el" href="d8/d2c/struct_trimming_parameters.html#a6c79636d71fbbc069d513efad7a83250">TrimmingParameters</a></li>
 <li>skid_max_range&#160;:&#160;<a class="el" href="d8/d2c/struct_trimming_parameters.html#a251b2f4c916309b3356a021a3548da4f">TrimmingParameters</a></li>
 <li>skid_split_params&#160;:&#160;<a class="el" href="d8/d2c/struct_trimming_parameters.html#ae239c22039f2a8c3d03b44b21dfb669a">TrimmingParameters</a></li>
-<li>skidpad_data_loaded_&#160;:&#160;<a class="el" href="d0/d89/class_path_calculation.html#aea9575e9f8381ab0da70ad115c3298ac">PathCalculation</a></li>
-<li>skidpad_minimum_cones_&#160;:&#160;<a class="el" href="df/d7d/struct_path_calculation_config.html#a46bee0a4a92d55d423281b88d313a19f">PathCalculationConfig</a>, <a class="el" href="d2/deb/struct_planning_parameters.html#a2041cbdc303d4d524b41a075c9dcf967">PlanningParameters</a></li>
-<li>skidpad_path()&#160;:&#160;<a class="el" href="d0/d89/class_path_calculation.html#a995b7a1be33c2b0817e5cbf74656d8d4">PathCalculation</a></li>
-<li>skidpad_tolerance_&#160;:&#160;<a class="el" href="df/d7d/struct_path_calculation_config.html#a1c573aae8492b0051ede300d25ff37a3">PathCalculationConfig</a>, <a class="el" href="d2/deb/struct_planning_parameters.html#a7ef76e6d37289666cfac4b20daaf19d8">PlanningParameters</a></li>
-<li>SkidpadTrimming()&#160;:&#160;<a class="el" href="d6/df3/class_skidpad_trimming.html#a4bbd1be465227e9c1e6c817a2dad7574">SkidpadTrimming</a></li>
+<li>Skidpad()&#160;:&#160;<a class="el" href="de/d3f/class_skidpad.html#a8daa55c5d8b0b42cf0e22dd12aa8ac21">Skidpad</a></li>
+<li>skidpad_&#160;:&#160;<a class="el" href="d9/db5/class_planning.html#a994a394a579b45df74f0fec70289c6da">Planning</a>, <a class="el" href="df/dec/struct_planning_config.html#ae7f5081b34508c430b2ddf0d9db345d0">PlanningConfig</a></li>
+<li>skidpad_data_loaded_&#160;:&#160;<a class="el" href="de/d3f/class_skidpad.html#a6023aea9c9e1a3bc36d704287b4dc463">Skidpad</a></li>
+<li>skidpad_minimum_cones_&#160;:&#160;<a class="el" href="d2/deb/struct_planning_parameters.html#a2041cbdc303d4d524b41a075c9dcf967">PlanningParameters</a></li>
+<li>skidpad_path()&#160;:&#160;<a class="el" href="de/d3f/class_skidpad.html#ac65aa1cc814c7f17f337bc2eab352058">Skidpad</a></li>
+<li>skidpad_tolerance_&#160;:&#160;<a class="el" href="d2/deb/struct_planning_parameters.html#a7ef76e6d37289666cfac4b20daaf19d8">PlanningParameters</a></li>
+<li>SkidpadConfig()&#160;:&#160;<a class="el" href="d2/de2/struct_skidpad_config.html#adb118725d3ef60a5a7f82d4ffa8983e2">SkidpadConfig</a></li>
+<li>SkidpadTrimming()&#160;:&#160;<a class="el" href="d6/df3/class_skidpad_trimming.html#ac08eb890feaead9675de8273c0d43a88">SkidpadTrimming</a></li>
 <li>slam_isam2_factorization_&#160;:&#160;<a class="el" href="d5/d51/struct_s_l_a_m_parameters.html#a80e81da83e6f52911469db8bd7fec369">SLAMParameters</a></li>
 <li>slam_isam2_relinearize_skip_&#160;:&#160;<a class="el" href="d5/d51/struct_s_l_a_m_parameters.html#a3c65ac35089caf328c98eb8431d70e2b">SLAMParameters</a></li>
 <li>slam_isam2_relinearize_threshold_&#160;:&#160;<a class="el" href="d5/d51/struct_s_l_a_m_parameters.html#a650597ab667255e73d493fea2928228c">SLAMParameters</a></li>
@@ -179,12 +187,13 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 <li>slam_parameters_&#160;:&#160;<a class="el" href="d7/d79/class_e_k_f_s_l_a_m_solver.html#a9ea051d8c9222434b155ec9558c9bf06">EKFSLAMSolver</a></li>
 <li>slam_solver_name_&#160;:&#160;<a class="el" href="d5/d51/struct_s_l_a_m_parameters.html#a648cfbd65d1bf07e00656c87fedcc542">SLAMParameters</a></li>
 <li>SLAMNode()&#160;:&#160;<a class="el" href="d8/d84/class_s_l_a_m_node.html#a8543b5442579202f4ead10fbe347033c">SLAMNode</a></li>
-<li>SLAMParameters()&#160;:&#160;<a class="el" href="d5/d51/struct_s_l_a_m_parameters.html#ac9ff1fec1b2f1cca3ae5db188d46380c">SLAMParameters</a></li>
+<li>SLAMParameters()&#160;:&#160;<a class="el" href="d5/d51/struct_s_l_a_m_parameters.html#a202b164e2771de6390ac088f013c3043">SLAMParameters</a></li>
 <li>SLAMSolver()&#160;:&#160;<a class="el" href="da/dd3/class_s_l_a_m_solver.html#a82cabbd52b46d17d6f55cdbf09e1f6fd">SLAMSolver</a></li>
+<li>sliding_window_radius_&#160;:&#160;<a class="el" href="d9/d46/struct_midpoint_generator_config.html#a709fb85e7bd9d66d267a5f2376a6bc70">MidpointGeneratorConfig</a></li>
 <li>sliding_window_size_&#160;:&#160;<a class="el" href="d5/d51/struct_s_l_a_m_parameters.html#a5b3f5563ba88747f0fbd89ab8a5e83ed">SLAMParameters</a></li>
 <li>SlidingWindowLevenbergOptimizer()&#160;:&#160;<a class="el" href="d2/d19/class_sliding_window_levenberg_optimizer.html#a3ee9fc76fc375c4a2139754c069ccdd4">SlidingWindowLevenbergOptimizer</a></li>
 <li>SlidingWindowLevenbergOptimizerTest()&#160;:&#160;<a class="el" href="d2/d7b/class_sliding_window_levenberg_optimizer_test.html#a35c94973289656b1468777d2100679e2">SlidingWindowLevenbergOptimizerTest</a></li>
-<li>slip_angle_callback()&#160;:&#160;<a class="el" href="d6/d38/classvehicle__dynamics__node_1_1vehicle__dynamics__node_1_1_vehicle_dynamics_publisher.html#aa0096d9f2eaba8266e1ce91c2c45b148">vehicle_dynamics_node.vehicle_dynamics_node.VehicleDynamicsPublisher</a></li>
+<li>slip_angle_callback&#160;:&#160;<a class="el" href="d6/d38/classvehicle__dynamics__node_1_1vehicle__dynamics__node_1_1_vehicle_dynamics_publisher.html#aad3aec221a0997571bde6680797a23cf">vehicle_dynamics_node.vehicle_dynamics_node.VehicleDynamicsPublisher</a></li>
 <li>slip_angle_pub&#160;:&#160;<a class="el" href="d6/d38/classvehicle__dynamics__node_1_1vehicle__dynamics__node_1_1_vehicle_dynamics_publisher.html#a8496ea2d9e90d6e710b3b07a3cd20b91">vehicle_dynamics_node.vehicle_dynamics_node.VehicleDynamicsPublisher</a></li>
 <li>slip_ratio&#160;:&#160;<a class="el" href="d3/dad/struct_vehicle_model_bicycle_1_1_tire_model.html#af1d1ee8d47158495035b7fde4b185258">VehicleModelBicycle::TireModel</a></li>
 <li>slip_ratio_callback&#160;:&#160;<a class="el" href="d6/d38/classvehicle__dynamics__node_1_1vehicle__dynamics__node_1_1_vehicle_dynamics_publisher.html#ac599fb3bd305ae45c27093f1e3e2f577">vehicle_dynamics_node.vehicle_dynamics_node.VehicleDynamicsPublisher</a></li>
@@ -197,6 +206,7 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 <li>smoothing_spline_coeffs_ratio_&#160;:&#160;<a class="el" href="d2/deb/struct_planning_parameters.html#a7b805d2fc7f0c719e605b163f8fc82cb">PlanningParameters</a></li>
 <li>smoothing_spline_order_&#160;:&#160;<a class="el" href="d2/deb/struct_planning_parameters.html#a8d676b1a478bc92eaefc08061d987848">PlanningParameters</a></li>
 <li>smoothing_spline_precision_&#160;:&#160;<a class="el" href="d2/deb/struct_planning_parameters.html#aa3dc1d308628d494337ff00701830501">PlanningParameters</a></li>
+<li>smoothing_use_path_smoothing_&#160;:&#160;<a class="el" href="d2/deb/struct_planning_parameters.html#a18a2ad572aced2230f459cacd0919997">PlanningParameters</a></li>
 <li>solver&#160;:&#160;<a class="el" href="d7/d05/class_graph_slam_solver_test.html#a5a39192ed937412bc78c04a1e3c48fce">GraphSlamSolverTest</a></li>
 <li>source_cloud&#160;:&#160;<a class="el" href="de/dab/class_i_c_p_suite.html#a05bc439746821b7fb86f9d2a849953d7">ICPSuite</a></li>
 <li>source_type&#160;:&#160;<a class="el" href="d9/d09/struct_landmark_list.html#a661fa3dcb27a214c7950999276ee6e11">LandmarkList</a></li>

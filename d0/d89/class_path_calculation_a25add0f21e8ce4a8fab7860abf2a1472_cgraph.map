@@ -1,6 +1,0 @@
-<map id="PathCalculation::find_path_start_points" name="PathCalculation::find_path_start_points">
-<area shape="rect" id="Node000001" title="Finds the first and second points to start the path." alt="" coords="5,22,144,63"/>
-<area shape="rect" id="Node000002" href="$d0/d89/class_path_calculation.html#aa0e5b1444ad85379197270b612ada0eb" title="Depth&#45;first search for path cost calculation." alt="" coords="192,29,360,55"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,40,176,40,176,45,144,45"/>
-<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="242,31,236,21,240,11,253,5,276,3,301,5,313,12,311,17,299,10,276,8,255,10,243,15,241,20,246,27"/>
-</map>

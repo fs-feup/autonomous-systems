@@ -17,7 +17,7 @@
 <area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="61,163,93,102,117,69,145,40,163,29,165,34,148,44,121,72,98,105,66,166"/>
 <area shape="rect" id="Node000013" href="$de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="168,55,252,80"/>
 <area shape="poly" id="edge12_Node000010_Node000013" title=" " alt="" coords="70,164,102,126,145,89,167,78,169,83,148,94,106,130,74,168"/>
-<area shape="rect" id="Node000004" href="$d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="174,153,246,179"/>
+<area shape="rect" id="Node000004" href="$d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="174,153,246,179"/>
 <area shape="poly" id="edge13_Node000010_Node000004" title=" " alt="" coords="114,179,174,169,174,174,115,184"/>
 <area shape="rect" id="Node000014" href="$d4/d43/class_s_e_node.html" title="Class representing the main speed_est node responsible for publishing the calculated vehicle state wi..." alt="" coords="175,104,245,130"/>
 <area shape="poly" id="edge18_Node000010_Node000014" title=" " alt="" coords="88,169,146,138,174,127,176,131,148,143,90,173"/>

@@ -1,0 +1,11 @@
+<map id="MidpointGenerator::generate_midpoints" name="MidpointGenerator::generate_midpoints">
+<area shape="rect" id="Node000001" title="Generates midpoints from a set of cones." alt="" coords="5,71,140,111"/>
+<area shape="rect" id="Node000002" href="$d8/dab/class_midpoint_generator.html#a2d1ddfe1a1d51f7e006c6ced2d48e26e" title="Connects midpoints that belong to the same Delaunay triangle." alt="" coords="188,5,367,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="138,68,196,49,197,54,139,73"/>
+<area shape="rect" id="Node000003" href="$d8/dab/class_midpoint_generator.html#ae5f05c0742a5a93c69e74583b798bf3c" title="Filters input cones based on proximity to the vehicle pose." alt="" coords="211,71,344,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="140,88,195,88,195,94,140,94"/>
+<area shape="rect" id="Node000004" href="$d8/dab/class_midpoint_generator.html#a71e29f05ff66ef0801b863d1bd5eadd3" title="Processes a single edge of a Delaunay triangle and creates its midpoint if valid." alt="" coords="202,136,353,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="139,109,197,128,196,133,138,114"/>
+<area shape="rect" id="Node000005" href="$d8/dbc/planning_2src_2utils_2cone_8cpp.html#a89cce22847daea7a8a265e5520ac7c69" title=" " alt="" coords="415,144,491,169"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="354,154,399,154,399,159,354,159"/>
+</map>

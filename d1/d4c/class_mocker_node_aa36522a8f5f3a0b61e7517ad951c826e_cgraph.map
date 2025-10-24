@@ -8,10 +8,14 @@
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="181,130,226,130,226,135,181,135"/>
 <area shape="rect" id="Node000005" href="$d1/d4c/class_mocker_node.html#a3554ae6ede0351fe34fb199e4bf627cc" title="publish the messages" alt="" coords="233,169,408,195"/>
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="156,143,243,162,242,168,155,148"/>
-<area shape="rect" id="Node000008" href="$dc/d48/mocks_8cpp.html#a7f90113acec66f66b0cb4a5b2e97961e" title="read state estimation ground truth information from stream and place it in an array of Cone objects" alt="" coords="258,218,383,244"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="116,143,166,174,230,205,246,211,245,216,228,209,164,178,113,148"/>
+<area shape="rect" id="Node000010" href="$dc/d48/mocks_8cpp.html#a7f90113acec66f66b0cb4a5b2e97961e" title="read state estimation ground truth information from stream and place it in an array of Cone objects" alt="" coords="258,218,383,244"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="116,143,166,174,230,205,246,211,245,216,228,209,164,178,113,148"/>
 <area shape="rect" id="Node000006" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ac5ec37420a86bf2c41c59243de0c7997" title="Converts a vector of cones to a marker array." alt="" coords="460,125,680,166"/>
 <area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="408,166,444,161,445,166,408,172"/>
-<area shape="rect" id="Node000007" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a72d8d8f96d0fecb170617070d8a1a0a9" title="Convert from custom interfaces PathPointArray to vector of common_lib PathPoints." alt="" coords="478,190,663,246"/>
-<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="408,192,462,199,462,205,408,197"/>
+<area shape="rect" id="Node000009" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a72d8d8f96d0fecb170617070d8a1a0a9" title="Convert from custom interfaces PathPointArray to vector of common_lib PathPoints." alt="" coords="478,190,663,246"/>
+<area shape="poly" id="edge8_Node000005_Node000009" title=" " alt="" coords="408,192,462,199,462,205,408,197"/>
+<area shape="rect" id="Node000007" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="728,93,914,134"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="680,129,713,125,713,130,681,134"/>
+<area shape="rect" id="Node000008" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="728,159,914,199"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="681,158,713,162,713,167,680,163"/>
 </map>

@@ -99,7 +99,7 @@ $(document).ready(function(){initNavTree('d7/d97/md_src_2control_2_r_e_a_d_m_e.h
 Package Information</h1>
 <h2><a class="anchor" id="autotoc_md40"></a>
 Description</h2>
-<p>The <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a> node uses <a class="el" href="../../d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car.">Planning</a> (pathpoints with expected velocity values) and State Estimation (current vehicle pose) data to effectively calculate longitudinal (torque) and lateral values (steering angle) using <a class="el" href="../../d6/d5a/class_p_i_d.html" title="PI-D Controller class.">PID</a> and Pure Pursuit controllers, respectively.</p>
+<p>The <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a> node uses <a class="el" href="../../d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle.">Planning</a> (pathpoints with expected velocity values) and State Estimation (current vehicle pose) data to effectively calculate longitudinal (torque) and lateral values (steering angle) using <a class="el" href="../../d6/d5a/class_p_i_d.html" title="PI-D Controller class.">PID</a> and Pure Pursuit controllers, respectively.</p>
 <h2><a class="anchor" id="autotoc_md41"></a>
 Folder Structure</h2>
 <ul>
@@ -142,7 +142,7 @@ Design</h1>
 <p><img src="../../../../docs/assets/Control/controlClassDiagram.jpg" alt="Class Diagram" class="inline"/> We have the following classes: <br  />
 </p><ul>
 <li><a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a>: The node itself and the main class that initializes the other classes and runs the control callback.</li>
-<li>PSolver: The class that receives <a class="el" href="../../d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car.">Planning</a> information and calculates the reference for the controllers.</li>
+<li>PSolver: The class that receives <a class="el" href="../../d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle.">Planning</a> information and calculates the reference for the controllers.</li>
 <li><a class="el" href="../../d6/d5a/class_p_i_d.html" title="PI-D Controller class.">PID</a>: The class that implements the <a class="el" href="../../d6/d5a/class_p_i_d.html" title="PI-D Controller class.">PID</a> controller, for Longitudinal <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a>.</li>
 <li>PP: The class that implements the Pure Pursuit controller, for Lateral <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a>.</li>
 <li><a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a>: Provides an interface to correctly subscribe/publish, as well as parse and normalize values as needed by the different simulators we use.</li>

@@ -18,7 +18,6 @@ var searchData=
   ['blues_15',['blues',['../d2/d36/struct_perception_execution_data.html#aa64cb591a060c53042799e02e9027e5d',1,'PerceptionExecutionData']]],
   ['border_5fwidth_5f_16',['border_width_',['../d4/deb/class_lap_counter.html#a5b13bb4c753eba925ff73a0036e7ae30',1,'LapCounter']]],
   ['brake_5ftime_5f_17',['brake_time_',['../d9/db5/class_planning.html#a9c5d6e87075c32228027703ced47a135',1,'Planning']]],
-  ['braking_5f_18',['braking_',['../d9/db5/class_planning.html#af9f27847fb870705e402b14f6df26c25',1,'Planning']]],
-  ['braking_5facceleration_5f_19',['braking_acceleration_',['../d2/deb/struct_planning_parameters.html#a7fba7bf443fddd5e907ca304f670e277',1,'PlanningParameters::braking_acceleration_'],['../d2/d0d/struct_velocity_planning_config.html#acc599793db1ca597293485a8bde21449',1,'VelocityPlanningConfig::braking_acceleration_']]],
-  ['broadcast_5fsensors_5ftf2_20',['broadcast_sensors_tf2',['../d7/d28/struct_main_config.html#a6fe8d337e1074e8c79e475eb8f67e266',1,'MainConfig']]]
+  ['braking_5facceleration_5f_18',['braking_acceleration_',['../d2/d0d/struct_velocity_planning_config.html#acc599793db1ca597293485a8bde21449',1,'VelocityPlanningConfig']]],
+  ['broadcast_5fsensors_5ftf2_19',['broadcast_sensors_tf2',['../d7/d28/struct_main_config.html#a6fe8d337e1074e8c79e475eb8f67e266',1,'MainConfig']]]
 ];

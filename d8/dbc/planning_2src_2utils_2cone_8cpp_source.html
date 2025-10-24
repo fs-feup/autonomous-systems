@@ -102,15 +102,16 @@ $(document).ready(function(){initNavTree('d8/dbc/planning_2src_2utils_2cone_8cpp
 <a href="../../d8/dbc/planning_2src_2utils_2cone_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;../../include/utils/cone.hpp&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="foldopen" id="foldopen00003" data-start="{" data-end="}">
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="../../d0/db1/planning_2include_2utils_2cone_8hpp.html#a7b69d8ec416740df4516705b6b92ca2e">    3</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d8/dbc/planning_2src_2utils_2cone_8cpp.html#a7b69d8ec416740df4516705b6b92ca2e">find_cone</a>(std::vector&lt;Cone&gt; &amp;cones, <span class="keywordtype">double</span> x, <span class="keywordtype">double</span> y) {</div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; static_cast&lt;int&gt;(cones.size()); i++)</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>    <span class="keywordflow">if</span> (cones[i].position.x == x &amp;&amp; cones[i].position.y == y)</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>        <span class="keywordflow">return</span> i;</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>  <span class="keywordflow">return</span> -1;</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>}</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="../../d0/db1/planning_2include_2utils_2cone_8hpp.html#a89cce22847daea7a8a265e5520ac7c69">    3</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d8/dbc/planning_2src_2utils_2cone_8cpp.html#a89cce22847daea7a8a265e5520ac7c69">find_cone</a>(std::vector&lt;std::shared_ptr&lt;Cone&gt;&gt;&amp; cones, <span class="keywordtype">double</span> x, <span class="keywordtype">double</span> y) {</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; static_cast&lt;int&gt;(cones.size()); i++) {</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>        <span class="keywordflow">if</span> (cones[i]-&gt;position.x == x &amp;&amp; cones[i]-&gt;position.y == y) {</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>            <span class="keywordflow">return</span> i;</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>        }</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    }</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>}</div>
 </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="ttc" id="aplanning_2src_2utils_2cone_8cpp_html_a7b69d8ec416740df4516705b6b92ca2e"><div class="ttname"><a href="../../d8/dbc/planning_2src_2utils_2cone_8cpp.html#a7b69d8ec416740df4516705b6b92ca2e">find_cone</a></div><div class="ttdeci">int find_cone(std::vector&lt; Cone &gt; &amp;cones, double x, double y)</div><div class="ttdef"><b>Definition</b> <a href="../../d8/dbc/planning_2src_2utils_2cone_8cpp_source.html#l00003">cone.cpp:3</a></div></div>
+<div class="ttc" id="aplanning_2src_2utils_2cone_8cpp_html_a89cce22847daea7a8a265e5520ac7c69"><div class="ttname"><a href="../../d8/dbc/planning_2src_2utils_2cone_8cpp.html#a89cce22847daea7a8a265e5520ac7c69">find_cone</a></div><div class="ttdeci">int find_cone(std::vector&lt; std::shared_ptr&lt; Cone &gt; &gt; &amp;cones, double x, double y)</div><div class="ttdef"><b>Definition</b> <a href="../../d8/dbc/planning_2src_2utils_2cone_8cpp_source.html#l00003">cone.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -1,13 +1,7 @@
 <map id="openWriteFile" name="openWriteFile">
-<area shape="rect" id="Node000001" title=" " alt="" coords="297,55,397,80"/>
-<area shape="rect" id="Node000002" href="$d3/d72/planning_2test_2performance__test_8cpp.html#aab2295277d22fafb888111e66fdac82f" title="Iterates the Outliers algorithm repeatedly and measures the average time." alt="" coords="125,5,232,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="285,52,224,34,226,29,287,47"/>
-<area shape="rect" id="Node000004" href="$d3/d72/planning_2test_2performance__test_8cpp.html#ace1de27c0d0025682943b154a203ad8a" title="Iterates the Smoothing algorithm repeatedly and measures the average time." alt="" coords="116,55,241,80"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="281,70,241,70,241,65,281,65"/>
-<area shape="rect" id="Node000005" href="$d3/d72/planning_2test_2performance__test_8cpp.html#a808870244af80707b55103c95bfdb4ed" title="Iterates the Path Calculation algorithm repeatedly and measures the average time." alt="" coords="108,104,249,130"/>
-<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="287,88,226,106,224,101,285,83"/>
-<area shape="rect" id="Node000003" href="$d3/d72/planning_2test_2performance__test_8cpp.html#aa6ecce2c7b96e4c5050d5a21b52107d0" title="Execution Time Test." alt="" coords="5,55,60,80"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="124,39,61,61,59,56,123,34"/>
-<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="101,70,60,70,60,65,101,65"/>
-<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="123,101,59,79,61,74,124,96"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="178,31,278,56"/>
+<area shape="rect" id="Node000002" href="$d3/d72/planning_2test_2performance__test_8cpp.html#aab2295277d22fafb888111e66fdac82f" title="Iterates the Outliers algorithm repeatedly and measures the average time." alt="" coords="14,5,121,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,36,120,29,121,24,162,30"/>
+<area shape="rect" id="Node000003" href="$d3/d72/planning_2test_2performance__test_8cpp.html#ace1de27c0d0025682943b154a203ad8a" title="Iterates the Smoothing algorithm repeatedly and measures the average time." alt="" coords="5,55,130,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="162,56,131,61,130,56,162,51"/>
 </map>

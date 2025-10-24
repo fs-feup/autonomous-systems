@@ -1,7 +1,0 @@
-<map id="Planning::set_mission" name="Planning::set_mission">
-<area shape="rect" id="Node000001" title="Set the mission for planning." alt="" coords="200,46,347,72"/>
-<area shape="rect" id="Node000002" href="$d7/d8e/class_fsds_adapter.html#a94288d66e5406fb91c23637c64a4a6db" title=" " alt="" coords="5,5,152,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="184,46,151,41,152,36,185,41"/>
-<area shape="rect" id="Node000003" href="$d0/d1d/class_eufs_adapter.html#a9fec42bb75cef0264ee6f4a3a99000fe" title=" " alt="" coords="7,71,150,111"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="185,76,151,82,150,77,184,71"/>
-</map>

@@ -1,0 +1,5 @@
+<map id="Planning::publish_path_points" name="Planning::publish_path_points">
+<area shape="rect" id="Node000001" title="Publishes the final planned path to the control module." alt="" coords="5,13,156,54"/>
+<area shape="rect" id="Node000002" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a8a2d8764017ab8e3f91e8c5b51c613d2" title=" " alt="" coords="204,5,389,61"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="156,31,188,31,188,36,156,36"/>
+</map>

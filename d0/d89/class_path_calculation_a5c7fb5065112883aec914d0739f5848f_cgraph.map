@@ -1,5 +1,0 @@
-<map id="PathCalculation::discard_cones_along_path" name="PathCalculation::discard_cones_along_path">
-<area shape="rect" id="Node000001" title="Invalidates cones and midpoints based on the last path segment." alt="" coords="5,5,166,46"/>
-<area shape="rect" id="Node000002" href="$d0/d89/class_path_calculation.html#a4444ee6d08b3e17df55f41586030cb8d" title="Find the nearest midpoint to a target point within a tolerance." alt="" coords="214,5,352,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="166,23,198,23,198,28,166,28"/>
-</map>

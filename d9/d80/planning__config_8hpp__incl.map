@@ -1,15 +1,19 @@
 <map id="src/planning/include/config/planning_config.hpp" name="src/planning/include/config/planning_config.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="431,5,607,46"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="516,5,692,46"/>
 <area shape="rect" id="Node000002" href="$d7/dcf/outliers__config_8hpp.html" title=" " alt="" coords="5,94,134,120"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="431,45,149,94,148,89,430,40"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="516,42,149,96,149,91,515,37"/>
 <area shape="rect" id="Node000003" href="$d9/dc3/path__calculation__config_8hpp.html" title=" " alt="" coords="158,94,338,120"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="452,49,305,92,304,87,450,44"/>
-<area shape="rect" id="Node000004" href="$d3/d97/simulation__config_8hpp.html" title=" " alt="" coords="362,94,508,120"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="500,48,461,85,457,81,496,44"/>
-<area shape="rect" id="Node000005" href="$d2/df8/smoothing__config_8hpp.html" title=" " alt="" coords="531,94,677,120"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="542,44,582,81,578,85,538,48"/>
-<area shape="rect" id="Node000006" href="$d0/dd4/velocity__config_8hpp.html" title=" " alt="" coords="702,94,832,120"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="582,44,715,86,713,91,580,49"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="856,94,910,120"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="608,40,716,62,842,91,841,96,715,67,607,46"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="516,49,318,93,317,88,515,44"/>
+<area shape="rect" id="Node000005" href="$d3/d97/simulation__config_8hpp.html" title=" " alt="" coords="362,94,508,120"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="563,49,476,90,473,85,561,44"/>
+<area shape="rect" id="Node000006" href="$d2/df8/smoothing__config_8hpp.html" title=" " alt="" coords="531,94,677,120"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="607,46,607,78,602,78,602,46"/>
+<area shape="rect" id="Node000007" href="$d0/dd4/velocity__config_8hpp.html" title=" " alt="" coords="702,94,832,120"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="646,44,729,84,727,89,644,49"/>
+<area shape="rect" id="Node000008" href="$da/d0e/skidpad__config_8hpp.html" title=" " alt="" coords="856,94,987,120"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="684,44,858,87,857,92,683,49"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="1011,94,1064,120"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="693,36,832,58,996,91,995,96,831,64,693,42"/>
+<area shape="rect" id="Node000004" href="$df/d8f/midpoint__generator__config_8hpp.html" title=" " alt="" coords="164,168,333,208"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="251,120,251,152,246,152,246,120"/>
 </map>

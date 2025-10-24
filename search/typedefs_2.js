@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['finite_5fedges_5fiterator_0',['Finite_edges_iterator',['../df/ded/path__calculation_8hpp.html#a8bd5bc811da4452a0fd9a6e2ccc64969',1,'path_calculation.hpp']]]
+  ['imupolicy_0',['ImuPolicy',['../d1/df1/class_vehicle_adapter.html#a3f4df8352b4709f3fed5410770264a96',1,'VehicleAdapter']]]
 ];

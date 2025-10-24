@@ -1,12 +1,12 @@
 <map id="EufsAdapter" name="EufsAdapter">
-<area shape="rect" id="Node000001" title=" " alt="" coords="211,747,395,1325"/>
-<area shape="rect" id="Node000002" href="$d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="5,119,192,699"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="199,709,213,753,208,754,194,711"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="211,756,395,1335"/>
+<area shape="rect" id="Node000002" href="$d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="5,123,192,703"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="199,716,213,760,208,761,194,718"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="157,5,243,71"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="190,86,181,119,176,118,185,84"/>
-<area shape="rect" id="Node000005" href="$d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="217,161,389,656"/>
-<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="215,84,237,161,231,162,210,85"/>
-<area shape="rect" id="Node000004" href="$d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="413,336,597,481"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="480,496,397,752,392,750,475,495"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="305,671,305,747,300,747,300,671"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="190,86,180,124,175,123,185,85"/>
+<area shape="rect" id="Node000005" href="$d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="217,119,389,708"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="215,84,225,118,219,120,210,86"/>
+<area shape="rect" id="Node000004" href="$d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="413,341,597,486"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="480,501,397,759,392,758,475,499"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="305,723,305,756,300,756,300,723"/>
 </map>

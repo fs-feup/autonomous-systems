@@ -2,19 +2,19 @@
 <area shape="rect" id="Node000001" title="Converts a vector of cones to a marker array." alt="" coords="1239,109,1459,150"/>
 <area shape="rect" id="Node000002" href="$d1/d4c/class_mocker_node.html#a3554ae6ede0351fe34fb199e4bf627cc" title="publish the messages" alt="" coords="986,90,1161,116"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1223,120,1161,114,1161,109,1224,115"/>
-<area shape="rect" id="Node000004" href="$d9/db5/class_planning.html#a653923b0f48fa71ab98028b65f375b39" title="publish all visualization messages from the planning node" alt="" coords="956,141,1191,167"/>
+<area shape="rect" id="Node000004" href="$d9/db5/class_planning.html#ad6c3fad6bc5175529714461938aa9a46" title="Publishes all visualization markers." alt="" coords="956,141,1191,167"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1224,143,1191,146,1191,141,1223,138"/>
 <area shape="rect" id="Node000003" href="$d1/d4c/class_mocker_node.html#aa36522a8f5f3a0b61e7517ad951c826e" title="Constructor for a new Mocker Node object." alt="" coords="732,88,908,113"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="971,105,908,104,908,99,971,99"/>
-<area shape="rect" id="Node000005" href="$d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="745,137,895,178"/>
+<area shape="rect" id="Node000005" href="$d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="745,137,895,178"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="940,158,896,159,896,154,940,153"/>
-<area shape="rect" id="Node000006" href="$d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="521,84,659,125"/>
+<area shape="rect" id="Node000006" href="$d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
 <area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="729,139,659,123,660,118,731,134"/>
-<area shape="rect" id="Node000012" href="$d9/db5/class_planning.html#aadea6bf02f1d98ee08e87dfc847b0a50" title="Callback for vehicle localization updates (undefined)." alt="" coords="495,169,684,210"/>
+<area shape="rect" id="Node000012" href="$d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="495,169,684,210"/>
 <area shape="poly" id="edge11_Node000005_Node000012" title=" " alt="" coords="730,173,685,179,685,174,729,168"/>
 <area shape="rect" id="Node000007" href="$d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
 <area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="505,99,444,94,445,88,505,94"/>
-<area shape="rect" id="Node000009" href="$d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructor for the Planning class." alt="" coords="291,120,419,145"/>
+<area shape="rect" id="Node000009" href="$d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructs a Planning node with the specified configuration parameters." alt="" coords="291,120,419,145"/>
 <area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="505,117,419,127,419,122,505,112"/>
 <area shape="rect" id="Node000010" href="$db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,5,429,46"/>
 <area shape="poly" id="edge9_Node000006_Node000010" title=" " alt="" coords="512,81,417,49,419,44,513,76"/>

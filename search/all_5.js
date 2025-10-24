@@ -33,17 +33,16 @@ var searchData=
   ['big_5forange_30',['big_orange',['../d9/d45/classgui_logic_1_1landmark_type.html#a2f319b6c2d4b3268077f994916d6574c',1,'guiLogic.landmarkType.BIG_ORANGE'],['../dd/de3/types_8hpp.html#a9bea77c5585e2b9481fe74ff0be72942a64e882fc69f8d2217424781ad70181f4',1,'BIG_ORANGE:&#160;types.hpp']]],
   ['bigconeheight_31',['bigConeHeight',['../d6/d51/classdraw_view_1_1draw_scene.html#ad5c41e1357697900f08d673f9a761ac3',1,'drawView::drawScene']]],
   ['blat_32',['Blat',['../d3/dad/struct_vehicle_model_bicycle_1_1_tire_model.html#a61cfef35c224b8d946dcab1328b72025',1,'VehicleModelBicycle::TireModel']]],
-  ['blue_33',['blue',['../d9/d45/classgui_logic_1_1landmark_type.html#a860d70289622f55b8e18b83c6ba43f45',1,'guiLogic.landmarkType.BLUE'],['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a36deec2ca2854e7543cc4d5caab92feba1b3e1ee9bff86431dea6b181365ba65f',1,'common_lib::competition_logic::BLUE'],['../dd/de3/types_8hpp.html#a9bea77c5585e2b9481fe74ff0be72942a35d6719cb4d7577c031b3d79057a1b79',1,'BLUE:&#160;types.hpp']]],
+  ['blue_33',['blue',['../d9/d45/classgui_logic_1_1landmark_type.html#a860d70289622f55b8e18b83c6ba43f45',1,'guiLogic.landmarkType.BLUE'],['../dd/de3/types_8hpp.html#a9bea77c5585e2b9481fe74ff0be72942a35d6719cb4d7577c031b3d79057a1b79',1,'BLUE:&#160;types.hpp'],['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a36deec2ca2854e7543cc4d5caab92feba1b3e1ee9bff86431dea6b181365ba65f',1,'common_lib::competition_logic::BLUE']]],
   ['blue_5fcone_34',['blue_cone',['../de/d1e/class_least_squares_differentiation_test.html#a6581b8e16ea7f9b9783662c5a3d6b18b',1,'LeastSquaresDifferentiationTest']]],
   ['blue_5fcones_35',['blue_cones',['../d6/d04/classevaluator_1_1onground__adapter_1_1_on_ground_adapter.html#af8f73755a124a1f5d54e17904418b6ac',1,'evaluator::onground_adapter::OnGroundAdapter']]],
   ['blue_5fcones_5fcallback_36',['blue_cones_callback',['../d6/d04/classevaluator_1_1onground__adapter_1_1_on_ground_adapter.html#aa5fc76d719c5a93d2346d4fae302cc27',1,'evaluator.onground_adapter.OnGroundAdapter.blue_cones_callback'],['../d6/d04/classevaluator_1_1onground__adapter_1_1_on_ground_adapter.html#a35a8f35ce682b59431fa0862ad02f755',1,'evaluator.onground_adapter.OnGroundAdapter.blue_cones_callback(self, MarkerArray blue_cones_msg)']]],
   ['blues_37',['blues',['../d2/d36/struct_perception_execution_data.html#aa64cb591a060c53042799e02e9027e5d',1,'PerceptionExecutionData']]],
   ['border_5fwidth_5f_38',['border_width_',['../d4/deb/class_lap_counter.html#a5b13bb4c753eba925ff73a0036e7ae30',1,'LapCounter']]],
   ['brake_5ftime_5f_39',['brake_time_',['../d9/db5/class_planning.html#a9c5d6e87075c32228027703ced47a135',1,'Planning']]],
-  ['braking_5f_40',['braking_',['../d9/db5/class_planning.html#af9f27847fb870705e402b14f6df26c25',1,'Planning']]],
-  ['braking_5facceleration_5f_41',['braking_acceleration_',['../d2/d0d/struct_velocity_planning_config.html#acc599793db1ca597293485a8bde21449',1,'VelocityPlanningConfig::braking_acceleration_'],['../d2/deb/struct_planning_parameters.html#a7fba7bf443fddd5e907ca304f670e277',1,'PlanningParameters::braking_acceleration_']]],
-  ['broadcast_5fsensors_5ftf2_42',['broadcast_sensors_tf2',['../d7/d28/struct_main_config.html#a6fe8d337e1074e8c79e475eb8f67e266',1,'MainConfig']]],
-  ['bucket_5foperations_43',['bucket_operations',['../d8/dc7/namespacebucket__operations.html',1,'']]],
-  ['bucket_5foperations_2epy_44',['bucket_operations.py',['../dc/d23/bucket__operations_8py.html',1,'']]],
-  ['build_5fadjacency_5fmatrix_45',['build_adjacency_matrix',['../d7/d92/namespaceevaluator_1_1metrics.html#a67fb2de017620156f3758f24363e7853',1,'evaluator::metrics']]]
+  ['braking_5facceleration_5f_40',['braking_acceleration_',['../d2/d0d/struct_velocity_planning_config.html#acc599793db1ca597293485a8bde21449',1,'VelocityPlanningConfig']]],
+  ['broadcast_5fsensors_5ftf2_41',['broadcast_sensors_tf2',['../d7/d28/struct_main_config.html#a6fe8d337e1074e8c79e475eb8f67e266',1,'MainConfig']]],
+  ['bucket_5foperations_42',['bucket_operations',['../d8/dc7/namespacebucket__operations.html',1,'']]],
+  ['bucket_5foperations_2epy_43',['bucket_operations.py',['../dc/d23/bucket__operations_8py.html',1,'']]],
+  ['build_5fadjacency_5fmatrix_44',['build_adjacency_matrix',['../d7/d92/namespaceevaluator_1_1metrics.html#a67fb2de017620156f3758f24363e7853',1,'evaluator::metrics']]]
 ];

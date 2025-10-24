@@ -1,0 +1,5 @@
+<map id="Skidpad" name="Skidpad">
+<area shape="rect" id="Node000001" title="class that defines the skidpad path algorithm" alt="" coords="5,174,175,379"/>
+<area shape="rect" id="Node000002" href="$d2/de2/struct_skidpad_config.html" title="struct for the configuration of the smoothing algorithm" alt="" coords="27,5,153,111"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,110,93,157,87,157,87,110"/>
+</map>

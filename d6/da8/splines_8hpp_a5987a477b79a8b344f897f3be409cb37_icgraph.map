@@ -1,56 +1,69 @@
 <map id="fit_spline" name="fit_spline">
-<area shape="rect" id="Node000001" title="This function takes a sequence of points (T), fits a spline to them using B&#45;spline basis functions,..." alt="" coords="1170,413,1242,439"/>
-<area shape="rect" id="Node000002" href="$d9/d53/class_outliers.html#aec8b9b17a4cc2ca754244d7fe8283610" title="function to remove outliers from a set of cones" alt="" coords="955,171,1098,212"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1183,402,1041,214,1046,211,1188,399"/>
-<area shape="rect" id="Node000010" href="$d7/db7/class_path_smoothing.html#a9c484c641bcc262c3af3d169c9fa4c54" title="function to smooth a path" alt="" coords="931,388,1122,414"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="1154,422,1121,417,1122,412,1155,416"/>
-<area shape="rect" id="Node000025" href="$d9/db5/splines__tests_8cpp.html#a6556ed322889d2511804a36ac4e8a7bd" title="Test the spline template function for a path point vector." alt="" coords="999,437,1054,463"/>
-<area shape="poly" id="edge27_Node000001_Node000025" title=" " alt="" coords="1155,436,1054,449,1053,444,1154,430"/>
-<area shape="rect" id="Node000026" href="$d9/db5/splines__tests_8cpp.html#a83b61818f6ea0bfb86ff753855155bad" title="Test the spline template function for a cone vector." alt="" coords="999,487,1054,512"/>
-<area shape="poly" id="edge28_Node000001_Node000026" title=" " alt="" coords="1175,450,1123,478,1088,490,1055,498,1053,492,1086,485,1121,473,1172,446"/>
-<area shape="rect" id="Node000003" href="$db/d25/outliers__tests_8cpp.html#a6444194f58bc3029a0a05ad139a936bb" title="simplest scenario with cones forming a line and one outlier" alt="" coords="780,104,835,130"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="952,168,882,143,834,128,836,123,884,138,954,163"/>
-<area shape="rect" id="Node000004" href="$db/d25/outliers__tests_8cpp.html#a912711c48de39f7de3c2b36e9325044e" title="scenario with large track that barely has outliers (only 2)" alt="" coords="780,153,835,179"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="939,184,835,172,835,167,940,179"/>
-<area shape="rect" id="Node000005" href="$db/d25/outliers__tests_8cpp.html#a4a68b3eb3b12e17608252a76d0078b3c" title="scenario with large track but few outliers" alt="" coords="780,203,835,228"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="940,204,835,215,835,210,939,198"/>
-<area shape="rect" id="Node000006" href="$db/d25/outliers__tests_8cpp.html#a8da418d229e5938ce58a1bd2f15f9940" title="scenario with large track and moderate number of outliers" alt="" coords="780,252,835,278"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="952,220,884,243,836,259,834,254,882,238,951,215"/>
-<area shape="rect" id="Node000007" href="$db/d25/outliers__tests_8cpp.html#afd7c597757843019f76a4a41f78e4fbe" title="scenario with large track and abundant outliers" alt="" coords="780,301,835,327"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="989,224,941,259,884,293,836,310,834,305,882,288,938,255,986,220"/>
-<area shape="rect" id="Node000008" href="$db/d25/outliers__tests_8cpp.html#adc20401a05e2700e2563f167506a2513" title="simple case in which there are cones only in the left size and no significant outliers" alt="" coords="780,5,835,31"/>
-<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="999,160,949,101,917,71,881,44,858,33,834,26,836,21,860,28,884,40,920,67,953,97,1004,157"/>
-<area shape="rect" id="Node000009" href="$db/d25/outliers__tests_8cpp.html#a77f1e81c905b352c5a9d67f0c587a145" title="simple scenario only with left cones but with 4 significant outliers" alt="" coords="780,55,835,80"/>
-<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="987,163,938,128,882,94,834,77,836,72,884,89,941,123,990,159"/>
-<area shape="rect" id="Node000011" href="$d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="732,351,883,392"/>
-<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="915,389,882,384,883,379,916,383"/>
-<area shape="rect" id="Node000023" href="$d6/da7/smoothing__tests_8cpp.html#acd526ec95d9464063023a78fcf0f64d9" title="simple scenario with few points in the path" alt="" coords="780,416,835,442"/>
-<area shape="poly" id="edge25_Node000010_Node000023" title=" " alt="" coords="915,418,835,428,835,423,915,412"/>
-<area shape="rect" id="Node000024" href="$d6/da7/smoothing__tests_8cpp.html#a39420284a210f074cd5864281df8c9b5" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="780,465,835,491"/>
-<area shape="poly" id="edge26_Node000010_Node000024" title=" " alt="" coords="948,421,932,427,908,441,884,457,836,474,834,469,882,452,905,437,930,422,946,416"/>
-<area shape="rect" id="Node000012" href="$d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="521,309,659,349"/>
-<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="717,357,659,345,660,340,718,351"/>
-<area shape="rect" id="Node000018" href="$d9/db5/class_planning.html#aadea6bf02f1d98ee08e87dfc847b0a50" title="Callback for vehicle localization updates (undefined)." alt="" coords="495,394,684,435"/>
-<area shape="poly" id="edge17_Node000011_Node000018" title=" " alt="" coords="718,392,685,398,684,393,717,387"/>
-<area shape="rect" id="Node000013" href="$d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,295,444,320"/>
-<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="505,324,444,318,445,313,505,319"/>
-<area shape="rect" id="Node000015" href="$d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructor for the Planning class." alt="" coords="291,344,419,370"/>
-<area shape="poly" id="edge14_Node000012_Node000015" title=" " alt="" coords="505,342,419,352,419,347,505,336"/>
-<area shape="rect" id="Node000016" href="$db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,230,429,271"/>
-<area shape="poly" id="edge15_Node000012_Node000016" title=" " alt="" coords="512,306,417,274,419,269,513,301"/>
-<area shape="rect" id="Node000014" href="$d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,375,195,400"/>
-<area shape="poly" id="edge13_Node000013_Node000014" title=" " alt="" coords="280,328,264,334,240,348,216,362,172,377,170,372,214,357,237,343,262,329,278,323"/>
-<area shape="rect" id="Node000017" href="$db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,321,215,347"/>
-<area shape="poly" id="edge16_Node000016_Node000017" title=" " alt="" coords="280,279,151,323,149,318,278,274"/>
-<area shape="poly" id="edge18_Node000018_Node000015" title=" " alt="" coords="488,392,410,373,411,368,490,387"/>
-<area shape="rect" id="Node000019" href="$d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,459,446,484"/>
-<area shape="poly" id="edge19_Node000018_Node000019" title=" " alt="" coords="490,441,411,461,410,455,488,436"/>
-<area shape="rect" id="Node000020" href="$d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,508,447,534"/>
-<area shape="poly" id="edge21_Node000018_Node000020" title=" " alt="" coords="547,446,500,474,448,499,417,510,416,505,446,494,498,469,544,441"/>
-<area shape="rect" id="Node000022" href="$db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="281,394,429,435"/>
-<area shape="poly" id="edge23_Node000018_Node000022" title=" " alt="" coords="480,417,429,417,429,412,480,412"/>
-<area shape="poly" id="edge20_Node000019_Node000014" title=" " alt="" coords="286,456,262,449,142,403,144,398,264,444,288,451"/>
-<area shape="rect" id="Node000021" href="$d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,508,198,534"/>
-<area shape="poly" id="edge22_Node000020_Node000021" title=" " alt="" coords="247,524,198,524,198,518,247,518"/>
-<area shape="poly" id="edge24_Node000022_Node000017" title=" " alt="" coords="278,391,262,385,214,365,165,350,167,345,216,360,264,380,279,386"/>
+<area shape="rect" id="Node000001" title="This function takes a sequence of points (T), fits a spline to them using B&#45;spline basis functions,..." alt="" coords="1557,456,1629,482"/>
+<area shape="rect" id="Node000002" href="$d9/d53/class_outliers.html#aec8b9b17a4cc2ca754244d7fe8283610" title="function to remove outliers from a set of cones" alt="" coords="1342,171,1484,212"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1572,444,1425,214,1430,211,1577,441"/>
+<area shape="rect" id="Node000010" href="$d7/db7/class_path_smoothing.html#a9c484c641bcc262c3af3d169c9fa4c54" title="function to smooth a path" alt="" coords="1317,431,1509,456"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="1541,464,1508,460,1509,454,1542,459"/>
+<area shape="rect" id="Node000029" href="$d9/db5/splines__tests_8cpp.html#a6556ed322889d2511804a36ac4e8a7bd" title="Test the spline template function for a path point vector." alt="" coords="1386,480,1440,506"/>
+<area shape="poly" id="edge36_Node000001_Node000029" title=" " alt="" coords="1542,478,1441,492,1440,487,1541,473"/>
+<area shape="rect" id="Node000030" href="$d9/db5/splines__tests_8cpp.html#a83b61818f6ea0bfb86ff753855155bad" title="Test the spline template function for a cone vector." alt="" coords="1386,529,1440,555"/>
+<area shape="poly" id="edge37_Node000001_Node000030" title=" " alt="" coords="1561,493,1510,521,1474,532,1441,540,1440,535,1473,527,1508,516,1559,488"/>
+<area shape="rect" id="Node000003" href="$db/d25/outliers__tests_8cpp.html#a6444194f58bc3029a0a05ad139a936bb" title="simplest scenario with cones forming a line and one outlier" alt="" coords="1177,55,1231,80"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1373,163,1324,128,1268,94,1230,78,1232,73,1271,89,1327,124,1376,159"/>
+<area shape="rect" id="Node000004" href="$db/d25/outliers__tests_8cpp.html#a912711c48de39f7de3c2b36e9325044e" title="scenario with large track that barely has outliers (only 2)" alt="" coords="1177,104,1231,130"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="1339,168,1230,129,1232,124,1340,163"/>
+<area shape="rect" id="Node000005" href="$db/d25/outliers__tests_8cpp.html#a4a68b3eb3b12e17608252a76d0078b3c" title="scenario with large track but few outliers" alt="" coords="1177,153,1231,179"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="1326,184,1231,172,1232,167,1327,178"/>
+<area shape="rect" id="Node000006" href="$db/d25/outliers__tests_8cpp.html#a8da418d229e5938ce58a1bd2f15f9940" title="scenario with large track and moderate number of outliers" alt="" coords="1177,203,1231,228"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="1327,204,1232,215,1231,210,1326,199"/>
+<area shape="rect" id="Node000007" href="$db/d25/outliers__tests_8cpp.html#afd7c597757843019f76a4a41f78e4fbe" title="scenario with large track and abundant outliers" alt="" coords="1177,252,1231,278"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="1340,220,1232,258,1230,253,1338,215"/>
+<area shape="rect" id="Node000008" href="$db/d25/outliers__tests_8cpp.html#adc20401a05e2700e2563f167506a2513" title="simple case in which there are cones only in the left size and no significant outliers" alt="" coords="1177,301,1231,327"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="1376,223,1327,259,1271,293,1232,308,1230,304,1268,288,1324,254,1373,219"/>
+<area shape="rect" id="Node000009" href="$db/d25/outliers__tests_8cpp.html#a77f1e81c905b352c5a9d67f0c587a145" title="simple scenario only with left cones but with 4 significant outliers" alt="" coords="1177,5,1231,31"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="1386,161,1335,102,1303,71,1268,44,1230,27,1232,23,1271,40,1306,67,1339,98,1390,157"/>
+<area shape="rect" id="Node000011" href="$d9/db5/class_planning.html#ab77ae5600e1e2f0247753055ee4d086c" title="Calculates path and applies smoothing." alt="" coords="1138,451,1269,492"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="1302,461,1270,465,1269,460,1301,456"/>
+<area shape="rect" id="Node000012" href="$d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,384,1090,410"/>
+<area shape="poly" id="edge32_Node000010_Node000012" title=" " alt="" coords="1302,433,1090,409,1091,403,1302,428"/>
+<area shape="rect" id="Node000026" href="$d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,535,1090,560"/>
+<area shape="poly" id="edge33_Node000010_Node000026" title=" " alt="" coords="1332,464,1319,470,1305,479,1295,488,1285,497,1270,506,1226,522,1179,534,1091,546,1090,541,1178,528,1224,517,1268,501,1282,493,1292,484,1301,474,1316,465,1330,459"/>
+<area shape="rect" id="Node000027" href="$d6/da7/smoothing__tests_8cpp.html#acd526ec95d9464063023a78fcf0f64d9" title="simple scenario with few points in the path" alt="" coords="1177,567,1231,592"/>
+<area shape="poly" id="edge34_Node000010_Node000027" title=" " alt="" coords="1324,466,1319,470,1302,488,1295,507,1287,528,1271,549,1252,563,1232,573,1230,568,1249,559,1267,546,1283,525,1290,505,1298,485,1316,465,1321,462"/>
+<area shape="rect" id="Node000028" href="$d6/da7/smoothing__tests_8cpp.html#a39420284a210f074cd5864281df8c9b5" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="1177,351,1231,376"/>
+<area shape="poly" id="edge35_Node000010_Node000028" title=" " alt="" coords="1362,427,1230,376,1232,371,1364,422"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="1145,447,1089,423,1058,413,1060,408,1091,418,1147,442"/>
+<area shape="rect" id="Node000013" href="$d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,451,883,492"/>
+<area shape="poly" id="edge29_Node000011_Node000013" title=" " alt="" coords="1122,474,883,474,883,469,1122,469"/>
+<area shape="rect" id="Node000025" href="$d9/db5/class_planning.html#ab1d989a47e1266f2522638828ade3271" title="Executes planning for the EBS (Emergency Braking System) test mission." alt="" coords="934,433,1087,459"/>
+<area shape="poly" id="edge27_Node000011_Node000025" title=" " alt="" coords="1123,464,1087,459,1087,454,1123,458"/>
+<area shape="poly" id="edge30_Node000011_Node000026" title=" " alt="" coords="1137,501,1046,536,1045,532,1135,496"/>
+<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="949,417,932,423,857,453,855,448,930,418,947,412"/>
+<area shape="rect" id="Node000014" href="$d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,398,659,439"/>
+<area shape="poly" id="edge13_Node000013_Node000014" title=" " alt="" coords="717,452,659,438,660,433,718,447"/>
+<area shape="rect" id="Node000020" href="$d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="495,483,684,524"/>
+<area shape="poly" id="edge19_Node000013_Node000020" title=" " alt="" coords="718,487,685,492,685,487,717,482"/>
+<area shape="rect" id="Node000015" href="$d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,384,444,410"/>
+<area shape="poly" id="edge14_Node000014_Node000015" title=" " alt="" coords="505,413,444,408,445,402,505,408"/>
+<area shape="rect" id="Node000017" href="$d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructs a Planning node with the specified configuration parameters." alt="" coords="291,433,419,459"/>
+<area shape="poly" id="edge16_Node000014_Node000017" title=" " alt="" coords="505,431,419,441,419,436,505,426"/>
+<area shape="rect" id="Node000018" href="$db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,319,429,360"/>
+<area shape="poly" id="edge17_Node000014_Node000018" title=" " alt="" coords="512,395,417,363,419,358,513,390"/>
+<area shape="rect" id="Node000016" href="$d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,464,195,490"/>
+<area shape="poly" id="edge15_Node000015_Node000016" title=" " alt="" coords="280,417,264,423,240,437,216,451,172,466,170,461,214,446,237,433,262,418,278,412"/>
+<area shape="rect" id="Node000019" href="$db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,411,215,436"/>
+<area shape="poly" id="edge18_Node000018_Node000019" title=" " alt="" coords="280,368,151,413,149,408,278,363"/>
+<area shape="poly" id="edge20_Node000020_Node000017" title=" " alt="" coords="488,482,410,462,411,457,490,476"/>
+<area shape="rect" id="Node000021" href="$d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,548,446,574"/>
+<area shape="poly" id="edge21_Node000020_Node000021" title=" " alt="" coords="490,531,411,550,410,545,488,525"/>
+<area shape="rect" id="Node000022" href="$d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,597,447,623"/>
+<area shape="poly" id="edge23_Node000020_Node000022" title=" " alt="" coords="547,535,500,563,448,589,417,599,416,594,446,584,498,558,544,530"/>
+<area shape="rect" id="Node000024" href="$db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="281,483,429,524"/>
+<area shape="poly" id="edge25_Node000020_Node000024" title=" " alt="" coords="480,506,429,506,429,501,480,501"/>
+<area shape="poly" id="edge22_Node000021_Node000016" title=" " alt="" coords="286,546,262,538,142,493,144,488,264,533,288,541"/>
+<area shape="rect" id="Node000023" href="$d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,597,198,623"/>
+<area shape="poly" id="edge24_Node000022_Node000023" title=" " alt="" coords="247,613,198,613,198,608,247,608"/>
+<area shape="poly" id="edge26_Node000024_Node000019" title=" " alt="" coords="278,480,262,474,214,454,165,439,167,434,216,449,264,469,279,475"/>
+<area shape="poly" id="edge28_Node000025_Node000013" title=" " alt="" coords="919,460,883,465,883,459,919,455"/>
+<area shape="poly" id="edge31_Node000026_Node000013" title=" " alt="" coords="959,531,863,495,865,490,961,526"/>
 </map>

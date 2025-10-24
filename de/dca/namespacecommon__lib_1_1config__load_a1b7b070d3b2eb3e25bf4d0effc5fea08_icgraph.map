@@ -10,7 +10,7 @@
 <area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="483,290,415,282,416,276,484,285"/>
 <area shape="rect" id="Node000012" href="$d7/d49/class_control.html#a7ad204d3b2598bfc0551e604872b8354" title=" " alt="" coords="281,316,414,341"/>
 <area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="483,315,415,323,414,318,483,310"/>
-<area shape="rect" id="Node000014" href="$d9/db5/class_planning.html#a5650d2ddb277b0e80fed4c8bc72957fa" title=" " alt="" coords="276,365,419,391"/>
+<area shape="rect" id="Node000014" href="$d9/db5/class_planning.html#a5650d2ddb277b0e80fed4c8bc72957fa" title="Loads planning configuration from YAML files." alt="" coords="276,365,419,391"/>
 <area shape="poly" id="edge17_Node000001_Node000014" title=" " alt="" coords="527,329,452,356,413,367,411,362,450,351,525,324"/>
 <area shape="rect" id="Node000017" href="$d1/d4c/class_mocker_node.html#aa36522a8f5f3a0b61e7517ad951c826e" title="Constructor for a new Mocker Node object." alt="" coords="260,414,435,440"/>
 <area shape="poly" id="edge21_Node000001_Node000017" title=" " alt="" coords="558,333,510,371,452,405,423,416,421,411,450,401,507,367,554,329"/>

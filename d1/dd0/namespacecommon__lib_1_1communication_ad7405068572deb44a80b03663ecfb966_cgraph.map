@@ -1,0 +1,7 @@
+<map id="common_lib::communication::marker_from_position" name="common_lib::communication::marker_from_position">
+<area shape="rect" id="Node000001" title="Converts a position to a marker." alt="" coords="5,39,191,79"/>
+<area shape="rect" id="Node000002" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="239,5,424,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="191,43,223,38,223,44,192,48"/>
+<area shape="rect" id="Node000003" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="239,71,424,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="192,69,223,74,223,79,191,74"/>
+</map>

@@ -11,7 +11,7 @@
 <area shape="poly" id="edge8_Node000001_Node000006" title=" " alt="" coords="127,189,179,230,245,270,257,276,255,281,242,275,176,234,124,193"/>
 <area shape="rect" id="Node000008" href="$d7/d49/class_control.html#a7ad204d3b2598bfc0551e604872b8354" title=" " alt="" coords="284,185,418,211"/>
 <area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="196,178,269,186,269,192,196,183"/>
-<area shape="rect" id="Node000009" href="$d9/db5/class_planning.html#a5650d2ddb277b0e80fed4c8bc72957fa" title=" " alt="" coords="280,235,422,260"/>
+<area shape="rect" id="Node000009" href="$d9/db5/class_planning.html#a5650d2ddb277b0e80fed4c8bc72957fa" title="Loads planning configuration from YAML files." alt="" coords="280,235,422,260"/>
 <area shape="poly" id="edge12_Node000001_Node000009" title=" " alt="" coords="153,189,244,221,270,228,268,233,243,226,152,194"/>
 <area shape="rect" id="Node000003" href="$de/dca/namespacecommon__lib_1_1config__load.html#a1b7b070d3b2eb3e25bf4d0effc5fea08" title=" " alt="" coords="519,121,702,161"/>
 <area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="424,29,459,41,520,73,572,109,569,113,517,78,457,46,422,34"/>

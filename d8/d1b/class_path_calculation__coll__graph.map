@@ -1,9 +1,15 @@
 <map id="PathCalculation" name="PathCalculation">
-<area shape="rect" id="Node000001" title="PathCalculation class for generating local paths." alt="" coords="23,677,243,1122"/>
-<area shape="rect" id="Node000002" href="$df/d7d/struct_path_calculation_config.html" title="struct for the configuration of the outliers removal algorithm." alt="" coords="5,268,183,614"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,613,115,659,110,660,106,614"/>
-<area shape="rect" id="Node000003" href="$d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="207,361,354,521"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="258,521,212,661,207,659,253,520"/>
-<area shape="rect" id="Node000004" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="207,5,354,205"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="283,205,283,345,278,345,278,205"/>
+<area shape="rect" id="Node000001" title="Generates optimal local paths." alt="" coords="190,820,382,1444"/>
+<area shape="rect" id="Node000002" href="$df/d7d/struct_path_calculation_config.html" title="struct for the configuration of the outliers removal algorithm." alt="" coords="5,491,164,757"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,755,186,873,181,875,134,757"/>
+<area shape="rect" id="Node000003" href="$d9/d46/struct_midpoint_generator_config.html" title="Configuration for Delaunay triangulation and midpoint generation." alt="" coords="75,286,252,411"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="109,412,87,453,81,475,76,474,82,451,104,409"/>
+<area shape="rect" id="Node000004" href="$d8/dab/class_midpoint_generator.html" title="Generates midpoints between cones using Delaunay triangulation." alt="" coords="191,511,381,737"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="196,410,215,451,234,495,230,497,210,453,191,412"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="289,736,289,803,283,803,283,736"/>
+<area shape="rect" id="Node000005" href="$d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="302,268,449,428"/>
+<area shape="poly" id="edge7_Node000001_Node000005" title=" " alt="" coords="410,427,415,452,430,548,436,624,431,700,415,796,390,895,385,894,410,795,425,700,430,624,425,549,410,453,404,429"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="335,429,325,453,312,496,307,494,320,451,330,427"/>
+<area shape="rect" id="Node000006" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="302,5,449,205"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="378,205,378,252,373,252,373,205"/>
 </map>

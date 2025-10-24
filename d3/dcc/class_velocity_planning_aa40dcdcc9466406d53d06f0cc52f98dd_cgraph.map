@@ -1,8 +1,8 @@
 <map id="VelocityPlanning::trackdrive_velocity" name="VelocityPlanning::trackdrive_velocity">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,71,186,111"/>
-<area shape="rect" id="Node000002" href="$d3/dcc/class_velocity_planning.html#a22bde2b36b14c926b184939d9a58b444" title="function to calculate the radius of the circle that passes through 3 points" alt="" coords="241,5,385,46"/>
+<area shape="rect" id="Node000001" title="Computes velocity for track driving scenarios with repeated smoothing." alt="" coords="5,71,186,111"/>
+<area shape="rect" id="Node000002" href="$d3/dcc/class_velocity_planning.html#a64a69a4833bd8054d6d9faa33791d660" title="function to calculate the radius of the circle that passes through 3 points" alt="" coords="241,5,385,46"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,68,228,48,229,54,166,73"/>
-<area shape="rect" id="Node000003" href="$d3/dcc/class_velocity_planning.html#a46da78971eebffd3490c34e8bd0a974d" title="function to calculate the speed of the car according to the curvature of the path" alt="" coords="237,71,389,111"/>
+<area shape="rect" id="Node000003" href="$d3/dcc/class_velocity_planning.html#a0fdadea4c9950df53dddfec7aad9e2a0" title="function to calculate the speed of the car according to the curvature of the path" alt="" coords="237,71,389,111"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="186,88,221,88,221,94,186,94"/>
 <area shape="rect" id="Node000004" href="$d3/dcc/class_velocity_planning.html#ab74815515808651d953b291ca59e1f80" title="function to limit the speed of the car according to the curvature of the lookahead path" alt="" coords="234,136,392,177"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="166,109,229,128,228,134,165,114"/>

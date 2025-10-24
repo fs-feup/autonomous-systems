@@ -108,7 +108,7 @@ $(document).ready(function(){initNavTree('da/d05/marker_8cpp_source.html','../..
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    <span class="keyword">const</span> <a class="code hl_struct" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>&amp; position, <span class="keyword">const</span> std::string&amp; name_space, <span class="keyword">const</span> <span class="keywordtype">int</span> <span class="keywordtype">id</span>,</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <span class="keyword">const</span> std::string&amp; color, <span class="keywordtype">float</span> scale, <span class="keyword">const</span> std::string&amp; frame_id, <span class="keyword">const</span> std::string&amp; shape,</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keywordtype">int</span> action) {</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>  std::array&lt;float, 4&gt; color_array = <a class="code hl_variable" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ab58283d47ed9643ba801c24893d8f4ad">marker_color_map</a>.at(color);</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>  std::array&lt;float, 4&gt; color_array = <a class="code hl_function" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5">marker_color_map</a>().at(color);</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  <span class="keyword">auto</span> marker = visualization_msgs::msg::Marker();</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
@@ -116,7 +116,7 @@ $(document).ready(function(){initNavTree('da/d05/marker_8cpp_source.html','../..
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>  marker.header.stamp = rclcpp::Clock().now();</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>  marker.ns = name_space;</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>  marker.id = id;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  marker.type = <a class="code hl_variable" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#aa1cdb5d1026cb2d737e07ad24d069a48">marker_shape_map</a>.at(shape);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  marker.type = <a class="code hl_function" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c">marker_shape_map</a>().at(shape);</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  marker.action = action;</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  marker.pose.orientation.x = 0.0;</div>
@@ -141,12 +141,59 @@ $(document).ready(function(){initNavTree('da/d05/marker_8cpp_source.html','../..
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
 </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}  <span class="comment">// namespace common_lib::communication</span></div>
+<div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#aee895a24be4cfef1a8bcd0d799041647">   41</a></span>visualization_msgs::msg::Marker <a class="code hl_function" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#aee895a24be4cfef1a8bcd0d799041647">lines_marker_from_triangulations</a>(</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keyword">const</span> std::vector&lt;std::pair&lt;Point, Point&gt;&gt;&amp; triangulations,</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">const</span> std::string&amp; name_space,</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">const</span> std::string&amp; frame_id,</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordtype">int</span> <span class="keywordtype">id</span>,</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">const</span> std::string&amp; color,</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordtype">float</span> scale,</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordtype">int</span> action) </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>{</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  std::array&lt;float, 4&gt; color_array = <a class="code hl_function" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5">marker_color_map</a>().at(color);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  visualization_msgs::msg::Marker marker;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  marker.header.frame_id = frame_id;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  marker.header.stamp = rclcpp::Clock().now();</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  marker.ns = name_space;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  marker.id = id;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  marker.type = visualization_msgs::msg::Marker::LINE_LIST;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  marker.action = action;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  marker.pose.orientation.w = 1.0;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>  marker.scale.x = scale; </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  marker.color.r = color_array[0];</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  marker.color.g = color_array[1];</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  marker.color.b = color_array[2];</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  marker.color.a = color_array[3];</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [point1,point2] : triangulations) {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    geometry_msgs::msg::Point p1, p2;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    p1.x = point1.x();</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    p1.y = point1.y();</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    p1.z = 0.0;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    p2.x = point2.x();</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    p2.y = point2.y();</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    p2.z = 0.0;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    marker.points.push_back(p1);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    marker.points.push_back(p2);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>  }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>  <span class="keywordflow">return</span> marker;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
+</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>}  <span class="comment">// namespace common_lib::communication</span></div>
 <div class="ttc" id="amarker_8hpp_html"><div class="ttname"><a href="../../d2/da2/marker_8hpp.html">marker.hpp</a></div></div>
 <div class="ttc" id="anamespacecommon__lib_1_1communication_html"><div class="ttname"><a href="../../d1/dd0/namespacecommon__lib_1_1communication.html">common_lib::communication</a></div><div class="ttdef"><b>Definition</b> <a href="../../d1/d1b/interfaces_8hpp_source.html#l00012">interfaces.hpp:12</a></div></div>
-<div class="ttc" id="anamespacecommon__lib_1_1communication_html_aa1cdb5d1026cb2d737e07ad24d069a48"><div class="ttname"><a href="../../d1/dd0/namespacecommon__lib_1_1communication.html#aa1cdb5d1026cb2d737e07ad24d069a48">common_lib::communication::marker_shape_map</a></div><div class="ttdeci">const std::map&lt; std::string, int, std::less&lt;&gt; &gt; marker_shape_map</div><div class="ttdef"><b>Definition</b> <a href="../../d2/da2/marker_8hpp_source.html#l00022">marker.hpp:22</a></div></div>
-<div class="ttc" id="anamespacecommon__lib_1_1communication_html_ab58283d47ed9643ba801c24893d8f4ad"><div class="ttname"><a href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ab58283d47ed9643ba801c24893d8f4ad">common_lib::communication::marker_color_map</a></div><div class="ttdeci">const std::map&lt; std::string, std::array&lt; float, 4 &gt;, std::less&lt;&gt; &gt; marker_color_map</div><div class="ttdef"><b>Definition</b> <a href="../../d2/da2/marker_8hpp_source.html#l00016">marker.hpp:16</a></div></div>
+<div class="ttc" id="anamespacecommon__lib_1_1communication_html_a2f7dd6410634ac7a63480f740476e8e5"><div class="ttname"><a href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5">common_lib::communication::marker_color_map</a></div><div class="ttdeci">const std::map&lt; std::string, std::array&lt; float, 4 &gt;, std::less&lt;&gt; &gt; &amp; marker_color_map()</div><div class="ttdef"><b>Definition</b> <a href="../../d2/da2/marker_8hpp_source.html#l00019">marker.hpp:19</a></div></div>
+<div class="ttc" id="anamespacecommon__lib_1_1communication_html_ad5a808e4748ad2bf69138abd4aeb9b8c"><div class="ttname"><a href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c">common_lib::communication::marker_shape_map</a></div><div class="ttdeci">const std::map&lt; std::string, int, std::less&lt;&gt; &gt; &amp; marker_shape_map()</div><div class="ttdef"><b>Definition</b> <a href="../../d2/da2/marker_8hpp_source.html#l00032">marker.hpp:32</a></div></div>
 <div class="ttc" id="anamespacecommon__lib_1_1communication_html_ad7405068572deb44a80b03663ecfb966"><div class="ttname"><a href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966">common_lib::communication::marker_from_position</a></div><div class="ttdeci">visualization_msgs::msg::Marker marker_from_position(const common_lib::structures::Position &amp;position, const std::string &amp;name_space, const int id, const std::string &amp;color=&quot;red&quot;, float scale=0.5, const std::string &amp;frame_id=&quot;map&quot;, const std::string &amp;shape=&quot;sphere&quot;, int action=visualization_msgs::msg::Marker::ADD)</div><div class="ttdoc">Converts a position to a marker.</div><div class="ttdef"><b>Definition</b> <a href="../../da/d05/marker_8cpp_source.html#l00005">marker.cpp:5</a></div></div>
+<div class="ttc" id="anamespacecommon__lib_1_1communication_html_aee895a24be4cfef1a8bcd0d799041647"><div class="ttname"><a href="../../d1/dd0/namespacecommon__lib_1_1communication.html#aee895a24be4cfef1a8bcd0d799041647">common_lib::communication::lines_marker_from_triangulations</a></div><div class="ttdeci">visualization_msgs::msg::Marker lines_marker_from_triangulations(const std::vector&lt; std::pair&lt; Point, Point &gt; &gt; &amp;triangulations, const std::string &amp;name_space, const std::string &amp;frame_id, int id, const std::string &amp;color, float scale, int action)</div><div class="ttdoc">Converts a vector of triangulation edges to a marker.</div><div class="ttdef"><b>Definition</b> <a href="../../da/d05/marker_8cpp_source.html#l00041">marker.cpp:41</a></div></div>
 <div class="ttc" id="astructcommon__lib_1_1structures_1_1_position_html"><div class="ttname"><a href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a></div><div class="ttdef"><b>Definition</b> <a href="../../d5/d91/position_8hpp_source.html#l00007">position.hpp:7</a></div></div>
 <div class="ttc" id="astructcommon__lib_1_1structures_1_1_position_html_a06b203f36effba3bc49773098f6ea5d8"><div class="ttname"><a href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a06b203f36effba3bc49773098f6ea5d8">common_lib::structures::Position::x</a></div><div class="ttdeci">double x</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d91/position_8hpp_source.html#l00008">position.hpp:8</a></div></div>
 <div class="ttc" id="astructcommon__lib_1_1structures_1_1_position_html_a756c73d44126a8be1538cf14bd84d22d"><div class="ttname"><a href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a756c73d44126a8be1538cf14bd84d22d">common_lib::structures::Position::y</a></div><div class="ttdeci">double y</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d91/position_8hpp_source.html#l00009">position.hpp:9</a></div></div>

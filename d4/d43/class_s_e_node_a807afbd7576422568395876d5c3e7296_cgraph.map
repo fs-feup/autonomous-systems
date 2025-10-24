@@ -4,10 +4,14 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,47,216,32,217,38,156,52"/>
 <area shape="rect" id="Node000003" href="$d4/d43/class_s_e_node.html#a6f3571b56b21f6d5fa7191fae4e21681" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="211,55,366,80"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="155,65,195,65,195,70,155,70"/>
-<area shape="rect" id="Node000006" href="$d4/d43/class_s_e_node.html#a97f9cce4985902a634cd878f973715e6" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="203,105,374,145"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="156,85,198,97,197,102,154,91"/>
+<area shape="rect" id="Node000008" href="$d4/d43/class_s_e_node.html#a97f9cce4985902a634cd878f973715e6" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="203,105,374,145"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="156,85,198,97,197,102,154,91"/>
 <area shape="rect" id="Node000004" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="454,14,618,55"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="366,54,438,45,439,50,367,60"/>
 <area shape="rect" id="Node000005" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="422,79,650,120"/>
 <area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="367,75,407,80,406,85,366,80"/>
+<area shape="rect" id="Node000006" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="698,46,884,87"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="650,82,683,78,683,83,651,87"/>
+<area shape="rect" id="Node000007" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="698,111,884,152"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="651,111,683,115,683,121,650,117"/>
 </map>

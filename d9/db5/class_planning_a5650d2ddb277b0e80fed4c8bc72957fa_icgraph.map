@@ -1,5 +1,5 @@
 <map id="Planning::load_config" name="Planning::load_config">
-<area shape="rect" id="Node000001" title=" " alt="" coords="244,94,386,120"/>
+<area shape="rect" id="Node000001" title="Loads planning configuration from YAML files." alt="" coords="244,94,386,120"/>
 <area shape="rect" id="Node000002" href="$dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aa18ac7a345a445145c329fadb7da9746" title=" " alt="" coords="5,29,196,70"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="248,92,179,73,180,68,250,87"/>
 <area shape="rect" id="Node000003" href="$d8/df4/planning_2src_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="76,94,125,120"/>

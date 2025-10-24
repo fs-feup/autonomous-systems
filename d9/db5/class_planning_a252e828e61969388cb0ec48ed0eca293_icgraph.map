@@ -1,5 +1,5 @@
 <map id="Planning::fetch_discipline" name="Planning::fetch_discipline">
-<area shape="rect" id="Node000001" title="Fetches the mission from the parameters." alt="" coords="181,5,348,31"/>
-<area shape="rect" id="Node000002" href="$d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructor for the Planning class." alt="" coords="5,5,133,31"/>
+<area shape="rect" id="Node000001" title="Fetches the current mission/discipline from the pacsim simulation service." alt="" coords="181,5,348,31"/>
+<area shape="rect" id="Node000002" href="$d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructs a Planning node with the specified configuration parameters." alt="" coords="5,5,133,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,21,133,21,133,16,165,16"/>
 </map>

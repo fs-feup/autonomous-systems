@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('functions_func_g.html',''); initResiza
 
 <h3><a id="index_g" name="index_g"></a>- g -</h3><ul>
 <li>g_truth_callback()&#160;:&#160;<a class="el" href="dc/d76/classevaluator_1_1vehicle__adapter_1_1_vehicle_adapter.html#a830e875fcd236478807370c8dfca42ee">evaluator.vehicle_adapter.VehicleAdapter</a></li>
-<li>generatePath()&#160;:&#160;<a class="el" href="d0/d89/class_path_calculation.html#a0b2aa50dd491a320b7b7d9cad0e25247">PathCalculation</a></li>
+<li>generate_midpoints()&#160;:&#160;<a class="el" href="d8/dab/class_midpoint_generator.html#a3202a8f1d276f890e63c48d0592a7b92">MidpointGenerator</a></li>
 <li>get_a()&#160;:&#160;<a class="el" href="d2/d8d/class_plane.html#a3a227b9e6e6f5214c9ce9a6f757a14eb">Plane</a></li>
 <li>get_associations()&#160;:&#160;<a class="el" href="d7/d79/class_e_k_f_s_l_a_m_solver.html#a1116afe697a0342c8526f5a65caa9679">EKFSLAMSolver</a>, <a class="el" href="d9/d73/class_graph_s_l_a_m_solver.html#af54870884365175c8dda4344a0f99ef4">GraphSLAMSolver</a>, <a class="el" href="da/dd3/class_s_l_a_m_solver.html#a83efd39a6c4f791cf52dbc3b0be947fb">SLAMSolver</a></li>
 <li>get_b()&#160;:&#160;<a class="el" href="d2/d8d/class_plane.html#a14d7de844717d5fa9546a02849d6fb4a">Plane</a></li>
@@ -114,7 +114,6 @@ $(document).ready(function(){initNavTree('functions_func_g.html',''); initResiza
 <li>get_data_association_parameters()&#160;:&#160;<a class="el" href="d5/d51/struct_s_l_a_m_parameters.html#adb9fb23c9c0d5bcfee62303fec7236ac">SLAMParameters</a></li>
 <li>get_distance_to_point()&#160;:&#160;<a class="el" href="d2/d8d/class_plane.html#afe168b482b5979fc6e259b1848510b30">Plane</a></li>
 <li>get_full_observation_noise_covariance_matrix()&#160;:&#160;<a class="el" href="d7/d64/class_observation_model.html#a18d5179a7ca11d8f4825a28cc01ccc33">ObservationModel</a></li>
-<li>get_global_path()&#160;:&#160;<a class="el" href="d0/d89/class_path_calculation.html#ab119fa380d04d1d0e1d0abc48131e558">PathCalculation</a></li>
 <li>get_graph_values_reference()&#160;:&#160;<a class="el" href="d4/dca/class_graph_s_l_a_m_instance.html#a08ffb0c68875585691c36ebae4843f93">GraphSLAMInstance</a></li>
 <li>get_gv()&#160;:&#160;<a class="el" href="d7/d64/class_observation_model.html#a3c7754187b6534a2bf84f36d7f87b6b8">ObservationModel</a></li>
 <li>get_gz()&#160;:&#160;<a class="el" href="d7/d64/class_observation_model.html#ac93e7c085cc327eac8ee714b1d86e626">ObservationModel</a></li>
@@ -137,6 +136,8 @@ $(document).ready(function(){initNavTree('functions_func_g.html',''); initResiza
 <li>get_observation_noise_covariance_matrix()&#160;:&#160;<a class="el" href="d7/d64/class_observation_model.html#a97a9e71e7cee696be91a569eb65b9df9">ObservationModel</a></li>
 <li>get_observation_noise_matrix()&#160;:&#160;<a class="el" href="d7/d79/class_e_k_f_s_l_a_m_solver.html#a06313688bd8135164153301754db464f">EKFSLAMSolver</a></li>
 <li>get_observations_global()&#160;:&#160;<a class="el" href="d7/d79/class_e_k_f_s_l_a_m_solver.html#a5bba5f2d208b28b678b8385fc3970070">EKFSLAMSolver</a>, <a class="el" href="d9/d73/class_graph_s_l_a_m_solver.html#a13daf79a92198eb57196ad4d35b606cc">GraphSLAMSolver</a>, <a class="el" href="da/dd3/class_s_l_a_m_solver.html#a8ba5cc7b653fdc6999ce59af8d442271">SLAMSolver</a></li>
+<li>get_path_points_from_points()&#160;:&#160;<a class="el" href="d0/d89/class_path_calculation.html#a028f03b1cd0db13fd78871fa8abc0b55">PathCalculation</a></li>
+<li>get_path_to_car()&#160;:&#160;<a class="el" href="d0/d89/class_path_calculation.html#a169366a510c864e26d57e7778ec9c9f5">PathCalculation</a></li>
 <li>get_point_cloud()&#160;:&#160;<a class="el" href="d2/d23/class_cluster.html#a763032aa726408defaea180f280f55f3">Cluster</a></li>
 <li>get_pose()&#160;:&#160;<a class="el" href="d4/dca/class_graph_s_l_a_m_instance.html#a9ffa9f55d63ac219cf762c41434bc265">GraphSLAMInstance</a></li>
 <li>get_pose_counter()&#160;:&#160;<a class="el" href="d4/dca/class_graph_s_l_a_m_instance.html#a35bc8968bba9ec8e6d74b58e9809cde2">GraphSLAMInstance</a></li>
@@ -148,6 +149,7 @@ $(document).ready(function(){initNavTree('functions_func_g.html',''); initResiza
 <li>get_state()&#160;:&#160;<a class="el" href="da/da6/class_extended_kalman_filter.html#a588e12f311b7f5c696d1959940f0c70c">ExtendedKalmanFilter</a></li>
 <li>get_state_to_observation_matrix()&#160;:&#160;<a class="el" href="d7/d64/class_observation_model.html#aa789708c6a934ba1edfc8386b1f38d4f">ObservationModel</a></li>
 <li>get_state_vector()&#160;:&#160;<a class="el" href="d4/dca/class_graph_s_l_a_m_instance.html#a2fbea953d0b846a351d67c1944ce9d03">GraphSLAMInstance</a></li>
+<li>get_triangulations()&#160;:&#160;<a class="el" href="d8/dab/class_midpoint_generator.html#ae4d1b656e350b878adae84447aa0e12d">MidpointGenerator</a>, <a class="el" href="d0/d89/class_path_calculation.html#a05d758e65ed03c6e370f6021e5f5d04c">PathCalculation</a></li>
 <li>get_velocities()&#160;:&#160;<a class="el" href="d7/dbe/class_e_k_f.html#a841bd699758fdd477033333503b7c0ee">EKF</a>, <a class="el" href="dd/da2/class_no_rear_w_s_s_e_k_f.html#a2cceb5349b045b007611460bc3bc8d4d">NoRearWSSEKF</a>, <a class="el" href="d4/dae/class_no_w_s_s_e_k_f.html#a3049eaf1680daf7c72a1c07a685b5437">NoWSSEKF</a>, <a class="el" href="d9/d08/class_velocity_estimator.html#ae5917685d0df83233f8992909fd1ed48">VelocityEstimator</a></li>
 <li>get_z_score_x()&#160;:&#160;<a class="el" href="d2/d23/class_cluster.html#a546235e71e16eda065ed02e54750330d">Cluster</a></li>
 <li>get_z_score_y()&#160;:&#160;<a class="el" href="d2/d23/class_cluster.html#a1fc31827aa9b5b3e7fcc526a7a9427b3">Cluster</a></li>
@@ -160,7 +162,7 @@ $(document).ready(function(){initNavTree('functions_func_g.html',''); initResiza
 <li>getCurrentTS()&#160;:&#160;<a class="el" href="d1/d5c/class_i_vehicle_model.html#a0f42ed2ad90f33c998549b834816fc6a">IVehicleModel</a>, <a class="el" href="dd/d52/class_vehicle_model_bicycle.html#a10db26792483bebe59112d0db24c9f76">VehicleModelBicycle</a></li>
 <li>getCurvature()&#160;:&#160;<a class="el" href="d2/de2/classgui_logic_1_1gui_logic.html#afbc44f73f8dc7b41af430009375d6044">guiLogic.guiLogic</a></li>
 <li>getDynamicStates()&#160;:&#160;<a class="el" href="dd/d52/class_vehicle_model_bicycle.html#a4d87d6b145a90af103b362c4f6ff9f82">VehicleModelBicycle</a></li>
-<li>getElement()&#160;:&#160;<a class="el" href="d0/d11/class_config_element.html#a9bf69c2e2bb17f20d42c11146a3f76c8">ConfigElement</a></li>
+<li>getElement()&#160;:&#160;<a class="el" href="d0/d11/class_config_element.html#aa233fbc1dc21b6a44eac22ddfa677aa4">ConfigElement</a></li>
 <li>getElements()&#160;:&#160;<a class="el" href="d0/d11/class_config_element.html#affb53b9dbe7a4c5ac89c4d357bdd6120">ConfigElement</a></li>
 <li>getFrameId()&#160;:&#160;<a class="el" href="d9/df9/class_gnss_sensor.html#ad472e992ab1ba97b32310e6c3c919a23">GnssSensor</a>, <a class="el" href="d0/d8a/class_perception_sensor.html#a31e8caa6f8a3e4842d73e0a97390bcfa">PerceptionSensor</a></li>
 <li>getGetDynamicStates()&#160;:&#160;<a class="el" href="dd/d52/class_vehicle_model_bicycle.html#a66471b72c81aac3b7405c0534b6899f7">VehicleModelBicycle</a></li>

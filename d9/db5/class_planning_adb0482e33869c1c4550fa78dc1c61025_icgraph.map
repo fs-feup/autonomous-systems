@@ -1,12 +1,12 @@
 <map id="Planning::run_planning_algorithms" name="Planning::run_planning_algorithms">
-<area shape="rect" id="Node000001" title="Runs the planning algorithms." alt="" coords="732,137,883,178"/>
-<area shape="rect" id="Node000002" href="$d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="521,84,659,125"/>
+<area shape="rect" id="Node000001" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
+<area shape="rect" id="Node000002" href="$d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
-<area shape="rect" id="Node000008" href="$d9/db5/class_planning.html#aadea6bf02f1d98ee08e87dfc847b0a50" title="Callback for vehicle localization updates (undefined)." alt="" coords="495,169,684,210"/>
+<area shape="rect" id="Node000008" href="$d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="495,169,684,210"/>
 <area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="718,174,685,178,685,173,717,168"/>
 <area shape="rect" id="Node000003" href="$d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="505,99,444,94,445,88,505,94"/>
-<area shape="rect" id="Node000005" href="$d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructor for the Planning class." alt="" coords="291,120,419,145"/>
+<area shape="rect" id="Node000005" href="$d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructs a Planning node with the specified configuration parameters." alt="" coords="291,120,419,145"/>
 <area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="505,117,419,127,419,122,505,112"/>
 <area shape="rect" id="Node000006" href="$db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,5,429,46"/>
 <area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="512,81,417,49,419,44,513,76"/>

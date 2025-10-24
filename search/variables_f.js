@@ -1,7 +1,7 @@
 var searchData=
 [
   ['observation_5fmodel_5f_0',['observation_model_',['../d7/d79/class_e_k_f_s_l_a_m_solver.html#aa39a669745ed3c17527ade4ea5105b0f',1,'EKFSLAMSolver::observation_model_'],['../df/d4f/class_performance_test.html#af9ec31b6d3fc8a51f7f9996c444e6862',1,'PerformanceTest::observation_model_']]],
-  ['observation_5fnoise_5fcovariance_5fmatrix_5f_1',['observation_noise_covariance_matrix_',['../d1/d4f/class_maximum_likelihood_n_l_l.html#a85486e5d59c20c834e712db765acee94',1,'MaximumLikelihoodNLL::observation_noise_covariance_matrix_'],['../db/d23/class_maximum_likelihood_m_d.html#ab1b936fdd54e441eea23ad152ee91a5c',1,'MaximumLikelihoodMD::observation_noise_covariance_matrix_']]],
+  ['observation_5fnoise_5fcovariance_5fmatrix_5f_1',['observation_noise_covariance_matrix_',['../db/d23/class_maximum_likelihood_m_d.html#ab1b936fdd54e441eea23ad152ee91a5c',1,'MaximumLikelihoodMD::observation_noise_covariance_matrix_'],['../d1/d4f/class_maximum_likelihood_n_l_l.html#a85486e5d59c20c834e712db765acee94',1,'MaximumLikelihoodNLL::observation_noise_covariance_matrix_']]],
   ['observation_5fx_5fnoise_2',['observation_x_noise',['../d9/d66/struct_data_association_parameters.html#a459965e50c5e4c58ff7a91d95db43b7d',1,'DataAssociationParameters']]],
   ['observation_5fx_5fnoise_5f_3',['observation_x_noise_',['../d5/d51/struct_s_l_a_m_parameters.html#ab2b8937b67a31ae211e37676d2401514',1,'SLAMParameters']]],
   ['observation_5fy_5fnoise_4',['observation_y_noise',['../d9/d66/struct_data_association_parameters.html#a04b7597d1dafcbc50371f20229ce343d',1,'DataAssociationParameters']]],
@@ -41,12 +41,13 @@ var searchData=
   ['outliers_5fspline_5fcoeffs_5fratio_5f_38',['outliers_spline_coeffs_ratio_',['../d2/deb/struct_planning_parameters.html#a1e1d10e3c84e7f2196818a657cb83cde',1,'PlanningParameters']]],
   ['outliers_5fspline_5forder_5f_39',['outliers_spline_order_',['../d2/deb/struct_planning_parameters.html#a73f48d0464af8da7e517f18a42936112',1,'PlanningParameters']]],
   ['outliers_5fspline_5fprecision_5f_40',['outliers_spline_precision_',['../d2/deb/struct_planning_parameters.html#a88f98ab083f2cf9c0b5bd4dea59ea4b9',1,'PlanningParameters']]],
-  ['output_41',['output',['../d7/d9e/classtest__data__association__metrics_1_1_test_data_association_metrics.html#a0e69226fb9a6f756ec78f72fd0863584',1,'test_data_association_metrics::TestDataAssociationMetrics']]],
-  ['output_5fstatistics_5fpath_5ffile_42',['output_statistics_path_file',['../d3/d0d/class_perception_performance_test.html#a6b899a2f558737fc9f64bb40152c955a',1,'PerceptionPerformanceTest']]],
-  ['output_5fstring_43',['output_string',['../da/ddb/namespaceformat.html#af8b4353ac83e6db6c2d75cb1b2428832',1,'format']]],
-  ['outputvelocity_44',['outputVelocity',['../d9/df9/class_gnss_sensor.html#ac7f43dcd31b8eb060201ba886e7456a9',1,'GnssSensor']]],
-  ['ox_5fvalues0_45',['ox_values0',['../d7/dc1/namespacespline.html#a1addd17c915676a98334518e5ea6e98b',1,'spline']]],
-  ['ox_5fvalues1_46',['ox_values1',['../d7/dc1/namespacespline.html#a3a1e8e2d2b25dd3acc6794dc788c14de',1,'spline']]],
-  ['oy_5fvalues0_47',['oy_values0',['../d7/dc1/namespacespline.html#ab70234eb3ce5137cc91639563aa34ba9',1,'spline']]],
-  ['oy_5fvalues1_48',['oy_values1',['../d7/dc1/namespacespline.html#a1e5a4c2c7be917cdb790c23e6fd3cc19',1,'spline']]]
+  ['outliers_5fuse_5foutlier_5fremoval_5f_41',['outliers_use_outlier_removal_',['../d2/deb/struct_planning_parameters.html#afa24ad6561b77597484ab439fe96415e',1,'PlanningParameters']]],
+  ['output_42',['output',['../d7/d9e/classtest__data__association__metrics_1_1_test_data_association_metrics.html#a0e69226fb9a6f756ec78f72fd0863584',1,'test_data_association_metrics::TestDataAssociationMetrics']]],
+  ['output_5fstatistics_5fpath_5ffile_43',['output_statistics_path_file',['../d3/d0d/class_perception_performance_test.html#a6b899a2f558737fc9f64bb40152c955a',1,'PerceptionPerformanceTest']]],
+  ['output_5fstring_44',['output_string',['../da/ddb/namespaceformat.html#af8b4353ac83e6db6c2d75cb1b2428832',1,'format']]],
+  ['outputvelocity_45',['outputVelocity',['../d9/df9/class_gnss_sensor.html#ac7f43dcd31b8eb060201ba886e7456a9',1,'GnssSensor']]],
+  ['ox_5fvalues0_46',['ox_values0',['../d7/dc1/namespacespline.html#a1addd17c915676a98334518e5ea6e98b',1,'spline']]],
+  ['ox_5fvalues1_47',['ox_values1',['../d7/dc1/namespacespline.html#a3a1e8e2d2b25dd3acc6794dc788c14de',1,'spline']]],
+  ['oy_5fvalues0_48',['oy_values0',['../d7/dc1/namespacespline.html#ab70234eb3ce5137cc91639563aa34ba9',1,'spline']]],
+  ['oy_5fvalues1_49',['oy_values1',['../d7/dc1/namespacespline.html#a1e5a4c2c7be917cdb790c23e6fd3cc19',1,'spline']]]
 ];

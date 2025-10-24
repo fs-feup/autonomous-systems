@@ -127,7 +127,9 @@ var hierarchy =
     ] ],
     [ "MainConfig", "d7/d28/struct_main_config.html", null ],
     [ "Map", "df/d91/struct_map.html", null ],
-    [ "PathCalculation::MidPoint", "d9/d2d/struct_path_calculation_1_1_mid_point.html", null ],
+    [ "common_lib::structures::Midpoint", "db/df1/structcommon__lib_1_1structures_1_1_midpoint.html", null ],
+    [ "MidpointGenerator", "d8/dab/class_midpoint_generator.html", null ],
+    [ "MidpointGeneratorConfig", "d9/d46/struct_midpoint_generator_config.html", null ],
     [ "MotionData", "d2/d50/struct_motion_data.html", null ],
     [ "MotionModel", "db/d66/class_motion_model.html", [
       [ "ImuVelocityModel", "d2/d58/class_imu_velocity_model.html", null ],
@@ -185,7 +187,6 @@ var hierarchy =
     [ "Plane", "d2/d8d/class_plane.html", null ],
     [ "PlanningConfig", "df/dec/struct_planning_config.html", null ],
     [ "PlanningParameters", "d2/deb/struct_planning_parameters.html", null ],
-    [ "PathCalculation::PointHash", "d4/db4/struct_path_calculation_1_1_point_hash.html", null ],
     [ "PointSolver", "d9/da5/class_point_solver.html", null ],
     [ "scenario_generator.PointTracker", "dd/d05/classscenario__generator_1_1_point_tracker.html", null ],
     [ "common_lib::structures::Pose", "d8/d4a/structcommon__lib_1_1structures_1_1_pose.html", [
@@ -230,6 +231,8 @@ var hierarchy =
       [ "WheelsSensor", "dc/df1/class_wheels_sensor.html", null ]
     ] ],
     [ "SimulationConfig", "d3/db0/struct_simulation_config.html", null ],
+    [ "Skidpad", "de/d3f/class_skidpad.html", null ],
+    [ "SkidpadConfig", "d2/de2/struct_skidpad_config.html", null ],
     [ "SLAMParameters", "d5/d51/struct_s_l_a_m_parameters.html", null ],
     [ "SLAMSolver", "da/dd3/class_s_l_a_m_solver.html", [
       [ "EKFSLAMSolver", "d7/d79/class_e_k_f_s_l_a_m_solver.html", null ],
