@@ -47,6 +47,59 @@ double PurePursuit::get_steering_command()  {
             lookahead_point, this->params_->car_parameters_.dist_cg_2_rear_axis);
       }
     }
+
+    // Get the actual closest point (interpolation)
+    if (closest_point_id >= 2 && closest_point_id + 1 < this->last_path_msg_.size()) {
+      Position prev_point(this->last_path_msg_[closest_point_id - 1].x,
+                          this->last_path_msg_[closest_point_id - 1].y);
+      Position next_point(this->last_path_msg_[closest_point_id + 1].x,
+                          this->last_path_msg_[closest_point_id + 1].y);
+
+      // --- Step 1: Project rear_axis onto the segment (prev_point, next_point)
+      double vx = next_point.x - prev_point.x;
+      double vy = next_point.y - prev_point.y;
+      double wx = last_pose_msg_.x - prev_point.x;
+      double wy = last_pose_msg_.y - prev_point.y;
+
+      double vv = vx * vx + vy * vy;
+      double t = 0.0;
+      if (vv > 1e-9) {
+          t = (wx * vx + wy * vy) / vv;
+      }
+
+      // Clamp to the segment
+      t = std::max(0.0, std::min(1.0, t));
+
+      // Interpolated (projected) closest point
+      Position interpolated_closest_point;
+      interpolated_closest_point.x = prev_point.x + t * vx;
+      interpolated_closest_point.y = prev_point.y + t * vy;
+
+      // --- Step 2: Compute heading of the line segment
+      double segment_heading = std::atan2(vy, vx);
+
+      // --- Step 3: Compute heading error (normalize between -pi and pi)
+      double heading_error = last_pose_msg_.theta - segment_heading;
+      while (heading_error > M_PI) heading_error -= 2.0 * M_PI;
+      while (heading_error < -M_PI) heading_error += 2.0 * M_PI;
+
+      double dx = last_pose_msg_.x - interpolated_closest_point.x;
+      double dy = last_pose_msg_.y - interpolated_closest_point.y;
+
+      // The sign comes from the cross product (segment vector × vehicle vector)
+      // If positive -> vehicle is to the LEFT of the path direction
+      // If negative -> vehicle is to the RIGHT
+      double cross = vx * dy - vy * dx;  // determinant in 2D
+      double distance_error = std::sqrt(dx * dx + dy * dy);
+      if (cross > 0) distance_error = -distance_error;  // assign side
+
+      const double distance_error_multiplier = 0.125;
+      const double heading_error_multiplier = 0.0;
+
+      steering_command += distance_error_multiplier * distance_error  + heading_error_multiplier * heading_error;
+
+    }
+
   }
   
   return steering_command;
