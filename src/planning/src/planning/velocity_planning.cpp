@@ -60,21 +60,20 @@ void VelocityPlanning::speed_limiter(std::vector<PathPoint> &points,
   for (int i = static_cast<int>(points.size()) - 2; i >= 0; i--) {
     double distance = 0;
     double max_speed = velocities[i];
+    
+    // Calculate segment distance
+    int j = i+1;
+    distance = std::sqrt(std::pow(points[j].position.x - points[j - 1].position.x, 2) +
+                                    std::pow(points[j].position.y - points[j - 1].position.y, 2));
 
-    //for (int j = i + 1; j < static_cast<int>(points.size()) - 1; j++) {
-      // Calculate segment distance
-      int j = i+1;
-      distance = std::sqrt(std::pow(points[j].position.x - points[j - 1].position.x, 2) +
-                                     std::pow(points[j].position.y - points[j - 1].position.y, 2));
+    // Correct kinematic speed calculation
+    // v_f² = v_i² + 2ad
+    double max_terminal_speed =
+        std::sqrt(std::max(0.0, std::pow(velocities[j], 2) - 2 * config_.braking_acceleration_ * distance));
 
-      // Correct kinematic speed calculation
-      // v_f² = v_i² + 2ad
-      double max_terminal_speed =
-          std::sqrt(std::max(0.0, std::pow(velocities[j], 2) - 2 * config_.braking_acceleration_ * distance));
+    max_speed = std::min(max_speed, max_terminal_speed);
+    max_speed = std::min(max_speed, this->config_.desired_velocity_);
 
-      max_speed = std::min(max_speed, max_terminal_speed);
-      max_speed = std::min(max_speed, this->config_.desired_velocity_);
-    //}
     velocities[i] = max_speed;
   }
 }
