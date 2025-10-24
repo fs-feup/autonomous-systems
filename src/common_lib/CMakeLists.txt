@@ -49,6 +49,7 @@ set(IMPLEMENTATION_FILES
   src/config_load/config_load.cpp
   src/conversions/cones.cpp
   src/car_parameters/car_parameters.cpp
+  src/filters/low_pass_filter.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})
@@ -85,6 +86,7 @@ if(BUILD_TESTING)
   set(TESTFILES
     test/main.cpp
     test/maths/transformations_test.cpp
+    test/filters/low_pass_filter_test.cpp
   )
 
   include_directories(test)  # Include the 'test' directory for your test targets

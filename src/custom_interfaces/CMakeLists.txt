@@ -38,7 +38,6 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/SteeringAngle.msg"
   "msg/WheelRPM.msg"
   "msg/ImuData.msg"
-  "msg/EvaluatorControlData.msg"
   "msg/YawPitchRoll.msg"
   "msg/ImuAcceleration.msg"
   "msg/HydraulicLinePressure.msg"

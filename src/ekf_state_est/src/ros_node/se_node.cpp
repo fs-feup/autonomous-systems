@@ -14,9 +14,9 @@
 #include "common_lib/structures/pose.hpp"
 #include "common_lib/structures/position.hpp"
 #include "geometry_msgs/msg/pose_with_covariance.hpp"
-#include "motion_lib/s2v_model/bicycle_model.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "visualization_msgs/msg/marker.hpp"
+#include "utils/utils.hpp"
 /*---------------------- Constructor --------------------*/
 
 double last_wss = 0.0;
@@ -211,9 +211,8 @@ void SENode::_wheel_speeds_subscription_callback(double rl_speed, double rr_spee
   RCLCPP_INFO(this->get_logger(), "Rear Left: %f\n Rear Right: %f", rl_speed, rr_speed);
   rclcpp::Time start_time = this->get_clock()->now();
 
-  BicycleModel model = BicycleModel(common_lib::car_parameters::CarParameters());
   auto [linear_velocity, angular_velocity] =
-      model.wheels_velocities_to_cg(rl_speed, fl_speed, rr_speed, fr_speed, steering_angle);
+      wheels_velocities_to_cg(this->_car_parameters_, rl_speed, fl_speed, rr_speed, fr_speed, steering_angle);
 
   RCLCPP_INFO(this->get_logger(), "Linear Velocity: %f\nAngular Velocity: %f", linear_velocity,
               angular_velocity);

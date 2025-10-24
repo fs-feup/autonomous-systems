@@ -18,7 +18,7 @@ InspectionMission::InspectionMission() : Node("inspection") {
 
   // creates publisher that should yield throttle/acceleration/...
   _control_command_publisher_ =
-      this->create_publisher<custom_interfaces::msg::ControlCommand>("/as_msgs/controls", 10);
+      this->create_publisher<custom_interfaces::msg::ControlCommand>("/control/command", 10);
 
   // creates client for the end of mission signal
   _finish_client_ = this->create_client<std_srvs::srv::Trigger>("/as_srv/mission_finished");
@@ -162,7 +162,7 @@ void InspectionMission::inspection_script() {
 
 void InspectionMission::publish_controls(double throttle, double steering) const {
   custom_interfaces::msg::ControlCommand control_command;
-  control_command.throttle = throttle;
+  control_command.throttle_rl = control_command.throttle_rr = throttle;
   control_command.steering = steering;
   _control_command_publisher_->publish(control_command);
 }

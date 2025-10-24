@@ -116,8 +116,10 @@ class PacsimAdapter(Adapter):
         if self._groundtruth_pose_ is None:
             self.node.get_logger().warn("Groundtruth pose not received")
             return
-        
-        groundtruth_pose_treated: np.ndarray = format_twist_with_covariance_stamped_msg(self._groundtruth_pose_)
+
+        groundtruth_pose_treated: np.ndarray = format_twist_with_covariance_stamped_msg(
+            self._groundtruth_pose_
+        )
         pose_treated: np.ndarray = format_vehicle_pose_msg(vehicle_pose)
         self.node.compute_and_publish_pose(
             pose_treated,
@@ -202,10 +204,13 @@ class PacsimAdapter(Adapter):
             groundtruth_velocity (TwistWithCovarianceStamped): Ground truth velocity data.
         """
         self._groundtruth_velocity_: TwistWithCovarianceStamped = groundtruth_velocity
+        if self.node.use_simulated_velocities_:
+            self.node.absolute_velocity = (
+                self._groundtruth_velocity_.twist.twist.linear.x**2
+                + self._groundtruth_velocity_.twist.twist.linear.y**2
+            ) ** 0.5
 
-    def groundtruth_pose_callback(
-        self, groundtruth_pose: TwistWithCovarianceStamped
-    ):
+    def groundtruth_pose_callback(self, groundtruth_pose: TwistWithCovarianceStamped):
         """!
         Callback function to process ground truth pose messages.
 
@@ -213,3 +218,8 @@ class PacsimAdapter(Adapter):
             groundtruth_pose (TwistWithCovarianceStamped): Ground truth pose data.
         """
         self._groundtruth_pose_: TwistWithCovarianceStamped = groundtruth_pose
+        if self.node.use_simulated_se_:
+            self.node.position = [
+                groundtruth_pose.twist.twist.linear.x,
+                groundtruth_pose.twist.twist.linear.y,
+            ]

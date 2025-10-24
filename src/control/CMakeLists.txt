@@ -2,22 +2,23 @@ cmake_minimum_required(VERSION 3.8)
 project(control)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic)
+  add_compile_options(-Wall -Wextra -Wpedantic -O2)
 endif()
 
 set(IMPLEMENTATION_FILES 
-  src/node_/node_control.cpp
-  src/pid/pid.cpp
-  src/adapter_control/fsds.cpp
-  src/adapter_control/pacsim.cpp
-  src/adapter_control/eufs.cpp
-  src/adapter_control/vehicle.cpp
-  src/pure_pursuit/pp.cpp
-  src/point_solver/psolver.cpp
-  src/low_pass_filter/lpf.cpp
+  src/ros_node/ros_node.cpp
+  src/adapter/pacsim.cpp
+  src/adapter/eufs.cpp
+  src/adapter/vehicle.cpp
+  src/lateral_controller/pure_pursuit.cpp
+  src/longitudinal_controller/pid.cpp
+  src/config/parameters.cpp
+  src/control_solver/base_decoupled_controller.cpp
+  src/utils/utils.cpp
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../common_lib/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/..)
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
@@ -64,9 +65,9 @@ if(BUILD_TESTING)
 
   set(TESTFILES 
     test/main.cpp
-    test/pid_test.cpp
-    test/pp_test.cpp
-    test/psolver_test.cpp
+    test/longitudinal_controller/pid_test.cpp
+    test/lateral_controller/pure_pursuit_test.cpp
+    test/utils/utils_test.cpp
     test/include/utils.cpp
   )
   include_directories(test)  # Include the 'test' directory for your test targets

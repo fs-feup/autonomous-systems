@@ -44,6 +44,7 @@ set(IMPLEMENTATION_FILES
   src/adapter_ekf_state_est/fsds.cpp
   src/adapter_ekf_state_est/pacsim.cpp
   src/adapter_ekf_state_est/vehicle.cpp
+  src/utils/utils.cpp
 )
 
 
@@ -76,6 +77,7 @@ if(BUILD_TESTING)
     test/observation_model_test.cpp
     test/slam_test.cpp
     test/ekf_state_est_performance_test.cpp
+    test/utils_test.cpp
   )
 
   include_directories(test)  # Include the 'test' directory for your test targets

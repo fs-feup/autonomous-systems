@@ -11,8 +11,8 @@
 #include "config/parameters.hpp"
 #include "custom_interfaces/msg/velocities.hpp"
 #include "estimators/estimator.hpp"
-#include "motion_lib/s2v_model/map.hpp"
 #include "motion_lib/vel_process_model/map.hpp"
+#include "perception_sensor_lib/observation_model/ve_observation_model/map.hpp"
 
 class NoRearWSSEKF : public VelocityEstimator {
   rclcpp::Time _last_update_;
@@ -38,7 +38,7 @@ class NoRearWSSEKF : public VelocityEstimator {
   bool steering_angle_received_ = false;
 
   common_lib::car_parameters::CarParameters car_parameters_;
-  std::shared_ptr<S2VModel> s2v_model;
+  std::shared_ptr<VEObservationModel> observation_model_;
   std::shared_ptr<BaseVelocityProcessModel> process_model;
 
   /**

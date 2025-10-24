@@ -15,7 +15,7 @@ Steering Angle | /vehicle/bosch_steering_angle | TOPIC_MESSAGE : custom_interfac
 Go Signal | /vehicle/operational_status | TOPIC_MESSAGE : custom_interfaces/msg/OperationalStatus | Information on the AS Status and mission | Input
 Mission Finished | /as_srv/mission_finished | SERVICE : std_srvs/srv/Trigger | Signal sent by the AS Main Pipeline that notifies the vehicle of the end of the mission | Output
 Emergency | /as_srv/emergency | SERVICE : std_srvs/srv/Trigger | Signal sent by the AS Main Pipeline in case of detection of a critical error | Output
-Control Command | /as_msgs/controls | TOPIC_MESSAGE : custom_interfaces/msg/ControlCommand | Contains the steering ang throttle commands for the vehicle | Output
+Control Command | /control/command | TOPIC_MESSAGE : custom_interfaces/msg/ControlCommand | Contains the steering ang throttle commands for the vehicle | Output
 
 ## System Internal
 
