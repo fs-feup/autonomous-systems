@@ -1,8 +1,8 @@
 #include "planning/velocity_planning.hpp"
 
 double VelocityPlanning::find_circle_center(const PathPoint &point1, 
-                      const PathPoint &point2,
-                      const PathPoint &point3) {
+                                            const PathPoint &point2,
+                                            const PathPoint &point3) {
   double x1 = point1.position.x;
   double y1 = point1.position.y;
   double x2 = point2.position.x;
@@ -18,32 +18,30 @@ double VelocityPlanning::find_circle_center(const PathPoint &point1,
   double slope1_perpendicular = 10'000;
   double slope2_perpendicular = 10'000;
   if (x2 != x1) {
-  slope1 = (y2 - y1) / (x2 - x1);
+    slope1 = (y2 - y1) / (x2 - x1);
   }
   
   if (x3 != x2) {
-  slope2 = (y3 - y2) / (x3 - x2);
+    slope2 = (y3 - y2) / (x3 - x2);
   } 
   
   if (slope1 != 0) {
-  slope1_perpendicular = -1 / slope1;
+    slope1_perpendicular = -1 / slope1;
   } 
   
   if (slope2 != 0) {
-  slope2_perpendicular = -1 / slope2;
-  }
+    slope2_perpendicular = -1 / slope2;
+  } 
   
-  double radius;
   if (slope1_perpendicular == slope2_perpendicular) {
-  radius = 10'000;
-  } else {
-  double center_x = (slope1_perpendicular * mid1.position.x -
-             slope2_perpendicular * mid2.position.x + mid2.position.y - mid1.position.y) /
-            (slope1_perpendicular - slope2_perpendicular);
-  double center_y = slope1_perpendicular * (center_x - mid1.position.x) + mid1.position.y;
-  radius = std::sqrt(std::pow(center_x - x2, 2) + std::pow(center_y - y2, 2));
+    return 10000;
   }
-  
+
+  double center_x = (slope1_perpendicular * mid1.position.x -
+                     slope2_perpendicular * mid2.position.x + mid2.position.y - mid1.position.y) /
+                    (slope1_perpendicular - slope2_perpendicular);
+  double center_y = slope1_perpendicular * (center_x - mid1.position.x) + mid1.position.y;
+  double radius = std::sqrt(std::pow(center_x - x2, 2) + std::pow(center_y - y2, 2));
   return radius;
 }
 
