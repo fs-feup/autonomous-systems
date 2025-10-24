@@ -59,6 +59,8 @@ double PID::calculate_error(double setpoint, double measurement) const {
     error = this->params_->pid_max_positive_error_;
   } else if (error < this->params_->pid_max_negative_error_) {
     error = this->params_->pid_max_negative_error_;
+  } else{
+    error = error;
   }
   return error;
 }
@@ -93,6 +95,8 @@ void PID::compute_output() {
     this->out_ = this->params_->pid_lim_max_;
   } else if (this->out_ < this->params_->pid_lim_min_) {
     this->out_ = this->params_->pid_lim_min_;
+  } else {
+    this->out_ = this->out_;
   }
 }
 
@@ -112,21 +116,19 @@ void PID::vehicle_pose_callback(const custom_interfaces::msg::Pose& msg)  {
 
 common_lib::structures::ControlCommand PID::get_throttle_command()  {
   common_lib::structures::ControlCommand command;
-  if (!this->received_first_path_ || !this->received_first_state_ || !this->received_first_pose_) {
-    return command;
+  
+  if (this->received_first_path_ && this->received_first_state_ && this->received_first_pose_) {
+    Position vehicle_cog = Position(this->last_pose_msg_.x, this->last_pose_msg_.y);
+    Position rear_axis = ::rear_axis_position(vehicle_cog, this->last_pose_msg_.theta,
+        this->params_->car_parameters_.dist_cg_2_rear_axis);
+
+    auto [closest_point, closest_point_id, closest_point_velocity] =
+        ::get_closest_point(this->last_path_msg_, rear_axis);
+
+    if (closest_point_id != -1) {
+      command.throttle_rl = command.throttle_rr = update(closest_point_velocity, this->absolute_velocity_);
+    }
   }
-
-  Position vehicle_cog = Position(this->last_pose_msg_.x, this->last_pose_msg_.y);
-  Position rear_axis = rear_axis_position(vehicle_cog, this->last_pose_msg_.theta,
-      this->params_->car_parameters_.dist_cg_2_rear_axis);
-
-  auto [closest_point, closest_point_id, closest_point_velocity] =
-      get_closest_point(this->last_path_msg_, rear_axis);
-
-  if (closest_point_id == -1) {
-    return command;
-  }
-
-  command.throttle_rl = command.throttle_rr = update(closest_point_velocity, this->absolute_velocity_);
+  
   return command;
 }
