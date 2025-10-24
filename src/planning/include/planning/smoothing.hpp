@@ -18,22 +18,6 @@ using Pose = common_lib::structures::Pose;
  *
  */
 class PathSmoothing {
-private:
-  /**
-   * @brief configuration of the smoothing algorithm
-   *
-   */
-  PathSmoothingConfig config_;
-  /**
-   * @brief function to order the path points to be used in the spline fitting
-   *
-   * @param unord_path unoredred path points
-   * @param car_pose pose of the car to start ordering according to the closest point
-   * @param initial_car_orientation initial orientation of the car (usually 0 but not on some tests)
-   */
-  void order_path(std::vector<PathPoint>& unord_path, const Pose& car_pose,
-                  const double initial_car_orientation) const;
-
 public:
   /**
    * @brief Construct a new default Path Smoothing object
@@ -56,6 +40,22 @@ public:
    */
   std::vector<PathPoint> smooth_path(std::vector<PathPoint>& unordered_path, const Pose& car_pose,
                                      const double initial_car_orientation) const;
+                                     
+private:
+  /**
+   * @brief configuration of the smoothing algorithm
+   *
+   */
+  PathSmoothingConfig config_;
+  /**
+   * @brief function to order the path points to be used in the spline fitting
+   *
+   * @param unord_path unoredred path points
+   * @param car_pose pose of the car to start ordering according to the closest point
+   * @param initial_car_orientation initial orientation of the car (usually 0 but not on some tests)
+   */
+  void order_path(std::vector<PathPoint>& unord_path, const Pose& car_pose,
+                  const double initial_car_orientation) const;
 };
 
 #endif  // SRC_PLANNING_INCLUDE_PLANNING_SMOOTHING2_HPP_

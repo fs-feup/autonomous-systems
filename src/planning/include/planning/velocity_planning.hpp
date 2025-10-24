@@ -8,13 +8,54 @@
 using PathPoint = common_lib::structures::PathPoint;
 
 /**
- * @brief class that defines the path smoothing algorithm
+ * @brief Computes velocity profiles for a planned path based on curvature and dynamics constraints.
  *
+ * The VelocityPlanning class generates a velocity profile along a path by:
+ * - Estimating curvature (via circle fitting between consecutive path points),
+ * - Deriving maximum allowable velocities from lateral acceleration limits,
+ * - Propagating braking constraints backward along the path.
  */
 class VelocityPlanning {
+
+public:
+  /**
+   * @brief Construct a new default Velocity Planning object
+   *
+   */
+  VelocityPlanning() = default;
+  /**
+   * @brief Construct a new Velocity Planning object with a given configuration
+   *
+   */
+  explicit VelocityPlanning(VelocityPlanningConfig config) : config_(config) {}
+
+  /**
+   * @brief Assigns an ideal velocity to each point of the path.
+   *
+   * @param final_path Vector of path points to update with planned velocities.
+   */
+  void set_velocity(std::vector<PathPoint> &final_path);
+
+  /**
+   * @brief Computes velocity for track driving scenarios with repeated smoothing.
+   *
+   * @param final_path Vector of path points to update with planned velocities.
+   */
+  void trackdrive_velocity(std::vector<PathPoint> &final_path);
+
+    /**
+   * @brief Gradually reduces velocity to zero along the first half of the path.
+   *
+   * Used for controlled stopping. It accumulates distance along the path and sets the
+   * velocity to zero once a specified distance threshold is reached.
+   *
+   * @param final_path Vector of path points to update for stopping behavior.
+   */
+  void stop(std::vector<PathPoint> &final_path);
+  
 private:
   /**
-   * @brief configuration of the smoothing algorithm
+   * @brief configuration of the velocity planning algorithm
    *
    */
   VelocityPlanningConfig config_;
@@ -27,7 +68,7 @@ private:
    * @param point3 third point
    * @return radius of the circle
    */
-  double find_circle_center(PathPoint &point1, PathPoint &point2, PathPoint &point3);
+  double find_circle_center(const PathPoint &point1, const PathPoint &point2, const PathPoint &point3);
 
   /**
    * @brief function to limit the speed of the car according to the curvature of the lookahead path
@@ -44,32 +85,6 @@ private:
    * @param radiuses radiuses vector of the path points
    * @param velocities velocities vector of the path points
    */
-  void point_speed(std::vector<double> &radiuses, std::vector<double> &velocities);
+  void point_speed(const std::vector<double> &radiuses, std::vector<double> &velocities);
 
-public:
-  /**
-   * @brief Construct a new default Path Smoothing object
-   *
-   */
-  VelocityPlanning() = default;
-  /**
-   * @brief Construct a new Path Smoothing object with a given configuration
-   *
-   */
-  explicit VelocityPlanning(VelocityPlanningConfig config) : config_(config) {}
-
-  void set_velocity(std::vector<PathPoint> &final_path);
-
-  void trackdrive_velocity(std::vector<PathPoint> &final_path);
-
-  void stop(std::vector<PathPoint> &final_path) {
-    int size = final_path.size();
-    double dist = 0.0;
-    for (int i = 0; i < size/2; ++i) {
-      dist += final_path[i].position.euclidean_distance(final_path[i + 1].position);
-      if(dist > 10){
-        final_path[i].ideal_velocity = 0.0;
-      }
-    }
-  }
 };

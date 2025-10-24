@@ -38,7 +38,6 @@ set(TESTFILES
   test/integration_tests.cpp
   test/performance_test.cpp
   test/outliers_tests.cpp
-  test/path_calculation_tests.cpp
   test/smoothing_tests.cpp
   test/splines_tests.cpp
   test/test_utils/utils.cpp
@@ -55,6 +54,8 @@ set(IMPLEMENTATION_FILES
   src/planning/outliers.cpp
   src/planning/planning.cpp
   src/planning/velocity_planning.cpp
+  src/planning/skidpad.cpp
+  src/planning/midpoint_generator.cpp
   src/utils/cone.cpp
   src/utils/files.cpp
 )

@@ -39,6 +39,7 @@ set(IMPLEMENTATION_FILES
   src/structures/pose.cpp
   src/structures/cone.cpp
   src/structures/path_point.cpp
+  src/structures/midpoint.cpp
   src/structures/vehicle_state.cpp
   src/structures/velocities.cpp
   src/sensor_data/wheel_encoders.cpp

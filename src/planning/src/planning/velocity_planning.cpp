@@ -1,7 +1,8 @@
 #include "planning/velocity_planning.hpp"
 
-double VelocityPlanning::find_circle_center(PathPoint &point1, PathPoint &point2,
-                                            PathPoint &point3) {
+double VelocityPlanning::find_circle_center(const PathPoint &point1, 
+                      const PathPoint &point2,
+                      const PathPoint &point3) {
   double x1 = point1.position.x;
   double y1 = point1.position.y;
   double x2 = point2.position.x;
@@ -11,23 +12,44 @@ double VelocityPlanning::find_circle_center(PathPoint &point1, PathPoint &point2
 
   PathPoint mid1 = PathPoint((x1 + x2) / 2, (y1 + y2) / 2, 0);
   PathPoint mid2 = PathPoint((x2 + x3) / 2, (y2 + y3) / 2, 0);
-  double slope1 = (x2 != x1) ? ((y2 - y1) / (x2 - x1)) : MAXFLOAT;
-  double slope2 = (x3 != x2) ? ((y3 - y2) / (x3 - x2)) : MAXFLOAT;
-  double slope1_perpendicular = (slope1 != 0) ? -1 / slope1 : 10000;
-  double slope2_perpendicular = (slope2 != 0) ? -1 / slope2 : 10000;
-  if (slope1_perpendicular == slope2_perpendicular) return 10000;
-
+  
+  double slope1 = MAXFLOAT;
+  double slope2 = MAXFLOAT;
+  double slope1_perpendicular = 10'000;
+  double slope2_perpendicular = 10'000;
+  if (x2 != x1) {
+  slope1 = (y2 - y1) / (x2 - x1);
+  }
+  
+  if (x3 != x2) {
+  slope2 = (y3 - y2) / (x3 - x2);
+  } 
+  
+  if (slope1 != 0) {
+  slope1_perpendicular = -1 / slope1;
+  } 
+  
+  if (slope2 != 0) {
+  slope2_perpendicular = -1 / slope2;
+  }
+  
+  double radius;
+  if (slope1_perpendicular == slope2_perpendicular) {
+  radius = 10'000;
+  } else {
   double center_x = (slope1_perpendicular * mid1.position.x -
-                     slope2_perpendicular * mid2.position.x + mid2.position.y - mid1.position.y) /
-                    (slope1_perpendicular - slope2_perpendicular);
+             slope2_perpendicular * mid2.position.x + mid2.position.y - mid1.position.y) /
+            (slope1_perpendicular - slope2_perpendicular);
   double center_y = slope1_perpendicular * (center_x - mid1.position.x) + mid1.position.y;
-  double radius = sqrt(pow(center_x - x2, 2) + pow(center_y - y2, 2));
+  radius = std::sqrt(std::pow(center_x - x2, 2) + std::pow(center_y - y2, 2));
+  }
+  
   return radius;
 }
 
-void VelocityPlanning::point_speed(std::vector<double> &radiuses, std::vector<double> &velocities) {
-  for (int i = 0; i < static_cast<int>(radiuses.size()); i++) {
-    double velocity = sqrt(abs(config_.normal_acceleration_ * radiuses[i]));
+void VelocityPlanning::point_speed(const std::vector<double> &radiuses, std::vector<double> &velocities) {
+  for (const auto& radius : radiuses) {
+    double velocity = std::sqrt(abs(config_.normal_acceleration_ * radius));
     velocities.push_back(std::max(velocity, config_.minimum_velocity_));
   }
   velocities.back() = config_.minimum_velocity_;
@@ -44,13 +66,13 @@ void VelocityPlanning::speed_limiter(std::vector<PathPoint> &points,
     //for (int j = i + 1; j < static_cast<int>(points.size()) - 1; j++) {
       // Calculate segment distance
       int j = i+1;
-      distance = sqrt(pow(points[j].position.x - points[j - 1].position.x, 2) +
-                                     pow(points[j].position.y - points[j - 1].position.y, 2));
+      distance = std::sqrt(std::pow(points[j].position.x - points[j - 1].position.x, 2) +
+                                     std::pow(points[j].position.y - points[j - 1].position.y, 2));
 
       // Correct kinematic speed calculation
       // v_f² = v_i² + 2ad
       double max_terminal_speed =
-          sqrt(std::max(0.0, pow(velocities[j], 2) - 2 * config_.braking_acceleration_ * distance));
+          std::sqrt(std::max(0.0, std::pow(velocities[j], 2) - 2 * config_.braking_acceleration_ * distance));
 
       max_speed = std::min(max_speed, max_terminal_speed);
       max_speed = std::min(max_speed, this->config_.desired_velocity_);
@@ -111,6 +133,17 @@ void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
   else {
     for (auto &path_point : final_path) {
       path_point.ideal_velocity = config_.desired_velocity_;
+    }
+  }
+}
+
+void VelocityPlanning::stop(std::vector<PathPoint> &final_path) {
+  int size = final_path.size();
+  double dist = 0.0;
+  for (int i = 0; i < size/2; ++i) {
+    dist += final_path[i].position.euclidean_distance(final_path[i + 1].position);
+    if(dist > 10){
+      final_path[i].ideal_velocity = 0.0;
     }
   }
 }
