@@ -1,16 +1,8 @@
 #pragma once
 
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
-
-#include <Eigen/Dense>
 #include <random>
-#include <utils/plane.hpp>
-#include <utils/split_parameters.hpp>
-#include <vector>
 
 #include "ground_removal/ground_removal.hpp"
-#include "rclcpp/rclcpp.hpp"
 
 /**
  * @class Constrained RANSAC
@@ -47,8 +39,8 @@ public:
    * @param[out] plane The best-fit plane found by RANSAC.
    * @param split_params Split parameters (unused in this implementation).
    */
-  void ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                      const pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
+  void ground_removal(const pcl::PointCloud<PointXYZIR>::Ptr point_cloud,
+                      const pcl::PointCloud<PointXYZIR>::Ptr ret, Plane& plane,
                       [[maybe_unused]] const SplitParameters split_params) const override;
 
 private:
@@ -59,10 +51,9 @@ private:
   /**
    * @brief Calculate the best-fit plane using RANSAC algorithm.
    * @param point_cloud Input point cloud.
-   * @param target_plane Target plane for angle constraint (optional).
-   * @return Best-fit plane found by RANSAC.
+   * @param target_lane
    */
-  Plane calculate_plane(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
+  Plane calculate_plane(const pcl::PointCloud<PointXYZIR>::Ptr point_cloud,
                         const Plane& target_plane) const;
 
   /**
@@ -70,22 +61,16 @@ private:
    * @param points Vector of exactly 3 points.
    * @return Plane fitted to the three points.
    */
-  Plane fit_plane_to_points(const std::vector<pcl::PointXYZI>& points) const;
+  Plane fit_plane_to_points(const std::vector<PointXYZIR>& points) const;
 
   /**
-   * @brief Calculate distance from a point to a plane.
-   * @param point The point.
-   * @param plane The plane.
+   * @brief Calculate the distance of a point to the plane.
+   *
+   * @param point
    * @return Distance from point to plane.
    */
-  double distance_to_plane(const pcl::PointXYZI& point, const Plane& plane) const;
+  double distance_to_plane(const PointXYZIR& point, const Plane& plane) const;
 
-  /**
-   * @brief Calculate angle difference between two planes.
-   * @param plane1 First plane.
-   * @param plane2 Second plane.
-   * @return Angle difference in radians.
-   */
   double calculate_angle_difference(const Plane& plane1, const Plane& plane2) const;
 
   /**

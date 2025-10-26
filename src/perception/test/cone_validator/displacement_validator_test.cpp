@@ -1,11 +1,6 @@
 #include <gtest/gtest.h>
-#include <pcl/PCLPointField.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
 
 #include <cone_validator/displacement_validator.hpp>
-#include <utils/cluster.hpp>
-#include <utils/plane.hpp>
 
 /**
  * @brief Test fixture for DisplacementValidator class.
@@ -28,7 +23,7 @@ protected:
 TEST_F(DisplacementValidatorTest, ClusterWithWellDistributedPoints) {
   const DisplacementValidator validator(0.1, 0.1, 0.25);
 
-  const auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+  const auto point_cloud = std::make_shared<pcl::PointCloud<PointXYZIR>>();
   (void)point_cloud->points.emplace_back(0.0, 0.0, 0.0, 0);
   (void)point_cloud->points.emplace_back(0.3, 0.7, 0.5, 0);
 
@@ -47,7 +42,7 @@ TEST_F(DisplacementValidatorTest, ClusterWithWellDistributedPoints) {
 TEST_F(DisplacementValidatorTest, BelowThresholdOnXAxis) {
   const DisplacementValidator validator(0.1, 0.1, 0.25);
 
-  const auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+  const auto point_cloud = std::make_shared<pcl::PointCloud<PointXYZIR>>();
   (void)point_cloud->points.emplace_back(0.3, 0.7, 0.1, 0);
   (void)point_cloud->points.emplace_back(0.34, 0.5, 0.7, 0);
   (void)point_cloud->points.emplace_back(0.28, 0.0, 0.5, 0);
@@ -68,7 +63,7 @@ TEST_F(DisplacementValidatorTest, BelowThresholdOnXAxis) {
 TEST_F(DisplacementValidatorTest, BelowThresholdOnYAxis) {
   const DisplacementValidator validator(0.1, 0.1, 0.25);
 
-  const auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+  const auto point_cloud = std::make_shared<pcl::PointCloud<PointXYZIR>>();
   (void)point_cloud->points.emplace_back(0.3, 0.3, 0.1, 0);
   (void)point_cloud->points.emplace_back(0.7, 0.32, 0.7, 0);
   (void)point_cloud->points.emplace_back(0.5, 0.34, 0.5, 0);
@@ -89,7 +84,7 @@ TEST_F(DisplacementValidatorTest, BelowThresholdOnYAxis) {
 TEST_F(DisplacementValidatorTest, BelowThresholdOnZAxis) {
   const DisplacementValidator validator(0.1, 0.1, 0.25);
 
-  const auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+  const auto point_cloud = std::make_shared<pcl::PointCloud<PointXYZIR>>();
   (void)point_cloud->points.emplace_back(0.3, 0.7, 0.1, 0);
   (void)point_cloud->points.emplace_back(0.6, 0.5, 0.17, 0);
   (void)point_cloud->points.emplace_back(0.9, 0.0, 0.08, 0);

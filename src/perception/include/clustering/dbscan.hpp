@@ -1,6 +1,4 @@
-#include <string>
-#include <vector>
-
+#pragma once
 #include "clustering/clustering.hpp"
 
 /**
@@ -12,7 +10,7 @@
  *
  */
 class DBSCAN : public Clustering {
- private:
+private:
   int min_cluster_size;  ///< Minimum number of points required to form a cluster.
   /**
    * @brief Maximum distance between points to be considered as neighbors.
@@ -20,7 +18,7 @@ class DBSCAN : public Clustering {
    */
   double neighbours_dist_threshold;
 
- public:
+public:
   /**
    * @brief Constructor for the DBSCAN clustering algorithm.
    *
@@ -38,6 +36,6 @@ class DBSCAN : public Clustering {
    * @param clusters A pointer to a vector of shared pointers to point clouds to store the resulting
    * clusters.
    */
-  void clustering(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
+  void clustering(const pcl::PointCloud<PointXYZIR>::Ptr point_cloud,
                   std::vector<Cluster>* clusters) const override;
 };

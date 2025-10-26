@@ -1,4 +1,3 @@
-#include <Eigen/Dense>
 #include <cone_differentiation/least_squares_differentiation.hpp>
 
 void LeastSquaresDifferentiation::coneDifferentiation(Cluster* cone_point_cloud) const {

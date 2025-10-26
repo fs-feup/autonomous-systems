@@ -1,11 +1,8 @@
-#include <pcl/PCLPointField.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
-
+#pragma once
 #include <vector>
 
-#include "sensor_msgs/msg/point_cloud2.hpp"
 #include "utils/cluster.hpp"
+#include "utils/pcl_point_types.hpp"
 
 /**
  * @brief Abstract base class for clustering point clouds.
@@ -14,7 +11,7 @@
  * Subclasses must implement the pure virtual function clustering().
  */
 class Clustering {
- public:
+public:
   /**
    * @brief Clusters the input point cloud into groups.
    *
@@ -24,6 +21,6 @@ class Clustering {
    * @param[out] clusters A pointer to a vector of shared pointers to point clouds to store the
    * resulting clusters.
    */
-  virtual void clustering(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
+  virtual void clustering(const pcl::PointCloud<PointXYZIR>::Ptr point_cloud,
                           std::vector<Cluster>* clusters) const = 0;
 };

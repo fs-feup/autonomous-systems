@@ -1,7 +1,8 @@
 #pragma once
-
+#include <cmath>
 #include <cone_validator/cone_validator.hpp>
-#include <utils/cluster.hpp>
+#include <numeric>
+#include <vector>
 
 /**
  * @class DeviationValidator

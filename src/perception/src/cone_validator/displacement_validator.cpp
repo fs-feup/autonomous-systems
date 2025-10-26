@@ -18,7 +18,7 @@ std::vector<double> DisplacementValidator::coneValidator(Cluster* cone_point_clo
   float maxZ = abs(cone_point_cloud->get_point_cloud()->points[0].z);
 
   for (long unsigned int i = 1; i < cone_point_cloud->get_point_cloud()->points.size(); i++) {
-    pcl::PointXYZI point = cone_point_cloud->get_point_cloud()->points[i];
+    PointXYZIR point = cone_point_cloud->get_point_cloud()->points[i];
 
     minX = std::min(minX, (float)abs(point.x));
     maxX = std::max(maxX, (float)abs(point.x));

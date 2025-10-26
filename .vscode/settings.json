@@ -100,6 +100,7 @@
         "*.txx": "cpp",
         "dense": "cpp",
         "hash_map": "cpp",
+        "ranges": "cpp",
         "tensor": "cpp",
         "bvh": "cpp"
     },

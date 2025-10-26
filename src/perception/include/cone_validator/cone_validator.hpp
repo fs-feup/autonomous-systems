@@ -1,12 +1,8 @@
 #pragma once
 
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
-
 #include <utils/cluster.hpp>
+#include <utils/pcl_point_types.hpp>
 #include <utils/plane.hpp>
-
-#include "sensor_msgs/msg/point_cloud2.hpp"
 
 /**
  * @class ConeValidator

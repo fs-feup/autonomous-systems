@@ -1,13 +1,9 @@
 #pragma once
 
-#include <pcl/PCLPointField.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
-
+#include <rclcpp/rclcpp.hpp>
+#include <utils/pcl_point_types.hpp>
 #include <utils/plane.hpp>
 #include <utils/split_parameters.hpp>
-
-#include "sensor_msgs/msg/point_cloud2.hpp"
 
 /**
  * @class GroundRemoval
@@ -26,7 +22,7 @@ public:
    * @param point_cloud The input point cloud to be processed.
    * @param[out] ret The resulting point cloud after ground removal.
    */
-  virtual void ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                              const pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
+  virtual void ground_removal(const pcl::PointCloud<PointXYZIR>::Ptr point_cloud,
+                              const pcl::PointCloud<PointXYZIR>::Ptr ret, Plane& plane,
                               const SplitParameters split_params) const = 0;
 };

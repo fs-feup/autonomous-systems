@@ -1,11 +1,4 @@
 #pragma once
-
-#include <pcl/PCLPointField.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
-
-#include <utils/trimming_parameters.hpp>
-
 #include "fov_trimming/fov_trimming.hpp"
 
 class AccelerationTrimming : public FovTrimming {
@@ -32,6 +25,5 @@ public:
    * @param[out] ret The resulting point cloud after trimming and the corresponding split parameters
    * for GridRANSAC.
    */
-  SplitParameters fov_trimming(
-      const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud) const override;
+  SplitParameters fov_trimming(const pcl::PointCloud<PointXYZIR>::Ptr point_cloud) const override;
 };

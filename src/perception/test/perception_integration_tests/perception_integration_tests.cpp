@@ -1,13 +1,8 @@
 #include <gtest/gtest.h>
-#include <pcl/io/pcd_io.h>
-#include <pcl/point_cloud.h>
-#include <pcl_conversions/pcl_conversions.h>
 
 #include <custom_interfaces/msg/cone_array.hpp>
 #include <custom_interfaces/msg/perception_output.hpp>
 #include <filesystem>
-#include <rclcpp/rclcpp.hpp>
-#include <sensor_msgs/msg/point_cloud2.hpp>
 
 #include "perception/perception_node.hpp"
 
@@ -73,7 +68,7 @@ double computeCorrectness(const custom_interfaces::msg::ConeArray::SharedPtr& de
 /**
  * @brief Generates a cylinder made of pcl points, used to add the found cones in the results pcl.
  */
-void generateCylinder(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, float radius, float height,
+void generateCylinder(pcl::PointCloud<PointXYZIR>::Ptr cloud, float radius, float height,
                       float centerX, float centerY, int numSlices, int numHeightSegments,
                       float intensity) {
   for (int i = 0; i <= numHeightSegments; ++i) {
@@ -82,7 +77,7 @@ void generateCylinder(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, float radius, 
       float theta = 2.0 * M_PI * j / numSlices;
       float x = centerX + radius * cos(theta);
       float y = centerY + radius * sin(theta);
-      cloud->points.emplace_back(x, y, z, intensity);
+      cloud->points.emplace_back(PointXYZIR{x, y, z, intensity, 0});
     }
   }
 }
@@ -101,7 +96,7 @@ protected:
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr pcl_removed_cloud_subscriber_;
   custom_interfaces::msg::ConeArray::SharedPtr
       cones_result_;  /// Recieves and stores perception node output
-  pcl::PointCloud<pcl::PointXYZI>::Ptr
+  pcl::PointCloud<PointXYZIR>::Ptr
       result_cloud_;  /// Cloud that will be filled with the found cones as cylinders and saved in
                       /// the results file for visualization
   bool cones_received_;  /// Flag that determines if the cones were recieved on the test node side
@@ -134,14 +129,14 @@ protected:
         });
 
     cones_received_ = false;
-    result_cloud_ = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+    result_cloud_ = std::make_shared<pcl::PointCloud<PointXYZIR>>();
   }
 
   void TearDown() override { rclcpp::shutdown(); }
 
   void publish_pcd(const std::string& input_pcd_path) {
-    pcl::PointCloud<pcl::PointXYZI> pcl_cloud;
-    if (pcl::io::loadPCDFile<pcl::PointXYZI>(input_pcd_path, pcl_cloud) == -1) {
+    pcl::PointCloud<PointXYZIR> pcl_cloud;
+    if (pcl::io::loadPCDFile<PointXYZIR>(input_pcd_path, pcl_cloud) == -1) {
       throw std::runtime_error("Could not load PCD file: " + input_pcd_path);
     }
 
