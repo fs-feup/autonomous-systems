@@ -52,6 +52,9 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/SlamParameters.msg"
   "msg/ProcessUsage.msg"
   "msg/ProcessUsageArray.msg"
+  "msg/PerceivedObject.msg"
+  "msg/PerceptionData.msg"
+  "msg/LocalMap.msg"
   DEPENDENCIES builtin_interfaces std_msgs 
 )
 
