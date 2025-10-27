@@ -29,6 +29,7 @@ protected:
     PlanningParameters params = Planning::load_config(adapter);
 
     planning_test_ = std::make_shared<VehicleAdapter>(params);
+    planning_test_->set_mission(Mission::TRACKDRIVE);
 
     cone_array_msg = custom_interfaces::msg::ConeArray();  // init received message
 
@@ -297,6 +298,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH6) {
  * @brief Tests the full pipeline when 0 cones are sent
  *
  */
+//PASSA!
 TEST_F(IntegrationTest, no_cones) {
   custom_interfaces::msg::Pose vehicle_pose;
   vehicle_pose.x = 0;
@@ -316,6 +318,7 @@ TEST_F(IntegrationTest, no_cones) {
  * @brief Tests the full pipeline when only a single cone is sent
  *
  */
+//PASSA!
 TEST_F(IntegrationTest, one_cone) {
   custom_interfaces::msg::Cone cone_to_send;
 
@@ -416,6 +419,7 @@ void save_debug_file(const std::string filename, const std::vector<Cone> cone_ar
   }
 }
 
+// PASSA!
 /**
  * @brief Tests the full pipeline with a simple straight path
  *
@@ -462,6 +466,7 @@ TEST_F(IntegrationTest, simple_straight_path) {
   }
 }
 
+// Não passa
 /**
  * @brief Tests the full pipeline in a straight line with fewer cones in one and more in the other
  */
@@ -506,6 +511,7 @@ TEST_F(IntegrationTest, unbalanced_STRAIGHT_PATH) {
   }
 }
 
+//Não passa!
 /**
  * @brief Tests the full pipeline in a straight line with fewer cones
  */
@@ -550,6 +556,7 @@ TEST_F(IntegrationTest, FULL_CURVE_PATH) {
   }
 }
 
+//Não passa
 /**
  * @brief A path with curves where one side of the track is close to other part of the track
  */
@@ -594,6 +601,7 @@ TEST_F(IntegrationTest, CURVES_AND_CLOSE_TRACKSIDES) {
   }
 }
 
+//PASSA, mas verificar depois do problema inicial!
 /**
  * @brief A path with a sharp sinosoidal curve, where cones on both sides get closer
  */
@@ -638,6 +646,7 @@ TEST_F(IntegrationTest, SHARP_SINOSOIDAL_CURVE) {
   }
 }
 
+//PASSA
 /**
  * @brief Testing a scenario from rosbag Autocross_DV-5
  */
@@ -771,6 +780,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_3) {
   }
 }
 
+//Passa
 /**
  * @brief Testing a scenario from rosbag Hard_Course-DV-3 from the beggining of the track
  */
@@ -815,7 +825,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_4) {
   }
 }
 
-
+//PASSA
 /**
  * @brief Testing a scenario from rosbag Hard_Course-DV-3 with a different initial position
  */
@@ -860,6 +870,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_5) {
   }
 }
 
+//PASSA
 /**
  * @brief Testing a scenario from rosbag Hard_Course-DV-3 with a different initial position
  */
@@ -904,7 +915,7 @@ TEST_F(IntegrationTest, CIRCLE) {
   }
 }
 
-
+//PASSA
 /**
  * @brief Testing a scenario from rosbag Hard_Course-DV-3 with a different initial position
  */
@@ -994,6 +1005,7 @@ TEST_F(IntegrationTest, TRACK) {
   }
 }
 
+//PASSA
 /**
  * @brief Testing a scenario from rosbag Hard_Course-DV-3 with a different initial position
  */
@@ -1038,6 +1050,7 @@ TEST_F(IntegrationTest, TRACK_2) {
   }
 }
 
+//PASSA
 /**
  * @brief Testing a scenario from rosbag Hard_Course-DV-3 with a different initial position
  */
@@ -1126,6 +1139,7 @@ TEST_F(IntegrationTest, OUTLIERS_2) {
   }
 }
 
+//PASSA
 /**
  * @brief Testing a scenario from rosbag Hard_Course-DV-3 with a different initial position
  */
