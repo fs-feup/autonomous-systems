@@ -59,7 +59,7 @@ protected:
     control_sub.reset();
     // planning_test_.reset();
     vehicle_pose_publisher_.reset();
-    (void)Drclcpp::shutdown();
+    (void)rclcpp::shutdown();
   }
 
   std::chrono::duration<double, std::milli> run_nodes(
