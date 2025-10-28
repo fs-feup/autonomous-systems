@@ -9,7 +9,7 @@ planning:
   pc_distance_gain: 6.0
   pc_angle_exponent: 2.0
   pc_distance_exponent: 1.0
-  pc_max_cost: 75.0
+  pc_max_cost: 100.0
   pc_lookback_points: 4
   pc_search_depth: 4
   pc_max_points: 200

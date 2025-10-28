@@ -419,7 +419,6 @@ void save_debug_file(const std::string filename, const std::vector<Cone> cone_ar
   }
 }
 
-// PASSA!
 /**
  * @brief Tests the full pipeline with a simple straight path
  *
@@ -466,7 +465,6 @@ TEST_F(IntegrationTest, simple_straight_path) {
   }
 }
 
-// Não passa
 /**
  * @brief Tests the full pipeline in a straight line with fewer cones in one and more in the other
  */
@@ -511,7 +509,6 @@ TEST_F(IntegrationTest, unbalanced_STRAIGHT_PATH) {
   }
 }
 
-//Não passa!
 /**
  * @brief Tests the full pipeline in a straight line with fewer cones
  */
@@ -556,7 +553,7 @@ TEST_F(IntegrationTest, FULL_CURVE_PATH) {
   }
 }
 
-//Não passa
+
 /**
  * @brief A path with curves where one side of the track is close to other part of the track
  */
