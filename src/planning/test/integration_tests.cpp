@@ -47,7 +47,7 @@ protected:
         [this](const custom_interfaces::msg::PathPointArray::SharedPtr msg) {
           RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Received path in mock control node");
           received_path = *msg;
-          rclcpp::shutdown();
+          (void)rclcpp::shutdown();
           RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Ended control callback in mock control");
         });
   }
@@ -59,7 +59,7 @@ protected:
     control_sub.reset();
     // planning_test_.reset();
     vehicle_pose_publisher_.reset();
-    rclcpp::shutdown();
+    (void)Drclcpp::shutdown();
   }
 
   std::chrono::duration<double, std::milli> run_nodes(
