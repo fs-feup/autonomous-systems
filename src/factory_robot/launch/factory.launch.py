@@ -17,15 +17,6 @@ def generate_launch_description():
                 'publish_rate_hz': 10.0,
             }],
             output='screen'
-        ),
-        Node(
-            package='robot_perception',
-            executable='perception_node',
-            name='perception_node',
-            parameters=[{
-                'perception_radius': 5.0,
-            }],
-            output='screen'
         )
     ])
     

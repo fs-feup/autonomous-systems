@@ -11,6 +11,10 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
 
+install(
+  DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME}/
+)
 # Change the source file name from robot_perception.cpp to perception_node.cpp
 add_executable(perception_node src/perception_node.cpp)
 
