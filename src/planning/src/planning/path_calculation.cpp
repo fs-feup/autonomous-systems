@@ -264,9 +264,6 @@ pair<shared_ptr<Midpoint>, shared_ptr<Midpoint>> PathCalculation::select_startin
 
   // Get candidate midpoints
   anchor_pose_midpoint.close_points = select_candidate_midpoints(anchor_pose_midpoint, 8);
-
-  // double car_direction_x = std::cos(initial_pose_.orientation);
-  // double car_direction_y = std::sin(initial_pose_.orientation);
   
   double best_cost = numeric_limits<double>::max();
 
@@ -294,21 +291,12 @@ pair<shared_ptr<Midpoint>, shared_ptr<Midpoint>> PathCalculation::select_startin
 
     cost += initial_cost;
 
-    //DEBUG!!!
-    RCLCPP_DEBUG(rclcpp::get_logger("planning"), 
-                 "Candidate: dist=%.2f, angle_dev=%.2f rad (%.1f deg), cost=%.2f", 
-                 distance, angle_deviation, angle_deviation * 180.0 / M_PI, cost);
-
     if (cost < best_cost) {
       result.first = first;
       result.second = midpoint;
       best_cost = cost;
     }
   }
-
-  //DEBUG!!
-  RCLCPP_INFO(rclcpp::get_logger("planning"), 
-              "Selected starting points with cost: %.2f", best_cost);
 
   return result;
 }
@@ -338,6 +326,7 @@ vector<shared_ptr<Midpoint>> PathCalculation::select_candidate_midpoints(
     }
 
     double dist = std::sqrt(dx * dx + dy * dy);
+    
     //Calculate the deviation angle relative to the car’s heading
     double angle_to_point = std::atan2(dy, dx);
     double angle_deviation = std::abs(std::atan2(
