@@ -41,6 +41,17 @@ inline const std::map<std::string, int, std::less<>>& marker_shape_map() {
   return map;
 }
 
+inline const std::map<std::string, std::string, std::less<>>& cone_to_marker_color_map() {
+  static const std::map<std::string, std::string, std::less<>> map = {
+      {"blue_cone", "blue"},
+      {"yellow_cone", "yellow"},
+      {"orange_cone", "orange"},
+      {"large_orange_cone", "orange"},
+      {"unknown", "red"}
+  };
+  return map;
+}
+
 /**
  * @brief A helper struct to check if a type T has a member named 'position'.
  *        This base template assumes that T does not have a 'position' member.
@@ -85,9 +96,8 @@ visualization_msgs::msg::MarkerArray marker_array_from_structure_array(
   static_assert(
       HasPosition<T>::value,
       "Template argument T must have a data member named 'position' with 'x' and 'y' sub-members");
-
+  
   visualization_msgs::msg::MarkerArray marker_array;
-  std::array<float, 4> color_array = marker_color_map().at(color);
 
   for (size_t i = 0; i < structure_array.size(); ++i) {
     visualization_msgs::msg::Marker marker;
@@ -111,6 +121,17 @@ visualization_msgs::msg::MarkerArray marker_array_from_structure_array(
     marker.scale.x = scale;
     marker.scale.y = scale;
     marker.scale.z = scale;
+
+    std::string element_color = color;
+    if constexpr (std::is_same_v<T, common_lib::structures::Cone>) {
+      std::string cone_color = common_lib::competition_logic::get_color_string(structure_array[i].color);
+      auto it = cone_to_marker_color_map().find(cone_color);
+      if (it != cone_to_marker_color_map().end()) {
+        element_color = it->second;
+      }
+    }
+    
+    std::array<float, 4> color_array = marker_color_map().at(element_color);
 
     marker.color.r = color_array[0];
     marker.color.g = color_array[1];

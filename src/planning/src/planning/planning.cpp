@@ -119,6 +119,8 @@ Planning::Planning(const PlanningParameters &params)
         "/path_planning/full_path", 10);
     final_path_pub_ =
         create_publisher<visualization_msgs::msg::Marker>("/path_planning/smoothed_path", 10);
+    colored_cones_pub_ = 
+        create_publisher<visualization_msgs::msg::MarkerArray>("/path_planning/colored_cones", 10);
   }
 
   if (!planning_config_.simulation_.using_simulated_se_) {
@@ -330,7 +332,7 @@ void Planning::run_planning_algorithms() {
     RCLCPP_INFO(rclcpp::get_logger("planning"), "Final path size: %d",
                 static_cast<int>(final_path_.size()));
   }
-
+  //mudar isto para o final!
   publish_execution_time(start_time);
   publish_path_points();
   
@@ -373,6 +375,9 @@ void Planning::publish_visualization_msgs() const {
 
   path_to_car_pub_->publish(
       common_lib::communication::marker_array_from_structure_array(
-          path_calculation_.get_path_to_car(), "global_path", map_frame_id_, "blue", "cylinder",
-          0.8, visualization_msgs::msg::Marker::MODIFY));
+          path_calculation_.get_path_to_car(), "global_path", map_frame_id_, "white", "cylinder",
+          0.6, visualization_msgs::msg::Marker::MODIFY));
+  colored_cones_pub_->publish(
+    common_lib::communication::marker_array_from_structure_array(
+      path_calculation_.get_cones(), "map_cones", "map"));
 }

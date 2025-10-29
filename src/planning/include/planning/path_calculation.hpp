@@ -19,6 +19,7 @@
 using Cone = common_lib::structures::Cone;
 using PathPoint = common_lib::structures::PathPoint;
 using Midpoint = common_lib::structures::Midpoint;
+using Color = common_lib::competition_logic::Color;
 
 /**
  * @class PathCalculation
@@ -91,6 +92,8 @@ public:
    */
   const std::vector<std::pair<Point, Point>>& get_triangulations() const;
 
+  std::vector<Cone> get_cones() const; 
+
 private:
   // ===================== Configuration and State =====================
 
@@ -106,6 +109,7 @@ private:
   std::vector<Point> path_to_car_;
   std::vector<Point> past_path_;
   int reset_path_counter_ = 0;
+  std::vector<std::shared_ptr<Cone>> past_cones_;
 
   // Midpoints for the current track
   std::vector<std::shared_ptr<Midpoint>> midpoints_;
@@ -115,6 +119,7 @@ private:
   std::unordered_map<Point, std::shared_ptr<Midpoint>> point_to_midpoint_;
   std::unordered_set<std::shared_ptr<Midpoint>> visited_midpoints_;
   std::unordered_set<std::shared_ptr<Cone>> discarded_cones_;
+  std::vector<std::shared_ptr<Cone>> current_cones_;
 
   // ===================== Path Calculation Methods =====================
 
@@ -303,6 +308,12 @@ private:
  * @return A vector of PathPoint objects constructed from the given points.
  */
   std::vector<PathPoint> get_path_points_from_points(const std::vector<Point>& points) const;
+
+  void color_first_cones(std::shared_ptr<Midpoint> first_point);
+
+  bool color_cone(std::shared_ptr<Midpoint> point);
+
+  
 
 };
 

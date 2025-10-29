@@ -140,6 +140,8 @@ private:
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr full_path_pub_;
   /**< Publisher for the smoothed path*/
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr final_path_pub_;
+  /**< Publisher for the colored cones*/
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr colored_cones_pub_;
 
   /*--------------------- Service Clients --------------------*/
   rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr param_client_;
