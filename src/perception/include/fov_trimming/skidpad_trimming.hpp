@@ -1,11 +1,5 @@
 #pragma once
 
-#include <pcl/PCLPointField.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
-
-#include <utils/trimming_parameters.hpp>
-
 #include "fov_trimming/fov_trimming.hpp"
 
 class SkidpadTrimming : public FovTrimming {
@@ -33,5 +27,6 @@ public:
    * for GridRANSAC.
    */
   SplitParameters fov_trimming(
-      const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud) const override;
+      const sensor_msgs::msg::PointCloud2::SharedPtr& point_cloud,
+      sensor_msgs::msg::PointCloud2::SharedPtr& trimmed_cloud) const override;
 };

@@ -40,9 +40,9 @@ public:
    * @param point_cloud The input point cloud to be processed.
    * @param[out] ret The resulting point cloud after ground removal.
    */
-  void ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                      const pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
-                      [[maybe_unused]] const SplitParameters split_params) const override;
+  void ground_removal(const sensor_msgs::msg::PointCloud2::SharedPtr& trimmed_point_cloud,
+                      sensor_msgs::msg::PointCloud2::SharedPtr& ground_removed_point_cloud,
+                      Plane& plane, SplitParameters& split_params) const override;
 
 private:
   double epsilon;  ///< Epsilon threshold for ground removal.

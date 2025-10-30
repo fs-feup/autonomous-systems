@@ -1,23 +1,5 @@
 #include "perception/perception_node.hpp"
 
-#include <pcl/io/pcd_io.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
-#include <pcl_conversions/pcl_conversions.h>
-
-#include <cone_validator/displacement_validator.hpp>
-#include <cone_validator/npoints_validator.hpp>
-#include <cstdio>
-#include <string>
-#include <utils/trimming_parameters.hpp>
-#include <vector>
-
-#include "common_lib/communication/marker.hpp"
-#include "common_lib/competition_logic/mission_logic.hpp"
-#include "common_lib/config_load/config_load.hpp"
-#include "std_msgs/msg/header.hpp"
-#include "yaml-cpp/yaml.h"
-
 std_msgs::msg::Header header;
 
 const std::unordered_map<std::string, std::string> adapter_frame_map = {
@@ -58,38 +40,16 @@ PerceptionParameters Perception::load_config() {
       static_cast<uint8_t>(common_lib::competition_logic::fsds_to_system.at(default_mission_str));
 
   TrimmingParameters trim_params;
-  trim_params.lidar_rotation = perception_config["lidar_rotation"].as<double>();
-  trim_params.lidar_pitch = perception_config["lidar_pitch"].as<double>();
   trim_params.min_range = perception_config["min_range"].as<double>();
   trim_params.max_height = perception_config["max_height"].as<double>();
   trim_params.lidar_height = perception_config["lidar_height"].as<double>();
-
   trim_params.max_range = perception_config["max_range"].as<double>();
-  trim_params.fov_trim_angle = perception_config["fov_trim_angle"].as<double>();
-  trim_params.split_params.n_angular_grids = perception_config["n_angular_grids"].as<int>();
-  trim_params.split_params.radius_resolution = perception_config["radius_resolution"].as<double>();
-  trim_params.split_params.fov_angle = 2 * trim_params.fov_trim_angle;
-  trim_params.split_params.max_range = trim_params.max_range;
-
   trim_params.acc_max_range = perception_config["acc_max_range"].as<double>();
-  trim_params.acc_fov_trim_angle = perception_config["acc_fov_trim_angle"].as<double>();
   trim_params.acc_max_y = perception_config["acc_max_y"].as<double>();
-  trim_params.acc_split_params.n_angular_grids = perception_config["acc_n_angular_grids"].as<int>();
-  trim_params.acc_split_params.radius_resolution =
-      perception_config["acc_radius_resolution"].as<double>();
-  trim_params.acc_split_params.fov_angle = 2 * trim_params.acc_fov_trim_angle;
-  trim_params.acc_split_params.max_range = trim_params.acc_max_range;
-
   trim_params.skid_max_range = perception_config["skid_max_range"].as<double>();
-  const double min_distance_to_cone = perception_config["skid_min_distance_to_cone"].as<double>();
-  trim_params.skid_fov_trim_angle =
-      90 - std::acos(1.5 / std::max(min_distance_to_cone, 1.5)) * 180 / M_PI;
-  trim_params.skid_split_params.n_angular_grids =
-      perception_config["skid_n_angular_grids"].as<int>();
-  trim_params.skid_split_params.radius_resolution =
-      perception_config["skid_radius_resolution"].as<double>();
-  trim_params.skid_split_params.fov_angle = 2 * trim_params.skid_fov_trim_angle;
-  trim_params.skid_split_params.max_range = trim_params.skid_max_range;
+  trim_params.split_params.lidar_horizontal_resolution =
+      perception_config["lidar_horizontal_resolution"].as<double>();
+  trim_params.split_params.angle_resolution = perception_config["angle_resolution"].as<double>();
 
   auto acceleration_trimming = std::make_shared<AccelerationTrimming>(trim_params);
   auto skidpad_trimming = std::make_shared<SkidpadTrimming>(trim_params);
@@ -98,7 +58,7 @@ PerceptionParameters Perception::load_config() {
   auto temp_fov_trim_map = std::unordered_map<int16_t, std::shared_ptr<FovTrimming>>{
       {static_cast<int16_t>(Mission::MANUAL), cut_trimming},
       {static_cast<int16_t>(Mission::ACCELERATION), acceleration_trimming},
-      {static_cast<int16_t>(Mission::SKIDPAD), cut_trimming},
+      {static_cast<int16_t>(Mission::SKIDPAD), skidpad_trimming},
       {static_cast<int16_t>(Mission::TRACKDRIVE), cut_trimming},
       {static_cast<int16_t>(Mission::AUTOCROSS), cut_trimming},
       {static_cast<int16_t>(Mission::INSPECTION), cut_trimming},
@@ -113,23 +73,26 @@ PerceptionParameters Perception::load_config() {
   std::string ground_removal_algorithm = perception_config["ground_removal"].as<std::string>();
   double ransac_epsilon = perception_config["ransac_epsilon"].as<double>();
   int ransac_iterations = perception_config["ransac_iterations"].as<int>();
-  double plane_angle_diff = perception_config["plane_angle_diff"].as<double>();
+  double himmelsbach_max_slope = perception_config["himmelsbach_max_slope"].as<double>();
+  double himmelsbach_epsilon = perception_config["himmelsbach_epsilon"].as<double>();
+  int himmelsbach_adjacent_slices = perception_config["himmelsbach_adjacent_slices"].as<int>();
+  double himmelsbach_slope_reduction =
+      perception_config["himmelsbach_slope_reduction"].as<double>();
+  double himmelsbach_distance_reduction =
+      perception_config["himmelsbach_distance_reduction"].as<double>();
+  double himmelsbach_min_slope = perception_config["himmelsbach_min_slope"].as<double>();
 
   if (ground_removal_algorithm == "ransac") {
     params.ground_removal_ = std::make_shared<RANSAC>(ransac_epsilon, ransac_iterations);
-  } else if (ground_removal_algorithm == "grid_ransac") {
-    params.ground_removal_ = std::make_shared<GridRANSAC>(ransac_epsilon, ransac_iterations);
-  } else if (ground_removal_algorithm == "constrained_ransac") {
-    params.ground_removal_ =
-        std::make_shared<ConstrainedRANSAC>(ransac_epsilon, ransac_iterations, plane_angle_diff);
-  } else if (ground_removal_algorithm == "constrained_grid_ransac") {
-    params.ground_removal_ = std::make_shared<ConstrainedGridRANSAC>(
-        ransac_epsilon, ransac_iterations, plane_angle_diff);
+  } else if (ground_removal_algorithm == "himmelsbach") {
+    params.ground_removal_ = std::make_shared<Himmelsbach>(
+        himmelsbach_max_slope, himmelsbach_epsilon, himmelsbach_adjacent_slices,
+        himmelsbach_slope_reduction, himmelsbach_distance_reduction, himmelsbach_min_slope);
   } else {
     RCLCPP_ERROR(rclcpp::get_logger("perception"),
-                 "Ground removal algorithm not recognized: %s, using GridRANSAC as default",
+                 "Ground removal algorithm not recognized: %s, using RANSAC as default",
                  ground_removal_algorithm.c_str());
-    params.ground_removal_ = std::make_shared<GridRANSAC>(ransac_epsilon, ransac_iterations);
+    params.ground_removal_ = std::make_shared<RANSAC>(ransac_epsilon, ransac_iterations);
   }
 
   int clustering_n_neighbours = perception_config["clustering_n_neighbours"].as<int>();
@@ -216,7 +179,8 @@ Perception::Perception(const PerceptionParameters& params)
       this->create_publisher<sensor_msgs::msg::PointCloud2>("/perception/ground_removed_cloud", 10);
 
   this->_perception_execution_time_publisher_ =
-      this->create_publisher<std_msgs::msg::Float64>("/perception/execution_time", 10);
+      this->create_publisher<std_msgs::msg::Float64MultiArray>("/perception/execution_time", 10);
+  this->_execution_times_ = std::make_shared<std::vector<double>>(7, 0.0);
 
   this->_operational_status_subscription =
       this->create_subscription<custom_interfaces::msg::OperationalStatus>(
@@ -261,37 +225,49 @@ Perception::Perception(const PerceptionParameters& params)
 }
 
 void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
-  rclcpp::Time time = this->now();
-
   this->lidar_off_timer_ = this->create_wall_timer(
       std::chrono::milliseconds(2000), std::bind(&Perception::lidar_timer_callback, this));
 
-  // Message Read
-  pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  header = (*msg).header;
-  pcl::fromROSMsg(*msg, *pcl_cloud);
+  rclcpp::Time start_time = this->now();
+  rclcpp::Time time1, time2, time3, time4, time5, time6;
 
-  // Pass-trough Filter (trim Pcl)
-  const SplitParameters split_params = _fov_trim_map_->at(_mission_type_)->fov_trimming(pcl_cloud);
+  // Pass-through Filter
+  auto trimmed_cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
+  SplitParameters split_params =
+      _fov_trim_map_->at(_mission_type_)->fov_trimming(msg, trimmed_cloud);
+
+  time1 = this->now();
 
   // Ground Removal
-  pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  _ground_removal_->ground_removal(pcl_cloud, ground_removed_cloud, _ground_plane_, split_params);
+  auto ground_removed_cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
+  _ground_removal_->ground_removal(trimmed_cloud, ground_removed_cloud, _ground_plane_,
+                                   split_params);
+
+  // Publish ground removed cloud for visualization
+  ground_removed_cloud->header.frame_id = _vehicle_frame_id_;
+  this->_ground_removed_publisher_->publish(*ground_removed_cloud);
+
+  time2 = this->now();
 
   this->_deskew_->deskew_point_cloud(ground_removed_cloud, this->_vehicle_velocity_);
 
-  // Debugging utils -> Useful to check the ground removed point cloud
-  sensor_msgs::msg::PointCloud2 ground_removed_msg;
-  pcl::toROSMsg(*ground_removed_cloud, ground_removed_msg);
-  ground_removed_msg.header.frame_id = _vehicle_frame_id_;
-  this->_ground_removed_publisher_->publish(ground_removed_msg);
+  time3 = this->now();
+
+  // Convert to PCL format
+  pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_2(
+      new pcl::PointCloud<pcl::PointXYZI>());
+  pcl::fromROSMsg(*ground_removed_cloud, *ground_removed_cloud_2);
+
+  time4 = this->now();
 
   // Clustering
   std::vector<Cluster> clusters;
-  _clustering_->clustering(ground_removed_cloud, &clusters);
+  _clustering_->clustering(ground_removed_cloud_2, &clusters);
 
   // Z-scores calculation for future validations
   Cluster::set_z_scores(clusters);
+
+  time5 = this->now();
 
   // Filtering
   std::vector<Cluster> filtered_clusters;
@@ -302,22 +278,19 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
     }
   }
 
-  // Execution Time calculation
-  rclcpp::Time end_time = this->now();
-  std_msgs::msg::Float64 perception_execution_time;
-  double perception_execution_time_seconds = (end_time - time).seconds();
-  perception_execution_time.data = perception_execution_time_seconds * 1000;
-  this->_perception_execution_time_publisher_->publish(perception_execution_time);
+  time6 = this->now();
 
-  // Logging
-  RCLCPP_DEBUG(this->get_logger(), "---------- Point Cloud Received ----------");
-  RCLCPP_DEBUG(this->get_logger(), "Point Cloud Before Ground Removal: %ld points",
-               pcl_cloud->points.size());
-  RCLCPP_DEBUG(this->get_logger(), "Point Cloud After Ground Removal: %ld points",
-               ground_removed_cloud->points.size());
-  RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Clustering: %ld clusters", clusters.size());
-  RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Validations: %ld clusters",
-               filtered_clusters.size());
+  double perception_execution_time_seconds = (time6 - start_time).seconds();
+  this->_execution_times_->at(0) = perception_execution_time_seconds * 1000.0;
+  this->_execution_times_->at(1) = (time1 - start_time).seconds() * 1000.0;
+  this->_execution_times_->at(2) = (time2 - time1).seconds() * 1000.0;
+  this->_execution_times_->at(3) = (time3 - time2).seconds() * 1000.0;
+  this->_execution_times_->at(4) = (time4 - time3).seconds() * 1000.0;
+  this->_execution_times_->at(5) = (time5 - time4).seconds() * 1000.0;
+  this->_execution_times_->at(6) = (time6 - time5).seconds() * 1000.0;
+  std_msgs::msg::Float64MultiArray exec_time_msg;
+  exec_time_msg.data = *(this->_execution_times_);
+  this->_perception_execution_time_publisher_->publish(exec_time_msg);
 
   publish_cones(&filtered_clusters, perception_execution_time_seconds);
 }
