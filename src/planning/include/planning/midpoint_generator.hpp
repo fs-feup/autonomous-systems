@@ -54,11 +54,11 @@ public:
    * and generates valid midpoints between cone pairs that meet distance constraints.
    *
    * @param cone_array Input vector of cone objects.
-   * @param should_reset Whether to bypass the sliding window and use all cones.
+   * @param rebuild_all_midpoints Whether to use all cones
    * @return Reference to the vector containing all generated midpoints.
    */
   std::vector<std::shared_ptr<Midpoint>>& generate_midpoints(
-      const std::vector<Cone>& cone_array, bool should_reset);
+      const std::vector<Cone>& cone_array, bool rebuild_all_midpoints);
 
   /**
    * @brief Returns the current set of Delaunay edges used for visualization.
@@ -95,11 +95,11 @@ private:
    *
    * @param cone_array Input array of detected cones.
    * @param filtered_cones Output vector containing cones after filtering.
-   * @param should_reset Whether to reset filtering and include all cones.
+   * @param rebuild_all_midpoints Whether to reset filtering and include all cones.
    */
   void filter_cones(const std::vector<Cone>& cone_array,
                     std::vector<std::shared_ptr<Cone>>& filtered_cones,
-                    bool should_reset);
+                    bool rebuild_all_midpoints);
 
   /**
    * @brief Processes a single edge of a Delaunay triangle and creates its midpoint if valid.

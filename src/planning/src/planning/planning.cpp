@@ -33,9 +33,9 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.mg_minimum_cone_distance_ = planning_config["mg_minimum_cone_distance"].as<double>();
   params.mg_maximum_cone_distance_ = planning_config["mg_maximum_cone_distance"].as<double>();
   params.mg_sliding_window_radius_ = planning_config["mg_sliding_window_radius"].as<double>();
-  params.mg_use_sliding_window_ = planning_config["mg_use_sliding_window"].as<bool>();
 
   /*--------------------- Path Calculation Parameters --------------------*/
+  params.pc_use_sliding_window_ = planning_config["pc_use_sliding_window"].as<bool>();
   params.pc_angle_gain_ = planning_config["pc_angle_gain"].as<double>();
   params.pc_distance_gain_ = planning_config["pc_distance_gain"].as<double>();
   params.pc_angle_exponent_ = planning_config["pc_angle_exponent"].as<double>();

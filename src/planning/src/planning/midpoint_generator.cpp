@@ -2,7 +2,7 @@
 #include "utils/cone.hpp"
 
 std::vector<std::shared_ptr<Midpoint>>& MidpointGenerator::generate_midpoints(
-                    const std::vector<Cone>& cone_array, bool should_reset) {
+                    const std::vector<Cone>& cone_array, bool rebuild_all_midpoints) {
      
   triangulations_.clear();
   DT dt;
@@ -12,7 +12,7 @@ std::vector<std::shared_ptr<Midpoint>>& MidpointGenerator::generate_midpoints(
   std::vector<std::shared_ptr<Cone>> filtered_cones;
   filtered_cones.reserve(cone_array.size());
   
-  filter_cones(cone_array, filtered_cones, should_reset);
+  filter_cones(cone_array, filtered_cones, rebuild_all_midpoints);
 
   // Insert all cone positions into the Delaunay triangulation
   for (const auto& cone : filtered_cones) {
@@ -42,9 +42,9 @@ std::vector<std::shared_ptr<Midpoint>>& MidpointGenerator::generate_midpoints(
 
 void MidpointGenerator::filter_cones(const std::vector<Cone>& cone_array,
                                           std::vector<std::shared_ptr<Cone>>& filtered_cones,
-                                          bool should_reset) {
+                                          bool rebuild_all_midpoints) {
 
-  if(config_.use_sliding_window_ && !should_reset) {
+  if(!rebuild_all_midpoints) {
     for (const auto& cone : cone_array) {
       double dx = cone.position.x - vehicle_pose_.position.x;
       double dy = cone.position.y - vehicle_pose_.position.y;

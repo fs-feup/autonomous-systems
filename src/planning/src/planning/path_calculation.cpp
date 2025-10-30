@@ -23,10 +23,11 @@ std::vector<PathPoint> PathCalculation::calculate_path(const std::vector<Cone>& 
   clear_path_state();
 
   // Determine if we should regenerate all midpoints (path reset)
-  bool should_reset = config_.use_reset_path_ && reset_path_counter_ >= config_.reset_path_;
+  bool should_reset = config_.use_reset_path_ && reset_path_counter_ >= config_.reset_path_ ;
+  bool rebuild_all_midpoints = should_reset || !config_.use_sliding_window_;
 
   // Generate midpoints using the generator
-  midpoints_ = midpoint_generator_.generate_midpoints(cone_array, should_reset);
+  midpoints_ = midpoint_generator_.generate_midpoints(cone_array, rebuild_all_midpoints);
 
   // Map for quick access from Point to corresponding Midpoint
   for (const auto& mp : midpoints_) {
@@ -63,8 +64,12 @@ std::vector<PathPoint> PathCalculation::calculate_path(const std::vector<Cone>& 
   if (path_to_car_.size() <= 2) {
     initialize_path_from_initial_pose();
   } else {
-    //AINDA NÃO ESTÁ ATUALIZADO!
-    update_path_from_past_path();
+    if(rebuild_all_midpoints){
+      update_path_from_past_path();
+    }else{
+      current_path_ = path_to_car_;
+    }
+    
   }
 
   extend_path(max_points);
