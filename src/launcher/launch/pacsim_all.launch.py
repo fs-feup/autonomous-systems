@@ -54,10 +54,10 @@ def generate_launch_description():
 
     return LaunchDescription(
         [
+            pacsim_launch_description,
             evaluator_launch_description,
             slam_launch_description,
             ve_launch_description,
-            pacsim_launch_description,
             planning_launch_description,
             control_launch_description,
         ],
