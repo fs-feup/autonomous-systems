@@ -1,18 +1,10 @@
 #include "ground_removal/ransac.hpp"
 
-#include <pcl/ModelCoefficients.h>
-#include <pcl/filters/extract_indices.h>
-#include <pcl/io/pcd_io.h>
-#include <pcl/point_types.h>
-#include <pcl/sample_consensus/method_types.h>
-#include <pcl/sample_consensus/model_types.h>
-#include <pcl/segmentation/sac_segmentation.h>
-
 RANSAC::RANSAC(const double epsilon, const int n_tries) : epsilon(epsilon), n_tries(n_tries) {}
 
 void RANSAC::ground_removal(const sensor_msgs::msg::PointCloud2::SharedPtr& trimmed_point_cloud,
                             sensor_msgs::msg::PointCloud2::SharedPtr& ground_removed_cloud,
-                            Plane& plane, SplitParameters& split_params) const {
+                            Plane& plane) const {
   /**
 pcl::ModelCoefficients::Ptr coefficients = std::make_shared<pcl::ModelCoefficients>();
 pcl::PointIndices::Ptr inliers_indices = std::make_shared<pcl::PointIndices>();

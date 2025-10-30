@@ -2,26 +2,17 @@
 #include <cstddef>
 #include <cstdint>
 
-struct LidarPoint {
-  size_t index;  // index of the point in the cloud
+constexpr size_t POINT_STEP = 26;
+constexpr size_t OFFSET_X = 0;
+constexpr size_t OFFSET_Y = 4;
+constexpr size_t OFFSET_Z = 8;
+constexpr size_t OFFSET_INTENSITY = 12;
+constexpr size_t OFFSET_RING = 16;
+constexpr size_t OFFSET_TIMESTAMP = 18;
 
-  // Constants for your LiDAR point layout
-  static constexpr size_t POINT_STEP = 26;
-  static constexpr size_t OFFSET_X = 0;
-  static constexpr size_t OFFSET_Y = 4;
-  static constexpr size_t OFFSET_Z = 8;
-  static constexpr size_t OFFSET_INTENSITY = 12;
-  static constexpr size_t OFFSET_RING = 16;
-  static constexpr size_t OFFSET_TIMESTAMP = 18;
-
-  // Constructor
-  LidarPoint(size_t idx) : index(idx) {}
-
-  // Return the index in the raw array for each field
-  size_t x() const { return index * POINT_STEP + OFFSET_X; }
-  size_t y() const { return index * POINT_STEP + OFFSET_Y; }
-  size_t z() const { return index * POINT_STEP + OFFSET_Z; }
-  size_t intensity() const { return index * POINT_STEP + OFFSET_INTENSITY; }
-  size_t ring() const { return index * POINT_STEP + OFFSET_RING; }
-  size_t timestamp() const { return index * POINT_STEP + OFFSET_TIMESTAMP; }
-};
+constexpr inline size_t PointX(size_t idx) { return idx * POINT_STEP + OFFSET_X; }
+constexpr inline size_t PointY(size_t idx) { return idx * POINT_STEP + OFFSET_Y; }
+constexpr inline size_t PointZ(size_t idx) { return idx * POINT_STEP + OFFSET_Z; }
+constexpr inline size_t PointIntensity(size_t idx) { return idx * POINT_STEP + OFFSET_INTENSITY; }
+constexpr inline size_t PointRing(size_t idx) { return idx * POINT_STEP + OFFSET_RING; }
+constexpr inline size_t PointTimestamp(size_t idx) { return idx * POINT_STEP + OFFSET_TIMESTAMP; }

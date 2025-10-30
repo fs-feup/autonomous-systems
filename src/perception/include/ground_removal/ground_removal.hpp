@@ -24,5 +24,5 @@ public:
    */
   virtual void ground_removal(const sensor_msgs::msg::PointCloud2::SharedPtr& trimmed_point_cloud,
                               sensor_msgs::msg::PointCloud2::SharedPtr& ground_removed_point_cloud,
-                              Plane& plane, SplitParameters& split_params) const = 0;
+                              Plane& plane) const = 0;
 };

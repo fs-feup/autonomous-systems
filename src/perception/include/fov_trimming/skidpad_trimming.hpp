@@ -26,7 +26,6 @@ public:
    * @param[out] ret The resulting point cloud after trimming and the corresponding split parameters
    * for GridRANSAC.
    */
-  SplitParameters fov_trimming(
-      const sensor_msgs::msg::PointCloud2::SharedPtr& point_cloud,
-      sensor_msgs::msg::PointCloud2::SharedPtr& trimmed_cloud) const override;
+  void fov_trimming(const sensor_msgs::msg::PointCloud2::SharedPtr& point_cloud,
+                    sensor_msgs::msg::PointCloud2::SharedPtr& trimmed_cloud) const override;
 };

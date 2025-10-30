@@ -42,14 +42,11 @@ PerceptionParameters Perception::load_config() {
   TrimmingParameters trim_params;
   trim_params.min_range = perception_config["min_range"].as<double>();
   trim_params.max_height = perception_config["max_height"].as<double>();
-  trim_params.lidar_height = perception_config["lidar_height"].as<double>();
   trim_params.max_range = perception_config["max_range"].as<double>();
   trim_params.acc_max_range = perception_config["acc_max_range"].as<double>();
   trim_params.acc_max_y = perception_config["acc_max_y"].as<double>();
   trim_params.skid_max_range = perception_config["skid_max_range"].as<double>();
-  trim_params.split_params.lidar_horizontal_resolution =
-      perception_config["lidar_horizontal_resolution"].as<double>();
-  trim_params.split_params.angle_resolution = perception_config["angle_resolution"].as<double>();
+  trim_params.lidar_height = perception_config["lidar_height"].as<double>();
 
   auto acceleration_trimming = std::make_shared<AccelerationTrimming>(trim_params);
   auto skidpad_trimming = std::make_shared<SkidpadTrimming>(trim_params);
@@ -70,12 +67,18 @@ PerceptionParameters Perception::load_config() {
       std::make_shared<std::unordered_map<int16_t, std::shared_ptr<FovTrimming>>>(
           temp_fov_trim_map);
 
+  SplitParameters split_params;
+  split_params.lidar_horizontal_resolution =
+      perception_config["lidar_horizontal_resolution"].as<double>();
+  split_params.angle_resolution = perception_config["angle_resolution"].as<double>();
+  split_params.lidar_height = perception_config["lidar_height"].as<double>();
+  split_params.fov = perception_config["fov"].as<double>();
+
   std::string ground_removal_algorithm = perception_config["ground_removal"].as<std::string>();
   double ransac_epsilon = perception_config["ransac_epsilon"].as<double>();
   int ransac_iterations = perception_config["ransac_iterations"].as<int>();
   double himmelsbach_max_slope = perception_config["himmelsbach_max_slope"].as<double>();
   double himmelsbach_epsilon = perception_config["himmelsbach_epsilon"].as<double>();
-  int himmelsbach_adjacent_slices = perception_config["himmelsbach_adjacent_slices"].as<int>();
   double himmelsbach_slope_reduction =
       perception_config["himmelsbach_slope_reduction"].as<double>();
   double himmelsbach_distance_reduction =
@@ -86,8 +89,8 @@ PerceptionParameters Perception::load_config() {
     params.ground_removal_ = std::make_shared<RANSAC>(ransac_epsilon, ransac_iterations);
   } else if (ground_removal_algorithm == "himmelsbach") {
     params.ground_removal_ = std::make_shared<Himmelsbach>(
-        himmelsbach_max_slope, himmelsbach_epsilon, himmelsbach_adjacent_slices,
-        himmelsbach_slope_reduction, himmelsbach_distance_reduction, himmelsbach_min_slope);
+        himmelsbach_max_slope, himmelsbach_epsilon, himmelsbach_slope_reduction,
+        himmelsbach_distance_reduction, himmelsbach_min_slope, split_params);
   } else {
     RCLCPP_ERROR(rclcpp::get_logger("perception"),
                  "Ground removal algorithm not recognized: %s, using RANSAC as default",
@@ -233,15 +236,13 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
 
   // Pass-through Filter
   auto trimmed_cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
-  SplitParameters split_params =
-      _fov_trim_map_->at(_mission_type_)->fov_trimming(msg, trimmed_cloud);
+  _fov_trim_map_->at(_mission_type_)->fov_trimming(msg, trimmed_cloud);
 
   time1 = this->now();
 
   // Ground Removal
   auto ground_removed_cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
-  _ground_removal_->ground_removal(trimmed_cloud, ground_removed_cloud, _ground_plane_,
-                                   split_params);
+  _ground_removal_->ground_removal(trimmed_cloud, ground_removed_cloud, _ground_plane_);
 
   // Publish ground removed cloud for visualization
   ground_removed_cloud->header.frame_id = _vehicle_frame_id_;
@@ -281,13 +282,17 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   time6 = this->now();
 
   double perception_execution_time_seconds = (time6 - start_time).seconds();
-  this->_execution_times_->at(0) = perception_execution_time_seconds * 1000.0;
+  // this->execution_times this->_execution_times_->at(0) = perception_execution_time_seconds *
+  // 1000.0;
   this->_execution_times_->at(1) = (time1 - start_time).seconds() * 1000.0;
   this->_execution_times_->at(2) = (time2 - time1).seconds() * 1000.0;
   this->_execution_times_->at(3) = (time3 - time2).seconds() * 1000.0;
   this->_execution_times_->at(4) = (time4 - time3).seconds() * 1000.0;
   this->_execution_times_->at(5) = (time5 - time4).seconds() * 1000.0;
   this->_execution_times_->at(6) = (time6 - time5).seconds() * 1000.0;
+  this->_execution_times_->at(0) = this->_execution_times_->at(1) + this->_execution_times_->at(2) +
+                                   this->_execution_times_->at(3) + this->_execution_times_->at(4) +
+                                   this->_execution_times_->at(6);
   std_msgs::msg::Float64MultiArray exec_time_msg;
   exec_time_msg.data = *(this->_execution_times_);
   this->_perception_execution_time_publisher_->publish(exec_time_msg);
