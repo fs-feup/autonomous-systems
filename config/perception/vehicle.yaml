@@ -32,9 +32,13 @@ perception:
   himmelsbach_min_slope: 0.06
 
   #Clustering
-  clustering_n_neighbours: 1
-  clustering_epsilon: 0.32
-
+  clustering: "GridClustering"  #options: "DBSCAN", "GridClustering"
+  DBSCAN_n_neighbours: 1
+  DBSCAN_clustering_epsilon: 0.32
+  GridClustering_grid_width: 0.20
+  GridClustering_max_points_per_cluster: 35
+  GridClustering_min_points_per_cluster: 4
+  
   #Evaluator
   min_height: 0.26
   large_max_height: 0.42
