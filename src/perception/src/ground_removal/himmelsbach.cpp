@@ -1,20 +1,21 @@
 #include "ground_removal/himmelsbach.hpp"
 
 #include "rclcpp/rclcpp.hpp"
-
-Himmelsbach::Himmelsbach(const double max_slope, const double epsilon, const double slope_reduction,
+Himmelsbach::Himmelsbach(const double max_slope, const double slope_reduction,
                          const double distance_reduction, const double min_slope,
+                         const int ground_reference_slices, const double epsilon,
                          SplitParameters split_params)
     : max_slope(max_slope),
-      epsilon(epsilon),
       slope_reduction(slope_reduction),
       distance_reduction(distance_reduction),
       min_slope(min_slope),
+      ground_reference_slices(ground_reference_slices),
+      epsilon(epsilon),
       split_params(split_params) {
   const int num_slices =
       static_cast<int>(std::ceil(split_params.fov / split_params.angle_resolution));
 
-  max_points_per_ring = static_cast<int>(
+  this->max_points_per_ring = static_cast<int>(
       std::ceil(split_params.angle_resolution / split_params.lidar_horizontal_resolution));
 
   // --- Preallocate slices ---
@@ -64,6 +65,8 @@ void Himmelsbach::process_slice(
 
   auto& cloud_data = trimmed_point_cloud->data;
   auto& output_data = ground_removed_point_cloud->data;
+  bool first_ring = true;
+  const double ground_height_reference = calculate_ground_reference(trimmed_point_cloud, slice_idx);
 
   for (int ring_idx = NUM_RINGS - 1; ring_idx >= 0; --ring_idx) {
     const auto& ring = slices_->at(slice_idx).rings[ring_idx];
@@ -72,6 +75,38 @@ void Himmelsbach::process_slice(
     double ground_z_accumulator = 0.0;
     int ground_point_count = 0;
     int lowest_ground_idx_in_ring = -1;
+
+    if (first_ring) {
+      for (int idx : ring.indices) {
+        float z = *reinterpret_cast<const float*>(&cloud_data[PointZ(idx)]);
+        if (std::abs(z - ground_height_reference) < this->epsilon) {
+          // Only mark as not first ring after finding the first ground point
+
+          if (lowest_ground_idx_in_ring == -1 ||
+              z < *reinterpret_cast<const float*>(&cloud_data[PointZ(lowest_ground_idx_in_ring)])) {
+            lowest_ground_idx_in_ring = idx;
+          }
+
+          ground_z_accumulator += z;
+          ground_point_count++;
+          first_ring = false;
+        } else {
+          size_t write_idx = ground_removed_point_cloud->width;
+          std::memcpy(&output_data[write_idx * POINT_STEP], &cloud_data[idx * POINT_STEP],
+                      POINT_STEP);
+          ground_removed_point_cloud->width++;
+        }
+      }
+
+      if (ground_point_count > 0) {
+        previous_ground_point_x =
+            *reinterpret_cast<const float*>(&cloud_data[PointX(lowest_ground_idx_in_ring)]);
+        previous_ground_point_y =
+            *reinterpret_cast<const float*>(&cloud_data[PointY(lowest_ground_idx_in_ring)]);
+        previous_ground_point_z = ground_z_accumulator / ground_point_count;
+      }
+      continue;
+    }
 
     // Use the first point in the ring to calculate distance for slope adjustment
     float x = *reinterpret_cast<float*>(&cloud_data[PointX(ring.indices[0])]);
@@ -107,7 +142,7 @@ void Himmelsbach::process_slice(
                     POINT_STEP);
         ground_removed_point_cloud->width++;
       }
-    }
+    }  // end for each idx
 
     if (ground_point_count > 0) {
       previous_ground_point_x =
@@ -150,4 +185,43 @@ void Himmelsbach::split_point_cloud(
 
     prev_ring = ring;
   }
+}
+
+double Himmelsbach::calculate_ground_reference(
+    const sensor_msgs::msg::PointCloud2::SharedPtr& input_cloud, int slice_idx) const {
+  int half_window = ground_reference_slices / 2;
+  int start_idx = std::max(0, slice_idx - half_window);
+  int end_idx = std::min(static_cast<int>(slices_->size()) - 1, slice_idx + half_window);
+
+  std::vector<float> z_values;
+  for (int i = start_idx; i <= end_idx; ++i) {
+    float min_z = find_closest_ring_min_height(input_cloud, i);
+
+    if (min_z != std::numeric_limits<float>::max()) {
+      z_values.push_back(min_z);
+    }
+  }
+
+  if (z_values.empty()) return 0.0f;
+
+  std::sort(z_values.begin(), z_values.end());
+  float median_z = z_values[z_values.size() / 2];
+  return median_z;
+}
+
+float Himmelsbach::find_closest_ring_min_height(
+    const sensor_msgs::msg::PointCloud2::SharedPtr& input_cloud, int slice_idx) const {
+  for (int i = NUM_RINGS - 1; i >= 0; --i) {
+    if (!slices_->at(slice_idx).rings[i].indices.empty()) {
+      float min_height = std::numeric_limits<float>::max();
+      for (int idx : slices_->at(slice_idx).rings[i].indices) {
+        float z = *reinterpret_cast<const float*>(&input_cloud->data[PointZ(idx)]);
+        if (z < min_height) {
+          min_height = z;
+        }
+      }
+      return min_height;
+    }
+  }
+  return std::numeric_limits<float>::max();
 }

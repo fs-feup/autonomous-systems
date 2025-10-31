@@ -2,9 +2,9 @@ perception:
   default_mission: "trackdrive"
 
   #FOV trimming
-  lidar_height: 1.10
+  lidar_height: 1.13
   min_range: 1.93
-  max_height: 0.7
+  max_height: 1.25
 
   #TRACKDRIVE/AUTOCROSS TRIMMING
   max_range: 30.0
@@ -18,26 +18,27 @@ perception:
 
   #Split Parameters
   lidar_horizontal_resolution: 0.095
-  angle_resolution: 2.0
+  angle_resolution: 1.0
   fov: 180.0
   
   #Ground Removal
   ground_removal: "himmelsbach"  #options: "ransac", "himmelsbach"
   ransac_epsilon: 0.10
   ransac_iterations: 40
-  himmelsbach_max_slope: 0.07
-  himmelsbach_epsilon: 0.10
-  himmelsbach_slope_reduction: 0.0075
+  himmelsbach_max_slope: 0.075
+  himmelsbach_slope_reduction: 0.005
   himmelsbach_distance_reduction: 15.0
-  himmelsbach_min_slope: 0.06
+  himmelsbach_min_slope: 0.055
+  himmelsbach_ground_reference_slices: 5
+  himmelsbach_epsilon: 0.10
 
   #Clustering
   clustering: "GridClustering"  #options: "DBSCAN", "GridClustering"
   DBSCAN_n_neighbours: 1
   DBSCAN_clustering_epsilon: 0.32
-  GridClustering_grid_width: 0.20
-  GridClustering_max_points_per_cluster: 35
-  GridClustering_min_points_per_cluster: 4
+  GridClustering_grid_width: 0.10
+  GridClustering_max_points_per_cluster: 40
+  GridClustering_min_points_per_cluster: 2
   
   #Evaluator
   min_height: 0.26

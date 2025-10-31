@@ -78,19 +78,22 @@ PerceptionParameters Perception::load_config() {
   double ransac_epsilon = perception_config["ransac_epsilon"].as<double>();
   int ransac_iterations = perception_config["ransac_iterations"].as<int>();
   double himmelsbach_max_slope = perception_config["himmelsbach_max_slope"].as<double>();
-  double himmelsbach_epsilon = perception_config["himmelsbach_epsilon"].as<double>();
   double himmelsbach_slope_reduction =
       perception_config["himmelsbach_slope_reduction"].as<double>();
   double himmelsbach_distance_reduction =
       perception_config["himmelsbach_distance_reduction"].as<double>();
   double himmelsbach_min_slope = perception_config["himmelsbach_min_slope"].as<double>();
+  double himmelsbach_ground_reference_slices =
+      perception_config["himmelsbach_ground_reference_slices"].as<double>();
+  double himmelsbach_epsilon = perception_config["himmelsbach_epsilon"].as<double>();
 
   if (ground_removal_algorithm == "ransac") {
     params.ground_removal_ = std::make_shared<RANSAC>(ransac_epsilon, ransac_iterations);
   } else if (ground_removal_algorithm == "himmelsbach") {
     params.ground_removal_ = std::make_shared<Himmelsbach>(
-        himmelsbach_max_slope, himmelsbach_epsilon, himmelsbach_slope_reduction,
-        himmelsbach_distance_reduction, himmelsbach_min_slope, split_params);
+        himmelsbach_max_slope, himmelsbach_slope_reduction, himmelsbach_distance_reduction,
+        himmelsbach_min_slope, himmelsbach_ground_reference_slices, himmelsbach_epsilon,
+        split_params);
   } else {
     RCLCPP_ERROR(rclcpp::get_logger("perception"),
                  "Ground removal algorithm not recognized: %s, using RANSAC as default",

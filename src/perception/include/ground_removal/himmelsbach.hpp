@@ -43,8 +43,8 @@ struct Slice {
  */
 class Himmelsbach : public GroundRemoval {
 public:
-  Himmelsbach(const double max_slope, const double epsilon, const double slope_reduction,
-              const double distance_reduction, const double min_slope,
+  Himmelsbach(const double max_slope, const double slope_reduction, const double distance_reduction,
+              const double min_slope, const int ground_reference_slices, const double epsilon,
               SplitParameters split_params);
 
   Himmelsbach() = default;
@@ -62,10 +62,11 @@ public:
 
 private:
   double max_slope;
-  double epsilon;
   double slope_reduction;
   double distance_reduction;
   double min_slope;
+  int ground_reference_slices;
+  double epsilon;
   int max_points_per_ring;
   std::shared_ptr<std::vector<Slice>> slices_;
   SplitParameters split_params;
@@ -75,4 +76,10 @@ private:
                      size_t slice_idx) const;
 
   void split_point_cloud(const sensor_msgs::msg::PointCloud2::SharedPtr& input_cloud) const;
+
+  double calculate_ground_reference(const sensor_msgs::msg::PointCloud2::SharedPtr& input_cloud,
+                                    int slice_idx) const;
+
+  float find_closest_ring_min_height(const sensor_msgs::msg::PointCloud2::SharedPtr& input_cloud,
+                                     int slice_idx) const;
 };
