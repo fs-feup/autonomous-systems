@@ -1,10 +1,5 @@
 #pragma once
 
-#include <pcl/io/pcd_io.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
-#include <pcl_conversions/pcl_conversions.h>
-
 #include <cone_evaluator/cone_evaluator.hpp>
 #include <cone_validator/cylinder_validator.hpp>
 #include <cone_validator/deviation_validator.hpp>
@@ -19,6 +14,7 @@
 #include <vector>
 
 #include "clustering/dbscan.hpp"
+#include "clustering/grid_clustering.hpp"
 #include "common_lib/communication/marker.hpp"
 #include "common_lib/competition_logic/mission_logic.hpp"
 #include "common_lib/config_load/config_load.hpp"
@@ -54,7 +50,7 @@ struct PerceptionParameters {     ///< Struct containing parameters and interfac
   uint8_t default_mission_;
   std::shared_ptr<std::unordered_map<int16_t, std::shared_ptr<FovTrimming>>> fov_trim_map_;
   std::shared_ptr<GroundRemoval> ground_removal_;  ///< Shared pointer to the GroundRemoval object.
-  std::shared_ptr<DBSCAN> clustering_;             ///< Shared pointer to the DBSCAN object.
+  std::shared_ptr<Clustering> clustering_;         ///< Shared pointer to the Clustering object.
   std::shared_ptr<LeastSquaresDifferentiation>
       cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
   std::shared_ptr<ConeEvaluator> cone_evaluator_;  ///< Shared pointer to ConeEvaluator object.

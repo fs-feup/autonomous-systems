@@ -1,7 +1,4 @@
 #pragma once
-
-#include <pcl/sample_consensus/ransac.h>
-
 #include <string>
 #include <utils/plane.hpp>
 #include <utils/split_parameters.hpp>

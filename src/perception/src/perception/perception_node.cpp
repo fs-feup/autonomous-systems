@@ -98,9 +98,29 @@ PerceptionParameters Perception::load_config() {
     params.ground_removal_ = std::make_shared<RANSAC>(ransac_epsilon, ransac_iterations);
   }
 
-  int clustering_n_neighbours = perception_config["clustering_n_neighbours"].as<int>();
-  double clustering_epsilon = perception_config["clustering_epsilon"].as<double>();
-  params.clustering_ = std::make_shared<DBSCAN>(clustering_n_neighbours, clustering_epsilon);
+  std::string clustering_algorithm = perception_config["clustering"].as<std::string>();
+  int DBSCAN_clustering_n_neighbours = perception_config["DBSCAN_n_neighbours"].as<int>();
+  double DBSCAN_clustering_epsilon = perception_config["DBSCAN_clustering_epsilon"].as<double>();
+  double grid_clustering_grid_width = perception_config["GridClustering_grid_width"].as<double>();
+  int grid_clustering_max_points_per_cluster =
+      perception_config["GridClustering_max_points_per_cluster"].as<int>();
+  int grid_clustering_min_points_per_cluster =
+      perception_config["GridClustering_min_points_per_cluster"].as<int>();
+
+  if (clustering_algorithm == "DBSCAN") {
+    params.clustering_ =
+        std::make_shared<DBSCAN>(DBSCAN_clustering_n_neighbours, DBSCAN_clustering_epsilon);
+  } else if (clustering_algorithm == "GridClustering") {
+    params.clustering_ = std::make_shared<GridClustering>(grid_clustering_grid_width,
+                                                          grid_clustering_max_points_per_cluster,
+                                                          grid_clustering_min_points_per_cluster);
+  } else {
+    RCLCPP_ERROR(rclcpp::get_logger("perception"),
+                 "Clustering algorithm not recognized: %s, using DBSCAN as default",
+                 clustering_algorithm.c_str());
+    params.clustering_ =
+        std::make_shared<DBSCAN>(DBSCAN_clustering_n_neighbours, DBSCAN_clustering_epsilon);
+  }
 
   params.cone_differentiator_ = std::make_shared<LeastSquaresDifferentiation>();
 
@@ -254,21 +274,14 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
 
   time3 = this->now();
 
-  // Convert to PCL format
-  pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_2(
-      new pcl::PointCloud<pcl::PointXYZI>());
-  pcl::fromROSMsg(*ground_removed_cloud, *ground_removed_cloud_2);
-
-  time4 = this->now();
-
   // Clustering
   std::vector<Cluster> clusters;
-  _clustering_->clustering(ground_removed_cloud_2, &clusters);
+  _clustering_->clustering(ground_removed_cloud, &clusters);
 
   // Z-scores calculation for future validations
   Cluster::set_z_scores(clusters);
 
-  time5 = this->now();
+  time4 = this->now();
 
   // Filtering
   std::vector<Cluster> filtered_clusters;
@@ -279,20 +292,15 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
     }
   }
 
-  time6 = this->now();
+  time5 = this->now();
 
-  double perception_execution_time_seconds = (time6 - start_time).seconds();
-  // this->execution_times this->_execution_times_->at(0) = perception_execution_time_seconds *
-  // 1000.0;
+  double perception_execution_time_seconds = (time5 - start_time).seconds();
+  this->_execution_times_->at(0) = perception_execution_time_seconds * 1000.0;
   this->_execution_times_->at(1) = (time1 - start_time).seconds() * 1000.0;
   this->_execution_times_->at(2) = (time2 - time1).seconds() * 1000.0;
   this->_execution_times_->at(3) = (time3 - time2).seconds() * 1000.0;
   this->_execution_times_->at(4) = (time4 - time3).seconds() * 1000.0;
   this->_execution_times_->at(5) = (time5 - time4).seconds() * 1000.0;
-  this->_execution_times_->at(6) = (time6 - time5).seconds() * 1000.0;
-  this->_execution_times_->at(0) = this->_execution_times_->at(1) + this->_execution_times_->at(2) +
-                                   this->_execution_times_->at(3) + this->_execution_times_->at(4) +
-                                   this->_execution_times_->at(6);
   std_msgs::msg::Float64MultiArray exec_time_msg;
   exec_time_msg.data = *(this->_execution_times_);
   this->_perception_execution_time_publisher_->publish(exec_time_msg);

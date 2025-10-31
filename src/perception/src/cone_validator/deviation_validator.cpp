@@ -1,38 +1,43 @@
-#include <cmath>
 #include <cone_validator/deviation_validator.hpp>
-#include <numeric>
-#include <vector>
-
-#include "rclcpp/rclcpp.hpp"
 
 DeviationValidator::DeviationValidator(double min_xoy, double max_xoy, double min_z, double max_z)
     : _min_xoy_(min_xoy), _max_xoy_(max_xoy), _min_z_(min_z), _max_z_(max_z) {}
 
-std::vector<double> DeviationValidator::coneValidator(Cluster* cone_point_cloud,
+std::vector<double> DeviationValidator::coneValidator(Cluster* cone_cluster,
                                                       [[maybe_unused]] Plane& plane) const {
   // Vectors to store deviations in XOY and Z
   std::vector<double> deviations_xoy;
   std::vector<double> deviations_z;
 
+  const auto& cloud_data = cone_cluster->get_point_cloud()->data;
+  const auto& indices = cone_cluster->get_point_indices();
+
   // Calculate the mean point in XOY and Z
   double mean_x = 0.0;
   double mean_y = 0.0;
   double mean_z = 0.0;
-  unsigned long num_points = cone_point_cloud->get_point_cloud()->points.size();
-  for (const auto& point : cone_point_cloud->get_point_cloud()->points) {
-    mean_x += point.x;
-    mean_y += point.y;
-    mean_z += point.z;
+  for (size_t idx : indices) {
+    float x = *reinterpret_cast<const float*>(&cloud_data[PointX(idx)]);
+    float y = *reinterpret_cast<const float*>(&cloud_data[PointY(idx)]);
+    float z = *reinterpret_cast<const float*>(&cloud_data[PointZ(idx)]);
+
+    mean_x += x;
+    mean_y += y;
+    mean_z += z;
   }
-  mean_x /= static_cast<double>(num_points);
-  mean_y /= static_cast<double>(num_points);
-  mean_z /= static_cast<double>(num_points);
+  mean_x /= static_cast<double>(indices.size());
+  mean_y /= static_cast<double>(indices.size());
+  mean_z /= static_cast<double>(indices.size());
 
   // Calculate deviations from the mean
-  for (const auto& point : cone_point_cloud->get_point_cloud()->points) {
-    double deviation_xoy = std::sqrt(std::pow(point.x - mean_x, 2) + std::pow(point.y - mean_y, 2));
+  for (size_t idx : indices) {
+    float x = *reinterpret_cast<const float*>(&cloud_data[PointX(idx)]);
+    float y = *reinterpret_cast<const float*>(&cloud_data[PointY(idx)]);
+    float z = *reinterpret_cast<const float*>(&cloud_data[PointZ(idx)]);
+
+    double deviation_xoy = std::sqrt(std::pow(x - mean_x, 2) + std::pow(y - mean_y, 2));
     deviations_xoy.push_back(deviation_xoy);
-    deviations_z.push_back(std::abs(point.z - mean_z));
+    deviations_z.push_back(std::abs(z - mean_z));
   }
 
   // Calculate the standard deviation of the deviations
