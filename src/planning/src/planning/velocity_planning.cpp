@@ -100,7 +100,7 @@ void VelocityPlanning::set_velocity(std::vector<PathPoint> &final_path) {
 
   else {
     for (auto &path_point : final_path) {
-      path_point.ideal_velocity = config_.desired_velocity_;
+      path_point.ideal_velocity = config_.minimum_velocity_;
     }
   }
 }

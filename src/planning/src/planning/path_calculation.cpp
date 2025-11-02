@@ -264,8 +264,9 @@ pair<shared_ptr<Midpoint>, shared_ptr<Midpoint>> PathCalculation::select_startin
 
   // Get candidate midpoints
   anchor_pose_midpoint.close_points = select_candidate_midpoints(anchor_pose_midpoint, 8);
-
+  
   double best_cost = numeric_limits<double>::max();
+
   for (const auto& first : anchor_pose_midpoint.close_points) {
     shared_ptr<Midpoint> anchor_mp = make_shared<Midpoint>(anchor_pose_midpoint);
 
@@ -274,10 +275,21 @@ pair<shared_ptr<Midpoint>, shared_ptr<Midpoint>> PathCalculation::select_startin
 
     double dx = first->point.x() - anchor_pose_midpoint.point.x();
     double dy = first->point.y() - anchor_pose_midpoint.point.y();
-    double initial_distance =
-        std::pow(std::sqrt(dx * dx + dy * dy), config_.distance_exponent_) * config_.distance_gain_;
+    double distance = std::sqrt(dx * dx + dy * dy);
 
-    cost += initial_distance;
+    //Calculate the deviation angle relative to the car’s heading
+    double angle_to_point = std::atan2(dy, dx); 
+    double angle_deviation = std::abs(std::atan2(
+        std::sin(angle_to_point - initial_pose_.orientation),
+        std::cos(angle_to_point - initial_pose_.orientation)
+    ));
+
+    double initial_cost = 
+        std::pow(distance, config_.distance_exponent_) * config_.distance_gain_ +
+        std::pow(angle_deviation, config_.angle_exponent_) * config_.angle_gain_;
+
+
+    cost += initial_cost;
 
     if (cost < best_cost) {
       result.first = first;
@@ -314,9 +326,17 @@ vector<shared_ptr<Midpoint>> PathCalculation::select_candidate_midpoints(
     }
 
     double dist = std::sqrt(dx * dx + dy * dy);
-    double angle = std::atan2(dy, dx);
-    double cost = std::pow(angle, config_.angle_exponent_) * config_.angle_gain_ +
+    
+    //Calculate the deviation angle relative to the car’s heading
+    double angle_to_point = std::atan2(dy, dx);
+    double angle_deviation = std::abs(std::atan2(
+        std::sin(angle_to_point - initial_pose_.orientation),
+        std::cos(angle_to_point - initial_pose_.orientation)
+    ));
+    
+    double cost = std::pow(angle_deviation, config_.angle_exponent_) * config_.angle_gain_ +
                   std::pow(dist, config_.distance_exponent_) * config_.distance_gain_;
+
     pq.push({cost, mp});
   }
 
