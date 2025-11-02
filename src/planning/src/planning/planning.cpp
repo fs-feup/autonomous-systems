@@ -377,7 +377,4 @@ void Planning::publish_visualization_msgs() const {
       common_lib::communication::marker_array_from_structure_array(
           path_calculation_.get_path_to_car(), "global_path", map_frame_id_, "white", "cylinder",
           0.6, visualization_msgs::msg::Marker::MODIFY));
-  colored_cones_pub_->publish(
-    common_lib::communication::marker_array_from_structure_array(
-      path_calculation_.get_cones(), "map_cones", "map"));
 }

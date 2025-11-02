@@ -9,22 +9,22 @@
 #include <vector>
 
 #include "common_lib/structures/cone.hpp"
+#include "common_lib/structures/midpoint.hpp"
 #include "common_lib/structures/path_point.hpp"
 #include "common_lib/structures/pose.hpp"
-#include "common_lib/structures/midpoint.hpp"
 #include "config/path_calculation_config.hpp"
+#include "planning/colorpoint.hpp"
 #include "planning/midpoint_generator.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 using Cone = common_lib::structures::Cone;
 using PathPoint = common_lib::structures::PathPoint;
 using Midpoint = common_lib::structures::Midpoint;
-using Color = common_lib::competition_logic::Color;
 
 /**
  * @class PathCalculation
  * @brief Generates optimal local paths.
- * 
+ *
  * PathCalculation computes navigation paths by creating midpoints between
  * track cones and searching for optimal sequences using depth-first search
  * with cost-based evaluation. It maintains continuity with previous paths
@@ -92,7 +92,7 @@ public:
    */
   const std::vector<std::pair<Point, Point>>& get_triangulations() const;
 
-  std::vector<Cone> get_cones() const; 
+  std::vector<Cone> get_cones() const;
 
 private:
   // ===================== Configuration and State =====================
@@ -106,20 +106,18 @@ private:
   bool initial_pose_set_ = false;
 
   // Path storage
-  std::vector<Point> path_to_car_;
-  std::vector<Point> past_path_;
+  std::vector<Colorpoint> path_to_car_;
+  std::vector<Colorpoint> past_path_;
   int reset_path_counter_ = 0;
-  std::vector<std::shared_ptr<Cone>> past_cones_;
 
   // Midpoints for the current track
   std::vector<std::shared_ptr<Midpoint>> midpoints_;
 
   // Path construction state (temporary during calculation)
-  std::vector<Point> current_path_;
+  std::vector<Colorpoint> current_path_;
   std::unordered_map<Point, std::shared_ptr<Midpoint>> point_to_midpoint_;
   std::unordered_set<std::shared_ptr<Midpoint>> visited_midpoints_;
   std::unordered_set<std::shared_ptr<Cone>> discarded_cones_;
-  std::vector<std::shared_ptr<Cone>> current_cones_;
 
   // ===================== Path Calculation Methods =====================
 
@@ -190,8 +188,8 @@ private:
    * @param num_candidates Number of candidates to return.
    * @return Vector of candidate midpoint pointers.
    */
-  std::vector<std::shared_ptr<Midpoint>> select_candidate_midpoints(
-      const Midpoint& anchor_pose, int num_candidates) const;
+  std::vector<std::shared_ptr<Midpoint>> select_candidate_midpoints(const Midpoint& anchor_pose,
+                                                                    int num_candidates) const;
 
   /**
    * @brief Recursively find the best next midpoint using depth-first search.
@@ -221,8 +219,8 @@ private:
    * @return Combined cost of the transition.
    */
   double calculate_midpoint_cost(const std::shared_ptr<Midpoint>& previous,
-                                  const std::shared_ptr<Midpoint>& current,
-                                  const std::shared_ptr<Midpoint>& next) const;
+                                 const std::shared_ptr<Midpoint>& current,
+                                 const std::shared_ptr<Midpoint>& next) const;
 
   // ===================== Cone Discarding Methods =====================
 
@@ -299,22 +297,16 @@ private:
    * @return Vector of interpolated path points.
    */
   std::vector<PathPoint> add_interpolated_points(const PathPoint& start, const PathPoint& end,
-                                                  int num_points) const;
+                                                 int num_points) const;
 
   /**
- * @brief Converts a vector of Point objects into a vector of PathPoint objects.
- *
- * @param points A vector containing the input Point objects.
- * @return A vector of PathPoint objects constructed from the given points.
- */
-  std::vector<PathPoint> get_path_points_from_points(const std::vector<Point>& points) const;
-
-  void color_first_cones(std::shared_ptr<Midpoint> first_point);
-
-  bool color_cone(std::shared_ptr<Midpoint> point);
-
-  
-
+   * @brief Converts a vector of Colorpoint objects into a vector of PathPoint objects.
+   *
+   * @param points A vector containing the input Colorpoint objects.
+   * @return A vector of PathPoint objects constructed from the given points.
+   */
+  std::vector<PathPoint> get_path_points_from_colorpoints(
+      const std::vector<Colorpoint>& colorpoints) const;
 };
 
 #endif  // SRC_PLANNING_INCLUDE_PLANNING_PATH_CALCULATION_HPP_
