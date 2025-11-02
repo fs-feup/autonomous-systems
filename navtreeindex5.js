@@ -1,8 +1,8 @@
 var NAVTREEINDEX5 =
 {
 "d3/d59/acceleration__trimming_8cpp_source.html":[29,0,0,16,1,6,0],
-"d3/d65/structcommon__lib_1_1communication_1_1_has_position.html":[28,0,1,1,0],
 "d3/d65/structcommon__lib_1_1communication_1_1_has_position.html":[27,0,6,2,0],
+"d3/d65/structcommon__lib_1_1communication_1_1_has_position.html":[28,0,1,1,0],
 "d3/d6a/pid__test_8cpp.html":[29,0,0,4,2,2,0],
 "d3/d6a/pid__test_8cpp.html#a12a2222b862ba3121c65234c2a16f5b2":[29,0,0,4,2,2,0,8],
 "d3/d6a/pid__test_8cpp.html#a237bbc15dc5cdbcb80fc96410787b574":[29,0,0,4,2,2,0,7],

@@ -1,37 +1,35 @@
 <map id="save_debug_file" name="save_debug_file">
-<area shape="rect" id="Node000001" title="Saves debug information to a file." alt="" coords="123,400,237,426"/>
+<area shape="rect" id="Node000001" title="Saves debug information to a file." alt="" coords="123,376,237,402"/>
 <area shape="rect" id="Node000002" href="$d4/dee/integration__tests_8cpp.html#a88e2d651bee7cf62367e64dc4f8f4f34" title="Testing a scenario from rosbag Hard_Course&#45;DV&#45;3 with a different initial position." alt="" coords="5,5,75,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,384,167,319,150,230,120,134,99,87,73,44,62,33,66,30,77,41,103,85,125,132,155,229,172,318,179,384"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,361,165,299,148,217,118,127,97,84,73,44,62,33,66,30,77,41,102,81,123,125,153,215,170,298,179,360"/>
 <area shape="rect" id="Node000003" href="$d4/dee/integration__tests_8cpp.html#af10149de6ed3d3f717ed7328003151b9" title="A path with curves where one side of the track is close to other part of the track." alt="" coords="5,55,75,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="173,385,163,328,145,252,116,170,96,130,73,93,62,83,66,79,77,90,101,127,121,167,150,250,169,327,178,384"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="172,361,161,308,142,238,113,163,95,127,73,93,62,83,66,79,77,90,99,124,118,161,148,236,167,306,177,360"/>
 <area shape="rect" id="Node000004" href="$d4/dee/integration__tests_8cpp.html#ad38b823817f060894690d18557bea94b" title="Tests the full pipeline in a straight line with fewer cones." alt="" coords="5,104,75,130"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="171,385,159,336,140,273,111,205,73,142,62,132,66,128,77,139,116,203,145,271,164,334,176,384"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="170,361,157,316,137,259,109,199,73,143,62,132,65,128,77,139,114,196,142,257,162,315,175,360"/>
 <area shape="rect" id="Node000005" href="$d4/dee/integration__tests_8cpp.html#ac416073fcace9b408de200a1ecb8a421" title="Testing a scenario from rosbag Hard_Course&#45;DV&#45;3 with a different initial position." alt="" coords="5,153,75,179"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="168,386,134,295,107,241,73,192,61,181,65,177,77,188,111,239,139,293,173,384"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="166,362,131,282,104,235,73,192,61,181,65,178,77,188,109,232,136,279,171,360"/>
 <area shape="rect" id="Node000006" href="$d4/dee/integration__tests_8cpp.html#a319f63269d7ac32a58c11b4a5b138d17" title="Testing a scenario from rosbag Hard_Course&#45;DV&#45;3 with a different initial position." alt="" coords="5,203,75,228"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="164,387,128,318,102,278,73,241,61,231,64,227,77,238,106,275,132,315,169,385"/>
-<area shape="rect" id="Node000007" href="$d4/dee/integration__tests_8cpp.html#a580d71c706c9eb4cf1231fd646917522" title="Testing a scenario from rosbag Hard_Course&#45;DV&#45;3 with a different initial position." alt="" coords="5,252,75,278"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="158,389,121,342,73,291,60,280,63,276,76,287,125,338,162,386"/>
-<area shape="rect" id="Node000008" href="$d4/dee/integration__tests_8cpp.html#a8bfc2eac5479c07d6ef582a55654b6c1" title="Testing a scenario from rosbag Autocross_DV&#45;5." alt="" coords="5,301,75,327"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="146,393,58,330,62,325,149,389"/>
-<area shape="rect" id="Node000009" href="$d4/dee/integration__tests_8cpp.html#af9dd7467efb12445209da4019abf43cd" title="Testing a scenario from rosbag ZigZag_DV&#45;11." alt="" coords="5,351,75,376"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="126,397,74,378,76,373,128,392"/>
-<area shape="rect" id="Node000010" href="$d4/dee/integration__tests_8cpp.html#abb369c3b1ebf57f05d9e99f33e2cbe9b" title="Testing a scenario from rosbag Acceleration_Testing_DV&#45;1B." alt="" coords="5,400,75,426"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="107,416,75,416,75,410,107,410"/>
-<area shape="rect" id="Node000011" href="$d4/dee/integration__tests_8cpp.html#a38017f3dae54c48d5201b369fee357bd" title="Testing a scenario from rosbag Hard_Course&#45;DV&#45;3 from the beggining of the track." alt="" coords="5,449,75,475"/>
-<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="128,434,76,453,74,448,126,429"/>
-<area shape="rect" id="Node000012" href="$d4/dee/integration__tests_8cpp.html#a3d24c8ea1af8567b24eff45959e2e5cb" title="Testing a scenario from rosbag Hard_Course&#45;DV&#45;3 with a different initial position." alt="" coords="5,499,75,524"/>
-<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="149,437,62,500,58,496,146,433"/>
-<area shape="rect" id="Node000013" href="$d4/dee/integration__tests_8cpp.html#a2f1278ab63b05cfaf18720fc6498c693" title="A path with a sharp sinosoidal curve, where cones on both sides get closer." alt="" coords="5,548,75,574"/>
-<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="162,440,125,488,76,539,63,549,60,545,73,535,121,484,158,437"/>
-<area shape="rect" id="Node000014" href="$d4/dee/integration__tests_8cpp.html#aea24bd634327175cc4a81a8b95d0d5c6" title="Tests the full pipeline with a simple straight path." alt="" coords="5,597,75,623"/>
-<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="169,441,132,511,106,551,77,588,64,599,61,595,73,584,102,548,128,508,164,439"/>
-<area shape="rect" id="Node000015" href="$d4/dee/integration__tests_8cpp.html#a310451f6b43806f317c4387718f4b5e5" title="Testing a scenario from rosbag Hard_Course&#45;DV&#45;3 with a different initial position." alt="" coords="5,647,75,672"/>
-<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="173,441,139,533,111,587,77,637,65,648,61,644,73,634,107,584,134,531,168,440"/>
-<area shape="rect" id="Node000016" href="$d4/dee/integration__tests_8cpp.html#a00d39332b2d78dd26d43821dc4e75406" title="Testing a scenario from rosbag Hard_Course&#45;DV&#45;3 with a different initial position." alt="" coords="5,696,75,722"/>
-<area shape="poly" id="edge15_Node000001_Node000016" title=" " alt="" coords="176,442,164,491,145,555,116,623,77,686,66,697,62,694,73,683,111,621,140,553,159,490,171,440"/>
-<area shape="rect" id="Node000017" href="$d4/dee/integration__tests_8cpp.html#a54c5338ead8015e85f2554a185c9a0bf" title="Testing a scenario from rosbag Hard_Course&#45;DV&#45;3 with a different initial position." alt="" coords="5,745,75,771"/>
-<area shape="poly" id="edge16_Node000001_Node000017" title=" " alt="" coords="178,441,169,499,150,575,121,658,101,698,77,736,66,747,62,743,73,733,96,696,116,656,145,574,163,498,173,440"/>
-<area shape="rect" id="Node000018" href="$d4/dee/integration__tests_8cpp.html#ae03b90fdf893a57443c79f1316d0e4cc" title="Tests the full pipeline in a straight line with fewer cones in one and more in the other." alt="" coords="5,795,75,820"/>
-<area shape="poly" id="edge17_Node000001_Node000018" title=" " alt="" coords="179,442,172,508,155,597,125,694,103,741,77,785,66,796,62,792,73,782,99,739,120,692,150,595,167,507,174,441"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="161,364,124,305,73,241,61,231,64,227,77,238,129,302,166,361"/>
+<area shape="rect" id="Node000007" href="$d4/dee/integration__tests_8cpp.html#a8bfc2eac5479c07d6ef582a55654b6c1" title="Testing a scenario from rosbag Autocross_DV&#45;5." alt="" coords="5,252,75,278"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="154,367,73,291,59,280,62,276,76,287,158,363"/>
+<area shape="rect" id="Node000008" href="$d4/dee/integration__tests_8cpp.html#af9dd7467efb12445209da4019abf43cd" title="Testing a scenario from rosbag ZigZag_DV&#45;11." alt="" coords="5,301,75,327"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="140,371,65,330,67,325,142,366"/>
+<area shape="rect" id="Node000009" href="$d4/dee/integration__tests_8cpp.html#abb369c3b1ebf57f05d9e99f33e2cbe9b" title="Testing a scenario from rosbag Acceleration_Testing_DV&#45;1B." alt="" coords="5,351,75,376"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="107,378,75,372,76,367,108,373"/>
+<area shape="rect" id="Node000010" href="$d4/dee/integration__tests_8cpp.html#a38017f3dae54c48d5201b369fee357bd" title="Testing a scenario from rosbag Hard_Course&#45;DV&#45;3 from the beggining of the track." alt="" coords="5,400,75,426"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="108,404,76,410,75,404,107,399"/>
+<area shape="rect" id="Node000011" href="$d4/dee/integration__tests_8cpp.html#a3d24c8ea1af8567b24eff45959e2e5cb" title="Testing a scenario from rosbag Hard_Course&#45;DV&#45;3 with a different initial position." alt="" coords="5,449,75,475"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="141,412,68,451,65,446,139,407"/>
+<area shape="rect" id="Node000012" href="$d4/dee/integration__tests_8cpp.html#a2f1278ab63b05cfaf18720fc6498c693" title="A path with a sharp sinosoidal curve, where cones on both sides get closer." alt="" coords="5,499,75,524"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="157,415,76,490,62,500,59,496,73,485,154,411"/>
+<area shape="rect" id="Node000013" href="$d4/dee/integration__tests_8cpp.html#aea24bd634327175cc4a81a8b95d0d5c6" title="Tests the full pipeline with a simple straight path." alt="" coords="5,548,75,574"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="166,417,128,475,77,539,64,549,61,545,73,535,124,472,161,414"/>
+<area shape="rect" id="Node000014" href="$d4/dee/integration__tests_8cpp.html#a310451f6b43806f317c4387718f4b5e5" title="Testing a scenario from rosbag Hard_Course&#45;DV&#45;3 with a different initial position." alt="" coords="5,597,75,623"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="171,417,136,498,109,544,77,588,65,599,61,595,73,584,104,542,131,495,166,415"/>
+<area shape="rect" id="Node000015" href="$d4/dee/integration__tests_8cpp.html#a00d39332b2d78dd26d43821dc4e75406" title="Testing a scenario from rosbag Hard_Course&#45;DV&#45;3 with a different initial position." alt="" coords="5,647,75,672"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="175,417,162,463,142,520,114,581,77,637,65,648,62,644,73,634,109,578,137,518,157,461,170,416"/>
+<area shape="rect" id="Node000016" href="$d4/dee/integration__tests_8cpp.html#a54c5338ead8015e85f2554a185c9a0bf" title="Testing a scenario from rosbag Hard_Course&#45;DV&#45;3 with a different initial position." alt="" coords="5,696,75,722"/>
+<area shape="poly" id="edge15_Node000001_Node000016" title=" " alt="" coords="177,417,166,471,147,541,118,616,99,653,77,687,66,697,62,694,73,683,95,650,113,614,142,539,161,470,172,416"/>
+<area shape="rect" id="Node000017" href="$d4/dee/integration__tests_8cpp.html#ae03b90fdf893a57443c79f1316d0e4cc" title="Tests the full pipeline in a straight line with fewer cones in one and more in the other." alt="" coords="5,745,75,771"/>
+<area shape="poly" id="edge16_Node000001_Node000017" title=" " alt="" coords="179,418,170,479,153,562,123,652,102,695,77,736,66,747,62,743,73,733,97,693,118,650,148,560,165,478,173,417"/>
 </map>

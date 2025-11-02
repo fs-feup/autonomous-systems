@@ -105,7 +105,7 @@ $(document).ready(function(){initNavTree('d9/dba/velocity__planning__tests_8cpp_
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="../../d9/dba/velocity__planning__tests_8cpp.html#ae7bdb50e99a2d0bae5638143bf25e069">    7</a></span><a class="code hl_function" href="../../d9/dba/velocity__planning__tests_8cpp.html#ae7bdb50e99a2d0bae5638143bf25e069">TEST</a>(<a class="code hl_class" href="../../d3/dcc/class_velocity_planning.html">VelocityPlanning</a>, velocity0) {</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>  std::string file_path = <span class="stringliteral">&quot;src/planning/tracks/velocity1.txt&quot;</span>;</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>  <a class="code hl_class" href="../../d3/dcc/class_velocity_planning.html">VelocityPlanning</a> velocity_planning;</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>  std::vector&lt;common_lib::structures::PathPoint&gt; final_path = <a class="code hl_function" href="../../d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a7aaaf0c9d5c4fc7b67418ee1c748f208">path_from_file</a>(file_path);</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>  std::vector&lt;common_lib::structures::PathPoint&gt; final_path = <a class="code hl_function" href="../../d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a7aaaf0c9d5c4fc7b67418ee1c748f208">::path_from_file</a>(file_path);</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  velocity_planning.<a class="code hl_function" href="../../d3/dcc/class_velocity_planning.html#aa0af0b050d79a4efe649c778810ab5ef">set_velocity</a>(final_path);</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>  EXPECT_EQ((<span class="keywordtype">int</span>)final_path.size(), 14);</div>
@@ -117,37 +117,38 @@ $(document).ready(function(){initNavTree('d9/dba/velocity__planning__tests_8cpp_
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="../../d9/dba/velocity__planning__tests_8cpp.html#a1fa6f577535226be0d06a954e74e448a">   21</a></span><a class="code hl_function" href="../../d9/dba/velocity__planning__tests_8cpp.html#ae7bdb50e99a2d0bae5638143bf25e069">TEST</a>(<a class="code hl_class" href="../../d3/dcc/class_velocity_planning.html">VelocityPlanning</a>, velocity1) {</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  std::string file_path = <span class="stringliteral">&quot;src/planning/tracks/velocity1.txt&quot;</span>;</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  <a class="code hl_class" href="../../d3/dcc/class_velocity_planning.html">VelocityPlanning</a> velocity_planning;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  std::vector&lt;common_lib::structures::PathPoint&gt; final_path = <a class="code hl_function" href="../../d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a7aaaf0c9d5c4fc7b67418ee1c748f208">path_from_file</a>(file_path);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  std::vector&lt;common_lib::structures::PathPoint&gt; final_path = <a class="code hl_function" href="../../d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a7aaaf0c9d5c4fc7b67418ee1c748f208">::path_from_file</a>(file_path);</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  velocity_planning.<a class="code hl_function" href="../../d3/dcc/class_velocity_planning.html#aa0af0b050d79a4efe649c778810ab5ef">set_velocity</a>(final_path);</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; final_path.size(); i++) {</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    EXPECT_TRUE(final_path[i].ideal_velocity &gt;= 3);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; point : final_path) {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    EXPECT_TRUE(point.ideal_velocity &gt;= 3);</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  }</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
 </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="foldopen" id="foldopen00036" data-start="{" data-end="}">
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="../../d9/dba/velocity__planning__tests_8cpp.html#af97fb83dccb617636d3886e3a3a352a6">   36</a></span><a class="code hl_function" href="../../d9/dba/velocity__planning__tests_8cpp.html#ae7bdb50e99a2d0bae5638143bf25e069">TEST</a>(<a class="code hl_class" href="../../d3/dcc/class_velocity_planning.html">VelocityPlanning</a>, velocity2) {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  std::string file_path = <span class="stringliteral">&quot;src/planning/tracks/velocity2.txt&quot;</span>;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  <a class="code hl_class" href="../../d3/dcc/class_velocity_planning.html">VelocityPlanning</a> velocity_planning;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  std::vector&lt;common_lib::structures::PathPoint&gt; final_path = <a class="code hl_function" href="../../d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a7aaaf0c9d5c4fc7b67418ee1c748f208">path_from_file</a>(file_path);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  velocity_planning.<a class="code hl_function" href="../../d3/dcc/class_velocity_planning.html#aa0af0b050d79a4efe649c778810ab5ef">set_velocity</a>(final_path);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  EXPECT_EQ((<span class="keywordtype">int</span>)final_path.size(), 1);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  EXPECT_EQ(final_path[0].ideal_velocity, 3);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="foldopen" id="foldopen00037" data-start="{" data-end="}">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="../../d9/dba/velocity__planning__tests_8cpp.html#af97fb83dccb617636d3886e3a3a352a6">   37</a></span><a class="code hl_function" href="../../d9/dba/velocity__planning__tests_8cpp.html#ae7bdb50e99a2d0bae5638143bf25e069">TEST</a>(<a class="code hl_class" href="../../d3/dcc/class_velocity_planning.html">VelocityPlanning</a>, velocity2) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  std::string file_path = <span class="stringliteral">&quot;src/planning/tracks/velocity2.txt&quot;</span>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  <a class="code hl_class" href="../../d3/dcc/class_velocity_planning.html">VelocityPlanning</a> velocity_planning;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  std::vector&lt;common_lib::structures::PathPoint&gt; final_path = <a class="code hl_function" href="../../d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a7aaaf0c9d5c4fc7b67418ee1c748f208">::path_from_file</a>(file_path);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  velocity_planning.<a class="code hl_function" href="../../d3/dcc/class_velocity_planning.html#aa0af0b050d79a4efe649c778810ab5ef">set_velocity</a>(final_path);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  EXPECT_EQ((<span class="keywordtype">int</span>)final_path.size(), 1);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  EXPECT_EQ(final_path[0].ideal_velocity, 3);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
 </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="foldopen" id="foldopen00051" data-start="{" data-end="}">
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="../../d9/dba/velocity__planning__tests_8cpp.html#aa66702413e03977b4630566218ffde6a">   51</a></span><a class="code hl_function" href="../../d9/dba/velocity__planning__tests_8cpp.html#ae7bdb50e99a2d0bae5638143bf25e069">TEST</a>(<a class="code hl_class" href="../../d3/dcc/class_velocity_planning.html">VelocityPlanning</a>, velocity3) {</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  std::string file_path = <span class="stringliteral">&quot;src/planning/tracks/velocity3.txt&quot;</span>;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <a class="code hl_class" href="../../d3/dcc/class_velocity_planning.html">VelocityPlanning</a> velocity_planning;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  std::vector&lt;common_lib::structures::PathPoint&gt; final_path = <a class="code hl_function" href="../../d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a7aaaf0c9d5c4fc7b67418ee1c748f208">path_from_file</a>(file_path);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  velocity_planning.<a class="code hl_function" href="../../d3/dcc/class_velocity_planning.html#aa0af0b050d79a4efe649c778810ab5ef">set_velocity</a>(final_path);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  EXPECT_EQ((<span class="keywordtype">int</span>)final_path.size(), 0);</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>}</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="foldopen" id="foldopen00052" data-start="{" data-end="}">
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="../../d9/dba/velocity__planning__tests_8cpp.html#aa66702413e03977b4630566218ffde6a">   52</a></span><a class="code hl_function" href="../../d9/dba/velocity__planning__tests_8cpp.html#ae7bdb50e99a2d0bae5638143bf25e069">TEST</a>(<a class="code hl_class" href="../../d3/dcc/class_velocity_planning.html">VelocityPlanning</a>, velocity3) {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  std::string file_path = <span class="stringliteral">&quot;src/planning/tracks/velocity3.txt&quot;</span>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  <a class="code hl_class" href="../../d3/dcc/class_velocity_planning.html">VelocityPlanning</a> velocity_planning;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  std::vector&lt;common_lib::structures::PathPoint&gt; final_path = <a class="code hl_function" href="../../d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a7aaaf0c9d5c4fc7b67418ee1c748f208">::path_from_file</a>(file_path);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  velocity_planning.<a class="code hl_function" href="../../d3/dcc/class_velocity_planning.html#aa0af0b050d79a4efe649c778810ab5ef">set_velocity</a>(final_path);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  EXPECT_EQ((<span class="keywordtype">int</span>)final_path.size(), 0);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>}</div>
 </div>
 <div class="ttc" id="aclass_velocity_planning_html"><div class="ttname"><a href="../../d3/dcc/class_velocity_planning.html">VelocityPlanning</a></div><div class="ttdoc">Computes velocity profiles for a planned path based on curvature and dynamics constraints.</div><div class="ttdef"><b>Definition</b> <a href="../../d2/df9/velocity__planning_8hpp_source.html#l00018">velocity_planning.hpp:18</a></div></div>
 <div class="ttc" id="aclass_velocity_planning_html_aa0af0b050d79a4efe649c778810ab5ef"><div class="ttname"><a href="../../d3/dcc/class_velocity_planning.html#aa0af0b050d79a4efe649c778810ab5ef">VelocityPlanning::set_velocity</a></div><div class="ttdeci">void set_velocity(std::vector&lt; PathPoint &gt; &amp;final_path)</div><div class="ttdoc">Assigns an ideal velocity to each point of the path.</div><div class="ttdef"><b>Definition</b> <a href="../../d4/dcb/velocity__planning_8cpp_source.html#l00082">velocity_planning.cpp:82</a></div></div>
