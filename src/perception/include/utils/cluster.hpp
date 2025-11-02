@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "center_calculation/centroid_calculation.hpp"
-#include "center_calculation/circunferece_center_calculation.hpp"
+#include "center_calculation/circunference_center_calculation.hpp"
 #include "utils/lidar_point.hpp"
 
 /**

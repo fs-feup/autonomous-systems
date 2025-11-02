@@ -67,9 +67,6 @@ void GridClustering::clustering(const sensor_msgs::msg::PointCloud2::SharedPtr& 
       }
     }
 
-    if (cluster_points.size() >= static_cast<size_t>(min_points_per_cluster_) &&
-        cluster_points.size() <= static_cast<size_t>(max_points_per_cluster_)) {
-      clusters->push_back(Cluster(input_cloud, cluster_points));
-    }
+    clusters->push_back(Cluster(input_cloud, cluster_points));
   }
 }

@@ -1,4 +1,4 @@
-#include <center_calculation/circunferece_center_calculation.hpp>
+#include <center_calculation/circunference_center_calculation.hpp>
 
 Eigen::Vector4f CircunferenceCenterCalculator::calculate_center(
     const sensor_msgs::msg::PointCloud2::SharedPtr& point_cloud,
