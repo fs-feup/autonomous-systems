@@ -8,6 +8,7 @@
  */
 struct PathCalculationConfig {
   MidpointGeneratorConfig midpoint_generator_;
+  bool use_sliding_window_ = true;
   double angle_gain_ = 20.0;
   double distance_gain_ = 5.0;
   double angle_exponent_ = 3.0;

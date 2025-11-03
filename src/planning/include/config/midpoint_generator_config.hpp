@@ -9,8 +9,6 @@ struct MidpointGeneratorConfig {
   double minimum_cone_distance_ = 10.0;
   double maximum_cone_distance_ = 2.0;
   
-  // Sliding window filtering
-  bool use_sliding_window_ = true;
   double sliding_window_radius_ = 20.0;
 
   MidpointGeneratorConfig() = default;

@@ -14,9 +14,9 @@ struct PlanningParameters {
   double mg_minimum_cone_distance_;
   double mg_maximum_cone_distance_;
   double mg_sliding_window_radius_;
-  bool mg_use_sliding_window_;
 
   /*---------------------- Path Calculation (pc_) ------------------------*/
+  bool pc_use_sliding_window_;
   double pc_angle_gain_;
   double pc_distance_gain_;
   double pc_angle_exponent_;
@@ -77,6 +77,7 @@ struct PlanningConfig {
     outliers_.use_outlier_removal_ = params.outliers_use_outlier_removal_;
 
     /*---------------------- Path Calculation (pc_) ------------------------*/
+
     path_calculation_.angle_gain_ = params.pc_angle_gain_;
     path_calculation_.distance_gain_ = params.pc_distance_gain_;
     path_calculation_.angle_exponent_ = params.pc_angle_exponent_;
@@ -88,14 +89,13 @@ struct PlanningConfig {
     path_calculation_.tolerance_ = params.pc_tolerance_;
     path_calculation_.reset_path_ = params.pc_reset_path_;
     path_calculation_.use_reset_path_ = params.pc_use_reset_path_;
+    path_calculation_.use_sliding_window_ = params.pc_use_sliding_window_;
 
     /*---------------------- Midpoint Generator (mg_) ----------------------*/
     path_calculation_.midpoint_generator_.minimum_cone_distance_ =
         params.mg_minimum_cone_distance_;
     path_calculation_.midpoint_generator_.maximum_cone_distance_ =
         params.mg_maximum_cone_distance_;
-    path_calculation_.midpoint_generator_.use_sliding_window_ =
-        params.mg_use_sliding_window_;
     path_calculation_.midpoint_generator_.sliding_window_radius_ =
         params.mg_sliding_window_radius_;
 

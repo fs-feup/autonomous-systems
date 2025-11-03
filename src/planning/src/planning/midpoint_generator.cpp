@@ -1,18 +1,18 @@
 #include "planning/midpoint_generator.hpp"
-#include "utils/cone.hpp"
 
 std::vector<std::shared_ptr<Midpoint>>& MidpointGenerator::generate_midpoints(
-                    const std::vector<Cone>& cone_array, bool should_reset) {
-     
-  triangulations_.clear();
+    const std::vector<Cone>& cone_array, bool rebuild_all_midpoints) {
   DT dt;
-
-  midpoints_.clear();
 
   std::vector<std::shared_ptr<Cone>> filtered_cones;
   filtered_cones.reserve(cone_array.size());
-  
-  filter_cones(cone_array, filtered_cones, should_reset);
+
+  filter_cones(cone_array, filtered_cones, rebuild_all_midpoints);
+
+  midpoints_.clear();
+  midpoints_.reserve(3 * filtered_cones.size());
+  triangulations_.clear();
+  triangulations_.reserve(3 * filtered_cones.size());
 
   // Insert all cone positions into the Delaunay triangulation
   for (const auto& cone : filtered_cones) {
@@ -22,7 +22,8 @@ std::vector<std::shared_ptr<Midpoint>>& MidpointGenerator::generate_midpoints(
   // Avoid duplicate midpoints for the same cone pair
   std::map<std::pair<int, int>, std::shared_ptr<Midpoint>> segment_to_midpoint;
 
-  for (auto triangle_it = dt.finite_faces_begin(); triangle_it != dt.finite_faces_end(); ++triangle_it) {
+  for (auto triangle_it = dt.finite_faces_begin(); triangle_it != dt.finite_faces_end();
+       ++triangle_it) {
     std::array<std::shared_ptr<Midpoint>, 3> triangle_midpoints;
 
     // Iterate over the 3 edges of the triangle
@@ -32,7 +33,7 @@ std::vector<std::shared_ptr<Midpoint>>& MidpointGenerator::generate_midpoints(
 
       triangle_midpoints[i] = process_triangle_edge(va, vb, filtered_cones, segment_to_midpoint);
     }
-    
+
     // Connect midpoints if they share the same triangle
     connect_triangle_midpoints(triangle_midpoints);
   }
@@ -41,44 +42,40 @@ std::vector<std::shared_ptr<Midpoint>>& MidpointGenerator::generate_midpoints(
 }
 
 void MidpointGenerator::filter_cones(const std::vector<Cone>& cone_array,
-                                          std::vector<std::shared_ptr<Cone>>& filtered_cones,
-                                          bool should_reset) {
-
-  if(config_.use_sliding_window_ && !should_reset) {
+                                     std::vector<std::shared_ptr<Cone>>& filtered_cones,
+                                     bool rebuild_all_midpoints) {
+  if (!rebuild_all_midpoints) {
     for (const auto& cone : cone_array) {
       double dx = cone.position.x - vehicle_pose_.position.x;
       double dy = cone.position.y - vehicle_pose_.position.y;
 
-      double sq_window_radius = config_.sliding_window_radius_ * config_.sliding_window_radius_; 
+      double sq_window_radius = config_.sliding_window_radius_ * config_.sliding_window_radius_;
 
       if (dx * dx + dy * dy <= sq_window_radius) {
         filtered_cones.push_back(std::make_shared<Cone>(cone));
       }
     }
-  }else{
+  } else {
     for (const auto& cone : cone_array) {
       filtered_cones.push_back(std::make_shared<Cone>(cone));
     }
   }
 
   if (filtered_cones.size() < 2) {
-    RCLCPP_WARN(rclcpp::get_logger("planning"),"[Planning] Not enough cones to compute midpoints");
+    RCLCPP_WARN(rclcpp::get_logger("planning"), "[Planning] Not enough cones to compute midpoints");
   }
-
 }
 
 std::shared_ptr<Midpoint> MidpointGenerator::process_triangle_edge(
-    const Vertex_handle& va,
-    const Vertex_handle& vb,
+    const Vertex_handle& va, const Vertex_handle& vb,
     std::vector<std::shared_ptr<Cone>>& filtered_cones,
     std::map<std::pair<int, int>, std::shared_ptr<Midpoint>>& segment_to_midpoint) {
-  
   Point p1 = va->point();
   Point p2 = vb->point();
 
   // Find corresponding cone IDs
-  int id1 = ::find_cone(filtered_cones, p1.x(), p1.y());
-  int id2 = ::find_cone(filtered_cones, p2.x(), p2.y());
+  int id1 = find_cone(filtered_cones, p1.x(), p1.y());
+  int id2 = find_cone(filtered_cones, p2.x(), p2.y());
 
   if (id1 == -1 || id2 == -1) {
     return nullptr;
@@ -86,8 +83,8 @@ std::shared_ptr<Midpoint> MidpointGenerator::process_triangle_edge(
 
   // Check distance constraints
   if (double squared_distance = CGAL::squared_distance(p1, p2);
-    (squared_distance <= config_.minimum_cone_distance_ * config_.minimum_cone_distance_) ||
-    (squared_distance >= config_.maximum_cone_distance_ * config_.maximum_cone_distance_)) {
+      (squared_distance <= config_.minimum_cone_distance_ * config_.minimum_cone_distance_) ||
+      (squared_distance >= config_.maximum_cone_distance_ * config_.maximum_cone_distance_)) {
     return nullptr;
   }
 
@@ -99,24 +96,19 @@ std::shared_ptr<Midpoint> MidpointGenerator::process_triangle_edge(
     return it->second;
   }
 
-
   // Create new midpoint
-  auto midpoint = std::make_shared<Midpoint>(
-      CGAL::midpoint(p1, p2), 
-      filtered_cones[id1], 
-      filtered_cones[id2]
-  );
-  
+  auto midpoint =
+      std::make_shared<Midpoint>(CGAL::midpoint(p1, p2), filtered_cones[id1], filtered_cones[id2]);
+
   segment_to_midpoint[key] = midpoint;
   midpoints_.push_back(midpoint);
   triangulations_.push_back({p1, p2});
-  
+
   return midpoint;
 }
 
 void MidpointGenerator::connect_triangle_midpoints(
     const std::array<std::shared_ptr<Midpoint>, 3>& triangle_midpoints) {
-  
   for (int i = 0; i < 3; ++i) {
     if (!triangle_midpoints[i]) {
       continue;
@@ -131,10 +123,18 @@ void MidpointGenerator::connect_triangle_midpoints(
 }
 
 const std::vector<std::pair<Point, Point>>& MidpointGenerator::get_triangulations() const {
-    return triangulations_;
+  return triangulations_;
 }
 
+void MidpointGenerator::set_vehicle_pose(const Pose& vehicle_pose) { 
+  vehicle_pose_ = vehicle_pose; 
+}
 
-void MidpointGenerator::set_vehicle_pose(const Pose& vehicle_pose){
-    vehicle_pose_ = vehicle_pose;
+int MidpointGenerator::find_cone(std::vector<std::shared_ptr<Cone>>& cones, double x, double y) {
+    for (int i = 0; i < static_cast<int>(cones.size()); i++) {
+        if (cones[i]->position.x == x && cones[i]->position.y == y) {
+            return i;
+        }
+    }
+    return -1;
 }
