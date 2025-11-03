@@ -364,7 +364,12 @@ void Planning::publish_execution_time(rclcpp::Time start_time) {
 void Planning::publish_visualization_msgs() const {
   yellow_cones_pub_->publish(
     common_lib::communication::marker_array_from_structure_array(
-      path_calculation_.get_yellow_cones(), "map_cones", "map"));
+      path_calculation_.get_yellow_cones(), "map_cones", "map", "yellow"));
+
+  blue_cones_pub_->publish(
+    common_lib::communication::marker_array_from_structure_array(
+      path_calculation_.get_blue_cones(), "map_cones", "map", "blue"));
+
   triangulations_pub_->publish(
       common_lib::communication::lines_marker_from_triangulations(
           path_calculation_.get_triangulations(), "triangulations", map_frame_id_, 20, "white",
