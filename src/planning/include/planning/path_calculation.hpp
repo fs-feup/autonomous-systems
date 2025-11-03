@@ -92,7 +92,9 @@ public:
    */
   const std::vector<std::pair<Point, Point>>& get_triangulations() const;
 
-  std::vector<Cone> get_cones() const;
+  const std::vector<Cone>& get_yellow_cones() const;
+
+  const std::vector<Cone>& get_blue_cones() const;
 
 private:
   // ===================== Configuration and State =====================
@@ -115,6 +117,8 @@ private:
 
   // Path construction state (temporary during calculation)
   std::vector<Colorpoint> current_path_;
+  std::vector<Cone> yellow_cones_;
+  std::vector<Cone> blue_cones_;
   std::unordered_map<Point, std::shared_ptr<Midpoint>> point_to_midpoint_;
   std::unordered_set<std::shared_ptr<Midpoint>> visited_midpoints_;
   std::unordered_set<std::shared_ptr<Cone>> discarded_cones_;

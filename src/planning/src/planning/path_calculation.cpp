@@ -50,7 +50,7 @@ std::vector<PathPoint> PathCalculation::calculate_path(const std::vector<Cone>& 
   if (cutoff_index == -1) {
     RCLCPP_WARN(rclcpp::get_logger("planning"), "No valid path points found near the car.");
   }
-
+  //colocar com os outros!
   path_to_car_.clear();
   // Retain part of the existing path leading to the car
   if (cutoff_index != -1 && cutoff_index > config_.lookback_points_) {
@@ -73,6 +73,11 @@ std::vector<PathPoint> PathCalculation::calculate_path(const std::vector<Cone>& 
   }
 
   extend_path(max_points);
+
+  yellow_cones_.reserve(current_path_.size());
+  blue_cones_.reserve(current_path_.size());
+
+  Colorpoint::extract_cones(current_path_,yellow_cones_,blue_cones_);
 
   past_path_ = current_path_;  // Update the path for next iteration
 
@@ -122,6 +127,8 @@ void PathCalculation::clear_path_state() {
   point_to_midpoint_.clear();
   visited_midpoints_.clear();
   discarded_cones_.clear();
+  yellow_cones_.clear();
+  blue_cones_.clear();
 }
 
 int PathCalculation::reset_path(bool should_reset) {
@@ -594,4 +601,12 @@ std::vector<PathPoint> PathCalculation::get_path_to_car() const {
 
 const std::vector<std::pair<Point, Point>>& PathCalculation::get_triangulations() const {
   return midpoint_generator_.get_triangulations();
+}
+
+const std::vector<Cone>& PathCalculation::get_yellow_cones() const{
+  return yellow_cones_;
+}
+
+const std::vector<Cone>& PathCalculation::get_blue_cones() const{
+  return blue_cones_;
 }

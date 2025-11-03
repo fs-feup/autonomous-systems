@@ -111,6 +111,10 @@ Planning::Planning(const PlanningParameters &params)
       create_publisher<std_msgs::msg::Float64>("/path_planning/execution_time", 10);
 
   if (planning_config_.simulation_.publishing_visualization_msgs_) {
+    yellow_cones_pub_ = 
+        create_publisher<visualization_msgs::msg::MarkerArray>("/path_planning/yellow_cones", 10);
+    blue_cones_pub_ = 
+        create_publisher<visualization_msgs::msg::MarkerArray>("/path_planning/blue_cones", 10);
     triangulations_pub_ = create_publisher<visualization_msgs::msg::Marker>(
         "/path_planning/triangulations", 10);
     path_to_car_pub_ = create_publisher<visualization_msgs::msg::MarkerArray>(
@@ -119,8 +123,6 @@ Planning::Planning(const PlanningParameters &params)
         "/path_planning/full_path", 10);
     final_path_pub_ =
         create_publisher<visualization_msgs::msg::Marker>("/path_planning/smoothed_path", 10);
-    colored_cones_pub_ = 
-        create_publisher<visualization_msgs::msg::MarkerArray>("/path_planning/colored_cones", 10);
   }
 
   if (!planning_config_.simulation_.using_simulated_se_) {
@@ -332,7 +334,7 @@ void Planning::run_planning_algorithms() {
     RCLCPP_INFO(rclcpp::get_logger("planning"), "Final path size: %d",
                 static_cast<int>(final_path_.size()));
   }
-  //mudar isto para o final!
+  
   publish_execution_time(start_time);
   publish_path_points();
   
@@ -360,6 +362,9 @@ void Planning::publish_execution_time(rclcpp::Time start_time) {
 }
 
 void Planning::publish_visualization_msgs() const {
+  yellow_cones_pub_->publish(
+    common_lib::communication::marker_array_from_structure_array(
+      path_calculation_.get_yellow_cones(), "map_cones", "map"));
   triangulations_pub_->publish(
       common_lib::communication::lines_marker_from_triangulations(
           path_calculation_.get_triangulations(), "triangulations", map_frame_id_, 20, "white",

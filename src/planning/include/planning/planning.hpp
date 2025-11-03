@@ -131,6 +131,10 @@ private:
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr planning_execution_time_pub_;
 
   /*--------------------- Visualization Publishers --------------------*/
+  /**< Publisher for the yellow cones */
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr yellow_cones_pub_;
+  /**< Publisher for the blue cones */
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr blue_cones_pub_;
   /**< Publisher for Delaunay triangulations */
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr triangulations_pub_;
   /**< Publisher for the past portion of the path 
@@ -140,8 +144,6 @@ private:
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr full_path_pub_;
   /**< Publisher for the smoothed path*/
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr final_path_pub_;
-  /**< Publisher for the colored cones*/
-  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr colored_cones_pub_;
 
   /*--------------------- Service Clients --------------------*/
   rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr param_client_;
