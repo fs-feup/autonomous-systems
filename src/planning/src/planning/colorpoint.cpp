@@ -90,7 +90,7 @@ void Colorpoint::add_cones_by_reference(const Cone& reference_cone, const Cone& 
 void Colorpoint::color_last_point(std::vector<Colorpoint>& colorpoints,
                                   std::vector<Cone>& yellow_cones, std::vector<Cone>& blue_cones) {
   const Colorpoint& second_to_last = colorpoints[colorpoints.size() - 2];
-  Colorpoint& last = colorpoints.back();
+  const Colorpoint& last = colorpoints.back();
 
   // Check which cone from second-to-last matches which cone in last
   if (second_to_last.cone1 == last.cone1) {
