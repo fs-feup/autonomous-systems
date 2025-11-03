@@ -17,7 +17,8 @@ using Color = common_lib::competition_logic::Color;
 
 /**
  * @class Colorpoint
- * @brief Path point with two boundary cones, provides cone classification into left/right boundaries.
+ * @brief Path point with two boundary cones, provides cone classification into left/right
+ * boundaries.
  */
 class Colorpoint {
 public:
@@ -69,8 +70,8 @@ private:
    * @param blue_cones Vector of blue (left-side) cones
    * @return true if cones are already colored correctly, false otherwise
    */
-  static bool is_colored_right(Colorpoint& colorpoint, std::vector<Cone>& yellow_cones,
-                               std::vector<Cone>& blue_cones);
+  static bool is_colored_right(const Colorpoint& colorpoint, std::vector<Cone>& yellow_cones,
+                                    std::vector<Cone>& blue_cones);
 
   /**
    * @brief Colors cones using cross product to determine left/right orientation.
@@ -102,9 +103,9 @@ private:
    * @param yellow_cones Vector of yellow (right-side) cones
    * @param blue_cones Vector of blue (left-side) cones
    */
-  static void add_cones_by_reference(const Cone& reference_cone, Cone& matching_cone,
-                                     Cone& other_cone, std::vector<Cone>& yellow_cones,
-                                     std::vector<Cone>& blue_cones);
+  static void add_cones_by_reference(const Cone& reference_cone, const Cone& matching_cone,
+                                          const Cone& other_cone, std::vector<Cone>& yellow_cones,
+                                          std::vector<Cone>& blue_cones);
 };
 
 #endif  // SRC_PLANNING_INCLUDE_PLANNING_COLORPOINT_HPP_

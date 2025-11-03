@@ -21,12 +21,12 @@ void Colorpoint::extract_cones(std::vector<Colorpoint>& colorpoints,
 
 void Colorpoint::add_cone(const Cone& cone, std::vector<Cone>& cones) {
   // Only add if it's the first cone or different from the previous one
-  if (cones.empty() || !(cones[cones.size() - 2] == cone)) {
+  if (cones.empty() || !(cones.back() == cone)) {
     cones.push_back(cone);
   }
 }
 
-bool Colorpoint::is_colored_right(Colorpoint& colorpoint, std::vector<Cone>& yellow_cones,
+bool Colorpoint::is_colored_right(const Colorpoint& colorpoint, std::vector<Cone>& yellow_cones,
                                   std::vector<Cone>& blue_cones) {
   if (colorpoint.cone1.color == Color::YELLOW && colorpoint.cone2.color == Color::BLUE) {
     add_cone(colorpoint.cone1, yellow_cones);
@@ -75,8 +75,8 @@ void Colorpoint::color_cones(Colorpoint& colorpoint, const Colorpoint& next_colo
   }
 }
 
-void Colorpoint::add_cones_by_reference(const Cone& reference_cone, Cone& matching_cone,
-                                        Cone& other_cone, std::vector<Cone>& yellow_cones,
+void Colorpoint::add_cones_by_reference(const Cone& reference_cone, const Cone& matching_cone,
+                                        const Cone& other_cone, std::vector<Cone>& yellow_cones,
                                         std::vector<Cone>& blue_cones) {
   if (reference_cone.color == Color::BLUE) {
     add_cone(matching_cone, blue_cones);
