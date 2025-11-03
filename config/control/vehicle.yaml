@@ -18,6 +18,16 @@ control:
   pid_max_positive_error: 3
   pid_max_negative_error: -3
   command_time_interval: 30 # Milliseconds
+  # Distance
+  distance_p_gain : 0.08
+  distance_i_gain : 0.0
+  distance_anti_windup : 0.0
+  distance_d_gain : 0.0
+  # Heading
+  heading_p_gain : 0.00
+  heading_i_gain : 0.0
+  heading_anti_windup : 0.0
+  heading_d_gain : 0.0
 
 # Parameters for EBS Test
 # control:
