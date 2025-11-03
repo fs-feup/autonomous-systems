@@ -57,7 +57,6 @@ set(IMPLEMENTATION_FILES
   src/planning/skidpad.cpp
   src/planning/midpoint_generator.cpp
   src/planning/colorpoint.cpp
-  src/utils/cone.cpp
   src/utils/files.cpp
 )
 

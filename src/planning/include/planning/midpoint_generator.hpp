@@ -4,12 +4,12 @@
 #include <CGAL/Delaunay_triangulation_2.h>
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 
-#include <vector>
 #include <rclcpp/rclcpp.hpp>
+#include <vector>
 
-#include "common_lib/structures/pose.hpp"
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/midpoint.hpp"
+#include "common_lib/structures/pose.hpp"
 #include "config/midpoint_generator_config.hpp"
 
 using K = CGAL::Exact_predicates_inexact_constructions_kernel;
@@ -32,7 +32,6 @@ using Midpoint = common_lib::structures::Midpoint;
  * - Connects midpoints belonging to the same triangle.
  */
 class MidpointGenerator {
-
 public:
   /**
    * @brief Default constructor.
@@ -44,8 +43,7 @@ public:
    *
    * @param config Configuration object defining thresholds and filtering behavior.
    */
-  explicit MidpointGenerator(const MidpointGeneratorConfig& config)
-      : config_(config) {}
+  explicit MidpointGenerator(const MidpointGeneratorConfig& config) : config_(config) {}
 
   /**
    * @brief Generates midpoints from a set of cones.
@@ -57,8 +55,8 @@ public:
    * @param rebuild_all_midpoints Whether to use all cones
    * @return Reference to the vector containing all generated midpoints.
    */
-  std::vector<std::shared_ptr<Midpoint>>& generate_midpoints(
-      const std::vector<Cone>& cone_array, bool rebuild_all_midpoints);
+  std::vector<std::shared_ptr<Midpoint>>& generate_midpoints(const std::vector<Cone>& cone_array,
+                                                             bool rebuild_all_midpoints);
 
   /**
    * @brief Returns the current set of Delaunay edges used for visualization.
@@ -77,7 +75,6 @@ public:
   void set_vehicle_pose(const Pose& vehicle_pose);
 
 private:
-
   // Stores Delaunay triangulation edges for visualization and debugging.
   std::vector<std::pair<Point, Point>> triangulations_;
 
@@ -98,8 +95,7 @@ private:
    * @param rebuild_all_midpoints Whether to reset filtering and include all cones.
    */
   void filter_cones(const std::vector<Cone>& cone_array,
-                    std::vector<std::shared_ptr<Cone>>& filtered_cones,
-                    bool rebuild_all_midpoints);
+                    std::vector<std::shared_ptr<Cone>>& filtered_cones, bool rebuild_all_midpoints);
 
   /**
    * @brief Processes a single edge of a Delaunay triangle and creates its midpoint if valid.
@@ -114,8 +110,7 @@ private:
    * @return A shared pointer to the created or existing midpoint, or nullptr if invalid.
    */
   std::shared_ptr<Midpoint> process_triangle_edge(
-      const Vertex_handle& va,
-      const Vertex_handle& vb,
+      const Vertex_handle& va, const Vertex_handle& vb,
       std::vector<std::shared_ptr<Cone>>& filtered_cones,
       std::map<std::pair<int, int>, std::shared_ptr<Midpoint>>& segment_to_midpoint);
 
@@ -126,6 +121,16 @@ private:
    */
   void connect_triangle_midpoints(
       const std::array<std::shared_ptr<Midpoint>, 3>& triangle_midpoints);
+
+  /**
+   * @brief Finds a cone in a vector based on its position coordinates.
+   *
+   * @param cones Reference to a vector of shared pointers to `Cone` objects.
+   * @param x The x-coordinate of the cone to find.
+   * @param y The y-coordinate of the cone to find.
+   * @return The index of the cone with the matching position, or -1 if not found.
+   */
+  int find_cone(std::vector<std::shared_ptr<Cone>>& cones, double x, double y);
 };
 
 #endif  // SRC_PLANNING_INCLUDE_PLANNING_DELAUNY_MIDPOINT_GENERATOR_HPP_

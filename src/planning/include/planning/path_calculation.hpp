@@ -92,8 +92,16 @@ public:
    */
   const std::vector<std::pair<Point, Point>>& get_triangulations() const;
 
+  /**
+   * @brief Gets the list of yellow cones detected or used in the path calculation.
+   * @return Constant reference to a vector containing the yellow cones.
+   */
   const std::vector<Cone>& get_yellow_cones() const;
 
+  /**
+   * @brief Gets the list of blue cones detected or used in the path calculation.
+   * @return Constant reference to a vector containing the blue cones.
+   */
   const std::vector<Cone>& get_blue_cones() const;
 
 private:

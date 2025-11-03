@@ -8,7 +8,6 @@
 #include <utility>
 #include <vector>
 
-#include "utils/cone.hpp"
 
 // ===================== Path Calculation (Core) =====================
 
@@ -50,8 +49,7 @@ std::vector<PathPoint> PathCalculation::calculate_path(const std::vector<Cone>& 
   if (cutoff_index == -1) {
     RCLCPP_WARN(rclcpp::get_logger("planning"), "No valid path points found near the car.");
   }
-  // colocar com os outros!!
-  path_to_car_.clear();
+
   path_to_car_.reserve(past_path_.size());
   // Retain part of the existing path leading to the car
   if (cutoff_index != -1 && cutoff_index > config_.lookback_points_) {
@@ -124,6 +122,7 @@ std::vector<PathPoint> PathCalculation::calculate_trackdrive(const std::vector<C
 
 void PathCalculation::clear_path_state() {
   current_path_.clear();
+  path_to_car_.clear();
   point_to_midpoint_.clear();
   visited_midpoints_.clear();
   discarded_cones_.clear();
@@ -235,6 +234,7 @@ void PathCalculation::extend_path(int max_points) {
   // Reserve space for expected path growth
   current_path_.reserve(current_path_.size() + max_points);
 
+  
   while (true) {
     if (current_path_.size() < 2) {
       break;
@@ -261,7 +261,8 @@ void PathCalculation::extend_path(int max_points) {
       break;
     }
 
-    current_path_.push_back(Colorpoint(best_midpoint->point, *best_midpoint->cone1, *best_midpoint->cone2));
+    current_path_.push_back(
+        Colorpoint(best_midpoint->point, *best_midpoint->cone1, *best_midpoint->cone2));
     (void)visited_midpoints_.insert(best_midpoint);
     n_points++;
 
@@ -606,6 +607,10 @@ const std::vector<std::pair<Point, Point>>& PathCalculation::get_triangulations(
   return midpoint_generator_.get_triangulations();
 }
 
-const std::vector<Cone>& PathCalculation::get_yellow_cones() const { return yellow_cones_; }
+const std::vector<Cone>& PathCalculation::get_yellow_cones() const { 
+  return yellow_cones_; 
+}
 
-const std::vector<Cone>& PathCalculation::get_blue_cones() const { return blue_cones_; }
+const std::vector<Cone>& PathCalculation::get_blue_cones() const { 
+  return blue_cones_; 
+}

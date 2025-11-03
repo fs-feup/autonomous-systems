@@ -1,7 +1,5 @@
 #include "planning/midpoint_generator.hpp"
 
-#include "utils/cone.hpp"
-
 std::vector<std::shared_ptr<Midpoint>>& MidpointGenerator::generate_midpoints(
     const std::vector<Cone>& cone_array, bool rebuild_all_midpoints) {
   DT dt;
@@ -76,8 +74,8 @@ std::shared_ptr<Midpoint> MidpointGenerator::process_triangle_edge(
   Point p2 = vb->point();
 
   // Find corresponding cone IDs
-  int id1 = ::find_cone(filtered_cones, p1.x(), p1.y());
-  int id2 = ::find_cone(filtered_cones, p2.x(), p2.y());
+  int id1 = find_cone(filtered_cones, p1.x(), p1.y());
+  int id2 = find_cone(filtered_cones, p2.x(), p2.y());
 
   if (id1 == -1 || id2 == -1) {
     return nullptr;
@@ -130,4 +128,13 @@ const std::vector<std::pair<Point, Point>>& MidpointGenerator::get_triangulation
 
 void MidpointGenerator::set_vehicle_pose(const Pose& vehicle_pose) { 
   vehicle_pose_ = vehicle_pose; 
+}
+
+int MidpointGenerator::find_cone(std::vector<std::shared_ptr<Cone>>& cones, double x, double y) {
+    for (int i = 0; i < static_cast<int>(cones.size()); i++) {
+        if (cones[i]->position.x == x && cones[i]->position.y == y) {
+            return i;
+        }
+    }
+    return -1;
 }
