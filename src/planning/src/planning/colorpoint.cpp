@@ -78,11 +78,10 @@ void Colorpoint::color_cones(Colorpoint& colorpoint, const Colorpoint& next_colo
 void Colorpoint::add_cones_by_reference(const Cone& reference_cone, Cone& matching_cone,
                                         Cone& other_cone, std::vector<Cone>& yellow_cones,
                                         std::vector<Cone>& blue_cones) {
-
-  if(reference_cone.color == Color::BLUE){
+  if (reference_cone.color == Color::BLUE) {
     add_cone(matching_cone, blue_cones);
     add_cone(other_cone, yellow_cones);
-  }else{
+  } else {
     add_cone(matching_cone, yellow_cones);
     add_cone(other_cone, blue_cones);
   }
@@ -102,7 +101,8 @@ void Colorpoint::color_last_point(std::vector<Colorpoint>& colorpoints,
     add_cones_by_reference(second_to_last.cone2, last.cone1, last.cone2, yellow_cones, blue_cones);
   } else if (second_to_last.cone2 == last.cone2) {
     add_cones_by_reference(second_to_last.cone2, last.cone2, last.cone1, yellow_cones, blue_cones);
-  }else{
-    RCLCPP_WARN(rclcpp::get_logger("planning"), "The last cone does not match with any previous cone.");
+  } else {
+    RCLCPP_WARN(rclcpp::get_logger("planning"),
+                "The last cone does not match with any previous cone.");
   }
 }
