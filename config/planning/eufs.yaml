@@ -4,7 +4,7 @@ planning:
   mg_maximum_cone_distance: 10.0 # maximum distance between cones
   mg_sliding_window_radius: 20.0
   #---------------------- Path Calculation (pc_) ------------------------
-  pc_use_sliding_window: true
+  pc_use_sliding_window: false
   pc_angle_gain: 70.0  
   pc_distance_gain: 6.0
   pc_angle_exponent: 2.0
