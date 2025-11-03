@@ -311,6 +311,7 @@ PathCalculation::select_starting_midpoints() {
                           std::pow(angle_deviation, config_.angle_exponent_) * config_.angle_gain_;
 
     cost += initial_cost;
+    cost += initial_cost;
 
     if (cost < best_cost) {
       result.first = first;
