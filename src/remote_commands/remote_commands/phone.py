@@ -10,25 +10,30 @@ import json
 import socket
 import traceback
 from datetime import datetime
-from pacsim.msg import StampedScalar
-
+import sys, socket
 
 import rclpy
 from rclpy.node import Node
+
+from pacsim.msg import StampedScalar
 import custom_interfaces.msg._control_command
 
 WS_HOST = "0.0.0.0"
 WS_PORT = 6969
 PUBLISH_RATE_HZ = 100.0
 TOPIC = "/control/command"
-NODE_NAME = "car_phone"
+NODE_NAME = "phone"
 
 LOG_EVERY_MESSAGE = False
 PRINT_RX_RATE_EVERY_S = 2.0
 
 try:
+    sys.stdout.reconfigure(line_buffering=True)
+except Exception:
+    pass
+
+try:
     import websockets
-    # Try to import the new Response class (websockets >= 12/13)
     try:
         from websockets.http import Response as WSHTTPResponse
         HAVE_WS_RESPONSE = True
@@ -41,17 +46,19 @@ except ImportError:
 def get_host_ip():
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.settimeout(0.2)
         s.connect(("8.8.8.8", 80))
         ip = s.getsockname()[0]
         s.close()
         return ip
     except Exception:
-        return "UNKNOWN"
+        return "0.0.0.0"
 
 
 class PublishThread(threading.Thread):
     def __init__(self, rate_hz: float):
         super().__init__(daemon=True)
+        # Create a Node inside the thread (context is already initialized by rclpy.init())
         self.node = Node(NODE_NAME)
         self.control_publisher = self.node.create_publisher(
             custom_interfaces.msg._control_command.ControlCommand, TOPIC, 10
@@ -66,7 +73,8 @@ class PublishThread(threading.Thread):
         self._lock = threading.Lock()
         self._accel = 0.0
         self._steer = 0.0
-        self._stop = threading.Event()
+        # IMPORTANT: do NOT call this "_stop" (conflicts with Thread._stop())
+        self._stop_evt = threading.Event()
         self.start()
 
     def update(self, accel: float, steer_rad: float):
@@ -76,10 +84,29 @@ class PublishThread(threading.Thread):
             self._accel = accel
             self._steer = steer_rad
 
+    def _safe_publish(self, msg, lat_val, lon_val):
+        """Guard publishes so we don't publish after shutdown."""
+        try:
+            # context could be None in some test harnesses; be defensive
+            ctx_ok = True
+            try:
+                ctx_ok = getattr(self.node, "context", None) is None or self.node.context.ok()
+            except Exception:
+                pass
+            if rclpy.ok() and ctx_ok:
+                self.control_publisher.publish(msg)
+                lateral = StampedScalar(); lateral.value = lat_val
+                longitudinal = StampedScalar(); longitudinal.value = lon_val
+                self.acceleration_publisher.publish(longitudinal)
+                self.steering_publisher.publish(lateral)
+        except Exception:
+            # swallow any shutdown races
+            pass
+
     def run(self):
         period = 1.0 / self.rate
         try:
-            while not self._stop.is_set():
+            while not self._stop_evt.is_set():
                 with self._lock:
                     acc = self._accel
                     st = self._steer
@@ -87,44 +114,34 @@ class PublishThread(threading.Thread):
                 msg.throttle_rl = acc
                 msg.throttle_rr = acc
                 msg.steering = st
-                self.control_publisher.publish(msg)
-                
-                lateral_command_msg = StampedScalar()
-                longitudinal_command_msg = StampedScalar()
-                lateral_command_msg.value = st
-                longitudinal_command_msg.value = acc
-                self.acceleration_publisher.publish(longitudinal_command_msg)
-                self.steering_publisher.publish(lateral_command_msg)
-                        
-                time.sleep(period)
+                self._safe_publish(msg, st, acc)
+                # use wait() so Ctrl+C wakes quickly
+                self._stop_evt.wait(period)
         finally:
+            # Publish zeros on exit if possible
             msg = custom_interfaces.msg._control_command.ControlCommand()
             msg.throttle_rl = 0.0
             msg.throttle_rr = 0.0
             msg.steering = 0.0
-            self.control_publisher.publish(msg)
-            lateral_command_msg = StampedScalar()
-            longitudinal_command_msg = StampedScalar()
-            lateral_command_msg.value = st
-            longitudinal_command_msg.value = acc
-            self.acceleration_publisher.publish(longitudinal_command_msg)
-            self.steering_publisher.publish(lateral_command_msg)
-                        
+            self._safe_publish(msg, 0.0, 0.0)
+            try:
+                self.node.destroy_node()
+            except Exception:
+                pass
 
     def stop(self):
-        self._stop.set()
-        self.join()
+        self._stop_evt.set()
+        # join safely; no clash with Thread internals now
+        super().join()
 
 
 async def websocket_main(pub_thread: PublishThread):
     clients = set()
 
-    # Serve a tiny health page only for HTTP GETs to "/", "/healthz", "/info".
-    # Return None for everything else so WS upgrades proceed normally.
     async def process_request(path, request_headers):
         if path in ("/", "/healthz", "/info"):
             body = (
-                "car_phone OK\n"
+                "phone OK\n"
                 f"time: {datetime.utcnow().isoformat()}Z\n"
                 f"topic: {TOPIC}\n"
                 f"node: {NODE_NAME}\n"
@@ -135,16 +152,12 @@ async def websocket_main(pub_thread: PublishThread):
             if HAVE_WS_RESPONSE:
                 return WSHTTPResponse(200, headers, body)
             else:
-                # Older websockets accepts (status, headers, body)
                 return (200, headers, body)
-        # Return None to continue with WS handshake
         return None
 
-    # Handler compatible with both websockets APIs (ws) and (ws, path)
     async def handler(*args):
         if len(args) == 1:
-            ws = args[0]
-            path = None
+            ws = args[0]; path = None
         else:
             ws, path = args[0], args[1]
 
@@ -180,7 +193,6 @@ async def websocket_main(pub_thread: PublishThread):
             clients.discard(ws)
             print(f"[{NODE_NAME}] Client disconnected: {peer}")
 
-    # Start server
     async with websockets.serve(
         handler,
         WS_HOST,
@@ -210,6 +222,7 @@ def main():
     except Exception:
         traceback.print_exc()
     finally:
+        # Stop publisher thread BEFORE shutting down ROS
         pub_thread.stop()
         rclpy.shutdown()
 

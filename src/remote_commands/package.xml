@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>remote_commands</name>
+  <version>0.1.0</version>
+  <description>Phone and PS3 controller teleop for normal car and pacsim.</description>
+
+  <maintainer email="diogoalexandrepinheiro@gmail.com">diogoalexandrepinheiro</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_python</buildtool_depend>
+  <exec_depend>rclpy</exec_depend>
+
+  <exec_depend>pacsim</exec_depend>
+  <exec_depend>custom_interfaces</exec_depend>
+
+  <exec_depend>python3-evdev</exec_depend>
+  <exec_depend>python3-websockets</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
