@@ -81,11 +81,7 @@ void PerceptionNode::processPerception()
 {
   // Generate and publish perception data (list of objects)
   auto perception_msg = custom_interfaces::msg::PerceptionData();
-  perception_msg.header.stamp = this->now();
-  perception_msg.header.frame_id = "robot";
   perception_msg.perception_radius = perception_radius_;
-  perception_msg.robot_position.x = robot_x_;
-  perception_msg.robot_position.y = robot_y_;
   perception_msg.objects = detectObjects();
   
   perception_pub_->publish(perception_msg);
