@@ -13,40 +13,57 @@ struct SLAMParameters {
   bool use_simulated_perception_ = false;
   bool use_simulated_velocities_ = false;
   std::string motion_model_name_ = "constant_velocity";
+  std::string pose_updater_name_ = "base_pose_updater";  // Name of the pose updater object,
+                                                         // responsible for keeping pose estimate
   std::string data_association_model_name_ = "nearest_neighbor";
+  std::string lidar_odometry_topic_ = "/fast_limo/state";  // Topic for pose from lidar odometry
+  bool receive_lidar_odometry_ = false;  // Whether to use lidar odometry topic or not
   std::string slam_solver_name_ = "graph_slam";
   std::string landmark_filter_name_ = "consecutive_count";
-  std::string frame_id_ = "map";
-  float data_association_limit_distance_ = 70;
-  float observation_x_noise_ = 0.01;
-  float observation_y_noise_ = 0.01;
+  std::string frame_id_ = "map";  // Frame for the map
+  float data_association_limit_distance_ =
+      70;  // maximum distance to consider a cone for data association
+  float observation_x_noise_ =
+      0.01;  // standard deviation of the observation noise in x (range in Graph SLAM)
+  float observation_y_noise_ =
+      0.01;  // standard deviation of the observation noise in y (bearing in Graph SLAM)
   float velocity_x_noise_ = 0.1;
   float velocity_y_noise_ = 0.1;
   float angular_velocity_noise_ = 0.1;
+  float imu_acceleration_x_noise_ = 0.5;
   double pose_x_initial_noise_ = 0.1;      // Initial noise for the pose x
   double pose_y_initial_noise_ = 0.1;      // Initial noise for the pose y
   double pose_theta_initial_noise_ = 0.1;  // Initial noise for the pose theta
+  double preloaded_map_noise_ = 0.1;       // Noise for preloaded map landmarks
   double data_association_gate_ = 1.23;
   double new_landmark_confidence_gate_ = 0.6;
   bool using_preloaded_map_ = false;  // Use preloaded map for SLAM
   double slam_min_pose_difference_ =
       0.3;  //< Minimum pose difference to add a new pose to the graph
   double slam_optimization_period_ = 0.0;  //< Period for running optimization of the graph (s),
-                                           //  0.0 means optimization on observations receival
-  int minimum_observation_count_ =
-      3;  // Minimum number of times a landmark must be observed to be added to the map
-  double minimum_frequency_of_detections_ =
-      5;  // Minimum frequency of the detections of a landmark to add it to the map
+  //  0.0 means optimization on observations receival
   std::string slam_optimization_type_ = "normal_levenberg";
   std::string slam_optimization_mode_ = "sync";
-  double preloaded_map_noise_ = 0.1;  // Noise for preloaded map landmarks
+  bool slam_optimization_in_poses_ = false;  // Whether to optimize when adding poses or not
 
   double slam_isam2_relinearize_threshold_ = 0.1;
   double slam_isam2_relinearize_skip_ = 1;
   std::string slam_isam2_factorization_ = "QR";
   unsigned int sliding_window_size_ = 5;
 
+  // Loop closure parameters
+  double threshold_dist = 4.0;  // Distance around origin to trigger loop closure
+  int first_x_cones = 10;       // consider a loop if you see any of these first X cones
+  int border_width = 5;         // distance to givve to start searching for loop closure again
+  int minimum_confidence = 3;   // minimum number of observations to confirm loop closure
+
+  // Perception filter parameters
   SLAMParameters() = default;
+  int minimum_observation_count_ =
+      3;  // Minimum number of times a landmark must be observed to be added to the map
+  double minimum_frequency_of_detections_ =
+      5;  // Minimum frequency of the detections of a landmark to add it to the map
+
   SLAMParameters(const SLAMParameters &params);
 
   /**
@@ -56,18 +73,32 @@ struct SLAMParameters {
    */
   std::string load_config();
 
+  /**
+   * @brief Get data association parameters
+   * @return DataAssociationParameters
+   */
   DataAssociationParameters get_data_association_parameters() {
     return DataAssociationParameters(data_association_limit_distance_, data_association_gate_,
                                      new_landmark_confidence_gate_, observation_x_noise_,
                                      observation_y_noise_);
   }
 
+  /**
+   * @brief Overload the output stream operator for SLAMParameters
+   * @param os Output stream
+   * @param params SLAMParameters object
+   * @return std::ostream& Output stream
+   */
   friend std::ostream &operator<<(std::ostream &os, const SLAMParameters &params) {
     os << "SLAMParameters: {"
        << ", frame_id_: " << params.frame_id_
        << "use_simulated_perception_: " << params.use_simulated_perception_
        << ", use_simulated_velocities_: " << params.use_simulated_velocities_
        << ", motion_model_name_: " << params.motion_model_name_
+       << ", pose_updater_name_: " << params.pose_updater_name_
+       << ", landmark_filter_name_: " << params.landmark_filter_name_
+       << ", lidar_odometry_topic_: " << params.lidar_odometry_topic_
+       << ", receive_lidar_odometry_: " << params.receive_lidar_odometry_
        << ", data_association_model_name_: " << params.data_association_model_name_
        << ", data_association_limit_distance_: " << params.data_association_limit_distance_
        << ", data_association_gate_: " << params.data_association_gate_
@@ -76,6 +107,7 @@ struct SLAMParameters {
        << ", observation_y_noise_: " << params.observation_y_noise_
        << ", velocity_x_noise_: " << params.velocity_x_noise_
        << ", velocity_y_noise_: " << params.velocity_y_noise_
+       << ", imu_acceleration_x_noise_: " << params.imu_acceleration_x_noise_
        << ", pose_x_initial_noise_: " << params.pose_x_initial_noise_
        << ", pose_y_initial_noise_: " << params.pose_y_initial_noise_
        << ", pose_theta_initial_noise_: " << params.pose_theta_initial_noise_
@@ -85,14 +117,25 @@ struct SLAMParameters {
        << ", slam_min_pose_difference_: " << params.slam_min_pose_difference_
        << ", slam_optimization_mode_: " << params.slam_optimization_mode_
        << ", slam_optimization_type_: " << params.slam_optimization_type_
+       << ", slam_optimization_in_poses_: " << params.slam_optimization_in_poses_
        << ", slam_optimization_period_: " << params.slam_optimization_period_
        << ", preloaded_map_noise_: " << params.preloaded_map_noise_
        << ", sliding_window_size_: " << params.sliding_window_size_
        << ", slam_isam2_relinearize_threshold_: " << params.slam_isam2_relinearize_threshold_
        << ", slam_isam2_relinearize_skip_: " << params.slam_isam2_relinearize_skip_
-       << ", slam_isam2_factorization_: " << params.slam_isam2_factorization_ << "}";
+       << ", slam_isam2_factorization_: " << params.slam_isam2_factorization_
+       << ", minimum_observation_count_: " << params.minimum_observation_count_
+       << ", minimum_frequency_of_detections_: " << params.minimum_frequency_of_detections_
+       << ", threshold_dist: " << params.threshold_dist
+       << ", first_x_cones: " << params.first_x_cones << ", border_width: " << params.border_width
+       << ", minimum_confidence: " << params.minimum_confidence << "}";
     return os;
   }
 
+  /**
+   * @brief Overload the assignment operator for SLAMParameters
+   * @param other SLAMParameters object to assign from
+   * @return SLAMParameters& Reference to the assigned SLAMParameters object
+   */
   SLAMParameters &operator=(const SLAMParameters &other);
 };

@@ -20,8 +20,6 @@ EKFSLAMSolver::EKFSLAMSolver(const SLAMParameters& params,
   this->observation_model_ = std::make_shared<ObservationModel>();
 }
 
-void EKFSLAMSolver::init([[maybe_unused]] std::weak_ptr<rclcpp::Node> _) {}
-
 Eigen::MatrixXd EKFSLAMSolver::get_observation_noise_matrix(int num_landmarks) const {
   Eigen::MatrixXd observation_noise_matrix =
       Eigen::MatrixXd::Zero(num_landmarks * 2, num_landmarks * 2);
@@ -32,7 +30,7 @@ Eigen::MatrixXd EKFSLAMSolver::get_observation_noise_matrix(int num_landmarks) c
   return observation_noise_matrix;
 }
 
-void EKFSLAMSolver::add_motion_prior(const common_lib::structures::Velocities& velocities) {
+void EKFSLAMSolver::add_velocities(const common_lib::structures::Velocities& velocities) {
   if (velocities_received_) {
     predict(this->state_, this->covariance_, process_noise_matrix_, this->last_update_, velocities);
   } else {
@@ -42,6 +40,7 @@ void EKFSLAMSolver::add_motion_prior(const common_lib::structures::Velocities& v
 }
 
 void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::Cone>& cones) {
+  // Prepare data structures
   int num_observations = static_cast<int>(cones.size());
   std::vector<int> matched_landmarks_indices;
   Eigen::VectorXd matched_observations(0);
@@ -52,10 +51,16 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
   common_lib::conversions::cone_vector_to_eigen(cones, observations, observation_confidences);
   Eigen::VectorXd global_observations =
       common_lib::maths::local_to_global_coordinates(this->state_.segment(0, 3), observations);
+
+  // Data association
   Eigen::VectorXi associations = this->_data_association_->associate(
       this->state_.segment(3, this->state_.size() - 3), global_observations,
       this->covariance_.block(3, 3, this->state_.size() - 3, this->state_.size() - 3),
       observation_confidences);
+
+  // Perception Filter
+  Eigen::VectorXd filtered_landmarks =
+      this->_landmark_filter_->filter(global_observations, observation_confidences, associations);
   for (int i = 0; i < num_observations; ++i) {
     if (associations(i) == -2) {
       continue;
@@ -72,18 +77,18 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
       matched_observations(matched_observations.size() - 1) = observations(2 * i + 1);
     }
   }
-  Eigen::VectorXd filtered_new_landmarks =
-      this->_landmark_filter_->filter(new_landmarks, new_confidences);
-  this->_landmark_filter_->delete_landmarks(filtered_new_landmarks);
+
+  // Update Kalman Filter
   this->correct(this->state_, this->covariance_, matched_landmarks_indices, matched_observations);
   if (this->_mission_ != common_lib::competition_logic::Mission::NONE &&
       !(this->_params_.using_preloaded_map_ &&
         (this->_mission_ == common_lib::competition_logic::Mission::SKIDPAD ||
          this->_mission_ == common_lib::competition_logic::Mission::ACCELERATION)) &&
       this->lap_counter_ == 0) {
-    this->state_augmentation(this->state_, this->covariance_, filtered_new_landmarks);
+    this->state_augmentation(this->state_, this->covariance_, new_landmarks);
     this->update_process_noise_matrix();
   }
+  this->_landmark_filter_->delete_landmarks(new_landmarks);
 }
 
 void EKFSLAMSolver::predict(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
@@ -147,7 +152,7 @@ void EKFSLAMSolver::state_augmentation(Eigen::VectorXd& state, Eigen::MatrixXd& 
   state.segment(original_state_size, num_new_entries) = new_landmarks_coordinates;
 }
 
-void EKFSLAMSolver::load_initial_state(const Eigen::VectorXd& map, const Eigen::VectorXd& pose) {
+void EKFSLAMSolver::load_initial_state(const Eigen::VectorXd& map, const Eigen::Vector3d& pose) {
   if (map.size() % 2 != 0 || pose.size() != 3) {
     throw std::runtime_error("Invalid map or pose size");
   }
@@ -165,10 +170,14 @@ void EKFSLAMSolver::load_initial_state(const Eigen::VectorXd& map, const Eigen::
 
 std::vector<common_lib::structures::Cone> EKFSLAMSolver::get_map_estimate() {
   std::vector<common_lib::structures::Cone> map;
+  std::string mapa = "";
   for (int i = 3; i < this->state_.size(); i += 2) {
+    mapa +=
+        "(" + std::to_string(this->state_(i)) + ", " + std::to_string(this->state_(i + 1)) + "), ";
     map.push_back(common_lib::structures::Cone(this->state_(i), this->state_(i + 1), "unknown", 1.0,
                                                this->last_update_));
   }
+  RCLCPP_INFO(rclcpp::get_logger("slam_solver"), "Map estimate: %s", mapa.c_str());
   return map;
 }
 

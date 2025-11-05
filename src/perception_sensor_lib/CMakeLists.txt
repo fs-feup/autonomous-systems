@@ -22,6 +22,9 @@ foreach(pkg ${PACKAGES})
   find_package(${pkg} REQUIRED)
 endforeach()
 
+# Find PCL
+find_package(PCL REQUIRED COMPONENTS registration common io)
+
 # Enable OpenMP (optional)
 find_package(OpenMP)
 if(OpenMP_CXX_FOUND)
@@ -31,10 +34,10 @@ endif()
 set(IMPLEMENTATION_FILES
   src/data_association/maximum_likelihood_nll.cpp
   src/data_association/maximum_likelihood_md.cpp
+  src/data_association/nearest_neighbour_icp.cpp
   src/data_association/nearest_neighbor.cpp
-  src/observation_model/slam_observation_model/default_observation_model.cpp
-  src/observation_model/ve_observation_model/no_slip_bicycle_model.cpp
   src/data_association/jcbb.cpp
+  src/observation_model/base_observation_model.cpp
   src/landmark_filter/consecutive_counter_filter.cpp
   src/loop_closure/lap_counter.cpp
 )
@@ -46,10 +49,12 @@ target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
   ${EIGEN3_INCLUDE_DIR}
+  ${PCL_INCLUDE_DIRS}
 )
 
 # Link libraries & dependencies
 ament_target_dependencies(${PROJECT_NAME} ${PACKAGES})
+target_link_libraries(${PROJECT_NAME} ${PCL_LIBRARIES})
 
 ament_export_targets(${PROJECT_NAME} HAS_LIBRARY_TARGET)
 
@@ -73,9 +78,10 @@ if(BUILD_TESTING)
 
   set(TESTFILES
     test/main.cpp
-    test/observation_model/slam_observation_model/default_observation_model_test.cpp
+    test/observation_model/base_observation_model_test.cpp
     test/data_association/maximum_likelihood_nll_test.cpp
     test/data_association/nearest_neighbor_test.cpp
+    test/data_association/nearest_neighbour_test.cpp
     test/data_association/maximum_likelihood_md_test.cpp
     test/landmark_filter/consecutive_counter_filter_test.cpp
   )
@@ -89,7 +95,9 @@ if(BUILD_TESTING)
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
     ${EIGEN3_INCLUDE_DIR}
+    ${PCL_INCLUDE_DIRS}
   )
+  target_link_libraries(${PROJECT_NAME}_test ${PCL_LIBRARIES})
 
   install(TARGETS ${PROJECT_NAME}_test DESTINATION lib/${PROJECT_NAME})
 endif()

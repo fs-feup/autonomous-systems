@@ -16,6 +16,7 @@
 #include <gtsam/slam/ProjectionFactor.h>
 
 #include "common_lib/maths/transformations.hpp"
+#include "slam_solver/graph_slam_solver/optimizer/isam2_optimizer.hpp"
 #include "slam_solver/graph_slam_solver/utils.hpp"
 
 bool GraphSLAMInstance::new_pose_factors() const { return this->_new_pose_node_; }
@@ -79,11 +80,17 @@ GraphSLAMInstance::GraphSLAMInstance(const SLAMParameters& params,
     : _params_(params), _optimizer_(optimizer) {
   // Create a new factor graph
   _factor_graph_ = gtsam::NonlinearFactorGraph();
-  const gtsam::Pose2 prior_pose(0.0, 0.0, 0.0);
+  const gtsam::Pose2 prior_pose(0.0, 0.0,
+                                0.0);  // Create initial prior pose at origin, to bind graph
   const gtsam::Symbol pose_symbol('x', ++(this->_pose_counter_));
   const gtsam::noiseModel::Diagonal::shared_ptr prior_noise =
       gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector3(0.0, 0.0, 0.0));
   _factor_graph_.add(gtsam::PriorFactor<gtsam::Pose2>(pose_symbol, prior_pose, prior_noise));
+  if (const auto optimizer_ptr = std::dynamic_pointer_cast<ISAM2Optimizer>(this->_optimizer_)) {
+    optimizer_ptr->_new_factors_.add(
+        gtsam::PriorFactor<gtsam::Pose2>(pose_symbol, prior_pose, prior_noise));
+    optimizer_ptr->_new_values_.insert(pose_symbol, prior_pose);
+  }
 
   // Create a new values object
   _graph_values_ = gtsam::Values();
@@ -99,9 +106,8 @@ GraphSLAMInstance::GraphSLAMInstance(const GraphSLAMInstance& other) {
   _landmark_counter_ = other._landmark_counter_;
   _new_pose_node_ = other._new_pose_node_;
   _new_observation_factors_ = other._new_observation_factors_;
-  _optimizer_ = other._optimizer_;
+  _optimizer_ = other._optimizer_->clone();  // because it's a shared_ptr
   _params_ = other._params_;
-  _accumulated_pose_difference_ = other._accumulated_pose_difference_;
 }
 
 GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) {
@@ -114,60 +120,68 @@ GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) 
   _landmark_counter_ = other._landmark_counter_;
   _new_pose_node_ = other._new_pose_node_;
   _new_observation_factors_ = other._new_observation_factors_;
-  _optimizer_ = other._optimizer_;
+  _optimizer_ = other._optimizer_->clone();  // because it's a shared_ptr
   _params_ = other._params_;
-  _accumulated_pose_difference_ = other._accumulated_pose_difference_;
 
   return *this;
 }
 
-bool GraphSLAMInstance::process_pose_difference(const Eigen::Vector3d& pose_difference,
-                                                const Eigen::Vector3d& new_pose,
-                                                bool force_update) {
-  this->_accumulated_pose_difference_ += pose_difference;
-  if (double pose_difference_norm = ::sqrt(pow(_accumulated_pose_difference_(0), 2) +
-                                           pow(_accumulated_pose_difference_(1), 2) +
-                                           pow(_accumulated_pose_difference_(2), 2));
-      pose_difference_norm < this->_params_.slam_min_pose_difference_ && !force_update) {
-    return false;
-  }
-
+void GraphSLAMInstance::process_new_pose(const Eigen::Vector3d& pose_difference,
+                                         const Eigen::Vector3d& noise_vector,
+                                         const Eigen::Vector3d& new_pose) {
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "GraphSLAMInstance - Processing new pose %lf %lf %lf",
+               new_pose(0), new_pose(1), new_pose(2));
   gtsam::Pose2 new_pose_gtsam = eigen_to_gtsam_pose(new_pose);
-  gtsam::Pose2 pose_difference_gtsam = this->get_pose().between(new_pose_gtsam);
 
-  // Calculate noise
-  // // TODO: Implement noise -> this was shit because covariance from velocity estimation had too
-  // // small error
-  // Eigen::Matrix3d velocities_noise = Eigen::Matrix3d::Identity(); velocities_noise(0,
-  // 0) = velocities.velocity_x_noise_; velocities_noise(1, 1) = velocities.velocity_y_noise_;
-  // velocities_noise(2, 2) = velocities.rotational_velocity_noise_;
-  // RCLCPP_DEBUG(rclcpp::get_logger("slam"), "Velocities noise: %f %f %f", velocities_noise(0, 0),
-  //              velocities_noise(1, 1), velocities_noise(2, 2));
-  // Eigen::Matrix3d velocities_jacobian =
-  //     this->_motion_model_->get_jacobian_velocities(previous_pose, velocities_vector, delta_t);
-  // Eigen::Matrix3d motion_covariance =
-  //     velocities_jacobian * velocities_noise * velocities_jacobian.transpose();
-  // RCLCPP_DEBUG(rclcpp::get_logger("slam"), "Motion covariance: %f %f %f", motion_covariance(0,
-  // 0),
-  //              motion_covariance(1, 1), motion_covariance(2, 2));
-  gtsam::noiseModel::Diagonal::shared_ptr prior_noise = gtsam::noiseModel::Diagonal::Sigmas(
-      gtsam::Vector3(this->_params_.velocity_x_noise_, this->_params_.velocity_y_noise_,
-                     this->_params_.angular_velocity_noise_));
-
-  // Add the prior factor to the graph (x means pose node)
-  gtsam::Symbol previous_pose_symbol('x', this->_pose_counter_);
+  // X means pose node, l means landmark node
   gtsam::Symbol new_pose_symbol('x', ++(this->_pose_counter_));
-
-  this->_factor_graph_.add(gtsam::BetweenFactor<gtsam::Pose2>(previous_pose_symbol, new_pose_symbol,
-                                                              pose_difference_gtsam, prior_noise));
 
   // Add the prior pose to the values
   _graph_values_.insert(new_pose_symbol, new_pose_gtsam);
-
   this->_new_pose_node_ = true;
-  this->_accumulated_pose_difference_ = Eigen::Vector3d::Zero();  // Reset the accumulated pose
 
-  return true;
+  if (const auto optimizer_ptr = std::dynamic_pointer_cast<ISAM2Optimizer>(this->_optimizer_)) {
+    optimizer_ptr->_new_values_.insert(new_pose_symbol, new_pose_gtsam);
+  }
+
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"),
+               "GraphSLAMInstance - Adding prior pose %lf %lf %lf with noise %lf %lf %lf and "
+               "pose difference %lf %lf %lf",
+               new_pose_gtsam.x(), new_pose_gtsam.y(), new_pose_gtsam.theta(), noise_vector(0),
+               noise_vector(1), noise_vector(2), pose_difference(0), pose_difference(1),
+               pose_difference(2));
+
+  this->process_pose_difference(pose_difference, noise_vector);
+}
+
+void GraphSLAMInstance::process_pose_difference(const Eigen::Vector3d& pose_difference,
+                                                const Eigen::Vector3d& noise_vector,
+                                                unsigned int before_pose_id,
+                                                unsigned int after_pose_id) {
+  gtsam::Symbol before_pose_symbol('x', before_pose_id);
+  gtsam::Symbol after_pose_symbol('x', after_pose_id);
+  gtsam::noiseModel::Diagonal::shared_ptr motion_noise = gtsam::noiseModel::Diagonal::Sigmas(
+      gtsam::Vector3(noise_vector(0), noise_vector(1), noise_vector(2)));
+  gtsam::Pose2 pose_difference_gtsam = eigen_to_gtsam_pose(pose_difference);
+  this->_factor_graph_.add(gtsam::BetweenFactor<gtsam::Pose2>(before_pose_symbol, after_pose_symbol,
+                                                              pose_difference_gtsam, motion_noise));
+  if (const auto optimizer_ptr = std::dynamic_pointer_cast<ISAM2Optimizer>(this->_optimizer_)) {
+    optimizer_ptr->_new_factors_.add(gtsam::BetweenFactor<gtsam::Pose2>(
+        before_pose_symbol, after_pose_symbol, pose_difference_gtsam, motion_noise));
+  }
+}
+
+void GraphSLAMInstance::process_pose_difference(const Eigen::Vector3d& pose_difference,
+                                                const Eigen::Vector3d& noise_vector,
+                                                unsigned int before_pose_id) {
+  this->process_pose_difference(pose_difference, noise_vector, before_pose_id,
+                                this->_pose_counter_);
+}
+
+void GraphSLAMInstance::process_pose_difference(const Eigen::Vector3d& pose_difference,
+                                                const Eigen::Vector3d& noise_vector) {
+  this->process_pose_difference(pose_difference, noise_vector, this->_pose_counter_ - 1,
+                                this->_pose_counter_);
 }
 
 void GraphSLAMInstance::process_observations(const ObservationData& observation_data) {
@@ -188,7 +202,14 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
       landmark_symbol = gtsam::Symbol('l', ++(this->_landmark_counter_));
       landmark = gtsam::Point2(observations_global(i * 2), observations_global(i * 2 + 1));
       this->_graph_values_.insert(landmark_symbol, landmark);
+      if (const auto optimizer_ptr = std::dynamic_pointer_cast<ISAM2Optimizer>(this->_optimizer_)) {
+        optimizer_ptr->_new_values_.insert(
+            landmark_symbol, landmark);  // Most efficient way I found to deal with ISAM2
+      }
     } else {
+      if (!this->new_pose_factors()) {  // Only add old observations if the vehicle has moved
+        continue;
+      }
       // Association to previous landmark
       landmark_symbol = gtsam::Symbol('l', (associations(i)) / 2 + 1);  // Convert to landmark id
     }
@@ -199,9 +220,15 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
     const gtsam::Rot2 observation_rotation(observation_cylindrical(1));
 
     const gtsam::noiseModel::Diagonal::shared_ptr observation_noise =
-        gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector2(this->_params_.observation_x_noise_,
-                                                           this->_params_.observation_y_noise_));
+        gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector2(this->_params_.observation_y_noise_,
+                                                           this->_params_.observation_x_noise_));
 
+    if (const auto optimizer_ptr = std::dynamic_pointer_cast<ISAM2Optimizer>(this->_optimizer_)) {
+      optimizer_ptr->_new_factors_.add(gtsam::BearingRangeFactor<gtsam::Pose2, gtsam::Point2>(
+          gtsam::Symbol('x', this->_pose_counter_), landmark_symbol, observation_rotation,
+          observation_cylindrical(0), observation_noise));  // Again, just for ISAM2, because
+                                                            // it's incremental
+    }
     this->_factor_graph_.add(gtsam::BearingRangeFactor<gtsam::Pose2, gtsam::Point2>(
         gtsam::Symbol('x', this->_pose_counter_), landmark_symbol, observation_rotation,
         observation_cylindrical(0), observation_noise));
@@ -210,8 +237,9 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
   this->_new_observation_factors_ = new_observation_factors;
 }
 
-void GraphSLAMInstance::load_initial_state(const Eigen::VectorXd& map, const Eigen::VectorXd& pose,
+void GraphSLAMInstance::load_initial_state(const Eigen::VectorXd& map, const Eigen::Vector3d& pose,
                                            double preloaded_map_noise) {
+  RCLCPP_INFO(rclcpp::get_logger("slam"), "GraphSLAMInstance - Loading map ");
   this->_pose_counter_ = 0;
   this->_landmark_counter_ = 0;
   _factor_graph_ = gtsam::NonlinearFactorGraph();
@@ -238,7 +266,10 @@ void GraphSLAMInstance::load_initial_state(const Eigen::VectorXd& map, const Eig
   }
 }
 
-void GraphSLAMInstance::optimize() {  // TODO: implement sliding window and other parameters
+void GraphSLAMInstance::optimize() {
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"),
+               "GraphSLAMInstance - Optimizing graph with %ld factors and %ld values",
+               this->_factor_graph_.size(), this->_graph_values_.size());
   if (!this->_new_observation_factors_) return;
 
   this->_graph_values_ = this->_optimizer_->optimize(
@@ -247,6 +278,7 @@ void GraphSLAMInstance::optimize() {  // TODO: implement sliding window and othe
 }
 
 void GraphSLAMInstance::lock_landmarks(double locked_landmark_noise) {
+  // TODO: check if this works
   for (unsigned int i = 1; i < this->_landmark_counter_; i++) {
     gtsam::Symbol landmark_symbol('l', i);
     if (this->_graph_values_.exists(landmark_symbol)) {

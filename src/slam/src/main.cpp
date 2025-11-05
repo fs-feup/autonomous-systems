@@ -19,8 +19,8 @@ int main(int argc, char **argv) {
   std::shared_ptr<SLAMNode> slam_node = adapter_map.at(adapter_type)(params);
   slam_node->init();
 
-  // If graph slam and asynchronous optimization, use a multi-threaded executor
-  if (params.slam_solver_name_ != "ekf_slam" && params.slam_optimization_period_ != 0.0) {
+  // If graph slam, use a multi-threaded executor
+  if (params.slam_solver_name_ != "ekf_slam") {
     rclcpp::executors::MultiThreadedExecutor executor;
     executor.add_node(slam_node);
     executor.spin();
