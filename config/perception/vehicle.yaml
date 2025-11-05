@@ -2,48 +2,53 @@ perception:
   default_mission: "trackdrive"
 
   #FOV trimming
-  lidar_height: 1.13
+  lidar_height: 1.10
   min_range: 1.93
-  max_height: 1.25
+  max_height: 1.50
 
   #TRACKDRIVE/AUTOCROSS TRIMMING
-  max_range: 30.0
+  max_range: 25.0
 
   #ACCELERATION TRIMMING
-  acc_max_range: 30.0
+  acc_max_range: 25.0
   acc_max_y: 3.5
 
   #SKIDPAD TRIMMING
-  skid_max_range: 30.0
+  skid_max_range: 25.0
 
   #Split Parameters
   lidar_horizontal_resolution: 0.095
-  angle_resolution: 1.0
+  angle_resolution: 2.0
   fov: 180.0
   
   #Ground Removal
   ground_removal: "himmelsbach"  #options: "ransac", "himmelsbach"
   ransac_epsilon: 0.10
   ransac_iterations: 40
-  himmelsbach_max_slope: 0.075
-  himmelsbach_slope_reduction: 0.005
-  himmelsbach_distance_reduction: 15.0
-  himmelsbach_min_slope: 0.055
-  himmelsbach_ground_reference_slices: 5
-  himmelsbach_epsilon: 0.10
+  himmelsbach_ground_reference_slices: 8
+  himmelsbach_epsilon: 0.25
+  himmelsbach_max_slope: 0.50
+  himmelsbach_min_slope: 0.20
+  himmelsbach_slope_reduction_m: 0.01
+  himmelsbach_start_reduction: 20
+  himmelsbach_initial_alpha: 1.5
+  himmelsbach_alpha_augmentation_m: 0.25
+  himmelsbach_start_augmentation: 10
 
   #Clustering
   clustering: "GridClustering"  #options: "DBSCAN", "GridClustering"
   DBSCAN_n_neighbours: 1
   DBSCAN_clustering_epsilon: 0.32
+  GridClusteringBig_grid_width: 0.75
+  GridClusteringBig_max_points_per_cluster: 100
   GridClustering_grid_width: 0.10
   GridClustering_max_points_per_cluster: 40
-  GridClustering_min_points_per_cluster: 2
+  GridClustering_min_points_per_cluster: 1
   
   #Evaluator
-  min_height: 0.26
-  large_max_height: 0.42
-  small_max_height: 0.42
+  min_height: 0.10
+  large_max_height: 0.30
+  small_max_height: 0.30
   height_cap: 0.5
   min_xoy: 0.0
   max_xoy: 0.1
@@ -58,16 +63,16 @@ perception:
   min_distance_y: 0.04
   min_distance_z: 0.11
   min_n_points: 6
-  min_confidence: 0.850
-  height_out_weight: 12.0
-  height_in_weight: 5.0
-  cylinder_radius_weight: 35.0
-  cylinder_height_weight: 8.0
-  cylinder_npoints_weight: 20.0
-  npoints_weight: 11.0
+  min_confidence: 0.60
+  height_out_weight: 0.0
+  height_in_weight: 0.0
+  cylinder_radius_weight: 3500.0
+  cylinder_height_weight: 3500.0
+  cylinder_npoints_weight: 3500.0
+  npoints_weight: 0.0
   displacement_x_weight: 7.0
   displacement_y_weight: 8.0
-  displacement_z_weight: 10.5
+  displacement_z_weight: 15.0
   deviation_xoy_weight: 5.0
   deviation_z_weight: 5.0
 

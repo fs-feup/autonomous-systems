@@ -43,9 +43,10 @@ struct Slice {
  */
 class Himmelsbach : public GroundRemoval {
 public:
-  Himmelsbach(const double max_slope, const double slope_reduction, const double distance_reduction,
-              const double min_slope, const int ground_reference_slices, const double epsilon,
-              SplitParameters split_params);
+  Himmelsbach(const int ground_reference_slices, const double epsilon, const double max_slope,
+              const double min_slope, const double slope_reduction_m, const double start_reduction,
+              const double initial_alpha, const double alpha_augmentation_m,
+              const double start_augmentation, SplitParameters split_params);
 
   Himmelsbach() = default;
 
@@ -61,15 +62,17 @@ public:
                       Plane& plane) const override;
 
 private:
-  double max_slope;
-  double slope_reduction;
-  double distance_reduction;
-  double min_slope;
-  int ground_reference_slices;
-  double epsilon;
-  int max_points_per_ring;
+  int ground_reference_slices_;
+  double epsilon_;
+  double max_slope_;
+  double min_slope_;
+  double slope_reduction_m_;
+  double start_reduction_;
+  double initial_alpha_;
+  double alpha_augmentation_m_;
+  double start_augmentation_;
+  SplitParameters split_params_;
   std::shared_ptr<std::vector<Slice>> slices_;
-  SplitParameters split_params;
 
   void process_slice(const sensor_msgs::msg::PointCloud2::SharedPtr& trimmed_point_cloud,
                      sensor_msgs::msg::PointCloud2::SharedPtr& ground_removed_point_cloud,

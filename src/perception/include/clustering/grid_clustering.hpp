@@ -32,9 +32,15 @@ struct hash<GridIndex> {
  */
 class GridClustering : public Clustering {
 private:
-  double grid_width_;           ///< Width of each grid cell.
-  int max_points_per_cluster_;  ///< Maximum number of points allowed in each grid cell.
-  int min_points_per_cluster_;  ///< Minimum number of points required to form a cluster.
+  double grid_width_;               ///< Width of each grid cell.
+  int max_points_per_cluster_;      ///< Maximum number of points allowed in each grid cell.
+  int min_points_per_cluster_;      ///< Minimum number of points required to form a cluster.
+  double big_grid_width_;           ///< Width of each grid cell for big clustering.
+  int big_max_points_per_cluster_;  ///< Maximum number of points allowed in each grid cell for big
+  ///< clustering.
+
+  void findBigClusterIndices(const sensor_msgs::msg::PointCloud2::SharedPtr& cloud,
+                             std::vector<size_t>& big_cluster_indices) const;
 
 public:
   /**
@@ -44,7 +50,8 @@ public:
    * @param max_points_per_cluster Maximum number of points allowed in each cluster.
    * @param min_points_per_cluster Minimum number of points required to form a cluster.
    */
-  GridClustering(double grid_width, int max_points_per_cluster, int min_points_per_cluster);
+  GridClustering(double grid_width, int max_points_per_cluster, int min_points_per_cluster,
+                 double big_grid_width, int big_max_points_per_cluster);
 
   /**
    * @brief Clusters the input point cloud into groups using the GridClustering algorithm.

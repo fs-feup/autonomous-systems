@@ -77,22 +77,28 @@ PerceptionParameters Perception::load_config() {
   std::string ground_removal_algorithm = perception_config["ground_removal"].as<std::string>();
   double ransac_epsilon = perception_config["ransac_epsilon"].as<double>();
   int ransac_iterations = perception_config["ransac_iterations"].as<int>();
-  double himmelsbach_max_slope = perception_config["himmelsbach_max_slope"].as<double>();
-  double himmelsbach_slope_reduction =
-      perception_config["himmelsbach_slope_reduction"].as<double>();
-  double himmelsbach_distance_reduction =
-      perception_config["himmelsbach_distance_reduction"].as<double>();
-  double himmelsbach_min_slope = perception_config["himmelsbach_min_slope"].as<double>();
   double himmelsbach_ground_reference_slices =
-      perception_config["himmelsbach_ground_reference_slices"].as<double>();
+      perception_config["himmelsbach_ground_reference_slices"].as<int>();
   double himmelsbach_epsilon = perception_config["himmelsbach_epsilon"].as<double>();
+  double himmelsbach_max_slope = perception_config["himmelsbach_max_slope"].as<double>();
+  double himmelsbach_min_slope = perception_config["himmelsbach_min_slope"].as<double>();
+  double himmelsbach_slope_reduction =
+      perception_config["himmelsbach_slope_reduction_m"].as<double>();
+  double himmelsbach_distance_reduction =
+      perception_config["himmelsbach_start_reduction"].as<double>();
+  double himmelsbach_alpha = perception_config["himmelsbach_initial_alpha"].as<double>();
+  double himmelsbach_alpha_augmentation_m =
+      perception_config["himmelsbach_alpha_augmentation_m"].as<double>();
+  double himmelsbach_start_augmentation =
+      perception_config["himmelsbach_start_augmentation"].as<double>();
 
   if (ground_removal_algorithm == "ransac") {
     params.ground_removal_ = std::make_shared<RANSAC>(ransac_epsilon, ransac_iterations);
   } else if (ground_removal_algorithm == "himmelsbach") {
     params.ground_removal_ = std::make_shared<Himmelsbach>(
-        himmelsbach_max_slope, himmelsbach_slope_reduction, himmelsbach_distance_reduction,
-        himmelsbach_min_slope, himmelsbach_ground_reference_slices, himmelsbach_epsilon,
+        himmelsbach_ground_reference_slices, himmelsbach_epsilon, himmelsbach_max_slope,
+        himmelsbach_min_slope, himmelsbach_slope_reduction, himmelsbach_distance_reduction,
+        himmelsbach_alpha, himmelsbach_alpha_augmentation_m, himmelsbach_start_augmentation,
         split_params);
   } else {
     RCLCPP_ERROR(rclcpp::get_logger("perception"),
@@ -109,14 +115,19 @@ PerceptionParameters Perception::load_config() {
       perception_config["GridClustering_max_points_per_cluster"].as<int>();
   int grid_clustering_min_points_per_cluster =
       perception_config["GridClustering_min_points_per_cluster"].as<int>();
+  double GridClusteringBig_grid_width =
+      perception_config["GridClusteringBig_grid_width"].as<double>();
+  int GridClusteringBig_max_points_per_cluster =
+      perception_config["GridClusteringBig_max_points_per_cluster"].as<int>();
 
   if (clustering_algorithm == "DBSCAN") {
     params.clustering_ =
         std::make_shared<DBSCAN>(DBSCAN_clustering_n_neighbours, DBSCAN_clustering_epsilon);
   } else if (clustering_algorithm == "GridClustering") {
-    params.clustering_ = std::make_shared<GridClustering>(grid_clustering_grid_width,
-                                                          grid_clustering_max_points_per_cluster,
-                                                          grid_clustering_min_points_per_cluster);
+    params.clustering_ = std::make_shared<GridClustering>(
+        grid_clustering_grid_width, grid_clustering_max_points_per_cluster,
+        grid_clustering_min_points_per_cluster, GridClusteringBig_grid_width,
+        GridClusteringBig_max_points_per_cluster);
   } else {
     RCLCPP_ERROR(rclcpp::get_logger("perception"),
                  "Clustering algorithm not recognized: %s, using DBSCAN as default",
@@ -157,7 +168,7 @@ PerceptionParameters Perception::load_config() {
   eval_params->height_validator =
       std::make_shared<HeightValidator>(min_height, large_max_height, small_max_height, height_cap);
   eval_params->cylinder_validator =
-      std::make_shared<CylinderValidator>(0.18, 0.320, 0.24, 0.35, out_distance_cap);
+      std::make_shared<CylinderValidator>(0.25, 0.35, 0.25, 0.35, out_distance_cap);
   eval_params->deviation_validator =
       std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z);
   eval_params->displacement_validator =
