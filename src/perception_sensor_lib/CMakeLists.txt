@@ -23,7 +23,11 @@ foreach(pkg ${PACKAGES})
 endforeach()
 
 # Find PCL
-find_package(PCL REQUIRED COMPONENTS registration common io)
+find_package(PCL COMPONENTS registration common io QUIET)
+if(NOT PCL_FOUND)
+  message(WARNING "PCL not found; building perception_sensor_lib without PCL-dependent features")
+else()
+endif()
 
 # Enable OpenMP (optional)
 find_package(OpenMP)
@@ -37,7 +41,8 @@ set(IMPLEMENTATION_FILES
   src/data_association/nearest_neighbour_icp.cpp
   src/data_association/nearest_neighbor.cpp
   src/data_association/jcbb.cpp
-  src/observation_model/base_observation_model.cpp
+  src/observation_model/slam/slam_base_observation_model.cpp
+  src/observation_model/ve/no_slip_bicycle_model.cpp
   src/landmark_filter/consecutive_counter_filter.cpp
   src/loop_closure/lap_counter.cpp
 )
@@ -78,7 +83,8 @@ if(BUILD_TESTING)
 
   set(TESTFILES
     test/main.cpp
-    test/observation_model/base_observation_model_test.cpp
+    test/observation_model/slam/slam_base_observation_model_test.cpp
+    test/observation_model/ve/no_slip_bicycle_model_test.cpp
     test/data_association/maximum_likelihood_nll_test.cpp
     test/data_association/nearest_neighbor_test.cpp
     test/data_association/nearest_neighbour_test.cpp

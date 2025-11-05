@@ -1,8 +1,8 @@
-#include "perception_sensor_lib/observation_model/base_observation_model.hpp"
+#include "perception_sensor_lib/observation_model/slam/slam_base_observation_model.hpp"
 
 #include "common_lib/maths/transformations.hpp"
 
-Eigen::VectorXd ObservationModel::observation_model(
+Eigen::VectorXd SLAMObservationModel::observation_model(
     const Eigen::VectorXd& state, const std::vector<int> matched_landmarks) const {
   Eigen::VectorXd matched_landmarks_coordinates(matched_landmarks.size() * 2);
   for (int i = 0; i < static_cast<int>(matched_landmarks.size()); i++) {
@@ -13,12 +13,12 @@ Eigen::VectorXd ObservationModel::observation_model(
                                                         matched_landmarks_coordinates);
 }
 
-Eigen::VectorXd ObservationModel::inverse_observation_model(
+Eigen::VectorXd SLAMObservationModel::inverse_observation_model(
     const Eigen::VectorXd& state, const Eigen::VectorXd& observations) const {
   return common_lib::maths::local_to_global_coordinates(state.segment(0, 3), observations);
 }
 
-Eigen::MatrixXd ObservationModel::observation_model_jacobian(
+Eigen::MatrixXd SLAMObservationModel::observation_model_jacobian(
     const Eigen::VectorXd& state, const std::vector<int>& matched_landmarks) const {
   Eigen::MatrixXd jacobian = Eigen::MatrixXd::Zero(matched_landmarks.size() * 2, state.size());
   double car_x = state(0);
@@ -44,7 +44,7 @@ Eigen::MatrixXd ObservationModel::observation_model_jacobian(
   return jacobian;
 }
 
-Eigen::MatrixXd ObservationModel::inverse_observation_model_jacobian_pose(
+Eigen::MatrixXd SLAMObservationModel::inverse_observation_model_jacobian_pose(
     const Eigen::VectorXd& state, const Eigen::VectorXd& new_landmarks) const {
   int num_landmarks = new_landmarks.size() / 2;
   Eigen::MatrixXd gv = Eigen::MatrixXd::Zero(num_landmarks * 2, 3);
@@ -60,7 +60,7 @@ Eigen::MatrixXd ObservationModel::inverse_observation_model_jacobian_pose(
   return gv;
 }
 
-Eigen::MatrixXd ObservationModel::inverse_observation_model_jacobian_landmarks(
+Eigen::MatrixXd SLAMObservationModel::inverse_observation_model_jacobian_landmarks(
     const Eigen::VectorXd& state, const Eigen::VectorXd& new_landmarks) const {
   int num_landmarks = new_landmarks.size() / 2;
   Eigen::MatrixXd gz = Eigen::MatrixXd::Zero(num_landmarks * 2, num_landmarks * 2);

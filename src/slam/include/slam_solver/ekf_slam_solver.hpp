@@ -5,13 +5,13 @@
 
 #include "common_lib/conversions/cones.hpp"
 #include "common_lib/maths/transformations.hpp"
-#include "perception_sensor_lib/observation_model/base_observation_model.hpp"
+#include "perception_sensor_lib/observation_model/slam/slam_base_observation_model.hpp"
 #include "slam_solver/slam_solver.hpp"
 #include "solver_traits/velocities_integrator_trait.hpp"
 
 class EKFSLAMSolver : public SLAMSolver, public VelocitiesIntegratorTrait {
   SLAMParameters slam_parameters_;
-  std::shared_ptr<ObservationModel> observation_model_;
+  std::shared_ptr<SLAMObservationModel> observation_model_;
   Eigen::VectorXd state_ = Eigen::VectorXd::Zero(3);
   Eigen::MatrixXd covariance_;
   Eigen::MatrixXd process_noise_matrix_;

@@ -17,7 +17,7 @@ EKFSLAMSolver::EKFSLAMSolver(const SLAMParameters& params,
   this->process_noise_matrix_(0, 0) = params.velocity_x_noise_;
   this->process_noise_matrix_(1, 1) = params.velocity_y_noise_;
   this->process_noise_matrix_(2, 2) = params.angular_velocity_noise_;
-  this->observation_model_ = std::make_shared<ObservationModel>();
+  this->observation_model_ = std::make_shared<SLAMObservationModel>();
 }
 
 Eigen::MatrixXd EKFSLAMSolver::get_observation_noise_matrix(int num_landmarks) const {

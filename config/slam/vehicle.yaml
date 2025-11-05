@@ -22,7 +22,7 @@ slam:
   slam_solver_name: "graph_slam" # "graph_slam" or "ekf_slam" or ... -> name of the slam solver
   slam_optimization_mode: "async" # "sync" or "sync-parallel" or "async" or ... -> name of the optimization mode, in which sync is at every factor added, async is at every time step and sync-parallel is sync but callbacks execute in parallel
   slam_optimization_in_poses: false # If true, the optimization will be done also when poses are added, not only when observations are added
-  slam_optimization_type: "isam2" # "normal_levenberg" or "isam2" or "sliding_window_levenberg" or ... -> name of the optimization type
+  slam_optimization_type: "sliding_window_levenberg" # "normal_levenberg" or "isam2" or "sliding_window_levenberg" or ... -> name of the optimization type
 
   # Only for pose_updater_name: "difference_based_ready"
   slam_min_pose_difference: 0.3 # Minimum distance between poses to consider adding to factor graph

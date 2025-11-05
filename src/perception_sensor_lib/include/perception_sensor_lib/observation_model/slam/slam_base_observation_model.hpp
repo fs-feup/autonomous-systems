@@ -4,10 +4,10 @@
 #include <vector>
 
 #include "common_lib/maths/transformations.hpp"
-class ObservationModel {
+class SLAMObservationModel {
 public:
-  ObservationModel() = default;
-  virtual ~ObservationModel() = default;
+  SLAMObservationModel() = default;
+  virtual ~SLAMObservationModel() = default;
 
   /**
    * @brief transform landmarks' positions from global frame to the car's frame
