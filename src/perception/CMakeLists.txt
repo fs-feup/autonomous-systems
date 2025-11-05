@@ -31,6 +31,7 @@ set(IMPLEMENTATION_FILES
   src/fov_trimming/skidpad_trimming.cpp
   src/ground_removal/ransac.cpp
   src/ground_removal/himmelsbach.cpp
+  src/wall_removal/grid_removal.cpp
   src/cone_differentiation/least_squares_differentiation.cpp
   src/clustering/dbscan.cpp
   src/clustering/grid_clustering.cpp

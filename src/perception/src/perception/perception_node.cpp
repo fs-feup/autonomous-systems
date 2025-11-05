@@ -107,27 +107,28 @@ PerceptionParameters Perception::load_config() {
     params.ground_removal_ = std::make_shared<RANSAC>(ransac_epsilon, ransac_iterations);
   }
 
+  double wall_removal_grid_width = perception_config["wall_removal_grid_width"].as<double>();
+  double wall_removal_max_points_per_cluster =
+      perception_config["wall_removal_max_points_per_cluster"].as<double>();
+  params.wall_removal_ = std::make_shared<GridWallRemoval>(wall_removal_grid_width,
+                                                           wall_removal_max_points_per_cluster);
+
   std::string clustering_algorithm = perception_config["clustering"].as<std::string>();
   int DBSCAN_clustering_n_neighbours = perception_config["DBSCAN_n_neighbours"].as<int>();
   double DBSCAN_clustering_epsilon = perception_config["DBSCAN_clustering_epsilon"].as<double>();
-  double grid_clustering_grid_width = perception_config["GridClustering_grid_width"].as<double>();
+  double grid_clustering_grid_width = perception_config["grid_clustering_grid_width"].as<double>();
   int grid_clustering_max_points_per_cluster =
-      perception_config["GridClustering_max_points_per_cluster"].as<int>();
+      perception_config["grid_clustering_max_points_per_cluster"].as<int>();
   int grid_clustering_min_points_per_cluster =
-      perception_config["GridClustering_min_points_per_cluster"].as<int>();
-  double GridClusteringBig_grid_width =
-      perception_config["GridClusteringBig_grid_width"].as<double>();
-  int GridClusteringBig_max_points_per_cluster =
-      perception_config["GridClusteringBig_max_points_per_cluster"].as<int>();
+      perception_config["grid_clustering_min_points_per_cluster"].as<int>();
 
   if (clustering_algorithm == "DBSCAN") {
     params.clustering_ =
         std::make_shared<DBSCAN>(DBSCAN_clustering_n_neighbours, DBSCAN_clustering_epsilon);
   } else if (clustering_algorithm == "GridClustering") {
-    params.clustering_ = std::make_shared<GridClustering>(
-        grid_clustering_grid_width, grid_clustering_max_points_per_cluster,
-        grid_clustering_min_points_per_cluster, GridClusteringBig_grid_width,
-        GridClusteringBig_max_points_per_cluster);
+    params.clustering_ = std::make_shared<GridClustering>(grid_clustering_grid_width,
+                                                          grid_clustering_max_points_per_cluster,
+                                                          grid_clustering_min_points_per_cluster);
   } else {
     RCLCPP_ERROR(rclcpp::get_logger("perception"),
                  "Clustering algorithm not recognized: %s, using DBSCAN as default",
@@ -205,6 +206,7 @@ Perception::Perception(const PerceptionParameters& params)
       _mission_type_(params.default_mission_),
       _fov_trim_map_(params.fov_trim_map_),
       _ground_removal_(params.ground_removal_),
+      _wall_removal_(params.wall_removal_),
       _clustering_(params.clustering_),
       _cone_differentiator_(params.cone_differentiator_),
       _cone_evaluator_(params.cone_evaluator_),
@@ -214,6 +216,9 @@ Perception::Perception(const PerceptionParameters& params)
 
   this->_ground_removed_publisher_ =
       this->create_publisher<sensor_msgs::msg::PointCloud2>("/perception/ground_removed_cloud", 10);
+
+  this->_wall_removed_publisher_ =
+      this->create_publisher<sensor_msgs::msg::PointCloud2>("/perception/wall_removed_cloud", 10);
 
   this->_perception_execution_time_publisher_ =
       this->create_publisher<std_msgs::msg::Float64MultiArray>("/perception/execution_time", 10);
@@ -284,18 +289,27 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
 
   time2 = this->now();
 
-  this->_deskew_->deskew_point_cloud(ground_removed_cloud, this->_vehicle_velocity_);
+  // Wall Removal
+  auto wall_removed_cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
+  _wall_removal_->remove_walls(ground_removed_cloud, wall_removed_cloud);
+
+  wall_removed_cloud->header.frame_id = _vehicle_frame_id_;
+  this->_wall_removed_publisher_->publish(*wall_removed_cloud);
 
   time3 = this->now();
 
+  this->_deskew_->deskew_point_cloud(wall_removed_cloud, this->_vehicle_velocity_);
+
+  time4 = this->now();
+
   // Clustering
   std::vector<Cluster> clusters;
-  _clustering_->clustering(ground_removed_cloud, &clusters);
+  _clustering_->clustering(wall_removed_cloud, &clusters);
 
   // Z-scores calculation for future validations
   Cluster::set_z_scores(clusters);
 
-  time4 = this->now();
+  time5 = this->now();
 
   // Filtering
   std::vector<Cluster> filtered_clusters;
@@ -306,9 +320,9 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
     }
   }
 
-  time5 = this->now();
+  time6 = this->now();
 
-  double perception_execution_time_seconds = (time5 - start_time).seconds();
+  double perception_execution_time_seconds = (time6 - start_time).seconds();
   this->_execution_times_->at(0) = perception_execution_time_seconds * 1000.0;
   this->_execution_times_->at(1) = (time1 - start_time).seconds() * 1000.0;
   this->_execution_times_->at(2) = (time2 - time1).seconds() * 1000.0;

@@ -40,6 +40,8 @@
 #include "std_srvs/srv/empty.hpp"
 #include "std_srvs/srv/trigger.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
+#include "wall_removal/grid_removal.hpp"
+#include "wall_removal/wall_removal.hpp"
 #include "yaml-cpp/yaml.h"
 
 using Mission = common_lib::competition_logic::Mission;
@@ -50,6 +52,7 @@ struct PerceptionParameters {     ///< Struct containing parameters and interfac
   uint8_t default_mission_;
   std::shared_ptr<std::unordered_map<int16_t, std::shared_ptr<FovTrimming>>> fov_trim_map_;
   std::shared_ptr<GroundRemoval> ground_removal_;  ///< Shared pointer to the GroundRemoval object.
+  std::shared_ptr<WallRemoval> wall_removal_;      ///< Shared pointer to the WallRemoval object.
   std::shared_ptr<Clustering> clustering_;         ///< Shared pointer to the Clustering object.
   std::shared_ptr<LeastSquaresDifferentiation>
       cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
@@ -76,6 +79,7 @@ private:
   std::shared_ptr<std::unordered_map<int16_t, std::shared_ptr<FovTrimming>>>
       _fov_trim_map_;                               ///< Shared pointer to the FovTrimming object.
   std::shared_ptr<GroundRemoval> _ground_removal_;  ///< Shared pointer to the GroundRemoval object.
+  std::shared_ptr<WallRemoval> _wall_removal_;      ///< Shared pointer to the WallRemoval object.
   std::shared_ptr<Clustering> _clustering_;         ///< Shared pointer to the Clustering object.
   std::shared_ptr<ConeDifferentiation>
       _cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
@@ -95,6 +99,8 @@ private:
       _perception_execution_time_publisher_;  ///< Perception execution time publisher.
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr
       _ground_removed_publisher_;  ///< point cloud after ground removal publisher.
+  rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr
+      _wall_removed_publisher_;  ///< point cloud after wall removal publisher.
   common_lib::structures::Velocities
       _vehicle_velocity_;  // Last received vehicle velocity, used to deskew the point cloud
 

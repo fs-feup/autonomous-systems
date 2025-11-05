@@ -7,14 +7,14 @@ perception:
   max_height: 1.50
 
   #TRACKDRIVE/AUTOCROSS TRIMMING
-  max_range: 25.0
+  max_range: 35.0
 
   #ACCELERATION TRIMMING
-  acc_max_range: 25.0
+  acc_max_range: 35.0
   acc_max_y: 3.5
 
   #SKIDPAD TRIMMING
-  skid_max_range: 25.0
+  skid_max_range: 35.0
 
   #Split Parameters
   lidar_horizontal_resolution: 0.095
@@ -31,20 +31,22 @@ perception:
   himmelsbach_min_slope: 0.20
   himmelsbach_slope_reduction_m: 0.01
   himmelsbach_start_reduction: 20
-  himmelsbach_initial_alpha: 1.5
-  himmelsbach_alpha_augmentation_m: 0.25
+  himmelsbach_initial_alpha: 2
+  himmelsbach_alpha_augmentation_m: 0.5
   himmelsbach_start_augmentation: 10
+
+  #Wall Removal
+  wall_removal_grid_width: 1.00
+  wall_removal_max_points_per_cluster: 100
 
   #Clustering
   clustering: "GridClustering"  #options: "DBSCAN", "GridClustering"
   DBSCAN_n_neighbours: 1
   DBSCAN_clustering_epsilon: 0.32
-  GridClusteringBig_grid_width: 0.75
-  GridClusteringBig_max_points_per_cluster: 100
-  GridClustering_grid_width: 0.10
-  GridClustering_max_points_per_cluster: 40
-  GridClustering_min_points_per_cluster: 1
-  
+  grid_clustering_grid_width: 0.10
+  grid_clustering_max_points_per_cluster: 40
+  grid_clustering_min_points_per_cluster: 1
+
   #Evaluator
   min_height: 0.10
   large_max_height: 0.30
