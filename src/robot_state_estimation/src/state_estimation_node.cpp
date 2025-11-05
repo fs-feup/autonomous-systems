@@ -18,13 +18,13 @@ public:
         center_y_(30),
         robot_grid_x_(30),
         robot_grid_y_(30),
-        robot_world_x_(0.0),
-        robot_world_y_(0.0),
+        robot_relative_to_S_x_(0),
+        robot_relative_to_S_y_(0),
+        robot_world_x_(0),
+        robot_world_y_(0),
         corner_00_x_(0),
         corner_00_y_(0),
         corner_00_found_(false),
-        found_wall_negative_x_(false),
-        found_wall_negative_y_(false),
         last_update_time_(this->now()) {
     using std::placeholders::_1;
 
@@ -57,11 +57,9 @@ public:
   }
 
 private:
-//funcoes callbacks ->>>
 
-//isto nao pode tar correto
+//done??
   void onStatus(const custom_interfaces::msg::RobotStatus::SharedPtr msg) {
-    RCLCPP_INFO(this->get_logger(), "onStatus called");
     // Update robot's world position based on velocity
     rclcpp::Time now = this->now();
     double dt = (now - last_update_time_).seconds();
@@ -73,32 +71,38 @@ private:
 
     // Only update if velocity is significant
     if (std::abs(vx) > 0.01 || std::abs(vy) > 0.01) {
-      // Store previous grid position
-      int prev_grid_x = robot_grid_x_;
-      int prev_grid_y = robot_grid_y_;
 
-      // Update world position
-      robot_world_x_ += vx * dt;
-      robot_world_y_ += vy * dt;
+      // calculate distance moved
+      double dist_x = vx * dt;
+      double dist_y = vy * dt;
 
-      // Update grid position (relative to center)
-      robot_grid_x_ = center_x_ + static_cast<int>(std::round(robot_world_x_));
-      robot_grid_y_ = center_y_ + static_cast<int>(std::round(robot_world_y_));
+      // Update robot grid position 
+      if (isValidGridPos(robot_grid_x_ + static_cast<int>(std::round(dist_x)), robot_grid_y_ + static_cast<int>(std::round(dist_y)))) {
+        // Update robot grid position 
+        robot_grid_x_ += static_cast<int>(std::round(dist_x));
+        robot_grid_y_ += static_cast<int>(std::round(dist_y));
 
-      // Mark all positions between previous and current as floor ('0')
-      markPathAsFloor(prev_grid_x, prev_grid_y, robot_grid_x_, robot_grid_y_);
+        if(robot_world_x_!=0 && robot_world_y_ != 0){
+          robot_world_x_ += static_cast<int>(std::round(dist_x));
+          robot_world_y_ += static_cast<int>(std::round(dist_y));
+        }
 
-      // Mark current robot position as floor ('0'), preserve 'S' if at start
-      if (isValidGridPos(robot_grid_x_, robot_grid_y_)) {
-        if (grid_[robot_grid_y_][robot_grid_x_] == '?') {
+        // Update relative position to S
+        robot_relative_to_S_x_ += static_cast<int>(std::round(dist_x));
+        robot_relative_to_S_y_ += static_cast<int>(std::round(dist_y));
+
+        // Mark current robot position as floor ('0'), preserve 'S' if at start
+        if (grid_[robot_grid_y_][robot_grid_x_] == '?'){
           grid_[robot_grid_y_][robot_grid_x_] = '0';
         }
+
       }
+
     }
   }
 
+//done?
   void onPerception(const custom_interfaces::msg::PerceptionData::SharedPtr msg) {
-    RCLCPP_INFO(this->get_logger(), "onPerception called");
 
     double perception_radius = msg->perception_radius;
 
@@ -112,7 +116,7 @@ private:
       double rel_x = obj.relative_position.x;
       double rel_y = obj.relative_position.y;
 
-      // Calculate grid position relative to current robot position
+      // Calculate grid position relative to current robot position and relative position to S
       int obj_grid_x = robot_grid_x_ + static_cast<int>(std::round(rel_x));
       int obj_grid_y = robot_grid_y_ + static_cast<int>(std::round(rel_y));
 
@@ -140,86 +144,51 @@ private:
     }
   }
 
+//done?
   void detectBottomLeftCorner() {
     // Scan the grid to find a bottom-left corner pattern:
     // A corner is where we have walls forming an L-shape
-    // Pattern: wall at (x,y), wall at (x-1,y), wall at (x,y-1)
-    // And no walls at (x+1,y) and (x,y+1) - those should be inside the map
+    // Pattern: wall at (x,y), wall at (x+1,y), wall at (x,y+1)
 
-    for (int y = 1; y < grid_size_ - 1; ++y) {
-      for (int x = 1; x < grid_size_ - 1; ++x) {
-        // Check if current cell is a wall
-        if (grid_[y][x] != '9') continue;
-
-        // Check if there's a wall to the left (x-1, y)
-        bool wall_left = (grid_[y][x - 1] == '9');
-
-        // Check if there's a wall below (x, y-1)
-        bool wall_below = (grid_[y - 1][x] == '9');
-
-        // Check if there's out-of-bounds to the left and below
-        bool oob_left = (x > 0 && grid_[y][x - 1] == '.');
-        bool oob_below = (y > 0 && grid_[y - 1][x] == '.');
-
-        // Bottom-left corner: wall here, and either walls or out-of-bounds on left and below
-        if ((wall_left || oob_left) && (wall_below || oob_below)) {
-          // Additional check: make sure there's empty space or unknown to the right and above
-          // (inside the map)
-          bool space_right =
-              (x < grid_size_ - 1 && grid_[y][x + 1] != '9' && grid_[y][x + 1] != '.');
-          bool space_above =
-              (y < grid_size_ - 1 && grid_[y + 1][x] != '9' && grid_[y + 1][x] != '.');
-
-          if (space_right || space_above) {
-            // Found the corner!
-            corner_00_found_ = true;
-            corner_00_x_ = x;
-            corner_00_y_ = y;
-
-            // Calculate the offset: this corner is at (0,0) in absolute coordinates
-            // Robot's absolute position = robot_world_position + offset
-            // The corner's world position relative to robot is: (x - 30, y - 30)
-            double corner_world_x = (x - robot_grid_x_);
-            double corner_world_y = (y - robot_grid_y_);
-
-            // Since corner is at absolute (0,0), robot's absolute position is:
-            // robot_abs = -corner_relative_position
-            // But we're already tracking robot_world_x/y, so we need to adjust them
-            // Actually, robot's absolute position is: robot_world - corner_world
-            // No wait: if corner is at relative position (corner_world_x, corner_world_y)
-            // and corner is at absolute (0,0), then robot is at absolute (-corner_world_x,
-            // -corner_world_y) We need to remember this offset
-
-            RCLCPP_INFO(this->get_logger(),
-                        "Found bottom-left corner at grid(%d,%d), which is at relative position "
-                        "(%.1f,%.1f) from robot",
-                        corner_00_x_, corner_00_y_, corner_world_x, corner_world_y);
-            RCLCPP_INFO(this->get_logger(), "Robot absolute position is (%.2f, %.2f)",
-                        robot_world_x_ - corner_world_x, robot_world_y_ - corner_world_y);
-
-            // Mark all cells to the left and below as out of bounds
-            for (int mx = 0; mx < x; ++mx) {
-              for (int my = 0; my < grid_size_; ++my) {
-                if (grid_[my][mx] == '?') {
-                  grid_[my][mx] = '.';
-                }
-              }
+    for (int y = 0; y < grid_size_ - 1; ++y) {
+      for (int x = 0; x < grid_size_ - 1; ++x) {
+        if (grid_[y][x] != '9') continue;  // current cell must be a wall
+  
+        bool wall_right = (grid_[y][x + 1] == '9');
+        bool wall_above = (grid_[y + 1][x] == '9');
+  
+        // Check the simple L-shape pattern
+        if (wall_right && wall_above) {
+          corner_00_found_ = true;
+          corner_00_x_ = x;
+          corner_00_y_ = y;
+  
+          double corner_relative_to_S_x_ = (x - center_x_);
+          double corner_relative_to_S_y_ = (y - center_y_);
+  
+          RCLCPP_INFO(this->get_logger(),
+                      "Found bottom-left corner at grid position (%d,%d), relative position to Start (%.1f, %.1f)",
+                      corner_00_x_, corner_00_y_, corner_relative_to_S_x_, corner_relative_to_S_y_);
+  
+          // mark out-of-bounds to the left and below, same as before
+          for (int mx = 0; mx < x; ++mx) {
+            for (int my = 0; my < grid_size_; ++my) {
+              if (grid_[my][mx] == '?') grid_[my][mx] = '.';
             }
-            for (int my = 0; my < y; ++my) {
-              for (int mx = 0; mx < grid_size_; ++mx) {
-                if (grid_[my][mx] == '?') {
-                  grid_[my][mx] = '.';
-                }
-              }
-            }
-
-            return;  // Found it, stop searching
           }
+          for (int my = 0; my < y; ++my) {
+            for (int mx = 0; mx < grid_size_; ++mx) {
+              if (grid_[my][mx] == '?') grid_[my][mx] = '.';
+            }
+          }
+  
+          return;
         }
       }
     }
   }
-
+  
+//done? probabilby need to move the publish to the initializer and change it when found the corner
   void onTimer() {
     // Always publish the map
     custom_interfaces::msg::StateEstimationMap map_msg;
@@ -230,25 +199,25 @@ private:
     if (corner_00_found_) {
       // Calculate robot's absolute position
       // The corner is at grid position (corner_00_x_, corner_00_y_)
-      // which is at relative position (corner_00_x_ - 30, corner_00_y_ - 30) from robot
       // Since corner is at absolute (0,0), robot's absolute position is:
-      double corner_rel_x = corner_00_x_ - robot_grid_x_;
-      double corner_rel_y = corner_00_y_ - robot_grid_y_;
+      double robot_world_x_ = corner_00_x_ - robot_grid_x_;
+      double robot_world_y_ = corner_00_y_ - robot_grid_y_;
 
       custom_interfaces::msg::StateEstimationPosition pos_msg;
-      pos_msg.x = robot_world_x_ - corner_rel_x;
-      pos_msg.y = robot_world_y_ - corner_rel_y;
+      pos_msg.x = robot_world_x_;
+      pos_msg.y = robot_world_y_;
       pos_pub_->publish(pos_msg);
     }
   }
 
-  // --- Helpers ---
+//done
   bool isValidGridPos(int x, int y) const {
     return x >= 0 && x < grid_size_ && y >= 0 && y < grid_size_;
   }
 
-  //isto ta correto -> marcar todas as celulas dentro do percpetion radius como 0 se nao conhecidas
+  //done?
   void markPerceptionRadiusAsFloor(int center_x, int center_y, double radius) {
+    // marcar todas as celulas dentro do percpetion radius como 0 se nao conhecidas
     int radius_int = static_cast<int>(std::ceil(radius));
     for (int dy = -radius_int; dy <= radius_int; ++dy) {
       for (int dx = -radius_int; dx <= radius_int; ++dx) {
@@ -257,7 +226,6 @@ private:
           int x = center_x + dx;
           int y = center_y + dy;
           if (isValidGridPos(x, y)) {
-            // Only mark unknown cells as floor, preserve 'S' at start
             if (grid_[y][x] == '?') {
               grid_[y][x] = '0';
             }
@@ -267,39 +235,6 @@ private:
     }
   }
 
-  void markPathAsFloor(int x1, int y1, int x2, int y2) {
-    // Mark all cells on the path from (x1,y1) to (x2,y2) as floor
-    // Use Bresenham-like line algorithm
-    int dx = std::abs(x2 - x1);
-    int dy = std::abs(y2 - y1);
-    int sx = (x1 < x2) ? 1 : -1;
-    int sy = (y1 < y2) ? 1 : -1;
-    int err = dx - dy;
-
-    int x = x1;
-    int y = y1;
-
-    while (true) {
-      if (isValidGridPos(x, y)) {
-        // Don't overwrite 'S' at start position
-        if (grid_[y][x] == '?') {
-          grid_[y][x] = '0';
-        }
-      }
-
-      if (x == x2 && y == y2) break;
-
-      int e2 = 2 * err;
-      if (e2 > -dy) {
-        err -= dy;
-        x += sx;
-      }
-      if (e2 < dx) {
-        err += dx;
-        y += sy;
-      }
-    }
-  }
 // need to edit to other characters in other maps
   char getCharForType(const std::string& type) const {
     if (type == "empty" || type == "floor") {
@@ -311,7 +246,7 @@ private:
     } else if (type == "shelf") {
       return 'A';
     }
-    return '?';  // Unknown type
+    return '?';  // Unknown territory
   }
 
   // --- Members ---
@@ -329,16 +264,18 @@ private:
   int robot_grid_y_;  // Current grid position of robot
   std::vector<std::string> grid_;
 
-  // Robot position in world coordinates (relative to where it started)
-  double robot_world_x_;
-  double robot_world_y_;
+  // Robot relative position compared to starting position
+  int robot_relative_to_S_x_;
+  int robot_relative_to_S_y_;
 
-  // Corner (0,0) detection
+  // Robot position in world coordinates -- only completed when corner found
+  int robot_world_x_;
+  int robot_world_y_;
+
+  // Corner (0,0) detection in the grid
   int corner_00_x_;
   int corner_00_y_;
   bool corner_00_found_;
-  bool found_wall_negative_x_;  // Not used anymore but kept for compatibility
-  bool found_wall_negative_y_;  // Not used anymore but kept for compatibility
 
   rclcpp::Time last_update_time_;
 };
