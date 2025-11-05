@@ -8,10 +8,6 @@ int32 robot_grid_y
 int32 robot_relative_to_s_x
 int32 robot_relative_to_s_y
 
-# Robot position in world coordinates
-int32 robot_world_x
-int32 robot_world_y
-
 # Bottom-left corner position in grid coordinates
 int32 corner_00_x
 int32 corner_00_y
