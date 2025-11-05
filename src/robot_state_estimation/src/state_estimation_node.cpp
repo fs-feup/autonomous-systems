@@ -75,7 +75,6 @@ private:
 
 //done??
 void onStatus(const custom_interfaces::msg::RobotStatus::SharedPtr msg) {
-  RCLCPP_INFO(this->get_logger(), "On Status was called");
   // Update robot's world position based on velocity
   
   int dist_x = msg->velocity.x;
@@ -116,7 +115,6 @@ void onStatus(const custom_interfaces::msg::RobotStatus::SharedPtr msg) {
 
 //done?
 void onPerception(const custom_interfaces::msg::PerceptionData::SharedPtr msg) {
-  RCLCPP_INFO(this->get_logger(), "On Perception was called");
   double perception_radius = msg->perception_radius;
 
   // First pass -> mark all positions within perception radius as floor ('0')
@@ -129,9 +127,10 @@ void onPerception(const custom_interfaces::msg::PerceptionData::SharedPtr msg) {
     int rel_x = obj.relative_position.x;
     int rel_y = obj.relative_position.y;
 
-    // Calculate grid position relative to current robot position
-    int obj_grid_x = robot_grid_x_ + rel_x;
-    int obj_grid_y = robot_grid_y_ - rel_y;
+    // Calculate grid position relative to current robot position (use rounding)
+    int obj_grid_x = static_cast<int>(std::round(robot_grid_x_ + obj.relative_position.x));
+    int obj_grid_y = static_cast<int>(std::round(robot_grid_y_ - obj.relative_position.y));
+
 
     if (!isValidGridPos(obj_grid_x, obj_grid_y)) {
       continue;
