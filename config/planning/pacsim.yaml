@@ -27,14 +27,14 @@ planning:
   #---------------------- Path Smoothing (smoothing_) -------------------
   smoothing_spline_order: 3
   smoothing_spline_coeffs_ratio: 3.0
-  smoothing_spline_precision: 10
-  smoothing_use_path_smoothing: false
+  smoothing_spline_precision: 20
+  smoothing_use_path_smoothing: true
   #---------------------- Velocity Planning (vp_) -----------------------
   vp_minimum_velocity: 2.0
   vp_braking_acceleration: -1.5
-  vp_normal_acceleration: 3.0
-  vp_use_velocity_planning: true
-  vp_desired_velocity: 12.0
+  vp_normal_acceleration: 2.0
+  vp_use_velocity_planning: false
+  vp_desired_velocity: 4.0
   #---------------------- Simulation Config (simulation_) ---------------------------
   simulation_publishing_visualization_msgs: true
 

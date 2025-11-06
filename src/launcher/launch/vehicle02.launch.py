@@ -48,10 +48,10 @@ def generate_launch_description():
     )
     return LaunchDescription(
         [
-            perception_launch_description,
+            #perception_launch_description,
             slam_launch_description,
-            ve_launch_description,
+            #ve_launch_description,
             planning_launch_description,
-            control_launch_description,
+            #control_launch_description,
         ],
     )
