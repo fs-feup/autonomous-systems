@@ -2,7 +2,7 @@
 
 ## Perception, State Estimation, Planning, and Control
 
-This project implements a complete pipeline for an autonomous mobile robot, encompassing **Perception**, **State Estimation**, **Path Planning**, and **Control**, realized as four independent ROS 2 nodes. The system enables the robot to explore an unknown environment, build a map, localize itself, and execute a delivery mission by picking up boxes and placing them on corresponding shelves.
+This project implements a (incomplete) pipeline for an autonomous mobile robot, encompassing **Perception**, **State Estimation**, **Path Planning**, and **Control**, realized as four independent ROS 2 nodes. The system enables the robot to explore an unknown environment, build a map, localize itself, and execute a delivery mission by picking up boxes and placing them on corresponding shelves.
 
 ---
 
