@@ -35,7 +35,6 @@ set(IMPLEMENTATION_FILES
   src/cone_differentiation/least_squares_differentiation.cpp
   src/clustering/dbscan.cpp
   src/clustering/grid_clustering.cpp
-  src/utils/cluster.cpp
   src/cone_validator/npoints_validator.cpp
   src/cone_validator/cylinder_validator.cpp
   src/cone_validator/height_validator.cpp
@@ -45,6 +44,8 @@ set(IMPLEMENTATION_FILES
   src/deskew/deskew.cpp
   src/utils/plane.cpp
   src/utils/evaluator_parameters.cpp
+  src/utils/ground_grid.cpp
+  src/utils/cluster.cpp
   src/cone_evaluator/cone_evaluator.cpp
   src/center_calculation/centroid_calculation.cpp
   src/icp/icp.cpp

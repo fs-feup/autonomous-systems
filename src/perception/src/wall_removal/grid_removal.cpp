@@ -1,7 +1,13 @@
 #include "wall_removal/grid_removal.hpp"
 
-GridWallRemoval::GridWallRemoval(double grid_width, int max_points_per_cluster)
-    : grid_width_(grid_width), max_points_per_cluster_(max_points_per_cluster) {}
+GridWallRemoval::GridWallRemoval(double angle, double radius, double start_augmentation,
+                                 double radius_augmentation, double fov, int max_points_per_cluster)
+    : angle_(angle),
+      radius_(radius),
+      start_augmentation_(start_augmentation),
+      radius_augmentation_(radius_augmentation),
+      fov_(fov),
+      max_points_per_cluster_(max_points_per_cluster) {}
 
 void GridWallRemoval::remove_walls(const sensor_msgs::msg::PointCloud2::SharedPtr& point_cloud,
                                    sensor_msgs::msg::PointCloud2::SharedPtr& output_cloud) const {
@@ -27,9 +33,21 @@ void GridWallRemoval::remove_walls(const sensor_msgs::msg::PointCloud2::SharedPt
     float z = *reinterpret_cast<const float*>(&cloud_data[PointZ(i)]);
     if (x == 0.0f && y == 0.0f && z == 0.0f) continue;
 
-    int gx = static_cast<int>(std::floor(x / grid_width_));
-    int gy = static_cast<int>(std::floor(y / grid_width_));
-    grid_map[{gx, gy}].push_back(i);
+    int slice = static_cast<int>(std::floor((std::atan2(y, x) * 180.0 / M_PI + (fov_)) / angle_));
+    double distance = std::sqrt(x * x + y * y);
+    int bin_idx = 0;
+    if (distance < start_augmentation_ || radius_augmentation_ == 0.0) {
+      bin_idx = static_cast<int>(std::floor(distance / radius_));
+    } else {
+      const double d = distance - start_augmentation_;
+      const double a = radius_augmentation_ / 2.0;
+      const double b = radius_ + radius_augmentation_ / 2.0;
+      const double disc = b * b + 4.0 * a * d;
+      const double n_pos = (-b + std::sqrt(disc)) / (2.0 * a);
+      const int n = static_cast<int>(std::floor(n_pos)) + 1;
+      bin_idx = static_cast<int>(std::floor(start_augmentation_ / radius_)) + (n - 1);
+    }
+    grid_map[{slice, bin_idx}].push_back(i);
   }
 
   std::unordered_map<GridIndex, bool> visited;

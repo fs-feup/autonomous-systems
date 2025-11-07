@@ -9,6 +9,7 @@
 #include <cstdio>
 #include <string>
 #include <unordered_map>
+#include <utils/ground_grid.hpp>
 #include <utils/plane.hpp>
 #include <utils/trimming_parameters.hpp>
 #include <vector>
@@ -51,6 +52,7 @@ struct PerceptionParameters {     ///< Struct containing parameters and interfac
   std::string adapter_;           ///< String for the name of the current adapter.
   uint8_t default_mission_;
   std::shared_ptr<std::unordered_map<int16_t, std::shared_ptr<FovTrimming>>> fov_trim_map_;
+  std::shared_ptr<GroundGrid> ground_grid_;        ///< Model for the ground grid.
   std::shared_ptr<GroundRemoval> ground_removal_;  ///< Shared pointer to the GroundRemoval object.
   std::shared_ptr<WallRemoval> wall_removal_;      ///< Shared pointer to the WallRemoval object.
   std::shared_ptr<Clustering> clustering_;         ///< Shared pointer to the Clustering object.
@@ -75,9 +77,9 @@ private:
   std::string _vehicle_frame_id_;  ///< String for the vehicle's frame id.
   std::string _adapter_;           ///< String for the current adapter being used.
   int16_t _mission_type_;          ///< integer value for the current mission type running.
-  Plane _ground_plane_;            ///< Model for the ground plane.
   std::shared_ptr<std::unordered_map<int16_t, std::shared_ptr<FovTrimming>>>
       _fov_trim_map_;                               ///< Shared pointer to the FovTrimming object.
+  std::shared_ptr<GroundGrid> _ground_grid_;        ///< Model for the ground grid.
   std::shared_ptr<GroundRemoval> _ground_removal_;  ///< Shared pointer to the GroundRemoval object.
   std::shared_ptr<WallRemoval> _wall_removal_;      ///< Shared pointer to the WallRemoval object.
   std::shared_ptr<Clustering> _clustering_;         ///< Shared pointer to the Clustering object.

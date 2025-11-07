@@ -4,7 +4,7 @@ RANSAC::RANSAC(const double epsilon, const int n_tries) : epsilon(epsilon), n_tr
 
 void RANSAC::ground_removal(const sensor_msgs::msg::PointCloud2::SharedPtr& trimmed_point_cloud,
                             sensor_msgs::msg::PointCloud2::SharedPtr& ground_removed_cloud,
-                            Plane& plane) const {
+                            GroundGrid& ground_grid) const {
   /**
 pcl::ModelCoefficients::Ptr coefficients = std::make_shared<pcl::ModelCoefficients>();
 pcl::PointIndices::Ptr inliers_indices = std::make_shared<pcl::PointIndices>();

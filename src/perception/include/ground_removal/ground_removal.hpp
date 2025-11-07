@@ -1,6 +1,6 @@
 #pragma once
 
-#include <utils/plane.hpp>
+#include <utils/ground_grid.hpp>
 #include <utils/split_parameters.hpp>
 
 #include "sensor_msgs/msg/point_cloud2.hpp"
@@ -24,5 +24,5 @@ public:
    */
   virtual void ground_removal(const sensor_msgs::msg::PointCloud2::SharedPtr& trimmed_point_cloud,
                               sensor_msgs::msg::PointCloud2::SharedPtr& ground_removed_point_cloud,
-                              Plane& plane) const = 0;
+                              GroundGrid& ground_grid) const = 0;
 };

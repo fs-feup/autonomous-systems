@@ -7,37 +7,45 @@ perception:
   max_height: 1.50
 
   #TRACKDRIVE/AUTOCROSS TRIMMING
-  max_range: 35.0
+  max_range: 30.0
 
   #ACCELERATION TRIMMING
-  acc_max_range: 35.0
+  acc_max_range: 30.0
   acc_max_y: 3.5
 
   #SKIDPAD TRIMMING
-  skid_max_range: 35.0
+  skid_max_range: 30.0
 
   #Split Parameters
   lidar_horizontal_resolution: 0.095
-  angle_resolution: 2.0
+  angle_resolution: 1.0
   fov: 180.0
-  
+
+  #Ground Grid
+  ground_grid_range: 30.0  #ATTENTION: Should be >= all max_ranges
+  ground_grid_angle: 18.0
+  ground_grid_radius: 2.0
+  ground_grid_start_augmentation: 15.0
+  ground_grid_radius_augmentation: 0.5
+
   #Ground Removal
   ground_removal: "himmelsbach"  #options: "ransac", "himmelsbach"
   ransac_epsilon: 0.10
   ransac_iterations: 40
-  himmelsbach_ground_reference_slices: 8
-  himmelsbach_epsilon: 0.25
-  himmelsbach_max_slope: 0.50
-  himmelsbach_min_slope: 0.20
+  himmelsbach_max_slope: 100.0
+  himmelsbach_min_slope: 0.10
   himmelsbach_slope_reduction_m: 0.01
   himmelsbach_start_reduction: 20
-  himmelsbach_initial_alpha: 2
-  himmelsbach_alpha_augmentation_m: 0.5
+  himmelsbach_initial_alpha: 0.40
+  himmelsbach_alpha_augmentation_m: 0.02
   himmelsbach_start_augmentation: 10
 
   #Wall Removal
-  wall_removal_grid_width: 1.00
-  wall_removal_max_points_per_cluster: 100
+  wall_removal_grid_angle: 9.0
+  wall_removal_grid_radius: 0.40
+  wall_removal_start_augmentation: 15.0
+  wall_removal_radius_augmentation: 0.08
+  wall_removal_max_points_per_cluster: 300
 
   #Clustering
   clustering: "GridClustering"  #options: "DBSCAN", "GridClustering"
@@ -45,38 +53,52 @@ perception:
   DBSCAN_clustering_epsilon: 0.32
   grid_clustering_grid_width: 0.10
   grid_clustering_max_points_per_cluster: 40
-  grid_clustering_min_points_per_cluster: 1
+  grid_clustering_min_points_per_cluster: 0
 
   #Evaluator
-  min_height: 0.10
-  large_max_height: 0.30
-  small_max_height: 0.30
-  height_cap: 0.5
-  min_xoy: 0.0
-  max_xoy: 0.1
-  min_z: 0.00001
-  max_z: 0.6
-  min_z_score_x: -100000000.0
-  max_z_score_x: 100000000000.0
-  min_z_score_y: -1000000000.0
-  max_z_score_y: 1000000000.0
-  out_distance_cap: 0.5
-  min_distance_x: 0.02
-  min_distance_y: 0.04
-  min_distance_z: 0.11
-  min_n_points: 6
-  min_confidence: 0.60
-  height_out_weight: 0.0
-  height_in_weight: 0.0
-  cylinder_radius_weight: 3500.0
-  cylinder_height_weight: 3500.0
-  cylinder_npoints_weight: 3500.0
-  npoints_weight: 0.0
-  displacement_x_weight: 7.0
-  displacement_y_weight: 8.0
-  displacement_z_weight: 15.0
-  deviation_xoy_weight: 5.0
-  deviation_z_weight: 5.0
+  small_cone_width: 0.40
+  large_cone_width: 0.40
+  small_cone_height: 0.60
+  large_cone_height: 0.60
+  n_out_points_ratio: 0.10
+  max_distance_from_ground_min: 0.50 # max distance from the ground of the lowest point in the cluster
+  max_distance_from_ground_max: 0.90 # max distance form the ground of the highest point in the cluster
+  max_expected_points: 20
+  expected_points_start_reduction: 10
+  expected_points_reduction_per_meter: 0.75
+  expected_points_threshold: 5
+
+
+  ##Evaluator
+  #min_height: 0.10
+  #large_max_height: 0.30
+  #small_max_height: 0.30
+  #height_cap: 0.5
+  #min_xoy: 0.0
+  #max_xoy: 0.1
+  #min_z: 0.00001
+  #max_z: 0.6
+  #min_z_score_x: -100000000.0
+  #max_z_score_x: 100000000000.0
+  #min_z_score_y: -1000000000.0
+  #max_z_score_y: 1000000000.0
+  #out_distance_cap: 0.5
+  #min_distance_x: 0.02
+  #min_distance_y: 0.04
+  #min_distance_z: 0.11
+  #min_n_points: 6
+  #min_confidence: 0.60
+  #height_out_weight: 0.0
+  #height_in_weight: 0.0
+  #cylinder_radius_weight: 3500.0
+  #cylinder_height_weight: 3500.0
+  #cylinder_npoints_weight: 3500.0
+  #npoints_weight: 0.0
+  #displacement_x_weight: 7.0
+  #displacement_y_weight: 8.0
+  #displacement_z_weight: 15.0
+  #deviation_xoy_weight: 5.0
+  #deviation_z_weight: 5.0
 
   #ICP
   target_file: "cone.pcd"

@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include <utils/plane.hpp>
+#include <utils/ground_grid.hpp>
 #include <utils/split_parameters.hpp>
 
 #include "ground_removal/ground_removal.hpp"
@@ -39,7 +39,7 @@ public:
    */
   void ground_removal(const sensor_msgs::msg::PointCloud2::SharedPtr& trimmed_point_cloud,
                       sensor_msgs::msg::PointCloud2::SharedPtr& ground_removed_point_cloud,
-                      Plane& plane) const override;
+                      GroundGrid& ground_grid) const override;
 
 private:
   double epsilon;  ///< Epsilon threshold for ground removal.

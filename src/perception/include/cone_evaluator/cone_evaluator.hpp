@@ -2,7 +2,7 @@
 #include <cone_validator/cone_validator.hpp>
 #include <utils/cluster.hpp>
 #include <utils/evaluator_parameters.hpp>
-#include <utils/plane.hpp>
+#include <utils/ground_grid.hpp>
 
 /**
  * @class ConeEvaluator
@@ -13,6 +13,12 @@
 class ConeEvaluator {
 private:
   std::shared_ptr<EvaluatorParameters> params_;
+
+  bool close_to_ground(Cluster& cluster, const GroundGrid& ground_grid) const;
+
+  bool cylinder_fits_cone(Cluster& cluster) const;
+
+  bool npoints_valid(Cluster& cluster) const;
 
 public:
   /**
@@ -29,5 +35,5 @@ public:
    * @param ground_plane The plane against which some validators compare the cluster.
    * @return True if cluster is equal or above minimum confidence and false if below.
    */
-  bool evaluateCluster(Cluster& cluster, Plane& ground_plane);
+  bool evaluateCluster(Cluster& cluster, const GroundGrid& ground_grid);
 };

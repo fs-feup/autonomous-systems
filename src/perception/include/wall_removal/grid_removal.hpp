@@ -19,11 +19,16 @@
  */
 class GridWallRemoval : public WallRemoval {
 private:
-  double grid_width_;
+  double angle_;
+  double radius_;
+  double start_augmentation_;
+  double radius_augmentation_;
+  double fov_;
   int max_points_per_cluster_;
 
 public:
-  GridWallRemoval(double grid_width, int max_points_per_cluster);
+  GridWallRemoval(double angle, double radius, double start_augmentation,
+                  double radius_augmentation, double fov, int max_points_per_cluster);
 
   /**
    * @brief Removes walls from the input point cloud using a grid-based approach.

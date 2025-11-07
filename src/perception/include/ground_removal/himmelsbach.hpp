@@ -5,8 +5,8 @@
 #include <cstring>
 #include <limits>
 #include <sensor_msgs/msg/point_cloud2.hpp>
+#include <utils/ground_grid.hpp>
 #include <utils/lidar_point.hpp>
-#include <utils/plane.hpp>
 #include <utils/split_parameters.hpp>
 #include <vector>
 
@@ -43,10 +43,10 @@ struct Slice {
  */
 class Himmelsbach : public GroundRemoval {
 public:
-  Himmelsbach(const int ground_reference_slices, const double epsilon, const double max_slope,
-              const double min_slope, const double slope_reduction_m, const double start_reduction,
-              const double initial_alpha, const double alpha_augmentation_m,
-              const double start_augmentation, SplitParameters split_params);
+  Himmelsbach(const double max_slope, const double min_slope, const double slope_reduction_m,
+              const double start_reduction, const double initial_alpha,
+              const double alpha_augmentation_m, const double start_augmentation,
+              SplitParameters split_params);
 
   Himmelsbach() = default;
 
@@ -59,11 +59,9 @@ public:
    */
   void ground_removal(const sensor_msgs::msg::PointCloud2::SharedPtr& trimmed_point_cloud,
                       sensor_msgs::msg::PointCloud2::SharedPtr& ground_removed_point_cloud,
-                      Plane& plane) const override;
+                      GroundGrid& ground_grid) const override;
 
 private:
-  int ground_reference_slices_;
-  double epsilon_;
   double max_slope_;
   double min_slope_;
   double slope_reduction_m_;
@@ -76,13 +74,7 @@ private:
 
   void process_slice(const sensor_msgs::msg::PointCloud2::SharedPtr& trimmed_point_cloud,
                      sensor_msgs::msg::PointCloud2::SharedPtr& ground_removed_point_cloud,
-                     size_t slice_idx) const;
+                     size_t slice_idx, GroundGrid& ground_grid) const;
 
   void split_point_cloud(const sensor_msgs::msg::PointCloud2::SharedPtr& input_cloud) const;
-
-  double calculate_ground_reference(const sensor_msgs::msg::PointCloud2::SharedPtr& input_cloud,
-                                    int slice_idx) const;
-
-  float find_closest_ring_min_height(const sensor_msgs::msg::PointCloud2::SharedPtr& input_cloud,
-                                     int slice_idx) const;
 };
