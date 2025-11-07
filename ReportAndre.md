@@ -14,7 +14,7 @@ The system is structured into four distinct ROS 2 packages/nodes, each responsib
 |-----------|------|------------------------|-------------------|------------------|
 | **PerceptionNode** | `perception_node.cpp` | Simulates perception radius and object detection. | `robot/map`, `robot/status` | `perception/objects`, `perception/local_map` |
 | **StateEstimationNode** | `state_estimation_node.cpp` | Builds a map with the information gathered by perception. | `robot/status`, `perception/objects` | `state_estimation/map`, `state_estimation/debug` |
-| **PathPlanningNode** | `path_planning_node.cpp` | Tries to plan the movement to tetect the full map and then tries to plan the movement to pick all boxes and drop them in the respective shelfs. | `state_estimation/map`, `state_estimation/debug` | `planning/path` |
+| **PathPlanningNode** | `path_planning_node.cpp` | Tries to plan the movement to detect the full map and then tries to plan the movement to pick up all boxes and drop them in the respective shelfs. | `state_estimation/map`, `state_estimation/debug` | `planning/path` |
 | **ControlNode** | `control_node.cpp` | Executes the planned path into discrete commands. | `planning/path`, `state_estimation/debug`, `robot/status` | `control/cmd`, `control/status` |
 
 ---
