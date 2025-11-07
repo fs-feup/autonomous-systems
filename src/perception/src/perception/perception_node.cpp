@@ -47,6 +47,11 @@ PerceptionParameters Perception::load_config() {
   trim_params.acc_max_y = perception_config["acc_max_y"].as<double>();
   trim_params.skid_max_range = perception_config["skid_max_range"].as<double>();
   trim_params.lidar_height = perception_config["lidar_height"].as<double>();
+  trim_params.lidar_horizontal_resolution =
+      perception_config["lidar_horizontal_resolution"].as<double>();
+  trim_params.lidar_vertical_resolution =
+      perception_config["lidar_vertical_resolution"].as<double>();
+  trim_params.fov = perception_config["fov"].as<double>();
 
   auto acceleration_trimming = std::make_shared<AccelerationTrimming>(trim_params);
   auto skidpad_trimming = std::make_shared<SkidpadTrimming>(trim_params);
@@ -67,13 +72,6 @@ PerceptionParameters Perception::load_config() {
       std::make_shared<std::unordered_map<int16_t, std::shared_ptr<FovTrimming>>>(
           temp_fov_trim_map);
 
-  SplitParameters split_params;
-  split_params.lidar_horizontal_resolution =
-      perception_config["lidar_horizontal_resolution"].as<double>();
-  split_params.angle_resolution = perception_config["angle_resolution"].as<double>();
-  split_params.lidar_height = perception_config["lidar_height"].as<double>();
-  split_params.fov = perception_config["fov"].as<double>();
-
   double ground_grid_range = perception_config["ground_grid_range"].as<double>();
   double ground_grid_angle = perception_config["ground_grid_angle"].as<double>();
   double ground_grid_radius = perception_config["ground_grid_radius"].as<double>();
@@ -83,11 +81,12 @@ PerceptionParameters Perception::load_config() {
       perception_config["ground_grid_radius_augmentation"].as<double>();
   params.ground_grid_ = std::make_shared<GroundGrid>(
       ground_grid_range, ground_grid_angle, ground_grid_radius, ground_grid_start_augmentation,
-      ground_grid_radius_augmentation, split_params.fov);
+      ground_grid_radius_augmentation, trim_params.fov);
 
   std::string ground_removal_algorithm = perception_config["ground_removal"].as<std::string>();
   double ransac_epsilon = perception_config["ransac_epsilon"].as<double>();
   int ransac_iterations = perception_config["ransac_iterations"].as<int>();
+  double himmelsbach_grid_angle = perception_config["himmelsbach_grid_angle"].as<double>();
   double himmelsbach_max_slope = perception_config["himmelsbach_max_slope"].as<double>();
   double himmelsbach_min_slope = perception_config["himmelsbach_min_slope"].as<double>();
   double himmelsbach_slope_reduction =
@@ -104,9 +103,9 @@ PerceptionParameters Perception::load_config() {
     params.ground_removal_ = std::make_shared<RANSAC>(ransac_epsilon, ransac_iterations);
   } else if (ground_removal_algorithm == "himmelsbach") {
     params.ground_removal_ = std::make_shared<Himmelsbach>(
-        himmelsbach_max_slope, himmelsbach_min_slope, himmelsbach_slope_reduction,
-        himmelsbach_distance_reduction, himmelsbach_alpha, himmelsbach_alpha_augmentation_m,
-        himmelsbach_start_augmentation, split_params);
+        himmelsbach_grid_angle, himmelsbach_max_slope, himmelsbach_min_slope,
+        himmelsbach_slope_reduction, himmelsbach_distance_reduction, himmelsbach_alpha,
+        himmelsbach_alpha_augmentation_m, himmelsbach_start_augmentation, trim_params);
   } else {
     RCLCPP_ERROR(rclcpp::get_logger("perception"),
                  "Ground removal algorithm not recognized: %s, using RANSAC as default",
@@ -124,24 +123,26 @@ PerceptionParameters Perception::load_config() {
       perception_config["wall_removal_max_points_per_cluster"].as<int>();
   params.wall_removal_ = std::make_shared<GridWallRemoval>(
       wall_removal_grid_angle, wall_removal_grid_radius, wall_removal_start_augmentation,
-      wall_removal_radius_augmentation, split_params.fov, wall_removal_max_points_per_cluster);
+      wall_removal_radius_augmentation, trim_params.fov, wall_removal_max_points_per_cluster);
 
   std::string clustering_algorithm = perception_config["clustering"].as<std::string>();
   int DBSCAN_clustering_n_neighbours = perception_config["DBSCAN_n_neighbours"].as<int>();
   double DBSCAN_clustering_epsilon = perception_config["DBSCAN_clustering_epsilon"].as<double>();
-  double grid_clustering_grid_width = perception_config["grid_clustering_grid_width"].as<double>();
-  int grid_clustering_max_points_per_cluster =
-      perception_config["grid_clustering_max_points_per_cluster"].as<int>();
-  int grid_clustering_min_points_per_cluster =
-      perception_config["grid_clustering_min_points_per_cluster"].as<int>();
+  double grid_clustering_grid_angle = perception_config["grid_clustering_grid_angle"].as<double>();
+  double grid_clustering_grid_radius =
+      perception_config["grid_clustering_grid_radius"].as<double>();
+  double grid_clustering_start_augmentation =
+      perception_config["grid_clustering_start_augmentation"].as<double>();
+  double grid_clustering_radius_augmentation =
+      perception_config["grid_clustering_radius_augmentation"].as<double>();
 
   if (clustering_algorithm == "DBSCAN") {
     params.clustering_ =
         std::make_shared<DBSCAN>(DBSCAN_clustering_n_neighbours, DBSCAN_clustering_epsilon);
   } else if (clustering_algorithm == "GridClustering") {
-    params.clustering_ = std::make_shared<GridClustering>(grid_clustering_grid_width,
-                                                          grid_clustering_max_points_per_cluster,
-                                                          grid_clustering_min_points_per_cluster);
+    params.clustering_ = std::make_shared<GridClustering>(
+        grid_clustering_grid_angle, grid_clustering_grid_radius, grid_clustering_start_augmentation,
+        grid_clustering_radius_augmentation, trim_params.fov);
   } else {
     RCLCPP_ERROR(rclcpp::get_logger("perception"),
                  "Clustering algorithm not recognized: %s, using DBSCAN as default",
@@ -160,11 +161,10 @@ PerceptionParameters Perception::load_config() {
       perception_config["max_distance_from_ground_min"].as<double>();
   eval_params->max_distance_from_ground_max =
       perception_config["max_distance_from_ground_max"].as<double>();
-  eval_params->max_expected_points = perception_config["max_expected_points"].as<double>();
-  eval_params->expected_points_start_reduction =
-      perception_config["expected_points_start_reduction"].as<double>();
-  eval_params->expected_points_reduction_per_meter =
-      perception_config["expected_points_reduction_per_meter"].as<double>();
+  eval_params->lidar_height = trim_params.lidar_height;
+  eval_params->lidar_vertical_resolution = trim_params.lidar_vertical_resolution;
+  eval_params->lidar_horizontal_resolution = trim_params.lidar_horizontal_resolution;
+  eval_params->visibility_factor = perception_config["visibility_factor"].as<double>();
   eval_params->expected_points_threshold =
       perception_config["expected_points_threshold"].as<double>();
 

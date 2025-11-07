@@ -2,7 +2,6 @@
 
 #include <cstring>
 #include <utils/lidar_point.hpp>
-#include <utils/split_parameters.hpp>
 #include <utils/trimming_parameters.hpp>
 
 #include "sensor_msgs/msg/point_cloud2.hpp"

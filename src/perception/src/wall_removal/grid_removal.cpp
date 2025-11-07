@@ -2,11 +2,7 @@
 
 GridWallRemoval::GridWallRemoval(double angle, double radius, double start_augmentation,
                                  double radius_augmentation, double fov, int max_points_per_cluster)
-    : angle_(angle),
-      radius_(radius),
-      start_augmentation_(start_augmentation),
-      radius_augmentation_(radius_augmentation),
-      fov_(fov),
+    : grid_geometry_(angle, radius, start_augmentation, radius_augmentation, fov),
       max_points_per_cluster_(max_points_per_cluster) {}
 
 void GridWallRemoval::remove_walls(const sensor_msgs::msg::PointCloud2::SharedPtr& point_cloud,
@@ -30,23 +26,10 @@ void GridWallRemoval::remove_walls(const sensor_msgs::msg::PointCloud2::SharedPt
   for (size_t i = 0; i < num_points; ++i) {
     float x = *reinterpret_cast<const float*>(&cloud_data[PointX(i)]);
     float y = *reinterpret_cast<const float*>(&cloud_data[PointY(i)]);
-    float z = *reinterpret_cast<const float*>(&cloud_data[PointZ(i)]);
-    if (x == 0.0f && y == 0.0f && z == 0.0f) continue;
 
-    int slice = static_cast<int>(std::floor((std::atan2(y, x) * 180.0 / M_PI + (fov_)) / angle_));
-    double distance = std::sqrt(x * x + y * y);
-    int bin_idx = 0;
-    if (distance < start_augmentation_ || radius_augmentation_ == 0.0) {
-      bin_idx = static_cast<int>(std::floor(distance / radius_));
-    } else {
-      const double d = distance - start_augmentation_;
-      const double a = radius_augmentation_ / 2.0;
-      const double b = radius_ + radius_augmentation_ / 2.0;
-      const double disc = b * b + 4.0 * a * d;
-      const double n_pos = (-b + std::sqrt(disc)) / (2.0 * a);
-      const int n = static_cast<int>(std::floor(n_pos)) + 1;
-      bin_idx = static_cast<int>(std::floor(start_augmentation_ / radius_)) + (n - 1);
-    }
+    int slice = grid_geometry_.get_slice_index(x, y);
+    int bin_idx = grid_geometry_.get_bin_index(x, y);
+    if (slice == -1) continue;  // Out of FOV
     grid_map[{slice, bin_idx}].push_back(i);
   }
 

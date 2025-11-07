@@ -1,8 +1,16 @@
 #pragma once
 
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <limits>
+#include <sensor_msgs/msg/point_cloud2.hpp>
 #include <utils/ground_grid.hpp>
-#include <utils/split_parameters.hpp>
+#include <utils/lidar_point.hpp>
+#include <utils/trimming_parameters.hpp>
+#include <vector>
 
+#include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 
 /**

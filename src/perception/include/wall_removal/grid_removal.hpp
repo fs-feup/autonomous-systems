@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <vector>
 
+#include "utils/grid_geometry.hpp"
 #include "utils/grid_index.hpp"
 #include "wall_removal/wall_removal.hpp"
 
@@ -19,11 +20,7 @@
  */
 class GridWallRemoval : public WallRemoval {
 private:
-  double angle_;
-  double radius_;
-  double start_augmentation_;
-  double radius_augmentation_;
-  double fov_;
+  GridGeometry grid_geometry_;
   int max_points_per_cluster_;
 
 public:

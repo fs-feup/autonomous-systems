@@ -37,15 +37,23 @@
 // };
 
 struct EvaluatorParameters {
+  // Cone size parameters
   double small_cone_width;
   double large_cone_width;
   double small_cone_height;
   double large_cone_height;
+
+  // Cylinder fit parameters
   double n_out_points_ratio;
+
+  // Ground proximity parameters
   double max_distance_from_ground_min;
   double max_distance_from_ground_max;
-  double max_expected_points;
-  double expected_points_start_reduction;
-  double expected_points_reduction_per_meter;
+
+  // Number of points parameters
+  double lidar_height;
+  double lidar_vertical_resolution;
+  double lidar_horizontal_resolution;
+  double visibility_factor;
   double expected_points_threshold;
 };

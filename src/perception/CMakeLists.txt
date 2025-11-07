@@ -46,6 +46,7 @@ set(IMPLEMENTATION_FILES
   src/utils/evaluator_parameters.cpp
   src/utils/ground_grid.cpp
   src/utils/cluster.cpp
+  src/utils/grid_geometry.cpp
   src/cone_evaluator/cone_evaluator.cpp
   src/center_calculation/centroid_calculation.cpp
   src/icp/icp.cpp

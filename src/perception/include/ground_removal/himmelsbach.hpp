@@ -1,17 +1,6 @@
 #pragma once
 
-#include <algorithm>
-#include <cmath>
-#include <cstring>
-#include <limits>
-#include <sensor_msgs/msg/point_cloud2.hpp>
-#include <utils/ground_grid.hpp>
-#include <utils/lidar_point.hpp>
-#include <utils/split_parameters.hpp>
-#include <vector>
-
 #include "ground_removal/ground_removal.hpp"
-#include "rclcpp/rclcpp.hpp"
 
 int constexpr NUM_RINGS = 40;
 
@@ -43,10 +32,10 @@ struct Slice {
  */
 class Himmelsbach : public GroundRemoval {
 public:
-  Himmelsbach(const double max_slope, const double min_slope, const double slope_reduction_m,
-              const double start_reduction, const double initial_alpha,
-              const double alpha_augmentation_m, const double start_augmentation,
-              SplitParameters split_params);
+  Himmelsbach(const double grid_angle, const double max_slope, const double min_slope,
+              const double slope_reduction_m, const double start_reduction,
+              const double initial_alpha, const double alpha_augmentation_m,
+              const double start_augmentation, TrimmingParameters trim_params);
 
   Himmelsbach() = default;
 
@@ -62,6 +51,7 @@ public:
                       GroundGrid& ground_grid) const override;
 
 private:
+  double grid_angle_;
   double max_slope_;
   double min_slope_;
   double slope_reduction_m_;
@@ -69,7 +59,7 @@ private:
   double initial_alpha_;
   double alpha_augmentation_m_;
   double start_augmentation_;
-  SplitParameters split_params_;
+  TrimmingParameters trim_params_;
   std::shared_ptr<std::vector<Slice>> slices_;
 
   void process_slice(const sensor_msgs::msg::PointCloud2::SharedPtr& trimmed_point_cloud,

@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "clustering/clustering.hpp"
+#include "utils/grid_geometry.hpp"
 #include "utils/grid_index.hpp"
 
 /**
@@ -16,9 +17,7 @@
  */
 class GridClustering : public Clustering {
 private:
-  double grid_width_;           ///< Width of each grid cell.
-  int max_points_per_cluster_;  ///< Maximum number of points allowed in each grid cell.
-  int min_points_per_cluster_;  ///< Minimum number of points required to form a cluster.
+  GridGeometry grid_geometry_;  ///< Geometry of the grid used for clustering.
 
 public:
   /**
@@ -28,7 +27,8 @@ public:
    * @param max_points_per_cluster Maximum number of points allowed in each cluster.
    * @param min_points_per_cluster Minimum number of points required to form a cluster.
    */
-  GridClustering(double grid_width, int max_points_per_cluster, int min_points_per_cluster);
+  GridClustering(double grid_angle, double grid_radius, double start_augmentation,
+                 double radius_augmentation, double fov);
 
   /**
    * @brief Clusters the input point cloud into groups using the GridClustering algorithm.

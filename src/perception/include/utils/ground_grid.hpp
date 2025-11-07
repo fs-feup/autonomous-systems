@@ -1,5 +1,11 @@
 #pragma once
+#include <algorithm>
+#include <cmath>
+#include <limits>
+#include <rclcpp/rclcpp.hpp>
 #include <vector>
+
+#include "utils/grid_geometry.hpp"
 
 class GroundGrid {
 public:
@@ -14,14 +20,6 @@ public:
 
 private:
   double range_;
-  double angle_;
-  double radius_;
-  double start_augmentation_;
-  double radius_augmentation_;
-  double fov_;
-  int base_bins_;
-  double const_end_;
-  int num_slices_;
-  int num_bins_;
+  GridGeometry grid_geometry_;
   std::vector<std::vector<float>> grid_;
 };

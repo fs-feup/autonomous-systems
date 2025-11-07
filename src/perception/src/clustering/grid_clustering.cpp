@@ -1,10 +1,8 @@
 #include "clustering/grid_clustering.hpp"
 
-GridClustering::GridClustering(double grid_width, int max_points_per_cluster,
-                               int min_points_per_cluster)
-    : grid_width_(grid_width),
-      max_points_per_cluster_(max_points_per_cluster),
-      min_points_per_cluster_(min_points_per_cluster) {}
+GridClustering::GridClustering(double grid_angle, double grid_radius, double start_augmentation,
+                               double radius_augmentation, double fov)
+    : grid_geometry_(grid_angle, grid_radius, start_augmentation, radius_augmentation, fov) {}
 
 void GridClustering::clustering(const sensor_msgs::msg::PointCloud2::SharedPtr& input_cloud,
                                 std::vector<Cluster>* clusters) const {
@@ -12,16 +10,15 @@ void GridClustering::clustering(const sensor_msgs::msg::PointCloud2::SharedPtr& 
   const size_t num_points = input_cloud->width * input_cloud->height;
   if (num_points == 0) return;
 
-  // Step 2: grid clustering using small parameters but only over selected points
   std::unordered_map<GridIndex, std::vector<size_t>> grid_map;
   for (size_t i = 0; i < num_points; ++i) {
     float x = *reinterpret_cast<const float*>(&cloud_data[PointX(i)]);
     float y = *reinterpret_cast<const float*>(&cloud_data[PointY(i)]);
-    float z = *reinterpret_cast<const float*>(&cloud_data[PointZ(i)]);
-    if (x == 0.0f && y == 0.0f && z == 0.0f) continue;
+    if (x == 0.0f && y == 0.0f) continue;
 
-    int gx = static_cast<int>(std::floor(x / grid_width_));
-    int gy = static_cast<int>(std::floor(y / grid_width_));
+    int gx = grid_geometry_.get_slice_index(x, y);
+    int gy = grid_geometry_.get_bin_index(x, y);
+    if (gx == -1) continue;  // Out of FOV
     grid_map[{gx, gy}].push_back(i);
   }
 
@@ -55,10 +52,6 @@ void GridClustering::clustering(const sensor_msgs::msg::PointCloud2::SharedPtr& 
         }
       }
     }
-
-    if (static_cast<int>(cluster_points.size()) > min_points_per_cluster_ &&
-        static_cast<int>(cluster_points.size()) < max_points_per_cluster_) {
-      clusters->push_back(Cluster(input_cloud, cluster_points));
-    }
+    clusters->push_back(Cluster(input_cloud, cluster_points));
   }
 }
