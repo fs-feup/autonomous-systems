@@ -1,3 +1,1 @@
-geometry_msgs/Point[] waypoints
-
-
+custom_interfaces/RobotPathPoint[] points

@@ -61,6 +61,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Landmark.msg"
   "msg/Path.msg"
   "msg/StateEstimationDebug.msg"
+  "msg/RobotPathPoint.msg"
+  "msg/RobotControl.msg"
   DEPENDENCIES builtin_interfaces std_msgs geometry_msgs
 )
 

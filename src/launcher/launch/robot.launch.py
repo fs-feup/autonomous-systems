@@ -29,25 +29,26 @@ def generate_launch_description():
         output='screen'
     )
 
-    #planner_node = Node(
-        #package='robot_path_planning',
-        #executable='path_planning_node',
-        #name='path_planning',
-        #output='screen'
-    #)
+    planner_node = Node(
+        package='robot_path_planning',
+        executable='path_planning_node',
+        name='path_planning',
+        output='screen'
+    )
 
-    #controller_node = Node(
-     #   executable='control_node',
-      #  name='robot_control',
-       # output='screen'
-    #)
+    controller_node = Node(
+        package='robot_control',
+        executable='control_node',
+        name='robot_control',
+        output='screen'
+    )
 
     return LaunchDescription(
         [
             factory_robot_launch_description,
             perception_node_launch_description,
             state_estimation_node,
-           # planner_node,
-          #  controller_node,
+            planner_node,
+            controller_node,
         ],
     )
