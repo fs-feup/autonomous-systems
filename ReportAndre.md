@@ -8,7 +8,7 @@ This project implements a (incomplete) pipeline for an autonomous mobile robot, 
 
 ## 1. System Architecture and Files
 
-The system is structured into four distinct ROS 2 packages/nodes, each responsible for a specific stage of the robot's autonomy pipeline.
+The system is structured into four distinct ROS 2 packages/nodes, each responsible for a specific stage of the robot's autonomy pipeline. In order to run the project, the **robot.launch.py** file deals with launching all nodes needed -> "ros2 launch launcher robot.launch.py"
 
 | Node Name | File | Primary Responsibility | Key Subscriptions | Key Publications |
 |-----------|------|------------------------|-------------------|------------------|
@@ -39,7 +39,7 @@ The system is structured into four distinct ROS 2 packages/nodes, each responsib
 
 ###  Path Planning
 
-- **A* Search Algorithm**: The core pathfinding engine is implemented using A* search. This guarantees finding the shortest path in the grid, making the path efficient for the Control node to execute. I had help from AI code generators in order to build this feature.
+- **A\* Search Algorithm**: The core pathfinding engine is implemented using A* search. This guarantees finding the shortest path in the grid, making the path efficient for the Control node to execute. I had help from AI code generators in order to build this feature.
   - **Heuristic**: The Euclidean distance is used as the heuristic h (admissible and consistent for grid movement).
 
 - **Two-Phase Mission Logic**: The robot operates in two sequential phases:
