@@ -60,7 +60,9 @@ bool ConeEvaluator::cylinder_fits_cone(Cluster &cluster) const {
     double half_height = cluster.get_is_large() ? params_->large_cone_height / 2.0
                                                 : params_->small_cone_height / 2.0;
 
-    if (distanceXY > radius || dz > half_height) n_out_points++;
+    if (distanceXY > radius || dz > half_height) {
+      n_out_points++;
+    }
   }
 
   // Compute ratio of points outside the expected cylinder

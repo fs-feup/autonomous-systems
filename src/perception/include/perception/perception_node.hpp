@@ -6,7 +6,6 @@
 #include <cone_validator/displacement_validator.hpp>
 #include <cone_validator/npoints_validator.hpp>
 #include <cone_validator/z_score_validator.hpp>
-#include <cstdio>
 #include <string>
 #include <unordered_map>
 #include <utils/ground_grid.hpp>

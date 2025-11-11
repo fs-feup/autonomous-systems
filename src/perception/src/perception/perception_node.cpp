@@ -52,6 +52,9 @@ PerceptionParameters Perception::load_config() {
       perception_config["lidar_horizontal_resolution"].as<double>();
   trim_params.lidar_vertical_resolution =
       perception_config["lidar_vertical_resolution"].as<double>();
+trim_params.apply_rotation = perception_config["apply_rotation"].as<bool>();
+trim_params.rotation = perception_config["rotation"].as<double>();
+trim_params.apply_fov_trimming = perception_config["apply_fov_trimming"].as<bool>();
   trim_params.fov = perception_config["fov"].as<double>();
 
   auto acceleration_trimming = std::make_shared<AccelerationTrimming>(trim_params);

@@ -3,7 +3,9 @@
 void Deskew::deskew_point_cloud(sensor_msgs::msg::PointCloud2::SharedPtr& input_cloud,
                                 const common_lib::structures::Velocities& vehicle_velocity) const {
   const size_t num_points = input_cloud->width * input_cloud->height;
-  if (num_points == 0) return;
+  if (num_points == 0) {
+    return;
+  }
 
   constexpr double scan_duration = 0.1;
   constexpr double one_over_two_pi = 1.0 / (2.0 * M_PI);
@@ -21,7 +23,9 @@ void Deskew::deskew_point_cloud(sensor_msgs::msg::PointCloud2::SharedPtr& input_
   double ref_x = *reinterpret_cast<const float*>(&cloud[PointX(ref_index)]);
   double ref_y = *reinterpret_cast<const float*>(&cloud[PointY(ref_index)]);
   double reference_azimuth = std::atan2(ref_x, ref_y);
-  if (reference_azimuth < 0.0) reference_azimuth += 2.0 * M_PI;
+  if (reference_azimuth < 0.0) {
+    reference_azimuth += 2.0 * M_PI;
+  }
 
   // Deskew each point
   for (size_t i = 0; i < num_points; ++i) {
@@ -30,10 +34,14 @@ void Deskew::deskew_point_cloud(sensor_msgs::msg::PointCloud2::SharedPtr& input_
     float z = *reinterpret_cast<const float*>(&cloud[PointZ(i)]);
 
     double azimuth = std::atan2(x, y);
-    if (azimuth < 0.0) azimuth += 2.0 * M_PI;
+    if (azimuth < 0.0) {
+      azimuth += 2.0 * M_PI;
+    }
 
     double delta_angle = reference_azimuth - azimuth;
-    if (delta_angle < 0.0) delta_angle += 2.0 * M_PI;
+    if (delta_angle < 0.0) {
+      delta_angle += 2.0 * M_PI;
+    }
 
     double time_offset = delta_angle * one_over_two_pi * scan_duration;
 

@@ -10,7 +10,9 @@ void RANSAC::ground_removal(const sensor_msgs::msg::PointCloud2::SharedPtr& trim
                             GroundGrid& ground_grid) const {
   const auto& cloud_data = trimmed_point_cloud->data;
   const size_t num_points = trimmed_point_cloud->width * trimmed_point_cloud->height;
-  if (num_points < 3) return;
+  if (num_points < 3) {
+    return;
+  }
 
   ground_removed_cloud->header = trimmed_point_cloud->header;
   ground_removed_cloud->height = 1;
@@ -43,7 +45,9 @@ void RANSAC::ground_removal(const sensor_msgs::msg::PointCloud2::SharedPtr& trim
     Eigen::Vector3f v2 = p3 - p1;
     Eigen::Vector3f n = v1.cross(v2);
 
-    if (n.norm() < 1e-6) continue;
+    if (n.norm() < 1e-6) {
+      continue;
+    }
     n.normalize();
     double a = n.x(), b = n.y(), c = n.z();
     double d = -n.dot(p1);

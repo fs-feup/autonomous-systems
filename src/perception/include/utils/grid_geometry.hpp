@@ -53,10 +53,4 @@ struct GridGeometry {
    * @return Number of bins
    */
   int get_num_bins(double range) const;
-
-  /**
-   * @brief Get the number of constant bins before augmentation starts
-   * @return Number of constant bins
-   */
-  int get_num_constant_bins() const;
 };

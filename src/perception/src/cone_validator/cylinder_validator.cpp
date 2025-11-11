@@ -46,6 +46,10 @@ std::vector<double> CylinderValidator::coneValidator(Cluster* cone_cluster,
       n_out_points++;
       out_distanceXY = std::min(out_distanceXY, small_getRadius() / distanceXY);
       out_distanceZ = std::min(out_distanceZ, small_height / (2 * distanceZ));
+    } else {
+      // Point is inside the cylinder
+      out_distanceXY = 1.0;
+      out_distanceZ = 1.0;
     }
 
     // Apply cap thresholds

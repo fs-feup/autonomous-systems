@@ -20,7 +20,9 @@ void GridWallRemoval::remove_walls(const sensor_msgs::msg::PointCloud2::SharedPt
 
   const auto& cloud_data = point_cloud->data;
   const size_t num_points = point_cloud->width * point_cloud->height;
-  if (num_points == 0) return;
+  if (num_points == 0) {
+    return;
+  }
 
   std::unordered_map<GridIndex, std::vector<size_t>> grid_map;
 
@@ -31,7 +33,9 @@ void GridWallRemoval::remove_walls(const sensor_msgs::msg::PointCloud2::SharedPt
 
     int slice = grid_geometry_.get_slice_index(x, y);
     int bin_idx = grid_geometry_.get_bin_index(x, y);
-    if (slice == -1) continue;  // Out of FOV
+    if (slice == -1) {
+      continue;
+    }
     grid_map[{slice, bin_idx}].push_back(i);
   }
 
@@ -39,7 +43,9 @@ void GridWallRemoval::remove_walls(const sensor_msgs::msg::PointCloud2::SharedPt
   std::unordered_map<GridIndex, bool> visited;
 
   for (auto& [cell, points] : grid_map) {
-    if (visited[cell]) continue;
+    if (visited[cell]) {
+      continue;
+    }
     visited[cell] = true;
 
     std::queue<GridIndex> q;
@@ -51,15 +57,23 @@ void GridWallRemoval::remove_walls(const sensor_msgs::msg::PointCloud2::SharedPt
       q.pop();
 
       auto it = grid_map.find(current);
-      if (it == grid_map.end()) continue;
+      if (it == grid_map.end()) {
+        continue;
+      }
 
-      for (size_t idx : it->second) cluster_points.push_back(idx);
+      for (size_t idx : it->second) {
+        cluster_points.push_back(idx);
+      }
 
       for (int dx = -1; dx <= 1; ++dx) {
         for (int dy = -1; dy <= 1; ++dy) {
-          if (dx == 0 && dy == 0) continue;
+          if (dx == 0 && dy == 0) {
+            continue;
+          }
           GridIndex neighbor{current.x + dx, current.y + dy};
-          if (visited[neighbor]) continue;
+          if (visited[neighbor]) {
+            continue;
+          }
           if (grid_map.find(neighbor) != grid_map.end()) {
             visited[neighbor] = true;
             q.push(neighbor);

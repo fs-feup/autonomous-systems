@@ -18,17 +18,35 @@ void AccelerationTrimming::fov_trimming(
   auto& cloud_data = cloud->data;
   size_t num_points = cloud->width * cloud->height;
 
+  const double theta = params_.apply_rotation ? params_.rotation * M_PI / 180.0 : 0.0;
+  const double cos_theta = std::cos(theta);
+  const double sin_theta = std::sin(theta);
+
   for (size_t i = 0; i < num_points; ++i) {
     float x = *reinterpret_cast<const float*>(&cloud_data[PointX(i)]);
     float y = *reinterpret_cast<const float*>(&cloud_data[PointY(i)]);
     float z = *reinterpret_cast<const float*>(&cloud_data[PointZ(i)]);
 
-    if (x == 0.0 && y == 0.0 && z == 0.0) continue;
+    if (x == 0.0 && y == 0.0 && z == 0.0) {
+      continue;
+    }
+
+    if (params_.apply_rotation) {
+      const float rotated_x = static_cast<float>(x * cos_theta - y * sin_theta);
+      const float rotated_y = static_cast<float>(x * sin_theta + y * cos_theta);
+      x = rotated_x;
+      y = rotated_y;
+    }
 
     if (y < params_.acc_max_y && y > -params_.acc_max_y &&
         within_limits(x, y, z, params_, params_.acc_max_range)) {
-      std::memcpy(&trimmed_cloud->data[trimmed_cloud->width * POINT_STEP], &cloud_data[PointX(i)],
-                  POINT_STEP);
+      uint8_t* out = &trimmed_cloud->data[trimmed_cloud->width * POINT_STEP];
+      std::memcpy(out, &cloud_data[PointX(i)], POINT_STEP);
+
+      if (params_.apply_rotation) {
+        *reinterpret_cast<float*>(out + PointX(0)) = x;
+        *reinterpret_cast<float*>(out + PointY(0)) = y;
+      }
       trimmed_cloud->width++;
     }
   }

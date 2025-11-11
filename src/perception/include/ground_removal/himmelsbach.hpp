@@ -18,7 +18,7 @@ struct Ring {
  * @brief Represents a horizontal slice of the LiDAR scan.
  */
 struct Slice {
-  std::vector<Ring> rings{NUM_RINGS};
+  std::vector<Ring> rings{::NUM_RINGS};
 
   Slice() = default;
 };

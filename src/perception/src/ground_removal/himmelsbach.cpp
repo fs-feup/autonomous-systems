@@ -190,20 +190,14 @@ void Himmelsbach::split_point_cloud(
   }
 
   const auto& cloud = input_cloud->data;
-  const int num_slices = slices_->size();
-
-  const double slice_angle = M_PI / static_cast<double>(num_slices);
+  double slice_angle = grid_angle_ * (M_PI / 180.0);
 
   for (size_t i = 0; i < num_points; ++i) {
     float x = *reinterpret_cast<const float*>(&cloud[PointX(i)]);
     float y = *reinterpret_cast<const float*>(&cloud[PointY(i)]);
     uint16_t ring = *reinterpret_cast<const uint16_t*>(&cloud[PointRing(i)]);
 
-    // Compute azimuth angle in clouds without driver correction
-    double azimuth = std::atan2(x, -y);
-
-    // Compute azimuth angle in clouds with driver correction
-    // double azimuth = std::atan2(y, x);
+    double azimuth = std::atan2(y, x);
 
     // Ignore points outside [-π/2, +π/2], should not happen
     if (azimuth < -M_PI_2 || azimuth > M_PI_2) {

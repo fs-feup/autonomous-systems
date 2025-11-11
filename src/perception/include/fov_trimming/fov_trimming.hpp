@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cmath>
 #include <cstring>
 #include <utils/lidar_point.hpp>
 #include <utils/trimming_parameters.hpp>
