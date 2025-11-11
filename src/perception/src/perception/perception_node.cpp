@@ -39,6 +39,7 @@ PerceptionParameters Perception::load_config() {
   params.default_mission_ =
       static_cast<uint8_t>(common_lib::competition_logic::fsds_to_system.at(default_mission_str));
 
+  // FOV Trimming Parameters
   TrimmingParameters trim_params;
   trim_params.min_range = perception_config["min_range"].as<double>();
   trim_params.max_height = perception_config["max_height"].as<double>();
@@ -72,6 +73,7 @@ PerceptionParameters Perception::load_config() {
       std::make_shared<std::unordered_map<int16_t, std::shared_ptr<FovTrimming>>>(
           temp_fov_trim_map);
 
+  // Ground Grid Parameters
   double ground_grid_range = perception_config["ground_grid_range"].as<double>();
   double ground_grid_angle = perception_config["ground_grid_angle"].as<double>();
   double ground_grid_radius = perception_config["ground_grid_radius"].as<double>();
@@ -83,16 +85,12 @@ PerceptionParameters Perception::load_config() {
       ground_grid_range, ground_grid_angle, ground_grid_radius, ground_grid_start_augmentation,
       ground_grid_radius_augmentation, trim_params.fov);
 
+  // Ground Removal Parameters
   std::string ground_removal_algorithm = perception_config["ground_removal"].as<std::string>();
   double ransac_epsilon = perception_config["ransac_epsilon"].as<double>();
   int ransac_iterations = perception_config["ransac_iterations"].as<int>();
   double himmelsbach_grid_angle = perception_config["himmelsbach_grid_angle"].as<double>();
   double himmelsbach_max_slope = perception_config["himmelsbach_max_slope"].as<double>();
-  double himmelsbach_min_slope = perception_config["himmelsbach_min_slope"].as<double>();
-  double himmelsbach_slope_reduction =
-      perception_config["himmelsbach_slope_reduction_m"].as<double>();
-  double himmelsbach_distance_reduction =
-      perception_config["himmelsbach_start_reduction"].as<double>();
   double himmelsbach_alpha = perception_config["himmelsbach_initial_alpha"].as<double>();
   double himmelsbach_alpha_augmentation_m =
       perception_config["himmelsbach_alpha_augmentation_m"].as<double>();
@@ -103,8 +101,7 @@ PerceptionParameters Perception::load_config() {
     params.ground_removal_ = std::make_shared<RANSAC>(ransac_epsilon, ransac_iterations);
   } else if (ground_removal_algorithm == "himmelsbach") {
     params.ground_removal_ = std::make_shared<Himmelsbach>(
-        himmelsbach_grid_angle, himmelsbach_max_slope, himmelsbach_min_slope,
-        himmelsbach_slope_reduction, himmelsbach_distance_reduction, himmelsbach_alpha,
+        himmelsbach_grid_angle, himmelsbach_max_slope, himmelsbach_alpha,
         himmelsbach_alpha_augmentation_m, himmelsbach_start_augmentation, trim_params);
   } else {
     RCLCPP_ERROR(rclcpp::get_logger("perception"),
@@ -113,6 +110,7 @@ PerceptionParameters Perception::load_config() {
     params.ground_removal_ = std::make_shared<RANSAC>(ransac_epsilon, ransac_iterations);
   }
 
+  // Wall Removal Parameters
   double wall_removal_grid_angle = perception_config["wall_removal_grid_angle"].as<double>();
   double wall_removal_grid_radius = perception_config["wall_removal_grid_radius"].as<double>();
   double wall_removal_start_augmentation =
@@ -125,6 +123,7 @@ PerceptionParameters Perception::load_config() {
       wall_removal_grid_angle, wall_removal_grid_radius, wall_removal_start_augmentation,
       wall_removal_radius_augmentation, trim_params.fov, wall_removal_max_points_per_cluster);
 
+  // Clustering Parameters
   std::string clustering_algorithm = perception_config["clustering"].as<std::string>();
   int DBSCAN_clustering_n_neighbours = perception_config["DBSCAN_n_neighbours"].as<int>();
   double DBSCAN_clustering_epsilon = perception_config["DBSCAN_clustering_epsilon"].as<double>();
@@ -151,6 +150,7 @@ PerceptionParameters Perception::load_config() {
         std::make_shared<DBSCAN>(DBSCAN_clustering_n_neighbours, DBSCAN_clustering_epsilon);
   }
 
+  // Cone Evaluator Parameters
   auto eval_params = std::make_shared<EvaluatorParameters>();
   eval_params->small_cone_width = perception_config["small_cone_width"].as<double>();
   eval_params->large_cone_width = perception_config["large_cone_width"].as<double>();
@@ -169,70 +169,6 @@ PerceptionParameters Perception::load_config() {
       perception_config["expected_points_threshold"].as<double>();
 
   params.cone_evaluator_ = std::make_shared<ConeEvaluator>(eval_params);
-
-  // params.cone_differentiator_ = std::make_shared<LeastSquaresDifferentiation>();
-  //
-  // long unsigned int min_n_points = perception_config["min_n_points"].as<long unsigned int>();
-  // double min_height = perception_config["min_height"].as<double>();
-  // double large_max_height = perception_config["large_max_height"].as<double>();
-  // double small_max_height = perception_config["small_max_height"].as<double>();
-  // double height_cap = perception_config["height_cap"].as<double>();
-  //
-  // double min_xoy = perception_config["min_xoy"].as<double>();
-  // double max_xoy = perception_config["max_xoy"].as<double>();
-  // double min_z = perception_config["min_z"].as<double>();
-  // double max_z = perception_config["max_z"].as<double>();
-  //
-  // double min_distance_x = perception_config["min_distance_x"].as<double>();
-  // double min_distance_y = perception_config["min_distance_y"].as<double>();
-  // double min_distance_z = perception_config["min_distance_z"].as<double>();
-  //
-  // double min_z_score_x = perception_config["min_z_score_x"].as<double>();
-  // double max_z_score_x = perception_config["max_z_score_x"].as<double>();
-  // double min_z_score_y = perception_config["min_z_score_y"].as<double>();
-  // double max_z_score_y = perception_config["max_z_score_y"].as<double>();
-  //
-  // double out_distance_cap = perception_config["out_distance_cap"].as<double>();
-  //
-  //// Evaluator Parameters (ConeValidators + weights + minimum confidence)
-  // auto eval_params = std::make_shared<EvaluatorParameters>();
-  //
-  //// ConeValidators for cone evaluator
-  // eval_params->npoints_validator = std::make_shared<NPointsValidator>(min_n_points);
-  // eval_params->height_validator =
-  //     std::make_shared<HeightValidator>(min_height, large_max_height, small_max_height,
-  //     height_cap);
-  // eval_params->cylinder_validator =
-  //     std::make_shared<CylinderValidator>(0.25, 0.35, 0.25, 0.35, out_distance_cap);
-  // eval_params->deviation_validator =
-  //     std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z);
-  // eval_params->displacement_validator =
-  //     std::make_shared<DisplacementValidator>(min_distance_x, min_distance_y, min_distance_z);
-  // eval_params->zscore_validator =
-  //     std::make_shared<ZScoreValidator>(min_z_score_x, max_z_score_x, min_z_score_y,
-  //     max_z_score_y);
-  //
-  //// Weight values for cone evaluator
-  // eval_params->height_out_weight = perception_config["height_out_weight"].as<double>();
-  // eval_params->height_in_weight = perception_config["height_in_weight"].as<double>();
-  // eval_params->cylinder_radius_weight = perception_config["cylinder_radius_weight"].as<double>();
-  // eval_params->cylinder_height_weight = perception_config["cylinder_height_weight"].as<double>();
-  // eval_params->cylinder_npoints_weight =
-  // perception_config["cylinder_npoints_weight"].as<double>(); eval_params->npoints_weight =
-  // perception_config["npoints_weight"].as<double>(); eval_params->displacement_x_weight =
-  // perception_config["displacement_x_weight"].as<double>(); eval_params->displacement_y_weight =
-  // perception_config["displacement_y_weight"].as<double>(); eval_params->displacement_z_weight =
-  // perception_config["displacement_z_weight"].as<double>(); eval_params->deviation_xoy_weight =
-  // perception_config["deviation_xoy_weight"].as<double>(); eval_params->deviation_z_weight =
-  // perception_config["deviation_z_weight"].as<double>();
-  //
-  // eval_params->normalize_weights();
-  //
-  //// Minimum confidence needed for a cluster to be considered a cone.
-  // eval_params->min_confidence = perception_config["min_confidence"].as<double>();
-  //
-  // params.cone_evaluator_ = params.cone_evaluator_ = std::make_shared<ConeEvaluator>(eval_params);
-
   return params;
 }
 
@@ -347,7 +283,7 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
 
   time5 = this->now();
 
-  // Filtering
+  // Evaluator
   std::vector<Cluster> filtered_clusters;
 
   for (auto& cluster : clusters) {

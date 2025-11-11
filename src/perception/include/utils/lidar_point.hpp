@@ -2,6 +2,10 @@
 #include <cstddef>
 #include <cstdint>
 
+/**
+ * @brief Constants and helper functions for accessing LiDAR point cloud data
+ */
+
 constexpr size_t POINT_STEP = 26;
 constexpr size_t OFFSET_X = 0;
 constexpr size_t OFFSET_Y = 4;

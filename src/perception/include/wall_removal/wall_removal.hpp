@@ -17,9 +17,8 @@ public:
    *
    * This pure virtual function must be implemented by derived classes.
    *
-   * @param point_cloud A shared pointer to a point cloud of type pcl::PointCloud<pcl::PointXYZI>.
-   * @param[out] output_cloud A shared pointer to a point cloud to store the resulting point cloud
-   * after wall removal.
+   * @param point_cloud The input point cloud
+   * @param output_cloud The output point cloud with walls and big objects removed
    */
   virtual void remove_walls(const sensor_msgs::msg::PointCloud2::SharedPtr& point_cloud,
                             sensor_msgs::msg::PointCloud2::SharedPtr& output_cloud) const = 0;

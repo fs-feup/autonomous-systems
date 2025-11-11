@@ -46,8 +46,11 @@
 #include "yaml-cpp/yaml.h"
 
 using Mission = common_lib::competition_logic::Mission;
-struct PerceptionParameters {     ///< Struct containing parameters and interfaces used in
-                                  ///< perception.
+
+/**
+ * @brief Struct containing parameters and interfaces used in perception.
+ */
+struct PerceptionParameters {
   std::string vehicle_frame_id_;  ///< String for the vehicle's frame id.
   std::string adapter_;           ///< String for the name of the current adapter.
   uint8_t default_mission_;

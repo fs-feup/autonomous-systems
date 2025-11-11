@@ -1,5 +1,9 @@
 #pragma once
 
+/**
+ * @struct TrimmingParameters
+ * @brief Structure to hold parameters for trimming point cloud data
+ */
 struct TrimmingParameters {
   double lidar_height;                 ///< LIDAR current height.
   double lidar_horizontal_resolution;  ///< LIDAR horizontal resolution.

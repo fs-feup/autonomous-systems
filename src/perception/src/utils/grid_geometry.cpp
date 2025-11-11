@@ -10,11 +10,11 @@ GridGeometry::GridGeometry(double angle_, double radius_, double start_aug_, dou
 
 int GridGeometry::get_slice_index(double x, double y) const {
   // Bags rotated by drivers, what shoud be used with current lidar
-  double angle_deg = std::atan2(y, x) * 180.0 / M_PI;  // [-90, 90]
+  // double angle_deg = std::atan2(y, x) * 180.0 / M_PI;  // [-90, 90]
 
   // Bags not rotated by drivers
-  // double angle_deg = std::atan2(x, -y) * 180.0 / M_PI;  // [-90, 90]
-  angle_deg += fov / 2;  // Convert to [0, fov]
+  double angle_deg = std::atan2(x, -y) * 180.0 / M_PI;  // [-90, 90]
+  angle_deg += fov / 2;                                 // Convert to [0, fov]
 
   if (angle_deg < 0.0 || angle_deg >= fov) {
     return -1;  // Out of FOV

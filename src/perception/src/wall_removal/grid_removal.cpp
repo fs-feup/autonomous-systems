@@ -7,6 +7,7 @@ GridWallRemoval::GridWallRemoval(double angle, double radius, double start_augme
 
 void GridWallRemoval::remove_walls(const sensor_msgs::msg::PointCloud2::SharedPtr& point_cloud,
                                    sensor_msgs::msg::PointCloud2::SharedPtr& output_cloud) const {
+  // Initialize output cloud
   output_cloud->header = point_cloud->header;
   output_cloud->height = 1;
   output_cloud->is_bigendian = point_cloud->is_bigendian;
@@ -23,6 +24,7 @@ void GridWallRemoval::remove_walls(const sensor_msgs::msg::PointCloud2::SharedPt
 
   std::unordered_map<GridIndex, std::vector<size_t>> grid_map;
 
+  // Populate grid map with point indices
   for (size_t i = 0; i < num_points; ++i) {
     float x = *reinterpret_cast<const float*>(&cloud_data[PointX(i)]);
     float y = *reinterpret_cast<const float*>(&cloud_data[PointY(i)]);
@@ -33,7 +35,9 @@ void GridWallRemoval::remove_walls(const sensor_msgs::msg::PointCloud2::SharedPt
     grid_map[{slice, bin_idx}].push_back(i);
   }
 
+  // Perform bfs to find adjacent occupied grids and form clusters
   std::unordered_map<GridIndex, bool> visited;
+
   for (auto& [cell, points] : grid_map) {
     if (visited[cell]) continue;
     visited[cell] = true;
@@ -64,6 +68,8 @@ void GridWallRemoval::remove_walls(const sensor_msgs::msg::PointCloud2::SharedPt
       }
     }
 
+    // If cluster size is below the max points per grid * number of grids it occupies, add points to
+    // output cloud
     if (static_cast<int>(cluster_points.size()) < max_points_per_cluster_) {
       for (size_t idx : cluster_points) {
         size_t write_idx = output_cloud->width;

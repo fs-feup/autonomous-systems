@@ -13,28 +13,36 @@
 #include "wall_removal/wall_removal.hpp"
 
 /**
- * @brief Abstract base class for wall removal of point clouds.
+ * @class GridWallRemoval
  *
- * The WallRemoval class defines an interface for removing walls from point clouds.
- * Subclasses must implement the pure virtual function remove_walls().
+ * @brief Wall removal implementation using a grid-based approach.
+ *
  */
 class GridWallRemoval : public WallRemoval {
 private:
-  GridGeometry grid_geometry_;
-  int max_points_per_cluster_;
+  GridGeometry grid_geometry_;  // Grid geometry for grid calculations
+  int max_points_per_cluster_;  // Maximum number of points allowed per each grid to be considered
+                                // non-wall
 
 public:
+  /**
+   * @brief Constructor for GridWallRemoval
+   *
+   * @param angle Angular resolution
+   * @param radius Base radial bin size
+   * @param start_augmentation Distance at which augmentation starts
+   * @param radius_augmentation Bin size increase per bin
+   * @param fov Field of view
+   * @param max_points_per_cluster Maximum number of points allowed per each grid to be considered
+   */
   GridWallRemoval(double angle, double radius, double start_augmentation,
                   double radius_augmentation, double fov, int max_points_per_cluster);
 
   /**
    * @brief Removes walls from the input point cloud using a grid-based approach.
    *
-   * This pure virtual function must be implemented by derived classes.
-   *
-   * @param point_cloud A shared pointer to a point cloud of type pcl::PointCloud<pcl::PointXYZI>.
-   * @param[out] output_cloud A shared pointer to a point cloud to store the resulting point cloud
-   * after wall removal.
+   * @param point_cloud The input point cloud
+   * @param output_cloud The output point cloud with walls and big objects removed
    */
   void remove_walls(const sensor_msgs::msg::PointCloud2::SharedPtr& point_cloud,
                     sensor_msgs::msg::PointCloud2::SharedPtr& output_cloud) const override;

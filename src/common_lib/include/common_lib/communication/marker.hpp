@@ -106,8 +106,6 @@ visualization_msgs::msg::MarkerArray marker_array_from_structure_array(
     marker.pose.position.y = structure_array[i].position.y;
     marker.pose.position.z = 0;
 
-    marker.lifetime = rclcpp::Duration::from_seconds(0.15);
-
     marker.scale.x = scale;
     marker.scale.y = scale;
     marker.scale.z = scale;

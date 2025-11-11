@@ -43,7 +43,6 @@ set(IMPLEMENTATION_FILES
   src/cone_validator/z_score_validator.cpp
   src/deskew/deskew.cpp
   src/utils/plane.cpp
-  src/utils/evaluator_parameters.cpp
   src/utils/ground_grid.cpp
   src/utils/cluster.cpp
   src/utils/grid_geometry.cpp
