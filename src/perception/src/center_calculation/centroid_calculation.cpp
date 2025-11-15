@@ -2,7 +2,7 @@
 
 Eigen::Vector4f CentroidCalculator::calculate_center(
     const sensor_msgs::msg::PointCloud2::SharedPtr& point_cloud,
-    const std::vector<int>& point_indices, [[maybe_unused]] const Plane& plane) const {
+    const std::vector<int>& point_indices, const Plane& plane) const {
   Eigen::Vector4f centroid;
   double sum_x = 0.0;
   double sum_y = 0.0;
@@ -11,9 +11,9 @@ Eigen::Vector4f CentroidCalculator::calculate_center(
   const auto& cloud_data = point_cloud->data;
 
   for (int idx : point_indices) {
-    float x = *reinterpret_cast<const float*>(&cloud_data[PointX(idx)]);
-    float y = *reinterpret_cast<const float*>(&cloud_data[PointY(idx)]);
-    float z = *reinterpret_cast<const float*>(&cloud_data[PointZ(idx)]);
+    float x = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointX(idx)]);
+    float y = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointY(idx)]);
+    float z = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointZ(idx)]);
 
     sum_x += x;
     sum_y += y;

@@ -28,8 +28,8 @@ void GridWallRemoval::remove_walls(const sensor_msgs::msg::PointCloud2::SharedPt
 
   // Populate grid map with point indices
   for (size_t i = 0; i < num_points; ++i) {
-    float x = *reinterpret_cast<const float*>(&cloud_data[PointX(i)]);
-    float y = *reinterpret_cast<const float*>(&cloud_data[PointY(i)]);
+    float x = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointX(i)]);
+    float y = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointY(i)]);
 
     int slice = grid_geometry_.get_slice_index(x, y);
     int bin_idx = grid_geometry_.get_bin_index(x, y);
@@ -87,13 +87,13 @@ void GridWallRemoval::remove_walls(const sensor_msgs::msg::PointCloud2::SharedPt
     if (static_cast<int>(cluster_points.size()) < max_points_per_cluster_) {
       for (size_t idx : cluster_points) {
         size_t write_idx = output_cloud->width;
-        std::memcpy(&output_cloud->data[write_idx * POINT_STEP], &cloud_data[idx * POINT_STEP],
-                    POINT_STEP);
+        std::memcpy(&output_cloud->data[write_idx * LidarPoint::POINT_STEP], &cloud_data[idx * LidarPoint::POINT_STEP],
+                    LidarPoint::POINT_STEP);
         output_cloud->width++;
       }
     }
   }
 
-  output_cloud->data.resize(output_cloud->width * POINT_STEP);
-  output_cloud->row_step = output_cloud->width * POINT_STEP;
+  output_cloud->data.resize(output_cloud->width * LidarPoint::POINT_STEP);
+  output_cloud->row_step = output_cloud->width * LidarPoint::POINT_STEP;
 }

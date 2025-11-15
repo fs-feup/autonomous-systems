@@ -25,7 +25,7 @@ perception:
   skid_max_range: 30.0
 
   #Ground Grid
-  ground_grid_range: 35.0  #ATTENTION: Should be >= all max_ranges
+  ground_grid_range: 30.0  #ATTENTION: Should be >= all max_ranges
   ground_grid_angle: 18.0
   ground_grid_radius: 2.0
   ground_grid_start_augmentation: 15.0

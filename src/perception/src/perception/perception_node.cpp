@@ -1,8 +1,8 @@
 #include "perception/perception_node.hpp"
 
-std_msgs::msg::Header header;
+static const std_msgs::msg::Header header;
 
-const std::unordered_map<std::string, std::string> adapter_frame_map = {
+static const inline std::unordered_map<std::string, std::string> adapter_frame_map = {
     {"vehicle", "lidar"},
     {"eufs", "velodyne"},
     {"fsds", "lidar"},
@@ -52,9 +52,9 @@ PerceptionParameters Perception::load_config() {
       perception_config["lidar_horizontal_resolution"].as<double>();
   trim_params.lidar_vertical_resolution =
       perception_config["lidar_vertical_resolution"].as<double>();
-trim_params.apply_rotation = perception_config["apply_rotation"].as<bool>();
-trim_params.rotation = perception_config["rotation"].as<double>();
-trim_params.apply_fov_trimming = perception_config["apply_fov_trimming"].as<bool>();
+  trim_params.apply_rotation = perception_config["apply_rotation"].as<bool>();
+  trim_params.rotation = perception_config["rotation"].as<double>();
+  trim_params.apply_fov_trimming = perception_config["apply_fov_trimming"].as<bool>();
   trim_params.fov = perception_config["fov"].as<double>();
 
   auto acceleration_trimming = std::make_shared<AccelerationTrimming>(trim_params);
@@ -314,7 +314,7 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
 void Perception::publish_cones(std::vector<Cluster>* cones, double exec_time) {
   auto message = custom_interfaces::msg::PerceptionOutput();
   std::vector<custom_interfaces::msg::Cone> message_array = {};
-  message.header = header;
+  message.header = ::header;
   for (int i = 0; i < static_cast<int>(cones->size()); i++) {
     auto position = custom_interfaces::msg::Point2d();
     position.x = cones->at(i).get_centroid().x();

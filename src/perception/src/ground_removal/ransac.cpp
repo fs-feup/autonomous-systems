@@ -37,9 +37,9 @@ void RANSAC::ground_removal(const sensor_msgs::msg::PointCloud2::SharedPtr& trim
       continue;
     }
 
-    Eigen::Vector3f p1 = *reinterpret_cast<const Eigen::Vector3f*>(&cloud_data[PointX(idx1)]);
-    Eigen::Vector3f p2 = *reinterpret_cast<const Eigen::Vector3f*>(&cloud_data[PointX(idx2)]);
-    Eigen::Vector3f p3 = *reinterpret_cast<const Eigen::Vector3f*>(&cloud_data[PointX(idx3)]);
+    Eigen::Vector3f p1 = *reinterpret_cast<const Eigen::Vector3f*>(&cloud_data[LidarPoint::PointX(idx1)]);
+    Eigen::Vector3f p2 = *reinterpret_cast<const Eigen::Vector3f*>(&cloud_data[LidarPoint::PointX(idx2)]);
+    Eigen::Vector3f p3 = *reinterpret_cast<const Eigen::Vector3f*>(&cloud_data[LidarPoint::PointX(idx3)]);
 
     Eigen::Vector3f v1 = p2 - p1;
     Eigen::Vector3f v2 = p3 - p1;
@@ -54,9 +54,9 @@ void RANSAC::ground_removal(const sensor_msgs::msg::PointCloud2::SharedPtr& trim
 
     size_t inliers = 0;
     for (size_t j = 0; j < num_points; ++j) {
-      float x = *reinterpret_cast<const float*>(&cloud_data[PointX(j)]);
-      float y = *reinterpret_cast<const float*>(&cloud_data[PointY(j)]);
-      float z = *reinterpret_cast<const float*>(&cloud_data[PointZ(j)]);
+      float x = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointX(j)]);
+      float y = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointY(j)]);
+      float z = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointZ(j)]);
       double dist = std::abs(a * x + b * y + c * z + d);
       if (dist < epsilon) {
         inliers++;
@@ -74,9 +74,9 @@ void RANSAC::ground_removal(const sensor_msgs::msg::PointCloud2::SharedPtr& trim
 
   // Classify points based on the best plane
   for (size_t i = 0; i < num_points; ++i) {
-    float x = *reinterpret_cast<const float*>(&cloud_data[PointX(i)]);
-    float y = *reinterpret_cast<const float*>(&cloud_data[PointY(i)]);
-    float z = *reinterpret_cast<const float*>(&cloud_data[PointZ(i)]);
+    float x = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointX(i)]);
+    float y = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointY(i)]);
+    float z = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointZ(i)]);
     double dist = std::abs(best_a * x + best_b * y + best_c * z + best_d);
     if (dist < epsilon) {
       // Ground point, update ground grid

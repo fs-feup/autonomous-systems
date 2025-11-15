@@ -20,8 +20,8 @@ void Deskew::deskew_point_cloud(sensor_msgs::msg::PointCloud2::SharedPtr& input_
 
   // Reference point (last in scan)
   int ref_index = static_cast<int>(num_points - 1);
-  double ref_x = *reinterpret_cast<const float*>(&cloud[PointX(ref_index)]);
-  double ref_y = *reinterpret_cast<const float*>(&cloud[PointY(ref_index)]);
+  double ref_x = *reinterpret_cast<const float*>(&cloud[LidarPoint::PointX(ref_index)]);
+  double ref_y = *reinterpret_cast<const float*>(&cloud[LidarPoint::PointY(ref_index)]);
   double reference_azimuth = std::atan2(ref_x, ref_y);
   if (reference_azimuth < 0.0) {
     reference_azimuth += 2.0 * M_PI;
@@ -29,9 +29,9 @@ void Deskew::deskew_point_cloud(sensor_msgs::msg::PointCloud2::SharedPtr& input_
 
   // Deskew each point
   for (size_t i = 0; i < num_points; ++i) {
-    float x = *reinterpret_cast<const float*>(&cloud[PointX(i)]);
-    float y = *reinterpret_cast<const float*>(&cloud[PointY(i)]);
-    float z = *reinterpret_cast<const float*>(&cloud[PointZ(i)]);
+    float x = *reinterpret_cast<const float*>(&cloud[LidarPoint::PointX(i)]);
+    float y = *reinterpret_cast<const float*>(&cloud[LidarPoint::PointY(i)]);
+    float z = *reinterpret_cast<const float*>(&cloud[LidarPoint::PointZ(i)]);
 
     double azimuth = std::atan2(x, y);
     if (azimuth < 0.0) {
@@ -66,6 +66,6 @@ void Deskew::deskew_point_cloud(sensor_msgs::msg::PointCloud2::SharedPtr& input_
                              static_cast<float>(deskewed_point.y()),
                              static_cast<float>(deskewed_point.z())};
 
-    std::memcpy(&cloud[PointX(i)], deskewed_xyz, sizeof(deskewed_xyz));
+    std::memcpy(&cloud[LidarPoint::PointX(i)], deskewed_xyz, sizeof(deskewed_xyz));
   }
 }

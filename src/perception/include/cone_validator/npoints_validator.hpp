@@ -10,9 +10,6 @@
  * to provide point quantity validation logic.
  */
 class NPointsValidator : public ConeValidator {
-private:
-  long unsigned int _min_n_points_;
-
 public:
   /**
    * @brief Constructs a new HeightValidator object with the specified height threshold.
@@ -37,4 +34,7 @@ public:
    * @brief Virtual destructor for NpointsValidator.
    */
   virtual ~NPointsValidator() = default;
+
+private:
+  long unsigned int _min_n_points_;
 };

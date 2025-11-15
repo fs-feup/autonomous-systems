@@ -23,9 +23,9 @@ std::vector<double> CylinderValidator::coneValidator(Cluster* cone_cluster,
 
   // Loop over points in the cluster
   for (size_t idx : indices) {
-    float x = *reinterpret_cast<const float*>(&cloud_data[PointX(idx)]);
-    float y = *reinterpret_cast<const float*>(&cloud_data[PointY(idx)]);
-    float z = *reinterpret_cast<const float*>(&cloud_data[PointZ(idx)]);
+    float x = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointX(idx)]);
+    float y = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointY(idx)]);
+    float z = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointZ(idx)]);
 
     // Calculate the distance between the point and the cylinder's centroid
     double distanceXY =
@@ -53,8 +53,12 @@ std::vector<double> CylinderValidator::coneValidator(Cluster* cone_cluster,
     }
 
     // Apply cap thresholds
-    out_distanceXY = out_distanceXY >= out_distance_cap ? out_distanceXY : 0.0;
-    out_distanceZ = out_distanceZ >= out_distance_cap ? out_distanceZ : 0.0;
+    if (out_distanceXY < out_distance_cap) {
+      out_distanceXY = 0.0;
+    }
+    if (out_distanceZ < out_distance_cap) {
+      out_distanceZ = 0.0;
+    }
   }
 
   // index 0 = ratio of distance to the farthest point / cylinder radius

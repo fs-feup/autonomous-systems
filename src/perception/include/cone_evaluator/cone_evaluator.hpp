@@ -13,6 +13,22 @@
  *
  */
 class ConeEvaluator {
+public:
+  /**
+   * @brief Constructs a new DeviationValidator object with specified intervals on the deviation.
+   * @param params Struct with all validators, weights and minimum confidence.
+   */
+  ConeEvaluator(std::shared_ptr<EvaluatorParameters> params);
+
+  /**
+   * @brief Perform the cluster evaluation, guaranteeing they pass all validators
+   *
+   * @param cluster Cluster to evaluate.
+   * @param ground_grid The ground grid to use for ground proximity checks.
+   * @return True if cluster is a valid cone, false otherwise.
+   */
+  bool evaluateCluster(Cluster& cluster, const GroundGrid& ground_grid);
+
 private:
   std::shared_ptr<EvaluatorParameters> params_;
 
@@ -35,20 +51,4 @@ private:
    * @param cluster Cluster to evaluate
    */
   bool npoints_valid(Cluster& cluster) const;
-
-public:
-  /**
-   * @brief Constructs a new DeviationValidator object with specified intervals on the deviation.
-   * @param params Struct with all validators, weights and minimum confidence.
-   */
-  ConeEvaluator(std::shared_ptr<EvaluatorParameters> params);
-
-  /**
-   * @brief Perform the cluster evaluation, guaranteeing they pass all validators
-   *
-   * @param cluster Cluster to evaluate.
-   * @param ground_grid The ground grid to use for ground proximity checks.
-   * @return True if cluster is a valid cone, false otherwise.
-   */
-  bool evaluateCluster(Cluster& cluster, const GroundGrid& ground_grid);
 };

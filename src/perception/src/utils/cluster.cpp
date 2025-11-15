@@ -82,12 +82,12 @@ std::tuple<double, double, double, double> Cluster::calculate_mean_and_std_dev(
   double sum_squared_diff_x = 0.0;
   double sum_squared_diff_y = 0.0;
   for (auto& point : clusters) {
-    sum_squared_diff_x += pow(point.get_centroid().x() - mean_x, 2);
-    sum_squared_diff_y += pow(point.get_centroid().y() - mean_y, 2);
+    sum_squared_diff_x += std::pow(point.get_centroid().x() - mean_x, 2);
+    sum_squared_diff_y += std::pow(point.get_centroid().y() - mean_y, 2);
   }
 
-  double stddev_x = sqrt(sum_squared_diff_x / static_cast<double>(clusters.size()));
-  double stddev_y = sqrt(sum_squared_diff_y / static_cast<double>(clusters.size()));
+  double stddev_x = std::sqrt(sum_squared_diff_x / static_cast<double>(clusters.size()));
+  double stddev_y = std::sqrt(sum_squared_diff_y / static_cast<double>(clusters.size()));
 
   return std::make_tuple(mean_x, mean_y, stddev_x, stddev_y);
 }

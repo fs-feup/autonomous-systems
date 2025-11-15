@@ -18,10 +18,10 @@ void LeastSquaresDifferentiation::coneDifferentiation(Cluster* cone_point_cloud)
   for (int i = 0; i < n; ++i) {
     float z = *reinterpret_cast<const float*>(
         &cone_point_cloud->get_point_cloud()
-             ->data[PointZ(cone_point_cloud->get_point_indices()[i])]);
+             ->data[LidarPoint::PointZ(cone_point_cloud->get_point_indices()[i])]);
     float intensity = *reinterpret_cast<const float*>(
         &cone_point_cloud->get_point_cloud()
-             ->data[PointIntensity(cone_point_cloud->get_point_indices()[i])]);
+             ->data[LidarPoint::PointIntensity(cone_point_cloud->get_point_indices()[i])]);
     A(i, 0) = z * z;
     A(i, 1) = z;
     A(i, 2) = 1.0;
@@ -31,5 +31,9 @@ void LeastSquaresDifferentiation::coneDifferentiation(Cluster* cone_point_cloud)
   // Solve the linear system
   Eigen::Vector3d coefficients = A.colPivHouseholderQr().solve(B);
 
-  cone_point_cloud->set_color(coefficients[0] > 0 ? "yellow" : "blue");
+  if (coefficients[0] > 0) {
+    cone_point_cloud->set_color("yellow");
+  } else {
+    cone_point_cloud->set_color("blue");
+  }
 }

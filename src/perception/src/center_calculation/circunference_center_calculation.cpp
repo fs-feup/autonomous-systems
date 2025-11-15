@@ -13,9 +13,9 @@ Eigen::Vector4f CircunferenceCenterCalculator::calculate_center(
   const auto& cloud_data = point_cloud->data;
 
   for (int idx : point_indices) {
-    float x = *reinterpret_cast<const float*>(&cloud_data[PointX(idx)]);
-    float y = *reinterpret_cast<const float*>(&cloud_data[PointY(idx)]);
-    float z = *reinterpret_cast<const float*>(&cloud_data[PointZ(idx)]);
+    float x = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointX(idx)]);
+    float y = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointY(idx)]);
+    float z = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointZ(idx)]);
 
     sum_x += x;
     sum_y += y;
@@ -36,9 +36,9 @@ Eigen::Vector4f CircunferenceCenterCalculator::calculate_center(
   std::vector<double> distances(3, std::numeric_limits<double>::max());
 
   for (int idx : point_indices) {
-    float x = *reinterpret_cast<const float*>(&cloud_data[PointX(idx)]);
-    float y = *reinterpret_cast<const float*>(&cloud_data[PointY(idx)]);
-    float z = *reinterpret_cast<const float*>(&cloud_data[PointZ(idx)]);
+    float x = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointX(idx)]);
+    float y = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointY(idx)]);
+    float z = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointZ(idx)]);
 
     Eigen::Vector3f point(x, y, z);
     double distance = middle_plane.get_distance_to_point(x, y, z);

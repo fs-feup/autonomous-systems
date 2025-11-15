@@ -19,11 +19,6 @@
  *
  */
 class GridWallRemoval : public WallRemoval {
-private:
-  GridGeometry grid_geometry_;  // Grid geometry for grid calculations
-  int max_points_per_cluster_;  // Maximum number of points allowed per each grid to be considered
-                                // non-wall
-
 public:
   /**
    * @brief Constructor for GridWallRemoval
@@ -46,4 +41,9 @@ public:
    */
   void remove_walls(const sensor_msgs::msg::PointCloud2::SharedPtr& point_cloud,
                     sensor_msgs::msg::PointCloud2::SharedPtr& output_cloud) const override;
+
+private:
+  GridGeometry grid_geometry_;  // Grid geometry for grid calculations
+  int max_points_per_cluster_;  // Maximum number of points allowed per each grid to be considered
+                                // non-wall
 };

@@ -19,14 +19,19 @@ void CutTrimming::fov_trimming(const sensor_msgs::msg::PointCloud2::SharedPtr& c
   auto& cloud_data = cloud->data;
   size_t num_points = cloud->width * cloud->height;
 
-  const double theta = params_.apply_rotation ? params_.rotation * M_PI / 180.0 : 0.0;
+  double theta = 0;
+  if (params_.apply_rotation) {
+    theta = params_.rotation * M_PI / 180.0;
+  } else {
+    theta = 0;
+  }
   const double cos_theta = std::cos(theta);
   const double sin_theta = std::sin(theta);
 
   for (size_t i = 0; i < num_points; ++i) {
-    float x = *reinterpret_cast<const float*>(&cloud_data[PointX(i)]);
-    float y = *reinterpret_cast<const float*>(&cloud_data[PointY(i)]);
-    float z = *reinterpret_cast<const float*>(&cloud_data[PointZ(i)]);
+    float x = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointX(i)]);
+    float y = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointY(i)]);
+    float z = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointZ(i)]);
 
     if (x == 0.0 && y == 0.0 && z == 0.0) {
       continue;
@@ -40,17 +45,17 @@ void CutTrimming::fov_trimming(const sensor_msgs::msg::PointCloud2::SharedPtr& c
     }
 
     if (within_limits(x, y, z, params_, params_.skid_max_range)) {
-      uint8_t* out = &trimmed_cloud->data[trimmed_cloud->width * POINT_STEP];
-      std::memcpy(out, &cloud_data[PointX(i)], POINT_STEP);
+      uint8_t* out = &trimmed_cloud->data[trimmed_cloud->width * LidarPoint::POINT_STEP];
+      std::memcpy(out, &cloud_data[LidarPoint::PointX(i)], LidarPoint::POINT_STEP);
 
       if (params_.apply_rotation) {
-        *reinterpret_cast<float*>(out + PointX(0)) = x;
-        *reinterpret_cast<float*>(out + PointY(0)) = y;
+        *reinterpret_cast<float*>(out + LidarPoint::PointX(0)) = x;
+        *reinterpret_cast<float*>(out + LidarPoint::PointY(0)) = y;
       }
       trimmed_cloud->width++;
     }
   }
 
-  trimmed_cloud->data.resize(trimmed_cloud->width * POINT_STEP);  // Shrink to actual size
-  trimmed_cloud->row_step = trimmed_cloud->width * POINT_STEP;
+  trimmed_cloud->data.resize(trimmed_cloud->width * LidarPoint::POINT_STEP);  // Shrink to actual size
+  trimmed_cloud->row_step = trimmed_cloud->width * LidarPoint::POINT_STEP;
 }

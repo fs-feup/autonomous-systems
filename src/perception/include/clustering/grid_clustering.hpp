@@ -16,9 +16,6 @@
  *
  */
 class GridClustering : public Clustering {
-private:
-  GridGeometry grid_geometry_;  ///< Geometry of the grid used for clustering.
-
 public:
   /**
    * @brief Constructor for the GridClustering algorithm.
@@ -41,4 +38,7 @@ public:
    */
   void clustering(const sensor_msgs::msg::PointCloud2::SharedPtr& point_cloud,
                   std::vector<Cluster>* clusters) const override;
+
+private:
+  GridGeometry grid_geometry_;  ///< Geometry of the grid used for clustering.
 };

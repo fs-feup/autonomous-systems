@@ -26,6 +26,5 @@ public:
    */
   virtual Eigen::Vector4f calculate_center(
       const sensor_msgs::msg::PointCloud2::SharedPtr& point_cloud,
-      const std::vector<int>& point_indices,
-      [[maybe_unused]] const Plane& plane = Plane()) const = 0;
+      const std::vector<int>& point_indices, const Plane& plane = Plane()) const = 0;
 };

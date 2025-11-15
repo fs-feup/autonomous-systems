@@ -12,27 +12,6 @@
  * @brief Represents a cluster of 3D points using PCL (Point Cloud Library).
  */
 class Cluster {
-private:
-  const sensor_msgs::msg::PointCloud2::SharedPtr
-      _point_cloud_;                   ///< Point cloud data for the cluster.
-  std::vector<int> _point_indices_;    ///< Indices of points in the cluster.
-  std::string _color_ = "undefined";   ///< Color associated with the cluster.
-  Eigen::Vector4f _centroid_;          ///< Centroid of the cluster.
-  Eigen::Vector4f _center_;            ///< Center of the cone's cluster.
-  bool _centroid_is_defined_ = false;  ///< Flag indicating whether the centroid is defined or not.
-  bool _center_is_defined_ = false;    ///< Flag indicating whether the center is defined or not.
-  double _confidence_ = 0;             ///< Confidence on the cluster to be (or not) a cone
-  double _z_score_x_ = 0;
-  double _z_score_y_ = 0;
-  bool _is_large_ = false;  ///< Flag indicating the size of the cluster :
-  ///< true = large cluster.
-  ///< false = small = cluster.
-
-  static constexpr auto center_calculator =
-      CircunferenceCenterCalculator();  ///< Calculates the center of the cone
-  static constexpr auto centroid_calculator =
-      CentroidCalculator();  ///< Calculates the centroid of the cluster
-
 public:
   /**
    * @brief Constructor for the Cluster class.
@@ -148,4 +127,25 @@ public:
    * @brief Set cluster as a contender for a large cone
    */
   void set_is_large();
+
+private:
+  const sensor_msgs::msg::PointCloud2::SharedPtr
+      _point_cloud_;                   ///< Point cloud data for the cluster.
+  std::vector<int> _point_indices_;    ///< Indices of points in the cluster.
+  std::string _color_ = "undefined";   ///< Color associated with the cluster.
+  Eigen::Vector4f _centroid_;          ///< Centroid of the cluster.
+  Eigen::Vector4f _center_;            ///< Center of the cone's cluster.
+  bool _centroid_is_defined_ = false;  ///< Flag indicating whether the centroid is defined or not.
+  bool _center_is_defined_ = false;    ///< Flag indicating whether the center is defined or not.
+  double _confidence_ = 0;             ///< Confidence on the cluster to be (or not) a cone
+  double _z_score_x_ = 0;
+  double _z_score_y_ = 0;
+  bool _is_large_ = false;  ///< Flag indicating the size of the cluster :
+  ///< true = large cluster.
+  ///< false = small = cluster.
+
+  static constexpr auto center_calculator =
+      CircunferenceCenterCalculator();  ///< Calculates the center of the cone
+  static constexpr auto centroid_calculator =
+      CentroidCalculator();  ///< Calculates the centroid of the cluster
 };

@@ -12,11 +12,6 @@
  *
  */
 class DBSCAN : public Clustering {
-private:
-  int min_cluster_size;              ///< Minimum number of points required to form a cluster.
-  double neighbours_dist_threshold;  ///< Maximum distance between points to be considered as
-                                     ///< neighbors.
-
 public:
   /**
    * @brief Constructor for the DBSCAN clustering algorithm.
@@ -37,4 +32,9 @@ public:
    */
   void clustering(const sensor_msgs::msg::PointCloud2::SharedPtr& point_cloud,
                   std::vector<Cluster>* clusters) const override;
+
+private:
+  int min_cluster_size;              ///< Minimum number of points required to form a cluster.
+  double neighbours_dist_threshold;  ///< Maximum distance between points to be considered as
+                                     ///< neighbors.
 };

@@ -14,8 +14,8 @@ void GridClustering::clustering(const sensor_msgs::msg::PointCloud2::SharedPtr& 
 
   std::unordered_map<GridIndex, std::vector<size_t>> grid_map;
   for (size_t i = 0; i < num_points; ++i) {
-    float x = *reinterpret_cast<const float*>(&cloud_data[PointX(i)]);
-    float y = *reinterpret_cast<const float*>(&cloud_data[PointY(i)]);
+    float x = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointX(i)]);
+    float y = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointY(i)]);
     if (x == 0.0f && y == 0.0f) {
       continue;
     }
@@ -29,7 +29,7 @@ void GridClustering::clustering(const sensor_msgs::msg::PointCloud2::SharedPtr& 
   }
 
   std::unordered_map<GridIndex, bool> visited;
-  for (auto& [cell, points] : grid_map) {
+  for (const auto& [cell, points] : grid_map) {
     if (visited[cell]) {
       continue;
     }

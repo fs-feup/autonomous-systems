@@ -17,9 +17,9 @@ std::vector<double> DeviationValidator::coneValidator(Cluster* cone_cluster,
   double mean_y = 0.0;
   double mean_z = 0.0;
   for (size_t idx : indices) {
-    float x = *reinterpret_cast<const float*>(&cloud_data[PointX(idx)]);
-    float y = *reinterpret_cast<const float*>(&cloud_data[PointY(idx)]);
-    float z = *reinterpret_cast<const float*>(&cloud_data[PointZ(idx)]);
+    float x = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointX(idx)]);
+    float y = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointY(idx)]);
+    float z = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointZ(idx)]);
 
     mean_x += x;
     mean_y += y;
@@ -31,9 +31,9 @@ std::vector<double> DeviationValidator::coneValidator(Cluster* cone_cluster,
 
   // Calculate deviations from the mean
   for (size_t idx : indices) {
-    float x = *reinterpret_cast<const float*>(&cloud_data[PointX(idx)]);
-    float y = *reinterpret_cast<const float*>(&cloud_data[PointY(idx)]);
-    float z = *reinterpret_cast<const float*>(&cloud_data[PointZ(idx)]);
+    float x = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointX(idx)]);
+    float y = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointY(idx)]);
+    float z = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointZ(idx)]);
 
     double deviation_xoy = std::sqrt(std::pow(x - mean_x, 2) + std::pow(y - mean_y, 2));
     deviations_xoy.push_back(deviation_xoy);
@@ -53,10 +53,23 @@ std::vector<double> DeviationValidator::coneValidator(Cluster* cone_cluster,
   double std_dev_xoy = calc_std_dev(deviations_xoy);
   double std_dev_z = calc_std_dev(deviations_z);
 
+  double xoy = 0;
+  if (_min_xoy_ > 0) {
+    xoy = std::min({std_dev_xoy / _min_xoy_, _max_xoy_ / std_dev_xoy, 1.0});
+  } else {
+    xoy = std::min({_max_xoy_ / std_dev_xoy, 1.0});
+  }
+
+  double z = 0;
+  if (_min_z_ > 0) {
+    z = std::min({std_dev_z / _min_z_, _max_z_ / std_dev_z, 1.0});
+  } else {
+    z = std::min({_max_z_ / std_dev_z, 1.0});
+  }
+
   // index 0 = if not in xoy interval, ratio between the std deviation of the cluster and the
   // maximum or minimum deviation, whichever is closest to.
   // index 1 = if not z in interval, ratio between the std deviation of the cluster and the maximum
   // or minimum deviation, whichever is the closest to z
-  return {std::min({_min_xoy_ > 0 ? std_dev_xoy / _min_xoy_ : 1.0, _max_xoy_ / std_dev_xoy, 1.0}),
-          std::min({_min_z_ > 0 ? std_dev_z / _min_z_ : 1.0, _max_z_ / std_dev_z, 1.0})};
+  return {xoy, z};
 }

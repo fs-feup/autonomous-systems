@@ -10,11 +10,6 @@
  * to provide size-based validation logic.
  */
 class DisplacementValidator : public ConeValidator {
-private:
-  double _min_distance_x_;
-  double _min_distance_y_;
-  double _min_distance_z_;
-
 public:
   /**
    * @brief Constructs a new DisplacementValidator object with the specified distance threshold for
@@ -46,4 +41,9 @@ public:
    * @brief Virtual destructor for DisplacementValidator.
    */
   virtual ~DisplacementValidator() = default;
+
+private:
+  double _min_distance_x_;
+  double _min_distance_y_;
+  double _min_distance_z_;
 };

@@ -10,8 +10,8 @@ bool ConeEvaluator::close_to_ground(Cluster &cluster, const GroundGrid &ground_g
   float min_z = std::numeric_limits<float>::max();
   float max_z = std::numeric_limits<float>::lowest();
 
-  for (size_t i = 0; i < indices.size(); i++) {
-    float z = *reinterpret_cast<const float *>(&data[PointZ(indices[i])]);
+  for (const auto &idx : indices) {
+    float z = *reinterpret_cast<const float *>(&data[LidarPoint::PointZ(idx)]);
     min_z = std::min(z, min_z);
     max_z = std::max(z, max_z);
   }
@@ -25,14 +25,13 @@ bool ConeEvaluator::close_to_ground(Cluster &cluster, const GroundGrid &ground_g
   double max_distance_above = max_z - ground_height;
   double min_distance_above = min_z - ground_height;
 
-  if (min_distance_above > params_->max_distance_from_ground_min) {
-    return false;
-  }
-  if (max_distance_above > params_->max_distance_from_ground_max) {
-    return false;
-  }
+  bool result = true;
 
-  return true;
+  result &= min_distance_above > params_->max_distance_from_ground_min;
+
+  result &= max_distance_above > params_->max_distance_from_ground_max;
+
+  return result;
 }
 
 bool ConeEvaluator::cylinder_fits_cone(Cluster &cluster) const {
@@ -44,9 +43,9 @@ bool ConeEvaluator::cylinder_fits_cone(Cluster &cluster) const {
 
   // Loop over points in the cluster
   for (size_t idx : indices) {
-    float x = *reinterpret_cast<const float *>(&cloud_data[PointX(idx)]);
-    float y = *reinterpret_cast<const float *>(&cloud_data[PointY(idx)]);
-    float z = *reinterpret_cast<const float *>(&cloud_data[PointZ(idx)]);
+    float x = *reinterpret_cast<const float *>(&cloud_data[LidarPoint::PointX(idx)]);
+    float y = *reinterpret_cast<const float *>(&cloud_data[LidarPoint::PointY(idx)]);
+    float z = *reinterpret_cast<const float *>(&cloud_data[LidarPoint::PointZ(idx)]);
 
     double dx = x - centroid.x();
     double dy = y - centroid.y();
@@ -55,10 +54,15 @@ bool ConeEvaluator::cylinder_fits_cone(Cluster &cluster) const {
     double distanceXY = std::sqrt(dx * dx + dy * dy);
 
     // Choose radius/height depending on cone size
-    double radius =
-        cluster.get_is_large() ? params_->large_cone_width / 2.0 : params_->small_cone_width / 2.0;
-    double half_height = cluster.get_is_large() ? params_->large_cone_height / 2.0
-                                                : params_->small_cone_height / 2.0;
+    double radius = 0;
+    double half_height = 0;
+    if (cluster.get_is_large()) {
+      radius = params_->large_cone_width / 2.0;
+      half_height = params_->large_cone_height / 2.0;
+    } else {
+      radius = params_->small_cone_width / 2.0;
+      half_height = params_->small_cone_height / 2.0;
+    }
 
     if (distanceXY > radius || dz > half_height) {
       n_out_points++;
@@ -81,18 +85,17 @@ bool ConeEvaluator::npoints_valid(Cluster &cluster) const {
   double expected_points = std::max(50 - (distance * 1.35), 1.0);
   double min_points = 2;  // Needs to be changed
 
-  return n_points <= (expected_points) && n_points >= (min_points);
+  return n_points <= expected_points && n_points >= min_points;
 }
 
 bool ConeEvaluator::evaluateCluster(Cluster &cluster, const GroundGrid &ground_grid) {
-  if (!close_to_ground(cluster, ground_grid)) {
-    return false;
-  }
-  if (!cylinder_fits_cone(cluster)) {
-    return false;
-  }
-  if (!npoints_valid(cluster)) {
-    return false;
-  }
-  return true;
+  bool result = true;
+
+  result &= close_to_ground(cluster, ground_grid);
+
+  result &= cylinder_fits_cone(cluster);
+
+  result &= npoints_valid(cluster);
+
+  return result;
 }
