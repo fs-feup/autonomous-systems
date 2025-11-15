@@ -1,11 +1,9 @@
 #pragma once
 
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
-
 #include <utils/cluster.hpp>
 
 #include "sensor_msgs/msg/point_cloud2.hpp"
+#include "utils/lidar_point.hpp"
 
 /**
  * @class ConeDifferentiation
@@ -13,7 +11,7 @@
  * @brief Abstract class for cone differentiation based on cone reflectivity patterns.
  */
 class ConeDifferentiation {
- public:
+public:
   /**
    * @brief Perform cone differentiation on a cone's point cloud.
    *

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <cone_validator/cone_validator.hpp>
-#include <utils/cluster.hpp>
 
 /**
  * @brief The ZScoreValidator class is responsible for validating cones based on
@@ -18,12 +17,6 @@
  *
  */
 class ZScoreValidator : public ConeValidator {
-private:
-  double _min_z_score_x_;  ///< Min z-score on x-axis */
-  double _max_z_score_x_;  ///< Max z-score on x-axis */
-  double _min_z_score_y_;  ///< Min z-score on y-axis */
-  double _max_z_score_y_;  ///< Max z-score on y-axis */
-
 public:
   /**
    * @brief Construct a new ZScoreValidator object with the specific thresholds
@@ -48,4 +41,10 @@ public:
    * @brief Virtual destructor for ZScoreValidator.
    */
   virtual ~ZScoreValidator() = default;
+
+private:
+  double _min_z_score_x_;  ///< Min z-score on x-axis */
+  double _max_z_score_x_;  ///< Max z-score on x-axis */
+  double _min_z_score_y_;  ///< Min z-score on y-axis */
+  double _max_z_score_y_;  ///< Max z-score on y-axis */
 };

@@ -1,11 +1,11 @@
 #pragma once
 
-#include <pcl/PCLPointField.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
-
-#include <utils/split_parameters.hpp>
+#include <cmath>
+#include <cstring>
+#include <utils/lidar_point.hpp>
 #include <utils/trimming_parameters.hpp>
+
+#include "sensor_msgs/msg/point_cloud2.hpp"
 
 class FovTrimming {
 public:
@@ -18,18 +18,11 @@ public:
    * @param[out] ret The resulting point cloud after trimming and the corresponding split parameters
    * for GridRANSAC.
    */
-  virtual SplitParameters fov_trimming(
-      const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud) const = 0;
+  virtual void fov_trimming(const sensor_msgs::msg::PointCloud2::SharedPtr& point_cloud,
+                            sensor_msgs::msg::PointCloud2::SharedPtr& trimmed_cloud) const = 0;
 
-  void process_point(pcl::PointXYZI& point, const double rotation, const double pitch,
-                     double& distance, double& angle) const;
-
-  bool within_limits(pcl::PointXYZI& point, const TrimmingParameters& params,
-                     const double max_range, const double fov_trim_angle) const;
-
-  void set_lidar_rotation(const double rotation);
-
-  void set_lidar_pitch(const double rotation);
+  bool within_limits(float x, float y, float z, const TrimmingParameters& params,
+                     const double max_range) const;
 
 protected:
   TrimmingParameters params_;
