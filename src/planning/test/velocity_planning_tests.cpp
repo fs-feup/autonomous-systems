@@ -7,7 +7,7 @@
 TEST(VelocityPlanning, velocity0) {
   std::string file_path = "src/planning/tracks/velocity1.txt";
   VelocityPlanning velocity_planning;
-  std::vector<common_lib::structures::PathPoint> final_path = path_from_file(file_path);
+  std::vector<common_lib::structures::PathPoint> final_path = ::path_from_file(file_path);
   velocity_planning.set_velocity(final_path);
 
   EXPECT_EQ((int)final_path.size(), 14);
@@ -21,12 +21,13 @@ TEST(VelocityPlanning, velocity0) {
 TEST(VelocityPlanning, velocity1) {
   std::string file_path = "src/planning/tracks/velocity1.txt";
   VelocityPlanning velocity_planning;
-  std::vector<common_lib::structures::PathPoint> final_path = path_from_file(file_path);
+  std::vector<common_lib::structures::PathPoint> final_path = ::path_from_file(file_path);
   velocity_planning.set_velocity(final_path);
 
-  for (std::size_t i = 0; i < final_path.size(); i++) {
-    EXPECT_TRUE(final_path[i].ideal_velocity >= 3);
+  for (const auto& point : final_path) {
+    EXPECT_TRUE(point.ideal_velocity >= 3);
   }
+
 }
 
 /**
@@ -36,7 +37,7 @@ TEST(VelocityPlanning, velocity1) {
 TEST(VelocityPlanning, velocity2) {
   std::string file_path = "src/planning/tracks/velocity2.txt";
   VelocityPlanning velocity_planning;
-  std::vector<common_lib::structures::PathPoint> final_path = path_from_file(file_path);
+  std::vector<common_lib::structures::PathPoint> final_path = ::path_from_file(file_path);
   velocity_planning.set_velocity(final_path);
 
   EXPECT_EQ((int)final_path.size(), 1);
@@ -51,7 +52,7 @@ TEST(VelocityPlanning, velocity2) {
 TEST(VelocityPlanning, velocity3) {
   std::string file_path = "src/planning/tracks/velocity3.txt";
   VelocityPlanning velocity_planning;
-  std::vector<common_lib::structures::PathPoint> final_path = path_from_file(file_path);
+  std::vector<common_lib::structures::PathPoint> final_path = ::path_from_file(file_path);
   velocity_planning.set_velocity(final_path);
 
   EXPECT_EQ((int)final_path.size(), 0);

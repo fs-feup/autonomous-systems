@@ -14,7 +14,7 @@ TEST(ConsecutiveCounterFilter, TestCase1) {
   Eigen::VectorXd confidences(2);
   confidences << 0.99, 0.99;
   LandmarkFilterParameters params = LandmarkFilterParameters(3, 5);
-  DataAssociationParameters data_association_params(50.0, 0.43, 0 - 8, 0.1, 0.1);
+  DataAssociationParameters data_association_params(50.0, 0.43, 0.8, 0.1, 0.1);
   std::shared_ptr<DataAssociationModel> data_association =
       std::make_shared<NearestNeighbor>(data_association_params);
   ConsecutiveCounterFilter filter(params, data_association);
@@ -38,7 +38,7 @@ TEST(ConsecutiveCounterFilter, TestCase2) {
   Eigen::VectorXd observations(4);
   Eigen::VectorXd confidences(2);
   LandmarkFilterParameters params = LandmarkFilterParameters(3, 5);
-  DataAssociationParameters data_association_params(50.0, 0.43, 0 - 8, 0.1, 0.1);
+  DataAssociationParameters data_association_params(50.0, 0.43, 0.8, 0.1, 0.1);
   std::shared_ptr<DataAssociationModel> data_association =
       std::make_shared<NearestNeighbor>(data_association_params);
   ConsecutiveCounterFilter filter(params, data_association);
@@ -68,7 +68,7 @@ TEST(ConsecutiveCounterFilter, TestCase3) {
   Eigen::VectorXd observations(4);
   Eigen::VectorXd confidences(2);
   LandmarkFilterParameters params = LandmarkFilterParameters(3, 5);
-  DataAssociationParameters data_association_params(50.0, 0.43, 0 - 8, 0.1, 0.1);
+  DataAssociationParameters data_association_params(50.0, 0.43, 0.8, 0.1, 0.1);
   std::shared_ptr<DataAssociationModel> data_association =
       std::make_shared<NearestNeighbor>(data_association_params);
   ConsecutiveCounterFilter filter(params, data_association);
@@ -96,7 +96,7 @@ TEST(ConsecutiveCounterFilter, TestCase4) {
   Eigen::VectorXd observations(4);
   Eigen::VectorXd confidences(2);
   LandmarkFilterParameters params = LandmarkFilterParameters(3, 5);
-  DataAssociationParameters data_association_params(50.0, 0.43, 0 - 8, 0.1, 0.1);
+  DataAssociationParameters data_association_params(50.0, 0.43, 0.8, 0.1, 0.1);
   std::shared_ptr<DataAssociationModel> data_association =
       std::make_shared<NearestNeighbor>(data_association_params);
   ConsecutiveCounterFilter filter(params, data_association);
