@@ -7,7 +7,7 @@
  *
  */
 class LeastSquaresDifferentiation : public ConeDifferentiation {
- public:
+public:
   /**
    * @brief Perform cone differentiation on a cone's point cloud using the Least Squares Method.
    *

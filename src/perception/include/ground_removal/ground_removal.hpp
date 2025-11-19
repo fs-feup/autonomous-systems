@@ -1,12 +1,16 @@
 #pragma once
 
-#include <pcl/PCLPointField.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <limits>
+#include <sensor_msgs/msg/point_cloud2.hpp>
+#include <utils/ground_grid.hpp>
+#include <utils/lidar_point.hpp>
+#include <utils/trimming_parameters.hpp>
+#include <vector>
 
-#include <utils/plane.hpp>
-#include <utils/split_parameters.hpp>
-
+#include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 
 /**
@@ -24,9 +28,10 @@ public:
    * This pure virtual function must be implemented by derived classes.
    *
    * @param point_cloud The input point cloud to be processed.
-   * @param[out] ret The resulting point cloud after ground removal.
+   * @param ground_removed_point_cloud The resulting point cloud after ground removal.
+   * @param ground_grid The ground grid to be updated during ground removal.
    */
-  virtual void ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                              const pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
-                              const SplitParameters split_params) const = 0;
+  virtual void ground_removal(const sensor_msgs::msg::PointCloud2::SharedPtr& trimmed_point_cloud,
+                              sensor_msgs::msg::PointCloud2::SharedPtr& ground_removed_point_cloud,
+                              GroundGrid& ground_grid) const = 0;
 };

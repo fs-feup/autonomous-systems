@@ -1,7 +1,6 @@
 #pragma once
 
 #include <cone_validator/cone_validator.hpp>
-#include <utils/cluster.hpp>
 
 /**
  * @class DeviationValidator
@@ -11,12 +10,6 @@
  * cluster validation using the standard deviation.
  */
 class DeviationValidator : public ConeValidator {
-private:
-  double _min_xoy_; /**< Minimum xOy plane deviation. */
-  double _max_xoy_; /**< Maximum xOy plane deviation. */
-  double _min_z_;   /**< Minimum z axis deviation. */
-  double _max_z_;   /**< Maximum z axis deviation. */
-
 public:
   /**
    * @brief Constructs a new DeviationValidator object with specified intervals on the deviation.
@@ -42,4 +35,10 @@ public:
    * @brief Virtual destructor for DeviationValidator.
    */
   virtual ~DeviationValidator() = default;
+
+private:
+  double _min_xoy_; /**< Minimum xOy plane deviation. */
+  double _max_xoy_; /**< Maximum xOy plane deviation. */
+  double _min_z_;   /**< Minimum z axis deviation. */
+  double _max_z_;   /**< Maximum z axis deviation. */
 };

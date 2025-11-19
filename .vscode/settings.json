@@ -101,7 +101,8 @@
         "dense": "cpp",
         "hash_map": "cpp",
         "tensor": "cpp",
-        "bvh": "cpp"
+        "bvh": "cpp",
+        "ranges": "cpp"
     },
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",

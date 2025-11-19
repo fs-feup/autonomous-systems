@@ -1,40 +1,23 @@
 #pragma once
-
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
-
-#include <pcl/common/impl/centroid.hpp>
+#include <sensor_msgs/msg/point_cloud2.hpp>
 #include <string>
 #include <tuple>
+#include <vector>
 
-#include "center_calculation/circunferece_center_calculation.hpp"
+#include "center_calculation/centroid_calculation.hpp"
+#include "center_calculation/circunference_center_calculation.hpp"
+#include "utils/lidar_point.hpp"
 
 /**
  * @brief Represents a cluster of 3D points using PCL (Point Cloud Library).
  */
 class Cluster {
-private:
-  pcl::PointCloud<pcl::PointXYZI>::Ptr _point_cloud_;  ///< Pointer to the Point Cloud data.
-  std::string _color_ = "undefined";                   ///< Color associated with the cluster.
-  Eigen::Vector4f _centroid_;                          ///< Centroid of the cluster.
-  Eigen::Vector4f _center_;                            ///< Center of the cone's cluster.
-  bool _centroid_is_defined_ = false;  ///< Flag indicating whether the centroid is defined or not.
-  bool _center_is_defined_ = false;    ///< Flag indicating whether the center is defined or not.
-  double _confidence_ = 0;             ///< Confidence on the cluster to be (or not) a cone
-  static constexpr auto center_calculator =
-      CircunferenceCenterCalculation();  ///< Calculates the center of the cone
-  double _z_score_x_ = 0;
-  double _z_score_y_ = 0;
-  bool _is_large_ = false;  ///< Flag indicating the size of the cluster :
-                            ///< true = large cluster.
-                            ///< false = small = cluster.
-
 public:
   /**
    * @brief Constructor for the Cluster class.
-   * @param point_cloud Pointer to the Point Cloud data of the cluster.
    */
-  explicit Cluster(pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud);
+  explicit Cluster(const sensor_msgs::msg::PointCloud2::SharedPtr& point_cloud,
+                   const std::vector<int>& point_indices);
 
   /**
    * @brief Get the centroid of the cluster.
@@ -65,13 +48,19 @@ public:
    * @brief Set the Point Cloud data for the cluster.
    * @param new_point_cloud Pointer to the new Point Cloud data.
    */
-  void set_point_cloud(pcl::PointCloud<pcl::PointXYZI>::Ptr new_point_cloud);
+  void set_point_indices(const std::vector<int>& new_point_indices);
 
   /**
    * @brief Get the Point Cloud data of the cluster.
    * @return pcl::PointCloud<pcl::PointXYZI>::Ptr representing the Point Cloud data.
    */
-  pcl::PointCloud<pcl::PointXYZI>::Ptr get_point_cloud();
+  const std::vector<int>& get_point_indices();
+
+  /**
+   * @brief Get the Point Cloud data of the cluster.
+   * @return pcl::PointCloud<pcl::PointXYZI>::Ptr representing the Point Cloud data.
+   */
+  const sensor_msgs::msg::PointCloud2::SharedPtr& get_point_cloud();
 
   /**
    * @brief Set the Confidence of the cluster to be or not to be a cone
@@ -138,4 +127,25 @@ public:
    * @brief Set cluster as a contender for a large cone
    */
   void set_is_large();
+
+private:
+  const sensor_msgs::msg::PointCloud2::SharedPtr
+      _point_cloud_;                   ///< Point cloud data for the cluster.
+  std::vector<int> _point_indices_;    ///< Indices of points in the cluster.
+  std::string _color_ = "undefined";   ///< Color associated with the cluster.
+  Eigen::Vector4f _centroid_;          ///< Centroid of the cluster.
+  Eigen::Vector4f _center_;            ///< Center of the cone's cluster.
+  bool _centroid_is_defined_ = false;  ///< Flag indicating whether the centroid is defined or not.
+  bool _center_is_defined_ = false;    ///< Flag indicating whether the center is defined or not.
+  double _confidence_ = 0;             ///< Confidence on the cluster to be (or not) a cone
+  double _z_score_x_ = 0;
+  double _z_score_y_ = 0;
+  bool _is_large_ = false;  ///< Flag indicating the size of the cluster :
+  ///< true = large cluster.
+  ///< false = small = cluster.
+
+  static constexpr auto center_calculator =
+      CircunferenceCenterCalculator();  ///< Calculates the center of the cone
+  static constexpr auto centroid_calculator =
+      CentroidCalculator();  ///< Calculates the centroid of the cluster
 };

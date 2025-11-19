@@ -1,7 +1,6 @@
 #pragma once
 
 #include <cone_validator/cone_validator.hpp>
-#include <utils/cluster.hpp>
 
 /**
  * @class CylinderValidator
@@ -12,13 +11,6 @@
  * and retrieve cylinder dimensions and to perform validation of clusters.
  */
 class CylinderValidator : public ConeValidator {
-private:
-  double small_width;      /**< Width of the cylinder for a small cone. */
-  double small_height;     /**< Height of the cylinder for a small cone. */
-  double large_width;      /**< Width of the cylinder for a large cone. */
-  double large_height;     /**< Height of the cylinder for a large cone. */
-  double out_distance_cap; /**< Minimum out_distance value for it to be 0*/
-
 public:
   /**
    * @brief Constructs a new CylinderValidator object with specified width and height.
@@ -52,4 +44,11 @@ public:
    * Index 2 -> Ratio between the number of points outside the cylinder and the total.
    */
   std::vector<double> coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
+
+private:
+  double small_width;      /**< Width of the cylinder for a small cone. */
+  double small_height;     /**< Height of the cylinder for a small cone. */
+  double large_width;      /**< Width of the cylinder for a large cone. */
+  double large_height;     /**< Height of the cylinder for a large cone. */
+  double out_distance_cap; /**< Minimum out_distance value for it to be 0*/
 };

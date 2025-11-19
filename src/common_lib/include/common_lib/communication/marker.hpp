@@ -1,5 +1,7 @@
 #pragma once
 
+#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
+
 #include <map>
 #include <type_traits>
 
@@ -10,7 +12,6 @@
 #include "std_msgs/msg/color_rgba.hpp"
 #include "visualization_msgs/msg/marker.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
-#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 
 using K = CGAL::Exact_predicates_inexact_constructions_kernel;
 using Point = K::Point_2;
@@ -18,13 +19,10 @@ namespace common_lib::communication {
 
 inline const std::map<std::string, std::array<float, 4>, std::less<>>& marker_color_map() {
   static const std::map<std::string, std::array<float, 4>, std::less<>> map = {
-      {"blue",   {0.0f, 0.0f, 1.0f, 1.0f}},
-      {"yellow", {1.0f, 1.0f, 0.0f, 1.0f}},
-      {"orange", {1.0f, 0.5f, 0.0f, 1.0f}},
-      {"red",    {1.0f, 0.0f, 0.0f, 1.0f}},
-      {"green",  {0.0f, 1.0f, 0.0f, 1.0f}},
-      {"white",  {1.0f, 1.0f, 1.0f, 1.0f}},
-      {"grey",   {0.5f, 0.5f, 0.5f, 1.0f}},
+      {"blue", {0.0f, 0.0f, 1.0f, 1.0f}},   {"yellow", {1.0f, 1.0f, 0.0f, 1.0f}},
+      {"orange", {1.0f, 0.5f, 0.0f, 1.0f}}, {"red", {1.0f, 0.0f, 0.0f, 1.0f}},
+      {"green", {0.0f, 1.0f, 0.0f, 1.0f}},  {"white", {1.0f, 1.0f, 1.0f, 1.0f}},
+      {"grey", {0.5f, 0.5f, 0.5f, 1.0f}},
   };
   return map;
 }
@@ -32,11 +30,11 @@ inline const std::map<std::string, std::array<float, 4>, std::less<>>& marker_co
 inline const std::map<std::string, int, std::less<>>& marker_shape_map() {
   static const std::map<std::string, int, std::less<>> map = {
       {"cylinder", visualization_msgs::msg::Marker::CYLINDER},
-      {"cube",     visualization_msgs::msg::Marker::CUBE},
-      {"sphere",   visualization_msgs::msg::Marker::SPHERE},
-      {"line",     visualization_msgs::msg::Marker::LINE_STRIP},
-      {"cone",     visualization_msgs::msg::Marker::MESH_RESOURCE},
-      {"arrow",    visualization_msgs::msg::Marker::ARROW},
+      {"cube", visualization_msgs::msg::Marker::CUBE},
+      {"sphere", visualization_msgs::msg::Marker::SPHERE},
+      {"line", visualization_msgs::msg::Marker::LINE_STRIP},
+      {"cone", visualization_msgs::msg::Marker::MESH_RESOURCE},
+      {"arrow", visualization_msgs::msg::Marker::ARROW},
   };
   return map;
 }
@@ -230,19 +228,13 @@ visualization_msgs::msg::Marker marker_from_position(
  * @param name_space Namespace of the marker, used in conjunction with ID to identify the marker
  * @param frame_id Frame id of the marker
  * @param id Id of the marker
- * @param color Color of the marker 
- * @param scale Thickness of the lines 
+ * @param color Color of the marker
+ * @param scale Thickness of the lines
  * @param action action of the marker
  * @return visualization_msgs::msg::Marker
  */
 visualization_msgs::msg::Marker lines_marker_from_triangulations(
-    const std::vector<std::pair<Point, Point>>& triangulations,
-    const std::string& name_space,
-    const std::string& frame_id,
-    int id,
-    const std::string& color,
-    float scale,
-    int action);
-
+    const std::vector<std::pair<Point, Point>>& triangulations, const std::string& name_space,
+    const std::string& frame_id, int id, const std::string& color, float scale, int action);
 
 }  // namespace common_lib::communication
