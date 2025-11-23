@@ -14,7 +14,7 @@ class EKFSLAMSolver : public SLAMSolver {
   Eigen::VectorXd state_ = Eigen::VectorXd::Zero(3);
   Eigen::MatrixXd covariance_;
   Eigen::MatrixXd process_noise_matrix_;
-  Eigen::VectorXd pose = Eigen::VectorXd::Zero(3);
+  std::shared_mutex mutex_;
 
   rclcpp::Time last_update_;
 
@@ -92,7 +92,7 @@ class EKFSLAMSolver : public SLAMSolver {
   /**
    * @brief update the process noise matrix so that its dimensions match the covariance matrix
    */
-  void update_process_noise_matrix();
+  void update_process_noise_matrix(const Eigen::MatrixXd& covariance, Eigen::MatrixXd& process_noise_matrix);
 
   friend class EKFSLAMSolverTest_stateAugmentation_Test;
   friend class EKFSLAMSolverTest_stateAugmentation2_Test;
