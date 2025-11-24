@@ -56,12 +56,11 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
   common_lib::conversions::cone_vector_to_eigen(cones, observations, observation_confidences);
   Eigen::VectorXd state;
   Eigen::MatrixXd covariance;
-  Eigen::MatrixXd process_noise_matrix;
   {
     std::unique_lock lock(this->mutex_);
     state = this->state_;
     covariance = this->covariance_;
-    process_noise_matrix = this->process_noise_matrix_;
+    correction_step_ongoing_ = true;
   }
   Eigen::VectorXd global_observations =
       common_lib::maths::local_to_global_coordinates(state.segment(0, 3), observations);
@@ -95,16 +94,15 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
          this->_mission_ == common_lib::competition_logic::Mission::ACCELERATION)) &&
       this->lap_counter_ == 0) {
     this->state_augmentation(state, covariance, filtered_new_landmarks);
-    this->update_process_noise_matrix(covariance, process_noise_matrix);
   }
   // Finally update the state
   {
     std::unique_lock lock(this->mutex_);
-    Eigen::Vector3d position = this->state_.segment(0, 3);
     this->state_ = state;
-    this->state_.segment(0,3) = position;
+    this->state_.segment(0,3) += this->pose_difference_; // Compensate for the difference accumulated during correction
+    this->pose_difference_ = Eigen::Vector3d::Zero();
+    this->correction_step_ongoing_ = false;
     this->covariance_ = covariance;
-    this->process_noise_matrix_ = process_noise_matrix_;
   }
 }
 
@@ -120,15 +118,19 @@ void EKFSLAMSolver::predict(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
 
   Eigen::MatrixXd pose_jacobian =
       this->_motion_model_->get_jacobian_pose(previous_pose, temp_velocities, time_interval);
-  int desired_jacobian_size = covariance.cols();
-  Eigen::MatrixXd jacobian =
-      Eigen::MatrixXd::Identity(desired_jacobian_size, desired_jacobian_size);
-  jacobian.block(0, 0, 3, 3) = pose_jacobian;
+  Eigen::MatrixXd updated_covariance_block = pose_jacobian * covariance.block(0, 0, 3, 3) *
+                                         pose_jacobian.transpose() + process_noise_matrix;
 
   Eigen::Vector3d next_pose =
       this->_motion_model_->get_next_pose(previous_pose, temp_velocities, time_interval);
+  {
+    std::unique_lock lock(this->mutex_);
+    if (this->correction_step_ongoing_) {
+      this->pose_difference_ += (next_pose - previous_pose);
+    }
+  }
   state.segment(0, 3) = next_pose;
-  covariance = jacobian * covariance * jacobian.transpose() + process_noise_matrix;
+  covariance.block(0, 0, 3, 3) = updated_covariance_block;
 }
 
 void EKFSLAMSolver::correct(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
@@ -182,7 +184,6 @@ void EKFSLAMSolver::load_initial_state(const Eigen::VectorXd& map, const Eigen::
   this->covariance_(0, 0) = this->slam_parameters_.pose_x_initial_noise_;
   this->covariance_(1, 1) = this->slam_parameters_.pose_y_initial_noise_;
   this->covariance_(2, 2) = this->slam_parameters_.pose_theta_initial_noise_;
-  update_process_noise_matrix(this->covariance_, this->process_noise_matrix_);
 }
 
 std::vector<common_lib::structures::Cone> EKFSLAMSolver::get_map_estimate() {
@@ -205,12 +206,4 @@ common_lib::structures::Pose EKFSLAMSolver::get_pose_estimate() {
   std::unique_lock lock(this->mutex_);
   return common_lib::structures::Pose(this->state_(0), this->state_(1), this->state_(2), 0, 0, 0,
                                       this->last_update_);
-}
-
-void EKFSLAMSolver::update_process_noise_matrix(const Eigen::MatrixXd& covariance, Eigen::MatrixXd& process_noise_matrix) {
-  process_noise_matrix =
-      Eigen::MatrixXd::Zero(covariance.cols(), covariance.rows());
-  process_noise_matrix(0, 0) = this->slam_parameters_.velocity_x_noise_;
-  process_noise_matrix(1, 1) = this->slam_parameters_.velocity_y_noise_;
-  process_noise_matrix(2, 2) = this->slam_parameters_.angular_velocity_noise_;
 }
