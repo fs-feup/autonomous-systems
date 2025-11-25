@@ -6,28 +6,33 @@ DisplacementValidator::DisplacementValidator(double min_distance_x, double min_d
       _min_distance_y_(min_distance_y),
       _min_distance_z_(min_distance_z) {}
 
-std::vector<double> DisplacementValidator::coneValidator(Cluster* cone_point_cloud,
+std::vector<double> DisplacementValidator::coneValidator(Cluster* cone_cluster,
                                                          [[maybe_unused]] Plane& plane) const {
-  float minX = abs(cone_point_cloud->get_point_cloud()->points[0].x);
-  float maxX = abs(cone_point_cloud->get_point_cloud()->points[0].x);
+  const auto& cloud_data = cone_cluster->get_point_cloud()->data;
+  const auto& indices = cone_cluster->get_point_indices();
 
-  float minY = abs(cone_point_cloud->get_point_cloud()->points[0].y);
-  float maxY = abs(cone_point_cloud->get_point_cloud()->points[0].y);
+  // Initialize min and max with the first point
+  float minX = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointX(indices[0])]);
+  float maxX = minX;
+  float minY = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointY(indices[0])]);
+  float maxY = minY;
+  float minZ = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointZ(indices[0])]);
+  float maxZ = minZ;
 
-  float minZ = abs(cone_point_cloud->get_point_cloud()->points[0].z);
-  float maxZ = abs(cone_point_cloud->get_point_cloud()->points[0].z);
+  // Loop through all points to find min/max on each axis
+  for (size_t i = 1; i < indices.size(); ++i) {
+    float x = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointX(indices[i])]);
+    float y = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointY(indices[i])]);
+    float z = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointZ(indices[i])]);
 
-  for (long unsigned int i = 1; i < cone_point_cloud->get_point_cloud()->points.size(); i++) {
-    pcl::PointXYZI point = cone_point_cloud->get_point_cloud()->points[i];
+    minX = std::min(minX, x);
+    maxX = std::max(maxX, x);
 
-    minX = std::min(minX, (float)abs(point.x));
-    maxX = std::max(maxX, (float)abs(point.x));
+    minY = std::min(minY, y);
+    maxY = std::max(maxY, y);
 
-    minY = std::min(minY, (float)abs(point.y));
-    maxY = std::max(maxY, (float)abs(point.y));
-
-    minZ = std::min(minZ, (float)abs(point.z));
-    maxZ = std::max(maxZ, (float)abs(point.z));
+    minZ = std::min(minZ, z);
+    maxZ = std::max(maxZ, z);
   }
 
   // index 0 = ratio between the x axis displacement and the minimum distance for that axis.
