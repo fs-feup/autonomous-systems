@@ -1,7 +1,6 @@
 #pragma once
 
 #include <cone_validator/cone_validator.hpp>
-#include <utils/cluster.hpp>
 
 /**
  * @brief The HeightValidator class is responsible for validating cones based on their height.
@@ -10,12 +9,6 @@
  * to provide height-based validation logic.
  */
 class HeightValidator : public ConeValidator {
-private:
-  double _min_height_;        ///< Min Height threshold for cone validation */
-  double _large_max_height_;  ///< Max Height threshold for large cones */
-  double _small_max_height_;  ///< Max Height treshhold for small cones */
-  double _height_cap_;        ///< Minimum ratio result needed for return values to not be 0. */
-
 public:
   /**
    * @brief Constructs a new HeightValidator object with the specified height threshold.
@@ -48,4 +41,10 @@ public:
    * @brief Virtual destructor for HeightValidator.
    */
   virtual ~HeightValidator() = default;
+
+private:
+  double _min_height_;        ///< Min Height threshold for cone validation */
+  double _large_max_height_;  ///< Max Height threshold for large cones */
+  double _small_max_height_;  ///< Max Height treshhold for small cones */
+  double _height_cap_;        ///< Minimum ratio result needed for return values to not be 0. */
 };
