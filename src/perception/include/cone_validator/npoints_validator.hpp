@@ -1,7 +1,6 @@
 #pragma once
 
 #include <cone_validator/cone_validator.hpp>
-#include <utils/cluster.hpp>
 
 /**
  * @brief The NPointsValidator class is responsible for validating cones based on the number of
@@ -11,9 +10,6 @@
  * to provide point quantity validation logic.
  */
 class NPointsValidator : public ConeValidator {
-private:
-  long unsigned int _min_n_points_;
-
 public:
   /**
    * @brief Constructs a new HeightValidator object with the specified height threshold.
@@ -38,4 +34,7 @@ public:
    * @brief Virtual destructor for NpointsValidator.
    */
   virtual ~NPointsValidator() = default;
+
+private:
+  long unsigned int _min_n_points_;
 };
