@@ -27,9 +27,9 @@ bool ConeEvaluator::close_to_ground(Cluster &cluster, const GroundGrid &ground_g
 
   bool result = true;
 
-  result &= min_distance_above > params_->max_distance_from_ground_min;
+  result &= min_distance_above < params_->max_distance_from_ground_min;
 
-  result &= max_distance_above > params_->max_distance_from_ground_max;
+  result &= max_distance_above < params_->max_distance_from_ground_max;
 
   return result;
 }
