@@ -1,0 +1,47 @@
+<map id="GridGeometry::get_slice_index" name="GridGeometry::get_slice_index">
+<area shape="rect" id="Node000001" title="Compute slice index for a given (x, y)" alt="" coords="798,138,957,179"/>
+<area shape="rect" id="Node000002" href="$d1/d40/class_grid_clustering.html#a403ff90221a226690d9ccbd07848c11a" title="Clusters the input point cloud into groups using the GridClustering algorithm." alt="" coords="582,55,747,80"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="826,133,749,95,715,83,716,78,751,90,828,128"/>
+<area shape="rect" id="Node000003" href="$dc/d71/class_ground_grid.html#a8b307e266061da7c79e80d09f62f3133" title="Get the ground height at a specific (x, y) location." alt="" coords="586,105,743,145"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="782,146,743,140,744,135,783,141"/>
+<area shape="rect" id="Node000008" href="$df/d89/class_grid_wall_removal.html#a7bee6f4734519bad34c19049898cae62" title="Removes walls from the input point cloud using a grid&#45;based approach." alt="" coords="579,170,750,211"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="783,175,750,180,750,175,782,170"/>
+<area shape="rect" id="Node000009" href="$dc/d71/class_ground_grid.html#a7b2c9092c93f7dd39fd98441f24c5c67" title="Set the ground height at a specific (x, y) location." alt="" coords="586,318,743,359"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="842,190,692,319,689,315,839,186"/>
+<area shape="rect" id="Node000004" href="$df/d8f/class_cone_evaluator.html#a9e45a212802274e894c43220c2630506" title="Check if the cluster is close to the ground." alt="" coords="373,63,515,104"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="570,110,515,99,516,94,571,105"/>
+<area shape="rect" id="Node000005" href="$df/d8f/class_cone_evaluator.html#a3799151409a3fa384b841b09920c9af8" title="Perform the cluster evaluation, guaranteeing they pass all validators." alt="" coords="108,29,309,55"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="358,71,285,58,286,53,358,66"/>
+<area shape="rect" id="Node000006" href="$d1/d69/cone__evaluator__test_8cpp.html#ab5e55810325802b3dc0b3c707dd44ff5" title="Test when confidence is insufficient." alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="95,29,60,24,60,19,95,24"/>
+<area shape="rect" id="Node000007" href="$d1/d69/cone__evaluator__test_8cpp.html#a3986a0a05e70445cc0095f943c977beb" title="Test when confidence is sufficient." alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="100,60,61,66,60,61,100,55"/>
+<area shape="rect" id="Node000010" href="$d6/dc3/class_r_a_n_s_a_c.html#a638e68374dacf54926e94ae6f2cca8b8" title="Perform ground removal using the RANSAC algorithm." alt="" coords="357,325,531,351"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="570,341,532,341,532,336,570,336"/>
+<area shape="rect" id="Node000022" href="$da/d5d/class_himmelsbach.html#a8efa0fdc694cbc16aac83c1bd88b7250" title="Process a single slice for ground removal." alt="" coords="368,498,521,539"/>
+<area shape="poly" id="edge21_Node000009_Node000022" title=" " alt="" coords="628,370,473,499,469,495,625,366"/>
+<area shape="rect" id="Node000011" href="$d3/da8/ransac__test_8cpp.html#a46e344e03fde07883e8014bdb5f41df2" title="Test Scenario: Point cloud with only 3 points: The epsilon threshold is set to 0 &#45; No points are remo..." alt="" coords="174,79,243,104"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="432,312,415,269,389,216,353,162,332,138,308,118,276,103,243,96,244,91,278,97,310,113,335,135,357,159,394,213,420,267,437,310"/>
+<area shape="rect" id="Node000012" href="$d3/da8/ransac__test_8cpp.html#ac3193c990f2f7b1758045842adad3595" title="Test Scenario: All points fit in the model (Epsilon threshold very high)." alt="" coords="174,128,243,154"/>
+<area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="427,313,408,279,381,239,347,200,308,167,276,153,243,146,244,141,277,148,310,163,351,196,385,236,413,276,432,310"/>
+<area shape="rect" id="Node000013" href="$d3/da8/ransac__test_8cpp.html#a1e0e707252174d38c9d6f8c43351e3a6" title="Test Scenario: Really great threshold &#45; All points are considered as part of the plane." alt="" coords="174,177,243,203"/>
+<area shape="poly" id="edge12_Node000010_Node000013" title=" " alt="" coords="421,315,373,265,342,238,308,217,275,204,243,197,244,191,277,199,310,212,345,234,376,261,425,311"/>
+<area shape="rect" id="Node000014" href="$d3/da8/ransac__test_8cpp.html#a9e14b51d0cf8959f12223f08ea6654e1" title="Test Scenario: Only points that fit into the plane are considered as part of the plane (No points clo..." alt="" coords="174,227,243,252"/>
+<area shape="poly" id="edge13_Node000010_Node000014" title=" " alt="" coords="409,319,362,292,308,266,243,248,244,243,310,261,365,287,412,314"/>
+<area shape="rect" id="Node000015" href="$d3/da8/ransac__test_8cpp.html#a0fb45daaa57c6bf17abcbbb6d3a1669f" title="Test Scenario: The points in the plane and a close enough point is removed &#45; 1 point left." alt="" coords="174,276,243,302"/>
+<area shape="poly" id="edge14_Node000010_Node000015" title=" " alt="" coords="364,324,243,299,244,293,365,319"/>
+<area shape="rect" id="Node000016" href="$d3/da8/ransac__test_8cpp.html#a05fab74709b6d55c7be4ef4652fd5d21" title="Test Scenario: Point cloud with only 3 points: 0 points are expected after the ground removal." alt="" coords="174,325,243,351"/>
+<area shape="poly" id="edge15_Node000010_Node000016" title=" " alt="" coords="342,341,243,341,243,336,342,336"/>
+<area shape="rect" id="Node000017" href="$d3/da8/ransac__test_8cpp.html#a710aabac929279892d53ae01db815e56" title="Test Scenario: Point cloud with 0 points &#45; Must return a point cloud with 0 points also." alt="" coords="174,375,243,400"/>
+<area shape="poly" id="edge16_Node000010_Node000017" title=" " alt="" coords="365,357,244,383,243,378,364,352"/>
+<area shape="rect" id="Node000018" href="$d3/da8/ransac__test_8cpp.html#aea8684fdf1c75f7dba7707c1efb78d3a" title="Test Scenario: Point cloud with 0 points." alt="" coords="174,424,243,450"/>
+<area shape="poly" id="edge17_Node000010_Node000018" title=" " alt="" coords="412,362,365,389,310,415,244,434,243,428,308,410,362,385,409,357"/>
+<area shape="rect" id="Node000019" href="$d3/da8/ransac__test_8cpp.html#a7b781745e0d34c118e38f731612403e6" title="Test Scenario: Really small threshold." alt="" coords="174,473,243,499"/>
+<area shape="poly" id="edge18_Node000010_Node000019" title=" " alt="" coords="425,365,376,416,345,442,310,465,277,478,244,485,243,480,275,473,308,460,342,438,373,412,421,361"/>
+<area shape="rect" id="Node000020" href="$d3/da8/ransac__test_8cpp.html#a58a9606006bb06536d709b53753d50ed" title="Test Scenario: The epsilon threshold is set to 0 &#45; No points are removed." alt="" coords="174,523,243,548"/>
+<area shape="poly" id="edge19_Node000010_Node000020" title=" " alt="" coords="432,366,413,400,385,440,351,480,310,514,277,528,244,536,243,530,276,523,308,509,347,476,381,437,408,398,427,364"/>
+<area shape="rect" id="Node000021" href="$d3/da8/ransac__test_8cpp.html#a9b345f1164e201047f1fa4cd65c841c7" title="Test Scenario: Number of repetitions is set to 0 &#45; Expected a point cloud with 0 points." alt="" coords="174,572,243,598"/>
+<area shape="poly" id="edge20_Node000010_Node000021" title=" " alt="" coords="430,366,362,483,311,563,278,579,244,586,243,581,276,574,307,559,357,481,425,363"/>
+<area shape="rect" id="Node000023" href="$da/d5d/class_himmelsbach.html#a77ad5b00f1a2819802008c4fb5889fb9" title="Perform ground removal on a point cloud." alt="" coords="135,622,282,663"/>
+<area shape="poly" id="edge22_Node000022_Node000023" title=" " alt="" coords="407,550,362,582,310,613,283,624,281,619,308,608,359,578,404,546"/>
+</map>

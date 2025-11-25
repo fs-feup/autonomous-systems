@@ -99,25 +99,40 @@ $(document).ready(function(){initNavTree('de/d77/centroid__calculation_8cpp_sour
   <div class="headertitle"><div class="title">centroid_calculation.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="../../de/d77/centroid__calculation_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;pcl/point_cloud.h&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;pcl/point_types.h&gt;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;pcl/common/impl/centroid.hpp&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="../../d0/df6/centroid__calculation_8hpp.html">center_calculation/centroid_calculation.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="../../da/d39/class_centroid_calculator.html#a8d22488c107a16f3a40e0b3d8f358c16">   10</a></span>Eigen::Vector4f <a class="code hl_function" href="../../da/d39/class_centroid_calculator.html#a8d22488c107a16f3a40e0b3d8f358c16">CentroidCalculator::calculate_center</a>(pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr point_cloud, [[maybe_unused]] <span class="keyword">const</span> <a class="code hl_class" href="../../d2/d8d/class_plane.html">Plane</a>&amp; plane)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    Eigen::Vector4f centroid;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    pcl::compute3DCentroid(*point_cloud, centroid);</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordflow">return</span> centroid;</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
+<a href="../../de/d77/centroid__calculation_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="../../d0/df6/centroid__calculation_8hpp.html">center_calculation/centroid_calculation.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="foldopen" id="foldopen00003" data-start="{" data-end="}">
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="../../da/d39/class_centroid_calculator.html#a3be52bf3e5486b6236beacafe64e59f2">    3</a></span>Eigen::Vector4f <a class="code hl_function" href="../../da/d39/class_centroid_calculator.html#a3be52bf3e5486b6236beacafe64e59f2">CentroidCalculator::calculate_center</a>(</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>    <span class="keyword">const</span> sensor_msgs::msg::PointCloud2::SharedPtr&amp; point_cloud,</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>    <span class="keyword">const</span> std::vector&lt;int&gt;&amp; point_indices, <span class="keyword">const</span> <a class="code hl_class" href="../../d2/d8d/class_plane.html">Plane</a>&amp; plane)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>  Eigen::Vector4f centroid;</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>  <span class="keywordtype">double</span> sum_x = 0.0;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>  <span class="keywordtype">double</span> sum_y = 0.0;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>  <span class="keywordtype">double</span> sum_z = 0.0;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  <span class="keyword">const</span> <span class="keyword">auto</span>&amp; cloud_data = point_cloud-&gt;data;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> idx : point_indices) {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordtype">float</span> x = *<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">float</span>*<span class="keyword">&gt;</span>(&amp;cloud_data[<a class="code hl_function" href="../../dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11">LidarPoint::PointX</a>(idx)]);</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordtype">float</span> y = *<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">float</span>*<span class="keyword">&gt;</span>(&amp;cloud_data[<a class="code hl_function" href="../../dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4">LidarPoint::PointY</a>(idx)]);</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordtype">float</span> z = *<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">float</span>*<span class="keyword">&gt;</span>(&amp;cloud_data[<a class="code hl_function" href="../../dc/d9c/namespace_lidar_point.html#a0dd3e19b92b08561073d6f2f636a87ca">LidarPoint::PointZ</a>(idx)]);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    sum_x += x;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    sum_y += y;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    sum_z += z;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  }</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  <span class="keywordtype">size_t</span> n = point_indices.size();</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  centroid &lt;&lt; sum_x / n, sum_y / n, sum_z / n, 1.0f;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  <span class="keywordflow">return</span> centroid;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
 </div>
 <div class="ttc" id="acentroid__calculation_8hpp_html"><div class="ttname"><a href="../../d0/df6/centroid__calculation_8hpp.html">centroid_calculation.hpp</a></div></div>
-<div class="ttc" id="aclass_centroid_calculator_html_a8d22488c107a16f3a40e0b3d8f358c16"><div class="ttname"><a href="../../da/d39/class_centroid_calculator.html#a8d22488c107a16f3a40e0b3d8f358c16">CentroidCalculator::calculate_center</a></div><div class="ttdeci">Eigen::Vector4f calculate_center(pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud, const Plane &amp;plane=Plane()) const override</div><div class="ttdoc">Estimates the center position of a cone using centroid calculation.</div><div class="ttdef"><b>Definition</b> <a href="../../de/d77/centroid__calculation_8cpp_source.html#l00010">centroid_calculation.cpp:10</a></div></div>
-<div class="ttc" id="aclass_plane_html"><div class="ttname"><a href="../../d2/d8d/class_plane.html">Plane</a></div><div class="ttdoc">The Plane class represents a 3D plane defined by its equation ax + by + cz + d = 0.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d82/plane_8hpp_source.html#l00013">plane.hpp:13</a></div></div>
+<div class="ttc" id="aclass_centroid_calculator_html_a3be52bf3e5486b6236beacafe64e59f2"><div class="ttname"><a href="../../da/d39/class_centroid_calculator.html#a3be52bf3e5486b6236beacafe64e59f2">CentroidCalculator::calculate_center</a></div><div class="ttdeci">Eigen::Vector4f calculate_center(const sensor_msgs::msg::PointCloud2::SharedPtr &amp;point_cloud, const std::vector&lt; int &gt; &amp;point_indices, const Plane &amp;plane=Plane()) const override</div><div class="ttdoc">Estimates the center position of a cone using centroid calculation.</div><div class="ttdef"><b>Definition</b> <a href="../../de/d77/centroid__calculation_8cpp_source.html#l00003">centroid_calculation.cpp:3</a></div></div>
+<div class="ttc" id="aclass_plane_html"><div class="ttname"><a href="../../d2/d8d/class_plane.html">Plane</a></div><div class="ttdoc">The Plane class represents a 3D plane defined by its equation ax + by + cz + d = 0.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d82/plane_8hpp_source.html#l00012">plane.hpp:12</a></div></div>
+<div class="ttc" id="anamespace_lidar_point_html_a0dd3e19b92b08561073d6f2f636a87ca"><div class="ttname"><a href="../../dc/d9c/namespace_lidar_point.html#a0dd3e19b92b08561073d6f2f636a87ca">LidarPoint::PointZ</a></div><div class="ttdeci">constexpr size_t PointZ(size_t idx)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/db6/lidar__point_8hpp_source.html#l00020">lidar_point.hpp:20</a></div></div>
+<div class="ttc" id="anamespace_lidar_point_html_a4112750306d4489754ccc2ef5124ca11"><div class="ttname"><a href="../../dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11">LidarPoint::PointX</a></div><div class="ttdeci">constexpr size_t PointX(size_t idx)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/db6/lidar__point_8hpp_source.html#l00018">lidar_point.hpp:18</a></div></div>
+<div class="ttc" id="anamespace_lidar_point_html_aa4ad39bca9c65908863c99be7ad6ede4"><div class="ttname"><a href="../../dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4">LidarPoint::PointY</a></div><div class="ttdeci">constexpr size_t PointY(size_t idx)</div><div class="ttdef"><b>Definition</b> <a href="../../d1/db6/lidar__point_8hpp_source.html#l00019">lidar_point.hpp:19</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

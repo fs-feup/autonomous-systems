@@ -1,7 +1,0 @@
-<map id="SkidpadTrimming::fov_trimming" name="SkidpadTrimming::fov_trimming">
-<area shape="rect" id="Node000001" title="Perform ground removal on the input point cloud." alt="" coords="5,5,152,46"/>
-<area shape="rect" id="Node000002" href="$de/dd9/class_fov_trimming.html#ad348ad3bc1386bf9a5fe2fcb201774c9" title=" " alt="" coords="200,5,337,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,23,184,23,184,28,152,28"/>
-<area shape="rect" id="Node000003" href="$de/dd9/class_fov_trimming.html#a3db8bbe8d8190a8024707d522a39152a" title=" " alt="" coords="385,5,534,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="337,23,370,23,370,28,337,28"/>
-</map>

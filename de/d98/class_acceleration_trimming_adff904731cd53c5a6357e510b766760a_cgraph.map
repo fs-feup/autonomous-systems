@@ -1,0 +1,11 @@
+<map id="AccelerationTrimming::fov_trimming" name="AccelerationTrimming::fov_trimming">
+<area shape="rect" id="Node000001" title="Perform ground removal on the input point cloud." alt="" coords="5,73,153,113"/>
+<area shape="rect" id="Node000002" href="$dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11" title=" " alt="" coords="207,5,332,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,70,200,40,214,34,216,39,202,45,129,74"/>
+<area shape="rect" id="Node000003" href="$dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4" title=" " alt="" coords="207,55,332,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="153,80,191,75,191,81,153,86"/>
+<area shape="rect" id="Node000004" href="$dc/d9c/namespace_lidar_point.html#a0dd3e19b92b08561073d6f2f636a87ca" title=" " alt="" coords="207,104,332,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="153,99,192,104,191,110,153,105"/>
+<area shape="rect" id="Node000005" href="$de/dd9/class_fov_trimming.html#a94b3e3b019b805148181a634983512db" title=" " alt="" coords="201,154,338,195"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="130,111,207,145,205,150,128,116"/>
+</map>

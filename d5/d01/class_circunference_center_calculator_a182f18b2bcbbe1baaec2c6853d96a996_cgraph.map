@@ -1,0 +1,17 @@
+<map id="CircunferenceCenterCalculator::calculate_center" name="CircunferenceCenterCalculator::calculate_center">
+<area shape="rect" id="Node000001" title="Estimates the center position of a cone using a circumference&#45;based approach." alt="" coords="5,154,203,195"/>
+<area shape="rect" id="Node000002" href="$d2/d8d/class_plane.html#a3a227b9e6e6f5214c9ce9a6f757a14eb" title="Getter &#45; Get the a component of the plane." alt="" coords="272,5,364,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,152,175,97,211,67,249,40,257,36,260,40,252,44,214,71,179,101,125,155"/>
+<area shape="rect" id="Node000003" href="$d2/d8d/class_plane.html#a14d7de844717d5fa9546a02849d6fb4a" title="Getter &#45; Get the b component of the plane." alt="" coords="272,55,364,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="137,151,189,120,250,89,261,84,263,89,252,94,191,125,139,156"/>
+<area shape="rect" id="Node000004" href="$d2/d8d/class_plane.html#a54f2a7b06bb383ac1ea43d010c3fa79d" title="Getter &#45; Get the c component of the plane." alt="" coords="272,104,364,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="181,151,256,130,257,136,183,156"/>
+<area shape="rect" id="Node000005" href="$d2/d8d/class_plane.html#a693b6850806b47db3c2700cb3bbf26fb" title="Calculates the distance from a point to the plane." alt="" coords="251,154,385,195"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="203,172,235,172,235,177,203,177"/>
+<area shape="rect" id="Node000006" href="$dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11" title=" " alt="" coords="255,219,381,244"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="183,192,253,211,252,217,181,198"/>
+<area shape="rect" id="Node000007" href="$dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4" title=" " alt="" coords="255,268,381,294"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="139,193,191,223,252,254,263,259,261,264,250,259,189,228,137,197"/>
+<area shape="rect" id="Node000008" href="$dc/d9c/namespace_lidar_point.html#a0dd3e19b92b08561073d6f2f636a87ca" title=" " alt="" coords="256,317,380,343"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="125,193,179,247,214,277,252,304,260,308,257,313,249,308,211,282,175,251,121,197"/>
+</map>

@@ -1,7 +1,5 @@
 <map id="ConstrainedGridRANSACTest" name="ConstrainedGridRANSACTest">
-<area shape="rect" id="Node000001" title=" " alt="" coords="18,194,205,339"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,35,89,101"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="65,114,91,193,86,195,60,116"/>
-<area shape="rect" id="Node000003" href="$d8/d8e/struct_split_parameters.html" title=" " alt="" coords="113,5,237,131"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="158,131,142,178,137,177,153,129"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,119,192,284"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="57,5,141,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,85,101,119,96,119,96,85"/>
 </map>

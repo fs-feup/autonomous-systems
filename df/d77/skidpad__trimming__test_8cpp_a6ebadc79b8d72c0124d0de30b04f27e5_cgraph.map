@@ -1,9 +1,13 @@
 <map id="TEST_F" name="TEST_F">
-<area shape="rect" id="Node000001" title="Test case where points above max height should be removed." alt="" coords="5,13,75,39"/>
-<area shape="rect" id="Node000002" href="$d6/df3/class_skidpad_trimming.html#a834079d2ae26eeaa5fde4578bf24b2e2" title="Perform ground removal on the input point cloud." alt="" coords="123,5,269,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,23,107,23,107,28,75,28"/>
-<area shape="rect" id="Node000003" href="$de/dd9/class_fov_trimming.html#ad348ad3bc1386bf9a5fe2fcb201774c9" title=" " alt="" coords="317,5,454,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="270,23,301,23,301,28,270,28"/>
-<area shape="rect" id="Node000004" href="$de/dd9/class_fov_trimming.html#a3db8bbe8d8190a8024707d522a39152a" title=" " alt="" coords="502,5,652,46"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="455,23,487,23,487,28,455,28"/>
+<area shape="rect" id="Node000001" title="Test case where points above max height should be removed." alt="" coords="5,80,75,106"/>
+<area shape="rect" id="Node000002" href="$d6/df3/class_skidpad_trimming.html#af8de9e5547feabd3a2d9dfe8866599ee" title="Perform ground removal on the input point cloud." alt="" coords="123,73,269,113"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,90,107,90,107,96,75,96"/>
+<area shape="rect" id="Node000003" href="$dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11" title=" " alt="" coords="323,5,448,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="244,70,316,40,330,34,332,39,318,45,246,74"/>
+<area shape="rect" id="Node000004" href="$dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4" title=" " alt="" coords="323,55,448,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="269,80,307,75,308,81,270,86"/>
+<area shape="rect" id="Node000005" href="$dc/d9c/namespace_lidar_point.html#a0dd3e19b92b08561073d6f2f636a87ca" title=" " alt="" coords="324,104,448,130"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="270,99,308,104,308,110,269,105"/>
+<area shape="rect" id="Node000006" href="$de/dd9/class_fov_trimming.html#a94b3e3b019b805148181a634983512db" title=" " alt="" coords="317,154,454,195"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="246,111,323,145,321,150,244,116"/>
 </map>

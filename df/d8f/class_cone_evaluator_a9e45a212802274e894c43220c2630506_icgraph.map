@@ -1,0 +1,9 @@
+<map id="ConeEvaluator::close_to_ground" name="ConeEvaluator::close_to_ground">
+<area shape="rect" id="Node000001" title="Check if the cluster is close to the ground." alt="" coords="357,23,499,64"/>
+<area shape="rect" id="Node000002" href="$df/d8f/class_cone_evaluator.html#a3799151409a3fa384b841b09920c9af8" title="Perform the cluster evaluation, guaranteeing they pass all validators." alt="" coords="108,31,309,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="342,46,309,46,309,41,342,41"/>
+<area shape="rect" id="Node000003" href="$d1/d69/cone__evaluator__test_8cpp.html#ab5e55810325802b3dc0b3c707dd44ff5" title="Test when confidence is insufficient." alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="100,30,60,25,61,19,100,25"/>
+<area shape="rect" id="Node000004" href="$d1/d69/cone__evaluator__test_8cpp.html#a3986a0a05e70445cc0095f943c977beb" title="Test when confidence is sufficient." alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="95,62,60,67,60,61,95,56"/>
+</map>

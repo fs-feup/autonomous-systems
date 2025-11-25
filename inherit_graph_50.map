@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$dd/d10/class_i_c_p.html" title="Class for performing Iterative Closest Point (ICP) registration." alt="" coords="5,5,49,31"/>
+<area shape="rect" id="Node000000" href="$dc/d84/class_ground_removal.html" title="Abstract class for ground removal from a point cloud." alt="" coords="5,31,120,56"/>
+<area shape="rect" id="Node000001" href="$da/d5d/class_himmelsbach.html" title="Ground removal using the Himmelsbach algorithm." alt="" coords="168,5,269,31"/>
+<area shape="poly" id="edge61_Node000000_Node000001" title=" " alt="" coords="134,29,167,24,168,29,135,34"/>
+<area shape="rect" id="Node000002" href="$d6/dc3/class_r_a_n_s_a_c.html" title="Ground removal using the RANSAC algorithm." alt="" coords="180,55,257,80"/>
+<area shape="poly" id="edge62_Node000000_Node000002" title=" " alt="" coords="135,52,180,59,180,64,134,57"/>
 </map>

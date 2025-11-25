@@ -1,0 +1,9 @@
+<map id="Himmelsbach::split_point_cloud" name="Himmelsbach::split_point_cloud">
+<area shape="rect" id="Node000001" title="Split the input point cloud into slices and rings." alt="" coords="5,47,137,88"/>
+<area shape="rect" id="Node000002" href="$dc/d9c/namespace_lidar_point.html#aeafcf936beaf572e949b0c4bdc0e2087" title=" " alt="" coords="185,5,327,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="136,47,189,33,191,38,138,53"/>
+<area shape="rect" id="Node000003" href="$dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11" title=" " alt="" coords="193,55,319,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="137,65,178,65,178,70,137,70"/>
+<area shape="rect" id="Node000004" href="$dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4" title=" " alt="" coords="193,104,319,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="138,82,191,97,189,102,136,88"/>
+</map>

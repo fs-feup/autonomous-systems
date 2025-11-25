@@ -6,7 +6,7 @@ var class_plane =
     [ "get_b", "d2/d8d/class_plane.html#a14d7de844717d5fa9546a02849d6fb4a", null ],
     [ "get_c", "d2/d8d/class_plane.html#a54f2a7b06bb383ac1ea43d010c3fa79d", null ],
     [ "get_d", "d2/d8d/class_plane.html#ad0e5724dd5a95ef65b6c642bb848c4bf", null ],
-    [ "get_distance_to_point", "d2/d8d/class_plane.html#afe168b482b5979fc6e259b1848510b30", null ],
+    [ "get_distance_to_point", "d2/d8d/class_plane.html#a693b6850806b47db3c2700cb3bbf26fb", null ],
     [ "operator+=", "d2/d8d/class_plane.html#a4df7ab0bb97f86893133dbb0820fe9cd", null ],
     [ "operator/=", "d2/d8d/class_plane.html#a93e2833c6d565d005b6323efadfeaada", null ],
     [ "a", "d2/d8d/class_plane.html#ad10d8a399a5c42c7cb98a622c5f51a9d", null ],

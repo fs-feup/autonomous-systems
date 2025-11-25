@@ -1,8 +1,0 @@
-<map id="GridRANSAC" name="GridRANSAC">
-<area shape="rect" id="Node000001" title="Implementation of ground removal using a grid&#45;based RANSAC algorithm." alt="" coords="9,308,137,414"/>
-<area shape="rect" id="Node000002" href="$dc/d84/class_ground_removal.html" title="Abstract class for ground removal from a point cloud." alt="" coords="5,5,129,71"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="71,86,74,309,69,309,65,86"/>
-<area shape="rect" id="Node000003" href="$d6/dc3/class_r_a_n_s_a_c.html" title="Ground removal using the RANSAC algorithm." alt="" coords="89,120,213,245"/>
-<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="96,82,118,119,113,122,91,85"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="126,246,105,294,100,292,122,244"/>
-</map>

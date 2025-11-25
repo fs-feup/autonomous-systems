@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['n_5fangular_5fgrids_0',['n_angular_grids',['../d8/d8e/struct_split_parameters.html#a0de30a94e7799c7d5e89f96bd6e5d511',1,'SplitParameters']]],
-  ['n_5ftries_1',['n_tries',['../d2/d16/class_constrained_r_a_n_s_a_c.html#a22215954cabdcb801314062e963c84b3',1,'ConstrainedRANSAC::n_tries'],['../d2/d37/class_constrained_r_a_n_s_a_c_optimized.html#a04c8e27131278317cca77ca0bd312d20',1,'ConstrainedRANSACOptimized::n_tries'],['../d6/dc3/class_r_a_n_s_a_c.html#a7afab641154e461281258b7c57421941',1,'RANSAC::n_tries']]],
-  ['name_2',['name',['../d9/df9/class_gnss_sensor.html#a17153f52585569b86ac065d2cc8dcc00',1,'GnssSensor::name'],['../d6/d71/class_imu_sensor.html#a4f0f2a099ab52351b1c5c3ba2a0235cc',1,'ImuSensor::name'],['../d0/d8a/class_perception_sensor.html#a5dccb7ed6305cbab45b392afc67a5f8b',1,'PerceptionSensor::name'],['../dd/dc4/namespacesetup.html#ab3a7a0638d76a01367c5bc3cc699447f',1,'setup.name']]],
+  ['n_5fout_5fpoints_5fratio_0',['n_out_points_ratio',['../d9/d9f/struct_evaluator_parameters.html#ad3f2a7fb08e9515aa07910088ea7a788',1,'EvaluatorParameters']]],
+  ['n_5ftries_1',['n_tries',['../d6/dc3/class_r_a_n_s_a_c.html#a7afab641154e461281258b7c57421941',1,'RANSAC']]],
+  ['name_2',['name',['../dd/dc4/namespacesetup.html#ab3a7a0638d76a01367c5bc3cc699447f',1,'setup.name'],['../d0/d8a/class_perception_sensor.html#a5dccb7ed6305cbab45b392afc67a5f8b',1,'PerceptionSensor::name'],['../d6/d71/class_imu_sensor.html#a4f0f2a099ab52351b1c5c3ba2a0235cc',1,'ImuSensor::name'],['../d9/df9/class_gnss_sensor.html#a17153f52585569b86ac065d2cc8dcc00',1,'GnssSensor::name']]],
   ['namespace_3',['nameSpace',['../d9/d6d/class_landmarks_marker_wrapper.html#a3871a97266fdd7ded218744ce0d69705',1,'LandmarksMarkerWrapper']]],
   ['neighbours_5fdist_5fthreshold_4',['neighbours_dist_threshold',['../df/d6a/class_d_b_s_c_a_n.html#adf49ab23a7d6483e750d9db747a2bd42',1,'DBSCAN']]],
   ['new_5fcommand_5',['new_command',['../d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a784a1a575f442fb960b7897ac6feae16',1,'car_keys.main.PublishThread.new_command'],['../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a62aad558fc53c1d0d29b77ad46c3471e',1,'pacsim_keys.main.PublishThread.new_command']]],
@@ -10,7 +10,7 @@ var searchData=
   ['new_5flandmark_5fconfidence_5fgate_5f_7',['new_landmark_confidence_gate_',['../d5/d51/struct_s_l_a_m_parameters.html#adea7dcdcb31d928d3b34473dbfd1a3a2',1,'SLAMParameters']]],
   ['new_5flandmark_5fgate_5f_8',['new_landmark_gate_',['../dd/d06/class_max_likelihood.html#a955ccd65e1a1fafa6cc9c4e43f0d1d7a',1,'MaxLikelihood']]],
   ['next_5fparams_9',['next_params',['../dd/d3b/namespacebayesian.html#a6028a017403c1d6515fdaded05e532cd',1,'bayesian']]],
-  ['node_10',['node',['../d3/d78/class_e_k_f_s_l_a_m_solver_test.html#a2a91c4030f37c6c0af045b79ced26fa5',1,'EKFSLAMSolverTest::node'],['../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#aeeddccc6a4e5a58d465b39443f554d88',1,'pacsim_keys.main.PublishThread.node'],['../dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html#a9d1b19712f88e00ff5c95a4b007b34e4',1,'evaluator.fsds_adapter.FSDSAdapter.node'],['../d0/d11/class_config_element.html#ad9410de550069186070abc6d6e83ade3',1,'ConfigElement::node'],['../d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a17ab863ffe93a46e54ba6e8b0aa92161',1,'car_keys.main.PublishThread.node'],['../dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html#a1f0fd3eaa5e684672f1a300fd224d132',1,'evaluator.eufs_adapter.EufsAdapter.node']]],
+  ['node_10',['node',['../d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a17ab863ffe93a46e54ba6e8b0aa92161',1,'car_keys.main.PublishThread.node'],['../d3/d78/class_e_k_f_s_l_a_m_solver_test.html#a2a91c4030f37c6c0af045b79ced26fa5',1,'EKFSLAMSolverTest::node'],['../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#aeeddccc6a4e5a58d465b39443f554d88',1,'pacsim_keys.main.PublishThread.node'],['../d0/d11/class_config_element.html#ad9410de550069186070abc6d6e83ade3',1,'ConfigElement::node'],['../dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html#a9d1b19712f88e00ff5c95a4b007b34e4',1,'evaluator.fsds_adapter.FSDSAdapter.node'],['../dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html#a1f0fd3eaa5e684672f1a300fd224d132',1,'evaluator.eufs_adapter.EufsAdapter.node']]],
   ['node_5f_11',['node_',['../d3/d7f/class_adapter.html#a702c7aa0062af19c90ba6148d2683079',1,'Adapter']]],
   ['node_5fnames_5fto_5fwatch_12',['node_names_to_watch',['../db/da4/classsupervisor_1_1supervisor_1_1_supervisor.html#a881c89c47ff552e770dd05692fdf9f5f',1,'supervisor::supervisor::Supervisor']]],
   ['node_5fstart_5fcmds_13',['node_start_cmds',['../db/da4/classsupervisor_1_1supervisor_1_1_supervisor.html#ac9651a1d8dfb426325002251275aef1a',1,'supervisor::supervisor::Supervisor']]],
@@ -22,9 +22,8 @@ var searchData=
   ['norm2_5f_19',['norm2_',['../de/df9/structcommon__lib_1_1maths_1_1_angle_and_norms.html#a77b4015088955ad1a23d63d39e55d0f8',1,'common_lib::maths::AngleAndNorms']]],
   ['normal_5facceleration_5f_20',['normal_acceleration_',['../d2/d0d/struct_velocity_planning_config.html#ab73b34ca6f6c540bdfd63f18f162fdf5',1,'VelocityPlanningConfig']]],
   ['normalconeheight_21',['normalConeHeight',['../d6/d51/classdraw_view_1_1draw_scene.html#ac2d68ca415b53085793def48e823d9ee',1,'drawView::drawScene']]],
-  ['npoints_5fvalidator_22',['npoints_validator',['../d9/d9f/struct_evaluator_parameters.html#acf2d8eafc16976d0796a2234d449e7a1',1,'EvaluatorParameters']]],
-  ['npoints_5fweight_23',['npoints_weight',['../d9/d9f/struct_evaluator_parameters.html#a93c8c0b76ad61380e0855d1f86ddfc4e',1,'EvaluatorParameters']]],
-  ['number_5fof_5fimu_5freadings_24',['number_of_imu_readings',['../d1/df1/class_vehicle_adapter.html#a970fbbe335333937092f00fc5e3bab94',1,'VehicleAdapter']]],
-  ['numframes_25',['numFrames',['../dd/dc4/class_sensor_base.html#a46cb3b3bb49263827e80650d21a0cb32',1,'SensorBase']]],
-  ['numpoints_26',['numpoints',['../df/d9a/namespaceskidpad__conesgenerator.html#a923cc138c0f4dec651689448cb40d104',1,'skidpad_conesgenerator.numPoints'],['../db/d61/namespaceskidpadgenerator.html#af064634c2aa59ae3d87deae531584ca8',1,'skidpadgenerator.numPoints']]]
+  ['num_5frings_22',['NUM_RINGS',['../df/d5b/himmelsbach_8hpp.html#acff71e3df8e73ea0eef8fc8b4254e667',1,'himmelsbach.hpp']]],
+  ['number_5fof_5fimu_5freadings_23',['number_of_imu_readings',['../d1/df1/class_vehicle_adapter.html#a970fbbe335333937092f00fc5e3bab94',1,'VehicleAdapter']]],
+  ['numframes_24',['numFrames',['../dd/dc4/class_sensor_base.html#a46cb3b3bb49263827e80650d21a0cb32',1,'SensorBase']]],
+  ['numpoints_25',['numpoints',['../df/d9a/namespaceskidpad__conesgenerator.html#a923cc138c0f4dec651689448cb40d104',1,'skidpad_conesgenerator.numPoints'],['../db/d61/namespaceskidpadgenerator.html#af064634c2aa59ae3d87deae531584ca8',1,'skidpadgenerator.numPoints']]]
 ];

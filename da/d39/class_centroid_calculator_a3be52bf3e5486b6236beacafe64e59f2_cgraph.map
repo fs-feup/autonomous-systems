@@ -1,0 +1,9 @@
+<map id="CentroidCalculator::calculate_center" name="CentroidCalculator::calculate_center">
+<area shape="rect" id="Node000001" title="Estimates the center position of a cone using centroid calculation." alt="" coords="5,47,133,88"/>
+<area shape="rect" id="Node000002" href="$dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11" title=" " alt="" coords="181,5,306,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,47,180,33,182,38,134,52"/>
+<area shape="rect" id="Node000003" href="$dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4" title=" " alt="" coords="181,55,306,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="133,65,165,65,165,70,133,70"/>
+<area shape="rect" id="Node000004" href="$dc/d9c/namespace_lidar_point.html#a0dd3e19b92b08561073d6f2f636a87ca" title=" " alt="" coords="181,104,306,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="134,83,182,97,180,102,133,88"/>
+</map>

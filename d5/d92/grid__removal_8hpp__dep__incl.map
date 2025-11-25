@@ -1,0 +1,13 @@
+<map id="src/perception/include/wall_removal/grid_removal.hpp" name="src/perception/include/wall_removal/grid_removal.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="228,5,431,46"/>
+<area shape="rect" id="Node000002" href="$de/da5/perception__node_8hpp.html" title=" " alt="" coords="155,94,304,150"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="299,59,260,95,257,91,296,55"/>
+<area shape="rect" id="Node000006" href="$dc/dd8/grid__removal_8cpp.html" title=" " alt="" coords="328,102,531,142"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="363,54,410,99,407,103,359,58"/>
+<area shape="rect" id="Node000003" href="$d9/dc1/perception_8cpp.html" title=" " alt="" coords="5,213,131,253"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="178,161,99,214,96,210,175,156"/>
+<area shape="rect" id="Node000004" href="$dc/dfb/perception__node_8cpp.html" title=" " alt="" coords="155,205,304,261"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="232,165,232,205,227,205,227,165"/>
+<area shape="rect" id="Node000005" href="$df/da9/perception__integration__tests_8cpp.html" title=" " alt="" coords="329,198,517,268"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="292,155,362,195,360,199,289,160"/>
+</map>

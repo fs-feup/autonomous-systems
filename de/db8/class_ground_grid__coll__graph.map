@@ -1,0 +1,5 @@
+<map id="GroundGrid" name="GroundGrid">
+<area shape="rect" id="Node000001" title="Class to represent a ground height grid for ground proximity checks." alt="" coords="9,294,146,459"/>
+<area shape="rect" id="Node000002" href="$d0/da6/struct_grid_geometry.html" title="Structure to hold grid geometry parameters and provide utility functions." alt="" coords="5,5,149,231"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="80,230,80,276,75,276,75,230"/>
+</map>

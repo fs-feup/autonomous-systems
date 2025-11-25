@@ -1,0 +1,11 @@
+<map id="GridClustering::clustering" name="GridClustering::clustering">
+<area shape="rect" id="Node000001" title="Clusters the input point cloud into groups using the GridClustering algorithm." alt="" coords="5,108,171,133"/>
+<area shape="rect" id="Node000002" href="$d0/da6/struct_grid_geometry.html#a695ebf39f48027a55da74edd084a7160" title="Compute bin index for a given (x, y)" alt="" coords="224,5,373,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,104,218,57,232,50,234,55,220,61,118,109"/>
+<area shape="rect" id="Node000003" href="$d0/da6/struct_grid_geometry.html#a69f955e8ae8a8b76e50c293a33b6b6b9" title="Compute slice index for a given (x, y)" alt="" coords="219,71,378,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="170,106,203,102,203,107,171,111"/>
+<area shape="rect" id="Node000004" href="$dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11" title=" " alt="" coords="236,136,361,161"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="171,129,220,135,220,141,170,134"/>
+<area shape="rect" id="Node000005" href="$dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4" title=" " alt="" coords="236,185,361,211"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="120,131,220,171,237,177,235,182,218,176,118,136"/>
+</map>

@@ -1,0 +1,17 @@
+<map id="ConeEvaluator::cylinder_fits_cone" name="ConeEvaluator::cylinder_fits_cone">
+<area shape="rect" id="Node000001" title="Check if a cylinder fits the cone dimensions." alt="" coords="5,170,161,211"/>
+<area shape="rect" id="Node000002" href="$d2/d23/class_cluster.html#ab0b0056112da3ff27a13304f38f5f4d1" title="Get the centroid of the cluster." alt="" coords="209,5,348,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,168,139,105,171,70,207,40,214,36,217,40,210,44,174,74,143,109,99,171"/>
+<area shape="rect" id="Node000003" href="$d2/d23/class_cluster.html#ac4b5c99b0ed908d7799c13719d4a5892" title="Get cluster&#39;s corresponding cone size." alt="" coords="209,55,348,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="105,167,150,129,207,91,219,84,222,89,210,95,154,133,108,171"/>
+<area shape="rect" id="Node000004" href="$d2/d23/class_cluster.html#a4e56a059f1368a3905681d220e71446f" title="Get the Point Cloud data of the cluster." alt="" coords="218,105,339,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="145,167,202,147,204,152,147,172"/>
+<area shape="rect" id="Node000005" href="$d2/d23/class_cluster.html#a14891ae3df98c12aaf248cddad5068ca" title="Get the Point Cloud data of the cluster." alt="" coords="218,170,339,211"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="161,188,202,188,202,193,161,193"/>
+<area shape="rect" id="Node000006" href="$dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11" title=" " alt="" coords="216,235,341,260"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="155,208,218,227,216,232,154,214"/>
+<area shape="rect" id="Node000007" href="$dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4" title=" " alt="" coords="216,284,341,310"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="113,209,157,240,210,270,221,276,219,280,207,275,154,244,110,213"/>
+<area shape="rect" id="Node000008" href="$dc/d9c/namespace_lidar_point.html#a0dd3e19b92b08561073d6f2f636a87ca" title=" " alt="" coords="216,333,341,359"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="101,209,146,264,176,294,210,320,217,324,214,328,207,324,173,298,142,268,97,213"/>
+</map>

@@ -11,5 +11,6 @@ var dir_5ab6182181b68ae86cb6d562488d59e5 =
     [ "icp", "dir_53b0c5ce2391982a9a9d567a2c8262d9.html", "dir_53b0c5ce2391982a9a9d567a2c8262d9" ],
     [ "perception", "dir_96d2f3d1e41c175bb2ad7b0ea3b4e8fd.html", "dir_96d2f3d1e41c175bb2ad7b0ea3b4e8fd" ],
     [ "utils", "dir_46e660e340b473ea005b977a70b88477.html", "dir_46e660e340b473ea005b977a70b88477" ],
+    [ "wall_removal", "dir_a397072111e2621bf67c322e1035cd51.html", "dir_a397072111e2621bf67c322e1035cd51" ],
     [ "perception.cpp", "d9/dc1/perception_8cpp.html", "d9/dc1/perception_8cpp" ]
 ];

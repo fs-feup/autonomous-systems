@@ -1,9 +1,9 @@
 <map id="FovTrimming" name="FovTrimming">
-<area shape="rect" id="Node000001" title=" " alt="" coords="175,5,305,151"/>
-<area shape="rect" id="Node000002" href="$de/d98/class_acceleration_trimming.html" title=" " alt="" coords="5,199,163,304"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,163,133,201,129,197,163,160"/>
-<area shape="rect" id="Node000003" href="$d4/d48/class_cut_trimming.html" title=" " alt="" coords="187,199,293,304"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="243,165,243,199,237,199,237,165"/>
-<area shape="rect" id="Node000004" href="$d6/df3/class_skidpad_trimming.html" title=" " alt="" coords="318,199,450,304"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="312,160,343,197,339,201,308,163"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="187,5,293,91"/>
+<area shape="rect" id="Node000002" href="$de/d98/class_acceleration_trimming.html" title=" " alt="" coords="5,139,163,244"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,102,142,141,139,137,182,98"/>
+<area shape="rect" id="Node000003" href="$d4/d48/class_cut_trimming.html" title=" " alt="" coords="187,139,293,244"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="243,106,243,139,237,139,237,106"/>
+<area shape="rect" id="Node000004" href="$d6/df3/class_skidpad_trimming.html" title=" " alt="" coords="318,139,450,244"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="295,99,334,137,330,141,291,103"/>
 </map>

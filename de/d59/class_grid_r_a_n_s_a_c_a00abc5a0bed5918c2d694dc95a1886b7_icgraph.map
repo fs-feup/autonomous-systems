@@ -1,5 +1,0 @@
-<map id="GridRANSAC::split_point_cloud" name="GridRANSAC::split_point_cloud">
-<area shape="rect" id="Node000001" title="Split the input point cloud into grids." alt="" coords="199,5,364,46"/>
-<area shape="rect" id="Node000002" href="$de/d59/class_grid_r_a_n_s_a_c.html#a2580a8a77bc7a5c84fce30415636200f" title="Perform ground removal on the input point cloud using grid&#45;based RANSAC." alt="" coords="5,5,151,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="183,28,151,28,151,23,183,23"/>
-</map>

@@ -107,17 +107,11 @@ Inheritance diagram for GroundRemoval:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/db3/class_ground_removal__inherit__graph.png" border="0" usemap="#a_ground_removal_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_ground_removal_inherit__map" id="a_ground_removal_inherit__map">
-<area shape="rect" title="Abstract class for ground removal from a point cloud." alt="" coords="463,5,587,71"/>
-<area shape="rect" href="../../de/d7f/class_constrained_grid_r_a_n_s_a_c.html" title="Implementation of ground removal using a grid&#45;based RANSAC algorithm." alt="" coords="5,189,185,294"/>
-<area shape="poly" title=" " alt="" coords="448,47,391,55,326,69,261,91,199,121,161,153,129,191,125,187,157,149,197,116,259,86,325,64,390,50,448,42"/>
-<area shape="rect" href="../../d2/d16/class_constrained_r_a_n_s_a_c.html" title=" " alt="" coords="210,119,394,364"/>
-<area shape="poly" title=" " alt="" coords="460,81,408,121,395,132,392,128,404,117,457,77"/>
-<area shape="rect" href="../../d2/d37/class_constrained_r_a_n_s_a_c_optimized.html" title="Constrained RANSAC with simple optimizations / pruning heuristics." alt="" coords="418,149,631,334"/>
-<area shape="poly" title=" " alt="" coords="527,85,527,149,522,149,522,85"/>
-<area shape="rect" href="../../de/d59/class_grid_r_a_n_s_a_c.html" title="Implementation of ground removal using a grid&#45;based RANSAC algorithm." alt="" coords="655,189,783,294"/>
-<area shape="poly" title=" " alt="" coords="596,76,645,117,673,151,696,187,691,190,669,154,641,121,592,81"/>
-<area shape="rect" href="../../d6/dc3/class_r_a_n_s_a_c.html" title="Ground removal using the RANSAC algorithm." alt="" coords="808,179,932,304"/>
-<area shape="poly" title=" " alt="" coords="602,44,649,53,700,67,751,88,797,117,825,145,846,178,842,180,821,148,794,121,748,93,698,72,648,58,601,49"/>
+<area shape="rect" title="Abstract class for ground removal from a point cloud." alt="" coords="109,5,233,71"/>
+<area shape="rect" href="../../da/d5d/class_himmelsbach.html" title="Ground removal using the Himmelsbach algorithm." alt="" coords="5,119,169,384"/>
+<area shape="poly" title=" " alt="" coords="156,85,142,120,137,118,151,83"/>
+<area shape="rect" href="../../d6/dc3/class_r_a_n_s_a_c.html" title="Ground removal using the RANSAC algorithm." alt="" coords="193,189,317,314"/>
+<area shape="poly" title=" " alt="" coords="192,83,233,188,228,190,187,85"/>
 </map>
 </div>
 <div class="dynheader">
@@ -131,18 +125,18 @@ Collaboration diagram for GroundRemoval:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9bc46190527a20c0bf3183a5c62ffe21" id="r_a9bc46190527a20c0bf3183a5c62ffe21"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d84/class_ground_removal.html#a9bc46190527a20c0bf3183a5c62ffe21">ground_removal</a> (const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud, const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr ret, <a class="el" href="../../d2/d8d/class_plane.html">Plane</a> &amp;plane, const <a class="el" href="../../d8/d8e/struct_split_parameters.html">SplitParameters</a> split_params) const =0</td></tr>
-<tr class="memdesc:a9bc46190527a20c0bf3183a5c62ffe21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform ground removal on the input point cloud.  <br /></td></tr>
-<tr class="separator:a9bc46190527a20c0bf3183a5c62ffe21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbfd4c172045a9a54ecb47f66ea5882d" id="r_adbfd4c172045a9a54ecb47f66ea5882d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d84/class_ground_removal.html#adbfd4c172045a9a54ecb47f66ea5882d">ground_removal</a> (const sensor_msgs::msg::PointCloud2::SharedPtr &amp;trimmed_point_cloud, sensor_msgs::msg::PointCloud2::SharedPtr &amp;ground_removed_point_cloud, <a class="el" href="../../dc/d71/class_ground_grid.html">GroundGrid</a> &amp;ground_grid) const =0</td></tr>
+<tr class="memdesc:adbfd4c172045a9a54ecb47f66ea5882d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform ground removal on the input point cloud.  <br /></td></tr>
+<tr class="separator:adbfd4c172045a9a54ecb47f66ea5882d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract class for ground removal from a point cloud. </p>
 <p>This class defines an interface for ground removal algorithms from a point cloud. Inherit from this class to implement specific ground removal algorithms. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d96/ground__removal_8hpp_source.html#l00019">19</a> of file <a class="el" href="../../d2/d96/ground__removal_8hpp_source.html">ground_removal.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d96/ground__removal_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../d2/d96/ground__removal_8hpp_source.html">ground_removal.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9bc46190527a20c0bf3183a5c62ffe21" name="a9bc46190527a20c0bf3183a5c62ffe21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9bc46190527a20c0bf3183a5c62ffe21">&#9670;&#160;</a></span>ground_removal()</h2>
+<a id="adbfd4c172045a9a54ecb47f66ea5882d" name="adbfd4c172045a9a54ecb47f66ea5882d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbfd4c172045a9a54ecb47f66ea5882d">&#9670;&#160;</a></span>ground_removal()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -153,26 +147,20 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual void GroundRemoval::ground_removal </td>
           <td>(</td>
-          <td class="paramtype">const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr&#160;</td>
-          <td class="paramname"><em>point_cloud</em>, </td>
+          <td class="paramtype">const sensor_msgs::msg::PointCloud2::SharedPtr &amp;&#160;</td>
+          <td class="paramname"><em>trimmed_point_cloud</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr&#160;</td>
-          <td class="paramname"><em>ret</em>, </td>
+          <td class="paramtype">sensor_msgs::msg::PointCloud2::SharedPtr &amp;&#160;</td>
+          <td class="paramname"><em>ground_removed_point_cloud</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/d8d/class_plane.html">Plane</a> &amp;&#160;</td>
-          <td class="paramname"><em>plane</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d8/d8e/struct_split_parameters.html">SplitParameters</a>&#160;</td>
-          <td class="paramname"><em>split_params</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dc/d71/class_ground_grid.html">GroundGrid</a> &amp;&#160;</td>
+          <td class="paramname"><em>ground_grid</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -191,13 +179,14 @@ Public Member Functions</h2></td></tr>
 <p>This pure virtual function must be implemented by derived classes.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir"></td><td class="paramname">point_cloud</td><td>The input point cloud to be processed. </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">ret</td><td>The resulting point cloud after ground removal. </td></tr>
+    <tr><td class="paramname">point_cloud</td><td>The input point cloud to be processed. </td></tr>
+    <tr><td class="paramname">ground_removed_point_cloud</td><td>The resulting point cloud after ground removal. </td></tr>
+    <tr><td class="paramname">ground_grid</td><td>The ground grid to be updated during ground removal. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../de/d7f/class_constrained_grid_r_a_n_s_a_c.html#a81f4ad1e458f250f8cdc692d1c82181c">ConstrainedGridRANSAC</a>, <a class="el" href="../../d2/d16/class_constrained_r_a_n_s_a_c.html#ada317723a343aedb4d33bee30623bc26">ConstrainedRANSAC</a>, <a class="el" href="../../d2/d37/class_constrained_r_a_n_s_a_c_optimized.html#af4395279f575f67e08ce5c46614a880d">ConstrainedRANSACOptimized</a>, <a class="el" href="../../de/d59/class_grid_r_a_n_s_a_c.html#a2580a8a77bc7a5c84fce30415636200f">GridRANSAC</a>, and <a class="el" href="../../d6/dc3/class_r_a_n_s_a_c.html#ab1f55dd02aa3e591bebbc8a782c9c131">RANSAC</a>.</p>
+<p>Implemented in <a class="el" href="../../da/d5d/class_himmelsbach.html#a77ad5b00f1a2819802008c4fb5889fb9">Himmelsbach</a>, and <a class="el" href="../../d6/dc3/class_r_a_n_s_a_c.html#a638e68374dacf54926e94ae6f2cca8b8">RANSAC</a>.</p>
 
 </div>
 </div>

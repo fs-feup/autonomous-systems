@@ -105,13 +105,13 @@ Inheritance diagram for FovTrimming:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d1/d28/class_fov_trimming__inherit__graph.png" border="0" usemap="#a_fov_trimming_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_fov_trimming_inherit__map" id="a_fov_trimming_inherit__map">
-<area shape="rect" title=" " alt="" coords="175,5,305,151"/>
-<area shape="rect" href="../../de/d98/class_acceleration_trimming.html" title=" " alt="" coords="5,199,163,304"/>
-<area shape="poly" title=" " alt="" coords="167,163,133,201,129,197,163,160"/>
-<area shape="rect" href="../../d4/d48/class_cut_trimming.html" title=" " alt="" coords="187,199,293,304"/>
-<area shape="poly" title=" " alt="" coords="243,165,243,199,237,199,237,165"/>
-<area shape="rect" href="../../d6/df3/class_skidpad_trimming.html" title=" " alt="" coords="318,199,450,304"/>
-<area shape="poly" title=" " alt="" coords="312,160,343,197,339,201,308,163"/>
+<area shape="rect" title=" " alt="" coords="187,5,293,91"/>
+<area shape="rect" href="../../de/d98/class_acceleration_trimming.html" title=" " alt="" coords="5,139,163,244"/>
+<area shape="poly" title=" " alt="" coords="185,102,142,141,139,137,182,98"/>
+<area shape="rect" href="../../d4/d48/class_cut_trimming.html" title=" " alt="" coords="187,139,293,244"/>
+<area shape="poly" title=" " alt="" coords="243,106,243,139,237,139,237,106"/>
+<area shape="rect" href="../../d6/df3/class_skidpad_trimming.html" title=" " alt="" coords="318,139,450,244"/>
+<area shape="poly" title=" " alt="" coords="295,99,334,137,330,141,291,103"/>
 </map>
 </div>
 <div class="dynheader">
@@ -119,27 +119,19 @@ Collaboration diagram for FovTrimming:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../db/dff/class_fov_trimming__coll__graph.png" border="0" usemap="#a_fov_trimming_coll__map" alt="Collaboration graph"/></div>
 <map name="a_fov_trimming_coll__map" id="a_fov_trimming_coll__map">
-<area shape="rect" title=" " alt="" coords="16,572,147,717"/>
-<area shape="rect" href="../../d8/d2c/struct_trimming_parameters.html" title=" " alt="" coords="5,224,157,509"/>
-<area shape="poly" title=" " alt="" coords="84,509,84,555,79,555,79,509"/>
-<area shape="rect" href="../../d8/d8e/struct_split_parameters.html" title=" " alt="" coords="19,5,143,131"/>
-<area shape="poly" title=" " alt="" coords="84,131,84,207,79,207,79,131"/>
+<area shape="rect" title=" " alt="" coords="38,374,145,459"/>
+<area shape="rect" href="../../d8/d2c/struct_trimming_parameters.html" title="Structure to hold parameters for trimming point cloud data." alt="" coords="5,5,177,311"/>
+<area shape="poly" title=" " alt="" coords="94,311,94,357,89,357,89,311"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad4393e52909a522a2f8520e1f0c872f1" id="r_ad4393e52909a522a2f8520e1f0c872f1"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d8/d8e/struct_split_parameters.html">SplitParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd9/class_fov_trimming.html#ad4393e52909a522a2f8520e1f0c872f1">fov_trimming</a> (const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud) const =0</td></tr>
-<tr class="memdesc:ad4393e52909a522a2f8520e1f0c872f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform fov trimming on the input point cloud.  <br /></td></tr>
-<tr class="separator:ad4393e52909a522a2f8520e1f0c872f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3db8bbe8d8190a8024707d522a39152a" id="r_a3db8bbe8d8190a8024707d522a39152a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd9/class_fov_trimming.html#a3db8bbe8d8190a8024707d522a39152a">process_point</a> (pcl::PointXYZI &amp;point, const double rotation, const double pitch, double &amp;distance, double &amp;angle) const</td></tr>
-<tr class="separator:a3db8bbe8d8190a8024707d522a39152a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad348ad3bc1386bf9a5fe2fcb201774c9" id="r_ad348ad3bc1386bf9a5fe2fcb201774c9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd9/class_fov_trimming.html#ad348ad3bc1386bf9a5fe2fcb201774c9">within_limits</a> (pcl::PointXYZI &amp;point, const <a class="el" href="../../d8/d2c/struct_trimming_parameters.html">TrimmingParameters</a> &amp;params, const double max_range, const double fov_trim_angle) const</td></tr>
-<tr class="separator:ad348ad3bc1386bf9a5fe2fcb201774c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f026636eedbb6d75b80b7f56904524d" id="r_a3f026636eedbb6d75b80b7f56904524d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd9/class_fov_trimming.html#a3f026636eedbb6d75b80b7f56904524d">set_lidar_rotation</a> (const double rotation)</td></tr>
-<tr class="separator:a3f026636eedbb6d75b80b7f56904524d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7750da4476d79efbf72f032177239321" id="r_a7750da4476d79efbf72f032177239321"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd9/class_fov_trimming.html#a7750da4476d79efbf72f032177239321">set_lidar_pitch</a> (const double rotation)</td></tr>
-<tr class="separator:a7750da4476d79efbf72f032177239321"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06c894712f75e1e6be7c4d1974e06934" id="r_a06c894712f75e1e6be7c4d1974e06934"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd9/class_fov_trimming.html#a06c894712f75e1e6be7c4d1974e06934">fov_trimming</a> (const sensor_msgs::msg::PointCloud2::SharedPtr &amp;point_cloud, sensor_msgs::msg::PointCloud2::SharedPtr &amp;trimmed_cloud) const =0</td></tr>
+<tr class="memdesc:a06c894712f75e1e6be7c4d1974e06934"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform fov trimming on the input point cloud.  <br /></td></tr>
+<tr class="separator:a06c894712f75e1e6be7c4d1974e06934"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94b3e3b019b805148181a634983512db" id="r_a94b3e3b019b805148181a634983512db"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd9/class_fov_trimming.html#a94b3e3b019b805148181a634983512db">within_limits</a> (float x, float y, float z, const <a class="el" href="../../d8/d2c/struct_trimming_parameters.html">TrimmingParameters</a> &amp;params, const double max_range) const</td></tr>
+<tr class="separator:a94b3e3b019b805148181a634983512db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -150,8 +142,8 @@ Protected Attributes</h2></td></tr>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="../../d7/da0/fov__trimming_8hpp_source.html#l00010">10</a> of file <a class="el" href="../../d7/da0/fov__trimming_8hpp_source.html">fov_trimming.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad4393e52909a522a2f8520e1f0c872f1" name="ad4393e52909a522a2f8520e1f0c872f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4393e52909a522a2f8520e1f0c872f1">&#9670;&#160;</a></span>fov_trimming()</h2>
+<a id="a06c894712f75e1e6be7c4d1974e06934" name="a06c894712f75e1e6be7c4d1974e06934"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06c894712f75e1e6be7c4d1974e06934">&#9670;&#160;</a></span>fov_trimming()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -160,11 +152,21 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="../../d8/d8e/struct_split_parameters.html">SplitParameters</a> FovTrimming::fov_trimming </td>
+          <td class="memname">virtual void FovTrimming::fov_trimming </td>
           <td>(</td>
-          <td class="paramtype">const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr&#160;</td>
-          <td class="paramname"><em>point_cloud</em></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">const sensor_msgs::msg::PointCloud2::SharedPtr &amp;&#160;</td>
+          <td class="paramname"><em>point_cloud</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sensor_msgs::msg::PointCloud2::SharedPtr &amp;&#160;</td>
+          <td class="paramname"><em>trimmed_cloud</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
@@ -179,50 +181,50 @@ Protected Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">point_cloud</td><td>The input point cloud to be processed (trimmed). </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">ret</td><td>The resulting point cloud after trimming and the corresponding split parameters for <a class="el" href="../../de/d59/class_grid_r_a_n_s_a_c.html" title="Implementation of ground removal using a grid-based RANSAC algorithm.">GridRANSAC</a>. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">ret</td><td>The resulting point cloud after trimming and the corresponding split parameters for GridRANSAC. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../de/d98/class_acceleration_trimming.html#aa68e102a4e8cae33a30570374c08209d">AccelerationTrimming</a>, <a class="el" href="../../d4/d48/class_cut_trimming.html#a525e63453d0785200b53ba4a4f2c50e9">CutTrimming</a>, and <a class="el" href="../../d6/df3/class_skidpad_trimming.html#a834079d2ae26eeaa5fde4578bf24b2e2">SkidpadTrimming</a>.</p>
+<p>Implemented in <a class="el" href="../../de/d98/class_acceleration_trimming.html#adff904731cd53c5a6357e510b766760a">AccelerationTrimming</a>, <a class="el" href="../../d4/d48/class_cut_trimming.html#a6603f09938c39a9cbbba8da0e67d9b61">CutTrimming</a>, and <a class="el" href="../../d6/df3/class_skidpad_trimming.html#af8de9e5547feabd3a2d9dfe8866599ee">SkidpadTrimming</a>.</p>
 
 </div>
 </div>
-<a id="a3db8bbe8d8190a8024707d522a39152a" name="a3db8bbe8d8190a8024707d522a39152a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3db8bbe8d8190a8024707d522a39152a">&#9670;&#160;</a></span>process_point()</h2>
+<a id="a94b3e3b019b805148181a634983512db" name="a94b3e3b019b805148181a634983512db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94b3e3b019b805148181a634983512db">&#9670;&#160;</a></span>within_limits()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void FovTrimming::process_point </td>
+          <td class="memname">bool FovTrimming::within_limits </td>
           <td>(</td>
-          <td class="paramtype">pcl::PointXYZI &amp;&#160;</td>
-          <td class="paramname"><em>point</em>, </td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>z</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../d8/d2c/struct_trimming_parameters.html">TrimmingParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>params</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const double&#160;</td>
-          <td class="paramname"><em>rotation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const double&#160;</td>
-          <td class="paramname"><em>pitch</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double &amp;&#160;</td>
-          <td class="paramname"><em>distance</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double &amp;&#160;</td>
-          <td class="paramname"><em>angle</em>&#160;</td>
+          <td class="paramname"><em>max_range</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -236,158 +238,14 @@ Protected Attributes</h2></td></tr>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../de/dd9/class_fov_trimming_a3db8bbe8d8190a8024707d522a39152a_icgraph.png" border="0" usemap="#ade/dd9/class_fov_trimming_a3db8bbe8d8190a8024707d522a39152a_icgraph" alt=""/></div>
-<map name="ade/dd9/class_fov_trimming_a3db8bbe8d8190a8024707d522a39152a_icgraph" id="ade/dd9/class_fov_trimming_a3db8bbe8d8190a8024707d522a39152a_icgraph">
-<area shape="rect" title=" " alt="" coords="532,418,682,459"/>
-<area shape="rect" href="../../de/dd9/class_fov_trimming.html#ad348ad3bc1386bf9a5fe2fcb201774c9" title=" " alt="" coords="347,418,484,459"/>
-<area shape="poly" title=" " alt="" coords="517,441,484,441,484,436,517,436"/>
-<area shape="rect" href="../../de/d98/class_acceleration_trimming.html#aa68e102a4e8cae33a30570374c08209d" title="Perform ground removal on the input point cloud." alt="" coords="137,146,285,187"/>
-<area shape="poly" title=" " alt="" coords="388,407,226,189,230,186,392,404"/>
-<area shape="rect" href="../../d4/d48/class_cut_trimming.html#a525e63453d0785200b53ba4a4f2c50e9" title="Perform ground removal on the input point cloud." alt="" coords="123,425,299,451"/>
-<area shape="poly" title=" " alt="" coords="331,441,300,441,300,436,331,436"/>
-<area shape="rect" href="../../d6/df3/class_skidpad_trimming.html#a834079d2ae26eeaa5fde4578bf24b2e2" title="Perform ground removal on the input point cloud." alt="" coords="138,689,284,729"/>
-<area shape="poly" title=" " alt="" coords="392,473,230,690,226,686,388,469"/>
-<area shape="rect" href="../../df/d74/acceleration__trimming__test_8cpp.html#a0ba4d1d42efe9a5390e7d5cd13b35444" title="Empty point cloud remains empty." alt="" coords="5,5,75,31"/>
-<area shape="poly" title=" " alt="" coords="176,137,73,44,59,34,62,29,76,40,180,133"/>
-<area shape="rect" href="../../df/d74/acceleration__trimming__test_8cpp.html#af68a8772b963341274e1126b3c6311cf" title="Test case for the general result of acc_trimming." alt="" coords="5,55,75,80"/>
-<area shape="poly" title=" " alt="" coords="159,140,63,83,65,79,162,135"/>
-<area shape="rect" href="../../df/d74/acceleration__trimming__test_8cpp.html#a1c6440385a9c10f6e083d2b6847cc0cd" title="Test case where points above max height should be removed." alt="" coords="5,104,75,130"/>
-<area shape="poly" title=" " alt="" coords="123,144,74,129,76,124,124,138"/>
-<area shape="rect" href="../../df/d74/acceleration__trimming__test_8cpp.html#a2ed0d57d677c229907f5cab7a00d29a3" title="Test case where points outside max range should be removed." alt="" coords="5,153,75,179"/>
-<area shape="poly" title=" " alt="" coords="122,169,75,169,75,164,122,164"/>
-<area shape="rect" href="../../df/d74/acceleration__trimming__test_8cpp.html#ae47bd94c49b1d92fd095313dceb72bd6" title="Test case where points outside FOV trim angle should be removed." alt="" coords="5,203,75,228"/>
-<area shape="poly" title=" " alt="" coords="124,194,76,208,74,203,123,189"/>
-<area shape="rect" href="../../df/d74/acceleration__trimming__test_8cpp.html#a03d0203e30d3fbeef6c09471e5d7229d" title="Test case where points within min range should be removed." alt="" coords="5,252,75,278"/>
-<area shape="poly" title=" " alt="" coords="162,197,65,254,63,249,159,192"/>
-<area shape="rect" href="../../d1/d5d/cut__trimming__test_8cpp.html#a2dc9a287f972aa6309820293bd56ec6d" title="Empty point cloud remains empty." alt="" coords="5,301,75,327"/>
-<area shape="poly" title=" " alt="" coords="178,418,73,340,58,330,62,325,76,336,181,414"/>
-<area shape="rect" href="../../d1/d5d/cut__trimming__test_8cpp.html#aba0ba9d17b4fee0710ef3828430946d6" title="Test case where points outside FOV trim angle should be removed." alt="" coords="5,351,75,376"/>
-<area shape="poly" title=" " alt="" coords="165,421,71,379,73,375,167,416"/>
-<area shape="rect" href="../../d1/d5d/cut__trimming__test_8cpp.html#ae7b4e662fb9affc9a6843ab0b5158797" title="Test for the general result of cut_trimming." alt="" coords="5,400,75,426"/>
-<area shape="poly" title=" " alt="" coords="107,425,75,421,76,415,108,420"/>
-<area shape="rect" href="../../d1/d5d/cut__trimming__test_8cpp.html#ad6f9b7887e396c5985387218d07f699b" title="Test case where points above max height should be removed." alt="" coords="5,449,75,475"/>
-<area shape="poly" title=" " alt="" coords="108,455,76,460,75,455,107,450"/>
-<area shape="rect" href="../../d1/d5d/cut__trimming__test_8cpp.html#a4fba3a35dfba895801b8c22e09252cc8" title="Test case where points outside max range should be removed." alt="" coords="5,499,75,524"/>
-<area shape="poly" title=" " alt="" coords="166,460,73,501,71,496,164,455"/>
-<area shape="rect" href="../../d1/d5d/cut__trimming__test_8cpp.html#a2db06e361efb090e275d6f8d61e8bfa9" title="Test case where points within min range should be removed." alt="" coords="5,548,75,574"/>
-<area shape="poly" title=" " alt="" coords="181,463,76,539,62,550,58,545,73,535,177,458"/>
-<area shape="rect" href="../../df/d77/skidpad__trimming__test_8cpp.html#a98a7802dee29f175b2beee30b2a252a9" title="Empty point cloud remains empty." alt="" coords="5,597,75,623"/>
-<area shape="poly" title=" " alt="" coords="159,683,63,626,65,621,162,678"/>
-<area shape="rect" href="../../df/d77/skidpad__trimming__test_8cpp.html#a528dbc97598753ecb73080aa62881f3f" title="Test case where points outside FOV trim angle should be removed." alt="" coords="5,647,75,672"/>
-<area shape="poly" title=" " alt="" coords="123,686,74,672,76,667,124,681"/>
-<area shape="rect" href="../../df/d77/skidpad__trimming__test_8cpp.html#a52f638106a30d5c134589dac1e00267c" title="Test for the general result of skidpad_trimming." alt="" coords="5,696,75,722"/>
-<area shape="poly" title=" " alt="" coords="122,712,75,712,75,706,122,706"/>
-<area shape="rect" href="../../df/d77/skidpad__trimming__test_8cpp.html#a6ebadc79b8d72c0124d0de30b04f27e5" title="Test case where points above max height should be removed." alt="" coords="5,745,75,771"/>
-<area shape="poly" title=" " alt="" coords="124,737,76,751,74,746,123,731"/>
-<area shape="rect" href="../../df/d77/skidpad__trimming__test_8cpp.html#a6bfa0c99164d35a462a64477b4fda5c3" title="Test case where points outside max range should be removed." alt="" coords="5,795,75,820"/>
-<area shape="poly" title=" " alt="" coords="162,740,65,796,63,792,159,735"/>
-<area shape="rect" href="../../df/d77/skidpad__trimming__test_8cpp.html#a6b7ac21bfea723cb36c5c5cb48ce35cb" title="Test case where points within min range should be removed." alt="" coords="5,844,75,870"/>
-<area shape="poly" title=" " alt="" coords="180,742,76,835,62,846,59,841,73,831,176,738"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a7750da4476d79efbf72f032177239321" name="a7750da4476d79efbf72f032177239321"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7750da4476d79efbf72f032177239321">&#9670;&#160;</a></span>set_lidar_pitch()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void FovTrimming::set_lidar_pitch </td>
-          <td>(</td>
-          <td class="paramtype">const double&#160;</td>
-          <td class="paramname"><em>rotation</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../de/d11/fov__trimming_8cpp_source.html#l00046">46</a> of file <a class="el" href="../../de/d11/fov__trimming_8cpp_source.html">fov_trimming.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a3f026636eedbb6d75b80b7f56904524d" name="a3f026636eedbb6d75b80b7f56904524d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f026636eedbb6d75b80b7f56904524d">&#9670;&#160;</a></span>set_lidar_rotation()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void FovTrimming::set_lidar_rotation </td>
-          <td>(</td>
-          <td class="paramtype">const double&#160;</td>
-          <td class="paramname"><em>rotation</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../de/d11/fov__trimming_8cpp_source.html#l00044">44</a> of file <a class="el" href="../../de/d11/fov__trimming_8cpp_source.html">fov_trimming.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ad348ad3bc1386bf9a5fe2fcb201774c9" name="ad348ad3bc1386bf9a5fe2fcb201774c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad348ad3bc1386bf9a5fe2fcb201774c9">&#9670;&#160;</a></span>within_limits()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool FovTrimming::within_limits </td>
-          <td>(</td>
-          <td class="paramtype">pcl::PointXYZI &amp;&#160;</td>
-          <td class="paramname"><em>point</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d8/d2c/struct_trimming_parameters.html">TrimmingParameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>params</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const double&#160;</td>
-          <td class="paramname"><em>max_range</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const double&#160;</td>
-          <td class="paramname"><em>fov_trim_angle</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../de/d11/fov__trimming_8cpp_source.html#l00032">32</a> of file <a class="el" href="../../de/d11/fov__trimming_8cpp_source.html">fov_trimming.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../de/dd9/class_fov_trimming_ad348ad3bc1386bf9a5fe2fcb201774c9_cgraph.png" border="0" usemap="#ade/dd9/class_fov_trimming_ad348ad3bc1386bf9a5fe2fcb201774c9_cgraph" alt=""/></div>
-<map name="ade/dd9/class_fov_trimming_ad348ad3bc1386bf9a5fe2fcb201774c9_cgraph" id="ade/dd9/class_fov_trimming_ad348ad3bc1386bf9a5fe2fcb201774c9_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,143,46"/>
-<area shape="rect" href="../../de/dd9/class_fov_trimming.html#a3db8bbe8d8190a8024707d522a39152a" title=" " alt="" coords="191,5,340,46"/>
-<area shape="poly" title=" " alt="" coords="143,23,175,23,175,28,143,28"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../de/dd9/class_fov_trimming_ad348ad3bc1386bf9a5fe2fcb201774c9_icgraph.png" border="0" usemap="#ade/dd9/class_fov_trimming_ad348ad3bc1386bf9a5fe2fcb201774c9_icgraph" alt=""/></div>
-<map name="ade/dd9/class_fov_trimming_ad348ad3bc1386bf9a5fe2fcb201774c9_icgraph" id="ade/dd9/class_fov_trimming_ad348ad3bc1386bf9a5fe2fcb201774c9_icgraph">
+<div class="center"><img src="../../de/dd9/class_fov_trimming_a94b3e3b019b805148181a634983512db_icgraph.png" border="0" usemap="#ade/dd9/class_fov_trimming_a94b3e3b019b805148181a634983512db_icgraph" alt=""/></div>
+<map name="ade/dd9/class_fov_trimming_a94b3e3b019b805148181a634983512db_icgraph" id="ade/dd9/class_fov_trimming_a94b3e3b019b805148181a634983512db_icgraph">
 <area shape="rect" title=" " alt="" coords="347,418,484,459"/>
-<area shape="rect" href="../../de/d98/class_acceleration_trimming.html#aa68e102a4e8cae33a30570374c08209d" title="Perform ground removal on the input point cloud." alt="" coords="137,146,285,187"/>
+<area shape="rect" href="../../de/d98/class_acceleration_trimming.html#adff904731cd53c5a6357e510b766760a" title="Perform ground removal on the input point cloud." alt="" coords="137,146,285,187"/>
 <area shape="poly" title=" " alt="" coords="388,407,226,189,230,186,392,404"/>
-<area shape="rect" href="../../d4/d48/class_cut_trimming.html#a525e63453d0785200b53ba4a4f2c50e9" title="Perform ground removal on the input point cloud." alt="" coords="123,425,299,451"/>
+<area shape="rect" href="../../d4/d48/class_cut_trimming.html#a6603f09938c39a9cbbba8da0e67d9b61" title="Perform ground removal on the input point cloud." alt="" coords="123,425,299,451"/>
 <area shape="poly" title=" " alt="" coords="331,441,300,441,300,436,331,436"/>
-<area shape="rect" href="../../d6/df3/class_skidpad_trimming.html#a834079d2ae26eeaa5fde4578bf24b2e2" title="Perform ground removal on the input point cloud." alt="" coords="138,689,284,729"/>
+<area shape="rect" href="../../d6/df3/class_skidpad_trimming.html#af8de9e5547feabd3a2d9dfe8866599ee" title="Perform ground removal on the input point cloud." alt="" coords="138,689,284,729"/>
 <area shape="poly" title=" " alt="" coords="392,473,230,690,226,686,388,469"/>
 <area shape="rect" href="../../df/d74/acceleration__trimming__test_8cpp.html#a0ba4d1d42efe9a5390e7d5cd13b35444" title="Empty point cloud remains empty." alt="" coords="5,5,75,31"/>
 <area shape="poly" title=" " alt="" coords="176,137,73,44,59,34,62,29,76,40,180,133"/>
@@ -451,7 +309,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/da0/fov__trimming_8hpp_source.html#l00035">35</a> of file <a class="el" href="../../d7/da0/fov__trimming_8hpp_source.html">fov_trimming.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/da0/fov__trimming_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../d7/da0/fov__trimming_8hpp_source.html">fov_trimming.hpp</a>.</p>
 
 </div>
 </div>

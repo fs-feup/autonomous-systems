@@ -1,0 +1,102 @@
+<map id="LidarPoint::PointZ" name="LidarPoint::PointZ">
+<area shape="rect" id="Node000001" title=" " alt="" coords="500,470,624,496"/>
+<area shape="rect" id="Node000002" href="$da/d39/class_centroid_calculator.html#a3be52bf3e5486b6236beacafe64e59f2" title="Estimates the center position of a cone using centroid calculation." alt="" coords="290,5,417,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="554,455,541,366,518,248,487,135,469,91,450,61,435,48,416,39,418,35,437,44,454,57,474,88,492,133,523,247,546,365,560,454"/>
+<area shape="rect" id="Node000003" href="$d5/d01/class_circunference_center_calculator.html#a182f18b2bcbbe1baaec2c6853d96a996" title="Estimates the center position of a cone using a circumference&#45;based approach." alt="" coords="255,71,452,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="558,455,553,389,537,301,523,254,505,208,481,164,450,126,434,114,438,110,454,122,485,162,510,205,528,252,542,300,558,388,563,455"/>
+<area shape="rect" id="Node000004" href="$df/d8f/class_cone_evaluator.html#a9e45a212802274e894c43220c2630506" title="Check if the cluster is close to the ground." alt="" coords="282,267,425,307"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="547,457,510,390,483,354,450,322,424,307,426,303,454,318,487,350,515,387,552,455"/>
+<area shape="rect" id="Node000008" href="$d7/d15/class_least_squares_differentiation.html#af0f7274fca147b1718e68d87df20e83c" title="Perform cone differentiation on a cone&#39;s point cloud using the Least Squares Method." alt="" coords="263,201,444,242"/>
+<area shape="poly" id="edge5_Node000001_Node000008" title=" " alt="" coords="552,456,540,413,520,359,490,304,472,279,450,257,433,245,436,240,454,253,476,276,495,301,525,357,545,411,558,455"/>
+<area shape="rect" id="Node000009" href="$dd/def/class_cylinder_validator.html#a15a79c63182d06ed4cea29cc91649123" title="Validates a cluster using cylinder approximation." alt="" coords="291,136,416,177"/>
+<area shape="poly" id="edge6_Node000001_Node000009" title=" " alt="" coords="556,455,547,400,529,329,515,292,498,256,476,222,450,192,434,179,415,171,417,166,437,175,454,188,480,218,502,253,520,290,534,328,552,399,561,454"/>
+<area shape="rect" id="Node000014" href="$d2/d55/class_deviation_validator.html#a29d91e117f19ffe319cb162a9599f9d9" title="Validates a cluster using standard deviation." alt="" coords="290,332,417,373"/>
+<area shape="poly" id="edge11_Node000001_Node000014" title=" " alt="" coords="537,461,499,424,451,388,416,372,418,367,453,383,502,420,541,457"/>
+<area shape="rect" id="Node000015" href="$db/d6b/class_displacement_validator.html#a7c369e7de6133338f85f4aec712dad5d" title="Validates a cone based on the maximum distance between its points in all axis." alt="" coords="278,463,429,503"/>
+<area shape="poly" id="edge12_Node000001_Node000015" title=" " alt="" coords="484,486,430,486,430,480,484,480"/>
+<area shape="rect" id="Node000020" href="$d9/d1f/class_height_validator.html#ac4d61b8c54bfc4f2cef252c9e05a1c71" title="Validates a cone based on its height relative to a plane." alt="" coords="256,538,451,564"/>
+<area shape="poly" id="edge17_Node000001_Node000020" title=" " alt="" coords="507,504,396,540,394,535,505,499"/>
+<area shape="rect" id="Node000026" href="$df/d8f/class_cone_evaluator.html#ada649a727be99110207c1ee39cea843a" title="Check if a cylinder fits the cone dimensions." alt="" coords="276,397,431,438"/>
+<area shape="poly" id="edge23_Node000001_Node000026" title=" " alt="" coords="503,468,420,441,422,436,505,462"/>
+<area shape="rect" id="Node000027" href="$d1/dab/class_deskew.html#a701c4aa6c20ab9e9a955bf3b73bcb8d0" title="deskews the point cloud, i.e." alt="" coords="276,588,431,629"/>
+<area shape="poly" id="edge25_Node000001_Node000027" title=" " alt="" coords="540,509,502,544,453,579,430,590,428,585,451,574,498,540,537,505"/>
+<area shape="rect" id="Node000028" href="$de/d98/class_acceleration_trimming.html#adff904731cd53c5a6357e510b766760a" title="Perform ground removal on the input point cloud." alt="" coords="280,827,427,867"/>
+<area shape="poly" id="edge26_Node000001_Node000028" title=" " alt="" coords="548,511,369,828,364,825,543,508"/>
+<area shape="rect" id="Node000035" href="$d4/d48/class_cut_trimming.html#a6603f09938c39a9cbbba8da0e67d9b61" title="Perform ground removal on the input point cloud." alt="" coords="265,1130,442,1156"/>
+<area shape="poly" id="edge33_Node000001_Node000035" title=" " alt="" coords="557,512,516,669,455,880,402,1028,362,1131,357,1129,397,1026,449,878,511,668,551,510"/>
+<area shape="rect" id="Node000042" href="$d6/df3/class_skidpad_trimming.html#af8de9e5547feabd3a2d9dfe8866599ee" title="Perform ground removal on the input point cloud." alt="" coords="280,1419,427,1459"/>
+<area shape="poly" id="edge40_Node000001_Node000042" title=" " alt="" coords="561,512,550,619,529,782,497,974,455,1169,433,1242,408,1313,366,1419,361,1417,403,1311,428,1241,449,1168,492,973,523,781,544,618,556,511"/>
+<area shape="rect" id="Node000049" href="$d6/dc3/class_r_a_n_s_a_c.html#a638e68374dacf54926e94ae6f2cca8b8" title="Perform ground removal using the RANSAC algorithm." alt="" coords="266,1553,441,1579"/>
+<area shape="poly" id="edge47_Node000001_Node000049" title=" " alt="" coords="563,511,557,697,540,979,526,1128,507,1267,484,1386,470,1434,454,1472,438,1498,418,1521,377,1554,373,1550,414,1517,434,1495,450,1470,465,1432,479,1384,502,1266,521,1127,535,979,551,697,558,511"/>
+<area shape="rect" id="Node000061" href="$da/d5d/class_himmelsbach.html#a8efa0fdc694cbc16aac83c1bd88b7250" title="Process a single slice for ground removal." alt="" coords="277,1603,430,1643"/>
+<area shape="poly" id="edge50_Node000001_Node000061" title=" " alt="" coords="563,512,553,738,533,1081,518,1255,500,1409,479,1527,467,1567,454,1593,432,1610,429,1606,450,1589,462,1565,474,1526,495,1408,513,1254,527,1080,548,737,557,511"/>
+<area shape="rect" id="Node000005" href="$df/d8f/class_cone_evaluator.html#a3799151409a3fa384b841b09920c9af8" title="Perform the cluster evaluation, guaranteeing they pass all validators." alt="" coords="5,242,207,268"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="266,278,207,271,207,265,267,273"/>
+<area shape="rect" id="Node000010" href="$dc/da5/cylinder__validator__test_8cpp.html#a8f0329c82e1158d8442662c9d30f899e" title="Test case to validate if points are outside all cylinders." alt="" coords="71,45,141,71"/>
+<area shape="poly" id="edge7_Node000009_Node000010" title=" " alt="" coords="276,136,253,125,239,114,229,104,220,94,205,84,173,72,140,64,142,59,174,66,208,79,223,90,233,100,242,110,256,121,278,131"/>
+<area shape="rect" id="Node000011" href="$dc/da5/cylinder__validator__test_8cpp.html#a95f1f05e16deae388b0227d0cf0609d6" title="Test case to validate if points are inside the large cylinder." alt="" coords="71,94,141,120"/>
+<area shape="poly" id="edge8_Node000009_Node000011" title=" " alt="" coords="275,144,141,116,142,111,277,138"/>
+<area shape="rect" id="Node000012" href="$dc/da5/cylinder__validator__test_8cpp.html#ae5a55af411072ca2ab25e1d01c462f18" title="Test case to validate if points are inside the small cylinder." alt="" coords="71,144,141,169"/>
+<area shape="poly" id="edge9_Node000009_Node000012" title=" " alt="" coords="276,159,141,159,141,154,276,154"/>
+<area shape="rect" id="Node000013" href="$dc/da5/cylinder__validator__test_8cpp.html#a8c491530e433149e04636f4d0defc52e" title="Test case to validate if points are outside all cylinders." alt="" coords="71,193,141,219"/>
+<area shape="poly" id="edge10_Node000009_Node000013" title=" " alt="" coords="277,174,142,201,141,196,275,169"/>
+<area shape="rect" id="Node000016" href="$d9/d6f/displacement__validator__test_8cpp.html#acfca5e9d60442034c442845f0b850ae8" title="Test case to validate points below the minimum distance on the x&#45;axis." alt="" coords="71,390,141,416"/>
+<area shape="poly" id="edge13_Node000015_Node000016" title=" " alt="" coords="273,459,254,452,206,430,140,412,142,407,208,424,256,447,275,455"/>
+<area shape="rect" id="Node000017" href="$d9/d6f/displacement__validator__test_8cpp.html#a0acfbbaca1db4a08bd57440d7d93803d" title="Test case to validate points below the minimum distance on the y&#45;axis." alt="" coords="71,440,141,465"/>
+<area shape="poly" id="edge14_Node000015_Node000017" title=" " alt="" coords="262,474,140,459,141,454,263,469"/>
+<area shape="rect" id="Node000018" href="$d9/d6f/displacement__validator__test_8cpp.html#a9076d99f3f09063c9584ebd938087b48" title="Test case to validate points below the minimum distance on the z&#45;axis." alt="" coords="71,292,141,317"/>
+<area shape="poly" id="edge15_Node000015_Node000018" title=" " alt="" coords="263,460,253,452,240,436,233,420,229,389,224,358,217,344,205,330,174,314,141,307,142,302,176,309,208,326,222,341,229,357,234,388,238,418,245,433,257,448,266,455"/>
+<area shape="rect" id="Node000019" href="$d9/d6f/displacement__validator__test_8cpp.html#afa5756a1fa424e23639857a0980d2c34" title="Test case to validate if the cluster is well&#45;distributed across all axes." alt="" coords="71,341,141,367"/>
+<area shape="poly" id="edge16_Node000015_Node000019" title=" " alt="" coords="262,458,253,452,236,433,229,414,221,396,205,380,174,365,141,358,142,353,175,360,208,375,225,393,234,412,241,430,256,448,265,454"/>
+<area shape="rect" id="Node000021" href="$d6/d1c/height__validator__test_8cpp.html#a49b23bfcd16f41133864011621f0e190" title="Test case to validate if the cone height is below the minimum height threshold." alt="" coords="71,686,141,712"/>
+<area shape="poly" id="edge18_Node000020_Node000021" title=" " alt="" coords="263,574,256,578,245,590,239,601,233,626,227,652,220,665,208,677,176,694,141,701,140,695,174,689,205,673,216,662,222,650,228,625,234,600,241,587,253,574,259,569"/>
+<area shape="rect" id="Node000022" href="$d6/d1c/height__validator__test_8cpp.html#ac8293f13fa8e7f3e1bc497f96df90662" title="Test case to validate if the cone height exceeds all thresholds." alt="" coords="71,489,141,515"/>
+<area shape="poly" id="edge19_Node000020_Node000022" title=" " alt="" coords="270,537,141,511,142,506,271,532"/>
+<area shape="rect" id="Node000023" href="$d6/d1c/height__validator__test_8cpp.html#a9959cf05d335f7f67544f5191c5ccb01" title="Test case to validate if the cone height is near the minimum threshold but valid." alt="" coords="71,538,141,564"/>
+<area shape="poly" id="edge20_Node000020_Node000023" title=" " alt="" coords="240,554,141,554,141,548,240,548"/>
+<area shape="rect" id="Node000024" href="$d6/d1c/height__validator__test_8cpp.html#a7c92bbcd8d6dcce6be0ab3642a6f19c1" title="Test case to validate if the cone height exceeds the small cone threshold but is within the large con..." alt="" coords="71,588,141,613"/>
+<area shape="poly" id="edge21_Node000020_Node000024" title=" " alt="" coords="271,570,142,596,141,591,270,565"/>
+<area shape="rect" id="Node000025" href="$d6/d1c/height__validator__test_8cpp.html#a5e7059785b091e3fa4bf8442c1c3dca2" title="Test case to validate if the cone height is within the small cone height threshold." alt="" coords="71,637,141,663"/>
+<area shape="poly" id="edge22_Node000020_Node000025" title=" " alt="" coords="268,572,256,579,242,590,233,603,224,616,208,628,175,642,142,649,141,644,173,637,205,623,220,612,229,600,238,587,253,574,266,568"/>
+<area shape="poly" id="edge24_Node000026_Node000005" title=" " alt="" coords="261,393,253,386,241,373,234,359,229,332,223,305,216,293,205,281,189,271,191,266,208,277,221,290,228,303,234,330,239,357,246,370,257,382,264,389"/>
+<area shape="rect" id="Node000029" href="$df/d74/acceleration__trimming__test_8cpp.html#a0ba4d1d42efe9a5390e7d5cd13b35444" title="Empty point cloud remains empty." alt="" coords="71,933,141,959"/>
+<area shape="poly" id="edge27_Node000028_Node000029" title=" " alt="" coords="305,878,259,902,208,924,142,942,140,937,206,919,256,897,303,873"/>
+<area shape="rect" id="Node000030" href="$df/d74/acceleration__trimming__test_8cpp.html#af68a8772b963341274e1126b3c6311cf" title="Test case for the general result of acc_trimming." alt="" coords="71,982,141,1008"/>
+<area shape="poly" id="edge28_Node000028_Node000030" title=" " alt="" coords="325,881,274,929,242,953,208,973,174,986,141,994,140,988,173,981,206,969,239,949,270,925,321,877"/>
+<area shape="rect" id="Node000031" href="$df/d74/acceleration__trimming__test_8cpp.html#a1c6440385a9c10f6e083d2b6847cc0cd" title="Test case where points above max height should be removed." alt="" coords="71,736,141,761"/>
+<area shape="poly" id="edge29_Node000028_Node000031" title=" " alt="" coords="303,821,256,797,206,775,140,757,142,752,208,770,259,792,305,816"/>
+<area shape="rect" id="Node000032" href="$df/d74/acceleration__trimming__test_8cpp.html#a2ed0d57d677c229907f5cab7a00d29a3" title="Test case where points outside max range should be removed." alt="" coords="71,785,141,811"/>
+<area shape="poly" id="edge30_Node000028_Node000032" title=" " alt="" coords="264,832,140,807,141,802,265,827"/>
+<area shape="rect" id="Node000033" href="$df/d74/acceleration__trimming__test_8cpp.html#ae47bd94c49b1d92fd095313dceb72bd6" title="Test case where points outside FOV trim angle should be removed." alt="" coords="71,834,141,860"/>
+<area shape="poly" id="edge31_Node000028_Node000033" title=" " alt="" coords="264,850,141,850,141,844,264,844"/>
+<area shape="rect" id="Node000034" href="$df/d74/acceleration__trimming__test_8cpp.html#a03d0203e30d3fbeef6c09471e5d7229d" title="Test case where points within min range should be removed." alt="" coords="71,884,141,909"/>
+<area shape="poly" id="edge32_Node000028_Node000034" title=" " alt="" coords="265,867,141,892,140,887,264,862"/>
+<area shape="rect" id="Node000036" href="$d1/d5d/cut__trimming__test_8cpp.html#a2dc9a287f972aa6309820293bd56ec6d" title="Empty point cloud remains empty." alt="" coords="71,1229,141,1255"/>
+<area shape="poly" id="edge34_Node000035_Node000036" title=" " alt="" coords="318,1166,267,1194,208,1220,142,1238,140,1233,206,1215,265,1189,316,1162"/>
+<area shape="rect" id="Node000037" href="$d1/d5d/cut__trimming__test_8cpp.html#aba0ba9d17b4fee0710ef3828430946d6" title="Test case where points outside FOV trim angle should be removed." alt="" coords="71,1278,141,1304"/>
+<area shape="poly" id="edge35_Node000035_Node000037" title=" " alt="" coords="332,1169,279,1220,245,1247,208,1269,174,1282,141,1290,140,1284,173,1277,205,1265,242,1242,276,1216,329,1165"/>
+<area shape="rect" id="Node000038" href="$d1/d5d/cut__trimming__test_8cpp.html#ae7b4e662fb9affc9a6843ab0b5158797" title="Test for the general result of cut_trimming." alt="" coords="71,1032,141,1057"/>
+<area shape="poly" id="edge36_Node000035_Node000038" title=" " alt="" coords="316,1124,265,1097,206,1071,140,1053,142,1048,208,1066,267,1092,318,1120"/>
+<area shape="rect" id="Node000039" href="$d1/d5d/cut__trimming__test_8cpp.html#ad6f9b7887e396c5985387218d07f699b" title="Test case where points above max height should be removed." alt="" coords="71,1081,141,1107"/>
+<area shape="poly" id="edge37_Node000035_Node000039" title=" " alt="" coords="270,1129,141,1103,142,1098,271,1124"/>
+<area shape="rect" id="Node000040" href="$d1/d5d/cut__trimming__test_8cpp.html#a4fba3a35dfba895801b8c22e09252cc8" title="Test case where points outside max range should be removed." alt="" coords="71,1130,141,1156"/>
+<area shape="poly" id="edge38_Node000035_Node000040" title=" " alt="" coords="249,1146,141,1146,141,1140,249,1140"/>
+<area shape="rect" id="Node000041" href="$d1/d5d/cut__trimming__test_8cpp.html#a2db06e361efb090e275d6f8d61e8bfa9" title="Test case where points within min range should be removed." alt="" coords="71,1180,141,1205"/>
+<area shape="poly" id="edge39_Node000035_Node000041" title=" " alt="" coords="271,1162,142,1188,141,1183,270,1157"/>
+<area shape="rect" id="Node000043" href="$df/d77/skidpad__trimming__test_8cpp.html#a98a7802dee29f175b2beee30b2a252a9" title="Empty point cloud remains empty." alt="" coords="71,1525,141,1551"/>
+<area shape="poly" id="edge41_Node000042_Node000043" title=" " alt="" coords="305,1470,259,1494,208,1516,142,1534,140,1529,206,1511,256,1489,303,1465"/>
+<area shape="rect" id="Node000044" href="$df/d77/skidpad__trimming__test_8cpp.html#a528dbc97598753ecb73080aa62881f3f" title="Test case where points outside FOV trim angle should be removed." alt="" coords="71,1574,141,1600"/>
+<area shape="poly" id="edge42_Node000042_Node000044" title=" " alt="" coords="325,1473,274,1521,242,1545,208,1565,174,1578,141,1586,140,1580,173,1573,206,1561,239,1541,270,1517,321,1469"/>
+<area shape="rect" id="Node000045" href="$df/d77/skidpad__trimming__test_8cpp.html#a52f638106a30d5c134589dac1e00267c" title="Test for the general result of skidpad_trimming." alt="" coords="71,1328,141,1353"/>
+<area shape="poly" id="edge43_Node000042_Node000045" title=" " alt="" coords="303,1413,256,1389,206,1367,140,1349,142,1344,208,1362,259,1384,305,1408"/>
+<area shape="rect" id="Node000046" href="$df/d77/skidpad__trimming__test_8cpp.html#a6ebadc79b8d72c0124d0de30b04f27e5" title="Test case where points above max height should be removed." alt="" coords="71,1377,141,1403"/>
+<area shape="poly" id="edge44_Node000042_Node000046" title=" " alt="" coords="265,1424,140,1399,141,1394,266,1419"/>
+<area shape="rect" id="Node000047" href="$df/d77/skidpad__trimming__test_8cpp.html#a6bfa0c99164d35a462a64477b4fda5c3" title="Test case where points outside max range should be removed." alt="" coords="71,1426,141,1452"/>
+<area shape="poly" id="edge45_Node000042_Node000047" title=" " alt="" coords="265,1442,141,1442,141,1436,265,1436"/>
+<area shape="rect" id="Node000048" href="$df/d77/skidpad__trimming__test_8cpp.html#a6b7ac21bfea723cb36c5c5cb48ce35cb" title="Test case where points within min range should be removed." alt="" coords="71,1476,141,1501"/>
+<area shape="poly" id="edge46_Node000042_Node000048" title=" " alt="" coords="266,1459,141,1484,140,1479,265,1454"/>
+<area shape="rect" id="Node000050" href="$d3/da8/ransac__test_8cpp.html#a46e344e03fde07883e8014bdb5f41df2" title="Test Scenario: Point cloud with only 3 points: The epsilon threshold is set to 0 &#45; No points are remo..." alt="" coords="71,1624,141,1649"/>
+<area shape="poly" id="edge48_Node000049_Node000050" title=" " alt="" coords="280,1586,256,1593,208,1615,142,1632,141,1627,206,1610,254,1589,279,1581"/>
+<area shape="rect" id="Node000051" href="$d3/da8/ransac__test_8cpp.html#ac3193c990f2f7b1758045842adad3595" title="Test Scenario: All points fit in the model (Epsilon threshold very high)." alt="" coords="71,1673,141,1699"/>
+<area shape="poly" id="edge49_Node000049_Node000051" title=" " alt="" coords="265,1588,256,1593,241,1610,233,1627,225,1646,208,1664,175,1679,142,1686,141,1681,174,1674,205,1659,221,1643,228,1625,236,1607,253,1589,262,1583"/>
+</map>

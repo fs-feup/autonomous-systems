@@ -107,9 +107,11 @@ Inheritance diagram for Clustering:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d6/d61/class_clustering__inherit__graph.png" border="0" usemap="#a_clustering_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_clustering_inherit__map" id="a_clustering_inherit__map">
-<area shape="rect" title="Abstract base class for clustering point clouds." alt="" coords="49,5,137,71"/>
+<area shape="rect" title="Abstract base class for clustering point clouds." alt="" coords="133,5,221,71"/>
 <area shape="rect" href="../../df/d6a/class_d_b_s_c_a_n.html" title="DBSCAN (Density&#45;Based Spatial Clustering of Applications with Noise) clustering algorithm implementat..." alt="" coords="5,119,180,224"/>
-<area shape="poly" title=" " alt="" coords="95,85,95,119,90,119,90,85"/>
+<area shape="poly" title=" " alt="" coords="151,85,128,120,123,117,146,82"/>
+<area shape="rect" href="../../d1/d40/class_grid_clustering.html" title="Grid&#45;based clustering algorithm implementation." alt="" coords="204,129,317,214"/>
+<area shape="poly" title=" " alt="" coords="207,81,236,127,232,130,202,84"/>
 </map>
 </div>
 <div class="dynheader">
@@ -123,18 +125,18 @@ Collaboration diagram for Clustering:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a17e55a061852f4a7d6bbb48c3dec5bba" id="r_a17e55a061852f4a7d6bbb48c3dec5bba"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d10/class_clustering.html#a17e55a061852f4a7d6bbb48c3dec5bba">clustering</a> (const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud, std::vector&lt; <a class="el" href="../../d2/d23/class_cluster.html">Cluster</a> &gt; *clusters) const =0</td></tr>
-<tr class="memdesc:a17e55a061852f4a7d6bbb48c3dec5bba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clusters the input point cloud into groups.  <br /></td></tr>
-<tr class="separator:a17e55a061852f4a7d6bbb48c3dec5bba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2af5e6f10fc2d6882f2cda80e656c38" id="r_ae2af5e6f10fc2d6882f2cda80e656c38"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d10/class_clustering.html#ae2af5e6f10fc2d6882f2cda80e656c38">clustering</a> (const sensor_msgs::msg::PointCloud2::SharedPtr &amp;point_cloud, std::vector&lt; <a class="el" href="../../d2/d23/class_cluster.html">Cluster</a> &gt; *clusters) const =0</td></tr>
+<tr class="memdesc:ae2af5e6f10fc2d6882f2cda80e656c38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clusters the input point cloud into groups.  <br /></td></tr>
+<tr class="separator:ae2af5e6f10fc2d6882f2cda80e656c38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract base class for clustering point clouds. </p>
-<p>The <a class="el" href="../../d9/d10/class_clustering.html" title="Abstract base class for clustering point clouds.">Clustering</a> class defines an interface for clustering point clouds into groups or clusters. Subclasses must implement the pure virtual function <a class="el" href="../../d9/d10/class_clustering.html#a17e55a061852f4a7d6bbb48c3dec5bba" title="Clusters the input point cloud into groups.">clustering()</a>. </p>
+<p>The <a class="el" href="../../d9/d10/class_clustering.html" title="Abstract base class for clustering point clouds.">Clustering</a> class defines an interface for clustering point clouds into groups or clusters. Subclasses must implement the pure virtual function <a class="el" href="../../d9/d10/class_clustering.html#ae2af5e6f10fc2d6882f2cda80e656c38" title="Clusters the input point cloud into groups.">clustering()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1f/clustering_8hpp_source.html#l00016">16</a> of file <a class="el" href="../../de/d1f/clustering_8hpp_source.html">clustering.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d1f/clustering_8hpp_source.html#l00014">14</a> of file <a class="el" href="../../de/d1f/clustering_8hpp_source.html">clustering.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a17e55a061852f4a7d6bbb48c3dec5bba" name="a17e55a061852f4a7d6bbb48c3dec5bba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a17e55a061852f4a7d6bbb48c3dec5bba">&#9670;&#160;</a></span>clustering()</h2>
+<a id="ae2af5e6f10fc2d6882f2cda80e656c38" name="ae2af5e6f10fc2d6882f2cda80e656c38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2af5e6f10fc2d6882f2cda80e656c38">&#9670;&#160;</a></span>clustering()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -145,7 +147,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual void Clustering::clustering </td>
           <td>(</td>
-          <td class="paramtype">const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr&#160;</td>
+          <td class="paramtype">const sensor_msgs::msg::PointCloud2::SharedPtr &amp;&#160;</td>
           <td class="paramname"><em>point_cloud</em>, </td>
         </tr>
         <tr>
@@ -177,7 +179,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../df/d6a/class_d_b_s_c_a_n.html#a9a9605c898a26dbd557113419f4c8c6e">DBSCAN</a>.</p>
+<p>Implemented in <a class="el" href="../../df/d6a/class_d_b_s_c_a_n.html#a8286be80c1b23b3942ff717cc338077a">DBSCAN</a>, and <a class="el" href="../../d1/d40/class_grid_clustering.html#a403ff90221a226690d9ccbd07848c11a">GridClustering</a>.</p>
 
 </div>
 </div>

@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$d5/db7/struct_v_e_parameters.html" title=" " alt="" coords="5,5,111,31"/>
+<area shape="rect" id="Node000000" href="$d9/d08/class_velocity_estimator.html" title="Interface for velocity estimators." alt="" coords="5,31,128,56"/>
+<area shape="rect" id="Node000001" href="$d7/dbe/class_e_k_f.html" title=" " alt="" coords="213,5,259,31"/>
+<area shape="poly" id="edge149_Node000000_Node000001" title=" " alt="" coords="143,29,212,19,213,24,143,35"/>
+<area shape="rect" id="Node000002" href="$dd/da2/class_no_rear_w_s_s_e_k_f.html" title=" " alt="" coords="176,55,296,80"/>
+<area shape="poly" id="edge150_Node000000_Node000002" title=" " alt="" coords="144,52,176,56,175,62,143,57"/>
 </map>

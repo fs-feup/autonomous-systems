@@ -96,39 +96,47 @@ $(document).ready(function(){initNavTree('d9/dad/ransac_8hpp.html','../../'); in
   <div class="headertitle"><div class="title">ransac.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;pcl/sample_consensus/ransac.h&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
-<code>#include &lt;<a class="el" href="../../d7/d82/plane_8hpp_source.html">utils/plane.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="../../d0/d1d/split__parameters_8hpp_source.html">utils/split_parameters.hpp</a>&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../d2/d96/ground__removal_8hpp_source.html">ground_removal/ground_removal.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d2/d96/ground__removal_8hpp_source.html">ground_removal/ground_removal.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for ransac.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/d1d/ransac_8hpp__incl.png" border="0" usemap="#asrc_2perception_2include_2ground__removal_2ransac_8hpp" alt=""/></div>
 <map name="asrc_2perception_2include_2ground__removal_2ransac_8hpp" id="asrc_2perception_2include_2ground__removal_2ransac_8hpp">
-<area shape="rect" title=" " alt="" coords="194,5,379,46"/>
-<area shape="rect" title=" " alt="" coords="5,94,160,135"/>
-<area shape="poly" title=" " alt="" coords="241,49,144,90,142,85,239,44"/>
-<area shape="rect" title=" " alt="" coords="215,271,268,297"/>
-<area shape="poly" title=" " alt="" coords="278,48,250,107,235,144,225,183,223,203,225,223,234,256,228,257,220,224,217,203,220,182,230,143,245,105,273,45"/>
-<area shape="rect" href="../../d7/d82/plane_8hpp.html" title=" " alt="" coords="234,190,339,216"/>
-<area shape="poly" title=" " alt="" coords="289,46,289,174,284,174,284,46"/>
-<area shape="rect" href="../../d0/d1d/split__parameters_8hpp.html" title=" " alt="" coords="363,190,533,216"/>
-<area shape="poly" title=" " alt="" coords="306,45,429,177,425,180,302,48"/>
-<area shape="rect" href="../../d2/d96/ground__removal_8hpp.html" title=" " alt="" coords="547,94,703,135"/>
-<area shape="poly" title=" " alt="" coords="364,44,534,87,533,92,363,49"/>
-<area shape="poly" title=" " alt="" coords="282,218,258,259,253,256,277,215"/>
-<area shape="rect" title=" " alt="" coords="645,271,763,297"/>
-<area shape="poly" title=" " alt="" coords="325,214,351,221,499,250,629,270,628,276,498,255,350,226,324,219"/>
-<area shape="poly" title=" " alt="" coords="547,136,351,185,341,188,340,183,350,180,546,131"/>
-<area shape="poly" title=" " alt="" coords="704,114,795,119,893,130,980,150,1013,164,1035,181,1046,197,1050,211,1049,224,1042,236,1017,254,978,267,931,276,879,282,779,286,779,281,878,276,930,271,977,262,1014,249,1039,232,1044,223,1045,212,1041,199,1031,184,1010,168,978,155,892,136,794,125,704,120"/>
-<area shape="poly" title=" " alt="" coords="586,138,488,185,485,181,584,133"/>
-<area shape="rect" title=" " alt="" coords="557,190,693,216"/>
-<area shape="poly" title=" " alt="" coords="628,135,628,175,623,175,623,135"/>
-<area shape="rect" title=" " alt="" coords="718,190,836,216"/>
-<area shape="poly" title=" " alt="" coords="661,133,744,180,741,185,658,138"/>
-<area shape="rect" title=" " alt="" coords="861,183,1021,223"/>
-<area shape="poly" title=" " alt="" coords="698,133,856,176,854,181,697,138"/>
+<area shape="rect" title=" " alt="" coords="270,5,455,46"/>
+<area shape="rect" href="../../d2/d96/ground__removal_8hpp.html" title=" " alt="" coords="284,94,441,135"/>
+<area shape="poly" title=" " alt="" coords="365,47,365,78,360,78,360,47"/>
+<area shape="rect" title=" " alt="" coords="21,271,96,297"/>
+<area shape="poly" title=" " alt="" coords="284,124,217,132,146,144,86,161,65,172,50,184,42,201,40,219,49,257,44,258,35,220,37,199,46,181,62,168,84,156,145,139,216,127,284,119"/>
+<area shape="rect" title=" " alt="" coords="258,345,315,371"/>
+<area shape="poly" title=" " alt="" coords="284,125,214,133,141,146,76,163,52,173,35,185,20,204,15,223,12,272,9,285,12,296,26,307,49,318,111,334,181,345,243,351,242,356,180,350,110,339,47,323,23,312,7,298,3,285,7,271,10,222,15,201,31,181,50,168,75,158,139,141,213,128,284,120"/>
+<area shape="rect" title=" " alt="" coords="60,190,121,216"/>
+<area shape="poly" title=" " alt="" coords="293,138,141,185,135,187,134,182,139,180,292,133"/>
+<area shape="rect" title=" " alt="" coords="132,271,185,297"/>
+<area shape="poly" title=" " alt="" coords="285,131,232,150,207,165,186,184,175,201,168,219,161,256,156,255,163,218,170,198,182,181,204,161,229,146,283,126"/>
+<area shape="rect" title=" " alt="" coords="196,183,356,223"/>
+<area shape="poly" title=" " alt="" coords="345,137,308,174,304,170,341,133"/>
+<area shape="rect" href="../../db/d22/ground__grid_8hpp.html" title=" " alt="" coords="380,190,521,216"/>
+<area shape="poly" title=" " alt="" coords="384,133,430,178,426,181,381,137"/>
+<area shape="rect" title=" " alt="" coords="439,271,558,297"/>
+<area shape="poly" title=" " alt="" coords="442,124,494,144,517,160,536,181,542,201,540,222,532,243,521,260,516,258,527,240,535,221,537,202,531,184,513,164,491,149,440,129"/>
+<area shape="rect" title=" " alt="" coords="582,271,639,297"/>
+<area shape="poly" title=" " alt="" coords="442,127,502,147,531,162,558,181,574,198,587,217,605,256,600,258,582,220,570,201,554,185,528,166,500,152,440,132"/>
+<area shape="rect" href="../../d1/db6/lidar__point_8hpp.html" title=" " alt="" coords="647,190,779,216"/>
+<area shape="poly" title=" " alt="" coords="442,132,650,183,649,189,441,138"/>
+<area shape="rect" href="../../d9/d6e/trimming__parameters_8hpp.html" title=" " alt="" coords="804,190,999,216"/>
+<area shape="poly" title=" " alt="" coords="442,125,792,180,818,184,817,190,792,185,441,130"/>
+<area shape="poly" title=" " alt="" coords="400,219,369,226,112,276,111,270,367,221,399,214"/>
+<area shape="poly" title=" " alt="" coords="445,218,417,256,378,299,323,339,320,335,374,295,413,252,441,215"/>
+<area shape="poly" title=" " alt="" coords="404,219,201,273,199,268,402,214"/>
+<area shape="poly" title=" " alt="" coords="460,215,486,257,481,259,456,218"/>
+<area shape="poly" title=" " alt="" coords="476,214,574,262,572,267,474,219"/>
+<area shape="rect" href="../../dc/d1e/grid__geometry_8hpp.html" title=" " alt="" coords="209,271,364,297"/>
+<area shape="poly" title=" " alt="" coords="427,219,327,267,324,262,424,214"/>
+<area shape="poly" title=" " alt="" coords="289,297,289,329,284,329,284,297"/>
+<area shape="rect" title=" " alt="" coords="757,271,821,297"/>
+<area shape="poly" title=" " alt="" coords="727,214,769,258,765,262,723,218"/>
+<area shape="rect" title=" " alt="" coords="672,271,733,297"/>
+<area shape="poly" title=" " alt="" coords="714,217,709,256,704,256,709,216"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -136,31 +144,21 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dc/d87/ransac_8hpp__dep__incl.png" border="0" usemap="#asrc_2perception_2include_2ground__removal_2ransac_8hppdep" alt=""/></div>
 <map name="asrc_2perception_2include_2ground__removal_2ransac_8hppdep" id="asrc_2perception_2include_2ground__removal_2ransac_8hppdep">
-<area shape="rect" title=" " alt="" coords="583,5,767,46"/>
-<area shape="rect" href="../../d1/db4/grid__ransac_8hpp.html" title=" " alt="" coords="293,102,505,142"/>
-<area shape="poly" title=" " alt="" coords="603,54,457,103,456,98,602,49"/>
-<area shape="rect" href="../../de/da5/perception__node_8hpp.html" title=" " alt="" coords="155,198,304,253"/>
-<area shape="poly" title=" " alt="" coords="567,36,485,44,402,56,329,73,302,84,282,96,262,118,248,145,235,198,229,197,243,143,258,115,278,92,299,79,328,68,401,51,485,39,566,31"/>
-<area shape="rect" href="../../d5/d70/grid__ransac_8cpp.html" title=" " alt="" coords="494,198,637,253"/>
-<area shape="poly" title=" " alt="" coords="611,56,588,73,570,95,561,120,557,147,562,197,556,198,552,147,556,119,566,93,584,70,608,52"/>
-<area shape="rect" href="../../d5/d35/constrained__ransac__optimized_8cpp.html" title=" " alt="" coords="581,94,769,150"/>
-<area shape="poly" title=" " alt="" coords="677,61,677,93,672,93,672,61"/>
-<area shape="rect" href="../../db/d67/ransac_8cpp.html" title=" " alt="" coords="793,102,978,142"/>
-<area shape="poly" title=" " alt="" coords="734,50,842,98,840,103,731,55"/>
-<area shape="rect" href="../../d3/da8/ransac__test_8cpp.html" title=" " alt="" coords="1001,94,1162,150"/>
-<area shape="poly" title=" " alt="" coords="783,45,990,91,1001,94,1000,99,989,97,781,51"/>
-<area shape="rect" href="../../da/d89/perception_2test_2performance__test_8cpp.html" title=" " alt="" coords="1186,102,1337,142"/>
-<area shape="poly" title=" " alt="" coords="783,34,966,56,1071,72,1174,91,1201,98,1200,103,1173,97,1070,77,966,61,782,39"/>
-<area shape="poly" title=" " alt="" coords="355,153,276,199,273,195,352,148"/>
-<area shape="poly" title=" " alt="" coords="445,148,522,195,519,199,442,153"/>
-<area shape="rect" href="../../d1/d37/grid__ransac__test_8cpp.html" title=" " alt="" coords="328,198,470,253"/>
-<area shape="poly" title=" " alt="" coords="401,158,401,197,396,197,396,158"/>
-<area shape="rect" href="../../d9/dc1/perception_8cpp.html" title=" " alt="" coords="5,316,131,357"/>
-<area shape="poly" title=" " alt="" coords="178,265,99,318,96,314,175,260"/>
-<area shape="rect" href="../../dc/dfb/perception__node_8cpp.html" title=" " alt="" coords="155,309,304,365"/>
-<area shape="poly" title=" " alt="" coords="232,269,232,308,227,308,227,269"/>
-<area shape="rect" href="../../df/da9/perception__integration__tests_8cpp.html" title=" " alt="" coords="329,301,517,372"/>
-<area shape="poly" title=" " alt="" coords="292,259,362,298,360,303,289,263"/>
+<area shape="rect" title=" " alt="" coords="425,5,610,46"/>
+<area shape="rect" href="../../de/da5/perception__node_8hpp.html" title=" " alt="" coords="155,94,304,150"/>
+<area shape="poly" title=" " alt="" coords="443,54,305,99,304,94,442,49"/>
+<area shape="rect" href="../../db/d67/ransac_8cpp.html" title=" " alt="" coords="328,102,512,142"/>
+<area shape="poly" title=" " alt="" coords="488,59,442,103,438,99,484,55"/>
+<area shape="rect" href="../../d3/da8/ransac__test_8cpp.html" title=" " alt="" coords="536,94,696,150"/>
+<area shape="poly" title=" " alt="" coords="550,55,589,91,586,95,547,59"/>
+<area shape="rect" href="../../da/d89/perception_2test_2performance__test_8cpp.html" title=" " alt="" coords="721,102,871,142"/>
+<area shape="poly" title=" " alt="" coords="591,49,739,98,737,103,589,54"/>
+<area shape="rect" href="../../d9/dc1/perception_8cpp.html" title=" " alt="" coords="5,213,131,253"/>
+<area shape="poly" title=" " alt="" coords="178,161,99,214,96,210,175,156"/>
+<area shape="rect" href="../../dc/dfb/perception__node_8cpp.html" title=" " alt="" coords="155,205,304,261"/>
+<area shape="poly" title=" " alt="" coords="232,165,232,205,227,205,227,165"/>
+<area shape="rect" href="../../df/da9/perception__integration__tests_8cpp.html" title=" " alt="" coords="329,198,517,268"/>
+<area shape="poly" title=" " alt="" coords="292,155,362,195,360,199,289,160"/>
 </map>
 </div>
 </div>

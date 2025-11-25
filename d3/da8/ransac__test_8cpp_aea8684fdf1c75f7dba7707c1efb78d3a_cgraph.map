@@ -1,5 +1,21 @@
 <map id="TEST_F" name="TEST_F">
-<area shape="rect" id="Node000001" title="Test Scenario: Point cloud with 0 points." alt="" coords="5,5,75,31"/>
-<area shape="rect" id="Node000002" href="$d6/dc3/class_r_a_n_s_a_c.html#ab1f55dd02aa3e591bebbc8a782c9c131" title="Perform ground removal using the RANSAC algorithm." alt="" coords="123,5,297,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,16,107,16,107,21,75,21"/>
+<area shape="rect" id="Node000001" title="Test Scenario: Point cloud with 0 points." alt="" coords="5,80,75,106"/>
+<area shape="rect" id="Node000002" href="$d6/dc3/class_r_a_n_s_a_c.html#a638e68374dacf54926e94ae6f2cca8b8" title="Perform ground removal using the RANSAC algorithm." alt="" coords="123,80,297,106"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,90,107,90,107,96,75,96"/>
+<area shape="rect" id="Node000003" href="$dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11" title=" " alt="" coords="361,5,486,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="244,77,344,40,362,34,364,39,346,45,246,82"/>
+<area shape="rect" id="Node000004" href="$dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4" title=" " alt="" coords="361,55,486,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="297,80,345,74,346,79,298,85"/>
+<area shape="rect" id="Node000005" href="$dc/d9c/namespace_lidar_point.html#a0dd3e19b92b08561073d6f2f636a87ca" title=" " alt="" coords="362,104,486,130"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="298,100,346,105,345,111,297,105"/>
+<area shape="rect" id="Node000006" href="$dc/d71/class_ground_grid.html#a7b2c9092c93f7dd39fd98441f24c5c67" title="Set the ground height at a specific (x, y) location." alt="" coords="345,154,502,195"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="247,104,355,145,353,150,245,109"/>
+<area shape="rect" id="Node000007" href="$d0/da6/struct_grid_geometry.html#a695ebf39f48027a55da74edd084a7160" title="Compute bin index for a given (x, y)" alt="" coords="570,67,719,108"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="476,151,501,140,549,117,564,111,566,116,551,122,503,145,478,156"/>
+<area shape="rect" id="Node000008" href="$d0/da6/struct_grid_geometry.html#ae9618d95af7167771e927aa026f576fa" title="Get the number of bins for a given range." alt="" coords="550,132,739,158"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="502,161,535,157,535,162,503,166"/>
+<area shape="rect" id="Node000009" href="$d0/da6/struct_grid_geometry.html#ae16a35d52aef5593d5402e398d31716b" title="Get the number of slices in the grid." alt="" coords="566,182,723,223"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="503,181,551,188,550,193,502,187"/>
+<area shape="rect" id="Node000010" href="$d0/da6/struct_grid_geometry.html#a69f955e8ae8a8b76e50c293a33b6b6b9" title="Compute slice index for a given (x, y)" alt="" coords="565,247,724,288"/>
+<area shape="poly" id="edge9_Node000006_Node000010" title=" " alt="" coords="467,193,551,232,569,239,567,244,549,237,465,197"/>
 </map>

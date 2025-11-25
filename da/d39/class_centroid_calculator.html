@@ -125,18 +125,18 @@ Collaboration diagram for CentroidCalculator:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8d22488c107a16f3a40e0b3d8f358c16" id="r_a8d22488c107a16f3a40e0b3d8f358c16"><td class="memItemLeft" align="right" valign="top">Eigen::Vector4f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d39/class_centroid_calculator.html#a8d22488c107a16f3a40e0b3d8f358c16">calculate_center</a> (pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud, const <a class="el" href="../../d2/d8d/class_plane.html">Plane</a> &amp;plane=<a class="el" href="../../d2/d8d/class_plane.html">Plane</a>()) const override</td></tr>
-<tr class="memdesc:a8d22488c107a16f3a40e0b3d8f358c16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estimates the center position of a cone using centroid calculation.  <br /></td></tr>
-<tr class="separator:a8d22488c107a16f3a40e0b3d8f358c16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3be52bf3e5486b6236beacafe64e59f2" id="r_a3be52bf3e5486b6236beacafe64e59f2"><td class="memItemLeft" align="right" valign="top">Eigen::Vector4f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d39/class_centroid_calculator.html#a3be52bf3e5486b6236beacafe64e59f2">calculate_center</a> (const sensor_msgs::msg::PointCloud2::SharedPtr &amp;point_cloud, const std::vector&lt; int &gt; &amp;point_indices, const <a class="el" href="../../d2/d8d/class_plane.html">Plane</a> &amp;plane=<a class="el" href="../../d2/d8d/class_plane.html">Plane</a>()) const override</td></tr>
+<tr class="memdesc:a3be52bf3e5486b6236beacafe64e59f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estimates the center position of a cone using centroid calculation.  <br /></td></tr>
+<tr class="separator:a3be52bf3e5486b6236beacafe64e59f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Concrete Class representing a centroid-based method for estimating the center position of a cone. </p>
 <p>This class implements the <a class="el" href="../../df/daa/class_center_calculator.html" title="Abstract Class representing the logic for estimating the center position of a cone.">CenterCalculator</a> interface to provide a method for estimating the center position of a cone based on its point cloud data, using centroid calculation. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/df6/centroid__calculation_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../d0/df6/centroid__calculation_8hpp_source.html">centroid_calculation.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/df6/centroid__calculation_8hpp_source.html#l00011">11</a> of file <a class="el" href="../../d0/df6/centroid__calculation_8hpp_source.html">centroid_calculation.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8d22488c107a16f3a40e0b3d8f358c16" name="a8d22488c107a16f3a40e0b3d8f358c16"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d22488c107a16f3a40e0b3d8f358c16">&#9670;&#160;</a></span>calculate_center()</h2>
+<a id="a3be52bf3e5486b6236beacafe64e59f2" name="a3be52bf3e5486b6236beacafe64e59f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3be52bf3e5486b6236beacafe64e59f2">&#9670;&#160;</a></span>calculate_center()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -147,8 +147,14 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">Eigen::Vector4f CentroidCalculator::calculate_center </td>
           <td>(</td>
-          <td class="paramtype">pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr&#160;</td>
+          <td class="paramtype">const sensor_msgs::msg::PointCloud2::SharedPtr &amp;&#160;</td>
           <td class="paramname"><em>point_cloud</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>point_indices</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -180,9 +186,23 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::Vector4f representing the estimated center of the cone. </dd></dl>
 
-<p>Implements <a class="el" href="../../df/daa/class_center_calculator.html#a3bbc19f37571936e7a60ff01b85149de">CenterCalculator</a>.</p>
+<p>Implements <a class="el" href="../../df/daa/class_center_calculator.html#a638ac2d4ca78cbda6566c9defd6ebe4a">CenterCalculator</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d77/centroid__calculation_8cpp_source.html#l00010">10</a> of file <a class="el" href="../../de/d77/centroid__calculation_8cpp_source.html">centroid_calculation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d77/centroid__calculation_8cpp_source.html#l00003">3</a> of file <a class="el" href="../../de/d77/centroid__calculation_8cpp_source.html">centroid_calculation.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../da/d39/class_centroid_calculator_a3be52bf3e5486b6236beacafe64e59f2_cgraph.png" border="0" usemap="#ada/d39/class_centroid_calculator_a3be52bf3e5486b6236beacafe64e59f2_cgraph" alt=""/></div>
+<map name="ada/d39/class_centroid_calculator_a3be52bf3e5486b6236beacafe64e59f2_cgraph" id="ada/d39/class_centroid_calculator_a3be52bf3e5486b6236beacafe64e59f2_cgraph">
+<area shape="rect" title="Estimates the center position of a cone using centroid calculation." alt="" coords="5,47,133,88"/>
+<area shape="rect" href="../../dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11" title=" " alt="" coords="181,5,306,31"/>
+<area shape="poly" title=" " alt="" coords="133,47,180,33,182,38,134,52"/>
+<area shape="rect" href="../../dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4" title=" " alt="" coords="181,55,306,80"/>
+<area shape="poly" title=" " alt="" coords="133,65,165,65,165,70,133,70"/>
+<area shape="rect" href="../../dc/d9c/namespace_lidar_point.html#a0dd3e19b92b08561073d6f2f636a87ca" title=" " alt="" coords="181,104,306,130"/>
+<area shape="poly" title=" " alt="" coords="134,83,182,97,180,102,133,88"/>
+</map>
+</div>
 
 </div>
 </div>

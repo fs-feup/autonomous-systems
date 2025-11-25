@@ -10,5 +10,6 @@ var dir_afda8ecf9b6e07e6d6de6966570c3753 =
     [ "ground_removal", "dir_cfffb8e24a6699345e950f1d267d6872.html", "dir_cfffb8e24a6699345e950f1d267d6872" ],
     [ "icp", "dir_993a9e231d6afeed81f01c63200ff565.html", "dir_993a9e231d6afeed81f01c63200ff565" ],
     [ "perception", "dir_7a6f4da30c641d92d3bb5b6ac70555c9.html", "dir_7a6f4da30c641d92d3bb5b6ac70555c9" ],
-    [ "utils", "dir_67d526dd88eb91f22d0ff653eb053f8b.html", "dir_67d526dd88eb91f22d0ff653eb053f8b" ]
+    [ "utils", "dir_67d526dd88eb91f22d0ff653eb053f8b.html", "dir_67d526dd88eb91f22d0ff653eb053f8b" ],
+    [ "wall_removal", "dir_16ce1ca06f9f1a9ccbb1b92346a98da1.html", "dir_16ce1ca06f9f1a9ccbb1b92346a98da1" ]
 ];

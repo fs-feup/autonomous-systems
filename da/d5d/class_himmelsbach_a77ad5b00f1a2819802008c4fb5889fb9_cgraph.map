@@ -1,0 +1,29 @@
+<map id="Himmelsbach::ground_removal" name="Himmelsbach::ground_removal">
+<area shape="rect" id="Node000001" title="Perform ground removal on a point cloud." alt="" coords="5,113,152,153"/>
+<area shape="rect" id="Node000002" href="$da/d5d/class_himmelsbach.html#a8efa0fdc694cbc16aac83c1bd88b7250" title="Process a single slice for ground removal." alt="" coords="200,113,353,153"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,130,184,130,184,136,152,136"/>
+<area shape="rect" id="Node000011" href="$dc/d71/class_ground_grid.html#ad7de522f40c49923f05397b5d2bbe2e1" title="Reset the ground grid to initial state." alt="" coords="201,177,352,203"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="152,151,216,170,214,175,150,156"/>
+<area shape="rect" id="Node000012" href="$da/d5d/class_himmelsbach.html#a9298e638668757022bd86297f9ed7d88" title="Split the input point cloud into slices and rings." alt="" coords="211,47,342,88"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="141,109,197,91,199,96,143,115"/>
+<area shape="rect" id="Node000003" href="$dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11" title=" " alt="" coords="417,104,542,130"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="353,124,402,120,402,126,354,129"/>
+<area shape="rect" id="Node000004" href="$dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4" title=" " alt="" coords="417,55,542,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="338,109,400,89,420,83,421,88,402,94,340,114"/>
+<area shape="rect" id="Node000005" href="$dc/d9c/namespace_lidar_point.html#a0dd3e19b92b08561073d6f2f636a87ca" title=" " alt="" coords="418,219,542,244"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="334,151,355,163,379,184,402,204,415,210,412,215,400,208,375,188,351,167,331,156"/>
+<area shape="rect" id="Node000006" href="$dc/d71/class_ground_grid.html#a7b2c9092c93f7dd39fd98441f24c5c67" title="Set the ground height at a specific (x, y) location." alt="" coords="401,154,558,195"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="354,146,386,152,385,158,353,151"/>
+<area shape="rect" id="Node000007" href="$d0/da6/struct_grid_geometry.html#a695ebf39f48027a55da74edd084a7160" title="Compute bin index for a given (x, y)" alt="" coords="626,67,775,108"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="532,151,557,140,605,117,620,111,622,116,607,122,559,145,534,156"/>
+<area shape="rect" id="Node000008" href="$d0/da6/struct_grid_geometry.html#ae9618d95af7167771e927aa026f576fa" title="Get the number of bins for a given range." alt="" coords="606,132,795,158"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="558,161,591,157,591,162,559,166"/>
+<area shape="rect" id="Node000009" href="$d0/da6/struct_grid_geometry.html#ae16a35d52aef5593d5402e398d31716b" title="Get the number of slices in the grid." alt="" coords="622,182,779,223"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="559,181,607,188,606,193,558,187"/>
+<area shape="rect" id="Node000010" href="$d0/da6/struct_grid_geometry.html#a69f955e8ae8a8b76e50c293a33b6b6b9" title="Compute slice index for a given (x, y)" alt="" coords="621,247,780,288"/>
+<area shape="poly" id="edge9_Node000006_Node000010" title=" " alt="" coords="535,193,560,204,608,232,623,239,621,243,605,237,557,209,533,198"/>
+<area shape="poly" id="edge13_Node000012_Node000003" title=" " alt="" coords="343,81,410,97,409,102,342,86"/>
+<area shape="poly" id="edge14_Node000012_Node000004" title=" " alt="" coords="342,65,401,65,401,70,342,70"/>
+<area shape="rect" id="Node000013" href="$dc/d9c/namespace_lidar_point.html#aeafcf936beaf572e949b0c4bdc0e2087" title=" " alt="" coords="409,5,551,31"/>
+<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="342,49,409,33,410,38,343,54"/>
+</map>

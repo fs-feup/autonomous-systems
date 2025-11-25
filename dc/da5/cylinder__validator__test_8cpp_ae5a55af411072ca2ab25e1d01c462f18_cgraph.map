@@ -1,15 +1,23 @@
 <map id="TEST_F" name="TEST_F">
-<area shape="rect" id="Node000001" title="Test case to validate if points are inside the small cylinder." alt="" coords="5,112,75,138"/>
-<area shape="rect" id="Node000002" href="$dd/def/class_cylinder_validator.html#a15a79c63182d06ed4cea29cc91649123" title="Validates a cluster using cylinder approximation." alt="" coords="123,105,247,145"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,122,107,122,107,128,75,128"/>
+<area shape="rect" id="Node000001" title="Test case to validate if points are inside the small cylinder." alt="" coords="5,243,75,268"/>
+<area shape="rect" id="Node000002" href="$dd/def/class_cylinder_validator.html#a15a79c63182d06ed4cea29cc91649123" title="Validates a cluster using cylinder approximation." alt="" coords="123,235,247,276"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,253,107,253,107,258,75,258"/>
 <area shape="rect" id="Node000003" href="$d2/d23/class_cluster.html#ab0b0056112da3ff27a13304f38f5f4d1" title="Get the centroid of the cluster." alt="" coords="295,5,434,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="207,102,246,71,294,40,304,35,306,40,296,44,249,75,211,106"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="189,234,201,193,222,142,252,87,271,62,293,40,297,37,300,42,297,44,275,66,257,90,227,144,206,195,194,235"/>
 <area shape="rect" id="Node000004" href="$d2/d23/class_cluster.html#ac4b5c99b0ed908d7799c13719d4a5892" title="Get cluster&#39;s corresponding cone size." alt="" coords="296,55,434,80"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="247,102,307,83,309,88,248,107"/>
-<area shape="rect" id="Node000005" href="$d2/d23/class_cluster.html#a763032aa726408defaea180f280f55f3" title="Get the Point Cloud data of the cluster." alt="" coords="304,105,425,145"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="248,122,289,122,289,128,248,128"/>
-<area shape="rect" id="Node000006" href="$dd/def/class_cylinder_validator.html#aacc79ebd1f5a5dae11d2a43f1f1b2add" title="Gets the radius of the cylinder for large cones." alt="" coords="303,170,427,211"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="244,143,293,162,292,167,242,148"/>
-<area shape="rect" id="Node000007" href="$dd/def/class_cylinder_validator.html#a5ec778f355470ef1ba95c33920e943c7" title="Gets the radius of the cylinder for small cones." alt="" coords="303,235,427,276"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="208,144,247,181,297,220,305,225,302,230,293,224,244,185,204,148"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="192,234,230,164,258,125,293,91,301,86,304,90,297,95,262,129,234,167,197,236"/>
+<area shape="rect" id="Node000005" href="$d2/d23/class_cluster.html#a4e56a059f1368a3905681d220e71446f" title="Get the Point Cloud data of the cluster." alt="" coords="304,105,425,145"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="204,233,244,195,293,156,302,151,305,155,297,160,247,199,208,237"/>
+<area shape="rect" id="Node000006" href="$d2/d23/class_cluster.html#a14891ae3df98c12aaf248cddad5068ca" title="Get the Point Cloud data of the cluster." alt="" coords="304,170,425,211"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="242,232,292,214,293,219,244,237"/>
+<area shape="rect" id="Node000007" href="$dd/def/class_cylinder_validator.html#aacc79ebd1f5a5dae11d2a43f1f1b2add" title="Gets the radius of the cylinder for large cones." alt="" coords="303,235,427,276"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="248,253,287,253,287,258,248,258"/>
+<area shape="rect" id="Node000008" href="$dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11" title=" " alt="" coords="302,300,427,326"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="248,273,309,292,307,297,247,278"/>
+<area shape="rect" id="Node000009" href="$dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4" title=" " alt="" coords="302,349,427,375"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="211,274,249,305,296,336,306,341,304,345,294,340,246,310,207,278"/>
+<area shape="rect" id="Node000010" href="$dc/d9c/namespace_lidar_point.html#a0dd3e19b92b08561073d6f2f636a87ca" title=" " alt="" coords="303,399,427,424"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="200,275,239,330,266,360,297,385,303,389,300,394,293,390,262,363,235,333,196,278"/>
+<area shape="rect" id="Node000011" href="$dd/def/class_cylinder_validator.html#a5ec778f355470ef1ba95c33920e943c7" title="Gets the radius of the cylinder for small cones." alt="" coords="303,449,427,489"/>
+<area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="196,275,233,351,261,396,297,435,299,437,296,441,293,439,257,399,228,354,191,277"/>
 </map>

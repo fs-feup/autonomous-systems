@@ -1,13 +1,21 @@
 <map id="TEST_F" name="TEST_F">
-<area shape="rect" id="Node000001" title="Test case to validate if the cone height exceeds all thresholds." alt="" coords="5,104,75,129"/>
-<area shape="rect" id="Node000002" href="$d9/d1f/class_height_validator.html#ac4d61b8c54bfc4f2cef252c9e05a1c71" title="Validates a cone based on its height relative to a plane." alt="" coords="123,78,318,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,109,109,104,110,109,76,114"/>
-<area shape="rect" id="Node000006" href="$d2/d23/class_cluster.html#ac4b5c99b0ed908d7799c13719d4a5892" title="Get cluster&#39;s corresponding cone size." alt="" coords="151,128,290,153"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="76,118,136,126,136,132,75,124"/>
-<area shape="rect" id="Node000003" href="$d2/d8d/class_plane.html#afe168b482b5979fc6e259b1848510b30" title="Calculates the distance from a point to the plane." alt="" coords="368,5,502,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="264,75,352,48,354,53,266,80"/>
-<area shape="rect" id="Node000004" href="$d2/d23/class_cluster.html#a763032aa726408defaea180f280f55f3" title="Get the Point Cloud data of the cluster." alt="" coords="375,71,496,111"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="318,88,359,88,359,94,318,94"/>
-<area shape="rect" id="Node000005" href="$d2/d23/class_cluster.html#a13de51fe61b04955625822be9483d2f0" title="Set cluster as a contender for a large cone." alt="" coords="366,136,504,161"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="278,102,319,112,375,128,373,133,317,118,277,107"/>
+<area shape="rect" id="Node000001" title="Test case to validate if the cone height exceeds all thresholds." alt="" coords="5,226,75,252"/>
+<area shape="rect" id="Node000002" href="$d9/d1f/class_height_validator.html#ac4d61b8c54bfc4f2cef252c9e05a1c71" title="Validates a cone based on its height relative to a plane." alt="" coords="123,201,318,227"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,232,109,227,110,232,76,237"/>
+<area shape="rect" id="Node000010" href="$d2/d23/class_cluster.html#ac4b5c99b0ed908d7799c13719d4a5892" title="Get cluster&#39;s corresponding cone size." alt="" coords="151,250,290,276"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="76,241,136,249,136,254,75,246"/>
+<area shape="rect" id="Node000003" href="$d2/d8d/class_plane.html#a693b6850806b47db3c2700cb3bbf26fb" title="Calculates the distance from a point to the plane." alt="" coords="368,5,502,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="229,199,283,134,321,94,364,57,372,52,375,56,368,61,325,97,287,137,233,202"/>
+<area shape="rect" id="Node000004" href="$d2/d23/class_cluster.html#a4e56a059f1368a3905681d220e71446f" title="Get the Point Cloud data of the cluster." alt="" coords="375,71,496,111"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="240,198,365,122,375,116,377,121,367,127,243,203"/>
+<area shape="rect" id="Node000005" href="$d2/d23/class_cluster.html#a14891ae3df98c12aaf248cddad5068ca" title="Get the Point Cloud data of the cluster." alt="" coords="375,136,496,177"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="271,198,359,174,360,179,272,203"/>
+<area shape="rect" id="Node000006" href="$dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11" title=" " alt="" coords="373,201,498,227"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="318,211,357,211,357,216,318,216"/>
+<area shape="rect" id="Node000007" href="$dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4" title=" " alt="" coords="373,250,498,276"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="280,225,362,243,360,249,279,230"/>
+<area shape="rect" id="Node000008" href="$dc/d9c/namespace_lidar_point.html#a0dd3e19b92b08561073d6f2f636a87ca" title=" " alt="" coords="373,300,497,325"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="296,225,319,235,335,248,344,261,353,274,368,286,374,290,371,295,364,290,349,277,340,264,331,252,317,240,293,229"/>
+<area shape="rect" id="Node000009" href="$d2/d23/class_cluster.html#a13de51fe61b04955625822be9483d2f0" title="Set cluster as a contender for a large cone." alt="" coords="366,349,504,375"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="302,225,320,236,332,248,339,261,345,286,351,312,357,324,368,336,371,338,368,342,364,340,353,327,346,313,340,288,334,263,327,251,316,240,299,229"/>
 </map>

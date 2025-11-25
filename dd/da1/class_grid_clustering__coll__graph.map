@@ -1,0 +1,7 @@
+<map id="GridClustering" name="GridClustering">
+<area shape="rect" id="Node000001" title="Grid&#45;based clustering algorithm implementation." alt="" coords="62,294,175,379"/>
+<area shape="rect" id="Node000002" href="$d9/d10/class_clustering.html" title="Abstract base class for clustering point clouds." alt="" coords="5,85,93,151"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="66,164,108,293,103,295,61,165"/>
+<area shape="rect" id="Node000003" href="$d0/da6/struct_grid_geometry.html" title="Structure to hold grid geometry parameters and provide utility functions." alt="" coords="117,5,261,231"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="155,231,140,278,135,277,150,229"/>
+</map>

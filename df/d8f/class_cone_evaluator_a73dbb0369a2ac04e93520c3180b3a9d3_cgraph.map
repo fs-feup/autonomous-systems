@@ -1,0 +1,7 @@
+<map id="ConeEvaluator::npoints_valid" name="ConeEvaluator::npoints_valid">
+<area shape="rect" id="Node000001" title="Check if the number of points in the cluster is valid, according to the distance." alt="" coords="5,27,159,68"/>
+<area shape="rect" id="Node000002" href="$d2/d23/class_cluster.html#ab0b0056112da3ff27a13304f38f5f4d1" title="Get the centroid of the cluster." alt="" coords="207,5,346,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,33,191,28,192,34,159,39"/>
+<area shape="rect" id="Node000003" href="$d2/d23/class_cluster.html#a14891ae3df98c12aaf248cddad5068ca" title="Get the Point Cloud data of the cluster." alt="" coords="216,55,337,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="159,56,201,62,200,67,159,61"/>
+</map>

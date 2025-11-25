@@ -1,0 +1,13 @@
+<map id="src/perception/include/wall_removal/wall_removal.hpp" name="src/perception/include/wall_removal/wall_removal.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="65,5,270,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,102,63,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,49,67,95,64,91,136,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="87,94,248,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="170,47,170,78,165,78,165,47"/>
+<area shape="rect" id="Node000004" href="$d1/db6/lidar__point_8hpp.html" title=" " alt="" coords="272,102,404,127"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="207,44,302,92,299,97,205,49"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="262,183,326,208"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="334,129,310,170,306,168,329,126"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="351,183,411,208"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="347,126,369,168,365,170,342,129"/>
+</map>

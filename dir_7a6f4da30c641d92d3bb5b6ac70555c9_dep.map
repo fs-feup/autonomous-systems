@@ -1,34 +1,37 @@
 <map id="src/perception/include/perception" name="src/perception/include/perception">
-<area shape="rect" id="node1" href="dir_26da03fa71fe530075369c7d94f7fcf1.html" title="cone_differentiation" alt="" coords="27,126,160,152"/>
-<area shape="rect" id="node2" href="dir_3e8e1d68aa1f2e54773e4ab06793463f.html" title="clustering" alt="" coords="184,126,261,152"/>
-<area shape="rect" id="node3" href="dir_5470d62c5edbfe4888c1ee359263e808.html" title="deskew" alt="" coords="286,126,352,152"/>
-<area shape="rect" id="node4" href="dir_67d526dd88eb91f22d0ff653eb053f8b.html" title="utils" alt="" coords="376,126,421,152"/>
-<area shape="rect" id="node5" href="dir_90b302eb30a86fd0e23e92a95287dd23.html" title="fov_trimming" alt="" coords="445,126,542,152"/>
-<area shape="rect" id="node6" href="dir_993a9e231d6afeed81f01c63200ff565.html" title="icp" alt="" coords="566,126,605,152"/>
-<area shape="rect" id="node7" href="dir_ca8d338fdbf757a3af6e8bb2d4e899d1.html" title="cone_validator" alt="" coords="629,126,734,152"/>
-<area shape="rect" id="node8" href="dir_cfffb8e24a6699345e950f1d267d6872.html" title="ground_removal" alt="" coords="758,126,871,152"/>
-<area shape="rect" id="node9" href="dir_d8c4ad9b0d3691cbed065bd7ab1473fb.html" title="cone_evaluator" alt="" coords="896,126,1005,152"/>
-<area shape="rect" id="node10" href="dir_7a6f4da30c641d92d3bb5b6ac70555c9.html" title="perception" alt="" coords="498,52,579,78"/>
-<area shape="poly" id="edge1" href="dir_000141_000033.html" alt="" coords="498,76,176,127,175,122,497,70"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000141_000033.html" title="1" alt="" coords="176,125,183,140"/>
-<area shape="poly" id="edge2" href="dir_000141_000023.html" alt="" coords="498,78,277,128,276,123,497,73"/>
-<area shape="rect" id="edge2-headlabel" href="dir_000141_000023.html" title="1" alt="" coords="278,125,285,140"/>
-<area shape="poly" id="edge3" href="dir_000141_000060.html" alt="" coords="502,81,367,125,365,120,501,76"/>
-<area shape="rect" id="edge3-headlabel" href="dir_000141_000060.html" title="1" alt="" coords="369,122,376,137"/>
-<area shape="poly" id="edge4" href="dir_000141_000229.html" alt="" coords="516,81,436,121,434,117,514,76"/>
-<area shape="rect" id="edge4-headlabel" href="dir_000141_000229.html" title="2" alt="" coords="438,118,445,133"/>
-<area shape="poly" id="edge5" href="dir_000141_000074.html" alt="" coords="533,80,511,114,507,111,529,77"/>
-<area shape="rect" id="edge5-headlabel" href="dir_000141_000074.html" title="3" alt="" coords="514,107,521,122"/>
-<area shape="poly" id="edge6" href="dir_000141_000085.html" alt="" coords="549,77,571,111,567,114,544,80"/>
-<area shape="rect" id="edge6-headlabel" href="dir_000141_000085.html" title="1" alt="" coords="571,98,578,113"/>
-<area shape="poly" id="edge7" href="dir_000141_000039.html" alt="" coords="564,76,645,116,642,121,562,81"/>
-<area shape="rect" id="edge7-headlabel" href="dir_000141_000039.html" title="4" alt="" coords="641,102,648,117"/>
-<area shape="poly" id="edge8" href="dir_000141_000082.html" alt="" coords="581,75,754,119,752,124,579,80"/>
-<area shape="rect" id="edge8-headlabel" href="dir_000141_000082.html" title="4" alt="" coords="749,105,756,120"/>
-<area shape="poly" id="edge9" href="dir_000141_000036.html" alt="" coords="580,71,881,123,880,128,579,76"/>
-<area shape="rect" id="edge9-headlabel" href="dir_000141_000036.html" title="1" alt="" coords="875,109,882,124"/>
-<area shape="rect" id="node11" href="dir_fbb9b9995ef8067d47a7284d7a4afe92.html" title="common_lib" alt="" coords="1029,126,1120,152"/>
-<area shape="poly" id="edge10" href="dir_000141_000026.html" alt="" coords="580,68,765,88,1014,122,1013,127,764,93,579,73"/>
-<area shape="rect" id="edge10-headlabel" href="dir_000141_000026.html" title="2" alt="" coords="1009,108,1016,123"/>
-<area shape="rect" id="clust1" href="dir_afda8ecf9b6e07e6d6de6966570c3753.html" title="include" alt="" coords="16,16,1016,162"/>
+<area shape="rect" id="node1" href="dir_16ce1ca06f9f1a9ccbb1b92346a98da1.html" title="wall_removal" alt="" coords="27,126,125,152"/>
+<area shape="rect" id="node2" href="dir_26da03fa71fe530075369c7d94f7fcf1.html" title="cone_differentiation" alt="" coords="149,126,283,152"/>
+<area shape="rect" id="node3" href="dir_3e8e1d68aa1f2e54773e4ab06793463f.html" title="clustering" alt="" coords="307,126,384,152"/>
+<area shape="rect" id="node4" href="dir_5470d62c5edbfe4888c1ee359263e808.html" title="deskew" alt="" coords="408,126,475,152"/>
+<area shape="rect" id="node5" href="dir_67d526dd88eb91f22d0ff653eb053f8b.html" title="utils" alt="" coords="499,126,544,152"/>
+<area shape="rect" id="node6" href="dir_90b302eb30a86fd0e23e92a95287dd23.html" title="fov_trimming" alt="" coords="568,126,664,152"/>
+<area shape="rect" id="node7" href="dir_993a9e231d6afeed81f01c63200ff565.html" title="icp" alt="" coords="689,126,727,152"/>
+<area shape="rect" id="node8" href="dir_ca8d338fdbf757a3af6e8bb2d4e899d1.html" title="cone_validator" alt="" coords="751,126,857,152"/>
+<area shape="rect" id="node9" href="dir_cfffb8e24a6699345e950f1d267d6872.html" title="ground_removal" alt="" coords="881,126,994,152"/>
+<area shape="rect" id="node10" href="dir_d8c4ad9b0d3691cbed065bd7ab1473fb.html" title="cone_evaluator" alt="" coords="1019,126,1128,152"/>
+<area shape="rect" id="node11" href="dir_7a6f4da30c641d92d3bb5b6ac70555c9.html" title="perception" alt="" coords="575,52,657,78"/>
+<area shape="poly" id="edge1" href="dir_000141_000248.html" alt="" coords="575,73,391,94,140,128,140,123,390,89,575,68"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000141_000248.html" title="2" alt="" coords="141,126,148,141"/>
+<area shape="poly" id="edge2" href="dir_000141_000033.html" alt="" coords="575,76,298,126,297,120,574,71"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000141_000033.html" title="1" alt="" coords="299,123,306,138"/>
+<area shape="poly" id="edge3" href="dir_000141_000023.html" alt="" coords="576,80,400,126,398,121,574,75"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000141_000023.html" title="2" alt="" coords="401,123,408,138"/>
+<area shape="poly" id="edge4" href="dir_000141_000060.html" alt="" coords="587,81,486,122,484,117,585,76"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000141_000060.html" title="1" alt="" coords="488,119,495,134"/>
+<area shape="poly" id="edge5" href="dir_000141_000229.html" alt="" coords="602,81,551,119,548,114,598,76"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000141_000229.html" title="3" alt="" coords="553,114,560,129"/>
+<area shape="poly" id="edge6" href="dir_000141_000074.html" alt="" coords="619,78,619,110,613,110,613,78"/>
+<area shape="rect" id="edge6-headlabel" href="dir_000141_000074.html" title="3" alt="" coords="621,100,628,115"/>
+<area shape="poly" id="edge7" href="dir_000141_000085.html" alt="" coords="633,76,682,114,679,119,630,81"/>
+<area shape="rect" id="edge7-headlabel" href="dir_000141_000085.html" title="1" alt="" coords="680,100,687,115"/>
+<area shape="poly" id="edge8" href="dir_000141_000039.html" alt="" coords="649,76,759,117,757,122,647,81"/>
+<area shape="rect" id="edge8-headlabel" href="dir_000141_000039.html" title="6" alt="" coords="754,104,761,119"/>
+<area shape="poly" id="edge9" href="dir_000141_000082.html" alt="" coords="657,73,868,119,867,125,656,78"/>
+<area shape="rect" id="edge9-headlabel" href="dir_000141_000082.html" title="2" alt="" coords="863,106,870,121"/>
+<area shape="poly" id="edge10" href="dir_000141_000036.html" alt="" coords="658,70,1003,123,1003,128,657,75"/>
+<area shape="rect" id="edge10-headlabel" href="dir_000141_000036.html" title="1" alt="" coords="998,109,1005,124"/>
+<area shape="rect" id="node12" href="dir_fbb9b9995ef8067d47a7284d7a4afe92.html" title="common_lib" alt="" coords="1152,126,1243,152"/>
+<area shape="poly" id="edge11" href="dir_000141_000026.html" alt="" coords="658,67,861,86,997,102,1137,122,1136,128,996,108,860,92,657,72"/>
+<area shape="rect" id="edge11-headlabel" href="dir_000141_000026.html" title="4" alt="" coords="1131,109,1138,124"/>
+<area shape="rect" id="clust1" href="dir_afda8ecf9b6e07e6d6de6966570c3753.html" title="include" alt="" coords="16,16,1139,162"/>
 </map>

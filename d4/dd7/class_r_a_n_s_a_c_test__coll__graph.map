@@ -1,7 +1,5 @@
 <map id="RANSACTest" name="RANSACTest">
-<area shape="rect" id="Node000001" title="Test class for setting up data and testing RANSAC algorithm." alt="" coords="33,194,189,319"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,35,89,101"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="66,114,93,193,88,195,60,116"/>
-<area shape="rect" id="Node000003" href="$d8/d8e/struct_split_parameters.html" title=" " alt="" coords="113,5,237,131"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="157,132,141,179,135,177,152,130"/>
+<area shape="rect" id="Node000001" title="Test class for setting up data and testing RANSAC algorithm." alt="" coords="5,119,161,264"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="41,5,125,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="86,86,86,119,81,119,81,86"/>
 </map>

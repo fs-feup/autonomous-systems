@@ -38,12 +38,13 @@ var searchData=
   ['velocity_5fy_5fnoise_5f_35',['velocity_y_noise_',['../d5/d51/struct_s_l_a_m_parameters.html#a740ace3fdee447dc3fdb221486a54471',1,'SLAMParameters::velocity_y_noise_'],['../d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html#acd5ba12baeb0c571d88d818a3d0af6ad',1,'common_lib::structures::Velocities::velocity_y_noise_']]],
   ['version_36',['version',['../dd/dc4/namespacesetup.html#a2aa722b36a933088812b50ea79b97a5c',1,'setup']]],
   ['verticallayout_37',['verticalLayout',['../d7/d8e/classmain_1_1_ui___main_window.html#a01a6a25a2f3c76ea412f5807248a1b4f',1,'main::Ui_MainWindow']]],
-  ['visited_5fmidpoints_5f_38',['visited_midpoints_',['../d0/d89/class_path_calculation.html#a2e7e9a001dc422f17056be8d0fc9505e',1,'PathCalculation']]],
-  ['voltagesensorts_39',['voltageSensorTS',['../d9/d88/pacsim__main_8cpp.html#a29cb7f8345af086acb98268ba91c9318',1,'pacsim_main.cpp']]],
-  ['voltagesensortspub_40',['voltageSensorTSPub',['../d9/d88/pacsim__main_8cpp.html#adee28259eeda9a02f935cded4ea1eca6',1,'pacsim_main.cpp']]],
-  ['vp_5fbraking_5facceleration_5f_41',['vp_braking_acceleration_',['../d2/deb/struct_planning_parameters.html#a114bc925fcba2bf01421a6ac73d91c70',1,'PlanningParameters']]],
-  ['vp_5fdesired_5fvelocity_5f_42',['vp_desired_velocity_',['../d2/deb/struct_planning_parameters.html#a31aed02c7b8451edf822b2f72c735f63',1,'PlanningParameters']]],
-  ['vp_5fminimum_5fvelocity_5f_43',['vp_minimum_velocity_',['../d2/deb/struct_planning_parameters.html#a26355fd9d3e059bdaac49bffac24b170',1,'PlanningParameters']]],
-  ['vp_5fnormal_5facceleration_5f_44',['vp_normal_acceleration_',['../d2/deb/struct_planning_parameters.html#a13ef908355645600cd1147769cc9207c',1,'PlanningParameters']]],
-  ['vp_5fuse_5fvelocity_5fplanning_5f_45',['vp_use_velocity_planning_',['../d2/deb/struct_planning_parameters.html#a0a8c2a85e9dfed8ddbf44be615325f5a',1,'PlanningParameters']]]
+  ['visibility_5ffactor_38',['visibility_factor',['../d9/d9f/struct_evaluator_parameters.html#afef64cea52100183214e7b7c6f1bb95d',1,'EvaluatorParameters']]],
+  ['visited_5fmidpoints_5f_39',['visited_midpoints_',['../d0/d89/class_path_calculation.html#a2e7e9a001dc422f17056be8d0fc9505e',1,'PathCalculation']]],
+  ['voltagesensorts_40',['voltageSensorTS',['../d9/d88/pacsim__main_8cpp.html#a29cb7f8345af086acb98268ba91c9318',1,'pacsim_main.cpp']]],
+  ['voltagesensortspub_41',['voltageSensorTSPub',['../d9/d88/pacsim__main_8cpp.html#adee28259eeda9a02f935cded4ea1eca6',1,'pacsim_main.cpp']]],
+  ['vp_5fbraking_5facceleration_5f_42',['vp_braking_acceleration_',['../d2/deb/struct_planning_parameters.html#a114bc925fcba2bf01421a6ac73d91c70',1,'PlanningParameters']]],
+  ['vp_5fdesired_5fvelocity_5f_43',['vp_desired_velocity_',['../d2/deb/struct_planning_parameters.html#a31aed02c7b8451edf822b2f72c735f63',1,'PlanningParameters']]],
+  ['vp_5fminimum_5fvelocity_5f_44',['vp_minimum_velocity_',['../d2/deb/struct_planning_parameters.html#a26355fd9d3e059bdaac49bffac24b170',1,'PlanningParameters']]],
+  ['vp_5fnormal_5facceleration_5f_45',['vp_normal_acceleration_',['../d2/deb/struct_planning_parameters.html#a13ef908355645600cd1147769cc9207c',1,'PlanningParameters']]],
+  ['vp_5fuse_5fvelocity_5fplanning_5f_46',['vp_use_velocity_planning_',['../d2/deb/struct_planning_parameters.html#a0a8c2a85e9dfed8ddbf44be615325f5a',1,'PlanningParameters']]]
 ];

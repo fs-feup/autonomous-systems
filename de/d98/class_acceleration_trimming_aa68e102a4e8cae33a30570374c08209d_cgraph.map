@@ -1,7 +1,0 @@
-<map id="AccelerationTrimming::fov_trimming" name="AccelerationTrimming::fov_trimming">
-<area shape="rect" id="Node000001" title="Perform ground removal on the input point cloud." alt="" coords="5,5,153,46"/>
-<area shape="rect" id="Node000002" href="$de/dd9/class_fov_trimming.html#ad348ad3bc1386bf9a5fe2fcb201774c9" title=" " alt="" coords="201,5,338,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,23,185,23,185,28,153,28"/>
-<area shape="rect" id="Node000003" href="$de/dd9/class_fov_trimming.html#a3db8bbe8d8190a8024707d522a39152a" title=" " alt="" coords="386,5,535,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="338,23,371,23,371,28,338,28"/>
-</map>

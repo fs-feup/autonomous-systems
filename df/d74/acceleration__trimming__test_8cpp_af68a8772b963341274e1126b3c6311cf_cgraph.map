@@ -1,9 +1,13 @@
 <map id="TEST_F" name="TEST_F">
-<area shape="rect" id="Node000001" title="Test case for the general result of acc_trimming." alt="" coords="5,13,75,39"/>
-<area shape="rect" id="Node000002" href="$de/d98/class_acceleration_trimming.html#aa68e102a4e8cae33a30570374c08209d" title="Perform ground removal on the input point cloud." alt="" coords="123,5,270,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,23,107,23,107,28,75,28"/>
-<area shape="rect" id="Node000003" href="$de/dd9/class_fov_trimming.html#ad348ad3bc1386bf9a5fe2fcb201774c9" title=" " alt="" coords="318,5,455,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="270,23,303,23,303,28,270,28"/>
-<area shape="rect" id="Node000004" href="$de/dd9/class_fov_trimming.html#a3db8bbe8d8190a8024707d522a39152a" title=" " alt="" coords="503,5,653,46"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="456,23,488,23,488,28,456,28"/>
+<area shape="rect" id="Node000001" title="Test case for the general result of acc_trimming." alt="" coords="5,80,75,106"/>
+<area shape="rect" id="Node000002" href="$de/d98/class_acceleration_trimming.html#adff904731cd53c5a6357e510b766760a" title="Perform ground removal on the input point cloud." alt="" coords="123,73,270,113"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,90,107,90,107,96,75,96"/>
+<area shape="rect" id="Node000003" href="$dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11" title=" " alt="" coords="324,5,449,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="244,70,317,40,331,34,333,39,319,45,246,74"/>
+<area shape="rect" id="Node000004" href="$dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4" title=" " alt="" coords="324,55,449,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="270,80,308,75,309,81,271,86"/>
+<area shape="rect" id="Node000005" href="$dc/d9c/namespace_lidar_point.html#a0dd3e19b92b08561073d6f2f636a87ca" title=" " alt="" coords="325,104,449,130"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="271,99,309,104,309,110,270,105"/>
+<area shape="rect" id="Node000006" href="$de/dd9/class_fov_trimming.html#a94b3e3b019b805148181a634983512db" title=" " alt="" coords="318,154,455,195"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="247,111,324,145,322,150,245,116"/>
 </map>

@@ -1,7 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$d2/d5d/class_landmark_filter.html" title="This class is meant to filter observations from perception to try to reduce the presence of outliers." alt="" coords="5,31,114,56"/>
-<area shape="rect" id="Node000001" href="$dd/d5e/class_consecutive_counter_filter.html" title=" " alt="" coords="162,5,329,31"/>
-<area shape="poly" id="edge66_Node000000_Node000001" title=" " alt="" coords="129,31,161,27,162,32,130,37"/>
-<area shape="rect" id="Node000002" href="$d3/d91/class_mock_landmark_filter.html" title=" " alt="" coords="175,55,316,80"/>
-<area shape="poly" id="edge67_Node000000_Node000002" title=" " alt="" coords="130,50,175,56,174,61,129,55"/>
+<area shape="rect" id="Node000000" href="$d1/d5c/class_i_vehicle_model.html" title=" " alt="" coords="5,5,109,31"/>
+<area shape="rect" id="Node000001" href="$dd/d52/class_vehicle_model_bicycle.html" title=" " alt="" coords="157,5,298,31"/>
+<area shape="poly" id="edge63_Node000000_Node000001" title=" " alt="" coords="124,16,156,16,156,21,124,21"/>
 </map>

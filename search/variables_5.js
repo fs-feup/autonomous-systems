@@ -17,7 +17,7 @@ var searchData=
   ['enutotrackrotation_14',['enuToTrackRotation',['../db/df3/struct_track.html#a293aa34977632f64a4c0e55ec28517a0',1,'Track']]],
   ['eps_5fk_15',['eps_k',['../d3/dad/struct_vehicle_model_bicycle_1_1_tire_model.html#a3d7b092aee54ce377cc1620e32f638e2',1,'VehicleModelBicycle::TireModel']]],
   ['eps_5fy_16',['eps_y',['../d3/dad/struct_vehicle_model_bicycle_1_1_tire_model.html#a114397ec18a55c38633691cf1f626c41',1,'VehicleModelBicycle::TireModel']]],
-  ['epsilon_17',['epsilon',['../d2/d16/class_constrained_r_a_n_s_a_c.html#a7c2eef8a22136a7ea372989077869951',1,'ConstrainedRANSAC::epsilon'],['../d2/d37/class_constrained_r_a_n_s_a_c_optimized.html#a3e0fb3e81bc8e7b26dc9c884ccabe175',1,'ConstrainedRANSACOptimized::epsilon'],['../d6/dc3/class_r_a_n_s_a_c.html#a274e39d2c973e6ce4e763fdc625632ca',1,'RANSAC::epsilon']]],
+  ['epsilon_17',['epsilon',['../d6/dc3/class_r_a_n_s_a_c.html#a274e39d2c973e6ce4e763fdc625632ca',1,'RANSAC']]],
   ['equality_5ftolerance_18',['equality_tolerance',['../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html#ad1cb6d5aafe963dfc48c45e147a1127e',1,'common_lib::structures::Cone']]],
   ['error_5fmean_19',['error_mean',['../df/d7c/class_scalar_value_sensor.html#a48b6afdfdb169cf008173e37a5ad0b4e',1,'ScalarValueSensor::error_mean'],['../dc/df1/class_wheels_sensor.html#a7220c01fc4eeeb77437e230fef517da8',1,'WheelsSensor::error_mean']]],
   ['error_5fmean_5facc_20',['error_mean_acc',['../d6/d71/class_imu_sensor.html#acba0641b9a1a815f59450f0051c9d7f7',1,'ImuSensor']]],
@@ -54,8 +54,9 @@ var searchData=
   ['exitspeed_51',['exitspeed',['../db/d61/namespaceskidpadgenerator.html#a9fcb074be198e3d0468486da09f8962e',1,'skidpadgenerator']]],
   ['expected_5fcone_5farray_52',['expected_cone_array',['../d7/db4/classtest__formats_1_1_test_formats.html#ab158cfe336d73549c0ecf1a8998be649',1,'test_formats::TestFormats']]],
   ['expected_5fpath_5fpoint_5farray_53',['expected_path_point_array',['../d7/db4/classtest__formats_1_1_test_formats.html#addb2b2c88564604197122b1c400fc581',1,'test_formats::TestFormats']]],
-  ['expected_5fposition_54',['expected_position',['../d7/db4/classtest__formats_1_1_test_formats.html#a8233761038e880661d109ab81bc4e973',1,'test_formats::TestFormats']]],
-  ['expected_5fstamped_5fmessage_55',['expected_stamped_message',['../d7/db4/classtest__formats_1_1_test_formats.html#a9ee8b7395b22f4888e95afdb581dab1d',1,'test_formats::TestFormats']]],
-  ['expected_5fvelocities_56',['expected_velocities',['../d7/db4/classtest__formats_1_1_test_formats.html#a253d1fae0a284df97427cea01e1575d4',1,'test_formats::TestFormats']]],
-  ['export_5fpath_57',['export_path',['../dd/d3b/namespacebayesian.html#a5de9d011285170416decfb3817d7fa99',1,'bayesian']]]
+  ['expected_5fpoints_5fthreshold_54',['expected_points_threshold',['../d9/d9f/struct_evaluator_parameters.html#ac38d970e723acbef35823a9258f08e16',1,'EvaluatorParameters']]],
+  ['expected_5fposition_55',['expected_position',['../d7/db4/classtest__formats_1_1_test_formats.html#a8233761038e880661d109ab81bc4e973',1,'test_formats::TestFormats']]],
+  ['expected_5fstamped_5fmessage_56',['expected_stamped_message',['../d7/db4/classtest__formats_1_1_test_formats.html#a9ee8b7395b22f4888e95afdb581dab1d',1,'test_formats::TestFormats']]],
+  ['expected_5fvelocities_57',['expected_velocities',['../d7/db4/classtest__formats_1_1_test_formats.html#a253d1fae0a284df97427cea01e1575d4',1,'test_formats::TestFormats']]],
+  ['export_5fpath_58',['export_path',['../dd/d3b/namespacebayesian.html#a5de9d011285170416decfb3817d7fa99',1,'bayesian']]]
 ];

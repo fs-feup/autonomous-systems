@@ -30,11 +30,12 @@ var hierarchy =
     [ "common_lib::car_parameters::CarParameters", "dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html", null ],
     [ "CenterCalculator", "df/daa/class_center_calculator.html", [
       [ "CentroidCalculator", "da/d39/class_centroid_calculator.html", null ],
-      [ "CircunferenceCenterCalculation", "d8/d0d/class_circunference_center_calculation.html", null ]
+      [ "CircunferenceCenterCalculator", "d5/d01/class_circunference_center_calculator.html", null ]
     ] ],
     [ "Cluster", "d2/d23/class_cluster.html", null ],
     [ "Clustering", "d9/d10/class_clustering.html", [
-      [ "DBSCAN", "df/d6a/class_d_b_s_c_a_n.html", null ]
+      [ "DBSCAN", "df/d6a/class_d_b_s_c_a_n.html", null ],
+      [ "GridClustering", "d1/d40/class_grid_clustering.html", null ]
     ] ],
     [ "CompetitionLogic", "de/dbe/class_competition_logic.html", null ],
     [ "common_lib::structures::Cone", "d6/dd0/structcommon__lib_1_1structures_1_1_cone.html", null ],
@@ -54,7 +55,6 @@ var hierarchy =
     [ "ConfigElement", "d0/d11/class_config_element.html", [
       [ "Config", "dd/d34/class_config.html", null ]
     ] ],
-    [ "Constrained", "d6/d00/class_constrained.html", null ],
     [ "common_lib::structures::ControlCommand", "da/d16/structcommon__lib_1_1structures_1_1_control_command.html", null ],
     [ "ControlParameters", "d4/de1/struct_control_parameters.html", null ],
     [ "ControlSolver", "d1/d5f/class_control_solver.html", [
@@ -99,18 +99,19 @@ var hierarchy =
     [ "drawView.frameOrigin", "dc/d00/classdraw_view_1_1frame_origin.html", null ],
     [ "GnssData", "da/d17/struct_gnss_data.html", null ],
     [ "GraphSLAMInstance", "d4/dca/class_graph_s_l_a_m_instance.html", null ],
+    [ "GridGeometry", "d0/da6/struct_grid_geometry.html", null ],
+    [ "GridIndex", "d3/d44/struct_grid_index.html", null ],
     [ "gripMap", "de/d10/classgrip_map.html", null ],
+    [ "GroundGrid", "dc/d71/class_ground_grid.html", null ],
     [ "GroundRemoval", "dc/d84/class_ground_removal.html", [
-      [ "ConstrainedGridRANSAC", "de/d7f/class_constrained_grid_r_a_n_s_a_c.html", null ],
-      [ "ConstrainedRANSAC", "d2/d16/class_constrained_r_a_n_s_a_c.html", null ],
-      [ "ConstrainedRANSACOptimized", "d2/d37/class_constrained_r_a_n_s_a_c_optimized.html", null ],
-      [ "GridRANSAC", "de/d59/class_grid_r_a_n_s_a_c.html", null ],
+      [ "Himmelsbach", "da/d5d/class_himmelsbach.html", null ],
       [ "RANSAC", "d6/dc3/class_r_a_n_s_a_c.html", null ]
     ] ],
     [ "guiLogic.guiLogic", "d2/de2/classgui_logic_1_1gui_logic.html", null ],
     [ "std::hash< common_lib::structures::Cone >", "dc/d41/structstd_1_1hash_3_01common__lib_1_1structures_1_1_cone_01_4.html", null ],
     [ "std::hash< common_lib::structures::PathPoint >", "db/d69/structstd_1_1hash_3_01common__lib_1_1structures_1_1_path_point_01_4.html", null ],
     [ "std::hash< common_lib::structures::Position >", "d2/dff/structstd_1_1hash_3_01common__lib_1_1structures_1_1_position_01_4.html", null ],
+    [ "std::hash< GridIndex >", "d8/d6d/structstd_1_1hash_3_01_grid_index_01_4.html", null ],
     [ "ICP", "dd/d10/class_i_c_p.html", null ],
     [ "common_lib::sensor_data::ImuData", "df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html", null ],
     [ "ImuData", "d6/dc7/struct_imu_data.html", null ],
@@ -221,6 +222,7 @@ var hierarchy =
     [ "quaternion", "df/d44/structquaternion.html", null ],
     [ "Report", "d7/dac/struct_report.html", null ],
     [ "LoopClosure::Result", "dc/d0f/struct_loop_closure_1_1_result.html", null ],
+    [ "Ring", "d2/db2/struct_ring.html", null ],
     [ "SensorBase< T >", "dd/dc4/class_sensor_base.html", null ],
     [ "SensorBase< GnssData >", "dd/dc4/class_sensor_base.html", [
       [ "GnssSensor", "d9/df9/class_gnss_sensor.html", null ]
@@ -245,7 +247,7 @@ var hierarchy =
       [ "EKFSLAMSolver", "d7/d79/class_e_k_f_s_l_a_m_solver.html", null ],
       [ "GraphSLAMSolver", "d9/d73/class_graph_s_l_a_m_solver.html", null ]
     ] ],
-    [ "SplitParameters", "d8/d8e/struct_split_parameters.html", null ],
+    [ "Slice", "d0/da8/struct_slice.html", null ],
     [ "StampedScalar", "d1/d2c/struct_stamped_scalar.html", null ],
     [ "SteeringModel", "d0/db0/class_steering_model.html", [
       [ "ParallelFrontSteering", "d2/dab/class_parallel_front_steering.html", null ]
@@ -328,6 +330,9 @@ var hierarchy =
       [ "NoSlipBicycleModel", "db/df5/class_no_slip_bicycle_model.html", null ]
     ] ],
     [ "VEParameters", "d5/db7/struct_v_e_parameters.html", null ],
+    [ "WallRemoval", "d8/d0d/class_wall_removal.html", [
+      [ "GridWallRemoval", "df/d89/class_grid_wall_removal.html", null ]
+    ] ],
     [ "common_lib::sensor_data::WheelEncoderData", "d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data.html", null ],
     [ "Wheels", "de/d84/struct_wheels.html", null ],
     [ "Enum", null, [

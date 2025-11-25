@@ -107,11 +107,11 @@ Inheritance diagram for CenterCalculator:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/de0/class_center_calculator__inherit__graph.png" border="0" usemap="#a_center_calculator_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_center_calculator_inherit__map" id="a_center_calculator_inherit__map">
-<area shape="rect" title="Abstract Class representing the logic for estimating the center position of a cone." alt="" coords="97,5,224,71"/>
+<area shape="rect" title="Abstract Class representing the logic for estimating the center position of a cone." alt="" coords="96,5,223,71"/>
 <area shape="rect" href="../../da/d39/class_centroid_calculator.html" title="Concrete Class representing a centroid&#45;based method for estimating the center position of a cone." alt="" coords="5,119,132,184"/>
-<area shape="poly" title=" " alt="" coords="128,83,97,121,92,117,123,80"/>
-<area shape="rect" href="../../d8/d0d/class_circunference_center_calculation.html" title="Concrete class representing a circumference&#45;based method for estimating the center position of a cone..." alt="" coords="157,119,351,184"/>
-<area shape="poly" title=" " alt="" coords="198,80,230,117,226,121,194,83"/>
+<area shape="poly" title=" " alt="" coords="127,83,96,121,92,117,123,80"/>
+<area shape="rect" href="../../d5/d01/class_circunference_center_calculator.html" title="Concrete class representing a circumference&#45;based method for estimating the center position of a cone..." alt="" coords="157,119,346,184"/>
+<area shape="poly" title=" " alt="" coords="197,80,228,117,223,121,192,83"/>
 </map>
 </div>
 <div class="dynheader">
@@ -125,18 +125,18 @@ Collaboration diagram for CenterCalculator:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3bbc19f37571936e7a60ff01b85149de" id="r_a3bbc19f37571936e7a60ff01b85149de"><td class="memItemLeft" align="right" valign="top">virtual Eigen::Vector4f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/daa/class_center_calculator.html#a3bbc19f37571936e7a60ff01b85149de">calculate_center</a> (pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud, const <a class="el" href="../../d2/d8d/class_plane.html">Plane</a> &amp;plane=<a class="el" href="../../d2/d8d/class_plane.html">Plane</a>()) const =0</td></tr>
-<tr class="memdesc:a3bbc19f37571936e7a60ff01b85149de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estimates the center position of a cone.  <br /></td></tr>
-<tr class="separator:a3bbc19f37571936e7a60ff01b85149de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a638ac2d4ca78cbda6566c9defd6ebe4a" id="r_a638ac2d4ca78cbda6566c9defd6ebe4a"><td class="memItemLeft" align="right" valign="top">virtual Eigen::Vector4f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/daa/class_center_calculator.html#a638ac2d4ca78cbda6566c9defd6ebe4a">calculate_center</a> (const sensor_msgs::msg::PointCloud2::SharedPtr &amp;point_cloud, const std::vector&lt; int &gt; &amp;point_indices, const <a class="el" href="../../d2/d8d/class_plane.html">Plane</a> &amp;plane=<a class="el" href="../../d2/d8d/class_plane.html">Plane</a>()) const =0</td></tr>
+<tr class="memdesc:a638ac2d4ca78cbda6566c9defd6ebe4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estimates the center position of a cone.  <br /></td></tr>
+<tr class="separator:a638ac2d4ca78cbda6566c9defd6ebe4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract Class representing the logic for estimating the center position of a cone. </p>
 <p>This class provides an interface for various methods to estimate the center position of a cone based on its point cloud data, optionally considering a ground plane. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/dfe/center__calculation_8hpp_source.html#l00016">16</a> of file <a class="el" href="../../d6/dfe/center__calculation_8hpp_source.html">center_calculation.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/dfe/center__calculation_8hpp_source.html#l00014">14</a> of file <a class="el" href="../../d6/dfe/center__calculation_8hpp_source.html">center_calculation.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a3bbc19f37571936e7a60ff01b85149de" name="a3bbc19f37571936e7a60ff01b85149de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3bbc19f37571936e7a60ff01b85149de">&#9670;&#160;</a></span>calculate_center()</h2>
+<a id="a638ac2d4ca78cbda6566c9defd6ebe4a" name="a638ac2d4ca78cbda6566c9defd6ebe4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a638ac2d4ca78cbda6566c9defd6ebe4a">&#9670;&#160;</a></span>calculate_center()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -147,8 +147,14 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual Eigen::Vector4f CenterCalculator::calculate_center </td>
           <td>(</td>
-          <td class="paramtype">pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr&#160;</td>
+          <td class="paramtype">const sensor_msgs::msg::PointCloud2::SharedPtr &amp;&#160;</td>
           <td class="paramname"><em>point_cloud</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>point_indices</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -180,7 +186,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::Vector4f representing the estimated center of the cone. </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d8/d0d/class_circunference_center_calculation.html#ac6f4e1903547a8958784b4db940dddab">CircunferenceCenterCalculation</a>, and <a class="el" href="../../da/d39/class_centroid_calculator.html#a8d22488c107a16f3a40e0b3d8f358c16">CentroidCalculator</a>.</p>
+<p>Implemented in <a class="el" href="../../da/d39/class_centroid_calculator.html#a3be52bf3e5486b6236beacafe64e59f2">CentroidCalculator</a>, and <a class="el" href="../../d5/d01/class_circunference_center_calculator.html#a182f18b2bcbbe1baaec2c6853d96a996">CircunferenceCenterCalculator</a>.</p>
 
 </div>
 </div>
