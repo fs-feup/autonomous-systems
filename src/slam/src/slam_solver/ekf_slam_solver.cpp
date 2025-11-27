@@ -123,11 +123,10 @@ void EKFSLAMSolver::predict(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
 
   Eigen::Vector3d next_pose =
       this->_motion_model_->get_next_pose(previous_pose, temp_velocities, time_interval);
-  {
-    std::unique_lock lock(this->mutex_);
-    if (this->correction_step_ongoing_) {
-      this->pose_difference_ += (next_pose - previous_pose);
-    }
+
+  // Already locked mutex
+  if (this->correction_step_ongoing_) {
+    this->pose_difference_ += (next_pose - previous_pose);
   }
   state.segment(0, 3) = next_pose;
   covariance.block(0, 0, 3, 3) = updated_covariance_block;
