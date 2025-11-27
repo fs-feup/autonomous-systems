@@ -1,9 +1,8 @@
 #pragma once
 
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
-
+#include <numeric>
 #include <utils/cluster.hpp>
+#include <utils/lidar_point.hpp>
 #include <utils/plane.hpp>
 
 #include "sensor_msgs/msg/point_cloud2.hpp"
