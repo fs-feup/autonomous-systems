@@ -25,6 +25,15 @@ ControlParameters::ControlParameters(const ControlParameters &params) {
   pid_max_negative_error_ = params.pid_max_negative_error_;
   map_frame_id_ = params.map_frame_id_;
   command_time_interval_ = params.command_time_interval_;
+
+  distance_p_gain_ = params.distance_p_gain_;
+  distance_i_gain_ = params.distance_i_gain_;
+  distance_anti_windup_ = params.distance_anti_windup_;
+  distance_d_gain_ = params.distance_d_gain_;
+  heading_p_gain_ = params.heading_p_gain_;
+  heading_i_gain_ = params.heading_i_gain_;
+  heading_anti_windup_ = params.heading_anti_windup_;
+  heading_d_gain_ = params.heading_d_gain_;
 }
 
 ControlParameters &ControlParameters::operator=(const ControlParameters &other) {
@@ -53,6 +62,14 @@ ControlParameters &ControlParameters::operator=(const ControlParameters &other) 
     pid_max_negative_error_ = other.pid_max_negative_error_;
     map_frame_id_ = other.map_frame_id_;
     command_time_interval_ = other.command_time_interval_;
+    distance_p_gain_ = other.distance_p_gain_;
+    distance_i_gain_ = other.distance_i_gain_;
+    distance_anti_windup_ = other.distance_anti_windup_;
+    distance_d_gain_ = other.distance_d_gain_;
+    heading_p_gain_ = other.heading_p_gain_;
+    heading_i_gain_ = other.heading_i_gain_;
+    heading_anti_windup_ = other.heading_anti_windup_;
+    heading_d_gain_ = other.heading_d_gain_;
   }
   return *this;
 }
@@ -100,6 +117,15 @@ std::string ControlParameters::load_config() {
   this->pid_max_negative_error_ = control_config["pid_max_negative_error"].as<double>();
   this->map_frame_id_ = adapter == "eufs" ? "base_footprint" : "map";
   this->command_time_interval_ = control_config["command_time_interval"].as<int>();
+
+  this->distance_p_gain_ = control_config["distance_p_gain"].as<double>();
+  this->distance_i_gain_ = control_config["distance_i_gain"].as<double>();
+  this->distance_anti_windup_ = control_config["distance_anti_windup"].as<double>();
+  this->distance_d_gain_ = control_config["distance_d_gain"].as<double>();
+  this->heading_p_gain_ = control_config["heading_p_gain"].as<double>();
+  this->heading_i_gain_ = control_config["heading_i_gain"].as<double>();
+  this->heading_anti_windup_ = control_config["heading_anti_windup"].as<double>();
+  this->heading_d_gain_ = control_config["heading_d_gain"].as<double>();
 
   return adapter;
 }
