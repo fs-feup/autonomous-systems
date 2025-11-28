@@ -4,7 +4,7 @@ slam:
   data_association_model_name: "nearest_neighbor" # "maximum_likelihood_md" or "maximum_likelihood_nll" or "nearest_neighbor" or... -> name of the data association model
   data_association_limit_distance: 70 # maximum distance to consider a cone for data association
   data_association_gate: 1.5 # Maximum allowed Malahanobis distance (or euclidean distance for nearest neighbor) between an observation and matched landmark
-  new_landmark_confidence_gate: 0.6 # Minimum confidence to consider an observation as a new landmark in data asociation
+  new_landmark_confidence_gate: 0.0 # Minimum confidence to consider an observation as a new landmark in data asociation
   observation_x_noise: 0.03 # sigma of the noise for cone positions in x
   observation_y_noise: 0.03 # sigma of the noise for cone positions in y
   velocity_x_noise: 0.03 # sigma of the noise for the velocity in x
@@ -15,10 +15,10 @@ slam:
   pose_theta_initial_noise: 0.1 # sigma of the noise for the initial pose in yaw
   using_preloaded_map: false # Use preloaded map for SLAM, if true, the map will be loaded from the file, only for skidpad and acceleration
   slam_solver_name: "graph_slam" # "graph_slam" or "ekf_slam" or ... -> name of the slam solver
-  minimum_observation_count: 3 # Minimum number of times a new landmark must be observed to be added to the map
+  minimum_observation_count: 2 # Minimum number of times a new landmark must be observed to be added to the map
   minimum_frequency_of_detections: 5 # Minimum frequency of the detections of a landmark to add it to the map
   slam_min_pose_difference: 0.1 # Minimum distance between poses to consider adding to factor graph
-  slam_optimization_mode: "sync" # "sync" or "async" or ... -> name of the optimization mode, in which sync is at every factor added, async is at every time step. With EKF SLAM optimization=correction step
+  slam_optimization_mode: "async" # "sync" or "async" or ... -> name of the optimization mode, in which sync is at every factor added, async is at every time step. With EKF SLAM optimization=correction step
   slam_optimization_type: "sliding_window_levenberg" # "normal_levenberg" or "isam2" or "sliding_window_levenberg" or ... -> name of the optimization type
   preloaded_map_noise: 0.0 # sigma of the noise for preloaded map landmarks used for skidpad and acceleration
 
