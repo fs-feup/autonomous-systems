@@ -104,6 +104,11 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
     this->correction_step_ongoing_ = false;
     this->covariance_ = covariance;
   }
+  LoopClosure::Result result = _loop_closure_->detect(state.segment(0,3), state.segment(3, state.size() - 3).cast<int>(), associations, observations);
+  if (result.detected) {
+    lap_counter_++;
+  }
+  
 }
 
 void EKFSLAMSolver::predict(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,

@@ -257,7 +257,7 @@ void Planning::run_autocross() {
   if (lap_counter_ >= 1) {
     if (!has_found_full_path_) {
       has_found_full_path_ = true;
-      full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
+      final_path_ = path_calculation_.calculate_trackdrive(cone_array_);
       final_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
       velocity_planning_.trackdrive_velocity(final_path_);
       full_path_ = final_path_;

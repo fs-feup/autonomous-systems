@@ -34,7 +34,7 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
           data_association);
 
   this->_execution_times_ = std::make_shared<std::vector<double>>(20, 0.0);
-  std::shared_ptr<LoopClosure> loop_closure = std::make_shared<LapCounter>(8, 15, 20, 3);
+  std::shared_ptr<LoopClosure> loop_closure = std::make_shared<LapCounter>(15, 20, 10, 2);
 
   // Initialize SLAM solver object
   this->_slam_solver_ = slam_solver_constructors_map.at(params.slam_solver_name_)(
