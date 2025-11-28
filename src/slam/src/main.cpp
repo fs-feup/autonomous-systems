@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
   slam_node->init();
 
   // If graph slam and asynchronous optimization, use a multi-threaded executor
-  if (params.slam_solver_name_ != "ekf_slam" && params.slam_optimization_period_ != 0.0) {
+  if (params.slam_optimization_mode_ == "async") {
     rclcpp::executors::MultiThreadedExecutor executor;
     executor.add_node(slam_node);
     executor.spin();

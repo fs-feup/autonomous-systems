@@ -2,17 +2,17 @@ planning:
   # ---------------------- Midpoint Generator (mg_) ----------------------
   mg_minimum_cone_distance: 2.0 # minimum distance between cones -> The rules say 3m, but we should keep it lower for safety
   mg_maximum_cone_distance: 10.0 # maximum distance between cones
-  mg_sliding_window_radius: 20.0
+  mg_sliding_window_radius: 40.0
   mg_use_sliding_window: true
   #---------------------- Path Calculation (pc_) ------------------------
   pc_angle_gain: 70.0  
   pc_distance_gain: 6.0
   pc_angle_exponent: 2.0
   pc_distance_exponent: 1.0
-  pc_max_cost: 75.0
+  pc_max_cost: 100.0
   pc_lookback_points: 4
   pc_search_depth: 4
-  pc_max_points: 20
+  pc_max_points: 200
   pc_tolerance: 0.5
   pc_reset_path: 1000000000
   pc_use_reset_path: false
@@ -30,11 +30,11 @@ planning:
   smoothing_spline_precision: 10
   smoothing_use_path_smoothing: false
   #---------------------- Velocity Planning (vp_) -----------------------
-  vp_minimum_velocity: 2.0
-  vp_braking_acceleration: -1.5
-  vp_normal_acceleration: 0.9
+  vp_minimum_velocity: 3.0
+  vp_braking_acceleration: -3.0
+  vp_normal_acceleration: 2.5
   vp_use_velocity_planning: true
-  vp_desired_velocity: 6.0
+  vp_desired_velocity: 15.0
   #---------------------- Simulation Config (simulation_) ---------------------------
   simulation_publishing_visualization_msgs: true
 

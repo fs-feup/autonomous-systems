@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'supervisor = supervisor.supervisor:main'
+            'supervisor = supervisor.main:main'
         ],
     },
 )

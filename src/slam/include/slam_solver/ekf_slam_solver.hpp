@@ -14,7 +14,9 @@ class EKFSLAMSolver : public SLAMSolver {
   Eigen::VectorXd state_ = Eigen::VectorXd::Zero(3);
   Eigen::MatrixXd covariance_;
   Eigen::MatrixXd process_noise_matrix_;
-  Eigen::VectorXd pose = Eigen::VectorXd::Zero(3);
+  std::shared_mutex mutex_;
+  Eigen::Vector3d pose_difference_ = Eigen::Vector3d::Zero();
+  bool correction_step_ongoing_ = false;
 
   rclcpp::Time last_update_;
 
@@ -88,11 +90,6 @@ class EKFSLAMSolver : public SLAMSolver {
 
   std::vector<common_lib::structures::Cone> get_map_estimate() override;
   common_lib::structures::Pose get_pose_estimate() override;
-
-  /**
-   * @brief update the process noise matrix so that its dimensions match the covariance matrix
-   */
-  void update_process_noise_matrix();
 
   friend class EKFSLAMSolverTest_stateAugmentation_Test;
   friend class EKFSLAMSolverTest_stateAugmentation2_Test;

@@ -68,12 +68,10 @@ void MidpointGenerator::filter_cones(const std::vector<Cone>& cone_array,
 }
 
 std::shared_ptr<Midpoint> MidpointGenerator::process_triangle_edge(
-  const Vertex_handle& va,
-  const Vertex_handle& vb,
-  std::vector<std::shared_ptr<Cone>>& filtered_cones,
-  std::map<std::pair<int, int>, std::shared_ptr<Midpoint>>& segment_to_midpoint) {
-  
-  std::shared_ptr<Midpoint> result = nullptr;
+    const Vertex_handle& va,
+    const Vertex_handle& vb,
+    std::vector<std::shared_ptr<Cone>>& filtered_cones,
+    std::map<std::pair<int, int>, std::shared_ptr<Midpoint>>& segment_to_midpoint) {
   
   Point p1 = va->point();
   Point p2 = vb->point();
@@ -82,37 +80,38 @@ std::shared_ptr<Midpoint> MidpointGenerator::process_triangle_edge(
   int id1 = ::find_cone(filtered_cones, p1.x(), p1.y());
   int id2 = ::find_cone(filtered_cones, p2.x(), p2.y());
 
-  if (id1 != -1 && id2 != -1) {
-  // Check distance constraints
-  double squared_distance = CGAL::squared_distance(p1, p2);
-  if ((squared_distance > config_.minimum_cone_distance_ * config_.minimum_cone_distance_) &&
-    (squared_distance < config_.maximum_cone_distance_ * config_.maximum_cone_distance_)) {
-    
-    // Use ordered cone IDs to uniquely identify the segment
-    auto key = std::minmax(id1, id2);
+  if (id1 == -1 || id2 == -1) {
+    return nullptr;
+  }
 
-    // Check if this segment was already processed
-    auto it = segment_to_midpoint.find(key);
-    if (it != segment_to_midpoint.end()) {
-    result = it->second;
-    } else {
-    // Create new midpoint
-    auto midpoint = std::make_shared<Midpoint>(
+  // Check distance constraints
+  if (double squared_distance = CGAL::squared_distance(p1, p2);
+    (squared_distance <= config_.minimum_cone_distance_ * config_.minimum_cone_distance_) ||
+    (squared_distance >= config_.maximum_cone_distance_ * config_.maximum_cone_distance_)) {
+    return nullptr;
+  }
+
+  // Use ordered cone IDs to uniquely identify the segment
+  auto key = std::minmax(id1, id2);
+
+  // Check if this segment was already processed. If so, return existing midpoint
+  if (auto it = segment_to_midpoint.find(key); it != segment_to_midpoint.end()) {
+    return it->second;
+  }
+
+
+  // Create new midpoint
+  auto midpoint = std::make_shared<Midpoint>(
       CGAL::midpoint(p1, p2), 
       filtered_cones[id1], 
       filtered_cones[id2]
-    );
-    
-    segment_to_midpoint[key] = midpoint;
-    midpoints_.push_back(midpoint);
-    triangulations_.push_back({p1, p2});
-    
-    result = midpoint;
-    }
-  }
-  }
+  );
   
-  return result;
+  segment_to_midpoint[key] = midpoint;
+  midpoints_.push_back(midpoint);
+  triangulations_.push_back({p1, p2});
+  
+  return midpoint;
 }
 
 void MidpointGenerator::connect_triangle_midpoints(
