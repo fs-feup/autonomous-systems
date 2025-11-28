@@ -62,7 +62,8 @@ public:
    *
    * @param cones Positions of the observations
    */
-  virtual void add_observations(const std::vector<common_lib::structures::Cone>& cones) = 0;
+  virtual void add_observations(const std::vector<common_lib::structures::Cone>& cones,
+                                rclcpp::Time cones_timestamp) = 0;
 
   /**
    * @brief Loads a previously saved map and pose into the solver

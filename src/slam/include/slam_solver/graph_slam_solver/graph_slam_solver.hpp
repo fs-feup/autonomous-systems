@@ -133,8 +133,10 @@ public:
    * @brief Add observations to the solver (correction step)
    *
    * @param cones Positions of the observations
+   * @param cones_timestamp Timestamp of the observations
    */
-  void add_observations(const std::vector<common_lib::structures::Cone>& cones) override;
+  void add_observations(const std::vector<common_lib::structures::Cone>& cones,
+                        rclcpp::Time cones_timestamp) override;
 
   /**
    * @brief Initialize the graph SLAM solver with a previously saved map and pose

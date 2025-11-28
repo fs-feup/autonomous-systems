@@ -15,6 +15,8 @@ struct SLAMParameters {
   std::string motion_model_name_ = "constant_velocity";
   std::string pose_updater_name_ = "base_pose_updater";  // Name of the pose updater object,
                                                          // responsible for keeping pose estimate
+  int max_pose_history_updater = 30;  // Maximum number of poses to keep in the pose buffer
+  int max_pose_history_graph = 50;    // Maximum number of graphed poses to keep in the graph buffer
   std::string data_association_model_name_ = "nearest_neighbor";
   std::string lidar_odometry_topic_ = "/fast_limo/state";  // Topic for pose from lidar odometry
   bool receive_lidar_odometry_ = false;  // Whether to use lidar odometry topic or not

@@ -2,43 +2,58 @@
 
 #include "slam_solver/graph_slam_solver/utils.hpp"
 
-PoseUpdater::PoseUpdater([[maybe_unused]] const SLAMParameters& params) {
-  // Initialize the pose updater with parameters from SLAMParameters
-  this->_last_pose_ = Eigen::Vector3d::Zero();
-  this->_last_graphed_pose_ = Eigen::Vector3d::Zero();
-  this->_received_first_motion_data_ = false;
-  this->_last_pose_update_ = rclcpp::Time(0);
-  this->_new_pose_from_graph_ = false;
-  this->_last_pose_covariance_ = Eigen::Matrix3d::Zero();
+PoseUpdater::PoseUpdater(const SLAMParameters& params)
+    : _pose_buffer_(params.max_pose_history_updater) {
+  _last_pose_ = Eigen::Vector3d::Zero();
+  _last_graphed_pose_ = Eigen::Vector3d::Zero();
+  _last_pose_covariance_ = Eigen::Matrix3d::Zero();
+  _last_pose_update_ = rclcpp::Time(0);
 }
 
-PoseUpdater::PoseUpdater(const PoseUpdater& other) {
-  this->_last_pose_ = other._last_pose_;
-  this->_last_graphed_pose_ = other._last_graphed_pose_;
-  this->_last_pose_update_ = other._last_pose_update_;
-  this->_new_pose_from_graph_ = other._new_pose_from_graph_;
-  this->_last_pose_covariance_ = other._last_pose_covariance_;
-  this->_received_first_motion_data_ = other._received_first_motion_data_;
+PoseUpdater::PoseUpdater(const PoseUpdater& other) : _pose_buffer_(other._pose_buffer_) {
+  _last_pose_ = other._last_pose_;
+  _last_graphed_pose_ = other._last_graphed_pose_;
+  _last_pose_covariance_ = other._last_pose_covariance_;
+  _last_pose_update_ = other._last_pose_update_;
+  _received_first_motion_data_ = other._received_first_motion_data_;
+  _new_pose_from_graph_ = other._new_pose_from_graph_;
 }
-
-PoseUpdater::~PoseUpdater() = default;
 
 PoseUpdater& PoseUpdater::operator=(const PoseUpdater& other) {
-  if (this == &other) return *this;  // Prevent self-assignment
+  if (this == &other) return *this;
 
-  // Copy each member individually
-  this->_last_pose_ = other._last_pose_;
-  this->_last_pose_update_ = other._last_pose_update_;
-  this->_last_graphed_pose_ = other._last_graphed_pose_;
-  this->_last_pose_covariance_ = other._last_pose_covariance_;
-  this->_new_pose_from_graph_ = other._new_pose_from_graph_;
-  this->_received_first_motion_data_ = other._received_first_motion_data_;
+  _last_pose_ = other._last_pose_;
+  _last_graphed_pose_ = other._last_graphed_pose_;
+  _last_pose_covariance_ = other._last_pose_covariance_;
+  _last_pose_update_ = other._last_pose_update_;
+  _received_first_motion_data_ = other._received_first_motion_data_;
+  _new_pose_from_graph_ = other._new_pose_from_graph_;
+  _pose_buffer_ = other._pose_buffer_;
 
   return *this;
 }
 
+PoseUpdater::~PoseUpdater() = default;
+
 std::shared_ptr<PoseUpdater> PoseUpdater::clone() const {
   return std::make_shared<PoseUpdater>(*this);
+}
+
+Eigen::Vector3d PoseUpdater::get_pose_at_timestamp(const rclcpp::Time& ts) const {
+  if (_pose_buffer_.size() == 0) throw std::out_of_range("Pose buffer is empty");
+
+  for (size_t i = 0; i < _pose_buffer_.size(); i++) {
+    const auto& curr = _pose_buffer_.from_end(i);
+    if (curr.timestamp <= ts) {
+      if (i == 0) return curr.pose;
+      const auto& prev = _pose_buffer_.from_end(i - 1);
+      auto diff_curr = ts.nanoseconds() - curr.timestamp.nanoseconds();
+      auto diff_prev = prev.timestamp.nanoseconds() - ts.nanoseconds();
+      return (diff_curr < diff_prev) ? curr.pose : prev.pose;
+    }
+  }
+
+  return _pose_buffer_.from_end(_pose_buffer_.size() - 1).pose;
 }
 
 void PoseUpdater::update_pose(const Eigen::Vector3d& last_pose) {
@@ -51,12 +66,13 @@ void PoseUpdater::update_pose(const Eigen::Vector3d& last_pose) {
 void PoseUpdater::predict_pose(const MotionData& motion_data,
                                std::shared_ptr<V2PMotionModel> motion_model) {
   if (!this->_received_first_motion_data_) {
-    this->_last_pose_ = Eigen::Vector3d(0.0, 0.0, 0.0);
+    this->_last_pose_ = Eigen::Vector3d::Zero();
     this->_last_pose_update_ = motion_data.timestamp_;
     this->_received_first_motion_data_ = true;
+    _pose_buffer_.push(TimedPose(this->_last_pose_, this->_last_pose_update_));
     return;
   }
-  this->_last_pose_update_.seconds(), motion_data.timestamp_.seconds();
+
   double delta = (motion_data.timestamp_ - this->_last_pose_update_).seconds();
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "Delta time: %f", delta);
   Eigen::Vector3d new_pose =
@@ -71,12 +87,14 @@ void PoseUpdater::predict_pose(const MotionData& motion_data,
       this->get_adjoint_operator_matrix(pose_difference(0), pose_difference(1), pose_difference(2));
 
   this->_last_pose_ = new_pose;
+  this->_last_pose_update_ = motion_data.timestamp_;
+  _pose_buffer_.push(TimedPose(this->_last_pose_, this->_last_pose_update_));
   // RCLCPP_DEBUG_STREAM(rclcpp::get_logger("slam"), "Last Pose Covariance: \n"
   //                                                     << this->_last_pose_covariance_);
   this->_last_pose_covariance_ =
       adjoint_matrix * this->_last_pose_covariance_ * adjoint_matrix.transpose() +
-      motion_noise;  // TODO: to improve further, consider including a noise for the intrinsic error
-                     // of the motion model
+      motion_noise;  // TODO: to improve further, consider including a noise for the intrinsic
+                     // error of the motion model
   this->_last_pose_update_ = motion_data.timestamp_;
   this->_new_pose_from_graph_ = true;
   // RCLCPP_DEBUG_STREAM(rclcpp::get_logger("slam"), "Transposed Jacobian Motion Data: \n"

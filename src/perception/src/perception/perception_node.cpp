@@ -243,6 +243,12 @@ Perception::Perception(const PerceptionParameters& params)
 }
 
 void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
+  // Get start perception time
+  // rclcpp::Time pcl_time = msg->header.stamp;
+  rclcpp::Time pcl_time =
+      this->now() - rclcpp::Duration::from_seconds(0.008);  // approximate time delay
+
+  // Reset lidar off timer
   this->lidar_off_timer_ = this->create_wall_timer(
       std::chrono::milliseconds(2000), std::bind(&Perception::lidar_timer_callback, this));
 
@@ -308,13 +314,15 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   exec_time_msg.data = *(this->_execution_times_);
   this->_perception_execution_time_publisher_->publish(exec_time_msg);
 
-  publish_cones(&filtered_clusters, perception_execution_time_seconds);
+  publish_cones(&filtered_clusters, perception_execution_time_seconds, pcl_time);
 }
 
-void Perception::publish_cones(std::vector<Cluster>* cones, double exec_time) {
+void Perception::publish_cones(std::vector<Cluster>* cones, double exec_time,
+                               rclcpp::Time pcl_time) {
   auto message = custom_interfaces::msg::PerceptionOutput();
   std::vector<custom_interfaces::msg::Cone> message_array = {};
   message.header = ::header;
+  message.header.stamp = pcl_time;
   for (int i = 0; i < static_cast<int>(cones->size()); i++) {
     auto position = custom_interfaces::msg::Point2d();
     position.x = cones->at(i).get_centroid().x();

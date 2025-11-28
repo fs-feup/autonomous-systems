@@ -133,7 +133,7 @@ TEST_F(GraphSlamSolverTest, MotionAndObservation) {
       common_lib::structures::Cone(2.0, -1.0, "yellow", 1.0, rclcpp::Clock().now()));
 
   // Act
-  solver->add_observations(cones_start);
+  solver->add_observations(cones_start, rclcpp::Clock().now());
   solver->add_velocities(velocities);
   velocities.timestamp_ += rclcpp::Duration(1, 0);
   solver->add_velocities(velocities);
@@ -147,7 +147,7 @@ TEST_F(GraphSlamSolverTest, MotionAndObservation) {
   const std::vector<common_lib::structures::Cone> map_before_observations =
       solver->get_map_estimate();
 
-  solver->add_observations(cones_end);
+  solver->add_observations(cones_end, rclcpp::Clock().now());
   const common_lib::structures::Pose pose_after_observations = solver->get_pose_estimate();
   const std::vector<common_lib::structures::Cone> map_after_observations =
       solver->get_map_estimate();

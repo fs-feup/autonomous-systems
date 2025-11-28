@@ -69,7 +69,8 @@ bool GraphSLAMSolver::_add_motion_data_to_graph(
     // Eigen::Vector3d pose_difference_noise = {0.2, 0.2, 0.3};
     graph_slam_instance->process_new_pose(
         pose_difference_eigen(pose_updater->get_last_graphed_pose(), pose_updater->get_last_pose()),
-        pose_updater->get_pose_difference_noise(), pose_updater->get_last_pose());
+        pose_updater->get_pose_difference_noise(), pose_updater->get_last_pose(),
+        pose_updater->get_last_pose_update());
 
     pose_updater->update_pose(
         pose_updater->get_last_pose());  // Reset the accumulated pose difference
@@ -164,7 +165,8 @@ void GraphSLAMSolver::add_imu_data(const common_lib::sensor_data::ImuData& imu_d
   this->_last_imu_data_ = imu_data;
 }
 
-void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures::Cone>& cones) {
+void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures::Cone>& cones,
+                                       rclcpp::Time cones_timestamp) {
   if (cones.empty()) {
     // this->_landmark_filter_->filter(Eigen::VectorXd::Zero(0), Eigen::VectorXd::Zero(0),
     //                                 Eigen::VectorXi::Zero(0));
@@ -195,8 +197,11 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
     const std::shared_lock lock(this->_mutex_);
     state = this->_graph_slam_instance_->get_state_vector();
     landmarks = state.segment(3, state.size() - 3);
-    pose = this->_pose_updater_->get_last_pose();
-    observations_global = common_lib::maths::local_to_global_coordinates(pose, observations);
+    pose = this->_pose_updater_->get_last_pose();  // get the last pose
+    Eigen::Vector3d adjusted_pose = this->_pose_updater_->get_pose_at_timestamp(
+        cones_timestamp);  // get the pose right before observation
+    observations_global =
+        common_lib::maths::local_to_global_coordinates(adjusted_pose, observations);
     initialization_time = rclcpp::Clock().now();
     covariance = this->_graph_slam_instance_->get_covariance_matrix();
     covariance_time = rclcpp::Clock().now();
@@ -239,7 +244,7 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
                                      std::make_shared<Eigen::VectorXi>(associations),
                                      std::make_shared<Eigen::VectorXd>(observations_global),
                                      std::make_shared<Eigen::VectorXd>(observations_confidences),
-                                     cones.at(0).timestamp);
+                                     cones_timestamp);
     if (this->_optimization_under_way_) {
       this->_observation_data_queue_.push(observation_data);
       RCLCPP_INFO(rclcpp::get_logger("slam"),
@@ -325,7 +330,7 @@ void GraphSLAMSolver::_asynchronous_optimization_routine() {
                    this->_motion_data_queue_.size(), this->_observation_data_queue_.size());
       bool process_pose = this->_observation_data_queue_.size() <= 0 ||
                           (this->_motion_data_queue_.size() > 0 &&
-                           this->_motion_data_queue_.front().timestamp_ <
+                           this->_motion_data_queue_.front().timestamp_ <=
                                this->_observation_data_queue_.front().timestamp_);
       if (process_pose) {
         std::shared_ptr<V2PMotionModel> motion_model_ptr =

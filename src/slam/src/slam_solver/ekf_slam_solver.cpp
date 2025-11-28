@@ -39,7 +39,8 @@ void EKFSLAMSolver::add_velocities(const common_lib::structures::Velocities& vel
   this->last_update_ = velocities.timestamp_;
 }
 
-void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::Cone>& cones) {
+void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::Cone>& cones,
+                                     rclcpp::Time cones_timestamp) {
   // Prepare data structures
   int num_observations = static_cast<int>(cones.size());
   std::vector<int> matched_landmarks_indices;

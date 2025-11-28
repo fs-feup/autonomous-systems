@@ -18,13 +18,17 @@ void Deskew::deskew_point_cloud(sensor_msgs::msg::PointCloud2::SharedPtr& input_
 
   auto& cloud = input_cloud->data;
 
-  // Reference point (last in scan)
-  int ref_index = static_cast<int>(num_points - 1);
-  double ref_x = *reinterpret_cast<const float*>(&cloud[LidarPoint::PointX(ref_index)]);
-  double ref_y = *reinterpret_cast<const float*>(&cloud[LidarPoint::PointY(ref_index)]);
-  double reference_azimuth = std::atan2(ref_x, ref_y);
-  if (reference_azimuth < 0.0) {
-    reference_azimuth += 2.0 * M_PI;
+  // Reference point
+  double ref_x;
+  double ref_y;
+  double reference_azimuth = std::numeric_limits<double>::lowest();
+  for (size_t i = 0; i < num_points; ++i) {
+    ref_x = *reinterpret_cast<const float*>(&cloud[LidarPoint::PointX(i)]);
+    ref_y = *reinterpret_cast<const float*>(&cloud[LidarPoint::PointY(i)]);
+    double azimuth = -std::atan2(ref_y, ref_x);
+    if (azimuth > reference_azimuth) {
+      reference_azimuth = azimuth;
+    }
   }
 
   // Deskew each point
@@ -33,15 +37,9 @@ void Deskew::deskew_point_cloud(sensor_msgs::msg::PointCloud2::SharedPtr& input_
     float y = *reinterpret_cast<const float*>(&cloud[LidarPoint::PointY(i)]);
     float z = *reinterpret_cast<const float*>(&cloud[LidarPoint::PointZ(i)]);
 
-    double azimuth = std::atan2(x, y);
-    if (azimuth < 0.0) {
-      azimuth += 2.0 * M_PI;
-    }
+    double azimuth = -std::atan2(y, x);
 
     double delta_angle = reference_azimuth - azimuth;
-    if (delta_angle < 0.0) {
-      delta_angle += 2.0 * M_PI;
-    }
 
     double time_offset = delta_angle * one_over_two_pi * scan_duration;
 

@@ -77,7 +77,7 @@ Eigen::MatrixXd GraphSLAMInstance::get_covariance_matrix() const {
 
 GraphSLAMInstance::GraphSLAMInstance(const SLAMParameters& params,
                                      std::shared_ptr<BaseOptimizer> optimizer)
-    : _params_(params), _optimizer_(optimizer) {
+    : _params_(params), _optimizer_(optimizer), _pose_timestamps_(params.max_pose_history_graph) {
   // Create a new factor graph
   _factor_graph_ = gtsam::NonlinearFactorGraph();
   const gtsam::Pose2 prior_pose(0.0, 0.0,
@@ -108,6 +108,7 @@ GraphSLAMInstance::GraphSLAMInstance(const GraphSLAMInstance& other) {
   _new_observation_factors_ = other._new_observation_factors_;
   _optimizer_ = other._optimizer_->clone();  // because it's a shared_ptr
   _params_ = other._params_;
+  _pose_timestamps_ = other._pose_timestamps_;
 }
 
 GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) {
@@ -122,19 +123,24 @@ GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) 
   _new_observation_factors_ = other._new_observation_factors_;
   _optimizer_ = other._optimizer_->clone();  // because it's a shared_ptr
   _params_ = other._params_;
+  _pose_timestamps_ = other._pose_timestamps_;
 
   return *this;
 }
 
 void GraphSLAMInstance::process_new_pose(const Eigen::Vector3d& pose_difference,
                                          const Eigen::Vector3d& noise_vector,
-                                         const Eigen::Vector3d& new_pose) {
+                                         const Eigen::Vector3d& new_pose,
+                                         const rclcpp::Time& pose_timestamp) {
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "GraphSLAMInstance - Processing new pose %lf %lf %lf",
                new_pose(0), new_pose(1), new_pose(2));
   gtsam::Pose2 new_pose_gtsam = eigen_to_gtsam_pose(new_pose);
 
   // X means pose node, l means landmark node
   gtsam::Symbol new_pose_symbol('x', ++(this->_pose_counter_));
+
+  // Store the timestamp of the new pose in the circular buffer
+  this->_pose_timestamps_.push(TimedPose{this->_pose_counter_, pose_timestamp});
 
   // Add the prior pose to the values
   _graph_values_.insert(new_pose_symbol, new_pose_gtsam);
@@ -225,13 +231,14 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
 
     if (const auto optimizer_ptr = std::dynamic_pointer_cast<ISAM2Optimizer>(this->_optimizer_)) {
       optimizer_ptr->_new_factors_.add(gtsam::BearingRangeFactor<gtsam::Pose2, gtsam::Point2>(
-          gtsam::Symbol('x', this->_pose_counter_), landmark_symbol, observation_rotation,
-          observation_cylindrical(0), observation_noise));  // Again, just for ISAM2, because
-                                                            // it's incremental
+          gtsam::Symbol('x', this->get_landmark_id_at_time(observation_data.timestamp_)),
+          landmark_symbol, observation_rotation, observation_cylindrical(0),
+          observation_noise));  // Again, just for ISAM2, because
+                                // it's incremental
     }
     this->_factor_graph_.add(gtsam::BearingRangeFactor<gtsam::Pose2, gtsam::Point2>(
-        gtsam::Symbol('x', this->_pose_counter_), landmark_symbol, observation_rotation,
-        observation_cylindrical(0), observation_noise));
+        gtsam::Symbol('x', this->get_landmark_id_at_time(observation_data.timestamp_)),
+        landmark_symbol, observation_rotation, observation_cylindrical(0), observation_noise));
   }
   this->_new_pose_node_ = !new_observation_factors;
   this->_new_observation_factors_ = new_observation_factors;
@@ -290,4 +297,26 @@ void GraphSLAMInstance::lock_landmarks(double locked_landmark_noise) {
           gtsam::PriorFactor<gtsam::Point2>(landmark_symbol, landmark, landmark_noise));
     }
   }
+}
+
+unsigned int GraphSLAMInstance::get_landmark_id_at_time(const rclcpp::Time& timestamp) const {
+  if (_pose_timestamps_.size() == 0) {
+    throw std::runtime_error("No poses in buffer");
+  }
+
+  for (size_t i = 0; i < _pose_timestamps_.size(); ++i) {
+    const TimedPose& curr = _pose_timestamps_.from_end(i);
+
+    if (curr.timestamp <= timestamp) {
+      if (i == 0) return curr.pose_id;  // AVoid out-of-bounds
+      const TimedPose& older = _pose_timestamps_.from_end(i - 1);
+
+      auto diff_curr = timestamp.nanoseconds() - curr.timestamp.nanoseconds();
+      auto diff_older = older.timestamp.nanoseconds() - timestamp.nanoseconds();
+      return (diff_curr <= diff_older) ? curr.pose_id : older.pose_id;
+    }
+  }
+
+  // If no pose <= timestamp, return oldest pose
+  return _pose_timestamps_.from_end(_pose_timestamps_.size() - 1).pose_id;
 }

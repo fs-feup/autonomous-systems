@@ -5,6 +5,7 @@
 #include <gtsam/nonlinear/NonlinearFactorGraph.h>
 #include <gtsam/nonlinear/Values.h>
 
+#include "common_lib/structures/circular_buffer.hpp"
 #include "slam_config/general_config.hpp"
 #include "slam_solver/graph_slam_solver/factor_data_structures.hpp"
 #include "slam_solver/graph_slam_solver/optimizer/base_optimizer.hpp"
@@ -16,6 +17,11 @@
  */
 class GraphSLAMInstance {
 protected:
+  struct TimedPose {
+    unsigned int pose_id;
+    rclcpp::Time timestamp;
+  };
+
   gtsam::NonlinearFactorGraph
       _factor_graph_;  //< Factor graph for the graph SLAM solver (only factors, no estimates)
   gtsam::Values
@@ -29,6 +35,11 @@ protected:
 
   SLAMParameters _params_;                     //< Parameters for the SLAM solver
   std::shared_ptr<BaseOptimizer> _optimizer_;  //< Optimizer for the graph SLAM solver
+
+  CircularBuffer<TimedPose>
+      _pose_timestamps_;  //< Buffer to hold the timestamps of the poses added to the graph
+
+  unsigned int get_landmark_id_at_time(const rclcpp::Time& timestamp) const;
 
 public:
   GraphSLAMInstance() = default;
@@ -132,7 +143,7 @@ public:
    * @param new_pose The new pose to add to the graph
    */
   void process_new_pose(const Eigen::Vector3d& pose_difference, const Eigen::Vector3d& noise_vector,
-                        const Eigen::Vector3d& new_pose);
+                        const Eigen::Vector3d& new_pose, const rclcpp::Time& pose_timestamp);
 
   /**
    * @brief Process a pose difference and add the respective factor to the graph
@@ -163,6 +174,8 @@ public:
    */
   void process_pose_difference(const Eigen::Vector3d& pose_difference,
                                const Eigen::Vector3d& noise_vector);
+
+  void ensure_all_keys_have_initials();
 
   /**
    * @brief Runs optimization on the graph

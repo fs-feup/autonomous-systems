@@ -110,7 +110,7 @@ void SLAMNode::init() {
 void SLAMNode::_perception_subscription_callback(
     const custom_interfaces::msg::PerceptionOutput &msg) {
   auto const &cone_array = msg.cones.cone_array;
-  auto const perception_exec_time = msg.exec_time;
+  rclcpp::Time const cones_time = msg.header.stamp;
 
   RCLCPP_DEBUG(this->get_logger(), "SUB - Perception: %ld cones. Mission: %d", cone_array.size(),
                static_cast<int>(this->_mission_));
@@ -128,23 +128,12 @@ void SLAMNode::_perception_subscription_callback(
   }
 
   this->_perception_map_.clear();
-
-  // Compensate for motion during perception delay (See if now is needed)
-  double theta = -this->_vehicle_state_velocities_.rotational_velocity * perception_exec_time;
-  double cos_theta = std::cos(theta);
-  double sin_theta = std::sin(theta);
   for (auto &cone : cone_array) {
-    double x_linear_compensated =
-        cone.position.x - this->_vehicle_state_velocities_.velocity_x * perception_exec_time;
-    double y_linear_compensated =
-        cone.position.y - this->_vehicle_state_velocities_.velocity_y * perception_exec_time;
-    double x_compensated = cos_theta * x_linear_compensated - sin_theta * y_linear_compensated;
-    double y_compensated = sin_theta * x_linear_compensated + cos_theta * y_linear_compensated;
     this->_perception_map_.push_back(common_lib::structures::Cone(
-        x_compensated, y_compensated, cone.color, cone.confidence, msg.header.stamp));
+        cone.position.x, cone.position.y, cone.color, cone.confidence, msg.header.stamp));
   }
 
-  this->_slam_solver_->add_observations(this->_perception_map_);
+  this->_slam_solver_->add_observations(this->_perception_map_, cones_time);
   this->_track_map_ = this->_slam_solver_->get_map_estimate();
   this->_vehicle_pose_ = this->_slam_solver_->get_pose_estimate();
   this->_associations_ = this->_slam_solver_->get_associations();
@@ -183,6 +172,8 @@ void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::V
         msg.velocity_x, msg.velocity_y, msg.angular_velocity, msg.covariance[0], msg.covariance[4],
         msg.covariance[8], msg.header.stamp);
 
+    // this->_vehicle_state_velocities_.timestamp_ =  this->get_clock()->now() +
+    // rclcpp::Duration::from_seconds(0.003);
     solver_ptr->add_velocities(this->_vehicle_state_velocities_);
   }
   this->_vehicle_pose_ = this->_slam_solver_->get_pose_estimate();
@@ -207,6 +198,8 @@ void SLAMNode::_imu_subscription_callback(const sensor_msgs::msg::Imu &msg) {
         msg.angular_velocity.z, msg.linear_acceleration.x, msg.linear_acceleration.y,
         msg.header.stamp, msg.angular_velocity_covariance[8], msg.linear_acceleration_covariance[0],
         msg.linear_acceleration_covariance[4]);
+
+    imu_data.timestamp_ = this->get_clock()->now();
 
     solver_ptr->add_imu_data(imu_data);
   }
