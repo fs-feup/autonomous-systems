@@ -33,9 +33,9 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.mg_minimum_cone_distance_ = planning_config["mg_minimum_cone_distance"].as<double>();
   params.mg_maximum_cone_distance_ = planning_config["mg_maximum_cone_distance"].as<double>();
   params.mg_sliding_window_radius_ = planning_config["mg_sliding_window_radius"].as<double>();
-  params.mg_use_sliding_window_ = planning_config["mg_use_sliding_window"].as<bool>();
 
   /*--------------------- Path Calculation Parameters --------------------*/
+  params.pc_use_sliding_window_ = planning_config["pc_use_sliding_window"].as<bool>();
   params.pc_angle_gain_ = planning_config["pc_angle_gain"].as<double>();
   params.pc_distance_gain_ = planning_config["pc_distance_gain"].as<double>();
   params.pc_angle_exponent_ = planning_config["pc_angle_exponent"].as<double>();
@@ -111,6 +111,10 @@ Planning::Planning(const PlanningParameters &params)
       create_publisher<std_msgs::msg::Float64>("/path_planning/execution_time", 10);
 
   if (planning_config_.simulation_.publishing_visualization_msgs_) {
+    yellow_cones_pub_ = 
+        create_publisher<visualization_msgs::msg::MarkerArray>("/path_planning/yellow_cones", 10);
+    blue_cones_pub_ = 
+        create_publisher<visualization_msgs::msg::MarkerArray>("/path_planning/blue_cones", 10);
     triangulations_pub_ = create_publisher<visualization_msgs::msg::Marker>(
         "/path_planning/triangulations", 10);
     path_to_car_pub_ = create_publisher<visualization_msgs::msg::MarkerArray>(
@@ -330,7 +334,7 @@ void Planning::run_planning_algorithms() {
     RCLCPP_INFO(rclcpp::get_logger("planning"), "Final path size: %d",
                 static_cast<int>(final_path_.size()));
   }
-
+  
   publish_execution_time(start_time);
   publish_path_points();
   
@@ -358,6 +362,14 @@ void Planning::publish_execution_time(rclcpp::Time start_time) {
 }
 
 void Planning::publish_visualization_msgs() const {
+  yellow_cones_pub_->publish(
+    common_lib::communication::marker_array_from_structure_array(
+      path_calculation_.get_yellow_cones(), "map_cones", "map", "yellow"));
+
+  blue_cones_pub_->publish(
+    common_lib::communication::marker_array_from_structure_array(
+      path_calculation_.get_blue_cones(), "map_cones", "map", "blue"));
+
   triangulations_pub_->publish(
       common_lib::communication::lines_marker_from_triangulations(
           path_calculation_.get_triangulations(), "triangulations", map_frame_id_, 20, "white",
@@ -373,6 +385,6 @@ void Planning::publish_visualization_msgs() const {
 
   path_to_car_pub_->publish(
       common_lib::communication::marker_array_from_structure_array(
-          path_calculation_.get_path_to_car(), "global_path", map_frame_id_, "blue", "cylinder",
-          0.8, visualization_msgs::msg::Marker::MODIFY));
+          path_calculation_.get_path_to_car(), "global_path", map_frame_id_, "white", "cylinder",
+          0.6, visualization_msgs::msg::Marker::MODIFY));
 }
