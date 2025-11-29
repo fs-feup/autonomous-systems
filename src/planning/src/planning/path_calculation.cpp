@@ -83,6 +83,7 @@ std::vector<PathPoint> PathCalculation::calculate_path(const std::vector<Cone>& 
 }
 
 std::vector<PathPoint> PathCalculation::calculate_trackdrive(const std::vector<Cone>& cone_array) {
+  config_.use_sliding_window_ = false;
   std::vector<PathPoint> result = calculate_path(cone_array);
 
   // Check if we have enough points to form a loop
