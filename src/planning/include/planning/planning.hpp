@@ -117,7 +117,7 @@ private:
   /*--------------------- Path Data --------------------*/
   
   std::vector<PathPoint> full_path_;
-  std::vector<PathPoint> final_path_;
+  std::vector<PathPoint> smoothed_path_;
   std::vector<Cone> cone_array_;
 
   /*--------------------- Subscriptions --------------------*/
@@ -143,7 +143,7 @@ private:
   /**< Publisher for the entire planned path (from start to finish)*/
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr full_path_pub_;
   /**< Publisher for the smoothed path*/
-  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr final_path_pub_;
+  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr smoothed_path_pub_;
 
   /*--------------------- Service Clients --------------------*/
   rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr param_client_;
