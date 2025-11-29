@@ -220,19 +220,18 @@ private:
       const std::shared_ptr<Midpoint>& current, double max_cost) const;
 
   /**
-   * @brief Calculate the cost of transitioning through three consecutive midpoints.
-   *
-   * Combines angle deviation (penalizing sharp turns) and distance (penalizing
-   * inefficient routing) with configurable exponents and gains.
-   *
-   * @param previous The midpoint before current.
-   * @param current The current midpoint.
-   * @param next The candidate next midpoint.
-   * @return Combined cost of the transition.
+   * @brief Calculate the cost of transitioning through three consecutive points
+   * 
+   * Computes a weighted cost based on the distance (current→next) and the angle 
+   * change (previous→current→next). Lower costs indicate smoother, more efficient paths.
+   * 
+   * @param previous_x, previous_y Coordinates of the previous point
+   * @param current_x, current_y Coordinates of the current point
+   * @param next_x, next_y Coordinates of the next point
+   * @return Total cost combining angular deviation and distance penalties
    */
-  double calculate_midpoint_cost(const std::shared_ptr<Midpoint>& previous,
-                                 const std::shared_ptr<Midpoint>& current,
-                                 const std::shared_ptr<Midpoint>& next) const;
+  double calculate_cost(double previous_x, double previous_y, double current_x,
+                                      double current_y, double next_x, double next_y) const;
 
   // ===================== Cone Discarding Methods =====================
 

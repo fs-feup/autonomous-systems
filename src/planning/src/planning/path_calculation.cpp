@@ -8,7 +8,6 @@
 #include <utility>
 #include <vector>
 
-
 // ===================== Path Calculation (Core) =====================
 
 std::vector<PathPoint> PathCalculation::calculate_path(const std::vector<Cone>& cone_array) {
@@ -235,7 +234,6 @@ void PathCalculation::extend_path(int max_points) {
   // Reserve space for expected path growth
   current_path_.reserve(current_path_.size() + max_points);
 
-  
   while (true) {
     if (current_path_.size() < 2) {
       break;
@@ -390,7 +388,8 @@ std::pair<double, std::shared_ptr<Midpoint>> PathCalculation::find_best_next_mid
       continue;
     }
 
-    double local_cost = calculate_midpoint_cost(previous, current, next);
+    double local_cost = calculate_cost(previous->point.x(), previous->point.y(), current->point.x(),
+                                       current->point.y(), next->point.x(), next->point.y());
 
     // Skip if local cost exceeds maximum allowed cost
     if (local_cost > max_cost) {
@@ -412,18 +411,15 @@ std::pair<double, std::shared_ptr<Midpoint>> PathCalculation::find_best_next_mid
   return {min_cost, min_point};
 }
 
-double PathCalculation::calculate_midpoint_cost(const std::shared_ptr<Midpoint>& previous,
-                                                const std::shared_ptr<Midpoint>& current,
-                                                const std::shared_ptr<Midpoint>& next) const {
-  double dx_dist = current->point.x() - next->point.x();
-  double dy_dist = current->point.y() - next->point.y();
+double PathCalculation::calculate_cost(double previous_x, double previous_y, double current_x,
+                                       double current_y, double next_x, double next_y) const {
+  double dx_dist = current_x - next_x;
+  double dy_dist = current_y - next_y;
   double distance = std::sqrt(dx_dist * dx_dist + dy_dist * dy_dist);
 
   // Angle calculation
-  double angle_with_previous = std::atan2(current->point.y() - previous->point.y(),
-                                          current->point.x() - previous->point.x());
-  double angle_with_next =
-      std::atan2(next->point.y() - current->point.y(), next->point.x() - current->point.x());
+  double angle_with_previous = std::atan2(current_y - previous_y, current_x - previous_x);
+  double angle_with_next = std::atan2(next_y - current_y, next_x - current_x);
 
   // Normalize angle to be between 0 and π
   double angle = abs(angle_with_next - angle_with_previous);
@@ -536,24 +532,9 @@ int PathCalculation::find_best_loop_closure(const std::vector<PathPoint>& path) 
     const PathPoint& current = path[i];
     const PathPoint& previous = path[i - 1];
 
-    double dx = current.position.x - first_point.position.x;
-    double dy = current.position.y - first_point.position.y;
-    double distance = std::sqrt(dx * dx + dy * dy);
-
-    double angle_with_previous = std::atan2(current.position.y - previous.position.y,
-                                            current.position.x - previous.position.x);
-    double angle_with_first = std::atan2(first_point.position.y - current.position.y,
-                                         first_point.position.x - current.position.x);
-
-    // Normalize angle to be between 0 and π
-    double angle = abs(angle_with_first - angle_with_previous);
-    if (angle > M_PI) {
-      angle = 2 * M_PI - angle;
-    }
-
-    // Local cost calculation
-    double cost = std::pow(angle, config_.angle_exponent_) * config_.angle_gain_ +
-                  std::pow(distance, config_.distance_exponent_) * config_.distance_gain_;
+    double cost = calculate_cost(previous.position.x, previous.position.y, current.position.x,
+                                 current.position.y, first_point.position.x,
+                                 first_point.position.y);
 
     if (cost < min_cost) {
       min_cost = cost;
@@ -609,10 +590,6 @@ const std::vector<std::pair<Point, Point>>& PathCalculation::get_triangulations(
   return midpoint_generator_.get_triangulations();
 }
 
-const std::vector<Cone>& PathCalculation::get_yellow_cones() const { 
-  return yellow_cones_; 
-}
+const std::vector<Cone>& PathCalculation::get_yellow_cones() const { return yellow_cones_; }
 
-const std::vector<Cone>& PathCalculation::get_blue_cones() const { 
-  return blue_cones_; 
-}
+const std::vector<Cone>& PathCalculation::get_blue_cones() const { return blue_cones_; }
