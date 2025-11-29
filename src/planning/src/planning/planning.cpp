@@ -255,9 +255,10 @@ void Planning::run_ebs_test() {
 }
 
 void Planning::run_autocross() {
-  calculate_and_smooth_path();
-  velocity_planning_.set_velocity(final_path_);
-
+  if(lap_counter_ == 0) {
+    calculate_and_smooth_path();
+    velocity_planning_.set_velocity(final_path_);
+  }
   if (lap_counter_ >= 1) {
     if (!has_found_full_path_) {
       has_found_full_path_ = true;
@@ -265,6 +266,8 @@ void Planning::run_autocross() {
       final_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
       velocity_planning_.trackdrive_velocity(final_path_);
       full_path_ = final_path_;
+    }else{
+      final_path_ = full_path_;
     }
     velocity_planning_.stop(final_path_);
   }
