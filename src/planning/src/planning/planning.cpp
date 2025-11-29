@@ -266,8 +266,6 @@ void Planning::run_autocross() {
       final_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
       velocity_planning_.trackdrive_velocity(final_path_);
       full_path_ = final_path_;
-    }else{
-      final_path_ = full_path_;
     }
     velocity_planning_.stop(final_path_);
   }
@@ -284,11 +282,8 @@ void Planning::run_trackdrive() {
       final_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
       velocity_planning_.trackdrive_velocity(final_path_);
       full_path_ = final_path_;
-    } else {
-      final_path_ = full_path_;
-    }
+    } 
   } else {
-    final_path_ = full_path_;
     velocity_planning_.stop(final_path_);
   }
 }
