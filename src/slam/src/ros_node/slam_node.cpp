@@ -18,7 +18,7 @@
 
 /*---------------------- Constructor --------------------*/
 
-SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
+SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam"), _params_(params) {
   // Print parameters
   RCLCPP_INFO_STREAM(this->get_logger(), "SLAM Node parameters:" << params);
   // Initialize the models
@@ -110,7 +110,9 @@ void SLAMNode::init() {
 void SLAMNode::_perception_subscription_callback(
     const custom_interfaces::msg::PerceptionOutput &msg) {
   auto const &cone_array = msg.cones.cone_array;
-  rclcpp::Time const cones_time = msg.header.stamp;
+
+  rclcpp::Time const cones_time =
+      _params_.synchronized_timestamps ? rclcpp::Time(msg.header.stamp) : this->get_clock()->now();
 
   RCLCPP_DEBUG(this->get_logger(), "SUB - Perception: %ld cones. Mission: %d", cone_array.size(),
                static_cast<int>(this->_mission_));
@@ -172,8 +174,10 @@ void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::V
         msg.velocity_x, msg.velocity_y, msg.angular_velocity, msg.covariance[0], msg.covariance[4],
         msg.covariance[8], msg.header.stamp);
 
-    // this->_vehicle_state_velocities_.timestamp_ =  this->get_clock()->now() +
-    // rclcpp::Duration::from_seconds(0.003);
+    if (!this->_params_.synchronized_timestamps || 1) {
+      // If timestamps are not synchronized, set the timestamp to now
+      this->_vehicle_state_velocities_.timestamp_ = this->get_clock()->now();
+    }
     solver_ptr->add_velocities(this->_vehicle_state_velocities_);
   }
   this->_vehicle_pose_ = this->_slam_solver_->get_pose_estimate();

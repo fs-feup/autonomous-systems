@@ -70,6 +70,7 @@ protected:
   bool _go_ = true;  /// flag to start the mission
   std::string _adapter_name_;
   std::string _vehicle_frame_id_;  ///< Frame id of the vehicle for the transform
+  SLAMParameters _params_;
 
   /**
    * @brief Callback that updates everytime information

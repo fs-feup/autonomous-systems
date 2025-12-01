@@ -24,6 +24,11 @@ slam:
   slam_optimization_in_poses: false # If true, the optimization will be done also when poses are added, not only when observations are added
   slam_optimization_type: "sliding_window_levenberg" # "normal_levenberg" or "isam2" or "sliding_window_levenberg" or ... -> name of the optimization type
 
+  # Timestamp Synchronization Dependency
+  synchronized_timestamps: true # Whether motion and observation data are synchronized timestamps or not
+  max_pose_history_updater: 30 # Maximum number of past poses to keep for pose updater for observation delay compensation
+  max_pose_history_graph: 10 # Maximum number of past graphed poses to keep for observation delay compensation
+
   # Only for pose_updater_name: "difference_based_ready"
   slam_min_pose_difference: 0.3 # Minimum distance between poses to consider adding to factor graph
 

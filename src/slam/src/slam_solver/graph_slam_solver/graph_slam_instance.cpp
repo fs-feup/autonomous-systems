@@ -195,6 +195,8 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
   Eigen::VectorXi& associations = *(observation_data.associations_);
   Eigen::VectorXd& observations_global = *(observation_data.observations_global_);
   bool new_observation_factors = false;
+  unsigned int pose_id_at_observation_time =
+      this->get_landmark_id_at_time(observation_data.timestamp_);
   for (unsigned int i = 0; i < observations.size() / 2; i++) {
     gtsam::Point2 landmark;
     gtsam::Symbol landmark_symbol;
@@ -231,14 +233,14 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
 
     if (const auto optimizer_ptr = std::dynamic_pointer_cast<ISAM2Optimizer>(this->_optimizer_)) {
       optimizer_ptr->_new_factors_.add(gtsam::BearingRangeFactor<gtsam::Pose2, gtsam::Point2>(
-          gtsam::Symbol('x', this->get_landmark_id_at_time(observation_data.timestamp_)),
-          landmark_symbol, observation_rotation, observation_cylindrical(0),
+          gtsam::Symbol('x', pose_id_at_observation_time), landmark_symbol, observation_rotation,
+          observation_cylindrical(0),
           observation_noise));  // Again, just for ISAM2, because
                                 // it's incremental
     }
     this->_factor_graph_.add(gtsam::BearingRangeFactor<gtsam::Pose2, gtsam::Point2>(
-        gtsam::Symbol('x', this->get_landmark_id_at_time(observation_data.timestamp_)),
-        landmark_symbol, observation_rotation, observation_cylindrical(0), observation_noise));
+        gtsam::Symbol('x', pose_id_at_observation_time), landmark_symbol, observation_rotation,
+        observation_cylindrical(0), observation_noise));
   }
   this->_new_pose_node_ = !new_observation_factors;
   this->_new_observation_factors_ = new_observation_factors;
@@ -308,12 +310,12 @@ unsigned int GraphSLAMInstance::get_landmark_id_at_time(const rclcpp::Time& time
     const TimedPose& curr = _pose_timestamps_.from_end(i);
 
     if (curr.timestamp <= timestamp) {
-      if (i == 0) return curr.pose_id;  // AVoid out-of-bounds
-      const TimedPose& older = _pose_timestamps_.from_end(i - 1);
+      if (i == 0) return curr.pose_id;  // Avoid out-of-bounds
+      const TimedPose& next = _pose_timestamps_.from_end(i - 1);
 
       auto diff_curr = timestamp.nanoseconds() - curr.timestamp.nanoseconds();
-      auto diff_older = older.timestamp.nanoseconds() - timestamp.nanoseconds();
-      return (diff_curr <= diff_older) ? curr.pose_id : older.pose_id;
+      auto diff_next = next.timestamp.nanoseconds() - timestamp.nanoseconds();
+      return (diff_curr <= diff_next) ? curr.pose_id : next.pose_id;
     }
   }
 

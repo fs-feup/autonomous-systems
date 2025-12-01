@@ -44,6 +44,10 @@ SLAMParameters::SLAMParameters(const SLAMParameters &params) {
   first_x_cones = params.first_x_cones;
   border_width = params.border_width;
   minimum_confidence = params.minimum_confidence;
+
+  synchronized_timestamps = params.synchronized_timestamps;
+  max_pose_history_updater = params.max_pose_history_updater;
+  max_pose_history_graph = params.max_pose_history_graph;
 }
 
 SLAMParameters &SLAMParameters::operator=(const SLAMParameters &other) {
@@ -87,6 +91,10 @@ SLAMParameters &SLAMParameters::operator=(const SLAMParameters &other) {
     first_x_cones = other.first_x_cones;
     border_width = other.border_width;
     minimum_confidence = other.minimum_confidence;
+
+    synchronized_timestamps = other.synchronized_timestamps;
+    max_pose_history_updater = other.max_pose_history_updater;
+    max_pose_history_graph = other.max_pose_history_graph;
   }
   return *this;
 }
@@ -152,5 +160,9 @@ std::string SLAMParameters::load_config() {
   this->first_x_cones = slam_config["slam"]["first_x_cones"].as<double>();
   this->border_width = slam_config["slam"]["border_width"].as<int>();
   this->minimum_confidence = slam_config["slam"]["minimum_confidence"].as<int>();
+
+  this->synchronized_timestamps = slam_config["slam"]["synchronized_timestamps"].as<bool>();
+  this->max_pose_history_updater = slam_config["slam"]["max_pose_history_updater"].as<int>();
+  this->max_pose_history_graph = slam_config["slam"]["max_pose_history_graph"].as<int>();
   return adapter;
 }

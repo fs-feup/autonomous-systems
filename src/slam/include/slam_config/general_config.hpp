@@ -17,6 +17,8 @@ struct SLAMParameters {
                                                          // responsible for keeping pose estimate
   int max_pose_history_updater = 30;  // Maximum number of poses to keep in the pose buffer
   int max_pose_history_graph = 50;    // Maximum number of graphed poses to keep in the graph buffer
+  bool synchronized_timestamps =
+      true;  // Whether motion and observation data are synchronized timestamps or not
   std::string data_association_model_name_ = "nearest_neighbor";
   std::string lidar_odometry_topic_ = "/fast_limo/state";  // Topic for pose from lidar odometry
   bool receive_lidar_odometry_ = false;  // Whether to use lidar odometry topic or not
@@ -130,6 +132,9 @@ struct SLAMParameters {
        << ", minimum_frequency_of_detections_: " << params.minimum_frequency_of_detections_
        << ", threshold_dist: " << params.threshold_dist
        << ", first_x_cones: " << params.first_x_cones << ", border_width: " << params.border_width
+       << ", synchronized_timestamps: " << params.synchronized_timestamps
+       << ", max_pose_history_updater: " << params.max_pose_history_updater
+       << ", max_pose_history_graph: " << params.max_pose_history_graph
        << ", minimum_confidence: " << params.minimum_confidence << "}";
     return os;
   }
