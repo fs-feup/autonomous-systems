@@ -1,7 +1,7 @@
 var searchData=
 [
   ['b_0',['b',['../d2/d8d/class_plane.html#af6e32151a3e209d813567732707d37f2',1,'Plane']]],
-  ['bags_5fdir_1',['bags_dir',['../db/da4/classsupervisor_1_1supervisor_1_1_supervisor.html#af15300290d2eaa7c61c78dc009443f68',1,'supervisor::supervisor::Supervisor']]],
+  ['bags_5fdir_1',['bags_dir',['../db/d57/classsupervisor_1_1main_1_1_supervisor.html#a0a18c11ac506f085e0c58c398a9efa62',1,'supervisor::main::Supervisor']]],
   ['base_5fdir_2',['base_dir',['../dd/d3b/namespacebayesian.html#a376a1ed9ad765df28a4ba7f384350087',1,'bayesian']]],
   ['bbox_5finches_3',['bbox_inches',['../df/d9a/namespaceskidpad__conesgenerator.html#abeea49823034d21640349ab7f789b05f',1,'skidpad_conesgenerator']]],
   ['beenhit_4',['beenHit',['../d7/d13/struct_landmark.html#ad6340191267ede4eb19e00cb36b98156',1,'Landmark']]],
@@ -13,10 +13,12 @@ var searchData=
   ['blue_10',['BLUE',['../d9/d45/classgui_logic_1_1landmark_type.html#a860d70289622f55b8e18b83c6ba43f45',1,'guiLogic::landmarkType']]],
   ['blue_5fcone_11',['blue_cone',['../de/d1e/class_least_squares_differentiation_test.html#a6581b8e16ea7f9b9783662c5a3d6b18b',1,'LeastSquaresDifferentiationTest']]],
   ['blue_5fcones_12',['blue_cones',['../d6/d04/classevaluator_1_1onground__adapter_1_1_on_ground_adapter.html#af8f73755a124a1f5d54e17904418b6ac',1,'evaluator::onground_adapter::OnGroundAdapter']]],
-  ['blue_5fcones_5fcallback_13',['blue_cones_callback',['../d6/d04/classevaluator_1_1onground__adapter_1_1_on_ground_adapter.html#aa5fc76d719c5a93d2346d4fae302cc27',1,'evaluator::onground_adapter::OnGroundAdapter']]],
-  ['blues_14',['blues',['../d2/d36/struct_perception_execution_data.html#aa64cb591a060c53042799e02e9027e5d',1,'PerceptionExecutionData']]],
-  ['border_5fwidth_5f_15',['border_width_',['../d4/deb/class_lap_counter.html#a5b13bb4c753eba925ff73a0036e7ae30',1,'LapCounter']]],
-  ['brake_5ftime_5f_16',['brake_time_',['../d9/db5/class_planning.html#a9c5d6e87075c32228027703ced47a135',1,'Planning']]],
-  ['braking_5facceleration_5f_17',['braking_acceleration_',['../d2/d0d/struct_velocity_planning_config.html#acc599793db1ca597293485a8bde21449',1,'VelocityPlanningConfig']]],
-  ['broadcast_5fsensors_5ftf2_18',['broadcast_sensors_tf2',['../d7/d28/struct_main_config.html#a6fe8d337e1074e8c79e475eb8f67e266',1,'MainConfig']]]
+  ['blue_5fcones_5f_13',['blue_cones_',['../d0/d89/class_path_calculation.html#a848a1a8d5403e872c55e1e8b9acfee8d',1,'PathCalculation']]],
+  ['blue_5fcones_5fcallback_14',['blue_cones_callback',['../d6/d04/classevaluator_1_1onground__adapter_1_1_on_ground_adapter.html#aa5fc76d719c5a93d2346d4fae302cc27',1,'evaluator::onground_adapter::OnGroundAdapter']]],
+  ['blue_5fcones_5fpub_5f_15',['blue_cones_pub_',['../d9/db5/class_planning.html#a812060f567d238eafda7da5dbbd70719',1,'Planning']]],
+  ['blues_16',['blues',['../d2/d36/struct_perception_execution_data.html#aa64cb591a060c53042799e02e9027e5d',1,'PerceptionExecutionData']]],
+  ['border_5fwidth_5f_17',['border_width_',['../d4/deb/class_lap_counter.html#a5b13bb4c753eba925ff73a0036e7ae30',1,'LapCounter']]],
+  ['brake_5ftime_5f_18',['brake_time_',['../d9/db5/class_planning.html#a9c5d6e87075c32228027703ced47a135',1,'Planning']]],
+  ['braking_5facceleration_5f_19',['braking_acceleration_',['../d2/d0d/struct_velocity_planning_config.html#acc599793db1ca597293485a8bde21449',1,'VelocityPlanningConfig']]],
+  ['broadcast_5fsensors_5ftf2_20',['broadcast_sensors_tf2',['../d7/d28/struct_main_config.html#a6fe8d337e1074e8c79e475eb8f67e266',1,'MainConfig']]]
 ];

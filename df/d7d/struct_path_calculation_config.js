@@ -12,5 +12,6 @@ var struct_path_calculation_config =
     [ "reset_path_", "df/d7d/struct_path_calculation_config.html#a5e92c0e4a3a0e7c9e759f64970bbef52", null ],
     [ "search_depth_", "df/d7d/struct_path_calculation_config.html#ada70d2d088cb337c5b819b70bda6a85f", null ],
     [ "tolerance_", "df/d7d/struct_path_calculation_config.html#afe3946c12fca705f8d5adbff0982f83b", null ],
-    [ "use_reset_path_", "df/d7d/struct_path_calculation_config.html#ac19cef0ff7223811bf0c446fe7ae97f9", null ]
+    [ "use_reset_path_", "df/d7d/struct_path_calculation_config.html#ac19cef0ff7223811bf0c446fe7ae97f9", null ],
+    [ "use_sliding_window_", "df/d7d/struct_path_calculation_config.html#abd99bfc4ead103d5da0ae25946d8dea4", null ]
 ];

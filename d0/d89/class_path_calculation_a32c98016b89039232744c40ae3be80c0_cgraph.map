@@ -1,0 +1,5 @@
+<map id="PathCalculation::get_path_to_car" name="PathCalculation::get_path_to_car">
+<area shape="rect" id="Node000001" title="Get the path from the start to a lookback distance behind the car’s current position." alt="" coords="5,5,142,46"/>
+<area shape="rect" id="Node000002" href="$d0/d89/class_path_calculation.html#af87bf849e6229c74e758cd7fa4abf78d" title="Converts a vector of Colorpoint objects into a vector of PathPoint objects." alt="" coords="190,5,388,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,23,174,23,174,28,142,28"/>
+</map>

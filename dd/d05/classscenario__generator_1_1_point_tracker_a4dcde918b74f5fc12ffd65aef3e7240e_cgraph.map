@@ -1,15 +1,17 @@
 <map id="scenario_generator.PointTracker.handle_left_click" name="scenario_generator.PointTracker.handle_left_click">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,104,171,145"/>
-<area shape="rect" id="Node000002" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#a1c26775a7d6f7b2b5a4c5620dcca26a2" title=" " alt="" coords="227,5,392,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,101,218,57,234,50,236,55,220,61,129,106"/>
-<area shape="rect" id="Node000003" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#a1772b842dc38b48ec423e698dad48993" title=" " alt="" coords="219,71,400,111"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="170,109,203,104,204,110,171,115"/>
-<area shape="rect" id="Node000005" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#ac3f729da3d0e88be67f6ba04e4836075" title=" " alt="" coords="222,136,397,177"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="171,134,206,139,206,144,170,139"/>
-<area shape="rect" id="Node000006" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#a32f370c3352d809da62415631189dcc2" title=" " alt="" coords="227,201,392,242"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="130,143,220,186,236,193,234,198,218,191,128,148"/>
-<area shape="rect" id="Node000004" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#aaacbbf7662e5cf506fdb6f3643afe81d" title=" " alt="" coords="448,71,612,111"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="401,88,432,88,432,94,401,94"/>
-<area shape="rect" id="Node000007" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#a2be9e097e750cac624ddf93d3a46a789" title=" " alt="" coords="448,201,612,242"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="392,219,432,219,432,224,392,224"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,121,171,161"/>
+<area shape="rect" id="Node000002" href="$d4/d10/class_colorpoint.html#a168701f753f2b224f44d56d083d79df9" title="Adds a cone to the appropriate vector if it&#39;s not a duplicate." alt="" coords="239,5,380,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,118,157,79,217,41,233,34,235,39,220,46,160,83,113,122"/>
+<area shape="rect" id="Node000003" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#a1c26775a7d6f7b2b5a4c5620dcca26a2" title=" " alt="" coords="227,55,392,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="158,117,223,98,224,103,160,123"/>
+<area shape="rect" id="Node000004" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#a1772b842dc38b48ec423e698dad48993" title=" " alt="" coords="219,121,400,161"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="171,138,203,138,203,144,171,144"/>
+<area shape="rect" id="Node000006" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#ac3f729da3d0e88be67f6ba04e4836075" title=" " alt="" coords="222,186,397,227"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="160,159,224,178,223,183,158,164"/>
+<area shape="rect" id="Node000007" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#a32f370c3352d809da62415631189dcc2" title=" " alt="" coords="227,251,392,292"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="114,160,162,198,220,236,232,242,230,247,217,240,158,202,111,164"/>
+<area shape="rect" id="Node000005" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#aaacbbf7662e5cf506fdb6f3643afe81d" title=" " alt="" coords="448,121,612,161"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="401,138,432,138,432,144,401,144"/>
+<area shape="rect" id="Node000008" href="$dd/d05/classscenario__generator_1_1_point_tracker.html#a2be9e097e750cac624ddf93d3a46a789" title=" " alt="" coords="448,251,612,292"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="392,269,432,269,432,274,392,274"/>
 </map>

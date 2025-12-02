@@ -1,7 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$d2/d8e/class_loop_closure.html" title="Interface for detecting loop closures." alt="" coords="5,31,100,56"/>
-<area shape="rect" id="Node000001" href="$d4/deb/class_lap_counter.html" title="Implementation of LoopClosure that detects when the robot returns near the origin and re‑observes any..." alt="" coords="167,5,255,31"/>
-<area shape="poly" id="edge69_Node000000_Node000001" title=" " alt="" coords="114,31,166,23,167,28,115,36"/>
-<area shape="rect" id="Node000002" href="$dd/d48/class_mock_loop_closure.html" title=" " alt="" coords="148,55,274,80"/>
-<area shape="poly" id="edge70_Node000000_Node000002" title=" " alt="" coords="116,50,148,55,147,61,115,56"/>
+<area shape="rect" id="Node000000" href="$da/ded/class_longitudinal_controller.html" title="Base (abstract) class for longitudinal controllers (the ones that calculate throttle)" alt="" coords="5,5,152,31"/>
+<area shape="rect" id="Node000001" href="$d6/d5a/class_p_i_d.html" title="PI&#45;D Controller class." alt="" coords="200,5,243,31"/>
+<area shape="poly" id="edge68_Node000000_Node000001" title=" " alt="" coords="167,16,199,16,199,21,167,21"/>
 </map>

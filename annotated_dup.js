@@ -114,8 +114,8 @@ var annotated_dup =
       [ "hash< GridIndex >", "d8/d6d/structstd_1_1hash_3_01_grid_index_01_4.html", "d8/d6d/structstd_1_1hash_3_01_grid_index_01_4" ]
     ] ],
     [ "supervisor", "d4/dd8/namespacesupervisor.html", [
-      [ "supervisor", "d5/db1/namespacesupervisor_1_1supervisor.html", [
-        [ "Supervisor", "db/da4/classsupervisor_1_1supervisor_1_1_supervisor.html", "db/da4/classsupervisor_1_1supervisor_1_1_supervisor" ]
+      [ "main", "d9/d94/namespacesupervisor_1_1main.html", [
+        [ "Supervisor", "db/d57/classsupervisor_1_1main_1_1_supervisor.html", "db/d57/classsupervisor_1_1main_1_1_supervisor" ]
       ] ]
     ] ],
     [ "test", "df/d04/namespacetest.html", [
@@ -145,6 +145,7 @@ var annotated_dup =
     [ "CircunferenceCenterCalculator", "d5/d01/class_circunference_center_calculator.html", "d5/d01/class_circunference_center_calculator" ],
     [ "Cluster", "d2/d23/class_cluster.html", "d2/d23/class_cluster" ],
     [ "Clustering", "d9/d10/class_clustering.html", "d9/d10/class_clustering" ],
+    [ "Colorpoint", "d4/d10/class_colorpoint.html", "d4/d10/class_colorpoint" ],
     [ "CompetitionLogic", "de/dbe/class_competition_logic.html", "de/dbe/class_competition_logic" ],
     [ "ConeDifferentiation", "d7/d4e/class_cone_differentiation.html", "d7/d4e/class_cone_differentiation" ],
     [ "ConeEvaluator", "df/d8f/class_cone_evaluator.html", "df/d8f/class_cone_evaluator" ],
@@ -268,8 +269,8 @@ var annotated_dup =
     [ "Outliers", "d9/d53/class_outliers.html", "d9/d53/class_outliers" ],
     [ "OutliersConfig", "d7/d4c/struct_outliers_config.html", "d7/d4c/struct_outliers_config" ],
     [ "PacejkaCombinedSlip", "d2/db1/class_pacejka_combined_slip.html", "d2/db1/class_pacejka_combined_slip" ],
-    [ "PacSimAdapter", "db/d68/class_pac_sim_adapter.html", "db/d68/class_pac_sim_adapter" ],
     [ "PacsimAdapter", "d1/dcb/class_pacsim_adapter.html", "d1/dcb/class_pacsim_adapter" ],
+    [ "PacSimAdapter", "db/d68/class_pac_sim_adapter.html", "db/d68/class_pac_sim_adapter" ],
     [ "ParallelFrontSteering", "d2/dab/class_parallel_front_steering.html", "d2/dab/class_parallel_front_steering" ],
     [ "PathCalculation", "d0/d89/class_path_calculation.html", "d0/d89/class_path_calculation" ],
     [ "PathCalculationConfig", "df/d7d/struct_path_calculation_config.html", "df/d7d/struct_path_calculation_config" ],

@@ -1,5 +1,6 @@
 var dir_a944fe9b9067a63cf592ce0faeba36eb =
 [
+    [ "colorpoint.cpp", "dc/d60/colorpoint_8cpp.html", null ],
     [ "midpoint_generator.cpp", "d4/dba/midpoint__generator_8cpp.html", null ],
     [ "outliers.cpp", "d6/de2/outliers_8cpp.html", null ],
     [ "path_calculation.cpp", "db/d44/path__calculation_8cpp.html", null ],

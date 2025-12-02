@@ -1,7 +1,7 @@
 var searchData=
 [
   ['pacejkacombinedslip_0',['PacejkaCombinedSlip',['../d2/db1/class_pacejka_combined_slip.html',1,'']]],
-  ['pacsimadapter_1',['pacsimadapter',['../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html',1,'evaluator.pacsim_adapter.PacsimAdapter'],['../d1/dcb/class_pacsim_adapter.html',1,'PacsimAdapter'],['../db/d68/class_pac_sim_adapter.html',1,'PacSimAdapter']]],
+  ['pacsimadapter_1',['pacsimadapter',['../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html',1,'evaluator.pacsim_adapter.PacsimAdapter'],['../db/d68/class_pac_sim_adapter.html',1,'PacSimAdapter'],['../d1/dcb/class_pacsim_adapter.html',1,'PacsimAdapter']]],
   ['parallelfrontsteering_2',['ParallelFrontSteering',['../d2/dab/class_parallel_front_steering.html',1,'']]],
   ['pathcalculation_3',['PathCalculation',['../d0/d89/class_path_calculation.html',1,'']]],
   ['pathcalculationconfig_4',['PathCalculationConfig',['../df/d7d/struct_path_calculation_config.html',1,'']]],

@@ -1,10 +1,10 @@
 <map id="PathCalculation::clear_path_state" name="PathCalculation::clear_path_state">
 <area shape="rect" id="Node000001" title="Reset path construction state." alt="" coords="1607,163,1753,203"/>
-<area shape="rect" id="Node000002" href="$d0/d89/class_path_calculation.html#a231687b7b392231e576169250429781a" title="Generate a path from an array of cones." alt="" coords="1356,170,1559,196"/>
+<area shape="rect" id="Node000002" href="$d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1356,170,1559,196"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1591,186,1559,186,1559,180,1591,180"/>
 <area shape="rect" id="Node000003" href="$d9/db5/class_planning.html#ab77ae5600e1e2f0247753055ee4d086c" title="Calculates path and applies smoothing." alt="" coords="1158,129,1289,170"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1347,170,1289,162,1290,156,1348,165"/>
-<area shape="rect" id="Node000019" href="$d0/d89/class_path_calculation.html#ac2e533377018e222702bf3a7eef53587" title="Generate a closed loop path for trackdrive competition." alt="" coords="1138,195,1308,235"/>
+<area shape="rect" id="Node000019" href="$d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1138,195,1308,235"/>
 <area shape="poly" id="edge24_Node000002_Node000019" title=" " alt="" coords="1344,201,1309,206,1308,201,1343,196"/>
 <area shape="rect" id="Node000004" href="$d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,169,1090,195"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1142,164,1091,172,1090,167,1142,159"/>

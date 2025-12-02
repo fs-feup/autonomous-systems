@@ -37,6 +37,7 @@ var hierarchy =
       [ "DBSCAN", "df/d6a/class_d_b_s_c_a_n.html", null ],
       [ "GridClustering", "d1/d40/class_grid_clustering.html", null ]
     ] ],
+    [ "Colorpoint", "d4/d10/class_colorpoint.html", null ],
     [ "CompetitionLogic", "de/dbe/class_competition_logic.html", null ],
     [ "common_lib::structures::Cone", "d6/dd0/structcommon__lib_1_1structures_1_1_cone.html", null ],
     [ "ConeDifferentiation", "d7/d4e/class_cone_differentiation.html", [
@@ -345,7 +346,7 @@ var hierarchy =
       [ "power_log.power_log_node.PowerNode", "db/d78/classpower__log_1_1power__log__node_1_1_power_node.html", null ],
       [ "printer.MapPrinterNode", "d0/def/classprinter_1_1_map_printer_node.html", null ],
       [ "rosbag_groundtruth.rosbag_node.BagNode", "da/deb/classrosbag__groundtruth_1_1rosbag__node_1_1_bag_node.html", null ],
-      [ "supervisor.supervisor.Supervisor", "db/da4/classsupervisor_1_1supervisor_1_1_supervisor.html", null ],
+      [ "supervisor.main.Supervisor", "db/d57/classsupervisor_1_1main_1_1_supervisor.html", null ],
       [ "test.LocationPublisher", "dc/ddc/classtest_1_1_location_publisher.html", null ],
       [ "vehicle_dynamics_node.vehicle_dynamics_node.VehicleDynamicsPublisher", "d6/d38/classvehicle__dynamics__node_1_1vehicle__dynamics__node_1_1_vehicle_dynamics_publisher.html", null ]
     ] ],

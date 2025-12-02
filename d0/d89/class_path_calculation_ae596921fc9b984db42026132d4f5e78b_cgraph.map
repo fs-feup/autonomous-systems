@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title="Invalidate cones and midpoints along the last path segment." alt="" coords="5,89,166,129"/>
 <area shape="rect" id="Node000002" href="$d0/d89/class_path_calculation.html#a300483005c7b12ce3b914edd050bf1ec" title="Determine which cone to discard between two consecutive midpoints." alt="" coords="226,5,422,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,86,163,63,213,41,238,33,240,38,215,46,166,67,123,90"/>
-<area shape="rect" id="Node000003" href="$d0/d89/class_path_calculation.html#aa02d8c76be5423981551e8545bee0e18" title="Find the nearest valid midpoint to a target position." alt="" coords="255,55,393,96"/>
+<area shape="rect" id="Node000003" href="$d0/d89/class_path_calculation.html#a7f11a4bdef8eb9fdfd88d808dca1b90f" title="Find the nearest valid midpoint to a target position." alt="" coords="255,55,393,96"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="166,95,239,85,240,90,166,100"/>
 <area shape="rect" id="Node000004" href="$d0/d89/class_path_calculation.html#a9e106e011f8ed4cc1ac53256f2b480fd" title="Mark midpoints as invalid if they use discarded cones." alt="" coords="214,121,434,161"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="166,117,198,121,198,127,166,122"/>

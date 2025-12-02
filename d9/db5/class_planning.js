@@ -19,11 +19,10 @@ var class_planning =
     [ "FsdsAdapter", "d9/db5/class_planning.html#a2ef9fe7fc2ed642f3a8fbf09bb5e1bc9", null ],
     [ "PacSimAdapter", "d9/db5/class_planning.html#a38950dc8be7d5fffeaed03c14314806f", null ],
     [ "VehicleAdapter", "d9/db5/class_planning.html#a7533e3444801bb395e08fb6790b29647", null ],
+    [ "blue_cones_pub_", "d9/db5/class_planning.html#a812060f567d238eafda7da5dbbd70719", null ],
     [ "brake_time_", "d9/db5/class_planning.html#a9c5d6e87075c32228027703ced47a135", null ],
     [ "cone_array_", "d9/db5/class_planning.html#a344cf5b2a5bcafe4424579a3f1c56120", null ],
     [ "desired_velocity_", "d9/db5/class_planning.html#af8099cf647e569a7bfb2eb6220754e93", null ],
-    [ "final_path_", "d9/db5/class_planning.html#a920eebf9ef2a1de95e4ddc2fe1ea9e19", null ],
-    [ "final_path_pub_", "d9/db5/class_planning.html#ab02121465db76a32c829aa949a2e84cc", null ],
     [ "full_path_", "d9/db5/class_planning.html#a925f11b6978ebac7174923e8b3624c48", null ],
     [ "full_path_pub_", "d9/db5/class_planning.html#a73811aa22ecf3236e443d1d42f9a5f9a", null ],
     [ "has_found_full_path_", "d9/db5/class_planning.html#afa506d3d0aa3030e53612d1e1e8bebbc", null ],
@@ -45,8 +44,11 @@ var class_planning =
     [ "planning_execution_time_pub_", "d9/db5/class_planning.html#a92988aaee158e07edcda24d67933bbb5", null ],
     [ "pose_", "d9/db5/class_planning.html#ad237670ca0e648097e7d6f202678620d", null ],
     [ "skidpad_", "d9/db5/class_planning.html#a994a394a579b45df74f0fec70289c6da", null ],
+    [ "smoothed_path_", "d9/db5/class_planning.html#a73cbb0e3c2a1437da7dd5be3e3c55542", null ],
+    [ "smoothed_path_pub_", "d9/db5/class_planning.html#a0030088ec0011f916200ad573f29ccd1", null ],
     [ "track_map_sub_", "d9/db5/class_planning.html#a86bd78053bf8b68458a2aa1e1a25e9de", null ],
     [ "triangulations_pub_", "d9/db5/class_planning.html#a7eb7d6fea88041b3e5b96885a641d025", null ],
     [ "vehicle_localization_sub_", "d9/db5/class_planning.html#a58912780a2d448f1ebb3ec807c71e71c", null ],
-    [ "velocity_planning_", "d9/db5/class_planning.html#af85bfae6440c1e752dc1ff83b59072ea", null ]
+    [ "velocity_planning_", "d9/db5/class_planning.html#af85bfae6440c1e752dc1ff83b59072ea", null ],
+    [ "yellow_cones_pub_", "d9/db5/class_planning.html#a3e31844f5310297f7f4a4abf262d6355", null ]
 ];

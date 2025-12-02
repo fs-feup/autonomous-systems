@@ -1,0 +1,15 @@
+<map id="supervisor.main.Supervisor.master_callback" name="supervisor.main.Supervisor.master_callback">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,136,226,177"/>
+<area shape="rect" id="Node000002" href="$db/d57/classsupervisor_1_1main_1_1_supervisor.html#af59ff358ce4039399f0a6dbd4ac20a16" title=" " alt="" coords="274,5,497,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,133,202,95,273,57,290,49,292,54,275,61,204,100,147,138"/>
+<area shape="rect" id="Node000003" href="$db/d57/classsupervisor_1_1main_1_1_supervisor.html#a282ed54abb0f3f05278954620c6d6b98" title=" " alt="" coords="276,71,495,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="202,133,283,113,284,118,203,138"/>
+<area shape="rect" id="Node000004" href="$db/d57/classsupervisor_1_1main_1_1_supervisor.html#a6691efd6728906affb9cffcea751b58a" title=" " alt="" coords="276,136,495,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="226,154,261,154,261,159,226,159"/>
+<area shape="rect" id="Node000005" href="$db/d57/classsupervisor_1_1main_1_1_supervisor.html#a1304c5612b3bc302359c2e4bec83e536" title=" " alt="" coords="282,201,489,242"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="203,175,284,195,283,200,202,180"/>
+<area shape="rect" id="Node000007" href="$db/d57/classsupervisor_1_1main_1_1_supervisor.html#ab0f31593f91e77ed9314f6a7949cedc9" title=" " alt="" coords="283,267,488,307"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="147,175,204,213,275,251,292,258,290,263,273,256,202,218,144,179"/>
+<area shape="rect" id="Node000006" href="$db/d57/classsupervisor_1_1main_1_1_supervisor.html#a4716c5dd82167ae52c358dd8fa9c8a2d" title=" " alt="" coords="545,201,743,242"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="489,219,529,219,529,224,489,224"/>
+</map>

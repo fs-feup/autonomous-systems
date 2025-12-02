@@ -12,7 +12,7 @@ var searchData=
   ['use_5fsimulated_5fplanning_5f_9',['use_simulated_planning_',['../d4/de1/struct_control_parameters.html#aa3382215cf22ddf385d779a96d059936',1,'ControlParameters::use_simulated_planning_'],['../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ab6fa0becd948ac60d0ee5c25aa07a13e',1,'evaluator.evaluator.Evaluator.use_simulated_planning_']]],
   ['use_5fsimulated_5fse_5f_10',['use_simulated_se_',['../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ad5627445c2cb842e7fdd2d89f855dff9',1,'evaluator::evaluator::Evaluator']]],
   ['use_5fsimulated_5fvelocities_5f_11',['use_simulated_velocities_',['../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a2d68a2d8ed9325f722661b06a6a195f5',1,'evaluator.evaluator.Evaluator.use_simulated_velocities_'],['../d5/d51/struct_s_l_a_m_parameters.html#a7160246d62c01950909c02049ddc840a',1,'SLAMParameters::use_simulated_velocities_']]],
-  ['use_5fsliding_5fwindow_5f_12',['use_sliding_window_',['../d9/d46/struct_midpoint_generator_config.html#a2ee571364569a3df909176f367def0f1',1,'MidpointGeneratorConfig']]],
+  ['use_5fsliding_5fwindow_5f_12',['use_sliding_window_',['../df/d7d/struct_path_calculation_config.html#abd99bfc4ead103d5da0ae25946d8dea4',1,'PathCalculationConfig']]],
   ['use_5fvelocity_5fplanning_5f_13',['use_velocity_planning_',['../d2/d0d/struct_velocity_planning_config.html#a4c51f53d2fe5c36e95c2871f79d167c7',1,'VelocityPlanningConfig']]],
   ['using_5fpreloaded_5fmap_5f_14',['using_preloaded_map_',['../d5/d51/struct_s_l_a_m_parameters.html#a4c6a5d33f32b18c29603ea2263a9d386',1,'SLAMParameters']]],
   ['using_5fsimulated_5fse_5f_15',['using_simulated_se_',['../d3/db0/struct_simulation_config.html#ac1cb924a7291e7486e4b207effa547ab',1,'SimulationConfig']]],

@@ -25,7 +25,7 @@ var searchData=
   ['resetlaneconnections_22',['resetLaneConnections',['../d5/da5/classdraw_view_1_1draw_view.html#a17e388f663da814aeaa0bb9082782c85',1,'drawView::drawView']]],
   ['resettimekeepinglines_23',['resetTimeKeepingLines',['../d5/da5/classdraw_view_1_1draw_view.html#aaba03b7f9797d3c383cb36358e2ea5f2',1,'drawView::drawView']]],
   ['resolver_5fcallback_24',['resolver_callback',['../d1/df1/class_vehicle_adapter.html#ad764a66db05e6ac5dbdf62bae1c8db6e',1,'VehicleAdapter']]],
-  ['restart_5fnode_25',['restart_node',['../db/da4/classsupervisor_1_1supervisor_1_1_supervisor.html#a2e4098e91e2cf37a38d5d4fba7a6f11d',1,'supervisor::supervisor::Supervisor']]],
+  ['restart_5fnode_25',['restart_node',['../db/d57/classsupervisor_1_1main_1_1_supervisor.html#a0d27e12b9172575bf0d4a8bfe747c3f3',1,'supervisor::main::Supervisor']]],
   ['rightclickmenu_26',['rightClickMenu',['../d5/da5/classdraw_view_1_1draw_view.html#ad66f53930ba83e09ae3e3db9bdc610ff',1,'drawView::drawView']]],
   ['rigidbodyacceleration_27',['rigidbodyacceleration',['../d8/d8c/transform_8cpp.html#ab1da3262cc389bb3a03f7654b55ae0f1',1,'rigidBodyAcceleration(Eigen::Vector3d a, Eigen::Vector3d r, Eigen::Vector3d omega, Eigen::Vector3d alpha):&#160;transform.cpp'],['../d6/deb/transform_8hpp.html#ab1da3262cc389bb3a03f7654b55ae0f1',1,'rigidBodyAcceleration(Eigen::Vector3d a, Eigen::Vector3d r, Eigen::Vector3d omega, Eigen::Vector3d alpha):&#160;transform.cpp']]],
   ['rigidbodyloadtransfermodel_28',['RigidBodyLoadTransferModel',['../d1/dde/class_rigid_body_load_transfer_model.html#ad30176a70a468d8bd9535bab6593a1e3',1,'RigidBodyLoadTransferModel']]],

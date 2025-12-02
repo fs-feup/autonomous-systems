@@ -13,7 +13,7 @@ var searchData=
   ['initsensors_10',['initSensors',['../d9/d88/pacsim__main_8cpp.html#a223f4d2c33370aa8108c10626cd0bb8e',1,'pacsim_main.cpp']]],
   ['inlinesegement_11',['inLineSegement',['../de/dbe/class_competition_logic.html#a63251e0cb46a78cf362e7e7f971e68f9',1,'CompetitionLogic']]],
   ['inspection_5fscript_12',['inspection_script',['../de/d3d/class_inspection_mission.html#a35b4aee106941a568c0f1916481c77ed',1,'InspectionMission']]],
-  ['inspectionfunctions_13',['inspectionfunctions',['../d4/d89/class_inspection_functions.html#a8e196655c934f2df4c2196bdea6eacbe',1,'InspectionFunctions::InspectionFunctions(double max_angle, double turning_period, double wheel_radius, double finish_time, bool start_and_stop, double gain=0.0, double ideal_velocity=0.0)'],['../d4/d89/class_inspection_functions.html#aa4fae856a83a428e7e9acee4daeead8f',1,'InspectionFunctions::InspectionFunctions()']]],
+  ['inspectionfunctions_13',['inspectionfunctions',['../d4/d89/class_inspection_functions.html#aa4fae856a83a428e7e9acee4daeead8f',1,'InspectionFunctions::InspectionFunctions()'],['../d4/d89/class_inspection_functions.html#a8e196655c934f2df4c2196bdea6eacbe',1,'InspectionFunctions::InspectionFunctions(double max_angle, double turning_period, double wheel_radius, double finish_time, bool start_and_stop, double gain=0.0, double ideal_velocity=0.0)']]],
   ['inspectionmission_14',['InspectionMission',['../de/d3d/class_inspection_mission.html#a62ddad48c6252a28b6f2c480f84229d1',1,'InspectionMission']]],
   ['insquare_15',['inSquare',['../d5/da5/classdraw_view_1_1draw_view.html#a7a6db7480c1e69a7eaaf727ff4227560',1,'drawView::drawView']]],
   ['invalidate_5fmidpoints_5fwith_5fdiscarded_5fcones_16',['invalidate_midpoints_with_discarded_cones',['../d0/d89/class_path_calculation.html#a9e106e011f8ed4cc1ac53256f2b480fd',1,'PathCalculation']]],
@@ -22,9 +22,10 @@ var searchData=
   ['inverse_5fobservation_5fmodel_5fjacobian_5flandmarks_19',['inverse_observation_model_jacobian_landmarks',['../d7/d64/class_observation_model.html#a6afce3ba8bac3ecd6fd6fc1f08c0f08d',1,'ObservationModel']]],
   ['inverse_5fobservation_5fmodel_5fjacobian_5fpose_20',['inverse_observation_model_jacobian_pose',['../d7/d64/class_observation_model.html#a5b19c4992c8a3e53eb51289e4eee37e4',1,'ObservationModel']]],
   ['inversetranslation_21',['inversetranslation',['../d8/d8c/transform_8cpp.html#a5802f88edbf2aaf4c4f336181a05334a',1,'inverseTranslation(Eigen::Vector3d trans, Eigen::Vector3d rot):&#160;transform.cpp'],['../d6/deb/transform_8hpp.html#a5802f88edbf2aaf4c4f336181a05334a',1,'inverseTranslation(Eigen::Vector3d trans, Eigen::Vector3d rot):&#160;transform.cpp']]],
-  ['is_5flandmark_5falready_5fassigned_22',['is_landmark_already_assigned',['../df/dd3/class_j_c_b_b.html#a3810be0eee640d7b51ca23dc5ae50c96',1,'JCBB']]],
-  ['isam2optimizer_23',['ISAM2Optimizer',['../d8/dbe/class_i_s_a_m2_optimizer.html#ac64e1b25ab38947bc2135e0c8aa2ad6c',1,'ISAM2Optimizer']]],
-  ['itemchange_24',['itemChange',['../d9/d25/classdraw_view_1_1_cone_item.html#a54464344eb579b70a82d868e7eab899c',1,'drawView::ConeItem']]],
-  ['iterate_5foutliers_25',['iterate_outliers',['../d3/d72/planning_2test_2performance__test_8cpp.html#aab2295277d22fafb888111e66fdac82f',1,'performance_test.cpp']]],
-  ['iterate_5fsmoothing_26',['iterate_smoothing',['../d3/d72/planning_2test_2performance__test_8cpp.html#ace1de27c0d0025682943b154a203ad8a',1,'performance_test.cpp']]]
+  ['is_5fcolored_5fright_22',['is_colored_right',['../d4/d10/class_colorpoint.html#a133117a2c6698ff4be1fd8b2c8ca6468',1,'Colorpoint']]],
+  ['is_5flandmark_5falready_5fassigned_23',['is_landmark_already_assigned',['../df/dd3/class_j_c_b_b.html#a3810be0eee640d7b51ca23dc5ae50c96',1,'JCBB']]],
+  ['isam2optimizer_24',['ISAM2Optimizer',['../d8/dbe/class_i_s_a_m2_optimizer.html#ac64e1b25ab38947bc2135e0c8aa2ad6c',1,'ISAM2Optimizer']]],
+  ['itemchange_25',['itemChange',['../d9/d25/classdraw_view_1_1_cone_item.html#a54464344eb579b70a82d868e7eab899c',1,'drawView::ConeItem']]],
+  ['iterate_5foutliers_26',['iterate_outliers',['../d3/d72/planning_2test_2performance__test_8cpp.html#aab2295277d22fafb888111e66fdac82f',1,'performance_test.cpp']]],
+  ['iterate_5fsmoothing_27',['iterate_smoothing',['../d3/d72/planning_2test_2performance__test_8cpp.html#ace1de27c0d0025682943b154a203ad8a',1,'performance_test.cpp']]]
 ];

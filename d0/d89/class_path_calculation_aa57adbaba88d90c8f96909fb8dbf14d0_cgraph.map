@@ -1,0 +1,6 @@
+<map id="PathCalculation::find_best_next_midpoint" name="PathCalculation::find_best_next_midpoint">
+<area shape="rect" id="Node000001" title="Recursively find the best next midpoint using depth&#45;first search." alt="" coords="5,29,146,70"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="34,29,32,19,39,10,53,5,76,3,99,5,113,11,111,16,98,10,75,8,55,10,42,15,37,21,39,28"/>
+<area shape="rect" id="Node000002" href="$d0/d89/class_path_calculation.html#a32453ba6eeddf24ab41fb6a4bd037984" title="Calculate the cost of transitioning through three consecutive points." alt="" coords="194,37,396,63"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,47,178,47,178,52,146,52"/>
+</map>

@@ -1,5 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$d1/d48/class_steering_motor_model.html" title=" " alt="" coords="5,5,143,31"/>
-<area shape="rect" id="Node000001" href="$d0/db2/class_p_i_d_steering_motor.html" title=" " alt="" coords="191,5,315,31"/>
-<area shape="poly" id="edge114_Node000000_Node000001" title=" " alt="" coords="158,16,190,16,190,21,158,21"/>
+<area shape="rect" id="Node000000" href="$d0/db0/class_steering_model.html" title=" " alt="" coords="5,5,110,31"/>
+<area shape="rect" id="Node000001" href="$d2/dab/class_parallel_front_steering.html" title="Steering model that assumes parallel front steering, meaning that front wheels turn as much as the st..." alt="" coords="158,5,300,31"/>
+<area shape="poly" id="edge113_Node000000_Node000001" title=" " alt="" coords="125,16,157,16,157,21,125,21"/>
 </map>
