@@ -2,8 +2,8 @@ control:
   control_solver: "decoupled" # Options: "decoupled"
   lateral_controller: "pure_pursuit" # Options: "pure_pursuit"
   longitudinal_controller: "pid" # Options: "pid"
-  pure_pursuit_lookahead_gain: 1.2
-  pure_pursuit_lookahead_minimum: 2.5  # Acceleration: 6.0 , Skidpad: 4.0 , Autocross: 4.0 , Trackdrive: 4.0
+  pure_pursuit_lookahead_gain: 1.0
+  pure_pursuit_lookahead_minimum: 3.0  # Acceleration: 6.0 , Skidpad: 4.0 , Autocross: 4.0 , Trackdrive: 4.0
   pure_pursuit_lpf_alpha: 1 # Smoothing factor for the low-pass filter (0 = max smoothing, 1 = no smoothing)
   pure_pursuit_lpf_initial_value: 0.0
   first_last_max_dist: 1.0 # Maximum distance between first and last point in the path to consider it a closed track
@@ -19,15 +19,15 @@ control:
   pid_max_negative_error: -3
   command_time_interval: 30 # Milliseconds
   # Distance
-  distance_p_gain : 0.08
-  distance_i_gain : 0.0
-  distance_anti_windup : 0.0
-  distance_d_gain : 0.0
+  distance_p_gain : 0.00
+  distance_i_gain : 0.00
+  distance_anti_windup : 1.0
+  distance_d_gain : 0.00
   # Heading
   heading_p_gain : 0.00
   heading_i_gain : 0.0
   heading_anti_windup : 0.0
-  heading_d_gain : 0.0
+  heading_d_gain : 0.00
 
 # Parameters for EBS Test
 # control:
