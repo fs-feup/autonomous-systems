@@ -87,11 +87,12 @@ TEST_F(GraphSlamSolverTest, MotionAndObservation) {
   Eigen::VectorXi associations_first = Eigen::VectorXi::Ones(4) * -1;
   Eigen::VectorXi associations_second = Eigen::VectorXi::Ones(4) * -1;
   EXPECT_CALL(*mock_motion_model_ptr, get_pose_difference)
-      .Times(8)
+      .Times(4)
       .WillRepeatedly(testing::Return(Eigen::Vector3d(1.1, 0.0, 0.0)));
-  //   EXPECT_CALL(*mock_motion_model_ptr, get_jacobian_motion_data)
-  //       .Times(4)
-  //       .WillRepeatedly(testing::Return(Eigen::Matrix3d::Identity() * 0.1));
+EXPECT_CALL(*mock_motion_model_ptr, get_jacobian_motion_data)
+    .Times(4)
+    .WillRepeatedly(testing::Return(Eigen::Matrix3d::Identity() * 0.1));
+
   EXPECT_CALL(*mock_data_association_ptr, associate)
       .Times(2)
       .WillOnce(testing::Return(associations_first))
@@ -125,6 +126,7 @@ TEST_F(GraphSlamSolverTest, MotionAndObservation) {
   cones_start.push_back(common_lib::structures::Cone(6.0, 1.0, "blue", 1.0, rclcpp::Clock().now()));
   cones_start.push_back(
       common_lib::structures::Cone(6.0, -1.0, "yellow", 1.0, rclcpp::Clock().now()));
+      
   cones_end.push_back(common_lib::structures::Cone(-1.0, 1.0, "blue", 1.0, rclcpp::Clock().now()));
   cones_end.push_back(
       common_lib::structures::Cone(-1.0, -1.0, "yellow", 1.0, rclcpp::Clock().now()));
@@ -156,7 +158,7 @@ TEST_F(GraphSlamSolverTest, MotionAndObservation) {
   EXPECT_NEAR(pose_before_observations.position.x, 4.4, 0.5);
   EXPECT_NEAR(pose_after_observations.position.x, 4.4, 0.2);
   EXPECT_EQ(map_before_observations.size(), 4);
-  EXPECT_EQ(map_after_observations.size(), 4);
+  EXPECT_EQ(map_after_observations.size(), 8);
   EXPECT_NEAR(map_before_observations[0].position.x, 3.0, 0.2);
   EXPECT_NEAR(map_before_observations[1].position.x, 3.0, 0.2);
   EXPECT_NEAR(map_before_observations[2].position.x, 6.0, 0.2);
