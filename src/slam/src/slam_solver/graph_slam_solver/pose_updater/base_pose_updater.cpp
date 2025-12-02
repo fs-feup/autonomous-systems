@@ -8,6 +8,7 @@ PoseUpdater::PoseUpdater(const SLAMParameters& params)
   _last_graphed_pose_ = Eigen::Vector3d::Zero();
   _last_pose_covariance_ = Eigen::Matrix3d::Zero();
   _last_pose_update_ = rclcpp::Time(0);
+  _pose_buffer_.push(TimedPose(_last_pose_, _last_pose_update_));
 }
 
 PoseUpdater::PoseUpdater(const PoseUpdater& other) : _pose_buffer_(other._pose_buffer_) {

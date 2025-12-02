@@ -83,6 +83,7 @@ GraphSLAMInstance::GraphSLAMInstance(const SLAMParameters& params,
   const gtsam::Pose2 prior_pose(0.0, 0.0,
                                 0.0);  // Create initial prior pose at origin, to bind graph
   const gtsam::Symbol pose_symbol('x', ++(this->_pose_counter_));
+  _pose_timestamps_.push(TimedPose{this->_pose_counter_, rclcpp::Time(0)});
   const gtsam::noiseModel::Diagonal::shared_ptr prior_noise =
       gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector3(0.0, 0.0, 0.0));
   _factor_graph_.add(gtsam::PriorFactor<gtsam::Pose2>(pose_symbol, prior_pose, prior_noise));
@@ -257,6 +258,7 @@ void GraphSLAMInstance::load_initial_state(const Eigen::VectorXd& map, const Eig
   const gtsam::noiseModel::Diagonal::shared_ptr prior_noise =
       gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector3(0.0, 0.0, 0.0));
   _factor_graph_.add(gtsam::PriorFactor<gtsam::Pose2>(pose_symbol, prior_pose, prior_noise));
+  _pose_timestamps_.push(TimedPose{this->_pose_counter_, rclcpp::Time(0)});
 
   _graph_values_ = gtsam::Values();
   _graph_values_.insert(pose_symbol, prior_pose);
