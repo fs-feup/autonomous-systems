@@ -8,8 +8,8 @@ std::pair<double, double> PacejkaCombinedSlip::tire_forces(double slip_angle, do
   double Dx = this->car_parameters_->tire_parameters.tire_D_longitudinal * vertical_load;
   double Ex = this->car_parameters_->tire_parameters.tire_E_longitudinal;
 
-  double Fx0 =
-      Dx * std::sin(Cx * std::atan(Bx * slip_ratio - Ex * (Bx * slip_ratio - std::atan(Bx * slip_ratio))));
+  double Fx0 = Dx * std::sin(Cx * std::atan(Bx * slip_ratio -
+                                            Ex * (Bx * slip_ratio - std::atan(Bx * slip_ratio))));
 
   // Lateral pure slip force (Fy0)
   double By = this->car_parameters_->tire_parameters.tire_B_lateral;
@@ -17,8 +17,8 @@ std::pair<double, double> PacejkaCombinedSlip::tire_forces(double slip_angle, do
   double Dy = this->car_parameters_->tire_parameters.tire_D_lateral * vertical_load;
   double Ey = this->car_parameters_->tire_parameters.tire_E_lateral;
 
-  double Fy0 =
-      Dy * std::sin(Cy * std::atan(By * slip_angle - Ey * (By * slip_angle - std::atan(By * slip_angle))));
+  double Fy0 = Dy * std::sin(Cy * std::atan(By * slip_angle -
+                                            Ey * (By * slip_angle - std::atan(By * slip_angle))));
 
   // Combined slip reduction factors (friction ellipse type)
   double Gx = std::cos(std::atan(By * slip_angle));

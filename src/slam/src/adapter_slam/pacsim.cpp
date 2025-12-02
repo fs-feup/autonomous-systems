@@ -8,12 +8,16 @@
 #include "ros_node/slam_node.hpp"
 
 PacsimAdapter::PacsimAdapter(const SLAMParameters& params) : SLAMNode(params) {
+  rclcpp::SubscriptionOptions subscription_options;
+  subscription_options.callback_group = this->_callback_group_;
   if (params.use_simulated_perception_) {
+    RCLCPP_INFO(this->get_logger(), "Using simulated perception");
     this->_perception_detections_subscription_ =
         this->create_subscription<pacsim::msg::PerceptionDetections>(
             "/pacsim/perception/lidar/landmarks", 1,
             std::bind(&PacsimAdapter::_pacsim_perception_subscription_callback, this,
-                      std::placeholders::_1));
+                      std::placeholders::_1),
+            subscription_options);
   }
 
   if (params.use_simulated_velocities_) {
@@ -21,8 +25,14 @@ PacsimAdapter::PacsimAdapter(const SLAMParameters& params) : SLAMNode(params) {
         this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
             "/pacsim/velocity", 1,
             std::bind(&PacsimAdapter::_pacsim_velocities_subscription_callback, this,
-                      std::placeholders::_1));
+                      std::placeholders::_1),
+            subscription_options);
   }
+
+  this->_imu_subscription_ = this->create_subscription<sensor_msgs::msg::Imu>(
+      "/pacsim/imu/cog_imu", 1,
+      std::bind(&PacsimAdapter::_pacsim_imu_subscription_callback, this, std::placeholders::_1),
+      subscription_options);
 
   this->_finished_client_ = this->create_client<std_srvs::srv::Empty>("/pacsim/finish_signal");
   param_client_ =
@@ -47,6 +57,7 @@ void PacsimAdapter::fetch_discipline() {
 
           if (!response->values.empty() && response->values[0].type == 4) {  // Type 4 = string
             std::string discipline = response->values[0].string_value;
+            RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
 
             if (discipline == "skidpad") {
               mission_result = common_lib::competition_logic::Mission::SKIDPAD;
@@ -67,12 +78,14 @@ void PacsimAdapter::fetch_discipline() {
 void PacsimAdapter::finish() {
   this->_finished_client_->async_send_request(
       std::make_shared<std_srvs::srv::Empty::Request>(),
-      [this](rclcpp::Client<std_srvs::srv::Empty>::SharedFuture) {});
+      [this](rclcpp::Client<std_srvs::srv::Empty>::SharedFuture) {
+        RCLCPP_INFO(this->get_logger(), "Finished signal sent");
+      });
 }
 
 void PacsimAdapter::_pacsim_perception_subscription_callback(
     const pacsim::msg::PerceptionDetections& msg) {
-  custom_interfaces::msg::PerceptionOutput cone_array_msg;
+  custom_interfaces::msg::ConeArray cone_array_msg;
   for (const pacsim::msg::PerceptionDetection& detection : msg.detections) {
     custom_interfaces::msg::Point2d position = custom_interfaces::msg::Point2d();
     position.x = detection.pose.pose.position.x;
@@ -82,11 +95,14 @@ void PacsimAdapter::_pacsim_perception_subscription_callback(
     cone_message.confidence = detection.detection_probability;
     cone_message.color = common_lib::competition_logic::get_color_string(
         common_lib::competition_logic::Color::UNKNOWN);
-    cone_array_msg.cones.cone_array.push_back(cone_message);
+    cone_array_msg.cone_array.push_back(cone_message);
   }
   cone_array_msg.header.stamp = msg.header.stamp;
-  cone_array_msg.exec_time = 0.01;
-  _perception_subscription_callback(cone_array_msg);
+  custom_interfaces::msg::PerceptionOutput perception_output;
+  perception_output.header = cone_array_msg.header;
+  perception_output.cones = cone_array_msg;
+  perception_output.exec_time = 0.0;
+  _perception_subscription_callback(perception_output);
 }
 
 void PacsimAdapter::_pacsim_velocities_subscription_callback(
@@ -98,7 +114,12 @@ void PacsimAdapter::_pacsim_velocities_subscription_callback(
   velocities.angular_velocity = msg.twist.twist.angular.z;
   velocities.header.stamp = msg.header.stamp;
   for (unsigned int i = 0; i < 9; i++) {
-    velocities.covariance[i] = 0.0;
+    velocities.covariance[i] = 0.00001;  // Pacsim does not provide covariance, assume small value
+                                         // or else shit breaks if used by solver
   }
   _velocities_subscription_callback(velocities);
+}
+
+void PacsimAdapter::_pacsim_imu_subscription_callback(const sensor_msgs::msg::Imu& msg) {
+  _imu_subscription_callback(msg);
 }

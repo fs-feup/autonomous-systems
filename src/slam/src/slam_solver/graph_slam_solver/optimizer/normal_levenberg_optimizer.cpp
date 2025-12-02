@@ -3,6 +3,10 @@
 NormalLevenbergOptimizer::NormalLevenbergOptimizer(const SLAMParameters& params)
     : BaseOptimizer(params){};
 
+std::shared_ptr<BaseOptimizer> NormalLevenbergOptimizer::clone() const {
+  return std::make_shared<NormalLevenbergOptimizer>(*this);
+}
+
 gtsam::Values NormalLevenbergOptimizer::optimize(gtsam::NonlinearFactorGraph& factor_graph,
                                                  gtsam::Values& graph_values,
                                                  [[maybe_unused]] unsigned int pose_num,

@@ -12,7 +12,7 @@
 #include "custom_interfaces/msg/velocities.hpp"
 #include "estimators/estimator.hpp"
 #include "motion_lib/vel_process_model/map.hpp"
-#include "perception_sensor_lib/observation_model/ve_observation_model/map.hpp"
+#include "perception_sensor_lib/observation_model/ve/map.hpp"
 
 class EKF : public VelocityEstimator {
   rclcpp::Time _last_update_;

@@ -8,7 +8,7 @@ perception:
 
   #FOV trimming
   apply_rotation: false
-  rotation: 90.0
+  rotation: 2.736
   apply_fov_trimming: false
   fov: 180.0
   min_range: 2.5

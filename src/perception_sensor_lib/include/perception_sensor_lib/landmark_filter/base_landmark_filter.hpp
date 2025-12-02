@@ -32,8 +32,9 @@ public:
    * @return Eigen::VectorXd the filtered observations in the form of [x1, y1, x2, y2, ...] in the
    * global frame
    */
-  virtual Eigen::VectorXd filter(const Eigen::VectorXd& new_observations,
-                                 const Eigen::VectorXd& new_observation_confidences) = 0;
+  virtual Eigen::VectorXd filter(const Eigen::VectorXd& observations,
+                                 const Eigen::VectorXd& observation_confidences,
+                                 Eigen::VectorXi& associations) = 0;
   /**
    * @brief Used by SLAM to signal to the filter that the landmarks are already in SLAM's map, and
    * they should no longer be returned by the filter as new.
