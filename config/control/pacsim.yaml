@@ -1,81 +1,29 @@
 control:
-  control_solver: "decoupled" # Options: "decoupled"
-  lateral_controller: "pure_pursuit" # Options: "pure_pursuit"
-  longitudinal_controller: "pid" # Options: "pid"
-  pure_pursuit_lookahead_gain: 0.6
-  pure_pursuit_lookahead_minimum: 3.0  # Acceleration: 6.0 , Skidpad: 4.0 , Autocross: 4.0 , Trackdrive: 4.0
-  pure_pursuit_lpf_alpha: 1 # Smoothing factor for the low-pass filter (0 = max smoothing, 1 = no smoothing)
-  pure_pursuit_lpf_initial_value: 0.0
-  first_last_max_dist: 1.0 # Maximum distance between first and last point in the path to consider it a closed track
-  pid_kp: 0.2
-  pid_ki: 0.01
-  pid_kd: 0.01
-  pid_tau: 0.5
-  pid_t: 0.01
+  control_solver: "acados" 
+  command_time_interval: 20 # 40Hz is usually sufficient for Python
+  
+  # PID (Longitudinal)
+  pid_kp: 0.20  # Aggressive acceleration
+  pid_ki: 0.05
+  pid_kd: 0.001
   pid_lim_min: -1.0
   pid_lim_max: 1.0
-  pid_anti_windup: 0.8
-  pid_max_positive_error: 3
-  pid_max_negative_error: -4
-  command_time_interval: 10 # Milliseconds
-  # Distance
-  distance_p_gain: 0.01
-  distance_i_gain: 0.05
-  distance_anti_windup: 1.0
-  distance_d_gain: 0.02
-  # Heading
-  heading_p_gain: 0.00
-  heading_i_gain: 0.00
-  heading_anti_windup: 0.5
-  heading_d_gain: 0.00
-
-# Parameters for EBS Test
-# control:
-#   lookahead_gain: 0.5
-#   lookahead_minimum: 5.0
-#   pid_kp: 0.10
-#   pid_ki: 0.02
-#   first_last_max_dist: 1.0 # Maximum distance between first and last point in the path to consider it a closed track
-#   pid_kd: 0.09
-#   pid_tau: 0.5
-#   pid_t: 0.01
-#   pid_lim_min: -1.0
-#   pid_lim_max: 1.0
-#   pid_anti_windup: 0.7
-#   lpf_alpha: 1 # Smoothing factor for the low-pass filter (0 = max smoothing, 1 = no smoothing)
-#   lpf_initial_value: 0.0
-#   command_time_interval: 50 # Milliseconds
-
-# Parameters for Acceleration
-# control:
-#   lookahead_gain: 0.5
-#   lookahead_minimum: 6.0
-#   pid_kp: 0.07
-#   pid_ki: 0.0025
-#   first_last_max_dist: 1.0 # Maximum distance between first and last point in the path to consider it a closed track
-#   pid_kd: 0.0
-#   pid_tau: 0.5
-#   pid_t: 0.01
-#   pid_lim_min: -1.0
-#   pid_lim_max: 1.0
-#   pid_anti_windup: 0.7
-#   lpf_alpha: 1 # Smoothing factor for the low-pass filter (0 = max smoothing, 1 = no smoothing)
-#   lpf_initial_value: 0.0
-#   command_time_interval: 30 # Milliseconds
-
-# Parameters for Skidpad / AutoX
-# control:
-#   lookahead_gain: 0.5
-#   lookahead_minimum: 5.0
-#   pid_kp: 0.07
-#   pid_ki: 0.0025
-#   first_last_max_dist: 1.0 # Maximum distance between first and last point in the path to consider it a closed track
-#   pid_kd: 0.0
-#   pid_tau: 0.5
-#   pid_t: 0.01
-#   pid_lim_min: -1.0
-#   pid_lim_max: 1.0
-#   pid_anti_windup: 0.7
-#   lpf_alpha: 1 # Smoothing factor for the low-pass filter (0 = max smoothing, 1 = no smoothing)
-#   lpf_initial_value: 0.0
-#   command_time_interval: 30 # Milliseconds
+  
+  # MPC Tuning
+  mpc_horizon_steps: 50
+  mpc_dt: 0.05                 # 1.0s Horizon
+  
+  # Weights (Q matrix)
+  mpc_w_ey: 4.0               # Lower than before. Allow small cuts to corners.
+  mpc_w_epsi: 1.0             # High priority on heading alignment
+  mpc_w_vy: 5.0                # Let the car slide a little (slip angle)
+  mpc_w_r: 1.0                 # Dampen rotation to prevent spin
+  mpc_w_delta: 0.1             # Minimizing steer angle (efficiency)
+  
+  # Weights (R matrix)
+  mpc_w_d_delta: 5.0          # High penalty on steering CHANGES (Smoothness is key)
+  
+  # Constraints
+  mpc_max_steer_rate: 1.0     # Rad/s
+  steering_min: -0.35
+  steering_max: 0.35

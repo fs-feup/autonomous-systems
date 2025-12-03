@@ -28,6 +28,19 @@ control:
   heading_i_gain : 0.0
   heading_anti_windup : 0.0
   heading_d_gain : 0.00
+  # MPC (lateral) parameters
+  mpc_horizon_steps: 30
+  mpc_dt: 0.05
+  mpc_w_ey: 120.0       # stronger lateral error penalty
+  mpc_w_epsi: 8.0       # stronger heading error penalty
+  mpc_w_vy: 2.0
+  mpc_w_r: 1.5
+  mpc_w_delta: 0.15     # lower steering magnitude penalty
+  mpc_w_d_delta: 0.12   # lower steering rate penalty
+  mpc_min_longitudinal_speed: 1.0
+  mpc_max_steer_rate: 1.2
+  steering_min: -0.335
+  steering_max: 0.335
 
 # Parameters for EBS Test
 # control:

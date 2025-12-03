@@ -20,3 +20,5 @@ car:
   tire_D_longitudinal: 1.6
   tire_E_longitudinal: 1.0
   Izz: 101.082
+  minimum_steering_angle: -0.335
+  maximum_steering_angle: 0.335

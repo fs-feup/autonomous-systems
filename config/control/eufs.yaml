@@ -18,3 +18,26 @@ control:
   pid_max_positive_error: 3
   pid_max_negative_error: -3
   command_time_interval: 100 # Milliseconds
+  # Distance
+  distance_p_gain: 0.0
+  distance_i_gain: 0.0
+  distance_anti_windup: 1.0
+  distance_d_gain: 0.0
+  # Heading
+  heading_p_gain: 0.0
+  heading_i_gain: 0.0
+  heading_anti_windup: 0.0
+  heading_d_gain: 0.0
+  # MPC (lateral) parameters
+  mpc_horizon_steps: 12
+  mpc_dt: 0.05
+  mpc_w_ey: 24.0      # stronger lateral error penalty
+  mpc_w_epsi: 6.0     # stronger heading error penalty
+  mpc_w_vy: 1.5
+  mpc_w_r: 1.0
+  mpc_w_delta: 0.15   # lower steering magnitude penalty
+  mpc_w_d_delta: 0.12 # lower steering rate penalty
+  mpc_min_longitudinal_speed: 0.6
+  mpc_max_steer_rate: 1.2
+  steering_min: -0.335
+  steering_max: 0.335
