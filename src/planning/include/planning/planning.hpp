@@ -117,7 +117,7 @@ private:
   /*--------------------- Path Data --------------------*/
   
   std::vector<PathPoint> full_path_;
-  std::vector<PathPoint> final_path_;
+  std::vector<PathPoint> smoothed_path_;
   std::vector<Cone> cone_array_;
 
   /*--------------------- Subscriptions --------------------*/
@@ -131,6 +131,10 @@ private:
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr planning_execution_time_pub_;
 
   /*--------------------- Visualization Publishers --------------------*/
+  /**< Publisher for the yellow cones */
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr yellow_cones_pub_;
+  /**< Publisher for the blue cones */
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr blue_cones_pub_;
   /**< Publisher for Delaunay triangulations */
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr triangulations_pub_;
   /**< Publisher for the past portion of the path 
@@ -139,7 +143,7 @@ private:
   /**< Publisher for the entire planned path (from start to finish)*/
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr full_path_pub_;
   /**< Publisher for the smoothed path*/
-  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr final_path_pub_;
+  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr smoothed_path_pub_;
 
   /*--------------------- Service Clients --------------------*/
   rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr param_client_;

@@ -5,6 +5,7 @@ planning:
   mg_sliding_window_radius: 40.0
   mg_use_sliding_window: true
   #---------------------- Path Calculation (pc_) ------------------------
+  pc_use_sliding_window: false
   pc_angle_gain: 70.0  
   pc_distance_gain: 6.0
   pc_angle_exponent: 2.0
@@ -13,7 +14,7 @@ planning:
   pc_lookback_points: 4
   pc_search_depth: 4
   pc_max_points: 200
-  pc_tolerance: 0.5
+  pc_tolerance: 1.0
   pc_reset_path: 1000000000
   pc_use_reset_path: false
   #---------------------- Skidpad (skidpad_) ------------------
