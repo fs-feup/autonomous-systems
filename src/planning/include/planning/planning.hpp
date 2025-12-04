@@ -24,8 +24,8 @@
 #include "custom_interfaces/msg/pose.hpp"
 #include "planning/outliers.hpp"
 #include "planning/path_calculation.hpp"
-#include "planning/smoothing.hpp"
 #include "planning/skidpad.hpp"
+#include "planning/smoothing.hpp"
 #include "planning/velocity_planning.hpp"
 #include "rcl_interfaces/srv/get_parameters.hpp"
 #include "std_msgs/msg/float64.hpp"
@@ -34,7 +34,6 @@
 using PathPoint = common_lib::structures::PathPoint;
 using Pose = common_lib::structures::Pose;
 using Mission = common_lib::competition_logic::Mission;
-
 
 /**
  * @class Planning
@@ -111,11 +110,11 @@ private:
   bool is_braking_ = false;
   bool has_received_track_ = false;
   bool has_received_pose_ = false;
-  bool has_found_full_path_ = false;
+  bool is_map_closed_ = false;
   std::chrono::steady_clock::time_point brake_time_;
 
   /*--------------------- Path Data --------------------*/
-  
+
   std::vector<PathPoint> full_path_;
   std::vector<PathPoint> smoothed_path_;
   std::vector<Cone> cone_array_;
@@ -137,7 +136,7 @@ private:
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr blue_cones_pub_;
   /**< Publisher for Delaunay triangulations */
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr triangulations_pub_;
-  /**< Publisher for the past portion of the path 
+  /**< Publisher for the past portion of the path
     (from the start to a lookback distance behind the car’s current position) */
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr path_to_car_pub_;
   /**< Publisher for the entire planned path (from start to finish)*/
@@ -231,7 +230,7 @@ private:
    * @brief Publishes all visualization markers.
    *
    * Publishes triangulation, full path, smoothed path, and path_to_car markers.
-   * 
+   *
    */
   void publish_visualization_msgs() const;
 
