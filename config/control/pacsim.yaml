@@ -34,18 +34,19 @@ control:
   heading_d_gain : 0.00
   
   # MPC Tuning
-  mpc_horizon_steps: 50
+  mpc_horizon_steps: 40
   mpc_dt: 0.05                 # 1.0s Horizon
   
   # Weights (Q matrix)
-  mpc_w_ey: 4.0               # Lower than before. Allow small cuts to corners.
-  mpc_w_epsi: 1.0             # High priority on heading alignment
-  mpc_w_vy: 5.0                # Let the car slide a little (slip angle)
-  mpc_w_r: 1.0                 # Dampen rotation to prevent spin
-  mpc_w_delta: 0.1             # Minimizing steer angle (efficiency)
+  mpc_w_ey: 30.0               # Lower than before. Allow small cuts to corners.
+  mpc_w_epsi: 0.0             # High priority on heading alignment
+  mpc_w_vy: 1.0                # Let the car slide a little (slip angle)
+  mpc_w_r: 0.1                # Dampen rotation to prevent spin
+  mpc_w_delta: 0.06            # Minimizing steer angle (efficiency)
+  mpc_w_progress: 2.0          # Extra speed incentive (m/s)
   
   # Weights (R matrix)
-  mpc_w_d_delta: 5.0          # High penalty on steering CHANGES (Smoothness is key)
+  mpc_w_d_delta: 50.0          # High penalty on steering CHANGES (Smoothness is key)
   
   # Constraints
   mpc_max_steer_rate: 1.0     # Rad/s

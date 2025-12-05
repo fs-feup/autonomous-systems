@@ -273,18 +273,12 @@ void Planning::run_autocross() {
 void Planning::run_trackdrive() {
   if (lap_counter_ == 0) {
     calculate_and_smooth_path();
-    for (int i= 0; i<20; i++){
-        smoothed_path_.pop_back();
-      }
     velocity_planning_.set_velocity(smoothed_path_);
   } else if (lap_counter_ >= 1 && lap_counter_ < 10) {
     if (!has_found_full_path_) {
       has_found_full_path_ = true;
       full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
       smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
-      for (int i= 0; i<20; i++){
-        smoothed_path_.pop_back();
-      }
       velocity_planning_.trackdrive_velocity(smoothed_path_);
     }
   } else {
