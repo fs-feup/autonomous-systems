@@ -57,6 +57,7 @@ void VelocityPlanning::point_speed(const std::vector<double> &radiuses,
 
 void VelocityPlanning::accelaration_limiter(const std::vector<PathPoint> &points,
                                    std::vector<double> &velocities) {
+  velocities[0] = config_.minimum_velocity_;
   for (int i = 1; i < (int)points.size(); i++) {
     // distance to previous point
     double dx = points[i].position.x - points[i - 1].position.x;
@@ -125,6 +126,7 @@ void VelocityPlanning::set_velocity(std::vector<PathPoint> &final_path) {
 
 void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
   if ((config_.use_velocity_planning_) && (final_path.size() > 2)) {
+    // Calculate curvature radiuses for all points
     std::vector<double> radiuses;
     radiuses.push_back(0);
     for (int i = 1; i < static_cast<int>(final_path.size()) - 1; i++) {
@@ -133,20 +135,27 @@ void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
     radiuses[0] = radiuses[1];
     radiuses.push_back(radiuses.back());
 
-    //VERIFICAR ESTA PARTE!
+    // Calculate curvature-limited velocities
     std::vector<double> velocities;
     point_speed(radiuses, velocities);
-    velocities.back() = velocities[0];
-    braking_limiter(final_path, velocities);
-    velocities.back() = velocities[0];
-    braking_limiter(final_path, velocities);
 
+    velocities.back() = velocities[0]; // Closed loop consistency
+    
+    // Apply acceleration limits
+    accelaration_limiter(final_path, velocities);
+    
+    // Apply braking limits 
+    braking_limiter(final_path, velocities);
+    
+    // Ensure start/end consistency after all passes
+    velocities[0] = std::min(velocities[0], velocities.back());
+    velocities.back() = velocities[0];
+
+    // Apply velocities to path
     for (int i = 0; i < static_cast<int>(final_path.size()); i++) {
       final_path[i].ideal_velocity = velocities[i];
     }
-  }
-
-  else {
+  } else {
     for (auto &path_point : final_path) {
       path_point.ideal_velocity = config_.desired_velocity_;
     }

@@ -378,5 +378,5 @@ void Planning::publish_visualization_msgs() const {
       path_calculation_.get_path_to_car(), "global_path", map_frame_id_, "white", "cylinder", 0.6,
       visualization_msgs::msg::Marker::MODIFY));
   velocity_hover_pub_->publish(common_lib::communication::velocity_hover_markers(
-      smoothed_path_, "velocity", map_frame_id_, "cyan", 0.25f, 1));
+      smoothed_path_, "velocity", map_frame_id_, 0.25f, 1));
 }

@@ -78,21 +78,12 @@ visualization_msgs::msg::Marker lines_marker_from_triangulations(
 
 visualization_msgs::msg::MarkerArray velocity_hover_markers(
     const std::vector<common_lib::structures::PathPoint>& path_array, const std::string& name_space,
-    const std::string& frame_id, const std::string& color, float scale, int every_nth) {
+    const std::string& frame_id, float scale, int every_nth) {
   visualization_msgs::msg::MarkerArray marker_array;
 
-  // Safe color lookup with fallback
-  std::array<float, 4> color_array;
-  try {
-    color_array = marker_color_map().at(color);
-  } catch (const std::out_of_range& e) {
-    RCLCPP_WARN_ONCE(rclcpp::get_logger("common_lib"),
-                     "Color '%s' not found in marker_color_map, defaulting to cyan", color.c_str());
-    color_array = {0.0f, 1.0f, 1.0f, 1.0f};  // cyan fallback
-  }
+  std::array<float, 4> color_array = {1.0f, 1.0f, 1.0f, 0.8f};
 
   for (size_t i = 0; i < path_array.size(); i += every_nth) {
-
     visualization_msgs::msg::Marker sphere_marker;
     sphere_marker.header.frame_id = frame_id;
     sphere_marker.header.stamp = rclcpp::Clock().now();
@@ -113,7 +104,7 @@ visualization_msgs::msg::MarkerArray velocity_hover_markers(
     sphere_marker.color.r = color_array[0];
     sphere_marker.color.g = color_array[1];
     sphere_marker.color.b = color_array[2];
-    sphere_marker.color.a = 0.8f;
+    sphere_marker.color.a = color_array[3];
 
     marker_array.markers.push_back(sphere_marker);
 
@@ -125,20 +116,18 @@ visualization_msgs::msg::MarkerArray velocity_hover_markers(
     text_marker.type = visualization_msgs::msg::Marker::TEXT_VIEW_FACING;
     text_marker.action = visualization_msgs::msg::Marker::ADD;
 
-    // Position text above the sphere
     text_marker.pose.position.x = path_array[i].position.x;
     text_marker.pose.position.y = path_array[i].position.y;
-    text_marker.pose.position.z = 0.5;  
+    text_marker.pose.position.z = 0.5;
     text_marker.pose.orientation.w = 1.0;
 
-    // Format velocity text
     std::ostringstream velocity_text;
     velocity_text << std::fixed << std::setprecision(1) << path_array[i].ideal_velocity << " m/s";
-    text_marker.text = velocity_text.str();
 
-    // Text size and color
-    text_marker.scale.z = 0.3;  
-    text_marker.color.r = 1.0f;  
+    text_marker.text = velocity_text.str();
+    text_marker.scale.z = 0.3;
+
+    text_marker.color.r = 1.0f;
     text_marker.color.g = 1.0f;
     text_marker.color.b = 1.0f;
     text_marker.color.a = 1.0f;

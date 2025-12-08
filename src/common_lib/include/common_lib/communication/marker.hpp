@@ -245,7 +245,6 @@ visualization_msgs::msg::Marker lines_marker_from_triangulations(
  * @param path_array vector of PathPoints
  * @param name_space base namespace of the markers
  * @param frame_id frame id
- * @param color color of the spheres
  * @param scale size of the spheres
  * @param every_nth show sphere every nth point
  * @return visualization_msgs::msg::MarkerArray
@@ -254,7 +253,6 @@ visualization_msgs::msg::MarkerArray velocity_hover_markers(
     const std::vector<common_lib::structures::PathPoint>& path_array, 
     const std::string& name_space,
     const std::string& frame_id,
-    const std::string& color = "cyan",
     float scale = 0.2f,
     int every_nth = 1);
 }  // namespace common_lib::communication
