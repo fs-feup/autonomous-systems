@@ -39,14 +39,8 @@ visualization_msgs::msg::Marker marker_from_position(
 }
 
 visualization_msgs::msg::Marker lines_marker_from_triangulations(
-    const std::vector<std::pair<Point, Point>>& triangulations,
-    const std::string& name_space,
-    const std::string& frame_id,
-    int id,
-    const std::string& color,
-    float scale,
-    int action) 
-{
+    const std::vector<std::pair<Point, Point>>& triangulations, const std::string& name_space,
+    const std::string& frame_id, int id, const std::string& color, float scale, int action) {
   std::array<float, 4> color_array = marker_color_map().at(color);
 
   visualization_msgs::msg::Marker marker;
@@ -58,14 +52,14 @@ visualization_msgs::msg::Marker lines_marker_from_triangulations(
   marker.action = action;
 
   marker.pose.orientation.w = 1.0;
-  marker.scale.x = scale; 
+  marker.scale.x = scale;
 
   marker.color.r = color_array[0];
   marker.color.g = color_array[1];
   marker.color.b = color_array[2];
   marker.color.a = color_array[3];
 
-  for (const auto& [point1,point2] : triangulations) {
+  for (const auto& [point1, point2] : triangulations) {
     geometry_msgs::msg::Point p1, p2;
     p1.x = point1.x();
     p1.y = point1.y();
@@ -80,6 +74,79 @@ visualization_msgs::msg::Marker lines_marker_from_triangulations(
   }
 
   return marker;
+}
+
+visualization_msgs::msg::MarkerArray velocity_hover_markers(
+    const std::vector<common_lib::structures::PathPoint>& path_array, const std::string& name_space,
+    const std::string& frame_id, const std::string& color, float scale, int every_nth) {
+  visualization_msgs::msg::MarkerArray marker_array;
+
+  // Safe color lookup with fallback
+  std::array<float, 4> color_array;
+  try {
+    color_array = marker_color_map().at(color);
+  } catch (const std::out_of_range& e) {
+    RCLCPP_WARN_ONCE(rclcpp::get_logger("common_lib"),
+                     "Color '%s' not found in marker_color_map, defaulting to cyan", color.c_str());
+    color_array = {0.0f, 1.0f, 1.0f, 1.0f};  // cyan fallback
+  }
+
+  for (size_t i = 0; i < path_array.size(); i += every_nth) {
+
+    visualization_msgs::msg::Marker sphere_marker;
+    sphere_marker.header.frame_id = frame_id;
+    sphere_marker.header.stamp = rclcpp::Clock().now();
+    sphere_marker.ns = name_space + "_sphere";
+    sphere_marker.id = static_cast<int>(i);
+    sphere_marker.type = visualization_msgs::msg::Marker::SPHERE;
+    sphere_marker.action = visualization_msgs::msg::Marker::ADD;
+
+    sphere_marker.pose.position.x = path_array[i].position.x;
+    sphere_marker.pose.position.y = path_array[i].position.y;
+    sphere_marker.pose.position.z = 0.1;
+    sphere_marker.pose.orientation.w = 1.0;
+
+    sphere_marker.scale.x = scale;
+    sphere_marker.scale.y = scale;
+    sphere_marker.scale.z = scale;
+
+    sphere_marker.color.r = color_array[0];
+    sphere_marker.color.g = color_array[1];
+    sphere_marker.color.b = color_array[2];
+    sphere_marker.color.a = 0.8f;
+
+    marker_array.markers.push_back(sphere_marker);
+
+    visualization_msgs::msg::Marker text_marker;
+    text_marker.header.frame_id = frame_id;
+    text_marker.header.stamp = rclcpp::Clock().now();
+    text_marker.ns = name_space + "_text";
+    text_marker.id = static_cast<int>(i);
+    text_marker.type = visualization_msgs::msg::Marker::TEXT_VIEW_FACING;
+    text_marker.action = visualization_msgs::msg::Marker::ADD;
+
+    // Position text above the sphere
+    text_marker.pose.position.x = path_array[i].position.x;
+    text_marker.pose.position.y = path_array[i].position.y;
+    text_marker.pose.position.z = 0.5;  
+    text_marker.pose.orientation.w = 1.0;
+
+    // Format velocity text
+    std::ostringstream velocity_text;
+    velocity_text << std::fixed << std::setprecision(1) << path_array[i].ideal_velocity << " m/s";
+    text_marker.text = velocity_text.str();
+
+    // Text size and color
+    text_marker.scale.z = 0.3;  
+    text_marker.color.r = 1.0f;  
+    text_marker.color.g = 1.0f;
+    text_marker.color.b = 1.0f;
+    text_marker.color.a = 1.0f;
+
+    marker_array.markers.push_back(text_marker);
+  }
+
+  return marker_array;
 }
 
 }  // namespace common_lib::communication

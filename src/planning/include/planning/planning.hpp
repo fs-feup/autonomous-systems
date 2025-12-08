@@ -143,6 +143,8 @@ private:
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr full_path_pub_;
   /**< Publisher for the smoothed path*/
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr smoothed_path_pub_;
+  /**< Publisher for velocity hover markers */
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr velocity_hover_pub_;
 
   /*--------------------- Service Clients --------------------*/
   rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr param_client_;

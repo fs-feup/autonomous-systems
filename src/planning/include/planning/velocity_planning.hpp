@@ -16,7 +16,6 @@ using PathPoint = common_lib::structures::PathPoint;
  * - Propagating braking constraints backward along the path.
  */
 class VelocityPlanning {
-
 public:
   /**
    * @brief Construct a new default Velocity Planning object
@@ -43,7 +42,7 @@ public:
    */
   void trackdrive_velocity(std::vector<PathPoint> &final_path);
 
-    /**
+  /**
    * @brief Gradually reduces velocity to zero along the first half of the path.
    *
    * Used for controlled stopping. It accumulates distance along the path and sets the
@@ -52,7 +51,7 @@ public:
    * @param final_path Vector of path points to update for stopping behavior.
    */
   void stop(std::vector<PathPoint> &final_path);
-  
+
 private:
   /**
    * @brief configuration of the velocity planning algorithm
@@ -68,16 +67,26 @@ private:
    * @param point3 third point
    * @return radius of the circle
    */
-  double find_circle_center(const PathPoint &point1, const PathPoint &point2, const PathPoint &point3);
+  double find_circle_center(const PathPoint &point1, const PathPoint &point2,
+                            const PathPoint &point3);
 
   /**
-   * @brief function to limit the speed of the car according to the curvature of the lookahead path
+   * @brief Applies a forward acceleration constraint to the velocity profile.
+   *
+   *
+   * @param points       The sequence of path points containing positions.
+   * @param velocities   The velocity vector to be modified in-place.
+   */
+  void accelaration_limiter(const std::vector<PathPoint> &points,
+                                              std::vector<double> &velocities);
+
+  /**
+   * @brief function to limit the speed of the car according to braking constraints
    *
    * @param points path points
    * @param velocities velocities of the path points
-   * @param brake_acelleration maximum braking acelleration
    */
-  void speed_limiter(std::vector<PathPoint> &points, std::vector<double> &velocities);
+  void braking_limiter(std::vector<PathPoint> &points, std::vector<double> &velocities);
 
   /**
    * @brief function to calculate the speed of the car according to the curvature of the path
@@ -86,5 +95,4 @@ private:
    * @param velocities velocities vector of the path points
    */
   void point_speed(const std::vector<double> &radiuses, std::vector<double> &velocities);
-
 };

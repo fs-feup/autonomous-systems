@@ -68,6 +68,7 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   /*--------------------- Velocity Planning Parameters --------------------*/
   params.vp_minimum_velocity_ = planning_config["vp_minimum_velocity"].as<double>();
   params.vp_braking_acceleration_ = planning_config["vp_braking_acceleration"].as<double>();
+  params.vp_acceleration_ = planning_config["vp_acceleration"].as<double>();
   params.vp_normal_acceleration_ = planning_config["vp_normal_acceleration"].as<double>();
   params.vp_use_velocity_planning_ = planning_config["vp_use_velocity_planning"].as<bool>();
   params.vp_desired_velocity_ = planning_config["vp_desired_velocity"].as<double>();
@@ -120,6 +121,8 @@ Planning::Planning(const PlanningParameters &params)
         create_publisher<visualization_msgs::msg::MarkerArray>("/path_planning/full_path", 10);
     smoothed_path_pub_ =
         create_publisher<visualization_msgs::msg::Marker>("/path_planning/smoothed_path_", 10);
+    velocity_hover_pub_ =
+        create_publisher<visualization_msgs::msg::MarkerArray>("/path_planning/velocity_hover", 10);
   }
 
   if (!planning_config_.simulation_.using_simulated_se_) {
@@ -374,4 +377,6 @@ void Planning::publish_visualization_msgs() const {
   path_to_car_pub_->publish(common_lib::communication::marker_array_from_structure_array(
       path_calculation_.get_path_to_car(), "global_path", map_frame_id_, "white", "cylinder", 0.6,
       visualization_msgs::msg::Marker::MODIFY));
+  velocity_hover_pub_->publish(common_lib::communication::velocity_hover_markers(
+      smoothed_path_, "velocity", map_frame_id_, "cyan", 0.25f, 1));
 }
