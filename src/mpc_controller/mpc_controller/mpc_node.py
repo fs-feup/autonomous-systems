@@ -10,7 +10,13 @@ from casadi import SX, vertcat, sin, cos, atan, if_else
 from rclpy.node import Node
 import rclpy
 
-from custom_interfaces.msg import ControlCommand, OperationalStatus, PathPointArray, Pose, Velocities
+from custom_interfaces.msg import (
+    ControlCommand,
+    OperationalStatus,
+    PathPointArray,
+    Pose,
+    Velocities,
+)
 from pacsim.msg import StampedScalar
 from std_msgs.msg import Float64MultiArray
 from visualization_msgs.msg import Marker, MarkerArray
@@ -18,6 +24,7 @@ from geometry_msgs.msg import Point
 
 
 # --- Helper Functions ---
+
 
 def _load_yaml(path: Path) -> dict:
     with path.open("r") as handle:
@@ -44,8 +51,10 @@ def _wrap_angle(angle: float) -> float:
 
 # --- Classes ---
 
+
 class LongitudinalPID:
     """Optimized PI-D controller (kept for reference, not used in full MPC)."""
+
     def __init__(self, params: dict):
         self.kp = float(params.get("pid_kp", 0.1))
         self.ki = float(params.get("pid_ki", 0.0))
@@ -96,7 +105,9 @@ class LateralMPC:
 
         # Aero & drag
         self.Cd = float(car_params.get("drag_coefficient", 0.7))
-        self.Cl = float(car_params.get("lift_coefficient", -1.0))  # Negative for downforce
+        self.Cl = float(
+            car_params.get("lift_coefficient", -1.0)
+        )  # Negative for downforce
         self.A_front = float(car_params.get("frontal_area", 1.0))
         self.rho = 1.225
         self.C_roll = float(car_params.get("rolling_resistance", 0.015))
@@ -108,7 +119,7 @@ class LateralMPC:
         # Motor peak torque = 220 Nm, gear ratio = 4 -> ~880 Nm at wheels,
         # but you want to clamp at 800 Nm.
         self.tau_wheel_max = 800.0  # Nm at the wheels
-        self.P_max = 80e3           # 80 kW
+        self.P_max = 80e3  # 80 kW
 
         # Pacejka (magnitude coefficients, signs handled in equations)
         self.D_tire = float(car_params.get("tire_D_lateral", 1.6))
@@ -119,27 +130,30 @@ class LateralMPC:
         self.delta_max = float(control_params.get("steering_max", 0.35))
         self.delta_min = float(control_params.get("steering_min", -0.35))
         self.delta_rate_max = float(control_params.get("mpc_max_steer_rate", 1.5))
+        self.throttle_rate_max = float(control_params.get("mpc_max_throttle_rate", 5.0))
 
         # Horizon
         self.N = int(control_params.get("mpc_horizon_steps", 20))
         self.dt = float(control_params.get("mpc_dt", 0.05))
-        self.w_progress = float(control_params.get("mpc_w_progress", 0.0))        
-        
+        self.w_progress = float(control_params.get("mpc_w_progress", 0.0))
+
         # Weights (now with vx and throttle)
         self.Q_diag = [
-            control_params.get("mpc_w_ey", 80.0),      # ey
-            control_params.get("mpc_w_epsi", 30.0),    # epsi
-            control_params.get("mpc_w_vx", 10.0),      # vx
-            control_params.get("mpc_w_vy", 5.0),       # vy
-            control_params.get("mpc_w_r", 2.0),        # r
-            control_params.get("mpc_w_delta", 0.5),    # delta
+            control_params.get("mpc_w_ey", 80.0),  # ey
+            control_params.get("mpc_w_epsi", 30.0),  # epsi
+            control_params.get("mpc_w_vx", 10.0),  # vx
+            control_params.get("mpc_w_vy", 5.0),  # vy
+            control_params.get("mpc_w_r", 2.0),  # r
+            control_params.get("mpc_w_delta", 0.5),  # delta
+            control_params.get("mpc_w_throttle", 1.0),  # throttle (state)
         ]
         self.R_diag = [
-            control_params.get("mpc_w_d_delta", 1.0),   # steering rate
-            control_params.get("mpc_w_throttle", 1.0),  # normalized throttle
+            control_params.get("mpc_w_d_delta", 1.0),  # steering rate
+            control_params.get("mpc_w_d_throttle", 1.0),  # throttle rate
         ]
 
         self.last_delta = 0.0
+        self.last_throttle = 0.0
         self._setup_acados()
 
     def _setup_acados(self):
@@ -147,24 +161,25 @@ class LateralMPC:
         model = AcadosModel()
         model.name = self.model_name
 
-        # States: [ey, epsi, vx, vy, r, delta]
+        # States: [ey, epsi, vx, vy, r, delta, uthrottle]
         ey = SX.sym("ey")
         epsi = SX.sym("epsi")
         vx = SX.sym("vx")
         vy = SX.sym("vy")
         r = SX.sym("r")
         delta = SX.sym("delta")
-        x = vertcat(ey, epsi, vx, vy, r, delta)
+        uthrottle = SX.sym("uthrottle")
+        x = vertcat(ey, epsi, vx, vy, r, delta, uthrottle)
 
-        # Controls: [steering_rate, throttle_command]
+        # Controls: [steering_rate, throttle_rate]
         ddelta = SX.sym("ddelta")
-        uthrottle = SX.sym("uthrottle")  # in [-1, 1]
-        u = vertcat(ddelta, uthrottle)
+        duthrottle = SX.sym("duthrottle")
+        u = vertcat(ddelta, duthrottle)
 
         # Parameters: [curvature, v_ref]
         p = SX.sym("p", 2)
-        p_k = p[0]       # curvature
-        v_ref = p[1]     # reference longitudinal speed along the path
+        p_k = p[0]  # curvature
+        v_ref = p[1]  # reference longitudinal speed along the path
 
         # --- Dynamics ---
         # Safe vx for divisions
@@ -219,8 +234,9 @@ class LateralMPC:
         dvy = (Fy_f * cos(delta) + Fy_r) / self.m - vx * r
         dr = (self.Lf * Fy_f * cos(delta) - self.Lr * Fy_r) / self.Iz
         ddelta_dt = ddelta
+        duthrottle_dt = duthrottle
 
-        model.f_expl_expr = vertcat(dey, depsi, dvx, dvy, dr, ddelta_dt)
+        model.f_expl_expr = vertcat(dey, depsi, dvx, dvy, dr, ddelta_dt, duthrottle_dt)
         model.x = x
         model.u = u
         model.p = p
@@ -235,13 +251,13 @@ class LateralMPC:
         # Horizon
         ocp.solver_options.N_horizon = self.N
 
-        nx = 6
+        nx = 7
         nu = 2
 
         # --- EXTERNAL COST: tracking + lap-time progress reward ---
 
-        w_ey, w_epsi, w_vx, w_vy, w_r, w_delta = self.Q_diag
-        w_ddelta, w_uthrottle = self.R_diag
+        w_ey, w_epsi, w_vx, w_vy, w_r, w_delta, w_uthrottle = self.Q_diag
+        w_ddelta, w_duthrottle = self.R_diag
         w_prog = self.w_progress
 
         # Progress speed along path (projection of velocity onto path tangent)
@@ -252,25 +268,27 @@ class LateralMPC:
 
         # Running cost
         ell = (
-            w_ey * ey**2 +
-            w_epsi * epsi**2 +
-            w_vx * (vx - v_ref)**2 +
-            w_vy * vy**2 +
-            w_r * (r - r_ref)**2 +
-            w_delta * delta**2 +
-            w_ddelta * ddelta**2 +
-            w_uthrottle * uthrottle**2
-            - w_prog * v_prog         # <-- LAP-TIME TERM (reward progress)
+            w_ey * ey**2
+            + w_epsi * epsi**2
+            + w_vx * (vx - v_ref) ** 2
+            + w_vy * vy**2
+            + w_r * (r - r_ref) ** 2
+            + w_delta * delta**2
+            + w_uthrottle * uthrottle**2
+            + w_ddelta * ddelta**2
+            + w_duthrottle * duthrottle**2
+            - w_prog * v_prog  # <-- LAP-TIME TERM (reward progress)
         )
 
         # Terminal cost (no input terms; you can keep progress reward here too or drop it)
         phi = (
-            w_ey * ey**2 +
-            w_epsi * epsi**2 +
-            w_vx * (vx - v_ref)**2 +
-            w_vy * vy**2 +
-            w_r * (r - r_ref)**2 +
-            w_delta * delta**2
+            w_ey * ey**2
+            + w_epsi * epsi**2
+            + w_vx * (vx - v_ref) ** 2
+            + w_vy * vy**2
+            + w_r * (r - r_ref) ** 2
+            + w_delta * delta**2
+            + w_uthrottle * uthrottle**2
             - w_prog * v_prog
         )
 
@@ -280,32 +298,30 @@ class LateralMPC:
         ocp.cost.cost_type = "EXTERNAL"
         ocp.cost.cost_type_e = "EXTERNAL"
 
-
         # Initial state constraint (placeholder; actual x0 set at runtime)
         ocp.constraints.x0 = np.zeros(nx)
 
         ###############################################
-        # HARD CONSTRAINT: steering angle only
+        # HARD CONSTRAINT: steering angle and throttle
         ###############################################
-        ocp.constraints.lbx = np.array([self.delta_min])
-        ocp.constraints.ubx = np.array([self.delta_max])
-        ocp.constraints.idxbx = np.array([5])   
+        ocp.constraints.lbx = np.array([self.delta_min, -1.0])
+        ocp.constraints.ubx = np.array([self.delta_max, 1.0])
+        ocp.constraints.idxbx = np.array([5, 6])
 
         ###############################################
         # SOFT CONSTRAINT: ey
         ###############################################
         # C * x + D * u
-        ocp.constraints.C = np.array([
-            [ 1, 0, 0, 0, 0, 0],   # ey
-            [-1, 0, 0, 0, 0, 0]    # -ey
-        ])
+        ocp.constraints.C = np.array(
+            [[1, 0, 0, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0]]  # ey  # -ey
+        )
 
         # ---> FIX: Define D matrix (2 constraints, 2 controls) <---
         ocp.constraints.D = np.zeros((2, nu))
 
         big = 1e9
         ocp.constraints.lg = np.array([-1.0, -1.0])
-        ocp.constraints.ug = np.array([ big,  big])
+        ocp.constraints.ug = np.array([big, big])
 
         # we soften BOTH general constraints (indices 0 and 1 of C/D matrices)
         ocp.constraints.idxsg = np.array([0, 1])
@@ -319,9 +335,9 @@ class LateralMPC:
         ocp.cost.zl = soft_L1 * np.ones(2)
         ocp.cost.zu = soft_L1 * np.ones(2)
 
-        # Control bounds: steering rate and throttle
-        ocp.constraints.lbu = np.array([-self.delta_rate_max, -1.0])
-        ocp.constraints.ubu = np.array([self.delta_rate_max, 1.0])
+        # Control bounds: steering rate and throttle rate
+        ocp.constraints.lbu = np.array([-self.delta_rate_max, -self.throttle_rate_max])
+        ocp.constraints.ubu = np.array([self.delta_rate_max, self.throttle_rate_max])
         ocp.constraints.idxbu = np.array([0, 1])
 
         # Solver Options
@@ -342,17 +358,16 @@ class LateralMPC:
         json_file = str(cache_dir / "acados_ocp.json")
 
         self.solver = AcadosOcpSolver(ocp, json_file=json_file)
-        
 
     def solve(self, x0, vx_ref_profile, k_ref_profile):
-        # x0: [ey, epsi, vx, vy, r, delta]
+        # x0: [ey, epsi, vx, vy, r, delta, uthrottle]
 
         # Set Initial State as bounds at stage 0
         self.solver.set(0, "lbx", x0)
         self.solver.set(0, "ubx", x0)
 
         # Set parameters and stage references
-                # Set parameters for each stage: [kappa, v_ref]
+        # Set parameters for each stage: [kappa, v_ref]
         for i in range(self.N):
             v_ref = float(vx_ref_profile[i])
             k = float(k_ref_profile[i])
@@ -360,12 +375,10 @@ class LateralMPC:
             # Params: [kappa, v_ref]
             self.solver.set(i, "p", np.array([k, v_ref]))
 
-
         # Terminal stage parameters
         v_ref_N = float(vx_ref_profile[self.N])
         k_N = float(k_ref_profile[self.N])
         self.solver.set(self.N, "p", np.array([k_N, v_ref_N]))
-
 
         # Solve
         status = self.solver.solve()
@@ -373,21 +386,22 @@ class LateralMPC:
         if status != 0:
             print(f"[MPC ERROR] Acados solver failed. Status: {status}")
             # Keep last steering, zero throttle
-            return self.last_delta, 0.0, []
+            return self.last_delta, self.last_throttle, []
 
         # Get Control
         u0 = self.solver.get(0, "u")
         d_delta = u0[0]
-        u_throttle = u0[1]
+        d_throttle = u0[1]
 
         self.last_delta = x0[5] + d_delta * self.dt
+        self.last_throttle = x0[6] + d_throttle * self.dt
 
         # Get Predictions for viz
         preds = []
         for i in range(self.N + 1):
             preds.append(self.solver.get(i, "x"))
 
-        return self.last_delta, u_throttle, preds
+        return self.last_delta, self.last_throttle, preds
 
 
 class MpcControllerNode(Node):
@@ -396,17 +410,23 @@ class MpcControllerNode(Node):
 
         # Config
         self.config_root = _find_config_root()
-        self.global_config = _load_yaml(self.config_root / "global" / "global_config.yaml")["global"]
+        self.global_config = _load_yaml(
+            self.config_root / "global" / "global_config.yaml"
+        )["global"]
         self.adapter = self.global_config.get("adapter", "vehicle")
 
-        control_cfg = _load_yaml(self.config_root / "control" / f"{self.adapter}.yaml")["control"]
+        control_cfg = _load_yaml(self.config_root / "control" / f"{self.adapter}.yaml")[
+            "control"
+        ]
         car_cfg = _load_yaml(self.config_root / "car" / f"{self.adapter}.yaml")["car"]
 
         self.frame_id = self.global_config.get("vehicle_frame_id", "map")
         self.use_sim = self.global_config.get("use_simulated_planning", False)
 
         # Topics
-        self.path_topic = "/path_planning/mock_path" if self.use_sim else "/path_planning/path"
+        self.path_topic = (
+            "/path_planning/mock_path" if self.use_sim else "/path_planning/path"
+        )
 
         # Controllers
         # Full MPC handles both longitudinal and lateral now
@@ -428,22 +448,39 @@ class MpcControllerNode(Node):
 
         if self.adapter == "pacsim":
             from geometry_msgs.msg import TwistWithCovarianceStamped
+
             # Pacsim uses TwistWithCovarianceStamped for both Pose and Velocity
-            self.create_subscription(TwistWithCovarianceStamped, "/pacsim/pose", self._pacsim_pose_cb, 1)
-            self.create_subscription(TwistWithCovarianceStamped, "/pacsim/velocity", self._pacsim_vel_cb, 1)
+            self.create_subscription(
+                TwistWithCovarianceStamped, "/pacsim/pose", self._pacsim_pose_cb, 1
+            )
+            self.create_subscription(
+                TwistWithCovarianceStamped, "/pacsim/velocity", self._pacsim_vel_cb, 1
+            )
         else:
-            self.create_subscription(Pose, "/state_estimation/vehicle_pose", self._pose_cb, 1)
-            self.create_subscription(Velocities, "/state_estimation/velocities", self._vel_cb, 1)
-            self.create_subscription(OperationalStatus, "/vehicle/operational_status", self._op_status_cb, 1)
+            self.create_subscription(
+                Pose, "/state_estimation/vehicle_pose", self._pose_cb, 1
+            )
+            self.create_subscription(
+                Velocities, "/state_estimation/velocities", self._vel_cb, 1
+            )
+            self.create_subscription(
+                OperationalStatus, "/vehicle/operational_status", self._op_status_cb, 1
+            )
 
         # Publishers
         self.control_pub = self.create_publisher(ControlCommand, "/control/command", 1)
         if self.adapter == "pacsim":
-            self.debug_steer = self.create_publisher(StampedScalar, "/pacsim/steering_setpoint", 1)
-            self.debug_acc = self.create_publisher(StampedScalar, "/pacsim/throttle_setpoint", 1)
+            self.debug_steer = self.create_publisher(
+                StampedScalar, "/pacsim/steering_setpoint", 1
+            )
+            self.debug_acc = self.create_publisher(
+                StampedScalar, "/pacsim/throttle_setpoint", 1
+            )
 
         self.viz_pub = self.create_publisher(MarkerArray, "/control/mpc_pred", 1)
-        self.exec_time_pub = self.create_publisher(Float64MultiArray, "/control/execution_time", 1)
+        self.exec_time_pub = self.create_publisher(
+            Float64MultiArray, "/control/execution_time", 1
+        )
 
         # Timer
         self.timer_period = float(control_cfg.get("command_time_interval", 20)) / 1000.0
@@ -455,6 +492,7 @@ class MpcControllerNode(Node):
 
     def _pacsim_pose_cb(self, msg):
         from custom_interfaces.msg import Pose as PoseMsg
+
         p = PoseMsg()
         p.x = msg.twist.twist.linear.x
         p.y = msg.twist.twist.linear.y
@@ -463,6 +501,7 @@ class MpcControllerNode(Node):
 
     def _pacsim_vel_cb(self, msg):
         from custom_interfaces.msg import Velocities as VelMsg
+
         v = VelMsg()
         v.velocity_x = msg.twist.twist.linear.x
         v.velocity_y = msg.twist.twist.linear.y
@@ -498,23 +537,25 @@ class MpcControllerNode(Node):
             if n > 5:
                 first = data[0, :2]
                 last = data[-1, :2]
-                if np.linalg.norm(first - last) < 1.0: # Threshold for closed loop
+                if np.linalg.norm(first - last) < 1.0:  # Threshold for closed loop
                     is_closed = True
 
             if is_closed:
                 # Pad for continuity
                 pad = 5
-                pre = data[-pad-1:-1, :2] # Take last few points (excluding the very last duplicate if it exists, but here we just take last few)
-                post = data[1:pad+1, :2]  # Take first few points
-                
-                # Actually, better to just use the raw points. 
+                pre = data[
+                    -pad - 1 : -1, :2
+                ]  # Take last few points (excluding the very last duplicate if it exists, but here we just take last few)
+                post = data[1 : pad + 1, :2]  # Take first few points
+
+                # Actually, better to just use the raw points.
                 # If data[0] == data[-1], we should be careful.
                 # Let's assume standard closed loop where last point ~= first point.
-                
+
                 # Construct augmented path for curvature calc
                 # Prepend last 'pad' points, Append first 'pad' points
                 pts = data[:, :2]
-                pts_aug = np.vstack([pts[-pad-1:-1], pts, pts[1:pad+1]])
+                pts_aug = np.vstack([pts[-pad - 1 : -1], pts, pts[1 : pad + 1]])
             else:
                 pts_aug = data[:, :2]
 
@@ -538,21 +579,21 @@ class MpcControllerNode(Node):
 
             if is_closed:
                 # Extract valid region
-                # We added 'pad' points at start. 
+                # We added 'pad' points at start.
                 # kappa_aug has length len(pts_aug) - 2.
                 # The first valid curvature corresponds to index 'pad' in pts_aug (which is data[0])
                 # In kappa_aug, this is index 'pad - 1'.
                 pad = 5
-                valid_kappa = kappa_aug[pad-1 : pad-1 + n]
-                
+                valid_kappa = kappa_aug[pad - 1 : pad - 1 + n]
+
                 # Assign
                 data[:, 3] = valid_kappa
-                
+
                 # Ensure exact continuity at boundaries for closed loop
                 k_mean = (data[0, 3] + data[-1, 3]) / 2.0
                 data[0, 3] = k_mean
                 data[-1, 3] = k_mean
-                
+
             else:
                 # Standard open loop handling
                 data[1:-1, 3] = kappa_aug
@@ -561,7 +602,7 @@ class MpcControllerNode(Node):
 
         # Centerline arc-length
         deltas = np.diff(data[:, :2], axis=0)
-        dists = np.sqrt((deltas ** 2).sum(axis=1))
+        dists = np.sqrt((deltas**2).sum(axis=1))
         s = np.concatenate(([0], np.cumsum(dists)))
 
         # Save base arrays
@@ -574,26 +615,34 @@ class MpcControllerNode(Node):
         headings = np.zeros(n)
         headings[:-1] = np.arctan2(deltas[:, 1], deltas[:, 0])
         headings[-1] = headings[-2]
-        
+
         # Smooth heading for closed loop
         if n > 2 and np.linalg.norm(data[0, :2] - data[-1, :2]) < 1.0:
-             # Average start and end heading (handling wrap)
-             h_start = headings[0]
-             h_end = headings[-1]
-             # Vector average
-             vx = (np.cos(h_start) + np.cos(h_end)) / 2
-             vy = (np.sin(h_start) + np.sin(h_end)) / 2
-             h_avg = np.arctan2(vy, vx)
-             headings[0] = h_avg
-             headings[-1] = h_avg
+            # Average start and end heading (handling wrap)
+            h_start = headings[0]
+            h_end = headings[-1]
+            # Vector average
+            vx = (np.cos(h_start) + np.cos(h_end)) / 2
+            vy = (np.sin(h_start) + np.sin(h_end)) / 2
+            h_avg = np.arctan2(vy, vx)
+            headings[0] = h_avg
+            headings[-1] = h_avg
 
         self.path_heading = headings
 
         # --- NOW SAFE TO CREATE PERIODIC EXTENDED ARRAYS ---
         # Triple buffer to be safe for long horizons or high speeds near wrap
-        self.path_s_extended = np.concatenate([self.path_s, self.path_s + self.track_length, self.path_s + 2*self.track_length])
+        self.path_s_extended = np.concatenate(
+            [
+                self.path_s,
+                self.path_s + self.track_length,
+                self.path_s + 2 * self.track_length,
+            ]
+        )
         self.path_np_extended = np.vstack([self.path_np, self.path_np, self.path_np])
-        self.path_heading_extended = np.concatenate([self.path_heading, self.path_heading, self.path_heading])
+        self.path_heading_extended = np.concatenate(
+            [self.path_heading, self.path_heading, self.path_heading]
+        )
 
     # --- Control Loop ---
 
@@ -611,7 +660,9 @@ class MpcControllerNode(Node):
             missing.append("Path")
 
         if missing:
-            self.get_logger().info(f"Waiting for: {', '.join(missing)}", throttle_duration_sec=2.0)
+            self.get_logger().info(
+                f"Waiting for: {', '.join(missing)}", throttle_duration_sec=2.0
+            )
             return
 
         # 1. State Extraction
@@ -625,10 +676,10 @@ class MpcControllerNode(Node):
         if abs(vx) < 0.1:
             vx = 0.1  # Singularity protection
 
-                # 2. Fast Projection
+            # 2. Fast Projection
         dx = self.path_np[:, 0] - px
         dy = self.path_np[:, 1] - py
-        dists_sq = dx ** 2 + dy ** 2
+        dists_sq = dx**2 + dy**2
         idx_min = int(np.argmin(dists_sq))
 
         closest_x = self.path_np[idx_min, 0]
@@ -637,13 +688,15 @@ class MpcControllerNode(Node):
         # Use precomputed, smoothed heading at closest point
         path_heading = float(self.path_heading[idx_min])
 
-        ey = -math.sin(path_heading) * (px - closest_x) + math.cos(path_heading) * (py - closest_y)
+        ey = -math.sin(path_heading) * (px - closest_x) + math.cos(path_heading) * (
+            py - closest_y
+        )
         epsi = _wrap_angle(theta - path_heading)
 
         ref_v = float(self.path_np[idx_min, 2])
 
         # 3. Reference Generation (curvilinear s with lap-unwrapping)
-        s_raw = float(self.path_s[idx_min])   # in [0, track_length]
+        s_raw = float(self.path_s[idx_min])  # in [0, track_length]
         L = float(self.track_length)
 
         if self.last_s_unwrapped is None:
@@ -657,26 +710,35 @@ class MpcControllerNode(Node):
             s_raw + k * L,
             s_raw + (k + 1) * L,
         ]
-        current_s_unwrapped = min(candidates, key=lambda s: abs(s - self.last_s_unwrapped))
+        current_s_unwrapped = min(
+            candidates, key=lambda s: abs(s - self.last_s_unwrapped)
+        )
         self.last_s_unwrapped = current_s_unwrapped
 
         # Prediction horizon in unwrapped s
-        horizon_s_unwrapped = current_s_unwrapped + vx * np.arange(self.mpc.N + 1) * self.mpc.dt
+        horizon_s_unwrapped = (
+            current_s_unwrapped + vx * np.arange(self.mpc.N + 1) * self.mpc.dt
+        )
 
         # Wrap to [0, L) and shift to middle copy [L, 2L] for interpolation
         # path_s_extended = [0..L, L..2L, 2L..3L] so we query in [L, 2L]
         horizon_s = np.mod(horizon_s_unwrapped, L) + L
 
         # Interpolate curvature and ref_v along EXTENDED s using centered horizon
-        k_profile = np.interp(horizon_s, self.path_s_extended, self.path_np_extended[:, 3])
-        v_profile = np.interp(horizon_s, self.path_s_extended, self.path_np_extended[:, 2])
+        k_profile = np.interp(
+            horizon_s, self.path_s_extended, self.path_np_extended[:, 3]
+        )
+        v_profile = np.interp(
+            horizon_s, self.path_s_extended, self.path_np_extended[:, 2]
+        )
 
         # store for viz
         self.horizon_s = horizon_s
 
-
         # 4. Solve MPC
-        x0 = np.array([ey, epsi, vx, vy, r, self.mpc.last_delta])
+        x0 = np.array(
+            [ey, epsi, vx, vy, r, self.mpc.last_delta, self.mpc.last_throttle]
+        )
 
         steer_cmd, throttle_cmd, preds = self.mpc.solve(x0, v_profile, k_profile)
 
@@ -721,7 +783,7 @@ class MpcControllerNode(Node):
             self.debug_acc.publish(a)
 
     def _publish_viz(self, preds):
-    # Need predictions, path and horizon_s
+        # Need predictions, path and horizon_s
         if (
             not preds
             or self.path_np is None
@@ -740,9 +802,15 @@ class MpcControllerNode(Node):
             # horizon_s is already centered in [L, 2L]
             s = float(self.horizon_s[i])
 
-            x_ref = float(np.interp(s, self.path_s_extended, self.path_np_extended[:, 0]))
-            y_ref = float(np.interp(s, self.path_s_extended, self.path_np_extended[:, 1]))
-            psi_ref = float(np.interp(s, self.path_s_extended, self.path_heading_extended))
+            x_ref = float(
+                np.interp(s, self.path_s_extended, self.path_np_extended[:, 0])
+            )
+            y_ref = float(
+                np.interp(s, self.path_s_extended, self.path_np_extended[:, 1])
+            )
+            psi_ref = float(
+                np.interp(s, self.path_s_extended, self.path_heading_extended)
+            )
 
             ey = float(state[0])
 
@@ -765,6 +833,7 @@ class MpcControllerNode(Node):
         ma = MarkerArray()
         ma.markers.append(m)
         self.viz_pub.publish(ma)
+
 
 def main(args=None):
     rclpy.init(args=args)
