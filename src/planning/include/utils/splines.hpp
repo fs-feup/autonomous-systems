@@ -110,15 +110,15 @@ struct PositionXYAreDouble<
  * @param precision Number of interpolated points between each pair of original points.
  * @param order Order of the B-spline.
  * @param coeffs_ratio Ratio to determine the number of coefficients for the spline.
- * @param cone_seq Sequence of points to fit the spline to. This sequence will have duplicates
- * removed.
+ * @param cone_seq Sequence of points to fit the spline to.
+ * @param is_map_closed Boolean indicating if the map is closed.
  * @return std::vector<T> Sequence of points representing the fitted spline.
  *
  * @note This function requires the GNU Scientific Library (GSL) for spline fitting.
  */
 template <typename T>
-std::vector<T> fit_spline(int precision, int order, float coeffs_ratio,
-                          std::vector<T> cone_seq, bool is_map_closed) {
+std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vector<T> cone_seq,
+                          bool is_map_closed) {
   static_assert(HasDefaultConstructor<T>::value, "T must be default constructible");
   static_assert(IsHashable<T>::value, "T must be hashable");
   static_assert(HasEqualityOperator<T>::value, "T must have operator==");
@@ -128,36 +128,26 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio,
   static_assert(HasEuclideanDistance<T>::value, "T.position must have a euclidean_distance method");
   static_assert(PositionXYAreDouble<T>::value, "T.position.x and T.position.y must be double");
 
-  // Remove duplicates
-  std::unordered_set<T> seen;
-  auto iterator = std::remove_if(cone_seq.begin(), cone_seq.end(), [&seen](const auto &ptr) {
-    return !seen.insert(ptr).second;
-  });
-  cone_seq.erase(iterator, cone_seq.end());
-
   size_t n = cone_seq.size();
   if (n < 2) return cone_seq;
 
-  // Se for loop, adiciona últimos order-1 pontos repetindo os primeiros
-  if (is_map_closed && n > static_cast<size_t>(order)) {
-    for (int i = 0; i < order - 1; ++i) {
-      cone_seq.push_back(cone_seq[i]);
-    }
-    n = cone_seq.size();
-  }
-
-  // Garantir ncoeffs >= order
+  // Garantee ncoeffs >= order -> mathematical requirement for B-splines
   size_t ncoeffs = static_cast<size_t>(static_cast<float>(n) / coeffs_ratio);
   if (ncoeffs < static_cast<size_t>(order)) ncoeffs = order;
+
+  // Number of breakpoints in the B-spline (knots)
   const int nbreak = static_cast<int>(ncoeffs) - order + 2;
-  if (nbreak < 2) {
+
+  if (nbreak < 2 || n == 0) {
     RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
-                 "Too few points to calculate spline while executing 'fit_spline'");
+                 "Too few points to calculate spline while executing 'fit_spline'"
+                 "Number of cones was %i",
+                 static_cast<int>(n));
     return cone_seq;
   }
-
-  // ---- ALLOC GSL ----
-  gsl_bspline_workspace *bw = gsl_bspline_alloc(order, nbreak);
+  // -------- INITIALIZE GSL WORKSPACES --------
+  gsl_bspline_workspace *bw =
+      gsl_bspline_alloc(static_cast<size_t>(order), static_cast<size_t>(nbreak));
   gsl_bspline_workspace *cw = gsl_bspline_alloc(order, nbreak);
 
   gsl_vector *B = gsl_vector_alloc(ncoeffs);
@@ -181,12 +171,13 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio,
 
   double chisq, chisq2;
 
-  // ---- PESOS ----
+  // -------- FILL INPUT DATA AND WEIGHTS --------
   for (size_t i = 0; i < n; i++) {
     gsl_vector_set(i_values, i, static_cast<double>(i));
     gsl_vector_set(x_values, i, cone_seq[i].position.x);
     gsl_vector_set(y_values, i, cone_seq[i].position.y);
 
+    // Weight points based on local spacing (closer points get larger weight)
     double dist_next = 1.0;
     if (i + 1 < n) {
       dist_next = cone_seq[i].position.euclidean_distance(cone_seq[i + 1].position);
@@ -198,41 +189,47 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio,
     gsl_vector_set(w, i, 1.0 / (dist_next * dist_next));
   }
 
-  // ---- NÓS UNIFORMES [0, n-1] ----
+  // -------- SET UNIFORM KNOTS FOR BOTH SPLINES --------
   double t_min = 0.0;
   double t_max = static_cast<double>(n - 1);
   gsl_bspline_knots_uniform(t_min, t_max, bw);
   gsl_bspline_knots_uniform(t_min, t_max, cw);
 
-  // ---- MATRIZ DE AJUSTE ----
+  // -------- BUILD DESIGN MATRICES --------
+  // Evaluate each basis function at each input index
   for (int i = 0; i < static_cast<int>(n); i++) {
     gsl_bspline_eval(i, B, bw);
     gsl_bspline_eval(i, C, cw);
+
+    // Fill design matrices for x and y least squares
     for (int j = 0; j < static_cast<int>(ncoeffs); j++) {
       gsl_matrix_set(X, i, j, gsl_vector_get(B, j));
       gsl_matrix_set(Y, i, j, gsl_vector_get(C, j));
     }
   }
 
-  // ---- AJUSTE POR MÍNIMOS QUADRADOS ----
+  // -------- LEAST SQUARES FIT FOR X AND Y --------
   gsl_multifit_wlinear(X, w, x_values, c, cov, &chisq, mw);
   gsl_multifit_wlinear(Y, w, y_values, c2, cov2, &chisq2, mw2);
 
-  // ---- AVALIAÇÃO DA SPLINE ----
+  // -------- EVALUATE THE SPLINE  --------
   std::vector<T> cone_seq_eval;
   cone_seq_eval.reserve(n * precision);
   for (int i = 0; i < static_cast<int>(n); i++) {
     for (int j = 0; j < precision; j++) {
+      // Compute parameter t inside segment i
       double t = static_cast<double>(i) + static_cast<double>(j) / precision;
       if (t > t_max) t = t_max;
 
       gsl_bspline_eval(t, B, bw);
       gsl_bspline_eval(t, C, cw);
 
+      // Compute x and y via estimated spline coefficients
       double xi, yi, err;
       gsl_multifit_linear_est(B, c, cov, &xi, &err);
       gsl_multifit_linear_est(C, c2, cov2, &yi, &err);
 
+      // Create new spline point
       T new_element;
       new_element.position.x = xi;
       new_element.position.y = yi;
@@ -240,7 +237,7 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio,
     }
   }
 
-  // ---- FREE GSL ----
+  // -------- CLEANUP GSL RESOURCES --------
   gsl_bspline_free(bw);
   gsl_bspline_free(cw);
   gsl_vector_free(B);
@@ -258,12 +255,10 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio,
   gsl_multifit_linear_free(mw);
   gsl_multifit_linear_free(mw2);
 
-  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
-               "END fitSpline with %i points",
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "END fitSpline with %i points",
                static_cast<int>(cone_seq_eval.size()));
 
   return cone_seq_eval;
 }
-
 
 #endif  // SRC_PLANNING_INCLUDE_UTILS_SPLINES_HPP_
