@@ -66,11 +66,11 @@
 
 std::vector<PathPoint> PathSmoothing::smooth_path(std::vector<PathPoint>& unordered_path,
                                                   const Pose& car_pose,
-                                                  const double initial_car_orientation, bool is_map_closed) const {
+                                                  const double initial_car_orientation) const {
   if (this->config_.use_path_smoothing_) {
     //order_path(unordered_path, car_pose, initial_car_orientation);
     return fit_spline(this->config_.precision_, this->config_.order_, this->config_.coeffs_ratio_,
-                      unordered_path, is_map_closed);
+                      unordered_path);
   } else {
     return unordered_path;
   }

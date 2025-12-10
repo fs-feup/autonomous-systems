@@ -3,6 +3,7 @@
 
 #include <gsl/gsl_bspline.h>
 #include <gsl/gsl_multifit.h>
+#include <gsl/gsl_errno.h>
 
 #include <cmath>
 #include <type_traits>
@@ -111,14 +112,12 @@ struct PositionXYAreDouble<
  * @param order Order of the B-spline.
  * @param coeffs_ratio Ratio to determine the number of coefficients for the spline.
  * @param cone_seq Sequence of points to fit the spline to.
- * @param is_map_closed Boolean indicating if the map is closed.
  * @return std::vector<T> Sequence of points representing the fitted spline.
  *
  * @note This function requires the GNU Scientific Library (GSL) for spline fitting.
  */
 template <typename T>
-std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vector<T> cone_seq,
-                          bool is_map_closed) {
+std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vector<T> cone_seq) {
   static_assert(HasDefaultConstructor<T>::value, "T must be default constructible");
   static_assert(IsHashable<T>::value, "T must be hashable");
   static_assert(HasEqualityOperator<T>::value, "T must have operator==");
@@ -133,7 +132,9 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vec
 
   // Garantee ncoeffs >= order -> mathematical requirement for B-splines
   size_t ncoeffs = static_cast<size_t>(static_cast<float>(n) / coeffs_ratio);
-  if (ncoeffs < static_cast<size_t>(order)) ncoeffs = order;
+  if (ncoeffs < static_cast<size_t>(order)) return cone_seq;
+
+  if (ncoeffs > n) ncoeffs = n;
 
   // Number of breakpoints in the B-spline (knots)
   const int nbreak = static_cast<int>(ncoeffs) - order + 2;
