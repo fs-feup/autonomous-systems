@@ -127,108 +127,119 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vec
   static_assert(HasEuclideanDistance<T>::value, "T.position must have a euclidean_distance method");
   static_assert(PositionXYAreDouble<T>::value, "T.position.x and T.position.y must be double");
 
+  // Remove duplicates
   std::unordered_set<T> seen;
-
-  // Use std::remove_if and a lambda function to remove duplicates
   auto iterator = std::remove_if(cone_seq.begin(), cone_seq.end(), [&seen](const auto &ptr) {
-    return !seen.insert(ptr).second;  // insert returns a pair, where .second is false if the
-                                      // element already existed
+    return !seen.insert(ptr).second;
   });
-
-  // Finally, erase their allocated space
   cone_seq.erase(iterator, cone_seq.end());
 
   size_t n = cone_seq.size();
-  auto ncoeffs = static_cast<size_t>(static_cast<float>(n) / coeffs_ratio);  // n > = ncoeffs
+  if (n < 2) return cone_seq;
+
+  // Ensure ncoeffs >= order
+  size_t ncoeffs = static_cast<size_t>(static_cast<float>(n) / coeffs_ratio);
+  if (ncoeffs < static_cast<size_t>(order)) ncoeffs = order;
   const int nbreak = static_cast<int>(ncoeffs) - order + 2;
 
-  if (nbreak < 2 || n == 0) {
+  if (nbreak < 2) {
     RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
-                 "Too few points to calculate spline while executing 'fit_spline'"
-                 "Number of cones was %i",
-                 static_cast<int>(n));
+                 "Too few points to calculate spline while executing 'fit_spline'");
     return cone_seq;
   }
-  // Initialize vars (pointers) and allocate memory for the actual objects the pointers will point
-  // to
-  gsl_bspline_workspace *bw =
-      gsl_bspline_alloc(static_cast<size_t>(order), static_cast<size_t>(nbreak));
-  gsl_bspline_workspace *cw =
-      gsl_bspline_alloc(static_cast<size_t>(order), static_cast<size_t>(nbreak));
+
+  // Allocate GSL structures
+  gsl_bspline_workspace *bw = gsl_bspline_alloc(order, nbreak);
+  gsl_bspline_workspace *cw = gsl_bspline_alloc(order, nbreak);
+
   gsl_vector *B = gsl_vector_alloc(ncoeffs);
   gsl_vector *C = gsl_vector_alloc(ncoeffs);
   gsl_vector *c = gsl_vector_alloc(ncoeffs);
   gsl_vector *c2 = gsl_vector_alloc(ncoeffs);
+
   gsl_vector *w = gsl_vector_alloc(n);
   gsl_vector *x_values = gsl_vector_alloc(n);
   gsl_vector *y_values = gsl_vector_alloc(n);
   gsl_vector *i_values = gsl_vector_alloc(n);
+
   gsl_matrix *X = gsl_matrix_alloc(n, ncoeffs);
   gsl_matrix *Y = gsl_matrix_alloc(n, ncoeffs);
+
   gsl_matrix *cov = gsl_matrix_alloc(ncoeffs, ncoeffs);
   gsl_matrix *cov2 = gsl_matrix_alloc(ncoeffs, ncoeffs);
+
   gsl_multifit_linear_workspace *mw = gsl_multifit_linear_alloc(n, ncoeffs);
   gsl_multifit_linear_workspace *mw2 = gsl_multifit_linear_alloc(n, ncoeffs);
-  double chisq;
-  double chisq2;
 
-  // Set spline data
+  double chisq, chisq2;
+
+  //
+  // ---- PARAMETRIZAÇÃO E PESOS (SEM WRAP-AROUND!) ----
+  //
   for (size_t i = 0; i < n; i++) {
     gsl_vector_set(i_values, i, static_cast<double>(i));
     gsl_vector_set(x_values, i, cone_seq[i].position.x);
     gsl_vector_set(y_values, i, cone_seq[i].position.y);
-    // closer cones more important(better stability)
-    gsl_vector_set(
-        w, i,
-        1.0 / pow(cone_seq[i].position.euclidean_distance(cone_seq[(i + 1) % n].position), 2));
+
+    double dist_next = 1.0;
+
+    if (i + 1 < n) {
+      dist_next = cone_seq[i].position.euclidean_distance(cone_seq[i + 1].position);
+    } else if (i > 0) {
+      dist_next = cone_seq[i].position.euclidean_distance(cone_seq[i - 1].position);
+    }
+
+    if (dist_next < 1e-6) dist_next = 1e-6;
+
+    gsl_vector_set(w, i, 1.0 / (dist_next * dist_next));
   }
 
-  // Set i range within cone set length
-  gsl_bspline_knots_uniform(0, static_cast<double>(n), bw);
-  gsl_bspline_knots_uniform(0, static_cast<double>(n), cw);
+  //
+  // ---- NÓS UNIFORMES NO INTERVALO [0, n-1] ----
+  //
+  double t_min = 0.0;
+  double t_max = static_cast<double>(n - 1);
 
-  /* construct the fit matrix X */
+  gsl_bspline_knots_uniform(t_min, t_max, bw);
+  gsl_bspline_knots_uniform(t_min, t_max, cw);
+
+  //
+  // ---- MONTAGEM DAS MATRIZES DE AJUSTE ----
+  //
   for (int i = 0; i < static_cast<int>(n); i++) {
-    /* compute B_j(xi) for all j */
     gsl_bspline_eval(i, B, bw);
     gsl_bspline_eval(i, C, cw);
 
-    /* fill in row i of X */
     for (int j = 0; j < static_cast<int>(ncoeffs); j++) {
-      double Bj = gsl_vector_get(B, j);
-      gsl_matrix_set(X, i, j, Bj);
-      double Cj = gsl_vector_get(C, j);
-      gsl_matrix_set(Y, i, j, Cj);
+      gsl_matrix_set(X, i, j, gsl_vector_get(B, j));
+      gsl_matrix_set(Y, i, j, gsl_vector_get(C, j));
     }
   }
 
-  // Fit spline
+  //
+  // ---- AJUSTE POR MÍNIMOS QUADRADOS ----
+  //
   gsl_multifit_wlinear(X, w, x_values, c, cov, &chisq, mw);
   gsl_multifit_wlinear(Y, w, y_values, c2, cov2, &chisq2, mw2);
 
-  // Initialize variables for subsequent spline evaluation
-  double xi;
-  double yi;
-  double yerr;
-  double yerr2;
-  std::vector<double> i_eval;
-  std::vector<double> x_eval;
-  std::vector<double> y_eval;
+  //
+  // ---- AVALIAÇÃO DA SPLINE ----
+  //
   std::vector<T> cone_seq_eval;
+  cone_seq_eval.reserve(n * precision);
 
-  // Calculate the desired amount of spline points and add them to
-  // "cone_seq_eval"
   for (int i = 0; i < static_cast<int>(n); i++) {
-    for (int j = 0; j < precision; j++) {  // iterate over decimal numbers
-      gsl_bspline_eval(
-          static_cast<float>(i) + static_cast<float>(j) / static_cast<float>(precision), B, bw);
-      gsl_bspline_eval(
-          static_cast<float>(i) + static_cast<float>(j) / static_cast<float>(precision), C, cw);
-      gsl_multifit_linear_est(B, c, cov, &xi, &yerr);
-      gsl_multifit_linear_est(C, c2, cov2, &yi, &yerr2);
-      i_eval.push_back(i);
-      x_eval.push_back(xi);
-      y_eval.push_back(yi);
+    for (int j = 0; j < precision; j++) {
+      double t = static_cast<double>(i) + static_cast<double>(j) / precision;
+      if (t > t_max) t = t_max;
+
+      gsl_bspline_eval(t, B, bw);
+      gsl_bspline_eval(t, C, cw);
+
+      double xi, yi, err;
+      gsl_multifit_linear_est(B, c, cov, &xi, &err);
+      gsl_multifit_linear_est(C, c2, cov2, &yi, &err);
+
       T new_element;
       new_element.position.x = xi;
       new_element.position.y = yi;
@@ -236,28 +247,32 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vec
     }
   }
 
-  // Free Memory
+  //
+  // ---- FREE GSL ----
+  //
   gsl_bspline_free(bw);
   gsl_bspline_free(cw);
   gsl_vector_free(B);
   gsl_vector_free(C);
-  gsl_vector_free(i_values);
-  gsl_vector_free(x_values);
-  gsl_vector_free(y_values);
-  gsl_matrix_free(X);
-  gsl_matrix_free(Y);
   gsl_vector_free(c);
   gsl_vector_free(c2);
   gsl_vector_free(w);
+  gsl_vector_free(x_values);
+  gsl_vector_free(y_values);
+  gsl_vector_free(i_values);
+  gsl_matrix_free(X);
+  gsl_matrix_free(Y);
   gsl_matrix_free(cov);
   gsl_matrix_free(cov2);
   gsl_multifit_linear_free(mw);
   gsl_multifit_linear_free(mw2);
 
-  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "END fitSpline with %i points",
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
+               "END fitSpline with %i points",
                static_cast<int>(cone_seq_eval.size()));
 
   return cone_seq_eval;
 }
+
 
 #endif  // SRC_PLANNING_INCLUDE_UTILS_SPLINES_HPP_
