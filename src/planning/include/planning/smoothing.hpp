@@ -39,7 +39,7 @@ public:
    * farthest
    */
   std::vector<PathPoint> smooth_path(std::vector<PathPoint>& unordered_path, const Pose& car_pose,
-                                     const double initial_car_orientation) const;
+                                     const double initial_car_orientation, bool is_map_closed) const;
                                      
 private:
   /**

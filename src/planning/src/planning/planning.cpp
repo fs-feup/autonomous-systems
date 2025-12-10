@@ -221,7 +221,7 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &messa
 
 void Planning::calculate_and_smooth_path() {
   full_path_ = path_calculation_.calculate_path(cone_array_);
-  smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
+  smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_, is_map_closed_);
 }
 
 /*--------------------- Mission-Specific Planning --------------------*/
@@ -262,7 +262,7 @@ void Planning::run_autocross() {
     if (!is_map_closed_) {
       is_map_closed_ = true;
       full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
-      smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
+      smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_,is_map_closed_);
       velocity_planning_.trackdrive_velocity(smoothed_path_);
     }
     velocity_planning_.stop(smoothed_path_);
@@ -277,7 +277,7 @@ void Planning::run_trackdrive() {
     if (!is_map_closed_) {
       is_map_closed_ = true;
       full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
-      smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
+      smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_,is_map_closed_);
       velocity_planning_.trackdrive_velocity(smoothed_path_);
     }
   } else {

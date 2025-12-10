@@ -117,7 +117,8 @@ struct PositionXYAreDouble<
  * @note This function requires the GNU Scientific Library (GSL) for spline fitting.
  */
 template <typename T>
-std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vector<T> cone_seq) {
+std::vector<T> fit_spline(int precision, int order, float coeffs_ratio,
+                          std::vector<T> cone_seq, bool is_map_closed) {
   static_assert(HasDefaultConstructor<T>::value, "T must be default constructible");
   static_assert(IsHashable<T>::value, "T must be hashable");
   static_assert(HasEqualityOperator<T>::value, "T must have operator==");
@@ -137,18 +138,25 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vec
   size_t n = cone_seq.size();
   if (n < 2) return cone_seq;
 
-  // Ensure ncoeffs >= order
+  // Se for loop, adiciona últimos order-1 pontos repetindo os primeiros
+  if (is_map_closed && n > static_cast<size_t>(order)) {
+    for (int i = 0; i < order - 1; ++i) {
+      cone_seq.push_back(cone_seq[i]);
+    }
+    n = cone_seq.size();
+  }
+
+  // Garantir ncoeffs >= order
   size_t ncoeffs = static_cast<size_t>(static_cast<float>(n) / coeffs_ratio);
   if (ncoeffs < static_cast<size_t>(order)) ncoeffs = order;
   const int nbreak = static_cast<int>(ncoeffs) - order + 2;
-
   if (nbreak < 2) {
     RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
                  "Too few points to calculate spline while executing 'fit_spline'");
     return cone_seq;
   }
 
-  // Allocate GSL structures
+  // ---- ALLOC GSL ----
   gsl_bspline_workspace *bw = gsl_bspline_alloc(order, nbreak);
   gsl_bspline_workspace *cw = gsl_bspline_alloc(order, nbreak);
 
@@ -173,61 +181,46 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vec
 
   double chisq, chisq2;
 
-  //
-  // ---- PARAMETRIZAÇÃO E PESOS (SEM WRAP-AROUND!) ----
-  //
+  // ---- PESOS ----
   for (size_t i = 0; i < n; i++) {
     gsl_vector_set(i_values, i, static_cast<double>(i));
     gsl_vector_set(x_values, i, cone_seq[i].position.x);
     gsl_vector_set(y_values, i, cone_seq[i].position.y);
 
     double dist_next = 1.0;
-
     if (i + 1 < n) {
       dist_next = cone_seq[i].position.euclidean_distance(cone_seq[i + 1].position);
     } else if (i > 0) {
       dist_next = cone_seq[i].position.euclidean_distance(cone_seq[i - 1].position);
     }
-
     if (dist_next < 1e-6) dist_next = 1e-6;
 
     gsl_vector_set(w, i, 1.0 / (dist_next * dist_next));
   }
 
-  //
-  // ---- NÓS UNIFORMES NO INTERVALO [0, n-1] ----
-  //
+  // ---- NÓS UNIFORMES [0, n-1] ----
   double t_min = 0.0;
   double t_max = static_cast<double>(n - 1);
-
   gsl_bspline_knots_uniform(t_min, t_max, bw);
   gsl_bspline_knots_uniform(t_min, t_max, cw);
 
-  //
-  // ---- MONTAGEM DAS MATRIZES DE AJUSTE ----
-  //
+  // ---- MATRIZ DE AJUSTE ----
   for (int i = 0; i < static_cast<int>(n); i++) {
     gsl_bspline_eval(i, B, bw);
     gsl_bspline_eval(i, C, cw);
-
     for (int j = 0; j < static_cast<int>(ncoeffs); j++) {
       gsl_matrix_set(X, i, j, gsl_vector_get(B, j));
       gsl_matrix_set(Y, i, j, gsl_vector_get(C, j));
     }
   }
 
-  //
   // ---- AJUSTE POR MÍNIMOS QUADRADOS ----
-  //
   gsl_multifit_wlinear(X, w, x_values, c, cov, &chisq, mw);
   gsl_multifit_wlinear(Y, w, y_values, c2, cov2, &chisq2, mw2);
 
-  //
   // ---- AVALIAÇÃO DA SPLINE ----
-  //
   std::vector<T> cone_seq_eval;
   cone_seq_eval.reserve(n * precision);
-
   for (int i = 0; i < static_cast<int>(n); i++) {
     for (int j = 0; j < precision; j++) {
       double t = static_cast<double>(i) + static_cast<double>(j) / precision;
@@ -247,9 +240,7 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vec
     }
   }
 
-  //
   // ---- FREE GSL ----
-  //
   gsl_bspline_free(bw);
   gsl_bspline_free(cw);
   gsl_vector_free(B);

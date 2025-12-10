@@ -10,7 +10,7 @@ TEST(PathSmoothing, path_smooth1) {
   Pose car_pose = {0, 0, 0};
   std::vector<common_lib::structures::PathPoint> input_path = path_from_file(file_path);
   std::vector<common_lib::structures::PathPoint> smoothed_path =
-      path_smoothing.smooth_path(input_path, car_pose, 0);
+      path_smoothing.smooth_path(input_path, car_pose, 0,false);
   EXPECT_EQ((int)smoothed_path.size(), 120);
 }
 /**
@@ -24,6 +24,6 @@ TEST(PathSmoothing, path_smooth2) {
   Pose car_pose = {0, 0, 0};
   std::vector<common_lib::structures::PathPoint> input_path = path_from_file(file_path);
   std::vector<common_lib::structures::PathPoint> smoothed_path =
-      path_smoothing.smooth_path(input_path, car_pose, 0);
+      path_smoothing.smooth_path(input_path, car_pose, 0,false);
   EXPECT_EQ((int)smoothed_path.size(), 390);
 }
