@@ -55,7 +55,7 @@ void VelocityPlanning::point_speed(const std::vector<double> &radiuses,
   return;
 }
 
-void VelocityPlanning::accelaration_limiter(const std::vector<PathPoint> &points,
+void VelocityPlanning::acceleration_limiter(const std::vector<PathPoint> &points,
                                    std::vector<double> &velocities) {
   velocities[0] = config_.minimum_velocity_;
   for (int i = 1; i < (int)points.size(); i++) {
@@ -109,7 +109,7 @@ void VelocityPlanning::set_velocity(std::vector<PathPoint> &final_path) {
 
     std::vector<double> velocities;
     point_speed(radiuses, velocities);
-    accelaration_limiter(final_path, velocities);
+    acceleration_limiter(final_path, velocities);
     braking_limiter(final_path, velocities);
 
     for (int i = 0; i < static_cast<int>(final_path.size()); i++) {
@@ -142,7 +142,7 @@ void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
     velocities.back() = velocities[0]; // Closed loop consistency
     
     // Apply acceleration limits
-    accelaration_limiter(final_path, velocities);
+    acceleration_limiter(final_path, velocities);
     
     // Apply braking limits 
     braking_limiter(final_path, velocities);

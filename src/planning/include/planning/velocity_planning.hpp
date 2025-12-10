@@ -77,7 +77,7 @@ private:
    * @param points       The sequence of path points containing positions.
    * @param velocities   The velocity vector to be modified in-place.
    */
-  void accelaration_limiter(const std::vector<PathPoint> &points,
+  void acceleration_limiter(const std::vector<PathPoint> &points,
                                               std::vector<double> &velocities);
 
   /**
