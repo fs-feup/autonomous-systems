@@ -54,8 +54,8 @@ private:
    * @param car_pose pose of the car to start ordering according to the closest point
    * @param initial_car_orientation initial orientation of the car (usually 0 but not on some tests)
    */
-  void order_path(std::vector<PathPoint>& unord_path, const Pose& car_pose,
-                  const double initial_car_orientation) const;
+  // void order_path(std::vector<PathPoint>& unord_path, const Pose& car_pose,
+  //                 const double initial_car_orientation) const;
 };
 
 #endif  // SRC_PLANNING_INCLUDE_PLANNING_SMOOTHING2_HPP_

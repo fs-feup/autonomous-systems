@@ -26,16 +26,17 @@ custom_interfaces::msg::ConeArray custom_interfaces_array_from_vector(
   }
   return message;
 }
-
 custom_interfaces::msg::PathPointArray custom_interfaces_array_from_vector(
-    const std::vector<common_lib::structures::PathPoint> &input_path) {
-  auto message = custom_interfaces::msg::PathPointArray();
+    const std::vector<common_lib::structures::PathPoint> &input_path, bool is_map_closed) {
+  custom_interfaces::msg::PathPointArray message;
+  message.is_map_closed = is_map_closed;
+
   for (auto const &element : input_path) {
-    auto point = custom_interfaces::msg::PathPoint();
-    point.x = element.position.x;
-    point.y = element.position.y;
-    point.v = element.ideal_velocity;
-    message.pathpoint_array.push_back(point);
+    custom_interfaces::msg::PathPoint p;
+    p.x = element.position.x;
+    p.y = element.position.y;
+    p.v = element.ideal_velocity;
+    message.pathpoint_array.push_back(p);
   }
   return message;
 }
