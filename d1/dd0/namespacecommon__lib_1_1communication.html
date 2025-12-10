@@ -114,8 +114,8 @@ Functions</h2></td></tr>
 <tr class="separator:a72d8d8f96d0fecb170617070d8a1a0a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a2d8764017ab8e3f91e8c5b51c613d2" id="r_a8a2d8764017ab8e3f91e8c5b51c613d2"><td class="memItemLeft" align="right" valign="top">custom_interfaces::msg::ConeArray&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a8a2d8764017ab8e3f91e8c5b51c613d2">custom_interfaces_array_from_vector</a> (const std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &amp;input_cones)</td></tr>
 <tr class="separator:a8a2d8764017ab8e3f91e8c5b51c613d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8de99456d443bf986077fe3f4a02d447" id="r_a8de99456d443bf986077fe3f4a02d447"><td class="memItemLeft" align="right" valign="top">custom_interfaces::msg::PathPointArray&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a8de99456d443bf986077fe3f4a02d447">custom_interfaces_array_from_vector</a> (const std::vector&lt; <a class="el" href="../../d9/db0/structcommon__lib_1_1structures_1_1_path_point.html">common_lib::structures::PathPoint</a> &gt; &amp;input_path)</td></tr>
-<tr class="separator:a8de99456d443bf986077fe3f4a02d447"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92315855f30f11ddf65fa6b845878279" id="r_a92315855f30f11ddf65fa6b845878279"><td class="memItemLeft" align="right" valign="top">custom_interfaces::msg::PathPointArray&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a92315855f30f11ddf65fa6b845878279">custom_interfaces_array_from_vector</a> (const std::vector&lt; <a class="el" href="../../d9/db0/structcommon__lib_1_1structures_1_1_path_point.html">common_lib::structures::PathPoint</a> &gt; &amp;input_path, bool is_map_closed)</td></tr>
+<tr class="separator:a92315855f30f11ddf65fa6b845878279"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6656b173ca5e1bb92e976eca68b7315" id="r_ab6656b173ca5e1bb92e976eca68b7315"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ab6656b173ca5e1bb92e976eca68b7315">cone_vector_from_custom_interfaces</a> (const custom_interfaces::msg::ConeArray &amp;msg)</td></tr>
 <tr class="separator:ab6656b173ca5e1bb92e976eca68b7315"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f7dd6410634ac7a63480f740476e8e5" id="r_a2f7dd6410634ac7a63480f740476e8e5"><td class="memItemLeft" align="right" valign="top">const std::map&lt; std::string, std::array&lt; float, 4 &gt;, std::less&lt;&gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5">marker_color_map</a> ()</td></tr>
@@ -136,6 +136,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aee895a24be4cfef1a8bcd0d799041647" id="r_aee895a24be4cfef1a8bcd0d799041647"><td class="memItemLeft" align="right" valign="top">visualization_msgs::msg::Marker&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#aee895a24be4cfef1a8bcd0d799041647">lines_marker_from_triangulations</a> (const std::vector&lt; std::pair&lt; <a class="el" href="../../d2/da2/marker_8hpp.html#a3a78be97ed6744f53b38676709a25081">Point</a>, <a class="el" href="../../d2/da2/marker_8hpp.html#a3a78be97ed6744f53b38676709a25081">Point</a> &gt; &gt; &amp;triangulations, const std::string &amp;name_space, const std::string &amp;frame_id, int id, const std::string &amp;color, float scale, int action)</td></tr>
 <tr class="memdesc:aee895a24be4cfef1a8bcd0d799041647"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a vector of triangulation edges to a marker.  <br /></td></tr>
 <tr class="separator:aee895a24be4cfef1a8bcd0d799041647"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad032521a6c8b87a7d9b09dbd35b27da5" id="r_ad032521a6c8b87a7d9b09dbd35b27da5"><td class="memItemLeft" align="right" valign="top">visualization_msgs::msg::MarkerArray&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad032521a6c8b87a7d9b09dbd35b27da5">velocity_hover_markers</a> (const std::vector&lt; <a class="el" href="../../d9/db0/structcommon__lib_1_1structures_1_1_path_point.html">common_lib::structures::PathPoint</a> &gt; &amp;path_array, const std::string &amp;name_space, const std::string &amp;frame_id, float scale=0.2f, int every_nth=1)</td></tr>
+<tr class="memdesc:ad032521a6c8b87a7d9b09dbd35b27da5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates sphere markers at each path point with velocity in the marker namespace When you hover over these in Foxglove's 3D panel, it shows the velocity in the tooltip.  <br /></td></tr>
+<tr class="separator:ad032521a6c8b87a7d9b09dbd35b27da5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ab6656b173ca5e1bb92e976eca68b7315" name="ab6656b173ca5e1bb92e976eca68b7315"></a>
@@ -154,7 +157,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d46/interfaces_8cpp_source.html#l00043">43</a> of file <a class="el" href="../../d9/d46/interfaces_8cpp_source.html">interfaces.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d46/interfaces_8cpp_source.html#l00044">44</a> of file <a class="el" href="../../d9/d46/interfaces_8cpp_source.html">interfaces.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -267,8 +270,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a8de99456d443bf986077fe3f4a02d447" name="a8de99456d443bf986077fe3f4a02d447"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8de99456d443bf986077fe3f4a02d447">&#9670;&#160;</a></span>custom_interfaces_array_from_vector() <span class="overload">[2/2]</span></h2>
+<a id="a92315855f30f11ddf65fa6b845878279" name="a92315855f30f11ddf65fa6b845878279"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92315855f30f11ddf65fa6b845878279">&#9670;&#160;</a></span>custom_interfaces_array_from_vector() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -277,13 +280,23 @@ Here is the caller graph for this function:</div>
           <td class="memname">custom_interfaces::msg::PathPointArray common_lib::communication::custom_interfaces_array_from_vector </td>
           <td>(</td>
           <td class="paramtype">const std::vector&lt; <a class="el" href="../../d9/db0/structcommon__lib_1_1structures_1_1_path_point.html">common_lib::structures::PathPoint</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>input_path</em></td><td>)</td>
+          <td class="paramname"><em>input_path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>is_map_closed</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d46/interfaces_8cpp_source.html#l00030">30</a> of file <a class="el" href="../../d9/d46/interfaces_8cpp_source.html">interfaces.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d46/interfaces_8cpp_source.html#l00029">29</a> of file <a class="el" href="../../d9/d46/interfaces_8cpp_source.html">interfaces.cpp</a>.</p>
 
 </div>
 </div>
@@ -366,7 +379,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>visualization_msgs::msg::MarkerArray </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/da2/marker_8hpp_source.html#l00157">157</a> of file <a class="el" href="../../d2/da2/marker_8hpp_source.html">marker.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/da2/marker_8hpp_source.html#l00158">158</a> of file <a class="el" href="../../d2/da2/marker_8hpp_source.html">marker.hpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -618,7 +631,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>visualization_msgs::msg::MarkerArray </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/da2/marker_8hpp_source.html#l00078">78</a> of file <a class="el" href="../../d2/da2/marker_8hpp_source.html">marker.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/da2/marker_8hpp_source.html#l00079">79</a> of file <a class="el" href="../../d2/da2/marker_8hpp_source.html">marker.hpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -720,7 +733,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/da2/marker_8hpp_source.html#l00020">20</a> of file <a class="el" href="../../d2/da2/marker_8hpp_source.html">marker.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/da2/marker_8hpp_source.html#l00021">21</a> of file <a class="el" href="../../d2/da2/marker_8hpp_source.html">marker.hpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -921,7 +934,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/da2/marker_8hpp_source.html#l00030">30</a> of file <a class="el" href="../../d2/da2/marker_8hpp_source.html">marker.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/da2/marker_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../d2/da2/marker_8hpp_source.html">marker.hpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1040,6 +1053,104 @@ Here is the caller graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="436,36,404,36,404,31,436,31"/>
 <area shape="rect" href="../../d1/d4c/class_mocker_node.html#aa36522a8f5f3a0b61e7517ad951c826e" title="Constructor for a new Mocker Node object." alt="" coords="5,20,181,46"/>
 <area shape="poly" title=" " alt="" coords="213,36,181,36,181,31,213,31"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ad032521a6c8b87a7d9b09dbd35b27da5" name="ad032521a6c8b87a7d9b09dbd35b27da5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad032521a6c8b87a7d9b09dbd35b27da5">&#9670;&#160;</a></span>velocity_hover_markers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">visualization_msgs::msg::MarkerArray common_lib::communication::velocity_hover_markers </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d9/db0/structcommon__lib_1_1structures_1_1_path_point.html">common_lib::structures::PathPoint</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>path_array</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name_space</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>frame_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>scale</em> = <code>0.2f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>every_nth</em> = <code>1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates sphere markers at each path point with velocity in the marker namespace When you hover over these in Foxglove's 3D panel, it shows the velocity in the tooltip. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path_array</td><td>vector of PathPoints </td></tr>
+    <tr><td class="paramname">name_space</td><td>base namespace of the markers </td></tr>
+    <tr><td class="paramname">frame_id</td><td>frame id </td></tr>
+    <tr><td class="paramname">scale</td><td>size of the spheres </td></tr>
+    <tr><td class="paramname">every_nth</td><td>show sphere every nth point </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>visualization_msgs::msg::MarkerArray </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../da/d05/marker_8cpp_source.html#l00079">79</a> of file <a class="el" href="../../da/d05/marker_8cpp_source.html">marker.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d1/dd0/namespacecommon__lib_1_1communication_ad032521a6c8b87a7d9b09dbd35b27da5_icgraph.png" border="0" usemap="#ad1/dd0/namespacecommon__lib_1_1communication_ad032521a6c8b87a7d9b09dbd35b27da5_icgraph" alt=""/></div>
+<map name="ad1/dd0/namespacecommon__lib_1_1communication_ad032521a6c8b87a7d9b09dbd35b27da5_icgraph" id="ad1/dd0/namespacecommon__lib_1_1communication_ad032521a6c8b87a7d9b09dbd35b27da5_icgraph">
+<area shape="rect" title="Creates sphere markers at each path point with velocity in the marker namespace When you hover over t..." alt="" coords="1214,137,1399,178"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#ad6c3fad6bc5175529714461938aa9a46" title="Publishes all visualization markers." alt="" coords="931,145,1166,171"/>
+<area shape="poly" title=" " alt="" coords="1198,160,1167,160,1167,155,1198,155"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
+<area shape="poly" title=" " alt="" coords="915,160,883,160,883,155,915,155"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
+<area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="495,169,684,210"/>
+<area shape="poly" title=" " alt="" coords="718,174,685,178,685,173,717,168"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
+<area shape="poly" title=" " alt="" coords="505,99,444,94,445,88,505,94"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructs a Planning node with the specified configuration parameters." alt="" coords="291,120,419,145"/>
+<area shape="poly" title=" " alt="" coords="505,117,419,127,419,122,505,112"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,5,429,46"/>
+<area shape="poly" title=" " alt="" coords="512,81,417,49,419,44,513,76"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,150,195,176"/>
+<area shape="poly" title=" " alt="" coords="280,103,264,109,240,123,216,137,172,152,170,147,214,133,237,119,262,105,278,98"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,97,215,123"/>
+<area shape="poly" title=" " alt="" coords="280,54,151,99,149,94,278,49"/>
+<area shape="poly" title=" " alt="" coords="488,168,410,148,411,143,490,163"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,234,446,260"/>
+<area shape="poly" title=" " alt="" coords="490,217,411,236,410,231,488,212"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,284,447,309"/>
+<area shape="poly" title=" " alt="" coords="547,221,500,249,448,275,417,285,416,280,446,270,498,244,544,217"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="281,169,429,210"/>
+<area shape="poly" title=" " alt="" coords="480,192,429,192,429,187,480,187"/>
+<area shape="poly" title=" " alt="" coords="286,232,262,224,142,179,144,174,264,219,288,227"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
+<area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
+<area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
 </map>
 </div>
 

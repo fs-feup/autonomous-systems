@@ -1,122 +1,120 @@
 <map id="PacSimAdapter::timer_callback" name="PacSimAdapter::timer_callback">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,768,153,808"/>
-<area shape="rect" id="Node000002" href="$d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="201,768,390,808"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,785,185,785,185,791,153,791"/>
-<area shape="rect" id="Node000003" href="$d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="438,657,588,698"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="336,765,457,703,459,707,338,769"/>
-<area shape="rect" id="Node000065" href="$d0/d89/class_path_calculation.html#aed93cb437cf28eb7cd0a540894f35443" title="Set the current vehicle position and orientation." alt="" coords="445,800,581,840"/>
-<area shape="poly" id="edge69_Node000002_Node000065" title=" " alt="" coords="391,799,430,805,430,810,390,804"/>
-<area shape="rect" id="Node000004" href="$d9/db5/class_planning.html#ab77ae5600e1e2f0247753055ee4d086c" title="Calculates path and applies smoothing." alt="" coords="968,657,1100,698"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="589,675,952,675,952,680,589,680"/>
-<area shape="rect" id="Node000036" href="$d9/db5/class_planning.html#aab7a9fdd3fddc1a07b51281bef96f53a" title="Publishes the planning algorithm execution time." alt="" coords="648,142,860,167"/>
-<area shape="poly" id="edge22_Node000003_Node000036" title=" " alt="" coords="514,656,527,555,551,411,567,338,587,270,609,215,634,178,638,174,642,178,638,182,614,218,592,272,573,339,556,412,532,556,519,657"/>
-<area shape="rect" id="Node000037" href="$d9/db5/class_planning.html#aa8ad2cbbe8c774e51463142acb1088d2" title="Publishes the final planned path to the control module." alt="" coords="679,192,829,232"/>
-<area shape="poly" id="edge23_Node000003_Node000037" title=" " alt="" coords="511,656,513,579,518,526,527,468,542,407,564,347,595,291,635,242,663,223,666,228,638,246,599,294,569,350,547,409,532,469,523,527,518,580,516,657"/>
-<area shape="rect" id="Node000039" href="$d9/db5/class_planning.html#ad6c3fad6bc5175529714461938aa9a46" title="Publishes all visualization markers." alt="" coords="636,436,872,462"/>
-<area shape="poly" id="edge25_Node000003_Node000039" title=" " alt="" coords="534,655,726,471,730,474,538,658"/>
-<area shape="rect" id="Node000050" href="$d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="674,832,834,858"/>
-<area shape="poly" id="edge40_Node000003_Node000050" title=" " alt="" coords="529,696,572,756,603,788,638,815,661,826,659,831,635,819,599,792,568,759,524,699"/>
-<area shape="rect" id="Node000054" href="$d3/dcc/class_velocity_planning.html#aa0af0b050d79a4efe649c778810ab5ef" title="Assigns an ideal velocity to each point of the path." alt="" coords="963,1002,1105,1043"/>
-<area shape="poly" id="edge65_Node000003_Node000054" title=" " alt="" coords="531,697,591,787,603,811,610,832,620,851,638,868,669,886,698,894,725,896,753,895,810,895,840,902,873,919,890,936,898,954,906,971,921,987,950,1002,947,1007,918,991,902,974,894,956,886,939,870,923,839,907,809,900,753,900,725,901,697,899,667,891,635,873,615,854,605,834,598,813,586,789,527,700"/>
-<area shape="rect" id="Node000060" href="$d9/db5/class_planning.html#ab1d989a47e1266f2522638828ade3271" title="Executes planning for the EBS (Emergency Braking System) test mission." alt="" coords="678,690,830,715"/>
-<area shape="poly" id="edge56_Node000003_Node000060" title=" " alt="" coords="589,682,663,690,662,696,588,688"/>
-<area shape="rect" id="Node000061" href="$d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="674,779,834,805"/>
-<area shape="poly" id="edge58_Node000003_Node000061" title=" " alt="" coords="559,696,712,769,710,774,556,700"/>
-<area shape="rect" id="Node000062" href="$de/d3f/class_skidpad.html#ac65aa1cc814c7f17f337bc2eab352058" title="Generate a path for skidpad course." alt="" coords="678,256,830,282"/>
-<area shape="poly" id="edge66_Node000003_Node000062" title=" " alt="" coords="520,655,565,553,598,487,634,422,683,351,729,293,733,296,688,354,639,425,602,490,570,556,525,657"/>
-<area shape="rect" id="Node000005" href="$d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1196,608,1398,634"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1099,661,1218,635,1219,640,1100,666"/>
-<area shape="rect" id="Node000032" href="$d7/db7/class_path_smoothing.html#a9c484c641bcc262c3af3d169c9fa4c54" title="function to smooth a path" alt="" coords="1202,722,1393,747"/>
-<area shape="poly" id="edge19_Node000004_Node000032" title=" " alt="" coords="1101,689,1220,715,1219,720,1099,694"/>
-<area shape="rect" id="Node000006" href="$d0/d89/class_path_calculation.html#a9694a0284110864c9b546261ce1e4db4" title="Reset path construction state." alt="" coords="1472,749,1619,790"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="1314,632,1370,682,1407,710,1448,735,1459,741,1457,745,1445,740,1404,714,1366,686,1310,636"/>
-<area shape="rect" id="Node000007" href="$d0/d89/class_path_calculation.html#a81c3a881015bcd88d48c641dd9a8f134" title="Extend the path by adding midpoints." alt="" coords="1451,454,1640,479"/>
-<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="1308,606,1363,550,1402,517,1445,489,1460,483,1462,488,1448,494,1405,522,1366,554,1312,610"/>
-<area shape="rect" id="Node000015" href="$d4/d10/class_colorpoint.html#a99c94a57fc5285ae484c40cb4f9bba43" title="Extracts and classifies all cones from a sequence of colorpoints." alt="" coords="1483,504,1608,544"/>
-<area shape="poly" id="edge12_Node000005_Node000015" title=" " alt="" coords="1327,605,1445,555,1468,546,1469,551,1447,560,1329,610"/>
-<area shape="rect" id="Node000021" href="$d8/dab/class_midpoint_generator.html#aa6109ae91e9fd644bdd3c1c47188baaa" title="Generates midpoints from a set of cones." alt="" coords="1478,569,1613,610"/>
-<area shape="poly" id="edge13_Node000005_Node000021" title=" " alt="" coords="1398,605,1463,597,1464,602,1399,611"/>
-<area shape="rect" id="Node000026" href="$d0/d89/class_path_calculation.html#af87bf849e6229c74e758cd7fa4abf78d" title="Converts a vector of Colorpoint objects into a vector of PathPoint objects." alt="" coords="1446,338,1645,379"/>
-<area shape="poly" id="edge14_Node000005_Node000026" title=" " alt="" coords="1314,606,1354,569,1396,520,1411,486,1416,456,1423,426,1431,411,1444,395,1456,385,1460,389,1448,399,1436,414,1428,428,1421,457,1416,488,1401,523,1358,573,1317,610"/>
-<area shape="rect" id="Node000027" href="$d0/d89/class_path_calculation.html#a52cbb5e2cf46ba4e6716928b2d5b5ed9" title="Initialize the path from the vehicle&#39;s initial pose." alt="" coords="1463,634,1628,675"/>
-<area shape="poly" id="edge15_Node000005_Node000027" title=" " alt="" coords="1398,632,1448,639,1448,644,1397,637"/>
-<area shape="rect" id="Node000030" href="$d0/d89/class_path_calculation.html#a175af4c0941c9de5f80ab7c55d05de51" title="Handle path reset when completing a lap." alt="" coords="1456,699,1635,725"/>
-<area shape="poly" id="edge16_Node000005_Node000030" title=" " alt="" coords="1326,632,1381,658,1447,684,1472,692,1471,697,1445,689,1379,663,1324,637"/>
-<area shape="rect" id="Node000031" href="$d0/d89/class_path_calculation.html#a9c6027b6e5239454d50c785c16f2c1cb" title="Initialize the path from the previous path." alt="" coords="1694,361,1852,402"/>
-<area shape="poly" id="edge17_Node000005_Node000031" title=" " alt="" coords="1312,606,1352,569,1396,520,1409,497,1417,477,1426,457,1445,439,1486,421,1545,407,1678,387,1679,392,1546,412,1487,426,1448,443,1430,461,1422,479,1414,499,1400,523,1356,572,1316,610"/>
-<area shape="rect" id="Node000008" href="$d0/d89/class_path_calculation.html#ae596921fc9b984db42026132d4f5e78b" title="Invalidate cones and midpoints along the last path segment." alt="" coords="1693,476,1853,516"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="1641,476,1677,481,1677,486,1640,481"/>
-<area shape="rect" id="Node000010" href="$d0/d89/class_path_calculation.html#a7f11a4bdef8eb9fdfd88d808dca1b90f" title="Find the nearest valid midpoint to a target position." alt="" coords="1901,418,2039,459"/>
-<area shape="poly" id="edge11_Node000007_Node000010" title=" " alt="" coords="1640,458,1886,441,1886,447,1640,463"/>
-<area shape="rect" id="Node000013" href="$d0/d89/class_path_calculation.html#aa57adbaba88d90c8f96909fb8dbf14d0" title="Recursively find the best next midpoint using depth&#45;first search." alt="" coords="1703,565,1843,606"/>
-<area shape="poly" id="edge9_Node000007_Node000013" title=" " alt="" coords="1614,477,1646,489,1671,506,1694,526,1732,553,1729,558,1691,530,1668,510,1643,494,1612,482"/>
-<area shape="poly" id="edge8_Node000008_Node000010" title=" " alt="" coords="1844,472,1886,460,1887,465,1846,478"/>
-<area shape="poly" id="edge10_Node000013_Node000013" title=" " alt="" coords="1735,565,1733,555,1740,546,1753,540,1773,538,1794,541,1807,547,1805,552,1793,546,1773,543,1754,545,1743,550,1739,556,1740,564"/>
-<area shape="poly" id="edge18_Node000031_Node000010" title=" " alt="" coords="1846,399,1887,412,1886,417,1844,405"/>
-<area shape="rect" id="Node000033" href="$d6/da8/splines_8hpp.html#a5987a477b79a8b344f897f3be409cb37" title="This function takes a sequence of points (T), fits a spline to them using B&#45;spline basis functions,..." alt="" coords="1509,814,1582,839"/>
-<area shape="poly" id="edge20_Node000032_Node000033" title=" " alt="" coords="1370,745,1400,757,1415,768,1424,779,1434,789,1448,799,1495,816,1493,821,1445,804,1430,793,1420,782,1411,772,1397,762,1368,750"/>
-<area shape="rect" id="Node000034" href="$d7/db7/class_path_smoothing.html#ace570f760de1ee8b370917096599bd6f" title="function to order the path points to be used in the spline fitting" alt="" coords="1457,863,1634,889"/>
-<area shape="poly" id="edge21_Node000032_Node000034" title=" " alt="" coords="1379,746,1400,758,1411,769,1418,781,1425,805,1431,828,1437,839,1448,850,1453,853,1449,857,1445,854,1433,843,1426,831,1420,807,1414,783,1407,772,1397,762,1376,750"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,913,153,954"/>
+<area shape="rect" id="Node000002" href="$d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="201,913,390,954"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,931,185,931,185,936,153,936"/>
+<area shape="rect" id="Node000003" href="$d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="438,809,588,850"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="339,910,454,854,456,859,341,915"/>
+<area shape="rect" id="Node000067" href="$d0/d89/class_path_calculation.html#aed93cb437cf28eb7cd0a540894f35443" title="Set the current vehicle position and orientation." alt="" coords="445,945,581,986"/>
+<area shape="poly" id="edge67_Node000002_Node000067" title=" " alt="" coords="391,944,430,950,430,956,390,950"/>
+<area shape="rect" id="Node000004" href="$d9/db5/class_planning.html#ab77ae5600e1e2f0247753055ee4d086c" title="Calculates path and applies smoothing." alt="" coords="968,722,1100,763"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="555,806,593,789,636,776,719,759,804,749,953,740,953,745,805,754,720,765,637,781,595,794,557,811"/>
+<area shape="rect" id="Node000036" href="$d9/db5/class_planning.html#aab7a9fdd3fddc1a07b51281bef96f53a" title="Publishes the planning algorithm execution time." alt="" coords="648,994,860,1019"/>
+<area shape="poly" id="edge17_Node000003_Node000036" title=" " alt="" coords="531,848,585,918,614,951,638,972,665,986,662,991,635,977,610,955,581,921,527,851"/>
+<area shape="rect" id="Node000037" href="$d9/db5/class_planning.html#aa8ad2cbbe8c774e51463142acb1088d2" title="Publishes the final planned path to the control module." alt="" coords="679,53,829,94"/>
+<area shape="poly" id="edge18_Node000003_Node000037" title=" " alt="" coords="513,808,524,677,548,480,564,377,584,281,607,201,634,144,657,118,685,99,688,103,661,122,639,147,612,203,589,283,569,378,553,481,530,677,519,808"/>
+<area shape="rect" id="Node000039" href="$d9/db5/class_planning.html#ad6c3fad6bc5175529714461938aa9a46" title="Publishes all visualization markers." alt="" coords="636,468,872,494"/>
+<area shape="poly" id="edge20_Node000003_Node000039" title=" " alt="" coords="526,807,733,505,737,508,531,810"/>
+<area shape="rect" id="Node000051" href="$d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="674,843,834,869"/>
+<area shape="poly" id="edge36_Node000003_Node000051" title=" " alt="" coords="589,835,659,843,658,848,588,840"/>
+<area shape="rect" id="Node000055" href="$d3/dcc/class_velocity_planning.html#aa0af0b050d79a4efe649c778810ab5ef" title="Assigns an ideal velocity to each point of the path." alt="" coords="963,1068,1105,1108"/>
+<area shape="poly" id="edge63_Node000003_Node000055" title=" " alt="" coords="535,848,579,889,607,911,637,928,671,941,702,947,757,948,784,948,812,952,841,961,873,979,891,997,898,1016,906,1035,921,1052,950,1068,947,1073,918,1057,901,1038,894,1018,886,1000,870,983,839,966,811,957,784,954,757,953,701,952,670,946,635,933,604,915,576,894,532,852"/>
+<area shape="rect" id="Node000062" href="$d9/db5/class_planning.html#ab1d989a47e1266f2522638828ade3271" title="Executes planning for the EBS (Emergency Braking System) test mission." alt="" coords="678,791,830,817"/>
+<area shape="poly" id="edge54_Node000003_Node000062" title=" " alt="" coords="588,819,662,811,663,816,589,824"/>
+<area shape="rect" id="Node000063" href="$d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="674,892,834,918"/>
+<area shape="poly" id="edge56_Node000003_Node000063" title=" " alt="" coords="559,848,637,879,663,886,661,891,635,884,557,853"/>
+<area shape="rect" id="Node000064" href="$de/d3f/class_skidpad.html#ac65aa1cc814c7f17f337bc2eab352058" title="Generate a path for skidpad course." alt="" coords="678,158,830,183"/>
+<area shape="poly" id="edge64_Node000003_Node000064" title=" " alt="" coords="518,808,564,660,634,455,691,308,739,196,744,198,696,310,639,457,569,661,523,809"/>
+<area shape="rect" id="Node000005" href="$d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1196,636,1398,662"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1099,722,1147,707,1251,666,1253,671,1149,712,1101,727"/>
+<area shape="rect" id="Node000032" href="$d7/db7/class_path_smoothing.html#a9c484c641bcc262c3af3d169c9fa4c54" title="function to smooth a path" alt="" coords="1202,787,1393,813"/>
+<area shape="poly" id="edge14_Node000004_Node000032" title=" " alt="" coords="1101,754,1220,781,1219,786,1099,759"/>
+<area shape="rect" id="Node000006" href="$d0/d89/class_path_calculation.html#a9694a0284110864c9b546261ce1e4db4" title="Reset path construction state." alt="" coords="1472,694,1619,735"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="1349,660,1458,689,1457,694,1348,665"/>
+<area shape="rect" id="Node000007" href="$d0/d89/class_path_calculation.html#a81c3a881015bcd88d48c641dd9a8f134" title="Extend the path by adding midpoints." alt="" coords="1451,759,1640,785"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="1316,660,1372,701,1409,724,1447,744,1466,751,1465,756,1445,749,1406,729,1369,706,1313,665"/>
+<area shape="rect" id="Node000015" href="$d4/d10/class_colorpoint.html#a99c94a57fc5285ae484c40cb4f9bba43" title="Extracts and classifies all cones from a sequence of colorpoints." alt="" coords="1483,384,1608,424"/>
+<area shape="poly" id="edge8_Node000005_Node000015" title=" " alt="" coords="1380,634,1396,622,1413,600,1421,577,1422,555,1421,531,1420,484,1428,460,1444,435,1468,418,1471,423,1448,439,1432,462,1425,485,1426,531,1428,555,1426,579,1418,602,1400,626,1383,638"/>
+<area shape="rect" id="Node000021" href="$d8/dab/class_midpoint_generator.html#aa6109ae91e9fd644bdd3c1c47188baaa" title="Generates midpoints from a set of cones." alt="" coords="1478,449,1613,490"/>
+<area shape="poly" id="edge9_Node000005_Node000021" title=" " alt="" coords="1378,634,1397,622,1409,608,1416,594,1420,563,1425,532,1432,516,1445,501,1462,487,1466,492,1448,504,1436,519,1430,534,1426,564,1421,595,1413,611,1400,626,1381,638"/>
+<area shape="rect" id="Node000026" href="$d0/d89/class_path_calculation.html#af87bf849e6229c74e758cd7fa4abf78d" title="Converts a vector of Colorpoint objects into a vector of PathPoint objects." alt="" coords="1446,288,1645,328"/>
+<area shape="poly" id="edge10_Node000005_Node000026" title=" " alt="" coords="1381,634,1396,622,1418,592,1427,562,1428,533,1425,503,1421,472,1420,439,1427,406,1444,370,1461,351,1482,335,1485,339,1465,354,1449,373,1432,407,1426,440,1427,471,1431,502,1434,533,1433,563,1423,594,1400,626,1384,638"/>
+<area shape="rect" id="Node000027" href="$d0/d89/class_path_calculation.html#a52cbb5e2cf46ba4e6716928b2d5b5ed9" title="Initialize the path from the vehicle&#39;s initial pose." alt="" coords="1463,514,1628,555"/>
+<area shape="poly" id="edge11_Node000005_Node000027" title=" " alt="" coords="1372,633,1397,622,1412,608,1420,594,1429,579,1445,564,1452,560,1454,565,1448,569,1433,582,1425,597,1416,612,1400,626,1374,638"/>
+<area shape="rect" id="Node000030" href="$d0/d89/class_path_calculation.html#a175af4c0941c9de5f80ab7c55d05de51" title="Handle path reset when completing a lap." alt="" coords="1456,579,1635,605"/>
+<area shape="poly" id="edge12_Node000005_Node000030" title=" " alt="" coords="1355,633,1471,606,1472,611,1357,638"/>
+<area shape="rect" id="Node000031" href="$d0/d89/class_path_calculation.html#a9c6027b6e5239454d50c785c16f2c1cb" title="Initialize the path from the previous path." alt="" coords="1467,629,1624,670"/>
+<area shape="poly" id="edge13_Node000005_Node000031" title=" " alt="" coords="1399,647,1452,647,1452,652,1399,652"/>
+<area shape="rect" id="Node000008" href="$d0/d89/class_path_calculation.html#ae596921fc9b984db42026132d4f5e78b" title="Invalidate cones and midpoints along the last path segment." alt="" coords="1693,752,1853,792"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="1640,769,1677,769,1677,775,1640,775"/>
+<area shape="rect" id="Node000033" href="$d6/da8/splines_8hpp.html#a5987a477b79a8b344f897f3be409cb37" title="This function takes a sequence of points (T), fits a spline to them using B&#45;spline basis functions,..." alt="" coords="1509,808,1582,834"/>
+<area shape="poly" id="edge15_Node000032_Node000033" title=" " alt="" coords="1394,805,1494,814,1494,819,1393,811"/>
+<area shape="rect" id="Node000034" href="$d7/db7/class_path_smoothing.html#ace570f760de1ee8b370917096599bd6f" title="function to order the path points to be used in the spline fitting" alt="" coords="1457,858,1634,883"/>
+<area shape="poly" id="edge16_Node000032_Node000034" title=" " alt="" coords="1359,811,1399,823,1447,844,1468,851,1467,856,1445,849,1397,828,1357,816"/>
 <area shape="rect" id="Node000038" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a8a2d8764017ab8e3f91e8c5b51c613d2" title=" " alt="" coords="941,5,1127,61"/>
-<area shape="poly" id="edge24_Node000037_Node000038" title=" " alt="" coords="829,199,851,190,870,178,881,165,888,153,894,126,899,99,906,85,918,71,927,64,930,68,922,75,910,88,904,101,899,128,893,155,886,169,873,182,853,195,831,204"/>
-<area shape="rect" id="Node000040" href="$d0/d89/class_path_calculation.html#a27da78d255e0dae346f0394b6a44f279" title="Gets the list of blue cones detected or used in the path calculation." alt="" coords="966,592,1102,632"/>
-<area shape="poly" id="edge26_Node000039_Node000040" title=" " alt="" coords="770,461,832,516,875,548,921,576,952,589,950,594,918,581,872,553,829,520,767,465"/>
-<area shape="rect" id="Node000041" href="$d0/d89/class_path_calculation.html#a32c98016b89039232744c40ae3be80c0" title="Get the path from the start to a lookback distance behind the car’s current position." alt="" coords="1229,338,1365,379"/>
-<area shape="poly" id="edge27_Node000039_Node000041" title=" " alt="" coords="780,433,842,406,919,381,996,367,1074,359,1213,354,1213,359,1075,365,997,373,920,386,844,411,782,438"/>
-<area shape="rect" id="Node000042" href="$d0/d89/class_path_calculation.html#aa54b9c35626f48a0f3addbc23788726b" title="Get the triangulation segments used in path generation." alt="" coords="966,281,1102,322"/>
-<area shape="poly" id="edge29_Node000039_Node000042" title=" " alt="" coords="771,434,834,388,918,337,950,324,952,329,921,342,837,392,774,438"/>
-<area shape="rect" id="Node000044" href="$d0/d89/class_path_calculation.html#a8e60c47e2d898ebffa9dfc739874595c" title="Gets the list of yellow cones detected or used in the path calculation." alt="" coords="966,216,1102,256"/>
-<area shape="poly" id="edge31_Node000039_Node000044" title=" " alt="" coords="761,435,784,401,820,356,865,308,918,267,950,252,952,256,921,271,869,312,824,359,789,404,766,438"/>
-<area shape="rect" id="Node000045" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ac5ec37420a86bf2c41c59243de0c7997" title="Converts a vector of cones to a marker array." alt="" coords="924,396,1144,436"/>
-<area shape="poly" id="edge32_Node000039_Node000045" title=" " alt="" coords="867,433,908,428,908,433,868,438"/>
-<area shape="rect" id="Node000048" href="$d1/dd0/namespacecommon__lib_1_1communication.html#aee895a24be4cfef1a8bcd0d799041647" title="Converts a vector of triangulation edges to a marker." alt="" coords="925,526,1143,567"/>
-<area shape="poly" id="edge35_Node000039_Node000048" title=" " alt="" coords="788,460,921,511,944,518,943,524,919,516,786,465"/>
-<area shape="rect" id="Node000049" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="920,461,1148,502"/>
-<area shape="poly" id="edge37_Node000039_Node000049" title=" " alt="" coords="872,460,905,464,904,469,872,465"/>
-<area shape="poly" id="edge28_Node000041_Node000026" title=" " alt="" coords="1366,356,1431,356,1431,361,1366,361"/>
-<area shape="rect" id="Node000043" href="$d8/dab/class_midpoint_generator.html#ae4d1b656e350b878adae84447aa0e12d" title="Returns the current set of Delaunay edges used for visualization." alt="" coords="1231,273,1364,314"/>
-<area shape="poly" id="edge30_Node000042_Node000043" title=" " alt="" coords="1103,296,1215,293,1215,298,1103,302"/>
-<area shape="rect" id="Node000046" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="1205,469,1390,510"/>
-<area shape="poly" id="edge33_Node000045_Node000046" title=" " alt="" coords="1110,434,1207,462,1206,467,1109,439"/>
-<area shape="rect" id="Node000047" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="1205,404,1390,444"/>
-<area shape="poly" id="edge34_Node000045_Node000047" title=" " alt="" coords="1145,417,1189,418,1189,423,1144,422"/>
-<area shape="poly" id="edge36_Node000048_Node000046" title=" " alt="" coords="1130,523,1189,510,1190,515,1131,528"/>
-<area shape="poly" id="edge38_Node000049_Node000046" title=" " alt="" coords="1148,482,1189,483,1189,489,1148,487"/>
-<area shape="poly" id="edge39_Node000049_Node000047" title=" " alt="" coords="1130,458,1189,445,1190,450,1131,463"/>
-<area shape="poly" id="edge41_Node000050_Node000004" title=" " alt="" coords="833,831,870,815,886,802,895,789,904,774,918,758,986,704,989,708,922,762,908,777,899,792,890,806,873,819,835,836"/>
-<area shape="poly" id="edge50_Node000050_Node000032" title=" " alt="" coords="817,856,902,872,999,885,1087,887,1122,882,1147,872,1159,861,1166,848,1171,819,1175,788,1182,772,1194,758,1200,753,1203,758,1198,762,1186,775,1180,789,1176,820,1172,850,1164,864,1149,877,1123,887,1088,892,998,890,901,877,816,861"/>
-<area shape="rect" id="Node000051" href="$d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="949,772,1119,812"/>
-<area shape="poly" id="edge42_Node000050_Node000051" title=" " alt="" coords="825,829,933,808,934,814,826,834"/>
-<area shape="poly" id="edge46_Node000050_Node000054" title=" " alt="" coords="835,854,855,863,873,875,886,889,893,904,898,933,903,961,910,974,921,987,950,1004,947,1009,918,991,905,977,898,962,893,933,888,905,882,892,870,879,853,867,833,859"/>
-<area shape="rect" id="Node000058" href="$d3/dcc/class_velocity_planning.html#a663342a9c3f5ad5c749943a3bb4f18ef" title="Gradually reduces velocity to zero along the first half of the path." alt="" coords="960,836,1108,862"/>
-<area shape="poly" id="edge51_Node000050_Node000058" title=" " alt="" coords="834,844,944,845,944,851,834,849"/>
-<area shape="rect" id="Node000059" href="$d3/dcc/class_velocity_planning.html#aa40dcdcc9466406d53d06f0cc52f98dd" title="Computes velocity for track driving scenarios with repeated smoothing." alt="" coords="944,937,1124,978"/>
-<area shape="poly" id="edge52_Node000050_Node000059" title=" " alt="" coords="825,856,873,875,888,885,898,896,907,906,921,916,946,928,944,933,918,921,904,910,894,899,884,889,870,880,823,861"/>
-<area shape="poly" id="edge44_Node000051_Node000005" title=" " alt="" coords="1066,769,1261,640,1264,645,1069,773"/>
-<area shape="rect" id="Node000052" href="$d0/d89/class_path_calculation.html#a9c6e4729d3c03b9545e136c810f66f38" title="Generate interpolated points between two path endpoints." alt="" coords="1228,772,1367,812"/>
-<area shape="poly" id="edge43_Node000051_Node000052" title=" " alt="" coords="1119,789,1212,789,1212,795,1119,795"/>
-<area shape="rect" id="Node000053" href="$d0/d89/class_path_calculation.html#ab7648ed321c4e8adcde0d11f552f486d" title="Find the optimal point to close a track loop." alt="" coords="1228,837,1366,878"/>
-<area shape="poly" id="edge45_Node000051_Node000053" title=" " alt="" coords="1119,810,1213,834,1212,839,1118,815"/>
-<area shape="rect" id="Node000055" href="$d3/dcc/class_velocity_planning.html#a64a69a4833bd8054d6d9faa33791d660" title="function to calculate the radius of the circle that passes through 3 points" alt="" coords="1226,920,1369,960"/>
-<area shape="poly" id="edge47_Node000054_Node000055" title=" " alt="" coords="1104,1000,1147,987,1218,963,1219,968,1149,992,1106,1005"/>
-<area shape="rect" id="Node000056" href="$d3/dcc/class_velocity_planning.html#a0fdadea4c9950df53dddfec7aad9e2a0" title="function to calculate the speed of the car according to the curvature of the path" alt="" coords="1222,985,1373,1026"/>
-<area shape="poly" id="edge48_Node000054_Node000056" title=" " alt="" coords="1105,1015,1206,1008,1206,1014,1105,1021"/>
-<area shape="rect" id="Node000057" href="$d3/dcc/class_velocity_planning.html#ab74815515808651d953b291ca59e1f80" title="function to limit the speed of the car according to the curvature of the lookahead path" alt="" coords="1218,1050,1376,1091"/>
-<area shape="poly" id="edge49_Node000054_Node000057" title=" " alt="" coords="1106,1033,1203,1051,1202,1056,1105,1038"/>
-<area shape="poly" id="edge53_Node000059_Node000055" title=" " alt="" coords="1124,949,1210,943,1210,948,1125,954"/>
-<area shape="poly" id="edge54_Node000059_Node000056" title=" " alt="" coords="1125,971,1207,986,1206,991,1124,976"/>
-<area shape="poly" id="edge55_Node000059_Node000057" title=" " alt="" coords="1123,976,1149,988,1165,1000,1174,1012,1183,1024,1197,1035,1209,1041,1206,1046,1195,1039,1179,1027,1170,1015,1161,1004,1147,993,1121,980"/>
-<area shape="poly" id="edge57_Node000060_Node000004" title=" " alt="" coords="830,693,952,682,953,687,831,698"/>
-<area shape="poly" id="edge59_Node000061_Node000004" title=" " alt="" coords="781,776,919,713,952,701,954,706,921,718,783,781"/>
-<area shape="poly" id="edge62_Node000061_Node000032" title=" " alt="" coords="814,776,919,757,1058,743,1186,736,1186,741,1058,749,920,762,815,781"/>
-<area shape="poly" id="edge60_Node000061_Node000051" title=" " alt="" coords="834,789,933,789,933,795,834,795"/>
-<area shape="poly" id="edge61_Node000061_Node000054" title=" " alt="" coords="835,796,856,805,874,818,890,839,898,861,899,904,900,946,906,967,922,987,950,1006,947,1010,918,991,902,969,894,947,894,904,893,862,885,842,870,822,853,810,833,801"/>
-<area shape="poly" id="edge63_Node000061_Node000058" title=" " alt="" coords="821,803,953,830,952,835,820,808"/>
-<area shape="poly" id="edge64_Node000061_Node000059" title=" " alt="" coords="835,801,873,818,889,830,899,844,908,857,921,873,990,926,987,930,918,876,904,861,895,847,886,834,870,822,833,806"/>
-<area shape="rect" id="Node000063" href="$de/d3f/class_skidpad.html#a54bb0f607bde268fa3db8e6fce32f522" title="Aligns detected cones with reference cones using ICP." alt="" coords="962,85,1106,126"/>
-<area shape="poly" id="edge67_Node000062_Node000063" title=" " alt="" coords="829,261,851,253,870,242,881,230,888,218,894,191,899,164,906,150,918,136,946,119,949,124,921,141,910,153,904,166,899,192,893,219,886,233,873,246,853,258,831,266"/>
-<area shape="rect" id="Node000064" href="$de/d3f/class_skidpad.html#afb0ea0b6d869e3a561ff5c755c82fe2a" title="Finds the closest point index in a path to a given pose." alt="" coords="962,150,1106,191"/>
-<area shape="poly" id="edge68_Node000062_Node000064" title=" " alt="" coords="829,256,870,241,885,232,894,222,904,212,918,202,946,189,948,194,921,206,907,216,898,226,888,236,873,246,831,261"/>
-<area shape="rect" id="Node000066" href="$d8/dab/class_midpoint_generator.html#a71fd6ccb73482dd6db71de2673ba61f7" title="Updates the vehicle pose for dynamic filtering." alt="" coords="687,933,821,974"/>
-<area shape="poly" id="edge70_Node000065_Node000066" title=" " alt="" coords="538,838,582,876,638,912,674,928,672,933,635,917,579,880,535,843"/>
+<area shape="poly" id="edge19_Node000037_Node000038" title=" " alt="" coords="829,60,925,46,926,51,830,65"/>
+<area shape="rect" id="Node000040" href="$d0/d89/class_path_calculation.html#a27da78d255e0dae346f0394b6a44f279" title="Gets the list of blue cones detected or used in the path calculation." alt="" coords="966,265,1102,306"/>
+<area shape="poly" id="edge21_Node000039_Node000040" title=" " alt="" coords="763,466,823,395,868,353,918,316,950,302,952,306,921,321,871,357,827,399,767,470"/>
+<area shape="rect" id="Node000041" href="$d0/d89/class_path_calculation.html#a32c98016b89039232744c40ae3be80c0" title="Get the path from the start to a lookback distance behind the car’s current position." alt="" coords="1229,237,1365,278"/>
+<area shape="poly" id="edge22_Node000039_Node000041" title=" " alt="" coords="757,467,776,423,808,362,830,330,856,299,885,272,918,251,955,236,993,226,1071,218,1147,222,1214,233,1213,238,1147,227,1071,223,994,231,956,241,921,256,888,276,860,303,835,333,813,364,781,425,762,469"/>
+<area shape="rect" id="Node000042" href="$d0/d89/class_path_calculation.html#aa54b9c35626f48a0f3addbc23788726b" title="Get the triangulation segments used in path generation." alt="" coords="966,330,1102,371"/>
+<area shape="poly" id="edge24_Node000039_Node000042" title=" " alt="" coords="773,466,836,425,919,381,950,369,952,374,921,386,839,430,776,470"/>
+<area shape="rect" id="Node000044" href="$d0/d89/class_path_calculation.html#a8e60c47e2d898ebffa9dfc739874595c" title="Gets the list of yellow cones detected or used in the path calculation." alt="" coords="966,396,1102,436"/>
+<area shape="poly" id="edge26_Node000039_Node000044" title=" " alt="" coords="812,465,950,433,951,438,813,470"/>
+<area shape="rect" id="Node000045" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ac5ec37420a86bf2c41c59243de0c7997" title="Converts a vector of cones to a marker array." alt="" coords="924,592,1144,632"/>
+<area shape="poly" id="edge27_Node000039_Node000045" title=" " alt="" coords="776,492,839,533,921,576,939,584,938,588,919,581,836,537,773,497"/>
+<area shape="rect" id="Node000048" href="$d1/dd0/namespacecommon__lib_1_1communication.html#aee895a24be4cfef1a8bcd0d799041647" title="Converts a vector of triangulation edges to a marker." alt="" coords="925,461,1143,502"/>
+<area shape="poly" id="edge30_Node000039_Node000048" title=" " alt="" coords="872,479,909,479,909,484,872,484"/>
+<area shape="rect" id="Node000049" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="920,526,1148,567"/>
+<area shape="poly" id="edge32_Node000039_Node000049" title=" " alt="" coords="813,492,930,519,928,525,812,497"/>
+<area shape="rect" id="Node000050" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad032521a6c8b87a7d9b09dbd35b27da5" title="Creates sphere markers at each path point with velocity in the marker namespace When you hover over t..." alt="" coords="941,657,1127,698"/>
+<area shape="poly" id="edge35_Node000039_Node000050" title=" " alt="" coords="767,493,827,563,871,605,921,642,933,648,931,653,918,646,868,609,823,567,763,496"/>
+<area shape="poly" id="edge23_Node000041_Node000026" title=" " alt="" coords="1366,268,1432,282,1431,287,1365,274"/>
+<area shape="rect" id="Node000043" href="$d8/dab/class_midpoint_generator.html#ae4d1b656e350b878adae84447aa0e12d" title="Returns the current set of Delaunay edges used for visualization." alt="" coords="1231,330,1364,371"/>
+<area shape="poly" id="edge25_Node000042_Node000043" title=" " alt="" coords="1103,348,1215,348,1215,353,1103,353"/>
+<area shape="rect" id="Node000046" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="1205,506,1390,547"/>
+<area shape="poly" id="edge28_Node000045_Node000046" title=" " alt="" coords="1109,588,1147,576,1195,557,1217,550,1219,555,1197,562,1149,581,1110,593"/>
+<area shape="rect" id="Node000047" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="1205,572,1390,612"/>
+<area shape="poly" id="edge29_Node000045_Node000047" title=" " alt="" coords="1144,601,1189,597,1189,603,1145,606"/>
+<area shape="poly" id="edge31_Node000048_Node000046" title=" " alt="" coords="1144,497,1190,505,1189,511,1143,503"/>
+<area shape="poly" id="edge33_Node000049_Node000046" title=" " alt="" coords="1148,535,1189,532,1189,537,1149,540"/>
+<area shape="poly" id="edge34_Node000049_Node000047" title=" " alt="" coords="1149,564,1189,571,1188,576,1148,569"/>
+<area shape="poly" id="edge37_Node000051_Node000004" title=" " alt="" coords="833,842,870,827,885,816,894,804,903,792,918,779,952,762,954,767,921,783,907,795,898,807,889,820,873,831,835,847"/>
+<area shape="poly" id="edge47_Node000051_Node000032" title=" " alt="" coords="817,840,919,823,1058,809,1186,801,1186,807,1058,814,920,828,818,845"/>
+<area shape="rect" id="Node000052" href="$d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="949,837,1119,878"/>
+<area shape="poly" id="edge38_Node000051_Node000052" title=" " alt="" coords="834,854,933,854,933,859,834,859"/>
+<area shape="poly" id="edge42_Node000051_Node000055" title=" " alt="" coords="835,857,855,865,873,878,891,899,899,922,900,944,899,966,899,1010,906,1032,922,1053,950,1071,947,1076,918,1056,901,1034,894,1011,894,966,895,944,893,923,886,902,870,882,853,870,833,862"/>
+<area shape="rect" id="Node000060" href="$d3/dcc/class_velocity_planning.html#a663342a9c3f5ad5c749943a3bb4f18ef" title="Gradually reduces velocity to zero along the first half of the path." alt="" coords="960,902,1108,927"/>
+<area shape="poly" id="edge48_Node000051_Node000060" title=" " alt="" coords="822,867,872,877,956,895,955,900,871,882,821,872"/>
+<area shape="rect" id="Node000061" href="$d3/dcc/class_velocity_planning.html#aa40dcdcc9466406d53d06f0cc52f98dd" title="Computes velocity for track driving scenarios with repeated smoothing." alt="" coords="944,1002,1124,1043"/>
+<area shape="poly" id="edge49_Node000051_Node000061" title=" " alt="" coords="835,862,873,878,890,892,900,906,908,921,922,938,955,966,989,991,986,996,952,971,918,942,904,924,895,909,886,895,870,882,833,867"/>
+<area shape="poly" id="edge40_Node000052_Node000005" title=" " alt="" coords="1063,834,1146,772,1268,670,1272,674,1150,777,1066,838"/>
+<area shape="rect" id="Node000053" href="$d0/d89/class_path_calculation.html#a9c6e4729d3c03b9545e136c810f66f38" title="Generate interpolated points between two path endpoints." alt="" coords="1228,837,1367,878"/>
+<area shape="poly" id="edge39_Node000052_Node000053" title=" " alt="" coords="1119,855,1212,855,1212,860,1119,860"/>
+<area shape="rect" id="Node000054" href="$d0/d89/class_path_calculation.html#ab7648ed321c4e8adcde0d11f552f486d" title="Find the optimal point to close a track loop." alt="" coords="1228,902,1366,943"/>
+<area shape="poly" id="edge41_Node000052_Node000054" title=" " alt="" coords="1119,876,1213,899,1212,904,1118,881"/>
+<area shape="rect" id="Node000056" href="$d3/dcc/class_velocity_planning.html#ac0edf4dad8d4433d86b6cf6829cf4a1a" title="Applies a forward acceleration constraint to the velocity profile." alt="" coords="1201,1164,1394,1204"/>
+<area shape="poly" id="edge43_Node000055_Node000056" title=" " alt="" coords="1088,1106,1197,1148,1219,1156,1217,1161,1195,1153,1086,1111"/>
+<area shape="rect" id="Node000057" href="$d3/dcc/class_velocity_planning.html#a3a87dcd794428fa2f743a42d2aabe98d" title="function to limit the speed of the car according to braking constraints" alt="" coords="1215,968,1380,1008"/>
+<area shape="poly" id="edge44_Node000055_Node000057" title=" " alt="" coords="1104,1068,1147,1052,1171,1036,1195,1019,1210,1012,1212,1017,1197,1023,1174,1040,1149,1057,1106,1073"/>
+<area shape="rect" id="Node000058" href="$d3/dcc/class_velocity_planning.html#a64a69a4833bd8054d6d9faa33791d660" title="function to calculate the radius of the circle that passes through 3 points" alt="" coords="1226,1033,1369,1074"/>
+<area shape="poly" id="edge45_Node000055_Node000058" title=" " alt="" coords="1105,1076,1210,1062,1210,1067,1105,1081"/>
+<area shape="rect" id="Node000059" href="$d3/dcc/class_velocity_planning.html#a0fdadea4c9950df53dddfec7aad9e2a0" title="function to calculate the speed of the car according to the curvature of the path" alt="" coords="1222,1098,1373,1139"/>
+<area shape="poly" id="edge46_Node000055_Node000059" title=" " alt="" coords="1105,1093,1207,1105,1206,1111,1105,1099"/>
+<area shape="poly" id="edge50_Node000061_Node000056" title=" " alt="" coords="1126,1039,1150,1054,1168,1078,1175,1102,1181,1126,1198,1149,1203,1153,1200,1157,1194,1152,1176,1128,1170,1104,1163,1080,1146,1058,1123,1043"/>
+<area shape="poly" id="edge51_Node000061_Node000057" title=" " alt="" coords="1124,1008,1199,998,1199,1003,1125,1013"/>
+<area shape="poly" id="edge52_Node000061_Node000058" title=" " alt="" coords="1125,1030,1211,1040,1210,1046,1124,1036"/>
+<area shape="poly" id="edge53_Node000061_Node000059" title=" " alt="" coords="1117,1041,1149,1053,1173,1068,1197,1083,1213,1090,1211,1095,1195,1088,1171,1073,1147,1058,1115,1046"/>
+<area shape="poly" id="edge55_Node000062_Node000004" title=" " alt="" coords="816,788,952,757,954,763,817,793"/>
+<area shape="poly" id="edge57_Node000063_Node000004" title=" " alt="" coords="833,894,870,879,886,867,895,854,904,839,918,823,986,770,989,774,922,827,908,843,899,857,890,870,873,883,835,899"/>
+<area shape="poly" id="edge60_Node000063_Node000032" title=" " alt="" coords="813,916,898,933,996,948,1086,952,1121,947,1147,938,1159,926,1166,913,1171,884,1175,853,1182,838,1194,823,1200,819,1203,823,1198,827,1186,841,1180,855,1176,885,1172,915,1164,929,1149,942,1123,953,1086,957,995,953,897,939,811,921"/>
+<area shape="poly" id="edge58_Node000063_Node000052" title=" " alt="" coords="833,889,933,872,934,877,834,894"/>
+<area shape="poly" id="edge59_Node000063_Node000055" title=" " alt="" coords="835,914,855,923,873,935,886,950,894,965,898,995,903,1025,910,1039,921,1052,950,1070,947,1075,918,1057,905,1042,898,1026,893,996,889,967,882,953,870,939,853,927,833,919"/>
+<area shape="poly" id="edge61_Node000063_Node000060" title=" " alt="" coords="834,905,944,909,944,914,834,910"/>
+<area shape="poly" id="edge62_Node000063_Node000061" title=" " alt="" coords="828,916,873,935,888,947,898,959,907,970,921,982,944,994,941,998,918,986,903,974,894,962,885,950,870,939,825,921"/>
+<area shape="rect" id="Node000065" href="$de/d3f/class_skidpad.html#a54bb0f607bde268fa3db8e6fce32f522" title="Aligns detected cones with reference cones using ICP." alt="" coords="962,150,1106,191"/>
+<area shape="poly" id="edge65_Node000064_Node000065" title=" " alt="" coords="830,168,947,168,947,173,830,173"/>
+<area shape="rect" id="Node000066" href="$de/d3f/class_skidpad.html#afb0ea0b6d869e3a561ff5c755c82fe2a" title="Finds the closest point index in a path to a given pose." alt="" coords="962,85,1106,126"/>
+<area shape="poly" id="edge66_Node000064_Node000066" title=" " alt="" coords="812,154,947,123,948,128,813,160"/>
+<area shape="rect" id="Node000068" href="$d8/dab/class_midpoint_generator.html#a71fd6ccb73482dd6db71de2673ba61f7" title="Updates the vehicle pose for dynamic filtering." alt="" coords="687,1044,821,1084"/>
+<area shape="poly" id="edge68_Node000067_Node000068" title=" " alt="" coords="549,984,590,1007,637,1029,674,1042,672,1047,635,1034,588,1012,546,988"/>
 </map>

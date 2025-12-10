@@ -109,9 +109,9 @@ Collaboration diagram for VelocityPlanning:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dc/d80/class_velocity_planning__coll__graph.png" border="0" usemap="#a_velocity_planning_coll__map" alt="Collaboration graph"/></div>
 <map name="a_velocity_planning_coll__map" id="a_velocity_planning_coll__map">
-<area shape="rect" title="Computes velocity profiles for a planned path based on curvature and dynamics constraints." alt="" coords="17,234,157,439"/>
-<area shape="rect" href="../../d2/d0d/struct_velocity_planning_config.html" title="struct for the configuration of the velocity planning algorithm" alt="" coords="5,5,169,171"/>
-<area shape="poly" title=" " alt="" coords="90,170,90,217,85,217,85,170"/>
+<area shape="rect" title="Computes velocity profiles for a planned path based on curvature and dynamics constraints." alt="" coords="15,254,159,479"/>
+<area shape="rect" href="../../d2/d0d/struct_velocity_planning_config.html" title="struct for the configuration of the velocity planning algorithm" alt="" coords="5,5,169,191"/>
+<area shape="poly" title=" " alt="" coords="90,190,90,237,85,237,85,190"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -138,9 +138,12 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a64a69a4833bd8054d6d9faa33791d660" id="r_a64a69a4833bd8054d6d9faa33791d660"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dcc/class_velocity_planning.html#a64a69a4833bd8054d6d9faa33791d660">find_circle_center</a> (const <a class="el" href="../../d2/df9/velocity__planning_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &amp;point1, const <a class="el" href="../../d2/df9/velocity__planning_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &amp;point2, const <a class="el" href="../../d2/df9/velocity__planning_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &amp;point3)</td></tr>
 <tr class="memdesc:a64a69a4833bd8054d6d9faa33791d660"><td class="mdescLeft">&#160;</td><td class="mdescRight">function to calculate the radius of the circle that passes through 3 points  <br /></td></tr>
 <tr class="separator:a64a69a4833bd8054d6d9faa33791d660"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab74815515808651d953b291ca59e1f80" id="r_ab74815515808651d953b291ca59e1f80"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dcc/class_velocity_planning.html#ab74815515808651d953b291ca59e1f80">speed_limiter</a> (std::vector&lt; <a class="el" href="../../d2/df9/velocity__planning_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;points, std::vector&lt; double &gt; &amp;velocities)</td></tr>
-<tr class="memdesc:ab74815515808651d953b291ca59e1f80"><td class="mdescLeft">&#160;</td><td class="mdescRight">function to limit the speed of the car according to the curvature of the lookahead path  <br /></td></tr>
-<tr class="separator:ab74815515808651d953b291ca59e1f80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0edf4dad8d4433d86b6cf6829cf4a1a" id="r_ac0edf4dad8d4433d86b6cf6829cf4a1a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dcc/class_velocity_planning.html#ac0edf4dad8d4433d86b6cf6829cf4a1a">acceleration_limiter</a> (const std::vector&lt; <a class="el" href="../../d2/df9/velocity__planning_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;points, std::vector&lt; double &gt; &amp;velocities)</td></tr>
+<tr class="memdesc:ac0edf4dad8d4433d86b6cf6829cf4a1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a forward acceleration constraint to the velocity profile.  <br /></td></tr>
+<tr class="separator:ac0edf4dad8d4433d86b6cf6829cf4a1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a87dcd794428fa2f743a42d2aabe98d" id="r_a3a87dcd794428fa2f743a42d2aabe98d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dcc/class_velocity_planning.html#a3a87dcd794428fa2f743a42d2aabe98d">braking_limiter</a> (std::vector&lt; <a class="el" href="../../d2/df9/velocity__planning_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;points, std::vector&lt; double &gt; &amp;velocities)</td></tr>
+<tr class="memdesc:a3a87dcd794428fa2f743a42d2aabe98d"><td class="mdescLeft">&#160;</td><td class="mdescRight">function to limit the speed of the car according to braking constraints  <br /></td></tr>
+<tr class="separator:a3a87dcd794428fa2f743a42d2aabe98d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0fdadea4c9950df53dddfec7aad9e2a0" id="r_a0fdadea4c9950df53dddfec7aad9e2a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dcc/class_velocity_planning.html#a0fdadea4c9950df53dddfec7aad9e2a0">point_speed</a> (const std::vector&lt; double &gt; &amp;radiuses, std::vector&lt; double &gt; &amp;velocities)</td></tr>
 <tr class="memdesc:a0fdadea4c9950df53dddfec7aad9e2a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">function to calculate the speed of the car according to the curvature of the path  <br /></td></tr>
 <tr class="separator:a0fdadea4c9950df53dddfec7aad9e2a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -214,11 +217,215 @@ Private Attributes</h2></td></tr>
 
 <p>Construct a new Velocity <a class="el" href="../../d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle.">Planning</a> object with a given configuration. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/df9/velocity__planning_8hpp_source.html#l00030">30</a> of file <a class="el" href="../../d2/df9/velocity__planning_8hpp_source.html">velocity_planning.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/df9/velocity__planning_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../d2/df9/velocity__planning_8hpp_source.html">velocity_planning.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac0edf4dad8d4433d86b6cf6829cf4a1a" name="ac0edf4dad8d4433d86b6cf6829cf4a1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0edf4dad8d4433d86b6cf6829cf4a1a">&#9670;&#160;</a></span>acceleration_limiter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void VelocityPlanning::acceleration_limiter </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d2/df9/velocity__planning_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>points</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>velocities</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Applies a forward acceleration constraint to the velocity profile. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">points</td><td>The sequence of path points containing positions. </td></tr>
+    <tr><td class="paramname">velocities</td><td>The velocity vector to be modified in-place. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/dcb/velocity__planning_8cpp_source.html#l00058">58</a> of file <a class="el" href="../../d4/dcb/velocity__planning_8cpp_source.html">velocity_planning.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d3/dcc/class_velocity_planning_ac0edf4dad8d4433d86b6cf6829cf4a1a_icgraph.png" border="0" usemap="#ad3/dcc/class_velocity_planning_ac0edf4dad8d4433d86b6cf6829cf4a1a_icgraph" alt=""/></div>
+<map name="ad3/dcc/class_velocity_planning_ac0edf4dad8d4433d86b6cf6829cf4a1a_icgraph" id="ad3/dcc/class_velocity_planning_ac0edf4dad8d4433d86b6cf6829cf4a1a_icgraph">
+<area shape="rect" title="Applies a forward acceleration constraint to the velocity profile." alt="" coords="1366,188,1560,229"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#aa0af0b050d79a4efe649c778810ab5ef" title="Assigns an ideal velocity to each point of the path." alt="" coords="1158,220,1299,261"/>
+<area shape="poly" title=" " alt="" coords="1351,226,1300,233,1299,228,1351,221"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#aa40dcdcc9466406d53d06f0cc52f98dd" title="Computes velocity for track driving scenarios with repeated smoothing." alt="" coords="1138,137,1318,178"/>
+<area shape="poly" title=" " alt="" coords="1351,187,1318,180,1319,175,1352,182"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,145,1090,171"/>
+<area shape="poly" title=" " alt="" coords="1158,217,1045,174,1047,169,1160,212"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
+<area shape="poly" title=" " alt="" coords="1142,227,930,186,882,176,883,171,931,180,1143,222"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,96,1090,121"/>
+<area shape="poly" title=" " alt="" coords="1169,214,1136,192,1122,176,1113,161,1104,148,1089,135,1068,124,1071,119,1091,130,1108,144,1117,158,1126,173,1140,188,1172,210"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#ae7bdb50e99a2d0bae5638143bf25e069" title="simple scenario with few points in the path" alt="" coords="983,345,1038,371"/>
+<area shape="poly" title=" " alt="" coords="1191,273,1145,305,1091,336,1039,354,1037,349,1089,331,1142,301,1188,268"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#a1fa6f577535226be0d06a954e74e448a" title="Check if the velocity is always greater than the minimum velocity." alt="" coords="983,394,1038,420"/>
+<area shape="poly" title=" " alt="" coords="1206,275,1157,331,1126,360,1091,385,1065,398,1039,405,1037,400,1063,393,1089,381,1122,356,1153,327,1202,271"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#af97fb83dccb617636d3886e3a3a352a6" title="test for a path with only one point" alt="" coords="983,246,1038,272"/>
+<area shape="poly" title=" " alt="" coords="1142,250,1038,259,1038,254,1142,245"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#aa66702413e03977b4630566218ffde6a" title="test for a path with no points" alt="" coords="983,296,1038,321"/>
+<area shape="poly" title=" " alt="" coords="1149,268,1091,287,1039,303,1037,298,1089,282,1147,263"/>
+<area shape="poly" title=" " alt="" coords="915,160,883,160,883,155,915,155"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
+<area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="495,169,684,210"/>
+<area shape="poly" title=" " alt="" coords="718,174,685,178,685,173,717,168"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
+<area shape="poly" title=" " alt="" coords="505,99,444,94,445,88,505,94"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructs a Planning node with the specified configuration parameters." alt="" coords="291,120,419,145"/>
+<area shape="poly" title=" " alt="" coords="505,117,419,127,419,122,505,112"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,5,429,46"/>
+<area shape="poly" title=" " alt="" coords="512,81,417,49,419,44,513,76"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,150,195,176"/>
+<area shape="poly" title=" " alt="" coords="280,103,264,109,240,123,216,137,172,152,170,147,214,133,237,119,262,105,278,98"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,97,215,123"/>
+<area shape="poly" title=" " alt="" coords="280,54,151,99,149,94,278,49"/>
+<area shape="poly" title=" " alt="" coords="488,168,410,148,411,143,490,163"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,234,446,260"/>
+<area shape="poly" title=" " alt="" coords="490,217,411,236,410,231,488,212"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,284,447,309"/>
+<area shape="poly" title=" " alt="" coords="547,221,500,249,448,275,417,285,416,280,446,270,498,244,544,217"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="281,169,429,210"/>
+<area shape="poly" title=" " alt="" coords="480,192,429,192,429,187,480,187"/>
+<area shape="poly" title=" " alt="" coords="286,232,262,224,142,179,144,174,264,219,288,227"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
+<area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
+<area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
+<area shape="poly" title=" " alt="" coords="940,128,884,142,882,137,939,123"/>
+<area shape="poly" title=" " alt="" coords="1122,160,1090,160,1090,155,1122,155"/>
+<area shape="poly" title=" " alt="" coords="1122,136,1070,124,1071,119,1124,131"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a3a87dcd794428fa2f743a42d2aabe98d" name="a3a87dcd794428fa2f743a42d2aabe98d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a87dcd794428fa2f743a42d2aabe98d">&#9670;&#160;</a></span>braking_limiter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void VelocityPlanning::braking_limiter </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="../../d2/df9/velocity__planning_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>points</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>velocities</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>function to limit the speed of the car according to braking constraints </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">points</td><td>path points </td></tr>
+    <tr><td class="paramname">velocities</td><td>velocities of the path points </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/dcb/velocity__planning_8cpp_source.html#l00076">76</a> of file <a class="el" href="../../d4/dcb/velocity__planning_8cpp_source.html">velocity_planning.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d3/dcc/class_velocity_planning_a3a87dcd794428fa2f743a42d2aabe98d_icgraph.png" border="0" usemap="#ad3/dcc/class_velocity_planning_a3a87dcd794428fa2f743a42d2aabe98d_icgraph" alt=""/></div>
+<map name="ad3/dcc/class_velocity_planning_a3a87dcd794428fa2f743a42d2aabe98d_icgraph" id="ad3/dcc/class_velocity_planning_a3a87dcd794428fa2f743a42d2aabe98d_icgraph">
+<area shape="rect" title="function to limit the speed of the car according to braking constraints" alt="" coords="1366,188,1532,229"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#aa0af0b050d79a4efe649c778810ab5ef" title="Assigns an ideal velocity to each point of the path." alt="" coords="1158,220,1299,261"/>
+<area shape="poly" title=" " alt="" coords="1351,225,1300,233,1299,227,1350,220"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#aa40dcdcc9466406d53d06f0cc52f98dd" title="Computes velocity for track driving scenarios with repeated smoothing." alt="" coords="1138,137,1318,178"/>
+<area shape="poly" title=" " alt="" coords="1350,188,1318,181,1319,176,1351,183"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,145,1090,171"/>
+<area shape="poly" title=" " alt="" coords="1158,217,1045,174,1047,169,1160,212"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
+<area shape="poly" title=" " alt="" coords="1142,227,930,186,882,176,883,171,931,180,1143,222"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,96,1090,121"/>
+<area shape="poly" title=" " alt="" coords="1169,214,1136,192,1122,176,1113,161,1104,148,1089,135,1068,124,1071,119,1091,130,1108,144,1117,158,1126,173,1140,188,1172,210"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#ae7bdb50e99a2d0bae5638143bf25e069" title="simple scenario with few points in the path" alt="" coords="983,345,1038,371"/>
+<area shape="poly" title=" " alt="" coords="1191,273,1145,305,1091,336,1039,354,1037,349,1089,331,1142,301,1188,268"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#a1fa6f577535226be0d06a954e74e448a" title="Check if the velocity is always greater than the minimum velocity." alt="" coords="983,394,1038,420"/>
+<area shape="poly" title=" " alt="" coords="1206,275,1157,331,1126,360,1091,385,1065,398,1039,405,1037,400,1063,393,1089,381,1122,356,1153,327,1202,271"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#af97fb83dccb617636d3886e3a3a352a6" title="test for a path with only one point" alt="" coords="983,246,1038,272"/>
+<area shape="poly" title=" " alt="" coords="1142,250,1038,259,1038,254,1142,245"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#aa66702413e03977b4630566218ffde6a" title="test for a path with no points" alt="" coords="983,296,1038,321"/>
+<area shape="poly" title=" " alt="" coords="1149,268,1091,287,1039,303,1037,298,1089,282,1147,263"/>
+<area shape="poly" title=" " alt="" coords="915,160,883,160,883,155,915,155"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
+<area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="495,169,684,210"/>
+<area shape="poly" title=" " alt="" coords="718,174,685,178,685,173,717,168"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
+<area shape="poly" title=" " alt="" coords="505,99,444,94,445,88,505,94"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructs a Planning node with the specified configuration parameters." alt="" coords="291,120,419,145"/>
+<area shape="poly" title=" " alt="" coords="505,117,419,127,419,122,505,112"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,5,429,46"/>
+<area shape="poly" title=" " alt="" coords="512,81,417,49,419,44,513,76"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,150,195,176"/>
+<area shape="poly" title=" " alt="" coords="280,103,264,109,240,123,216,137,172,152,170,147,214,133,237,119,262,105,278,98"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,97,215,123"/>
+<area shape="poly" title=" " alt="" coords="280,54,151,99,149,94,278,49"/>
+<area shape="poly" title=" " alt="" coords="488,168,410,148,411,143,490,163"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,234,446,260"/>
+<area shape="poly" title=" " alt="" coords="490,217,411,236,410,231,488,212"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,284,447,309"/>
+<area shape="poly" title=" " alt="" coords="547,221,500,249,448,275,417,285,416,280,446,270,498,244,544,217"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="281,169,429,210"/>
+<area shape="poly" title=" " alt="" coords="480,192,429,192,429,187,480,187"/>
+<area shape="poly" title=" " alt="" coords="286,232,262,224,142,179,144,174,264,219,288,227"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
+<area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
+<area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
+<area shape="poly" title=" " alt="" coords="940,128,884,142,882,137,939,123"/>
+<area shape="poly" title=" " alt="" coords="1122,160,1090,160,1090,155,1122,155"/>
+<area shape="poly" title=" " alt="" coords="1122,136,1070,124,1071,119,1124,131"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a64a69a4833bd8054d6d9faa33791d660" name="a64a69a4833bd8054d6d9faa33791d660"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a64a69a4833bd8054d6d9faa33791d660">&#9670;&#160;</a></span>find_circle_center()</h2>
 
@@ -372,7 +579,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/dcb/velocity__planning_8cpp_source.html#l00048">48</a> of file <a class="el" href="../../d4/dcb/velocity__planning_8cpp_source.html">velocity_planning.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/dcb/velocity__planning_8cpp_source.html#l00047">47</a> of file <a class="el" href="../../d4/dcb/velocity__planning_8cpp_source.html">velocity_planning.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -455,19 +662,21 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/dcb/velocity__planning_8cpp_source.html#l00082">82</a> of file <a class="el" href="../../d4/dcb/velocity__planning_8cpp_source.html">velocity_planning.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/dcb/velocity__planning_8cpp_source.html#l00100">100</a> of file <a class="el" href="../../d4/dcb/velocity__planning_8cpp_source.html">velocity_planning.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/dcc/class_velocity_planning_aa0af0b050d79a4efe649c778810ab5ef_cgraph.png" border="0" usemap="#ad3/dcc/class_velocity_planning_aa0af0b050d79a4efe649c778810ab5ef_cgraph" alt=""/></div>
 <map name="ad3/dcc/class_velocity_planning_aa0af0b050d79a4efe649c778810ab5ef_cgraph" id="ad3/dcc/class_velocity_planning_aa0af0b050d79a4efe649c778810ab5ef_cgraph">
-<area shape="rect" title="Assigns an ideal velocity to each point of the path." alt="" coords="5,71,147,111"/>
-<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#a64a69a4833bd8054d6d9faa33791d660" title="function to calculate the radius of the circle that passes through 3 points" alt="" coords="202,5,346,46"/>
-<area shape="poly" title=" " alt="" coords="139,68,194,49,196,54,140,73"/>
-<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#a0fdadea4c9950df53dddfec7aad9e2a0" title="function to calculate the speed of the car according to the curvature of the path" alt="" coords="198,71,350,111"/>
-<area shape="poly" title=" " alt="" coords="147,88,183,88,183,94,147,94"/>
-<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#ab74815515808651d953b291ca59e1f80" title="function to limit the speed of the car according to the curvature of the lookahead path" alt="" coords="195,136,353,177"/>
-<area shape="poly" title=" " alt="" coords="140,109,196,128,194,133,139,114"/>
+<area shape="rect" title="Assigns an ideal velocity to each point of the path." alt="" coords="5,104,147,145"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#ac0edf4dad8d4433d86b6cf6829cf4a1a" title="Applies a forward acceleration constraint to the velocity profile." alt="" coords="195,5,388,46"/>
+<area shape="poly" title=" " alt="" coords="110,101,194,57,210,50,212,54,196,61,112,106"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#a3a87dcd794428fa2f743a42d2aabe98d" title="function to limit the speed of the car according to braking constraints" alt="" coords="209,71,374,111"/>
+<area shape="poly" title=" " alt="" coords="147,111,193,104,194,109,147,116"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#a64a69a4833bd8054d6d9faa33791d660" title="function to calculate the radius of the circle that passes through 3 points" alt="" coords="220,136,363,177"/>
+<area shape="poly" title=" " alt="" coords="147,132,205,141,204,146,147,137"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#a0fdadea4c9950df53dddfec7aad9e2a0" title="function to calculate the speed of the car according to the curvature of the path" alt="" coords="216,201,367,242"/>
+<area shape="poly" title=" " alt="" coords="113,143,196,186,213,193,210,198,194,191,111,148"/>
 </map>
 </div>
 <div class="dynheader">
@@ -522,109 +731,6 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="ab74815515808651d953b291ca59e1f80" name="ab74815515808651d953b291ca59e1f80"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab74815515808651d953b291ca59e1f80">&#9670;&#160;</a></span>speed_limiter()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void VelocityPlanning::speed_limiter </td>
-          <td>(</td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="../../d2/df9/velocity__planning_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>points</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; double &gt; &amp;&#160;</td>
-          <td class="paramname"><em>velocities</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>function to limit the speed of the car according to the curvature of the lookahead path </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">points</td><td>path points </td></tr>
-    <tr><td class="paramname">velocities</td><td>velocities of the path points </td></tr>
-    <tr><td class="paramname">brake_acelleration</td><td>maximum braking acelleration </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d4/dcb/velocity__planning_8cpp_source.html#l00058">58</a> of file <a class="el" href="../../d4/dcb/velocity__planning_8cpp_source.html">velocity_planning.cpp</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d3/dcc/class_velocity_planning_ab74815515808651d953b291ca59e1f80_icgraph.png" border="0" usemap="#ad3/dcc/class_velocity_planning_ab74815515808651d953b291ca59e1f80_icgraph" alt=""/></div>
-<map name="ad3/dcc/class_velocity_planning_ab74815515808651d953b291ca59e1f80_icgraph" id="ad3/dcc/class_velocity_planning_ab74815515808651d953b291ca59e1f80_icgraph">
-<area shape="rect" title="function to limit the speed of the car according to the curvature of the lookahead path" alt="" coords="1366,188,1525,229"/>
-<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#aa0af0b050d79a4efe649c778810ab5ef" title="Assigns an ideal velocity to each point of the path." alt="" coords="1158,220,1299,261"/>
-<area shape="poly" title=" " alt="" coords="1351,225,1300,233,1299,227,1351,220"/>
-<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#aa40dcdcc9466406d53d06f0cc52f98dd" title="Computes velocity for track driving scenarios with repeated smoothing." alt="" coords="1138,137,1318,178"/>
-<area shape="poly" title=" " alt="" coords="1351,189,1318,181,1319,176,1352,184"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,145,1090,171"/>
-<area shape="poly" title=" " alt="" coords="1158,217,1045,174,1047,169,1160,212"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
-<area shape="poly" title=" " alt="" coords="1142,227,930,186,882,176,883,171,931,180,1143,222"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,96,1090,121"/>
-<area shape="poly" title=" " alt="" coords="1169,214,1136,192,1122,176,1113,161,1104,148,1089,135,1068,124,1071,119,1091,130,1108,144,1117,158,1126,173,1140,188,1172,210"/>
-<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#ae7bdb50e99a2d0bae5638143bf25e069" title="simple scenario with few points in the path" alt="" coords="983,345,1038,371"/>
-<area shape="poly" title=" " alt="" coords="1191,273,1145,305,1091,336,1039,354,1037,349,1089,331,1142,301,1188,268"/>
-<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#a1fa6f577535226be0d06a954e74e448a" title="Check if the velocity is always greater than the minimum velocity." alt="" coords="983,394,1038,420"/>
-<area shape="poly" title=" " alt="" coords="1206,275,1157,331,1126,360,1091,385,1065,398,1039,405,1037,400,1063,393,1089,381,1122,356,1153,327,1202,271"/>
-<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#af97fb83dccb617636d3886e3a3a352a6" title="test for a path with only one point" alt="" coords="983,246,1038,272"/>
-<area shape="poly" title=" " alt="" coords="1142,250,1038,259,1038,254,1142,245"/>
-<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#aa66702413e03977b4630566218ffde6a" title="test for a path with no points" alt="" coords="983,296,1038,321"/>
-<area shape="poly" title=" " alt="" coords="1149,268,1091,287,1039,303,1037,298,1089,282,1147,263"/>
-<area shape="poly" title=" " alt="" coords="915,160,883,160,883,155,915,155"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
-<area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="495,169,684,210"/>
-<area shape="poly" title=" " alt="" coords="718,174,685,178,685,173,717,168"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
-<area shape="poly" title=" " alt="" coords="505,99,444,94,445,88,505,94"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructs a Planning node with the specified configuration parameters." alt="" coords="291,120,419,145"/>
-<area shape="poly" title=" " alt="" coords="505,117,419,127,419,122,505,112"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,5,429,46"/>
-<area shape="poly" title=" " alt="" coords="512,81,417,49,419,44,513,76"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,150,195,176"/>
-<area shape="poly" title=" " alt="" coords="280,103,264,109,240,123,216,137,172,152,170,147,214,133,237,119,262,105,278,98"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,97,215,123"/>
-<area shape="poly" title=" " alt="" coords="280,54,151,99,149,94,278,49"/>
-<area shape="poly" title=" " alt="" coords="488,168,410,148,411,143,490,163"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,234,446,260"/>
-<area shape="poly" title=" " alt="" coords="490,217,411,236,410,231,488,212"/>
-<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,284,447,309"/>
-<area shape="poly" title=" " alt="" coords="547,221,500,249,448,275,417,285,416,280,446,270,498,244,544,217"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="281,169,429,210"/>
-<area shape="poly" title=" " alt="" coords="480,192,429,192,429,187,480,187"/>
-<area shape="poly" title=" " alt="" coords="286,232,262,224,142,179,144,174,264,219,288,227"/>
-<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
-<area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
-<area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
-<area shape="poly" title=" " alt="" coords="940,128,884,142,882,137,939,123"/>
-<area shape="poly" title=" " alt="" coords="1122,160,1090,160,1090,155,1122,155"/>
-<area shape="poly" title=" " alt="" coords="1122,136,1070,124,1071,119,1124,131"/>
-</map>
-</div>
-
-</div>
-</div>
 <a id="a663342a9c3f5ad5c749943a3bb4f18ef" name="a663342a9c3f5ad5c749943a3bb4f18ef"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a663342a9c3f5ad5c749943a3bb4f18ef">&#9670;&#160;</a></span>stop()</h2>
 
@@ -650,7 +756,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/dcb/velocity__planning_8cpp_source.html#l00137">137</a> of file <a class="el" href="../../d4/dcb/velocity__planning_8cpp_source.html">velocity_planning.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/dcb/velocity__planning_8cpp_source.html#l00165">165</a> of file <a class="el" href="../../d4/dcb/velocity__planning_8cpp_source.html">velocity_planning.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -718,19 +824,21 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/dcb/velocity__planning_8cpp_source.html#l00108">108</a> of file <a class="el" href="../../d4/dcb/velocity__planning_8cpp_source.html">velocity_planning.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/dcb/velocity__planning_8cpp_source.html#l00127">127</a> of file <a class="el" href="../../d4/dcb/velocity__planning_8cpp_source.html">velocity_planning.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/dcc/class_velocity_planning_aa40dcdcc9466406d53d06f0cc52f98dd_cgraph.png" border="0" usemap="#ad3/dcc/class_velocity_planning_aa40dcdcc9466406d53d06f0cc52f98dd_cgraph" alt=""/></div>
 <map name="ad3/dcc/class_velocity_planning_aa40dcdcc9466406d53d06f0cc52f98dd_cgraph" id="ad3/dcc/class_velocity_planning_aa40dcdcc9466406d53d06f0cc52f98dd_cgraph">
-<area shape="rect" title="Computes velocity for track driving scenarios with repeated smoothing." alt="" coords="5,71,186,111"/>
-<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#a64a69a4833bd8054d6d9faa33791d660" title="function to calculate the radius of the circle that passes through 3 points" alt="" coords="241,5,385,46"/>
-<area shape="poly" title=" " alt="" coords="165,68,228,48,229,54,166,73"/>
-<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#a0fdadea4c9950df53dddfec7aad9e2a0" title="function to calculate the speed of the car according to the curvature of the path" alt="" coords="237,71,389,111"/>
-<area shape="poly" title=" " alt="" coords="186,88,221,88,221,94,186,94"/>
-<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#ab74815515808651d953b291ca59e1f80" title="function to limit the speed of the car according to the curvature of the lookahead path" alt="" coords="234,136,392,177"/>
-<area shape="poly" title=" " alt="" coords="166,109,229,128,228,134,165,114"/>
+<area shape="rect" title="Computes velocity for track driving scenarios with repeated smoothing." alt="" coords="5,104,186,145"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#ac0edf4dad8d4433d86b6cf6829cf4a1a" title="Applies a forward acceleration constraint to the velocity profile." alt="" coords="234,5,427,46"/>
+<area shape="poly" title=" " alt="" coords="137,101,233,57,251,49,253,54,235,61,139,106"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#a3a87dcd794428fa2f743a42d2aabe98d" title="function to limit the speed of the car according to braking constraints" alt="" coords="248,71,413,111"/>
+<area shape="poly" title=" " alt="" coords="186,109,232,102,233,108,186,114"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#a64a69a4833bd8054d6d9faa33791d660" title="function to calculate the radius of the circle that passes through 3 points" alt="" coords="259,136,402,177"/>
+<area shape="poly" title=" " alt="" coords="186,134,244,142,243,147,186,139"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#a0fdadea4c9950df53dddfec7aad9e2a0" title="function to calculate the speed of the car according to the curvature of the path" alt="" coords="255,201,406,242"/>
+<area shape="poly" title=" " alt="" coords="139,143,235,186,253,193,251,198,233,191,137,147"/>
 </map>
 </div>
 <div class="dynheader">
@@ -799,7 +907,7 @@ Here is the caller graph for this function:</div>
 
 <p>configuration of the velocity planning algorithm </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/df9/velocity__planning_8hpp_source.html#l00061">61</a> of file <a class="el" href="../../d2/df9/velocity__planning_8hpp_source.html">velocity_planning.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/df9/velocity__planning_8hpp_source.html#l00060">60</a> of file <a class="el" href="../../d2/df9/velocity__planning_8hpp_source.html">velocity_planning.hpp</a>.</p>
 
 </div>
 </div>

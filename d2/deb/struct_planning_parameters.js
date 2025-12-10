@@ -28,6 +28,7 @@ var struct_planning_parameters =
     [ "smoothing_spline_order_", "d2/deb/struct_planning_parameters.html#a8d676b1a478bc92eaefc08061d987848", null ],
     [ "smoothing_spline_precision_", "d2/deb/struct_planning_parameters.html#aa3dc1d308628d494337ff00701830501", null ],
     [ "smoothing_use_path_smoothing_", "d2/deb/struct_planning_parameters.html#a18a2ad572aced2230f459cacd0919997", null ],
+    [ "vp_acceleration_", "d2/deb/struct_planning_parameters.html#a4dcf5ea2aef6c92eeb92d17cec180b66", null ],
     [ "vp_braking_acceleration_", "d2/deb/struct_planning_parameters.html#a114bc925fcba2bf01421a6ac73d91c70", null ],
     [ "vp_desired_velocity_", "d2/deb/struct_planning_parameters.html#a31aed02c7b8451edf822b2f72c735f63", null ],
     [ "vp_minimum_velocity_", "d2/deb/struct_planning_parameters.html#a26355fd9d3e059bdaac49bffac24b170", null ],

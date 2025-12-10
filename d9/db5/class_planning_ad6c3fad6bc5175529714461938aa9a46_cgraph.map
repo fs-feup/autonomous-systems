@@ -1,28 +1,30 @@
 <map id="Planning::publish_visualization_msgs" name="Planning::publish_visualization_msgs">
-<area shape="rect" id="Node000001" title="Publishes all visualization markers." alt="" coords="5,209,241,235"/>
+<area shape="rect" id="Node000001" title="Publishes all visualization markers." alt="" coords="5,242,241,268"/>
 <area shape="rect" id="Node000002" href="$d0/d89/class_path_calculation.html#a27da78d255e0dae346f0394b6a44f279" title="Gets the list of blue cones detected or used in the path calculation." alt="" coords="335,5,471,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,207,192,136,237,93,287,57,319,42,321,47,290,61,240,97,196,139,136,210"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="129,240,152,204,187,154,233,102,287,57,319,41,321,46,290,61,236,106,191,158,156,207,134,243"/>
 <area shape="rect" id="Node000003" href="$d0/d89/class_path_calculation.html#a32c98016b89039232744c40ae3be80c0" title="Get the path from the start to a lookback distance behind the car’s current position." alt="" coords="335,71,471,111"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="142,206,205,165,288,122,319,110,321,115,290,127,208,170,145,211"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="135,240,197,184,241,151,287,122,319,109,321,114,290,127,244,155,201,188,139,244"/>
 <area shape="rect" id="Node000005" href="$d0/d89/class_path_calculation.html#aa54b9c35626f48a0f3addbc23788726b" title="Get the triangulation segments used in path generation." alt="" coords="335,136,471,177"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="181,206,319,173,320,178,182,211"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="155,239,288,187,319,177,321,182,290,192,156,244"/>
 <area shape="rect" id="Node000007" href="$d0/d89/class_path_calculation.html#a8e60c47e2d898ebffa9dfc739874595c" title="Gets the list of yellow cones detected or used in the path calculation." alt="" coords="335,201,471,242"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="241,219,319,219,319,224,241,224"/>
-<area shape="rect" id="Node000008" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ac5ec37420a86bf2c41c59243de0c7997" title="Converts a vector of cones to a marker array." alt="" coords="293,397,513,438"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="136,233,196,304,240,346,290,382,302,388,300,393,287,387,237,350,192,307,132,237"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="236,239,319,229,320,234,237,244"/>
+<area shape="rect" id="Node000008" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ac5ec37420a86bf2c41c59243de0c7997" title="Converts a vector of cones to a marker array." alt="" coords="293,332,513,373"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="157,266,290,316,313,324,312,329,288,322,155,271"/>
 <area shape="rect" id="Node000011" href="$d1/dd0/namespacecommon__lib_1_1communication.html#aee895a24be4cfef1a8bcd0d799041647" title="Converts a vector of triangulation edges to a marker." alt="" coords="294,267,512,307"/>
-<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="182,233,299,260,297,265,181,238"/>
-<area shape="rect" id="Node000012" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="289,332,517,373"/>
-<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="145,233,208,273,290,317,308,324,307,329,288,321,205,278,142,237"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="241,266,279,270,278,275,241,271"/>
+<area shape="rect" id="Node000012" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="289,397,517,438"/>
+<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="139,266,201,322,244,354,290,382,305,389,303,394,287,387,241,358,198,326,136,270"/>
+<area shape="rect" id="Node000013" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad032521a6c8b87a7d9b09dbd35b27da5" title="Creates sphere markers at each path point with velocity in the marker namespace When you hover over t..." alt="" coords="310,463,496,503"/>
+<area shape="poly" id="edge15_Node000001_Node000013" title=" " alt="" coords="134,267,156,303,191,352,236,403,290,447,300,453,297,458,287,452,233,407,187,355,152,306,129,270"/>
 <area shape="rect" id="Node000004" href="$d0/d89/class_path_calculation.html#af87bf849e6229c74e758cd7fa4abf78d" title="Converts a vector of Colorpoint objects into a vector of PathPoint objects." alt="" coords="565,71,763,111"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="471,88,550,88,550,94,471,94"/>
 <area shape="rect" id="Node000006" href="$d8/dab/class_midpoint_generator.html#ae4d1b656e350b878adae84447aa0e12d" title="Returns the current set of Delaunay edges used for visualization." alt="" coords="598,136,731,177"/>
 <area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="471,154,582,154,582,159,471,159"/>
 <area shape="rect" id="Node000009" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="572,332,757,373"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="486,394,565,374,566,380,488,399"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="513,350,556,350,556,355,513,355"/>
 <area shape="rect" id="Node000010" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="572,397,757,438"/>
-<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="513,415,556,415,556,420,513,420"/>
+<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="488,371,566,390,565,396,486,376"/>
 <area shape="poly" id="edge11_Node000011_Node000009" title=" " alt="" coords="488,305,566,325,565,330,486,311"/>
-<area shape="poly" id="edge13_Node000012_Node000009" title=" " alt="" coords="518,350,556,350,556,355,518,355"/>
-<area shape="poly" id="edge14_Node000012_Node000010" title=" " alt="" coords="488,371,566,390,565,396,486,376"/>
+<area shape="poly" id="edge13_Node000012_Node000009" title=" " alt="" coords="486,394,565,374,566,380,488,399"/>
+<area shape="poly" id="edge14_Node000012_Node000010" title=" " alt="" coords="518,415,556,415,556,420,518,420"/>
 </map>

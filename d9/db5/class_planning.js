@@ -25,11 +25,11 @@ var class_planning =
     [ "desired_velocity_", "d9/db5/class_planning.html#af8099cf647e569a7bfb2eb6220754e93", null ],
     [ "full_path_", "d9/db5/class_planning.html#a925f11b6978ebac7174923e8b3624c48", null ],
     [ "full_path_pub_", "d9/db5/class_planning.html#a73811aa22ecf3236e443d1d42f9a5f9a", null ],
-    [ "has_found_full_path_", "d9/db5/class_planning.html#afa506d3d0aa3030e53612d1e1e8bebbc", null ],
     [ "has_received_pose_", "d9/db5/class_planning.html#ac66dcfb85dfda27a5a32fdcc8293c13c", null ],
     [ "has_received_track_", "d9/db5/class_planning.html#aa83954358c7f4534a345deb4dbd8e921", null ],
     [ "initial_car_orientation_", "d9/db5/class_planning.html#a7b0ca13f93982c3a36b19b188f176f32", null ],
     [ "is_braking_", "d9/db5/class_planning.html#a79136b63cfbc8a8f6072b37a0103586c", null ],
+    [ "is_map_closed_", "d9/db5/class_planning.html#a08991b408d4370c94c08909fd7cfed3f", null ],
     [ "lap_counter_", "d9/db5/class_planning.html#acb604db0db31e0341b3157ad16d15987", null ],
     [ "lap_counter_sub_", "d9/db5/class_planning.html#aa22358ad77a3fb3d5e367a1d4da7251c", null ],
     [ "map_frame_id_", "d9/db5/class_planning.html#a3affba7088491811e092d850ec33c71b", null ],
@@ -49,6 +49,7 @@ var class_planning =
     [ "track_map_sub_", "d9/db5/class_planning.html#a86bd78053bf8b68458a2aa1e1a25e9de", null ],
     [ "triangulations_pub_", "d9/db5/class_planning.html#a7eb7d6fea88041b3e5b96885a641d025", null ],
     [ "vehicle_localization_sub_", "d9/db5/class_planning.html#a58912780a2d448f1ebb3ec807c71e71c", null ],
+    [ "velocity_hover_pub_", "d9/db5/class_planning.html#a334506a888eabde0298c3b51da9db7df", null ],
     [ "velocity_planning_", "d9/db5/class_planning.html#af85bfae6440c1e752dc1ff83b59072ea", null ],
     [ "yellow_cones_pub_", "d9/db5/class_planning.html#a3e31844f5310297f7f4a4abf262d6355", null ]
 ];

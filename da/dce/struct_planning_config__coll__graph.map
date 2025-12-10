@@ -10,8 +10,8 @@
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="470,398,509,505,504,507,465,400"/>
 <area shape="rect" id="Node000006" href="$d3/db0/struct_simulation_config.html" title="struct for the configuration of the smoothing algorithm" alt="" coords="540,256,700,376"/>
 <area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="620,377,610,437,601,469,589,499,583,509,579,507,584,497,596,467,605,436,615,376"/>
-<area shape="rect" id="Node000007" href="$d2/d0d/struct_velocity_planning_config.html" title="struct for the configuration of the velocity planning algorithm" alt="" coords="725,234,889,399"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="766,400,726,454,703,479,676,500,641,522,604,539,601,534,638,517,673,496,699,475,722,450,761,397"/>
+<area shape="rect" id="Node000007" href="$d2/d0d/struct_velocity_planning_config.html" title="struct for the configuration of the velocity planning algorithm" alt="" coords="725,224,889,409"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="759,410,722,459,676,500,641,522,604,539,601,534,638,517,673,496,718,455,755,407"/>
 <area shape="rect" id="Node000008" href="$d2/de2/struct_skidpad_config.html" title="struct for the configuration of the smoothing algorithm" alt="" coords="913,264,1039,369"/>
 <area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="961,370,938,417,922,440,903,461,870,487,833,509,794,526,754,540,674,557,604,565,603,560,673,552,753,535,792,521,831,504,867,483,899,457,918,437,933,414,956,367"/>
 </map>

@@ -1,9 +1,9 @@
-<map id="VelocityPlanning::speed_limiter" name="VelocityPlanning::speed_limiter">
-<area shape="rect" id="Node000001" title="function to limit the speed of the car according to the curvature of the lookahead path" alt="" coords="1366,188,1525,229"/>
+<map id="VelocityPlanning::acceleration_limiter" name="VelocityPlanning::acceleration_limiter">
+<area shape="rect" id="Node000001" title="Applies a forward acceleration constraint to the velocity profile." alt="" coords="1366,188,1560,229"/>
 <area shape="rect" id="Node000002" href="$d3/dcc/class_velocity_planning.html#aa0af0b050d79a4efe649c778810ab5ef" title="Assigns an ideal velocity to each point of the path." alt="" coords="1158,220,1299,261"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1351,225,1300,233,1299,227,1351,220"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1351,226,1300,233,1299,228,1351,221"/>
 <area shape="rect" id="Node000021" href="$d3/dcc/class_velocity_planning.html#aa40dcdcc9466406d53d06f0cc52f98dd" title="Computes velocity for track driving scenarios with repeated smoothing." alt="" coords="1138,137,1318,178"/>
-<area shape="poly" id="edge25_Node000001_Node000021" title=" " alt="" coords="1351,189,1318,181,1319,176,1352,184"/>
+<area shape="poly" id="edge25_Node000001_Node000021" title=" " alt="" coords="1351,187,1318,180,1319,175,1352,182"/>
 <area shape="rect" id="Node000003" href="$d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,145,1090,171"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1158,217,1045,174,1047,169,1160,212"/>
 <area shape="rect" id="Node000004" href="$d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>

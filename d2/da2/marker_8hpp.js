@@ -9,5 +9,6 @@ var marker_8hpp =
     [ "marker_array_from_structure_array", "d2/da2/marker_8hpp.html#acc06a51ec257283cb5f8afd4b19e7021", null ],
     [ "marker_color_map", "d2/da2/marker_8hpp.html#a2f7dd6410634ac7a63480f740476e8e5", null ],
     [ "marker_from_position", "d2/da2/marker_8hpp.html#ad7405068572deb44a80b03663ecfb966", null ],
-    [ "marker_shape_map", "d2/da2/marker_8hpp.html#ad5a808e4748ad2bf69138abd4aeb9b8c", null ]
+    [ "marker_shape_map", "d2/da2/marker_8hpp.html#ad5a808e4748ad2bf69138abd4aeb9b8c", null ],
+    [ "velocity_hover_markers", "d2/da2/marker_8hpp.html#ad032521a6c8b87a7d9b09dbd35b27da5", null ]
 ];

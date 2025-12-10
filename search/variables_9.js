@@ -14,7 +14,7 @@ var searchData=
   ['imageyellow_11',['imageYellow',['../d6/d51/classdraw_view_1_1draw_scene.html#a37998f0a7d0d0472e0263e3de2e61554',1,'drawView::drawScene']]],
   ['imu_5facceleration_5fnoise_5f_12',['imu_acceleration_noise_',['../d5/db7/struct_v_e_parameters.html#a6915b800612dff552ac792c5b5341b39',1,'VEParameters']]],
   ['imu_5fdata_5f_13',['imu_data_',['../d7/dbe/class_e_k_f.html#af2dc6115bf7f2a21b26746e80d1ff693',1,'EKF::imu_data_'],['../dd/da2/class_no_rear_w_s_s_e_k_f.html#a5d899e3edf9a2273f7bc2fd7690cc539',1,'NoRearWSSEKF::imu_data_']]],
-  ['imu_5fdata_5freceived_5f_14',['imu_data_received_',['../d7/dbe/class_e_k_f.html#a93f418c900959bda7ee98cd6799f5b6c',1,'EKF::imu_data_received_'],['../dd/da2/class_no_rear_w_s_s_e_k_f.html#a9eacaf57a3b11e69591eaf799cfc2ea1',1,'NoRearWSSEKF::imu_data_received_']]],
+  ['imu_5fdata_5freceived_5f_14',['imu_data_received_',['../dd/da2/class_no_rear_w_s_s_e_k_f.html#a9eacaf57a3b11e69591eaf799cfc2ea1',1,'NoRearWSSEKF::imu_data_received_'],['../d7/dbe/class_e_k_f.html#a93f418c900959bda7ee98cd6799f5b6c',1,'EKF::imu_data_received_']]],
   ['imu_5fpub_15',['imu_pub',['../d9/d88/pacsim__main_8cpp.html#a53840ebc4216d2c964c80db2a259a3a2',1,'pacsim_main.cpp']]],
   ['imu_5frotational_5fnoise_5f_16',['imu_rotational_noise_',['../d5/db7/struct_v_e_parameters.html#a979da1d7b8217b24cebd92a0fbe826aa',1,'VEParameters']]],
   ['imupublishermap_17',['imuPublisherMap',['../d9/d88/pacsim__main_8cpp.html#a631d3a0fdddc09452571ce2a2cb43b65',1,'pacsim_main.cpp']]],
@@ -38,10 +38,11 @@ var searchData=
   ['invisible_35',['INVISIBLE',['../d9/d45/classgui_logic_1_1landmark_type.html#a94bc6b54364bc575452a8387d4f19cc4',1,'guiLogic::landmarkType']]],
   ['is_5fbraking_5f_36',['is_braking_',['../d9/db5/class_planning.html#a79136b63cfbc8a8f6072b37a0103586c',1,'Planning']]],
   ['is_5flarge_37',['is_large',['../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html#aa54f36a2eb22a07e6fd66ccc1a1feceb',1,'common_lib::structures::Cone']]],
-  ['isdnf_38',['isDNF',['../de/dbe/class_competition_logic.html#a8934b6601974b8d5b3e6c443e1e8296b',1,'CompetitionLogic']]],
-  ['ispoint_39',['ispoint',['../d9/d25/classdraw_view_1_1_cone_item.html#a4ad2c3aa3f98c5060520a4d9268cf4c5',1,'drawView.ConeItem.isPoint'],['../df/d25/classdraw_view_1_1_custom_item.html#ad2574821753531c2d9cb9415c8fa6b6a',1,'drawView.CustomItem.isPoint']]],
-  ['itemismovable_40',['itemismovable',['../d9/d25/classdraw_view_1_1_cone_item.html#abb84cb29a6a0bb301ebe86aa7eb4f199',1,'drawView.ConeItem.ItemIsMovable'],['../df/d25/classdraw_view_1_1_custom_item.html#ab0989b74c0fc6e90da24cd0027242237',1,'drawView.CustomItem.ItemIsMovable']]],
-  ['itemisselectable_41',['itemisselectable',['../d9/d25/classdraw_view_1_1_cone_item.html#aa3950e7aed8dc9d5feb5e0034f88b808',1,'drawView.ConeItem.ItemIsSelectable'],['../df/d25/classdraw_view_1_1_custom_item.html#afbc4af0da9fcc06f406d98c74c997cf4',1,'drawView.CustomItem.ItemIsSelectable']]],
-  ['itemsendsgeometrychanges_42',['itemsendsgeometrychanges',['../df/d25/classdraw_view_1_1_custom_item.html#a6f28f009f4a699948f5ed6b2fd0e2bf2',1,'drawView.CustomItem.ItemSendsGeometryChanges'],['../d9/d25/classdraw_view_1_1_cone_item.html#a895fce96233d0ff204db43ae939bb2a3',1,'drawView.ConeItem.ItemSendsGeometryChanges']]],
-  ['izz_43',['izz',['../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html#abf6ca608c8ff845f7f54901bf6ebe601',1,'common_lib::car_parameters::CarParameters::Izz'],['../dd/d52/class_vehicle_model_bicycle.html#a52824684aff8cd017bbfc6f3334dd8a0',1,'VehicleModelBicycle::Izz']]]
+  ['is_5fmap_5fclosed_5f_38',['is_map_closed_',['../d9/db5/class_planning.html#a08991b408d4370c94c08909fd7cfed3f',1,'Planning']]],
+  ['isdnf_39',['isDNF',['../de/dbe/class_competition_logic.html#a8934b6601974b8d5b3e6c443e1e8296b',1,'CompetitionLogic']]],
+  ['ispoint_40',['ispoint',['../d9/d25/classdraw_view_1_1_cone_item.html#a4ad2c3aa3f98c5060520a4d9268cf4c5',1,'drawView.ConeItem.isPoint'],['../df/d25/classdraw_view_1_1_custom_item.html#ad2574821753531c2d9cb9415c8fa6b6a',1,'drawView.CustomItem.isPoint']]],
+  ['itemismovable_41',['itemismovable',['../d9/d25/classdraw_view_1_1_cone_item.html#abb84cb29a6a0bb301ebe86aa7eb4f199',1,'drawView.ConeItem.ItemIsMovable'],['../df/d25/classdraw_view_1_1_custom_item.html#ab0989b74c0fc6e90da24cd0027242237',1,'drawView.CustomItem.ItemIsMovable']]],
+  ['itemisselectable_42',['itemisselectable',['../d9/d25/classdraw_view_1_1_cone_item.html#aa3950e7aed8dc9d5feb5e0034f88b808',1,'drawView.ConeItem.ItemIsSelectable'],['../df/d25/classdraw_view_1_1_custom_item.html#afbc4af0da9fcc06f406d98c74c997cf4',1,'drawView.CustomItem.ItemIsSelectable']]],
+  ['itemsendsgeometrychanges_43',['itemsendsgeometrychanges',['../df/d25/classdraw_view_1_1_custom_item.html#a6f28f009f4a699948f5ed6b2fd0e2bf2',1,'drawView.CustomItem.ItemSendsGeometryChanges'],['../d9/d25/classdraw_view_1_1_cone_item.html#a895fce96233d0ff204db43ae939bb2a3',1,'drawView.ConeItem.ItemSendsGeometryChanges']]],
+  ['izz_44',['izz',['../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html#abf6ca608c8ff845f7f54901bf6ebe601',1,'common_lib::car_parameters::CarParameters::Izz'],['../dd/d52/class_vehicle_model_bicycle.html#a52824684aff8cd017bbfc6f3334dd8a0',1,'VehicleModelBicycle::Izz']]]
 ];

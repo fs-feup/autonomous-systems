@@ -1,5 +1,9 @@
 var NAVTREEINDEX5 =
 {
+"d3/d42/class_logger.html":[28,0,125],
+"d3/d42/class_logger.html#a4da9226699d64443aa5c726664e22532":[28,0,125,1],
+"d3/d42/class_logger.html#a5fadec05ee5cdeeec3221a1521e7d559":[28,0,125,0],
+"d3/d42/class_logger.html#a610ac6f670576f9e3a959b87b8dad869":[28,0,125,4],
 "d3/d42/class_logger.html#a870052753e059df75edf1b0a79002276":[28,0,125,2],
 "d3/d42/class_logger.html#ac6fdd89609e04d73093401cf23fc44dc":[28,0,125,3],
 "d3/d43/class_v_e_node.html":[28,0,221],
@@ -207,13 +211,14 @@ var NAVTREEINDEX5 =
 "d3/dc9/bayesian_8py.html#afa92424a90c70755fa9f65d3dd3854b4":[29,0,0,0,1,5],
 "d3/dc9/bayesian_8py_source.html":[29,0,0,0,1],
 "d3/dcc/class_velocity_planning.html":[28,0,219],
-"d3/dcc/class_velocity_planning.html#a0fdadea4c9950df53dddfec7aad9e2a0":[28,0,219,3],
-"d3/dcc/class_velocity_planning.html#a64a69a4833bd8054d6d9faa33791d660":[28,0,219,2],
-"d3/dcc/class_velocity_planning.html#a663342a9c3f5ad5c749943a3bb4f18ef":[28,0,219,6],
-"d3/dcc/class_velocity_planning.html#a8896eed64f5ea3a8d20fbec532da6811":[28,0,219,8],
-"d3/dcc/class_velocity_planning.html#aa0af0b050d79a4efe649c778810ab5ef":[28,0,219,4],
-"d3/dcc/class_velocity_planning.html#aa40dcdcc9466406d53d06f0cc52f98dd":[28,0,219,7],
-"d3/dcc/class_velocity_planning.html#ab74815515808651d953b291ca59e1f80":[28,0,219,5],
+"d3/dcc/class_velocity_planning.html#a0fdadea4c9950df53dddfec7aad9e2a0":[28,0,219,5],
+"d3/dcc/class_velocity_planning.html#a3a87dcd794428fa2f743a42d2aabe98d":[28,0,219,3],
+"d3/dcc/class_velocity_planning.html#a64a69a4833bd8054d6d9faa33791d660":[28,0,219,4],
+"d3/dcc/class_velocity_planning.html#a663342a9c3f5ad5c749943a3bb4f18ef":[28,0,219,7],
+"d3/dcc/class_velocity_planning.html#a8896eed64f5ea3a8d20fbec532da6811":[28,0,219,9],
+"d3/dcc/class_velocity_planning.html#aa0af0b050d79a4efe649c778810ab5ef":[28,0,219,6],
+"d3/dcc/class_velocity_planning.html#aa40dcdcc9466406d53d06f0cc52f98dd":[28,0,219,8],
+"d3/dcc/class_velocity_planning.html#ac0edf4dad8d4433d86b6cf6829cf4a1a":[28,0,219,2],
 "d3/dcc/class_velocity_planning.html#acc09f2b70875e2fe2c1bf44cc3600b1c":[28,0,219,0],
 "d3/dcc/class_velocity_planning.html#adff5ddf100f4b322f95903a194c3099a":[28,0,219,1],
 "d3/dd8/struct_has_equality_operator.html":[28,0,88],
@@ -244,10 +249,5 @@ var NAVTREEINDEX5 =
 "d3/de7/_unit_tests_8cpp.html#a78b42f45f34caa99d642f4d65cad05ef":[29,0,0,14,4,0,0,29],
 "d3/de7/_unit_tests_8cpp.html#a7a185d8ff0c06ff85586e9cf72e7015c":[29,0,0,14,4,0,0,26],
 "d3/de7/_unit_tests_8cpp.html#a7be44dba141976f19b5dabf343511be3":[29,0,0,14,4,0,0,28],
-"d3/de7/_unit_tests_8cpp.html#a854ca3f20baf718291b72f937a115005":[29,0,0,14,4,0,0,38],
-"d3/de7/_unit_tests_8cpp.html#a8ad8134de043d7ce310d9b7af26ef524":[29,0,0,14,4,0,0,2],
-"d3/de7/_unit_tests_8cpp.html#a91066011b865933fff5725a0737ba7c8":[29,0,0,14,4,0,0,16],
-"d3/de7/_unit_tests_8cpp.html#a9e7deea39a7fa67ca4d5294b6c268d53":[29,0,0,14,4,0,0,21],
-"d3/de7/_unit_tests_8cpp.html#aa42ab31a29eb6440541803a44047a200":[29,0,0,14,4,0,0,5],
-"d3/de7/_unit_tests_8cpp.html#aa44bdfbceffa3457997b2bf070f82493":[29,0,0,14,4,0,0,12]
+"d3/de7/_unit_tests_8cpp.html#a854ca3f20baf718291b72f937a115005":[29,0,0,14,4,0,0,38]
 };
