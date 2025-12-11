@@ -123,7 +123,7 @@ common_lib::structures::ControlCommand PID::get_throttle_command()  {
         this->params_->car_parameters_.dist_cg_2_rear_axis);
 
     auto [closest_point, closest_point_id, closest_point_velocity] =
-        ::get_closest_point(this->last_path_msg_, rear_axis);
+        ::get_closest_point(this->last_path_msg_, vehicle_cog);
 
     if (closest_point_id != -1) {
       command.throttle_rl = command.throttle_rr = update(closest_point_velocity, this->absolute_velocity_);
