@@ -3,7 +3,7 @@
 
 #include "config/midpoint_generator_config.hpp"
 /**
- * @brief struct for the configuration of the outliers removal algorithm.
+ * @brief struct for the configuration of the path calculation algorithm.
  *
  */
 struct PathCalculationConfig {

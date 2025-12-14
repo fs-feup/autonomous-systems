@@ -32,34 +32,6 @@ with open("spline1.txt", "r") as file:
             x_values1.append(float(x))
             y_values1.append(float(y))
 
-with open("deletedoutliers0.txt", "r") as file:
-    for line in file:
-        line = line.strip()  # Remove leading/trailing whitespace
-        if line:
-            x, y = line.split()
-            ox_values0.append(float(x))
-            oy_values0.append(float(y))
-
-with open("deletedoutliers1.txt", "r") as file:
-    for line in file:
-        line = line.strip()  # Remove leading/trailing whitespace
-        if line:
-            x, y = line.split()
-            ox_values1.append(float(x))
-            oy_values1.append(float(y))
-
-with open("../tracks/outlier_test1.txt", "r") as file:
-    for line in file:
-        line = line.strip()  # Remove leading/trailing whitespace
-        if line:
-            x, y, c = line.split()
-            if c == "yellow_cone":
-                rx_values0.append(float(x))
-                ry_values0.append(float(y))
-            elif c == "blue_cone":
-                rx_values1.append(float(x))
-                ry_values1.append(float(y))
-
 
 plt.plot(ox_values0, oy_values0, "g-", label="Corrected Track Limits")
 plt.plot(ox_values1, oy_values1, "g-")

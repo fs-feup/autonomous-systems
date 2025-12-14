@@ -19,11 +19,6 @@ planning:
   #---------------------- Skidpad (skidpad_) ------------------
   skidpad_minimum_cones: 10 # minimum number of cones to consider the skidpad as valid
   skidpad_tolerance: 5
-  #---------------------- Outlier Removal (outliers_) -------------------
-  outliers_spline_order: 3
-  outliers_spline_coeffs_ratio: 3.0
-  outliers_spline_precision: 1
-  outliers_use_outlier_removal: false
   #---------------------- Path Smoothing (smoothing_) -------------------
   smoothing_spline_order: 3
   smoothing_spline_coeffs_ratio: 3.0

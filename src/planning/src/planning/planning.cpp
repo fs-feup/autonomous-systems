@@ -51,13 +51,6 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.skidpad_tolerance_ = planning_config["skidpad_tolerance"].as<double>();
   params.skidpad_minimum_cones_ = planning_config["skidpad_minimum_cones"].as<int>();
 
-  /*--------------------- Outlier Removal Parameters --------------------*/
-  params.outliers_spline_order_ = planning_config["outliers_spline_order"].as<int>();
-  params.outliers_spline_coeffs_ratio_ =
-      planning_config["outliers_spline_coeffs_ratio"].as<float>();
-  params.outliers_spline_precision_ = planning_config["outliers_spline_precision"].as<int>();
-  params.outliers_use_outlier_removal_ = planning_config["outliers_use_outlier_removal"].as<bool>();
-
   /*--------------------- Path Smoothing Parameters --------------------*/
   params.smoothing_spline_order_ = planning_config["smoothing_spline_order"].as<int>();
   params.smoothing_spline_coeffs_ratio_ =
@@ -93,7 +86,6 @@ Planning::Planning(const PlanningParameters &params)
       planning_config_(params),
       map_frame_id_(params.map_frame_id_),
       desired_velocity_(params.vp_desired_velocity_) {
-  outliers_ = Outliers(planning_config_.outliers_);
   path_calculation_ = PathCalculation(planning_config_.path_calculation_);
   path_smoothing_ = PathSmoothing(planning_config_.smoothing_);
   velocity_planning_ = VelocityPlanning(planning_config_.velocity_planning_);
@@ -221,7 +213,7 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &messa
 
 void Planning::run_ebs_test() {
   full_path_ = path_calculation_.calculate_path(cone_array_);
-  smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
+  smoothed_path_ = path_smoothing_.smooth_path(full_path_);
 
   double distance_from_origin =
       std::sqrt(pose_.position.x * pose_.position.x + pose_.position.y * pose_.position.y);
@@ -250,14 +242,14 @@ void Planning::run_ebs_test() {
 void Planning::run_autocross() {
   if (lap_counter_ == 0) {
     full_path_ = path_calculation_.calculate_path(cone_array_);
-    smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
+    smoothed_path_ = path_smoothing_.smooth_path(full_path_);
     velocity_planning_.set_velocity(smoothed_path_);
   }
   if (lap_counter_ >= 1) {
     if (!is_map_closed_) {
       is_map_closed_ = true;
       full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
-      smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
+      smoothed_path_ = path_smoothing_.smooth_path(full_path_);
       velocity_planning_.trackdrive_velocity(smoothed_path_);
     }
     velocity_planning_.stop(smoothed_path_);
@@ -267,13 +259,13 @@ void Planning::run_autocross() {
 void Planning::run_trackdrive() {
   if (lap_counter_ == 0) {
     full_path_ = path_calculation_.calculate_path(cone_array_);
-    smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
+    smoothed_path_ = path_smoothing_.smooth_path(full_path_);
     velocity_planning_.set_velocity(smoothed_path_);
   } else if (lap_counter_ >= 1 && lap_counter_ < 10) {
     if (!is_map_closed_) {
       is_map_closed_ = true;
       full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
-      smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
+      smoothed_path_ = path_smoothing_.smooth_path(full_path_);
       velocity_planning_.trackdrive_velocity(smoothed_path_);
     }
   } else {
@@ -317,7 +309,7 @@ void Planning::run_planning_algorithms() {
 
     default:
       full_path_ = path_calculation_.calculate_path(cone_array_);
-      smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
+      smoothed_path_ = path_smoothing_.smooth_path(full_path_);
       velocity_planning_.set_velocity(smoothed_path_);
       break;
   }

@@ -23,21 +23,23 @@ find_package(nav_msgs REQUIRED)
 find_package(visualization_msgs REQUIRED)
 find_package(yaml-cpp REQUIRED)
 find_package(PCL REQUIRED COMPONENTS registration common io)
-# sudo apt-get install libcgal-dev libgmp-dev libmpfr-dev
 
+# sudo apt-get install libcgal-dev libgmp-dev libmpfr-dev
 set(GMP_DIR ${CGAL_INSTALLATION_PACKAGE_DIR}/auxiliary/gmp/)
 find_package(CGAL REQUIRED Core)
 find_package(GMP)
 find_package(MPFR)
 find_package(GSL REQUIRED)
 
-# find_package(Qt5)
+# Find OSQP and OSQP-Eigen
+find_package(osqp REQUIRED)
+find_package(OsqpEigen REQUIRED)
+
 
 set(TESTFILES
   test/main.cpp
   test/integration_tests.cpp
   test/performance_test.cpp
-  test/outliers_tests.cpp
   test/smoothing_tests.cpp
   test/splines_tests.cpp
   test/test_utils/utils.cpp
@@ -51,13 +53,13 @@ set(IMPLEMENTATION_FILES
   src/adapter_planning/vehicle.cpp
   src/planning/path_calculation.cpp
   src/planning/smoothing.cpp
-  src/planning/outliers.cpp
   src/planning/planning.cpp
   src/planning/velocity_planning.cpp
   src/planning/skidpad.cpp
   src/planning/midpoint_generator.cpp
   src/planning/colorpoint.cpp
   src/utils/files.cpp
+  src/teste.cpp
 )
 
 add_definitions(-DCGAL_USE_BASIC_VIEWER)
@@ -66,21 +68,37 @@ set(CMAKE_BUILD_TYPE "Release")
 add_executable(planning src/main.cpp ${IMPLEMENTATION_FILES})
 ament_target_dependencies(planning ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs tf2_ros tf2_geometry_msgs pacsim common_lib std_srvs nav_msgs visualization_msgs)
 
-include_directories(${GSL_INCLUDE_DIRS} ${PCL_INCLUDE_DIRS})
-
+# Include directories
+include_directories(
+  ${GSL_INCLUDE_DIRS} 
+  ${PCL_INCLUDE_DIRS}
+  /usr/local/include
+  /usr/local/include/osqp
+)
 
 # Link the CGAL library and its dependencies to the target
-target_link_libraries(planning ${CGAL_LIBRARIES} ${GMP_LIBRARIES} ${MPFR_LIBRARIES} ${QT5_LIBRARIES} ${GSL_LIBRARIES} yaml-cpp ${PCL_LIBRARIES})
-
-
-
+target_link_libraries(planning 
+  ${CGAL_LIBRARIES} 
+  ${GMP_LIBRARIES} 
+  ${MPFR_LIBRARIES} 
+  ${QT5_LIBRARIES} 
+  ${GSL_LIBRARIES} 
+  yaml-cpp 
+  ${PCL_LIBRARIES}
+  osqp::osqp
+  OsqpEigen::OsqpEigen
+)
 
 target_include_directories(planning PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
   ${PCL_INCLUDE_DIRS}
-  )
+  /usr/local/include
+  /usr/local/include/osqp
+)
+
 target_compile_features(planning PUBLIC c_std_99 cxx_std_17)
+
 install(TARGETS planning
   DESTINATION lib/${PROJECT_NAME})
 
@@ -90,11 +108,26 @@ if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
   ament_add_gtest(planning_test ${TESTFILES} ${IMPLEMENTATION_FILES})
   ament_target_dependencies(planning_test ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs tf2_ros tf2_geometry_msgs pacsim common_lib std_srvs nav_msgs visualization_msgs)
+  
   target_include_directories(planning_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
-    ${PCL_INCLUDE_DIRS})
-  target_link_libraries(planning_test ${CGAL_LIBRARIES} ${GMP_LIBRARIES} ${MPFR_LIBRARIES} ${QT5_LIBRARIES} ${GSL_LIBRARIES} yaml-cpp ${PCL_LIBRARIES})
+    ${PCL_INCLUDE_DIRS}
+    /usr/local/include
+    /usr/local/include/osqp
+  )
+  
+  target_link_libraries(planning_test 
+    ${CGAL_LIBRARIES} 
+    ${GMP_LIBRARIES} 
+    ${MPFR_LIBRARIES} 
+    ${QT5_LIBRARIES} 
+    ${GSL_LIBRARIES} 
+    yaml-cpp 
+    ${PCL_LIBRARIES}
+    osqp::osqp
+    OsqpEigen::OsqpEigen
+  )
 
   install(TARGETS ${PROJECT_NAME}_test DESTINATION lib/${PROJECT_NAME})
 endif()

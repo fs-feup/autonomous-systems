@@ -1,7 +1,6 @@
 #ifndef SRC_PLANNING_INCLUDE_CONFIG_PLANNING_CONFIG_HPP_
 #define SRC_PLANNING_INCLUDE_CONFIG_PLANNING_CONFIG_HPP_
 
-#include "outliers_config.hpp"
 #include "path_calculation_config.hpp"
 #include "simulation_config.hpp"
 #include "smoothing_config.hpp"
@@ -33,12 +32,6 @@ struct PlanningParameters {
   int skidpad_minimum_cones_;
   double skidpad_tolerance_;
 
-  /*---------------------- Outlier Removal (outliers_) -------------------*/
-  int outliers_spline_order_;
-  float outliers_spline_coeffs_ratio_;
-  int outliers_spline_precision_;
-  bool outliers_use_outlier_removal_;
-
   /*---------------------- Path Smoothing (smoothing_) -------------------*/
   int smoothing_spline_order_;
   float smoothing_spline_coeffs_ratio_;
@@ -61,7 +54,6 @@ struct PlanningParameters {
 };
 
 struct PlanningConfig {
-  OutliersConfig outliers_;
   PathCalculationConfig path_calculation_;
   PathSmoothingConfig smoothing_;
   SimulationConfig simulation_;
@@ -71,12 +63,6 @@ struct PlanningConfig {
   PlanningConfig() = default;
 
   explicit PlanningConfig(const PlanningParameters &params) {
-    /*------------------------ Outliers (outliers_) --------------------------*/
-    outliers_.order_ = params.outliers_spline_order_;
-    outliers_.precision_ = params.outliers_spline_precision_;
-    outliers_.coeffs_ratio_ = params.outliers_spline_coeffs_ratio_;
-    outliers_.use_outlier_removal_ = params.outliers_use_outlier_removal_;
-
     /*---------------------- Path Calculation (pc_) ------------------------*/
 
     path_calculation_.angle_gain_ = params.pc_angle_gain_;
