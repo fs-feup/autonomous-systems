@@ -59,7 +59,6 @@ set(IMPLEMENTATION_FILES
   src/planning/midpoint_generator.cpp
   src/planning/colorpoint.cpp
   src/utils/files.cpp
-  src/teste.cpp
 )
 
 add_definitions(-DCGAL_USE_BASIC_VIEWER)
