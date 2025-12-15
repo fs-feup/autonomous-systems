@@ -4,7 +4,7 @@ var class_perception =
     [ "lidar_timer_callback", "de/d07/class_perception.html#a930301dcb04cfa9461af139181f075c1", null ],
     [ "load_config", "de/d07/class_perception.html#a386ba1a3deb02d41931aeef1c52645f5", null ],
     [ "point_cloud_callback", "de/d07/class_perception.html#a592f3cc2120d974b503f5934970ac5db", null ],
-    [ "publish_cones", "de/d07/class_perception.html#a4e0f8e2bee0c6c8cf56f62ec60ea0230", null ],
+    [ "publish_cones", "de/d07/class_perception.html#a68efe16012264fa6a26bafb9cecd40a5", null ],
     [ "velocities_callback", "de/d07/class_perception.html#a76a5d7716d5b0058cf501d45739ed067", null ],
     [ "_adapter_", "de/d07/class_perception.html#a3a6c23028078a3adc6694145a447c834", null ],
     [ "_clustering_", "de/d07/class_perception.html#a233be023d8a5f2d1b89f3e129ab6a94f", null ],

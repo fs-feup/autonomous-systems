@@ -1,15 +1,13 @@
 <map id="EKFSLAMSolver::add_observations" name="EKFSLAMSolver::add_observations">
-<area shape="rect" id="Node000001" title="process obervations of landmarks" alt="" coords="5,120,153,161"/>
+<area shape="rect" id="Node000001" title="process obervations of landmarks" alt="" coords="5,92,153,133"/>
 <area shape="rect" id="Node000002" href="$dc/ddb/namespacecommon__lib_1_1conversions.html#ac07b7b31e53897cce43dc7a0163e759a" title="Convert vector of the struct common_lib::structures::Cone to Eigen vectors." alt="" coords="208,5,375,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,117,148,86,199,55,210,50,212,55,202,60,151,91,108,122"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="123,89,200,55,214,49,216,54,202,60,125,94"/>
 <area shape="rect" id="Node000003" href="$d7/d79/class_e_k_f_s_l_a_m_solver.html#a5e1386c5f3781870b088f6b600af8657" title="correction step of the EKF that updates the state and covariance based on the observed landmarks" alt="" coords="208,70,375,96"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="152,118,226,98,227,103,154,123"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="153,100,192,94,193,99,153,105"/>
 <area shape="rect" id="Node000005" href="$d2/d32/namespacecommon__lib_1_1maths.html#ae863ab27f119e71801d039179cba64b7" title="Transform points from a local reference frame to a global reference frame." alt="" coords="201,120,382,161"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="153,138,185,138,185,143,153,143"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="153,119,185,124,185,129,153,125"/>
 <area shape="rect" id="Node000007" href="$d7/d79/class_e_k_f_s_l_a_m_solver.html#ad5a25329f2a295599cf70e06bb3503d1" title="add new landmarks to the state vector and covariance matrix" alt="" coords="214,185,369,226"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="148,159,209,178,207,183,146,164"/>
-<area shape="rect" id="Node000008" href="$d7/d79/class_e_k_f_s_l_a_m_solver.html#a1040c52356d980f7f67c6e8358a2e427" title="update the process noise matrix so that its dimensions match the covariance matrix" alt="" coords="209,251,374,291"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="103,159,147,197,202,235,214,241,211,246,199,240,144,201,100,163"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="121,131,202,170,218,177,216,182,200,175,118,136"/>
 <area shape="rect" id="Node000004" href="$d7/d79/class_e_k_f_s_l_a_m_solver.html#a06313688bd8135164153301754db464f" title="Get the observation noise matrix object used in the correction step of the EKF with the right dimensi..." alt="" coords="430,59,605,99"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="375,79,414,78,415,83,375,84"/>
 <area shape="rect" id="Node000006" href="$d2/d32/namespacecommon__lib_1_1maths.html#a3155563fdd77267916f4362c3c976f11" title="Function to get the rotation matrix for a given angle." alt="" coords="448,124,587,165"/>

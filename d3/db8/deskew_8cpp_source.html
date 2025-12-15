@@ -120,57 +120,55 @@ $(document).ready(function(){initNavTree('d3/db8/deskew_8cpp_source.html','../..
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  <span class="keyword">auto</span>&amp; cloud = input_cloud-&gt;data;</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  <span class="comment">// Reference point (last in scan)</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  <span class="keywordtype">int</span> ref_index = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(num_points - 1);</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  <span class="keywordtype">double</span> ref_x = *<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">float</span>*<span class="keyword">&gt;</span>(&amp;cloud[<a class="code hl_function" href="../../dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11">LidarPoint::PointX</a>(ref_index)]);</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  <span class="keywordtype">double</span> ref_y = *<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">float</span>*<span class="keyword">&gt;</span>(&amp;cloud[<a class="code hl_function" href="../../dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4">LidarPoint::PointY</a>(ref_index)]);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  <span class="keywordtype">double</span> reference_azimuth = std::atan2(ref_x, ref_y);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  <span class="keywordflow">if</span> (reference_azimuth &lt; 0.0) {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    reference_azimuth += 2.0 * M_PI;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  }</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  <span class="comment">// Deskew each point</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; num_points; ++i) {</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordtype">float</span> x = *<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">float</span>*<span class="keyword">&gt;</span>(&amp;cloud[<a class="code hl_function" href="../../dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11">LidarPoint::PointX</a>(i)]);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordtype">float</span> y = *<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">float</span>*<span class="keyword">&gt;</span>(&amp;cloud[<a class="code hl_function" href="../../dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4">LidarPoint::PointY</a>(i)]);</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordtype">float</span> z = *<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">float</span>*<span class="keyword">&gt;</span>(&amp;cloud[<a class="code hl_function" href="../../dc/d9c/namespace_lidar_point.html#a0dd3e19b92b08561073d6f2f636a87ca">LidarPoint::PointZ</a>(i)]);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordtype">double</span> azimuth = std::atan2(x, y);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">if</span> (azimuth &lt; 0.0) {</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>      azimuth += 2.0 * M_PI;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    }</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">double</span> delta_angle = reference_azimuth - azimuth;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">if</span> (delta_angle &lt; 0.0) {</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>      delta_angle += 2.0 * M_PI;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    }</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  <span class="comment">// Reference point</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  <span class="keywordtype">double</span> ref_x;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  <span class="keywordtype">double</span> ref_y;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  <span class="keywordtype">double</span> reference_azimuth = std::numeric_limits&lt;double&gt;::lowest();</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; num_points; ++i) {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    ref_x = *<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">float</span>*<span class="keyword">&gt;</span>(&amp;cloud[<a class="code hl_function" href="../../dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11">LidarPoint::PointX</a>(i)]);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    ref_y = *<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">float</span>*<span class="keyword">&gt;</span>(&amp;cloud[<a class="code hl_function" href="../../dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4">LidarPoint::PointY</a>(i)]);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordtype">double</span> azimuth = -std::atan2(ref_y, ref_x);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">if</span> (azimuth &gt; reference_azimuth) {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>      reference_azimuth = azimuth;  </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    }</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  }</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  <span class="comment">// Deskew each point</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; num_points; ++i) {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordtype">float</span> x = *<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">float</span>*<span class="keyword">&gt;</span>(&amp;cloud[<a class="code hl_function" href="../../dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11">LidarPoint::PointX</a>(i)]);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordtype">float</span> y = *<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">float</span>*<span class="keyword">&gt;</span>(&amp;cloud[<a class="code hl_function" href="../../dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4">LidarPoint::PointY</a>(i)]);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">float</span> z = *<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">float</span>*<span class="keyword">&gt;</span>(&amp;cloud[<a class="code hl_function" href="../../dc/d9c/namespace_lidar_point.html#a0dd3e19b92b08561073d6f2f636a87ca">LidarPoint::PointZ</a>(i)]);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">double</span> azimuth = -std::atan2(y, x);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordtype">double</span> delta_angle = reference_azimuth - azimuth;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordtype">double</span> time_offset = delta_angle * one_over_two_pi * scan_duration;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordtype">double</span> time_offset = delta_angle * one_over_two_pi * scan_duration;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    Eigen::Vector3d original_point(x, y, z);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    Eigen::Vector3d deskewed_point = original_point - linear_velocity * time_offset;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="comment">// Reverse rotation around Z</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">if</span> (angular_velocity_z != 0.0) {</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>      <span class="keywordtype">double</span> theta = -angular_velocity_z * time_offset;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>      <span class="keywordtype">double</span> cos_theta = std::cos(theta);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>      <span class="keywordtype">double</span> sin_theta = std::sin(theta);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>      <span class="keywordtype">double</span> x_rot = cos_theta * deskewed_point.x() - sin_theta * deskewed_point.y();</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>      <span class="keywordtype">double</span> y_rot = sin_theta * deskewed_point.x() + cos_theta * deskewed_point.y();</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>      deskewed_point.x() = x_rot;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>      deskewed_point.y() = y_rot;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    }</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="comment">// Write all 3 floats in one memcpy</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordtype">float</span> deskewed_xyz[3] = {<span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(deskewed_point.x()),</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                             <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(deskewed_point.y()),</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                             <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(deskewed_point.z())};</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    std::memcpy(&amp;cloud[<a class="code hl_function" href="../../dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11">LidarPoint::PointX</a>(i)], deskewed_xyz, <span class="keyword">sizeof</span>(deskewed_xyz));</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  }</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>}</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    Eigen::Vector3d original_point(x, y, z);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    Eigen::Vector3d deskewed_point = original_point - linear_velocity * time_offset;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="comment">// Reverse rotation around Z</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">if</span> (angular_velocity_z != 0.0) {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>      <span class="keywordtype">double</span> theta = -angular_velocity_z * time_offset;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>      <span class="keywordtype">double</span> cos_theta = std::cos(theta);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>      <span class="keywordtype">double</span> sin_theta = std::sin(theta);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>      <span class="keywordtype">double</span> x_rot = cos_theta * deskewed_point.x() - sin_theta * deskewed_point.y();</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>      <span class="keywordtype">double</span> y_rot = sin_theta * deskewed_point.x() + cos_theta * deskewed_point.y();</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>      deskewed_point.x() = x_rot;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>      deskewed_point.y() = y_rot;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    }</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="comment">// Write all 3 floats in one memcpy</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordtype">float</span> deskewed_xyz[3] = {<span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(deskewed_point.x()),</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                             <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(deskewed_point.y()),</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                             <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(deskewed_point.z())};</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    std::memcpy(&amp;cloud[<a class="code hl_function" href="../../dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11">LidarPoint::PointX</a>(i)], deskewed_xyz, <span class="keyword">sizeof</span>(deskewed_xyz));</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  }</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>}</div>
 </div>
 <div class="ttc" id="aclass_deskew_html_a701c4aa6c20ab9e9a955bf3b73bcb8d0"><div class="ttname"><a href="../../d1/dab/class_deskew.html#a701c4aa6c20ab9e9a955bf3b73bcb8d0">Deskew::deskew_point_cloud</a></div><div class="ttdeci">void deskew_point_cloud(sensor_msgs::msg::PointCloud2::SharedPtr &amp;input_cloud, const common_lib::structures::Velocities &amp;vehicle_velocity) const</div><div class="ttdoc">deskews the point cloud, i.e.</div><div class="ttdef"><b>Definition</b> <a href="../../d3/db8/deskew_8cpp_source.html#l00003">deskew.cpp:3</a></div></div>
 <div class="ttc" id="adeskew_8hpp_html"><div class="ttname"><a href="../../de/d6f/deskew_8hpp.html">deskew.hpp</a></div></div>

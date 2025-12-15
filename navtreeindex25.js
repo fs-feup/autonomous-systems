@@ -1,5 +1,8 @@
 var NAVTREEINDEX25 =
 {
+"df/d44/structquaternion.html#a5c5a14238588d315a2bcc09314cde2a2":[28,0,185,1],
+"df/d44/structquaternion.html#a757a8ae35a9481734f916bf6c91bec80":[28,0,185,3],
+"df/d44/structquaternion.html#afdcf32e0560046f46356e2ba22257043":[28,0,185,0],
 "df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html":[27,0,6,7,0],
 "df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html":[28,0,1,3,0],
 "df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html#a2ec0f612d6b75de01e8db4308a1fb8ef":[27,0,6,7,0,3],
@@ -246,8 +249,5 @@ var NAVTREEINDEX25 =
 "df/df5/class_mock_data_association_model.html":[28,0,136],
 "df/df5/class_mock_data_association_model.html#abdc3dbd8ddaf367272ee1450fa191b4c":[28,0,136,0],
 "dir_014eaca221fe0a38eaa047163691e24a.html":[29,0,0,18,1,0],
-"dir_01e72ec098945f246e3269c4ff633a80.html":[29,0,0,14,3],
-"dir_0410579efddabbbc2bd170f2ce2d0a69.html":[29,0,0,3,2],
-"dir_0585873cad33e488be1c216fc991de26.html":[29,0,0,18,1,1],
-"dir_05cfcc3bbdf024b401fb4a03ed0a0ac8.html":[29,0,0,21,1,1]
+"dir_01e72ec098945f246e3269c4ff633a80.html":[29,0,0,14,3]
 };

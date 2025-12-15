@@ -107,9 +107,9 @@ Inheritance diagram for EKFSLAMSolver:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/d1f/class_e_k_f_s_l_a_m_solver__inherit__graph.png" border="0" usemap="#a_e_k_f_s_l_a_m_solver_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_e_k_f_s_l_a_m_solver_inherit__map" id="a_e_k_f_s_l_a_m_solver_inherit__map">
-<area shape="rect" title=" " alt="" coords="9,579,181,1153"/>
+<area shape="rect" title=" " alt="" coords="9,579,181,1159"/>
 <area shape="rect" href="../../da/dd3/class_s_l_a_m_solver.html" title="Interface for SLAM solvers." alt="" coords="5,5,184,531"/>
-<area shape="poly" title=" " alt="" coords="97,546,97,579,92,579,92,546"/>
+<area shape="poly" title=" " alt="" coords="97,545,97,579,92,579,92,545"/>
 </map>
 </div>
 <div class="dynheader">
@@ -117,11 +117,11 @@ Collaboration diagram for EKFSLAMSolver:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d46/class_e_k_f_s_l_a_m_solver__coll__graph.png" border="0" usemap="#a_e_k_f_s_l_a_m_solver_coll__map" alt="Collaboration graph"/></div>
 <map name="a_e_k_f_s_l_a_m_solver_coll__map" id="a_e_k_f_s_l_a_m_solver_coll__map">
-<area shape="rect" title=" " alt="" coords="54,1012,226,1567"/>
+<area shape="rect" title=" " alt="" coords="54,1012,226,1572"/>
 <area shape="rect" href="../../da/dd3/class_s_l_a_m_solver.html" title="Interface for SLAM solvers." alt="" coords="213,458,392,963"/>
-<area shape="poly" title=" " alt="" coords="230,978,220,1013,215,1012,225,977"/>
+<area shape="poly" title=" " alt="" coords="231,978,221,1013,216,1012,225,977"/>
 <area shape="rect" href="../../d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="5,5,187,395"/>
-<area shape="poly" title=" " alt="" coords="91,395,90,458,82,711,82,821,90,963,93,995,88,996,85,963,77,821,76,711,85,458,86,394"/>
+<area shape="poly" title=" " alt="" coords="91,395,90,458,82,711,82,821,90,963,93,995,88,996,85,963,77,821,77,711,85,458,86,394"/>
 <area shape="poly" title=" " alt="" coords="177,393,209,473,204,475,172,395"/>
 </map>
 </div>
@@ -139,7 +139,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa696fa02d40dfc09759fae9473d0d828" id="r_aa696fa02d40dfc09759fae9473d0d828"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#aa696fa02d40dfc09759fae9473d0d828">add_observations</a> (const std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &amp;positions) override</td></tr>
 <tr class="memdesc:aa696fa02d40dfc09759fae9473d0d828"><td class="mdescLeft">&#160;</td><td class="mdescRight">process obervations of landmarks  <br /></td></tr>
 <tr class="separator:aa696fa02d40dfc09759fae9473d0d828"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39e49ed9e16c3d334d9232494dc82d10" id="r_a39e49ed9e16c3d334d9232494dc82d10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#a39e49ed9e16c3d334d9232494dc82d10">load_initial_state</a> (const Eigen::VectorXd &amp;map, const Eigen::VectorXd &amp;<a class="el" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#ae70a20f2a95f613197716dd763174dea">pose</a>) override</td></tr>
+<tr class="memitem:a39e49ed9e16c3d334d9232494dc82d10" id="r_a39e49ed9e16c3d334d9232494dc82d10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#a39e49ed9e16c3d334d9232494dc82d10">load_initial_state</a> (const Eigen::VectorXd &amp;map, const Eigen::VectorXd &amp;pose) override</td></tr>
 <tr class="memdesc:a39e49ed9e16c3d334d9232494dc82d10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the <a class="el" href="../../d7/dbe/class_e_k_f.html">EKF</a> SLAM solver with a previously saved map and pose.  <br /></td></tr>
 <tr class="separator:a39e49ed9e16c3d334d9232494dc82d10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd7a7fccdd8dc8fa9d108b1465b952b0" id="r_abd7a7fccdd8dc8fa9d108b1465b952b0"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#abd7a7fccdd8dc8fa9d108b1465b952b0">get_covariance</a> () override</td></tr>
@@ -184,9 +184,6 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a66ae82bda03623b5eb09df55067347a4" id="r_a66ae82bda03623b5eb09df55067347a4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html">common_lib::structures::Pose</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#a66ae82bda03623b5eb09df55067347a4">get_pose_estimate</a> () override</td></tr>
 <tr class="memdesc:a66ae82bda03623b5eb09df55067347a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the pose estimate object.  <br /></td></tr>
 <tr class="separator:a66ae82bda03623b5eb09df55067347a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1040c52356d980f7f67c6e8358a2e427" id="r_a1040c52356d980f7f67c6e8358a2e427"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#a1040c52356d980f7f67c6e8358a2e427">update_process_noise_matrix</a> ()</td></tr>
-<tr class="memdesc:a1040c52356d980f7f67c6e8358a2e427"><td class="mdescLeft">&#160;</td><td class="mdescRight">update the process noise matrix so that its dimensions match the covariance matrix  <br /></td></tr>
-<tr class="separator:a1040c52356d980f7f67c6e8358a2e427"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -200,8 +197,12 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a53d74f8dbc77a1ff028c5d1814325fc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afcecff484c94008ccdca894f0720954b" id="r_afcecff484c94008ccdca894f0720954b"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#afcecff484c94008ccdca894f0720954b">process_noise_matrix_</a></td></tr>
 <tr class="separator:afcecff484c94008ccdca894f0720954b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae70a20f2a95f613197716dd763174dea" id="r_ae70a20f2a95f613197716dd763174dea"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#ae70a20f2a95f613197716dd763174dea">pose</a> = Eigen::VectorXd::Zero(3)</td></tr>
-<tr class="separator:ae70a20f2a95f613197716dd763174dea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01d3657e1bffdfac97c79c1363098343" id="r_a01d3657e1bffdfac97c79c1363098343"><td class="memItemLeft" align="right" valign="top">std::shared_mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#a01d3657e1bffdfac97c79c1363098343">mutex_</a></td></tr>
+<tr class="separator:a01d3657e1bffdfac97c79c1363098343"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d7b5733ce1a966497441706972b3f71" id="r_a7d7b5733ce1a966497441706972b3f71"><td class="memItemLeft" align="right" valign="top">Eigen::Vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#a7d7b5733ce1a966497441706972b3f71">pose_difference_</a> = Eigen::Vector3d::Zero()</td></tr>
+<tr class="separator:a7d7b5733ce1a966497441706972b3f71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67a05e36b8360cda7570e427432feae6" id="r_a67a05e36b8360cda7570e427432feae6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#a67a05e36b8360cda7570e427432feae6">correction_step_ongoing_</a> = false</td></tr>
+<tr class="separator:a67a05e36b8360cda7570e427432feae6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca3921674beb1fbf6c107ba54d7a8d2a" id="r_aca3921674beb1fbf6c107ba54d7a8d2a"><td class="memItemLeft" align="right" valign="top">rclcpp::Time&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#aca3921674beb1fbf6c107ba54d7a8d2a">last_update_</a></td></tr>
 <tr class="separator:aca3921674beb1fbf6c107ba54d7a8d2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7969601ecc67261bcef3ccff9bd92735" id="r_a7969601ecc67261bcef3ccff9bd92735"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#a7969601ecc67261bcef3ccff9bd92735">velocities_received_</a> = false</td></tr>
@@ -383,23 +384,21 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#a7a90b5292ae0892aa21f228ad8ef2173">SLAMSolver</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html#l00044">44</a> of file <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html">ekf_slam_solver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html#l00048">48</a> of file <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html">ekf_slam_solver.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/d79/class_e_k_f_s_l_a_m_solver_aa696fa02d40dfc09759fae9473d0d828_cgraph.png" border="0" usemap="#ad7/d79/class_e_k_f_s_l_a_m_solver_aa696fa02d40dfc09759fae9473d0d828_cgraph" alt=""/></div>
 <map name="ad7/d79/class_e_k_f_s_l_a_m_solver_aa696fa02d40dfc09759fae9473d0d828_cgraph" id="ad7/d79/class_e_k_f_s_l_a_m_solver_aa696fa02d40dfc09759fae9473d0d828_cgraph">
-<area shape="rect" title="process obervations of landmarks" alt="" coords="5,120,153,161"/>
+<area shape="rect" title="process obervations of landmarks" alt="" coords="5,92,153,133"/>
 <area shape="rect" href="../../dc/ddb/namespacecommon__lib_1_1conversions.html#ac07b7b31e53897cce43dc7a0163e759a" title="Convert vector of the struct common_lib::structures::Cone to Eigen vectors." alt="" coords="208,5,375,46"/>
-<area shape="poly" title=" " alt="" coords="105,117,148,86,199,55,210,50,212,55,202,60,151,91,108,122"/>
+<area shape="poly" title=" " alt="" coords="123,89,200,55,214,49,216,54,202,60,125,94"/>
 <area shape="rect" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#a5e1386c5f3781870b088f6b600af8657" title="correction step of the EKF that updates the state and covariance based on the observed landmarks" alt="" coords="208,70,375,96"/>
-<area shape="poly" title=" " alt="" coords="152,118,226,98,227,103,154,123"/>
+<area shape="poly" title=" " alt="" coords="153,100,192,94,193,99,153,105"/>
 <area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#ae863ab27f119e71801d039179cba64b7" title="Transform points from a local reference frame to a global reference frame." alt="" coords="201,120,382,161"/>
-<area shape="poly" title=" " alt="" coords="153,138,185,138,185,143,153,143"/>
+<area shape="poly" title=" " alt="" coords="153,119,185,124,185,129,153,125"/>
 <area shape="rect" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#ad5a25329f2a295599cf70e06bb3503d1" title="add new landmarks to the state vector and covariance matrix" alt="" coords="214,185,369,226"/>
-<area shape="poly" title=" " alt="" coords="148,159,209,178,207,183,146,164"/>
-<area shape="rect" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#a1040c52356d980f7f67c6e8358a2e427" title="update the process noise matrix so that its dimensions match the covariance matrix" alt="" coords="209,251,374,291"/>
-<area shape="poly" title=" " alt="" coords="103,159,147,197,202,235,214,241,211,246,199,240,144,201,100,163"/>
+<area shape="poly" title=" " alt="" coords="121,131,202,170,218,177,216,182,200,175,118,136"/>
 <area shape="rect" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#a06313688bd8135164153301754db464f" title="Get the observation noise matrix object used in the correction step of the EKF with the right dimensi..." alt="" coords="430,59,605,99"/>
 <area shape="poly" title=" " alt="" coords="375,79,414,78,415,83,375,84"/>
 <area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#a3155563fdd77267916f4362c3c976f11" title="Function to get the rotation matrix for a given angle." alt="" coords="448,124,587,165"/>
@@ -466,7 +465,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html#l00113">113</a> of file <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html">ekf_slam_solver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html#l00140">140</a> of file <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html">ekf_slam_solver.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -515,7 +514,7 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#a83efd39a6c4f791cf52dbc3b0be947fb">SLAMSolver</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html#l00152">152</a> of file <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html">ekf_slam_solver.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html#l00149">149</a> of file <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html">ekf_slam_solver.hpp</a>.</p>
 
 </div>
 </div>
@@ -547,7 +546,7 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#a8cabdaa2261eaf1b579e995a8c2815a3">SLAMSolver</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html#l00143">143</a> of file <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html">ekf_slam_solver.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html#l00140">140</a> of file <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html">ekf_slam_solver.hpp</a>.</p>
 
 </div>
 </div>
@@ -579,7 +578,7 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#a998963835a1741ad2969610a7e1d21ed">SLAMSolver</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html#l00150">150</a> of file <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html">ekf_slam_solver.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html#l00147">147</a> of file <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html">ekf_slam_solver.hpp</a>.</p>
 
 </div>
 </div>
@@ -608,7 +607,7 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#aca2165464894db682109aaf195e99eb2">SLAMSolver</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html#l00154">154</a> of file <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html">ekf_slam_solver.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html#l00151">151</a> of file <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html">ekf_slam_solver.hpp</a>.</p>
 
 </div>
 </div>
@@ -640,7 +639,7 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#a3acebc9796e6aa676be2c1cb0ad54e01">SLAMSolver</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html#l00166">166</a> of file <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html">ekf_slam_solver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html#l00193">193</a> of file <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html">ekf_slam_solver.cpp</a>.</p>
 
 </div>
 </div>
@@ -718,7 +717,7 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#a8ba5cc7b653fdc6999ce59af8d442271">SLAMSolver</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html#l00153">153</a> of file <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html">ekf_slam_solver.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html#l00150">150</a> of file <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html">ekf_slam_solver.hpp</a>.</p>
 
 </div>
 </div>
@@ -750,7 +749,7 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#a7842f64832dafab64f39c28466c9d88d">SLAMSolver</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html#l00175">175</a> of file <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html">ekf_slam_solver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html#l00209">209</a> of file <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html">ekf_slam_solver.cpp</a>.</p>
 
 </div>
 </div>
@@ -832,17 +831,7 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#a5719e97c83e64cd5828c3e0f817f8256">SLAMSolver</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html#l00150">150</a> of file <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html">ekf_slam_solver.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d7/d79/class_e_k_f_s_l_a_m_solver_a39e49ed9e16c3d334d9232494dc82d10_cgraph.png" border="0" usemap="#ad7/d79/class_e_k_f_s_l_a_m_solver_a39e49ed9e16c3d334d9232494dc82d10_cgraph" alt=""/></div>
-<map name="ad7/d79/class_e_k_f_s_l_a_m_solver_a39e49ed9e16c3d334d9232494dc82d10_cgraph" id="ad7/d79/class_e_k_f_s_l_a_m_solver_a39e49ed9e16c3d334d9232494dc82d10_cgraph">
-<area shape="rect" title="Initialize the EKF SLAM solver with a previously saved map and pose." alt="" coords="5,5,156,46"/>
-<area shape="rect" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#a1040c52356d980f7f67c6e8358a2e427" title="update the process noise matrix so that its dimensions match the covariance matrix" alt="" coords="204,5,369,46"/>
-<area shape="poly" title=" " alt="" coords="156,23,188,23,188,28,156,28"/>
-</map>
-</div>
+<p class="definition">Definition at line <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html#l00177">177</a> of file <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html">ekf_slam_solver.cpp</a>.</p>
 
 </div>
 </div>
@@ -911,7 +900,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html#l00089">89</a> of file <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html">ekf_slam_solver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html#l00114">114</a> of file <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html">ekf_slam_solver.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -977,7 +966,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html#l00130">130</a> of file <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html">ekf_slam_solver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html#l00157">157</a> of file <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html">ekf_slam_solver.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -986,47 +975,6 @@ Here is the caller graph for this function:</div>
 <area shape="rect" title="add new landmarks to the state vector and covariance matrix" alt="" coords="201,5,356,46"/>
 <area shape="rect" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#aa696fa02d40dfc09759fae9473d0d828" title="process obervations of landmarks" alt="" coords="5,5,153,46"/>
 <area shape="poly" title=" " alt="" coords="185,28,153,28,153,23,185,23"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a1040c52356d980f7f67c6e8358a2e427" name="a1040c52356d980f7f67c6e8358a2e427"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1040c52356d980f7f67c6e8358a2e427">&#9670;&#160;</a></span>update_process_noise_matrix()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void EKFSLAMSolver::update_process_noise_matrix </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>update the process noise matrix so that its dimensions match the covariance matrix </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html#l00180">180</a> of file <a class="el" href="../../d6/df3/ekf__slam__solver_8cpp_source.html">ekf_slam_solver.cpp</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d7/d79/class_e_k_f_s_l_a_m_solver_a1040c52356d980f7f67c6e8358a2e427_icgraph.png" border="0" usemap="#ad7/d79/class_e_k_f_s_l_a_m_solver_a1040c52356d980f7f67c6e8358a2e427_icgraph" alt=""/></div>
-<map name="ad7/d79/class_e_k_f_s_l_a_m_solver_a1040c52356d980f7f67c6e8358a2e427_icgraph" id="ad7/d79/class_e_k_f_s_l_a_m_solver_a1040c52356d980f7f67c6e8358a2e427_icgraph">
-<area shape="rect" title="update the process noise matrix so that its dimensions match the covariance matrix" alt="" coords="204,39,369,79"/>
-<area shape="rect" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#aa696fa02d40dfc09759fae9473d0d828" title="process obervations of landmarks" alt="" coords="7,5,154,46"/>
-<area shape="poly" title=" " alt="" coords="188,46,154,40,155,35,189,41"/>
-<area shape="rect" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#a39e49ed9e16c3d334d9232494dc82d10" title="Initialize the EKF SLAM solver with a previously saved map and pose." alt="" coords="5,71,156,111"/>
-<area shape="poly" title=" " alt="" coords="189,77,156,82,156,77,188,72"/>
 </map>
 </div>
 
@@ -1053,7 +1001,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html#l00098">98</a> of file <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html">ekf_slam_solver.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html#l00095">95</a> of file <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html">ekf_slam_solver.hpp</a>.</p>
 
 </div>
 </div>
@@ -1077,7 +1025,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html#l00097">97</a> of file <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html">ekf_slam_solver.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html#l00094">94</a> of file <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html">ekf_slam_solver.hpp</a>.</p>
 
 </div>
 </div>
@@ -1102,7 +1050,31 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html#l00022">22</a> of file <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html">ekf_slam_solver.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html">ekf_slam_solver.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a67a05e36b8360cda7570e427432feae6" name="a67a05e36b8360cda7570e427432feae6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67a05e36b8360cda7570e427432feae6">&#9670;&#160;</a></span>correction_step_ongoing_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool EKFSLAMSolver::correction_step_ongoing_ = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html#l00019">19</a> of file <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html">ekf_slam_solver.hpp</a>.</p>
 
 </div>
 </div>
@@ -1150,7 +1122,31 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html#l00019">19</a> of file <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html">ekf_slam_solver.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html#l00021">21</a> of file <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html">ekf_slam_solver.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a01d3657e1bffdfac97c79c1363098343" name="a01d3657e1bffdfac97c79c1363098343"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01d3657e1bffdfac97c79c1363098343">&#9670;&#160;</a></span>mutex_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_mutex EKFSLAMSolver::mutex_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html">ekf_slam_solver.hpp</a>.</p>
 
 </div>
 </div>
@@ -1178,8 +1174,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="ae70a20f2a95f613197716dd763174dea" name="ae70a20f2a95f613197716dd763174dea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae70a20f2a95f613197716dd763174dea">&#9670;&#160;</a></span>pose</h2>
+<a id="a7d7b5733ce1a966497441706972b3f71" name="a7d7b5733ce1a966497441706972b3f71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d7b5733ce1a966497441706972b3f71">&#9670;&#160;</a></span>pose_difference_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1188,7 +1184,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Eigen::VectorXd EKFSLAMSolver::pose = Eigen::VectorXd::Zero(3)</td>
+          <td class="memname">Eigen::Vector3d EKFSLAMSolver::pose_difference_ = Eigen::Vector3d::Zero()</td>
         </tr>
       </table>
   </td>
@@ -1198,7 +1194,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html">ekf_slam_solver.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html#l00018">18</a> of file <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html">ekf_slam_solver.hpp</a>.</p>
 
 </div>
 </div>
@@ -1294,7 +1290,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html#l00021">21</a> of file <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html">ekf_slam_solver.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../db/d50/ekf__slam__solver_8hpp_source.html">ekf_slam_solver.hpp</a>.</p>
 
 </div>
 </div>

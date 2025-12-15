@@ -1,7 +1,7 @@
 var class_s_l_a_m_node =
 [
     [ "SLAMNode", "d8/d84/class_s_l_a_m_node.html#a8543b5442579202f4ead10fbe347033c", null ],
-    [ "_is_mission_finished", "d8/d84/class_s_l_a_m_node.html#a9a6dee802bbbb070a0556ee1dd01826a", null ],
+    [ "_is_mission_finished", "d8/d84/class_s_l_a_m_node.html#ad85455fe3aa893627d226f26a16d0390", null ],
     [ "_perception_subscription_callback", "d8/d84/class_s_l_a_m_node.html#aac21a292783c53d1f41cfaa255b3e9bf", null ],
     [ "_publish_associations", "d8/d84/class_s_l_a_m_node.html#a91b66a755ba32f65e90666fe56bc9629", null ],
     [ "_publish_covariance", "d8/d84/class_s_l_a_m_node.html#a75b8a3f5d616163b602ec78c148dd270", null ],
@@ -24,6 +24,7 @@ var class_s_l_a_m_node =
     [ "_map_publisher_", "d8/d84/class_s_l_a_m_node.html#ad46f24819e0d4c5d23081a8a78a96911", null ],
     [ "_mission_", "d8/d84/class_s_l_a_m_node.html#a6d4aa8a5769a0e2a22615b2dfa5d7c79", null ],
     [ "_observations_global_", "d8/d84/class_s_l_a_m_node.html#a7adfcd99e21d33e67b885bdccd80a1b2", null ],
+    [ "_parallel_callback_group_", "d8/d84/class_s_l_a_m_node.html#a88d479484ab1fbb550a953371bad37b8", null ],
     [ "_perception_delta_publisher_", "d8/d84/class_s_l_a_m_node.html#a1ffa4a70db05336200f0be0d11b0052d", null ],
     [ "_perception_map_", "d8/d84/class_s_l_a_m_node.html#a16321bf55abc92f9a1e0f809fe2f846e", null ],
     [ "_perception_subscription_", "d8/d84/class_s_l_a_m_node.html#a1721a1eea113db4ac143c79ad95fa493", null ],
@@ -37,5 +38,6 @@ var class_s_l_a_m_node =
     [ "_vehicle_state_velocities_", "d8/d84/class_s_l_a_m_node.html#a10b8e6d0bb30193b123cce2b1786e848", null ],
     [ "_velocities_subscription_", "d8/d84/class_s_l_a_m_node.html#a47984fc565819b847ece298a12046994", null ],
     [ "_visualization_map_publisher_", "d8/d84/class_s_l_a_m_node.html#a000a98b07d79146cab0fb142df0d64b0", null ],
-    [ "_visualization_perception_map_publisher_", "d8/d84/class_s_l_a_m_node.html#ab46f66a1c06470f244e49962d2b7a242", null ]
+    [ "_visualization_perception_map_publisher_", "d8/d84/class_s_l_a_m_node.html#ab46f66a1c06470f244e49962d2b7a242", null ],
+    [ "mutex_", "d8/d84/class_s_l_a_m_node.html#a1444e22b454d2be21c4767dc9901fc25", null ]
 ];

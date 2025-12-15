@@ -1,6 +1,6 @@
 <map id="SLAMNode::_perception_subscription_callback" name="SLAMNode::_perception_subscription_callback">
 <area shape="rect" id="Node000001" title="Callback that updates everytime information is received from the perception module." alt="" coords="5,165,168,206"/>
-<area shape="rect" id="Node000002" href="$d8/d84/class_s_l_a_m_node.html#a9a6dee802bbbb070a0556ee1dd01826a" title="Checks if the mission is finished." alt="" coords="221,5,386,46"/>
+<area shape="rect" id="Node000002" href="$d8/d84/class_s_l_a_m_node.html#ad85455fe3aa893627d226f26a16d0390" title="Checks if the mission is finished." alt="" coords="221,5,386,46"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,163,149,111,180,82,214,57,224,51,226,56,217,61,184,86,153,115,106,167"/>
 <area shape="rect" id="Node000003" href="$d8/d84/class_s_l_a_m_node.html#a91b66a755ba32f65e90666fe56bc9629" title="Publishes the visualization of the associations by data association." alt="" coords="232,71,375,111"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="128,163,215,122,231,115,233,120,217,127,130,167"/>

@@ -1,15 +1,19 @@
 <map id="ConeEvaluator::close_to_ground" name="ConeEvaluator::close_to_ground">
-<area shape="rect" id="Node000001" title="Check if the cluster is close to the ground." alt="" coords="5,157,148,198"/>
+<area shape="rect" id="Node000001" title="Check if the cluster is close to the ground." alt="" coords="5,223,148,263"/>
 <area shape="rect" id="Node000002" href="$d2/d23/class_cluster.html#ab0b0056112da3ff27a13304f38f5f4d1" title="Get the centroid of the cluster." alt="" coords="205,42,344,68"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,155,139,116,194,78,208,71,210,76,197,83,143,120,100,159"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="85,221,126,151,157,112,194,78,203,73,206,77,197,82,161,116,130,154,90,224"/>
 <area shape="rect" id="Node000003" href="$dc/d71/class_ground_grid.html#a8b307e266061da7c79e80d09f62f3133" title="Get the ground height at a specific (x, y) location." alt="" coords="196,92,353,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="139,154,195,136,197,141,141,159"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="97,220,140,182,194,143,204,138,207,142,197,148,144,187,101,224"/>
 <area shape="rect" id="Node000008" href="$d2/d23/class_cluster.html#a4e56a059f1368a3905681d220e71446f" title="Get the Point Cloud data of the cluster." alt="" coords="214,157,335,198"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="148,175,199,175,199,180,148,180"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="139,220,198,200,200,205,141,225"/>
 <area shape="rect" id="Node000009" href="$d2/d23/class_cluster.html#a14891ae3df98c12aaf248cddad5068ca" title="Get the Point Cloud data of the cluster." alt="" coords="214,223,335,263"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="141,196,200,216,198,221,139,201"/>
-<area shape="rect" id="Node000010" href="$dc/d9c/namespace_lidar_point.html#a0dd3e19b92b08561073d6f2f636a87ca" title=" " alt="" coords="212,288,337,313"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="100,197,143,235,197,273,210,279,208,284,194,277,139,239,96,201"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="148,240,199,240,199,246,148,246"/>
+<area shape="rect" id="Node000010" href="$dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11" title=" " alt="" coords="212,288,337,313"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="149,261,214,280,212,285,148,266"/>
+<area shape="rect" id="Node000011" href="$dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4" title=" " alt="" coords="212,337,337,363"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="104,262,146,293,197,323,209,329,207,333,194,328,143,298,101,266"/>
+<area shape="rect" id="Node000012" href="$dc/d9c/namespace_lidar_point.html#a0dd3e19b92b08561073d6f2f636a87ca" title=" " alt="" coords="212,386,337,412"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="93,262,135,317,164,347,197,373,205,377,202,382,194,377,161,351,131,321,89,265"/>
 <area shape="rect" id="Node000004" href="$d0/da6/struct_grid_geometry.html#a695ebf39f48027a55da74edd084a7160" title="Compute bin index for a given (x, y)" alt="" coords="421,5,570,46"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="326,89,352,78,400,55,415,49,417,54,402,60,354,83,328,94"/>
 <area shape="rect" id="Node000005" href="$d0/da6/struct_grid_geometry.html#ae9618d95af7167771e927aa026f576fa" title="Get the number of bins for a given range." alt="" coords="401,70,589,96"/>

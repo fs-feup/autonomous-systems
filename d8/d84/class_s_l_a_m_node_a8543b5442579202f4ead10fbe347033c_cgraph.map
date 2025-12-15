@@ -4,7 +4,7 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,251,201,235,202,241,142,256"/>
 <area shape="rect" id="Node000013" href="$d8/d84/class_s_l_a_m_node.html#a6e228ce696c330a4a43ae5807c632df7" title="Callback that updates everytime information is received from vehicle state estimation node." alt="" coords="219,279,377,319"/>
 <area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="169,277,204,282,203,287,168,282"/>
-<area shape="rect" id="Node000003" href="$d8/d84/class_s_l_a_m_node.html#a9a6dee802bbbb070a0556ee1dd01826a" title="Checks if the mission is finished." alt="" coords="433,5,597,46"/>
+<area shape="rect" id="Node000003" href="$d8/d84/class_s_l_a_m_node.html#ad85455fe3aa893627d226f26a16d0390" title="Checks if the mission is finished." alt="" coords="433,5,597,46"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="309,191,355,126,388,89,425,57,434,51,437,56,429,61,392,93,359,129,314,194"/>
 <area shape="rect" id="Node000004" href="$d8/d84/class_s_l_a_m_node.html#a91b66a755ba32f65e90666fe56bc9629" title="Publishes the visualization of the associations by data association." alt="" coords="443,71,586,111"/>
 <area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="323,191,370,157,426,122,438,116,441,120,428,127,373,161,326,195"/>
