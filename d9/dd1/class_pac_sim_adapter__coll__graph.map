@@ -1,13 +1,13 @@
 <map id="PacSimAdapter" name="PacSimAdapter">
-<area shape="rect" id="Node000001" title="Adapter for the PacSim simulator." alt="" coords="1127,2291,1315,2691"/>
-<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="891,1794,1055,2099"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1051,2112,1133,2290,1128,2292,1046,2114"/>
+<area shape="rect" id="Node000001" title="Adapter for the PacSim simulator." alt="" coords="1127,2256,1315,2656"/>
+<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="891,1777,1055,2082"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1054,2094,1130,2255,1125,2257,1049,2097"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="931,1212,1016,1277"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="976,1291,976,1794,971,1794,971,1291"/>
-<area shape="rect" id="Node000010" href="$d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="1386,1652,1558,2241"/>
-<area shape="poly" id="edge10_Node000010_Node000003" title=" " alt="" coords="973,1292,974,1354,980,1430,998,1511,1012,1551,1030,1588,1066,1641,1107,1690,1153,1735,1202,1777,1300,1848,1388,1900,1385,1904,1297,1852,1199,1781,1150,1739,1103,1693,1061,1644,1026,1590,1007,1553,993,1513,975,1431,968,1354,968,1292"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="976,1292,976,1777,971,1777,971,1292"/>
+<area shape="rect" id="Node000010" href="$d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="1386,1652,1558,2207"/>
+<area shape="poly" id="edge10_Node000010_Node000003" title=" " alt="" coords="973,1292,973,1354,980,1431,997,1512,1012,1551,1030,1588,1066,1639,1107,1687,1153,1730,1202,1770,1300,1837,1388,1886,1385,1890,1297,1841,1199,1774,1150,1734,1103,1690,1062,1642,1026,1590,1007,1553,992,1513,974,1431,968,1354,968,1292"/>
 <area shape="rect" id="Node000004" href="$d4/de1/struct_control_parameters.html" title=" " alt="" coords="637,1060,824,1429"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="797,1428,918,1777,913,1779,792,1429"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="798,1428,917,1760,912,1762,793,1430"/>
 <area shape="rect" id="Node000005" href="$dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html" title=" " alt="" coords="411,564,589,824"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="557,823,649,1043,644,1045,552,825"/>
 <area shape="rect" id="Node000006" href="$dd/d7d/structcommon__lib_1_1car__parameters_1_1_tire_parameters.html" title=" " alt="" coords="411,268,589,488"/>
@@ -18,9 +18,9 @@
 <area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="123,437,150,483,186,525,235,565,289,600,344,629,396,652,394,657,342,634,286,604,232,570,182,529,146,486,118,439"/>
 <area shape="rect" id="Node000009" href="$d9/d6f/structcommon__lib_1_1car__parameters_1_1_steering_parameters.html" title=" " alt="" coords="208,328,387,428"/>
 <area shape="poly" id="edge8_Node000005_Node000009" title=" " alt="" coords="319,427,341,476,368,526,403,576,398,579,363,529,336,478,314,429"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="1382,2148,1316,2292,1311,2290,1377,2146"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="1382,2125,1318,2259,1313,2257,1377,2123"/>
 <area shape="rect" id="Node000011" href="$df/dec/struct_planning_config.html" title=" " alt="" coords="1568,1202,1685,1287"/>
-<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="1629,1287,1621,1439,1610,1534,1593,1629,1566,1724,1561,1722,1588,1627,1605,1533,1616,1438,1624,1287"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="1629,1287,1622,1438,1611,1534,1593,1629,1566,1719,1561,1717,1588,1627,1606,1533,1617,1438,1624,1286"/>
 <area shape="rect" id="Node000012" href="$d7/d4c/struct_outliers_config.html" title="struct for the configuration of the outliers removal algorithm." alt="" coords="1819,621,1965,767"/>
 <area shape="poly" id="edge12_Node000011_Node000012" title=" " alt="" coords="1856,768,1809,838,1791,860,1769,878,1753,885,1740,888,1727,892,1715,902,1692,934,1673,969,1648,1045,1634,1120,1629,1185,1624,1184,1629,1120,1642,1044,1669,967,1688,931,1711,898,1725,887,1738,883,1752,880,1767,873,1787,856,1805,835,1851,765"/>
 <area shape="rect" id="Node000021" href="$d9/d53/class_outliers.html" title="Class to deal with outliers." alt="" coords="1725,1184,1891,1304"/>
@@ -35,8 +35,8 @@
 <area shape="poly" id="edge27_Node000023_Node000014" title=" " alt="" coords="948,430,969,527,976,554,971,555,964,528,943,431"/>
 <area shape="rect" id="Node000015" href="$de/dce/struct_path_smoothing_config.html" title="struct for the configuration of the smoothing algorithm" alt="" coords="1266,611,1422,777"/>
 <area shape="poly" id="edge15_Node000011_Node000015" title=" " alt="" coords="1347,776,1360,829,1372,853,1389,874,1409,887,1430,891,1472,885,1493,880,1514,879,1536,883,1558,898,1584,928,1604,963,1619,1001,1628,1041,1637,1118,1636,1185,1630,1185,1632,1119,1623,1042,1614,1003,1599,966,1580,931,1554,902,1534,888,1514,884,1494,885,1472,890,1429,896,1407,892,1386,878,1367,856,1355,831,1341,777"/>
-<area shape="rect" id="Node000024" href="$d7/db7/class_path_smoothing.html" title="class that defines the path smoothing algorithm" alt="" coords="1256,1182,1376,1307"/>
-<area shape="poly" id="edge30_Node000024_Node000015" title=" " alt="" coords="1312,777,1298,819,1288,861,1280,942,1282,1023,1290,1099,1301,1165,1296,1166,1285,1100,1277,1023,1275,941,1283,860,1293,817,1307,775"/>
+<area shape="rect" id="Node000024" href="$d7/db7/class_path_smoothing.html" title="class that defines the path smoothing algorithm" alt="" coords="1256,1192,1376,1297"/>
+<area shape="poly" id="edge30_Node000024_Node000015" title=" " alt="" coords="1312,777,1298,819,1288,861,1280,945,1283,1030,1292,1108,1303,1174,1298,1175,1286,1109,1277,1030,1275,945,1283,860,1293,817,1307,775"/>
 <area shape="rect" id="Node000016" href="$d3/db0/struct_simulation_config.html" title="struct for the configuration of the smoothing algorithm" alt="" coords="1635,634,1795,754"/>
 <area shape="poly" id="edge16_Node000011_Node000016" title=" " alt="" coords="1708,754,1639,1185,1633,1184,1703,754"/>
 <area shape="rect" id="Node000017" href="$d2/d0d/struct_velocity_planning_config.html" title="struct for the configuration of the velocity planning algorithm" alt="" coords="1446,601,1610,787"/>
@@ -48,15 +48,15 @@
 <area shape="rect" id="Node000026" href="$de/d3f/class_skidpad.html" title="class that defines the skidpad path algorithm" alt="" coords="1935,1142,2105,1347"/>
 <area shape="poly" id="edge34_Node000026_Node000018" title=" " alt="" coords="2052,747,2030,1125,2024,1125,2046,746"/>
 <area shape="rect" id="Node000019" href="$d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="1081,298,1228,458"/>
-<area shape="poly" id="edge19_Node000010_Node000019" title=" " alt="" coords="1228,378,1439,388,1573,398,1712,414,1846,436,1967,465,2019,483,2065,502,2101,525,2129,550,2149,577,2169,612,2207,704,2240,819,2252,885,2260,954,2264,1028,2263,1104,2257,1182,2245,1263,2225,1344,2199,1427,2163,1509,2120,1590,2095,1627,2068,1661,2005,1722,1934,1774,1859,1818,1782,1855,1707,1885,1575,1925,1574,1920,1705,1880,1780,1850,1856,1814,1931,1770,2002,1718,2064,1657,2091,1624,2115,1588,2159,1507,2194,1425,2220,1343,2239,1262,2252,1182,2258,1104,2259,1028,2255,955,2246,886,2234,821,2202,706,2164,615,2144,580,2125,553,2098,529,2062,507,2018,487,1966,470,1845,441,1711,419,1572,404,1439,393,1228,384"/>
+<area shape="poly" id="edge19_Node000010_Node000019" title=" " alt="" coords="1228,378,1439,388,1573,398,1712,414,1846,436,1967,465,2019,483,2065,502,2101,525,2129,550,2149,577,2169,613,2209,705,2241,821,2253,887,2262,957,2266,1030,2265,1106,2259,1185,2246,1265,2227,1346,2200,1428,2164,1510,2120,1590,2095,1626,2068,1659,2005,1719,1934,1769,1858,1811,1781,1846,1706,1874,1575,1911,1574,1906,1705,1869,1779,1841,1856,1806,1931,1764,2001,1714,2064,1656,2091,1623,2115,1588,2159,1507,2195,1426,2222,1345,2241,1264,2254,1184,2260,1106,2261,1030,2257,957,2248,888,2236,822,2204,707,2165,615,2144,580,2125,553,2098,529,2062,507,2018,487,1966,470,1845,441,1711,419,1572,404,1439,393,1228,384"/>
 <area shape="poly" id="edge28_Node000022_Node000019" title=" " alt="" coords="1156,458,1146,883,1141,883,1150,458"/>
 <area shape="poly" id="edge26_Node000023_Node000019" title=" " alt="" coords="1084,458,1048,514,1033,556,1028,554,1044,511,1079,455"/>
 <area shape="rect" id="Node000020" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="1081,5,1228,205"/>
 <area shape="poly" id="edge20_Node000019_Node000020" title=" " alt="" coords="1157,205,1157,281,1152,281,1152,205"/>
-<area shape="poly" id="edge21_Node000010_Node000021" title=" " alt="" coords="1801,1305,1766,1455,1738,1543,1702,1629,1673,1684,1640,1737,1571,1833,1566,1830,1636,1734,1669,1681,1698,1627,1733,1542,1761,1454,1795,1304"/>
-<area shape="poly" id="edge23_Node000010_Node000022" title=" " alt="" coords="1229,1588,1246,1627,1275,1681,1308,1734,1378,1830,1373,1833,1304,1737,1271,1684,1242,1629,1224,1590"/>
+<area shape="poly" id="edge21_Node000010_Node000021" title=" " alt="" coords="1801,1304,1787,1372,1767,1455,1739,1544,1702,1629,1674,1681,1641,1732,1571,1823,1567,1819,1636,1728,1669,1678,1698,1627,1734,1542,1762,1454,1782,1371,1796,1303"/>
+<area shape="poly" id="edge23_Node000010_Node000022" title=" " alt="" coords="1228,1588,1246,1627,1275,1678,1308,1728,1377,1819,1373,1823,1303,1732,1270,1681,1242,1629,1224,1590"/>
 <area shape="poly" id="edge25_Node000022_Node000023" title=" " alt="" coords="1005,816,1015,875,1022,886,1030,898,1035,909,1031,911,1026,901,1017,889,1009,877,999,817"/>
-<area shape="poly" id="edge29_Node000010_Node000024" title=" " alt="" coords="1322,1306,1335,1454,1347,1541,1363,1627,1384,1703,1378,1704,1358,1629,1341,1542,1329,1454,1316,1307"/>
+<area shape="poly" id="edge29_Node000010_Node000024" title=" " alt="" coords="1321,1296,1333,1446,1345,1537,1363,1627,1383,1699,1378,1700,1358,1629,1340,1538,1328,1446,1315,1297"/>
 <area shape="poly" id="edge31_Node000010_Node000025" title=" " alt="" coords="1475,1357,1475,1635,1469,1635,1469,1357"/>
-<area shape="poly" id="edge33_Node000010_Node000026" title=" " alt="" coords="2004,1347,1989,1405,1968,1468,1941,1532,1906,1590,1871,1638,1831,1682,1743,1764,1654,1833,1574,1888,1571,1884,1651,1829,1740,1760,1827,1679,1866,1634,1902,1588,1936,1529,1963,1467,1984,1404,1999,1346"/>
+<area shape="poly" id="edge33_Node000010_Node000026" title=" " alt="" coords="2005,1347,1989,1406,1969,1469,1941,1532,1906,1591,1871,1636,1831,1679,1744,1758,1655,1823,1574,1875,1571,1871,1651,1819,1740,1753,1827,1676,1867,1633,1902,1587,1936,1529,1964,1467,1984,1404,1999,1346"/>
 </map>

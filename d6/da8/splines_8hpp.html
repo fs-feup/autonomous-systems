@@ -99,6 +99,7 @@ $(document).ready(function(){initNavTree('d6/da8/splines_8hpp.html','../../'); i
 <div class="contents">
 <div class="textblock"><code>#include &lt;gsl/gsl_bspline.h&gt;</code><br />
 <code>#include &lt;gsl/gsl_multifit.h&gt;</code><br />
+<code>#include &lt;gsl/gsl_errno.h&gt;</code><br />
 <code>#include &lt;cmath&gt;</code><br />
 <code>#include &lt;type_traits&gt;</code><br />
 <code>#include &lt;unordered_set&gt;</code><br />
@@ -110,23 +111,25 @@ Include dependency graph for splines.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/dda/splines_8hpp__incl.png" border="0" usemap="#asrc_2planning_2include_2utils_2splines_8hpp" alt=""/></div>
 <map name="asrc_2planning_2include_2utils_2splines_8hpp" id="asrc_2planning_2include_2utils_2splines_8hpp">
-<area shape="rect" title=" " alt="" coords="396,5,532,46"/>
+<area shape="rect" title=" " alt="" coords="468,5,604,46"/>
 <area shape="rect" title=" " alt="" coords="5,94,123,120"/>
-<area shape="poly" title=" " alt="" coords="396,43,138,94,137,88,395,38"/>
+<area shape="poly" title=" " alt="" coords="468,41,138,96,138,91,467,36"/>
 <area shape="rect" title=" " alt="" coords="147,94,261,120"/>
-<area shape="poly" title=" " alt="" coords="400,49,259,92,258,86,398,44"/>
-<area shape="rect" title=" " alt="" coords="285,94,342,120"/>
-<area shape="poly" title=" " alt="" coords="428,49,351,89,349,84,425,44"/>
-<area shape="rect" title=" " alt="" coords="366,94,447,120"/>
-<area shape="poly" title=" " alt="" coords="452,48,427,83,422,79,448,45"/>
-<area shape="rect" title=" " alt="" coords="471,94,574,120"/>
-<area shape="poly" title=" " alt="" coords="481,45,507,80,503,83,476,48"/>
-<area shape="rect" title=" " alt="" coords="598,94,650,120"/>
-<area shape="poly" title=" " alt="" coords="505,44,587,84,585,89,503,49"/>
-<area shape="rect" title=" " alt="" coords="674,94,731,120"/>
-<area shape="poly" title=" " alt="" coords="524,44,660,89,659,94,523,49"/>
-<area shape="rect" title=" " alt="" coords="755,94,874,120"/>
-<area shape="poly" title=" " alt="" coords="533,40,747,88,746,93,532,45"/>
+<area shape="poly" title=" " alt="" coords="468,46,271,92,269,87,467,41"/>
+<area shape="rect" title=" " alt="" coords="285,94,390,120"/>
+<area shape="poly" title=" " alt="" coords="487,49,383,90,381,85,485,44"/>
+<area shape="rect" title=" " alt="" coords="414,94,471,120"/>
+<area shape="poly" title=" " alt="" coords="515,48,470,86,467,82,511,44"/>
+<area shape="rect" title=" " alt="" coords="495,94,577,120"/>
+<area shape="poly" title=" " alt="" coords="539,46,539,78,533,78,533,46"/>
+<area shape="rect" title=" " alt="" coords="600,94,704,120"/>
+<area shape="poly" title=" " alt="" coords="566,44,623,83,620,87,563,49"/>
+<area shape="rect" title=" " alt="" coords="728,94,779,120"/>
+<area shape="poly" title=" " alt="" coords="591,44,714,88,712,93,589,49"/>
+<area shape="rect" title=" " alt="" coords="803,94,861,120"/>
+<area shape="poly" title=" " alt="" coords="605,42,789,91,788,96,604,47"/>
+<area shape="rect" title=" " alt="" coords="884,94,1004,120"/>
+<area shape="poly" title=" " alt="" coords="605,38,870,89,869,94,604,43"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -134,39 +137,39 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/da3/splines_8hpp__dep__incl.png" border="0" usemap="#asrc_2planning_2include_2utils_2splines_8hppdep" alt=""/></div>
 <map name="asrc_2planning_2include_2utils_2splines_8hppdep" id="asrc_2planning_2include_2utils_2splines_8hppdep">
-<area shape="rect" title=" " alt="" coords="1177,5,1314,46"/>
-<area shape="rect" href="../../de/de2/outliers_8hpp.html" title=" " alt="" coords="1038,94,1181,135"/>
-<area shape="poly" title=" " alt="" coords="1203,57,1142,96,1139,91,1201,52"/>
-<area shape="rect" href="../../d6/dab/planning_2test_2test__utils_2utils_8hpp.html" title=" " alt="" coords="1341,271,1484,312"/>
-<area shape="poly" title=" " alt="" coords="1252,60,1259,97,1273,133,1299,175,1331,212,1390,269,1386,273,1327,216,1295,178,1268,136,1254,98,1246,61"/>
-<area shape="rect" href="../../d0/d28/smoothing_8hpp.html" title=" " alt="" coords="1284,94,1445,135"/>
-<area shape="poly" title=" " alt="" coords="1286,53,1339,91,1336,96,1283,57"/>
-<area shape="rect" href="../../d0/dcc/planning_8hpp.html" title=" " alt="" coords="828,183,978,223"/>
-<area shape="poly" title=" " alt="" coords="1050,143,951,185,949,180,1048,139"/>
-<area shape="poly" title=" " alt="" coords="1138,144,1179,184,1228,221,1284,249,1341,269,1339,274,1282,254,1225,226,1175,188,1134,148"/>
-<area shape="rect" href="../../d6/de2/outliers_8cpp.html" title=" " alt="" coords="639,183,804,223"/>
-<area shape="poly" title=" " alt="" coords="1023,138,805,186,804,181,1022,132"/>
+<area shape="rect" title=" " alt="" coords="1140,5,1276,46"/>
+<area shape="rect" href="../../de/de2/outliers_8hpp.html" title=" " alt="" coords="1001,94,1144,135"/>
+<area shape="poly" title=" " alt="" coords="1166,57,1104,96,1101,91,1163,52"/>
+<area shape="rect" href="../../d6/dab/planning_2test_2test__utils_2utils_8hpp.html" title=" " alt="" coords="1291,271,1435,312"/>
+<area shape="poly" title=" " alt="" coords="1215,61,1222,97,1236,134,1260,174,1289,212,1343,269,1339,273,1285,215,1256,177,1231,136,1217,98,1209,62"/>
+<area shape="rect" href="../../d0/d28/smoothing_8hpp.html" title=" " alt="" coords="1246,94,1408,135"/>
+<area shape="poly" title=" " alt="" coords="1249,53,1302,91,1298,96,1246,57"/>
+<area shape="rect" href="../../d0/dcc/planning_8hpp.html" title=" " alt="" coords="816,183,966,223"/>
+<area shape="poly" title=" " alt="" coords="1018,144,933,185,931,180,1016,139"/>
+<area shape="poly" title=" " alt="" coords="1101,144,1141,183,1191,221,1243,248,1296,268,1294,273,1241,253,1188,226,1138,187,1097,148"/>
+<area shape="rect" href="../../d6/de2/outliers_8cpp.html" title=" " alt="" coords="627,183,792,223"/>
+<area shape="poly" title=" " alt="" coords="986,139,793,185,792,179,985,134"/>
 <area shape="rect" href="../../d0/d72/planning_2include_2adapter__planning_2eufs_8hpp.html" title=" " alt="" coords="373,271,550,312"/>
-<area shape="poly" title=" " alt="" coords="813,227,551,277,550,272,812,221"/>
+<area shape="poly" title=" " alt="" coords="801,227,551,276,549,271,800,221"/>
 <area shape="rect" href="../../d0/dce/planning_2src_2adapter__planning_2eufs_8cpp.html" title=" " alt="" coords="384,360,544,401"/>
-<area shape="poly" title=" " alt="" coords="814,227,613,274,587,292,563,314,495,362,492,357,560,310,584,288,611,269,812,222"/>
+<area shape="poly" title=" " alt="" coords="801,228,613,274,587,292,563,314,495,362,492,357,560,310,584,288,611,269,800,222"/>
 <area shape="rect" href="../../d8/df4/planning_2src_2main_8cpp.html" title=" " alt="" coords="190,368,360,393"/>
-<area shape="poly" title=" " alt="" coords="813,226,704,233,575,238,452,249,401,259,363,274,335,294,312,320,283,368,278,366,308,317,331,290,360,269,400,254,451,244,574,233,704,228,813,221"/>
+<area shape="poly" title=" " alt="" coords="801,226,695,233,569,238,449,249,400,259,363,274,335,294,312,321,283,368,278,366,308,317,331,291,360,269,399,254,448,244,569,233,695,228,801,221"/>
 <area shape="rect" href="../../de/d4a/planning_2include_2adapter__planning_2fsds_8hpp.html" title=" " alt="" coords="123,271,299,312"/>
-<area shape="poly" title=" " alt="" coords="813,226,674,244,564,252,455,259,318,274,300,277,299,271,317,269,455,253,564,246,673,238,813,221"/>
+<area shape="poly" title=" " alt="" coords="801,226,665,244,558,252,452,259,318,274,300,277,299,271,317,269,451,254,558,246,664,238,800,221"/>
 <area shape="rect" href="../../d4/d8f/planning_2src_2adapter__planning_2fsds_8cpp.html" title=" " alt="" coords="5,360,166,401"/>
-<area shape="poly" title=" " alt="" coords="813,226,658,231,436,236,227,247,153,258,128,265,113,273,98,292,90,315,86,360,81,359,85,314,93,289,109,269,126,260,152,253,227,242,436,230,658,225,812,220"/>
+<area shape="poly" title=" " alt="" coords="801,226,649,231,431,236,225,248,152,259,127,266,113,273,98,292,90,315,86,360,81,359,85,314,93,290,109,269,125,261,151,253,225,242,431,230,649,226,801,220"/>
 <area shape="rect" href="../../d8/d4a/planning_2include_2adapter__planning_2pacsim_8hpp.html" title=" " alt="" coords="625,271,818,312"/>
-<area shape="poly" title=" " alt="" coords="849,233,764,273,761,268,847,228"/>
+<area shape="poly" title=" " alt="" coords="840,233,761,273,759,269,838,228"/>
 <area shape="rect" href="../../d8/d65/planning_8cpp.html" title=" " alt="" coords="752,360,918,401"/>
-<area shape="poly" title=" " alt="" coords="892,239,845,361,840,359,887,237"/>
+<area shape="poly" title=" " alt="" coords="882,239,844,360,839,359,877,237"/>
 <area shape="rect" href="../../dc/d8f/planning_2include_2adapter__planning_2vehicle_8hpp.html" title=" " alt="" coords="893,271,1086,312"/>
-<area shape="poly" title=" " alt="" coords="935,233,972,269,968,273,931,236"/>
+<area shape="poly" title=" " alt="" coords="926,232,969,269,965,273,923,236"/>
 <area shape="rect" href="../../d5/da0/planning_2src_2adapter__planning_2vehicle_8cpp.html" title=" " alt="" coords="941,360,1102,401"/>
-<area shape="poly" title=" " alt="" coords="993,210,1023,218,1052,230,1078,247,1100,270,1106,282,1106,295,1096,320,1076,343,1053,362,1050,357,1073,339,1092,317,1101,295,1100,284,1095,273,1075,251,1049,235,1021,223,992,215"/>
+<area shape="poly" title=" " alt="" coords="982,207,1014,215,1046,227,1076,245,1100,270,1106,282,1107,295,1096,320,1077,343,1054,361,1050,357,1073,339,1092,317,1101,295,1101,284,1095,273,1072,249,1044,232,1013,220,980,213"/>
 <area shape="rect" href="../../d4/dee/integration__tests_8cpp.html" title=" " alt="" coords="1126,360,1307,401"/>
-<area shape="poly" title=" " alt="" coords="994,218,1059,238,1122,269,1148,290,1171,313,1206,358,1202,361,1167,317,1144,294,1119,274,1057,243,992,223"/>
-<area shape="poly" title=" " alt="" coords="993,217,1340,276,1340,281,992,222"/>
+<area shape="poly" title=" " alt="" coords="981,216,1052,236,1088,251,1122,269,1148,290,1172,313,1206,358,1202,361,1168,317,1145,293,1119,274,1086,256,1050,241,980,221"/>
+<area shape="poly" title=" " alt="" coords="981,218,1291,275,1290,280,980,223"/>
 <area shape="poly" title=" " alt="" coords="465,328,466,359,461,360,460,328"/>
 <area shape="poly" title=" " alt="" coords="406,321,302,369,300,365,404,316"/>
 <area shape="poly" title=" " alt="" coords="236,323,268,366,264,369,232,326"/>
@@ -179,23 +182,21 @@ This graph shows which files directly or indirectly include this file:</div>
 <area shape="poly" title=" " alt="" coords="943,322,871,362,868,357,940,317"/>
 <area shape="poly" title=" " alt="" coords="1005,326,1017,359,1012,360,1000,328"/>
 <area shape="poly" title=" " alt="" coords="1056,315,1165,357,1164,362,1054,320"/>
-<area shape="poly" title=" " alt="" coords="1355,321,1262,362,1260,357,1353,316"/>
-<area shape="rect" href="../../db/d25/outliers__tests_8cpp.html" title=" " alt="" coords="1875,360,2038,401"/>
-<area shape="poly" title=" " alt="" coords="1500,302,1668,326,1863,357,1875,359,1874,365,1862,363,1668,331,1499,307"/>
-<area shape="rect" href="../../d3/d72/planning_2test_2performance__test_8cpp.html" title=" " alt="" coords="2062,360,2256,401"/>
-<area shape="poly" title=" " alt="" coords="1499,298,1747,321,2050,357,2062,359,2061,364,2049,363,1747,327,1499,303"/>
-<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html" title=" " alt="" coords="2280,360,2462,401"/>
-<area shape="poly" title=" " alt="" coords="1499,294,1837,315,2052,333,2269,357,2280,359,2279,364,2268,363,2051,338,1836,320,1499,299"/>
-<area shape="rect" href="../../d9/db5/splines__tests_8cpp.html" title=" " alt="" coords="1331,360,1493,401"/>
-<area shape="poly" title=" " alt="" coords="1415,328,1415,360,1410,360,1410,328"/>
-<area shape="rect" href="../../d0/d09/planning_2test_2test__utils_2utils_8cpp.html" title=" " alt="" coords="1518,360,1661,401"/>
-<area shape="poly" title=" " alt="" coords="1467,317,1551,357,1548,362,1465,321"/>
-<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html" title=" " alt="" coords="1686,360,1851,401"/>
-<area shape="poly" title=" " alt="" coords="1500,311,1688,357,1686,362,1498,317"/>
-<area shape="poly" title=" " alt="" coords="1269,136,978,190,977,185,1268,131"/>
-<area shape="poly" title=" " alt="" coords="1374,149,1392,223,1408,270,1403,272,1387,224,1369,151"/>
-<area shape="rect" href="../../d8/d35/smoothing_8cpp.html" title=" " alt="" coords="1402,183,1567,223"/>
-<area shape="poly" title=" " alt="" coords="1405,142,1459,180,1455,184,1402,146"/>
+<area shape="poly" title=" " alt="" coords="1318,322,1251,362,1248,357,1315,318"/>
+<area shape="rect" href="../../d3/d72/planning_2test_2performance__test_8cpp.html" title=" " alt="" coords="2081,360,2274,401"/>
+<area shape="poly" title=" " alt="" coords="1451,296,1727,319,2068,357,2081,359,2080,364,2068,363,1726,325,1450,302"/>
+<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html" title=" " alt="" coords="1331,360,1512,401"/>
+<area shape="poly" title=" " alt="" coords="1387,323,1410,358,1406,361,1382,326"/>
+<area shape="rect" href="../../d9/db5/splines__tests_8cpp.html" title=" " alt="" coords="1536,360,1699,401"/>
+<area shape="poly" title=" " alt="" coords="1436,315,1560,357,1559,362,1434,320"/>
+<area shape="rect" href="../../d0/d09/planning_2test_2test__utils_2utils_8cpp.html" title=" " alt="" coords="1723,360,1867,401"/>
+<area shape="poly" title=" " alt="" coords="1450,306,1711,357,1723,360,1722,365,1710,363,1449,312"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html" title=" " alt="" coords="1891,360,2056,401"/>
+<area shape="poly" title=" " alt="" coords="1450,300,1647,324,1879,357,1891,359,1890,365,1878,363,1646,329,1450,305"/>
+<area shape="poly" title=" " alt="" coords="1231,137,966,189,965,184,1230,132"/>
+<area shape="poly" title=" " alt="" coords="1336,149,1361,270,1356,271,1331,150"/>
+<area shape="rect" href="../../d8/d35/smoothing_8cpp.html" title=" " alt="" coords="1364,183,1530,223"/>
+<area shape="poly" title=" " alt="" coords="1368,142,1421,180,1418,184,1365,146"/>
 </map>
 </div>
 </div>
@@ -305,7 +306,7 @@ template&lt;typename T &gt; </div>
     <tr><td class="paramname">precision</td><td>Number of interpolated points between each pair of original points. </td></tr>
     <tr><td class="paramname">order</td><td>Order of the B-spline. </td></tr>
     <tr><td class="paramname">coeffs_ratio</td><td>Ratio to determine the number of coefficients for the spline. </td></tr>
-    <tr><td class="paramname">cone_seq</td><td>Sequence of points to fit the spline to. This sequence will have duplicates removed. </td></tr>
+    <tr><td class="paramname">cone_seq</td><td>Sequence of points to fit the spline to. </td></tr>
   </table>
   </dd>
 </dl>
@@ -318,73 +319,55 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d6/da8/splines_8hpp_a5987a477b79a8b344f897f3be409cb37_icgraph.png" border="0" usemap="#ad6/da8/splines_8hpp_a5987a477b79a8b344f897f3be409cb37_icgraph" alt=""/></div>
 <map name="ad6/da8/splines_8hpp_a5987a477b79a8b344f897f3be409cb37_icgraph" id="ad6/da8/splines_8hpp_a5987a477b79a8b344f897f3be409cb37_icgraph">
-<area shape="rect" title="This function takes a sequence of points (T), fits a spline to them using B&#45;spline basis functions,..." alt="" coords="1557,456,1629,482"/>
-<area shape="rect" href="../../d9/d53/class_outliers.html#aec8b9b17a4cc2ca754244d7fe8283610" title="function to remove outliers from a set of cones" alt="" coords="1342,171,1484,212"/>
-<area shape="poly" title=" " alt="" coords="1572,444,1425,214,1430,211,1577,441"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a9c484c641bcc262c3af3d169c9fa4c54" title="function to smooth a path" alt="" coords="1317,431,1509,456"/>
-<area shape="poly" title=" " alt="" coords="1541,464,1508,460,1509,454,1542,459"/>
-<area shape="rect" href="../../d9/db5/splines__tests_8cpp.html#a6556ed322889d2511804a36ac4e8a7bd" title="Test the spline template function for a path point vector." alt="" coords="1386,480,1440,506"/>
-<area shape="poly" title=" " alt="" coords="1542,478,1441,492,1440,487,1541,473"/>
-<area shape="rect" href="../../d9/db5/splines__tests_8cpp.html#a83b61818f6ea0bfb86ff753855155bad" title="Test the spline template function for a cone vector." alt="" coords="1386,529,1440,555"/>
-<area shape="poly" title=" " alt="" coords="1561,493,1510,521,1474,532,1441,540,1440,535,1473,527,1508,516,1559,488"/>
-<area shape="rect" href="../../db/d25/outliers__tests_8cpp.html#a6444194f58bc3029a0a05ad139a936bb" title="simplest scenario with cones forming a line and one outlier" alt="" coords="1177,55,1231,80"/>
-<area shape="poly" title=" " alt="" coords="1373,163,1324,128,1268,94,1230,78,1232,73,1271,89,1327,124,1376,159"/>
-<area shape="rect" href="../../db/d25/outliers__tests_8cpp.html#a912711c48de39f7de3c2b36e9325044e" title="scenario with large track that barely has outliers (only 2)" alt="" coords="1177,104,1231,130"/>
-<area shape="poly" title=" " alt="" coords="1339,168,1230,129,1232,124,1340,163"/>
-<area shape="rect" href="../../db/d25/outliers__tests_8cpp.html#a4a68b3eb3b12e17608252a76d0078b3c" title="scenario with large track but few outliers" alt="" coords="1177,153,1231,179"/>
-<area shape="poly" title=" " alt="" coords="1326,184,1231,172,1232,167,1327,178"/>
-<area shape="rect" href="../../db/d25/outliers__tests_8cpp.html#a8da418d229e5938ce58a1bd2f15f9940" title="scenario with large track and moderate number of outliers" alt="" coords="1177,203,1231,228"/>
-<area shape="poly" title=" " alt="" coords="1327,204,1232,215,1231,210,1326,199"/>
-<area shape="rect" href="../../db/d25/outliers__tests_8cpp.html#afd7c597757843019f76a4a41f78e4fbe" title="scenario with large track and abundant outliers" alt="" coords="1177,252,1231,278"/>
-<area shape="poly" title=" " alt="" coords="1340,220,1232,258,1230,253,1338,215"/>
-<area shape="rect" href="../../db/d25/outliers__tests_8cpp.html#adc20401a05e2700e2563f167506a2513" title="simple case in which there are cones only in the left size and no significant outliers" alt="" coords="1177,301,1231,327"/>
-<area shape="poly" title=" " alt="" coords="1376,223,1327,259,1271,293,1232,308,1230,304,1268,288,1324,254,1373,219"/>
-<area shape="rect" href="../../db/d25/outliers__tests_8cpp.html#a77f1e81c905b352c5a9d67f0c587a145" title="simple scenario only with left cones but with 4 significant outliers" alt="" coords="1177,5,1231,31"/>
-<area shape="poly" title=" " alt="" coords="1386,161,1335,102,1303,71,1268,44,1230,27,1232,23,1271,40,1306,67,1339,98,1390,157"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#ab77ae5600e1e2f0247753055ee4d086c" title="Calculates path and applies smoothing." alt="" coords="1138,451,1269,492"/>
-<area shape="poly" title=" " alt="" coords="1302,461,1270,465,1269,460,1301,456"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,384,1090,410"/>
-<area shape="poly" title=" " alt="" coords="1302,433,1090,409,1091,403,1302,428"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,535,1090,560"/>
-<area shape="poly" title=" " alt="" coords="1332,464,1319,470,1305,479,1295,488,1285,497,1270,506,1226,522,1179,534,1091,546,1090,541,1178,528,1224,517,1268,501,1282,493,1292,484,1301,474,1316,465,1330,459"/>
-<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html#acd526ec95d9464063023a78fcf0f64d9" title="simple scenario with few points in the path" alt="" coords="1177,567,1231,592"/>
-<area shape="poly" title=" " alt="" coords="1324,466,1319,470,1302,488,1295,507,1287,528,1271,549,1252,563,1232,573,1230,568,1249,559,1267,546,1283,525,1290,505,1298,485,1316,465,1321,462"/>
-<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html#a39420284a210f074cd5864281df8c9b5" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="1177,351,1231,376"/>
-<area shape="poly" title=" " alt="" coords="1362,427,1230,376,1232,371,1364,422"/>
-<area shape="poly" title=" " alt="" coords="1145,447,1089,423,1058,413,1060,408,1091,418,1147,442"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,451,883,492"/>
-<area shape="poly" title=" " alt="" coords="1122,474,883,474,883,469,1122,469"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#ab1d989a47e1266f2522638828ade3271" title="Executes planning for the EBS (Emergency Braking System) test mission." alt="" coords="934,433,1087,459"/>
-<area shape="poly" title=" " alt="" coords="1123,464,1087,459,1087,454,1123,458"/>
-<area shape="poly" title=" " alt="" coords="1137,501,1046,536,1045,532,1135,496"/>
-<area shape="poly" title=" " alt="" coords="949,417,932,423,857,453,855,448,930,418,947,412"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,398,659,439"/>
-<area shape="poly" title=" " alt="" coords="717,452,659,438,660,433,718,447"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="495,483,684,524"/>
-<area shape="poly" title=" " alt="" coords="718,487,685,492,685,487,717,482"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,384,444,410"/>
-<area shape="poly" title=" " alt="" coords="505,413,444,408,445,402,505,408"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructs a Planning node with the specified configuration parameters." alt="" coords="291,433,419,459"/>
-<area shape="poly" title=" " alt="" coords="505,431,419,441,419,436,505,426"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,319,429,360"/>
-<area shape="poly" title=" " alt="" coords="512,395,417,363,419,358,513,390"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,464,195,490"/>
-<area shape="poly" title=" " alt="" coords="280,417,264,423,240,437,216,451,172,466,170,461,214,446,237,433,262,418,278,412"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,411,215,436"/>
-<area shape="poly" title=" " alt="" coords="280,368,151,413,149,408,278,363"/>
-<area shape="poly" title=" " alt="" coords="488,482,410,462,411,457,490,476"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,548,446,574"/>
-<area shape="poly" title=" " alt="" coords="490,531,411,550,410,545,488,525"/>
-<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,597,447,623"/>
-<area shape="poly" title=" " alt="" coords="547,535,500,563,448,589,417,599,416,594,446,584,498,558,544,530"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="281,483,429,524"/>
-<area shape="poly" title=" " alt="" coords="480,506,429,506,429,501,480,501"/>
-<area shape="poly" title=" " alt="" coords="286,546,262,538,142,493,144,488,264,533,288,541"/>
-<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,597,198,623"/>
-<area shape="poly" title=" " alt="" coords="247,613,198,613,198,608,247,608"/>
-<area shape="poly" title=" " alt="" coords="278,480,262,474,214,454,165,439,167,434,216,449,264,469,279,475"/>
-<area shape="poly" title=" " alt="" coords="919,460,883,465,883,459,919,455"/>
-<area shape="poly" title=" " alt="" coords="959,531,863,495,865,490,961,526"/>
+<area shape="rect" title="This function takes a sequence of points (T), fits a spline to them using B&#45;spline basis functions,..." alt="" coords="1377,221,1450,247"/>
+<area shape="rect" href="../../d9/d53/class_outliers.html#aec8b9b17a4cc2ca754244d7fe8283610" title="function to remove outliers from a set of cones" alt="" coords="1163,131,1305,171"/>
+<area shape="poly" title=" " alt="" coords="1379,214,1328,185,1302,174,1304,169,1331,181,1382,210"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a9c484c641bcc262c3af3d169c9fa4c54" title="function to smooth a path" alt="" coords="1138,196,1329,221"/>
+<area shape="poly" title=" " alt="" coords="1361,229,1329,224,1329,219,1362,224"/>
+<area shape="rect" href="../../d9/db5/splines__tests_8cpp.html#a6556ed322889d2511804a36ac4e8a7bd" title="Test the spline template function for a path point vector." alt="" coords="1207,245,1261,271"/>
+<area shape="poly" title=" " alt="" coords="1362,243,1262,257,1261,251,1362,238"/>
+<area shape="rect" href="../../d9/db5/splines__tests_8cpp.html#a83b61818f6ea0bfb86ff753855155bad" title="Test the spline template function for a cone vector." alt="" coords="1207,294,1261,320"/>
+<area shape="poly" title=" " alt="" coords="1382,258,1330,285,1295,297,1262,305,1261,300,1293,292,1328,281,1379,253"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,221,1090,247"/>
+<area shape="poly" title=" " alt="" coords="1123,224,1091,227,1090,222,1122,218"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
+<area shape="poly" title=" " alt="" coords="1122,198,883,169,883,164,1123,193"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#ab1d989a47e1266f2522638828ade3271" title="Executes planning for the EBS (Emergency Braking System) test mission." alt="" coords="934,70,1087,96"/>
+<area shape="poly" title=" " alt="" coords="1145,190,1136,185,1119,166,1111,146,1104,127,1088,109,1070,99,1073,94,1092,105,1109,124,1116,144,1124,163,1140,181,1147,186"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,120,1090,145"/>
+<area shape="poly" title=" " alt="" coords="1163,193,1137,186,1044,148,1046,143,1139,180,1164,188"/>
+<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html#acd526ec95d9464063023a78fcf0f64d9" title="simple scenario with few points in the path" alt="" coords="983,270,1038,296"/>
+<area shape="poly" title=" " alt="" coords="1157,228,1139,235,1115,248,1091,261,1039,279,1037,274,1089,257,1113,243,1137,230,1155,223"/>
+<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html#a39420284a210f074cd5864281df8c9b5" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="983,320,1038,345"/>
+<area shape="poly" title=" " alt="" coords="1145,231,1140,234,1124,252,1116,271,1109,291,1092,310,1066,324,1039,332,1037,326,1064,319,1088,306,1104,288,1111,269,1119,249,1136,230,1142,226"/>
+<area shape="poly" title=" " alt="" coords="959,217,863,181,865,176,961,212"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
+<area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="495,169,684,210"/>
+<area shape="poly" title=" " alt="" coords="718,174,685,178,685,173,717,168"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
+<area shape="poly" title=" " alt="" coords="505,99,444,94,445,88,505,94"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructs a Planning node with the specified configuration parameters." alt="" coords="291,120,419,145"/>
+<area shape="poly" title=" " alt="" coords="505,117,419,127,419,122,505,112"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,5,429,46"/>
+<area shape="poly" title=" " alt="" coords="512,81,417,49,419,44,513,76"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,150,195,176"/>
+<area shape="poly" title=" " alt="" coords="280,103,264,109,240,123,216,137,172,152,170,147,214,133,237,119,262,105,278,98"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,97,215,123"/>
+<area shape="poly" title=" " alt="" coords="280,54,151,99,149,94,278,49"/>
+<area shape="poly" title=" " alt="" coords="488,168,410,148,411,143,490,163"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,234,446,260"/>
+<area shape="poly" title=" " alt="" coords="490,217,411,236,410,231,488,212"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,284,447,309"/>
+<area shape="poly" title=" " alt="" coords="547,221,500,249,448,275,417,285,416,280,446,270,498,244,544,217"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="281,169,429,210"/>
+<area shape="poly" title=" " alt="" coords="480,192,429,192,429,187,480,187"/>
+<area shape="poly" title=" " alt="" coords="286,232,262,224,142,179,144,174,264,219,288,227"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
+<area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
+<area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
+<area shape="poly" title=" " alt="" coords="949,104,932,110,857,139,855,134,930,104,947,99"/>
+<area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 </map>
 </div>
 

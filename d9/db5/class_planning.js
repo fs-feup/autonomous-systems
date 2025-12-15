@@ -1,7 +1,6 @@
 var class_planning =
 [
     [ "Planning", "d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d", null ],
-    [ "calculate_and_smooth_path", "d9/db5/class_planning.html#ab77ae5600e1e2f0247753055ee4d086c", null ],
     [ "fetch_discipline", "d9/db5/class_planning.html#a252e828e61969388cb0ec48ed0eca293", null ],
     [ "finish", "d9/db5/class_planning.html#adbc4d2bec3251bd1053ee2201e9d22c2", null ],
     [ "load_config", "d9/db5/class_planning.html#a5650d2ddb277b0e80fed4c8bc72957fa", null ],

@@ -1,5 +1,0 @@
-<map id="PathSmoothing::order_path" name="PathSmoothing::order_path">
-<area shape="rect" id="Node000001" title="function to order the path points to be used in the spline fitting" alt="" coords="5,20,183,46"/>
-<area shape="rect" id="Node000002" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a7ce25e8e5e8c05f720cd644b35134051" title=" " alt="" coords="231,5,386,61"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="183,31,215,31,215,36,183,36"/>
-</map>

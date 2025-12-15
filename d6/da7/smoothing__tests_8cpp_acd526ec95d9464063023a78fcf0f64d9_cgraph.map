@@ -4,12 +4,8 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,37,136,25,137,31,61,42"/>
 <area shape="rect" id="Node000004" href="$d7/db7/class_path_smoothing.html#a9c484c641bcc262c3af3d169c9fa4c54" title="function to smooth a path" alt="" coords="108,55,299,80"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="60,45,93,49,92,55,60,50"/>
-<area shape="rect" id="Node000003" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a82e479b6e5401fd9ab2dc0a0851f0a55" title="Opens a file for reading." alt="" coords="384,5,488,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="255,16,368,16,368,21,255,21"/>
-<area shape="rect" id="Node000005" href="$d6/da8/splines_8hpp.html#a5987a477b79a8b344f897f3be409cb37" title="This function takes a sequence of points (T), fits a spline to them using B&#45;spline basis functions,..." alt="" coords="400,55,472,80"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="299,65,384,65,384,70,299,70"/>
-<area shape="rect" id="Node000006" href="$d7/db7/class_path_smoothing.html#ace570f760de1ee8b370917096599bd6f" title="function to order the path points to be used in the spline fitting" alt="" coords="347,104,524,130"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="268,78,357,98,356,103,267,84"/>
-<area shape="rect" id="Node000007" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a7ce25e8e5e8c05f720cd644b35134051" title=" " alt="" coords="572,89,728,145"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="525,114,557,114,557,120,525,120"/>
+<area shape="rect" id="Node000003" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a82e479b6e5401fd9ab2dc0a0851f0a55" title="Opens a file for reading." alt="" coords="347,5,451,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="255,16,331,16,331,21,255,21"/>
+<area shape="rect" id="Node000005" href="$d6/da8/splines_8hpp.html#a5987a477b79a8b344f897f3be409cb37" title="This function takes a sequence of points (T), fits a spline to them using B&#45;spline basis functions,..." alt="" coords="363,55,435,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="300,65,347,65,347,70,300,70"/>
 </map>

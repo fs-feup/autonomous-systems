@@ -1,19 +1,5 @@
 <map id="track_from_file" name="track_from_file">
-<area shape="rect" id="Node000001" title="Retrieves a track (a pair of colored cone vectors from each side) from a file." alt="" coords="160,179,266,204"/>
+<area shape="rect" id="Node000001" title="Retrieves a track (a pair of colored cone vectors from each side) from a file." alt="" coords="160,5,266,31"/>
 <area shape="rect" id="Node000002" href="$d3/d72/planning_2test_2performance__test_8cpp.html#aab2295277d22fafb888111e66fdac82f" title="Iterates the Outliers algorithm repeatedly and measures the average time." alt="" coords="5,5,112,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="197,166,162,106,138,73,110,44,94,34,97,29,113,40,142,70,167,103,201,163"/>
-<area shape="rect" id="Node000003" href="$db/d25/outliers__tests_8cpp.html#a6444194f58bc3029a0a05ad139a936bb" title="simplest scenario with cones forming a line and one outlier" alt="" coords="31,55,86,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="189,168,154,131,110,94,85,80,87,75,113,89,158,127,193,165"/>
-<area shape="rect" id="Node000004" href="$db/d25/outliers__tests_8cpp.html#a912711c48de39f7de3c2b36e9325044e" title="scenario with large track that barely has outliers (only 2)" alt="" coords="31,104,86,130"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="171,174,111,143,85,131,87,126,113,138,174,169"/>
-<area shape="rect" id="Node000005" href="$db/d25/outliers__tests_8cpp.html#a4a68b3eb3b12e17608252a76d0078b3c" title="scenario with large track but few outliers" alt="" coords="31,153,86,179"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="144,183,86,173,87,168,145,178"/>
-<area shape="rect" id="Node000006" href="$db/d25/outliers__tests_8cpp.html#a8da418d229e5938ce58a1bd2f15f9940" title="scenario with large track and moderate number of outliers" alt="" coords="31,203,86,228"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="145,205,87,214,86,209,144,199"/>
-<area shape="rect" id="Node000007" href="$db/d25/outliers__tests_8cpp.html#afd7c597757843019f76a4a41f78e4fbe" title="scenario with large track and abundant outliers" alt="" coords="31,252,86,278"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="172,214,113,243,87,255,85,250,111,238,170,209"/>
-<area shape="rect" id="Node000008" href="$db/d25/outliers__tests_8cpp.html#adc20401a05e2700e2563f167506a2513" title="simple case in which there are cones only in the left size and no significant outliers" alt="" coords="31,301,86,327"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="193,218,157,255,113,292,87,306,85,302,110,288,154,251,189,214"/>
-<area shape="rect" id="Node000009" href="$db/d25/outliers__tests_8cpp.html#a77f1e81c905b352c5a9d67f0c587a145" title="simple scenario only with left cones but with 4 significant outliers" alt="" coords="31,351,86,376"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="201,220,167,280,142,312,113,342,88,357,85,352,110,337,138,309,162,277,197,217"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,21,112,21,112,16,144,16"/>
 </map>

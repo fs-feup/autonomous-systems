@@ -1,70 +1,22 @@
 <map id="common_lib::structures::Position::euclidean_distance" name="common_lib::structures::Position::euclidean_distance">
-<area shape="rect" id="Node000001" title=" " alt="" coords="1817,110,1972,166"/>
-<area shape="rect" id="Node000002" href="$dc/dde/class_pure_pursuit.html#ae07038f1c02256819e50a7878797d1ac" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="1607,60,1754,101"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1802,116,1754,103,1755,97,1803,110"/>
-<area shape="rect" id="Node000003" href="$dc/dde/class_pure_pursuit.html#ab921e5033e736078b4adb269525f6dde" title="Pure Pursuit control law." alt="" coords="1367,5,1529,46"/>
-<area shape="poly" id="edge39_Node000001_Node000003" title=" " alt="" coords="1851,102,1812,73,1768,51,1708,34,1645,25,1584,22,1530,22,1530,17,1584,16,1645,20,1709,29,1770,46,1815,69,1854,97"/>
-<area shape="rect" id="Node000005" href="$da/d3b/control_2src_2utils_2utils_8cpp.html#abc841ff1f30fff8e3601c0eb3c5a952b" title="Find the closest point on the path." alt="" coords="1619,197,1742,223"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="1803,171,1722,199,1720,194,1802,166"/>
-<area shape="rect" id="Node000008" href="$da/d3b/control_2src_2utils_2utils_8cpp.html#affb99cf5ad23a3e9e3b14b64587fed1e" title="Update Lookahead point." alt="" coords="1610,125,1751,151"/>
-<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="1802,140,1751,140,1751,135,1802,135"/>
-<area shape="rect" id="Node000010" href="$d7/db7/class_path_smoothing.html#ace570f760de1ee8b370917096599bd6f" title="function to order the path points to be used in the spline fitting" alt="" coords="1592,293,1769,319"/>
-<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="1847,178,1700,294,1697,290,1844,174"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1591,62,1529,47,1530,42,1592,57"/>
-<area shape="rect" id="Node000004" href="$dc/dde/class_pure_pursuit.html#aa511921b74317316d8e62a5063bb66dd" title="Returns the steering command calculated by the solver." alt="" coords="1138,113,1304,154"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1366,55,1353,60,1301,87,1255,115,1253,110,1298,83,1351,55,1364,50"/>
-<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="1603,200,1304,150,1305,145,1604,194"/>
-<area shape="rect" id="Node000006" href="$d6/d5a/class_p_i_d.html#a92a2db4c3ffd6a0a37ea275d96c55b1c" title="Returns the throttle command calculated by the solver (only throttle)" alt="" coords="1359,272,1537,297"/>
-<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="1633,231,1544,263,1507,273,1506,268,1543,258,1632,226"/>
-<area shape="rect" id="Node000007" href="$dd/d68/control_2test_2utils_2utils__test_8cpp.html#a8d74cb064ec790a0f3d4db3ab2cd4172" title="Test Point Solver &#45; get_closest_point()" alt="" coords="1421,222,1475,248"/>
-<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="1603,221,1476,235,1475,229,1603,215"/>
-<area shape="poly" id="edge9_Node000008_Node000004" title=" " alt="" coords="1595,140,1305,137,1305,132,1595,134"/>
-<area shape="rect" id="Node000009" href="$dd/d68/control_2test_2utils_2utils__test_8cpp.html#aa527f0a4d89eafe54c175d40ef51193a" title="Test Point Solver &#45; update_lookahead_point()" alt="" coords="1421,70,1475,96"/>
-<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="1607,123,1475,92,1476,87,1609,118"/>
-<area shape="rect" id="Node000011" href="$d7/db7/class_path_smoothing.html#a9c484c641bcc262c3af3d169c9fa4c54" title="function to smooth a path" alt="" coords="1352,321,1544,347"/>
-<area shape="poly" id="edge12_Node000010_Node000011" title=" " alt="" coords="1577,321,1545,325,1544,319,1576,316"/>
-<area shape="rect" id="Node000012" href="$d9/db5/class_planning.html#ab77ae5600e1e2f0247753055ee4d086c" title="Calculates path and applies smoothing." alt="" coords="1156,371,1287,411"/>
-<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="1380,353,1288,377,1286,372,1379,348"/>
-<area shape="rect" id="Node000013" href="$d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,312,1090,337"/>
-<area shape="poly" id="edge35_Node000011_Node000013" title=" " alt="" coords="1337,334,1090,329,1090,323,1337,329"/>
-<area shape="rect" id="Node000027" href="$d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,462,1090,488"/>
-<area shape="poly" id="edge36_Node000011_Node000027" title=" " alt="" coords="1420,358,1368,393,1305,425,1251,443,1194,456,1091,472,1090,467,1193,451,1249,438,1303,421,1366,389,1417,354"/>
-<area shape="rect" id="Node000028" href="$d6/da7/smoothing__tests_8cpp.html#acd526ec95d9464063023a78fcf0f64d9" title="simple scenario with few points in the path" alt="" coords="1194,221,1248,247"/>
-<area shape="poly" id="edge37_Node000011_Node000028" title=" " alt="" coords="1360,317,1351,312,1335,299,1326,285,1317,272,1303,260,1276,247,1248,240,1249,235,1277,242,1306,255,1321,269,1330,282,1339,295,1354,307,1363,312"/>
-<area shape="rect" id="Node000029" href="$d6/da7/smoothing__tests_8cpp.html#a39420284a210f074cd5864281df8c9b5" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="1194,270,1248,296"/>
-<area shape="poly" id="edge38_Node000011_Node000029" title=" " alt="" coords="1372,319,1248,291,1249,286,1373,314"/>
-<area shape="poly" id="edge14_Node000012_Node000013" title=" " alt="" coords="1140,368,1053,340,1054,335,1142,363"/>
-<area shape="rect" id="Node000014" href="$d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,380,883,421"/>
-<area shape="poly" id="edge32_Node000012_Node000014" title=" " alt="" coords="1140,395,883,401,883,396,1140,390"/>
-<area shape="rect" id="Node000026" href="$d9/db5/class_planning.html#ab1d989a47e1266f2522638828ade3271" title="Executes planning for the EBS (Emergency Braking System) test mission." alt="" coords="934,413,1087,439"/>
-<area shape="poly" id="edge30_Node000012_Node000026" title=" " alt="" coords="1141,407,1087,416,1086,411,1140,402"/>
-<area shape="poly" id="edge33_Node000012_Node000027" title=" " alt="" coords="1166,421,1091,453,1060,464,1058,459,1089,449,1164,416"/>
-<area shape="poly" id="edge15_Node000013_Node000014" title=" " alt="" coords="961,346,865,382,863,377,959,341"/>
-<area shape="rect" id="Node000015" href="$d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,327,659,367"/>
-<area shape="poly" id="edge16_Node000014_Node000015" title=" " alt="" coords="717,381,659,367,660,361,718,376"/>
-<area shape="rect" id="Node000021" href="$d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="495,412,684,453"/>
-<area shape="poly" id="edge22_Node000014_Node000021" title=" " alt="" coords="718,416,685,421,685,416,717,411"/>
-<area shape="rect" id="Node000016" href="$d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,313,444,339"/>
-<area shape="poly" id="edge17_Node000015_Node000016" title=" " alt="" coords="505,342,444,336,445,331,505,337"/>
-<area shape="rect" id="Node000018" href="$d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructs a Planning node with the specified configuration parameters." alt="" coords="291,362,419,388"/>
-<area shape="poly" id="edge19_Node000015_Node000018" title=" " alt="" coords="505,360,419,370,419,365,505,354"/>
-<area shape="rect" id="Node000019" href="$db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,248,429,289"/>
-<area shape="poly" id="edge20_Node000015_Node000019" title=" " alt="" coords="512,324,417,292,419,287,513,319"/>
-<area shape="rect" id="Node000017" href="$d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,393,195,419"/>
-<area shape="poly" id="edge18_Node000016_Node000017" title=" " alt="" coords="280,346,264,352,240,366,216,380,172,395,170,390,214,375,237,361,262,347,278,341"/>
-<area shape="rect" id="Node000020" href="$db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,340,215,365"/>
-<area shape="poly" id="edge21_Node000019_Node000020" title=" " alt="" coords="280,297,151,341,149,336,278,292"/>
-<area shape="poly" id="edge23_Node000021_Node000018" title=" " alt="" coords="488,410,410,391,411,386,490,405"/>
-<area shape="rect" id="Node000022" href="$d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,477,446,503"/>
-<area shape="poly" id="edge24_Node000021_Node000022" title=" " alt="" coords="490,459,411,479,410,474,488,454"/>
-<area shape="rect" id="Node000023" href="$d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,526,447,552"/>
-<area shape="poly" id="edge26_Node000021_Node000023" title=" " alt="" coords="547,464,500,492,448,517,417,528,416,523,446,513,498,487,544,459"/>
-<area shape="rect" id="Node000025" href="$db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="281,412,429,453"/>
-<area shape="poly" id="edge28_Node000021_Node000025" title=" " alt="" coords="480,435,429,435,429,430,480,430"/>
-<area shape="poly" id="edge25_Node000022_Node000017" title=" " alt="" coords="286,475,262,467,142,421,144,416,264,462,288,469"/>
-<area shape="rect" id="Node000024" href="$d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,526,198,552"/>
-<area shape="poly" id="edge27_Node000023_Node000024" title=" " alt="" coords="247,542,198,542,198,536,247,536"/>
-<area shape="poly" id="edge29_Node000025_Node000020" title=" " alt="" coords="278,409,262,403,214,383,165,368,167,363,216,378,264,398,279,404"/>
-<area shape="poly" id="edge31_Node000026_Node000014" title=" " alt="" coords="919,417,883,412,883,407,919,412"/>
-<area shape="poly" id="edge34_Node000027_Node000014" title=" " alt="" coords="947,459,930,454,855,424,857,419,932,448,949,454"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="641,81,797,136"/>
+<area shape="rect" id="Node000002" href="$dc/dde/class_pure_pursuit.html#ae07038f1c02256819e50a7878797d1ac" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="446,5,593,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="635,77,570,49,572,44,637,72"/>
+<area shape="rect" id="Node000003" href="$dc/dde/class_pure_pursuit.html#ab921e5033e736078b4adb269525f6dde" title="Pure Pursuit control law." alt="" coords="228,5,390,46"/>
+<area shape="poly" id="edge11_Node000001_Node000003" title=" " alt="" coords="625,95,445,60,390,48,391,43,447,55,626,90"/>
+<area shape="rect" id="Node000005" href="$da/d3b/control_2src_2utils_2utils_8cpp.html#abc841ff1f30fff8e3601c0eb3c5a952b" title="Find the closest point on the path." alt="" coords="458,121,581,147"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="627,123,582,128,582,123,626,117"/>
+<area shape="rect" id="Node000008" href="$da/d3b/control_2src_2utils_2utils_8cpp.html#affb99cf5ad23a3e9e3b14b64587fed1e" title="Update Lookahead point." alt="" coords="450,221,590,247"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="662,147,543,223,541,218,659,142"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="430,28,390,28,390,23,430,23"/>
+<area shape="rect" id="Node000004" href="$dc/dde/class_pure_pursuit.html#aa511921b74317316d8e62a5063bb66dd" title="Returns the steering command calculated by the solver." alt="" coords="5,63,172,103"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="214,53,170,65,169,59,213,48"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="446,120,398,111,279,97,172,90,172,84,280,92,398,106,447,114"/>
+<area shape="rect" id="Node000006" href="$d6/d5a/class_p_i_d.html#a92a2db4c3ffd6a0a37ea275d96c55b1c" title="Returns the throttle command calculated by the solver (only throttle)" alt="" coords="220,121,398,147"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="442,136,398,136,398,131,442,131"/>
+<area shape="rect" id="Node000007" href="$dd/d68/control_2test_2utils_2utils__test_8cpp.html#a8d74cb064ec790a0f3d4db3ab2cd4172" title="Test Point Solver &#45; get_closest_point()" alt="" coords="282,170,336,196"/>
+<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="447,153,337,179,336,174,446,148"/>
+<area shape="poly" id="edge9_Node000008_Node000004" title=" " alt="" coords="434,244,384,244,329,240,272,229,219,211,182,189,149,160,102,106,106,102,153,156,185,184,221,206,274,224,329,234,384,239,434,239"/>
+<area shape="rect" id="Node000009" href="$dd/d68/control_2test_2utils_2utils__test_8cpp.html#aa527f0a4d89eafe54c175d40ef51193a" title="Test Point Solver &#45; update_lookahead_point()" alt="" coords="282,272,336,297"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="449,253,337,281,336,275,448,248"/>
 </map>

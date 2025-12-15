@@ -93,7 +93,6 @@ $(document).ready(function(){initNavTree('d7/db7/class_path_smoothing.html','../
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../de/d06/class_path_smoothing-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">PathSmoothing Class Reference</div></div>
@@ -109,7 +108,7 @@ Collaboration diagram for PathSmoothing:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d45/class_path_smoothing__coll__graph.png" border="0" usemap="#a_path_smoothing_coll__map" alt="Collaboration graph"/></div>
 <map name="a_path_smoothing_coll__map" id="a_path_smoothing_coll__map">
-<area shape="rect" title="class that defines the path smoothing algorithm" alt="" coords="23,234,143,359"/>
+<area shape="rect" title="class that defines the path smoothing algorithm" alt="" coords="23,234,143,339"/>
 <area shape="rect" href="../../de/dce/struct_path_smoothing_config.html" title="struct for the configuration of the smoothing algorithm" alt="" coords="5,5,161,171"/>
 <area shape="poly" title=" " alt="" coords="86,171,86,217,81,217,81,171"/>
 </map>
@@ -126,12 +125,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9c484c641bcc262c3af3d169c9fa4c54" id="r_a9c484c641bcc262c3af3d169c9fa4c54"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a9c484c641bcc262c3af3d169c9fa4c54">smooth_path</a> (std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;unordered_path, const <a class="el" href="../../d0/d28/smoothing_8hpp.html#a4dc1cfa8589f8390497feca76cd399d4">Pose</a> &amp;car_pose, const double initial_car_orientation) const</td></tr>
 <tr class="memdesc:a9c484c641bcc262c3af3d169c9fa4c54"><td class="mdescLeft">&#160;</td><td class="mdescRight">function to smooth a path  <br /></td></tr>
 <tr class="separator:a9c484c641bcc262c3af3d169c9fa4c54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:ace570f760de1ee8b370917096599bd6f" id="r_ace570f760de1ee8b370917096599bd6f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#ace570f760de1ee8b370917096599bd6f">order_path</a> (std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;unord_path, const <a class="el" href="../../d0/d28/smoothing_8hpp.html#a4dc1cfa8589f8390497feca76cd399d4">Pose</a> &amp;car_pose, const double initial_car_orientation) const</td></tr>
-<tr class="memdesc:ace570f760de1ee8b370917096599bd6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">function to order the path points to be used in the spline fitting  <br /></td></tr>
-<tr class="separator:ace570f760de1ee8b370917096599bd6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -202,124 +195,6 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ace570f760de1ee8b370917096599bd6f" name="ace570f760de1ee8b370917096599bd6f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace570f760de1ee8b370917096599bd6f">&#9670;&#160;</a></span>order_path()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void PathSmoothing::order_path </td>
-          <td>(</td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>unord_path</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d0/d28/smoothing_8hpp.html#a4dc1cfa8589f8390497feca76cd399d4">Pose</a> &amp;&#160;</td>
-          <td class="paramname"><em>car_pose</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const double&#160;</td>
-          <td class="paramname"><em>initial_car_orientation</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>function to order the path points to be used in the spline fitting </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">unord_path</td><td>unoredred path points </td></tr>
-    <tr><td class="paramname">car_pose</td><td>pose of the car to start ordering according to the closest point </td></tr>
-    <tr><td class="paramname">initial_car_orientation</td><td>initial orientation of the car (usually 0 but not on some tests) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d8/d35/smoothing_8cpp_source.html#l00003">3</a> of file <a class="el" href="../../d8/d35/smoothing_8cpp_source.html">smoothing.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_ace570f760de1ee8b370917096599bd6f_cgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_ace570f760de1ee8b370917096599bd6f_cgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_ace570f760de1ee8b370917096599bd6f_cgraph" id="ad7/db7/class_path_smoothing_ace570f760de1ee8b370917096599bd6f_cgraph">
-<area shape="rect" title="function to order the path points to be used in the spline fitting" alt="" coords="5,20,183,46"/>
-<area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a7ce25e8e5e8c05f720cd644b35134051" title=" " alt="" coords="231,5,386,61"/>
-<area shape="poly" title=" " alt="" coords="183,31,215,31,215,36,183,36"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_ace570f760de1ee8b370917096599bd6f_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_ace570f760de1ee8b370917096599bd6f_icgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_ace570f760de1ee8b370917096599bd6f_icgraph" id="ad7/db7/class_path_smoothing_ace570f760de1ee8b370917096599bd6f_icgraph">
-<area shape="rect" title="function to order the path points to be used in the spline fitting" alt="" coords="1557,210,1734,236"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a9c484c641bcc262c3af3d169c9fa4c54" title="function to smooth a path" alt="" coords="1317,210,1509,236"/>
-<area shape="poly" title=" " alt="" coords="1541,226,1509,226,1509,220,1541,220"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#ab77ae5600e1e2f0247753055ee4d086c" title="Calculates path and applies smoothing." alt="" coords="1138,145,1269,186"/>
-<area shape="poly" title=" " alt="" coords="1348,208,1269,186,1271,181,1349,203"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,69,1090,95"/>
-<area shape="poly" title=" " alt="" coords="1381,203,1330,168,1268,136,1224,121,1177,109,1090,93,1091,87,1178,103,1225,116,1270,131,1333,163,1384,198"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,220,1090,245"/>
-<area shape="poly" title=" " alt="" coords="1302,228,1090,233,1090,228,1301,223"/>
-<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html#acd526ec95d9464063023a78fcf0f64d9" title="simple scenario with few points in the path" alt="" coords="1177,261,1231,287"/>
-<area shape="poly" title=" " alt="" coords="1343,243,1232,270,1230,265,1341,237"/>
-<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html#a39420284a210f074cd5864281df8c9b5" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="1177,310,1231,336"/>
-<area shape="poly" title=" " alt="" coords="1377,246,1270,301,1232,317,1230,312,1268,297,1375,242"/>
-<area shape="poly" title=" " alt="" coords="1144,141,1089,116,1044,97,1046,93,1091,111,1146,136"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
-<area shape="poly" title=" " alt="" coords="1122,162,1090,160,883,159,883,154,1090,155,1123,157"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#ab1d989a47e1266f2522638828ade3271" title="Executes planning for the EBS (Emergency Braking System) test mission." alt="" coords="934,170,1087,196"/>
-<area shape="poly" title=" " alt="" coords="1123,176,1087,179,1087,173,1122,170"/>
-<area shape="poly" title=" " alt="" coords="1136,194,1091,211,1058,221,1057,216,1089,206,1135,189"/>
-<area shape="poly" title=" " alt="" coords="961,103,865,139,863,134,959,98"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
-<area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="495,169,684,210"/>
-<area shape="poly" title=" " alt="" coords="718,174,685,178,685,173,717,168"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
-<area shape="poly" title=" " alt="" coords="505,99,444,94,445,88,505,94"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructs a Planning node with the specified configuration parameters." alt="" coords="291,120,419,145"/>
-<area shape="poly" title=" " alt="" coords="505,117,419,127,419,122,505,112"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,5,429,46"/>
-<area shape="poly" title=" " alt="" coords="512,81,417,49,419,44,513,76"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,150,195,176"/>
-<area shape="poly" title=" " alt="" coords="280,103,264,109,240,123,216,137,172,152,170,147,214,133,237,119,262,105,278,98"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,97,215,123"/>
-<area shape="poly" title=" " alt="" coords="280,54,151,99,149,94,278,49"/>
-<area shape="poly" title=" " alt="" coords="488,168,410,148,411,143,490,163"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,234,446,260"/>
-<area shape="poly" title=" " alt="" coords="490,217,411,236,410,231,488,212"/>
-<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,284,447,309"/>
-<area shape="poly" title=" " alt="" coords="547,221,500,249,448,275,417,285,416,280,446,270,498,244,544,217"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="281,169,429,210"/>
-<area shape="poly" title=" " alt="" coords="480,192,429,192,429,187,480,187"/>
-<area shape="poly" title=" " alt="" coords="286,232,262,224,142,179,144,174,264,219,288,227"/>
-<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
-<area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
-<area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
-<area shape="poly" title=" " alt="" coords="919,174,883,170,883,164,919,169"/>
-<area shape="poly" title=" " alt="" coords="947,217,930,211,855,181,857,176,932,206,949,212"/>
-</map>
-</div>
-
-</div>
-</div>
 <a id="a9c484c641bcc262c3af3d169c9fa4c54" name="a9c484c641bcc262c3af3d169c9fa4c54"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9c484c641bcc262c3af3d169c9fa4c54">&#9670;&#160;</a></span>smooth_path()</h2>
 
@@ -369,13 +244,9 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/db7/class_path_smoothing_a9c484c641bcc262c3af3d169c9fa4c54_cgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a9c484c641bcc262c3af3d169c9fa4c54_cgraph" alt=""/></div>
 <map name="ad7/db7/class_path_smoothing_a9c484c641bcc262c3af3d169c9fa4c54_cgraph" id="ad7/db7/class_path_smoothing_a9c484c641bcc262c3af3d169c9fa4c54_cgraph">
-<area shape="rect" title="function to smooth a path" alt="" coords="5,31,197,56"/>
-<area shape="rect" href="../../d6/da8/splines_8hpp.html#a5987a477b79a8b344f897f3be409cb37" title="This function takes a sequence of points (T), fits a spline to them using B&#45;spline basis functions,..." alt="" coords="297,5,370,31"/>
-<area shape="poly" title=" " alt="" coords="197,30,282,21,282,26,197,36"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ace570f760de1ee8b370917096599bd6f" title="function to order the path points to be used in the spline fitting" alt="" coords="245,55,422,80"/>
-<area shape="poly" title=" " alt="" coords="197,51,229,54,229,59,197,56"/>
-<area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a7ce25e8e5e8c05f720cd644b35134051" title=" " alt="" coords="470,40,625,95"/>
-<area shape="poly" title=" " alt="" coords="423,65,454,65,454,70,423,70"/>
+<area shape="rect" title="function to smooth a path" alt="" coords="5,5,197,31"/>
+<area shape="rect" href="../../d6/da8/splines_8hpp.html#a5987a477b79a8b344f897f3be409cb37" title="This function takes a sequence of points (T), fits a spline to them using B&#45;spline basis functions,..." alt="" coords="245,5,317,31"/>
+<area shape="poly" title=" " alt="" coords="197,16,229,16,229,21,197,21"/>
 </map>
 </div>
 <div class="dynheader">
@@ -383,24 +254,20 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/db7/class_path_smoothing_a9c484c641bcc262c3af3d169c9fa4c54_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a9c484c641bcc262c3af3d169c9fa4c54_icgraph" alt=""/></div>
 <map name="ad7/db7/class_path_smoothing_a9c484c641bcc262c3af3d169c9fa4c54_icgraph" id="ad7/db7/class_path_smoothing_a9c484c641bcc262c3af3d169c9fa4c54_icgraph">
-<area shape="rect" title="function to smooth a path" alt="" coords="1317,210,1509,236"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#ab77ae5600e1e2f0247753055ee4d086c" title="Calculates path and applies smoothing." alt="" coords="1138,145,1269,186"/>
-<area shape="poly" title=" " alt="" coords="1348,208,1269,186,1271,181,1349,203"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,69,1090,95"/>
-<area shape="poly" title=" " alt="" coords="1381,203,1330,168,1268,136,1224,121,1177,109,1090,93,1091,87,1178,103,1225,116,1270,131,1333,163,1384,198"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,220,1090,245"/>
-<area shape="poly" title=" " alt="" coords="1302,228,1090,233,1090,228,1301,223"/>
-<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html#acd526ec95d9464063023a78fcf0f64d9" title="simple scenario with few points in the path" alt="" coords="1177,261,1231,287"/>
-<area shape="poly" title=" " alt="" coords="1343,243,1232,270,1230,265,1341,237"/>
-<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html#a39420284a210f074cd5864281df8c9b5" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="1177,310,1231,336"/>
-<area shape="poly" title=" " alt="" coords="1377,246,1270,301,1232,317,1230,312,1268,297,1375,242"/>
-<area shape="poly" title=" " alt="" coords="1144,141,1089,116,1044,97,1046,93,1091,111,1146,136"/>
+<area shape="rect" title="function to smooth a path" alt="" coords="1138,196,1329,221"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,221,1090,247"/>
+<area shape="poly" title=" " alt="" coords="1123,224,1091,227,1090,222,1122,218"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
-<area shape="poly" title=" " alt="" coords="1122,162,1090,160,883,159,883,154,1090,155,1123,157"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#ab1d989a47e1266f2522638828ade3271" title="Executes planning for the EBS (Emergency Braking System) test mission." alt="" coords="934,170,1087,196"/>
-<area shape="poly" title=" " alt="" coords="1123,176,1087,179,1087,173,1122,170"/>
-<area shape="poly" title=" " alt="" coords="1136,194,1091,211,1058,221,1057,216,1089,206,1135,189"/>
-<area shape="poly" title=" " alt="" coords="961,103,865,139,863,134,959,98"/>
+<area shape="poly" title=" " alt="" coords="1122,198,883,169,883,164,1123,193"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#ab1d989a47e1266f2522638828ade3271" title="Executes planning for the EBS (Emergency Braking System) test mission." alt="" coords="934,70,1087,96"/>
+<area shape="poly" title=" " alt="" coords="1204,187,1152,148,1089,109,1063,99,1065,94,1091,105,1155,143,1207,183"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,120,1090,145"/>
+<area shape="poly" title=" " alt="" coords="1178,192,1050,148,1051,143,1180,187"/>
+<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html#acd526ec95d9464063023a78fcf0f64d9" title="simple scenario with few points in the path" alt="" coords="983,270,1038,296"/>
+<area shape="poly" title=" " alt="" coords="1183,229,1091,262,1039,278,1037,273,1089,256,1181,224"/>
+<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html#a39420284a210f074cd5864281df8c9b5" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="983,320,1038,345"/>
+<area shape="poly" title=" " alt="" coords="1207,234,1155,273,1091,311,1039,329,1037,324,1089,306,1152,268,1203,229"/>
+<area shape="poly" title=" " alt="" coords="959,217,863,181,865,176,961,212"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
 <area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="495,169,684,210"/>
@@ -426,8 +293,8 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
-<area shape="poly" title=" " alt="" coords="919,174,883,170,883,164,919,169"/>
-<area shape="poly" title=" " alt="" coords="947,217,930,211,855,181,857,176,932,206,949,212"/>
+<area shape="poly" title=" " alt="" coords="949,104,932,110,857,139,855,134,930,104,947,99"/>
+<area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 </map>
 </div>
 
