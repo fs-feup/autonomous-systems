@@ -14,9 +14,9 @@ struct PlanningParameters {
   double mg_minimum_cone_distance_;
   double mg_maximum_cone_distance_;
   double mg_sliding_window_radius_;
-  bool mg_use_sliding_window_;
 
   /*---------------------- Path Calculation (pc_) ------------------------*/
+  bool pc_use_sliding_window_;
   double pc_angle_gain_;
   double pc_distance_gain_;
   double pc_angle_exponent_;
@@ -48,6 +48,7 @@ struct PlanningParameters {
   /*---------------------- Velocity Planning (vp_) -----------------------*/
   double vp_minimum_velocity_;
   double vp_braking_acceleration_;
+  double vp_acceleration_;
   double vp_normal_acceleration_;
   bool vp_use_velocity_planning_;
   double vp_desired_velocity_;
@@ -77,6 +78,7 @@ struct PlanningConfig {
     outliers_.use_outlier_removal_ = params.outliers_use_outlier_removal_;
 
     /*---------------------- Path Calculation (pc_) ------------------------*/
+
     path_calculation_.angle_gain_ = params.pc_angle_gain_;
     path_calculation_.distance_gain_ = params.pc_distance_gain_;
     path_calculation_.angle_exponent_ = params.pc_angle_exponent_;
@@ -88,14 +90,13 @@ struct PlanningConfig {
     path_calculation_.tolerance_ = params.pc_tolerance_;
     path_calculation_.reset_path_ = params.pc_reset_path_;
     path_calculation_.use_reset_path_ = params.pc_use_reset_path_;
+    path_calculation_.use_sliding_window_ = params.pc_use_sliding_window_;
 
     /*---------------------- Midpoint Generator (mg_) ----------------------*/
     path_calculation_.midpoint_generator_.minimum_cone_distance_ =
         params.mg_minimum_cone_distance_;
     path_calculation_.midpoint_generator_.maximum_cone_distance_ =
         params.mg_maximum_cone_distance_;
-    path_calculation_.midpoint_generator_.use_sliding_window_ =
-        params.mg_use_sliding_window_;
     path_calculation_.midpoint_generator_.sliding_window_radius_ =
         params.mg_sliding_window_radius_;
 
@@ -113,6 +114,7 @@ struct PlanningConfig {
     velocity_planning_.minimum_velocity_ = params.vp_minimum_velocity_;
     velocity_planning_.desired_velocity_ = params.vp_desired_velocity_;
     velocity_planning_.braking_acceleration_ = params.vp_braking_acceleration_;
+    velocity_planning_.acceleration_ = params.vp_acceleration_;
     velocity_planning_.normal_acceleration_ = params.vp_normal_acceleration_;
     velocity_planning_.use_velocity_planning_ = params.vp_use_velocity_planning_;
 

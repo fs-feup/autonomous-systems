@@ -23,6 +23,11 @@ struct VelocityPlanningConfig {
    */
   double braking_acceleration_ = -4;
   /**
+   * @brief maximum foward acceleration
+   *
+   */
+  double acceleration_ = 7.0;
+  /**
    * @brief the maximum normal acceleration
    *
    */
@@ -33,10 +38,11 @@ struct VelocityPlanningConfig {
    */
   bool use_velocity_planning_ = true;
   VelocityPlanningConfig() = default;
-  VelocityPlanningConfig(double minimum_velocity, double desired_velocity, double braking_acc, double normal_acc, bool use_velocity_planning)
+  VelocityPlanningConfig(double minimum_velocity, double desired_velocity, double braking_acc, double acc, double normal_acc, bool use_velocity_planning)
       : minimum_velocity_(minimum_velocity),
       desired_velocity_(desired_velocity),
       braking_acceleration_(braking_acc),
+      acceleration_(acc),
       normal_acceleration_(normal_acc),
       use_velocity_planning_(use_velocity_planning) {}
 };
