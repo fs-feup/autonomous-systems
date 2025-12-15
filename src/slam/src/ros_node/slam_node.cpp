@@ -36,6 +36,7 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
   this->_execution_times_ = std::make_shared<std::vector<double>>(20, 0.0);
   std::shared_ptr<LoopClosure> loop_closure = std::make_shared<LapCounter>(6, 20, 15, 2);
 
+
   // Initialize SLAM solver object
   this->_slam_solver_ = slam_solver_constructors_map.at(params.slam_solver_name_)(
       params, data_association, motion_model, landmark_filter, this->_execution_times_,
