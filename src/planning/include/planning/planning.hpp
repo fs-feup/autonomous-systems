@@ -207,13 +207,6 @@ private:
   void fetch_discipline();
 
   /**
-   * @brief Calculates path and applies smoothing.
-   *
-   * Performs path calculation based on cone positions and then smooths the path.
-   */
-  void calculate_and_smooth_path();
-
-  /**
    * @brief Runs the appropriate planning algorithm based on current mission.
    *
    * Dispatches to mission-specific planning functions and publishes the resulting

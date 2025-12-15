@@ -217,17 +217,11 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &messa
   }
 }
 
-/*--------------------- Core Path Calculation --------------------*/
-
-void Planning::calculate_and_smooth_path() {
-  full_path_ = path_calculation_.calculate_path(cone_array_);
-  smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
-}
-
 /*--------------------- Mission-Specific Planning --------------------*/
 
 void Planning::run_ebs_test() {
-  calculate_and_smooth_path();
+  full_path_ = path_calculation_.calculate_path(cone_array_);
+  smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
 
   double distance_from_origin =
       std::sqrt(pose_.position.x * pose_.position.x + pose_.position.y * pose_.position.y);
@@ -255,7 +249,8 @@ void Planning::run_ebs_test() {
 
 void Planning::run_autocross() {
   if (lap_counter_ == 0) {
-    calculate_and_smooth_path();
+    full_path_ = path_calculation_.calculate_path(cone_array_);
+    smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
     velocity_planning_.set_velocity(smoothed_path_);
   }
   if (lap_counter_ >= 1) {
@@ -271,7 +266,8 @@ void Planning::run_autocross() {
 
 void Planning::run_trackdrive() {
   if (lap_counter_ == 0) {
-    calculate_and_smooth_path();
+    full_path_ = path_calculation_.calculate_path(cone_array_);
+    smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
     velocity_planning_.set_velocity(smoothed_path_);
   } else if (lap_counter_ >= 1 && lap_counter_ < 10) {
     if (!is_map_closed_) {
@@ -320,7 +316,8 @@ void Planning::run_planning_algorithms() {
       break;
 
     default:
-      calculate_and_smooth_path();
+      full_path_ = path_calculation_.calculate_path(cone_array_);
+      smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
       velocity_planning_.set_velocity(smoothed_path_);
       break;
   }
