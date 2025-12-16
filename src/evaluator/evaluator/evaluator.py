@@ -172,6 +172,8 @@ class Evaluator(Node):
         self.path_points = []
         self.position = [0.0, 0.0]
         self.absolute_velocity = 0.0
+        self.velocity = 0.0
+        self.closest_point_velocity = 0.0
 
         # Publishers for perception metrics
         self._perception_mean_difference_ = self.create_publisher(
@@ -1256,7 +1258,13 @@ class Evaluator(Node):
         closest_point_distance = float("inf")
         closest_point = None
         for path_point in self.path_points:
-            dist = compute_distance(path_point[:2], self.position)
+            # Extract x, y from the path
+            path_x, path_y = path_point[0], path_point[1]
+            pos_x, pos_y = self.position[0], self.position[1]
+            # Compute Euclidean distance
+            dx = path_x - pos_x
+            dy = path_y - pos_y
+            dist = (dx ** 2 + dy ** 2) ** 0.5
             if dist < closest_point_distance:
                 closest_point_distance = dist
                 closest_point = path_point
@@ -1291,8 +1299,8 @@ class Evaluator(Node):
         self._control_position_squared_error_sum += position_error.data**2
 
         self._control_count += 1
-        self._control_velocity_error_sum += float(velocity_error)
-        self._control_velocity_squared_error_sum += float(velocity_error) ** 2
+        self._control_velocity_error_sum += float(velocity_error.data)
+        self._control_velocity_squared_error_sum += float(velocity_error.data) ** 2
 
         # Velocity ME
         control_velocity_mean_error = Float32()
