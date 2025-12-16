@@ -89,9 +89,9 @@ TEST_F(GraphSlamSolverTest, MotionAndObservation) {
   EXPECT_CALL(*mock_motion_model_ptr, get_pose_difference)
       .Times(4)
       .WillRepeatedly(testing::Return(Eigen::Vector3d(1.1, 0.0, 0.0)));
-EXPECT_CALL(*mock_motion_model_ptr, get_jacobian_motion_data)
-    .Times(4)
-    .WillRepeatedly(testing::Return(Eigen::Matrix3d::Identity() * 0.1));
+  EXPECT_CALL(*mock_motion_model_ptr, get_jacobian_motion_data)
+      .Times(4)
+      .WillRepeatedly(testing::Return(Eigen::Matrix3d::Identity() * 0.1));
 
   EXPECT_CALL(*mock_data_association_ptr, associate)
       .Times(2)
@@ -126,7 +126,7 @@ EXPECT_CALL(*mock_motion_model_ptr, get_jacobian_motion_data)
   cones_start.push_back(common_lib::structures::Cone(6.0, 1.0, "blue", 1.0, rclcpp::Clock().now()));
   cones_start.push_back(
       common_lib::structures::Cone(6.0, -1.0, "yellow", 1.0, rclcpp::Clock().now()));
-      
+
   cones_end.push_back(common_lib::structures::Cone(-1.0, 1.0, "blue", 1.0, rclcpp::Clock().now()));
   cones_end.push_back(
       common_lib::structures::Cone(-1.0, -1.0, "yellow", 1.0, rclcpp::Clock().now()));
@@ -136,6 +136,8 @@ EXPECT_CALL(*mock_motion_model_ptr, get_jacobian_motion_data)
 
   // Act
   solver->add_observations(cones_start, rclcpp::Clock().now());
+  solver->add_velocities(velocities);
+  velocities.timestamp_ += rclcpp::Duration(1, 0);
   solver->add_velocities(velocities);
   velocities.timestamp_ += rclcpp::Duration(1, 0);
   solver->add_velocities(velocities);

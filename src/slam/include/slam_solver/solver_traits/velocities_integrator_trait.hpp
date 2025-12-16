@@ -10,7 +10,7 @@
 class VelocitiesIntegratorTrait {
 public:
   /**
-   * @brief Add motion prior to the solver (prediction step)
+   * @brief Add velocities to the solver
    *
    * @param velocities Velocities of the robot
    */

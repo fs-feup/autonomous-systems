@@ -51,11 +51,16 @@ protected:
       _covariance_publisher_;  ///< Publishes
                                /// the covariance of the pose
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _lap_counter_publisher_;
+  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _perception_delta_publisher_;
+  rclcpp::Time _last_perception_message_time_ = rclcpp::Time(0);
+  rclcpp::CallbackGroup::SharedPtr
+      _parallel_callback_group_;  // Group of callbacks that runs in parallel with all others, used
+                                  // for EKF SLAM with parallel correction step
+  std::shared_mutex mutex_;
 
-  std::shared_ptr<tf2_ros::TransformBroadcaster>
-      _tf_broadcaster_;  ///< Broadcasts map -> vehicle frame transform
-  rclcpp::TimerBase::SharedPtr _timer_;
-  std::shared_ptr<SLAMSolver> _slam_solver_;
+  std::shared_ptr<tf2_ros::TransformBroadcaster> _tf_broadcaster_;
+  rclcpp::TimerBase::SharedPtr _timer_;      /**< timer */
+  std::shared_ptr<SLAMSolver> _slam_solver_; /**< SLAM solver object */
   std::vector<common_lib::structures::Cone> _perception_map_;
   common_lib::structures::Velocities _vehicle_state_velocities_;
   std::vector<common_lib::structures::Cone> _track_map_;
@@ -131,7 +136,7 @@ protected:
    * @return true if the mission is finished
    * @return false if the mission is not finished
    */
-  bool _is_mission_finished() const;
+  bool _is_mission_finished();
 
 public:
   // /**

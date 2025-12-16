@@ -3,7 +3,7 @@ control:
   lateral_controller: "pure_pursuit" # Options: "pure_pursuit"
   longitudinal_controller: "pid" # Options: "pid"
   pure_pursuit_lookahead_gain: 1.2
-  pure_pursuit_lookahead_minimum: 3.0  # Acceleration: 6.0 , Skidpad: 4.0 , Autocross: 4.0 , Trackdrive: 4.0
+  pure_pursuit_lookahead_minimum: 2.5  # Acceleration: 6.0 , Skidpad: 4.0 , Autocross: 4.0 , Trackdrive: 4.0
   pure_pursuit_lpf_alpha: 1 # Smoothing factor for the low-pass filter (0 = max smoothing, 1 = no smoothing)
   pure_pursuit_lpf_initial_value: 0.0
   first_last_max_dist: 1.0 # Maximum distance between first and last point in the path to consider it a closed track

@@ -11,13 +11,25 @@ PacsimAdapter::PacsimAdapter(const SLAMParameters& params) : SLAMNode(params) {
   rclcpp::SubscriptionOptions subscription_options;
   subscription_options.callback_group = this->_callback_group_;
   if (params.use_simulated_perception_) {
-    RCLCPP_INFO(this->get_logger(), "Using simulated perception");
-    this->_perception_detections_subscription_ =
-        this->create_subscription<pacsim::msg::PerceptionDetections>(
-            "/pacsim/perception/lidar/landmarks", 1,
-            std::bind(&PacsimAdapter::_pacsim_perception_subscription_callback, this,
-                      std::placeholders::_1),
-            subscription_options);
+    if (params.slam_solver_name_ == "ekf_slam" && params.slam_optimization_mode_ == "async") {
+      this->_parallel_callback_group_ =
+          this->create_callback_group(rclcpp::CallbackGroupType::Reentrant);
+      rclcpp::SubscriptionOptions parallel_opts;
+      parallel_opts.callback_group = _parallel_callback_group_;
+
+      this->_perception_detections_subscription_ =
+          this->create_subscription<pacsim::msg::PerceptionDetections>(
+              "/pacsim/perception/lidar/landmarks", 1,
+              std::bind(&PacsimAdapter::_pacsim_perception_subscription_callback, this,
+                        std::placeholders::_1),
+              parallel_opts);
+    } else {
+      this->_perception_detections_subscription_ =
+          this->create_subscription<pacsim::msg::PerceptionDetections>(
+              "/pacsim/perception/lidar/landmarks", 1,
+              std::bind(&PacsimAdapter::_pacsim_perception_subscription_callback, this,
+                        std::placeholders::_1));
+    }
   }
 
   if (params.use_simulated_velocities_) {
