@@ -29,6 +29,7 @@ public:
    * @param observations Observations in the form of [x1, y1, x2, y2, ...] in the global frame
    * @param observation_confidences Confidence in the observations in the same order as the
    * observations
+   * @param associations Associations of observations to landmarks
    * @return Eigen::VectorXd the filtered observations in the form of [x1, y1, x2, y2, ...] in the
    * global frame
    */

@@ -24,7 +24,7 @@ Eigen::VectorXd ConsecutiveCounterFilter::filter(const Eigen::VectorXd& observat
           unfiltered_new_observations_confidences.size() + 1);
       unfiltered_new_observations_confidences(unfiltered_new_observations_confidences.size() - 1) =
           observation_confidences(i);
-      associations(i) = -2;  // Mark as not ready to be added to the graph
+      associations(i) = -2;  // Mark as not ready. Did not pass filter yet
       filter_to_global_observation_map.push_back(i);
     }
   }
@@ -62,7 +62,7 @@ Eigen::VectorXd ConsecutiveCounterFilter::filter(const Eigen::VectorXd& observat
       filtered_observations.segment(filtered_observations.size() - 2, 2) =
           unfiltered_new_observations.segment(was_observed_as[landmark_index] * 2, 2);
       associations(filter_to_global_observation_map[was_observed_as[landmark_index]]) =
-          -1;  // Mark as ready to be added to the graph
+          -1;  // Mark as new landmark ready to be added to the map
     }
     new_map.conservativeResize(new_map.size() + 2);
     new_map.segment(new_map.size() - 2, 2) = this->map.segment(landmark_index * 2, 2);

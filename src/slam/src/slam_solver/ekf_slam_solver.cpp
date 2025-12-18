@@ -45,13 +45,10 @@ void EKFSLAMSolver::add_velocities(const common_lib::structures::Velocities& vel
 }
 
 void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::Cone>& cones,
-                                     rclcpp::Time cones_timestamp) {
-  // Prepare data structures
+                                     [[maybe_unused]] rclcpp::Time cones_time) {
   int num_observations = static_cast<int>(cones.size());
   std::vector<int> matched_landmarks_indices;
   Eigen::VectorXd matched_observations(0);
-  Eigen::VectorXd new_landmarks(0);
-  Eigen::VectorXd new_confidences(0);
   Eigen::VectorXd observations(2 * num_observations);
   Eigen::VectorXd observation_confidences(num_observations);
   common_lib::conversions::cone_vector_to_eigen(cones, observations, observation_confidences);
@@ -59,31 +56,33 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
   Eigen::MatrixXd covariance;
   {
     std::unique_lock lock(this->mutex_);
-    correction_step_ongoing_ = true;
     state = this->state_;
     covariance = this->covariance_;
+    correction_step_ongoing_ = true;
   }
-  RCLCPP_INFO(rclcpp::get_logger("EKFSLAMSolver"), "Adding %d observations at time %f",
-              num_observations, cones_timestamp.seconds());
+
   Eigen::VectorXd global_observations =
       common_lib::maths::local_to_global_coordinates(state.segment(0, 3), observations);
-  RCLCPP_INFO(rclcpp::get_logger("EKFSLAMSolver"), "Global observations");
   Eigen::VectorXi associations = this->_data_association_->associate(
       state.segment(3, state.size() - 3), global_observations,
       covariance.block(3, 3, state.size() - 3, state.size() - 3), observation_confidences);
-  RCLCPP_INFO(rclcpp::get_logger("EKFSLAMSolver"), "Data association completed");
 
-  // Perception Filter
   Eigen::VectorXd filtered_landmarks =
       this->_landmark_filter_->filter(global_observations, observation_confidences, associations);
-
-  RCLCPP_INFO(rclcpp::get_logger("EKFSLAMSolver"), "New landmarks filtering completed %ld -> %ld",
-              global_observations.size() / 2, filtered_landmarks.size() / 2);
   this->_landmark_filter_->delete_landmarks(filtered_landmarks);
-  RCLCPP_INFO(rclcpp::get_logger("EKFSLAMSolver"), "New landmarks deleted %ld from filter",
-              filtered_landmarks.size() / 2);
+
+  for (int i = 0; i < num_observations; i++) {
+    if (associations(i) >= 0) {
+      // Existing landmark
+      matched_landmarks_indices.push_back(associations(i) + 3);
+      matched_observations.conservativeResize(matched_observations.size() + 2);
+      matched_observations(matched_observations.size() - 2) = observations(2 * i);
+      matched_observations(matched_observations.size() - 1) = observations(2 * i + 1);
+    }
+  }
+
   this->correct(state, covariance, matched_landmarks_indices, matched_observations);
-  RCLCPP_INFO(rclcpp::get_logger("EKFSLAMSolver"), "Correct step completed");
+
   if (this->_mission_ != common_lib::competition_logic::Mission::NONE &&
       !(this->_params_.using_preloaded_map_ &&
         (this->_mission_ == common_lib::competition_logic::Mission::SKIDPAD ||
@@ -91,7 +90,6 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
       this->lap_counter_ == 0) {
     this->state_augmentation(state, covariance, filtered_landmarks);
   }
-  RCLCPP_INFO(rclcpp::get_logger("EKFSLAMSolver"), "Correction step completed");
   // Finally update the state
   {
     std::unique_lock lock(this->mutex_);

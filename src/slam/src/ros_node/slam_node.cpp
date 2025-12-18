@@ -48,20 +48,12 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam"), _params_(params
   _track_map_ = std::vector<common_lib::structures::Cone>();
   _vehicle_pose_ = common_lib::structures::Pose();
 
-  // To control if callbacks are concurrent or not
-  if (params.slam_solver_name_ == "graph_slam" && params.slam_optimization_mode_ != "sync") {
-    this->_callback_group_ = this->create_callback_group(
-        rclcpp::CallbackGroupType::Reentrant);  // Allow callbacks to execute in parallel
-  } else {
-    this->_callback_group_ = this->create_callback_group(
-        rclcpp::CallbackGroupType::MutuallyExclusive);  // Default callback group
-  }
   rclcpp::SubscriptionOptions subscription_options;
   subscription_options.callback_group = this->_callback_group_;
 
   // Subscriptions
   if (!params.use_simulated_perception_) {
-    if (params.slam_solver_name_ == "ekf_slam" && params.slam_optimization_mode_ == "async") {
+    if (params.slam_optimization_mode_ != "sync") {
       this->_parallel_callback_group_ =
           this->create_callback_group(rclcpp::CallbackGroupType::Reentrant);
       rclcpp::SubscriptionOptions parallel_opts;
@@ -72,6 +64,8 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam"), _params_(params
               std::bind(&SLAMNode::_perception_subscription_callback, this, std::placeholders::_1),
               parallel_opts);
     } else {
+      this->_callback_group_ = this->create_callback_group(
+          rclcpp::CallbackGroupType::MutuallyExclusive);  // Default callback group
       this->_perception_subscription_ =
           this->create_subscription<custom_interfaces::msg::PerceptionOutput>(
               "/perception/cones", 1,
@@ -107,7 +101,8 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam"), _params_(params
       this->create_publisher<std_msgs::msg::Float64>("/state_estimation/lap_counter", 10);
   this->_tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
 
-  RCLCPP_INFO(this->get_logger(), "SLAM Node has been initialized");
+  RCLCPP_INFO(this->get_logger(), "SLAM Node has been initialized using %s solver.",
+              params.slam_solver_name_.c_str());
 }
 
 void SLAMNode::init() {
@@ -135,13 +130,9 @@ void SLAMNode::_perception_subscription_callback(
     }
   }  // Decide if start on mission or go etc...
 
-  RCLCPP_INFO(this->get_logger(), "Processing perception message with %ld cones",
-              cone_array.size());
-
   rclcpp::Time start_time = this->get_clock()->now();
 
   // No need for mutex because no other function uses _perception_map_
-  RCLCPP_INFO(this->get_logger(), "Preparing perceived cones for SLAM solver");
   this->_perception_map_.clear();
 
   if (this->_slam_solver_ == nullptr) {
@@ -150,8 +141,6 @@ void SLAMNode::_perception_subscription_callback(
   }
 
   if (this->_params_.slam_solver_name_ == "ekf_slam") {
-    RCLCPP_INFO(this->get_logger(), "EKF SLAM - Applying motion compensation to perceived cones");
-
     // Needs mutex for vehicle_state_velocities
     Eigen::Vector3d velocities;
     {
