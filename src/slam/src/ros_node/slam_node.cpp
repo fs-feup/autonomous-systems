@@ -116,9 +116,12 @@ void SLAMNode::init() {
 void SLAMNode::_perception_subscription_callback(
     const custom_interfaces::msg::PerceptionOutput &msg) {
   auto const &cone_array = msg.cones.cone_array;
+  double perception_exec_time = msg.exec_time;
 
   rclcpp::Time const cones_time =
-      _params_.synchronized_timestamps ? rclcpp::Time(msg.header.stamp) : this->get_clock()->now();
+      _params_.synchronized_timestamps
+          ? rclcpp::Time(msg.header.stamp)
+          : this->get_clock()->now() - rclcpp::Duration::from_seconds(perception_exec_time);
 
   RCLCPP_DEBUG(this->get_logger(), "SUB - Perception: %ld cones. Mission: %d", cone_array.size(),
                static_cast<int>(this->_mission_));
@@ -150,7 +153,6 @@ void SLAMNode::_perception_subscription_callback(
                                    this->_vehicle_state_velocities_.rotational_velocity);
     }
 
-    double perception_exec_time = msg.exec_time;
     double theta = -velocities(2) * perception_exec_time;
     double cos_theta = std::cos(theta);
     double sin_theta = std::sin(theta);

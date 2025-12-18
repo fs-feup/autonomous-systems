@@ -53,7 +53,7 @@ std::shared_ptr<BaseOptimizer> ISAM2Optimizer::clone() const {
 }
 
 gtsam::Values ISAM2Optimizer::optimize(gtsam::NonlinearFactorGraph& factor_graph,
-                                       gtsam::Values& graph_values,
+                                       [[maybe_unused]] gtsam::Values& graph_values,
                                        [[maybe_unused]] unsigned int pose_num,
                                        [[maybe_unused]] unsigned int landmark_num) {
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "ISAM2Optimizer - Adding %zu new factors",
