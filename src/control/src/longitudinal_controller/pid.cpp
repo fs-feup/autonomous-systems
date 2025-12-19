@@ -132,3 +132,5 @@ common_lib::structures::ControlCommand PID::get_throttle_command()  {
   
   return command;
 }
+
+void PID::publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {}

@@ -50,6 +50,9 @@ private:
   // Currently just the first element is used, which is the total execution time
   std::shared_ptr<std::vector<double>> _execution_times_;
 
+  // Map of topic to publisher pointers
+  std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>> publisher_map_;
+
   // Control solver (lateral + longitudinal)
   std::shared_ptr<ControlSolver> control_solver_;
 

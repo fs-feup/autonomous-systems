@@ -34,6 +34,14 @@ public:
    */
   virtual common_lib::structures::ControlCommand get_control_command() = 0;
 
+  /**
+   * @brief Publishes solver specific data using the provided ControlNode
+   * 
+   * @param node shared pointer to the ControlNode
+   * @param publisher_map map of topic names to publisher pointers
+   */
+  virtual void publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) = 0;
+
   ControlSolver(const ControlParameters& params) : params_(std::make_shared<ControlParameters>(params)) {};
   virtual ~ControlSolver() = default;
 };
