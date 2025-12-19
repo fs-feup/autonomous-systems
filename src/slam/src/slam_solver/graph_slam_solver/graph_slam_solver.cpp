@@ -199,7 +199,7 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
     landmarks = state.segment(3, state.size() - 3);
     pose = this->_pose_updater_->get_last_pose();  // get the last pose
     Eigen::Vector3d adjusted_pose = this->_pose_updater_->get_pose_at_timestamp(
-        cones_timestamp);  // get the pose right before observation
+        cones_timestamp);  // get closest pose to observation
     observations_global =
         common_lib::maths::local_to_global_coordinates(adjusted_pose, observations);
     initialization_time = rclcpp::Clock().now();
@@ -229,7 +229,7 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
     if (lap_counter_ == 1) {
       RCLCPP_INFO(rclcpp::get_logger("slam"),
                   "add_observations - First lap detected, locking landmarks");
-      this->_graph_slam_instance_->lock_landmarks(0);
+      this->_graph_slam_instance_->lock_landmarks();
     }
     RCLCPP_INFO(rclcpp::get_logger("slam"), "Lap counter: %d", lap_counter_);
   }

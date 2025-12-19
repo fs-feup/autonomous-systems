@@ -288,18 +288,16 @@ void GraphSLAMInstance::optimize() {
   this->_new_observation_factors_ = false;
 }
 
-void GraphSLAMInstance::lock_landmarks(double locked_landmark_noise) {
-  // TODO: check if this works
-  for (unsigned int i = 1; i < this->_landmark_counter_; i++) {
-    gtsam::Symbol landmark_symbol('l', i);
-    if (this->_graph_values_.exists(landmark_symbol)) {
-      gtsam::Point2 landmark = this->_graph_values_.at<gtsam::Point2>(landmark_symbol);
-      const gtsam::noiseModel::Diagonal::shared_ptr landmark_noise =
-          gtsam::noiseModel::Diagonal::Sigmas(
-              gtsam::Vector2(locked_landmark_noise, locked_landmark_noise));
-      this->_factor_graph_.add(
-          gtsam::PriorFactor<gtsam::Point2>(landmark_symbol, landmark, landmark_noise));
-    }
+void GraphSLAMInstance::lock_landmarks() {
+  for (unsigned int i = 1; i < _landmark_counter_; i++) {
+    gtsam::Symbol l('l', i);
+
+    if (!_graph_values_.exists(l)) continue;
+
+    auto noise = gtsam::noiseModel::Constrained::All(2);
+    auto value = _graph_values_.at<gtsam::Point2>(l);
+
+    _factor_graph_.add(gtsam::PriorFactor<gtsam::Point2>(l, value, noise));
   }
 }
 
@@ -311,12 +309,12 @@ unsigned int GraphSLAMInstance::get_landmark_id_at_time(const rclcpp::Time& time
   for (size_t i = 0; i < _pose_timestamps_.size(); ++i) {
     const TimedPose& curr = _pose_timestamps_.from_end(i);
 
-    if (curr.timestamp <= timestamp) {
+    if (curr.timestamp.seconds() <= timestamp.seconds()) {
       if (i == 0) return curr.pose_id;  // Avoid out-of-bounds
       const TimedPose& next = _pose_timestamps_.from_end(i - 1);
 
-      auto diff_curr = timestamp.nanoseconds() - curr.timestamp.nanoseconds();
-      auto diff_next = next.timestamp.nanoseconds() - timestamp.nanoseconds();
+      auto diff_curr = timestamp.seconds() - curr.timestamp.seconds();
+      auto diff_next = next.timestamp.seconds() - timestamp.seconds();
       return (diff_curr <= diff_next) ? curr.pose_id : next.pose_id;
     }
   }

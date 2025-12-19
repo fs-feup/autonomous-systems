@@ -175,8 +175,6 @@ public:
   void process_pose_difference(const Eigen::Vector3d& pose_difference,
                                const Eigen::Vector3d& noise_vector);
 
-  void ensure_all_keys_have_initials();
-
   /**
    * @brief Runs optimization on the graph
    * @details This method calls the optimizer to run optimization on the current factor graph
@@ -187,5 +185,5 @@ public:
    * @brief Soft locks the positions of the landmarks, can be used after the first lap
    *
    */
-  void lock_landmarks(double locked_landmark_noise);
+  void lock_landmarks();
 };
