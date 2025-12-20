@@ -81,11 +81,13 @@ bool ConeEvaluator::npoints_valid(Cluster &cluster) const {
   double distance = std::sqrt(center.x() * center.x() + center.y() * center.y());
   double n_points = static_cast<double>(cluster.get_point_indices().size());
 
-  // Approximation of expected number of points based on distance
-  double expected_points = std::max(50 - (distance * 1.35), 1.0);
-  double min_points = 2;  // Needs to be changed
+  // Max and min number of points based on distance
+  double max_points = std::max(
+      params_->n_points_intial_max - (distance * params_->n_points_max_distance_reduction), 2.0);
+  double min_points = std::max(
+      params_->n_points_intial_min - (distance * params_->n_points_min_distance_reduction), 1.0);
 
-  return n_points <= expected_points && n_points >= min_points;
+  return n_points <= max_points && n_points >= min_points;
 }
 
 bool ConeEvaluator::evaluateCluster(Cluster &cluster, const GroundGrid &ground_grid) {

@@ -164,12 +164,12 @@ PerceptionParameters Perception::load_config() {
       perception_config["max_distance_from_ground_min"].as<double>();
   eval_params->max_distance_from_ground_max =
       perception_config["max_distance_from_ground_max"].as<double>();
-  eval_params->lidar_height = trim_params.lidar_height;
-  eval_params->lidar_vertical_resolution = trim_params.lidar_vertical_resolution;
-  eval_params->lidar_horizontal_resolution = trim_params.lidar_horizontal_resolution;
-  eval_params->visibility_factor = perception_config["visibility_factor"].as<double>();
-  eval_params->expected_points_threshold =
-      perception_config["expected_points_threshold"].as<double>();
+  eval_params->n_points_intial_max = perception_config["n_points_intial_max"].as<double>();
+  eval_params->n_points_intial_min = perception_config["n_points_intial_min"].as<double>();
+  eval_params->n_points_max_distance_reduction =
+      perception_config["n_points_max_distance_reduction"].as<double>();
+  eval_params->n_points_min_distance_reduction =
+      perception_config["n_points_min_distance_reduction"].as<double>();
 
   params.cone_evaluator_ = std::make_shared<ConeEvaluator>(eval_params);
   return params;
@@ -304,6 +304,7 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   this->_execution_times_->at(3) = (time3 - time2).seconds() * 1000.0;
   this->_execution_times_->at(4) = (time4 - time3).seconds() * 1000.0;
   this->_execution_times_->at(5) = (time5 - time4).seconds() * 1000.0;
+  this->_execution_times_->at(6) = (time6 - time5).seconds() * 1000.0;
   std_msgs::msg::Float64MultiArray exec_time_msg;
   exec_time_msg.data = *(this->_execution_times_);
   this->_perception_execution_time_publisher_->publish(exec_time_msg);
