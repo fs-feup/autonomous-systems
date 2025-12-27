@@ -1,6 +1,11 @@
 perception:
   default_mission: "trackdrive"
 
+  #Publishers
+  publish_fov_trimmed_cloud: true
+  publish_ground_removed_cloud: true
+  publish_wall_removed_cloud: true
+
   #LiDAR Parameters
   lidar_height: 1.10
   lidar_horizontal_resolution: 0.2
