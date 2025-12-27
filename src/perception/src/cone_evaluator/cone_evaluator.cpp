@@ -10,11 +10,22 @@ bool ConeEvaluator::close_to_ground(Cluster &cluster, const GroundGrid &ground_g
   float min_z = std::numeric_limits<float>::max();
   float max_z = std::numeric_limits<float>::lowest();
 
+  float distance = 0;
+
   for (const auto &idx : indices) {
+    float x = *reinterpret_cast<const float *>(&data[LidarPoint::PointX(idx)]);
+    float y = *reinterpret_cast<const float *>(&data[LidarPoint::PointY(idx)]);
     float z = *reinterpret_cast<const float *>(&data[LidarPoint::PointZ(idx)]);
     min_z = std::min(z, min_z);
     max_z = std::max(z, max_z);
+    distance = std::max(distance, std::sqrt(x * x + y * y));
+  } 
+
+  if (distance < 15) {
+    if (max_z - min_z < 0.05) return false;
   }
+
+
 
   double ground_height = ground_grid.get_ground_height(centroid.x(), centroid.y());
 

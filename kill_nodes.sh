@@ -1,6 +1,12 @@
 # Keywords to match against running ROS 2 processes
 NODE_PATTERNS=(
   "inspection"
+  "perception_adapter"
+  "slam"
+  "velocity_estimation"
+  "planning_adapter"
+  "control_adapter"
+  "ros_can"
 )
 
 

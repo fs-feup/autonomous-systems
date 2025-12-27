@@ -48,6 +48,7 @@ struct PlanningParameters {
   /*---------------------- Velocity Planning (vp_) -----------------------*/
   double vp_minimum_velocity_;
   double vp_braking_acceleration_;
+  double vp_acceleration_;
   double vp_normal_acceleration_;
   bool vp_use_velocity_planning_;
   double vp_desired_velocity_;
@@ -113,6 +114,7 @@ struct PlanningConfig {
     velocity_planning_.minimum_velocity_ = params.vp_minimum_velocity_;
     velocity_planning_.desired_velocity_ = params.vp_desired_velocity_;
     velocity_planning_.braking_acceleration_ = params.vp_braking_acceleration_;
+    velocity_planning_.acceleration_ = params.vp_acceleration_;
     velocity_planning_.normal_acceleration_ = params.vp_normal_acceleration_;
     velocity_planning_.use_velocity_planning_ = params.vp_use_velocity_planning_;
 

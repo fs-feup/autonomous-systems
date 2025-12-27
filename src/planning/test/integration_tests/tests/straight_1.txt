@@ -40,4 +40,4 @@ C 4 35 yellow_cone
 C 4 37 yellow_cone
 C 4 40 yellow_cone
 
-F 0.5 3.5 36 41
+F 0.5 3.5 35 41

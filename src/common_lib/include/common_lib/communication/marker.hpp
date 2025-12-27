@@ -12,6 +12,7 @@
 #include "std_msgs/msg/color_rgba.hpp"
 #include "visualization_msgs/msg/marker.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
+#include "common_lib/structures/position.hpp"
 
 using K = CGAL::Exact_predicates_inexact_constructions_kernel;
 using Point = K::Point_2;
@@ -237,4 +238,21 @@ visualization_msgs::msg::Marker lines_marker_from_triangulations(
     const std::vector<std::pair<Point, Point>>& triangulations, const std::string& name_space,
     const std::string& frame_id, int id, const std::string& color, float scale, int action);
 
+/**
+ * @brief Creates sphere markers at each path point with velocity in the marker namespace
+ * When you hover over these in Foxglove's 3D panel, it shows the velocity in the tooltip
+ *
+ * @param path_array vector of PathPoints
+ * @param name_space base namespace of the markers
+ * @param frame_id frame id
+ * @param scale size of the spheres
+ * @param every_nth show sphere every nth point
+ * @return visualization_msgs::msg::MarkerArray
+ */
+visualization_msgs::msg::MarkerArray velocity_hover_markers(
+    const std::vector<common_lib::structures::PathPoint>& path_array, 
+    const std::string& name_space,
+    const std::string& frame_id,
+    float scale = 0.2f,
+    int every_nth = 1);
 }  // namespace common_lib::communication
