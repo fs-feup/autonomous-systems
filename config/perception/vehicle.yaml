@@ -7,7 +7,7 @@ perception:
   lidar_vertical_resolution: 0.33
 
   #FOV trimming
-  apply_rotation: false
+  apply_rotation: true
   rotation: 90.0
   apply_fov_trimming: false
   fov: 180.0    #ATTENTION: If fov trimming not applied, leave at 180 degrees
@@ -66,9 +66,9 @@ perception:
   max_distance_from_ground_min: 0.50 # max distance from the ground of the lowest point in the cluster
   max_distance_from_ground_max: 0.90 # max distance form the ground of the highest point in the cluster
   n_points_intial_max: 35
-  n_points_intial_min: 5
+  n_points_intial_min: 4
   n_points_max_distance_reduction: 0.8
-  n_points_min_distance_reduction: 0.13
+  n_points_min_distance_reduction: 0.1
 
   #ICP
   target_file: "cone.pcd"
