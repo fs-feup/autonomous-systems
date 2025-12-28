@@ -53,10 +53,18 @@ PlanningParameters Planning::load_config(std::string &adapter) {
 
   /*--------------------- Path Smoothing Parameters --------------------*/
   params.smoothing_spline_order_ = planning_config["smoothing_spline_order"].as<int>();
-  params.smoothing_spline_coeffs_ratio_ =
-      planning_config["smoothing_spline_coeffs_ratio"].as<float>();
+  params.smoothing_coeffs_ratio_ =
+      planning_config["coeffs_ratio"].as<float>();
   params.smoothing_spline_precision_ = planning_config["smoothing_spline_precision"].as<int>();
   params.smoothing_use_path_smoothing_ = planning_config["smoothing_use_path_smoothing"].as<bool>();
+  params.use_optimization_ = planning_config["use_optimization_"].as<bool>();
+  params.car_width_ = planning_config["car_width_"].as<double>();
+  params.safety_margin_ = planning_config["safety_margin_"].as<double>();
+  params.curvature_weight_ = planning_config["curvature_weight_"].as<double>();
+  params.smoothness_weight_ = planning_config["smoothness_weight_"].as<double>();
+  params.deviation_weight_ = planning_config["deviation_weight_"].as<double>();
+  params.max_iterations_ = planning_config["max_iterations_"].as<int>();
+  params.tolerance_ = planning_config["tolerance_"].as<double>();
 
   /*--------------------- Velocity Planning Parameters --------------------*/
   params.vp_minimum_velocity_ = planning_config["vp_minimum_velocity"].as<double>();

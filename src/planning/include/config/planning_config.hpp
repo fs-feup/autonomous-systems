@@ -34,9 +34,17 @@ struct PlanningParameters {
 
   /*---------------------- Path Smoothing (smoothing_) -------------------*/
   int smoothing_spline_order_;
-  float smoothing_spline_coeffs_ratio_;
+  float smoothing_coeffs_ratio_;
   int smoothing_spline_precision_;
   bool smoothing_use_path_smoothing_;
+  bool use_optimization_;          
+  double car_width_;              
+  double safety_margin_;           
+  double curvature_weight_;      
+  double smoothness_weight_;        
+  double deviation_weight_;        
+  int max_iterations_;              
+  double tolerance_;                
 
   /*---------------------- Velocity Planning (vp_) -----------------------*/
   double vp_minimum_velocity_;
@@ -93,8 +101,16 @@ struct PlanningConfig {
     /*---------------------- Path Smoothing (smoothing_) -------------------*/
     smoothing_.order_ = params.smoothing_spline_order_;
     smoothing_.precision_ = params.smoothing_spline_precision_;
-    smoothing_.coeffs_ratio_ = params.smoothing_spline_coeffs_ratio_;
+    smoothing_.coeffs_ratio_ = params.smoothing_coeffs_ratio_;
     smoothing_.use_path_smoothing_ = params.smoothing_use_path_smoothing_;
+    smoothing_.use_optimization_ = params.use_optimization_;
+    smoothing_.car_width_ = params.car_width_;
+    smoothing_.safety_margin_ = params.safety_margin_;
+    smoothing_.curvature_weight_ = params.curvature_weight_;
+    smoothing_.smoothness_weight_ = params.smoothness_weight_;
+    smoothing_.deviation_weight_ = params.deviation_weight_;
+    smoothing_.max_iterations_ = params.max_iterations_;
+    smoothing_.tolerance_ = params.tolerance_;
 
     /*---------------------- Velocity Planning (vp_) -----------------------*/
     velocity_planning_.minimum_velocity_ = params.vp_minimum_velocity_;
