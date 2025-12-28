@@ -100,12 +100,6 @@ std::vector<PathPoint> PathCalculation::calculate_trackdrive(const std::vector<C
   // Close the loop by adding the first point again
   result.push_back(result[0]);
 
-  // Add overlap points (10 points or as many as available)
-  int overlap_count = std::min(10, static_cast<int>(result.size()) - 1);
-  for (int i = 1; i <= overlap_count; ++i) {
-    result.push_back(result[i]);
-  }
-
   return result;
 }
 
