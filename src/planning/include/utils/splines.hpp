@@ -2,8 +2,8 @@
 #define SRC_PLANNING_INCLUDE_UTILS_SPLINES_HPP_
 
 #include <gsl/gsl_bspline.h>
-#include <gsl/gsl_multifit.h>
 #include <gsl/gsl_errno.h>
+#include <gsl/gsl_multifit.h>
 
 #include <cmath>
 #include <type_traits>
@@ -260,6 +260,194 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vec
                static_cast<int>(cone_seq_eval.size()));
 
   return cone_seq_eval;
+}
+
+// WHERE SHOULD I PUT THIS STRUCTURE?
+template <typename T>
+struct TripleSpline {
+  std::vector<T> center;
+  std::vector<T> left;
+  std::vector<T> right;
+};
+
+template <typename T>
+TripleSpline<T> fitTripleSpline(const std::vector<T> &center, const std::vector<T> &left,
+                                const std::vector<T> &right, int precision, int order,
+                                float coeffs_ratio) {
+  static_assert(HasDefaultConstructor<T>::value, "T must be default constructible");
+  static_assert(IsHashable<T>::value, "T must be hashable");
+  static_assert(HasEqualityOperator<T>::value, "T must have operator==");
+  static_assert(HasPosition<T>::value, "T must have a position member");
+  static_assert(HasPositionXY<T>::value, "T.position must have x and y members");
+  static_assert(IsCopyConstructor<T>::value, "T must be copyable");
+  static_assert(HasEuclideanDistance<T>::value, "T.position must have a euclidean_distance method");
+  static_assert(PositionXYAreDouble<T>::value, "T.position.x and T.position.y must be double");
+
+  TripleSpline<T> result;
+
+  const size_t n = center.size();
+  if (n < 2 || left.size() != n || right.size() != n) {
+    return result;
+  }
+
+  // -------------------------
+  // Number of spline coeffs
+  // -------------------------
+  size_t ncoeffs = static_cast<size_t>(static_cast<float>(n) / coeffs_ratio);
+  if (ncoeffs < static_cast<size_t>(order)) {
+    ncoeffs = order;
+  }
+  if (ncoeffs > n) {
+    ncoeffs = n;
+  }
+
+  const int nbreak = static_cast<int>(ncoeffs) - order + 2;
+  if (nbreak < 2) {
+    return result;
+  }
+
+  const double t_min = 0.0;
+  const double t_max = static_cast<double>(n - 1);
+
+  // -------------------------
+  // GSL workspaces
+  // -------------------------
+  gsl_bspline_workspace *bw = gsl_bspline_alloc(order, nbreak);
+
+  gsl_vector *B = gsl_vector_alloc(ncoeffs);
+  gsl_vector *w = gsl_vector_alloc(n);
+
+  auto alloc_vec = [&]() { return gsl_vector_alloc(n); };
+  auto alloc_mat = [&]() { return gsl_matrix_alloc(n, ncoeffs); };
+
+  // Data vectors
+  gsl_vector *cx = alloc_vec(), *cy = alloc_vec();
+  gsl_vector *lx = alloc_vec(), *ly = alloc_vec();
+  gsl_vector *rx = alloc_vec(), *ry = alloc_vec();
+
+  gsl_matrix *X = alloc_mat();
+
+  // Coefficients
+  gsl_vector *ccx = gsl_vector_alloc(ncoeffs), *ccy = gsl_vector_alloc(ncoeffs);
+  gsl_vector *clx = gsl_vector_alloc(ncoeffs), *cly = gsl_vector_alloc(ncoeffs);
+  gsl_vector *crx = gsl_vector_alloc(ncoeffs), *cry = gsl_vector_alloc(ncoeffs);
+
+  gsl_matrix *cov = gsl_matrix_alloc(ncoeffs, ncoeffs);
+  gsl_multifit_linear_workspace *mw = gsl_multifit_linear_alloc(n, ncoeffs);
+
+  // -------------------------
+  // Fill input data
+  // -------------------------
+  for (size_t i = 0; i < n; ++i) {
+    gsl_vector_set(cx, i, center[i].position.x);
+    gsl_vector_set(cy, i, center[i].position.y);
+    gsl_vector_set(lx, i, left[i].position.x);
+    gsl_vector_set(ly, i, left[i].position.y);
+    gsl_vector_set(rx, i, right[i].position.x);
+    gsl_vector_set(ry, i, right[i].position.y);
+
+    // Distance-based weights (using center line spacing)
+    double dist_next = 1.0;
+    if (i + 1 < n) {
+      dist_next = center[i].position.euclidean_distance(center[i + 1].position);
+    } else if (i > 0) {
+      dist_next = center[i].position.euclidean_distance(center[i - 1].position);
+    }
+    if (dist_next < 1e-6) dist_next = 1e-6;
+
+    gsl_vector_set(w, i, 1.0 / (dist_next * dist_next));
+  }
+
+  // -------------------------
+  // Uniform knots (same for all)
+  // -------------------------
+  gsl_bspline_knots_uniform(t_min, t_max, bw);
+
+  // -------------------------
+  // Design matrix
+  // -------------------------
+  for (size_t i = 0; i < n; ++i) {
+    gsl_bspline_eval(static_cast<double>(i), B, bw);
+    for (size_t j = 0; j < ncoeffs; ++j) gsl_matrix_set(X, i, j, gsl_vector_get(B, j));
+  }
+
+  double chisq;
+
+  // -------------------------
+  // Fit all splines
+  // -------------------------
+  auto fit = [&](gsl_vector *data, gsl_vector *coeffs) {
+    gsl_multifit_wlinear(X, w, data, coeffs, cov, &chisq, mw);
+  };
+
+  fit(cx, ccx);
+  fit(cy, ccy);
+  fit(lx, clx);
+  fit(ly, cly);
+  fit(rx, crx);
+  fit(ry, cry);
+
+  // -------------------------
+  // Evaluate splines
+  // -------------------------
+  const size_t total = n * precision;
+  result.center.reserve(total);
+  result.left.reserve(total);
+  result.right.reserve(total);
+
+  for (size_t i = 0; i < n; ++i) {
+    for (int j = 0; j < precision; ++j) {
+      double t = static_cast<double>(i) + static_cast<double>(j) / precision;
+      if (t > t_max) t = t_max;
+
+      gsl_bspline_eval(t, B, bw);
+
+      auto eval = [&](gsl_vector *c, double &out) {
+        double err;
+        gsl_multifit_linear_est(B, c, cov, &out, &err);
+      };
+
+      T pc, pl, pr;
+
+      eval(ccx, pc.position.x);
+      eval(ccy, pc.position.y);
+      eval(clx, pl.position.x);
+      eval(cly, pl.position.y);
+      eval(crx, pr.position.x);
+      eval(cry, pr.position.y);
+
+      result.center.push_back(pc);
+      result.left.push_back(pl);
+      result.right.push_back(pr);
+    }
+  }
+
+  // -------------------------
+  // Cleanup
+  // -------------------------
+  gsl_bspline_free(bw);
+  gsl_vector_free(B);
+  gsl_vector_free(w);
+
+  gsl_vector_free(cx);
+  gsl_vector_free(cy);
+  gsl_vector_free(lx);
+  gsl_vector_free(ly);
+  gsl_vector_free(rx);
+  gsl_vector_free(ry);
+
+  gsl_vector_free(ccx);
+  gsl_vector_free(ccy);
+  gsl_vector_free(clx);
+  gsl_vector_free(cly);
+  gsl_vector_free(crx);
+  gsl_vector_free(cry);
+
+  gsl_matrix_free(X);
+  gsl_matrix_free(cov);
+  gsl_multifit_linear_free(mw);
+
+  return result;
 }
 
 #endif  // SRC_PLANNING_INCLUDE_UTILS_SPLINES_HPP_
