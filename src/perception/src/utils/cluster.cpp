@@ -35,7 +35,6 @@ void Cluster::set_color(const std::string& new_color) {
   }
 }
 
-// cppcheck-suppress unusedFunction
 void Cluster::set_point_indices(const std::vector<int>& new_point_indices) {
   this->_point_indices_ = new_point_indices;
   this->_center_is_defined_ = false;

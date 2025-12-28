@@ -1,9 +1,10 @@
 #include <gtest/gtest.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
 
-#include <center_calculation/circunferece_center_calculation.hpp>
+#include <center_calculation/circunference_center_calculation.hpp>
 #include <cone_validator/cylinder_validator.hpp>
+#include <sensor_msgs/msg/point_cloud2.hpp>
+#include <sensor_msgs/msg/point_field.hpp>
+#include <test_utils/pointcloud2_helper.hpp>
 #include <utils/cluster.hpp>
 #include <utils/plane.hpp>
 
@@ -11,35 +12,16 @@
  * @brief Test class for setting up data and testing CircinferenceCenterCalculation algorithm.
  *
  */
+
 class CircunferenceCenterCalculationTest : public ::testing::Test {
 public:
-  std::shared_ptr<pcl::PointCloud<pcl::PointXYZI>>
-      pcl_cloud;  ///< Point Cloud representing the circumference (x - 2)^2 + y^2 = 4
-  std::shared_ptr<pcl::PointCloud<pcl::PointXYZI>>
-      pcl_cloud2;  ///< Point Cloud representing the circumference x^2 + (y-3)^2 = 9
-  CircunferenceCenterCalculation center_calculator_;  ///< Center Calculator
-  Plane plane_;                                       ///< Plane z = 0
+  CircunferenceCenterCalculator center_calculator_;
+  Plane plane_;
 
 protected:
-  /**
-   * @brief Set up the test environment before each test case.
-   */
   void SetUp() override {
-    center_calculator_ = CircunferenceCenterCalculation();
-
-    pcl_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-    pcl_cloud->points.push_back(pcl::PointXYZI{0.0, 0.0, 1.0, 0.5});
-    pcl_cloud->points.push_back(pcl::PointXYZI{2.0, 2.0, 1.0, 1.0});
-    pcl_cloud->points.push_back(pcl::PointXYZI{4.0, 0.0, 1.0, 1.5});
-    pcl_cloud->points.push_back(pcl::PointXYZI{2.0, -2.0, 1.0, 1.5});
-
-    pcl_cloud2 = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-    pcl_cloud2->points.push_back(pcl::PointXYZI{0.0, 0.0, 2.0, 0.5});
-    pcl_cloud2->points.push_back(pcl::PointXYZI{3.0, 3.0, 2.0, 1.0});
-    pcl_cloud2->points.push_back(pcl::PointXYZI{-3.0, 3.0, 2.0, 1.5});
-    pcl_cloud2->points.push_back(pcl::PointXYZI{0.0, 6.0, 2.0, 1.5});
-
-    plane_ = Plane(0, 0, 1, 0);  // Plane z = 0
+    center_calculator_ = CircunferenceCenterCalculator();
+    plane_ = Plane(0, 0, 1, 0);
   }
 };
 
@@ -48,8 +30,14 @@ protected:
  *
  */
 TEST_F(CircunferenceCenterCalculationTest, NormalUseCase) {
-  auto center = center_calculator_.calculate_center(pcl_cloud, plane_);
-
+  std::vector<std::array<float, 5>> pts = {{0.0, 0.0, 1.0, 0.5, 39},
+                                           {2.0, 2.0, 1.0, 1.0, 39},
+                                           {4.0, 0.0, 1.0, 1.5, 39},
+                                           {2.0, -2.0, 1.0, 1.5, 39}};
+  auto input_cloud = test_utils::make_lidar_pointcloud2(pts);
+  std::vector<int> indices = {0, 1, 2, 3};
+  auto output_cloud = test_utils::make_lidar_pointcloud2({});
+  auto center = center_calculator_.calculate_center(input_cloud, indices, plane_);
   ASSERT_EQ(center.x(), 2);
   ASSERT_EQ(center.y(), 0);
 }
@@ -59,8 +47,14 @@ TEST_F(CircunferenceCenterCalculationTest, NormalUseCase) {
  *
  */
 TEST_F(CircunferenceCenterCalculationTest, NormalUseCase2) {
-  auto center = center_calculator_.calculate_center(pcl_cloud2, plane_);
-
+  std::vector<std::array<float, 5>> pts = {{0.0, 0.0, 2.0, 0.5, 39},
+                                           {3.0, 3.0, 2.0, 1.0, 39},
+                                           {-3.0, 3.0, 2.0, 1.5, 39},
+                                           {0.0, 6.0, 2.0, 1.5, 39}};
+  auto input_cloud = test_utils::make_lidar_pointcloud2(pts);
+  std::vector<int> indices = {0, 1, 2, 3};
+  auto output_cloud = test_utils::make_lidar_pointcloud2({});
+  auto center = center_calculator_.calculate_center(input_cloud, indices, plane_);
   ASSERT_EQ(center.x(), 0);
   ASSERT_EQ(center.y(), 3);
 }

@@ -1,4 +1,6 @@
 #pragma once
+#include <gtest/gtest_prod.h>
+
 #include <cone_validator/cone_validator.hpp>
 #include <limits>
 #include <rclcpp/rclcpp.hpp>
@@ -51,4 +53,11 @@ private:
    * @param cluster Cluster to evaluate
    */
   bool npoints_valid(Cluster& cluster) const;
+
+  FRIEND_TEST(ConeEvaluatorTest, CloseToGroundTrue);
+  FRIEND_TEST(ConeEvaluatorTest, CloseToGroundFalse);
+  FRIEND_TEST(ConeEvaluatorTest, CylinderFitsConeTrue);
+  FRIEND_TEST(ConeEvaluatorTest, CylinderFitsConeFalse);
+  FRIEND_TEST(ConeEvaluatorTest, NPointsValidTrue);
+  FRIEND_TEST(ConeEvaluatorTest, NPointsValidFalse);
 };

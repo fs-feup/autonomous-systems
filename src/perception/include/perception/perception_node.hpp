@@ -31,7 +31,6 @@
 #include "fov_trimming/skidpad_trimming.hpp"
 #include "ground_removal/himmelsbach.hpp"
 #include "ground_removal/ransac.hpp"
-#include "icp/icp.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "std_msgs/msg/float64.hpp"
@@ -65,8 +64,7 @@ struct PerceptionParameters {
       cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
   std::shared_ptr<ConeEvaluator> cone_evaluator_;  ///< Shared pointer to ConeEvaluator object.
   std::unordered_map<std::string, double>
-      weight_values;          ///< Map containing all weight value parameters for cone evaluation.
-  std::shared_ptr<ICP> icp_;  ///< Shared pointer to ICP object.
+      weight_values;  ///< Map containing all weight value parameters for cone evaluation.
 };
 
 /**
@@ -114,7 +112,6 @@ private:
   std::shared_ptr<ConeDifferentiation>
       _cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
   std::shared_ptr<ConeEvaluator> _cone_evaluator_;  ///< Shared pointer to ConeEvaluator object.
-  std::shared_ptr<ICP> _icp_;                       ///< Shared pointer to ICP object.
   std::shared_ptr<Deskew> _deskew_;                 ///< Shared pointer to Deskew object.
   rclcpp::Subscription<custom_interfaces::msg::OperationalStatus>::SharedPtr
       _operational_status_subscription;  ///< Master Log subscription to aquire mission type

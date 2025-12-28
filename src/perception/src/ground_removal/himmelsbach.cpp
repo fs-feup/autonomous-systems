@@ -59,11 +59,10 @@ void Himmelsbach::process_slice(
   auto& cloud_data = trimmed_point_cloud->data;
   auto& output_data = ground_removed_point_cloud->data;
 
-  // Indices of ground candidate points
   std::vector<int> ground_indices;
   std::vector<double> ground_distances;
 
-  // For each ring in the slice, from highest to lowest, compare points to previous ground point
+  // For each ring in the slice, compare points to previous ground point
   for (int ring_idx = NUM_RINGS - 1; ring_idx >= 0; --ring_idx) {
     const auto& ring = slices_->at(slice_idx).rings[ring_idx];
     if (ring.indices.empty()) {
@@ -74,7 +73,6 @@ void Himmelsbach::process_slice(
     float previous_ground_point_distance =
         std::hypot(previous_ground_point_x, previous_ground_point_y);
 
-    // Process each point in the ring comparing to the previous ground point
     for (int idx : ring.indices) {
       float pt_x = *reinterpret_cast<float*>(&cloud_data[LidarPoint::PointX(idx)]);
       float pt_y = *reinterpret_cast<float*>(&cloud_data[LidarPoint::PointY(idx)]);
@@ -89,7 +87,7 @@ void Himmelsbach::process_slice(
         // It is noise, ignore
         continue;
       } else if (current_ground_point_distance <= previous_ground_point_distance) {
-        // Write it to the output cloud
+        // Write to the output cloud
         size_t write_idx = ground_removed_point_cloud->width;
         std::memcpy(&output_data[write_idx * LidarPoint::POINT_STEP],
                     &cloud_data[idx * LidarPoint::POINT_STEP], LidarPoint::POINT_STEP);
@@ -118,12 +116,8 @@ void Himmelsbach::process_slice(
       }
     }
 
-    // Evaluate ground candidates to see if they are truly ground.
-    // This is done by calculating the median distance of the farthest 10% of the points, and
-    // checking the distance of the others to that reference. When the points is close to the ground
-    // but closer to the car, it means it intercepted some object. If it did not intercept anything,
-    // the point should be close to the reference. This helps to avoid including points that are
-    // close to the ground but actually belong to obstacles (lower part of cones).
+    // Evaluate ground candidates: compare each to the median distance of the farthest 10%.
+    // Points much closer than this reference are obstacles, not ground.
     if (!ground_indices.empty()) {
       int num_points = static_cast<int>(ground_distances.size());
       int top_k = std::max<int>(1, num_points / 10);
@@ -132,7 +126,7 @@ void Himmelsbach::process_slice(
       std::nth_element(ground_distances.begin(), ground_distances.end() - top_k,
                        ground_distances.end());
 
-      // Calculate median of the top 10% farthest points
+      // Median
       std::vector<double> top_farthest(ground_distances.end() - top_k, ground_distances.end());
       std::sort(top_farthest.begin(), top_farthest.end());
       double r_ref = top_farthest[top_farthest.size() / 2];
@@ -150,13 +144,13 @@ void Himmelsbach::process_slice(
         }
 
         if (r < r_ref - threshold) {
-          // too close to the car, non-ground
+          // too far from reference, non-ground
           size_t write_idx = ground_removed_point_cloud->width;
           std::memcpy(&output_data[write_idx * LidarPoint::POINT_STEP],
                       &cloud_data[idx * LidarPoint::POINT_STEP], LidarPoint::POINT_STEP);
           ground_removed_point_cloud->width++;
         } else {
-          // Ground, update the ground grid and lowest ground point in the ring
+          // Ground, update the ground grid and lowest ground point
           ground_grid.set_ground_height(gx, gy, gz);
           if (lowest_ground_idx_in_ring == -1 ||
               gz < *reinterpret_cast<const float*>(

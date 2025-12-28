@@ -194,8 +194,7 @@ Perception::Perception(const PerceptionParameters& params)
       _wall_removal_(params.wall_removal_),
       _clustering_(params.clustering_),
       _cone_differentiator_(params.cone_differentiator_),
-      _cone_evaluator_(params.cone_evaluator_),
-      _icp_(params.icp_) {
+      _cone_evaluator_(params.cone_evaluator_) {
   this->_cones_publisher =
       this->create_publisher<custom_interfaces::msg::PerceptionOutput>("/perception/cones", 10);
 
