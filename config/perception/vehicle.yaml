@@ -2,8 +2,8 @@ perception:
   default_mission: "trackdrive"
 
   #Publishers
-  publish_fov_trimmed_cloud: true
-  publish_ground_removed_cloud: true
+  publish_fov_trimmed_cloud: false
+  publish_ground_removed_cloud: false
   publish_wall_removed_cloud: true
 
   #LiDAR Parameters
@@ -12,7 +12,7 @@ perception:
   lidar_vertical_resolution: 0.33
 
   #FOV trimming
-  apply_rotation: true
+  apply_rotation: false
   rotation: 90.0
   apply_fov_trimming: false
   fov: 180.0    #ATTENTION: If fov trimming not applied, leave at 180 degrees
@@ -57,7 +57,7 @@ perception:
   clustering: "GridClustering"  #options: "GridClustering", DBSCAN not done yet
   DBSCAN_n_neighbours: 1
   DBSCAN_clustering_epsilon: 0.32
-  grid_clustering_grid_angle: 1.0
+  grid_clustering_grid_angle: 0.5
   grid_clustering_grid_radius: 0.07
   grid_clustering_start_augmentation: 15.0
   grid_clustering_radius_augmentation: 0.005
@@ -67,13 +67,13 @@ perception:
   large_cone_width: 0.30
   small_cone_height: 0.35
   large_cone_height: 0.55
-  n_out_points_ratio: 0.10
+  n_out_points_ratio: 0.20
   max_distance_from_ground_min: 0.50 # max distance from the ground of the lowest point in the cluster
   max_distance_from_ground_max: 0.90 # max distance form the ground of the highest point in the cluster
-  n_points_intial_max: 35
+  n_points_intial_max: 50
   n_points_intial_min: 4
-  n_points_max_distance_reduction: 0.8
-  n_points_min_distance_reduction: 0.1
+  n_points_max_distance_reduction: 1.5
+  n_points_min_distance_reduction: 0.15
 
   #ICP
   target_file: "cone.pcd"

@@ -95,7 +95,7 @@ TEST_F(RANSACTest, TestZeroRepetitions) {
  *
  */
 TEST_F(RANSACTest, TestSmallEpsilon) {
-  const RANSAC ground_removal(0.000'000'000'000'000'01, 10);
+  const RANSAC ground_removal(0.000'000'000'000'000'01, 40);
   auto cloud_ptr = test_utils::make_lidar_pointcloud2(cloud_pts);
   auto ground_removed_cloud_ptr = test_utils::make_lidar_pointcloud2({});
   ground_removal.ground_removal(cloud_ptr, ground_removed_cloud_ptr, default_grid);

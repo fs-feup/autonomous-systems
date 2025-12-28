@@ -5,7 +5,7 @@ AccelerationTrimming::AccelerationTrimming(const TrimmingParameters params) { pa
 void AccelerationTrimming::fov_trimming(
     const sensor_msgs::msg::PointCloud2::SharedPtr& cloud,
     sensor_msgs::msg::PointCloud2::SharedPtr& trimmed_cloud) const {
-  // Copy header
+  // Copy metadata
   trimmed_cloud->header = cloud->header;
   trimmed_cloud->height = 1;
   trimmed_cloud->is_dense = false;
@@ -15,18 +15,26 @@ void AccelerationTrimming::fov_trimming(
   trimmed_cloud->row_step = 0;
   trimmed_cloud->data.resize(cloud->data.size());
 
-  const auto& cloud_data = cloud->data;
-  const size_t num_points = cloud->width * cloud->height;
+  const auto& data = cloud->data;
+  const size_t n = cloud->width * cloud->height;
 
-  const bool do_rotation = params_.apply_rotation;
-  const double theta = params_.rotation * M_PI / 180.0;
-  const double cos_theta = std::cos(theta);
-  const double sin_theta = std::sin(theta);
+  const bool rotate = params_.apply_rotation;
 
-  for (size_t i = 0; i < num_points; ++i) {
-    const float x = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointX(i)]);
-    const float y = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointY(i)]);
-    const float z = *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointZ(i)]);
+  double cos_t = 1.0;
+  double sin_t = 0.0;
+  if (rotate) {
+    const double theta = params_.rotation * M_PI / 180.0;
+    cos_t = std::cos(theta);
+    sin_t = std::sin(theta);
+  }
+
+  // Rotation may not look optimal, but it garants fastest approach when no rotation is applied, and
+  // that is the real-case scenario. The rotation is only used for testing purposes with older
+  // datasets.
+  for (size_t i = 0; i < n; ++i) {
+    const float x = *reinterpret_cast<const float*>(&data[LidarPoint::PointX(i)]);
+    const float y = *reinterpret_cast<const float*>(&data[LidarPoint::PointY(i)]);
+    const float z = *reinterpret_cast<const float*>(&data[LidarPoint::PointZ(i)]);
 
     if (x == 0.0f && y == 0.0f && z == 0.0f) {
       continue;
@@ -35,15 +43,23 @@ void AccelerationTrimming::fov_trimming(
     float rx = x;
     float ry = y;
 
-    if (do_rotation) {
-      rx = static_cast<float>(x * cos_theta - y * sin_theta);
-      ry = static_cast<float>(x * sin_theta + y * cos_theta);
+    if (rotate) {
+      rx = static_cast<float>(x * cos_t - y * sin_t);
+      ry = static_cast<float>(x * sin_t + y * cos_t);
     }
 
     if (ry < params_.acc_max_y && ry > -params_.acc_max_y &&
         within_limits(rx, ry, z, params_, params_.acc_max_range)) {
       uint8_t* out = &trimmed_cloud->data[trimmed_cloud->width * LidarPoint::POINT_STEP];
-      std::memcpy(out, &cloud_data[LidarPoint::PointX(i)], LidarPoint::POINT_STEP);
+
+      std::memcpy(out, &data[LidarPoint::PointX(i)], LidarPoint::POINT_STEP);
+
+      // Write rotated coords if rotation applies
+      if (rotate) {
+        *reinterpret_cast<float*>(out + LidarPoint::PointX(0)) = rx;
+        *reinterpret_cast<float*>(out + LidarPoint::PointY(0)) = ry;
+      }
+
       trimmed_cloud->width++;
     }
   }
