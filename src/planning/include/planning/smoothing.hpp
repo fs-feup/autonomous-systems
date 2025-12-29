@@ -34,7 +34,7 @@ public:
    * @param unordered_path input vector of path points
    * @return std::vector<PathPoint> smoothed path points
    */
-  std::vector<PathPoint> smooth_path(std::vector<PathPoint>& path) const;
+  void smooth_path(std::vector<PathPoint>& unordered_path, std::vector<PathPoint>& yellow_cones, std::vector<PathPoint>& blue_cones) const;
                                      
 private:
   /**

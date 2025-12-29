@@ -297,6 +297,20 @@ private:
   int find_best_loop_closure(const std::vector<PathPoint>& path) const;
 
   /**
+   * @brief Generate interpolated points between two path endpoints.
+   *
+   * Creates evenly-spaced intermediate points for smooth trajectory between
+   * a start and end point.
+   *
+   * @param start Starting path point.
+   * @param end Ending path point.
+   * @param num_points Number of intermediate points to generate.
+   * @return Vector of interpolated path points.
+   */
+  std::vector<PathPoint> add_interpolated_points(const PathPoint& start, const PathPoint& end,
+                                                 int num_points) const;
+
+  /**
    * @brief Converts a vector of Colorpoint objects into a vector of PathPoint objects.
    *
    * @param points A vector containing the input Colorpoint objects.
