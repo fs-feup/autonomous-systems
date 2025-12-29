@@ -2,7 +2,7 @@ perception:
   default_mission: "trackdrive"
 
   #Publishers
-  publish_fov_trimmed_cloud: true
+  publish_fov_trimmed_cloud: false
   publish_ground_removed_cloud: false
   publish_wall_removed_cloud: true
 
