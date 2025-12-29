@@ -185,7 +185,9 @@ void Himmelsbach::split_point_cloud(
   }
 
   const size_t num_points = input_cloud->width * input_cloud->height;
-  if (num_points == 0) return;
+  if (num_points == 0) {
+    return;
+  }
 
   const auto& cloud = input_cloud->data;
   double slice_angle_rad = grid_angle_ * (M_PI / 180.0);

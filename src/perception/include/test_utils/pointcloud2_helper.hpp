@@ -40,15 +40,15 @@ inline sensor_msgs::msg::PointCloud2::SharedPtr make_lidar_pointcloud2(
   msg->fields[5].count = 1;
   msg->data.resize(msg->row_step);
   for (size_t i = 0; i < pts.size(); ++i) {
-    memcpy(&msg->data[i * 26 + 0], &pts[i][0], 4);
-    memcpy(&msg->data[i * 26 + 4], &pts[i][1], 4);
-    memcpy(&msg->data[i * 26 + 8], &pts[i][2], 4);
+    std::memcpy(&msg->data[i * 26 + 0], &pts[i][0], 4);
+    std::memcpy(&msg->data[i * 26 + 4], &pts[i][1], 4);
+    std::memcpy(&msg->data[i * 26 + 8], &pts[i][2], 4);
     float intensity = 0.0f;
-    memcpy(&msg->data[i * 26 + 12], &intensity, 4);
+    std::memcpy(&msg->data[i * 26 + 12], &intensity, 4);
     uint16_t ring = static_cast<uint16_t>(pts[i][4]);
-    memcpy(&msg->data[i * 26 + 16], &ring, 2);
+    std::memcpy(&msg->data[i * 26 + 16], &ring, 2);
     uint64_t ts = 0;
-    memcpy(&msg->data[i * 26 + 18], &ts, 8);
+    std::memcpy(&msg->data[i * 26 + 18], &ts, 8);
   }
   return msg;
 }

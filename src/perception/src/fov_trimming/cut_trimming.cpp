@@ -35,7 +35,9 @@ void CutTrimming::fov_trimming(const sensor_msgs::msg::PointCloud2::SharedPtr& c
     const float z = *reinterpret_cast<const float*>(&data[LidarPoint::PointZ(i)]);
 
     // Skip invalid points
-    if (x == 0.0f && y == 0.0f && z == 0.0f) continue;
+    if (x == 0.0f && y == 0.0f && z == 0.0f) {
+      continue;
+    }
 
     float rx = x;
     float ry = y;

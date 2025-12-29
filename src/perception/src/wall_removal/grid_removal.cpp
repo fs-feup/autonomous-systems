@@ -42,7 +42,9 @@ void GridWallRemoval::remove_walls(const sensor_msgs::msg::PointCloud2::SharedPt
 
   std::unordered_map<GridIndex, bool> visited;
   for (auto& [start_cell, points] : grid_map) {
-    if (visited[start_cell]) continue;
+    if (visited[start_cell]) {
+      continue;
+    }
 
     std::queue<GridIndex> q;
     q.push(start_cell);
@@ -64,7 +66,7 @@ void GridWallRemoval::remove_walls(const sensor_msgs::msg::PointCloud2::SharedPt
           }
 
           GridIndex neighbor{current.x + dx, current.y + dy};
-          if (grid_map.count(neighbor) && !visited[neighbor]) {
+          if (grid_map.count(neighbor) > 0 && !visited[neighbor]) {
             visited[neighbor] = true;
             q.push(neighbor);
           }
