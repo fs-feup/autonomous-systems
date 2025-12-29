@@ -40,17 +40,12 @@ bool ConeEvaluator::cylinder_fits_cone(Cluster &cluster) const {
   const auto &centroid = cluster.get_centroid();
 
   int n_out_points = 0;
-  double min_z = std::numeric_limits<double>::max();
-  double max_z = std::numeric_limits<double>::lowest();
 
   // Loop over points in the cluster
   for (size_t idx : indices) {
     float x = *reinterpret_cast<const float *>(&cloud_data[LidarPoint::PointX(idx)]);
     float y = *reinterpret_cast<const float *>(&cloud_data[LidarPoint::PointY(idx)]);
     float z = *reinterpret_cast<const float *>(&cloud_data[LidarPoint::PointZ(idx)]);
-
-    min_z = std::min(static_cast<double>(z), min_z);
-    max_z = std::max(static_cast<double>(z), max_z);
 
     double dx = x - centroid.x();
     double dy = y - centroid.y();
@@ -72,13 +67,6 @@ bool ConeEvaluator::cylinder_fits_cone(Cluster &cluster) const {
     if (distanceXY > radius || dz > half_height) {
       n_out_points++;
     }
-  }
-
-  // Safety check for flat clusters (probably erros from ground removal)
-  double height = max_z - min_z;
-  double distance = std::sqrt(centroid.x() * centroid.x() + centroid.y() * centroid.y());
-  if (distance < 15.0 && height < 0.05) {
-    return false;
   }
 
   // Compute ratio of points outside the expected cylinder
