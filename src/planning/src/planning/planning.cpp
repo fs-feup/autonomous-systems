@@ -61,7 +61,7 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.safety_margin_ = planning_config["safety_margin_"].as<double>();
   params.curvature_weight_ = planning_config["curvature_weight_"].as<double>();
   params.smoothness_weight_ = planning_config["smoothness_weight_"].as<double>();
-  params.deviation_weight_ = planning_config["deviation_weight_"].as<double>();
+  params.safety_weight_ = planning_config["safety_weight_"].as<double>();
   params.max_iterations_ = planning_config["max_iterations_"].as<int>();
   params.tolerance_ = planning_config["tolerance_"].as<double>();
 
@@ -267,25 +267,10 @@ void Planning::run_trackdrive() {
   if (lap_counter_ == 0) {
     full_path_ = path_calculation_.calculate_path(cone_array_);
 
-    std::vector<Cone> yellow_cones_ = path_calculation_.get_yellow_cones();
-    std::vector<Cone> blue_cones_ = path_calculation_.get_blue_cones();
-    std::vector<PathPoint> yellow_cones;
-    std::vector<PathPoint> blue_cones;
-    for (const Cone &cone : yellow_cones_) {
-      yellow_cones.emplace_back(cone.position.x, cone.position.y);
-    }
-    for (const Cone &cone : blue_cones_) {
-      blue_cones.emplace_back(cone.position.x, cone.position.y);
-    }
-    path_smoothing_.smooth_path(full_path_, yellow_cones, blue_cones);
-
-    velocity_planning_.set_velocity(full_path_);
+    //path_smoothing_.smooth_path(full_path_, yellow_cones, blue_cones);
+    // velocity_planning_.set_velocity(full_path_);
     full_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
         full_path_, "full_path", map_frame_id_, "orange"));
-
-    path_to_car_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-        yellow_cones, "global_path", map_frame_id_, "white", "cylinder",
-        0.6, visualization_msgs::msg::Marker::MODIFY));
 
   }
   else if (lap_counter_ >= 1 && lap_counter_ < 10) {
@@ -304,13 +289,9 @@ void Planning::run_trackdrive() {
       }
       path_smoothing_.smooth_path(full_path_, yellow_cones, blue_cones);
 
-      velocity_planning_.set_velocity(full_path_);
-      full_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-          full_path_, "full_path", map_frame_id_, "orange"));
-
       path_to_car_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-          blue_cones, "global_path", map_frame_id_, "white", "cylinder",
-          0.6, visualization_msgs::msg::Marker::MODIFY));
+          full_path_, "global_path", map_frame_id_, "white", "cylinder",
+          0.3, visualization_msgs::msg::Marker::MODIFY));
       }
   }
   else {
@@ -345,7 +326,8 @@ void Planning::run_planning_algorithms() {
       break;
 
     case Mission::AUTOCROSS:
-      run_autocross();
+      // run_autocross();
+      run_trackdrive();
       break;
 
     case Mission::TRACKDRIVE:

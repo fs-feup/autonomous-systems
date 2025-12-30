@@ -359,7 +359,7 @@ TripleSpline<T> fitTripleSpline(const std::vector<T> &center, const std::vector<
   }
 
   // -------------------------
-  // Uniform knots (same for all)
+  // Uniform knots 
   // -------------------------
   gsl_bspline_knots_uniform(t_min, t_max, bw);
 

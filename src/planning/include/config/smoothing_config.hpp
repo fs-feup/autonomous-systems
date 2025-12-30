@@ -55,7 +55,7 @@ struct PathSmoothingConfig {
    * @brief Weight to stay close to spline path
    *
    */
-  double deviation_weight_;
+  double safety_weight_;
   /**
    * @brief OSQP max iterations
    *
@@ -69,7 +69,7 @@ struct PathSmoothingConfig {
   PathSmoothingConfig() = default;
   PathSmoothingConfig(int precision, int order, float coeffs_ratio, bool use_path_smoothing,
                       bool use_optimization, double car_width, double safety_margin,
-                      double curvature_weight, double smoothness_weight, double deviation_weight,
+                      double curvature_weight, double smoothness_weight, double safety_weight,
                       int max_iterations, double tolerance)
       : precision_(precision),
         order_(order),
@@ -80,7 +80,7 @@ struct PathSmoothingConfig {
         safety_margin_(safety_margin),
         curvature_weight_(curvature_weight),
         smoothness_weight_(smoothness_weight),
-        deviation_weight_(deviation_weight),
+        safety_weight_(safety_weight),
         max_iterations_(max_iterations),
         tolerance_(tolerance) {}
 };

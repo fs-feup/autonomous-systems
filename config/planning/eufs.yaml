@@ -24,14 +24,14 @@ planning:
   smoothing_coeffs_ratio: 3.0
   smoothing_spline_precision: 10
   smoothing_use_path_smoothing: true
-  use_optimization_: true          # Enable OSQP optimization after spline
-  car_width_: 1.8                  # Vehicle width in meters
-  safety_margin_: 0.5              # Additional safety clearance in meters
-  curvature_weight_: 1.0           # Weight for curvature minimization
-  smoothness_weight_: 1.0          # Weight for path smoothness
-  deviation_weight_: 1.0           # Weight to stay close to spline path
-  max_iterations_: 100             # OSQP max iterations
-  tolerance_: 1e-4                 # OSQP convergence tolerance
+  use_optimization_: true          
+  car_width_: 1.8                  
+  safety_margin_: 0.5              
+  curvature_weight_: 1.0           
+  smoothness_weight_: 1.0         
+  safety_weight_: 1.0           
+  max_iterations_: 100             
+  tolerance_: 1e-4                 
   #---------------------- Velocity Planning (vp_) -----------------------
   vp_minimum_velocity: 3.0
   vp_braking_acceleration: -1.5

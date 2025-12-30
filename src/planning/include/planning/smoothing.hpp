@@ -1,7 +1,6 @@
 #ifndef SRC_PLANNING_INCLUDE_PLANNING_SMOOTHING2_HPP_
 #define SRC_PLANNING_INCLUDE_PLANNING_SMOOTHING2_HPP_
 
-#include <cmath>
 
 #include "common_lib/structures/path_point.hpp"
 #include "common_lib/structures/pose.hpp"
@@ -34,14 +33,19 @@ public:
    * @param unordered_path input vector of path points
    * @return std::vector<PathPoint> smoothed path points
    */
-  void smooth_path(std::vector<PathPoint>& unordered_path, std::vector<PathPoint>& yellow_cones, std::vector<PathPoint>& blue_cones) const;
-                                     
+  void smooth_path(std::vector<PathPoint>& path, std::vector<PathPoint>& yellow_cones,
+                   std::vector<PathPoint>& blue_cones) const;
+
 private:
   /**
    * @brief configuration of the smoothing algorithm
    *
    */
   PathSmoothingConfig config_;
+
+  std::vector<PathPoint> optimize_centerline_osqp(const std::vector<PathPoint>& center,
+                                                  const std::vector<PathPoint>& left,
+                                                  const std::vector<PathPoint>& right) const;
 };
 
 #endif  // SRC_PLANNING_INCLUDE_PLANNING_SMOOTHING2_HPP_

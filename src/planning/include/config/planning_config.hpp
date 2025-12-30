@@ -42,7 +42,7 @@ struct PlanningParameters {
   double safety_margin_;           
   double curvature_weight_;      
   double smoothness_weight_;        
-  double deviation_weight_;        
+  double safety_weight_;        
   int max_iterations_;              
   double tolerance_;                
 
@@ -108,7 +108,7 @@ struct PlanningConfig {
     smoothing_.safety_margin_ = params.safety_margin_;
     smoothing_.curvature_weight_ = params.curvature_weight_;
     smoothing_.smoothness_weight_ = params.smoothness_weight_;
-    smoothing_.deviation_weight_ = params.deviation_weight_;
+    smoothing_.safety_weight_ = params.safety_weight_;
     smoothing_.max_iterations_ = params.max_iterations_;
     smoothing_.tolerance_ = params.tolerance_;
 
