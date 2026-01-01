@@ -3,8 +3,9 @@ planning:
   mg_minimum_cone_distance: 2.0 # minimum distance between cones -> The rules say 3m, but we should keep it lower for safety
   mg_maximum_cone_distance: 10.0 # maximum distance between cones
   mg_sliding_window_radius: 40.0
+  mg_sliding_window_radius: 40.0
   #---------------------- Path Calculation (pc_) ------------------------
-  pc_use_sliding_window: false
+  pc_use_sliding_window: true
   pc_angle_gain: 70.0  
   pc_distance_gain: 6.0
   pc_angle_exponent: 2.0
@@ -19,22 +20,29 @@ planning:
   #---------------------- Skidpad (skidpad_) ------------------
   skidpad_minimum_cones: 10 # minimum number of cones to consider the skidpad as valid
   skidpad_tolerance: 5
-  #---------------------- Outlier Removal (outliers_) -------------------
-  outliers_spline_order: 3
-  outliers_spline_coeffs_ratio: 3.0
-  outliers_spline_precision: 1
-  outliers_use_outlier_removal: false
   #---------------------- Path Smoothing (smoothing_) -------------------
   smoothing_spline_order: 3
-  smoothing_spline_coeffs_ratio: 3.0
+  smoothing_coeffs_ratio: 3.0
   smoothing_spline_precision: 10
   smoothing_use_path_smoothing: true
+  use_optimization_: true         
+  car_width_: 0.5                  
+  safety_margin_: 0.1             
+  curvature_weight_: 100.0          
+  smoothness_weight_: 0.1         
+  safety_weight_: 100000           
+  max_iterations_: 2000            
+  tolerance_: 1e-4                 
   #---------------------- Velocity Planning (vp_) -----------------------
+  vp_minimum_velocity: 5.0
+  vp_braking_acceleration: -3.5
+  vp_acceleration: 7.0
   vp_minimum_velocity: 5.0
   vp_braking_acceleration: -3.5
   vp_acceleration: 7.0
   vp_normal_acceleration: 0.9
   vp_use_velocity_planning: true
+  vp_desired_velocity: 20.0
   vp_desired_velocity: 20.0
   #---------------------- Simulation Config (simulation_) ---------------------------
   simulation_publishing_visualization_msgs: true

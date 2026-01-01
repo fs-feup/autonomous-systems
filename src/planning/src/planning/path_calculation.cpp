@@ -97,24 +97,26 @@ std::vector<PathPoint> PathCalculation::calculate_trackdrive(const std::vector<C
   // Trim the path to the best cutoff point
   (void)result.erase(result.begin() + best_cutoff_index + 1, result.end());
 
-  // Add interpolated points between the last point and the first point
-  if (!result.empty()) {
-    const PathPoint& last_point = result.back();
-    const PathPoint& first_point = result.front();
+  // // Add interpolated points between the last point and the first point
+  // if (!result.empty()) {
+  //   const PathPoint& last_point = result.back();
+  //   const PathPoint& first_point = result.front();
 
-    std::vector<PathPoint> interpolated = add_interpolated_points(last_point, first_point, 4);
-    (void)result.insert(result.end(), interpolated.begin(), interpolated.end());
-  }
+  //   std::vector<PathPoint> interpolated = add_interpolated_points(last_point, first_point, 4);
+  //   (void)result.insert(result.end(), interpolated.begin(), interpolated.end());
+  // }
 
   // Close the loop by adding the first point again
   result.push_back(result[0]);
+  yellow_cones_.push_back(yellow_cones_[0]);
+  blue_cones_.push_back(blue_cones_[0]);
 
-  // Add overlap points (10 points or as many as available)
-  int overlap_count = std::min(10, static_cast<int>(result.size()) - 1);
-  for (int i = 1; i <= overlap_count; ++i) {
-    result.push_back(result[i]);
-  }
-
+  // // Add overlap points (10 points or as many as available)
+  // int overlap_count = std::min(10, static_cast<int>(result.size()) - 1);
+  // for (int i = 1; i <= overlap_count; ++i) {
+  //   result.push_back(result[i]);
+  // }
+  
   return result;
 }
 

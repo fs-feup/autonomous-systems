@@ -1,73 +1,37 @@
-#include "gtest/gtest.h"
-#include "rclcpp/rclcpp.hpp"
-#include "test_utils/utils.hpp"
+// #include "gtest/gtest.h"
+// #include "rclcpp/rclcpp.hpp"
+// #include "test_utils/utils.hpp"
 
 
-/**
- * @brief Iterates the Outliers algorithm repeatedly and measures the average time
- */
-void iterate_outliers(const std::string &filename, int num_outliers = 0) {
-  auto track = track_from_file(filename);
-  auto outliers = Outliers();
+// /**
+//  * @brief Iterates the Smoothing algorithm repeatedly and measures the average time
+//  */
+// void iterate_smoothing(std::vector<PathPoint> &path) {
+//   auto path_smoothing = PathSmoothing();
 
-  // Remove outliers no_iters times to get average
-  int no_iters = 100;
-  double total_time = 0;
+//   std::ofstream measures_path = openWriteFile("performance/exec_time/planning/planning_" +
+//                                               get_current_date_time_as_string() + ".csv");
+//   double total_time = 0;
+//   int no_iters = 100;
 
-  std::ofstream measures_path = openWriteFile(
-      "performance/exec_time/planning/planning_" + get_current_date_time_as_string() + ".csv",
-      "Number of Left Cones,Number of Right Cones,Number of "
-      "Outliers,Outliers Removal Execution "
-      "Time,Cone Coloring Execution Time,Triangulations Execution Time,Smoothing Execution Time");
+//   // No_iters repetitions to get average
+//   for (int i = 0; i < no_iters; i++) {
 
-  for (int i = 0; i < no_iters; i++) {
-    track = track_from_file(filename);
-    auto t0 = std::chrono::high_resolution_clock::now();
-    track = outliers.approximate_cones_with_spline(track);
-    auto t1 = std::chrono::high_resolution_clock::now();
-    double elapsed_time_iter_ms = std::chrono::duration<double, std::milli>(t1 - t0).count();
-    total_time += elapsed_time_iter_ms;
-  }
+//     auto t0 = std::chrono::high_resolution_clock::now();
 
-  measures_path << track.first.size() << "," << track.second.size() << "," << num_outliers << ","
-                << total_time / no_iters << ",";
-  measures_path.close();
+//     std::vector<PathPoint> smoothed_path =
+//         path_smoothing.smooth_path(path);
 
-  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Outliers removed in average %f ms.",
-              (total_time / no_iters));
-}
+//     auto t1 = std::chrono::high_resolution_clock::now();
 
-/**
- * @brief Iterates the Smoothing algorithm repeatedly and measures the average time
- */
-void iterate_smoothing(std::vector<PathPoint> &path) {
-  auto path_smoothing = PathSmoothing();
+//     double elapsed_time_ms = std::chrono::duration<double, std::milli>(t1 - t0).count();
 
-  std::ofstream measures_path = openWriteFile("performance/exec_time/planning/planning_" +
-                                              get_current_date_time_as_string() + ".csv");
-  double total_time = 0;
-  int no_iters = 100;
+//     total_time += elapsed_time_ms;
+//   }
 
-  // No_iters repetitions to get average
-  for (int i = 0; i < no_iters; i++) {
-    float orientation = static_cast<float>(
-        atan2(path[1].position.y - path[0].position.y, path[1].position.x - path[0].position.x));
+//   measures_path << total_time / no_iters << "\n";
+//   measures_path.close();
 
-    auto t0 = std::chrono::high_resolution_clock::now();
-
-    std::vector<PathPoint> smoothed_path =
-        path_smoothing.smooth_path(path, Pose(path[0].position, orientation), orientation);
-
-    auto t1 = std::chrono::high_resolution_clock::now();
-
-    double elapsed_time_ms = std::chrono::duration<double, std::milli>(t1 - t0).count();
-
-    total_time += elapsed_time_ms;
-  }
-
-  measures_path << total_time / no_iters << "\n";
-  measures_path.close();
-
-  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Average Smoothing processed in %f ms.",
-              (total_time / no_iters));
-}
+//   RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Average Smoothing processed in %f ms.",
+//               (total_time / no_iters));
+// }

@@ -51,19 +51,19 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.skidpad_tolerance_ = planning_config["skidpad_tolerance"].as<double>();
   params.skidpad_minimum_cones_ = planning_config["skidpad_minimum_cones"].as<int>();
 
-  /*--------------------- Outlier Removal Parameters --------------------*/
-  params.outliers_spline_order_ = planning_config["outliers_spline_order"].as<int>();
-  params.outliers_spline_coeffs_ratio_ =
-      planning_config["outliers_spline_coeffs_ratio"].as<float>();
-  params.outliers_spline_precision_ = planning_config["outliers_spline_precision"].as<int>();
-  params.outliers_use_outlier_removal_ = planning_config["outliers_use_outlier_removal"].as<bool>();
-
   /*--------------------- Path Smoothing Parameters --------------------*/
   params.smoothing_spline_order_ = planning_config["smoothing_spline_order"].as<int>();
-  params.smoothing_spline_coeffs_ratio_ =
-      planning_config["smoothing_spline_coeffs_ratio"].as<float>();
+  params.smoothing_coeffs_ratio_ = planning_config["smoothing_coeffs_ratio"].as<float>();
   params.smoothing_spline_precision_ = planning_config["smoothing_spline_precision"].as<int>();
   params.smoothing_use_path_smoothing_ = planning_config["smoothing_use_path_smoothing"].as<bool>();
+  params.use_optimization_ = planning_config["use_optimization_"].as<bool>();
+  params.car_width_ = planning_config["car_width_"].as<double>();
+  params.safety_margin_ = planning_config["safety_margin_"].as<double>();
+  params.curvature_weight_ = planning_config["curvature_weight_"].as<double>();
+  params.smoothness_weight_ = planning_config["smoothness_weight_"].as<double>();
+  params.safety_weight_ = planning_config["safety_weight_"].as<double>();
+  params.max_iterations_ = planning_config["max_iterations_"].as<int>();
+  params.tolerance_ = planning_config["tolerance_"].as<double>();
 
   /*--------------------- Velocity Planning Parameters --------------------*/
   params.vp_minimum_velocity_ = planning_config["vp_minimum_velocity"].as<double>();
@@ -93,7 +93,6 @@ Planning::Planning(const PlanningParameters &params)
       planning_config_(params),
       map_frame_id_(params.map_frame_id_),
       desired_velocity_(params.vp_desired_velocity_) {
-  outliers_ = Outliers(planning_config_.outliers_);
   path_calculation_ = PathCalculation(planning_config_.path_calculation_);
   path_smoothing_ = PathSmoothing(planning_config_.smoothing_);
   velocity_planning_ = VelocityPlanning(planning_config_.velocity_planning_);
@@ -221,7 +220,7 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &messa
 
 void Planning::run_ebs_test() {
   full_path_ = path_calculation_.calculate_path(cone_array_);
-  smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
+  // smoothed_path_ = path_smoothing_.smooth_path(full_path_);
 
   double distance_from_origin =
       std::sqrt(pose_.position.x * pose_.position.x + pose_.position.y * pose_.position.y);
@@ -250,31 +249,48 @@ void Planning::run_ebs_test() {
 void Planning::run_autocross() {
   if (lap_counter_ == 0) {
     full_path_ = path_calculation_.calculate_path(cone_array_);
-    smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
-    velocity_planning_.set_velocity(smoothed_path_);
+    // smoothed_path_ = path_smoothing_.smooth_path(full_path_);
+    // velocity_planning_.set_velocity(smoothed_path_);
   }
   if (lap_counter_ >= 1) {
     if (!is_map_closed_) {
       is_map_closed_ = true;
       full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
-      smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
-      velocity_planning_.trackdrive_velocity(smoothed_path_);
+      // smoothed_path_ = path_smoothing_.smooth_path(full_path_);
+      // velocity_planning_.trackdrive_velocity(smoothed_path_);
     }
-    velocity_planning_.stop(smoothed_path_);
+    // velocity_planning_.stop(smoothed_path_);
   }
 }
 
 void Planning::run_trackdrive() {
   if (lap_counter_ == 0) {
     full_path_ = path_calculation_.calculate_path(cone_array_);
-    smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
-    velocity_planning_.set_velocity(smoothed_path_);
+
+    // path_smoothing_.smooth_path(full_path_, yellow_cones, blue_cones);
+    //  velocity_planning_.set_velocity(full_path_);
+    full_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
+        full_path_, "full_path", map_frame_id_, "orange"));
+
   } else if (lap_counter_ >= 1 && lap_counter_ < 10) {
     if (!is_map_closed_) {
       is_map_closed_ = true;
       full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
-      smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
-      velocity_planning_.trackdrive_velocity(smoothed_path_);
+      std::vector<Cone> yellow_cones_ = path_calculation_.get_yellow_cones();
+      std::vector<Cone> blue_cones_ = path_calculation_.get_blue_cones();
+      std::vector<PathPoint> yellow_cones;
+      std::vector<PathPoint> blue_cones;
+      for (const Cone &cone : yellow_cones_) {
+        yellow_cones.emplace_back(cone.position.x, cone.position.y);
+      }
+      for (const Cone &cone : blue_cones_) {
+        blue_cones.emplace_back(cone.position.x, cone.position.y);
+      }
+      path_smoothing_.smooth_path(full_path_, yellow_cones, blue_cones);
+
+      path_to_car_pub_->publish(common_lib::communication::marker_array_from_structure_array(
+          full_path_, "global_path", map_frame_id_, "white", "cylinder", 0.3,
+          visualization_msgs::msg::Marker::MODIFY));
     }
   } else {
     velocity_planning_.stop(smoothed_path_);
@@ -308,7 +324,8 @@ void Planning::run_planning_algorithms() {
       break;
 
     case Mission::AUTOCROSS:
-      run_autocross();
+      // run_autocross();
+      run_trackdrive();
       break;
 
     case Mission::TRACKDRIVE:
@@ -317,8 +334,8 @@ void Planning::run_planning_algorithms() {
 
     default:
       full_path_ = path_calculation_.calculate_path(cone_array_);
-      smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
-      velocity_planning_.set_velocity(smoothed_path_);
+      // smoothed_path_ = path_smoothing_.smooth_path(full_path_);
+      // velocity_planning_.set_velocity(smoothed_path_);
       break;
   }
 
@@ -365,15 +382,15 @@ void Planning::publish_visualization_msgs() const {
       path_calculation_.get_triangulations(), "triangulations", map_frame_id_, 20, "white", 0.05f,
       visualization_msgs::msg::Marker::MODIFY));
 
-  full_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      full_path_, "full_path", map_frame_id_, "orange"));
+  // full_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
+  //     full_path_, "full_path", map_frame_id_, "orange"));
 
-  smoothed_path_pub_->publish(common_lib::communication::line_marker_from_structure_array(
-      smoothed_path_, "smoothed_path__planning", map_frame_id_, 12, "green"));
+  // smoothed_path_pub_->publish(common_lib::communication::line_marker_from_structure_array(
+  //     smoothed_path_, "smoothed_path__planning", map_frame_id_, 12, "green"));
 
-  path_to_car_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      path_calculation_.get_path_to_car(), "global_path", map_frame_id_, "white", "cylinder", 0.6,
-      visualization_msgs::msg::Marker::MODIFY));
+  // path_to_car_pub_->publish(common_lib::communication::marker_array_from_structure_array(
+  //     path_calculation_.get_path_to_car(), "global_path", map_frame_id_, "white", "cylinder",
+  //     0.6, visualization_msgs::msg::Marker::MODIFY));
   velocity_hover_pub_->publish(common_lib::communication::velocity_hover_markers(
       smoothed_path_, "velocity", map_frame_id_, 0.25f, 1));
 }

@@ -22,7 +22,6 @@
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/point_array.hpp"
 #include "custom_interfaces/msg/pose.hpp"
-#include "planning/outliers.hpp"
 #include "planning/path_calculation.hpp"
 #include "planning/skidpad.hpp"
 #include "planning/smoothing.hpp"
@@ -45,7 +44,6 @@ using Mission = common_lib::competition_logic::Mission;
  * the final trajectory for the control module.
  *
  * This class integrates several planning modules:
- * - Outlier removal for noisy cone data
  * - Path calculation using computational geometry
  * - Path smoothing using spline interpolation
  * - Velocity planning with acceleration constraints
@@ -100,7 +98,6 @@ private:
   int lap_counter_ = 0;
 
   /*--------------------- Planning Modules --------------------*/
-  Outliers outliers_;
   PathCalculation path_calculation_;
   PathSmoothing path_smoothing_;
   VelocityPlanning velocity_planning_;

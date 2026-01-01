@@ -1,7 +1,6 @@
 #ifndef SRC_PLANNING_INCLUDE_CONFIG_PLANNING_CONFIG_HPP_
 #define SRC_PLANNING_INCLUDE_CONFIG_PLANNING_CONFIG_HPP_
 
-#include "outliers_config.hpp"
 #include "path_calculation_config.hpp"
 #include "simulation_config.hpp"
 #include "smoothing_config.hpp"
@@ -33,17 +32,19 @@ struct PlanningParameters {
   int skidpad_minimum_cones_;
   double skidpad_tolerance_;
 
-  /*---------------------- Outlier Removal (outliers_) -------------------*/
-  int outliers_spline_order_;
-  float outliers_spline_coeffs_ratio_;
-  int outliers_spline_precision_;
-  bool outliers_use_outlier_removal_;
-
   /*---------------------- Path Smoothing (smoothing_) -------------------*/
   int smoothing_spline_order_;
-  float smoothing_spline_coeffs_ratio_;
+  float smoothing_coeffs_ratio_;
   int smoothing_spline_precision_;
   bool smoothing_use_path_smoothing_;
+  bool use_optimization_;          
+  double car_width_;              
+  double safety_margin_;           
+  double curvature_weight_;      
+  double smoothness_weight_;        
+  double safety_weight_;        
+  int max_iterations_;              
+  double tolerance_;                
 
   /*---------------------- Velocity Planning (vp_) -----------------------*/
   double vp_minimum_velocity_;
@@ -61,7 +62,6 @@ struct PlanningParameters {
 };
 
 struct PlanningConfig {
-  OutliersConfig outliers_;
   PathCalculationConfig path_calculation_;
   PathSmoothingConfig smoothing_;
   SimulationConfig simulation_;
@@ -71,12 +71,6 @@ struct PlanningConfig {
   PlanningConfig() = default;
 
   explicit PlanningConfig(const PlanningParameters &params) {
-    /*------------------------ Outliers (outliers_) --------------------------*/
-    outliers_.order_ = params.outliers_spline_order_;
-    outliers_.precision_ = params.outliers_spline_precision_;
-    outliers_.coeffs_ratio_ = params.outliers_spline_coeffs_ratio_;
-    outliers_.use_outlier_removal_ = params.outliers_use_outlier_removal_;
-
     /*---------------------- Path Calculation (pc_) ------------------------*/
 
     path_calculation_.angle_gain_ = params.pc_angle_gain_;
@@ -107,8 +101,16 @@ struct PlanningConfig {
     /*---------------------- Path Smoothing (smoothing_) -------------------*/
     smoothing_.order_ = params.smoothing_spline_order_;
     smoothing_.precision_ = params.smoothing_spline_precision_;
-    smoothing_.coeffs_ratio_ = params.smoothing_spline_coeffs_ratio_;
+    smoothing_.coeffs_ratio_ = params.smoothing_coeffs_ratio_;
     smoothing_.use_path_smoothing_ = params.smoothing_use_path_smoothing_;
+    smoothing_.use_optimization_ = params.use_optimization_;
+    smoothing_.car_width_ = params.car_width_;
+    smoothing_.safety_margin_ = params.safety_margin_;
+    smoothing_.curvature_weight_ = params.curvature_weight_;
+    smoothing_.smoothness_weight_ = params.smoothness_weight_;
+    smoothing_.safety_weight_ = params.safety_weight_;
+    smoothing_.max_iterations_ = params.max_iterations_;
+    smoothing_.tolerance_ = params.tolerance_;
 
     /*---------------------- Velocity Planning (vp_) -----------------------*/
     velocity_planning_.minimum_velocity_ = params.vp_minimum_velocity_;
