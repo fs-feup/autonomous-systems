@@ -32,6 +32,7 @@ protected:
       false;  //< Flag to check if the pose was updated before adding observations
   bool _new_observation_factors_ =
       false;  //< Flag to check if new factors were added to the graph for optimization
+  bool _locked_landmarks_ = false;  //< Flag to check if landmarks are locked in the graph
 
   SLAMParameters _params_;                     //< Parameters for the SLAM solver
   std::shared_ptr<BaseOptimizer> _optimizer_;  //< Optimizer for the graph SLAM solver

@@ -61,6 +61,10 @@ void PoseUpdater::update_pose(const Eigen::Vector3d& last_pose) {
   this->_last_pose_ = last_pose;
   this->_last_graphed_pose_ = last_pose;
   this->_last_pose_covariance_ = Eigen::Matrix3d::Zero();
+
+  _pose_buffer_.clear();  // Clear the buffer so that old not optimized poses are not kept
+  _pose_buffer_.push(TimedPose(this->_last_pose_, this->_last_pose_update_));
+
   this->_new_pose_from_graph_ = false;  // Reset the flag for new pose from graph
 }
 

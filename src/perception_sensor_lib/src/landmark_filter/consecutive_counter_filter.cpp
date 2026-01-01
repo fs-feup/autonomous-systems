@@ -40,7 +40,7 @@ Eigen::VectorXd ConsecutiveCounterFilter::filter(const Eigen::VectorXd& observat
   std::vector<int> was_observed_as(num_landmarks, -1);  // Map landmark index to observation index
   Eigen::VectorXd to_be_added_to_map;
   for (int observation_index = 0; observation_index < num_new_observations; observation_index++) {
-    if (new_associations(observation_index) != -1 && new_associations(observation_index) != -2) {
+    if (new_associations(observation_index) >= 0) {
       was_observed_as[new_associations(observation_index) / 2] =
           observation_index;  // Map landmark index to observation index
     } else if (new_associations(observation_index) == -1) {

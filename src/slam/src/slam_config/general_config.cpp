@@ -48,6 +48,7 @@ SLAMParameters::SLAMParameters(const SLAMParameters &params) {
   synchronized_timestamps = params.synchronized_timestamps;
   max_pose_history_updater = params.max_pose_history_updater;
   max_pose_history_graph = params.max_pose_history_graph;
+  publish_trajectory_ = params.publish_trajectory_;
 }
 
 SLAMParameters &SLAMParameters::operator=(const SLAMParameters &other) {
@@ -95,6 +96,7 @@ SLAMParameters &SLAMParameters::operator=(const SLAMParameters &other) {
     synchronized_timestamps = other.synchronized_timestamps;
     max_pose_history_updater = other.max_pose_history_updater;
     max_pose_history_graph = other.max_pose_history_graph;
+    publish_trajectory_ = other.publish_trajectory_;
   }
   return *this;
 }
@@ -164,5 +166,6 @@ std::string SLAMParameters::load_config() {
   this->synchronized_timestamps = slam_config["slam"]["synchronized_timestamps"].as<bool>();
   this->max_pose_history_updater = slam_config["slam"]["max_pose_history_updater"].as<int>();
   this->max_pose_history_graph = slam_config["slam"]["max_pose_history_graph"].as<int>();
+  this->publish_trajectory_ = slam_config["slam"]["graph_publish_trajectory"].as<bool>();
   return adapter;
 }

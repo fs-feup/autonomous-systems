@@ -206,40 +206,47 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
     covariance = this->_graph_slam_instance_->get_covariance_matrix();
     covariance_time = rclcpp::Clock().now();
   }
-
-  // Data association
-  Eigen::VectorXi associations = this->_data_association_->associate(
-      landmarks, observations_global, covariance,
-      observations_confidences);  // TODO: implement different mahalanobis distance
-  this->_associations_ = associations;
-  this->_observations_global_ = observations_global;
-  this->_map_coordinates_ = state.segment(3, state.size() - 3);
-  association_time = rclcpp::Clock().now();
-  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Associations calculated");
-
-  // Landmark filtering
-  Eigen::VectorXd filtered_new_observations =
-      this->_landmark_filter_->filter(observations_global, observations_confidences, associations);
-
-  // Loop closure detection
-  LoopClosure::Result result = _loop_closure_->detect(pose, landmarks, associations, observations);
-  if (result.detected) {
-    lap_counter_++;
-    // Create a (hard-ish) lock on the landmarks' positions after the first lap.
-    if (lap_counter_ == 1) {
-      RCLCPP_INFO(rclcpp::get_logger("slam"),
-                  "add_observations - First lap detected, locking landmarks");
-      this->_graph_slam_instance_->lock_landmarks();
-    }
-    RCLCPP_INFO(rclcpp::get_logger("slam"), "Lap counter: %d", lap_counter_);
-  }
-
-  // Add observations to the graph
+  RCLCPP_INFO(rclcpp::get_logger("slam"), "add_observations - State and covariance obtained");
+  Eigen::VectorXi associations;
+  Eigen::VectorXd filtered_new_observations;
   {
     RCLCPP_DEBUG(rclcpp::get_logger("slam"),
-                 "add_observations - Mutex locked - processing observations");
+                 "add_observations - Mutex locked - association/filter/loop-closure/graph update");
     std::unique_lock uniq_lock(this->_mutex_);
 
+    // Data association
+    associations = this->_data_association_->associate(
+        landmarks, observations_global, covariance,
+        observations_confidences);  // TODO: implement different mahalanobis distance
+    this->_associations_ = associations;
+    this->_observations_global_ = observations_global;
+    this->_map_coordinates_ = state.segment(3, state.size() - 3);
+    association_time = rclcpp::Clock().now();
+    RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Associations calculated");
+
+    RCLCPP_INFO(rclcpp::get_logger("slam"), "add_observations - Associations:");
+
+    // Landmark filtering
+    filtered_new_observations = this->_landmark_filter_->filter(
+        observations_global, observations_confidences, associations);
+    RCLCPP_INFO(rclcpp::get_logger("slam"), "add_observations - Filtered new observations");
+
+    // Loop closure detection
+    LoopClosure::Result result =
+        _loop_closure_->detect(pose, landmarks, associations, observations);
+    if (result.detected) {
+      lap_counter_++;
+      // Create a (hard-ish) lock on the landmarks' positions after the first lap.
+      if (lap_counter_ == 1) {
+        RCLCPP_INFO(rclcpp::get_logger("slam"),
+                    "add_observations - First lap detected, locking landmarks");
+        this->_graph_slam_instance_->lock_landmarks();
+      }
+      RCLCPP_INFO(rclcpp::get_logger("slam"), "Lap counter: %d", lap_counter_);
+    }
+    RCLCPP_INFO(rclcpp::get_logger("slam"), "add_observations - Loop closure checked");
+
+    // Add observations to the graph
     ObservationData observation_data(std::make_shared<Eigen::VectorXd>(observations),
                                      std::make_shared<Eigen::VectorXi>(associations),
                                      std::make_shared<Eigen::VectorXd>(observations_global),
@@ -256,6 +263,8 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
     this->_graph_slam_instance_->process_observations(observation_data);
     this->_landmark_filter_->delete_landmarks(filtered_new_observations);
   }
+
+  RCLCPP_INFO(rclcpp::get_logger("slam"), "add_observations - Factors added to graph");
   factor_graph_time = rclcpp::Clock().now();
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Mutex unlocked - Factors added");
 
@@ -270,6 +279,7 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
     this->_pose_updater_->update_pose(gtsam_pose_to_eigen(this->_graph_slam_instance_->get_pose()));
     RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Mutex unlocked - graph optimized");
   }
+  RCLCPP_INFO(rclcpp::get_logger("slam"), "add_observations - Graph optimized if needed");
 
   // Timekeeping
   if (this->_execution_times_ == nullptr) {

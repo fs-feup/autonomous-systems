@@ -42,6 +42,8 @@ protected:
   rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr _vehicle_pose_publisher_;
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr _map_publisher_;
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr _visualization_map_publisher_;
+  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr
+      _position_visualization_publisher_;  ///< Publishes the vehicle position
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
       _trajectory_visualization_publisher_;  ///< Publishes full vehicle trajectory
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr

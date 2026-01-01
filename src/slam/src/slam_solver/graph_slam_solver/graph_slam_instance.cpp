@@ -110,6 +110,7 @@ GraphSLAMInstance::GraphSLAMInstance(const GraphSLAMInstance& other) {
   _optimizer_ = other._optimizer_->clone();  // because it's a shared_ptr
   _params_ = other._params_;
   _pose_timestamps_ = other._pose_timestamps_;
+  _locked_landmarks_ = other._locked_landmarks_;
 }
 
 GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) {
@@ -125,6 +126,7 @@ GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) 
   _optimizer_ = other._optimizer_->clone();  // because it's a shared_ptr
   _params_ = other._params_;
   _pose_timestamps_ = other._pose_timestamps_;
+  _locked_landmarks_ = other._locked_landmarks_;
 
   return *this;
 }
@@ -198,6 +200,8 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
   bool new_observation_factors = false;
   unsigned int pose_id_at_observation_time =
       this->get_landmark_id_at_time(observation_data.timestamp_);
+  RCLCPP_INFO(rclcpp::get_logger("slam"), "locked_landmarks= %s",
+              this->_locked_landmarks_ ? "true" : "false");
   for (unsigned int i = 0; i < observations.size() / 2; i++) {
     gtsam::Point2 landmark;
     gtsam::Symbol landmark_symbol;
@@ -206,21 +210,24 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
     if (associations(i) == -2) {
       // No association
       continue;
-    } else if (associations(i) == -1 || landmark_lost_in_optimization) {
+    } else if ((associations(i) == -1 || landmark_lost_in_optimization) &&
+               !this->_locked_landmarks_) {
       // Create new landmark
-      landmark_symbol = gtsam::Symbol('l', ++(this->_landmark_counter_));
+      landmark_symbol = gtsam::Symbol('l', (this->_landmark_counter_)++);
       landmark = gtsam::Point2(observations_global(i * 2), observations_global(i * 2 + 1));
       this->_graph_values_.insert(landmark_symbol, landmark);
       if (const auto optimizer_ptr = std::dynamic_pointer_cast<ISAM2Optimizer>(this->_optimizer_)) {
         optimizer_ptr->_new_values_.insert(
             landmark_symbol, landmark);  // Most efficient way I found to deal with ISAM2
       }
-    } else {
+    } else if (associations(i) >= 0) {
       if (!this->new_pose_factors()) {  // Only add old observations if the vehicle has moved
         continue;
       }
       // Association to previous landmark
-      landmark_symbol = gtsam::Symbol('l', (associations(i)) / 2 + 1);  // Convert to landmark id
+      landmark_symbol = gtsam::Symbol('l', (associations(i)) / 2);  // Convert to landmark id
+    } else {
+      continue;
     }
     new_observation_factors = true;
     const Eigen::Vector2d observation_cartesian(observations[i * 2], observations[i * 2 + 1]);
@@ -267,7 +274,7 @@ void GraphSLAMInstance::load_initial_state(const Eigen::VectorXd& map, const Eig
   unsigned int num_landmarks = map.size() / 2;
   for (unsigned int i = 0; i < num_landmarks; i++) {
     gtsam::Point2 landmark(map(i * 2), map(i * 2 + 1));
-    gtsam::Symbol landmark_symbol('l', ++(this->_landmark_counter_));
+    gtsam::Symbol landmark_symbol('l', (this->_landmark_counter_)++);
     _graph_values_.insert(landmark_symbol, landmark);
     const gtsam::noiseModel::Diagonal::shared_ptr landmark_noise =
         gtsam::noiseModel::Diagonal::Sigmas(
@@ -289,16 +296,21 @@ void GraphSLAMInstance::optimize() {
 }
 
 void GraphSLAMInstance::lock_landmarks() {
-  for (unsigned int i = 1; i < _landmark_counter_; i++) {
+  for (unsigned int i = 0; i < _landmark_counter_; i++) {
     gtsam::Symbol l('l', i);
 
-    if (!_graph_values_.exists(l)) continue;
+    if (!_graph_values_.exists(l)) {
+      RCLCPP_INFO(rclcpp::get_logger("slam"),
+                  "GraphSLAMInstance - Landmark %d does not exist, skipping lock", i);
+      continue;
+    }
 
     auto noise = gtsam::noiseModel::Constrained::All(2);
     auto value = _graph_values_.at<gtsam::Point2>(l);
 
     _factor_graph_.add(gtsam::PriorFactor<gtsam::Point2>(l, value, noise));
   }
+  this->_locked_landmarks_ = true;
 }
 
 unsigned int GraphSLAMInstance::get_landmark_id_at_time(const rclcpp::Time& timestamp) const {
