@@ -30,8 +30,10 @@ Eigen::VectorXd ConsecutiveCounterFilter::filter(const Eigen::VectorXd& observat
   }
 
   // Associate the observations that are considered new with the map stored in this filter
-  Eigen::VectorXi new_associations = this->_data_association_->associate(
-      this->map, unfiltered_new_observations, {}, unfiltered_new_observations_confidences);
+  Eigen::MatrixXd const map_covariance = Eigen::MatrixXd::Zero(this->map.size(), this->map.size());
+  Eigen::VectorXi new_associations =
+      this->_data_association_->associate(this->map, unfiltered_new_observations, map_covariance,
+                                          unfiltered_new_observations_confidences);
   const int num_landmarks = this->map.size() / 2;
   const int num_new_observations = unfiltered_new_observations.size() / 2;
 

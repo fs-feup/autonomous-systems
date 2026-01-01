@@ -81,8 +81,9 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
     }
   }
 
-  this->correct(state, covariance, matched_landmarks_indices, matched_observations);
-
+  if (!matched_landmarks_indices.empty()) {
+    this->correct(state, covariance, matched_landmarks_indices, matched_observations);
+  }
   if (this->_mission_ != common_lib::competition_logic::Mission::NONE &&
       !(this->_params_.using_preloaded_map_ &&
         (this->_mission_ == common_lib::competition_logic::Mission::SKIDPAD ||

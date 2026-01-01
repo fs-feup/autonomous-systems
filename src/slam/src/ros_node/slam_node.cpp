@@ -223,15 +223,13 @@ void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::V
   }
 
   rclcpp::Time start_time = this->get_clock()->now();
-  if (!this->_params_.synchronized_timestamps) {
-    // If timestamps are not synchronized, set the timestamp to now
-    this->_vehicle_state_velocities_.timestamp_ = start_time;
-  }
 
+  rclcpp::Time const velocities_time =
+      _params_.synchronized_timestamps ? rclcpp::Time(msg.header.stamp) : start_time;
   if (auto solver_ptr = std::dynamic_pointer_cast<VelocitiesIntegratorTrait>(this->_slam_solver_)) {
     this->_vehicle_state_velocities_ = common_lib::structures::Velocities(
         msg.velocity_x, msg.velocity_y, msg.angular_velocity, msg.covariance[0], msg.covariance[4],
-        msg.covariance[8], msg.header.stamp);
+        msg.covariance[8], velocities_time);
 
     common_lib::structures::Velocities velocities;
     {
