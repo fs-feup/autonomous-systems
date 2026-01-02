@@ -51,7 +51,7 @@ jobs:
       - name: Compile with bear
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          bear -- colcon build --packages-up-to common_lib perception ekf_state_est control planning inspection mocker_node evaluator
+          bear -- colcon build --packages-up-to common_lib perception slam control planning inspection mocker_node evaluator
           
       - name: Run sonar-scanner
         env:
