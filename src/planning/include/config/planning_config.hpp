@@ -37,14 +37,14 @@ struct PlanningParameters {
   float smoothing_coeffs_ratio_;
   int smoothing_spline_precision_;
   bool smoothing_use_path_smoothing_;
-  bool use_optimization_;          
-  double car_width_;              
-  double safety_margin_;           
-  double curvature_weight_;      
-  double smoothness_weight_;        
-  double safety_weight_;        
-  int max_iterations_;              
-  double tolerance_;                
+  bool smoothing_use_optimization_;          
+  double smoothing_car_width_;              
+  double smoothing_safety_margin_;           
+  double smoothing_curvature_weight_;      
+  double smoothing_smoothness_weight_;        
+  double smoothing_safety_weight_;        
+  int smoothing_max_iterations_;              
+  double smoothing_tolerance_;                
 
   /*---------------------- Velocity Planning (vp_) -----------------------*/
   double vp_minimum_velocity_;
@@ -103,14 +103,14 @@ struct PlanningConfig {
     smoothing_.precision_ = params.smoothing_spline_precision_;
     smoothing_.coeffs_ratio_ = params.smoothing_coeffs_ratio_;
     smoothing_.use_path_smoothing_ = params.smoothing_use_path_smoothing_;
-    smoothing_.use_optimization_ = params.use_optimization_;
-    smoothing_.car_width_ = params.car_width_;
-    smoothing_.safety_margin_ = params.safety_margin_;
-    smoothing_.curvature_weight_ = params.curvature_weight_;
-    smoothing_.smoothness_weight_ = params.smoothness_weight_;
-    smoothing_.safety_weight_ = params.safety_weight_;
-    smoothing_.max_iterations_ = params.max_iterations_;
-    smoothing_.tolerance_ = params.tolerance_;
+    smoothing_.use_optimization_ = params.smoothing_use_optimization_;
+    smoothing_.car_width_ = params.smoothing_car_width_;
+    smoothing_.safety_margin_ = params.smoothing_safety_margin_;
+    smoothing_.curvature_weight_ = params.smoothing_curvature_weight_;
+    smoothing_.smoothness_weight_ = params.smoothing_smoothness_weight_;
+    smoothing_.safety_weight_ = params.smoothing_safety_weight_;
+    smoothing_.max_iterations_ = params.smoothing_max_iterations_;
+    smoothing_.tolerance_ = params.smoothing_tolerance_;
 
     /*---------------------- Velocity Planning (vp_) -----------------------*/
     velocity_planning_.minimum_velocity_ = params.vp_minimum_velocity_;

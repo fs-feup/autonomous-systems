@@ -56,14 +56,14 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.smoothing_coeffs_ratio_ = planning_config["smoothing_coeffs_ratio"].as<float>();
   params.smoothing_spline_precision_ = planning_config["smoothing_spline_precision"].as<int>();
   params.smoothing_use_path_smoothing_ = planning_config["smoothing_use_path_smoothing"].as<bool>();
-  params.use_optimization_ = planning_config["use_optimization_"].as<bool>();
-  params.car_width_ = planning_config["car_width_"].as<double>();
-  params.safety_margin_ = planning_config["safety_margin_"].as<double>();
-  params.curvature_weight_ = planning_config["curvature_weight_"].as<double>();
-  params.smoothness_weight_ = planning_config["smoothness_weight_"].as<double>();
-  params.safety_weight_ = planning_config["safety_weight_"].as<double>();
-  params.max_iterations_ = planning_config["max_iterations_"].as<int>();
-  params.tolerance_ = planning_config["tolerance_"].as<double>();
+  params.smoothing_use_optimization_ = planning_config["smoothing_use_optimization"].as<bool>();
+  params.smoothing_car_width_ = planning_config["smoothing_car_width"].as<double>();
+  params.smoothing_safety_margin_ = planning_config["smoothing_safety_margin"].as<double>();
+  params.smoothing_curvature_weight_ = planning_config["smoothing_curvature_weight"].as<double>();
+  params.smoothing_smoothness_weight_ = planning_config["smoothing_smoothness_weight"].as<double>();
+  params.smoothing_safety_weight_ = planning_config["smoothing_safety_weight"].as<double>();
+  params.smoothing_max_iterations_ = planning_config["smoothing_max_iterations"].as<int>();
+  params.smoothing_tolerance_ = planning_config["smoothing_tolerance"].as<double>();
 
   /*--------------------- Velocity Planning Parameters --------------------*/
   params.vp_minimum_velocity_ = planning_config["vp_minimum_velocity"].as<double>();
