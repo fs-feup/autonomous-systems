@@ -24,3 +24,8 @@ common_lib::structures::ControlCommand DecoupledController::get_control_command(
   command.steering_angle = this->lateral_controller_->get_steering_command();
   return command;
 }
+
+void DecoupledController::publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
+  lateral_controller_->publish_solver_data(node, publisher_map);
+  longitudinal_controller_->publish_solver_data(node, publisher_map);
+}

@@ -40,6 +40,7 @@ void ControlNode::control_timer_callback() {
   std_msgs::msg::Float64MultiArray execution_time_msg;
   execution_time_msg.data = *this->_execution_times_;
   this->execution_time_pub_->publish(execution_time_msg);
+  this->control_solver_->publish_solver_data(shared_from_this(), publisher_map_);
 }
 
 // This function is called when a new pose is received
