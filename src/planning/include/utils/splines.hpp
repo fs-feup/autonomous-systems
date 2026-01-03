@@ -90,6 +90,13 @@ template <typename T, typename = void>
 struct PositionXYAreDouble : std::false_type {};
 
 template <typename T>
+struct TripleSpline {
+  std::vector<T> center;
+  std::vector<T> left;
+  std::vector<T> right;
+};
+
+template <typename T>
 struct PositionXYAreDouble<
     T, std::enable_if_t<std::is_same_v<decltype(std::declval<T>().position.x), double> &&
                         std::is_same_v<decltype(std::declval<T>().position.y), double>>>
@@ -111,13 +118,14 @@ struct PositionXYAreDouble<
  * @param precision Number of interpolated points between each pair of original points.
  * @param order Order of the B-spline.
  * @param coeffs_ratio Ratio to determine the number of coefficients for the spline.
- * @param cone_seq Sequence of points to fit the spline to.
+ * @param path Sequence of points to fit the spline to.
  * @return std::vector<T> Sequence of points representing the fitted spline.
  *
  * @note This function requires the GNU Scientific Library (GSL) for spline fitting.
  */
 template <typename T>
-std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vector<T> cone_seq) {
+std::vector<T> fit_spline(int precision, int order, float coeffs_ratio,
+                          const std::vector<T> &path) {
   static_assert(HasDefaultConstructor<T>::value, "T must be default constructible");
   static_assert(IsHashable<T>::value, "T must be hashable");
   static_assert(HasEqualityOperator<T>::value, "T must have operator==");
@@ -127,12 +135,12 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vec
   static_assert(HasEuclideanDistance<T>::value, "T.position must have a euclidean_distance method");
   static_assert(PositionXYAreDouble<T>::value, "T.position.x and T.position.y must be double");
 
-  size_t n = cone_seq.size();
-  if (n < 2) return cone_seq;
+  size_t n = path.size();
+  if (n < 2) return path;
 
   // Garantee ncoeffs >= order -> mathematical requirement for B-splines
   size_t ncoeffs = static_cast<size_t>(static_cast<float>(n) / coeffs_ratio);
-  if (ncoeffs < static_cast<size_t>(order)) return cone_seq;
+  if (ncoeffs < static_cast<size_t>(order)) return path;
 
   if (ncoeffs > n) ncoeffs = n;
 
@@ -144,7 +152,7 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vec
                  "Too few points to calculate spline while executing 'fit_spline'"
                  "Number of cones was %i",
                  static_cast<int>(n));
-    return cone_seq;
+    return path;
   }
   // -------- INITIALIZE GSL WORKSPACES --------
   gsl_bspline_workspace *bw =
@@ -175,15 +183,15 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vec
   // -------- FILL INPUT DATA AND WEIGHTS --------
   for (size_t i = 0; i < n; i++) {
     gsl_vector_set(i_values, i, static_cast<double>(i));
-    gsl_vector_set(x_values, i, cone_seq[i].position.x);
-    gsl_vector_set(y_values, i, cone_seq[i].position.y);
+    gsl_vector_set(x_values, i, path[i].position.x);
+    gsl_vector_set(y_values, i, path[i].position.y);
 
     // Weight points based on local spacing (closer points get larger weight)
     double dist_next = 1.0;
     if (i + 1 < n) {
-      dist_next = cone_seq[i].position.euclidean_distance(cone_seq[i + 1].position);
+      dist_next = path[i].position.euclidean_distance(path[i + 1].position);
     } else if (i > 0) {
-      dist_next = cone_seq[i].position.euclidean_distance(cone_seq[i - 1].position);
+      dist_next = path[i].position.euclidean_distance(path[i - 1].position);
     }
     if (dist_next < 1e-6) dist_next = 1e-6;
 
@@ -214,8 +222,8 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vec
   gsl_multifit_wlinear(Y, w, y_values, c2, cov2, &chisq2, mw2);
 
   // -------- EVALUATE THE SPLINE  --------
-  std::vector<T> cone_seq_eval;
-  cone_seq_eval.reserve(n * precision);
+  std::vector<T> path_eval;
+  path_eval.reserve(n * precision);
   for (int i = 0; i < static_cast<int>(n); i++) {
     for (int j = 0; j < precision; j++) {
       // Compute parameter t inside segment i
@@ -234,7 +242,7 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vec
       T new_element;
       new_element.position.x = xi;
       new_element.position.y = yi;
-      cone_seq_eval.push_back(new_element);
+      path_eval.push_back(new_element);
     }
   }
 
@@ -257,18 +265,10 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vec
   gsl_multifit_linear_free(mw2);
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "END fitSpline with %i points",
-               static_cast<int>(cone_seq_eval.size()));
+               static_cast<int>(path_eval.size()));
 
-  return cone_seq_eval;
+  return path_eval;
 }
-
-// WHERE SHOULD I PUT THIS STRUCTURE?
-template <typename T>
-struct TripleSpline {
-  std::vector<T> center;
-  std::vector<T> left;
-  std::vector<T> right;
-};
 
 template <typename T>
 TripleSpline<T> fit_triple_spline(const std::vector<T> &center, const std::vector<T> &left,

@@ -275,8 +275,8 @@ void Planning::run_trackdrive() {
     if (!is_map_closed_) {
       is_map_closed_ = true;
       full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
-      std::vector<Cone> yellow_cones_ = path_calculation_.get_yellow_cones();
-      std::vector<Cone> blue_cones_ = path_calculation_.get_blue_cones();
+      const std::vector<Cone> yellow_cones_ = path_calculation_.get_yellow_cones();
+      const std::vector<Cone> blue_cones_ = path_calculation_.get_blue_cones();
       std::vector<PathPoint> yellow_cones;
       std::vector<PathPoint> blue_cones;
       for (const Cone &cone : yellow_cones_) {
