@@ -1,37 +1,37 @@
 #include "planning/smoothing.hpp"
 
-#include <osqp.h>
-
-#include <Eigen/Dense>
-#include <cmath>
-#include <map>
-#include <vector>
-
-void PathSmoothing::smooth_path(std::vector<PathPoint>& unordered_path,
-                                std::vector<PathPoint>& yellow_cones,
-                                std::vector<PathPoint>& blue_cones) const {
-  if (!config_.use_path_smoothing_) {
-    return;
+std::vector<PathPoint> PathSmoothing::smooth_path(std::vector<PathPoint>& path) const {
+  if (this->config_.use_path_smoothing_) {
+    return fit_spline(this->config_.precision_, this->config_.order_, this->config_.coeffs_ratio_,
+                      path);
+  } else {
+    return path;
   }
-
-  auto splines = fitTripleSpline(unordered_path, blue_cones, yellow_cones, config_.precision_,
-                                 config_.order_, config_.coeffs_ratio_);
-
-  if (!config_.use_optimization_) {
-    unordered_path = splines.center;
-    yellow_cones = splines.right;
-    blue_cones = splines.left;
-    return;
-  }
-
-  auto optimized_center = optimize_centerline_osqp(splines.center, splines.left, splines.right);
-
-  unordered_path = optimized_center;
 }
 
-std::vector<PathPoint> PathSmoothing::optimize_centerline_osqp(
-    const std::vector<PathPoint>& center, const std::vector<PathPoint>& left,
-    const std::vector<PathPoint>& right) const {
+std::vector<PathPoint> PathSmoothing::optimize_path(std::vector<PathPoint>& path,
+                                                    std::vector<PathPoint>& yellow_cones,
+                                                    std::vector<PathPoint>& blue_cones) const {
+  if (!config_.use_path_smoothing_) {
+    return path;
+  }
+
+  auto splines = fit_triple_spline(path, blue_cones, yellow_cones, config_.precision_,
+                                   config_.order_, config_.coeffs_ratio_);
+
+  if (!config_.use_optimization_) {
+    path = splines.center;
+    yellow_cones = splines.right;
+    blue_cones = splines.left;
+    return path;
+  }
+
+  return osqp_optimization(splines.center, splines.left, splines.right);
+}
+
+std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPoint>& center,
+                                                        const std::vector<PathPoint>& left,
+                                                        const std::vector<PathPoint>& right) const {
   const int num_path_points = center.size();
   if (num_path_points < 5) {
     return center;

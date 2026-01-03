@@ -4,7 +4,6 @@
 #include <gsl/gsl_bspline.h>
 #include <gsl/gsl_errno.h>
 #include <gsl/gsl_multifit.h>
-#include <gsl/gsl_errno.h>
 
 #include <cmath>
 #include <type_traits>
@@ -272,9 +271,9 @@ struct TripleSpline {
 };
 
 template <typename T>
-TripleSpline<T> fitTripleSpline(const std::vector<T> &center, const std::vector<T> &left,
-                                const std::vector<T> &right, int precision, int order,
-                                float coeffs_ratio) {
+TripleSpline<T> fit_triple_spline(const std::vector<T> &center, const std::vector<T> &left,
+                                  const std::vector<T> &right, int precision, int order,
+                                  float coeffs_ratio) {
   static_assert(HasDefaultConstructor<T>::value, "T must be default constructible");
   static_assert(IsHashable<T>::value, "T must be hashable");
   static_assert(HasEqualityOperator<T>::value, "T must have operator==");
@@ -360,7 +359,7 @@ TripleSpline<T> fitTripleSpline(const std::vector<T> &center, const std::vector<
   }
 
   // -------------------------
-  // Uniform knots 
+  // Uniform knots
   // -------------------------
   gsl_bspline_knots_uniform(t_min, t_max, bw);
 

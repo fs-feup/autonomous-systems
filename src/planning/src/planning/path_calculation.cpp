@@ -97,25 +97,10 @@ std::vector<PathPoint> PathCalculation::calculate_trackdrive(const std::vector<C
   // Trim the path to the best cutoff point
   (void)result.erase(result.begin() + best_cutoff_index + 1, result.end());
 
-  // // Add interpolated points between the last point and the first point
-  // if (!result.empty()) {
-  //   const PathPoint& last_point = result.back();
-  //   const PathPoint& first_point = result.front();
-
-  //   std::vector<PathPoint> interpolated = add_interpolated_points(last_point, first_point, 4);
-  //   (void)result.insert(result.end(), interpolated.begin(), interpolated.end());
-  // }
-
   // Close the loop by adding the first point again
   result.push_back(result[0]);
   yellow_cones_.push_back(yellow_cones_[0]);
   blue_cones_.push_back(blue_cones_[0]);
-
-  // // Add overlap points (10 points or as many as available)
-  // int overlap_count = std::min(10, static_cast<int>(result.size()) - 1);
-  // for (int i = 1; i <= overlap_count; ++i) {
-  //   result.push_back(result[i]);
-  // }
   
   return result;
 }
@@ -545,30 +530,6 @@ int PathCalculation::find_best_loop_closure(const std::vector<PathPoint>& path) 
   }
 
   return best_cutoff_index;
-}
-
-std::vector<PathPoint> PathCalculation::add_interpolated_points(const PathPoint& start,
-                                                                const PathPoint& end,
-                                                                int num_points) const {
-  std::vector<PathPoint> interpolated;
-  interpolated.reserve(num_points);
-
-  if (num_points <= 0) {
-    return interpolated;
-  }
-
-  float dx = end.position.x - start.position.x;
-  float dy = end.position.y - start.position.y;
-
-  for (int i = 1; i <= num_points; ++i) {
-    float t = static_cast<float>(i) / (num_points + 1);
-    PathPoint intermediate;
-    intermediate.position.x = start.position.x + t * dx;
-    intermediate.position.y = start.position.y + t * dy;
-    interpolated.push_back(intermediate);
-  }
-
-  return interpolated;
 }
 
 std::vector<PathPoint> PathCalculation::get_path_points_from_colorpoints(
