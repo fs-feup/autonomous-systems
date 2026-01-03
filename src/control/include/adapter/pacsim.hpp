@@ -16,7 +16,7 @@ class PacSimAdapter : public ControlNode {
 private:
   // Publishers of commands to PacSim
   rclcpp::Publisher<pacsim::msg::StampedScalar>::SharedPtr steering_pub_;
-  rclcpp::Publisher<pacsim::msg::StampedScalar>::SharedPtr acceleration_pub_;
+  rclcpp::Publisher<pacsim::msg::Wheels>::SharedPtr throttle_pub_;
 
   // If using simulated (ground truth) State Estimation (and SLAM) from PacSim
   rclcpp::Subscription<geometry_msgs::msg::TwistWithCovarianceStamped>::SharedPtr car_velocity_sub_;
@@ -31,7 +31,8 @@ public:
   void _pacsim_gt_pose_callback(const geometry_msgs::msg::TwistWithCovarianceStamped &msg);
 
   /**
-   * @brief Callback for the pacsim ground truth velocity topic, used when using simulated velocity estimation
+   * @brief Callback for the pacsim ground truth velocity topic, used when using simulated velocity
+   * estimation
    */
   void _pacsim_gt_velocities_callback(const geometry_msgs::msg::TwistWithCovarianceStamped &msg);
 

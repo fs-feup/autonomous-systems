@@ -23,4 +23,7 @@ vehicle_model:
     outerSteeringRatio: 0.1582
     nominalVoltageTS: 600.0
     powerGroundForce: 0.0
-    # powertrainEfficiency: 0.95
+    maxMotorPower: 65000.0
+    maxPowerSpeed: 575.96  # rad/s where max power is reached, allows a approximation of Torque-Speed curve
+    maxMotorRPM: 6500.0
+    maxMotorTorque: 120.0

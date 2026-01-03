@@ -93,7 +93,7 @@ std::map<std::shared_ptr<GnssSensor>, rclcpp::Publisher<pacsim::msg::GNSS>::Shar
 
 DeadTime<double> deadTimeSteeringFront(0.0);
 DeadTime<double> deadTimeSteeringRear(0.0);
-DeadTime<double> deadTimeThrottle(0.0);
+DeadTime<Wheels> deadTimeThrottle(0.0);
 DeadTime<Wheels> deadTimeTorques(0.0);
 DeadTime<Wheels> deadTimeWspdSetpoints(0.0);
 DeadTime<Wheels> deadTimeMaxTorques(0.0);
@@ -173,7 +173,7 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
 
     deadTimeSteeringFront = DeadTime<double>(0.05);
     deadTimeSteeringRear = DeadTime<double>(0.05);
-    deadTimeThrottle = DeadTime<double>(0.02);
+    deadTimeThrottle = DeadTime<Wheels>(0.02);
     deadTimeTorques = DeadTime<Wheels>(0.02);
     deadTimeWspdSetpoints = DeadTime<Wheels>(0.02);
     deadTimeMaxTorques = DeadTime<Wheels>(0.02);
@@ -243,7 +243,7 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
         }
         if (deadTimeThrottle.availableDeadTime(simTime))
         {
-            double val = deadTimeThrottle.getOldest();
+            Wheels val = deadTimeThrottle.getOldest();
             model->setThrottle(val);
         }
         if (deadTimePowerGroundSetpoint.availableDeadTime(simTime))
@@ -414,10 +414,16 @@ void cbFuncLat(const pacsim::msg::StampedScalar& msg)
     deadTimeSteeringRear.addVal(0.0, simTime);
 }
 
-void cbFuncLong(const pacsim::msg::StampedScalar& msg)
+void cbFuncLong(const pacsim::msg::Wheels& msg)
 {
     std::lock_guard<std::mutex> l(mutexSimTime);
-    deadTimeThrottle.addVal(msg.value, simTime);
+    Wheels w;
+    w.FL = msg.fl;
+    w.FR = msg.fr;
+    w.RL = msg.rl;
+    w.RR = msg.rr;
+    w.timestamp = simTime;
+    deadTimeThrottle.addVal(w, simTime);
 }
 
 void cbFuncTorquesInverterMin(const pacsim::msg::Wheels& msg)
@@ -723,8 +729,8 @@ int main(int argc, char** argv)
     auto torquessubmax
         = node->create_subscription<pacsim::msg::Wheels>("/pacsim/torques_max", 1, cbFuncTorquesInverterMax);
 
-    auto throttleSub = node->create_subscription<pacsim::msg::StampedScalar>("/pacsim/throttle_setpoint", 1, cbFuncLong);
-    RCLCPP_INFO_STREAM(rclcpp::get_logger("pacsim_logger"), "Createdsubscription for throttle");
+    auto throttleSub = node->create_subscription<pacsim::msg::Wheels>("/pacsim/throttle_setpoint", 1, cbFuncLong);
+    RCLCPP_INFO_STREAM(rclcpp::get_logger("pacsim_logger"), "Created subscription for throttle (Wheels)");
 
 
     auto wspdSetpointSub

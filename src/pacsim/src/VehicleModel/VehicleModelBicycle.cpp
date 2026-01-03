@@ -1,6 +1,8 @@
 #include "VehicleModel/VehicleModelBicycle.hpp"
 
+
 #include <cmath>
+#include <algorithm>
 
 #include "VehicleModel/VehicleModelInterface.hpp"
 #include "transform.hpp"
@@ -45,7 +47,10 @@ bool VehicleModelBicycle::readConfig(ConfigElement& config) {
   configModel.getElement<double>(&steeringModel.outerSteeringRatio, "outerSteeringRatio");
   configModel.getElement<double>(&powertrainModel.nominalVoltageTS, "nominalVoltageTS");
   configModel.getElement<double>(&powertrainModel.powerGroundForce, "powerGroundForce");
-
+  configModel.getElement<double>(&powertrainModel.maxMotorPower, "maxMotorPower");
+  configModel.getElement<double>(&powertrainModel.maxPowerSpeed, "maxPowerSpeed");
+  configModel.getElement<double>(&powertrainModel.maxMotorRPM, "maxMotorRPM");
+  configModel.getElement<double>(&powertrainModel.maxMotorTorque, "maxMotorTorque");
   return true;
 }
 
@@ -95,7 +100,12 @@ void VehicleModelBicycle::setSteeringSetpointRear(double in) {
   // Rear steering not implemented
 }
 
-void VehicleModelBicycle::setThrottle(double in) { throttleActuation = std::clamp(in, -1.0, 1.0); }
+void VehicleModelBicycle::setThrottle(Wheels in) {
+  throttleActuationFL = std::clamp(in.FL, -1.0, 1.0);
+  throttleActuationFR = std::clamp(in.FR, -1.0, 1.0);
+  throttleActuationRL = std::clamp(in.RL, -1.0, 1.0);
+  throttleActuationRR = std::clamp(in.RR, -1.0, 1.0);
+}
 
 void VehicleModelBicycle::setPowerGroundSetpoint(double in) {
   powerGroundSetpoint = std::clamp(in, 0.0, 1.0);
@@ -173,13 +183,27 @@ double VehicleModelBicycle::TireModel::calculateLateralForce(double slipAngle,
 }
 
 //tested
-void VehicleModelBicycle::PowertrainModel::calculateWheelTorques(double throttleInput,
-                                                                 Wheels& torques) const {
-  // Simple rear-wheel drive implementation
-  torques.FL = 0;
-  torques.FR = 0;
-  torques.RL = throttleInput * MAX_TORQUE * 0.5;
-  torques.RR = throttleInput * MAX_TORQUE * 0.5;
+void VehicleModelBicycle::PowertrainModel::calculateWheelTorques(const Wheels& throttleInputs, const Wheels& wheelspeeds, Wheels& torques) const {
+  double rpm2rad = TWO_PI / 60.0;
+  double motor_rpm = 0.5 * (wheelspeeds.RL + wheelspeeds.RR) * gearRatio;
+
+  double available_mech_torque = 0;
+
+  if (std::abs(motor_rpm) > maxMotorRPM) {
+    available_mech_torque = 0.0; 
+  } else if (std::abs(motor_rpm * rpm2rad) > maxPowerSpeed) {
+    available_mech_torque = maxMotorPower / std::abs(motor_rpm * rpm2rad);
+  } else {
+    available_mech_torque = maxMotorTorque;
+  }
+
+  double throttle_input = 0.5 * (throttleInputs.RL + throttleInputs.RR);
+  double final_motor_torque = available_mech_torque * throttle_input;
+
+  torques.FL = 0.0;
+  torques.FR = 0.0;
+  torques.RL = final_motor_torque * 0.5;
+  torques.RR = final_motor_torque * 0.5;
 }
 
 //tested
@@ -464,7 +488,8 @@ Eigen::Vector3d VehicleModelBicycle::getDynamicStates(double dt) {
 void VehicleModelBicycle::forwardIntegrate(double dt) {
   
   // Convert throttle to wheel torques (using PowertrainModel)
-  powertrainModel.calculateWheelTorques(throttleActuation, torques);
+  Wheels throttleInputs = {throttleActuationFL, throttleActuationFR, throttleActuationRL, throttleActuationRR, 0.0};
+  powertrainModel.calculateWheelTorques(throttleInputs, wheelspeeds, torques);
   
   // Calculate dynamic states
   Eigen::Vector3d dynamicStates = getDynamicStates(dt);
