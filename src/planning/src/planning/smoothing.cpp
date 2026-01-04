@@ -18,7 +18,6 @@ std::vector<PathPoint> PathSmoothing::optimize_path(std::vector<PathPoint>& path
                                    config_.spline_order_, config_.spline_coeffs_ratio_);
 
   if (!config_.use_optimization_) {
-    path = splines.center;
     return path;
   }
 
@@ -33,7 +32,7 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
     return center;
   }
 
-  // NAO É NECESSARIO TER IGUAIS!
+  // CHANGE
   const double curvature_weight = config_.curvature_weight_;
   const double smoothness_weight = config_.smoothness_weight_;
   const double safety_weight = config_.safety_weight_;
