@@ -2,87 +2,79 @@
 #define SRC_PLANNING_INCLUDE_CONFIG_SMOOTHING_CONFIG_HPP_
 
 /**
- * @brief struct for the configuration of the smoothing algorithm
+ * @brief Configuration parameters for the Path Smoothing class.
  *
  */
 struct PathSmoothingConfig {
   /**
-   * @brief ratio of output to input cones
+   * @brief Number of interpolated points between each pair of input points.
+   *
+   * Higher values produce a denser and smoother path at the cost of computation.
+   */
+  int spline_precision_ = 10;
+
+  /**
+   * @brief Order of the B-spline used for smoothing.
    *
    */
-  int precision_ = 10;
+  int spline_order_ = 3;
+
   /**
-   * @brief order of the spline
+   * @brief Ratio between number of spline coefficients and input points.
    *
+   * Higher values produce a smoother but less flexible spline.
    */
-  int order_ = 3;
+  float spline_coeffs_ratio_ = 3.0f;
+
   /**
-   * @brief ratio of coefficients to input points
-   *
-   */
-  float coeffs_ratio_ = 3.0;
-  /**
-   * @brief flag to enable/disable the path smoothing
-   *
+   * @brief Flag to enable/disable spline-based path smoothing.
    */
   bool use_path_smoothing_ = true;
+
   /**
-   * @brief Enable OSQP optimization after spline
+   * @brief Flag to enable/disable optimization-based refinement after spline fitting.
    *
    */
-  bool use_optimization_;
+  bool use_optimization_ = true;
+
   /**
-   * @brief Vehicle width in meters
+   * @brief Vehicle width in meters.
    *
    */
-  double car_width_;
+  double car_width_ = 1.2;
+
   /**
-   * @brief Additional safety clearance in meters
+   * @brief Additional safety clearance in meters.
    *
    */
-  double safety_margin_;
+  double safety_margin_ = 0.3;
+
   /**
-   * @brief Weight for curvature minimization
-   *
+   * @brief Weight for curvature minimization in the optimization cost function.
    */
-  double curvature_weight_;
+  double curvature_weight_ = 100.0;
+
   /**
-   * @brief  Weight for path smoothness
-   *
+   * @brief Weight for path smoothness in the optimization cost function.
    */
-  double smoothness_weight_;
+  double smoothness_weight_ = 0.1;
+
   /**
-   * @brief Weight to stay close to spline path
-   *
+   * @brief Weight for safety distance from obstacles in the optimization cost function.
    */
-  double safety_weight_;
+  double safety_weight_ = 100000.0;
+
   /**
-   * @brief OSQP max iterations
-   *
+   * @brief Maximum number of iterations for the optimization solver.
    */
-  int max_iterations_;
+  int max_iterations_ = 2000;
+
   /**
-   * @brief  OSQP convergence tolerance
-   *
+   * @brief Convergence tolerance for the optimization solver.
    */
-  double tolerance_;
+  double tolerance_ = 1e-4;
+
   PathSmoothingConfig() = default;
-  PathSmoothingConfig(int precision, int order, float coeffs_ratio, bool use_path_smoothing,
-                      bool use_optimization, double car_width, double safety_margin,
-                      double curvature_weight, double smoothness_weight, double safety_weight,
-                      int max_iterations, double tolerance)
-      : precision_(precision),
-        order_(order),
-        coeffs_ratio_(coeffs_ratio),
-        use_path_smoothing_(use_path_smoothing),
-        use_optimization_(use_optimization),
-        car_width_(car_width),
-        safety_margin_(safety_margin),
-        curvature_weight_(curvature_weight),
-        smoothness_weight_(smoothness_weight),
-        safety_weight_(safety_weight),
-        max_iterations_(max_iterations),
-        tolerance_(tolerance) {}
 };
 
 #endif  // SRC_PLANNING_INCLUDE_CONFIG_SMOOTHING_CONFIG_HPP_

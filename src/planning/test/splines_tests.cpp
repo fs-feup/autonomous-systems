@@ -12,7 +12,7 @@ TEST(Splines, spline1) {
     c.position.y = i;
     cones.push_back(c);
   }
-  std::vector<PathPoint> vector2 = fit_spline(1, 3, 3.0, cones);
+  std::vector<PathPoint> vector2 = fit_spline(cones, 1, 3, 3.0);
   for (int i = 0; i < 10; i++) {
     EXPECT_LE(fabs(vector2[i].position.x - i), 0.1);
     EXPECT_LE(fabs(vector2[i].position.y - i), 0.1);
@@ -31,7 +31,7 @@ TEST(Splines, spline2) {
     c.position.y = i;
     cones.push_back(c);
   }
-  std::vector<Cone> vector2 = fit_spline(1, 3, 3.0, cones);
+  std::vector<Cone> vector2 = fit_spline(cones, 1, 3, 3.0);
   for (int i = 0; i < 10; i++) {
     EXPECT_LE(fabs(vector2[i].position.x - i), 0.1);
     EXPECT_LE(fabs(vector2[i].position.y - i), 0.1);

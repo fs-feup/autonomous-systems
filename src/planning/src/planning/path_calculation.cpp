@@ -19,7 +19,7 @@ std::vector<PathPoint> PathCalculation::calculate_path(const std::vector<Cone>& 
   clear_path_state();
 
   // Determine if we should regenerate all midpoints (path reset)
-  bool should_reset = config_.use_reset_path_ && reset_path_counter_ >= config_.reset_path_;
+  bool should_reset = config_.use_reset_path_ && reset_path_counter_ >= config_.reset_interval_;
   bool rebuild_all_midpoints = should_reset || !config_.use_sliding_window_;
 
   // Generate midpoints using the generator
@@ -194,7 +194,7 @@ void PathCalculation::update_path_from_past_path() {
     if (first_point_added) {
       double distance =
           std::sqrt(CGAL::squared_distance(last_added_point, candidate_colorpoint.point));
-      if (distance <= config_.tolerance_) {
+      if (distance <= config_.minimum_point_distance_) {
         RCLCPP_DEBUG(rclcpp::get_logger("planning"),
                      "Skipping point: Too close to last added point.");
         continue;
@@ -488,7 +488,7 @@ void PathCalculation::remove_invalid_neighbors() {
 // ===================== Utility Methods =====================
 
 std::shared_ptr<Midpoint> PathCalculation::find_nearest_midpoint(const Point& target) const {
-  double min_dist_sq = config_.tolerance_ * config_.tolerance_;
+  double min_dist_sq = config_.minimum_point_distance_ * config_.minimum_point_distance_;
   std::shared_ptr<Midpoint> nearest = nullptr;
 
   for (const auto& [pt, mp] : point_to_midpoint_) {

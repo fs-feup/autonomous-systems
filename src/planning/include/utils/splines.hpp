@@ -115,17 +115,17 @@ struct PositionXYAreDouble<
  *           - `position` has `x` and `y` members of type `double`
  *           - `position` has a `euclidean_distance` method
  *
+ * @param path Sequence of points to fit the spline to.
  * @param precision Number of interpolated points between each pair of original points.
  * @param order Order of the B-spline.
  * @param coeffs_ratio Ratio to determine the number of coefficients for the spline.
- * @param path Sequence of points to fit the spline to.
  * @return std::vector<T> Sequence of points representing the fitted spline.
  *
  * @note This function requires the GNU Scientific Library (GSL) for spline fitting.
  */
 template <typename T>
-std::vector<T> fit_spline(int precision, int order, float coeffs_ratio,
-                          const std::vector<T> &path) {
+std::vector<T> fit_spline(const std::vector<T> &path, int precision, int order,
+                          float coeffs_ratio) {
   static_assert(HasDefaultConstructor<T>::value, "T must be default constructible");
   static_assert(IsHashable<T>::value, "T must be hashable");
   static_assert(HasEqualityOperator<T>::value, "T must have operator==");

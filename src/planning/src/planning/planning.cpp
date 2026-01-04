@@ -43,18 +43,19 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.pc_lookback_points_ = planning_config["pc_lookback_points"].as<int>();
   params.pc_search_depth_ = planning_config["pc_search_depth"].as<int>();
   params.pc_max_points_ = planning_config["pc_max_points"].as<int>();
-  params.pc_tolerance_ = planning_config["pc_tolerance"].as<double>();
-  params.pc_reset_path_ = planning_config["pc_reset_path"].as<int>();
+  params.pc_minimum_point_distance_ = planning_config["pc_minimum_point_distance"].as<double>();
+  params.pc_reset_interval_ = planning_config["pc_reset_interval"].as<int>();
   params.pc_use_reset_path_ = planning_config["pc_use_reset_path"].as<bool>();
 
   /*--------------------- Skidpad Parameters --------------------*/
-  params.skidpad_tolerance_ = planning_config["skidpad_tolerance"].as<double>();
   params.skidpad_minimum_cones_ = planning_config["skidpad_minimum_cones"].as<int>();
+  params.skidpad_tolerance_ = planning_config["skidpad_tolerance"].as<double>();
 
   /*--------------------- Path Smoothing Parameters --------------------*/
-  params.smoothing_spline_order_ = planning_config["smoothing_spline_order"].as<int>();
-  params.smoothing_coeffs_ratio_ = planning_config["smoothing_coeffs_ratio"].as<float>();
   params.smoothing_spline_precision_ = planning_config["smoothing_spline_precision"].as<int>();
+  params.smoothing_spline_order_ = planning_config["smoothing_spline_order"].as<int>();
+  params.smoothing_spline_coeffs_ratio_ =
+      planning_config["smoothing_spline_coeffs_ratio"].as<float>();
   params.smoothing_use_path_smoothing_ = planning_config["smoothing_use_path_smoothing"].as<bool>();
   params.smoothing_use_optimization_ = planning_config["smoothing_use_optimization"].as<bool>();
   params.smoothing_car_width_ = planning_config["smoothing_car_width"].as<double>();
@@ -380,15 +381,21 @@ void Planning::publish_visualization_msgs() const {
       path_calculation_.get_triangulations(), "triangulations", map_frame_id_, 20, "white", 0.05f,
       visualization_msgs::msg::Marker::MODIFY));
 
-  // full_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-  //     full_path_, "full_path", map_frame_id_, "orange"));
+  full_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
+      full_path_, "full_path", map_frame_id_, "orange"));
 
-  // smoothed_path_pub_->publish(common_lib::communication::line_marker_from_structure_array(
-  //     smoothed_path_, "smoothed_path__planning", map_frame_id_, 12, "green"));
+  smoothed_path_pub_->publish(common_lib::communication::line_marker_from_structure_array(
+      smoothed_path_, "smoothed_path__planning", map_frame_id_, 12, "green"));
 
-  // path_to_car_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-  //     path_calculation_.get_path_to_car(), "global_path", map_frame_id_, "white", "cylinder",
-  //     0.6, visualization_msgs::msg::Marker::MODIFY));
-  velocity_hover_pub_->publish(common_lib::communication::velocity_hover_markers(
-      smoothed_path_, "velocity", map_frame_id_, 0.25f, 1));
+  path_to_car_pub_->publish(common_lib::communication::marker_array_from_structure_array(
+      path_calculation_.get_path_to_car(), "global_path", map_frame_id_, "white", "cylinder", 0.6,
+      visualization_msgs::msg::Marker::MODIFY));
+  if (planning_config_.smoothing_.use_path_smoothing_) {
+    velocity_hover_pub_->publish(common_lib::communication::velocity_hover_markers(
+        smoothed_path_, "velocity", map_frame_id_, 0.25f,
+        planning_config_.smoothing_.spline_precision_));
+  } else {
+    velocity_hover_pub_->publish(common_lib::communication::velocity_hover_markers(
+        smoothed_path_, "velocity", map_frame_id_, 0.25f, 1));
+  }
 }

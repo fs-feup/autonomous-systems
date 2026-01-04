@@ -1,12 +1,10 @@
 #include "planning/smoothing.hpp"
 
 std::vector<PathPoint> PathSmoothing::smooth_path(std::vector<PathPoint>& path) const {
-  if (this->config_.use_path_smoothing_) {
-    return fit_spline(this->config_.precision_, this->config_.order_, this->config_.coeffs_ratio_,
-                      path);
-  } else {
+  if (!config_.use_path_smoothing_) {
     return path;
   }
+  return fit_spline(path, config_.spline_precision_, config_.spline_order_, config_.spline_coeffs_ratio_);
 }
 
 std::vector<PathPoint> PathSmoothing::optimize_path(std::vector<PathPoint>& path,
@@ -16,13 +14,11 @@ std::vector<PathPoint> PathSmoothing::optimize_path(std::vector<PathPoint>& path
     return path;
   }
 
-  auto splines = fit_triple_spline(path, blue_cones, yellow_cones, config_.precision_,
-                                   config_.order_, config_.coeffs_ratio_);
+  auto splines = fit_triple_spline(path, blue_cones, yellow_cones, config_.spline_precision_,
+                                   config_.spline_order_, config_.spline_coeffs_ratio_);
 
   if (!config_.use_optimization_) {
     path = splines.center;
-    yellow_cones = splines.right;
-    blue_cones = splines.left;
     return path;
   }
 
@@ -37,10 +33,11 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
     return center;
   }
 
+  // NAO É NECESSARIO TER IGUAIS!
   const double curvature_weight = config_.curvature_weight_;
   const double smoothness_weight = config_.smoothness_weight_;
   const double safety_weight = config_.safety_weight_;
-  const double safety_margin = 0.5 * config_.car_width_ + config_.safety_margin_;
+  const double safety_margin = config_.car_width_ / 2 + config_.safety_margin_;
 
   auto circular_index = [&](int i) { return (i + num_path_points) % num_path_points; };
 

@@ -1,48 +1,42 @@
 #pragma once
 
 /**
- * @brief struct for the configuration of the velocity planning algorithm
+ * @brief Configuration parameters for the Velocity Planning class.
  *
  */
 struct VelocityPlanningConfig {
   /**
-   * @brief minimum speed the car will consider on the velocity planning lookahead
+   * @brief Minimum speed the car will consider on the velocity planning lookahead
    *
    */
   double minimum_velocity_ = 3;
 
   /**
-   * @brief the desired velocity of the car without any velocity planning
+   * @brief The desired velocity of the car without any velocity planning
    *
    */
   double desired_velocity_ = 5;
 
   /**
-   * @brief maximum braking acceleration
+   * @brief Maximum braking acceleration
    *
    */
   double braking_acceleration_ = -4;
   /**
-   * @brief maximum foward acceleration
+   * @brief Maximum foward acceleration
    *
    */
   double acceleration_ = 7.0;
   /**
-   * @brief the maximum normal acceleration
+   * @brief The maximum normal acceleration
    *
    */
   double normal_acceleration_ = 7;
   /**
-   * @brief flag to enable/disable velocity planning
+   * @brief Flag to enable/disable velocity planning
    *
    */
   bool use_velocity_planning_ = true;
+
   VelocityPlanningConfig() = default;
-  VelocityPlanningConfig(double minimum_velocity, double desired_velocity, double braking_acc, double acc, double normal_acc, bool use_velocity_planning)
-      : minimum_velocity_(minimum_velocity),
-      desired_velocity_(desired_velocity),
-      braking_acceleration_(braking_acc),
-      acceleration_(acc),
-      normal_acceleration_(normal_acc),
-      use_velocity_planning_(use_velocity_planning) {}
 };

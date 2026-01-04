@@ -24,8 +24,8 @@ struct PlanningParameters {
   int pc_lookback_points_;
   int pc_search_depth_;
   int pc_max_points_;
-  double pc_tolerance_;
-  int pc_reset_path_;
+  double pc_minimum_point_distance_;
+  int pc_reset_interval_;
   bool pc_use_reset_path_;
 
   /*---------------------- Skidpad (skidpad_) ----------------------------*/
@@ -33,9 +33,9 @@ struct PlanningParameters {
   double skidpad_tolerance_;
 
   /*---------------------- Path Smoothing (smoothing_) -------------------*/
-  int smoothing_spline_order_;
-  float smoothing_coeffs_ratio_;
   int smoothing_spline_precision_;
+  int smoothing_spline_order_;
+  float smoothing_spline_coeffs_ratio_;
   bool smoothing_use_path_smoothing_;
   bool smoothing_use_optimization_;          
   double smoothing_car_width_;              
@@ -81,8 +81,8 @@ struct PlanningConfig {
     path_calculation_.lookback_points_ = params.pc_lookback_points_;
     path_calculation_.search_depth_ = params.pc_search_depth_;
     path_calculation_.max_points_ = params.pc_max_points_;
-    path_calculation_.tolerance_ = params.pc_tolerance_;
-    path_calculation_.reset_path_ = params.pc_reset_path_;
+    path_calculation_.minimum_point_distance_ = params.pc_minimum_point_distance_;
+    path_calculation_.reset_interval_ = params.pc_reset_interval_;
     path_calculation_.use_reset_path_ = params.pc_use_reset_path_;
     path_calculation_.use_sliding_window_ = params.pc_use_sliding_window_;
 
@@ -99,9 +99,9 @@ struct PlanningConfig {
     skidpad_.tolerance_ = params.skidpad_tolerance_;
 
     /*---------------------- Path Smoothing (smoothing_) -------------------*/
-    smoothing_.order_ = params.smoothing_spline_order_;
-    smoothing_.precision_ = params.smoothing_spline_precision_;
-    smoothing_.coeffs_ratio_ = params.smoothing_coeffs_ratio_;
+    smoothing_.spline_precision_ = params.smoothing_spline_precision_;
+    smoothing_.spline_order_ = params.smoothing_spline_order_;
+    smoothing_.spline_coeffs_ratio_ = params.smoothing_spline_coeffs_ratio_;
     smoothing_.use_path_smoothing_ = params.smoothing_use_path_smoothing_;
     smoothing_.use_optimization_ = params.smoothing_use_optimization_;
     smoothing_.car_width_ = params.smoothing_car_width_;
