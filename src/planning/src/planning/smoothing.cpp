@@ -15,11 +15,12 @@ std::vector<PathPoint> PathSmoothing::optimize_path(std::vector<PathPoint>& path
   }
 
   auto splines = fit_triple_spline(path, blue_cones, yellow_cones, config_.spline_precision_,
-                                   config_.spline_order_, config_.spline_coeffs_ratio_);
+                                   config_.spline_order_);
 
   if (!config_.use_optimization_) {
     return path;
   }
+  blue_cones = splines.left;
 
   return osqp_optimization(splines.center, splines.left, splines.right);
 }
@@ -32,10 +33,6 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
     return center;
   }
 
-  // CHANGE
-  const double curvature_weight = config_.curvature_weight_;
-  const double smoothness_weight = config_.smoothness_weight_;
-  const double safety_weight = config_.safety_weight_;
   const double safety_margin = config_.car_width_ / 2 + config_.safety_margin_;
 
   auto circular_index = [&](int i) { return (i + num_path_points) % num_path_points; };
@@ -60,23 +57,23 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
     int x_current = 2 * point_idx;
     int x_next = 2 * next_point;
 
-    add_quadratic_coefficient(x_prev, x_prev, curvature_weight);
-    add_quadratic_coefficient(x_current, x_current, 4 * curvature_weight);
-    add_quadratic_coefficient(x_next, x_next, curvature_weight);
-    add_quadratic_coefficient(x_prev, x_current, -2 * curvature_weight);
-    add_quadratic_coefficient(x_current, x_next, -2 * curvature_weight);
-    add_quadratic_coefficient(x_prev, x_next, curvature_weight);
+    add_quadratic_coefficient(x_prev, x_prev, config_.curvature_weight_);
+    add_quadratic_coefficient(x_current, x_current, 4 * config_.curvature_weight_);
+    add_quadratic_coefficient(x_next, x_next, config_.curvature_weight_);
+    add_quadratic_coefficient(x_prev, x_current, -2 * config_.curvature_weight_);
+    add_quadratic_coefficient(x_current, x_next, -2 * config_.curvature_weight_);
+    add_quadratic_coefficient(x_prev, x_next, config_.curvature_weight_);
 
     int y_prev = 2 * prev_point + 1;
     int y_current = 2 * point_idx + 1;
     int y_next = 2 * next_point + 1;
 
-    add_quadratic_coefficient(y_prev, y_prev, curvature_weight);
-    add_quadratic_coefficient(y_current, y_current, 4 * curvature_weight);
-    add_quadratic_coefficient(y_next, y_next, curvature_weight);
-    add_quadratic_coefficient(y_prev, y_current, -2 * curvature_weight);
-    add_quadratic_coefficient(y_current, y_next, -2 * curvature_weight);
-    add_quadratic_coefficient(y_prev, y_next, curvature_weight);
+    add_quadratic_coefficient(y_prev, y_prev, config_.curvature_weight_);
+    add_quadratic_coefficient(y_current, y_current, 4 * config_.curvature_weight_);
+    add_quadratic_coefficient(y_next, y_next, config_.curvature_weight_);
+    add_quadratic_coefficient(y_prev, y_current, -2 * config_.curvature_weight_);
+    add_quadratic_coefficient(y_current, y_next, -2 * config_.curvature_weight_);
+    add_quadratic_coefficient(y_prev, y_next, config_.curvature_weight_);
   }
 
   for (int point_idx = 0; point_idx < num_path_points; ++point_idx) {
@@ -84,20 +81,20 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
 
     int x_current = 2 * point_idx;
     int x_next = 2 * next_point;
-    add_quadratic_coefficient(x_current, x_current, smoothness_weight);
-    add_quadratic_coefficient(x_next, x_next, smoothness_weight);
-    add_quadratic_coefficient(x_current, x_next, -smoothness_weight);
+    add_quadratic_coefficient(x_current, x_current, config_.smoothness_weight_);
+    add_quadratic_coefficient(x_next, x_next, config_.smoothness_weight_);
+    add_quadratic_coefficient(x_current, x_next, -config_.smoothness_weight_);
 
     int y_current = 2 * point_idx + 1;
     int y_next = 2 * next_point + 1;
-    add_quadratic_coefficient(y_current, y_current, smoothness_weight);
-    add_quadratic_coefficient(y_next, y_next, smoothness_weight);
-    add_quadratic_coefficient(y_current, y_next, -smoothness_weight);
+    add_quadratic_coefficient(y_current, y_current, config_.smoothness_weight_);
+    add_quadratic_coefficient(y_next, y_next, config_.smoothness_weight_);
+    add_quadratic_coefficient(y_current, y_next, -config_.smoothness_weight_);
   }
 
   for (int slack_idx = 0; slack_idx < num_slack_variables; ++slack_idx) {
     int slack_variable_index = 2 * num_path_points + slack_idx;
-    add_quadratic_coefficient(slack_variable_index, slack_variable_index, safety_weight);
+    add_quadratic_coefficient(slack_variable_index, slack_variable_index, config_.safety_weight_);
   }
 
   std::vector<OSQPFloat> linear_objective(total_variables, 0.0);

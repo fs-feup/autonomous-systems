@@ -3,7 +3,9 @@
 
 #include <gsl/gsl_bspline.h>
 #include <gsl/gsl_errno.h>
+#include <gsl/gsl_interp.h>
 #include <gsl/gsl_multifit.h>
+#include <gsl/gsl_spline.h>
 
 #include <cmath>
 #include <type_traits>
@@ -270,10 +272,34 @@ std::vector<T> fit_spline(const std::vector<T> &path, int precision, int order,
   return path_eval;
 }
 
+/**
+ * @brief This function takes three sequences of points (center, left, right), fits splines to them
+ * using GSL interpolation methods, and returns three sequences of points representing the fitted
+ * splines. All three splines share the same parametric domain based on the center line's arc
+ * length.
+ *
+ * @tparam T Type of the elements in the input and output sequences.
+ *           T must satisfy several requirements:
+ *           - Default constructible
+ *           - Hashable
+ *           - Equality comparable
+ *           - Has a `position` member
+ *           - `position` has `x` and `y` members of type `double`
+ *           - `position` has a `euclidean_distance` method
+ *
+ * @param center Sequence of points representing the center line.
+ * @param left Sequence of points representing the left boundary.
+ * @param right Sequence of points representing the right boundary.
+ * @param precision Number of interpolated points between each pair of original points.
+ * @param order Order of the interpolation: 2=linear, 3=cubic spline...
+ * @return TripleSpline<T> Structure containing three spline sequences: center, left, and right.
+ *
+ * @note This function requires the GNU Scientific Library (GSL) for spline interpolation.
+ * @note All three input sequences must have the same size and at least 2 points.
+ */
 template <typename T>
 TripleSpline<T> fit_triple_spline(const std::vector<T> &center, const std::vector<T> &left,
-                                  const std::vector<T> &right, int precision, int order,
-                                  float coeffs_ratio) {
+                                  const std::vector<T> &right, int precision, int order) {
   static_assert(HasDefaultConstructor<T>::value, "T must be default constructible");
   static_assert(IsHashable<T>::value, "T must be hashable");
   static_assert(HasEqualityOperator<T>::value, "T must have operator==");
@@ -285,167 +311,120 @@ TripleSpline<T> fit_triple_spline(const std::vector<T> &center, const std::vecto
 
   TripleSpline<T> result;
 
-  const size_t n = center.size();
+  // Check if we have enough points and all sequences have the same size
   if (n < 2 || left.size() != n || right.size() != n) {
+    RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
+                 "Invalid input for fit_triple_spline: center has %zu points, "
+                 "left has %zu points, right has %zu points. All must be >= 2 and equal.",
+                 center.size(), left.size(), right.size());
     return result;
   }
 
-  // -------------------------
-  // Number of spline coeffs
-  // -------------------------
-  size_t ncoeffs = static_cast<size_t>(static_cast<float>(n) / coeffs_ratio);
-  if (ncoeffs < static_cast<size_t>(order)) {
-    ncoeffs = order;
-  }
-  if (ncoeffs > n) {
-    ncoeffs = n;
-  }
+  // -------- COMPUTE PARAMETRIC DOMAIN BASED ON ARC LENGTH --------
+  // Use cumulative arc length of the center line as the parameter t
+  std::vector<double> t_values(n);
+  t_values[0] = 0.0;
 
-  const int nbreak = static_cast<int>(ncoeffs) - order + 2;
-  if (nbreak < 2) {
-    return result;
+  for (size_t i = 1; i < n; ++i) {
+    double dist = center[i].position.euclidean_distance(center[i - 1].position);
+    t_values[i] = t_values[i - 1] + dist;
   }
 
-  const double t_min = 0.0;
-  const double t_max = static_cast<double>(n - 1);
+  // -------- EXTRACT COORDINATE DATA FROM INPUT POINTS --------
+  std::vector<double> center_x(n), center_y(n);
+  std::vector<double> left_x(n), left_y(n);
+  std::vector<double> right_x(n), right_y(n);
 
-  // -------------------------
-  // GSL workspaces
-  // -------------------------
-  gsl_bspline_workspace *bw = gsl_bspline_alloc(order, nbreak);
-
-  gsl_vector *B = gsl_vector_alloc(ncoeffs);
-  gsl_vector *w = gsl_vector_alloc(n);
-
-  auto alloc_vec = [&]() { return gsl_vector_alloc(n); };
-  auto alloc_mat = [&]() { return gsl_matrix_alloc(n, ncoeffs); };
-
-  // Data vectors
-  gsl_vector *cx = alloc_vec(), *cy = alloc_vec();
-  gsl_vector *lx = alloc_vec(), *ly = alloc_vec();
-  gsl_vector *rx = alloc_vec(), *ry = alloc_vec();
-
-  gsl_matrix *X = alloc_mat();
-
-  // Coefficients
-  gsl_vector *ccx = gsl_vector_alloc(ncoeffs), *ccy = gsl_vector_alloc(ncoeffs);
-  gsl_vector *clx = gsl_vector_alloc(ncoeffs), *cly = gsl_vector_alloc(ncoeffs);
-  gsl_vector *crx = gsl_vector_alloc(ncoeffs), *cry = gsl_vector_alloc(ncoeffs);
-
-  gsl_matrix *cov = gsl_matrix_alloc(ncoeffs, ncoeffs);
-  gsl_multifit_linear_workspace *mw = gsl_multifit_linear_alloc(n, ncoeffs);
-
-  // -------------------------
-  // Fill input data
-  // -------------------------
   for (size_t i = 0; i < n; ++i) {
-    gsl_vector_set(cx, i, center[i].position.x);
-    gsl_vector_set(cy, i, center[i].position.y);
-    gsl_vector_set(lx, i, left[i].position.x);
-    gsl_vector_set(ly, i, left[i].position.y);
-    gsl_vector_set(rx, i, right[i].position.x);
-    gsl_vector_set(ry, i, right[i].position.y);
-
-    // Distance-based weights (using center line spacing)
-    double dist_next = 1.0;
-    if (i + 1 < n) {
-      dist_next = center[i].position.euclidean_distance(center[i + 1].position);
-    } else if (i > 0) {
-      dist_next = center[i].position.euclidean_distance(center[i - 1].position);
-    }
-    if (dist_next < 1e-6) dist_next = 1e-6;
-
-    gsl_vector_set(w, i, 1.0 / (dist_next * dist_next));
+    center_x[i] = center[i].position.x;
+    center_y[i] = center[i].position.y;
+    left_x[i] = left[i].position.x;
+    left_y[i] = left[i].position.y;
+    right_x[i] = right[i].position.x;
+    right_y[i] = right[i].position.y;
   }
 
-  // -------------------------
-  // Uniform knots
-  // -------------------------
-  gsl_bspline_knots_uniform(t_min, t_max, bw);
+  // -------- INITIALIZE GSL INTERPOLATION --------
+  gsl_interp_accel *acc = gsl_interp_accel_alloc();
 
-  // -------------------------
-  // Design matrix
-  // -------------------------
-  for (size_t i = 0; i < n; ++i) {
-    gsl_bspline_eval(static_cast<double>(i), B, bw);
-    for (size_t j = 0; j < ncoeffs; ++j) gsl_matrix_set(X, i, j, gsl_vector_get(B, j));
+  // Select interpolation type based on order parameter
+  const gsl_interp_type *interp_type;
+  if (order == 2) {
+    interp_type = gsl_interp_linear;
+  } else if (order == 3) {
+    interp_type = gsl_interp_cspline;
+  } else {
+    interp_type = gsl_interp_akima;
   }
 
-  double chisq;
+  // -------- ALLOCATE SPLINES FOR ALL COORDINATES --------
+  // We need 6 splines total: (center, left, right) × (x, y)
+  gsl_spline *spline_center_x = gsl_spline_alloc(interp_type, n);
+  gsl_spline *spline_center_y = gsl_spline_alloc(interp_type, n);
+  gsl_spline *spline_left_x = gsl_spline_alloc(interp_type, n);
+  gsl_spline *spline_left_y = gsl_spline_alloc(interp_type, n);
+  gsl_spline *spline_right_x = gsl_spline_alloc(interp_type, n);
+  gsl_spline *spline_right_y = gsl_spline_alloc(interp_type, n);
 
-  // -------------------------
-  // Fit all splines
-  // -------------------------
-  auto fit = [&](gsl_vector *data, gsl_vector *coeffs) {
-    gsl_multifit_wlinear(X, w, data, coeffs, cov, &chisq, mw);
-  };
+  // -------- INITIALIZE SPLINES WITH DATA --------
+  // Each spline interpolates one coordinate as a function of parameter t
+  gsl_spline_init(spline_center_x, t_values.data(), center_x.data(), n);
+  gsl_spline_init(spline_center_y, t_values.data(), center_y.data(), n);
+  gsl_spline_init(spline_left_x, t_values.data(), left_x.data(), n);
+  gsl_spline_init(spline_left_y, t_values.data(), left_y.data(), n);
+  gsl_spline_init(spline_right_x, t_values.data(), right_x.data(), n);
+  gsl_spline_init(spline_right_y, t_values.data(), right_y.data(), n);
 
-  fit(cx, ccx);
-  fit(cy, ccy);
-  fit(lx, clx);
-  fit(ly, cly);
-  fit(rx, crx);
-  fit(ry, cry);
+  // -------- EVALUATE SPLINES AT HIGHER RESOLUTION --------
+  const double t_min = t_values[0];
+  const double t_max = t_values[n - 1];
+  const size_t total_points = n * precision;
 
-  // -------------------------
-  // Evaluate splines
-  // -------------------------
-  const size_t total = n * precision;
-  result.center.reserve(total);
-  result.left.reserve(total);
-  result.right.reserve(total);
+  result.center.reserve(total_points);
+  result.left.reserve(total_points);
+  result.right.reserve(total_points);
 
   for (size_t i = 0; i < n; ++i) {
     for (int j = 0; j < precision; ++j) {
-      double t = static_cast<double>(i) + static_cast<double>(j) / precision;
+      // Compute parameter t for this evaluation point
+      double t_start = t_values[i];
+      double t_end = (i + 1 < n) ? t_values[i + 1] : t_max;
+      double t = t_start + (t_end - t_start) * (static_cast<double>(j) / precision);
+
+      // Clamp t to valid range
       if (t > t_max) t = t_max;
+      if (t < t_min) t = t_min;
 
-      gsl_bspline_eval(t, B, bw);
+      // -------- EVALUATE ALL SPLINES AT PARAMETER t --------
+      T point_center, point_left, point_right;
 
-      auto eval = [&](gsl_vector *c, double &out) {
-        double err;
-        gsl_multifit_linear_est(B, c, cov, &out, &err);
-      };
+      point_center.position.x = gsl_spline_eval(spline_center_x, t, acc);
+      point_center.position.y = gsl_spline_eval(spline_center_y, t, acc);
 
-      T pc, pl, pr;
+      point_left.position.x = gsl_spline_eval(spline_left_x, t, acc);
+      point_left.position.y = gsl_spline_eval(spline_left_y, t, acc);
 
-      eval(ccx, pc.position.x);
-      eval(ccy, pc.position.y);
-      eval(clx, pl.position.x);
-      eval(cly, pl.position.y);
-      eval(crx, pr.position.x);
-      eval(cry, pr.position.y);
+      point_right.position.x = gsl_spline_eval(spline_right_x, t, acc);
+      point_right.position.y = gsl_spline_eval(spline_right_y, t, acc);
 
-      result.center.push_back(pc);
-      result.left.push_back(pl);
-      result.right.push_back(pr);
+      result.center.push_back(point_center);
+      result.left.push_back(point_left);
+      result.right.push_back(point_right);
     }
   }
 
-  // -------------------------
-  // Cleanup
-  // -------------------------
-  gsl_bspline_free(bw);
-  gsl_vector_free(B);
-  gsl_vector_free(w);
+  // -------- CLEANUP GSL RESOURCES --------
+  gsl_spline_free(spline_cx);
+  gsl_spline_free(spline_cy);
+  gsl_spline_free(spline_lx);
+  gsl_spline_free(spline_ly);
+  gsl_spline_free(spline_rx);
+  gsl_spline_free(spline_ry);
+  gsl_interp_accel_free(acc);
 
-  gsl_vector_free(cx);
-  gsl_vector_free(cy);
-  gsl_vector_free(lx);
-  gsl_vector_free(ly);
-  gsl_vector_free(rx);
-  gsl_vector_free(ry);
-
-  gsl_vector_free(ccx);
-  gsl_vector_free(ccy);
-  gsl_vector_free(clx);
-  gsl_vector_free(cly);
-  gsl_vector_free(crx);
-  gsl_vector_free(cry);
-
-  gsl_matrix_free(X);
-  gsl_matrix_free(cov);
-  gsl_multifit_linear_free(mw);
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
+               "END fit_triple_spline with %zu center, %zu left, %zu right points",
+               result.center.size(), result.left.size(), result.right.size());
 
   return result;
 }

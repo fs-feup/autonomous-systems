@@ -269,8 +269,8 @@ void Planning::run_trackdrive() {
     full_path_ = path_calculation_.calculate_path(cone_array_);
     smoothed_path_ = path_smoothing_.smooth_path(full_path_);
     velocity_planning_.set_velocity(smoothed_path_);
-    full_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-        full_path_, "full_path", map_frame_id_, "orange"));
+    // full_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
+    //     full_path_, "full_path", map_frame_id_, "orange"));
 
   } else if (lap_counter_ >= 1 && lap_counter_ < 10) {
     if (!is_map_closed_) {
@@ -301,7 +301,7 @@ void Planning::run_trackdrive() {
 
         double avg_vel = sum / smoothed_path_.size();
 
-        RCLCPP_INFO(get_logger(),
+        RCLCPP_DEBUG(get_logger(),
                     "[TRACKDRIVE] Velocity Stats - Avg: %.2f m/s | Max: %.2f m/s | Min: %.2f m/s",
                     avg_vel, max_vel, min_vel);
       }
