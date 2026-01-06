@@ -20,7 +20,6 @@ std::vector<PathPoint> PathSmoothing::optimize_path(std::vector<PathPoint>& path
   if (!config_.use_optimization_) {
     return path;
   }
-  blue_cones = splines.left;
 
   return osqp_optimization(splines.center, splines.left, splines.right);
 }
@@ -154,11 +153,7 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
     
     // Compute lateral direction (perpendicular to track)
     Eigen::Vector2d lateral_direction = (left_boundary_point - right_boundary_point).normalized();
-
-    // Adaptive margin based on track width
-    double track_width = (left_boundary_point - right_boundary_point).norm();
-    double adaptive_margin = std::max(safety_margin, 0.2 * track_width);
-
+    
     // Right boundary constraint: lateral_direction · point + slack >= right_boundary_value
     constraint_row_indices.push_back(constraint_count);
     constraint_col_indices.push_back(2 * point_idx);
@@ -173,7 +168,7 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
     constraint_values.push_back(1.0);
 
     double right_boundary_constraint =
-        right_boundary_point.dot(lateral_direction) + adaptive_margin;
+        right_boundary_point.dot(lateral_direction) + safety_margin;
     constraint_lower_bounds.push_back(right_boundary_constraint);
     constraint_upper_bounds.push_back(OSQP_INFTY);
     constraint_count++;
@@ -191,7 +186,7 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
     constraint_col_indices.push_back(2 * num_path_points + 2 * point_idx + 1);
     constraint_values.push_back(1.0);
 
-    double left_boundary_constraint = -left_boundary_point.dot(lateral_direction) + adaptive_margin;
+    double left_boundary_constraint = -left_boundary_point.dot(lateral_direction) + safety_margin;
     constraint_lower_bounds.push_back(left_boundary_constraint);
     constraint_upper_bounds.push_back(OSQP_INFTY);
     constraint_count++;

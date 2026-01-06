@@ -269,13 +269,11 @@ void Planning::run_trackdrive() {
     full_path_ = path_calculation_.calculate_path(cone_array_);
     smoothed_path_ = path_smoothing_.smooth_path(full_path_);
     velocity_planning_.set_velocity(smoothed_path_);
-    // full_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-    //     full_path_, "full_path", map_frame_id_, "orange"));
-
   } else if (lap_counter_ >= 1 && lap_counter_ < 10) {
     if (!is_map_closed_) {
       is_map_closed_ = true;
       full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
+
       const std::vector<Cone> yellow_cones_ = path_calculation_.get_yellow_cones();
       const std::vector<Cone> blue_cones_ = path_calculation_.get_blue_cones();
       std::vector<PathPoint> yellow_cones;
@@ -286,8 +284,10 @@ void Planning::run_trackdrive() {
       for (const Cone &cone : blue_cones_) {
         blue_cones.emplace_back(cone.position.x, cone.position.y);
       }
+
       smoothed_path_ = path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones);
       velocity_planning_.trackdrive_velocity(smoothed_path_);
+
       if (!smoothed_path_.empty()) {
         double sum = 0.0;
         double max_vel = smoothed_path_[0].ideal_velocity;
@@ -301,13 +301,10 @@ void Planning::run_trackdrive() {
 
         double avg_vel = sum / smoothed_path_.size();
 
-        RCLCPP_INFO(get_logger(),
+        RCLCPP_DEBUG(get_logger(),
                     "[TRACKDRIVE] Velocity Stats - Avg: %.2f m/s | Max: %.2f m/s | Min: %.2f m/s",
                     avg_vel, max_vel, min_vel);
       }
-      path_to_car_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-          blue_cones, "global_path", map_frame_id_, "white", "cylinder", 0.6,
-          visualization_msgs::msg::Marker::MODIFY));
     }
   } else {
     velocity_planning_.stop(smoothed_path_);
@@ -404,9 +401,10 @@ void Planning::publish_visualization_msgs() const {
   smoothed_path_pub_->publish(common_lib::communication::line_marker_from_structure_array(
       smoothed_path_, "smoothed_path__planning", map_frame_id_, 12, "green"));
 
-  // path_to_car_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-  //     path_calculation_.get_path_to_car(), "global_path", map_frame_id_, "white", "cylinder",
-  //     0.6, visualization_msgs::msg::Marker::MODIFY));
+  path_to_car_pub_->publish(common_lib::communication::marker_array_from_structure_array(
+      path_calculation_.get_path_to_car(), "global_path", map_frame_id_, "white", "cylinder",
+      0.6, visualization_msgs::msg::Marker::MODIFY));
+      
   if (planning_config_.smoothing_.use_path_smoothing_) {
     velocity_hover_pub_->publish(common_lib::communication::velocity_hover_markers(
         smoothed_path_, "velocity", map_frame_id_, 0.25f,
