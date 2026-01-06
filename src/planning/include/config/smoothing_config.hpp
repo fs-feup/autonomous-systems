@@ -62,7 +62,7 @@ struct PathSmoothingConfig {
   /**
    * @brief Weight for safety distance from obstacles in the optimization cost function.
    */
-  double safety_weight_ = 100000.0;
+  double safety_weight_ = 100'000.0;
 
   /**
    * @brief Maximum number of iterations for the optimization solver.
