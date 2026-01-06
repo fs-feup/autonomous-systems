@@ -271,7 +271,6 @@ std::vector<T> fit_spline(const std::vector<T> &path, int precision, int order,
 
   return path_eval;
 }
-
 /**
  * @brief This function takes three sequences of points (center, left, right), fits splines to them
  * using GSL interpolation methods, and returns three sequences of points representing the fitted
@@ -291,7 +290,7 @@ std::vector<T> fit_spline(const std::vector<T> &path, int precision, int order,
  * @param left Sequence of points representing the left boundary.
  * @param right Sequence of points representing the right boundary.
  * @param precision Number of interpolated points between each pair of original points.
- * @param order Order of the interpolation: 2=linear, 3=cubic spline...
+ * @param order Order of the interpolation: 2=linear, 3=cubic spline, other=Akima spline.
  * @return TripleSpline<T> Structure containing three spline sequences: center, left, and right.
  *
  * @note This function requires the GNU Scientific Library (GSL) for spline interpolation.
@@ -310,6 +309,8 @@ TripleSpline<T> fit_triple_spline(const std::vector<T> &center, const std::vecto
   static_assert(PositionXYAreDouble<T>::value, "T.position.x and T.position.y must be double");
 
   TripleSpline<T> result;
+
+  const size_t n = center.size();
 
   // Check if we have enough points and all sequences have the same size
   if (n < 2 || left.size() != n || right.size() != n) {
@@ -386,7 +387,7 @@ TripleSpline<T> fit_triple_spline(const std::vector<T> &center, const std::vecto
 
   for (size_t i = 0; i < n; ++i) {
     for (int j = 0; j < precision; ++j) {
-      // Compute parameter t for this evaluation point
+      // Compute parameter t for this evaluation point within segment i
       double t_start = t_values[i];
       double t_end = (i + 1 < n) ? t_values[i + 1] : t_max;
       double t = t_start + (t_end - t_start) * (static_cast<double>(j) / precision);
@@ -414,12 +415,12 @@ TripleSpline<T> fit_triple_spline(const std::vector<T> &center, const std::vecto
   }
 
   // -------- CLEANUP GSL RESOURCES --------
-  gsl_spline_free(spline_cx);
-  gsl_spline_free(spline_cy);
-  gsl_spline_free(spline_lx);
-  gsl_spline_free(spline_ly);
-  gsl_spline_free(spline_rx);
-  gsl_spline_free(spline_ry);
+  gsl_spline_free(spline_center_x);
+  gsl_spline_free(spline_center_y);
+  gsl_spline_free(spline_left_x);
+  gsl_spline_free(spline_left_y);
+  gsl_spline_free(spline_right_x);
+  gsl_spline_free(spline_right_y);
   gsl_interp_accel_free(acc);
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
