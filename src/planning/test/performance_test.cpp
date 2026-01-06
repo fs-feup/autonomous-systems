@@ -9,8 +9,8 @@
 void iterate_smoothing(std::vector<PathPoint> &path) {
   auto path_smoothing = PathSmoothing();
 
-  std::ofstream measures_path = openWriteFile("performance/exec_time/planning/planning_" +
-                                              get_current_date_time_as_string() + ".csv");
+  std::ofstream measures_path = ::openWriteFile("performance/exec_time/planning/planning_" +
+                                              ::get_current_date_time_as_string() + ".csv");
   double total_time = 0;
   int no_iters = 100;
 

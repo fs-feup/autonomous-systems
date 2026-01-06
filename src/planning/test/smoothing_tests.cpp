@@ -8,7 +8,7 @@ TEST(PathSmoothing, path_smooth1) {
   std::string file_path = "src/planning/tracks/path_smooth1.txt";
   PathSmoothing path_smoothing;
   Pose car_pose = {0, 0, 0};
-  std::vector<common_lib::structures::PathPoint> input_path = path_from_file(file_path);
+  std::vector<common_lib::structures::PathPoint> input_path = ::path_from_file(file_path);
   std::vector<common_lib::structures::PathPoint> smoothed_path =
       path_smoothing.smooth_path(input_path);
   EXPECT_EQ((int)smoothed_path.size(), 120);
@@ -22,7 +22,7 @@ TEST(PathSmoothing, path_smooth2) {
   std::string file_path = "src/planning/tracks/path_smooth2.txt";
   PathSmoothing path_smoothing;
   Pose car_pose = {0, 0, 0};
-  std::vector<common_lib::structures::PathPoint> input_path = path_from_file(file_path);
+  std::vector<common_lib::structures::PathPoint> input_path = ::path_from_file(file_path);
   std::vector<common_lib::structures::PathPoint> smoothed_path =
       path_smoothing.smooth_path(input_path);
   EXPECT_EQ((int)smoothed_path.size(), 390);
