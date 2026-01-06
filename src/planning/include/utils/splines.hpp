@@ -305,7 +305,7 @@ std::vector<T> fit_spline(const std::vector<T> &path, int precision, int order,
  * @param left Sequence of points representing the left boundary.
  * @param right Sequence of points representing the right boundary.
  * @param precision Number of interpolated points between each pair of original points.
- * @param order Order of the interpolation: 2=linear, 3=cubic spline, other=Akima spline.
+ * @param order Order of the interpolation: 2=linear, 3=cubic spline
  * @return TripleSpline<T> Structure containing three spline sequences: center, left, and right.
  *
  * @note This function requires the GNU Scientific Library (GSL) for spline interpolation.
@@ -367,9 +367,9 @@ TripleSpline<T> fit_triple_spline(const std::vector<T> &center, const std::vecto
   gsl_interp_accel *acc = ::gsl_interp_accel_alloc();
 
   // Select interpolation type based on order parameter
-  const gsl_interp_type *interp_type = gsl_interp_linear;
+  const gsl_interp_type *interp_type = ::gsl_interp_linear;
   if (order == 3) {
-    interp_type = gsl_interp_cspline;
+    interp_type = ::gsl_interp_cspline;
   }
 
   // -------- ALLOCATE SPLINES FOR ALL COORDINATES --------
@@ -403,7 +403,10 @@ TripleSpline<T> fit_triple_spline(const std::vector<T> &center, const std::vecto
     for (int j = 0; j < precision; ++j) {
       // Compute parameter t for this evaluation point within segment i
       double t_start = t_values[i];
-      double t_end = (i + 1 < n) ? t_values[i + 1] : t_max;
+      double t_end = t_max;
+      if (i + 1 < n) {
+        t_end = t_values[i + 1];
+      }
       double t = t_start + (t_end - t_start) * (static_cast<double>(j) / precision);
 
       // Clamp t to valid range
