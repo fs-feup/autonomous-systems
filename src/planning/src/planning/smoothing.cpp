@@ -16,7 +16,7 @@ std::vector<PathPoint> PathSmoothing::optimize_path(
   }
 
   auto splines = ::fit_triple_spline(path, blue_cones, yellow_cones, config_.spline_precision_,
-                                   config_.spline_order_);
+                                     config_.spline_order_);
 
   if (!config_.use_optimization_) {
     return path;
@@ -206,16 +206,6 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
 
   const int total_constraints = constraint_count;
 
-  // -------- ALLOCATE AND POPULATE OBJECTIVE MATRIX P (CSC FORMAT) --------
-  OSQPCscMatrix* objective_matrix = (OSQPCscMatrix*)malloc(sizeof(OSQPCscMatrix));
-  objective_matrix->m = total_variables;
-  objective_matrix->n = total_variables;
-  objective_matrix->nzmax = P_values.size();
-  objective_matrix->nz = -1;  // -1 indicates CSC format
-  objective_matrix->x = (OSQPFloat*)malloc(P_values.size() * sizeof(OSQPFloat));
-  objective_matrix->i = (OSQPInt*)malloc(P_values.size() * sizeof(OSQPInt));
-  objective_matrix->p = (OSQPInt*)malloc((total_variables + 1) * sizeof(OSQPInt));
-
   // Convert coordinate format to CSC (Compressed Sparse Column) format
   std::vector<std::vector<std::pair<OSQPInt, OSQPFloat>>> columns_P(total_variables);
   for (size_t entry = 0; entry < P_values.size(); ++entry) {
@@ -228,84 +218,91 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
               [](const auto& a, const auto& b) { return a.first < b.first; });
   }
 
-  // Fill CSC arrays
-  size_t csc_entry_index = 0;
-  objective_matrix->p[0] = 0;
+  // Build CSC arrays for P
+  std::vector<OSQPFloat> P_x;
+  std::vector<OSQPInt> P_i;
+  std::vector<OSQPInt> P_p(total_variables + 1);
+
+  P_x.reserve(P_values.size());
+  P_i.reserve(P_values.size());
+
+  P_p[0] = 0;
   for (int col = 0; col < total_variables; ++col) {
     for (const auto& [row, value] : columns_P[col]) {
-      objective_matrix->i[csc_entry_index] = row;
-      objective_matrix->x[csc_entry_index] = value;
-      csc_entry_index++;
+      P_i.push_back(row);
+      P_x.push_back(value);
     }
-    objective_matrix->p[col + 1] = csc_entry_index;
+    P_p[col + 1] = P_x.size();
   }
 
-  // -------- ALLOCATE AND POPULATE CONSTRAINT MATRIX A (CSC FORMAT) --------
-  OSQPCscMatrix* constraint_matrix = (OSQPCscMatrix*)malloc(sizeof(OSQPCscMatrix));
-  constraint_matrix->m = total_constraints;
-  constraint_matrix->n = total_variables;
-  constraint_matrix->nzmax = constraint_values.size();
-  constraint_matrix->nz = -1;  // -1 indicates CSC format
-  constraint_matrix->x = (OSQPFloat*)malloc(constraint_values.size() * sizeof(OSQPFloat));
-  constraint_matrix->i = (OSQPInt*)malloc(constraint_values.size() * sizeof(OSQPInt));
-  constraint_matrix->p = (OSQPInt*)malloc((total_variables + 1) * sizeof(OSQPInt));
-
-  // Convert coordinate format to CSC format
+  // -------- CONVERT TO CSC FORMAT FOR A --------
   std::vector<std::vector<std::pair<OSQPInt, OSQPFloat>>> columns_A(total_variables);
   for (size_t entry = 0; entry < constraint_values.size(); ++entry) {
     columns_A[constraint_col_indices[entry]].push_back(
         {constraint_row_indices[entry], constraint_values[entry]});
   }
 
-  // Sort each column by row index
   for (int col = 0; col < total_variables; ++col) {
     std::sort(columns_A[col].begin(), columns_A[col].end(),
               [](const auto& a, const auto& b) { return a.first < b.first; });
   }
 
-  // Fill CSC arrays
-  csc_entry_index = 0;
-  constraint_matrix->p[0] = 0;
+  // Build CSC arrays for A using vectors
+  std::vector<OSQPFloat> A_x;
+  std::vector<OSQPInt> A_i;
+  std::vector<OSQPInt> A_p(total_variables + 1);
+
+  A_x.reserve(constraint_values.size());
+  A_i.reserve(constraint_values.size());
+
+  A_p[0] = 0;
   for (int col = 0; col < total_variables; ++col) {
     for (const auto& [row, value] : columns_A[col]) {
-      constraint_matrix->i[csc_entry_index] = row;
-      constraint_matrix->x[csc_entry_index] = value;
-      csc_entry_index++;
+      A_i.push_back(row);
+      A_x.push_back(value);
     }
-    constraint_matrix->p[col + 1] = csc_entry_index;
+    A_p[col + 1] = A_x.size();
   }
 
+  // -------- POPULATE MATRIX STRUCTURES --------
+  OSQPCscMatrix objective_matrix;
+  objective_matrix.m = total_variables;
+  objective_matrix.n = total_variables;
+  objective_matrix.nzmax = P_x.size();
+  objective_matrix.nz = -1;
+  objective_matrix.x = P_x.data();
+  objective_matrix.i = P_i.data();
+  objective_matrix.p = P_p.data();
+
+  OSQPCscMatrix constraint_matrix;
+  constraint_matrix.m = total_constraints;
+  constraint_matrix.n = total_variables;
+  constraint_matrix.nzmax = A_x.size();
+  constraint_matrix.nz = -1;
+  constraint_matrix.x = A_x.data();
+  constraint_matrix.i = A_i.data();
+  constraint_matrix.p = A_p.data();
+
   // -------- CONFIGURE OSQP SOLVER SETTINGS --------
-  OSQPSettings* solver_settings = (OSQPSettings*)malloc(sizeof(OSQPSettings));
-  osqp_set_default_settings(solver_settings);
-  solver_settings->verbose = 1;
-  solver_settings->max_iter = config_.max_iterations_;
-  solver_settings->eps_abs = config_.tolerance_;
-  solver_settings->eps_rel = config_.tolerance_;
-  solver_settings->polishing = 1;  // Enable polishing for better accuracy
+  OSQPSettings solver_settings;
+  osqp_set_default_settings(&solver_settings);
+  solver_settings.verbose = 1;
+  solver_settings.max_iter = config_.max_iterations_;
+  solver_settings.eps_abs = config_.tolerance_;
+  solver_settings.eps_rel = config_.tolerance_;
+  solver_settings.polishing = 1;
 
   // -------- SETUP OSQP SOLVER --------
   OSQPSolver* solver = nullptr;
 
   OSQPInt setup_status =
-      osqp_setup(&solver, objective_matrix, linear_objective.data(), constraint_matrix,
+      osqp_setup(&solver, &objective_matrix, linear_objective.data(), &constraint_matrix,
                  constraint_lower_bounds.data(), constraint_upper_bounds.data(), total_variables,
-                 total_constraints, solver_settings);
+                 total_constraints, &solver_settings);
 
   if (setup_status != 0) {
     RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "OSQP setup failed with status %lld", setup_status);
-
-    // Cleanup and return original path
     if (solver) osqp_cleanup(solver);
-    free(solver_settings);
-    free(objective_matrix->x);
-    free(objective_matrix->i);
-    free(objective_matrix->p);
-    free(objective_matrix);
-    free(constraint_matrix->x);
-    free(constraint_matrix->i);
-    free(constraint_matrix->p);
-    free(constraint_matrix);
     return center;
   }
 
@@ -329,15 +326,6 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
 
   // -------- CLEANUP OSQP RESOURCES --------
   osqp_cleanup(solver);
-  free(solver_settings);
-  free(objective_matrix->x);
-  free(objective_matrix->i);
-  free(objective_matrix->p);
-  free(objective_matrix);
-  free(constraint_matrix->x);
-  free(constraint_matrix->i);
-  free(constraint_matrix->p);
-  free(constraint_matrix);
 
   return optimized_path;
 }
