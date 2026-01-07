@@ -25,7 +25,7 @@ public:
    *
    */
   PathSmoothing() = default;
-  
+
   /**
    * @brief Construct a new Path Smoothing object with a given configuration
    *
@@ -40,7 +40,7 @@ public:
    * @return std::vector<PathPoint> The smoothed path
    *
    */
-  std::vector<PathPoint> smooth_path(std::vector<PathPoint>& path) const;
+  std::vector<PathPoint> smooth_path(const std::vector<PathPoint>& path) const;
 
   /**
    * @brief Optimizes a racing line path by fitting splines through track boundaries and applying
@@ -53,9 +53,9 @@ public:
    * @return std::vector<PathPoint> The optimized path
    *
    */
-  std::vector<PathPoint> optimize_path(std::vector<PathPoint>& path,
-                                       std::vector<PathPoint>& yellow_cones,
-                                       std::vector<PathPoint>& blue_cones) const;
+  std::vector<PathPoint> optimize_path(const std::vector<PathPoint>& path,
+                                       const std::vector<PathPoint>& yellow_cones,
+                                       const std::vector<PathPoint>& blue_cones) const;
 
 private:
   /**

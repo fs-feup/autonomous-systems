@@ -279,10 +279,10 @@ void Planning::run_trackdrive() {
       std::vector<PathPoint> yellow_cones;
       std::vector<PathPoint> blue_cones;
       for (const Cone &cone : yellow_cones_) {
-        yellow_cones.emplace_back(cone.position.x, cone.position.y);
+        (void)yellow_cones.emplace_back(cone.position.x, cone.position.y);
       }
       for (const Cone &cone : blue_cones_) {
-        blue_cones.emplace_back(cone.position.x, cone.position.y);
+        (void)blue_cones.emplace_back(cone.position.x, cone.position.y);
       }
 
       smoothed_path_ = path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones);
@@ -295,15 +295,19 @@ void Planning::run_trackdrive() {
 
         for (const auto &point : smoothed_path_) {
           sum += point.ideal_velocity;
-          if (point.ideal_velocity > max_vel) max_vel = point.ideal_velocity;
-          if (point.ideal_velocity < min_vel) min_vel = point.ideal_velocity;
+          if (point.ideal_velocity > max_vel) {
+            max_vel = point.ideal_velocity;
+          }
+          if (point.ideal_velocity < min_vel) {
+            min_vel = point.ideal_velocity;
+          }
         }
 
         double avg_vel = sum / smoothed_path_.size();
 
         RCLCPP_DEBUG(get_logger(),
-                    "[TRACKDRIVE] Velocity Stats - Avg: %.2f m/s | Max: %.2f m/s | Min: %.2f m/s",
-                    avg_vel, max_vel, min_vel);
+                     "[TRACKDRIVE] Velocity Stats - Avg: %.2f m/s | Max: %.2f m/s | Min: %.2f m/s",
+                     avg_vel, max_vel, min_vel);
       }
     }
   } else {
@@ -402,9 +406,9 @@ void Planning::publish_visualization_msgs() const {
       smoothed_path_, "smoothed_path__planning", map_frame_id_, 12, "green"));
 
   path_to_car_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      path_calculation_.get_path_to_car(), "global_path", map_frame_id_, "white", "cylinder",
-      0.6, visualization_msgs::msg::Marker::MODIFY));
-      
+      path_calculation_.get_path_to_car(), "global_path", map_frame_id_, "white", "cylinder", 0.6,
+      visualization_msgs::msg::Marker::MODIFY));
+
   if (planning_config_.smoothing_.use_path_smoothing_) {
     velocity_hover_pub_->publish(common_lib::communication::velocity_hover_markers(
         smoothed_path_, "velocity", map_frame_id_, 0.25f,

@@ -1,20 +1,21 @@
 #include "planning/smoothing.hpp"
 
-std::vector<PathPoint> PathSmoothing::smooth_path(std::vector<PathPoint>& path) const {
+std::vector<PathPoint> PathSmoothing::smooth_path(const std::vector<PathPoint>& path) const {
   if (!config_.use_path_smoothing_) {
     return path;
   }
-  return fit_spline(path, config_.spline_precision_, config_.spline_order_, config_.spline_coeffs_ratio_);
+  return ::fit_spline(path, config_.spline_precision_, config_.spline_order_,
+                      config_.spline_coeffs_ratio_);
 }
 
-std::vector<PathPoint> PathSmoothing::optimize_path(std::vector<PathPoint>& path,
-                                                    std::vector<PathPoint>& yellow_cones,
-                                                    std::vector<PathPoint>& blue_cones) const {
+std::vector<PathPoint> PathSmoothing::optimize_path(
+    const std::vector<PathPoint>& path, const std::vector<PathPoint>& yellow_cones,
+    const std::vector<PathPoint>& blue_cones) const {
   if (!config_.use_path_smoothing_) {
     return path;
   }
 
-  auto splines = fit_triple_spline(path, blue_cones, yellow_cones, config_.spline_precision_,
+  auto splines = ::fit_triple_spline(path, blue_cones, yellow_cones, config_.spline_precision_,
                                    config_.spline_order_);
 
   if (!config_.use_optimization_) {
@@ -28,7 +29,7 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
                                                         const std::vector<PathPoint>& left,
                                                         const std::vector<PathPoint>& right) const {
   const int num_path_points = center.size();
-  
+
   // Check if we have enough points for optimization
   if (num_path_points < 5) {
     RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
@@ -150,10 +151,10 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
   for (int point_idx = 0; point_idx < num_path_points; ++point_idx) {
     Eigen::Vector2d left_boundary_point(left[point_idx].position.x, left[point_idx].position.y);
     Eigen::Vector2d right_boundary_point(right[point_idx].position.x, right[point_idx].position.y);
-    
+
     // Compute lateral direction (perpendicular to track)
     Eigen::Vector2d lateral_direction = (left_boundary_point - right_boundary_point).normalized();
-    
+
     // Right boundary constraint: lateral_direction · point + slack >= right_boundary_value
     constraint_row_indices.push_back(constraint_count);
     constraint_col_indices.push_back(2 * point_idx);
@@ -167,8 +168,7 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
     constraint_col_indices.push_back(2 * num_path_points + 2 * point_idx);
     constraint_values.push_back(1.0);
 
-    double right_boundary_constraint =
-        right_boundary_point.dot(lateral_direction) + safety_margin;
+    double right_boundary_constraint = right_boundary_point.dot(lateral_direction) + safety_margin;
     constraint_lower_bounds.push_back(right_boundary_constraint);
     constraint_upper_bounds.push_back(OSQP_INFTY);
     constraint_count++;
@@ -282,7 +282,7 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
   solver_settings->max_iter = config_.max_iterations_;
   solver_settings->eps_abs = config_.tolerance_;
   solver_settings->eps_rel = config_.tolerance_;
-  solver_settings->polishing = 1; // Enable polishing for better accuracy
+  solver_settings->polishing = 1;  // Enable polishing for better accuracy
 
   // -------- SETUP OSQP SOLVER --------
   OSQPSolver* solver = nullptr;
@@ -294,7 +294,7 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
 
   if (setup_status != 0) {
     RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "OSQP setup failed with status %lld", setup_status);
-    
+
     // Cleanup and return original path
     if (solver) osqp_cleanup(solver);
     free(solver_settings);
@@ -320,12 +320,11 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
       optimized_path[point_idx].position.x = solver->solution->x[2 * point_idx];
       optimized_path[point_idx].position.y = solver->solution->x[2 * point_idx + 1];
     }
-    
+
     RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
                  "OSQP optimization completed successfully with %d points", num_path_points);
   } else {
-    RCLCPP_WARN(rclcpp::get_logger("rclcpp"),
-                "OSQP solution is null, returning original path");
+    RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "OSQP solution is null, returning original path");
   }
 
   // -------- CLEANUP OSQP RESOURCES --------
