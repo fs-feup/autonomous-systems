@@ -285,7 +285,7 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
 
   // -------- CONFIGURE OSQP SOLVER SETTINGS --------
   OSQPSettings solver_settings;
-  osqp_set_default_settings(&solver_settings);
+  ::osqp_set_default_settings(&solver_settings);
   solver_settings.verbose = 1;
   solver_settings.max_iter = config_.max_iterations_;
   solver_settings.eps_abs = config_.tolerance_;
@@ -296,36 +296,39 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
   OSQPSolver* solver = nullptr;
 
   OSQPInt setup_status =
-      osqp_setup(&solver, &objective_matrix, linear_objective.data(), &constraint_matrix,
-                 constraint_lower_bounds.data(), constraint_upper_bounds.data(), total_variables,
-                 total_constraints, &solver_settings);
+      ::osqp_setup(&solver, &objective_matrix, linear_objective.data(), &constraint_matrix,
+                   constraint_lower_bounds.data(), constraint_upper_bounds.data(), total_variables,
+                   total_constraints, &solver_settings);
 
   if (setup_status != 0) {
     RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "OSQP setup failed with status %lld", setup_status);
-    if (solver) osqp_cleanup(solver);
+    if (solver) {
+      ::osqp_cleanup(solver);
+    }
     return center;
   }
 
   // -------- SOLVE THE OPTIMIZATION PROBLEM --------
-  osqp_solve(solver);
+  OSQPInt solve_status = ::osqp_solve(solver);
 
   // -------- EXTRACT OPTIMIZED PATH FROM SOLUTION --------
   std::vector<PathPoint> optimized_path = center;
 
-  if (solver->solution && solver->solution->x) {
+  if ((solver->solution != nullptr) && (solver->solution->x != nullptr)) {
     for (int point_idx = 0; point_idx < num_path_points; ++point_idx) {
       optimized_path[point_idx].position.x = solver->solution->x[2 * point_idx];
       optimized_path[point_idx].position.y = solver->solution->x[2 * point_idx + 1];
     }
 
     RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
-                 "OSQP optimization completed successfully with %d points", num_path_points);
+                 "OSQP optimization completed successfully with %d points (status: %lld)",
+                 num_path_points, solve_status);
   } else {
     RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "OSQP solution is null, returning original path");
   }
 
   // -------- CLEANUP OSQP RESOURCES --------
-  osqp_cleanup(solver);
+  (void)::osqp_cleanup(solver);
 
   return optimized_path;
 }
