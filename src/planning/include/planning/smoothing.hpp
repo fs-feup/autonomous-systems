@@ -5,6 +5,7 @@
 
 #include <Eigen/Dense>
 #include <cmath>
+#include <functional>
 #include <map>
 #include <vector>
 
@@ -79,6 +80,105 @@ private:
   std::vector<PathPoint> osqp_optimization(const std::vector<PathPoint>& center,
                                            const std::vector<PathPoint>& left,
                                            const std::vector<PathPoint>& right) const;
+
+  /**
+   * @brief Adds curvature penalty terms to the quadratic objective function.
+   *
+   * @param num_path_points Number of points in the path
+   * @param circular_index Lambda function for circular array indexing
+   * @param add_coefficient Lambda function to add coefficients to the objective matrix
+   */
+  void add_curvature_terms(int num_path_points, const std::function<int(int)>& circular_index,
+                           const std::function<void(int, int, double)>& add_coefficient) const;
+
+  /**
+   * @brief Adds smoothness penalty terms to the quadratic objective function.
+   *
+   * @param num_path_points Number of points in the path
+   * @param circular_index Lambda function for circular array indexing
+   * @param add_coefficient Lambda function to add coefficients to the objective matrix
+   */
+  void add_smoothness_terms(int num_path_points, const std::function<int(int)>& circular_index,
+                            const std::function<void(int, int, double)>& add_coefficient) const;
+
+  /**
+   * @brief Adds penalty terms for slack variables to the quadratic objective function.
+   *
+   * @param num_path_points Number of points in the path
+   * @param add_coefficient Lambda function to add coefficients to the objective matrix
+   */
+  void add_slack_penalty_terms(int num_path_points,
+                               const std::function<void(int, int, double)>& add_coefficient) const;
+
+  /**
+   * @brief Adds penalty terms for slack variables to the quadratic objective function.
+   *
+   * @param quadratic_terms Map storing quadratic coefficient terms
+   * @param num_path_points Number of points in the path
+   * @param add_coefficient Lambda function to add coefficients to the objective matrix
+   */
+  void add_slack_penalty_terms(std::map<std::pair<int, int>, double>& quadratic_terms,
+                               int num_path_points,
+                               const std::function<void(int, int, double)>& add_coefficient) const;
+
+  /**
+   * @brief Adds track boundary constraints to ensure the optimized path stays within the track.
+   *
+   * @param constraint_values Non-zero values in the constraint matrix
+   * @param constraint_row_indices Row indices for constraint matrix entries
+   * @param constraint_col_indices Column indices for constraint matrix entries
+   * @param constraint_lower_bounds Lower bounds for each constraint
+   * @param constraint_upper_bounds Upper bounds for each constraint
+   * @param constraint_count Running count of constraints added
+   * @param left Left track boundary points
+   * @param right Right track boundary points
+   * @param num_path_points Number of points in the path
+   * @param safety_margin Safety distance from track boundaries
+   */
+  void add_boundary_constraints(std::vector<OSQPFloat>& constraint_values,
+                                std::vector<OSQPInt>& constraint_row_indices,
+                                std::vector<OSQPInt>& constraint_col_indices,
+                                std::vector<OSQPFloat>& constraint_lower_bounds,
+                                std::vector<OSQPFloat>& constraint_upper_bounds,
+                                int& constraint_count, const std::vector<PathPoint>& left,
+                                const std::vector<PathPoint>& right, int num_path_points,
+                                double safety_margin) const;
+
+  /**
+   * @brief Adds non-negativity constraints for slack variables.
+   *
+   * @param constraint_values Non-zero values in the constraint matrix
+   * @param constraint_row_indices Row indices for constraint matrix entries
+   * @param constraint_col_indices Column indices for constraint matrix entries
+   * @param constraint_lower_bounds Lower bounds for each constraint
+   * @param constraint_upper_bounds Upper bounds for each constraint
+   * @param constraint_count Running count of constraints added
+   * @param num_path_points Number of points in the path
+   */
+  void add_slack_nonnegativity_constraints(std::vector<OSQPFloat>& constraint_values,
+                                           std::vector<OSQPInt>& constraint_row_indices,
+                                           std::vector<OSQPInt>& constraint_col_indices,
+                                           std::vector<OSQPFloat>& constraint_lower_bounds,
+                                           std::vector<OSQPFloat>& constraint_upper_bounds,
+                                           int& constraint_count, int num_path_points) const;
+
+  /**
+   * @brief Converts sparse matrix data from coordinate format to Compressed Sparse Column (CSC)
+   * format. CSC format is required by the OSQP solver for efficient matrix operations.
+   *
+   * @param values Non-zero values in coordinate format
+   * @param row_indices Row indices in coordinate format
+   * @param col_indices Column indices in coordinate format
+   * @param total_variables Number of columns in the matrix
+   * @param csc_x Output: non-zero values in CSC format
+   * @param csc_i Output: row indices in CSC format
+   * @param csc_p Output: column pointers in CSC format
+   */
+  void convert_to_csc_format(const std::vector<OSQPFloat>& values,
+                             const std::vector<OSQPInt>& row_indices,
+                             const std::vector<OSQPInt>& col_indices, int total_variables,
+                             std::vector<OSQPFloat>& csc_x, std::vector<OSQPInt>& csc_i,
+                             std::vector<OSQPInt>& csc_p) const;
 };
 
 #endif  // SRC_PLANNING_INCLUDE_PLANNING_SMOOTHING2_HPP_

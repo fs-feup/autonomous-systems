@@ -324,7 +324,6 @@ TripleSpline<T> fit_triple_spline(const std::vector<T> &center, const std::vecto
   static_assert(PositionXYAreDouble<T>::value, "T.position.x and T.position.y must be double");
 
   TripleSpline<T> result;
-
   const size_t n = center.size();
 
   // Check if we have enough points and all sequences have the same size
