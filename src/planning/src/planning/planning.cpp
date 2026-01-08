@@ -305,7 +305,7 @@ void Planning::run_trackdrive() {
 
         double avg_vel = sum / smoothed_path_.size();
 
-        RCLCPP_INFO(get_logger(),
+        RCLCPP_DEBUG(get_logger(),
                      "[TRACKDRIVE] Velocity Stats - Avg: %.2f m/s | Max: %.2f m/s | Min: %.2f m/s",
                      avg_vel, max_vel, min_vel);
       }
