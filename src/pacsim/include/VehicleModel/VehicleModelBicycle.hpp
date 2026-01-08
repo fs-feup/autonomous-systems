@@ -174,7 +174,6 @@ private:
         double nominalVoltageTS;
         double powerGroundForce;
         double maxMotorPower;
-        double maxPowerSpeed; // rad/s where max power is reached
         double maxMotorRPM;
         double maxMotorTorque;
 

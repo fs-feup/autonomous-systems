@@ -48,7 +48,6 @@ bool VehicleModelBicycle::readConfig(ConfigElement& config) {
   configModel.getElement<double>(&powertrainModel.nominalVoltageTS, "nominalVoltageTS");
   configModel.getElement<double>(&powertrainModel.powerGroundForce, "powerGroundForce");
   configModel.getElement<double>(&powertrainModel.maxMotorPower, "maxMotorPower");
-  configModel.getElement<double>(&powertrainModel.maxPowerSpeed, "maxPowerSpeed");
   configModel.getElement<double>(&powertrainModel.maxMotorRPM, "maxMotorRPM");
   configModel.getElement<double>(&powertrainModel.maxMotorTorque, "maxMotorTorque");
   return true;
@@ -186,15 +185,15 @@ double VehicleModelBicycle::TireModel::calculateLateralForce(double slipAngle,
 void VehicleModelBicycle::PowertrainModel::calculateWheelTorques(const Wheels& throttleInputs, const Wheels& wheelspeeds, Wheels& torques) const {
   double rpm2rad = TWO_PI / 60.0;
   double motor_rpm = 0.5 * (wheelspeeds.RL + wheelspeeds.RR) * gearRatio;
+  double motor_omega = motor_rpm * rpm2rad;
 
   double available_mech_torque = 0;
 
-  if (std::abs(motor_rpm) > maxMotorRPM) {
-    available_mech_torque = 0.0; 
-  } else if (std::abs(motor_rpm * rpm2rad) > maxPowerSpeed) {
-    available_mech_torque = maxMotorPower / std::abs(motor_rpm * rpm2rad);
+  if (std::abs(motor_rpm) >= maxMotorRPM) {
+    available_mech_torque = 0.0;
   } else {
-    available_mech_torque = maxMotorTorque;
+    // Dynamic torque limit, max torque up to max power 
+    available_mech_torque = std::min(maxMotorTorque, maxMotorPower / std::max(1e-3, std::abs(motor_omega)));
   }
 
   double throttle_input = 0.5 * (throttleInputs.RL + throttleInputs.RR);

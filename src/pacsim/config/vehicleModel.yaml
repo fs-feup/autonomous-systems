@@ -24,6 +24,5 @@ vehicle_model:
     nominalVoltageTS: 600.0
     powerGroundForce: 0.0
     maxMotorPower: 65000.0
-    maxPowerSpeed: 575.96  # rad/s where max power is reached, allows a approximation of Torque-Speed curve
     maxMotorRPM: 6500.0
     maxMotorTorque: 120.0
