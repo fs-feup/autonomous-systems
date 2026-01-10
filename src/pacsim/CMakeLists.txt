@@ -20,6 +20,7 @@ find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(builtin_interfaces REQUIRED)
+find_package(custom_interfaces REQUIRED)
 
 find_package(rclcpp_components REQUIRED)
 find_package(yaml-cpp REQUIRED)
@@ -49,7 +50,7 @@ file(GLOB_RECURSE pacsim_SRCS
 
 
 add_executable(${PROJECT_NAME}_node ${pacsim_SRCS})
-ament_target_dependencies(${PROJECT_NAME}_node rclcpp std_srvs visualization_msgs geometry_msgs tf2_ros yaml-cpp)
+ament_target_dependencies(${PROJECT_NAME}_node rclcpp std_srvs visualization_msgs geometry_msgs tf2_ros yaml-cpp custom_interfaces sensor_msgs)
 ament_export_dependencies(std_msgs geometry_msgs rosidl_default_runtime)
 
 rosidl_target_interfaces(${PROJECT_NAME}_node

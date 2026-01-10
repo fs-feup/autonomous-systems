@@ -17,6 +17,9 @@ PacSimAdapter::PacSimAdapter(const ControlParameters& params)
     car_velocity_sub_ = this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
         "/pacsim/velocity", 1,
         std::bind(&PacSimAdapter::_pacsim_gt_velocities_callback, this, std::placeholders::_1));
+    car_state_vector_sub_ = this->create_subscription<custom_interfaces::msg::VehicleStateVector>(
+        "/pacsim/state_vector", 1,
+        std::bind(&PacSimAdapter::_pacsim_gt_state_vector_callback, this, std::placeholders::_1));
   }
 
   RCLCPP_INFO(this->get_logger(), "Pacsim adapter created");
@@ -41,6 +44,11 @@ void PacSimAdapter::_pacsim_gt_velocities_callback(
   vel_msg.velocity_y = msg.twist.twist.linear.y;
   vel_msg.angular_velocity = msg.twist.twist.angular.z;
   this->vehicle_state_callback(vel_msg);
+}
+
+void PacSimAdapter::_pacsim_gt_state_vector_callback(
+    const custom_interfaces::msg::VehicleStateVector& msg) {
+  // Currently Velocities is used, not VehicleStateVector, but this is here for future use
 }
 
 void PacSimAdapter::publish_command(common_lib::structures::ControlCommand cmd) {

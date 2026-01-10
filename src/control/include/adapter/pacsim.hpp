@@ -1,5 +1,6 @@
 #pragma once
 
+#include "custom_interfaces/msg/vehicle_state_vector.hpp"
 #include "geometry_msgs/msg/twist_with_covariance_stamped.hpp"
 #include "pacsim/msg/stamped_scalar.hpp"
 #include "pacsim/msg/wheels.hpp"
@@ -21,6 +22,7 @@ private:
   // If using simulated (ground truth) State Estimation (and SLAM) from PacSim
   rclcpp::Subscription<geometry_msgs::msg::TwistWithCovarianceStamped>::SharedPtr car_velocity_sub_;
   rclcpp::Subscription<geometry_msgs::msg::TwistWithCovarianceStamped>::SharedPtr car_pose_sub_;
+  rclcpp::Subscription<custom_interfaces::msg::VehicleStateVector>::SharedPtr car_state_vector_sub_;
 
 public:
   explicit PacSimAdapter(const ControlParameters &params);
@@ -35,6 +37,12 @@ public:
    * estimation
    */
   void _pacsim_gt_velocities_callback(const geometry_msgs::msg::TwistWithCovarianceStamped &msg);
+
+  /**
+   * @brief Callback for the pacsim ground truth state vector topic, used when using simulated full
+   * state estimation
+   */
+  void _pacsim_gt_state_vector_callback(const custom_interfaces::msg::VehicleStateVector &msg);
 
   void publish_command(common_lib::structures::ControlCommand cmd) override;
 };
