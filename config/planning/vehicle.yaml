@@ -24,7 +24,7 @@ planning:
   smoothing_spline_order: 3
   smoothing_spline_coeffs_ratio: 3.0
   smoothing_use_path_smoothing: true
-  smoothing_use_optimization: true
+  smoothing_use_optimization: false
   smoothing_car_width: 1.2
   smoothing_safety_margin: 0.3
   smoothing_curvature_weight: 100.0
