@@ -132,37 +132,42 @@ void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
     return;
   }
   int path_size = static_cast<int>(final_path.size()) - 1; // exclude duplicate last point
+  
+  // ---- double the path ----
+  std::vector<PathPoint> doubled_path;
+  doubled_path.reserve(2 * path_size);
 
-  // ---- triple the path ----
-  std::vector<PathPoint> triple_path;
-  triple_path.reserve(3 * path_size);
-
-  for (int lap = 0; lap < 3; ++lap){
+  for (int lap = 0; lap < 2; ++lap){
     for (int i = 0; i < path_size; ++i) {
-      triple_path.push_back(final_path[i]);
+      doubled_path.push_back(final_path[i]);
     }
   }
 
   // ---- curvature ----
-  std::vector<double> radiuses(triple_path.size());
+  std::vector<double> radiuses(doubled_path.size());
 
-  for (size_t i = 1; i + 1 < triple_path.size(); ++i){
-    radiuses[i] = find_circle_center(triple_path[i - 1], triple_path[i], triple_path[i + 1]);
+  for (size_t i = 1; i + 1 < doubled_path.size(); ++i){
+    radiuses[i] = find_circle_center(doubled_path[i - 1], doubled_path[i], doubled_path[i + 1]);
   }
 
   radiuses[0] = radiuses[1];
-  radiuses.back() = radiuses[triple_path.size() - 2];
+  radiuses.back() = radiuses[doubled_path.size() - 2];
+
   // ---- velocity planning ----
   std::vector<double> velocities;
   point_speed(radiuses, velocities);
-  acceleration_limiter(triple_path, velocities);
-  braking_limiter(triple_path, velocities);
+  acceleration_limiter(doubled_path, velocities);
+  braking_limiter(doubled_path, velocities);
 
-  // ---- extract center window ----
-  int offset = path_size; // start of the center lap
+  int half_path = path_size / 2;
 
-  for (int i = 0; i < path_size; ++i){
-    final_path[i].ideal_velocity = velocities[offset + i];
+  // The first half of my final path is the first half of the second lap
+  for(int i = 0; i < half_path; ++i){
+    final_path[i].ideal_velocity = velocities[path_size + i]; 
+  }
+  // The second half of my final path is the second half of the first lap
+  for(int i = half_path; i < path_size; ++i){
+    final_path[i].ideal_velocity = velocities[i]; 
   }
 
   // close loop explicitly
