@@ -26,6 +26,13 @@ class NoRearWSSEKF : public VelocityEstimator {
   common_lib::sensor_data::WheelEncoderData wss_data_;
   double motor_rpm_;
   double steering_angle_;
+  double imu_acceleration_noise_;
+
+  rclcpp::Time imu_accum_last_time_;
+  double imu_delta_vx_ = 0.0;
+  double imu_accum_dt_ = 0.0;
+  double imu_start_vx_ = 0.0;
+  bool imu_accum_initialized_ = false;
 
   bool _has_made_prediction_ = false;
 
@@ -54,6 +61,9 @@ class NoRearWSSEKF : public VelocityEstimator {
   void predict(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
                const Eigen::Matrix3d& process_noise_matrix, const rclcpp::Time last_update,
                common_lib::sensor_data::ImuData& imu_data);
+  void accumulate_imu_velocity(const common_lib::sensor_data::ImuData& imu_data);
+  void correct_imu_acceleration(Eigen::Vector3d& state, Eigen::Matrix3d& covariance);
+  void enforce_no_lateral_velocity(Eigen::Vector3d& state, Eigen::Matrix3d& covariance);
 
   /**
    * @brief Correct the state estimate based on wheel speed sensor, resolver, and steering data.
