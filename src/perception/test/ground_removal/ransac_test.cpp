@@ -1,17 +1,10 @@
 #include "ground_removal/ransac.hpp"
 
 #include <gtest/gtest.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
 
 #include <memory>
+#include <test_utils/pointcloud2_helper.hpp>
 #include <utils/plane.hpp>
-
-// Non-owning deleter: does nothing.
-template <typename T>
-struct NonOwningDeleter {
-  void operator()(T*) const {}
-};
 
 /**
  * @brief Test class for setting up data and testing RANSAC algorithm.
@@ -20,64 +13,44 @@ struct NonOwningDeleter {
 class RANSACTest : public ::testing::Test {
 protected:
   void SetUp() override {
-    // Create point clouds on the stack.
-    cloud.points.clear();
-    cloud.points.push_back(pcl::PointXYZI{1.0, 0.0, 0.0, 0.5});
-    cloud.points.push_back(pcl::PointXYZI{0.0, 1.0, 0.0, 1.0});
-    cloud.points.push_back(pcl::PointXYZI{0.0, 0.0, 1.0, 1.5});
-    cloud.points.push_back(pcl::PointXYZI{0.0060, 0.0060, 0.0060, 2.0});
-    cloud.points.push_back(pcl::PointXYZI{10, 10, 10, 2.5});
-
-    empty_cloud.points.clear();
-
-    cloud_3_points.points.clear();
-    cloud_3_points.points.push_back(pcl::PointXYZI{1.0, 0.0, 0.0, 0.5});
-    cloud_3_points.points.push_back(pcl::PointXYZI{0.0, 1.0, 0.0, 1.0});
-    cloud_3_points.points.push_back(pcl::PointXYZI{0.0, 0.0, 1.0, 1.5});
+    cloud_pts = {{1.0, 0.0, 0.0, 0.5, 0},
+                 {0.0, 1.0, 0.0, 1.0, 0},
+                 {0.0, 0.0, 1.0, 1.5, 0},
+                 {0.0060, 0.0060, 0.0060, 2.0, 0},
+                 {10, 10, 10, 2.5, 0}};
+    empty_cloud_pts = {};
+    cloud_3_pts = {{1.0, 0.0, 0.0, 0.5, 0}, {0.0, 1.0, 0.0, 1.0, 0}, {0.0, 0.0, 1.0, 1.5, 0}};
   }
 
-  // Stack-allocated point clouds.
-  pcl::PointCloud<pcl::PointXYZI> cloud;
-  pcl::PointCloud<pcl::PointXYZI> ground_removed_cloud;
-  pcl::PointCloud<pcl::PointXYZI> empty_cloud;
-  pcl::PointCloud<pcl::PointXYZI> cloud_3_points;
-  SplitParameters split_params;
+  std::vector<std::array<float, 5>> cloud_pts;
+  std::vector<std::array<float, 5>> empty_cloud_pts;
+  std::vector<std::array<float, 5>> cloud_3_pts;
+
+  GroundGrid default_grid{30.0, 0.1, 0.5, 10.0, 0.1, 3.14};
 };
 
 /**
- * @brief Test Scenario: All points fit in the model (Epsilon threshold very high).
+ * @brief Test Scenario: All points fit in the model.
  *
  */
 TEST_F(RANSACTest, TestBigEpsilon) {
-  const RANSAC ground_removal(10'000, 1);  // Create on the stack.
-  Plane plane;
-
-  // Wrap stack cloud in a non-owning shared pointer.
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_ptr(
-      &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud_ptr, plane, split_params);
-
-  ASSERT_EQ(ground_removed_cloud_ptr->points.size(), 0);
+  const RANSAC ground_removal(10'000, 1);
+  auto cloud_ptr = test_utils::make_lidar_pointcloud2(cloud_pts);
+  auto ground_removed_cloud_ptr = test_utils::make_lidar_pointcloud2({});
+  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud_ptr, default_grid);
+  ASSERT_EQ(ground_removed_cloud_ptr->width, 0);
 }
 
 /**
- * @brief Test Scenario: Only points that fit into the plane are considered as part of the plane (No
- * points close enough to the plane).
+ * @brief Test Scenario: Only points that fit into the plane are considered as part of the plane.
  *
  */
 TEST_F(RANSACTest, TestCommonScenario) {
   const RANSAC ground_removal(0.05, 100);
-  Plane plane;
-
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_ptr(
-      &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud_ptr, plane, split_params);
-
-  ASSERT_EQ(ground_removed_cloud_ptr->points.size(), 2);
+  auto cloud_ptr = test_utils::make_lidar_pointcloud2(cloud_pts);
+  auto ground_removed_cloud_ptr = test_utils::make_lidar_pointcloud2({});
+  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud_ptr, default_grid);
+  ASSERT_EQ(ground_removed_cloud_ptr->width, 2);
 }
 
 /**
@@ -86,15 +59,10 @@ TEST_F(RANSACTest, TestCommonScenario) {
  */
 TEST_F(RANSACTest, TestCommonScenario2) {
   const RANSAC ground_removal(0.5, 100);
-  Plane plane;
-
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_ptr(
-      &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud_ptr, plane, split_params);
-
-  ASSERT_EQ(ground_removed_cloud_ptr->points.size(), 1);
+  auto cloud_ptr = test_utils::make_lidar_pointcloud2(cloud_pts);
+  auto ground_removed_cloud_ptr = test_utils::make_lidar_pointcloud2({});
+  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud_ptr, default_grid);
+  ASSERT_EQ(ground_removed_cloud_ptr->width, 1);
 }
 
 /**
@@ -103,15 +71,10 @@ TEST_F(RANSACTest, TestCommonScenario2) {
  */
 TEST_F(RANSACTest, TestThresholdZero) {
   const RANSAC ground_removal(0, 10);
-  Plane plane;
-
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_ptr(
-      &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud_ptr, plane, split_params);
-
-  ASSERT_EQ(ground_removed_cloud_ptr->points.size(), 5);
+  auto cloud_ptr = test_utils::make_lidar_pointcloud2(cloud_pts);
+  auto ground_removed_cloud_ptr = test_utils::make_lidar_pointcloud2({});
+  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud_ptr, default_grid);
+  ASSERT_EQ(ground_removed_cloud_ptr->width, 5);
 }
 
 /**
@@ -120,15 +83,10 @@ TEST_F(RANSACTest, TestThresholdZero) {
  */
 TEST_F(RANSACTest, TestZeroRepetitions) {
   const RANSAC ground_removal(100, 0);
-  Plane plane;
-
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_ptr(
-      &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud_ptr, plane, split_params);
-
-  ASSERT_EQ(ground_removed_cloud_ptr->points.size(), 0);
+  auto cloud_ptr = test_utils::make_lidar_pointcloud2(cloud_pts);
+  auto ground_removed_cloud_ptr = test_utils::make_lidar_pointcloud2({});
+  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud_ptr, default_grid);
+  ASSERT_EQ(ground_removed_cloud_ptr->width, 0);
 }
 
 /**
@@ -137,16 +95,11 @@ TEST_F(RANSACTest, TestZeroRepetitions) {
  *
  */
 TEST_F(RANSACTest, TestSmallEpsilon) {
-  const RANSAC ground_removal(0.000'000'000'000'000'01, 10);
-  Plane plane;
-
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_ptr(
-      &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud_ptr, plane, split_params);
-
-  ASSERT_EQ(ground_removed_cloud_ptr->points.size(), 2);
+  const RANSAC ground_removal(0.000'000'000'000'000'01, 40);
+  auto cloud_ptr = test_utils::make_lidar_pointcloud2(cloud_pts);
+  auto ground_removed_cloud_ptr = test_utils::make_lidar_pointcloud2({});
+  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud_ptr, default_grid);
+  ASSERT_EQ(ground_removed_cloud_ptr->width, 2);
 }
 
 /**
@@ -155,15 +108,10 @@ TEST_F(RANSACTest, TestSmallEpsilon) {
  */
 TEST_F(RANSACTest, TestBigEpsilon2) {
   const RANSAC ground_removal(1'000'000, 1);
-  Plane plane;
-
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_ptr(
-      &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud_ptr, plane, split_params);
-
-  ASSERT_EQ(ground_removed_cloud_ptr->points.size(), 0);
+  auto cloud_ptr = test_utils::make_lidar_pointcloud2(cloud_pts);
+  auto ground_removed_cloud_ptr = test_utils::make_lidar_pointcloud2({});
+  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud_ptr, default_grid);
+  ASSERT_EQ(ground_removed_cloud_ptr->width, 0);
 }
 
 /**
@@ -173,15 +121,10 @@ TEST_F(RANSACTest, TestBigEpsilon2) {
  */
 TEST_F(RANSACTest, TestCommonScenario3Points) {
   const RANSAC ground_removal(100, 100);
-  Plane plane;
-
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud3_ptr(
-      &cloud_3_points, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_ptr(
-      &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  ground_removal.ground_removal(cloud3_ptr, ground_removed_cloud_ptr, plane, split_params);
-
-  ASSERT_EQ(ground_removed_cloud_ptr->points.size(), 0);
+  auto cloud3_ptr = test_utils::make_lidar_pointcloud2(cloud_3_pts);
+  auto ground_removed_cloud_ptr = test_utils::make_lidar_pointcloud2({});
+  ground_removal.ground_removal(cloud3_ptr, ground_removed_cloud_ptr, default_grid);
+  ASSERT_EQ(ground_removed_cloud_ptr->width, 0);
 }
 
 /**
@@ -191,15 +134,10 @@ TEST_F(RANSACTest, TestCommonScenario3Points) {
  */
 TEST_F(RANSACTest, Test3PointsThresholdZero) {
   const RANSAC ground_removal(0, 100);
-  Plane plane;
-
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud3_ptr(
-      &cloud_3_points, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_ptr(
-      &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  ground_removal.ground_removal(cloud3_ptr, ground_removed_cloud_ptr, plane, split_params);
-
-  ASSERT_EQ(ground_removed_cloud_ptr->points.size(), 3);
+  auto cloud3_ptr = test_utils::make_lidar_pointcloud2(cloud_3_pts);
+  auto ground_removed_cloud_ptr = test_utils::make_lidar_pointcloud2({});
+  ground_removal.ground_removal(cloud3_ptr, ground_removed_cloud_ptr, default_grid);
+  ASSERT_EQ(ground_removed_cloud_ptr->width, 3);
 }
 
 /**
@@ -208,15 +146,10 @@ TEST_F(RANSACTest, Test3PointsThresholdZero) {
  */
 TEST_F(RANSACTest, TestEmptyPointCloud) {
   const RANSAC ground_removal(100, 100);
-  Plane plane;
-
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr empty_ptr(
-      &empty_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_ptr(
-      &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  ground_removal.ground_removal(empty_ptr, ground_removed_cloud_ptr, plane, split_params);
-
-  ASSERT_EQ(ground_removed_cloud_ptr->points.size(), 0);
+  auto empty_ptr = test_utils::make_lidar_pointcloud2(empty_cloud_pts);
+  auto ground_removed_cloud_ptr = test_utils::make_lidar_pointcloud2({});
+  ground_removal.ground_removal(empty_ptr, ground_removed_cloud_ptr, default_grid);
+  ASSERT_EQ(ground_removed_cloud_ptr->width, 0);
 }
 
 /**
@@ -226,13 +159,8 @@ TEST_F(RANSACTest, TestEmptyPointCloud) {
  */
 TEST_F(RANSACTest, TestEmptyPointCloud2) {
   const RANSAC ground_removal(0, 0);
-  Plane plane;
-
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr empty_ptr(
-      &empty_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_ptr(
-      &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  ground_removal.ground_removal(empty_ptr, ground_removed_cloud_ptr, plane, split_params);
-
-  ASSERT_EQ(ground_removed_cloud_ptr->points.size(), 0);
+  auto empty_ptr = test_utils::make_lidar_pointcloud2(empty_cloud_pts);
+  auto ground_removed_cloud_ptr = test_utils::make_lidar_pointcloud2({});
+  ground_removal.ground_removal(empty_ptr, ground_removed_cloud_ptr, default_grid);
+  ASSERT_EQ(ground_removed_cloud_ptr->width, 0);
 }

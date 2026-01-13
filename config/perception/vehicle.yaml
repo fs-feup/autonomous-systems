@@ -1,6 +1,11 @@
 perception:
   default_mission: "trackdrive"
 
+  #Publishers
+  publish_fov_trimmed_cloud: false
+  publish_ground_removed_cloud: false
+  publish_wall_removed_cloud: true
+
   #LiDAR Parameters
   lidar_height: 1.10
   lidar_horizontal_resolution: 0.2
@@ -10,63 +15,65 @@ perception:
   apply_rotation: false
   rotation: 90.0
   apply_fov_trimming: false
-  fov: 180.0
-  min_range: 2.5
-  max_height: 1.50
+  fov: 180.0    #ATTENTION: If fov trimming not applied, leave at 180 degrees
+  min_range: 2.0
+  max_height: 3.0
 
   #TRACKDRIVE/AUTOCROSS TRIMMING
-  max_range: 30.0
+  max_range: 40.0
 
   #ACCELERATION TRIMMING
-  acc_max_range: 30.0
+  acc_max_range: 40.0
   acc_max_y: 3.5
 
   #SKIDPAD TRIMMING
-  skid_max_range: 30.0
+  skid_max_range: 40.0
 
   #Ground Grid
-  ground_grid_range: 30.0  #ATTENTION: Should be >= all max_ranges
-  ground_grid_angle: 18.0
-  ground_grid_radius: 2.0
+  ground_grid_range: 40.0  #ATTENTION: Should be >= all max_ranges
+  ground_grid_angle: 4.5
+  ground_grid_radius: 1.0
   ground_grid_start_augmentation: 15.0
-  ground_grid_radius_augmentation: 0.5
+  ground_grid_radius_augmentation: 0.10
 
   #Ground Removal
   ground_removal: "himmelsbach"  #options: "ransac", "himmelsbach"
   ransac_epsilon: 0.15
   ransac_iterations: 40
   himmelsbach_grid_angle: 2.0
-  himmelsbach_max_slope: 0.50
+  himmelsbach_max_slope: 1.00
   himmelsbach_initial_alpha: 1.50
-  himmelsbach_alpha_augmentation_m: 0.50
-  himmelsbach_start_augmentation: 10.0
+  himmelsbach_alpha_augmentation_m: 0.35
+  himmelsbach_start_augmentation: 12.0
 
   #Wall Removal
-  wall_removal_grid_angle: 9.0
-  wall_removal_grid_radius: 0.45
-  wall_removal_start_augmentation: 10.0
-  wall_removal_radius_augmentation: 0.10
-  wall_removal_max_points_per_cluster: 250
+  wall_removal_grid_angle: 4.5
+  wall_removal_grid_radius: 0.35
+  wall_removal_start_augmentation: 12.0
+  wall_removal_radius_augmentation: 0.07
+  wall_removal_max_points_per_cluster: 100
   
   #Clustering
   clustering: "GridClustering"  #options: "GridClustering", DBSCAN not done yet
   DBSCAN_n_neighbours: 1
   DBSCAN_clustering_epsilon: 0.32
-  grid_clustering_grid_angle: 1.0
-  grid_clustering_grid_radius: 0.10
+  grid_clustering_grid_angle: 0.5
+  grid_clustering_grid_radius: 0.07
   grid_clustering_start_augmentation: 15.0
-  grid_clustering_radius_augmentation: 0.02
+  grid_clustering_radius_augmentation: 0.005
 
   #Evaluator
   small_cone_width: 0.25
   large_cone_width: 0.30
   small_cone_height: 0.35
   large_cone_height: 0.55
-  n_out_points_ratio: 0.10
+  n_out_points_ratio: 0.20
   max_distance_from_ground_min: 0.50 # max distance from the ground of the lowest point in the cluster
   max_distance_from_ground_max: 0.90 # max distance form the ground of the highest point in the cluster
-  visibility_factor: 0.50
-  expected_points_threshold: 10.0
+  n_points_intial_max: 50
+  n_points_intial_min: 4
+  n_points_max_distance_reduction: 1.5
+  n_points_min_distance_reduction: 0.15
 
   #ICP
   target_file: "cone.pcd"
@@ -74,268 +81,4 @@ perception:
   max_iteration: 100
   transformation_epsilon: 1e-8
   euclidean_fitness_epsilon: 1e-6
-
-  
-
-# Parameters for EBS Test
-# perception:
-
-#   horizontal_resolution: 0.33
-#   vertical_resolution: 0.2
-#   default_mission: "trackdrive"
-
-#   #FOV trimming
-#   lidar_height: 1.1
-#   lidar_rotation: 90.0
-#   lidar_pitch: -1.75
-#   min_range: 1.93
-#   max_height: 0.55
-
-#     #TRACKDRIVE/AUTOCROSS TRIMMING
-#   max_range: 21.0
-#   fov_trim_angle: 60.0
-
-#     #ACCELERATION TRIMMING
-#   acc_max_range: 20.25
-#   acc_fov_trim_angle: 90.0
-#   acc_max_y: 2.5
-
-#     #SKIDPAD TRIMMING
-#   skid_max_range: 20.25
-#   skid_min_distance_to_cone: 2.3
-  
-#   #Ground Removal
-#   ground_removal: "grid_ransac"
-#   ransac_epsilon: 0.12
-#   ransac_iterations: 40
-
-#     #TRACKDRIVE/AUTOCROSS GROUND REMOVAL
-#   n_angular_grids: 3
-#   radius_resolution: 7.0
-
-#     #ACCELERATION GROUND REMOVAL
-#   acc_n_angular_grids: 2
-#   acc_radius_resolution: 7.5
-
-#     #SKIDPAD GROUND REMOVAL
-#   skid_n_angular_grids: 2
-#   skid_radius_resolution: 7.5
-
-
-#   #Clustering
-#   clustering_n_neighbours: 1
-#   clustering_epsilon: 0.4
-
-#   #Evaluator
-#   min_height: 0.15
-#   large_max_height: 0.3
-#   small_max_height: 0.42
-#   height_cap: 0.5
-#   min_xoy: 0.0
-#   max_xoy: 0.3
-#   min_z: 0.00001
-#   max_z: 0.6
-#   min_z_score_x: -100000000.0
-#   max_z_score_x: 100000000000.0
-#   min_z_score_y: -1000000000.0
-#   max_z_score_y: 1000000000.0
-#   out_distance_cap: 0.5
-#   min_distance_x: 0.02
-#   min_distance_y: 0.04
-#   min_distance_z: 0.11
-#   min_n_points: 6
-#   min_confidence: 0.850
-#   height_out_weight: 12.0
-#   height_in_weight: 5.0
-#   cylinder_radius_weight: 40.0
-#   cylinder_height_weight: 8.0
-#   cylinder_npoints_weight: 10.0
-#   npoints_weight: 11.0
-#   displacement_x_weight: 7.0
-#   displacement_y_weight: 8.0
-#   displacement_z_weight: 10.5
-#   deviation_xoy_weight: 10.0
-#   deviation_z_weight: 10.0
-
-#   #ICP
-#   target_file: "cone.pcd"
-#   max_correspondence_distance: 0.1
-#   max_iteration: 100
-#   transformation_epsilon: 1e-8
-#   euclidean_fitness_epsilon: 1e-6
-
-# Parameters for Acceleration
-# perception:
-
-#   horizontal_resolution: 0.33
-#   vertical_resolution: 0.2
-#   default_mission: "trackdrive"
-
-#   #FOV trimming
-#   lidar_height: 1.1
-#   lidar_rotation: 90.0
-#   lidar_pitch: -1.75
-#   min_range: 1.93
-#   max_height: 0.55
-
-#     #TRACKDRIVE/AUTOCROSS TRIMMING
-#   max_range: 21.0
-#   fov_trim_angle: 60.0
-
-#     #ACCELERATION TRIMMING
-#   acc_max_range: 20.25
-#   acc_fov_trim_angle: 90.0
-#   acc_max_y: 4.2
-
-#     #SKIDPAD TRIMMING
-#   skid_max_range: 20.25
-#   skid_min_distance_to_cone: 2.3
-  
-#   #Ground Removal
-#   ground_removal: "grid_ransac"
-#   ransac_epsilon: 0.05
-#   ransac_iterations: 40
-
-#     #TRACKDRIVE/AUTOCROSS GROUND REMOVAL
-#   n_angular_grids: 3
-#   radius_resolution: 7.0
-
-#     #ACCELERATION GROUND REMOVAL
-#   acc_n_angular_grids: 2
-#   acc_radius_resolution: 7.5
-
-#     #SKIDPAD GROUND REMOVAL
-#   skid_n_angular_grids: 2
-#   skid_radius_resolution: 7.5
-
-
-#   #Clustering
-#   clustering_n_neighbours: 1
-#   clustering_epsilon: 0.4
-
-#   #Evaluator
-#   min_height: 0.15
-#   large_max_height: 0.3
-#   small_max_height: 0.42
-#   height_cap: 0.5
-#   min_xoy: 0.0
-#   max_xoy: 0.3
-#   min_z: 0.00001
-#   max_z: 0.6
-#   min_z_score_x: -100000000.0
-#   max_z_score_x: 100000000000.0
-#   min_z_score_y: -1000000000.0
-#   max_z_score_y: 1000000000.0
-#   out_distance_cap: 0.5
-#   min_distance_x: 0.02
-#   min_distance_y: 0.04
-#   min_distance_z: 0.11
-#   min_n_points: 6
-#   min_confidence: 0.850
-#   height_out_weight: 12.0
-#   height_in_weight: 5.0
-#   cylinder_radius_weight: 40.0
-#   cylinder_height_weight: 8.0
-#   cylinder_npoints_weight: 10.0
-#   npoints_weight: 11.0
-#   displacement_x_weight: 7.0
-#   displacement_y_weight: 8.0
-#   displacement_z_weight: 10.5
-#   deviation_xoy_weight: 10.0
-#   deviation_z_weight: 10.0
-
-#   #ICP
-#   target_file: "cone.pcd"
-#   max_correspondence_distance: 0.1
-#   max_iteration: 100
-#   transformation_epsilon: 1e-8
-#   euclidean_fitness_epsilon: 1e-6
-
-# Parameters for Skidpad / AutoX
-# perception:
-
-#   horizontal_resolution: 0.33
-#   vertical_resolution: 0.2
-#   default_mission: "trackdrive"
-
-#   #FOV trimming
-#   lidar_height: 1.1
-#   lidar_rotation: 90.0
-#   lidar_pitch: -1.75
-#   min_range: 1.93
-#   max_height: 0.55
-
-#     #TRACKDRIVE/AUTOCROSS TRIMMING
-#   max_range: 21.0
-#   fov_trim_angle: 90.0
-
-#     #ACCELERATION TRIMMING
-#   acc_max_range: 20.25
-#   acc_fov_trim_angle: 90.0
-#   acc_max_y: 4.2
-
-#     #SKIDPAD TRIMMING
-#   skid_max_range: 20.25
-#   skid_min_distance_to_cone: 2.3
-  
-#   #Ground Removal
-#   ground_removal: "grid_ransac"
-#   ransac_epsilon: 0.05
-#   ransac_iterations: 40
-
-#     #TRACKDRIVE/AUTOCROSS GROUND REMOVAL
-#   n_angular_grids: 3
-#   radius_resolution: 7.0
-
-#     #ACCELERATION GROUND REMOVAL
-#   acc_n_angular_grids: 2
-#   acc_radius_resolution: 7.5
-
-#     #SKIDPAD GROUND REMOVAL
-#   skid_n_angular_grids: 2
-#   skid_radius_resolution: 7.5
-
-
-#   #Clustering
-#   clustering_n_neighbours: 1
-#   clustering_epsilon: 0.4
-
-#   #Evaluator
-#   min_height: 0.15
-#   large_max_height: 0.3
-#   small_max_height: 0.42
-#   height_cap: 0.5
-#   min_xoy: 0.0
-#   max_xoy: 0.3
-#   min_z: 0.00001
-#   max_z: 0.6
-#   min_z_score_x: -100000000.0
-#   max_z_score_x: 100000000000.0
-#   min_z_score_y: -1000000000.0
-#   max_z_score_y: 1000000000.0
-#   out_distance_cap: 0.5
-#   min_distance_x: 0.02
-#   min_distance_y: 0.04
-#   min_distance_z: 0.11
-#   min_n_points: 6
-#   min_confidence: 0.850
-#   height_out_weight: 12.0
-#   height_in_weight: 5.0
-#   cylinder_radius_weight: 40.0
-#   cylinder_height_weight: 8.0
-#   cylinder_npoints_weight: 10.0
-#   npoints_weight: 11.0
-#   displacement_x_weight: 7.0
-#   displacement_y_weight: 8.0
-#   displacement_z_weight: 10.5
-#   deviation_xoy_weight: 10.0
-#   deviation_z_weight: 10.0
-
-#   #ICP
-#   target_file: "cone.pcd"
-#   max_correspondence_distance: 0.1
-#   max_iteration: 100
-#   transformation_epsilon: 1e-8
-#   euclidean_fitness_epsilon: 1e-6
-
   
