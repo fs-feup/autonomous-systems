@@ -1,9 +1,9 @@
 <map id="EufsAdapter" name="EufsAdapter">
 <area shape="rect" id="Node000001" title="Adapter class to interface with the EUFS simulator." alt="" coords="187,721,371,1300"/>
-<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="5,233,169,559"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,572,192,721,186,722,140,574"/>
+<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="5,223,169,569"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,582,192,721,186,722,143,584"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="141,5,226,71"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="174,86,133,234,128,233,168,84"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="174,86,136,224,131,223,168,84"/>
 <area shape="rect" id="Node000005" href="$d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="193,119,365,673"/>
 <area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="198,84,207,118,202,120,193,86"/>
 <area shape="rect" id="Node000004" href="$d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="390,323,574,469"/>

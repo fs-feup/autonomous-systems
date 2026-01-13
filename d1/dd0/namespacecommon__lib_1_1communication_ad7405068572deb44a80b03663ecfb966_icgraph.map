@@ -1,0 +1,10 @@
+<map id="common_lib::communication::marker_from_position" name="common_lib::communication::marker_from_position">
+<area shape="rect" id="Node000001" title="Converts a position to a marker." alt="" coords="374,39,559,79"/>
+<area shape="rect" id="Node000002" href="$dc/dde/class_pure_pursuit.html#afe721df091e7f9db6c1b020b341bd8b4" title="Function that publishes the closest point marker." alt="" coords="190,5,326,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="358,44,326,39,327,34,359,39"/>
+<area shape="rect" id="Node000004" href="$dc/dde/class_pure_pursuit.html#ae90520d8a83d48f177a0e92615728b88" title="Function that publishes the lookahead point marker." alt="" coords="190,71,326,111"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="359,78,327,83,326,78,358,73"/>
+<area shape="rect" id="Node000003" href="$dc/dde/class_pure_pursuit.html#a0a8fc6a4cd3c8c9f366c320d85999299" title="Publishes solver specific data using the provided ControlNode." alt="" coords="5,39,142,79"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="175,43,143,49,142,44,174,38"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="174,79,142,74,143,68,175,74"/>
+</map>

@@ -128,6 +128,9 @@ var annotated_dup =
       [ "TestFormats", "d7/db4/classtest__formats_1_1_test_formats.html", "d7/db4/classtest__formats_1_1_test_formats" ]
     ] ],
     [ "vehicle_dynamics_node", "d2/d1d/namespacevehicle__dynamics__node.html", [
+      [ "integrator_node", "d4/d7e/namespacevehicle__dynamics__node_1_1integrator__node.html", [
+        [ "Integrator", "d3/d05/classvehicle__dynamics__node_1_1integrator__node_1_1_integrator.html", "d3/d05/classvehicle__dynamics__node_1_1integrator__node_1_1_integrator" ]
+      ] ],
       [ "vehicle_dynamics_node", "d7/de2/namespacevehicle__dynamics__node_1_1vehicle__dynamics__node.html", [
         [ "VehicleDynamicsPublisher", "d6/d38/classvehicle__dynamics__node_1_1vehicle__dynamics__node_1_1_vehicle_dynamics_publisher.html", "d6/d38/classvehicle__dynamics__node_1_1vehicle__dynamics__node_1_1_vehicle_dynamics_publisher" ]
       ] ]
@@ -155,8 +158,6 @@ var annotated_dup =
     [ "ConsecutiveCounterFilter", "dd/d5e/class_consecutive_counter_filter.html", "dd/d5e/class_consecutive_counter_filter" ],
     [ "ConstantVelocityModel", "df/d42/class_constant_velocity_model.html", "df/d42/class_constant_velocity_model" ],
     [ "ConstantVelocityTurnrateModel", "d4/d11/class_constant_velocity_turnrate_model.html", "d4/d11/class_constant_velocity_turnrate_model" ],
-    [ "ConstrainedGridRANSACTest", "da/da3/class_constrained_grid_r_a_n_s_a_c_test.html", "da/da3/class_constrained_grid_r_a_n_s_a_c_test" ],
-    [ "ConstrainedRANSACTest", "da/db1/class_constrained_r_a_n_s_a_c_test.html", "da/db1/class_constrained_r_a_n_s_a_c_test" ],
     [ "ControlNode", "d6/dc5/class_control_node.html", "d6/dc5/class_control_node" ],
     [ "ControlParameters", "d4/de1/struct_control_parameters.html", "d4/de1/struct_control_parameters" ],
     [ "ControlSolver", "d1/d5f/class_control_solver.html", "d1/d5f/class_control_solver" ],
@@ -167,7 +168,6 @@ var annotated_dup =
     [ "DataAssociationModel", "d1/d14/class_data_association_model.html", "d1/d14/class_data_association_model" ],
     [ "DataAssociationParameters", "d9/d66/struct_data_association_parameters.html", "d9/d66/struct_data_association_parameters" ],
     [ "DBSCAN", "df/d6a/class_d_b_s_c_a_n.html", "df/d6a/class_d_b_s_c_a_n" ],
-    [ "DBSCANTest", "d8/d90/class_d_b_s_c_a_n_test.html", "d8/d90/class_d_b_s_c_a_n_test" ],
     [ "DeadTime", "d6/d56/class_dead_time.html", "d6/d56/class_dead_time" ],
     [ "DecoupledController", "dd/d8f/class_decoupled_controller.html", "dd/d8f/class_decoupled_controller" ],
     [ "DefaultAeroModel", "d2/d1b/class_default_aero_model.html", "d2/d1b/class_default_aero_model" ],
@@ -191,9 +191,9 @@ var annotated_dup =
     [ "GraphSLAMSolver", "d9/d73/class_graph_s_l_a_m_solver.html", "d9/d73/class_graph_s_l_a_m_solver" ],
     [ "GraphSlamSolverTest", "d7/d05/class_graph_slam_solver_test.html", "d7/d05/class_graph_slam_solver_test" ],
     [ "GridClustering", "d1/d40/class_grid_clustering.html", "d1/d40/class_grid_clustering" ],
+    [ "GridClusteringTest", "dc/d70/class_grid_clustering_test.html", "dc/d70/class_grid_clustering_test" ],
     [ "GridGeometry", "d0/da6/struct_grid_geometry.html", "d0/da6/struct_grid_geometry" ],
     [ "GridIndex", "d3/d44/struct_grid_index.html", "d3/d44/struct_grid_index" ],
-    [ "GridRANSACTest", "d0/d78/class_grid_r_a_n_s_a_c_test.html", "d0/d78/class_grid_r_a_n_s_a_c_test" ],
     [ "GridWallRemoval", "df/d89/class_grid_wall_removal.html", "df/d89/class_grid_wall_removal" ],
     [ "gripMap", "de/d10/classgrip_map.html", "de/d10/classgrip_map" ],
     [ "GroundGrid", "dc/d71/class_ground_grid.html", "dc/d71/class_ground_grid" ],
@@ -211,6 +211,7 @@ var annotated_dup =
     [ "HeightValidator", "d9/d1f/class_height_validator.html", "d9/d1f/class_height_validator" ],
     [ "HeightValidatorTest", "d9/d7c/class_height_validator_test.html", "d9/d7c/class_height_validator_test" ],
     [ "Himmelsbach", "da/d5d/class_himmelsbach.html", "da/d5d/class_himmelsbach" ],
+    [ "HimmelsbachTest", "de/d11/class_himmelsbach_test.html", "de/d11/class_himmelsbach_test" ],
     [ "ICP", "dd/d10/class_i_c_p.html", "dd/d10/class_i_c_p" ],
     [ "ICPSuite", "de/dab/class_i_c_p_suite.html", "de/dab/class_i_c_p_suite" ],
     [ "ImuData", "d6/dc7/struct_imu_data.html", "d6/dc7/struct_imu_data" ],
@@ -321,7 +322,6 @@ var annotated_dup =
     [ "StandardDeviationTest", "d9/d2d/class_standard_deviation_test.html", "d9/d2d/class_standard_deviation_test" ],
     [ "SteeringModel", "d0/db0/class_steering_model.html", "d0/db0/class_steering_model" ],
     [ "SteeringMotorModel", "d1/d48/class_steering_motor_model.html", "d1/d48/class_steering_motor_model" ],
-    [ "TestConeValidator", "d7/d35/class_test_cone_validator.html", "d7/d35/class_test_cone_validator" ],
     [ "TireModel", "d2/dc2/class_tire_model.html", "d2/dc2/class_tire_model" ],
     [ "Track", "db/df3/struct_track.html", "db/df3/struct_track" ],
     [ "TrimmingParameters", "d8/d2c/struct_trimming_parameters.html", "d8/d2c/struct_trimming_parameters" ],

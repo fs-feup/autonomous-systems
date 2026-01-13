@@ -1,0 +1,15 @@
+<map id="make_default_evaluator_params" name="make_default_evaluator_params">
+<area shape="rect" id="Node000001" title=" " alt="" coords="108,122,267,163"/>
+<area shape="rect" id="Node000002" href="$d1/d69/cone__evaluator__test_8cpp.html#a75497bf7c69a0a2073e522ac88f1265e" title="Should return false when cluster is far from ground." alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="147,114,48,33,52,29,150,110"/>
+<area shape="rect" id="Node000003" href="$d1/d69/cone__evaluator__test_8cpp.html#aa627a0977fd728f4dddf4bbdd9457326" title="Should return true when cluster is close to ground." alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="128,117,59,83,61,78,131,112"/>
+<area shape="rect" id="Node000004" href="$d1/d69/cone__evaluator__test_8cpp.html#a3541f5bb81c19396ff9bb5d14794e2ca" title="Should return false when cluster does not fit cone cylinder dimensions." alt="" coords="5,104,60,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="92,129,60,124,61,119,93,124"/>
+<area shape="rect" id="Node000005" href="$d1/d69/cone__evaluator__test_8cpp.html#ad9aab96a33e28e75d4163c72f73251f2" title="Should return true when cluster fits cone cylinder dimensions." alt="" coords="5,153,60,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="93,160,61,165,60,159,92,154"/>
+<area shape="rect" id="Node000006" href="$d1/d69/cone__evaluator__test_8cpp.html#aa0b05f59a676e7be39a0f47d6a983c4b" title="Should return false when cluster does not have a valid number of points." alt="" coords="5,203,60,228"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="130,172,61,205,59,201,128,167"/>
+<area shape="rect" id="Node000007" href="$d1/d69/cone__evaluator__test_8cpp.html#ada4918220dfdc9c47e24d08f5b1f0cc3" title="Should return true when cluster has a valid number of points." alt="" coords="5,252,60,278"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="150,175,52,254,49,249,147,170"/>
+</map>

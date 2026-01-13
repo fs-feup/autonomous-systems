@@ -1,6 +1,5 @@
 var cut__trimming__test_8cpp =
 [
-    [ "NonOwningDeleter< T >", "dd/d52/struct_non_owning_deleter.html", "dd/d52/struct_non_owning_deleter" ],
     [ "CutTrimmingTest", "d1/dad/class_cut_trimming_test.html", "d1/dad/class_cut_trimming_test" ],
     [ "TEST_F", "d1/d5d/cut__trimming__test_8cpp.html#a2dc9a287f972aa6309820293bd56ec6d", null ],
     [ "TEST_F", "d1/d5d/cut__trimming__test_8cpp.html#aba0ba9d17b4fee0710ef3828430946d6", null ],

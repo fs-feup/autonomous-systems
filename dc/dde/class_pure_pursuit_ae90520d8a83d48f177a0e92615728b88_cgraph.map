@@ -1,0 +1,9 @@
+<map id="PurePursuit::publish_lookahead_point" name="PurePursuit::publish_lookahead_point">
+<area shape="rect" id="Node000001" title="Function that publishes the lookahead point marker." alt="" coords="5,39,142,79"/>
+<area shape="rect" id="Node000002" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966" title="Converts a position to a marker." alt="" coords="190,39,375,79"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,56,174,56,174,62,142,62"/>
+<area shape="rect" id="Node000003" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="423,5,608,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="375,43,407,38,408,44,376,48"/>
+<area shape="rect" id="Node000004" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="423,71,608,111"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="376,69,408,74,407,79,375,74"/>
+</map>

@@ -108,9 +108,9 @@ Inheritance diagram for LongitudinalController:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/d3e/class_longitudinal_controller__inherit__graph.png" border="0" usemap="#a_longitudinal_controller_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_longitudinal_controller_inherit__map" id="a_longitudinal_controller_inherit__map">
-<area shape="rect" title="Base (abstract) class for longitudinal controllers (the ones that calculate throttle)" alt="" coords="5,5,169,171"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html" title="PI&#45;D Controller class." alt="" coords="5,219,169,908"/>
-<area shape="poly" title=" " alt="" coords="90,186,90,219,85,219,85,186"/>
+<area shape="rect" title="Base (abstract) class for longitudinal controllers (the ones that calculate throttle)" alt="" coords="5,5,169,191"/>
+<area shape="rect" href="../../d6/d5a/class_p_i_d.html" title="PI&#45;D Controller class." alt="" coords="5,239,169,928"/>
+<area shape="poly" title=" " alt="" coords="90,205,90,239,85,239,85,205"/>
 </map>
 </div>
 <div class="dynheader">
@@ -118,7 +118,7 @@ Collaboration diagram for LongitudinalController:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/de6/class_longitudinal_controller__coll__graph.png" border="0" usemap="#a_longitudinal_controller_coll__map" alt="Collaboration graph"/></div>
 <map name="a_longitudinal_controller_coll__map" id="a_longitudinal_controller_coll__map">
-<area shape="rect" title="Base (abstract) class for longitudinal controllers (the ones that calculate throttle)" alt="" coords="5,5,169,171"/>
+<area shape="rect" title="Base (abstract) class for longitudinal controllers (the ones that calculate throttle)" alt="" coords="5,5,169,191"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -136,6 +136,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abcaad41b461c8e2ca6819a2f54fb3b3f" id="r_abcaad41b461c8e2ca6819a2f54fb3b3f"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../da/d16/structcommon__lib_1_1structures_1_1_control_command.html">common_lib::structures::ControlCommand</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/ded/class_longitudinal_controller.html#abcaad41b461c8e2ca6819a2f54fb3b3f">get_throttle_command</a> ()=0</td></tr>
 <tr class="memdesc:abcaad41b461c8e2ca6819a2f54fb3b3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the throttle command calculated by the solver (only throttle)  <br /></td></tr>
 <tr class="separator:abcaad41b461c8e2ca6819a2f54fb3b3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2445cceff14e90a6c1f53d54429c7ab" id="r_aa2445cceff14e90a6c1f53d54429c7ab"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/ded/class_longitudinal_controller.html#aa2445cceff14e90a6c1f53d54429c7ab">publish_solver_data</a> (std::shared_ptr&lt; rclcpp::Node &gt; node, std::map&lt; std::string, std::shared_ptr&lt; rclcpp::PublisherBase &gt; &gt; &amp;publisher_map)=0</td></tr>
+<tr class="memdesc:aa2445cceff14e90a6c1f53d54429c7ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes solver specific data using the provided <a class="el" href="../../d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module.">ControlNode</a>.  <br /></td></tr>
+<tr class="separator:aa2445cceff14e90a6c1f53d54429c7ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5fd4ecac04ffa911ee691956dcee8a9" id="r_ad5fd4ecac04ffa911ee691956dcee8a9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/ded/class_longitudinal_controller.html#ad5fd4ecac04ffa911ee691956dcee8a9">LongitudinalController</a> (const <a class="el" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a> &amp;params)</td></tr>
 <tr class="separator:ad5fd4ecac04ffa911ee691956dcee8a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a440075a3ff8aa72ced0eb49e0f35cc0f" id="r_a440075a3ff8aa72ced0eb49e0f35cc0f"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/ded/class_longitudinal_controller.html#a440075a3ff8aa72ced0eb49e0f35cc0f">~LongitudinalController</a> ()=default</td></tr>
@@ -175,7 +178,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/d9c/base__longitudinal__controller_8hpp_source.html#l00037">37</a> of file <a class="el" href="../../db/d9c/base__longitudinal__controller_8hpp_source.html">base_longitudinal_controller.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d9c/base__longitudinal__controller_8hpp_source.html#l00045">45</a> of file <a class="el" href="../../db/d9c/base__longitudinal__controller_8hpp_source.html">base_longitudinal_controller.hpp</a>.</p>
 
 </div>
 </div>
@@ -261,6 +264,53 @@ Protected Attributes</h2></td></tr>
 <p>Called when a new path is sent by Path <a class="el" href="../../d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle.">Planning</a>. </p>
 
 <p>Implemented in <a class="el" href="../../d6/d5a/class_p_i_d.html#a68405cef60bc126ea45aa2861eddd593">PID</a>.</p>
+
+</div>
+</div>
+<a id="aa2445cceff14e90a6c1f53d54429c7ab" name="aa2445cceff14e90a6c1f53d54429c7ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2445cceff14e90a6c1f53d54429c7ab">&#9670;&#160;</a></span>publish_solver_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void LongitudinalController::publish_solver_data </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; rclcpp::Node &gt;&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::map&lt; std::string, std::shared_ptr&lt; rclcpp::PublisherBase &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>publisher_map</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Publishes solver specific data using the provided <a class="el" href="../../d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module.">ControlNode</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>shared pointer to the <a class="el" href="../../d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module.">ControlNode</a> </td></tr>
+    <tr><td class="paramname">publisher_map</td><td>map of topic names to publisher pointers </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d6/d5a/class_p_i_d.html#a3bed9f0b83456b2bde4db41790b38957">PID</a>.</p>
 
 </div>
 </div>

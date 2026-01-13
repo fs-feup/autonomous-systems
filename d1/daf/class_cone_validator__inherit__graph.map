@@ -1,17 +1,15 @@
 <map id="ConeValidator" name="ConeValidator">
-<area shape="rect" id="Node000001" title="Abstract class responsible for validating clusters as cones." alt="" coords="533,5,643,71"/>
+<area shape="rect" id="Node000001" title="Abstract class responsible for validating clusters as cones." alt="" coords="443,5,554,71"/>
 <area shape="rect" id="Node000002" href="$dd/def/class_cylinder_validator.html" title="Validates clusters using a cylinder approximation." alt="" coords="5,119,133,324"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="518,48,423,59,315,75,215,95,175,108,147,121,134,130,131,125,144,116,174,103,214,90,314,69,422,54,518,43"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="429,44,365,50,292,63,217,86,181,102,147,121,135,130,131,126,144,116,178,97,215,81,291,58,365,45,429,38"/>
 <area shape="rect" id="Node000003" href="$d2/d55/class_deviation_validator.html" title="Validates clusters using the standard deviation on xOy plane and on the z axis." alt="" coords="157,139,301,304"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="518,50,471,60,418,74,364,94,315,121,290,141,287,137,312,116,362,89,416,69,469,55,517,45"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="430,63,372,87,315,121,292,141,288,137,312,117,369,82,428,58"/>
 <area shape="rect" id="Node000004" href="$db/d6b/class_displacement_validator.html" title="The SizeValidator class is responsible for validating cones based on the minimum distance between the..." alt="" coords="325,149,493,294"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="546,83,507,121,478,151,474,147,503,117,542,79"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="479,85,447,150,442,148,474,83"/>
 <area shape="rect" id="Node000005" href="$d9/d1f/class_height_validator.html" title="The HeightValidator class is responsible for validating cones based on their height." alt="" coords="517,139,659,304"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="591,86,591,139,585,139,585,86"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="523,82,550,138,545,140,518,85"/>
 <area shape="rect" id="Node000006" href="$d2/ddf/class_n_points_validator.html" title="The NPointsValidator class is responsible for validating cones based on the number of points they con..." alt="" coords="683,169,819,274"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="635,79,673,117,715,167,710,171,669,120,632,83"/>
-<area shape="rect" id="Node000007" href="$d7/d35/class_test_cone_validator.html" title="Mock ConeValidator class." alt="" coords="843,179,981,264"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="658,48,745,73,790,92,832,117,864,145,890,178,885,181,860,149,829,121,788,97,743,78,657,54"/>
-<area shape="rect" id="Node000008" href="$d5/d4f/class_z_score_validator.html" title="The ZScoreValidator class is responsible for validating cones based on the approximation of z&#45;score o..." alt="" coords="1006,139,1138,304"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="659,36,732,40,819,53,910,77,954,94,995,116,1020,137,1017,141,992,121,951,99,908,82,818,58,732,46,658,41"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="569,60,622,84,672,117,698,141,720,167,716,171,694,144,669,121,619,89,567,65"/>
+<area shape="rect" id="Node000007" href="$d5/d4f/class_z_score_validator.html" title="The ZScoreValidator class is responsible for validating cones based on the approximation of z&#45;score o..." alt="" coords="843,139,975,304"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="569,40,629,47,697,61,767,83,832,116,857,137,854,141,829,121,765,88,695,66,628,52,568,45"/>
 </map>

@@ -1,6 +1,5 @@
 var skidpad__trimming__test_8cpp =
 [
-    [ "NonOwningDeleter< T >", "dd/d52/struct_non_owning_deleter.html", "dd/d52/struct_non_owning_deleter" ],
     [ "SkidpadTrimmingTest", "df/d55/class_skidpad_trimming_test.html", "df/d55/class_skidpad_trimming_test" ],
     [ "TEST_F", "df/d77/skidpad__trimming__test_8cpp.html#a98a7802dee29f175b2beee30b2a252a9", null ],
     [ "TEST_F", "df/d77/skidpad__trimming__test_8cpp.html#a528dbc97598753ecb73080aa62881f3f", null ],

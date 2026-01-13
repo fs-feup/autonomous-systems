@@ -1,7 +1,7 @@
 <map id="AccelerationTrimmingTest" name="AccelerationTrimmingTest">
-<area shape="rect" id="Node000001" title="Test class for setting up data and testing AccelerationTrimming algorithm." alt="" coords="41,374,206,459"/>
+<area shape="rect" id="Node000001" title="Test class for setting up data and testing AccelerationTrimming algorithm." alt="" coords="41,374,206,439"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,125,89,191"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="63,204,114,373,109,375,58,205"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="64,204,116,373,111,375,59,206"/>
 <area shape="rect" id="Node000003" href="$d8/d2c/struct_trimming_parameters.html" title="Structure to hold parameters for trimming point cloud data." alt="" coords="113,5,285,311"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="157,311,143,358,138,357,152,310"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="155,311,141,358,136,357,150,310"/>
 </map>

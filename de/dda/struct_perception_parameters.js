@@ -8,7 +8,9 @@ var struct_perception_parameters =
     [ "fov_trim_map_", "de/dda/struct_perception_parameters.html#ad29baccbe94cff16cc09c9504506524c", null ],
     [ "ground_grid_", "de/dda/struct_perception_parameters.html#af15c2061baac9f23cf6eb686efdb416f", null ],
     [ "ground_removal_", "de/dda/struct_perception_parameters.html#a2739befa72bb10939a0f7ff4570d5d44", null ],
-    [ "icp_", "de/dda/struct_perception_parameters.html#a9f7882e866eb531373f3ee4c8965267f", null ],
+    [ "publish_fov_trimmed_cloud", "de/dda/struct_perception_parameters.html#ade801c71162c030f9f11de6503799d7a", null ],
+    [ "publish_ground_removed_cloud", "de/dda/struct_perception_parameters.html#ae53ae9cee473934a5a904eb3f3b238a7", null ],
+    [ "publish_wall_removed_cloud", "de/dda/struct_perception_parameters.html#a62a392f8a108a31192933d297653d03d", null ],
     [ "vehicle_frame_id_", "de/dda/struct_perception_parameters.html#a3837e8da0d9d2d139a7a8ae45db7d6f0", null ],
     [ "wall_removal_", "de/dda/struct_perception_parameters.html#a1e4bfc23f5dc070db564eb2b6d8c0b5d", null ],
     [ "weight_values", "de/dda/struct_perception_parameters.html#ae9eb817b79c0cc3075eda6bb363ce0b3", null ]

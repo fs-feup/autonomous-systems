@@ -1,5 +1,5 @@
 <map id="WallRemoval" name="WallRemoval">
 <area shape="rect" id="Node000001" title="Abstract base class for wall removal of point clouds." alt="" coords="33,5,145,71"/>
-<area shape="rect" id="Node000002" href="$df/d89/class_grid_wall_removal.html" title="Wall removal implementation using a grid&#45;based approach." alt="" coords="5,119,173,224"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,85,92,119,87,119,87,85"/>
+<area shape="rect" id="Node000002" href="$df/d89/class_grid_wall_removal.html" title="Wall removal implementation using a grid&#45;based approach." alt="" coords="5,119,173,244"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,86,92,119,87,119,87,86"/>
 </map>

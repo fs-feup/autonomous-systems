@@ -1,5 +1,9 @@
 <map id="RANSACTest" name="RANSACTest">
-<area shape="rect" id="Node000001" title="Test class for setting up data and testing RANSAC algorithm." alt="" coords="5,119,161,264"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="41,5,125,71"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="86,86,86,119,81,119,81,86"/>
+<area shape="rect" id="Node000001" title="Test class for setting up data and testing RANSAC algorithm." alt="" coords="31,522,151,627"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,344,89,409"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,423,82,522,77,523,55,424"/>
+<area shape="rect" id="Node000003" href="$dc/d71/class_ground_grid.html" title="Class to represent a ground height grid for ground proximity checks." alt="" coords="113,294,251,459"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="147,460,125,508,120,506,142,458"/>
+<area shape="rect" id="Node000004" href="$d0/da6/struct_grid_geometry.html" title="Structure to hold grid geometry parameters and provide utility functions." alt="" coords="110,5,254,231"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="185,230,185,276,179,276,179,230"/>
 </map>

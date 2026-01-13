@@ -1,0 +1,21 @@
+<map id="vehicle_dynamics_node.integrator_node.Integrator.imu_callback" name="vehicle_dynamics_node.integrator_node.Integrator.imu_callback">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,180,222,220"/>
+<area shape="rect" id="Node000002" href="$d3/d05/classvehicle__dynamics__node_1_1integrator__node_1_1_integrator.html#aa4f5cb43185ff55ad245e75502d2845d" title=" " alt="" coords="270,50,486,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="155,177,269,122,295,110,297,114,271,127,157,182"/>
+<area shape="rect" id="Node000003" href="$d4/d7e/namespacevehicle__dynamics__node_1_1integrator__node.html#a363c0660179e7457e8c12cacc015e745" title=" " alt="" coords="534,9,750,50"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="125,178,147,144,179,104,220,65,269,35,330,15,395,5,459,3,518,6,518,12,459,8,395,10,331,20,271,40,224,69,183,108,151,147,129,181"/>
+<area shape="rect" id="Node000004" href="$d4/d7e/namespacevehicle__dynamics__node_1_1integrator__node.html#afdad4cdcf1e56b1a055072d48bd1d810" title=" " alt="" coords="534,106,750,147"/>
+<area shape="poly" id="edge11_Node000001_Node000004" title=" " alt="" coords="209,177,269,165,398,148,518,135,519,140,398,153,270,171,210,182"/>
+<area shape="rect" id="Node000005" href="$d4/d7e/namespacevehicle__dynamics__node_1_1integrator__node.html#a4e283350a8731170203aeb95bd8923cb" title=" " alt="" coords="270,180,486,220"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="222,197,254,197,254,203,222,203"/>
+<area shape="rect" id="Node000006" href="$d4/d7e/namespacevehicle__dynamics__node_1_1integrator__node.html#a0ae159302bb2ea67e4c1919fcf9b2ac4" title=" " alt="" coords="534,261,750,302"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="211,218,270,229,519,265,518,270,269,235,210,224"/>
+<area shape="rect" id="Node000007" href="$d4/d7e/namespacevehicle__dynamics__node_1_1integrator__node.html#aa9d0d053c9e57a978921ca86b976da07" title=" " alt="" coords="534,338,750,379"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="131,219,154,249,186,285,226,319,271,344,332,363,396,373,459,376,518,374,518,379,459,381,395,378,330,368,269,349,223,323,183,289,150,253,127,223"/>
+<area shape="rect" id="Node000008" href="$d3/d05/classvehicle__dynamics__node_1_1integrator__node_1_1_integrator.html#a98b093d37003b2ba07f79ce52d58a2dc" title=" " alt="" coords="270,294,486,335"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="156,219,271,274,302,286,300,291,269,279,153,223"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="486,55,518,49,519,55,487,60"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="487,95,519,101,518,106,486,100"/>
+<area shape="poly" id="edge9_Node000008_Node000006" title=" " alt="" coords="486,298,518,294,519,300,487,304"/>
+<area shape="poly" id="edge10_Node000008_Node000007" title=" " alt="" coords="487,330,519,336,518,341,486,335"/>
+</map>

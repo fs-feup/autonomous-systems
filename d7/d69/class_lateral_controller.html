@@ -108,9 +108,9 @@ Inheritance diagram for LateralController:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d6/d3b/class_lateral_controller__inherit__graph.png" border="0" usemap="#a_lateral_controller_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_lateral_controller_inherit__map" id="a_lateral_controller_inherit__map">
-<area shape="rect" title="Base (abstract) class for lateral control solvers (that calculate steering command)" alt="" coords="5,5,172,171"/>
-<area shape="rect" href="../../dc/dde/class_pure_pursuit.html" title="Pure Pursuit class." alt="" coords="5,219,172,679"/>
-<area shape="poly" title=" " alt="" coords="91,186,91,219,86,219,86,186"/>
+<area shape="rect" title="Base (abstract) class for lateral control solvers (that calculate steering command)" alt="" coords="9,5,175,191"/>
+<area shape="rect" href="../../dc/dde/class_pure_pursuit.html" title="Pure Pursuit class." alt="" coords="5,239,179,799"/>
+<area shape="poly" title=" " alt="" coords="95,206,95,239,89,239,89,206"/>
 </map>
 </div>
 <div class="dynheader">
@@ -118,7 +118,7 @@ Collaboration diagram for LateralController:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/d78/class_lateral_controller__coll__graph.png" border="0" usemap="#a_lateral_controller_coll__map" alt="Collaboration graph"/></div>
 <map name="a_lateral_controller_coll__map" id="a_lateral_controller_coll__map">
-<area shape="rect" title="Base (abstract) class for lateral control solvers (that calculate steering command)" alt="" coords="5,5,172,171"/>
+<area shape="rect" title="Base (abstract) class for lateral control solvers (that calculate steering command)" alt="" coords="5,5,172,191"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -136,6 +136,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a05baa44abe49a1995a9256bee43512bc" id="r_a05baa44abe49a1995a9256bee43512bc"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d69/class_lateral_controller.html#a05baa44abe49a1995a9256bee43512bc">get_steering_command</a> ()=0</td></tr>
 <tr class="memdesc:a05baa44abe49a1995a9256bee43512bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the steering command calculated by the solver.  <br /></td></tr>
 <tr class="separator:a05baa44abe49a1995a9256bee43512bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad449d61c7570de39d966d6e1236d607c" id="r_ad449d61c7570de39d966d6e1236d607c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d69/class_lateral_controller.html#ad449d61c7570de39d966d6e1236d607c">publish_solver_data</a> (std::shared_ptr&lt; rclcpp::Node &gt; node, std::map&lt; std::string, std::shared_ptr&lt; rclcpp::PublisherBase &gt; &gt; &amp;publisher_map)=0</td></tr>
+<tr class="memdesc:ad449d61c7570de39d966d6e1236d607c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes solver specific data using the provided <a class="el" href="../../d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module.">ControlNode</a>.  <br /></td></tr>
+<tr class="separator:ad449d61c7570de39d966d6e1236d607c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9f779e667cea0c8fc595590b926d6dd" id="r_af9f779e667cea0c8fc595590b926d6dd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d69/class_lateral_controller.html#af9f779e667cea0c8fc595590b926d6dd">LateralController</a> (const <a class="el" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a> &amp;params)</td></tr>
 <tr class="separator:af9f779e667cea0c8fc595590b926d6dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2cc54565acc04c21c241272b5f49a5f2" id="r_a2cc54565acc04c21c241272b5f49a5f2"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d69/class_lateral_controller.html#a2cc54565acc04c21c241272b5f49a5f2">~LateralController</a> ()=default</td></tr>
@@ -175,7 +178,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dd4/base__lateral__controller_8hpp_source.html#l00037">37</a> of file <a class="el" href="../../d1/dd4/base__lateral__controller_8hpp_source.html">base_lateral_controller.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/dd4/base__lateral__controller_8hpp_source.html#l00045">45</a> of file <a class="el" href="../../d1/dd4/base__lateral__controller_8hpp_source.html">base_lateral_controller.hpp</a>.</p>
 
 </div>
 </div>
@@ -261,6 +264,53 @@ Protected Attributes</h2></td></tr>
 <p>Called when a new path is sent by Path <a class="el" href="../../d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle.">Planning</a>. </p>
 
 <p>Implemented in <a class="el" href="../../dc/dde/class_pure_pursuit.html#a3cc3bfea4178ed7d191a3a558e90cff7">PurePursuit</a>.</p>
+
+</div>
+</div>
+<a id="ad449d61c7570de39d966d6e1236d607c" name="ad449d61c7570de39d966d6e1236d607c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad449d61c7570de39d966d6e1236d607c">&#9670;&#160;</a></span>publish_solver_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void LateralController::publish_solver_data </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; rclcpp::Node &gt;&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::map&lt; std::string, std::shared_ptr&lt; rclcpp::PublisherBase &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>publisher_map</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Publishes solver specific data using the provided <a class="el" href="../../d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module.">ControlNode</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>shared pointer to the <a class="el" href="../../d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module.">ControlNode</a> </td></tr>
+    <tr><td class="paramname">publisher_map</td><td>map of topic names to publisher pointers </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../dc/dde/class_pure_pursuit.html#a0a8fc6a4cd3c8c9f366c320d85999299">PurePursuit</a>.</p>
 
 </div>
 </div>

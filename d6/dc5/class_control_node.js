@@ -13,6 +13,7 @@ var class_control_node =
     [ "go_signal_", "d6/dc5/class_control_node.html#a52b2b48ad5da99dfbb3a057976283502", null ],
     [ "params_", "d6/dc5/class_control_node.html#a6edc6ce661a5de5024c07c0667f10281", null ],
     [ "path_point_array_sub_", "d6/dc5/class_control_node.html#a56e26befd9b211e5e2ec3d88e897814b", null ],
+    [ "publisher_map_", "d6/dc5/class_control_node.html#a6b3bdea491e86f07f2dd777b7a90a4b7", null ],
     [ "vehicle_pose_sub_", "d6/dc5/class_control_node.html#ada2e2d3b5d8e6aceb173d8bd5beaa90b", null ],
     [ "velocity_sub_", "d6/dc5/class_control_node.html#ae0fe64a722c075e3faba3dedbc784850", null ]
 ];

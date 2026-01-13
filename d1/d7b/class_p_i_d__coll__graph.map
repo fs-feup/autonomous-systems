@@ -1,9 +1,9 @@
 <map id="PID" name="PID">
-<area shape="rect" id="Node000001" title="PI&#45;D Controller class." alt="" coords="147,234,311,883"/>
-<area shape="rect" id="Node000002" href="$da/ded/class_longitudinal_controller.html" title="Base (abstract) class for longitudinal controllers (the ones that calculate throttle)" alt="" coords="5,5,169,171"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,184,149,285,144,287,114,185"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="194,55,263,121"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="231,120,231,217,226,217,226,120"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="357,55,399,121"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="374,121,351,210,319,314,314,312,346,209,369,120"/>
+<area shape="rect" id="Node000001" title="PI&#45;D Controller class." alt="" coords="147,254,311,903"/>
+<area shape="rect" id="Node000002" href="$da/ded/class_longitudinal_controller.html" title="Base (abstract) class for longitudinal controllers (the ones that calculate throttle)" alt="" coords="5,5,169,191"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,204,149,299,144,301,116,205"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="194,65,263,131"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="231,130,231,237,226,237,226,130"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="357,65,399,131"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="375,131,351,230,319,336,313,335,346,229,369,130"/>
 </map>

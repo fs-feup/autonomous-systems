@@ -1,0 +1,5 @@
+<map id="PurePursuit::publish_lookahead_point" name="PurePursuit::publish_lookahead_point">
+<area shape="rect" id="Node000001" title="Function that publishes the lookahead point marker." alt="" coords="190,5,326,46"/>
+<area shape="rect" id="Node000002" href="$dc/dde/class_pure_pursuit.html#a0a8fc6a4cd3c8c9f366c320d85999299" title="Publishes solver specific data using the provided ControlNode." alt="" coords="5,5,142,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,28,142,28,142,23,174,23"/>
+</map>

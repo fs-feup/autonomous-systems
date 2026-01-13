@@ -1,0 +1,17 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title="Should return true when cluster is close to ground." alt="" coords="5,78,60,104"/>
+<area shape="rect" id="Node000002" href="$d1/d69/cone__evaluator__test_8cpp.html#ad40e73894e83874abbe6a26a386c91c4" title=" " alt="" coords="108,5,267,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,77,107,57,122,50,124,55,109,61,61,82"/>
+<area shape="rect" id="Node000003" href="$da/d3a/namespacetest__utils.html#a478d276754797d3730473a50aed011cd" title=" " alt="" coords="116,71,259,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="60,88,100,88,100,94,60,94"/>
+<area shape="rect" id="Node000004" href="$dc/d71/class_ground_grid.html#a7b2c9092c93f7dd39fd98441f24c5c67" title="Set the ground height at a specific (x, y) location." alt="" coords="109,136,266,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="61,100,109,121,124,127,122,132,107,125,59,105"/>
+<area shape="rect" id="Node000005" href="$d0/da6/struct_grid_geometry.html#a695ebf39f48027a55da74edd084a7160" title="Compute bin index for a given (x, y)" alt="" coords="335,49,484,90"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="237,133,266,121,314,99,330,93,332,98,316,104,268,125,239,138"/>
+<area shape="rect" id="Node000006" href="$d0/da6/struct_grid_geometry.html#ae9618d95af7167771e927aa026f576fa" title="Get the number of bins for a given range." alt="" coords="315,114,503,140"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="266,143,299,139,300,144,267,149"/>
+<area shape="rect" id="Node000007" href="$d0/da6/struct_grid_geometry.html#ae16a35d52aef5593d5402e398d31716b" title="Get the number of slices in the grid." alt="" coords="331,164,488,205"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="267,164,316,170,315,175,266,169"/>
+<area shape="rect" id="Node000008" href="$d0/da6/struct_grid_geometry.html#a69f955e8ae8a8b76e50c293a33b6b6b9" title="Compute slice index for a given (x, y)" alt="" coords="330,229,489,270"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="231,175,316,214,334,221,332,226,314,219,229,180"/>
+</map>

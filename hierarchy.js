@@ -50,7 +50,6 @@ var hierarchy =
       [ "DisplacementValidator", "db/d6b/class_displacement_validator.html", null ],
       [ "HeightValidator", "d9/d1f/class_height_validator.html", null ],
       [ "NPointsValidator", "d2/ddf/class_n_points_validator.html", null ],
-      [ "TestConeValidator", "d7/d35/class_test_cone_validator.html", null ],
       [ "ZScoreValidator", "d5/d4f/class_z_score_validator.html", null ]
     ] ],
     [ "ConfigElement", "d0/d11/class_config_element.html", [
@@ -262,16 +261,14 @@ var hierarchy =
     [ "testing::Test", null, [
       [ "AccelerationTrimmingTest", "de/db8/class_acceleration_trimming_test.html", null ],
       [ "CircunferenceCenterCalculationTest", "d1/df5/class_circunference_center_calculation_test.html", null ],
-      [ "ConstrainedGridRANSACTest", "da/da3/class_constrained_grid_r_a_n_s_a_c_test.html", null ],
-      [ "ConstrainedRANSACTest", "da/db1/class_constrained_r_a_n_s_a_c_test.html", null ],
       [ "CutTrimmingTest", "d1/dad/class_cut_trimming_test.html", null ],
       [ "CylinderValidatorTest", "da/dcf/class_cylinder_validator_test.html", null ],
-      [ "DBSCANTest", "d8/d90/class_d_b_s_c_a_n_test.html", null ],
       [ "DisplacementValidatorTest", "d7/d88/class_displacement_validator_test.html", null ],
       [ "EKFSLAMSolverTest", "d3/d78/class_e_k_f_s_l_a_m_solver_test.html", null ],
       [ "GraphSlamSolverTest", "d7/d05/class_graph_slam_solver_test.html", null ],
-      [ "GridRANSACTest", "d0/d78/class_grid_r_a_n_s_a_c_test.html", null ],
+      [ "GridClusteringTest", "dc/d70/class_grid_clustering_test.html", null ],
       [ "HeightValidatorTest", "d9/d7c/class_height_validator_test.html", null ],
+      [ "HimmelsbachTest", "de/d11/class_himmelsbach_test.html", null ],
       [ "ICPSuite", "de/dab/class_i_c_p_suite.html", null ],
       [ "IntegrationTest", "d7/d4e/class_integration_test.html", null ],
       [ "LeastSquaresDifferentiationTest", "de/d1e/class_least_squares_differentiation_test.html", null ],
@@ -348,6 +345,7 @@ var hierarchy =
       [ "rosbag_groundtruth.rosbag_node.BagNode", "da/deb/classrosbag__groundtruth_1_1rosbag__node_1_1_bag_node.html", null ],
       [ "supervisor.main.Supervisor", "db/d57/classsupervisor_1_1main_1_1_supervisor.html", null ],
       [ "test.LocationPublisher", "dc/ddc/classtest_1_1_location_publisher.html", null ],
+      [ "vehicle_dynamics_node.integrator_node.Integrator", "d3/d05/classvehicle__dynamics__node_1_1integrator__node_1_1_integrator.html", null ],
       [ "vehicle_dynamics_node.vehicle_dynamics_node.VehicleDynamicsPublisher", "d6/d38/classvehicle__dynamics__node_1_1vehicle__dynamics__node_1_1_vehicle_dynamics_publisher.html", null ]
     ] ],
     [ "QGraphicsScene", null, [

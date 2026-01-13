@@ -273,5 +273,8 @@ var namespaces_dup =
     [ "test_pep257", "d0/d5e/namespacetest__pep257.html", [
       [ "test_pep257", "d0/d5e/namespacetest__pep257.html#ab7a6c2326534d69991f8f775f6e96f4d", null ]
     ] ],
+    [ "test_utils", "da/d3a/namespacetest__utils.html", [
+      [ "make_lidar_pointcloud2", "da/d3a/namespacetest__utils.html#a478d276754797d3730473a50aed011cd", null ]
+    ] ],
     [ "vehicle_dynamics_node", "d2/d1d/namespacevehicle__dynamics__node.html", "d2/d1d/namespacevehicle__dynamics__node" ]
 ];

@@ -1,0 +1,5 @@
+<map id="GridClusteringTest" name="GridClusteringTest">
+<area shape="rect" id="Node000001" title="Test fixture for the GridClustering class." alt="" coords="5,119,127,184"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="24,5,108,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="69,85,69,119,63,119,63,85"/>
+</map>

@@ -1,7 +1,7 @@
 <map id="Perception::Perception" name="Perception::Perception">
 <area shape="rect" id="Node000001" title="Constructor for the Perception node." alt="" coords="5,46,157,72"/>
-<area shape="rect" id="Node000002" href="$de/d07/class_perception.html#a930301dcb04cfa9461af139181f075c1" title=" " alt="" coords="205,5,354,46"/>
+<area shape="rect" id="Node000002" href="$de/d07/class_perception.html#a930301dcb04cfa9461af139181f075c1" title="Callback function for the LiDAR timer to check for emergency." alt="" coords="205,5,354,46"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="156,44,189,38,190,43,157,49"/>
-<area shape="rect" id="Node000003" href="$de/d07/class_perception.html#a76a5d7716d5b0058cf501d45739ed067" title=" " alt="" coords="207,71,352,111"/>
+<area shape="rect" id="Node000003" href="$de/d07/class_perception.html#a76a5d7716d5b0058cf501d45739ed067" title="Callback function for the Velocities subscription." alt="" coords="207,71,352,111"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="157,69,192,74,191,80,156,74"/>
 </map>

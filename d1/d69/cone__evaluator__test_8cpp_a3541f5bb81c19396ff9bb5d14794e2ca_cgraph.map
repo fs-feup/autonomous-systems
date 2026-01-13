@@ -1,0 +1,7 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title="Should return false when cluster does not fit cone cylinder dimensions." alt="" coords="5,46,60,72"/>
+<area shape="rect" id="Node000002" href="$d1/d69/cone__evaluator__test_8cpp.html#ad40e73894e83874abbe6a26a386c91c4" title=" " alt="" coords="108,5,267,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,51,92,44,93,49,61,56"/>
+<area shape="rect" id="Node000003" href="$da/d3a/namespacetest__utils.html#a478d276754797d3730473a50aed011cd" title=" " alt="" coords="116,71,259,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="61,62,101,70,100,76,59,67"/>
+</map>

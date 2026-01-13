@@ -1,5 +1,5 @@
 <map id="Perception::velocities_callback" name="Perception::velocities_callback">
-<area shape="rect" id="Node000001" title=" " alt="" coords="205,5,349,46"/>
+<area shape="rect" id="Node000001" title="Callback function for the Velocities subscription." alt="" coords="205,5,349,46"/>
 <area shape="rect" id="Node000002" href="$de/d07/class_perception.html#a99447b0f39e7b103d320b6072021a3af" title="Constructor for the Perception node." alt="" coords="5,13,157,39"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="189,28,157,28,157,23,189,23"/>
 </map>

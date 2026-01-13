@@ -108,9 +108,9 @@ Inheritance diagram for GridWallRemoval:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/d4a/class_grid_wall_removal__inherit__graph.png" border="0" usemap="#a_grid_wall_removal_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_grid_wall_removal_inherit__map" id="a_grid_wall_removal_inherit__map">
-<area shape="rect" title="Wall removal implementation using a grid&#45;based approach." alt="" coords="5,119,173,224"/>
+<area shape="rect" title="Wall removal implementation using a grid&#45;based approach." alt="" coords="5,119,173,244"/>
 <area shape="rect" href="../../d8/d0d/class_wall_removal.html" title="Abstract base class for wall removal of point clouds." alt="" coords="33,5,145,71"/>
-<area shape="poly" title=" " alt="" coords="92,85,92,119,87,119,87,85"/>
+<area shape="poly" title=" " alt="" coords="92,86,92,119,87,119,87,86"/>
 </map>
 </div>
 <div class="dynheader">
@@ -118,11 +118,11 @@ Collaboration diagram for GridWallRemoval:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/de9/class_grid_wall_removal__coll__graph.png" border="0" usemap="#a_grid_wall_removal_coll__map" alt="Collaboration graph"/></div>
 <map name="a_grid_wall_removal_coll__map" id="a_grid_wall_removal_coll__map">
-<area shape="rect" title="Wall removal implementation using a grid&#45;based approach." alt="" coords="53,294,221,379"/>
+<area shape="rect" title="Wall removal implementation using a grid&#45;based approach." alt="" coords="53,294,221,399"/>
 <area shape="rect" href="../../d8/d0d/class_wall_removal.html" title="Abstract base class for wall removal of point clouds." alt="" coords="5,85,117,151"/>
-<area shape="poly" title=" " alt="" coords="80,164,125,293,120,295,75,165"/>
+<area shape="poly" title=" " alt="" coords="79,164,123,293,118,295,74,166"/>
 <area shape="rect" href="../../d0/da6/struct_grid_geometry.html" title="Structure to hold grid geometry parameters and provide utility functions." alt="" coords="141,5,285,231"/>
-<area shape="poly" title=" " alt="" coords="177,231,160,278,155,277,172,229"/>
+<area shape="poly" title=" " alt="" coords="179,231,163,278,158,277,173,229"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -131,12 +131,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2451ee7c473e1ecf1d6a02a5ce36ef1c" id="r_a2451ee7c473e1ecf1d6a02a5ce36ef1c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/class_grid_wall_removal.html#a2451ee7c473e1ecf1d6a02a5ce36ef1c">GridWallRemoval</a> (double angle, double radius, double start_augmentation, double radius_augmentation, double fov, int max_points_per_cluster)</td></tr>
 <tr class="memdesc:a2451ee7c473e1ecf1d6a02a5ce36ef1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for <a class="el" href="../../df/d89/class_grid_wall_removal.html" title="Wall removal implementation using a grid-based approach.">GridWallRemoval</a>.  <br /></td></tr>
 <tr class="separator:a2451ee7c473e1ecf1d6a02a5ce36ef1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7bee6f4734519bad34c19049898cae62" id="r_a7bee6f4734519bad34c19049898cae62"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/class_grid_wall_removal.html#a7bee6f4734519bad34c19049898cae62">remove_walls</a> (const sensor_msgs::msg::PointCloud2::SharedPtr &amp;point_cloud, sensor_msgs::msg::PointCloud2::SharedPtr &amp;output_cloud) const override</td></tr>
-<tr class="memdesc:a7bee6f4734519bad34c19049898cae62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes walls from the input point cloud using a grid-based approach.  <br /></td></tr>
-<tr class="separator:a7bee6f4734519bad34c19049898cae62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0b2b308d8b7da1315022adb4e105c32" id="r_ab0b2b308d8b7da1315022adb4e105c32"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/class_grid_wall_removal.html#ab0b2b308d8b7da1315022adb4e105c32">remove_walls</a> (const sensor_msgs::msg::PointCloud2::SharedPtr &amp;point_cloud, sensor_msgs::msg::PointCloud2::SharedPtr &amp;output_cloud) override</td></tr>
+<tr class="memdesc:ab0b2b308d8b7da1315022adb4e105c32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes walls from the input point cloud using a grid-based approach.  <br /></td></tr>
+<tr class="separator:ab0b2b308d8b7da1315022adb4e105c32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
+<tr class="memitem:adc37f879ad112ef6d46263ebd3e57994" id="r_adc37f879ad112ef6d46263ebd3e57994"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/class_grid_wall_removal.html#adc37f879ad112ef6d46263ebd3e57994">occlusion_bins_</a></td></tr>
+<tr class="separator:adc37f879ad112ef6d46263ebd3e57994"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49cb2c97458fef777aaca1d128f09602" id="r_a49cb2c97458fef777aaca1d128f09602"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/da6/struct_grid_geometry.html">GridGeometry</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/class_grid_wall_removal.html#a49cb2c97458fef777aaca1d128f09602">grid_geometry_</a></td></tr>
 <tr class="separator:a49cb2c97458fef777aaca1d128f09602"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1820a89c9e21c3fb575c4ff11e05566" id="r_ad1820a89c9e21c3fb575c4ff11e05566"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d89/class_grid_wall_removal.html#ad1820a89c9e21c3fb575c4ff11e05566">max_points_per_cluster_</a></td></tr>
@@ -215,8 +217,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7bee6f4734519bad34c19049898cae62" name="a7bee6f4734519bad34c19049898cae62"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7bee6f4734519bad34c19049898cae62">&#9670;&#160;</a></span>remove_walls()</h2>
+<a id="ab0b2b308d8b7da1315022adb4e105c32" name="ab0b2b308d8b7da1315022adb4e105c32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0b2b308d8b7da1315022adb4e105c32">&#9670;&#160;</a></span>remove_walls()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -239,7 +241,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> const</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -258,14 +260,14 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="../../d8/d0d/class_wall_removal.html#a0ef7ef9cf1a50c76cef96ff2ca989e12">WallRemoval</a>.</p>
+<p>Implements <a class="el" href="../../d8/d0d/class_wall_removal.html#afc526c54a5336b86bcaeb476cba3fb48">WallRemoval</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dd8/grid__removal_8cpp_source.html#l00008">8</a> of file <a class="el" href="../../dc/dd8/grid__removal_8cpp_source.html">grid_removal.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dd8/grid__removal_8cpp_source.html#l00010">10</a> of file <a class="el" href="../../dc/dd8/grid__removal_8cpp_source.html">grid_removal.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../df/d89/class_grid_wall_removal_a7bee6f4734519bad34c19049898cae62_cgraph.png" border="0" usemap="#adf/d89/class_grid_wall_removal_a7bee6f4734519bad34c19049898cae62_cgraph" alt=""/></div>
-<map name="adf/d89/class_grid_wall_removal_a7bee6f4734519bad34c19049898cae62_cgraph" id="adf/d89/class_grid_wall_removal_a7bee6f4734519bad34c19049898cae62_cgraph">
+<div class="center"><img src="../../df/d89/class_grid_wall_removal_ab0b2b308d8b7da1315022adb4e105c32_cgraph.png" border="0" usemap="#adf/d89/class_grid_wall_removal_ab0b2b308d8b7da1315022adb4e105c32_cgraph" alt=""/></div>
+<map name="adf/d89/class_grid_wall_removal_ab0b2b308d8b7da1315022adb4e105c32_cgraph" id="adf/d89/class_grid_wall_removal_ab0b2b308d8b7da1315022adb4e105c32_cgraph">
 <area shape="rect" title="Removes walls from the input point cloud using a grid&#45;based approach." alt="" coords="5,100,176,141"/>
 <area shape="rect" href="../../d0/da6/struct_grid_geometry.html#a695ebf39f48027a55da74edd084a7160" title="Compute bin index for a given (x, y)" alt="" coords="229,5,378,46"/>
 <area shape="poly" title=" " alt="" coords="134,97,223,57,237,50,239,55,225,61,137,102"/>
@@ -301,7 +303,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d3b/grid__removal_8hpp_source.html#l00046">46</a> of file <a class="el" href="../../dd/d3b/grid__removal_8hpp_source.html">grid_removal.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d3b/grid__removal_8hpp_source.html#l00047">47</a> of file <a class="el" href="../../dd/d3b/grid__removal_8hpp_source.html">grid_removal.hpp</a>.</p>
 
 </div>
 </div>
@@ -325,7 +327,31 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d3b/grid__removal_8hpp_source.html#l00047">47</a> of file <a class="el" href="../../dd/d3b/grid__removal_8hpp_source.html">grid_removal.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d3b/grid__removal_8hpp_source.html#l00048">48</a> of file <a class="el" href="../../dd/d3b/grid__removal_8hpp_source.html">grid_removal.hpp</a>.</p>
+
+</div>
+</div>
+<a id="adc37f879ad112ef6d46263ebd3e57994" name="adc37f879ad112ef6d46263ebd3e57994"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc37f879ad112ef6d46263ebd3e57994">&#9670;&#160;</a></span>occlusion_bins_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;int&gt; GridWallRemoval::occlusion_bins_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dd/d3b/grid__removal_8hpp_source.html#l00046">46</a> of file <a class="el" href="../../dd/d3b/grid__removal_8hpp_source.html">grid_removal.hpp</a>.</p>
 
 </div>
 </div>

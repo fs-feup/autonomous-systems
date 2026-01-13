@@ -1,6 +1,5 @@
 var acceleration__trimming__test_8cpp =
 [
-    [ "NonOwningDeleter< T >", "dd/d52/struct_non_owning_deleter.html", "dd/d52/struct_non_owning_deleter" ],
     [ "AccelerationTrimmingTest", "de/db8/class_acceleration_trimming_test.html", "de/db8/class_acceleration_trimming_test" ],
     [ "TEST_F", "df/d74/acceleration__trimming__test_8cpp.html#a0ba4d1d42efe9a5390e7d5cd13b35444", null ],
     [ "TEST_F", "df/d74/acceleration__trimming__test_8cpp.html#af68a8772b963341274e1126b3c6311cf", null ],

@@ -93,6 +93,7 @@ $(document).ready(function(){initNavTree('dc/dde/class_pure_pursuit.html','../..
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d9/d80/class_pure_pursuit-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">PurePursuit Class Reference</div></div>
@@ -108,9 +109,9 @@ Inheritance diagram for PurePursuit:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/d47/class_pure_pursuit__inherit__graph.png" border="0" usemap="#a_pure_pursuit_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_pure_pursuit_inherit__map" id="a_pure_pursuit_inherit__map">
-<area shape="rect" title="Pure Pursuit class." alt="" coords="5,219,172,679"/>
-<area shape="rect" href="../../d7/d69/class_lateral_controller.html" title="Base (abstract) class for lateral control solvers (that calculate steering command)" alt="" coords="5,5,172,171"/>
-<area shape="poly" title=" " alt="" coords="91,186,91,219,86,219,86,186"/>
+<area shape="rect" title="Pure Pursuit class." alt="" coords="5,239,179,799"/>
+<area shape="rect" href="../../d7/d69/class_lateral_controller.html" title="Base (abstract) class for lateral control solvers (that calculate steering command)" alt="" coords="9,5,175,191"/>
+<area shape="poly" title=" " alt="" coords="95,206,95,239,89,239,89,206"/>
 </map>
 </div>
 <div class="dynheader">
@@ -118,13 +119,15 @@ Collaboration diagram for PurePursuit:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/da8/class_pure_pursuit__coll__graph.png" border="0" usemap="#a_pure_pursuit_coll__map" alt="Collaboration graph"/></div>
 <map name="a_pure_pursuit_coll__map" id="a_pure_pursuit_coll__map">
-<area shape="rect" title="Pure Pursuit class." alt="" coords="148,234,315,654"/>
-<area shape="rect" href="../../d7/d69/class_lateral_controller.html" title="Base (abstract) class for lateral control solvers (that calculate steering command)" alt="" coords="5,5,172,171"/>
-<area shape="poly" title=" " alt="" coords="130,183,151,235,146,237,125,185"/>
-<area shape="rect" title=" " alt="" coords="197,55,266,121"/>
-<area shape="poly" title=" " alt="" coords="234,121,234,217,229,217,229,121"/>
-<area shape="rect" title=" " alt="" coords="359,55,402,121"/>
-<area shape="poly" title=" " alt="" coords="378,121,368,164,354,211,324,279,320,277,349,209,363,163,373,120"/>
+<area shape="rect" title="Pure Pursuit class." alt="" coords="219,283,393,763"/>
+<area shape="rect" href="../../d7/d69/class_lateral_controller.html" title="Base (abstract) class for lateral control solvers (that calculate steering command)" alt="" coords="5,13,172,198"/>
+<area shape="poly" title=" " alt="" coords="146,210,222,355,217,358,141,212"/>
+<area shape="rect" title=" " alt="" coords="197,73,266,138"/>
+<area shape="poly" title=" " alt="" coords="232,138,231,194,236,259,237,266,232,267,231,260,226,195,227,138"/>
+<area shape="rect" title=" " alt="" coords="359,73,402,138"/>
+<area shape="poly" title=" " alt="" coords="378,138,355,267,349,266,372,137"/>
+<area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="441,5,587,205"/>
+<area shape="poly" title=" " alt="" coords="489,206,468,260,438,322,404,381,399,378,433,319,464,258,484,204"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -145,6 +148,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa511921b74317316d8e62a5063bb66dd" id="r_aa511921b74317316d8e62a5063bb66dd"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#aa511921b74317316d8e62a5063bb66dd">get_steering_command</a> () override</td></tr>
 <tr class="memdesc:aa511921b74317316d8e62a5063bb66dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the steering command calculated by the solver.  <br /></td></tr>
 <tr class="separator:aa511921b74317316d8e62a5063bb66dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a8fc6a4cd3c8c9f366c320d85999299" id="r_a0a8fc6a4cd3c8c9f366c320d85999299"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a0a8fc6a4cd3c8c9f366c320d85999299">publish_solver_data</a> (std::shared_ptr&lt; rclcpp::Node &gt; node, std::map&lt; std::string, std::shared_ptr&lt; rclcpp::PublisherBase &gt; &gt; &amp;publisher_map) override</td></tr>
+<tr class="memdesc:a0a8fc6a4cd3c8c9f366c320d85999299"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes solver specific data using the provided <a class="el" href="../../d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module.">ControlNode</a>.  <br /></td></tr>
+<tr class="separator:a0a8fc6a4cd3c8c9f366c320d85999299"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab921e5033e736078b4adb269525f6dde" id="r_ab921e5033e736078b4adb269525f6dde"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#ab921e5033e736078b4adb269525f6dde">pp_steering_control_law</a> (<a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> rear_axis, <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> cg, <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> lookahead_point, double dist_cg_2_rear_axis)</td></tr>
 <tr class="memdesc:ab921e5033e736078b4adb269525f6dde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pure Pursuit control law.  <br /></td></tr>
 <tr class="separator:ab921e5033e736078b4adb269525f6dde"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -169,6 +175,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2cc54565acc04c21c241272b5f49a5f2 inherit pub_methods_class_lateral_controller" id="r_a2cc54565acc04c21c241272b5f49a5f2"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d69/class_lateral_controller.html#a2cc54565acc04c21c241272b5f49a5f2">~LateralController</a> ()=default</td></tr>
 <tr class="separator:a2cc54565acc04c21c241272b5f49a5f2 inherit pub_methods_class_lateral_controller"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:afe721df091e7f9db6c1b020b341bd8b4" id="r_afe721df091e7f9db6c1b020b341bd8b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#afe721df091e7f9db6c1b020b341bd8b4">publish_closest_point</a> (std::shared_ptr&lt; rclcpp::Node &gt; node, std::map&lt; std::string, std::shared_ptr&lt; rclcpp::PublisherBase &gt; &gt; &amp;publisher_map)</td></tr>
+<tr class="memdesc:afe721df091e7f9db6c1b020b341bd8b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function that publishes the closest point marker.  <br /></td></tr>
+<tr class="separator:afe721df091e7f9db6c1b020b341bd8b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae90520d8a83d48f177a0e92615728b88" id="r_ae90520d8a83d48f177a0e92615728b88"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#ae90520d8a83d48f177a0e92615728b88">publish_lookahead_point</a> (std::shared_ptr&lt; rclcpp::Node &gt; node, std::map&lt; std::string, std::shared_ptr&lt; rclcpp::PublisherBase &gt; &gt; &amp;publisher_map)</td></tr>
+<tr class="memdesc:ae90520d8a83d48f177a0e92615728b88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function that publishes the lookahead point marker.  <br /></td></tr>
+<tr class="separator:ae90520d8a83d48f177a0e92615728b88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a438e7399db2c34125f6545da0691877a" id="r_a438e7399db2c34125f6545da0691877a"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d2/d70/class_filter.html">Filter</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a438e7399db2c34125f6545da0691877a">lpf_</a></td></tr>
@@ -187,6 +202,10 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a17c3226addbafd7515702e5de561b2a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea1a009057f77c79a607bf38ef711ac0" id="r_aea1a009057f77c79a607bf38ef711ac0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#aea1a009057f77c79a607bf38ef711ac0">received_first_pose_</a> = false</td></tr>
 <tr class="separator:aea1a009057f77c79a607bf38ef711ac0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1cdfed1d3c2e2acf43d20c4e31e21e7" id="r_af1cdfed1d3c2e2acf43d20c4e31e21e7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#af1cdfed1d3c2e2acf43d20c4e31e21e7">closest_point_</a></td></tr>
+<tr class="separator:af1cdfed1d3c2e2acf43d20c4e31e21e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c160d581a8594df147fad54f00833a1" id="r_a6c160d581a8594df147fad54f00833a1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a6c160d581a8594df147fad54f00833a1">lookahead_point_</a></td></tr>
+<tr class="separator:a6c160d581a8594df147fad54f00833a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -201,7 +220,7 @@ Additional Inherited Members</h2></td></tr>
 <li>Calculate the steering angle (Pure Pursuit Control Law) </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html#l00025">25</a> of file <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html">pure_pursuit.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html">pure_pursuit.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af2b73677021085b2e0a3456e23c388a2" name="af2b73677021085b2e0a3456e23c388a2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af2b73677021085b2e0a3456e23c388a2">&#9670;&#160;</a></span>PurePursuit()</h2>
@@ -283,7 +302,7 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>double </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html#l00068">68</a> of file <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html">pure_pursuit.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html#l00072">72</a> of file <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html">pure_pursuit.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -618,7 +637,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Steering angle </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html#l00055">55</a> of file <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html">pure_pursuit.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html#l00059">59</a> of file <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html">pure_pursuit.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -642,6 +661,216 @@ Here is the caller graph for this function:</div>
 <area shape="rect" title="Pure Pursuit control law." alt="" coords="220,5,382,46"/>
 <area shape="rect" href="../../dc/dde/class_pure_pursuit.html#aa511921b74317316d8e62a5063bb66dd" title="Returns the steering command calculated by the solver." alt="" coords="5,5,172,46"/>
 <area shape="poly" title=" " alt="" coords="204,28,172,28,172,23,204,23"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="afe721df091e7f9db6c1b020b341bd8b4" name="afe721df091e7f9db6c1b020b341bd8b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe721df091e7f9db6c1b020b341bd8b4">&#9670;&#160;</a></span>publish_closest_point()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PurePursuit::publish_closest_point </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; rclcpp::Node &gt;&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::map&lt; std::string, std::shared_ptr&lt; rclcpp::PublisherBase &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>publisher_map</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function that publishes the closest point marker. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>pointer to the rclcpp node </td></tr>
+    <tr><td class="paramname">publisher_map</td><td>map between topic names and publishers </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html#l00097">97</a> of file <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html">pure_pursuit.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dc/dde/class_pure_pursuit_afe721df091e7f9db6c1b020b341bd8b4_cgraph.png" border="0" usemap="#adc/dde/class_pure_pursuit_afe721df091e7f9db6c1b020b341bd8b4_cgraph" alt=""/></div>
+<map name="adc/dde/class_pure_pursuit_afe721df091e7f9db6c1b020b341bd8b4_cgraph" id="adc/dde/class_pure_pursuit_afe721df091e7f9db6c1b020b341bd8b4_cgraph">
+<area shape="rect" title="Function that publishes the closest point marker." alt="" coords="5,39,142,79"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966" title="Converts a position to a marker." alt="" coords="190,39,375,79"/>
+<area shape="poly" title=" " alt="" coords="142,56,174,56,174,62,142,62"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="423,5,608,46"/>
+<area shape="poly" title=" " alt="" coords="375,43,407,38,408,44,376,48"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="423,71,608,111"/>
+<area shape="poly" title=" " alt="" coords="376,69,408,74,407,79,375,74"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dc/dde/class_pure_pursuit_afe721df091e7f9db6c1b020b341bd8b4_icgraph.png" border="0" usemap="#adc/dde/class_pure_pursuit_afe721df091e7f9db6c1b020b341bd8b4_icgraph" alt=""/></div>
+<map name="adc/dde/class_pure_pursuit_afe721df091e7f9db6c1b020b341bd8b4_icgraph" id="adc/dde/class_pure_pursuit_afe721df091e7f9db6c1b020b341bd8b4_icgraph">
+<area shape="rect" title="Function that publishes the closest point marker." alt="" coords="190,5,326,46"/>
+<area shape="rect" href="../../dc/dde/class_pure_pursuit.html#a0a8fc6a4cd3c8c9f366c320d85999299" title="Publishes solver specific data using the provided ControlNode." alt="" coords="5,5,142,46"/>
+<area shape="poly" title=" " alt="" coords="174,28,142,28,142,23,174,23"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ae90520d8a83d48f177a0e92615728b88" name="ae90520d8a83d48f177a0e92615728b88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae90520d8a83d48f177a0e92615728b88">&#9670;&#160;</a></span>publish_lookahead_point()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PurePursuit::publish_lookahead_point </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; rclcpp::Node &gt;&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::map&lt; std::string, std::shared_ptr&lt; rclcpp::PublisherBase &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>publisher_map</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function that publishes the lookahead point marker. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>pointer to the rclcpp node </td></tr>
+    <tr><td class="paramname">publisher_map</td><td>map between topic names and publishers </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html#l00109">109</a> of file <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html">pure_pursuit.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dc/dde/class_pure_pursuit_ae90520d8a83d48f177a0e92615728b88_cgraph.png" border="0" usemap="#adc/dde/class_pure_pursuit_ae90520d8a83d48f177a0e92615728b88_cgraph" alt=""/></div>
+<map name="adc/dde/class_pure_pursuit_ae90520d8a83d48f177a0e92615728b88_cgraph" id="adc/dde/class_pure_pursuit_ae90520d8a83d48f177a0e92615728b88_cgraph">
+<area shape="rect" title="Function that publishes the lookahead point marker." alt="" coords="5,39,142,79"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966" title="Converts a position to a marker." alt="" coords="190,39,375,79"/>
+<area shape="poly" title=" " alt="" coords="142,56,174,56,174,62,142,62"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="423,5,608,46"/>
+<area shape="poly" title=" " alt="" coords="375,43,407,38,408,44,376,48"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="423,71,608,111"/>
+<area shape="poly" title=" " alt="" coords="376,69,408,74,407,79,375,74"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dc/dde/class_pure_pursuit_ae90520d8a83d48f177a0e92615728b88_icgraph.png" border="0" usemap="#adc/dde/class_pure_pursuit_ae90520d8a83d48f177a0e92615728b88_icgraph" alt=""/></div>
+<map name="adc/dde/class_pure_pursuit_ae90520d8a83d48f177a0e92615728b88_icgraph" id="adc/dde/class_pure_pursuit_ae90520d8a83d48f177a0e92615728b88_icgraph">
+<area shape="rect" title="Function that publishes the lookahead point marker." alt="" coords="190,5,326,46"/>
+<area shape="rect" href="../../dc/dde/class_pure_pursuit.html#a0a8fc6a4cd3c8c9f366c320d85999299" title="Publishes solver specific data using the provided ControlNode." alt="" coords="5,5,142,46"/>
+<area shape="poly" title=" " alt="" coords="174,28,142,28,142,23,174,23"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a0a8fc6a4cd3c8c9f366c320d85999299" name="a0a8fc6a4cd3c8c9f366c320d85999299"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a8fc6a4cd3c8c9f366c320d85999299">&#9670;&#160;</a></span>publish_solver_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PurePursuit::publish_solver_data </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; rclcpp::Node &gt;&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::map&lt; std::string, std::shared_ptr&lt; rclcpp::PublisherBase &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>publisher_map</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Publishes solver specific data using the provided <a class="el" href="../../d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module.">ControlNode</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>shared pointer to the <a class="el" href="../../d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module.">ControlNode</a> </td></tr>
+    <tr><td class="paramname">publisher_map</td><td>map of topic names to publisher pointers </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="../../d7/d69/class_lateral_controller.html#ad449d61c7570de39d966d6e1236d607c">LateralController</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html#l00092">92</a> of file <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html">pure_pursuit.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dc/dde/class_pure_pursuit_a0a8fc6a4cd3c8c9f366c320d85999299_cgraph.png" border="0" usemap="#adc/dde/class_pure_pursuit_a0a8fc6a4cd3c8c9f366c320d85999299_cgraph" alt=""/></div>
+<map name="adc/dde/class_pure_pursuit_a0a8fc6a4cd3c8c9f366c320d85999299_cgraph" id="adc/dde/class_pure_pursuit_a0a8fc6a4cd3c8c9f366c320d85999299_cgraph">
+<area shape="rect" title="Publishes solver specific data using the provided ControlNode." alt="" coords="5,39,142,79"/>
+<area shape="rect" href="../../dc/dde/class_pure_pursuit.html#afe721df091e7f9db6c1b020b341bd8b4" title="Function that publishes the closest point marker." alt="" coords="190,5,326,46"/>
+<area shape="poly" title=" " alt="" coords="141,44,174,38,175,43,142,49"/>
+<area shape="rect" href="../../dc/dde/class_pure_pursuit.html#ae90520d8a83d48f177a0e92615728b88" title="Function that publishes the lookahead point marker." alt="" coords="190,71,326,111"/>
+<area shape="poly" title=" " alt="" coords="142,68,174,74,174,79,142,73"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966" title="Converts a position to a marker." alt="" coords="374,39,559,79"/>
+<area shape="poly" title=" " alt="" coords="327,34,359,39,358,44,326,39"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="607,5,793,46"/>
+<area shape="poly" title=" " alt="" coords="559,43,591,38,592,44,560,48"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="607,71,793,111"/>
+<area shape="poly" title=" " alt="" coords="560,69,592,74,591,79,559,74"/>
+<area shape="poly" title=" " alt="" coords="326,78,358,73,359,78,327,83"/>
 </map>
 </div>
 
@@ -732,7 +961,31 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html">pure_pursuit.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html#l00035">35</a> of file <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html">pure_pursuit.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af1cdfed1d3c2e2acf43d20c4e31e21e7" name="af1cdfed1d3c2e2acf43d20c4e31e21e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1cdfed1d3c2e2acf43d20c4e31e21e7">&#9670;&#160;</a></span>closest_point_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> PurePursuit::closest_point_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html#l00043">43</a> of file <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html">pure_pursuit.hpp</a>.</p>
 
 </div>
 </div>
@@ -756,7 +1009,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html">pure_pursuit.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html#l00032">32</a> of file <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html">pure_pursuit.hpp</a>.</p>
 
 </div>
 </div>
@@ -780,7 +1033,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html#l00033">33</a> of file <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html">pure_pursuit.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html">pure_pursuit.hpp</a>.</p>
 
 </div>
 </div>
@@ -804,7 +1057,31 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html#l00032">32</a> of file <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html">pure_pursuit.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html#l00033">33</a> of file <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html">pure_pursuit.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6c160d581a8594df147fad54f00833a1" name="a6c160d581a8594df147fad54f00833a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c160d581a8594df147fad54f00833a1">&#9670;&#160;</a></span>lookahead_point_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> PurePursuit::lookahead_point_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html#l00044">44</a> of file <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html">pure_pursuit.hpp</a>.</p>
 
 </div>
 </div>
@@ -828,7 +1105,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html">pure_pursuit.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html">pure_pursuit.hpp</a>.</p>
 
 </div>
 </div>
@@ -852,7 +1129,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html#l00037">37</a> of file <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html">pure_pursuit.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html#l00038">38</a> of file <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html">pure_pursuit.hpp</a>.</p>
 
 </div>
 </div>
@@ -876,7 +1153,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html#l00039">39</a> of file <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html">pure_pursuit.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html#l00040">40</a> of file <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html">pure_pursuit.hpp</a>.</p>
 
 </div>
 </div>
@@ -900,7 +1177,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html#l00038">38</a> of file <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html">pure_pursuit.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html#l00039">39</a> of file <a class="el" href="../../d4/d31/pure__pursuit_8hpp_source.html">pure_pursuit.hpp</a>.</p>
 
 </div>
 </div>

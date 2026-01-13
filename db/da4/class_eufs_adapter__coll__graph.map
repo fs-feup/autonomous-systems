@@ -1,13 +1,13 @@
 <map id="EufsAdapter" name="EufsAdapter">
 <area shape="rect" id="Node000001" title="Adapter class to interface with the EUFS simulator." alt="" coords="1419,2256,1603,2835"/>
-<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="1429,1777,1593,2082"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1513,2097,1513,2256,1508,2256,1508,2097"/>
+<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="1429,1767,1593,2092"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1513,2107,1513,2256,1508,2256,1508,2107"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="1468,1212,1553,1277"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1513,1292,1513,1777,1508,1777,1508,1292"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1513,1292,1513,1767,1508,1767,1508,1292"/>
 <area shape="rect" id="Node000011" href="$d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="886,1652,1058,2207"/>
 <area shape="poly" id="edge11_Node000011_Node000003" title=" " alt="" coords="1518,1292,1519,1362,1512,1450,1504,1497,1492,1543,1475,1588,1451,1630,1303,1726,1059,1878,1056,1873,1301,1722,1447,1626,1470,1586,1487,1541,1499,1495,1507,1449,1514,1362,1512,1292"/>
 <area shape="rect" id="Node000004" href="$d4/de1/struct_control_parameters.html" title=" " alt="" coords="1580,1060,1767,1429"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="1632,1430,1553,1761,1548,1760,1627,1428"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="1632,1430,1556,1751,1550,1749,1627,1428"/>
 <area shape="rect" id="Node000005" href="$dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html" title=" " alt="" coords="1597,564,1776,824"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1686,824,1681,1043,1676,1043,1681,824"/>
 <area shape="rect" id="Node000006" href="$dd/d7d/structcommon__lib_1_1car__parameters_1_1_tire_parameters.html" title=" " alt="" coords="1800,268,1979,488"/>

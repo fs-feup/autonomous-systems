@@ -1,9 +1,9 @@
 <map id="VehicleAdapter" name="VehicleAdapter">
 <area shape="rect" id="Node000001" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="378,721,586,1385"/>
-<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="5,233,169,559"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,572,159,623,183,672,227,745,278,817,380,941,376,945,274,820,223,748,178,675,154,625,134,574"/>
+<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="5,223,169,569"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,582,183,672,227,745,278,817,380,941,376,945,274,820,223,748,178,675,138,584"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="338,5,423,71"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="324,51,288,61,250,75,214,95,183,121,162,146,145,174,119,235,114,233,140,171,158,143,179,117,211,90,248,70,287,56,322,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="324,51,288,61,250,75,214,95,183,120,147,169,122,225,117,222,143,166,179,117,211,90,248,70,287,56,322,46"/>
 <area shape="rect" id="Node000005" href="$d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="193,119,365,673"/>
 <area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="370,85,361,120,355,118,365,84"/>
 <area shape="rect" id="Node000006" href="$d8/d84/class_s_l_a_m_node.html" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="390,127,574,665"/>

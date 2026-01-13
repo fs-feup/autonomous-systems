@@ -99,43 +99,45 @@ $(document).ready(function(){initNavTree('df/d77/skidpad__trimming__test_8cpp.ht
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="../../dc/de0/skidpad__trimming_8hpp_source.html">fov_trimming/skidpad_trimming.hpp</a>&quot;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
-<code>#include &lt;pcl/point_cloud.h&gt;</code><br />
-<code>#include &lt;pcl/point_types.h&gt;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;sensor_msgs/msg/point_cloud2.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../dc/de7/pointcloud2__helper_8hpp_source.html">test_utils/pointcloud2_helper.hpp</a>&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for skidpad_trimming_test.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../db/d6a/skidpad__trimming__test_8cpp__incl.png" border="0" usemap="#asrc_2perception_2test_2fov__trimming_2skidpad__trimming__test_8cpp" alt=""/></div>
 <map name="asrc_2perception_2test_2fov__trimming_2skidpad__trimming__test_8cpp" id="asrc_2perception_2test_2fov__trimming_2skidpad__trimming__test_8cpp">
-<area shape="rect" title=" " alt="" coords="323,5,473,61"/>
-<area shape="rect" href="../../dc/de0/skidpad__trimming_8hpp.html" title=" " alt="" coords="117,109,263,150"/>
-<area shape="poly" title=" " alt="" coords="339,64,248,105,246,100,337,59"/>
-<area shape="rect" title=" " alt="" coords="5,279,63,305"/>
-<area shape="poly" title=" " alt="" coords="323,38,270,44,213,56,156,78,130,93,107,111,78,146,58,187,46,229,39,264,34,263,41,228,53,185,73,143,103,107,127,88,154,73,211,51,269,38,323,32"/>
-<area shape="rect" title=" " alt="" coords="287,117,381,142"/>
-<area shape="poly" title=" " alt="" coords="382,63,353,105,348,102,377,60"/>
-<area shape="rect" title=" " alt="" coords="404,117,523,142"/>
-<area shape="poly" title=" " alt="" coords="419,60,449,102,444,105,415,63"/>
-<area shape="rect" title=" " alt="" coords="547,117,665,142"/>
-<area shape="poly" title=" " alt="" coords="459,59,566,107,564,112,457,64"/>
-<area shape="rect" title=" " alt="" coords="689,117,763,142"/>
-<area shape="poly" title=" " alt="" coords="474,50,571,75,677,106,683,108,681,113,676,112,570,80,472,55"/>
-<area shape="rect" href="../../d7/da0/fov__trimming_8hpp.html" title=" " alt="" coords="120,198,319,223"/>
-<area shape="poly" title=" " alt="" coords="200,149,212,182,207,184,195,151"/>
-<area shape="poly" title=" " alt="" coords="190,226,75,274,74,274,72,270,73,269,187,221"/>
-<area shape="rect" title=" " alt="" coords="87,279,147,305"/>
-<area shape="poly" title=" " alt="" coords="205,226,146,271,143,267,202,222"/>
-<area shape="rect" href="../../d1/db6/lidar__point_8hpp.html" title=" " alt="" coords="171,279,303,305"/>
-<area shape="poly" title=" " alt="" coords="225,223,233,263,228,264,219,224"/>
-<area shape="rect" href="../../d9/d6e/trimming__parameters_8hpp.html" title=" " alt="" coords="327,279,522,305"/>
-<area shape="poly" title=" " alt="" coords="252,221,380,270,378,275,250,226"/>
-<area shape="rect" title=" " alt="" coords="546,271,706,312"/>
-<area shape="poly" title=" " alt="" coords="286,221,531,268,530,273,285,227"/>
-<area shape="rect" title=" " alt="" coords="161,360,225,386"/>
-<area shape="poly" title=" " alt="" coords="232,306,209,348,204,345,228,304"/>
-<area shape="rect" title=" " alt="" coords="249,360,310,386"/>
-<area shape="poly" title=" " alt="" coords="245,304,268,345,263,348,241,306"/>
+<area shape="rect" title=" " alt="" coords="341,5,490,61"/>
+<area shape="rect" href="../../dc/de0/skidpad__trimming_8hpp.html" title=" " alt="" coords="177,109,323,150"/>
+<area shape="poly" title=" " alt="" coords="369,64,299,103,296,99,366,59"/>
+<area shape="rect" title=" " alt="" coords="5,294,63,320"/>
+<area shape="poly" title=" " alt="" coords="341,46,298,54,253,68,208,86,166,111,124,151,90,197,64,243,47,281,42,278,60,240,86,194,120,147,163,107,205,82,251,63,297,49,340,40"/>
+<area shape="rect" title=" " alt="" coords="546,286,706,327"/>
+<area shape="poly" title=" " alt="" coords="406,62,395,105,395,127,402,148,433,191,472,227,516,255,559,277,557,282,514,260,469,231,429,195,397,151,390,128,390,104,400,61"/>
+<area shape="rect" title=" " alt="" coords="411,117,505,142"/>
+<area shape="poly" title=" " alt="" coords="430,60,449,101,444,104,425,63"/>
+<area shape="rect" title=" " alt="" coords="529,117,603,142"/>
+<area shape="poly" title=" " alt="" coords="460,59,536,106,533,110,458,64"/>
+<area shape="rect" href="../../dc/de7/pointcloud2__helper_8hpp.html" title=" " alt="" coords="627,109,772,150"/>
+<area shape="poly" title=" " alt="" coords="491,57,626,101,625,106,489,62"/>
+<area shape="rect" href="../../d7/da0/fov__trimming_8hpp.html" title=" " alt="" coords="137,205,336,231"/>
+<area shape="poly" title=" " alt="" coords="250,151,243,190,238,189,244,150"/>
+<area shape="poly" title=" " alt="" coords="207,234,75,289,74,289,72,285,73,284,205,229"/>
+<area shape="rect" title=" " alt="" coords="87,294,147,320"/>
+<area shape="poly" title=" " alt="" coords="222,233,147,287,144,282,218,229"/>
+<area shape="rect" href="../../d1/db6/lidar__point_8hpp.html" title=" " alt="" coords="171,294,303,320"/>
+<area shape="poly" title=" " alt="" coords="239,231,239,278,234,278,234,231"/>
+<area shape="rect" href="../../d9/d6e/trimming__parameters_8hpp.html" title=" " alt="" coords="327,294,522,320"/>
+<area shape="poly" title=" " alt="" coords="264,229,386,285,384,289,262,234"/>
+<area shape="poly" title=" " alt="" coords="292,229,531,282,530,287,291,234"/>
+<area shape="rect" title=" " alt="" coords="162,375,226,401"/>
+<area shape="poly" title=" " alt="" coords="233,321,210,363,205,360,228,319"/>
+<area shape="rect" title=" " alt="" coords="251,375,311,401"/>
+<area shape="poly" title=" " alt="" coords="246,319,269,360,264,363,241,321"/>
+<area shape="poly" title=" " alt="" coords="685,152,668,173,654,199,641,236,633,271,628,270,636,234,649,197,664,171,680,148"/>
+<area shape="rect" title=" " alt="" coords="663,198,824,238"/>
+<area shape="poly" title=" " alt="" coords="712,149,729,182,724,185,707,151"/>
 </map>
 </div>
 </div>
@@ -143,8 +145,6 @@ Include dependency graph for skidpad_trimming_test.cpp:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/struct_non_owning_deleter.html">NonOwningDeleter&lt; T &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d55/class_skidpad_trimming_test.html">SkidpadTrimmingTest</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -198,23 +198,15 @@ Functions</h2></td></tr>
 
 <p>Empty point cloud remains empty. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d77/skidpad__trimming__test_8cpp_source.html#l00102">102</a> of file <a class="el" href="../../df/d77/skidpad__trimming__test_8cpp_source.html">skidpad_trimming_test.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d77/skidpad__trimming__test_8cpp_source.html#l00105">105</a> of file <a class="el" href="../../df/d77/skidpad__trimming__test_8cpp_source.html">skidpad_trimming_test.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/d77/skidpad__trimming__test_8cpp_a98a7802dee29f175b2beee30b2a252a9_cgraph.png" border="0" usemap="#adf/d77/skidpad__trimming__test_8cpp_a98a7802dee29f175b2beee30b2a252a9_cgraph" alt=""/></div>
 <map name="adf/d77/skidpad__trimming__test_8cpp_a98a7802dee29f175b2beee30b2a252a9_cgraph" id="adf/d77/skidpad__trimming__test_8cpp_a98a7802dee29f175b2beee30b2a252a9_cgraph">
-<area shape="rect" title="Empty point cloud remains empty." alt="" coords="5,80,75,106"/>
-<area shape="rect" href="../../d6/df3/class_skidpad_trimming.html#af8de9e5547feabd3a2d9dfe8866599ee" title="Perform ground removal on the input point cloud." alt="" coords="123,73,269,113"/>
-<area shape="poly" title=" " alt="" coords="75,90,107,90,107,96,75,96"/>
-<area shape="rect" href="../../dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11" title=" " alt="" coords="323,5,448,31"/>
-<area shape="poly" title=" " alt="" coords="244,70,316,40,330,34,332,39,318,45,246,74"/>
-<area shape="rect" href="../../dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4" title=" " alt="" coords="323,55,448,80"/>
-<area shape="poly" title=" " alt="" coords="269,80,307,75,308,81,270,86"/>
-<area shape="rect" href="../../dc/d9c/namespace_lidar_point.html#a0dd3e19b92b08561073d6f2f636a87ca" title=" " alt="" coords="324,104,448,130"/>
-<area shape="poly" title=" " alt="" coords="270,99,308,104,308,110,269,105"/>
-<area shape="rect" href="../../de/dd9/class_fov_trimming.html#a94b3e3b019b805148181a634983512db" title=" " alt="" coords="317,154,454,195"/>
-<area shape="poly" title=" " alt="" coords="246,111,323,145,321,150,244,116"/>
+<area shape="rect" title="Empty point cloud remains empty." alt="" coords="5,13,75,39"/>
+<area shape="rect" href="../../da/d3a/namespacetest__utils.html#a478d276754797d3730473a50aed011cd" title=" " alt="" coords="123,5,266,46"/>
+<area shape="poly" title=" " alt="" coords="75,23,107,23,107,28,75,28"/>
 </map>
 </div>
 
@@ -248,23 +240,15 @@ Here is the call graph for this function:</div>
 
 <p>Test case where points outside FOV trim angle should be removed. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d77/skidpad__trimming__test_8cpp_source.html#l00089">89</a> of file <a class="el" href="../../df/d77/skidpad__trimming__test_8cpp_source.html">skidpad_trimming_test.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d77/skidpad__trimming__test_8cpp_source.html#l00085">85</a> of file <a class="el" href="../../df/d77/skidpad__trimming__test_8cpp_source.html">skidpad_trimming_test.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/d77/skidpad__trimming__test_8cpp_a528dbc97598753ecb73080aa62881f3f_cgraph.png" border="0" usemap="#adf/d77/skidpad__trimming__test_8cpp_a528dbc97598753ecb73080aa62881f3f_cgraph" alt=""/></div>
 <map name="adf/d77/skidpad__trimming__test_8cpp_a528dbc97598753ecb73080aa62881f3f_cgraph" id="adf/d77/skidpad__trimming__test_8cpp_a528dbc97598753ecb73080aa62881f3f_cgraph">
-<area shape="rect" title="Test case where points outside FOV trim angle should be removed." alt="" coords="5,80,75,106"/>
-<area shape="rect" href="../../d6/df3/class_skidpad_trimming.html#af8de9e5547feabd3a2d9dfe8866599ee" title="Perform ground removal on the input point cloud." alt="" coords="123,73,269,113"/>
-<area shape="poly" title=" " alt="" coords="75,90,107,90,107,96,75,96"/>
-<area shape="rect" href="../../dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11" title=" " alt="" coords="323,5,448,31"/>
-<area shape="poly" title=" " alt="" coords="244,70,316,40,330,34,332,39,318,45,246,74"/>
-<area shape="rect" href="../../dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4" title=" " alt="" coords="323,55,448,80"/>
-<area shape="poly" title=" " alt="" coords="269,80,307,75,308,81,270,86"/>
-<area shape="rect" href="../../dc/d9c/namespace_lidar_point.html#a0dd3e19b92b08561073d6f2f636a87ca" title=" " alt="" coords="324,104,448,130"/>
-<area shape="poly" title=" " alt="" coords="270,99,308,104,308,110,269,105"/>
-<area shape="rect" href="../../de/dd9/class_fov_trimming.html#a94b3e3b019b805148181a634983512db" title=" " alt="" coords="317,154,454,195"/>
-<area shape="poly" title=" " alt="" coords="246,111,323,145,321,150,244,116"/>
+<area shape="rect" title="Test case where points outside FOV trim angle should be removed." alt="" coords="5,13,75,39"/>
+<area shape="rect" href="../../da/d3a/namespacetest__utils.html#a478d276754797d3730473a50aed011cd" title=" " alt="" coords="123,5,266,46"/>
+<area shape="poly" title=" " alt="" coords="75,23,107,23,107,28,75,28"/>
 </map>
 </div>
 
@@ -298,23 +282,15 @@ Here is the call graph for this function:</div>
 
 <p>Test for the general result of skidpad_trimming. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d77/skidpad__trimming__test_8cpp_source.html#l00114">114</a> of file <a class="el" href="../../df/d77/skidpad__trimming__test_8cpp_source.html">skidpad_trimming_test.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d77/skidpad__trimming__test_8cpp_source.html#l00117">117</a> of file <a class="el" href="../../df/d77/skidpad__trimming__test_8cpp_source.html">skidpad_trimming_test.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/d77/skidpad__trimming__test_8cpp_a52f638106a30d5c134589dac1e00267c_cgraph.png" border="0" usemap="#adf/d77/skidpad__trimming__test_8cpp_a52f638106a30d5c134589dac1e00267c_cgraph" alt=""/></div>
 <map name="adf/d77/skidpad__trimming__test_8cpp_a52f638106a30d5c134589dac1e00267c_cgraph" id="adf/d77/skidpad__trimming__test_8cpp_a52f638106a30d5c134589dac1e00267c_cgraph">
-<area shape="rect" title="Test for the general result of skidpad_trimming." alt="" coords="5,80,75,106"/>
-<area shape="rect" href="../../d6/df3/class_skidpad_trimming.html#af8de9e5547feabd3a2d9dfe8866599ee" title="Perform ground removal on the input point cloud." alt="" coords="123,73,269,113"/>
-<area shape="poly" title=" " alt="" coords="75,90,107,90,107,96,75,96"/>
-<area shape="rect" href="../../dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11" title=" " alt="" coords="323,5,448,31"/>
-<area shape="poly" title=" " alt="" coords="244,70,316,40,330,34,332,39,318,45,246,74"/>
-<area shape="rect" href="../../dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4" title=" " alt="" coords="323,55,448,80"/>
-<area shape="poly" title=" " alt="" coords="269,80,307,75,308,81,270,86"/>
-<area shape="rect" href="../../dc/d9c/namespace_lidar_point.html#a0dd3e19b92b08561073d6f2f636a87ca" title=" " alt="" coords="324,104,448,130"/>
-<area shape="poly" title=" " alt="" coords="270,99,308,104,308,110,269,105"/>
-<area shape="rect" href="../../de/dd9/class_fov_trimming.html#a94b3e3b019b805148181a634983512db" title=" " alt="" coords="317,154,454,195"/>
-<area shape="poly" title=" " alt="" coords="246,111,323,145,321,150,244,116"/>
+<area shape="rect" title="Test for the general result of skidpad_trimming." alt="" coords="5,13,75,39"/>
+<area shape="rect" href="../../da/d3a/namespacetest__utils.html#a478d276754797d3730473a50aed011cd" title=" " alt="" coords="123,5,266,46"/>
+<area shape="poly" title=" " alt="" coords="75,23,107,23,107,28,75,28"/>
 </map>
 </div>
 
@@ -348,23 +324,15 @@ Here is the call graph for this function:</div>
 
 <p>Test case where points above max height should be removed. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d77/skidpad__trimming__test_8cpp_source.html#l00063">63</a> of file <a class="el" href="../../df/d77/skidpad__trimming__test_8cpp_source.html">skidpad_trimming_test.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d77/skidpad__trimming__test_8cpp_source.html#l00049">49</a> of file <a class="el" href="../../df/d77/skidpad__trimming__test_8cpp_source.html">skidpad_trimming_test.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/d77/skidpad__trimming__test_8cpp_a6ebadc79b8d72c0124d0de30b04f27e5_cgraph.png" border="0" usemap="#adf/d77/skidpad__trimming__test_8cpp_a6ebadc79b8d72c0124d0de30b04f27e5_cgraph" alt=""/></div>
 <map name="adf/d77/skidpad__trimming__test_8cpp_a6ebadc79b8d72c0124d0de30b04f27e5_cgraph" id="adf/d77/skidpad__trimming__test_8cpp_a6ebadc79b8d72c0124d0de30b04f27e5_cgraph">
-<area shape="rect" title="Test case where points above max height should be removed." alt="" coords="5,80,75,106"/>
-<area shape="rect" href="../../d6/df3/class_skidpad_trimming.html#af8de9e5547feabd3a2d9dfe8866599ee" title="Perform ground removal on the input point cloud." alt="" coords="123,73,269,113"/>
-<area shape="poly" title=" " alt="" coords="75,90,107,90,107,96,75,96"/>
-<area shape="rect" href="../../dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11" title=" " alt="" coords="323,5,448,31"/>
-<area shape="poly" title=" " alt="" coords="244,70,316,40,330,34,332,39,318,45,246,74"/>
-<area shape="rect" href="../../dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4" title=" " alt="" coords="323,55,448,80"/>
-<area shape="poly" title=" " alt="" coords="269,80,307,75,308,81,270,86"/>
-<area shape="rect" href="../../dc/d9c/namespace_lidar_point.html#a0dd3e19b92b08561073d6f2f636a87ca" title=" " alt="" coords="324,104,448,130"/>
-<area shape="poly" title=" " alt="" coords="270,99,308,104,308,110,269,105"/>
-<area shape="rect" href="../../de/dd9/class_fov_trimming.html#a94b3e3b019b805148181a634983512db" title=" " alt="" coords="317,154,454,195"/>
-<area shape="poly" title=" " alt="" coords="246,111,323,145,321,150,244,116"/>
+<area shape="rect" title="Test case where points above max height should be removed." alt="" coords="5,13,75,39"/>
+<area shape="rect" href="../../da/d3a/namespacetest__utils.html#a478d276754797d3730473a50aed011cd" title=" " alt="" coords="123,5,266,46"/>
+<area shape="poly" title=" " alt="" coords="75,23,107,23,107,28,75,28"/>
 </map>
 </div>
 
@@ -398,23 +366,15 @@ Here is the call graph for this function:</div>
 
 <p>Test case where points outside max range should be removed. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d77/skidpad__trimming__test_8cpp_source.html#l00050">50</a> of file <a class="el" href="../../df/d77/skidpad__trimming__test_8cpp_source.html">skidpad_trimming_test.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d77/skidpad__trimming__test_8cpp_source.html#l00030">30</a> of file <a class="el" href="../../df/d77/skidpad__trimming__test_8cpp_source.html">skidpad_trimming_test.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/d77/skidpad__trimming__test_8cpp_a6bfa0c99164d35a462a64477b4fda5c3_cgraph.png" border="0" usemap="#adf/d77/skidpad__trimming__test_8cpp_a6bfa0c99164d35a462a64477b4fda5c3_cgraph" alt=""/></div>
 <map name="adf/d77/skidpad__trimming__test_8cpp_a6bfa0c99164d35a462a64477b4fda5c3_cgraph" id="adf/d77/skidpad__trimming__test_8cpp_a6bfa0c99164d35a462a64477b4fda5c3_cgraph">
-<area shape="rect" title="Test case where points outside max range should be removed." alt="" coords="5,80,75,106"/>
-<area shape="rect" href="../../d6/df3/class_skidpad_trimming.html#af8de9e5547feabd3a2d9dfe8866599ee" title="Perform ground removal on the input point cloud." alt="" coords="123,73,269,113"/>
-<area shape="poly" title=" " alt="" coords="75,90,107,90,107,96,75,96"/>
-<area shape="rect" href="../../dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11" title=" " alt="" coords="323,5,448,31"/>
-<area shape="poly" title=" " alt="" coords="244,70,316,40,330,34,332,39,318,45,246,74"/>
-<area shape="rect" href="../../dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4" title=" " alt="" coords="323,55,448,80"/>
-<area shape="poly" title=" " alt="" coords="269,80,307,75,308,81,270,86"/>
-<area shape="rect" href="../../dc/d9c/namespace_lidar_point.html#a0dd3e19b92b08561073d6f2f636a87ca" title=" " alt="" coords="324,104,448,130"/>
-<area shape="poly" title=" " alt="" coords="270,99,308,104,308,110,269,105"/>
-<area shape="rect" href="../../de/dd9/class_fov_trimming.html#a94b3e3b019b805148181a634983512db" title=" " alt="" coords="317,154,454,195"/>
-<area shape="poly" title=" " alt="" coords="246,111,323,145,321,150,244,116"/>
+<area shape="rect" title="Test case where points outside max range should be removed." alt="" coords="5,13,75,39"/>
+<area shape="rect" href="../../da/d3a/namespacetest__utils.html#a478d276754797d3730473a50aed011cd" title=" " alt="" coords="123,5,266,46"/>
+<area shape="poly" title=" " alt="" coords="75,23,107,23,107,28,75,28"/>
 </map>
 </div>
 
@@ -448,23 +408,15 @@ Here is the call graph for this function:</div>
 
 <p>Test case where points within min range should be removed. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d77/skidpad__trimming__test_8cpp_source.html#l00076">76</a> of file <a class="el" href="../../df/d77/skidpad__trimming__test_8cpp_source.html">skidpad_trimming_test.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d77/skidpad__trimming__test_8cpp_source.html#l00067">67</a> of file <a class="el" href="../../df/d77/skidpad__trimming__test_8cpp_source.html">skidpad_trimming_test.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/d77/skidpad__trimming__test_8cpp_a6b7ac21bfea723cb36c5c5cb48ce35cb_cgraph.png" border="0" usemap="#adf/d77/skidpad__trimming__test_8cpp_a6b7ac21bfea723cb36c5c5cb48ce35cb_cgraph" alt=""/></div>
 <map name="adf/d77/skidpad__trimming__test_8cpp_a6b7ac21bfea723cb36c5c5cb48ce35cb_cgraph" id="adf/d77/skidpad__trimming__test_8cpp_a6b7ac21bfea723cb36c5c5cb48ce35cb_cgraph">
-<area shape="rect" title="Test case where points within min range should be removed." alt="" coords="5,80,75,106"/>
-<area shape="rect" href="../../d6/df3/class_skidpad_trimming.html#af8de9e5547feabd3a2d9dfe8866599ee" title="Perform ground removal on the input point cloud." alt="" coords="123,73,269,113"/>
-<area shape="poly" title=" " alt="" coords="75,90,107,90,107,96,75,96"/>
-<area shape="rect" href="../../dc/d9c/namespace_lidar_point.html#a4112750306d4489754ccc2ef5124ca11" title=" " alt="" coords="323,5,448,31"/>
-<area shape="poly" title=" " alt="" coords="244,70,316,40,330,34,332,39,318,45,246,74"/>
-<area shape="rect" href="../../dc/d9c/namespace_lidar_point.html#aa4ad39bca9c65908863c99be7ad6ede4" title=" " alt="" coords="323,55,448,80"/>
-<area shape="poly" title=" " alt="" coords="269,80,307,75,308,81,270,86"/>
-<area shape="rect" href="../../dc/d9c/namespace_lidar_point.html#a0dd3e19b92b08561073d6f2f636a87ca" title=" " alt="" coords="324,104,448,130"/>
-<area shape="poly" title=" " alt="" coords="270,99,308,104,308,110,269,105"/>
-<area shape="rect" href="../../de/dd9/class_fov_trimming.html#a94b3e3b019b805148181a634983512db" title=" " alt="" coords="317,154,454,195"/>
-<area shape="poly" title=" " alt="" coords="246,111,323,145,321,150,244,116"/>
+<area shape="rect" title="Test case where points within min range should be removed." alt="" coords="5,13,75,39"/>
+<area shape="rect" href="../../da/d3a/namespacetest__utils.html#a478d276754797d3730473a50aed011cd" title=" " alt="" coords="123,5,266,46"/>
+<area shape="poly" title=" " alt="" coords="75,23,107,23,107,28,75,28"/>
 </map>
 </div>
 

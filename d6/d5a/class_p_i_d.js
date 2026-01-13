@@ -21,6 +21,7 @@ var class_p_i_d =
     [ "FRIEND_TEST", "d6/d5a/class_p_i_d.html#a26d1278986bd707041ed6ef36ca8f4a8", null ],
     [ "get_throttle_command", "d6/d5a/class_p_i_d.html#a92a2db4c3ffd6a0a37ea275d96c55b1c", null ],
     [ "path_callback", "d6/d5a/class_p_i_d.html#a68405cef60bc126ea45aa2861eddd593", null ],
+    [ "publish_solver_data", "d6/d5a/class_p_i_d.html#a3bed9f0b83456b2bde4db41790b38957", null ],
     [ "update", "d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e", null ],
     [ "vehicle_pose_callback", "d6/d5a/class_p_i_d.html#a7b30304cbc507ff0156104bc425e1ba4", null ],
     [ "vehicle_state_callback", "d6/d5a/class_p_i_d.html#a6e8f51e7ec2f15cc84e2ca95e6f3e6f0", null ],

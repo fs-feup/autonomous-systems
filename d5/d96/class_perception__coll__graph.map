@@ -1,7 +1,7 @@
 <map id="Perception" name="Perception">
-<area shape="rect" id="Node000001" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="41,303,193,668"/>
+<area shape="rect" id="Node000001" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="30,303,205,712"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,90,91,155"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,169,85,303,80,304,54,170"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,170,83,303,78,304,54,171"/>
 <area shape="rect" id="Node000003" href="$d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html" title=" " alt="" coords="115,5,261,240"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="168,241,159,287,153,286,163,239"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="169,240,161,287,155,286,164,239"/>
 </map>

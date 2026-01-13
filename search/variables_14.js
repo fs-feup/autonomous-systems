@@ -77,10 +77,10 @@ var searchData=
   ['triangulations_5f_74',['triangulations_',['../d8/dab/class_midpoint_generator.html#ab1a3e6a03b2bcffe112b1c09903fdd78',1,'MidpointGenerator']]],
   ['triangulations_5fpub_5f_75',['triangulations_pub_',['../d9/db5/class_planning.html#a7eb7d6fea88041b3e5b96885a641d025',1,'Planning']]],
   ['triggertimes_76',['triggerTimes',['../de/dbe/class_competition_logic.html#a9109fa8eabb3c813d448ded951972140',1,'CompetitionLogic']]],
-  ['trim_5fparams_5f_77',['trim_params_',['../da/d5d/class_himmelsbach.html#a6235f0e4d67c84fd6abcc91777747a29',1,'Himmelsbach']]],
-  ['turning_5fperiod_5f_78',['turning_period_',['../d4/d89/class_inspection_functions.html#aca817985d891221e4714e3417a6e1366',1,'InspectionFunctions']]],
-  ['two_5fpi_79',['TWO_PI',['../dd/d52/class_vehicle_model_bicycle.html#ac9bb6fc47145a4efe69c7c4e677c1940',1,'VehicleModelBicycle']]],
-  ['two_5fradius_80',['two_radius',['../d0/d78/class_grid_r_a_n_s_a_c_test.html#a1c13424bc5bdb482e74c1fd648c8b261',1,'GridRANSACTest']]],
+  ['trim_5fparams_77',['trim_params',['../de/d11/class_himmelsbach_test.html#abf4f39d5f0ad6c43d14bd269a89105bd',1,'HimmelsbachTest']]],
+  ['trim_5fparams_5f_78',['trim_params_',['../da/d5d/class_himmelsbach.html#a6235f0e4d67c84fd6abcc91777747a29',1,'Himmelsbach']]],
+  ['turning_5fperiod_5f_79',['turning_period_',['../d4/d89/class_inspection_functions.html#aca817985d891221e4714e3417a6e1366',1,'InspectionFunctions']]],
+  ['two_5fpi_80',['TWO_PI',['../dd/d52/class_vehicle_model_bicycle.html#ac9bb6fc47145a4efe69c7c4e677c1940',1,'VehicleModelBicycle']]],
   ['type_81',['type',['../d7/d13/struct_landmark.html#ae5d75b9ec297d51a317401afc62deb4b',1,'Landmark::type'],['../d0/d11/class_config_element.html#afded887a9150dd2163eb1c01919be3e7',1,'ConfigElement::type']]],
   ['typeweights_82',['typeWeights',['../d7/d13/struct_landmark.html#a8e090a95d399ae9870920e5ccc4b3a54',1,'Landmark']]]
 ];

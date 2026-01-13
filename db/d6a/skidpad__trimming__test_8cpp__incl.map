@@ -1,30 +1,32 @@
 <map id="src/perception/test/fov_trimming/skidpad_trimming_test.cpp" name="src/perception/test/fov_trimming/skidpad_trimming_test.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="323,5,473,61"/>
-<area shape="rect" id="Node000002" href="$dc/de0/skidpad__trimming_8hpp.html" title=" " alt="" coords="117,109,263,150"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="339,64,248,105,246,100,337,59"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="5,279,63,305"/>
-<area shape="poly" id="edge14_Node000001_Node000004" title=" " alt="" coords="323,38,270,44,213,56,156,78,130,93,107,111,78,146,58,187,46,229,39,264,34,263,41,228,53,185,73,143,103,107,127,88,154,73,211,51,269,38,323,32"/>
-<area shape="rect" id="Node000011" title=" " alt="" coords="287,117,381,142"/>
-<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="382,63,353,105,348,102,377,60"/>
-<area shape="rect" id="Node000012" title=" " alt="" coords="404,117,523,142"/>
-<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="419,60,449,102,444,105,415,63"/>
-<area shape="rect" id="Node000013" title=" " alt="" coords="547,117,665,142"/>
-<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="459,59,566,107,564,112,457,64"/>
-<area shape="rect" id="Node000014" title=" " alt="" coords="689,117,763,142"/>
-<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="474,50,571,75,677,106,683,108,681,113,676,112,570,80,472,55"/>
-<area shape="rect" id="Node000003" href="$d7/da0/fov__trimming_8hpp.html" title=" " alt="" coords="120,198,319,223"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="200,149,212,182,207,184,195,151"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="190,226,75,274,74,274,72,270,73,269,187,221"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="87,279,147,305"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="205,226,146,271,143,267,202,222"/>
-<area shape="rect" id="Node000006" href="$d1/db6/lidar__point_8hpp.html" title=" " alt="" coords="171,279,303,305"/>
-<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="225,223,233,263,228,264,219,224"/>
-<area shape="rect" id="Node000009" href="$d9/d6e/trimming__parameters_8hpp.html" title=" " alt="" coords="327,279,522,305"/>
-<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="252,221,380,270,378,275,250,226"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="546,271,706,312"/>
-<area shape="poly" id="edge9_Node000003_Node000010" title=" " alt="" coords="286,221,531,268,530,273,285,227"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="161,360,225,386"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="232,306,209,348,204,345,228,304"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="249,360,310,386"/>
-<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="245,304,268,345,263,348,241,306"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="341,5,490,61"/>
+<area shape="rect" id="Node000002" href="$dc/de0/skidpad__trimming_8hpp.html" title=" " alt="" coords="177,109,323,150"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="369,64,299,103,296,99,366,59"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,294,63,320"/>
+<area shape="poly" id="edge12_Node000001_Node000004" title=" " alt="" coords="341,46,298,54,253,68,208,86,166,111,124,151,90,197,64,243,47,281,42,278,60,240,86,194,120,147,163,107,205,82,251,63,297,49,340,40"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="546,286,706,327"/>
+<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="406,62,395,105,395,127,402,148,433,191,472,227,516,255,559,277,557,282,514,260,469,231,429,195,397,151,390,128,390,104,400,61"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="411,117,505,142"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="430,60,449,101,444,104,425,63"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="529,117,603,142"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="460,59,536,106,533,110,458,64"/>
+<area shape="rect" id="Node000013" href="$dc/de7/pointcloud2__helper_8hpp.html" title=" " alt="" coords="627,109,772,150"/>
+<area shape="poly" id="edge14_Node000001_Node000013" title=" " alt="" coords="491,57,626,101,625,106,489,62"/>
+<area shape="rect" id="Node000003" href="$d7/da0/fov__trimming_8hpp.html" title=" " alt="" coords="137,205,336,231"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="250,151,243,190,238,189,244,150"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="207,234,75,289,74,289,72,285,73,284,205,229"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="87,294,147,320"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="222,233,147,287,144,282,218,229"/>
+<area shape="rect" id="Node000006" href="$d1/db6/lidar__point_8hpp.html" title=" " alt="" coords="171,294,303,320"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="239,231,239,278,234,278,234,231"/>
+<area shape="rect" id="Node000009" href="$d9/d6e/trimming__parameters_8hpp.html" title=" " alt="" coords="327,294,522,320"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="264,229,386,285,384,289,262,234"/>
+<area shape="poly" id="edge9_Node000003_Node000010" title=" " alt="" coords="292,229,531,282,530,287,291,234"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="162,375,226,401"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="233,321,210,363,205,360,228,319"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="251,375,311,401"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="246,319,269,360,264,363,241,321"/>
+<area shape="poly" id="edge15_Node000013_Node000010" title=" " alt="" coords="685,152,668,173,654,199,641,236,633,271,628,270,636,234,649,197,664,171,680,148"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="663,198,824,238"/>
+<area shape="poly" id="edge16_Node000013_Node000014" title=" " alt="" coords="712,149,729,182,724,185,707,151"/>
 </map>

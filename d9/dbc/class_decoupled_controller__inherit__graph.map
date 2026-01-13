@@ -1,5 +1,5 @@
 <map id="DecoupledController" name="DecoupledController">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,219,169,404"/>
-<area shape="rect" id="Node000002" href="$d1/d5f/class_control_solver.html" title="Base class for control solvers, that calculate both lateral and longitudinal control commands." alt="" coords="5,5,169,171"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,185,90,219,85,219,85,185"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,239,169,444"/>
+<area shape="rect" id="Node000002" href="$d1/d5f/class_control_solver.html" title="Base class for control solvers, that calculate both lateral and longitudinal control commands." alt="" coords="5,5,169,191"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,206,90,239,85,239,85,206"/>
 </map>

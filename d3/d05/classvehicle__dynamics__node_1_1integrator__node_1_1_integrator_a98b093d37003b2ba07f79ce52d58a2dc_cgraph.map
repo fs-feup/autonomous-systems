@@ -1,0 +1,7 @@
+<map id="vehicle_dynamics_node.integrator_node.Integrator.publish_velocity" name="vehicle_dynamics_node.integrator_node.Integrator.publish_velocity">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,39,222,79"/>
+<area shape="rect" id="Node000002" href="$d4/d7e/namespacevehicle__dynamics__node_1_1integrator__node.html#a0ae159302bb2ea67e4c1919fcf9b2ac4" title=" " alt="" coords="270,5,486,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="222,43,254,39,254,44,222,48"/>
+<area shape="rect" id="Node000003" href="$d4/d7e/namespacevehicle__dynamics__node_1_1integrator__node.html#aa9d0d053c9e57a978921ca86b976da07" title=" " alt="" coords="270,71,486,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="222,69,254,73,254,79,222,75"/>
+</map>

@@ -108,9 +108,9 @@ Inheritance diagram for ControlSolver:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/dc7/class_control_solver__inherit__graph.png" border="0" usemap="#a_control_solver_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_control_solver_inherit__map" id="a_control_solver_inherit__map">
-<area shape="rect" title="Base class for control solvers, that calculate both lateral and longitudinal control commands." alt="" coords="5,5,169,171"/>
-<area shape="rect" href="../../dd/d8f/class_decoupled_controller.html" title=" " alt="" coords="5,219,169,404"/>
-<area shape="poly" title=" " alt="" coords="90,185,90,219,85,219,85,185"/>
+<area shape="rect" title="Base class for control solvers, that calculate both lateral and longitudinal control commands." alt="" coords="5,5,169,191"/>
+<area shape="rect" href="../../dd/d8f/class_decoupled_controller.html" title=" " alt="" coords="5,239,169,444"/>
+<area shape="poly" title=" " alt="" coords="90,206,90,239,85,239,85,206"/>
 </map>
 </div>
 <div class="dynheader">
@@ -118,7 +118,7 @@ Collaboration diagram for ControlSolver:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/d07/class_control_solver__coll__graph.png" border="0" usemap="#a_control_solver_coll__map" alt="Collaboration graph"/></div>
 <map name="a_control_solver_coll__map" id="a_control_solver_coll__map">
-<area shape="rect" title="Base class for control solvers, that calculate both lateral and longitudinal control commands." alt="" coords="5,5,169,171"/>
+<area shape="rect" title="Base class for control solvers, that calculate both lateral and longitudinal control commands." alt="" coords="5,5,169,191"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -136,6 +136,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae38963cd8e12843c2a9f4e6d61c168d8" id="r_ae38963cd8e12843c2a9f4e6d61c168d8"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../da/d16/structcommon__lib_1_1structures_1_1_control_command.html">common_lib::structures::ControlCommand</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5f/class_control_solver.html#ae38963cd8e12843c2a9f4e6d61c168d8">get_control_command</a> ()=0</td></tr>
 <tr class="memdesc:ae38963cd8e12843c2a9f4e6d61c168d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the control command calculated by the solver.  <br /></td></tr>
 <tr class="separator:ae38963cd8e12843c2a9f4e6d61c168d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a899d832d3e92933675c6cde61a56e274" id="r_a899d832d3e92933675c6cde61a56e274"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5f/class_control_solver.html#a899d832d3e92933675c6cde61a56e274">publish_solver_data</a> (std::shared_ptr&lt; rclcpp::Node &gt; node, std::map&lt; std::string, std::shared_ptr&lt; rclcpp::PublisherBase &gt; &gt; &amp;publisher_map)=0</td></tr>
+<tr class="memdesc:a899d832d3e92933675c6cde61a56e274"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes solver specific data using the provided <a class="el" href="../../d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module.">ControlNode</a>.  <br /></td></tr>
+<tr class="separator:a899d832d3e92933675c6cde61a56e274"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31736d3a4421a519337673c865f6e02d" id="r_a31736d3a4421a519337673c865f6e02d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5f/class_control_solver.html#a31736d3a4421a519337673c865f6e02d">ControlSolver</a> (const <a class="el" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a> &amp;params)</td></tr>
 <tr class="separator:a31736d3a4421a519337673c865f6e02d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c401e4257f8cd7523033f1855e95563" id="r_a5c401e4257f8cd7523033f1855e95563"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5f/class_control_solver.html#a5c401e4257f8cd7523033f1855e95563">~ControlSolver</a> ()=default</td></tr>
@@ -175,7 +178,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d27/base__control__solver_8hpp_source.html#l00037">37</a> of file <a class="el" href="../../d5/d27/base__control__solver_8hpp_source.html">base_control_solver.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d27/base__control__solver_8hpp_source.html#l00045">45</a> of file <a class="el" href="../../d5/d27/base__control__solver_8hpp_source.html">base_control_solver.hpp</a>.</p>
 
 </div>
 </div>
@@ -271,6 +274,53 @@ Here is the caller graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="175,28,143,28,143,23,175,23"/>
 </map>
 </div>
+
+</div>
+</div>
+<a id="a899d832d3e92933675c6cde61a56e274" name="a899d832d3e92933675c6cde61a56e274"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a899d832d3e92933675c6cde61a56e274">&#9670;&#160;</a></span>publish_solver_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ControlSolver::publish_solver_data </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; rclcpp::Node &gt;&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::map&lt; std::string, std::shared_ptr&lt; rclcpp::PublisherBase &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>publisher_map</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Publishes solver specific data using the provided <a class="el" href="../../d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module.">ControlNode</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>shared pointer to the <a class="el" href="../../d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module.">ControlNode</a> </td></tr>
+    <tr><td class="paramname">publisher_map</td><td>map of topic names to publisher pointers </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../dd/d8f/class_decoupled_controller.html#a762f345adf27327bc9fdb519c2818dd9">DecoupledController</a>.</p>
 
 </div>
 </div>

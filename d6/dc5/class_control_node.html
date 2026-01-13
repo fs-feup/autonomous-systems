@@ -111,15 +111,15 @@ Inheritance diagram for ControlNode:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d73/class_control_node__inherit__graph.png" border="0" usemap="#a_control_node_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_control_node_inherit__map" id="a_control_node_inherit__map">
-<area shape="rect" title="Class responsible for the ROS2 communication of the control module." alt="" coords="226,119,390,444"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html" title="Adapter class to interface with the EUFS simulator." alt="" coords="5,535,189,1113"/>
-<area shape="poly" title=" " alt="" coords="222,451,204,493,187,536,182,534,199,491,217,449"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html" title="Adapter for the PacSim simulator." alt="" coords="214,624,402,1024"/>
-<area shape="poly" title=" " alt="" coords="311,459,311,624,305,624,305,459"/>
-<area shape="rect" href="../../d1/df1/class_vehicle_adapter.html" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="427,492,635,1156"/>
-<area shape="poly" title=" " alt="" coords="399,450,417,491,429,520,424,522,412,493,394,452"/>
+<area shape="rect" title="Class responsible for the ROS2 communication of the control module." alt="" coords="226,119,390,464"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html" title="Adapter class to interface with the EUFS simulator." alt="" coords="5,555,189,1133"/>
+<area shape="poly" title=" " alt="" coords="222,469,204,513,187,556,182,554,199,511,217,467"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html" title="Adapter for the PacSim simulator." alt="" coords="214,644,402,1044"/>
+<area shape="poly" title=" " alt="" coords="311,479,311,644,305,644,305,479"/>
+<area shape="rect" href="../../d1/df1/class_vehicle_adapter.html" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="427,512,635,1176"/>
+<area shape="poly" title=" " alt="" coords="399,468,417,511,429,541,424,543,412,513,394,471"/>
 <area shape="rect" title=" " alt="" coords="265,5,351,71"/>
-<area shape="poly" title=" " alt="" coords="311,85,311,119,305,119,305,85"/>
+<area shape="poly" title=" " alt="" coords="311,86,311,119,305,119,305,86"/>
 </map>
 </div>
 <div class="dynheader">
@@ -127,11 +127,11 @@ Collaboration diagram for ControlNode:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d6/d36/class_control_node__coll__graph.png" border="0" usemap="#a_control_node_coll__map" alt="Collaboration graph"/></div>
 <map name="a_control_node_coll__map" id="a_control_node_coll__map">
-<area shape="rect" title="Class responsible for the ROS2 communication of the control module." alt="" coords="179,1044,343,1349"/>
+<area shape="rect" title="Class responsible for the ROS2 communication of the control module." alt="" coords="179,1044,343,1369"/>
 <area shape="rect" title=" " alt="" coords="197,763,283,829"/>
-<area shape="poly" title=" " alt="" coords="245,843,256,1044,251,1044,240,843"/>
+<area shape="poly" title=" " alt="" coords="245,844,256,1044,250,1044,240,844"/>
 <area shape="rect" href="../../d4/de1/struct_control_parameters.html" title=" " alt="" coords="307,611,493,981"/>
-<area shape="poly" title=" " alt="" coords="339,981,322,1029,317,1027,334,980"/>
+<area shape="poly" title=" " alt="" coords="340,981,324,1028,319,1027,335,979"/>
 <area shape="rect" href="../../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html" title=" " alt="" coords="311,288,489,548"/>
 <area shape="poly" title=" " alt="" coords="403,548,403,595,397,595,397,548"/>
 <area shape="rect" href="../../dd/d7d/structcommon__lib_1_1car__parameters_1_1_tire_parameters.html" title=" " alt="" coords="5,5,184,225"/>
@@ -182,6 +182,8 @@ Private Member Functions</h2></td></tr>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a463c3c04d6060425af4e2b8164a3f9af" id="r_a463c3c04d6060425af4e2b8164a3f9af"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; std::vector&lt; double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dc5/class_control_node.html#a463c3c04d6060425af4e2b8164a3f9af">_execution_times_</a></td></tr>
 <tr class="separator:a463c3c04d6060425af4e2b8164a3f9af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b3bdea491e86f07f2dd777b7a90a4b7" id="r_a6b3bdea491e86f07f2dd777b7a90a4b7"><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, std::shared_ptr&lt; rclcpp::PublisherBase &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dc5/class_control_node.html#a6b3bdea491e86f07f2dd777b7a90a4b7">publisher_map_</a></td></tr>
+<tr class="separator:a6b3bdea491e86f07f2dd777b7a90a4b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48cba92a56e9e35422f2af202f2cab8e" id="r_a48cba92a56e9e35422f2af202f2cab8e"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d1/d5f/class_control_solver.html">ControlSolver</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dc5/class_control_node.html#a48cba92a56e9e35422f2af202f2cab8e">control_solver_</a></td></tr>
 <tr class="separator:a48cba92a56e9e35422f2af202f2cab8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a857165ca9f85c18b4a8036787157a89f" id="r_a857165ca9f85c18b4a8036787157a89f"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; std_msgs::msg::Float64MultiArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dc5/class_control_node.html#a857165ca9f85c18b4a8036787157a89f">execution_time_pub_</a></td></tr>
@@ -313,7 +315,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/dbc/ros__node_8cpp_source.html#l00050">50</a> of file <a class="el" href="../../d9/dbc/ros__node_8cpp_source.html">ros_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/dbc/ros__node_8cpp_source.html#l00051">51</a> of file <a class="el" href="../../d9/dbc/ros__node_8cpp_source.html">ros_node.cpp</a>.</p>
 
 </div>
 </div>
@@ -395,7 +397,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/dbc/ros__node_8cpp_source.html#l00046">46</a> of file <a class="el" href="../../d9/dbc/ros__node_8cpp_source.html">ros_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/dbc/ros__node_8cpp_source.html#l00047">47</a> of file <a class="el" href="../../d9/dbc/ros__node_8cpp_source.html">ros_node.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -449,7 +451,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/dbc/ros__node_8cpp_source.html#l00054">54</a> of file <a class="el" href="../../d9/dbc/ros__node_8cpp_source.html">ros_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/dbc/ros__node_8cpp_source.html#l00055">55</a> of file <a class="el" href="../../d9/dbc/ros__node_8cpp_source.html">ros_node.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -512,7 +514,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d38/ros__node_8hpp_source.html#l00054">54</a> of file <a class="el" href="../../d5/d38/ros__node_8hpp_source.html">ros_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d38/ros__node_8hpp_source.html#l00057">57</a> of file <a class="el" href="../../d5/d38/ros__node_8hpp_source.html">ros_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -536,7 +538,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d38/ros__node_8hpp_source.html#l00060">60</a> of file <a class="el" href="../../d5/d38/ros__node_8hpp_source.html">ros_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d38/ros__node_8hpp_source.html#l00063">63</a> of file <a class="el" href="../../d5/d38/ros__node_8hpp_source.html">ros_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -560,7 +562,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d38/ros__node_8hpp_source.html#l00057">57</a> of file <a class="el" href="../../d5/d38/ros__node_8hpp_source.html">ros_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d38/ros__node_8hpp_source.html#l00060">60</a> of file <a class="el" href="../../d5/d38/ros__node_8hpp_source.html">ros_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -632,7 +634,31 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d38/ros__node_8hpp_source.html#l00063">63</a> of file <a class="el" href="../../d5/d38/ros__node_8hpp_source.html">ros_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d38/ros__node_8hpp_source.html#l00066">66</a> of file <a class="el" href="../../d5/d38/ros__node_8hpp_source.html">ros_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6b3bdea491e86f07f2dd777b7a90a4b7" name="a6b3bdea491e86f07f2dd777b7a90a4b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b3bdea491e86f07f2dd777b7a90a4b7">&#9670;&#160;</a></span>publisher_map_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, std::shared_ptr&lt;rclcpp::PublisherBase&gt; &gt; ControlNode::publisher_map_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d5/d38/ros__node_8hpp_source.html#l00054">54</a> of file <a class="el" href="../../d5/d38/ros__node_8hpp_source.html">ros_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -656,7 +682,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d38/ros__node_8hpp_source.html#l00064">64</a> of file <a class="el" href="../../d5/d38/ros__node_8hpp_source.html">ros_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d38/ros__node_8hpp_source.html#l00067">67</a> of file <a class="el" href="../../d5/d38/ros__node_8hpp_source.html">ros_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -680,7 +706,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d38/ros__node_8hpp_source.html#l00065">65</a> of file <a class="el" href="../../d5/d38/ros__node_8hpp_source.html">ros_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d38/ros__node_8hpp_source.html#l00068">68</a> of file <a class="el" href="../../d5/d38/ros__node_8hpp_source.html">ros_node.hpp</a>.</p>
 
 </div>
 </div>

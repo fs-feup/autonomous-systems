@@ -1,7 +1,11 @@
 <map id="CircunferenceCenterCalculationTest" name="CircunferenceCenterCalculationTest">
-<area shape="rect" id="Node000001" title="Test class for setting up data and testing CircinferenceCenterCalculation algorithm." alt="" coords="9,354,230,459"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,115,89,181"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="63,194,107,353,102,354,58,196"/>
-<area shape="rect" id="Node000003" href="$d2/d8d/class_plane.html" title="The Plane class represents a 3D plane defined by its equation ax + by + cz + d = 0." alt="" coords="113,5,272,291"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="155,291,141,338,136,337,150,290"/>
+<area shape="rect" id="Node000001" title="Test class for setting up data and testing CircinferenceCenterCalculation algorithm." alt="" coords="98,468,319,534"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,230,89,295"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="61,309,79,356,104,404,134,438,166,467,163,471,130,442,100,407,74,359,56,311"/>
+<area shape="rect" id="Node000003" href="$d5/d01/class_circunference_center_calculator.html" title="Concrete class representing a circumference&#45;based method for estimating the center position of a cone..." alt="" coords="114,230,303,295"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="211,295,211,451,206,451,206,295"/>
+<area shape="rect" id="Node000004" href="$df/daa/class_center_calculator.html" title="Abstract Class representing the logic for estimating the center position of a cone." alt="" coords="145,5,272,71"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="211,85,211,230,206,230,206,85"/>
+<area shape="rect" id="Node000005" href="$d2/d8d/class_plane.html" title="The Plane class represents a 3D plane defined by its equation ax + by + cz + d = 0." alt="" coords="328,120,487,405"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="363,407,333,446,315,461,312,457,329,443,358,403"/>
 </map>
