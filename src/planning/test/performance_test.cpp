@@ -6,7 +6,7 @@
 /**
  * @brief Iterates the Smoothing algorithm repeatedly and measures the average time
  */
-void iterate_smoothing(const std::vector<PathPoint> &path) {
+void iterate_smoothing(std::vector<PathPoint> &path) {
   auto path_smoothing = PathSmoothing();
 
   std::ofstream measures_path = ::openWriteFile("performance/exec_time/planning/planning_" +
