@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(fsfsim)
+project(invictasim)
 
 # Set C++ standard to 17 and required compiler options
 set(CMAKE_CXX_STANDARD 17)
@@ -27,22 +27,22 @@ find_package(visualization_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
 
 set(IMPLEMENTATION_FILES
-  src/node/fsfsim_node.cpp
+  src/node/invictasim_node.cpp
   src/config/config_loader.cpp
   src/vehicle_model/bicycle_model.cpp
 )
 
-add_executable(fsfsim src/main.cpp ${IMPLEMENTATION_FILES})
-ament_target_dependencies(fsfsim
+add_executable(invictasim src/main.cpp ${IMPLEMENTATION_FILES})
+ament_target_dependencies(invictasim
   rclcpp std_msgs geometry_msgs sensor_msgs nav_msgs rosgraph_msgs tf2 tf2_ros
   yaml-cpp common_lib eufs_msgs fs_msgs visualization_msgs custom_interfaces)
-target_include_directories(fsfsim PUBLIC
+target_include_directories(invictasim PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-target_link_libraries(fsfsim yaml-cpp)
-target_compile_features(fsfsim PUBLIC c_std_99 cxx_std_17)
+target_link_libraries(invictasim yaml-cpp)
+target_compile_features(invictasim PUBLIC c_std_99 cxx_std_17)
 
-install(TARGETS fsfsim
+install(TARGETS invictasim
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)

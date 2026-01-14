@@ -1,10 +1,10 @@
-# Fsfsim Package
+# Invictasim Package
 
 ## Package Information
 
 ### Description
 
-This package contains the fsfsim simulator built by Formula Student FEUP for the autonomous system. 
+This package contains the invictasim simulator built by Formula Student FEUP for the autonomous system. 
 
 ### Features
 
@@ -14,14 +14,14 @@ This package contains the fsfsim simulator built by Formula Student FEUP for the
 
 ### Launch Configurations
 
-- [fsfsim.launch.py](launch/fsfsim.launch.py): Launches the fsfsim simulator node with configuration from workspace config files.
+- [invictasim.launch.py](launch/invictasim.launch.py): Launches the invictasim simulator node with configuration from workspace config files.
 
 ### Configuration
 
-All configuration files are located in `/home/ws/config/fsfsim/`:
+All configuration files are located in `/home/ws/config/invictasim/`:
 
 **Main Simulator Configuration:**
-- [config.yaml](/home/ws/config/fsfsim/config.yaml) - Simulator parameters:
+- [config.yaml](/home/ws/config/invictasim/config.yaml) - Simulator parameters:
   - Vehicle model selection
   - Simulation timestep (default: 0.001s = 1000 Hz)
 
@@ -42,13 +42,13 @@ All configuration files are located in `/home/ws/config/fsfsim/`:
 ### Compiling
 
 ```sh
-colcon build --packages-up-to fsfsim
+colcon build --packages-up-to invictasim
 ```
 
 ### Testing
 
 ```sh
-colcon test --packages-select fsfsim
+colcon test --packages-select invictasim
 ```
 
 To check test results:
@@ -62,12 +62,12 @@ Use a launch file:
 
 ```sh
 source ./install/setup.bash # If in a new terminal
-ros2 launch fsfsim fsfsim.launch.py
+ros2 launch invictasim invictasim.launch.py
 ```
 
 or run directly:
 
 ```sh
 source ./install/setup.bash # If in a new terminal
-ros2 run fsfsim fsfsim
+ros2 run invictasim invictasim
 ```

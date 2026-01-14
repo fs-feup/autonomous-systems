@@ -2,7 +2,7 @@
 
 #include <string>
 
-struct FsfsimParameters {
+struct InvictaSimParameters {
   // Global config parameters
   std::string discipline;
   std::string track_name;
@@ -12,5 +12,5 @@ struct FsfsimParameters {
   double timestep;
   std::string vehicle_model;
 
-  FsfsimParameters() = default;
+  InvictaSimParameters() = default;
 };

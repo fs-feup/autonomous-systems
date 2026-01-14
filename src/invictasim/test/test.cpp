@@ -3,7 +3,7 @@
 /**
  * @brief Example test
  */
-TEST(fsfsim, example_test) {
+TEST(invictasim, example_test) {
   // Just to see if tests are running
   EXPECT_EQ(1, 1);
 }

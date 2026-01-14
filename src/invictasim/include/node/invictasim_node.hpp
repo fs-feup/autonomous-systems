@@ -9,20 +9,20 @@
 #include "std_msgs/msg/float64.hpp"
 #include "vehicle_model/vehicle_model.hpp"
 
-class FsfsimNode : public rclcpp::Node {
+class InvictaSimNode : public rclcpp::Node {
 public:
   /**
    * @brief Constructor
    */
-  explicit FsfsimNode(const FsfsimParameters& params);
+  explicit InvictaSimNode(const InvictaSimParameters& params);
 
   /**
    * @brief Destructor
    */
-  ~FsfsimNode() = default;
+  ~InvictaSimNode() = default;
 
 private:
-  FsfsimParameters params_;
+  InvictaSimParameters params_;
 
   // Vehicle model
   std::shared_ptr<VehicleModel> vehicle_model_;

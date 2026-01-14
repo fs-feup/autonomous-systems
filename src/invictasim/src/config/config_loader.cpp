@@ -5,14 +5,14 @@
 #include "common_lib/config_load/config_load.hpp"
 #include "rclcpp/rclcpp.hpp"
 
-namespace fsfsim {
+namespace invictasim {
 
-FsfsimParameters load_config() {
-  FsfsimParameters params;
+InvictaSimParameters load_config() {
+  InvictaSimParameters params;
 
   // Load global config (public interface for discipline, track, etc.)
   std::string global_config_path =
-      common_lib::config_load::get_config_yaml_path("fsfsim", "global", "global_config");
+      common_lib::config_load::get_config_yaml_path("invictasim", "global", "global_config");
   YAML::Node global_config = YAML::LoadFile(global_config_path);
 
   params.discipline = global_config["global"]["discipline"].as<std::string>();
@@ -23,14 +23,14 @@ FsfsimParameters load_config() {
 
   // Load simulator-specific config
   std::string simulator_config_path =
-      common_lib::config_load::get_config_yaml_path("fsfsim", "fsfsim", "config");
+      common_lib::config_load::get_config_yaml_path("invictasim", "invictasim", "config");
   YAML::Node simulator_config = YAML::LoadFile(simulator_config_path);
 
-  auto sim_config = simulator_config["fsfsim"];
+  auto sim_config = simulator_config["invictasim"];
   params.timestep = sim_config["timestep"].as<double>();
   params.vehicle_model = sim_config["vehicle_model"].as<std::string>();
 
-  RCLCPP_INFO(rclcpp::get_logger("fsfsim"),
+  RCLCPP_INFO(rclcpp::get_logger("invictasim"),
               "Loaded config - Discipline: %s, Track: %s, Vehicle: %s, Simulation speed: %.2f",
               params.discipline.c_str(), params.track_name.c_str(), params.vehicle_model.c_str(),
               params.simulation_speed);
@@ -38,4 +38,4 @@ FsfsimParameters load_config() {
   return params;
 }
 
-}  // namespace fsfsim
+}  // namespace invictasim
