@@ -2,12 +2,10 @@
 
 std::vector<PathPoint> PathSmoothing::smooth_path(std::vector<PathPoint>& path) const {
   if (!config_.use_path_smoothing_) {
-    path.push_back(path[0]);  // Close the loop
     return path;
   }
   std::vector<PathPoint> result_path = ::fit_spline(
       path, config_.spline_precision_, config_.spline_order_, config_.spline_coeffs_ratio_);
-  result_path.push_back(result_path[0]);  // Close the loop
   return result_path;
 }
 
@@ -15,7 +13,17 @@ std::vector<PathPoint> PathSmoothing::optimize_path(std::vector<PathPoint>& path
                                                     std::vector<PathPoint>& yellow_cones,
                                                     std::vector<PathPoint>& blue_cones) const {
   if (!config_.use_optimization_) {
-    return smooth_path(path);
+    path.push_back(path[0]);  // Close the loop
+    std::vector<PathPoint> result_path = smooth_path(path);
+    std::vector<PathPoint> filtered;
+    for (const auto& p : result_path) {
+      //mudar o 0.40 para um parametro!!!
+      if (filtered.empty() || filtered.back().position.euclidean_distance(p.position) > 0.40) {
+        filtered.push_back(p);
+      }
+    }
+
+    return filtered;
   }
 
   // Close the loop by adding the first point again

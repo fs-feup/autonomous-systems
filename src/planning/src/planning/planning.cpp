@@ -308,6 +308,28 @@ void Planning::run_trackdrive() {
         RCLCPP_INFO(get_logger(),
                     "[TRACKDRIVE] Velocity Stats - Avg: %.2f m/s | Max: %.2f m/s | Min: %.2f m/s",
                     avg_vel, max_vel, min_vel);
+
+        RCLCPP_INFO(get_logger(), "[TRACKDRIVE] Path velocities (first 20 & last 20 points):");
+
+        size_t n = smoothed_path_.size();
+        size_t count = 20;
+
+        // First 20 points
+        for (size_t i = 0; i < std::min(n, count); ++i) {
+          const auto &p = smoothed_path_[i];
+          RCLCPP_INFO(get_logger(), "  %zu : %.3f", i, p.ideal_velocity);
+        }
+        if (n > 2 * count) {
+          RCLCPP_INFO(get_logger(), "  ...");
+        }
+        for (size_t i = (n > count ? n - count : 0); i < n; ++i) {
+          const auto &p = smoothed_path_[i];
+          RCLCPP_INFO(get_logger(), "  %zu : %.3f", i, p.ideal_velocity);
+        }
+        for (int i = smoothed_path_.size() - 5; i < smoothed_path_.size(); ++i) {
+          auto d = smoothed_path_[i].position.euclidean_distance(smoothed_path_[(i + 1) % smoothed_path_.size()].position);
+          RCLCPP_INFO(get_logger(), "%d → %d : %.3f m", i, i + 1, d);
+        }
       }
     }
   } else {
@@ -342,7 +364,7 @@ void Planning::run_planning_algorithms() {
       break;
 
     case Mission::AUTOCROSS:
-      run_autocross();
+      run_trackdrive();
       break;
 
     case Mission::TRACKDRIVE:

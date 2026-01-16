@@ -96,11 +96,6 @@ std::vector<PathPoint> PathCalculation::calculate_trackdrive(const std::vector<C
 
   // Trim the path to the best cutoff point
   (void)result.erase(result.begin() + best_cutoff_index + 1, result.end());
-
-  // Close the loop by adding the first point again
-  result.push_back(result[0]);
-  yellow_cones_.push_back(yellow_cones_[0]);
-  blue_cones_.push_back(blue_cones_[0]);
   
   return result;
 }
