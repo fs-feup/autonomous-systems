@@ -1,7 +1,5 @@
 <map id="openWriteFile" name="openWriteFile">
-<area shape="rect" id="Node000001" title=" " alt="" coords="178,31,278,56"/>
-<area shape="rect" id="Node000002" href="$d3/d72/planning_2test_2performance__test_8cpp.html#aab2295277d22fafb888111e66fdac82f" title="Iterates the Outliers algorithm repeatedly and measures the average time." alt="" coords="14,5,121,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,36,120,29,121,24,162,30"/>
-<area shape="rect" id="Node000003" href="$d3/d72/planning_2test_2performance__test_8cpp.html#ace1de27c0d0025682943b154a203ad8a" title="Iterates the Smoothing algorithm repeatedly and measures the average time." alt="" coords="5,55,130,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="162,56,131,61,130,56,162,51"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="178,5,278,31"/>
+<area shape="rect" id="Node000002" href="$d3/d72/planning_2test_2performance__test_8cpp.html#aaff3d99499fd3dfba82e1ee8641cf66b" title="Iterates the Smoothing algorithm repeatedly and measures the average time." alt="" coords="5,5,130,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,21,130,21,130,16,162,16"/>
 </map>

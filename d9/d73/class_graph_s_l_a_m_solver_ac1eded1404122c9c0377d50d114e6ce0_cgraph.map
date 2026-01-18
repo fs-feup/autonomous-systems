@@ -1,5 +1,0 @@
-<map id="GraphSLAMSolver::get_covariance" name="GraphSLAMSolver::get_covariance">
-<area shape="rect" id="Node000001" title="Get the covariance matrix of the graph." alt="" coords="5,5,160,46"/>
-<area shape="rect" id="Node000002" href="$d4/dca/class_graph_s_l_a_m_instance.html#afbc8813c42bd09a49d6a396a17b35dcf" title="Get the covariance matrix of the graph." alt="" coords="208,5,359,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="160,23,192,23,192,28,160,28"/>
-</map>

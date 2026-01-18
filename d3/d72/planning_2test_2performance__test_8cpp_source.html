@@ -105,80 +105,41 @@ $(document).ready(function(){initNavTree('d3/d72/planning_2test_2performance__te
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="../../d3/d72/planning_2test_2performance__test_8cpp.html#aab2295277d22fafb888111e66fdac82f">    9</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d3/d72/planning_2test_2performance__test_8cpp.html#aab2295277d22fafb888111e66fdac82f">iterate_outliers</a>(<span class="keyword">const</span> std::string &amp;filename, <span class="keywordtype">int</span> num_outliers = 0) {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>  <span class="keyword">auto</span> track = <a class="code hl_function" href="../../d0/d09/planning_2test_2test__utils_2utils_8cpp.html#ae4770494f4382a6811df453c4e3c5c6b">track_from_file</a>(filename);</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  <span class="keyword">auto</span> outliers = <a class="code hl_class" href="../../d9/d53/class_outliers.html">Outliers</a>();</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>  <span class="comment">// Remove outliers no_iters times to get average</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>  <span class="keywordtype">int</span> no_iters = 100;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>  <span class="keywordtype">double</span> total_time = 0;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="../../d3/d72/planning_2test_2performance__test_8cpp.html#aaff3d99499fd3dfba82e1ee8641cf66b">    9</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d3/d72/planning_2test_2performance__test_8cpp.html#aaff3d99499fd3dfba82e1ee8641cf66b">iterate_smoothing</a>(<span class="keyword">const</span> std::vector&lt;PathPoint&gt; &amp;path) {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>  <span class="keyword">auto</span> path_smoothing = <a class="code hl_class" href="../../d7/db7/class_path_smoothing.html">PathSmoothing</a>();</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>  std::ofstream measures_path = <a class="code hl_function" href="../../d5/d8c/files_8hpp.html#a85d7dbeae3b742882c0addb417e565b1">::openWriteFile</a>(<span class="stringliteral">&quot;performance/exec_time/planning/planning_&quot;</span> +</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>                                              <a class="code hl_function" href="../../d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a2c3bbc9fd458920b2aa9308286235fd9">::get_current_date_time_as_string</a>() + <span class="stringliteral">&quot;.csv&quot;</span>);</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>  <span class="keywordtype">double</span> total_time = 0;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>  <span class="keywordtype">int</span> no_iters = 100;</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  std::ofstream measures_path = <a class="code hl_function" href="../../d5/d8c/files_8hpp.html#a85d7dbeae3b742882c0addb417e565b1">openWriteFile</a>(</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>      <span class="stringliteral">&quot;performance/exec_time/planning/planning_&quot;</span> + <a class="code hl_function" href="../../d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a2c3bbc9fd458920b2aa9308286235fd9">get_current_date_time_as_string</a>() + <span class="stringliteral">&quot;.csv&quot;</span>,</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>      <span class="stringliteral">&quot;Number of Left Cones,Number of Right Cones,Number of &quot;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>      <span class="stringliteral">&quot;Outliers,Outliers Removal Execution &quot;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>      <span class="stringliteral">&quot;Time,Cone Coloring Execution Time,Triangulations Execution Time,Smoothing Execution Time&quot;</span>);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; no_iters; i++) {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    track = <a class="code hl_function" href="../../d0/d09/planning_2test_2test__utils_2utils_8cpp.html#ae4770494f4382a6811df453c4e3c5c6b">track_from_file</a>(filename);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">auto</span> t0 = std::chrono::high_resolution_clock::now();</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    track = outliers.approximate_cones_with_spline(track);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">auto</span> t1 = std::chrono::high_resolution_clock::now();</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordtype">double</span> elapsed_time_iter_ms = std::chrono::duration&lt;double, std::milli&gt;(t1 - t0).count();</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    total_time += elapsed_time_iter_ms;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  <span class="comment">// No_iters repetitions to get average</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; no_iters; i++) {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">auto</span> t0 = std::chrono::high_resolution_clock::now();</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    std::vector&lt;PathPoint&gt; smoothed_path =</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        path_smoothing.smooth_path(path);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">auto</span> t1 = std::chrono::high_resolution_clock::now();</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordtype">double</span> elapsed_time_ms = std::chrono::duration&lt;double, std::milli&gt;(t1 - t0).count();</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    total_time += elapsed_time_ms;</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  }</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  measures_path &lt;&lt; track.first.size() &lt;&lt; <span class="stringliteral">&quot;,&quot;</span> &lt;&lt; track.second.size() &lt;&lt; <span class="stringliteral">&quot;,&quot;</span> &lt;&lt; num_outliers &lt;&lt; <span class="stringliteral">&quot;,&quot;</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                &lt;&lt; total_time / no_iters &lt;&lt; <span class="stringliteral">&quot;,&quot;</span>;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  measures_path.close();</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  RCLCPP_INFO(rclcpp::get_logger(<span class="stringliteral">&quot;rclcpp&quot;</span>), <span class="stringliteral">&quot;Outliers removed in average %f ms.&quot;</span>,</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>              (total_time / no_iters));</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  measures_path &lt;&lt; total_time / no_iters &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  measures_path.close();</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  RCLCPP_INFO(rclcpp::get_logger(<span class="stringliteral">&quot;rclcpp&quot;</span>), <span class="stringliteral">&quot;Average Smoothing processed in %f ms.&quot;</span>,</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>              (total_time / no_iters));</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>
 </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="foldopen" id="foldopen00043" data-start="{" data-end="}">
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="../../d3/d72/planning_2test_2performance__test_8cpp.html#ace1de27c0d0025682943b154a203ad8a">   43</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d3/d72/planning_2test_2performance__test_8cpp.html#ace1de27c0d0025682943b154a203ad8a">iterate_smoothing</a>(std::vector&lt;PathPoint&gt; &amp;path) {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  <span class="keyword">auto</span> path_smoothing = <a class="code hl_class" href="../../d7/db7/class_path_smoothing.html">PathSmoothing</a>();</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  std::ofstream measures_path = <a class="code hl_function" href="../../d5/d8c/files_8hpp.html#a85d7dbeae3b742882c0addb417e565b1">openWriteFile</a>(<span class="stringliteral">&quot;performance/exec_time/planning/planning_&quot;</span> +</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                                              <a class="code hl_function" href="../../d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a2c3bbc9fd458920b2aa9308286235fd9">get_current_date_time_as_string</a>() + <span class="stringliteral">&quot;.csv&quot;</span>);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  <span class="keywordtype">double</span> total_time = 0;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  <span class="keywordtype">int</span> no_iters = 100;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  <span class="comment">// No_iters repetitions to get average</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; no_iters; i++) {</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordtype">float</span> orientation = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        atan2(path[1].position.y - path[0].position.y, path[1].position.x - path[0].position.x));</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">auto</span> t0 = std::chrono::high_resolution_clock::now();</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    std::vector&lt;PathPoint&gt; smoothed_path =</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        path_smoothing.smooth_path(path, <a class="code hl_struct" href="../../d8/d11/struct_pose.html">Pose</a>(path[0].position, orientation), orientation);</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">auto</span> t1 = std::chrono::high_resolution_clock::now();</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordtype">double</span> elapsed_time_ms = std::chrono::duration&lt;double, std::milli&gt;(t1 - t0).count();</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    total_time += elapsed_time_ms;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  }</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  measures_path &lt;&lt; total_time / no_iters &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  measures_path.close();</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  RCLCPP_INFO(rclcpp::get_logger(<span class="stringliteral">&quot;rclcpp&quot;</span>), <span class="stringliteral">&quot;Average Smoothing processed in %f ms.&quot;</span>,</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>              (total_time / no_iters));</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>}</div>
-</div>
-<div class="ttc" id="aclass_outliers_html"><div class="ttname"><a href="../../d9/d53/class_outliers.html">Outliers</a></div><div class="ttdoc">Class to deal with outliers.</div><div class="ttdef"><b>Definition</b> <a href="../../de/de2/outliers_8hpp_source.html#l00016">outliers.hpp:16</a></div></div>
-<div class="ttc" id="aclass_path_smoothing_html"><div class="ttname"><a href="../../d7/db7/class_path_smoothing.html">PathSmoothing</a></div><div class="ttdoc">class that defines the path smoothing algorithm</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d28/smoothing_8hpp_source.html#l00020">smoothing.hpp:20</a></div></div>
+<div class="ttc" id="aclass_path_smoothing_html"><div class="ttname"><a href="../../d7/db7/class_path_smoothing.html">PathSmoothing</a></div><div class="ttdoc">class that defines the path smoothing algorithm</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d28/smoothing_8hpp_source.html#l00022">smoothing.hpp:22</a></div></div>
 <div class="ttc" id="afiles_8hpp_html_a85d7dbeae3b742882c0addb417e565b1"><div class="ttname"><a href="../../d5/d8c/files_8hpp.html#a85d7dbeae3b742882c0addb417e565b1">openWriteFile</a></div><div class="ttdeci">std::ofstream openWriteFile(const std::string &amp;filename, const std::string &amp;header=&quot;&quot;)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d8b/files_8cpp_source.html#l00021">files.cpp:21</a></div></div>
-<div class="ttc" id="aplanning_2test_2performance__test_8cpp_html_aab2295277d22fafb888111e66fdac82f"><div class="ttname"><a href="../../d3/d72/planning_2test_2performance__test_8cpp.html#aab2295277d22fafb888111e66fdac82f">iterate_outliers</a></div><div class="ttdeci">void iterate_outliers(const std::string &amp;filename, int num_outliers=0)</div><div class="ttdoc">Iterates the Outliers algorithm repeatedly and measures the average time.</div><div class="ttdef"><b>Definition</b> <a href="../../d3/d72/planning_2test_2performance__test_8cpp_source.html#l00009">performance_test.cpp:9</a></div></div>
-<div class="ttc" id="aplanning_2test_2performance__test_8cpp_html_ace1de27c0d0025682943b154a203ad8a"><div class="ttname"><a href="../../d3/d72/planning_2test_2performance__test_8cpp.html#ace1de27c0d0025682943b154a203ad8a">iterate_smoothing</a></div><div class="ttdeci">void iterate_smoothing(std::vector&lt; PathPoint &gt; &amp;path)</div><div class="ttdoc">Iterates the Smoothing algorithm repeatedly and measures the average time.</div><div class="ttdef"><b>Definition</b> <a href="../../d3/d72/planning_2test_2performance__test_8cpp_source.html#l00043">performance_test.cpp:43</a></div></div>
+<div class="ttc" id="aplanning_2test_2performance__test_8cpp_html_aaff3d99499fd3dfba82e1ee8641cf66b"><div class="ttname"><a href="../../d3/d72/planning_2test_2performance__test_8cpp.html#aaff3d99499fd3dfba82e1ee8641cf66b">iterate_smoothing</a></div><div class="ttdeci">void iterate_smoothing(const std::vector&lt; PathPoint &gt; &amp;path)</div><div class="ttdoc">Iterates the Smoothing algorithm repeatedly and measures the average time.</div><div class="ttdef"><b>Definition</b> <a href="../../d3/d72/planning_2test_2performance__test_8cpp_source.html#l00009">performance_test.cpp:9</a></div></div>
 <div class="ttc" id="aplanning_2test_2test__utils_2utils_8cpp_html_a2c3bbc9fd458920b2aa9308286235fd9"><div class="ttname"><a href="../../d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a2c3bbc9fd458920b2aa9308286235fd9">get_current_date_time_as_string</a></div><div class="ttdeci">std::string get_current_date_time_as_string()</div><div class="ttdoc">Get current date and time as a string.</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d09/planning_2test_2test__utils_2utils_8cpp_source.html#l00125">utils.cpp:125</a></div></div>
-<div class="ttc" id="aplanning_2test_2test__utils_2utils_8cpp_html_ae4770494f4382a6811df453c4e3c5c6b"><div class="ttname"><a href="../../d0/d09/planning_2test_2test__utils_2utils_8cpp.html#ae4770494f4382a6811df453c4e3c5c6b">track_from_file</a></div><div class="ttdeci">std::pair&lt; std::vector&lt; common_lib::structures::Cone &gt;, std::vector&lt; common_lib::structures::Cone &gt; &gt; track_from_file(const std::string &amp;path)</div><div class="ttdoc">Retrieves a track (a pair of colored cone vectors from each side) from a file.</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d09/planning_2test_2test__utils_2utils_8cpp_source.html#l00051">utils.cpp:51</a></div></div>
 <div class="ttc" id="aplanning_2test_2test__utils_2utils_8hpp_html"><div class="ttname"><a href="../../d6/dab/planning_2test_2test__utils_2utils_8hpp.html">utils.hpp</a></div></div>
-<div class="ttc" id="astruct_pose_html"><div class="ttname"><a href="../../d8/d11/struct_pose.html">Pose</a></div><div class="ttdef"><b>Definition</b> <a href="../../dd/de3/types_8hpp_source.html#l00065">types.hpp:66</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

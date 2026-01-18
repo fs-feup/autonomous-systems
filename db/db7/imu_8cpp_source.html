@@ -104,15 +104,19 @@ $(document).ready(function(){initNavTree('db/db7/imu_8cpp_source.html','../../')
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../dc/d34/namespacecommon__lib_1_1sensor__data.html">common_lib::sensor_data</a> {</div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="foldopen" id="foldopen00005" data-start="{" data-end="}">
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="../../df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html#a67091f95f4e7d65bdf68471e733feb22">    5</a></span><a class="code hl_function" href="../../df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html#a84ed590151754385237a11fd91285f35">ImuData::ImuData</a>(<span class="keywordtype">float</span> rotational_velocity, <span class="keywordtype">float</span> acceleration_x, <span class="keywordtype">float</span> acceleration_y,</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>                 rclcpp::Time timestamp)</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    : rotational_velocity(rotational_velocity),</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>      acceleration_x(acceleration_x),</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>      acceleration_y(acceleration_y),</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>      timestamp_(timestamp) {}</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="../../df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html#a8fd3d4c0ed9d72ff78e11ef4016078d3">    5</a></span><a class="code hl_function" href="../../df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html#a84ed590151754385237a11fd91285f35">ImuData::ImuData</a>(<span class="keywordtype">double</span> rotational_velocity, <span class="keywordtype">double</span> acceleration_x, <span class="keywordtype">double</span> acceleration_y,</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>                 rclcpp::Time timestamp, <span class="keywordtype">double</span> rotational_velocity_noise,</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>                 <span class="keywordtype">double</span> acceleration_x_noise, <span class="keywordtype">double</span> acceleration_y_noise)</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    : rotational_velocity(rotational_velocity),</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>      acceleration_x(acceleration_x),</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>      acceleration_y(acceleration_y),</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>      rotational_velocity_noise(rotational_velocity_noise),</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>      acceleration_x_noise(acceleration_x_noise),</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>      acceleration_y_noise(acceleration_y_noise),</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>      timestamp_(timestamp) {}</div>
 </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>}  <span class="comment">// namespace common_lib::sensor_data</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}  <span class="comment">// namespace common_lib::sensor_data</span></div>
 <div class="ttc" id="aimu_8hpp_html"><div class="ttname"><a href="../../d9/d4e/imu_8hpp.html">imu.hpp</a></div></div>
 <div class="ttc" id="anamespacecommon__lib_1_1sensor__data_html"><div class="ttname"><a href="../../dc/d34/namespacecommon__lib_1_1sensor__data.html">common_lib::sensor_data</a></div><div class="ttdef"><b>Definition</b> <a href="../../d9/d4e/imu_8hpp_source.html#l00005">imu.hpp:5</a></div></div>
 <div class="ttc" id="astructcommon__lib_1_1sensor__data_1_1_imu_data_html_a84ed590151754385237a11fd91285f35"><div class="ttname"><a href="../../df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html#a84ed590151754385237a11fd91285f35">common_lib::sensor_data::ImuData::ImuData</a></div><div class="ttdeci">ImuData()=default</div></div>

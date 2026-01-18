@@ -107,9 +107,9 @@ Inheritance diagram for BaseVelocityProcessModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/dc5/class_base_velocity_process_model__inherit__graph.png" border="0" usemap="#a_base_velocity_process_model_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_base_velocity_process_model_inherit__map" id="a_base_velocity_process_model_inherit__map">
-<area shape="rect" title="Base class for velocity process models, used to predict the next velocities based on previous velocit..." alt="" coords="5,5,196,111"/>
-<area shape="rect" href="../../d6/dba/class_c_a_particle_model.html" title=" " alt="" coords="17,159,184,264"/>
-<area shape="poly" title=" " alt="" coords="103,125,103,159,98,159,98,125"/>
+<area shape="rect" title="Base class for velocity process models, used to predict the next velocities based on previous velocit..." alt="" coords="5,5,196,145"/>
+<area shape="rect" href="../../d6/dba/class_c_a_particle_model.html" title=" " alt="" coords="17,193,184,333"/>
+<area shape="poly" title=" " alt="" coords="103,160,103,194,98,194,98,160"/>
 </map>
 </div>
 <div class="dynheader">
@@ -117,7 +117,7 @@ Collaboration diagram for BaseVelocityProcessModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d2/df5/class_base_velocity_process_model__coll__graph.png" border="0" usemap="#a_base_velocity_process_model_coll__map" alt="Collaboration graph"/></div>
 <map name="a_base_velocity_process_model_coll__map" id="a_base_velocity_process_model_coll__map">
-<area shape="rect" title="Base class for velocity process models, used to predict the next velocities based on previous velocit..." alt="" coords="5,5,196,111"/>
+<area shape="rect" title="Base class for velocity process models, used to predict the next velocities based on previous velocit..." alt="" coords="5,5,196,145"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -131,6 +131,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab0dc2a7062f756678674976c27de74ea" id="r_ab0dc2a7062f756678674976c27de74ea"><td class="memItemLeft" align="right" valign="top">virtual Eigen::Matrix3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d59/class_base_velocity_process_model.html#ab0dc2a7062f756678674976c27de74ea">get_jacobian_velocities</a> (const Eigen::Vector3d &amp;previous_velocities, const Eigen::Vector3d &amp;accelerations, const double time_interval)=0</td></tr>
 <tr class="memdesc:ab0dc2a7062f756678674976c27de74ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Jacobian of the velocity process model.  <br /></td></tr>
 <tr class="separator:ab0dc2a7062f756678674976c27de74ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04d137a3342f01dedbff7fc514e25b36" id="r_a04d137a3342f01dedbff7fc514e25b36"><td class="memItemLeft" align="right" valign="top">virtual Eigen::Matrix3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d59/class_base_velocity_process_model.html#a04d137a3342f01dedbff7fc514e25b36">get_jacobian_sensor_data</a> (const Eigen::Vector3d &amp;previous_velocities, const Eigen::Vector3d &amp;accelerations, const double time_interval)=0</td></tr>
+<tr class="memdesc:a04d137a3342f01dedbff7fc514e25b36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Jacobian of the velocity process model with respect to the accelerations.  <br /></td></tr>
+<tr class="separator:a04d137a3342f01dedbff7fc514e25b36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class for velocity process models, used to predict the next velocities based on previous velocities and accelerations. </p>
@@ -163,6 +166,61 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a04d137a3342f01dedbff7fc514e25b36" name="a04d137a3342f01dedbff7fc514e25b36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04d137a3342f01dedbff7fc514e25b36">&#9670;&#160;</a></span>get_jacobian_sensor_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual Eigen::Matrix3d BaseVelocityProcessModel::get_jacobian_sensor_data </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::Vector3d &amp;&#160;</td>
+          <td class="paramname"><em>previous_velocities</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Vector3d &amp;&#160;</td>
+          <td class="paramname"><em>accelerations</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>time_interval</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the Jacobian of the velocity process model with respect to the accelerations. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">previous_velocities</td><td>The velocities at the previous time step. </td></tr>
+    <tr><td class="paramname">accelerations</td><td>The accelerations applied during the time interval. </td></tr>
+    <tr><td class="paramname">time_interval</td><td>The time interval over which the accelerations are applied. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The Jacobian matrix of the velocity process model with respect to the accelerations </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d6/dba/class_c_a_particle_model.html#a27da53a5245d07e34ce12788bf354fa8">CAParticleModel</a>.</p>
+
+</div>
+</div>
 <a id="ab0dc2a7062f756678674976c27de74ea" name="ab0dc2a7062f756678674976c27de74ea"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab0dc2a7062f756678674976c27de74ea">&#9670;&#160;</a></span>get_jacobian_velocities()</h2>
 

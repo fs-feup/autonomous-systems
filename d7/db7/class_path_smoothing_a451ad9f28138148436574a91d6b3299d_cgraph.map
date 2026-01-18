@@ -1,0 +1,15 @@
+<map id="PathSmoothing::osqp_optimization" name="PathSmoothing::osqp_optimization">
+<area shape="rect" id="Node000001" title="Optimizes a path using quadratic programming (OSQP) to balance smoothness, curvature,..." alt="" coords="5,179,150,219"/>
+<area shape="rect" id="Node000002" href="$d7/db7/class_path_smoothing.html#ac9884811317c7d7391b6eb07514c7cb0" title="Adds track boundary constraints to ensure the optimized path stays within the track." alt="" coords="202,5,353,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,177,133,119,163,86,196,57,204,52,207,56,199,61,166,90,137,122,94,180"/>
+<area shape="rect" id="Node000003" href="$d7/db7/class_path_smoothing.html#a5d550ee1b872ad880b6a47ed193f16ac" title="Adds curvature penalty terms to the quadratic objective function." alt="" coords="209,71,346,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="107,176,196,121,206,116,209,121,199,125,110,180"/>
+<area shape="rect" id="Node000004" href="$d7/db7/class_path_smoothing.html#abf26b5322db30f37f7ce2ef8c1e615e2" title="Adds non&#45;negativity constraints for slack variables." alt="" coords="206,135,349,191"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="150,183,190,176,191,181,150,189"/>
+<area shape="rect" id="Node000005" href="$d7/db7/class_path_smoothing.html#adce7fe96dce3791075ff778f27459fdf" title="Adds penalty terms for slack variables to the quadratic objective function." alt="" coords="204,215,351,255"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="150,209,189,216,188,222,150,215"/>
+<area shape="rect" id="Node000006" href="$d7/db7/class_path_smoothing.html#abe5f49a0b8bf1fb49226d8a05c37b8cd" title="Adds smoothness penalty terms to the quadratic objective function." alt="" coords="208,280,347,321"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="114,217,199,265,212,271,210,276,196,269,111,222"/>
+<area shape="rect" id="Node000007" href="$d7/db7/class_path_smoothing.html#a0d3edb65439cb4aa32bf799e0293a243" title="Converts sparse matrix data from coordinate format to Compressed Sparse Column (CSC) format." alt="" coords="198,345,357,386"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="95,218,138,273,167,303,199,330,207,336,204,340,196,334,163,307,134,276,91,221"/>
+</map>

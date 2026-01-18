@@ -1,0 +1,5 @@
+<map id="SLAMObservationModel::inverse_observation_model" name="SLAMObservationModel::inverse_observation_model">
+<area shape="rect" id="Node000001" title="transforms the landmarks&#39; coordinates from the car&#39;s frame to the global frame" alt="" coords="108,5,293,46"/>
+<area shape="rect" id="Node000002" href="$d8/d17/slam__base__observation__model__test_8cpp.html#a2ba7820f7423fd9617573cae7d5314b1" title="Test inverse observation model with trivial state and a single observation." alt="" coords="5,13,60,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,28,60,28,60,23,92,23"/>
+</map>

@@ -152,12 +152,114 @@ Design</h1>
 <p>Below, some diagrams are presented that can illustrate the structure and behaviour of the program.</p>
 <h2><a class="anchor" id="autotoc_md229"></a>
 Behaviour</h2>
+<p>The following diagram illustrates the flow of data through the SLAM node.</p>
+<p><img src="../../../../docs/diagrams/slam/flow-diagram.png" alt="Flow Diagram" class="inline"/></p>
 <h2><a class="anchor" id="autotoc_md230"></a>
 Structure</h2>
-<p>The node is composed by multiple classes. The diagram below illustrates roughly how they sit in the code structure.</p>
-<p><img src="../../../../docs/diagrams/slam/class.drawio.svg" alt="Class Diagram" style="pointer-events: none;" class="inline"/></p>
-<p>The following node shows the interfaces of this node. <img src="../../../../docs/diagrams/slam/components.drawio.svg" alt="Components Diagram" style="pointer-events: none;" class="inline"/> </p>
-</div></div><!-- contents -->
+<p>The node is composed by multiple classes. The diagram below illustrates roughly how they sit in the code structure and interact with other packages.</p>
+<p><img src="../../../../docs/diagrams/slam/architecture-diagram.png" alt="Class Diagram" class="inline"/> <img src="../../../../docs/diagrams/slam/graph_slam_structure.png" alt="Class Diagram" class="inline"/></p>
+<p>The following are the interfaces for this package: </p><div class="fragment"><div class="line"><span class="comment">// Subscriptions</span></div>
+<div class="line">  <span class="keywordflow">if</span> (!params.use_simulated_perception_) {</div>
+<div class="line">    this-&gt;_perception_subscription_ = this-&gt;create_subscription&lt;custom_interfaces::msg::ConeArray&gt;(</div>
+<div class="line">        <span class="stringliteral">&quot;/perception/cones&quot;</span>, 1,</div>
+<div class="line">        std::bind(&amp;<a class="code hl_function" href="../../d8/d84/class_s_l_a_m_node.html#aac21a292783c53d1f41cfaa255b3e9bf">SLAMNode::_perception_subscription_callback</a>, <span class="keyword">this</span>, std::placeholders::_1),</div>
+<div class="line">        subscription_options);</div>
+<div class="line">  }</div>
+<div class="line">  <span class="keywordflow">if</span> (!params.use_simulated_velocities_) {</div>
+<div class="line">    this-&gt;_velocities_subscription_ = this-&gt;create_subscription&lt;custom_interfaces::msg::Velocities&gt;(</div>
+<div class="line">        <span class="stringliteral">&quot;/state_estimation/velocities&quot;</span>, 50,</div>
+<div class="line">        std::bind(&amp;<a class="code hl_function" href="../../d8/d84/class_s_l_a_m_node.html#a6e228ce696c330a4a43ae5807c632df7">SLAMNode::_velocities_subscription_callback</a>, <span class="keyword">this</span>, std::placeholders::_1),</div>
+<div class="line">        subscription_options);</div>
+<div class="line">  }</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// Publishers</span></div>
+<div class="line">  this-&gt;_map_publisher_ =</div>
+<div class="line">      this-&gt;create_publisher&lt;custom_interfaces::msg::ConeArray&gt;(<span class="stringliteral">&quot;/state_estimation/map&quot;</span>, 10);</div>
+<div class="line">  this-&gt;_vehicle_pose_publisher_ =</div>
+<div class="line">      this-&gt;create_publisher&lt;custom_interfaces::msg::Pose&gt;(<span class="stringliteral">&quot;/state_estimation/vehicle_pose&quot;</span>, 10);</div>
+<div class="line">  this-&gt;_visualization_map_publisher_ =</div>
+<div class="line">      this-&gt;create_publisher&lt;visualization_msgs::msg::MarkerArray&gt;(</div>
+<div class="line">          <span class="stringliteral">&quot;/state_estimation/visualization_map&quot;</span>, 10);</div>
+<div class="line">  this-&gt;_associations_visualization_publisher_ =</div>
+<div class="line">      this-&gt;create_publisher&lt;visualization_msgs::msg::MarkerArray&gt;(</div>
+<div class="line">          <span class="stringliteral">&quot;/state_estimation/visualization_associations&quot;</span>, 10);</div>
+<div class="line">  this-&gt;_trajectory_visualization_publisher_ =</div>
+<div class="line">      this-&gt;create_publisher&lt;visualization_msgs::msg::MarkerArray&gt;(</div>
+<div class="line">          <span class="stringliteral">&quot;/state_estimation/visualization/trajectory&quot;</span>, 10);</div>
+<div class="line">  this-&gt;_execution_time_publisher_ = this-&gt;create_publisher&lt;std_msgs::msg::Float64MultiArray&gt;(</div>
+<div class="line">      <span class="stringliteral">&quot;/state_estimation/slam_execution_time&quot;</span>, 10);</div>
+<div class="line">  this-&gt;_covariance_publisher_ = this-&gt;create_publisher&lt;std_msgs::msg::Float64MultiArray&gt;(</div>
+<div class="line">      <span class="stringliteral">&quot;/state_estimation/slam_covariance&quot;</span>, 10);</div>
+<div class="line">  this-&gt;_lap_counter_publisher_ =</div>
+<div class="line">      this-&gt;create_publisher&lt;std_msgs::msg::Float64&gt;(<span class="stringliteral">&quot;/state_estimation/lap_counter&quot;</span>, 10);</div>
+<div class="line">  this-&gt;_tf_broadcaster_ = std::make_shared&lt;tf2_ros::TransformBroadcaster&gt;(<span class="keyword">this</span>);</div>
+<div class="ttc" id="aclass_s_l_a_m_node_html_a6e228ce696c330a4a43ae5807c632df7"><div class="ttname"><a href="../../d8/d84/class_s_l_a_m_node.html#a6e228ce696c330a4a43ae5807c632df7">SLAMNode::_velocities_subscription_callback</a></div><div class="ttdeci">void _velocities_subscription_callback(const custom_interfaces::msg::Velocities &amp;msg)</div><div class="ttdoc">Callback that updates everytime information is received from velocity estimation node.</div><div class="ttdef"><b>Definition</b> <a href="../../de/da0/slam__node_8cpp_source.html#l00220">slam_node.cpp:220</a></div></div>
+<div class="ttc" id="aclass_s_l_a_m_node_html_aac21a292783c53d1f41cfaa255b3e9bf"><div class="ttname"><a href="../../d8/d84/class_s_l_a_m_node.html#aac21a292783c53d1f41cfaa255b3e9bf">SLAMNode::_perception_subscription_callback</a></div><div class="ttdeci">void _perception_subscription_callback(const custom_interfaces::msg::PerceptionOutput &amp;msg)</div><div class="ttdoc">Callback that updates everytime information is received from the perception module.</div><div class="ttdef"><b>Definition</b> <a href="../../de/da0/slam__node_8cpp_source.html#l00117">slam_node.cpp:117</a></div></div>
+</div><!-- fragment --><p>for PacSim adapter: </p><div class="fragment"><div class="line"><span class="keywordflow">if</span> (params.use_simulated_perception_) {</div>
+<div class="line">    RCLCPP_INFO(this-&gt;get_logger(), <span class="stringliteral">&quot;Using simulated perception&quot;</span>);</div>
+<div class="line">    this-&gt;_perception_detections_subscription_ =</div>
+<div class="line">        this-&gt;create_subscription&lt;pacsim::msg::PerceptionDetections&gt;(</div>
+<div class="line">            <span class="stringliteral">&quot;/pacsim/perception/lidar/landmarks&quot;</span>, 1,</div>
+<div class="line">            std::bind(&amp;<a class="code hl_function" href="../../d1/dcb/class_pacsim_adapter.html#a55a7901c609a7ad1eeced10bb2ce466f">PacsimAdapter::_pacsim_perception_subscription_callback</a>, <span class="keyword">this</span>,</div>
+<div class="line">                      std::placeholders::_1),</div>
+<div class="line">            subscription_options);</div>
+<div class="line">  }</div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordflow">if</span> (params.use_simulated_velocities_) {</div>
+<div class="line">    this-&gt;_velocities_subscription_ =</div>
+<div class="line">        this-&gt;create_subscription&lt;geometry_msgs::msg::TwistWithCovarianceStamped&gt;(</div>
+<div class="line">            <span class="stringliteral">&quot;/pacsim/velocity&quot;</span>, 1,</div>
+<div class="line">            std::bind(&amp;<a class="code hl_function" href="../../d1/dcb/class_pacsim_adapter.html#a651d389ab08e146b604c9b833cf5c0a4">PacsimAdapter::_pacsim_velocities_subscription_callback</a>, <span class="keyword">this</span>,</div>
+<div class="line">                      std::placeholders::_1),</div>
+<div class="line">            subscription_options);</div>
+<div class="line">  }</div>
+<div class="line"> </div>
+<div class="line">  this-&gt;_imu_subscription_ = this-&gt;create_subscription&lt;sensor_msgs::msg::Imu&gt;(</div>
+<div class="line">      <span class="stringliteral">&quot;/pacsim/imu/cog_imu&quot;</span>, 1,</div>
+<div class="line">      std::bind(&amp;<a class="code hl_function" href="../../d1/dcb/class_pacsim_adapter.html#a066611e620ab033c8f5399f8305847da">PacsimAdapter::_pacsim_imu_subscription_callback</a>, <span class="keyword">this</span>, std::placeholders::_1),</div>
+<div class="line">      subscription_options);</div>
+<div class="line"> </div>
+<div class="line">  this-&gt;_finished_client_ = this-&gt;create_client&lt;std_srvs::srv::Empty&gt;(<span class="stringliteral">&quot;/pacsim/finish_signal&quot;</span>);</div>
+<div class="line">  param_client_ =</div>
+<div class="line">      this-&gt;create_client&lt;rcl_interfaces::srv::GetParameters&gt;(<span class="stringliteral">&quot;/pacsim/pacsim_node/get_parameters&quot;</span>);</div>
+<div class="ttc" id="aclass_pacsim_adapter_html_a066611e620ab033c8f5399f8305847da"><div class="ttname"><a href="../../d1/dcb/class_pacsim_adapter.html#a066611e620ab033c8f5399f8305847da">PacsimAdapter::_pacsim_imu_subscription_callback</a></div><div class="ttdeci">void _pacsim_imu_subscription_callback(const sensor_msgs::msg::Imu &amp;msg)</div><div class="ttdoc">Callback for simulated IMU data from pacsim.</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d0a/slam_2src_2adapter__slam_2pacsim_8cpp_source.html#l00135">pacsim.cpp:135</a></div></div>
+<div class="ttc" id="aclass_pacsim_adapter_html_a55a7901c609a7ad1eeced10bb2ce466f"><div class="ttname"><a href="../../d1/dcb/class_pacsim_adapter.html#a55a7901c609a7ad1eeced10bb2ce466f">PacsimAdapter::_pacsim_perception_subscription_callback</a></div><div class="ttdeci">void _pacsim_perception_subscription_callback(const pacsim::msg::PerceptionDetections &amp;msg)</div><div class="ttdoc">Callback for simulated perception detections from pacsim.</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d0a/slam_2src_2adapter__slam_2pacsim_8cpp_source.html#l00098">pacsim.cpp:98</a></div></div>
+<div class="ttc" id="aclass_pacsim_adapter_html_a651d389ab08e146b604c9b833cf5c0a4"><div class="ttname"><a href="../../d1/dcb/class_pacsim_adapter.html#a651d389ab08e146b604c9b833cf5c0a4">PacsimAdapter::_pacsim_velocities_subscription_callback</a></div><div class="ttdeci">void _pacsim_velocities_subscription_callback(const geometry_msgs::msg::TwistWithCovarianceStamped &amp;msg)</div><div class="ttdoc">Callback for simulated velocities from pacsim.</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d0a/slam_2src_2adapter__slam_2pacsim_8cpp_source.html#l00120">pacsim.cpp:120</a></div></div>
+</div><!-- fragment --><p>and for vehicle adapter:</p>
+<div class="fragment"><div class="line">_operational_status_subscription_ =</div>
+<div class="line">      this-&gt;create_subscription&lt;custom_interfaces::msg::OperationalStatus&gt;(</div>
+<div class="line">          <span class="stringliteral">&quot;/vehicle/operational_status&quot;</span>, 10,</div>
+<div class="line">          [<span class="keyword">this</span>](<span class="keyword">const</span> custom_interfaces::msg::OperationalStatus::SharedPtr msg) {</div>
+<div class="line">            RCLCPP_INFO(this-&gt;get_logger(), <span class="stringliteral">&quot;Operational status received. Mission: %d - Go: %d&quot;</span>,</div>
+<div class="line">                        msg-&gt;as_mission, msg-&gt;go_signal);</div>
+<div class="line">            _go_ = <span class="keyword">true</span>;  <span class="comment">// msg-&gt;go_signal;</span></div>
+<div class="line">            _mission_ = <a class="code hl_enumeration" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140">common_lib::competition_logic::Mission</a>(msg-&gt;as_mission);</div>
+<div class="line">            this-&gt;_slam_solver_-&gt;set_mission(_mission_);</div>
+<div class="line">          });</div>
+<div class="line">  _finished_client_ = this-&gt;create_client&lt;std_srvs::srv::Trigger&gt;(<span class="stringliteral">&quot;/as_srv/mission_finished&quot;</span>);</div>
+<div class="line">  <span class="comment">// Create a static map frame</span></div>
+<div class="line">  _tf_static_broadcaster_ = std::make_shared&lt;tf2_ros::StaticTransformBroadcaster&gt;(*<span class="keyword">this</span>);</div>
+<div class="line"> </div>
+<div class="line">  geometry_msgs::msg::TransformStamped transformStamped;</div>
+<div class="line">  transformStamped.header.stamp = this-&gt;get_clock()-&gt;now();</div>
+<div class="line">  transformStamped.header.frame_id = <span class="stringliteral">&quot;map&quot;</span>;              <span class="comment">// Fixed frame: &quot;map&quot;</span></div>
+<div class="line">  transformStamped.child_frame_id = <span class="stringliteral">&quot;vehicle_estimate&quot;</span>;  <span class="comment">// The child frame: &quot;vehicle&quot;</span></div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// LiDAR odometry subscription</span></div>
+<div class="line">  <span class="keywordflow">if</span> (!params.receive_lidar_odometry_) {</div>
+<div class="line">    RCLCPP_INFO(this-&gt;get_logger(), <span class="stringliteral">&quot;Not receiving lidar odometry, using only velocities&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span>;</div>
+<div class="line">  }</div>
+<div class="line"> </div>
+<div class="line">  this-&gt;_lidar_odometry_subscription_ = this-&gt;create_subscription&lt;nav_msgs::msg::Odometry&gt;(</div>
+<div class="line">      params.lidar_odometry_topic_, 1,</div>
+<div class="line">      std::bind(&amp;<a class="code hl_function" href="../../d1/df1/class_vehicle_adapter.html#ad89d6e33ccd2f8ec13b936ef2ec56179">VehicleAdapter::_lidar_odometry_subscription_callback</a>, <span class="keyword">this</span>,</div>
+<div class="line">                std::placeholders::_1),</div>
+<div class="line">      subscription_options);</div>
+<div class="ttc" id="aclass_vehicle_adapter_html_ad89d6e33ccd2f8ec13b936ef2ec56179"><div class="ttname"><a href="../../d1/df1/class_vehicle_adapter.html#ad89d6e33ccd2f8ec13b936ef2ec56179">VehicleAdapter::_lidar_odometry_subscription_callback</a></div><div class="ttdeci">void _lidar_odometry_subscription_callback(const nav_msgs::msg::Odometry &amp;msg)</div><div class="ttdoc">LiDAR odometry subscription callback.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d3c/slam_2src_2adapter__slam_2vehicle_8cpp_source.html#l00077">vehicle.cpp:77</a></div></div>
+<div class="ttc" id="anamespacecommon__lib_1_1competition__logic_html_adc523f54f1498f443c97303976f40140"><div class="ttname"><a href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140">common_lib::competition_logic::Mission</a></div><div class="ttdeci">Mission</div><div class="ttdef"><b>Definition</b> <a href="../../dc/de2/mission__logic_8hpp_source.html#l00011">mission_logic.hpp:11</a></div></div>
+</div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->

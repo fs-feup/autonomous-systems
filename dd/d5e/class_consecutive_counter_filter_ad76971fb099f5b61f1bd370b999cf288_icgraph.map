@@ -1,0 +1,11 @@
+<map id="ConsecutiveCounterFilter::filter" name="ConsecutiveCounterFilter::filter">
+<area shape="rect" id="Node000001" title="This function receives a new set of observations and returns a filtered set of landmarks in global co..." alt="" coords="108,73,275,113"/>
+<area shape="rect" id="Node000002" href="$db/dc8/consecutive__counter__filter__test_8cpp.html#a7826258909adf45293c6f17a4201ff26" title="Test with same observations 3 times and car still." alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="131,68,59,33,61,28,133,63"/>
+<area shape="rect" id="Node000003" href="$db/dc8/consecutive__counter__filter__test_8cpp.html#a9a9f59a6f752ee76e299bd889dbea476" title="Same test as above but with different order of observations." alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="92,80,60,74,61,69,93,74"/>
+<area shape="rect" id="Node000004" href="$db/dc8/consecutive__counter__filter__test_8cpp.html#ac3d0f1b0981f199042861fe387b2d478" title="Same test as above but one of the landmarks is not observed 3 times." alt="" coords="5,104,60,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="93,110,61,115,60,110,92,105"/>
+<area shape="rect" id="Node000005" href="$db/dc8/consecutive__counter__filter__test_8cpp.html#a313d3ad5db7ba0bf04bb21e62f15e17a" title="Same test as above but the car moves and observations change accordingly." alt="" coords="5,153,60,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="133,123,61,156,59,151,131,118"/>
+</map>

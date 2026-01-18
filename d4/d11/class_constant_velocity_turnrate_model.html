@@ -107,9 +107,9 @@ Inheritance diagram for ConstantVelocityTurnrateModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/d2e/class_constant_velocity_turnrate_model__inherit__graph.png" border="0" usemap="#a_constant_velocity_turnrate_model_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_constant_velocity_turnrate_model_inherit__map" id="a_constant_velocity_turnrate_model_inherit__map">
-<area shape="rect" title="Motion model that predicts the pose of the robot given the velocities with a constant velocity model ..." alt="" coords="9,293,178,483"/>
-<area shape="rect" href="../../d0/d20/class_v2_p_motion_model.html" title="Base class for the &#39;vehicle to pose&#39; (more in interal background review) motion models." alt="" coords="5,5,181,245"/>
-<area shape="poly" title=" " alt="" coords="96,260,96,294,91,294,91,260"/>
+<area shape="rect" title="Motion model that predicts the pose of the robot given the velocities with a constant velocity model ..." alt="" coords="5,213,164,348"/>
+<area shape="rect" href="../../d0/d20/class_v2_p_motion_model.html" title="Base class for the &#39;vehicle to pose&#39; (more in interal background review) motion models." alt="" coords="11,5,159,165"/>
+<area shape="poly" title=" " alt="" coords="87,180,87,213,82,213,82,180"/>
 </map>
 </div>
 <div class="dynheader">
@@ -117,53 +117,37 @@ Collaboration diagram for ConstantVelocityTurnrateModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/ddd/class_constant_velocity_turnrate_model__coll__graph.png" border="0" usemap="#a_constant_velocity_turnrate_model_coll__map" alt="Collaboration graph"/></div>
 <map name="a_constant_velocity_turnrate_model_coll__map" id="a_constant_velocity_turnrate_model_coll__map">
-<area shape="rect" title="Motion model that predicts the pose of the robot given the velocities with a constant velocity model ..." alt="" coords="9,293,178,483"/>
-<area shape="rect" href="../../d0/d20/class_v2_p_motion_model.html" title="Base class for the &#39;vehicle to pose&#39; (more in interal background review) motion models." alt="" coords="5,5,181,245"/>
-<area shape="poly" title=" " alt="" coords="96,260,96,294,91,294,91,260"/>
+<area shape="rect" title="Motion model that predicts the pose of the robot given the velocities with a constant velocity model ..." alt="" coords="5,213,164,348"/>
+<area shape="rect" href="../../d0/d20/class_v2_p_motion_model.html" title="Base class for the &#39;vehicle to pose&#39; (more in interal background review) motion models." alt="" coords="11,5,159,165"/>
+<area shape="poly" title=" " alt="" coords="87,180,87,213,82,213,82,180"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a944816dffc61cf89bd5485aba8068d92" id="r_a944816dffc61cf89bd5485aba8068d92"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d11/class_constant_velocity_turnrate_model.html#a944816dffc61cf89bd5485aba8068d92">ConstantVelocityTurnrateModel</a> ()</td></tr>
-<tr class="separator:a944816dffc61cf89bd5485aba8068d92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea2ce06667ccb65e23d822aafcf4ab2b" id="r_aea2ce06667ccb65e23d822aafcf4ab2b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d11/class_constant_velocity_turnrate_model.html#aea2ce06667ccb65e23d822aafcf4ab2b">ConstantVelocityTurnrateModel</a> (const Eigen::Vector3d base_process_noise)</td></tr>
-<tr class="memdesc:aea2ce06667ccb65e23d822aafcf4ab2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="../../d4/d11/class_constant_velocity_turnrate_model.html" title="Motion model that predicts the pose of the robot given the velocities with a constant velocity model ...">ConstantVelocityTurnrateModel</a> object with a base process noise.  <br /></td></tr>
-<tr class="separator:aea2ce06667ccb65e23d822aafcf4ab2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a822284e035b6a687c31fece00e43f827" id="r_a822284e035b6a687c31fece00e43f827"><td class="memItemLeft" align="right" valign="top">Eigen::Vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d11/class_constant_velocity_turnrate_model.html#a822284e035b6a687c31fece00e43f827">get_pose_difference</a> (const Eigen::Vector3d &amp;previous_pose, const Eigen::Vector3d &amp;velocities, const double delta_t) override</td></tr>
-<tr class="memdesc:a822284e035b6a687c31fece00e43f827"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gives the increments to the pose instead of the next pose.  <br /></td></tr>
-<tr class="separator:a822284e035b6a687c31fece00e43f827"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6aa93c732377a96d0ff22b464a0103fd" id="r_a6aa93c732377a96d0ff22b464a0103fd"><td class="memItemLeft" align="right" valign="top">Eigen::Matrix3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d11/class_constant_velocity_turnrate_model.html#a6aa93c732377a96d0ff22b464a0103fd">get_jacobian_pose</a> (const Eigen::Vector3d &amp;previous_pose, const Eigen::Vector3d &amp;velocities, const double delta_t) override</td></tr>
-<tr class="memdesc:a6aa93c732377a96d0ff22b464a0103fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Jacobian matrix of the motion model in relation to velocities (commands)  <br /></td></tr>
-<tr class="separator:a6aa93c732377a96d0ff22b464a0103fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac41441a31fbd68ba12cffb6eb9785689" id="r_ac41441a31fbd68ba12cffb6eb9785689"><td class="memItemLeft" align="right" valign="top">Eigen::Matrix3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d11/class_constant_velocity_turnrate_model.html#ac41441a31fbd68ba12cffb6eb9785689">get_jacobian_velocities</a> (const Eigen::Vector3d &amp;previous_pose, const Eigen::Vector3d &amp;velocities, const double delta_t) override</td></tr>
-<tr class="memdesc:ac41441a31fbd68ba12cffb6eb9785689"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Jacobian matrix of the motion model in relation to velocities (commands)  <br /></td></tr>
-<tr class="separator:ac41441a31fbd68ba12cffb6eb9785689"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2053dfe4e399d85019578bba6a0ce89b" id="r_a2053dfe4e399d85019578bba6a0ce89b"><td class="memItemLeft" align="right" valign="top">Eigen::Vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d11/class_constant_velocity_turnrate_model.html#a2053dfe4e399d85019578bba6a0ce89b">get_pose_difference</a> (const Eigen::Vector3d &amp;previous_pose, const Eigen::VectorXd &amp;motion_data, const double delta_t) override</td></tr>
+<tr class="memdesc:a2053dfe4e399d85019578bba6a0ce89b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gives the increments to the pose instead of the next pose.  <br /></td></tr>
+<tr class="separator:a2053dfe4e399d85019578bba6a0ce89b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d099781c17d72dc76c2895e0560019a" id="r_a9d099781c17d72dc76c2895e0560019a"><td class="memItemLeft" align="right" valign="top">Eigen::Matrix3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d11/class_constant_velocity_turnrate_model.html#a9d099781c17d72dc76c2895e0560019a">get_jacobian_pose</a> (const Eigen::Vector3d &amp;previous_pose, const Eigen::VectorXd &amp;motion_data, const double delta_t) override</td></tr>
+<tr class="memdesc:a9d099781c17d72dc76c2895e0560019a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Jacobian matrix of the motion model in relation to the pose (state)  <br /></td></tr>
+<tr class="separator:a9d099781c17d72dc76c2895e0560019a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8101cc1b62f097f4e31d6318365080b4" id="r_a8101cc1b62f097f4e31d6318365080b4"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d11/class_constant_velocity_turnrate_model.html#a8101cc1b62f097f4e31d6318365080b4">get_jacobian_motion_data</a> (const Eigen::Vector3d &amp;previous_pose, const Eigen::VectorXd &amp;motion_data, const double delta_t) override</td></tr>
+<tr class="memdesc:a8101cc1b62f097f4e31d6318365080b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Jacobian matrix of the motion model in relation to motion data (commands)  <br /></td></tr>
+<tr class="separator:a8101cc1b62f097f4e31d6318365080b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_v2_p_motion_model"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_v2_p_motion_model')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d0/d20/class_v2_p_motion_model.html">V2PMotionModel</a></td></tr>
-<tr class="memitem:ae0362e39ae66e39f07d023ccda49d853 inherit pub_methods_class_v2_p_motion_model" id="r_ae0362e39ae66e39f07d023ccda49d853"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d20/class_v2_p_motion_model.html#ae0362e39ae66e39f07d023ccda49d853">V2PMotionModel</a> ()</td></tr>
-<tr class="separator:ae0362e39ae66e39f07d023ccda49d853 inherit pub_methods_class_v2_p_motion_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a7331dd79b1f14f5a8b8cb8a602cdf6 inherit pub_methods_class_v2_p_motion_model" id="r_a0a7331dd79b1f14f5a8b8cb8a602cdf6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d20/class_v2_p_motion_model.html#a0a7331dd79b1f14f5a8b8cb8a602cdf6">V2PMotionModel</a> (const Eigen::Vector3d base_process_noise)</td></tr>
-<tr class="memdesc:a0a7331dd79b1f14f5a8b8cb8a602cdf6 inherit pub_methods_class_v2_p_motion_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="../../df/d42/class_constant_velocity_model.html" title="Motion model that predicts the pose of the robot given the velocities with a constant velocity model.">ConstantVelocityModel</a> object with a base process noise.  <br /></td></tr>
-<tr class="separator:a0a7331dd79b1f14f5a8b8cb8a602cdf6 inherit pub_methods_class_v2_p_motion_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a373d9c819bcbcc883c74c7b0bebddf87 inherit pub_methods_class_v2_p_motion_model" id="r_a373d9c819bcbcc883c74c7b0bebddf87"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d20/class_v2_p_motion_model.html#a373d9c819bcbcc883c74c7b0bebddf87">~V2PMotionModel</a> ()=default</td></tr>
 <tr class="separator:a373d9c819bcbcc883c74c7b0bebddf87 inherit pub_methods_class_v2_p_motion_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ba15f03cb8601a500c99519ae32ae15 inherit pub_methods_class_v2_p_motion_model" id="r_a2ba15f03cb8601a500c99519ae32ae15"><td class="memItemLeft" align="right" valign="top">virtual Eigen::Vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d20/class_v2_p_motion_model.html#a2ba15f03cb8601a500c99519ae32ae15">get_next_pose</a> (const Eigen::Vector3d &amp;previous_pose, const Eigen::Vector3d &amp;velocities, const double delta_t)</td></tr>
-<tr class="memdesc:a2ba15f03cb8601a500c99519ae32ae15 inherit pub_methods_class_v2_p_motion_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predict the pose of the robot given the velocities.  <br /></td></tr>
-<tr class="separator:a2ba15f03cb8601a500c99519ae32ae15 inherit pub_methods_class_v2_p_motion_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1cb97132a46e3b9bc82f80e419517d48 inherit pub_methods_class_v2_p_motion_model" id="r_a1cb97132a46e3b9bc82f80e419517d48"><td class="memItemLeft" align="right" valign="top">Eigen::Matrix3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d20/class_v2_p_motion_model.html#a1cb97132a46e3b9bc82f80e419517d48">get_base_process_noise_matrix</a> ()</td></tr>
-<tr class="memdesc:a1cb97132a46e3b9bc82f80e419517d48 inherit pub_methods_class_v2_p_motion_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the process noise matrix.  <br /></td></tr>
-<tr class="separator:a1cb97132a46e3b9bc82f80e419517d48 inherit pub_methods_class_v2_p_motion_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8e8e1931a9a311eb2d476989b121160 inherit pub_methods_class_v2_p_motion_model" id="r_aa8e8e1931a9a311eb2d476989b121160"><td class="memItemLeft" align="right" valign="top">Eigen::Vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d20/class_v2_p_motion_model.html#aa8e8e1931a9a311eb2d476989b121160">get_base_process_noise</a> ()</td></tr>
-<tr class="memdesc:aa8e8e1931a9a311eb2d476989b121160 inherit pub_methods_class_v2_p_motion_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the process noise vector.  <br /></td></tr>
-<tr class="separator:aa8e8e1931a9a311eb2d476989b121160 inherit pub_methods_class_v2_p_motion_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0db76868d88b2bf557cb1be0546e393d inherit pub_methods_class_v2_p_motion_model" id="r_a0db76868d88b2bf557cb1be0546e393d"><td class="memItemLeft" align="right" valign="top">virtual Eigen::Vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d20/class_v2_p_motion_model.html#a0db76868d88b2bf557cb1be0546e393d">get_next_pose</a> (const Eigen::Vector3d &amp;previous_pose, const Eigen::VectorXd &amp;motion_data, const double delta_t)</td></tr>
+<tr class="memdesc:a0db76868d88b2bf557cb1be0546e393d inherit pub_methods_class_v2_p_motion_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predict the pose of the robot given the motion data.  <br /></td></tr>
+<tr class="separator:a0db76868d88b2bf557cb1be0546e393d inherit pub_methods_class_v2_p_motion_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Motion model that predicts the pose of the robot given the velocities with a constant velocity model and turnrate model. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../df/d5e/constant__velocity__turnrate__model_8hpp_source.html#l00011">11</a> of file <a class="el" href="../../df/d5e/constant__velocity__turnrate__model_8hpp_source.html">constant_velocity_turnrate_model.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a944816dffc61cf89bd5485aba8068d92" name="a944816dffc61cf89bd5485aba8068d92"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a944816dffc61cf89bd5485aba8068d92">&#9670;&#160;</a></span>ConstantVelocityTurnrateModel() <span class="overload">[1/2]</span></h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a8101cc1b62f097f4e31d6318365080b4" name="a8101cc1b62f097f4e31d6318365080b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8101cc1b62f097f4e31d6318365080b4">&#9670;&#160;</a></span>get_jacobian_motion_data()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -172,62 +156,55 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">ConstantVelocityTurnrateModel::ConstantVelocityTurnrateModel </td>
+          <td class="memname">Eigen::MatrixXd ConstantVelocityTurnrateModel::get_jacobian_motion_data </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="paramtype">const Eigen::Vector3d &amp;&#160;</td>
+          <td class="paramname"><em>previous_pose</em>, </td>
         </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d0/d33/constant__velocity__turnrate__model_8cpp_source.html#l00010">10</a> of file <a class="el" href="../../d0/d33/constant__velocity__turnrate__model_8cpp_source.html">constant_velocity_turnrate_model.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aea2ce06667ccb65e23d822aafcf4ab2b" name="aea2ce06667ccb65e23d822aafcf4ab2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea2ce06667ccb65e23d822aafcf4ab2b">&#9670;&#160;</a></span>ConstantVelocityTurnrateModel() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
         <tr>
-          <td class="memname">ConstantVelocityTurnrateModel::ConstantVelocityTurnrateModel </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::Vector3d&#160;</td>
-          <td class="paramname"><em>base_process_noise</em></td><td>)</td>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>motion_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>delta_t</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="../../d4/d11/class_constant_velocity_turnrate_model.html" title="Motion model that predicts the pose of the robot given the velocities with a constant velocity model ...">ConstantVelocityTurnrateModel</a> object with a base process noise. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Get the Jacobian matrix of the motion model in relation to motion data (commands) </p>
+<p>This is used to multiplty by the motion data noise to get the matrix to be summed to the covariance </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">base_process_noise</td><td>standard non variating noise if used </td></tr>
+    <tr><td class="paramname">previous_pose</td><td></td></tr>
+    <tr><td class="paramname">motion_data</td><td></td></tr>
+    <tr><td class="paramname">delta_t</td><td></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>Eigen::Matrix3d </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d33/constant__velocity__turnrate__model_8cpp_source.html#l00006">6</a> of file <a class="el" href="../../d0/d33/constant__velocity__turnrate__model_8cpp_source.html">constant_velocity_turnrate_model.cpp</a>.</p>
+<p>Implements <a class="el" href="../../d0/d20/class_v2_p_motion_model.html#ac0fe335d2f8673b86f5ed86fabd4fd1d">V2PMotionModel</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/d33/constant__velocity__turnrate__model_8cpp_source.html#l00041">41</a> of file <a class="el" href="../../d0/d33/constant__velocity__turnrate__model_8cpp_source.html">constant_velocity_turnrate_model.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6aa93c732377a96d0ff22b464a0103fd" name="a6aa93c732377a96d0ff22b464a0103fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6aa93c732377a96d0ff22b464a0103fd">&#9670;&#160;</a></span>get_jacobian_pose()</h2>
+<a id="a9d099781c17d72dc76c2895e0560019a" name="a9d099781c17d72dc76c2895e0560019a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d099781c17d72dc76c2895e0560019a">&#9670;&#160;</a></span>get_jacobian_pose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -244,8 +221,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::Vector3d &amp;&#160;</td>
-          <td class="paramname"><em>velocities</em>, </td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>motion_data</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -266,82 +243,25 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get the Jacobian matrix of the motion model in relation to velocities (commands) </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Get the Jacobian matrix of the motion model in relation to the pose (state) </p>
+<p>This is used to multiplty by the previous covariance to get the matrix, propagating the previous pose error to the current pose error (variance) </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">previous_pose</td><td></td></tr>
-    <tr><td class="paramname">velocities</td><td></td></tr>
+    <tr><td class="paramname">motion_data</td><td></td></tr>
     <tr><td class="paramname">delta_t</td><td></td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::Matrix3d </dd></dl>
 
-<p>Implements <a class="el" href="../../d0/d20/class_v2_p_motion_model.html#a80ec9bd79420668a164a6caa4ac7de11">V2PMotionModel</a>.</p>
+<p>Implements <a class="el" href="../../d0/d20/class_v2_p_motion_model.html#a9ccf5d55d3351d976afd25d5888cf337">V2PMotionModel</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d33/constant__velocity__turnrate__model_8cpp_source.html#l00034">34</a> of file <a class="el" href="../../d0/d33/constant__velocity__turnrate__model_8cpp_source.html">constant_velocity_turnrate_model.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac41441a31fbd68ba12cffb6eb9785689" name="ac41441a31fbd68ba12cffb6eb9785689"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac41441a31fbd68ba12cffb6eb9785689">&#9670;&#160;</a></span>get_jacobian_velocities()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::Matrix3d ConstantVelocityTurnrateModel::get_jacobian_velocities </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::Vector3d &amp;&#160;</td>
-          <td class="paramname"><em>previous_pose</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::Vector3d &amp;&#160;</td>
-          <td class="paramname"><em>velocities</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const double&#160;</td>
-          <td class="paramname"><em>delta_t</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the Jacobian matrix of the motion model in relation to velocities (commands) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">previous_pose</td><td></td></tr>
-    <tr><td class="paramname">velocities</td><td></td></tr>
-    <tr><td class="paramname">delta_t</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Eigen::Matrix3d </dd></dl>
-
-<p>Implements <a class="el" href="../../d0/d20/class_v2_p_motion_model.html#a5dc188dc7815f02e77c63f6a1576c168">V2PMotionModel</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="../../d0/d33/constant__velocity__turnrate__model_8cpp_source.html#l00053">53</a> of file <a class="el" href="../../d0/d33/constant__velocity__turnrate__model_8cpp_source.html">constant_velocity_turnrate_model.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d33/constant__velocity__turnrate__model_8cpp_source.html#l00025">25</a> of file <a class="el" href="../../d0/d33/constant__velocity__turnrate__model_8cpp_source.html">constant_velocity_turnrate_model.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a822284e035b6a687c31fece00e43f827" name="a822284e035b6a687c31fece00e43f827"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a822284e035b6a687c31fece00e43f827">&#9670;&#160;</a></span>get_pose_difference()</h2>
+<a id="a2053dfe4e399d85019578bba6a0ce89b" name="a2053dfe4e399d85019578bba6a0ce89b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2053dfe4e399d85019578bba6a0ce89b">&#9670;&#160;</a></span>get_pose_difference()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -358,8 +278,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::Vector3d &amp;&#160;</td>
-          <td class="paramname"><em>velocities</em>, </td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>motion_data</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -384,21 +304,21 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">previous_pose</td><td></td></tr>
-    <tr><td class="paramname">velocities</td><td>(vx, vy, omega) </td></tr>
+    <tr><td class="paramname">motion_data</td><td>(vx, vy, omega) </td></tr>
     <tr><td class="paramname">delta_t</td><td></td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::Vector3d </dd></dl>
 
-<p>Implements <a class="el" href="../../d0/d20/class_v2_p_motion_model.html#a65f5c3772b628b7380d729dfda5c4da2">V2PMotionModel</a>.</p>
+<p>Implements <a class="el" href="../../d0/d20/class_v2_p_motion_model.html#aa7c7502fe3c5c967075cbda2722bd574">V2PMotionModel</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d33/constant__velocity__turnrate__model_8cpp_source.html#l00012">12</a> of file <a class="el" href="../../d0/d33/constant__velocity__turnrate__model_8cpp_source.html">constant_velocity_turnrate_model.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d33/constant__velocity__turnrate__model_8cpp_source.html#l00006">6</a> of file <a class="el" href="../../d0/d33/constant__velocity__turnrate__model_8cpp_source.html">constant_velocity_turnrate_model.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d4/d11/class_constant_velocity_turnrate_model_a822284e035b6a687c31fece00e43f827_cgraph.png" border="0" usemap="#ad4/d11/class_constant_velocity_turnrate_model_a822284e035b6a687c31fece00e43f827_cgraph" alt=""/></div>
-<map name="ad4/d11/class_constant_velocity_turnrate_model_a822284e035b6a687c31fece00e43f827_cgraph" id="ad4/d11/class_constant_velocity_turnrate_model_a822284e035b6a687c31fece00e43f827_cgraph">
+<div class="center"><img src="../../d4/d11/class_constant_velocity_turnrate_model_a2053dfe4e399d85019578bba6a0ce89b_cgraph.png" border="0" usemap="#ad4/d11/class_constant_velocity_turnrate_model_a2053dfe4e399d85019578bba6a0ce89b_cgraph" alt=""/></div>
+<map name="ad4/d11/class_constant_velocity_turnrate_model_a2053dfe4e399d85019578bba6a0ce89b_cgraph" id="ad4/d11/class_constant_velocity_turnrate_model_a2053dfe4e399d85019578bba6a0ce89b_cgraph">
 <area shape="rect" title="Gives the increments to the pose instead of the next pose." alt="" coords="5,5,184,46"/>
 <area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#acd35b7873c51d71ad7ee2396007da7a3" title="Function to keep angle in [&#45;Pi, Pi[ radians." alt="" coords="232,5,371,46"/>
 <area shape="poly" title=" " alt="" coords="184,23,216,23,216,28,184,28"/>

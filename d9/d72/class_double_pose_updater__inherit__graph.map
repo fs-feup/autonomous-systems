@@ -1,0 +1,9 @@
+<map id="DoublePoseUpdater" name="DoublePoseUpdater">
+<area shape="rect" id="Node000001" title="TODO: abandoned for now, not working properly." alt="" coords="116,769,292,1093"/>
+<area shape="rect" id="Node000002" href="$d1/d1c/class_difference_based_ready_pose_updater.html" title="Class to update the pose of the vehicle, including a method to check if the pose is ready for graph u..." alt="" coords="5,483,197,721"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,735,156,769,151,770,140,737"/>
+<area shape="rect" id="Node000003" href="$d0/d87/class_pose_updater.html" title="Class to update the pose of the vehicle." alt="" coords="17,5,185,435"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="104,449,104,483,99,483,99,449"/>
+<area shape="rect" id="Node000004" href="$da/df3/class_second_pose_input_trait.html" title="Trait for pose updaters that keep two different pose difference estimates from different sources." alt="" coords="222,545,394,659"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="288,674,258,770,253,769,283,673"/>
+</map>

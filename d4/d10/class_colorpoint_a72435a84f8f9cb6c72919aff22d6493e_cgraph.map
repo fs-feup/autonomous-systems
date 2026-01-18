@@ -2,6 +2,4 @@
 <area shape="rect" id="Node000001" title="Colors the cones of the last colorpoint in the path." alt="" coords="5,5,147,46"/>
 <area shape="rect" id="Node000002" href="$d4/d10/class_colorpoint.html#a100a2b1231e8d82e55a5f7b592a5a8a1" title="Helper function to add cones based on a reference cone&#39;s color." alt="" coords="195,5,343,46"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="147,23,179,23,179,28,147,28"/>
-<area shape="rect" id="Node000003" href="$d4/d10/class_colorpoint.html#a168701f753f2b224f44d56d083d79df9" title="Adds a cone to the appropriate vector if it&#39;s not a duplicate." alt="" coords="391,13,532,39"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="343,23,375,23,375,28,343,28"/>
 </map>

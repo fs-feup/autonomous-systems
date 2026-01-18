@@ -108,7 +108,7 @@ Collaboration diagram for MotionData:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dd/d98/struct_motion_data__coll__graph.png" border="0" usemap="#a_motion_data_coll__map" alt="Collaboration graph"/></div>
 <map name="a_motion_data_coll__map" id="a_motion_data_coll__map">
-<area shape="rect" title="Data structure to hold motion data." alt="" coords="5,5,103,111"/>
+<area shape="rect" title="Data structure to hold motion data." alt="" coords="5,5,145,151"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -116,21 +116,26 @@ Collaboration diagram for MotionData:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab40fe1955639855e699e2f615c6cd6fd" id="r_ab40fe1955639855e699e2f615c6cd6fd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d50/struct_motion_data.html#ab40fe1955639855e699e2f615c6cd6fd">MotionData</a> ()=default</td></tr>
 <tr class="separator:ab40fe1955639855e699e2f615c6cd6fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d42bca7e797d31611c365622fbc6b47" id="r_a5d42bca7e797d31611c365622fbc6b47"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d50/struct_motion_data.html#a5d42bca7e797d31611c365622fbc6b47">MotionData</a> (std::shared_ptr&lt; Eigen::Vector3d &gt; velocities, rclcpp::Time timestamp)</td></tr>
-<tr class="separator:a5d42bca7e797d31611c365622fbc6b47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b44c45f3afaba192f8c5d6f31d48754" id="r_a6b44c45f3afaba192f8c5d6f31d48754"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d50/struct_motion_data.html#a6b44c45f3afaba192f8c5d6f31d48754">MotionData</a> (std::shared_ptr&lt; Eigen::VectorXd &gt; motion_data, std::shared_ptr&lt; Eigen::VectorXd &gt; motion_data_noise, rclcpp::Time timestamp, <a class="el" href="../../d7/d4c/factor__data__structures_8hpp.html#aa382d01397bea2c9f0f23abf9b5bdb87">MotionInputType</a> type=<a class="el" href="../../d7/d4c/factor__data__structures_8hpp.html#aa382d01397bea2c9f0f23abf9b5bdb87a37fcd1f52db2b7fae70aa3f5dfc8df0b">MotionInputType::VELOCITIES</a>)</td></tr>
+<tr class="separator:a6b44c45f3afaba192f8c5d6f31d48754"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:aaa37795d0acde0721bff7b4fb908d59d" id="r_aaa37795d0acde0721bff7b4fb908d59d"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; Eigen::Vector3d &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d50/struct_motion_data.html#aaa37795d0acde0721bff7b4fb908d59d">velocities_</a></td></tr>
-<tr class="separator:aaa37795d0acde0721bff7b4fb908d59d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0508882461b33b7c20ea8704697b588" id="r_ab0508882461b33b7c20ea8704697b588"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; Eigen::VectorXd &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d50/struct_motion_data.html#ab0508882461b33b7c20ea8704697b588">motion_data_</a></td></tr>
+<tr class="separator:ab0508882461b33b7c20ea8704697b588"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe344969f63ad2627a1eccbff81c1b50" id="r_afe344969f63ad2627a1eccbff81c1b50"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; Eigen::VectorXd &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d50/struct_motion_data.html#afe344969f63ad2627a1eccbff81c1b50">motion_data_noise_</a></td></tr>
+<tr class="separator:afe344969f63ad2627a1eccbff81c1b50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a309838fc0c0f6b72072d420dbbcf6c38" id="r_a309838fc0c0f6b72072d420dbbcf6c38"><td class="memItemLeft" align="right" valign="top">rclcpp::Time&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d50/struct_motion_data.html#a309838fc0c0f6b72072d420dbbcf6c38">timestamp_</a></td></tr>
 <tr class="separator:a309838fc0c0f6b72072d420dbbcf6c38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19a0269fba6c5952ab1005217cd0f1d4" id="r_a19a0269fba6c5952ab1005217cd0f1d4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d4c/factor__data__structures_8hpp.html#aa382d01397bea2c9f0f23abf9b5bdb87">MotionInputType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d50/struct_motion_data.html#a19a0269fba6c5952ab1005217cd0f1d4">type_</a> = <a class="el" href="../../d7/d4c/factor__data__structures_8hpp.html#aa382d01397bea2c9f0f23abf9b5bdb87a37fcd1f52db2b7fae70aa3f5dfc8df0b">MotionInputType::VELOCITIES</a></td></tr>
+<tr class="memdesc:a19a0269fba6c5952ab1005217cd0f1d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of motion input.  <br /></td></tr>
+<tr class="separator:a19a0269fba6c5952ab1005217cd0f1d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Data structure to hold motion data. </p>
 <p>used to record the velocities received and to redo their processing after optimization </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d4c/factor__data__structures_8hpp_source.html#l00011">11</a> of file <a class="el" href="../../d7/d4c/factor__data__structures_8hpp_source.html">factor_data_structures.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d4c/factor__data__structures_8hpp_source.html#l00019">19</a> of file <a class="el" href="../../d7/d4c/factor__data__structures_8hpp_source.html">factor_data_structures.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ab40fe1955639855e699e2f615c6cd6fd" name="ab40fe1955639855e699e2f615c6cd6fd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab40fe1955639855e699e2f615c6cd6fd">&#9670;&#160;</a></span>MotionData() <span class="overload">[1/2]</span></h2>
@@ -157,8 +162,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a5d42bca7e797d31611c365622fbc6b47" name="a5d42bca7e797d31611c365622fbc6b47"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d42bca7e797d31611c365622fbc6b47">&#9670;&#160;</a></span>MotionData() <span class="overload">[2/2]</span></h2>
+<a id="a6b44c45f3afaba192f8c5d6f31d48754" name="a6b44c45f3afaba192f8c5d6f31d48754"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b44c45f3afaba192f8c5d6f31d48754">&#9670;&#160;</a></span>MotionData() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -169,14 +174,26 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">MotionData::MotionData </td>
           <td>(</td>
-          <td class="paramtype">std::shared_ptr&lt; Eigen::Vector3d &gt;&#160;</td>
-          <td class="paramname"><em>velocities</em>, </td>
+          <td class="paramtype">std::shared_ptr&lt; Eigen::VectorXd &gt;&#160;</td>
+          <td class="paramname"><em>motion_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::shared_ptr&lt; Eigen::VectorXd &gt;&#160;</td>
+          <td class="paramname"><em>motion_data_noise</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">rclcpp::Time&#160;</td>
-          <td class="paramname"><em>timestamp</em>&#160;</td>
+          <td class="paramname"><em>timestamp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d7/d4c/factor__data__structures_8hpp.html#aa382d01397bea2c9f0f23abf9b5bdb87">MotionInputType</a>&#160;</td>
+          <td class="paramname"><em>type</em> = <code><a class="el" href="../../d7/d4c/factor__data__structures_8hpp.html#aa382d01397bea2c9f0f23abf9b5bdb87a37fcd1f52db2b7fae70aa3f5dfc8df0b">MotionInputType::VELOCITIES</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -191,11 +208,43 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d4c/factor__data__structures_8hpp_source.html#l00016">16</a> of file <a class="el" href="../../d7/d4c/factor__data__structures_8hpp_source.html">factor_data_structures.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d4c/factor__data__structures_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../d7/d4c/factor__data__structures_8hpp_source.html">factor_data_structures.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="ab0508882461b33b7c20ea8704697b588" name="ab0508882461b33b7c20ea8704697b588"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0508882461b33b7c20ea8704697b588">&#9670;&#160;</a></span>motion_data_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;Eigen::VectorXd&gt; MotionData::motion_data_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d4c/factor__data__structures_8hpp_source.html#l00020">20</a> of file <a class="el" href="../../d7/d4c/factor__data__structures_8hpp_source.html">factor_data_structures.hpp</a>.</p>
+
+</div>
+</div>
+<a id="afe344969f63ad2627a1eccbff81c1b50" name="afe344969f63ad2627a1eccbff81c1b50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe344969f63ad2627a1eccbff81c1b50">&#9670;&#160;</a></span>motion_data_noise_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;Eigen::VectorXd&gt; MotionData::motion_data_noise_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d4c/factor__data__structures_8hpp_source.html#l00021">21</a> of file <a class="el" href="../../d7/d4c/factor__data__structures_8hpp_source.html">factor_data_structures.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a309838fc0c0f6b72072d420dbbcf6c38" name="a309838fc0c0f6b72072d420dbbcf6c38"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a309838fc0c0f6b72072d420dbbcf6c38">&#9670;&#160;</a></span>timestamp_</h2>
 
@@ -208,23 +257,25 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d4c/factor__data__structures_8hpp_source.html#l00013">13</a> of file <a class="el" href="../../d7/d4c/factor__data__structures_8hpp_source.html">factor_data_structures.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d4c/factor__data__structures_8hpp_source.html#l00022">22</a> of file <a class="el" href="../../d7/d4c/factor__data__structures_8hpp_source.html">factor_data_structures.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aaa37795d0acde0721bff7b4fb908d59d" name="aaa37795d0acde0721bff7b4fb908d59d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa37795d0acde0721bff7b4fb908d59d">&#9670;&#160;</a></span>velocities_</h2>
+<a id="a19a0269fba6c5952ab1005217cd0f1d4" name="a19a0269fba6c5952ab1005217cd0f1d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19a0269fba6c5952ab1005217cd0f1d4">&#9670;&#160;</a></span>type_</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;Eigen::Vector3d&gt; MotionData::velocities_</td>
+          <td class="memname"><a class="el" href="../../d7/d4c/factor__data__structures_8hpp.html#aa382d01397bea2c9f0f23abf9b5bdb87">MotionInputType</a> MotionData::type_ = <a class="el" href="../../d7/d4c/factor__data__structures_8hpp.html#aa382d01397bea2c9f0f23abf9b5bdb87a37fcd1f52db2b7fae70aa3f5dfc8df0b">MotionInputType::VELOCITIES</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d4c/factor__data__structures_8hpp_source.html#l00012">12</a> of file <a class="el" href="../../d7/d4c/factor__data__structures_8hpp_source.html">factor_data_structures.hpp</a>.</p>
+<p>Type of motion input. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d4c/factor__data__structures_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../d7/d4c/factor__data__structures_8hpp_source.html">factor_data_structures.hpp</a>.</p>
 
 </div>
 </div>

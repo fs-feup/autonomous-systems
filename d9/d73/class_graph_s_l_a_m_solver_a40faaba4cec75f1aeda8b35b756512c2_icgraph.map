@@ -1,0 +1,5 @@
+<map id="GraphSLAMSolver::_asynchronous_optimization_routine" name="GraphSLAMSolver::_asynchronous_optimization_routine">
+<area shape="rect" id="Node000001" title="Asynchronous optimization routine." alt="" coords="211,5,434,46"/>
+<area shape="rect" id="Node000002" href="$d9/d73/class_graph_s_l_a_m_solver.html#a6ebeac5f93735c046fa984450deb98a8" title="Add observations to the solver (correction step)" alt="" coords="5,5,163,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,28,163,28,163,23,195,23"/>
+</map>

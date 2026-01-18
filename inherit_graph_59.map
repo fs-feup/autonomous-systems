@@ -1,7 +1,18 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$d2/d5d/class_landmark_filter.html" title="This class is meant to filter observations from perception to try to reduce the presence of outliers." alt="" coords="5,31,114,56"/>
-<area shape="rect" id="Node000001" href="$dd/d5e/class_consecutive_counter_filter.html" title=" " alt="" coords="162,5,329,31"/>
-<area shape="poly" id="edge64_Node000000_Node000001" title=" " alt="" coords="129,31,161,27,162,32,130,37"/>
-<area shape="rect" id="Node000002" href="$d3/d91/class_mock_landmark_filter.html" title=" " alt="" coords="175,55,316,80"/>
-<area shape="poly" id="edge65_Node000000_Node000002" title=" " alt="" coords="130,50,175,56,174,61,129,55"/>
+<area shape="rect" id="Node000000" href="$db/df5/class_imu_integrator_trait.html" title="Trait class for IMU integration in SLAM solvers." alt="" coords="23,104,147,130"/>
+<area shape="rect" id="Node000001" href="$d9/d73/class_graph_s_l_a_m_solver.html" title="Graph SLAM solver class." alt="" coords="213,129,343,155"/>
+<area shape="poly" id="edge63_Node000000_Node000001" title=" " alt="" coords="163,124,212,131,212,136,162,130"/>
+<area shape="rect" id="Node000002" href="$da/d8d/class_node_controller_trait.html" title="Trait class for node control in SLAM solvers." alt="" coords="18,153,152,179"/>
+<area shape="poly" id="edge64_Node000002_Node000001" title=" " alt="" coords="167,153,212,148,213,153,168,159"/>
+<area shape="rect" id="Node000003" href="$d2/da4/class_odometry_integrator_trait.html" title="Trait class for odometry integration in SLAM solvers." alt="" coords="6,5,164,31"/>
+<area shape="poly" id="edge65_Node000003_Node000001" title=" " alt="" coords="156,35,166,40,197,61,225,84,267,127,263,131,222,88,194,65,163,44,154,40"/>
+<area shape="rect" id="Node000004" href="$da/dd3/class_s_l_a_m_solver.html" title="Interface for SLAM solvers." alt="" coords="37,203,133,228"/>
+<area shape="poly" id="edge67_Node000004_Node000001" title=" " alt="" coords="147,195,164,189,248,153,250,158,166,194,148,200"/>
+<area shape="rect" id="Node000005" href="$d7/d79/class_e_k_f_s_l_a_m_solver.html" title=" " alt="" coords="218,228,338,254"/>
+<area shape="poly" id="edge66_Node000004_Node000005" title=" " alt="" coords="148,221,217,230,217,236,147,226"/>
+<area shape="rect" id="Node000007" href="$d3/d86/class_trajectory_calculator.html" title="Trait class for trajectory calculation in SLAM solvers." alt="" coords="17,55,153,80"/>
+<area shape="poly" id="edge68_Node000007_Node000001" title=" " alt="" coords="149,83,166,89,250,126,248,131,164,94,147,88"/>
+<area shape="rect" id="Node000006" href="$d2/dee/class_velocities_integrator_trait.html" title="Trait class for velocities integration in SLAM solvers." alt="" coords="5,252,165,278"/>
+<area shape="poly" id="edge70_Node000006_Node000001" title=" " alt="" coords="154,243,163,239,194,218,222,195,263,153,267,157,225,199,197,223,166,243,156,248"/>
+<area shape="poly" id="edge69_Node000006_Node000005" title=" " alt="" coords="180,250,217,246,218,251,181,256"/>
 </map>

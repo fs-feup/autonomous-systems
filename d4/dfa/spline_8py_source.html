@@ -133,48 +133,20 @@ $(document).ready(function(){initNavTree('d4/dfa/spline_8py_source.html','../../
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            x_values1.append(float(x))</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            y_values1.append(float(y))</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">with</span> open(<span class="stringliteral">&quot;deletedoutliers0.txt&quot;</span>, <span class="stringliteral">&quot;r&quot;</span>) <span class="keyword">as</span> file:</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">for</span> line <span class="keywordflow">in</span> file:</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        line = line.strip()  <span class="comment"># Remove leading/trailing whitespace</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordflow">if</span> line:</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            x, y = line.split()</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            ox_values0.append(float(x))</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            oy_values0.append(float(y))</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="../../d7/dc1/namespacespline.html#aa49f95a60d0a0741eef1ef2d511d49fd">   36</a></span>plt.plot(ox_values0, oy_values0, <span class="stringliteral">&quot;g-&quot;</span>, label=<span class="stringliteral">&quot;Corrected Track Limits&quot;</span>)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>plt.plot(ox_values1, oy_values1, <span class="stringliteral">&quot;g-&quot;</span>)</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>plt.plot(x_values0, y_values0, <span class="stringliteral">&quot;r-&quot;</span>, label=<span class="stringliteral">&quot;Spline Approximation&quot;</span>)</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>plt.plot(x_values1, y_values1, <span class="stringliteral">&quot;r-&quot;</span>)</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">with</span> open(<span class="stringliteral">&quot;deletedoutliers1.txt&quot;</span>, <span class="stringliteral">&quot;r&quot;</span>) <span class="keyword">as</span> file:</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">for</span> line <span class="keywordflow">in</span> file:</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        line = line.strip()  <span class="comment"># Remove leading/trailing whitespace</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordflow">if</span> line:</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            x, y = line.split()</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            ox_values1.append(float(x))</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            oy_values1.append(float(y))</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keyword">with</span> open(<span class="stringliteral">&quot;../tracks/outlier_test1.txt&quot;</span>, <span class="stringliteral">&quot;r&quot;</span>) <span class="keyword">as</span> file:</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">for</span> line <span class="keywordflow">in</span> file:</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        line = line.strip()  <span class="comment"># Remove leading/trailing whitespace</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordflow">if</span> line:</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="../../d7/dc1/namespacespline.html#adcb92c1b2308379ecffcbb7a299c2c2b">   55</a></span>            x, y, c = line.split()</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            <span class="keywordflow">if</span> c == <span class="stringliteral">&quot;yellow_cone&quot;</span>:</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                rx_values0.append(float(x))</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                ry_values0.append(float(y))</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            <span class="keywordflow">elif</span> c == <span class="stringliteral">&quot;blue_cone&quot;</span>:</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                rx_values1.append(float(x))</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                ry_values1.append(float(y))</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="../../d7/dc1/namespacespline.html#aa49f95a60d0a0741eef1ef2d511d49fd">   64</a></span>plt.plot(ox_values0, oy_values0, <span class="stringliteral">&quot;g-&quot;</span>, label=<span class="stringliteral">&quot;Corrected Track Limits&quot;</span>)</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>plt.plot(ox_values1, oy_values1, <span class="stringliteral">&quot;g-&quot;</span>)</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>plt.plot(x_values0, y_values0, <span class="stringliteral">&quot;r-&quot;</span>, label=<span class="stringliteral">&quot;Spline Approximation&quot;</span>)</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>plt.plot(x_values1, y_values1, <span class="stringliteral">&quot;r-&quot;</span>)</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="../../d7/dc1/namespacespline.html#a14a612fad52579e23d7e46c64910497a">   71</a></span>plt.plot(rx_values0, ry_values0, <span class="stringliteral">&quot;bo&quot;</span>, label=<span class="stringliteral">&quot;Uncorrected Blue Cones&quot;</span>, markersize=5)</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>plt.plot(rx_values1, ry_values1, <span class="stringliteral">&quot;yo&quot;</span>, label=<span class="stringliteral">&quot;Uncorrected Yellow Cones&quot;</span>, markersize=5)</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="../../d7/dc1/namespacespline.html#ab8ba046c9c8639715623a604b0d35fcc">   74</a></span>plt.plot(axis=<span class="stringliteral">&quot;equal&quot;</span>)</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>plt.legend()</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>plt.show()</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="../../d7/dc1/namespacespline.html#a14a612fad52579e23d7e46c64910497a">   43</a></span>plt.plot(rx_values0, ry_values0, <span class="stringliteral">&quot;bo&quot;</span>, label=<span class="stringliteral">&quot;Uncorrected Blue Cones&quot;</span>, markersize=5)</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>plt.plot(rx_values1, ry_values1, <span class="stringliteral">&quot;yo&quot;</span>, label=<span class="stringliteral">&quot;Uncorrected Yellow Cones&quot;</span>, markersize=5)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="../../d7/dc1/namespacespline.html#ab8ba046c9c8639715623a604b0d35fcc">   46</a></span>plt.plot(axis=<span class="stringliteral">&quot;equal&quot;</span>)</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>plt.legend()</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>plt.show()</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

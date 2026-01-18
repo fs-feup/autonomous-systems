@@ -1,0 +1,5 @@
+<map id="TrajectoryCalculator" name="TrajectoryCalculator">
+<area shape="rect" id="Node000001" title="Trait class for trajectory calculation in SLAM solvers." alt="" coords="15,5,182,71"/>
+<area shape="rect" id="Node000002" href="$d9/d73/class_graph_s_l_a_m_solver.html" title="Graph SLAM solver class." alt="" coords="5,119,192,693"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,86,101,119,96,119,96,86"/>
+</map>

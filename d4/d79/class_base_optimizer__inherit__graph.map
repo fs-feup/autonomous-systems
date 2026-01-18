@@ -1,9 +1,9 @@
 <map id="BaseOptimizer" name="BaseOptimizer">
-<area shape="rect" id="Node000001" title=" " alt="" coords="199,5,323,111"/>
-<area shape="rect" id="Node000002" href="$d8/dbe/class_i_s_a_m2_optimizer.html" title=" " alt="" coords="5,159,139,284"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="191,122,140,166,137,162,188,118"/>
-<area shape="rect" id="Node000003" href="$d2/dd8/class_normal_levenberg_optimizer.html" title=" " alt="" coords="163,169,359,274"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="264,126,264,169,259,169,259,126"/>
-<area shape="rect" id="Node000004" href="$d2/d19/class_sliding_window_levenberg_optimizer.html" title=" " alt="" coords="384,169,624,274"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="337,106,428,167,425,171,334,111"/>
+<area shape="rect" id="Node000001" title="Base class for graph optimizers." alt="" coords="199,5,323,171"/>
+<area shape="rect" id="Node000002" href="$d8/dbe/class_i_s_a_m2_optimizer.html" title="ISAM2 optimizer for graph SLAM." alt="" coords="5,219,139,444"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,172,153,220,140,236,136,233,149,217,188,169"/>
+<area shape="rect" id="Node000003" href="$d2/dd8/class_normal_levenberg_optimizer.html" title="Normal Levenberg&#45;Marquardt optimizer for graph SLAM." alt="" coords="163,269,359,394"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="264,185,264,269,259,269,259,185"/>
+<area shape="rect" id="Node000004" href="$d2/d19/class_sliding_window_levenberg_optimizer.html" title="Sliding Window Levenberg&#45;Marquardt optimizer for graph SLAM." alt="" coords="384,269,624,394"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="336,159,444,267,440,271,332,163"/>
 </map>

@@ -1,8 +1,10 @@
 <map id="EKFSLAMSolver" name="EKFSLAMSolver">
-<area shape="rect" id="Node000001" title=" " alt="" coords="54,1012,226,1572"/>
-<area shape="rect" id="Node000002" href="$da/dd3/class_s_l_a_m_solver.html" title="Interface for SLAM solvers." alt="" coords="213,458,392,963"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="231,978,221,1013,216,1012,225,977"/>
-<area shape="rect" id="Node000003" href="$d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="5,5,187,395"/>
-<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="91,395,90,458,82,711,82,821,90,963,93,995,88,996,85,963,77,821,77,711,85,458,86,394"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="177,393,209,473,204,475,172,395"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="217,978,389,1518"/>
+<area shape="rect" id="Node000002" href="$da/dd3/class_s_l_a_m_solver.html" title="Interface for SLAM solvers." alt="" coords="213,443,392,928"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="305,943,305,978,300,978,300,943"/>
+<area shape="rect" id="Node000003" href="$d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="5,5,187,380"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="66,380,54,504,50,643,53,715,60,787,72,859,90,928,112,985,141,1039,174,1091,208,1137,204,1140,169,1094,136,1042,107,987,85,929,67,860,55,788,48,716,44,643,48,504,60,380"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="177,379,209,456,204,458,172,381"/>
+<area shape="rect" id="Node000004" href="$d2/dee/class_velocities_integrator_trait.html" title="Trait class for velocities integration in SLAM solvers." alt="" coords="416,643,592,728"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="487,743,391,1008,386,1007,482,741"/>
 </map>

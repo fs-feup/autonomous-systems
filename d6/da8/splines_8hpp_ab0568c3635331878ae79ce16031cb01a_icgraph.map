@@ -1,0 +1,7 @@
+<map id="fit_spline" name="fit_spline">
+<area shape="rect" id="Node000001" title="This function takes a sequence of points (T), fits a spline to them using B&#45;spline basis functions,..." alt="" coords="108,31,180,56"/>
+<area shape="rect" id="Node000002" href="$d9/db5/splines__tests_8cpp.html#a6556ed322889d2511804a36ac4e8a7bd" title="Test the spline template function for a path point vector." alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,34,60,27,61,22,93,29"/>
+<area shape="rect" id="Node000003" href="$d9/db5/splines__tests_8cpp.html#a83b61818f6ea0bfb86ff753855155bad" title="Test the spline template function for a cone vector." alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="93,57,61,64,60,59,92,52"/>
+</map>

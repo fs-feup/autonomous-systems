@@ -1,5 +1,5 @@
 <map id="SlidingWindowLevenbergOptimizer" name="SlidingWindowLevenbergOptimizer">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,159,245,264"/>
-<area shape="rect" id="Node000002" href="$df/dc2/class_base_optimizer.html" title=" " alt="" coords="63,5,187,111"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,125,128,159,123,159,123,125"/>
+<area shape="rect" id="Node000001" title="Sliding Window Levenberg&#45;Marquardt optimizer for graph SLAM." alt="" coords="5,219,245,344"/>
+<area shape="rect" id="Node000002" href="$df/dc2/class_base_optimizer.html" title="Base class for graph optimizers." alt="" coords="63,5,187,171"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,186,128,219,123,219,123,186"/>
 </map>

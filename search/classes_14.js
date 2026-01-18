@@ -9,10 +9,11 @@ var searchData=
   ['vehiclepose_6',['VehiclePose',['../de/d41/structcommon__lib_1_1structures_1_1_vehicle_pose.html',1,'common_lib::structures']]],
   ['vehiclestate_7',['VehicleState',['../d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html',1,'common_lib::structures']]],
   ['velocities_8',['Velocities',['../d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html',1,'common_lib::structures']]],
-  ['velocityestimator_9',['VelocityEstimator',['../d9/d08/class_velocity_estimator.html',1,'']]],
-  ['velocityplanning_10',['VelocityPlanning',['../d3/dcc/class_velocity_planning.html',1,'']]],
-  ['velocityplanningconfig_11',['VelocityPlanningConfig',['../d2/d0d/struct_velocity_planning_config.html',1,'']]],
-  ['venode_12',['VENode',['../d3/d43/class_v_e_node.html',1,'']]],
-  ['veobservationmodel_13',['VEObservationModel',['../d3/d28/class_v_e_observation_model.html',1,'']]],
-  ['veparameters_14',['VEParameters',['../d5/db7/struct_v_e_parameters.html',1,'']]]
+  ['velocitiesintegratortrait_9',['VelocitiesIntegratorTrait',['../d2/dee/class_velocities_integrator_trait.html',1,'']]],
+  ['velocityestimator_10',['VelocityEstimator',['../d9/d08/class_velocity_estimator.html',1,'']]],
+  ['velocityplanning_11',['VelocityPlanning',['../d3/dcc/class_velocity_planning.html',1,'']]],
+  ['velocityplanningconfig_12',['VelocityPlanningConfig',['../d2/d0d/struct_velocity_planning_config.html',1,'']]],
+  ['venode_13',['VENode',['../d3/d43/class_v_e_node.html',1,'']]],
+  ['veobservationmodel_14',['VEObservationModel',['../d3/d28/class_v_e_observation_model.html',1,'']]],
+  ['veparameters_15',['VEParameters',['../d5/db7/struct_v_e_parameters.html',1,'']]]
 ];

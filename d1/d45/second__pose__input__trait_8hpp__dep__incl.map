@@ -1,0 +1,9 @@
+<map id="src/slam/include/slam_solver/graph_slam_solver/pose_updater/pose_updater_traits/second_pose_input_trait.hpp" name="src/slam/include/slam_solver/graph_slam_solver/pose_updater/pose_updater_traits/second_pose_input_trait.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="124,5,309,91"/>
+<area shape="rect" id="Node000002" href="$d0/d0f/double__pose__updater_8hpp.html" title=" " alt="" coords="26,139,207,210"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,105,147,140,142,137,171,102"/>
+<area shape="rect" id="Node000004" href="$df/d98/graph__slam__solver_8cpp.html" title=" " alt="" coords="231,147,402,202"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="262,102,297,144,293,148,258,105"/>
+<area shape="rect" id="Node000003" href="$dc/d2d/double__pose__updater_8cpp.html" title=" " alt="" coords="5,258,228,313"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="119,225,119,257,114,257,114,225"/>
+</map>

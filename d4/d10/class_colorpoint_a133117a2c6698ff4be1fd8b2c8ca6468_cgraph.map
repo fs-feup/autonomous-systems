@@ -1,5 +1,0 @@
-<map id="Colorpoint::is_colored_right" name="Colorpoint::is_colored_right">
-<area shape="rect" id="Node000001" title="Checks if a colorpoint&#39;s cones are already correctly colored." alt="" coords="5,5,150,46"/>
-<area shape="rect" id="Node000002" href="$d4/d10/class_colorpoint.html#a168701f753f2b224f44d56d083d79df9" title="Adds a cone to the appropriate vector if it&#39;s not a duplicate." alt="" coords="198,13,339,39"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="150,23,182,23,182,28,150,28"/>
-</map>

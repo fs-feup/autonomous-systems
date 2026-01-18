@@ -18,8 +18,10 @@ var searchData=
   ['blue_5fcones_5fcallback_15',['blue_cones_callback',['../d6/d04/classevaluator_1_1onground__adapter_1_1_on_ground_adapter.html#aa5fc76d719c5a93d2346d4fae302cc27',1,'evaluator::onground_adapter::OnGroundAdapter']]],
   ['blue_5fcones_5fpub_5f_16',['blue_cones_pub_',['../d9/db5/class_planning.html#a812060f567d238eafda7da5dbbd70719',1,'Planning']]],
   ['blues_17',['blues',['../d2/d36/struct_perception_execution_data.html#aa64cb591a060c53042799e02e9027e5d',1,'PerceptionExecutionData']]],
-  ['border_5fwidth_5f_18',['border_width_',['../d4/deb/class_lap_counter.html#a5b13bb4c753eba925ff73a0036e7ae30',1,'LapCounter']]],
-  ['brake_5ftime_5f_19',['brake_time_',['../d9/db5/class_planning.html#a9c5d6e87075c32228027703ced47a135',1,'Planning']]],
-  ['braking_5facceleration_5f_20',['braking_acceleration_',['../d2/d0d/struct_velocity_planning_config.html#acc599793db1ca597293485a8bde21449',1,'VelocityPlanningConfig']]],
-  ['broadcast_5fsensors_5ftf2_21',['broadcast_sensors_tf2',['../d7/d28/struct_main_config.html#a6fe8d337e1074e8c79e475eb8f67e266',1,'MainConfig']]]
+  ['border_5fwidth_18',['border_width',['../d5/d51/struct_s_l_a_m_parameters.html#aba5e5dd0718fa16e557a11e2f8b1d6bc',1,'SLAMParameters']]],
+  ['border_5fwidth_5f_19',['border_width_',['../d4/deb/class_lap_counter.html#a5b13bb4c753eba925ff73a0036e7ae30',1,'LapCounter']]],
+  ['brake_5ftime_5f_20',['brake_time_',['../d9/db5/class_planning.html#a9c5d6e87075c32228027703ced47a135',1,'Planning']]],
+  ['braking_5facceleration_5f_21',['braking_acceleration_',['../d2/d0d/struct_velocity_planning_config.html#acc599793db1ca597293485a8bde21449',1,'VelocityPlanningConfig']]],
+  ['broadcast_5fsensors_5ftf2_22',['broadcast_sensors_tf2',['../d7/d28/struct_main_config.html#a6fe8d337e1074e8c79e475eb8f67e266',1,'MainConfig']]],
+  ['buffer_5f_23',['buffer_',['../d9/d1a/class_circular_buffer.html#a8dec6941db72a0d1111de5d261878c51',1,'CircularBuffer']]]
 ];

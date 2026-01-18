@@ -1,0 +1,18 @@
+<map id="pose_difference_eigen" name="pose_difference_eigen">
+<area shape="rect" id="Node000001" title=" " alt="" coords="712,170,863,196"/>
+<area shape="rect" id="Node000002" href="$d9/d73/class_graph_s_l_a_m_solver.html#a4e2e959dbf1af452dfd21ec8c3adf9c0" title="Adds motion data to the graph if the pose updater is ready." alt="" coords="491,91,655,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="732,167,635,134,637,129,733,162"/>
+<area shape="rect" id="Node000007" href="$d1/d1c/class_difference_based_ready_pose_updater.html#aa5bafd12e1dd6627da3ca0de1ac91710" title="Check if the accumulated pose difference is greater than the minimum threshold." alt="" coords="482,155,664,211"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="697,186,665,186,665,180,697,180"/>
+<area shape="rect" id="Node000008" href="$d0/d87/class_pose_updater.html#abaafcc06d228fdbd0b6edca115abfbc5" title="Updates the last pose and returns the pose difference." alt="" coords="485,236,662,261"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="734,204,665,226,624,237,623,232,664,220,732,199"/>
+<area shape="rect" id="Node000003" href="$d9/d73/class_graph_s_l_a_m_solver.html#a40faaba4cec75f1aeda8b35b756512c2" title="Asynchronous optimization routine." alt="" coords="211,5,434,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="496,88,384,49,385,44,498,83"/>
+<area shape="rect" id="Node000004" href="$d9/d73/class_graph_s_l_a_m_solver.html#a6ebeac5f93735c046fa984450deb98a8" title="Add observations to the solver (correction step)" alt="" coords="5,35,163,75"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="475,103,163,67,163,61,476,97"/>
+<area shape="rect" id="Node000005" href="$d9/d73/class_graph_s_l_a_m_solver.html#a2cf2fde99558ed0498d708ca5c21b2c1" title="Add odometry data to the solver (for prediction step)" alt="" coords="244,120,401,161"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="476,125,402,134,401,129,475,120"/>
+<area shape="rect" id="Node000006" href="$d9/d73/class_graph_s_l_a_m_solver.html#a52ad946ffdd1fd60035229f8d446ef7f" title="Process new velocities data (prediction step)" alt="" coords="244,185,401,226"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="495,140,483,145,459,160,435,175,402,187,400,183,433,170,457,156,481,141,493,135"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="195,44,163,48,163,43,195,39"/>
+</map>

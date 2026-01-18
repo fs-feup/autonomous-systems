@@ -1,5 +1,0 @@
-<map id="track_from_file" name="track_from_file">
-<area shape="rect" id="Node000001" title="Retrieves a track (a pair of colored cone vectors from each side) from a file." alt="" coords="160,5,266,31"/>
-<area shape="rect" id="Node000002" href="$d3/d72/planning_2test_2performance__test_8cpp.html#aab2295277d22fafb888111e66fdac82f" title="Iterates the Outliers algorithm repeatedly and measures the average time." alt="" coords="5,5,112,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,21,112,21,112,16,144,16"/>
-</map>

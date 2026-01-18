@@ -1,0 +1,7 @@
+<map id="SLAMObservationModel::observation_model" name="SLAMObservationModel::observation_model">
+<area shape="rect" id="Node000001" title="transform landmarks&#39; positions from global frame to the car&#39;s frame" alt="" coords="5,5,169,46"/>
+<area shape="rect" id="Node000002" href="$d2/d32/namespacecommon__lib_1_1maths.html#ab0ad3296dc284d5471c4035f3d63ad82" title="Transform points from a global reference frame to a local reference frame." alt="" coords="217,5,398,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="169,23,201,23,201,28,169,28"/>
+<area shape="rect" id="Node000003" href="$d2/d32/namespacecommon__lib_1_1maths.html#a3155563fdd77267916f4362c3c976f11" title="Function to get the rotation matrix for a given angle." alt="" coords="446,5,585,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="398,23,430,23,430,28,398,28"/>
+</map>

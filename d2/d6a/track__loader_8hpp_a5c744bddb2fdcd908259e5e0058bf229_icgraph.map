@@ -1,15 +1,12 @@
 <map id="load_initial_state" name="load_initial_state">
-<area shape="rect" id="Node000001" title="loads the map from the specified path and fills the start pose and track." alt="" coords="431,80,549,106"/>
+<area shape="rect" id="Node000001" title="loads the map from the specified path and fills the start pose and track." alt="" coords="431,55,549,80"/>
 <area shape="rect" id="Node000002" href="$d8/deb/track__loader_8cpp.html#a8fdf54bc79463c04ac8098b65da37f8a" title="loads the acceleration track from the default path." alt="" coords="225,5,383,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="449,75,382,45,352,34,354,29,384,40,451,70"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="424,53,355,34,356,29,425,48"/>
 <area shape="rect" id="Node000004" href="$d8/deb/track__loader_8cpp.html#ad4e86aefb67cb6fdc1592f2d6c02bfa0" title="loads the skidpad track from the default path." alt="" coords="237,55,371,80"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="415,85,370,79,371,74,416,80"/>
-<area shape="rect" id="Node000005" href="$d8/deb/track__loader_8cpp.html#a08c49ab3cd9080d5784f370b7f23631e" title="loads the trackdrive track from the default path." alt="" coords="231,104,377,130"/>
-<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="416,105,377,110,377,105,415,100"/>
-<area shape="rect" id="Node000006" href="$d6/dca/track__loader__test_8cpp.html#aef58a5ef0572b18cdf299ef10c6dd8b0" title=" " alt="" coords="277,153,331,179"/>
-<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="450,115,384,145,332,162,331,157,382,140,448,110"/>
-<area shape="rect" id="Node000003" href="$da/dd3/class_s_l_a_m_solver.html#a132757cb8a25752b2050dc260a72b902" title="Set the mission." alt="" coords="5,55,177,80"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="231,38,150,57,149,51,230,32"/>
-<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="221,70,177,70,177,65,221,65"/>
-<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="230,103,149,84,150,78,231,97"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="416,70,371,70,371,65,416,65"/>
+<area shape="rect" id="Node000005" href="$d6/dca/track__loader__test_8cpp.html#aef58a5ef0572b18cdf299ef10c6dd8b0" title=" " alt="" coords="277,104,331,130"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="425,88,332,112,331,107,423,82"/>
+<area shape="rect" id="Node000003" href="$da/dd3/class_s_l_a_m_solver.html#a132757cb8a25752b2050dc260a72b902" title="Set the mission." alt="" coords="5,31,177,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="210,32,177,36,177,31,209,27"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="221,61,177,56,178,51,222,56"/>
 </map>

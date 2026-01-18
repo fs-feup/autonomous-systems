@@ -1,8 +1,6 @@
 var class_constant_velocity_turnrate_model =
 [
-    [ "ConstantVelocityTurnrateModel", "d4/d11/class_constant_velocity_turnrate_model.html#a944816dffc61cf89bd5485aba8068d92", null ],
-    [ "ConstantVelocityTurnrateModel", "d4/d11/class_constant_velocity_turnrate_model.html#aea2ce06667ccb65e23d822aafcf4ab2b", null ],
-    [ "get_jacobian_pose", "d4/d11/class_constant_velocity_turnrate_model.html#a6aa93c732377a96d0ff22b464a0103fd", null ],
-    [ "get_jacobian_velocities", "d4/d11/class_constant_velocity_turnrate_model.html#ac41441a31fbd68ba12cffb6eb9785689", null ],
-    [ "get_pose_difference", "d4/d11/class_constant_velocity_turnrate_model.html#a822284e035b6a687c31fece00e43f827", null ]
+    [ "get_jacobian_motion_data", "d4/d11/class_constant_velocity_turnrate_model.html#a8101cc1b62f097f4e31d6318365080b4", null ],
+    [ "get_jacobian_pose", "d4/d11/class_constant_velocity_turnrate_model.html#a9d099781c17d72dc76c2895e0560019a", null ],
+    [ "get_pose_difference", "d4/d11/class_constant_velocity_turnrate_model.html#a2053dfe4e399d85019578bba6a0ce89b", null ]
 ];

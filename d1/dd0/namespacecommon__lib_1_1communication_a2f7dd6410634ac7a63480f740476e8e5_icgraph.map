@@ -1,82 +1,96 @@
 <map id="common_lib::communication::marker_color_map" name="common_lib::communication::marker_color_map">
-<area shape="rect" id="Node000001" title=" " alt="" coords="1541,186,1727,227"/>
-<area shape="rect" id="Node000002" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ac5ec37420a86bf2c41c59243de0c7997" title="Converts a vector of cones to a marker array." alt="" coords="1269,121,1489,161"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1537,184,1461,164,1462,159,1538,179"/>
-<area shape="rect" id="Node000018" href="$d1/dd0/namespacecommon__lib_1_1communication.html#aee895a24be4cfef1a8bcd0d799041647" title="Converts a vector of triangulation edges to a marker." alt="" coords="1270,186,1488,227"/>
-<area shape="poly" id="edge20_Node000001_Node000018" title=" " alt="" coords="1526,209,1489,209,1489,204,1526,204"/>
-<area shape="rect" id="Node000019" href="$d0/dce/planning_2src_2adapter__planning_2eufs_8cpp.html#a5cad89ae22b7795926ad73eaa91b69ef" title=" " alt="" coords="1297,18,1461,59"/>
-<area shape="poly" id="edge22_Node000001_Node000019" title=" " alt="" coords="1590,179,1492,111,1413,61,1416,57,1495,107,1593,174"/>
-<area shape="rect" id="Node000020" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="1265,283,1493,324"/>
-<area shape="poly" id="edge24_Node000001_Node000020" title=" " alt="" coords="1566,235,1435,285,1434,280,1564,230"/>
-<area shape="rect" id="Node000034" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966" title="Converts a position to a marker." alt="" coords="1287,498,1472,539"/>
-<area shape="poly" id="edge39_Node000001_Node000034" title=" " alt="" coords="1608,241,1399,499,1395,496,1604,237"/>
-<area shape="rect" id="Node000003" href="$d1/d4c/class_mocker_node.html#a3554ae6ede0351fe34fb199e4bf627cc" title="publish the messages" alt="" coords="1012,76,1187,102"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1253,120,1172,105,1173,100,1254,115"/>
-<area shape="rect" id="Node000005" href="$d9/db5/class_planning.html#ad6c3fad6bc5175529714461938aa9a46" title="Publishes all visualization markers." alt="" coords="982,160,1217,186"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="1254,158,1218,162,1217,157,1253,153"/>
-<area shape="rect" id="Node000004" href="$d1/d4c/class_mocker_node.html#aa36522a8f5f3a0b61e7517ad951c826e" title="Constructor for a new Mocker Node object." alt="" coords="756,56,931,82"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="997,84,932,78,932,73,997,78"/>
-<area shape="rect" id="Node000006" href="$d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="768,106,919,147"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="1010,159,919,142,920,137,1011,154"/>
-<area shape="rect" id="Node000007" href="$d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="542,77,680,117"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="753,117,680,108,681,103,753,112"/>
-<area shape="rect" id="Node000013" href="$d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="516,162,705,203"/>
-<area shape="poly" id="edge12_Node000006_Node000013" title=" " alt="" coords="754,150,699,164,697,159,753,145"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="1555,217,1741,257"/>
+<area shape="rect" id="Node000002" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ac5ec37420a86bf2c41c59243de0c7997" title="Converts a vector of cones to a marker array." alt="" coords="1283,151,1503,192"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1551,215,1475,195,1476,190,1552,210"/>
+<area shape="rect" id="Node000018" href="$d1/dd0/namespacecommon__lib_1_1communication.html#aee895a24be4cfef1a8bcd0d799041647" title="Converts a vector of triangulation edges to a marker." alt="" coords="1284,217,1502,257"/>
+<area shape="poly" id="edge20_Node000001_Node000018" title=" " alt="" coords="1540,240,1503,240,1503,234,1540,234"/>
+<area shape="rect" id="Node000019" href="$d0/dce/planning_2src_2adapter__planning_2eufs_8cpp.html#a5cad89ae22b7795926ad73eaa91b69ef" title=" " alt="" coords="1311,34,1475,75"/>
+<area shape="poly" id="edge22_Node000001_Node000019" title=" " alt="" coords="1604,209,1422,77,1425,73,1607,205"/>
+<area shape="rect" id="Node000020" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="1279,343,1507,384"/>
+<area shape="poly" id="edge24_Node000001_Node000020" title=" " alt="" coords="1593,267,1437,345,1435,340,1591,262"/>
+<area shape="rect" id="Node000039" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966" title="Converts a position to a marker." alt="" coords="1301,597,1486,637"/>
+<area shape="poly" id="edge47_Node000001_Node000039" title=" " alt="" coords="1627,272,1411,597,1406,594,1622,269"/>
+<area shape="rect" id="Node000003" href="$d1/d4c/class_mocker_node.html#a3554ae6ede0351fe34fb199e4bf627cc" title="publish the messages" alt="" coords="1026,100,1201,126"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1277,150,1178,129,1179,124,1279,145"/>
+<area shape="rect" id="Node000005" href="$d9/db5/class_planning.html#ad6c3fad6bc5175529714461938aa9a46" title="Publishes all visualization markers." alt="" coords="996,191,1231,216"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="1268,188,1232,193,1231,187,1267,183"/>
+<area shape="rect" id="Node000004" href="$d1/d4c/class_mocker_node.html#aa36522a8f5f3a0b61e7517ad951c826e" title="Constructor for a new Mocker Node object." alt="" coords="770,56,945,82"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1019,99,936,85,937,80,1020,94"/>
+<area shape="rect" id="Node000006" href="$d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="782,106,933,147"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="1053,188,926,150,928,144,1054,183"/>
+<area shape="rect" id="Node000007" href="$d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="549,75,687,116"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="766,117,687,107,688,102,767,112"/>
+<area shape="rect" id="Node000013" href="$d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="523,162,712,203"/>
+<area shape="poly" id="edge12_Node000006_Node000013" title=" " alt="" coords="768,150,708,164,707,159,767,145"/>
 <area shape="rect" id="Node000008" href="$d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="276,5,455,31"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="543,73,467,46,425,34,426,29,469,41,545,68"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="545,72,467,46,424,34,425,29,469,41,547,67"/>
 <area shape="rect" id="Node000010" href="$d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructs a Planning node with the specified configuration parameters." alt="" coords="302,120,429,146"/>
-<area shape="poly" id="edge9_Node000007_Node000010" title=" " alt="" coords="526,112,430,126,429,121,526,107"/>
+<area shape="poly" id="edge9_Node000007_Node000010" title=" " alt="" coords="534,111,430,126,429,121,533,105"/>
 <area shape="rect" id="Node000011" href="$db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="292,55,439,96"/>
-<area shape="poly" id="edge10_Node000007_Node000011" title=" " alt="" coords="526,92,439,85,440,79,526,87"/>
+<area shape="poly" id="edge10_Node000007_Node000011" title=" " alt="" coords="533,91,439,84,440,79,533,86"/>
 <area shape="rect" id="Node000009" href="$d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,88,195,114"/>
 <area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="291,38,263,46,144,90,143,85,262,41,290,33"/>
 <area shape="rect" id="Node000012" href="$db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,183,215,208"/>
 <area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="278,104,264,110,190,148,133,184,130,180,188,144,262,105,276,99"/>
-<area shape="poly" id="edge13_Node000013_Node000010" title=" " alt="" coords="500,163,429,148,430,143,501,157"/>
+<area shape="poly" id="edge13_Node000013_Node000010" title=" " alt="" coords="507,163,429,148,430,143,508,158"/>
 <area shape="rect" id="Node000014" href="$d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="275,169,456,195"/>
-<area shape="poly" id="edge14_Node000013_Node000014" title=" " alt="" coords="500,185,457,185,457,180,500,180"/>
+<area shape="poly" id="edge14_Node000013_Node000014" title=" " alt="" coords="508,185,456,185,456,180,508,180"/>
 <area shape="rect" id="Node000015" href="$d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="273,284,458,310"/>
-<area shape="poly" id="edge16_Node000013_Node000015" title=" " alt="" coords="553,212,518,234,494,255,469,274,439,286,437,281,467,269,491,251,514,229,551,208"/>
+<area shape="poly" id="edge16_Node000013_Node000015" title=" " alt="" coords="556,212,518,234,494,255,469,274,439,286,437,281,467,269,491,250,514,229,553,207"/>
 <area shape="rect" id="Node000017" href="$db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="292,219,439,260"/>
-<area shape="poly" id="edge18_Node000013_Node000017" title=" " alt="" coords="507,209,440,225,439,220,506,204"/>
+<area shape="poly" id="edge18_Node000013_Node000017" title=" " alt="" coords="511,209,440,225,439,220,510,204"/>
 <area shape="poly" id="edge15_Node000014_Node000009" title=" " alt="" coords="286,168,262,161,142,117,144,112,263,156,288,162"/>
 <area shape="rect" id="Node000016" href="$d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,310"/>
 <area shape="poly" id="edge17_Node000015_Node000016" title=" " alt="" coords="258,300,198,300,198,294,258,294"/>
 <area shape="poly" id="edge19_Node000017_Node000012" title=" " alt="" coords="276,227,188,212,189,206,277,222"/>
-<area shape="poly" id="edge21_Node000018_Node000005" title=" " alt="" coords="1254,194,1212,189,1213,184,1255,189"/>
-<area shape="poly" id="edge23_Node000019_Node000008" title=" " alt="" coords="1282,39,455,23,455,17,1282,34"/>
-<area shape="poly" id="edge38_Node000020_Node000005" title=" " alt="" coords="1318,278,1128,189,1130,184,1321,274"/>
-<area shape="rect" id="Node000021" href="$d4/d43/class_s_e_node.html#a6f3571b56b21f6d5fa7191fae4e21681" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="1022,291,1177,316"/>
-<area shape="poly" id="edge25_Node000020_Node000021" title=" " alt="" coords="1249,306,1177,306,1177,301,1249,301"/>
-<area shape="rect" id="Node000027" href="$d8/d84/class_s_l_a_m_node.html#a976a75ca26892057e2b0c2ea11a25496" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="1012,352,1187,378"/>
-<area shape="poly" id="edge31_Node000020_Node000027" title=" " alt="" coords="1269,330,1162,354,1161,349,1268,325"/>
-<area shape="rect" id="Node000032" href="$de/d07/class_perception.html#a68efe16012264fa6a26bafb9cecd40a5" title="Publishes information about clusters (cones) using a custom ROS2 message." alt="" coords="1034,427,1165,468"/>
-<area shape="poly" id="edge36_Node000020_Node000032" title=" " alt="" coords="1328,334,1218,393,1145,429,1143,424,1216,388,1326,329"/>
-<area shape="rect" id="Node000022" href="$d4/d43/class_s_e_node.html#a6e3d03aa2f2cbbf8c2ff425fdc274e2b" title="Function to be called everytime information is received from the IMU." alt="" coords="753,171,934,212"/>
-<area shape="poly" id="edge26_Node000021_Node000022" title=" " alt="" coords="1057,286,933,227,902,215,904,210,935,222,1060,281"/>
-<area shape="rect" id="Node000023" href="$d4/d43/class_s_e_node.html#ae87a4d5f2baf38b9fb9a34a81b9149ad" title="Callback that updates everytime information is received from the perception module." alt="" coords="767,237,920,277"/>
-<area shape="poly" id="edge27_Node000021_Node000023" title=" " alt="" coords="1009,290,920,273,921,268,1010,285"/>
-<area shape="rect" id="Node000025" href="$d4/d43/class_s_e_node.html#a807afbd7576422568395876d5c3e7296" title="Executes:" alt="" coords="769,302,918,343"/>
-<area shape="poly" id="edge29_Node000021_Node000025" title=" " alt="" coords="1006,313,919,319,918,314,1006,308"/>
-<area shape="rect" id="Node000026" href="$d4/d43/class_s_e_node.html#a5134a7c33ca9cd292c9840f748b36f09" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="761,367,926,408"/>
-<area shape="poly" id="edge30_Node000021_Node000026" title=" " alt="" coords="1040,324,983,342,904,369,902,364,981,337,1038,319"/>
-<area shape="rect" id="Node000024" href="$d4/d43/class_s_e_node.html#a5d61b6c80a21c02b29074e434cc6703b" title="Constructor of the main node, most things are received by launch parameter." alt="" coords="549,244,672,270"/>
-<area shape="poly" id="edge28_Node000023_Node000024" title=" " alt="" coords="752,260,673,260,673,254,752,254"/>
-<area shape="rect" id="Node000028" href="$d8/d84/class_s_l_a_m_node.html#aac21a292783c53d1f41cfaa255b3e9bf" title="Callback that updates everytime information is received from the perception module." alt="" coords="762,433,925,473"/>
-<area shape="poly" id="edge32_Node000027_Node000028" title=" " alt="" coords="1046,386,906,434,904,429,1044,381"/>
-<area shape="rect" id="Node000029" href="$d1/dcb/class_pacsim_adapter.html#a55a7901c609a7ad1eeced10bb2ce466f" title="Callback for simulated perception detections from pacsim." alt="" coords="528,458,693,514"/>
-<area shape="poly" id="edge33_Node000028_Node000029" title=" " alt="" coords="748,469,694,477,693,472,747,464"/>
-<area shape="rect" id="Node000031" href="$d8/d84/class_s_l_a_m_node.html#a8543b5442579202f4ead10fbe347033c" title="Constructor that uses the parameters structure." alt="" coords="529,408,692,434"/>
-<area shape="poly" id="edge35_Node000028_Node000031" title=" " alt="" coords="747,442,693,435,693,429,748,437"/>
-<area shape="rect" id="Node000030" href="$d1/dcb/class_pacsim_adapter.html#ad557c789fd4da581c9d487abb5af4dc5" title="Constructor of the pacsim adapter node." alt="" coords="263,473,468,499"/>
-<area shape="poly" id="edge34_Node000029_Node000030" title=" " alt="" coords="513,489,468,489,468,484,513,484"/>
-<area shape="rect" id="Node000033" href="$de/d07/class_perception.html#a592f3cc2120d974b503f5934970ac5db" title="Callback function for the PointCloud2 subscription." alt="" coords="766,498,921,539"/>
-<area shape="poly" id="edge37_Node000032_Node000033" title=" " alt="" coords="1020,472,921,500,919,495,1019,467"/>
-<area shape="rect" id="Node000035" href="$dc/dde/class_pure_pursuit.html#afe721df091e7f9db6c1b020b341bd8b4" title="Function that publishes the closest point marker." alt="" coords="1031,498,1168,539"/>
-<area shape="poly" id="edge40_Node000034_Node000035" title=" " alt="" coords="1271,521,1168,521,1168,516,1271,516"/>
-<area shape="rect" id="Node000037" href="$dc/dde/class_pure_pursuit.html#ae90520d8a83d48f177a0e92615728b88" title="Function that publishes the lookahead point marker." alt="" coords="1031,563,1168,604"/>
-<area shape="poly" id="edge42_Node000034_Node000037" title=" " alt="" coords="1275,545,1169,570,1167,565,1274,540"/>
-<area shape="rect" id="Node000036" href="$dc/dde/class_pure_pursuit.html#a0a8fc6a4cd3c8c9f366c320d85999299" title="Publishes solver specific data using the provided ControlNode." alt="" coords="775,563,912,604"/>
-<area shape="poly" id="edge41_Node000035_Node000036" title=" " alt="" coords="1017,542,913,569,912,564,1016,537"/>
-<area shape="poly" id="edge43_Node000037_Node000036" title=" " alt="" coords="1016,586,912,586,912,581,1016,581"/>
+<area shape="poly" id="edge21_Node000018_Node000005" title=" " alt="" coords="1268,225,1226,220,1227,214,1269,219"/>
+<area shape="poly" id="edge23_Node000019_Node000008" title=" " alt="" coords="1295,53,455,24,455,19,1296,48"/>
+<area shape="poly" id="edge46_Node000020_Node000005" title=" " alt="" coords="1341,337,1137,219,1139,215,1344,333"/>
+<area shape="rect" id="Node000021" href="$d4/d43/class_s_e_node.html#a6f3571b56b21f6d5fa7191fae4e21681" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="1036,309,1191,335"/>
+<area shape="poly" id="edge25_Node000020_Node000021" title=" " alt="" coords="1263,347,1191,336,1192,331,1264,342"/>
+<area shape="rect" id="Node000027" href="$d8/d84/class_s_l_a_m_node.html#a976a75ca26892057e2b0c2ea11a25496" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="1026,484,1201,510"/>
+<area shape="poly" id="edge31_Node000020_Node000027" title=" " alt="" coords="1336,393,1144,486,1141,481,1334,388"/>
+<area shape="rect" id="Node000032" href="$d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="1042,563,1185,604"/>
+<area shape="poly" id="edge36_Node000020_Node000032" title=" " alt="" coords="1367,397,1308,459,1233,524,1198,547,1163,565,1161,560,1195,542,1229,520,1304,455,1363,393"/>
+<area shape="rect" id="Node000037" href="$de/d07/class_perception.html#a68efe16012264fa6a26bafb9cecd40a5" title="Publishes information about clusters (cones) using a custom ROS2 message." alt="" coords="1048,379,1179,420"/>
+<area shape="poly" id="edge44_Node000020_Node000037" title=" " alt="" coords="1264,383,1179,394,1179,389,1264,377"/>
+<area shape="rect" id="Node000022" href="$d4/d43/class_s_e_node.html#a6e3d03aa2f2cbbf8c2ff425fdc274e2b" title="Function to be called everytime information is received from the IMU." alt="" coords="767,171,948,212"/>
+<area shape="poly" id="edge26_Node000021_Node000022" title=" " alt="" coords="1078,303,1018,266,947,227,918,215,920,210,949,222,1020,261,1081,298"/>
+<area shape="rect" id="Node000023" href="$d4/d43/class_s_e_node.html#ae87a4d5f2baf38b9fb9a34a81b9149ad" title="Callback that updates everytime information is received from the perception module." alt="" coords="781,237,934,277"/>
+<area shape="poly" id="edge27_Node000021_Node000023" title=" " alt="" coords="1045,308,934,279,935,274,1046,302"/>
+<area shape="rect" id="Node000025" href="$d4/d43/class_s_e_node.html#a807afbd7576422568395876d5c3e7296" title="Executes:" alt="" coords="783,302,932,343"/>
+<area shape="poly" id="edge29_Node000021_Node000025" title=" " alt="" coords="1020,325,932,325,932,320,1020,320"/>
+<area shape="rect" id="Node000026" href="$d4/d43/class_s_e_node.html#a5134a7c33ca9cd292c9840f748b36f09" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="775,367,940,408"/>
+<area shape="poly" id="edge30_Node000021_Node000026" title=" " alt="" coords="1046,342,941,369,939,364,1045,337"/>
+<area shape="rect" id="Node000024" href="$d4/d43/class_s_e_node.html#a5d61b6c80a21c02b29074e434cc6703b" title="Constructor of the main node, most things are received by launch parameter." alt="" coords="556,244,679,270"/>
+<area shape="poly" id="edge28_Node000023_Node000024" title=" " alt="" coords="765,260,680,260,680,254,765,254"/>
+<area shape="rect" id="Node000028" href="$d8/d84/class_s_l_a_m_node.html#aac21a292783c53d1f41cfaa255b3e9bf" title="Callback that updates everytime information is received from the perception module." alt="" coords="776,498,939,539"/>
+<area shape="poly" id="edge32_Node000027_Node000028" title=" " alt="" coords="1010,508,939,514,939,509,1010,503"/>
+<area shape="rect" id="Node000029" href="$d1/dcb/class_pacsim_adapter.html#a55a7901c609a7ad1eeced10bb2ce466f" title="Callback for simulated perception detections from pacsim." alt="" coords="535,428,700,483"/>
+<area shape="poly" id="edge33_Node000028_Node000029" title=" " alt="" coords="762,496,700,480,702,475,763,491"/>
+<area shape="rect" id="Node000031" href="$d8/d84/class_s_l_a_m_node.html#a8543b5442579202f4ead10fbe347033c" title="Constructor that uses the parameters structure." alt="" coords="536,508,699,534"/>
+<area shape="poly" id="edge35_Node000028_Node000031" title=" " alt="" coords="761,522,700,523,700,517,761,517"/>
+<area shape="rect" id="Node000030" href="$d1/dcb/class_pacsim_adapter.html#ad557c789fd4da581c9d487abb5af4dc5" title="Constructor of the pacsim adapter node." alt="" coords="263,508,468,534"/>
+<area shape="poly" id="edge34_Node000029_Node000030" title=" " alt="" coords="521,483,419,510,417,505,519,478"/>
+<area shape="poly" id="edge39_Node000032_Node000028" title=" " alt="" coords="1026,564,938,541,940,536,1027,559"/>
+<area shape="rect" id="Node000033" href="$d1/df1/class_vehicle_adapter.html#ad89d6e33ccd2f8ec13b936ef2ec56179" title="LiDAR odometry subscription callback." alt="" coords="778,628,937,683"/>
+<area shape="poly" id="edge37_Node000032_Node000033" title=" " alt="" coords="1027,610,938,636,937,631,1026,605"/>
+<area shape="rect" id="Node000035" href="$d8/d84/class_s_l_a_m_node.html#a6e228ce696c330a4a43ae5807c632df7" title="Callback that updates everytime information is received from velocity estimation node." alt="" coords="779,563,936,604"/>
+<area shape="poly" id="edge40_Node000032_Node000035" title=" " alt="" coords="1026,586,937,586,937,581,1026,581"/>
+<area shape="rect" id="Node000034" href="$d1/df1/class_vehicle_adapter.html#ab308f8a9d24015aae1274f75e75f8e9f" title="Constructor of the vehicle adapter node." alt="" coords="516,643,719,668"/>
+<area shape="poly" id="edge38_Node000033_Node000034" title=" " alt="" coords="763,658,720,658,720,653,763,653"/>
+<area shape="poly" id="edge43_Node000035_Node000031" title=" " alt="" coords="765,561,719,549,673,537,674,532,720,544,766,556"/>
+<area shape="rect" id="Node000036" href="$d1/dcb/class_pacsim_adapter.html#a651d389ab08e146b604c9b833cf5c0a4" title="Callback for simulated velocities from pacsim." alt="" coords="535,558,700,614"/>
+<area shape="poly" id="edge41_Node000035_Node000036" title=" " alt="" coords="764,587,701,588,701,583,764,582"/>
+<area shape="poly" id="edge42_Node000036_Node000030" title=" " alt="" coords="519,564,417,537,419,532,521,558"/>
+<area shape="rect" id="Node000038" href="$de/d07/class_perception.html#a592f3cc2120d974b503f5934970ac5db" title="Callback function for the PointCloud2 subscription." alt="" coords="780,433,935,473"/>
+<area shape="poly" id="edge45_Node000037_Node000038" title=" " alt="" coords="1034,419,936,439,935,434,1033,413"/>
+<area shape="poly" id="edge48_Node000039_Node000032" title=" " alt="" coords="1284,607,1185,595,1186,589,1285,601"/>
+<area shape="rect" id="Node000040" href="$dc/dde/class_pure_pursuit.html#afe721df091e7f9db6c1b020b341bd8b4" title="Function that publishes the closest point marker." alt="" coords="1045,703,1182,744"/>
+<area shape="poly" id="edge49_Node000039_Node000040" title=" " alt="" coords="1331,646,1232,686,1179,705,1177,700,1230,681,1329,641"/>
+<area shape="rect" id="Node000042" href="$dc/dde/class_pure_pursuit.html#ae90520d8a83d48f177a0e92615728b88" title="Function that publishes the lookahead point marker." alt="" coords="1045,631,1182,672"/>
+<area shape="poly" id="edge51_Node000039_Node000042" title=" " alt="" coords="1285,633,1182,646,1181,640,1284,628"/>
+<area shape="rect" id="Node000041" href="$dc/dde/class_pure_pursuit.html#a0a8fc6a4cd3c8c9f366c320d85999299" title="Publishes solver specific data using the provided ControlNode." alt="" coords="789,707,926,748"/>
+<area shape="poly" id="edge50_Node000040_Node000041" title=" " alt="" coords="1030,727,926,729,926,724,1030,722"/>
+<area shape="poly" id="edge52_Node000042_Node000041" title=" " alt="" coords="1031,679,927,710,926,705,1030,673"/>
 </map>

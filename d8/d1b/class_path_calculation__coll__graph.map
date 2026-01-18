@@ -1,15 +1,15 @@
 <map id="PathCalculation" name="PathCalculation">
-<area shape="rect" id="Node000001" title="Generates optimal local paths." alt="" coords="190,840,382,1529"/>
-<area shape="rect" id="Node000002" href="$df/d7d/struct_path_calculation_config.html" title="struct for the configuration of the outliers removal algorithm." alt="" coords="5,491,164,777"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,775,187,905,182,907,134,777"/>
-<area shape="rect" id="Node000003" href="$d9/d46/struct_midpoint_generator_config.html" title="Configuration for Delaunay triangulation and midpoint generation." alt="" coords="75,296,252,401"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="116,402,100,427,87,453,81,475,76,474,82,451,95,424,112,399"/>
-<area shape="rect" id="Node000004" href="$d8/dab/class_midpoint_generator.html" title="Generates midpoints between cones using Delaunay triangulation." alt="" coords="191,511,381,757"/>
-<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="191,399,215,451,234,495,229,497,210,453,186,402"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="289,757,289,823,283,823,283,757"/>
-<area shape="rect" id="Node000005" href="$d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="302,268,449,428"/>
-<area shape="poly" id="edge7_Node000001_Node000005" title=" " alt="" coords="410,427,415,452,431,554,436,634,431,714,415,816,389,925,384,924,410,815,425,714,431,634,426,554,410,453,404,429"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="335,429,325,453,312,496,307,494,320,451,330,427"/>
-<area shape="rect" id="Node000006" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="302,5,449,205"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="378,205,378,252,373,252,373,205"/>
+<area shape="rect" id="Node000001" title="Generates optimal local paths." alt="" coords="202,860,394,1549"/>
+<area shape="rect" id="Node000002" href="$df/d7d/struct_path_calculation_config.html" title=" " alt="" coords="5,491,180,797"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,796,199,926,194,928,146,798"/>
+<area shape="rect" id="Node000003" href="$d9/d46/struct_midpoint_generator_config.html" title="Configuration parameters for the Midpoint Generator class." alt="" coords="85,286,263,411"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="120,412,98,453,92,475,86,474,93,451,115,409"/>
+<area shape="rect" id="Node000004" href="$d8/dab/class_midpoint_generator.html" title="Generates midpoints between cones using Delaunay triangulation." alt="" coords="205,521,394,767"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="207,410,226,451,249,505,244,507,221,453,202,412"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="302,766,302,842,296,842,296,766"/>
+<area shape="rect" id="Node000005" href="$d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="313,268,459,428"/>
+<area shape="poly" id="edge7_Node000001_Node000005" title=" " alt="" coords="420,427,426,452,442,559,448,644,442,729,426,836,401,942,396,941,421,835,437,728,442,644,437,560,421,453,415,429"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="345,429,336,453,322,505,316,504,331,451,340,427"/>
+<area shape="rect" id="Node000006" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="313,5,459,205"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="389,205,389,252,383,252,383,205"/>
 </map>

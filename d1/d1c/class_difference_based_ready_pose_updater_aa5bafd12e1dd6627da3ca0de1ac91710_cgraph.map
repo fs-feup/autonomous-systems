@@ -1,0 +1,9 @@
+<map id="DifferenceBasedReadyPoseUpdater::pose_ready_for_graph_update" name="DifferenceBasedReadyPoseUpdater::pose_ready_for_graph_update">
+<area shape="rect" id="Node000001" title="Check if the accumulated pose difference is greater than the minimum threshold." alt="" coords="5,16,188,71"/>
+<area shape="rect" id="Node000002" href="$da/df5/slam_2src_2slam__solver_2graph__slam__solver_2utils_8cpp.html#a3d4e9957a7d73fae42a51136c75737f4" title=" " alt="" coords="236,31,386,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,41,220,41,220,46,188,46"/>
+<area shape="rect" id="Node000003" href="$da/df5/slam_2src_2slam__solver_2graph__slam__solver_2utils_8cpp.html#a8649e3a40d3996e6a7eca0c02fbbc3a3" title=" " alt="" coords="434,5,582,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="386,31,418,27,419,32,387,36"/>
+<area shape="rect" id="Node000004" href="$da/df5/slam_2src_2slam__solver_2graph__slam__solver_2utils_8cpp.html#a635cf55ec76c73af7d115883037b3f51" title=" " alt="" coords="434,55,582,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="387,50,419,54,418,59,386,55"/>
+</map>

@@ -1,27 +1,24 @@
 <map id="add_landmarks" name="add_landmarks">
-<area shape="rect" id="Node000001" title="adds the landmarks in the list to the track." alt="" coords="597,203,707,228"/>
-<area shape="rect" id="Node000002" href="$d8/deb/track__loader_8cpp.html#a5c744bddb2fdcd908259e5e0058bf229" title="loads the map from the specified path and fills the start pose and track." alt="" coords="431,79,549,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="628,192,593,155,548,118,529,107,531,103,551,113,596,151,632,189"/>
-<area shape="rect" id="Node000008" href="$d6/dca/track__loader__test_8cpp.html#a91c3a8619ca966c900cf6f51ab8bb728" title=" " alt="" coords="463,128,517,154"/>
-<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="611,198,548,167,517,154,519,149,550,162,613,193"/>
-<area shape="rect" id="Node000009" href="$d6/dca/track__loader__test_8cpp.html#ac0dfe683d4eda1171eb90d763c8208b3" title=" " alt="" coords="463,177,517,203"/>
-<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="582,207,517,197,518,192,582,202"/>
-<area shape="rect" id="Node000010" href="$d6/dca/track__loader__test_8cpp.html#a4772599fc06192c9ba1b8697123fcc49" title=" " alt="" coords="463,227,517,252"/>
-<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="582,228,518,238,517,233,582,223"/>
-<area shape="rect" id="Node000011" href="$d6/dca/track__loader__test_8cpp.html#ad3550ddc9ce8f32e1a167a07a2e702c1" title=" " alt="" coords="463,276,517,302"/>
-<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="612,238,550,267,519,281,517,276,548,262,610,233"/>
-<area shape="rect" id="Node000012" href="$d6/dca/track__loader__test_8cpp.html#aaa4e02c3c0364b471ca4b36868fd18d8" title=" " alt="" coords="463,325,517,351"/>
-<area shape="poly" id="edge13_Node000001_Node000012" title=" " alt="" coords="632,242,596,280,551,316,519,332,517,327,548,312,592,276,628,239"/>
+<area shape="rect" id="Node000001" title="adds the landmarks in the list to the track." alt="" coords="597,179,707,204"/>
+<area shape="rect" id="Node000002" href="$d8/deb/track__loader_8cpp.html#a5c744bddb2fdcd908259e5e0058bf229" title="loads the map from the specified path and fills the start pose and track." alt="" coords="431,55,549,80"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="628,168,593,131,548,94,529,83,531,79,551,89,596,127,632,165"/>
+<area shape="rect" id="Node000007" href="$d6/dca/track__loader__test_8cpp.html#a91c3a8619ca966c900cf6f51ab8bb728" title=" " alt="" coords="463,104,517,130"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="611,174,548,143,517,130,519,125,550,138,613,169"/>
+<area shape="rect" id="Node000008" href="$d6/dca/track__loader__test_8cpp.html#ac0dfe683d4eda1171eb90d763c8208b3" title=" " alt="" coords="463,153,517,179"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="582,183,517,173,518,168,582,178"/>
+<area shape="rect" id="Node000009" href="$d6/dca/track__loader__test_8cpp.html#a4772599fc06192c9ba1b8697123fcc49" title=" " alt="" coords="463,203,517,228"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="582,204,518,214,517,209,582,199"/>
+<area shape="rect" id="Node000010" href="$d6/dca/track__loader__test_8cpp.html#ad3550ddc9ce8f32e1a167a07a2e702c1" title=" " alt="" coords="463,252,517,278"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="612,214,550,243,519,257,517,252,548,238,610,209"/>
+<area shape="rect" id="Node000011" href="$d6/dca/track__loader__test_8cpp.html#aaa4e02c3c0364b471ca4b36868fd18d8" title=" " alt="" coords="463,301,517,327"/>
+<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="632,218,596,256,551,292,519,308,517,303,548,288,592,252,628,215"/>
 <area shape="rect" id="Node000003" href="$d8/deb/track__loader_8cpp.html#a8fdf54bc79463c04ac8098b65da37f8a" title="loads the acceleration track from the default path." alt="" coords="225,5,383,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="448,74,382,45,352,34,353,29,384,40,450,69"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="424,53,355,34,356,29,425,48"/>
 <area shape="rect" id="Node000005" href="$d8/deb/track__loader_8cpp.html#ad4e86aefb67cb6fdc1592f2d6c02bfa0" title="loads the skidpad track from the default path." alt="" coords="237,55,371,80"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="415,85,370,79,371,73,416,79"/>
-<area shape="rect" id="Node000006" href="$d8/deb/track__loader_8cpp.html#a08c49ab3cd9080d5784f370b7f23631e" title="loads the trackdrive track from the default path." alt="" coords="231,104,377,130"/>
-<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="416,104,377,110,377,104,415,99"/>
-<area shape="rect" id="Node000007" href="$d6/dca/track__loader__test_8cpp.html#aef58a5ef0572b18cdf299ef10c6dd8b0" title=" " alt="" coords="277,153,331,179"/>
-<area shape="poly" id="edge8_Node000002_Node000007" title=" " alt="" coords="442,113,432,118,384,145,332,162,331,157,382,140,430,113,440,108"/>
-<area shape="rect" id="Node000004" href="$da/dd3/class_s_l_a_m_solver.html#a132757cb8a25752b2050dc260a72b902" title="Set the mission." alt="" coords="5,55,177,80"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="231,38,150,57,149,51,230,32"/>
-<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="221,70,177,70,177,65,221,65"/>
-<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="230,103,149,84,150,78,231,97"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="416,70,371,70,371,65,416,65"/>
+<area shape="rect" id="Node000006" href="$d6/dca/track__loader__test_8cpp.html#aef58a5ef0572b18cdf299ef10c6dd8b0" title=" " alt="" coords="277,104,331,130"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="425,88,332,112,331,107,423,82"/>
+<area shape="rect" id="Node000004" href="$da/dd3/class_s_l_a_m_solver.html#a132757cb8a25752b2050dc260a72b902" title="Set the mission." alt="" coords="5,31,177,56"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="210,32,177,36,177,31,209,27"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="221,61,177,56,178,51,222,56"/>
 </map>

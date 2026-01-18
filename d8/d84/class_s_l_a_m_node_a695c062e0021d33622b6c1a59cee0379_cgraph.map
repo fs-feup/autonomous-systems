@@ -1,0 +1,13 @@
+<map id="SLAMNode::_publish_vehicle_pose" name="SLAMNode::_publish_vehicle_pose">
+<area shape="rect" id="Node000001" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="5,39,149,79"/>
+<area shape="rect" id="Node000002" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="197,5,425,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="149,46,181,42,182,47,149,51"/>
+<area shape="rect" id="Node000005" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966" title="Converts a position to a marker." alt="" coords="218,71,404,111"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="149,66,203,74,202,79,149,71"/>
+<area shape="rect" id="Node000003" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="473,5,658,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="425,23,457,23,457,28,425,28"/>
+<area shape="rect" id="Node000004" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="473,71,658,111"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="394,44,470,64,468,69,392,49"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="392,67,468,48,470,53,394,73"/>
+<area shape="poly" id="edge6_Node000005_Node000004" title=" " alt="" coords="404,88,458,88,458,94,404,94"/>
+</map>

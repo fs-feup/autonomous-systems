@@ -1,7 +1,0 @@
-<map id="GraphSLAMInstance::process_pose_difference" name="GraphSLAMInstance::process_pose_difference">
-<area shape="rect" id="Node000001" title="Add motion prior to the graph." alt="" coords="5,27,171,68"/>
-<area shape="rect" id="Node000002" href="$da/df5/slam_2src_2slam__solver_2graph__slam__solver_2utils_8cpp.html#a8649e3a40d3996e6a7eca0c02fbbc3a3" title=" " alt="" coords="219,5,368,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,33,203,28,204,34,172,38"/>
-<area shape="rect" id="Node000003" href="$d4/dca/class_graph_s_l_a_m_instance.html#a9ffa9f55d63ac219cf762c41434bc265" title=" " alt="" coords="219,55,368,96"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="172,56,204,61,203,66,171,61"/>
-</map>

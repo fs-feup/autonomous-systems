@@ -1,10 +1,30 @@
 <map id="common_lib::communication::marker_from_position" name="common_lib::communication::marker_from_position">
-<area shape="rect" id="Node000001" title="Converts a position to a marker." alt="" coords="374,39,559,79"/>
-<area shape="rect" id="Node000002" href="$dc/dde/class_pure_pursuit.html#afe721df091e7f9db6c1b020b341bd8b4" title="Function that publishes the closest point marker." alt="" coords="190,5,326,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="358,44,326,39,327,34,359,39"/>
-<area shape="rect" id="Node000004" href="$dc/dde/class_pure_pursuit.html#ae90520d8a83d48f177a0e92615728b88" title="Function that publishes the lookahead point marker." alt="" coords="190,71,326,111"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="359,78,327,83,326,78,358,73"/>
-<area shape="rect" id="Node000003" href="$dc/dde/class_pure_pursuit.html#a0a8fc6a4cd3c8c9f366c320d85999299" title="Publishes solver specific data using the provided ControlNode." alt="" coords="5,39,142,79"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="175,43,143,49,142,44,174,38"/>
-<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="174,79,142,74,143,68,175,74"/>
+<area shape="rect" id="Node000001" title="Converts a position to a marker." alt="" coords="912,150,1097,191"/>
+<area shape="rect" id="Node000002" href="$d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="720,85,864,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="921,148,860,129,861,124,922,143"/>
+<area shape="rect" id="Node000011" href="$dc/dde/class_pure_pursuit.html#afe721df091e7f9db6c1b020b341bd8b4" title="Function that publishes the closest point marker." alt="" coords="724,150,860,191"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="896,173,861,173,861,168,896,168"/>
+<area shape="rect" id="Node000013" href="$dc/dde/class_pure_pursuit.html#ae90520d8a83d48f177a0e92615728b88" title="Function that publishes the lookahead point marker." alt="" coords="724,216,860,256"/>
+<area shape="poly" id="edge14_Node000001_Node000013" title=" " alt="" coords="922,198,861,217,860,212,921,193"/>
+<area shape="rect" id="Node000003" href="$d1/df1/class_vehicle_adapter.html#ad89d6e33ccd2f8ec13b936ef2ec56179" title="LiDAR odometry subscription callback." alt="" coords="512,5,670,61"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="718,82,670,64,672,59,720,77"/>
+<area shape="rect" id="Node000005" href="$d8/d84/class_s_l_a_m_node.html#aac21a292783c53d1f41cfaa255b3e9bf" title="Callback that updates everytime information is received from the perception module." alt="" coords="510,85,672,126"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="704,108,673,108,673,103,704,103"/>
+<area shape="rect" id="Node000009" href="$d8/d84/class_s_l_a_m_node.html#a6e228ce696c330a4a43ae5807c632df7" title="Callback that updates everytime information is received from velocity estimation node." alt="" coords="513,150,670,191"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="714,133,657,152,655,147,712,128"/>
+<area shape="rect" id="Node000004" href="$d1/df1/class_vehicle_adapter.html#ab308f8a9d24015aae1274f75e75f8e9f" title="Constructor of the vehicle adapter node." alt="" coords="259,20,462,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="497,36,463,36,463,31,497,31"/>
+<area shape="rect" id="Node000006" href="$d1/dcb/class_pacsim_adapter.html#a55a7901c609a7ad1eeced10bb2ce466f" title="Callback for simulated perception detections from pacsim." alt="" coords="278,75,443,130"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="494,107,443,106,443,101,494,101"/>
+<area shape="rect" id="Node000008" href="$d8/d84/class_s_l_a_m_node.html#a8543b5442579202f4ead10fbe347033c" title="Constructor that uses the parameters structure." alt="" coords="279,155,442,181"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="507,133,463,145,417,157,416,152,461,140,505,128"/>
+<area shape="rect" id="Node000007" href="$d1/dcb/class_pacsim_adapter.html#ad557c789fd4da581c9d487abb5af4dc5" title="Constructor of the pacsim adapter node." alt="" coords="5,155,211,181"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="263,130,161,157,160,152,262,125"/>
+<area shape="poly" id="edge11_Node000009_Node000008" title=" " alt="" coords="497,172,442,171,442,166,497,167"/>
+<area shape="rect" id="Node000010" href="$d1/dcb/class_pacsim_adapter.html#a651d389ab08e146b604c9b833cf5c0a4" title="Callback for simulated velocities from pacsim." alt="" coords="278,205,443,261"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="500,198,444,213,443,208,499,193"/>
+<area shape="poly" id="edge10_Node000010_Node000007" title=" " alt="" coords="262,211,160,184,161,179,263,205"/>
+<area shape="rect" id="Node000012" href="$dc/dde/class_pure_pursuit.html#a0a8fc6a4cd3c8c9f366c320d85999299" title="Publishes solver specific data using the provided ControlNode." alt="" coords="523,216,659,256"/>
+<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="714,199,657,217,655,212,712,193"/>
+<area shape="poly" id="edge15_Node000013_Node000012" title=" " alt="" coords="708,239,660,239,660,233,708,233"/>
 </map>

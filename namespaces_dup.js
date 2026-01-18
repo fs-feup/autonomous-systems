@@ -87,22 +87,6 @@ var namespaces_dup =
     ] ],
     [ "drawView", "d2/dfb/namespacedraw_view.html", "d2/dfb/namespacedraw_view" ],
     [ "evaluator", "db/d6f/namespaceevaluator.html", "db/d6f/namespaceevaluator" ],
-    [ "filter", "d1/da4/namespacefilter.html", [
-      [ "example_function", "d1/da4/namespacefilter.html#aada42942a7c101053d8cd46bb40d2762", null ],
-      [ "filter_cones", "d1/da4/namespacefilter.html#ad403cdd1d5d2126bbc1f5999f253a5e1", null ],
-      [ "format_cones", "d1/da4/namespacefilter.html#a691363effb91be3134840601b615b1ea", null ],
-      [ "out_of_square", "d1/da4/namespacefilter.html#a2ac598eb914f9be6fd6b0a68951014fe", null ],
-      [ "parse_cones", "d1/da4/namespacefilter.html#aeb8f713eb5c3a3d6b31cba400ea753bd", null ],
-      [ "cones_input", "d1/da4/namespacefilter.html#aa156043337e7e6e494e3c33934d3a363", null ],
-      [ "result", "d1/da4/namespacefilter.html#a04d6bba66cd070f4f3499c7240e50b8a", null ]
-    ] ],
-    [ "format", "da/ddb/namespaceformat.html", [
-      [ "filter_cones", "da/ddb/namespaceformat.html#aa56705364db4d4e1fa13e58c0ab9cce2", null ],
-      [ "parse_cones", "da/ddb/namespaceformat.html#ad7207d650a38ae5a91a7da3363b10734", null ],
-      [ "write_cone", "da/ddb/namespaceformat.html#ab4fce879d94ab92aa76b3e5eed23e9a0", null ],
-      [ "input_cones", "da/ddb/namespaceformat.html#a71357371301ffb2dd342b40c1d85741f", null ],
-      [ "output_string", "da/ddb/namespaceformat.html#af8b4353ac83e6db6c2d75cb1b2428832", null ]
-    ] ],
     [ "guiLogic", "db/d15/namespacegui_logic.html", "db/d15/namespacegui_logic" ],
     [ "invictasim", "dd/d91/namespaceinvictasim.html", [
       [ "load_config", "dd/d91/namespaceinvictasim.html#afcb93f3491e15b3cd3b1ffa65a954bba", null ]
@@ -148,7 +132,6 @@ var namespaces_dup =
       [ "yTrackList", "dc/d1a/namespaceplot__track.html#a7246ba4a12b317bbdf17f284b716a171", null ]
     ] ],
     [ "power_log", "d0/daf/namespacepower__log.html", "d0/daf/namespacepower__log" ],
-    [ "printer", "d5/d08/namespaceprinter.html", "d5/d08/namespaceprinter" ],
     [ "random_points", "de/da7/namespacerandom__points.html", [
       [ "color", "de/da7/namespacerandom__points.html#a047d34e53b4e5d11b5601455c31473fe", null ],
       [ "f", "de/da7/namespacerandom__points.html#a14a62e2a87bab023adc792ba94a4a259", null ],
@@ -243,7 +226,6 @@ var namespaces_dup =
     ] ],
     [ "spline", "d7/dc1/namespacespline.html", [
       [ "axis", "d7/dc1/namespacespline.html#ab8ba046c9c8639715623a604b0d35fcc", null ],
-      [ "c", "d7/dc1/namespacespline.html#adcb92c1b2308379ecffcbb7a299c2c2b", null ],
       [ "label", "d7/dc1/namespacespline.html#aa49f95a60d0a0741eef1ef2d511d49fd", null ],
       [ "line", "d7/dc1/namespacespline.html#a9e15a8778d356200129c43735b3bf310", null ],
       [ "markersize", "d7/dc1/namespacespline.html#a14a612fad52579e23d7e46c64910497a", null ],

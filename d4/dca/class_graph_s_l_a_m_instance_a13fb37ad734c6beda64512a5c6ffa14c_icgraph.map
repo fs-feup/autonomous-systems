@@ -1,5 +1,0 @@
-<map id="GraphSLAMInstance::load_initial_state" name="GraphSLAMInstance::load_initial_state">
-<area shape="rect" id="Node000001" title="Loads a map and an initial pose into the graph." alt="" coords="214,5,363,46"/>
-<area shape="rect" id="Node000002" href="$d9/d73/class_graph_s_l_a_m_solver.html#a909670a175e6be31301bd2595cd418ba" title="Initialize the graph SLAM solver with a previously saved map and pose." alt="" coords="5,5,166,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,28,166,28,166,23,198,23"/>
-</map>

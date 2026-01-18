@@ -109,11 +109,11 @@ Inheritance diagram for SLAMNode:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d6/dea/class_s_l_a_m_node__inherit__graph.png" border="0" usemap="#a_s_l_a_m_node_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_s_l_a_m_node_inherit__map" id="a_s_l_a_m_node_inherit__map">
-<area shape="rect" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="126,119,310,657"/>
-<area shape="rect" href="../../d1/dcb/class_pacsim_adapter.html" title="Adapter class for the pacsim simulator." alt="" coords="5,751,204,1324"/>
-<area shape="poly" title=" " alt="" coords="171,672,157,751,152,750,166,671"/>
-<area shape="rect" href="../../d1/df1/class_vehicle_adapter.html" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="229,705,437,1369"/>
-<area shape="poly" title=" " alt="" coords="271,672,277,705,271,706,266,673"/>
+<area shape="rect" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="122,119,314,692"/>
+<area shape="rect" href="../../d1/dcb/class_pacsim_adapter.html" title="Adapter class to interface with the Pacsim simulator for SLAM." alt="" coords="5,740,204,1368"/>
+<area shape="poly" title=" " alt="" coords="168,707,162,741,157,740,163,707"/>
+<area shape="rect" href="../../d1/df1/class_vehicle_adapter.html" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="229,755,437,1353"/>
+<area shape="poly" title=" " alt="" coords="274,706,282,755,277,756,269,707"/>
 <area shape="rect" title=" " alt="" coords="175,5,261,71"/>
 <area shape="poly" title=" " alt="" coords="221,85,221,119,215,119,215,85"/>
 </map>
@@ -123,15 +123,17 @@ Collaboration diagram for SLAMNode:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/d64/class_s_l_a_m_node__coll__graph.png" border="0" usemap="#a_s_l_a_m_node_coll__map" alt="Collaboration graph"/></div>
 <map name="a_s_l_a_m_node_coll__map" id="a_s_l_a_m_node_coll__map">
-<area shape="rect" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="96,566,280,1105"/>
-<area shape="rect" title=" " alt="" coords="5,353,91,418"/>
-<area shape="poly" title=" " alt="" coords="65,432,107,566,102,567,60,433"/>
-<area shape="rect" href="../../d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html" title=" " alt="" coords="115,268,261,503"/>
-<area shape="poly" title=" " alt="" coords="191,503,191,549,185,549,185,503"/>
-<area shape="rect" href="../../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="308,306,455,466"/>
-<area shape="poly" title=" " alt="" coords="374,466,355,543,325,612,291,679,286,676,320,610,349,541,369,465"/>
-<area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="308,5,455,205"/>
-<area shape="poly" title=" " alt="" coords="384,205,384,288,379,288,379,205"/>
+<area shape="rect" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="188,706,380,1279"/>
+<area shape="rect" title=" " alt="" coords="5,423,91,488"/>
+<area shape="poly" title=" " alt="" coords="61,502,80,569,105,642,146,734,191,822,186,825,141,736,100,644,75,570,56,503"/>
+<area shape="rect" href="../../d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html" title=" " alt="" coords="115,338,261,573"/>
+<area shape="poly" title=" " alt="" coords="188,573,186,667,186,682,188,689,182,690,181,682,181,667,183,572"/>
+<area shape="rect" href="../../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="297,376,444,536"/>
+<area shape="poly" title=" " alt="" coords="369,536,355,682,354,690,348,689,349,682,364,535"/>
+<area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="297,5,444,205"/>
+<area shape="poly" title=" " alt="" coords="373,205,373,359,368,359,368,205"/>
+<area shape="rect" href="../../d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="468,268,649,643"/>
+<area shape="poly" title=" " alt="" coords="482,644,462,683,391,816,386,814,458,681,477,641"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -153,8 +155,11 @@ Protected Member Functions</h2></td></tr>
 <tr class="memdesc:aac21a292783c53d1f41cfaa255b3e9bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback that updates everytime information is received from the perception module.  <br /></td></tr>
 <tr class="separator:aac21a292783c53d1f41cfaa255b3e9bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e228ce696c330a4a43ae5807c632df7" id="r_a6e228ce696c330a4a43ae5807c632df7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a6e228ce696c330a4a43ae5807c632df7">_velocities_subscription_callback</a> (const custom_interfaces::msg::Velocities &amp;msg)</td></tr>
-<tr class="memdesc:a6e228ce696c330a4a43ae5807c632df7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback that updates everytime information is received from vehicle state estimation node.  <br /></td></tr>
+<tr class="memdesc:a6e228ce696c330a4a43ae5807c632df7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback that updates everytime information is received from velocity estimation node.  <br /></td></tr>
 <tr class="separator:a6e228ce696c330a4a43ae5807c632df7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8e02138c8c98857ec5bd1d220a0cbf6" id="r_ad8e02138c8c98857ec5bd1d220a0cbf6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#ad8e02138c8c98857ec5bd1d220a0cbf6">_imu_subscription_callback</a> (const sensor_msgs::msg::Imu &amp;msg)</td></tr>
+<tr class="memdesc:ad8e02138c8c98857ec5bd1d220a0cbf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback that updates everytime information is received from the IMU.  <br /></td></tr>
+<tr class="separator:ad8e02138c8c98857ec5bd1d220a0cbf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a695c062e0021d33622b6c1a59cee0379" id="r_a695c062e0021d33622b6c1a59cee0379"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379">_publish_vehicle_pose</a> ()</td></tr>
 <tr class="memdesc:a695c062e0021d33622b6c1a59cee0379"><td class="mdescLeft">&#160;</td><td class="mdescRight">publishes the localization ('vehicle_pose') to the topic vehicle_pose  <br /></td></tr>
 <tr class="separator:a695c062e0021d33622b6c1a59cee0379"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -176,6 +181,9 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
+<tr class="memitem:a29d793f24b215c61acf7c2c19d525cf8" id="r_a29d793f24b215c61acf7c2c19d525cf8"><td class="memItemLeft" align="right" valign="top">rclcpp::CallbackGroup::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a29d793f24b215c61acf7c2c19d525cf8">_callback_group_</a></td></tr>
+<tr class="memdesc:a29d793f24b215c61acf7c2c19d525cf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback group for subscriptions, used to control if they are concurrent or not.  <br /></td></tr>
+<tr class="separator:a29d793f24b215c61acf7c2c19d525cf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1721a1eea113db4ac143c79ad95fa493" id="r_a1721a1eea113db4ac143c79ad95fa493"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; custom_interfaces::msg::PerceptionOutput &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a1721a1eea113db4ac143c79ad95fa493">_perception_subscription_</a></td></tr>
 <tr class="separator:a1721a1eea113db4ac143c79ad95fa493"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a47984fc565819b847ece298a12046994" id="r_a47984fc565819b847ece298a12046994"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; custom_interfaces::msg::Velocities &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a47984fc565819b847ece298a12046994">_velocities_subscription_</a></td></tr>
@@ -186,15 +194,18 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:ad46f24819e0d4c5d23081a8a78a96911"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a000a98b07d79146cab0fb142df0d64b0" id="r_a000a98b07d79146cab0fb142df0d64b0"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; visualization_msgs::msg::MarkerArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a000a98b07d79146cab0fb142df0d64b0">_visualization_map_publisher_</a></td></tr>
 <tr class="separator:a000a98b07d79146cab0fb142df0d64b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab46f66a1c06470f244e49962d2b7a242" id="r_ab46f66a1c06470f244e49962d2b7a242"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; visualization_msgs::msg::MarkerArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#ab46f66a1c06470f244e49962d2b7a242">_visualization_perception_map_publisher_</a></td></tr>
-<tr class="separator:ab46f66a1c06470f244e49962d2b7a242"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67986bc456afee0edf3fe75e150310b7" id="r_a67986bc456afee0edf3fe75e150310b7"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; visualization_msgs::msg::Marker &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a67986bc456afee0edf3fe75e150310b7">_position_visualization_publisher_</a></td></tr>
+<tr class="memdesc:a67986bc456afee0edf3fe75e150310b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes the vehicle position.  <br /></td></tr>
+<tr class="separator:a67986bc456afee0edf3fe75e150310b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a582137f906569a66432b0f0199f4ea45" id="r_a582137f906569a66432b0f0199f4ea45"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; visualization_msgs::msg::MarkerArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a582137f906569a66432b0f0199f4ea45">_trajectory_visualization_publisher_</a></td></tr>
+<tr class="memdesc:a582137f906569a66432b0f0199f4ea45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes full vehicle trajectory.  <br /></td></tr>
+<tr class="separator:a582137f906569a66432b0f0199f4ea45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1b1ab9005204ecb332cf7a83e4ae757" id="r_ae1b1ab9005204ecb332cf7a83e4ae757"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; visualization_msgs::msg::MarkerArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#ae1b1ab9005204ecb332cf7a83e4ae757">_associations_visualization_publisher_</a></td></tr>
 <tr class="separator:ae1b1ab9005204ecb332cf7a83e4ae757"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa8234fb7666d11d542ac4ab76504615" id="r_aaa8234fb7666d11d542ac4ab76504615"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; visualization_msgs::msg::Marker &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#aaa8234fb7666d11d542ac4ab76504615">_position_publisher_</a></td></tr>
-<tr class="separator:aaa8234fb7666d11d542ac4ab76504615"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab50e60d83b64ce5d918d0bb825f279d1" id="r_ab50e60d83b64ce5d918d0bb825f279d1"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; std_msgs::msg::Float64MultiArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#ab50e60d83b64ce5d918d0bb825f279d1">_execution_time_publisher_</a></td></tr>
 <tr class="separator:ab50e60d83b64ce5d918d0bb825f279d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a927581e5015a831614e83747817fad89" id="r_a927581e5015a831614e83747817fad89"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; std_msgs::msg::Float64MultiArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a927581e5015a831614e83747817fad89">_covariance_publisher_</a></td></tr>
+<tr class="memdesc:a927581e5015a831614e83747817fad89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes the covariance of the pose.  <br /></td></tr>
 <tr class="separator:a927581e5015a831614e83747817fad89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5d94ee3a9cfc2d1eba7f9a65ca00ad0" id="r_ab5d94ee3a9cfc2d1eba7f9a65ca00ad0"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; std_msgs::msg::Float64 &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#ab5d94ee3a9cfc2d1eba7f9a65ca00ad0">_lap_counter_publisher_</a></td></tr>
 <tr class="separator:ab5d94ee3a9cfc2d1eba7f9a65ca00ad0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -221,7 +232,6 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:adce67daf7d4e3505b834cd3f46e12120" id="r_adce67daf7d4e3505b834cd3f46e12120"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#adce67daf7d4e3505b834cd3f46e12120">_track_map_</a></td></tr>
 <tr class="separator:adce67daf7d4e3505b834cd3f46e12120"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a834717deba8f26cf0bcab4bcf7ba96df" id="r_a834717deba8f26cf0bcab4bcf7ba96df"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a834717deba8f26cf0bcab4bcf7ba96df">_associations_</a></td></tr>
-<tr class="memdesc:a834717deba8f26cf0bcab4bcf7ba96df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associations of the cones in the map.  <br /></td></tr>
 <tr class="separator:a834717deba8f26cf0bcab4bcf7ba96df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7adfcd99e21d33e67b885bdccd80a1b2" id="r_a7adfcd99e21d33e67b885bdccd80a1b2"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a7adfcd99e21d33e67b885bdccd80a1b2">_observations_global_</a></td></tr>
 <tr class="memdesc:a7adfcd99e21d33e67b885bdccd80a1b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global observations of the cones.  <br /></td></tr>
@@ -240,11 +250,16 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a49291ebab4b682076348626ed832c989" id="r_a49291ebab4b682076348626ed832c989"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a49291ebab4b682076348626ed832c989">_adapter_name_</a></td></tr>
 <tr class="memdesc:a49291ebab4b682076348626ed832c989"><td class="mdescLeft">&#160;</td><td class="mdescRight">flag to start the mission  <br /></td></tr>
 <tr class="separator:a49291ebab4b682076348626ed832c989"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26f45eed031f44c0414613569ee061a7" id="r_a26f45eed031f44c0414613569ee061a7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a26f45eed031f44c0414613569ee061a7">_vehicle_frame_id_</a></td></tr>
+<tr class="memdesc:a26f45eed031f44c0414613569ee061a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frame id of the vehicle for the transform.  <br /></td></tr>
+<tr class="separator:a26f45eed031f44c0414613569ee061a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19578b021b18090a348c154142842fcf" id="r_a19578b021b18090a348c154142842fcf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html">SLAMParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a19578b021b18090a348c154142842fcf">_params_</a></td></tr>
+<tr class="separator:a19578b021b18090a348c154142842fcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class representing the main SLAM node responsible for publishing the calculated pose and map. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00033">33</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00035">35</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8543b5442579202f4ead10fbe347033c" name="a8543b5442579202f4ead10fbe347033c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8543b5442579202f4ead10fbe347033c">&#9670;&#160;</a></span>SLAMNode()</h2>
@@ -270,38 +285,91 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/d84/class_s_l_a_m_node_a8543b5442579202f4ead10fbe347033c_cgraph.png" border="0" usemap="#ad8/d84/class_s_l_a_m_node_a8543b5442579202f4ead10fbe347033c_cgraph" alt=""/></div>
 <map name="ad8/d84/class_s_l_a_m_node_a8543b5442579202f4ead10fbe347033c_cgraph" id="ad8/d84/class_s_l_a_m_node_a8543b5442579202f4ead10fbe347033c_cgraph">
-<area shape="rect" title="Constructor that uses the parameters structure." alt="" coords="5,254,169,280"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#aac21a292783c53d1f41cfaa255b3e9bf" title="Callback that updates everytime information is received from the perception module." alt="" coords="217,193,379,234"/>
-<area shape="poly" title=" " alt="" coords="140,251,201,235,202,241,142,256"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a6e228ce696c330a4a43ae5807c632df7" title="Callback that updates everytime information is received from vehicle state estimation node." alt="" coords="219,279,377,319"/>
-<area shape="poly" title=" " alt="" coords="169,277,204,282,203,287,168,282"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#ad85455fe3aa893627d226f26a16d0390" title="Checks if the mission is finished." alt="" coords="433,5,597,46"/>
-<area shape="poly" title=" " alt="" coords="309,191,355,126,388,89,425,57,434,51,437,56,429,61,392,93,359,129,314,194"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a91b66a755ba32f65e90666fe56bc9629" title="Publishes the visualization of the associations by data association." alt="" coords="443,71,586,111"/>
-<area shape="poly" title=" " alt="" coords="323,191,370,157,426,122,438,116,441,120,428,127,373,161,326,195"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a3e323b58014b3f31d0574d4be9ab092f" title="publishes the lap counter" alt="" coords="443,136,586,177"/>
-<area shape="poly" title=" " alt="" coords="376,190,427,177,429,182,378,195"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a976a75ca26892057e2b0c2ea11a25496" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="427,201,602,227"/>
-<area shape="poly" title=" " alt="" coords="380,211,411,211,411,216,380,216"/>
+<area shape="rect" title="Constructor that uses the parameters structure." alt="" coords="5,242,169,268"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#aac21a292783c53d1f41cfaa255b3e9bf" title="Callback that updates everytime information is received from the perception module." alt="" coords="217,169,379,210"/>
+<area shape="poly" title=" " alt="" coords="130,239,215,213,216,218,132,244"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a6e228ce696c330a4a43ae5807c632df7" title="Callback that updates everytime information is received from velocity estimation node." alt="" coords="219,267,377,307"/>
+<area shape="poly" title=" " alt="" coords="169,265,204,270,203,275,168,270"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#ad85455fe3aa893627d226f26a16d0390" title="Checks if the mission is finished." alt="" coords="433,169,597,210"/>
+<area shape="poly" title=" " alt="" coords="380,187,417,187,417,192,380,192"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a91b66a755ba32f65e90666fe56bc9629" title="Publishes the visualization of the associations by data association." alt="" coords="443,235,586,275"/>
+<area shape="poly" title=" " alt="" coords="368,208,431,227,430,232,367,213"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a3e323b58014b3f31d0574d4be9ab092f" title="publishes the lap counter" alt="" coords="443,5,586,46"/>
+<area shape="poly" title=" " alt="" coords="312,167,359,112,391,82,425,55,432,51,435,56,429,60,394,86,363,116,316,171"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a976a75ca26892057e2b0c2ea11a25496" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="427,70,602,96"/>
+<area shape="poly" title=" " alt="" coords="325,167,371,135,426,105,441,99,443,104,428,109,373,139,328,171"/>
 <area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="443,300,586,341"/>
-<area shape="poly" title=" " alt="" coords="333,232,428,286,440,291,438,296,426,291,330,237"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a4fe92c9a730b5fd9c1f4ebc9b007e4ae" title="Finish the mission." alt="" coords="452,250,577,276"/>
-<area shape="poly" title=" " alt="" coords="380,230,441,244,440,249,379,235"/>
-<area shape="rect" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="682,161,847,202"/>
-<area shape="poly" title=" " alt="" coords="602,200,666,191,667,197,603,205"/>
-<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="650,227,879,267"/>
-<area shape="poly" title=" " alt="" coords="603,223,635,227,634,232,602,228"/>
-<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="927,193,1112,234"/>
-<area shape="poly" title=" " alt="" coords="879,229,911,225,912,230,879,235"/>
-<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="927,259,1112,299"/>
-<area shape="poly" title=" " alt="" coords="879,259,912,263,911,268,879,264"/>
-<area shape="poly" title=" " alt="" coords="377,304,428,309,427,314,377,309"/>
+<area shape="poly" title=" " alt="" coords="326,208,381,252,428,285,440,291,438,296,426,289,378,256,323,213"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a4fe92c9a730b5fd9c1f4ebc9b007e4ae" title="Finish the mission." alt="" coords="452,120,577,145"/>
+<area shape="poly" title=" " alt="" coords="376,166,448,147,449,152,378,171"/>
+<area shape="rect" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="682,63,847,103"/>
+<area shape="poly" title=" " alt="" coords="603,80,667,80,667,86,603,86"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="650,235,879,275"/>
+<area shape="poly" title=" " alt="" coords="579,94,604,105,644,131,681,162,739,221,735,225,677,166,641,135,601,109,577,99"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="927,235,1112,275"/>
+<area shape="poly" title=" " alt="" coords="879,252,911,252,911,258,879,258"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="927,300,1112,341"/>
+<area shape="poly" title=" " alt="" coords="847,273,923,293,922,298,846,279"/>
+<area shape="poly" title=" " alt="" coords="586,299,669,277,670,282,588,304"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966" title="Converts a position to a marker." alt="" coords="672,300,857,341"/>
+<area shape="poly" title=" " alt="" coords="587,318,656,318,656,323,587,323"/>
+<area shape="poly" title=" " alt="" coords="846,297,922,277,923,282,847,302"/>
+<area shape="poly" title=" " alt="" coords="858,318,911,318,911,323,858,323"/>
+<area shape="poly" title=" " alt="" coords="378,296,428,304,427,310,377,302"/>
 </map>
 </div>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad8e02138c8c98857ec5bd1d220a0cbf6" name="ad8e02138c8c98857ec5bd1d220a0cbf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8e02138c8c98857ec5bd1d220a0cbf6">&#9670;&#160;</a></span>_imu_subscription_callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SLAMNode::_imu_subscription_callback </td>
+          <td>(</td>
+          <td class="paramtype">const sensor_msgs::msg::Imu &amp;&#160;</td>
+          <td class="paramname"><em>msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback that updates everytime information is received from the IMU. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msg</td><td>Message containing the IMU data </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../de/da0/slam__node_8cpp_source.html#l00261">261</a> of file <a class="el" href="../../de/da0/slam__node_8cpp_source.html">slam_node.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d8/d84/class_s_l_a_m_node_ad8e02138c8c98857ec5bd1d220a0cbf6_icgraph.png" border="0" usemap="#ad8/d84/class_s_l_a_m_node_ad8e02138c8c98857ec5bd1d220a0cbf6_icgraph" alt=""/></div>
+<map name="ad8/d84/class_s_l_a_m_node_ad8e02138c8c98857ec5bd1d220a0cbf6_icgraph" id="ad8/d84/class_s_l_a_m_node_ad8e02138c8c98857ec5bd1d220a0cbf6_icgraph">
+<area shape="rect" title="Callback that updates everytime information is received from the IMU." alt="" coords="488,5,688,46"/>
+<area shape="rect" href="../../d1/dcb/class_pacsim_adapter.html#a066611e620ab033c8f5399f8305847da" title="Callback for simulated IMU data from pacsim." alt="" coords="259,5,440,46"/>
+<area shape="poly" title=" " alt="" coords="472,28,441,28,441,23,472,23"/>
+<area shape="rect" href="../../d1/dcb/class_pacsim_adapter.html#ad557c789fd4da581c9d487abb5af4dc5" title="Constructor of the pacsim adapter node." alt="" coords="5,13,211,39"/>
+<area shape="poly" title=" " alt="" coords="243,28,211,28,211,23,243,23"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="ad85455fe3aa893627d226f26a16d0390" name="ad85455fe3aa893627d226f26a16d0390"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad85455fe3aa893627d226f26a16d0390">&#9670;&#160;</a></span>_is_mission_finished()</h2>
 
@@ -330,7 +398,7 @@ Here is the call graph for this function:</div>
 <dd>
 false if the mission is not finished </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/da0/slam__node_8cpp_source.html#l00391">391</a> of file <a class="el" href="../../de/da0/slam__node_8cpp_source.html">slam_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/da0/slam__node_8cpp_source.html#l00436">436</a> of file <a class="el" href="../../de/da0/slam__node_8cpp_source.html">slam_node.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -382,7 +450,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/da0/slam__node_8cpp_source.html#l00107">107</a> of file <a class="el" href="../../de/da0/slam__node_8cpp_source.html">slam_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/da0/slam__node_8cpp_source.html#l00117">117</a> of file <a class="el" href="../../de/da0/slam__node_8cpp_source.html">slam_node.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -401,14 +469,19 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="138,204,217,237,231,242,230,247,215,241,136,209"/>
 <area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a4fe92c9a730b5fd9c1f4ebc9b007e4ae" title="Finish the mission." alt="" coords="241,316,366,341"/>
 <area shape="poly" title=" " alt="" coords="107,205,154,253,184,279,217,301,230,307,228,312,214,305,181,283,150,257,103,208"/>
-<area shape="rect" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="471,161,635,202"/>
-<area shape="poly" title=" " alt="" coords="391,200,455,191,456,197,392,205"/>
-<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="439,227,667,267"/>
-<area shape="poly" title=" " alt="" coords="392,223,424,227,423,232,391,228"/>
-<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="715,193,901,234"/>
-<area shape="poly" title=" " alt="" coords="667,229,700,225,700,230,668,235"/>
-<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="715,259,901,299"/>
-<area shape="poly" title=" " alt="" coords="668,259,700,263,700,268,667,264"/>
+<area shape="rect" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="471,156,635,197"/>
+<area shape="poly" title=" " alt="" coords="391,198,455,188,456,194,392,203"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="439,221,667,262"/>
+<area shape="poly" title=" " alt="" coords="392,221,423,224,423,230,391,226"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="715,221,901,262"/>
+<area shape="poly" title=" " alt="" coords="668,239,700,239,700,244,668,244"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="715,287,901,327"/>
+<area shape="poly" title=" " alt="" coords="636,260,712,280,711,285,635,265"/>
+<area shape="poly" title=" " alt="" coords="375,260,423,254,424,260,376,265"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966" title="Converts a position to a marker." alt="" coords="461,287,646,327"/>
+<area shape="poly" title=" " alt="" coords="376,279,446,289,445,294,375,284"/>
+<area shape="poly" title=" " alt="" coords="635,283,711,264,712,269,636,289"/>
+<area shape="poly" title=" " alt="" coords="646,304,700,304,700,310,646,310"/>
 </map>
 </div>
 <div class="dynheader">
@@ -453,7 +526,7 @@ Here is the caller graph for this function:</div>
 
 <p>Publishes the visualization of the associations by data association. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/da0/slam__node_8cpp_source.html#l00338">338</a> of file <a class="el" href="../../de/da0/slam__node_8cpp_source.html">slam_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/da0/slam__node_8cpp_source.html#l00382">382</a> of file <a class="el" href="../../de/da0/slam__node_8cpp_source.html">slam_node.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -498,7 +571,7 @@ Here is the caller graph for this function:</div>
 
 <p>publishes the covariance of the state </p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/da0/slam__node_8cpp_source.html#l00310">310</a> of file <a class="el" href="../../de/da0/slam__node_8cpp_source.html">slam_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/da0/slam__node_8cpp_source.html#l00354">354</a> of file <a class="el" href="../../de/da0/slam__node_8cpp_source.html">slam_node.cpp</a>.</p>
 
 </div>
 </div>
@@ -527,7 +600,7 @@ Here is the caller graph for this function:</div>
 
 <p>publishes the lap counter </p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/da0/slam__node_8cpp_source.html#l00332">332</a> of file <a class="el" href="../../de/da0/slam__node_8cpp_source.html">slam_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/da0/slam__node_8cpp_source.html#l00376">376</a> of file <a class="el" href="../../de/da0/slam__node_8cpp_source.html">slam_node.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -572,7 +645,7 @@ Here is the caller graph for this function:</div>
 
 <p>publishes the map ('track_map') to the topic track_map </p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/da0/slam__node_8cpp_source.html#l00283">283</a> of file <a class="el" href="../../de/da0/slam__node_8cpp_source.html">slam_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/da0/slam__node_8cpp_source.html#l00327">327</a> of file <a class="el" href="../../de/da0/slam__node_8cpp_source.html">slam_node.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -633,27 +706,49 @@ Here is the caller graph for this function:</div>
 
 <p>publishes the localization ('vehicle_pose') to the topic vehicle_pose </p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/da0/slam__node_8cpp_source.html#l00252">252</a> of file <a class="el" href="../../de/da0/slam__node_8cpp_source.html">slam_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/da0/slam__node_8cpp_source.html#l00280">280</a> of file <a class="el" href="../../de/da0/slam__node_8cpp_source.html">slam_node.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d8/d84/class_s_l_a_m_node_a695c062e0021d33622b6c1a59cee0379_cgraph.png" border="0" usemap="#ad8/d84/class_s_l_a_m_node_a695c062e0021d33622b6c1a59cee0379_cgraph" alt=""/></div>
+<map name="ad8/d84/class_s_l_a_m_node_a695c062e0021d33622b6c1a59cee0379_cgraph" id="ad8/d84/class_s_l_a_m_node_a695c062e0021d33622b6c1a59cee0379_cgraph">
+<area shape="rect" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="5,39,149,79"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="197,5,425,46"/>
+<area shape="poly" title=" " alt="" coords="149,46,181,42,182,47,149,51"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966" title="Converts a position to a marker." alt="" coords="218,71,404,111"/>
+<area shape="poly" title=" " alt="" coords="149,66,203,74,202,79,149,71"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="473,5,658,46"/>
+<area shape="poly" title=" " alt="" coords="425,23,457,23,457,28,425,28"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="473,71,658,111"/>
+<area shape="poly" title=" " alt="" coords="394,44,470,64,468,69,392,49"/>
+<area shape="poly" title=" " alt="" coords="392,67,468,48,470,53,394,73"/>
+<area shape="poly" title=" " alt="" coords="404,88,458,88,458,94,404,94"/>
+</map>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/d84/class_s_l_a_m_node_a695c062e0021d33622b6c1a59cee0379_icgraph.png" border="0" usemap="#ad8/d84/class_s_l_a_m_node_a695c062e0021d33622b6c1a59cee0379_icgraph" alt=""/></div>
 <map name="ad8/d84/class_s_l_a_m_node_a695c062e0021d33622b6c1a59cee0379_icgraph" id="ad8/d84/class_s_l_a_m_node_a695c062e0021d33622b6c1a59cee0379_icgraph">
-<area shape="rect" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="682,80,826,120"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#aac21a292783c53d1f41cfaa255b3e9bf" title="Callback that updates everytime information is received from the perception module." alt="" coords="472,46,634,87"/>
-<area shape="poly" title=" " alt="" coords="666,88,634,83,635,77,667,83"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a6e228ce696c330a4a43ae5807c632df7" title="Callback that updates everytime information is received from vehicle state estimation node." alt="" coords="475,112,632,152"/>
-<area shape="poly" title=" " alt="" coords="667,116,633,122,632,117,666,111"/>
-<area shape="rect" href="../../d1/dcb/class_pacsim_adapter.html#a55a7901c609a7ad1eeced10bb2ce466f" title="Callback for simulated perception detections from pacsim." alt="" coords="259,5,424,61"/>
-<area shape="poly" title=" " alt="" coords="456,54,424,49,425,44,457,49"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a8543b5442579202f4ead10fbe347033c" title="Constructor that uses the parameters structure." alt="" coords="260,86,423,111"/>
-<area shape="poly" title=" " alt="" coords="457,84,424,89,423,84,456,78"/>
-<area shape="rect" href="../../d1/dcb/class_pacsim_adapter.html#ad557c789fd4da581c9d487abb5af4dc5" title="Constructor of the pacsim adapter node." alt="" coords="5,86,211,111"/>
-<area shape="poly" title=" " alt="" coords="244,63,158,88,156,82,243,58"/>
-<area shape="poly" title=" " alt="" coords="459,120,423,114,424,109,459,114"/>
-<area shape="rect" href="../../d1/dcb/class_pacsim_adapter.html#a651d389ab08e146b604c9b833cf5c0a4" title="Callback for simulated velocities from pacsim." alt="" coords="259,136,424,192"/>
-<area shape="poly" title=" " alt="" coords="459,149,425,154,424,149,459,143"/>
-<area shape="poly" title=" " alt="" coords="243,139,156,115,158,109,244,134"/>
+<area shape="rect" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="720,85,864,126"/>
+<area shape="rect" href="../../d1/df1/class_vehicle_adapter.html#ad89d6e33ccd2f8ec13b936ef2ec56179" title="LiDAR odometry subscription callback." alt="" coords="512,5,670,61"/>
+<area shape="poly" title=" " alt="" coords="718,82,670,64,672,59,720,77"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#aac21a292783c53d1f41cfaa255b3e9bf" title="Callback that updates everytime information is received from the perception module." alt="" coords="510,85,672,126"/>
+<area shape="poly" title=" " alt="" coords="704,108,673,108,673,103,704,103"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a6e228ce696c330a4a43ae5807c632df7" title="Callback that updates everytime information is received from velocity estimation node." alt="" coords="513,150,670,191"/>
+<area shape="poly" title=" " alt="" coords="714,133,657,152,655,147,712,128"/>
+<area shape="rect" href="../../d1/df1/class_vehicle_adapter.html#ab308f8a9d24015aae1274f75e75f8e9f" title="Constructor of the vehicle adapter node." alt="" coords="259,20,462,46"/>
+<area shape="poly" title=" " alt="" coords="497,36,463,36,463,31,497,31"/>
+<area shape="rect" href="../../d1/dcb/class_pacsim_adapter.html#a55a7901c609a7ad1eeced10bb2ce466f" title="Callback for simulated perception detections from pacsim." alt="" coords="278,73,443,129"/>
+<area shape="poly" title=" " alt="" coords="494,106,443,105,443,100,494,101"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a8543b5442579202f4ead10fbe347033c" title="Constructor that uses the parameters structure." alt="" coords="279,154,442,179"/>
+<area shape="poly" title=" " alt="" coords="503,133,463,144,417,156,415,151,461,139,501,128"/>
+<area shape="rect" href="../../d1/dcb/class_pacsim_adapter.html#ad557c789fd4da581c9d487abb5af4dc5" title="Constructor of the pacsim adapter node." alt="" coords="5,154,211,179"/>
+<area shape="poly" title=" " alt="" coords="263,129,161,156,160,150,262,124"/>
+<area shape="poly" title=" " alt="" coords="497,172,442,171,442,165,497,166"/>
+<area shape="rect" href="../../d1/dcb/class_pacsim_adapter.html#a651d389ab08e146b604c9b833cf5c0a4" title="Callback for simulated velocities from pacsim." alt="" coords="278,204,443,260"/>
+<area shape="poly" title=" " alt="" coords="498,198,444,212,443,207,497,193"/>
+<area shape="poly" title=" " alt="" coords="262,209,160,183,161,177,263,204"/>
 </map>
 </div>
 
@@ -683,23 +778,33 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Callback that updates everytime information is received from vehicle state estimation node. </p>
+<p>Callback that updates everytime information is received from velocity estimation node. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">msg</td><td>Message containing the velocitites of the vehicle </td></tr>
+    <tr><td class="paramname">msg</td><td>Message containing the velocities of the vehicle </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/da0/slam__node_8cpp_source.html#l00198">198</a> of file <a class="el" href="../../de/da0/slam__node_8cpp_source.html">slam_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/da0/slam__node_8cpp_source.html#l00220">220</a> of file <a class="el" href="../../de/da0/slam__node_8cpp_source.html">slam_node.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/d84/class_s_l_a_m_node_a6e228ce696c330a4a43ae5807c632df7_cgraph.png" border="0" usemap="#ad8/d84/class_s_l_a_m_node_a6e228ce696c330a4a43ae5807c632df7_cgraph" alt=""/></div>
 <map name="ad8/d84/class_s_l_a_m_node_a6e228ce696c330a4a43ae5807c632df7_cgraph" id="ad8/d84/class_s_l_a_m_node_a6e228ce696c330a4a43ae5807c632df7_cgraph">
-<area shape="rect" title="Callback that updates everytime information is received from vehicle state estimation node." alt="" coords="5,5,163,46"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="211,5,354,46"/>
-<area shape="poly" title=" " alt="" coords="163,23,195,23,195,28,163,28"/>
+<area shape="rect" title="Callback that updates everytime information is received from velocity estimation node." alt="" coords="5,39,163,79"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="211,39,354,79"/>
+<area shape="poly" title=" " alt="" coords="163,56,195,56,195,62,163,62"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="402,5,630,46"/>
+<area shape="poly" title=" " alt="" coords="354,46,386,42,387,47,355,51"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966" title="Converts a position to a marker." alt="" coords="424,71,609,111"/>
+<area shape="poly" title=" " alt="" coords="355,66,408,74,407,79,354,71"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="678,5,864,46"/>
+<area shape="poly" title=" " alt="" coords="631,23,663,23,663,28,631,28"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="678,71,864,111"/>
+<area shape="poly" title=" " alt="" coords="599,44,675,64,674,69,598,49"/>
+<area shape="poly" title=" " alt="" coords="598,67,674,48,675,53,599,73"/>
+<area shape="poly" title=" " alt="" coords="609,88,663,88,663,94,609,94"/>
 </map>
 </div>
 <div class="dynheader">
@@ -707,7 +812,7 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/d84/class_s_l_a_m_node_a6e228ce696c330a4a43ae5807c632df7_icgraph.png" border="0" usemap="#ad8/d84/class_s_l_a_m_node_a6e228ce696c330a4a43ae5807c632df7_icgraph" alt=""/></div>
 <map name="ad8/d84/class_s_l_a_m_node_a6e228ce696c330a4a43ae5807c632df7_icgraph" id="ad8/d84/class_s_l_a_m_node_a6e228ce696c330a4a43ae5807c632df7_icgraph">
-<area shape="rect" title="Callback that updates everytime information is received from vehicle state estimation node." alt="" coords="472,46,629,87"/>
+<area shape="rect" title="Callback that updates everytime information is received from velocity estimation node." alt="" coords="472,46,629,87"/>
 <area shape="rect" href="../../d1/dcb/class_pacsim_adapter.html#a651d389ab08e146b604c9b833cf5c0a4" title="Callback for simulated velocities from pacsim." alt="" coords="259,5,424,61"/>
 <area shape="poly" title=" " alt="" coords="456,54,424,49,425,44,457,49"/>
 <area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a8543b5442579202f4ead10fbe347033c" title="Constructor that uses the parameters structure." alt="" coords="260,86,423,111"/>
@@ -781,7 +886,7 @@ Here is the caller graph for this function:</div>
 
 <p>Initialize functions @description This method is used to initialize things that require the constructed node. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/da0/slam__node_8cpp_source.html#l00103">103</a> of file <a class="el" href="../../de/da0/slam__node_8cpp_source.html">slam_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/da0/slam__node_8cpp_source.html#l00109">109</a> of file <a class="el" href="../../de/da0/slam__node_8cpp_source.html">slam_node.cpp</a>.</p>
 
 </div>
 </div>
@@ -808,7 +913,7 @@ Here is the caller graph for this function:</div>
 
 <p>flag to start the mission </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00069">69</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00078">78</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -832,9 +937,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Associations of the cones in the map. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00060">60</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00069">69</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -858,7 +961,33 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00044">44</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00050">50</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a29d793f24b215c61acf7c2c19d525cf8" name="a29d793f24b215c61acf7c2c19d525cf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29d793f24b215c61acf7c2c19d525cf8">&#9670;&#160;</a></span>_callback_group_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::CallbackGroup::SharedPtr SLAMNode::_callback_group_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback group for subscriptions, used to control if they are concurrent or not. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00037">37</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -882,7 +1011,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00047">47</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p>Publishes the covariance of the pose. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00053">53</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -906,7 +1037,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00046">46</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00051">51</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -930,7 +1061,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00065">65</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00074">74</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -954,7 +1085,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00068">68</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00077">77</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -978,7 +1109,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00048">48</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00055">55</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -1002,7 +1133,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00050">50</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00057">57</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -1028,7 +1159,7 @@ Here is the caller graph for this function:</div>
 
 <p>Coordinates of the cones in the map. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00062">62</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00071">71</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -1052,7 +1183,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00039">39</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00043">43</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -1076,7 +1207,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00067">67</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00076">76</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -1102,7 +1233,7 @@ Here is the caller graph for this function:</div>
 
 <p>Global observations of the cones. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00061">61</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00070">70</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -1126,7 +1257,31 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00051">51</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00059">59</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a19578b021b18090a348c154142842fcf" name="a19578b021b18090a348c154142842fcf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19578b021b18090a348c154142842fcf">&#9670;&#160;</a></span>_params_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html">SLAMParameters</a> SLAMNode::_params_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00080">80</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -1150,7 +1305,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00049">49</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00056">56</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -1174,7 +1329,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00057">57</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00066">66</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -1198,12 +1353,12 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00036">36</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00040">40</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aaa8234fb7666d11d542ac4ab76504615" name="aaa8234fb7666d11d542ac4ab76504615"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa8234fb7666d11d542ac4ab76504615">&#9670;&#160;</a></span>_position_publisher_</h2>
+<a id="a67986bc456afee0edf3fe75e150310b7" name="a67986bc456afee0edf3fe75e150310b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67986bc456afee0edf3fe75e150310b7">&#9670;&#160;</a></span>_position_visualization_publisher_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1212,7 +1367,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">rclcpp::Publisher&lt;visualization_msgs::msg::Marker&gt;::SharedPtr SLAMNode::_position_publisher_</td>
+          <td class="memname">rclcpp::Publisher&lt;visualization_msgs::msg::Marker&gt;::SharedPtr SLAMNode::_position_visualization_publisher_</td>
         </tr>
       </table>
   </td>
@@ -1222,7 +1377,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00045">45</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p>Publishes the vehicle position. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00046">46</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -1248,7 +1405,7 @@ Here is the caller graph for this function:</div>
 
 <p>SLAM solver object. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00056">56</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00065">65</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -1272,7 +1429,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00054">54</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00063">63</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -1298,7 +1455,7 @@ Here is the caller graph for this function:</div>
 
 <p>timer </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00055">55</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00064">64</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -1322,7 +1479,59 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00059">59</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00068">68</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a582137f906569a66432b0f0199f4ea45" name="a582137f906569a66432b0f0199f4ea45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a582137f906569a66432b0f0199f4ea45">&#9670;&#160;</a></span>_trajectory_visualization_publisher_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Publisher&lt;visualization_msgs::msg::MarkerArray&gt;::SharedPtr SLAMNode::_trajectory_visualization_publisher_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Publishes full vehicle trajectory. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00048">48</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a26f45eed031f44c0414613569ee061a7" name="a26f45eed031f44c0414613569ee061a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26f45eed031f44c0414613569ee061a7">&#9670;&#160;</a></span>_vehicle_frame_id_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string SLAMNode::_vehicle_frame_id_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Frame id of the vehicle for the transform. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00079">79</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -1346,7 +1555,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00063">63</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00072">72</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -1370,7 +1579,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00038">38</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00042">42</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -1394,7 +1603,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00058">58</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00067">67</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -1418,7 +1627,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00037">37</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00041">41</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -1442,31 +1651,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00040">40</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ab46f66a1c06470f244e49962d2b7a242" name="ab46f66a1c06470f244e49962d2b7a242"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab46f66a1c06470f244e49962d2b7a242">&#9670;&#160;</a></span>_visualization_perception_map_publisher_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">rclcpp::Publisher&lt;visualization_msgs::msg::MarkerArray&gt;::SharedPtr SLAMNode::_visualization_perception_map_publisher_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00042">42</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00044">44</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -1490,7 +1675,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00052">52</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html#l00061">61</a> of file <a class="el" href="../../d4/d8a/slam__node_8hpp_source.html">slam_node.hpp</a>.</p>
 
 </div>
 </div>

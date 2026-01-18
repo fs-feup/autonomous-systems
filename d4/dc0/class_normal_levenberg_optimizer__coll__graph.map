@@ -1,7 +1,7 @@
 <map id="NormalLevenbergOptimizer" name="NormalLevenbergOptimizer">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,612,201,718"/>
-<area shape="rect" id="Node000002" href="$df/dc2/class_base_optimizer.html" title=" " alt="" coords="41,458,165,563"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,578,106,613,101,613,101,578"/>
-<area shape="rect" id="Node000003" href="$d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="13,5,194,395"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="106,394,106,441,101,441,101,394"/>
+<area shape="rect" id="Node000001" title="Normal Levenberg&#45;Marquardt optimizer for graph SLAM." alt="" coords="5,658,201,783"/>
+<area shape="rect" id="Node000002" href="$df/dc2/class_base_optimizer.html" title="Base class for graph optimizers." alt="" coords="41,443,165,608"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,623,106,658,101,658,101,623"/>
+<area shape="rect" id="Node000003" href="$d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="13,5,194,380"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="106,380,106,426,101,426,101,380"/>
 </map>

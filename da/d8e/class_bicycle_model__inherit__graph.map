@@ -1,5 +1,7 @@
 <map id="BicycleModel" name="BicycleModel">
-<area shape="rect" id="Node000001" title="Simple bicycle model structure." alt="" coords="5,339,151,844"/>
-<area shape="rect" id="Node000002" href="$d6/dbc/class_vehicle_model.html" title="Vehicle model interface." alt="" coords="13,5,143,291"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,306,81,339,75,339,75,306"/>
+<area shape="rect" id="Node000001" title="Simple bicycle model structure." alt="" coords="86,339,231,804"/>
+<area shape="rect" id="Node000002" href="$d6/dbc/class_vehicle_model.html" title="Vehicle model interface." alt="" coords="5,5,136,291"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,305,113,338,108,339,101,306"/>
+<area shape="rect" id="Node000003" href="$db/d7d/class_s2_v_model.html" title="Interface for models that convert data from sensor reference frame to vehicle reference frame and vic..." alt="" coords="160,78,333,218"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="232,233,210,340,204,339,227,232"/>
 </map>

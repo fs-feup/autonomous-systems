@@ -1,5 +1,15 @@
 <map id="SLAMNode::_velocities_subscription_callback" name="SLAMNode::_velocities_subscription_callback">
-<area shape="rect" id="Node000001" title="Callback that updates everytime information is received from vehicle state estimation node." alt="" coords="5,5,163,46"/>
-<area shape="rect" id="Node000002" href="$d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="211,5,354,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="163,23,195,23,195,28,163,28"/>
+<area shape="rect" id="Node000001" title="Callback that updates everytime information is received from velocity estimation node." alt="" coords="5,39,163,79"/>
+<area shape="rect" id="Node000002" href="$d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="211,39,354,79"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="163,56,195,56,195,62,163,62"/>
+<area shape="rect" id="Node000003" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="402,5,630,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="354,46,386,42,387,47,355,51"/>
+<area shape="rect" id="Node000006" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966" title="Converts a position to a marker." alt="" coords="424,71,609,111"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="355,66,408,74,407,79,354,71"/>
+<area shape="rect" id="Node000004" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="678,5,864,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="631,23,663,23,663,28,631,28"/>
+<area shape="rect" id="Node000005" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="678,71,864,111"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="599,44,675,64,674,69,598,49"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="598,67,674,48,675,53,599,73"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="609,88,663,88,663,94,609,94"/>
 </map>

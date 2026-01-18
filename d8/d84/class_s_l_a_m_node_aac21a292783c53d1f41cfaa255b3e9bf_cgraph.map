@@ -10,14 +10,19 @@
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="169,194,200,198,200,203,168,199"/>
 <area shape="rect" id="Node000010" href="$d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="232,251,375,291"/>
 <area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="138,204,217,237,231,242,230,247,215,241,136,209"/>
-<area shape="rect" id="Node000011" href="$d8/d84/class_s_l_a_m_node.html#a4fe92c9a730b5fd9c1f4ebc9b007e4ae" title="Finish the mission." alt="" coords="241,316,366,341"/>
-<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="107,205,154,253,184,279,217,301,230,307,228,312,214,305,181,283,150,257,103,208"/>
-<area shape="rect" id="Node000006" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="471,161,635,202"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="391,200,455,191,456,197,392,205"/>
-<area shape="rect" id="Node000007" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="439,227,667,267"/>
-<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="392,223,424,227,423,232,391,228"/>
-<area shape="rect" id="Node000008" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="715,193,901,234"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="667,229,700,225,700,230,668,235"/>
-<area shape="rect" id="Node000009" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="715,259,901,299"/>
-<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="668,259,700,263,700,268,667,264"/>
+<area shape="rect" id="Node000012" href="$d8/d84/class_s_l_a_m_node.html#a4fe92c9a730b5fd9c1f4ebc9b007e4ae" title="Finish the mission." alt="" coords="241,316,366,341"/>
+<area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="107,205,154,253,184,279,217,301,230,307,228,312,214,305,181,283,150,257,103,208"/>
+<area shape="rect" id="Node000006" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="471,156,635,197"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="391,198,455,188,456,194,392,203"/>
+<area shape="rect" id="Node000007" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="439,221,667,262"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="392,221,423,224,423,230,391,226"/>
+<area shape="rect" id="Node000008" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="715,221,901,262"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="668,239,700,239,700,244,668,244"/>
+<area shape="rect" id="Node000009" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="715,287,901,327"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="636,260,712,280,711,285,635,265"/>
+<area shape="poly" id="edge10_Node000010_Node000007" title=" " alt="" coords="375,260,423,254,424,260,376,265"/>
+<area shape="rect" id="Node000011" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966" title="Converts a position to a marker." alt="" coords="461,287,646,327"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="376,279,446,289,445,294,375,284"/>
+<area shape="poly" id="edge12_Node000011_Node000008" title=" " alt="" coords="635,283,711,264,712,269,636,289"/>
+<area shape="poly" id="edge13_Node000011_Node000009" title=" " alt="" coords="646,304,700,304,700,310,646,310"/>
 </map>

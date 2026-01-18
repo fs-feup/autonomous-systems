@@ -1,0 +1,5 @@
+<map id="SecondPoseInputTrait" name="SecondPoseInputTrait">
+<area shape="rect" id="Node000001" title="Trait for pose updaters that keep two different pose difference estimates from different sources." alt="" coords="7,5,179,120"/>
+<area shape="rect" id="Node000002" href="$dd/d7d/class_double_pose_updater.html" title="TODO: abandoned for now, not working properly." alt="" coords="5,168,181,492"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,135,96,168,91,168,91,135"/>
+</map>

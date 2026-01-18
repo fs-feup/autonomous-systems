@@ -1,0 +1,9 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title="Test the observation model with trivial state." alt="" coords="5,13,60,39"/>
+<area shape="rect" id="Node000002" href="$d1/d99/class_s_l_a_m_observation_model.html#a756f368dc24dc0f0e06ba6ec84c26c47" title="transform landmarks&#39; positions from global frame to the car&#39;s frame" alt="" coords="108,5,271,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,23,92,23,92,28,60,28"/>
+<area shape="rect" id="Node000003" href="$d2/d32/namespacecommon__lib_1_1maths.html#ab0ad3296dc284d5471c4035f3d63ad82" title="Transform points from a global reference frame to a local reference frame." alt="" coords="319,5,500,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="271,23,303,23,303,28,271,28"/>
+<area shape="rect" id="Node000004" href="$d2/d32/namespacecommon__lib_1_1maths.html#a3155563fdd77267916f4362c3c976f11" title="Function to get the rotation matrix for a given angle." alt="" coords="548,5,688,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="501,23,533,23,533,28,501,28"/>
+</map>

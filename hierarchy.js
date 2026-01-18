@@ -32,6 +32,9 @@ var hierarchy =
       [ "CentroidCalculator", "da/d39/class_centroid_calculator.html", null ],
       [ "CircunferenceCenterCalculator", "d5/d01/class_circunference_center_calculator.html", null ]
     ] ],
+    [ "CircularBuffer< T >", "d9/d1a/class_circular_buffer.html", null ],
+    [ "CircularBuffer< GraphSLAMInstance::TimedPose >", "d9/d1a/class_circular_buffer.html", null ],
+    [ "CircularBuffer< PoseUpdater::TimedPose >", "d9/d1a/class_circular_buffer.html", null ],
     [ "Cluster", "d2/d23/class_cluster.html", null ],
     [ "Clustering", "d9/d10/class_clustering.html", [
       [ "DBSCAN", "df/d6a/class_d_b_s_c_a_n.html", null ],
@@ -115,6 +118,9 @@ var hierarchy =
     [ "ICP", "dd/d10/class_i_c_p.html", null ],
     [ "common_lib::sensor_data::ImuData", "df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html", null ],
     [ "ImuData", "d6/dc7/struct_imu_data.html", null ],
+    [ "ImuIntegratorTrait", "db/df5/class_imu_integrator_trait.html", [
+      [ "GraphSLAMSolver", "d9/d73/class_graph_s_l_a_m_solver.html", null ]
+    ] ],
     [ "InspectionFunctions", "d4/d89/class_inspection_functions.html", null ],
     [ "InvictaSimParameters", "df/d28/struct_invicta_sim_parameters.html", null ],
     [ "IVehicleModel", "d1/d5c/class_i_vehicle_model.html", [
@@ -182,14 +188,18 @@ var hierarchy =
         [ "VehicleAdapter", "d1/df1/class_vehicle_adapter.html", null ]
       ] ]
     ] ],
+    [ "NodeControllerTrait", "da/d8d/class_node_controller_trait.html", [
+      [ "GraphSLAMSolver", "d9/d73/class_graph_s_l_a_m_solver.html", null ]
+    ] ],
     [ "NonOwningDeleter< T >", "dd/d52/struct_non_owning_deleter.html", null ],
     [ "object", null, [
       [ "main.Ui_MainWindow", "d7/d8e/classmain_1_1_ui___main_window.html", null ]
     ] ],
     [ "ObservationData", "d9/d90/struct_observation_data.html", null ],
     [ "ObservationModel", "d7/d64/class_observation_model.html", null ],
-    [ "Outliers", "d9/d53/class_outliers.html", null ],
-    [ "OutliersConfig", "d7/d4c/struct_outliers_config.html", null ],
+    [ "OdometryIntegratorTrait", "d2/da4/class_odometry_integrator_trait.html", [
+      [ "GraphSLAMSolver", "d9/d73/class_graph_s_l_a_m_solver.html", null ]
+    ] ],
     [ "PathCalculation", "d0/d89/class_path_calculation.html", null ],
     [ "PathCalculationConfig", "df/d7d/struct_path_calculation_config.html", null ],
     [ "common_lib::structures::PathPoint", "d9/db0/structcommon__lib_1_1structures_1_1_path_point.html", null ],
@@ -209,7 +219,11 @@ var hierarchy =
       [ "common_lib::structures::VehiclePose", "de/d41/structcommon__lib_1_1structures_1_1_vehicle_pose.html", null ]
     ] ],
     [ "Pose", "d8/d11/struct_pose.html", null ],
-    [ "PoseUpdater", "d0/d87/class_pose_updater.html", null ],
+    [ "PoseUpdater", "d0/d87/class_pose_updater.html", [
+      [ "DifferenceBasedReadyPoseUpdater", "d1/d1c/class_difference_based_ready_pose_updater.html", [
+        [ "DoublePoseUpdater", "dd/d7d/class_double_pose_updater.html", null ]
+      ] ]
+    ] ],
     [ "common_lib::structures::Position", "dc/d1b/structcommon__lib_1_1structures_1_1_position.html", null ],
     [ "VehicleModelBicycle::PowertrainModel", "d3/d19/struct_vehicle_model_bicycle_1_1_powertrain_model.html", null ],
     [ "QtWidgets.QGraphicsEllipseItem", null, [
@@ -225,6 +239,14 @@ var hierarchy =
     [ "Report", "d7/dac/struct_report.html", null ],
     [ "LoopClosure::Result", "dc/d0f/struct_loop_closure_1_1_result.html", null ],
     [ "Ring", "d2/db2/struct_ring.html", null ],
+    [ "S2VModel", "db/d7d/class_s2_v_model.html", [
+      [ "BicycleModel", "d6/d89/class_bicycle_model.html", null ],
+      [ "NoRearWSSBicycleModel", "d6/d99/class_no_rear_w_s_s_bicycle_model.html", null ],
+      [ "NoWSSBicycleModel", "d9/d8e/class_no_w_s_s_bicycle_model.html", null ]
+    ] ],
+    [ "SecondPoseInputTrait", "da/df3/class_second_pose_input_trait.html", [
+      [ "DoublePoseUpdater", "dd/d7d/class_double_pose_updater.html", null ]
+    ] ],
     [ "SensorBase< T >", "dd/dc4/class_sensor_base.html", null ],
     [ "SensorBase< GnssData >", "dd/dc4/class_sensor_base.html", [
       [ "GnssSensor", "d9/df9/class_gnss_sensor.html", null ]
@@ -244,6 +266,7 @@ var hierarchy =
     [ "SimulationConfig", "d3/db0/struct_simulation_config.html", null ],
     [ "Skidpad", "de/d3f/class_skidpad.html", null ],
     [ "SkidpadConfig", "d2/de2/struct_skidpad_config.html", null ],
+    [ "SLAMObservationModel", "d1/d99/class_s_l_a_m_observation_model.html", null ],
     [ "SLAMParameters", "d5/d51/struct_s_l_a_m_parameters.html", null ],
     [ "SLAMSolver", "da/dd3/class_s_l_a_m_solver.html", [
       [ "EKFSLAMSolver", "d7/d79/class_e_k_f_s_l_a_m_solver.html", null ],
@@ -294,14 +317,20 @@ var hierarchy =
       [ "car_keys.main.PublishThread", "d5/d69/classcar__keys_1_1main_1_1_publish_thread.html", null ],
       [ "pacsim_keys.main.PublishThread", "db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html", null ]
     ] ],
+    [ "GraphSLAMInstance::TimedPose", "d4/dee/struct_graph_s_l_a_m_instance_1_1_timed_pose.html", null ],
+    [ "PoseUpdater::TimedPose", "dd/dc0/struct_pose_updater_1_1_timed_pose.html", null ],
     [ "TireModel", "d2/dc2/class_tire_model.html", [
       [ "PacejkaCombinedSlip", "d2/db1/class_pacejka_combined_slip.html", null ]
     ] ],
     [ "VehicleModelBicycle::TireModel", "d3/dad/struct_vehicle_model_bicycle_1_1_tire_model.html", null ],
     [ "common_lib::car_parameters::TireParameters", "dd/d7d/structcommon__lib_1_1car__parameters_1_1_tire_parameters.html", null ],
     [ "Track", "db/df3/struct_track.html", null ],
+    [ "TrajectoryCalculator", "d3/d86/class_trajectory_calculator.html", [
+      [ "GraphSLAMSolver", "d9/d73/class_graph_s_l_a_m_solver.html", null ]
+    ] ],
     [ "TrimmingParameters", "d8/d2c/struct_trimming_parameters.html", null ],
     [ "TripleComparator", "dd/da8/struct_triple_comparator.html", null ],
+    [ "TripleSpline< T >", "d1/d77/struct_triple_spline.html", null ],
     [ "std::true_type", null, [
       [ "HasDefaultConstructor< T, std::void_t< decltype(T())> >", "d1/d5a/struct_has_default_constructor_3_01_t_00_01std_1_1void__t_3_01decltype_07_t_07_08_08_4_01_4.html", null ],
       [ "HasEqualityOperator< T, std::void_t< decltype(std::declval< T >()==std::declval< T >())> >", "dd/d59/struct_has_equality_operator_3_01_t_00_01std_1_1void__t_3_01decltype_07std_1_1declval_3_01_t_01_def808c9cf5a85b640be170f337607f6.html", null ],
@@ -314,15 +343,21 @@ var hierarchy =
       [ "common_lib::communication::HasPosition< T, std::enable_if_t< std::is_arithmetic_v< decltype(std::declval< T >().position.x)> &&std::is_arithmetic_v< decltype(std::declval< T >().position.y)> > >", "d0/d78/structcommon__lib_1_1communication_1_1_has_position_3_01_t_00_01std_1_1enable__if__t_3_01std_1_1f92f66d3afd606fa0b7fa2e397b76781.html", null ]
     ] ],
     [ "V2PMotionModel", "d0/d20/class_v2_p_motion_model.html", [
+      [ "ConstantAccelerationTurnrateModel", "db/de3/class_constant_acceleration_turnrate_model.html", null ],
       [ "ConstantVelocityModel", "df/d42/class_constant_velocity_model.html", null ],
       [ "ConstantVelocityTurnrateModel", "d4/d11/class_constant_velocity_turnrate_model.html", null ],
-      [ "MockV2PModel", "d5/dda/class_mock_v2_p_model.html", null ]
+      [ "MockV2PModel", "d5/dda/class_mock_v2_p_model.html", null ],
+      [ "OdometryModel", "db/d0c/class_odometry_model.html", null ]
     ] ],
     [ "VehicleModel", "d6/dbc/class_vehicle_model.html", [
       [ "BicycleModel", "d6/d89/class_bicycle_model.html", null ]
     ] ],
     [ "common_lib::structures::VehicleState", "d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html", null ],
     [ "common_lib::structures::Velocities", "d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html", null ],
+    [ "VelocitiesIntegratorTrait", "d2/dee/class_velocities_integrator_trait.html", [
+      [ "EKFSLAMSolver", "d7/d79/class_e_k_f_s_l_a_m_solver.html", null ],
+      [ "GraphSLAMSolver", "d9/d73/class_graph_s_l_a_m_solver.html", null ]
+    ] ],
     [ "VelocityEstimator", "d9/d08/class_velocity_estimator.html", [
       [ "EKF", "d7/dbe/class_e_k_f.html", null ],
       [ "NoRearWSSEKF", "dd/da2/class_no_rear_w_s_s_e_k_f.html", null ]
@@ -346,7 +381,6 @@ var hierarchy =
       [ "data_infrastructure.data_infrastructure_node.DataInfrastructureNode", "d1/daf/classdata__infrastructure_1_1data__infrastructure__node_1_1_data_infrastructure_node.html", null ],
       [ "evaluator.evaluator.Evaluator", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html", null ],
       [ "power_log.power_log_node.PowerNode", "db/d78/classpower__log_1_1power__log__node_1_1_power_node.html", null ],
-      [ "printer.MapPrinterNode", "d0/def/classprinter_1_1_map_printer_node.html", null ],
       [ "rosbag_groundtruth.rosbag_node.BagNode", "da/deb/classrosbag__groundtruth_1_1rosbag__node_1_1_bag_node.html", null ],
       [ "supervisor.main.Supervisor", "db/d57/classsupervisor_1_1main_1_1_supervisor.html", null ],
       [ "test.LocationPublisher", "dc/ddc/classtest_1_1_location_publisher.html", null ],

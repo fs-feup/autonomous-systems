@@ -1,0 +1,11 @@
+<map id="PoseUpdater::predict_pose" name="PoseUpdater::predict_pose">
+<area shape="rect" id="Node000001" title="Updates the last pose and returns the pose difference." alt="" coords="5,42,183,68"/>
+<area shape="rect" id="Node000002" href="$d0/d87/class_pose_updater.html#a13688b7622da267ac0d2da5293ef7ae8" title=" " alt="" coords="231,5,397,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="183,41,215,36,215,41,183,46"/>
+<area shape="rect" id="Node000003" href="$da/df5/slam_2src_2slam__solver_2graph__slam__solver_2utils_8cpp.html#a3d4e9957a7d73fae42a51136c75737f4" title=" " alt="" coords="239,70,389,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="183,64,223,69,223,74,183,69"/>
+<area shape="rect" id="Node000004" href="$da/df5/slam_2src_2slam__solver_2graph__slam__solver_2utils_8cpp.html#a8649e3a40d3996e6a7eca0c02fbbc3a3" title=" " alt="" coords="445,45,593,71"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="389,71,429,66,430,71,390,76"/>
+<area shape="rect" id="Node000005" href="$da/df5/slam_2src_2slam__solver_2graph__slam__solver_2utils_8cpp.html#a635cf55ec76c73af7d115883037b3f51" title=" " alt="" coords="445,94,593,120"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="390,89,430,94,429,99,389,94"/>
+</map>

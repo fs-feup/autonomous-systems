@@ -1,0 +1,17 @@
+<map id="VehicleAdapter::VehicleAdapter" name="VehicleAdapter::VehicleAdapter">
+<area shape="rect" id="Node000001" title="Constructor of the vehicle adapter node." alt="" coords="5,46,209,72"/>
+<area shape="rect" id="Node000002" href="$d1/df1/class_vehicle_adapter.html#ad89d6e33ccd2f8ec13b936ef2ec56179" title="LiDAR odometry subscription callback." alt="" coords="257,31,415,87"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="209,56,241,56,241,62,209,62"/>
+<area shape="rect" id="Node000003" href="$d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="463,39,606,79"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="415,56,447,56,447,62,415,62"/>
+<area shape="rect" id="Node000004" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="654,5,883,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="606,46,638,42,639,47,607,51"/>
+<area shape="rect" id="Node000007" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966" title="Converts a position to a marker." alt="" coords="676,71,861,111"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="607,66,660,74,660,79,606,71"/>
+<area shape="rect" id="Node000005" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="931,5,1116,46"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="883,23,915,23,915,28,883,28"/>
+<area shape="rect" id="Node000006" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="931,71,1116,111"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="851,44,927,64,926,69,850,49"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="850,67,926,48,927,53,851,73"/>
+<area shape="poly" id="edge8_Node000007_Node000006" title=" " alt="" coords="862,88,915,88,915,94,862,94"/>
+</map>

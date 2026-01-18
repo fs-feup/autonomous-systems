@@ -1,3 +1,3 @@
 <map id="SimulationConfig" name="SimulationConfig">
-<area shape="rect" id="Node000001" title="struct for the configuration of the smoothing algorithm" alt="" coords="5,5,165,125"/>
+<area shape="rect" id="Node000001" title="Configuration parameters for the Simulation class." alt="" coords="5,5,165,125"/>
 </map>

@@ -1,3 +1,5 @@
 <map id="PoseUpdater" name="PoseUpdater">
-<area shape="rect" id="Node000001" title="Class to update the pose of the vehicle." alt="" coords="5,5,181,231"/>
+<area shape="rect" id="Node000001" title="Class to update the pose of the vehicle." alt="" coords="10,408,178,818"/>
+<area shape="rect" id="Node000002" href="$d9/d1a/class_circular_buffer.html" title=" " alt="" coords="5,5,183,345"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,345,97,391,91,391,91,345"/>
 </map>

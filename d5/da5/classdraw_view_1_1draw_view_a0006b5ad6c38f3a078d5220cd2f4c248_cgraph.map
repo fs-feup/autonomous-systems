@@ -1,0 +1,7 @@
+<map id="drawView.drawView.updateCompass" name="drawView.drawView.updateCompass">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,186,46"/>
+<area shape="rect" id="Node000002" href="$d9/d1a/class_circular_buffer.html#a73d5df7a33d545554fffeaaf843f36d9" title=" " alt="" coords="234,5,420,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="186,41,218,41,218,46,186,46"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="186,23,218,23,218,28,186,28"/>
+<area shape="poly" id="edge3_Node000001_Node000002" title=" " alt="" coords="186,5,218,5,218,10,186,11"/>
+</map>

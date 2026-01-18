@@ -1,5 +1,9 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" title=" " alt="" coords="5,5,217,31"/>
-<area shape="rect" id="Node000001" href="$df/d25/classdraw_view_1_1_custom_item.html" title=" " alt="" coords="265,5,417,31"/>
-<area shape="poly" id="edge85_Node000000_Node000001" title=" " alt="" coords="232,16,264,16,264,21,232,21"/>
+<area shape="rect" id="Node000000" href="$d0/d87/class_pose_updater.html" title="Class to update the pose of the vehicle." alt="" coords="5,13,103,39"/>
+<area shape="rect" id="Node000001" href="$d1/d1c/class_difference_based_ready_pose_updater.html" title="Class to update the pose of the vehicle, including a method to check if the pose is ready for graph u..." alt="" coords="151,5,333,46"/>
+<area shape="poly" id="edge90_Node000000_Node000001" title=" " alt="" coords="118,23,150,23,150,28,118,28"/>
+<area shape="rect" id="Node000002" href="$dd/d7d/class_double_pose_updater.html" title="TODO: abandoned for now, not working properly." alt="" coords="381,42,518,68"/>
+<area shape="poly" id="edge91_Node000001_Node000002" title=" " alt="" coords="349,38,381,43,380,48,348,43"/>
+<area shape="rect" id="Node000003" href="$da/df3/class_second_pose_input_trait.html" title="Trait for pose updaters that keep two different pose difference estimates from different sources." alt="" coords="167,70,317,96"/>
+<area shape="poly" id="edge92_Node000003_Node000002" title=" " alt="" coords="332,68,380,62,381,67,332,74"/>
 </map>

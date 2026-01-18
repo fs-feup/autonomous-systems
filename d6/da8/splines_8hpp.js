@@ -15,6 +15,8 @@ var splines_8hpp =
     [ "HasEuclideanDistance< T, typename >", "d2/d8c/struct_has_euclidean_distance.html", null ],
     [ "HasEuclideanDistance< T, std::void_t< decltype(std::declval< T >().position.euclidean_distance(std::declval< T >().position))> >", "dc/d16/struct_has_euclidean_distance_3_01_t_00_01std_1_1void__t_3_01decltype_07std_1_1declval_3_01_t_01220e586b84eba3363386e4d3fefa434b.html", null ],
     [ "PositionXYAreDouble< T, typename >", "d0/dc2/struct_position_x_y_are_double.html", null ],
+    [ "TripleSpline< T >", "d1/d77/struct_triple_spline.html", "d1/d77/struct_triple_spline" ],
     [ "PositionXYAreDouble< T, std::enable_if_t< std::is_same_v< decltype(std::declval< T >().position.x), double > &&std::is_same_v< decltype(std::declval< T >().position.y), double > > >", "d8/da1/struct_position_x_y_are_double_3_01_t_00_01std_1_1enable__if__t_3_01std_1_1is__same__v_3_01declt1791f863a2ceff256cf7e96446ba334e.html", null ],
-    [ "fit_spline", "d6/da8/splines_8hpp.html#a5987a477b79a8b344f897f3be409cb37", null ]
+    [ "fit_spline", "d6/da8/splines_8hpp.html#ab0568c3635331878ae79ce16031cb01a", null ],
+    [ "fit_triple_spline", "d6/da8/splines_8hpp.html#a17fae428cadc635f31d275efded45a67", null ]
 ];

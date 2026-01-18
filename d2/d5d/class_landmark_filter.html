@@ -134,9 +134,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aaf0b924e0251c418317996e4bd260e7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3bb20c72d4f7166d340f7daa02f6c850" id="r_a3bb20c72d4f7166d340f7daa02f6c850"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d5d/class_landmark_filter.html#a3bb20c72d4f7166d340f7daa02f6c850">~LandmarkFilter</a> ()=default</td></tr>
 <tr class="separator:a3bb20c72d4f7166d340f7daa02f6c850"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33dbd198f9f3c204061caf6bfdc1eff2" id="r_a33dbd198f9f3c204061caf6bfdc1eff2"><td class="memItemLeft" align="right" valign="top">virtual Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d5d/class_landmark_filter.html#a33dbd198f9f3c204061caf6bfdc1eff2">filter</a> (const Eigen::VectorXd &amp;new_observations, const Eigen::VectorXd &amp;new_observation_confidences)=0</td></tr>
-<tr class="memdesc:a33dbd198f9f3c204061caf6bfdc1eff2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function receives a new set of observations and returns a filtered set of landmarks in global coordinates that are ready to be added to be added to the map.  <br /></td></tr>
-<tr class="separator:a33dbd198f9f3c204061caf6bfdc1eff2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac78b3caf97b81a66fc0a3d6d4593cc29" id="r_ac78b3caf97b81a66fc0a3d6d4593cc29"><td class="memItemLeft" align="right" valign="top">virtual Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d5d/class_landmark_filter.html#ac78b3caf97b81a66fc0a3d6d4593cc29">filter</a> (const Eigen::VectorXd &amp;observations, const Eigen::VectorXd &amp;observation_confidences, Eigen::VectorXi &amp;associations)=0</td></tr>
+<tr class="memdesc:ac78b3caf97b81a66fc0a3d6d4593cc29"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function receives a new set of observations and returns a filtered set of landmarks in global coordinates that are ready to be added to be added to the map.  <br /></td></tr>
+<tr class="separator:ac78b3caf97b81a66fc0a3d6d4593cc29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a72b440166284cef2b0efcf6b56d7ef01" id="r_a72b440166284cef2b0efcf6b56d7ef01"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d5d/class_landmark_filter.html#a72b440166284cef2b0efcf6b56d7ef01">delete_landmarks</a> (const Eigen::VectorXd &amp;some_landmarks)=0</td></tr>
 <tr class="memdesc:a72b440166284cef2b0efcf6b56d7ef01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by SLAM to signal to the filter that the landmarks are already in SLAM's map, and they should no longer be returned by the filter as new.  <br /></td></tr>
 <tr class="separator:a72b440166284cef2b0efcf6b56d7ef01"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -278,8 +278,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a33dbd198f9f3c204061caf6bfdc1eff2" name="a33dbd198f9f3c204061caf6bfdc1eff2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33dbd198f9f3c204061caf6bfdc1eff2">&#9670;&#160;</a></span>filter()</h2>
+<a id="ac78b3caf97b81a66fc0a3d6d4593cc29" name="ac78b3caf97b81a66fc0a3d6d4593cc29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac78b3caf97b81a66fc0a3d6d4593cc29">&#9670;&#160;</a></span>filter()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -291,13 +291,19 @@ Protected Attributes</h2></td></tr>
           <td class="memname">virtual Eigen::VectorXd LandmarkFilter::filter </td>
           <td>(</td>
           <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>new_observations</em>, </td>
+          <td class="paramname"><em>observations</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>new_observation_confidences</em>&#160;</td>
+          <td class="paramname"><em>observation_confidences</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Eigen::VectorXi &amp;&#160;</td>
+          <td class="paramname"><em>associations</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -317,12 +323,13 @@ Protected Attributes</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">observations</td><td>Observations in the form of [x1, y1, x2, y2, ...] in the global frame </td></tr>
     <tr><td class="paramname">observation_confidences</td><td>Confidence in the observations in the same order as the observations </td></tr>
+    <tr><td class="paramname">associations</td><td>Associations of observations to landmarks </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::VectorXd the filtered observations in the form of [x1, y1, x2, y2, ...] in the global frame </dd></dl>
 
-<p>Implemented in <a class="el" href="../../dd/d5e/class_consecutive_counter_filter.html#aeb9a5cdee5143cdb9751fedf9883d6bf">ConsecutiveCounterFilter</a>.</p>
+<p>Implemented in <a class="el" href="../../dd/d5e/class_consecutive_counter_filter.html#ad76971fb099f5b61f1bd370b999cf288">ConsecutiveCounterFilter</a>.</p>
 
 </div>
 </div>

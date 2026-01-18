@@ -1,7 +1,0 @@
-<map id="PoseUpdater::get_last_pose" name="PoseUpdater::get_last_pose">
-<area shape="rect" id="Node000001" title=" " alt="" coords="211,46,395,72"/>
-<area shape="rect" id="Node000002" href="$d9/d73/class_graph_s_l_a_m_solver.html#a7ab911e5d048186ee5a58fdef4fb71ae" title="Add observations to the solver (correction step)" alt="" coords="5,5,163,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="199,46,163,40,164,35,199,41"/>
-<area shape="rect" id="Node000003" href="$d9/d73/class_graph_s_l_a_m_solver.html#aa4d26a6e1dd550dbbb68aef2fa17fc03" title="Get the pose estimate object." alt="" coords="7,71,161,111"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="196,77,162,82,161,77,195,72"/>
-</map>

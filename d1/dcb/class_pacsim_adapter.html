@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('d1/dcb/class_pacsim_adapter.html','../
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a> class for the pacsim simulator.  
+<p><a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a> class to interface with the Pacsim simulator for SLAM.  
  <a href="../../d1/dcb/class_pacsim_adapter.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../df/d31/ekf__state__est_2include_2adapter__ekf__state__est_2pacsim_8hpp_source.html">pacsim.hpp</a>&gt;</code></p>
@@ -110,16 +110,16 @@ Inheritance diagram for PacsimAdapter:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d6/d41/class_pacsim_adapter__inherit__graph.png" border="0" usemap="#a_pacsim_adapter_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_pacsim_adapter_inherit__map" id="a_pacsim_adapter_inherit__map">
-<area shape="rect" title="Adapter class for the pacsim simulator." alt="" coords="206,705,405,1279"/>
-<area shape="rect" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="5,315,189,461"/>
-<area shape="poly" title=" " alt="" coords="129,473,209,705,204,706,124,475"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="213,119,397,657"/>
-<area shape="poly" title=" " alt="" coords="308,672,308,706,303,706,303,672"/>
-<area shape="rect" title=" " alt="" coords="356,5,441,71"/>
-<area shape="poly" title=" " alt="" coords="389,86,380,120,375,118,384,84"/>
-<area shape="rect" href="../../d3/d43/class_v_e_node.html" title="Node class for the velocity estimation node." alt="" coords="422,325,565,451"/>
-<area shape="poly" title=" " alt="" coords="414,84,479,325,474,327,408,85"/>
-<area shape="poly" title=" " alt="" coords="472,466,397,706,392,705,467,464"/>
+<area shape="rect" title="Adapter class to interface with the Pacsim simulator for SLAM." alt="" coords="210,740,409,1368"/>
+<area shape="rect" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="5,333,189,478"/>
+<area shape="poly" title=" " alt="" coords="128,491,213,749,208,751,123,493"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="213,119,405,692"/>
+<area shape="poly" title=" " alt="" coords="312,707,312,740,307,740,307,707"/>
+<area shape="rect" title=" " alt="" coords="363,5,448,71"/>
+<area shape="poly" title=" " alt="" coords="396,86,387,119,382,118,391,84"/>
+<area shape="rect" href="../../d3/d43/class_v_e_node.html" title="Node class for the velocity estimation node." alt="" coords="430,343,573,468"/>
+<area shape="poly" title=" " alt="" coords="420,84,488,342,483,343,415,86"/>
+<area shape="poly" title=" " alt="" coords="482,483,420,693,405,741,400,740,415,691,477,482"/>
 </map>
 </div>
 <div class="dynheader">
@@ -127,34 +127,36 @@ Collaboration diagram for PacsimAdapter:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/d3d/class_pacsim_adapter__coll__graph.png" border="0" usemap="#a_pacsim_adapter_coll__map" alt="Collaboration graph"/></div>
 <map name="a_pacsim_adapter_coll__map" id="a_pacsim_adapter_coll__map">
-<area shape="rect" title="Adapter class for the pacsim simulator." alt="" coords="405,1517,603,2090"/>
-<area shape="rect" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="224,1126,408,1271"/>
-<area shape="poly" title=" " alt="" coords="345,1284,418,1516,412,1518,340,1286"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="600,929,784,1468"/>
-<area shape="poly" title=" " alt="" coords="607,1483,595,1518,590,1516,601,1481"/>
-<area shape="rect" title=" " alt="" coords="509,706,595,771"/>
-<area shape="poly" title=" " alt="" coords="569,785,613,928,607,930,563,786"/>
-<area shape="rect" href="../../d3/d43/class_v_e_node.html" title="Node class for the velocity estimation node." alt="" coords="433,1146,575,1251"/>
-<area shape="poly" title=" " alt="" coords="550,786,512,1146,507,1146,545,786"/>
-<area shape="rect" href="../../d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html" title=" " alt="" coords="789,621,936,856"/>
-<area shape="poly" title=" " alt="" coords="822,857,792,936,787,934,817,855"/>
-<area shape="rect" href="../../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="619,659,765,819"/>
-<area shape="poly" title=" " alt="" coords="695,819,695,912,689,912,689,819"/>
-<area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="619,318,765,518"/>
-<area shape="poly" title=" " alt="" coords="695,518,695,642,689,642,689,518"/>
-<area shape="poly" title=" " alt="" coords="507,1266,507,1517,501,1517,501,1266"/>
-<area shape="rect" href="../../d5/db7/struct_v_e_parameters.html" title=" " alt="" coords="315,611,485,866"/>
-<area shape="poly" title=" " alt="" coords="431,865,491,1129,486,1130,426,866"/>
-<area shape="rect" href="../../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html" title=" " alt="" coords="311,288,489,548"/>
-<area shape="poly" title=" " alt="" coords="403,548,403,594,397,594,397,548"/>
+<area shape="rect" title="Adapter class to interface with the Pacsim simulator for SLAM." alt="" coords="418,1692,617,2320"/>
+<area shape="rect" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="237,1283,421,1428"/>
+<area shape="poly" title=" " alt="" coords="357,1442,429,1691,424,1693,352,1443"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="613,1069,805,1642"/>
+<area shape="poly" title=" " alt="" coords="623,1657,613,1693,607,1691,618,1656"/>
+<area shape="rect" title=" " alt="" coords="509,786,595,851"/>
+<area shape="poly" title=" " alt="" coords="568,865,609,1005,628,1068,623,1070,604,1007,563,866"/>
+<area shape="rect" href="../../d3/d43/class_v_e_node.html" title="Node class for the velocity estimation node." alt="" coords="446,1303,589,1408"/>
+<area shape="poly" title=" " alt="" coords="552,866,523,1304,518,1303,546,866"/>
+<area shape="rect" href="../../d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html" title=" " alt="" coords="995,701,1141,936"/>
+<area shape="poly" title=" " alt="" coords="1022,937,985,1007,904,1127,818,1234,814,1231,899,1123,980,1005,1018,935"/>
+<area shape="rect" href="../../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="619,739,765,899"/>
+<area shape="poly" title=" " alt="" coords="697,898,702,1052,697,1052,692,898"/>
+<area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="619,328,765,528"/>
+<area shape="poly" title=" " alt="" coords="695,528,695,722,689,722,689,528"/>
+<area shape="rect" href="../../d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="789,631,971,1006"/>
+<area shape="poly" title=" " alt="" coords="823,1007,808,1054,803,1052,818,1005"/>
+<area shape="poly" title=" " alt="" coords="520,1423,520,1692,515,1692,515,1423"/>
+<area shape="rect" href="../../d5/db7/struct_v_e_parameters.html" title=" " alt="" coords="315,691,485,946"/>
+<area shape="poly" title=" " alt="" coords="427,945,447,1044,503,1286,498,1287,442,1046,421,946"/>
+<area shape="rect" href="../../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html" title=" " alt="" coords="311,288,489,568"/>
+<area shape="poly" title=" " alt="" coords="403,568,403,674,397,674,397,568"/>
 <area shape="rect" href="../../dd/d7d/structcommon__lib_1_1car__parameters_1_1_tire_parameters.html" title=" " alt="" coords="5,5,184,225"/>
-<area shape="poly" title=" " alt="" coords="186,211,198,223,300,322,297,326,194,227,182,215"/>
+<area shape="poly" title=" " alt="" coords="186,211,198,223,301,327,297,330,194,227,182,215"/>
 <area shape="rect" href="../../d5/d5a/structcommon__lib_1_1car__parameters_1_1_aero_parameters.html" title=" " alt="" coords="209,35,389,195"/>
-<area shape="poly" title=" " alt="" coords="328,194,354,271,349,273,323,196"/>
+<area shape="poly" title=" " alt="" coords="327,194,352,272,347,273,322,196"/>
 <area shape="rect" href="../../d2/d2e/structcommon__lib_1_1car__parameters_1_1_steering_motor_parameters.html" title=" " alt="" coords="413,55,592,175"/>
-<area shape="poly" title=" " alt="" coords="490,176,463,265,460,273,455,272,457,264,485,174"/>
+<area shape="poly" title=" " alt="" coords="489,176,463,265,460,273,455,271,457,264,484,174"/>
 <area shape="rect" href="../../d9/d6f/structcommon__lib_1_1car__parameters_1_1_steering_parameters.html" title=" " alt="" coords="616,65,795,165"/>
-<area shape="poly" title=" " alt="" coords="694,166,673,217,641,266,505,355,502,350,637,262,668,214,689,164"/>
+<area shape="poly" title=" " alt="" coords="693,166,672,217,641,266,505,361,502,356,637,262,668,214,689,164"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -221,6 +223,9 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a651d389ab08e146b604c9b833cf5c0a4" id="r_a651d389ab08e146b604c9b833cf5c0a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dcb/class_pacsim_adapter.html#a651d389ab08e146b604c9b833cf5c0a4">_pacsim_velocities_subscription_callback</a> (const geometry_msgs::msg::TwistWithCovarianceStamped &amp;msg)</td></tr>
 <tr class="memdesc:a651d389ab08e146b604c9b833cf5c0a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for simulated velocities from pacsim.  <br /></td></tr>
 <tr class="separator:a651d389ab08e146b604c9b833cf5c0a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a066611e620ab033c8f5399f8305847da" id="r_a066611e620ab033c8f5399f8305847da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dcb/class_pacsim_adapter.html#a066611e620ab033c8f5399f8305847da">_pacsim_imu_subscription_callback</a> (const sensor_msgs::msg::Imu &amp;msg)</td></tr>
+<tr class="memdesc:a066611e620ab033c8f5399f8305847da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for simulated IMU data from pacsim.  <br /></td></tr>
+<tr class="separator:a066611e620ab033c8f5399f8305847da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1fbe764d3bc5dcb5a1f91071e7be923f" id="r_a1fbe764d3bc5dcb5a1f91071e7be923f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dcb/class_pacsim_adapter.html#a1fbe764d3bc5dcb5a1f91071e7be923f">fetch_discipline</a> ()</td></tr>
 <tr class="memdesc:a1fbe764d3bc5dcb5a1f91071e7be923f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches the mission from the parameters.  <br /></td></tr>
 <tr class="separator:a1fbe764d3bc5dcb5a1f91071e7be923f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -245,6 +250,9 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a018cc20267002944937d24f36f59d6ed" id="r_a018cc20267002944937d24f36f59d6ed"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; geometry_msgs::msg::TwistWithCovarianceStamped &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dcb/class_pacsim_adapter.html#a018cc20267002944937d24f36f59d6ed">_velocities_subscription_</a></td></tr>
 <tr class="memdesc:a018cc20267002944937d24f36f59d6ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscriber for simulated velocities.  <br /></td></tr>
 <tr class="separator:a018cc20267002944937d24f36f59d6ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33e5182de4faabe8bc8ac5efff8e516b" id="r_a33e5182de4faabe8bc8ac5efff8e516b"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; sensor_msgs::msg::Imu &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dcb/class_pacsim_adapter.html#a33e5182de4faabe8bc8ac5efff8e516b">_imu_subscription_</a></td></tr>
+<tr class="memdesc:a33e5182de4faabe8bc8ac5efff8e516b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscriber for simulated IMU data.  <br /></td></tr>
+<tr class="separator:a33e5182de4faabe8bc8ac5efff8e516b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75c3e630a78e057693f46b79fdcbf0ef" id="r_a75c3e630a78e057693f46b79fdcbf0ef"><td class="memItemLeft" align="right" valign="top">rclcpp::Client&lt; rcl_interfaces::srv::GetParameters &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dcb/class_pacsim_adapter.html#a75c3e630a78e057693f46b79fdcbf0ef">param_client_</a></td></tr>
 <tr class="separator:a75c3e630a78e057693f46b79fdcbf0ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96de21d83f61dca32190d0b93c488999" id="r_a96de21d83f61dca32190d0b93c488999"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; sensor_msgs::msg::Imu &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dcb/class_pacsim_adapter.html#a96de21d83f61dca32190d0b93c488999">_imu_sub_</a></td></tr>
@@ -266,8 +274,11 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:aac21a292783c53d1f41cfaa255b3e9bf inherit pro_methods_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback that updates everytime information is received from the perception module.  <br /></td></tr>
 <tr class="separator:aac21a292783c53d1f41cfaa255b3e9bf inherit pro_methods_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e228ce696c330a4a43ae5807c632df7 inherit pro_methods_class_s_l_a_m_node" id="r_a6e228ce696c330a4a43ae5807c632df7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a6e228ce696c330a4a43ae5807c632df7">_velocities_subscription_callback</a> (const custom_interfaces::msg::Velocities &amp;msg)</td></tr>
-<tr class="memdesc:a6e228ce696c330a4a43ae5807c632df7 inherit pro_methods_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback that updates everytime information is received from vehicle state estimation node.  <br /></td></tr>
+<tr class="memdesc:a6e228ce696c330a4a43ae5807c632df7 inherit pro_methods_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback that updates everytime information is received from velocity estimation node.  <br /></td></tr>
 <tr class="separator:a6e228ce696c330a4a43ae5807c632df7 inherit pro_methods_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8e02138c8c98857ec5bd1d220a0cbf6 inherit pro_methods_class_s_l_a_m_node" id="r_ad8e02138c8c98857ec5bd1d220a0cbf6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#ad8e02138c8c98857ec5bd1d220a0cbf6">_imu_subscription_callback</a> (const sensor_msgs::msg::Imu &amp;msg)</td></tr>
+<tr class="memdesc:ad8e02138c8c98857ec5bd1d220a0cbf6 inherit pro_methods_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback that updates everytime information is received from the IMU.  <br /></td></tr>
+<tr class="separator:ad8e02138c8c98857ec5bd1d220a0cbf6 inherit pro_methods_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a695c062e0021d33622b6c1a59cee0379 inherit pro_methods_class_s_l_a_m_node" id="r_a695c062e0021d33622b6c1a59cee0379"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379">_publish_vehicle_pose</a> ()</td></tr>
 <tr class="memdesc:a695c062e0021d33622b6c1a59cee0379 inherit pro_methods_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">publishes the localization ('vehicle_pose') to the topic vehicle_pose  <br /></td></tr>
 <tr class="separator:a695c062e0021d33622b6c1a59cee0379 inherit pro_methods_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -290,6 +301,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a2aa9d39822eb3178f0a16a84d02e946e inherit pro_methods_class_v_e_node" id="r_a2aa9d39822eb3178f0a16a84d02e946e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d43/class_v_e_node.html#a2aa9d39822eb3178f0a16a84d02e946e">publish_velocities</a> () const</td></tr>
 <tr class="separator:a2aa9d39822eb3178f0a16a84d02e946e inherit pro_methods_class_v_e_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_s_l_a_m_node"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_s_l_a_m_node')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d8/d84/class_s_l_a_m_node.html">SLAMNode</a></td></tr>
+<tr class="memitem:a29d793f24b215c61acf7c2c19d525cf8 inherit pro_attribs_class_s_l_a_m_node" id="r_a29d793f24b215c61acf7c2c19d525cf8"><td class="memItemLeft" align="right" valign="top">rclcpp::CallbackGroup::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a29d793f24b215c61acf7c2c19d525cf8">_callback_group_</a></td></tr>
+<tr class="memdesc:a29d793f24b215c61acf7c2c19d525cf8 inherit pro_attribs_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback group for subscriptions, used to control if they are concurrent or not.  <br /></td></tr>
+<tr class="separator:a29d793f24b215c61acf7c2c19d525cf8 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1721a1eea113db4ac143c79ad95fa493 inherit pro_attribs_class_s_l_a_m_node" id="r_a1721a1eea113db4ac143c79ad95fa493"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; custom_interfaces::msg::PerceptionOutput &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a1721a1eea113db4ac143c79ad95fa493">_perception_subscription_</a></td></tr>
 <tr class="separator:a1721a1eea113db4ac143c79ad95fa493 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a47984fc565819b847ece298a12046994 inherit pro_attribs_class_s_l_a_m_node" id="r_a47984fc565819b847ece298a12046994"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; custom_interfaces::msg::Velocities &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a47984fc565819b847ece298a12046994">_velocities_subscription_</a></td></tr>
@@ -300,15 +314,18 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:ad46f24819e0d4c5d23081a8a78a96911 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a000a98b07d79146cab0fb142df0d64b0 inherit pro_attribs_class_s_l_a_m_node" id="r_a000a98b07d79146cab0fb142df0d64b0"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; visualization_msgs::msg::MarkerArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a000a98b07d79146cab0fb142df0d64b0">_visualization_map_publisher_</a></td></tr>
 <tr class="separator:a000a98b07d79146cab0fb142df0d64b0 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab46f66a1c06470f244e49962d2b7a242 inherit pro_attribs_class_s_l_a_m_node" id="r_ab46f66a1c06470f244e49962d2b7a242"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; visualization_msgs::msg::MarkerArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#ab46f66a1c06470f244e49962d2b7a242">_visualization_perception_map_publisher_</a></td></tr>
-<tr class="separator:ab46f66a1c06470f244e49962d2b7a242 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67986bc456afee0edf3fe75e150310b7 inherit pro_attribs_class_s_l_a_m_node" id="r_a67986bc456afee0edf3fe75e150310b7"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; visualization_msgs::msg::Marker &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a67986bc456afee0edf3fe75e150310b7">_position_visualization_publisher_</a></td></tr>
+<tr class="memdesc:a67986bc456afee0edf3fe75e150310b7 inherit pro_attribs_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes the vehicle position.  <br /></td></tr>
+<tr class="separator:a67986bc456afee0edf3fe75e150310b7 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a582137f906569a66432b0f0199f4ea45 inherit pro_attribs_class_s_l_a_m_node" id="r_a582137f906569a66432b0f0199f4ea45"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; visualization_msgs::msg::MarkerArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a582137f906569a66432b0f0199f4ea45">_trajectory_visualization_publisher_</a></td></tr>
+<tr class="memdesc:a582137f906569a66432b0f0199f4ea45 inherit pro_attribs_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes full vehicle trajectory.  <br /></td></tr>
+<tr class="separator:a582137f906569a66432b0f0199f4ea45 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1b1ab9005204ecb332cf7a83e4ae757 inherit pro_attribs_class_s_l_a_m_node" id="r_ae1b1ab9005204ecb332cf7a83e4ae757"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; visualization_msgs::msg::MarkerArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#ae1b1ab9005204ecb332cf7a83e4ae757">_associations_visualization_publisher_</a></td></tr>
 <tr class="separator:ae1b1ab9005204ecb332cf7a83e4ae757 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa8234fb7666d11d542ac4ab76504615 inherit pro_attribs_class_s_l_a_m_node" id="r_aaa8234fb7666d11d542ac4ab76504615"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; visualization_msgs::msg::Marker &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#aaa8234fb7666d11d542ac4ab76504615">_position_publisher_</a></td></tr>
-<tr class="separator:aaa8234fb7666d11d542ac4ab76504615 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab50e60d83b64ce5d918d0bb825f279d1 inherit pro_attribs_class_s_l_a_m_node" id="r_ab50e60d83b64ce5d918d0bb825f279d1"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; std_msgs::msg::Float64MultiArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#ab50e60d83b64ce5d918d0bb825f279d1">_execution_time_publisher_</a></td></tr>
 <tr class="separator:ab50e60d83b64ce5d918d0bb825f279d1 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a927581e5015a831614e83747817fad89 inherit pro_attribs_class_s_l_a_m_node" id="r_a927581e5015a831614e83747817fad89"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; std_msgs::msg::Float64MultiArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a927581e5015a831614e83747817fad89">_covariance_publisher_</a></td></tr>
+<tr class="memdesc:a927581e5015a831614e83747817fad89 inherit pro_attribs_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes the covariance of the pose.  <br /></td></tr>
 <tr class="separator:a927581e5015a831614e83747817fad89 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5d94ee3a9cfc2d1eba7f9a65ca00ad0 inherit pro_attribs_class_s_l_a_m_node" id="r_ab5d94ee3a9cfc2d1eba7f9a65ca00ad0"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; std_msgs::msg::Float64 &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#ab5d94ee3a9cfc2d1eba7f9a65ca00ad0">_lap_counter_publisher_</a></td></tr>
 <tr class="separator:ab5d94ee3a9cfc2d1eba7f9a65ca00ad0 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -335,7 +352,6 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:adce67daf7d4e3505b834cd3f46e12120 inherit pro_attribs_class_s_l_a_m_node" id="r_adce67daf7d4e3505b834cd3f46e12120"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#adce67daf7d4e3505b834cd3f46e12120">_track_map_</a></td></tr>
 <tr class="separator:adce67daf7d4e3505b834cd3f46e12120 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a834717deba8f26cf0bcab4bcf7ba96df inherit pro_attribs_class_s_l_a_m_node" id="r_a834717deba8f26cf0bcab4bcf7ba96df"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a834717deba8f26cf0bcab4bcf7ba96df">_associations_</a></td></tr>
-<tr class="memdesc:a834717deba8f26cf0bcab4bcf7ba96df inherit pro_attribs_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associations of the cones in the map.  <br /></td></tr>
 <tr class="separator:a834717deba8f26cf0bcab4bcf7ba96df inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7adfcd99e21d33e67b885bdccd80a1b2 inherit pro_attribs_class_s_l_a_m_node" id="r_a7adfcd99e21d33e67b885bdccd80a1b2"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a7adfcd99e21d33e67b885bdccd80a1b2">_observations_global_</a></td></tr>
 <tr class="memdesc:a7adfcd99e21d33e67b885bdccd80a1b2 inherit pro_attribs_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global observations of the cones.  <br /></td></tr>
@@ -354,6 +370,11 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a49291ebab4b682076348626ed832c989 inherit pro_attribs_class_s_l_a_m_node" id="r_a49291ebab4b682076348626ed832c989"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a49291ebab4b682076348626ed832c989">_adapter_name_</a></td></tr>
 <tr class="memdesc:a49291ebab4b682076348626ed832c989 inherit pro_attribs_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">flag to start the mission  <br /></td></tr>
 <tr class="separator:a49291ebab4b682076348626ed832c989 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26f45eed031f44c0414613569ee061a7 inherit pro_attribs_class_s_l_a_m_node" id="r_a26f45eed031f44c0414613569ee061a7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a26f45eed031f44c0414613569ee061a7">_vehicle_frame_id_</a></td></tr>
+<tr class="memdesc:a26f45eed031f44c0414613569ee061a7 inherit pro_attribs_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frame id of the vehicle for the transform.  <br /></td></tr>
+<tr class="separator:a26f45eed031f44c0414613569ee061a7 inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19578b021b18090a348c154142842fcf inherit pro_attribs_class_s_l_a_m_node" id="r_a19578b021b18090a348c154142842fcf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html">SLAMParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a19578b021b18090a348c154142842fcf">_params_</a></td></tr>
+<tr class="separator:a19578b021b18090a348c154142842fcf inherit pro_attribs_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_v_e_node"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_v_e_node')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d3/d43/class_v_e_node.html">VENode</a></td></tr>
 <tr class="memitem:acaefc26c843cfe5c0f8ab0b413c596a5 inherit pro_attribs_class_v_e_node" id="r_acaefc26c843cfe5c0f8ab0b413c596a5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/db7/struct_v_e_parameters.html">VEParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d43/class_v_e_node.html#acaefc26c843cfe5c0f8ab0b413c596a5">_parameters_</a></td></tr>
 <tr class="separator:acaefc26c843cfe5c0f8ab0b413c596a5 inherit pro_attribs_class_v_e_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -363,7 +384,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a80d3415aa3c7fda838da1816ae9f146c inherit pro_attribs_class_v_e_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a> class for the pacsim simulator. </p>
+<div class="textblock"><p><a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a> class to interface with the Pacsim simulator for SLAM. </p>
+<p><a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a> class for the pacsim simulator.</p>
+<p>This class subscribes to the necessary topics from Pacsim and adapts the data for use in the SLAM node</p>
 <p>This class subscribes to the IMU, wheel speeds, and steering angle topics published by the pacsim simulator. It then passes the data to the velocity estimator for processing. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../df/d31/ekf__state__est_2include_2adapter__ekf__state__est_2pacsim_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../df/d31/ekf__state__est_2include_2adapter__ekf__state__est_2pacsim_8hpp_source.html">pacsim.hpp</a>.</p>
@@ -463,39 +486,48 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d1/dcb/class_pacsim_adapter_ad557c789fd4da581c9d487abb5af4dc5_cgraph.png" border="0" usemap="#ad1/dcb/class_pacsim_adapter_ad557c789fd4da581c9d487abb5af4dc5_cgraph" alt=""/></div>
 <map name="ad1/dcb/class_pacsim_adapter_ad557c789fd4da581c9d487abb5af4dc5_cgraph" id="ad1/dcb/class_pacsim_adapter_ad557c789fd4da581c9d487abb5af4dc5_cgraph">
-<area shape="rect" title="Constructor of the pacsim adapter node." alt="" coords="5,286,211,311"/>
-<area shape="rect" href="../../d1/dcb/class_pacsim_adapter.html#a55a7901c609a7ad1eeced10bb2ce466f" title="Callback for simulated perception detections from pacsim." alt="" coords="259,173,424,229"/>
-<area shape="poly" title=" " alt="" coords="140,283,258,233,260,238,142,288"/>
-<area shape="rect" href="../../d1/dcb/class_pacsim_adapter.html#a651d389ab08e146b604c9b833cf5c0a4" title="Callback for simulated velocities from pacsim." alt="" coords="259,271,424,326"/>
-<area shape="poly" title=" " alt="" coords="211,296,243,296,243,301,211,301"/>
-<area shape="rect" href="../../d1/dcb/class_pacsim_adapter.html#a1fbe764d3bc5dcb5a1f91071e7be923f" title="Fetches the mission from the parameters." alt="" coords="269,350,414,391"/>
-<area shape="poly" title=" " alt="" coords="153,309,259,343,258,348,151,314"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#aac21a292783c53d1f41cfaa255b3e9bf" title="Callback that updates everytime information is received from the perception module." alt="" coords="472,181,634,222"/>
-<area shape="poly" title=" " alt="" coords="424,199,456,199,456,204,424,204"/>
-<area shape="rect" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="938,90,1102,131"/>
-<area shape="poly" title=" " alt="" coords="379,171,435,133,508,89,592,48,682,17,731,7,770,3,810,6,858,17,892,29,925,44,981,79,978,83,923,49,890,34,857,22,809,12,770,8,731,12,683,22,594,53,511,94,438,137,382,175"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#ad85455fe3aa893627d226f26a16d0390" title="Checks if the mission is finished." alt="" coords="688,82,852,123"/>
-<area shape="poly" title=" " alt="" coords="591,178,681,133,697,127,699,132,683,138,594,183"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a91b66a755ba32f65e90666fe56bc9629" title="Publishes the visualization of the associations by data association." alt="" coords="698,148,842,188"/>
-<area shape="poly" title=" " alt="" coords="634,186,682,179,683,184,635,191"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a3e323b58014b3f31d0574d4be9ab092f" title="publishes the lap counter" alt="" coords="698,213,842,254"/>
-<area shape="poly" title=" " alt="" coords="635,211,683,218,682,223,634,216"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a976a75ca26892057e2b0c2ea11a25496" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="682,278,858,303"/>
-<area shape="poly" title=" " alt="" coords="593,220,683,263,704,270,702,275,681,268,591,224"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="698,328,842,368"/>
-<area shape="poly" title=" " alt="" coords="579,220,684,314,691,318,689,323,681,318,575,224"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a4fe92c9a730b5fd9c1f4ebc9b007e4ae" title="Finish the mission." alt="" coords="707,32,833,58"/>
-<area shape="poly" title=" " alt="" coords="567,179,614,124,646,94,681,68,693,62,695,67,684,73,649,98,618,127,571,182"/>
-<area shape="poly" title=" " alt="" coords="830,275,856,263,897,235,933,203,991,141,995,145,937,207,900,240,859,268,832,280"/>
-<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="906,270,1134,311"/>
-<area shape="poly" title=" " alt="" coords="858,288,890,288,890,293,858,293"/>
-<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="1182,237,1367,278"/>
-<area shape="poly" title=" " alt="" coords="1134,273,1166,269,1167,274,1135,278"/>
-<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="1182,302,1367,343"/>
-<area shape="poly" title=" " alt="" coords="1135,302,1167,306,1166,312,1134,308"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a6e228ce696c330a4a43ae5807c632df7" title="Callback that updates everytime information is received from vehicle state estimation node." alt="" coords="475,286,632,327"/>
-<area shape="poly" title=" " alt="" coords="424,299,459,300,459,306,424,304"/>
-<area shape="poly" title=" " alt="" coords="633,319,683,329,682,334,632,324"/>
+<area shape="rect" title="Constructor of the pacsim adapter node." alt="" coords="5,249,211,275"/>
+<area shape="rect" href="../../d1/dcb/class_pacsim_adapter.html#a066611e620ab033c8f5399f8305847da" title="Callback for simulated IMU data from pacsim." alt="" coords="259,47,440,87"/>
+<area shape="poly" title=" " alt="" coords="124,246,309,95,312,100,127,250"/>
+<area shape="rect" href="../../d1/dcb/class_pacsim_adapter.html#a55a7901c609a7ad1eeced10bb2ce466f" title="Callback for simulated perception detections from pacsim." alt="" coords="267,194,432,250"/>
+<area shape="poly" title=" " alt="" coords="189,246,251,235,252,241,190,251"/>
+<area shape="rect" href="../../d1/dcb/class_pacsim_adapter.html#a651d389ab08e146b604c9b833cf5c0a4" title="Callback for simulated velocities from pacsim." alt="" coords="267,274,432,330"/>
+<area shape="poly" title=" " alt="" coords="190,272,252,283,251,288,189,278"/>
+<area shape="rect" href="../../d1/dcb/class_pacsim_adapter.html#a1fbe764d3bc5dcb5a1f91071e7be923f" title="Fetches the mission from the parameters." alt="" coords="277,353,422,394"/>
+<area shape="poly" title=" " alt="" coords="133,273,190,305,260,339,273,345,271,350,258,344,187,309,130,277"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#ad8e02138c8c98857ec5bd1d220a0cbf6" title="Callback that updates everytime information is received from the IMU." alt="" coords="488,5,688,46"/>
+<area shape="poly" title=" " alt="" coords="440,49,472,43,473,48,441,54"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#aac21a292783c53d1f41cfaa255b3e9bf" title="Callback that updates everytime information is received from the perception module." alt="" coords="507,251,669,291"/>
+<area shape="poly" title=" " alt="" coords="433,236,492,249,491,254,432,241"/>
+<area shape="rect" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="992,173,1156,214"/>
+<area shape="poly" title=" " alt="" coords="407,191,503,151,563,131,629,114,699,100,770,93,842,94,912,106,945,116,978,131,1033,162,1030,167,975,135,944,121,911,111,842,100,770,99,699,106,630,119,565,136,505,156,409,196"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#ad85455fe3aa893627d226f26a16d0390" title="Checks if the mission is finished." alt="" coords="742,120,906,161"/>
+<area shape="poly" title=" " alt="" coords="616,248,670,210,735,171,748,165,751,170,738,176,673,215,619,252"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a91b66a755ba32f65e90666fe56bc9629" title="Publishes the visualization of the associations by data association." alt="" coords="752,185,896,226"/>
+<area shape="poly" title=" " alt="" coords="663,248,736,227,738,232,665,253"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a3e323b58014b3f31d0574d4be9ab092f" title="publishes the lap counter" alt="" coords="752,251,896,291"/>
+<area shape="poly" title=" " alt="" coords="670,268,737,268,737,274,670,274"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a976a75ca26892057e2b0c2ea11a25496" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="736,316,912,341"/>
+<area shape="poly" title=" " alt="" coords="670,288,754,309,753,314,669,293"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="752,415,896,455"/>
+<area shape="poly" title=" " alt="" coords="661,290,690,309,708,333,715,356,721,379,738,401,741,404,738,408,734,405,717,381,710,358,703,335,686,313,658,294"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a4fe92c9a730b5fd9c1f4ebc9b007e4ae" title="Finish the mission." alt="" coords="761,365,887,391"/>
+<area shape="poly" title=" " alt="" coords="652,290,690,309,704,320,714,331,723,341,738,351,748,356,746,361,735,356,720,345,710,335,701,324,687,313,649,294"/>
+<area shape="poly" title=" " alt="" coords="880,312,911,301,977,262,1034,222,1037,226,980,267,913,305,882,317"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="960,349,1188,390"/>
+<area shape="poly" title=" " alt="" coords="906,339,945,346,944,351,905,344"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="1236,349,1421,390"/>
+<area shape="poly" title=" " alt="" coords="1188,367,1220,367,1220,372,1188,372"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="1236,415,1421,455"/>
+<area shape="poly" title=" " alt="" coords="1157,388,1233,408,1231,413,1155,393"/>
+<area shape="poly" title=" " alt="" coords="895,414,978,392,980,397,897,419"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966" title="Converts a position to a marker." alt="" coords="981,415,1167,455"/>
+<area shape="poly" title=" " alt="" coords="896,432,966,432,966,438,896,438"/>
+<area shape="poly" title=" " alt="" coords="1155,411,1231,392,1233,397,1157,417"/>
+<area shape="poly" title=" " alt="" coords="1167,432,1221,432,1221,438,1167,438"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a6e228ce696c330a4a43ae5807c632df7" title="Callback that updates everytime information is received from velocity estimation node." alt="" coords="510,323,667,363"/>
+<area shape="poly" title=" " alt="" coords="433,313,495,324,494,329,432,319"/>
+<area shape="poly" title=" " alt="" coords="641,361,737,401,752,406,750,411,735,405,639,366"/>
 </map>
 </div>
 
@@ -548,6 +580,62 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a066611e620ab033c8f5399f8305847da" name="a066611e620ab033c8f5399f8305847da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a066611e620ab033c8f5399f8305847da">&#9670;&#160;</a></span>_pacsim_imu_subscription_callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PacsimAdapter::_pacsim_imu_subscription_callback </td>
+          <td>(</td>
+          <td class="paramtype">const sensor_msgs::msg::Imu &amp;&#160;</td>
+          <td class="paramname"><em>msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback for simulated IMU data from pacsim. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msg</td><td>Message containing the IMU data of the vehicle </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d9/d0a/slam_2src_2adapter__slam_2pacsim_8cpp_source.html#l00135">135</a> of file <a class="el" href="../../d9/d0a/slam_2src_2adapter__slam_2pacsim_8cpp_source.html">pacsim.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d1/dcb/class_pacsim_adapter_a066611e620ab033c8f5399f8305847da_cgraph.png" border="0" usemap="#ad1/dcb/class_pacsim_adapter_a066611e620ab033c8f5399f8305847da_cgraph" alt=""/></div>
+<map name="ad1/dcb/class_pacsim_adapter_a066611e620ab033c8f5399f8305847da_cgraph" id="ad1/dcb/class_pacsim_adapter_a066611e620ab033c8f5399f8305847da_cgraph">
+<area shape="rect" title="Callback for simulated IMU data from pacsim." alt="" coords="5,5,187,46"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#ad8e02138c8c98857ec5bd1d220a0cbf6" title="Callback that updates everytime information is received from the IMU." alt="" coords="235,5,435,46"/>
+<area shape="poly" title=" " alt="" coords="187,23,219,23,219,28,187,28"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d1/dcb/class_pacsim_adapter_a066611e620ab033c8f5399f8305847da_icgraph.png" border="0" usemap="#ad1/dcb/class_pacsim_adapter_a066611e620ab033c8f5399f8305847da_icgraph" alt=""/></div>
+<map name="ad1/dcb/class_pacsim_adapter_a066611e620ab033c8f5399f8305847da_icgraph" id="ad1/dcb/class_pacsim_adapter_a066611e620ab033c8f5399f8305847da_icgraph">
+<area shape="rect" title="Callback for simulated IMU data from pacsim." alt="" coords="259,5,440,46"/>
+<area shape="rect" href="../../d1/dcb/class_pacsim_adapter.html#ad557c789fd4da581c9d487abb5af4dc5" title="Constructor of the pacsim adapter node." alt="" coords="5,13,211,39"/>
+<area shape="poly" title=" " alt="" coords="243,28,211,28,211,23,243,23"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a55a7901c609a7ad1eeced10bb2ce466f" name="a55a7901c609a7ad1eeced10bb2ce466f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a55a7901c609a7ad1eeced10bb2ce466f">&#9670;&#160;</a></span>_pacsim_perception_subscription_callback()</h2>
 
@@ -580,36 +668,41 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d0a/slam_2src_2adapter__slam_2pacsim_8cpp_source.html#l00085">85</a> of file <a class="el" href="../../d9/d0a/slam_2src_2adapter__slam_2pacsim_8cpp_source.html">pacsim.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d0a/slam_2src_2adapter__slam_2pacsim_8cpp_source.html#l00098">98</a> of file <a class="el" href="../../d9/d0a/slam_2src_2adapter__slam_2pacsim_8cpp_source.html">pacsim.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d1/dcb/class_pacsim_adapter_a55a7901c609a7ad1eeced10bb2ce466f_cgraph.png" border="0" usemap="#ad1/dcb/class_pacsim_adapter_a55a7901c609a7ad1eeced10bb2ce466f_cgraph" alt=""/></div>
 <map name="ad1/dcb/class_pacsim_adapter_a55a7901c609a7ad1eeced10bb2ce466f_cgraph" id="ad1/dcb/class_pacsim_adapter_a55a7901c609a7ad1eeced10bb2ce466f_cgraph">
-<area shape="rect" title="Callback for simulated perception detections from pacsim." alt="" coords="5,269,171,324"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#aac21a292783c53d1f41cfaa255b3e9bf" title="Callback that updates everytime information is received from the perception module." alt="" coords="219,193,381,234"/>
-<area shape="poly" title=" " alt="" coords="160,265,230,238,232,243,162,270"/>
-<area shape="rect" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="684,308,849,349"/>
-<area shape="poly" title=" " alt="" coords="172,311,293,334,429,351,517,356,604,351,669,343,670,349,605,356,517,361,429,356,292,339,171,317"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#ad85455fe3aa893627d226f26a16d0390" title="Checks if the mission is finished." alt="" coords="435,5,599,46"/>
-<area shape="poly" title=" " alt="" coords="311,191,357,126,390,89,427,57,436,51,439,56,431,61,394,93,361,129,316,194"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a91b66a755ba32f65e90666fe56bc9629" title="Publishes the visualization of the associations by data association." alt="" coords="445,71,588,111"/>
-<area shape="poly" title=" " alt="" coords="325,191,372,157,428,122,440,116,443,120,430,127,375,161,328,195"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a3e323b58014b3f31d0574d4be9ab092f" title="publishes the lap counter" alt="" coords="445,136,588,177"/>
-<area shape="poly" title=" " alt="" coords="378,190,429,177,431,182,380,195"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a976a75ca26892057e2b0c2ea11a25496" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="429,201,604,227"/>
-<area shape="poly" title=" " alt="" coords="382,211,413,211,413,216,382,216"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="445,251,588,291"/>
-<area shape="poly" title=" " alt="" coords="380,232,431,246,429,251,378,237"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a4fe92c9a730b5fd9c1f4ebc9b007e4ae" title="Finish the mission." alt="" coords="454,316,579,341"/>
-<area shape="poly" title=" " alt="" coords="327,232,373,267,430,301,446,308,444,312,428,305,371,271,324,237"/>
-<area shape="poly" title=" " alt="" coords="572,225,605,237,667,266,722,298,719,302,664,271,603,241,570,230"/>
-<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="652,193,881,234"/>
-<area shape="poly" title=" " alt="" coords="605,211,637,211,637,216,605,216"/>
-<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="929,160,1114,201"/>
-<area shape="poly" title=" " alt="" coords="881,196,913,192,914,197,881,201"/>
-<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="929,225,1114,266"/>
-<area shape="poly" title=" " alt="" coords="881,225,914,229,913,235,881,231"/>
+<area shape="rect" title="Callback for simulated perception detections from pacsim." alt="" coords="5,51,171,107"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#aac21a292783c53d1f41cfaa255b3e9bf" title="Callback that updates everytime information is received from the perception module." alt="" coords="219,137,381,178"/>
+<area shape="poly" title=" " alt="" coords="166,105,230,129,228,134,164,110"/>
+<area shape="rect" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="684,5,849,46"/>
+<area shape="poly" title=" " alt="" coords="171,60,292,39,429,23,554,18,669,19,669,24,554,23,429,28,293,44,172,65"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#ad85455fe3aa893627d226f26a16d0390" title="Checks if the mission is finished." alt="" coords="435,137,599,178"/>
+<area shape="poly" title=" " alt="" coords="382,155,419,155,419,160,382,160"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a91b66a755ba32f65e90666fe56bc9629" title="Publishes the visualization of the associations by data association." alt="" coords="445,203,588,243"/>
+<area shape="poly" title=" " alt="" coords="370,176,433,195,432,200,369,181"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a3e323b58014b3f31d0574d4be9ab092f" title="publishes the lap counter" alt="" coords="445,268,588,309"/>
+<area shape="poly" title=" " alt="" coords="326,176,373,214,430,253,442,259,440,264,428,257,369,219,323,181"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a976a75ca26892057e2b0c2ea11a25496" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="429,38,604,64"/>
+<area shape="poly" title=" " alt="" coords="327,135,373,103,428,73,443,67,445,72,430,77,375,107,330,139"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="445,333,588,374"/>
+<area shape="poly" title=" " alt="" coords="315,177,360,246,393,284,431,318,438,323,435,328,427,322,389,288,356,249,310,180"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a4fe92c9a730b5fd9c1f4ebc9b007e4ae" title="Finish the mission." alt="" coords="454,88,579,113"/>
+<area shape="poly" title=" " alt="" coords="378,134,450,115,451,120,380,139"/>
+<area shape="poly" title=" " alt="" coords="605,39,669,33,669,38,605,45"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="652,268,881,309"/>
+<area shape="poly" title=" " alt="" coords="585,62,606,73,654,114,695,163,728,211,751,253,746,256,723,214,691,166,650,118,603,77,583,67"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="929,333,1114,374"/>
+<area shape="poly" title=" " alt="" coords="849,307,925,326,924,332,848,312"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="929,268,1114,309"/>
+<area shape="poly" title=" " alt="" coords="881,286,913,286,913,291,881,291"/>
+<area shape="poly" title=" " alt="" coords="588,332,671,311,672,316,590,338"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966" title="Converts a position to a marker." alt="" coords="674,333,859,374"/>
+<area shape="poly" title=" " alt="" coords="589,351,658,351,658,356,589,356"/>
+<area shape="poly" title=" " alt="" coords="860,351,913,351,913,356,860,356"/>
+<area shape="poly" title=" " alt="" coords="848,330,924,310,925,316,849,335"/>
 </map>
 </div>
 <div class="dynheader">
@@ -657,17 +750,27 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d0a/slam_2src_2adapter__slam_2pacsim_8cpp_source.html#l00104">104</a> of file <a class="el" href="../../d9/d0a/slam_2src_2adapter__slam_2pacsim_8cpp_source.html">pacsim.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d0a/slam_2src_2adapter__slam_2pacsim_8cpp_source.html#l00120">120</a> of file <a class="el" href="../../d9/d0a/slam_2src_2adapter__slam_2pacsim_8cpp_source.html">pacsim.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d1/dcb/class_pacsim_adapter_a651d389ab08e146b604c9b833cf5c0a4_cgraph.png" border="0" usemap="#ad1/dcb/class_pacsim_adapter_a651d389ab08e146b604c9b833cf5c0a4_cgraph" alt=""/></div>
 <map name="ad1/dcb/class_pacsim_adapter_a651d389ab08e146b604c9b833cf5c0a4_cgraph" id="ad1/dcb/class_pacsim_adapter_a651d389ab08e146b604c9b833cf5c0a4_cgraph">
-<area shape="rect" title="Callback for simulated velocities from pacsim." alt="" coords="5,5,171,61"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a6e228ce696c330a4a43ae5807c632df7" title="Callback that updates everytime information is received from vehicle state estimation node." alt="" coords="219,13,376,54"/>
-<area shape="poly" title=" " alt="" coords="171,31,203,31,203,36,171,36"/>
-<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="424,13,567,54"/>
-<area shape="poly" title=" " alt="" coords="377,31,408,31,408,36,377,36"/>
+<area shape="rect" title="Callback for simulated velocities from pacsim." alt="" coords="5,31,171,87"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a6e228ce696c330a4a43ae5807c632df7" title="Callback that updates everytime information is received from velocity estimation node." alt="" coords="219,39,376,79"/>
+<area shape="poly" title=" " alt="" coords="171,56,203,56,203,62,171,62"/>
+<area shape="rect" href="../../d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="424,39,567,79"/>
+<area shape="poly" title=" " alt="" coords="377,56,408,56,408,62,377,62"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="615,5,844,46"/>
+<area shape="poly" title=" " alt="" coords="567,46,599,42,600,47,568,51"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966" title="Converts a position to a marker." alt="" coords="637,71,822,111"/>
+<area shape="poly" title=" " alt="" coords="568,66,621,74,621,79,567,71"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="892,5,1077,46"/>
+<area shape="poly" title=" " alt="" coords="844,23,876,23,876,28,844,28"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="892,71,1077,111"/>
+<area shape="poly" title=" " alt="" coords="812,44,888,64,887,69,811,49"/>
+<area shape="poly" title=" " alt="" coords="811,67,887,48,888,53,812,73"/>
+<area shape="poly" title=" " alt="" coords="823,88,876,88,876,94,823,94"/>
 </map>
 </div>
 <div class="dynheader">
@@ -708,7 +811,7 @@ Here is the caller graph for this function:</div>
 
 <p>Fetches the mission from the parameters. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d0a/slam_2src_2adapter__slam_2pacsim_8cpp_source.html#l00047">47</a> of file <a class="el" href="../../d9/d0a/slam_2src_2adapter__slam_2pacsim_8cpp_source.html">pacsim.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d0a/slam_2src_2adapter__slam_2pacsim_8cpp_source.html#l00057">57</a> of file <a class="el" href="../../d9/d0a/slam_2src_2adapter__slam_2pacsim_8cpp_source.html">pacsim.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1065,6 +1168,32 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="a33e5182de4faabe8bc8ac5efff8e516b" name="a33e5182de4faabe8bc8ac5efff8e516b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33e5182de4faabe8bc8ac5efff8e516b">&#9670;&#160;</a></span>_imu_subscription_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Subscription&lt;sensor_msgs::msg::Imu&gt;::SharedPtr PacsimAdapter::_imu_subscription_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Subscriber for simulated IMU data. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/daa/slam_2include_2adapter__slam_2pacsim_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../d0/daa/slam_2include_2adapter__slam_2pacsim_8hpp_source.html">pacsim.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a38e821d342abcc3126b5e0e1dd7e7718" name="a38e821d342abcc3126b5e0e1dd7e7718"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a38e821d342abcc3126b5e0e1dd7e7718">&#9670;&#160;</a></span>_pacsim_wheel_speeds_subscription_</h2>
 
@@ -1215,7 +1344,7 @@ Here is the caller graph for this function:</div>
 
 <p>Subscriber for simulated velocities. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/daa/slam_2include_2adapter__slam_2pacsim_8hpp_source.html#l00015">15</a> of file <a class="el" href="../../d0/daa/slam_2include_2adapter__slam_2pacsim_8hpp_source.html">pacsim.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/daa/slam_2include_2adapter__slam_2pacsim_8hpp_source.html#l00021">21</a> of file <a class="el" href="../../d0/daa/slam_2include_2adapter__slam_2pacsim_8hpp_source.html">pacsim.hpp</a>.</p>
 
 </div>
 </div>
@@ -1239,7 +1368,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d0/daa/slam_2include_2adapter__slam_2pacsim_8hpp_source.html#l00020">20</a> of file <a class="el" href="../../d0/daa/slam_2include_2adapter__slam_2pacsim_8hpp_source.html">pacsim.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/daa/slam_2include_2adapter__slam_2pacsim_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../d0/daa/slam_2include_2adapter__slam_2pacsim_8hpp_source.html">pacsim.hpp</a>.</p>
 
 </div>
 </div>

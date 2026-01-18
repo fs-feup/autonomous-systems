@@ -161,51 +161,41 @@ $(document).ready(function(){initNavTree('d8/deb/track__loader_8cpp_source.html'
 </div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
 <div class="foldopen" id="foldopen00054" data-start="{" data-end="}">
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="../../d2/d6a/track__loader_8hpp.html#a08c49ab3cd9080d5784f370b7f23631e">   54</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d8/deb/track__loader_8cpp.html#a08c49ab3cd9080d5784f370b7f23631e">load_trackdrive_track</a>(Eigen::Vector3d&amp; start_pose, Eigen::VectorXd&amp; track) {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="../../d2/d6a/track__loader_8hpp.html#ad4e86aefb67cb6fdc1592f2d6c02bfa0">   54</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d8/deb/track__loader_8cpp.html#ad4e86aefb67cb6fdc1592f2d6c02bfa0">load_skidpad_track</a>(Eigen::Vector3d&amp; start_pose, Eigen::VectorXd&amp; track) {</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  std::string package_prefix = ament_index_cpp::get_package_prefix(<span class="stringliteral">&quot;slam&quot;</span>);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  std::string mapPath = package_prefix + <span class="stringliteral">&quot;/../../src/slam/maps/trackdrive.yaml&quot;</span>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  std::string mapPath = package_prefix + <span class="stringliteral">&quot;/../../src/slam/maps/skidpad.yaml&quot;</span>;</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  <a class="code hl_function" href="../../d8/deb/track__loader_8cpp.html#a5c744bddb2fdcd908259e5e0058bf229">load_initial_state</a>(mapPath, start_pose, track);</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  <a class="code hl_function" href="../../d8/deb/track__loader_8cpp.html#a90eb72a3528fcbb695757997ea85cb43">transform_track</a>(track, start_pose);</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>}</div>
 </div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
 <div class="foldopen" id="foldopen00061" data-start="{" data-end="}">
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="../../d2/d6a/track__loader_8hpp.html#ad4e86aefb67cb6fdc1592f2d6c02bfa0">   61</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d8/deb/track__loader_8cpp.html#ad4e86aefb67cb6fdc1592f2d6c02bfa0">load_skidpad_track</a>(Eigen::Vector3d&amp; start_pose, Eigen::VectorXd&amp; track) {</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  std::string package_prefix = ament_index_cpp::get_package_prefix(<span class="stringliteral">&quot;slam&quot;</span>);</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  std::string mapPath = package_prefix + <span class="stringliteral">&quot;/../../src/slam/maps/skidpad.yaml&quot;</span>;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  <a class="code hl_function" href="../../d8/deb/track__loader_8cpp.html#a5c744bddb2fdcd908259e5e0058bf229">load_initial_state</a>(mapPath, start_pose, track);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  <a class="code hl_function" href="../../d8/deb/track__loader_8cpp.html#a90eb72a3528fcbb695757997ea85cb43">transform_track</a>(track, start_pose);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="../../d2/d6a/track__loader_8hpp.html#a90eb72a3528fcbb695757997ea85cb43">   61</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d8/deb/track__loader_8cpp.html#a90eb72a3528fcbb695757997ea85cb43">transform_track</a>(Eigen::VectorXd&amp; track, Eigen::Vector3d&amp; start_pose) {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  <span class="keywordtype">double</span> theta = start_pose(2);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  Eigen::Vector2d translation = start_pose.head&lt;2&gt;();</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  <span class="comment">// Compute inverse rotation matrix (transpose of rotation matrix)</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  Eigen::Matrix2d rotation_matrix;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  rotation_matrix &lt;&lt; cos(theta), -sin(theta), sin(theta), cos(theta);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  Eigen::Matrix2d inverse_rotation = rotation_matrix.transpose();</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; track.size(); i += 2) {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    Eigen::Vector2d point(track[i], track[i + 1]);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="comment">// Translate to pose frame and rotate</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    point = inverse_rotation * (point - translation);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    track[i] = point[0];</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    track[i + 1] = point[1];</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>  }</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>  start_pose = Eigen::Vector3d(0, 0, 0);  <span class="comment">// Reset start pose to origin after transformation</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>}</div>
 </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="foldopen" id="foldopen00068" data-start="{" data-end="}">
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="../../d2/d6a/track__loader_8hpp.html#a90eb72a3528fcbb695757997ea85cb43">   68</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d8/deb/track__loader_8cpp.html#a90eb72a3528fcbb695757997ea85cb43">transform_track</a>(Eigen::VectorXd&amp; track, Eigen::Vector3d&amp; start_pose) {</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  <span class="keywordtype">double</span> theta = start_pose(2);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  Eigen::Vector2d translation = start_pose.head&lt;2&gt;();</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  <span class="comment">// Compute inverse rotation matrix (transpose of rotation matrix)</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  Eigen::Matrix2d rotation_matrix;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>  rotation_matrix &lt;&lt; cos(theta), -sin(theta), sin(theta), cos(theta);</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>  Eigen::Matrix2d inverse_rotation = rotation_matrix.transpose();</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; track.size(); i += 2) {</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    Eigen::Vector2d point(track[i], track[i + 1]);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="comment">// Translate to pose frame and rotate</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    point = inverse_rotation * (point - translation);</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    track[i] = point[0];</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    track[i + 1] = point[1];</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>  }</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  start_pose = Eigen::Vector3d(0, 0, 0);  <span class="comment">// Reset start pose to origin after transformation</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>}</div>
-</div>
-<div class="ttc" id="atrack__loader_8cpp_html_a08c49ab3cd9080d5784f370b7f23631e"><div class="ttname"><a href="../../d8/deb/track__loader_8cpp.html#a08c49ab3cd9080d5784f370b7f23631e">load_trackdrive_track</a></div><div class="ttdeci">void load_trackdrive_track(Eigen::Vector3d &amp;start_pose, Eigen::VectorXd &amp;track)</div><div class="ttdoc">loads the trackdrive track from the default path.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/deb/track__loader_8cpp_source.html#l00054">track_loader.cpp:54</a></div></div>
 <div class="ttc" id="atrack__loader_8cpp_html_a5c744bddb2fdcd908259e5e0058bf229"><div class="ttname"><a href="../../d8/deb/track__loader_8cpp.html#a5c744bddb2fdcd908259e5e0058bf229">load_initial_state</a></div><div class="ttdeci">void load_initial_state(std::string mapPath, Eigen::Vector3d &amp;start_pose, Eigen::VectorXd &amp;track)</div><div class="ttdoc">loads the map from the specified path and fills the start pose and track.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/deb/track__loader_8cpp_source.html#l00024">track_loader.cpp:24</a></div></div>
 <div class="ttc" id="atrack__loader_8cpp_html_a8fdf54bc79463c04ac8098b65da37f8a"><div class="ttname"><a href="../../d8/deb/track__loader_8cpp.html#a8fdf54bc79463c04ac8098b65da37f8a">load_acceleration_track</a></div><div class="ttdeci">void load_acceleration_track(Eigen::Vector3d &amp;start_pose, Eigen::VectorXd &amp;track)</div><div class="ttdoc">loads the acceleration track from the default path.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/deb/track__loader_8cpp_source.html#l00047">track_loader.cpp:47</a></div></div>
-<div class="ttc" id="atrack__loader_8cpp_html_a90eb72a3528fcbb695757997ea85cb43"><div class="ttname"><a href="../../d8/deb/track__loader_8cpp.html#a90eb72a3528fcbb695757997ea85cb43">transform_track</a></div><div class="ttdeci">void transform_track(Eigen::VectorXd &amp;track, Eigen::Vector3d &amp;start_pose)</div><div class="ttdoc">Transforms the track as seen from the start pose.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/deb/track__loader_8cpp_source.html#l00068">track_loader.cpp:68</a></div></div>
+<div class="ttc" id="atrack__loader_8cpp_html_a90eb72a3528fcbb695757997ea85cb43"><div class="ttname"><a href="../../d8/deb/track__loader_8cpp.html#a90eb72a3528fcbb695757997ea85cb43">transform_track</a></div><div class="ttdeci">void transform_track(Eigen::VectorXd &amp;track, Eigen::Vector3d &amp;start_pose)</div><div class="ttdoc">Transforms the track as seen from the start pose.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/deb/track__loader_8cpp_source.html#l00061">track_loader.cpp:61</a></div></div>
 <div class="ttc" id="atrack__loader_8cpp_html_aba21ebec4d5bd866eb855c49014ab80f"><div class="ttname"><a href="../../d8/deb/track__loader_8cpp.html#aba21ebec4d5bd866eb855c49014ab80f">add_landmarks</a></div><div class="ttdeci">void add_landmarks(Eigen::VectorXd &amp;track, const Node &amp;list)</div><div class="ttdoc">adds the landmarks in the list to the track.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/deb/track__loader_8cpp_source.html#l00013">track_loader.cpp:13</a></div></div>
-<div class="ttc" id="atrack__loader_8cpp_html_ad4e86aefb67cb6fdc1592f2d6c02bfa0"><div class="ttname"><a href="../../d8/deb/track__loader_8cpp.html#ad4e86aefb67cb6fdc1592f2d6c02bfa0">load_skidpad_track</a></div><div class="ttdeci">void load_skidpad_track(Eigen::Vector3d &amp;start_pose, Eigen::VectorXd &amp;track)</div><div class="ttdoc">loads the skidpad track from the default path.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/deb/track__loader_8cpp_source.html#l00061">track_loader.cpp:61</a></div></div>
+<div class="ttc" id="atrack__loader_8cpp_html_ad4e86aefb67cb6fdc1592f2d6c02bfa0"><div class="ttname"><a href="../../d8/deb/track__loader_8cpp.html#ad4e86aefb67cb6fdc1592f2d6c02bfa0">load_skidpad_track</a></div><div class="ttdeci">void load_skidpad_track(Eigen::Vector3d &amp;start_pose, Eigen::VectorXd &amp;track)</div><div class="ttdoc">loads the skidpad track from the default path.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/deb/track__loader_8cpp_source.html#l00054">track_loader.cpp:54</a></div></div>
 <div class="ttc" id="atrack__loader_8cpp_html_af45ff32e62996694d5ee0ff3f09b9755"><div class="ttname"><a href="../../d8/deb/track__loader_8cpp.html#af45ff32e62996694d5ee0ff3f09b9755">get_child_node</a></div><div class="ttdeci">Node get_child_node(Node parentNode, std::string tag)</div><div class="ttdoc">Get the child node from a parent node by tag.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/deb/track__loader_8cpp_source.html#l00003">track_loader.cpp:3</a></div></div>
 <div class="ttc" id="atrack__loader_8hpp_html"><div class="ttname"><a href="../../d2/d6a/track__loader_8hpp.html">track_loader.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

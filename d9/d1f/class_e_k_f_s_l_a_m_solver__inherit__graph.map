@@ -1,5 +1,7 @@
 <map id="EKFSLAMSolver" name="EKFSLAMSolver">
-<area shape="rect" id="Node000001" title=" " alt="" coords="9,579,181,1159"/>
-<area shape="rect" id="Node000002" href="$da/dd3/class_s_l_a_m_solver.html" title="Interface for SLAM solvers." alt="" coords="5,5,184,531"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,545,97,579,92,579,92,545"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="109,559,281,1119"/>
+<area shape="rect" id="Node000002" href="$da/dd3/class_s_l_a_m_solver.html" title="Interface for SLAM solvers." alt="" coords="5,5,184,511"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,525,149,559,144,560,138,526"/>
+<area shape="rect" id="Node000003" href="$d2/dee/class_velocities_integrator_trait.html" title="Trait class for velocities integration in SLAM solvers." alt="" coords="208,215,384,301"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="289,316,246,559,241,558,284,315"/>
 </map>

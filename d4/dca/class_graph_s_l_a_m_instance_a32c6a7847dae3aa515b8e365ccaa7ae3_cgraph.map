@@ -1,0 +1,7 @@
+<map id="GraphSLAMInstance::process_pose_difference" name="GraphSLAMInstance::process_pose_difference">
+<area shape="rect" id="Node000001" title="Process a pose difference and add the respective factor to the graph (after pose is current pose)" alt="" coords="5,5,171,46"/>
+<area shape="rect" id="Node000002" href="$d4/dca/class_graph_s_l_a_m_instance.html#a7ad32dc3cb22c3257ff1201613468a08" title="Process a pose difference and add the respective factor to the graph." alt="" coords="219,5,384,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,23,203,23,203,28,171,28"/>
+<area shape="rect" id="Node000003" href="$da/df5/slam_2src_2slam__solver_2graph__slam__solver_2utils_8cpp.html#a8649e3a40d3996e6a7eca0c02fbbc3a3" title=" " alt="" coords="432,13,580,39"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="384,23,416,23,416,28,384,28"/>
+</map>

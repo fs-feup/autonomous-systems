@@ -99,7 +99,7 @@ $(document).ready(function(){initNavTree('d2/de2/struct_skidpad_config.html','..
 </div><!--header-->
 <div class="contents">
 
-<p>struct for the configuration of the smoothing algorithm  
+<p>Configuration parameters for the <a class="el" href="../../de/d3f/class_skidpad.html" title="class that defines the skidpad path algorithm">Skidpad</a> class.  
  <a href="../../d2/de2/struct_skidpad_config.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../da/d0e/skidpad__config_8hpp_source.html">skidpad_config.hpp</a>&gt;</code></p>
@@ -108,31 +108,35 @@ Collaboration diagram for SkidpadConfig:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/d9a/struct_skidpad_config__coll__graph.png" border="0" usemap="#a_skidpad_config_coll__map" alt="Collaboration graph"/></div>
 <map name="a_skidpad_config_coll__map" id="a_skidpad_config_coll__map">
-<area shape="rect" title="struct for the configuration of the smoothing algorithm" alt="" coords="5,5,131,111"/>
+<area shape="rect" title="Configuration parameters for the Skidpad class." alt="" coords="5,5,131,111"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adb118725d3ef60a5a7f82d4ffa8983e2" id="r_adb118725d3ef60a5a7f82d4ffa8983e2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de2/struct_skidpad_config.html#adb118725d3ef60a5a7f82d4ffa8983e2">SkidpadConfig</a> ()=default</td></tr>
-<tr class="separator:adb118725d3ef60a5a7f82d4ffa8983e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada4d1759b5ff14af02ddc0b31816a27f" id="r_ada4d1759b5ff14af02ddc0b31816a27f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de2/struct_skidpad_config.html#ada4d1759b5ff14af02ddc0b31816a27f">SkidpadConfig</a> ()</td></tr>
+<tr class="memdesc:ada4d1759b5ff14af02ddc0b31816a27f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor with sensible defaults.  <br /></td></tr>
+<tr class="separator:ada4d1759b5ff14af02ddc0b31816a27f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b855c14978303afcfa4750d9d80589f" id="r_a4b855c14978303afcfa4750d9d80589f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de2/struct_skidpad_config.html#a4b855c14978303afcfa4750d9d80589f">SkidpadConfig</a> (int minimum_cones, double tolerance)</td></tr>
+<tr class="memdesc:a4b855c14978303afcfa4750d9d80589f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parameterized constructor.  <br /></td></tr>
 <tr class="separator:a4b855c14978303afcfa4750d9d80589f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:af08203ba53696c5bbe66e2ef53a6f051" id="r_af08203ba53696c5bbe66e2ef53a6f051"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de2/struct_skidpad_config.html#af08203ba53696c5bbe66e2ef53a6f051">minimum_cones_</a> = 10.0</td></tr>
+<tr class="memitem:af08203ba53696c5bbe66e2ef53a6f051" id="r_af08203ba53696c5bbe66e2ef53a6f051"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de2/struct_skidpad_config.html#af08203ba53696c5bbe66e2ef53a6f051">minimum_cones_</a></td></tr>
+<tr class="memdesc:af08203ba53696c5bbe66e2ef53a6f051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimum number of cones required.  <br /></td></tr>
 <tr class="separator:af08203ba53696c5bbe66e2ef53a6f051"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abde6d0a3c72fb4c62df616657d1d2fbf" id="r_abde6d0a3c72fb4c62df616657d1d2fbf"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de2/struct_skidpad_config.html#abde6d0a3c72fb4c62df616657d1d2fbf">tolerance_</a> = 1.0</td></tr>
+<tr class="memitem:abde6d0a3c72fb4c62df616657d1d2fbf" id="r_abde6d0a3c72fb4c62df616657d1d2fbf"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de2/struct_skidpad_config.html#abde6d0a3c72fb4c62df616657d1d2fbf">tolerance_</a></td></tr>
+<tr class="memdesc:abde6d0a3c72fb4c62df616657d1d2fbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum distance for matching cone pairs during <a class="el" href="../../dd/d10/class_i_c_p.html" title="Class for performing Iterative Closest Point (ICP) registration.">ICP</a> alignment.  <br /></td></tr>
 <tr class="separator:abde6d0a3c72fb4c62df616657d1d2fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>struct for the configuration of the smoothing algorithm </p>
+<div class="textblock"><p>Configuration parameters for the <a class="el" href="../../de/d3f/class_skidpad.html" title="class that defines the skidpad path algorithm">Skidpad</a> class. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/d0e/skidpad__config_8hpp_source.html#l00008">8</a> of file <a class="el" href="../../da/d0e/skidpad__config_8hpp_source.html">skidpad_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/skidpad__config_8hpp_source.html#l00007">7</a> of file <a class="el" href="../../da/d0e/skidpad__config_8hpp_source.html">skidpad_config.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="adb118725d3ef60a5a7f82d4ffa8983e2" name="adb118725d3ef60a5a7f82d4ffa8983e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb118725d3ef60a5a7f82d4ffa8983e2">&#9670;&#160;</a></span>SkidpadConfig() <span class="overload">[1/2]</span></h2>
+<a id="ada4d1759b5ff14af02ddc0b31816a27f" name="ada4d1759b5ff14af02ddc0b31816a27f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada4d1759b5ff14af02ddc0b31816a27f">&#9670;&#160;</a></span>SkidpadConfig() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -149,10 +153,14 @@ Public Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Default constructor with sensible defaults. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/skidpad__config_8hpp_source.html#l00021">21</a> of file <a class="el" href="../../da/d0e/skidpad__config_8hpp_source.html">skidpad_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -190,7 +198,9 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/d0e/skidpad__config_8hpp_source.html#l00013">13</a> of file <a class="el" href="../../da/d0e/skidpad__config_8hpp_source.html">skidpad_config.hpp</a>.</p>
+<p>Parameterized constructor. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/skidpad__config_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../da/d0e/skidpad__config_8hpp_source.html">skidpad_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -202,12 +212,14 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int SkidpadConfig::minimum_cones_ = 10.0</td>
+          <td class="memname">int SkidpadConfig::minimum_cones_</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/d0e/skidpad__config_8hpp_source.html#l00009">9</a> of file <a class="el" href="../../da/d0e/skidpad__config_8hpp_source.html">skidpad_config.hpp</a>.</p>
+<p>Minimum number of cones required. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/skidpad__config_8hpp_source.html#l00011">11</a> of file <a class="el" href="../../da/d0e/skidpad__config_8hpp_source.html">skidpad_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -218,12 +230,14 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double SkidpadConfig::tolerance_ = 1.0</td>
+          <td class="memname">double SkidpadConfig::tolerance_</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/d0e/skidpad__config_8hpp_source.html#l00010">10</a> of file <a class="el" href="../../da/d0e/skidpad__config_8hpp_source.html">skidpad_config.hpp</a>.</p>
+<p>Maximum distance for matching cone pairs during <a class="el" href="../../dd/d10/class_i_c_p.html" title="Class for performing Iterative Closest Point (ICP) registration.">ICP</a> alignment. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0e/skidpad__config_8hpp_source.html#l00016">16</a> of file <a class="el" href="../../da/d0e/skidpad__config_8hpp_source.html">skidpad_config.hpp</a>.</p>
 
 </div>
 </div>

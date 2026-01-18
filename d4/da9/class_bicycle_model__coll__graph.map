@@ -1,5 +1,17 @@
 <map id="BicycleModel" name="BicycleModel">
-<area shape="rect" id="Node000001" title="Simple bicycle model structure." alt="" coords="5,339,151,844"/>
-<area shape="rect" id="Node000002" href="$d6/dbc/class_vehicle_model.html" title="Vehicle model interface." alt="" coords="13,5,143,291"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,306,81,339,75,339,75,306"/>
+<area shape="rect" id="Node000001" title="Simple bicycle model structure." alt="" coords="174,637,319,1102"/>
+<area shape="rect" id="Node000002" href="$d6/dbc/class_vehicle_model.html" title="Vehicle model interface." alt="" coords="5,288,136,574"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="136,586,177,687,172,689,131,588"/>
+<area shape="rect" id="Node000003" href="$db/d7d/class_s2_v_model.html" title="Interface for models that convert data from sensor reference frame to vehicle reference frame and vic..." alt="" coords="160,361,333,501"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="249,516,249,637,244,637,244,516"/>
+<area shape="rect" id="Node000004" href="$dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html" title=" " alt="" coords="357,291,536,571"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="386,572,329,695,324,693,381,570"/>
+<area shape="rect" id="Node000005" href="$dd/d7d/structcommon__lib_1_1car__parameters_1_1_tire_parameters.html" title=" " alt="" coords="52,5,231,225"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="232,220,284,262,313,273,345,286,343,291,311,278,282,267,229,225"/>
+<area shape="rect" id="Node000006" href="$d5/d5a/structcommon__lib_1_1car__parameters_1_1_aero_parameters.html" title=" " alt="" coords="255,35,435,195"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="373,194,399,274,394,276,368,196"/>
+<area shape="rect" id="Node000007" href="$d2/d2e/structcommon__lib_1_1car__parameters_1_1_steering_motor_parameters.html" title=" " alt="" coords="460,55,639,175"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="535,176,508,265,504,276,499,274,503,264,530,174"/>
+<area shape="rect" id="Node000008" href="$d9/d6f/structcommon__lib_1_1car__parameters_1_1_steering_parameters.html" title=" " alt="" coords="663,65,841,165"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="739,166,717,217,685,266,655,298,621,327,551,376,548,372,618,323,651,294,681,263,712,214,734,164"/>
 </map>

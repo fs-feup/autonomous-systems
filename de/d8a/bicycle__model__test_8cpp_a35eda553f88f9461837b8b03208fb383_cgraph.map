@@ -1,0 +1,5 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title="Test the conversion from cg velocities to wheel velocities when the velocities are null." alt="" coords="5,13,60,39"/>
+<area shape="rect" id="Node000002" href="$d6/d89/class_bicycle_model.html#ad6f805147dcc500d0fceb868e685325e" title="Assumes a bicycle model and a set of parameters about the vehicle to calculate the velocities of the ..." alt="" coords="108,5,277,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,23,92,23,92,28,60,28"/>
+</map>

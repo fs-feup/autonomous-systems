@@ -1,7 +1,5 @@
 <map id="get_current_date_time_as_string" name="get_current_date_time_as_string">
-<area shape="rect" id="Node000001" title="Get current date and time as a string." alt="" coords="178,23,328,64"/>
-<area shape="rect" id="Node000002" href="$d3/d72/planning_2test_2performance__test_8cpp.html#aab2295277d22fafb888111e66fdac82f" title="Iterates the Outliers algorithm repeatedly and measures the average time." alt="" coords="14,5,121,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,34,121,28,122,23,162,28"/>
-<area shape="rect" id="Node000003" href="$d3/d72/planning_2test_2performance__test_8cpp.html#ace1de27c0d0025682943b154a203ad8a" title="Iterates the Smoothing algorithm repeatedly and measures the average time." alt="" coords="5,55,130,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="162,58,131,62,130,57,162,53"/>
+<area shape="rect" id="Node000001" title="Get current date and time as a string." alt="" coords="178,5,328,46"/>
+<area shape="rect" id="Node000002" href="$d3/d72/planning_2test_2performance__test_8cpp.html#aaff3d99499fd3dfba82e1ee8641cf66b" title="Iterates the Smoothing algorithm repeatedly and measures the average time." alt="" coords="5,13,130,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,28,130,28,130,23,162,23"/>
 </map>

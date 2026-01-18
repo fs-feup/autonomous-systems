@@ -1,5 +1,15 @@
 <map id="GraphSLAMSolver" name="GraphSLAMSolver">
-<area shape="rect" id="Node000001" title="Graph SLAM solver class." alt="" coords="5,579,192,1139"/>
-<area shape="rect" id="Node000002" href="$da/dd3/class_s_l_a_m_solver.html" title="Interface for SLAM solvers." alt="" coords="9,5,188,531"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,546,101,579,96,579,96,546"/>
+<area shape="rect" id="Node000001" title="Graph SLAM solver class." alt="" coords="493,559,680,1133"/>
+<area shape="rect" id="Node000002" href="$da/dd3/class_s_l_a_m_solver.html" title="Interface for SLAM solvers." alt="" coords="5,5,184,511"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="194,504,198,509,267,591,345,666,424,730,495,783,492,787,420,735,341,670,263,595,194,512,190,507"/>
+<area shape="rect" id="Node000003" href="$d2/dee/class_velocities_integrator_trait.html" title="Trait class for velocities integration in SLAM solvers." alt="" coords="208,215,384,301"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="318,313,353,406,398,510,446,602,496,691,491,693,441,604,394,512,348,408,313,315"/>
+<area shape="rect" id="Node000004" href="$d2/da4/class_odometry_integrator_trait.html" title="Trait class for odometry integration in SLAM solvers." alt="" coords="408,215,584,301"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="507,315,545,558,540,559,502,316"/>
+<area shape="rect" id="Node000005" href="$db/df5/class_imu_integrator_trait.html" title="Trait class for IMU integration in SLAM solvers." alt="" coords="608,215,749,301"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="673,316,634,559,629,558,667,315"/>
+<area shape="rect" id="Node000006" href="$da/d8d/class_node_controller_trait.html" title="Trait class for node control in SLAM solvers." alt="" coords="774,215,925,301"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="835,316,804,408,764,512,682,679,678,677,759,510,799,407,830,314"/>
+<area shape="rect" id="Node000007" href="$d3/d86/class_trajectory_calculator.html" title="Trait class for trajectory calculation in SLAM solvers." alt="" coords="949,225,1115,291"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="1024,306,993,404,969,460,940,512,881,590,813,662,745,725,682,778,678,774,741,721,810,658,876,586,935,509,964,457,988,402,1019,304"/>
 </map>

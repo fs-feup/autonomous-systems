@@ -1,3 +1,3 @@
 <map id="BaseVelocityProcessModel" name="BaseVelocityProcessModel">
-<area shape="rect" id="Node000001" title="Base class for velocity process models, used to predict the next velocities based on previous velocit..." alt="" coords="5,5,196,111"/>
+<area shape="rect" id="Node000001" title="Base class for velocity process models, used to predict the next velocities based on previous velocit..." alt="" coords="5,5,196,145"/>
 </map>

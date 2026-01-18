@@ -1,7 +1,13 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$d9/d08/class_velocity_estimator.html" title="Interface for velocity estimators." alt="" coords="5,31,128,56"/>
-<area shape="rect" id="Node000001" href="$d7/dbe/class_e_k_f.html" title=" " alt="" coords="213,5,259,31"/>
-<area shape="poly" id="edge149_Node000000_Node000001" title=" " alt="" coords="143,29,212,19,213,24,143,35"/>
-<area shape="rect" id="Node000002" href="$dd/da2/class_no_rear_w_s_s_e_k_f.html" title=" " alt="" coords="176,55,296,80"/>
-<area shape="poly" id="edge150_Node000000_Node000002" title=" " alt="" coords="144,52,176,56,175,62,143,57"/>
+<area shape="rect" id="Node000000" href="$d0/d20/class_v2_p_motion_model.html" title="Base class for the &#39;vehicle to pose&#39; (more in interal background review) motion models." alt="" coords="5,128,126,153"/>
+<area shape="rect" id="Node000001" href="$db/de3/class_constant_acceleration_turnrate_model.html" title="Motion model that predicts the pose of the robot given the velocities with a constant acceleration an..." alt="" coords="174,5,367,46"/>
+<area shape="poly" id="edge157_Node000000_Node000001" title=" " alt="" coords="90,115,128,84,172,55,197,44,199,49,175,60,131,89,94,119"/>
+<area shape="rect" id="Node000002" href="$df/d42/class_constant_velocity_model.html" title="Motion model that predicts the pose of the robot given the velocities with a constant velocity model." alt="" coords="193,70,348,96"/>
+<area shape="poly" id="edge158_Node000000_Node000002" title=" " alt="" coords="124,120,173,106,217,94,218,99,174,111,126,125"/>
+<area shape="rect" id="Node000003" href="$d4/d11/class_constant_velocity_turnrate_model.html" title="Motion model that predicts the pose of the robot given the velocities with a constant velocity model ..." alt="" coords="187,120,354,161"/>
+<area shape="poly" id="edge159_Node000000_Node000003" title=" " alt="" coords="141,138,186,138,186,143,141,143"/>
+<area shape="rect" id="Node000004" href="$d5/dda/class_mock_v2_p_model.html" title=" " alt="" coords="214,185,327,211"/>
+<area shape="poly" id="edge160_Node000000_Node000004" title=" " alt="" coords="126,156,174,170,218,182,217,187,173,175,124,161"/>
+<area shape="rect" id="Node000005" href="$db/d0c/class_odometry_model.html" title="Motion model to apply to odometry sources which already output pose." alt="" coords="214,234,327,260"/>
+<area shape="poly" id="edge161_Node000000_Node000005" title=" " alt="" coords="93,162,130,192,175,221,215,235,213,240,173,225,127,197,89,166"/>
 </map>

@@ -1,0 +1,9 @@
+<map id="SLAMObservationModel::observation_model" name="SLAMObservationModel::observation_model">
+<area shape="rect" id="Node000001" title="transform landmarks&#39; positions from global frame to the car&#39;s frame" alt="" coords="108,47,271,88"/>
+<area shape="rect" id="Node000002" href="$d8/d17/slam__base__observation__model__test_8cpp.html#a70ce6a493debcb8620904a7ebd6858f4" title="Test the observation model with trivial state." alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,44,59,29,61,24,109,39"/>
+<area shape="rect" id="Node000003" href="$d8/d17/slam__base__observation__model__test_8cpp.html#a650a5fa18bf163e0dda68b1585a51732" title="Test observation model with a single landmark and trivial pose." alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="92,70,60,70,60,65,92,65"/>
+<area shape="rect" id="Node000004" href="$d8/d17/slam__base__observation__model__test_8cpp.html#afd76a23f11dc21c242fbc0b48d270ed5" title="Test observation model with a single landmark and non&#45;trivial pose." alt="" coords="5,104,60,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="109,96,61,111,59,106,107,91"/>
+</map>

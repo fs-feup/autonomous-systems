@@ -1,13 +1,10 @@
 <map id="transform_track" name="transform_track">
-<area shape="rect" id="Node000001" title="Transforms the track as seen from the start pose." alt="" coords="431,55,543,80"/>
+<area shape="rect" id="Node000001" title="Transforms the track as seen from the start pose." alt="" coords="431,31,543,56"/>
 <area shape="rect" id="Node000002" href="$d8/deb/track__loader_8cpp.html#a8fdf54bc79463c04ac8098b65da37f8a" title="loads the acceleration track from the default path." alt="" coords="225,5,383,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="422,53,354,34,355,29,423,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="415,36,383,32,384,26,416,31"/>
 <area shape="rect" id="Node000004" href="$d8/deb/track__loader_8cpp.html#ad4e86aefb67cb6fdc1592f2d6c02bfa0" title="loads the skidpad track from the default path." alt="" coords="237,55,371,80"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="416,70,371,70,371,65,416,65"/>
-<area shape="rect" id="Node000005" href="$d8/deb/track__loader_8cpp.html#a08c49ab3cd9080d5784f370b7f23631e" title="loads the trackdrive track from the default path." alt="" coords="231,104,377,130"/>
-<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="423,87,355,106,354,101,422,82"/>
-<area shape="rect" id="Node000003" href="$da/dd3/class_s_l_a_m_solver.html#a132757cb8a25752b2050dc260a72b902" title="Set the mission." alt="" coords="5,55,177,80"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="231,38,150,57,149,51,230,32"/>
-<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="221,70,177,70,177,65,221,65"/>
-<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="230,103,149,84,150,78,231,97"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="416,55,371,61,370,56,415,50"/>
+<area shape="rect" id="Node000003" href="$da/dd3/class_s_l_a_m_solver.html#a132757cb8a25752b2050dc260a72b902" title="Set the mission." alt="" coords="5,31,177,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="210,32,177,36,177,31,209,27"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="221,61,177,56,178,51,222,56"/>
 </map>

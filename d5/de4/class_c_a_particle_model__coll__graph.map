@@ -1,5 +1,5 @@
 <map id="CAParticleModel" name="CAParticleModel">
-<area shape="rect" id="Node000001" title=" " alt="" coords="17,159,184,264"/>
-<area shape="rect" id="Node000002" href="$d7/d59/class_base_velocity_process_model.html" title="Base class for velocity process models, used to predict the next velocities based on previous velocit..." alt="" coords="5,5,196,111"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,125,103,159,98,159,98,125"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="17,193,184,333"/>
+<area shape="rect" id="Node000002" href="$d7/d59/class_base_velocity_process_model.html" title="Base class for velocity process models, used to predict the next velocities based on previous velocit..." alt="" coords="5,5,196,145"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,160,103,194,98,194,98,160"/>
 </map>

@@ -122,8 +122,8 @@ Collaboration diagram for MockLandmarkFilter:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8cb367242abb136323be7ea7d8759f4d" id="r_a8cb367242abb136323be7ea7d8759f4d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d91/class_mock_landmark_filter.html#a8cb367242abb136323be7ea7d8759f4d">MOCK_METHOD</a> (Eigen::VectorXd, <a class="el" href="../../d2/d5d/class_landmark_filter.html#a33dbd198f9f3c204061caf6bfdc1eff2">filter</a>,(const Eigen::VectorXd &amp;observations, const Eigen::VectorXd &amp;observation_confidences),(override))</td></tr>
-<tr class="separator:a8cb367242abb136323be7ea7d8759f4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4ea06ebcfd41e7fb0a8c8041895c29c" id="r_ab4ea06ebcfd41e7fb0a8c8041895c29c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d91/class_mock_landmark_filter.html#ab4ea06ebcfd41e7fb0a8c8041895c29c">MOCK_METHOD</a> (Eigen::VectorXd, <a class="el" href="../../d2/d5d/class_landmark_filter.html#ac78b3caf97b81a66fc0a3d6d4593cc29">filter</a>,(const Eigen::VectorXd &amp;observations, const Eigen::VectorXd &amp;observation_confidences, Eigen::VectorXi &amp;associations),(override))</td></tr>
+<tr class="separator:ab4ea06ebcfd41e7fb0a8c8041895c29c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a494b8e43bc19c3c64d194ecdecd4398b" id="r_a494b8e43bc19c3c64d194ecdecd4398b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d91/class_mock_landmark_filter.html#a494b8e43bc19c3c64d194ecdecd4398b">MOCK_METHOD</a> (void, <a class="el" href="../../d2/d5d/class_landmark_filter.html#a72b440166284cef2b0efcf6b56d7ef01">delete_landmarks</a>,(const Eigen::VectorXd &amp;some_landmarks),(override))</td></tr>
 <tr class="separator:a494b8e43bc19c3c64d194ecdecd4398b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_landmark_filter"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_landmark_filter')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d2/d5d/class_landmark_filter.html">LandmarkFilter</a></td></tr>
@@ -133,9 +133,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aaf0b924e0251c418317996e4bd260e7e inherit pub_methods_class_landmark_filter"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3bb20c72d4f7166d340f7daa02f6c850 inherit pub_methods_class_landmark_filter" id="r_a3bb20c72d4f7166d340f7daa02f6c850"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d5d/class_landmark_filter.html#a3bb20c72d4f7166d340f7daa02f6c850">~LandmarkFilter</a> ()=default</td></tr>
 <tr class="separator:a3bb20c72d4f7166d340f7daa02f6c850 inherit pub_methods_class_landmark_filter"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33dbd198f9f3c204061caf6bfdc1eff2 inherit pub_methods_class_landmark_filter" id="r_a33dbd198f9f3c204061caf6bfdc1eff2"><td class="memItemLeft" align="right" valign="top">virtual Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d5d/class_landmark_filter.html#a33dbd198f9f3c204061caf6bfdc1eff2">filter</a> (const Eigen::VectorXd &amp;new_observations, const Eigen::VectorXd &amp;new_observation_confidences)=0</td></tr>
-<tr class="memdesc:a33dbd198f9f3c204061caf6bfdc1eff2 inherit pub_methods_class_landmark_filter"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function receives a new set of observations and returns a filtered set of landmarks in global coordinates that are ready to be added to be added to the map.  <br /></td></tr>
-<tr class="separator:a33dbd198f9f3c204061caf6bfdc1eff2 inherit pub_methods_class_landmark_filter"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac78b3caf97b81a66fc0a3d6d4593cc29 inherit pub_methods_class_landmark_filter" id="r_ac78b3caf97b81a66fc0a3d6d4593cc29"><td class="memItemLeft" align="right" valign="top">virtual Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d5d/class_landmark_filter.html#ac78b3caf97b81a66fc0a3d6d4593cc29">filter</a> (const Eigen::VectorXd &amp;observations, const Eigen::VectorXd &amp;observation_confidences, Eigen::VectorXi &amp;associations)=0</td></tr>
+<tr class="memdesc:ac78b3caf97b81a66fc0a3d6d4593cc29 inherit pub_methods_class_landmark_filter"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function receives a new set of observations and returns a filtered set of landmarks in global coordinates that are ready to be added to be added to the map.  <br /></td></tr>
+<tr class="separator:ac78b3caf97b81a66fc0a3d6d4593cc29 inherit pub_methods_class_landmark_filter"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a72b440166284cef2b0efcf6b56d7ef01 inherit pub_methods_class_landmark_filter" id="r_a72b440166284cef2b0efcf6b56d7ef01"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d5d/class_landmark_filter.html#a72b440166284cef2b0efcf6b56d7ef01">delete_landmarks</a> (const Eigen::VectorXd &amp;some_landmarks)=0</td></tr>
 <tr class="memdesc:a72b440166284cef2b0efcf6b56d7ef01 inherit pub_methods_class_landmark_filter"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by SLAM to signal to the filter that the landmarks are already in SLAM's map, and they should no longer be returned by the filter as new.  <br /></td></tr>
 <tr class="separator:a72b440166284cef2b0efcf6b56d7ef01 inherit pub_methods_class_landmark_filter"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -152,8 +152,8 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="../../d2/d9b/graph__slam__solver__test_8cpp_source.html#l00015">15</a> of file <a class="el" href="../../d2/d9b/graph__slam__solver__test_8cpp_source.html">graph_slam_solver_test.cpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8cb367242abb136323be7ea7d8759f4d" name="a8cb367242abb136323be7ea7d8759f4d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8cb367242abb136323be7ea7d8759f4d">&#9670;&#160;</a></span>MOCK_METHOD() <span class="overload">[1/2]</span></h2>
+<a id="ab4ea06ebcfd41e7fb0a8c8041895c29c" name="ab4ea06ebcfd41e7fb0a8c8041895c29c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4ea06ebcfd41e7fb0a8c8041895c29c">&#9670;&#160;</a></span>MOCK_METHOD() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -167,13 +167,13 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/d5d/class_landmark_filter.html#a33dbd198f9f3c204061caf6bfdc1eff2">filter</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d2/d5d/class_landmark_filter.html#ac78b3caf97b81a66fc0a3d6d4593cc29">filter</a>&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">(const Eigen::VectorXd &amp;observations, const Eigen::VectorXd &amp;observation_confidences)&#160;</td>
+          <td class="paramtype">(const Eigen::VectorXd &amp;observations, const Eigen::VectorXd &amp;observation_confidences, Eigen::VectorXi &amp;associations)&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>

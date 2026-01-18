@@ -1,13 +1,13 @@
 <map id="Planning" name="Planning">
 <area shape="rect" id="Node000001" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="349,119,521,673"/>
-<area shape="rect" id="Node000003" href="$d0/d1d/class_eufs_adapter.html" title="Adapter class to interface with the EUFS simulator." alt="" coords="5,764,189,1343"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="342,512,269,612,235,666,204,723,184,765,179,763,199,720,230,664,265,609,338,509"/>
-<area shape="rect" id="Node000004" href="$d7/d8e/class_fsds_adapter.html" title=" " alt="" coords="213,893,429,1213"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="387,689,351,894,346,893,382,688"/>
-<area shape="rect" id="Node000005" href="$db/d68/class_pac_sim_adapter.html" title="Adapter for the PacSim simulator." alt="" coords="454,853,642,1253"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="488,688,516,853,511,854,482,688"/>
-<area shape="rect" id="Node000006" href="$d1/df1/class_vehicle_adapter.html" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="667,721,875,1385"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="532,519,597,615,657,720,669,745,664,747,652,723,592,618,527,522"/>
+<area shape="rect" id="Node000003" href="$d0/d1d/class_eufs_adapter.html" title="Adapter class to interface with the EUFS simulator." alt="" coords="5,731,189,1310"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="341,514,270,613,204,723,192,747,187,744,199,720,265,610,337,511"/>
+<area shape="rect" id="Node000004" href="$d7/d8e/class_fsds_adapter.html" title=" " alt="" coords="213,861,429,1181"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="384,689,353,862,348,861,379,688"/>
+<area shape="rect" id="Node000005" href="$db/d68/class_pac_sim_adapter.html" title="Adapter for the PacSim simulator." alt="" coords="454,821,642,1221"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="490,687,514,820,509,821,485,688"/>
+<area shape="rect" id="Node000006" href="$d1/df1/class_vehicle_adapter.html" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="667,721,875,1320"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="531,521,596,617,657,720,669,744,664,746,652,723,592,619,527,524"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="392,5,477,71"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="437,85,437,119,432,119,432,85"/>
 </map>

@@ -1,5 +1,5 @@
 <map id="ISAM2Optimizer" name="ISAM2Optimizer">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,159,139,284"/>
-<area shape="rect" id="Node000002" href="$df/dc2/class_base_optimizer.html" title=" " alt="" coords="10,5,134,111"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,126,75,159,69,159,69,126"/>
+<area shape="rect" id="Node000001" title="ISAM2 optimizer for graph SLAM." alt="" coords="5,219,139,444"/>
+<area shape="rect" id="Node000002" href="$df/dc2/class_base_optimizer.html" title="Base class for graph optimizers." alt="" coords="10,5,134,171"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,186,75,219,69,219,69,186"/>
 </map>

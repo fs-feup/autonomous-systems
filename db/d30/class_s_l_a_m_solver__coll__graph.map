@@ -1,5 +1,5 @@
 <map id="SLAMSolver" name="SLAMSolver">
-<area shape="rect" id="Node000001" title="Interface for SLAM solvers." alt="" coords="7,458,185,963"/>
-<area shape="rect" id="Node000002" href="$d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="5,5,187,395"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,394,99,441,93,441,93,394"/>
+<area shape="rect" id="Node000001" title="Interface for SLAM solvers." alt="" coords="7,443,185,928"/>
+<area shape="rect" id="Node000002" href="$d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="5,5,187,380"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,380,99,426,93,426,93,380"/>
 </map>

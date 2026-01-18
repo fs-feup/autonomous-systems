@@ -98,8 +98,10 @@ $(document).ready(function(){initNavTree('d6/da8/splines_8hpp.html','../../'); i
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;gsl/gsl_bspline.h&gt;</code><br />
-<code>#include &lt;gsl/gsl_multifit.h&gt;</code><br />
 <code>#include &lt;gsl/gsl_errno.h&gt;</code><br />
+<code>#include &lt;gsl/gsl_interp.h&gt;</code><br />
+<code>#include &lt;gsl/gsl_multifit.h&gt;</code><br />
+<code>#include &lt;gsl/gsl_spline.h&gt;</code><br />
 <code>#include &lt;cmath&gt;</code><br />
 <code>#include &lt;type_traits&gt;</code><br />
 <code>#include &lt;unordered_set&gt;</code><br />
@@ -111,25 +113,29 @@ Include dependency graph for splines.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/dda/splines_8hpp__incl.png" border="0" usemap="#asrc_2planning_2include_2utils_2splines_8hpp" alt=""/></div>
 <map name="asrc_2planning_2include_2utils_2splines_8hpp" id="asrc_2planning_2include_2utils_2splines_8hpp">
-<area shape="rect" title=" " alt="" coords="468,5,604,46"/>
+<area shape="rect" title=" " alt="" coords="643,5,779,46"/>
 <area shape="rect" title=" " alt="" coords="5,94,123,120"/>
-<area shape="poly" title=" " alt="" coords="468,41,138,96,138,91,467,36"/>
-<area shape="rect" title=" " alt="" coords="147,94,261,120"/>
-<area shape="poly" title=" " alt="" coords="468,46,271,92,269,87,467,41"/>
-<area shape="rect" title=" " alt="" coords="285,94,390,120"/>
-<area shape="poly" title=" " alt="" coords="487,49,383,90,381,85,485,44"/>
-<area shape="rect" title=" " alt="" coords="414,94,471,120"/>
-<area shape="poly" title=" " alt="" coords="515,48,470,86,467,82,511,44"/>
-<area shape="rect" title=" " alt="" coords="495,94,577,120"/>
-<area shape="poly" title=" " alt="" coords="539,46,539,78,533,78,533,46"/>
-<area shape="rect" title=" " alt="" coords="600,94,704,120"/>
-<area shape="poly" title=" " alt="" coords="566,44,623,83,620,87,563,49"/>
-<area shape="rect" title=" " alt="" coords="728,94,779,120"/>
-<area shape="poly" title=" " alt="" coords="591,44,714,88,712,93,589,49"/>
-<area shape="rect" title=" " alt="" coords="803,94,861,120"/>
-<area shape="poly" title=" " alt="" coords="605,42,789,91,788,96,604,47"/>
-<area shape="rect" title=" " alt="" coords="884,94,1004,120"/>
-<area shape="poly" title=" " alt="" coords="605,38,870,89,869,94,604,43"/>
+<area shape="poly" title=" " alt="" coords="643,37,422,61,138,96,138,91,422,55,642,31"/>
+<area shape="rect" title=" " alt="" coords="147,94,253,120"/>
+<area shape="poly" title=" " alt="" coords="642,39,268,96,268,91,642,34"/>
+<area shape="rect" title=" " alt="" coords="277,94,385,120"/>
+<area shape="poly" title=" " alt="" coords="642,44,401,94,400,88,641,39"/>
+<area shape="rect" title=" " alt="" coords="410,94,524,120"/>
+<area shape="poly" title=" " alt="" coords="651,49,520,91,518,86,649,44"/>
+<area shape="rect" title=" " alt="" coords="548,94,658,120"/>
+<area shape="poly" title=" " alt="" coords="686,49,633,87,630,82,682,44"/>
+<area shape="rect" title=" " alt="" coords="682,94,739,120"/>
+<area shape="poly" title=" " alt="" coords="713,46,713,78,708,78,708,46"/>
+<area shape="rect" title=" " alt="" coords="763,94,845,120"/>
+<area shape="poly" title=" " alt="" coords="735,44,780,82,776,86,732,48"/>
+<area shape="rect" title=" " alt="" coords="868,94,972,120"/>
+<area shape="poly" title=" " alt="" coords="764,44,875,86,873,91,762,49"/>
+<area shape="rect" title=" " alt="" coords="996,94,1047,120"/>
+<area shape="poly" title=" " alt="" coords="780,40,981,91,980,96,779,45"/>
+<area shape="rect" title=" " alt="" coords="1071,94,1129,120"/>
+<area shape="poly" title=" " alt="" coords="780,36,904,59,1057,91,1056,96,903,64,779,41"/>
+<area shape="rect" title=" " alt="" coords="1152,94,1272,120"/>
+<area shape="poly" title=" " alt="" coords="780,35,1137,91,1136,96,779,40"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -137,66 +143,60 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/da3/splines_8hpp__dep__incl.png" border="0" usemap="#asrc_2planning_2include_2utils_2splines_8hppdep" alt=""/></div>
 <map name="asrc_2planning_2include_2utils_2splines_8hppdep" id="asrc_2planning_2include_2utils_2splines_8hppdep">
-<area shape="rect" title=" " alt="" coords="1140,5,1276,46"/>
-<area shape="rect" href="../../de/de2/outliers_8hpp.html" title=" " alt="" coords="1001,94,1144,135"/>
-<area shape="poly" title=" " alt="" coords="1166,57,1104,96,1101,91,1163,52"/>
-<area shape="rect" href="../../d6/dab/planning_2test_2test__utils_2utils_8hpp.html" title=" " alt="" coords="1291,271,1435,312"/>
-<area shape="poly" title=" " alt="" coords="1215,61,1222,97,1236,134,1260,174,1289,212,1343,269,1339,273,1285,215,1256,177,1231,136,1217,98,1209,62"/>
-<area shape="rect" href="../../d0/d28/smoothing_8hpp.html" title=" " alt="" coords="1246,94,1408,135"/>
-<area shape="poly" title=" " alt="" coords="1249,53,1302,91,1298,96,1246,57"/>
-<area shape="rect" href="../../d0/dcc/planning_8hpp.html" title=" " alt="" coords="816,183,966,223"/>
-<area shape="poly" title=" " alt="" coords="1018,144,933,185,931,180,1016,139"/>
-<area shape="poly" title=" " alt="" coords="1101,144,1141,183,1191,221,1243,248,1296,268,1294,273,1241,253,1188,226,1138,187,1097,148"/>
-<area shape="rect" href="../../d6/de2/outliers_8cpp.html" title=" " alt="" coords="627,183,792,223"/>
-<area shape="poly" title=" " alt="" coords="986,139,793,185,792,179,985,134"/>
-<area shape="rect" href="../../d0/d72/planning_2include_2adapter__planning_2eufs_8hpp.html" title=" " alt="" coords="373,271,550,312"/>
-<area shape="poly" title=" " alt="" coords="801,227,551,276,549,271,800,221"/>
-<area shape="rect" href="../../d0/dce/planning_2src_2adapter__planning_2eufs_8cpp.html" title=" " alt="" coords="384,360,544,401"/>
-<area shape="poly" title=" " alt="" coords="801,228,613,274,587,292,563,314,495,362,492,357,560,310,584,288,611,269,800,222"/>
-<area shape="rect" href="../../d8/df4/planning_2src_2main_8cpp.html" title=" " alt="" coords="190,368,360,393"/>
-<area shape="poly" title=" " alt="" coords="801,226,695,233,569,238,449,249,400,259,363,274,335,294,312,321,283,368,278,366,308,317,331,291,360,269,399,254,448,244,569,233,695,228,801,221"/>
-<area shape="rect" href="../../de/d4a/planning_2include_2adapter__planning_2fsds_8hpp.html" title=" " alt="" coords="123,271,299,312"/>
-<area shape="poly" title=" " alt="" coords="801,226,665,244,558,252,452,259,318,274,300,277,299,271,317,269,451,254,558,246,664,238,800,221"/>
+<area shape="rect" title=" " alt="" coords="1341,5,1478,46"/>
+<area shape="rect" href="../../d0/d28/smoothing_8hpp.html" title=" " alt="" coords="1269,94,1430,135"/>
+<area shape="poly" title=" " alt="" coords="1389,60,1365,95,1361,92,1385,57"/>
+<area shape="rect" href="../../d6/dab/planning_2test_2test__utils_2utils_8hpp.html" title=" " alt="" coords="1458,271,1601,312"/>
+<area shape="poly" title=" " alt="" coords="1435,57,1472,114,1507,182,1521,229,1529,270,1524,271,1516,230,1502,184,1467,116,1431,60"/>
+<area shape="rect" href="../../d0/dcc/planning_8hpp.html" title=" " alt="" coords="704,183,854,223"/>
+<area shape="poly" title=" " alt="" coords="1254,133,854,193,853,188,1253,128"/>
+<area shape="poly" title=" " alt="" coords="1327,149,1317,167,1311,186,1310,205,1317,222,1346,249,1381,268,1420,280,1458,286,1457,291,1419,285,1379,273,1342,254,1313,225,1305,206,1306,185,1313,165,1323,146"/>
+<area shape="rect" href="../../d8/d35/smoothing_8cpp.html" title=" " alt="" coords="1327,183,1492,223"/>
+<area shape="poly" title=" " alt="" coords="1374,146,1398,181,1394,184,1370,149"/>
+<area shape="rect" href="../../d0/d72/planning_2include_2adapter__planning_2eufs_8hpp.html" title=" " alt="" coords="363,271,539,312"/>
+<area shape="poly" title=" " alt="" coords="690,230,526,273,525,268,688,225"/>
+<area shape="rect" href="../../d0/dce/planning_2src_2adapter__planning_2eufs_8cpp.html" title=" " alt="" coords="395,360,555,401"/>
+<area shape="poly" title=" " alt="" coords="697,231,649,250,603,274,499,361,495,357,600,269,647,245,695,226"/>
+<area shape="rect" href="../../d8/df4/planning_2src_2main_8cpp.html" title=" " alt="" coords="201,368,370,393"/>
+<area shape="poly" title=" " alt="" coords="689,212,598,220,499,233,412,250,377,261,352,274,329,295,312,321,292,368,287,366,307,318,325,291,349,269,375,256,410,245,499,227,597,215,688,207"/>
+<area shape="rect" href="../../de/d4a/planning_2include_2adapter__planning_2fsds_8hpp.html" title=" " alt="" coords="112,271,288,312"/>
+<area shape="poly" title=" " alt="" coords="689,219,307,274,289,277,288,272,306,269,688,214"/>
 <area shape="rect" href="../../d4/d8f/planning_2src_2adapter__planning_2fsds_8cpp.html" title=" " alt="" coords="5,360,166,401"/>
-<area shape="poly" title=" " alt="" coords="801,226,649,231,431,236,225,248,152,259,127,266,113,273,98,292,90,315,86,360,81,359,85,314,93,290,109,269,125,261,151,253,225,242,431,230,649,226,801,220"/>
-<area shape="rect" href="../../d8/d4a/planning_2include_2adapter__planning_2pacsim_8hpp.html" title=" " alt="" coords="625,271,818,312"/>
-<area shape="poly" title=" " alt="" coords="840,233,761,273,759,269,838,228"/>
-<area shape="rect" href="../../d8/d65/planning_8cpp.html" title=" " alt="" coords="752,360,918,401"/>
-<area shape="poly" title=" " alt="" coords="882,239,844,360,839,359,877,237"/>
-<area shape="rect" href="../../dc/d8f/planning_2include_2adapter__planning_2vehicle_8hpp.html" title=" " alt="" coords="893,271,1086,312"/>
-<area shape="poly" title=" " alt="" coords="926,232,969,269,965,273,923,236"/>
-<area shape="rect" href="../../d5/da0/planning_2src_2adapter__planning_2vehicle_8cpp.html" title=" " alt="" coords="941,360,1102,401"/>
-<area shape="poly" title=" " alt="" coords="982,207,1014,215,1046,227,1076,245,1100,270,1106,282,1107,295,1096,320,1077,343,1054,361,1050,357,1073,339,1092,317,1101,295,1101,284,1095,273,1072,249,1044,232,1013,220,980,213"/>
-<area shape="rect" href="../../d4/dee/integration__tests_8cpp.html" title=" " alt="" coords="1126,360,1307,401"/>
-<area shape="poly" title=" " alt="" coords="981,216,1052,236,1088,251,1122,269,1148,290,1172,313,1206,358,1202,361,1168,317,1145,293,1119,274,1086,256,1050,241,980,221"/>
-<area shape="poly" title=" " alt="" coords="981,218,1291,275,1290,280,980,223"/>
-<area shape="poly" title=" " alt="" coords="465,328,466,359,461,360,460,328"/>
-<area shape="poly" title=" " alt="" coords="406,321,302,369,300,365,404,316"/>
-<area shape="poly" title=" " alt="" coords="236,323,268,366,264,369,232,326"/>
-<area shape="poly" title=" " alt="" coords="172,323,115,362,112,357,169,319"/>
-<area shape="poly" title=" " alt="" coords="610,317,373,363,337,370,336,364,372,357,609,312"/>
-<area shape="rect" href="../../d2/dd4/planning_2src_2adapter__planning_2pacsim_8cpp.html" title=" " alt="" coords="568,360,728,401"/>
-<area shape="poly" title=" " alt="" coords="697,326,667,361,663,358,693,322"/>
-<area shape="poly" title=" " alt="" coords="761,319,811,357,808,362,758,324"/>
-<area shape="poly" title=" " alt="" coords="878,309,830,315,601,336,501,346,373,363,333,370,332,364,372,357,500,340,600,331,829,309,878,304"/>
-<area shape="poly" title=" " alt="" coords="943,322,871,362,868,357,940,317"/>
-<area shape="poly" title=" " alt="" coords="1005,326,1017,359,1012,360,1000,328"/>
-<area shape="poly" title=" " alt="" coords="1056,315,1165,357,1164,362,1054,320"/>
-<area shape="poly" title=" " alt="" coords="1318,322,1251,362,1248,357,1315,318"/>
-<area shape="rect" href="../../d3/d72/planning_2test_2performance__test_8cpp.html" title=" " alt="" coords="2081,360,2274,401"/>
-<area shape="poly" title=" " alt="" coords="1451,296,1727,319,2068,357,2081,359,2080,364,2068,363,1726,325,1450,302"/>
-<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html" title=" " alt="" coords="1331,360,1512,401"/>
-<area shape="poly" title=" " alt="" coords="1387,323,1410,358,1406,361,1382,326"/>
-<area shape="rect" href="../../d9/db5/splines__tests_8cpp.html" title=" " alt="" coords="1536,360,1699,401"/>
-<area shape="poly" title=" " alt="" coords="1436,315,1560,357,1559,362,1434,320"/>
-<area shape="rect" href="../../d0/d09/planning_2test_2test__utils_2utils_8cpp.html" title=" " alt="" coords="1723,360,1867,401"/>
-<area shape="poly" title=" " alt="" coords="1450,306,1711,357,1723,360,1722,365,1710,363,1449,312"/>
-<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html" title=" " alt="" coords="1891,360,2056,401"/>
-<area shape="poly" title=" " alt="" coords="1450,300,1647,324,1879,357,1891,359,1890,365,1878,363,1646,329,1450,305"/>
-<area shape="poly" title=" " alt="" coords="1231,137,966,189,965,184,1230,132"/>
-<area shape="poly" title=" " alt="" coords="1336,149,1361,270,1356,271,1331,150"/>
-<area shape="rect" href="../../d8/d35/smoothing_8cpp.html" title=" " alt="" coords="1364,183,1530,223"/>
-<area shape="poly" title=" " alt="" coords="1368,142,1421,180,1418,184,1365,146"/>
+<area shape="poly" title=" " alt="" coords="688,210,529,217,344,229,185,248,131,260,102,273,89,292,83,315,84,359,79,360,78,314,84,290,98,269,129,255,185,243,344,224,528,212,688,204"/>
+<area shape="rect" href="../../d8/d4a/planning_2include_2adapter__planning_2pacsim_8hpp.html" title=" " alt="" coords="614,271,808,312"/>
+<area shape="poly" title=" " alt="" coords="756,237,728,273,724,269,752,234"/>
+<area shape="rect" href="../../d8/d65/planning_8cpp.html" title=" " alt="" coords="763,360,928,401"/>
+<area shape="poly" title=" " alt="" coords="803,235,821,270,836,318,845,359,840,360,831,319,816,272,798,237"/>
+<area shape="rect" href="../../dc/d8f/planning_2include_2adapter__planning_2vehicle_8hpp.html" title=" " alt="" coords="883,271,1075,312"/>
+<area shape="poly" title=" " alt="" coords="839,227,934,268,932,273,837,232"/>
+<area shape="rect" href="../../d5/da0/planning_2src_2adapter__planning_2vehicle_8cpp.html" title=" " alt="" coords="952,360,1112,401"/>
+<area shape="poly" title=" " alt="" coords="869,209,934,217,999,230,1054,247,1075,257,1089,270,1095,281,1097,294,1090,318,1075,342,1056,362,1053,358,1071,339,1085,316,1092,293,1090,283,1085,273,1072,262,1052,252,998,235,933,223,869,214"/>
+<area shape="rect" href="../../d4/dee/integration__tests_8cpp.html" title=" " alt="" coords="1136,360,1318,401"/>
+<area shape="poly" title=" " alt="" coords="869,207,926,214,987,226,1051,244,1111,269,1142,289,1171,313,1214,358,1210,361,1167,316,1139,293,1108,274,1049,249,986,231,925,219,869,212"/>
+<area shape="poly" title=" " alt="" coords="869,212,1458,279,1457,285,869,217"/>
+<area shape="poly" title=" " alt="" coords="463,326,472,359,467,360,458,328"/>
+<area shape="poly" title=" " alt="" coords="401,322,310,369,307,365,399,317"/>
+<area shape="poly" title=" " alt="" coords="232,321,276,365,272,369,228,325"/>
+<area shape="poly" title=" " alt="" coords="164,324,113,362,110,357,160,319"/>
+<area shape="poly" title=" " alt="" coords="599,318,346,370,345,364,598,313"/>
+<area shape="rect" href="../../d2/dd4/planning_2src_2adapter__planning_2pacsim_8cpp.html" title=" " alt="" coords="579,360,739,401"/>
+<area shape="poly" title=" " alt="" coords="694,327,673,361,668,358,689,324"/>
+<area shape="poly" title=" " alt="" coords="755,318,816,357,814,362,752,323"/>
+<area shape="poly" title=" " alt="" coords="868,309,819,315,601,336,505,346,383,363,344,369,343,364,382,357,505,341,600,331,819,309,867,304"/>
+<area shape="poly" title=" " alt="" coords="938,323,877,362,874,357,935,318"/>
+<area shape="poly" title=" " alt="" coords="1001,324,1022,358,1018,361,997,327"/>
+<area shape="poly" title=" " alt="" coords="1050,315,1171,357,1169,362,1048,320"/>
+<area shape="poly" title=" " alt="" coords="1447,319,1296,362,1295,357,1445,314"/>
+<area shape="rect" href="../../d3/d72/planning_2test_2performance__test_8cpp.html" title=" " alt="" coords="2092,360,2285,401"/>
+<area shape="poly" title=" " alt="" coords="1617,300,1828,324,2079,357,2091,359,2091,364,2078,363,1827,329,1616,305"/>
+<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html" title=" " alt="" coords="1342,360,1523,401"/>
+<area shape="poly" title=" " alt="" coords="1498,324,1456,362,1452,358,1495,320"/>
+<area shape="rect" href="../../d9/db5/splines__tests_8cpp.html" title=" " alt="" coords="1547,360,1709,401"/>
+<area shape="poly" title=" " alt="" coords="1565,320,1608,358,1604,362,1561,324"/>
+<area shape="rect" href="../../d0/d09/planning_2test_2test__utils_2utils_8cpp.html" title=" " alt="" coords="1734,360,1877,401"/>
+<area shape="poly" title=" " alt="" coords="1607,314,1744,357,1742,362,1606,320"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html" title=" " alt="" coords="1902,360,2067,401"/>
+<area shape="poly" title=" " alt="" coords="1617,306,1890,357,1902,360,1901,365,1889,363,1616,311"/>
 </map>
 </div>
 </div>
@@ -235,19 +235,25 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dc2/struct_position_x_y_are_double.html">PositionXYAreDouble&lt; T, typename &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d77/struct_triple_spline.html">TripleSpline&lt; T &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/da1/struct_position_x_y_are_double_3_01_t_00_01std_1_1enable__if__t_3_01std_1_1is__same__v_3_01declt1791f863a2ceff256cf7e96446ba334e.html">PositionXYAreDouble&lt; T, std::enable_if_t&lt; std::is_same_v&lt; decltype(std::declval&lt; T &gt;().position.x), double &gt; &amp;&amp;std::is_same_v&lt; decltype(std::declval&lt; T &gt;().position.y), double &gt; &gt; &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a5987a477b79a8b344f897f3be409cb37" id="r_a5987a477b79a8b344f897f3be409cb37"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a5987a477b79a8b344f897f3be409cb37"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d6/da8/splines_8hpp.html#a5987a477b79a8b344f897f3be409cb37">fit_spline</a> (int precision, int order, float coeffs_ratio, std::vector&lt; T &gt; cone_seq)</td></tr>
-<tr class="memdesc:a5987a477b79a8b344f897f3be409cb37"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function takes a sequence of points (T), fits a spline to them using B-spline basis functions, and returns the sequence of points that represent the fitted spline.  <br /></td></tr>
-<tr class="separator:a5987a477b79a8b344f897f3be409cb37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0568c3635331878ae79ce16031cb01a" id="r_ab0568c3635331878ae79ce16031cb01a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ab0568c3635331878ae79ce16031cb01a"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d6/da8/splines_8hpp.html#ab0568c3635331878ae79ce16031cb01a">fit_spline</a> (const std::vector&lt; T &gt; &amp;path, int precision, int order, float coeffs_ratio)</td></tr>
+<tr class="memdesc:ab0568c3635331878ae79ce16031cb01a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function takes a sequence of points (T), fits a spline to them using B-spline basis functions, and returns the sequence of points that represent the fitted spline.  <br /></td></tr>
+<tr class="separator:ab0568c3635331878ae79ce16031cb01a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17fae428cadc635f31d275efded45a67" id="r_a17fae428cadc635f31d275efded45a67"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a17fae428cadc635f31d275efded45a67"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../d1/d77/struct_triple_spline.html">TripleSpline</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d6/da8/splines_8hpp.html#a17fae428cadc635f31d275efded45a67">fit_triple_spline</a> (const std::vector&lt; T &gt; &amp;center, const std::vector&lt; T &gt; &amp;left, const std::vector&lt; T &gt; &amp;right, int precision, int order)</td></tr>
+<tr class="memdesc:a17fae428cadc635f31d275efded45a67"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function takes three sequences of points (center, left, right), fits splines to them using GSL interpolation methods, and returns three sequences of points representing the fitted splines.  <br /></td></tr>
+<tr class="separator:a17fae428cadc635f31d275efded45a67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a5987a477b79a8b344f897f3be409cb37" name="a5987a477b79a8b344f897f3be409cb37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5987a477b79a8b344f897f3be409cb37">&#9670;&#160;</a></span>fit_spline()</h2>
+<a id="ab0568c3635331878ae79ce16031cb01a" name="ab0568c3635331878ae79ce16031cb01a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0568c3635331878ae79ce16031cb01a">&#9670;&#160;</a></span>fit_spline()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -257,6 +263,12 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="memname">std::vector&lt; T &gt; fit_spline </td>
           <td>(</td>
+          <td class="paramtype">const std::vector&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>precision</em>, </td>
         </tr>
@@ -270,13 +282,7 @@ template&lt;typename T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>coeffs_ratio</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; T &gt;&#160;</td>
-          <td class="paramname"><em>cone_seq</em>&#160;</td>
+          <td class="paramname"><em>coeffs_ratio</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -303,44 +309,122 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">path</td><td>Sequence of points to fit the spline to. </td></tr>
     <tr><td class="paramname">precision</td><td>Number of interpolated points between each pair of original points. </td></tr>
     <tr><td class="paramname">order</td><td>Order of the B-spline. </td></tr>
     <tr><td class="paramname">coeffs_ratio</td><td>Ratio to determine the number of coefficients for the spline. </td></tr>
-    <tr><td class="paramname">cone_seq</td><td>Sequence of points to fit the spline to. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>std::vector&lt;T&gt; Sequence of points representing the fitted spline.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This function requires the GNU Scientific Library (GSL) for spline fitting. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/da8/splines_8hpp_source.html#l00120">120</a> of file <a class="el" href="../../d6/da8/splines_8hpp_source.html">splines.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/da8/splines_8hpp_source.html#l00130">130</a> of file <a class="el" href="../../d6/da8/splines_8hpp_source.html">splines.hpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d6/da8/splines_8hpp_a5987a477b79a8b344f897f3be409cb37_icgraph.png" border="0" usemap="#ad6/da8/splines_8hpp_a5987a477b79a8b344f897f3be409cb37_icgraph" alt=""/></div>
-<map name="ad6/da8/splines_8hpp_a5987a477b79a8b344f897f3be409cb37_icgraph" id="ad6/da8/splines_8hpp_a5987a477b79a8b344f897f3be409cb37_icgraph">
-<area shape="rect" title="This function takes a sequence of points (T), fits a spline to them using B&#45;spline basis functions,..." alt="" coords="1377,221,1450,247"/>
-<area shape="rect" href="../../d9/d53/class_outliers.html#aec8b9b17a4cc2ca754244d7fe8283610" title="function to remove outliers from a set of cones" alt="" coords="1163,131,1305,171"/>
-<area shape="poly" title=" " alt="" coords="1379,214,1328,185,1302,174,1304,169,1331,181,1382,210"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a9c484c641bcc262c3af3d169c9fa4c54" title="function to smooth a path" alt="" coords="1138,196,1329,221"/>
-<area shape="poly" title=" " alt="" coords="1361,229,1329,224,1329,219,1362,224"/>
-<area shape="rect" href="../../d9/db5/splines__tests_8cpp.html#a6556ed322889d2511804a36ac4e8a7bd" title="Test the spline template function for a path point vector." alt="" coords="1207,245,1261,271"/>
-<area shape="poly" title=" " alt="" coords="1362,243,1262,257,1261,251,1362,238"/>
-<area shape="rect" href="../../d9/db5/splines__tests_8cpp.html#a83b61818f6ea0bfb86ff753855155bad" title="Test the spline template function for a cone vector." alt="" coords="1207,294,1261,320"/>
-<area shape="poly" title=" " alt="" coords="1382,258,1330,285,1295,297,1262,305,1261,300,1293,292,1328,281,1379,253"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,221,1090,247"/>
-<area shape="poly" title=" " alt="" coords="1123,224,1091,227,1090,222,1122,218"/>
+<div class="center"><img src="../../d6/da8/splines_8hpp_ab0568c3635331878ae79ce16031cb01a_icgraph.png" border="0" usemap="#ad6/da8/splines_8hpp_ab0568c3635331878ae79ce16031cb01a_icgraph" alt=""/></div>
+<map name="ad6/da8/splines_8hpp_ab0568c3635331878ae79ce16031cb01a_icgraph" id="ad6/da8/splines_8hpp_ab0568c3635331878ae79ce16031cb01a_icgraph">
+<area shape="rect" title="This function takes a sequence of points (T), fits a spline to them using B&#45;spline basis functions,..." alt="" coords="108,31,180,56"/>
+<area shape="rect" href="../../d9/db5/splines__tests_8cpp.html#a6556ed322889d2511804a36ac4e8a7bd" title="Test the spline template function for a path point vector." alt="" coords="5,5,60,31"/>
+<area shape="poly" title=" " alt="" coords="92,34,60,27,61,22,93,29"/>
+<area shape="rect" href="../../d9/db5/splines__tests_8cpp.html#a83b61818f6ea0bfb86ff753855155bad" title="Test the spline template function for a cone vector." alt="" coords="5,55,60,80"/>
+<area shape="poly" title=" " alt="" coords="93,57,61,64,60,59,92,52"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a17fae428cadc635f31d275efded45a67" name="a17fae428cadc635f31d275efded45a67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17fae428cadc635f31d275efded45a67">&#9670;&#160;</a></span>fit_triple_spline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d1/d77/struct_triple_spline.html">TripleSpline</a>&lt; T &gt; fit_triple_spline </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>center</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>right</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>precision</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>order</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function takes three sequences of points (center, left, right), fits splines to them using GSL interpolation methods, and returns three sequences of points representing the fitted splines. </p>
+<p>All three splines share the same parametric domain based on the center line's arc length.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Type of the elements in the input and output sequences. T must satisfy several requirements:<ul>
+<li>Default constructible</li>
+<li>Hashable</li>
+<li>Equality comparable</li>
+<li>Has a <code>position</code> member</li>
+<li><code>position</code> has <code>x</code> and <code>y</code> members of type <code>double</code></li>
+<li><code>position</code> has a <code>euclidean_distance</code> method</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">center</td><td>Sequence of points representing the center line. </td></tr>
+    <tr><td class="paramname">left</td><td>Sequence of points representing the left boundary. </td></tr>
+    <tr><td class="paramname">right</td><td>Sequence of points representing the right boundary. </td></tr>
+    <tr><td class="paramname">precision</td><td>Number of interpolated points between each pair of original points. </td></tr>
+    <tr><td class="paramname">order</td><td>Order of the interpolation: 2=linear, 3=cubic spline </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>TripleSpline&lt;T&gt; Structure containing three spline sequences: center, left, and right.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function requires the GNU Scientific Library (GSL) for spline interpolation. </dd>
+<dd>
+All three input sequences must have the same size and at least 2 points. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d6/da8/splines_8hpp_source.html#l00315">315</a> of file <a class="el" href="../../d6/da8/splines_8hpp_source.html">splines.hpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d6/da8/splines_8hpp_a17fae428cadc635f31d275efded45a67_icgraph.png" border="0" usemap="#ad6/da8/splines_8hpp_a17fae428cadc635f31d275efded45a67_icgraph" alt=""/></div>
+<map name="ad6/da8/splines_8hpp_a17fae428cadc635f31d275efded45a67_icgraph" id="ad6/da8/splines_8hpp_a17fae428cadc635f31d275efded45a67_icgraph">
+<area shape="rect" title="This function takes three sequences of points (center, left, right), fits splines to them using GSL i..." alt="" coords="1382,145,1490,171"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#af8d116547f2d2adc2979676047abcfb4" title="Optimizes a racing line path by fitting splines through track boundaries and applying quadratic progr..." alt="" coords="1138,145,1334,171"/>
+<area shape="poly" title=" " alt="" coords="1367,160,1335,160,1335,155,1367,155"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,145,1090,171"/>
+<area shape="poly" title=" " alt="" coords="1122,160,1090,160,1090,155,1122,155"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
-<area shape="poly" title=" " alt="" coords="1122,198,883,169,883,164,1123,193"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#ab1d989a47e1266f2522638828ade3271" title="Executes planning for the EBS (Emergency Braking System) test mission." alt="" coords="934,70,1087,96"/>
-<area shape="poly" title=" " alt="" coords="1145,190,1136,185,1119,166,1111,146,1104,127,1088,109,1070,99,1073,94,1092,105,1109,124,1116,144,1124,163,1140,181,1147,186"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1163,193,1137,186,1044,148,1046,143,1139,180,1164,188"/>
-<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html#acd526ec95d9464063023a78fcf0f64d9" title="simple scenario with few points in the path" alt="" coords="983,270,1038,296"/>
-<area shape="poly" title=" " alt="" coords="1157,228,1139,235,1115,248,1091,261,1039,279,1037,274,1089,257,1113,243,1137,230,1155,223"/>
-<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html#a39420284a210f074cd5864281df8c9b5" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="983,320,1038,345"/>
-<area shape="poly" title=" " alt="" coords="1145,231,1140,234,1124,252,1116,271,1109,291,1092,310,1066,324,1039,332,1037,326,1064,319,1088,306,1104,288,1111,269,1119,249,1136,230,1142,226"/>
-<area shape="poly" title=" " alt="" coords="959,217,863,181,865,176,961,212"/>
+<area shape="poly" title=" " alt="" coords="915,160,883,160,883,155,915,155"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
 <area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="495,169,684,210"/>
@@ -366,8 +450,6 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
-<area shape="poly" title=" " alt="" coords="949,104,932,110,857,139,855,134,930,104,947,99"/>
-<area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 </map>
 </div>
 

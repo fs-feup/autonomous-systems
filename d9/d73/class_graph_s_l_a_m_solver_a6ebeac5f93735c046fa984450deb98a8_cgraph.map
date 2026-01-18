@@ -1,0 +1,20 @@
+<map id="GraphSLAMSolver::add_observations" name="GraphSLAMSolver::add_observations">
+<area shape="rect" id="Node000001" title="Add observations to the solver (correction step)" alt="" coords="5,88,163,129"/>
+<area shape="rect" id="Node000002" href="$d9/d73/class_graph_s_l_a_m_solver.html#a4e2e959dbf1af452dfd21ec8c3adf9c0" title="Adds motion data to the graph if the pose updater is ready." alt="" coords="482,5,646,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,85,160,63,210,44,276,31,343,23,466,19,466,24,343,28,276,36,211,50,162,68,120,90"/>
+<area shape="rect" id="Node000005" href="$da/df5/slam_2src_2slam__solver_2graph__slam__solver_2utils_8cpp.html#a635cf55ec76c73af7d115883037b3f51" title=" " alt="" coords="893,70,1041,96"/>
+<area shape="poly" id="edge8_Node000001_Node000005" title=" " alt="" coords="163,108,211,108,434,108,674,98,877,86,877,92,675,104,434,114,211,114,163,113"/>
+<area shape="rect" id="Node000006" href="$d9/d73/class_graph_s_l_a_m_solver.html#a40faaba4cec75f1aeda8b35b756512c2" title="Asynchronous optimization routine." alt="" coords="211,59,434,99"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="163,96,194,92,195,97,163,101"/>
+<area shape="rect" id="Node000007" href="$d2/d32/namespacecommon__lib_1_1maths.html#ae863ab27f119e71801d039179cba64b7" title="Transform points from a local reference frame to a global reference frame." alt="" coords="232,173,413,214"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="142,127,212,152,247,165,246,170,210,158,140,132"/>
+<area shape="rect" id="Node000003" href="$da/df5/slam_2src_2slam__solver_2graph__slam__solver_2utils_8cpp.html#a3d4e9957a7d73fae42a51136c75737f4" title=" " alt="" coords="694,17,845,43"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="647,25,679,25,679,31,647,30"/>
+<area shape="rect" id="Node000004" href="$da/df5/slam_2src_2slam__solver_2graph__slam__solver_2utils_8cpp.html#a8649e3a40d3996e6a7eca0c02fbbc3a3" title=" " alt="" coords="893,17,1041,43"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="845,27,877,27,877,32,845,32"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="821,41,902,63,901,68,819,46"/>
+<area shape="poly" id="edge6_Node000006_Node000002" title=" " alt="" coords="417,55,466,44,467,50,418,61"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="434,77,877,80,877,85,434,82"/>
+<area shape="rect" id="Node000008" href="$d2/d32/namespacecommon__lib_1_1maths.html#a3155563fdd77267916f4362c3c976f11" title="Function to get the rotation matrix for a given angle." alt="" coords="495,173,634,214"/>
+<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="413,191,479,191,479,196,413,196"/>
+</map>

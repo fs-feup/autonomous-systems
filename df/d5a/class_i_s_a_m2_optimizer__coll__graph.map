@@ -1,7 +1,7 @@
 <map id="ISAM2Optimizer" name="ISAM2Optimizer">
-<area shape="rect" id="Node000001" title=" " alt="" coords="29,612,163,738"/>
-<area shape="rect" id="Node000002" href="$df/dc2/class_base_optimizer.html" title=" " alt="" coords="34,458,158,563"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,578,99,613,93,613,93,578"/>
-<area shape="rect" id="Node000003" href="$d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="5,5,187,395"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="99,394,99,441,93,441,93,394"/>
+<area shape="rect" id="Node000001" title="ISAM2 optimizer for graph SLAM." alt="" coords="29,658,163,883"/>
+<area shape="rect" id="Node000002" href="$df/dc2/class_base_optimizer.html" title="Base class for graph optimizers." alt="" coords="34,443,158,608"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,623,99,658,93,658,93,623"/>
+<area shape="rect" id="Node000003" href="$d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="5,5,187,380"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="99,380,99,426,93,426,93,380"/>
 </map>

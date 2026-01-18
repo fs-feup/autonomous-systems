@@ -98,15 +98,18 @@ $(document).ready(function(){initNavTree('d2/dd8/class_normal_levenberg_optimize
 </div><!--header-->
 <div class="contents">
 
+<p>Normal Levenberg-Marquardt optimizer for graph SLAM.  
+ <a href="../../d2/dd8/class_normal_levenberg_optimizer.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="../../da/d34/normal__levenberg__optimizer_8hpp_source.html">normal_levenberg_optimizer.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for NormalLevenbergOptimizer:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dc/db0/class_normal_levenberg_optimizer__inherit__graph.png" border="0" usemap="#a_normal_levenberg_optimizer_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_normal_levenberg_optimizer_inherit__map" id="a_normal_levenberg_optimizer_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,159,201,264"/>
-<area shape="rect" href="../../df/dc2/class_base_optimizer.html" title=" " alt="" coords="41,5,165,111"/>
-<area shape="poly" title=" " alt="" coords="106,125,106,159,101,159,101,125"/>
+<area shape="rect" title="Normal Levenberg&#45;Marquardt optimizer for graph SLAM." alt="" coords="5,219,201,344"/>
+<area shape="rect" href="../../df/dc2/class_base_optimizer.html" title="Base class for graph optimizers." alt="" coords="41,5,165,171"/>
+<area shape="poly" title=" " alt="" coords="106,186,106,219,101,219,101,186"/>
 </map>
 </div>
 <div class="dynheader">
@@ -114,11 +117,11 @@ Collaboration diagram for NormalLevenbergOptimizer:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/dc0/class_normal_levenberg_optimizer__coll__graph.png" border="0" usemap="#a_normal_levenberg_optimizer_coll__map" alt="Collaboration graph"/></div>
 <map name="a_normal_levenberg_optimizer_coll__map" id="a_normal_levenberg_optimizer_coll__map">
-<area shape="rect" title=" " alt="" coords="5,612,201,718"/>
-<area shape="rect" href="../../df/dc2/class_base_optimizer.html" title=" " alt="" coords="41,458,165,563"/>
-<area shape="poly" title=" " alt="" coords="106,578,106,613,101,613,101,578"/>
-<area shape="rect" href="../../d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="13,5,194,395"/>
-<area shape="poly" title=" " alt="" coords="106,394,106,441,101,441,101,394"/>
+<area shape="rect" title="Normal Levenberg&#45;Marquardt optimizer for graph SLAM." alt="" coords="5,658,201,783"/>
+<area shape="rect" href="../../df/dc2/class_base_optimizer.html" title="Base class for graph optimizers." alt="" coords="41,443,165,608"/>
+<area shape="poly" title=" " alt="" coords="106,623,106,658,101,658,101,623"/>
+<area shape="rect" href="../../d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="13,5,194,380"/>
+<area shape="poly" title=" " alt="" coords="106,380,106,426,101,426,101,380"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -128,12 +131,19 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aeacd14accb42cdc032f52eff0d063450"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac662cd9e8d9fe585bc9de767870a9ea9" id="r_ac662cd9e8d9fe585bc9de767870a9ea9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dd8/class_normal_levenberg_optimizer.html#ac662cd9e8d9fe585bc9de767870a9ea9">~NormalLevenbergOptimizer</a> () override=default</td></tr>
 <tr class="separator:ac662cd9e8d9fe585bc9de767870a9ea9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33cc17ed3305ea42bf9ca8a048eebb39" id="r_a33cc17ed3305ea42bf9ca8a048eebb39"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../df/dc2/class_base_optimizer.html">BaseOptimizer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dd8/class_normal_levenberg_optimizer.html#a33cc17ed3305ea42bf9ca8a048eebb39">clone</a> () const override</td></tr>
+<tr class="memdesc:a33cc17ed3305ea42bf9ca8a048eebb39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clone the optimizer.  <br /></td></tr>
+<tr class="separator:a33cc17ed3305ea42bf9ca8a048eebb39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac936c9c6d00003b91ed315bc219128af" id="r_ac936c9c6d00003b91ed315bc219128af"><td class="memItemLeft" align="right" valign="top">gtsam::Values&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dd8/class_normal_levenberg_optimizer.html#ac936c9c6d00003b91ed315bc219128af">optimize</a> (gtsam::NonlinearFactorGraph &amp;factor_graph, gtsam::Values &amp;graph_values, unsigned int pose_num, unsigned int landmark_num) override</td></tr>
 <tr class="memdesc:ac936c9c6d00003b91ed315bc219128af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optimize the graph.  <br /></td></tr>
 <tr class="separator:ac936c9c6d00003b91ed315bc219128af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_base_optimizer"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_base_optimizer')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../df/dc2/class_base_optimizer.html">BaseOptimizer</a></td></tr>
 <tr class="memitem:aa174b8410971717dc1580592439c304c inherit pub_methods_class_base_optimizer" id="r_aa174b8410971717dc1580592439c304c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dc2/class_base_optimizer.html#aa174b8410971717dc1580592439c304c">BaseOptimizer</a> (const <a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html">SLAMParameters</a> &amp;params)</td></tr>
 <tr class="separator:aa174b8410971717dc1580592439c304c inherit pub_methods_class_base_optimizer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78fcf4aa1d9fbe8cb8aa11110d07377a inherit pub_methods_class_base_optimizer" id="r_a78fcf4aa1d9fbe8cb8aa11110d07377a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dc2/class_base_optimizer.html#a78fcf4aa1d9fbe8cb8aa11110d07377a">BaseOptimizer</a> (const <a class="el" href="../../df/dc2/class_base_optimizer.html">BaseOptimizer</a> &amp;other)</td></tr>
+<tr class="separator:a78fcf4aa1d9fbe8cb8aa11110d07377a inherit pub_methods_class_base_optimizer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a171f4128ec6bcf822dd8b7f9956f3c7f inherit pub_methods_class_base_optimizer" id="r_a171f4128ec6bcf822dd8b7f9956f3c7f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/dc2/class_base_optimizer.html">BaseOptimizer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dc2/class_base_optimizer.html#a171f4128ec6bcf822dd8b7f9956f3c7f">operator=</a> (const <a class="el" href="../../df/dc2/class_base_optimizer.html">BaseOptimizer</a> &amp;other)</td></tr>
+<tr class="separator:a171f4128ec6bcf822dd8b7f9956f3c7f inherit pub_methods_class_base_optimizer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a100464423b48923114d8fc656720f8 inherit pub_methods_class_base_optimizer" id="r_a6a100464423b48923114d8fc656720f8"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dc2/class_base_optimizer.html#a6a100464423b48923114d8fc656720f8">~BaseOptimizer</a> ()=default</td></tr>
 <tr class="separator:a6a100464423b48923114d8fc656720f8 inherit pub_methods_class_base_optimizer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -144,8 +154,10 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:aa2872fa6dda993f4453e83fe6913249d inherit pro_attribs_class_base_optimizer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="../../da/d34/normal__levenberg__optimizer_8hpp_source.html#l00007">7</a> of file <a class="el" href="../../da/d34/normal__levenberg__optimizer_8hpp_source.html">normal_levenberg_optimizer.hpp</a>.</p>
+<div class="textblock"><p>Normal Levenberg-Marquardt optimizer for graph SLAM. </p>
+<p>This class implements the normal Levenberg-Marquardt optimizer for graph SLAM It uses the GTSAM Levenberg-Marquardt implementation to optimize the factor graph </p>
+
+<p class="definition">Definition at line <a class="el" href="../../da/d34/normal__levenberg__optimizer_8hpp_source.html#l00012">12</a> of file <a class="el" href="../../da/d34/normal__levenberg__optimizer_8hpp_source.html">normal_levenberg_optimizer.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aeacd14accb42cdc032f52eff0d063450" name="aeacd14accb42cdc032f52eff0d063450"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeacd14accb42cdc032f52eff0d063450">&#9670;&#160;</a></span>NormalLevenbergOptimizer()</h2>
@@ -193,6 +205,39 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a33cc17ed3305ea42bf9ca8a048eebb39" name="a33cc17ed3305ea42bf9ca8a048eebb39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33cc17ed3305ea42bf9ca8a048eebb39">&#9670;&#160;</a></span>clone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="../../df/dc2/class_base_optimizer.html">BaseOptimizer</a> &gt; NormalLevenbergOptimizer::clone </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clone the optimizer. </p>
+<p>This method is used to create a copy of the optimizer It is useful for polymorphic classes that use pointers to base class</p>
+<dl class="section return"><dt>Returns</dt><dd>A shared pointer to the cloned optimizer </dd></dl>
+
+<p>Implements <a class="el" href="../../df/dc2/class_base_optimizer.html#ae70a84587f8dd566b91a3909bed34034">BaseOptimizer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d75/normal__levenberg__optimizer_8cpp_source.html#l00006">6</a> of file <a class="el" href="../../d3/d75/normal__levenberg__optimizer_8cpp_source.html">normal_levenberg_optimizer.cpp</a>.</p>
+
+</div>
+</div>
 <a id="ac936c9c6d00003b91ed315bc219128af" name="ac936c9c6d00003b91ed315bc219128af"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac936c9c6d00003b91ed315bc219128af">&#9670;&#160;</a></span>optimize()</h2>
 
@@ -245,6 +290,8 @@ Additional Inherited Members</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">factor_graph</td><td>The factor graph to optimize </td></tr>
     <tr><td class="paramname">graph_values</td><td>The values to optimize </td></tr>
+    <tr><td class="paramname">pose_num</td><td>The number of poses in the graph </td></tr>
+    <tr><td class="paramname">landmark_num</td><td>The number of landmarks in the graph </td></tr>
   </table>
   </dd>
 </dl>
@@ -252,7 +299,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="../../df/dc2/class_base_optimizer.html#af911ebca0ad2b0a674ff00e3a78839a8">BaseOptimizer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d75/normal__levenberg__optimizer_8cpp_source.html#l00006">6</a> of file <a class="el" href="../../d3/d75/normal__levenberg__optimizer_8cpp_source.html">normal_levenberg_optimizer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d75/normal__levenberg__optimizer_8cpp_source.html#l00010">10</a> of file <a class="el" href="../../d3/d75/normal__levenberg__optimizer_8cpp_source.html">normal_levenberg_optimizer.cpp</a>.</p>
 
 </div>
 </div>

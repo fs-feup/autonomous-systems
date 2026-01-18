@@ -111,8 +111,8 @@ $(document).ready(function(){initNavTree('d6/d80/slam_2include_2slam__solver_2gr
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="../../db/d20/sliding__window__levenberg__optimizer_8hpp.html">slam_solver/graph_slam_solver/optimizer/sliding_window_levenberg_optimizer.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> * Map of slam_solvers, with the key being the type of the slam_solver and the value being a lambda</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"> * function that returns a shared pointer to the corresponding slam_solver</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> * Map of optimizers, with the key being the type of the optimizer and the value being a lambda</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"> * function that returns a shared pointer to the corresponding optimizer</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment"> */</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">const</span> std::map&lt;std::string, std::function&lt;std::shared_ptr&lt;BaseOptimizer&gt;(<span class="keyword">const</span> <a class="code hl_struct" href="../../d5/d51/struct_s_l_a_m_parameters.html">SLAMParameters</a>&amp;)&gt;,</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>               std::less&lt;&gt;&gt;</div>

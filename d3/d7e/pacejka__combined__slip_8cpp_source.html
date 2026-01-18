@@ -110,8 +110,8 @@ $(document).ready(function(){initNavTree('d3/d7e/pacejka__combined__slip_8cpp_so
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>  <span class="keywordtype">double</span> Dx = this-&gt;<a class="code hl_variable" href="../../d2/dc2/class_tire_model.html#a9c5ecb9c83913ca565012f784beee045">car_parameters_</a>-&gt;tire_parameters.tire_D_longitudinal * vertical_load;</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>  <span class="keywordtype">double</span> Ex = this-&gt;<a class="code hl_variable" href="../../d2/dc2/class_tire_model.html#a9c5ecb9c83913ca565012f784beee045">car_parameters_</a>-&gt;tire_parameters.tire_E_longitudinal;</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  <span class="keywordtype">double</span> Fx0 =</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>      Dx * std::sin(Cx * std::atan(Bx * slip_ratio - Ex * (Bx * slip_ratio - std::atan(Bx * slip_ratio))));</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  <span class="keywordtype">double</span> Fx0 = Dx * std::sin(Cx * std::atan(Bx * slip_ratio -</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>                                            Ex * (Bx * slip_ratio - std::atan(Bx * slip_ratio))));</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>  <span class="comment">// Lateral pure slip force (Fy0)</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>  <span class="keywordtype">double</span> By = this-&gt;<a class="code hl_variable" href="../../d2/dc2/class_tire_model.html#a9c5ecb9c83913ca565012f784beee045">car_parameters_</a>-&gt;tire_parameters.tire_B_lateral;</div>
@@ -119,8 +119,8 @@ $(document).ready(function(){initNavTree('d3/d7e/pacejka__combined__slip_8cpp_so
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  <span class="keywordtype">double</span> Dy = this-&gt;<a class="code hl_variable" href="../../d2/dc2/class_tire_model.html#a9c5ecb9c83913ca565012f784beee045">car_parameters_</a>-&gt;tire_parameters.tire_D_lateral * vertical_load;</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  <span class="keywordtype">double</span> Ey = this-&gt;<a class="code hl_variable" href="../../d2/dc2/class_tire_model.html#a9c5ecb9c83913ca565012f784beee045">car_parameters_</a>-&gt;tire_parameters.tire_E_lateral;</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  <span class="keywordtype">double</span> Fy0 =</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>      Dy * std::sin(Cy * std::atan(By * slip_angle - Ey * (By * slip_angle - std::atan(By * slip_angle))));</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  <span class="keywordtype">double</span> Fy0 = Dy * std::sin(Cy * std::atan(By * slip_angle -</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>                                            Ey * (By * slip_angle - std::atan(By * slip_angle))));</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  <span class="comment">// Combined slip reduction factors (friction ellipse type)</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  <span class="keywordtype">double</span> Gx = std::cos(std::atan(By * slip_angle));</div>

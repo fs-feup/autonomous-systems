@@ -1,9 +1,11 @@
 <map id="PathCalculation::get_blue_cones" name="PathCalculation::get_blue_cones">
 <area shape="rect" id="Node000001" title="Gets the list of blue cones detected or used in the path calculation." alt="" coords="1214,137,1350,178"/>
-<area shape="rect" id="Node000002" href="$d9/db5/class_planning.html#ad6c3fad6bc5175529714461938aa9a46" title="Publishes all visualization markers." alt="" coords="931,145,1166,171"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1198,160,1166,160,1166,155,1198,155"/>
+<area shape="rect" id="Node000002" href="$d9/db5/class_planning.html#ad6c3fad6bc5175529714461938aa9a46" title="Publishes all visualization markers." alt="" coords="931,120,1166,145"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1198,151,1166,148,1167,142,1199,146"/>
+<area shape="rect" id="Node000015" href="$d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="969,169,1128,195"/>
+<area shape="poly" id="edge17_Node000001_Node000015" title=" " alt="" coords="1199,169,1129,176,1128,171,1198,164"/>
 <area shape="rect" id="Node000003" href="$d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="915,160,883,160,883,155,915,155"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="915,149,883,152,883,147,915,144"/>
 <area shape="rect" id="Node000004" href="$d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
 <area shape="rect" id="Node000010" href="$d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="495,169,684,210"/>
@@ -29,4 +31,5 @@
 <area shape="rect" id="Node000013" href="$d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" id="edge14_Node000012_Node000013" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" id="edge16_Node000014_Node000009" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
+<area shape="poly" id="edge18_Node000015_Node000003" title=" " alt="" coords="953,175,883,168,883,162,954,170"/>
 </map>

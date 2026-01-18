@@ -1,13 +1,27 @@
 var class_pose_updater =
 [
-    [ "PoseUpdater", "d0/d87/class_pose_updater.html#ac957d09923db33da855f0e710a715766", null ],
+    [ "TimedPose", "dd/dc0/struct_pose_updater_1_1_timed_pose.html", "dd/dc0/struct_pose_updater_1_1_timed_pose" ],
+    [ "PoseUpdater", "d0/d87/class_pose_updater.html#a8e207af1b70d49b31cace508317b7b81", null ],
     [ "PoseUpdater", "d0/d87/class_pose_updater.html#ae0789745a5deb7b63e23e9974c40e252", null ],
+    [ "~PoseUpdater", "d0/d87/class_pose_updater.html#afdd276ac229872a0f64ddafee7eec4a8", null ],
+    [ "clone", "d0/d87/class_pose_updater.html#ad20f91c1ab2406f87bfe168b52f52280", null ],
+    [ "get_adjoint_operator_matrix", "d0/d87/class_pose_updater.html#a13688b7622da267ac0d2da5293ef7ae8", null ],
+    [ "get_last_graphed_pose", "d0/d87/class_pose_updater.html#a4be737bdfeb7198fddf788336fbe0c01", null ],
     [ "get_last_pose", "d0/d87/class_pose_updater.html#acb720ab694ef2d83e75171c00686f0d7", null ],
     [ "get_last_pose_update", "d0/d87/class_pose_updater.html#a12b6fd6594b85b41bb9cd27bebd4d5d0", null ],
+    [ "get_pose_at_timestamp", "d0/d87/class_pose_updater.html#a22e23736efd0b9f83f2a32d475f9bd06", null ],
+    [ "get_pose_difference_noise", "d0/d87/class_pose_updater.html#a82a0e66396adc4dabd5811529ea2734f", null ],
     [ "operator=", "d0/d87/class_pose_updater.html#a8f22f7bc641111abde4fac7ebd660ead", null ],
-    [ "set_last_pose", "d0/d87/class_pose_updater.html#a91ebc3177cad65dd3890a16dcfcefc46", null ],
-    [ "update_pose", "d0/d87/class_pose_updater.html#a8b8eb5d2da66a042f243d5c87031940a", null ],
+    [ "pose_buffer_capacity", "d0/d87/class_pose_updater.html#a922db51a7be9c67c5ff1a09ed24a1eca", null ],
+    [ "pose_buffer_size", "d0/d87/class_pose_updater.html#addc7d9afb4abe09501215381af8516d4", null ],
+    [ "pose_ready_for_graph_update", "d0/d87/class_pose_updater.html#acb085d24073ac0a1f5353c6c8f6efea1", null ],
+    [ "predict_pose", "d0/d87/class_pose_updater.html#abaafcc06d228fdbd0b6edca115abfbc5", null ],
+    [ "update_pose", "d0/d87/class_pose_updater.html#a2648aaab0ea3482bf15357b5193bfa83", null ],
+    [ "_last_graphed_pose_", "d0/d87/class_pose_updater.html#a4e88dfbb740ca7d3977c566ba841dce7", null ],
     [ "_last_pose_", "d0/d87/class_pose_updater.html#af0ba2d3f6acd61c21f46e447d8b205f4", null ],
+    [ "_last_pose_covariance_", "d0/d87/class_pose_updater.html#a736cc65258564c7652c26fbda99ff338", null ],
     [ "_last_pose_update_", "d0/d87/class_pose_updater.html#adc5f76a0c91ca3af09d63a9dc9095418", null ],
-    [ "_received_first_velocities_", "d0/d87/class_pose_updater.html#ade539c3738a4b2d41dd993ff2fa60e2a", null ]
+    [ "_new_pose_from_graph_", "d0/d87/class_pose_updater.html#ae0d2a470d34b07cd2fe8b511211306f8", null ],
+    [ "_pose_buffer_", "d0/d87/class_pose_updater.html#a0e87aeb365212fa75d2b4e9f34ec255e", null ],
+    [ "_received_first_motion_data_", "d0/d87/class_pose_updater.html#a8f4f24204966a17edb63a46efbfe142a", null ]
 ];

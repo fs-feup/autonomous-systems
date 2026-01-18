@@ -1,0 +1,11 @@
+<map id="DoublePoseUpdater" name="DoublePoseUpdater">
+<area shape="rect" id="Node000001" title="TODO: abandoned for now, not working properly." alt="" coords="116,1155,292,1479"/>
+<area shape="rect" id="Node000002" href="$d1/d1c/class_difference_based_ready_pose_updater.html" title="Class to update the pose of the vehicle, including a method to check if the pose is ready for graph u..." alt="" coords="5,867,197,1106"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,1119,156,1155,151,1156,140,1121"/>
+<area shape="rect" id="Node000003" href="$d0/d87/class_pose_updater.html" title="Class to update the pose of the vehicle." alt="" coords="17,408,185,818"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="104,833,104,867,99,867,99,833"/>
+<area shape="rect" id="Node000004" href="$d9/d1a/class_circular_buffer.html" title=" " alt="" coords="13,5,190,345"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="104,345,104,391,99,391,99,345"/>
+<area shape="rect" id="Node000005" href="$da/df3/class_second_pose_input_trait.html" title="Trait for pose updaters that keep two different pose difference estimates from different sources." alt="" coords="222,929,394,1044"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="288,1059,257,1156,252,1154,283,1057"/>
+</map>

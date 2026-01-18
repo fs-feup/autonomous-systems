@@ -1,5 +1,5 @@
 <map id="EKFSLAMSolver::predict" name="EKFSLAMSolver::predict">
 <area shape="rect" id="Node000001" title="executed when velocity data is received." alt="" coords="201,13,366,39"/>
-<area shape="rect" id="Node000002" href="$d7/d79/class_e_k_f_s_l_a_m_solver.html#a359ca08d1c4c27519fa0df2e14ae1181" title="Executed to deal with new velocity data." alt="" coords="5,5,153,46"/>
+<area shape="rect" id="Node000002" href="$d7/d79/class_e_k_f_s_l_a_m_solver.html#a3433841fefcb7044aa62f407940ae833" title="Executed to deal with new velocity data." alt="" coords="5,5,153,46"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,28,153,28,153,23,185,23"/>
 </map>

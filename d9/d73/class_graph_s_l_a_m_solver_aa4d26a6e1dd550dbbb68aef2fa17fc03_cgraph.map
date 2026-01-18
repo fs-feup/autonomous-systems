@@ -1,7 +1,0 @@
-<map id="GraphSLAMSolver::get_pose_estimate" name="GraphSLAMSolver::get_pose_estimate">
-<area shape="rect" id="Node000001" title="Get the pose estimate object." alt="" coords="5,27,160,68"/>
-<area shape="rect" id="Node000002" href="$d0/d87/class_pose_updater.html#acb720ab694ef2d83e75171c00686f0d7" title=" " alt="" coords="208,5,392,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="160,34,192,30,192,35,160,40"/>
-<area shape="rect" id="Node000003" href="$d0/d87/class_pose_updater.html#a12b6fd6594b85b41bb9cd27bebd4d5d0" title=" " alt="" coords="225,55,375,96"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="160,55,210,61,209,67,160,60"/>
-</map>

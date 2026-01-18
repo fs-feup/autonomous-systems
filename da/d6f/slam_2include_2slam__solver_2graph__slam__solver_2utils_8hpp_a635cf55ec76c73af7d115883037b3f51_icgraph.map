@@ -1,5 +1,22 @@
 <map id="gtsam_pose_to_eigen" name="gtsam_pose_to_eigen">
-<area shape="rect" id="Node000001" title=" " alt="" coords="211,13,359,39"/>
-<area shape="rect" id="Node000002" href="$d9/d73/class_graph_s_l_a_m_solver.html#a7ab911e5d048186ee5a58fdef4fb71ae" title="Add observations to the solver (correction step)" alt="" coords="5,5,163,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,28,163,28,163,23,195,23"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="911,142,1059,168"/>
+<area shape="rect" id="Node000002" href="$d9/d73/class_graph_s_l_a_m_solver.html#a40faaba4cec75f1aeda8b35b756512c2" title="Asynchronous optimization routine." alt="" coords="211,5,434,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="936,138,814,94,740,72,664,54,546,37,434,30,435,25,546,32,665,48,741,67,816,89,938,133"/>
+<area shape="rect" id="Node000003" href="$d9/d73/class_graph_s_l_a_m_solver.html#a6ebeac5f93735c046fa984450deb98a8" title="Add observations to the solver (correction step)" alt="" coords="5,63,163,103"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="942,177,813,227,724,254,626,276,521,290,415,291,361,286,309,276,258,261,209,240,169,212,135,175,110,137,92,105,97,103,114,134,140,171,172,208,212,235,260,256,310,271,362,280,415,286,521,284,625,271,723,248,811,222,940,172"/>
+<area shape="rect" id="Node000004" href="$da/df5/slam_2src_2slam__solver_2graph__slam__solver_2utils_8cpp.html#a3d4e9957a7d73fae42a51136c75737f4" title=" " alt="" coords="712,142,863,168"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="895,158,863,158,863,152,895,152"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="221,53,164,67,162,62,220,48"/>
+<area shape="rect" id="Node000005" href="$d9/d73/class_graph_s_l_a_m_solver.html#a4e2e959dbf1af452dfd21ec8c3adf9c0" title="Adds motion data to the graph if the pose updater is ready." alt="" coords="491,63,655,103"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="732,139,635,106,637,101,733,134"/>
+<area shape="rect" id="Node000008" href="$d1/d1c/class_difference_based_ready_pose_updater.html#aa5bafd12e1dd6627da3ca0de1ac91710" title="Check if the accumulated pose difference is greater than the minimum threshold." alt="" coords="482,127,664,183"/>
+<area shape="poly" id="edge10_Node000004_Node000008" title=" " alt="" coords="697,158,665,158,665,152,697,152"/>
+<area shape="rect" id="Node000009" href="$d0/d87/class_pose_updater.html#abaafcc06d228fdbd0b6edca115abfbc5" title="Updates the last pose and returns the pose difference." alt="" coords="485,208,662,233"/>
+<area shape="poly" id="edge11_Node000004_Node000009" title=" " alt="" coords="734,176,665,198,624,209,623,204,664,192,732,171"/>
+<area shape="poly" id="edge6_Node000005_Node000002" title=" " alt="" coords="475,63,414,49,415,44,477,58"/>
+<area shape="poly" id="edge7_Node000005_Node000003" title=" " alt="" coords="476,86,163,86,163,80,476,80"/>
+<area shape="rect" id="Node000006" href="$d9/d73/class_graph_s_l_a_m_solver.html#a2cf2fde99558ed0498d708ca5c21b2c1" title="Add odometry data to the solver (for prediction step)" alt="" coords="244,120,401,161"/>
+<area shape="poly" id="edge8_Node000005_Node000006" title=" " alt="" coords="476,108,402,125,401,120,475,103"/>
+<area shape="rect" id="Node000007" href="$d9/d73/class_graph_s_l_a_m_solver.html#a52ad946ffdd1fd60035229f8d446ef7f" title="Process new velocities data (prediction step)" alt="" coords="244,185,401,226"/>
+<area shape="poly" id="edge9_Node000005_Node000007" title=" " alt="" coords="490,113,484,117,469,131,460,145,451,160,436,175,403,191,400,186,432,170,447,157,456,143,465,128,480,113,487,109"/>
 </map>

@@ -1,7 +1,7 @@
 <map id="SlidingWindowLevenbergOptimizerTest" name="SlidingWindowLevenbergOptimizerTest">
-<area shape="rect" id="Node000001" title="Whitebox unit test for the SlidingWindowLevenbergOptimizer." alt="" coords="6,458,246,638"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,167,89,233"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,247,108,457,103,459,55,248"/>
-<area shape="rect" id="Node000003" href="$d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="114,5,295,395"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="163,395,153,442,147,441,158,394"/>
+<area shape="rect" id="Node000001" title="Whitebox unit test for the SlidingWindowLevenbergOptimizer." alt="" coords="6,443,246,623"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,160,89,225"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="61,239,108,442,103,444,55,240"/>
+<area shape="rect" id="Node000003" href="$d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="114,5,295,380"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="164,380,153,427,148,426,159,379"/>
 </map>

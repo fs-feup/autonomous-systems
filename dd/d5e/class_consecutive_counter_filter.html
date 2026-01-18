@@ -128,9 +128,9 @@ Collaboration diagram for ConsecutiveCounterFilter:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a647a99737a69474ee9d28e0b90c8c5dd" id="r_a647a99737a69474ee9d28e0b90c8c5dd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d5e/class_consecutive_counter_filter.html#a647a99737a69474ee9d28e0b90c8c5dd">ConsecutiveCounterFilter</a> (<a class="el" href="../../d4/de4/struct_landmark_filter_parameters.html">LandmarkFilterParameters</a> params, std::shared_ptr&lt; <a class="el" href="../../d1/d14/class_data_association_model.html">DataAssociationModel</a> &gt; data_association)</td></tr>
 <tr class="separator:a647a99737a69474ee9d28e0b90c8c5dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb9a5cdee5143cdb9751fedf9883d6bf" id="r_aeb9a5cdee5143cdb9751fedf9883d6bf"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d5e/class_consecutive_counter_filter.html#aeb9a5cdee5143cdb9751fedf9883d6bf">filter</a> (<a class="el" href="../../dd/d5e/class_consecutive_counter_filter.html#aee6bf882526cf8177f3cd1e3593d31c7">const</a> Eigen::VectorXd &amp;<a class="el" href="../../dd/d5e/class_consecutive_counter_filter.html#aee6bf882526cf8177f3cd1e3593d31c7">new_observations</a>, <a class="el" href="../../dd/d5e/class_consecutive_counter_filter.html#aee6bf882526cf8177f3cd1e3593d31c7">const</a> Eigen::VectorXd &amp;<a class="el" href="../../dd/d5e/class_consecutive_counter_filter.html#aee6bf882526cf8177f3cd1e3593d31c7">new_observation_confidences</a>) <a class="el" href="../../dd/d5e/class_consecutive_counter_filter.html#aee6bf882526cf8177f3cd1e3593d31c7">override</a></td></tr>
-<tr class="memdesc:aeb9a5cdee5143cdb9751fedf9883d6bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function receives a new set of observations and returns a filtered set of landmarks in global coordinates that are ready to be added to be added to the map.  <br /></td></tr>
-<tr class="separator:aeb9a5cdee5143cdb9751fedf9883d6bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad76971fb099f5b61f1bd370b999cf288" id="r_ad76971fb099f5b61f1bd370b999cf288"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d5e/class_consecutive_counter_filter.html#ad76971fb099f5b61f1bd370b999cf288">filter</a> (<a class="el" href="../../dd/d5e/class_consecutive_counter_filter.html#aee6bf882526cf8177f3cd1e3593d31c7">const</a> Eigen::VectorXd &amp;<a class="el" href="../../dd/d5e/class_consecutive_counter_filter.html#aee6bf882526cf8177f3cd1e3593d31c7">observations</a>, <a class="el" href="../../dd/d5e/class_consecutive_counter_filter.html#aee6bf882526cf8177f3cd1e3593d31c7">const</a> Eigen::VectorXd &amp;<a class="el" href="../../dd/d5e/class_consecutive_counter_filter.html#aee6bf882526cf8177f3cd1e3593d31c7">observation_confidences</a>, Eigen::VectorXi &amp;<a class="el" href="../../dd/d5e/class_consecutive_counter_filter.html#aee6bf882526cf8177f3cd1e3593d31c7">associations</a>) <a class="el" href="../../dd/d5e/class_consecutive_counter_filter.html#aee6bf882526cf8177f3cd1e3593d31c7">override</a></td></tr>
+<tr class="memdesc:ad76971fb099f5b61f1bd370b999cf288"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function receives a new set of observations and returns a filtered set of landmarks in global coordinates that are ready to be added to be added to the map.  <br /></td></tr>
+<tr class="separator:ad76971fb099f5b61f1bd370b999cf288"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46e1690e18eb7ef673a8777d946c0cde" id="r_a46e1690e18eb7ef673a8777d946c0cde"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/d5e/class_consecutive_counter_filter.html#aee6bf882526cf8177f3cd1e3593d31c7">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d5e/class_consecutive_counter_filter.html#a46e1690e18eb7ef673a8777d946c0cde">delete_landmarks</a> (<a class="el" href="../../dd/d5e/class_consecutive_counter_filter.html#aee6bf882526cf8177f3cd1e3593d31c7">const</a> Eigen::VectorXd &amp;<a class="el" href="../../dd/d5e/class_consecutive_counter_filter.html#aee6bf882526cf8177f3cd1e3593d31c7">some_landmarks</a>) <a class="el" href="../../dd/d5e/class_consecutive_counter_filter.html#aee6bf882526cf8177f3cd1e3593d31c7">override</a></td></tr>
 <tr class="memdesc:a46e1690e18eb7ef673a8777d946c0cde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by SLAM to signal to the filter that the landmarks are already in SLAM's map, and they should no longer be returned by the filter as new.  <br /></td></tr>
 <tr class="separator:a46e1690e18eb7ef673a8777d946c0cde"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -239,12 +239,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="../../d2/d5d/class_landmark_filter.html#a72b440166284cef2b0efcf6b56d7ef01">LandmarkFilter</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/db6/consecutive__counter__filter_8cpp_source.html#l00063">63</a> of file <a class="el" href="../../de/db6/consecutive__counter__filter_8cpp_source.html">consecutive_counter_filter.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/db6/consecutive__counter__filter_8cpp_source.html#l00084">84</a> of file <a class="el" href="../../de/db6/consecutive__counter__filter_8cpp_source.html">consecutive_counter_filter.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aeb9a5cdee5143cdb9751fedf9883d6bf" name="aeb9a5cdee5143cdb9751fedf9883d6bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb9a5cdee5143cdb9751fedf9883d6bf">&#9670;&#160;</a></span>filter()</h2>
+<a id="ad76971fb099f5b61f1bd370b999cf288" name="ad76971fb099f5b61f1bd370b999cf288"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad76971fb099f5b61f1bd370b999cf288">&#9670;&#160;</a></span>filter()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -256,13 +256,19 @@ Additional Inherited Members</h2></td></tr>
           <td class="memname">Eigen::VectorXd ConsecutiveCounterFilter::filter </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../dd/d5e/class_consecutive_counter_filter.html#aee6bf882526cf8177f3cd1e3593d31c7">const</a> Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>new_observations</em>, </td>
+          <td class="paramname"><em>observations</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="../../dd/d5e/class_consecutive_counter_filter.html#aee6bf882526cf8177f3cd1e3593d31c7">const</a> Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>new_observation_confidences</em>&#160;</td>
+          <td class="paramname"><em>observation_confidences</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Eigen::VectorXi &amp;&#160;</td>
+          <td class="paramname"><em>associations</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -278,7 +284,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This function receives a new set of observations and returns a filtered set of landmarks in global coordinates that are ready to be added to be added to the map. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>This filter keeps track of how many consecutive times an observation has been seen. If an observation has been seen more than minimum_observation_count_ times consecutively, it is added to the map and returned as a new landmark. If an observation is not seen in a given call to filter, its counter is reset. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">observations</td><td>Observations in the form of [x1, y1, x2, y2, ...] in the global frame </td></tr>
     <tr><td class="paramname">observation_confidences</td><td>Confidence in the observations in the same order as the observations </td></tr>
@@ -287,9 +293,25 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::VectorXd the filtered observations in the form of [x1, y1, x2, y2, ...] in the global frame </dd></dl>
 
-<p>Implements <a class="el" href="../../d2/d5d/class_landmark_filter.html#a33dbd198f9f3c204061caf6bfdc1eff2">LandmarkFilter</a>.</p>
+<p>Implements <a class="el" href="../../d2/d5d/class_landmark_filter.html#ac78b3caf97b81a66fc0a3d6d4593cc29">LandmarkFilter</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/db6/consecutive__counter__filter_8cpp_source.html#l00004">4</a> of file <a class="el" href="../../de/db6/consecutive__counter__filter_8cpp_source.html">consecutive_counter_filter.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/db6/consecutive__counter__filter_8cpp_source.html#l00006">6</a> of file <a class="el" href="../../de/db6/consecutive__counter__filter_8cpp_source.html">consecutive_counter_filter.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dd/d5e/class_consecutive_counter_filter_ad76971fb099f5b61f1bd370b999cf288_icgraph.png" border="0" usemap="#add/d5e/class_consecutive_counter_filter_ad76971fb099f5b61f1bd370b999cf288_icgraph" alt=""/></div>
+<map name="add/d5e/class_consecutive_counter_filter_ad76971fb099f5b61f1bd370b999cf288_icgraph" id="add/d5e/class_consecutive_counter_filter_ad76971fb099f5b61f1bd370b999cf288_icgraph">
+<area shape="rect" title="This function receives a new set of observations and returns a filtered set of landmarks in global co..." alt="" coords="108,73,275,113"/>
+<area shape="rect" href="../../db/dc8/consecutive__counter__filter__test_8cpp.html#a7826258909adf45293c6f17a4201ff26" title="Test with same observations 3 times and car still." alt="" coords="5,5,60,31"/>
+<area shape="poly" title=" " alt="" coords="131,68,59,33,61,28,133,63"/>
+<area shape="rect" href="../../db/dc8/consecutive__counter__filter__test_8cpp.html#a9a9f59a6f752ee76e299bd889dbea476" title="Same test as above but with different order of observations." alt="" coords="5,55,60,80"/>
+<area shape="poly" title=" " alt="" coords="92,80,60,74,61,69,93,74"/>
+<area shape="rect" href="../../db/dc8/consecutive__counter__filter__test_8cpp.html#ac3d0f1b0981f199042861fe387b2d478" title="Same test as above but one of the landmarks is not observed 3 times." alt="" coords="5,104,60,130"/>
+<area shape="poly" title=" " alt="" coords="93,110,61,115,60,110,92,105"/>
+<area shape="rect" href="../../db/dc8/consecutive__counter__filter__test_8cpp.html#a313d3ad5db7ba0bf04bb21e62f15e17a" title="Same test as above but the car moves and observations change accordingly." alt="" coords="5,153,60,179"/>
+<area shape="poly" title=" " alt="" coords="133,123,61,156,59,151,131,118"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -314,7 +336,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/db4/consecutive__counter__filter_8hpp_source.html#l00020">20</a> of file <a class="el" href="../../dd/db4/consecutive__counter__filter_8hpp_source.html">consecutive_counter_filter.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/db4/consecutive__counter__filter_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../dd/db4/consecutive__counter__filter_8hpp_source.html">consecutive_counter_filter.hpp</a>.</p>
 
 </div>
 </div>

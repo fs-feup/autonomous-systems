@@ -99,19 +99,22 @@ $(document).ready(function(){initNavTree('df/dc2/class_base_optimizer.html','../
 </div><!--header-->
 <div class="contents">
 
+<p>Base class for graph optimizers.  
+ <a href="../../df/dc2/class_base_optimizer.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="../../d5/d3f/base__optimizer_8hpp_source.html">base_optimizer.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for BaseOptimizer:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/d79/class_base_optimizer__inherit__graph.png" border="0" usemap="#a_base_optimizer_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_base_optimizer_inherit__map" id="a_base_optimizer_inherit__map">
-<area shape="rect" title=" " alt="" coords="199,5,323,111"/>
-<area shape="rect" href="../../d8/dbe/class_i_s_a_m2_optimizer.html" title=" " alt="" coords="5,159,139,284"/>
-<area shape="poly" title=" " alt="" coords="191,122,140,166,137,162,188,118"/>
-<area shape="rect" href="../../d2/dd8/class_normal_levenberg_optimizer.html" title=" " alt="" coords="163,169,359,274"/>
-<area shape="poly" title=" " alt="" coords="264,126,264,169,259,169,259,126"/>
-<area shape="rect" href="../../d2/d19/class_sliding_window_levenberg_optimizer.html" title=" " alt="" coords="384,169,624,274"/>
-<area shape="poly" title=" " alt="" coords="337,106,428,167,425,171,334,111"/>
+<area shape="rect" title="Base class for graph optimizers." alt="" coords="199,5,323,171"/>
+<area shape="rect" href="../../d8/dbe/class_i_s_a_m2_optimizer.html" title="ISAM2 optimizer for graph SLAM." alt="" coords="5,219,139,444"/>
+<area shape="poly" title=" " alt="" coords="192,172,153,220,140,236,136,233,149,217,188,169"/>
+<area shape="rect" href="../../d2/dd8/class_normal_levenberg_optimizer.html" title="Normal Levenberg&#45;Marquardt optimizer for graph SLAM." alt="" coords="163,269,359,394"/>
+<area shape="poly" title=" " alt="" coords="264,185,264,269,259,269,259,185"/>
+<area shape="rect" href="../../d2/d19/class_sliding_window_levenberg_optimizer.html" title="Sliding Window Levenberg&#45;Marquardt optimizer for graph SLAM." alt="" coords="384,269,624,394"/>
+<area shape="poly" title=" " alt="" coords="336,159,444,267,440,271,332,163"/>
 </map>
 </div>
 <div class="dynheader">
@@ -119,9 +122,9 @@ Collaboration diagram for BaseOptimizer:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/d33/class_base_optimizer__coll__graph.png" border="0" usemap="#a_base_optimizer_coll__map" alt="Collaboration graph"/></div>
 <map name="a_base_optimizer_coll__map" id="a_base_optimizer_coll__map">
-<area shape="rect" title=" " alt="" coords="34,458,158,563"/>
-<area shape="rect" href="../../d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="5,5,187,395"/>
-<area shape="poly" title=" " alt="" coords="99,394,99,441,93,441,93,394"/>
+<area shape="rect" title="Base class for graph optimizers." alt="" coords="34,443,158,608"/>
+<area shape="rect" href="../../d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="5,5,187,380"/>
+<area shape="poly" title=" " alt="" coords="99,380,99,426,93,426,93,380"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -129,6 +132,13 @@ Collaboration diagram for BaseOptimizer:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa174b8410971717dc1580592439c304c" id="r_aa174b8410971717dc1580592439c304c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dc2/class_base_optimizer.html#aa174b8410971717dc1580592439c304c">BaseOptimizer</a> (const <a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html">SLAMParameters</a> &amp;params)</td></tr>
 <tr class="separator:aa174b8410971717dc1580592439c304c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78fcf4aa1d9fbe8cb8aa11110d07377a" id="r_a78fcf4aa1d9fbe8cb8aa11110d07377a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dc2/class_base_optimizer.html#a78fcf4aa1d9fbe8cb8aa11110d07377a">BaseOptimizer</a> (const <a class="el" href="../../df/dc2/class_base_optimizer.html">BaseOptimizer</a> &amp;other)</td></tr>
+<tr class="separator:a78fcf4aa1d9fbe8cb8aa11110d07377a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a171f4128ec6bcf822dd8b7f9956f3c7f" id="r_a171f4128ec6bcf822dd8b7f9956f3c7f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/dc2/class_base_optimizer.html">BaseOptimizer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dc2/class_base_optimizer.html#a171f4128ec6bcf822dd8b7f9956f3c7f">operator=</a> (const <a class="el" href="../../df/dc2/class_base_optimizer.html">BaseOptimizer</a> &amp;other)</td></tr>
+<tr class="separator:a171f4128ec6bcf822dd8b7f9956f3c7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae70a84587f8dd566b91a3909bed34034" id="r_ae70a84587f8dd566b91a3909bed34034"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="../../df/dc2/class_base_optimizer.html">BaseOptimizer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dc2/class_base_optimizer.html#ae70a84587f8dd566b91a3909bed34034">clone</a> () const =0</td></tr>
+<tr class="memdesc:ae70a84587f8dd566b91a3909bed34034"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clone the optimizer.  <br /></td></tr>
+<tr class="separator:ae70a84587f8dd566b91a3909bed34034"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a100464423b48923114d8fc656720f8" id="r_a6a100464423b48923114d8fc656720f8"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dc2/class_base_optimizer.html#a6a100464423b48923114d8fc656720f8">~BaseOptimizer</a> ()=default</td></tr>
 <tr class="separator:a6a100464423b48923114d8fc656720f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af911ebca0ad2b0a674ff00e3a78839a8" id="r_af911ebca0ad2b0a674ff00e3a78839a8"><td class="memItemLeft" align="right" valign="top">virtual gtsam::Values&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dc2/class_base_optimizer.html#af911ebca0ad2b0a674ff00e3a78839a8">optimize</a> (gtsam::NonlinearFactorGraph &amp;factor_graph, gtsam::Values &amp;graph_values, unsigned int pose_num, unsigned int landmark_num)=0</td></tr>
@@ -141,11 +151,13 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:aa2872fa6dda993f4453e83fe6913249d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="../../d5/d3f/base__optimizer_8hpp_source.html#l00008">8</a> of file <a class="el" href="../../d5/d3f/base__optimizer_8hpp_source.html">base_optimizer.hpp</a>.</p>
+<div class="textblock"><p>Base class for graph optimizers. </p>
+<p>This class defines the interface for graph optimizers It is used to optimize the factor graph and update the pose and graph values accordingly </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d5/d3f/base__optimizer_8hpp_source.html#l00013">13</a> of file <a class="el" href="../../d5/d3f/base__optimizer_8hpp_source.html">base_optimizer.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa174b8410971717dc1580592439c304c" name="aa174b8410971717dc1580592439c304c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa174b8410971717dc1580592439c304c">&#9670;&#160;</a></span>BaseOptimizer()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa174b8410971717dc1580592439c304c">&#9670;&#160;</a></span>BaseOptimizer() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -168,7 +180,35 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d3f/base__optimizer_8hpp_source.html#l00013">13</a> of file <a class="el" href="../../d5/d3f/base__optimizer_8hpp_source.html">base_optimizer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d3f/base__optimizer_8hpp_source.html#l00018">18</a> of file <a class="el" href="../../d5/d3f/base__optimizer_8hpp_source.html">base_optimizer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a78fcf4aa1d9fbe8cb8aa11110d07377a" name="a78fcf4aa1d9fbe8cb8aa11110d07377a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78fcf4aa1d9fbe8cb8aa11110d07377a">&#9670;&#160;</a></span>BaseOptimizer() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">BaseOptimizer::BaseOptimizer </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../df/dc2/class_base_optimizer.html">BaseOptimizer</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d5/d3f/base__optimizer_8hpp_source.html#l00019">19</a> of file <a class="el" href="../../d5/d3f/base__optimizer_8hpp_source.html">base_optimizer.hpp</a>.</p>
 
 </div>
 </div>
@@ -198,6 +238,75 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae70a84587f8dd566b91a3909bed34034" name="ae70a84587f8dd566b91a3909bed34034"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae70a84587f8dd566b91a3909bed34034">&#9670;&#160;</a></span>clone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::shared_ptr&lt; <a class="el" href="../../df/dc2/class_base_optimizer.html">BaseOptimizer</a> &gt; BaseOptimizer::clone </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clone the optimizer. </p>
+<p>This method is used to create a copy of the optimizer It is useful for polymorphic classes that use pointers to base class</p>
+<dl class="section return"><dt>Returns</dt><dd>A shared pointer to the cloned optimizer </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d8/dbe/class_i_s_a_m2_optimizer.html#a759152a50557acb34e2494877d35ad67">ISAM2Optimizer</a>, <a class="el" href="../../d2/dd8/class_normal_levenberg_optimizer.html#a33cc17ed3305ea42bf9ca8a048eebb39">NormalLevenbergOptimizer</a>, and <a class="el" href="../../d2/d19/class_sliding_window_levenberg_optimizer.html#a354a2531324c287487a4138aada125e4">SlidingWindowLevenbergOptimizer</a>.</p>
+
+</div>
+</div>
+<a id="a171f4128ec6bcf822dd8b7f9956f3c7f" name="a171f4128ec6bcf822dd8b7f9956f3c7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a171f4128ec6bcf822dd8b7f9956f3c7f">&#9670;&#160;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../df/dc2/class_base_optimizer.html">BaseOptimizer</a> &amp; BaseOptimizer::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../df/dc2/class_base_optimizer.html">BaseOptimizer</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d5/d3f/base__optimizer_8hpp_source.html#l00020">20</a> of file <a class="el" href="../../d5/d3f/base__optimizer_8hpp_source.html">base_optimizer.hpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../df/dc2/class_base_optimizer_a171f4128ec6bcf822dd8b7f9956f3c7f_icgraph.png" border="0" usemap="#adf/dc2/class_base_optimizer_a171f4128ec6bcf822dd8b7f9956f3c7f_icgraph" alt=""/></div>
+<map name="adf/dc2/class_base_optimizer_a171f4128ec6bcf822dd8b7f9956f3c7f_icgraph" id="adf/dc2/class_base_optimizer_a171f4128ec6bcf822dd8b7f9956f3c7f_icgraph">
+<area shape="rect" title=" " alt="" coords="231,5,398,31"/>
+<area shape="rect" href="../../d8/dbe/class_i_s_a_m2_optimizer.html#a9dfdb2db3c22c64b65ae2860e18861d8" title=" " alt="" coords="5,5,183,31"/>
+<area shape="poly" title=" " alt="" coords="215,21,183,21,183,16,215,16"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="af911ebca0ad2b0a674ff00e3a78839a8" name="af911ebca0ad2b0a674ff00e3a78839a8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af911ebca0ad2b0a674ff00e3a78839a8">&#9670;&#160;</a></span>optimize()</h2>
 
@@ -250,6 +359,8 @@ Protected Attributes</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">factor_graph</td><td>The factor graph to optimize </td></tr>
     <tr><td class="paramname">graph_values</td><td>The values to optimize </td></tr>
+    <tr><td class="paramname">pose_num</td><td>The number of poses in the graph </td></tr>
+    <tr><td class="paramname">landmark_num</td><td>The number of landmarks in the graph </td></tr>
   </table>
   </dd>
 </dl>
@@ -280,7 +391,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d3f/base__optimizer_8hpp_source.html#l00010">10</a> of file <a class="el" href="../../d5/d3f/base__optimizer_8hpp_source.html">base_optimizer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d3f/base__optimizer_8hpp_source.html#l00015">15</a> of file <a class="el" href="../../d5/d3f/base__optimizer_8hpp_source.html">base_optimizer.hpp</a>.</p>
 
 </div>
 </div>

@@ -1,5 +1,5 @@
 <map id="VelocityPlanning" name="VelocityPlanning">
 <area shape="rect" id="Node000001" title="Computes velocity profiles for a planned path based on curvature and dynamics constraints." alt="" coords="15,254,159,479"/>
-<area shape="rect" id="Node000002" href="$d2/d0d/struct_velocity_planning_config.html" title="struct for the configuration of the velocity planning algorithm" alt="" coords="5,5,169,191"/>
+<area shape="rect" id="Node000002" href="$d2/d0d/struct_velocity_planning_config.html" title="Configuration parameters for the Velocity Planning class." alt="" coords="5,5,169,191"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,190,90,237,85,237,85,190"/>
 </map>

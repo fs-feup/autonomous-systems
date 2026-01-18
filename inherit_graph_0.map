@@ -4,7 +4,7 @@
 <area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="257,248,331,226,332,231,258,253"/>
 <area shape="rect" id="Node000005" href="$d7/d8e/class_fsds_adapter.html" title=" " alt="" coords="330,252,425,278"/>
 <area shape="poly" id="edge2_Node000000_Node000005" title=" " alt="" coords="259,262,329,262,329,268,259,268"/>
-<area shape="rect" id="Node000008" href="$d1/dcb/class_pacsim_adapter.html" title="Adapter class for the pacsim simulator." alt="" coords="322,351,432,376"/>
+<area shape="rect" id="Node000008" href="$d1/dcb/class_pacsim_adapter.html" title="Adapter class to interface with the Pacsim simulator for SLAM." alt="" coords="322,351,432,376"/>
 <area shape="poly" id="edge3_Node000000_Node000008" title=" " alt="" coords="258,278,275,287,290,300,299,312,308,325,323,337,341,348,339,353,319,342,304,328,295,316,286,303,271,291,256,282"/>
 <area shape="rect" id="Node000006" href="$d1/df1/class_vehicle_adapter.html" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="323,301,432,327"/>
 <area shape="poly" id="edge4_Node000000_Node000006" title=" " alt="" coords="258,276,332,298,331,303,257,281"/>

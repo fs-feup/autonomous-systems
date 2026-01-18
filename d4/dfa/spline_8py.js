@@ -1,7 +1,6 @@
 var spline_8py =
 [
     [ "axis", "d4/dfa/spline_8py.html#ab8ba046c9c8639715623a604b0d35fcc", null ],
-    [ "c", "d4/dfa/spline_8py.html#adcb92c1b2308379ecffcbb7a299c2c2b", null ],
     [ "label", "d4/dfa/spline_8py.html#aa49f95a60d0a0741eef1ef2d511d49fd", null ],
     [ "line", "d4/dfa/spline_8py.html#a9e15a8778d356200129c43735b3bf310", null ],
     [ "markersize", "d4/dfa/spline_8py.html#a14a612fad52579e23d7e46c64910497a", null ],

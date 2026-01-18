@@ -128,9 +128,9 @@ Collaboration diagram for LapCounter:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a88cfefb12e31e0c3f76ede1bb25d47a6" id="r_a88cfefb12e31e0c3f76ede1bb25d47a6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/deb/class_lap_counter.html#a88cfefb12e31e0c3f76ede1bb25d47a6">LapCounter</a> (double threshold_dist, int first_x_cones, int border_width, int minimum_confidence)</td></tr>
 <tr class="separator:a88cfefb12e31e0c3f76ede1bb25d47a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95281124e774e4734f8bee1b75991307" id="r_a95281124e774e4734f8bee1b75991307"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d0f/struct_loop_closure_1_1_result.html">Result</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/deb/class_lap_counter.html#a95281124e774e4734f8bee1b75991307">detect</a> (const Eigen::Vector3d &amp;current_pose, const Eigen::VectorXi &amp;map_cones, const Eigen::VectorXi &amp;associations, const Eigen::VectorXd &amp;observations) const override</td></tr>
-<tr class="memdesc:a95281124e774e4734f8bee1b75991307"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects loop closure when returning to origin and seeing initial cones.  <br /></td></tr>
-<tr class="separator:a95281124e774e4734f8bee1b75991307"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ee4aa097262c0c40db0d3f405d19d2a" id="r_a7ee4aa097262c0c40db0d3f405d19d2a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d0f/struct_loop_closure_1_1_result.html">Result</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/deb/class_lap_counter.html#a7ee4aa097262c0c40db0d3f405d19d2a">detect</a> (const Eigen::Vector3d &amp;current_pose, const Eigen::VectorXd &amp;map_cones, const Eigen::VectorXi &amp;associations, const Eigen::VectorXd &amp;observations) const override</td></tr>
+<tr class="memdesc:a7ee4aa097262c0c40db0d3f405d19d2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects loop closure when returning to origin and seeing initial cones.  <br /></td></tr>
+<tr class="separator:a7ee4aa097262c0c40db0d3f405d19d2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_loop_closure"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_loop_closure')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d2/d8e/class_loop_closure.html">LoopClosure</a></td></tr>
 <tr class="memitem:ad4ebef2d75536f5770a362dd59f13887 inherit pub_methods_class_loop_closure" id="r_ad4ebef2d75536f5770a362dd59f13887"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d8e/class_loop_closure.html#ad4ebef2d75536f5770a362dd59f13887">~LoopClosure</a> ()=default</td></tr>
 <tr class="separator:ad4ebef2d75536f5770a362dd59f13887 inherit pub_methods_class_loop_closure"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -205,8 +205,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a95281124e774e4734f8bee1b75991307" name="a95281124e774e4734f8bee1b75991307"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95281124e774e4734f8bee1b75991307">&#9670;&#160;</a></span>detect()</h2>
+<a id="a7ee4aa097262c0c40db0d3f405d19d2a" name="a7ee4aa097262c0c40db0d3f405d19d2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ee4aa097262c0c40db0d3f405d19d2a">&#9670;&#160;</a></span>detect()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -223,7 +223,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::VectorXi &amp;&#160;</td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
           <td class="paramname"><em>map_cones</em>, </td>
         </tr>
         <tr>
@@ -263,9 +263,9 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>{true,0.0} once you re‑see any of map_cones[0..X-1] </dd></dl>
 
-<p>Implements <a class="el" href="../../d2/d8e/class_loop_closure.html#a8fd9a0a82792ccaa7b21b440a2a109f4">LoopClosure</a>.</p>
+<p>Implements <a class="el" href="../../d2/d8e/class_loop_closure.html#a0152b21e48f258337245fb9729584cfd">LoopClosure</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d88/lap__counter_8cpp_source.html#l00012">12</a> of file <a class="el" href="../../d8/d88/lap__counter_8cpp_source.html">lap_counter.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d88/lap__counter_8cpp_source.html#l00013">13</a> of file <a class="el" href="../../d8/d88/lap__counter_8cpp_source.html">lap_counter.cpp</a>.</p>
 
 </div>
 </div>
@@ -290,7 +290,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d6/df4/lap__counter_8hpp_source.html#l00038">38</a> of file <a class="el" href="../../d6/df4/lap__counter_8hpp_source.html">lap_counter.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/df4/lap__counter_8hpp_source.html#l00036">36</a> of file <a class="el" href="../../d6/df4/lap__counter_8hpp_source.html">lap_counter.hpp</a>.</p>
 
 </div>
 </div>
@@ -314,7 +314,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d6/df4/lap__counter_8hpp_source.html#l00037">37</a> of file <a class="el" href="../../d6/df4/lap__counter_8hpp_source.html">lap_counter.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/df4/lap__counter_8hpp_source.html#l00035">35</a> of file <a class="el" href="../../d6/df4/lap__counter_8hpp_source.html">lap_counter.hpp</a>.</p>
 
 </div>
 </div>
@@ -338,7 +338,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d6/df4/lap__counter_8hpp_source.html#l00039">39</a> of file <a class="el" href="../../d6/df4/lap__counter_8hpp_source.html">lap_counter.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/df4/lap__counter_8hpp_source.html#l00037">37</a> of file <a class="el" href="../../d6/df4/lap__counter_8hpp_source.html">lap_counter.hpp</a>.</p>
 
 </div>
 </div>
@@ -362,7 +362,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d6/df4/lap__counter_8hpp_source.html#l00040">40</a> of file <a class="el" href="../../d6/df4/lap__counter_8hpp_source.html">lap_counter.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/df4/lap__counter_8hpp_source.html#l00038">38</a> of file <a class="el" href="../../d6/df4/lap__counter_8hpp_source.html">lap_counter.hpp</a>.</p>
 
 </div>
 </div>
@@ -386,7 +386,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d6/df4/lap__counter_8hpp_source.html#l00036">36</a> of file <a class="el" href="../../d6/df4/lap__counter_8hpp_source.html">lap_counter.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/df4/lap__counter_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../d6/df4/lap__counter_8hpp_source.html">lap_counter.hpp</a>.</p>
 
 </div>
 </div>

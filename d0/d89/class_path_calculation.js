@@ -2,7 +2,6 @@ var class_path_calculation =
 [
     [ "PathCalculation", "d0/d89/class_path_calculation.html#a7e3b4820188b57de63e1522a1646ee67", null ],
     [ "PathCalculation", "d0/d89/class_path_calculation.html#a0faf438af1a3f04809cde563e96e3db8", null ],
-    [ "add_interpolated_points", "d0/d89/class_path_calculation.html#a9c6e4729d3c03b9545e136c810f66f38", null ],
     [ "calculate_cost", "d0/d89/class_path_calculation.html#a32453ba6eeddf24ab41fb6a4bd037984", null ],
     [ "calculate_path", "d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2", null ],
     [ "calculate_trackdrive", "d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94", null ],

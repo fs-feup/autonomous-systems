@@ -109,7 +109,7 @@ Collaboration diagram for ObservationModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/d67/class_observation_model__coll__graph.png" border="0" usemap="#a_observation_model_coll__map" alt="Collaboration graph"/></div>
 <map name="a_observation_model_coll__map" id="a_observation_model_coll__map">
-<area shape="rect" title="Observation Model class compiled of functions for observation model." alt="" coords="5,5,193,393"/>
+<area shape="rect" title="Observation Model class compiled of functions for observation model." alt="" coords="5,5,193,408"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -142,25 +142,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a97a9e71e7cee696be91a569eb65b9df9" id="r_a97a9e71e7cee696be91a569eb65b9df9"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXf&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d64/class_observation_model.html#a97a9e71e7cee696be91a569eb65b9df9">get_observation_noise_covariance_matrix</a> () const</td></tr>
 <tr class="memdesc:a97a9e71e7cee696be91a569eb65b9df9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the observation noise covariance matrix (C or H)  <br /></td></tr>
 <tr class="separator:a97a9e71e7cee696be91a569eb65b9df9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a578fa417bf12b479a84f7d606f679558" id="r_a578fa417bf12b479a84f7d606f679558"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d64/class_observation_model.html#a578fa417bf12b479a84f7d606f679558">ObservationModel</a> ()=default</td></tr>
-<tr class="separator:a578fa417bf12b479a84f7d606f679558"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3760bb12b6b4cce6a84521b701a48ae0" id="r_a3760bb12b6b4cce6a84521b701a48ae0"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d64/class_observation_model.html#a3760bb12b6b4cce6a84521b701a48ae0">~ObservationModel</a> ()=default</td></tr>
-<tr class="separator:a3760bb12b6b4cce6a84521b701a48ae0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa84d2f1da536483d055c75f4b4d2a74c" id="r_aa84d2f1da536483d055c75f4b4d2a74c"><td class="memItemLeft" align="right" valign="top">virtual Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d64/class_observation_model.html#aa84d2f1da536483d055c75f4b4d2a74c">observation_model</a> (const Eigen::VectorXd &amp;state, const std::vector&lt; int &gt; matched_landmarks) const</td></tr>
-<tr class="memdesc:aa84d2f1da536483d055c75f4b4d2a74c"><td class="mdescLeft">&#160;</td><td class="mdescRight">transform landmarks' positions from global frame to the car's frame  <br /></td></tr>
-<tr class="separator:aa84d2f1da536483d055c75f4b4d2a74c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47e41aea63d317c81b66bd4af0a5b322" id="r_a47e41aea63d317c81b66bd4af0a5b322"><td class="memItemLeft" align="right" valign="top">virtual Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d64/class_observation_model.html#a47e41aea63d317c81b66bd4af0a5b322">inverse_observation_model</a> (const Eigen::VectorXd &amp;state, const Eigen::VectorXd &amp;observations) const</td></tr>
-<tr class="memdesc:a47e41aea63d317c81b66bd4af0a5b322"><td class="mdescLeft">&#160;</td><td class="mdescRight">transforms the landmarks' coordinates from the car's frame to the global frame  <br /></td></tr>
-<tr class="separator:a47e41aea63d317c81b66bd4af0a5b322"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae562dc6a52b39f6bf1902d5b7030c3c7" id="r_ae562dc6a52b39f6bf1902d5b7030c3c7"><td class="memItemLeft" align="right" valign="top">virtual Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d64/class_observation_model.html#ae562dc6a52b39f6bf1902d5b7030c3c7">observation_model_jacobian</a> (const Eigen::VectorXd &amp;state, const std::vector&lt; int &gt; &amp;matched_landmarks) const</td></tr>
-<tr class="memdesc:ae562dc6a52b39f6bf1902d5b7030c3c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">jacobian of the observation model  <br /></td></tr>
-<tr class="separator:ae562dc6a52b39f6bf1902d5b7030c3c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b19c4992c8a3e53eb51289e4eee37e4" id="r_a5b19c4992c8a3e53eb51289e4eee37e4"><td class="memItemLeft" align="right" valign="top">virtual Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d64/class_observation_model.html#a5b19c4992c8a3e53eb51289e4eee37e4">inverse_observation_model_jacobian_pose</a> (const Eigen::VectorXd &amp;state, const Eigen::VectorXd &amp;new_landmarks) const</td></tr>
-<tr class="memdesc:a5b19c4992c8a3e53eb51289e4eee37e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the Gv matrix used in the state augmentation function, calculated as the jacobian of the inverse observation model with respect to the car's position and orientation  <br /></td></tr>
-<tr class="separator:a5b19c4992c8a3e53eb51289e4eee37e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6afce3ba8bac3ecd6fd6fc1f08c0f08d" id="r_a6afce3ba8bac3ecd6fd6fc1f08c0f08d"><td class="memItemLeft" align="right" valign="top">virtual Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d64/class_observation_model.html#a6afce3ba8bac3ecd6fd6fc1f08c0f08d">inverse_observation_model_jacobian_landmarks</a> (const Eigen::VectorXd &amp;state, const Eigen::VectorXd &amp;new_landmarks) const</td></tr>
-<tr class="memdesc:a6afce3ba8bac3ecd6fd6fc1f08c0f08d"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the Gz matrix used in the state augmentation function of the <a class="el" href="../../d7/dbe/class_e_k_f.html">EKF</a>, calculated as the jacobian of the inverse observation model with respect to the new landmarks positions (in the car's frame)  <br /></td></tr>
-<tr class="separator:a6afce3ba8bac3ecd6fd6fc1f08c0f08d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -180,7 +161,7 @@ Private Attributes</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="../../d9/def/observation__models_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../d9/def/observation__models_8hpp_source.html">observation_models.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae0f9b4dbb8447c42c73d0f6a7f78434b" name="ae0f9b4dbb8447c42c73d0f6a7f78434b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0f9b4dbb8447c42c73d0f6a7f78434b">&#9670;&#160;</a></span>ObservationModel() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0f9b4dbb8447c42c73d0f6a7f78434b">&#9670;&#160;</a></span>ObservationModel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -212,56 +193,6 @@ Private Attributes</h2></td></tr>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../da/d38/observation__models_8cpp_source.html#l00005">5</a> of file <a class="el" href="../../da/d38/observation__models_8cpp_source.html">observation_models.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a578fa417bf12b479a84f7d606f679558" name="a578fa417bf12b479a84f7d606f679558"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a578fa417bf12b479a84f7d606f679558">&#9670;&#160;</a></span>ObservationModel() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">ObservationModel::ObservationModel </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a3760bb12b6b4cce6a84521b701a48ae0" name="a3760bb12b6b4cce6a84521b701a48ae0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3760bb12b6b4cce6a84521b701a48ae0">&#9670;&#160;</a></span>~ObservationModel()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual ObservationModel::~ObservationModel </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -565,68 +496,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a47e41aea63d317c81b66bd4af0a5b322" name="a47e41aea63d317c81b66bd4af0a5b322"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47e41aea63d317c81b66bd4af0a5b322">&#9670;&#160;</a></span>inverse_observation_model() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::VectorXd ObservationModel::inverse_observation_model </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>state</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>observations</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>transforms the landmarks' coordinates from the car's frame to the global frame </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">state</td><td>used to get the car's pose </td></tr>
-    <tr><td class="paramname">observations</td><td>observed landmarks in the car's frame in form {x_cone_1, y_cone_1, x_cone_2, y_cone_2, ...} </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Eigen::VectorXd landmarks in the global frame in form {x_cone_1, y_cone_1, x_cone_2, y_cone_2, ...} </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d6/d09/default__observation__model_8cpp_source.html#l00016">16</a> of file <a class="el" href="../../d6/d09/default__observation__model_8cpp_source.html">default_observation_model.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d7/d64/class_observation_model_a47e41aea63d317c81b66bd4af0a5b322_cgraph.png" border="0" usemap="#ad7/d64/class_observation_model_a47e41aea63d317c81b66bd4af0a5b322_cgraph" alt=""/></div>
-<map name="ad7/d64/class_observation_model_a47e41aea63d317c81b66bd4af0a5b322_cgraph" id="ad7/d64/class_observation_model_a47e41aea63d317c81b66bd4af0a5b322_cgraph">
-<area shape="rect" title="transforms the landmarks&#39; coordinates from the car&#39;s frame to the global frame" alt="" coords="5,5,180,46"/>
-<area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#ae863ab27f119e71801d039179cba64b7" title="Transform points from a local reference frame to a global reference frame." alt="" coords="228,5,409,46"/>
-<area shape="poly" title=" " alt="" coords="180,23,212,23,212,28,180,28"/>
-<area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#a3155563fdd77267916f4362c3c976f11" title="Function to get the rotation matrix for a given angle." alt="" coords="457,5,596,46"/>
-<area shape="poly" title=" " alt="" coords="409,23,441,23,441,28,409,28"/>
-</map>
-</div>
-
-</div>
-</div>
 <a id="a1e57d72d1b32a2260c9dfc8d25bd802d" name="a1e57d72d1b32a2260c9dfc8d25bd802d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e57d72d1b32a2260c9dfc8d25bd802d">&#9670;&#160;</a></span>inverse_observation_model() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e57d72d1b32a2260c9dfc8d25bd802d">&#9670;&#160;</a></span>inverse_observation_model()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -668,19 +539,17 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/d64/class_observation_model_a1e57d72d1b32a2260c9dfc8d25bd802d_icgraph.png" border="0" usemap="#ad7/d64/class_observation_model_a1e57d72d1b32a2260c9dfc8d25bd802d_icgraph" alt=""/></div>
 <map name="ad7/d64/class_observation_model_a1e57d72d1b32a2260c9dfc8d25bd802d_icgraph" id="ad7/d64/class_observation_model_a1e57d72d1b32a2260c9dfc8d25bd802d_icgraph">
-<area shape="rect" title="Calculate landmark position from observation." alt="" coords="322,278,496,319"/>
+<area shape="rect" title="Calculate landmark position from observation." alt="" coords="322,253,496,293"/>
 <area shape="rect" href="../../dd/d06/class_max_likelihood.html#a911db655cde119a889e7a0aa7e0773b2" title="normalized distance gate (closest unmatched landmark)" alt="" coords="108,146,274,187"/>
-<area shape="poly" title=" " alt="" coords="371,270,325,234,273,200,250,189,252,185,275,196,328,230,374,266"/>
+<area shape="poly" title=" " alt="" coords="359,247,273,201,247,189,250,185,275,196,362,242"/>
 <area shape="rect" href="../../db/d09/observation__model__test_8cpp.html#ace83b03e85ae2ce2ae7e32c548597d3f" title="Test the observation model in a scenario where the vehicle is always aligned with the x axis." alt="" coords="164,211,218,236"/>
-<area shape="poly" title=" " alt="" coords="340,274,273,250,218,233,219,228,275,245,342,269"/>
+<area shape="poly" title=" " alt="" coords="306,252,218,232,219,227,307,247"/>
 <area shape="rect" href="../../db/d09/observation__model__test_8cpp.html#a039756d7cb68185518077e1c2dc6c2fc" title="45 degrees to the left" alt="" coords="164,260,218,286"/>
-<area shape="poly" title=" " alt="" coords="306,289,218,279,218,273,307,284"/>
+<area shape="poly" title=" " alt="" coords="306,276,218,276,218,270,306,270"/>
 <area shape="rect" href="../../db/d09/observation__model__test_8cpp.html#a0bdecc4af5092c7e5e1a10331a04399c" title="Straight forward 360 degrees." alt="" coords="164,309,218,335"/>
-<area shape="poly" title=" " alt="" coords="307,312,218,322,218,317,306,307"/>
+<area shape="poly" title=" " alt="" coords="307,299,219,319,218,314,306,293"/>
 <area shape="rect" href="../../db/d09/observation__model__test_8cpp.html#a3ad774be8af4a0c5d879a015aa4c2167" title="90 degrees to the right" alt="" coords="164,359,218,384"/>
-<area shape="poly" title=" " alt="" coords="341,327,275,350,219,367,218,362,273,345,339,322"/>
-<area shape="rect" href="../../de/dbc/default__observation__model__test_8cpp.html#a8d47d1097341a64f44fa6d29e33c442f" title="Test inverse observation model with trivial state and a single observation." alt="" coords="164,408,218,434"/>
-<area shape="poly" title=" " alt="" coords="375,331,329,366,275,399,219,418,218,413,273,394,326,362,372,327"/>
+<area shape="poly" title=" " alt="" coords="364,304,321,328,275,350,219,368,218,363,273,345,319,323,361,299"/>
 <area shape="rect" href="../../dc/dd5/data__association__test_8cpp.html#ad8e377318ba077cbaf50154f855e1415" title="Test case for when a landmark has a near mismatch." alt="" coords="5,5,60,31"/>
 <area shape="poly" title=" " alt="" coords="155,137,58,44,46,33,50,29,61,40,159,133"/>
 <area shape="rect" href="../../dc/dd5/data__association__test_8cpp.html#a286e34fe3857b5930a1c5c51f13fe666" title="Test case for when a landmark has a near match." alt="" coords="5,55,60,80"/>
@@ -700,164 +569,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a6afce3ba8bac3ecd6fd6fc1f08c0f08d" name="a6afce3ba8bac3ecd6fd6fc1f08c0f08d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6afce3ba8bac3ecd6fd6fc1f08c0f08d">&#9670;&#160;</a></span>inverse_observation_model_jacobian_landmarks()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::MatrixXd ObservationModel::inverse_observation_model_jacobian_landmarks </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>state</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>new_landmarks</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>get the Gz matrix used in the state augmentation function of the <a class="el" href="../../d7/dbe/class_e_k_f.html">EKF</a>, calculated as the jacobian of the inverse observation model with respect to the new landmarks positions (in the car's frame) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">state</td><td>car's position and orientation, followed by the landmarks in the form {car_x, car_y, car_theta, x_cone_1, y_cone_1, x_cone_2, y_cone_2, ...} </td></tr>
-    <tr><td class="paramname">new_landmarks</td><td>new landmarks in the form {x_cone_1, y_cone_1, x_cone_2, y_cone_2, ...} </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Eigen::MatrixXd Gz matrix of size (2 * num_new_landmarks, 2 * num_new_landmarks) </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d6/d09/default__observation__model_8cpp_source.html#l00063">63</a> of file <a class="el" href="../../d6/d09/default__observation__model_8cpp_source.html">default_observation_model.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a5b19c4992c8a3e53eb51289e4eee37e4" name="a5b19c4992c8a3e53eb51289e4eee37e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b19c4992c8a3e53eb51289e4eee37e4">&#9670;&#160;</a></span>inverse_observation_model_jacobian_pose()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::MatrixXd ObservationModel::inverse_observation_model_jacobian_pose </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>state</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>new_landmarks</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>get the Gv matrix used in the state augmentation function, calculated as the jacobian of the inverse observation model with respect to the car's position and orientation </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">state</td><td>car's position and orientation, followed by the landmarks in the form {car_x, car_y, car_theta, x_cone_1, y_cone_1, x_cone_2, y_cone_2, ...} </td></tr>
-    <tr><td class="paramname">new_landmarks</td><td>new landmarks in the form {x_cone_1, y_cone_1, x_cone_2, y_cone_2, ...} </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Eigen::MatrixXd Gv matrix of size (2 * num_new_landmarks, 3) </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d6/d09/default__observation__model_8cpp_source.html#l00047">47</a> of file <a class="el" href="../../d6/d09/default__observation__model_8cpp_source.html">default_observation_model.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa84d2f1da536483d055c75f4b4d2a74c" name="aa84d2f1da536483d055c75f4b4d2a74c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa84d2f1da536483d055c75f4b4d2a74c">&#9670;&#160;</a></span>observation_model() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::VectorXd ObservationModel::observation_model </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>state</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; int &gt;&#160;</td>
-          <td class="paramname"><em>matched_landmarks</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>transform landmarks' positions from global frame to the car's frame </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">state</td><td>vector with the car's position and orientation, followed by the landmark positions {car_x, car_y, car_theta, x_cone_1, y_cone_1, x_cone_2, y_cone_2, ...} </td></tr>
-    <tr><td class="paramname">matched_landmarks</td><td>indexes of the x coordinate of landmarks in the state vector that were observed in a specific measurement </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Eigen::VectorXd predicted observations {x_cone_1, y_cone_1, x_cone_2, y_cone_2, ...} </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d6/d09/default__observation__model_8cpp_source.html#l00005">5</a> of file <a class="el" href="../../d6/d09/default__observation__model_8cpp_source.html">default_observation_model.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d7/d64/class_observation_model_aa84d2f1da536483d055c75f4b4d2a74c_cgraph.png" border="0" usemap="#ad7/d64/class_observation_model_aa84d2f1da536483d055c75f4b4d2a74c_cgraph" alt=""/></div>
-<map name="ad7/d64/class_observation_model_aa84d2f1da536483d055c75f4b4d2a74c_cgraph" id="ad7/d64/class_observation_model_aa84d2f1da536483d055c75f4b4d2a74c_cgraph">
-<area shape="rect" title="transform landmarks&#39; positions from global frame to the car&#39;s frame" alt="" coords="5,5,205,46"/>
-<area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#ab0ad3296dc284d5471c4035f3d63ad82" title="Transform points from a global reference frame to a local reference frame." alt="" coords="253,5,434,46"/>
-<area shape="poly" title=" " alt="" coords="205,23,237,23,237,28,205,28"/>
-<area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#a3155563fdd77267916f4362c3c976f11" title="Function to get the rotation matrix for a given angle." alt="" coords="482,5,621,46"/>
-<area shape="poly" title=" " alt="" coords="434,23,466,23,466,28,434,28"/>
-</map>
-</div>
-
-</div>
-</div>
 <a id="a0f8d3fc26c59869171ad60d08322d1d7" name="a0f8d3fc26c59869171ad60d08322d1d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f8d3fc26c59869171ad60d08322d1d7">&#9670;&#160;</a></span>observation_model() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f8d3fc26c59869171ad60d08322d1d7">&#9670;&#160;</a></span>observation_model()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -899,23 +612,17 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/d64/class_observation_model_a0f8d3fc26c59869171ad60d08322d1d7_icgraph.png" border="0" usemap="#ad7/d64/class_observation_model_a0f8d3fc26c59869171ad60d08322d1d7_icgraph" alt=""/></div>
 <map name="ad7/d64/class_observation_model_a0f8d3fc26c59869171ad60d08322d1d7_icgraph" id="ad7/d64/class_observation_model_a0f8d3fc26c59869171ad60d08322d1d7_icgraph">
-<area shape="rect" title="Calculate expected observation from the state vector." alt="" coords="322,327,521,368"/>
+<area shape="rect" title="Calculate expected observation from the state vector." alt="" coords="322,253,521,293"/>
 <area shape="rect" href="../../dd/d06/class_max_likelihood.html#a911db655cde119a889e7a0aa7e0773b2" title="normalized distance gate (closest unmatched landmark)" alt="" coords="108,146,274,187"/>
-<area shape="poly" title=" " alt="" coords="394,317,341,258,308,228,273,200,253,189,255,185,275,196,312,223,345,255,398,313"/>
+<area shape="poly" title=" " alt="" coords="368,247,273,201,247,190,249,185,275,196,370,243"/>
 <area shape="rect" href="../../db/d09/observation__model__test_8cpp.html#ace83b03e85ae2ce2ae7e32c548597d3f" title="Test the observation model in a scenario where the vehicle is always aligned with the x axis." alt="" coords="164,211,218,236"/>
-<area shape="poly" title=" " alt="" coords="382,320,332,284,273,250,218,231,219,226,275,245,335,279,385,315"/>
+<area shape="poly" title=" " alt="" coords="308,251,218,232,219,227,309,246"/>
 <area shape="rect" href="../../db/d09/observation__model__test_8cpp.html#a039756d7cb68185518077e1c2dc6c2fc" title="45 degrees to the left" alt="" coords="164,260,218,286"/>
-<area shape="poly" title=" " alt="" coords="347,324,273,299,218,283,219,278,275,294,348,319"/>
+<area shape="poly" title=" " alt="" coords="306,276,218,276,218,270,306,270"/>
 <area shape="rect" href="../../db/d09/observation__model__test_8cpp.html#a0bdecc4af5092c7e5e1a10331a04399c" title="Straight forward 360 degrees." alt="" coords="164,309,218,335"/>
-<area shape="poly" title=" " alt="" coords="306,338,218,328,219,322,307,332"/>
+<area shape="poly" title=" " alt="" coords="309,300,219,319,218,314,308,294"/>
 <area shape="rect" href="../../db/d09/observation__model__test_8cpp.html#a3ad774be8af4a0c5d879a015aa4c2167" title="90 degrees to the right" alt="" coords="164,359,218,384"/>
-<area shape="poly" title=" " alt="" coords="307,362,219,371,218,366,306,357"/>
-<area shape="rect" href="../../de/dbc/default__observation__model__test_8cpp.html#a733e50eb0c3647fc506a6e8809b6b310" title="Test the observation model with trivial state." alt="" coords="164,408,218,434"/>
-<area shape="poly" title=" " alt="" coords="347,376,275,399,219,416,218,411,273,394,345,371"/>
-<area shape="rect" href="../../de/dbc/default__observation__model__test_8cpp.html#acf71e7b5b60bf0907d5282157167d3b6" title="Test observation model with a single landmark and trivial pose." alt="" coords="164,457,218,483"/>
-<area shape="poly" title=" " alt="" coords="385,380,334,415,275,449,219,467,218,462,273,444,331,411,382,375"/>
-<area shape="rect" href="../../de/dbc/default__observation__model__test_8cpp.html#ac90eaf9040e477aeffd279aaf622ecec" title="Test observation model with a single landmark and non&#45;trivial pose." alt="" coords="164,507,218,532"/>
-<area shape="poly" title=" " alt="" coords="398,382,346,441,312,472,275,498,247,510,219,518,218,513,245,505,273,493,309,467,342,437,394,379"/>
+<area shape="poly" title=" " alt="" coords="372,304,275,350,219,368,218,363,273,345,369,299"/>
 <area shape="rect" href="../../dc/dd5/data__association__test_8cpp.html#ad8e377318ba077cbaf50154f855e1415" title="Test case for when a landmark has a near mismatch." alt="" coords="5,5,60,31"/>
 <area shape="poly" title=" " alt="" coords="155,137,58,44,46,33,50,29,61,40,159,133"/>
 <area shape="rect" href="../../dc/dd5/data__association__test_8cpp.html#a286e34fe3857b5930a1c5c51f13fe666" title="Test case for when a landmark has a near match." alt="" coords="5,55,60,80"/>
@@ -932,54 +639,6 @@ Here is the caller graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="113,198,110,200,92,222,84,243,77,266,62,292,52,303,48,299,58,289,72,264,79,241,87,219,106,196,109,193"/>
 </map>
 </div>
-
-</div>
-</div>
-<a id="ae562dc6a52b39f6bf1902d5b7030c3c7" name="ae562dc6a52b39f6bf1902d5b7030c3c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae562dc6a52b39f6bf1902d5b7030c3c7">&#9670;&#160;</a></span>observation_model_jacobian()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::MatrixXd ObservationModel::observation_model_jacobian </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>state</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
-          <td class="paramname"><em>matched_landmarks</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>jacobian of the observation model </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">state</td><td>vector with the car's position and orientation, followed by the landmark positions {car_x, car_y, car_theta, x_cone_1, y_cone_1, x_cone_2, y_cone_2, ...} </td></tr>
-    <tr><td class="paramname">matched_landmarks</td><td>indexes of the x coordinate of landmarks in the state vector that were observed in a specific measurement </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Eigen::MatrixXd jacobian of the observation prediction </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d6/d09/default__observation__model_8cpp_source.html#l00021">21</a> of file <a class="el" href="../../d6/d09/default__observation__model_8cpp_source.html">default_observation_model.cpp</a>.</p>
 
 </div>
 </div>
@@ -1042,9 +701,7 @@ Here is the caller graph for this function:</div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/ekf_state_est/include/kalman_filter/<a class="el" href="../../d9/def/observation__models_8hpp_source.html">observation_models.hpp</a></li>
-<li>src/perception_sensor_lib/include/perception_sensor_lib/observation_model/slam_observation_model/<a class="el" href="../../de/d4d/default__observation__model_8hpp_source.html">default_observation_model.hpp</a></li>
 <li>src/ekf_state_est/src/kalman_filter/<a class="el" href="../../da/d38/observation__models_8cpp_source.html">observation_models.cpp</a></li>
-<li>src/perception_sensor_lib/src/observation_model/slam_observation_model/<a class="el" href="../../d6/d09/default__observation__model_8cpp_source.html">default_observation_model.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

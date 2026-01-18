@@ -1,7 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$db/d66/class_motion_model.html" title="Abstract Moiton Model class designed to be implemented by the different motion models." alt="" coords="5,31,101,56"/>
-<area shape="rect" id="Node000001" href="$d2/d58/class_imu_velocity_model.html" title="Motion estimation that uses the specific values of the x and y axis accelerations,..." alt="" coords="159,5,283,31"/>
-<area shape="poly" id="edge71_Node000000_Node000001" title=" " alt="" coords="116,31,158,25,159,30,117,37"/>
-<area shape="rect" id="Node000002" href="$d7/df9/class_normal_velocity_model.html" title="Motion estimation that uses the module of the velocity and the rotational velocity." alt="" coords="149,55,293,80"/>
-<area shape="poly" id="edge72_Node000000_Node000002" title=" " alt="" coords="117,50,149,55,148,60,116,55"/>
+<area shape="rect" id="Node000000" href="$df/d91/struct_map.html" title=" " alt="" coords="5,5,52,31"/>
 </map>

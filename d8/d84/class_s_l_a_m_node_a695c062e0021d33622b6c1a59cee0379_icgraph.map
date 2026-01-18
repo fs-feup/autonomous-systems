@@ -1,17 +1,21 @@
 <map id="SLAMNode::_publish_vehicle_pose" name="SLAMNode::_publish_vehicle_pose">
-<area shape="rect" id="Node000001" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="682,80,826,120"/>
-<area shape="rect" id="Node000002" href="$d8/d84/class_s_l_a_m_node.html#aac21a292783c53d1f41cfaa255b3e9bf" title="Callback that updates everytime information is received from the perception module." alt="" coords="472,46,634,87"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="666,88,634,83,635,77,667,83"/>
-<area shape="rect" id="Node000006" href="$d8/d84/class_s_l_a_m_node.html#a6e228ce696c330a4a43ae5807c632df7" title="Callback that updates everytime information is received from vehicle state estimation node." alt="" coords="475,112,632,152"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="667,116,633,122,632,117,666,111"/>
-<area shape="rect" id="Node000003" href="$d1/dcb/class_pacsim_adapter.html#a55a7901c609a7ad1eeced10bb2ce466f" title="Callback for simulated perception detections from pacsim." alt="" coords="259,5,424,61"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="456,54,424,49,425,44,457,49"/>
-<area shape="rect" id="Node000005" href="$d8/d84/class_s_l_a_m_node.html#a8543b5442579202f4ead10fbe347033c" title="Constructor that uses the parameters structure." alt="" coords="260,86,423,111"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="457,84,424,89,423,84,456,78"/>
-<area shape="rect" id="Node000004" href="$d1/dcb/class_pacsim_adapter.html#ad557c789fd4da581c9d487abb5af4dc5" title="Constructor of the pacsim adapter node." alt="" coords="5,86,211,111"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="244,63,158,88,156,82,243,58"/>
-<area shape="poly" id="edge8_Node000006_Node000005" title=" " alt="" coords="459,120,423,114,424,109,459,114"/>
-<area shape="rect" id="Node000007" href="$d1/dcb/class_pacsim_adapter.html#a651d389ab08e146b604c9b833cf5c0a4" title="Callback for simulated velocities from pacsim." alt="" coords="259,136,424,192"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="459,149,425,154,424,149,459,143"/>
-<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="243,139,156,115,158,109,244,134"/>
+<area shape="rect" id="Node000001" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="720,85,864,126"/>
+<area shape="rect" id="Node000002" href="$d1/df1/class_vehicle_adapter.html#ad89d6e33ccd2f8ec13b936ef2ec56179" title="LiDAR odometry subscription callback." alt="" coords="512,5,670,61"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="718,82,670,64,672,59,720,77"/>
+<area shape="rect" id="Node000004" href="$d8/d84/class_s_l_a_m_node.html#aac21a292783c53d1f41cfaa255b3e9bf" title="Callback that updates everytime information is received from the perception module." alt="" coords="510,85,672,126"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="704,108,673,108,673,103,704,103"/>
+<area shape="rect" id="Node000008" href="$d8/d84/class_s_l_a_m_node.html#a6e228ce696c330a4a43ae5807c632df7" title="Callback that updates everytime information is received from velocity estimation node." alt="" coords="513,150,670,191"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="714,133,657,152,655,147,712,128"/>
+<area shape="rect" id="Node000003" href="$d1/df1/class_vehicle_adapter.html#ab308f8a9d24015aae1274f75e75f8e9f" title="Constructor of the vehicle adapter node." alt="" coords="259,20,462,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="497,36,463,36,463,31,497,31"/>
+<area shape="rect" id="Node000005" href="$d1/dcb/class_pacsim_adapter.html#a55a7901c609a7ad1eeced10bb2ce466f" title="Callback for simulated perception detections from pacsim." alt="" coords="278,73,443,129"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="494,106,443,105,443,100,494,101"/>
+<area shape="rect" id="Node000007" href="$d8/d84/class_s_l_a_m_node.html#a8543b5442579202f4ead10fbe347033c" title="Constructor that uses the parameters structure." alt="" coords="279,154,442,179"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="503,133,463,144,417,156,415,151,461,139,501,128"/>
+<area shape="rect" id="Node000006" href="$d1/dcb/class_pacsim_adapter.html#ad557c789fd4da581c9d487abb5af4dc5" title="Constructor of the pacsim adapter node." alt="" coords="5,154,211,179"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="263,129,161,156,160,150,262,124"/>
+<area shape="poly" id="edge10_Node000008_Node000007" title=" " alt="" coords="497,172,442,171,442,165,497,166"/>
+<area shape="rect" id="Node000009" href="$d1/dcb/class_pacsim_adapter.html#a651d389ab08e146b604c9b833cf5c0a4" title="Callback for simulated velocities from pacsim." alt="" coords="278,204,443,260"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="498,198,444,212,443,207,497,193"/>
+<area shape="poly" id="edge9_Node000009_Node000006" title=" " alt="" coords="262,209,160,183,161,177,263,204"/>
 </map>

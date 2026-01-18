@@ -1,5 +1,5 @@
 <map id="SLAMNode::_velocities_subscription_callback" name="SLAMNode::_velocities_subscription_callback">
-<area shape="rect" id="Node000001" title="Callback that updates everytime information is received from vehicle state estimation node." alt="" coords="472,46,629,87"/>
+<area shape="rect" id="Node000001" title="Callback that updates everytime information is received from velocity estimation node." alt="" coords="472,46,629,87"/>
 <area shape="rect" id="Node000002" href="$d1/dcb/class_pacsim_adapter.html#a651d389ab08e146b604c9b833cf5c0a4" title="Callback for simulated velocities from pacsim." alt="" coords="259,5,424,61"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="456,54,424,49,425,44,457,49"/>
 <area shape="rect" id="Node000004" href="$d8/d84/class_s_l_a_m_node.html#a8543b5442579202f4ead10fbe347033c" title="Constructor that uses the parameters structure." alt="" coords="260,86,423,111"/>

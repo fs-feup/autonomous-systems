@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$dc/d0f/struct_loop_closure_1_1_result.html" title="Result of loop closure detection." alt="" coords="5,5,143,31"/>
+<area shape="rect" id="Node000000" href="$d7/d69/class_lateral_controller.html" title="Base (abstract) class for lateral control solvers (that calculate steering command)" alt="" coords="5,5,122,31"/>
+<area shape="rect" id="Node000001" href="$dc/dde/class_pure_pursuit.html" title="Pure Pursuit class." alt="" coords="170,5,259,31"/>
+<area shape="poly" id="edge74_Node000000_Node000001" title=" " alt="" coords="137,16,169,16,169,21,137,21"/>
 </map>

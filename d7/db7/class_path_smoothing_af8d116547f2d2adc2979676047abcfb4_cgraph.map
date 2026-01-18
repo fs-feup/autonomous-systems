@@ -1,0 +1,19 @@
+<map id="PathSmoothing::optimize_path" name="PathSmoothing::optimize_path">
+<area shape="rect" id="Node000001" title="Optimizes a racing line path by fitting splines through track boundaries and applying quadratic progr..." alt="" coords="5,158,202,184"/>
+<area shape="rect" id="Node000002" href="$d6/da8/splines_8hpp.html#a17fae428cadc635f31d275efded45a67" title="This function takes three sequences of points (center, left, right), fits splines to them using GSL i..." alt="" coords="268,129,376,155"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="202,155,252,148,253,154,202,160"/>
+<area shape="rect" id="Node000003" href="$d7/db7/class_path_smoothing.html#a451ad9f28138148436574a91d6b3299d" title="Optimizes a path using quadratic programming (OSQP) to balance smoothness, curvature,..." alt="" coords="250,179,394,219"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="202,181,234,185,234,190,202,186"/>
+<area shape="rect" id="Node000004" href="$d7/db7/class_path_smoothing.html#ac9884811317c7d7391b6eb07514c7cb0" title="Adds track boundary constraints to ensure the optimized path stays within the track." alt="" coords="446,5,597,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="378,176,392,165,403,152,409,139,415,112,421,85,428,71,440,57,444,53,448,57,444,61,433,74,426,87,420,113,414,140,407,155,396,169,381,180"/>
+<area shape="rect" id="Node000005" href="$d7/db7/class_path_smoothing.html#a5d550ee1b872ad880b6a47ed193f16ac" title="Adds curvature penalty terms to the quadratic objective function." alt="" coords="453,71,590,111"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="373,176,392,165,416,143,440,121,447,117,450,121,444,125,420,147,396,169,376,180"/>
+<area shape="rect" id="Node000006" href="$d7/db7/class_path_smoothing.html#abf26b5322db30f37f7ce2ef8c1e615e2" title="Adds non&#45;negativity constraints for slack variables." alt="" coords="451,135,593,191"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="394,183,434,176,435,181,395,189"/>
+<area shape="rect" id="Node000007" href="$d7/db7/class_path_smoothing.html#adce7fe96dce3791075ff778f27459fdf" title="Adds penalty terms for slack variables to the quadratic objective function." alt="" coords="448,215,595,255"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="395,209,433,216,432,222,394,215"/>
+<area shape="rect" id="Node000008" href="$d7/db7/class_path_smoothing.html#abe5f49a0b8bf1fb49226d8a05c37b8cd" title="Adds smoothness penalty terms to the quadratic objective function." alt="" coords="452,280,591,321"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="358,217,443,265,456,271,454,276,441,269,356,222"/>
+<area shape="rect" id="Node000009" href="$d7/db7/class_path_smoothing.html#a0d3edb65439cb4aa32bf799e0293a243" title="Converts sparse matrix data from coordinate format to Compressed Sparse Column (CSC) format." alt="" coords="442,345,601,386"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="339,218,382,273,411,303,444,330,452,336,449,340,440,334,408,307,378,276,335,221"/>
+</map>

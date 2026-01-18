@@ -109,7 +109,7 @@ Collaboration diagram for SLAMParameters:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d1/d26/struct_s_l_a_m_parameters__coll__graph.png" border="0" usemap="#a_s_l_a_m_parameters_coll__map" alt="Collaboration graph"/></div>
 <map name="a_s_l_a_m_parameters_coll__map" id="a_s_l_a_m_parameters_coll__map">
-<area shape="rect" title="Parameters for the SLAM node." alt="" coords="5,5,187,395"/>
+<area shape="rect" title="Parameters for the SLAM node." alt="" coords="5,5,187,380"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -123,8 +123,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:af7dc4f8199814586ebe7355aa202e248"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the configuration for the SLAM node from YAML file.  <br /></td></tr>
 <tr class="separator:af7dc4f8199814586ebe7355aa202e248"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb9fb23c9c0d5bcfee62303fec7236ac" id="r_adb9fb23c9c0d5bcfee62303fec7236ac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d66/struct_data_association_parameters.html">DataAssociationParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#adb9fb23c9c0d5bcfee62303fec7236ac">get_data_association_parameters</a> ()</td></tr>
+<tr class="memdesc:adb9fb23c9c0d5bcfee62303fec7236ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get data association parameters.  <br /></td></tr>
 <tr class="separator:adb9fb23c9c0d5bcfee62303fec7236ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5fe52e41cffc8f67001da4aa93fea99f" id="r_a5fe52e41cffc8f67001da4aa93fea99f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html">SLAMParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a5fe52e41cffc8f67001da4aa93fea99f">operator=</a> (const <a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html">SLAMParameters</a> &amp;other)</td></tr>
+<tr class="memdesc:a5fe52e41cffc8f67001da4aa93fea99f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overload the assignment operator for <a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node.">SLAMParameters</a>.  <br /></td></tr>
 <tr class="separator:a5fe52e41cffc8f67001da4aa93fea99f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -135,19 +137,31 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a7160246d62c01950909c02049ddc840a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e82cc1112bbd0fe41f0e2bb2b1136c8" id="r_a3e82cc1112bbd0fe41f0e2bb2b1136c8"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a3e82cc1112bbd0fe41f0e2bb2b1136c8">motion_model_name_</a> = &quot;constant_velocity&quot;</td></tr>
 <tr class="separator:a3e82cc1112bbd0fe41f0e2bb2b1136c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af299b2c029be4e341b28123617829984" id="r_af299b2c029be4e341b28123617829984"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#af299b2c029be4e341b28123617829984">pose_updater_name_</a> = &quot;base_pose_updater&quot;</td></tr>
+<tr class="separator:af299b2c029be4e341b28123617829984"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41dc0b7ee0ff4a77765cde29cdc0c1d4" id="r_a41dc0b7ee0ff4a77765cde29cdc0c1d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a41dc0b7ee0ff4a77765cde29cdc0c1d4">max_pose_history_updater</a> = 30</td></tr>
+<tr class="separator:a41dc0b7ee0ff4a77765cde29cdc0c1d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f48c644ee3301d45416a12d89b6b8a3" id="r_a1f48c644ee3301d45416a12d89b6b8a3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a1f48c644ee3301d45416a12d89b6b8a3">max_pose_history_graph</a> = 50</td></tr>
+<tr class="separator:a1f48c644ee3301d45416a12d89b6b8a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c733d5550b93c5e06bd21ed8491a357" id="r_a2c733d5550b93c5e06bd21ed8491a357"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a2c733d5550b93c5e06bd21ed8491a357">synchronized_timestamps</a></td></tr>
+<tr class="separator:a2c733d5550b93c5e06bd21ed8491a357"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae7c835c579bf37f886d45ee4dbc028df" id="r_ae7c835c579bf37f886d45ee4dbc028df"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#ae7c835c579bf37f886d45ee4dbc028df">data_association_model_name_</a> = &quot;nearest_neighbor&quot;</td></tr>
 <tr class="separator:ae7c835c579bf37f886d45ee4dbc028df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd31d0489d1fbda5a7e25656021a50ed" id="r_afd31d0489d1fbda5a7e25656021a50ed"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#afd31d0489d1fbda5a7e25656021a50ed">lidar_odometry_topic_</a> = &quot;/fast_limo/state&quot;</td></tr>
+<tr class="separator:afd31d0489d1fbda5a7e25656021a50ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeacafb20c5b3581f5fad66ceb768aed7" id="r_aeacafb20c5b3581f5fad66ceb768aed7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#aeacafb20c5b3581f5fad66ceb768aed7">receive_lidar_odometry_</a> = false</td></tr>
+<tr class="separator:aeacafb20c5b3581f5fad66ceb768aed7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a648cfbd65d1bf07e00656c87fedcc542" id="r_a648cfbd65d1bf07e00656c87fedcc542"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a648cfbd65d1bf07e00656c87fedcc542">slam_solver_name_</a> = &quot;graph_slam&quot;</td></tr>
 <tr class="separator:a648cfbd65d1bf07e00656c87fedcc542"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a777752a6454b2e388ffd214ba184e4d7" id="r_a777752a6454b2e388ffd214ba184e4d7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a777752a6454b2e388ffd214ba184e4d7">landmark_filter_name_</a> = &quot;consecutive_count&quot;</td></tr>
 <tr class="separator:a777752a6454b2e388ffd214ba184e4d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa03465e369b723cc180fed23f16cb661" id="r_aa03465e369b723cc180fed23f16cb661"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#aa03465e369b723cc180fed23f16cb661">frame_id_</a> = &quot;map&quot;</td></tr>
 <tr class="separator:aa03465e369b723cc180fed23f16cb661"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a14755e2f5b1c2301160a40da0ca6f015" id="r_a14755e2f5b1c2301160a40da0ca6f015"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a14755e2f5b1c2301160a40da0ca6f015">data_association_limit_distance_</a> = 70</td></tr>
+<tr class="memitem:a14755e2f5b1c2301160a40da0ca6f015" id="r_a14755e2f5b1c2301160a40da0ca6f015"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a14755e2f5b1c2301160a40da0ca6f015">data_association_limit_distance_</a></td></tr>
 <tr class="separator:a14755e2f5b1c2301160a40da0ca6f015"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2b8937b67a31ae211e37676d2401514" id="r_ab2b8937b67a31ae211e37676d2401514"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#ab2b8937b67a31ae211e37676d2401514">observation_x_noise_</a> = 0.01</td></tr>
+<tr class="memitem:ab2b8937b67a31ae211e37676d2401514" id="r_ab2b8937b67a31ae211e37676d2401514"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#ab2b8937b67a31ae211e37676d2401514">observation_x_noise_</a></td></tr>
 <tr class="separator:ab2b8937b67a31ae211e37676d2401514"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a153b084df36e34d20d53a2328587aaa3" id="r_a153b084df36e34d20d53a2328587aaa3"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a153b084df36e34d20d53a2328587aaa3">observation_y_noise_</a> = 0.01</td></tr>
+<tr class="memitem:a153b084df36e34d20d53a2328587aaa3" id="r_a153b084df36e34d20d53a2328587aaa3"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a153b084df36e34d20d53a2328587aaa3">observation_y_noise_</a></td></tr>
 <tr class="separator:a153b084df36e34d20d53a2328587aaa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f577e6367027bb52e0a994e797f65e7" id="r_a1f577e6367027bb52e0a994e797f65e7"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a1f577e6367027bb52e0a994e797f65e7">velocity_x_noise_</a> = 0.1</td></tr>
 <tr class="separator:a1f577e6367027bb52e0a994e797f65e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -155,12 +169,16 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a740ace3fdee447dc3fdb221486a54471"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ada27707f0e0b06c070ae7882f4cfaa" id="r_a6ada27707f0e0b06c070ae7882f4cfaa"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a6ada27707f0e0b06c070ae7882f4cfaa">angular_velocity_noise_</a> = 0.1</td></tr>
 <tr class="separator:a6ada27707f0e0b06c070ae7882f4cfaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25a9afd31db3a609cd42a9e2ec8dbe62" id="r_a25a9afd31db3a609cd42a9e2ec8dbe62"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a25a9afd31db3a609cd42a9e2ec8dbe62">imu_acceleration_x_noise_</a> = 0.5</td></tr>
+<tr class="separator:a25a9afd31db3a609cd42a9e2ec8dbe62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66622bf1e0d6d62712b0e720cea8c04e" id="r_a66622bf1e0d6d62712b0e720cea8c04e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a66622bf1e0d6d62712b0e720cea8c04e">pose_x_initial_noise_</a> = 0.1</td></tr>
 <tr class="separator:a66622bf1e0d6d62712b0e720cea8c04e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85aedc6e35a59e06ca32989ab17eee54" id="r_a85aedc6e35a59e06ca32989ab17eee54"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a85aedc6e35a59e06ca32989ab17eee54">pose_y_initial_noise_</a> = 0.1</td></tr>
 <tr class="separator:a85aedc6e35a59e06ca32989ab17eee54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd712e4f77fd394a75a4bd476f8ec9f8" id="r_acd712e4f77fd394a75a4bd476f8ec9f8"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#acd712e4f77fd394a75a4bd476f8ec9f8">pose_theta_initial_noise_</a> = 0.1</td></tr>
 <tr class="separator:acd712e4f77fd394a75a4bd476f8ec9f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad99c870f05aa9e190c593f3889a64ee3" id="r_ad99c870f05aa9e190c593f3889a64ee3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#ad99c870f05aa9e190c593f3889a64ee3">preloaded_map_noise_</a> = 0.1</td></tr>
+<tr class="separator:ad99c870f05aa9e190c593f3889a64ee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a05b9db63d76e08c77186c6502eba2920" id="r_a05b9db63d76e08c77186c6502eba2920"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a05b9db63d76e08c77186c6502eba2920">data_association_gate_</a> = 1.23</td></tr>
 <tr class="separator:a05b9db63d76e08c77186c6502eba2920"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adea7dcdcb31d928d3b34473dbfd1a3a2" id="r_adea7dcdcb31d928d3b34473dbfd1a3a2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#adea7dcdcb31d928d3b34473dbfd1a3a2">new_landmark_confidence_gate_</a> = 0.6</td></tr>
@@ -171,16 +189,12 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ae3ff242c22050e7a32ec964d4acf744c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a982c7a18b7f76b37f528a7bab18367fa" id="r_a982c7a18b7f76b37f528a7bab18367fa"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a982c7a18b7f76b37f528a7bab18367fa">slam_optimization_period_</a> = 0.0</td></tr>
 <tr class="separator:a982c7a18b7f76b37f528a7bab18367fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a113122475cb375ef159201008deaf2c7" id="r_a113122475cb375ef159201008deaf2c7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a113122475cb375ef159201008deaf2c7">minimum_observation_count_</a></td></tr>
-<tr class="separator:a113122475cb375ef159201008deaf2c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10ecf472d47c44ad169729d8445d3c97" id="r_a10ecf472d47c44ad169729d8445d3c97"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a10ecf472d47c44ad169729d8445d3c97">minimum_frequency_of_detections_</a></td></tr>
-<tr class="separator:a10ecf472d47c44ad169729d8445d3c97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf25972ca4fe47406aad3497fef6b215" id="r_adf25972ca4fe47406aad3497fef6b215"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#adf25972ca4fe47406aad3497fef6b215">slam_optimization_type_</a> = &quot;normal_levenberg&quot;</td></tr>
 <tr class="separator:adf25972ca4fe47406aad3497fef6b215"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54cdf721e90f528262d3f211be8fc253" id="r_a54cdf721e90f528262d3f211be8fc253"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a54cdf721e90f528262d3f211be8fc253">slam_optimization_mode_</a> = &quot;sync&quot;</td></tr>
 <tr class="separator:a54cdf721e90f528262d3f211be8fc253"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad99c870f05aa9e190c593f3889a64ee3" id="r_ad99c870f05aa9e190c593f3889a64ee3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#ad99c870f05aa9e190c593f3889a64ee3">preloaded_map_noise_</a> = 0.1</td></tr>
-<tr class="separator:ad99c870f05aa9e190c593f3889a64ee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97c9309f4cacc6ec001a05fdfefce7ca" id="r_a97c9309f4cacc6ec001a05fdfefce7ca"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a97c9309f4cacc6ec001a05fdfefce7ca">slam_optimization_in_poses_</a> = false</td></tr>
+<tr class="separator:a97c9309f4cacc6ec001a05fdfefce7ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a650597ab667255e73d493fea2928228c" id="r_a650597ab667255e73d493fea2928228c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a650597ab667255e73d493fea2928228c">slam_isam2_relinearize_threshold_</a> = 0.1</td></tr>
 <tr class="separator:a650597ab667255e73d493fea2928228c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c65ac35089caf328c98eb8431d70e2b" id="r_a3c65ac35089caf328c98eb8431d70e2b"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a3c65ac35089caf328c98eb8431d70e2b">slam_isam2_relinearize_skip_</a> = 1</td></tr>
@@ -189,10 +203,25 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a80e81da83e6f52911469db8bd7fec369"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b3f5563ba88747f0fbd89ab8a5e83ed" id="r_a5b3f5563ba88747f0fbd89ab8a5e83ed"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a5b3f5563ba88747f0fbd89ab8a5e83ed">sliding_window_size_</a> = 5</td></tr>
 <tr class="separator:a5b3f5563ba88747f0fbd89ab8a5e83ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c730b1dcca0b5608090c160361ed7b6" id="r_a6c730b1dcca0b5608090c160361ed7b6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a6c730b1dcca0b5608090c160361ed7b6">publish_trajectory_</a> = false</td></tr>
+<tr class="separator:a6c730b1dcca0b5608090c160361ed7b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a42f27527e75102e92b6d135536906a" id="r_a4a42f27527e75102e92b6d135536906a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a4a42f27527e75102e92b6d135536906a">threshold_dist</a> = 4.0</td></tr>
+<tr class="separator:a4a42f27527e75102e92b6d135536906a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4b53cc608290107ad053eb125aea349" id="r_ab4b53cc608290107ad053eb125aea349"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#ab4b53cc608290107ad053eb125aea349">first_x_cones</a> = 10</td></tr>
+<tr class="separator:ab4b53cc608290107ad053eb125aea349"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba5e5dd0718fa16e557a11e2f8b1d6bc" id="r_aba5e5dd0718fa16e557a11e2f8b1d6bc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#aba5e5dd0718fa16e557a11e2f8b1d6bc">border_width</a> = 5</td></tr>
+<tr class="separator:aba5e5dd0718fa16e557a11e2f8b1d6bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c3ac4efc7bdb43c629faff64be053ed" id="r_a5c3ac4efc7bdb43c629faff64be053ed"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a5c3ac4efc7bdb43c629faff64be053ed">minimum_confidence</a> = 3</td></tr>
+<tr class="separator:a5c3ac4efc7bdb43c629faff64be053ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a113122475cb375ef159201008deaf2c7" id="r_a113122475cb375ef159201008deaf2c7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a113122475cb375ef159201008deaf2c7">minimum_observation_count_</a></td></tr>
+<tr class="separator:a113122475cb375ef159201008deaf2c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10ecf472d47c44ad169729d8445d3c97" id="r_a10ecf472d47c44ad169729d8445d3c97"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a10ecf472d47c44ad169729d8445d3c97">minimum_frequency_of_detections_</a></td></tr>
+<tr class="separator:a10ecf472d47c44ad169729d8445d3c97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a0a3aca28016247ed3491548607987d43" id="r_a0a3aca28016247ed3491548607987d43"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html#a0a3aca28016247ed3491548607987d43">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html">SLAMParameters</a> &amp;params)</td></tr>
+<tr class="memdesc:a0a3aca28016247ed3491548607987d43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overload the output stream operator for <a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node.">SLAMParameters</a>.  <br /></td></tr>
 <tr class="separator:a0a3aca28016247ed3491548607987d43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -269,7 +298,10 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00059">59</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p>Get data association parameters. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d9/d66/struct_data_association_parameters.html">DataAssociationParameters</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00085">85</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -291,7 +323,7 @@ Friends</h2></td></tr>
 <p>Load the configuration for the SLAM node from YAML file. </p>
 <dl class="section return"><dt>Returns</dt><dd>std::string adapter_name </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/d73/general__config_8cpp_source.html#l00069">69</a> of file <a class="el" href="../../da/d73/general__config_8cpp_source.html">general_config.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d73/general__config_8cpp_source.html#l00104">104</a> of file <a class="el" href="../../da/d73/general__config_8cpp_source.html">general_config.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -336,7 +368,16 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/d73/general__config_8cpp_source.html#l00038">38</a> of file <a class="el" href="../../da/d73/general__config_8cpp_source.html">general_config.cpp</a>.</p>
+<p>Overload the assignment operator for <a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node.">SLAMParameters</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node.">SLAMParameters</a> object to assign from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node.">SLAMParameters</a>&amp; Reference to the assigned <a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node.">SLAMParameters</a> object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../da/d73/general__config_8cpp_source.html#l00054">54</a> of file <a class="el" href="../../da/d73/general__config_8cpp_source.html">general_config.cpp</a>.</p>
 
 </div>
 </div>
@@ -375,7 +416,17 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00065">65</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p>Overload the output stream operator for <a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node.">SLAMParameters</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">os</td><td>Output stream </td></tr>
+    <tr><td class="paramname">params</td><td><a class="el" href="../../d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node.">SLAMParameters</a> object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::ostream&amp; Output stream </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00097">97</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -392,7 +443,23 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00025">25</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00036">36</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aba5e5dd0718fa16e557a11e2f8b1d6bc" name="aba5e5dd0718fa16e557a11e2f8b1d6bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba5e5dd0718fa16e557a11e2f8b1d6bc">&#9670;&#160;</a></span>border_width</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SLAMParameters::border_width = 5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00062">62</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -408,7 +475,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00042">42</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -419,12 +486,14 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float SLAMParameters::data_association_limit_distance_ = 70</td>
+          <td class="memname">float SLAMParameters::data_association_limit_distance_</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00020">20</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">      70</div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -440,7 +509,23 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00016">16</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00022">22</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab4b53cc608290107ad053eb125aea349" name="ab4b53cc608290107ad053eb125aea349"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4b53cc608290107ad053eb125aea349">&#9670;&#160;</a></span>first_x_cones</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SLAMParameters::first_x_cones = 10</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00061">61</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -456,7 +541,23 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00019">19</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00027">27</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a25a9afd31db3a609cd42a9e2ec8dbe62" name="a25a9afd31db3a609cd42a9e2ec8dbe62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25a9afd31db3a609cd42a9e2ec8dbe62">&#9670;&#160;</a></span>imu_acceleration_x_noise_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float SLAMParameters::imu_acceleration_x_noise_ = 0.5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00037">37</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -472,7 +573,71 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="afd31d0489d1fbda5a7e25656021a50ed" name="afd31d0489d1fbda5a7e25656021a50ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd31d0489d1fbda5a7e25656021a50ed">&#9670;&#160;</a></span>lidar_odometry_topic_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string SLAMParameters::lidar_odometry_topic_ = &quot;/fast_limo/state&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1f48c644ee3301d45416a12d89b6b8a3" name="a1f48c644ee3301d45416a12d89b6b8a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f48c644ee3301d45416a12d89b6b8a3">&#9670;&#160;</a></span>max_pose_history_graph</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SLAMParameters::max_pose_history_graph = 50</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00019">19</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a41dc0b7ee0ff4a77765cde29cdc0c1d4" name="a41dc0b7ee0ff4a77765cde29cdc0c1d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41dc0b7ee0ff4a77765cde29cdc0c1d4">&#9670;&#160;</a></span>max_pose_history_updater</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SLAMParameters::max_pose_history_updater = 30</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
 <p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00018">18</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5c3ac4efc7bdb43c629faff64be053ed" name="a5c3ac4efc7bdb43c629faff64be053ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c3ac4efc7bdb43c629faff64be053ed">&#9670;&#160;</a></span>minimum_confidence</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SLAMParameters::minimum_confidence = 3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00063">63</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -490,7 +655,7 @@ Here is the caller graph for this function:</div>
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
 <div class="line">      5</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00038">38</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00069">69</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -508,7 +673,7 @@ Here is the caller graph for this function:</div>
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
 <div class="line">      3</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00036">36</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00067">67</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -540,7 +705,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00030">30</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00043">43</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -551,12 +716,14 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float SLAMParameters::observation_x_noise_ = 0.01</td>
+          <td class="memname">float SLAMParameters::observation_x_noise_</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00021">21</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">      0.01</div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00030">30</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -567,12 +734,14 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float SLAMParameters::observation_y_noise_ = 0.01</td>
+          <td class="memname">float SLAMParameters::observation_y_noise_</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00022">22</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">      0.01</div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00032">32</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -588,7 +757,23 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00040">40</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af299b2c029be4e341b28123617829984" name="af299b2c029be4e341b28123617829984"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af299b2c029be4e341b28123617829984">&#9670;&#160;</a></span>pose_updater_name_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string SLAMParameters::pose_updater_name_ = &quot;base_pose_updater&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00016">16</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -604,7 +789,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00038">38</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -620,7 +805,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00027">27</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00039">39</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -636,7 +821,39 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00042">42</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00041">41</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6c730b1dcca0b5608090c160361ed7b6" name="a6c730b1dcca0b5608090c160361ed7b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c730b1dcca0b5608090c160361ed7b6">&#9670;&#160;</a></span>publish_trajectory_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SLAMParameters::publish_trajectory_ = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00057">57</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aeacafb20c5b3581f5fad66ceb768aed7" name="aeacafb20c5b3581f5fad66ceb768aed7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeacafb20c5b3581f5fad66ceb768aed7">&#9670;&#160;</a></span>receive_lidar_odometry_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SLAMParameters::receive_lidar_odometry_ = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -652,7 +869,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00046">46</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00055">55</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -668,7 +885,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00045">45</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00054">54</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -684,7 +901,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00044">44</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00053">53</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -702,7 +919,23 @@ Here is the caller graph for this function:</div>
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
 <div class="line">      0.3</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00032">32</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00045">45</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a97c9309f4cacc6ec001a05fdfefce7ca" name="a97c9309f4cacc6ec001a05fdfefce7ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97c9309f4cacc6ec001a05fdfefce7ca">&#9670;&#160;</a></span>slam_optimization_in_poses_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SLAMParameters::slam_optimization_in_poses_ = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00051">51</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -718,7 +951,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00041">41</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00050">50</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -734,7 +967,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00047">47</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -750,7 +983,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00040">40</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00049">49</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -766,7 +999,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00025">25</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -782,7 +1015,41 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00047">47</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00056">56</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2c733d5550b93c5e06bd21ed8491a357" name="a2c733d5550b93c5e06bd21ed8491a357"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c733d5550b93c5e06bd21ed8491a357">&#9670;&#160;</a></span>synchronized_timestamps</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SLAMParameters::synchronized_timestamps</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">      <span class="keyword">true</span></div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00020">20</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4a42f27527e75102e92b6d135536906a" name="a4a42f27527e75102e92b6d135536906a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a42f27527e75102e92b6d135536906a">&#9670;&#160;</a></span>threshold_dist</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double SLAMParameters::threshold_dist = 4.0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00060">60</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -830,7 +1097,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00044">44</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -846,7 +1113,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -862,7 +1129,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d57/general__config_8hpp_source.html#l00035">35</a> of file <a class="el" href="../../de/d57/general__config_8hpp_source.html">general_config.hpp</a>.</p>
 
 </div>
 </div>

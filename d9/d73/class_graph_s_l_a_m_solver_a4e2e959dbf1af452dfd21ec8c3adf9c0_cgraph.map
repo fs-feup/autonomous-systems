@@ -1,0 +1,9 @@
+<map id="GraphSLAMSolver::_add_motion_data_to_graph" name="GraphSLAMSolver::_add_motion_data_to_graph">
+<area shape="rect" id="Node000001" title="Adds motion data to the graph if the pose updater is ready." alt="" coords="5,23,170,64"/>
+<area shape="rect" id="Node000002" href="$da/df5/slam_2src_2slam__solver_2graph__slam__solver_2utils_8cpp.html#a3d4e9957a7d73fae42a51136c75737f4" title=" " alt="" coords="218,31,368,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,41,202,41,202,46,170,46"/>
+<area shape="rect" id="Node000003" href="$da/df5/slam_2src_2slam__solver_2graph__slam__solver_2utils_8cpp.html#a8649e3a40d3996e6a7eca0c02fbbc3a3" title=" " alt="" coords="416,5,564,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="368,31,400,27,401,32,369,36"/>
+<area shape="rect" id="Node000004" href="$da/df5/slam_2src_2slam__solver_2graph__slam__solver_2utils_8cpp.html#a635cf55ec76c73af7d115883037b3f51" title=" " alt="" coords="416,55,564,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="369,50,401,54,400,59,368,55"/>
+</map>

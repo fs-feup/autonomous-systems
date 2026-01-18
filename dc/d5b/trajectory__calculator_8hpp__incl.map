@@ -1,0 +1,13 @@
+<map id="src/slam/include/slam_solver/solver_traits/trajectory_calculator.hpp" name="src/slam/include/slam_solver/solver_traits/trajectory_calculator.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="15,5,181,61"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,117,63,142"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="82,63,53,105,48,102,77,60"/>
+<area shape="rect" id="Node000003" href="$de/d59/pose_8hpp.html" title=" " alt="" coords="87,109,240,150"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="119,60,143,95,139,98,115,63"/>
+<area shape="rect" id="Node000004" href="$d5/d91/position_8hpp.html" title=" " alt="" coords="87,198,240,238"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="166,150,166,182,161,182,161,150"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="63,286,141,312"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="150,240,123,275,119,272,146,237"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="165,286,284,312"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="181,237,208,272,204,275,176,240"/>
+</map>

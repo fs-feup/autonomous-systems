@@ -9,8 +9,10 @@ var searchData=
   ['defaultaeromodel_6',['DefaultAeroModel',['../d2/d1b/class_default_aero_model.html',1,'']]],
   ['deskew_7',['Deskew',['../d1/dab/class_deskew.html',1,'']]],
   ['deviationvalidator_8',['DeviationValidator',['../d2/d55/class_deviation_validator.html',1,'']]],
-  ['displacementvalidator_9',['DisplacementValidator',['../db/d6b/class_displacement_validator.html',1,'']]],
-  ['displacementvalidatortest_10',['DisplacementValidatorTest',['../d7/d88/class_displacement_validator_test.html',1,'']]],
-  ['drawscene_11',['drawScene',['../d6/d51/classdraw_view_1_1draw_scene.html',1,'drawView']]],
-  ['drawview_12',['drawView',['../d5/da5/classdraw_view_1_1draw_view.html',1,'drawView']]]
+  ['differencebasedreadyposeupdater_9',['DifferenceBasedReadyPoseUpdater',['../d1/d1c/class_difference_based_ready_pose_updater.html',1,'']]],
+  ['displacementvalidator_10',['DisplacementValidator',['../db/d6b/class_displacement_validator.html',1,'']]],
+  ['displacementvalidatortest_11',['DisplacementValidatorTest',['../d7/d88/class_displacement_validator_test.html',1,'']]],
+  ['doubleposeupdater_12',['DoublePoseUpdater',['../dd/d7d/class_double_pose_updater.html',1,'']]],
+  ['drawscene_13',['drawScene',['../d6/d51/classdraw_view_1_1draw_scene.html',1,'drawView']]],
+  ['drawview_14',['drawView',['../d5/da5/classdraw_view_1_1draw_view.html',1,'drawView']]]
 ];

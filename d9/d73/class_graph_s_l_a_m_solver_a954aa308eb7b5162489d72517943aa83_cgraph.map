@@ -1,7 +1,0 @@
-<map id="GraphSLAMSolver::get_map_estimate" name="GraphSLAMSolver::get_map_estimate">
-<area shape="rect" id="Node000001" title="Get the map estimate object." alt="" coords="5,39,160,79"/>
-<area shape="rect" id="Node000002" href="$d4/dca/class_graph_s_l_a_m_instance.html#a08ffb0c68875585691c36ebae4843f93" title="Get the graph values reference." alt="" coords="208,5,392,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="160,45,192,40,192,45,161,50"/>
-<area shape="rect" id="Node000003" href="$d4/dca/class_graph_s_l_a_m_instance.html#a24a960a20ed7ffbda1e43a8ba390d744" title=" " alt="" coords="225,71,375,111"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="161,68,210,75,209,80,160,73"/>
-</map>

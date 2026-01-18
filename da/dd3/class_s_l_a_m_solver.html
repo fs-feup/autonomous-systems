@@ -108,11 +108,11 @@ Inheritance diagram for SLAMSolver:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/d48/class_s_l_a_m_solver__inherit__graph.png" border="0" usemap="#a_s_l_a_m_solver_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_s_l_a_m_solver_inherit__map" id="a_s_l_a_m_solver_inherit__map">
-<area shape="rect" title="Interface for SLAM solvers." alt="" coords="103,5,282,531"/>
-<area shape="rect" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html" title=" " alt="" coords="5,579,177,1159"/>
-<area shape="poly" title=" " alt="" coords="149,546,143,579,138,578,143,545"/>
-<area shape="rect" href="../../d9/d73/class_graph_s_l_a_m_solver.html" title="Graph SLAM solver class." alt="" coords="202,589,389,1149"/>
-<area shape="poly" title=" " alt="" coords="243,545,250,589,245,590,237,546"/>
+<area shape="rect" title="Interface for SLAM solvers." alt="" coords="103,5,282,511"/>
+<area shape="rect" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html" title=" " alt="" coords="5,566,177,1126"/>
+<area shape="poly" title=" " alt="" coords="149,526,142,567,137,566,144,525"/>
+<area shape="rect" href="../../d9/d73/class_graph_s_l_a_m_solver.html" title="Graph SLAM solver class." alt="" coords="202,559,389,1133"/>
+<area shape="poly" title=" " alt="" coords="242,525,248,558,243,559,237,526"/>
 </map>
 </div>
 <div class="dynheader">
@@ -120,9 +120,9 @@ Collaboration diagram for SLAMSolver:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../db/d30/class_s_l_a_m_solver__coll__graph.png" border="0" usemap="#a_s_l_a_m_solver_coll__map" alt="Collaboration graph"/></div>
 <map name="a_s_l_a_m_solver_coll__map" id="a_s_l_a_m_solver_coll__map">
-<area shape="rect" title="Interface for SLAM solvers." alt="" coords="7,458,185,963"/>
-<area shape="rect" href="../../d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="5,5,187,395"/>
-<area shape="poly" title=" " alt="" coords="99,394,99,441,93,441,93,394"/>
+<area shape="rect" title="Interface for SLAM solvers." alt="" coords="7,443,185,928"/>
+<area shape="rect" href="../../d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="5,5,187,380"/>
+<area shape="poly" title=" " alt="" coords="99,380,99,426,93,426,93,380"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -133,18 +133,15 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a82cabbd52b46d17d6f55cdbf09e1f6fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae296331afb7a44e54363234d1a030b29" id="r_ae296331afb7a44e54363234d1a030b29"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#ae296331afb7a44e54363234d1a030b29">~SLAMSolver</a> ()=default</td></tr>
 <tr class="separator:ae296331afb7a44e54363234d1a030b29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a224bfb98eea4298ce3e490526a308eef" id="r_a224bfb98eea4298ce3e490526a308eef"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#a224bfb98eea4298ce3e490526a308eef">init</a> (std::weak_ptr&lt; rclcpp::Node &gt; node)=0</td></tr>
-<tr class="memdesc:a224bfb98eea4298ce3e490526a308eef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the SLAM solver @description This method is used to initialize the SLAM solver's aspects that require the node e.g.  <br /></td></tr>
-<tr class="separator:a224bfb98eea4298ce3e490526a308eef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdb13cfa24fa01ddfe25acd7ffc0a098" id="r_abdb13cfa24fa01ddfe25acd7ffc0a098"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#abdb13cfa24fa01ddfe25acd7ffc0a098">add_motion_prior</a> (const <a class="el" href="../../d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html">common_lib::structures::Velocities</a> &amp;velocities)=0</td></tr>
-<tr class="memdesc:abdb13cfa24fa01ddfe25acd7ffc0a098"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add motion prior to the solver (prediction step)  <br /></td></tr>
-<tr class="separator:abdb13cfa24fa01ddfe25acd7ffc0a098"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a90b5292ae0892aa21f228ad8ef2173" id="r_a7a90b5292ae0892aa21f228ad8ef2173"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#a7a90b5292ae0892aa21f228ad8ef2173">add_observations</a> (const std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &amp;cones)=0</td></tr>
-<tr class="memdesc:a7a90b5292ae0892aa21f228ad8ef2173"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add observations to the solver (correction step)  <br /></td></tr>
-<tr class="separator:a7a90b5292ae0892aa21f228ad8ef2173"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5719e97c83e64cd5828c3e0f817f8256" id="r_a5719e97c83e64cd5828c3e0f817f8256"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#a5719e97c83e64cd5828c3e0f817f8256">load_initial_state</a> (const Eigen::VectorXd &amp;map, const Eigen::VectorXd &amp;pose)=0</td></tr>
-<tr class="memdesc:a5719e97c83e64cd5828c3e0f817f8256"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a previously saved map and pose into the solver.  <br /></td></tr>
-<tr class="separator:a5719e97c83e64cd5828c3e0f817f8256"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6904433b817b8292bca3a4b08f1141d4" id="r_a6904433b817b8292bca3a4b08f1141d4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#a6904433b817b8292bca3a4b08f1141d4">add_observations</a> (const std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &amp;cones, rclcpp::Time cones_timestamp)=0</td></tr>
+<tr class="memdesc:a6904433b817b8292bca3a4b08f1141d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add observations to the solver.  <br /></td></tr>
+<tr class="separator:a6904433b817b8292bca3a4b08f1141d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2594ca886038ebd7c2c931ffa2125123" id="r_a2594ca886038ebd7c2c931ffa2125123"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#a2594ca886038ebd7c2c931ffa2125123">add_velocities</a> (const <a class="el" href="../../d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html">common_lib::structures::Velocities</a> &amp;velocities)=0</td></tr>
+<tr class="memdesc:a2594ca886038ebd7c2c931ffa2125123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process new velocity data.  <br /></td></tr>
+<tr class="separator:a2594ca886038ebd7c2c931ffa2125123"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0284814f8549537770ee57db68e8259" id="r_af0284814f8549537770ee57db68e8259"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#af0284814f8549537770ee57db68e8259">load_initial_state</a> (const Eigen::VectorXd &amp;map, const Eigen::Vector3d &amp;pose)=0</td></tr>
+<tr class="memdesc:af0284814f8549537770ee57db68e8259"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a previously saved map and pose into the solver.  <br /></td></tr>
+<tr class="separator:af0284814f8549537770ee57db68e8259"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3acebc9796e6aa676be2c1cb0ad54e01" id="r_a3acebc9796e6aa676be2c1cb0ad54e01"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#a3acebc9796e6aa676be2c1cb0ad54e01">get_map_estimate</a> ()=0</td></tr>
 <tr class="memdesc:a3acebc9796e6aa676be2c1cb0ad54e01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the map estimate object.  <br /></td></tr>
 <tr class="separator:a3acebc9796e6aa676be2c1cb0ad54e01"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -290,8 +287,8 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="abdb13cfa24fa01ddfe25acd7ffc0a098" name="abdb13cfa24fa01ddfe25acd7ffc0a098"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdb13cfa24fa01ddfe25acd7ffc0a098">&#9670;&#160;</a></span>add_motion_prior()</h2>
+<a id="a6904433b817b8292bca3a4b08f1141d4" name="a6904433b817b8292bca3a4b08f1141d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6904433b817b8292bca3a4b08f1141d4">&#9670;&#160;</a></span>add_observations()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -300,7 +297,53 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void SLAMSolver::add_motion_prior </td>
+          <td class="memname">virtual void SLAMSolver::add_observations </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>cones</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">rclcpp::Time&#160;</td>
+          <td class="paramname"><em>cones_timestamp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Add observations to the solver. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cones</td><td>Positions of the observations </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="../../d9/d73/class_graph_s_l_a_m_solver.html#a6ebeac5f93735c046fa984450deb98a8">GraphSLAMSolver</a>, and <a class="el" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#ae22327aa3c5787a3412fe4341c708aba">EKFSLAMSolver</a>.</p>
+
+</div>
+</div>
+<a id="a2594ca886038ebd7c2c931ffa2125123" name="a2594ca886038ebd7c2c931ffa2125123"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2594ca886038ebd7c2c931ffa2125123">&#9670;&#160;</a></span>add_velocities()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void SLAMSolver::add_velocities </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html">common_lib::structures::Velocities</a> &amp;&#160;</td>
           <td class="paramname"><em>velocities</em></td><td>)</td>
@@ -314,51 +357,15 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Add motion prior to the solver (prediction step) </p>
+<p>Process new velocity data. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">velocities</td><td>Velocities of the robot </td></tr>
+    <tr><td class="paramname">velocities</td><td>Velocities data </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#a359ca08d1c4c27519fa0df2e14ae1181">EKFSLAMSolver</a>, and <a class="el" href="../../d9/d73/class_graph_s_l_a_m_solver.html#a816e40dadd947eda5023fa030ce7f4ea">GraphSLAMSolver</a>.</p>
-
-</div>
-</div>
-<a id="a7a90b5292ae0892aa21f228ad8ef2173" name="a7a90b5292ae0892aa21f228ad8ef2173"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a90b5292ae0892aa21f228ad8ef2173">&#9670;&#160;</a></span>add_observations()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void SLAMSolver::add_observations </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>cones</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Add observations to the solver (correction step) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cones</td><td>Positions of the observations </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implemented in <a class="el" href="../../d9/d73/class_graph_s_l_a_m_solver.html#a7ab911e5d048186ee5a58fdef4fb71ae">GraphSLAMSolver</a>, and <a class="el" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#aa696fa02d40dfc09759fae9473d0d828">EKFSLAMSolver</a>.</p>
+<p>Implemented in <a class="el" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#a3433841fefcb7044aa62f407940ae833">EKFSLAMSolver</a>, and <a class="el" href="../../d9/d73/class_graph_s_l_a_m_solver.html#a52ad946ffdd1fd60035229f8d446ef7f">GraphSLAMSolver</a>.</p>
 
 </div>
 </div>
@@ -563,45 +570,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a224bfb98eea4298ce3e490526a308eef" name="a224bfb98eea4298ce3e490526a308eef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a224bfb98eea4298ce3e490526a308eef">&#9670;&#160;</a></span>init()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void SLAMSolver::init </td>
-          <td>(</td>
-          <td class="paramtype">std::weak_ptr&lt; rclcpp::Node &gt;&#160;</td>
-          <td class="paramname"><em>node</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Initialize the SLAM solver @description This method is used to initialize the SLAM solver's aspects that require the node e.g. </p>
-<p>timer callbacks</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">node</td><td>ROS2 node </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implemented in <a class="el" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#ab334958683e51f8abc2cb8fccd1d5e80">EKFSLAMSolver</a>, and <a class="el" href="../../d9/d73/class_graph_s_l_a_m_solver.html#a6000c47907d1afc6a28f236eb4f3b9a5">GraphSLAMSolver</a>.</p>
-
-</div>
-</div>
-<a id="a5719e97c83e64cd5828c3e0f817f8256" name="a5719e97c83e64cd5828c3e0f817f8256"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5719e97c83e64cd5828c3e0f817f8256">&#9670;&#160;</a></span>load_initial_state()</h2>
+<a id="af0284814f8549537770ee57db68e8259" name="af0284814f8549537770ee57db68e8259"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0284814f8549537770ee57db68e8259">&#9670;&#160;</a></span>load_initial_state()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -618,7 +588,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramtype">const Eigen::Vector3d &amp;&#160;</td>
           <td class="paramname"><em>pose</em>&#160;</td>
         </tr>
         <tr>
@@ -643,12 +613,12 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#a39e49ed9e16c3d334d9232494dc82d10">EKFSLAMSolver</a>, and <a class="el" href="../../d9/d73/class_graph_s_l_a_m_solver.html#a909670a175e6be31301bd2595cd418ba">GraphSLAMSolver</a>.</p>
+<p>Implemented in <a class="el" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#a53270bd8c990949d3c24f4b5f0ca1963">EKFSLAMSolver</a>, and <a class="el" href="../../d9/d73/class_graph_s_l_a_m_solver.html#aa1d64041eddba2cd0a2acd2882ca0349">GraphSLAMSolver</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../da/dd3/class_s_l_a_m_solver_a5719e97c83e64cd5828c3e0f817f8256_icgraph.png" border="0" usemap="#ada/dd3/class_s_l_a_m_solver_a5719e97c83e64cd5828c3e0f817f8256_icgraph" alt=""/></div>
-<map name="ada/dd3/class_s_l_a_m_solver_a5719e97c83e64cd5828c3e0f817f8256_icgraph" id="ada/dd3/class_s_l_a_m_solver_a5719e97c83e64cd5828c3e0f817f8256_icgraph">
+<div class="center"><img src="../../da/dd3/class_s_l_a_m_solver_af0284814f8549537770ee57db68e8259_icgraph.png" border="0" usemap="#ada/dd3/class_s_l_a_m_solver_af0284814f8549537770ee57db68e8259_icgraph" alt=""/></div>
+<map name="ada/dd3/class_s_l_a_m_solver_af0284814f8549537770ee57db68e8259_icgraph" id="ada/dd3/class_s_l_a_m_solver_af0284814f8549537770ee57db68e8259_icgraph">
 <area shape="rect" title="Loads a previously saved map and pose into the solver." alt="" coords="225,5,387,46"/>
 <area shape="rect" href="../../da/dd3/class_s_l_a_m_solver.html#a132757cb8a25752b2050dc260a72b902" title="Set the mission." alt="" coords="5,13,177,39"/>
 <area shape="poly" title=" " alt="" coords="209,28,177,28,177,23,209,23"/>
@@ -688,26 +658,22 @@ Here is the call graph for this function:</div>
 <div class="center"><img src="../../da/dd3/class_s_l_a_m_solver_a132757cb8a25752b2050dc260a72b902_cgraph.png" border="0" usemap="#ada/dd3/class_s_l_a_m_solver_a132757cb8a25752b2050dc260a72b902_cgraph" alt=""/></div>
 <map name="ada/dd3/class_s_l_a_m_solver_a132757cb8a25752b2050dc260a72b902_cgraph" id="ada/dd3/class_s_l_a_m_solver_a132757cb8a25752b2050dc260a72b902_cgraph">
 <area shape="rect" title="Set the mission." alt="" coords="5,80,177,106"/>
-<area shape="rect" href="../../d8/deb/track__loader_8cpp.html#a8fdf54bc79463c04ac8098b65da37f8a" title="loads the acceleration track from the default path." alt="" coords="227,5,385,31"/>
-<area shape="poly" title=" " alt="" coords="124,77,224,40,242,34,244,39,226,45,126,82"/>
-<area shape="rect" href="../../da/dd3/class_s_l_a_m_solver.html#a5719e97c83e64cd5828c3e0f817f8256" title="Loads a previously saved map and pose into the solver." alt="" coords="225,154,387,195"/>
-<area shape="poly" title=" " alt="" coords="128,104,237,145,235,150,126,109"/>
-<area shape="rect" href="../../d8/deb/track__loader_8cpp.html#ad4e86aefb67cb6fdc1592f2d6c02bfa0" title="loads the skidpad track from the default path." alt="" coords="239,55,373,80"/>
-<area shape="poly" title=" " alt="" coords="176,80,223,75,224,80,177,85"/>
-<area shape="rect" href="../../d8/deb/track__loader_8cpp.html#a08c49ab3cd9080d5784f370b7f23631e" title="loads the trackdrive track from the default path." alt="" coords="233,104,379,130"/>
-<area shape="poly" title=" " alt="" coords="177,100,218,104,217,110,176,105"/>
+<area shape="rect" href="../../d8/deb/track__loader_8cpp.html#a8fdf54bc79463c04ac8098b65da37f8a" title="loads the acceleration track from the default path." alt="" coords="227,80,385,106"/>
+<area shape="poly" title=" " alt="" coords="177,90,211,90,211,96,177,96"/>
+<area shape="rect" href="../../da/dd3/class_s_l_a_m_solver.html#af0284814f8549537770ee57db68e8259" title="Loads a previously saved map and pose into the solver." alt="" coords="225,130,387,171"/>
+<area shape="poly" title=" " alt="" coords="143,104,213,123,211,128,141,109"/>
+<area shape="rect" href="../../d8/deb/track__loader_8cpp.html#ad4e86aefb67cb6fdc1592f2d6c02bfa0" title="loads the skidpad track from the default path." alt="" coords="239,31,373,56"/>
+<area shape="poly" title=" " alt="" coords="150,77,231,58,232,63,151,82"/>
 <area shape="rect" href="../../d8/deb/track__loader_8cpp.html#a5c744bddb2fdcd908259e5e0058bf229" title="loads the map from the specified path and fills the start pose and track." alt="" coords="435,31,553,56"/>
-<area shape="poly" title=" " alt="" coords="386,26,420,31,419,36,385,31"/>
+<area shape="poly" title=" " alt="" coords="357,77,427,58,428,63,359,82"/>
 <area shape="rect" href="../../d8/deb/track__loader_8cpp.html#a90eb72a3528fcbb695757997ea85cb43" title="Transforms the track as seen from the start pose." alt="" coords="438,80,550,106"/>
-<area shape="poly" title=" " alt="" coords="359,29,388,40,436,66,446,71,444,76,434,71,386,45,357,34"/>
+<area shape="poly" title=" " alt="" coords="385,90,423,90,423,96,385,96"/>
 <area shape="rect" href="../../d8/deb/track__loader_8cpp.html#aba21ebec4d5bd866eb855c49014ab80f" title="adds the landmarks in the list to the track." alt="" coords="601,5,711,31"/>
 <area shape="poly" title=" " alt="" coords="553,32,586,26,587,32,554,37"/>
 <area shape="rect" href="../../d8/deb/track__loader_8cpp.html#af45ff32e62996694d5ee0ff3f09b9755" title="Get the child node from a parent node by tag." alt="" coords="602,55,710,80"/>
 <area shape="poly" title=" " alt="" coords="554,50,587,55,586,60,553,55"/>
-<area shape="poly" title=" " alt="" coords="373,56,419,50,420,56,373,62"/>
-<area shape="poly" title=" " alt="" coords="374,74,423,81,422,86,373,79"/>
-<area shape="poly" title=" " alt="" coords="356,101,386,90,434,65,444,61,446,65,436,70,388,95,358,106"/>
-<area shape="poly" title=" " alt="" coords="379,105,422,99,423,105,379,110"/>
+<area shape="poly" title=" " alt="" coords="373,41,419,41,419,46,373,46"/>
+<area shape="poly" title=" " alt="" coords="359,54,428,73,427,78,357,60"/>
 </map>
 </div>
 

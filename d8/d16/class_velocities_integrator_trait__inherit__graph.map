@@ -1,0 +1,7 @@
+<map id="VelocitiesIntegratorTrait" name="VelocitiesIntegratorTrait">
+<area shape="rect" id="Node000001" title="Trait class for velocities integration in SLAM solvers." alt="" coords="105,5,281,91"/>
+<area shape="rect" id="Node000002" href="$d7/d79/class_e_k_f_s_l_a_m_solver.html" title=" " alt="" coords="5,146,177,706"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,106,169,147,164,145,175,105"/>
+<area shape="rect" id="Node000003" href="$d9/d73/class_graph_s_l_a_m_solver.html" title="Graph SLAM solver class." alt="" coords="202,139,389,713"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="211,105,220,138,215,140,205,106"/>
+</map>

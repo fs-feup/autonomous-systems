@@ -1,15 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$d1/d14/class_data_association_model.html" title="Data Association Method class, used to match observations to landmarks in the map." alt="" coords="5,129,157,155"/>
-<area shape="rect" id="Node000001" href="$df/dd3/class_j_c_b_b.html" title="Data association implementation that uses the Malhanobis Distance only as criterion to make observati..." alt="" coords="269,5,324,31"/>
-<area shape="poly" id="edge44_Node000000_Node000001" title=" " alt="" coords="104,116,148,77,203,40,236,27,268,20,269,25,238,32,206,45,151,81,107,120"/>
-<area shape="rect" id="Node000002" href="$dd/d06/class_max_likelihood.html" title="Maximum Likelihood Method class, used to match observations to landmarks in the map with maximum like..." alt="" coords="244,55,349,80"/>
-<area shape="poly" id="edge45_Node000000_Node000002" title=" " alt="" coords="124,120,204,89,243,77,244,82,206,94,126,125"/>
-<area shape="rect" id="Node000003" href="$db/d23/class_maximum_likelihood_m_d.html" title="Data association implementation that uses the Malhanobis Distance only as criterion to make observati..." alt="" coords="218,104,375,130"/>
-<area shape="poly" id="edge46_Node000000_Node000003" title=" " alt="" coords="172,129,218,123,218,129,173,134"/>
-<area shape="rect" id="Node000004" href="$d1/d4f/class_maximum_likelihood_n_l_l.html" title="Data association implementation that uses the Negative Log&#45;Likehood as criterion to make observation ..." alt="" coords="215,153,378,179"/>
-<area shape="poly" id="edge47_Node000000_Node000004" title=" " alt="" coords="173,150,215,154,214,160,172,155"/>
-<area shape="rect" id="Node000005" href="$df/df5/class_mock_data_association_model.html" title=" " alt="" coords="205,203,388,228"/>
-<area shape="poly" id="edge48_Node000000_Node000005" title=" " alt="" coords="127,159,206,189,241,200,239,205,204,194,125,164"/>
-<area shape="rect" id="Node000006" href="$dd/db5/class_nearest_neighbor.html" title="Data association implementation that uses the Malhanobis Distance only as criterion to make observati..." alt="" coords="237,252,356,278"/>
-<area shape="poly" id="edge49_Node000000_Node000006" title=" " alt="" coords="107,164,151,202,206,238,237,251,235,256,203,243,148,207,104,168"/>
+<area shape="rect" id="Node000000" href="$d4/de1/struct_control_parameters.html" title=" " alt="" coords="5,5,135,31"/>
 </map>

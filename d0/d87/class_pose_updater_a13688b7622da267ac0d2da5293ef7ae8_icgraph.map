@@ -1,0 +1,5 @@
+<map id="PoseUpdater::get_adjoint_operator_matrix" name="PoseUpdater::get_adjoint_operator_matrix">
+<area shape="rect" id="Node000001" title=" " alt="" coords="231,5,397,46"/>
+<area shape="rect" id="Node000002" href="$d0/d87/class_pose_updater.html#abaafcc06d228fdbd0b6edca115abfbc5" title="Updates the last pose and returns the pose difference." alt="" coords="5,13,183,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="215,28,183,28,183,23,215,23"/>
+</map>

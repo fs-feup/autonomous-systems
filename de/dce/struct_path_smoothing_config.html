@@ -99,7 +99,7 @@ $(document).ready(function(){initNavTree('de/dce/struct_path_smoothing_config.ht
 </div><!--header-->
 <div class="contents">
 
-<p>struct for the configuration of the smoothing algorithm  
+<p>Configuration parameters for the Path Smoothing class.  
  <a href="../../de/dce/struct_path_smoothing_config.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>&gt;</code></p>
@@ -108,42 +108,65 @@ Collaboration diagram for PathSmoothingConfig:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../da/d13/struct_path_smoothing_config__coll__graph.png" border="0" usemap="#a_path_smoothing_config_coll__map" alt="Collaboration graph"/></div>
 <map name="a_path_smoothing_config_coll__map" id="a_path_smoothing_config_coll__map">
-<area shape="rect" title="struct for the configuration of the smoothing algorithm" alt="" coords="5,5,161,171"/>
+<area shape="rect" title="Configuration parameters for the Path Smoothing class." alt="" coords="5,5,161,311"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad9b07e9e5ea9704da1c0c3b9d4145ca5" id="r_ad9b07e9e5ea9704da1c0c3b9d4145ca5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#ad9b07e9e5ea9704da1c0c3b9d4145ca5">PathSmoothingConfig</a> ()=default</td></tr>
-<tr class="separator:ad9b07e9e5ea9704da1c0c3b9d4145ca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac36da4c33f4f49b2300fc73e1e6ff8c2" id="r_ac36da4c33f4f49b2300fc73e1e6ff8c2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#ac36da4c33f4f49b2300fc73e1e6ff8c2">PathSmoothingConfig</a> (int precision, int order, float coeffs_ratio, bool use_path_smoothing, bool use_memory)</td></tr>
-<tr class="separator:ac36da4c33f4f49b2300fc73e1e6ff8c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9453d3358e71c8f85b9b2a2144ab40df" id="r_a9453d3358e71c8f85b9b2a2144ab40df"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#a9453d3358e71c8f85b9b2a2144ab40df">PathSmoothingConfig</a> ()</td></tr>
+<tr class="memdesc:a9453d3358e71c8f85b9b2a2144ab40df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <br /></td></tr>
+<tr class="separator:a9453d3358e71c8f85b9b2a2144ab40df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ac364f84da27917c08dd81742da620d" id="r_a3ac364f84da27917c08dd81742da620d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#a3ac364f84da27917c08dd81742da620d">PathSmoothingConfig</a> (int spline_precision, int spline_order, float spline_coeffs_ratio, bool use_path_smoothing, bool use_optimization, double car_width, double safety_margin, double curvature_weight, double smoothness_weight, double safety_weight, int max_iterations, double tolerance)</td></tr>
+<tr class="memdesc:a3ac364f84da27917c08dd81742da620d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parameterized constructor.  <br /></td></tr>
+<tr class="separator:a3ac364f84da27917c08dd81742da620d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a5413260c0c3f9e0644bc3045159a98f6" id="r_a5413260c0c3f9e0644bc3045159a98f6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#a5413260c0c3f9e0644bc3045159a98f6">precision_</a> = 10</td></tr>
-<tr class="memdesc:a5413260c0c3f9e0644bc3045159a98f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">ratio of output to input cones  <br /></td></tr>
-<tr class="separator:a5413260c0c3f9e0644bc3045159a98f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad874391e5b350093b4d2d791eeb58fab" id="r_ad874391e5b350093b4d2d791eeb58fab"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#ad874391e5b350093b4d2d791eeb58fab">order_</a> = 3</td></tr>
-<tr class="memdesc:ad874391e5b350093b4d2d791eeb58fab"><td class="mdescLeft">&#160;</td><td class="mdescRight">order of the spline  <br /></td></tr>
-<tr class="separator:ad874391e5b350093b4d2d791eeb58fab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadddead24462acb70d59ab6cf053ad2d" id="r_aadddead24462acb70d59ab6cf053ad2d"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#aadddead24462acb70d59ab6cf053ad2d">coeffs_ratio_</a> = 3.0</td></tr>
-<tr class="memdesc:aadddead24462acb70d59ab6cf053ad2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">ratio of coefficients to input points  <br /></td></tr>
-<tr class="separator:aadddead24462acb70d59ab6cf053ad2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1e1e705957722d368b07d9c371a3db4" id="r_af1e1e705957722d368b07d9c371a3db4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#af1e1e705957722d368b07d9c371a3db4">use_path_smoothing_</a> = true</td></tr>
-<tr class="memdesc:af1e1e705957722d368b07d9c371a3db4"><td class="mdescLeft">&#160;</td><td class="mdescRight">flag to enable/disable the path smoothing  <br /></td></tr>
+<tr class="memitem:afa15f28549aa5736bd27ff4662273dfb" id="r_afa15f28549aa5736bd27ff4662273dfb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#afa15f28549aa5736bd27ff4662273dfb">spline_precision_</a></td></tr>
+<tr class="memdesc:afa15f28549aa5736bd27ff4662273dfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of interpolated points between each pair of input points.  <br /></td></tr>
+<tr class="separator:afa15f28549aa5736bd27ff4662273dfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae448611c761cbd37131522e2cb26ef1e" id="r_ae448611c761cbd37131522e2cb26ef1e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#ae448611c761cbd37131522e2cb26ef1e">spline_order_</a></td></tr>
+<tr class="memdesc:ae448611c761cbd37131522e2cb26ef1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Order of the B-spline used for smoothing.  <br /></td></tr>
+<tr class="separator:ae448611c761cbd37131522e2cb26ef1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae37a47228714388e63bd017beba8fd66" id="r_ae37a47228714388e63bd017beba8fd66"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#ae37a47228714388e63bd017beba8fd66">spline_coeffs_ratio_</a></td></tr>
+<tr class="memdesc:ae37a47228714388e63bd017beba8fd66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ratio between number of spline coefficients and input points.  <br /></td></tr>
+<tr class="separator:ae37a47228714388e63bd017beba8fd66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1e1e705957722d368b07d9c371a3db4" id="r_af1e1e705957722d368b07d9c371a3db4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#af1e1e705957722d368b07d9c371a3db4">use_path_smoothing_</a></td></tr>
+<tr class="memdesc:af1e1e705957722d368b07d9c371a3db4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to enable/disable spline-based path smoothing.  <br /></td></tr>
 <tr class="separator:af1e1e705957722d368b07d9c371a3db4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abaadd66cf1a9eb3a57159bbcf7f77845" id="r_abaadd66cf1a9eb3a57159bbcf7f77845"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#abaadd66cf1a9eb3a57159bbcf7f77845">use_memory_</a> = true</td></tr>
-<tr class="memdesc:abaadd66cf1a9eb3a57159bbcf7f77845"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether to memorize cones  <br /></td></tr>
-<tr class="separator:abaadd66cf1a9eb3a57159bbcf7f77845"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0a38033bb08fd539daddc4505d170dc" id="r_ae0a38033bb08fd539daddc4505d170dc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#ae0a38033bb08fd539daddc4505d170dc">use_optimization_</a></td></tr>
+<tr class="memdesc:ae0a38033bb08fd539daddc4505d170dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to enable/disable optimization-based refinement after spline fitting.  <br /></td></tr>
+<tr class="separator:ae0a38033bb08fd539daddc4505d170dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ee2b505ef2e655c025c80621d058785" id="r_a3ee2b505ef2e655c025c80621d058785"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#a3ee2b505ef2e655c025c80621d058785">car_width_</a></td></tr>
+<tr class="memdesc:a3ee2b505ef2e655c025c80621d058785"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vehicle width in meters.  <br /></td></tr>
+<tr class="separator:a3ee2b505ef2e655c025c80621d058785"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a849bf009324e6bc16b6b23d1472ccabc" id="r_a849bf009324e6bc16b6b23d1472ccabc"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#a849bf009324e6bc16b6b23d1472ccabc">safety_margin_</a></td></tr>
+<tr class="memdesc:a849bf009324e6bc16b6b23d1472ccabc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Additional safety clearance in meters.  <br /></td></tr>
+<tr class="separator:a849bf009324e6bc16b6b23d1472ccabc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37d9e8ef81eb911a402cc33ddbb53b18" id="r_a37d9e8ef81eb911a402cc33ddbb53b18"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#a37d9e8ef81eb911a402cc33ddbb53b18">curvature_weight_</a></td></tr>
+<tr class="memdesc:a37d9e8ef81eb911a402cc33ddbb53b18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Weight for curvature minimization in the optimization cost function.  <br /></td></tr>
+<tr class="separator:a37d9e8ef81eb911a402cc33ddbb53b18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add0647ed15d499b4c3fba7dcfe3f7840" id="r_add0647ed15d499b4c3fba7dcfe3f7840"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#add0647ed15d499b4c3fba7dcfe3f7840">smoothness_weight_</a></td></tr>
+<tr class="memdesc:add0647ed15d499b4c3fba7dcfe3f7840"><td class="mdescLeft">&#160;</td><td class="mdescRight">Weight for path smoothness in the optimization cost function.  <br /></td></tr>
+<tr class="separator:add0647ed15d499b4c3fba7dcfe3f7840"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fe3db71f3e14e1bcf5a2f19956aa351" id="r_a5fe3db71f3e14e1bcf5a2f19956aa351"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#a5fe3db71f3e14e1bcf5a2f19956aa351">safety_weight_</a></td></tr>
+<tr class="memdesc:a5fe3db71f3e14e1bcf5a2f19956aa351"><td class="mdescLeft">&#160;</td><td class="mdescRight">Weight for safety distance from obstacles in the optimization cost function.  <br /></td></tr>
+<tr class="separator:a5fe3db71f3e14e1bcf5a2f19956aa351"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6f69373403f75118d27960670ccb90e" id="r_ae6f69373403f75118d27960670ccb90e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#ae6f69373403f75118d27960670ccb90e">max_iterations_</a></td></tr>
+<tr class="memdesc:ae6f69373403f75118d27960670ccb90e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of iterations for the optimization solver.  <br /></td></tr>
+<tr class="separator:ae6f69373403f75118d27960670ccb90e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4e00b7369576e2bfd934f8440868370" id="r_ad4e00b7369576e2bfd934f8440868370"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#ad4e00b7369576e2bfd934f8440868370">tolerance_</a></td></tr>
+<tr class="memdesc:ad4e00b7369576e2bfd934f8440868370"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convergence tolerance for the optimization solver.  <br /></td></tr>
+<tr class="separator:ad4e00b7369576e2bfd934f8440868370"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>struct for the configuration of the smoothing algorithm </p>
+<div class="textblock"><p>Configuration parameters for the Path Smoothing class. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00008">8</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00007">7</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad9b07e9e5ea9704da1c0c3b9d4145ca5" name="ad9b07e9e5ea9704da1c0c3b9d4145ca5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad9b07e9e5ea9704da1c0c3b9d4145ca5">&#9670;&#160;</a></span>PathSmoothingConfig() <span class="overload">[1/2]</span></h2>
+<a id="a9453d3358e71c8f85b9b2a2144ab40df" name="a9453d3358e71c8f85b9b2a2144ab40df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9453d3358e71c8f85b9b2a2144ab40df">&#9670;&#160;</a></span>PathSmoothingConfig() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -160,15 +183,19 @@ Public Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
+<p>Default constructor. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00071">71</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
+
 </div>
 </div>
-<a id="ac36da4c33f4f49b2300fc73e1e6ff8c2" name="ac36da4c33f4f49b2300fc73e1e6ff8c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac36da4c33f4f49b2300fc73e1e6ff8c2">&#9670;&#160;</a></span>PathSmoothingConfig() <span class="overload">[2/2]</span></h2>
+<a id="a3ac364f84da27917c08dd81742da620d" name="a3ac364f84da27917c08dd81742da620d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ac364f84da27917c08dd81742da620d">&#9670;&#160;</a></span>PathSmoothingConfig() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -180,19 +207,19 @@ Public Attributes</h2></td></tr>
           <td class="memname">PathSmoothingConfig::PathSmoothingConfig </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>precision</em>, </td>
+          <td class="paramname"><em>spline_precision</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>order</em>, </td>
+          <td class="paramname"><em>spline_order</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>coeffs_ratio</em>, </td>
+          <td class="paramname"><em>spline_coeffs_ratio</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -204,7 +231,49 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>use_memory</em>&#160;</td>
+          <td class="paramname"><em>use_optimization</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>car_width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>safety_margin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>curvature_weight</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>smoothness_weight</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>safety_weight</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>max_iterations</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>tolerance</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -219,80 +288,208 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00035">35</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
+<p>Parameterized constructor. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00088">88</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="aadddead24462acb70d59ab6cf053ad2d" name="aadddead24462acb70d59ab6cf053ad2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadddead24462acb70d59ab6cf053ad2d">&#9670;&#160;</a></span>coeffs_ratio_</h2>
+<a id="a3ee2b505ef2e655c025c80621d058785" name="a3ee2b505ef2e655c025c80621d058785"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ee2b505ef2e655c025c80621d058785">&#9670;&#160;</a></span>car_width_</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float PathSmoothingConfig::coeffs_ratio_ = 3.0</td>
+          <td class="memname">double PathSmoothingConfig::car_width_</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>ratio of coefficients to input points </p>
+<p>Vehicle width in meters. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00036">36</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ad874391e5b350093b4d2d791eeb58fab" name="ad874391e5b350093b4d2d791eeb58fab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad874391e5b350093b4d2d791eeb58fab">&#9670;&#160;</a></span>order_</h2>
+<a id="a37d9e8ef81eb911a402cc33ddbb53b18" name="a37d9e8ef81eb911a402cc33ddbb53b18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37d9e8ef81eb911a402cc33ddbb53b18">&#9670;&#160;</a></span>curvature_weight_</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int PathSmoothingConfig::order_ = 3</td>
+          <td class="memname">double PathSmoothingConfig::curvature_weight_</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>order of the spline </p>
+<p>Weight for curvature minimization in the optimization cost function. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00018">18</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00046">46</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a5413260c0c3f9e0644bc3045159a98f6" name="a5413260c0c3f9e0644bc3045159a98f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5413260c0c3f9e0644bc3045159a98f6">&#9670;&#160;</a></span>precision_</h2>
+<a id="ae6f69373403f75118d27960670ccb90e" name="ae6f69373403f75118d27960670ccb90e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6f69373403f75118d27960670ccb90e">&#9670;&#160;</a></span>max_iterations_</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int PathSmoothingConfig::precision_ = 10</td>
+          <td class="memname">int PathSmoothingConfig::max_iterations_</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>ratio of output to input cones </p>
+<p>Maximum number of iterations for the optimization solver. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00013">13</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00061">61</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
 
 </div>
 </div>
-<a id="abaadd66cf1a9eb3a57159bbcf7f77845" name="abaadd66cf1a9eb3a57159bbcf7f77845"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abaadd66cf1a9eb3a57159bbcf7f77845">&#9670;&#160;</a></span>use_memory_</h2>
+<a id="a849bf009324e6bc16b6b23d1472ccabc" name="a849bf009324e6bc16b6b23d1472ccabc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a849bf009324e6bc16b6b23d1472ccabc">&#9670;&#160;</a></span>safety_margin_</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool PathSmoothingConfig::use_memory_ = true</td>
+          <td class="memname">double PathSmoothingConfig::safety_margin_</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>whether to memorize cones </p>
+<p>Additional safety clearance in meters. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00033">33</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00041">41</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5fe3db71f3e14e1bcf5a2f19956aa351" name="a5fe3db71f3e14e1bcf5a2f19956aa351"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fe3db71f3e14e1bcf5a2f19956aa351">&#9670;&#160;</a></span>safety_weight_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double PathSmoothingConfig::safety_weight_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Weight for safety distance from obstacles in the optimization cost function. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00056">56</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="add0647ed15d499b4c3fba7dcfe3f7840" name="add0647ed15d499b4c3fba7dcfe3f7840"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add0647ed15d499b4c3fba7dcfe3f7840">&#9670;&#160;</a></span>smoothness_weight_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double PathSmoothingConfig::smoothness_weight_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Weight for path smoothness in the optimization cost function. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00051">51</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae37a47228714388e63bd017beba8fd66" name="ae37a47228714388e63bd017beba8fd66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae37a47228714388e63bd017beba8fd66">&#9670;&#160;</a></span>spline_coeffs_ratio_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float PathSmoothingConfig::spline_coeffs_ratio_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ratio between number of spline coefficients and input points. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00021">21</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae448611c761cbd37131522e2cb26ef1e" name="ae448611c761cbd37131522e2cb26ef1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae448611c761cbd37131522e2cb26ef1e">&#9670;&#160;</a></span>spline_order_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int PathSmoothingConfig::spline_order_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Order of the B-spline used for smoothing. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00016">16</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="afa15f28549aa5736bd27ff4662273dfb" name="afa15f28549aa5736bd27ff4662273dfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa15f28549aa5736bd27ff4662273dfb">&#9670;&#160;</a></span>spline_precision_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int PathSmoothingConfig::spline_precision_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of interpolated points between each pair of input points. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00011">11</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad4e00b7369576e2bfd934f8440868370" name="ad4e00b7369576e2bfd934f8440868370"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4e00b7369576e2bfd934f8440868370">&#9670;&#160;</a></span>tolerance_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double PathSmoothingConfig::tolerance_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convergence tolerance for the optimization solver. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00066">66</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae0a38033bb08fd539daddc4505d170dc" name="ae0a38033bb08fd539daddc4505d170dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0a38033bb08fd539daddc4505d170dc">&#9670;&#160;</a></span>use_optimization_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PathSmoothingConfig::use_optimization_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flag to enable/disable optimization-based refinement after spline fitting. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -303,14 +500,14 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool PathSmoothingConfig::use_path_smoothing_ = true</td>
+          <td class="memname">bool PathSmoothingConfig::use_path_smoothing_</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>flag to enable/disable the path smoothing </p>
+<p>Flag to enable/disable spline-based path smoothing. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
 
 </div>
 </div>

@@ -1,11 +1,13 @@
 <map id="SLAMNode" name="SLAMNode">
-<area shape="rect" id="Node000001" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="96,566,280,1105"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,353,91,418"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="65,432,107,566,102,567,60,433"/>
-<area shape="rect" id="Node000003" href="$d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html" title=" " alt="" coords="115,268,261,503"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="191,503,191,549,185,549,185,503"/>
-<area shape="rect" id="Node000004" href="$d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="308,306,455,466"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="374,466,355,543,325,612,291,679,286,676,320,610,349,541,369,465"/>
-<area shape="rect" id="Node000005" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="308,5,455,205"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="384,205,384,288,379,288,379,205"/>
+<area shape="rect" id="Node000001" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="188,706,380,1279"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,423,91,488"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="61,502,80,569,105,642,146,734,191,822,186,825,141,736,100,644,75,570,56,503"/>
+<area shape="rect" id="Node000003" href="$d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html" title=" " alt="" coords="115,338,261,573"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="188,573,186,667,186,682,188,689,182,690,181,682,181,667,183,572"/>
+<area shape="rect" id="Node000004" href="$d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="297,376,444,536"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="369,536,355,682,354,690,348,689,349,682,364,535"/>
+<area shape="rect" id="Node000005" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="297,5,444,205"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="373,205,373,359,368,359,368,205"/>
+<area shape="rect" id="Node000006" href="$d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="468,268,649,643"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="482,644,462,683,391,816,386,814,458,681,477,641"/>
 </map>
