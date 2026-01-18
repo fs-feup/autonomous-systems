@@ -2,16 +2,16 @@
 
 #include <cmath>
 
-#include "perception_sensor_lib/observation_model/slam_observation_model/default_observation_model.hpp"
+#include "perception_sensor_lib/observation_model/slam/slam_base_observation_model.hpp"
 
 /**
  * @brief Test the observation model with trivial state
  *
  */
-TEST(ObservationModelTest, test_observation_model_1) {
+TEST(SLAMObservationModelTest, test_observation_model_1) {
   Eigen::VectorXd state(3);
   state << 0, 0, 0;
-  ObservationModel observation_model_;
+  SLAMObservationModel observation_model_;
   Eigen::VectorXd observations = observation_model_.observation_model(state, std::vector<int>());
   EXPECT_FLOAT_EQ(observations.size(), 0);
 }
@@ -20,10 +20,10 @@ TEST(ObservationModelTest, test_observation_model_1) {
  * @brief Test observation model with a single landmark and trivial pose
  *
  */
-TEST(ObservationModelTest, test_observation_model_2) {
+TEST(SLAMObservationModelTest, test_observation_model_2) {
   Eigen::VectorXd state(5);
   state << 0, 0, 0, 1, 1;
-  ObservationModel observation_model_;
+  SLAMObservationModel observation_model_;
   Eigen::VectorXd observations = observation_model_.observation_model(state, std::vector<int>({3}));
   EXPECT_FLOAT_EQ(observations.size(), 2);
   EXPECT_FLOAT_EQ(observations(0), 1);
@@ -34,10 +34,10 @@ TEST(ObservationModelTest, test_observation_model_2) {
  * @brief Test observation model with a single landmark and non-trivial pose
  *
  */
-TEST(ObservationModelTest, test_observation_model_3) {
+TEST(SLAMObservationModelTest, test_observation_model_3) {
   Eigen::VectorXd state(5);
   state << 0, 0, M_PI / 2.0, 1, 1;
-  ObservationModel observation_model_;
+  SLAMObservationModel observation_model_;
   Eigen::VectorXd observations = observation_model_.observation_model(state, std::vector<int>({3}));
   EXPECT_FLOAT_EQ(observations.size(), 2);
   EXPECT_FLOAT_EQ(observations(0), 1);
@@ -48,10 +48,10 @@ TEST(ObservationModelTest, test_observation_model_3) {
  * @brief Test inverse observation model with trivial state and a single observation
  *
  */
-TEST(ObservationModelTest, test_inverse_observation_model1) {
+TEST(SLAMObservationModelTest, test_inverse_observation_model1) {
   Eigen::VectorXd state(3);
   state << 0, 0, 0;
-  ObservationModel observation_model_;
+  SLAMObservationModel observation_model_;
   Eigen::VectorXd observations(2);
   observations << 0, 0;
   Eigen::VectorXd inverse_observations =

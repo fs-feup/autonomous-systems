@@ -1,4 +1,4 @@
-#include "perception_sensor_lib/observation_model/ve_observation_model/no_slip_bicycle_model.hpp"
+#include "perception_sensor_lib/observation_model/ve/no_slip_bicycle_model.hpp"
 
 Eigen::VectorXd NoSlipBicycleModel::expected_observations(
     const Eigen::VectorXd& cg_velocities) const {

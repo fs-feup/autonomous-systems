@@ -1,4 +1,4 @@
-#include "perception_sensor_lib/observation_model/ve_observation_model/no_slip_bicycle_model.hpp"
+#include "motion_lib/s2v_model/bicycle_model.hpp"
 
 #include <gtest/gtest.h>
 
@@ -7,18 +7,64 @@
 /* ----------------------- ODOMETRY MODEL -------------------------*/
 
 /**
+ * @brief Tests the conversion from wheel revolutions
+ * to velocities using the bycicle model
+ *
+ */
+TEST(ODOMETRY_SUBSCRIBER, CONVERSION_TEST) {
+  // Straight Line
+  BicycleModel bicycle_model =
+      BicycleModel(common_lib::car_parameters::CarParameters(0.516, 1.6, 0.79, 1.2, 0.791, 4.0));
+  double rl_speed = 60;
+  double rr_speed = 60;
+  double fl_speed = 60;
+  double fr_speed = 60;
+  double steering_angle = 0;
+  std::pair<double, double> velocity_data =
+      bicycle_model.wheels_velocities_to_cg(rl_speed, rr_speed, fl_speed, fr_speed, steering_angle);
+  EXPECT_NEAR(velocity_data.first, 1.6210, 0.0001);
+  EXPECT_DOUBLE_EQ(velocity_data.second, 0);
+
+  // Curving left
+  rl_speed = 60;
+  rr_speed = 60;
+  fl_speed = 60;
+  fr_speed = 60;
+  steering_angle = M_PI / 8;
+  velocity_data =
+      bicycle_model.wheels_velocities_to_cg(rl_speed, rr_speed, fl_speed, fr_speed, steering_angle);
+  EXPECT_GE(velocity_data.first, 1.6210);
+  EXPECT_LE(velocity_data.first, 1.6210 * 2);
+  EXPECT_LE(velocity_data.second, M_PI);
+  EXPECT_GE(velocity_data.second, M_PI / 8);
+
+  // Curving right
+  rl_speed = 60;
+  rr_speed = 60;
+  fl_speed = 60;
+  fr_speed = 60;
+  steering_angle = -M_PI / 8;
+  velocity_data =
+      bicycle_model.wheels_velocities_to_cg(rl_speed, rr_speed, fl_speed, fr_speed, steering_angle);
+  EXPECT_GE(velocity_data.first, 1.6210);
+  EXPECT_LE(velocity_data.first, 1.6210 * 2);
+  EXPECT_GE(velocity_data.second, -M_PI);
+  EXPECT_LE(velocity_data.second, -M_PI / 8);
+}
+
+/**
  * @brief Test a regular case of the conversion from wheel velocities to cg velocities
  *
  */
-TEST(NoSlipBicycleModelTest, TestCgVelocityToWheels) {
+TEST(BicycleModelTest, TestCgVelocityToWheels) {
   common_lib::car_parameters::CarParameters car_parameters_;
   car_parameters_.dist_cg_2_rear_axis = 1.0;
   car_parameters_.wheelbase = 2.5;
   car_parameters_.wheel_diameter = 0.6;
   car_parameters_.gear_ratio = 4.0;
-  NoSlipBicycleModel bicycle_model = NoSlipBicycleModel(car_parameters_);
+  BicycleModel bicycle_model = BicycleModel(car_parameters_);
   Eigen::Vector3d cg_velocities(10.0, 2.0, 0.1);  // Example velocities
-  Eigen::VectorXd observations = bicycle_model.expected_observations(cg_velocities);
+  Eigen::VectorXd observations = bicycle_model.cg_velocity_to_wheels(cg_velocities);
 
   ASSERT_EQ(observations.size(), 6);
 
@@ -35,15 +81,15 @@ TEST(NoSlipBicycleModelTest, TestCgVelocityToWheels) {
  * when the velocity in x is negative (the car is moving backwards)
  *
  */
-TEST(NoSlipBicycleModelTest, TestCgVelocityToWheelsNegativeVx) {
+TEST(BicycleModelTest, TestCgVelocityToWheelsNegativeVx) {
   common_lib::car_parameters::CarParameters car_parameters_;
   car_parameters_.dist_cg_2_rear_axis = 1.0;
   car_parameters_.wheelbase = 2.5;
   car_parameters_.wheel_diameter = 0.6;
   car_parameters_.gear_ratio = 4.0;
-  NoSlipBicycleModel bicycle_model = NoSlipBicycleModel(car_parameters_);
+  BicycleModel bicycle_model = BicycleModel(car_parameters_);
   Eigen::Vector3d cg_velocities(-10.0, 2.0, 0.1);  // Example velocities
-  Eigen::VectorXd observations = bicycle_model.expected_observations(cg_velocities);
+  Eigen::VectorXd observations = bicycle_model.cg_velocity_to_wheels(cg_velocities);
 
   // Check the size of the observations vector
   ASSERT_EQ(observations.size(), 6);
@@ -61,15 +107,15 @@ TEST(NoSlipBicycleModelTest, TestCgVelocityToWheelsNegativeVx) {
  * when the velocity in x is null and the other velocities are negative
  *
  */
-TEST(NoSlipBicycleModelTest, TestCgVelocityToWheelsZeroVx) {
+TEST(BicycleModelTest, TestCgVelocityToWheelsZeroVx) {
   common_lib::car_parameters::CarParameters car_parameters_;
   car_parameters_.dist_cg_2_rear_axis = 1.0;
   car_parameters_.wheelbase = 2.5;
   car_parameters_.wheel_diameter = 0.6;
   car_parameters_.gear_ratio = 4.0;
-  NoSlipBicycleModel bicycle_model = NoSlipBicycleModel(car_parameters_);
+  BicycleModel bicycle_model = BicycleModel(car_parameters_);
   Eigen::Vector3d cg_velocities(0.0, -2.0, -0.1);  // Example velocities
-  Eigen::VectorXd observations = bicycle_model.expected_observations(cg_velocities);
+  Eigen::VectorXd observations = bicycle_model.cg_velocity_to_wheels(cg_velocities);
 
   // Check the size of the observations vector
   ASSERT_EQ(observations.size(), 6);
@@ -87,15 +133,15 @@ TEST(NoSlipBicycleModelTest, TestCgVelocityToWheelsZeroVx) {
  * when the velocities are null
  *
  */
-TEST(NoSlipBicycleModelTest, TestCgVelocityToWheelsZeroVy) {
+TEST(BicycleModelTest, TestCgVelocityToWheelsZeroVy) {
   common_lib::car_parameters::CarParameters car_parameters_;
   car_parameters_.dist_cg_2_rear_axis = 1.0;
   car_parameters_.wheelbase = 2.5;
   car_parameters_.wheel_diameter = 0.6;
   car_parameters_.gear_ratio = 4.0;
-  NoSlipBicycleModel bicycle_model = NoSlipBicycleModel(car_parameters_);
+  BicycleModel bicycle_model = BicycleModel(car_parameters_);
   Eigen::Vector3d cg_velocities(0.0, 0.0, 0.0);  // Example velocities
-  Eigen::VectorXd observations = bicycle_model.expected_observations(cg_velocities);
+  Eigen::VectorXd observations = bicycle_model.cg_velocity_to_wheels(cg_velocities);
 
   // Check the size of the observations vector
   ASSERT_EQ(observations.size(), 6);
@@ -113,7 +159,7 @@ TEST(NoSlipBicycleModelTest, TestCgVelocityToWheelsZeroVy) {
  * with regular values of the velocities
  *
  */
-TEST(NoSlipBicycleModelTest, TestJacobianCgVelocityToWheels) {
+TEST(BicycleModelTest, TestJacobianCgVelocityToWheels) {
   // Initialize car parameters
   common_lib::car_parameters::CarParameters car_parameters;
   car_parameters.dist_cg_2_rear_axis = 1.0;
@@ -121,14 +167,14 @@ TEST(NoSlipBicycleModelTest, TestJacobianCgVelocityToWheels) {
   car_parameters.wheel_diameter = 0.6;
   car_parameters.gear_ratio = 4.0;
 
-  // Initialize NoSlipBicycleModel with car parameters
-  NoSlipBicycleModel bicycle_model(car_parameters);
+  // Initialize BicycleModel with car parameters
+  BicycleModel bicycle_model(car_parameters);
 
   // Example velocities
   Eigen::Vector3d cg_velocities(10.0, 2.0, 0.1);
 
   // Calculate the Jacobian
-  Eigen::MatrixXd jacobian = bicycle_model.expected_observations_jacobian(cg_velocities);
+  Eigen::MatrixXd jacobian = bicycle_model.jacobian_cg_velocity_to_wheels(cg_velocities);
 
   // Check the size of the Jacobian matrix
   ASSERT_EQ(jacobian.rows(), 6);
@@ -160,7 +206,7 @@ TEST(NoSlipBicycleModelTest, TestJacobianCgVelocityToWheels) {
  * and the angular velocity is negative
  *
  */
-TEST(NoSlipBicycleModelTest, TestJacobianCgVelocityToWheelsZeroVy) {
+TEST(BicycleModelTest, TestJacobianCgVelocityToWheelsZeroVy) {
   // Initialize car parameters
   common_lib::car_parameters::CarParameters car_parameters;
   car_parameters.dist_cg_2_rear_axis = 1.0;
@@ -168,14 +214,14 @@ TEST(NoSlipBicycleModelTest, TestJacobianCgVelocityToWheelsZeroVy) {
   car_parameters.wheel_diameter = 0.6;
   car_parameters.gear_ratio = 4.0;
 
-  // Initialize NoSlipBicycleModel with car parameters
-  NoSlipBicycleModel bicycle_model(car_parameters);
+  // Initialize BicycleModel with car parameters
+  BicycleModel bicycle_model(car_parameters);
 
   // Example velocities
   Eigen::Vector3d cg_velocities(-10.0, 0, -0.1);
 
   // Calculate the Jacobian
-  Eigen::MatrixXd jacobian = bicycle_model.expected_observations_jacobian(cg_velocities);
+  Eigen::MatrixXd jacobian = bicycle_model.jacobian_cg_velocity_to_wheels(cg_velocities);
 
   // Check the size of the Jacobian matrix
   ASSERT_EQ(jacobian.rows(), 6);

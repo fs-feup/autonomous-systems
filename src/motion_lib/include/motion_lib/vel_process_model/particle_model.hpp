@@ -25,4 +25,15 @@ public:
   Eigen::Matrix3d get_jacobian_velocities(const Eigen::Vector3d& previous_velocities,
                                           [[maybe_unused]] const Eigen::Vector3d& imu_data,
                                           const double time_interval) override;
+
+  /**
+   * @brief Returns the Jacobian of the velocity process model with respect to the accelerations.
+   * @param previous_velocities The velocities at the previous time step.
+   * @param accelerations The accelerations applied during the time interval.
+   * @param time_interval The time interval over which the accelerations are applied.
+   * @return The Jacobian matrix of the velocity process model with respect to the accelerations
+   */
+  Eigen::Matrix3d get_jacobian_sensor_data(
+      [[maybe_unused]] const Eigen::Vector3d& previous_velocities,
+      [[maybe_unused]] const Eigen::Vector3d& accelerations, const double time_interval) override;
 };

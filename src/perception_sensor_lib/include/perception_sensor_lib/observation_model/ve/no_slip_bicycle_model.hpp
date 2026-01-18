@@ -1,6 +1,6 @@
 #pragma once
 
-#include "base_observation_model.hpp"
+#include "ve_base_observation_model.hpp"
 
 class NoSlipBicycleModel : public VEObservationModel {
 public:
