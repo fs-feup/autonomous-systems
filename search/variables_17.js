@@ -4,7 +4,7 @@ var searchData=
   ['wall_5fremoval_5f_1',['wall_removal_',['../de/dda/struct_perception_parameters.html#a1e4bfc23f5dc070db564eb2b6d8c0b5d',1,'PerceptionParameters']]],
   ['weight_5fvalues_2',['weight_values',['../de/dda/struct_perception_parameters.html#ae9eb817b79c0cc3075eda6bb363ce0b3',1,'PerceptionParameters']]],
   ['wheel_5fdiameter_3',['wheel_diameter',['../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html#a1031a5eab243d2bfc52e07a2045fe2e2',1,'common_lib::car_parameters::CarParameters']]],
-  ['wheel_5fradius_5f_4',['wheel_radius_',['../d4/d89/class_inspection_functions.html#a9b1e2afcabc4da951c3314e88f49b953',1,'InspectionFunctions']]],
+  ['wheel_5fradius_5f_4',['wheel_radius_',['../d4/d89/class_inspection_functions.html#a9b1e2afcabc4da951c3314e88f49b953',1,'InspectionFunctions::wheel_radius_'],['../d6/d89/class_bicycle_model.html#aa9a5deeb76a2dd23cc7f560cf5fd6917',1,'BicycleModel::wheel_radius_']]],
   ['wheel_5fspeed_5fnoise_5f_5',['wheel_speed_noise_',['../d5/db7/struct_v_e_parameters.html#a20f43a6e7b949d037fd30bb4487b31d4',1,'VEParameters']]],
   ['wheel_5fspeeds_5fsub_5f_6',['wheel_speeds_sub_',['../d1/dcb/class_pacsim_adapter.html#a6387a801bc7740dca5431401987b0c77',1,'PacsimAdapter']]],
   ['wheelbase_7',['wheelbase',['../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html#a74460463989d384a0733961437cf43ac',1,'common_lib::car_parameters::CarParameters']]],

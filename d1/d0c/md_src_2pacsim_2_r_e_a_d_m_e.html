@@ -95,12 +95,12 @@ $(document).ready(function(){initNavTree('d1/d0c/md_src_2pacsim_2_r_e_a_d_m_e.ht
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><img src="../../doc/logo_full.png" alt="Project logo" class="inline"/> </p>
-<h1><a class="anchor" id="autotoc_md123"></a>
+<h1><a class="anchor" id="autotoc_md134"></a>
 PacSim</h1>
 <p>PacSim (<a class="el" href="../../d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle.">Planning</a> and Controls Simulator) is a simulator for Formula Student Driverless competitions originally developed at <a href="https://elbflorace.de/">Elbflorace</a>.</p>
 <p>Example of a pipeline running in PacSim with visualizations in Foxglove:</p>
 <p><img src="../../doc/demo.gif" alt="Demo gif" class="inline"/></p>
-<h1><a class="anchor" id="autotoc_md124"></a>
+<h1><a class="anchor" id="autotoc_md135"></a>
 Features</h1>
 <ul>
 <li>Closed loop simulation of the autonomous system.<ul>
@@ -124,32 +124,32 @@ Features</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md125"></a>
+<h1><a class="anchor" id="autotoc_md136"></a>
 Prerequisites</h1>
 <p>This package is developed and tested on Ubuntu 22.04 with ROS2 Iron.</p>
 <p>Install dependencies:</p>
 <p><code>sudo apt install ros-iron-desktop ros-iron-xacro</code></p>
-<h1><a class="anchor" id="autotoc_md126"></a>
+<h1><a class="anchor" id="autotoc_md137"></a>
 How to get started</h1>
 <p>To use PacSim with your autonomous system, you need to create a message converter node to match your own interfaces with the simulator.</p>
 <p>We provide an example launch file (example.launch.py) which shows an example of how to start the simulator node and the robot_state_publisher for the 3d visualization of the car.</p>
 <p>The sensors and vehicle model are configured using config files. Examples are provided in the config folder. Things such as the discipline or the path of the track file or config files are defined using ros2 parameters.</p>
 <p>The default vehicle model provided is rather simple and just meant to be a starting point. You are encouraged to integrate your own vehicle model by implementing the <code><a class="el" href="../../d1/d5c/class_i_vehicle_model.html">IVehicleModel</a></code> class.</p>
-<h2><a class="anchor" id="autotoc_md127"></a>
+<h2><a class="anchor" id="autotoc_md138"></a>
 Docker Dev Container</h2>
 <p>A <a href="../.././.devcontainer/Dockerfile">Dockerfile</a> is configured that already contains all the dependencies. It can be used with a <a href="../.././.devcontainer">dev container environment</a> or launched independently wiht the <a href="../.././docker-compose.yml">docker-compose</a> file. For more info, check the <a class="el" href="../../de/da5/md_src_2pacsim_2doc_2docker__usage.html">docs folder</a>.</p>
-<h1><a class="anchor" id="autotoc_md128"></a>
+<h1><a class="anchor" id="autotoc_md139"></a>
 Contributing</h1>
 <p>Contributions in any form (reports, feedback, requests, submissions) are welcome. Preferably create an Issue or Pull request for that.</p>
 <p>The project also has a <a href="https://discord.gg/Ay3XzB5p33">discord server</a>.</p>
-<h1><a class="anchor" id="autotoc_md129"></a>
+<h1><a class="anchor" id="autotoc_md140"></a>
 Known issues</h1>
 <ul>
 <li>In Foxglove Studio (in contrast to RViz) the mesh of the car is displayed incorrectly using default settings. To fix this go to the left sidebar of the 3d panel -&gt; Scene -&gt; Mesh up axis and select Z-up. Restart to apply the change.</li>
 <li>Currently the track editor can't handle the skidpad and acceleration tracks (lanesFirstWithLastConnected = False) properly.</li>
 <li>Currently there exists no editor and visualization for the grip map.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md130"></a>
+<h1><a class="anchor" id="autotoc_md141"></a>
 Acknowledgements</h1>
 <p>The initial version was developed at Elbflorace by:</p><ul>
 <li>Alexander Phieler (Main development)</li>
@@ -157,7 +157,7 @@ Acknowledgements</h1>
 <li>Sergio Antuna (Artwork)</li>
 <li>Tim Hanel (3d car model integration)</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md131"></a>
+<h1><a class="anchor" id="autotoc_md142"></a>
 Report Generation</h1>
 <p>As mentioned above, pacsim generates a final report after every simulation that contains some relevant metrics that allow us to evaluate performance and validate changes. Currently, the report shows the following:</p><ul>
 <li>Discipline</li>
@@ -180,7 +180,7 @@ Report Generation</h1>
 <li><a class="el" href="../../db/df3/struct_track.html">Track</a> name</li>
 </ul>
 <p>These metrics can be split in groups to evaluate the subsystems' performance. We can evaluate performance for the following subsystems:</p>
-<h4><a class="anchor" id="autotoc_md132"></a>
+<h4><a class="anchor" id="autotoc_md143"></a>
 Path Planning:</h4>
 <ul>
 <li>Off-course detection: This metric can be used to validate that the path planning subsystem is working as intended and not pushing the car off-track.</li>
@@ -188,12 +188,12 @@ Path Planning:</h4>
 <li>Recorded penalties: Can be used to evaluate possible shortcuts or wrong paths taken.</li>
 <li>Sector and Lap times: Path planning has a large impact on vehicle performance on track, therefore a large increase in sector and lap times can indicate an error in path planning.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md133"></a>
+<h4><a class="anchor" id="autotoc_md144"></a>
 Perception</h4>
 <p><a class="el" href="../../de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection.">Perception</a> cannot be evaluated directly unless we increase the data on the report. Right now the only way to evaluate perception is to find errors in other subsystems that depend on perception. Possible data we could add to the report in order to properly evaluate perception:</p><ul>
 <li>Sensor detection report: A simple list of all the sensors that are in the car with a boolean that shows if they were active or not.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md134"></a>
+<h4><a class="anchor" id="autotoc_md145"></a>
 State Estimation</h4>
 <p>To validate state estimation we will use the same approach we used to path planning in this case we can add a few metrics:</p><ul>
 <li>Off-course detection: This metric can be used to validate that state estimation subsystem is correctly outputting the car's state which allows a smooth path.</li>
@@ -202,13 +202,13 @@ State Estimation</h4>
 <li>Sector and Lap times: State Estimation has a large impact on vehicle performance on track, therefore a large increase in sector and lap times can indicate an error in state estimation.</li>
 <li>Car stopped after the end of the event: This functionality should also come from state estimation and then passed to control.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md135"></a>
+<h4><a class="anchor" id="autotoc_md146"></a>
 Driverless Control</h4>
 <p>Almost every single metric is used to evaluate control, if the car is off-course, takes cones, penalties or increases the run time, control could be the issue.</p>
-<h4><a class="anchor" id="autotoc_md136"></a>
+<h4><a class="anchor" id="autotoc_md147"></a>
 Data Infrastructure and Simulation &amp; Validation</h4>
 <p>Data Infrastructure and Simulation &amp; validation cannot be evaluated by this simulation.</p>
-<h4><a class="anchor" id="autotoc_md137"></a>
+<h4><a class="anchor" id="autotoc_md148"></a>
 Conclusion</h4>
 <p>The current report generated by pacsim contains a lot of interesting information. Realistically it is very hard to separate a subsystem from another purely based on the current data. Most subsystems are so interdependent that it is almost impossible to detect if the error is in one or the other. Adding the suggested metric could allow for separation between perception and the rest. Generating automated tests is possible but analyzing the results will be paramount to ensure that we can detect which subsystem is failing. </p>
 </div></div><!-- contents -->

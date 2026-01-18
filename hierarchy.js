@@ -116,6 +116,7 @@ var hierarchy =
     [ "common_lib::sensor_data::ImuData", "df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html", null ],
     [ "ImuData", "d6/dc7/struct_imu_data.html", null ],
     [ "InspectionFunctions", "d4/d89/class_inspection_functions.html", null ],
+    [ "InvictaSimParameters", "df/d28/struct_invicta_sim_parameters.html", null ],
     [ "IVehicleModel", "d1/d5c/class_i_vehicle_model.html", [
       [ "VehicleModelBicycle", "dd/d52/class_vehicle_model_bicycle.html", null ]
     ] ],
@@ -162,6 +163,7 @@ var hierarchy =
         [ "VehicleAdapter", "d1/df1/class_vehicle_adapter.html", null ]
       ] ],
       [ "InspectionMission", "de/d3d/class_inspection_mission.html", null ],
+      [ "InvictaSimNode", "d9/d43/class_invicta_sim_node.html", null ],
       [ "MockerNode", "d1/d4c/class_mocker_node.html", null ],
       [ "Perception", "de/d07/class_perception.html", null ],
       [ "Planning", "d9/db5/class_planning.html", [
@@ -315,6 +317,9 @@ var hierarchy =
       [ "ConstantVelocityModel", "df/d42/class_constant_velocity_model.html", null ],
       [ "ConstantVelocityTurnrateModel", "d4/d11/class_constant_velocity_turnrate_model.html", null ],
       [ "MockV2PModel", "d5/dda/class_mock_v2_p_model.html", null ]
+    ] ],
+    [ "VehicleModel", "d6/dbc/class_vehicle_model.html", [
+      [ "BicycleModel", "d6/d89/class_bicycle_model.html", null ]
     ] ],
     [ "common_lib::structures::VehicleState", "d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html", null ],
     [ "common_lib::structures::Velocities", "d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html", null ],

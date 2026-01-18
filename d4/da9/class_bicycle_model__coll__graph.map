@@ -1,0 +1,5 @@
+<map id="BicycleModel" name="BicycleModel">
+<area shape="rect" id="Node000001" title="Simple bicycle model structure." alt="" coords="5,339,151,844"/>
+<area shape="rect" id="Node000002" href="$d6/dbc/class_vehicle_model.html" title="Vehicle model interface." alt="" coords="13,5,143,291"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,306,81,339,75,339,75,306"/>
+</map>

@@ -1,8 +1,8 @@
 <map id="src/pacsim/test" name="src/pacsim/test">
 <area shape="rect" id="node1" href="dir_91d606d940f8e5e16fd217c08e51c1b1.html" title="include" alt="" coords="77,137,139,162"/>
 <area shape="rect" id="node3" href="dir_0d46b99783482a477ecd306a105a47f4.html" title="VehicleModelBicycle" alt="" coords="37,63,179,89"/>
-<area shape="poly" id="edge1" href="dir_000244_000095.html" alt="" coords="111,89,111,121,105,121,105,89"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000244_000095.html" title="1" alt="" coords="113,111,120,126"/>
+<area shape="poly" id="edge1" href="dir_000254_000098.html" alt="" coords="111,89,111,121,105,121,105,89"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000254_000098.html" title="1" alt="" coords="113,111,120,126"/>
 <area shape="rect" id="clust2" href="dir_875206bd8fd8a9e1ff4a48cab3e43d69.html" alt="" coords="27,52,256,99"/>
 <area shape="rect" id="clust1" href="dir_fb94b0b4413cc85f51c078609cfdc0e2.html" title="pacsim" alt="" coords="16,16,267,173"/>
 </map>

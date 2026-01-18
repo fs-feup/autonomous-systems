@@ -104,6 +104,9 @@ var namespaces_dup =
       [ "output_string", "da/ddb/namespaceformat.html#af8b4353ac83e6db6c2d75cb1b2428832", null ]
     ] ],
     [ "guiLogic", "db/d15/namespacegui_logic.html", "db/d15/namespacegui_logic" ],
+    [ "invictasim", "dd/d91/namespaceinvictasim.html", [
+      [ "load_config", "dd/d91/namespaceinvictasim.html#afcb93f3491e15b3cd3b1ffa65a954bba", null ]
+    ] ],
     [ "LidarPoint", "dc/d9c/namespace_lidar_point.html", [
       [ "PointIntensity", "dc/d9c/namespace_lidar_point.html#a8edce3288bc1c20a132f287330d99cf9", null ],
       [ "PointRing", "dc/d9c/namespace_lidar_point.html#aeafcf936beaf572e949b0c4bdc0e2087", null ],

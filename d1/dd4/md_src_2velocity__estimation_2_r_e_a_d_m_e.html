@@ -94,11 +94,11 @@ $(document).ready(function(){initNavTree('d1/dd4/md_src_2velocity__estimation_2_
   <div class="headertitle"><div class="title">Velocity Estimation Package</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md220"></a> </p>
-<h1><a class="anchor" id="autotoc_md221"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md231"></a> </p>
+<h1><a class="anchor" id="autotoc_md232"></a>
 Description</h1>
 <p>This package is responsible for estimating the velocity of the vehicle based on measurements by the sensors. The results of this estimation are meant to be used for SLAM and Control. The package has enough modularity that using different estimators and running it on different environments only requires changing/creating launch files.</p>
-<h1><a class="anchor" id="autotoc_md222"></a>
+<h1><a class="anchor" id="autotoc_md233"></a>
 Directory Structure</h1>
 <ul>
 <li><a href="../.././include/">include</a>: declarations of all classes and functions, implementations of factories<ul>
@@ -115,21 +115,21 @@ Directory Structure</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md223"></a>
+<h1><a class="anchor" id="autotoc_md234"></a>
 Launch Configurations</h1>
 <ul>
 <li><a href="../.././launch/pacsim.launch.py">pacsim.launch.py</a>: Launch file for the PacSim simulator</li>
 <li><a href="../.././launch/vehicle.launch.py">vehicle.launch.py</a>: Launch file for the vehicle</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md224"></a>
+<h1><a class="anchor" id="autotoc_md235"></a>
 How to Run</h1>
-<h2><a class="anchor" id="autotoc_md225"></a>
+<h2><a class="anchor" id="autotoc_md236"></a>
 Install Dependencies</h2>
 <div class="fragment"><div class="line">./dependencies_install.sh</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md226"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md237"></a>
 Compiling</h2>
 <div class="fragment"><div class="line">colcon build --packages-up-to velocity_estimation</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md227"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md238"></a>
 Running</h2>
 <p>Use a launch file:</p>
 <div class="fragment"><div class="line">source ./install/setup.bash # If in a new terminal</div>
@@ -137,26 +137,26 @@ Running</h2>
 </div><!-- fragment --><p>or run directly:</p>
 <div class="fragment"><div class="line">source ./install/setup.bash # If in a new terminal</div>
 <div class="line">ros2 run velocity_estimation velocity_estimation</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md228"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md239"></a>
 Testing</h2>
 <div class="fragment"><div class="line">colcon test --packages-select velocity_estimation # use event-handler=console_direct+ for imediate output</div>
 </div><!-- fragment --><p>To check test results: </p><div class="fragment"><div class="line">colcon test-result --all --verbose</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md229"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md240"></a>
 Estimators</h1>
-<h2><a class="anchor" id="autotoc_md230"></a>
+<h2><a class="anchor" id="autotoc_md241"></a>
 EKF</h2>
 <p>This estimator is an extension of the Kalman <a class="el" href="../../d2/d70/class_filter.html" title="Abstract base class that defines the interface for single variable filters Derived classes must imple...">Filter</a> for non-linear models. It's car model is the kinematic bicycle model, which assumes no-slip in the tires, with lateral dynamics included. The sensors used are an IMU, wheel speed sensors, a steering angle sensor and a motor rpm sensor.</p>
-<h1><a class="anchor" id="autotoc_md231"></a>
+<h1><a class="anchor" id="autotoc_md242"></a>
 Structure</h1>
 <p>This UML diagram shows how the classes that compose this package are related to each other. The main takeaway is that there is a main class called <a class="el" href="../../d3/d43/class_v_e_node.html" title="Node class for the velocity estimation node.">VENode</a>, a ROS2 node, which depends on a velocity estimator to do the actual velocity estimation.</p>
 <p><img src="../../../../docs/diagrams/velocity_estimation/VelocityEstimation.drawio.png" alt="Diagram" class="inline"/></p>
-<h1><a class="anchor" id="autotoc_md232"></a>
+<h1><a class="anchor" id="autotoc_md243"></a>
 Design</h1>
 <p>Important design decisions:</p><ul>
 <li>The class <a href="../.././include/node/node.hpp">VENode</a> depends on an <a href="../.././include/estimators/estimator.hpp">abstract estimator</a> to make it easier to implement new estimation methods.</li>
 <li>The parameters in the launch files determine the <a href="../.././include/adapters/parameters_factory.hpp">adapter</a> and the <a href="../.././include/adapters/estimator_factory.hpp">estimator</a> to be used, through corresponding and are created in corresponding factories.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md233"></a>
+<h1><a class="anchor" id="autotoc_md244"></a>
 Important Dependencies</h1>
 <ul>
 <li><a href="https://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen3</a> </li>

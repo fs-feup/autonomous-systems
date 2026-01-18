@@ -1,51 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" title=" " alt="" coords="5,573,98,599"/>
-<area shape="rect" id="Node000001" href="$de/db8/class_acceleration_trimming_test.html" title="Test class for setting up data and testing AccelerationTrimming algorithm." alt="" coords="183,5,357,31"/>
-<area shape="poly" id="edge115_Node000000_Node000001" title=" " alt="" coords="51,558,56,445,71,290,83,211,98,139,118,81,130,58,144,40,161,27,181,19,184,24,164,32,148,44,135,61,123,83,104,141,88,212,76,290,62,445,56,558"/>
-<area shape="rect" id="Node000002" href="$d1/df5/class_circunference_center_calculation_test.html" title="Test class for setting up data and testing CircinferenceCenterCalculation algorithm." alt="" coords="155,55,385,80"/>
-<area shape="poly" id="edge116_Node000000_Node000002" title=" " alt="" coords="51,557,59,454,74,313,86,243,102,178,121,126,144,90,158,79,161,83,148,93,125,128,107,180,91,244,80,314,64,454,57,558"/>
-<area shape="rect" id="Node000003" href="$d1/dad/class_cut_trimming_test.html" title="Test class for setting up data and testing CutTrimming algorithm." alt="" coords="209,104,331,130"/>
-<area shape="poly" id="edge117_Node000000_Node000003" title=" " alt="" coords="52,557,61,463,78,338,90,275,105,218,122,171,144,139,174,120,208,113,210,118,176,125,148,143,127,173,110,219,95,276,83,338,66,463,57,558"/>
-<area shape="rect" id="Node000004" href="$da/dcf/class_cylinder_validator_test.html" title="Test fixture for CylinderValidator class." alt="" coords="198,153,342,179"/>
-<area shape="poly" id="edge118_Node000000_Node000004" title=" " alt="" coords="53,558,63,473,81,362,108,257,124,216,144,188,168,172,196,164,198,169,171,177,148,192,129,219,113,259,86,363,68,474,58,558"/>
-<area shape="rect" id="Node000005" href="$d7/d88/class_displacement_validator_test.html" title="Test fixture for DisplacementValidator class." alt="" coords="181,203,359,228"/>
-<area shape="poly" id="edge119_Node000000_Node000005" title=" " alt="" coords="54,557,66,482,85,386,111,296,126,261,144,238,161,226,180,218,182,223,163,230,148,241,131,264,116,298,90,388,71,483,59,558"/>
-<area shape="rect" id="Node000006" href="$d3/d78/class_e_k_f_s_l_a_m_solver_test.html" title=" " alt="" coords="197,252,343,278"/>
-<area shape="poly" id="edge120_Node000000_Node000006" title=" " alt="" coords="50,558,54,500,67,427,79,389,95,351,117,317,144,287,168,272,196,263,197,269,170,277,147,291,121,320,100,354,84,391,72,428,59,501,55,558"/>
-<area shape="rect" id="Node000007" href="$d7/d05/class_graph_slam_solver_test.html" title="Whitebox integration test for the GraphSLAMSolver." alt="" coords="195,301,345,327"/>
-<area shape="poly" id="edge121_Node000000_Node000007" title=" " alt="" coords="52,557,59,509,74,449,102,388,121,360,144,336,168,322,194,314,196,319,170,327,147,340,125,363,106,390,79,451,64,510,57,558"/>
-<area shape="rect" id="Node000008" href="$dc/d70/class_grid_clustering_test.html" title="Test fixture for the GridClustering class." alt="" coords="205,351,335,376"/>
-<area shape="poly" id="edge122_Node000000_Node000008" title=" " alt="" coords="55,558,65,519,82,472,108,425,124,404,144,385,173,370,204,362,206,367,175,375,147,390,128,407,112,428,87,474,70,520,60,559"/>
-<area shape="rect" id="Node000009" href="$d9/d7c/class_height_validator_test.html" title="Test fixture for HeightValidator class." alt="" coords="202,400,338,426"/>
-<area shape="poly" id="edge123_Node000000_Node000009" title=" " alt="" coords="60,557,90,495,114,462,144,435,171,421,201,413,202,418,173,426,147,439,118,465,95,497,65,560"/>
-<area shape="rect" id="Node000010" href="$de/d11/class_himmelsbach_test.html" title=" " alt="" coords="206,449,334,475"/>
-<area shape="poly" id="edge124_Node000000_Node000010" title=" " alt="" coords="67,559,100,520,121,500,144,484,174,471,205,464,207,469,176,476,147,489,124,504,104,523,71,562"/>
-<area shape="rect" id="Node000011" href="$de/dab/class_i_c_p_suite.html" title="Test suite for the ICP class." alt="" coords="233,499,307,524"/>
-<area shape="poly" id="edge125_Node000000_Node000011" title=" " alt="" coords="85,563,145,533,190,520,232,513,233,518,191,526,147,538,87,567"/>
-<area shape="rect" id="Node000012" href="$d7/d4e/class_integration_test.html" title=" " alt="" coords="216,548,324,574"/>
-<area shape="poly" id="edge126_Node000000_Node000012" title=" " alt="" coords="113,576,215,564,216,570,113,582"/>
-<area shape="rect" id="Node000013" href="$de/d1e/class_least_squares_differentiation_test.html" title="Fixture for testing the LeastSquaresDifferentiation class." alt="" coords="166,597,374,623"/>
-<area shape="poly" id="edge127_Node000000_Node000013" title=" " alt="" coords="113,590,166,596,165,601,113,596"/>
-<area shape="rect" id="Node000014" href="$d2/dd4/class_n_points_validator_test.html" title="Test fixture for NPointsValidator class." alt="" coords="197,647,343,672"/>
-<area shape="poly" id="edge128_Node000000_Node000014" title=" " alt="" coords="88,605,147,633,197,647,196,652,145,638,85,610"/>
-<area shape="rect" id="Node000015" href="$de/de3/class_perception_integration_test.html" title="Test class for blackbox perception integration tests." alt="" coords="185,696,355,722"/>
-<area shape="poly" id="edge129_Node000000_Node000015" title=" " alt="" coords="72,610,104,648,124,667,147,682,185,697,183,702,144,687,121,671,100,652,68,613"/>
-<area shape="rect" id="Node000016" href="$d3/d0d/class_perception_performance_test.html" title="Test fixture for performance testing of perception algorithms." alt="" coords="178,745,362,771"/>
-<area shape="poly" id="edge130_Node000000_Node000016" title=" " alt="" coords="65,612,95,674,118,706,147,732,179,747,177,752,144,736,114,709,90,677,60,615"/>
-<area shape="rect" id="Node000017" href="$df/d4f/class_performance_test.html" title=" " alt="" coords="209,795,331,820"/>
-<area shape="poly" id="edge131_Node000000_Node000017" title=" " alt="" coords="60,614,70,652,87,698,112,744,128,764,147,781,177,797,209,804,208,809,175,802,144,786,125,768,108,747,82,700,65,654,55,615"/>
-<area shape="rect" id="Node000018" href="$d4/d0c/class_pure_pursuit_test_fixture.html" title=" " alt="" coords="193,844,347,870"/>
-<area shape="poly" id="edge132_Node000000_Node000018" title=" " alt="" coords="57,614,64,662,80,721,106,781,125,808,147,831,169,844,193,852,192,857,166,849,144,835,121,811,102,783,75,723,59,663,52,615"/>
-<area shape="rect" id="Node000019" href="$d8/d5a/class_r_a_n_s_a_c_test.html" title="Test class for setting up data and testing RANSAC algorithm." alt="" coords="219,893,321,919"/>
-<area shape="poly" id="edge133_Node000000_Node000019" title=" " alt="" coords="55,614,59,671,73,743,84,781,100,817,121,851,147,880,163,891,181,898,219,905,218,910,179,903,161,896,144,884,117,854,96,820,79,783,67,745,54,672,50,615"/>
-<area shape="rect" id="Node000020" href="$df/d55/class_skidpad_trimming_test.html" title=" " alt="" coords="196,943,344,968"/>
-<area shape="poly" id="edge134_Node000000_Node000020" title=" " alt="" coords="59,614,71,689,90,784,116,873,131,907,147,930,170,944,196,952,195,957,168,949,144,933,126,910,111,875,85,785,66,690,54,615"/>
-<area shape="rect" id="Node000021" href="$d2/d7b/class_sliding_window_levenberg_optimizer_test.html" title="Whitebox unit test for the SlidingWindowLevenbergOptimizer." alt="" coords="146,992,394,1018"/>
-<area shape="poly" id="edge135_Node000000_Node000021" title=" " alt="" coords="58,614,68,698,86,808,113,912,129,952,148,979,161,989,158,993,144,983,124,955,108,914,81,809,63,699,53,615"/>
-<area shape="rect" id="Node000022" href="$d9/d2d/class_standard_deviation_test.html" title="Fixture for testing the DeviationValidator class." alt="" coords="193,1041,347,1067"/>
-<area shape="poly" id="edge136_Node000000_Node000022" title=" " alt="" coords="57,615,66,709,83,833,95,896,110,952,127,998,148,1028,169,1043,194,1051,192,1056,166,1047,144,1032,123,1000,105,954,90,897,78,834,61,709,52,615"/>
-<area shape="rect" id="Node000023" href="$d9/d4d/class_vehicle_model_test.html" title=" " alt="" coords="207,1091,333,1116"/>
-<area shape="poly" id="edge137_Node000000_Node000023" title=" " alt="" coords="57,615,64,718,80,858,92,928,107,991,125,1043,148,1078,175,1095,207,1103,206,1108,173,1100,144,1081,121,1046,102,993,86,929,74,858,59,718,51,615"/>
-<area shape="rect" id="Node000024" href="$d7/d1e/class_z_score_validator_test.html" title="Fixture for testing the ZScoreValidatorTest class." alt="" coords="200,1140,340,1166"/>
-<area shape="poly" id="edge138_Node000000_Node000024" title=" " alt="" coords="56,614,62,727,76,881,88,959,104,1031,123,1088,135,1110,147,1127,171,1143,200,1151,198,1156,169,1148,144,1131,130,1113,119,1091,99,1032,83,960,71,882,56,727,51,614"/>
+<area shape="rect" id="Node000000" href="$d1/d48/class_steering_motor_model.html" title=" " alt="" coords="5,5,143,31"/>
+<area shape="rect" id="Node000001" href="$d0/db2/class_p_i_d_steering_motor.html" title=" " alt="" coords="191,5,315,31"/>
+<area shape="poly" id="edge115_Node000000_Node000001" title=" " alt="" coords="158,16,190,16,190,21,158,21"/>
 </map>

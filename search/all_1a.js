@@ -14,7 +14,7 @@ var searchData=
   ['wheel_5fdiameter_11',['wheel_diameter',['../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html#a1031a5eab243d2bfc52e07a2045fe2e2',1,'common_lib::car_parameters::CarParameters']]],
   ['wheel_5fencoders_2ecpp_12',['wheel_encoders.cpp',['../d7/d70/wheel__encoders_8cpp.html',1,'']]],
   ['wheel_5fencoders_2ehpp_13',['wheel_encoders.hpp',['../de/de3/wheel__encoders_8hpp.html',1,'']]],
-  ['wheel_5fradius_5f_14',['wheel_radius_',['../d4/d89/class_inspection_functions.html#a9b1e2afcabc4da951c3314e88f49b953',1,'InspectionFunctions']]],
+  ['wheel_5fradius_5f_14',['wheel_radius_',['../d4/d89/class_inspection_functions.html#a9b1e2afcabc4da951c3314e88f49b953',1,'InspectionFunctions::wheel_radius_'],['../d6/d89/class_bicycle_model.html#aa9a5deeb76a2dd23cc7f560cf5fd6917',1,'BicycleModel::wheel_radius_']]],
   ['wheel_5fspeed_5fnoise_5f_15',['wheel_speed_noise_',['../d5/db7/struct_v_e_parameters.html#a20f43a6e7b949d037fd30bb4487b31d4',1,'VEParameters']]],
   ['wheel_5fspeeds_5fsub_5f_16',['wheel_speeds_sub_',['../d1/dcb/class_pacsim_adapter.html#a6387a801bc7740dca5431401987b0c77',1,'PacsimAdapter']]],
   ['wheel_5fspeeds_5fsubscription_5fcallback_17',['wheel_speeds_subscription_callback',['../d0/d1d/class_eufs_adapter.html#a21f75aa612f5b12f626e0ebe6ecc4e5b',1,'EufsAdapter::wheel_speeds_subscription_callback()'],['../d7/d8e/class_fsds_adapter.html#a9291f29ff772d123cadacbddeb3425ab',1,'FsdsAdapter::wheel_speeds_subscription_callback()'],['../d1/dcb/class_pacsim_adapter.html#aab061eb3b58bd6eae572bd11c63077f8',1,'PacsimAdapter::wheel_speeds_subscription_callback()'],['../d1/df1/class_vehicle_adapter.html#af96b3cf76411fcbfd826a13bd8030649',1,'VehicleAdapter::wheel_speeds_subscription_callback()']]],
