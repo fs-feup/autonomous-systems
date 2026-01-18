@@ -10,46 +10,41 @@
  */
 class ConstantVelocityTurnrateModel : public V2PMotionModel {
 public:
-  explicit ConstantVelocityTurnrateModel();
-
-  /**
-   * @brief Construct a new ConstantVelocityTurnrateModel object with a base process noise
-   *
-   * @param base_process_noise standard non variating noise if used
-   */
-  explicit ConstantVelocityTurnrateModel(const Eigen::Vector3d base_process_noise);
-
   /**
    * @brief Gives the increments to the pose instead of the next pose
    *
    * @param previous_pose
-   * @param velocities (vx, vy, omega)
+   * @param motion_data (vx, vy, omega)
    * @param delta_t
    * @return Eigen::Vector3d
    */
   Eigen::Vector3d get_pose_difference(const Eigen::Vector3d &previous_pose,
-                                      const Eigen::Vector3d &velocities,
+                                      const Eigen::VectorXd &motion_data,
                                       const double delta_t) override;
 
   /**
-   * @brief Get the Jacobian matrix of the motion model in relation to velocities (commands)
+   * @brief Get the Jacobian matrix of the motion model in relation to the pose (state)
+   * @details This is used to multiplty by the previous covariance to get the matrix, propagating
+   * the previous pose error to the current pose error (variance)
    * @param previous_pose
-   * @param velocities
+   * @param motion_data
    * @param delta_t
    * @return Eigen::Matrix3d
    */
   Eigen::Matrix3d get_jacobian_pose(const Eigen::Vector3d &previous_pose,
-                                    const Eigen::Vector3d &velocities,
+                                    const Eigen::VectorXd &motion_data,
                                     const double delta_t) override;
 
   /**
-   * @brief Get the Jacobian matrix of the motion model in relation to velocities (commands)
+   * @brief Get the Jacobian matrix of the motion model in relation to motion data (commands)
+   * @details This is used to multiplty by the motion data noise to get the matrix to be summed to
+   * the covariance
    * @param previous_pose
-   * @param velocities
+   * @param motion_data
    * @param delta_t
    * @return Eigen::Matrix3d
    */
-  Eigen::Matrix3d get_jacobian_velocities(const Eigen::Vector3d &previous_pose,
-                                          const Eigen::Vector3d &velocities,
-                                          const double delta_t) override;
+  Eigen::MatrixXd get_jacobian_motion_data(const Eigen::Vector3d &previous_pose,
+                                           const Eigen::VectorXd &motion_data,
+                                           const double delta_t) override;
 };

@@ -23,6 +23,7 @@ planning:
   smoothing_spline_precision: 5
   smoothing_spline_order: 3
   smoothing_spline_coeffs_ratio: 3.0
+  smoothing_min_path_point_distance: 0.3
   smoothing_use_path_smoothing: true
   smoothing_use_optimization: true
   smoothing_car_width: 1.2

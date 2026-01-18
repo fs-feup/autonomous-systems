@@ -1,40 +1,39 @@
 #include "planning/smoothing.hpp"
 
-std::vector<PathPoint> PathSmoothing::smooth_path(std::vector<PathPoint>& path) const {
+std::vector<PathPoint> PathSmoothing::smooth_path(const std::vector<PathPoint>& path) const {
   if (!config_.use_path_smoothing_) {
     return path;
   }
   std::vector<PathPoint> result_path = ::fit_spline(
       path, config_.spline_precision_, config_.spline_order_, config_.spline_coeffs_ratio_);
-  return result_path;
+  return filter_path(result_path);
 }
 
-std::vector<PathPoint> PathSmoothing::optimize_path(std::vector<PathPoint>& path,
-                                                    std::vector<PathPoint>& yellow_cones,
-                                                    std::vector<PathPoint>& blue_cones) const {
+std::vector<PathPoint> PathSmoothing::optimize_path(
+    const std::vector<PathPoint>& path, const std::vector<PathPoint>& yellow_cones,
+    const std::vector<PathPoint>& blue_cones) const {
   if (!config_.use_optimization_) {
-    path.push_back(path[0]);  // Close the loop
-    std::vector<PathPoint> result_path = smooth_path(path);
-    std::vector<PathPoint> filtered;
-    for (const auto& p : result_path) {
-      //mudar o 0.40 para um parametro!!!
-      if (filtered.empty() || filtered.back().position.euclidean_distance(p.position) > 0.40) {
-        filtered.push_back(p);
-      }
-    }
-
-    return filtered;
+    return smooth_path(path);
   }
-
-  // Close the loop by adding the first point again
-  path.push_back(path[0]);
-  yellow_cones.push_back(yellow_cones[0]);
-  blue_cones.push_back(blue_cones[0]);
 
   auto splines = ::fit_triple_spline(path, blue_cones, yellow_cones, config_.spline_precision_,
                                      config_.spline_order_);
 
-  return osqp_optimization(splines.center, splines.left, splines.right);
+  const std::vector<PathPoint> result_path =
+      osqp_optimization(splines.center, splines.left, splines.right);
+
+  return filter_path(result_path);
+}
+
+std::vector<PathPoint> PathSmoothing::filter_path(const std::vector<PathPoint>& path) const {
+  std::vector<PathPoint> filtered;
+  for (const auto& p : path) {
+    if (filtered.empty() || filtered.back().position.euclidean_distance(p.position) >
+                                config_.min_path_point_distance_) {
+      filtered.push_back(p);
+    }
+  }
+  return filtered;
 }
 
 void PathSmoothing::add_curvature_terms(

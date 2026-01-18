@@ -39,6 +39,12 @@ PerceptionParameters Perception::load_config() {
   params.default_mission_ =
       static_cast<uint8_t>(common_lib::competition_logic::fsds_to_system.at(default_mission_str));
 
+  // Publishers
+  params.publish_fov_trimmed_cloud = perception_config["publish_fov_trimmed_cloud"].as<bool>();
+  params.publish_ground_removed_cloud =
+      perception_config["publish_ground_removed_cloud"].as<bool>();
+  params.publish_wall_removed_cloud = perception_config["publish_wall_removed_cloud"].as<bool>();
+
   // FOV Trimming Parameters
   TrimmingParameters trim_params;
   trim_params.min_range = perception_config["min_range"].as<double>();
@@ -164,14 +170,14 @@ PerceptionParameters Perception::load_config() {
       perception_config["max_distance_from_ground_min"].as<double>();
   eval_params->max_distance_from_ground_max =
       perception_config["max_distance_from_ground_max"].as<double>();
-  eval_params->lidar_height = trim_params.lidar_height;
-  eval_params->lidar_vertical_resolution = trim_params.lidar_vertical_resolution;
-  eval_params->lidar_horizontal_resolution = trim_params.lidar_horizontal_resolution;
-  eval_params->visibility_factor = perception_config["visibility_factor"].as<double>();
-  eval_params->expected_points_threshold =
-      perception_config["expected_points_threshold"].as<double>();
-
+  eval_params->n_points_intial_max = perception_config["n_points_intial_max"].as<double>();
+  eval_params->n_points_intial_min = perception_config["n_points_intial_min"].as<double>();
+  eval_params->n_points_max_distance_reduction =
+      perception_config["n_points_max_distance_reduction"].as<double>();
+  eval_params->n_points_min_distance_reduction =
+      perception_config["n_points_min_distance_reduction"].as<double>();
   params.cone_evaluator_ = std::make_shared<ConeEvaluator>(eval_params);
+
   return params;
 }
 
@@ -179,16 +185,21 @@ Perception::Perception(const PerceptionParameters& params)
     : Node("perception"),
       _vehicle_frame_id_(params.vehicle_frame_id_),
       _mission_type_(params.default_mission_),
+      _publish_fov_trimmed_cloud_(params.publish_fov_trimmed_cloud),
+      _publish_ground_removed_cloud_(params.publish_ground_removed_cloud),
+      _publish_wall_removed_cloud_(params.publish_wall_removed_cloud),
       _fov_trim_map_(params.fov_trim_map_),
       _ground_grid_(params.ground_grid_),
       _ground_removal_(params.ground_removal_),
       _wall_removal_(params.wall_removal_),
       _clustering_(params.clustering_),
       _cone_differentiator_(params.cone_differentiator_),
-      _cone_evaluator_(params.cone_evaluator_),
-      _icp_(params.icp_) {
+      _cone_evaluator_(params.cone_evaluator_) {
   this->_cones_publisher =
       this->create_publisher<custom_interfaces::msg::PerceptionOutput>("/perception/cones", 10);
+
+  this->_fov_trimmed_publisher_ =
+      this->create_publisher<sensor_msgs::msg::PointCloud2>("/perception/fov_trimmed_cloud", 10);
 
   this->_ground_removed_publisher_ =
       this->create_publisher<sensor_msgs::msg::PointCloud2>("/perception/ground_removed_cloud", 10);
@@ -243,6 +254,11 @@ Perception::Perception(const PerceptionParameters& params)
 }
 
 void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
+  // Get start perception time
+  // rclcpp::Time pcl_time = msg->header.stamp;
+  rclcpp::Time pcl_time = this->now();
+
+  // Reset lidar off timer
   this->lidar_off_timer_ = this->create_wall_timer(
       std::chrono::milliseconds(2000), std::bind(&Perception::lidar_timer_callback, this));
 
@@ -253,37 +269,39 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   auto trimmed_cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
   _fov_trim_map_->at(_mission_type_)->fov_trimming(msg, trimmed_cloud);
 
+  if (this->_publish_fov_trimmed_cloud_) {
+    trimmed_cloud->header.frame_id = _vehicle_frame_id_;
+    this->_fov_trimmed_publisher_->publish(*trimmed_cloud);
+  }
   time1 = this->now();
 
   // Ground Removal
   auto ground_removed_cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
   _ground_removal_->ground_removal(trimmed_cloud, ground_removed_cloud, *this->_ground_grid_);
 
-  // Publish ground removed cloud for visualization
-  ground_removed_cloud->header.frame_id = _vehicle_frame_id_;
-  this->_ground_removed_publisher_->publish(*ground_removed_cloud);
-
+  if (this->_publish_ground_removed_cloud_) {
+    ground_removed_cloud->header.frame_id = _vehicle_frame_id_;
+    this->_ground_removed_publisher_->publish(*ground_removed_cloud);
+  }
   time2 = this->now();
 
   // Wall Removal
   auto wall_removed_cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
   _wall_removal_->remove_walls(ground_removed_cloud, wall_removed_cloud);
 
-  // Publish wall removed cloud for visualization
-  wall_removed_cloud->header.frame_id = _vehicle_frame_id_;
-  this->_wall_removed_publisher_->publish(*wall_removed_cloud);
-
+  if (this->_publish_wall_removed_cloud_) {
+    wall_removed_cloud->header.frame_id = _vehicle_frame_id_;
+    this->_wall_removed_publisher_->publish(*wall_removed_cloud);
+  }
   time3 = this->now();
 
   // Deskewing
   this->_deskew_->deskew_point_cloud(wall_removed_cloud, this->_vehicle_velocity_);
-
   time4 = this->now();
 
   // Clustering
   std::vector<Cluster> clusters;
   _clustering_->clustering(wall_removed_cloud, &clusters);
-
   time5 = this->now();
 
   // Evaluator
@@ -294,7 +312,6 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
       filtered_clusters.push_back(cluster);
     }
   }
-
   time6 = this->now();
 
   double perception_execution_time_seconds = (time6 - start_time).seconds();
@@ -304,6 +321,7 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   this->_execution_times_->at(3) = (time3 - time2).seconds() * 1000.0;
   this->_execution_times_->at(4) = (time4 - time3).seconds() * 1000.0;
   this->_execution_times_->at(5) = (time5 - time4).seconds() * 1000.0;
+  this->_execution_times_->at(6) = (time6 - time5).seconds() * 1000.0;
   std_msgs::msg::Float64MultiArray exec_time_msg;
   exec_time_msg.data = *(this->_execution_times_);
   this->_perception_execution_time_publisher_->publish(exec_time_msg);
@@ -311,7 +329,8 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   publish_cones(&filtered_clusters, perception_execution_time_seconds, start_time);
 }
 
-void Perception::publish_cones(std::vector<Cluster>* cones, double exec_time, rclcpp::Time start_time) {
+void Perception::publish_cones(std::vector<Cluster>* cones, double exec_time,
+                               rclcpp::Time start_time) {
   auto message = custom_interfaces::msg::PerceptionOutput();
   std::vector<custom_interfaces::msg::Cone> message_array = {};
   message.header = ::header;

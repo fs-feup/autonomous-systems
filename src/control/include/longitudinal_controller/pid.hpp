@@ -95,6 +95,7 @@ public:
   void vehicle_state_callback(const custom_interfaces::msg::Velocities& msg) override;
   void vehicle_pose_callback(const custom_interfaces::msg::Pose& msg) override;
   common_lib::structures::ControlCommand get_throttle_command() override;
+  void publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) override;
 
   FRIEND_TEST(PidTests, TestAntiWindUp1);
   FRIEND_TEST(PidTests, TestAntiWindUp2);

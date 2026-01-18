@@ -40,10 +40,11 @@ public:
    * @param output_cloud The output point cloud with walls and big objects removed
    */
   void remove_walls(const sensor_msgs::msg::PointCloud2::SharedPtr& point_cloud,
-                    sensor_msgs::msg::PointCloud2::SharedPtr& output_cloud) const override;
+                    sensor_msgs::msg::PointCloud2::SharedPtr& output_cloud) override;
 
 private:
-  GridGeometry grid_geometry_;  // Grid geometry for grid calculations
+  std::vector<int> occlusion_bins_;  // Bins for each slice that are the last to be considered
+  GridGeometry grid_geometry_;       // Grid geometry for grid calculations
   int max_points_per_cluster_;  // Maximum number of points allowed per each grid to be considered
                                 // non-wall
 };

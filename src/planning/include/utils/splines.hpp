@@ -398,7 +398,7 @@ TripleSpline<T> fit_triple_spline(const std::vector<T> &center, const std::vecto
   result.left.reserve(total_points);
   result.right.reserve(total_points);
 
-  for (size_t i = 0; i < n-1; ++i) {
+  for (size_t i = 0; i < n; ++i) {
     for (int j = 0; j < precision; ++j) {
       // Compute parameter t for this evaluation point within segment i
       double t_start = t_values[i];

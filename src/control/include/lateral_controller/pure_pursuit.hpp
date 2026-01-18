@@ -7,6 +7,7 @@
 #include "common_lib/structures/position.hpp"
 #include "common_lib/filters/low_pass_filter.hpp"
 #include "control/include/config/parameters.hpp"
+#include "common_lib/communication/marker.hpp"
 #include "utils/utils.hpp"
 #include "gtest/gtest.h"
 #include "rclcpp/rclcpp.hpp"
@@ -38,6 +39,26 @@ private:
   bool received_first_state_ = false;
   bool received_first_pose_ = false;
 
+  // Points to be used for visualization
+  common_lib::structures::Position closest_point_;
+  common_lib::structures::Position lookahead_point_;
+
+  /**
+   * @brief Function that publishes the closest point marker
+   * 
+   * @param node pointer to the rclcpp node
+   * @param publisher_map map between topic names and publishers
+   */
+  void publish_closest_point(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map);
+  
+  /**
+   * @brief Function that publishes the lookahead point marker
+   * 
+   * @param node pointer to the rclcpp node
+   * @param publisher_map map between topic names and publishers
+   */
+  void publish_lookahead_point(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map);
+
 public:
   /**
    * @brief Construct a new Pure Pursuit object
@@ -52,6 +73,8 @@ public:
   void vehicle_pose_callback(const custom_interfaces::msg::Pose& msg) override;
 
   double get_steering_command() override;
+
+  void publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) override;
 
   /**
    * @brief Pure Pursuit control law
