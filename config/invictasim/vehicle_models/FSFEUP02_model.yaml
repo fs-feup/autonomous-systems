@@ -1,0 +1,23 @@
+vehicle_model:
+  FSFEUP02_model:  
+
+    pacejka:
+      B: 9.63   # Stifness factor
+      C: -1.39  # Shape factor
+      D: 1.6    # Peak factor
+      E: 1.0    # Curvature factor
+
+    tire: # All units in meters
+      d_bleft: 1.0 #Distance from back left to tire to cg
+      d_bright: 1.0 #Distance from back right tire to cg
+      d_fleft:  1.0 #Distance from front left to cg
+      d_fright: 1.0 #Distance from front right to cg
+      effective_tire_radius: 10.0
+
+    # Mass and inertia
+    m: 300.0  # Mass (kg)
+    Izz: 120.0  # Yaw moment of inertia (kg·m²)
+    
+    # Drivetrain
+    wheelRadius: 0.305  # Wheel radius (m)
+    gearRatio: 4.0

@@ -3,6 +3,7 @@
 #include <memory>
 #include <string>
 
+
 /**
  * @brief Vehicle model interface
  *
