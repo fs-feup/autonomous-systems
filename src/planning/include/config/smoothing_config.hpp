@@ -77,7 +77,7 @@ struct PathSmoothingConfig {
       : spline_precision_(10),
         spline_order_(3),
         spline_coeffs_ratio_(3.0f),
-        min_path_point_distance_(0.3f),
+        min_path_point_distance_(0.0f),
         use_path_smoothing_(true),
         use_optimization_(true),
         car_width_(1.2),

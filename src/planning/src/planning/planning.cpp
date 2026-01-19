@@ -275,11 +275,6 @@ void Planning::run_trackdrive() {
     if (!is_map_closed_) {
       is_map_closed_ = true;
       full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
-      if (full_path_[0] == full_path_.back()) {
-        RCLCPP_INFO(get_logger(), "2-the 1 == last!");
-      } else {
-        RCLCPP_INFO(get_logger(), "2-the 1 != last!");
-      }
 
       const std::vector<Cone> yellow_cones_ = path_calculation_.get_yellow_cones();
       const std::vector<Cone> blue_cones_ = path_calculation_.get_blue_cones();
@@ -293,16 +288,6 @@ void Planning::run_trackdrive() {
       }
 
       smoothed_path_ = path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones);
-      if (smoothed_path_[0] == smoothed_path_.back()) {
-        RCLCPP_INFO(get_logger(), "2-the 1 == last!");
-      } else {
-        RCLCPP_INFO(get_logger(), "2-the 1 != last!");
-      }
-      for (int i = smoothed_path_.size() - 5; i < smoothed_path_.size(); ++i) {
-        auto d = smoothed_path_[i].position.euclidean_distance(
-            smoothed_path_[(i + 1) % smoothed_path_.size()].position);
-        RCLCPP_INFO(get_logger(), "%d → %d : %.3f m", i, i + 1, d);
-      }
       velocity_planning_.trackdrive_velocity(smoothed_path_);
 
       if (!smoothed_path_.empty()) {
@@ -322,32 +307,9 @@ void Planning::run_trackdrive() {
 
         double avg_vel = sum / smoothed_path_.size();
 
-        RCLCPP_INFO(get_logger(),
-                    "[TRACKDRIVE] Velocity Stats - Avg: %.2f m/s | Max: %.2f m/s | Min: %.2f m/s",
-                    avg_vel, max_vel, min_vel);
-
-        RCLCPP_INFO(get_logger(), "[TRACKDRIVE] Path velocities (first 20 & last 20 points):");
-
-        size_t n = smoothed_path_.size();
-        size_t count = 20;
-
-        // First 20 points
-        for (size_t i = 0; i < std::min(n, count); ++i) {
-          const auto &p = smoothed_path_[i];
-          RCLCPP_INFO(get_logger(), "  %zu : %.3f", i, p.ideal_velocity);
-        }
-        if (n > 2 * count) {
-          RCLCPP_INFO(get_logger(), "  ...");
-        }
-        for (size_t i = (n > count ? n - count : 0); i < n; ++i) {
-          const auto &p = smoothed_path_[i];
-          RCLCPP_INFO(get_logger(), "  %zu : %.3f", i, p.ideal_velocity);
-        }
-        for (int i = smoothed_path_.size() - 5; i < smoothed_path_.size(); ++i) {
-          auto d = smoothed_path_[i].position.euclidean_distance(
-              smoothed_path_[(i + 1) % smoothed_path_.size()].position);
-          RCLCPP_INFO(get_logger(), "%d → %d : %.3f m", i, i + 1, d);
-        }
+        RCLCPP_DEBUG(get_logger(),
+                     "[TRACKDRIVE] Velocity Stats - Avg: %.2f m/s | Max: %.2f m/s | Min: %.2f m/s",
+                     avg_vel, max_vel, min_vel);
       }
     }
   } else {
@@ -382,7 +344,7 @@ void Planning::run_planning_algorithms() {
       break;
 
     case Mission::AUTOCROSS:
-      run_trackdrive();
+      run_autocross();
       break;
 
     case Mission::TRACKDRIVE:
