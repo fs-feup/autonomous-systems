@@ -275,6 +275,11 @@ void Planning::run_trackdrive() {
     if (!is_map_closed_) {
       is_map_closed_ = true;
       full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
+      if (full_path_[0] == full_path_.back()) {
+        RCLCPP_INFO(get_logger(), "2-the 1 == last!");
+      } else {
+        RCLCPP_INFO(get_logger(), "2-the 1 != last!");
+      }
 
       const std::vector<Cone> yellow_cones_ = path_calculation_.get_yellow_cones();
       const std::vector<Cone> blue_cones_ = path_calculation_.get_blue_cones();
@@ -288,6 +293,16 @@ void Planning::run_trackdrive() {
       }
 
       smoothed_path_ = path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones);
+      if (smoothed_path_[0] == smoothed_path_.back()) {
+        RCLCPP_INFO(get_logger(), "2-the 1 == last!");
+      } else {
+        RCLCPP_INFO(get_logger(), "2-the 1 != last!");
+      }
+      for (int i = smoothed_path_.size() - 5; i < smoothed_path_.size(); ++i) {
+        auto d = smoothed_path_[i].position.euclidean_distance(
+            smoothed_path_[(i + 1) % smoothed_path_.size()].position);
+        RCLCPP_INFO(get_logger(), "%d → %d : %.3f m", i, i + 1, d);
+      }
       velocity_planning_.trackdrive_velocity(smoothed_path_);
 
       if (!smoothed_path_.empty()) {

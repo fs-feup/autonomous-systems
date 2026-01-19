@@ -237,7 +237,7 @@ std::vector<T> fit_spline(const std::vector<T> &path, int precision, int order,
   // -------- EVALUATE THE SPLINE  --------
   std::vector<T> path_eval;
   path_eval.reserve(n * precision);
-  for (int i = 0; i < static_cast<int>(n); i++) {
+  for (int i = 0; i < static_cast<int>(n) -1; i++) {
     for (int j = 0; j < precision; j++) {
       // Compute parameter t inside segment i
       double t = static_cast<double>(i) + static_cast<double>(j) / precision;
@@ -398,7 +398,7 @@ TripleSpline<T> fit_triple_spline(const std::vector<T> &center, const std::vecto
   result.left.reserve(total_points);
   result.right.reserve(total_points);
 
-  for (size_t i = 0; i < n; ++i) {
+  for (size_t i = 0; i < n-1; ++i) {
     for (int j = 0; j < precision; ++j) {
       // Compute parameter t for this evaluation point within segment i
       double t_start = t_values[i];
