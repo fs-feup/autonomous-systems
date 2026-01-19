@@ -145,8 +145,8 @@ void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
 
   // ---- curvature ----
   std::vector<double> radiuses(triple_path.size());
-
-  for (size_t i = 1; i + 1 < triple_path.size(); ++i) {
+  
+  for (size_t i = 1; i < triple_path.size()-1; ++i) {
     radiuses[i] = find_circle_center(triple_path[i - 1], triple_path[i], triple_path[i + 1]);
   }
 
