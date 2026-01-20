@@ -54,14 +54,6 @@ void load_acceleration_track(Eigen::Vector3d& start_pose, Eigen::VectorXd& track
 void load_skidpad_track(Eigen::Vector3d& start_pose, Eigen::VectorXd& track);
 
 /**
- * @brief loads the trackdrive track from the default path.
- *
- * @param start_pose vector to fill with the start pose [x, y, theta]
- * @param track vector to fill with the track data [x1, y1, x2, y2, ...]
- */
-void load_trackdrive_track(Eigen::Vector3d& start_pose, Eigen::VectorXd& track);
-
-/**
  * @brief Transforms the track as seen from the start pose.
  *
  * @param track will be transformed in place to the start pose

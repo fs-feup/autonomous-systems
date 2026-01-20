@@ -31,7 +31,6 @@
 #include "fov_trimming/skidpad_trimming.hpp"
 #include "ground_removal/himmelsbach.hpp"
 #include "ground_removal/ransac.hpp"
-#include "icp/icp.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "std_msgs/msg/float64.hpp"
@@ -53,6 +52,9 @@ struct PerceptionParameters {
   std::string vehicle_frame_id_;  ///< String for the vehicle's frame id.
   std::string adapter_;           ///< String for the name of the current adapter.
   uint8_t default_mission_;
+  bool publish_fov_trimmed_cloud;
+  bool publish_ground_removed_cloud;
+  bool publish_wall_removed_cloud;
   std::shared_ptr<std::unordered_map<int16_t, std::shared_ptr<FovTrimming>>> fov_trim_map_;
   std::shared_ptr<GroundGrid> ground_grid_;        ///< Model for the ground grid.
   std::shared_ptr<GroundRemoval> ground_removal_;  ///< Shared pointer to the GroundRemoval object.
@@ -62,8 +64,7 @@ struct PerceptionParameters {
       cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
   std::shared_ptr<ConeEvaluator> cone_evaluator_;  ///< Shared pointer to ConeEvaluator object.
   std::unordered_map<std::string, double>
-      weight_values;          ///< Map containing all weight value parameters for cone evaluation.
-  std::shared_ptr<ICP> icp_;  ///< Shared pointer to ICP object.
+      weight_values;  ///< Map containing all weight value parameters for cone evaluation.
 };
 
 /**
@@ -96,9 +97,12 @@ public:
   void point_cloud_callback(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
 
 private:
-  std::string _vehicle_frame_id_;  ///< String for the vehicle's frame id.
-  std::string _adapter_;           ///< String for the current adapter being used.
-  int16_t _mission_type_;          ///< integer value for the current mission type running.
+  std::string _vehicle_frame_id_;       ///< String for the vehicle's frame id.
+  std::string _adapter_;                ///< String for the current adapter being used.
+  int16_t _mission_type_;               ///< integer value for the current mission type running.
+  bool _publish_fov_trimmed_cloud_;     ///< Whether to publish the FOV trimmed point cloud.
+  bool _publish_ground_removed_cloud_;  ///< Whether to publish the ground removed point cloud.
+  bool _publish_wall_removed_cloud_;    ///< Whether to publish the wall removed point cloud.
   std::shared_ptr<std::unordered_map<int16_t, std::shared_ptr<FovTrimming>>>
       _fov_trim_map_;                               ///< Shared pointer to the FovTrimming object.
   std::shared_ptr<GroundGrid> _ground_grid_;        ///< Model for the ground grid.
@@ -108,8 +112,7 @@ private:
   std::shared_ptr<ConeDifferentiation>
       _cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
   std::shared_ptr<ConeEvaluator> _cone_evaluator_;  ///< Shared pointer to ConeEvaluator object.
-  std::shared_ptr<ICP> _icp_;                       ///< Shared pointer to ICP object.
-  std::shared_ptr<Deskew> _deskew_;
+  std::shared_ptr<Deskew> _deskew_;                 ///< Shared pointer to Deskew object.
   rclcpp::Subscription<custom_interfaces::msg::OperationalStatus>::SharedPtr
       _operational_status_subscription;  ///< Master Log subscription to aquire mission type
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
@@ -122,13 +125,15 @@ private:
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr
       _perception_execution_time_publisher_;  ///< Perception execution time publisher.
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr
-      _ground_removed_publisher_;  ///< point cloud after ground removal publisher.
+      _fov_trimmed_publisher_;  ///< Point cloud after fov trimming publisher.
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr
-      _wall_removed_publisher_;  ///< point cloud after wall removal publisher.
+      _ground_removed_publisher_;  ///< Point cloud after ground removal publisher.
+  rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr
+      _wall_removed_publisher_;  ///< Point cloud after wall removal publisher.
   common_lib::structures::Velocities
       _vehicle_velocity_;  // Last received vehicle velocity, used to deskew the point cloud
 
-  rclcpp::TimerBase::SharedPtr lidar_off_timer_;
+  rclcpp::TimerBase::SharedPtr lidar_off_timer_;  ///< Timer to check for lidar emergency
   rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr emergency_client_;
   std::shared_ptr<std::vector<double>> _execution_times_;  ///< Vector to store execution times.
 
@@ -144,7 +149,15 @@ private:
    */
   void publish_cones(std::vector<Cluster>* cones, double exec_time, rclcpp::Time start_time);
 
+  /**
+   * @brief Callback function for the Velocities subscription
+   * @param msg The received Velocities message.
+   *
+   */
   void velocities_callback(const custom_interfaces::msg::Velocities& msg);
 
+  /**
+   * @brief Callback function for the LiDAR timer to check for emergency
+   */
   void lidar_timer_callback();
 };

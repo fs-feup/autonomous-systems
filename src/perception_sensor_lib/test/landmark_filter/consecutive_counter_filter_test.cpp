@@ -13,21 +13,29 @@ TEST(ConsecutiveCounterFilter, TestCase1) {
   observations << 0.1, 0.2, 0.7, 0.8;
   Eigen::VectorXd confidences(2);
   confidences << 0.99, 0.99;
+  Eigen::VectorXi associations(2);
+  associations << -1, -1;  // Associations are not used in this test
   LandmarkFilterParameters params = LandmarkFilterParameters(3, 5);
-  DataAssociationParameters data_association_params(50.0, 0.43, 0.8, 0.1, 0.1);
+  DataAssociationParameters data_association_params(50.0, 0.43, 0 - 8, 0.1, 0.1);
   std::shared_ptr<DataAssociationModel> data_association =
       std::make_shared<NearestNeighbor>(data_association_params);
   ConsecutiveCounterFilter filter(params, data_association);
-  Eigen::VectorXd filtered_observations = filter.filter(observations, confidences);
+  Eigen::VectorXd filtered_observations = filter.filter(observations, confidences, associations);
   EXPECT_EQ(filtered_observations.size(), 0);
-  filtered_observations = filter.filter(observations, confidences);
+  EXPECT_EQ(associations[0], -2);
+  EXPECT_EQ(associations[1], -2);
+  filtered_observations = filter.filter(observations, confidences, associations);
   EXPECT_EQ(filtered_observations.size(), 0);
-  filtered_observations = filter.filter(observations, confidences);
+  EXPECT_EQ(associations[0], -2);
+  EXPECT_EQ(associations[1], -2);
+  filtered_observations = filter.filter(observations, confidences, associations);
   ASSERT_EQ(filtered_observations.size(), 4);
   EXPECT_EQ(filtered_observations(0), 0.1);
   EXPECT_EQ(filtered_observations(1), 0.2);
   EXPECT_EQ(filtered_observations(2), 0.7);
   EXPECT_EQ(filtered_observations(3), 0.8);
+  EXPECT_EQ(associations[0], -1);
+  EXPECT_EQ(associations[1], -1);
 }
 
 /**
@@ -38,26 +46,34 @@ TEST(ConsecutiveCounterFilter, TestCase2) {
   Eigen::VectorXd observations(4);
   Eigen::VectorXd confidences(2);
   LandmarkFilterParameters params = LandmarkFilterParameters(3, 5);
-  DataAssociationParameters data_association_params(50.0, 0.43, 0.8, 0.1, 0.1);
+  DataAssociationParameters data_association_params(50.0, 0.43, 0 - 8, 0.1, 0.1);
   std::shared_ptr<DataAssociationModel> data_association =
       std::make_shared<NearestNeighbor>(data_association_params);
   ConsecutiveCounterFilter filter(params, data_association);
   observations << 0.1, 0.2, 0.7, 0.8;
   confidences << 0.99, 0.99;
-  Eigen::VectorXd filtered_observations = filter.filter(observations, confidences);
+  Eigen::VectorXi associations(2);
+  associations << -1, -1;  // Associations are not used in this test
+  Eigen::VectorXd filtered_observations = filter.filter(observations, confidences, associations);
   EXPECT_EQ(filtered_observations.size(), 0);
+  EXPECT_EQ(associations[0], -2);
+  EXPECT_EQ(associations[1], -2);
   observations << 0.1, 0.2, 0.7, 0.8;
   confidences << 0.99, 0.99;
-  filtered_observations = filter.filter(observations, confidences);
+  filtered_observations = filter.filter(observations, confidences, associations);
   EXPECT_EQ(filtered_observations.size(), 0);
+  EXPECT_EQ(associations[0], -2);
+  EXPECT_EQ(associations[1], -2);
   observations << 0.7, 0.8, 0.1, 0.2;
   confidences << 0.99, 0.99;
-  filtered_observations = filter.filter(observations, confidences);
+  filtered_observations = filter.filter(observations, confidences, associations);
   ASSERT_EQ(filtered_observations.size(), 4);
   EXPECT_EQ(filtered_observations(0), 0.1);
   EXPECT_EQ(filtered_observations(1), 0.2);
   EXPECT_EQ(filtered_observations(2), 0.7);
   EXPECT_EQ(filtered_observations(3), 0.8);
+  EXPECT_EQ(associations[0], -1);
+  EXPECT_EQ(associations[1], -1);
 }
 
 /**
@@ -68,22 +84,30 @@ TEST(ConsecutiveCounterFilter, TestCase3) {
   Eigen::VectorXd observations(4);
   Eigen::VectorXd confidences(2);
   LandmarkFilterParameters params = LandmarkFilterParameters(3, 5);
-  DataAssociationParameters data_association_params(50.0, 0.43, 0.8, 0.1, 0.1);
+  DataAssociationParameters data_association_params(50.0, 0.43, 0 - 8, 0.1, 0.1);
   std::shared_ptr<DataAssociationModel> data_association =
       std::make_shared<NearestNeighbor>(data_association_params);
   ConsecutiveCounterFilter filter(params, data_association);
   observations << 0.1, 0.2, 0.7, 0.8;
   confidences << 0.99, 0.99;
-  Eigen::VectorXd filtered_observations = filter.filter(observations, confidences);
+  Eigen::VectorXi associations(2);
+  associations << -1, -1;  // Associations are not used in this test
+  Eigen::VectorXd filtered_observations = filter.filter(observations, confidences, associations);
   EXPECT_EQ(filtered_observations.size(), 0);
+  EXPECT_EQ(associations[0], -2);
+  EXPECT_EQ(associations[1], -2);
   observations << 0.1, 0.2, 0.7, 0.8;
   confidences << 0.99, 0.99;
-  filtered_observations = filter.filter(observations, confidences);
+  filtered_observations = filter.filter(observations, confidences, associations);
   EXPECT_EQ(filtered_observations.size(), 0);
+  EXPECT_EQ(associations[0], -2);
+  EXPECT_EQ(associations[1], -2);
   observations << 0.7, 0.8, 2, 2.1;
   confidences << 0.99, 0.99;
-  filtered_observations = filter.filter(observations, confidences);
+  filtered_observations = filter.filter(observations, confidences, associations);
   ASSERT_EQ(filtered_observations.size(), 2);
+  EXPECT_EQ(associations[0], -1);
+  EXPECT_EQ(associations[1], -2);
   EXPECT_EQ(filtered_observations(0), 0.7);
   EXPECT_EQ(filtered_observations(1), 0.8);
 }
@@ -96,22 +120,30 @@ TEST(ConsecutiveCounterFilter, TestCase4) {
   Eigen::VectorXd observations(4);
   Eigen::VectorXd confidences(2);
   LandmarkFilterParameters params = LandmarkFilterParameters(3, 5);
-  DataAssociationParameters data_association_params(50.0, 0.43, 0.8, 0.1, 0.1);
+  DataAssociationParameters data_association_params(50.0, 0.43, 0 - 8, 0.1, 0.1);
   std::shared_ptr<DataAssociationModel> data_association =
       std::make_shared<NearestNeighbor>(data_association_params);
   ConsecutiveCounterFilter filter(params, data_association);
   observations << 0.1, 0.2, 0.7, 0.8;
   confidences << 0.99, 0.99;
-  Eigen::VectorXd filtered_observations = filter.filter(observations, confidences);
+  Eigen::VectorXi associations(2);
+  associations << -1, -1;  // Associations are not used in this test
+  Eigen::VectorXd filtered_observations = filter.filter(observations, confidences, associations);
   EXPECT_EQ(filtered_observations.size(), 0);
+  EXPECT_EQ(associations[0], -2);
+  EXPECT_EQ(associations[1], -2);
   observations << 0.1, 0.2, 0.7, 0.8;
   confidences << 0.99, 0.99;
-  filtered_observations = filter.filter(observations, confidences);
+  filtered_observations = filter.filter(observations, confidences, associations);
   EXPECT_EQ(filtered_observations.size(), 0);
+  EXPECT_EQ(associations[0], -2);
+  EXPECT_EQ(associations[1], -2);
   observations << 0.6980866604370328, 0.7972940119689251, 2.000155460474267, 2.0952219144232935;
   confidences << 0.99, 0.99;
-  filtered_observations = filter.filter(observations, confidences);
+  filtered_observations = filter.filter(observations, confidences, associations);
   ASSERT_EQ(filtered_observations.size(), 2);
-  EXPECT_EQ(filtered_observations(0), 0.7);
-  EXPECT_EQ(filtered_observations(1), 0.8);
+  EXPECT_EQ(filtered_observations(0), 0.6980866604370328);
+  EXPECT_EQ(filtered_observations(1), 0.7972940119689251);
+  EXPECT_EQ(associations[0], -1);
+  EXPECT_EQ(associations[1], -2);
 }

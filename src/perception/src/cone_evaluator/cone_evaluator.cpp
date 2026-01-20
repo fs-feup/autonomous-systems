@@ -10,27 +10,16 @@ bool ConeEvaluator::close_to_ground(Cluster &cluster, const GroundGrid &ground_g
   float min_z = std::numeric_limits<float>::max();
   float max_z = std::numeric_limits<float>::lowest();
 
-  float distance = 0;
-
   for (const auto &idx : indices) {
-    float x = *reinterpret_cast<const float *>(&data[LidarPoint::PointX(idx)]);
-    float y = *reinterpret_cast<const float *>(&data[LidarPoint::PointY(idx)]);
     float z = *reinterpret_cast<const float *>(&data[LidarPoint::PointZ(idx)]);
     min_z = std::min(z, min_z);
     max_z = std::max(z, max_z);
-    distance = std::max(distance, std::sqrt(x * x + y * y));
-  } 
-
-  if (distance < 15) {
-    if (max_z - min_z < 0.05) return false;
   }
-
-
 
   double ground_height = ground_grid.get_ground_height(centroid.x(), centroid.y());
 
   if (std::isnan(ground_height)) {
-    return false;  // No ground data available for this grid cell
+    return false;
   }
 
   double max_distance_above = max_z - ground_height;
@@ -92,11 +81,13 @@ bool ConeEvaluator::npoints_valid(Cluster &cluster) const {
   double distance = std::sqrt(center.x() * center.x() + center.y() * center.y());
   double n_points = static_cast<double>(cluster.get_point_indices().size());
 
-  // Approximation of expected number of points based on distance
-  double expected_points = std::max(50 - (distance * 1.35), 1.0);
-  double min_points = 2;  // Needs to be changed
+  // Max and min number of points based on distance
+  double max_points = std::max(
+      params_->n_points_intial_max - (distance * params_->n_points_max_distance_reduction), 4.0);
+  double min_points = std::max(
+      params_->n_points_intial_min - (distance * params_->n_points_min_distance_reduction), 1.0);
 
-  return n_points <= expected_points && n_points >= min_points;
+  return n_points <= max_points && n_points >= min_points;
 }
 
 bool ConeEvaluator::evaluateCluster(Cluster &cluster, const GroundGrid &ground_grid) {

@@ -51,13 +51,6 @@ void load_acceleration_track(Eigen::Vector3d& start_pose, Eigen::VectorXd& track
   transform_track(track, start_pose);
 }
 
-void load_trackdrive_track(Eigen::Vector3d& start_pose, Eigen::VectorXd& track) {
-  std::string package_prefix = ament_index_cpp::get_package_prefix("slam");
-  std::string mapPath = package_prefix + "/../../src/slam/maps/trackdrive.yaml";
-  load_initial_state(mapPath, start_pose, track);
-  transform_track(track, start_pose);
-}
-
 void load_skidpad_track(Eigen::Vector3d& start_pose, Eigen::VectorXd& track) {
   std::string package_prefix = ament_index_cpp::get_package_prefix("slam");
   std::string mapPath = package_prefix + "/../../src/slam/maps/skidpad.yaml";
