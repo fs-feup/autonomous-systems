@@ -1,10 +1,10 @@
 <map id="PacSimAdapter" name="PacSimAdapter">
-<area shape="rect" id="Node000001" title="Adapter for the PacSim simulator." alt="" coords="89,721,277,1121"/>
+<area shape="rect" id="Node000001" title="Adapter for the PacSim simulator." alt="" coords="89,721,277,1176"/>
 <area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="5,223,169,569"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="124,583,150,721,144,722,119,584"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="122,583,147,721,141,722,117,584"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="141,5,226,71"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="174,86,136,224,131,223,168,84"/>
 <area shape="rect" id="Node000004" href="$d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="193,119,365,673"/>
 <area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="198,84,207,118,202,120,193,86"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="229,689,222,722,217,721,223,688"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="231,688,225,722,220,721,226,687"/>
 </map>

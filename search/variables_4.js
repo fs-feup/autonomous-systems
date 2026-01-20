@@ -21,7 +21,7 @@ var searchData=
   ['deadtimequeue_18',['deadtimequeue',['../d6/d56/class_dead_time.html#a08e6dc2c23420ece85de3afc9f8779e8',1,'DeadTime::deadTimeQueue'],['../dd/dc4/class_sensor_base.html#ae789b19954ac99e37453259820fae6ff',1,'SensorBase::deadTimeQueue']]],
   ['deadtimesteeringfront_19',['deadTimeSteeringFront',['../d9/d88/pacsim__main_8cpp.html#a2e853dd730d33c7981b018a8f6e5568f',1,'pacsim_main.cpp']]],
   ['deadtimesteeringrear_20',['deadTimeSteeringRear',['../d9/d88/pacsim__main_8cpp.html#a3a6bd05a76ff0c45c59bdc2be44254a6',1,'pacsim_main.cpp']]],
-  ['deadtimethrottle_21',['deadTimeThrottle',['../d9/d88/pacsim__main_8cpp.html#a742d5f25ac8198c0132f788dda1843de',1,'pacsim_main.cpp']]],
+  ['deadtimethrottle_21',['deadTimeThrottle',['../d9/d88/pacsim__main_8cpp.html#a43fdcd2d00238c807e35d1ec00282b93',1,'pacsim_main.cpp']]],
   ['deadtimetorques_22',['deadTimeTorques',['../d9/d88/pacsim__main_8cpp.html#ad938bbaee0862c34ad2245f9e810816a',1,'pacsim_main.cpp']]],
   ['deadtimewspdsetpoints_23',['deadTimeWspdSetpoints',['../d9/d88/pacsim__main_8cpp.html#af26562bad01e2c75c7541c7e773821b7',1,'pacsim_main.cpp']]],
   ['debug_24',['debug',['../df/d91/namespacedashboard.html#a12b0373c1038d60f2e6f9fc52558211a',1,'dashboard']]],

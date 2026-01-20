@@ -1,5 +1,5 @@
 <map id="VehicleModelBicycle" name="VehicleModelBicycle">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,319,253,1179"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,319,253,1159"/>
 <area shape="rect" id="Node000002" href="$d1/d5c/class_i_vehicle_model.html" title=" " alt="" coords="46,5,213,271"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,286,132,319,127,319,127,286"/>
 </map>

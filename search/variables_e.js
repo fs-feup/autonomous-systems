@@ -9,7 +9,7 @@ var searchData=
   ['name_6',['name',['../d9/df9/class_gnss_sensor.html#a17153f52585569b86ac065d2cc8dcc00',1,'GnssSensor::name'],['../d6/d71/class_imu_sensor.html#a4f0f2a099ab52351b1c5c3ba2a0235cc',1,'ImuSensor::name'],['../d0/d8a/class_perception_sensor.html#a5dccb7ed6305cbab45b392afc67a5f8b',1,'PerceptionSensor::name'],['../dd/dc4/namespacesetup.html#ab3a7a0638d76a01367c5bc3cc699447f',1,'setup.name']]],
   ['namespace_7',['nameSpace',['../d9/d6d/class_landmarks_marker_wrapper.html#a3871a97266fdd7ded218744ce0d69705',1,'LandmarksMarkerWrapper']]],
   ['neighbours_5fdist_5fthreshold_8',['neighbours_dist_threshold',['../df/d6a/class_d_b_s_c_a_n.html#adf49ab23a7d6483e750d9db747a2bd42',1,'DBSCAN']]],
-  ['new_5fcommand_9',['new_command',['../d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a784a1a575f442fb960b7897ac6feae16',1,'car_keys.main.PublishThread.new_command'],['../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a62aad558fc53c1d0d29b77ad46c3471e',1,'pacsim_keys.main.PublishThread.new_command']]],
+  ['new_5fcommand_9',['new_command',['../d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a784a1a575f442fb960b7897ac6feae16',1,'car_keys::main::PublishThread']]],
   ['new_5flandmark_5fconfidence_5fgate_10',['new_landmark_confidence_gate',['../d9/d66/struct_data_association_parameters.html#a89098893ba81ace94c6c066803985ef3',1,'DataAssociationParameters']]],
   ['new_5flandmark_5fconfidence_5fgate_5f_11',['new_landmark_confidence_gate_',['../d5/d51/struct_s_l_a_m_parameters.html#adea7dcdcb31d928d3b34473dbfd1a3a2',1,'SLAMParameters']]],
   ['new_5flandmark_5fgate_5f_12',['new_landmark_gate_',['../dd/d06/class_max_likelihood.html#a955ccd65e1a1fafa6cc9c4e43f0d1d7a',1,'MaxLikelihood']]],

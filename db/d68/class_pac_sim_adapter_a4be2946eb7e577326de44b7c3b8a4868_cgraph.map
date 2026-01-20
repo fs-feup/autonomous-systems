@@ -1,11 +1,13 @@
 <map id="PacSimAdapter::PacSimAdapter" name="PacSimAdapter::PacSimAdapter">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,46,215,72"/>
-<area shape="rect" id="Node000002" href="$db/d68/class_pac_sim_adapter.html#ae0ee1acf54556bbbd4dfde3da216a3f3" title="Callback for the pacsim ground truth pose topic, used when using simulated SLAM." alt="" coords="263,5,430,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="205,43,247,37,248,42,206,48"/>
-<area shape="rect" id="Node000004" href="$db/d68/class_pac_sim_adapter.html#ace940c40e28e3fffd0c762adb3de48f3" title="Callback for the pacsim ground truth velocity topic, used when using simulated velocity estimation." alt="" coords="263,71,430,111"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="210,70,248,75,247,80,209,75"/>
-<area shape="rect" id="Node000003" href="$d6/dc5/class_control_node.html#a73f934ff5ed27706be539777807b2a5f" title="Called when a new vehicle pose is received." alt="" coords="478,5,618,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="430,23,463,23,463,28,430,28"/>
-<area shape="rect" id="Node000005" href="$d6/dc5/class_control_node.html#a56019e5aed0f23a8ff5c9d6f8868c025" title="Called when a new velocity is received." alt="" coords="478,71,618,111"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="430,88,463,88,463,94,430,94"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,78,215,104"/>
+<area shape="rect" id="Node000002" href="$db/d68/class_pac_sim_adapter.html#ae0ee1acf54556bbbd4dfde3da216a3f3" title="Callback for the pacsim ground truth pose topic, used when using simulated SLAM." alt="" coords="266,5,433,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,75,257,48,258,53,161,80"/>
+<area shape="rect" id="Node000004" href="$db/d68/class_pac_sim_adapter.html#ae33de2df9b9aa7b8ae7ca8c341f63464" title="Callback for the pacsim ground truth state vector topic, used when using simulated full state estimat..." alt="" coords="263,71,436,111"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="215,88,247,88,247,94,215,94"/>
+<area shape="rect" id="Node000005" href="$db/d68/class_pac_sim_adapter.html#ace940c40e28e3fffd0c762adb3de48f3" title="Callback for the pacsim ground truth velocity topic, used when using simulated velocity estimation." alt="" coords="266,136,433,177"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="161,102,258,129,257,134,159,107"/>
+<area shape="rect" id="Node000003" href="$d6/dc5/class_control_node.html#a73f934ff5ed27706be539777807b2a5f" title="Called when a new vehicle pose is received." alt="" coords="484,5,624,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="433,23,468,23,468,28,433,28"/>
+<area shape="rect" id="Node000006" href="$d6/dc5/class_control_node.html#a56019e5aed0f23a8ff5c9d6f8868c025" title="Called when a new velocity is received." alt="" coords="484,136,624,177"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="433,154,468,154,468,159,433,159"/>
 </map>

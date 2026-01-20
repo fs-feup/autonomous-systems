@@ -1,15 +1,15 @@
 <map id="VehicleModelBicycle" name="VehicleModelBicycle">
-<area shape="rect" id="Node000001" title=" " alt="" coords="335,458,583,1398"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="315,458,563,1298"/>
 <area shape="rect" id="Node000002" href="$d1/d5c/class_i_vehicle_model.html" title=" " alt="" coords="5,23,172,288"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,300,338,668,333,671,156,303"/>
-<area shape="rect" id="Node000003" href="$de/d84/struct_wheels.html" title=" " alt="" coords="196,83,280,228"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="248,227,261,326,283,434,332,597,327,598,278,435,256,327,242,228"/>
-<area shape="rect" id="Node000004" href="$d9/dea/struct_vehicle_model_bicycle_1_1_aerodynamics_model.html" title=" " alt="" coords="305,95,441,215"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="382,215,407,441,402,442,377,215"/>
-<area shape="rect" id="Node000005" href="$d3/dad/struct_vehicle_model_bicycle_1_1_tire_model.html" title=" " alt="" coords="465,5,621,305"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="530,305,515,442,510,441,524,305"/>
-<area shape="rect" id="Node000006" href="$d3/d19/struct_vehicle_model_bicycle_1_1_powertrain_model.html" title=" " alt="" coords="645,65,812,245"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="700,246,592,557,587,555,695,244"/>
-<area shape="rect" id="Node000007" href="$d9/d39/struct_vehicle_model_bicycle_1_1_steering_model.html" title=" " alt="" coords="837,95,1037,215"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="905,216,774,436,595,721,590,718,769,433,900,214"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,300,318,621,313,623,157,302"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="197,123,253,188"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="228,188,235,298,244,366,258,434,282,515,312,596,307,598,277,517,253,435,239,367,230,298,223,188"/>
+<area shape="rect" id="Node000004" href="$d9/dea/struct_vehicle_model_bicycle_1_1_aerodynamics_model.html" title=" " alt="" coords="277,95,413,215"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="355,215,385,441,379,442,350,215"/>
+<area shape="rect" id="Node000005" href="$d3/dad/struct_vehicle_model_bicycle_1_1_tire_model.html" title=" " alt="" coords="437,5,593,305"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="502,305,488,442,483,441,497,305"/>
+<area shape="rect" id="Node000006" href="$d3/d19/struct_vehicle_model_bicycle_1_1_powertrain_model.html" title=" " alt="" coords="617,35,784,275"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="660,276,571,521,566,519,655,274"/>
+<area shape="rect" id="Node000007" href="$d9/d39/struct_vehicle_model_bicycle_1_1_steering_model.html" title=" " alt="" coords="809,95,1009,215"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="878,216,747,436,575,691,571,688,742,433,874,213"/>
 </map>

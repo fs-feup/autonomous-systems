@@ -25,6 +25,6 @@ var class_i_vehicle_model =
     [ "setRpmSetpoints", "d1/d5c/class_i_vehicle_model.html#a6bae3ecf1b1c9d82313db623490c6b34", null ],
     [ "setSteeringSetpointFront", "d1/d5c/class_i_vehicle_model.html#a243b4fd7ff3afe5202bf352b3891e050", null ],
     [ "setSteeringSetpointRear", "d1/d5c/class_i_vehicle_model.html#ab571f54e9c52df1f95c22df5ae17f094", null ],
-    [ "setThrottle", "d1/d5c/class_i_vehicle_model.html#a5731ac15ee4ae8bf24816c3a29885e12", null ],
+    [ "setThrottle", "d1/d5c/class_i_vehicle_model.html#a676973252c37b9586f65d9a2a36d558a", null ],
     [ "setTorques", "d1/d5c/class_i_vehicle_model.html#aa0342fefcb831a455d92e9aa27f50cd8", null ]
 ];

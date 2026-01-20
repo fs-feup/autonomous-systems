@@ -2,8 +2,8 @@
 <area shape="rect" id="Node000001" title="Class responsible for the ROS2 communication of the control module." alt="" coords="226,119,390,464"/>
 <area shape="rect" id="Node000003" href="$d0/d1d/class_eufs_adapter.html" title="Adapter class to interface with the EUFS simulator." alt="" coords="5,522,189,1101"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="222,471,204,513,192,543,187,541,199,511,217,468"/>
-<area shape="rect" id="Node000004" href="$db/d68/class_pac_sim_adapter.html" title="Adapter for the PacSim simulator." alt="" coords="214,611,402,1011"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="311,479,311,611,305,611,305,479"/>
+<area shape="rect" id="Node000004" href="$db/d68/class_pac_sim_adapter.html" title="Adapter for the PacSim simulator." alt="" coords="214,584,402,1039"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="311,479,311,584,305,584,305,479"/>
 <area shape="rect" id="Node000005" href="$d1/df1/class_vehicle_adapter.html" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="427,512,635,1111"/>
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="399,470,417,511,429,539,424,541,412,513,394,472"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="265,5,351,71"/>

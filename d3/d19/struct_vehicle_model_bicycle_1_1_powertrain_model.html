@@ -103,14 +103,14 @@ Collaboration diagram for VehicleModelBicycle::PowertrainModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/dda/struct_vehicle_model_bicycle_1_1_powertrain_model__coll__graph.png" border="0" usemap="#a_vehicle_model_bicycle_1_1_powertrain_model_coll__map" alt="Collaboration graph"/></div>
 <map name="a_vehicle_model_bicycle_1_1_powertrain_model_coll__map" id="a_vehicle_model_bicycle_1_1_powertrain_model_coll__map">
-<area shape="rect" title=" " alt="" coords="5,5,172,185"/>
+<area shape="rect" title=" " alt="" coords="5,5,172,245"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8089fc0639e286c5680b70e2aa23c500" id="r_a8089fc0639e286c5680b70e2aa23c500"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d19/struct_vehicle_model_bicycle_1_1_powertrain_model.html#a8089fc0639e286c5680b70e2aa23c500">calculateWheelTorques</a> (double throttleInput, <a class="el" href="../../de/d84/struct_wheels.html">Wheels</a> &amp;<a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#ab9c37bd2bbf73faaa36eea1c7b93a97c">torques</a>) const</td></tr>
-<tr class="separator:a8089fc0639e286c5680b70e2aa23c500"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a238ad743c84f552a572d03d1eb8a04fd" id="r_a238ad743c84f552a572d03d1eb8a04fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d19/struct_vehicle_model_bicycle_1_1_powertrain_model.html#a238ad743c84f552a572d03d1eb8a04fd">calculateWheelTorques</a> (const <a class="el" href="../../de/d84/struct_wheels.html">Wheels</a> &amp;throttleInputs, const <a class="el" href="../../de/d84/struct_wheels.html">Wheels</a> &amp;<a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#aaa5c806fe6d9afbef8bc965abb72f8b6">wheelspeeds</a>, <a class="el" href="../../de/d84/struct_wheels.html">Wheels</a> &amp;<a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#ab9c37bd2bbf73faaa36eea1c7b93a97c">torques</a>) const</td></tr>
+<tr class="separator:a238ad743c84f552a572d03d1eb8a04fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2bf48286e188ed9ac10d490777e091d" id="r_ab2bf48286e188ed9ac10d490777e091d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d19/struct_vehicle_model_bicycle_1_1_powertrain_model.html#ab2bf48286e188ed9ac10d490777e091d">calculateEfficiency</a> (const <a class="el" href="../../de/d84/struct_wheels.html">Wheels</a> &amp;<a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#ab9c37bd2bbf73faaa36eea1c7b93a97c">torques</a>) const</td></tr>
 <tr class="separator:ab2bf48286e188ed9ac10d490777e091d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a309424b4625c88a63fbe9e2edfe4ad20" id="r_a309424b4625c88a63fbe9e2edfe4ad20"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d19/struct_vehicle_model_bicycle_1_1_powertrain_model.html#a309424b4625c88a63fbe9e2edfe4ad20">calculateCurrent</a> (const <a class="el" href="../../de/d84/struct_wheels.html">Wheels</a> &amp;<a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#ab9c37bd2bbf73faaa36eea1c7b93a97c">torques</a>, const <a class="el" href="../../de/d84/struct_wheels.html">Wheels</a> &amp;<a class="el" href="../../dd/d52/class_vehicle_model_bicycle.html#aaa5c806fe6d9afbef8bc965abb72f8b6">wheelspeeds</a>, double voltage) const</td></tr>
@@ -126,10 +126,16 @@ Public Attributes</h2></td></tr>
 <tr class="separator:aa6e32790fc3560c3c7676446b1592c62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af81668934f770ab3bfa2b09ec2a8aa2a" id="r_af81668934f770ab3bfa2b09ec2a8aa2a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d19/struct_vehicle_model_bicycle_1_1_powertrain_model.html#af81668934f770ab3bfa2b09ec2a8aa2a">powerGroundForce</a></td></tr>
 <tr class="separator:af81668934f770ab3bfa2b09ec2a8aa2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1c669c07b06c2567f53e2cb6e4e2b43" id="r_af1c669c07b06c2567f53e2cb6e4e2b43"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d19/struct_vehicle_model_bicycle_1_1_powertrain_model.html#af1c669c07b06c2567f53e2cb6e4e2b43">maxMotorPower</a></td></tr>
+<tr class="separator:af1c669c07b06c2567f53e2cb6e4e2b43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a522f9095a5faea1f2428da83df1c631f" id="r_a522f9095a5faea1f2428da83df1c631f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d19/struct_vehicle_model_bicycle_1_1_powertrain_model.html#a522f9095a5faea1f2428da83df1c631f">maxMotorRPM</a></td></tr>
+<tr class="separator:a522f9095a5faea1f2428da83df1c631f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e7b0f169df809c576fd0cbddad9469a" id="r_a7e7b0f169df809c576fd0cbddad9469a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d19/struct_vehicle_model_bicycle_1_1_powertrain_model.html#a7e7b0f169df809c576fd0cbddad9469a">maxMotorTorque</a></td></tr>
+<tr class="separator:a7e7b0f169df809c576fd0cbddad9469a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html#l00172">172</a> of file <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html">VehicleModelBicycle.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html#l00171">171</a> of file <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html">VehicleModelBicycle.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a309424b4625c88a63fbe9e2edfe4ad20" name="a309424b4625c88a63fbe9e2edfe4ad20"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a309424b4625c88a63fbe9e2edfe4ad20">&#9670;&#160;</a></span>calculateCurrent()</h2>
@@ -163,7 +169,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d4c/_vehicle_model_bicycle_8cpp_source.html#l00194">194</a> of file <a class="el" href="../../d7/d4c/_vehicle_model_bicycle_8cpp_source.html">VehicleModelBicycle.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d4c/_vehicle_model_bicycle_8cpp_source.html#l00217">217</a> of file <a class="el" href="../../d7/d4c/_vehicle_model_bicycle_8cpp_source.html">VehicleModelBicycle.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -193,7 +199,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d4c/_vehicle_model_bicycle_8cpp_source.html#l00186">186</a> of file <a class="el" href="../../d7/d4c/_vehicle_model_bicycle_8cpp_source.html">VehicleModelBicycle.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d4c/_vehicle_model_bicycle_8cpp_source.html#l00209">209</a> of file <a class="el" href="../../d7/d4c/_vehicle_model_bicycle_8cpp_source.html">VehicleModelBicycle.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -215,8 +221,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a8089fc0639e286c5680b70e2aa23c500" name="a8089fc0639e286c5680b70e2aa23c500"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8089fc0639e286c5680b70e2aa23c500">&#9670;&#160;</a></span>calculateWheelTorques()</h2>
+<a id="a238ad743c84f552a572d03d1eb8a04fd" name="a238ad743c84f552a572d03d1eb8a04fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a238ad743c84f552a572d03d1eb8a04fd">&#9670;&#160;</a></span>calculateWheelTorques()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -224,8 +230,14 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void VehicleModelBicycle::PowertrainModel::calculateWheelTorques </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>throttleInput</em>, </td>
+          <td class="paramtype">const <a class="el" href="../../de/d84/struct_wheels.html">Wheels</a> &amp;&#160;</td>
+          <td class="paramname"><em>throttleInputs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../de/d84/struct_wheels.html">Wheels</a> &amp;&#160;</td>
+          <td class="paramname"><em>wheelspeeds</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -241,12 +253,12 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d4c/_vehicle_model_bicycle_8cpp_source.html#l00176">176</a> of file <a class="el" href="../../d7/d4c/_vehicle_model_bicycle_8cpp_source.html">VehicleModelBicycle.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d4c/_vehicle_model_bicycle_8cpp_source.html#l00185">185</a> of file <a class="el" href="../../d7/d4c/_vehicle_model_bicycle_8cpp_source.html">VehicleModelBicycle.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d3/d19/struct_vehicle_model_bicycle_1_1_powertrain_model_a8089fc0639e286c5680b70e2aa23c500_icgraph.png" border="0" usemap="#ad3/d19/struct_vehicle_model_bicycle_1_1_powertrain_model_a8089fc0639e286c5680b70e2aa23c500_icgraph" alt=""/></div>
-<map name="ad3/d19/struct_vehicle_model_bicycle_1_1_powertrain_model_a8089fc0639e286c5680b70e2aa23c500_icgraph" id="ad3/d19/struct_vehicle_model_bicycle_1_1_powertrain_model_a8089fc0639e286c5680b70e2aa23c500_icgraph">
+<div class="center"><img src="../../d3/d19/struct_vehicle_model_bicycle_1_1_powertrain_model_a238ad743c84f552a572d03d1eb8a04fd_icgraph.png" border="0" usemap="#ad3/d19/struct_vehicle_model_bicycle_1_1_powertrain_model_a238ad743c84f552a572d03d1eb8a04fd_icgraph" alt=""/></div>
+<map name="ad3/d19/struct_vehicle_model_bicycle_1_1_powertrain_model_a238ad743c84f552a572d03d1eb8a04fd_icgraph" id="ad3/d19/struct_vehicle_model_bicycle_1_1_powertrain_model_a238ad743c84f552a572d03d1eb8a04fd_icgraph">
 <area shape="rect" title=" " alt="" coords="195,5,377,61"/>
 <area shape="rect" href="../../dd/d52/class_vehicle_model_bicycle.html#ae10b575631a2fad7f3db845aa19c7b8f" title=" " alt="" coords="5,13,147,54"/>
 <area shape="poly" title=" " alt="" coords="179,36,147,36,147,31,179,31"/>
@@ -268,7 +280,55 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html#l00173">173</a> of file <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html">VehicleModelBicycle.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html#l00172">172</a> of file <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html">VehicleModelBicycle.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af1c669c07b06c2567f53e2cb6e4e2b43" name="af1c669c07b06c2567f53e2cb6e4e2b43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1c669c07b06c2567f53e2cb6e4e2b43">&#9670;&#160;</a></span>maxMotorPower</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModelBicycle::PowertrainModel::maxMotorPower</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html#l00176">176</a> of file <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html">VehicleModelBicycle.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a522f9095a5faea1f2428da83df1c631f" name="a522f9095a5faea1f2428da83df1c631f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a522f9095a5faea1f2428da83df1c631f">&#9670;&#160;</a></span>maxMotorRPM</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModelBicycle::PowertrainModel::maxMotorRPM</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html#l00177">177</a> of file <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html">VehicleModelBicycle.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7e7b0f169df809c576fd0cbddad9469a" name="a7e7b0f169df809c576fd0cbddad9469a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e7b0f169df809c576fd0cbddad9469a">&#9670;&#160;</a></span>maxMotorTorque</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModelBicycle::PowertrainModel::maxMotorTorque</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html#l00178">178</a> of file <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html">VehicleModelBicycle.hpp</a>.</p>
 
 </div>
 </div>
@@ -284,7 +344,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html#l00175">175</a> of file <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html">VehicleModelBicycle.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html#l00174">174</a> of file <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html">VehicleModelBicycle.hpp</a>.</p>
 
 </div>
 </div>
@@ -300,7 +360,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html#l00176">176</a> of file <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html">VehicleModelBicycle.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html#l00175">175</a> of file <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html">VehicleModelBicycle.hpp</a>.</p>
 
 </div>
 </div>
@@ -316,7 +376,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html#l00174">174</a> of file <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html">VehicleModelBicycle.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html#l00173">173</a> of file <a class="el" href="../../dc/d1e/_vehicle_model_bicycle_8hpp_source.html">VehicleModelBicycle.hpp</a>.</p>
 
 </div>
 </div>

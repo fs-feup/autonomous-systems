@@ -108,14 +108,14 @@ Inheritance diagram for PacSimAdapter:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/deb/class_pac_sim_adapter__inherit__graph.png" border="0" usemap="#a_pac_sim_adapter_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_pac_sim_adapter_inherit__map" id="a_pac_sim_adapter_inherit__map">
-<area shape="rect" title="Adapter for the PacSim simulator." alt="" coords="89,721,277,1121"/>
+<area shape="rect" title="Adapter for the PacSim simulator." alt="" coords="89,721,277,1176"/>
 <area shape="rect" href="../../d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="5,223,169,569"/>
-<area shape="poly" title=" " alt="" coords="124,583,150,721,144,722,119,584"/>
+<area shape="poly" title=" " alt="" coords="122,583,147,721,141,722,117,584"/>
 <area shape="rect" title=" " alt="" coords="141,5,226,71"/>
 <area shape="poly" title=" " alt="" coords="174,86,136,224,131,223,168,84"/>
 <area shape="rect" href="../../d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="193,119,365,673"/>
 <area shape="poly" title=" " alt="" coords="198,84,207,118,202,120,193,86"/>
-<area shape="poly" title=" " alt="" coords="229,689,222,722,217,721,223,688"/>
+<area shape="poly" title=" " alt="" coords="231,688,225,722,220,721,226,687"/>
 </map>
 </div>
 <div class="dynheader">
@@ -123,9 +123,9 @@ Collaboration diagram for PacSimAdapter:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/dd1/class_pac_sim_adapter__coll__graph.png" border="0" usemap="#a_pac_sim_adapter_coll__map" alt="Collaboration graph"/></div>
 <map name="a_pac_sim_adapter_coll__map" id="a_pac_sim_adapter_coll__map">
-<area shape="rect" title="Adapter for the PacSim simulator." alt="" coords="625,2276,813,2676"/>
+<area shape="rect" title="Adapter for the PacSim simulator." alt="" coords="625,2276,813,2731"/>
 <area shape="rect" href="../../d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="478,1787,642,2112"/>
-<area shape="poly" title=" " alt="" coords="616,2125,661,2275,656,2277,611,2127"/>
+<area shape="poly" title=" " alt="" coords="613,2126,656,2275,651,2277,608,2127"/>
 <area shape="rect" title=" " alt="" coords="517,1232,603,1297"/>
 <area shape="poly" title=" " alt="" coords="563,1312,563,1787,557,1787,557,1312"/>
 <area shape="rect" href="../../d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="871,1672,1043,2227"/>
@@ -142,7 +142,7 @@ Collaboration diagram for PacSimAdapter:</div>
 <area shape="poly" title=" " alt="" coords="487,439,459,528,452,549,447,547,453,527,482,437"/>
 <area shape="rect" href="../../d9/d6f/structcommon__lib_1_1car__parameters_1_1_steering_parameters.html" title=" " alt="" coords="616,328,795,428"/>
 <area shape="poly" title=" " alt="" coords="696,429,674,482,657,508,635,529,619,539,603,544,574,544,545,543,530,546,513,554,504,560,501,556,511,549,528,541,544,537,574,538,602,538,616,534,632,525,653,504,669,480,691,427"/>
-<area shape="poly" title=" " alt="" coords="868,2154,811,2277,807,2275,863,2152"/>
+<area shape="poly" title=" " alt="" coords="868,2164,815,2286,810,2284,863,2162"/>
 <area shape="rect" href="../../df/dec/struct_planning_config.html" title=" " alt="" coords="821,1222,939,1307"/>
 <area shape="poly" title=" " alt="" coords="881,1307,882,1457,886,1552,894,1648,895,1655,890,1655,889,1648,880,1553,876,1457,876,1307"/>
 <area shape="rect" href="../../df/d7d/struct_path_calculation_config.html" title=" " alt="" coords="1226,551,1401,857"/>
@@ -191,6 +191,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ace940c40e28e3fffd0c762adb3de48f3" id="r_ace940c40e28e3fffd0c762adb3de48f3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d68/class_pac_sim_adapter.html#ace940c40e28e3fffd0c762adb3de48f3">_pacsim_gt_velocities_callback</a> (const geometry_msgs::msg::TwistWithCovarianceStamped &amp;msg)</td></tr>
 <tr class="memdesc:ace940c40e28e3fffd0c762adb3de48f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for the pacsim ground truth velocity topic, used when using simulated velocity estimation.  <br /></td></tr>
 <tr class="separator:ace940c40e28e3fffd0c762adb3de48f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae33de2df9b9aa7b8ae7ca8c341f63464" id="r_ae33de2df9b9aa7b8ae7ca8c341f63464"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d68/class_pac_sim_adapter.html#ae33de2df9b9aa7b8ae7ca8c341f63464">_pacsim_gt_state_vector_callback</a> (const custom_interfaces::msg::VehicleStateVector &amp;msg)</td></tr>
+<tr class="memdesc:ae33de2df9b9aa7b8ae7ca8c341f63464"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for the pacsim ground truth state vector topic, used when using simulated full state estimation.  <br /></td></tr>
+<tr class="separator:ae33de2df9b9aa7b8ae7ca8c341f63464"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a015957ba6643cdca1a1267f05875812b" id="r_a015957ba6643cdca1a1267f05875812b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d68/class_pac_sim_adapter.html#a015957ba6643cdca1a1267f05875812b">publish_command</a> (<a class="el" href="../../da/d16/structcommon__lib_1_1structures_1_1_control_command.html">common_lib::structures::ControlCommand</a> cmd) override</td></tr>
 <tr class="memdesc:a015957ba6643cdca1a1267f05875812b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adapters override this function to publish control commands in their environment.  <br /></td></tr>
 <tr class="separator:a015957ba6643cdca1a1267f05875812b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -220,12 +223,14 @@ Public Member Functions</h2></td></tr>
 Private Attributes</h2></td></tr>
 <tr class="memitem:ac179a09c1048ec7b7c1eda206b11e5c1" id="r_ac179a09c1048ec7b7c1eda206b11e5c1"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; pacsim::msg::StampedScalar &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d68/class_pac_sim_adapter.html#ac179a09c1048ec7b7c1eda206b11e5c1">steering_pub_</a></td></tr>
 <tr class="separator:ac179a09c1048ec7b7c1eda206b11e5c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf1adaada89f8350de615089fae1a2a9" id="r_aaf1adaada89f8350de615089fae1a2a9"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; pacsim::msg::StampedScalar &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d68/class_pac_sim_adapter.html#aaf1adaada89f8350de615089fae1a2a9">acceleration_pub_</a></td></tr>
-<tr class="separator:aaf1adaada89f8350de615089fae1a2a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5924bcc68c5cf20fc8415e2df88abee3" id="r_a5924bcc68c5cf20fc8415e2df88abee3"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; pacsim::msg::Wheels &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d68/class_pac_sim_adapter.html#a5924bcc68c5cf20fc8415e2df88abee3">throttle_pub_</a></td></tr>
+<tr class="separator:a5924bcc68c5cf20fc8415e2df88abee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a820f5531218077361a0dbd712cd3c447" id="r_a820f5531218077361a0dbd712cd3c447"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; geometry_msgs::msg::TwistWithCovarianceStamped &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d68/class_pac_sim_adapter.html#a820f5531218077361a0dbd712cd3c447">car_velocity_sub_</a></td></tr>
 <tr class="separator:a820f5531218077361a0dbd712cd3c447"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d96d38ec45279706ac2f89512681d38" id="r_a7d96d38ec45279706ac2f89512681d38"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; geometry_msgs::msg::TwistWithCovarianceStamped &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d68/class_pac_sim_adapter.html#a7d96d38ec45279706ac2f89512681d38">car_pose_sub_</a></td></tr>
 <tr class="separator:a7d96d38ec45279706ac2f89512681d38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e89189ad4cef126bcb207232c398c6d" id="r_a0e89189ad4cef126bcb207232c398c6d"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; custom_interfaces::msg::VehicleStateVector &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d68/class_pac_sim_adapter.html#a0e89189ad4cef126bcb207232c398c6d">car_state_vector_sub_</a></td></tr>
+<tr class="separator:a0e89189ad4cef126bcb207232c398c6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf950ab3b4af9486b29587ca8af7176a" id="r_acf950ab3b4af9486b29587ca8af7176a"><td class="memItemLeft" align="right" valign="top">rclcpp::Client&lt; std_srvs::srv::Empty &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d68/class_pac_sim_adapter.html#acf950ab3b4af9486b29587ca8af7176a">finished_client_</a></td></tr>
 <tr class="separator:acf950ab3b4af9486b29587ca8af7176a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a740861066526b090077e74a059a33c5e" id="r_a740861066526b090077e74a059a33c5e"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; visualization_msgs::msg::MarkerArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d68/class_pac_sim_adapter.html#a740861066526b090077e74a059a33c5e">path_sub_</a></td></tr>
@@ -263,7 +268,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock"><p><a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a> for the PacSim simulator. </p>
 <p>Works on a publish-subscribe model. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d96/control_2include_2adapter_2pacsim_8hpp_source.html#l00015">15</a> of file <a class="el" href="../../d7/d96/control_2include_2adapter_2pacsim_8hpp_source.html">pacsim.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d96/control_2include_2adapter_2pacsim_8hpp_source.html#l00016">16</a> of file <a class="el" href="../../d7/d96/control_2include_2adapter_2pacsim_8hpp_source.html">pacsim.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a4be2946eb7e577326de44b7c3b8a4868" name="a4be2946eb7e577326de44b7c3b8a4868"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4be2946eb7e577326de44b7c3b8a4868">&#9670;&#160;</a></span>PacSimAdapter() <span class="overload">[1/2]</span></h2>
@@ -295,15 +300,17 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../db/d68/class_pac_sim_adapter_a4be2946eb7e577326de44b7c3b8a4868_cgraph.png" border="0" usemap="#adb/d68/class_pac_sim_adapter_a4be2946eb7e577326de44b7c3b8a4868_cgraph" alt=""/></div>
 <map name="adb/d68/class_pac_sim_adapter_a4be2946eb7e577326de44b7c3b8a4868_cgraph" id="adb/d68/class_pac_sim_adapter_a4be2946eb7e577326de44b7c3b8a4868_cgraph">
-<area shape="rect" title=" " alt="" coords="5,46,215,72"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#ae0ee1acf54556bbbd4dfde3da216a3f3" title="Callback for the pacsim ground truth pose topic, used when using simulated SLAM." alt="" coords="263,5,430,46"/>
-<area shape="poly" title=" " alt="" coords="205,43,247,37,248,42,206,48"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#ace940c40e28e3fffd0c762adb3de48f3" title="Callback for the pacsim ground truth velocity topic, used when using simulated velocity estimation." alt="" coords="263,71,430,111"/>
-<area shape="poly" title=" " alt="" coords="210,70,248,75,247,80,209,75"/>
-<area shape="rect" href="../../d6/dc5/class_control_node.html#a73f934ff5ed27706be539777807b2a5f" title="Called when a new vehicle pose is received." alt="" coords="478,5,618,46"/>
-<area shape="poly" title=" " alt="" coords="430,23,463,23,463,28,430,28"/>
-<area shape="rect" href="../../d6/dc5/class_control_node.html#a56019e5aed0f23a8ff5c9d6f8868c025" title="Called when a new velocity is received." alt="" coords="478,71,618,111"/>
-<area shape="poly" title=" " alt="" coords="430,88,463,88,463,94,430,94"/>
+<area shape="rect" title=" " alt="" coords="5,78,215,104"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#ae0ee1acf54556bbbd4dfde3da216a3f3" title="Callback for the pacsim ground truth pose topic, used when using simulated SLAM." alt="" coords="266,5,433,46"/>
+<area shape="poly" title=" " alt="" coords="159,75,257,48,258,53,161,80"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#ae33de2df9b9aa7b8ae7ca8c341f63464" title="Callback for the pacsim ground truth state vector topic, used when using simulated full state estimat..." alt="" coords="263,71,436,111"/>
+<area shape="poly" title=" " alt="" coords="215,88,247,88,247,94,215,94"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#ace940c40e28e3fffd0c762adb3de48f3" title="Callback for the pacsim ground truth velocity topic, used when using simulated velocity estimation." alt="" coords="266,136,433,177"/>
+<area shape="poly" title=" " alt="" coords="161,102,258,129,257,134,159,107"/>
+<area shape="rect" href="../../d6/dc5/class_control_node.html#a73f934ff5ed27706be539777807b2a5f" title="Called when a new vehicle pose is received." alt="" coords="484,5,624,46"/>
+<area shape="poly" title=" " alt="" coords="433,23,468,23,468,28,433,28"/>
+<area shape="rect" href="../../d6/dc5/class_control_node.html#a56019e5aed0f23a8ff5c9d6f8868c025" title="Called when a new velocity is received." alt="" coords="484,136,624,177"/>
+<area shape="poly" title=" " alt="" coords="433,154,468,154,468,159,433,159"/>
 </map>
 </div>
 
@@ -484,7 +491,7 @@ Here is the call graph for this function:</div>
 
 <p>Callback for the pacsim ground truth pose topic, used when using simulated SLAM. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d18/control_2src_2adapter_2pacsim_8cpp_source.html#l00026">26</a> of file <a class="el" href="../../d1/d18/control_2src_2adapter_2pacsim_8cpp_source.html">pacsim.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d18/control_2src_2adapter_2pacsim_8cpp_source.html#l00028">28</a> of file <a class="el" href="../../d1/d18/control_2src_2adapter_2pacsim_8cpp_source.html">pacsim.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -508,6 +515,38 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="ae33de2df9b9aa7b8ae7ca8c341f63464" name="ae33de2df9b9aa7b8ae7ca8c341f63464"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae33de2df9b9aa7b8ae7ca8c341f63464">&#9670;&#160;</a></span>_pacsim_gt_state_vector_callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PacSimAdapter::_pacsim_gt_state_vector_callback </td>
+          <td>(</td>
+          <td class="paramtype">const custom_interfaces::msg::VehicleStateVector &amp;&#160;</td>
+          <td class="paramname"><em>msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback for the pacsim ground truth state vector topic, used when using simulated full state estimation. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d1/d18/control_2src_2adapter_2pacsim_8cpp_source.html#l00049">49</a> of file <a class="el" href="../../d1/d18/control_2src_2adapter_2pacsim_8cpp_source.html">pacsim.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../db/d68/class_pac_sim_adapter_ae33de2df9b9aa7b8ae7ca8c341f63464_icgraph.png" border="0" usemap="#adb/d68/class_pac_sim_adapter_ae33de2df9b9aa7b8ae7ca8c341f63464_icgraph" alt=""/></div>
+<map name="adb/d68/class_pac_sim_adapter_ae33de2df9b9aa7b8ae7ca8c341f63464_icgraph" id="adb/d68/class_pac_sim_adapter_ae33de2df9b9aa7b8ae7ca8c341f63464_icgraph">
+<area shape="rect" title="Callback for the pacsim ground truth state vector topic, used when using simulated full state estimat..." alt="" coords="263,5,436,46"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868" title=" " alt="" coords="5,13,215,39"/>
+<area shape="poly" title=" " alt="" coords="247,28,215,28,215,23,247,23"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="ace940c40e28e3fffd0c762adb3de48f3" name="ace940c40e28e3fffd0c762adb3de48f3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ace940c40e28e3fffd0c762adb3de48f3">&#9670;&#160;</a></span>_pacsim_gt_velocities_callback()</h2>
 
@@ -526,7 +565,7 @@ Here is the caller graph for this function:</div>
 
 <p>Callback for the pacsim ground truth velocity topic, used when using simulated velocity estimation. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d18/control_2src_2adapter_2pacsim_8cpp_source.html#l00037">37</a> of file <a class="el" href="../../d1/d18/control_2src_2adapter_2pacsim_8cpp_source.html">pacsim.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d18/control_2src_2adapter_2pacsim_8cpp_source.html#l00039">39</a> of file <a class="el" href="../../d1/d18/control_2src_2adapter_2pacsim_8cpp_source.html">pacsim.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -615,7 +654,7 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="../../d6/dc5/class_control_node.html#a676e3848ca5d5266c7e65e77795623c0">ControlNode</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d18/control_2src_2adapter_2pacsim_8cpp_source.html#l00047">47</a> of file <a class="el" href="../../d1/d18/control_2src_2adapter_2pacsim_8cpp_source.html">pacsim.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d18/control_2src_2adapter_2pacsim_8cpp_source.html#l00054">54</a> of file <a class="el" href="../../d1/d18/control_2src_2adapter_2pacsim_8cpp_source.html">pacsim.cpp</a>.</p>
 
 </div>
 </div>
@@ -952,30 +991,6 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="aaf1adaada89f8350de615089fae1a2a9" name="aaf1adaada89f8350de615089fae1a2a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf1adaada89f8350de615089fae1a2a9">&#9670;&#160;</a></span>acceleration_pub_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">rclcpp::Publisher&lt;pacsim::msg::StampedScalar&gt;::SharedPtr PacSimAdapter::acceleration_pub_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d7/d96/control_2include_2adapter_2pacsim_8hpp_source.html#l00019">19</a> of file <a class="el" href="../../d7/d96/control_2include_2adapter_2pacsim_8hpp_source.html">pacsim.hpp</a>.</p>
-
-</div>
-</div>
 <a id="a7d96d38ec45279706ac2f89512681d38" name="a7d96d38ec45279706ac2f89512681d38"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7d96d38ec45279706ac2f89512681d38">&#9670;&#160;</a></span>car_pose_sub_</h2>
 
@@ -996,7 +1011,31 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d96/control_2include_2adapter_2pacsim_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../d7/d96/control_2include_2adapter_2pacsim_8hpp_source.html">pacsim.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d96/control_2include_2adapter_2pacsim_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../d7/d96/control_2include_2adapter_2pacsim_8hpp_source.html">pacsim.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0e89189ad4cef126bcb207232c398c6d" name="a0e89189ad4cef126bcb207232c398c6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e89189ad4cef126bcb207232c398c6d">&#9670;&#160;</a></span>car_state_vector_sub_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Subscription&lt;custom_interfaces::msg::VehicleStateVector&gt;::SharedPtr PacSimAdapter::car_state_vector_sub_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d96/control_2include_2adapter_2pacsim_8hpp_source.html#l00025">25</a> of file <a class="el" href="../../d7/d96/control_2include_2adapter_2pacsim_8hpp_source.html">pacsim.hpp</a>.</p>
 
 </div>
 </div>
@@ -1020,7 +1059,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d96/control_2include_2adapter_2pacsim_8hpp_source.html#l00022">22</a> of file <a class="el" href="../../d7/d96/control_2include_2adapter_2pacsim_8hpp_source.html">pacsim.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d96/control_2include_2adapter_2pacsim_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../d7/d96/control_2include_2adapter_2pacsim_8hpp_source.html">pacsim.hpp</a>.</p>
 
 </div>
 </div>
@@ -1092,7 +1131,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d96/control_2include_2adapter_2pacsim_8hpp_source.html#l00018">18</a> of file <a class="el" href="../../d7/d96/control_2include_2adapter_2pacsim_8hpp_source.html">pacsim.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d96/control_2include_2adapter_2pacsim_8hpp_source.html#l00019">19</a> of file <a class="el" href="../../d7/d96/control_2include_2adapter_2pacsim_8hpp_source.html">pacsim.hpp</a>.</p>
 
 </div>
 </div>
@@ -1141,6 +1180,30 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="../../d8/d4a/planning_2include_2adapter__planning_2pacsim_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../d8/d4a/planning_2include_2adapter__planning_2pacsim_8hpp_source.html">pacsim.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5924bcc68c5cf20fc8415e2df88abee3" name="a5924bcc68c5cf20fc8415e2df88abee3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5924bcc68c5cf20fc8415e2df88abee3">&#9670;&#160;</a></span>throttle_pub_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Publisher&lt;pacsim::msg::Wheels&gt;::SharedPtr PacSimAdapter::throttle_pub_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d96/control_2include_2adapter_2pacsim_8hpp_source.html#l00020">20</a> of file <a class="el" href="../../d7/d96/control_2include_2adapter_2pacsim_8hpp_source.html">pacsim.hpp</a>.</p>
 
 </div>
 </div>

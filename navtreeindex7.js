@@ -1,5 +1,8 @@
 var NAVTREEINDEX7 =
 {
+"d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md211":[24,0,1],
+"d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md212":[24,1],
+"d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md213":[24,1,0],
 "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md214":[24,1,1],
 "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md215":[24,1,2],
 "d4/d59/position_8cpp.html":[30,0,0,3,1,9,4],
@@ -246,8 +249,5 @@ var NAVTREEINDEX7 =
 "d4/dfa/spline_8py.html#a2b2e31d1c64629de7de099072e52ee57":[30,0,0,19,2,1,12],
 "d4/dfa/spline_8py.html#a3a1e8e2d2b25dd3acc6794dc788c14de":[30,0,0,19,2,1,5],
 "d4/dfa/spline_8py.html#a403fcd33dda06aec50d68edbd1ff2080":[30,0,0,19,2,1,8],
-"d4/dfa/spline_8py.html#a68c5c2c5dda330223d4f9251a3ec728e":[30,0,0,19,2,1,11],
-"d4/dfa/spline_8py.html#a7b3390dd3b8e67e15bf150eb4315eabc":[30,0,0,19,2,1,9],
-"d4/dfa/spline_8py.html#a9e15a8778d356200129c43735b3bf310":[30,0,0,19,2,1,2],
-"d4/dfa/spline_8py.html#aa49f95a60d0a0741eef1ef2d511d49fd":[30,0,0,19,2,1,1]
+"d4/dfa/spline_8py.html#a68c5c2c5dda330223d4f9251a3ec728e":[30,0,0,19,2,1,11]
 };
