@@ -20,6 +20,7 @@ find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(builtin_interfaces REQUIRED)
+find_package(custom_interfaces REQUIRED)
 
 find_package(rclcpp_components REQUIRED)
 find_package(yaml-cpp REQUIRED)
@@ -49,10 +50,10 @@ file(GLOB_RECURSE pacsim_SRCS
 
 
 add_executable(${PROJECT_NAME}_node ${pacsim_SRCS})
-ament_target_dependencies(${PROJECT_NAME}_node rclcpp std_srvs visualization_msgs geometry_msgs tf2_ros yaml-cpp)
+ament_target_dependencies(${PROJECT_NAME}_node rclcpp std_srvs visualization_msgs geometry_msgs tf2_ros yaml-cpp custom_interfaces sensor_msgs)
 ament_export_dependencies(std_msgs geometry_msgs rosidl_default_runtime)
 
-rosidl_target_interfaces(${PROJECT_NAME}_node
+rosidl_get_typesupport_target(cpp_typesupport_target
   ${PROJECT_NAME} "rosidl_typesupport_cpp")
 
 target_include_directories(${PROJECT_NAME}_node PUBLIC
@@ -63,6 +64,7 @@ ${EIGEN3_INCLUDE_DIRS}
 target_link_libraries(
   ${PROJECT_NAME}_node 
   ${YAML_CPP_LIBRARIES}
+  "${cpp_typesupport_target}"
   )
 
 
@@ -89,7 +91,7 @@ install(FILES ${pacsim_TRACKS}
 install(FILES ${pacsim_CONFIGS}
   DESTINATION config/${PROJECT_NAME}
 )
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(USE_SCOPED_HEADER_INSTALL_DIR INSTALL_TO_SHARE
   tracks
   config
   launch

@@ -11,6 +11,7 @@
 #include "geometry_msgs/msg/transform_stamped.hpp"
 #include "rosgraph_msgs/msg/clock.h"
 #include <geometry_msgs/msg/twist_with_covariance_stamped.hpp>
+#include "custom_interfaces/msg/vehicle_state_vector.hpp"
 #include <sensor_msgs/msg/imu.hpp>
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2_ros/static_transform_broadcaster.h>
@@ -73,6 +74,7 @@ rclcpp::Publisher<pacsim::msg::Wheels>::SharedPtr torquesPub;
 rclcpp::Publisher<pacsim::msg::StampedScalar>::SharedPtr voltageSensorTSPub;
 rclcpp::Publisher<pacsim::msg::StampedScalar>::SharedPtr currentSensorTSPub;
 rclcpp::Publisher<geometry_msgs::msg::TwistWithCovarianceStamped>::SharedPtr pose_pub;
+rclcpp::Publisher<custom_interfaces::msg::VehicleStateVector>::SharedPtr state_vector_pub;
 std::map<std::pair<double, double>, geometry_msgs::msg::Point> detected_cones_map;
 
 
@@ -93,7 +95,7 @@ std::map<std::shared_ptr<GnssSensor>, rclcpp::Publisher<pacsim::msg::GNSS>::Shar
 
 DeadTime<double> deadTimeSteeringFront(0.0);
 DeadTime<double> deadTimeSteeringRear(0.0);
-DeadTime<double> deadTimeThrottle(0.0);
+DeadTime<Wheels> deadTimeThrottle(0.0);
 DeadTime<Wheels> deadTimeTorques(0.0);
 DeadTime<Wheels> deadTimeWspdSetpoints(0.0);
 DeadTime<Wheels> deadTimeMaxTorques(0.0);
@@ -173,7 +175,7 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
 
     deadTimeSteeringFront = DeadTime<double>(0.05);
     deadTimeSteeringRear = DeadTime<double>(0.05);
-    deadTimeThrottle = DeadTime<double>(0.02);
+    deadTimeThrottle = DeadTime<Wheels>(0.02);
     deadTimeTorques = DeadTime<Wheels>(0.02);
     deadTimeWspdSetpoints = DeadTime<Wheels>(0.02);
     deadTimeMaxTorques = DeadTime<Wheels>(0.02);
@@ -243,7 +245,7 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
         }
         if (deadTimeThrottle.availableDeadTime(simTime))
         {
-            double val = deadTimeThrottle.getOldest();
+            Wheels val = deadTimeThrottle.getOldest();
             model->setThrottle(val);
         }
         if (deadTimePowerGroundSetpoint.availableDeadTime(simTime))
@@ -255,10 +257,32 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
         if (simTime >= (lastEgoMotionSensorSampleTime + 1 / egoMotionSensorRate))
         {
             lastEgoMotionSensorSampleTime += 1 / egoMotionSensorRate;
+
+            // Publish velocity
             Eigen::Vector3d vel = model->getVelocity();
             Eigen::Vector3d rot = model->getAngularVelocity();
             geometry_msgs::msg::TwistWithCovarianceStamped velMsg = createRosTwistMsg(vel, rot, "car", simTime);
             velocity_pub->publish(velMsg);
+
+            // Publish state vector
+            custom_interfaces::msg::VehicleStateVector msg;
+            msg.velocity_x = model->getVelocity().x();
+            msg.velocity_y = model->getVelocity().y();
+            msg.yaw_rate = model->getAngularVelocity().z();
+            msg.acceleration_x = model->getAcceleration().x();
+            msg.acceleration_y = model->getAcceleration().y();
+            // direção média dianteira
+            msg.steering_angle = 0.5 * (model->getSteeringAngles().FL + model->getSteeringAngles().FR);
+
+            msg.fl_rpm = model->getWheelspeeds().FL;
+            msg.fr_rpm = model->getWheelspeeds().FR;
+            msg.rl_rpm = model->getWheelspeeds().RL;
+            msg.rr_rpm = model->getWheelspeeds().RR;
+
+            msg.header.stamp = rclcpp::Time(static_cast<uint64_t>(simTime * 1e9));
+
+            state_vector_pub->publish(msg);
+
         }
 
         ImuData imuDataCog { model->getAcceleration(), model->getAngularVelocity(), Eigen::Matrix3d::Zero(),
@@ -414,10 +438,16 @@ void cbFuncLat(const pacsim::msg::StampedScalar& msg)
     deadTimeSteeringRear.addVal(0.0, simTime);
 }
 
-void cbFuncLong(const pacsim::msg::StampedScalar& msg)
+void cbFuncLong(const pacsim::msg::Wheels& msg)
 {
     std::lock_guard<std::mutex> l(mutexSimTime);
-    deadTimeThrottle.addVal(msg.value, simTime);
+    Wheels w;
+    w.FL = msg.fl;
+    w.FR = msg.fr;
+    w.RL = msg.rl;
+    w.RR = msg.rr;
+    w.timestamp = simTime;
+    deadTimeThrottle.addVal(w, simTime);
 }
 
 void cbFuncTorquesInverterMin(const pacsim::msg::Wheels& msg)
@@ -723,8 +753,8 @@ int main(int argc, char** argv)
     auto torquessubmax
         = node->create_subscription<pacsim::msg::Wheels>("/pacsim/torques_max", 1, cbFuncTorquesInverterMax);
 
-    auto throttleSub = node->create_subscription<pacsim::msg::StampedScalar>("/pacsim/throttle_setpoint", 1, cbFuncLong);
-    RCLCPP_INFO_STREAM(rclcpp::get_logger("pacsim_logger"), "Createdsubscription for throttle");
+    auto throttleSub = node->create_subscription<pacsim::msg::Wheels>("/pacsim/throttle_setpoint", 1, cbFuncLong);
+    RCLCPP_INFO_STREAM(rclcpp::get_logger("pacsim_logger"), "Created subscription for throttle (Wheels)");
 
 
     auto wspdSetpointSub
@@ -734,6 +764,9 @@ int main(int argc, char** argv)
         = node->create_subscription<pacsim::msg::StampedScalar>("/pacsim/powerground_setpoint", 1, cbPowerGround);
 
     velocity_pub = node->create_publisher<geometry_msgs::msg::TwistWithCovarianceStamped>("/pacsim/velocity", 3);
+
+    state_vector_pub
+        = node->create_publisher<custom_interfaces::msg::VehicleStateVector>("/pacsim/state_vector", 3);
 
     pose_pub = node->create_publisher<geometry_msgs::msg::TwistWithCovarianceStamped>("/pacsim/pose", 3);
 
