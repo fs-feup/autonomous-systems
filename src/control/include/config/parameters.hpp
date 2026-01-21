@@ -20,6 +20,20 @@ struct ControlParameters {
   double pure_pursuit_lookahead_minimum_; // minimum lookahead distance for pure pursuit
   double pure_pursuit_lpf_alpha_; // low-pass filter smoothing factor (0 < alpha < 1), smaller values mean more smoothing
   double pure_pursuit_lpf_initial_value_; // initial value for low-pass filter
+
+  // Distance
+  double distance_p_gain_ = 0.08;
+  double distance_i_gain_ = 0.0;
+  double distance_anti_windup_ = 0.0;
+  double distance_d_gain_ = 0.0;
+  // Heading
+  double heading_p_gain_ = 0.00;
+  double heading_i_gain_ = 0.0;
+  double heading_anti_windup_ = 0.0;
+  double heading_d_gain_ = 0.0;
+
+
+
   double first_last_max_dist_; // maximum distance between first and last point to consider for closing the path
   double pid_kp_; // proportional gain for PID controller
   double pid_ki_; // integral gain for PID controller
