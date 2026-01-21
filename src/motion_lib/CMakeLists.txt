@@ -28,6 +28,8 @@ set(IMPLEMENTATION_FILES
   src/v2p_models/constant_velocity_model.cpp
   src/v2p_models/base_v2p_motion_model.cpp
   src/v2p_models/constant_velocity_turnrate_model.cpp
+  src/v2p_models/constant_acceleration_turnrate_model.cpp
+  src/v2p_models/odometry_model.cpp
   src/aero_model/default_aero_model.cpp
   src/tire_model/pacejka_combined_slip.cpp
   src/steering_model/parallel_front_steering.cpp
@@ -67,6 +69,7 @@ if(BUILD_TESTING)
     test/main.cpp
     test/v2p_models/constant_velocity_model_test.cpp
     test/v2p_models/constant_velocity_turnrate_model_test.cpp
+    test/v2p_models/constant_acceleration_turnrate_model_test.cpp
     test/vel_process_model/particle_model_test.cpp
   )
 

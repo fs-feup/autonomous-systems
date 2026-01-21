@@ -42,7 +42,8 @@ void Himmelsbach::ground_removal(
   }
 
   // Resize output data to its final size
-  ground_removed_point_cloud->data.resize(ground_removed_point_cloud->width * LidarPoint::POINT_STEP);
+  ground_removed_point_cloud->data.resize(ground_removed_point_cloud->width *
+                                          LidarPoint::POINT_STEP);
   ground_removed_point_cloud->row_step = ground_removed_point_cloud->width * LidarPoint::POINT_STEP;
 }
 
@@ -58,11 +59,10 @@ void Himmelsbach::process_slice(
   auto& cloud_data = trimmed_point_cloud->data;
   auto& output_data = ground_removed_point_cloud->data;
 
-  // Indices of ground candidate points
   std::vector<int> ground_indices;
   std::vector<double> ground_distances;
 
-  // For each ring in the slice, from highest to lowest, compare points to previous ground point
+  // For each ring in the slice, compare points to previous ground point
   for (int ring_idx = NUM_RINGS - 1; ring_idx >= 0; --ring_idx) {
     const auto& ring = slices_->at(slice_idx).rings[ring_idx];
     if (ring.indices.empty()) {
@@ -73,7 +73,6 @@ void Himmelsbach::process_slice(
     float previous_ground_point_distance =
         std::hypot(previous_ground_point_x, previous_ground_point_y);
 
-    // Process each point in the ring comparing to the previous ground point
     for (int idx : ring.indices) {
       float pt_x = *reinterpret_cast<float*>(&cloud_data[LidarPoint::PointX(idx)]);
       float pt_y = *reinterpret_cast<float*>(&cloud_data[LidarPoint::PointY(idx)]);
@@ -81,12 +80,17 @@ void Himmelsbach::process_slice(
 
       float current_ground_point_distance = std::hypot(pt_x, pt_y);
 
-      // If the point is closer than the previous ground point, it cannot be ground
-      if (current_ground_point_distance < previous_ground_point_distance) {
-        // Write it to the output cloud
+      if (current_ground_point_distance - previous_ground_point_distance <
+              (-5 - (0.15 * ring_idx)) ||
+          current_ground_point_distance - previous_ground_point_distance >
+              (5 + (0.15 * ring_idx))) {
+        // It is noise, ignore
+        continue;
+      } else if (current_ground_point_distance <= previous_ground_point_distance) {
+        // Write to the output cloud
         size_t write_idx = ground_removed_point_cloud->width;
-        std::memcpy(&output_data[write_idx * LidarPoint::POINT_STEP], &cloud_data[idx * LidarPoint::POINT_STEP],
-                    LidarPoint::POINT_STEP);
+        std::memcpy(&output_data[write_idx * LidarPoint::POINT_STEP],
+                    &cloud_data[idx * LidarPoint::POINT_STEP], LidarPoint::POINT_STEP);
         ground_removed_point_cloud->width++;
       } else {
         // Compute slope to previous ground point
@@ -105,19 +109,15 @@ void Himmelsbach::process_slice(
         } else {
           // Point is non-ground, write to output cloud
           size_t write_idx = ground_removed_point_cloud->width;
-          std::memcpy(&output_data[write_idx * LidarPoint::POINT_STEP], &cloud_data[idx * LidarPoint::POINT_STEP],
-                      LidarPoint::POINT_STEP);
+          std::memcpy(&output_data[write_idx * LidarPoint::POINT_STEP],
+                      &cloud_data[idx * LidarPoint::POINT_STEP], LidarPoint::POINT_STEP);
           ground_removed_point_cloud->width++;
         }
       }
     }
 
-    // Evaluate ground candidates to see if they are truly ground.
-    // This is done by calculating the median distance of the farthest 10% of the points, and
-    // checking the distance of the others to that reference. When the points is close to the ground
-    // but closer to the car, it means it intercepted some object. If it did not intercept anything,
-    // the point should be close to the reference. This helps to avoid including points that are
-    // close to the ground but actually belong to obstacles (lower part of cones).
+    // Evaluate ground candidates: compare each to the median distance of the farthest 10%.
+    // Points much closer than this reference are obstacles, not ground.
     if (!ground_indices.empty()) {
       int num_points = static_cast<int>(ground_distances.size());
       int top_k = std::max<int>(1, num_points / 10);
@@ -126,7 +126,7 @@ void Himmelsbach::process_slice(
       std::nth_element(ground_distances.begin(), ground_distances.end() - top_k,
                        ground_distances.end());
 
-      // Calculate median of the top 10% farthest points
+      // Median
       std::vector<double> top_farthest(ground_distances.end() - top_k, ground_distances.end());
       std::sort(top_farthest.begin(), top_farthest.end());
       double r_ref = top_farthest[top_farthest.size() / 2];
@@ -144,33 +144,33 @@ void Himmelsbach::process_slice(
         }
 
         if (r < r_ref - threshold) {
-          // too close to the car, non-ground
+          // too far from reference, non-ground
           size_t write_idx = ground_removed_point_cloud->width;
-          std::memcpy(&output_data[write_idx * LidarPoint::POINT_STEP], &cloud_data[idx * LidarPoint::POINT_STEP],
-                      LidarPoint::POINT_STEP);
+          std::memcpy(&output_data[write_idx * LidarPoint::POINT_STEP],
+                      &cloud_data[idx * LidarPoint::POINT_STEP], LidarPoint::POINT_STEP);
           ground_removed_point_cloud->width++;
         } else {
-          // Ground, update the ground grid and lowest ground point in the ring
+          // Ground, update the ground grid and lowest ground point
           ground_grid.set_ground_height(gx, gy, gz);
           if (lowest_ground_idx_in_ring == -1 ||
-              gz <
-                  *reinterpret_cast<const float*>(&cloud_data[LidarPoint::PointZ(lowest_ground_idx_in_ring)])) {
+              gz < *reinterpret_cast<const float*>(
+                       &cloud_data[LidarPoint::PointZ(lowest_ground_idx_in_ring)])) {
             lowest_ground_idx_in_ring = idx;
           }
         }
-
-        if (lowest_ground_idx_in_ring != -1) {
-          previous_ground_point_x =
-              *reinterpret_cast<float*>(&cloud_data[LidarPoint::PointX(lowest_ground_idx_in_ring)]);
-          previous_ground_point_y =
-              *reinterpret_cast<float*>(&cloud_data[LidarPoint::PointY(lowest_ground_idx_in_ring)]);
-          previous_ground_point_z =
-              *reinterpret_cast<float*>(&cloud_data[LidarPoint::PointZ(lowest_ground_idx_in_ring)]);
-        }
-
-        ground_indices.clear();
-        ground_distances.clear();
       }
+
+      if (lowest_ground_idx_in_ring != -1) {
+        previous_ground_point_x =
+            *reinterpret_cast<float*>(&cloud_data[LidarPoint::PointX(lowest_ground_idx_in_ring)]);
+        previous_ground_point_y =
+            *reinterpret_cast<float*>(&cloud_data[LidarPoint::PointY(lowest_ground_idx_in_ring)]);
+        previous_ground_point_z =
+            *reinterpret_cast<float*>(&cloud_data[LidarPoint::PointZ(lowest_ground_idx_in_ring)]);
+      }
+
+      ground_indices.clear();
+      ground_distances.clear();
     }
   }
 }
@@ -190,7 +190,11 @@ void Himmelsbach::split_point_cloud(
   }
 
   const auto& cloud = input_cloud->data;
-  double slice_angle = grid_angle_ * (M_PI / 180.0);
+  double slice_angle_rad = grid_angle_ * (M_PI / 180.0);
+
+  // Calculate the starting azimuth based on FOV
+  double fov_rad = trim_params_.fov * (M_PI / 180.0);
+  double min_azimuth = -(fov_rad / 2.0);
 
   for (size_t i = 0; i < num_points; ++i) {
     float x = *reinterpret_cast<const float*>(&cloud[LidarPoint::PointX(i)]);
@@ -198,16 +202,16 @@ void Himmelsbach::split_point_cloud(
     uint16_t ring = *reinterpret_cast<const uint16_t*>(&cloud[LidarPoint::PointRing(i)]);
 
     double azimuth = std::atan2(y, x);
+    double relative_azimuth = azimuth - min_azimuth;
 
-    // Ignore points outside [-π/2, +π/2], should not happen
-    if (azimuth < -M_PI_2 || azimuth > M_PI_2) {
+    if (relative_azimuth < 0 || relative_azimuth >= fov_rad) {
       continue;
     }
 
-    // Shift range from [-π/2, +π/2] → [0, π]
-    azimuth += M_PI_2;
+    int slice_idx = static_cast<int>(relative_azimuth / slice_angle_rad);
 
-    int slice_idx = static_cast<int>(azimuth / slice_angle);
-    slices_->at(slice_idx).rings[ring].indices.push_back(i);
+    if (slice_idx >= 0 && slice_idx < static_cast<int>(slices_->size())) {
+      slices_->at(slice_idx).rings[ring].indices.push_back(i);
+    }
   }
 }

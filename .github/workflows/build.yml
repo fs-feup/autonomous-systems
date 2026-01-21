@@ -38,6 +38,8 @@ jobs:
         run: |
           echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
           ./dependencies_install.sh
+          ./src/slam/dependencies_install.sh
+          echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> /home/$USERNAME/.bashrc
           sudo apt install curl -y
           sudo apt install unzip -y
           sudo apt install bear -y
@@ -51,7 +53,7 @@ jobs:
       - name: Compile with bear
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          bear -- colcon build --packages-up-to common_lib perception ekf_state_est control planning inspection mocker_node evaluator
+          bear -- colcon build --packages-up-to common_lib perception slam control planning inspection mocker_node evaluator
           
       - name: Run sonar-scanner
         env:

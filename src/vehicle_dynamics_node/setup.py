@@ -19,6 +19,9 @@ setup(
     license='TODO: License declaration',
     tests_require=['pytest'],
     entry_points={
-        "console_scripts": ["vehicle_dynamics_node = vehicle_dynamics_node.vehicle_dynamics_node:main"],
+        "console_scripts": [
+            "vehicle_dynamics_node = vehicle_dynamics_node.vehicle_dynamics_node:main",
+            "integrator = vehicle_dynamics_node.integrator_node:main",
+        ],
     },
 )

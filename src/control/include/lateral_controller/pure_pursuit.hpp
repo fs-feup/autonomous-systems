@@ -9,6 +9,8 @@
 #include "common_lib/filters/low_pass_filter.hpp"
 #include "common_lib/structures/position.hpp"
 #include "control/include/config/parameters.hpp"
+#include "common_lib/communication/marker.hpp"
+#include "utils/utils.hpp"
 #include "gtest/gtest.h"
 #include "rclcpp/rclcpp.hpp"
 #include "utils/utils.hpp"
@@ -54,6 +56,25 @@ private:
 
   // Timing
   std::chrono::steady_clock::time_point last_control_time_{};
+  // Points to be used for visualization
+  common_lib::structures::Position closest_point_;
+  common_lib::structures::Position lookahead_point_;
+
+  /**
+   * @brief Function that publishes the closest point marker
+   * 
+   * @param node pointer to the rclcpp node
+   * @param publisher_map map between topic names and publishers
+   */
+  void publish_closest_point(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map);
+  
+  /**
+   * @brief Function that publishes the lookahead point marker
+   * 
+   * @param node pointer to the rclcpp node
+   * @param publisher_map map between topic names and publishers
+   */
+  void publish_lookahead_point(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map);
 
 public:
   /**
@@ -74,6 +95,7 @@ public:
 
   // (Optional) legacy helper — keep only if you still call it elsewhere.
   double lateral_pid_error(double distance_error, double heading_error);
+  void publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) override;
 
   /**
    * @brief Pure Pursuit control law

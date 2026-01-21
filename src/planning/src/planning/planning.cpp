@@ -43,27 +43,28 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.pc_lookback_points_ = planning_config["pc_lookback_points"].as<int>();
   params.pc_search_depth_ = planning_config["pc_search_depth"].as<int>();
   params.pc_max_points_ = planning_config["pc_max_points"].as<int>();
-  params.pc_tolerance_ = planning_config["pc_tolerance"].as<double>();
-  params.pc_reset_path_ = planning_config["pc_reset_path"].as<int>();
+  params.pc_minimum_point_distance_ = planning_config["pc_minimum_point_distance"].as<double>();
+  params.pc_reset_interval_ = planning_config["pc_reset_interval"].as<int>();
   params.pc_use_reset_path_ = planning_config["pc_use_reset_path"].as<bool>();
 
   /*--------------------- Skidpad Parameters --------------------*/
-  params.skidpad_tolerance_ = planning_config["skidpad_tolerance"].as<double>();
   params.skidpad_minimum_cones_ = planning_config["skidpad_minimum_cones"].as<int>();
-
-  /*--------------------- Outlier Removal Parameters --------------------*/
-  params.outliers_spline_order_ = planning_config["outliers_spline_order"].as<int>();
-  params.outliers_spline_coeffs_ratio_ =
-      planning_config["outliers_spline_coeffs_ratio"].as<float>();
-  params.outliers_spline_precision_ = planning_config["outliers_spline_precision"].as<int>();
-  params.outliers_use_outlier_removal_ = planning_config["outliers_use_outlier_removal"].as<bool>();
+  params.skidpad_tolerance_ = planning_config["skidpad_tolerance"].as<double>();
 
   /*--------------------- Path Smoothing Parameters --------------------*/
+  params.smoothing_spline_precision_ = planning_config["smoothing_spline_precision"].as<int>();
   params.smoothing_spline_order_ = planning_config["smoothing_spline_order"].as<int>();
   params.smoothing_spline_coeffs_ratio_ =
       planning_config["smoothing_spline_coeffs_ratio"].as<float>();
-  params.smoothing_spline_precision_ = planning_config["smoothing_spline_precision"].as<int>();
   params.smoothing_use_path_smoothing_ = planning_config["smoothing_use_path_smoothing"].as<bool>();
+  params.smoothing_use_optimization_ = planning_config["smoothing_use_optimization"].as<bool>();
+  params.smoothing_car_width_ = planning_config["smoothing_car_width"].as<double>();
+  params.smoothing_safety_margin_ = planning_config["smoothing_safety_margin"].as<double>();
+  params.smoothing_curvature_weight_ = planning_config["smoothing_curvature_weight"].as<double>();
+  params.smoothing_smoothness_weight_ = planning_config["smoothing_smoothness_weight"].as<double>();
+  params.smoothing_safety_weight_ = planning_config["smoothing_safety_weight"].as<double>();
+  params.smoothing_max_iterations_ = planning_config["smoothing_max_iterations"].as<int>();
+  params.smoothing_tolerance_ = planning_config["smoothing_tolerance"].as<double>();
 
   /*--------------------- Velocity Planning Parameters --------------------*/
   params.vp_minimum_velocity_ = planning_config["vp_minimum_velocity"].as<double>();
@@ -93,7 +94,6 @@ Planning::Planning(const PlanningParameters &params)
       planning_config_(params),
       map_frame_id_(params.map_frame_id_),
       desired_velocity_(params.vp_desired_velocity_) {
-  outliers_ = Outliers(planning_config_.outliers_);
   path_calculation_ = PathCalculation(planning_config_.path_calculation_);
   path_smoothing_ = PathSmoothing(planning_config_.smoothing_);
   velocity_planning_ = VelocityPlanning(planning_config_.velocity_planning_);
@@ -221,7 +221,7 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &messa
 
 void Planning::run_ebs_test() {
   full_path_ = path_calculation_.calculate_path(cone_array_);
-  smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
+  smoothed_path_ = path_smoothing_.smooth_path(full_path_);
 
   double distance_from_origin =
       std::sqrt(pose_.position.x * pose_.position.x + pose_.position.y * pose_.position.y);
@@ -250,15 +250,15 @@ void Planning::run_ebs_test() {
 void Planning::run_autocross() {
   if (lap_counter_ == 0) {
     full_path_ = path_calculation_.calculate_path(cone_array_);
-    smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
+    smoothed_path_ = path_smoothing_.smooth_path(full_path_);
     velocity_planning_.set_velocity(smoothed_path_);
   }
   if (lap_counter_ >= 1) {
     if (!is_map_closed_) {
       is_map_closed_ = true;
       full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
-      smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
-      velocity_planning_.trackdrive_velocity(smoothed_path_);
+      smoothed_path_ = path_smoothing_.smooth_path(full_path_);
+      velocity_planning_.set_velocity(smoothed_path_);
     }
     velocity_planning_.stop(smoothed_path_);
   }
@@ -267,14 +267,48 @@ void Planning::run_autocross() {
 void Planning::run_trackdrive() {
   if (lap_counter_ == 0) {
     full_path_ = path_calculation_.calculate_path(cone_array_);
-    smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
+    smoothed_path_ = path_smoothing_.smooth_path(full_path_);
     velocity_planning_.set_velocity(smoothed_path_);
   } else if (lap_counter_ >= 1 && lap_counter_ < 10) {
     if (!is_map_closed_) {
       is_map_closed_ = true;
       full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
-      smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
+
+      const std::vector<Cone> yellow_cones_ = path_calculation_.get_yellow_cones();
+      const std::vector<Cone> blue_cones_ = path_calculation_.get_blue_cones();
+      std::vector<PathPoint> yellow_cones;
+      std::vector<PathPoint> blue_cones;
+      for (const Cone &cone : yellow_cones_) {
+        (void)yellow_cones.emplace_back(cone.position.x, cone.position.y);
+      }
+      for (const Cone &cone : blue_cones_) {
+        (void)blue_cones.emplace_back(cone.position.x, cone.position.y);
+      }
+
+      smoothed_path_ = path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones);
       velocity_planning_.trackdrive_velocity(smoothed_path_);
+
+      if (!smoothed_path_.empty()) {
+        double sum = 0.0;
+        double max_vel = smoothed_path_[0].ideal_velocity;
+        double min_vel = smoothed_path_[0].ideal_velocity;
+
+        for (const auto &point : smoothed_path_) {
+          sum += point.ideal_velocity;
+          if (point.ideal_velocity > max_vel) {
+            max_vel = point.ideal_velocity;
+          }
+          if (point.ideal_velocity < min_vel) {
+            min_vel = point.ideal_velocity;
+          }
+        }
+
+        double avg_vel = sum / smoothed_path_.size();
+
+        RCLCPP_DEBUG(get_logger(),
+                     "[TRACKDRIVE] Velocity Stats - Avg: %.2f m/s | Max: %.2f m/s | Min: %.2f m/s",
+                     avg_vel, max_vel, min_vel);
+      }
     }
   } else {
     velocity_planning_.stop(smoothed_path_);
@@ -317,7 +351,7 @@ void Planning::run_planning_algorithms() {
 
     default:
       full_path_ = path_calculation_.calculate_path(cone_array_);
-      smoothed_path_ = path_smoothing_.smooth_path(full_path_, pose_, initial_car_orientation_);
+      smoothed_path_ = path_smoothing_.smooth_path(full_path_);
       velocity_planning_.set_velocity(smoothed_path_);
       break;
   }
@@ -374,6 +408,13 @@ void Planning::publish_visualization_msgs() const {
   path_to_car_pub_->publish(common_lib::communication::marker_array_from_structure_array(
       path_calculation_.get_path_to_car(), "global_path", map_frame_id_, "white", "cylinder", 0.6,
       visualization_msgs::msg::Marker::MODIFY));
-  velocity_hover_pub_->publish(common_lib::communication::velocity_hover_markers(
-      smoothed_path_, "velocity", map_frame_id_, 0.25f, 1));
+
+  if (planning_config_.smoothing_.use_path_smoothing_) {
+    velocity_hover_pub_->publish(common_lib::communication::velocity_hover_markers(
+        smoothed_path_, "velocity", map_frame_id_, 0.25f,
+        planning_config_.smoothing_.spline_precision_));
+  } else {
+    velocity_hover_pub_->publish(common_lib::communication::velocity_hover_markers(
+        smoothed_path_, "velocity", map_frame_id_, 0.25f, 1));
+  }
 }

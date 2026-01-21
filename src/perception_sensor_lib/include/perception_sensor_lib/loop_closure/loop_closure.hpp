@@ -2,21 +2,20 @@
 
 #include <Eigen/Core>
 #include <common_lib/structures/cone.hpp>
-#include <vector>
 #include <utility>
+#include <vector>
 
 /**
  * @brief Interface for detecting loop closures
  */
 class LoopClosure {
 public:
-
   /**
    * @brief Result of loop closure detection
    * @param detected    true if a loop closure was detected
    * @param offset      offset in meters of the map deviation
    */
-  struct Result{
+  struct Result {
     bool detected;
     double offset;
   };
@@ -33,9 +32,7 @@ public:
    * @param observations     raw observations
    * @return                 result indicating if loop closure was detected
    */
-  virtual Result detect(
-    const Eigen::Vector3d& current_pose,
-    const Eigen::VectorXi& map_cones,
-    const Eigen::VectorXi& associations,
-    const Eigen::VectorXd& observations) const = 0;
+  virtual Result detect(const Eigen::Vector3d& current_pose, const Eigen::VectorXd& map_cones,
+                        const Eigen::VectorXi& associations,
+                        const Eigen::VectorXd& observations) const = 0;
 };

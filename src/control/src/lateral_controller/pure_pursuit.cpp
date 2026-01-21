@@ -50,6 +50,8 @@ double PurePursuit::get_steering_command() {
         ::get_closest_point(this->last_path_msg_, rear_axis);
 
     double u_pp = 0.0;
+    this->closest_point_ = closest_point;
+
     if (closest_point_id != -1) {
       const double ld =
           std::max(this->params_->pure_pursuit_lookahead_gain_ * this->absolute_velocity_,
@@ -58,6 +60,8 @@ double PurePursuit::get_steering_command() {
       auto [lookahead_point, lookahead_velocity, lookahead_error] =
           ::get_lookahead_point(this->last_path_msg_, closest_point_id, ld, rear_axis,
                                 this->params_->first_last_max_dist_);
+
+      this->lookahead_point_ = lookahead_point;
 
       if (!lookahead_error) {
         u_pp = pp_steering_control_law(rear_axis, vehicle_cog, lookahead_point,
@@ -223,4 +227,34 @@ double PurePursuit::calculate_alpha(Position vehicle_rear_wheel, Position vehicl
   }
 
   return alpha;
+}
+
+void PurePursuit::publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
+  this->publish_closest_point(node, publisher_map);
+  this->publish_lookahead_point(node, publisher_map);
+}
+
+void PurePursuit::publish_closest_point(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
+  if (publisher_map.find("/pure_pursuit/closest_point") == publisher_map.end()) {
+    auto publisher = node->create_publisher<visualization_msgs::msg::Marker>("/pure_pursuit/closest_point", 10);
+    publisher_map["/pure_pursuit/closest_point"] = publisher;
+  }
+
+  auto publisher = std::static_pointer_cast<rclcpp::Publisher<visualization_msgs::msg::Marker>>(publisher_map["/pure_pursuit/closest_point"]);
+  visualization_msgs::msg::Marker closest_marker = common_lib::communication::marker_from_position(this->closest_point_,
+      "pure_pursuit", 0, "blue");
+  publisher->publish(closest_marker);
+}
+
+void PurePursuit::publish_lookahead_point(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
+  if (publisher_map.find("/pure_pursuit/lookahead_point") == publisher_map.end()) {
+    auto publisher = node->create_publisher<visualization_msgs::msg::Marker>("/pure_pursuit/lookahead_point", 10);
+    publisher_map["/pure_pursuit/lookahead_point"] = publisher;
+  }
+
+  auto publisher = std::static_pointer_cast<rclcpp::Publisher<visualization_msgs::msg::Marker>>(publisher_map["/pure_pursuit/lookahead_point"]);
+
+  visualization_msgs::msg::Marker lookahead_marker = common_lib::communication::marker_from_position(this->lookahead_point_,
+      "pure_pursuit", 0, "red");
+  publisher->publish(lookahead_marker);
 }
