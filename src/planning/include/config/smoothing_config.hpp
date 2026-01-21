@@ -21,6 +21,11 @@ struct PathSmoothingConfig {
   float spline_coeffs_ratio_;
 
   /**
+   * @brief Minimum distance between consecutive path points after smoothing.
+   */
+  float min_path_point_distance_;
+
+  /**
    * @brief Flag to enable/disable spline-based path smoothing.
    */
   bool use_path_smoothing_;
@@ -72,6 +77,7 @@ struct PathSmoothingConfig {
       : spline_precision_(10),
         spline_order_(3),
         spline_coeffs_ratio_(3.0f),
+        min_path_point_distance_(0.0f),
         use_path_smoothing_(true),
         use_optimization_(true),
         car_width_(1.2),
@@ -86,12 +92,14 @@ struct PathSmoothingConfig {
    * @brief Parameterized constructor.
    */
   PathSmoothingConfig(int spline_precision, int spline_order, float spline_coeffs_ratio,
-                      bool use_path_smoothing, bool use_optimization, double car_width,
-                      double safety_margin, double curvature_weight, double smoothness_weight,
-                      double safety_weight, int max_iterations, double tolerance)
+                      float min_path_point_distance, bool use_path_smoothing, bool use_optimization,
+                      double car_width, double safety_margin, double curvature_weight,
+                      double smoothness_weight, double safety_weight, int max_iterations,
+                      double tolerance)
       : spline_precision_(spline_precision),
         spline_order_(spline_order),
         spline_coeffs_ratio_(spline_coeffs_ratio),
+        min_path_point_distance_(min_path_point_distance),
         use_path_smoothing_(use_path_smoothing),
         use_optimization_(use_optimization),
         car_width_(car_width),

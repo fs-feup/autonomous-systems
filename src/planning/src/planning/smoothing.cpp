@@ -4,30 +4,47 @@ std::vector<PathPoint> PathSmoothing::smooth_path(const std::vector<PathPoint>& 
   if (!config_.use_path_smoothing_) {
     return path;
   }
-  return ::fit_spline(path, config_.spline_precision_, config_.spline_order_,
-                      config_.spline_coeffs_ratio_);
+  std::vector<PathPoint> result_path = ::fit_spline(
+      path, config_.spline_precision_, config_.spline_order_, config_.spline_coeffs_ratio_);
+  return filter_path(result_path);
 }
 
 std::vector<PathPoint> PathSmoothing::optimize_path(
     const std::vector<PathPoint>& path, const std::vector<PathPoint>& yellow_cones,
     const std::vector<PathPoint>& blue_cones) const {
-  if (!config_.use_path_smoothing_) {
-    return path;
+  if (!config_.use_optimization_) {
+    std::vector<PathPoint> result = smooth_path(path);
+    // Close the loop by adding the first point again
+    result.push_back(result.front());
+    return result;
   }
 
   auto splines = ::fit_triple_spline(path, blue_cones, yellow_cones, config_.spline_precision_,
                                      config_.spline_order_);
 
-  if (!config_.use_optimization_) {
-    return path;
-  }
+  const std::vector<PathPoint> optimize_path =
+      osqp_optimization(splines.center, splines.left, splines.right);
+  std::vector<PathPoint> filtered_path = filter_path(optimize_path);
 
-  return osqp_optimization(splines.center, splines.left, splines.right);
+  // Close the loop by adding the first point again
+  filtered_path.push_back(filtered_path.front());
+
+  return filtered_path;
+}
+
+std::vector<PathPoint> PathSmoothing::filter_path(const std::vector<PathPoint>& path) const {
+  std::vector<PathPoint> filtered;
+  for (const auto &p : path) {
+    if (filtered.empty() || filtered.back().position.euclidean_distance(p.position) >
+                                config_.min_path_point_distance_) {
+      filtered.push_back(p);
+    }
+  }
+  return filtered;
 }
 
 void PathSmoothing::add_curvature_terms(
-    int num_path_points,
-    const std::function<int(int)>& circular_index,
+    int num_path_points, const std::function<int(int)>& circular_index,
     const std::function<void(int, int, double)>& add_coefficient) const {
   // -------- ADD CURVATURE PENALTY TERMS --------
   // Penalize second-order differences to minimize curvature
@@ -63,8 +80,7 @@ void PathSmoothing::add_curvature_terms(
 }
 
 void PathSmoothing::add_smoothness_terms(
-    int num_path_points,
-    const std::function<int(int)>& circular_index,
+    int num_path_points, const std::function<int(int)>& circular_index,
     const std::function<void(int, int, double)>& add_coefficient) const {
   // -------- ADD SMOOTHNESS PENALTY TERMS --------
   // Penalize first-order differences to minimize jerk
@@ -89,8 +105,7 @@ void PathSmoothing::add_smoothness_terms(
 }
 
 void PathSmoothing::add_slack_penalty_terms(
-    int num_path_points,
-    const std::function<void(int, int, double)>& add_coefficient) const {
+    int num_path_points, const std::function<void(int, int, double)>& add_coefficient) const {
   // -------- ADD SLACK VARIABLE PENALTY TERMS --------
   // Penalize slack variables to encourage staying within bounds
   const int num_slack_variables = 2 * num_path_points;
