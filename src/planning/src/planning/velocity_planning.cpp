@@ -56,7 +56,7 @@ void VelocityPlanning::point_speed(const std::vector<double> &radiuses,
 }
 
 void VelocityPlanning::acceleration_limiter(const std::vector<PathPoint> &points,
-                                   std::vector<double> &velocities) {
+                                            std::vector<double> &velocities) {
   velocities[0] = config_.minimum_velocity_;
   for (int i = 1; i < (int)points.size(); i++) {
     // distance to previous point
@@ -74,7 +74,7 @@ void VelocityPlanning::acceleration_limiter(const std::vector<PathPoint> &points
 }
 
 void VelocityPlanning::braking_limiter(std::vector<PathPoint> &points,
-                                     std::vector<double> &velocities) {
+                                       std::vector<double> &velocities) {
   for (int i = static_cast<int>(points.size()) - 2; i >= 0; i--) {
     double distance = 0;
     double max_speed = velocities[i];
@@ -125,41 +125,48 @@ void VelocityPlanning::set_velocity(std::vector<PathPoint> &final_path) {
 }
 
 void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
-  if ((config_.use_velocity_planning_) && (final_path.size() > 2)) {
-    // Calculate curvature radiuses for all points
-    std::vector<double> radiuses;
-    radiuses.push_back(0);
-    for (int i = 1; i < static_cast<int>(final_path.size()) - 1; i++) {
-      radiuses.push_back(find_circle_center(final_path[i - 1], final_path[i], final_path[i + 1]));
+  if (!config_.use_velocity_planning_ || final_path.size() <= 2) {
+    for (PathPoint &path_point : final_path) {
+      path_point.ideal_velocity = config_.minimum_velocity_;
     }
-    radiuses[0] = radiuses[1];
-    radiuses.push_back(radiuses.back());
+    return;
+  }
+  int path_size = static_cast<int>(final_path.size()) - 1;  // exclude duplicate last point
 
-    // Calculate curvature-limited velocities
-    std::vector<double> velocities;
-    point_speed(radiuses, velocities);
+  // ---- triple the path ----
+  std::vector<PathPoint> triple_path;
+  triple_path.reserve(3 * path_size);
 
-    velocities.back() = velocities[0]; // Closed loop consistency
-    
-    // Apply acceleration limits
-    acceleration_limiter(final_path, velocities);
-    
-    // Apply braking limits 
-    braking_limiter(final_path, velocities);
-    
-    // Ensure start/end consistency after all passes
-    velocities[0] = std::min(velocities[0], velocities.back());
-    velocities.back() = velocities[0];
-
-    // Apply velocities to path
-    for (int i = 0; i < static_cast<int>(final_path.size()); i++) {
-      final_path[i].ideal_velocity = velocities[i];
-    }
-  } else {
-    for (auto &path_point : final_path) {
-      path_point.ideal_velocity = config_.desired_velocity_;
+  for (int lap = 0; lap < 3; ++lap) {
+    for (int i = 0; i < path_size; ++i) {
+      triple_path.push_back(final_path[i]);
     }
   }
+
+  // ---- curvature ----
+  std::vector<double> radiuses(triple_path.size());
+  
+  for (size_t i = 1; i < triple_path.size()-1; ++i) {
+    radiuses[i] = find_circle_center(triple_path[i - 1], triple_path[i], triple_path[i + 1]);
+  }
+
+  radiuses[0] = radiuses[1];
+  radiuses.back() = radiuses[triple_path.size() - 2];
+
+  // ---- velocity planning ----
+  std::vector<double> velocities;
+  point_speed(radiuses, velocities);
+  acceleration_limiter(triple_path, velocities);
+  braking_limiter(triple_path, velocities);
+
+  int offset = path_size;  // start of the center lap
+  
+  for (int i = 0; i < path_size; ++i) {
+    final_path[i].ideal_velocity = velocities[offset + i];
+  }
+
+  // close loop explicitly
+  final_path.back().ideal_velocity = final_path.front().ideal_velocity;
 }
 
 void VelocityPlanning::stop(std::vector<PathPoint> &final_path) {
