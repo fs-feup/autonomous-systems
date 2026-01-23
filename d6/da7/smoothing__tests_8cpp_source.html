@@ -109,7 +109,7 @@ $(document).ready(function(){initNavTree('d6/da7/smoothing__tests_8cpp_source.ht
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  std::vector&lt;common_lib::structures::PathPoint&gt; input_path = <a class="code hl_function" href="../../d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a7aaaf0c9d5c4fc7b67418ee1c748f208">::path_from_file</a>(file_path);</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>  std::vector&lt;common_lib::structures::PathPoint&gt; smoothed_path =</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>      path_smoothing.<a class="code hl_function" href="../../d7/db7/class_path_smoothing.html#a4a142bd68daf44f1b39e70314836eb4f">smooth_path</a>(input_path);</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>  EXPECT_EQ((<span class="keywordtype">int</span>)smoothed_path.size(), 120);</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>  EXPECT_EQ((<span class="keywordtype">int</span>)smoothed_path.size(), 110);</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>}</div>
 </div>
 <div class="foldopen" id="foldopen00021" data-start="{" data-end="}">
@@ -120,7 +120,7 @@ $(document).ready(function(){initNavTree('d6/da7/smoothing__tests_8cpp_source.ht
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  std::vector&lt;common_lib::structures::PathPoint&gt; input_path = <a class="code hl_function" href="../../d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a7aaaf0c9d5c4fc7b67418ee1c748f208">::path_from_file</a>(file_path);</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  std::vector&lt;common_lib::structures::PathPoint&gt; smoothed_path =</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>      path_smoothing.<a class="code hl_function" href="../../d7/db7/class_path_smoothing.html#a4a142bd68daf44f1b39e70314836eb4f">smooth_path</a>(input_path);</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  EXPECT_EQ((<span class="keywordtype">int</span>)smoothed_path.size(), 390);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  EXPECT_EQ((<span class="keywordtype">int</span>)smoothed_path.size(), 380);</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
 </div>
 <div class="ttc" id="aclass_path_smoothing_html"><div class="ttname"><a href="../../d7/db7/class_path_smoothing.html">PathSmoothing</a></div><div class="ttdoc">class that defines the path smoothing algorithm</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d28/smoothing_8hpp_source.html#l00022">smoothing.hpp:22</a></div></div>

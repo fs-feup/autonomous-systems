@@ -23,6 +23,7 @@ var struct_planning_parameters =
     [ "smoothing_car_width_", "d2/deb/struct_planning_parameters.html#ab20cb15d30009994e94ea8560946cd10", null ],
     [ "smoothing_curvature_weight_", "d2/deb/struct_planning_parameters.html#af5da38a64264365874ee866894cf6d97", null ],
     [ "smoothing_max_iterations_", "d2/deb/struct_planning_parameters.html#a0f628c88b82072ddff93775592948cc6", null ],
+    [ "smoothing_min_path_point_distance_", "d2/deb/struct_planning_parameters.html#aeb1523716ea5aab23b7836d7902918f3", null ],
     [ "smoothing_safety_margin_", "d2/deb/struct_planning_parameters.html#a09c9378cf0bef8f01466c53564a8a30a", null ],
     [ "smoothing_safety_weight_", "d2/deb/struct_planning_parameters.html#af0fc61d3bafeac13530fffb0c864905a", null ],
     [ "smoothing_smoothness_weight_", "d2/deb/struct_planning_parameters.html#a31c519d14749dd2793e0cd3419b9c395", null ],

@@ -1,5 +1,6 @@
 var NAVTREEINDEX7 =
 {
+"d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md210":[24,0,0],
 "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md211":[24,0,1],
 "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md212":[24,1],
 "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md213":[24,1,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX7 =
 "d4/dfa/spline_8py.html#a1e5a4c2c7be917cdb790c23e6fd3cc19":[30,0,0,19,2,1,7],
 "d4/dfa/spline_8py.html#a2b2e31d1c64629de7de099072e52ee57":[30,0,0,19,2,1,12],
 "d4/dfa/spline_8py.html#a3a1e8e2d2b25dd3acc6794dc788c14de":[30,0,0,19,2,1,5],
-"d4/dfa/spline_8py.html#a403fcd33dda06aec50d68edbd1ff2080":[30,0,0,19,2,1,8],
-"d4/dfa/spline_8py.html#a68c5c2c5dda330223d4f9251a3ec728e":[30,0,0,19,2,1,11]
+"d4/dfa/spline_8py.html#a403fcd33dda06aec50d68edbd1ff2080":[30,0,0,19,2,1,8]
 };

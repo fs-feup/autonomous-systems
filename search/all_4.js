@@ -85,7 +85,7 @@ var searchData=
   ['aero_5fside_5fforce_5fcoefficient_82',['aero_side_force_coefficient',['../d5/d5a/structcommon__lib_1_1car__parameters_1_1_aero_parameters.html#a9be82a5d2ac7d4524beb145b56ec395c',1,'common_lib::car_parameters::AeroParameters']]],
   ['aeroarea_83',['aeroArea',['../d9/dea/struct_vehicle_model_bicycle_1_1_aerodynamics_model.html#a7d128f2151ee1ae7f3ad7a6d3754c085',1,'VehicleModelBicycle::AerodynamicsModel']]],
   ['aerodynamicsmodel_84',['AerodynamicsModel',['../d9/dea/struct_vehicle_model_bicycle_1_1_aerodynamics_model.html',1,'VehicleModelBicycle']]],
-  ['aeromodel_85',['aeromodel',['../dd/d52/class_vehicle_model_bicycle.html#ac40aa81687b2fe38f69200089d3be289',1,'VehicleModelBicycle::aeroModel'],['../d2/d35/class_aero_model.html#ad6bd26095ec164495f140f7c0681927b',1,'AeroModel::AeroModel()'],['../d2/d35/class_aero_model.html',1,'AeroModel']]],
+  ['aeromodel_85',['aeromodel',['../d2/d35/class_aero_model.html#ad6bd26095ec164495f140f7c0681927b',1,'AeroModel::AeroModel()'],['../dd/d52/class_vehicle_model_bicycle.html#ac40aa81687b2fe38f69200089d3be289',1,'VehicleModelBicycle::aeroModel'],['../d2/d35/class_aero_model.html',1,'AeroModel']]],
   ['aeroparameters_86',['AeroParameters',['../d5/d5a/structcommon__lib_1_1car__parameters_1_1_aero_parameters.html',1,'common_lib::car_parameters']]],
   ['air_5fdensity_87',['AIR_DENSITY',['../dd/d52/class_vehicle_model_bicycle.html#a4035032c90a45cf3a6e1c6e00b28b899',1,'VehicleModelBicycle']]],
   ['algo_88',['algo',['../de/d11/class_himmelsbach_test.html#aff6a2bcaa2b8ed72bc9fbdaa51ff6b47',1,'HimmelsbachTest']]],

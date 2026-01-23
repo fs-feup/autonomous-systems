@@ -4,6 +4,10 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,37,136,25,137,31,61,42"/>
 <area shape="rect" id="Node000004" href="$d7/db7/class_path_smoothing.html#a4a142bd68daf44f1b39e70314836eb4f" title="Smooths a path by fitting a B&#45;spline through the input points." alt="" coords="108,55,299,80"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="60,45,93,49,92,55,60,50"/>
-<area shape="rect" id="Node000003" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a82e479b6e5401fd9ab2dc0a0851f0a55" title="Opens a file for reading." alt="" coords="347,5,451,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="255,16,331,16,331,21,255,21"/>
+<area shape="rect" id="Node000003" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a82e479b6e5401fd9ab2dc0a0851f0a55" title="Opens a file for reading." alt="" coords="381,5,485,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="255,16,365,16,365,21,255,21"/>
+<area shape="rect" id="Node000005" href="$d7/db7/class_path_smoothing.html#aa6784eb81a049d0cd070e55ac0001ff1" title="Filters path points using a minimum spacing constraint." alt="" coords="347,55,519,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="299,65,331,65,331,70,299,70"/>
+<area shape="rect" id="Node000006" href="$d6/da8/splines_8hpp.html#ab0568c3635331878ae79ce16031cb01a" title="This function takes a sequence of points (T), fits a spline to them using B&#45;spline basis functions,..." alt="" coords="397,104,469,130"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="267,78,383,103,381,109,266,84"/>
 </map>
