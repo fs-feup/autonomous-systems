@@ -12,7 +12,7 @@
 #include "custom_interfaces/msg/velocities.hpp"
 #include "utils/utils.hpp"
 #include "rclcpp/rclcpp.hpp"
-#include "control_solver/map.hpp"
+#include "controller/map.hpp"
 #include "std_msgs/msg/float64_multi_array.hpp"
 
 
@@ -50,8 +50,8 @@ private:
   // Currently just the first element is used, which is the total execution time
   std::shared_ptr<std::vector<double>> _execution_times_;
 
-  // Control solver (lateral + longitudinal)
-  std::shared_ptr<ControlSolver> control_solver_;
+  // Controller (lateral + longitudinal)
+  std::shared_ptr<Controller> controller_;
 
   // Publishers
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr execution_time_pub_;

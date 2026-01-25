@@ -10,7 +10,7 @@
 struct ControlParameters {
   common_lib::car_parameters::CarParameters car_parameters_; // car parameters
 
-  std::string control_solver_; // control solver to be used, options: "decoupled"
+  std::string controller_; // control solver to be used, options: "decoupled"
   std::string lateral_controller_; // lateral controller to be used, options: "pure_pursuit"
   std::string longitudinal_controller_; // longitudinal controller to be used, options: "pid"
   bool using_simulated_slam_;  // true: use simulated slam, false: use real slam (must run the slam node)

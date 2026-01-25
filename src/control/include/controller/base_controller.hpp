@@ -10,7 +10,7 @@
  * @brief Base class for control solvers, that calculate both lateral and longitudinal control commands
  * 
  */
-class ControlSolver {
+class Controller {
 protected:
   std::shared_ptr<ControlParameters> params_;
 public:
@@ -34,6 +34,6 @@ public:
    */
   virtual common_lib::structures::ControlCommand get_control_command() = 0;
 
-  ControlSolver(const ControlParameters& params) : params_(std::make_shared<ControlParameters>(params)) {};
-  virtual ~ControlSolver() = default;
+  Controller(const ControlParameters& params) : params_(std::make_shared<ControlParameters>(params)) {};
+  virtual ~Controller() = default;
 };

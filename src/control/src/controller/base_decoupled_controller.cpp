@@ -1,6 +1,6 @@
-#include "control_solver/base_decoupled_controller.hpp"
+#include "controller/base_decoupled_controller.hpp"
 
-DecoupledController::DecoupledController(const ControlParameters& params) : ControlSolver(params),
+DecoupledController::DecoupledController(const ControlParameters& params) : Controller(params),
  lateral_controller_(lateral_controller_map.at(params.lateral_controller_)(params)),
  longitudinal_controller_(longitudinal_controller_map.at(params.longitudinal_controller_)(params))  {}
 

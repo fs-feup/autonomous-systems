@@ -1,5 +1,5 @@
 control:
-  control_solver: "decoupled" # Options: "decoupled"
+  controller: "mpc" # Options: "decoupled", "mpc"
   lateral_controller: "pure_pursuit" # Options: "pure_pursuit"
   longitudinal_controller: "pid" # Options: "pid"
   pure_pursuit_lookahead_gain: 1.5

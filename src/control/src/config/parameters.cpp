@@ -2,7 +2,7 @@
 
 ControlParameters::ControlParameters(const ControlParameters &params) {
   car_parameters_ = params.car_parameters_;
-  control_solver_ = params.control_solver_;
+  controller_ = params.controller_;
   lateral_controller_ = params.lateral_controller_;
   longitudinal_controller_ = params.longitudinal_controller_;
   using_simulated_slam_ = params.using_simulated_slam_;
@@ -30,7 +30,7 @@ ControlParameters::ControlParameters(const ControlParameters &params) {
 ControlParameters &ControlParameters::operator=(const ControlParameters &other) {
   if (this != &other) {
     car_parameters_ = other.car_parameters_;
-    control_solver_ = other.control_solver_;
+    controller_ = other.controller_;
     lateral_controller_ = other.lateral_controller_;
     longitudinal_controller_ = other.longitudinal_controller_;
     using_simulated_slam_ = other.using_simulated_slam_;
@@ -80,7 +80,7 @@ std::string ControlParameters::load_config() {
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Control config contents: %s",
                YAML::Dump(control_config).c_str());
 
-  this->control_solver_ = control_config["control_solver"].as<std::string>();
+  this->controller_ = control_config["controller"].as<std::string>();
   this->lateral_controller_ = control_config["lateral_controller"].as<std::string>();
   this->longitudinal_controller_ = control_config["longitudinal_controller"].as<std::string>();
   this->pure_pursuit_lookahead_gain_ = control_config["pure_pursuit_lookahead_gain"].as<double>();

@@ -17,3 +17,6 @@
 [submodule "ext/xsens-imu"]
 	path = ext/xsens-imu
 	url = git@github.com:fs-feup/xsens-imu.git
+[submodule "ext/acados"]
+	path = ext/acados
+	url = https://github.com/acados/acados.git

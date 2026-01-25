@@ -3,6 +3,7 @@
 from launch import LaunchDescription
 from launch_ros.actions import Node
 
+
 def generate_launch_description():
     return LaunchDescription(
         [
@@ -11,6 +12,7 @@ def generate_launch_description():
                 executable="node_control",
                 name="control_adapter",
                 arguments=["--ros-args", "--log-level", "control:=info"],
+                output="screen",
             ),
         ]
     )

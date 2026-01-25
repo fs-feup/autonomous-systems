@@ -6,7 +6,7 @@ ControlNode::ControlNode(const ControlParameters& params)
     : Node("control"),
       params_(params),
       _execution_times_(std::make_shared<std::vector<double>>(5, 0.0)),
-      control_solver_(controller_map.at(params_.control_solver_)(params)),
+      controller_(controller_map.at(params_.controller_)(params)),
       execution_time_pub_(create_publisher<std_msgs::msg::Float64MultiArray>(
           "/control/execution_time", 10)),
       control_timer_(create_wall_timer(std::chrono::milliseconds(this->params_.command_time_interval_),
@@ -15,6 +15,8 @@ ControlNode::ControlNode(const ControlParameters& params)
           params.use_simulated_planning_ ? "/path_planning/mock_path" : "/path_planning/path",
           rclcpp::QoS(10),
           std::bind(&ControlNode::path_callback, this, std::placeholders::_1))) {
+  RCLCPP_INFO(this->get_logger(), "Control Node Initialized with %s controller",
+              params_.controller_.c_str());
   if (!params_.using_simulated_slam_) {
     vehicle_pose_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
         "/state_estimation/vehicle_pose", 10,
@@ -31,7 +33,7 @@ void ControlNode::control_timer_callback() {
   if (!go_signal_) return;
 
   rclcpp::Time start = this->now();
-  common_lib::structures::ControlCommand command = this->control_solver_->get_control_command();
+  common_lib::structures::ControlCommand command = this->controller_->get_control_command();
   double execution_time = (this->now() - start).seconds() * 1000;
 
   this->publish_command(command);
@@ -44,13 +46,13 @@ void ControlNode::control_timer_callback() {
 
 // This function is called when a new pose is received
 void ControlNode::vehicle_pose_callback(const custom_interfaces::msg::Pose& vehicle_pose_msg) {
-  this->control_solver_->vehicle_pose_callback(vehicle_pose_msg);
+  this->controller_->vehicle_pose_callback(vehicle_pose_msg);
 }
 
 void ControlNode::path_callback(const custom_interfaces::msg::PathPointArray& path_msg) {
-  this->control_solver_->path_callback(path_msg);
+  this->controller_->path_callback(path_msg);
 }
 
 void ControlNode::vehicle_state_callback(const custom_interfaces::msg::Velocities& vel_msg) {
-  this->control_solver_->vehicle_state_callback(vel_msg);
+  this->controller_->vehicle_state_callback(vel_msg);
 }

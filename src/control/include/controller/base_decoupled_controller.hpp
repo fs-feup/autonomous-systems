@@ -1,10 +1,10 @@
 #pragma once
 
-#include "base_control_solver.hpp"
+#include "base_controller.hpp"
 #include "lateral_controller/map.hpp"
 #include "longitudinal_controller/map.hpp"
 
-class DecoupledController : public ControlSolver {
+class DecoupledController : public Controller {
   // Controller for throttle
   std::shared_ptr<LateralController> lateral_controller_;
   // Controller for steering
