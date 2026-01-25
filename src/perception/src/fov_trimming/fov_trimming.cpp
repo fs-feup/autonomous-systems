@@ -19,11 +19,10 @@ bool FovTrimming::within_limits(float x, float y, float z, float intensity,
          (distance_squared <= max_range * max_range);
 
   if (params.is_raining) {
-    // In rainy conditions, the intensity must be at least 1.0 to be considered valid, as the water
-    // droplets cause 0 intensity points.
-    // It is not removed in normal conditions to preserve more points, as a lot of cone points have
-    // low intensity.
-    ret &= intensity >= 1.0f;
+    // In rainy conditions, the intensity must be at greater or equal to 1 to be considered valid,
+    // as the water droplets cause 0 intensity points. It is not applied in normal conditions to
+    // preserve more points, as a lot of cone points have low intensity.
+    ret &= intensity >= params.minimum_intensity;
   }
 
   return ret;

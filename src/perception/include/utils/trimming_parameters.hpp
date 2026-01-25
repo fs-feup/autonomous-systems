@@ -13,12 +13,13 @@ struct TrimmingParameters {
   bool apply_fov_trimming;             ///< Whether to apply field of view trimming.
   double fov;                          ///< Field of view.
   bool is_raining;                     ///< Whether it is raining.
-  double max_height;                   ///< Maximum point cloud height after trimming.
-  double min_range;                    ///< Maximum point cloud distance after trimming.
-  double max_range;                    ///< Minimum point cloud distance after trimming.
-  double acc_max_range;                ///< (Acceleration Only) Maximum distance after trimming.
-  double acc_max_y;       ///< (Acceleration Only) Maximum lateral distance after trimming.
-  double skid_max_range;  ///< (Skidpad Only) Maximum distance after trimming.
+  float minimum_intensity;  ///< Minimum intensity for point to be considered valid in rain.
+  double max_height;        ///< Maximum point cloud height after trimming.
+  double min_range;         ///< Maximum point cloud distance after trimming.
+  double max_range;         ///< Minimum point cloud distance after trimming.
+  double acc_max_range;     ///< (Acceleration Only) Maximum distance after trimming.
+  double acc_max_y;         ///< (Acceleration Only) Maximum lateral distance after trimming.
+  double skid_max_range;    ///< (Skidpad Only) Maximum distance after trimming.
 
   TrimmingParameters() = default;
 };
