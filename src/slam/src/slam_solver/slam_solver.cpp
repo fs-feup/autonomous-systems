@@ -30,6 +30,8 @@ void SLAMSolver::set_mission(common_lib::competition_logic::Mission mission) {
       Eigen::VectorXd map;
       load_acceleration_track(pose, map);
       this->load_initial_state(map, pose);
+    } else {
+      throw std::runtime_error("Unsupported mission for preloaded map");
     }
   }
 }

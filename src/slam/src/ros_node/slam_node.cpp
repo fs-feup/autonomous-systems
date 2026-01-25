@@ -116,7 +116,7 @@ void SLAMNode::init() {
 
 void SLAMNode::_perception_subscription_callback(
     const custom_interfaces::msg::PerceptionOutput &msg) {
-  RCLCPP_INFO(this->get_logger(), "SLAMNode::_perception_subscription_callback called");
+  RCLCPP_DEBUG(this->get_logger(), "SLAMNode::_perception_subscription_callback called");
   auto const &cone_array = msg.cones.cone_array;
   double perception_exec_time = msg.exec_time;
 
@@ -166,7 +166,6 @@ void SLAMNode::_perception_subscription_callback(
           cone.position.x, cone.position.y, cone.color, cone.confidence, msg.header.stamp));
     }
   }
-  RCLCPP_INFO(this->get_logger(), "ATTR - Perception map size: %ld", _perception_map_.size());
 
   if (this->_slam_solver_ == nullptr) {
     RCLCPP_WARN(this->get_logger(), "ATTR - Slam Solver object is null");
@@ -174,7 +173,7 @@ void SLAMNode::_perception_subscription_callback(
   }
 
   this->_slam_solver_->add_observations(this->_perception_map_, cones_time);
-  RCLCPP_INFO(this->get_logger(), "ATTR - Observations added to SLAM solver");
+  RCLCPP_DEBUG(this->get_logger(), "ATTR - Observations added to SLAM solver");
 
   std::vector<common_lib::structures::Cone> track_map;
   common_lib::structures::Pose vehicle_pose;
@@ -195,7 +194,6 @@ void SLAMNode::_perception_subscription_callback(
   if (this->_is_mission_finished()) {
     this->finish();
   }
-  RCLCPP_INFO(this->get_logger(), "ATTR - Mission finished check done");
 
   // this->_publish_covariance(); // TODO: get covariance to work fast. If uncommented -> update
   // mutex logics
@@ -214,7 +212,7 @@ void SLAMNode::_perception_subscription_callback(
     execution_time_msg.data = *this->_execution_times_;
   }
   this->_execution_time_publisher_->publish(execution_time_msg);
-  RCLCPP_INFO(this->get_logger(), "ATTR - Perception callback finished");
+  RCLCPP_DEBUG(this->get_logger(), "ATTR - Perception callback finished");
 }
 
 void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::Velocities &msg) {

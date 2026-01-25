@@ -77,6 +77,9 @@ void PacsimAdapter::fetch_discipline() {
               mission_result = common_lib::competition_logic::Mission::ACCELERATION;
             } else if (discipline == "trackdrive") {
               mission_result = common_lib::competition_logic::Mission::TRACKDRIVE;
+            } else {
+              RCLCPP_ERROR(this->get_logger(), "Unknown discipline received: %s",
+                           discipline.c_str());
             }
           } else {
             RCLCPP_ERROR(this->get_logger(), "Failed to retrieve discipline parameter.");

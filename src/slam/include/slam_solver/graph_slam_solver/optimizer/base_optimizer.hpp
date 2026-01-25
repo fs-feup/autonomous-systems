@@ -18,7 +18,9 @@ public:
   explicit BaseOptimizer(const SLAMParameters& params) : _params_(params){};
   BaseOptimizer(const BaseOptimizer& other) : _params_(other._params_){};
   BaseOptimizer& operator=(const BaseOptimizer& other) {
-    if (this == &other) return *this;  // Prevent self-assignment
+    if (this == &other) {
+      return *this;  // Prevent self-assignment
+    }
 
     // Note: _params_ is a reference, so we do not copy it
     return *this;
