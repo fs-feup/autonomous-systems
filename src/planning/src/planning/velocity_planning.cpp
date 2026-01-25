@@ -1,5 +1,21 @@
 #include "planning/velocity_planning.hpp"
 
+double VelocityPlanning::find_curvature(const PathPoint &p1, const PathPoint &p2,
+                                        const PathPoint &p3) {
+  // lengths of the sides of the triangle formed by the three points
+  double a = std::hypot(p2.position.x - p1.position.x, p2.position.y - p1.position.y);
+  double b = std::hypot(p3.position.x - p2.position.x, p3.position.y - p2.position.y);
+  double c = std::hypot(p3.position.x - p1.position.x, p3.position.y - p1.position.y);
+
+  double area = 0.5 * std::abs(p1.position.x * (p2.position.y - p3.position.y) +
+                               p2.position.x * (p3.position.y - p1.position.y) +
+                               p3.position.x * (p1.position.y - p2.position.y));
+                               
+  /* The Menger curvature is given by the formula: K = 4A / (abc),
+  where A is the triangle area and a,b,c are the side lengths*/
+  return 4 * area / (a * b * c);
+}
+
 double VelocityPlanning::find_circle_center(const PathPoint &point1, const PathPoint &point2,
                                             const PathPoint &point3) {
   double x1 = point1.position.x;
@@ -145,8 +161,8 @@ void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
 
   // ---- curvature ----
   std::vector<double> radiuses(triple_path.size());
-  
-  for (size_t i = 1; i < triple_path.size()-1; ++i) {
+
+  for (size_t i = 1; i < triple_path.size() - 1; ++i) {
     radiuses[i] = find_circle_center(triple_path[i - 1], triple_path[i], triple_path[i + 1]);
   }
 
@@ -160,7 +176,7 @@ void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
   braking_limiter(triple_path, velocities);
 
   int offset = path_size;  // start of the center lap
-  
+
   for (int i = 0; i < path_size; ++i) {
     final_path[i].ideal_velocity = velocities[offset + i];
   }

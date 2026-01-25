@@ -59,6 +59,8 @@ private:
    */
   VelocityPlanningConfig config_;
 
+  double find_curvature(const PathPoint &p1, const PathPoint &p2, const PathPoint &p3);
+
   /**
    * @brief function to calculate the radius of the circle that passes through 3 points
    *
@@ -77,8 +79,7 @@ private:
    * @param points       The sequence of path points containing positions.
    * @param velocities   The velocity vector to be modified in-place.
    */
-  void acceleration_limiter(const std::vector<PathPoint> &points,
-                                              std::vector<double> &velocities);
+  void acceleration_limiter(const std::vector<PathPoint> &points, std::vector<double> &velocities);
 
   /**
    * @brief function to limit the speed of the car according to braking constraints
