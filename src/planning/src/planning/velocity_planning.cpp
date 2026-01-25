@@ -7,10 +7,11 @@ double VelocityPlanning::find_curvature(const PathPoint &p1, const PathPoint &p2
   double b = std::hypot(p3.position.x - p2.position.x, p3.position.y - p2.position.y);
   double c = std::hypot(p3.position.x - p1.position.x, p3.position.y - p1.position.y);
 
+  // area of the triangle using the determinant method
   double area = 0.5 * std::abs(p1.position.x * (p2.position.y - p3.position.y) +
                                p2.position.x * (p3.position.y - p1.position.y) +
                                p3.position.x * (p1.position.y - p2.position.y));
-                               
+
   /* The Menger curvature is given by the formula: K = 4A / (abc),
   where A is the triangle area and a,b,c are the side lengths*/
   return 4 * area / (a * b * c);
@@ -63,7 +64,7 @@ double VelocityPlanning::find_circle_center(const PathPoint &point1, const PathP
 void VelocityPlanning::point_speed(const std::vector<double> &radiuses,
                                    std::vector<double> &velocities) {
   for (const auto &radius : radiuses) {
-    double velocity = std::sqrt(abs(config_.normal_acceleration_ * radius));
+    double velocity = std::sqrt(abs(config_.tire_grip_ * radius));
     velocities.push_back(std::max(velocity, config_.minimum_velocity_));
   }
   velocities.back() = config_.minimum_velocity_;

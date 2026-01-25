@@ -37,7 +37,7 @@ planning:
   vp_minimum_velocity: 2.0
   vp_braking_acceleration: -3.0
   vp_acceleration: 4.0
-  vp_normal_acceleration: 6.0
+  vp_tire_grip: 6.0
   vp_use_velocity_planning: true
   vp_desired_velocity: 20.0
   #---------------------- Simulation Config (simulation_) ---------------------------
