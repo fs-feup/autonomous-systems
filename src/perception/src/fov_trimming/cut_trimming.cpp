@@ -33,6 +33,7 @@ void CutTrimming::fov_trimming(const sensor_msgs::msg::PointCloud2::SharedPtr& c
     const float x = *reinterpret_cast<const float*>(&data[LidarPoint::PointX(i)]);
     const float y = *reinterpret_cast<const float*>(&data[LidarPoint::PointY(i)]);
     const float z = *reinterpret_cast<const float*>(&data[LidarPoint::PointZ(i)]);
+    const float intensity = *reinterpret_cast<const float*>(&data[LidarPoint::PointIntensity(i)]);
 
     // Skip invalid points
     if (x == 0.0f && y == 0.0f && z == 0.0f) {
@@ -47,7 +48,7 @@ void CutTrimming::fov_trimming(const sensor_msgs::msg::PointCloud2::SharedPtr& c
       ry = static_cast<float>(x * sin_t + y * cos_t);
     }
 
-    if (within_limits(rx, ry, z, params_, params_.max_range)) {
+    if (within_limits(rx, ry, z, intensity, params_, params_.max_range)) {
       uint8_t* out = &trimmed_cloud->data[trimmed_cloud->width * LidarPoint::POINT_STEP];
 
       std::memcpy(out, &data[LidarPoint::PointX(i)], LidarPoint::POINT_STEP);

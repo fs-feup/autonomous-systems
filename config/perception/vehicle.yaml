@@ -13,11 +13,12 @@ perception:
 
   #FOV trimming
   apply_rotation: false
-  rotation: 2.736
+  rotation: 90.0
   apply_fov_trimming: false
   fov: 180.0    #ATTENTION: If fov trimming not applied, leave at 180 degrees
   min_range: 2.0
   max_height: 3.0
+  is_raining: false
 
   #TRACKDRIVE/AUTOCROSS TRIMMING
   max_range: 40.0
@@ -28,7 +29,6 @@ perception:
 
   #SKIDPAD TRIMMING
   skid_max_range: 40.0
-
   #Ground Grid
   ground_grid_range: 40.0  #ATTENTION: Should be >= all max_ranges
   ground_grid_angle: 4.5

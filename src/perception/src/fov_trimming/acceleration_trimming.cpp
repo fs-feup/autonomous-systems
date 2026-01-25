@@ -35,6 +35,7 @@ void AccelerationTrimming::fov_trimming(
     const float x = *reinterpret_cast<const float*>(&data[LidarPoint::PointX(i)]);
     const float y = *reinterpret_cast<const float*>(&data[LidarPoint::PointY(i)]);
     const float z = *reinterpret_cast<const float*>(&data[LidarPoint::PointZ(i)]);
+    const float intensity = *reinterpret_cast<const float*>(&data[LidarPoint::PointIntensity(i)]);
 
     if (x == 0.0f && y == 0.0f && z == 0.0f) {
       continue;
@@ -49,7 +50,7 @@ void AccelerationTrimming::fov_trimming(
     }
 
     if (ry < params_.acc_max_y && ry > -params_.acc_max_y &&
-        within_limits(rx, ry, z, params_, params_.acc_max_range)) {
+        within_limits(rx, ry, z, intensity, params_, params_.acc_max_range)) {
       uint8_t* out = &trimmed_cloud->data[trimmed_cloud->width * LidarPoint::POINT_STEP];
 
       std::memcpy(out, &data[LidarPoint::PointX(i)], LidarPoint::POINT_STEP);

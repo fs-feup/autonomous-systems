@@ -62,6 +62,7 @@ PerceptionParameters Perception::load_config() {
   trim_params.rotation = perception_config["rotation"].as<double>();
   trim_params.apply_fov_trimming = perception_config["apply_fov_trimming"].as<bool>();
   trim_params.fov = perception_config["fov"].as<double>();
+  trim_params.is_raining = perception_config["is_raining"].as<bool>();
 
   auto acceleration_trimming = std::make_shared<AccelerationTrimming>(trim_params);
   auto skidpad_trimming = std::make_shared<SkidpadTrimming>(trim_params);

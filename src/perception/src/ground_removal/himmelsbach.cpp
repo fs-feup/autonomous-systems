@@ -80,10 +80,11 @@ void Himmelsbach::process_slice(
 
       float current_ground_point_distance = std::hypot(pt_x, pt_y);
 
-      if (current_ground_point_distance - previous_ground_point_distance <
-              (-5 - (0.15 * ring_idx)) ||
-          current_ground_point_distance - previous_ground_point_distance >
-              (5 + (0.15 * ring_idx))) {
+      if (!this->trim_params_.is_raining &&
+          (current_ground_point_distance - previous_ground_point_distance <
+               (-5 - (0.15 * ring_idx)) ||
+           current_ground_point_distance - previous_ground_point_distance >
+               (5 + (0.15 * ring_idx)))) {
         // It is noise, ignore
         continue;
       } else if (current_ground_point_distance <= previous_ground_point_distance) {

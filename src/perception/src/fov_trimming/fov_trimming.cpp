@@ -1,7 +1,7 @@
 #include "fov_trimming/fov_trimming.hpp"
 
-bool FovTrimming::within_limits(float x, float y, float z, const TrimmingParameters& params,
-                                const double max_range) const {
+bool FovTrimming::within_limits(float x, float y, float z, float intensity,
+                                const TrimmingParameters& params, const double max_range) const {
   bool ret = true;
 
   if (params.apply_fov_trimming) {
@@ -17,6 +17,14 @@ bool FovTrimming::within_limits(float x, float y, float z, const TrimmingParamet
   ret &= z < (params.max_height - params.lidar_height);
   ret &= (distance_squared > params.min_range * params.min_range) &&
          (distance_squared <= max_range * max_range);
+
+  if (params.is_raining) {
+    // In rainy conditions, the intensity must be at least 1.0 to be considered valid, as the water
+    // droplets cause 0 intensity points.
+    // It is not removed in normal conditions to preserve more points, as a lot of cone points have
+    // low intensity.
+    ret &= intensity >= 1.0f;
+  }
 
   return ret;
 }
