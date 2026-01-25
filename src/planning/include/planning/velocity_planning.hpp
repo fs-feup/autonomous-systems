@@ -59,41 +59,16 @@ private:
    */
   VelocityPlanningConfig config_;
 
+  static constexpr double epsilon = 1e-9;
+  static constexpr double gravity = 9.81;
+
   double find_curvature(const PathPoint &p1, const PathPoint &p2, const PathPoint &p3);
 
-  /**
-   * @brief function to calculate the radius of the circle that passes through 3 points
-   *
-   * @param point1 first point
-   * @param point2 second point
-   * @param point3 third point
-   * @return radius of the circle
-   */
-  double find_circle_center(const PathPoint &point1, const PathPoint &point2,
-                            const PathPoint &point3);
-
-  /**
-   * @brief Applies a forward acceleration constraint to the velocity profile.
-   *
-   *
-   * @param points       The sequence of path points containing positions.
-   * @param velocities   The velocity vector to be modified in-place.
-   */
-  void acceleration_limiter(const std::vector<PathPoint> &points, std::vector<double> &velocities);
-
-  /**
-   * @brief function to limit the speed of the car according to braking constraints
-   *
-   * @param points path points
-   * @param velocities velocities of the path points
-   */
-  void braking_limiter(std::vector<PathPoint> &points, std::vector<double> &velocities);
-
-  /**
-   * @brief function to calculate the speed of the car according to the curvature of the path
-   *
-   * @param radiuses radiuses vector of the path points
-   * @param velocities velocities vector of the path points
-   */
   void point_speed(const std::vector<double> &radiuses, std::vector<double> &velocities);
+
+  void acceleration_limiter(const std::vector<PathPoint> &points, std::vector<double> &velocities,
+                            const std::vector<double> &curvatures);
+
+  void braking_limiter(std::vector<PathPoint> &points, std::vector<double> &velocities,
+                       const std::vector<double> &curvatures);
 };
