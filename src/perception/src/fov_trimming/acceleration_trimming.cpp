@@ -53,7 +53,7 @@ void AccelerationTrimming::fov_trimming(
         within_limits(rx, ry, z, intensity, params_, params_.acc_max_range)) {
       uint8_t* out = &trimmed_cloud->data[trimmed_cloud->width * LidarPoint::POINT_STEP];
 
-      std::memcpy(out, &data[LidarPoint::PointX(i)], LidarPoint::POINT_STEP);
+      static_cast<void>(std::memcpy(out, &data[LidarPoint::PointX(i)], LidarPoint::POINT_STEP));
 
       // Write rotated coords if rotation applies
       if (rotate) {

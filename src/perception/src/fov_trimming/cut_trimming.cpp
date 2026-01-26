@@ -51,7 +51,7 @@ void CutTrimming::fov_trimming(const sensor_msgs::msg::PointCloud2::SharedPtr& c
     if (within_limits(rx, ry, z, intensity, params_, params_.max_range)) {
       uint8_t* out = &trimmed_cloud->data[trimmed_cloud->width * LidarPoint::POINT_STEP];
 
-      std::memcpy(out, &data[LidarPoint::PointX(i)], LidarPoint::POINT_STEP);
+      static_cast<void>(std::memcpy(out, &data[LidarPoint::PointX(i)], LidarPoint::POINT_STEP));
 
       // Overwrite X/Y only if rotation is active
       if (rotate) {
