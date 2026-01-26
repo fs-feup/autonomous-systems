@@ -24,8 +24,6 @@ double VelocityPlanning::find_curvature(const PathPoint &p1, const PathPoint &p2
 
 void VelocityPlanning::point_speed(const std::vector<double> &curvatures,
                                    std::vector<double> &velocities) {
-  double max_acc_lateral = config_.tire_grip_ * gravity;
-
   for (const auto &k : curvatures) {
     // This is a straight line, there is no curvature limit on the velocity
     if (std::abs(k) < epsilon) {
@@ -33,7 +31,7 @@ void VelocityPlanning::point_speed(const std::vector<double> &curvatures,
       continue;
     }
 
-    double velocity = std::sqrt(max_acc_lateral / std::abs(k));
+    double velocity = std::sqrt(config_.lateral_acceleration_ / std::abs(k));
     velocities.push_back(std::min(velocity, config_.desired_velocity_));
   }
   // The last point is always the minimum velocity for safety
@@ -43,8 +41,6 @@ void VelocityPlanning::point_speed(const std::vector<double> &curvatures,
 void VelocityPlanning::acceleration_limiter(const std::vector<PathPoint> &points,
                                             std::vector<double> &velocities,
                                             const std::vector<double> &curvatures) {
-  double max_acc_lateral = config_.tire_grip_ * gravity;
-
   velocities[0] = config_.minimum_velocity_;
   for (int i = 1; i < (int)points.size(); i++) {
     double dx = points[i].position.x - points[i - 1].position.x;
@@ -53,7 +49,11 @@ void VelocityPlanning::acceleration_limiter(const std::vector<PathPoint> &points
 
     // lateral acceleration at previous point: v(i-1)^2 * curvature
     double ay = velocities[i - 1] * velocities[i - 1] * std::abs(curvatures[i - 1]);
-    double ax_max = std::sqrt(std::max(0.0, max_acc_lateral * max_acc_lateral - ay * ay));
+    double ax_max = std::sqrt(
+        std::max(0.0, config_.lateral_acceleration_ * config_.lateral_acceleration_ - ay * ay));
+
+    // Cap by acceleration limit
+    ax_max = std::min(ax_max, config_.acceleration_);
 
     // v_i^2 = v_(i-1)^2 + 2 * a_x_available * d
     double max_velocity =
@@ -65,7 +65,6 @@ void VelocityPlanning::acceleration_limiter(const std::vector<PathPoint> &points
 void VelocityPlanning::braking_limiter(std::vector<PathPoint> &points,
                                        std::vector<double> &velocities,
                                        const std::vector<double> &curvatures) {
-  double max_acc_lateral = config_.tire_grip_ * gravity;
 
   for (int i = static_cast<int>(points.size()) - 2; i >= 0; i--) {
     // Calculate segment distance
@@ -75,9 +74,9 @@ void VelocityPlanning::braking_limiter(std::vector<PathPoint> &points,
 
     // Lateral acceleration at the next point: a = v(j)^2 * curvature
     double ay = velocities[j] * velocities[j] * std::abs(curvatures[j]);
-    double ax_brake = std::sqrt(std::max(0.0, max_acc_lateral * max_acc_lateral - ay * ay));
+    double ax_brake = std::sqrt(std::max(0.0, config_.lateral_acceleration_ * config_.lateral_acceleration_ - ay * ay));
 
-    // Cap by configured braking limit
+    // Cap by braking limit
     ax_brake = std::min(ax_brake, config_.braking_acceleration_);
 
     // Correct kinematic speed calculation

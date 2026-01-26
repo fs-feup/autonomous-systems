@@ -110,5 +110,5 @@ private:
    * @param curvatures Vector of curvature values (used to compute lateral acceleration)
    */
   void braking_limiter(std::vector<PathPoint> &points, std::vector<double> &velocities,
-                       const std::vector<double> &curvatures)
+                       const std::vector<double> &curvatures);
 };
