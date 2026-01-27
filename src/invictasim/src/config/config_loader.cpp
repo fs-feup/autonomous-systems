@@ -2,7 +2,8 @@
 
 #include <yaml-cpp/yaml.h>
 
-#include "common_lib/config_load/config_load.hpp"
+#include <common_lib/config_load/config_load.hpp>
+
 #include "rclcpp/rclcpp.hpp"
 
 namespace invictasim {
