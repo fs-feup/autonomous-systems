@@ -91,7 +91,9 @@ void VelocityPlanning::braking_limiter(std::vector<PathPoint> &points,
 
 void VelocityPlanning::set_velocity(std::vector<PathPoint> &final_path) {
   if (!config_.use_velocity_planning_ || final_path.size() <= 2) {
-    for (auto &point : final_path) point.ideal_velocity = config_.minimum_velocity_;
+    for (auto &p : final_path){
+      p.ideal_velocity = config_.minimum_velocity_;
+    } 
     return;
   }
 
@@ -115,7 +117,9 @@ void VelocityPlanning::set_velocity(std::vector<PathPoint> &final_path) {
 
 void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
   if (!config_.use_velocity_planning_ || final_path.size() <= 2) {
-    for (auto &p : final_path) p.ideal_velocity = config_.minimum_velocity_;
+    for (auto &p : final_path){
+      p.ideal_velocity = config_.minimum_velocity_;
+    } 
     return;
   }
 
