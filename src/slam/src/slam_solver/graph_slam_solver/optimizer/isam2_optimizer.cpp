@@ -36,7 +36,9 @@ ISAM2Optimizer::ISAM2Optimizer(const ISAM2Optimizer& other) : BaseOptimizer(othe
 }
 
 ISAM2Optimizer& ISAM2Optimizer::operator=(const ISAM2Optimizer& other) {
-  if (this == &other) return *this;  // Prevent self-assignment
+  if (this == &other) {
+    return *this;  // Prevent self-assignment
+  }
 
   // Copy each member individually
   BaseOptimizer::operator=(other);
@@ -70,6 +72,9 @@ gtsam::Values ISAM2Optimizer::optimize(gtsam::NonlinearFactorGraph& factor_graph
           _new_values_.insert(key, gtsam::Pose2(0, 0, 0));
         } else if (gtsam::Symbol(key).chr() == 'l') {
           _new_values_.insert(key, gtsam::Point2(0, 0));
+        } else {
+          RCLCPP_WARN(rclcpp::get_logger("slam"), "ISAM2Optimizer - Unknown key type: %c",
+                      gtsam::Symbol(key).chr());
         }
       }
     }
