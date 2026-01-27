@@ -63,7 +63,7 @@ void Himmelsbach::process_slice(
   std::vector<double> ground_distances;
 
   // For each ring in the slice, compare points to previous ground point
-  for (int ring_idx = NUM_RINGS - 1; ring_idx >= 0; --ring_idx) {
+  for (int ring_idx = ::NUM_RINGS - 1; ring_idx >= 0; --ring_idx) {
     const auto& ring = slices_->at(slice_idx).rings[ring_idx];
     if (ring.indices.empty()) {
       continue;
@@ -80,17 +80,19 @@ void Himmelsbach::process_slice(
 
       float current_ground_point_distance = std::hypot(pt_x, pt_y);
 
-      if (current_ground_point_distance - previous_ground_point_distance <
-              (-5 - (0.15 * ring_idx)) ||
-          current_ground_point_distance - previous_ground_point_distance >
-              (5 + (0.15 * ring_idx))) {
+      if (!this->trim_params_.is_raining &&
+          (current_ground_point_distance - previous_ground_point_distance <
+               (-5 - (0.15 * ring_idx)) ||
+           current_ground_point_distance - previous_ground_point_distance >
+               (5 + (0.15 * ring_idx)))) {
         // It is noise, ignore
         continue;
       } else if (current_ground_point_distance <= previous_ground_point_distance) {
         // Write to the output cloud
         size_t write_idx = ground_removed_point_cloud->width;
-        std::memcpy(&output_data[write_idx * LidarPoint::POINT_STEP],
-                    &cloud_data[idx * LidarPoint::POINT_STEP], LidarPoint::POINT_STEP);
+        static_cast<void>(std::memcpy(&output_data[write_idx * LidarPoint::POINT_STEP],
+                                      &cloud_data[idx * LidarPoint::POINT_STEP],
+                                      LidarPoint::POINT_STEP));
         ground_removed_point_cloud->width++;
       } else {
         // Compute slope to previous ground point
@@ -109,8 +111,9 @@ void Himmelsbach::process_slice(
         } else {
           // Point is non-ground, write to output cloud
           size_t write_idx = ground_removed_point_cloud->width;
-          std::memcpy(&output_data[write_idx * LidarPoint::POINT_STEP],
-                      &cloud_data[idx * LidarPoint::POINT_STEP], LidarPoint::POINT_STEP);
+          static_cast<void>(std::memcpy(&output_data[write_idx * LidarPoint::POINT_STEP],
+                                        &cloud_data[idx * LidarPoint::POINT_STEP],
+                                        LidarPoint::POINT_STEP));
           ground_removed_point_cloud->width++;
         }
       }
@@ -146,8 +149,9 @@ void Himmelsbach::process_slice(
         if (r < r_ref - threshold) {
           // too far from reference, non-ground
           size_t write_idx = ground_removed_point_cloud->width;
-          std::memcpy(&output_data[write_idx * LidarPoint::POINT_STEP],
-                      &cloud_data[idx * LidarPoint::POINT_STEP], LidarPoint::POINT_STEP);
+          static_cast<void>(std::memcpy(&output_data[write_idx * LidarPoint::POINT_STEP],
+                                        &cloud_data[idx * LidarPoint::POINT_STEP],
+                                        LidarPoint::POINT_STEP));
           ground_removed_point_cloud->width++;
         } else {
           // Ground, update the ground grid and lowest ground point
