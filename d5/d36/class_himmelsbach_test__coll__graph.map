@@ -1,7 +1,7 @@
 <map id="HimmelsbachTest" name="HimmelsbachTest">
-<area shape="rect" id="Node000001" title=" " alt="" coords="45,374,201,639"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,125,89,191"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,205,97,373,92,374,55,206"/>
-<area shape="rect" id="Node000003" href="$d8/d2c/struct_trimming_parameters.html" title="Structure to hold parameters for trimming point cloud data." alt="" coords="113,5,285,311"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="169,311,158,358,153,357,164,310"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="45,414,201,679"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,145,89,211"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,225,99,413,93,414,54,226"/>
+<area shape="rect" id="Node000003" href="$d8/d2c/struct_trimming_parameters.html" title="Structure to hold parameters for trimming point cloud data." alt="" coords="113,5,285,351"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="166,351,157,398,151,397,161,350"/>
 </map>

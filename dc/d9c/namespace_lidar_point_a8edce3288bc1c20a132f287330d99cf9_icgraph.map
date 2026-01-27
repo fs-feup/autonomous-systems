@@ -1,5 +1,11 @@
 <map id="LidarPoint::PointIntensity" name="LidarPoint::PointIntensity">
-<area shape="rect" id="Node000001" title=" " alt="" coords="235,13,400,39"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="235,108,400,133"/>
 <area shape="rect" id="Node000002" href="$d7/d15/class_least_squares_differentiation.html#af0f7274fca147b1718e68d87df20e83c" title="Perform cone differentiation on a cone&#39;s point cloud using the Least Squares Method." alt="" coords="5,5,187,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="220,28,187,28,187,23,220,23"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="275,103,186,61,155,49,157,44,188,57,277,98"/>
+<area shape="rect" id="Node000003" href="$de/d98/class_acceleration_trimming.html#adff904731cd53c5a6357e510b766760a" title="Perform ground removal on the input point cloud." alt="" coords="22,71,170,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="219,110,170,103,171,98,220,105"/>
+<area shape="rect" id="Node000004" href="$d4/d48/class_cut_trimming.html#a6603f09938c39a9cbbba8da0e67d9b61" title="Perform ground removal on the input point cloud." alt="" coords="8,136,184,161"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="220,135,185,140,184,135,219,130"/>
+<area shape="rect" id="Node000005" href="$d6/df3/class_skidpad_trimming.html#af8de9e5547feabd3a2d9dfe8866599ee" title="Perform ground removal on the input point cloud." alt="" coords="23,185,169,226"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="272,142,188,176,158,187,156,182,186,171,270,137"/>
 </map>

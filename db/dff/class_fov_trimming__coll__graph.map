@@ -1,5 +1,5 @@
 <map id="FovTrimming" name="FovTrimming">
-<area shape="rect" id="Node000001" title=" " alt="" coords="38,374,145,459"/>
-<area shape="rect" id="Node000002" href="$d8/d2c/struct_trimming_parameters.html" title="Structure to hold parameters for trimming point cloud data." alt="" coords="5,5,177,311"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,311,94,357,89,357,89,311"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="38,414,145,499"/>
+<area shape="rect" id="Node000002" href="$d8/d2c/struct_trimming_parameters.html" title="Structure to hold parameters for trimming point cloud data." alt="" coords="5,5,177,351"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,350,94,396,89,396,89,350"/>
 </map>
