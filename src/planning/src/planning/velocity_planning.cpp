@@ -100,9 +100,10 @@ void VelocityPlanning::set_velocity(std::vector<PathPoint> &final_path) {
   const int n = static_cast<int>(final_path.size());
 
   std::vector<double> curvatures(n, 0.0);
-  for (int i = 1; i < n - 1; ++i)
+  for (int i = 1; i < n - 1; ++i){
     curvatures[i] = find_curvature(final_path[i - 1], final_path[i], final_path[i + 1]);
-
+  }
+  
   std::vector<double> velocities;
   point_speed(curvatures, velocities);
   acceleration_limiter(final_path, velocities, curvatures);
