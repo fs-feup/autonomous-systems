@@ -14,25 +14,21 @@ FSFEUP02Model::FSFEUP02Model(const std::string& config_path) {
   // max_steering_angle_ =
   //     model_config["kinematics"]["max_steering_angle"].as<double>() * M_PI / 180.0;
 
-  // Load pacejka parameters
-  float B = model_config["pacejka"]["B"].as<float>();
-  float C = model_config["pacejka"]["C"].as<float>();
-  float D = model_config["pacejka"]["D"].as<float>();
-  float E = model_config["pacejka"]["E"].as<float>();
+  // IMPORTANT: LOAD THE TIRE CONFIGURATION BASED ON THE TIRE FIELD
 
   // Load tire parameters
-  float effective_wheel_radius = model_config["tire"]["effective_tire_radius"].as<float>();
+  // float effective_wheel_radius = model_config["tire"]["effective_tire_radius"].as<float>();
   float d_bleft = model_config["tire"]["d_bleft"].as<float>();
   float d_bright = model_config["tire"]["d_bright"].as<float>();
   float d_fleft = model_config["tire"]["d_fleft"].as<float>();
   float d_fright = model_config["tire"]["d_fright"].as<float>();
+  float camber = model_config["tire"]["camber"].as<float>();
 
   // Initialize tires
-  PacejkaParameters pacejka = {B, C, D, E};
-  frontLeft_ = TireModel(effective_wheel_radius, d_fleft, pacejka);
-  frontRight_ = TireModel(effective_wheel_radius, d_fright, pacejka);
-  backLeft_ = TireModel(effective_wheel_radius, d_bleft, pacejka);
-  backRight_ = TireModel(effective_wheel_radius, d_bright, pacejka);
+  front_left = std::make_unique<TireModel>(camber, d_fleft);
+  front_right = std::make_unique<TireModel>(camber, d_fright);
+  back_left = std::make_unique<TireModel>(camber, d_bleft);
+  back_right = std::make_unique<TireModel>(camber, d_bright);
 
   // Load aerodynamics
   // cla_ = model_config["aero"]["cla"].as<double>();
@@ -94,5 +90,5 @@ void FSFEUP02Model::set_throttle(double throttle) { throttle_ = throttle; }
 std::string FSFEUP02Model::get_model_name() const { return "FSFEUP02Model"; }
 
 float FSFEUP02Model::get_tire_effective_radius() const {
-  return frontLeft_.get_tire_effective_radius();
+  return front_left->get_tire_effective_radius();
 }

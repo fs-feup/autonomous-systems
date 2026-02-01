@@ -1,23 +1,31 @@
 vehicle_model:
   FSFEUP02_model:  
-
-    pacejka:
-      B: 9.63   # Stifness factor
-      C: -1.39  # Shape factor
-      D: 1.6    # Peak factor
-      E: 1.0    # Curvature factor
-
-    tire: # All units in meters
-      d_bleft: 1.0 #Distance from back left to tire to cg
-      d_bright: 1.0 #Distance from back right tire to cg
-      d_fleft:  1.0 #Distance from front left to cg
-      d_fright: 1.0 #Distance from front right to cg
-      effective_tire_radius: 10.0
-
     # Mass and inertia
-    m: 300.0  # Mass (kg)
+    sm: 162.0 # sprung mass without driver (assuming driver of 70kg) -> conchinha
+    um: 38.0 # unsprung mass
     Izz: 120.0  # Yaw moment of inertia (kg·m²)
-    
+    cg:
+      # Sprung CG Y and Z axis in mm
+      sCGy: 722.0 
+      sCGz: 263.0
+      #Unsprung mass CG Y and Z axis in mm
+      uCGy: 744.0
+      uCGz: 206.0
+    # %Total mass CG
+    # CGy=(sCGy*sm+uCGy*um)/m;
+      CGz: 252.2
     # Drivetrain
-    wheelRadius: 0.305  # Wheel radius (m)
-    gearRatio: 4.0
+    dimensions: # in mm
+      wheelbase: 1530
+      track_front: 1200
+      track_rear: 1200
+    tire:
+      model: "r2016x7.5r10x8" #Options: "r2016x7.5r10x8" 
+      #IMPORTANT: THESE PARAMETERS ARE WRONG BECAUSE THE CG IS NOT CORRECT WITHOUT THE DRIVER CHANGE WHEN THERE IS ACTUAL DATA
+      d_bright: 1.06
+      d_bleft: 1.06
+      d_fright: 0.99
+      d:fleft: 0.99
+      camber: 0
+    gearRatio: 3.7
+ 
