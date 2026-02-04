@@ -63,12 +63,8 @@ protected:
   std::shared_ptr<tf2_ros::TransformBroadcaster> _tf_broadcaster_;
   rclcpp::TimerBase::SharedPtr _timer_;      /**< timer */
   std::shared_ptr<SLAMSolver> _slam_solver_; /**< SLAM solver object */
-  std::vector<common_lib::structures::Cone> _perception_map_;
   common_lib::structures::Velocities _vehicle_state_velocities_;
   std::vector<common_lib::structures::Cone> _track_map_;
-  Eigen::VectorXi _associations_;
-  Eigen::VectorXd _observations_global_; /**< Global observations of the cones */
-  Eigen::VectorXd _map_coordinates_;     /**< Coordinates of the cones in the map */
   common_lib::structures::Pose _vehicle_pose_;
   std::shared_ptr<std::vector<double>>
       _execution_times_;  //< Execution times: 0 -> total motion;
@@ -118,7 +114,9 @@ protected:
    * @brief Publishes the visualization of the associations by data association
    *
    */
-  void _publish_associations();
+  void _publish_associations(const Eigen::VectorXi& associations,
+                             const Eigen::VectorXd& observations_global,
+                             const Eigen::VectorXd& map_coordinates);
 
   /**
    * @brief publishes the covariance of the state

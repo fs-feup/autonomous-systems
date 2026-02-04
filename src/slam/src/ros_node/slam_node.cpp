@@ -2,6 +2,7 @@
 
 #include <tf2/LinearMath/Quaternion.h>
 
+#include <algorithm>
 #include <fstream>
 #include <geometry_msgs/msg/transform_stamped.hpp>
 
@@ -42,7 +43,6 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam"), _params_(params
       params, data_association, motion_model, landmark_filter, this->_execution_times_,
       loop_closure);
 
-  _perception_map_ = std::vector<common_lib::structures::Cone>();
   _vehicle_state_velocities_ = common_lib::structures::Velocities();
   _track_map_ = std::vector<common_lib::structures::Cone>();
   _vehicle_pose_ = common_lib::structures::Pose();
@@ -136,8 +136,8 @@ void SLAMNode::_perception_subscription_callback(
           ? rclcpp::Time(msg.header.stamp)
           : start_time - rclcpp::Duration::from_seconds(perception_exec_time);
 
-  // No need for mutex because no other function uses _perception_map_
-  this->_perception_map_.clear();
+  std::vector<common_lib::structures::Cone> perception_map;
+  perception_map.reserve(cone_array.size());
 
   if (this->_params_.slam_solver_name_ == "ekf_slam") {
     // Needs mutex for vehicle_state_velocities
@@ -157,23 +157,23 @@ void SLAMNode::_perception_subscription_callback(
       double y_linear_compensated = cone.position.y - velocities(1) * perception_exec_time;
       double x_compensated = cos_theta * x_linear_compensated - sin_theta * y_linear_compensated;
       double y_compensated = sin_theta * x_linear_compensated + cos_theta * y_linear_compensated;
-      this->_perception_map_.push_back(common_lib::structures::Cone(
+      perception_map.push_back(common_lib::structures::Cone(
           x_compensated, y_compensated, cone.color, cone.confidence, msg.header.stamp));
     }
   } else {
     for (auto &cone : cone_array) {
-      this->_perception_map_.push_back(common_lib::structures::Cone(
+      perception_map.push_back(common_lib::structures::Cone(
           cone.position.x, cone.position.y, cone.color, cone.confidence, msg.header.stamp));
     }
   }
-  RCLCPP_INFO(this->get_logger(), "ATTR - Perception map size: %ld", _perception_map_.size());
+  RCLCPP_INFO(this->get_logger(), "ATTR - Perception map size: %ld", perception_map.size());
 
   if (this->_slam_solver_ == nullptr) {
     RCLCPP_WARN(this->get_logger(), "ATTR - Slam Solver object is null");
     return;
   }
 
-  this->_slam_solver_->add_observations(this->_perception_map_, cones_time);
+  this->_slam_solver_->add_observations(perception_map, cones_time);
   RCLCPP_INFO(this->get_logger(), "ATTR - Observations added to SLAM solver");
 
   std::vector<common_lib::structures::Cone> track_map;
@@ -186,11 +186,10 @@ void SLAMNode::_perception_subscription_callback(
     this->_vehicle_pose_ = vehicle_pose;
   }
 
-  // Only this thread accesses _associations_, _observations_global_ and _map_coordinates_ (through
-  // _publish_associations_)
-  this->_associations_ = this->_slam_solver_->get_associations();
-  this->_observations_global_ = this->_slam_solver_->get_observations_global();
-  this->_map_coordinates_ = this->_slam_solver_->get_map_coordinates();
+  // Copy association data locally to keep visualization in sync with the same snapshot.
+  const Eigen::VectorXi associations = this->_slam_solver_->get_associations();
+  const Eigen::VectorXd observations_global = this->_slam_solver_->get_observations_global();
+  const Eigen::VectorXd map_coordinates = this->_slam_solver_->get_map_coordinates();
 
   if (this->_is_mission_finished()) {
     this->finish();
@@ -203,7 +202,7 @@ void SLAMNode::_perception_subscription_callback(
   this->_publish_vehicle_pose();
   this->_publish_map();
   this->_publish_lap_counter();
-  this->_publish_associations();
+  this->_publish_associations(associations, observations_global, map_coordinates);
 
   // Timekeeping
   rclcpp::Time end_time = this->get_clock()->now();
@@ -379,9 +378,11 @@ void SLAMNode::_publish_lap_counter() {
   this->_lap_counter_publisher_->publish(lap_counter_msg);
 }
 
-void SLAMNode::_publish_associations() {
+void SLAMNode::_publish_associations(const Eigen::VectorXi& associations,
+                                     const Eigen::VectorXd& observations_global,
+                                     const Eigen::VectorXd& map_coordinates) {
   auto marker_array_msg = visualization_msgs::msg::MarkerArray();
-  RCLCPP_DEBUG(this->get_logger(), "PUB - Associations %ld", this->_associations_.size());
+  RCLCPP_DEBUG(this->get_logger(), "PUB - Associations %ld", associations.size());
   // Add a DELETE_ALL marker to clear previous markers
   visualization_msgs::msg::Marker clear_marker;
   clear_marker.header.frame_id = "map";
@@ -391,12 +392,33 @@ void SLAMNode::_publish_associations() {
   clear_marker.action = visualization_msgs::msg::Marker::DELETEALL;
   marker_array_msg.markers.push_back(clear_marker);
 
-  for (int i = 0; i < this->_associations_.size(); i++) {
-    if (this->_associations_[i] >= 0) {
-      double observation_x = this->_observations_global_[i * 2];
-      double observation_y = this->_observations_global_[i * 2 + 1];
-      double map_x = this->_map_coordinates_[this->_associations_[i]];
-      double map_y = this->_map_coordinates_[this->_associations_[i] + 1];
+  const int association_count = associations.size();
+  const int observation_pairs = observations_global.size() / 2;
+  const int map_pairs = map_coordinates.size() / 2;
+  const int capped_count = std::min(association_count, observation_pairs);
+
+  for (int i = 0; i < capped_count; i++) {
+    const int association_index = associations[i];
+    if (association_index < 0) {
+      continue;
+    }
+    const int map_index = association_index / 2;
+    if (map_index < 0 || map_index >= map_pairs) {
+      RCLCPP_WARN(this->get_logger(),
+                  "PUB - Skipping association %d (map index %d out of bounds for %d landmarks)", i,
+                  map_index, map_pairs);
+      continue;
+    }
+    if (i * 2 + 1 >= observations_global.size()) {
+      RCLCPP_WARN(this->get_logger(),
+                  "PUB - Skipping association %d (observation index out of bounds)", i);
+      continue;
+    }
+
+    const double observation_x = observations_global[i * 2];
+    const double observation_y = observations_global[i * 2 + 1];
+    const double map_x = map_coordinates[map_index * 2];
+    const double map_y = map_coordinates[map_index * 2 + 1];
 
       visualization_msgs::msg::Marker marker;
       marker.header.frame_id = "map";  // change frame_id if needed
@@ -426,8 +448,7 @@ void SLAMNode::_publish_associations() {
       marker.color.b = 1.0;
       marker.color.a = 1.0;
 
-      marker_array_msg.markers.push_back(marker);
-    }
+    marker_array_msg.markers.push_back(marker);
   }
   this->_associations_visualization_publisher_->publish(marker_array_msg);
 }
