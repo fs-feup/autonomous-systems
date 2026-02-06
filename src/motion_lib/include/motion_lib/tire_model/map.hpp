@@ -19,4 +19,8 @@ const std::map<
          [](const common_lib::car_parameters::CarParameters& params) -> std::shared_ptr<TireModel> {
            return std::make_shared<PacejkaCombinedSlip>(params);
          }},
+        {"pacejka_bombado",
+         [](const common_lib::car_parameters::CarParameters& params) -> std::shared_ptr<TireModel> {
+           return std::make_shared<PacejkaBombado>(params);
+         }},
 };

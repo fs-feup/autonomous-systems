@@ -1,12 +1,14 @@
 #pragma once
 
+#include <ament_index_cpp/get_package_share_directory.hpp>
 #include <chrono>
 #include <memory>
 #include <thread>
 
-#include "config/config_parameters.hpp"
+#include "loader/config.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/float64.hpp"
+#include "vehicle_model/Bicycle/bicycle.hpp"
 #include "vehicle_model/vehicle_model.hpp"
 
 class InvictaSimNode : public rclcpp::Node {

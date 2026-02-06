@@ -1,14 +1,16 @@
 #include "node/invictasim_node.hpp"
 
-#include "common_lib/config_load/config_load.hpp"
-#include "config/config_loader.hpp"
-#include "vehicle_model/bicycle_model.hpp"
+#include <ament_index_cpp/get_package_share_directory.hpp>
+
+#include "loader/config.hpp"
+#include "vehicle_model/Bicycle/bicycle.hpp"
 
 InvictaSimNode::InvictaSimNode(const InvictaSimParameters& params)
     : Node("invictasim_node"), params_(params), sim_time_(0.0) {
-  std::string vehicle_model_config_path = common_lib::config_load::get_config_yaml_path(
-      "invictasim", "invictasim/vehicle_models", params_.vehicle_model);
   // Create vehicle model based on config
+  std::string package_share_dir = ament_index_cpp::get_package_share_directory("invictasim");
+  std::string vehicle_model_config_path =
+      package_share_dir + "/config/vehicle_models/" + params_.vehicle_model_config;
   if (params_.vehicle_model == "bicycle_model") {
     vehicle_model_ = std::make_shared<BicycleModel>(vehicle_model_config_path);
   } else {

@@ -15,6 +15,7 @@ endif()
 # Dependencies
 # =====================
 find_package(ament_cmake REQUIRED)
+find_package(ament_index_cpp REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
@@ -31,16 +32,20 @@ find_package(visualization_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
 
 # =====================
-# Core library (shared code)
+# Core library
 # =====================
 add_library(invictasim_core
-  src/config/config_loader.cpp
-  src/vehicle_model/bicycle_model.cpp
-  src/vehicle_model/FSFEUP02_model.cpp
-  src/vehicle_model/tire_model/tire_model.cpp
+  src/loader/config.cpp
+  src/vehicle_model/Bicycle/bicycle.cpp
+  src/vehicle_model/FSFEUP02/FSFEUP02.cpp
+  src/vehicle_model/FSFEUP02/tire/tire.cpp
+  src/vehicle_model/FSFEUP02/powertrain/battery/battery.cpp
+  src/vehicle_model/FSFEUP02/powertrain/motor/motor.cpp
+  src/vehicle_model/FSFEUP02/powertrain/powertrain.cpp
 )
 
 ament_target_dependencies(invictasim_core
+  ament_index_cpp
   rclcpp
   std_msgs
   geometry_msgs
@@ -107,12 +112,17 @@ install(DIRECTORY include/
   DESTINATION include
 )
 
+install(DIRECTORY config
+  DESTINATION share/${PROJECT_NAME}
+)
+
 install(DIRECTORY launch
   DESTINATION share/${PROJECT_NAME}
 )
 
 ament_export_include_directories(include)
 ament_export_dependencies(
+  ament_index_cpp
   rclcpp
   std_msgs
   geometry_msgs

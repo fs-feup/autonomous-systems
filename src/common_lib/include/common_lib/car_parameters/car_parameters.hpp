@@ -1,36 +1,38 @@
 #pragma once
 
-#include <yaml-cpp/yaml.h>
-
-#include <ament_index_cpp/get_package_prefix.hpp>
-#include <string>
-
 #include "aero_parameters.hpp"
+#include "battery_parameters.hpp"
 #include "common_lib/config_load/config_load.hpp"
+#include "differential_parameters.hpp"
+#include "load_transfer_parameters.hpp"
+#include "motor_parameters.hpp"
 #include "steering_motor_parameters.hpp"
 #include "steering_parameters.hpp"
 #include "tire_parameters.hpp"
 
 namespace common_lib::car_parameters {
 struct CarParameters {
-  double wheel_diameter = 0.406;
-  double wheelbase = 1.530;
-  double rear_axis_to_camera = 0.79;
-  double track_width = 1.2;
-  double dist_cg_2_rear_axis = 0.804;
-  double gear_ratio = 4;
+  double wheel_diameter;
+  double wheelbase;
+  double track_width;
+  double dist_cg_2_rear_axis;
+  double gear_ratio;
+  double cog_height;
+  double mass;
+  double powertrainEfficiency;
+  double Izz;
 
-  double cog_height = 0.5;
-  double mass = 145.0;
-  double powertrainEfficiency = 0.95;
-  double Izz = 101.082;
-  common_lib::car_parameters::TireParameters tire_parameters;
-  common_lib::car_parameters::AeroParameters aero_parameters;
-  common_lib::car_parameters::SteeringMotorParameters steering_motor_parameters;
-  common_lib::car_parameters::SteeringParameters steering_parameters;
+  std::shared_ptr<common_lib::car_parameters::TireParameters> tire_parameters;
+  std::shared_ptr<common_lib::car_parameters::AeroParameters> aero_parameters;
+  std::shared_ptr<common_lib::car_parameters::SteeringMotorParameters> steering_motor_parameters;
+  std::shared_ptr<common_lib::car_parameters::SteeringParameters> steering_parameters;
+  std::shared_ptr<common_lib::car_parameters::LoadTransferParameters> load_transfer_parameters;
+  std::shared_ptr<common_lib::car_parameters::MotorParameters> motor_parameters;
+  std::shared_ptr<common_lib::car_parameters::BatteryParameters> battery_parameters;
+  std::shared_ptr<common_lib::car_parameters::DifferentialParameters> differential_parameters;
+
   CarParameters();
-  CarParameters(double wheel_diameter, double wheelbase, double rear_axis_to_camera,
-                double track_width, double dist_cg_2_rear_axis, double gear_ratio);
+  CarParameters(std::string config_dir, std::string config_name);
 };
 
 }  // namespace common_lib::car_parameters
