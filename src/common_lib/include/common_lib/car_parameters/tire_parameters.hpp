@@ -17,6 +17,11 @@ struct TireParameters {
   double tire_D_longitudinal;
   double tire_E_longitudinal;
 
+  // Additional fields
+  double camber_scaling_factor;
+  double effective_tire_r;
+  double distance_to_CG;
+
   // Distances
   double d_bright;
   double d_bleft;

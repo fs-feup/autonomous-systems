@@ -22,9 +22,9 @@ common_lib::car_parameters::CarParameters::CarParameters() {
 }
 
 common_lib::car_parameters::CarParameters::CarParameters(std::string dir, std::string config_name) {
-  std::string car_config_path =
+  std::string config_path =
       common_lib::config_load::get_config_yaml_path("common_lib", dir, config_name);
-  YAML::Node config = YAML::LoadFile(car_config_path);
+  YAML::Node config = YAML::LoadFile(config_path);
 
   std::string car_config_name;
   if (config["car_config"]) {

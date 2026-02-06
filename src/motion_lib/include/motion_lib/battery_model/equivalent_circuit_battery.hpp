@@ -14,6 +14,8 @@ public:
 
   float getVoltage() const override;
 
+  float getVoltage(float current_draw) const override;
+
   float getOpenCircuitVoltage() const override;
 
   void updateState(float current_draw, float dt) override;
@@ -29,9 +31,9 @@ private:
   float current_;           // Current being drawn (A)
 
   /**
-   * @brief Calculate heat generation from I²R losses
+   * @brief Calculate allowed discharge current based on SOC and thermal state
    */
-  float calculateHeatGeneration(float current_draw) const;
+  float getAllowedDischargeCurrent() const;
 
   /**
    * @brief Generic linear interpolation from a map

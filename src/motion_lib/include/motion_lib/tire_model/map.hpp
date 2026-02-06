@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 
+#include "pacejka_bombado.hpp"
 #include "pacejka_combined_slip.hpp"
 
 /*

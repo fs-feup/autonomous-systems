@@ -1,6 +1,15 @@
 #pragma once
 
 #include "common_lib/car_parameters/car_parameters.hpp"
+#include "map.hpp"
+
+// O TIRE INPUT TEM DE SER MELHOR DEFINIDO,
+// O PACEJKA QUE JÁ HAVIOA USA UM INPUT MT DIFERENTE DO BOMBADO,
+// É PRECISO DEFINIR UMA INTERFACE QUE TODOS USAM COMO INPUT PARA O TIRE_FORCES
+
+// POSSIVELMENTE UM STRUCT TireInput COM TODOS OS INPUTS DE TODOS OS MODELOS E CADA USAM USA OS
+// SEUS, POR ENQUANTO NÃO MEXI POIS NÃO O QUE FALTA NO BOMBADO
+
 /**
  * @brief Class used to model tires. Currently used to model tire forces based on slip.
  *

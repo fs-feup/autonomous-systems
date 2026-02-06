@@ -8,8 +8,7 @@
  */
 class MapBasedMotor : public BaseMotorModel {
 public:
-  MapBasedMotor(const common_lib::car_parameters::CarParameters& car_parameters)
-      : BaseMotorModel(car_parameters) {}
+  MapBasedMotor(const common_lib::car_parameters::CarParameters& car_parameters);
 
   float getEfficiency(float torque, float rpm) const override;
 

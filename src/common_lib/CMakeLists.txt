@@ -43,6 +43,7 @@ set(IMPLEMENTATION_FILES
   src/structures/vehicle_state.cpp
   src/structures/velocities.cpp
   src/structures/wheels.cpp
+  src/structures/forces.cpp
   src/sensor_data/wheel_encoders.cpp
   src/sensor_data/imu.cpp
   src/communication/marker.cpp
@@ -52,7 +53,9 @@ set(IMPLEMENTATION_FILES
   src/car_parameters/car_parameters.cpp
   src/car_parameters/aero_parameters.cpp
   src/car_parameters/load_transfer_parameters.cpp
-  src/car_parameters/powertrain_parameters.cpp
+  src/car_parameters/motor_parameters.cpp
+  src/car_parameters/battery_parameters.cpp
+  src/car_parameters/differential_parameters.cpp
   src/car_parameters/steering_motor_parameters.cpp
   src/car_parameters/steering_parameters.cpp
   src/car_parameters/tire_parameters.cpp

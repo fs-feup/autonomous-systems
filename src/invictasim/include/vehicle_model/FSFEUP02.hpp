@@ -1,12 +1,9 @@
 #pragma once
 
-#include <yaml-cpp/yaml.h>
-
-#include <cmath>
-#include <rclcpp/rclcpp.hpp>
-
-#include "utils/structures.hpp"
-#include "vehicle_model/FSFEUP02/tire/tire.hpp"
+#include "motion_lib/battery_model/equivalent_circuit_battery.hpp"
+#include "motion_lib/differential_model/limited_slip_differential.hpp"
+#include "motion_lib/motor_model/map_based_motor.hpp"
+#include "motion_lib/tire_model/pacejka_bombado.hpp"
 #include "vehicle_model/vehicle_model.hpp"
 
 /**
@@ -14,9 +11,10 @@
  */
 class FSFEUP02Model : public VehicleModel {
 public:
-  explicit FSFEUP02Model(const std::string& config_path);
+  explicit FSFEUP02Model(const InvictaSimParameters& params);
   ~FSFEUP02Model() override = default;
-  void step(double dt) override;
+
+  void step(double dt, double angle, double throttle) override;
   void reset() override;
 
   double get_position_x() const override;
@@ -26,42 +24,23 @@ public:
 
   void set_position(double x, double y, double yaw) override;
   void set_velocity(double vx) override;
-  void set_steering(double angle) override;
-  void set_throttle(double throttle) override;
 
   std::string get_model_name() const override;
-  float get_tire_effective_radius() const;
 
-  // CHANGE PARAMETERS ARE STILL FROM BICYCLE MODEL
 private:
-  VehicleModelParams params;
-  VehicleModelState state;
-  // Aerodynamics
-  double cla_;
-  double cda_;
-  double aero_area_;
+  // Still need all the state variables, we need to define what the state of the vehicle model will
+  // be
+  std::shared_ptr<TireModel> front_left;
+  std::shared_ptr<TireModel> front_right;
+  std::shared_ptr<TireModel> back_left;
+  std::shared_ptr<TireModel> back_right;
 
-  // Mass and inertia
-  double mass_;
-  double Izz_;
+  std::shared_ptr<MotorModel> motor_;
+  std::shared_ptr<BatteryModel> battery_;
+  std::shared_ptr<DifferentialModel> differential_;
 
-  // Drivetrain
-  double wheel_radius_;
-  double gear_ratio_;
-
-  // State variables
-  double x_;
-  double y_;
-  double yaw_;
-  double vx_;
-
-  // Control inputs
-  double steering_angle_;
-  double throttle_;
-
-  // Tires
-  std::unique_ptr<TireModel> front_left;
-  std::unique_ptr<TireModel> front_right;
-  std::unique_ptr<TireModel> back_left;
-  std::unique_ptr<TireModel> back_right;
+  double x_ = 0.0;
+  double y_ = 0.0;
+  double yaw_ = 0.0;
+  double vx_ = 0.0;
 };

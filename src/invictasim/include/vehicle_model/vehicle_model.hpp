@@ -3,6 +3,8 @@
 #include <memory>
 #include <string>
 
+#include "common_lib/car_parameters/car_parameters.hpp"
+
 /**
  * @brief Vehicle model interface
  *
@@ -10,9 +12,16 @@
  * during the vehicle model implementation.
  */
 class VehicleModel {
+protected:
+  std::shared_ptr<InvictaSimParameters> simulator_parameters_;
+
 public:
+  virtual VehicleModel(const InvictaSimParameters& simulator_parameters)
+      : simulator_parameters_(std::make_shared<InvictaSimParameters>(simulator_parameters)) {}
   virtual ~VehicleModel() = default;
-  virtual void step(double dt) = 0;
+
+  // Core functions
+  virtual void step(double dt, double angle, double throttle) = 0;
   virtual void reset() = 0;
 
   // Essential state getters
@@ -24,10 +33,6 @@ public:
   // Essential state setters
   virtual void set_position(double x, double y, double yaw) = 0;
   virtual void set_velocity(double vx) = 0;
-
-  // Control inputs
-  virtual void set_steering(double angle) = 0;
-  virtual void set_throttle(double throttle) = 0;
 
   virtual std::string get_model_name() const = 0;
 };

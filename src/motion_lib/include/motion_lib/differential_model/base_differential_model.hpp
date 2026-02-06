@@ -2,6 +2,7 @@
 
 #include "common_lib/car_parameters/car_parameters.hpp"
 #include "common_lib/structures/wheels.hpp"
+#include "map.hpp"
 
 /**
  * @brief Base class for differential models
