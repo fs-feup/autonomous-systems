@@ -1,7 +1,7 @@
-#include "map_based_motor.hpp"
+#include "motion_lib/motor_model/map_based_motor.hpp"
 
 MapBasedMotor::MapBasedMotor(const common_lib::car_parameters::CarParameters& car_parameters)
-    : BaseMotorModel(car_parameters), current_(0.0f), thermal_state_(0.0f) {
+    : MotorModel(car_parameters), current_(0.0f), thermal_state_(0.0f) {
   // K = (I_peak² - I_cont²) × T_max_peak
   float i_peak_sq = car_parameters_->motor_parameters->max_peak_current *
                     car_parameters_->motor_parameters->max_peak_current;

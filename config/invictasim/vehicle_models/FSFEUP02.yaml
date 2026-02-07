@@ -6,17 +6,17 @@ vehicle_model:
   aero_model: "simple_aero"
   aero_model_params: "simple_aero"
 
-  tire_model: "pacejka"
+  tire_model: "pacejka_bombado"
   tire_model_params: "complex_pacejka"
 
   motor_model: "map_based_motor"
-  motor_model_params: "map_based_motor"
+  motor_model_params: "motor"
 
   battery_model: "equivalent_circuit_battery"
-  battery_model_params: "simple_battery"
+  battery_model_params: "battery"
 
   differential_model: "limited_slip_differential"
-  differential_model_params: "simple_differential"
+  differential_model_params: "differential"
 
   load_transfer_model: "simple_load_transfer"
   load_transfer_model_params: "simple_load_transfer"

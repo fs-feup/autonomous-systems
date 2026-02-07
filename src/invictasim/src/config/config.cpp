@@ -1,4 +1,4 @@
-#include "loader/config.hpp"
+#include "config/config.hpp"
 
 InvictaSimParameters::InvictaSimParameters() {
   std::string simulator_config_path =
@@ -20,11 +20,16 @@ InvictaSimParameters::InvictaSimParameters() {
       "invictasim", "invictasim/vehicle_models", vehicle_model);
   YAML::Node vehicle_model_config = YAML::LoadFile(vehicle_model_config_path);
 
-  tire_model = vehicle_model_config["car"]["tire_model"].as<std::string>();
-  aero_model = vehicle_model_config["car"]["aero_model"].as<std::string>();
-  steering_motor_model = vehicle_model_config["car"]["steering_motor_model"].as<std::string>();
-  load_transfer_model = vehicle_model_config["car"]["load_transfer_model"].as<std::string>();
-  powertrain_model = vehicle_model_config["car"]["powertrain_model"].as<std::string>();
+  tire_model = vehicle_model_config["vehicle_model"]["tire_model"].as<std::string>();
+  aero_model = vehicle_model_config["vehicle_model"]["aero_model"].as<std::string>();
+  steering_motor_model =
+      vehicle_model_config["vehicle_model"]["steering_motor_model"].as<std::string>();
+  load_transfer_model =
+      vehicle_model_config["vehicle_model"]["load_transfer_model"].as<std::string>();
+  motor_model = vehicle_model_config["vehicle_model"]["motor_model"].as<std::string>();
+  battery_model = vehicle_model_config["vehicle_model"]["battery_model"].as<std::string>();
+  differential_model =
+      vehicle_model_config["vehicle_model"]["differential_model"].as<std::string>();
 
   car_parameters =
       common_lib::car_parameters::CarParameters("invictasim/vehicle_models", vehicle_model);

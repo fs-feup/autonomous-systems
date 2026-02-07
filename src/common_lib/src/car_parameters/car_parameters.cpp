@@ -15,9 +15,16 @@ common_lib::car_parameters::CarParameters::CarParameters() {
   this->track_width = config["car"]["track_width"].as<double>();
   this->dist_cg_2_rear_axis = config["car"]["dist_cg_2_rear_axis"].as<double>();
   this->gear_ratio = config["car"]["gear_ratio"].as<double>();
+  this->sprung_mass = config["car"]["sprung_mass"].as<double>();
+  this->unsprung_mass = config["car"]["unsprung_mass"].as<double>();
+  this->total_mass = config["car"]["total_mass"].as<double>();
+  this->sprung_cg_y = config["car"]["sprung_cg_y"].as<double>();
+  this->sprung_cg_z = config["car"]["sprung_cg_z"].as<double>();
+  this->unsprung_cg_y = config["car"]["unsprung_cg_y"].as<double>();
+  this->unsprung_cg_z = config["car"]["unsprung_cg_z"].as<double>();
+  this->cg_y = config["car"]["cg_y"].as<double>();
+  this->cg_z = config["car"]["cg_z"].as<double>();
   this->cog_height = config["car"]["cog_height"].as<double>();
-  this->mass = config["car"]["mass"].as<double>();
-  this->powertrainEfficiency = config["car"]["powertrain_efficiency"].as<double>();
   this->Izz = config["car"]["Izz"].as<double>();
 }
 
@@ -45,9 +52,16 @@ common_lib::car_parameters::CarParameters::CarParameters(std::string dir, std::s
   this->track_width = car_config["car"]["track_width"].as<double>();
   this->dist_cg_2_rear_axis = car_config["car"]["dist_cg_2_rear_axis"].as<double>();
   this->gear_ratio = car_config["car"]["gear_ratio"].as<double>();
+  this->sprung_mass = car_config["car"]["sprung_mass"].as<double>();
+  this->unsprung_mass = car_config["car"]["unsprung_mass"].as<double>();
+  this->total_mass = car_config["car"]["total_mass"].as<double>();
+  this->sprung_cg_y = car_config["car"]["sprung_cg_y"].as<double>();
+  this->sprung_cg_z = car_config["car"]["sprung_cg_z"].as<double>();
+  this->unsprung_cg_y = car_config["car"]["unsprung_cg_y"].as<double>();
+  this->unsprung_cg_z = car_config["car"]["unsprung_cg_z"].as<double>();
+  this->cg_y = car_config["car"]["cg_y"].as<double>();
+  this->cg_z = car_config["car"]["cg_z"].as<double>();
   this->cog_height = car_config["car"]["cog_height"].as<double>();
-  this->mass = car_config["car"]["mass"].as<double>();
-  this->powertrainEfficiency = car_config["car"]["powertrain_efficiency"].as<double>();
   this->Izz = car_config["car"]["Izz"].as<double>();
 
   if (config["car"]["tire_model_params"]) {

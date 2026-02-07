@@ -1,9 +1,9 @@
 #pragma once
 
-#include "motion_lib/battery_model/equivalent_circuit_battery.hpp"
-#include "motion_lib/differential_model/limited_slip_differential.hpp"
-#include "motion_lib/motor_model/map_based_motor.hpp"
-#include "motion_lib/tire_model/pacejka_bombado.hpp"
+#include "motion_lib/battery_model/map.hpp"
+#include "motion_lib/differential_model/map.hpp"
+#include "motion_lib/motor_model/map.hpp"
+#include "motion_lib/tire_model/map.hpp"
 #include "vehicle_model/vehicle_model.hpp"
 
 /**
@@ -32,8 +32,8 @@ private:
   // be
   std::shared_ptr<TireModel> front_left;
   std::shared_ptr<TireModel> front_right;
-  std::shared_ptr<TireModel> back_left;
-  std::shared_ptr<TireModel> back_right;
+  std::shared_ptr<TireModel> rear_left;
+  std::shared_ptr<TireModel> rear_right;
 
   std::shared_ptr<MotorModel> motor_;
   std::shared_ptr<BatteryModel> battery_;

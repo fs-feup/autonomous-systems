@@ -4,7 +4,6 @@
 #include <memory>
 
 #include "common_lib/car_parameters/car_parameters.hpp"
-#include "map.hpp"
 
 class SteeringMotorModel {
 protected:

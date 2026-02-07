@@ -4,6 +4,7 @@
 #include <string>
 
 #include "common_lib/car_parameters/car_parameters.hpp"
+#include "config/config.hpp"
 
 /**
  * @brief Vehicle model interface
@@ -16,7 +17,7 @@ protected:
   std::shared_ptr<InvictaSimParameters> simulator_parameters_;
 
 public:
-  virtual VehicleModel(const InvictaSimParameters& simulator_parameters)
+  VehicleModel(const InvictaSimParameters& simulator_parameters)
       : simulator_parameters_(std::make_shared<InvictaSimParameters>(simulator_parameters)) {}
   virtual ~VehicleModel() = default;
 

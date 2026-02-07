@@ -1,4 +1,4 @@
-#include "loader/config.hpp"
+#include "config/config.hpp"
 #include "node/invictasim_node.hpp"
 
 /**
@@ -13,7 +13,7 @@
 int main(int argc, char* argv[]) {
   rclcpp::init(argc, argv);
 
-  InvictaSimParameters params = load_config();
+  InvictaSimParameters params = InvictaSimParameters();
   auto invictasim_node = std::make_shared<InvictaSimNode>(params);
 
   rclcpp::spin(invictasim_node);

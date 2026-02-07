@@ -1,7 +1,6 @@
 #pragma once
 
 #include "common_lib/car_parameters/car_parameters.hpp"
-#include "map.hpp"
 
 /**
  * @brief Base class for motor models for electric powertrain

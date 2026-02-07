@@ -1,4 +1,4 @@
-#include "equivalent_circuit_battery.hpp"
+#include "motion_lib/battery_model/equivalent_circuit_battery.hpp"
 
 EquivalentCircuitBattery::EquivalentCircuitBattery(
     const common_lib::car_parameters::CarParameters& car_parameters)
@@ -78,7 +78,7 @@ float EquivalentCircuitBattery::getVoltage(float current_draw) const {
 }
 
 float EquivalentCircuitBattery::getOpenCircuitVoltage() const {
-  return interpolateVoltage(this->soc_);
+  return interpolateFromMap(car_parameters_->battery_parameters->soc_voltage_map, soc_);
 }
 
 void EquivalentCircuitBattery::updateState(float current_draw, float dt) {
@@ -107,6 +107,8 @@ void EquivalentCircuitBattery::updateState(float current_draw, float dt) {
   thermal_state_ += heat_generation - heat_dissipation;
   thermal_state_ = std::max(0.0f, std::min(thermal_capacity_, thermal_state_));
 }
+
+float EquivalentCircuitBattery::getSoC() const { return soc_; }
 
 void EquivalentCircuitBattery::reset() {
   soc_ = 1.0f;

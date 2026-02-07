@@ -1,19 +1,12 @@
+
 cmake_minimum_required(VERSION 3.8)
 project(invictasim)
 
-# =====================
-# Compiler setup
-# =====================
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic)
+  add_compile_options(-Wall -Wextra -Wpedantic -O2)
 endif()
 
-# =====================
 # Dependencies
-# =====================
 find_package(ament_cmake REQUIRED)
 find_package(ament_index_cpp REQUIRED)
 find_package(rclcpp REQUIRED)
@@ -26,25 +19,28 @@ find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(yaml-cpp REQUIRED)
 find_package(common_lib REQUIRED)
+find_package(motion_lib REQUIRED)
 find_package(eufs_msgs REQUIRED)
 find_package(fs_msgs REQUIRED)
 find_package(visualization_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
 
-# =====================
-# Core library
-# =====================
-add_library(invictasim_core
-  src/loader/config.cpp
-  src/vehicle_model/Bicycle/bicycle.cpp
-  src/vehicle_model/FSFEUP02/FSFEUP02.cpp
-  src/vehicle_model/FSFEUP02/tire/tire.cpp
-  src/vehicle_model/FSFEUP02/powertrain/battery/battery.cpp
-  src/vehicle_model/FSFEUP02/powertrain/motor/motor.cpp
-  src/vehicle_model/FSFEUP02/powertrain/powertrain.cpp
+# Implementation files
+set(IMPLEMENTATION_FILES
+  src/node/invictasim_node.cpp
+  src/config/config.cpp
+  src/vehicle_model/FSFEUP02.cpp
 )
 
-ament_target_dependencies(invictasim_core
+# Main executable
+add_executable(invictasim src/main.cpp ${IMPLEMENTATION_FILES})
+target_include_directories(invictasim PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
+target_compile_features(invictasim PUBLIC c_std_99 cxx_std_17)
+target_link_libraries(invictasim yaml-cpp)
+ament_target_dependencies(invictasim
   ament_index_cpp
   rclcpp
   std_msgs
@@ -60,65 +56,51 @@ ament_target_dependencies(invictasim_core
   fs_msgs
   visualization_msgs
   custom_interfaces
-)
-
-target_include_directories(invictasim_core PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>
-)
-
-# =====================
-# Main executable
-# =====================
-add_executable(invictasim
-  src/main.cpp
-  src/node/invictasim_node.cpp
-)
-
-target_link_libraries(invictasim
-  invictasim_core
-  yaml-cpp
+  motion_lib
 )
 
 install(TARGETS invictasim
-  DESTINATION lib/${PROJECT_NAME}
-)
+  DESTINATION lib/${PROJECT_NAME})
 
-# =====================
+install(DIRECTORY include/
+  DESTINATION include)
+install(DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME})
+
 # Tests
-# =====================
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
-
-  ament_add_gtest(${PROJECT_NAME}_test
+  ament_add_gtest(invictasim_test
     test/main.cpp
     test/test.cpp
+    ${IMPLEMENTATION_FILES}
   )
-
-  target_link_libraries(${PROJECT_NAME}_test
-    invictasim_core
+  target_link_libraries(invictasim_test yaml-cpp)
+  target_include_directories(invictasim_test PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+  )
+  ament_target_dependencies(invictasim_test
+    ament_index_cpp
+    rclcpp
+    std_msgs
+    geometry_msgs
+    sensor_msgs
+    nav_msgs
+    rosgraph_msgs
+    tf2
+    tf2_ros
     yaml-cpp
+    common_lib
+    eufs_msgs
+    fs_msgs
+    visualization_msgs
+    custom_interfaces
+    motion_lib
   )
-
-  install(TARGETS ${PROJECT_NAME}_test
-    DESTINATION lib/${PROJECT_NAME}
-  )
+  install(TARGETS invictasim_test
+    DESTINATION lib/${PROJECT_NAME})
 endif()
-
-# =====================
-# Install & export
-# =====================
-install(DIRECTORY include/
-  DESTINATION include
-)
-
-install(DIRECTORY config
-  DESTINATION share/${PROJECT_NAME}
-)
-
-install(DIRECTORY launch
-  DESTINATION share/${PROJECT_NAME}
-)
 
 ament_export_include_directories(include)
 ament_export_dependencies(
@@ -138,5 +120,4 @@ ament_export_dependencies(
   visualization_msgs
   custom_interfaces
 )
-
 ament_package()

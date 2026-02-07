@@ -5,10 +5,10 @@
 #include <memory>
 #include <thread>
 
-#include "loader/config.hpp"
+#include "config/config.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/float64.hpp"
-#include "vehicle_model/Bicycle/bicycle.hpp"
+#include "vehicle_model/map.hpp"
 #include "vehicle_model/vehicle_model.hpp"
 
 class InvictaSimNode : public rclcpp::Node {

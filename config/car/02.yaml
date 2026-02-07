@@ -2,8 +2,8 @@ car:
   wheel_base: 1.53
   track_width: 1.2
   wheel_diameter: 0.406
-  sprung_mass: 162.0
-  unsprung_mass: 38.0
+  sprung_mass: 162.0          # Eu acho que estes valores de VD estão mal, incluindo o cg_z que seria a altura do cg
+  unsprung_mass: 38.0         # Por isso deixei os antigos até termos uima versão confirmada
   total_mass: 200.0
   sprung_cg_y: 0.722
   sprung_cg_z: 0.263
@@ -11,6 +11,7 @@ car:
   unsprung_cg_z: 0.206
   cg_y: 0.726
   cg_z: 0.2522
+  cog_height: 0.5  
   dist_cg_2_rear_axis: 0.804  # O cg_y deve ser este dist_cg_2_rear_axis, mas VD deu 0.726
   gear_ratio: 3.67
   Izz: 101.082

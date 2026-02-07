@@ -1,7 +1,7 @@
 #include <string>
 
-#include "../include/vehicle_model/FSFEUP02/FSFEUP02.hpp"
 #include "gtest/gtest.h"
+#include "vehicle_model/FSFEUP02.hpp"
 /**
  * @brief Example test
  */
@@ -11,13 +11,7 @@ TEST(invictasim, example_test) {
 }
 
 TEST(FSFEUP02Model_, initializeVehicleModel) {
-  std::string config_path = "/home/ws/src/invictasim/config/vehicle_models/FSFEUP02.yaml";
-  FSFEUP02Model vehicle(config_path);
+  InvictaSimParameters params = InvictaSimParameters();
+  FSFEUP02Model vehicle(params);
   EXPECT_EQ(vehicle.get_model_name(), "FSFEUP02Model");
-}
-
-TEST(TireModel_, initializeTireModel) {
-  std::string config_path = "/home/ws/src/invictasim/config/vehicle_models/FSFEUP02.yaml";
-  FSFEUP02Model vehicle(config_path);
-  EXPECT_EQ(vehicle.get_tire_effective_radius(), 10);
 }

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "common_lib/car_parameters/car_parameters.hpp"
-#include "map.hpp"
 
 /**
  * @brief Base class for battery models
@@ -24,10 +23,16 @@ public:
   virtual std::tuple<float, float> calculateCurrentForPower(float electrical_power_req) const = 0;
 
   /**
-   * @brief Get current battery voltage under load
+   * @brief Get current battery voltage with current state
    * @return Terminal voltage (V)
    */
   virtual float getVoltage() const = 0;
+
+  /**
+   * @brief Get current battery voltage under provided current draw
+   * @return Terminal voltage (V)
+   */
+  virtual float getVoltage(float current_draw) const = 0;
 
   /**
    * @brief Get open circuit voltage

@@ -32,8 +32,8 @@ struct InternalValues {
 
 // Isto está aqui apenas para compilar, isto será muito provavelemnte o input to tire_forces
 struct VehicleModelState {
-  common_lib::structures::Velocities velocity;
-  common_lib::structures::Forces force;
+  common_lib::structures::Velocities velocities;
+  common_lib::structures::Forces forces;
   common_lib::structures::Wheels wheels_speed;
   double angular_speed;
   double steering_angle = 0.0;
@@ -127,5 +127,6 @@ private:
 
   float calculateSVy() const;
 
-  int sign(float val) { return (val > 0) ? 1 : -1; }
+  // Isto é mesmo preciso?
+  static int sign(float val) { return (val > 0) ? 1 : -1; }
 };

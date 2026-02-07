@@ -1,7 +1,6 @@
 #pragma once
 
 #include "common_lib/car_parameters/car_parameters.hpp"
-#include "map.hpp"
 
 // O TIRE INPUT TEM DE SER MELHOR DEFINIDO,
 // O PACEJKA QUE JÁ HAVIOA USA UM INPUT MT DIFERENTE DO BOMBADO,

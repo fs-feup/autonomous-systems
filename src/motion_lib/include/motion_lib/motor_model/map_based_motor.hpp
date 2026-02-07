@@ -6,7 +6,7 @@
 /**
  * @brief Map based motor model for electric powertrain
  */
-class MapBasedMotor : public BaseMotorModel {
+class MapBasedMotor : public MotorModel {
 public:
   MapBasedMotor(const common_lib::car_parameters::CarParameters& car_parameters);
 

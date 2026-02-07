@@ -2,20 +2,20 @@
 
 FSFEUP02Model::FSFEUP02Model(const InvictaSimParameters& simulator_parameters)
     : VehicleModel(simulator_parameters) {
-  this->front_left = motion_lib::tire_models_map.at(simulator_parameters.tire_model)(
+  this->front_left = tire_models_map.at(simulator_parameters.tire_model.c_str())(
       simulator_parameters.car_parameters);
-  this->front_right = motion_lib::tire_models_map.at(simulator_parameters.tire_model)(
+  this->front_right = tire_models_map.at(simulator_parameters.tire_model.c_str())(
       simulator_parameters.car_parameters);
-  this->rear_left = motion_lib::tire_models_map.at(simulator_parameters.tire_model)(
+  this->rear_left = tire_models_map.at(simulator_parameters.tire_model.c_str())(
       simulator_parameters.car_parameters);
-  this->rear_right = motion_lib::tire_models_map.at(simulator_parameters.tire_model)(
+  this->rear_right = tire_models_map.at(simulator_parameters.tire_model.c_str())(
       simulator_parameters.car_parameters);
-  this->motor_ = motion_lib::motor_models_map.at(simulator_parameters.motor_model)(
+  this->motor_ = motor_models_map.at(simulator_parameters.motor_model.c_str())(
       simulator_parameters.car_parameters);
-  this->battery_ = motion_lib::battery_models_map.at(simulator_parameters.battery_model)(
+  this->battery_ = battery_models_map.at(simulator_parameters.battery_model.c_str())(
       simulator_parameters.car_parameters);
-  this->differential_ = motion_lib::differential_models_map.at(
-      simulator_parameters.differential_model)(simulator_parameters.car_parameters);
+  this->differential_ = differential_models_map.at(simulator_parameters.differential_model.c_str())(
+      simulator_parameters.car_parameters);
 }
 
 void FSFEUP02Model::step(double dt, double angle, double throttle) {

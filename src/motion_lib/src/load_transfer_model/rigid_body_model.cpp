@@ -12,7 +12,7 @@ Eigen::Vector4d RigidBodyLoadTransferModel::compute_loads(
   double longitudinal_acceleration = dynamic_state(0);
   double lateral_acceleration = dynamic_state(1);
 
-  double mass = this->car_parameters_->mass;
+  double mass = this->car_parameters_->total_mass;
   double g = 9.8065;  // m/s^2 TODO: make this a constant in the car parameters (maybe?)
   double cog_height = this->car_parameters_->cog_height;
   double wheelbase = this->car_parameters_->wheelbase;

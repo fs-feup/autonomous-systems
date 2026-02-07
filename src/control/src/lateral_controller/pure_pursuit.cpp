@@ -6,8 +6,10 @@ using namespace common_lib::structures;
  * @brief Pure Pursuit class Constructor
  *
  */
-PurePursuit::PurePursuit(const ControlParameters& params) : LateralController(params),
-    lpf_(std::make_shared<LowPassFilter>(params.pure_pursuit_lpf_alpha_, params.pure_pursuit_lpf_initial_value_)) {}
+PurePursuit::PurePursuit(const ControlParameters& params)
+    : LateralController(params),
+      lpf_(std::make_shared<LowPassFilter>(params.pure_pursuit_lpf_alpha_,
+                                           params.pure_pursuit_lpf_initial_value_)) {}
 
 void PurePursuit::path_callback(const custom_interfaces::msg::PathPointArray& msg) {
   this->last_path_msg_ = msg.pathpoint_array;
@@ -16,7 +18,8 @@ void PurePursuit::path_callback(const custom_interfaces::msg::PathPointArray& ms
 
 void PurePursuit::vehicle_state_callback(const custom_interfaces::msg::Velocities& msg) {
   this->last_velocity_msg_ = msg;
-  this->absolute_velocity_ = std::sqrt(msg.velocity_x * msg.velocity_x + msg.velocity_y * msg.velocity_y);
+  this->absolute_velocity_ =
+      std::sqrt(msg.velocity_x * msg.velocity_x + msg.velocity_y * msg.velocity_y);
   this->received_first_state_ = true;
 }
 
@@ -25,14 +28,14 @@ void PurePursuit::vehicle_pose_callback(const custom_interfaces::msg::Pose& vehi
   this->received_first_pose_ = true;
 }
 
-double PurePursuit::get_steering_command()  {
+double PurePursuit::get_steering_command() {
   double steering_command = 0.0;
-  
+
   if (this->received_first_path_ && this->received_first_state_ && this->received_first_pose_) {
     // Prepare inputs for the Pure Pursuit control law
     Position vehicle_cog = Position(this->last_pose_msg_.x, this->last_pose_msg_.y);
     Position rear_axis = ::rear_axis_position(vehicle_cog, this->last_pose_msg_.theta,
-        this->params_->car_parameters_.dist_cg_2_rear_axis);
+                                              this->params_->car_parameters_.dist_cg_2_rear_axis);
     auto [closest_point, closest_point_id, closest_point_velocity] =
         ::get_closest_point(this->last_path_msg_, rear_axis);
 
@@ -42,17 +45,19 @@ double PurePursuit::get_steering_command()  {
       double ld = std::max(this->params_->pure_pursuit_lookahead_gain_ * this->absolute_velocity_,
                            this->params_->pure_pursuit_lookahead_minimum_);
       auto [lookahead_point, lookahead_velocity, lookahead_error] =
-          ::get_lookahead_point(this->last_path_msg_, closest_point_id, ld, rear_axis, this->params_->first_last_max_dist_);
+          ::get_lookahead_point(this->last_path_msg_, closest_point_id, ld, rear_axis,
+                                this->params_->first_last_max_dist_);
 
       this->lookahead_point_ = lookahead_point;
 
       if (!lookahead_error) {
-        steering_command = pp_steering_control_law(rear_axis, vehicle_cog,
-            lookahead_point, this->params_->car_parameters_.dist_cg_2_rear_axis);
+        steering_command =
+            pp_steering_control_law(rear_axis, vehicle_cog, lookahead_point,
+                                    this->params_->car_parameters_.dist_cg_2_rear_axis);
       }
     }
   }
-  
+
   return steering_command;
 }
 
@@ -62,11 +67,13 @@ double PurePursuit::pp_steering_control_law(Position rear_axis, Position cg,
   // update lookahead distance to the actual distance
   double ld = rear_axis.euclidean_distance(lookahead_point);
 
-  double steering_angle = std::atan(2 * this->params_->car_parameters_.wheelbase * std::sin(alpha) / ld);
+  double steering_angle =
+      std::atan(2 * this->params_->car_parameters_.wheelbase * std::sin(alpha) / ld);
   double filtered_steering_angle = lpf_->filter(steering_angle);
 
-  return std::clamp(filtered_steering_angle, this->params_->car_parameters_.steering_parameters.minimum_steering_angle,
-    this->params_->car_parameters_.steering_parameters.maximum_steering_angle);
+  return std::clamp(filtered_steering_angle,
+                    this->params_->car_parameters_.steering_parameters->minimum_steering_angle,
+                    this->params_->car_parameters_.steering_parameters->maximum_steering_angle);
 }
 
 double PurePursuit::calculate_alpha(Position vehicle_rear_wheel, Position vehicle_cg,
@@ -89,32 +96,43 @@ double PurePursuit::calculate_alpha(Position vehicle_rear_wheel, Position vehicl
   return alpha;
 }
 
-void PurePursuit::publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
+void PurePursuit::publish_solver_data(
+    std::shared_ptr<rclcpp::Node> node,
+    std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
   this->publish_closest_point(node, publisher_map);
   this->publish_lookahead_point(node, publisher_map);
 }
 
-void PurePursuit::publish_closest_point(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
+void PurePursuit::publish_closest_point(
+    std::shared_ptr<rclcpp::Node> node,
+    std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
   if (publisher_map.find("/pure_pursuit/closest_point") == publisher_map.end()) {
-    auto publisher = node->create_publisher<visualization_msgs::msg::Marker>("/pure_pursuit/closest_point", 10);
+    auto publisher =
+        node->create_publisher<visualization_msgs::msg::Marker>("/pure_pursuit/closest_point", 10);
     publisher_map["/pure_pursuit/closest_point"] = publisher;
   }
 
-  auto publisher = std::static_pointer_cast<rclcpp::Publisher<visualization_msgs::msg::Marker>>(publisher_map["/pure_pursuit/closest_point"]);
-  visualization_msgs::msg::Marker closest_marker = common_lib::communication::marker_from_position(this->closest_point_,
-      "pure_pursuit", 0, "blue");
+  auto publisher = std::static_pointer_cast<rclcpp::Publisher<visualization_msgs::msg::Marker>>(
+      publisher_map["/pure_pursuit/closest_point"]);
+  visualization_msgs::msg::Marker closest_marker = common_lib::communication::marker_from_position(
+      this->closest_point_, "pure_pursuit", 0, "blue");
   publisher->publish(closest_marker);
 }
 
-void PurePursuit::publish_lookahead_point(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
+void PurePursuit::publish_lookahead_point(
+    std::shared_ptr<rclcpp::Node> node,
+    std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
   if (publisher_map.find("/pure_pursuit/lookahead_point") == publisher_map.end()) {
-    auto publisher = node->create_publisher<visualization_msgs::msg::Marker>("/pure_pursuit/lookahead_point", 10);
+    auto publisher = node->create_publisher<visualization_msgs::msg::Marker>(
+        "/pure_pursuit/lookahead_point", 10);
     publisher_map["/pure_pursuit/lookahead_point"] = publisher;
   }
 
-  auto publisher = std::static_pointer_cast<rclcpp::Publisher<visualization_msgs::msg::Marker>>(publisher_map["/pure_pursuit/lookahead_point"]);
+  auto publisher = std::static_pointer_cast<rclcpp::Publisher<visualization_msgs::msg::Marker>>(
+      publisher_map["/pure_pursuit/lookahead_point"]);
 
-  visualization_msgs::msg::Marker lookahead_marker = common_lib::communication::marker_from_position(this->lookahead_point_,
-      "pure_pursuit", 0, "red");
+  visualization_msgs::msg::Marker lookahead_marker =
+      common_lib::communication::marker_from_position(this->lookahead_point_, "pure_pursuit", 0,
+                                                      "red");
   publisher->publish(lookahead_marker);
 }

@@ -1,6 +1,6 @@
 invictasim:
   # Simulator config
-  vehicle_model: "FSFEUP02"  # Options: "bicycle", "FSFEUP02"
+  vehicle_model: "FSFEUP02"  # Options: "FSFEUP02"
   timestep: 0.001  # seconds (0.001s = 1000 Hz)
   use_simulated_se: false # use simulated state estimator from the simulator
   use_simulated_perception: false # use simulated perception from the simulator
