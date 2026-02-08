@@ -4,23 +4,23 @@
 
 namespace common_lib::structures {
 
-struct Forces {
+struct Force {
   double x = 0.0;
   double y = 0.0;
   double z = 0.0;
 
   /**
-   * @brief Construct a new Forces object with default values
+   * @brief Construct a new Force object with default values
    */
-  Forces() = default;
+  Force() = default;
 
   /**
-   * @brief Construct a new Forces object with the given forces
+   * @brief Construct a new Force object with the given forces
    *
    * @param Force x force
    * @param Force y force
    * @param Force z force
    */
-  Forces(double force_x, double force_y, double force_z);
+  Force(double force_x, double force_y, double force_z);
 };
 }  // namespace common_lib::structures

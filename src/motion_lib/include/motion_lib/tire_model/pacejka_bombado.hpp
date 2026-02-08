@@ -1,7 +1,7 @@
 #pragma once
 
 #include "base_tire_model.hpp"
-#include "common_lib/structures/forces.hpp"
+#include "common_lib/structures/force.hpp"
 #include "common_lib/structures/velocities.hpp"
 #include "common_lib/structures/wheels.hpp"
 
@@ -33,7 +33,7 @@ struct InternalValues {
 // Isto está aqui apenas para compilar, isto será muito provavelemnte o input to tire_forces
 struct VehicleModelState {
   common_lib::structures::Velocities velocities;
-  common_lib::structures::Forces forces;
+  common_lib::structures::Force force;
   common_lib::structures::Wheels wheels_speed;
   double angular_speed;
   double steering_angle = 0.0;

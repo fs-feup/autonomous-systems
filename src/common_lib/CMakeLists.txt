@@ -43,7 +43,7 @@ set(IMPLEMENTATION_FILES
   src/structures/vehicle_state.cpp
   src/structures/velocities.cpp
   src/structures/wheels.cpp
-  src/structures/forces.cpp
+  src/structures/force.cpp
   src/sensor_data/wheel_encoders.cpp
   src/sensor_data/imu.cpp
   src/communication/marker.cpp

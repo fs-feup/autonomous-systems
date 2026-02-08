@@ -60,9 +60,9 @@ float PacejkaBombado::calculatePacejka(float B, float C, float D, float E, float
 */
 
 bool PacejkaBombado::calculateTireState(float slip_angle, float slip_ratio) {
-  internal_vals.Fz0_prime = car_parameters_->tire_parameters->LFZO * vehicle_model_state.forces.z;
+  internal_vals.Fz0_prime = car_parameters_->tire_parameters->LFZO * vehicle_model_state.force.z;
   internal_vals.dfz =
-      (vehicle_model_state.forces.z - internal_vals.Fz0_prime) / internal_vals.Fz0_prime;
+      (vehicle_model_state.force.z - internal_vals.Fz0_prime) / internal_vals.Fz0_prime;
   internal_vals.epsilong = car_parameters_->tire_parameters->PECP1 *
                            (1 + car_parameters_->tire_parameters->PECP2 * internal_vals.dfz);
   internal_vals.Vc_prime =
@@ -91,7 +91,7 @@ bool PacejkaBombado::calculateTireState(float slip_angle, float slip_ratio) {
       (1 + car_parameters_->tire_parameters->PPY1 * internal_vals.dpi) *
       (1 - car_parameters_->tire_parameters->PKY3 * abs(internal_vals.gamma_star)) *
       sin(car_parameters_->tire_parameters->PKY4 *
-          atan((vehicle_model_state.forces.z / internal_vals.Fz0_prime) /
+          atan((vehicle_model_state.force.z / internal_vals.Fz0_prime) /
                ((car_parameters_->tire_parameters->PKY2 + car_parameters_->tire_parameters->PKY5 *
                                                               internal_vals.gamma_star *
                                                               internal_vals.gamma_star) *
@@ -110,7 +110,7 @@ bool PacejkaBombado::calculateTireState(float slip_angle, float slip_ratio) {
   internal_vals.LMUY_prime =
       car_parameters_->tire_parameters->Amu * car_parameters_->tire_parameters->LMUY /
       (1 + (car_parameters_->tire_parameters->Amu - 1) * car_parameters_->tire_parameters->LMUY);
-  internal_vals.SVyg = vehicle_model_state.forces.z *
+  internal_vals.SVyg = vehicle_model_state.force.z *
                        (car_parameters_->tire_parameters->PVY3 +
                         car_parameters_->tire_parameters->PVY4 * internal_vals.dfz) *
                        internal_vals.gamma_star * car_parameters_->tire_parameters->LKYC *
@@ -128,11 +128,11 @@ float PacejkaBombado::calculateDy() const {
                car_parameters_->tire_parameters
                    ->LMUY;  // we can assume dpi is zero for now and ignore pressure variations
 
-  return muy * vehicle_model_state.forces.z * internal_vals.zeta2;
+  return muy * vehicle_model_state.force.z * internal_vals.zeta2;
 }
 
 float PacejkaBombado::calculateDx() const {
-  if (vehicle_model_state.forces.z > 0) {
+  if (vehicle_model_state.force.z > 0) {
     double mux =
         (car_parameters_->tire_parameters->PDX1 +
          car_parameters_->tire_parameters->PDX2 * internal_vals.dfz) *
@@ -141,27 +141,27 @@ float PacejkaBombado::calculateDx() const {
         (1 - car_parameters_->tire_parameters->PDX3 *
                  (internal_vals.camber_angle * internal_vals.camber_angle)) *
         car_parameters_->tire_parameters->LMUX;
-    return mux * vehicle_model_state.forces.z * internal_vals.zeta1;
+    return mux * vehicle_model_state.force.z * internal_vals.zeta1;
   }
   return 0;
 }
 
 float PacejkaBombado::calculateCx() const {
-  if (vehicle_model_state.forces.z > 0) {
+  if (vehicle_model_state.force.z > 0) {
     return car_parameters_->tire_parameters->PCX1 * car_parameters_->tire_parameters->LCX;
   }
   return 0;
 }
 
 float PacejkaBombado::calculateCy() const {
-  if (vehicle_model_state.forces.z > 0) {
+  if (vehicle_model_state.force.z > 0) {
     return car_parameters_->tire_parameters->PCY1 * car_parameters_->tire_parameters->LCY;
   }
   return 0;
 }
 
 float PacejkaBombado::calculateBx(float Dx, float Cx) const {
-  double Kxk = vehicle_model_state.forces.z *
+  double Kxk = vehicle_model_state.force.z *
                (car_parameters_->tire_parameters->PKX1 +
                 car_parameters_->tire_parameters->PKX2 * internal_vals.dfz) *
                exp(car_parameters_->tire_parameters->PKX3 * internal_vals.dfz) *
@@ -190,7 +190,7 @@ float PacejkaBombado::calculateEx(double slip_ratio) const {
 
 float PacejkaBombado::calculateEy(double slip_angle) const {
   // MF 6.1 and 6.2
-  double Kyg0 = vehicle_model_state.forces.z *
+  double Kyg0 = vehicle_model_state.force.z *
                 (car_parameters_->tire_parameters->PKY6 +
                  car_parameters_->tire_parameters->PKY7 * internal_vals.dfz) *
                 (1 + car_parameters_->tire_parameters->PPY5 * internal_vals.dpi) *
@@ -202,7 +202,7 @@ float PacejkaBombado::calculateEy(double slip_angle) const {
   double Kya0 = car_parameters_->tire_parameters->PKY1 * internal_vals.Fz0_prime *
                 (1 + car_parameters_->tire_parameters->PPY1 * internal_vals.dpi) *
                 sin(car_parameters_->tire_parameters->PKY4 *
-                    atan((vehicle_model_state.forces.z / internal_vals.Fz0_prime) /
+                    atan((vehicle_model_state.force.z / internal_vals.Fz0_prime) /
                          (car_parameters_->tire_parameters->PKY2 *
                           (1 + car_parameters_->tire_parameters->PPY2 * internal_vals.dpi)))) *
                 internal_vals.zeta3 * car_parameters_->tire_parameters->LKY;
@@ -244,14 +244,14 @@ float PacejkaBombado::calculateSVx() const {
   double LMUX_prime =
       car_parameters_->tire_parameters->Amu * car_parameters_->tire_parameters->LMUX /
       (1 + (car_parameters_->tire_parameters->Amu - 1) * car_parameters_->tire_parameters->LMUX);
-  return vehicle_model_state.forces.z *
+  return vehicle_model_state.force.z *
          (car_parameters_->tire_parameters->PVX1 +
           car_parameters_->tire_parameters->PVX2 * internal_vals.dfz) *
          car_parameters_->tire_parameters->LVX * LMUX_prime * internal_vals.zeta1;
 }
 
 float PacejkaBombado::calculateSVy() const {
-  return vehicle_model_state.forces.z *
+  return vehicle_model_state.force.z *
              (car_parameters_->tire_parameters->PVY1 +
               car_parameters_->tire_parameters->PVY2 * internal_vals.dfz) *
              car_parameters_->tire_parameters->LVY * internal_vals.LMUY_prime *
