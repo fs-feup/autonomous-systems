@@ -10,7 +10,7 @@ struct SteeringParameters {
   double minimum_steering_angle;
   double maximum_steering_angle;
 
-  SteeringParameters(const std::string& config_path);
+  SteeringParameters(const std::string& config_name);
 };
 
 }  // namespace common_lib::car_parameters

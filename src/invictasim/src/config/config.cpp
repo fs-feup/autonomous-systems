@@ -33,8 +33,4 @@ InvictaSimParameters::InvictaSimParameters() {
 
   car_parameters =
       common_lib::car_parameters::CarParameters("invictasim/vehicle_models", vehicle_model);
-
-  RCLCPP_INFO(rclcpp::get_logger("InvictaSimParameters"),
-              "Initialized InvictaSim with vehicle model: %s, track: %s, discipline: %s",
-              vehicle_model.c_str(), track_name.c_str(), discipline.c_str());
 }

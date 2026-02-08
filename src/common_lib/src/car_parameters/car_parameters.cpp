@@ -64,36 +64,36 @@ common_lib::car_parameters::CarParameters::CarParameters(std::string dir, std::s
   this->cog_height = car_config["car"]["cog_height"].as<double>();
   this->Izz = car_config["car"]["Izz"].as<double>();
 
-  if (config["car"]["tire_model_params"]) {
-    this->tire_parameters =
-        std::make_shared<TireParameters>(config["car"]["tire_model_params"].as<std::string>());
+  if (config["vehicle_model"]["tire_model_params"]) {
+    this->tire_parameters = std::make_shared<TireParameters>(
+        config["vehicle_model"]["tire_model_params"].as<std::string>());
   }
-  if (config["car"]["aero_model_params"]) {
-    this->aero_parameters =
-        std::make_shared<AeroParameters>(config["car"]["aero_model_params"].as<std::string>());
+  if (config["vehicle_model"]["aero_model_params"]) {
+    this->aero_parameters = std::make_shared<AeroParameters>(
+        config["vehicle_model"]["aero_model_params"].as<std::string>());
   }
-  if (config["car"]["steering_motor_model_params"]) {
+  if (config["vehicle_model"]["steering_motor_model_params"]) {
     this->steering_motor_parameters = std::make_shared<SteeringMotorParameters>(
-        config["car"]["steering_motor_model_params"].as<std::string>());
+        config["vehicle_model"]["steering_motor_model_params"].as<std::string>());
   }
-  if (config["car"]["steering_model_params"]) {
+  if (config["vehicle_model"]["steering_model_params"]) {
     this->steering_parameters = std::make_shared<SteeringParameters>(
-        config["car"]["steering_model_params"].as<std::string>());
+        config["vehicle_model"]["steering_model_params"].as<std::string>());
   }
-  if (config["car"]["load_transfer_model_params"]) {
+  if (config["vehicle_model"]["load_transfer_model_params"]) {
     this->load_transfer_parameters = std::make_shared<LoadTransferParameters>(
-        config["car"]["load_transfer_model_params"].as<std::string>());
+        config["vehicle_model"]["load_transfer_model_params"].as<std::string>());
   }
-  if (config["car"]["motor_model_params"]) {
-    this->motor_parameters =
-        std::make_shared<MotorParameters>(config["car"]["motor_model_params"].as<std::string>());
+  if (config["vehicle_model"]["motor_model_params"]) {
+    this->motor_parameters = std::make_shared<MotorParameters>(
+        config["vehicle_model"]["motor_model_params"].as<std::string>());
   }
-  if (config["car"]["battery_model_params"]) {
+  if (config["vehicle_model"]["battery_model_params"]) {
     this->battery_parameters = std::make_shared<BatteryParameters>(
-        config["car"]["battery_model_params"].as<std::string>());
+        config["vehicle_model"]["battery_model_params"].as<std::string>());
   }
-  if (config["car"]["differential_model_params"]) {
+  if (config["vehicle_model"]["differential_model_params"]) {
     this->differential_parameters = std::make_shared<DifferentialParameters>(
-        config["car"]["differential_model_params"].as<std::string>());
+        config["vehicle_model"]["differential_model_params"].as<std::string>());
   }
 }
