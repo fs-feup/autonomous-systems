@@ -15,7 +15,7 @@ vehicle_model:
   battery_model: "equivalent_circuit_battery"
   battery_model_params: "battery"
 
-  differential_model: "limited_slip_differential"
+  differential_model: "viscous_lsd"
   differential_model_params: "differential"
 
   load_transfer_model: "simple_load_transfer"

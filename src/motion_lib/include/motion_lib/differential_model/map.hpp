@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 
-#include "limited_slip_differential.hpp"
+#include "viscous_lsd.hpp"
 
 /*
  * Map of differential models, with the key being the name of the differential model and the value
@@ -15,9 +15,9 @@ const std::map<std::string,
                    const common_lib::car_parameters::CarParameters&)>,
                std::less<>>
     differential_models_map = {
-        {"limited_slip_differential",
+        {"viscous_lsd",
          [](const common_lib::car_parameters::CarParameters& params)
              -> std::shared_ptr<DifferentialModel> {
-           return std::make_shared<LimitedSlipDifferential>(params);
+           return std::make_shared<ViscousLSD>(params);
          }},
 };

@@ -7,6 +7,8 @@ DifferentialParameters::DifferentialParameters(const std::string& config_name) {
       "common_lib", "car/differential_model", config_name);
   YAML::Node config = YAML::LoadFile(config_path);
   config = config["differential_model"];
-  // Add assignments for all fields when defined
+  kv = config["kv"].as<double>();
+  t_max = config["t_max"].as<double>();
+  efficiency = config["efficiency"].as<double>();
 }
 }  // namespace common_lib::car_parameters

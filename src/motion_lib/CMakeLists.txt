@@ -33,7 +33,7 @@ set(IMPLEMENTATION_FILES
   src/aero_model/default_aero_model.cpp
   src/tire_model/pacejka_combined_slip.cpp
   src/tire_model/pacejka_bombado.cpp
-  src/differential_model/limited_slip_differential.cpp
+  src/differential_model/viscous_lsd.cpp
   src/battery_model/equivalent_circuit_battery.cpp
   src/motor_model/map_based_motor.cpp
   src/steering_model/parallel_front_steering.cpp
