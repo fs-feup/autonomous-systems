@@ -5,9 +5,9 @@ slam:
   lidar_odometry_topic: "-" # "/fast_limo/state" or "/kiss/odometry" or "" -> topic for pose from lidar odometry
   receive_lidar_odometry: false # Whether to use lidar odometry topic or not
   data_association_model_name: "nearest_neighbor" # "maximum_likelihood_md" or "maximum_likelihood_nll" or "nearest_neighbor" or... -> name of the data association model
-  data_association_limit_distance: 70 # maximum distance to consider a cone for data association
-  data_association_gate: 0.9 # Maximum allowed Malahanobis distance (or euclidean distance for nearest neighbor) between an observation and matched landmark
-  new_landmark_confidence_gate: 0.6 # Minimum confidence to consider an observation as a new landmark in data asociation
+  data_association_limit_distance: 40 # maximum distance to consider a cone for data association
+  data_association_gate: 1.2 # Maximum allowed Malahanobis distance (or euclidean distance for nearest neighbor) between an observation and matched landmark
+  new_landmark_confidence_gate: 0.0 # Minimum confidence to consider an observation as a new landmark in data asociation
   observation_x_noise: 0.02 # sigma of the noise for cone positions in x (range in Graph SLAM)
   observation_y_noise: 0.001 # sigma of the noise for cone positions in y (bearing in Graph SLAM)
   velocity_x_noise: 0.1 # variance of the noise for the velocity in x
@@ -19,21 +19,21 @@ slam:
   pose_theta_initial_noise: 0.001 # sigma of the noise for the initial pose in yaw
   preloaded_map_noise: 0.001 # sigma of the noise for preloaded map landmarks used for skidpad and acceleration
   using_preloaded_map: false # Use preloaded map for SLAM, if true, the map will be loaded from the file only for skidpad and acceleration
-  slam_solver_name: "graph_slam" # "graph_slam" or "ekf_slam" or ... -> name of the slam solver
+  slam_solver_name: "ekf_slam" # "graph_slam" or "ekf_slam" or ... -> name of the slam solver
   slam_optimization_mode: "async" # "sync" or "sync-parallel" or "async" or ... -> name of the optimization mode, in which sync is at every factor added, async is at every time step and sync-parallel is sync but callbacks execute in parallel | If async with EKF SLAM optimization=correction step
   slam_optimization_in_poses: false # If true, the optimization will be done also when poses are added, not only when observations are added
-  slam_optimization_type: "sliding_window_levenberg" # "normal_levenberg" or "isam2" or "sliding_window_levenberg" or ... -> name of the optimization type
+  slam_optimization_type: "isam2" # "normal_levenberg" or "isam2" or "sliding_window_levenberg" or ... -> name of the optimization type
 
   # Timestamp Synchronization Dependency
-  synchronized_timestamps: true # Whether motion and observation data are synchronized timestamps or not
-  max_pose_history_updater: 30 # Maximum number of past poses to keep for pose updater for observation delay compensation
-  max_pose_history_graph: 10 # Maximum number of past graphed poses to keep for observation delay compensation
+  synchronized_timestamps: false # Whether motion and observation data are synchronized timestamps or not
+  max_pose_history_updater: 30 # Maximum number of past poses to keep for pose updater buffer for observation delay compensation
+  max_pose_history_graph: 7 # Maximum number of past graphed poses to keep in instance buffer for observation delay compensation
 
   # Only for pose_updater_name: "difference_based_ready"
-  slam_min_pose_difference: 0.3 # Minimum distance between poses to consider adding to factor graph
+  slam_min_pose_difference: 0.15 # Minimum distance between poses to consider adding to factor graph
 
   # Only for slam_optimization_mode: "async"
-  slam_optimization_period: 0.05 # Time between optimization steps in seconds, 0.0 means optimization every time observations are added
+  slam_optimization_period: 0.25 # Time between optimization steps in seconds, 0.0 means optimization every time observations are added
 
   # Only for slam_optimization_type: "isam2"
   slam_isam2_relinearize_threshold: 0.1 # Threshold for relinearizing the graph in isam2
@@ -44,11 +44,14 @@ slam:
   sliding_window_size: 50 # Number of poses to keep in the sliding window
 
   # Perception data filters
-  minimum_observation_count: 3 # Minimum number of times a new landmark must be observed to be added to the map
+  minimum_observation_count: 2 # Minimum number of times a new landmark must be observed to be added to the map
   minimum_frequency_of_detections: 5 # Minimum frequency of detections to consider a landmark as valid
 
   # Loop closure paramteters
   threshold_dist: 4.0 # Distance around origin to trigger loop closure
   first_x_cones: 10 # consider a loop if you see any of these first X cones
-  border_width: 5  # distance to givve to start searching for loop closure again
+  border_width: 5  # distance to give to start searching for loop closure again
   minimum_confidence: 3 # minimum number of observations to confirm loop closure
+  
+  # Publish Options
+  graph_publish_trajectory: false # Whether to publish the trajectory in graph SLAM
