@@ -15,9 +15,9 @@ struct CarParameters {
   double wheel_diameter;
   double wheelbase;
   double track_width;
-  double dist_cg_2_rear_axis;
+  double cg_2_rear_axis;
   double gear_ratio;
-  double cog_height;
+  double cg_height;
   double sprung_mass;
   double unsprung_mass;
   double total_mass;
@@ -25,8 +25,6 @@ struct CarParameters {
   double sprung_cg_z;
   double unsprung_cg_y;
   double unsprung_cg_z;
-  double cg_y;
-  double cg_z;
   double Izz;
 
   std::shared_ptr<common_lib::car_parameters::TireParameters> tire_parameters;

@@ -35,7 +35,7 @@ double PurePursuit::get_steering_command() {
     // Prepare inputs for the Pure Pursuit control law
     Position vehicle_cog = Position(this->last_pose_msg_.x, this->last_pose_msg_.y);
     Position rear_axis = ::rear_axis_position(vehicle_cog, this->last_pose_msg_.theta,
-                                              this->params_->car_parameters_.dist_cg_2_rear_axis);
+                                              this->params_->car_parameters_.cg_2_rear_axis);
     auto [closest_point, closest_point_id, closest_point_velocity] =
         ::get_closest_point(this->last_path_msg_, rear_axis);
 
@@ -51,9 +51,8 @@ double PurePursuit::get_steering_command() {
       this->lookahead_point_ = lookahead_point;
 
       if (!lookahead_error) {
-        steering_command =
-            pp_steering_control_law(rear_axis, vehicle_cog, lookahead_point,
-                                    this->params_->car_parameters_.dist_cg_2_rear_axis);
+        steering_command = pp_steering_control_law(rear_axis, vehicle_cog, lookahead_point,
+                                                   this->params_->car_parameters_.cg_2_rear_axis);
       }
     }
   }
