@@ -11,7 +11,7 @@ TEST(PathSmoothing, path_smooth1) {
   std::vector<common_lib::structures::PathPoint> input_path = ::path_from_file(file_path);
   std::vector<common_lib::structures::PathPoint> smoothed_path =
       path_smoothing.smooth_path(input_path);
-  EXPECT_EQ((int)smoothed_path.size(), 120);
+  EXPECT_EQ((int)smoothed_path.size(), 110);
 }
 /**
  * @brief more complex scenario with cones deviating from path and with
@@ -25,5 +25,5 @@ TEST(PathSmoothing, path_smooth2) {
   std::vector<common_lib::structures::PathPoint> input_path = ::path_from_file(file_path);
   std::vector<common_lib::structures::PathPoint> smoothed_path =
       path_smoothing.smooth_path(input_path);
-  EXPECT_EQ((int)smoothed_path.size(), 390);
+  EXPECT_EQ((int)smoothed_path.size(), 380);
 }

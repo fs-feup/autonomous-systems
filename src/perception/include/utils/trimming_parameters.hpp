@@ -10,14 +10,16 @@ struct TrimmingParameters {
   double lidar_vertical_resolution;    ///< LIDAR vertical resolution.
   bool apply_rotation;                 ///< Whether to apply rotation to the point cloud.
   double rotation;                     ///< Rotation angle to be applied to the point cloud.
-  bool apply_fov_trimming;            ///< Whether to apply field of view trimming.
+  bool apply_fov_trimming;             ///< Whether to apply field of view trimming.
   double fov;                          ///< Field of view.
-  double max_height;                   ///< Maximum point cloud height after trimming.
-  double min_range;                    ///< Maximum point cloud distance after trimming.
-  double max_range;                    ///< Minimum point cloud distance after trimming.
-  double acc_max_range;                ///< (Acceleration Only) Maximum distance after trimming.
-  double acc_max_y;       ///< (Acceleration Only) Maximum lateral distance after trimming.
-  double skid_max_range;  ///< (Skidpad Only) Maximum distance after trimming.
+  bool is_raining;                     ///< Whether it is raining.
+  float minimum_intensity;  ///< Minimum intensity for point to be considered valid in rain.
+  double max_height;        ///< Maximum point cloud height after trimming.
+  double min_range;         ///< Maximum point cloud distance after trimming.
+  double max_range;         ///< Minimum point cloud distance after trimming.
+  double acc_max_range;     ///< (Acceleration Only) Maximum distance after trimming.
+  double acc_max_y;         ///< (Acceleration Only) Maximum lateral distance after trimming.
+  double skid_max_range;    ///< (Skidpad Only) Maximum distance after trimming.
 
   TrimmingParameters() = default;
 };

@@ -64,6 +64,14 @@ private:
    *
    */
   PathSmoothingConfig config_;
+  
+  /**
+   * @brief Filters path points using a minimum spacing constraint.
+   *
+   * @param path Input path.
+   * @return Filtered path.
+   */
+  std::vector<PathPoint> filter_path(const std::vector<PathPoint>& path) const;
 
   /**
    * @brief Optimizes a path using quadratic programming (OSQP) to balance smoothness, curvature,
