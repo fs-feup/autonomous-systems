@@ -20,8 +20,8 @@
 <area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="772,714,750,1165,744,1164,766,714"/>
 <area shape="rect" id="Node000008" href="$d2/d0d/struct_velocity_planning_config.html" title="Configuration parameters for the Velocity Planning class." alt="" coords="297,561,461,747"/>
 <area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="394,746,403,776,416,805,433,831,455,854,483,869,511,873,538,870,565,863,592,856,619,854,647,860,675,878,702,908,722,943,737,980,746,1020,755,1098,753,1165,748,1165,749,1098,741,1021,732,982,717,945,698,911,672,882,645,865,619,859,593,862,566,868,539,875,510,878,482,874,452,858,429,835,411,807,398,777,388,747"/>
-<area shape="rect" id="Node000015" href="$d3/dcc/class_velocity_planning.html" title="Computes velocity profiles for a planned path based on curvature and dynamics constraints." alt="" coords="309,1112,453,1337"/>
-<area shape="poly" id="edge20_Node000015_Node000008" title=" " alt="" coords="312,748,287,793,268,841,266,848,268,854,274,862,281,866,290,870,298,878,326,930,347,985,362,1041,372,1095,367,1096,357,1042,342,987,321,932,294,881,287,874,279,870,270,866,263,857,261,848,263,840,282,791,307,745"/>
+<area shape="rect" id="Node000015" href="$d3/dcc/class_velocity_planning.html" title="Computes velocity profiles for a planned path based on curvature and dynamics constraints." alt="" coords="309,1102,453,1347"/>
+<area shape="poly" id="edge20_Node000015_Node000008" title=" " alt="" coords="312,748,287,793,268,841,266,848,268,854,274,862,281,866,290,870,298,878,325,927,345,980,360,1033,371,1084,366,1086,355,1034,340,981,320,929,294,881,287,874,279,870,270,866,263,857,261,848,263,840,282,791,307,745"/>
 <area shape="rect" id="Node000009" href="$d2/de2/struct_skidpad_config.html" title="Configuration parameters for the Skidpad class." alt="" coords="131,601,256,707"/>
 <area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="214,705,243,762,263,790,286,815,307,831,325,841,372,853,401,857,439,857,528,855,614,857,649,864,675,878,702,908,723,942,737,980,747,1019,755,1098,754,1165,748,1165,750,1098,742,1020,732,982,718,945,698,911,672,882,648,869,614,862,528,860,439,863,401,862,371,858,323,845,304,836,282,819,259,793,239,765,210,708"/>
 <area shape="rect" id="Node000016" href="$de/d3f/class_skidpad.html" title="class that defines the skidpad path algorithm" alt="" coords="115,1122,285,1327"/>
@@ -35,6 +35,6 @@
 <area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="970,1362,793,1610,668,1780,663,1777,789,1606,966,1359"/>
 <area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="1256,777,1169,982,1164,980,1251,775"/>
 <area shape="poly" id="edge17_Node000001_Node000014" title=" " alt="" coords="572,1384,572,1615,567,1615,567,1384"/>
-<area shape="poly" id="edge19_Node000001_Node000015" title=" " alt="" coords="398,1337,421,1467,454,1607,480,1689,475,1691,448,1609,415,1468,393,1337"/>
+<area shape="poly" id="edge19_Node000001_Node000015" title=" " alt="" coords="400,1346,422,1473,454,1607,480,1689,475,1691,448,1609,417,1474,395,1347"/>
 <area shape="poly" id="edge21_Node000001_Node000016" title=" " alt="" coords="220,1326,251,1445,273,1508,300,1568,338,1633,382,1697,474,1807,470,1811,378,1700,334,1636,295,1570,268,1510,246,1446,215,1328"/>
 </map>

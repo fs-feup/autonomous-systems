@@ -26,10 +26,9 @@ var searchData=
   ['non_5fground_5fpts_23',['non_ground_pts',['../de/d11/class_himmelsbach_test.html#a7141ecc12a5c169ce77cc030c5ac922e',1,'HimmelsbachTest']]],
   ['norm1_5f_24',['norm1_',['../de/df9/structcommon__lib_1_1maths_1_1_angle_and_norms.html#abb161166532eef4db88b278c9830ecd9',1,'common_lib::maths::AngleAndNorms']]],
   ['norm2_5f_25',['norm2_',['../de/df9/structcommon__lib_1_1maths_1_1_angle_and_norms.html#a77b4015088955ad1a23d63d39e55d0f8',1,'common_lib::maths::AngleAndNorms']]],
-  ['normal_5facceleration_5f_26',['normal_acceleration_',['../d2/d0d/struct_velocity_planning_config.html#ab73b34ca6f6c540bdfd63f18f162fdf5',1,'VelocityPlanningConfig']]],
-  ['normalconeheight_27',['normalConeHeight',['../d6/d51/classdraw_view_1_1draw_scene.html#ac2d68ca415b53085793def48e823d9ee',1,'drawView::drawScene']]],
-  ['num_5frings_28',['NUM_RINGS',['../df/d5b/himmelsbach_8hpp.html#acff71e3df8e73ea0eef8fc8b4254e667',1,'himmelsbach.hpp']]],
-  ['number_5fof_5fimu_5freadings_29',['number_of_imu_readings',['../d1/df1/class_vehicle_adapter.html#a970fbbe335333937092f00fc5e3bab94',1,'VehicleAdapter']]],
-  ['numframes_30',['numFrames',['../dd/dc4/class_sensor_base.html#a46cb3b3bb49263827e80650d21a0cb32',1,'SensorBase']]],
-  ['numpoints_31',['numpoints',['../df/d9a/namespaceskidpad__conesgenerator.html#a923cc138c0f4dec651689448cb40d104',1,'skidpad_conesgenerator.numPoints'],['../db/d61/namespaceskidpadgenerator.html#af064634c2aa59ae3d87deae531584ca8',1,'skidpadgenerator.numPoints']]]
+  ['normalconeheight_26',['normalConeHeight',['../d6/d51/classdraw_view_1_1draw_scene.html#ac2d68ca415b53085793def48e823d9ee',1,'drawView::drawScene']]],
+  ['num_5frings_27',['NUM_RINGS',['../df/d5b/himmelsbach_8hpp.html#acff71e3df8e73ea0eef8fc8b4254e667',1,'himmelsbach.hpp']]],
+  ['number_5fof_5fimu_5freadings_28',['number_of_imu_readings',['../d1/df1/class_vehicle_adapter.html#a970fbbe335333937092f00fc5e3bab94',1,'VehicleAdapter']]],
+  ['numframes_29',['numFrames',['../dd/dc4/class_sensor_base.html#a46cb3b3bb49263827e80650d21a0cb32',1,'SensorBase']]],
+  ['numpoints_30',['numpoints',['../df/d9a/namespaceskidpad__conesgenerator.html#a923cc138c0f4dec651689448cb40d104',1,'skidpad_conesgenerator.numPoints'],['../db/d61/namespaceskidpadgenerator.html#af064634c2aa59ae3d87deae531584ca8',1,'skidpadgenerator.numPoints']]]
 ];

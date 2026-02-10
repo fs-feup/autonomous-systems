@@ -36,7 +36,7 @@ var struct_planning_parameters =
     [ "vp_acceleration_", "d2/deb/struct_planning_parameters.html#a4dcf5ea2aef6c92eeb92d17cec180b66", null ],
     [ "vp_braking_acceleration_", "d2/deb/struct_planning_parameters.html#a114bc925fcba2bf01421a6ac73d91c70", null ],
     [ "vp_desired_velocity_", "d2/deb/struct_planning_parameters.html#a31aed02c7b8451edf822b2f72c735f63", null ],
+    [ "vp_lateral_acceleration_", "d2/deb/struct_planning_parameters.html#a299ce847ca8ec1dd5cae83f3de1f06ad", null ],
     [ "vp_minimum_velocity_", "d2/deb/struct_planning_parameters.html#a26355fd9d3e059bdaac49bffac24b170", null ],
-    [ "vp_normal_acceleration_", "d2/deb/struct_planning_parameters.html#a13ef908355645600cd1147769cc9207c", null ],
     [ "vp_use_velocity_planning_", "d2/deb/struct_planning_parameters.html#a0a8c2a85e9dfed8ddbf44be615325f5a", null ]
 ];

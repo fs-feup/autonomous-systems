@@ -1,5 +1,5 @@
 <map id="VelocityPlanning::trackdrive_velocity" name="VelocityPlanning::trackdrive_velocity">
-<area shape="rect" id="Node000001" title="Computes velocity for track driving scenarios with repeated smoothing." alt="" coords="1138,137,1318,178"/>
+<area shape="rect" id="Node000001" title="Computes velocity for trackdrive scenarios." alt="" coords="1138,137,1318,178"/>
 <area shape="rect" id="Node000002" href="$d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,145,1090,171"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1122,160,1090,160,1090,155,1122,155"/>
 <area shape="rect" id="Node000003" href="$d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>

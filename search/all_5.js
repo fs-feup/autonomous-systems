@@ -53,7 +53,7 @@ var searchData=
   ['border_5fwidth_5f_50',['border_width_',['../d4/deb/class_lap_counter.html#a5b13bb4c753eba925ff73a0036e7ae30',1,'LapCounter']]],
   ['brake_5ftime_5f_51',['brake_time_',['../d9/db5/class_planning.html#a9c5d6e87075c32228027703ced47a135',1,'Planning']]],
   ['braking_5facceleration_5f_52',['braking_acceleration_',['../d2/d0d/struct_velocity_planning_config.html#acc599793db1ca597293485a8bde21449',1,'VelocityPlanningConfig']]],
-  ['braking_5flimiter_53',['braking_limiter',['../d3/dcc/class_velocity_planning.html#a3a87dcd794428fa2f743a42d2aabe98d',1,'VelocityPlanning']]],
+  ['braking_5flimiter_53',['braking_limiter',['../d3/dcc/class_velocity_planning.html#a7cdfc3e526166d4f9e73149a708acfd1',1,'VelocityPlanning']]],
   ['broadcast_5fsensors_5ftf2_54',['broadcast_sensors_tf2',['../d7/d28/struct_main_config.html#a6fe8d337e1074e8c79e475eb8f67e266',1,'MainConfig']]],
   ['bucket_5foperations_55',['bucket_operations',['../d8/dc7/namespacebucket__operations.html',1,'']]],
   ['bucket_5foperations_2epy_56',['bucket_operations.py',['../dc/d23/bucket__operations_8py.html',1,'']]],

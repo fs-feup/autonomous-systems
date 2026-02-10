@@ -1,11 +1,11 @@
 <map id="VelocityPlanning::set_velocity" name="VelocityPlanning::set_velocity">
-<area shape="rect" id="Node000001" title="Assigns an ideal velocity to each point of the path." alt="" coords="5,104,147,145"/>
-<area shape="rect" id="Node000002" href="$d3/dcc/class_velocity_planning.html#ac0edf4dad8d4433d86b6cf6829cf4a1a" title="Applies a forward acceleration constraint to the velocity profile." alt="" coords="195,5,388,46"/>
+<area shape="rect" id="Node000001" title="Assigns an velocity to each point of the path." alt="" coords="5,104,147,145"/>
+<area shape="rect" id="Node000002" href="$d3/dcc/class_velocity_planning.html#a06f29f36065934907e63c79a15c7b60a" title="Limits velocities based on forward acceleration constraints and friction ellipse." alt="" coords="195,5,388,46"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,101,194,57,210,50,212,54,196,61,112,106"/>
-<area shape="rect" id="Node000003" href="$d3/dcc/class_velocity_planning.html#a3a87dcd794428fa2f743a42d2aabe98d" title="function to limit the speed of the car according to braking constraints" alt="" coords="209,71,374,111"/>
+<area shape="rect" id="Node000003" href="$d3/dcc/class_velocity_planning.html#a7cdfc3e526166d4f9e73149a708acfd1" title="Limits velocities based on backward braking constraints and friction ellipse." alt="" coords="209,71,374,111"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="147,111,193,104,194,109,147,116"/>
-<area shape="rect" id="Node000004" href="$d3/dcc/class_velocity_planning.html#a64a69a4833bd8054d6d9faa33791d660" title="function to calculate the radius of the circle that passes through 3 points" alt="" coords="220,136,363,177"/>
+<area shape="rect" id="Node000004" href="$d3/dcc/class_velocity_planning.html#a2d300f73be19a560cf992f798eb9fa3a" title="Computes the curvature at a point using the Menger curvature formula." alt="" coords="220,136,363,177"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="147,132,205,141,204,146,147,137"/>
-<area shape="rect" id="Node000005" href="$d3/dcc/class_velocity_planning.html#a0fdadea4c9950df53dddfec7aad9e2a0" title="function to calculate the speed of the car according to the curvature of the path" alt="" coords="216,201,367,242"/>
+<area shape="rect" id="Node000005" href="$d3/dcc/class_velocity_planning.html#a41e22edbc0ebfb1da077ddd222823c0c" title="Computes the maximum velocity at each point based on curvature constraints." alt="" coords="216,201,367,242"/>
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="113,143,196,186,213,193,210,198,194,191,111,148"/>
 </map>

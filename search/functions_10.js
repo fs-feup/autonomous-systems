@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['pacsimadapter_0',['pacsimadapter',['../d1/dcb/class_pacsim_adapter.html#ad557c789fd4da581c9d487abb5af4dc5',1,'PacsimAdapter::PacsimAdapter(const SLAMParameters &amp;params)'],['../d1/dcb/class_pacsim_adapter.html#a00836c9f1567034e7e403fae0faefd90',1,'PacsimAdapter::PacsimAdapter(const VEParameters &amp;parameters)'],['../db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868',1,'PacSimAdapter::PacSimAdapter(const ControlParameters &amp;params)'],['../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70',1,'PacSimAdapter::PacSimAdapter(const PlanningParameters &amp;params)'],['../d1/dcb/class_pacsim_adapter.html#a7c46a660a7d6263ca48d60ce650364cc',1,'PacsimAdapter::PacsimAdapter()']]],
+  ['pacsimadapter_0',['pacsimadapter',['../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70',1,'PacSimAdapter::PacSimAdapter()'],['../d1/dcb/class_pacsim_adapter.html#a7c46a660a7d6263ca48d60ce650364cc',1,'PacsimAdapter::PacsimAdapter(std::shared_ptr&lt; SENode &gt; se_node)'],['../d1/dcb/class_pacsim_adapter.html#ad557c789fd4da581c9d487abb5af4dc5',1,'PacsimAdapter::PacsimAdapter(const SLAMParameters &amp;params)'],['../d1/dcb/class_pacsim_adapter.html#a00836c9f1567034e7e403fae0faefd90',1,'PacsimAdapter::PacsimAdapter(const VEParameters &amp;parameters)'],['../db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868',1,'PacSimAdapter::PacSimAdapter()']]],
   ['parallelfrontsteering_1',['ParallelFrontSteering',['../d2/dab/class_parallel_front_steering.html#a367cd512348e36c23fa502bf98492df8',1,'ParallelFrontSteering']]],
   ['parse_5fdata_5ffile_2',['parse_data_file',['../d1/d88/namespacedebug__plot.html#a0ff53163b56dab1a8e70abeed4f7e39d',1,'debug_plot']]],
   ['parse_5ftrack_5fcone_3',['parse_track_cone',['../dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html#a7d737b53477117cccadb4b35f4c84379',1,'evaluator::fsds_adapter::FSDSAdapter']]],
@@ -33,7 +33,7 @@ var searchData=
   ['plot_5fdata_30',['plot_data',['../d5/df5/namespace__debug__plot.html#a71af10297bdb2b3d10c7e9b09c171321',1,'_debug_plot.plot_data()'],['../d1/d88/namespacedebug__plot.html#ab4936fbc7b02f2ce0ed71704cff696c3',1,'debug_plot.plot_data(filename, min_x=(-10, 10), min_y=(-10, 10))']]],
   ['plot_5fparsed_5fdata_31',['plot_parsed_data',['../d1/d88/namespacedebug__plot.html#a55917055793760209bc5e5d822d2da36',1,'debug_plot']]],
   ['point_5fcloud_5fcallback_32',['point_cloud_callback',['../de/d07/class_perception.html#a592f3cc2120d974b503f5934970ac5db',1,'Perception']]],
-  ['point_5fspeed_33',['point_speed',['../d3/dcc/class_velocity_planning.html#a0fdadea4c9950df53dddfec7aad9e2a0',1,'VelocityPlanning']]],
+  ['point_5fspeed_33',['point_speed',['../d3/dcc/class_velocity_planning.html#a41e22edbc0ebfb1da077ddd222823c0c',1,'VelocityPlanning']]],
   ['pointinpolygon_34',['pointInPolygon',['../de/dbe/class_competition_logic.html#a6f1b90e120326ea6eb204aec108cff9d',1,'CompetitionLogic']]],
   ['pointintensity_35',['PointIntensity',['../dc/d9c/namespace_lidar_point.html#a8edce3288bc1c20a132f287330d99cf9',1,'LidarPoint']]],
   ['pointintriangle_36',['pointInTriangle',['../de/dbe/class_competition_logic.html#a20514dd7c294ccb941286a0428ce95f7',1,'CompetitionLogic']]],

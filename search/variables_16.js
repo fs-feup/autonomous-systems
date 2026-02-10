@@ -48,8 +48,8 @@ var searchData=
   ['vp_5facceleration_5f_45',['vp_acceleration_',['../d2/deb/struct_planning_parameters.html#a4dcf5ea2aef6c92eeb92d17cec180b66',1,'PlanningParameters']]],
   ['vp_5fbraking_5facceleration_5f_46',['vp_braking_acceleration_',['../d2/deb/struct_planning_parameters.html#a114bc925fcba2bf01421a6ac73d91c70',1,'PlanningParameters']]],
   ['vp_5fdesired_5fvelocity_5f_47',['vp_desired_velocity_',['../d2/deb/struct_planning_parameters.html#a31aed02c7b8451edf822b2f72c735f63',1,'PlanningParameters']]],
-  ['vp_5fminimum_5fvelocity_5f_48',['vp_minimum_velocity_',['../d2/deb/struct_planning_parameters.html#a26355fd9d3e059bdaac49bffac24b170',1,'PlanningParameters']]],
-  ['vp_5fnormal_5facceleration_5f_49',['vp_normal_acceleration_',['../d2/deb/struct_planning_parameters.html#a13ef908355645600cd1147769cc9207c',1,'PlanningParameters']]],
+  ['vp_5flateral_5facceleration_5f_48',['vp_lateral_acceleration_',['../d2/deb/struct_planning_parameters.html#a299ce847ca8ec1dd5cae83f3de1f06ad',1,'PlanningParameters']]],
+  ['vp_5fminimum_5fvelocity_5f_49',['vp_minimum_velocity_',['../d2/deb/struct_planning_parameters.html#a26355fd9d3e059bdaac49bffac24b170',1,'PlanningParameters']]],
   ['vp_5fuse_5fvelocity_5fplanning_5f_50',['vp_use_velocity_planning_',['../d2/deb/struct_planning_parameters.html#a0a8c2a85e9dfed8ddbf44be615325f5a',1,'PlanningParameters']]],
   ['vx_5f_51',['vx_',['../d6/d89/class_bicycle_model.html#a58958c563875baee92846662852979a8',1,'BicycleModel']]]
 ];
