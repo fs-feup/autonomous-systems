@@ -47,7 +47,7 @@ def generate_launch_description():
     return LaunchDescription(
         [
             slam_launch_description,
-            evaluator_launch_description,
+            #evaluator_launch_description,
             planning_launch_description,
             control_launch_description,
             ve_launch_description,  
