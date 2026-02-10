@@ -72,7 +72,7 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.vp_minimum_velocity_ = planning_config["vp_minimum_velocity"].as<double>();
   params.vp_braking_acceleration_ = planning_config["vp_braking_acceleration"].as<double>();
   params.vp_acceleration_ = planning_config["vp_acceleration"].as<double>();
-  params.vp_normal_acceleration_ = planning_config["vp_normal_acceleration"].as<double>();
+  params.vp_lateral_acceleration_ = planning_config["vp_lateral_acceleration"].as<double>();
   params.vp_use_velocity_planning_ = planning_config["vp_use_velocity_planning"].as<bool>();
   params.vp_desired_velocity_ = planning_config["vp_desired_velocity"].as<double>();
 
@@ -307,7 +307,7 @@ void Planning::run_trackdrive() {
 
         double avg_vel = sum / smoothed_path_.size();
 
-        RCLCPP_DEBUG(get_logger(),
+        RCLCPP_INFO(get_logger(),
                      "[TRACKDRIVE] Velocity Stats - Avg: %.2f m/s | Max: %.2f m/s | Min: %.2f m/s",
                      avg_vel, max_vel, min_vel);
       }
