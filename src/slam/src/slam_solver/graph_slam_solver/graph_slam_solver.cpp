@@ -211,7 +211,7 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   {
     RCLCPP_DEBUG(rclcpp::get_logger("slam"),
                  "add_observations - Mutex locked - association/filter/loop-closure/graph update");
-    std::unique_lock uniq_lock(this->_mutex_);
+    const std::unique_lock uniq_lock(this->_mutex_);
 
     // Data association
     associations = this->_data_association_->associate(

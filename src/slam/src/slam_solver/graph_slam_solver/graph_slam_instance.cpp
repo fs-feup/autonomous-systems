@@ -110,7 +110,7 @@ GraphSLAMInstance::GraphSLAMInstance(const GraphSLAMInstance& other) {
   _optimizer_ = other._optimizer_->clone();  // because it's a shared_ptr
   _params_ = other._params_;
   _pose_timestamps_ = other._pose_timestamps_;
-  _locked_landmarks_ = other._locked_landmarks_;
+  _locked_landmarks_ = other._locked_landmarks_ || this->_locked_landmarks_;
 }
 
 GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) {
@@ -213,6 +213,13 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
     } else if ((associations(i) == -1 || landmark_lost_in_optimization) &&
                !this->_locked_landmarks_) {
       // Create new landmark
+      // Ensure we never reuse an existing landmark key.
+      while (this->_graph_values_.exists(gtsam::Symbol('l', this->_landmark_counter_))) {
+        RCLCPP_WARN(rclcpp::get_logger("slam"),
+                    "GraphSLAMInstance - Landmark key l%u already exists.",
+                    this->_landmark_counter_);
+        this->_landmark_counter_++;
+      }
       landmark_symbol = gtsam::Symbol('l', (this->_landmark_counter_)++);
       landmark = gtsam::Point2(observations_global(i * 2), observations_global(i * 2 + 1));
       this->_graph_values_.insert(landmark_symbol, landmark);
