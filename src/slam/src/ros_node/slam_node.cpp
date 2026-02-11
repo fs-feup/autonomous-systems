@@ -116,7 +116,7 @@ void SLAMNode::init() {
 
 void SLAMNode::_perception_subscription_callback(
     const custom_interfaces::msg::PerceptionOutput &msg) {
-  RCLCPP_DEBUG(this->get_logger(), "SLAMNode::_perception_subscription_callback called");
+  RCLCPP_DEBUG(this->get_logger(), "SLAMNode:: perception_subscription_callback called");
   auto const &cone_array = msg.cones.cone_array;
   double perception_exec_time = msg.exec_time;
 
@@ -216,6 +216,7 @@ void SLAMNode::_perception_subscription_callback(
 }
 
 void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::Velocities &msg) {
+  RCLCPP_DEBUG(this->get_logger(), "SLAMNode:: velocities_subscription_callback called");
   if (this->_mission_ == common_lib::competition_logic::Mission::NONE) {
     return;
   }

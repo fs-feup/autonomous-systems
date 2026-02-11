@@ -21,7 +21,9 @@ PoseUpdater::PoseUpdater(const PoseUpdater& other) : _pose_buffer_(other._pose_b
 }
 
 PoseUpdater& PoseUpdater::operator=(const PoseUpdater& other) {
-  if (this == &other) return *this;
+  if (this == &other) {
+    return *this;
+  }
 
   _last_pose_ = other._last_pose_;
   _last_graphed_pose_ = other._last_graphed_pose_;
