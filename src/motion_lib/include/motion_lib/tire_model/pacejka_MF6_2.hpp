@@ -17,6 +17,7 @@ struct InternalValues {
   double epsilon = 1e-6;  // safety factor to avoid division by zero
   double dfz;
   double Fz0_prime;
+  double Vc;
   double Vc_prime;
   double phi;
   double dpi = 0;  // defaulted to 0 (ignore pressure changes)
@@ -28,6 +29,7 @@ struct InternalValues {
   double zeta1;
   double LMUY_prime;
   double SVyg;
+  double alpha_star;
 };
 
 // Isto está aqui apenas para compilar, isto será muito provavelemnte o input to tire_forces
@@ -57,9 +59,9 @@ struct VehicleModelState {
 // IMPORTANT: In case of wanting to account for pressure changes, there is currently no
 // implementation, we always assume constant tire pressure
 //------------------------------------------------------------------------------------------------------------------------------------------------
-class PacejkaBombado : public TireModel {
+class MF6_2 : public TireModel {
 public:
-  explicit PacejkaBombado(const common_lib::car_parameters::CarParameters& car_parameters)
+  explicit MF6_2(const common_lib::car_parameters::CarParameters& car_parameters)
       : TireModel(car_parameters){};
 
   // Esta definição é precisa para que ele compile, tens de mudar isto para o que for preciso como
@@ -72,19 +74,19 @@ private:
   InternalValues internal_vals;
   VehicleModelState vehicle_model_state;
 
-  /**
-   * @brief Calculates slip angle using velocity and yawRate
-   *        Normalizes v_x to prevent division by 0
-   * @return Corresponds to arctan((v_y + yawR*distance)/v_x)
-   */
-  float calculateSlipAngle() const;
+  // /**
+  //  * @brief Calculates slip angle using velocity and yawRate
+  //  *        Normalizes v_x to prevent division by 0
+  //  * @return Corresponds to arctan((v_y + yawR*distance)/v_x)
+  //  */
+  // float calculateSlipAngle() const;
 
-  /**
-   * @brief Calculates the slip ration using velocity and angular speed
-   *         Normalizes v_x to prevent division by 0
-   * @return Corresponds to ((effectiveTireRadius * AngularSpeed) - v_x) / v_x
-   */
-  float calculateSlipRatio() const;
+  // /**
+  //  * @brief Calculates the slip ration using velocity and angular speed
+  //  *         Normalizes v_x to prevent division by 0
+  //  * @return Corresponds to ((effectiveTireRadius * AngularSpeed) - v_x) / v_x
+  //  */
+  // float calculateSlipRatio() const;
 
   /**
    * @brief Uses the pacejka magic formula to calculate either Fx or Fy depending on the input
@@ -98,35 +100,86 @@ private:
    * @param SV Vertical Shift
    * @return float Either Fx or Fy depeding on inputs
    */
-  float calculatePacejka(float B, float C, float D, float E, float slip, float SV) const;
+  float calculatePureSlip(float B, float C, float D, float E, float shifted_slip, float SV) const;
 
-  bool calculateTireState(float slip_angle, float slip_ratio);
+  /**
+   * @brief Auxiliary function that computes all intermediate values needed
+   * 
+   * @param slip_angle  Slip angle  
+   * @param slip_ratio Slip ratio 
+   * @param vertical_load Fz
+   * @return true Successful calculation of intermediate values
+   * @return false 
+   */
+  bool calculateTireState(float slip_angle, float slip_ratio, double vertical_load);
 
   /**
    * @brief Calculates the D parameter for the Fy calculation using pacejka MF (Peak)
    *
    * @return float The value of Dy
    */
-  float calculateDy() const;
+  float calculateDy(double vertical_load) const;
 
-  float calculateDx() const;
+  float calculateDx(double vertical_load) const;
 
-  float calculateCx() const;
+  /**
+   * @brief Calculates the C component for the pure longitudinal slip (4.E11)
+   * 
+   * @return float value of Cx
+   */
+  float calculateCx(double vertical_load) const;
 
-  float calculateCy() const;
+  float calculateCy(double vertical_load) const;
 
-  float calculateBx(float Dx, float Cx) const;
+  float calculateBx(float Dx, float Cx, double vertical_load) const;
 
   float calculateBy(float Dy, float Cy) const;
 
-  float calculateEx(double slip_ratio) const;
+  /**
+   * @brief Calculates the E component for the longitudinal slip 
+   * 
+   * @param shifted_slip_ratio The already shited slip ratio (kappax) 
+   * @return float Value of Ex
+   */
+  float calculateEx(double shifted_slip_ratio) const;
 
-  float calculateEy(double slip_angle) const;
+  float calculateEy(double slip_angle, double vertical_load) const;
 
-  float calculateSVx() const;
+  float calculateSVx(double vertical_load) const;
 
-  float calculateSVy() const;
+  float calculateSVy(double vertical_load) const;
+/**
+ * @brief Calculates the shift for the slip ratio calculation
+ * 
+ * @return float Shift
+ */
+  float calculateSHx() const;
 
-  // Isto é mesmo preciso?
+  /**
+   * @brief Calculates Fx using combined slip
+   * 
+   * @param Fx0 Fx calculated using pure slip
+   * @return float Fx using combined slip
+   */
+  float calculateCombinedLongitudinal(double Fx0) const;
+
+
+  /**
+   * @brief Calculates Fy using combined slip
+   * 
+   * @param Fy0  Fy calculated using pure slip  
+   * @param shifted_slip_ratio Slip ratio already shifted (kappax)  
+   * @param slip_ratio Slip ratio (kappa)
+   * @param vertical_load Fz
+   * @return float Fy using combined slip
+   */
+  float calculateCombinedLateral(double Fy0 , double shifted_slip_ratio, double slip_ratio , double vertical_load) const;
+
+  /**
+   * @brief Auxiliary function that returns the sign of a value
+   * 
+   * @param val The value
+   * @return int 1 or -1
+   */
   static int sign(float val) { return (val > 0) ? 1 : -1; }
 };
