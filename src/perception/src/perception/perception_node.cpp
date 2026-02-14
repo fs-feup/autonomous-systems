@@ -62,6 +62,10 @@ PerceptionParameters Perception::load_config() {
   trim_params.rotation = perception_config["rotation"].as<double>();
   trim_params.apply_fov_trimming = perception_config["apply_fov_trimming"].as<bool>();
   trim_params.fov = perception_config["fov"].as<double>();
+    trim_params.apply_vertical_trimming =
+        perception_config["apply_vertical_trimming"].as<bool>();
+    trim_params.pitch = perception_config["pitch"].as<double>();
+    trim_params.v_fov = perception_config["v_fov"].as<double>();
   trim_params.is_raining = perception_config["is_raining"].as<bool>();
   trim_params.minimum_intensity = perception_config["minimum_intensity"].as<float>();
 

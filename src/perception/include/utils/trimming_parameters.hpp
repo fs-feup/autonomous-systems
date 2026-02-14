@@ -12,6 +12,9 @@ struct TrimmingParameters {
   double rotation;                     ///< Rotation angle to be applied to the point cloud.
   bool apply_fov_trimming;             ///< Whether to apply field of view trimming.
   double fov;                          ///< Field of view.
+  bool apply_vertical_trimming;        ///< Whether to apply vertical trimming.
+  double pitch;                        ///< Pitch angle of the LIDAR.
+  double v_fov;                        ///< Vertical field of view.
   bool is_raining;                     ///< Whether it is raining.
   float minimum_intensity;  ///< Minimum intensity for point to be considered valid in rain.
   double max_height;        ///< Maximum point cloud height after trimming.

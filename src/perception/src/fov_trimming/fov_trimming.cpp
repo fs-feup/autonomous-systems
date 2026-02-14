@@ -12,6 +12,15 @@ bool FovTrimming::within_limits(float x, float y, float z, float intensity,
     }
   }
 
+  if (params.apply_vertical_trimming) {
+    const double distance = std::sqrt(x * x + y * y);
+    const double vertical_angle = std::atan2(z, distance) * 180.0 / M_PI - params.pitch;
+    const double half_v_fov = params.v_fov / 2.0;
+    if (vertical_angle < -half_v_fov || vertical_angle > half_v_fov) {
+      ret &= false;
+    }
+  }
+
   double distance_squared = x * x + y * y;
 
   ret &= z < (params.max_height - params.lidar_height);
