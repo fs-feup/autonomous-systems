@@ -2,8 +2,10 @@
 
 #include <Eigen/Dense>
 #include <memory>
+#include <cmath>
 
 #include "common_lib/car_parameters/car_parameters.hpp"
+#include "common_lib/structures/physical_constants.hpp"
 
 /**
  * @brief Base class for models that compute load transfer on a vehicle.
@@ -12,6 +14,7 @@
 class LoadTransferModel {
 protected:
   std::shared_ptr<common_lib::car_parameters::CarParameters> car_parameters_;
+  std::shared_ptr<common_lib::structures::PhysicalConstants> physical_constants_;
 
 public:
   LoadTransferModel(const common_lib::car_parameters::CarParameters& car_parameters)
