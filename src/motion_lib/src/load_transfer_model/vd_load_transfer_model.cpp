@@ -43,8 +43,8 @@ float VDLoadTransferModel::calculate_rear_lateral_transfer(float massDistributio
 
 
 float VDLoadTransferModel::calculate_longitudinal_transfer(float longitudinal_acceleration) const{
-    float unsprung_load_transfer = ((car_parameters_->unsprung_mass) * longitudinal_acceleration * car_parameters_->unsprung_cg_z * physical_constants_->gravity) / car_parameters_->wheelbase;
-    float elastic_load_transfer = ((car_parameters_->sprung_mass) * longitudinal_acceleration * (car_parameters_->sprung_cg_z - car_parameters_->load_transfer_parameters->pitch_center_z) * physical_constants_->gravity) / car_parameters_->wheelbase;
-    float geometric_load_transfer = (car_parameters_->sprung_mass * longitudinal_acceleration * car_parameters_->load_transfer_parameters->pitch_center_z * physical_constants_->gravity) / car_parameters_->wheelbase;
+    float unsprung_load_transfer = ((car_parameters_->unsprung_mass) * longitudinal_acceleration * car_parameters_->unsprung_cg_z ) / car_parameters_->wheelbase;
+    float elastic_load_transfer = ((car_parameters_->sprung_mass) * longitudinal_acceleration * (car_parameters_->sprung_cg_z - car_parameters_->load_transfer_parameters->pitch_center_z)) / car_parameters_->wheelbase;
+    float geometric_load_transfer = (car_parameters_->sprung_mass * longitudinal_acceleration * car_parameters_->load_transfer_parameters->pitch_center_z ) / car_parameters_->wheelbase;
     return unsprung_load_transfer + geometric_load_transfer + elastic_load_transfer;
 }
