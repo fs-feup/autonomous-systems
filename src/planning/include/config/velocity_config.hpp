@@ -25,9 +25,9 @@ struct VelocityPlanningConfig {
   double acceleration_;
 
   /**
-   * @brief The maximum normal acceleration.
+   * @brief Maximum lateral acceleration.
    */
-  double normal_acceleration_;
+  double lateral_acceleration_;
 
   /**
    * @brief Flag to enable/disable velocity planning.
@@ -42,7 +42,7 @@ struct VelocityPlanningConfig {
         desired_velocity_(5.0),
         braking_acceleration_(-4.0),
         acceleration_(7.0),
-        normal_acceleration_(7.0),
+        lateral_acceleration_(7.0),
         use_velocity_planning_(true) {}
 
   /**
@@ -50,11 +50,11 @@ struct VelocityPlanningConfig {
    */
   VelocityPlanningConfig(double minimum_velocity, double desired_velocity,
                          double braking_acceleration, double acceleration,
-                         double normal_acceleration, bool use_velocity_planning)
+                         double lateral_acceleration, bool use_velocity_planning)
       : minimum_velocity_(minimum_velocity),
         desired_velocity_(desired_velocity),
         braking_acceleration_(braking_acceleration),
         acceleration_(acceleration),
-        normal_acceleration_(normal_acceleration),
+        lateral_acceleration_(lateral_acceleration),
         use_velocity_planning_(use_velocity_planning) {}
 };
