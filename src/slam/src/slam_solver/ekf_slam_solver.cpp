@@ -84,11 +84,12 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
   if (!matched_landmarks_indices.empty()) {
     this->correct(state, covariance, matched_landmarks_indices, matched_observations);
   }
+  const bool is_preloaded_map_skidpad_or_accel =
+      this->_params_.using_preloaded_map_ &&
+      (this->_mission_ == common_lib::competition_logic::Mission::SKIDPAD ||
+       this->_mission_ == common_lib::competition_logic::Mission::ACCELERATION);
   if (this->_mission_ != common_lib::competition_logic::Mission::NONE &&
-      !(this->_params_.using_preloaded_map_ &&
-        (this->_mission_ == common_lib::competition_logic::Mission::SKIDPAD ||
-         this->_mission_ == common_lib::competition_logic::Mission::ACCELERATION)) &&
-      this->lap_counter_ == 0) {
+      !is_preloaded_map_skidpad_or_accel && this->lap_counter_ == 0) {
     this->state_augmentation(state, covariance, filtered_landmarks);
   }
   // Finally update the state

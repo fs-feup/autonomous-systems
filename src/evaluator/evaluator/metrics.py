@@ -121,7 +121,10 @@ def compute_distance(cone1: np.array, cone2: np.array) -> float:
         float: The Euclidean distance between the two cones.
     """
 
-    return np.linalg.norm(cone1 - cone2)
+    cone1_array = np.asarray(cone1)
+    cone2_array = np.asarray(cone2)
+
+    return np.linalg.norm(cone1_array - cone2_array)
 
 
 def build_adjacency_matrix(cones: np.array) -> np.array:

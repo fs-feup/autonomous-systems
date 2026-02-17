@@ -206,13 +206,12 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
     covariance = this->_graph_slam_instance_->get_covariance_matrix();
     covariance_time = rclcpp::Clock().now();
   }
-  RCLCPP_INFO(rclcpp::get_logger("slam"), "add_observations - State and covariance obtained");
   Eigen::VectorXi associations;
   Eigen::VectorXd filtered_new_observations;
   {
     RCLCPP_DEBUG(rclcpp::get_logger("slam"),
                  "add_observations - Mutex locked - association/filter/loop-closure/graph update");
-    std::unique_lock uniq_lock(this->_mutex_);
+    const std::unique_lock uniq_lock(this->_mutex_);
 
     // Data association
     associations = this->_data_association_->associate(
@@ -224,12 +223,9 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
     association_time = rclcpp::Clock().now();
     RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Associations calculated");
 
-    RCLCPP_INFO(rclcpp::get_logger("slam"), "add_observations - Associations:");
-
     // Landmark filtering
     filtered_new_observations = this->_landmark_filter_->filter(
         observations_global, observations_confidences, associations);
-    RCLCPP_INFO(rclcpp::get_logger("slam"), "add_observations - Filtered new observations");
 
     // Loop closure detection
     LoopClosure::Result result =
@@ -244,7 +240,6 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
       }
       RCLCPP_INFO(rclcpp::get_logger("slam"), "Lap counter: %d", lap_counter_);
     }
-    RCLCPP_INFO(rclcpp::get_logger("slam"), "add_observations - Loop closure checked");
 
     // Add observations to the graph
     ObservationData observation_data(std::make_shared<Eigen::VectorXd>(observations),
@@ -264,7 +259,6 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
     this->_landmark_filter_->delete_landmarks(filtered_new_observations);
   }
 
-  RCLCPP_INFO(rclcpp::get_logger("slam"), "add_observations - Factors added to graph");
   factor_graph_time = rclcpp::Clock().now();
   RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Mutex unlocked - Factors added");
 
@@ -279,7 +273,6 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
     this->_pose_updater_->update_pose(gtsam_pose_to_eigen(this->_graph_slam_instance_->get_pose()));
     RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Mutex unlocked - graph optimized");
   }
-  RCLCPP_INFO(rclcpp::get_logger("slam"), "add_observations - Graph optimized if needed");
 
   // Timekeeping
   if (this->_execution_times_ == nullptr) {

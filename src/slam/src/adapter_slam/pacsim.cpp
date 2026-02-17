@@ -11,7 +11,8 @@ PacsimAdapter::PacsimAdapter(const SLAMParameters& params) : SLAMNode(params) {
   rclcpp::SubscriptionOptions subscription_options;
   subscription_options.callback_group = this->_callback_group_;
   if (params.use_simulated_perception_) {
-    if (params.slam_solver_name_ == "ekf_slam" && params.slam_optimization_mode_ == "async") {
+    if (params.slam_optimization_mode_ == "async" ||
+        params.slam_optimization_mode_ == "sync-parallel") {
       this->_parallel_callback_group_ =
           this->create_callback_group(rclcpp::CallbackGroupType::Reentrant);
       rclcpp::SubscriptionOptions parallel_opts;
@@ -77,6 +78,9 @@ void PacsimAdapter::fetch_discipline() {
               mission_result = common_lib::competition_logic::Mission::ACCELERATION;
             } else if (discipline == "trackdrive") {
               mission_result = common_lib::competition_logic::Mission::TRACKDRIVE;
+            } else {
+              RCLCPP_ERROR(this->get_logger(), "Unknown discipline received: %s",
+                           discipline.c_str());
             }
           } else {
             RCLCPP_ERROR(this->get_logger(), "Failed to retrieve discipline parameter.");
@@ -113,7 +117,7 @@ void PacsimAdapter::_pacsim_perception_subscription_callback(
   custom_interfaces::msg::PerceptionOutput perception_output;
   perception_output.header = cone_array_msg.header;
   perception_output.cones = cone_array_msg;
-  perception_output.exec_time = 0.0;
+  perception_output.exec_time = 0.00;
   _perception_subscription_callback(perception_output);
 }
 

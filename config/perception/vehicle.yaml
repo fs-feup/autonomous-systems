@@ -12,7 +12,7 @@ perception:
   lidar_vertical_resolution: 0.33
 
   #FOV trimming
-  apply_rotation: false
+  apply_rotation: true
   rotation: 90.0
   apply_fov_trimming: false
   fov: 180.0    #ATTENTION: If fov trimming not applied, leave at 180 degrees

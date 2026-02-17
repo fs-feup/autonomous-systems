@@ -25,7 +25,7 @@ slam:
   slam_optimization_type: "isam2" # "normal_levenberg" or "isam2" or "sliding_window_levenberg" or ... -> name of the optimization type
 
   # Timestamp Synchronization Dependency
-  synchronized_timestamps: false # Whether motion and observation data are synchronized timestamps or not
+  synchronized_timestamps: true # Whether motion and observation data are synchronized timestamps or not
   max_pose_history_updater: 30 # Maximum number of past poses to keep for pose updater buffer for observation delay compensation
   max_pose_history_graph: 7 # Maximum number of past graphed poses to keep in instance buffer for observation delay compensation
 
@@ -33,7 +33,7 @@ slam:
   slam_min_pose_difference: 0.15 # Minimum distance between poses to consider adding to factor graph
 
   # Only for slam_optimization_mode: "async"
-  slam_optimization_period: 0.25 # Time between optimization steps in seconds, 0.0 means optimization every time observations are added
+  slam_optimization_period: 0.5 # Time between optimization steps in seconds, 0.0 means optimization every time observations are added
 
   # Only for slam_optimization_type: "isam2"
   slam_isam2_relinearize_threshold: 0.1 # Threshold for relinearizing the graph in isam2
@@ -44,7 +44,7 @@ slam:
   sliding_window_size: 50 # Number of poses to keep in the sliding window
 
   # Perception data filters
-  minimum_observation_count: 2 # Minimum number of times a new landmark must be observed to be added to the map
+  minimum_observation_count: 3 # Minimum number of times a new landmark must be observed to be added to the map
   minimum_frequency_of_detections: 5 # Minimum frequency of detections to consider a landmark as valid
 
   # Loop closure paramteters
