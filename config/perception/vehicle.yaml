@@ -12,12 +12,14 @@ perception:
   lidar_vertical_resolution: 0.33
 
   #FOV trimming
-  apply_rotation: false
-  rotation: 2.736
+  apply_rotation: true
+  rotation: 90.0
   apply_fov_trimming: false
   fov: 180.0    #ATTENTION: If fov trimming not applied, leave at 180 degrees
   min_range: 2.0
   max_height: 3.0
+  is_raining: false
+  minimum_intensity: 1.0  # Only aplied when is_raining is true
 
   #TRACKDRIVE/AUTOCROSS TRIMMING
   max_range: 40.0
@@ -28,7 +30,6 @@ perception:
 
   #SKIDPAD TRIMMING
   skid_max_range: 40.0
-
   #Ground Grid
   ground_grid_range: 40.0  #ATTENTION: Should be >= all max_ranges
   ground_grid_angle: 4.5
@@ -72,7 +73,7 @@ perception:
   max_distance_from_ground_max: 0.90 # max distance form the ground of the highest point in the cluster
   n_points_intial_max: 50
   n_points_intial_min: 4
-  n_points_max_distance_reduction: 1.5
+  n_points_max_distance_reduction: 1.0
   n_points_min_distance_reduction: 0.15
 
   #ICP
