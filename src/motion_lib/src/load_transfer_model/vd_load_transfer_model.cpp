@@ -1,17 +1,17 @@
 #include "motion_lib/load_transfer_model/vd_load_transfer_model.hpp"
 
-Eigen::Vector4d VDLoadTransferModel::compute_loads(
-    const Eigen::VectorXd& dynamic_state) const {
-        Eigen::Vector4d loads;
-        float mass_distribution = car_parameters_->cg_2_rear_axis / car_parameters_->wheelbase; 
-        float downforce = dynamic_state[2];
-        float front_static_load = (car_parameters_->total_mass * physical_constants_->gravity) * mass_distribution ;
-        float rear_static_load = (car_parameters_->total_mass * physical_constants_->gravity) * (1 - mass_distribution);
+LoadTransferOutput VDLoadTransferModel::compute_loads(
+    const LoadTransferInput& input) const {
+        LoadTransferOutput loads;
+        float front_mass_distribution = car_parameters_->cg_2_rear_axis / car_parameters_->wheelbase; // Value between 0 and 1
+        float downforce = input.downforce;
+        float front_static_load = (car_parameters_->total_mass * physical_constants_->gravity) * front_mass_distribution ;
+        float rear_static_load = (car_parameters_->total_mass * physical_constants_->gravity) * (1 - front_mass_distribution);
         float aero_load_front = abs(downforce) * car_parameters_->aero_parameters->aero_balance_front;
         float aero_load_rear = abs(downforce) * (1 - car_parameters_->aero_parameters->aero_balance_front);
-        float longitudinal_transfer = calculate_longitudinal_transfer(dynamic_state[0]);
-        float lateral_transfer_front = calculate_front_lateral_transfer(mass_distribution, dynamic_state[1]);
-        float lateral_transfer_rear = calculate_rear_lateral_transfer(mass_distribution, dynamic_state[1]);
+        float longitudinal_transfer = calculate_longitudinal_transfer(input.longitudinal_acceleration);
+        float lateral_transfer_front = calculate_front_lateral_transfer(front_mass_distribution, input.lateral_acceleration);
+        float lateral_transfer_rear = calculate_rear_lateral_transfer(front_mass_distribution, input.lateral_acceleration);
         /*
         Important notes: This calculation assumes that static load is distributed evenly between left and right tires same for aero.
         Front static load returns the value of both tires
@@ -19,10 +19,10 @@ Eigen::Vector4d VDLoadTransferModel::compute_loads(
         Longitudinal transfer returns the total value of load transfer that is then distributed between front and rear
         Lateral transfer returns the total value of load transfer that is then distributed between each axis
         */
-        loads(0) = (front_static_load/2) + (aero_load_front/2) - (longitudinal_transfer/2) - lateral_transfer_front;  // Front Left
-        loads(1) = (front_static_load/2) + (aero_load_front/2) - (longitudinal_transfer/2) + lateral_transfer_front;  // Front Right
-        loads(2) = (rear_static_load/2) + (aero_load_rear/2) + (longitudinal_transfer/2) - lateral_transfer_rear;  // Rear Left
-        loads(3) = (rear_static_load/2) + (aero_load_rear/2) + (longitudinal_transfer/2) + lateral_transfer_rear;  // Rear Right
+        loads.front_left_load = (front_static_load/2) + (aero_load_front/2) - (longitudinal_transfer/2) - lateral_transfer_front;  // Front Left
+        loads.front_right_load = (front_static_load/2) + (aero_load_front/2) - (longitudinal_transfer/2) + lateral_transfer_front;  // Front Right
+        loads.rear_left_load = (rear_static_load/2) + (aero_load_rear/2) + (longitudinal_transfer/2) - lateral_transfer_rear;  // Rear Left
+        loads.rear_right_load = (rear_static_load/2) + (aero_load_rear/2) + (longitudinal_transfer/2) + lateral_transfer_rear;  // Rear Right
         return loads;
     }
 

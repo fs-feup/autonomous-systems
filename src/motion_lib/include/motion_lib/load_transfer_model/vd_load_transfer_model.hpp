@@ -8,11 +8,10 @@ public:
   /**
    * @brief Computes loads on the tires based on the dynamic state of the vehicle.
    *
-   * @param dynamic_state Receives a vector containing the following values in this order: [longitudinal_acceleration, lateral_acceleration, downforce]
-   * @return Eigen::Vector4d a vector containing the loads on the four tires in Newtons, in the
-   * order: FL, FR, RL, RR.
+   * @param input Receives a pointer to a struct that contains the relevant dynamic state that affects the load transfer.
+   * @return LoadTransferOutput a struct containing the loads on the four tires in Newtons
    */
-  Eigen::Vector4d compute_loads(const Eigen::VectorXd& dynamic_state) const override;
+   LoadTransferOutput compute_loads(const LoadTransferInput& input) const override;
 
   /**
    * @brief Calculates the total difference in frontal load caused by lateral weight transfer using static load, geometric and elastic.

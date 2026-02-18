@@ -7,6 +7,28 @@
 #include "common_lib/car_parameters/car_parameters.hpp"
 #include "common_lib/structures/physical_constants.hpp"
 
+
+/**
+ * @brief Struct that contains all possible inputs used for load transfer calculations.
+ * 
+ */
+struct LoadTransferInput {
+  float longitudinal_acceleration;
+  float lateral_acceleration;
+  float downforce;
+};
+
+/**
+ * @brief Struct that contains the outputs of the load transfer model for better readability.
+ * 
+ */
+struct LoadTransferOutput {
+  float front_left_load;
+  float front_right_load;
+  float rear_left_load;
+  float rear_right_load;
+};
+
 /**
  * @brief Base class for models that compute load transfer on a vehicle.
  *
@@ -24,10 +46,9 @@ public:
   /**
    * @brief Computes loads on the tires based on the dynamic state of the vehicle.
    *
-   * @param dynamic_state Contains the relevant dynamic state that affects the load transfer, can
+   * @param input Contains the relevant dynamic state that affects the load transfer, can
    * include accelerations, euler angles, velocities, etc.
-   * @return Eigen::Vector4d a vector containing the loads on the four tires in Newtons, in the
-   * order: FL, FR, RL, RR.
+   * @return LoadTransferOutput a struct containing the loads on the four tires in Newtons
    */
-  virtual Eigen::Vector4d compute_loads(const Eigen::VectorXd& dynamic_state) const = 0;
+  virtual LoadTransferOutput compute_loads(const LoadTransferInput& input) const = 0;
 };
