@@ -24,7 +24,7 @@ TireParameters::TireParameters(const std::string& config_name) {
   d_fright = config["d_fright"].as<double>();
   d_fleft = config["d_fleft"].as<double>();
 
-  camber = config["camber"].as<double>();
+  camber_angle = config["camber_angle"].as<double>();
 
   UNLOADED_RADIUS = config["UNLOADED_RADIUS"].as<double>();
   WIDTH = config["WIDTH"].as<double>();
@@ -293,7 +293,6 @@ TireParameters::TireParameters(const std::string& config_name) {
   PDXP1 = config["PDXP1"].as<double>();
   PDXP2 = config["PDXP2"].as<double>();
   PDXP3 = config["PDXP3"].as<double>();
-  PDXP4 = config["PDXP4"].as<double>();
   PDYP1 = config["PDYP1"].as<double>();
   PDYP2 = config["PDYP2"].as<double>();
   PDYP3 = config["PDYP3"].as<double>();

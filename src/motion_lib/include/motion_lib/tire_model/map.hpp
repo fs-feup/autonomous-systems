@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 
-#include "pacejka_bombado.hpp"
+#include "pacejka_MF6_2.hpp"
 #include "pacejka_combined_slip.hpp"
 
 /*
@@ -20,8 +20,8 @@ const std::map<
          [](const common_lib::car_parameters::CarParameters& params) -> std::shared_ptr<TireModel> {
            return std::make_shared<PacejkaCombinedSlip>(params);
          }},
-        {"pacejka_bombado",
+        {"pacejka_MF6_2",
          [](const common_lib::car_parameters::CarParameters& params) -> std::shared_ptr<TireModel> {
-           return std::make_shared<PacejkaBombado>(params);
+           return std::make_shared<PacejkaMF6_2>(params);
          }},
 };
