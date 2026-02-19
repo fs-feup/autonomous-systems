@@ -8,8 +8,9 @@ public:
   /**
    * @brief Computes loads on the tires based on the dynamic state of the vehicle.
    *
-   * @param input Receives a pointer to a struct that contains the relevant dynamic state that affects the load transfer.
-   * @return LoadTransferOutput a struct containing the loads on the four tires in Newtons
+   * @param input Receives a pointer to a struct that contains the relevant dynamic state that
+   * affects the load transfer.
+   * @return Wheels a struct containing the loads on the four tires in Newtons
    */
-   LoadTransferOutput compute_loads(const LoadTransferInput& input) const override;
+  common_lib::structures::Wheels compute_loads(const LoadTransferInput& input) const override;
 };

@@ -3,6 +3,8 @@
 #include "aero_parameters.hpp"
 #include "battery_parameters.hpp"
 #include "common_lib/config_load/config_load.hpp"
+#include "common_lib/structures/physical_constants.hpp"
+#include "common_lib/structures/wheels.hpp"
 #include "differential_parameters.hpp"
 #include "load_transfer_parameters.hpp"
 #include "motor_parameters.hpp"
@@ -35,6 +37,8 @@ struct CarParameters {
   std::shared_ptr<common_lib::car_parameters::MotorParameters> motor_parameters;
   std::shared_ptr<common_lib::car_parameters::BatteryParameters> battery_parameters;
   std::shared_ptr<common_lib::car_parameters::DifferentialParameters> differential_parameters;
+  std::shared_ptr<common_lib::structures::PhysicalConstants> physical_constants;
+  std::shared_ptr<common_lib::structures::Wheels> wheels;
 
   CarParameters();
   CarParameters(std::string config_dir, std::string config_name);

@@ -1,16 +1,14 @@
 #pragma once
 
 #include <Eigen/Dense>
-#include <memory>
 #include <cmath>
+#include <memory>
 
 #include "common_lib/car_parameters/car_parameters.hpp"
-#include "common_lib/structures/physical_constants.hpp"
-
 
 /**
  * @brief Struct that contains all possible inputs used for load transfer calculations.
- * 
+ *
  */
 struct LoadTransferInput {
   float longitudinal_acceleration;
@@ -20,7 +18,7 @@ struct LoadTransferInput {
 
 /**
  * @brief Struct that contains the outputs of the load transfer model for better readability.
- * 
+ *
  */
 struct LoadTransferOutput {
   float front_left_load;
@@ -36,7 +34,6 @@ struct LoadTransferOutput {
 class LoadTransferModel {
 protected:
   std::shared_ptr<common_lib::car_parameters::CarParameters> car_parameters_;
-  std::shared_ptr<common_lib::structures::PhysicalConstants> physical_constants_;
 
 public:
   LoadTransferModel(const common_lib::car_parameters::CarParameters& car_parameters)
@@ -48,7 +45,7 @@ public:
    *
    * @param input Contains the relevant dynamic state that affects the load transfer, can
    * include accelerations, euler angles, velocities, etc.
-   * @return LoadTransferOutput a struct containing the loads on the four tires in Newtons
+   * @return Wheels a struct containing the loads on the four tires in Newtons
    */
-  virtual LoadTransferOutput compute_loads(const LoadTransferInput& input) const = 0;
+  virtual common_lib::structures::Wheels compute_loads(const LoadTransferInput& input) const = 0;
 };

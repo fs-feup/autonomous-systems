@@ -1,8 +1,7 @@
 #include "motion_lib/load_transfer_model/rigid_body_model.hpp"
 
-LoadTransferOutput RigidBodyLoadTransferModel::compute_loads(
+common_lib::structures::Wheels RigidBodyLoadTransferModel::compute_loads(
     const LoadTransferInput& input) const {
-
   // Accelerations at the CG
   double longitudinal_acceleration = input.longitudinal_acceleration;
   double lateral_acceleration = input.lateral_acceleration;
@@ -25,12 +24,13 @@ LoadTransferOutput RigidBodyLoadTransferModel::compute_loads(
   double longitudinal_transfer = (mass * longitudinal_acceleration * cog_height) / wheelbase;
   double lateral_transfer = (mass * lateral_acceleration * cog_height) / track_width;
 
-  LoadTransferOutput loads;
+  common_lib::structures::Wheels loads;
 
-  loads.front_left_load = front_wheel_static_load - longitudinal_transfer / 2.0 - lateral_transfer / 2.0;
-  loads.front_right_load = front_wheel_static_load - longitudinal_transfer / 2.0 + lateral_transfer / 2.0;
-  loads.rear_left_load = rear_wheel_static_load + longitudinal_transfer / 2.0 - lateral_transfer / 2.0;
-  loads.rear_right_load = rear_wheel_static_load + longitudinal_transfer / 2.0 + lateral_transfer / 2.0;
+  loads.front_left = front_wheel_static_load - longitudinal_transfer / 2.0 - lateral_transfer / 2.0;
+  loads.front_right =
+      front_wheel_static_load - longitudinal_transfer / 2.0 + lateral_transfer / 2.0;
+  loads.rear_left = rear_wheel_static_load + longitudinal_transfer / 2.0 - lateral_transfer / 2.0;
+  loads.rear_right = rear_wheel_static_load + longitudinal_transfer / 2.0 + lateral_transfer / 2.0;
 
   return loads;
 }
