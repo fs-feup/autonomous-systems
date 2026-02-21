@@ -34,7 +34,7 @@ std::vector<PathPoint> PathSmoothing::optimize_path(
 
 std::vector<PathPoint> PathSmoothing::filter_path(const std::vector<PathPoint>& path) const {
   std::vector<PathPoint> filtered;
-  for (const auto &p : path) {
+  for (const auto& p : path) {
     if (filtered.empty() || filtered.back().position.euclidean_distance(p.position) >
                                 config_.min_path_point_distance_) {
       filtered.push_back(p);
@@ -223,13 +223,18 @@ void PathSmoothing::convert_to_csc_format(const std::vector<OSQPFloat>& values,
 std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPoint>& center,
                                                         const std::vector<PathPoint>& left,
                                                         const std::vector<PathPoint>& right) const {
+  if (center.size() != left.size() || center.size() != right.size() ||
+      left.size() != center.size()) {
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),
+                "The splines have different sizes. Right - %d, Left - %d, Center - %d",
+                center.size(), left.size(), right.size());
+  }
   const int num_path_points = center.size();
 
   // Check if we have enough points for optimization
   if (num_path_points < 5) {
-    RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
-                 "Too few points for OSQP optimization (%d points). Minimum is 5.",
-                 num_path_points);
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),
+                "Too few points for OSQP optimization (%d points). Minimum is 5.", num_path_points);
     return center;
   }
 

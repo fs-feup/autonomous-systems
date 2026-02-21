@@ -12,7 +12,7 @@ planning:
   pc_max_cost: 100.0
   pc_lookback_points: 4
   pc_search_depth: 4
-  pc_max_points: 200
+  pc_max_points: 20000
   pc_minimum_point_distance: 1.0
   pc_reset_interval: 1000000000
   pc_use_reset_path: false
@@ -20,7 +20,7 @@ planning:
   skidpad_minimum_cones: 10
   skidpad_tolerance: 5
   #---------------------- Path Smoothing (smoothing_) -------------------
-  smoothing_spline_precision: 10
+  smoothing_spline_precision: 2
   smoothing_spline_order: 3
   smoothing_spline_coeffs_ratio: 3.0
   smoothing_min_path_point_distance: 0
@@ -35,14 +35,13 @@ planning:
   smoothing_tolerance: 1e-5     
   #---------------------- Velocity Planning (vp_) -----------------------
   vp_minimum_velocity: 2.0
-  vp_braking_acceleration: -3.0
-  vp_acceleration: 4.0
-  vp_lateral_acceleration: 5.0
+  vp_braking_acceleration: -10.0
+  vp_acceleration: 8.0
+  vp_lateral_acceleration: 10.0
   vp_use_velocity_planning: true
-  vp_desired_velocity: 20.0
+  vp_desired_velocity: 25.0
   #---------------------- Simulation Config (simulation_) ---------------------------
   simulation_publishing_visualization_msgs: true
-
   
 
 # Parameters for EBS Test

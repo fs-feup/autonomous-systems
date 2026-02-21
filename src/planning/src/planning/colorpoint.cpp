@@ -6,17 +6,20 @@ void Colorpoint::extract_cones(std::vector<Colorpoint>& colorpoints,
   if (colorpoints.size() < 2) {
     return;
   }
-
+  std::vector<Cone> yellow_cones1;
+  std::vector<Cone> blue_cones1;
   // Process all colorpoints except the last one
   for (size_t i = 0; i < colorpoints.size() - 1; i++) {
     // Check if cones are already colored correctly,if not use cross product to determine colors
-    if (!is_colored_right(colorpoints[i], yellow_cones, blue_cones)) {
-      color_cones(colorpoints[i], colorpoints[i + 1], yellow_cones, blue_cones);
-    }
+    // if (!is_colored_right(colorpoints[i], yellow_cones, blue_cones)) {
+    color_cones(colorpoints[i], colorpoints[i + 1], yellow_cones1, blue_cones1);
+    // }
   }
 
   // Handle the last point using cone matching from second-to-last point
-  color_last_point(colorpoints, yellow_cones, blue_cones);
+  color_last_point(colorpoints, yellow_cones1, blue_cones1);
+  yellow_cones = yellow_cones1;
+  blue_cones = blue_cones1;
 }
 
 bool Colorpoint::is_colored_right(const Colorpoint& colorpoint, std::vector<Cone>& yellow_cones,
