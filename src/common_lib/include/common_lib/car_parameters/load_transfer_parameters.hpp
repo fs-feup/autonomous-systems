@@ -7,8 +7,11 @@
 namespace common_lib::car_parameters {
 
 struct LoadTransferParameters {
-  // Still no params
-
+  double roll_axis_z;
+  double front_roll_center_z;
+  double rear_roll_center_z;
+  double front_stiffness_distribution;
+  double pitch_center_z;
   LoadTransferParameters(const std::string& config_path);
 };
 }  // namespace common_lib::car_parameters

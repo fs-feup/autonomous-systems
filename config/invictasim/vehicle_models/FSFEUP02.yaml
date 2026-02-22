@@ -18,7 +18,7 @@ vehicle_model:
   differential_model: "viscous_lsd"
   differential_model_params: "differential"
 
-  load_transfer_model: "simple_load_transfer"
+  load_transfer_model: "vd_model" # Options: "rigid_body_model", "vd_model"
   load_transfer_model_params: "load_transfer"
 
   steering_motor_model: "simple_steering_motor"
