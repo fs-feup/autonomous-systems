@@ -1,7 +1,7 @@
 #pragma once
 
 #include "base_tire_model.hpp"
-#include "common_lib/structures/forces.hpp"
+#include "common_lib/structures/force.hpp"
 #include "common_lib/structures/velocities.hpp"
 #include "common_lib/structures/wheels.hpp"
 
