@@ -5,11 +5,11 @@
 #include "common_lib/structures/wheels.hpp"
 
 /**
- * @brief Limited slip differential model 
+ * @brief Viscous limited slip differential model
  */
-class LimitedSlipDifferential : public DifferentialModel {
+class ViscousLSD : public DifferentialModel {
 public:
-  LimitedSlipDifferential(const common_lib::car_parameters::CarParameters& car_parameters)
+  ViscousLSD(const common_lib::car_parameters::CarParameters& car_parameters)
       : DifferentialModel(car_parameters) {}
 
   common_lib::structures::Wheels calculateTorqueDistribution(

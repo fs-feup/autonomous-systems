@@ -4,6 +4,11 @@ InvictaSimNode::InvictaSimNode(const InvictaSimParameters& params)
     : Node("invictasim_node"), params_(params), sim_time_(0.0) {
   this->vehicle_model_ = vehicle_models_map.at(params_.vehicle_model.c_str())(params);
 
+  RCLCPP_INFO(rclcpp::get_logger("InvictaSim"),
+              "Initialized InvictaSim with vehicle model: %s, track: %s, discipline: %s",
+              params_.vehicle_model.c_str(), params_.track_name.c_str(),
+              params_.discipline.c_str());
+
   // Publishers, subscribers, etc.  initialized here
   test_pub_ = this->create_publisher<std_msgs::msg::Float64>("/invictasim/test_topic", 10);
 

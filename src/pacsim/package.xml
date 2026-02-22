@@ -23,6 +23,8 @@
   <depend>tf2_ros</depend>
   <depend>geometry_msgs</depend>
   <depend>visualization_msgs</depend>
+  <depend>custom_interfaces</depend>
+  <depend>sensor_msgs</depend>
   <exec_depend>rosidl_default_runtime</exec_depend>
   <exec_depend>rclpy</exec_depend>
 

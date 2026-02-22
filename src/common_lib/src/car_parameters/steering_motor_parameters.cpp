@@ -4,10 +4,11 @@ namespace common_lib::car_parameters {
 
 SteeringMotorParameters::SteeringMotorParameters(const std::string& config_name) {
   std::string config_path = common_lib::config_load::get_config_yaml_path(
-      "common_lib", "motion_lib/steering_motor_model", config_name);
+      "common_lib", "car/steering_motor_model", config_name);
   YAML::Node config = YAML::LoadFile(config_path);
-  kp = config["kp"].as<double>();
-  ki = config["ki"].as<double>();
-  kd = config["kd"].as<double>();
+  config = config["steering_motor_model"];
+  if (config["kp"]) kp = config["kp"].as<double>();
+  if (config["ki"]) ki = config["ki"].as<double>();
+  if (config["kd"]) kd = config["kd"].as<double>();
 }
 }  // namespace common_lib::car_parameters

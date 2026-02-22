@@ -4,7 +4,7 @@ Eigen::Vector3d DefaultAeroModel::aero_forces(const Eigen::Vector3d& velocity) c
   const double vx = velocity[0];
   const double vy = velocity[1];
 
-  const double air_density = 1.225;  // [kg/m^3] TODO (maybe): make this a parameter
+  const double air_density = this->car_parameters_->aero_parameters->air_density;  // [kg/m^3] TODO (maybe): make this a parameter
   const double frontal_area = this->car_parameters_->aero_parameters->frontal_area;  // [m^2]
   const double drag_coefficient = this->car_parameters_->aero_parameters->drag_coefficient;
   const double side_force_coefficient =

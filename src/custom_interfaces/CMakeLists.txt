@@ -50,6 +50,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/SlamParameters.msg"
   "msg/ProcessUsage.msg"
   "msg/ProcessUsageArray.msg"
+  "msg/VehicleStateVector.msg"
   DEPENDENCIES builtin_interfaces std_msgs 
 )
 

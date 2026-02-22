@@ -56,6 +56,8 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.smoothing_spline_order_ = planning_config["smoothing_spline_order"].as<int>();
   params.smoothing_spline_coeffs_ratio_ =
       planning_config["smoothing_spline_coeffs_ratio"].as<float>();
+  params.smoothing_min_path_point_distance_ =
+      planning_config["smoothing_min_path_point_distance"].as<float>();
   params.smoothing_use_path_smoothing_ = planning_config["smoothing_use_path_smoothing"].as<bool>();
   params.smoothing_use_optimization_ = planning_config["smoothing_use_optimization"].as<bool>();
   params.smoothing_car_width_ = planning_config["smoothing_car_width"].as<double>();

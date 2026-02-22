@@ -7,7 +7,9 @@
 namespace common_lib::car_parameters {
 
 struct DifferentialParameters {
-  // Still no params
+  double kv;          // Viscous coupling coefficient
+  double t_max;       // Maximum torque transfer
+  double efficiency;  // Efficiency of the differential
 
   DifferentialParameters(const std::string& config_path);
 };

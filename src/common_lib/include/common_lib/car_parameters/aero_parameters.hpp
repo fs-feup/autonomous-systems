@@ -12,6 +12,7 @@ struct AeroParameters {
   double aero_side_force_coefficient;
   double aero_balance_front;
   double frontal_area;
+  double air_density;
 
   AeroParameters(const std::string& config_path);
 };

@@ -23,8 +23,9 @@ planning:
   smoothing_spline_precision: 10
   smoothing_spline_order: 3
   smoothing_spline_coeffs_ratio: 3.0
+  smoothing_min_path_point_distance: 0
   smoothing_use_path_smoothing: true
-  smoothing_use_optimization: true
+  smoothing_use_optimization: false
   smoothing_car_width: 1.2
   smoothing_safety_margin: 0.3
   smoothing_curvature_weight: 100.0
@@ -33,12 +34,12 @@ planning:
   smoothing_max_iterations: 4000
   smoothing_tolerance: 1e-5     
   #---------------------- Velocity Planning (vp_) -----------------------
-  vp_minimum_velocity: 4.0
-  vp_braking_acceleration: -8.0
-  vp_acceleration: 10.0
-  vp_normal_acceleration: 15.0
+  vp_minimum_velocity: 2.0
+  vp_braking_acceleration: -3.0
+  vp_acceleration: 4.0
+  vp_normal_acceleration: 6.0
   vp_use_velocity_planning: true
-  vp_desired_velocity: 40.0
+  vp_desired_velocity: 20.0
   #---------------------- Simulation Config (simulation_) ---------------------------
   simulation_publishing_visualization_msgs: true
 

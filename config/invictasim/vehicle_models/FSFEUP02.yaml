@@ -6,7 +6,7 @@ vehicle_model:
   aero_model: "simple_aero"
   aero_model_params: "simple_aero"
 
-  tire_model: "pacejka_bombado"
+  tire_model: "pacejka_MF6_2"
   tire_model_params: "complex_pacejka"
 
   motor_model: "map_based_motor"
@@ -15,11 +15,11 @@ vehicle_model:
   battery_model: "equivalent_circuit_battery"
   battery_model_params: "battery"
 
-  differential_model: "limited_slip_differential"
+  differential_model: "viscous_lsd"
   differential_model_params: "differential"
 
   load_transfer_model: "simple_load_transfer"
-  load_transfer_model_params: "simple_load_transfer"
+  load_transfer_model_params: "load_transfer"
 
   steering_motor_model: "simple_steering_motor"
   steering_motor_model_params: "simple_steering_motor"

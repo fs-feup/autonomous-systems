@@ -14,10 +14,10 @@ Eigen::Vector4d RigidBodyLoadTransferModel::compute_loads(
 
   double mass = this->car_parameters_->total_mass;
   double g = 9.8065;  // m/s^2 TODO: make this a constant in the car parameters (maybe?)
-  double cog_height = this->car_parameters_->cog_height;
+  double cog_height = this->car_parameters_->cg_height;
   double wheelbase = this->car_parameters_->wheelbase;
   double front_weight_distribution =
-      this->car_parameters_->dist_cg_2_rear_axis / this->car_parameters_->wheelbase;
+      this->car_parameters_->cg_2_rear_axis / this->car_parameters_->wheelbase;
   double rear_weight_distribution = 1.0 - front_weight_distribution;
   double track_width = this->car_parameters_->track_width;
 

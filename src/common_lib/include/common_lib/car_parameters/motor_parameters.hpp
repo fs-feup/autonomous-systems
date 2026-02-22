@@ -6,7 +6,8 @@
 namespace common_lib::car_parameters {
 
 struct MotorParameters {
-  float max_rpm;                 // Maximum rotational speed (RPM)
+  float max_peak_rpm;            // Maximum rotational peak speed (RPM)
+  float max_continuous_rpm;      // Maximum continuous rotational speed (RPM)
   float max_continuous_current;  // Continuous current limit (A)
   float max_peak_current;        // Peak current limit (A)
   float peak_duration;           // Time allowed at peak power (s)
