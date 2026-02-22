@@ -29,7 +29,7 @@ TireParameters::TireParameters(const std::string& config_name) {
   if (config["d_fright"]) d_fright = config["d_fright"].as<double>();
   if (config["d_fleft"]) d_fleft = config["d_fleft"].as<double>();
 
-  if (config["camber"]) camber = config["camber"].as<double>();
+  if (config["camber_angle"]) camber_angle = config["camber_angle"].as<double>();
 
   if (config["UNLOADED_RADIUS"]) UNLOADED_RADIUS = config["UNLOADED_RADIUS"].as<double>();
   if (config["WIDTH"]) WIDTH = config["WIDTH"].as<double>();

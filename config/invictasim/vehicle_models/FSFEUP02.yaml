@@ -6,7 +6,7 @@ vehicle_model:
   aero_model: "simple_aero"
   aero_model_params: "simple_aero"
 
-  tire_model: "pacejka_bombado"
+  tire_model: "pacejka_MF6_2"
   tire_model_params: "complex_pacejka"
 
   motor_model: "map_based_motor"

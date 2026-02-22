@@ -29,7 +29,7 @@ struct TireParameters {
   double d_fleft;
 
   // Camber
-  double camber;
+  double camber_angle;
 
   // Dimension
   double UNLOADED_RADIUS;
@@ -296,7 +296,7 @@ struct TireParameters {
   double SSZ3;
   double SSZ4;
 
-  // Turnslip coefficients
+  // [TURNSLIP_COEFFICIENTS]
   double PECP1;
   double PECP2;
   double PDXP1;
@@ -312,6 +312,99 @@ struct TireParameters {
   double PHYP2;
   double PHYP3;
   double PHYP4;
+  double QDTP1;
+  double QBRP1;
+  double QCRP1;
+  double QCRP2;
+  double QDRP1;
+  double QDRP2;
+
+  // [CONTACT_COEFFICIENTS]
+  double PA1;
+  double PA2;
+  double PB1;
+  double PB2;
+  double PB3;
+  double PAE;
+  double PBE;
+  double PCE;
+  double PLS;
+  double PW1;
+  double PW2;
+  double PW3;
+  double PW4;
+  double N_WIDTH;
+  double N_WIDTH_HP;
+  double N_LENGTH;
+  double N_LENGTH_HP;
+  double ROAD_SPACING;
+  double ROAD_SPACING_HP;
+  double MAX_HEIGHT;
+  double CONTACT_THREADS;
+  double CONTACT_THREADS_HP;
+
+  // [DYNAMIC_COEFFICIENTS]
+  double EPSNL;
+  double MC;
+  double IC;
+  double KX;
+  double KY;
+  double KP;
+  double CX;
+  double CY;
+  double CP;
+  double EP;
+  double EP12;
+  double BF2;
+  double BP1;
+  double BP2;
+  double BP3;
+  double BP4;
+  double CXZ1;
+  double CXZ2;
+  double CXP1;
+  double CXX1;
+  double CYZ1;
+  double CYZ2;
+  double CYP1;
+  double CYY1;
+  double CPZ1;
+
+  // [BELT_PARAMETERS]
+  double TYRE_MASS;
+  double QMB;
+  double QMC;
+  double QIBY;
+  double QIBXZ;
+  double QIC;
+  double QCBXZ;
+  double QCBY;
+  double QCBTH;
+  double QCBGM;
+  double QKBXZ;
+  double QKBY;
+  double QKBTH;
+  double QKBGM;
+  double QCCX;
+  double QCCY;
+  double QCCFI;
+  double QKBX;
+  double QKCY;
+  double QKCFI;
+  double QBVXZ;
+  double QBVTH;
+
+  // [LOADED_RADIUS_COEFFICIENTS]
+  double QRE0;
+  double QV1;
+  double QV2;
+  double QFCX1;
+  double QFCY1;
+  double QFCG1;
+  double QFZ1;
+  double QFZ2;
+  double QFZ3;
+  double QPFZ1;
 
   // Configurations
   double Amu;
