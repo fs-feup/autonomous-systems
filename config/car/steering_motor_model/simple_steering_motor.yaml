@@ -1,4 +1,4 @@
-steering_motor_model:
+steering_motor:
   kp: 0.00250
   ki: 0.01
   kd: 0.00001

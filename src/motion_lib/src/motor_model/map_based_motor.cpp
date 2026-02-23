@@ -61,7 +61,7 @@ float MapBasedMotor::getMaxTorqueAtRPM(float rpm) const {
   return std::max(0.0f, max_torque);
 }
 
-void MapBasedMotor::updateState(float current_draw, float dt) {
+void MapBasedMotor::updateState(float current_draw, float torque, float dt) {
   // I²t thermal model
   // Heat generation: H = (I² - I_cont²) * dt
   float i_cont_sq = car_parameters_->motor_parameters->max_continuous_current *
@@ -71,18 +71,22 @@ void MapBasedMotor::updateState(float current_draw, float dt) {
   float heat_generation = std::max(0.0f, i_current_sq - i_cont_sq) * dt;
 
   // Heat dissipation: exponential cooling towards zero
-  float cooling_rate = thermal_state_ / car_parameters_->motor_parameters->peak_duration;
+  float cooling_rate = this->thermal_state_ / car_parameters_->motor_parameters->peak_duration;
   float heat_dissipation = cooling_rate * dt;
 
   // Update thermal state
-  thermal_state_ += heat_generation - heat_dissipation;
-  thermal_state_ = std::max(0.0f, std::min(thermal_capacity_, thermal_state_));
+  this->thermal_state_ += heat_generation - heat_dissipation;
+  this->thermal_state_ = std::max(0.0f, std::min(this->thermal_capacity_, this->thermal_state_));
+  this->torque_ = torque;
 }
 
 void MapBasedMotor::reset() {
   this->thermal_state_ = 0.0f;
   this->current_ = 0.0f;
+  this->torque_ = 0.0f;
 }
+
+float MapBasedMotor::get_torque() const { return this->torque_; }
 
 float MapBasedMotor::interpolateFromMap(const std::map<float, float>& map, float key) const {
   if (map.empty()) {

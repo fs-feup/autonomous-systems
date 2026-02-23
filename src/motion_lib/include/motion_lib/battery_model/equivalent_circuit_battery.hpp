@@ -12,6 +12,8 @@ public:
 
   std::tuple<float, float> calculateCurrentForPower(float electrical_power_req) const override;
 
+  float getCurrent() const override;
+
   float getVoltage() const override;
 
   float getVoltage(float current_draw) const override;

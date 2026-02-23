@@ -32,12 +32,19 @@ public:
   /**
    * @brief Update motor state
    * @param current_draw Current drawn (A)
+   * @param torque Torque being applied to the motor (Nm)
    * @param dt Time step (s)
    */
-  virtual void updateState(float current_draw, float dt) = 0;
+  virtual void updateState(float current_draw, float torque, float dt) = 0;
 
   /**
    * @brief Reset motor state
    */
   virtual void reset() = 0;
+
+  /**
+   * @brief Get the torque being applied to the motor
+   * @return Torque (Nm)
+   */
+  virtual float get_torque() const = 0;
 };

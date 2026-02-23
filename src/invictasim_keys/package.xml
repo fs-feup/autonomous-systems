@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>invictasim_keys</name>
+  <version>0.0.0</version>
+  <description>Control mock for InvictaSim simulator via keyboard.</description>
+  <maintainer email="your.email@domain.com">Your Name</maintainer>
+  <license>MIT</license>
+
+  <test_depend>python3-pytest</test_depend>
+  <depend>invictasim</depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

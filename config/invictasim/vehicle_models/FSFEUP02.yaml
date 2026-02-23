@@ -3,7 +3,7 @@ vehicle_model:
 
   car_parameters: "02"
 
-  aero_model: "simple_aero"
+  aero_model: "default_aero"
   aero_model_params: "simple_aero"
 
   tire_model: "pacejka_MF6_2"

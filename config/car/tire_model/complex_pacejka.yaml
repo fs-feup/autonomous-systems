@@ -1,6 +1,4 @@
-tire_model:
-  name: "complex_pacejka"
-
+tire:
   #Valores que estavam na struct como default, faltam os dados reais
   camber_scaling_factor: 1.0
   effective_tire_r: 1.0

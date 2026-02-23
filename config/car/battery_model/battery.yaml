@@ -1,23 +1,23 @@
 battery:
   # Este valores são postas random, preciso falar com eletro para os valores reais
-  nominal_voltage: 600.0
-  capacity_ah: 60.0 
-  max_continuous_discharge_current: 250.0
-  max_peak_discharge_current: 400.0
-  internal_resistance: 0.01
+  nominal_voltage: 518.4
+  capacity_ah: 2160.0 
+  max_continuous_discharge_current: 180.0
+  max_peak_discharge_current: 180.0
+  internal_resistance: 0.614
   peak_duration: 30.0
   soc_voltage_map:
-    "1.0": 600.0
-    "0.9": 595.0
-    "0.8": 590.0
-    "0.7": 585.0
-    "0.6": 580.0
-    "0.5": 570.0
-    "0.4": 560.0
-    "0.3": 555.0
-    "0.2": 550.0
-    "0.1": 540.0
-    "0.0": 530.0
-  min_voltage: 320.0
-  max_voltage: 600.0
-  min_soc: 0.05
+    1.0: 600.0
+    0.9: 576.0
+    0.8: 552.0
+    0.7: 528.0
+    0.6: 504.0
+    0.5: 480.0
+    0.4: 456.0
+    0.3: 432.0
+    0.2: 408.0
+    0.1: 384.0
+    0.0: 360.0
+  min_voltage: 360.0
+  max_voltage: 604.8
+  min_soc: 0.10

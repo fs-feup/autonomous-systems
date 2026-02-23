@@ -1,6 +1,4 @@
-tire_model:
-  name: "simplified_pacejka"
-
+tire:
   # Pacejka parameters for lateral forces
   B_lateral: 9.63
   C_lateral: -1.39

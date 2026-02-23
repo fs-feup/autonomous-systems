@@ -23,6 +23,12 @@ public:
   virtual std::tuple<float, float> calculateCurrentForPower(float electrical_power_req) const = 0;
 
   /**
+   * @brief Get current being drawn from the battery
+   * @return Current (A)
+   */
+  virtual float getCurrent() const = 0;
+
+  /**
    * @brief Get current battery voltage with current state
    * @return Terminal voltage (V)
    */

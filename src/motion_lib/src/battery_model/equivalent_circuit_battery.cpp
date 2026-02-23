@@ -11,6 +11,11 @@ EquivalentCircuitBattery::EquivalentCircuitBattery(
                     car_parameters_->battery_parameters->max_continuous_discharge_current;
   this->thermal_capacity_ =
       (i_peak_sq - i_cont_sq) * car_parameters_->battery_parameters->peak_duration;
+
+  RCLCPP_INFO(rclcpp::get_logger("InvictaSim"), "Soc map at 1.0: %f",
+              car_parameters_->battery_parameters->soc_voltage_map[1.0]);
+  RCLCPP_INFO(rclcpp::get_logger("InvictaSim"), "Soc map at 0.5: %f",
+              car_parameters_->battery_parameters->soc_voltage_map[0.5]);
 }
 
 std::tuple<float, float> EquivalentCircuitBattery::calculateCurrentForPower(
@@ -65,6 +70,8 @@ std::tuple<float, float> EquivalentCircuitBattery::calculateCurrentForPower(
   return std::make_tuple(current, electrical_power);
 }
 
+float EquivalentCircuitBattery::getCurrent() const { return current_; }
+
 float EquivalentCircuitBattery::getVoltage() const {
   // Terminal voltage = OCV - I*R
   float ocv = getOpenCircuitVoltage();
@@ -100,12 +107,13 @@ void EquivalentCircuitBattery::updateState(float current_draw, float dt) {
 
   // Heat dissipation: exponential cooling towards zero
   // Assume time constant equal to peak_duration for simplicity
-  float cooling_rate = thermal_state_ / car_parameters_->battery_parameters->peak_duration;
+  float cooling_rate = this->thermal_state_ / car_parameters_->battery_parameters->peak_duration;
   float heat_dissipation = cooling_rate * dt;
 
   // Update thermal state
-  thermal_state_ += heat_generation - heat_dissipation;
-  thermal_state_ = std::max(0.0f, std::min(thermal_capacity_, thermal_state_));
+  this->thermal_state_ += heat_generation - heat_dissipation;
+  this->thermal_state_ = std::max(0.0f, std::min(this->thermal_capacity_, this->thermal_state_));
+  this->current_ = current_draw;
 }
 
 float EquivalentCircuitBattery::getSoC() const { return soc_; }

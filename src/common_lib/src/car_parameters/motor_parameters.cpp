@@ -6,7 +6,7 @@ MotorParameters::MotorParameters(const std::string& config_name) {
   std::string config_path =
       common_lib::config_load::get_config_yaml_path("common_lib", "car/motor_model", config_name);
   YAML::Node config = YAML::LoadFile(config_path);
-  config = config["motor_model"];
+  config = config["motor"];
   if (config["max_peak_rpm"]) max_peak_rpm = config["max_peak_rpm"].as<float>();
   if (config["max_continuous_rpm"]) max_continuous_rpm = config["max_continuous_rpm"].as<float>();
   if (config["max_continuous_current"])
@@ -16,9 +16,9 @@ MotorParameters::MotorParameters(const std::string& config_name) {
 
   if (config["efficiency_map"]) {
     for (const auto& rpm_node : config["efficiency_map"]) {
-      float rpm = std::stof(rpm_node.first.as<std::string>());
+      float rpm = rpm_node.first.as<float>();
       for (const auto& tq_node : rpm_node.second) {
-        float tq = std::stof(tq_node.first.as<std::string>());
+        float tq = tq_node.first.as<float>();
         float eff = tq_node.second.as<float>();
         efficiency_map[rpm][tq] = eff;
       }
@@ -27,14 +27,14 @@ MotorParameters::MotorParameters(const std::string& config_name) {
 
   if (config["torque_speed_continuous"]) {
     for (const auto& node : config["torque_speed_continuous"]) {
-      float rpm = std::stof(node.first.as<std::string>());
+      float rpm = node.first.as<float>();
       float tq = node.second.as<float>();
       torque_speed_continuous[rpm] = tq;
     }
   }
   if (config["torque_speed_peak"]) {
     for (const auto& node : config["torque_speed_peak"]) {
-      float rpm = std::stof(node.first.as<std::string>());
+      float rpm = node.first.as<float>();
       float tq = node.second.as<float>();
       torque_speed_peak[rpm] = tq;
     }

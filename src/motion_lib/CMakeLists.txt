@@ -38,6 +38,7 @@ set(IMPLEMENTATION_FILES
   src/motor_model/map_based_motor.cpp
   src/steering_model/parallel_front_steering.cpp
   src/load_transfer_model/rigid_body_model.cpp
+  src/load_transfer_model/vd_load_transfer_model.cpp
   src/steering_motor_model/pid_steering_motor.cpp
 )
 
