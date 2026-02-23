@@ -4,7 +4,6 @@
 #include <string>
 
 #include "path_calculation_config.hpp"
-#include "simulation_config.hpp"
 #include "skidpad_config.hpp"
 #include "smoothing_config.hpp"
 #include "velocity_config.hpp"
@@ -56,9 +55,21 @@ struct PlanningParameters {
   bool vp_use_velocity_planning_;
   double vp_desired_velocity_;
 
-  /*---------------------- Simulation (simulation_) ----------------------*/
-  bool simulation_publishing_visualization_msgs_;
-  bool simulation_using_simulated_se_;
+  /*---------------------- Planning (planning_) ----------------------*/
+  /**
+   * @brief Flag to enable/disable publishing of visualization messages.
+   */
+  bool planning_publishing_visualization_msgs_;
+
+  /**
+   * @brief Flag to enable/disable the use of simulated State Estimation.
+   */
+  bool planning_using_simulated_se_;
+
+  /**
+   * @brief Flag to enable/disable using planning with the full map
+   */
+  bool planning_using_full_map_;
 
   std::string map_frame_id_;
 };
@@ -66,9 +77,11 @@ struct PlanningParameters {
 struct PlanningConfig {
   PathCalculationConfig path_calculation_;
   PathSmoothingConfig smoothing_;
-  SimulationConfig simulation_;
   VelocityPlanningConfig velocity_planning_;
   SkidpadConfig skidpad_;
+  bool publishing_visualization_msgs_;
+  bool using_simulated_se_;
+  bool using_full_map_;
 
   PlanningConfig() = default;
 
@@ -90,12 +103,13 @@ struct PlanningConfig {
                    params.smoothing_curvature_weight_, params.smoothing_smoothness_weight_,
                    params.smoothing_safety_weight_, params.smoothing_max_iterations_,
                    params.smoothing_tolerance_),
-        simulation_(params.simulation_publishing_visualization_msgs_,
-                    params.simulation_using_simulated_se_),
         velocity_planning_(params.vp_minimum_velocity_, params.vp_desired_velocity_,
                            params.vp_braking_acceleration_, params.vp_acceleration_,
                            params.vp_lateral_acceleration_, params.vp_use_velocity_planning_),
-        skidpad_(params.skidpad_minimum_cones_, params.skidpad_tolerance_) {}
+        skidpad_(params.skidpad_minimum_cones_, params.skidpad_tolerance_),
+        publishing_visualization_msgs_(params.planning_publishing_visualization_msgs_),
+        using_simulated_se_(params.planning_using_simulated_se_),
+        using_full_map_(params.planning_using_full_map_) {}
 };
 
 #endif  // SRC_PLANNING_INCLUDE_CONFIG_PLANNING_CONFIG_HPP_

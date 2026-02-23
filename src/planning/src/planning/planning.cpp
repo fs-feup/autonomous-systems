@@ -18,7 +18,7 @@ PlanningParameters Planning::load_config(std::string &adapter) {
 
   YAML::Node global_config = YAML::LoadFile(global_config_path);
   adapter = global_config["global"]["adapter"].as<std::string>();
-  params.simulation_using_simulated_se_ = global_config["global"]["use_simulated_se"].as<bool>();
+  params.planning_using_simulated_se_ = global_config["global"]["use_simulated_se"].as<bool>();
 
   std::string planning_config_path =
       common_lib::config_load::get_config_yaml_path("planning", "planning", adapter);
@@ -76,9 +76,10 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.vp_use_velocity_planning_ = planning_config["vp_use_velocity_planning"].as<bool>();
   params.vp_desired_velocity_ = planning_config["vp_desired_velocity"].as<double>();
 
-  /*--------------------- Simulation Configuration Parameters --------------------*/
-  params.simulation_publishing_visualization_msgs_ =
-      planning_config["simulation_publishing_visualization_msgs"].as<bool>();
+  /*--------------------- Planning Configuration Parameters --------------------*/
+  params.planning_publishing_visualization_msgs_ =
+      planning_config["planning_publishing_visualization_msgs"].as<bool>();
+  params.planning_using_full_map_ = planning_config["planning_using_full_map"].as<bool>();
 
   if (adapter == "eufs") {
     params.map_frame_id_ = "base_footprint";
@@ -110,7 +111,7 @@ Planning::Planning(const PlanningParameters &params)
   planning_execution_time_pub_ =
       create_publisher<std_msgs::msg::Float64>("/path_planning/execution_time", 10);
 
-  if (planning_config_.simulation_.publishing_visualization_msgs_) {
+  if (planning_config_.publishing_visualization_msgs_) {
     yellow_cones_pub_ =
         create_publisher<visualization_msgs::msg::MarkerArray>("/path_planning/yellow_cones", 10);
     blue_cones_pub_ =
@@ -127,7 +128,7 @@ Planning::Planning(const PlanningParameters &params)
         create_publisher<visualization_msgs::msg::MarkerArray>("/path_planning/velocity_hover", 10);
   }
 
-  if (!planning_config_.simulation_.using_simulated_se_) {
+  if (!planning_config_.using_simulated_se_) {
     vehicle_localization_sub_ = create_subscription<custom_interfaces::msg::Pose>(
         "/state_estimation/vehicle_pose", 10,
         std::bind(&Planning::vehicle_localization_callback, this, std::placeholders::_1));
@@ -143,7 +144,7 @@ Planning::Planning(const PlanningParameters &params)
   }
 
   RCLCPP_INFO(rclcpp::get_logger("planning"), "Using simulated state estimation: %d",
-              planning_config_.simulation_.using_simulated_se_);
+              planning_config_.using_simulated_se_);
 }
 
 /*--------------------- Mission Management in Pacsim --------------------*/
@@ -333,6 +334,7 @@ void Planning::run_trackdrive() {
 // }
 // }
 
+void Planning::run_full_map(std::vector<Cone> cone_array) {}
 /*--------------------- Planning Algorithm Execution --------------------*/
 
 void Planning::run_planning_algorithms() {
@@ -385,7 +387,7 @@ void Planning::run_planning_algorithms() {
   RCLCPP_DEBUG(get_logger(), "Planning will publish %i path points\n",
                static_cast<int>(smoothed_path_.size()));
 
-  if (planning_config_.simulation_.publishing_visualization_msgs_) {
+  if (planning_config_.publishing_visualization_msgs_) {
     publish_visualization_msgs();
   }
 }

@@ -168,6 +168,8 @@ private:
   void track_map_callback(const custom_interfaces::msg::ConeArray &message);
 
   /*--------------------- Mission-Specific Planning --------------------*/
+  //DOCS !!!!!
+  void run_full_map(std::vector<Cone> cone_array);
   /**
    * @brief Executes planning for the acceleration mission.
    *

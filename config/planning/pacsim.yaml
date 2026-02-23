@@ -40,8 +40,9 @@ planning:
   vp_lateral_acceleration: 10.0
   vp_use_velocity_planning: true
   vp_desired_velocity: 25.0
-  #---------------------- Simulation Config (simulation_) ---------------------------
-  simulation_publishing_visualization_msgs: true
+  #---------------------- Planning Config (planning_) ---------------------------
+  planning_publishing_visualization_msgs: true
+  planning_using_full_map: true
   
   
 # Parameters for EBS Test
