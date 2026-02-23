@@ -1,46 +1,24 @@
 #include "planning/colorpoint.hpp"
 
 void Colorpoint::extract_cones(std::vector<Colorpoint>& colorpoints,
-                               std::vector<Cone>& yellow_cones, std::vector<Cone>& blue_cones) {
+                               std::vector<PathPoint>& yellow_cones,
+                               std::vector<PathPoint>& blue_cones) {
   // Need at least 2 points to determine path direction
   if (colorpoints.size() < 2) {
     return;
   }
-  std::vector<Cone> yellow_cones1;
-  std::vector<Cone> blue_cones1;
   // Process all colorpoints except the last one
   for (size_t i = 0; i < colorpoints.size() - 1; i++) {
-    // Check if cones are already colored correctly,if not use cross product to determine colors
-    // if (!is_colored_right(colorpoints[i], yellow_cones, blue_cones)) {
-    color_cones(colorpoints[i], colorpoints[i + 1], yellow_cones1, blue_cones1);
-    // }
+    color_cones(colorpoints[i], colorpoints[i + 1], yellow_cones, blue_cones);
   }
 
   // Handle the last point using cone matching from second-to-last point
-  color_last_point(colorpoints, yellow_cones1, blue_cones1);
-  yellow_cones = yellow_cones1;
-  blue_cones = blue_cones1;
-}
-
-bool Colorpoint::is_colored_right(const Colorpoint& colorpoint, std::vector<Cone>& yellow_cones,
-                                  std::vector<Cone>& blue_cones) {
-  if (colorpoint.cone1.color == Color::YELLOW && colorpoint.cone2.color == Color::BLUE) {
-    yellow_cones.push_back(colorpoint.cone1);
-    blue_cones.push_back(colorpoint.cone2);
-    return true;
-  }
-
-  if (colorpoint.cone1.color == Color::BLUE && colorpoint.cone2.color == Color::YELLOW) {
-    blue_cones.push_back(colorpoint.cone1);
-    yellow_cones.push_back(colorpoint.cone2);
-    return true;
-  }
-
-  return false;
+  color_last_point(colorpoints, yellow_cones, blue_cones);
 }
 
 void Colorpoint::color_cones(Colorpoint& colorpoint, const Colorpoint& next_colorpoint,
-                             std::vector<Cone>& yellow_cones, std::vector<Cone>& blue_cones) {
+                             std::vector<PathPoint>& yellow_cones,
+                             std::vector<PathPoint>& blue_cones) {
   // Calculate path direction vector from current point to next point
   double path_dx = next_colorpoint.point.x() - colorpoint.point.x();
   double path_dy = next_colorpoint.point.y() - colorpoint.point.y();
@@ -59,34 +37,28 @@ void Colorpoint::color_cones(Colorpoint& colorpoint, const Colorpoint& next_colo
 
   // Positive value of cross product means cone is on the left and negative on the right
   if (cross_product1 > cross_product2) {
-    colorpoint.cone1.color = Color::BLUE;
-    colorpoint.cone2.color = Color::YELLOW;
-    blue_cones.push_back(colorpoint.cone1);
-    yellow_cones.push_back(colorpoint.cone2);
+    color_pair_of_cones(colorpoint.cone2, colorpoint.cone1, yellow_cones, blue_cones);
   } else {
-    colorpoint.cone1.color = Color::YELLOW;
-    colorpoint.cone2.color = Color::BLUE;
-    yellow_cones.push_back(colorpoint.cone1);
-    blue_cones.push_back(colorpoint.cone2);
+    color_pair_of_cones(colorpoint.cone1, colorpoint.cone2, yellow_cones, blue_cones);
   }
 }
 
-void Colorpoint::add_cones_by_reference(const Cone& reference_cone, const Cone& matching_cone,
-                                        const Cone& other_cone, std::vector<Cone>& yellow_cones,
-                                        std::vector<Cone>& blue_cones) {
+void Colorpoint::add_cones_by_reference(const Cone& reference_cone, Cone& matching_cone,
+                                        Cone& other_cone,
+                                        std::vector<PathPoint>& yellow_cones,
+                                        std::vector<PathPoint>& blue_cones) {
   if (reference_cone.color == Color::BLUE) {
-    blue_cones.push_back(matching_cone);
-    yellow_cones.push_back(other_cone);
+    color_pair_of_cones(other_cone, matching_cone, yellow_cones, blue_cones);
   } else {
-    yellow_cones.push_back(matching_cone);
-    blue_cones.push_back(other_cone);
+    color_pair_of_cones(matching_cone, other_cone, yellow_cones, blue_cones);
   }
 }
 
 void Colorpoint::color_last_point(std::vector<Colorpoint>& colorpoints,
-                                  std::vector<Cone>& yellow_cones, std::vector<Cone>& blue_cones) {
+                                  std::vector<PathPoint>& yellow_cones,
+                                  std::vector<PathPoint>& blue_cones) {
   const Colorpoint& second_to_last = colorpoints[colorpoints.size() - 2];
-  const Colorpoint& last = colorpoints.back();
+  Colorpoint& last = colorpoints.back();
 
   // Check which cone from second-to-last matches which cone in last
   if (second_to_last.cone1 == last.cone1) {
@@ -101,4 +73,13 @@ void Colorpoint::color_last_point(std::vector<Colorpoint>& colorpoints,
     RCLCPP_WARN(rclcpp::get_logger("planning"),
                 "The last cone does not match with any previous cone.");
   }
+}
+
+void Colorpoint::color_pair_of_cones(Cone& yellow_cone, Cone& blue_cone,
+                                     std::vector<PathPoint>& yellow_cones,
+                                     std::vector<PathPoint>& blue_cones) {
+  yellow_cone.color = Color::YELLOW;
+  blue_cone.color = Color::BLUE;
+  (void)yellow_cones.emplace_back(yellow_cone.position.x, yellow_cone.position.y);
+  (void)blue_cones.emplace_back(blue_cone.position.x, blue_cone.position.y);
 }

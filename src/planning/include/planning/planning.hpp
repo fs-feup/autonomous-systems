@@ -169,13 +169,10 @@ private:
 
   /*--------------------- Mission-Specific Planning --------------------*/
   /**
-   * @brief Executes planning for the EBS (Emergency Braking System) test mission.
+   * @brief Executes planning for the acceleration mission.
    *
-   * Calculates and smooths the path, then implements distance-based braking logic.
-   * Braking is triggered when the vehicle is more than 90m from origin, applying
-   * deceleration until the vehicle stops.
    */
-  void run_ebs_test();
+  void run_acceleration();
 
   /**
    * @brief Executes planning for the autocross mission.

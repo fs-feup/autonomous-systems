@@ -96,13 +96,13 @@ public:
    * @brief Gets the list of yellow cones detected or used in the path calculation.
    * @return Constant reference to a vector containing the yellow cones.
    */
-  const std::vector<Cone>& get_yellow_cones() const;
+  const std::vector<PathPoint>& get_yellow_cones() const;
 
   /**
    * @brief Gets the list of blue cones detected or used in the path calculation.
    * @return Constant reference to a vector containing the blue cones.
    */
-  const std::vector<Cone>& get_blue_cones() const;
+  const std::vector<PathPoint>& get_blue_cones() const;
 
 private:
   // ===================== Configuration and State =====================
@@ -125,8 +125,8 @@ private:
 
   // Path construction state (temporary during calculation)
   std::vector<Colorpoint> current_path_;
-  std::vector<Cone> yellow_cones_;
-  std::vector<Cone> blue_cones_;
+  std::vector<PathPoint> yellow_cones_;
+  std::vector<PathPoint> blue_cones_;
   std::unordered_map<Point, std::shared_ptr<Midpoint>> point_to_midpoint_;
   std::unordered_set<std::shared_ptr<Midpoint>> visited_midpoints_;
   std::unordered_set<std::shared_ptr<Cone>> discarded_cones_;

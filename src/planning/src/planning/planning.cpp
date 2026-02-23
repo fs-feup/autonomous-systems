@@ -221,7 +221,7 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &messa
 
 /*--------------------- Mission-Specific Planning --------------------*/
 
-void Planning::run_ebs_test() {
+void Planning::run_acceleration() {
   full_path_ = path_calculation_.calculate_path(cone_array_);
   smoothed_path_ = path_smoothing_.smooth_path(full_path_);
 
@@ -279,16 +279,8 @@ void Planning::run_trackdrive() {
     RCLCPP_INFO(get_logger(), "Trackdrive path calculated with %d points",
                 static_cast<int>(full_path_.size()));
 
-    const std::vector<Cone> yellow_cones_ = path_calculation_.get_yellow_cones();
-    const std::vector<Cone> blue_cones_ = path_calculation_.get_blue_cones();
-    std::vector<PathPoint> yellow_cones;
-    std::vector<PathPoint> blue_cones;
-    for (const Cone &cone : yellow_cones_) {
-      (void)yellow_cones.emplace_back(cone.position.x, cone.position.y);
-    }
-    for (const Cone &cone : blue_cones_) {
-      (void)blue_cones.emplace_back(cone.position.x, cone.position.y);
-    }
+    const std::vector<PathPoint> yellow_cones = path_calculation_.get_yellow_cones();
+    const std::vector<PathPoint> blue_cones = path_calculation_.get_blue_cones();
 
     smoothed_path_ = path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones);
     RCLCPP_INFO(get_logger(), "Trackdrive path calculated with %d points",
@@ -364,11 +356,11 @@ void Planning::run_planning_algorithms() {
 
     case Mission::ACCELERATION:
     case Mission::EBS_TEST:
-      run_ebs_test();
+      run_acceleration();
       break;
 
     case Mission::AUTOCROSS:
-      run_trackdrive();
+      run_autocross();
       break;
 
     case Mission::TRACKDRIVE:
@@ -416,11 +408,11 @@ void Planning::publish_execution_time(rclcpp::Time start_time) {
 }
 
 void Planning::publish_visualization_msgs() const {
-  yellow_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      path_calculation_.get_yellow_cones(), "map_cones", "map", "yellow"));
+  // yellow_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(
+  //     path_calculation_.get_yellow_cones(), "map_cones", "map", "yellow"));
 
-  blue_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      path_calculation_.get_blue_cones(), "map_cones", "map", "blue"));
+  // blue_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(
+  //     path_calculation_.get_blue_cones(), "map_cones", "map", "blue"));
 
   triangulations_pub_->publish(common_lib::communication::lines_marker_from_triangulations(
       path_calculation_.get_triangulations(), "triangulations", map_frame_id_, 20, "white", 0.05f,

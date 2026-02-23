@@ -96,8 +96,13 @@ std::vector<PathPoint> PathCalculation::calculate_trackdrive(const std::vector<C
 
   // Trim the path to the best cutoff point
   (void)result.erase(result.begin() + best_cutoff_index + 1, result.end());
-  (void)current_path_.erase(current_path_.begin() + best_cutoff_index +1, current_path_.end());
-  Colorpoint::extract_cones(current_path_, yellow_cones_, blue_cones_);
+  if(result.begin() + best_cutoff_index +1 != result.end()){
+    //If the path change we need to estimate the boundaries again
+    yellow_cones_.clear();
+    blue_cones_.clear();
+    (void)current_path_.erase(current_path_.begin() + best_cutoff_index + 1, current_path_.end());
+    Colorpoint::extract_cones(current_path_, yellow_cones_, blue_cones_);
+  }
   
   // Close the loop by adding the first point again
   result.push_back(result[0]);
@@ -555,6 +560,6 @@ const std::vector<std::pair<Point, Point>>& PathCalculation::get_triangulations(
   return midpoint_generator_.get_triangulations();
 }
 
-const std::vector<Cone>& PathCalculation::get_yellow_cones() const { return yellow_cones_; }
+const std::vector<PathPoint>& PathCalculation::get_yellow_cones() const { return yellow_cones_; }
 
-const std::vector<Cone>& PathCalculation::get_blue_cones() const { return blue_cones_; }
+const std::vector<PathPoint>& PathCalculation::get_blue_cones() const { return blue_cones_; }
