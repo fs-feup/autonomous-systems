@@ -94,10 +94,12 @@ std::vector<PathPoint> PathCalculation::calculate_trackdrive(const std::vector<C
   // Find the best point to close the loop
   int best_cutoff_index = find_best_loop_closure(result);
 
-  // Trim the path to the best cutoff point
-  (void)result.erase(result.begin() + best_cutoff_index + 1, result.end());
+  
   if(result.begin() + best_cutoff_index +1 != result.end()){
+    // Trim the path to the best cutoff point
+    (void)result.erase(result.begin() + best_cutoff_index + 1, result.end());
     //If the path change we need to estimate the boundaries again
+    RCLCPP_WARN(rclcpp::get_logger("planning"), "The path change to create trackdrive loop");
     yellow_cones_.clear();
     blue_cones_.clear();
     (void)current_path_.erase(current_path_.begin() + best_cutoff_index + 1, current_path_.end());
