@@ -325,7 +325,7 @@ void Planning::run_autocross() {
       smoothed_path_ = path_smoothing_.smooth_path(full_path_);
       velocity_planning_.set_velocity(smoothed_path_);
     }
-    velocity_planning_.stop(smoothed_path_);
+    velocity_planning_.stop(smoothed_path_, 10.0);
   }
 }
 
@@ -345,7 +345,7 @@ void Planning::run_trackdrive() {
       run_full_map();
     }
   } else {
-    velocity_planning_.stop(smoothed_path_);
+    velocity_planning_.stop(smoothed_path_,10.0);
   }
 }
 
