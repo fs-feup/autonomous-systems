@@ -12,11 +12,11 @@
  */
 const std::map<std::string,
                std::function<std::shared_ptr<DifferentialModel>(
-                   const common_lib::car_parameters::CarParameters&)>,
+                   const std::shared_ptr<common_lib::car_parameters::CarParameters>)>,
                std::less<>>
     differential_models_map = {
         {"viscous_lsd",
-         [](const common_lib::car_parameters::CarParameters& params)
+         [](const std::shared_ptr<common_lib::car_parameters::CarParameters> params)
              -> std::shared_ptr<DifferentialModel> {
            return std::make_shared<ViscousLSD>(params);
          }},

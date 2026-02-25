@@ -16,15 +16,21 @@ struct VehicleState {
   double z = 0.0;
   double vx = 0.0;
   double vy = 0.0;
-  double vz = 0.0;
+  double vz = 0.0; //In case we fly
   double roll = 0.0;
   double pitch = 0.0;
   double yaw = 0.0;
-  common_lib::structures::Wheels wheels_speed = {0.0, 0.0, 33.0, 33.0};
+  double yaw_rate = 0.0;
+  double angular_speed = 0.0;
+  double steering_angle = 0.0;
+  double angular_velocity = 0.0;
+  double ax = 0.0;
+  double ay = 0.0;
+  common_lib::structures::Wheels wheels_speed = {0.0, 0.0, 33.0, 33.0}; // rad/s
   common_lib::structures::Wheels wheels_torque = {0.0, 0.0, 0.0, 0.0};
 };
 
-/**
+/**4
  * @brief Vehicle model interface
  *
  * Defines a simplified interface that all vehicle models must implement. Certainly will be extended

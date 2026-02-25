@@ -12,11 +12,11 @@
  */
 const std::map<
     std::string,
-    std::function<std::shared_ptr<AeroModel>(const common_lib::car_parameters::CarParameters&)>,
+    std::function<std::shared_ptr<AeroModel>(const std::shared_ptr<common_lib::car_parameters::CarParameters>)>,
     std::less<>>
     aero_models_map = {
         {"default_aero",
-         [](const common_lib::car_parameters::CarParameters& params) -> std::shared_ptr<AeroModel> {
+         [](const std::shared_ptr<common_lib::car_parameters::CarParameters> params) -> std::shared_ptr<AeroModel> {
            return std::make_shared<DefaultAeroModel>(params);
          }},
 };

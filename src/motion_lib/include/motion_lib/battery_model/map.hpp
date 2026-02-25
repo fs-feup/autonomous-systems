@@ -12,11 +12,11 @@
  */
 const std::map<
     std::string,
-    std::function<std::shared_ptr<BatteryModel>(const common_lib::car_parameters::CarParameters&)>,
+    std::function<std::shared_ptr<BatteryModel>(const std::shared_ptr<common_lib::car_parameters::CarParameters>)>,
     std::less<>>
     battery_models_map = {
         {"equivalent_circuit_battery",
-         [](const common_lib::car_parameters::CarParameters& params)
+         [](const std::shared_ptr<common_lib::car_parameters::CarParameters> params)
              -> std::shared_ptr<BatteryModel> {
            return std::make_shared<EquivalentCircuitBattery>(params);
          }},

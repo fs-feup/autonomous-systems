@@ -5,6 +5,10 @@
 #include <Eigen/Dense>
 
 // Same approach as the one used in load transfer
+/**
+ * @brief expandable struct used as input to the tire model: vx, vy, wheel_angular_speed, yaw_rate, steering_angle, slip_angle, slip_ratio, vertical_load
+ * 
+ */
 struct TireInput{
   double vx;
   double vy;

@@ -12,10 +12,10 @@
  */
 const std::map<
     std::string,
-    std::function<std::shared_ptr<MotorModel>(const common_lib::car_parameters::CarParameters&)>,
+    std::function<std::shared_ptr<MotorModel>(const std::shared_ptr<common_lib::car_parameters::CarParameters>)>,
     std::less<>>
     motor_models_map = {
         {"map_based_motor",
-         [](const common_lib::car_parameters::CarParameters& params)
+         [](const std::shared_ptr<common_lib::car_parameters::CarParameters> params)
              -> std::shared_ptr<MotorModel> { return std::make_shared<MapBasedMotor>(params); }},
 };
