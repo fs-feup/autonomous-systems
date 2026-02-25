@@ -10,8 +10,9 @@
 
 PlanningParameters Planning::load_config(std::string &adapter) {
   PlanningParameters params;
+  params.planning_adapter_ = adapter;
 
-  std::string global_config_path =
+      std::string global_config_path =
       common_lib::config_load::get_config_yaml_path("planning", "global", "global_config");
   RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Loading global config from: %s",
                global_config_path.c_str());
@@ -110,7 +111,9 @@ Planning::Planning(const PlanningParameters &params)
 
   param_client_ =
       create_client<rcl_interfaces::srv::GetParameters>("/pacsim/pacsim_node/get_parameters");
-  fetch_discipline();
+  if (planning_config_.adapter_ == "pacsim") {
+    fetch_discipline();
+  }
 
   path_pub_ = create_publisher<custom_interfaces::msg::PathPointArray>("/path_planning/path", 10);
 
