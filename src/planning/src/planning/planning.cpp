@@ -73,6 +73,8 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.vp_braking_acceleration_ = planning_config["vp_braking_acceleration"].as<double>();
   params.vp_acceleration_ = planning_config["vp_acceleration"].as<double>();
   params.vp_lateral_acceleration_ = planning_config["vp_lateral_acceleration"].as<double>();
+  params.vp_longitudinal_acceleration_ =
+      planning_config["vp_longitudinal_acceleration"].as<double>();
   params.vp_use_velocity_planning_ = planning_config["vp_use_velocity_planning"].as<bool>();
   params.vp_desired_velocity_ = planning_config["vp_desired_velocity"].as<double>();
 
@@ -80,6 +82,10 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.planning_publishing_visualization_msgs_ =
       planning_config["planning_publishing_visualization_msgs"].as<bool>();
   params.planning_using_full_map_ = planning_config["planning_using_full_map"].as<bool>();
+  params.planning_braking_distance_acceleration_ =
+      planning_config["planning_braking_distance_acceleration"].as<double>();
+  params.planning_braking_distance_autocross_ =
+      planning_config["planning_braking_distance_autocross"].as<double>();
 
   if (adapter == "eufs") {
     params.map_frame_id_ = "base_footprint";
@@ -281,29 +287,7 @@ void Planning::run_full_map() {
 void Planning::run_acceleration() {
   full_path_ = path_calculation_.calculate_path(cone_array_);
   smoothed_path_ = path_smoothing_.smooth_path(full_path_);
-
-  double distance_from_origin =
-      std::sqrt(pose_.position.x * pose_.position.x + pose_.position.y * pose_.position.y);
-
-  if (distance_from_origin > 90.0) {
-    if (!is_braking_) {
-      is_braking_ = true;
-      brake_time_ = std::chrono::steady_clock::now();
-    }
-
-    for (PathPoint &point : smoothed_path_) {
-      std::chrono::duration<double> time_since_brake_start =
-          std::chrono::steady_clock::now() - brake_time_;
-      point.ideal_velocity =
-          std::max((desired_velocity_ + (planning_config_.velocity_planning_.braking_acceleration_ *
-                                         time_since_brake_start.count())),
-                   0.0);
-    }
-  } else {
-    for (PathPoint &point : smoothed_path_) {
-      point.ideal_velocity = desired_velocity_;
-    }
-  }
+  velocity_planning_.stop(smoothed_path_, planning_config_.braking_distance_acceleration_);
 }
 
 void Planning::run_autocross() {
@@ -325,13 +309,13 @@ void Planning::run_autocross() {
       smoothed_path_ = path_smoothing_.smooth_path(full_path_);
       velocity_planning_.set_velocity(smoothed_path_);
     }
-    velocity_planning_.stop(smoothed_path_, 10.0);
+    velocity_planning_.stop(smoothed_path_, planning_config_.braking_distance_autocross_);
   }
 }
 
 void Planning::run_trackdrive() {
-  if (planning_config_.using_full_map_){
-    if(!is_map_closed_){
+  if (planning_config_.using_full_map_) {
+    if (!is_map_closed_) {
       run_full_map();
     }
     return;
@@ -345,7 +329,7 @@ void Planning::run_trackdrive() {
       run_full_map();
     }
   } else {
-    velocity_planning_.stop(smoothed_path_,10.0);
+    velocity_planning_.stop(smoothed_path_, planning_config_.braking_distance_autocross_);
   }
 }
 

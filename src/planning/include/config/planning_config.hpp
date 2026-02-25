@@ -52,6 +52,7 @@ struct PlanningParameters {
   double vp_braking_acceleration_;
   double vp_acceleration_;
   double vp_lateral_acceleration_;
+  double vp_longitudinal_acceleration_;
   bool vp_use_velocity_planning_;
   double vp_desired_velocity_;
 
@@ -71,6 +72,16 @@ struct PlanningParameters {
    */
   bool planning_using_full_map_;
 
+  /**
+   * @brief Distance to start braking during acceleration mode.
+   */
+  double planning_braking_distance_acceleration_;
+
+  /**
+   * @brief Distance to start braking during autocross/trackdrive mode.
+   */
+  double planning_braking_distance_autocross_;
+
   std::string map_frame_id_;
 };
 
@@ -82,6 +93,8 @@ struct PlanningConfig {
   bool publishing_visualization_msgs_;
   bool using_simulated_se_;
   bool using_full_map_;
+  double braking_distance_acceleration_;
+  double braking_distance_autocross_;
 
   PlanningConfig() = default;
 
@@ -105,11 +118,14 @@ struct PlanningConfig {
                    params.smoothing_tolerance_),
         velocity_planning_(params.vp_minimum_velocity_, params.vp_desired_velocity_,
                            params.vp_braking_acceleration_, params.vp_acceleration_,
-                           params.vp_lateral_acceleration_, params.vp_use_velocity_planning_),
+                           params.vp_lateral_acceleration_, params.vp_longitudinal_acceleration_,
+                           params.vp_use_velocity_planning_),
         skidpad_(params.skidpad_minimum_cones_, params.skidpad_tolerance_),
         publishing_visualization_msgs_(params.planning_publishing_visualization_msgs_),
         using_simulated_se_(params.planning_using_simulated_se_),
-        using_full_map_(params.planning_using_full_map_) {}
+        using_full_map_(params.planning_using_full_map_),
+        braking_distance_acceleration_(params.planning_braking_distance_acceleration_),
+        braking_distance_autocross_(params.planning_braking_distance_autocross_) {}
 };
 
 #endif  // SRC_PLANNING_INCLUDE_CONFIG_PLANNING_CONFIG_HPP_

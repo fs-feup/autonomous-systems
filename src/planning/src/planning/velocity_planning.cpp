@@ -1,6 +1,5 @@
 #include "planning/velocity_planning.hpp"
 
-double longitudinal_acceleration = 8.0;
 double VelocityPlanning::find_curvature(const PathPoint &p1, const PathPoint &p2,
                                         const PathPoint &p3) {
   // lengths of the sides of the triangle formed by the three points
@@ -55,7 +54,7 @@ void VelocityPlanning::acceleration_limiter(const std::vector<PathPoint> &points
         std::sqrt(std::max(0.0, config_.acceleration_ * config_.acceleration_ - ay * ay));
 
     // Cap by acceleration limit
-    ax_max = std::min(ax_max, longitudinal_acceleration);
+    ax_max = std::min(ax_max, config_.longitudinal_acceleration_);
 
     // v_i^2 = v_(i-1)^2 + 2 * a_x_available * d
     double max_velocity =
@@ -203,16 +202,5 @@ void VelocityPlanning::stop(std::vector<PathPoint> &final_path, double braking_d
   while (index < path_size) {
     final_path[index].ideal_velocity = 0.0;
     ++index;
-  }
-
-  for (size_t i = 1; i < path_size; ++i) {
-    if (final_path[i - 1].ideal_velocity > final_path[i].ideal_velocity) {
-      RCLCPP_ERROR(rclcpp::get_logger("planning"), "ERROR");
-    }
-    if (final_path[i].ideal_velocity == 0.0) {
-      RCLCPP_ERROR(rclcpp::get_logger("planning"), "Car stops at index %zu, all points %zu", i,
-                   path_size);
-      break;
-    }
   }
 }
