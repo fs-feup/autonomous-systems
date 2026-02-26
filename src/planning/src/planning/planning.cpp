@@ -407,7 +407,6 @@ void Planning::publish_execution_time(rclcpp::Time start_time) {
   std_msgs::msg::Float64 planning_execution_time;
   planning_execution_time.data = (end_time - start_time).seconds() * 1000;
   planning_execution_time_pub_->publish(planning_execution_time);
-  // RCLCPP_INFO(get_logger(), "Planning execution time: %.2f ms", planning_execution_time.data);
 }
 
 void Planning::publish_visualization_msgs() const {

@@ -47,7 +47,12 @@ public:
    */
   void trackdrive_velocity(std::vector<PathPoint> &final_path);
 
-  // DOC!!
+  /**
+   * @brief Applies a braking velocity profile starting after a given braking distance.
+   *
+   * @param final_path Vector of path points to update with planned velocities.
+   * @param braking_distance Distance along the path before braking begins.
+   */
   void stop(std::vector<PathPoint> &final_path, double braking_distance);
 
 private:
