@@ -4,7 +4,7 @@ planning:
   mg_maximum_cone_distance: 10.0 
   mg_sliding_window_radius: 40.0
   #---------------------- Path Calculation (pc_) ------------------------
-  pc_use_sliding_window: false
+  pc_use_sliding_window: true
   pc_angle_gain: 70.0  
   pc_distance_gain: 6.0
   pc_angle_exponent: 2.0
@@ -20,11 +20,11 @@ planning:
   skidpad_minimum_cones: 10
   skidpad_tolerance: 5
   #---------------------- Path Smoothing (smoothing_) -------------------
-  smoothing_spline_precision: 1
+  smoothing_spline_precision: 3
   smoothing_spline_order: 3
   smoothing_spline_coeffs_ratio: 3.0
   smoothing_min_path_point_distance: 0
-  smoothing_use_path_smoothing: true
+  smoothing_use_path_smoothing: false
   smoothing_use_optimization: true
   smoothing_car_width: 1.2
   smoothing_safety_margin: 0.3
@@ -35,10 +35,9 @@ planning:
   smoothing_tolerance: 1e-5     
   #---------------------- Velocity Planning (vp_) -----------------------
   vp_minimum_velocity: 2.0
-  vp_braking_acceleration: -10.0
-  vp_acceleration: 10.0
-  vp_lateral_acceleration: 10.0
-  vp_longitudinal_acceleration: 8.0
+  vp_braking_acceleration: -3.0
+  vp_acceleration: 5.0
+  vp_lateral_acceleration: 5.0
   vp_use_velocity_planning: true
   vp_desired_velocity: 25.0
   #---------------------- Planning Config (planning_) ---------------------------
