@@ -20,7 +20,7 @@ planning:
   skidpad_minimum_cones: 10
   skidpad_tolerance: 5
   #---------------------- Path Smoothing (smoothing_) -------------------
-  smoothing_spline_precision: 2
+  smoothing_spline_precision: 1
   smoothing_spline_order: 3
   smoothing_spline_coeffs_ratio: 3.0
   smoothing_min_path_point_distance: 0
@@ -29,7 +29,7 @@ planning:
   smoothing_car_width: 1.2
   smoothing_safety_margin: 0.3
   smoothing_curvature_weight: 100.0
-  smoothing_smoothness_weight: 0.1
+  smoothing_smoothness_weight: 0
   smoothing_safety_weight: 1000000
   smoothing_max_iterations: 4000
   smoothing_tolerance: 1e-5     

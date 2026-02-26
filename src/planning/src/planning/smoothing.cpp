@@ -79,31 +79,6 @@ void PathSmoothing::add_curvature_terms(
   }
 }
 
-void PathSmoothing::add_smoothness_terms(
-    int num_path_points, const std::function<int(int)>& circular_index,
-    const std::function<void(int, int, double)>& add_coefficient) const {
-  // -------- ADD SMOOTHNESS PENALTY TERMS --------
-  // Penalize first-order differences to minimize jerk
-  // For each consecutive pair, we penalize: (p[i+1] - p[i])^2
-  for (int point_idx = 0; point_idx < num_path_points; ++point_idx) {
-    int next_point = circular_index(point_idx + 1);
-
-    // X-coordinate smoothness terms
-    int x_current = 2 * point_idx;
-    int x_next = 2 * next_point;
-    add_coefficient(x_current, x_current, config_.smoothness_weight_);
-    add_coefficient(x_next, x_next, config_.smoothness_weight_);
-    add_coefficient(x_current, x_next, -config_.smoothness_weight_);
-
-    // Y-coordinate smoothness terms
-    int y_current = 2 * point_idx + 1;
-    int y_next = 2 * next_point + 1;
-    add_coefficient(y_current, y_current, config_.smoothness_weight_);
-    add_coefficient(y_next, y_next, config_.smoothness_weight_);
-    add_coefficient(y_current, y_next, -config_.smoothness_weight_);
-  }
-}
-
 void PathSmoothing::add_slack_penalty_terms(
     int num_path_points, const std::function<void(int, int, double)>& add_coefficient) const {
   // -------- ADD SLACK VARIABLE PENALTY TERMS --------
@@ -226,7 +201,7 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
   if (center.size() != left.size() || center.size() != right.size() ||
       left.size() != center.size()) {
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"),
-                "The splines have different sizes. Right - %d, Left - %d, Center - %d",
+                "The splines have different sizes. Right - %ld, Left - %ld, Center - %ld",
                 center.size(), left.size(), right.size());
   }
   const int num_path_points = center.size();
@@ -262,7 +237,6 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
   };
 
   add_curvature_terms(num_path_points, circular_index, add_quadratic_coefficient);
-  add_smoothness_terms(num_path_points, circular_index, add_quadratic_coefficient);
   add_slack_penalty_terms(num_path_points, add_quadratic_coefficient);
 
   // -------- BUILD LINEAR OBJECTIVE VECTOR (q) --------
