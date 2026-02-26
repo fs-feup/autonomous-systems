@@ -281,7 +281,7 @@ void Planning::run_full_map() {
     double avg_vel = sum_vel / smoothed_path_.size();
 
     RCLCPP_INFO(get_logger(),
-                "[TRACKDRIVE] Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
+                "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
                 "| Max: %.2f m/s",
                 lap_time, total_length, avg_vel, min_vel, max_vel);
   }
@@ -290,6 +290,7 @@ void Planning::run_full_map() {
 void Planning::run_acceleration() {
   full_path_ = path_calculation_.calculate_path(cone_array_);
   smoothed_path_ = path_smoothing_.smooth_path(full_path_);
+  velocity_planning_.set_velocity(smoothed_path_);
   velocity_planning_.stop(smoothed_path_, planning_config_.braking_distance_acceleration_);
 }
 

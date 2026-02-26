@@ -44,7 +44,7 @@ planning:
   #---------------------- Planning Config (planning_) ---------------------------
   planning_publishing_visualization_msgs: true
   planning_using_full_map: false
-  planning_braking_distance_acceleration: 90.0
+  planning_braking_distance_acceleration: 75.0
   planning_braking_distance_autocross: 10.0
 
 # Parameters for EBS Test
