@@ -10,7 +10,6 @@
 
 PlanningParameters Planning::load_config(std::string &adapter) {
   PlanningParameters params;
-  params.planning_adapter_ = adapter;
 
       std::string global_config_path =
       common_lib::config_load::get_config_yaml_path("planning", "global", "global_config");
@@ -19,6 +18,7 @@ PlanningParameters Planning::load_config(std::string &adapter) {
 
   YAML::Node global_config = YAML::LoadFile(global_config_path);
   adapter = global_config["global"]["adapter"].as<std::string>();
+  params.planning_adapter_ = adapter;
   params.planning_using_simulated_se_ = global_config["global"]["use_simulated_se"].as<bool>();
 
   std::string planning_config_path =
@@ -111,7 +111,7 @@ Planning::Planning(const PlanningParameters &params)
 
   param_client_ =
       create_client<rcl_interfaces::srv::GetParameters>("/pacsim/pacsim_node/get_parameters");
-  if (planning_config_.adapter_ == "pacsim") {
+  if (planning_config_.adapter_ == "Pacsim" || planning_config_.adapter_ == "pacsim") {
     fetch_discipline();
   }
 
