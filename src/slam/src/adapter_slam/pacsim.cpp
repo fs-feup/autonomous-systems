@@ -117,7 +117,7 @@ void PacsimAdapter::_pacsim_perception_subscription_callback(
   custom_interfaces::msg::PerceptionOutput perception_output;
   perception_output.header = cone_array_msg.header;
   perception_output.cones = cone_array_msg;
-  perception_output.exec_time = 0.00;
+  perception_output.exec_time = msg.exec_time;
   _perception_subscription_callback(perception_output);
 }
 

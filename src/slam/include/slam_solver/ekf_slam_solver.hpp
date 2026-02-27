@@ -10,7 +10,6 @@
 #include "solver_traits/velocities_integrator_trait.hpp"
 
 class EKFSLAMSolver : public SLAMSolver, public VelocitiesIntegratorTrait {
-  SLAMParameters slam_parameters_;
   std::shared_ptr<SLAMObservationModel> observation_model_;
   Eigen::VectorXd state_ = Eigen::VectorXd::Zero(3);
   Eigen::MatrixXd covariance_;

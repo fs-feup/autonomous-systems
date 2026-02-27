@@ -17,7 +17,7 @@ protected:
 public:
   explicit BaseOptimizer(const SLAMParameters& params) : _params_(params){};
   BaseOptimizer(const BaseOptimizer& other) : _params_(other._params_){};
-  BaseOptimizer& operator=(const BaseOptimizer& other) {
+  BaseOptimizer& operator=([[maybe_unused]] const BaseOptimizer& other) {
     // Note: _params_ is a reference, so we do not copy it
     return *this;
   }

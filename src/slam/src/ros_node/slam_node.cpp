@@ -60,8 +60,6 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam"), _params_(params
               std::bind(&SLAMNode::_perception_subscription_callback, this, std::placeholders::_1),
               parallel_opts);
     } else {
-      this->_callback_group_ = this->create_callback_group(
-          rclcpp::CallbackGroupType::MutuallyExclusive);  // Default callback group
       this->_perception_subscription_ =
           this->create_subscription<custom_interfaces::msg::PerceptionOutput>(
               "/perception/cones", 1,
@@ -69,12 +67,9 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam"), _params_(params
     }
   }
   if (!params.use_simulated_velocities_) {
-    rclcpp::SubscriptionOptions subscription_options;
-    subscription_options.callback_group = this->_callback_group_;
     this->_velocities_subscription_ = this->create_subscription<custom_interfaces::msg::Velocities>(
-        "/state_estimation/velocities", 50,
-        std::bind(&SLAMNode::_velocities_subscription_callback, this, std::placeholders::_1),
-        subscription_options);
+        "/state_estimation/velocities", 10,
+        std::bind(&SLAMNode::_velocities_subscription_callback, this, std::placeholders::_1));
   }
 
   // Publishers
@@ -118,7 +113,7 @@ void SLAMNode::_perception_subscription_callback(
     const custom_interfaces::msg::PerceptionOutput &msg) {
   RCLCPP_DEBUG(this->get_logger(), "SLAMNode:: perception_subscription_callback called");
   auto const &cone_array = msg.cones.cone_array;
-  double perception_exec_time = msg.exec_time;
+  double perception_exec_time = 0.00;
 
   RCLCPP_DEBUG(this->get_logger(), "SUB - Perception: %ld cones. Mission: %d", cone_array.size(),
                static_cast<int>(this->_mission_));
@@ -173,7 +168,7 @@ void SLAMNode::_perception_subscription_callback(
   }
 
   this->_slam_solver_->add_observations(this->_perception_map_, cones_time);
-  RCLCPP_DEBUG(this->get_logger(), "ATTR - Observations added to SLAM solver");
+  // RCLCPP_INFO(this->get_logger(), "ATTR - Observations added to SLAM solver");
 
   std::vector<common_lib::structures::Cone> track_map;
   common_lib::structures::Pose vehicle_pose;
@@ -225,11 +220,14 @@ void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::V
 
   rclcpp::Time const velocities_time =
       _params_.synchronized_timestamps ? rclcpp::Time(msg.header.stamp) : start_time;
-  if (auto solver_ptr = std::dynamic_pointer_cast<VelocitiesIntegratorTrait>(this->_slam_solver_)) {
-    this->_vehicle_state_velocities_ = common_lib::structures::Velocities(
-        msg.velocity_x, msg.velocity_y, msg.angular_velocity, msg.covariance[0], msg.covariance[4],
-        msg.covariance[8], velocities_time);
 
+  if (auto solver_ptr = std::dynamic_pointer_cast<VelocitiesIntegratorTrait>(this->_slam_solver_)) {
+    {
+      std::unique_lock lock(this->mutex_);
+      this->_vehicle_state_velocities_ = common_lib::structures::Velocities(
+          msg.velocity_x, msg.velocity_y, msg.angular_velocity, msg.covariance[0],
+          msg.covariance[4], msg.covariance[8], velocities_time);
+    }
     common_lib::structures::Velocities velocities;
     {
       std::unique_lock lock(this->mutex_);
@@ -242,6 +240,12 @@ void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::V
   {
     std::unique_lock lock(this->mutex_);
     this->_vehicle_pose_ = vehicle_pose;
+  }
+
+  std::vector<common_lib::structures::Cone> track_map = this->_slam_solver_->get_map_estimate();
+  {
+    std::unique_lock lock(this->mutex_);
+    this->_track_map_ = track_map;
   }
 
   // this->_publish_covariance(); // TODO: get covariance to work fast

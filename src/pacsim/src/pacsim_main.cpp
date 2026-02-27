@@ -378,6 +378,7 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
 
                 pacsim::msg::PerceptionDetections lmsMsg
                     = LandmarkListToRosMessage(sensorLms, sensorLms.frame_id, sensorLms.timestamp);
+                lmsMsg.exec_time = perceptionSensor->getDeadTime();
                 perceptionSensorPublisherMap[perceptionSensor]->publish(lmsMsg);
                 updateStateEstimation(lmsMsg);
             }

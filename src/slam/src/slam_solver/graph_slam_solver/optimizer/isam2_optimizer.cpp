@@ -54,31 +54,12 @@ std::shared_ptr<BaseOptimizer> ISAM2Optimizer::clone() const {
   return std::make_shared<ISAM2Optimizer>(*this);
 }
 
-gtsam::Values ISAM2Optimizer::optimize(gtsam::NonlinearFactorGraph& factor_graph,
+gtsam::Values ISAM2Optimizer::optimize([[maybe_unused]] gtsam::NonlinearFactorGraph& factor_graph,
                                        [[maybe_unused]] gtsam::Values& graph_values,
                                        [[maybe_unused]] unsigned int pose_num,
                                        [[maybe_unused]] unsigned int landmark_num) {
-  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "ISAM2Optimizer - Adding %zu new factors",
-               factor_graph.size());
-
-  // Ensure all keys in factor_graph exist in either _last_estimate_ or _new_values_ DONT KNOW IF
-  // CHANGES ANYTHING
-  for (const auto& factor : factor_graph) {
-    gtsam::KeyVector keys = factor->keys();  // use KeyVector directly
-    for (gtsam::Key key : keys) {
-      if (!_last_estimate_.exists(key) && !_new_values_.exists(key)) {
-        // Insert an initial guess
-        if (gtsam::Symbol(key).chr() == 'x') {
-          _new_values_.insert(key, gtsam::Pose2(0, 0, 0));
-        } else if (gtsam::Symbol(key).chr() == 'l') {
-          _new_values_.insert(key, gtsam::Point2(0, 0));
-        } else {
-          RCLCPP_WARN(rclcpp::get_logger("slam"), "ISAM2Optimizer - Unknown key type: %c",
-                      gtsam::Symbol(key).chr());
-        }
-      }
-    }
-  }
+  // RCLCPP_DEBUG(rclcpp::get_logger("slam"), "ISAM2Optimizer - Adding %zu new
+  // factors",factor_graph.size());
 
   // Add new factors and values to iSAM2
   _isam2_.update(this->_new_factors_, this->_new_values_);
@@ -86,6 +67,7 @@ gtsam::Values ISAM2Optimizer::optimize(gtsam::NonlinearFactorGraph& factor_graph
   _new_values_.clear();
 
   _last_estimate_ = _isam2_.calculateEstimate();
-  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "ISAM2Optimizer - Optimization complete");
+  // RCLCPP_DEBUG(rclcpp::get_logger("slam"), "ISAM2Optimizer - Optimization
+  // complete");
   return _last_estimate_;
 }

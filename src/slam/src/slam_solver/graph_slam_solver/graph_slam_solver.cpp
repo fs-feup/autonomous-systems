@@ -318,7 +318,9 @@ void GraphSLAMSolver::_asynchronous_optimization_routine() {
                "_asynchronous_optimization_routine - Starting optimization");
   graph_slam_instance_copy->optimize();
   pose_updater_copy->update_pose(gtsam_pose_to_eigen(graph_slam_instance_copy->get_pose()));
-  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "_asynchronous_optimization_routine - Graph optimized");
+  // RCLCPP_DEBUG(rclcpp::get_logger("slam"), "_asynchronous_optimization_routine - Graph
+  // optimized");
+
   rclcpp::Time optimization_time = rclcpp::Clock().now();
 
   // Rebuild the graph with the missed data
