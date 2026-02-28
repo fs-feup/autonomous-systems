@@ -19,11 +19,11 @@ const std::map<std::string,
         {"rigid_body",
          [](const std::shared_ptr<common_lib::car_parameters::CarParameters> params)
              -> std::shared_ptr<LoadTransferModel> {
-           return std::make_shared<RigidBodyLoadTransferModel>(params);
+           return std::make_shared<RigidBodyLoadTransferModel>(*params);
          }},
         {"vd_model",
          [](const std::shared_ptr<common_lib::car_parameters::CarParameters> params)
              -> std::shared_ptr<LoadTransferModel> {
-           return std::make_shared<VDLoadTransferModel>(params);
+           return std::make_shared<VDLoadTransferModel>(*params);
          }},
 };

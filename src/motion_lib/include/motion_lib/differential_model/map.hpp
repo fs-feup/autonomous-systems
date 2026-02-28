@@ -18,6 +18,6 @@ const std::map<std::string,
         {"viscous_lsd",
          [](const std::shared_ptr<common_lib::car_parameters::CarParameters> params)
              -> std::shared_ptr<DifferentialModel> {
-           return std::make_shared<ViscousLSD>(params);
+           return std::make_shared<ViscousLSD>(*params);
          }},
 };

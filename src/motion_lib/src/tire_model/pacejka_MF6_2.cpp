@@ -46,7 +46,8 @@ Eigen::Vector3d PacejkaMF6_2::tire_forces(const TireInput& tire_input) {
   double MZ = 0;
   if (calculateTireState(tire_input.slip_angle, tire_input.slip_ratio, tire_input.vertical_load,
                          tire_input.vx, tire_input.vy, tire_input.yaw_rate,
-                         tire_input.wheel_angular_speed, tire_input.steering_angle)) {
+                         tire_input.wheel_angular_speed, tire_input.steering_angle,
+                         tire_input.distance_to_CG, tire_input.camber_angle)) {
     // Shifts for longitudinal and lateral slip
     float SHx = calculateSHx();
     float SHy = calculateSHy();
@@ -99,7 +100,8 @@ float PacejkaMF6_2::calculatePureSlip(float B, float C, float D, float E, float 
 
 bool PacejkaMF6_2::calculateTireState(float slip_angle, float slip_ratio, double vertical_load,
                                       double vx, double vy, double yaw_rate,
-                                      double wheel_angular_speed, double steering_angle) {
+                                      double wheel_angular_speed, double steering_angle,
+                                      double distance_to_CG, double camber_angle) {
   // Load related calculations
   // (4.E1) -> Assuming we have a tire with a different nominal load we approxiamte using scaling
   // factor LFZO The result is the adpated nominal load
@@ -120,18 +122,16 @@ bool PacejkaMF6_2::calculateTireState(float slip_angle, float slip_ratio, double
   internal_vals.alpha_prime = acos(vx / internal_vals.Vc_prime);
 
   // Longitudinal velocity of the wheel center in the direction of the steering angle
-  internal_vals.Vcx =
-      (vx * cos(steering_angle)) + (vy * sin(steering_angle)) +
-      yaw_rate * car_parameters_->tire_parameters->distance_to_CG * sin(steering_angle);
+  internal_vals.Vcx = (vx * cos(steering_angle)) + (vy * sin(steering_angle)) +
+                      yaw_rate * distance_to_CG * sin(steering_angle);
 
   // Camber related calculations
   // Total spin slip
-  internal_vals.phi = (1 / internal_vals.Vc_prime) *
-                      (yaw_rate - (1 - internal_vals.epsilong) * wheel_angular_speed *
-                                      sin(car_parameters_->tire_parameters->camber_angle));
+  internal_vals.phi =
+      (1 / internal_vals.Vc_prime) *
+      (yaw_rate - (1 - internal_vals.epsilong) * wheel_angular_speed * sin(camber_angle));
   // Effective camber angle
-  internal_vals.gamma_star = car_parameters_->tire_parameters->camber_angle *
-                             car_parameters_->tire_parameters->camber_scaling_factor;
+  internal_vals.gamma_star = camber_angle * car_parameters_->tire_parameters->camber_scaling_factor;
   // Zetas
   internal_vals.zeta1 = calculateZeta1(slip_ratio);
   internal_vals.zeta2 = calculateZeta2(slip_angle);
@@ -182,7 +182,7 @@ bool PacejkaMF6_2::calculateTireState(float slip_angle, float slip_ratio, double
                        (1 + car_parameters_->tire_parameters->PPY5 * internal_vals.dpi) *
                        car_parameters_->tire_parameters->LKYC;
 
-  internal_vals.SHyp = calculateSHyp();
+  internal_vals.SHyp = calculateSHyp(camber_angle);
 
   internal_vals.SVyk = calculateSVyk(vertical_load, slip_ratio);
   internal_vals.kxk =
@@ -552,7 +552,7 @@ float PacejkaMF6_2::calculateZeta3() const {
       car_parameters_->tire_parameters->effective_tire_r * internal_vals.phi * internal_vals.phi));
 }
 
-float PacejkaMF6_2::calculateSHyp() const {
+float PacejkaMF6_2::calculateSHyp(double camber_angle) const {
   // MF 6.1 and 6.2
   double KyRp0 = internal_vals.Kyg0 / (1 - internal_vals.epsilong);
 
@@ -562,9 +562,7 @@ float PacejkaMF6_2::calculateSHyp() const {
       sin(car_parameters_->tire_parameters->PKY4 *
           (1 + car_parameters_->tire_parameters->PPX3 * internal_vals.dpi +
            car_parameters_->tire_parameters->PPX4 * (internal_vals.dpi * internal_vals.dpi)) *
-          (1 - car_parameters_->tire_parameters->PDX3 *
-                   (car_parameters_->tire_parameters->camber_angle *
-                    car_parameters_->tire_parameters->camber_angle))) *
+          (1 - car_parameters_->tire_parameters->PDX3 * (camber_angle * camber_angle))) *
       car_parameters_->tire_parameters->LMUX;
   double Kyao_prime = Kya0 + internal_vals.epsilon * sign(Kya0);
 

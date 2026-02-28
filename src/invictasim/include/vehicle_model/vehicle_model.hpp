@@ -28,6 +28,10 @@ struct VehicleState {
   double ay = 0.0;
   common_lib::structures::Wheels wheels_speed = {0.0, 0.0, 33.0, 33.0}; // rad/s
   common_lib::structures::Wheels wheels_torque = {0.0, 0.0, 0.0, 0.0};
+  Eigen::Vector3d front_left_forces = {0.0, 0.0, 0.0}; // Fx, Fy, Fz
+  Eigen::Vector3d front_right_forces = {0.0, 0.0, 0.0};
+  Eigen::Vector3d rear_left_forces = {0.0, 0.0, 0.0}; 
+  Eigen::Vector3d rear_right_forces = {0.0, 0.0, 0.0}; 
 };
 
 /**4
@@ -65,11 +69,16 @@ public:
   double get_roll() const { return state_->roll; }
   double get_pitch() const { return state_->pitch; }
   double get_yaw() const { return state_->yaw; }
+  double get_yaw_rate() const { return state_->yaw_rate; }
   double get_velocity_x() const { return state_->vx; }
   double get_velocity_y() const { return state_->vy; }
   double get_velocity_z() const { return state_->vz; }
   common_lib::structures::Wheels get_wheels_speed() const { return state_->wheels_speed; }
   common_lib::structures::Wheels get_wheels_torque() const { return state_->wheels_torque; }
+  Eigen::Vector3d get_front_left_forces() const { return state_->front_left_forces; }
+  Eigen::Vector3d get_front_right_forces() const { return state_->front_right_forces; }
+  Eigen::Vector3d get_rear_left_forces() const { return state_->rear_left_forces; }
+  Eigen::Vector3d get_rear_right_forces() const { return state_->rear_right_forces; }
 
   // Specific getters
   virtual double get_motor_torque() const = 0;

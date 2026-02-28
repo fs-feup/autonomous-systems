@@ -6,8 +6,9 @@ vehicle_model:
   aero_model: "default_aero"
   aero_model_params: "simple_aero"
 
-  tire_model: "pacejka_MF6_2"
-  tire_model_params: "complex_pacejka"
+  tire_model: "pacejka_MF6_2" # Options: "simple_pacejka", "pacejka_MF6_2"
+  tire_model_params: "pacejka_MF6_2" # Options: "simple_pacejka", "pacejka_MF6_2"
+
 
   motor_model: "map_based_motor"
   motor_model_params: "motor"
