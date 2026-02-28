@@ -1,23 +1,42 @@
 battery:
-  # Este valores são postas random, preciso falar com eletro para os valores reais
-  nominal_voltage: 518.4
-  capacity_ah: 2160.0 
-  max_continuous_discharge_current: 180.0
-  max_peak_discharge_current: 180.0
-  internal_resistance: 0.614
-  peak_duration: 30.0
-  soc_voltage_map:
-    1.0: 600.0
-    0.9: 576.0
-    0.8: 552.0
-    0.7: 528.0
-    0.6: 504.0
-    0.5: 480.0
-    0.4: 456.0
-    0.3: 432.0
-    0.2: 408.0
-    0.1: 384.0
-    0.0: 360.0
+  # Battery parameters
+  cells_series: 144
+  cells_parallel: 5
+  capacity_ah: 14.0 
+  max_discharge_current: 175.0
+  max_charge_current: 175.0
+  max_voltage: 580.8
   min_voltage: 360.0
-  max_voltage: 604.8
   min_soc: 0.10
+
+  # Open Circuit Voltage
+  OCV_a5: 15.8003
+  OCV_a4: -47.1367
+  OCV_a3: 53.0475
+  OCV_a2: -27.8100
+  OCV_a1: 7.6176
+  OCV_a0: 2.6764
+
+  # Ohmic Resistance
+  R0_a5: -1.0348
+  R0_a4: 3.0692
+  R0_a3: -3.4282
+  R0_a2: 1.7837
+  R0_a1: -0.4285
+  R0_a0: 0.0530
+
+  # Polarization Resistance
+  R1_a5: -5.6695
+  R1_a4: 19.3998
+  R1_a3: -25.4586
+  R1_a2: 15.6483
+  R1_a1: -4.3704
+  R1_a0: 0.4666
+
+  # Polarization Capacitance
+  C1_a5: 116096.61
+  C1_a4: -297356.04
+  C1_a3: 305302.76
+  C1_a2: -174249.65
+  C1_a1: 53918.36
+  C1_a0: -1785.91

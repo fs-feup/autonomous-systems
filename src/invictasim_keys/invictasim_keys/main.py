@@ -9,15 +9,12 @@ import math
 import time
 import rclpy
 from rclpy.node import Node
-
-
 from custom_interfaces.msg import ControlCommand
 
 help_msg = """
-w/s:    increase/decrease acceleration
+w/s:    increase/decrease acceleration (automatic decay to 0 when released)
 a/d:    increase/decrease steering angle
 q:      quit
-CTRL-C to force quit
 """
 
 
@@ -50,21 +47,11 @@ class PublishThread(threading.Thread):
                 acc = self.acceleration
                 steer = self.steering_angle
             msg = ControlCommand()
-            msg.throttle_fl = 0.0
-            msg.throttle_fr = 0.0
             msg.throttle_rl = acc
             msg.throttle_rr = acc
             msg.steering = steer
             self.publisher.publish(msg)
             time.sleep(self.timeout)
-        # Publish stop message when thread exits
-        msg = ControlCommand()
-        msg.throttle_fl = 0.0
-        msg.throttle_fr = 0.0
-        msg.throttle_rl = 0.0
-        msg.throttle_rr = 0.0
-        msg.steering = 0.0
-        self.publisher.publish(msg)
 
 
 def get_key(settings, timeout):
@@ -78,38 +65,46 @@ def get_key(settings, timeout):
 def main():
     rclpy.init()
     settings = termios.tcgetattr(sys.stdin)
-    print(help_msg)
-    pub_thread = PublishThread(20)  # 20 Hz update rate
+    pub_thread = PublishThread(50)  # Increased to 50Hz for smoother response
+
     acceleration = 0.0
     steering = 0.0
-    update_needed = True
+
+    # Tuning parameters
+    accel_step = 0.05  # How fast throttle increases per 0.02s
+    decay_step = 0.01  # How fast throttle returns to 0
+    steer_step = math.pi / 64
+
+    print(help_msg)
+
     try:
-        while 1:
-            key = get_key(settings, 0.1)
+        while rclpy.ok():
+            # Very short timeout for high responsiveness
+            key = get_key(settings, 0.02)
+
             if key == "w":
-                acceleration += 0.1
-                acceleration = min(acceleration, 1.0)
-                update_needed = True
+                acceleration = min(acceleration + accel_step, 1.0)
             elif key == "s":
-                acceleration -= 0.1
-                acceleration = max(acceleration, -1.0)
-                update_needed = True
-            elif key == "a":
-                steering += math.pi / 32
-                steering = min(steering, math.pi / 8)
-                update_needed = True
+                acceleration = max(acceleration - accel_step, -1.0)
+            elif key == "":
+                # Automatic decay logic: move toward 0.0 when no key is pressed
+                if acceleration > 0:
+                    acceleration = max(0.0, acceleration - decay_step)
+                elif acceleration < 0:
+                    acceleration = min(0.0, acceleration + decay_step)
+
+            if key == "a":
+                steering = min(steering + steer_step, math.pi / 8)
             elif key == "d":
-                steering += -math.pi / 32
-                steering = max(steering, -math.pi / 8)
-                update_needed = True
+                steering = max(steering - steer_step, -math.pi / 8)
             elif key == "q" or key == "\x03":
                 break
-            if update_needed:
-                pub_thread.update(acceleration, steering)
-                print(f"\rAccel: {acceleration:.2f} | Steer: {steering:.2f}", end="\n")
-                update_needed = False
+
+            pub_thread.update(acceleration, steering)
+            print(f"\rAccel: {acceleration:.2f} | Steer: {steering:.2f}  ", end="")
+
     except Exception as e:
-        print(e)
+        print(f"\nError: {e}")
     finally:
         pub_thread.stop()
         termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)

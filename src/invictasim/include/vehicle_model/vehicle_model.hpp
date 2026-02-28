@@ -20,7 +20,7 @@ struct VehicleState {
   double roll = 0.0;
   double pitch = 0.0;
   double yaw = 0.0;
-  common_lib::structures::Wheels wheels_speed = {0.0, 0.0, 33.0, 33.0};
+  common_lib::structures::Wheels wheels_speed = {0.0, 0.0, 0.0, 0.0}; 
   common_lib::structures::Wheels wheels_torque = {0.0, 0.0, 0.0, 0.0};
 };
 

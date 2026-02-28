@@ -11,7 +11,7 @@ MapBasedMotor::MapBasedMotor(const common_lib::car_parameters::CarParameters& ca
       (i_peak_sq - i_cont_sq) * car_parameters_->motor_parameters->peak_duration;
 }
 
-float MapBasedMotor::getEfficiency(float torque, float rpm) const {
+float MapBasedMotor::get_efficiency(float torque, float rpm) const {
   // Handle efficiency map
   if (car_parameters_->motor_parameters->efficiency_map.empty()) {
     return 0.95f;  // Default efficiency if no map provided
@@ -28,14 +28,14 @@ float MapBasedMotor::getEfficiency(float torque, float rpm) const {
   if (rpm_upper == car_parameters_->motor_parameters->efficiency_map.begin()) {
     // RPM before map, use first entry
     // Just use this efficiency map
-    return interpolateFromMap(rpm_upper->second, torque);
+    return interpolate_from_map(rpm_upper->second, torque);
   }
 
   // Interpolate between two RPM values
   auto rpm_lower = std::prev(rpm_upper);
 
-  float eff_lower = interpolateFromMap(rpm_lower->second, torque);
-  float eff_upper = interpolateFromMap(rpm_upper->second, torque);
+  float eff_lower = interpolate_from_map(rpm_lower->second, torque);
+  float eff_upper = interpolate_from_map(rpm_upper->second, torque);
 
   float rpm1 = rpm_lower->first;
   float rpm2 = rpm_upper->first;
@@ -45,15 +45,15 @@ float MapBasedMotor::getEfficiency(float torque, float rpm) const {
   return eff_lower + t * (eff_upper - eff_lower);
 }
 
-float MapBasedMotor::getMaxTorqueAtRPM(float rpm) const {
+float MapBasedMotor::get_max_torque_at_rpm(float rpm) const {
   // Determine max torque based on thermal state
   float thermal_ratio = thermal_state_ / thermal_capacity_;
 
   // Interpolate between peak and continuous torque curves
   float max_torque_continuous =
-      interpolateFromMap(car_parameters_->motor_parameters->torque_speed_continuous, rpm);
+      interpolate_from_map(car_parameters_->motor_parameters->torque_speed_continuous, rpm);
   float max_torque_peak =
-      interpolateFromMap(car_parameters_->motor_parameters->torque_speed_peak, rpm);
+      interpolate_from_map(car_parameters_->motor_parameters->torque_speed_peak, rpm);
 
   // As thermal state increases, available torque decreases from peak to continuous
   float max_torque = max_torque_peak - thermal_ratio * (max_torque_peak - max_torque_continuous);
@@ -61,7 +61,7 @@ float MapBasedMotor::getMaxTorqueAtRPM(float rpm) const {
   return std::max(0.0f, max_torque);
 }
 
-void MapBasedMotor::updateState(float current_draw, float torque, float dt) {
+void MapBasedMotor::update_state(float current_draw, float torque, float dt) {
   // I²t thermal model
   // Heat generation: H = (I² - I_cont²) * dt
   float i_cont_sq = car_parameters_->motor_parameters->max_continuous_current *
@@ -88,7 +88,7 @@ void MapBasedMotor::reset() {
 
 float MapBasedMotor::get_torque() const { return this->torque_; }
 
-float MapBasedMotor::interpolateFromMap(const std::map<float, float>& map, float key) const {
+float MapBasedMotor::interpolate_from_map(const std::map<float, float>& map, float key) const {
   if (map.empty()) {
     return 0.0f;
   }

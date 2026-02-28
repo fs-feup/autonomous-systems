@@ -12,7 +12,7 @@ vehicle_model:
   motor_model: "map_based_motor"
   motor_model_params: "motor"
 
-  battery_model: "equivalent_circuit_battery"
+  battery_model: "thevenin"
   battery_model_params: "battery"
 
   differential_model: "viscous_lsd"

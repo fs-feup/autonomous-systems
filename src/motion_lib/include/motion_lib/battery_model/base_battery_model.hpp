@@ -20,31 +20,32 @@ public:
    * @param electrical_power_req Requested electrical power (W)
    * @return std::tuple<float, float> Feasible current (A) and available electrical power (W)
    */
-  virtual std::tuple<float, float> calculateCurrentForPower(float electrical_power_req) const = 0;
+  virtual std::tuple<float, float> calculate_current_for_power(
+      float electrical_power_req) const = 0;
 
   /**
    * @brief Get current being drawn from the battery
    * @return Current (A)
    */
-  virtual float getCurrent() const = 0;
+  virtual float get_current() const = 0;
 
   /**
    * @brief Get current battery voltage with current state
    * @return Terminal voltage (V)
    */
-  virtual float getVoltage() const = 0;
+  virtual float get_voltage() const = 0;
 
   /**
    * @brief Get current battery voltage under provided current draw
    * @return Terminal voltage (V)
    */
-  virtual float getVoltage(float current_draw) const = 0;
+  virtual float get_voltage(float current_draw) const = 0;
 
   /**
    * @brief Get open circuit voltage
    * @return Open circuit voltage (V)
    */
-  virtual float getOpenCircuitVoltage() const = 0;
+  virtual float get_open_circuit_voltage() const = 0;
 
   /**
    * @brief Update battery state
@@ -52,13 +53,13 @@ public:
    * @param current_draw Current being drawn (A)
    * @param dt Time step (s)
    */
-  virtual void updateState(float current_draw, float dt) = 0;
+  virtual void update_state(float current_draw, float dt) = 0;
 
   /**
    * @brief Get current state of charge
    * @return SOC (0 to 1)
    */
-  virtual float getSoC() const = 0;
+  virtual float get_soc() const = 0;
 
   /**
    * @brief Reset battery

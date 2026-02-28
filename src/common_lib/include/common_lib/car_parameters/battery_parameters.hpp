@@ -7,16 +7,47 @@
 namespace common_lib::car_parameters {
 
 struct BatteryParameters {
-  float nominal_voltage;                   // Nominal voltage (V)
-  float capacity_ah;                       // Capacity in Amp-hours (Ah)
-  float max_continuous_discharge_current;  // Max continuous discharge (A)
-  float max_peak_discharge_current;        // Max peak discharge (A)
-  float internal_resistance;               // Internal resistance (Ohm)
-  float peak_duration;                     // Time allowed at peak current (s) - e.g., 30s
-  std::map<float, float> soc_voltage_map;  // SOC -> Voltage (V)
-  float min_voltage;                       // Minimum safe voltage (V)
-  float max_voltage;                       // Maximum safe voltage (V)
-  float min_soc;                           // Minimum safe SOC (0 to 1)
+  // Battery parameters
+  int cells_series;
+  int cells_parallel;
+  float capacity_ah;
+  float max_discharge_current;
+  float max_charge_current;
+  float max_voltage;
+  float min_voltage;
+  float min_soc;
+
+  // Open circuit voltage
+  float OCV_a5;
+  float OCV_a4;
+  float OCV_a3;
+  float OCV_a2;
+  float OCV_a1;
+  float OCV_a0;
+
+  // Ohmic resistance
+  float R0_a5;
+  float R0_a4;
+  float R0_a3;
+  float R0_a2;
+  float R0_a1;
+  float R0_a0;
+
+  // Polarization resistance
+  float R1_a5;
+  float R1_a4;
+  float R1_a3;
+  float R1_a2;
+  float R1_a1;
+  float R1_a0;
+
+  // Polarization capacitance
+  float C1_a5;
+  float C1_a4;
+  float C1_a3;
+  float C1_a2;
+  float C1_a1;
+  float C1_a0;
 
   BatteryParameters(const std::string& config_path);
 };
