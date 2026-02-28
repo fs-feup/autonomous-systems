@@ -11,17 +11,17 @@
  * Map of tire models, with the key being the name of the tire model and the value being a lambda
  * function that returns a shared pointer to the corresponding tire model
  */
-const std::map<
-    std::string,
-    std::function<std::shared_ptr<TireModel>(const common_lib::car_parameters::CarParameters&)>,
-    std::less<>>
+const std::map<std::string,
+               std::function<std::shared_ptr<TireModel>(
+                   const std::shared_ptr<common_lib::car_parameters::CarParameters>)>,
+               std::less<>>
     tire_models_map = {
         {"pacejka_combined_slip",
-         [](const common_lib::car_parameters::CarParameters& params) -> std::shared_ptr<TireModel> {
-           return std::make_shared<PacejkaCombinedSlip>(params);
+         [](const std::shared_ptr<common_lib::car_parameters::CarParameters> params)
+             -> std::shared_ptr<TireModel> {
+           return std::make_shared<PacejkaCombinedSlip>(*params);
          }},
         {"pacejka_MF6_2",
-         [](const common_lib::car_parameters::CarParameters& params) -> std::shared_ptr<TireModel> {
-           return std::make_shared<PacejkaMF6_2>(params);
-         }},
+         [](const std::shared_ptr<common_lib::car_parameters::CarParameters> params)
+             -> std::shared_ptr<TireModel> { return std::make_shared<PacejkaMF6_2>(*params); }},
 };

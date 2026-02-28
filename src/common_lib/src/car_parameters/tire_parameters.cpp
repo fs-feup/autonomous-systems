@@ -22,14 +22,11 @@ TireParameters::TireParameters(const std::string& config_name) {
   if (config["camber_scaling_factor"])
     camber_scaling_factor = config["camber_scaling_factor"].as<double>();
   if (config["effective_tire_r"]) effective_tire_r = config["effective_tire_r"].as<double>();
-  if (config["distance_to_CG"]) distance_to_CG = config["distance_to_CG"].as<double>();
 
   if (config["d_bright"]) d_bright = config["d_bright"].as<double>();
   if (config["d_bleft"]) d_bleft = config["d_bleft"].as<double>();
   if (config["d_fright"]) d_fright = config["d_fright"].as<double>();
   if (config["d_fleft"]) d_fleft = config["d_fleft"].as<double>();
-
-  if (config["camber_angle"]) camber_angle = config["camber_angle"].as<double>();
 
   if (config["UNLOADED_RADIUS"]) UNLOADED_RADIUS = config["UNLOADED_RADIUS"].as<double>();
   if (config["WIDTH"]) WIDTH = config["WIDTH"].as<double>();
@@ -47,6 +44,8 @@ TireParameters::TireParameters(const std::string& config_name) {
   if (config["BELT_IXX"]) BELT_IXX = config["BELT_IXX"].as<double>();
   if (config["BELT_IYY"]) BELT_IYY = config["BELT_IYY"].as<double>();
   if (config["GRAVITY"]) GRAVITY = config["GRAVITY"].as<double>();
+  wheel_inertia =
+      0.5 * MASS * (UNLOADED_RADIUS * UNLOADED_RADIUS);  // Wheel inertia = 0.5 * m * r^2
 
   if (config["FNOMIN"]) FNOMIN = config["FNOMIN"].as<double>();
   if (config["VERTICAL_STIFFNESS"]) VERTICAL_STIFFNESS = config["VERTICAL_STIFFNESS"].as<double>();
@@ -312,5 +311,16 @@ TireParameters::TireParameters(const std::string& config_name) {
 
   // Configurations
   if (config["Amu"]) Amu = config["Amu"].as<double>();
+
+  // Specific for each tire:
+  config = YAML::LoadFile(config_path);
+  if (config["fr"]["toe"]) fr_toe = config["fr"]["toe"].as<double>();
+  if (config["fr"]["camber"]) fr_camber = config["fr"]["camber"].as<double>();
+  if (config["fl"]["toe"]) fl_toe = config["fl"]["toe"].as<double>();
+  if (config["fl"]["camber"]) fl_camber = config["fl"]["camber"].as<double>();
+  if (config["rr"]["toe"]) rr_toe = config["rr"]["toe"].as<double>();
+  if (config["rr"]["camber"]) rr_camber = config["rr"]["camber"].as<double>();
+  if (config["rl"]["toe"]) rl_toe = config["rl"]["toe"].as<double>();
+  if (config["rl"]["camber"]) rl_camber = config["rl"]["camber"].as<double>();
 }
 }  // namespace common_lib::car_parameters

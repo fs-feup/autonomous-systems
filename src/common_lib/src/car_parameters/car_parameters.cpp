@@ -24,6 +24,7 @@ common_lib::car_parameters::CarParameters::CarParameters() {
   this->unsprung_cg_z = config["car"]["unsprung_cg_z"].as<double>();
   this->cg_height = config["car"]["cg_height"].as<double>();
   this->Izz = config["car"]["Izz"].as<double>();
+  this->ackerman_factor = config["car"]["ackerman_factor"].as<double>();
 }
 
 common_lib::car_parameters::CarParameters::CarParameters(std::string dir, std::string config_name) {

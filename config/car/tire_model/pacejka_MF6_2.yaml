@@ -1,9 +1,20 @@
+fr:
+  toe: 0.0
+  camber: 0.0
+fl:
+  toe: 0.0
+  camber: 0.0
+rr:
+  toe: 0.0
+  camber: 0.0
+rl: 
+  toe: 0.0
+  camber: 0.0
 tire:
   #Valores que estavam na struct como default, faltam os dados reais
   camber_scaling_factor: 1.0
   effective_tire_r: 1.0
-  distance_to_CG: 1.0  # Positivo se a roda estiver à frente do CG, negativo se atrás
-
+  
   d_bright: 1.06
   d_bleft: 1.06
   d_fright: 0.99
