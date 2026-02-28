@@ -1,0 +1,11 @@
+std_msgs/Header header
+float64 velocity_x
+float64 velocity_y
+float64 yaw_rate
+float64 acceleration_x
+float64 acceleration_y
+float64 steering_angle
+float64 fl_rpm
+float64 fr_rpm
+float64 rl_rpm
+float64 rr_rpm

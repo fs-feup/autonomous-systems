@@ -22,11 +22,6 @@ ControlNode::ControlNode(const ControlParameters& params)
         "/state_estimation/vehicle_pose", 10,
         std::bind(&ControlNode::vehicle_pose_callback, this, std::placeholders::_1));
   }
-  if (!params_.using_simulated_velocities_) {
-    velocity_sub_ = this->create_subscription<custom_interfaces::msg::Velocities>(
-        "/state_estimation/velocities", 10,
-        std::bind(&ControlNode::vehicle_state_callback, this, std::placeholders::_1));
-  }
 }
 
 void ControlNode::control_timer_callback() {
@@ -39,6 +34,8 @@ void ControlNode::control_timer_callback() {
   this->publish_command(command);
 
   this->_execution_times_->at(0) = execution_time;
+  this->_execution_times_->at(1) = (this->_execution_times_->at(1) * static_cast<double>(this->number_of_loops_executed_) + execution_time) / (static_cast<double>(this->number_of_loops_executed_ + 1));
+  this->number_of_loops_executed_++;
   std_msgs::msg::Float64MultiArray execution_time_msg;
   execution_time_msg.data = *this->_execution_times_;
   this->execution_time_pub_->publish(execution_time_msg);
@@ -53,6 +50,10 @@ void ControlNode::path_callback(const custom_interfaces::msg::PathPointArray& pa
   this->controller_->path_callback(path_msg);
 }
 
-void ControlNode::vehicle_state_callback(const custom_interfaces::msg::Velocities& vel_msg) {
+void ControlNode::vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& vel_msg) {
   this->controller_->vehicle_state_callback(vel_msg);
+}
+
+void ControlNode::create_vehicle_state_adapter() {
+  
 }

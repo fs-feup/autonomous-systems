@@ -104,7 +104,7 @@ void PID::path_callback(const custom_interfaces::msg::PathPointArray& msg)  {
   this->last_path_msg_ = msg.pathpoint_array;
   this->received_first_path_ = true;
 }
-void PID::vehicle_state_callback(const custom_interfaces::msg::Velocities& msg)  {
+void PID::vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& msg)  {
   this->last_velocity_msg_ = msg;
   this->absolute_velocity_ = std::sqrt(msg.velocity_x * msg.velocity_x + msg.velocity_y * msg.velocity_y);
   this->received_first_state_ = true;

@@ -9,17 +9,28 @@ PacSimAdapter::PacSimAdapter(const ControlParameters& params)
   go_signal_ = true;
 
   if (this->params_.using_simulated_slam_) {
-    car_pose_sub_ = this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
+    pacsim_pose_sub_ = this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
         "/pacsim/pose", 1,
         std::bind(&PacSimAdapter::_pacsim_gt_pose_callback, this, std::placeholders::_1));
   }
 
   if (this->params_.using_simulated_velocities_) {
-    car_velocity_sub_ = this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
+    this->pacsim_velocity_sub_ = this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
         "/pacsim/velocity", 1,
         std::bind(&PacSimAdapter::_pacsim_gt_velocities_callback, this, std::placeholders::_1));
+    
+    this->pacsim_imu_sub_ = this->create_subscription<sensor_msgs::msg::Imu>(
+        "/pacsim/imu/cog_imu", 1,
+        std::bind(&PacSimAdapter::_pacsim_imu_callback, this, std::placeholders::_1));
+        
+    this->pacsim_steering_angle_sub_ = this->create_subscription<pacsim::msg::StampedScalar>(
+        "/pacsim/steeringFront", 1,
+        std::bind(&PacSimAdapter::_pacsim_steering_angle_callback, this, std::placeholders::_1));
+        
+    this->pacsim_wheels_sub_ = this->create_subscription<pacsim::msg::Wheels>(
+        "/pacsim/wheelspeeds", 1,
+        std::bind(&PacSimAdapter::_pacsim_wheels_callback, this, std::placeholders::_1));
   }
-
   RCLCPP_INFO(this->get_logger(), "Pacsim adapter created");
 }
 
@@ -27,7 +38,7 @@ void PacSimAdapter::_pacsim_gt_pose_callback(
     const geometry_msgs::msg::TwistWithCovarianceStamped& msg) {
   custom_interfaces::msg::Pose pose;
   pose.header.stamp = msg.header.stamp;
-  pose.theta = msg.twist.twist.angular.z;
+  pose.theta = std::atan2(std::sin(msg.twist.twist.angular.z), std::cos(msg.twist.twist.angular.z));
   pose.x = msg.twist.twist.linear.x;
   pose.y = msg.twist.twist.linear.y;
 
@@ -36,12 +47,30 @@ void PacSimAdapter::_pacsim_gt_pose_callback(
 
 void PacSimAdapter::_pacsim_gt_velocities_callback(
     const geometry_msgs::msg::TwistWithCovarianceStamped& msg) {
-  custom_interfaces::msg::Velocities vel_msg;
-  vel_msg.header.stamp = msg.header.stamp;
-  vel_msg.velocity_x = msg.twist.twist.linear.x;
-  vel_msg.velocity_y = msg.twist.twist.linear.y;
-  vel_msg.angular_velocity = msg.twist.twist.angular.z;
-  this->vehicle_state_callback(vel_msg);
+  this->current_state_.header.stamp = msg.header.stamp;
+  this->current_state_.velocity_x = msg.twist.twist.linear.x;
+  this->current_state_.velocity_y = msg.twist.twist.linear.y;
+  this->current_state_.yaw_rate = msg.twist.twist.angular.z;
+  this->vehicle_state_callback(this->current_state_);
+}
+
+void PacSimAdapter::_pacsim_imu_callback(const sensor_msgs::msg::Imu& msg) {
+  this->current_state_.acceleration_x = msg.linear_acceleration.x;
+  this->current_state_.acceleration_y = msg.linear_acceleration.y;
+  this->vehicle_state_callback(this->current_state_);
+}
+
+void PacSimAdapter::_pacsim_steering_angle_callback(const pacsim::msg::StampedScalar& msg) {
+  this->current_state_.steering_angle = msg.value;
+  this->vehicle_state_callback(this->current_state_);
+}
+
+void PacSimAdapter::_pacsim_wheels_callback(const pacsim::msg::Wheels& msg) {
+  this->current_state_.fl_rpm = msg.fl;
+  this->current_state_.fr_rpm = msg.fr;
+  this->current_state_.rl_rpm = msg.rl;
+  this->current_state_.rr_rpm = msg.rr;
+  this->vehicle_state_callback(this->current_state_);
 }
 
 void PacSimAdapter::publish_command(common_lib::structures::ControlCommand cmd) {

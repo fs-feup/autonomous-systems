@@ -10,6 +10,8 @@
 #include "control/include/config/parameters.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/pose.hpp"
+#include "custom_interfaces/msg/velocities.hpp"
+#include "custom_interfaces/msg/vehicle_state_vector.hpp"
 #include "utils/utils.hpp"
 #include "rclcpp/rclcpp.hpp"
 
@@ -46,3 +48,12 @@ std::tuple<common_lib::structures::Position, double, bool> get_lookahead_point(
  */
 common_lib::structures::Position rear_axis_position(
     const common_lib::structures::Position& cg, double orientation, double dist_cg_2_rear_axis);
+
+/**
+ * @brief Converts VehicleStateVector message to Velocities message
+ * 
+ * @param full_state 
+ * @return custom_interfaces::msg::Velocities 
+ */
+custom_interfaces::msg::Velocities full_state_to_velocities_msg(
+    const custom_interfaces::msg::VehicleStateVector& full_state);

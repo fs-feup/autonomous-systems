@@ -14,7 +14,7 @@ void PurePursuit::path_callback(const custom_interfaces::msg::PathPointArray& ms
   this->received_first_path_ = true;
 }
 
-void PurePursuit::vehicle_state_callback(const custom_interfaces::msg::Velocities& msg) {
+void PurePursuit::vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& msg) {
   this->last_velocity_msg_ = msg;
   this->absolute_velocity_ = std::sqrt(msg.velocity_x * msg.velocity_x + msg.velocity_y * msg.velocity_y);
   this->received_first_state_ = true;

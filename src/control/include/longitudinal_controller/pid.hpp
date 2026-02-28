@@ -18,7 +18,7 @@
 class PID : public LongitudinalController {
 private:
   std::vector<custom_interfaces::msg::PathPoint> last_path_msg_;
-  custom_interfaces::msg::Velocities last_velocity_msg_;
+  custom_interfaces::msg::VehicleStateVector last_velocity_msg_;
   custom_interfaces::msg::Pose last_pose_msg_;
   double absolute_velocity_ = 0.0;
 
@@ -92,7 +92,7 @@ public:
   PID(const ControlParameters &params);
 
   void path_callback(const custom_interfaces::msg::PathPointArray& msg) override;
-  void vehicle_state_callback(const custom_interfaces::msg::Velocities& msg) override;
+  void vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& msg) override;
   void vehicle_pose_callback(const custom_interfaces::msg::Pose& msg) override;
   common_lib::structures::ControlCommand get_throttle_command() override;
 

@@ -28,6 +28,9 @@ protected:
   bool go_signal_{false};
   ControlParameters params_;
 
+  // Used to store values from the callbacks before passing to the controller
+  custom_interfaces::msg::VehicleStateVector current_state_;
+
   /**
    * @brief Called when a new vehicle pose is received
    * @param msg The received pose message
@@ -44,10 +47,11 @@ protected:
    * @brief Called when a new velocity is received
    * @param msg The received velocity message
    */
-  void vehicle_state_callback(const custom_interfaces::msg::Velocities &msg);
+  void vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector &msg);
 private:
   // Vector of execution times for different parts of the control loop 
   // Currently just the first element is used, which is the total execution time
+  unsigned int number_of_loops_executed_{0};
   std::shared_ptr<std::vector<double>> _execution_times_;
 
   // Controller (lateral + longitudinal)
@@ -62,6 +66,8 @@ private:
   // Subscriptions
   rclcpp::Subscription<custom_interfaces::msg::PathPointArray>::SharedPtr path_point_array_sub_;
   rclcpp::Subscription<custom_interfaces::msg::Pose>::SharedPtr vehicle_pose_sub_;
+
+  // Temporary subscription, until State Estimation publishes the full state vector
   rclcpp::Subscription<custom_interfaces::msg::Velocities>::SharedPtr velocity_sub_;
 
   /**
@@ -75,6 +81,13 @@ private:
    * @param cmd Control command to be published
    */
   virtual void publish_command(common_lib::structures::ControlCommand cmd) = 0;
+
+
+  /**
+   * @brief Temporary function while State Estimation doens't publish the full state vector
+   * 
+   */
+  void create_vehicle_state_adapter();
 
 public:
   explicit ControlNode(const ControlParameters &params);

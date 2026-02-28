@@ -11,7 +11,7 @@ class DecoupledController : public Controller {
   std::shared_ptr<LongitudinalController> longitudinal_controller_;
 public:
   void path_callback(const custom_interfaces::msg::PathPointArray& msg) override;
-  void vehicle_state_callback(const custom_interfaces::msg::Velocities& msg) override;
+  void vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& msg) override;
   void vehicle_pose_callback(const custom_interfaces::msg::Pose& msg) override;
   common_lib::structures::ControlCommand get_control_command() override;
 

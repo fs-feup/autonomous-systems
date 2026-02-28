@@ -28,7 +28,7 @@ planning:
   smoothing_spline_order: 3
   smoothing_spline_coeffs_ratio: 3.0
   smoothing_spline_precision: 10
-  smoothing_use_path_smoothing: false
+  smoothing_use_path_smoothing: true
   #---------------------- Velocity Planning (vp_) -----------------------
   vp_minimum_velocity: 5.0
   vp_braking_acceleration: -3.5

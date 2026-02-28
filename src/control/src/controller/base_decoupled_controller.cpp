@@ -9,7 +9,7 @@ void DecoupledController::path_callback(const custom_interfaces::msg::PathPointA
   longitudinal_controller_->path_callback(msg);
 }
 
-void DecoupledController::vehicle_state_callback(const custom_interfaces::msg::Velocities& msg) {
+void DecoupledController::vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& msg) {
   lateral_controller_->vehicle_state_callback(msg);
   longitudinal_controller_->vehicle_state_callback(msg);
 }

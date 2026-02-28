@@ -132,3 +132,15 @@ std::tuple<Position, double, bool> get_lookahead_point(
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "No lookahead point found");
   return std::make_tuple(Position(), 0.0, true);
 }
+
+custom_interfaces::msg::Velocities full_state_to_velocities_msg(
+    const custom_interfaces::msg::VehicleStateVector& full_state) {
+  custom_interfaces::msg::Velocities velocities_msg;
+  velocities_msg.header = full_state.header;
+  velocities_msg.velocity_x = full_state.velocity_x;
+  velocities_msg.velocity_y = full_state.velocity_y;
+  velocities_msg.angular_velocity = full_state.yaw_rate;
+  // Covariance can be set to zero or some default value as VehicleStateVector does not have it
+  velocities_msg.covariance.fill(0.0);
+  return velocities_msg;
+}

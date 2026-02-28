@@ -20,7 +20,7 @@ set(ACADOS_GEN_DIR
 # ------------------------------------------------------------------------------
 # Generate ACADOS solver code - only runs if acados.py changes
 # ------------------------------------------------------------------------------
-set(ACADOS_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/include/solver/acados/acados.py)
+set(ACADOS_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/include/solver/acados/acados2.py)
 set(ACADOS_GENERATED_MARKER ${ACADOS_GEN_DIR}/.generated)
 
 file(MAKE_DIRECTORY ${ACADOS_GEN_DIR})

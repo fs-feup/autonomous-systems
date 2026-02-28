@@ -22,4 +22,9 @@ private:
     ocp_nlp_dims* nlp_dims_;
     ocp_nlp_in* nlp_in_;
     ocp_nlp_out* nlp_out_;
+
+    std::vector<double> last_state_;
+    std::vector<double> last_path_;
+    bool has_state_ = false;
+    bool has_path_ = false;
 };

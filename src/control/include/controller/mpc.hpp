@@ -6,9 +6,10 @@
 class MPC : public Controller {
   std::shared_ptr<SolverInterface> solver_;
   std::vector<double> solver_state_ = std::vector<double>(13, 0.0); // state vector for the solver
+  bool _path_received_ = false;
 public:
   void path_callback(const custom_interfaces::msg::PathPointArray& msg) override;
-  void vehicle_state_callback(const custom_interfaces::msg::Velocities& msg) override;
+  void vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& msg) override;
   void vehicle_pose_callback(const custom_interfaces::msg::Pose& msg) override;
   common_lib::structures::ControlCommand get_control_command() override;
 
