@@ -10,13 +10,13 @@
  * @brief Interface for process models
  *
  * This class defines the interface for process models. Process models are used to
- * predict the next state of the vehicle based on the current state and control commands.
+ * predict the next state of the vehicle based on the current state, control commands and a time
+ * interval.
  */
 class ProcessModel {
 public:
-  virtual void predict(State& state, Eigen::Matrix<double, 10, 10>& covariance,
-                       const Eigen::Matrix<double, 10, 10>& process_noise_matrix,
-                       common_lib::structures::ControlCommand control_command, double dt) = 0;
+  virtual void predict(State& state, common_lib::structures::ControlCommand control_command,
+                       double dt) = 0;
 
   virtual ~ProcessModel() = default;
 };

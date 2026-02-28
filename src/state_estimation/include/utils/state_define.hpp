@@ -1,6 +1,7 @@
 #pragma once
 
-#define State Eigen::Matrix<double, 10, 1>
+#define StateSize 10
+#define State Eigen::Matrix<double, StateSize, 1>
 
 #define VX 0
 #define VY 1

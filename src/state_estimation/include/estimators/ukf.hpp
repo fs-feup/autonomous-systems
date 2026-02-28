@@ -13,47 +13,61 @@
 #include "common_lib/structures/velocities.hpp"
 #include "custom_interfaces/msg/velocities.hpp"
 #include "estimators/estimator.hpp"
+#include "models/observation/map.hpp"
 #include "models/process/map.hpp"
-#include "models/sensors/sensor_data.hpp"
-#include "motion_lib/vel_process_model/map.hpp"
-#include "perception_sensor_lib/observation_model/ve/map.hpp"
 #include "utils/parameters.hpp"
 #include "utils/state_define.hpp"
 
 class UKF : public StateEstimator {
   State state_ = State::Zero();
-  Eigen::Matrix<double, 10, 10> covariance_ = Eigen::Matrix<double, 10, 10>::Identity();
+  Eigen::Matrix<double, StateSize, StateSize> covariance_ =
+      Eigen::Matrix<double, StateSize, StateSize>::Identity();
   SEParameters params_;
 
-  Eigen::Matrix<double, 10, 10> process_noise_matrix_;
-  Eigen::Matrix<double, 10, 10> wheels_measurement_noise_matrix_;
-  Eigen::Matrix<double, 10, 10> imu_measurement_noise_matrix_;
-  Eigen::Matrix<double, 10, 10> motor_rpm_measurement_noise_matrix_;
-  Eigen::Matrix<double, 10, 10> steering_angle_measurement_noise_matrix_;
+  Eigen::Matrix<double, StateSize, StateSize> process_noise_matrix_;
+  Eigen::Matrix<double, StateSize, StateSize> measurement_noise_matrix_;
 
   std::shared_ptr<ProcessModel> process_model_;
+  std::shared_ptr<ObservationModel> observation_model_;
 
   const rclcpp::Time last_update_;
-  std::priority_queue<std::unique_ptr<SensorData>> sensor_data_queue_;
 
   Eigen::VectorXd weights_;
   double lambda_;
 
-  void compute_sigma_points(const State& state, const Eigen::Matrix<double, 10, 10>& covariance,
-                            Eigen::Matrix<State, -1, 1>& sigma_points);
+  common_lib::structures::ControlCommand control_command_;
+  common_lib::sensor_data::ImuData last_imu_data_;
+  common_lib::sensor_data::WheelEncoderData last_wss_data_;
+  double last_motor_rpm_;
+  double last_steering_angle_;
 
-  void predict(State& state, Eigen::Matrix<double, 10, 10>& covariance,
-               common_lib::structures::ControlCommand control_command);
+  /**
+   * @brief Compute the sigma points for the given state and covariance using the Merwe Scaled Sigma
+   * Points method.
+   * @param state The current state of the system
+   * @param covariance The current covariance of the state estimate
+   * @param sigma_points The output matrix to store the computed sigma points, should be of size (2
+   * * StateSize + 1, StateSize)
+   */
+  void compute_sigma_points(const State& state,
+                            const Eigen::Matrix<double, StateSize, StateSize>& covariance,
+                            Eigen::Matrix<double, 2 * StateSize + 1, StateSize>& sigma_points);
 
-  void correct(State& state, Eigen::Matrix<double, 10, 10>& covariance,
-               const Eigen::Matrix<double, 10, 10>& sensor_noise_matrix,
-               const SensorData& sensor_data);
+  void get_mean(const Eigen::Matrix<double, 2 * StateSize + 1, StateSize>& sigma_points,
+                State& mean);
 
-  void get_mean(const Eigen::Matrix<State, -1, 1>& sigma_points, State& mean);
-
-  void get_covariance(const Eigen::Matrix<State, -1, 1>& sigma_points, const State& mean,
-                      Eigen::Matrix<double, 10, 10>& covariance);
+  void get_covariance(const Eigen::Matrix<double, 2 * StateSize + 1, StateSize>& sigma_points,
+                      const State& mean, Eigen::Matrix<double, StateSize, StateSize>& covariance);
 
 public:
-  UKF(SEParameters se_parameters);
+  UKF(SEParameters se_parameters, std::shared_ptr<ProcessModel> process_model,
+      std::shared_ptr<ObservationModel> observation_model);
+
+  void control_callback(const common_lib::structures::ControlCommand& control_command);
+  void imu_callback(const common_lib::sensor_data::ImuData& imu_data) override;
+  void wss_callback(const common_lib::sensor_data::WheelEncoderData& wss_data) override;
+  void motor_rpm_callback(double motor_rpm) override;
+  void steering_callback(double steering_angle) override;
+  void timer_callback() override;
+  void publish_state() override;
 };

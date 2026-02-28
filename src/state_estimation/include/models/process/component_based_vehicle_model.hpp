@@ -20,7 +20,6 @@ private:
 public:
   ComponentBasedVehicleModel(SEParameters parameters);
 
-  void predict(Eigen::Matrix<double, 10, 1>& state, Eigen::Matrix<double, 10, 10>& covariance,
-               const Eigen::Matrix<double, 10, 10>& process_noise_matrix,
-               common_lib::structures::ControlCommand control_command, double dt) override;
+  void predict(State& state, common_lib::structures::ControlCommand control_command,
+               double dt) override;
 };
