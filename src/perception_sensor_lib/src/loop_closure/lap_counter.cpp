@@ -9,8 +9,9 @@ LapCounter::LapCounter(double threshold_dist, int first_x_cones, int border_widt
       border_width_(border_width),
       minimum_confidence_(minimum_confidence) {}
 
+// TODO: solve this, not using map_cones or observations
 LoopClosure::Result LapCounter::detect(const Eigen::Vector3d& current_pose,
-                                       const Eigen::VectorXi& map_cones,
+                                       const Eigen::VectorXd& map_cones,
                                        const Eigen::VectorXi& associations,
                                        const Eigen::VectorXd& observations) const {
   double dx = current_pose.x();
@@ -35,11 +36,8 @@ LoopClosure::Result LapCounter::detect(const Eigen::Vector3d& current_pose,
   // Look for match with any of the first X cones
   for (int i = 0; i < associations.size(); ++i) {
     int j = associations[i];
-    if (j >= 0) {
-      int map_idx = (j) / 2;  // Index into map_cones
-      if (map_idx < first_x_cones_) {
-        confidence_++;  // increase the number of cones that have a match -> increase confidence
-      }
+    if (j >= 0 && j / 2 < first_x_cones_) {  // If observation macthed with one of the first X cones
+      confidence_++;  // increase the number of cones that have a match -> increase confidence
     }
   }
 

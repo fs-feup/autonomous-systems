@@ -7,12 +7,12 @@
 
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/path_point.hpp"
+#include "common_lib/structures/position.hpp"
 #include "rclcpp/clock.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/color_rgba.hpp"
 #include "visualization_msgs/msg/marker.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
-#include "common_lib/structures/position.hpp"
 
 using K = CGAL::Exact_predicates_inexact_constructions_kernel;
 using Point = K::Point_2;
@@ -250,9 +250,6 @@ visualization_msgs::msg::Marker lines_marker_from_triangulations(
  * @return visualization_msgs::msg::MarkerArray
  */
 visualization_msgs::msg::MarkerArray velocity_hover_markers(
-    const std::vector<common_lib::structures::PathPoint>& path_array, 
-    const std::string& name_space,
-    const std::string& frame_id,
-    float scale = 0.2f,
-    int every_nth = 1);
+    const std::vector<common_lib::structures::PathPoint>& path_array, const std::string& name_space,
+    const std::string& frame_id, float scale = 0.2f, int every_nth = 1);
 }  // namespace common_lib::communication

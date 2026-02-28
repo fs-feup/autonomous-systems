@@ -21,5 +21,5 @@ public:
    * @param output_cloud The output point cloud with walls and big objects removed
    */
   virtual void remove_walls(const sensor_msgs::msg::PointCloud2::SharedPtr& point_cloud,
-                            sensor_msgs::msg::PointCloud2::SharedPtr& output_cloud) const = 0;
+                            sensor_msgs::msg::PointCloud2::SharedPtr& output_cloud) = 0;
 };

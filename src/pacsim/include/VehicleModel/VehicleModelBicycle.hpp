@@ -11,7 +11,6 @@ public:
     static constexpr double GRAVITY = 9.81;
     static constexpr double ROLLING_RESISTANCE_COEFF = 0.015;
     static constexpr double AIR_DENSITY = 1.29;
-    static constexpr double MAX_TORQUE = 120.0; // Nm
     
     // Threshold constants
     static constexpr double VELOCITY_THRESHOLD = 0.1;
@@ -51,7 +50,7 @@ public:
     void setMinTorques(Wheels in) override;
     void setSteeringSetpointFront(double in) override;
     void setSteeringSetpointRear(double in) override;
-    void setThrottle(double in) override;
+    void setThrottle(Wheels in) override;
     void setPowerGroundSetpoint(double in) override;
     void setPosition(Eigen::Vector3d position) override;
     void setOrientation(Eigen::Vector3d orientation) override;
@@ -174,13 +173,16 @@ private:
         double wheelRadius;
         double nominalVoltageTS;
         double powerGroundForce;
-        
-        // Calculate torques from throttle
-        void calculateWheelTorques(double throttleInput, Wheels& torques) const;
-        
+        double maxMotorPower;
+        double maxMotorRPM;
+        double maxMotorTorque;
+
+        // Calculate torques from throttle and wheelspeeds
+        void calculateWheelTorques(const Wheels& throttleInputs, const Wheels& wheelspeeds, Wheels& torques) const;
+
         // Calculate powertrain efficiency
         double calculateEfficiency(const Wheels& torques) const;
-        
+
         // Calculate current
         double calculateCurrent(const Wheels& torques, const Wheels& wheelspeeds, double voltage) const;
     };
@@ -242,7 +244,10 @@ private:
     Wheels minTorques = {0.0, 0.0, 0.0, 0.0, 0.0};
     
     // Input state
-    double throttleActuation = 0.0;
+    double throttleActuationFL = 0.0;
+    double throttleActuationFR = 0.0;
+    double throttleActuationRL = 0.0;
+    double throttleActuationRR = 0.0;
     double powerGroundSetpoint = 0.0;
     
     // Vehicle parameters

@@ -17,10 +17,8 @@ EKFSLAMSolver::EKFSLAMSolver(const SLAMParameters& params,
   this->process_noise_matrix_(0, 0) = params.velocity_x_noise_;
   this->process_noise_matrix_(1, 1) = params.velocity_y_noise_;
   this->process_noise_matrix_(2, 2) = params.angular_velocity_noise_;
-  this->observation_model_ = std::make_shared<ObservationModel>();
+  this->observation_model_ = std::make_shared<SLAMObservationModel>();
 }
-
-void EKFSLAMSolver::init([[maybe_unused]] std::weak_ptr<rclcpp::Node> _) {}
 
 Eigen::MatrixXd EKFSLAMSolver::get_observation_noise_matrix(int num_landmarks) const {
   Eigen::MatrixXd observation_noise_matrix =
@@ -32,11 +30,12 @@ Eigen::MatrixXd EKFSLAMSolver::get_observation_noise_matrix(int num_landmarks) c
   return observation_noise_matrix;
 }
 
-void EKFSLAMSolver::add_motion_prior(const common_lib::structures::Velocities& velocities) {
+void EKFSLAMSolver::add_velocities(const common_lib::structures::Velocities& velocities) {
   if (this->velocities_received_) {
     {
       std::unique_lock lock(this->mutex_);
-      predict(this->state_, this->covariance_, this->process_noise_matrix_, this->last_update_, velocities);
+      predict(this->state_, this->covariance_, this->process_noise_matrix_, this->last_update_,
+              velocities);
     }
   } else {
     this->velocities_received_ = true;
@@ -45,12 +44,11 @@ void EKFSLAMSolver::add_motion_prior(const common_lib::structures::Velocities& v
   this->last_update_ = velocities.timestamp_;
 }
 
-void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::Cone>& cones) {
+void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::Cone>& cones,
+                                     [[maybe_unused]] rclcpp::Time cones_time) {
   int num_observations = static_cast<int>(cones.size());
   std::vector<int> matched_landmarks_indices;
   Eigen::VectorXd matched_observations(0);
-  Eigen::VectorXd new_landmarks(0);
-  Eigen::VectorXd new_confidences(0);
   Eigen::VectorXd observations(2 * num_observations);
   Eigen::VectorXd observation_confidences(num_observations);
   common_lib::conversions::cone_vector_to_eigen(cones, observations, observation_confidences);
@@ -62,53 +60,52 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
     covariance = this->covariance_;
     correction_step_ongoing_ = true;
   }
+
   Eigen::VectorXd global_observations =
       common_lib::maths::local_to_global_coordinates(state.segment(0, 3), observations);
   Eigen::VectorXi associations = this->_data_association_->associate(
       state.segment(3, state.size() - 3), global_observations,
-      covariance.block(3, 3, state.size() - 3, state.size() - 3),
-      observation_confidences);
-  for (int i = 0; i < num_observations; ++i) {
-    if (associations(i) == -2) {
-      continue;
-    } else if (associations(i) == -1) {
-      new_landmarks.conservativeResize(new_landmarks.size() + 2);
-      new_landmarks(new_landmarks.size() - 2) = global_observations(2 * i);
-      new_landmarks(new_landmarks.size() - 1) = global_observations(2 * i + 1);
-      new_confidences.conservativeResize(new_confidences.size() + 1);
-      new_confidences(new_confidences.size() - 1) = observation_confidences(i);
-    } else {
+      covariance.block(3, 3, state.size() - 3, state.size() - 3), observation_confidences);
+
+  Eigen::VectorXd filtered_landmarks =
+      this->_landmark_filter_->filter(global_observations, observation_confidences, associations);
+  this->_landmark_filter_->delete_landmarks(filtered_landmarks);
+
+  for (int i = 0; i < num_observations; i++) {
+    if (associations(i) >= 0) {
+      // Existing landmark
       matched_landmarks_indices.push_back(associations(i) + 3);
       matched_observations.conservativeResize(matched_observations.size() + 2);
       matched_observations(matched_observations.size() - 2) = observations(2 * i);
       matched_observations(matched_observations.size() - 1) = observations(2 * i + 1);
     }
   }
-  Eigen::VectorXd filtered_new_landmarks =
-      this->_landmark_filter_->filter(new_landmarks, new_confidences);
-  this->_landmark_filter_->delete_landmarks(filtered_new_landmarks);
-  this->correct(state, covariance, matched_landmarks_indices, matched_observations);
+
+  if (!matched_landmarks_indices.empty()) {
+    this->correct(state, covariance, matched_landmarks_indices, matched_observations);
+  }
   if (this->_mission_ != common_lib::competition_logic::Mission::NONE &&
       !(this->_params_.using_preloaded_map_ &&
         (this->_mission_ == common_lib::competition_logic::Mission::SKIDPAD ||
          this->_mission_ == common_lib::competition_logic::Mission::ACCELERATION)) &&
       this->lap_counter_ == 0) {
-    this->state_augmentation(state, covariance, filtered_new_landmarks);
+    this->state_augmentation(state, covariance, filtered_landmarks);
   }
   // Finally update the state
   {
     std::unique_lock lock(this->mutex_);
     this->state_ = state;
-    this->state_.segment(0,3) += this->pose_difference_; // Compensate for the difference accumulated during correction
+    this->state_.segment(0, 3) +=
+        this->pose_difference_;  // Compensate for the difference accumulated during correction
     this->pose_difference_ = Eigen::Vector3d::Zero();
     this->correction_step_ongoing_ = false;
     this->covariance_ = covariance;
   }
-  LoopClosure::Result result = _loop_closure_->detect(state.segment(0,3), state.segment(3, state.size() - 3).cast<int>(), associations, observations);
+  LoopClosure::Result result = _loop_closure_->detect(
+      state.segment(0, 3), state.segment(3, state.size() - 3), associations, observations);
   if (result.detected) {
     lap_counter_++;
   }
-  
 }
 
 void EKFSLAMSolver::predict(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
@@ -123,8 +120,9 @@ void EKFSLAMSolver::predict(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
 
   Eigen::MatrixXd pose_jacobian =
       this->_motion_model_->get_jacobian_pose(previous_pose, temp_velocities, time_interval);
-  Eigen::MatrixXd updated_covariance_block = pose_jacobian * covariance.block(0, 0, 3, 3) *
-                                         pose_jacobian.transpose() + process_noise_matrix;
+  Eigen::MatrixXd updated_covariance_block =
+      pose_jacobian * covariance.block(0, 0, 3, 3) * pose_jacobian.transpose() +
+      process_noise_matrix;
 
   Eigen::Vector3d next_pose =
       this->_motion_model_->get_next_pose(previous_pose, temp_velocities, time_interval);
@@ -174,7 +172,7 @@ void EKFSLAMSolver::state_augmentation(Eigen::VectorXd& state, Eigen::MatrixXd& 
   state.segment(original_state_size, num_new_entries) = new_landmarks_coordinates;
 }
 
-void EKFSLAMSolver::load_initial_state(const Eigen::VectorXd& map, const Eigen::VectorXd& pose) {
+void EKFSLAMSolver::load_initial_state(const Eigen::VectorXd& map, const Eigen::Vector3d& pose) {
   if (map.size() % 2 != 0 || pose.size() != 3) {
     throw std::runtime_error("Invalid map or pose size");
   }
@@ -200,8 +198,8 @@ std::vector<common_lib::structures::Cone> EKFSLAMSolver::get_map_estimate() {
     last_update = this->last_update_;
   }
   for (int i = 3; i < state.size(); i += 2) {
-    map.push_back(common_lib::structures::Cone(state(i), state(i + 1), "unknown", 1.0,
-                                               last_update));
+    map.push_back(
+        common_lib::structures::Cone(state(i), state(i + 1), "unknown", 1.0, last_update));
   }
   return map;
 }

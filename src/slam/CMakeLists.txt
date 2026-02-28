@@ -13,9 +13,11 @@ set(PACKAGES
     sensor_msgs
     custom_interfaces
     eufs_msgs
+    nav_msgs
     std_srvs
     fs_msgs
     pacsim
+    sensor_msgs
     geometry_msgs
     common_lib
     visualization_msgs
@@ -23,6 +25,7 @@ set(PACKAGES
     motion_lib
     tf2
     tf2_ros
+    tf2_geometry_msgs
     perception_sensor_lib
     yaml-cpp
 )
@@ -30,9 +33,6 @@ find_package(GTSAM REQUIRED) # Outside because it is not ament package
 foreach(pkg ${PACKAGES})
   find_package(${pkg} REQUIRED)
 endforeach()
-
-# Find PCL
-find_package(PCL REQUIRED COMPONENTS registration common io)
 
 # Enable OpenMP
 find_package(OpenMP)
@@ -48,7 +48,9 @@ set(IMPLEMENTATION_FILES
   src/slam_solver/slam_solver.cpp
   src/slam_solver/ekf_slam_solver.cpp
   src/slam_solver/graph_slam_solver/graph_slam_solver.cpp
-  src/slam_solver/graph_slam_solver/pose_updater.cpp
+  src/slam_solver/graph_slam_solver/pose_updater/base_pose_updater.cpp
+  # src/slam_solver/graph_slam_solver/pose_updater/double_pose_updater.cpp
+  src/slam_solver/graph_slam_solver/pose_updater/difference_based_ready_pose_updater.cpp
   src/slam_solver/graph_slam_solver/graph_slam_instance.cpp
   src/slam_solver/graph_slam_solver/utils.cpp
   src/slam_solver/graph_slam_solver/optimizer/isam2_optimizer.cpp

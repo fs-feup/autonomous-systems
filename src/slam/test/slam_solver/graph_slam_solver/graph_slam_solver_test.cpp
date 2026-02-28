@@ -15,7 +15,8 @@ public:
 class MockLandmarkFilter : public LandmarkFilter {
 public:
   MOCK_METHOD(Eigen::VectorXd, filter,
-              (const Eigen::VectorXd& observations, const Eigen::VectorXd& observation_confidences),
+              (const Eigen::VectorXd& observations, const Eigen::VectorXd& observation_confidences,
+               Eigen::VectorXi& associations),
               (override));
   MOCK_METHOD(void, delete_landmarks, (const Eigen::VectorXd& some_landmarks), (override));
 };
@@ -23,17 +24,17 @@ public:
 class MockV2PModel : public V2PMotionModel {
 public:
   MOCK_METHOD(Eigen::Vector3d, get_pose_difference,
-              (const Eigen::Vector3d& previous_pose, const Eigen::Vector3d& velocities,
+              (const Eigen::Vector3d& previous_pose, const Eigen::VectorXd& motion_data,
                double delta_t),
               (override));
 
   MOCK_METHOD(Eigen::Matrix3d, get_jacobian_pose,
-              (const Eigen::Vector3d& previous_pose, const Eigen::Vector3d& velocities,
+              (const Eigen::Vector3d& previous_pose, const Eigen::VectorXd& motion_data,
                const double delta_t),
               (override));
 
-  MOCK_METHOD(Eigen::Matrix3d, get_jacobian_velocities,
-              (const Eigen::Vector3d& previous_pose, const Eigen::Vector3d& velocities,
+  MOCK_METHOD(Eigen::MatrixXd, get_jacobian_motion_data,
+              (const Eigen::Vector3d& previous_pose, const Eigen::VectorXd& motion_data,
                const double delta_t),
               (override));
 };
@@ -41,7 +42,7 @@ public:
 class MockLoopClosure : public LoopClosure {
 public:
   MOCK_METHOD(LoopClosure::Result, detect,
-              (const Eigen::Vector3d& current_pose, const Eigen::VectorXi& map_cones,
+              (const Eigen::Vector3d& current_pose, const Eigen::VectorXd& map_cones,
                const Eigen::VectorXi& associations, const Eigen::VectorXd& observations),
               (const, override));
 };
@@ -86,11 +87,12 @@ TEST_F(GraphSlamSolverTest, MotionAndObservation) {
   Eigen::VectorXi associations_first = Eigen::VectorXi::Ones(4) * -1;
   Eigen::VectorXi associations_second = Eigen::VectorXi::Ones(4) * -1;
   EXPECT_CALL(*mock_motion_model_ptr, get_pose_difference)
-      .Times(8)
+      .Times(4)
       .WillRepeatedly(testing::Return(Eigen::Vector3d(1.1, 0.0, 0.0)));
-  //   EXPECT_CALL(*mock_motion_model_ptr, get_jacobian_velocities)
-  //       .Times(4)
-  //       .WillRepeatedly(testing::Return(Eigen::Matrix3d::Identity() * 0.1));
+  EXPECT_CALL(*mock_motion_model_ptr, get_jacobian_motion_data)
+      .Times(4)
+      .WillRepeatedly(testing::Return(Eigen::Matrix3d::Identity() * 0.1));
+
   EXPECT_CALL(*mock_data_association_ptr, associate)
       .Times(2)
       .WillOnce(testing::Return(associations_first))
@@ -124,6 +126,7 @@ TEST_F(GraphSlamSolverTest, MotionAndObservation) {
   cones_start.push_back(common_lib::structures::Cone(6.0, 1.0, "blue", 1.0, rclcpp::Clock().now()));
   cones_start.push_back(
       common_lib::structures::Cone(6.0, -1.0, "yellow", 1.0, rclcpp::Clock().now()));
+
   cones_end.push_back(common_lib::structures::Cone(-1.0, 1.0, "blue", 1.0, rclcpp::Clock().now()));
   cones_end.push_back(
       common_lib::structures::Cone(-1.0, -1.0, "yellow", 1.0, rclcpp::Clock().now()));
@@ -132,21 +135,21 @@ TEST_F(GraphSlamSolverTest, MotionAndObservation) {
       common_lib::structures::Cone(2.0, -1.0, "yellow", 1.0, rclcpp::Clock().now()));
 
   // Act
-  solver->add_observations(cones_start);
-  solver->add_motion_prior(velocities);
+  solver->add_observations(cones_start, rclcpp::Clock().now());
+  solver->add_velocities(velocities);
   velocities.timestamp_ += rclcpp::Duration(1, 0);
-  solver->add_motion_prior(velocities);
+  solver->add_velocities(velocities);
   velocities.timestamp_ += rclcpp::Duration(1, 0);
-  solver->add_motion_prior(velocities);
+  solver->add_velocities(velocities);
   velocities.timestamp_ += rclcpp::Duration(1, 0);
-  solver->add_motion_prior(velocities);
+  solver->add_velocities(velocities);
   velocities.timestamp_ += rclcpp::Duration(1, 0);
-  solver->add_motion_prior(velocities);
+  solver->add_velocities(velocities);
   const common_lib::structures::Pose pose_before_observations = solver->get_pose_estimate();
   const std::vector<common_lib::structures::Cone> map_before_observations =
       solver->get_map_estimate();
 
-  solver->add_observations(cones_end);
+  solver->add_observations(cones_end, rclcpp::Clock().now());
   const common_lib::structures::Pose pose_after_observations = solver->get_pose_estimate();
   const std::vector<common_lib::structures::Cone> map_after_observations =
       solver->get_map_estimate();
@@ -155,7 +158,7 @@ TEST_F(GraphSlamSolverTest, MotionAndObservation) {
   EXPECT_NEAR(pose_before_observations.position.x, 4.4, 0.5);
   EXPECT_NEAR(pose_after_observations.position.x, 4.4, 0.2);
   EXPECT_EQ(map_before_observations.size(), 4);
-  EXPECT_EQ(map_after_observations.size(), 4);
+  EXPECT_EQ(map_after_observations.size(), 8);
   EXPECT_NEAR(map_before_observations[0].position.x, 3.0, 0.2);
   EXPECT_NEAR(map_before_observations[1].position.x, 3.0, 0.2);
   EXPECT_NEAR(map_before_observations[2].position.x, 6.0, 0.2);

@@ -1,11 +1,13 @@
 #include "common_lib/car_parameters/car_parameters.hpp"
 
 common_lib::car_parameters::CarParameters::CarParameters(double wheel_diameter, double wheelbase,
+                                                         double rear_axis_to_camera,
                                                          double track_width,
                                                          double dist_cg_2_rear_axis,
                                                          double gear_ratio)
     : wheel_diameter(wheel_diameter),
       wheelbase(wheelbase),
+      rear_axis_to_camera(rear_axis_to_camera),
       track_width(track_width),
       dist_cg_2_rear_axis(dist_cg_2_rear_axis),
       gear_ratio(gear_ratio) {}
@@ -24,5 +26,6 @@ common_lib::car_parameters::CarParameters::CarParameters() {
   this->wheelbase = car_config["car"]["wheel_base"].as<double>();
   this->track_width = car_config["car"]["track_width"].as<double>();
   this->dist_cg_2_rear_axis = car_config["car"]["dist_cg_2_rear_axis"].as<double>();
+  this->rear_axis_to_camera = car_config["car"]["rear_axis_to_camera"].as<double>();
   this->gear_ratio = car_config["car"]["gear_ratio"].as<double>();
 }

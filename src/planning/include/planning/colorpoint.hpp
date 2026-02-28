@@ -54,13 +54,6 @@ public:
   Cone cone2;   ///< Second cone associated with this path point
 
 private:
-  /**
-   * @brief Adds a cone to the appropriate vector if it's not a duplicate.
-   *
-   * @param cone The cone to add
-   * @param cones Vector to add the cone to
-   */
-  static void add_cone(const Cone& cone, std::vector<Cone>& cones);
 
   /**
    * @brief Checks if a colorpoint's cones are already correctly colored.

@@ -7,13 +7,15 @@ from select import select
 import termios
 import tty
 import math
+import time
 
 from rclpy.node import Node
 import rclpy
 from pacsim.msg import StampedScalar
+from pacsim.msg import Wheels
 
 lateral_command_msg = StampedScalar()
-longitudinal_command_msg = StampedScalar()
+longitudinal_command_msg = Wheels()
 
 help_msg = """
 w/s:    increase/decrease acceleration
@@ -36,20 +38,20 @@ class PublishThread(threading.Thread):
         """
         super(PublishThread, self).__init__()
         self.node = Node("pacsim_keys")
+
         self.steering_publisher = self.node.create_publisher(
             StampedScalar, "/pacsim/steering_setpoint", 10
         )
         self.acceleration_publisher = self.node.create_publisher(
-            StampedScalar, "/pacsim/throttle_setpoint", 10
+            Wheels, "/pacsim/throttle_setpoint", 10
         )
+
         self.acceleration: float = 0.0
         self.steering_angle: float = 0.0
 
-        # Condition to lock the thread waiting to be notified
         self.condition = threading.Condition()
-        self.new_command = False
         self.done = False
-
+        self.timeout = 1.0 / rate
         self.start()
 
     def update(self, acceleration: float, steering_angle: float):
@@ -59,54 +61,39 @@ class PublishThread(threading.Thread):
         @param acceleration: Acceleration value
         @param steering_angle: Steering angle value
         """
-        self.condition.acquire()
-        self.acceleration = acceleration
-        self.steering_angle = steering_angle
-        self.condition.notify()
-        self.condition.release()
+        with self.condition:
+            self.acceleration = acceleration
+            self.steering_angle = steering_angle
 
     def stop(self):
-        """!
-        @brief Stop the thread
-        """
         self.done = True
-        self.update(0, 0)
         self.join()
 
     def run(self):
-        """!
-        @brief Run the thread to publish control commands
-        """
         while not self.done:
-
-            # Don't spam commands to the sim
-            if not self.new_command:
-                continue
-
-            # Lock the condition
-            self.condition.acquire()
-
-            lateral_command_msg.value = self.steering_angle
-            longitudinal_command_msg.value = self.acceleration
-
-            # Release the condition and publish
-            self.condition.release()
+            with self.condition:
+                acc = self.acceleration
+                steer = self.steering_angle
+            # Set all wheels to 0 except rear for throttle
+            lateral_command_msg.value = steer
+            longitudinal_command_msg.fl = 0.0
+            longitudinal_command_msg.fr = 0.0
+            longitudinal_command_msg.rl = acc
+            longitudinal_command_msg.rr = acc
             self.acceleration_publisher.publish(longitudinal_command_msg)
             self.steering_publisher.publish(lateral_command_msg)
-
-            self.new_command = False
-
+            time.sleep(self.timeout)
         # Publish stop message when thread exits
         lateral_command_msg.value = 0.0
-        longitudinal_command_msg.value = 0.0
+        longitudinal_command_msg.fl = 0.0
+        longitudinal_command_msg.fr = 0.0
+        longitudinal_command_msg.rl = 0.0
+        longitudinal_command_msg.rr = 0.0
         self.acceleration_publisher.publish(longitudinal_command_msg)
         self.steering_publisher.publish(lateral_command_msg)
 
 
 def get_key(settings, timeout):
-    """!
-    @brief Get a single key from the user.
-    """
     tty.setraw(sys.stdin.fileno())
     rlist, _, _ = select([sys.stdin], [], [], timeout)
     key = sys.stdin.read(1) if rlist else ""
@@ -115,60 +102,54 @@ def get_key(settings, timeout):
 
 
 def main():
-    """!
-    @brief Main function to control the pacsim robot using the keyboard
-
-    @details This function reads the keyboard inputs and updates
-    the control commands accordingly, for the other thread to publish them.
-    """
-
     rclpy.init()
     settings = termios.tcgetattr(sys.stdin)
 
-    key_timeout = 0.5
-    pub_thread = PublishThread(10000)
+    print(help_msg)
+
+    pub_thread = PublishThread(20)  # 20 Hz update rate
+
     acceleration: float = 0.0
     steering: float = 0.0
-    clicked: bool = False
-    published: bool = False
-    acceleration = 0.0
-    steering = 0.0
+
+    update_needed = True
 
     try:
-        pub_thread.update(acceleration, steering)
         while 1:
-            key: str = str(get_key(settings, key_timeout))
+            key = get_key(settings, 0.1)  # Faster timeout for smoother feel
+
             if key == "w":
-                pub_thread.new_command = True
-                clicked = True
                 acceleration += 0.1
                 acceleration = min(acceleration, 1.0)
+                update_needed = True
             elif key == "s":
-                pub_thread.new_command = True
-                clicked = True
                 acceleration -= 0.1
                 acceleration = max(acceleration, -1.0)
-            if key == "a":
-                pub_thread.new_command = True
-                clicked = True
+                update_needed = True
+            elif key == "a":
                 steering += math.pi / 32
                 steering = min(steering, math.pi / 8)
+                update_needed = True
             elif key == "d":
-                pub_thread.new_command = True
-                clicked = True
                 steering += -math.pi / 32
                 steering = max(steering, -math.pi / 8)
-            if key == "q":
+                update_needed = True
+            elif key == "q" or key == "\x03":
                 break
-            if key == "\x03":
-                break
-            if clicked or published:
+
+            if update_needed:
                 pub_thread.update(acceleration, steering)
-            published = clicked
-            clicked = False
+                print(f"\rAccel: {acceleration:.2f} | Steer: {steering:.2f}", end="\n")
+                update_needed = False
 
     except Exception as e:
         print(e)
 
     finally:
+        pub_thread.stop()
         termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
+        rclpy.shutdown()
+
+
+if __name__ == "__main__":
+    main()

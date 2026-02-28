@@ -23,4 +23,6 @@ vehicle_model:
     outerSteeringRatio: 0.1582
     nominalVoltageTS: 600.0
     powerGroundForce: 0.0
-    # powertrainEfficiency: 0.95
+    maxMotorPower: 65000.0
+    maxMotorRPM: 6500.0
+    maxMotorTorque: 120.0

@@ -19,24 +19,17 @@ void Colorpoint::extract_cones(std::vector<Colorpoint>& colorpoints,
   color_last_point(colorpoints, yellow_cones, blue_cones);
 }
 
-void Colorpoint::add_cone(const Cone& cone, std::vector<Cone>& cones) {
-  // Only add if it's the first cone or different from the previous one
-  if (cones.empty() || !(cones.back() == cone)) {
-    cones.push_back(cone);
-  }
-}
-
 bool Colorpoint::is_colored_right(const Colorpoint& colorpoint, std::vector<Cone>& yellow_cones,
                                   std::vector<Cone>& blue_cones) {
   if (colorpoint.cone1.color == Color::YELLOW && colorpoint.cone2.color == Color::BLUE) {
-    add_cone(colorpoint.cone1, yellow_cones);
-    add_cone(colorpoint.cone2, blue_cones);
+    yellow_cones.push_back(colorpoint.cone1);
+    blue_cones.push_back(colorpoint.cone2);
     return true;
   }
 
   if (colorpoint.cone1.color == Color::BLUE && colorpoint.cone2.color == Color::YELLOW) {
-    add_cone(colorpoint.cone1, blue_cones);
-    add_cone(colorpoint.cone2, yellow_cones);
+    blue_cones.push_back(colorpoint.cone1);
+    yellow_cones.push_back(colorpoint.cone2);
     return true;
   }
 
@@ -65,13 +58,13 @@ void Colorpoint::color_cones(Colorpoint& colorpoint, const Colorpoint& next_colo
   if (cross_product1 > cross_product2) {
     colorpoint.cone1.color = Color::BLUE;
     colorpoint.cone2.color = Color::YELLOW;
-    add_cone(colorpoint.cone1, blue_cones);
-    add_cone(colorpoint.cone2, yellow_cones);
+    blue_cones.push_back(colorpoint.cone1);
+    yellow_cones.push_back(colorpoint.cone2);
   } else {
     colorpoint.cone1.color = Color::YELLOW;
     colorpoint.cone2.color = Color::BLUE;
-    add_cone(colorpoint.cone1, yellow_cones);
-    add_cone(colorpoint.cone2, blue_cones);
+    yellow_cones.push_back(colorpoint.cone1);
+    blue_cones.push_back(colorpoint.cone2);
   }
 }
 
@@ -79,11 +72,11 @@ void Colorpoint::add_cones_by_reference(const Cone& reference_cone, const Cone& 
                                         const Cone& other_cone, std::vector<Cone>& yellow_cones,
                                         std::vector<Cone>& blue_cones) {
   if (reference_cone.color == Color::BLUE) {
-    add_cone(matching_cone, blue_cones);
-    add_cone(other_cone, yellow_cones);
+    blue_cones.push_back(matching_cone);
+    yellow_cones.push_back(other_cone);
   } else {
-    add_cone(matching_cone, yellow_cones);
-    add_cone(other_cone, blue_cones);
+    yellow_cones.push_back(matching_cone);
+    blue_cones.push_back(other_cone);
   }
 }
 

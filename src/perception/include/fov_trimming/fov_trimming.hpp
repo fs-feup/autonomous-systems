@@ -21,7 +21,7 @@ public:
   virtual void fov_trimming(const sensor_msgs::msg::PointCloud2::SharedPtr& point_cloud,
                             sensor_msgs::msg::PointCloud2::SharedPtr& trimmed_cloud) const = 0;
 
-  bool within_limits(float x, float y, float z, const TrimmingParameters& params,
+  bool within_limits(float x, float y, float z, float intensity, const TrimmingParameters& params,
                      const double max_range) const;
 
 protected:

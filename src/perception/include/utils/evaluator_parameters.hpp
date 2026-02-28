@@ -19,10 +19,9 @@ struct EvaluatorParameters {
   double max_distance_from_ground_min;
   double max_distance_from_ground_max;
 
-  // Number of points parameters, not used currently
-  double lidar_height;
-  double lidar_vertical_resolution;
-  double lidar_horizontal_resolution;
-  double visibility_factor;
-  double expected_points_threshold;
+  // Number of points parameters
+  double n_points_intial_max;
+  double n_points_intial_min;
+  double n_points_max_distance_reduction;
+  double n_points_min_distance_reduction;
 };

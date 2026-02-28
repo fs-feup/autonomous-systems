@@ -5,12 +5,13 @@
 
 #include "common_lib/conversions/cones.hpp"
 #include "common_lib/maths/transformations.hpp"
-#include "perception_sensor_lib/observation_model/slam_observation_model/default_observation_model.hpp"
+#include "perception_sensor_lib/observation_model/slam/slam_base_observation_model.hpp"
 #include "slam_solver/slam_solver.hpp"
+#include "solver_traits/velocities_integrator_trait.hpp"
 
-class EKFSLAMSolver : public SLAMSolver {
+class EKFSLAMSolver : public SLAMSolver, public VelocitiesIntegratorTrait {
   SLAMParameters slam_parameters_;
-  std::shared_ptr<ObservationModel> observation_model_;
+  std::shared_ptr<SLAMObservationModel> observation_model_;
   Eigen::VectorXd state_ = Eigen::VectorXd::Zero(3);
   Eigen::MatrixXd covariance_;
   Eigen::MatrixXd process_noise_matrix_;
@@ -103,26 +104,19 @@ public:
                 std::shared_ptr<LoopClosure> loop_closure);
 
   /**
-   * @brief Initialize the EKF SLAM solver
-   * @description This method is used to initialize the EKF SLAM solver's
-   * aspects that require the node e.g. timer callbacks
-   * @param node ROS2 node
-   */
-  void init([[maybe_unused]] std::weak_ptr<rclcpp::Node> _) override;
-
-  /**
    * @brief Executed to deal with new velocity data
    *
    * @param velocities
    */
-  void add_motion_prior(const common_lib::structures::Velocities& velocities) override;
+  void add_velocities(const common_lib::structures::Velocities& velocities) override;
 
   /**
    * @brief process obervations of landmarks
    *
    * @param position
    */
-  void add_observations(const std::vector<common_lib::structures::Cone>& positions) override;
+  void add_observations(const std::vector<common_lib::structures::Cone>& positions,
+                        rclcpp::Time cones_timestamp) override;
 
   /**
    * @brief Initialize the EKF SLAM solver with a previously saved map and pose
@@ -130,7 +124,7 @@ public:
    *
    * @return Eigen::VectorXd state vector
    */
-  void load_initial_state(const Eigen::VectorXd& map, const Eigen::VectorXd& pose) override;
+  void load_initial_state(const Eigen::VectorXd& map, const Eigen::Vector3d& pose) override;
 
   /**
    * @brief Get the covariance matrix of the EKF

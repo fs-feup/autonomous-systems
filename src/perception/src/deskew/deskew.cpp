@@ -27,7 +27,7 @@ void Deskew::deskew_point_cloud(sensor_msgs::msg::PointCloud2::SharedPtr& input_
     ref_y = *reinterpret_cast<const float*>(&cloud[LidarPoint::PointY(i)]);
     double azimuth = -std::atan2(ref_y, ref_x);
     if (azimuth > reference_azimuth) {
-      reference_azimuth = azimuth;  
+      reference_azimuth = azimuth;
     }
   }
 
@@ -44,7 +44,7 @@ void Deskew::deskew_point_cloud(sensor_msgs::msg::PointCloud2::SharedPtr& input_
     double time_offset = delta_angle * one_over_two_pi * scan_duration;
 
     Eigen::Vector3d original_point(x, y, z);
-    Eigen::Vector3d deskewed_point = original_point - linear_velocity * time_offset;
+    Eigen::Vector3d deskewed_point = original_point;
 
     // Reverse rotation around Z
     if (angular_velocity_z != 0.0) {
@@ -58,6 +58,9 @@ void Deskew::deskew_point_cloud(sensor_msgs::msg::PointCloud2::SharedPtr& input_
       deskewed_point.x() = x_rot;
       deskewed_point.y() = y_rot;
     }
+
+    // Reverse translation
+    deskewed_point -= linear_velocity * time_offset;
 
     // Write all 3 floats in one memcpy
     float deskewed_xyz[3] = {static_cast<float>(deskewed_point.x()),

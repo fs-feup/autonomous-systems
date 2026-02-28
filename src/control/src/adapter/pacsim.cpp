@@ -3,8 +3,7 @@
 PacSimAdapter::PacSimAdapter(const ControlParameters& params)
     : ControlNode(params),
       steering_pub_(create_publisher<pacsim::msg::StampedScalar>("/pacsim/steering_setpoint", 10)),
-      acceleration_pub_(
-          create_publisher<pacsim::msg::StampedScalar>("/pacsim/throttle_setpoint", 10)) {
+      throttle_pub_(create_publisher<pacsim::msg::Wheels>("/pacsim/throttle_setpoint", 10)) {
   // No topic for pacsim, just set the go_signal to true
   go_signal_ = true;
 
@@ -73,13 +72,21 @@ void PacSimAdapter::_pacsim_wheels_callback(const pacsim::msg::Wheels& msg) {
   this->vehicle_state_callback(this->current_state_);
 }
 
+void PacSimAdapter::_pacsim_gt_state_vector_callback(
+    const custom_interfaces::msg::VehicleStateVector& msg) {
+  // Currently Velocities is used, not VehicleStateVector, but this is here for future use
+}
+
 void PacSimAdapter::publish_command(common_lib::structures::ControlCommand cmd) {
   auto steering_msg = pacsim::msg::StampedScalar();
-  auto acceleration_msg = pacsim::msg::StampedScalar();
+  auto throttle_msg = pacsim::msg::Wheels();
 
-  acceleration_msg.value = (cmd.throttle_rr + cmd.throttle_rl) / 2.0;
+  throttle_msg.fl = cmd.throttle_fl;
+  throttle_msg.fr = cmd.throttle_fr;
+  throttle_msg.rl = cmd.throttle_rl;
+  throttle_msg.rr = cmd.throttle_rr;
   steering_msg.value = cmd.steering_angle;
 
   this->steering_pub_->publish(steering_msg);
-  this->acceleration_pub_->publish(acceleration_msg);
+  this->throttle_pub_->publish(throttle_msg);
 }

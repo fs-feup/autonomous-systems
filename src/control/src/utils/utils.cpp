@@ -35,11 +35,20 @@ std::tuple<Position, int, double> get_closest_point(
 std::tuple<Position, double, bool> get_lookahead_point(
     const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array,
     int closest_point_id, double lookahead_distance, Position rear_axis_position, double last_to_first_max_dist) {
+
+  if (pathpoint_array.empty()) {
+    RCLCPP_DEBUG(rclcpp::get_logger("control"), "Empty path");
+    return std::make_tuple(Position(), 0.0, true);
+  }
+
+  // Clamp closest_point_id 
+  closest_point_id = std::clamp(closest_point_id, 0, static_cast<int>(pathpoint_array.size()) - 1);
+
   Position rear_axis_point = rear_axis_position;
 
   for (size_t i = 0; i < pathpoint_array.size(); i++) {
-    size_t index_a = (closest_point_id + i) % pathpoint_array.size();
-    size_t index_b = (closest_point_id + i + 1) % pathpoint_array.size();
+    size_t index_a = (static_cast<size_t>(closest_point_id) + i) % pathpoint_array.size();
+    size_t index_b = (static_cast<size_t>(closest_point_id) + i + 1) % pathpoint_array.size();
 
     // We reached the end of the path
     if (index_b < index_a) {
@@ -47,14 +56,20 @@ std::tuple<Position, double, bool> get_lookahead_point(
       Position last_point(pathpoint_array.back().x, pathpoint_array.back().y);
       double start_end_distance = first_point.euclidean_distance(last_point);
 
-      //  If the path is not a closed track, the lookahead point is the last point
-      //  If the path is a closed track, we continue normally, the first point is the continuation
+      // If the path is not a closed track, force last point as lookahead
+      // If the closest point is the first point, then the car is before the path start, so return first point, else return the last point
       if (start_end_distance > last_to_first_max_dist) {
-        RCLCPP_DEBUG(rclcpp::get_logger("control"),
-                    "Lookahead extends beyond path end and it is not a closed track, using last "
-                    "point of the path as lookahead point");
-        return std::make_tuple(Position(pathpoint_array.back().x, pathpoint_array.back().y),
-                               pathpoint_array.back().v, false);
+        if (closest_point_id == 1) {
+          // Car might be before the first point, return it as lookahead
+          const auto &cp = pathpoint_array[static_cast<size_t>(closest_point_id)];
+          return std::make_tuple(Position(cp.x, cp.y), cp.v, false);
+        } else {
+          RCLCPP_DEBUG(rclcpp::get_logger("control"),
+                       "Lookahead extends beyond path end and it is not a closed track, using last "
+                       "point of the path as lookahead point");
+          return std::make_tuple(Position(pathpoint_array.back().x, pathpoint_array.back().y),
+                                 pathpoint_array.back().v, false);
+        }
       }
     }
 

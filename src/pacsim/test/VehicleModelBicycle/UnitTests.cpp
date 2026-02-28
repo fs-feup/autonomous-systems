@@ -231,7 +231,9 @@ calculateWheelTorques - test for positive, negative and zero throtle
 
 TEST_F(VehicleModelTest, TestCalculateWheelTorquesPositiveThrottle) {
   Wheels wheelTorques;
-  vehicleModel.getPowertrainModel().calculateWheelTorques(1.0 , wheelTorques);
+  Wheels wheelspeeds = {0.0, 0.0, 0.0, 0.0, 0.0};
+  Wheels throttleInputs = {0.0, 0.0, 1.0, 1.0, 0.0};
+  vehicleModel.getPowertrainModel().calculateWheelTorques(throttleInputs, wheelspeeds, wheelTorques);
   ASSERT_EQ(wheelTorques.FL, 0);
   ASSERT_EQ(wheelTorques.FR, 0);
   ASSERT_NEAR(wheelTorques.RL, 60.0, 1.0);
@@ -240,7 +242,9 @@ TEST_F(VehicleModelTest, TestCalculateWheelTorquesPositiveThrottle) {
 
 TEST_F(VehicleModelTest, TestCalculateWheelTorquesNegativeThrottle) {
   Wheels wheelTorques;
-  vehicleModel.getPowertrainModel().calculateWheelTorques(-1.0 , wheelTorques);
+  Wheels wheelspeeds = {0.0, 0.0, 0.0, 0.0, 0.0};
+  Wheels throttleInputs = {0.0, 0.0, -1.0, -1.0, 0.0};
+  vehicleModel.getPowertrainModel().calculateWheelTorques(throttleInputs, wheelspeeds, wheelTorques);
   ASSERT_EQ(wheelTorques.FL, 0);
   ASSERT_EQ(wheelTorques.FR, 0);
   ASSERT_NEAR(wheelTorques.RL, -60.0, 1.0);
@@ -249,7 +253,9 @@ TEST_F(VehicleModelTest, TestCalculateWheelTorquesNegativeThrottle) {
 
 TEST_F(VehicleModelTest, TestCalculateWheelTorquesZeroThrottle) {
   Wheels wheelTorques;
-  vehicleModel.getPowertrainModel().calculateWheelTorques(0.0 , wheelTorques);
+  Wheels wheelspeeds = {0.0, 0.0, 0.0, 0.0, 0.0};
+  Wheels throttleInputs = {0.0, 0.0, 0.0, 0.0, 0.0};
+  vehicleModel.getPowertrainModel().calculateWheelTorques(throttleInputs, wheelspeeds, wheelTorques);
   ASSERT_EQ(wheelTorques.FL, 0);
   ASSERT_EQ(wheelTorques.FR, 0);
   ASSERT_EQ(wheelTorques.RL, 0);

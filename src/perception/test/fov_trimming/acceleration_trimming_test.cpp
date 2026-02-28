@@ -1,16 +1,10 @@
 #include "fov_trimming/acceleration_trimming.hpp"
 
 #include <gtest/gtest.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
 
+#include <sensor_msgs/msg/point_cloud2.hpp>
+#include <test_utils/pointcloud2_helper.hpp>
 #include <utils/trimming_parameters.hpp>
-
-// Non-owning deleter: does nothing.
-template <typename T>
-struct NonOwningDeleter {
-  void operator()(T*) const {}
-};
 
 /**
  * @brief Test class for setting up data and testing AccelerationTrimming algorithm.
@@ -19,30 +13,17 @@ struct NonOwningDeleter {
 class AccelerationTrimmingTest : public ::testing::Test {
 protected:
   void SetUp() override {
-    cloud.points.clear();
-    // All points rotated -90 degrees.
-    cloud.points.push_back(pcl::PointXYZI{1.1, -4.3, 0.5, 0.0});   // Inside
-    cloud.points.push_back(pcl::PointXYZI{1.6, -29.0, 0.5, 0.0});  // Outside max range
-    cloud.points.push_back(pcl::PointXYZI{1.0, -3.2, 3.0, 0.0});   // Above max height
-    cloud.points.push_back(pcl::PointXYZI{0.1, -0.1, 0.5, 0.0});   // Below min range
-    cloud.points.push_back(pcl::PointXYZI{-5.1, -5.0, 0.5, 0.0});  // Outside max y range
-
-    // For the empty point cloud, just ensure it is empty.
-    cloud_empty.points.clear();
-
-    // Set trimming parameters.
     params.acc_max_range = 20.25;
-    params.acc_fov_trim_angle = 90.0;
+    params.apply_fov_trimming = false;
+    params.fov = 180.0;
     params.min_range = 0.0;
     params.max_height = 10.0;
     params.lidar_height = 0;
     params.acc_max_y = 10.0;
-    params.lidar_rotation = 90.0;
+    params.apply_rotation = true;
+    params.rotation = 90.0;
   }
 
-  // Stack-allocated point clouds.
-  pcl::PointCloud<pcl::PointXYZI> cloud;
-  pcl::PointCloud<pcl::PointXYZI> cloud_empty;
   TrimmingParameters params;
 };
 
@@ -51,13 +32,16 @@ protected:
  *
  */
 TEST_F(AccelerationTrimmingTest, TestMaxRange) {
-  // Wrap the stack object in a non-owning shared pointer.
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  std::vector<std::array<float, 5>> pts = {{1.1, -4.3, 0.5, 0.0, 39},
+                                           {1.6, -29.0, 0.5, 0.0, 39},
+                                           {1.0, -3.2, 3.0, 0.0, 39},
+                                           {0.1, -0.1, 0.5, 0.0, 39},
+                                           {-5.1, -5.0, 0.5, 0.0, 39}};
+  auto input_cloud = test_utils::make_lidar_pointcloud2(pts);
+  auto output_cloud = test_utils::make_lidar_pointcloud2({});
   const AccelerationTrimming acc_trimming(params);
-  acc_trimming.fov_trimming(cloud_ptr);
-
-  ASSERT_EQ(cloud_ptr->points.size(), 4);
+  acc_trimming.fov_trimming(input_cloud, output_cloud);
+  ASSERT_EQ(output_cloud->width, 4);
 }
 
 /**
@@ -66,12 +50,16 @@ TEST_F(AccelerationTrimmingTest, TestMaxRange) {
  */
 TEST_F(AccelerationTrimmingTest, TestMaxHeight) {
   params.max_height = 2.0;
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  std::vector<std::array<float, 5>> pts = {{1.1, -4.3, 0.5, 0.0, 39},
+                                           {1.6, -29.0, 0.5, 0.0, 39},
+                                           {1.0, -3.2, 3.0, 0.0, 39},
+                                           {0.1, -0.1, 0.5, 0.0, 39},
+                                           {-5.1, -5.0, 0.5, 0.0, 39}};
+  auto input_cloud = test_utils::make_lidar_pointcloud2(pts);
+  auto output_cloud = test_utils::make_lidar_pointcloud2({});
   const AccelerationTrimming acc_trimming(params);
-  acc_trimming.fov_trimming(cloud_ptr);
-
-  ASSERT_EQ(cloud_ptr->points.size(), 3);
+  acc_trimming.fov_trimming(input_cloud, output_cloud);
+  ASSERT_EQ(output_cloud->width, 3);
 }
 
 /**
@@ -80,12 +68,16 @@ TEST_F(AccelerationTrimmingTest, TestMaxHeight) {
  */
 TEST_F(AccelerationTrimmingTest, TestMinRange) {
   params.min_range = 0.2;
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  std::vector<std::array<float, 5>> pts = {{1.1, -4.3, 0.5, 0.0, 39},
+                                           {1.6, -29.0, 0.5, 0.0, 39},
+                                           {1.0, -3.2, 3.0, 0.0, 39},
+                                           {0.1, -0.1, 0.5, 0.0, 39},
+                                           {-5.1, -5.0, 0.5, 0.0, 39}};
+  auto input_cloud = test_utils::make_lidar_pointcloud2(pts);
+  auto output_cloud = test_utils::make_lidar_pointcloud2({});
   const AccelerationTrimming acc_trimming(params);
-  acc_trimming.fov_trimming(cloud_ptr);
-
-  ASSERT_EQ(cloud_ptr->points.size(), 3);
+  acc_trimming.fov_trimming(input_cloud, output_cloud);
+  ASSERT_EQ(output_cloud->width, 3);
 }
 
 /**
@@ -94,12 +86,16 @@ TEST_F(AccelerationTrimmingTest, TestMinRange) {
  */
 TEST_F(AccelerationTrimmingTest, TestMaxY) {
   params.acc_max_y = 4.0;
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  std::vector<std::array<float, 5>> pts = {{1.1, -4.3, 0.5, 0.0, 39},
+                                           {1.6, -29.0, 0.5, 0.0, 39},
+                                           {1.0, -3.2, 3.0, 0.0, 39},
+                                           {0.1, -0.1, 0.5, 0.0, 39},
+                                           {-5.1, -5.0, 0.5, 0.0, 39}};
+  auto input_cloud = test_utils::make_lidar_pointcloud2(pts);
+  auto output_cloud = test_utils::make_lidar_pointcloud2({});
   const AccelerationTrimming acc_trimming(params);
-  acc_trimming.fov_trimming(cloud_ptr);
-
-  ASSERT_EQ(cloud_ptr->points.size(), 3);
+  acc_trimming.fov_trimming(input_cloud, output_cloud);
+  ASSERT_EQ(output_cloud->width, 3);
 }
 
 /**
@@ -111,12 +107,11 @@ TEST_F(AccelerationTrimmingTest, TestEmptyPointCloud) {
   params.max_height = 2.0;
   params.lidar_height = 0;
   params.acc_max_y = 4.0;
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_empty_ptr(
-      &cloud_empty, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  auto input_cloud = test_utils::make_lidar_pointcloud2({});
+  auto output_cloud = test_utils::make_lidar_pointcloud2({});
   const AccelerationTrimming acc_trimming(params);
-  acc_trimming.fov_trimming(cloud_empty_ptr);
-
-  ASSERT_EQ(cloud_empty_ptr->points.size(), 0);
+  acc_trimming.fov_trimming(input_cloud, output_cloud);
+  ASSERT_EQ(output_cloud->width, 0);
 }
 
 /**
@@ -128,10 +123,14 @@ TEST_F(AccelerationTrimmingTest, TestGeneralResult) {
   params.max_height = 2.0;
   params.lidar_height = 0;
   params.acc_max_y = 4.0;
-  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  std::vector<std::array<float, 5>> pts = {{1.1, -4.3, 0.5, 0.0, 39},
+                                           {1.6, -29.0, 0.5, 0.0, 39},
+                                           {1.0, -3.2, 3.0, 0.0, 39},
+                                           {0.1, -0.1, 0.5, 0.0, 39},
+                                           {-5.1, -5.0, 0.5, 0.0, 39}};
+  auto input_cloud = test_utils::make_lidar_pointcloud2(pts);
+  auto output_cloud = test_utils::make_lidar_pointcloud2({});
   const AccelerationTrimming acc_trimming(params);
-  acc_trimming.fov_trimming(cloud_ptr);
-
-  ASSERT_EQ(cloud_ptr->points.size(), 1);
+  acc_trimming.fov_trimming(input_cloud, output_cloud);
+  ASSERT_EQ(output_cloud->width, 1);
 }

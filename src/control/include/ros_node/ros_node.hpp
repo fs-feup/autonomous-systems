@@ -54,6 +54,9 @@ private:
   unsigned int number_of_loops_executed_{0};
   std::shared_ptr<std::vector<double>> _execution_times_;
 
+  // Map of topic to publisher pointers
+  std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>> publisher_map_;
+
   // Controller (lateral + longitudinal)
   std::shared_ptr<Controller> controller_;
 
