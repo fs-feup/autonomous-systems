@@ -10,12 +10,19 @@
 #include "common_lib/config_load/config_load.hpp"
 
 struct SEParameters {
+  std::string adapter_;                 // Adapter name to be used, e.g. "pacsim", "vehile"
   std::string estimation_method_;       // Used to choose between different state estimation methods
   std::string process_model_name_;      // Used to choose between different process models
   std::string observation_model_name_;  // Used to choose between different state estimation
                                         // observation models
 
   double state_estimation_freq_;  // The rate at which the state estimation should run (in Hz)
+
+  std::string load_transfer_model_name_;   // Used to choose between different load transfer models
+  std::string aero_model_name_;            // Choose between different aero models
+  std::string steering_model_name_;        // Choose between different steering models
+  std::string steering_motor_model_name_;  // Choose between different steering motor models
+  std::string tire_model_name_;            // Choose between different tire models
 
   double velocity_x_process_noise_;      // Process noise for the velocity x predicted state
   double velocity_y_process_noise_;      // Process noise for the velocity y predicted state
@@ -31,10 +38,11 @@ struct SEParameters {
   double motor_rpm_noise_;         // Noise to be added to the motor rpm measurements
   double steering_angle_noise_;    // Noise to be added to the steering angle measurements
 
-  common_lib::car_parameters::CarParameters car_parameters_;
+  common_lib::car_parameters::CarParameters
+      car_parameters_;  // Car parameters to be used in the process and observation models
 
-  double alpha;
-  double kappa;
+  double alpha_;  // UKF alpha parameter
+  double kappa_;  // UKF kappa parameter
 
   /**
    * @brief Load the configuration for the State Estimation node from YAML file

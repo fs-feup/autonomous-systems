@@ -1,0 +1,31 @@
+state_estimation:
+  estimation_method: "ukf" # "ukf" or ... -> name of the state estimation method
+  process_model_name: "component_based_vehicle_model" # "component_based_vehicle_model" or ... -> name of the process model
+  observation_model_name: "sensors_02" # "sensors_01" or "pacsim_sensors" or ... -> name of the observation model
+
+  state_estimation_freq: 40 # Frequency of state estimation updates in Hz, if 0, no timer will be used and updates will be triggered by callbacks
+
+  load_transfer_model_name: "rigid_body" # "rigid_body" or ... -> name of the load transfer model
+  aero_model_name: "default_aero" # "default_aero" or ... -> name of the aero model
+  steering_model_name: "parallel_front_steering" # "parallel_front_steering" or ... -> name of the steering model
+  steering_motor_model_name: "simple_steering_motor" # "simple_steering_motor" or ... -> name of the steering motor model
+  tire_model_name: "pacejka_combined_slip" # "pacejka_combined_slip" or ... -> name of the tire model
+
+  velocity_x_process_noise: 0.1 # variance of the noise for the velocity in x
+  velocity_y_process_noise: 0.1 # variance of the noise for the velocity in y
+  yaw_rate_process_noise: 0.1 # variance of the noise for the yaw rate
+  acceleration_x_process_noise: 0.1 # variance of the noise for the acceleration in x
+  acceleration_y_process_noise: 0.1 # variance of the noise for the acceleration in y
+  steering_angle_process_noise: 0.1 # variance of the noise for the steering angle
+  wheel_speed_process_noise: 0.1 # variance of the noise for the wheel speeds
+  
+
+  imu_acceleration_x_noise: 0.1 # variance of the noise for the acceleration in x from IMU
+  imu_rotational_noise: 0.1 # variance of the noise for the rotational velocity from IMU
+  wheel_speed_noise: 0.1 # variance of the noise for the wheel speeds from encoders
+  steering_angle_noise: 0.1 # variance of the noise for the steering angle from steering sensor
+  motor_rpm_noise: 0.1 # variance of the noise for the motor rpm from motor sensor
+
+  alpha: 1e-3 # UKF alpha parameter 
+  kappa: 0 # UKF kappa parameter
+

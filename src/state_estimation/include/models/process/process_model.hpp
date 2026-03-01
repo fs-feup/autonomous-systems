@@ -15,8 +15,8 @@
  */
 class ProcessModel {
 public:
-  virtual void predict(State& state, common_lib::structures::ControlCommand control_command,
-                       double dt) = 0;
+  virtual void predict(Eigen::MatrixBase<Derived>& state,
+                       common_lib::structures::ControlCommand control_command, double dt) = 0;
 
   virtual ~ProcessModel() = default;
 };

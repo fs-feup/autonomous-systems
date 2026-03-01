@@ -3,6 +3,8 @@
 #include "common_lib/sensor_data/imu.hpp"
 #include "common_lib/sensor_data/wheel_encoders.hpp"
 #include "common_lib/structures/velocities.hpp"
+#include "custom_interfaces/msg/vehicle_state_vector.hpp"
+#include "utils/state_define.hpp"
 /**
  * @brief Interface for state estimators
  *
@@ -44,10 +46,5 @@ public:
    * @brief callback for timer that the SENode should call at a fixed frequency to trigger state
    * estimation updates
    */
-  virtual void timer_callback() = 0;
-
-  /**
-   * @brief function to publish the estimated state that the SENode should call after each update
-   */
-  virtual void publish_state() = 0;
+  virtual void timer_callback(State& curr_state) = 0;
 };
