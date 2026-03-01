@@ -17,7 +17,8 @@ using PathPoint = common_lib::structures::PathPoint;
  * - Propagating acceleration constraints forward and braking constraints backward along the path.
  *
  * The velocity planner respects the friction circle constraint: a_x² + a_y² ≤ a_max²,
- * ensuring that the vehicle stays within tire grip limits during combined cornering and acceleration/braking.
+ * ensuring that the vehicle stays within tire grip limits during combined cornering and
+ * acceleration/braking.
  */
 class VelocityPlanning {
 public:
@@ -47,14 +48,12 @@ public:
   void trackdrive_velocity(std::vector<PathPoint> &final_path);
 
   /**
-   * @brief Gradually reduces velocity to zero along the first half of the path.
+   * @brief Applies a braking velocity profile starting after a given braking distance.
    *
-   * Used for controlled stopping. It accumulates distance along the path and sets the
-   * velocity to zero once a specified distance threshold is reached.
-   *
-   * @param final_path Vector of path points to update for stopping behavior.
+   * @param final_path Vector of path points to update with planned velocities.
+   * @param braking_distance Distance along the path before braking begins.
    */
-  void stop(std::vector<PathPoint> &final_path);
+  void stop(std::vector<PathPoint> &final_path, double braking_distance);
 
 private:
   /**
@@ -67,11 +66,6 @@ private:
    * @brief Numerical tolerance for floating-point comparisons
    */
   static constexpr double epsilon = 1e-9;
-
-  /**
-   * @brief Gravitational acceleration constant (m/s²)
-   */
-  static constexpr double gravity = 9.81;
 
   /**
    * @brief Computes the curvature at a point using the Menger curvature formula.

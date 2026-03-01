@@ -11,14 +11,15 @@
 PlanningParameters Planning::load_config(std::string &adapter) {
   PlanningParameters params;
 
-  std::string global_config_path =
+      std::string global_config_path =
       common_lib::config_load::get_config_yaml_path("planning", "global", "global_config");
   RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Loading global config from: %s",
                global_config_path.c_str());
 
   YAML::Node global_config = YAML::LoadFile(global_config_path);
   adapter = global_config["global"]["adapter"].as<std::string>();
-  params.simulation_using_simulated_se_ = global_config["global"]["use_simulated_se"].as<bool>();
+  params.planning_adapter_ = adapter;
+  params.planning_using_simulated_se_ = global_config["global"]["use_simulated_se"].as<bool>();
 
   std::string planning_config_path =
       common_lib::config_load::get_config_yaml_path("planning", "planning", adapter);
@@ -73,12 +74,19 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.vp_braking_acceleration_ = planning_config["vp_braking_acceleration"].as<double>();
   params.vp_acceleration_ = planning_config["vp_acceleration"].as<double>();
   params.vp_lateral_acceleration_ = planning_config["vp_lateral_acceleration"].as<double>();
+  params.vp_longitudinal_acceleration_ =
+      planning_config["vp_longitudinal_acceleration"].as<double>();
   params.vp_use_velocity_planning_ = planning_config["vp_use_velocity_planning"].as<bool>();
   params.vp_desired_velocity_ = planning_config["vp_desired_velocity"].as<double>();
 
-  /*--------------------- Simulation Configuration Parameters --------------------*/
-  params.simulation_publishing_visualization_msgs_ =
-      planning_config["simulation_publishing_visualization_msgs"].as<bool>();
+  /*--------------------- Planning Configuration Parameters --------------------*/
+  params.planning_publishing_visualization_msgs_ =
+      planning_config["planning_publishing_visualization_msgs"].as<bool>();
+  params.planning_using_full_map_ = planning_config["planning_using_full_map"].as<bool>();
+  params.planning_braking_distance_acceleration_ =
+      planning_config["planning_braking_distance_acceleration"].as<double>();
+  params.planning_braking_distance_autocross_ =
+      planning_config["planning_braking_distance_autocross"].as<double>();
 
   if (adapter == "eufs") {
     params.map_frame_id_ = "base_footprint";
@@ -103,14 +111,16 @@ Planning::Planning(const PlanningParameters &params)
 
   param_client_ =
       create_client<rcl_interfaces::srv::GetParameters>("/pacsim/pacsim_node/get_parameters");
-  fetch_discipline();
+  if (planning_config_.adapter_ == "Pacsim" || planning_config_.adapter_ == "pacsim") {
+    fetch_discipline();
+  }
 
   path_pub_ = create_publisher<custom_interfaces::msg::PathPointArray>("/path_planning/path", 10);
 
   planning_execution_time_pub_ =
       create_publisher<std_msgs::msg::Float64>("/path_planning/execution_time", 10);
 
-  if (planning_config_.simulation_.publishing_visualization_msgs_) {
+  if (planning_config_.publishing_visualization_msgs_) {
     yellow_cones_pub_ =
         create_publisher<visualization_msgs::msg::MarkerArray>("/path_planning/yellow_cones", 10);
     blue_cones_pub_ =
@@ -127,7 +137,7 @@ Planning::Planning(const PlanningParameters &params)
         create_publisher<visualization_msgs::msg::MarkerArray>("/path_planning/velocity_hover", 10);
   }
 
-  if (!planning_config_.simulation_.using_simulated_se_) {
+  if (!planning_config_.using_simulated_se_) {
     vehicle_localization_sub_ = create_subscription<custom_interfaces::msg::Pose>(
         "/state_estimation/vehicle_pose", 10,
         std::bind(&Planning::vehicle_localization_callback, this, std::placeholders::_1));
@@ -143,7 +153,7 @@ Planning::Planning(const PlanningParameters &params)
   }
 
   RCLCPP_INFO(rclcpp::get_logger("planning"), "Using simulated state estimation: %d",
-              planning_config_.simulation_.using_simulated_se_);
+              planning_config_.using_simulated_se_);
 }
 
 /*--------------------- Mission Management in Pacsim --------------------*/
@@ -221,35 +231,76 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &messa
 
 /*--------------------- Mission-Specific Planning --------------------*/
 
-void Planning::run_ebs_test() {
-  full_path_ = path_calculation_.calculate_path(cone_array_);
-  smoothed_path_ = path_smoothing_.smooth_path(full_path_);
+void Planning::run_full_map() {
+  is_map_closed_ = true;
+  full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
 
-  double distance_from_origin =
-      std::sqrt(pose_.position.x * pose_.position.x + pose_.position.y * pose_.position.y);
+  RCLCPP_INFO(get_logger(), "Trackdrive path calculated with %d points",
+              static_cast<int>(full_path_.size()));
 
-  if (distance_from_origin > 90.0) {
-    if (!is_braking_) {
-      is_braking_ = true;
-      brake_time_ = std::chrono::steady_clock::now();
+  const std::vector<PathPoint> yellow_cones = path_calculation_.get_yellow_cones();
+  const std::vector<PathPoint> blue_cones = path_calculation_.get_blue_cones();
+
+  smoothed_path_ = path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones);
+  RCLCPP_INFO(get_logger(), "Trackdrive path calculated with %d points",
+              static_cast<int>(smoothed_path_.size()));
+  velocity_planning_.trackdrive_velocity(smoothed_path_);
+  if (smoothed_path_.size() > 1) {
+    double total_length = 0.0;
+    double lap_time = 0.0;
+
+    double sum_vel = 0.0;
+    double max_vel = smoothed_path_[0].ideal_velocity;
+    double min_vel = smoothed_path_[0].ideal_velocity;
+
+    for (size_t i = 1; i < smoothed_path_.size(); ++i) {
+      const auto &p1 = smoothed_path_[i - 1];
+      const auto &p2 = smoothed_path_[i];
+
+      // Euclidean distance
+      double dx = p2.position.x - p1.position.x;
+      double dy = p2.position.y - p1.position.y;
+      double ds = std::sqrt(dx * dx + dy * dy);
+
+      total_length += ds;
+
+      // Average segment velocity (more accurate)
+      double v_avg = (p1.ideal_velocity + p2.ideal_velocity) / 2.0;
+
+      // Avoid division by zero or very small speeds
+      v_avg = std::max(v_avg, 0.1);
+
+      lap_time += ds / v_avg;
+
+      // Stats
+      sum_vel += p1.ideal_velocity;
+      max_vel = std::max(max_vel, p1.ideal_velocity);
+      min_vel = std::min(min_vel, p1.ideal_velocity);
     }
 
-    for (PathPoint &point : smoothed_path_) {
-      std::chrono::duration<double> time_since_brake_start =
-          std::chrono::steady_clock::now() - brake_time_;
-      point.ideal_velocity =
-          std::max((desired_velocity_ + (planning_config_.velocity_planning_.braking_acceleration_ *
-                                         time_since_brake_start.count())),
-                   0.0);
-    }
-  } else {
-    for (PathPoint &point : smoothed_path_) {
-      point.ideal_velocity = desired_velocity_;
-    }
+    double avg_vel = sum_vel / smoothed_path_.size();
+
+    RCLCPP_INFO(get_logger(),
+                "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
+                "| Max: %.2f m/s",
+                lap_time, total_length, avg_vel, min_vel, max_vel);
   }
 }
 
+void Planning::run_acceleration() {
+  full_path_ = path_calculation_.calculate_path(cone_array_);
+  smoothed_path_ = path_smoothing_.smooth_path(full_path_);
+  velocity_planning_.set_velocity(smoothed_path_);
+  velocity_planning_.stop(smoothed_path_, planning_config_.braking_distance_acceleration_);
+}
+
 void Planning::run_autocross() {
+  if (planning_config_.using_full_map_) {
+    if (!is_map_closed_) {
+      run_full_map();
+    }
+    return;
+  }
   if (lap_counter_ == 0) {
     full_path_ = path_calculation_.calculate_path(cone_array_);
     smoothed_path_ = path_smoothing_.smooth_path(full_path_);
@@ -262,58 +313,27 @@ void Planning::run_autocross() {
       smoothed_path_ = path_smoothing_.smooth_path(full_path_);
       velocity_planning_.set_velocity(smoothed_path_);
     }
-    velocity_planning_.stop(smoothed_path_);
+    velocity_planning_.stop(smoothed_path_, planning_config_.braking_distance_autocross_);
   }
 }
 
 void Planning::run_trackdrive() {
+  if (planning_config_.using_full_map_) {
+    if (!is_map_closed_) {
+      run_full_map();
+    }
+    return;
+  }
   if (lap_counter_ == 0) {
     full_path_ = path_calculation_.calculate_path(cone_array_);
     smoothed_path_ = path_smoothing_.smooth_path(full_path_);
     velocity_planning_.set_velocity(smoothed_path_);
   } else if (lap_counter_ >= 1 && lap_counter_ < 10) {
     if (!is_map_closed_) {
-      is_map_closed_ = true;
-      full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
-
-      const std::vector<Cone> yellow_cones_ = path_calculation_.get_yellow_cones();
-      const std::vector<Cone> blue_cones_ = path_calculation_.get_blue_cones();
-      std::vector<PathPoint> yellow_cones;
-      std::vector<PathPoint> blue_cones;
-      for (const Cone &cone : yellow_cones_) {
-        (void)yellow_cones.emplace_back(cone.position.x, cone.position.y);
-      }
-      for (const Cone &cone : blue_cones_) {
-        (void)blue_cones.emplace_back(cone.position.x, cone.position.y);
-      }
-
-      smoothed_path_ = path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones);
-      velocity_planning_.trackdrive_velocity(smoothed_path_);
-
-      if (!smoothed_path_.empty()) {
-        double sum = 0.0;
-        double max_vel = smoothed_path_[0].ideal_velocity;
-        double min_vel = smoothed_path_[0].ideal_velocity;
-
-        for (const auto &point : smoothed_path_) {
-          sum += point.ideal_velocity;
-          if (point.ideal_velocity > max_vel) {
-            max_vel = point.ideal_velocity;
-          }
-          if (point.ideal_velocity < min_vel) {
-            min_vel = point.ideal_velocity;
-          }
-        }
-
-        double avg_vel = sum / smoothed_path_.size();
-
-        RCLCPP_INFO(get_logger(),
-                     "[TRACKDRIVE] Velocity Stats - Avg: %.2f m/s | Max: %.2f m/s | Min: %.2f m/s",
-                     avg_vel, max_vel, min_vel);
-      }
+      run_full_map();
     }
   } else {
-    velocity_planning_.stop(smoothed_path_);
+    velocity_planning_.stop(smoothed_path_, planning_config_.braking_distance_autocross_);
   }
 }
 
@@ -340,7 +360,7 @@ void Planning::run_planning_algorithms() {
 
     case Mission::ACCELERATION:
     case Mission::EBS_TEST:
-      run_ebs_test();
+      run_acceleration();
       break;
 
     case Mission::AUTOCROSS:
@@ -369,7 +389,7 @@ void Planning::run_planning_algorithms() {
   RCLCPP_DEBUG(get_logger(), "Planning will publish %i path points\n",
                static_cast<int>(smoothed_path_.size()));
 
-  if (planning_config_.simulation_.publishing_visualization_msgs_) {
+  if (planning_config_.publishing_visualization_msgs_) {
     publish_visualization_msgs();
   }
 }
@@ -391,15 +411,15 @@ void Planning::publish_execution_time(rclcpp::Time start_time) {
 }
 
 void Planning::publish_visualization_msgs() const {
-  yellow_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      path_calculation_.get_yellow_cones(), "map_cones", "map", "yellow"));
-
-  blue_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      path_calculation_.get_blue_cones(), "map_cones", "map", "blue"));
-
   triangulations_pub_->publish(common_lib::communication::lines_marker_from_triangulations(
       path_calculation_.get_triangulations(), "triangulations", map_frame_id_, 20, "white", 0.05f,
       visualization_msgs::msg::Marker::MODIFY));
+
+  yellow_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(
+      path_calculation_.get_yellow_cones(), "map_cones", map_frame_id_, "yellow"));
+
+  blue_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(
+      path_calculation_.get_blue_cones(), "map_cones", map_frame_id_, "blue"));
 
   full_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
       full_path_, "full_path", map_frame_id_, "orange"));

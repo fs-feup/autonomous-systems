@@ -3,7 +3,7 @@
 #include "planning/planning.hpp"
 
 FsdsAdapter::FsdsAdapter(const PlanningParameters& params) : Planning(params) {
-  if (this->planning_config_.simulation_.using_simulated_se_) {
+  if (this->planning_config_.using_simulated_se_) {
     RCLCPP_WARN(this->get_logger(),
                 "FSDS shouldn't be used with simulated State Estimation\n The planning node will "
                 "not determine the middle path\n");
