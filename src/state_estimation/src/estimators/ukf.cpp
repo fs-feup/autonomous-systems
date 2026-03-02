@@ -1,13 +1,13 @@
 #include "estimators/ukf.hpp"
 
-UKF::UKF(SEParameters se_parameters, std::shared_ptr<ProcessModel> process_model,
+UKF::UKF(std::shared_ptr<SEParameters> se_parameters, std::shared_ptr<ProcessModel> process_model,
          std::shared_ptr<ObservationModel> observation_model)
     : params_(se_parameters),
       process_model_(process_model),
       observation_model_(observation_model),
       last_update_(rclcpp::Clock().now()) {
-  lambda_ =
-      se_parameters.alpha_ * se_parameters.alpha_ * (StateSize + se_parameters.kappa_) - StateSize;
+  lambda_ = se_parameters->alpha_ * se_parameters->alpha_ * (StateSize + se_parameters->kappa_) -
+            StateSize;
 
   // Compute sigma point weights
   int n = state_.size();
@@ -19,16 +19,16 @@ UKF::UKF(SEParameters se_parameters, std::shared_ptr<ProcessModel> process_model
 
   // Initialize the process noise matrix
   process_noise_matrix_ = Eigen::Matrix<double, StateSize, StateSize>::Zero();
-  process_noise_matrix_(VX, VX) = se_parameters.velocity_x_process_noise_;
-  process_noise_matrix_(VY, VY) = se_parameters.velocity_y_process_noise_;
-  process_noise_matrix_(YAW_RATE, YAW_RATE) = se_parameters.yaw_rate_process_noise_;
-  process_noise_matrix_(AX, AX) = se_parameters.acceleration_x_process_noise_;
-  process_noise_matrix_(AY, AY) = se_parameters.acceleration_y_process_noise_;
-  process_noise_matrix_(ST_ANGLE, ST_ANGLE) = se_parameters.steering_angle_process_noise_;
-  process_noise_matrix_(FL_WHEEL_SPEED, FL_WHEEL_SPEED) = se_parameters.wheel_speed_process_noise_;
-  process_noise_matrix_(FR_WHEEL_SPEED, FR_WHEEL_SPEED) = se_parameters.wheel_speed_process_noise_;
-  process_noise_matrix_(RL_WHEEL_SPEED, RL_WHEEL_SPEED) = se_parameters.wheel_speed_process_noise_;
-  process_noise_matrix_(RR_WHEEL_SPEED, RR_WHEEL_SPEED) = se_parameters.wheel_speed_process_noise_;
+  process_noise_matrix_(VX, VX) = se_parameters->velocity_x_process_noise_;
+  process_noise_matrix_(VY, VY) = se_parameters->velocity_y_process_noise_;
+  process_noise_matrix_(YAW_RATE, YAW_RATE) = se_parameters->yaw_rate_process_noise_;
+  process_noise_matrix_(AX, AX) = se_parameters->acceleration_x_process_noise_;
+  process_noise_matrix_(AY, AY) = se_parameters->acceleration_y_process_noise_;
+  process_noise_matrix_(ST_ANGLE, ST_ANGLE) = se_parameters->steering_angle_process_noise_;
+  process_noise_matrix_(FL_WHEEL_SPEED, FL_WHEEL_SPEED) = se_parameters->wheel_speed_process_noise_;
+  process_noise_matrix_(FR_WHEEL_SPEED, FR_WHEEL_SPEED) = se_parameters->wheel_speed_process_noise_;
+  process_noise_matrix_(RL_WHEEL_SPEED, RL_WHEEL_SPEED) = se_parameters->wheel_speed_process_noise_;
+  process_noise_matrix_(RR_WHEEL_SPEED, RR_WHEEL_SPEED) = se_parameters->wheel_speed_process_noise_;
 
   // Initialize the measurement noise matrix TODO: Need to figure out the measurement noise matrix
   // with an i number of measurements

@@ -25,7 +25,7 @@ class PacsimAdapter : public SENode {
   bool received_throttle_command_ = false;
 
 public:
-  explicit PacsimAdapter(const SEParameters& parameters);
+  explicit PacsimAdapter(const std::shared_ptr<SEParameters>& parameters);
 
   /**
    * @brief callback that gets called when the throttle command is received

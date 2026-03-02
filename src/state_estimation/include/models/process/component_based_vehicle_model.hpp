@@ -14,10 +14,9 @@ private:
   std::shared_ptr<LoadTransferModel> load_transfer_model_;
   std::shared_ptr<SteeringModel> steering_model_;
   std::shared_ptr<TireModel> tire_model_;
-  SEParameters parameters_;
 
 public:
-  ComponentBasedVehicleModel(SEParameters parameters);
+  ComponentBasedVehicleModel(const std::shared_ptr<SEParameters>& parameters);
 
   void predict(Eigen::Ref<State> state, common_lib::structures::ControlCommand control_command,
                double dt) override;

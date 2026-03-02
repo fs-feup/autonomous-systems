@@ -14,8 +14,12 @@
  * interval.
  */
 class ProcessModel {
+  std::shared_ptr<SEParameters> parameters_;
+
 public:
-  virtual void predict(Eigen::MatrixBase<Derived>& state,
+  ProcessModel(const std::shared_ptr<SEParameters>& parameters) : parameters_(parameters) {}
+
+  virtual void predict(Eigen::Ref<State> state,
                        common_lib::structures::ControlCommand control_command, double dt) = 0;
 
   virtual ~ProcessModel() = default;

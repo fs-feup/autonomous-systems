@@ -1,7 +1,7 @@
 state_estimation:
   estimation_method: "ukf" # "ukf" or ... -> name of the state estimation method
   process_model_name: "component_based_vehicle_model" # "component_based_vehicle_model" or ... -> name of the process model
-  observation_model_name: "sensors_02" # "sensors_01" or "pacsim_sensors" or ... -> name of the observation model
+  observation_model_name: "pacsim_sensors" # "sensors_01" or "pacsim_sensors" or ... -> name of the observation model
 
   state_estimation_freq: 40 # Frequency of state estimation updates in Hz, if 0, no timer will be used and updates will be triggered by callbacks
 

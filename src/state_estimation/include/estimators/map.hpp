@@ -8,11 +8,16 @@
 
 #include "estimators/ukf.hpp"
 
-const std::map<std::string, std::function<std::shared_ptr<StateEstimator>(SEParameters)>,
+const std::map<std::string,
+               std::function<std::shared_ptr<StateEstimator>(std::shared_ptr<SEParameters>,
+                                                             std::shared_ptr<ProcessModel>,
+                                                             std::shared_ptr<ObservationModel>)>,
                std::less<>>
-    slam_solver_constructors_map = {
+    estimators_map = {
         {"ukf",
-         [](SEParameters parameters) -> std::shared_ptr<StateEstimator> {
-           return std::make_shared<UKF>(parameters);
+         [](std::shared_ptr<SEParameters> parameters, std::shared_ptr<ProcessModel> process_model,
+            std::shared_ptr<ObservationModel> observation_model)
+             -> std::shared_ptr<StateEstimator> {
+           return std::make_shared<UKF>(parameters, process_model, observation_model);
          }},
 };

@@ -13,6 +13,7 @@
  */
 class StateEstimator {
 public:
+  StateEstimator() = default;
   /**
    * @brief callback for control commands that the SENode should call when new control commands are
    * received

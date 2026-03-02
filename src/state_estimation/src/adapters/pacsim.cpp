@@ -1,6 +1,6 @@
 #include "adapters/pacsim.hpp"
 
-PacsimAdapter::PacsimAdapter(const SEParameters& parameters) : SENode(parameters) {
+PacsimAdapter::PacsimAdapter(const std::shared_ptr<SEParameters>& parameters) : SENode(parameters) {
   // Sensor Subscriptions
   _imu_sub_ = this->create_subscription<sensor_msgs::msg::Imu>(
       "/pacsim/imu/cog_imu", 10,

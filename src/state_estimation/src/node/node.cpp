@@ -1,21 +1,20 @@
 #include "node/node.hpp"
 
-SENode::SENode(const SEParameters& parameters) : Node("state_estimation"), _params_(parameters) {
-  if (this->_params_.adapter_ == "pacsim") {
-    this->_params_.observation_model_name_ = "pacsim_sensors";
+SENode::SENode(const std::shared_ptr<SEParameters>& parameters)
+    : Node("state_estimation"), _params_(parameters) {
+  if (this->_params_->adapter_ == "pacsim") {
+    this->_params_->observation_model_name_ = "pacsim_sensors";
   }
 
-  this->_state_estimator_ = estimators_map.at(this->_params_.estimation_method_)(
-      this->_params_,
-      process_models_map.at(this->_params_.process_model_name_)(this->_params_.car_parameters_),
-      observation_models_map.at(this->_params_.observation_model_name_)(
-          this->_params_.car_parameters_));
+  this->_state_estimator_ = estimators_map.at(this->_params_->estimation_method_)(
+      this->_params_, process_models_map.at(this->_params_->process_model_name_)(this->_params_),
+      observation_models_map.at(this->_params_->observation_model_name_)(this->_params_));
 
   // Timer Subscription if needed
-  if (this->_params_.state_estimation_freq_ > 0) {
+  if (this->_params_->state_estimation_freq_ > 0) {
     auto timer_period =
-        std::chrono::milliseconds(static_cast<int>(1000 / this->_params_.state_estimation_freq_));
-    this->_timer_ = this->create_wall_timer(timer_period, this->timer_callback());
+        std::chrono::milliseconds(static_cast<int>(1000 / this->_params_->state_estimation_freq_));
+    this->_timer_ = this->create_wall_timer(timer_period, [this]() { this->timer_callback(); });
   }
 
   // Publishers

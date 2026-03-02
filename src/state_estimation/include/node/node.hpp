@@ -18,7 +18,7 @@
  */
 class SENode : public rclcpp::Node {
 protected:
-  SEParameters _params_;
+  std::shared_ptr<SEParameters> _params_;
   std::shared_ptr<StateEstimator> _state_estimator_;
 
   rclcpp::TimerBase::SharedPtr _timer_;
@@ -26,10 +26,13 @@ protected:
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _execution_time_pub_;
   rclcpp::Publisher<custom_interfaces::msg::VehicleStateVector>::SharedPtr _state_pub_;
 
+  // For now so i dont have to change the entire fucking pipeline
+  rclcpp::Publisher<custom_interfaces::msg::Velocities>::SharedPtr _velocity_pub_;
+
   void publish_state(const State& state, const rclcpp::Time time);
 
   void timer_callback();
 
 public:
-  SENode(const SEParameters& parameters);
+  SENode(const std::shared_ptr<SEParameters>& parameters);
 };

@@ -1,7 +1,7 @@
 #include "models/observation/pacsim_sensors.hpp"
 
 void ObservationModelPacsim::expected_observations(
-    const State& state, Eigen::Ref<Eigen::VectorXd>& expected_observations) {
+    const State& state, Eigen::Ref<Eigen::VectorXd> expected_observations) {
   // Basically mapping of state except for wheel speeds which are converted from rad/s to rpm.
   expected_observations.resize(8);
   double rad_to_rpm = 60 / (2 * M_PI);

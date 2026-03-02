@@ -18,14 +18,13 @@
  */
 class ObservationModel {
 protected:
-  common_lib::car_parameters::CarParameters car_parameters_;
+  std::shared_ptr<SEParameters> parameters_;
 
 public:
-  ObservationModel(const common_lib::car_parameters::CarParameters& car_parameters)
-      : car_parameters_(car_parameters) {}
+  ObservationModel(const std::shared_ptr<SEParameters>& parameters) : parameters_(parameters) {}
 
   virtual void expected_observations(const State& state,
-                                     Eigen::Ref<Eigen::VectorXd>& expected_observations) = 0;
+                                     Eigen::Ref<Eigen::VectorXd> expected_observations) = 0;
 
   virtual int get_measurement_size() const = 0;
 

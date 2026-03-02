@@ -22,7 +22,7 @@ class UKF : public StateEstimator {
   State state_ = State::Zero();
   Eigen::Matrix<double, StateSize, StateSize> covariance_ =
       Eigen::Matrix<double, StateSize, StateSize>::Identity();
-  SEParameters params_;
+  std::shared_ptr<SEParameters> params_;
 
   Eigen::Matrix<double, StateSize, StateSize> process_noise_matrix_;
   Eigen::MatrixXd measurement_noise_matrix_;
@@ -55,7 +55,7 @@ class UKF : public StateEstimator {
                             Eigen::MatrixXd& cross_covariance);
 
 public:
-  UKF(SEParameters se_parameters, std::shared_ptr<ProcessModel> process_model,
+  UKF(std::shared_ptr<SEParameters> se_parameters, std::shared_ptr<ProcessModel> process_model,
       std::shared_ptr<ObservationModel> observation_model);
 
   void control_callback(const common_lib::structures::ControlCommand& control_command) override;
