@@ -70,7 +70,7 @@ std::vector<PathPoint> PathCalculation::calculate_path(const std::vector<Cone>& 
   }
 
   extend_path(max_points);
-
+  
   yellow_cones_.reserve(current_path_.size());
   blue_cones_.reserve(current_path_.size());
 
@@ -94,9 +94,18 @@ std::vector<PathPoint> PathCalculation::calculate_trackdrive(const std::vector<C
   // Find the best point to close the loop
   int best_cutoff_index = find_best_loop_closure(result);
 
-  // Trim the path to the best cutoff point
-  (void)result.erase(result.begin() + best_cutoff_index + 1, result.end());
-
+  
+  if(result.begin() + best_cutoff_index +1 != result.end()){
+    // Trim the path to the best cutoff point
+    (void)result.erase(result.begin() + best_cutoff_index + 1, result.end());
+    //If the path change we need to estimate the boundaries again
+    RCLCPP_WARN(rclcpp::get_logger("planning"), "The path change to create trackdrive loop");
+    yellow_cones_.clear();
+    blue_cones_.clear();
+    (void)current_path_.erase(current_path_.begin() + best_cutoff_index + 1, current_path_.end());
+    Colorpoint::extract_cones(current_path_, yellow_cones_, blue_cones_);
+  }
+  
   // Close the loop by adding the first point again
   result.push_back(result[0]);
   yellow_cones_.push_back(yellow_cones_[0]);
@@ -553,6 +562,6 @@ const std::vector<std::pair<Point, Point>>& PathCalculation::get_triangulations(
   return midpoint_generator_.get_triangulations();
 }
 
-const std::vector<Cone>& PathCalculation::get_yellow_cones() const { return yellow_cones_; }
+const std::vector<PathPoint>& PathCalculation::get_yellow_cones() const { return yellow_cones_; }
 
-const std::vector<Cone>& PathCalculation::get_blue_cones() const { return blue_cones_; }
+const std::vector<PathPoint>& PathCalculation::get_blue_cones() const { return blue_cones_; }
