@@ -1,6 +1,22 @@
 #pragma once
 
 #include "common_lib/car_parameters/car_parameters.hpp"
+
+#include <Eigen/Dense>
+
+// Same approach as the one used in load transfer
+struct TireInput{
+  double vx;
+  double vy;
+  double wheel_angular_speed;
+  double yaw_rate;
+  double steering_angle;
+  double slip_angle;
+  double slip_ratio;
+  double vertical_load;
+};
+
+
 /**
  * @brief Class used to model tires. Currently used to model tire forces based on slip.
  *
@@ -17,11 +33,8 @@ public:
    * @brief Calculate the forces acting in a tire based on the tire characteristics and dynamic
    * state.
    *
-   * @param slip_angle Slip angle of the tire in radians
-   * @param slip_ratio Slip ratio of the tire
-   * @param load Load on the tire in Newtons
-   * @return std::pair<double, double> Longitudinal and lateral forces
+   * @param tire_input The input parameters for all possible tire models
+   * @return Eigen::Vector3d The resulting forces in the tire (Fx, Fy, Mz)
    */
-  virtual std::pair<double, double> tire_forces(double slip_angle, double slip_ratio,
-                                                double vertical_load) const = 0;
+  virtual Eigen::Vector3d tire_forces(const TireInput& tire_input)  = 0;
 };

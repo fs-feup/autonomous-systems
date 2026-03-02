@@ -5,6 +5,7 @@
 #include <string>
 
 #include "motion_lib/load_transfer_model/rigid_body_model.hpp"
+#include "motion_lib/load_transfer_model/vd_load_transfer_model.hpp"
 
 /*
  * Map of load transfer models, with the key being the name of the model and the value being a
@@ -19,5 +20,10 @@ const std::map<std::string,
          [](const common_lib::car_parameters::CarParameters& params)
              -> std::shared_ptr<LoadTransferModel> {
            return std::make_shared<RigidBodyLoadTransferModel>(params);
+         }},
+        {"vd_model",
+         [](const common_lib::car_parameters::CarParameters& params)
+             -> std::shared_ptr<LoadTransferModel> {
+           return std::make_shared<VDLoadTransferModel>(params);
          }},
 };

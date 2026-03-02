@@ -1,0 +1,5 @@
+aero:
+  lift_coefficient: -0.86
+  drag_coefficient: 0.73
+  aero_balance_front: 0.5 # distribution of downforce
+  frontal_area: 0.44
