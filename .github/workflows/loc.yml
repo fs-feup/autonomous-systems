@@ -13,6 +13,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Install cloc
         run: sudo apt-get install -y cloc
@@ -23,7 +25,7 @@ jobs:
           echo "" >> docs/loc.md
           echo "Generated with [cloc](https://github.com/AlDanial/cloc)." >> docs/loc.md
           echo "" >> docs/loc.md
-          cloc . --exclude-dir=ext,build,install,log,.git --md >> docs/loc.md
+          cloc . --exclude-dir=build,install,log,.git --md >> docs/loc.md
 
       - name: Commit and push
         run: |
