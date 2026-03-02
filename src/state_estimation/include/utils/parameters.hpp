@@ -22,6 +22,7 @@ struct SEParameters {
   std::string aero_model_name_;            // Choose between different aero models
   std::string steering_model_name_;        // Choose between different steering models
   std::string steering_motor_model_name_;  // Choose between different steering motor models
+  std::string differential_model_name_;    // Choose between different differential models
   std::string tire_model_name_;            // Choose between different tire models
 
   double velocity_x_process_noise_;      // Process noise for the velocity x predicted state
@@ -32,11 +33,12 @@ struct SEParameters {
   double steering_angle_process_noise_;  // Process noise for the steering angle predicted state
   double wheel_speed_process_noise_;     // Process noise for the wheel speed predicted state
 
-  double imu_acceleration_noise_;  // Noise to be added to the IMU acceleration measurements
-  double imu_rotational_noise_;    // Noise to be added to the IMU rotational state measurements
-  double wheel_speed_noise_;       // Noise to be added to the wheel speed measurements
-  double motor_rpm_noise_;         // Noise to be added to the motor rpm measurements
-  double steering_angle_noise_;    // Noise to be added to the steering angle measurements
+  double imu_acceleration_x_noise_;  // Noise to be added to the IMU acceleration measurements
+  double imu_acceleration_y_noise_;  // Noise to be added to the IMU acceleration measurements
+  double imu_rotational_noise_;      // Noise to be added to the IMU rotational state measurements
+  double wheel_speed_noise_;         // Noise to be added to the wheel speed measurements
+  double motor_rpm_noise_;           // Noise to be added to the motor rpm measurements
+  double steering_angle_noise_;      // Noise to be added to the steering angle measurements
 
   common_lib::car_parameters::CarParameters
       car_parameters_;  // Car parameters to be used in the process and observation models
