@@ -21,6 +21,7 @@ FSFEUP02Model::FSFEUP02Model(const InvictaSimParameters& simulator_parameters)
   this->load_transfer_ = load_transfer_models_map.at(
       simulator_parameters.load_transfer_model.c_str())(simulator_parameters.car_parameters);
 }
+
 void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, double angle) {
   // 1. Average throttle input for rear-wheel drive logic
   double throttle_input = (throttle.rear_left + throttle.rear_right) / 2.0;
@@ -36,7 +37,7 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
 
   // Basic Resistance Force (Rolling Resistance + Aero Drag)
   // Crr is typically ~0.015 for race tires [cite: 16]
-  double rolling_resistance = 0.5 * mass * 9.81;
+  double rolling_resistance = 0.05 * mass * 9.81;
   double drag_force = 0.5 * 1.225 * 1.2 * 1.0 * std::pow(state_->vx, 2);
 
   // Net force determines acceleration
@@ -51,8 +52,7 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   double acceleration = net_force / mass;
 
   // 4. Linear Integration of Velocity (v = v0 + a*dt)
-  state_->vx += acceleration * dt;
-  state_->vx = std::min(state_->vx, 33.3);  // Prevent negative velocity (no reverse logic)
+  state_->vx += acceleration * dt;  // Prevent negative velocity (no reverse logic)
 
   // Safety clamp: prevent negative velocity
   if (state_->vx < 0.0) state_->vx = 0.0;
@@ -61,15 +61,6 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   // motor_rpm in calculate_powertrain_torque relies on this
   double wheel_omega = state_->vx / wheel_radius;
 
-  static int log_count2 = 0;
-  if (log_count2 % 100 == 0) {
-    RCLCPP_INFO(rclcpp::get_logger("FSFEUP02Model"),
-                "Calculated Wheel Angular Velocity: %.2f rad/s", wheel_omega);
-    RCLCPP_INFO(rclcpp::get_logger("FSFEUP02Model"), "Calculated Wheel Speed: %.2f m/s",
-                state_->vx);
-    log_count2 = 0;
-  }
-  log_count2++;
   state_->wheels_speed.rear_left = wheel_omega;
   state_->wheels_speed.rear_right = wheel_omega;
   state_->wheels_speed.front_left = wheel_omega;
@@ -102,128 +93,38 @@ double FSFEUP02Model::get_battery_voltage() const { return battery_->get_voltage
 
 double FSFEUP02Model::get_battery_soc() const { return battery_->get_soc(); }
 
-/**
 double FSFEUP02Model::calculate_powertrain_torque(double throttle_input, double dt) {
-  // Calculate motor RPM from wheel speed and gear ratio
-  float avg_wheel_speed = (state_->wheels_speed.rear_left + state_->wheels_speed.rear_right) / 2.0f;
-  float wheel_angular_velocity = avg_wheel_speed /
-                                 simulator_parameters_->car_parameters.wheel_diameter * 2.0f *
-                                 M_PI;  // rad/s
-  float motor_omega = wheel_angular_velocity * simulator_parameters_->car_parameters.gear_ratio;
-  float motor_rpm = (motor_omega * 60.0f / (2.0f * M_PI));
-
-  // Get maximum torque available at this RPM
-  float max_motor_torque = motor_->get_max_torque_at_rpm(motor_rpm);
-
-  // Step 1: Torque Request and Mechanical Power
-  float requested_motor_torque = throttle_input * max_motor_torque;
-  float mechanical_power_req = requested_motor_torque * motor_omega;
-
-  // Step 2: Electrical Power Requirement
-  float efficiency = motor_->get_efficiency(requested_motor_torque, motor_rpm);
-  if (efficiency < 0.01f) {
-    efficiency = 0.01f;  // Avoid division by zero
-  }
-
-  float electrical_power_req = 0.0f;
-  if (mechanical_power_req >= 0.0f) {
-    // Motoring
-    electrical_power_req = mechanical_power_req / efficiency;
-  } else {
-    // Regenerative braking
-    electrical_power_req = mechanical_power_req * efficiency;
-  }
-
-  // Step 3 & 4: Battery Current and Power Calculation with Limits
-  // Battery model handles discriminant, all electrical limits (Imax, Vmin), and populates
-  // both the feasible current and actual electrical power available
-  float actual_current = 0.0f;
-  float electrical_power_avail = 0.0f;
-  std::tuple<float, float> battery_output =
-      battery_->calculate_current_for_power(electrical_power_req);
-
-  actual_current = std::get<0>(battery_output);
-  electrical_power_avail = std::get<1>(battery_output);
-
-  // Step 5: Available Torque Calculation
-  float actual_motor_torque = 0.0f;
-  float safe_omega = std::max(std::abs(motor_omega), 0.01f);
-  if (electrical_power_avail >= 0.0f) {
-    actual_motor_torque = (electrical_power_avail * efficiency) / safe_omega;
-  } else {
-    actual_motor_torque = (electrical_power_avail / efficiency) / safe_omega;
-  }
-  // Clamp to max torque
-  actual_motor_torque = std::clamp(actual_motor_torque, -max_motor_torque, max_motor_torque);
-
-  // Update battery and motor states
-  battery_->update_state(actual_current, dt);
-  motor_->update_state(actual_current, actual_motor_torque, dt);
-
-  return actual_motor_torque;
-}
-*/
-
-double FSFEUP02Model::calculate_powertrain_torque(double throttle_input, double dt) {
-  // Calculate motor RPM from current wheel speed
+  // 1. Estados Físicos Atualizados
   float avg_wheel_speed = (state_->wheels_speed.rear_left + state_->wheels_speed.rear_right) / 2.0f;
   float motor_omega = avg_wheel_speed * simulator_parameters_->car_parameters.gear_ratio;
-  float motor_rpm = (motor_omega * 60.0f / (2.0f * M_PI));
+  float motor_rpm = (motor_omega * 60.0f / (2.0f * static_cast<float>(M_PI)));
 
-  static int log_count = 0;
-  if (log_count % 100 == 0) {
-    RCLCPP_INFO(rclcpp::get_logger("FSFEUP02Model"), "Wheel Angular Velocity: %.2f rad/s",
-                avg_wheel_speed);
-
-    RCLCPP_INFO(rclcpp::get_logger("FSFEUP02Model"), "Motor RPM: %.2f", motor_rpm);
-    log_count = 0;
-  }
-  log_count++;
-
-  // Get maximum torque available at this RPM (Accounts for motor thermal state)
+  // 2. Torque de Referência (O máximo que o motor/piloto deseja)
   float max_motor_torque = motor_->get_max_torque_at_rpm(motor_rpm);
+  float reference_torque = static_cast<float>(throttle_input) * max_motor_torque;
 
-  // Step 1: Torque Request and Mechanical Power
-  float requested_motor_torque = (float)throttle_input * max_motor_torque;
-  float mechanical_power_req = requested_motor_torque * motor_omega;
+  // 3. Eficiência e Constante de Torque
+  float efficiency = motor_->get_efficiency(std::abs(reference_torque), motor_rpm);
+  float kt = simulator_parameters_->car_parameters.motor_parameters->kt_constant;
 
-  // Step 2: Electrical Power Requirement
-  float efficiency = motor_->get_efficiency(requested_motor_torque, motor_rpm);
+  // 4. Conversão para Corrente de Referência (I = T / (Kt * eff))
+  // Esta é a corrente necessária para atingir o torque do pedal.
+  float requested_current = std::abs(reference_torque) / (kt * std::max(efficiency, 0.05f));
 
-  float electrical_power_req = 0.0f;
-  if (mechanical_power_req >= 0.0f) {
-    electrical_power_req = mechanical_power_req / efficiency;
-  } else {
-    electrical_power_req = mechanical_power_req * efficiency;
-  }
+  // 5. O FILTRO DA BATERIA (calculate_allowed_current)
+  // Esta função deve retornar o MIN(requested_current, limite_80kW, limite_Vmin, limite_Hardware)
+  // Se a tensão cai, o limite_80kW sobe, mas o std::min selecionará o requested_current original.
+  float battery_current = battery_->calculate_allowed_current(requested_current);
 
-  // FSG 80kW Limit: Ensure request doesn't exceed competition rules [cite: 1229]
-  const float MAX_POWER_FSG = 80000.0f;
-  electrical_power_req = std::clamp(electrical_power_req, -MAX_POWER_FSG, MAX_POWER_FSG);
+  // 6. Torque Real Resultante (T = I_real * Kt * eff)
+  // Agora, se a tensão cair, a corrente NÃO sobe; ela fica travada no requested_current.
+  float actual_motor_torque = battery_current * kt * efficiency;
 
-  // Step 3 & 4: Battery Model solver
-  std::tuple<float, float> battery_output =
-      battery_->calculate_current_for_power(electrical_power_req);
+  // 7. Correção de Direção e Atualização
+  if (reference_torque < 0) actual_motor_torque *= -1.0f;
 
-  float actual_current = std::get<0>(battery_output);
-  float electrical_power_avail = std::get<1>(battery_output);
+  battery_->update_state(battery_current, dt);
+  motor_->update_state(battery_current, actual_motor_torque, dt);
 
-  // Step 5: Available Torque Calculation
-  // We use the ratio of power available to power requested to scale torque.
-  // At standstill, power_req is 0, so we assume 100% torque availability if current is allowed.
-  float power_scaling = 1.0f;
-  if (std::abs(electrical_power_req) > 1.0f) {
-    power_scaling = electrical_power_avail / electrical_power_req;
-  }
-
-  float actual_motor_torque = requested_motor_torque * power_scaling;
-
-  // Final physical clamp
-  actual_motor_torque = std::clamp(actual_motor_torque, -max_motor_torque, max_motor_torque);
-
-  // Update battery (SoC and V_RC) and motor (thermal state) [cite: 1618, 1626]
-  battery_->update_state(actual_current, dt);
-  motor_->update_state(actual_current, actual_motor_torque, dt);
-
-  return (double)actual_motor_torque;
+  return static_cast<double>(actual_motor_torque);
 }

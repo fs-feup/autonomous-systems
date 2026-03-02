@@ -2,41 +2,18 @@ motor:
   max_peak_rpm: 6500
   max_continuous_rpm: 5500
 
-  max_continuous_current: 160.0
-  max_peak_current: 340.0
-  peak_duration: 5.0   # seconds (datasheet says: "few seconds")
+  max_continous_current: 180.0   
+  max_peak_current: 360.0       
 
-  torque_speed_continuous:
-    0: 102
-    500: 102
-    1000: 102
-    1500: 102
-    2000: 102
-    2500: 102
-    3000: 102
-    3500: 102
-    4000: 102
-    4500: 102
-    5000: 102
-    5250: 97
-    5500: 92
+  max_continous_power: 64000.0  
+  max_peak_power: 124000.0      
 
-  torque_speed_peak:
-    0: 230
-    500: 230
-    1000: 230
-    1500: 230
-    2000: 230
-    2500: 230
-    3000: 230
-    3500: 230
-    4000: 215
-    4500: 200
-    5000: 185
-    5500: 170
-    6000: 150
-    6500: 130
+  max_continous_torque: 112.0
+  max_peak_torque: 220.0
 
+  kt_constant: 0.7     # Nm / A  Used to convert current to torque (and vice versa) (slighly lower than datasheet as the motor is used with less voltage)
+  peak_duration: 120.0   # seconds 
+  
   efficiency_map:
     500:
       10: 0.87

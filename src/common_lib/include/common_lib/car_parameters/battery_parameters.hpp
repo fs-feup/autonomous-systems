@@ -11,9 +11,9 @@ struct BatteryParameters {
   int cells_series;
   int cells_parallel;
   float capacity_ah;
+  float initial_soc;
   float max_discharge_current;
   float max_charge_current;
-  float max_voltage;
   float min_voltage;
   float min_soc;
 

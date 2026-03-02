@@ -1,45 +1,38 @@
 #include "motion_lib/battery_model/thevenin.hpp"
 
 Thevenin::Thevenin(const common_lib::car_parameters::CarParameters& car_parameters)
-    : BatteryModel(car_parameters), soc_(0.88f), v_rc_(0.0f), current_(0.0f) {}
+    : BatteryModel(car_parameters),
+      soc_(car_parameters.battery_parameters->initial_soc),
+      v_rc_(0.0f),
+      current_(0.0f) {}
 
-std::tuple<float, float> Thevenin::calculate_current_for_power(float electrical_power_req) const {
+float Thevenin::calculate_allowed_current(float requested_current) const {
   float ocv_cell = get_cell_ocv(soc_);
   float r0_cell = get_cell_r0(soc_);
 
+  // Calculate pack-level parameters
   float ocv_eff_pack = (ocv_cell - v_rc_) * this->car_parameters_->battery_parameters->cells_series;
   float r0_pack =
       r0_cell * (static_cast<float>(this->car_parameters_->battery_parameters->cells_series) /
                  this->car_parameters_->battery_parameters->cells_parallel);
 
-  float discriminant = std::pow(ocv_eff_pack, 2) - 4.0f * r0_pack * electrical_power_req;
+  // FSG rules 80kW limit
+  float disc_p = std::pow(ocv_eff_pack, 2) - 4.0f * r0_pack * 80000.0f;
+  float i_limit_80kw = (disc_p < 0.0f) ? (ocv_eff_pack / (2.0f * r0_pack))
+                                       : ((ocv_eff_pack - std::sqrt(disc_p)) / (2.0f * r0_pack));
 
-  float calculated_current;
-  if (discriminant < 0.0f) {
-    calculated_current = ocv_eff_pack / (2.0f * r0_pack);
+  // Minimum voltage limit
+  float i_limit_v_min =
+      (ocv_eff_pack - this->car_parameters_->battery_parameters->min_voltage) / r0_pack;
 
-    // LOG 1: Debugging why the power request failed
-    RCLCPP_WARN(rclcpp::get_logger("Thevenin"),
-                "LIMIT HIT: Req %0.2f W | Max Avail %0.2f W | SoC: %0.2f | OCV_eff_pack: %0.2f V | "
-                "R0_pack: %0.4f Ohm",
-                electrical_power_req, (std::pow(ocv_eff_pack, 2) / (4.0f * r0_pack)), soc_,
-                ocv_eff_pack, r0_pack);
-  } else {
-    calculated_current = (ocv_eff_pack - std::sqrt(discriminant)) / (2.0f * r0_pack);
-  }
+  // Maximum discharge current
+  float i_limit_hardware = this->car_parameters_->battery_parameters->max_discharge_current;
 
-  calculated_current = std::min(calculated_current,
-                                this->car_parameters_->battery_parameters->max_discharge_current);
+  // Calculate the maximum allowed current based on all limits
+  float max_allowed = std::min({i_limit_80kw, i_limit_v_min, i_limit_hardware});
 
-  float terminal_voltage = ocv_eff_pack - (calculated_current * r0_pack);
-
-  if (terminal_voltage < this->car_parameters_->battery_parameters->min_voltage) {
-    calculated_current =
-        (ocv_eff_pack - this->car_parameters_->battery_parameters->min_voltage) / r0_pack;
-    terminal_voltage = this->car_parameters_->battery_parameters->min_voltage;
-  }
-
-  return std::make_tuple(calculated_current, terminal_voltage * calculated_current);
+  // Return the minimum of the requested current and the maximum allowed current
+  return std::min(requested_current, max_allowed);
 }
 
 float Thevenin::get_current() const { return current_; }
@@ -48,37 +41,29 @@ float Thevenin::get_voltage() const {
   float ocv_cell = get_cell_ocv(soc_);
   float r0_cell = get_cell_r0(soc_);
 
-  // 1. Scale cell parameters to full pack level
+  // Calculate pack-level parameters
   float pack_ocv = ocv_cell * this->car_parameters_->battery_parameters->cells_series;
   float pack_v_rc = v_rc_ * this->car_parameters_->battery_parameters->cells_series;
-
-  // Resistance Scaling: (R_cell * N_series) / N_parallel
   float pack_r0 =
       r0_cell * (static_cast<float>(this->car_parameters_->battery_parameters->cells_series) /
                  this->car_parameters_->battery_parameters->cells_parallel);
 
-  // 2. Terminal Voltage = Pack_OCV - (Pack_Current * Pack_R0) - Pack_V_RC
-  // current_ is the total pack current (e.g., 175A)
+  // Terminal Voltage = Pack_OCV - (Pack_Current * Pack_R0) - Pack_V_RC
   return pack_ocv - (current_ * pack_r0) - pack_v_rc;
 }
 
 float Thevenin::get_voltage(float current_draw) const {
-  // Get individual cell parameters based on current SoC
   float ocv_cell = get_cell_ocv(soc_);
   float r0_cell = get_cell_r0(soc_);
 
-  // 1. Scale cell parameters to full pack level
-  // OCV and V_rc are additive in series
+  // Calculate pack-level parameters
   float pack_ocv = ocv_cell * this->car_parameters_->battery_parameters->cells_series;
   float pack_v_rc = v_rc_ * this->car_parameters_->battery_parameters->cells_series;
-
-  // 2. Scale Resistance: (R_cell * N_series) / N_parallel
   float pack_r0 =
       r0_cell * (static_cast<float>(this->car_parameters_->battery_parameters->cells_series) /
                  this->car_parameters_->battery_parameters->cells_parallel);
 
-  // 3. Terminal Voltage = Pack_OCV - (current_draw * Pack_R0) - Pack_V_RC
-  // current_draw is the total pack current provided as an argument
+  // Terminal Voltage = Pack_OCV - (Current_Request * Pack_R0) - Pack_V_RC
   return pack_ocv - (current_draw * pack_r0) - pack_v_rc;
 }
 
@@ -94,8 +79,6 @@ void Thevenin::update_state(float current_draw, float dt) {
   // Update Polarization Voltage (V_rc)
   float r1 = get_cell_r1(soc_);
   float c1 = get_cell_c1(soc_);
-  float r0 = get_cell_r0(soc_);    // Get R0 for logging
-  float ocv = get_cell_ocv(soc_);  // Get OCV for logging
 
   float tau = std::max(r1 * c1, 1e-6f);
   float i_cell =
@@ -159,7 +142,7 @@ float Thevenin::get_cell_c1(float soc) const {
 
 // Reset battery state
 void Thevenin::reset() {
-  soc_ = 1.0f;
+  soc_ = car_parameters_->battery_parameters->initial_soc;
   current_ = 0.0f;
   v_rc_ = 0.0f;
 }

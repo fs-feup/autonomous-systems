@@ -15,13 +15,11 @@ public:
             std::make_shared<common_lib::car_parameters::CarParameters>(car_parameters)) {}
 
   /**
-   * @brief Calculate current and available power for given electrical power request
-   *
-   * @param electrical_power_req Requested electrical power (W)
-   * @return std::tuple<float, float> Feasible current (A) and available electrical power (W)
+   * @brief Calculate the maximum allowed current based on battery state and limits
+   * @param current_request Current being requested (A)
+   * @return Allowed current (A)
    */
-  virtual std::tuple<float, float> calculate_current_for_power(
-      float electrical_power_req) const = 0;
+  virtual float calculate_allowed_current(float current_request) const = 0;
 
   /**
    * @brief Get current being drawn from the battery

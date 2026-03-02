@@ -8,16 +8,18 @@ namespace common_lib::car_parameters {
 struct MotorParameters {
   float max_peak_rpm;            // Maximum rotational peak speed (RPM)
   float max_continuous_rpm;      // Maximum continuous rotational speed (RPM)
-  float max_continuous_current;  // Continuous current limit (A)
-  float max_peak_current;        // Peak current limit (A)
+  float max_peak_current;        // Maximum peak current (A)
+  float max_continuous_current;  // Maximum continuous current (A)
+  float max_continuous_power;    // Maximum continuous power (W)
+  float max_peak_power;          // Maximum peak power (W)
+  float max_continous_torque;    // Maximum continuous torque (Nm)
+  float max_peak_torque;         // Maximum peak torque (Nm)
+  float kt_constant;             // Torque constant (Nm/A)
   float peak_duration;           // Time allowed at peak power (s)
 
   // Efficiency map (2D: RPM x Torque -> Efficiency)
   // Outer key = RPM, inner key = Torque, value = Efficiency
   std::map<float, std::map<float, float>> efficiency_map;
-
-  std::map<float, float> torque_speed_continuous;  // RPM -> Max continuous torque (Nm)
-  std::map<float, float> torque_speed_peak;        // RPM -> Max peak torque (Nm)
 
   MotorParameters(const std::string& config_path);
 };

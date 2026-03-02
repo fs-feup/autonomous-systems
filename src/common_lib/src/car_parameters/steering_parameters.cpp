@@ -7,9 +7,11 @@ SteeringParameters::SteeringParameters(const std::string& config_name) {
       "common_lib", "car/steering_model", config_name);
   YAML::Node config = YAML::LoadFile(config_path);
   config = config["steering"];
-  if (config["minimum_steering_angle"])
+  if (config["minimum_steering_angle"]) {
     minimum_steering_angle = config["minimum_steering_angle"].as<double>();
-  if (config["maximum_steering_angle"])
+  }
+  if (config["maximum_steering_angle"]) {
     maximum_steering_angle = config["maximum_steering_angle"].as<double>();
+  }
 }
 }  // namespace common_lib::car_parameters

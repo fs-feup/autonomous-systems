@@ -7,8 +7,14 @@ SteeringMotorParameters::SteeringMotorParameters(const std::string& config_name)
       "common_lib", "car/steering_motor_model", config_name);
   YAML::Node config = YAML::LoadFile(config_path);
   config = config["steering_motor"];
-  if (config["kp"]) kp = config["kp"].as<double>();
-  if (config["ki"]) ki = config["ki"].as<double>();
-  if (config["kd"]) kd = config["kd"].as<double>();
+  if (config["kp"]) {
+    kp = config["kp"].as<double>();
+  }
+  if (config["ki"]) {
+    ki = config["ki"].as<double>();
+  }
+  if (config["kd"]) {
+    kd = config["kd"].as<double>();
+  }
 }
 }  // namespace common_lib::car_parameters

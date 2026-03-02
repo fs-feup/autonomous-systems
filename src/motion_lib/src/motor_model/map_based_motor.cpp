@@ -46,19 +46,30 @@ float MapBasedMotor::get_efficiency(float torque, float rpm) const {
 }
 
 float MapBasedMotor::get_max_torque_at_rpm(float rpm) const {
-  // Determine max torque based on thermal state
   float thermal_ratio = thermal_state_ / thermal_capacity_;
 
-  // Interpolate between peak and continuous torque curves
-  float max_torque_continuous =
-      interpolate_from_map(car_parameters_->motor_parameters->torque_speed_continuous, rpm);
-  float max_torque_peak =
-      interpolate_from_map(car_parameters_->motor_parameters->torque_speed_peak, rpm);
+  // Calculate limits based on current state
+  // Torque: 230Nm -> 102Nm | Power: 120kW -> 60kW | RPM: 6500 -> 5500
+  float current_max_t = car_parameters_->motor_parameters->max_peak_torque -
+                        (thermal_ratio * (car_parameters_->motor_parameters->max_peak_torque -
+                                          car_parameters_->motor_parameters->max_continous_torque));
 
-  // As thermal state increases, available torque decreases from peak to continuous
-  float max_torque = max_torque_peak - thermal_ratio * (max_torque_peak - max_torque_continuous);
+  float current_max_p = car_parameters_->motor_parameters->max_peak_power -
+                        (thermal_ratio * (car_parameters_->motor_parameters->max_peak_power -
+                                          car_parameters_->motor_parameters->max_continuous_power));
 
-  return std::max(0.0f, max_torque);
+  float current_max_rpm = car_parameters_->motor_parameters->max_peak_rpm -
+                          (thermal_ratio * (car_parameters_->motor_parameters->max_peak_rpm -
+                                            car_parameters_->motor_parameters->max_continuous_rpm));
+
+  if (rpm < 0.1f) {
+    return current_max_t;  // Max torque at standstill, no power limit
+  }
+
+  // Calculate max torque based on power limit
+  float omega = (rpm * 2.0f * static_cast<float>(M_PI)) / 60.0f;
+  float power_limited_torque = current_max_p / omega;
+  return std::min(current_max_t, power_limited_torque);
 }
 
 void MapBasedMotor::update_state(float current_draw, float torque, float dt) {

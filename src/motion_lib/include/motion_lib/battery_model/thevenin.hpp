@@ -9,7 +9,7 @@ class Thevenin : public BatteryModel {
 public:
   explicit Thevenin(const common_lib::car_parameters::CarParameters& car_parameters);
 
-  std::tuple<float, float> calculate_current_for_power(float electrical_power_req) const override;
+  float calculate_allowed_current(float current_draw) const override;
 
   float get_current() const override;
 

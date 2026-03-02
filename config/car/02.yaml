@@ -4,7 +4,7 @@ car:
   wheel_diameter: 0.406
   sprung_mass: 214
   unsprung_mass: 28
-  total_mass: 300
+  total_mass: 242
   sprung_cg_y: 0.726
   sprung_cg_z: 0.245
   unsprung_cg_y: 0.765
