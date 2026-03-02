@@ -98,11 +98,13 @@ private:
    * @param yaw_rate Yaw rate
    * @param wheel_angular_speed Angular speed at the wheel
    * @param steering_angle Steering angle
+   * @param distance_to_CG Distance from the wheel to the center of gravity
+   * @param camber_angle Camber angle
    * @return true Successful calculation of internal values
    */
   bool calculateTireState(float slip_angle, float slip_ratio, double vertical_load, double vx,
                           double vy, double yaw_rate, double wheel_angular_speed,
-                          double steering_angle);
+                          double steering_angle, double distance_to_CG, double camber_angle);
 
   /**
    * @brief Calculates the D parameter for the Fy calculation using pacejka MF (Peak)
@@ -196,7 +198,7 @@ private:
 
   float calculateZeta3() const;
 
-  float calculateSHyp() const;
+  float calculateSHyp(double camber_angle) const;
 
   float calculateSVyk(double vertical_load, double slip_ratio) const;
   /**

@@ -31,6 +31,6 @@ InvictaSimParameters::InvictaSimParameters() {
   differential_model =
       vehicle_model_config["vehicle_model"]["differential_model"].as<std::string>();
 
-  car_parameters =
-      common_lib::car_parameters::CarParameters("invictasim/vehicle_models", vehicle_model);
+  car_parameters = std::make_shared<common_lib::car_parameters::CarParameters>(
+      "invictasim/vehicle_models", vehicle_model);
 }

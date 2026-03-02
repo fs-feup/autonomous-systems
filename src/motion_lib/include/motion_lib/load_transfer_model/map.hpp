@@ -13,17 +13,17 @@
  */
 const std::map<std::string,
                std::function<std::shared_ptr<LoadTransferModel>(
-                   const common_lib::car_parameters::CarParameters&)>,
+                   const std::shared_ptr<common_lib::car_parameters::CarParameters>)>,
                std::less<>>
     load_transfer_models_map = {
         {"rigid_body",
-         [](const common_lib::car_parameters::CarParameters& params)
+         [](const std::shared_ptr<common_lib::car_parameters::CarParameters> params)
              -> std::shared_ptr<LoadTransferModel> {
-           return std::make_shared<RigidBodyLoadTransferModel>(params);
+           return std::make_shared<RigidBodyLoadTransferModel>(*params);
          }},
         {"vd_model",
-         [](const common_lib::car_parameters::CarParameters& params)
+         [](const std::shared_ptr<common_lib::car_parameters::CarParameters> params)
              -> std::shared_ptr<LoadTransferModel> {
-           return std::make_shared<VDLoadTransferModel>(params);
+           return std::make_shared<VDLoadTransferModel>(*params);
          }},
 };

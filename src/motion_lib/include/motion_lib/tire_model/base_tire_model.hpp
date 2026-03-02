@@ -1,11 +1,16 @@
 #pragma once
 
-#include "common_lib/car_parameters/car_parameters.hpp"
-
 #include <Eigen/Dense>
 
+#include "common_lib/car_parameters/car_parameters.hpp"
+
 // Same approach as the one used in load transfer
-struct TireInput{
+/**
+ * @brief expandable struct used as input to the tire model: vx, vy, wheel_angular_speed, yaw_rate,
+ * steering_angle, slip_angle, slip_ratio, vertical_load, distance_to_CG , camber_angle.
+ *
+ */
+struct TireInput {
   double vx;
   double vy;
   double wheel_angular_speed;
@@ -14,8 +19,9 @@ struct TireInput{
   double slip_angle;
   double slip_ratio;
   double vertical_load;
+  double distance_to_CG;
+  double camber_angle;
 };
-
 
 /**
  * @brief Class used to model tires. Currently used to model tire forces based on slip.
@@ -36,5 +42,5 @@ public:
    * @param tire_input The input parameters for all possible tire models
    * @return Eigen::Vector3d The resulting forces in the tire (Fx, Fy, Mz)
    */
-  virtual Eigen::Vector3d tire_forces(const TireInput& tire_input)  = 0;
+  virtual Eigen::Vector3d tire_forces(const TireInput& tire_input) = 0;
 };

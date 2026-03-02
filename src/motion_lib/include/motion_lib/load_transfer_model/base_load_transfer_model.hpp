@@ -11,9 +11,9 @@
  *
  */
 struct LoadTransferInput {
-  float longitudinal_acceleration;
-  float lateral_acceleration;
-  float downforce;
+  double longitudinal_acceleration;
+  double lateral_acceleration;
+  double downforce;
 };
 
 /**
@@ -21,10 +21,10 @@ struct LoadTransferInput {
  *
  */
 struct LoadTransferOutput {
-  float front_left_load;
-  float front_right_load;
-  float rear_left_load;
-  float rear_right_load;
+  double front_left_load;
+  double front_right_load;
+  double rear_left_load;
+  double rear_right_load;
 };
 
 /**

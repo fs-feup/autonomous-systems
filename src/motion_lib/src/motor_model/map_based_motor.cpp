@@ -62,13 +62,20 @@ float MapBasedMotor::get_max_torque_at_rpm(float rpm) const {
                           (thermal_ratio * (car_parameters_->motor_parameters->max_peak_rpm -
                                             car_parameters_->motor_parameters->max_continuous_rpm));
 
-  if (rpm < 0.1f) {
-    return current_max_t;  // Max torque at standstill, no power limit
+  if (rpm >= current_max_rpm) {
+    return 0.0f;  // Should not happen due to 1/x decay, but just in case
   }
 
-  // Calculate max torque based on power limit
+  if (rpm < 0.1f) {
+    return current_max_t;
+  }
+
   float omega = (rpm * 2.0f * static_cast<float>(M_PI)) / 60.0f;
-  float power_limited_torque = current_max_p / omega;
+
+  // 1/x decay logic to the limits as we approach max RPM
+  float proximity_to_limit = 1.0f - (rpm / current_max_rpm);
+  float power_limited_torque = (current_max_p / omega) * proximity_to_limit;
+
   return std::min(current_max_t, power_limited_torque);
 }
 

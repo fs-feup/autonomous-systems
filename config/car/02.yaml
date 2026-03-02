@@ -13,3 +13,4 @@ car:
   cg_2_rear_axis: 0.706
   gear_ratio: 3.67
   Izz: 101.082
+  ackerman_factor: 1.0 # Temporary value that assumes perfect Ackerman geometry

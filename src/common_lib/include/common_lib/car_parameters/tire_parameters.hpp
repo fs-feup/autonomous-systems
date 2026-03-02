@@ -20,7 +20,11 @@ struct TireParameters {
   // Additional fields
   double camber_scaling_factor;
   double effective_tire_r;
-  double distance_to_CG;
+  double fr_toe;
+  double fl_toe;
+  double rr_toe;
+  double rl_toe;
+  double wheel_inertia;
 
   // Distances
   double d_bright;
@@ -29,7 +33,10 @@ struct TireParameters {
   double d_fleft;
 
   // Camber
-  double camber_angle;
+  double fr_camber;
+  double fl_camber;
+  double rr_camber;
+  double rl_camber;
 
   // Dimension
   double UNLOADED_RADIUS;

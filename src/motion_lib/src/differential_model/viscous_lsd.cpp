@@ -3,6 +3,7 @@
 // Viscous limited slip differential model implementation
 common_lib::structures::Wheels ViscousLSD::calculateTorqueDistribution(
     float input_torque, const common_lib::structures::Wheels& wheel_speeds) const {
+
   float delta_omega = wheel_speeds.rear_left - wheel_speeds.rear_right;
   float delta_tau = car_parameters_->differential_parameters->kv * delta_omega;
 
