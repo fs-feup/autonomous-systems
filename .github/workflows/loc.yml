@@ -1,0 +1,33 @@
+name: Lines of Code
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  cloc:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install cloc
+        run: sudo apt-get install -y cloc
+
+      - name: Count lines of code
+        run: |
+          echo "# Lines of Code" > docs/loc.md
+          echo "" >> docs/loc.md
+          echo "Generated with [cloc](https://github.com/AlDanial/cloc)." >> docs/loc.md
+          echo "" >> docs/loc.md
+          cloc . --exclude-dir=ext,build,install,log,.git --md >> docs/loc.md
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/loc.md
+          git diff --cached --quiet || (git pull --rebase && git commit -m "docs: update lines of code report [skip ci]" && git push)
