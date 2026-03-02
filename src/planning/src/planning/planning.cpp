@@ -309,9 +309,7 @@ void Planning::run_autocross() {
   if (lap_counter_ >= 1) {
     if (!is_map_closed_) {
       is_map_closed_ = true;
-      full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
-      smoothed_path_ = path_smoothing_.smooth_path(full_path_);
-      velocity_planning_.set_velocity(smoothed_path_);
+      run_full_map();
     }
     velocity_planning_.stop(smoothed_path_, planning_config_.braking_distance_autocross_);
   }
