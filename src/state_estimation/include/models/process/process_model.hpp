@@ -2,8 +2,10 @@
 
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
+#include <memory>
 
 #include "common_lib/structures/control_command.hpp"
+#include "utils/parameters.hpp"
 #include "utils/state_define.hpp"
 
 /**

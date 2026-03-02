@@ -9,6 +9,8 @@ class ObservationModelPacsim : public ObservationModel {
   double last_steering_angle_ = 0.0;
 
 public:
+  ObservationModelPacsim(const std::shared_ptr<SEParameters>& parameters)
+      : ObservationModel(parameters) {}
   /**
    * @brief Transforms the state of the vehicle into the Pacsim's sensor observation space.
    * @param state The state of the vehicle.
@@ -23,6 +25,7 @@ public:
 
   void update_imu_data(const common_lib::sensor_data::ImuData& imu_data) override;
   void update_wss_data(const common_lib::sensor_data::WheelEncoderData& wss_data) override;
+  void update_motor_rpm(double /*motor_rpm*/) override {}
   void update_steering_angle(double steering_angle) override;
 
   Eigen::VectorXd get_last_observations() const override;

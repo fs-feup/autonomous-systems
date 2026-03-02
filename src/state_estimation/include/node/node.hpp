@@ -2,7 +2,6 @@
 
 #include <std_msgs/msg/float64.hpp>
 
-#include "config/parameters.hpp"
 #include "custom_interfaces/msg/vehicle_state_vector.hpp"
 #include "estimators/map.hpp"
 #include "rclcpp/rclcpp.hpp"
