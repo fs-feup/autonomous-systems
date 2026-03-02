@@ -263,7 +263,6 @@ var hierarchy =
     [ "SensorBase< Wheels >", "dd/dc4/class_sensor_base.html", [
       [ "WheelsSensor", "dc/df1/class_wheels_sensor.html", null ]
     ] ],
-    [ "SimulationConfig", "d3/db0/struct_simulation_config.html", null ],
     [ "Skidpad", "de/d3f/class_skidpad.html", null ],
     [ "SkidpadConfig", "d2/de2/struct_skidpad_config.html", null ],
     [ "SLAMObservationModel", "d1/d99/class_s_l_a_m_observation_model.html", null ],

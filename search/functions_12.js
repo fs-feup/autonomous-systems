@@ -38,12 +38,13 @@ var searchData=
   ['rpm_5fto_5fvelocity_35',['rpm_to_velocity',['../d4/d89/class_inspection_functions.html#a6ca9c7bc559802b2fbd3beffe2197331',1,'InspectionFunctions']]],
   ['rulescheck_36',['rulesCheck',['../d7/d8e/classmain_1_1_ui___main_window.html#ac24eb2301da28bf04bd60ad5f973cf1e',1,'main::Ui_MainWindow']]],
   ['run_37',['run',['../d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a11c9f626817b57fded33d1ee21067c71',1,'car_keys.main.PublishThread.run()'],['../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#ae599e3ea3a0c8a3667cadaf57db93683',1,'pacsim_keys.main.PublishThread.run()']]],
-  ['run_5fautocross_38',['run_autocross',['../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6',1,'Planning']]],
-  ['run_5febs_5ftest_39',['run_ebs_test',['../d9/db5/class_planning.html#ab1d989a47e1266f2522638828ade3271',1,'Planning']]],
+  ['run_5facceleration_38',['run_acceleration',['../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122',1,'Planning']]],
+  ['run_5fautocross_39',['run_autocross',['../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6',1,'Planning']]],
   ['run_5fexecution_40',['run_execution',['../df/d4f/class_performance_test.html#af58301202c5b289df26dcfde2ed1234b',1,'PerformanceTest']]],
-  ['run_5fnodes_41',['run_nodes',['../d7/d4e/class_integration_test.html#af3ec5dd4e401c7da17219482afa4de66',1,'IntegrationTest']]],
-  ['run_5fplanning_5falgorithms_42',['run_planning_algorithms',['../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025',1,'Planning']]],
-  ['run_5ftrackdrive_43',['run_trackdrive',['../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb',1,'Planning']]],
-  ['runtest_44',['runTest',['../de/de3/class_perception_integration_test.html#a2696d6998332fde00560c384debaf7b2',1,'PerceptionIntegrationTest']]],
-  ['runtick_45',['runtick',['../dc/df1/class_wheels_sensor.html#a9cec12bf7c3d78e42d353fa4033924f4',1,'WheelsSensor::RunTick()'],['../df/d7c/class_scalar_value_sensor.html#a068d4fb0a4b9c5914965c10ad64961d8',1,'ScalarValueSensor::RunTick()'],['../d0/d8a/class_perception_sensor.html#aa594d99f787701400f4fb1673a7f242f',1,'PerceptionSensor::RunTick()'],['../d6/d71/class_imu_sensor.html#a6d99ad5db9b62735fc19202824ae6706',1,'ImuSensor::RunTick()'],['../d9/df9/class_gnss_sensor.html#af33773e019dc8100295bdc82b43c0dbe',1,'GnssSensor::RunTick()']]]
+  ['run_5ffull_5fmap_41',['run_full_map',['../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c',1,'Planning']]],
+  ['run_5fnodes_42',['run_nodes',['../d7/d4e/class_integration_test.html#af3ec5dd4e401c7da17219482afa4de66',1,'IntegrationTest']]],
+  ['run_5fplanning_5falgorithms_43',['run_planning_algorithms',['../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025',1,'Planning']]],
+  ['run_5ftrackdrive_44',['run_trackdrive',['../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb',1,'Planning']]],
+  ['runtest_45',['runTest',['../de/de3/class_perception_integration_test.html#a2696d6998332fde00560c384debaf7b2',1,'PerceptionIntegrationTest']]],
+  ['runtick_46',['runtick',['../dc/df1/class_wheels_sensor.html#a9cec12bf7c3d78e42d353fa4033924f4',1,'WheelsSensor::RunTick()'],['../df/d7c/class_scalar_value_sensor.html#a068d4fb0a4b9c5914965c10ad64961d8',1,'ScalarValueSensor::RunTick()'],['../d0/d8a/class_perception_sensor.html#aa594d99f787701400f4fb1673a7f242f',1,'PerceptionSensor::RunTick()'],['../d6/d71/class_imu_sensor.html#a6d99ad5db9b62735fc19202824ae6706',1,'ImuSensor::RunTick()'],['../d9/df9/class_gnss_sensor.html#af33773e019dc8100295bdc82b43c0dbe',1,'GnssSensor::RunTick()']]]
 ];

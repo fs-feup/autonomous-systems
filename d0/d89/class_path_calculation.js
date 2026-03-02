@@ -12,11 +12,11 @@ var class_path_calculation =
     [ "find_best_loop_closure", "d0/d89/class_path_calculation.html#ab7648ed321c4e8adcde0d11f552f486d", null ],
     [ "find_best_next_midpoint", "d0/d89/class_path_calculation.html#aa57adbaba88d90c8f96909fb8dbf14d0", null ],
     [ "find_nearest_midpoint", "d0/d89/class_path_calculation.html#a7f11a4bdef8eb9fdfd88d808dca1b90f", null ],
-    [ "get_blue_cones", "d0/d89/class_path_calculation.html#a27da78d255e0dae346f0394b6a44f279", null ],
+    [ "get_blue_cones", "d0/d89/class_path_calculation.html#aa1ae8351b080274be0b11e1b4dde5b6d", null ],
     [ "get_path_points_from_colorpoints", "d0/d89/class_path_calculation.html#af87bf849e6229c74e758cd7fa4abf78d", null ],
     [ "get_path_to_car", "d0/d89/class_path_calculation.html#a32c98016b89039232744c40ae3be80c0", null ],
     [ "get_triangulations", "d0/d89/class_path_calculation.html#aa54b9c35626f48a0f3addbc23788726b", null ],
-    [ "get_yellow_cones", "d0/d89/class_path_calculation.html#a8e60c47e2d898ebffa9dfc739874595c", null ],
+    [ "get_yellow_cones", "d0/d89/class_path_calculation.html#a1edf23cdf03089bb4ff082c2ae09d5ce", null ],
     [ "initialize_path_from_initial_pose", "d0/d89/class_path_calculation.html#a52cbb5e2cf46ba4e6716928b2d5b5ed9", null ],
     [ "invalidate_midpoints_with_discarded_cones", "d0/d89/class_path_calculation.html#a9e106e011f8ed4cc1ac53256f2b480fd", null ],
     [ "remove_invalid_neighbors", "d0/d89/class_path_calculation.html#a57f0e530d67994fbc285a64da41f7ecb", null ],
@@ -25,7 +25,7 @@ var class_path_calculation =
     [ "select_starting_midpoints", "d0/d89/class_path_calculation.html#a11ab63e74a5f2de45bc8147b720c5882", null ],
     [ "set_vehicle_pose", "d0/d89/class_path_calculation.html#aed93cb437cf28eb7cd0a540894f35443", null ],
     [ "update_path_from_past_path", "d0/d89/class_path_calculation.html#a9c6027b6e5239454d50c785c16f2c1cb", null ],
-    [ "blue_cones_", "d0/d89/class_path_calculation.html#a848a1a8d5403e872c55e1e8b9acfee8d", null ],
+    [ "blue_cones_", "d0/d89/class_path_calculation.html#aa4ae32cb8511554340941245232059fd", null ],
     [ "config_", "d0/d89/class_path_calculation.html#aff7767cb277018ac9f9776ba266d3f11", null ],
     [ "current_path_", "d0/d89/class_path_calculation.html#ad80aea36271ba3121c716d9a8f5327ef", null ],
     [ "discarded_cones_", "d0/d89/class_path_calculation.html#a5f04211aaa1e525b897e872bf189fb69", null ],
@@ -39,5 +39,5 @@ var class_path_calculation =
     [ "reset_path_counter_", "d0/d89/class_path_calculation.html#a3720ed15b23d8d9b3db877e00a8e5666", null ],
     [ "vehicle_pose_", "d0/d89/class_path_calculation.html#a330c87980bec1396f7739feebc38bd69", null ],
     [ "visited_midpoints_", "d0/d89/class_path_calculation.html#a2e7e9a001dc422f17056be8d0fc9505e", null ],
-    [ "yellow_cones_", "d0/d89/class_path_calculation.html#a58a5a319e7e141941bd3ff1f997a2dd7", null ]
+    [ "yellow_cones_", "d0/d89/class_path_calculation.html#a6c629370ef9bd729780c152195f47b76", null ]
 ];

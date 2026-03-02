@@ -1,0 +1,12 @@
+<map id="Colorpoint::extract_cones" name="Colorpoint::extract_cones">
+<area shape="rect" id="Node000001" title="Extracts and classifies all cones from a sequence of colorpoints." alt="" coords="5,27,130,68"/>
+<area shape="rect" id="Node000002" href="$d4/d10/class_colorpoint.html#ad634039f0827fe37f51d7c88a9ff992d" title="Classifies the cones of a single colorpoint using the direction to the next point." alt="" coords="367,5,522,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="130,40,351,23,352,28,130,45"/>
+<area shape="rect" id="Node000004" href="$d4/d10/class_colorpoint.html#abe58ed7c2cb67e927f9f6f497f246e10" title="Classifies the cones of the last colorpoint using a shared cone from the previous one." alt="" coords="178,55,319,96"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="131,55,162,59,162,65,130,60"/>
+<area shape="rect" id="Node000003" href="$d4/d10/class_colorpoint.html#a2e063a4d547de066e3e854b029e09e75" title="Assigns colors to a cone pair and appends them to the output vectors." alt="" coords="570,27,712,68"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="523,27,555,32,555,37,522,32"/>
+<area shape="rect" id="Node000005" href="$d4/d10/class_colorpoint.html#a34d5b6a35e1636f78c28b8af30603cb9" title="Classifies a cone pair using a reference cone whose color is already known." alt="" coords="371,55,519,96"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="320,73,355,73,355,78,320,78"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="519,62,555,57,556,62,520,68"/>
+</map>

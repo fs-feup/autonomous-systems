@@ -1,9 +1,9 @@
 <map id="FsdsAdapter" name="FsdsAdapter">
-<area shape="rect" id="Node000001" title=" " alt="" coords="91,721,307,1041"/>
-<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="5,323,189,469"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,483,168,721,163,722,113,484"/>
-<area shape="rect" id="Node000003" href="$d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="214,119,386,673"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="242,689,235,722,229,721,236,688"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="91,741,307,1061"/>
+<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="5,333,189,479"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,493,169,741,163,742,112,494"/>
+<area shape="rect" id="Node000003" href="$d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="214,119,386,693"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="241,708,234,742,229,741,236,707"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="257,5,343,71"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="303,85,303,119,297,119,297,85"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="303,86,303,119,297,119,297,86"/>
 </map>

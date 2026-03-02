@@ -317,7 +317,6 @@ var annotated_dup =
     [ "SecondPoseInputTrait", "da/df3/class_second_pose_input_trait.html", "da/df3/class_second_pose_input_trait" ],
     [ "SENode", "d4/d43/class_s_e_node.html", "d4/d43/class_s_e_node" ],
     [ "SensorBase", "dd/dc4/class_sensor_base.html", "dd/dc4/class_sensor_base" ],
-    [ "SimulationConfig", "d3/db0/struct_simulation_config.html", "d3/db0/struct_simulation_config" ],
     [ "Skidpad", "de/d3f/class_skidpad.html", "de/d3f/class_skidpad" ],
     [ "SkidpadConfig", "d2/de2/struct_skidpad_config.html", "d2/de2/struct_skidpad_config" ],
     [ "SkidpadTrimming", "d6/df3/class_skidpad_trimming.html", "d6/df3/class_skidpad_trimming" ],

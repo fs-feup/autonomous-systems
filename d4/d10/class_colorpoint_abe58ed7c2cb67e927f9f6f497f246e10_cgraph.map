@@ -1,0 +1,7 @@
+<map id="Colorpoint::color_last_point" name="Colorpoint::color_last_point">
+<area shape="rect" id="Node000001" title="Classifies the cones of the last colorpoint using a shared cone from the previous one." alt="" coords="5,5,147,46"/>
+<area shape="rect" id="Node000002" href="$d4/d10/class_colorpoint.html#a34d5b6a35e1636f78c28b8af30603cb9" title="Classifies a cone pair using a reference cone whose color is already known." alt="" coords="195,5,343,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="147,23,179,23,179,28,147,28"/>
+<area shape="rect" id="Node000003" href="$d4/d10/class_colorpoint.html#a2e063a4d547de066e3e854b029e09e75" title="Assigns colors to a cone pair and appends them to the output vectors." alt="" coords="391,5,532,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="343,23,375,23,375,28,343,28"/>
+</map>

@@ -1,21 +1,21 @@
 <map id="VehicleAdapter" name="VehicleAdapter">
-<area shape="rect" id="Node000001" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="1114,2315,1322,2913"/>
-<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="1136,1816,1300,2141"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1221,2156,1221,2315,1215,2315,1215,2156"/>
+<area shape="rect" id="Node000001" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="1114,2316,1322,2915"/>
+<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="1136,1817,1300,2142"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1221,2157,1221,2316,1215,2316,1215,2157"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="1015,1252,1101,1317"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1066,1331,1085,1465,1115,1628,1140,1723,1167,1816,1162,1817,1134,1725,1110,1630,1079,1466,1061,1332"/>
-<area shape="rect" id="Node000011" href="$d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="1479,1701,1651,2256"/>
-<area shape="poly" id="edge11_Node000011_Node000003" title=" " alt="" coords="1053,1332,1047,1398,1050,1478,1058,1519,1070,1559,1089,1595,1115,1627,1134,1642,1153,1648,1173,1648,1193,1645,1236,1639,1260,1641,1285,1651,1342,1689,1394,1735,1441,1785,1481,1837,1477,1840,1437,1789,1391,1739,1339,1693,1282,1655,1258,1646,1236,1644,1194,1650,1173,1653,1153,1653,1132,1646,1111,1631,1084,1598,1065,1561,1053,1521,1045,1479,1042,1398,1047,1331"/>
-<area shape="rect" id="Node000026" href="$d8/d84/class_s_l_a_m_node.html" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="687,1692,879,2265"/>
-<area shape="poly" id="edge34_Node000026_Node000003" title=" " alt="" coords="1066,1332,1068,1396,1063,1475,1055,1516,1044,1557,1027,1595,1004,1631,990,1641,976,1645,963,1647,949,1655,913,1695,881,1740,877,1737,909,1692,946,1651,961,1642,975,1639,988,1637,1000,1627,1022,1593,1038,1555,1050,1515,1058,1474,1063,1396,1061,1332"/>
-<area shape="rect" id="Node000029" href="$d3/d43/class_v_e_node.html" title="Node class for the velocity estimation node." alt="" coords="969,1926,1112,2031"/>
-<area shape="poly" id="edge39_Node000029_Node000003" title=" " alt="" coords="1060,1332,1045,1927,1039,1926,1054,1332"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1066,1331,1085,1465,1115,1628,1140,1723,1167,1816,1162,1818,1134,1725,1110,1630,1079,1466,1061,1332"/>
+<area shape="rect" id="Node000011" href="$d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="1479,1692,1651,2267"/>
+<area shape="poly" id="edge11_Node000011_Node000003" title=" " alt="" coords="1053,1332,1047,1398,1050,1478,1058,1519,1070,1559,1089,1595,1115,1627,1134,1642,1153,1648,1173,1648,1193,1645,1236,1639,1260,1641,1285,1651,1342,1689,1394,1735,1441,1786,1481,1837,1477,1840,1437,1789,1391,1739,1339,1693,1282,1655,1258,1646,1236,1644,1194,1650,1173,1653,1153,1653,1132,1646,1111,1631,1084,1598,1065,1561,1053,1521,1045,1479,1042,1398,1047,1331"/>
+<area shape="rect" id="Node000025" href="$d8/d84/class_s_l_a_m_node.html" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="687,1693,879,2266"/>
+<area shape="poly" id="edge33_Node000025_Node000003" title=" " alt="" coords="1066,1332,1068,1396,1063,1475,1055,1516,1044,1557,1027,1595,1004,1631,990,1641,976,1645,963,1647,949,1655,913,1695,881,1741,877,1738,909,1692,946,1651,961,1642,975,1639,988,1637,1000,1627,1022,1593,1038,1555,1050,1515,1058,1474,1063,1396,1061,1332"/>
+<area shape="rect" id="Node000028" href="$d3/d43/class_v_e_node.html" title="Node class for the velocity estimation node." alt="" coords="969,1927,1112,2032"/>
+<area shape="poly" id="edge38_Node000028_Node000003" title=" " alt="" coords="1060,1332,1045,1927,1039,1927,1054,1332"/>
 <area shape="rect" id="Node000004" href="$d4/de1/struct_control_parameters.html" title=" " alt="" coords="1125,1100,1311,1469"/>
 <area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="1221,1469,1221,1799,1215,1799,1215,1469"/>
 <area shape="rect" id="Node000005" href="$dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html" title=" " alt="" coords="449,574,627,854"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="628,737,755,776,899,825,968,853,1030,881,1080,910,1115,938,1140,970,1161,1006,1191,1082,1186,1084,1156,1008,1136,973,1111,942,1077,914,1027,886,966,858,897,830,753,781,626,742"/>
-<area shape="rect" id="Node000030" href="$d5/db7/struct_v_e_parameters.html" title=" " alt="" coords="821,1157,991,1412"/>
-<area shape="poly" id="edge41_Node000030_Node000005" title=" " alt="" coords="594,852,618,886,648,914,662,922,675,925,702,924,730,924,745,928,760,938,801,981,835,1031,861,1086,880,1140,875,1141,856,1088,830,1034,797,984,756,942,742,933,729,929,703,930,675,930,660,927,644,918,614,889,590,855"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="628,723,739,745,803,763,869,785,936,813,1001,847,1061,889,1115,938,1140,970,1161,1006,1191,1082,1186,1084,1156,1008,1136,973,1111,941,1058,893,998,852,934,818,867,790,801,768,737,750,627,728"/>
+<area shape="rect" id="Node000029" href="$d5/db7/struct_v_e_parameters.html" title=" " alt="" coords="821,1157,991,1412"/>
+<area shape="poly" id="edge40_Node000029_Node000005" title=" " alt="" coords="594,852,618,886,648,914,662,922,675,925,702,924,730,924,745,928,760,938,801,981,835,1031,861,1086,880,1140,875,1141,856,1088,830,1034,797,984,756,942,742,933,729,929,703,930,675,930,660,927,644,918,614,889,590,855"/>
 <area shape="rect" id="Node000006" href="$dd/d7d/structcommon__lib_1_1car__parameters_1_1_tire_parameters.html" title=" " alt="" coords="615,268,794,488"/>
 <area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="654,489,635,529,619,560,615,557,630,526,650,487"/>
 <area shape="rect" id="Node000007" href="$d5/d5a/structcommon__lib_1_1car__parameters_1_1_aero_parameters.html" title=" " alt="" coords="5,298,185,458"/>
@@ -24,50 +24,48 @@
 <area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="305,438,314,483,331,526,353,559,379,589,437,642,433,646,375,593,349,562,327,529,309,484,300,439"/>
 <area shape="rect" id="Node000009" href="$d9/d6f/structcommon__lib_1_1car__parameters_1_1_steering_parameters.html" title=" " alt="" coords="413,328,591,428"/>
 <area shape="poly" id="edge8_Node000005_Node000009" title=" " alt="" coords="503,428,506,527,510,557,505,558,501,528,498,428"/>
-<area shape="rect" id="Node000010" href="$d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="1675,1906,1859,2051"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="1751,2067,1718,2167,1694,2219,1664,2267,1627,2313,1586,2357,1497,2436,1406,2504,1323,2557,1320,2552,1403,2499,1493,2432,1582,2353,1623,2310,1660,2264,1689,2216,1713,2165,1746,2065"/>
-<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="1474,2151,1324,2425,1319,2422,1469,2149"/>
-<area shape="rect" id="Node000012" href="$df/dec/struct_planning_config.html" title=" " alt="" coords="1859,1242,1977,1327"/>
-<area shape="poly" id="edge12_Node000011_Node000012" title=" " alt="" coords="1915,1327,1902,1391,1880,1470,1847,1554,1825,1594,1799,1631,1784,1646,1771,1655,1736,1670,1715,1677,1697,1679,1681,1683,1665,1694,1664,1695,1660,1691,1662,1690,1679,1678,1696,1674,1714,1672,1734,1666,1768,1650,1781,1642,1795,1627,1820,1591,1842,1551,1875,1468,1897,1390,1910,1326"/>
-<area shape="rect" id="Node000013" href="$df/d7d/struct_path_calculation_config.html" title=" " alt="" coords="1588,561,1763,867"/>
-<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="1729,865,1761,914,1770,921,1779,925,1789,929,1799,938,1823,972,1843,1009,1876,1086,1898,1161,1912,1224,1907,1225,1893,1162,1871,1088,1839,1011,1818,975,1795,941,1786,934,1777,930,1767,926,1757,917,1725,868"/>
-<area shape="rect" id="Node000021" href="$d0/d89/class_path_calculation.html" title="Generates optimal local paths." alt="" coords="1335,940,1527,1629"/>
-<area shape="poly" id="edge22_Node000021_Node000013" title=" " alt="" coords="1590,818,1526,879,1506,890,1497,894,1489,902,1476,926,1471,923,1485,899,1494,890,1503,885,1523,874,1586,815"/>
-<area shape="rect" id="Node000014" href="$d9/d46/struct_midpoint_generator_config.html" title="Configuration parameters for the Midpoint Generator class." alt="" coords="1437,316,1615,441"/>
-<area shape="poly" id="edge14_Node000013_Node000014" title=" " alt="" coords="1556,440,1603,545,1598,547,1551,442"/>
-<area shape="rect" id="Node000022" href="$d8/dab/class_midpoint_generator.html" title="Generates midpoints between cones using Delaunay triangulation." alt="" coords="1323,591,1513,837"/>
-<area shape="poly" id="edge25_Node000022_Node000014" title=" " alt="" coords="1509,442,1465,576,1460,574,1504,440"/>
-<area shape="rect" id="Node000015" href="$de/dce/struct_path_smoothing_config.html" title="Configuration parameters for the Path Smoothing class." alt="" coords="1787,551,1961,877"/>
-<area shape="poly" id="edge15_Node000012_Node000015" title=" " alt="" coords="1877,877,1879,915,1894,1084,1912,1224,1907,1225,1889,1084,1873,916,1871,877"/>
-<area shape="rect" id="Node000023" href="$d7/db7/class_path_smoothing.html" title="class that defines the path smoothing algorithm" alt="" coords="1603,1124,1785,1444"/>
-<area shape="poly" id="edge28_Node000023_Node000015" title=" " alt="" coords="1789,869,1775,879,1758,887,1741,890,1710,887,1681,886,1669,891,1656,902,1641,924,1630,948,1618,999,1618,1053,1627,1108,1622,1108,1613,1054,1613,999,1625,946,1636,922,1652,899,1666,887,1681,881,1710,882,1741,885,1757,882,1773,874,1785,864"/>
-<area shape="rect" id="Node000016" href="$d3/db0/struct_simulation_config.html" title="Configuration parameters for the Simulation class." alt="" coords="1986,654,2146,774"/>
-<area shape="poly" id="edge16_Node000012_Node000016" title=" " alt="" coords="2039,775,2012,835,1988,901,1965,989,1948,1077,1926,1225,1921,1225,1942,1076,1960,987,1982,900,2007,833,2034,773"/>
-<area shape="rect" id="Node000017" href="$d2/d0d/struct_velocity_planning_config.html" title="Configuration parameters for the Velocity Planning class." alt="" coords="2327,621,2491,807"/>
-<area shape="poly" id="edge17_Node000012_Node000017" title=" " alt="" coords="2374,808,2347,847,2313,879,2279,894,2249,896,2218,896,2182,903,2156,918,2120,925,2089,924,2061,926,2047,931,2032,942,2004,971,1981,1006,1963,1043,1948,1082,1930,1159,1922,1225,1917,1225,1925,1158,1943,1080,1958,1041,1976,1003,2000,968,2028,938,2044,926,2059,920,2089,918,2119,920,2154,913,2180,898,2218,890,2249,891,2278,889,2310,874,2343,843,2369,805"/>
-<area shape="rect" id="Node000024" href="$d3/dcc/class_velocity_planning.html" title="Computes velocity profiles for a planned path based on curvature and dynamics constraints." alt="" coords="2299,1162,2443,1407"/>
-<area shape="poly" id="edge30_Node000024_Node000017" title=" " alt="" coords="2405,807,2383,1145,2378,1144,2400,806"/>
-<area shape="rect" id="Node000018" href="$d2/de2/struct_skidpad_config.html" title="Configuration parameters for the Skidpad class." alt="" coords="2174,661,2299,767"/>
-<area shape="poly" id="edge18_Node000012_Node000018" title=" " alt="" coords="2225,767,2201,825,2182,854,2160,879,2143,890,2128,894,2112,897,2093,903,2061,920,2032,942,2009,975,1989,1011,1959,1088,1939,1162,1927,1225,1922,1224,1934,1161,1954,1086,1985,1009,2004,972,2028,938,2058,916,2091,898,2110,892,2126,889,2141,885,2156,875,2178,850,2196,822,2220,765"/>
-<area shape="rect" id="Node000025" href="$de/d3f/class_skidpad.html" title="class that defines the skidpad path algorithm" alt="" coords="2041,1182,2211,1387"/>
-<area shape="poly" id="edge32_Node000025_Node000018" title=" " alt="" coords="2274,765,2291,799,2305,836,2311,876,2306,917,2299,930,2290,941,2230,1056,2178,1167,2173,1165,2225,1054,2285,938,2294,927,2301,915,2306,877,2300,838,2286,801,2269,768"/>
-<area shape="rect" id="Node000019" href="$d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="1175,298,1322,458"/>
-<area shape="poly" id="edge19_Node000011_Node000019" title=" " alt="" coords="1323,430,1373,460,1426,486,1456,492,1483,490,1509,493,1521,499,1534,511,1540,528,1546,558,1555,656,1566,959,1570,1333,1570,1684,1564,1684,1565,1333,1561,960,1550,656,1541,559,1535,529,1529,514,1518,503,1507,498,1483,496,1456,497,1424,491,1370,465,1321,435"/>
-<area shape="poly" id="edge26_Node000021_Node000019" title=" " alt="" coords="1224,459,1201,549,1192,601,1186,657,1186,713,1191,769,1205,824,1227,875,1236,889,1247,898,1272,907,1299,916,1313,925,1325,938,1328,941,1324,944,1321,941,1309,929,1297,921,1270,912,1245,902,1233,893,1222,878,1200,826,1186,770,1180,713,1181,656,1186,601,1195,548,1218,457"/>
-<area shape="poly" id="edge24_Node000022_Node000019" title=" " alt="" coords="1291,457,1351,575,1346,578,1286,459"/>
-<area shape="poly" id="edge36_Node000026_Node000019" title=" " alt="" coords="1178,445,1087,533,983,650,933,717,885,788,844,863,811,941,796,999,784,1074,771,1260,769,1470,772,1675,767,1675,763,1470,766,1260,779,1073,791,998,806,939,839,861,881,786,928,714,979,647,1083,529,1174,441"/>
-<area shape="rect" id="Node000020" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="1175,5,1322,205"/>
-<area shape="poly" id="edge20_Node000019_Node000020" title=" " alt="" coords="1251,205,1251,281,1246,281,1246,205"/>
-<area shape="poly" id="edge21_Node000011_Node000021" title=" " alt="" coords="1434,1628,1441,1667,1455,1725,1475,1783,1470,1784,1450,1727,1435,1669,1429,1629"/>
-<area shape="poly" id="edge23_Node000021_Node000022" title=" " alt="" coords="1356,837,1335,901,1329,966,1335,1033,1330,1033,1323,966,1330,900,1351,836"/>
-<area shape="poly" id="edge27_Node000011_Node000023" title=" " alt="" coords="1667,1444,1622,1685,1617,1684,1662,1443"/>
-<area shape="poly" id="edge29_Node000011_Node000024" title=" " alt="" coords="2352,1407,2333,1466,2307,1527,2271,1583,2249,1609,2225,1631,2198,1649,2174,1661,2150,1667,2127,1669,2077,1668,2015,1671,1855,1676,1747,1683,1701,1689,1666,1698,1665,1693,1700,1684,1746,1678,1855,1671,2015,1665,2077,1662,2127,1663,2149,1661,2172,1656,2196,1645,2222,1627,2246,1605,2267,1580,2302,1524,2328,1464,2347,1406"/>
-<area shape="poly" id="edge31_Node000011_Node000025" title=" " alt="" coords="2112,1387,2095,1448,2070,1513,2036,1576,2015,1605,1990,1631,1964,1651,1938,1660,1877,1671,1834,1675,1777,1676,1717,1682,1690,1687,1666,1697,1664,1692,1688,1682,1716,1676,1776,1671,1834,1669,1876,1665,1937,1655,1961,1646,1987,1627,2010,1602,2031,1573,2065,1511,2090,1447,2106,1386"/>
-<area shape="poly" id="edge33_Node000001_Node000026" title=" " alt="" coords="889,2155,959,2264,1038,2375,1116,2479,1112,2483,1033,2378,954,2267,885,2158"/>
-<area shape="rect" id="Node000027" href="$d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html" title=" " alt="" coords="391,1167,538,1402"/>
-<area shape="poly" id="edge35_Node000026_Node000027" title=" " alt="" coords="471,1401,478,1464,489,1532,506,1601,531,1667,561,1724,598,1778,637,1828,678,1873,674,1877,633,1832,593,1781,556,1726,526,1669,501,1603,484,1533,472,1465,466,1402"/>
-<area shape="rect" id="Node000028" href="$d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="565,1097,746,1472"/>
-<area shape="poly" id="edge37_Node000026_Node000028" title=" " alt="" coords="673,1471,684,1569,700,1668,702,1675,696,1676,695,1668,679,1570,667,1472"/>
-<area shape="poly" id="edge38_Node000001_Node000029" title=" " alt="" coords="1062,2045,1137,2314,1132,2316,1056,2046"/>
-<area shape="poly" id="edge40_Node000029_Node000030" title=" " alt="" coords="920,1411,935,1536,957,1667,988,1797,1021,1909,1016,1911,983,1798,952,1669,930,1536,915,1412"/>
+<area shape="rect" id="Node000010" href="$d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="1675,1907,1859,2052"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="1752,2067,1718,2168,1694,2220,1664,2268,1627,2314,1586,2358,1497,2438,1406,2505,1323,2558,1320,2554,1403,2501,1493,2434,1582,2354,1623,2311,1660,2265,1689,2217,1713,2166,1746,2066"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="1474,2152,1324,2426,1319,2423,1469,2150"/>
+<area shape="rect" id="Node000012" href="$df/dec/struct_planning_config.html" title=" " alt="" coords="1810,1184,2015,1384"/>
+<area shape="poly" id="edge12_Node000011_Node000012" title=" " alt="" coords="1900,1385,1886,1444,1865,1508,1836,1572,1799,1631,1785,1646,1771,1655,1736,1670,1715,1677,1697,1679,1681,1683,1665,1694,1664,1695,1660,1691,1662,1690,1679,1678,1696,1674,1714,1672,1734,1666,1768,1650,1781,1642,1795,1627,1832,1570,1860,1506,1881,1443,1895,1383"/>
+<area shape="rect" id="Node000013" href="$df/d7d/struct_path_calculation_config.html" title=" " alt="" coords="1603,561,1777,867"/>
+<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="1741,865,1769,914,1784,926,1799,938,1831,993,1857,1052,1878,1112,1893,1167,1888,1169,1873,1113,1853,1054,1827,996,1795,941,1780,930,1765,917,1736,868"/>
+<area shape="rect" id="Node000020" href="$d0/d89/class_path_calculation.html" title="Generates optimal local paths." alt="" coords="1335,940,1527,1629"/>
+<area shape="poly" id="edge21_Node000020_Node000013" title=" " alt="" coords="1605,823,1541,879,1526,886,1512,889,1500,893,1489,902,1474,926,1469,923,1485,899,1498,888,1511,884,1524,881,1538,874,1601,819"/>
+<area shape="rect" id="Node000014" href="$d9/d46/struct_midpoint_generator_config.html" title="Configuration parameters for the Midpoint Generator class." alt="" coords="1452,316,1629,441"/>
+<area shape="poly" id="edge14_Node000013_Node000014" title=" " alt="" coords="1570,440,1618,545,1613,547,1566,442"/>
+<area shape="rect" id="Node000021" href="$d8/dab/class_midpoint_generator.html" title="Generates midpoints between cones using Delaunay triangulation." alt="" coords="1338,591,1527,837"/>
+<area shape="poly" id="edge24_Node000021_Node000014" title=" " alt="" coords="1523,442,1480,576,1475,574,1518,440"/>
+<area shape="rect" id="Node000015" href="$de/dce/struct_path_smoothing_config.html" title="Configuration parameters for the Path Smoothing class." alt="" coords="1801,551,1976,877"/>
+<area shape="poly" id="edge15_Node000012_Node000015" title=" " alt="" coords="1887,877,1887,901,1891,1039,1901,1167,1896,1168,1885,1039,1881,901,1882,877"/>
+<area shape="rect" id="Node000022" href="$d7/db7/class_path_smoothing.html" title="class that defines the path smoothing algorithm" alt="" coords="1603,1124,1785,1444"/>
+<area shape="poly" id="edge27_Node000022_Node000015" title=" " alt="" coords="1803,869,1790,879,1772,888,1754,891,1721,887,1691,885,1677,891,1664,902,1649,924,1638,948,1625,999,1624,1053,1632,1108,1627,1108,1619,1054,1620,998,1632,946,1644,922,1660,899,1675,886,1690,880,1722,882,1754,885,1770,883,1787,874,1800,865"/>
+<area shape="rect" id="Node000016" href="$d2/d0d/struct_velocity_planning_config.html" title="Configuration parameters for the Velocity Planning class." alt="" coords="2029,611,2201,817"/>
+<area shape="poly" id="edge16_Node000012_Node000016" title=" " alt="" coords="2041,818,2016,859,1995,902,1971,968,1953,1038,1928,1168,1923,1167,1947,1036,1966,967,1991,900,2012,856,2037,815"/>
+<area shape="rect" id="Node000023" href="$d3/dcc/class_velocity_planning.html" title="Computes velocity profiles for a planned path based on curvature and dynamics constraints." alt="" coords="2043,1172,2187,1397"/>
+<area shape="poly" id="edge29_Node000023_Node000016" title=" " alt="" coords="2176,815,2193,857,2206,900,2213,966,2208,1033,2195,1097,2176,1157,2171,1155,2190,1096,2203,1032,2208,966,2201,901,2188,859,2171,817"/>
+<area shape="rect" id="Node000017" href="$d2/de2/struct_skidpad_config.html" title="Configuration parameters for the Skidpad class." alt="" coords="2241,661,2366,767"/>
+<area shape="poly" id="edge17_Node000012_Node000017" title=" " alt="" coords="2289,768,2261,826,2240,854,2216,879,2195,891,2177,894,2158,896,2136,903,2111,918,2088,925,2068,926,2051,930,2033,942,1993,992,1963,1049,1942,1110,1928,1168,1923,1167,1937,1108,1958,1047,1988,989,2030,938,2049,925,2068,921,2087,919,2109,913,2134,898,2157,891,2176,889,2193,886,2212,875,2236,851,2256,823,2284,765"/>
+<area shape="rect" id="Node000024" href="$de/d3f/class_skidpad.html" title="class that defines the skidpad path algorithm" alt="" coords="2224,1182,2393,1387"/>
+<area shape="poly" id="edge31_Node000024_Node000017" title=" " alt="" coords="2306,766,2310,1164,2305,1165,2301,766"/>
+<area shape="rect" id="Node000018" href="$d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="1190,298,1337,458"/>
+<area shape="poly" id="edge18_Node000011_Node000018" title=" " alt="" coords="1338,430,1387,460,1440,486,1471,492,1498,490,1523,493,1536,499,1548,511,1555,527,1560,558,1569,654,1577,954,1577,1324,1573,1675,1568,1675,1572,1324,1571,954,1563,654,1555,558,1550,529,1544,514,1533,503,1522,498,1498,496,1470,497,1438,491,1385,465,1335,435"/>
+<area shape="poly" id="edge25_Node000020_Node000018" title=" " alt="" coords="1239,459,1218,548,1204,655,1204,712,1209,768,1221,823,1241,875,1259,897,1280,907,1303,917,1325,938,1328,942,1324,945,1321,941,1300,922,1278,912,1256,901,1237,878,1216,825,1203,769,1198,712,1199,655,1213,547,1234,458"/>
+<area shape="poly" id="edge23_Node000021_Node000018" title=" " alt="" coords="1306,457,1366,575,1361,578,1301,459"/>
+<area shape="poly" id="edge35_Node000025_Node000018" title=" " alt="" coords="1192,442,1098,530,991,647,938,714,889,786,846,862,811,941,795,999,784,1074,776,1162,771,1260,768,1470,772,1676,767,1676,763,1470,765,1260,770,1162,779,1073,790,998,806,939,841,860,884,783,934,711,987,643,1095,526,1188,438"/>
+<area shape="rect" id="Node000019" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="1190,5,1337,205"/>
+<area shape="poly" id="edge19_Node000018_Node000019" title=" " alt="" coords="1266,205,1266,281,1261,281,1261,205"/>
+<area shape="poly" id="edge20_Node000011_Node000020" title=" " alt="" coords="1434,1628,1441,1667,1455,1725,1475,1783,1470,1784,1450,1727,1435,1669,1429,1629"/>
+<area shape="poly" id="edge22_Node000020_Node000021" title=" " alt="" coords="1359,837,1335,901,1329,936,1327,971,1335,1043,1329,1043,1322,972,1324,935,1330,900,1354,836"/>
+<area shape="poly" id="edge26_Node000011_Node000022" title=" " alt="" coords="1667,1445,1624,1676,1619,1675,1662,1444"/>
+<area shape="poly" id="edge28_Node000011_Node000023" title=" " alt="" coords="2118,1397,2110,1457,2094,1519,2068,1579,2050,1606,2029,1631,2011,1646,1994,1656,1960,1665,1922,1666,1877,1671,1834,1674,1776,1676,1717,1681,1690,1687,1666,1696,1664,1692,1688,1682,1716,1676,1776,1670,1833,1669,1876,1665,1922,1661,1959,1660,1992,1652,2008,1642,2025,1627,2046,1603,2063,1576,2089,1518,2104,1456,2112,1397"/>
+<area shape="poly" id="edge30_Node000011_Node000024" title=" " alt="" coords="2301,1387,2289,1447,2269,1512,2241,1575,2201,1631,2181,1649,2162,1659,2113,1671,2036,1675,1904,1677,1765,1682,1708,1688,1666,1698,1665,1693,1707,1683,1765,1677,1904,1671,2036,1670,2112,1665,2160,1654,2178,1645,2197,1627,2236,1572,2264,1510,2284,1446,2296,1386"/>
+<area shape="poly" id="edge32_Node000001_Node000025" title=" " alt="" coords="889,2157,959,2265,1038,2376,1116,2481,1112,2484,1033,2380,954,2268,885,2160"/>
+<area shape="rect" id="Node000026" href="$d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html" title=" " alt="" coords="391,1167,538,1402"/>
+<area shape="poly" id="edge34_Node000025_Node000026" title=" " alt="" coords="471,1401,478,1464,489,1532,506,1601,531,1667,561,1724,598,1778,637,1828,678,1874,674,1877,633,1832,593,1781,556,1726,526,1669,501,1603,484,1533,472,1465,466,1402"/>
+<area shape="rect" id="Node000027" href="$d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="565,1097,746,1472"/>
+<area shape="poly" id="edge36_Node000025_Node000027" title=" " alt="" coords="673,1471,684,1569,700,1668,702,1676,697,1677,695,1668,679,1570,667,1472"/>
+<area shape="poly" id="edge37_Node000001_Node000028" title=" " alt="" coords="1062,2046,1137,2315,1132,2317,1056,2047"/>
+<area shape="poly" id="edge39_Node000028_Node000029" title=" " alt="" coords="920,1411,935,1536,957,1667,988,1797,1021,1910,1016,1911,983,1798,952,1669,930,1536,915,1412"/>
 </map>

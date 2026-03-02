@@ -8,7 +8,7 @@ var searchData=
   ['add_5fboundary_5fconstraints_5',['add_boundary_constraints',['../d7/db7/class_path_smoothing.html#ac9884811317c7d7391b6eb07514c7cb0',1,'PathSmoothing']]],
   ['add_5fcluster_6',['add_cluster',['../d7/d1e/class_z_score_validator_test.html#a43590d437480f413adce5ba6b9279818',1,'ZScoreValidatorTest']]],
   ['add_5fcone_7',['add_cone',['../dd/d05/classscenario__generator_1_1_point_tracker.html#a1c26775a7d6f7b2b5a4c5620dcca26a2',1,'scenario_generator::PointTracker']]],
-  ['add_5fcones_5fby_5freference_8',['add_cones_by_reference',['../d4/d10/class_colorpoint.html#a100a2b1231e8d82e55a5f7b592a5a8a1',1,'Colorpoint']]],
+  ['add_5fcones_5fby_5freference_8',['add_cones_by_reference',['../d4/d10/class_colorpoint.html#a34d5b6a35e1636f78c28b8af30603cb9',1,'Colorpoint']]],
   ['add_5fcurvature_5fterms_9',['add_curvature_terms',['../d7/db7/class_path_smoothing.html#a5d550ee1b872ad880b6a47ed193f16ac',1,'PathSmoothing']]],
   ['add_5ffinal_5fbox_5fpoint_10',['add_final_box_point',['../dd/d05/classscenario__generator_1_1_point_tracker.html#a1772b842dc38b48ec423e698dad48993',1,'scenario_generator::PointTracker']]],
   ['add_5fimu_5fdata_11',['add_imu_data',['../d9/d73/class_graph_s_l_a_m_solver.html#a3de40ea7a7636a188deee0d1e1a594e7',1,'GraphSLAMSolver::add_imu_data()'],['../db/df5/class_imu_integrator_trait.html#a83dd49694db5988ef756aca2fc83f4b8',1,'ImuIntegratorTrait::add_imu_data()']]],

@@ -1,0 +1,5 @@
+<map id="Colorpoint::add_cones_by_reference" name="Colorpoint::add_cones_by_reference">
+<area shape="rect" id="Node000001" title="Classifies a cone pair using a reference cone whose color is already known." alt="" coords="5,5,154,46"/>
+<area shape="rect" id="Node000002" href="$d4/d10/class_colorpoint.html#a2e063a4d547de066e3e854b029e09e75" title="Assigns colors to a cone pair and appends them to the output vectors." alt="" coords="202,5,343,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,23,186,23,186,28,154,28"/>
+</map>

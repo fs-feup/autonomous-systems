@@ -24,9 +24,8 @@ var searchData=
   ['inversetranslation_21',['inversetranslation',['../d8/d8c/transform_8cpp.html#a5802f88edbf2aaf4c4f336181a05334a',1,'inverseTranslation(Eigen::Vector3d trans, Eigen::Vector3d rot):&#160;transform.cpp'],['../d6/deb/transform_8hpp.html#a5802f88edbf2aaf4c4f336181a05334a',1,'inverseTranslation(Eigen::Vector3d trans, Eigen::Vector3d rot):&#160;transform.cpp']]],
   ['invictasimnode_22',['InvictaSimNode',['../d9/d43/class_invicta_sim_node.html#a04a253570106ff11accdf12d168250c4',1,'InvictaSimNode']]],
   ['invictasimparameters_23',['InvictaSimParameters',['../df/d28/struct_invicta_sim_parameters.html#aacdd9e124f64ce1566df60076dabad03',1,'InvictaSimParameters']]],
-  ['is_5fcolored_5fright_24',['is_colored_right',['../d4/d10/class_colorpoint.html#a133117a2c6698ff4be1fd8b2c8ca6468',1,'Colorpoint']]],
-  ['is_5flandmark_5falready_5fassigned_25',['is_landmark_already_assigned',['../df/dd3/class_j_c_b_b.html#a3810be0eee640d7b51ca23dc5ae50c96',1,'JCBB']]],
-  ['isam2optimizer_26',['isam2optimizer',['../d8/dbe/class_i_s_a_m2_optimizer.html#a8b4e421444949a7650b71121e7a4cf16',1,'ISAM2Optimizer::ISAM2Optimizer(const ISAM2Optimizer &amp;other)'],['../d8/dbe/class_i_s_a_m2_optimizer.html#ac64e1b25ab38947bc2135e0c8aa2ad6c',1,'ISAM2Optimizer::ISAM2Optimizer(const SLAMParameters &amp;params)']]],
-  ['itemchange_27',['itemChange',['../d9/d25/classdraw_view_1_1_cone_item.html#a54464344eb579b70a82d868e7eab899c',1,'drawView::ConeItem']]],
-  ['iterate_5fsmoothing_28',['iterate_smoothing',['../d3/d72/planning_2test_2performance__test_8cpp.html#aaff3d99499fd3dfba82e1ee8641cf66b',1,'performance_test.cpp']]]
+  ['is_5flandmark_5falready_5fassigned_24',['is_landmark_already_assigned',['../df/dd3/class_j_c_b_b.html#a3810be0eee640d7b51ca23dc5ae50c96',1,'JCBB']]],
+  ['isam2optimizer_25',['isam2optimizer',['../d8/dbe/class_i_s_a_m2_optimizer.html#a8b4e421444949a7650b71121e7a4cf16',1,'ISAM2Optimizer::ISAM2Optimizer(const ISAM2Optimizer &amp;other)'],['../d8/dbe/class_i_s_a_m2_optimizer.html#ac64e1b25ab38947bc2135e0c8aa2ad6c',1,'ISAM2Optimizer::ISAM2Optimizer(const SLAMParameters &amp;params)']]],
+  ['itemchange_26',['itemChange',['../d9/d25/classdraw_view_1_1_cone_item.html#a54464344eb579b70a82d868e7eab899c',1,'drawView::ConeItem']]],
+  ['iterate_5fsmoothing_27',['iterate_smoothing',['../d3/d72/planning_2test_2performance__test_8cpp.html#aaff3d99499fd3dfba82e1ee8641cf66b',1,'performance_test.cpp']]]
 ];

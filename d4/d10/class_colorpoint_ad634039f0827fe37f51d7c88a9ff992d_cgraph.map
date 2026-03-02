@@ -1,0 +1,5 @@
+<map id="Colorpoint::color_cones" name="Colorpoint::color_cones">
+<area shape="rect" id="Node000001" title="Classifies the cones of a single colorpoint using the direction to the next point." alt="" coords="5,13,161,39"/>
+<area shape="rect" id="Node000002" href="$d4/d10/class_colorpoint.html#a2e063a4d547de066e3e854b029e09e75" title="Assigns colors to a cone pair and appends them to the output vectors." alt="" coords="209,5,350,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,23,193,23,193,28,161,28"/>
+</map>

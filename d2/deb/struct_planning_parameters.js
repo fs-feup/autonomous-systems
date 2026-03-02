@@ -16,8 +16,12 @@ var struct_planning_parameters =
     [ "pc_search_depth_", "d2/deb/struct_planning_parameters.html#a8483b51be50489765d331aa80c7ab846", null ],
     [ "pc_use_reset_path_", "d2/deb/struct_planning_parameters.html#a4b82daf61aee258f6ec0fdf6bd98b8f2", null ],
     [ "pc_use_sliding_window_", "d2/deb/struct_planning_parameters.html#abad33530e01535a7e56bf59bfc088080", null ],
-    [ "simulation_publishing_visualization_msgs_", "d2/deb/struct_planning_parameters.html#a16ff0410ad879f80fbafca6b95b39d22", null ],
-    [ "simulation_using_simulated_se_", "d2/deb/struct_planning_parameters.html#a38115ea426fd1c79dccf108a6b958e62", null ],
+    [ "planning_adapter_", "d2/deb/struct_planning_parameters.html#a7e2b6180f26c74d21a2a08ff5149627d", null ],
+    [ "planning_braking_distance_acceleration_", "d2/deb/struct_planning_parameters.html#a162bffd9176e3e324c9fb4a18d470b18", null ],
+    [ "planning_braking_distance_autocross_", "d2/deb/struct_planning_parameters.html#a270a35c0537b28a011ca7aa7f3054ee7", null ],
+    [ "planning_publishing_visualization_msgs_", "d2/deb/struct_planning_parameters.html#a9dcfdf7407848d7140a948c2eca345c3", null ],
+    [ "planning_using_full_map_", "d2/deb/struct_planning_parameters.html#a7dba32db6c8c21bf7a36ddca10e9dcad", null ],
+    [ "planning_using_simulated_se_", "d2/deb/struct_planning_parameters.html#a94edc34d558181a86987b8af38b0510c", null ],
     [ "skidpad_minimum_cones_", "d2/deb/struct_planning_parameters.html#a2041cbdc303d4d524b41a075c9dcf967", null ],
     [ "skidpad_tolerance_", "d2/deb/struct_planning_parameters.html#a7ef76e6d37289666cfac4b20daaf19d8", null ],
     [ "smoothing_car_width_", "d2/deb/struct_planning_parameters.html#ab20cb15d30009994e94ea8560946cd10", null ],
@@ -37,6 +41,7 @@ var struct_planning_parameters =
     [ "vp_braking_acceleration_", "d2/deb/struct_planning_parameters.html#a114bc925fcba2bf01421a6ac73d91c70", null ],
     [ "vp_desired_velocity_", "d2/deb/struct_planning_parameters.html#a31aed02c7b8451edf822b2f72c735f63", null ],
     [ "vp_lateral_acceleration_", "d2/deb/struct_planning_parameters.html#a299ce847ca8ec1dd5cae83f3de1f06ad", null ],
+    [ "vp_longitudinal_acceleration_", "d2/deb/struct_planning_parameters.html#a83f7c2a637d489e85769e3314e2b3fc5", null ],
     [ "vp_minimum_velocity_", "d2/deb/struct_planning_parameters.html#a26355fd9d3e059bdaac49bffac24b170", null ],
     [ "vp_use_velocity_planning_", "d2/deb/struct_planning_parameters.html#a0a8c2a85e9dfed8ddbf44be615325f5a", null ]
 ];

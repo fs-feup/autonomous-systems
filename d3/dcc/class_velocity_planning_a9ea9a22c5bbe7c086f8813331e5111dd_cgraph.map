@@ -1,0 +1,5 @@
+<map id="VelocityPlanning::stop" name="VelocityPlanning::stop">
+<area shape="rect" id="Node000001" title="Applies a braking velocity profile starting after a given braking distance." alt="" coords="5,13,154,39"/>
+<area shape="rect" id="Node000002" href="$d3/dcc/class_velocity_planning.html#a2d300f73be19a560cf992f798eb9fa3a" title="Computes the curvature at a point using the Menger curvature formula." alt="" coords="202,5,345,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,23,186,23,186,28,154,28"/>
+</map>

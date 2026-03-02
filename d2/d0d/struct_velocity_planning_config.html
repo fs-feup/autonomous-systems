@@ -108,7 +108,7 @@ Collaboration diagram for VelocityPlanningConfig:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../da/db4/struct_velocity_planning_config__coll__graph.png" border="0" usemap="#a_velocity_planning_config_coll__map" alt="Collaboration graph"/></div>
 <map name="a_velocity_planning_config_coll__map" id="a_velocity_planning_config_coll__map">
-<area shape="rect" title="Configuration parameters for the Velocity Planning class." alt="" coords="5,5,169,191"/>
+<area shape="rect" title="Configuration parameters for the Velocity Planning class." alt="" coords="5,5,177,211"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -117,9 +117,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad21fa616c6438fce720217a6f81e8657" id="r_ad21fa616c6438fce720217a6f81e8657"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0d/struct_velocity_planning_config.html#ad21fa616c6438fce720217a6f81e8657">VelocityPlanningConfig</a> ()</td></tr>
 <tr class="memdesc:ad21fa616c6438fce720217a6f81e8657"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <br /></td></tr>
 <tr class="separator:ad21fa616c6438fce720217a6f81e8657"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd1ec7704b42dc523414895e1fe2cd1d" id="r_afd1ec7704b42dc523414895e1fe2cd1d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0d/struct_velocity_planning_config.html#afd1ec7704b42dc523414895e1fe2cd1d">VelocityPlanningConfig</a> (double minimum_velocity, double desired_velocity, double braking_acceleration, double acceleration, double lateral_acceleration, bool use_velocity_planning)</td></tr>
-<tr class="memdesc:afd1ec7704b42dc523414895e1fe2cd1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parameterized constructor.  <br /></td></tr>
-<tr class="separator:afd1ec7704b42dc523414895e1fe2cd1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a084ecab88ddaf49ebf97b3ce569979ef" id="r_a084ecab88ddaf49ebf97b3ce569979ef"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0d/struct_velocity_planning_config.html#a084ecab88ddaf49ebf97b3ce569979ef">VelocityPlanningConfig</a> (double minimum_velocity, double desired_velocity, double braking_acceleration, double acceleration, double lateral_acceleration, double longitudinal_acceleration, bool use_velocity_planning)</td></tr>
+<tr class="memdesc:a084ecab88ddaf49ebf97b3ce569979ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parameterized constructor.  <br /></td></tr>
+<tr class="separator:a084ecab88ddaf49ebf97b3ce569979ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -138,6 +138,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a51b4eaadcae39c4d092c69fa4d007f64" id="r_a51b4eaadcae39c4d092c69fa4d007f64"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0d/struct_velocity_planning_config.html#a51b4eaadcae39c4d092c69fa4d007f64">lateral_acceleration_</a></td></tr>
 <tr class="memdesc:a51b4eaadcae39c4d092c69fa4d007f64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum lateral acceleration.  <br /></td></tr>
 <tr class="separator:a51b4eaadcae39c4d092c69fa4d007f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf9af635acd4896bd2e2dd89127d8e8d" id="r_aaf9af635acd4896bd2e2dd89127d8e8d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0d/struct_velocity_planning_config.html#aaf9af635acd4896bd2e2dd89127d8e8d">longitudinal_acceleration_</a></td></tr>
+<tr class="memdesc:aaf9af635acd4896bd2e2dd89127d8e8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum longitudinal acceleration.  <br /></td></tr>
+<tr class="separator:aaf9af635acd4896bd2e2dd89127d8e8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c51f53d2fe5c36e95c2871f79d167c7" id="r_a4c51f53d2fe5c36e95c2871f79d167c7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0d/struct_velocity_planning_config.html#a4c51f53d2fe5c36e95c2871f79d167c7">use_velocity_planning_</a></td></tr>
 <tr class="memdesc:a4c51f53d2fe5c36e95c2871f79d167c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to enable/disable velocity planning.  <br /></td></tr>
 <tr class="separator:a4c51f53d2fe5c36e95c2871f79d167c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -172,12 +175,12 @@ Public Attributes</h2></td></tr>
 
 <p>Default constructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/dd4/velocity__config_8hpp_source.html#l00040">40</a> of file <a class="el" href="../../d0/dd4/velocity__config_8hpp_source.html">velocity_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/dd4/velocity__config_8hpp_source.html#l00045">45</a> of file <a class="el" href="../../d0/dd4/velocity__config_8hpp_source.html">velocity_config.hpp</a>.</p>
 
 </div>
 </div>
-<a id="afd1ec7704b42dc523414895e1fe2cd1d" name="afd1ec7704b42dc523414895e1fe2cd1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd1ec7704b42dc523414895e1fe2cd1d">&#9670;&#160;</a></span>VelocityPlanningConfig() <span class="overload">[2/2]</span></h2>
+<a id="a084ecab88ddaf49ebf97b3ce569979ef" name="a084ecab88ddaf49ebf97b3ce569979ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a084ecab88ddaf49ebf97b3ce569979ef">&#9670;&#160;</a></span>VelocityPlanningConfig() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -218,6 +221,12 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>longitudinal_acceleration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>use_velocity_planning</em>&#160;</td>
         </tr>
@@ -236,7 +245,7 @@ Public Attributes</h2></td></tr>
 
 <p>Parameterized constructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/dd4/velocity__config_8hpp_source.html#l00051">51</a> of file <a class="el" href="../../d0/dd4/velocity__config_8hpp_source.html">velocity_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/dd4/velocity__config_8hpp_source.html#l00057">57</a> of file <a class="el" href="../../d0/dd4/velocity__config_8hpp_source.html">velocity_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -313,6 +322,24 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aaf9af635acd4896bd2e2dd89127d8e8d" name="aaf9af635acd4896bd2e2dd89127d8e8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf9af635acd4896bd2e2dd89127d8e8d">&#9670;&#160;</a></span>longitudinal_acceleration_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VelocityPlanningConfig::longitudinal_acceleration_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum longitudinal acceleration. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dd4/velocity__config_8hpp_source.html#l00035">35</a> of file <a class="el" href="../../d0/dd4/velocity__config_8hpp_source.html">velocity_config.hpp</a>.</p>
+
+</div>
+</div>
 <a id="adee8acae523b9868166b6b2bf93ad29e" name="adee8acae523b9868166b6b2bf93ad29e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adee8acae523b9868166b6b2bf93ad29e">&#9670;&#160;</a></span>minimum_velocity_</h2>
 
@@ -345,7 +372,7 @@ Public Attributes</h2></td></tr>
 
 <p>Flag to enable/disable velocity planning. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/dd4/velocity__config_8hpp_source.html#l00035">35</a> of file <a class="el" href="../../d0/dd4/velocity__config_8hpp_source.html">velocity_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/dd4/velocity__config_8hpp_source.html#l00040">40</a> of file <a class="el" href="../../d0/dd4/velocity__config_8hpp_source.html">velocity_config.hpp</a>.</p>
 
 </div>
 </div>
