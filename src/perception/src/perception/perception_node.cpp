@@ -197,6 +197,15 @@ Perception::Perception(const PerceptionParameters& params)
       _clustering_(params.clustering_),
       _cone_differentiator_(params.cone_differentiator_),
       _cone_evaluator_(params.cone_evaluator_) {
+
+        csv_file_.open(csv_path_, std::ios::out | std::ios::trunc);
+    
+    if (csv_file_.is_open()) {
+        csv_file_ << "total_ms,fov_trim_ms,ground_removal_ms,wall_removal_ms,"
+                  << "deskew_ms,clustering_ms,validation_ms,num_clusters,num_cones\n";
+    } else {
+        RCLCPP_ERROR(this->get_logger(), "Could not open CSV file for logging!");
+    }
   this->_cones_publisher =
       this->create_publisher<custom_interfaces::msg::PerceptionOutput>("/perception/cones", 10);
 
@@ -256,65 +265,73 @@ Perception::Perception(const PerceptionParameters& params)
 }
 
 void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
-  // Get start perception time
-  // rclcpp::Time pcl_time = msg->header.stamp;
-  rclcpp::Time pcl_time = this->now();
-
-  // Reset lidar off timer
-  this->lidar_off_timer_ = this->create_wall_timer(
-      std::chrono::milliseconds(2000), std::bind(&Perception::lidar_timer_callback, this));
-
   rclcpp::Time start_time = this->now();
   rclcpp::Time time1, time2, time3, time4, time5, time6;
 
-  // FOV Trimming
+  // --- 1. FOV Trimming ---
   auto trimmed_cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
   _fov_trim_map_->at(_mission_type_)->fov_trimming(msg, trimmed_cloud);
-
+  
   if (this->_publish_fov_trimmed_cloud_) {
     trimmed_cloud->header.frame_id = _vehicle_frame_id_;
     this->_fov_trimmed_publisher_->publish(*trimmed_cloud);
   }
   time1 = this->now();
 
-  // Ground Removal
+  // --- 2. Ground Removal ---
   auto ground_removed_cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
   _ground_removal_->ground_removal(trimmed_cloud, ground_removed_cloud, *this->_ground_grid_);
-
+  
   if (this->_publish_ground_removed_cloud_) {
     ground_removed_cloud->header.frame_id = _vehicle_frame_id_;
     this->_ground_removed_publisher_->publish(*ground_removed_cloud);
   }
   time2 = this->now();
 
-  // Wall Removal
+  // --- 3. Wall Removal ---
   auto wall_removed_cloud = std::make_shared<sensor_msgs::msg::PointCloud2>();
   _wall_removal_->remove_walls(ground_removed_cloud, wall_removed_cloud);
-
+  
   if (this->_publish_wall_removed_cloud_) {
     wall_removed_cloud->header.frame_id = _vehicle_frame_id_;
     this->_wall_removed_publisher_->publish(*wall_removed_cloud);
   }
   time3 = this->now();
 
-  // Deskewing
+  // --- 4. Deskewing ---
   this->_deskew_->deskew_point_cloud(wall_removed_cloud, this->_vehicle_velocity_);
   time4 = this->now();
 
-  // Clustering
+  // --- 5. Clustering ---
   std::vector<Cluster> clusters;
   _clustering_->clustering(wall_removed_cloud, &clusters);
   time5 = this->now();
 
-  // Evaluator
+  // --- 6. Evaluator ---
   std::vector<Cluster> filtered_clusters;
-
   for (auto& cluster : clusters) {
     if (_cone_evaluator_->evaluateCluster(cluster, *this->_ground_grid_)) {
       filtered_clusters.push_back(cluster);
     }
   }
   time6 = this->now();
+
+  // --- CSV Logging Logic ---
+  if (csv_file_.is_open()) {
+    auto to_ms = [](rclcpp::Time end, rclcpp::Time start) {
+      return (end - start).seconds() * 1000.0;
+    };
+
+    csv_file_ << to_ms(time6, start_time) << ","  // Total
+              << to_ms(time1, start_time) << ","  // FOV
+              << to_ms(time2, time1) << ","       // Ground
+              << to_ms(time3, time2) << ","       // Wall
+              << to_ms(time4, time3) << ","       // Deskew
+              << to_ms(time5, time4) << ","       // Clustering
+              << to_ms(time6, time5) << ","       // Validation
+              << clusters.size() << ","
+              << filtered_clusters.size() << "\n";
+  }
 
   double perception_execution_time_seconds = (time6 - start_time).seconds();
   this->_execution_times_->at(0) = perception_execution_time_seconds * 1000.0;

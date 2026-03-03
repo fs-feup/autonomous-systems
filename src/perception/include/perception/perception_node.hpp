@@ -42,6 +42,7 @@
 #include "wall_removal/grid_removal.hpp"
 #include "wall_removal/wall_removal.hpp"
 #include "yaml-cpp/yaml.h"
+#include <fstream>
 
 using Mission = common_lib::competition_logic::Mission;
 
@@ -97,6 +98,8 @@ public:
   void point_cloud_callback(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
 
 private:
+    std::string csv_path_ = "perception_metrics.csv";
+    std::ofstream csv_file_;
   std::string _vehicle_frame_id_;       ///< String for the vehicle's frame id.
   std::string _adapter_;                ///< String for the current adapter being used.
   int16_t _mission_type_;               ///< integer value for the current mission type running.
