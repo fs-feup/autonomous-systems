@@ -209,6 +209,15 @@ Perception::Perception(const PerceptionParameters& params)
       _cone_differentiator_(params.cone_differentiator_),
       _cone_evaluator_(params.cone_evaluator_),
       _icp_(params.icp_) {
+  // Open the file in truncate mode (overwrites old logs)
+  csv_file_.open(csv_path_, std::ios::out | std::ios::trunc);
+
+  if (csv_file_.is_open()) {
+    csv_file_ << "total_ms,msg_to_pcl_ms,fov_trim_ms,ground_removal_ms,"
+              << "deskew_ms,clustering_ms,validation_ms,num_clusters,num_cones\n";
+  } else {
+    RCLCPP_ERROR(this->get_logger(), "Could not open CSV file for logging!");
+  }
   this->_cones_publisher =
       this->create_publisher<custom_interfaces::msg::PerceptionOutput>("/perception/cones", 10);
 
@@ -262,6 +271,7 @@ Perception::Perception(const PerceptionParameters& params)
 
 void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
   rclcpp::Time time = this->now();
+  auto t_start = std::chrono::high_resolution_clock::now();
 
   this->lidar_off_timer_ = this->create_wall_timer(
       std::chrono::milliseconds(2000), std::bind(&Perception::lidar_timer_callback, this));
@@ -270,15 +280,19 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   header = (*msg).header;
   pcl::fromROSMsg(*msg, *pcl_cloud);
+  auto t1 = std::chrono::high_resolution_clock::now();
 
   // Pass-trough Filter (trim Pcl)
   const SplitParameters split_params = _fov_trim_map_->at(_mission_type_)->fov_trimming(pcl_cloud);
+  auto t2 = std::chrono::high_resolution_clock::now();
 
   // Ground Removal
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   _ground_removal_->ground_removal(pcl_cloud, ground_removed_cloud, _ground_plane_, split_params);
+  auto t3 = std::chrono::high_resolution_clock::now();
 
   this->_deskew_->deskew_point_cloud(ground_removed_cloud, this->_vehicle_velocity_);
+  auto t4 = std::chrono::high_resolution_clock::now();
 
   // Debugging utils -> Useful to check the ground removed point cloud
   sensor_msgs::msg::PointCloud2 ground_removed_msg;
@@ -289,6 +303,7 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   // Clustering
   std::vector<Cluster> clusters;
   _clustering_->clustering(ground_removed_cloud, &clusters);
+  auto t5 = std::chrono::high_resolution_clock::now();
 
   // Z-scores calculation for future validations
   Cluster::set_z_scores(clusters);
@@ -300,6 +315,23 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
     if (_cone_evaluator_->evaluateCluster(cluster, _ground_plane_)) {
       filtered_clusters.push_back(cluster);
     }
+  }
+  auto t6 = std::chrono::high_resolution_clock::now();
+
+  // Calculate Milliseconds
+  auto ms = [](auto duration) {
+    return std::chrono::duration<double, std::milli>(duration).count();
+  };
+
+  if (csv_file_.is_open()) {
+    csv_file_ << ms(t6 - t_start) << ","  // Total
+              << ms(t1 - t_start) << ","  // Conversion
+              << ms(t2 - t1) << ","       // FOV
+              << ms(t3 - t2) << ","       // Ground
+              << ms(t4 - t3) << ","       // Deskew
+              << ms(t5 - t4) << ","       // Clustering
+              << ms(t6 - t5) << ","       // Validation
+              << clusters.size() << "," << filtered_clusters.size() << "\n";
   }
 
   // Execution Time calculation

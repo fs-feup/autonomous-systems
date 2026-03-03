@@ -121,4 +121,5 @@
     "C_Cpp.errorSquiggles": "enabled",
     "python-envs.defaultEnvManager": "ms-python.python:system",
     "python-envs.pythonProjects": [],
+    "ROS2.distro": "humble",
 }

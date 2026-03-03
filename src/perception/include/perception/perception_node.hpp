@@ -4,6 +4,7 @@
 #include <cone_validator/cylinder_validator.hpp>
 #include <cone_validator/deviation_validator.hpp>
 #include <cone_validator/z_score_validator.hpp>
+#include <fstream>
 #include <string>
 #include <unordered_map>
 #include <utils/plane.hpp>
@@ -62,6 +63,8 @@ struct PerceptionParameters {     ///< Struct containing parameters and interfac
  */
 class Perception : public rclcpp::Node {
 private:
+  std::ofstream csv_file_;
+  std::string csv_path_ = "perception_metrics.csv";
   std::string _vehicle_frame_id_;  ///< String for the vehicle's frame id.
   std::string _adapter_;           ///< String for the current adapter being used.
   int16_t _mission_type_;          ///< integer value for the current mission type running.
