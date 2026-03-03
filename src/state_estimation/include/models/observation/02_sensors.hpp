@@ -27,6 +27,7 @@ public:
   void update_imu_data(const common_lib::sensor_data::ImuData& imu_data) override {
     last_imu_data_ = imu_data;
   }
+
   void update_wss_data(const common_lib::sensor_data::WheelEncoderData& wss_data) override {
     last_wss_data_ = wss_data;
   }
@@ -36,4 +37,5 @@ public:
   }
 
   Eigen::VectorXd get_last_observations() const override;
+  Eigen::MatrixXd get_last_observations_noise() const override;
 };

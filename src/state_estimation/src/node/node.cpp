@@ -41,13 +41,14 @@ void SENode::publish_state(const State& state, const rclcpp::Time time) {
   state_msg.fr_rpm = state(FR_WHEEL_SPEED);
   state_msg.rl_rpm = state(RL_WHEEL_SPEED);
   state_msg.rr_rpm = state(RR_WHEEL_SPEED);
-  this->_state_pub_->publish(state_msg);
 
   custom_interfaces::msg::Velocities velocity_msg;
   velocity_msg.header.stamp = time;
   velocity_msg.velocity_x = state(VX);
   velocity_msg.velocity_y = state(VY);
   velocity_msg.angular_velocity = state(YAW_RATE);
+
+  this->_state_pub_->publish(state_msg);
   this->_velocity_pub_->publish(velocity_msg);
 }
 

@@ -30,8 +30,8 @@ UKF::UKF(std::shared_ptr<SEParameters> se_parameters, std::shared_ptr<ProcessMod
   process_noise_matrix_(RL_WHEEL_SPEED, RL_WHEEL_SPEED) = se_parameters->wheel_speed_process_noise_;
   process_noise_matrix_(RR_WHEEL_SPEED, RR_WHEEL_SPEED) = se_parameters->wheel_speed_process_noise_;
 
-  // Initialize the measurement noise matrix TODO: Need to figure out the measurement noise matrix
-  // with an i number of measurements
+  // Initialize the measurement noise matrix
+  // TODO: Need to figure out the measurement noise matrix with an i number of measurements
 }
 
 void UKF::compute_sigma_points(
@@ -86,6 +86,7 @@ void UKF::timer_callback(State& curr_state) {
 
   // Lock inputs
   Eigen::VectorXd last_observation = this->observation_model_->get_last_observations();
+  Eigen::MatrixXd last_observation_noise = this->observation_model_->get_last_observations_noise();
   common_lib::structures::ControlCommand control_command = this->last_control_command_;
 
   // Prediction step
@@ -124,8 +125,8 @@ void UKF::timer_callback(State& curr_state) {
       predicted_measurements.rowwise() - predicted_measurement_mean.transpose();
   Eigen::MatrixXd predicted_measurement_covariance =
       centered_measurements.transpose() * weights_.asDiagonal() * centered_measurements;
-  // predicted_measurement_covariance += measurement_noise_matrix_; // Need to figure out
-  // measurement noise matrix with an i numvber of measurements
+  predicted_measurement_covariance +=
+      last_observation_noise;  // Add measurement noise to predicted covariance
 
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"), "Predicted Measurement: \n"
                                                                   << predicted_measurement_mean);

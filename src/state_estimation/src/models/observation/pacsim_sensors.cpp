@@ -18,6 +18,20 @@ Eigen::VectorXd ObservationModelPacsim::get_last_observations() const {
   return last_observations;
 }
 
+Eigen::MatrixXd ObservationModelPacsim::get_last_observations_noise() const {
+  // TODO: Measurement noise matrix should be based on the number of active sensors
+  Eigen::MatrixXd noise_matrix = Eigen::MatrixXd::Zero(8, 8);
+  noise_matrix(0, 0) = this->parameters_->imu_acceleration_x_noise_;
+  noise_matrix(1, 1) = this->parameters_->imu_acceleration_y_noise_;
+  noise_matrix(2, 2) = this->parameters_->imu_rotational_noise_;
+  noise_matrix(3, 3) = this->parameters_->wheel_speed_noise_;
+  noise_matrix(4, 4) = this->parameters_->wheel_speed_noise_;
+  noise_matrix(5, 5) = this->parameters_->wheel_speed_noise_;
+  noise_matrix(6, 6) = this->parameters_->wheel_speed_noise_;
+  noise_matrix(7, 7) = this->parameters_->steering_angle_noise_;
+  return noise_matrix;
+}
+
 void ObservationModelPacsim::update_imu_data(const common_lib::sensor_data::ImuData& imu_data) {
   last_imu_data_ = imu_data;
 }

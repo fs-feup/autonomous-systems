@@ -29,4 +29,5 @@ public:
   void update_steering_angle(double steering_angle) override;
 
   Eigen::VectorXd get_last_observations() const override;
+  Eigen::MatrixXd get_last_observations_noise() const override;
 };

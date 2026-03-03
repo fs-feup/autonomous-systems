@@ -30,6 +30,8 @@ public:
 
   virtual Eigen::VectorXd get_last_observations() const = 0;
 
+  virtual Eigen::MatrixXd get_last_observations_noise() const = 0;
+
   virtual void update_imu_data(const common_lib::sensor_data::ImuData& imu_data) = 0;
   virtual void update_wss_data(const common_lib::sensor_data::WheelEncoderData& wss_data) = 0;
   virtual void update_motor_rpm(double motor_rpm) = 0;
