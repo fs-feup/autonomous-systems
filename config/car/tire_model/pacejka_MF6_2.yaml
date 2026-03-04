@@ -13,7 +13,7 @@ tire:
     camber: 0.0
   #Valores que estavam na struct como default, faltam os dados reais
   camber_scaling_factor: 1.0
-  effective_tire_r: 1.0
+  effective_tire_r: 0.2275
   
   d_bright: 1.06
   d_bleft: 1.06

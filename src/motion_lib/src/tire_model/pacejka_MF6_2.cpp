@@ -441,8 +441,10 @@ float PacejkaMF6_2::calculateCombinedMoment(double Fx, double Fy, double slip_ra
   // (4.E34)
   double at = internal_vals.alpha_star + SHt;
   // (4.E77)
-  double at_eq = sqrt(at * at + (internal_vals.kxk / internal_vals.Kya_prime) * slip_ratio *
-                                    slip_ratio * sign(at));
+  double at_eq =
+      sqrt(at * at + (internal_vals.kxk / internal_vals.Kya_prime) *
+                         (internal_vals.kxk / internal_vals.Kya_prime) * slip_ratio * slip_ratio) *
+      sign(at);
   // ------------------ Bt calculation
   // (4.E40)
   double Bt = (car_parameters_->tire_parameters->QBZ1 +
@@ -508,8 +510,10 @@ float PacejkaMF6_2::calculateCombinedMoment(double Fx, double Fy, double slip_ra
   // (4.E37)
   double ar = internal_vals.alpha_star + SHf;
   // (4.E78)
-  double ar_eq = sqrt(ar * ar + (internal_vals.kxk / internal_vals.Kya_prime) * slip_ratio *
-                                    slip_ratio * sign(ar));
+  double ar_eq =
+      sqrt(ar * ar + (internal_vals.kxk / internal_vals.Kya_prime) *
+                         (internal_vals.kxk / internal_vals.Kya_prime) * slip_ratio * slip_ratio) *
+      sign(ar);
   // (4.E75)
   double MZr = Dr * cos(internal_vals.zeta7 * atan(Br * ar_eq));
   // (4.E71)

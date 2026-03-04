@@ -22,5 +22,8 @@ AeroParameters::AeroParameters(const std::string& config_name) {
   if (config["frontal_area"]) {
     frontal_area = config["frontal_area"].as<double>();
   }
+  if (config["air_density"]) {
+    air_density = config["air_density"].as<double>();
+  }
 }
 }  // namespace common_lib::car_parameters
