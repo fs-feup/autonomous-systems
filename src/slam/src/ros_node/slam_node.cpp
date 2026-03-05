@@ -171,7 +171,14 @@ void SLAMNode::_perception_subscription_callback(
     return;
   }
 
-  this->_slam_solver_->add_observations(this->_perception_map_, cones_time);
+  bool is_moving = false;
+  {
+    std::unique_lock lock(this->mutex_);
+    is_moving = (std::abs(this->_vehicle_state_velocities_.velocity_x) > 0.01 ||
+                 std::abs(this->_vehicle_state_velocities_.velocity_y) > 0.01);
+  }
+
+  this->_slam_solver_->add_observations(this->_perception_map_, cones_time, is_moving);
   // RCLCPP_INFO(this->get_logger(), "ATTR - Observations added to SLAM solver");
 
   std::vector<common_lib::structures::Cone> track_map;

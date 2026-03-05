@@ -115,7 +115,7 @@ public:
    * @param position
    */
   void add_observations(const std::vector<common_lib::structures::Cone>& positions,
-                        rclcpp::Time cones_timestamp) override;
+                        rclcpp::Time cones_timestamp, bool is_moving = false) override;
 
   /**
    * @brief Initialize the EKF SLAM solver with a previously saved map and pose

@@ -166,7 +166,7 @@ void GraphSLAMSolver::add_imu_data(const common_lib::sensor_data::ImuData& imu_d
 }
 
 void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures::Cone>& cones,
-                                       rclcpp::Time cones_timestamp) {
+                                       rclcpp::Time cones_timestamp, bool is_moving) {
   if (cones.empty()) {
     // this->_landmark_filter_->filter(Eigen::VectorXd::Zero(0), Eigen::VectorXd::Zero(0),
     //                                 Eigen::VectorXi::Zero(0));
@@ -254,7 +254,7 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
     }
     // Update the pose in the graph, as the vehicle might have moved since the last time a factor
     // was added by the motion callback
-    this->_add_motion_data_to_graph(this->_pose_updater_, this->_graph_slam_instance_, true);
+    this->_add_motion_data_to_graph(this->_pose_updater_, this->_graph_slam_instance_, is_moving);
     this->_graph_slam_instance_->process_observations(observation_data);
     this->_landmark_filter_->delete_landmarks(filtered_new_observations);
   }

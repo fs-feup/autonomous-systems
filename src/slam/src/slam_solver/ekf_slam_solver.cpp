@@ -44,7 +44,8 @@ void EKFSLAMSolver::add_velocities(const common_lib::structures::Velocities& vel
 }
 
 void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::Cone>& cones,
-                                     [[maybe_unused]] rclcpp::Time cones_time) {
+                                     [[maybe_unused]] rclcpp::Time cones_time,
+                                     [[maybe_unused]] bool is_moving) {
   int num_observations = static_cast<int>(cones.size());
   std::vector<int> matched_landmarks_indices;
   Eigen::VectorXd matched_observations(0);
