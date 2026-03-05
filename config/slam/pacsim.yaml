@@ -55,3 +55,5 @@ slam:
   
   # Publish Options
   graph_publish_trajectory: false # Whether to publish the trajectory in graph SLAM
+  publish_associations: false # Whether to publish the associations of the data association
+  publish_global_observations: true # Whether to publish the perception observations transformed to the global frame (map frame) after compensation

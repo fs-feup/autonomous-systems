@@ -73,6 +73,9 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam"), _params_(params
   }
 
   // Publishers
+  this->_global_observations_publisher_ =
+      this->create_publisher<visualization_msgs::msg::MarkerArray>(
+          "/state_estimation/global_observations", 10);
   this->_map_publisher_ =
       this->create_publisher<custom_interfaces::msg::ConeArray>("/state_estimation/map", 10);
   this->_vehicle_pose_publisher_ =
@@ -113,7 +116,7 @@ void SLAMNode::_perception_subscription_callback(
     const custom_interfaces::msg::PerceptionOutput &msg) {
   RCLCPP_DEBUG(this->get_logger(), "SLAMNode:: perception_subscription_callback called");
   auto const &cone_array = msg.cones.cone_array;
-  double perception_exec_time = 0.00;
+  double perception_exec_time = msg.exec_time;
 
   RCLCPP_DEBUG(this->get_logger(), "SUB - Perception: %ld cones. Mission: %d", cone_array.size(),
                static_cast<int>(this->_mission_));
@@ -196,7 +199,8 @@ void SLAMNode::_perception_subscription_callback(
   this->_publish_vehicle_pose();
   this->_publish_map();
   this->_publish_lap_counter();
-  this->_publish_associations();
+  if (this->_params_.publish_associations_) this->_publish_associations();
+  if (this->_params_.publish_global_observations_) this->_publish_global_observations();
 
   // Timekeeping
   rclcpp::Time end_time = this->get_clock()->now();
@@ -433,6 +437,21 @@ void SLAMNode::_publish_associations() {
     }
   }
   this->_associations_visualization_publisher_->publish(marker_array_msg);
+}
+
+void SLAMNode::_publish_global_observations() {
+  auto marker_array_msg = visualization_msgs::msg::MarkerArray();
+  std::vector<common_lib::structures::Cone> global_observations;
+  {
+    std::unique_lock lock(this->mutex_);
+    for (int i = 0; i < this->_observations_global_.size() / 2; i++) {
+      global_observations.push_back(common_lib::structures::Cone(
+          this->_observations_global_[i * 2], this->_observations_global_[i * 2 + 1]));
+    }
+  }
+  marker_array_msg = common_lib::communication::marker_array_from_structure_array(
+      global_observations, "global_observations", "map", "green", "sphere");
+  this->_global_observations_publisher_->publish(marker_array_msg);
 }
 
 /* -------------- Checks if the mission is finished --------*/
