@@ -451,7 +451,7 @@ void SLAMNode::_publish_global_observations() {
     }
   }
   marker_array_msg = common_lib::communication::marker_array_from_structure_array(
-      global_observations, "global_observations", "map", "green", "sphere");
+      global_observations, "global_observations", "map", "green", "sphere", 0.2, 0.1, 1.0);
   this->_global_observations_publisher_->publish(marker_array_msg);
 }
 

@@ -72,6 +72,8 @@ struct HasPosition<T,
  * @param frame_id frame id of the marker, for transforms
  * @param name_space namespace of the marker, used in conjunction with ID to identify marker
  * @param scale scale of the marker, default is 0.5
+ * @param lifetime_seconds lifetime of the marker in seconds, default is 0.0 (0.0 means forever)
+ * @param z_offset offset in the z-direction for the marker position, default is 0.0
  * @param action action of the marker, default is ADD/MODIFY
  * @return visualization_msgs::msg::MarkerArray
  */
@@ -79,8 +81,8 @@ template <typename T>
 visualization_msgs::msg::MarkerArray marker_array_from_structure_array(
     const std::vector<T>& structure_array, const std::string& name_space,
     const std::string& frame_id, const std::string& color = "red",
-    const std::string& shape = "cylinder", float scale = 0.5,
-    int action = visualization_msgs::msg::Marker::MODIFY) {
+    const std::string& shape = "cylinder", float scale = 0.5, double lifetime_seconds = 0.0,
+    double z_offset = 0.0, int action = visualization_msgs::msg::Marker::MODIFY) {
   static_assert(
       HasPosition<T>::value,
       "Template argument T must have a data member named 'position' with 'x' and 'y' sub-members");
@@ -90,6 +92,8 @@ visualization_msgs::msg::MarkerArray marker_array_from_structure_array(
 
   for (size_t i = 0; i < structure_array.size(); ++i) {
     visualization_msgs::msg::Marker marker;
+
+    marker.lifetime = rclcpp::Duration::from_seconds(lifetime_seconds);
 
     marker.header.frame_id = frame_id;
     marker.header.stamp = rclcpp::Clock().now();
@@ -105,7 +109,7 @@ visualization_msgs::msg::MarkerArray marker_array_from_structure_array(
 
     marker.pose.position.x = structure_array[i].position.x;
     marker.pose.position.y = structure_array[i].position.y;
-    marker.pose.position.z = 0;
+    marker.pose.position.z = z_offset;
 
     marker.scale.x = scale;
     marker.scale.y = scale;
