@@ -30,6 +30,11 @@ struct VelocityPlanningConfig {
   double lateral_acceleration_;
 
   /**
+   * @brief Maximum longitudinal acceleration.
+   */
+  double longitudinal_acceleration_;
+
+  /**
    * @brief Flag to enable/disable velocity planning.
    */
   bool use_velocity_planning_;
@@ -43,6 +48,7 @@ struct VelocityPlanningConfig {
         braking_acceleration_(-4.0),
         acceleration_(7.0),
         lateral_acceleration_(7.0),
+        longitudinal_acceleration_(7.0),
         use_velocity_planning_(true) {}
 
   /**
@@ -50,11 +56,13 @@ struct VelocityPlanningConfig {
    */
   VelocityPlanningConfig(double minimum_velocity, double desired_velocity,
                          double braking_acceleration, double acceleration,
-                         double lateral_acceleration, bool use_velocity_planning)
+                         double lateral_acceleration, double longitudinal_acceleration,
+                         bool use_velocity_planning)
       : minimum_velocity_(minimum_velocity),
         desired_velocity_(desired_velocity),
         braking_acceleration_(braking_acceleration),
         acceleration_(acceleration),
         lateral_acceleration_(lateral_acceleration),
+        longitudinal_acceleration_(longitudinal_acceleration),
         use_velocity_planning_(use_velocity_planning) {}
 };

@@ -30,7 +30,7 @@ slam:
   max_pose_history_graph: 10 # Maximum number of past graphed poses to keep in instance buffer for observation delay compensation
 
   # Only for pose_updater_name: "difference_based_ready"
-  slam_min_pose_difference: 0.15 # Minimum distance between poses to consider adding to factor graph
+  slam_min_pose_difference: 0.10 # Minimum distance between poses to consider adding to factor graph
 
   # Only for slam_optimization_mode: "async"
   slam_optimization_period: 0.5 # Time between optimization steps in seconds, 0.0 means optimization every time observations are added

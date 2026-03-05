@@ -4,7 +4,6 @@
 #include <string>
 
 #include "path_calculation_config.hpp"
-#include "simulation_config.hpp"
 #include "skidpad_config.hpp"
 #include "smoothing_config.hpp"
 #include "velocity_config.hpp"
@@ -53,22 +52,54 @@ struct PlanningParameters {
   double vp_braking_acceleration_;
   double vp_acceleration_;
   double vp_lateral_acceleration_;
+  double vp_longitudinal_acceleration_;
   bool vp_use_velocity_planning_;
   double vp_desired_velocity_;
 
-  /*---------------------- Simulation (simulation_) ----------------------*/
-  bool simulation_publishing_visualization_msgs_;
-  bool simulation_using_simulated_se_;
+  /*---------------------- Planning (planning_) ----------------------*/
+  /**
+   * @brief Flag to enable/disable publishing of visualization messages.
+   */
+  bool planning_publishing_visualization_msgs_;
 
+  /**
+   * @brief Flag to enable/disable the use of simulated State Estimation.
+   */
+  bool planning_using_simulated_se_;
+
+  /**
+   * @brief Flag to enable/disable using planning with the full map
+   */
+  bool planning_using_full_map_;
+
+  /**
+   * @brief Distance to start braking during acceleration mode.
+   */
+  double planning_braking_distance_acceleration_;
+
+  /**
+   * @brief Distance to start braking during autocross/trackdrive mode.
+   */
+  double planning_braking_distance_autocross_;
+
+  /**
+   * @brief The adapter planning is currently using like Pacsim, Vehicle...
+   */
+  std::string planning_adapter_;
   std::string map_frame_id_;
 };
 
 struct PlanningConfig {
   PathCalculationConfig path_calculation_;
   PathSmoothingConfig smoothing_;
-  SimulationConfig simulation_;
   VelocityPlanningConfig velocity_planning_;
   SkidpadConfig skidpad_;
+  bool publishing_visualization_msgs_;
+  bool using_simulated_se_;
+  bool using_full_map_;
+  double braking_distance_acceleration_;
+  double braking_distance_autocross_;
+  std::string adapter_;
 
   PlanningConfig() = default;
 
@@ -90,12 +121,17 @@ struct PlanningConfig {
                    params.smoothing_curvature_weight_, params.smoothing_smoothness_weight_,
                    params.smoothing_safety_weight_, params.smoothing_max_iterations_,
                    params.smoothing_tolerance_),
-        simulation_(params.simulation_publishing_visualization_msgs_,
-                    params.simulation_using_simulated_se_),
         velocity_planning_(params.vp_minimum_velocity_, params.vp_desired_velocity_,
                            params.vp_braking_acceleration_, params.vp_acceleration_,
-                           params.vp_lateral_acceleration_, params.vp_use_velocity_planning_),
-        skidpad_(params.skidpad_minimum_cones_, params.skidpad_tolerance_) {}
+                           params.vp_lateral_acceleration_, params.vp_longitudinal_acceleration_,
+                           params.vp_use_velocity_planning_),
+        skidpad_(params.skidpad_minimum_cones_, params.skidpad_tolerance_),
+        publishing_visualization_msgs_(params.planning_publishing_visualization_msgs_),
+        using_simulated_se_(params.planning_using_simulated_se_),
+        using_full_map_(params.planning_using_full_map_),
+        braking_distance_acceleration_(params.planning_braking_distance_acceleration_),
+        braking_distance_autocross_(params.planning_braking_distance_autocross_),
+        adapter_(params.planning_adapter_) {}
 };
 
 #endif  // SRC_PLANNING_INCLUDE_CONFIG_PLANNING_CONFIG_HPP_
