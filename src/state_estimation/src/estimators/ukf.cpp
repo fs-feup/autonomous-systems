@@ -1,5 +1,7 @@
 #include "estimators/ukf.hpp"
 
+// TODO: Measurement noise matrix with an i number of measurements
+
 UKF::UKF(std::shared_ptr<SEParameters> se_parameters, std::shared_ptr<ProcessModel> process_model,
          std::shared_ptr<ObservationModel> observation_model)
     : params_(se_parameters),
@@ -29,9 +31,6 @@ UKF::UKF(std::shared_ptr<SEParameters> se_parameters, std::shared_ptr<ProcessMod
   process_noise_matrix_(FR_WHEEL_SPEED, FR_WHEEL_SPEED) = se_parameters->wheel_speed_process_noise_;
   process_noise_matrix_(RL_WHEEL_SPEED, RL_WHEEL_SPEED) = se_parameters->wheel_speed_process_noise_;
   process_noise_matrix_(RR_WHEEL_SPEED, RR_WHEEL_SPEED) = se_parameters->wheel_speed_process_noise_;
-
-  // Initialize the measurement noise matrix
-  // TODO: Need to figure out the measurement noise matrix with an i number of measurements
 }
 
 void UKF::compute_sigma_points(
