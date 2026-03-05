@@ -7,12 +7,11 @@ Eigen::VectorXd NoSlipBicycleModel::expected_observations(
   const double omega = cg_velocities(2);
   const double lr =
       this->car_parameters_
-          ->dist_cg_2_rear_axis;  // distance from the center of mass to the rear wheels
+          ->cg_2_rear_axis;  // distance from the center of mass to the rear wheels
   const double lf =
       this->car_parameters_->wheelbase -
       this->car_parameters_
-          ->dist_cg_2_rear_axis;  // distance from the center of mass to the front wheels
-
+          ->cg_2_rear_axis;  // distance from the center of mass to the front wheels
   double rear_wheel_velocity = sqrt(pow(vx, 2) + pow(vy - omega * lr, 2));
   double rear_wheels_rpm =
       60 * rear_wheel_velocity / (M_PI * this->car_parameters_->wheel_diameter);
@@ -48,10 +47,10 @@ Eigen::MatrixXd NoSlipBicycleModel::expected_observations_jacobian(
   double vy = cg_velocities(1);
   double omega = cg_velocities(2);
   double lr = this->car_parameters_
-                  ->dist_cg_2_rear_axis;  // distance from the center of mass to the rear wheels
+                  ->cg_2_rear_axis;  // distance from the center of mass to the rear wheels
   double lf = this->car_parameters_->wheelbase -
               this->car_parameters_
-                  ->dist_cg_2_rear_axis;  // distance from the center of mass to the front wheels
+                  ->cg_2_rear_axis;  // distance from the center of mass to the front wheels
   double rear_wheel_velocity = sqrt(pow(vx, 2) + pow(vy - omega * lr, 2));
   double front_wheel_velocity = sqrt(pow(vx, 2) + pow(vy + omega * lf, 2));
 

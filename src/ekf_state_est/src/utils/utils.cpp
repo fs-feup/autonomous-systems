@@ -15,14 +15,14 @@ std::pair<double, double> wheels_velocities_to_cg(std::shared_ptr<common_lib::ca
     velocities.second =
         rl_velocity / (rear_axis_center_rotation_radius - (car_parameters->track_width / 2));
     velocities.first = std::sqrt(std::pow(rear_axis_center_rotation_radius, 2) +
-                            std::pow(car_parameters->dist_cg_2_rear_axis, 2)) *
+                            std::pow(car_parameters->cg_2_rear_axis, 2)) *
                        std::fabs(velocities.second);
   } else {
     double rear_axis_center_rotation_radius = car_parameters->wheelbase / std::tan(steering_angle);
     velocities.second =
         rr_velocity / (rear_axis_center_rotation_radius + (car_parameters->track_width / 2));
     velocities.first = std::sqrt(std::pow(rear_axis_center_rotation_radius, 2) +
-                            std::pow(car_parameters->dist_cg_2_rear_axis, 2)) *
+                            std::pow(car_parameters->cg_2_rear_axis, 2)) *
                        std::fabs(velocities.second);
   }
   return velocities;

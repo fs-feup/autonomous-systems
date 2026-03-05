@@ -13,11 +13,6 @@ std::string VEParameters::load_config() {
 
   YAML::Node ve_config = YAML::LoadFile(ve_config_path);
 
-  std::string car_config_par =
-      common_lib::config_load::get_config_yaml_path("velocity_estimation", "car", adapter);
-
-  YAML::Node car_config = YAML::LoadFile(car_config_par);
-
   this->_estimation_method_ =
       ve_config["velocity_estimation"]["estimation_method"].as<std::string>();
   this->_ve_observation_model_name_ =
@@ -34,6 +29,8 @@ std::string VEParameters::load_config() {
   this->steering_angle_noise_ =
       ve_config["velocity_estimation"]["steering_angle_noise"].as<double>();
   this->motor_rpm_noise_ = ve_config["velocity_estimation"]["motor_rpm_noise"].as<double>();
+
+  this->car_parameters_ = common_lib::car_parameters::CarParameters();
 
   return adapter;
 }

@@ -32,8 +32,13 @@ set(IMPLEMENTATION_FILES
   src/v2p_models/odometry_model.cpp
   src/aero_model/default_aero_model.cpp
   src/tire_model/pacejka_combined_slip.cpp
+  src/tire_model/pacejka_MF6_2.cpp
+  src/differential_model/viscous_lsd.cpp
+  src/battery_model/thevenin.cpp
+  src/motor_model/map_based_motor.cpp
   src/steering_model/parallel_front_steering.cpp
   src/load_transfer_model/rigid_body_model.cpp
+  src/load_transfer_model/vd_load_transfer_model.cpp
   src/steering_motor_model/pid_steering_motor.cpp
 )
 
