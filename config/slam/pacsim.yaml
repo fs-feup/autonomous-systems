@@ -48,10 +48,10 @@ slam:
   minimum_frequency_of_detections: 5 # Minimum frequency of detections to consider a landmark as valid
 
   # Loop closure paramteters
-  threshold_dist: 4.0 # Distance around origin to trigger loop closure
-  first_x_cones: 10 # consider a loop if you see any of these first X cones
-  border_width: 5  # distance to give to start searching for loop closure again
-  minimum_confidence: 3 # minimum number of observations to confirm loop closure
+  threshold_dist: 15.0 # Distance around origin to trigger loop closure
+  first_x_cones: 20 # consider a loop if you see any of these first X cones
+  border_width: 10  # distance to give to start searching for loop closure again
+  minimum_confidence: 2 # minimum number of observations to confirm loop closure
   
   # Publish Options
   graph_publish_trajectory: false # Whether to publish the trajectory in graph SLAM

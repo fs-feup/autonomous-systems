@@ -35,8 +35,9 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam"), _params_(params
           data_association);
 
   this->_execution_times_ = std::make_shared<std::vector<double>>(20, 0.0);
-  std::shared_ptr<LoopClosure> loop_closure = std::make_shared<LapCounter>(15, 20, 10, 2);
-
+  std::shared_ptr<LoopClosure> loop_closure =
+      std::make_shared<LapCounter>(this->_params_.threshold_dist, this->_params_.first_x_cones,
+                                   this->_params_.border_width, this->_params_.minimum_confidence);
   // Initialize SLAM solver object
   this->_slam_solver_ = slam_solver_constructors_map.at(params.slam_solver_name_)(
       params, data_association, motion_model, landmark_filter, this->_execution_times_,
