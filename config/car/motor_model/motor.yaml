@@ -11,7 +11,7 @@ motor:
   max_continous_torque: 112.0
   max_peak_torque: 220.0
 
-  kt_constant: 0.7     # Nm / A  Used to convert current to torque (and vice versa) (slighly lower than datasheet as the motor is used with less voltage)
+  kt_constant: 1.0     # Nm / A  Used to convert current to torque (and vice versa) (slighly lower than datasheet as the motor is used with less voltage)
   peak_duration: 120.0   # seconds 
   
   efficiency_map:

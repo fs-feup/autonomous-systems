@@ -34,12 +34,11 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
       differential_->calculateTorqueDistribution(motor_torque, state_->wheels_speed);
 
   if (log_count % 100 == 0) {
-    RCLCPP_INFO(rclcpp::get_logger("FSFEUP02Model"),
-                "Aero parameters: frontal_area=%.2f, drag_coefficient=%.2f",
-                simulator_parameters_->car_parameters->aero_parameters->frontal_area,
-                simulator_parameters_->car_parameters->aero_parameters->drag_coefficient);
-    RCLCPP_INFO(rclcpp::get_logger("FSFEUP02Model"), "Velocities (m/s): vx=%.2f vy=%.2f",
-                state_->vx, state_->vy);
+    // RCLCPP_INFO(rclcpp::get_logger("FSFEUP02Model"),
+    //             "Motor torque: %.2f Nm, Wheels torque (Nm): FL=%.2f FR=%.2f RL=%.2f RR=%.2f",
+    //             motor_torque, state_->wheels_torque.front_left,
+    //             state_->wheels_torque.front_right, state_->wheels_torque.rear_left,
+    //             state_->wheels_torque.rear_right);
   }
   // Aerodynamics
   // based on implementation, this forces are negative by default, so we add them
@@ -125,10 +124,10 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
     exit(1);
   }
   if (log_count % 100 == 0) {
-    RCLCPP_INFO(rclcpp::get_logger("FSFEUP02Model"),
-                "Wheel speeds (rad/s): FL=%.2f FR=%.2f RL=%.2f RR=%.2f",
-                state_->wheels_speed.front_left, state_->wheels_speed.front_right,
-                state_->wheels_speed.rear_left, state_->wheels_speed.rear_right);
+    // RCLCPP_INFO(rclcpp::get_logger("FSFEUP02Model"),
+    //             "Wheel speeds (rad/s): FL=%.2f FR=%.2f RL=%.2f RR=%.2f",
+    //             state_->wheels_speed.front_left, state_->wheels_speed.front_right,
+    //             state_->wheels_speed.rear_left, state_->wheels_speed.rear_right);
     // RCLCPP_INFO(rclcpp::get_logger("FSFEUP02Model"), "Steering angles (rad): FL=%.2f FR=%.2f",
     //             actual_steering_fl, actual_steering_fr);
 
@@ -144,8 +143,8 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
     //             rear_left_forces[0], rear_left_forces[1], rear_left_forces[2],
     //             rear_right_forces[0], rear_right_forces[1], rear_right_forces[2]);
 
-    RCLCPP_INFO(rclcpp::get_logger("FSFEUP02Model"), "Aero forces (N): Fx=%.2f Fy=%.2f Fz=%.2f",
-                aero_forces[0], aero_forces[1], aero_forces[2]);
+    // RCLCPP_INFO(rclcpp::get_logger("FSFEUP02Model"), "Aero forces (N): Fx=%.2f Fy=%.2f Fz=%.2f",
+    //             aero_forces[0], aero_forces[1], aero_forces[2]);
   }
   // Vehicle State Update
   // Sum of all forces normalized to the vehicle coordinate system
