@@ -77,6 +77,7 @@ private:
 
   // Tire functions
   Eigen::Vector3d calculateTireForces(std::string tire_name, double load, double steering_angle);
+
   // Helper function to calculate the slip angle on each tire of the front axle
   // A separation is needed because the front axle needs to account for steering angle (FWD)
   double calculateSlipAngleFront(double dist_to_cg, bool isLeft, double steering_angle);

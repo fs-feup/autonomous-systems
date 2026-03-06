@@ -19,31 +19,31 @@ public:
    * @param current_request Current being requested (A)
    * @return Allowed current (A)
    */
-  virtual float calculate_allowed_current(float current_request) const = 0;
+  virtual double calculate_allowed_current(double current_request) const = 0;
 
   /**
    * @brief Get current being drawn from the battery
    * @return Current (A)
    */
-  virtual float get_current() const = 0;
+  virtual double get_current() const = 0;
 
   /**
    * @brief Get current battery voltage with current state
    * @return Terminal voltage (V)
    */
-  virtual float get_voltage() const = 0;
+  virtual double get_voltage() const = 0;
 
   /**
    * @brief Get current battery voltage under provided current draw
    * @return Terminal voltage (V)
    */
-  virtual float get_voltage(float current_draw) const = 0;
+  virtual double get_voltage(double current_draw) const = 0;
 
   /**
    * @brief Get open circuit voltage
    * @return Open circuit voltage (V)
    */
-  virtual float get_open_circuit_voltage() const = 0;
+  virtual double get_open_circuit_voltage() const = 0;
 
   /**
    * @brief Update battery state
@@ -51,13 +51,13 @@ public:
    * @param current_draw Current being drawn (A)
    * @param dt Time step (s)
    */
-  virtual void update_state(float current_draw, float dt) = 0;
+  virtual void update_state(double current_draw, double dt) = 0;
 
   /**
    * @brief Get current state of charge
    * @return SOC (0 to 1)
    */
-  virtual float get_soc() const = 0;
+  virtual double get_soc() const = 0;
 
   /**
    * @brief Reset battery

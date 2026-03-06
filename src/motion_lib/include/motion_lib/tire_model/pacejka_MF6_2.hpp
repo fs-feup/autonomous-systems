@@ -61,16 +61,16 @@ private:
   /**
    * @brief Calculates the shift for the slip ratio calculation
    *
-   * @return float Shift
+   * @return double Shift
    */
-  float calculateSHx() const;
+  double calculateSHx() const;
 
   /**
    * @brief Calculates the shift for the slip angle calculation
    *
-   * @return float Shift
+   * @return double Shift
    */
-  float calculateSHy() const;
+  double calculateSHy() const;
 
   /**
    * @brief Uses the pacejka magic formula to calculate either Fx or Fy depending on the input
@@ -82,9 +82,10 @@ private:
    * @param E Fall-off
    * @param slip slip angle or slip ratio
    * @param SV Vertical Shift
-   * @return float Either Fx or Fy depeding on inputs
+   * @return double Either Fx or Fy depeding on inputs
    */
-  float calculatePureSlip(float B, float C, float D, float E, float shifted_slip, float SV) const;
+  double calculatePureSlip(double B, double C, double D, double E, double shifted_slip,
+                           double SV) const;
 
   /**
    * @brief Intermediate function that calculates all the internal values needed for future
@@ -102,53 +103,53 @@ private:
    * @param camber_angle Camber angle
    * @return true Successful calculation of internal values
    */
-  bool calculateTireState(float slip_angle, float slip_ratio, double vertical_load, double vx,
+  bool calculateTireState(double slip_angle, double slip_ratio, double vertical_load, double vx,
                           double vy, double yaw_rate, double wheel_angular_speed,
                           double steering_angle, double distance_to_CG, double camber_angle);
 
   /**
    * @brief Calculates the D parameter for the Fy calculation using pacejka MF (Peak)
    *
-   * @return float The value of Dy
+   * @return double The value of Dy
    */
-  float calculateDy(double vertical_load) const;
+  double calculateDy(double vertical_load) const;
 
-  float calculateDx(double vertical_load) const;
+  double calculateDx(double vertical_load) const;
 
-  float calculateCy(double vertical_load) const;
+  double calculateCy(double vertical_load) const;
   /**
 
    * @brief Calculates the C component for the pure longitudinal slip (4.E11)
    *
-   * @return float value of Cx
+   * @return double value of Cx
    */
-  float calculateCx(double vertical_load) const;
+  double calculateCx(double vertical_load) const;
 
-  float calculateBx(float Dx, float Cx) const;
+  double calculateBx(double Dx, double Cx) const;
 
-  float calculateBy(float Dy, float Cy) const;
+  double calculateBy(double Dy, double Cy) const;
 
-  float calculateEy(double slip_angle) const;
+  double calculateEy(double slip_angle) const;
   /**
    * @brief Calculates the E component for the longitudinal slip
    *
    * @param shifted_slip_ratio The already shited slip ratio (kappax)
-   * @return float Value of Ex
+   * @return double Value of Ex
    */
-  float calculateEx(double shifted_slip_ratio) const;
+  double calculateEx(double shifted_slip_ratio) const;
 
-  float calculateSVy(double vertical_load) const;
+  double calculateSVy(double vertical_load) const;
 
-  float calculateSVx(double vertical_load) const;
+  double calculateSVx(double vertical_load) const;
 
   /**
    * @brief Calculates Fx using combined slip
    *
    * @param Fx0 Fx calculated using pure slip
    * @param slip_ratio Slip ratio (kappa)
-   * @return float Fx using combined slip
+   * @return double Fx using combined slip
    */
-  float calculateCombinedLongitudinal(double Fx0, double slip_ratio) const;
+  double calculateCombinedLongitudinal(double Fx0, double slip_ratio) const;
 
   /**
    * @brief Calculates Fy using combined slip
@@ -157,10 +158,10 @@ private:
    * @param shifted_slip_ratio Slip ratio already shifted (kappax)
    * @param slip_ratio Slip ratio (kappa)
    * @param vertical_load Fz
-   * @return float Fy using combined slip
+   * @return double Fy using combined slip
    */
-  float calculateCombinedLateral(double Fy0, double shifted_slip_ratio, double slip_ratio,
-                                 double vertical_load) const;
+  double calculateCombinedLateral(double Fy0, double shifted_slip_ratio, double slip_ratio,
+                                  double vertical_load) const;
 
   /**
    * @brief [!NOT USED] Calculates the aligning moment without using combined slip
@@ -171,10 +172,10 @@ private:
    * @param SVy Vertical shift for slip angle
    * @param By B component for slip angle
    * @param Cy C component for slip angle
-   * @return float Self aligning moment without using combined slip
+   * @return double Self aligning moment without using combined slip
    */
-  float calculatePureMoment(double Fy0, double normal_load, double SHy, double SVy, double By,
-                            double Cy, double vx) const;
+  double calculatePureMoment(double Fy0, double normal_load, double SHy, double SVy, double By,
+                             double Cy, double vx) const;
 
   /**
    * @brief Calculates the aligning moment using combined slip.
@@ -186,26 +187,26 @@ private:
    * @param SVy Vertical shift for slip angle
    * @param By B component for slip angle
    * @param Cy C component for slip angle
-   * @return float Self aligning moment using combined slip
+   * @return double Self aligning moment using combined slip
    */
-  float calculateCombinedMoment(double Fx, double Fy, double slip_ratio, double SHy, double SVy,
-                                double By, double Cy, double vx, double normal_load) const;
+  double calculateCombinedMoment(double Fx, double Fy, double slip_ratio, double SHy, double SVy,
+                                 double By, double Cy, double vx, double normal_load) const;
 
 private:
-  float calculateZeta1(double slip_ratio) const;
+  double calculateZeta1(double slip_ratio) const;
 
-  float calculateZeta2(double slip_angle) const;
+  double calculateZeta2(double slip_angle) const;
 
-  float calculateZeta3() const;
+  double calculateZeta3() const;
 
-  float calculateSHyp(double camber_angle) const;
+  double calculateSHyp(double camber_angle) const;
 
-  float calculateSVyk(double vertical_load, double slip_ratio) const;
+  double calculateSVyk(double vertical_load, double slip_ratio) const;
   /**
    * @brief Auxiliary function that returns the sign of a value
    *
    * @param val The value
    * @return int 1 or -1
    */
-  static int sign(float val) { return (val > 0) ? 1 : -1; }
+  static int sign(double val) { return (val > 0) ? 1 : -1; }
 };

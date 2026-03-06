@@ -9,34 +9,34 @@ class Thevenin : public BatteryModel {
 public:
   explicit Thevenin(const common_lib::car_parameters::CarParameters& car_parameters);
 
-  float calculate_allowed_current(float current_draw) const override;
+  double calculate_allowed_current(double current_draw) const override;
 
-  float get_current() const override;
+  double get_current() const override;
 
-  float get_voltage() const override;
+  double get_voltage() const override;
 
-  float get_voltage(float current_draw) const override;
+  double get_voltage(double current_draw) const override;
 
-  float get_open_circuit_voltage() const override;
+  double get_open_circuit_voltage() const override;
 
-  void update_state(float current_draw, float dt) override;
+  void update_state(double current_draw, double dt) override;
 
-  float get_soc() const override;
+  double get_soc() const override;
 
   void reset() override;
 
 private:
-  float soc_;      // Current state of charge (0-1)
-  float v_rc_;     // Voltage across RC branch (V)
-  float current_;  // Current being drawn (A)
+  double soc_;      // Current state of charge (0-1)
+  double v_rc_;     // Voltage across RC branch (V)
+  double current_;  // Current being drawn (A)
 
-  float solve_polinomial5(const std::vector<float>& coeffs, float x) const;
+  double solve_polinomial5(const std::vector<double>& coeffs, double x) const;
 
-  float get_cell_ocv(float soc) const;
+  double get_cell_ocv(double soc) const;
 
-  float get_cell_r0(float soc) const;
+  double get_cell_r0(double soc) const;
 
-  float get_cell_r1(float soc) const;
+  double get_cell_r1(double soc) const;
 
-  float get_cell_c1(float soc) const;
+  double get_cell_c1(double soc) const;
 };
