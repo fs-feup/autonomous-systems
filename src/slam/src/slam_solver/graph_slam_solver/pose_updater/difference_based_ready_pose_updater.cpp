@@ -17,7 +17,9 @@ DifferenceBasedReadyPoseUpdater::~DifferenceBasedReadyPoseUpdater() = default;
 
 DifferenceBasedReadyPoseUpdater& DifferenceBasedReadyPoseUpdater::operator=(
     const DifferenceBasedReadyPoseUpdater& other) {
-  if (this == &other) return *this;  // Prevent self-assignment
+  if (this == &other) {
+    return *this;  // Prevent self-assignment
+  }
 
   // Copy each member individually
   PoseUpdater::operator=(other);  // Call base class assignment operator

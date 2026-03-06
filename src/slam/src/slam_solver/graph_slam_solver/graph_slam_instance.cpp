@@ -84,8 +84,9 @@ GraphSLAMInstance::GraphSLAMInstance(const SLAMParameters& params,
                                 0.0);  // Create initial prior pose at origin, to bind graph
   const gtsam::Symbol pose_symbol('x', ++(this->_pose_counter_));
   _pose_timestamps_.push(TimedPose{this->_pose_counter_, rclcpp::Time(0)});
-  const gtsam::noiseModel::Diagonal::shared_ptr prior_noise =
-      gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector3(0.0, 0.0, 0.0));
+  const gtsam::noiseModel::Diagonal::shared_ptr prior_noise = gtsam::noiseModel::Diagonal::Sigmas(
+      gtsam::Vector3(params.pose_x_initial_noise_, params.pose_y_initial_noise_,
+                     params.pose_theta_initial_noise_));
   _factor_graph_.add(gtsam::PriorFactor<gtsam::Pose2>(pose_symbol, prior_pose, prior_noise));
   if (const auto optimizer_ptr = std::dynamic_pointer_cast<ISAM2Optimizer>(this->_optimizer_)) {
     optimizer_ptr->_new_factors_.add(
@@ -110,11 +111,13 @@ GraphSLAMInstance::GraphSLAMInstance(const GraphSLAMInstance& other) {
   _optimizer_ = other._optimizer_->clone();  // because it's a shared_ptr
   _params_ = other._params_;
   _pose_timestamps_ = other._pose_timestamps_;
-  _locked_landmarks_ = other._locked_landmarks_;
+  _locked_landmarks_ = other._locked_landmarks_ || this->_locked_landmarks_;
 }
 
 GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) {
-  if (this == &other) return *this;  // Prevent self-assignment
+  if (this == &other) {
+    return *this;  // Prevent self-assignment
+  }
 
   // Copy each member individually
   _factor_graph_ = other._factor_graph_;
@@ -126,7 +129,7 @@ GraphSLAMInstance& GraphSLAMInstance::operator=(const GraphSLAMInstance& other) 
   _optimizer_ = other._optimizer_->clone();  // because it's a shared_ptr
   _params_ = other._params_;
   _pose_timestamps_ = other._pose_timestamps_;
-  _locked_landmarks_ = other._locked_landmarks_;
+  _locked_landmarks_ = other._locked_landmarks_ || this->_locked_landmarks_;
 
   return *this;
 }
@@ -198,10 +201,7 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
   Eigen::VectorXi& associations = *(observation_data.associations_);
   Eigen::VectorXd& observations_global = *(observation_data.observations_global_);
   bool new_observation_factors = false;
-  unsigned int pose_id_at_observation_time =
-      this->get_landmark_id_at_time(observation_data.timestamp_);
-  RCLCPP_INFO(rclcpp::get_logger("slam"), "locked_landmarks= %s",
-              this->_locked_landmarks_ ? "true" : "false");
+  unsigned int pose_id_at_observation_time = this->get_pose_id_at_time(observation_data.timestamp_);
   for (unsigned int i = 0; i < observations.size() / 2; i++) {
     gtsam::Point2 landmark;
     gtsam::Symbol landmark_symbol;
@@ -226,6 +226,23 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
       }
       // Association to previous landmark
       landmark_symbol = gtsam::Symbol('l', (associations(i)) / 2);  // Convert to landmark id
+      if (!this->_graph_values_.exists(landmark_symbol)) {
+        RCLCPP_INFO(rclcpp::get_logger("slam"),
+                    "GraphSLAMInstance - Landmark %d removed by optimizer, creating new landmark",
+                    (associations(i)) / 2);
+        // Create NEW landmark with fresh ID instead of reusing old one
+        if (this->_locked_landmarks_) {
+          continue;  // Can't create new landmarks when locked
+        }
+        landmark_symbol = gtsam::Symbol('l', (this->_landmark_counter_)++);
+        landmark = gtsam::Point2(observations_global(i * 2), observations_global(i * 2 + 1));
+        this->_graph_values_.insert(landmark_symbol, landmark);
+        if (const auto optimizer_ptr =
+                std::dynamic_pointer_cast<ISAM2Optimizer>(this->_optimizer_)) {
+          optimizer_ptr->_new_values_.insert(
+              landmark_symbol, landmark);  // Most efficient way I found to deal with ISAM2
+        }
+      }
     } else {
       continue;
     }
@@ -288,7 +305,9 @@ void GraphSLAMInstance::optimize() {
   RCLCPP_DEBUG(rclcpp::get_logger("slam"),
                "GraphSLAMInstance - Optimizing graph with %ld factors and %ld values",
                this->_factor_graph_.size(), this->_graph_values_.size());
-  if (!this->_new_observation_factors_) return;
+  if (!this->_new_observation_factors_) {
+    return;
+  }
 
   this->_graph_values_ = this->_optimizer_->optimize(
       this->_factor_graph_, this->_graph_values_, this->_pose_counter_, this->_landmark_counter_);
@@ -313,7 +332,7 @@ void GraphSLAMInstance::lock_landmarks() {
   this->_locked_landmarks_ = true;
 }
 
-unsigned int GraphSLAMInstance::get_landmark_id_at_time(const rclcpp::Time& timestamp) const {
+unsigned int GraphSLAMInstance::get_pose_id_at_time(const rclcpp::Time& timestamp) const {
   if (_pose_timestamps_.size() == 0) {
     throw std::runtime_error("No poses in buffer");
   }
@@ -322,7 +341,9 @@ unsigned int GraphSLAMInstance::get_landmark_id_at_time(const rclcpp::Time& time
     const TimedPose& curr = _pose_timestamps_.from_end(i);
 
     if (curr.timestamp.seconds() <= timestamp.seconds()) {
-      if (i == 0) return curr.pose_id;  // Avoid out-of-bounds
+      if (i == 0) {
+        return curr.pose_id;  // Avoid out-of-bounds
+      }
       const TimedPose& next = _pose_timestamps_.from_end(i - 1);
 
       auto diff_curr = timestamp.seconds() - curr.timestamp.seconds();

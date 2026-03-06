@@ -54,7 +54,13 @@ struct SLAMParameters {
   double slam_isam2_relinearize_skip_ = 1;
   std::string slam_isam2_factorization_ = "QR";
   unsigned int sliding_window_size_ = 5;
+
   bool publish_trajectory_ = false;  // Whether to publish the trajectory of the graph SLAM
+  bool publish_associations_ =
+      false;  // Whether to publish the associations of the data association
+  bool publish_global_observations_ =
+      false;  // Whether to publish the perception observations transformed to the global frame (map
+              // frame) after compensation
 
   // Loop closure parameters
   double threshold_dist = 4.0;  // Distance around origin to trigger loop closure
