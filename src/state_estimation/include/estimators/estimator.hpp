@@ -2,6 +2,7 @@
 
 #include "common_lib/sensor_data/imu.hpp"
 #include "common_lib/sensor_data/wheel_encoders.hpp"
+#include "common_lib/structures/control_command.hpp"
 #include "common_lib/structures/velocities.hpp"
 #include "custom_interfaces/msg/vehicle_state_vector.hpp"
 #include "utils/state_define.hpp"

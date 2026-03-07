@@ -16,6 +16,7 @@
  * interval.
  */
 class ProcessModel {
+protected:
   std::shared_ptr<SEParameters> parameters_;
 
 public:

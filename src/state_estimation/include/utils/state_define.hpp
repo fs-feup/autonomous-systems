@@ -1,4 +1,6 @@
 #pragma once
+#include <Eigen/Dense>
+#include <Eigen/Sparse>
 
 #define StateSize 10
 #define State Eigen::Matrix<double, StateSize, 1>

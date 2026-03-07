@@ -4,21 +4,25 @@
 
 #include "common_lib/car_parameters/car_parameters.hpp"
 
+enum Tire { FL, FR, RL, RR };
+
 // Same approach as the one used in load transfer
 /**
- * @brief expandable struct used as input to the tire model: vx, vy, wheel_angular_speed, yaw_rate,
- * steering_angle, slip_angle, slip_ratio, vertical_load, distance_to_CG , camber_angle.
+ * @brief Struct used to store all possible input parameters for the tire model. splip angle, ratio,
+ * camber and distance to CG will be overwritten by the tire model, no need to fill them.
  *
  */
 struct TireInput {
+  Tire tire;
   double vx;
   double vy;
-  double wheel_angular_speed;
   double yaw_rate;
   double steering_angle;
+  double wheel_angular_speed;
+  double vertical_load;
+
   double slip_angle;
   double slip_ratio;
-  double vertical_load;
   double distance_to_CG;
   double camber_angle;
 };
@@ -31,10 +35,10 @@ class TireModel {
 protected:
   std::shared_ptr<common_lib::car_parameters::CarParameters> car_parameters_;
 
-public:
-  TireModel(const common_lib::car_parameters::CarParameters& car_parameters)
-      : car_parameters_(
-            std::make_shared<common_lib::car_parameters::CarParameters>(car_parameters)) {}
+  void calculateSlipAngleFront(TireInput& tire_input);
+  void calculateSlipAngleRear(TireInput& tire_input);
+  void calculateSlipRatio(TireInput& tire_input);
+
   /**
    * @brief Calculate the forces acting in a tire based on the tire characteristics and dynamic
    * state.
@@ -43,4 +47,11 @@ public:
    * @return Eigen::Vector3d The resulting forces in the tire (Fx, Fy, Mz)
    */
   virtual Eigen::Vector3d tire_forces(const TireInput& tire_input) = 0;
+
+public:
+  TireModel(const common_lib::car_parameters::CarParameters& car_parameters)
+      : car_parameters_(
+            std::make_shared<common_lib::car_parameters::CarParameters>(car_parameters)) {}
+
+  Eigen::Vector3d calculateTireForces(TireInput& tire_input);
 };

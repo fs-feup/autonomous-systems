@@ -61,11 +61,7 @@ public:
 
 private:
   // Vehicle state struct is defined in the base class
-  std::shared_ptr<TireModel> front_left;
-  std::shared_ptr<TireModel> front_right;
-  std::shared_ptr<TireModel> rear_left;
-  std::shared_ptr<TireModel> rear_right;
-
+  std::shared_ptr<TireModel> tire_model_;
   std::shared_ptr<MotorModel> motor_;
   std::shared_ptr<BatteryModel> battery_;
   std::shared_ptr<DifferentialModel> differential_;
@@ -74,13 +70,4 @@ private:
 
   // Helper function to calculate the torque combining the motor model and the battery model
   double calculate_powertrain_torque(double throttle_input, double dt);
-
-  // Tire functions
-  Eigen::Vector3d calculateTireForces(std::string tire_name, double load, double steering_angle);
-  // Helper function to calculate the slip angle on each tire of the front axle
-  // A separation is needed because the front axle needs to account for steering angle (FWD)
-  double calculateSlipAngleFront(double dist_to_cg, bool isLeft, double steering_angle);
-  double calculateSlipAngleRear(double dist_to_cg, bool isLeft);
-  double calculateSlipRatio(double wheel_angular_velocity, double effective_tire_radius,
-                            double steering_angle);
 };
