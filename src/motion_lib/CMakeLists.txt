@@ -31,6 +31,7 @@ set(IMPLEMENTATION_FILES
   src/v2p_models/constant_acceleration_turnrate_model.cpp
   src/v2p_models/odometry_model.cpp
   src/aero_model/default_aero_model.cpp
+  src/tire_model/base_tire_model.cpp
   src/tire_model/pacejka_combined_slip.cpp
   src/tire_model/pacejka_MF6_2.cpp
   src/differential_model/viscous_lsd.cpp

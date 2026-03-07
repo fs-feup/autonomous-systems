@@ -5,9 +5,12 @@ VENode::VENode(const VEParameters& parameters)
   this->_velocity_estimator_ = estimators_map_.at(parameters._estimation_method_)(parameters);
   this->_velocities_pub_ = this->create_publisher<custom_interfaces::msg::Velocities>(
       "/state_estimation/velocities", 10);
+  this->execution_time_pub_ =
+      this->create_publisher<std_msgs::msg::Float64>("/state_estimation/execution_time", 10);
 }
 
-void VENode::publish_velocities() const {
+void VENode::publish_velocities() {
+  rclcpp::Time start_time = this->now();
   common_lib::structures::Velocities state = this->_velocity_estimator_->get_velocities();
   custom_interfaces::msg::Velocities velocities_msg;
   velocities_msg.header.stamp = state.timestamp_;
@@ -18,4 +21,12 @@ void VENode::publish_velocities() const {
   velocities_msg.covariance[4] = state.velocity_y_noise_;
   velocities_msg.covariance[8] = state.rotational_velocity_noise_;
   this->_velocities_pub_->publish(velocities_msg);
+  rclcpp::Time end_time = this->now();
+  std_msgs::msg::Float64 execution_time_msg;
+  execution_time_msg.data = (end_time - start_time).seconds() * 1000;
+  average_execution_time_ = (average_execution_time_ * execution_count_ + execution_time_msg.data) /
+                            (execution_count_ + 1);
+  execution_count_++;
+  execution_time_msg.data = average_execution_time_;
+  this->execution_time_pub_->publish(execution_time_msg);
 }

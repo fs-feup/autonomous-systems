@@ -2,13 +2,7 @@
 
 FSFEUP02Model::FSFEUP02Model(const InvictaSimParameters& simulator_parameters)
     : VehicleModel(simulator_parameters) {
-  this->front_left = tire_models_map.at(simulator_parameters.tire_model.c_str())(
-      simulator_parameters.car_parameters);
-  this->front_right = tire_models_map.at(simulator_parameters.tire_model.c_str())(
-      simulator_parameters.car_parameters);
-  this->rear_left = tire_models_map.at(simulator_parameters.tire_model.c_str())(
-      simulator_parameters.car_parameters);
-  this->rear_right = tire_models_map.at(simulator_parameters.tire_model.c_str())(
+  this->tire_model_ = tire_models_map.at(simulator_parameters.tire_model.c_str())(
       simulator_parameters.car_parameters);
   this->motor_ = motor_models_map.at(simulator_parameters.motor_model.c_str())(
       simulator_parameters.car_parameters);
@@ -59,13 +53,33 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
       LoadTransferInput{state_->ax, state_->ay, aero_forces[2]});  // aero_forces{Fx,Fy,Fz}
 
   // Tire
-  Eigen::Vector3d front_left_forces =
-      calculateTireForces("fl", load_on_wheels.front_left, actual_steering_fl);
-  Eigen::Vector3d front_right_forces =
-      calculateTireForces("fr", load_on_wheels.front_right, actual_steering_fr);
-  Eigen::Vector3d rear_left_forces = calculateTireForces(
-      "rl", load_on_wheels.rear_left, 0.0);  // Rear wheels do not steer, so steering angle is 0
-  Eigen::Vector3d rear_right_forces = calculateTireForces("rr", load_on_wheels.rear_right, 0.0);
+  TireInput tire_input;
+  tire_input.vx = state_->vx;
+  tire_input.vy = state_->vy;
+  tire_input.yaw_rate = state_->yaw_rate;
+
+  tire_input.tire = FL;
+  tire_input.steering_angle = actual_steering_fl;
+  tire_input.wheel_angular_speed = state_->wheels_speed.front_left;
+  tire_input.vertical_load = load_on_wheels.front_left;
+  Eigen::Vector3d front_left_forces = this->tire_model_->calculateTireForces(tire_input);
+
+  tire_input.tire = FR;
+  tire_input.steering_angle = actual_steering_fr;
+  tire_input.wheel_angular_speed = state_->wheels_speed.front_right;
+  tire_input.vertical_load = load_on_wheels.front_right;
+  Eigen::Vector3d front_right_forces = this->tire_model_->calculateTireForces(tire_input);
+
+  tire_input.tire = RL;
+  tire_input.steering_angle = 0.0;  // Rear wheels do not steer
+  tire_input.wheel_angular_speed = state_->wheels_speed.rear_left;
+  tire_input.vertical_load = load_on_wheels.rear_left;
+  Eigen::Vector3d rear_left_forces = this->tire_model_->calculateTireForces(tire_input);
+
+  tire_input.tire = RR;
+  tire_input.wheel_angular_speed = state_->wheels_speed.rear_right;
+  tire_input.vertical_load = load_on_wheels.rear_right;
+  Eigen::Vector3d rear_right_forces = this->tire_model_->calculateTireForces(tire_input);
 
   // Low-speed lateral force scaling
   double v_total = std::sqrt(state_->vx * state_->vx + state_->vy * state_->vy);
@@ -258,104 +272,5 @@ double FSFEUP02Model::calculate_powertrain_torque(double throttle_input, double 
   battery_->update_state(battery_current, dt);
   motor_->update_state(battery_current, actual_motor_torque, dt);
 
-  return actual_motor_torque;
-}
-
-double FSFEUP02Model::calculateSlipAngleFront(double dist_to_cg, bool isLeft,
-                                              double steering_angle) {
-  const double V_eps = 1;  // Regularization constant to prevent incorrect low speed behavior can
-                           // be lower if needed
-  double sign = (isLeft) ? -1.0 : 1.0;  // Sign used to apply the effect of yaw_rate
-  // Normalize velocity to wheels coordinate system
-  double Vcx = state_->vx * cos(steering_angle) + state_->vy * sin(steering_angle);
-  double Vcy = -state_->vx * sin(steering_angle) + state_->vy * cos(steering_angle);
-  return (
-      atan((Vcy + (state_->yaw_rate * dist_to_cg) +
-            (sign * state_->yaw_rate * simulator_parameters_->car_parameters->track_width / 2)) /
-           sqrt(Vcx * Vcx + V_eps * V_eps)));
-}
-
-double FSFEUP02Model::calculateSlipAngleRear(double dist_to_cg, bool isLeft) {
-  const double V_eps = 1;
-  double sign = (isLeft) ? -1.0 : 1.0;
-
-  // Lateral velocity at the wheel contact patch
-  double Vcy_contact =
-      state_->vy - (state_->yaw_rate * dist_to_cg) +
-      (sign * state_->yaw_rate * simulator_parameters_->car_parameters->track_width / 2.0);
-
-  return atan(Vcy_contact / sqrt(state_->vx * state_->vx + V_eps * V_eps));
-}
-
-double FSFEUP02Model::calculateSlipRatio(double wheel_angular_velocity,
-                                         double effective_tire_radius, double steering_angle) {
-  const double V_eps = 1;  // Regularization constant to prevent incorrect low speed behavior can
-                           // be lower if needed
-  // Normalize velocity to wheels coordinate system
-  double Vcx = state_->vx * cos(steering_angle) + state_->vy * sin(steering_angle);
-  double slip_ratio =
-      (wheel_angular_velocity * effective_tire_radius - Vcx) / sqrt(Vcx * Vcx + V_eps * V_eps);
-  slip_ratio = std::clamp(slip_ratio, -1.0, 1.0);  // hard physical limit
-  return slip_ratio;
-}
-
-Eigen::Vector3d FSFEUP02Model::calculateTireForces(std::string tire_name, double load,
-                                                   double steering_angle) {
-  TireInput tire_input;
-  tire_input.vx = state_->vx;
-  tire_input.vy = state_->vy;
-  tire_input.yaw_rate = state_->yaw_rate;
-  tire_input.steering_angle = steering_angle;
-  tire_input.vertical_load = load;
-  if (tire_name == "fl") {
-    tire_input.distance_to_CG = simulator_parameters_->car_parameters->tire_parameters->d_fleft;
-    tire_input.camber_angle = simulator_parameters_->car_parameters->tire_parameters->fl_camber;
-    tire_input.slip_angle = calculateSlipAngleFront(
-        simulator_parameters_->car_parameters->tire_parameters->d_fleft, true, steering_angle);
-    tire_input.slip_ratio =
-        calculateSlipRatio(state_->wheels_speed.front_left,
-                           simulator_parameters_->car_parameters->tire_parameters->effective_tire_r,
-                           steering_angle);  // Assuming wheel speed is in rad/s
-    tire_input.wheel_angular_speed = state_->wheels_speed.front_left;
-    return front_left->tire_forces(tire_input);
-  } else if (tire_name == "fr") {
-    tire_input.distance_to_CG = simulator_parameters_->car_parameters->tire_parameters->d_fright;
-    tire_input.camber_angle = simulator_parameters_->car_parameters->tire_parameters->fr_camber;
-    tire_input.slip_angle = calculateSlipAngleFront(
-        simulator_parameters_->car_parameters->tire_parameters->d_fright, false, steering_angle);
-    tire_input.slip_ratio =
-        calculateSlipRatio(state_->wheels_speed.front_right,
-                           simulator_parameters_->car_parameters->tire_parameters->effective_tire_r,
-                           steering_angle);  // Assuming wheel speed is in rad/s
-    tire_input.wheel_angular_speed = state_->wheels_speed.front_right;
-    return front_right->tire_forces(tire_input);
-  } else if (tire_name == "rl") {
-    tire_input.distance_to_CG = simulator_parameters_->car_parameters->tire_parameters->d_bleft;
-    tire_input.camber_angle = simulator_parameters_->car_parameters->tire_parameters->rl_camber;
-    tire_input.slip_angle = calculateSlipAngleRear(
-        simulator_parameters_->car_parameters->tire_parameters->d_bleft, true);
-    // RCLCPP_INFO(rclcpp::get_logger("FSFEUP02Model"), "Slip angle RL (rad): %.2f",
-    //             tire_input.slip_angle);
-    tire_input.slip_ratio =
-        calculateSlipRatio(state_->wheels_speed.rear_left,
-                           simulator_parameters_->car_parameters->tire_parameters->effective_tire_r,
-                           steering_angle);  // Assuming wheel speed is in rad/s
-    tire_input.wheel_angular_speed = state_->wheels_speed.rear_left;
-    return rear_left->tire_forces(tire_input);
-  } else if (tire_name == "rr") {
-    tire_input.distance_to_CG = simulator_parameters_->car_parameters->tire_parameters->d_bright;
-    tire_input.camber_angle = simulator_parameters_->car_parameters->tire_parameters->rr_camber;
-    tire_input.slip_angle = calculateSlipAngleRear(
-        simulator_parameters_->car_parameters->tire_parameters->d_bright, false);
-    // RCLCPP_INFO(rclcpp::get_logger("FSFEUP02Model"), "Slip angle RR (rad): %.2f",
-    //             tire_input.slip_angle);
-    tire_input.slip_ratio =
-        calculateSlipRatio(state_->wheels_speed.rear_right,
-                           simulator_parameters_->car_parameters->tire_parameters->effective_tire_r,
-                           steering_angle);  // Assuming wheel speed is in rad/s
-    tire_input.wheel_angular_speed = state_->wheels_speed.rear_right;
-    return rear_right->tire_forces(tire_input);
-  } else {
-    throw std::invalid_argument("Invalid tire name");
-  }
+  return static_cast<double>(actual_motor_torque);
 }
