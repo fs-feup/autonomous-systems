@@ -16,9 +16,9 @@ double PIDSteeringMotor::compute_steering_rate(double current_steering, double s
   previous_error_ = error;
 
   // PID control output
-  double output = this->car_parameters_->steering_motor_parameters.kp * proportional +
-                  this->car_parameters_->steering_motor_parameters.ki * integral_ +
-                  this->car_parameters_->steering_motor_parameters.kd * derivative;
+  double output = this->car_parameters_->steering_motor_parameters->kp * proportional +
+                  this->car_parameters_->steering_motor_parameters->ki * integral_ +
+                  this->car_parameters_->steering_motor_parameters->kd * derivative;
 
   return output;
 }
