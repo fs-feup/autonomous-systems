@@ -140,7 +140,7 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
 
     std::unique_ptr<tf2_ros::TransformBroadcaster> br = std::make_unique<tf2_ros::TransformBroadcaster>(node);
 
-    double timestep = 1.0 / 1000.0;
+    const double targetLoopPeriod = 1.0 / 1000.0;
     double egoMotionSensorRate = 200.0;
     double lastEgoMotionSensorSampleTime = 0.0;
     std::string framePerception = "perception";
@@ -185,6 +185,7 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
     double current_wheel_speed_angle = 0.0;
 
     auto nextLoopTime = std::chrono::steady_clock::now();
+    auto lastLoopTime = nextLoopTime;
 
     cl = std::make_shared<CompetitionLogic>(logger, lms, mainConfig);
     bool finish = false;
@@ -193,12 +194,17 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
 
     while (rclcpp::ok() && !(finish))
     {
+        auto loopStartTime = std::chrono::steady_clock::now();
+        double realDt = std::chrono::duration<double>(loopStartTime - lastLoopTime).count();
+        lastLoopTime = loopStartTime;
+        double dt = realDt * realtimeRatio;
+
         rosgraph_msgs::msg::Clock clockMsg;
         clockMsg.clock = rclcpp::Time(static_cast<uint64_t>(simTime * 1e9));
         clockPub->publish(clockMsg);
         auto wheelPositions = model->getWheelPositions();
         Wheels gripValues = gm.getGripValues(wheelPositions);
-        model->forwardIntegrate(timestep/* , gripValues */);
+        model->forwardIntegrate(dt/* , gripValues */);
         auto t = model->getPosition();
         auto rEulerAngles = model->getOrientation();
         auto alpha = model->getAngularAcceleration();
@@ -410,14 +416,15 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
         sensor_msgs::msg::JointState jointStamped = createRosJointMsg(jointNames, jointMsg, simTime);
         jointStatePublisher->publish(jointStamped);
         mutexSimTime.lock();
-        simTime += timestep;
+        simTime += dt;
         mutexSimTime.unlock();
         if (simTime >= clockStopTime)
         {
             cvClockTrigger.wait(lockClockTrigger);
             nextLoopTime = std::chrono::steady_clock::now();
+            lastLoopTime = nextLoopTime;
         }
-        nextLoopTime += std::chrono::microseconds((int)((timestep / realtimeRatio) * 1000000.0));
+        nextLoopTime += std::chrono::microseconds((int)((targetLoopPeriod / realtimeRatio) * 1000000.0));
         std::this_thread::sleep_until(nextLoopTime);
     }
     logger->logWarning("Ros status, 1 is OK, 0 is not OK: " + to_string(rclcpp::ok()));

@@ -169,13 +169,16 @@ private:
 
   /*--------------------- Mission-Specific Planning --------------------*/
   /**
-   * @brief Executes planning for the EBS (Emergency Braking System) test mission.
+   * @brief Generates and optimizes a closed-loop global track path.
    *
-   * Calculates and smooths the path, then implements distance-based braking logic.
-   * Braking is triggered when the vehicle is more than 90m from origin, applying
-   * deceleration until the vehicle stops.
+   * @note Intended to run once when the map is considered complete.
    */
-  void run_ebs_test();
+  void run_full_map();
+  /**
+   * @brief Executes planning for the acceleration mission.
+   *
+   */
+  void run_acceleration();
 
   /**
    * @brief Executes planning for the autocross mission.
