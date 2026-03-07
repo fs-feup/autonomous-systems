@@ -81,9 +81,9 @@ void InvictaSimNode::simulation_step() {
   custom_interfaces::msg::VehicleStateVector vehicle_state_msg;
   vehicle_state_msg.velocity_x = vehicle_model_->get_velocity_x();
   vehicle_state_msg.velocity_y = vehicle_model_->get_velocity_y();
-  vehicle_state_msg.yaw_rate = vehicle_model_->get_yaw();
-  vehicle_state_msg.acceleration_x = 0.0;
-  vehicle_state_msg.acceleration_y = 0.0;
+  vehicle_state_msg.yaw_rate = vehicle_model_->get_yaw_rate();
+  vehicle_state_msg.acceleration_x = vehicle_model_->get_acceleration_x();
+  vehicle_state_msg.acceleration_y = vehicle_model_->get_acceleration_y();
   vehicle_state_msg.steering_angle = steering_input_;
   auto wheels_speed = vehicle_model_->get_wheels_speed();
   vehicle_state_msg.fl_rpm = wheels_speed.front_left * 60.0 / (2.0 * M_PI);  // Convert rad/s to RPM

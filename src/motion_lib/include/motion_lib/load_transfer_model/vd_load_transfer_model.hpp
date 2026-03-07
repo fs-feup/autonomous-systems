@@ -22,9 +22,10 @@ private:
    * @param massDistribution 0 to 100 value that represents the percentage of weight loaded on the
    * front
    * @param lateral_acceleration Value of lateral acceleration
-   * @return float The difference in frontal load caused by the lateral acceleration
+   * @return double The difference in frontal load caused by the lateral acceleration
    */
-  float calculate_front_lateral_transfer(float massDistribution, float lateral_acceleration) const;
+  double calculate_front_lateral_transfer(double massDistribution,
+                                          double lateral_acceleration) const;
 
   /**
    * @brief Calculates the total difference in rear load caused by lateral weight transfer using
@@ -33,15 +34,16 @@ private:
    * @param massDistribution 0 to 100 value that represents the percentage of weight loaded on the
    * front
    * @param lateral_acceleration Value of lateral acceleration
-   * @return float float The difference in rear load caused by the lateral acceleration
+   * @return double double The difference in rear load caused by the lateral acceleration
    */
-  float calculate_rear_lateral_transfer(float massDistribution, float lateral_acceleration) const;
+  double calculate_rear_lateral_transfer(double massDistribution,
+                                         double lateral_acceleration) const;
 
   /**
    * @brief Calculates the total difference in load caused by longitudinal weight transfer
    *
    * @param longitudinal_acceleration Value of longitudinal acceleration
-   * @return float The total difference in load caused by longitudinal acceleration
+   * @return double The total difference in load caused by longitudinal acceleration
    */
-  float calculate_longitudinal_transfer(float longitudinal_acceleration) const;
+  double calculate_longitudinal_transfer(double longitudinal_acceleration) const;
 };

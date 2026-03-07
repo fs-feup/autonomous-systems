@@ -13,5 +13,5 @@ public:
       : DifferentialModel(car_parameters) {}
 
   common_lib::structures::Wheels calculateTorqueDistribution(
-      float input_torque, const common_lib::structures::Wheels& wheel_speeds) const override;
+      double input_torque, const common_lib::structures::Wheels& wheel_speeds) const override;
 };

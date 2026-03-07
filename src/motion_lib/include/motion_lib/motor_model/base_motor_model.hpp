@@ -20,14 +20,14 @@ public:
    * @param rpm Motor RPM
    * @return Efficiency (0 to 1)
    */
-  virtual float get_efficiency(float torque, float rpm) const = 0;
+  virtual double get_efficiency(double torque, double rpm) const = 0;
 
   /**
    * @brief Get maximum torque available at current RPM
    * @param rpm Current motor RPM
    * @return Maximum available torque (Nm)
    */
-  virtual float get_max_torque_at_rpm(float rpm) const = 0;
+  virtual double get_max_torque_at_rpm(double rpm) const = 0;
 
   /**
    * @brief Update motor state
@@ -35,7 +35,7 @@ public:
    * @param torque Torque being applied to the motor (Nm)
    * @param dt Time step (s)
    */
-  virtual void update_state(float current_draw, float torque, float dt) = 0;
+  virtual void update_state(double current_draw, double torque, double dt) = 0;
 
   /**
    * @brief Reset motor state
@@ -46,5 +46,5 @@ public:
    * @brief Get the torque being applied to the motor
    * @return Torque (Nm)
    */
-  virtual float get_torque() const = 0;
+  virtual double get_torque() const = 0;
 };

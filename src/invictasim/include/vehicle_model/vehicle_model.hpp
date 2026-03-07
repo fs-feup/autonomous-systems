@@ -73,6 +73,8 @@ public:
   double get_velocity_x() const { return state_->vx; }
   double get_velocity_y() const { return state_->vy; }
   double get_velocity_z() const { return state_->vz; }
+  double get_acceleration_x() const { return state_->ax; }
+  double get_acceleration_y() const { return state_->ay; }
   common_lib::structures::Wheels get_wheels_speed() const { return state_->wheels_speed; }
   common_lib::structures::Wheels get_wheels_torque() const { return state_->wheels_torque; }
   Eigen::Vector3d get_front_left_forces() const { return state_->front_left_forces; }

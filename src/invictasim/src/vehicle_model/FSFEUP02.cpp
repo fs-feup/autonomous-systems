@@ -17,7 +17,6 @@ FSFEUP02Model::FSFEUP02Model(const InvictaSimParameters& simulator_parameters)
 }
 
 void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, double angle) {
-  static int log_count = 0;
   // Motor
   double throttle_input =
       (throttle.rear_left + throttle.rear_right) / 2.0;  // Average throttle for rear-wheel drive
@@ -27,14 +26,6 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   state_->wheels_torque =
       differential_->calculateTorqueDistribution(motor_torque, state_->wheels_speed);
 
-  if (log_count % 100 == 0) {
-    RCLCPP_INFO(rclcpp::get_logger("FSFEUP02Model"),
-                "Aero parameters: frontal_area=%.2f, drag_coefficient=%.2f",
-                simulator_parameters_->car_parameters->aero_parameters->frontal_area,
-                simulator_parameters_->car_parameters->aero_parameters->drag_coefficient);
-    RCLCPP_INFO(rclcpp::get_logger("FSFEUP02Model"), "Velocities (m/s): vx=%.2f vy=%.2f",
-                state_->vx, state_->vy);
-  }
   // Aerodynamics
   // based on implementation, this forces are negative by default, so we add them
   Eigen::Vector3d aero_forces =
@@ -112,17 +103,13 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
        simulator_parameters_->car_parameters->tire_parameters->wheel_inertia) *
       dt;
 
-  //   RCLCPP_INFO(rclcpp::get_logger("FSFEUP02Model"),
-  //               "Rear left force: %.2f, effective radius: %.2f, wheel inertia: %.2f",
-  //               rear_left_forces[0],
-  //               simulator_parameters_->car_parameters->tire_parameters->effective_tire_r,
-  //               simulator_parameters_->car_parameters->tire_parameters->wheel_inertia);
   state_->wheels_speed.rear_right +=
       ((state_->wheels_torque.rear_right -
         rear_right_forces[0] *
             simulator_parameters_->car_parameters->tire_parameters->effective_tire_r) /
        simulator_parameters_->car_parameters->tire_parameters->wheel_inertia) *
       dt;
+
   // front wheels are unpowered, only tire reaction
   state_->wheels_speed.front_left +=
       ((-front_left_forces[0] *
@@ -135,35 +122,6 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
        simulator_parameters_->car_parameters->tire_parameters->wheel_inertia) *
       dt;
 
-  if (std::isnan(state_->wheels_speed.rear_right)) {
-    exit(1);
-  }
-  if (log_count % 100 == 0) {
-    RCLCPP_INFO(rclcpp::get_logger("FSFEUP02Model"),
-                "Wheel speeds (rad/s): FL=%.2f FR=%.2f RL=%.2f RR=%.2f",
-                state_->wheels_speed.front_left, state_->wheels_speed.front_right,
-                state_->wheels_speed.rear_left, state_->wheels_speed.rear_right);
-    // RCLCPP_INFO(rclcpp::get_logger("FSFEUP02Model"), "Steering angles (rad): FL=%.2f
-    // FR=%.2f",
-    //             actual_steering_fl, actual_steering_fr);
-
-    // RCLCPP_INFO(rclcpp::get_logger("FSFEUP02Model"),
-    //             "Load on wheels: FL=%.2f FR=%.2f RL=%.2f RR=%.2f",
-    //             load_on_wheels.front_left, load_on_wheels.front_right,
-    //             load_on_wheels.rear_left, load_on_wheels.rear_right);
-
-    // RCLCPP_INFO(rclcpp::get_logger("FSFEUP02Model"),
-    //             "Tire forces (N): FL=(%.2f, %.2f, %.2f) FR=(%.2f, %.2f, %.2f) RL=(%.2f,
-    //             %.2f, "
-    //             "%.2f) RR=(%.2f, %.2f, %.2f)",
-    //             front_left_forces[0], front_left_forces[1], front_left_forces[2],
-    //             front_right_forces[0], front_right_forces[1], front_right_forces[2],
-    //             rear_left_forces[0], rear_left_forces[1], rear_left_forces[2],
-    //             rear_right_forces[0], rear_right_forces[1], rear_right_forces[2]);
-
-    RCLCPP_INFO(rclcpp::get_logger("FSFEUP02Model"), "Aero forces (N): Fx=%.2f Fy=%.2f Fz=%.2f",
-                aero_forces[0], aero_forces[1], aero_forces[2]);
-  }
   // Vehicle State Update
   // Sum of all forces normalized to the vehicle coordinate system
   double Fx_fl = front_left_forces[0] * cos(actual_steering_fl) -
@@ -222,8 +180,12 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   state_->yaw += state_->yaw_rate * dt;
 
   // Keep yaw within [-pi, pi]
-  if (state_->yaw > M_PI) state_->yaw -= 2.0 * M_PI;
-  if (state_->yaw < -M_PI) state_->yaw += 2.0 * M_PI;
+  if (state_->yaw > M_PI) {
+    state_->yaw -= 2.0 * M_PI;
+  }
+  if (state_->yaw < -M_PI) {
+    state_->yaw += 2.0 * M_PI;
+  }
 
   // Update X and Y positions
   // 1. Calculate Global Velocities
@@ -242,8 +204,6 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   state_->front_right_forces = front_right_forces;
   state_->rear_left_forces = rear_left_forces;
   state_->rear_right_forces = rear_right_forces;
-
-  log_count++;
 }
 
 void FSFEUP02Model::reset() {
@@ -278,34 +238,36 @@ double FSFEUP02Model::get_battery_voltage() const { return battery_->get_voltage
 double FSFEUP02Model::get_battery_soc() const { return battery_->get_soc(); }
 
 double FSFEUP02Model::calculate_powertrain_torque(double throttle_input, double dt) {
-  // 1. Estados Físicos Atualizados
-  float avg_wheel_speed = (state_->wheels_speed.rear_left + state_->wheels_speed.rear_right) / 2.0f;
-  float motor_omega = avg_wheel_speed * simulator_parameters_->car_parameters->gear_ratio;
-  float motor_rpm = (motor_omega * 60.0f / (2.0f * static_cast<float>(M_PI)));
+  double avg_wheel_speed =
+      (state_->wheels_speed.rear_left + state_->wheels_speed.rear_right) / 2.0f;
+  double motor_omega = avg_wheel_speed * simulator_parameters_->car_parameters->gear_ratio;
+  double motor_rpm = (motor_omega * 60.0f / (2.0f * M_PI));
 
-  // 2. Torque de Referência (O máximo que o motor/piloto deseja)
-  float max_motor_torque = motor_->get_max_torque_at_rpm(motor_rpm);
-  float reference_torque = static_cast<float>(throttle_input) * max_motor_torque;
+  // Calculate Max Torque at current RPM
+  double max_motor_torque = motor_->get_max_torque_at_rpm(motor_rpm);
+  double reference_torque = throttle_input * max_motor_torque;
 
-  // 3. Eficiência e Constante de Torque
-  float efficiency = motor_->get_efficiency(std::abs(reference_torque), motor_rpm);
-  float kt = simulator_parameters_->car_parameters->motor_parameters->kt_constant;
+  // Motor Efficiency at this state
+  double efficiency = motor_->get_efficiency(std::abs(reference_torque), motor_rpm);
 
-  // 4. Conversão para Corrente de Referência (I = T / (Kt * eff))
-  // Esta é a corrente necessária para atingir o torque do pedal.
-  float requested_current = std::abs(reference_torque) / (kt * std::max(efficiency, 0.05f));
+  // Corresponding Current Request for the desired torque, always positive
+  double requested_current =
+      std::abs(reference_torque) /
+      (this->simulator_parameters_->car_parameters->motor_parameters->kt_constant *
+       std::max(efficiency, 0.05));
 
-  // 5. O FILTRO DA BATERIA (calculate_allowed_current)
-  // Esta função deve retornar o MIN(requested_current, limite_80kW, limite_Vmin, limite_Hardware)
-  // Se a tensão cai, o limite_80kW sobe, mas o std::min selecionará o requested_current original.
-  float battery_current = battery_->calculate_allowed_current(requested_current);
+  // Calculate the allowed current from the battery
+  double battery_current = battery_->calculate_allowed_current(requested_current);
 
-  // 6. Torque Real Resultante (T = I_real * Kt * eff)
-  // Agora, se a tensão cair, a corrente NÃO sobe; ela fica travada no requested_current.
-  float actual_motor_torque = battery_current * kt * efficiency;
+  // Actual motor torque limited by the battery
+  double actual_motor_torque =
+      battery_current * this->simulator_parameters_->car_parameters->motor_parameters->kt_constant *
+      efficiency;
 
-  // 7. Correção de Direção e Atualização
-  if (reference_torque < 0) actual_motor_torque *= -1.0f;
+  // Restore the sign of the torque
+  if (reference_torque < 0) {
+    actual_motor_torque *= -1.0f;
+  }
 
   battery_->update_state(battery_current, dt);
   motor_->update_state(battery_current, actual_motor_torque, dt);
