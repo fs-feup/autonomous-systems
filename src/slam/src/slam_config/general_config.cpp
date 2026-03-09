@@ -36,7 +36,6 @@ SLAMParameters::SLAMParameters(const SLAMParameters &params) {
   slam_isam2_relinearize_skip_ = params.slam_isam2_relinearize_skip_;
   slam_isam2_factorization_ = params.slam_isam2_factorization_;
   sliding_window_size_ = params.sliding_window_size_;
-
   minimum_observation_count_ = params.minimum_observation_count_;
   minimum_frequency_of_detections_ = params.minimum_frequency_of_detections_;
 
@@ -49,6 +48,8 @@ SLAMParameters::SLAMParameters(const SLAMParameters &params) {
   max_pose_history_updater = params.max_pose_history_updater;
   max_pose_history_graph = params.max_pose_history_graph;
   publish_trajectory_ = params.publish_trajectory_;
+  publish_associations_ = params.publish_associations_;
+  publish_global_observations_ = params.publish_global_observations_;
 }
 
 SLAMParameters &SLAMParameters::operator=(const SLAMParameters &other) {
@@ -97,6 +98,8 @@ SLAMParameters &SLAMParameters::operator=(const SLAMParameters &other) {
     max_pose_history_updater = other.max_pose_history_updater;
     max_pose_history_graph = other.max_pose_history_graph;
     publish_trajectory_ = other.publish_trajectory_;
+    publish_associations_ = other.publish_associations_;
+    publish_global_observations_ = other.publish_global_observations_;
   }
   return *this;
 }
@@ -167,5 +170,9 @@ std::string SLAMParameters::load_config() {
   this->max_pose_history_updater = slam_config["slam"]["max_pose_history_updater"].as<int>();
   this->max_pose_history_graph = slam_config["slam"]["max_pose_history_graph"].as<int>();
   this->publish_trajectory_ = slam_config["slam"]["graph_publish_trajectory"].as<bool>();
+  this->publish_associations_ = slam_config["slam"]["publish_associations"].as<bool>();
+  this->publish_global_observations_ =
+      slam_config["slam"]["publish_global_observations"].as<bool>();
+
   return adapter;
 }

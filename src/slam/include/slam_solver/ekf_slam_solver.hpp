@@ -10,7 +10,6 @@
 #include "solver_traits/velocities_integrator_trait.hpp"
 
 class EKFSLAMSolver : public SLAMSolver, public VelocitiesIntegratorTrait {
-  SLAMParameters slam_parameters_;
   std::shared_ptr<SLAMObservationModel> observation_model_;
   Eigen::VectorXd state_ = Eigen::VectorXd::Zero(3);
   Eigen::MatrixXd covariance_;
@@ -116,7 +115,7 @@ public:
    * @param position
    */
   void add_observations(const std::vector<common_lib::structures::Cone>& positions,
-                        rclcpp::Time cones_timestamp) override;
+                        rclcpp::Time cones_timestamp, bool is_moving = false) override;
 
   /**
    * @brief Initialize the EKF SLAM solver with a previously saved map and pose
