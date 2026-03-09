@@ -11,7 +11,7 @@ void ObservationModel02::expected_observations(const State& state,
   expected_observations << state(AX), state(AY), state(YAW_RATE),
       state(FL_WHEEL_SPEED) * rad_to_rpm, state(FR_WHEEL_SPEED) * rad_to_rpm,
       state(RL_WHEEL_SPEED) * rad_to_rpm, state(RR_WHEEL_SPEED) * rad_to_rpm, state(ST_ANGLE),
-      average_rear_wheel_rpm * this->parameters_->car_parameters_.gear_ratio;
+      average_rear_wheel_rpm * this->parameters_->car_parameters_->gear_ratio;
 }
 
 Eigen::VectorXd ObservationModel02::get_last_observations() const {

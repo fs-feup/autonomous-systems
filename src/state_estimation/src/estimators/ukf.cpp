@@ -7,7 +7,7 @@ UKF::UKF(std::shared_ptr<SEParameters> se_parameters, std::shared_ptr<ProcessMod
     : params_(se_parameters),
       process_model_(process_model),
       observation_model_(observation_model),
-      last_update_(rclcpp::Clock().now()) {
+      last_update_(rclcpp::Time(0)) {
   lambda_ = se_parameters->alpha_ * se_parameters->alpha_ * (StateSize + se_parameters->kappa_) -
             StateSize;
 
@@ -83,6 +83,14 @@ void UKF::timer_callback(State& curr_state) {
   rclcpp::Time now = rclcpp::Clock().now();
   double dt = (now - last_update_).seconds();
 
+  if (last_update_.nanoseconds() == 0) {
+    RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"),
+                        "First update, skipping prediction and correction steps.");
+    last_update_ = now;
+    curr_state = state_;
+    return;
+  }
+
   // Lock inputs
   Eigen::VectorXd last_observation = this->observation_model_->get_last_observations();
   Eigen::MatrixXd last_observation_noise = this->observation_model_->get_last_observations_noise();
@@ -153,6 +161,7 @@ void UKF::timer_callback(State& curr_state) {
 
   state_ = updated_state;
   covariance_ = updated_covariance;
+  last_update_ = now;
 
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"), "Updated State: \n" << updated_state);
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"), "3 - Covariance: \n"

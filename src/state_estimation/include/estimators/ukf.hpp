@@ -30,7 +30,7 @@ class UKF : public StateEstimator {
   std::shared_ptr<ProcessModel> process_model_;
   std::shared_ptr<ObservationModel> observation_model_;
 
-  const rclcpp::Time last_update_;
+  rclcpp::Time last_update_;
 
   Eigen::VectorXd weights_;
   double lambda_;

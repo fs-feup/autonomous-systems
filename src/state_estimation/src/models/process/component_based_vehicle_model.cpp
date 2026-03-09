@@ -3,19 +3,16 @@
 ComponentBasedVehicleModel::ComponentBasedVehicleModel(
     const std::shared_ptr<SEParameters>& parameters)
     : ProcessModel(parameters) {
-  this->differential_model_ = differential_models_map.at(parameters->differential_model_name_)(
-      std::make_shared<common_lib::car_parameters::CarParameters>(parameters->car_parameters_));
+  this->differential_model_ =
+      differential_models_map.at(parameters->differential_model_name_)(parameters->car_parameters_);
   this->load_transfer_model_ = load_transfer_models_map.at(parameters->load_transfer_model_name_)(
-      std::make_shared<common_lib::car_parameters::CarParameters>(parameters->car_parameters_));
-  this->aero_model_ = aero_models_map.at(parameters->aero_model_name_)(
-      std::make_shared<common_lib::car_parameters::CarParameters>(parameters->car_parameters_));
-  this->steering_model_ = steering_models_map.at(parameters->steering_model_name_)(
-      std::make_shared<common_lib::car_parameters::CarParameters>(parameters->car_parameters_));
-  this->steering_motor_model_ =
-      steering_motor_models_map.at(parameters->steering_motor_model_name_)(
-          std::make_shared<common_lib::car_parameters::CarParameters>(parameters->car_parameters_));
-  this->tire_model_ = tire_models_map.at(parameters->tire_model_name_)(
-      std::make_shared<common_lib::car_parameters::CarParameters>(parameters->car_parameters_));
+      parameters->car_parameters_);
+  this->aero_model_ = aero_models_map.at(parameters->aero_model_name_)(parameters->car_parameters_);
+  this->steering_model_ =
+      steering_models_map.at(parameters->steering_model_name_)(parameters->car_parameters_);
+  this->steering_motor_model_ = steering_motor_models_map.at(
+      parameters->steering_motor_model_name_)(parameters->car_parameters_);
+  this->tire_model_ = tire_models_map.at(parameters->tire_model_name_)(parameters->car_parameters_);
 }
 
 void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
@@ -23,7 +20,7 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
                                          double dt) {
   // Scale control command to torque (02 version, assuming single motor RWD)
   double throttle_input =
-      control_command.throttle_rl * parameters_->car_parameters_.motor_parameters->max_peak_torque;
+      control_command.throttle_rl * parameters_->car_parameters_->motor_parameters->max_peak_torque;
 
   // Calculate torque distribution using the differential model
   common_lib::structures::Wheels wheel_speeds;
@@ -53,7 +50,7 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
 
   // Compute load + aero downforce
   double front_aero_balance =
-      this->parameters_->car_parameters_.aero_parameters->aero_balance_front;
+      this->parameters_->car_parameters_->aero_parameters->aero_balance_front;
   Eigen::Vector4d total_vertical_loads(
       load_distribution.front_left + aero_forces(2) * front_aero_balance * 0.5,
       load_distribution.front_right + aero_forces(2) * front_aero_balance * 0.5,
@@ -86,12 +83,12 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
   double total_fx = aero_forces(0);
   double total_fy = aero_forces(1);
   double total_torque = 0.0;
-  double lr = parameters_->car_parameters_.cg_2_rear_axis;  // distance from CG to rear axle
-  double lf = parameters_->car_parameters_.wheelbase - lr;  // distance from CG to front axle
-  double half_width = parameters_->car_parameters_.track_width *
+  double lr = parameters_->car_parameters_->cg_2_rear_axis;  // distance from CG to rear axle
+  double lf = parameters_->car_parameters_->wheelbase - lr;  // distance from CG to front axle
+  double half_width = parameters_->car_parameters_->track_width *
                       0.5;  // half of the track width for moment arm calculations
-  double wheel_radius = parameters_->car_parameters_.tire_parameters->effective_tire_r;
-  double inertia = parameters_->car_parameters_.tire_parameters->wheel_inertia;
+  double wheel_radius = parameters_->car_parameters_->tire_parameters->effective_tire_r;
+  double inertia = parameters_->car_parameters_->tire_parameters->wheel_inertia;
 
   for (Tire tire : {FL, FR, RL, RR}) {
     // Update wheel speeds using the calculated torques and tire forces
@@ -114,7 +111,7 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
     total_fx += fx_veh;
     total_fy += fy_veh;
 
-    // 2. Calculate Moment arms
+    // Calculate Moment arms
     double arm_x = (tire == FL || tire == FR) ? lf : -lr;
     double arm_y = (tire == FL || tire == RL) ? -half_width : half_width;
 
@@ -122,11 +119,11 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
     total_torque += (arm_x * fy_veh) - (arm_y * fx_veh) + mz_tire;
   }
 
-  // 3. Update Accelerations
+  // Update Accelerations
   double total_ax =
-      total_fx / parameters_->car_parameters_.total_mass + state(VY) * state(YAW_RATE);
+      total_fx / parameters_->car_parameters_->total_mass + state(VY) * state(YAW_RATE);
   double total_ay =
-      total_fy / parameters_->car_parameters_.total_mass - state(VX) * state(YAW_RATE);
+      total_fy / parameters_->car_parameters_->total_mass - state(VX) * state(YAW_RATE);
 
   // Integration via trapezoidal rule
   state(VX) += (0.5 * (total_ax + state(AX))) * dt;
@@ -134,6 +131,6 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
   state(AX) = total_ax;
   state(AY) = total_ay;
 
-  // 4. Update Yaw Rate
-  state(YAW_RATE) += (total_torque / parameters_->car_parameters_.Izz) * dt;
+  // Update Yaw Rate
+  state(YAW_RATE) += (total_torque / parameters_->car_parameters_->Izz) * dt;
 };

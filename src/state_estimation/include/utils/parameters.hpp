@@ -40,7 +40,7 @@ struct SEParameters {
   double motor_rpm_noise_;           // Noise to be added to the motor rpm measurements
   double steering_angle_noise_;      // Noise to be added to the steering angle measurements
 
-  common_lib::car_parameters::CarParameters
+  std::shared_ptr<common_lib::car_parameters::CarParameters>
       car_parameters_;  // Car parameters to be used in the process and observation models
 
   double alpha_;  // UKF alpha parameter
