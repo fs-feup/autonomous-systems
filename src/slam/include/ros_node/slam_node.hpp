@@ -40,6 +40,8 @@ protected:
       _perception_subscription_;
   rclcpp::Subscription<custom_interfaces::msg::Velocities>::SharedPtr _velocities_subscription_;
   rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr _vehicle_pose_publisher_;
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
+      _global_observations_publisher_;
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr _map_publisher_;
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr _visualization_map_publisher_;
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr
@@ -131,6 +133,12 @@ protected:
    *
    */
   void _publish_lap_counter();
+
+  /**
+   * @brief publishes the execution times of the different steps of the SLAM algorithm
+   *
+   */
+  void _publish_global_observations();
 
   /**
    * @brief Checks if the mission is finished

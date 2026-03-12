@@ -16,7 +16,7 @@ def getFullFilePath(name, dir):
 
 
 def generate_launch_description():
-    track_name = "FSG25.yaml"
+    track_name = "FSE23.yaml"
     track_frame = "map"
     realtime_ratio = 1.0
     discipline = "trackdrive"

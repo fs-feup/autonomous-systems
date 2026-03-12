@@ -43,7 +43,7 @@ sensors:
         position: [0.0,0.0,0.0]
         orientation: [0.0,0.0,0.0]
       rate: 200
-      dead_time: 0.005
+      dead_time: 0.00001
       error_acc:
         mean: 0.0
         sigma: 0.05

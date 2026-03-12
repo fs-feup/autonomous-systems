@@ -4,6 +4,6 @@
 #include <string>
 
 namespace common_lib::config_load {
-    std::string get_config_yaml_path(const std::string& package_name, const std::string& dir,
-                                    const std::string& filename);
+std::string get_config_yaml_path(const std::string& package_name, const std::string& dir,
+                                 const std::string& filename);
 }  // namespace common_lib::config_load

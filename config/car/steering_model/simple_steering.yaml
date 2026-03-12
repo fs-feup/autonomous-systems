@@ -1,0 +1,3 @@
+steering:
+  minimum_steering_angle: -0.335
+  maximum_steering_angle: 0.335

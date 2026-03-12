@@ -63,7 +63,7 @@ public:
    * @param cones Positions of the observations
    */
   virtual void add_observations(const std::vector<common_lib::structures::Cone>& cones,
-                                rclcpp::Time cones_timestamp) = 0;
+                                rclcpp::Time cones_timestamp, bool is_moving = false) = 0;
 
   /**
    * @brief Process new velocity data

@@ -1,0 +1,6 @@
+invictasim:
+  # Simulator config
+  vehicle_model: "FSFEUP02"  # Options: "FSFEUP02"
+  timestep: 0.001  # seconds (0.001s = 1000 Hz)
+  simulation_speed: 1.0 # 1.0 = real-time, >1.0 faster, <1.0 slower
+  track_name: "FSG23"
