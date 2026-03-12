@@ -18,6 +18,7 @@ struct SEParameters {
 
   double state_estimation_freq_;  // The rate at which the state estimation should run (in Hz)
 
+  std::string vehicle_model_name_;         // Used to choose between different vehicle models
   std::string load_transfer_model_name_;   // Used to choose between different load transfer models
   std::string aero_model_name_;            // Choose between different aero models
   std::string steering_model_name_;        // Choose between different steering models

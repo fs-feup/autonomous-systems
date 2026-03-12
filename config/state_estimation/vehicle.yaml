@@ -5,26 +5,7 @@ state_estimation:
 
   state_estimation_freq: 40.0 # Frequency of state estimation updates in Hz, if 0, no timer will be used and updates will be triggered by callbacks
 
-  load_transfer_model_name: "rigid_body" # "rigid_body" or ... -> name of the load transfer model
-  load_transfer_params: "load_transfer"
-
-  aero_model_name: "default_aero" # "default_aero" or ... -> name of the aero model
-  aero_params: "simple_aero"
-
-  steering_model_name: "parallel_front_steering" # "parallel_front_steering" or ... -> name of the steering model
-  steering_params: "simple_steering"
-
-  steering_motor_model_name: "pid" # "pid" or ... -> name of the steering motor model
-  steering_motor_params: "simple_steering_motor"
-
-  differential_model_name: "viscous_lsd" # "viscous_lsd" or ... -> name of the differential model
-  differential_params: "differential"
-
-  tire_model_name: "pacejka_combined_slip" # "pacejka_combined_slip" or "pacejka_MF6_2" -> name of the tire model
-  tire_params: "simple_pacejka" # "simple_pacejka" or "pacejka_MF6_2" -> name of the tire model parameters
-
-  motor_params: "motor"
-  battery_params: "battery"
+  vehicle_model: "FSFEUP02"  # Options: "FSFEUP02"
 
   velocity_x_process_noise: 0.1 # variance of the noise for the velocity in x
   velocity_y_process_noise: 0.1 # variance of the noise for the velocity in y
@@ -34,7 +15,6 @@ state_estimation:
   steering_angle_process_noise: 0.1 # variance of the noise for the steering angle
   wheel_speed_process_noise: 0.1 # variance of the noise for the wheel speeds
   
-
   imu_acceleration_x_noise: 0.1 # variance of the noise for the acceleration in x from IMU
   imu_acceleration_y_noise: 0.1 # variance of the noise for the acceleration in y from IMU  
   imu_rotational_noise: 0.1 # variance of the noise for the rotational velocity from IMU
@@ -44,4 +24,3 @@ state_estimation:
 
   alpha: 1e-3 # UKF alpha parameter 
   kappa: 0.0 # UKF kappa parameter
-

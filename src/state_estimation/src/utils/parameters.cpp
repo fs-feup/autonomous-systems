@@ -37,41 +37,25 @@ std::string SEParameters::load_config() {
   this->alpha_ = se_config["alpha"].as<double>();
   this->kappa_ = se_config["kappa"].as<double>();
 
+  // Load Vehicle Model
+  this->vehicle_model_name_ = se_config["vehicle_model"].as<std::string>();
+
+  std::string vm_config_path = common_lib::config_load::get_config_yaml_path(
+      "state_estimation", "state_estimation/vehicle_models", vehicle_model_name_);
+  YAML::Node vm1_config = YAML::LoadFile(vm_config_path);
+  YAML::Node vm_config = vm1_config["vehicle_model"];
+
   // Load model names
-  this->load_transfer_model_name_ = se_config["load_transfer_model_name"].as<std::string>();
-  this->aero_model_name_ = se_config["aero_model_name"].as<std::string>();
-  this->steering_model_name_ = se_config["steering_model_name"].as<std::string>();
-  this->steering_motor_model_name_ = se_config["steering_motor_model_name"].as<std::string>();
-  this->differential_model_name_ = se_config["differential_model_name"].as<std::string>();
-  this->tire_model_name_ = se_config["tire_model_name"].as<std::string>();
+  this->load_transfer_model_name_ = vm_config["load_transfer_model"].as<std::string>();
+  this->aero_model_name_ = vm_config["aero_model"].as<std::string>();
+  this->steering_model_name_ = vm_config["steering_model"].as<std::string>();
+  this->steering_motor_model_name_ = vm_config["steering_motor_model"].as<std::string>();
+  this->differential_model_name_ = vm_config["differential_model"].as<std::string>();
+  this->tire_model_name_ = vm_config["tire_model"].as<std::string>();
 
   // Load car parameters
-  this->car_parameters_ = std::make_shared<common_lib::car_parameters::CarParameters>();
-
-  this->car_parameters_->tire_parameters =
-      std::make_shared<common_lib::car_parameters::TireParameters>(
-          se_config["tire_params"].as<std::string>());
-  this->car_parameters_->aero_parameters =
-      std::make_shared<common_lib::car_parameters::AeroParameters>(
-          se_config["aero_params"].as<std::string>());
-  this->car_parameters_->steering_motor_parameters =
-      std::make_shared<common_lib::car_parameters::SteeringMotorParameters>(
-          se_config["steering_motor_params"].as<std::string>());
-  this->car_parameters_->steering_parameters =
-      std::make_shared<common_lib::car_parameters::SteeringParameters>(
-          se_config["steering_params"].as<std::string>());
-  this->car_parameters_->load_transfer_parameters =
-      std::make_shared<common_lib::car_parameters::LoadTransferParameters>(
-          se_config["load_transfer_params"].as<std::string>());
-  this->car_parameters_->motor_parameters =
-      std::make_shared<common_lib::car_parameters::MotorParameters>(
-          se_config["motor_params"].as<std::string>());
-  this->car_parameters_->battery_parameters =
-      std::make_shared<common_lib::car_parameters::BatteryParameters>(
-          se_config["battery_params"].as<std::string>());
-  this->car_parameters_->differential_parameters =
-      std::make_shared<common_lib::car_parameters::DifferentialParameters>(
-          se_config["differential_params"].as<std::string>());
+  this->car_parameters_ = std::make_shared<common_lib::car_parameters::CarParameters>(
+      "state_estimation/vehicle_models", vehicle_model_name_);
 
   return this->adapter_;
 }

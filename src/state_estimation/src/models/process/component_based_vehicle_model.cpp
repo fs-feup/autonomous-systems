@@ -34,28 +34,29 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
   Eigen::Vector4d torques(torques_struct.front_left, torques_struct.front_right,
                           torques_struct.rear_left, torques_struct.rear_right);
 
+  RCLCPP_INFO_STREAM(rclcpp::get_logger("VM"), "Torque Distribution: \n"
+                                                   << "FL: " << torques(FL) << "\n"
+                                                   << "FR: " << torques(FR) << "\n"
+                                                   << "RL: " << torques(RL) << "\n"
+                                                   << "RR: " << torques(RR));
+
   // Calculate individual wheel yaw using the steering model [front left, front right, rear left,
   // rear right]
   Eigen::Vector4d wheel_angles = this->steering_model_->calculate_steering_angles(state(ST_ANGLE));
 
-  // Calculate load in each tire using the load transfer model
-  LoadTransferInput load_transfer_input;
-  load_transfer_input.longitudinal_acceleration = state(AX);
-  load_transfer_input.lateral_acceleration = state(AY);
-  common_lib::structures::Wheels load_distribution =
-      load_transfer_model_->compute_loads(load_transfer_input);
-
   // Calculate aerodynamic forces using the aero model
   Eigen::Vector3d aero_forces = aero_model_->aero_forces(state.segment<3>(VX));
 
-  // Compute load + aero downforce
-  double front_aero_balance =
-      this->parameters_->car_parameters_->aero_parameters->aero_balance_front;
-  Eigen::Vector4d total_vertical_loads(
-      load_distribution.front_left + aero_forces(2) * front_aero_balance * 0.5,
-      load_distribution.front_right + aero_forces(2) * front_aero_balance * 0.5,
-      load_distribution.rear_left + aero_forces(2) * (1 - front_aero_balance) * 0.5,
-      load_distribution.rear_right + aero_forces(2) * (1 - front_aero_balance) * 0.5);
+  // Calculate load in each tire using the load transfer model and aero output
+  LoadTransferInput load_transfer_input;
+  load_transfer_input.longitudinal_acceleration = state(AX);
+  load_transfer_input.lateral_acceleration = state(AY);
+  load_transfer_input.downforce = aero_forces(2);
+  common_lib::structures::Wheels load_distribution =
+      load_transfer_model_->compute_loads(load_transfer_input);
+
+  Eigen::Vector4d total_vertical_loads(load_distribution.front_left, load_distribution.front_right,
+                                       load_distribution.rear_left, load_distribution.rear_right);
 
   // TIRE MODEL
   TireInput tire_input;
@@ -74,6 +75,8 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
   // Calculate steering rate using the steering motor model
   double steering_rate =
       steering_motor_model_->compute_steering_rate(state(ST_ANGLE), control_command.steering_angle);
+
+  RCLCPP_INFO_STREAM(rclcpp::get_logger("VM"), "Steering Rate: " << steering_rate);
 
   // Update state using the calculated values
 
@@ -99,7 +102,7 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
     // Current tire forces in tire-local frame
     double fx_tire = tire_forces(tire * 3);
     double fy_tire = tire_forces(tire * 3 + 1);
-    double mz_tire = tire_forces(tire * 3 + 2);  // Self-aligning torque
+    double mz_tire = tire_forces(tire * 3 + 2);
 
     // Transform to vehicle frame
     double cos_delta = cos(wheel_angles(tire));
