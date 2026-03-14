@@ -13,5 +13,8 @@ SteeringParameters::SteeringParameters(const std::string& config_name) {
   if (config["maximum_steering_angle"]) {
     maximum_steering_angle = config["maximum_steering_angle"].as<double>();
   }
+  if (config["ackerman_factor"]) {
+    ackerman_factor = config["ackerman_factor"].as<double>();
+  }
 }
 }  // namespace common_lib::car_parameters
