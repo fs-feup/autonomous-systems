@@ -16,5 +16,9 @@ SteeringMotorParameters::SteeringMotorParameters(const std::string& config_name)
   if (config["kd"]) {
     kd = config["kd"].as<double>();
   }
+  if (config["time_constant"]) {
+    time_constant = config["time_constant"].as<double>();
+  }
+  
 }
 }  // namespace common_lib::car_parameters

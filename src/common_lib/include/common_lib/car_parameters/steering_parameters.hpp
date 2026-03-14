@@ -9,6 +9,7 @@ namespace common_lib::car_parameters {
 struct SteeringParameters {
   double minimum_steering_angle;
   double maximum_steering_angle;
+  double ackerman_factor;
 
   SteeringParameters(const std::string& config_name);
 };

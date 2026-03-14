@@ -10,6 +10,7 @@ struct SteeringMotorParameters {
   double kp;
   double ki;
   double kd;
+  double time_constant;
 
   SteeringMotorParameters(const std::string& config_path);
 };

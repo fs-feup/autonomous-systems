@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 
+#include "ackerman_steering.hpp"
 #include "parallel_front_steering.hpp"
 
 /*
@@ -19,5 +20,10 @@ const std::map<std::string,
          [](const std::shared_ptr<common_lib::car_parameters::CarParameters> params)
              -> std::shared_ptr<SteeringModel> {
            return std::make_shared<ParallelFrontSteering>(*params);
+         }},
+        {"ackerman_steering",
+         [](const std::shared_ptr<common_lib::car_parameters::CarParameters> params)
+             -> std::shared_ptr<SteeringModel> {
+           return std::make_shared<AckermanSteering>(*params);
          }},
 };

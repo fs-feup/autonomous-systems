@@ -33,7 +33,7 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
 
   // Ackerman steering
   double R = simulator_parameters_->car_parameters->wheelbase / (tan(angle) + 1e-6);
-  double af = simulator_parameters_->car_parameters->ackerman_factor;
+  double af = simulator_parameters_->car_parameters->steering_parameters->ackerman_factor;
 
   double actual_steering_fl =
       angle +
