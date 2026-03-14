@@ -52,10 +52,11 @@ void add_orientation(std::vector<double>& path_data) {
 
 void MPC::path_callback(const custom_interfaces::msg::PathPointArray& new_msg) {
   std::vector<double> path_data;
-  path_data.reserve(PATH_SIZE * PATHPOINT_SIZE); // Reserve space for 50 points (x, y, v, orientation)
+  unsigned int received_point_count = new_msg.pathpoint_array.size();
+  path_data.reserve(received_point_count * PATHPOINT_SIZE); // Reserve space for 50 points (x, y, v, orientation)
   
   // Convert path points to flat data format
-  if (new_msg.pathpoint_array.size() < PATH_SIZE) {
+  if (received_point_count < PATH_SIZE) {
     RCLCPP_ERROR(rclcpp::get_logger("mpc"), "Received path has less than %d points, cannot fill the horizon. Received %zu points.", PATH_SIZE, new_msg.pathpoint_array.size());
     return;
   } else {
@@ -80,7 +81,7 @@ void MPC::path_callback(const custom_interfaces::msg::PathPointArray& new_msg) {
       if (dot_product > 0) closest_idx--;
     }
     // Add PATH_SIZE points starting from closest point
-    for (size_t i = 0; i < PATH_SIZE; ++i) {
+    for (size_t i = 0; i < received_point_count; ++i) {
       size_t idx = (closest_idx + i) % new_msg.pathpoint_array.size();
       const auto& point = new_msg.pathpoint_array[idx];
       path_data.push_back(point.x);

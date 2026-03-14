@@ -31,6 +31,8 @@ struct ControlParameters {
   double pid_anti_windup_; // anti-windup parameter for PID controller, gain of integrator impact when saturated 
   double pid_max_positive_error_; // maximum positive error for PID controller (restricts acceleration)
   double pid_max_negative_error_; // maximum negative error for PID controller (restricts braking)
+  double mpc_prediction_horizon_seconds_; // prediction horizon in seconds for MPC controller
+  unsigned int mpc_prediction_horizon_steps_; // prediction horizon in steps for MPC controller
   std::string map_frame_id_; // frame id to publish visualization markers (can be "map", ...), for example closest point and lookahead point
   uint command_time_interval_; // time interval (in ms) between command publications
 

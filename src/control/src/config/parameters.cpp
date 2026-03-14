@@ -23,6 +23,8 @@ ControlParameters::ControlParameters(const ControlParameters &params) {
   pid_anti_windup_ = params.pid_anti_windup_;
   pid_max_positive_error_ = params.pid_max_positive_error_;
   pid_max_negative_error_ = params.pid_max_negative_error_;
+  mpc_prediction_horizon_seconds_ = params.mpc_prediction_horizon_seconds_;
+  mpc_prediction_horizon_steps_ = params.mpc_prediction_horizon_steps_;
   map_frame_id_ = params.map_frame_id_;
   command_time_interval_ = params.command_time_interval_;
 }
@@ -51,6 +53,8 @@ ControlParameters &ControlParameters::operator=(const ControlParameters &other) 
     pid_anti_windup_ = other.pid_anti_windup_;
     pid_max_positive_error_ = other.pid_max_positive_error_;
     pid_max_negative_error_ = other.pid_max_negative_error_;
+    mpc_prediction_horizon_seconds_ = other.mpc_prediction_horizon_seconds_;
+    mpc_prediction_horizon_steps_ = other.mpc_prediction_horizon_steps_;
     map_frame_id_ = other.map_frame_id_;
     command_time_interval_ = other.command_time_interval_;
   }
@@ -98,6 +102,8 @@ std::string ControlParameters::load_config() {
   this->pid_anti_windup_ = control_config["pid_anti_windup"].as<double>();
   this->pid_max_positive_error_ = control_config["pid_max_positive_error"].as<double>();
   this->pid_max_negative_error_ = control_config["pid_max_negative_error"].as<double>();
+  this->mpc_prediction_horizon_seconds_ = control_config["mpc_prediction_horizon_seconds"].as<double>();
+  this->mpc_prediction_horizon_steps_ = control_config["mpc_prediction_horizon_steps"].as<unsigned int>();
   this->map_frame_id_ = adapter == "eufs" ? "base_footprint" : "map";
   this->command_time_interval_ = control_config["command_time_interval"].as<int>();
 

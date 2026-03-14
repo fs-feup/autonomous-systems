@@ -9,24 +9,24 @@ constexpr double kWeightEps = 0.5;
 
 AcadosSolver::AcadosSolver(const ControlParameters& params) : SolverInterface(params), _execution_times_(std::make_shared<std::vector<double>>(9, 0.0)) {
     // 1. Create the capsule
-    capsule_ = mpc_acados_create_capsule();
+    this->capsule_ = mpc_acados_create_capsule();
     
     // 2. Allocate solver memory
-    int status = mpc_acados_create(capsule_);
+    int status = mpc_acados_create(this->capsule_);
     if (status != 0) {
         RCLCPP_ERROR(rclcpp::get_logger("AcadosSolver"), "Failed to create Acados solver 'mpc', status: %d", status);
     }
 
     // 3. Cache internal pointers
-    nlp_config_ = mpc_acados_get_nlp_config(capsule_);
-    nlp_dims_ = mpc_acados_get_nlp_dims(capsule_);
-    nlp_in_ = mpc_acados_get_nlp_in(capsule_);
-    nlp_out_ = mpc_acados_get_nlp_out(capsule_);
+    nlp_config_ = mpc_acados_get_nlp_config(this->capsule_);
+    nlp_dims_ = mpc_acados_get_nlp_dims(this->capsule_);
+    nlp_in_ = mpc_acados_get_nlp_in(this->capsule_);
+    nlp_out_ = mpc_acados_get_nlp_out(this->capsule_);
 }
 
 AcadosSolver::~AcadosSolver() {
-    mpc_acados_free(capsule_);
-    mpc_acados_free_capsule(capsule_);
+    mpc_acados_free(this->capsule_);
+    mpc_acados_free_capsule(this->capsule_);
 }
 
 void AcadosSolver::set_state(const std::vector<double>& x0) {
@@ -43,39 +43,8 @@ void AcadosSolver::set_state(const std::vector<double>& x0) {
     ocp_nlp_constraints_model_set(nlp_config_, nlp_dims_, nlp_in_, nlp_out_, 0, "ubx", (void*)x0.data());
 }
 
-void AcadosSolver::set_path(const std::vector<double>& x_path) {
-    const int stage_count = this->control_params_->mpc_prediction_horizon_steps_ + 1;
-    const size_t required_path_size = static_cast<size_t>(stage_count * kPathPointSize);
-
-    if (x_path.size() < required_path_size) {
-      RCLCPP_WARN(rclcpp::get_logger("AcadosSolver"), "Path too small");
-      return;
-    }
-    // RCLCPP_INFO(rclcpp::get_logger("AcadosSolver"), "Received path with %zu points", x_path.size() / kPathPointSize);
-
-    this->last_path_ = x_path;
-    this->has_path_ = true;
-
-    for (int stage = 0; stage < stage_count; ++stage) {
-      const double point_for_stage[kPathPointSize] = {
-        x_path[stage * kPathPointSize],
-        x_path[stage * kPathPointSize + 1],
-        x_path[stage * kPathPointSize + 2],
-        x_path[stage * kPathPointSize + 3]
-      };
-      mpc_acados_update_params(capsule_, stage, const_cast<double*>(point_for_stage), kPathPointSize);
-    }
-
-    /*
-    // std::string received_path = "";
-    // std::string received_path_info = "Info:";
-    // for (int i = 0; i < kPathPointSize * (x_path.size() > 50 ? 50 : x_path.size()); i += kPathPointSize) {
-    //   received_path += "(" + std::to_string(x_path[i]) + ", " + std::to_string(x_path[i+1]) + "), ";
-    //   received_path_info += "(" + std::to_string(x_path[i]) + ", " + std::to_string(x_path[i+1]) + "," + std::to_string(x_path[i+2]) + "," + std::to_string(x_path[i+3]) + "), ";
-    // }
-    // std::cout << "Received path points: " << received_path << std::endl;
-    // std::cout << received_path_info << std::endl;
-    unsigned int path_point_count = x_path.size() / kPathPointSize;
+void AcadosSolver::set_path_point_per_stage() {
+    unsigned int path_point_count = this->last_path_.size() / kPathPointSize;
 
     // Get the horizon length and time step
     int N = this->control_params_->mpc_prediction_horizon_steps_;
@@ -83,16 +52,16 @@ void AcadosSolver::set_path(const std::vector<double>& x_path) {
     //std::cout << "Horizon length (N): " << N << ", Time step: " << time_step << " seconds" << std::endl;
 
     // Find the closest point on the line segment between first and second points
-    double first_x = x_path[0];
-    double first_y = x_path[1];
-    double first_v = x_path[2];
-    double first_orientation = x_path[3];
+    double first_x = this->last_path_[0];
+    double first_y = this->last_path_[1];
+    double first_v = this->last_path_[2];
+    double first_orientation = this->last_path_[3];
     double first_point_time = 0; // Can be the time of a path point or stage point
   
-    double second_x = x_path[kPathPointSize];
-    double second_y = x_path[kPathPointSize + 1];
-    double second_v = x_path[kPathPointSize + 2];
-    double second_orientation = x_path[kPathPointSize + 3];
+    double second_x = this->last_path_[kPathPointSize];
+    double second_y = this->last_path_[kPathPointSize + 1];
+    double second_v = this->last_path_[kPathPointSize + 2];
+    double second_orientation = this->last_path_[kPathPointSize + 3];
 
     // Find the closest point on the line segment between first and second points
     double car_x = this->last_state_[0];
@@ -119,11 +88,11 @@ void AcadosSolver::set_path(const std::vector<double>& x_path) {
     unsigned int segment_end_index = 1;
 
     // Iterate over all stages (0 to N) to set the time-varying parameters
-    std::string path = "path: ";
+    // std::string path = "path: ";
     for (int i = 0; i <= N; ++i) {
-      path += "(" + std::to_string(path_point_x) + ", " + std::to_string(path_point_y) + "), ";
+      // path += "(" + std::to_string(path_point_x) + ", " + std::to_string(path_point_y) + "), ";
       double point_for_stage[4] = {path_point_x, path_point_y, path_point_v, path_point_orientation};
-      mpc_acados_update_params(capsule_, i, point_for_stage, kPathPointSize);
+      mpc_acados_update_params(this->capsule_, i, point_for_stage, kPathPointSize);
 
       while (second_point_time - path_point_time < time_step && segment_end_index < path_point_count - 1) {
         segment_end_index++;
@@ -134,10 +103,10 @@ void AcadosSolver::set_path(const std::vector<double>& x_path) {
         first_orientation = second_orientation;
         first_point_time = second_point_time;
 
-        second_x = x_path[segment_end_index * kPathPointSize];
-        second_y = x_path[segment_end_index * kPathPointSize + 1];
-        second_v = x_path[segment_end_index * kPathPointSize + 2];
-        second_orientation = x_path[segment_end_index * kPathPointSize + 3];
+        second_x = this->last_path_[segment_end_index * kPathPointSize];
+        second_y = this->last_path_[segment_end_index * kPathPointSize + 1];
+        second_v = this->last_path_[segment_end_index * kPathPointSize + 2];
+        second_orientation = this->last_path_[segment_end_index * kPathPointSize + 3];
 
         dx = second_x - first_x;
         dy = second_y - first_y;
@@ -167,20 +136,15 @@ void AcadosSolver::set_path(const std::vector<double>& x_path) {
       first_orientation = path_point_orientation;
       first_point_time = path_point_time;
     }
-    // std::cout << path << std::endl;*/
+    // std::cout << path << std::endl;
 }
 
-common_lib::structures::ControlCommand AcadosSolver::solve() {
-  common_lib::structures::ControlCommand command;
-  int status = mpc_acados_solve(capsule_);
-  if (status != ACADOS_SUCCESS) {
-    RCLCPP_ERROR(rclcpp::get_logger("AcadosSolver"), "Acados solver failed with status %d", status);
-  }
+void AcadosSolver::update_execution_times() {
   // Create temporary variables to receive the raw values
   double t_tot, t_lin, t_sim, t_qp, t_reg;
   int sqp_iter;
   // Get the values from Acados (Times are in Seconds, Iterations is Int)
-  ocp_nlp_solver *nlp_solver = mpc_acados_get_nlp_solver(capsule_);
+  ocp_nlp_solver *nlp_solver = mpc_acados_get_nlp_solver(this->capsule_);
   ocp_nlp_get(nlp_solver, "time_tot", &t_tot);
   ocp_nlp_get(nlp_solver, "time_lin", &t_lin);
   ocp_nlp_get(nlp_solver, "time_sim", &t_sim);
@@ -211,6 +175,55 @@ common_lib::structures::ControlCommand AcadosSolver::solve() {
   (*_execution_times_)[6] = average_linearization_time_;
   (*_execution_times_)[7] = average_qp_time_;
   (*_execution_times_)[8] = average_regularization_time_;
+}
+
+void AcadosSolver::set_path(const std::vector<double>& x_path) {
+    // const int stage_count = this->control_params_->mpc_prediction_horizon_steps_ + 1;
+    // const size_t required_path_size = static_cast<size_t>(stage_count * kPathPointSize);
+// 
+    // if (x_path.size() < required_path_size) {
+    //   RCLCPP_WARN(rclcpp::get_logger("AcadosSolver"), "Path too small");
+    //   return;
+    // }
+    // RCLCPP_INFO(rclcpp::get_logger("AcadosSolver"), "Received path with %zu points", x_path.size() / kPathPointSize);
+
+    this->last_path_ = x_path;
+    this->has_path_ = true;
+
+    // for (int stage = 0; stage < stage_count; ++stage) {
+    //  const double point_for_stage[kPathPointSize] = {
+    //    x_path[stage * kPathPointSize],
+    //    x_path[stage * kPathPointSize + 1],
+    //    x_path[stage * kPathPointSize + 2],
+    //    x_path[stage * kPathPointSize + 3]
+    //  };
+    //  mpc_acados_update_params(capsule_, stage, const_cast<double*>(point_for_stage), kPathPointSize);
+    // }
+
+  
+    // std::string received_path = "";
+    // std::string received_path_info = "Info:";
+    // for (int i = 0; i < kPathPointSize * (x_path.size() > 50 ? 50 : x_path.size()); i += kPathPointSize) {
+    //   received_path += "(" + std::to_string(x_path[i]) + ", " + std::to_string(x_path[i+1]) + "), ";
+    //   received_path_info += "(" + std::to_string(x_path[i]) + ", " + std::to_string(x_path[i+1]) + "," + std::to_string(x_path[i+2]) + "," + std::to_string(x_path[i+3]) + "), ";
+    // }
+    // std::cout << "Received path points: " << received_path << std::endl;
+    // std::cout << received_path_info << std::endl;
+}
+
+common_lib::structures::ControlCommand AcadosSolver::solve() {
+  common_lib::structures::ControlCommand command;
+  if (!(this->has_state_ && this->has_path_)) {
+    return command;
+  }
+
+  this->set_path_point_per_stage();
+
+  int status = mpc_acados_solve(this->capsule_);
+  if (status != ACADOS_SUCCESS) {
+    RCLCPP_ERROR(rclcpp::get_logger("AcadosSolver"), "Acados solver failed with status %d", status);
+  }
+  this->update_execution_times();
   // Extracting 3 controls
   double solved_controls[3]; 
   ocp_nlp_out_get(nlp_config_, nlp_dims_, nlp_out_, 0, "u", (void*)solved_controls);

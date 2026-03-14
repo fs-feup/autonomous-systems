@@ -17,7 +17,9 @@ control:
   pid_anti_windup: 0.7
   pid_max_positive_error: 3
   pid_max_negative_error: -3
-  command_time_interval: 30 # Milliseconds
+  command_time_interval: 25 # Milliseconds
+  mpc_prediction_horizon_seconds: 1.0
+  mpc_prediction_horizon_steps: 180
 
 # Parameters for EBS Test
 # control:

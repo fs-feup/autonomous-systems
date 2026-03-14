@@ -5,7 +5,7 @@ project(control)
 # Compiler options
 # ------------------------------------------------------------------------------
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic -O2)
+  add_compile_options(-Wall -Wextra -Wpedantic -O3 -march=native -ffast-math)
 endif()
 
 # ------------------------------------------------------------------------------
@@ -27,7 +27,7 @@ file(MAKE_DIRECTORY ${ACADOS_GEN_DIR})
 
 add_custom_command(
   OUTPUT ${ACADOS_GENERATED_MARKER}
-  COMMAND python3 ${ACADOS_SCRIPT}
+  COMMAND echo "y" | python3 ${ACADOS_SCRIPT}
   COMMAND ${CMAKE_COMMAND} -E touch ${ACADOS_GENERATED_MARKER}
   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../..
   DEPENDS ${ACADOS_SCRIPT}

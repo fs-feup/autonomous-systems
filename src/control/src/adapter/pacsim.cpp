@@ -65,16 +65,11 @@ void PacSimAdapter::_pacsim_steering_angle_callback(const pacsim::msg::StampedSc
 }
 
 void PacSimAdapter::_pacsim_wheels_callback(const pacsim::msg::Wheels& msg) {
-  this->current_state_.fl_rpm = msg.fl;
-  this->current_state_.fr_rpm = msg.fr;
-  this->current_state_.rl_rpm = msg.rl;
-  this->current_state_.rr_rpm = msg.rr;
+  this->current_state_.fl_rpm = 2 * M_PI * msg.fl / 60.0;
+  this->current_state_.fr_rpm = 2 * M_PI * msg.fr / 60.0;
+  this->current_state_.rl_rpm = 2 * M_PI * msg.rl / 60.0;
+  this->current_state_.rr_rpm = 2 * M_PI * msg.rr / 60.0;
   this->vehicle_state_callback(this->current_state_);
-}
-
-void PacSimAdapter::_pacsim_gt_state_vector_callback(
-    const custom_interfaces::msg::VehicleStateVector& msg) {
-  // Currently Velocities is used, not VehicleStateVector, but this is here for future use
 }
 
 void PacSimAdapter::publish_command(common_lib::structures::ControlCommand cmd) {

@@ -4,11 +4,11 @@ import shutil
 import numpy as np
 from acados_template import AcadosOcp, AcadosOcpSolver, AcadosModel
 from casadi import SX, vertcat, sin, cos, sqrt, atan, atan2, tan, if_else, fabs
+from ament_index_python.packages import get_package_prefix
+import yaml
 
 path_size = 31
 path_point_size = 4  # x, y, velocity, orientation
-prediction_horizon_seconds = 0.5
-prediction_horizon_steps = 30
 
 alpha_max = 0.15
 m = 240
@@ -37,6 +37,41 @@ wheel_rotational_inertia = 0.2  # kg*m^2
 gravity_acceleration = 9.81
 
 steering_motor_tau = 0.1
+
+def get_config_yaml_path(package_name: str, dir: str, filename: str) -> str:
+    """
+    Constructs the path to a YAML config file within the workspace.
+    
+    Args:
+        package_name: Name of the ROS package
+        dir: Subdirectory within the config folder
+        filename: Config filename (without .yaml extension)
+    
+    Returns:
+        Full path to the config YAML file
+    """
+    try:
+        package_prefix = get_package_prefix(package_name)
+    except ImportError:
+        # Fallback if ament_index_python is not available
+        package_prefix = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    
+    workspace_path = os.path.join(package_prefix, "../../config", dir, f"{filename}.yaml")
+    return workspace_path
+
+def load_mpc_parameters():
+    """
+    Load MPC horizon time and steps from the global config YAML file.
+    """
+    global_config_path = get_config_yaml_path("common_lib", "control", "pacsim")
+    
+    with open(global_config_path, 'r') as f:
+        global_config = yaml.safe_load(f)
+    
+    mpc_horizon_time = global_config["control"]["mpc_prediction_horizon_seconds"]
+    mpc_horizon_steps = global_config["control"]["mpc_prediction_horizon_steps"]
+    
+    return mpc_horizon_time, mpc_horizon_steps
 
 # def export_mpc_model() -> AcadosModel:
 #     model = AcadosModel()
@@ -389,6 +424,8 @@ def create_ocp_solver(gen_base_dir="./build/acados"):
     os.makedirs(os.path.dirname(c_code_dir), exist_ok=True)
     os.makedirs(os.path.dirname(json_path), exist_ok=True)
 
+    prediction_horizon_seconds, prediction_horizon_steps = load_mpc_parameters()
+
     ocp = AcadosOcp()
     ocp.model = export_mpc_model()
     ocp.code_export_directory = c_code_dir
@@ -396,7 +433,7 @@ def create_ocp_solver(gen_base_dir="./build/acados"):
     ocp.solver_options.N_horizon = prediction_horizon_steps
     ocp.solver_options.tf = prediction_horizon_seconds
     ocp.solver_options.nlp_solver_type = "SQP_RTI"
-    #ocp.solver_options.qp_solver_cond_N = 30
+    ocp.solver_options.qp_solver_cond_N = 30
     ocp.solver_options.integrator_type = "ERK"
     ocp.solver_options.with_batch_functionality = False
     ocp.solver_options.ext_fun_compile_flags = "-O3 -march=native -ffast-math"

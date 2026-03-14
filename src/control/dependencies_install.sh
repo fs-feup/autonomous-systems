@@ -30,6 +30,10 @@ sudo apt-get install -y \
 # ------------------------------------------------------------------
 ACADOS_DIR="$(pwd)/ext/acados"
 
+# We proactively fix ownership to ensure the current user owns the folder.
+echo "Ensuring ownership of ${ACADOS_DIR}..."
+sudo chown -R $USER:$USER "${ACADOS_DIR}/include/acados"
+
 echo "Using acados at: ${ACADOS_DIR}"
 
 cd "${ACADOS_DIR}"
@@ -38,20 +42,24 @@ cd "${ACADOS_DIR}"
 git submodule update --init --recursive
 
 # Clean previous builds if any
-#rm -rf build
-#mkdir build
+sudo rm -rf build
+sudo rm -rf include
+sudo rm -rf lib
+sudo rm -rf bin
+sudo rm -rf share
+mkdir build
 cd build
 
 cmake .. \
     -DACADOS_WITH_QPOASES=ON \
     -DACADOS_WITH_OSQP=ON \
-    -DACADOS_WITH_HPIPM=ON \
-    -DACADOS_WITH_OPENMP=ON \
-    -DACADOS_WITH_BLASFEO=ON \
+    -DACADOS_WITH_OPENMP=OFF \
+    -DBLASFEO_TARGET=X64_INTEL_HASWELL \
+    -DHPIPM_TARGET=GENERIC \
     -DCMAKE_BUILD_TYPE=Release
 
 make -j$(nproc)
-sudo make install
+make install
 
 # ------------------------------------------------------------------
 # 3. Python interface

@@ -5,9 +5,7 @@
 #include <memory>
 #include "config/parameters.hpp"
 #include "common_lib/structures/control_command.hpp"
-#include "common_lib/structures/pose.hpp"
-#include "common_lib/structures/vehicle_state.hpp"
-
+#include "custom_interfaces/msg/vehicle_state_vector.hpp"
 
 class SolverInterface {
 protected:
@@ -47,9 +45,17 @@ public:
     virtual std::vector<common_lib::structures::ControlCommand> get_full_solution() = 0;
     
     /**
-     * @brief Get the predicted state at a given stage in the horizon
+     * @brief Get the predicted state for each stage of the horizon
      * 
-     * @return std::vector<double> 
+     * @return std::vector<custom_interfaces::msg::VehicleStateVector> vector of states, one for each stage in the horizon
      */
-    virtual std::vector<std::pair<common_lib::structures::Pose, common_lib::structures::VehicleState>> get_full_horizon() = 0;
+    virtual std::vector<custom_interfaces::msg::VehicleStateVector> get_full_horizon() = 0;
+
+    /**
+     * @brief Publish any relevant solver data for visualization or debugging purposes.
+     * 
+     * @param node 
+     * @param publisher_map 
+     */
+    virtual void publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) = 0;
 };
