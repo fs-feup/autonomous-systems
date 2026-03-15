@@ -1,0 +1,6 @@
+steering:
+  minimum_steering_angle: -0.335
+  maximum_steering_angle: 0.335
+  
+  # Ackerman steering
+  ackerman_factor: 1.0 # Temporary value that assumes perfect Ackerman geometry
