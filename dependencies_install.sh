@@ -12,12 +12,9 @@ sudo apt install -y ros-humble-tf-transformations
 sudo apt install -y ros-humble-rosbag2-storage-mcap
 sudo apt install nano -y
 
-# Cleanup
-cd /
-sudo rm -rf /tmp/osqp /tmp/osqp-eigen
-
-# Update library cache
-sudo ldconfig
+# planning
+sudo apt-get install libcgal-dev -y
+sudo apt-get install libgsl-dev -y
 
 # perception
 sudo apt install libpcl-dev -y
