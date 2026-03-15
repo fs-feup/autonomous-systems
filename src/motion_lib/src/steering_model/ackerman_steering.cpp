@@ -5,6 +5,8 @@ AckermanSteering::AckermanSteering(common_lib::car_parameters::CarParameters car
   ackerman_factor_ = car_parameters.steering_parameters->ackerman_factor;
   wheelbase_ = car_parameters.wheelbase;
   track_width_ = car_parameters.track_width;
+  minimum_steering_angle_ = car_parameters.steering_parameters->minimum_steering_angle;
+  maximum_steering_angle_ = car_parameters.steering_parameters->maximum_steering_angle;
 }
 
 Eigen::Vector4d AckermanSteering::calculate_steering_angles(double steering_wheel_angle) const {
@@ -12,24 +14,15 @@ Eigen::Vector4d AckermanSteering::calculate_steering_angles(double steering_whee
     return Eigen::Vector4d::Zero();
   }
 
-  const double tan_sw = tan(steering_wheel_angle);
+  double clamped_angle =
+      std::clamp(steering_wheel_angle, minimum_steering_angle_, maximum_steering_angle_);
 
-  double inner =
+  const double tan_sw = tan(clamped_angle);
+
+  double fl =
       atan((wheelbase_ * tan_sw) / (wheelbase_ - track_width_ * 0.5 * tan_sw * ackerman_factor_));
-  double outer =
+  double fr =
       atan((wheelbase_ * tan_sw) / (wheelbase_ + track_width_ * 0.5 * tan_sw * ackerman_factor_));
-
-  double fl, fr;
-
-  if (steering_wheel_angle > 0.0) {
-    // Left
-    fl = inner;
-    fr = outer;
-  } else {
-    // Right
-    fl = outer;
-    fr = inner;
-  }
 
   return Eigen::Vector4d(fl, fr, 0.0, 0.0);
 }
