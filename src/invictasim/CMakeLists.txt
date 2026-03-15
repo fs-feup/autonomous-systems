@@ -17,6 +17,7 @@ find_package(nav_msgs REQUIRED)
 find_package(rosgraph_msgs REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
+find_package(Curses REQUIRED)
 find_package(yaml-cpp REQUIRED)
 find_package(common_lib REQUIRED)
 find_package(motion_lib REQUIRED)
@@ -27,7 +28,10 @@ find_package(custom_interfaces REQUIRED)
 
 # Implementation files
 set(IMPLEMENTATION_FILES
-  src/node/invictasim_node.cpp
+  src/simulator/invictasim.cpp
+  src/io/input/ros.cpp
+  src/io/output/ros.cpp
+  src/io/input/keyboard.cpp
   src/config/config.cpp
   src/vehicle_model/FSFEUP02.cpp
 )
@@ -37,9 +41,10 @@ add_executable(invictasim src/main.cpp ${IMPLEMENTATION_FILES})
 target_include_directories(invictasim PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
+  ${CURSES_INCLUDE_DIR}
 )
 target_compile_features(invictasim PUBLIC c_std_99 cxx_std_17)
-target_link_libraries(invictasim yaml-cpp)
+target_link_libraries(invictasim yaml-cpp ${CURSES_LIBRARIES})
 ament_target_dependencies(invictasim
   ament_index_cpp
   rclcpp
@@ -79,7 +84,9 @@ if(BUILD_TESTING)
   target_include_directories(invictasim_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
+    ${CURSES_INCLUDE_DIR}
   )
+  target_link_libraries(invictasim_test ${CURSES_LIBRARIES})
   ament_target_dependencies(invictasim_test
     ament_index_cpp
     rclcpp

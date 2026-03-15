@@ -12,6 +12,8 @@ struct InvictaSimParameters {
   double timestep;
   std::string track_name;
   double simulation_speed;
+  std::string input_adapter;
+  std::string output_adapter;
 
   std::string vehicle_model;
   std::string tire_model;
