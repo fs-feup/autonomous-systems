@@ -30,7 +30,7 @@ custom_interfaces::msg::PathPointArray custom_interfaces_array_from_vector(
     const std::vector<common_lib::structures::PathPoint> &input_path, bool is_map_closed) {
   custom_interfaces::msg::PathPointArray message;
   message.is_map_closed = is_map_closed;
-
+  //TODA: change for orientation!
   for (auto const &element : input_path) {
     custom_interfaces::msg::PathPoint p;
     p.x = element.position.x;
