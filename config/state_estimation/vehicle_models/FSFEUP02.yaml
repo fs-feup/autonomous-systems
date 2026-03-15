@@ -1,28 +1,29 @@
 vehicle_model:
   name: "fsfeup02"
 
-  car_parameters: "02"
+  car_parameters: "02" # Options: "02" -> name of the car parameters in config/car/XX.yaml
 
-  aero_model: "default_aero"
+  aero_model: "default_aero" # "default_aero" or ... -> name of the aero model
   aero_model_params: "simple_aero"
 
-  steering_model: "parallel_front_steering"
+  steering_model: "ackerman_steering" # "parallel_front_steering" or "ackerman_steering" or ... -> name of the steering model
+  steering_model_params: "simple_steering"
 
-  tire_model: "pacejka_combined_slip" # Options: "simple_pacejka", "pacejka_MF6_2"
+  tire_model: "pacejka_combined_slip" # "simple_pacejka", "pacejka_MF6_2" or ... -> name of the tire model
   tire_model_params: "pacejka_MF6_2" # Options: "simple_pacejka", "pacejka_MF6_2"
 
-  motor_model: "map_based_motor"
+  motor_model: "map_based_motor" # "map_based_motor" -> name of the motor model (NOT USED BUT NEED PARAMS)
   motor_model_params: "motor"
 
-  battery_model: "thevenin"
+  battery_model: "thevenin" # "thevenin" or ... -> name of the battery model (NOT USED BUT NEED PARAMS)
   battery_model_params: "battery"
 
-  differential_model: "viscous_lsd"
+  differential_model: "viscous_lsd" # "viscous_lsd" or ... -> name of the differential model
   differential_model_params: "differential"
 
-  load_transfer_model: "rigid_body" # Options: "rigid_body_model", "vd_model"
+  load_transfer_model: "rigid_body" # "rigid_body_model" , "vd_model" or ... -> name of the load transfer model
   load_transfer_model_params: "load_transfer"
 
-  steering_motor_model: "pid"
+  steering_motor_model: "first_order" # "pid" , "first_order" or ... -> name of the steering motor model
   steering_motor_model_params: "simple_steering_motor"
   
