@@ -91,4 +91,6 @@ void InvictaSimNode::simulation_step() {
   vehicle_state_msg.rl_rpm = wheels_speed.rear_left * 60.0 / (2.0 * M_PI);
   vehicle_state_msg.rr_rpm = wheels_speed.rear_right * 60.0 / (2.0 * M_PI);
   vehicle_state_pub_->publish(vehicle_state_msg);
+
+  //   RCLCPP_INFO(rclcpp::get_logger("Forces"), "fx: %.2f", vehicle_model_->get_fx());
 }

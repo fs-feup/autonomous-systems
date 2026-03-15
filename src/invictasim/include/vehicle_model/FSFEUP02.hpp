@@ -59,6 +59,8 @@ public:
    */
   double get_battery_soc() const override;
 
+  // Debug
+
 private:
   // Vehicle state struct is defined in the base class
   std::shared_ptr<TireModel> tire_model_;

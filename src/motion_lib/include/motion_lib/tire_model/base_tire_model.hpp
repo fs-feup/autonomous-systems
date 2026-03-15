@@ -25,6 +25,9 @@ struct TireInput {
   double slip_ratio;
   double distance_to_CG;
   double camber_angle;
+
+  Eigen::Vector4d last_slip_ratio = Eigen::Vector4d::Zero();
+  double dt = 0;
 };
 
 /**

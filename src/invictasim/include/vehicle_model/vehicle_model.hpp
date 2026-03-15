@@ -32,6 +32,8 @@ struct VehicleState {
   Eigen::Vector3d front_right_forces = {0.0, 0.0, 0.0};
   Eigen::Vector3d rear_left_forces = {0.0, 0.0, 0.0};
   Eigen::Vector3d rear_right_forces = {0.0, 0.0, 0.0};
+  // debug
+  double fx = 0.0;  // Longitudinal force, for debugging
 };
 
 /**4
@@ -111,4 +113,6 @@ public:
   void set_wheels_torque(const common_lib::structures::Wheels& wheels_torque) {
     state_->wheels_torque = wheels_torque;
   }
+  // debug
+  double get_fx() const { return state_->fx; }
 };
