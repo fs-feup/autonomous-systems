@@ -6,6 +6,7 @@ std::vector<PathPoint> PathSmoothing::smooth_path(const std::vector<PathPoint>& 
   }
   std::vector<PathPoint> result_path = ::fit_spline(
       path, config_.spline_precision_, config_.spline_order_, config_.spline_coeffs_ratio_);
+  
   return filter_path(result_path);
 }
 

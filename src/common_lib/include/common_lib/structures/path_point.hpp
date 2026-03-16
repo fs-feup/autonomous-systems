@@ -8,14 +8,16 @@ namespace common_lib::structures {
 
 struct PathPoint {
   Position position;
+  double orientation;
   double ideal_velocity = 1.0;
+
   PathPoint() = default;
-  PathPoint(Position position, double ideal_velocity = 1.0);
-  PathPoint(double x, double y, double ideal_velocity = 1.0);
+  PathPoint(Position position, double orientation = 0, double ideal_velocity = 1.0);
+  PathPoint(double x, double y, double orientation = 0, double ideal_velocity = 1.0);
   PathPoint(PathPoint const& path_point) = default;
   double getX() const;
   double getY() const;
-  double getV() const;
+
   friend bool operator==(const PathPoint& lhs, const PathPoint& rhs) {
     return lhs.position == rhs.position && lhs.ideal_velocity == rhs.ideal_velocity;
   }

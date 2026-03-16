@@ -169,6 +169,12 @@ private:
 
   /*--------------------- Mission-Specific Planning --------------------*/
   /**
+   * @brief Computes and assigns the orientation for each point in the path.
+   *
+   * @param path The path whose points will have their orientation field updated in-place.
+   */
+  void compute_path_orientation(std::vector<PathPoint> &path);
+  /**
    * @brief Generates and optimizes a closed-loop global track path.
    *
    * @note Intended to run once when the map is considered complete.
