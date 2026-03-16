@@ -64,7 +64,6 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.smoothing_car_width_ = planning_config["smoothing_car_width"].as<double>();
   params.smoothing_safety_margin_ = planning_config["smoothing_safety_margin"].as<double>();
   params.smoothing_curvature_weight_ = planning_config["smoothing_curvature_weight"].as<double>();
-  params.smoothing_smoothness_weight_ = planning_config["smoothing_smoothness_weight"].as<double>();
   params.smoothing_safety_weight_ = planning_config["smoothing_safety_weight"].as<double>();
   params.smoothing_max_iterations_ = planning_config["smoothing_max_iterations"].as<int>();
   params.smoothing_tolerance_ = planning_config["smoothing_tolerance"].as<double>();
@@ -251,7 +250,7 @@ void Planning::compute_path_orientation(std::vector<PathPoint> &path) {
 
   // Compute orientation for the rest of the points based on three consecutive points for better
   // accuracy
-  for (int i = 1; i < path.size() - 1; i++) {
+  for (int i = 1; i < (int)path.size() - 1; i++) {
     next_x = path[i + 1].position.x;
     next_y = path[i + 1].position.y;
 
@@ -421,7 +420,7 @@ void Planning::run_planning_algorithms() {
     RCLCPP_INFO(rclcpp::get_logger("planning"), "Final path size: %d",
                 static_cast<int>(smoothed_path_.size()));
   }
-  
+
   if (!is_map_closed_) {
     compute_path_orientation(smoothed_path_);
   }
@@ -483,40 +482,3 @@ void Planning::publish_visualization_msgs() const {
         smoothed_path_, "velocity", map_frame_id_, 0.25f, 1));
   }
 }
-
-// void Colorpoint::add_orientation(std::vector<Colorpoint> &path) {
-//   double previous_x = path[0].point.x();
-//   double previous_y = path[0].point.y();
-
-//   double current_x = path[1].point.x();
-//   double current_y = path[1].point.y();
-
-//   // Set orientation for the first point based on the first two points
-//   double dx = current_x - previous_x;
-//   double dy = current_y - previous_y;
-//   path[0].orientation = std::atan2(dy, dx);
-
-//   double next_x = path[2].point.x();
-//   double next_y = path[2].point.y();
-//   // Compute orientation for the rest of the points based on three consecutive points for
-//   //   better accuracy
-//   for (int i = 1; i < path.size() - 1; i++) {
-//     next_x = path[i + 1].point.x();
-//     next_y = path[i + 1].point.y();
-
-//     dx = next_x - previous_x;
-//     dy = next_y - previous_y;
-
-//     path[i].orientation = std::atan2(dy, dx);
-
-//     previous_x = current_x;
-//     previous_y = current_y;
-//     current_x = next_x;
-//     current_y = next_y;
-//   }
-
-//   // Set orientation for the last point based on the last two points
-//   dx = next_x - previous_x;
-//   dy = next_y - previous_y;
-//   path.back().orientation = std::atan2(dy, dx);
-// }

@@ -42,7 +42,6 @@ struct PlanningParameters {
   double smoothing_car_width_;
   double smoothing_safety_margin_;
   double smoothing_curvature_weight_;
-  double smoothing_smoothness_weight_;
   double smoothing_safety_weight_;
   int smoothing_max_iterations_;
   double smoothing_tolerance_;
@@ -118,7 +117,7 @@ struct PlanningConfig {
                    params.smoothing_spline_coeffs_ratio_, params.smoothing_min_path_point_distance_,
                    params.smoothing_use_path_smoothing_, params.smoothing_use_optimization_,
                    params.smoothing_car_width_, params.smoothing_safety_margin_,
-                   params.smoothing_curvature_weight_, params.smoothing_smoothness_weight_,
+                   params.smoothing_curvature_weight_,
                    params.smoothing_safety_weight_, params.smoothing_max_iterations_,
                    params.smoothing_tolerance_),
         velocity_planning_(params.vp_minimum_velocity_, params.vp_desired_velocity_,

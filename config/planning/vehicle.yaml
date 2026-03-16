@@ -4,7 +4,7 @@ planning:
   mg_maximum_cone_distance: 10.0 
   mg_sliding_window_radius: 40.0
   #---------------------- Path Calculation (pc_) ------------------------
-  pc_use_sliding_window: true
+  pc_use_sliding_window: false
   pc_angle_gain: 70.0  
   pc_distance_gain: 6.0
   pc_angle_exponent: 2.0
@@ -13,23 +13,22 @@ planning:
   pc_lookback_points: 4
   pc_search_depth: 4
   pc_max_points: 200
-  pc_minimum_point_distance: 0.3
+  pc_minimum_point_distance: 0.4
   pc_reset_interval: 1000000000
   pc_use_reset_path: false
   #---------------------- Skidpad (skidpad_) ------------------
   skidpad_minimum_cones: 10
   skidpad_tolerance: 5
   #---------------------- Path Smoothing (smoothing_) -------------------
-  smoothing_spline_precision: 1
+  smoothing_spline_precision: 10
   smoothing_spline_order: 3
   smoothing_spline_coeffs_ratio: 3.0
   smoothing_min_path_point_distance: 0
   smoothing_use_path_smoothing: true
-  smoothing_use_optimization: true
+  smoothing_use_optimization: false
   smoothing_car_width: 1.2
   smoothing_safety_margin: 0.3
   smoothing_curvature_weight: 100.0
-  smoothing_smoothness_weight: 0
   smoothing_safety_weight: 1000000
   smoothing_max_iterations: 4000
   smoothing_tolerance: 1e-5     
