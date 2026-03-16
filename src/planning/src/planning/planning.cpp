@@ -436,7 +436,6 @@ void Planning::run_planning_algorithms() {
   }
 }
 
-
 /*--------------------- Publishing --------------------*/
 
 void Planning::publish_path_points() const {
