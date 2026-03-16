@@ -9,6 +9,8 @@ import subprocess
 import signal
 import os
 import time
+import glob
+import shutil
 
 class Supervisor(Node):
     def __init__(self):
@@ -147,37 +149,58 @@ class Supervisor(Node):
         return self.consecutive_ts_off_count >= 6
 
     def get_rosbag_naming(self):
-        # Folder where rosbags are stored (adjust if needed)
         rosbag_dir = self.bags_dir
-        # Regex to match names like "Skidpad 1", "Skidpad 2", etc.
-        pattern = re.compile(rf"^{re.escape(self.mission)}\s+(\d+)\s*$")
-
+        # Regex updated to look for .mcap files instead of directories
+        pattern = re.compile(rf"^{re.escape(self.mission)}\s+(\d+)\.mcap$")
 
         max_num = 0
         for name in os.listdir(rosbag_dir):
-            if os.path.isdir(os.path.join(rosbag_dir, name)):
-                match = pattern.match(name)
-                if match:
-                    num = int(match.group(1))
-                    max_num = max(max_num, num)
+            match = pattern.match(name)
+            if match:
+                num = int(match.group(1))
+                max_num = max(max_num, num)
 
-        # Next available number
         next_num = max_num + 1
         return f"{self.mission} {next_num}"
 
     def start_recording_rosbag(self):
         rosbag_name = self.get_rosbag_naming()
-        save_path = os.path.join(self.bags_dir, rosbag_name)
-        print("Save path", save_path)
+        self.current_rosbag_name = rosbag_name # Save for the stop function
+        self.temp_bag_dir = os.path.join(self.bags_dir, f"{rosbag_name}_temp")
+        
+        print("Temp save path:", self.temp_bag_dir)
 
-        self.get_logger().info(f'Starting rosbag recording: {save_path}')
-        cmd = f'{self.record_rosbag_command} -o "{save_path}"'
+        self.get_logger().info(f'Starting rosbag recording: {self.temp_bag_dir}')
+        cmd = f'{self.record_rosbag_command} -o "{self.temp_bag_dir}"'
         self.rosbag_process = subprocess.Popen(['bash', '-c', cmd])
     
     def stop_rosbag(self):
-        self.get_logger().info('Stopping rosbag recording...')
-        self.rosbag_process.send_signal(signal.SIGINT)
-        self.rosbag_process = None
+        if self.rosbag_process:
+            self.get_logger().info('Stopping rosbag recording...')
+            self.rosbag_process.send_signal(signal.SIGINT)
+            
+            # CRITICAL: Wait for ROS 2 to finish closing the file before moving it
+            self.rosbag_process.wait() 
+            self.rosbag_process = None
+
+            self.get_logger().info('Extracting .mcap file from temp folder...')
+            
+            # Find the generated .mcap file inside the temp folder (e.g. name_0.mcap)
+            mcap_files = glob.glob(os.path.join(self.temp_bag_dir, '*.mcap'))
+            
+            if mcap_files:
+                original_mcap = mcap_files[0]
+                final_mcap_path = os.path.join(self.bags_dir, f"{self.current_rosbag_name}.mcap")
+                
+                # Move and rename it to the main bags directory
+                shutil.move(original_mcap, final_mcap_path)
+                self.get_logger().info(f'Moved clean .mcap to: {final_mcap_path}')
+                
+                # Delete the temporary ROS 2 folder (and metadata.yaml)
+                shutil.rmtree(self.temp_bag_dir)
+                self.get_logger().info('Temporary folder cleaned up.')
+            else:
+                self.get_logger().error('No .mcap file found in the temp directory!')
 
 
 def main(args=None):

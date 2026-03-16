@@ -11,7 +11,7 @@
 PlanningParameters Planning::load_config(std::string &adapter) {
   PlanningParameters params;
 
-  std::string global_config_path =
+      std::string global_config_path =
       common_lib::config_load::get_config_yaml_path("planning", "global", "global_config");
   RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Loading global config from: %s",
                global_config_path.c_str());
