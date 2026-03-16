@@ -11,7 +11,8 @@ std::vector<PathPoint> read_path_file(const std::string &filename) {
   std::vector<PathPoint> path;
   float x, y;
   while (path_file >> x >> y) {
-    PathPoint pathpoint = PathPoint(x, y);
+    //TODA: change this to other...
+    PathPoint pathpoint = PathPoint(x, y,0);
     path.push_back(pathpoint);
   }
   path_file.close();

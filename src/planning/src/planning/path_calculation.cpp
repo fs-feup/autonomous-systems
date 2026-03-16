@@ -547,7 +547,8 @@ std::vector<PathPoint> PathCalculation::get_path_points_from_colorpoints(
   path_points.reserve(colorpoints.size());
 
   for (const Colorpoint& pt : colorpoints) {
-    (void)path_points.emplace_back(pt.point.x(), pt.point.y());
+    //TODA: change for real orientation
+    (void)path_points.emplace_back(pt.point.x(), pt.point.y(),0);
   }
 
   return path_points;

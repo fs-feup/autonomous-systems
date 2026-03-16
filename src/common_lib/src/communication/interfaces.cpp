@@ -36,6 +36,7 @@ custom_interfaces::msg::PathPointArray custom_interfaces_array_from_vector(
     p.x = element.position.x;
     p.y = element.position.y;
     p.v = element.ideal_velocity;
+    p.o = element.orientation;
     message.pathpoint_array.push_back(p);
   }
   return message;
