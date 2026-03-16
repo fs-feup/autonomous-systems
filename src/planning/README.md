@@ -10,7 +10,6 @@ The module operates in two modes:
 - **Skidpad mission:** ICP alignment with predefined paths
 - **Other missions:** Full path generation via Delaunay triangulation, midpoint extraction, (B-spline smoothing), (minimum curvature optimization), and velocity planning
 
-
 ### Folder Structure
 - [adapter_planning](include/adapter_planning/): Adapters to change ros2 interfaces according to simulator or environment
 - [config](include/config/): Configuration structures for the planning module
@@ -45,6 +44,7 @@ The module operates in two modes:
 
 ### Install Dependencies
 ```sh
+cd src/planning
 ./dependencies_install.sh
 ```
 

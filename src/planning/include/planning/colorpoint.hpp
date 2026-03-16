@@ -52,10 +52,9 @@ public:
                             std::vector<PathPoint>& yellow_cones,
                             std::vector<PathPoint>& blue_cones);
 
-  Point point;  ///< The path point (midpoint between cones).
-  Cone cone1;   ///< First cone associated with this path point.
-  Cone cone2;   ///< Second cone associated with this path point.
-  double orientation;  ///< The orientation of the path point
+  Point point;         ///< The path point (midpoint between cones).
+  Cone cone1;          ///< First cone associated with this path point.
+  Cone cone2;          ///< Second cone associated with this path point.
 
 private:
   /**

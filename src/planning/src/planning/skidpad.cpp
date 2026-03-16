@@ -112,8 +112,7 @@ std::vector<PathPoint> Skidpad::skidpad_path(const std::vector<Cone>& cone_array
       std::istringstream iss(line);
       double x = 0.0, y = 0.0, v = 0.0;
       if (iss >> x >> y >> v) {
-        //TODA: CHANGE THIS TOO HAVE THE CORRECT ORIENTATION!
-        (void)hardcoded_path_.emplace_back(x, y, v,0);
+        (void)hardcoded_path_.emplace_back(x, y, v);
       } else {
         break;
       }

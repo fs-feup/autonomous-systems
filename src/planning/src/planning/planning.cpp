@@ -11,7 +11,7 @@
 PlanningParameters Planning::load_config(std::string &adapter) {
   PlanningParameters params;
 
-      std::string global_config_path =
+  std::string global_config_path =
       common_lib::config_load::get_config_yaml_path("planning", "global", "global_config");
   RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Loading global config from: %s",
                global_config_path.c_str());
@@ -231,20 +231,58 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &messa
 
 /*--------------------- Mission-Specific Planning --------------------*/
 
+void Planning::compute_path_orientation(std::vector<PathPoint> &path) {
+  if (path.size() <= 2) {
+    return;
+  }
+  double previous_x = path[0].position.x;
+  double previous_y = path[0].position.y;
+
+  double current_x = path[1].position.x;
+  double current_y = path[1].position.y;
+
+  // Set orientation for the first point based on the first two points
+  double dx = current_x - previous_x;
+  double dy = current_y - previous_y;
+  path[0].orientation = std::atan2(dy, dx);
+
+  double next_x = path[2].position.x;
+  double next_y = path[2].position.y;
+
+  // Compute orientation for the rest of the points based on three consecutive points for better
+  // accuracy
+  for (int i = 1; i < path.size() - 1; i++) {
+    next_x = path[i + 1].position.x;
+    next_y = path[i + 1].position.y;
+
+    dx = next_x - previous_x;
+    dy = next_y - previous_y;
+
+    path[i].orientation = std::atan2(dy, dx);
+
+    previous_x = current_x;
+    previous_y = current_y;
+    current_x = next_x;
+    current_y = next_y;
+  }
+
+  // Set orientation for the last point based on the last two points
+  dx = next_x - previous_x;
+  dy = next_y - previous_y;
+  path.back().orientation = std::atan2(dy, dx);
+}
+
 void Planning::run_full_map() {
   is_map_closed_ = true;
   full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
-
-  RCLCPP_INFO(get_logger(), "Trackdrive path calculated with %d points",
-              static_cast<int>(full_path_.size()));
 
   const std::vector<PathPoint> yellow_cones = path_calculation_.get_yellow_cones();
   const std::vector<PathPoint> blue_cones = path_calculation_.get_blue_cones();
 
   smoothed_path_ = path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones);
-  RCLCPP_INFO(get_logger(), "Trackdrive path calculated with %d points",
-              static_cast<int>(smoothed_path_.size()));
+  compute_path_orientation(smoothed_path_);
   velocity_planning_.trackdrive_velocity(smoothed_path_);
+
   if (smoothed_path_.size() > 1) {
     double total_length = 0.0;
     double lap_time = 0.0;
@@ -280,7 +318,10 @@ void Planning::run_full_map() {
 
     double avg_vel = sum_vel / smoothed_path_.size();
 
-    RCLCPP_INFO(get_logger(),
+    RCLCPP_DEBUG(get_logger(), "Trackdrive path calculated with %d points",
+                 static_cast<int>(smoothed_path_.size()));
+
+    RCLCPP_DEBUG(get_logger(),
                 "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
                 "| Max: %.2f m/s",
                 lap_time, total_length, avg_vel, min_vel, max_vel);
@@ -380,6 +421,10 @@ void Planning::run_planning_algorithms() {
     RCLCPP_INFO(rclcpp::get_logger("planning"), "Final path size: %d",
                 static_cast<int>(smoothed_path_.size()));
   }
+  
+  if (!is_map_closed_) {
+    compute_path_orientation(smoothed_path_);
+  }
 
   publish_execution_time(start_time);
   publish_path_points();
@@ -438,3 +483,40 @@ void Planning::publish_visualization_msgs() const {
         smoothed_path_, "velocity", map_frame_id_, 0.25f, 1));
   }
 }
+
+// void Colorpoint::add_orientation(std::vector<Colorpoint> &path) {
+//   double previous_x = path[0].point.x();
+//   double previous_y = path[0].point.y();
+
+//   double current_x = path[1].point.x();
+//   double current_y = path[1].point.y();
+
+//   // Set orientation for the first point based on the first two points
+//   double dx = current_x - previous_x;
+//   double dy = current_y - previous_y;
+//   path[0].orientation = std::atan2(dy, dx);
+
+//   double next_x = path[2].point.x();
+//   double next_y = path[2].point.y();
+//   // Compute orientation for the rest of the points based on three consecutive points for
+//   //   better accuracy
+//   for (int i = 1; i < path.size() - 1; i++) {
+//     next_x = path[i + 1].point.x();
+//     next_y = path[i + 1].point.y();
+
+//     dx = next_x - previous_x;
+//     dy = next_y - previous_y;
+
+//     path[i].orientation = std::atan2(dy, dx);
+
+//     previous_x = current_x;
+//     previous_y = current_y;
+//     current_x = next_x;
+//     current_y = next_y;
+//   }
+
+//   // Set orientation for the last point based on the last two points
+//   dx = next_x - previous_x;
+//   dy = next_y - previous_y;
+//   path.back().orientation = std::atan2(dy, dx);
+// }

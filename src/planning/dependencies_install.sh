@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-REPO_ROOT="$(pwd)/../.."  # adjust to point to repo root
+REPO_ROOT="$(pwd)/../.." 
 OSQP_DIR="${REPO_ROOT}/ext/osqp"
 OSQP_EIGEN_DIR="${REPO_ROOT}/ext/osqp-eigen"
 INSTALL_PREFIX="${REPO_ROOT}/ext/osqp/install"
