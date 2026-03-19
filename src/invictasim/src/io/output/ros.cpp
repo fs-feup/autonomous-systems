@@ -2,8 +2,9 @@
 
 #include <cmath>
 
-RosOutputAdapter::RosOutputAdapter()
-    : Node("invictasim_output", rclcpp::NodeOptions().use_global_arguments(false)) {
+RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator)
+    : Node("invictasim_output", rclcpp::NodeOptions().use_global_arguments(false)),
+      InvictaSimOutputAdapter(simulator) {
   motor_torque_pub_ =
       this->create_publisher<std_msgs::msg::Float64>("/invictasim/motor/torque", 10);
   battery_current_pub_ =

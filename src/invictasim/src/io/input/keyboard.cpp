@@ -1,7 +1,8 @@
 #include "io/input/keyboard.hpp"
 
-KeyboardInputAdapter::KeyboardInputAdapter()
-    : loop_period_ms_(20),
+KeyboardInputAdapter::KeyboardInputAdapter(const std::shared_ptr<InvictaSim>& simulator)
+    : InvictaSimInputAdapter(simulator),
+      loop_period_ms_(20),
       acceleration_step_(0.05),
       acceleration_decay_step_(0.01),
       steering_step_radians_(M_PI / 64.0),
@@ -60,11 +61,6 @@ void KeyboardInputAdapter::run() {
 
 void KeyboardInputAdapter::stop() { running_ = false; }
 
-InvictaSimInput KeyboardInputAdapter::get_current_input() const {
-  std::lock_guard<std::mutex> lock(input_mutex_);
-  return current_input_;
-}
-
 void KeyboardInputAdapter::input_loop() {
   double acceleration = 0.0;
   double steering = 0.0;
@@ -90,15 +86,8 @@ void KeyboardInputAdapter::input_loop() {
       steering = std::max(steering - steering_step_radians_, -max_steering_radians_);
     }
 
-    InvictaSimInput input;
-    input.throttle.rear_left = acceleration;
-    input.throttle.rear_right = acceleration;
-    input.steering = steering;
-
-    {
-      std::lock_guard<std::mutex> lock(input_mutex_);
-      current_input_ = input;
-    }
+    common_lib::structures::Wheels throttle{acceleration, acceleration, acceleration, acceleration};
+    simulator_->set_input(throttle, steering);
 
     mvprintw(status_row_, 0, "Accel: % .2f | Steer: % .2f      ", acceleration, steering);
     refresh();

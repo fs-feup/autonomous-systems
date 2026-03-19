@@ -1,20 +1,21 @@
 #pragma once
 
-#include "common_lib/structures/wheels.hpp"
+#include <memory>
 
-/**
- * @brief Input message that the simulator receives.
- */
-struct InvictaSimInput {
-  common_lib::structures::Wheels throttle = {0.0, 0.0, 0.0, 0.0};  ///< Wheel throttle commands.
-  double steering = 0.0;                                           ///< Steering command.
-};
+#include "simulator/invictasim.hpp"
 
 /**
  * @brief Base interface for simulator input adapters.
  */
 class InvictaSimInputAdapter {
 public:
+  /**
+   * @brief Construct a new input adapter.
+   * @param simulator Simulator instance.
+   */
+  explicit InvictaSimInputAdapter(const std::shared_ptr<InvictaSim>& simulator)
+      : simulator_(simulator) {}
+
   /**
    * @brief Destroy the input adapter.
    */
@@ -30,9 +31,6 @@ public:
    */
   virtual void stop() {}
 
-  /**
-   * @brief Get the latest input values.
-   * @return Current simulator input.
-   */
-  virtual InvictaSimInput get_current_input() const = 0;
+protected:
+  std::shared_ptr<InvictaSim> simulator_;  ///< Reference to simulator instance.
 };

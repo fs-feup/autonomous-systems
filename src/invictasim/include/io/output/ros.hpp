@@ -12,8 +12,9 @@ class RosOutputAdapter : public rclcpp::Node, public InvictaSimOutputAdapter {
 public:
   /**
    * @brief Construct a new RosOutputAdapter.
+   * @param simulator Simulator instance.
    */
-  RosOutputAdapter();
+  explicit RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator);
 
   /**
    * @brief Publish the current simulator outputs to ROS topics.

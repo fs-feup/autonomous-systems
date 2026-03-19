@@ -8,15 +8,19 @@
 #include "io/input/input_adapter.hpp"
 #include "io/input/keyboard.hpp"
 #include "io/input/ros.hpp"
+#include "simulator/invictasim.hpp"
 
-const std::map<std::string, std::function<std::shared_ptr<InvictaSimInputAdapter>()>, std::less<>>
+const std::map<
+    std::string,
+    std::function<std::shared_ptr<InvictaSimInputAdapter>(const std::shared_ptr<InvictaSim>&)>,
+    std::less<>>
     input_adapters_map = {
         {"ros",
-         []() -> std::shared_ptr<InvictaSimInputAdapter> {
-           return std::make_shared<RosInputAdapter>();
+         [](const std::shared_ptr<InvictaSim>& sim) -> std::shared_ptr<InvictaSimInputAdapter> {
+           return std::make_shared<RosInputAdapter>(sim);
          }},
         {"keyboard",
-         []() -> std::shared_ptr<InvictaSimInputAdapter> {
-           return std::make_shared<KeyboardInputAdapter>();
+         [](const std::shared_ptr<InvictaSim>& sim) -> std::shared_ptr<InvictaSimInputAdapter> {
+           return std::make_shared<KeyboardInputAdapter>(sim);
          }},
 };

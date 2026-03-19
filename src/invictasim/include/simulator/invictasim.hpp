@@ -3,10 +3,10 @@
 #include <atomic>
 #include <chrono>
 #include <memory>
+#include <mutex>
 
+#include "common_lib/structures/wheels.hpp"
 #include "config/config.hpp"
-#include "io/input/input_adapter.hpp"
-#include "io/output/output_adapter.hpp"
 #include "vehicle_model/map.hpp"
 #include "vehicle_model/vehicle_model.hpp"
 
@@ -18,12 +18,8 @@ public:
   /**
    * @brief Construct a new InvictaSim.
    * @param params Simulator configuration.
-   * @param input_adapter Input adapter.
-   * @param output_adapter Output adapter.
    */
-  InvictaSim(const InvictaSimParameters& params,
-             const std::shared_ptr<InvictaSimInputAdapter>& input_adapter,
-             const std::shared_ptr<InvictaSimOutputAdapter>& output_adapter);
+  explicit InvictaSim(const InvictaSimParameters& params);
 
   /**
    * @brief Destroy the InvictaSim.
@@ -40,15 +36,39 @@ public:
    */
   void stop();
 
+  /**
+   * @brief Set steering and throttle input.
+   * @param throttle Throttle commands for all wheels.
+   * @param steering Steering command (radians).
+   */
+  void set_input(const common_lib::structures::Wheels& throttle, double steering) {
+    std::lock_guard<std::mutex> lock(input_mutex_);
+    throttle_ = throttle;
+    steering_ = steering;
+  }
+
 private:
-  InvictaSimParameters params_;                              ///< Simulator configuration values.
-  std::shared_ptr<VehicleModel> vehicle_model_;              ///< Vehicle model.
-  std::shared_ptr<InvictaSimInputAdapter> input_adapter_;    ///< Simulator input adapter.
-  std::shared_ptr<InvictaSimOutputAdapter> output_adapter_;  ///< Simulator output adapter.
+  InvictaSimParameters params_;                  ///< Simulator configuration values.
+  std::shared_ptr<VehicleModel> vehicle_model_;  ///< Vehicle model.
   std::atomic<bool> running_;  ///< Indicates whether the simulation loop is running.
   double sim_time_;            ///< Current simulation time in seconds.
   std::chrono::steady_clock::time_point
-      next_loop_time_;  ///< Next wall-clock time for a simulation step.
+      next_loop_time_;                       ///< Next wall-clock time for a simulation step.
+  mutable std::mutex input_mutex_;           ///< Protects input access.
+  common_lib::structures::Wheels throttle_;  ///< Current throttle commands (all wheels).
+  double steering_;                          ///< Current steering command (radians).
+
+  /**
+   * @brief Get snapshots of current input (locks briefly, returns values).
+   * @param out_throttle Output throttle snapshot.
+   * @param out_steering Output steering snapshot.
+   */
+  void get_input_snapshot(common_lib::structures::Wheels& out_throttle,
+                          double& out_steering) const {
+    std::lock_guard<std::mutex> lock(input_mutex_);
+    out_throttle = throttle_;
+    out_steering = steering_;
+  }
 
   /**
    * @brief Execute a simulation step.

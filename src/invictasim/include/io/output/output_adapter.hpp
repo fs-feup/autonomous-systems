@@ -2,6 +2,7 @@
 
 #include <memory>
 
+#include "simulator/invictasim.hpp"
 #include "vehicle_model/vehicle_model.hpp"
 
 /**
@@ -9,6 +10,13 @@
  */
 class InvictaSimOutputAdapter {
 public:
+  /**
+   * @brief Construct a new output adapter.
+   * @param simulator Simulator instance.
+   */
+  explicit InvictaSimOutputAdapter(const std::shared_ptr<InvictaSim>& simulator)
+      : simulator_(simulator) {}
+
   /**
    * @brief Destroy the output adapter.
    */
@@ -31,4 +39,7 @@ public:
    */
   virtual void publish_outputs(const std::shared_ptr<VehicleModel>& vehicle_model,
                                double steering_angle) {}
+
+protected:
+  std::shared_ptr<InvictaSim> simulator_;  ///< Reference to simulator instance.
 };

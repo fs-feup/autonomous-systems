@@ -20,12 +20,14 @@ int main(int argc, char* argv[]) {
   rclcpp::init(argc, argv);
 
   InvictaSimParameters params = InvictaSimParameters();
-  auto input_adapter = input_adapters_map.at(params.input_adapter.c_str())();
-  auto output_adapter = output_adapters_map.at(params.output_adapter.c_str())();
-  auto simulator = std::make_shared<InvictaSim>(params, input_adapter, output_adapter);
+  auto simulator = std::make_shared<InvictaSim>(params);
+
+  auto input_adapter = input_adapters_map.at(params.input_adapter.c_str())(simulator);
+  auto output_adapter = output_adapters_map.at(params.output_adapter.c_str())(simulator);
 
   std::thread simulator_thread([&simulator]() { simulator->run(); });
   std::thread input_thread([&input_adapter]() { input_adapter->run(); });
+  std::thread output_thread([&output_adapter]() { output_adapter->run(); });
 
   auto ros_input_node = std::dynamic_pointer_cast<rclcpp::Node>(input_adapter);
   auto ros_output_node = std::dynamic_pointer_cast<rclcpp::Node>(output_adapter);
@@ -53,7 +55,9 @@ int main(int argc, char* argv[]) {
   if (input_thread.joinable()) {
     input_thread.join();
   }
-
+  if (output_thread.joinable()) {
+    output_thread.join();
+  }
   if (rclcpp::ok()) {
     rclcpp::shutdown();
   }

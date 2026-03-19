@@ -20,8 +20,9 @@ class KeyboardInputAdapter : public InvictaSimInputAdapter {
 public:
   /**
    * @brief Construct a new KeyboardInputAdapter.
+   * @param simulator Simulator instance.
    */
-  KeyboardInputAdapter();
+  explicit KeyboardInputAdapter(const std::shared_ptr<InvictaSim>& simulator);
 
   /**
    * @brief Destroy the KeyboardInputAdapter.
@@ -37,12 +38,6 @@ public:
    * @brief Stop reading keyboard input.
    */
   void stop() override;
-
-  /**
-   * @brief Access method for the simulator class.
-   * @return Current input.
-   */
-  InvictaSimInput get_current_input() const override;
 
 private:
   /**
@@ -63,10 +58,8 @@ private:
   const int help_row_;                    ///< Row used to print help text.
   const int status_row_;                  ///< Row used to print live status.
 
-  mutable std::mutex input_mutex_;  ///< Protects access to the current input.
-  InvictaSimInput current_input_;   ///< Latest input read from the keyboard.
-  std::atomic<bool> running_;       ///< Indicates whether the adapter loop is active.
-  bool curses_initialized_;         ///< Indicates whether curses was initialized.
-  FILE* tty_file_;                  ///< TTY handle used by curses.
-  void* screen_;                    ///< Native curses screen handle.
+  std::atomic<bool> running_;  ///< Indicates whether the adapter loop is active.
+  bool curses_initialized_;    ///< Indicates whether curses was initialized.
+  FILE* tty_file_;             ///< TTY handle used by curses.
+  void* screen_;               ///< Native curses screen handle.
 };

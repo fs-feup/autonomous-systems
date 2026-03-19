@@ -1,13 +1,11 @@
 #include "simulator/invictasim.hpp"
 
-InvictaSim::InvictaSim(const InvictaSimParameters& params,
-                       const std::shared_ptr<InvictaSimInputAdapter>& input_adapter,
-                       const std::shared_ptr<InvictaSimOutputAdapter>& output_adapter)
+InvictaSim::InvictaSim(const InvictaSimParameters& params)
     : params_(params),
-      input_adapter_(input_adapter),
-      output_adapter_(output_adapter),
       running_(false),
-      sim_time_(0.0) {
+      sim_time_(0.0),
+      throttle_({0.0, 0.0, 0.0, 0.0}),
+      steering_(0.0) {
   vehicle_model_ = vehicle_models_map.at(params_.vehicle_model.c_str())(params);
   next_loop_time_ = std::chrono::steady_clock::now();
 }
@@ -32,8 +30,11 @@ void InvictaSim::simulation_step() {
 
   sim_time_ += params_.timestep;
 
-  InvictaSimInput input = input_adapter_->get_current_input();
-  vehicle_model_->step(params_.timestep, input.throttle, input.steering);
+  // Take copy of input so no locks are required during the vehicle model step
+  common_lib::structures::Wheels throttle;
+  double steering;
+  get_input_snapshot(throttle, steering);
 
-  output_adapter_->publish_outputs(vehicle_model_, input.steering);
+  // Use snapshot throughout step without locks
+  vehicle_model_->step(params_.timestep, throttle, steering);
 }
