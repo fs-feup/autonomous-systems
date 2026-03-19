@@ -78,10 +78,14 @@ public:
    */
   void set_vehicle_pose(const common_lib::structures::Pose& vehicle_pose);
 
+  // TODA: dioxigen docs
+  bool is_map_closed(const std::vector<PathPoint>& path) const;
+
   // ===================== Public Accessor Methods =====================
 
   /**
-   * @brief Get the path from the start to a lookback distance behind the car’s current position.
+   * @brief Get the path from the start to a lookback distance behind the car’s current
+   * position.
    * @return Vector of path points representing the global path.
    */
   std::vector<PathPoint> get_path_to_car() const;
@@ -221,17 +225,17 @@ private:
 
   /**
    * @brief Calculate the cost of transitioning through three consecutive points
-   * 
-   * Computes a weighted cost based on the distance (current→next) and the angle 
+   *
+   * Computes a weighted cost based on the distance (current→next) and the angle
    * change (previous→current→next). Lower costs indicate smoother, more efficient paths.
-   * 
+   *
    * @param previous_x, previous_y Coordinates of the previous point
    * @param current_x, current_y Coordinates of the current point
    * @param next_x, next_y Coordinates of the next point
    * @return Total cost combining angular deviation and distance penalties
    */
-  double calculate_cost(double previous_x, double previous_y, double current_x,
-                                      double current_y, double next_x, double next_y) const;
+  double calculate_cost(double previous_x, double previous_y, double current_x, double current_y,
+                        double next_x, double next_y) const;
 
   // ===================== Cone Discarding Methods =====================
 

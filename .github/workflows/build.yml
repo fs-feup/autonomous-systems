@@ -39,6 +39,7 @@ jobs:
           echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
           ./dependencies_install.sh
           ./src/slam/dependencies_install.sh
+          ./src/planning/dependencies_install.sh
           echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> /home/$USERNAME/.bashrc
           sudo apt install curl -y
           sudo apt install unzip -y
@@ -281,6 +282,7 @@ jobs:
         run: |
           echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
           ./dependencies_install.sh
+          ./src/planning/dependencies_install.sh
       
       - name: Rosdep
         run: |

@@ -107,7 +107,9 @@ private:
   bool is_braking_ = false;
   bool has_received_track_ = false;
   bool has_received_pose_ = false;
-  bool is_map_closed_ = false;
+  //TODA: documentation!
+  bool is_path_final_ = false;
+  bool is_path_closed_ = false;
   std::chrono::steady_clock::time_point brake_time_;
 
   /*--------------------- Path Data --------------------*/
@@ -168,6 +170,12 @@ private:
   void track_map_callback(const custom_interfaces::msg::ConeArray &message);
 
   /*--------------------- Mission-Specific Planning --------------------*/
+  /**
+   * @brief Computes and assigns the orientation for each point in the path.
+   *
+   * @param path The path whose points will have their orientation field updated in-place.
+   */
+  void compute_path_orientation(std::vector<PathPoint> &path);
   /**
    * @brief Generates and optimizes a closed-loop global track path.
    *

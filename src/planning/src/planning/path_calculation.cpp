@@ -19,7 +19,7 @@ std::vector<PathPoint> PathCalculation::calculate_path(const std::vector<Cone>& 
   clear_path_state();
 
   // Determine if we should regenerate all midpoints (path reset)
-  bool should_reset = config_.use_reset_path_ && reset_path_counter_ >= config_.reset_interval_;
+  bool should_reset = config_.use_reset_path_ && reset_path_counter_ >= config_.close_cost_;
   bool rebuild_all_midpoints = should_reset || !config_.use_sliding_window_;
 
   // Generate midpoints using the generator
@@ -70,7 +70,7 @@ std::vector<PathPoint> PathCalculation::calculate_path(const std::vector<Cone>& 
   }
 
   extend_path(max_points);
-  
+
   yellow_cones_.reserve(current_path_.size());
   blue_cones_.reserve(current_path_.size());
 
@@ -79,6 +79,33 @@ std::vector<PathPoint> PathCalculation::calculate_path(const std::vector<Cone>& 
   past_path_ = current_path_;  // Update the path for next iteration
 
   return get_path_points_from_colorpoints(current_path_);
+}
+bool PathCalculation::is_map_closed(const std::vector<PathPoint>& path) const {
+  if (path.size() < 3) {
+    return false;
+  }
+
+  const PathPoint& first = path[0];
+  const PathPoint& second = path[1];
+  const PathPoint& last = path.back();
+  const PathPoint& prev = path[path.size() - 2];
+
+  // Cost of transitioning from the last segment into the first point
+  double cost = calculate_cost(prev.position.x, prev.position.y, last.position.x, last.position.y,
+                               first.position.x, first.position.y);
+
+  // Cost of transitioning from the last point to the first and continuing to second
+  double cost_into_second = calculate_cost(last.position.x, last.position.y, first.position.x,
+                                           first.position.y, second.position.x, second.position.y);
+
+  double combined_cost = cost + cost_into_second;
+
+  if (combined_cost < config_.close_cost_) {
+    RCLCPP_INFO(rclcpp::get_logger("planning"), "Loop closure cost: %.4f (threshold: %.4f)",
+                combined_cost, config_.close_cost_);
+  }
+
+  return combined_cost < config_.close_cost_;
 }
 
 std::vector<PathPoint> PathCalculation::calculate_trackdrive(const std::vector<Cone>& cone_array) {
@@ -94,23 +121,22 @@ std::vector<PathPoint> PathCalculation::calculate_trackdrive(const std::vector<C
   // Find the best point to close the loop
   int best_cutoff_index = find_best_loop_closure(result);
 
-  
-  if(result.begin() + best_cutoff_index +1 != result.end()){
+  if (result.begin() + best_cutoff_index + 1 != result.end()) {
     // Trim the path to the best cutoff point
     (void)result.erase(result.begin() + best_cutoff_index + 1, result.end());
-    //If the path change we need to estimate the boundaries again
+    // If the path change we need to estimate the boundaries again
     RCLCPP_WARN(rclcpp::get_logger("planning"), "The path change to create trackdrive loop");
     yellow_cones_.clear();
     blue_cones_.clear();
     (void)current_path_.erase(current_path_.begin() + best_cutoff_index + 1, current_path_.end());
     Colorpoint::extract_cones(current_path_, yellow_cones_, blue_cones_);
   }
-  
+
   // Close the loop by adding the first point again
   result.push_back(result[0]);
   yellow_cones_.push_back(yellow_cones_[0]);
   blue_cones_.push_back(blue_cones_[0]);
-  
+
   return result;
 }
 
@@ -528,9 +554,9 @@ int PathCalculation::find_best_loop_closure(const std::vector<PathPoint>& path) 
     const PathPoint& current = path[i];
     const PathPoint& previous = path[i - 1];
 
-    double cost = calculate_cost(previous.position.x, previous.position.y, current.position.x,
-                                 current.position.y, first_point.position.x,
-                                 first_point.position.y);
+    double cost =
+        calculate_cost(previous.position.x, previous.position.y, current.position.x,
+                       current.position.y, first_point.position.x, first_point.position.y);
 
     if (cost < min_cost) {
       min_cost = cost;

@@ -1,22 +1,24 @@
 #include "planning/smoothing.hpp"
 
-std::vector<PathPoint> PathSmoothing::smooth_path(const std::vector<PathPoint>& path) const {
+std::vector<PathPoint> PathSmoothing::smooth_path(const std::vector<PathPoint>& path,
+                                                  bool is_path_closed) const {
   if (!config_.use_path_smoothing_) {
     return path;
   }
-  std::vector<PathPoint> result_path = ::fit_spline(
-      path, config_.spline_precision_, config_.spline_order_, config_.spline_coeffs_ratio_);
-  return filter_path(result_path);
+  std::vector<PathPoint> result_path = filter_path(::fit_spline(
+      path, config_.spline_precision_, config_.spline_order_, config_.spline_coeffs_ratio_));
+
+  if (is_path_closed == true) {
+    result_path.push_back(result_path.front());
+  }
+  return result_path;
 }
 
 std::vector<PathPoint> PathSmoothing::optimize_path(
     const std::vector<PathPoint>& path, const std::vector<PathPoint>& yellow_cones,
     const std::vector<PathPoint>& blue_cones) const {
   if (!config_.use_optimization_) {
-    std::vector<PathPoint> result = smooth_path(path);
-    // Close the loop by adding the first point again
-    result.push_back(result.front());
-    return result;
+    return smooth_path(path,true);
   }
 
   auto splines = ::fit_triple_spline(path, blue_cones, yellow_cones, config_.spline_precision_,
