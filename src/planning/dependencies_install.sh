@@ -1,10 +1,26 @@
 #!/usr/bin/env bash
 set -e
 
-REPO_ROOT="$(pwd)/../.." 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 OSQP_DIR="${REPO_ROOT}/ext/osqp"
 OSQP_EIGEN_DIR="${REPO_ROOT}/ext/osqp-eigen"
 INSTALL_PREFIX="${REPO_ROOT}/ext/osqp/install"
+
+echo ">>> Installing OSQP dependencies for planning module..."
+echo "    Repo root: ${REPO_ROOT}"
+
+# Check submodules are initialized
+if [ ! -f "${OSQP_DIR}/src/CMakeLists.txt" ]; then
+    echo "ERROR: ext/osqp submodule not initialized."
+    echo "Run: git submodule update --init --recursive"
+    exit 1
+fi
+if [ ! -f "${OSQP_EIGEN_DIR}/src/CMakeLists.txt" ]; then
+    echo "ERROR: ext/osqp-eigen submodule not initialized."
+    echo "Run: git submodule update --init --recursive"
+    exit 1
+fi
 
 # System deps
 sudo apt-get update
@@ -16,11 +32,7 @@ sudo apt-get install -y \
     libcgal-dev \
     libgsl-dev
 
-# Clone if not present
-[ -d "$OSQP_DIR/src" ] || git clone --recursive https://github.com/osqp/osqp.git "${OSQP_DIR}/src"
-[ -d "$OSQP_EIGEN_DIR/src" ] || git clone https://github.com/robotology/osqp-eigen.git "${OSQP_EIGEN_DIR}/src"
-
-# Build OSQP into ext/osqp/install
+# Build OSQP
 cd "${OSQP_DIR}/src"
 mkdir -p build && cd build
 cmake -G "Unix Makefiles" \
@@ -29,7 +41,7 @@ cmake -G "Unix Makefiles" \
     ..
 cmake --build . --target install
 
-# Build osqp-eigen into same install prefix
+# Build osqp-eigen
 cd "${OSQP_EIGEN_DIR}/src"
 mkdir -p build && cd build
 cmake \
@@ -39,3 +51,5 @@ cmake \
     ..
 make -j$(nproc)
 make install
+
+echo ">>> OSQP installed successfully to ${INSTALL_PREFIX}"
