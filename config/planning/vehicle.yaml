@@ -14,7 +14,7 @@ planning:
   pc_search_depth: 4
   pc_max_points: 200
   pc_minimum_point_distance: 0.4
-  pc_reset_interval: 1000000000
+  pc_reset_interval: 50
   pc_use_reset_path: false
   #---------------------- Skidpad (skidpad_) ------------------
   skidpad_minimum_cones: 10
@@ -25,7 +25,7 @@ planning:
   smoothing_spline_coeffs_ratio: 3.0
   smoothing_min_path_point_distance: 0
   smoothing_use_path_smoothing: true
-  smoothing_use_optimization: false
+  smoothing_use_optimization: true
   smoothing_car_width: 1.2
   smoothing_safety_margin: 0.30
   smoothing_curvature_weight: 100.0

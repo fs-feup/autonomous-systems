@@ -343,6 +343,7 @@ void Planning::run_autocross() {
   }
   if (lap_counter_ == 0) {
     full_path_ = path_calculation_.calculate_path(cone_array_);
+    //TODA: add map closure logic here!
     smoothed_path_ = path_smoothing_.smooth_path(full_path_);
     velocity_planning_.set_velocity(smoothed_path_);
   }
@@ -364,6 +365,9 @@ void Planning::run_trackdrive() {
   }
   if (lap_counter_ == 0) {
     full_path_ = path_calculation_.calculate_path(cone_array_);
+    
+    bool is_map_closed = path_calculation_.is_map_closed(full_path_);
+
     smoothed_path_ = path_smoothing_.smooth_path(full_path_);
     velocity_planning_.set_velocity(smoothed_path_);
   } else if (lap_counter_ >= 1 && lap_counter_ < 10) {
