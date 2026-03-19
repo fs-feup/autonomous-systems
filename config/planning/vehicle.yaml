@@ -14,8 +14,9 @@ planning:
   pc_search_depth: 4
   pc_max_points: 200
   pc_minimum_point_distance: 0.4
-  pc_reset_interval: 50
+  pc_reset_interval: 10000
   pc_use_reset_path: false
+  pc_close_cost: 50.0 
   #---------------------- Skidpad (skidpad_) ------------------
   skidpad_minimum_cones: 10
   skidpad_tolerance: 5

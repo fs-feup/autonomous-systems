@@ -107,7 +107,9 @@ private:
   bool is_braking_ = false;
   bool has_received_track_ = false;
   bool has_received_pose_ = false;
-  bool is_map_closed_ = false;
+  //TODA: documentation!
+  bool is_path_final_ = false;
+  bool is_path_closed_ = false;
   std::chrono::steady_clock::time_point brake_time_;
 
   /*--------------------- Path Data --------------------*/

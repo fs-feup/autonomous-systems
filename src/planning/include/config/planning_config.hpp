@@ -27,6 +27,7 @@ struct PlanningParameters {
   double pc_minimum_point_distance_;
   int pc_reset_interval_;
   bool pc_use_reset_path_;
+  double pc_close_cost_;
 
   /*---------------------- Skidpad (skidpad_) ----------------------------*/
   int skidpad_minimum_cones_;
@@ -112,14 +113,14 @@ struct PlanningConfig {
             params.pc_use_sliding_window_, params.pc_angle_gain_, params.pc_distance_gain_,
             params.pc_angle_exponent_, params.pc_distance_exponent_, params.pc_max_cost_,
             params.pc_minimum_point_distance_, params.pc_lookback_points_, params.pc_search_depth_,
-            params.pc_max_points_, params.pc_reset_interval_, params.pc_use_reset_path_),
+            params.pc_max_points_, params.pc_reset_interval_, params.pc_use_reset_path_,
+            params.pc_close_cost_),
         smoothing_(params.smoothing_spline_precision_, params.smoothing_spline_order_,
                    params.smoothing_spline_coeffs_ratio_, params.smoothing_min_path_point_distance_,
                    params.smoothing_use_path_smoothing_, params.smoothing_use_optimization_,
                    params.smoothing_car_width_, params.smoothing_safety_margin_,
-                   params.smoothing_curvature_weight_,
-                   params.smoothing_safety_weight_, params.smoothing_max_iterations_,
-                   params.smoothing_tolerance_),
+                   params.smoothing_curvature_weight_, params.smoothing_safety_weight_,
+                   params.smoothing_max_iterations_, params.smoothing_tolerance_),
         velocity_planning_(params.vp_minimum_velocity_, params.vp_desired_velocity_,
                            params.vp_braking_acceleration_, params.vp_acceleration_,
                            params.vp_lateral_acceleration_, params.vp_longitudinal_acceleration_,

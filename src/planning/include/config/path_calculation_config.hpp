@@ -69,6 +69,9 @@ struct PathCalculationConfig {
    */
   bool use_reset_path_;
 
+  // TODA: docs
+  double close_cost_;
+
   /**
    * @brief Default constructor.
    */
@@ -85,25 +88,17 @@ struct PathCalculationConfig {
         search_depth_(2),
         max_points_(50),
         reset_interval_(10),
-        use_reset_path_(false) {}
+        use_reset_path_(false),
+        close_cost_(50.0) {}
 
   /**
    * @brief Parameterized constructor.
    */
-  PathCalculationConfig(
-      const MidpointGeneratorConfig& mg_config,
-      bool use_sliding_window,
-      double angle_gain,
-      double distance_gain,
-      double angle_exponent,
-      double distance_exponent,
-      double max_cost,
-      double minimum_point_distance,
-      int lookback_points,
-      int search_depth,
-      int max_points,
-      int reset_interval,
-      bool use_reset_path)
+  PathCalculationConfig(const MidpointGeneratorConfig& mg_config, bool use_sliding_window,
+                        double angle_gain, double distance_gain, double angle_exponent,
+                        double distance_exponent, double max_cost, double minimum_point_distance,
+                        int lookback_points, int search_depth, int max_points, int reset_interval,
+                        bool use_reset_path, double close_cost)
       : midpoint_generator_(mg_config),
         use_sliding_window_(use_sliding_window),
         angle_gain_(angle_gain),
@@ -116,7 +111,8 @@ struct PathCalculationConfig {
         search_depth_(search_depth),
         max_points_(max_points),
         reset_interval_(reset_interval),
-        use_reset_path_(use_reset_path) {}
+        use_reset_path_(use_reset_path),
+        close_cost_(close_cost) {}
 };
 
 #endif  // SRC_PLANNING_INCLUDE_CONFIG_PATH_CALCULATION_CONFIG_HPP_

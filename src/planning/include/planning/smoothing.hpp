@@ -41,7 +41,8 @@ public:
    * @return std::vector<PathPoint> The smoothed path
    *
    */
-  std::vector<PathPoint> smooth_path(const std::vector<PathPoint>& path) const;
+  // TODA: documentation
+  std::vector<PathPoint> smooth_path(const std::vector<PathPoint>& path, bool is_path_closed) const;
 
   /**
    * @brief Optimizes a racing line path by fitting splines through track boundaries and applying
@@ -64,7 +65,7 @@ private:
    *
    */
   PathSmoothingConfig config_;
-  
+
   /**
    * @brief Filters path points using a minimum spacing constraint.
    *

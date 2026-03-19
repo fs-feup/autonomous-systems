@@ -11,7 +11,7 @@
 PlanningParameters Planning::load_config(std::string &adapter) {
   PlanningParameters params;
 
-      std::string global_config_path =
+  std::string global_config_path =
       common_lib::config_load::get_config_yaml_path("planning", "global", "global_config");
   RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Loading global config from: %s",
                global_config_path.c_str());
@@ -47,6 +47,7 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.pc_minimum_point_distance_ = planning_config["pc_minimum_point_distance"].as<double>();
   params.pc_reset_interval_ = planning_config["pc_reset_interval"].as<int>();
   params.pc_use_reset_path_ = planning_config["pc_use_reset_path"].as<bool>();
+  params.pc_close_cost_ = planning_config["pc_close_cost"].as<double>();
 
   /*--------------------- Skidpad Parameters --------------------*/
   params.skidpad_minimum_cones_ = planning_config["skidpad_minimum_cones"].as<int>();
@@ -272,7 +273,7 @@ void Planning::compute_path_orientation(std::vector<PathPoint> &path) {
 }
 
 void Planning::run_full_map() {
-  is_map_closed_ = true;
+  is_path_final_ = true;
   full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
 
   const std::vector<PathPoint> yellow_cones = path_calculation_.get_yellow_cones();
@@ -321,35 +322,40 @@ void Planning::run_full_map() {
                  static_cast<int>(smoothed_path_.size()));
 
     RCLCPP_DEBUG(get_logger(),
-                "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
-                "| Max: %.2f m/s",
-                lap_time, total_length, avg_vel, min_vel, max_vel);
+                 "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
+                 "| Max: %.2f m/s",
+                 lap_time, total_length, avg_vel, min_vel, max_vel);
   }
 }
 
 void Planning::run_acceleration() {
   full_path_ = path_calculation_.calculate_path(cone_array_);
-  smoothed_path_ = path_smoothing_.smooth_path(full_path_);
+  smoothed_path_ = path_smoothing_.smooth_path(full_path_, false);
   velocity_planning_.set_velocity(smoothed_path_);
   velocity_planning_.stop(smoothed_path_, planning_config_.braking_distance_acceleration_);
 }
 
 void Planning::run_autocross() {
   if (planning_config_.using_full_map_) {
-    if (!is_map_closed_) {
+    if (!is_path_final_) {
       run_full_map();
     }
     return;
   }
   if (lap_counter_ == 0) {
     full_path_ = path_calculation_.calculate_path(cone_array_);
-    //TODA: add map closure logic here!
-    smoothed_path_ = path_smoothing_.smooth_path(full_path_);
-    velocity_planning_.set_velocity(smoothed_path_);
+    is_path_closed_ = path_calculation_.is_map_closed(full_path_);
+    smoothed_path_ = path_smoothing_.smooth_path(full_path_, is_path_closed_);
+
+    if (is_path_closed_) {
+      velocity_planning_.trackdrive_velocity(smoothed_path_);
+    } else {
+      velocity_planning_.set_velocity(smoothed_path_);
+    }
   }
   if (lap_counter_ >= 1) {
-    if (!is_map_closed_) {
-      is_map_closed_ = true;
+    if (!is_path_final_) {
+      is_path_final_ = true;
       run_full_map();
     }
     velocity_planning_.stop(smoothed_path_, planning_config_.braking_distance_autocross_);
@@ -358,20 +364,24 @@ void Planning::run_autocross() {
 
 void Planning::run_trackdrive() {
   if (planning_config_.using_full_map_) {
-    if (!is_map_closed_) {
+    if (!is_path_final_) {
       run_full_map();
     }
     return;
   }
   if (lap_counter_ == 0) {
     full_path_ = path_calculation_.calculate_path(cone_array_);
-    
-    bool is_map_closed = path_calculation_.is_map_closed(full_path_);
+    is_path_closed_ = path_calculation_.is_map_closed(full_path_);
+    smoothed_path_ = path_smoothing_.smooth_path(full_path_, is_path_closed_);
 
-    smoothed_path_ = path_smoothing_.smooth_path(full_path_);
-    velocity_planning_.set_velocity(smoothed_path_);
+    if (is_path_closed_) {
+      velocity_planning_.trackdrive_velocity(smoothed_path_);
+    } else {
+      velocity_planning_.set_velocity(smoothed_path_);
+    }
+
   } else if (lap_counter_ >= 1 && lap_counter_ < 10) {
-    if (!is_map_closed_) {
+    if (!is_path_final_) {
       run_full_map();
     }
   } else {
@@ -415,7 +425,7 @@ void Planning::run_planning_algorithms() {
 
     default:
       full_path_ = path_calculation_.calculate_path(cone_array_);
-      smoothed_path_ = path_smoothing_.smooth_path(full_path_);
+      smoothed_path_ = path_smoothing_.smooth_path(full_path_, false);
       velocity_planning_.set_velocity(smoothed_path_);
       break;
   }
@@ -425,7 +435,7 @@ void Planning::run_planning_algorithms() {
                 static_cast<int>(smoothed_path_.size()));
   }
 
-  if (!is_map_closed_) {
+  if (!is_path_final_) {
     compute_path_orientation(smoothed_path_);
   }
 
@@ -445,7 +455,7 @@ void Planning::run_planning_algorithms() {
 void Planning::publish_path_points() const {
   custom_interfaces::msg::PathPointArray message =
       common_lib::communication::custom_interfaces_array_from_vector(smoothed_path_,
-                                                                     is_map_closed_);
+                                                                     is_path_closed_);
   path_pub_->publish(message);
 }
 

@@ -19,7 +19,7 @@ std::vector<PathPoint> PathCalculation::calculate_path(const std::vector<Cone>& 
   clear_path_state();
 
   // Determine if we should regenerate all midpoints (path reset)
-  bool should_reset = config_.use_reset_path_ && reset_path_counter_ >= config_.reset_interval_;
+  bool should_reset = config_.use_reset_path_ && reset_path_counter_ >= config_.close_cost_;
   bool rebuild_all_midpoints = should_reset || !config_.use_sliding_window_;
 
   // Generate midpoints using the generator
@@ -100,12 +100,12 @@ bool PathCalculation::is_map_closed(const std::vector<PathPoint>& path) const {
 
   double combined_cost = cost + cost_into_second;
 
-  if (combined_cost < config_.reset_interval_) {
+  if (combined_cost < config_.close_cost_) {
     RCLCPP_INFO(rclcpp::get_logger("planning"), "Loop closure cost: %.4f (threshold: %.4f)",
-                combined_cost, config_.reset_interval_);
+                combined_cost, config_.close_cost_);
   }
 
-  return combined_cost < config_.reset_interval_;
+  return combined_cost < config_.close_cost_;
 }
 
 std::vector<PathPoint> PathCalculation::calculate_trackdrive(const std::vector<Cone>& cone_array) {
