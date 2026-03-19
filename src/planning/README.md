@@ -44,6 +44,9 @@ The module operates in two modes:
 
 ### Install Dependencies
 ```sh
+# Initialize submodules
+git submodule update --init --recursive
+# Build and install osqp
 ./src/planning/dependencies_install.sh
 ```
 
