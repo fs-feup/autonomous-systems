@@ -44,8 +44,7 @@ The module operates in two modes:
 
 ### Install Dependencies
 ```sh
-cd src/planning
-./dependencies_install.sh
+./src/planning/dependencies_install.sh
 ```
 
 ### Compiling
