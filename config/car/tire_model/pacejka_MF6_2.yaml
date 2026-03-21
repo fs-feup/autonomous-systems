@@ -16,10 +16,10 @@ tire:
   effective_tire_r: 0.2275
 
   relaxation_length: 0.15
-  d_bright: 1.06
-  d_bleft: 1.06
-  d_fright: 0.99
-  d_fleft: 0.99
+  d_bright: 0.706
+  d_bleft: 0.706 # 1.06
+  d_fright: 0.824
+  d_fleft: 0.824  # 0.99
   camber: 0
   dimension:
     UNLOADED_RADIUS: 0.235
@@ -128,13 +128,13 @@ tire:
   scaling_coefficients:
     LFZO: 1
     LCX: 1
-    LMUX: 1
+    LMUX: 0.58 #CHANGED was 1
     LEX: 1
     LKX: 1
     LHX: 0
     LVX: 0
     LCY: 1
-    LMUY: 1
+    LMUY: 0.58 # CHANGED was 1
     LEY: 1
     LKY: 1
     LHY: 0
@@ -198,16 +198,16 @@ tire:
     PPMX1: 0
 
   lateral_coefficients:
-    PCY1: 1.6384
-    PDY1: 2.3749
+    PCY1: 1.3 #CHANGED was 1.6384
+    PDY1: 1.6 # CHANGED was 2.3749
     PDY2: -0.1985
     PDY3: 4.0072
-    PEY1: 0.53284
+    PEY1: 0.1 # CHANGED was 0.53284
     PEY2: -0.33312
     PEY3: 0.27748
     PEY4: -0.016493
     PEY5: 0
-    PKY1: -38.9068
+    PKY1: -45.0 #CHANGED was -38.9068
     PKY2: 1.6336
     PKY3: 0.62971
     PKY4: 2
