@@ -58,7 +58,7 @@ TEST(ODOMETRY_SUBSCRIBER, CONVERSION_TEST) {
  */
 TEST(BicycleModelTest, TestCgVelocityToWheels) {
   common_lib::car_parameters::CarParameters car_parameters_;
-  car_parameters_.dist_cg_2_rear_axis = 1.0;
+  car_parameters_.cg_2_rear_axis = 1.0;
   car_parameters_.wheelbase = 2.5;
   car_parameters_.wheel_diameter = 0.6;
   car_parameters_.gear_ratio = 4.0;
@@ -83,7 +83,7 @@ TEST(BicycleModelTest, TestCgVelocityToWheels) {
  */
 TEST(BicycleModelTest, TestCgVelocityToWheelsNegativeVx) {
   common_lib::car_parameters::CarParameters car_parameters_;
-  car_parameters_.dist_cg_2_rear_axis = 1.0;
+  car_parameters_.cg_2_rear_axis = 1.0;
   car_parameters_.wheelbase = 2.5;
   car_parameters_.wheel_diameter = 0.6;
   car_parameters_.gear_ratio = 4.0;
@@ -109,7 +109,7 @@ TEST(BicycleModelTest, TestCgVelocityToWheelsNegativeVx) {
  */
 TEST(BicycleModelTest, TestCgVelocityToWheelsZeroVx) {
   common_lib::car_parameters::CarParameters car_parameters_;
-  car_parameters_.dist_cg_2_rear_axis = 1.0;
+  car_parameters_.cg_2_rear_axis = 1.0;
   car_parameters_.wheelbase = 2.5;
   car_parameters_.wheel_diameter = 0.6;
   car_parameters_.gear_ratio = 4.0;
@@ -135,7 +135,7 @@ TEST(BicycleModelTest, TestCgVelocityToWheelsZeroVx) {
  */
 TEST(BicycleModelTest, TestCgVelocityToWheelsZeroVy) {
   common_lib::car_parameters::CarParameters car_parameters_;
-  car_parameters_.dist_cg_2_rear_axis = 1.0;
+  car_parameters_.cg_2_rear_axis = 1.0;
   car_parameters_.wheelbase = 2.5;
   car_parameters_.wheel_diameter = 0.6;
   car_parameters_.gear_ratio = 4.0;
@@ -162,7 +162,7 @@ TEST(BicycleModelTest, TestCgVelocityToWheelsZeroVy) {
 TEST(BicycleModelTest, TestJacobianCgVelocityToWheels) {
   // Initialize car parameters
   common_lib::car_parameters::CarParameters car_parameters;
-  car_parameters.dist_cg_2_rear_axis = 1.0;
+  car_parameters.cg_2_rear_axis = 1.0;
   car_parameters.wheelbase = 2.5;
   car_parameters.wheel_diameter = 0.6;
   car_parameters.gear_ratio = 4.0;
@@ -209,7 +209,7 @@ TEST(BicycleModelTest, TestJacobianCgVelocityToWheels) {
 TEST(BicycleModelTest, TestJacobianCgVelocityToWheelsZeroVy) {
   // Initialize car parameters
   common_lib::car_parameters::CarParameters car_parameters;
-  car_parameters.dist_cg_2_rear_axis = 1.0;
+  car_parameters.cg_2_rear_axis = 1.0;
   car_parameters.wheelbase = 2.5;
   car_parameters.wheel_diameter = 0.6;
   car_parameters.gear_ratio = 4.0;
