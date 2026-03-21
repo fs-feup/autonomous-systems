@@ -78,6 +78,10 @@ TireParameters::TireParameters(const std::string& config_name) {
 
   wheel_inertia = 0.5 * MASS * (UNLOADED_RADIUS * UNLOADED_RADIUS);
 
+  if (config["relaxation_length"]) {
+    relaxation_length = config["relaxation_length"].as<double>();
+  }
+
   // Vertical
   if (config["vertical"]["FNOMIN"]) {
     FNOMIN = config["vertical"]["FNOMIN"].as<double>();

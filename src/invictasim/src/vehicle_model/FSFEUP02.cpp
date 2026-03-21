@@ -21,7 +21,6 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   double throttle_input =
       (throttle.rear_left + throttle.rear_right) / 2.0;  // Average throttle for rear-wheel drive
   double motor_torque = calculate_powertrain_torque(throttle_input, dt);
-
   // Distribute torque to the wheels
   state_->wheels_torque =
       differential_->calculateTorqueDistribution(motor_torque, state_->wheels_speed);
@@ -54,6 +53,7 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
 
   // Tire
   TireInput tire_input;
+  tire_input.dt = dt;
   tire_input.vx = state_->vx;
   tire_input.vy = state_->vy;
   tire_input.yaw_rate = state_->yaw_rate;
@@ -124,6 +124,7 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
 
   // Vehicle State Update
   // Sum of all forces normalized to the vehicle coordinate system
+  double alpha = 1;  // Tune between 0 and 1
   double Fx_fl = front_left_forces[0] * cos(actual_steering_fl) -
                  front_left_forces[1] * sin(actual_steering_fl);
   double Fy_fl = front_left_forces[0] * sin(actual_steering_fl) +
@@ -135,9 +136,14 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   double total_fx = Fx_fl + Fx_fr + rear_left_forces[0] + rear_right_forces[0] + aero_forces[0];
   double total_fy = Fy_fl + Fy_fr + rear_left_forces[1] + rear_right_forces[1] + aero_forces[1];
 
+  double final_fx =
+      (alpha * total_fx) +
+      (1.0 - alpha) * state_->fx;  // Simple low-pass filter for smoother force application
+  state_->fx = final_fx;           // Store for next iteration's filtering
+
   // Update accelerations using low-pass filter
   double ax_unfiltered =
-      total_fx / simulator_parameters_->car_parameters->total_mass + state_->vy * state_->yaw_rate;
+      final_fx / simulator_parameters_->car_parameters->total_mass + state_->vy * state_->yaw_rate;
   double ay_unfiltered =
       total_fy / simulator_parameters_->car_parameters->total_mass - state_->vx * state_->yaw_rate;
 
@@ -225,6 +231,8 @@ void FSFEUP02Model::reset() {
   state_->front_right_forces = {0.0, 0.0, 0.0};
   state_->rear_left_forces = {0.0, 0.0, 0.0};
   state_->rear_right_forces = {0.0, 0.0, 0.0};
+  // debug
+  state_->fx = 0.0;
 }
 
 std::string FSFEUP02Model::get_model_name() const { return "FSFEUP02Model"; }
