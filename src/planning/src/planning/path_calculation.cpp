@@ -80,15 +80,27 @@ std::vector<PathPoint> PathCalculation::calculate_path(const std::vector<Cone>& 
 
   return get_path_points_from_colorpoints(current_path_);
 }
-bool PathCalculation::is_map_closed(const std::vector<PathPoint>& path) const {
+
+bool PathCalculation::is_map_closed(std::vector<PathPoint>& path) const {
+  //Vector where we can make temporary alterations
+  std::vector<PathPoint> result = path;
+
   if (path.size() < 3) {
     return false;
   }
 
-  const PathPoint& first = path[0];
-  const PathPoint& second = path[1];
-  const PathPoint& last = path.back();
-  const PathPoint& prev = path[path.size() - 2];
+  // Find the best point to close the loop
+  int best_cutoff_index = find_best_loop_closure(path);
+
+  if (result.begin() + best_cutoff_index + 1 != result.end()) {
+    // Trim the path to the best cutoff point
+    (void)result.erase(result.begin() + best_cutoff_index + 1, result.end());
+  }
+
+  const PathPoint& first = result[0];
+  const PathPoint& second = result[1];
+  const PathPoint& last = result.back();
+  const PathPoint& prev = result[result.size() - 2];
 
   // Cost of transitioning from the last segment into the first point
   double cost = calculate_cost(prev.position.x, prev.position.y, last.position.x, last.position.y,
@@ -101,11 +113,21 @@ bool PathCalculation::is_map_closed(const std::vector<PathPoint>& path) const {
   double combined_cost = cost + cost_into_second;
 
   if (combined_cost < config_.close_cost_) {
+    //Adapt the path to best loop closure
+    if(result.size() < path.size()){
+      (void)path.erase(path.begin() + best_cutoff_index + 1, path.end());
+    }
+    
+    // Make the loop closure
+    path.push_back(path[0]);
+
+    //TODA: change this to debug!
     RCLCPP_INFO(rclcpp::get_logger("planning"), "Loop closure cost: %.4f (threshold: %.4f)",
                 combined_cost, config_.close_cost_);
+    return true;
   }
 
-  return combined_cost < config_.close_cost_;
+  return false;
 }
 
 std::vector<PathPoint> PathCalculation::calculate_trackdrive(const std::vector<Cone>& cone_array) {

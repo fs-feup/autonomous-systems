@@ -69,7 +69,9 @@ struct PathCalculationConfig {
    */
   bool use_reset_path_;
 
-  // TODA: docs
+  /**
+   * @brief Cost threshold to determine whether the path is considered closed.
+   */
   double close_cost_;
 
   /**

@@ -78,8 +78,14 @@ public:
    */
   void set_vehicle_pose(const common_lib::structures::Pose& vehicle_pose);
 
-  // TODA: dioxigen docs
-  bool is_map_closed(const std::vector<PathPoint>& path) const;
+  /**
+   * @brief Checks if the path forms a closed loop and closes it if the transition cost
+   * is below config_.close_cost_.
+   *
+   * @param path The path to evaluate, modified in place if loop closure is found
+   * @return true if loop closure was detected and applied, false Otherwise
+   */
+  bool is_map_closed(std::vector<PathPoint>& path) const;
 
   // ===================== Public Accessor Methods =====================
 

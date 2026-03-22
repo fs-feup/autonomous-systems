@@ -266,10 +266,24 @@ void Planning::compute_path_orientation(std::vector<PathPoint> &path) {
     current_y = next_y;
   }
 
-  // Set orientation for the last point based on the last two points
-  dx = next_x - previous_x;
-  dy = next_y - previous_y;
-  path.back().orientation = std::atan2(dy, dx);
+  if (is_path_closed_) {
+    // The first and last points are the same point to represent the loop closure.
+    // So there orientation will be the same
+    next_x = path[1].position.x;
+    next_y = path[1].position.y;
+
+    dx = next_x - previous_x;
+    dy = next_y - previous_y;
+
+    path[0].orientation = std::atan2(dy, dx);
+    path.back().orientation = std::atan2(dy, dx);
+
+  } else {
+    // Set orientation for the last point based on the last two points
+    dx = next_x - previous_x;
+    dy = next_y - previous_y;
+    path.back().orientation = std::atan2(dy, dx);
+  }
 }
 
 void Planning::run_full_map() {
@@ -280,8 +294,8 @@ void Planning::run_full_map() {
   const std::vector<PathPoint> blue_cones = path_calculation_.get_blue_cones();
 
   smoothed_path_ = path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones);
-  compute_path_orientation(smoothed_path_);
   velocity_planning_.trackdrive_velocity(smoothed_path_);
+  compute_path_orientation(smoothed_path_);
 
   if (smoothed_path_.size() > 1) {
     double total_length = 0.0;

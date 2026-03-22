@@ -34,14 +34,12 @@ public:
   explicit PathSmoothing(PathSmoothingConfig config) : config_(config) {}
 
   /**
-   * @brief Smooths a path by fitting a B-spline through the input points. This function provides
-   * a simple interface for path smoothing without boundary constraints or optimization.
+   * @brief Smooths a path by fitting a B-spline through the input points.
    *
    * @param path The input path to be smoothed
-   * @return std::vector<PathPoint> The smoothed path
-   *
+   * @param is_path_closed Whether the path is closed
+   * @return std::vector<PathPoint> The smoothed path, with closure point appended if applicable
    */
-  // TODA: documentation
   std::vector<PathPoint> smooth_path(const std::vector<PathPoint>& path, bool is_path_closed) const;
 
   /**
