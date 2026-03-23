@@ -12,7 +12,7 @@ jobs:
   build: # Sonarcloud analysis
     name: sonarcloud-build
     if: github.event_name == 'pull_request'
-    runs-on: self-hosted # Mudamos para o nosso servidor!
+    runs-on: self-hosted 
 
     env:
       SONAR_SCANNER_VERSION: 6.0.0.4432
@@ -42,6 +42,10 @@ jobs:
             sonar-scanner --define sonar.cfamily.compile-commands='./compile_commands.json'
           "
 
+      - name: Fix workspace permissions
+        if: always()
+        run: docker run --rm -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
+
   perception:
     runs-on: self-hosted
     steps:
@@ -57,6 +61,9 @@ jobs:
             colcon test --packages-select perception --event-handler=console_direct+ &&
             colcon test-result --all --verbose
           "
+      - name: Fix workspace permissions
+        if: always()
+        run: docker run --rm -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
 
   slam:
     runs-on: self-hosted
@@ -73,6 +80,9 @@ jobs:
             colcon test --packages-select slam --event-handler=console_direct+ &&
             colcon test-result --all --verbose
           "
+      - name: Fix workspace permissions
+        if: always()
+        run: docker run --rm -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
 
   velocity_estimation:
     runs-on: self-hosted
@@ -89,6 +99,9 @@ jobs:
             colcon test --packages-select velocity_estimation --event-handler=console_direct+ &&
             colcon test-result --all --verbose
           "
+      - name: Fix workspace permissions
+        if: always()
+        run: docker run --rm -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
 
   control:
     runs-on: self-hosted
@@ -105,6 +118,9 @@ jobs:
             colcon test --packages-select control --event-handler=console_direct+ &&
             colcon test-result --all --verbose
           "
+      - name: Fix workspace permissions
+        if: always()
+        run: docker run --rm -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
 
   planning:
     runs-on: self-hosted
@@ -121,6 +137,9 @@ jobs:
             colcon test --packages-select planning --event-handler=console_direct+ &&
             colcon test-result --all --verbose
           "
+      - name: Fix workspace permissions
+        if: always()
+        run: docker run --rm -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
 
   inspection:
     runs-on: self-hosted
@@ -137,6 +156,9 @@ jobs:
             colcon test --packages-select inspection --event-handler=console_direct+ &&
             colcon test-result --all --verbose
           "
+      - name: Fix workspace permissions
+        if: always()
+        run: docker run --rm -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
 
   mocker_node:
     runs-on: self-hosted
@@ -153,6 +175,9 @@ jobs:
             colcon test --packages-select mocker_node --event-handler=console_direct+ &&
             colcon test-result --all --verbose
           "
+      - name: Fix workspace permissions
+        if: always()
+        run: docker run --rm -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
 
   evaluator_node:
     runs-on: self-hosted
@@ -169,3 +194,6 @@ jobs:
             colcon test --packages-select evaluator --event-handler=console_direct+ &&
             colcon test-result --all --verbose
           "
+      - name: Fix workspace permissions
+        if: always()
+        run: docker run --rm -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
