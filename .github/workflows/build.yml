@@ -389,7 +389,7 @@ jobs:
       - name: Build and Test Evaluator Node inside Local Docker
         run: |
           docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
-            source /opt/ros/$ROS_DISTRO/setup.bash &&
+            source /opt/ros/humble/setup.bash &&
             colcon build --packages-up-to evaluator &&
             source install/setup.bash &&
             colcon test --packages-select evaluator --event-handler=console_direct+ &&
