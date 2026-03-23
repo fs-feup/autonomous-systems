@@ -375,8 +375,8 @@ jobs:
           colcon test --packages-select mocker_node
           colcon test-result --all --verbose
 
-  evaluator_node:
-    runs-on: ubuntu-latest
+evaluator_node:
+    runs-on: self-hosted # <-- Mudamos para o servidor Proxmox!
 
     container:
       image: ros:humble-ros-base-jammy
@@ -390,25 +390,28 @@ jobs:
         with:
           submodules: 'true'
 
-      - name: Install dependencies
+      - name: Install system dependencies
         run: |
           echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
           ./dependencies_install.sh
-      
-      - name: Rosdep
+          
+      - name: Rosdep update & install
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
           rosdep update
           rosdep install --from-paths src --ignore-src -r -y
-      
-      - name: Build Dependencies
-        run: |
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
-
+          
       - name: Build and Test Evaluator Node
         run: |
+          # Carrega o ROS
+          source /opt/ros/$ROS_DISTRO/setup.bash
+          
+          # Compila o evaluator E todas as suas dependências (incluindo custom_interfaces)
+          colcon build --packages-up-to evaluator
+          
+          # Carrega o workspace compilado
           source install/setup.bash
-          colcon build --packages-select evaluator
+          
+          # Corre os testes
           colcon test --packages-select evaluator --event-handler=console_direct+
           colcon test-result --all --verbose
