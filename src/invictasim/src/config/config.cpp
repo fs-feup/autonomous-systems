@@ -16,6 +16,11 @@ InvictaSimParameters::InvictaSimParameters() {
   input_adapter = simulator_config["invictasim"]["input_adapter"].as<std::string>();
   output_adapter = simulator_config["invictasim"]["output_adapter"].as<std::string>();
 
+  for (const auto& publish_frequency : simulator_config["invictasim"]["publish_frequencies"]) {
+    publish_frequencies[publish_frequency.first.as<std::string>()] =
+        publish_frequency.second.as<int>();
+  }
+
   vehicle_model = simulator_config["invictasim"]["vehicle_model"].as<std::string>();
 
   std::string vehicle_model_config_path = common_lib::config_load::get_config_yaml_path(

@@ -1,0 +1,15 @@
+std_msgs/Header header
+float64 motor_torque
+float64 motor_omega
+float64 motor_rpm
+float64 motor_current
+float64 motor_thermal_state
+float64 motor_thermal_capacity
+float64 battery_voltage
+float64 battery_open_circuit_voltage
+float64 battery_soc
+float64 battery_current
+float64 diff_torque_fl
+float64 diff_torque_fr
+float64 diff_torque_rl
+float64 diff_torque_rr

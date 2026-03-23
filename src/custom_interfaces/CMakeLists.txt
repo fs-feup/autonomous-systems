@@ -10,6 +10,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(builtin_interfaces REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/BamocarErrors.msg"
@@ -51,7 +52,11 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/ProcessUsage.msg"
   "msg/ProcessUsageArray.msg"
   "msg/VehicleStateVector.msg"
-  DEPENDENCIES builtin_interfaces std_msgs 
+  "msg/TireForces.msg"
+  "msg/AeroForces.msg"
+  "msg/WheelScalars.msg"
+  "msg/PowertrainState.msg"
+  DEPENDENCIES builtin_interfaces std_msgs geometry_msgs
 )
 
 ament_export_dependencies(rosidl_default_runtime)

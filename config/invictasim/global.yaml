@@ -4,4 +4,12 @@ invictasim:
   output_adapter: "ros"  # Options: "ros"
   vehicle_model: "FSFEUP02"  # Options: "FSFEUP02"
   timestep: 0.001  # seconds (0.001s = 1000 Hz)
+  simulation_speed: 1.0  # ratio (1.0 = real-time)
   track_name: "FSG23"
+  publish_frequencies:
+    tire: 100
+    powertrain: 1000
+    aero: 100
+    load: 100
+    status: 100
+    visualization: 1

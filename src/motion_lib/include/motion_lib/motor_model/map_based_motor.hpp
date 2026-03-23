@@ -20,6 +20,12 @@ public:
 
   double get_torque() const override;
 
+  double get_current() const override;
+
+  double get_thermal_state() const override;
+
+  double get_thermal_capacity() const override;
+
 private:
   double torque_;            // Torque being applied to the motor after battery influence (Nm)
   double current_;           // Current being drawn (A)

@@ -11,7 +11,7 @@
  * @brief Initializes the simulator.
  *
  * Initializes the input and output adapters based on the configuration, creates the simulator
- * instance, and starts the simulation loop. Also handles ROS spinning when using ROS-bases
+ * instance, and starts the simulation loop. Also handles ROS spinning when using ROS-based
  * adapters. Simulation loop, input reading, and output publishing run in separate threads.
  *
  * @return 0 on successful completion.

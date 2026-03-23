@@ -1,5 +1,7 @@
 #pragma once
 
+#include <map>
+
 #include "common_lib/car_parameters/car_parameters.hpp"
 #include "common_lib/config_load/config_load.hpp"
 #include "rclcpp/rclcpp.hpp"
@@ -23,6 +25,8 @@ struct InvictaSimParameters {
   std::string motor_model;
   std::string battery_model;
   std::string differential_model;
+
+  std::map<std::string, int> publish_frequencies;
 
   std::shared_ptr<common_lib::car_parameters::CarParameters> car_parameters;
 
