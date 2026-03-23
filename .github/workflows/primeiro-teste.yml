@@ -1,0 +1,20 @@
+name: Proxmox Runner Test
+
+on:
+  push:
+    branches: [ "main", "dev" ]
+  workflow_dispatch:
+
+jobs:
+  testar-ligacao:
+    runs-on: self-hosted
+
+    steps:
+      - name: Fazer Checkout do código para o servidor
+        uses: actions/checkout@v4
+
+      - name: Testar o terminal do Proxmox
+        run: echo "Sucesso! O runner da FSFEUP está vivo e a receber ordens!"
+
+      - name: Listar ficheiros (Prova de que o código lá chegou)
+        run: ls -la
