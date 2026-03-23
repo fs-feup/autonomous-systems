@@ -378,23 +378,20 @@ jobs:
   evaluator_node:
     runs-on: self-hosted
 
-    container:
-      # diz ao GitHub para usar a imagem local que vamos criar
-      image: fsfeup-ros-base:latest
-
-    defaults:
-      run:
-        shell: bash
+    # APAGAMOS O BLOCO "container:" INTEIRO DAQUI!
 
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: 'true'
 
-      - name: Build and Test Evaluator Node
+      # Em vez de o GitHub gerir o contentor, gerimos NÓS à força:
+      - name: Build and Test Evaluator Node inside Local Docker
         run: |
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-up-to evaluator
-          source install/setup.bash
-          colcon test --packages-select evaluator --event-handler=console_direct+
-          colcon test-result --all --verbose
+          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
+            source /opt/ros/$ROS_DISTRO/setup.bash &&
+            colcon build --packages-up-to evaluator &&
+            source install/setup.bash &&
+            colcon test --packages-select evaluator --event-handler=console_direct+ &&
+            colcon test-result --all --verbose
+          "
