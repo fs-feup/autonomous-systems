@@ -3,7 +3,7 @@ name: Testing and Building
 on:
   push:
     branches:
-      [main, dev]
+      [main]
   pull_request:
     types: [opened, synchronize, reopened]
 
@@ -38,8 +38,6 @@ jobs:
         run: |
           echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
           ./dependencies_install.sh
-          ./src/slam/dependencies_install.sh
-          echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> /home/$USERNAME/.bashrc
           sudo apt install curl -y
           sudo apt install unzip -y
           sudo apt install bear -y
@@ -53,7 +51,7 @@ jobs:
       - name: Compile with bear
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          bear -- colcon build --packages-up-to common_lib perception slam control planning inspection mocker_node evaluator
+          bear -- colcon build --packages-up-to common_lib perception ekf_state_est control planning inspection mocker_node evaluator
           
       - name: Run sonar-scanner
         env:
@@ -378,10 +376,11 @@ jobs:
           colcon test-result --all --verbose
 
   evaluator_node:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     container:
-      image: ros:humble-ros-base-jammy
+      # diz ao GitHub para usar a imagem local que vamos criar
+      image: fsfeup-ros-base:latest
 
     defaults:
       run:
@@ -392,25 +391,10 @@ jobs:
         with:
           submodules: 'true'
 
-      - name: Install dependencies
-        run: |
-          echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
-          ./dependencies_install.sh
-      
-      - name: Rosdep
-        run: |
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          rosdep update
-          rosdep install --from-paths src --ignore-src -r -y
-      
-      - name: Build Dependencies
-        run: |
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
-
       - name: Build and Test Evaluator Node
         run: |
+          source /opt/ros/$ROS_DISTRO/setup.bash
+          colcon build --packages-up-to evaluator
           source install/setup.bash
-          colcon build --packages-select evaluator
           colcon test --packages-select evaluator --event-handler=console_direct+
           colcon test-result --all --verbose
