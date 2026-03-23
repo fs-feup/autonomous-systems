@@ -216,7 +216,7 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
     // Data association
     associations = this->_data_association_->associate(
         landmarks, observations_global, covariance,
-        observations_confidences);  // TODO: implement different mahalanobis distance
+        observations_confidences, pose);  // TODO: implement different mahalanobis distance
     this->_associations_ = associations;
     this->_observations_global_ = observations_global;
     this->_map_coordinates_ = state.segment(3, state.size() - 3);

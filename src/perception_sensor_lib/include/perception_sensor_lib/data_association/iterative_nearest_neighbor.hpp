@@ -6,18 +6,21 @@
 #include "perception_sensor_lib/data_association/base_data_association.hpp"
 
 /**
- * @brief Data association implementation that uses the Malhanobis Distance only
- * as criterion to make observation matches.
+ * @brief Data association implementation that first finds the transformation and then associates with the nearest neighbor
  *
  */
-class NearestNeighbor : public DataAssociationModel {
+class IterativeNearestNeighbor : public DataAssociationModel {
 public:
-  NearestNeighbor(const DataAssociationParameters& params);
+  IterativeNearestNeighbor(const DataAssociationParameters& params);
 
-  ~NearestNeighbor() = default;
+  ~IterativeNearestNeighbor() = default;
 
   Eigen::VectorXi associate(const Eigen::VectorXd& landmarks, const Eigen::VectorXd& observations,
                             const Eigen::MatrixXd& covariance,
                             const Eigen::VectorXd& observation_confidences,
                             const Eigen::Vector3d& pose) const override;
+
+private:
+  Eigen::VectorXd adjust_observations(const Eigen::VectorXd& observations,
+                                      const Eigen::Vector3d& transform) const;
 };
