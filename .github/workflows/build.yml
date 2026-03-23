@@ -375,7 +375,7 @@ jobs:
           colcon test --packages-select mocker_node
           colcon test-result --all --verbose
 
-evaluator_node:
+  evaluator_node:
     runs-on: self-hosted # <-- Mudamos para o servidor Proxmox!
 
     container:
