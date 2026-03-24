@@ -12,7 +12,6 @@ InvictaSimParameters::InvictaSimParameters() {
   discipline = global_config["global"]["discipline"].as<std::string>();
   timestep = simulator_config["invictasim"]["timestep"].as<double>();
   track_name = simulator_config["invictasim"]["track_name"].as<std::string>();
-  simulation_speed = simulator_config["invictasim"]["simulation_speed"].as<double>();
   input_adapter = simulator_config["invictasim"]["input_adapter"].as<std::string>();
   output_adapter = simulator_config["invictasim"]["output_adapter"].as<std::string>();
 

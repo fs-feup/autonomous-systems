@@ -50,7 +50,7 @@ public:
 
   const InvictaSimParameters& get_params() const { return params_; }
 
-  AggregateOutputSnapshot get_output_snapshot() const {
+  OutputSnapshot get_output_snapshot() const {
     std::lock_guard<std::mutex> lock(output_snapshot_mutex_);
     return latest_output_snapshot_;
   }
@@ -85,13 +85,22 @@ private:
   std::shared_ptr<VehicleModel> vehicle_model_;  ///< Vehicle model.
   std::atomic<bool> running_;  ///< Indicates whether the simulation loop is running.
   double sim_time_;            ///< Current simulation time in seconds.
+  std::chrono::steady_clock::duration step_duration_;  ///< Duration of each simulation step.
   std::chrono::steady_clock::time_point
-      next_loop_time_;                              ///< Next wall-clock time for a simulation step.
-  mutable std::mutex input_mutex_;                  ///< Protects input access.
-  mutable std::mutex output_snapshot_mutex_;        ///< Protects output snapshot access.
-  common_lib::structures::Wheels throttle_;         ///< Current throttle commands (all wheels).
-  double steering_;                                 ///< Current steering command (radians).
-  AggregateOutputSnapshot latest_output_snapshot_;  ///< Latest simulator output snapshot.
+      next_step_time_;  ///< Next wall-clock time for a simulation step.
+  std::chrono::steady_clock::time_point
+      last_step_time_;                        ///< Last wall-clock time used to compute step dt.
+  mutable std::mutex input_mutex_;            ///< Protects input access.
+  mutable std::mutex output_snapshot_mutex_;  ///< Protects output snapshot access.
+  common_lib::structures::Wheels throttle_;   ///< Current throttle commands (all wheels).
+  double steering_;                           ///< Current steering command (radians).
+  OutputSnapshot latest_output_snapshot_;     ///< Latest simulator output snapshot.
+
+  /**
+   * @brief Build a full output snapshot from the current vehicle model state.
+   * @return OutputSnapshot Snapshot ready to publish.
+   */
+  OutputSnapshot build_output_snapshot() const;
 
   /**
    * @brief Get snapshots of current input (locks briefly, returns values).

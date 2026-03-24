@@ -56,7 +56,7 @@ struct StatusSnapshot {
   common_lib::structures::Wheels wheel_speed = {0.0, 0.0, 0.0, 0.0};
 };
 
-struct AggregateOutputSnapshot {
+struct OutputSnapshot {
   double sim_time = 0.0;
   TireSnapshot tire;
   PowertrainSnapshot powertrain;

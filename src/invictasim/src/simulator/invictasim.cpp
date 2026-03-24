@@ -7,7 +7,11 @@ InvictaSim::InvictaSim(const InvictaSimParameters& params)
       throttle_({0.0, 0.0, 0.0, 0.0}),
       steering_(0.0) {
   vehicle_model_ = vehicle_models_map.at(params_.vehicle_model.c_str())(params);
-  next_loop_time_ = std::chrono::steady_clock::now();
+  step_duration_ = std::chrono::duration_cast<std::chrono::steady_clock::duration>(
+      std::chrono::duration<double>(params_.timestep));
+  const auto now = std::chrono::steady_clock::now();
+  next_step_time_ = now + step_duration_;
+  last_step_time_ = now;
 }
 
 void InvictaSim::run() {
@@ -20,26 +24,37 @@ void InvictaSim::run() {
 void InvictaSim::stop() { running_ = false; }
 
 void InvictaSim::simulation_step() {
-  auto now = std::chrono::steady_clock::now();
-  if (now < next_loop_time_) {
-    std::this_thread::sleep_until(next_loop_time_);
+  auto current_time = std::chrono::steady_clock::now();
+  if (current_time < next_step_time_) {
+    std::this_thread::sleep_until(next_step_time_);
+    current_time = next_step_time_;
   }
-  next_loop_time_ = std::chrono::steady_clock::now() +
-                    std::chrono::duration_cast<std::chrono::steady_clock::duration>(
-                        std::chrono::duration<double>(params_.timestep / params_.simulation_speed));
+  double step_dt = std::chrono::duration<double>(current_time - last_step_time_).count();
 
-  sim_time_ += params_.timestep;
+  last_step_time_ = current_time;
+  next_step_time_ = current_time + step_duration_;
+  sim_time_ += step_dt;
 
-  // Take copy of input so no locks are required during the vehicle model step
+  // Use a copy of input so no locks are required during vehicle model step.
   common_lib::structures::Wheels throttle;
   double steering;
   get_input_snapshot(throttle, steering);
 
   // Use snapshot throughout step without locks
-  vehicle_model_->step(params_.timestep, throttle, steering);
+  vehicle_model_->step(step_dt, throttle, steering);
 
-  AggregateOutputSnapshot snapshot;
+  // Update the output snapshot for the adapters to read (lock only to copy the data)
+  OutputSnapshot snapshot = build_output_snapshot();
+  {
+    std::lock_guard<std::mutex> lock(output_snapshot_mutex_);
+    latest_output_snapshot_ = snapshot;
+  }
+}
+
+OutputSnapshot InvictaSim::build_output_snapshot() const {
+  OutputSnapshot snapshot;
   snapshot.sim_time = sim_time_;
+
   snapshot.tire.front_left_force = vehicle_model_->get_front_left_forces();
   snapshot.tire.front_right_force = vehicle_model_->get_front_right_forces();
   snapshot.tire.rear_left_force = vehicle_model_->get_rear_left_forces();
@@ -74,7 +89,7 @@ void InvictaSim::simulation_step() {
   snapshot.status.velocity_z = vehicle_model_->get_velocity_z();
   snapshot.status.acceleration_x = vehicle_model_->get_acceleration_x();
   snapshot.status.acceleration_y = vehicle_model_->get_acceleration_y();
-  snapshot.status.steering_angle = steering;
+  snapshot.status.steering_angle = vehicle_model_->get_steering_angle();
   snapshot.status.total_force_x = vehicle_model_->get_total_force_x();
   snapshot.status.total_force_y = vehicle_model_->get_total_force_y();
   snapshot.status.moment_fy = vehicle_model_->get_moment_fy();
@@ -83,8 +98,5 @@ void InvictaSim::simulation_step() {
   snapshot.status.total_torque_z = vehicle_model_->get_total_torque_z();
   snapshot.status.wheel_speed = vehicle_model_->get_wheels_speed();
 
-  {
-    std::lock_guard<std::mutex> lock(output_snapshot_mutex_);
-    latest_output_snapshot_ = snapshot;
-  }
+  return snapshot;
 }
