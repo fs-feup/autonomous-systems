@@ -4,7 +4,7 @@
 #include "config/config.hpp"
 #include "io/input/map.hpp"
 #include "io/output/map.hpp"
-#include "rclcpp/executors/single_threaded_executor.hpp"
+#include "rclcpp/executors/multi_threaded_executor.hpp"
 #include "simulator/invictasim.hpp"
 
 /**
@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
   auto ros_input_node = std::dynamic_pointer_cast<rclcpp::Node>(input_adapter);
   auto ros_output_node = std::dynamic_pointer_cast<rclcpp::Node>(output_adapter);
 
-  rclcpp::executors::SingleThreadedExecutor executor;
+  rclcpp::executors::MultiThreadedExecutor executor;
   if (ros_input_node) {
     executor.add_node(ros_input_node);
   }
@@ -40,9 +40,15 @@ int main(int argc, char* argv[]) {
     executor.add_node(ros_output_node);
   }
 
-  while (rclcpp::ok()) {
-    executor.spin_some();
-    std::this_thread::sleep_for(std::chrono::milliseconds(2));
+  if (ros_input_node || ros_output_node) {
+    executor.spin();
+  } else {
+    while (rclcpp::ok()) {
+      // This is for the main thread to just sleep while the simulator, input, and output
+      // threads do their work. This delay only affects how quickly the main dies after the
+      // simulator is stopped, does not affect the sim itself.
+      std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
   }
 
   simulator->stop();

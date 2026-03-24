@@ -12,20 +12,24 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator)
       InvictaSimOutputAdapter(simulator),
       running_(false),
       publish_frequencies_(simulator->get_params().publish_frequencies) {
-  tire_forces_pub_ =
-      this->create_publisher<custom_interfaces::msg::TireForces>("invictasim/tire/forces", 10);
+  tire_forces_pub_ = this->create_publisher<custom_interfaces::msg::TireForces>(
+      "invictasim/vehicle_model/tire/forces", 10);
   tire_slip_ratio_pub_ = this->create_publisher<custom_interfaces::msg::WheelScalars>(
-      "invictasim/tire/slip_ratio", 10);
+      "invictasim/vehicle_model/tire/slip_ratio", 10);
   tire_slip_angle_pub_ = this->create_publisher<custom_interfaces::msg::WheelScalars>(
-      "invictasim/tire/slip_angle", 10);
-  powertrain_pub_ = this->create_publisher<custom_interfaces::msg::PowertrainState>(
-      "invictasim/powertrain/state", 10);
-  aero_forces_pub_ =
-      this->create_publisher<custom_interfaces::msg::AeroForces>("invictasim/aero/forces", 10);
-  wheel_load_pub_ = this->create_publisher<custom_interfaces::msg::WheelScalars>(
-      "invictasim/load/vertical_loads", 10);
-  vehicle_state_pub_ = this->create_publisher<custom_interfaces::msg::VehicleStateVector>(
-      "invictasim/vehicle/state", 10);
+      "invictasim/vehicle_model/tire/slip_angle", 10);
+  battery_pub_ = this->create_publisher<custom_interfaces::msg::BatteryState>(
+      "invictasim/vehicle_model/battery", 10);
+  motor_pub_ = this->create_publisher<custom_interfaces::msg::MotorState>(
+      "invictasim/vehicle_model/motor", 10);
+  differential_pub_ = this->create_publisher<custom_interfaces::msg::DifferentialState>(
+      "invictasim/vehicle_model/differential", 10);
+  aero_pub_ = this->create_publisher<custom_interfaces::msg::AeroForces>(
+      "invictasim/vehicle_model/aero", 10);
+  load_pub_ = this->create_publisher<custom_interfaces::msg::WheelScalars>(
+      "invictasim/vehicle_model/load_transfer", 10);
+  status_pub_ = this->create_publisher<custom_interfaces::msg::VehicleStateVector>(
+      "invictasim/vehicle_model/status", 10);
   visualization_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
       "invictasim/visualization/vehicle", 10);
 
@@ -74,15 +78,23 @@ void RosOutputAdapter::on_frequency_tick(int frequency_hz) {
     refresh_tire_snapshot();
     publish_tire_group();
   }
-  if (publishes_at("powertrain", frequency_hz)) {
+  if (publishes_at("motor", frequency_hz)) {
     refresh_powertrain_snapshot();
-    publish_powertrain_group();
+    publish_motor_group();
+  }
+  if (publishes_at("battery", frequency_hz)) {
+    refresh_powertrain_snapshot();
+    publish_battery_group();
+  }
+  if (publishes_at("differential", frequency_hz)) {
+    refresh_powertrain_snapshot();
+    publish_differential_group();
   }
   if (publishes_at("aero", frequency_hz)) {
     refresh_aero_snapshot();
     publish_aero_group();
   }
-  if (publishes_at("load", frequency_hz)) {
+  if (publishes_at("load_transfer", frequency_hz)) {
     refresh_load_snapshot();
     publish_load_group();
   }
@@ -152,28 +164,45 @@ void RosOutputAdapter::publish_tire_group() {
   tire_slip_angle_pub_->publish(to_wheels_msg(tire_snapshot_cache_.slip_angle, stamp));
 }
 
-void RosOutputAdapter::publish_powertrain_group() {
+void RosOutputAdapter::publish_motor_group() {
   rclcpp::Time stamp = this->now();
 
-  custom_interfaces::msg::PowertrainState powertrain_msg;
-  powertrain_msg.header.stamp = stamp;
-  powertrain_msg.header.frame_id = "base_link";
-  powertrain_msg.motor_torque = powertrain_snapshot_cache_.motor_torque;
-  powertrain_msg.motor_omega = powertrain_snapshot_cache_.motor_omega;
-  powertrain_msg.motor_rpm = powertrain_snapshot_cache_.motor_omega * 60.0 / (2.0 * M_PI);
-  powertrain_msg.motor_current = powertrain_snapshot_cache_.motor_current;
-  powertrain_msg.motor_thermal_state = powertrain_snapshot_cache_.motor_thermal_state;
-  powertrain_msg.motor_thermal_capacity = powertrain_snapshot_cache_.motor_thermal_capacity;
-  powertrain_msg.battery_voltage = powertrain_snapshot_cache_.battery_voltage;
-  powertrain_msg.battery_open_circuit_voltage =
-      powertrain_snapshot_cache_.battery_open_circuit_voltage;
-  powertrain_msg.battery_soc = powertrain_snapshot_cache_.battery_soc;
-  powertrain_msg.battery_current = powertrain_snapshot_cache_.battery_current;
-  powertrain_msg.diff_torque_fl = powertrain_snapshot_cache_.differential_torque.front_left;
-  powertrain_msg.diff_torque_fr = powertrain_snapshot_cache_.differential_torque.front_right;
-  powertrain_msg.diff_torque_rl = powertrain_snapshot_cache_.differential_torque.rear_left;
-  powertrain_msg.diff_torque_rr = powertrain_snapshot_cache_.differential_torque.rear_right;
-  powertrain_pub_->publish(powertrain_msg);
+  custom_interfaces::msg::MotorState motor_msg;
+  motor_msg.header.stamp = stamp;
+  motor_msg.header.frame_id = "base_link";
+  motor_msg.torque = powertrain_snapshot_cache_.motor_torque;
+  motor_msg.omega = powertrain_snapshot_cache_.motor_omega;
+  motor_msg.rpm = powertrain_snapshot_cache_.motor_omega * 60.0 / (2.0 * M_PI);
+  motor_msg.current = powertrain_snapshot_cache_.motor_current;
+  motor_msg.thermal_state = powertrain_snapshot_cache_.motor_thermal_state;
+  motor_msg.thermal_capacity = powertrain_snapshot_cache_.motor_thermal_capacity;
+  motor_pub_->publish(motor_msg);
+}
+
+void RosOutputAdapter::publish_battery_group() {
+  rclcpp::Time stamp = this->now();
+
+  custom_interfaces::msg::BatteryState battery_msg;
+  battery_msg.header.stamp = stamp;
+  battery_msg.header.frame_id = "base_link";
+  battery_msg.voltage = powertrain_snapshot_cache_.battery_voltage;
+  battery_msg.open_circuit_voltage = powertrain_snapshot_cache_.battery_open_circuit_voltage;
+  battery_msg.soc = powertrain_snapshot_cache_.battery_soc;
+  battery_msg.current = powertrain_snapshot_cache_.battery_current;
+  battery_pub_->publish(battery_msg);
+}
+
+void RosOutputAdapter::publish_differential_group() {
+  rclcpp::Time stamp = this->now();
+
+  custom_interfaces::msg::DifferentialState differential_msg;
+  differential_msg.header.stamp = stamp;
+  differential_msg.header.frame_id = "base_link";
+  differential_msg.torque_fl = powertrain_snapshot_cache_.differential_torque.front_left;
+  differential_msg.torque_fr = powertrain_snapshot_cache_.differential_torque.front_right;
+  differential_msg.torque_rl = powertrain_snapshot_cache_.differential_torque.rear_left;
+  differential_msg.torque_rr = powertrain_snapshot_cache_.differential_torque.rear_right;
+  differential_pub_->publish(differential_msg);
 }
 
 void RosOutputAdapter::publish_aero_group() {
@@ -182,29 +211,29 @@ void RosOutputAdapter::publish_aero_group() {
   aero_msg.header.frame_id = "base_link";
   aero_msg.drag = aero_snapshot_cache_.drag;
   aero_msg.downforce = aero_snapshot_cache_.downforce;
-  aero_forces_pub_->publish(aero_msg);
+  aero_pub_->publish(aero_msg);
 }
 
 void RosOutputAdapter::publish_load_group() {
-  wheel_load_pub_->publish(to_wheels_msg(load_snapshot_cache_.vertical_load, this->now()));
+  load_pub_->publish(to_wheels_msg(load_snapshot_cache_.vertical_load, this->now()));
 }
 
 void RosOutputAdapter::publish_status_group() {
-  custom_interfaces::msg::VehicleStateVector vehicle_state_msg;
-  vehicle_state_msg.header.stamp = this->now();
-  vehicle_state_msg.header.frame_id = "base_link";
-  vehicle_state_msg.velocity_x = status_snapshot_cache_.velocity_x;
-  vehicle_state_msg.velocity_y = status_snapshot_cache_.velocity_y;
-  vehicle_state_msg.yaw_rate = status_snapshot_cache_.yaw_rate;
-  vehicle_state_msg.acceleration_x = status_snapshot_cache_.acceleration_x;
-  vehicle_state_msg.acceleration_y = status_snapshot_cache_.acceleration_y;
-  vehicle_state_msg.steering_angle = status_snapshot_cache_.steering_angle;
+  custom_interfaces::msg::VehicleStateVector status_msg;
+  status_msg.header.stamp = this->now();
+  status_msg.header.frame_id = "base_link";
+  status_msg.yaw_rate = status_snapshot_cache_.yaw_rate;
+  status_msg.velocity_x = status_snapshot_cache_.velocity_x;
+  status_msg.velocity_y = status_snapshot_cache_.velocity_y;
+  status_msg.acceleration_x = status_snapshot_cache_.acceleration_x;
+  status_msg.acceleration_y = status_snapshot_cache_.acceleration_y;
+  status_msg.steering_angle = status_snapshot_cache_.steering_angle;
   auto wheels_speed = status_snapshot_cache_.wheel_speed;
-  vehicle_state_msg.fl_rpm = wheels_speed.front_left * 60.0 / (2.0 * M_PI);
-  vehicle_state_msg.fr_rpm = wheels_speed.front_right * 60.0 / (2.0 * M_PI);
-  vehicle_state_msg.rl_rpm = wheels_speed.rear_left * 60.0 / (2.0 * M_PI);
-  vehicle_state_msg.rr_rpm = wheels_speed.rear_right * 60.0 / (2.0 * M_PI);
-  vehicle_state_pub_->publish(vehicle_state_msg);
+  status_msg.fl_rpm = wheels_speed.front_left * 60.0 / (2.0 * M_PI);
+  status_msg.fr_rpm = wheels_speed.front_right * 60.0 / (2.0 * M_PI);
+  status_msg.rl_rpm = wheels_speed.rear_left * 60.0 / (2.0 * M_PI);
+  status_msg.rr_rpm = wheels_speed.rear_right * 60.0 / (2.0 * M_PI);
+  status_pub_->publish(status_msg);
 }
 
 void RosOutputAdapter::publish_visualization_group() {
@@ -220,8 +249,8 @@ void RosOutputAdapter::publish_visualization_group() {
   marker.pose.position.z = 0.0;
   marker.pose.orientation.x = 0.0;
   marker.pose.orientation.y = 0.0;
-  marker.pose.orientation.z = 0.0;
-  marker.pose.orientation.w = 1.0;
+  marker.pose.orientation.z = std::sin(status_snapshot_cache_.yaw * 0.5);
+  marker.pose.orientation.w = std::cos(status_snapshot_cache_.yaw * 0.5);
   marker.scale.x = 1.5;
   marker.scale.y = 1.0;
   marker.scale.z = 0.1;

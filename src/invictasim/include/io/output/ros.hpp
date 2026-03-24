@@ -4,7 +4,9 @@
 #include <map>
 
 #include "custom_interfaces/msg/aero_forces.hpp"
-#include "custom_interfaces/msg/powertrain_state.hpp"
+#include "custom_interfaces/msg/battery_state.hpp"
+#include "custom_interfaces/msg/differential_state.hpp"
+#include "custom_interfaces/msg/motor_state.hpp"
 #include "custom_interfaces/msg/tire_forces.hpp"
 #include "custom_interfaces/msg/vehicle_state_vector.hpp"
 #include "custom_interfaces/msg/wheel_scalars.hpp"
@@ -38,7 +40,9 @@ private:
   void on_frequency_tick(int frequency_hz);
   bool publishes_at(const std::string& group, int frequency_hz) const;
   void publish_tire_group();
-  void publish_powertrain_group();
+  void publish_motor_group();
+  void publish_battery_group();
+  void publish_differential_group();
   void publish_aero_group();
   void publish_load_group();
   void publish_status_group();
@@ -68,14 +72,18 @@ private:
       tire_slip_ratio_pub_;  ///< Publisher for tire slip ratio.
   rclcpp::Publisher<custom_interfaces::msg::WheelScalars>::SharedPtr
       tire_slip_angle_pub_;  ///< Publisher for tire slip angle.
-  rclcpp::Publisher<custom_interfaces::msg::PowertrainState>::SharedPtr
-      powertrain_pub_;  ///< Publisher for grouped powertrain state.
+  rclcpp::Publisher<custom_interfaces::msg::MotorState>::SharedPtr
+      motor_pub_;  ///< Publisher for motor state.
+  rclcpp::Publisher<custom_interfaces::msg::BatteryState>::SharedPtr
+      battery_pub_;  ///< Publisher for battery state.
+  rclcpp::Publisher<custom_interfaces::msg::DifferentialState>::SharedPtr
+      differential_pub_;  ///< Publisher for differential state.
   rclcpp::Publisher<custom_interfaces::msg::AeroForces>::SharedPtr
-      aero_forces_pub_;  ///< Publisher for aerodynamic forces.
+      aero_pub_;  ///< Publisher for aerodynamic forces.
   rclcpp::Publisher<custom_interfaces::msg::WheelScalars>::SharedPtr
-      wheel_load_pub_;  ///< Publisher for per-wheel vertical load.
+      load_pub_;  ///< Publisher for wheel vertical loads.
   rclcpp::Publisher<custom_interfaces::msg::VehicleStateVector>::SharedPtr
-      vehicle_state_pub_;  ///< Publisher for the vehicle state message.
+      status_pub_;  ///< Publisher for vehicle status.
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
       visualization_pub_;  ///< Publisher for foxglove visualization marker.
 };
