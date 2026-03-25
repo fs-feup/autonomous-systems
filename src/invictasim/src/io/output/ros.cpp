@@ -5,6 +5,7 @@
 #include <set>
 #include <thread>
 
+#include "tf2/LinearMath/Quaternion.h"
 #include "visualization_msgs/msg/marker.hpp"
 
 RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator)
@@ -237,29 +238,158 @@ void RosOutputAdapter::publish_status_group() {
 }
 
 void RosOutputAdapter::publish_visualization_group() {
-  visualization_msgs::msg::Marker marker;
-  marker.header.stamp = this->now();
-  marker.header.frame_id = "map";
-  marker.ns = "invictasim_vehicle";
-  marker.id = 0;
-  marker.type = visualization_msgs::msg::Marker::CUBE;
-  marker.action = visualization_msgs::msg::Marker::ADD;
-  marker.pose.position.x = status_snapshot_cache_.x;
-  marker.pose.position.y = status_snapshot_cache_.y;
-  marker.pose.position.z = 0.0;
-  marker.pose.orientation.x = 0.0;
-  marker.pose.orientation.y = 0.0;
-  marker.pose.orientation.z = std::sin(status_snapshot_cache_.yaw * 0.5);
-  marker.pose.orientation.w = std::cos(status_snapshot_cache_.yaw * 0.5);
-  marker.scale.x = 1.5;
-  marker.scale.y = 1.0;
-  marker.scale.z = 0.1;
-  marker.color.a = 1.0f;
-  marker.color.r = 0.1f;
-  marker.color.g = 0.8f;
-  marker.color.b = 0.1f;
+  const rclcpp::Time stamp = this->now();
+  const double stamp_sec = stamp.seconds();
+  double dt = 0.0;
+  if (last_visualization_stamp_sec_ >= 0.0) {
+    dt = stamp_sec - last_visualization_stamp_sec_;
+  }
+  last_visualization_stamp_sec_ = stamp_sec;
+  if (dt < 0.0 || dt > 0.2) {
+    dt = 0.0;
+  }
 
   visualization_msgs::msg::MarkerArray marker_array;
-  marker_array.markers.push_back(marker);
+  publish_ground_marker(marker_array, stamp);
+  publish_body_marker(marker_array, stamp);
+  publish_wheel_markers(marker_array, stamp, dt);
   visualization_pub_->publish(marker_array);
+}
+
+void RosOutputAdapter::publish_ground_marker(visualization_msgs::msg::MarkerArray& marker_array,
+                                             const rclcpp::Time& stamp) const {
+  visualization_msgs::msg::Marker ground;
+  ground.header.stamp = stamp;
+  ground.header.frame_id = "map";
+  ground.ns = "invictasim_ground";
+  ground.id = 100;
+  ground.type = visualization_msgs::msg::Marker::CUBE;
+  ground.action = visualization_msgs::msg::Marker::ADD;
+  ground.pose.position.x = 0.0;
+  ground.pose.position.y = 0.0;
+  ground.pose.position.z = -0.02;
+  ground.pose.orientation.x = 0.0;
+  ground.pose.orientation.y = 0.0;
+  ground.pose.orientation.z = 0.0;
+  ground.pose.orientation.w = 1.0;
+  ground.scale.x = 5000.0;
+  ground.scale.y = 5000.0;
+  ground.scale.z = 0.04;
+  ground.color.a = 0.65f;
+  ground.color.r = 0.2f;
+  ground.color.g = 0.2f;
+  ground.color.b = 0.2f;
+  marker_array.markers.push_back(ground);
+}
+
+void RosOutputAdapter::publish_body_marker(visualization_msgs::msg::MarkerArray& marker_array,
+                                           const rclcpp::Time& stamp) const {
+  constexpr double model_offset_x = 0.9;
+
+  tf2::Quaternion q_heading;
+  q_heading.setRPY(0.0, 0.0, status_snapshot_cache_.yaw);
+  tf2::Quaternion q_mesh_offset;
+  q_mesh_offset.setRPY(-M_PI_2, 0.0, 0.0);
+  tf2::Quaternion q_body = q_heading * q_mesh_offset;
+  q_body.normalize();
+
+  visualization_msgs::msg::Marker body;
+  body.header.stamp = stamp;
+  body.header.frame_id = "map";
+  body.ns = "invictasim_vehicle";
+  body.id = 0;
+  body.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
+  body.action = visualization_msgs::msg::Marker::ADD;
+  body.pose.position.x =
+      status_snapshot_cache_.x + std::cos(status_snapshot_cache_.yaw) * model_offset_x;
+  body.pose.position.y =
+      status_snapshot_cache_.y + std::sin(status_snapshot_cache_.yaw) * model_offset_x;
+  body.pose.position.z = 0.0;
+  body.pose.orientation.x = q_body.x();
+  body.pose.orientation.y = q_body.y();
+  body.pose.orientation.z = q_body.z();
+  body.pose.orientation.w = q_body.w();
+  body.scale.x = 0.01;
+  body.scale.y = 0.01;
+  body.scale.z = 0.01;
+  body.color.a = 1.0f;
+  body.color.r = 0.85f;
+  body.color.g = 0.1f;
+  body.color.b = 0.1f;
+  body.mesh_resource = "package://invictasim/resources/meshes/car_body.stl";
+  body.mesh_use_embedded_materials = false;
+  marker_array.markers.push_back(body);
+}
+
+void RosOutputAdapter::publish_wheel_markers(visualization_msgs::msg::MarkerArray& marker_array,
+                                             const rclcpp::Time& stamp, double dt) {
+  // PACSIM mesh hardcoded paremeters
+  constexpr double model_offset_x = 0.9;
+  constexpr double wheel_radius = 0.203;
+  constexpr double wheel_center_z = 0.204;
+
+  if (dt > 0.0) {
+    const auto wheel_speed = status_snapshot_cache_.wheel_speed;
+    wheel_spin_fl_ += (wheel_speed.front_left / wheel_radius) * dt;
+    wheel_spin_fr_ += (wheel_speed.front_right / wheel_radius) * dt;
+    wheel_spin_rl_ += (wheel_speed.rear_left / wheel_radius) * dt;
+    wheel_spin_rr_ += (wheel_speed.rear_right / wheel_radius) * dt;
+  }
+
+  const double body_x = status_snapshot_cache_.x;
+  const double body_y = status_snapshot_cache_.y;
+  const double yaw = status_snapshot_cache_.yaw;
+  const double c = std::cos(yaw);
+  const double s = std::sin(yaw);
+  const double steer = status_snapshot_cache_.steering_angle;
+
+  // Hardcoded for current mesh car from pacsim, will be done with parameters with 02
+  const double local_x[4] = {
+      model_offset_x - 0.0998,
+      model_offset_x - 0.0998,
+      model_offset_x - 1.64,
+      model_offset_x - 1.64,
+  };
+  const double local_y[4] = {0.6, -0.6, 0.58, -0.58};
+  const double steer_angles[4] = {steer, steer, 0.0, 0.0};
+  const double spins[4] = {wheel_spin_fl_, wheel_spin_fr_, wheel_spin_rl_, wheel_spin_rr_};
+
+  for (int i = 0; i < 4; ++i) {
+    const double world_x = body_x + c * local_x[i] - s * local_y[i];
+    const double world_y = body_y + s * local_x[i] + c * local_y[i];
+
+    tf2::Quaternion q_heading;
+    q_heading.setRPY(0.0, 0.0, yaw + steer_angles[i]);
+    tf2::Quaternion q_spin;
+    q_spin.setRPY(0.0, spins[i], 0.0);
+    tf2::Quaternion q_mesh_offset;
+    q_mesh_offset.setRPY(-M_PI_2, 0.0, 0.0);
+    tf2::Quaternion q_wheel = q_heading * q_spin * q_mesh_offset;
+    q_wheel.normalize();
+
+    visualization_msgs::msg::Marker wheel;
+    wheel.header.stamp = stamp;
+    wheel.header.frame_id = "map";
+    wheel.ns = "invictasim_vehicle";
+    wheel.id = i + 1;
+    wheel.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
+    wheel.action = visualization_msgs::msg::Marker::ADD;
+    wheel.pose.position.x = world_x;
+    wheel.pose.position.y = world_y;
+    wheel.pose.position.z = wheel_center_z;
+    wheel.pose.orientation.x = q_wheel.x();
+    wheel.pose.orientation.y = q_wheel.y();
+    wheel.pose.orientation.z = q_wheel.z();
+    wheel.pose.orientation.w = q_wheel.w();
+    wheel.scale.x = 0.01;
+    wheel.scale.y = 0.01;
+    wheel.scale.z = 0.01;
+    wheel.color.a = 1.0f;
+    wheel.color.r = 0.08f;
+    wheel.color.g = 0.08f;
+    wheel.color.b = 0.08f;
+    wheel.mesh_resource = "package://invictasim/resources/meshes/tire.stl";
+    wheel.mesh_use_embedded_materials = false;
+    marker_array.markers.push_back(wheel);
+  }
 }

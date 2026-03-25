@@ -55,6 +55,12 @@ private:
   void refresh_status_snapshot();
   custom_interfaces::msg::WheelScalars to_wheels_msg(const common_lib::structures::Wheels& wheels,
                                                      const rclcpp::Time& stamp) const;
+  void publish_ground_marker(visualization_msgs::msg::MarkerArray& marker_array,
+                             const rclcpp::Time& stamp) const;
+  void publish_body_marker(visualization_msgs::msg::MarkerArray& marker_array,
+                           const rclcpp::Time& stamp) const;
+  void publish_wheel_markers(visualization_msgs::msg::MarkerArray& marker_array,
+                             const rclcpp::Time& stamp, double dt);
 
   std::atomic<bool> running_;
   std::map<std::string, int> publish_frequencies_;
@@ -86,4 +92,10 @@ private:
       status_pub_;  ///< Publisher for vehicle status.
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
       visualization_pub_;  ///< Publisher for foxglove visualization marker.
+
+  double wheel_spin_fl_ = 0.0;
+  double wheel_spin_fr_ = 0.0;
+  double wheel_spin_rl_ = 0.0;
+  double wheel_spin_rr_ = 0.0;
+  double last_visualization_stamp_sec_ = -1.0;
 };

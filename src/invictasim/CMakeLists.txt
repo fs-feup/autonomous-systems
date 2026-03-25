@@ -71,6 +71,8 @@ install(DIRECTORY include/
   DESTINATION include)
 install(DIRECTORY launch
   DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY resources
+  DESTINATION share/${PROJECT_NAME})
 
 # Tests
 if(BUILD_TESTING)
