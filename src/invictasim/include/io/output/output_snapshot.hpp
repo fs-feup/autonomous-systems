@@ -4,63 +4,60 @@
 
 #include "common_lib/structures/wheels.hpp"
 
-struct TireSnapshot {
+/**
+ * @brief Vehicle model snapshot containing all vehicle state data to be published.
+ */
+struct VehicleModelSnapshot {
+  // Tire data
   Eigen::Vector3d front_left_force = {0.0, 0.0, 0.0};
   Eigen::Vector3d front_right_force = {0.0, 0.0, 0.0};
   Eigen::Vector3d rear_left_force = {0.0, 0.0, 0.0};
   Eigen::Vector3d rear_right_force = {0.0, 0.0, 0.0};
   common_lib::structures::Wheels slip_ratio = {0.0, 0.0, 0.0, 0.0};
   common_lib::structures::Wheels slip_angle = {0.0, 0.0, 0.0, 0.0};
-};
 
-struct PowertrainSnapshot {
+  // Motor data
   double motor_torque = 0.0;
   double motor_omega = 0.0;
   double motor_current = 0.0;
   double motor_thermal_state = 0.0;
   double motor_thermal_capacity = 0.0;
+
+  // Battery data
   double battery_voltage = 0.0;
   double battery_open_circuit_voltage = 0.0;
   double battery_soc = 0.0;
   double battery_current = 0.0;
+
+  // Differential data
   common_lib::structures::Wheels differential_torque = {0.0, 0.0, 0.0, 0.0};
-};
 
-struct AeroSnapshot {
-  double drag = 0.0;
-  double downforce = 0.0;
-};
+  // Aero data
+  double aero_drag = 0.0;
+  double aero_downforce = 0.0;
 
-struct LoadSnapshot {
+  // Load transfer data
   common_lib::structures::Wheels vertical_load = {0.0, 0.0, 0.0, 0.0};
-};
 
-struct StatusSnapshot {
+  // Status data
   double x = 0.0;
   double y = 0.0;
-  double z = 0.0;
   double yaw = 0.0;
   double yaw_rate = 0.0;
   double velocity_x = 0.0;
   double velocity_y = 0.0;
-  double velocity_z = 0.0;
   double acceleration_x = 0.0;
   double acceleration_y = 0.0;
   double steering_angle = 0.0;
-  double total_force_x = 0.0;
-  double total_force_y = 0.0;
-  double moment_fy = 0.0;
-  double moment_fx = 0.0;
-  double self_aligning_moment = 0.0;
-  double total_torque_z = 0.0;
   common_lib::structures::Wheels wheel_speed = {0.0, 0.0, 0.0, 0.0};
 };
 
-struct OutputSnapshot {
-  double sim_time = 0.0;
-  TireSnapshot tire;
-  PowertrainSnapshot powertrain;
-  AeroSnapshot aero;
-  LoadSnapshot load;
-  StatusSnapshot status;
+struct ExecutionTimesSnapshot {
+  double powertrain_ms = 0.0;
+  double differential_ms = 0.0;
+  double aero_ms = 0.0;
+  double steering_ms = 0.0;
+  double load_transfer_ms = 0.0;
+  double tire_ms = 0.0;
+  double total_step_ms = 0.0;
 };

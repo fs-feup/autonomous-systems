@@ -50,34 +50,18 @@ public:
 
   const InvictaSimParameters& get_params() const { return params_; }
 
-  OutputSnapshot get_output_snapshot() const {
+  /**
+   * @brief Get the complete vehicle model snapshot (recommended).
+   * @return VehicleModelSnapshot Latest snapshot with all vehicle data.
+   */
+  VehicleModelSnapshot get_vehicle_model_snapshot() const {
     std::lock_guard<std::mutex> lock(output_snapshot_mutex_);
-    return latest_output_snapshot_;
+    return vehicle_model_snapshot_;
   }
 
-  void get_tire_snapshot(TireSnapshot& out_snapshot) const {
+  ExecutionTimesSnapshot get_execution_times_snapshot() const {
     std::lock_guard<std::mutex> lock(output_snapshot_mutex_);
-    out_snapshot = latest_output_snapshot_.tire;
-  }
-
-  void get_powertrain_snapshot(PowertrainSnapshot& out_snapshot) const {
-    std::lock_guard<std::mutex> lock(output_snapshot_mutex_);
-    out_snapshot = latest_output_snapshot_.powertrain;
-  }
-
-  void get_aero_snapshot(AeroSnapshot& out_snapshot) const {
-    std::lock_guard<std::mutex> lock(output_snapshot_mutex_);
-    out_snapshot = latest_output_snapshot_.aero;
-  }
-
-  void get_load_snapshot(LoadSnapshot& out_snapshot) const {
-    std::lock_guard<std::mutex> lock(output_snapshot_mutex_);
-    out_snapshot = latest_output_snapshot_.load;
-  }
-
-  void get_status_snapshot(StatusSnapshot& out_snapshot) const {
-    std::lock_guard<std::mutex> lock(output_snapshot_mutex_);
-    out_snapshot = latest_output_snapshot_.status;
+    return execution_times_snapshot_;
   }
 
 private:
@@ -89,18 +73,26 @@ private:
   std::chrono::steady_clock::time_point
       next_step_time_;  ///< Next wall-clock time for a simulation step.
   std::chrono::steady_clock::time_point
-      last_step_time_;                        ///< Last wall-clock time used to compute step dt.
-  mutable std::mutex input_mutex_;            ///< Protects input access.
-  mutable std::mutex output_snapshot_mutex_;  ///< Protects output snapshot access.
-  common_lib::structures::Wheels throttle_;   ///< Current throttle commands (all wheels).
-  double steering_;                           ///< Current steering command (radians).
-  OutputSnapshot latest_output_snapshot_;     ///< Latest simulator output snapshot.
+      last_step_time_;                           ///< Last wall-clock time used to compute step dt.
+  mutable std::mutex input_mutex_;               ///< Protects input access.
+  mutable std::mutex output_snapshot_mutex_;     ///< Protects output snapshot access.
+  common_lib::structures::Wheels throttle_;      ///< Current throttle commands (all wheels).
+  double steering_;                              ///< Current steering command (radians).
+  VehicleModelSnapshot vehicle_model_snapshot_;  ///< Latest consolidated vehicle model snapshot.
+  ExecutionTimesSnapshot execution_times_snapshot_;  ///< Latest per-step execution timings.
 
   /**
-   * @brief Build a full output snapshot from the current vehicle model state.
-   * @return OutputSnapshot Snapshot ready to publish.
+   * @brief Build a consolidated vehicle model snapshot with all vehicle state data.
+   * @return VehicleModelSnapshot Consolidated snapshot with all vehicle data.
    */
-  OutputSnapshot build_output_snapshot() const;
+  VehicleModelSnapshot build_vehicle_model_snapshot() const;
+
+  /**
+   * @brief Build per-subsystem execution timings snapshot.
+   * @param total_step_ms Simulator step execution time in milliseconds.
+   * @return ExecutionTimesSnapshot Timing snapshot.
+   */
+  ExecutionTimesSnapshot build_execution_times_snapshot(double total_step_ms) const;
 
   /**
    * @brief Get snapshots of current input (locks briefly, returns values).

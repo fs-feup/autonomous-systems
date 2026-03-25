@@ -23,7 +23,7 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator)
       "invictasim/vehicle_model/battery", 10);
   motor_pub_ = this->create_publisher<custom_interfaces::msg::MotorState>(
       "invictasim/vehicle_model/motor", 10);
-  differential_pub_ = this->create_publisher<custom_interfaces::msg::DifferentialState>(
+  differential_pub_ = this->create_publisher<custom_interfaces::msg::WheelScalars>(
       "invictasim/vehicle_model/differential", 10);
   aero_pub_ = this->create_publisher<custom_interfaces::msg::AeroForces>(
       "invictasim/vehicle_model/aero", 10);
@@ -31,6 +31,8 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator)
       "invictasim/vehicle_model/load_transfer", 10);
   status_pub_ = this->create_publisher<custom_interfaces::msg::VehicleStateVector>(
       "invictasim/vehicle_model/status", 10);
+  execution_times_pub_ = this->create_publisher<custom_interfaces::msg::ExecutionTimes>(
+      "invictasim/execution_times", 10);
   visualization_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
       "invictasim/visualization/vehicle", 10);
 
@@ -75,58 +77,45 @@ bool RosOutputAdapter::publishes_at(const std::string& group, int frequency_hz) 
 }
 
 void RosOutputAdapter::on_frequency_tick(int frequency_hz) {
+  // Refresh consolidated snapshot once per tick
+  refresh_vehicle_model_snapshot();
+  refresh_execution_times_snapshot();
+
   if (publishes_at("tire", frequency_hz)) {
-    refresh_tire_snapshot();
     publish_tire_group();
   }
   if (publishes_at("motor", frequency_hz)) {
-    refresh_powertrain_snapshot();
     publish_motor_group();
   }
   if (publishes_at("battery", frequency_hz)) {
-    refresh_powertrain_snapshot();
     publish_battery_group();
   }
   if (publishes_at("differential", frequency_hz)) {
-    refresh_powertrain_snapshot();
     publish_differential_group();
   }
   if (publishes_at("aero", frequency_hz)) {
-    refresh_aero_snapshot();
     publish_aero_group();
   }
   if (publishes_at("load_transfer", frequency_hz)) {
-    refresh_load_snapshot();
     publish_load_group();
   }
   if (publishes_at("status", frequency_hz)) {
-    refresh_status_snapshot();
     publish_status_group();
   }
+  if (publishes_at("execution_times", frequency_hz)) {
+    publish_execution_times_group();
+  }
   if (publishes_at("visualization", frequency_hz)) {
-    refresh_status_snapshot();
     publish_visualization_group();
   }
 }
 
-void RosOutputAdapter::refresh_tire_snapshot() {
-  simulator_->get_tire_snapshot(tire_snapshot_cache_);
+void RosOutputAdapter::refresh_vehicle_model_snapshot() {
+  vehicle_model_snapshot_cache_ = simulator_->get_vehicle_model_snapshot();
 }
 
-void RosOutputAdapter::refresh_powertrain_snapshot() {
-  simulator_->get_powertrain_snapshot(powertrain_snapshot_cache_);
-}
-
-void RosOutputAdapter::refresh_aero_snapshot() {
-  simulator_->get_aero_snapshot(aero_snapshot_cache_);
-}
-
-void RosOutputAdapter::refresh_load_snapshot() {
-  simulator_->get_load_snapshot(load_snapshot_cache_);
-}
-
-void RosOutputAdapter::refresh_status_snapshot() {
-  simulator_->get_status_snapshot(status_snapshot_cache_);
+void RosOutputAdapter::refresh_execution_times_snapshot() {
+  execution_times_snapshot_cache_ = simulator_->get_execution_times_snapshot();
 }
 
 custom_interfaces::msg::WheelScalars RosOutputAdapter::to_wheels_msg(
@@ -147,22 +136,22 @@ void RosOutputAdapter::publish_tire_group() {
   custom_interfaces::msg::TireForces tire_forces_msg;
   tire_forces_msg.header.stamp = stamp;
   tire_forces_msg.header.frame_id = "base_link";
-  tire_forces_msg.fl_force.x = tire_snapshot_cache_.front_left_force[0];
-  tire_forces_msg.fl_force.y = tire_snapshot_cache_.front_left_force[1];
-  tire_forces_msg.fl_force.z = tire_snapshot_cache_.front_left_force[2];
-  tire_forces_msg.fr_force.x = tire_snapshot_cache_.front_right_force[0];
-  tire_forces_msg.fr_force.y = tire_snapshot_cache_.front_right_force[1];
-  tire_forces_msg.fr_force.z = tire_snapshot_cache_.front_right_force[2];
-  tire_forces_msg.rl_force.x = tire_snapshot_cache_.rear_left_force[0];
-  tire_forces_msg.rl_force.y = tire_snapshot_cache_.rear_left_force[1];
-  tire_forces_msg.rl_force.z = tire_snapshot_cache_.rear_left_force[2];
-  tire_forces_msg.rr_force.x = tire_snapshot_cache_.rear_right_force[0];
-  tire_forces_msg.rr_force.y = tire_snapshot_cache_.rear_right_force[1];
-  tire_forces_msg.rr_force.z = tire_snapshot_cache_.rear_right_force[2];
+  tire_forces_msg.fl_force.x = vehicle_model_snapshot_cache_.front_left_force[0];
+  tire_forces_msg.fl_force.y = vehicle_model_snapshot_cache_.front_left_force[1];
+  tire_forces_msg.fl_force.z = vehicle_model_snapshot_cache_.front_left_force[2];
+  tire_forces_msg.fr_force.x = vehicle_model_snapshot_cache_.front_right_force[0];
+  tire_forces_msg.fr_force.y = vehicle_model_snapshot_cache_.front_right_force[1];
+  tire_forces_msg.fr_force.z = vehicle_model_snapshot_cache_.front_right_force[2];
+  tire_forces_msg.rl_force.x = vehicle_model_snapshot_cache_.rear_left_force[0];
+  tire_forces_msg.rl_force.y = vehicle_model_snapshot_cache_.rear_left_force[1];
+  tire_forces_msg.rl_force.z = vehicle_model_snapshot_cache_.rear_left_force[2];
+  tire_forces_msg.rr_force.x = vehicle_model_snapshot_cache_.rear_right_force[0];
+  tire_forces_msg.rr_force.y = vehicle_model_snapshot_cache_.rear_right_force[1];
+  tire_forces_msg.rr_force.z = vehicle_model_snapshot_cache_.rear_right_force[2];
   tire_forces_pub_->publish(tire_forces_msg);
 
-  tire_slip_ratio_pub_->publish(to_wheels_msg(tire_snapshot_cache_.slip_ratio, stamp));
-  tire_slip_angle_pub_->publish(to_wheels_msg(tire_snapshot_cache_.slip_angle, stamp));
+  tire_slip_ratio_pub_->publish(to_wheels_msg(vehicle_model_snapshot_cache_.slip_ratio, stamp));
+  tire_slip_angle_pub_->publish(to_wheels_msg(vehicle_model_snapshot_cache_.slip_angle, stamp));
 }
 
 void RosOutputAdapter::publish_motor_group() {
@@ -171,12 +160,12 @@ void RosOutputAdapter::publish_motor_group() {
   custom_interfaces::msg::MotorState motor_msg;
   motor_msg.header.stamp = stamp;
   motor_msg.header.frame_id = "base_link";
-  motor_msg.torque = powertrain_snapshot_cache_.motor_torque;
-  motor_msg.omega = powertrain_snapshot_cache_.motor_omega;
-  motor_msg.rpm = powertrain_snapshot_cache_.motor_omega * 60.0 / (2.0 * M_PI);
-  motor_msg.current = powertrain_snapshot_cache_.motor_current;
-  motor_msg.thermal_state = powertrain_snapshot_cache_.motor_thermal_state;
-  motor_msg.thermal_capacity = powertrain_snapshot_cache_.motor_thermal_capacity;
+  motor_msg.torque = vehicle_model_snapshot_cache_.motor_torque;
+  motor_msg.omega = vehicle_model_snapshot_cache_.motor_omega;
+  motor_msg.rpm = vehicle_model_snapshot_cache_.motor_omega * 60.0 / (2.0 * M_PI);
+  motor_msg.current = vehicle_model_snapshot_cache_.motor_current;
+  motor_msg.thermal_state = vehicle_model_snapshot_cache_.motor_thermal_state;
+  motor_msg.thermal_capacity = vehicle_model_snapshot_cache_.motor_thermal_capacity;
   motor_pub_->publish(motor_msg);
 }
 
@@ -186,55 +175,61 @@ void RosOutputAdapter::publish_battery_group() {
   custom_interfaces::msg::BatteryState battery_msg;
   battery_msg.header.stamp = stamp;
   battery_msg.header.frame_id = "base_link";
-  battery_msg.voltage = powertrain_snapshot_cache_.battery_voltage;
-  battery_msg.open_circuit_voltage = powertrain_snapshot_cache_.battery_open_circuit_voltage;
-  battery_msg.soc = powertrain_snapshot_cache_.battery_soc;
-  battery_msg.current = powertrain_snapshot_cache_.battery_current;
+  battery_msg.voltage = vehicle_model_snapshot_cache_.battery_voltage;
+  battery_msg.open_circuit_voltage = vehicle_model_snapshot_cache_.battery_open_circuit_voltage;
+  battery_msg.soc = vehicle_model_snapshot_cache_.battery_soc;
+  battery_msg.current = vehicle_model_snapshot_cache_.battery_current;
   battery_pub_->publish(battery_msg);
 }
 
 void RosOutputAdapter::publish_differential_group() {
-  rclcpp::Time stamp = this->now();
-
-  custom_interfaces::msg::DifferentialState differential_msg;
-  differential_msg.header.stamp = stamp;
-  differential_msg.header.frame_id = "base_link";
-  differential_msg.torque_fl = powertrain_snapshot_cache_.differential_torque.front_left;
-  differential_msg.torque_fr = powertrain_snapshot_cache_.differential_torque.front_right;
-  differential_msg.torque_rl = powertrain_snapshot_cache_.differential_torque.rear_left;
-  differential_msg.torque_rr = powertrain_snapshot_cache_.differential_torque.rear_right;
-  differential_pub_->publish(differential_msg);
+  differential_pub_->publish(
+      to_wheels_msg(vehicle_model_snapshot_cache_.differential_torque, this->now()));
 }
 
 void RosOutputAdapter::publish_aero_group() {
   custom_interfaces::msg::AeroForces aero_msg;
   aero_msg.header.stamp = this->now();
   aero_msg.header.frame_id = "base_link";
-  aero_msg.drag = aero_snapshot_cache_.drag;
-  aero_msg.downforce = aero_snapshot_cache_.downforce;
+  aero_msg.drag = vehicle_model_snapshot_cache_.aero_drag;
+  aero_msg.downforce = vehicle_model_snapshot_cache_.aero_downforce;
   aero_pub_->publish(aero_msg);
 }
 
 void RosOutputAdapter::publish_load_group() {
-  load_pub_->publish(to_wheels_msg(load_snapshot_cache_.vertical_load, this->now()));
+  load_pub_->publish(to_wheels_msg(vehicle_model_snapshot_cache_.vertical_load, this->now()));
 }
 
 void RosOutputAdapter::publish_status_group() {
   custom_interfaces::msg::VehicleStateVector status_msg;
   status_msg.header.stamp = this->now();
   status_msg.header.frame_id = "base_link";
-  status_msg.yaw_rate = status_snapshot_cache_.yaw_rate;
-  status_msg.velocity_x = status_snapshot_cache_.velocity_x;
-  status_msg.velocity_y = status_snapshot_cache_.velocity_y;
-  status_msg.acceleration_x = status_snapshot_cache_.acceleration_x;
-  status_msg.acceleration_y = status_snapshot_cache_.acceleration_y;
-  status_msg.steering_angle = status_snapshot_cache_.steering_angle;
-  auto wheels_speed = status_snapshot_cache_.wheel_speed;
+  status_msg.yaw_rate = vehicle_model_snapshot_cache_.yaw_rate;
+  status_msg.velocity_x = vehicle_model_snapshot_cache_.velocity_x;
+  status_msg.velocity_y = vehicle_model_snapshot_cache_.velocity_y;
+  status_msg.acceleration_x = vehicle_model_snapshot_cache_.acceleration_x;
+  status_msg.acceleration_y = vehicle_model_snapshot_cache_.acceleration_y;
+  status_msg.steering_angle = vehicle_model_snapshot_cache_.steering_angle;
+  auto wheels_speed = vehicle_model_snapshot_cache_.wheel_speed;
   status_msg.fl_rpm = wheels_speed.front_left * 60.0 / (2.0 * M_PI);
   status_msg.fr_rpm = wheels_speed.front_right * 60.0 / (2.0 * M_PI);
   status_msg.rl_rpm = wheels_speed.rear_left * 60.0 / (2.0 * M_PI);
   status_msg.rr_rpm = wheels_speed.rear_right * 60.0 / (2.0 * M_PI);
   status_pub_->publish(status_msg);
+}
+
+void RosOutputAdapter::publish_execution_times_group() {
+  custom_interfaces::msg::ExecutionTimes times_msg;
+  times_msg.header.stamp = this->now();
+  times_msg.header.frame_id = "base_link";
+  times_msg.powertrain_ms = execution_times_snapshot_cache_.powertrain_ms;
+  times_msg.differential_ms = execution_times_snapshot_cache_.differential_ms;
+  times_msg.aero_ms = execution_times_snapshot_cache_.aero_ms;
+  times_msg.steering_ms = execution_times_snapshot_cache_.steering_ms;
+  times_msg.load_transfer_ms = execution_times_snapshot_cache_.load_transfer_ms;
+  times_msg.tire_ms = execution_times_snapshot_cache_.tire_ms;
+  times_msg.total_step_ms = execution_times_snapshot_cache_.total_step_ms;
+  execution_times_pub_->publish(times_msg);
 }
 
 void RosOutputAdapter::publish_visualization_group() {
@@ -287,7 +282,7 @@ void RosOutputAdapter::publish_body_marker(visualization_msgs::msg::MarkerArray&
   constexpr double model_offset_x = 0.9;
 
   tf2::Quaternion q_heading;
-  q_heading.setRPY(0.0, 0.0, status_snapshot_cache_.yaw);
+  q_heading.setRPY(0.0, 0.0, vehicle_model_snapshot_cache_.yaw);
   tf2::Quaternion q_mesh_offset;
   q_mesh_offset.setRPY(-M_PI_2, 0.0, 0.0);
   tf2::Quaternion q_body = q_heading * q_mesh_offset;
@@ -300,10 +295,10 @@ void RosOutputAdapter::publish_body_marker(visualization_msgs::msg::MarkerArray&
   body.id = 0;
   body.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
   body.action = visualization_msgs::msg::Marker::ADD;
-  body.pose.position.x =
-      status_snapshot_cache_.x + std::cos(status_snapshot_cache_.yaw) * model_offset_x;
-  body.pose.position.y =
-      status_snapshot_cache_.y + std::sin(status_snapshot_cache_.yaw) * model_offset_x;
+  body.pose.position.x = vehicle_model_snapshot_cache_.x +
+                         std::cos(vehicle_model_snapshot_cache_.yaw) * model_offset_x;
+  body.pose.position.y = vehicle_model_snapshot_cache_.y +
+                         std::sin(vehicle_model_snapshot_cache_.yaw) * model_offset_x;
   body.pose.position.z = 0.0;
   body.pose.orientation.x = q_body.x();
   body.pose.orientation.y = q_body.y();
@@ -329,19 +324,19 @@ void RosOutputAdapter::publish_wheel_markers(visualization_msgs::msg::MarkerArra
   constexpr double wheel_center_z = 0.204;
 
   if (dt > 0.0) {
-    const auto wheel_speed = status_snapshot_cache_.wheel_speed;
+    const auto wheel_speed = vehicle_model_snapshot_cache_.wheel_speed;
     wheel_spin_fl_ += (wheel_speed.front_left / wheel_radius) * dt;
     wheel_spin_fr_ += (wheel_speed.front_right / wheel_radius) * dt;
     wheel_spin_rl_ += (wheel_speed.rear_left / wheel_radius) * dt;
     wheel_spin_rr_ += (wheel_speed.rear_right / wheel_radius) * dt;
   }
 
-  const double body_x = status_snapshot_cache_.x;
-  const double body_y = status_snapshot_cache_.y;
-  const double yaw = status_snapshot_cache_.yaw;
+  const double body_x = vehicle_model_snapshot_cache_.x;
+  const double body_y = vehicle_model_snapshot_cache_.y;
+  const double yaw = vehicle_model_snapshot_cache_.yaw;
   const double c = std::cos(yaw);
   const double s = std::sin(yaw);
-  const double steer = status_snapshot_cache_.steering_angle;
+  const double steer = vehicle_model_snapshot_cache_.steering_angle;
 
   // Hardcoded for current mesh car from pacsim, will be done with parameters with 02
   const double local_x[4] = {

@@ -8,6 +8,15 @@
 #include "common_lib/structures/wheels.hpp"
 #include "config/config.hpp"
 
+struct VehicleModelExecutionTimes {
+  double powertrain_ms = 0.0;
+  double differential_ms = 0.0;
+  double aero_ms = 0.0;
+  double steering_ms = 0.0;
+  double load_transfer_ms = 0.0;
+  double tire_ms = 0.0;
+};
+
 /**
  * @brief Vehicle state struct, needs to be extended
  */
@@ -53,6 +62,7 @@ struct VehicleState {
   double moment_fx = 0.0;
   double self_aligning_moment = 0.0;
   double total_torque_z = 0.0;
+  VehicleModelExecutionTimes execution_times;
 };
 
 /**4
@@ -121,6 +131,7 @@ public:
   double get_moment_fx() const { return state_->moment_fx; }
   double get_self_aligning_moment() const { return state_->self_aligning_moment; }
   double get_total_torque_z() const { return state_->total_torque_z; }
+  VehicleModelExecutionTimes get_execution_times() const { return state_->execution_times; }
 
   // Specific getters
   virtual double get_motor_torque() const = 0;

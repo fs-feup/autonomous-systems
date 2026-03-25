@@ -1,5 +1,7 @@
 #include "vehicle_model/FSFEUP02.hpp"
 
+#include <chrono>
+
 FSFEUP02Model::FSFEUP02Model(const InvictaSimParameters& simulator_parameters)
     : VehicleModel(simulator_parameters) {
   this->tire_model_ = tire_models_map.at(simulator_parameters.tire_model.c_str())(
@@ -17,24 +19,34 @@ FSFEUP02Model::FSFEUP02Model(const InvictaSimParameters& simulator_parameters)
 }
 
 void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, double angle) {
+  using Clock = std::chrono::steady_clock;
+
   state_->steering_angle = angle;
 
-  // Motor
+  // Motor + battery
+  const auto powertrain_start = Clock::now();
   double throttle_input =
       (throttle.rear_left + throttle.rear_right) / 2.0;  // Average throttle for rear-wheel drive
   double motor_torque = calculate_powertrain_torque(throttle_input, dt);
+  const auto powertrain_end = Clock::now();
+
   // Distribute torque to the wheels
+  const auto differential_start = Clock::now();
   state_->wheels_torque =
       differential_->calculateTorqueDistribution(motor_torque, state_->wheels_speed);
+  const auto differential_end = Clock::now();
 
   // Aerodynamics
   // based on implementation, this forces are negative by default, so we add them
+  const auto aero_start = Clock::now();
   const Eigen::Vector3d aero_forces =
       aero_->aero_forces(Eigen::Vector3d(state_->vx, state_->vy, state_->yaw_rate));
   state_->aero_drag = aero_forces[0];
   state_->aero_downforce = aero_forces[2];
+  const auto aero_end = Clock::now();
 
   // Ackerman steering
+  const auto steering_start = Clock::now();
   double R = simulator_parameters_->car_parameters->wheelbase / (tan(angle) + 1e-6);
   double af = simulator_parameters_->car_parameters->steering_parameters->ackerman_factor;
 
@@ -50,12 +62,16 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
                  (R + simulator_parameters_->car_parameters->track_width / 2.0)) -
             angle) +
       simulator_parameters_->car_parameters->tire_parameters->fr_toe;
+  const auto steering_end = Clock::now();
 
   // Load Transfer
+  const auto load_transfer_start = Clock::now();
   state_->wheels_vertical_load = load_transfer_->compute_loads(
       LoadTransferInput{state_->ax, state_->ay, aero_forces[2]});  // aero_forces{Fx,Fy,Fz}
+  const auto load_transfer_end = Clock::now();
 
   // Tire
+  const auto tire_start = Clock::now();
   TireInput tire_input;
   tire_input.dt = dt;
   tire_input.vx = state_->vx;
@@ -105,6 +121,7 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   state_->front_right_forces[2] *= low_speed_factor;
   state_->rear_left_forces[2] *= low_speed_factor;
   state_->rear_right_forces[2] *= low_speed_factor;
+  const auto tire_end = Clock::now();
 
   // Update wheel speeds
   // Net torque = drive - tire_reaction (F * r acts as a braking moment on the wheel)
@@ -222,6 +239,20 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   // 2. Update Global Positions (Integration)
   state_->x += v_global_x * dt;
   state_->y += v_global_y * dt;
+
+  // Per-subsystem execution times in milliseconds.
+  state_->execution_times.powertrain_ms =
+      std::chrono::duration<double, std::milli>(powertrain_end - powertrain_start).count();
+  state_->execution_times.differential_ms =
+      std::chrono::duration<double, std::milli>(differential_end - differential_start).count();
+  state_->execution_times.aero_ms =
+      std::chrono::duration<double, std::milli>(aero_end - aero_start).count();
+  state_->execution_times.steering_ms =
+      std::chrono::duration<double, std::milli>(steering_end - steering_start).count();
+  state_->execution_times.load_transfer_ms =
+      std::chrono::duration<double, std::milli>(load_transfer_end - load_transfer_start).count();
+  state_->execution_times.tire_ms =
+      std::chrono::duration<double, std::milli>(tire_end - tire_start).count();
 }
 
 void FSFEUP02Model::reset() {
@@ -263,6 +294,7 @@ void FSFEUP02Model::reset() {
   state_->moment_fx = 0.0;
   state_->self_aligning_moment = 0.0;
   state_->total_torque_z = 0.0;
+  state_->execution_times = VehicleModelExecutionTimes{};
 }
 
 std::string FSFEUP02Model::get_model_name() const { return "FSFEUP02Model"; }
