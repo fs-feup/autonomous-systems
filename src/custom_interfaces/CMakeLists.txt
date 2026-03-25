@@ -55,7 +55,6 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/TireForces.msg"
   "msg/AeroForces.msg"
   "msg/WheelScalars.msg"
-  "msg/PowertrainState.msg"
   "msg/BatteryState.msg"
   "msg/MotorState.msg"
   "msg/ExecutionTimes.msg"
