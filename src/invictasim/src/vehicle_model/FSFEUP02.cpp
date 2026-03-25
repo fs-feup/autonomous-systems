@@ -164,6 +164,8 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
       Fx_fl + Fx_fr + state_->rear_left_forces[0] + state_->rear_right_forces[0] + aero_forces[0];
   double total_fy =
       Fy_fl + Fy_fr + state_->rear_left_forces[1] + state_->rear_right_forces[1] + aero_forces[1];
+  state_->total_force_x = total_fx;
+  state_->total_force_y = total_fy;
   double final_fx = total_fx;
 
   // Update accelerations using low-pass filter
@@ -190,6 +192,7 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   // 1. Moment from Lateral Forces (Fy)
   double moment_fy =
       (Fy_fl + Fy_fr) * lf - (state_->rear_left_forces[1] + state_->rear_right_forces[1]) * lr;
+  state_->moment_fy = moment_fy;
 
   // 2. Moment from Longitudinal Forces (Fx)
   // Right side pushing forward (+) and Left side pushing forward (-) creates yaw
@@ -199,12 +202,15 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   double moment_fx =
       (Fx_fr - Fx_fl) * half_width                                                  // front axle
       + (state_->rear_right_forces[0] - state_->rear_left_forces[0]) * half_width;  // rear axle
+  state_->moment_fx = moment_fx;
 
   // 3. Self-Aligning Moments (Mz) from the tires themselves
   double total_mz = state_->front_left_forces[2] + state_->front_right_forces[2] +
                     state_->rear_left_forces[2] + state_->rear_right_forces[2];
+  state_->self_aligning_moment = total_mz;
 
   double total_torque = moment_fy + moment_fx + total_mz;
+  state_->total_torque_z = total_torque;
 
   // Update yaw
   double yaw_a = total_torque / simulator_parameters_->car_parameters->Izz;
@@ -280,6 +286,12 @@ void FSFEUP02Model::reset() {
   state_->battery_soc = 0.0;
   state_->battery_current = 0.0;
   state_->battery_open_circuit_voltage = 0.0;
+  state_->total_force_x = 0.0;
+  state_->total_force_y = 0.0;
+  state_->moment_fy = 0.0;
+  state_->moment_fx = 0.0;
+  state_->self_aligning_moment = 0.0;
+  state_->total_torque_z = 0.0;
   *execution_times_ = VehicleModelExecutionTimes{};
 }
 

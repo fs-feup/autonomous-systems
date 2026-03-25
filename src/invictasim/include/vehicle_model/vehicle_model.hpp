@@ -56,6 +56,12 @@ struct VehicleState {
   double battery_soc = 0.0;
   double battery_current = 0.0;
   double battery_open_circuit_voltage = 0.0;
+  double total_force_x = 0.0;
+  double total_force_y = 0.0;
+  double moment_fy = 0.0;
+  double moment_fx = 0.0;
+  double self_aligning_moment = 0.0;
+  double total_torque_z = 0.0;
 };
 
 /**4
@@ -125,5 +131,11 @@ public:
   double get_battery_current() const { return state_->battery_current; }
   double get_battery_open_circuit_voltage() const { return state_->battery_open_circuit_voltage; }
   double get_steering_angle() const { return state_->steering_angle; }
+  double get_total_force_x() const { return state_->total_force_x; }
+  double get_total_force_y() const { return state_->total_force_y; }
+  double get_moment_fy() const { return state_->moment_fy; }
+  double get_moment_fx() const { return state_->moment_fx; }
+  double get_self_aligning_moment() const { return state_->self_aligning_moment; }
+  double get_total_torque_z() const { return state_->total_torque_z; }
   VehicleModelExecutionTimes get_execution_times() const { return *execution_times_; }
 };
