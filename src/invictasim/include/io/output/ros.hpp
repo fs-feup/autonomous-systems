@@ -36,43 +36,126 @@ public:
   void stop() override;
 
 private:
+  // Used for spinning wheels visualization
   double wheel_spin_fl_ = 0.0;
   double wheel_spin_fr_ = 0.0;
   double wheel_spin_rl_ = 0.0;
   double wheel_spin_rr_ = 0.0;
   double last_visualization_stamp_sec_ = -1.0;
 
-  void setup_timers();
-  void on_frequency_tick(int frequency_hz);
-  bool publishes_at(const std::string& group, int frequency_hz) const;
-  void publish_tire_group();
-  void publish_motor_group();
-  void publish_battery_group();
-  void publish_differential_group();
-  void publish_aero_group();
-  void publish_load_group();
-  void publish_status_group();
-  void publish_execution_times_group();
-  void publish_visualization_group();
-
-  void refresh_vehicle_model_snapshot();
-  void refresh_execution_times_snapshot();
-  custom_interfaces::msg::WheelScalars to_wheels_msg(const common_lib::structures::Wheels& wheels,
-                                                     const rclcpp::Time& stamp) const;
-  void publish_ground_marker(visualization_msgs::msg::MarkerArray& marker_array,
-                             const rclcpp::Time& stamp) const;
-  void publish_body_marker(visualization_msgs::msg::MarkerArray& marker_array,
-                           const rclcpp::Time& stamp) const;
-  void publish_wheel_markers(visualization_msgs::msg::MarkerArray& marker_array,
-                             const rclcpp::Time& stamp, double dt);
-
+  // Publishing timers and frequencies
   std::atomic<bool> running_;
   std::map<std::string, int> publish_frequencies_;
   std::map<int, rclcpp::TimerBase::SharedPtr> frequency_timers_;
 
-  // Single source of truth for all published vehicle-model values.
+  // Snapshot caches of data to be published
   VehicleModelSnapshot vehicle_model_snapshot_cache_;
   ExecutionTimesSnapshot execution_times_snapshot_cache_;
+
+  /**
+   * @brief Setup ROS timers for periodic publishing based on configured frequencies.
+   */
+  void setup_timers();
+
+  /**
+   * @brief Callback for timer ticks at different frequencies. Determines which data groups to
+   * publish based on the tick frequency.
+   */
+  void on_frequency_tick(int frequency_hz);
+
+  /**
+   * @brief Check if a given data group should be published at the specified frequency.
+   */
+  bool publishes_at(const std::string& group, int frequency_hz) const;
+
+  /**
+   * @brief Publish tire forces, slip ratio, and slip angle for all wheels.
+   */
+  void publish_tire_group();
+
+  /**
+   * @brief Publish motor state information.
+   */
+  void publish_motor_group();
+
+  /**
+   * @brief Publish battery state information.
+   */
+  void publish_battery_group();
+
+  /**
+   * @brief Publish differential state information.
+   */
+  void publish_differential_group();
+
+  /**
+   * @brief Publish aerodynamic forces information.
+   */
+  void publish_aero_group();
+
+  /**
+   * @brief Publish wheel vertical load information.
+   */
+  void publish_load_group();
+
+  /**
+   * @brief Publish vehicle status information.
+   */
+  void publish_status_group();
+
+  /**
+   * @brief Publish simulation execution times information.
+   */
+  void publish_execution_times_group();
+
+  /**
+   * @brief Publish visualization markers for the ground and vehicle.
+   */
+  void publish_visualization_group();
+
+  /**
+   * @brief Refresh the cached vehicle model snapshot with the latest data from the simulator.
+   */
+  void refresh_vehicle_model_snapshot();
+
+  /**
+   * @brief Refresh the cached execution times snapshot with the latest data from the simulator.
+   */
+  void refresh_execution_times_snapshot();
+
+  /**
+   * @brief Convert the given Wheels data into a WheelScalars ROS message, including the provided
+   * timestamp.
+   */
+  custom_interfaces::msg::WheelScalars to_wheels_msg(const common_lib::structures::Wheels& wheels,
+                                                     const rclcpp::Time& stamp) const;
+
+  /**
+   * @brief Publish visualization markers for the ground.
+   * @param marker_array Marker array to populate with visualization markers.
+   * @param stamp Current ROS time for timestamping markers.
+   */
+  void publish_ground_marker(visualization_msgs::msg::MarkerArray& marker_array,
+                             const rclcpp::Time& stamp) const;
+
+  /**
+   * @brief Publish visualization markers of the car body from mesh.
+   * @param marker_array Marker array to populate with visualization markers.
+   * @param stamp Current ROS time for timestamping markers.
+   */
+  void publish_body_marker(visualization_msgs::msg::MarkerArray& marker_array,
+                           const rclcpp::Time& stamp) const;
+
+  /**
+   * @brief Publish visualization markers for the spinning wheels, using the current wheel spin
+   * values.
+   * @param marker_array Marker array to populate with visualization markers.
+   * @param stamp Current ROS time for timestamping markers.
+   * @param dt Time delta since last visualization update, used for calculating wheel spin
+   * increments.
+   */
+  void publish_wheel_markers(visualization_msgs::msg::MarkerArray& marker_array,
+                             const rclcpp::Time& stamp, double dt);
 
   rclcpp::Publisher<custom_interfaces::msg::TireForces>::SharedPtr
       tire_forces_pub_;  ///< Publisher for tire forces.

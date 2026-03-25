@@ -52,6 +52,9 @@ struct VehicleModelSnapshot {
   common_lib::structures::Wheels wheel_speed = {0.0, 0.0, 0.0, 0.0};
 };
 
+/**
+ * @brief Snapshot of execution times for different components of the vehicle model
+ */
 struct ExecutionTimesSnapshot {
   double powertrain_ms = 0.0;
   double differential_ms = 0.0;
