@@ -1,9 +1,7 @@
 #include "io/output/ros.hpp"
 
-#include <chrono>
 #include <cmath>
 #include <set>
-#include <thread>
 
 #include "tf2/LinearMath/Quaternion.h"
 #include "visualization_msgs/msg/marker.hpp"
@@ -11,7 +9,7 @@
 RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator)
     : Node("invictasim_output", rclcpp::NodeOptions().use_global_arguments(false)),
       InvictaSimOutputAdapter(simulator),
-      running_(false),
+      running_(true),
       publish_frequencies_(simulator->get_params().publish_frequencies) {
   tire_forces_pub_ = this->create_publisher<custom_interfaces::msg::TireForces>(
       "invictasim/vehicle_model/tire/forces", 10);
@@ -41,12 +39,7 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator)
   setup_timers();
 }
 
-void RosOutputAdapter::run() {
-  running_ = true;
-  while (running_ && rclcpp::ok()) {
-    std::this_thread::sleep_for(std::chrono::milliseconds(20));
-  }
-}
+void RosOutputAdapter::run() {}
 
 void RosOutputAdapter::stop() { running_ = false; }
 
@@ -79,7 +72,7 @@ bool RosOutputAdapter::publishes_at(const std::string& group, int frequency_hz) 
 }
 
 void RosOutputAdapter::on_frequency_tick(int frequency_hz) {
-  // Refresh consolidated snapshot once per tick
+  // Refresh snapshot once per tick
   refresh_vehicle_model_snapshot();
   refresh_execution_times_snapshot();
 

@@ -1,7 +1,5 @@
 #include "vehicle_model/FSFEUP02.hpp"
 
-#include <chrono>
-
 FSFEUP02Model::FSFEUP02Model(const InvictaSimParameters& simulator_parameters)
     : VehicleModel(simulator_parameters) {
   this->tire_model_ = tire_models_map.at(simulator_parameters.tire_model.c_str())(
@@ -166,8 +164,6 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
       Fx_fl + Fx_fr + state_->rear_left_forces[0] + state_->rear_right_forces[0] + aero_forces[0];
   double total_fy =
       Fy_fl + Fy_fr + state_->rear_left_forces[1] + state_->rear_right_forces[1] + aero_forces[1];
-  state_->total_force_x = total_fx;
-  state_->total_force_y = total_fy;
   double final_fx = total_fx;
 
   // Update accelerations using low-pass filter
@@ -194,7 +190,6 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   // 1. Moment from Lateral Forces (Fy)
   double moment_fy =
       (Fy_fl + Fy_fr) * lf - (state_->rear_left_forces[1] + state_->rear_right_forces[1]) * lr;
-  state_->moment_fy = moment_fy;
 
   // 2. Moment from Longitudinal Forces (Fx)
   // Right side pushing forward (+) and Left side pushing forward (-) creates yaw
@@ -204,15 +199,12 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   double moment_fx =
       (Fx_fr - Fx_fl) * half_width                                                  // front axle
       + (state_->rear_right_forces[0] - state_->rear_left_forces[0]) * half_width;  // rear axle
-  state_->moment_fx = moment_fx;
 
   // 3. Self-Aligning Moments (Mz) from the tires themselves
   double total_mz = state_->front_left_forces[2] + state_->front_right_forces[2] +
                     state_->rear_left_forces[2] + state_->rear_right_forces[2];
-  state_->self_aligning_moment = total_mz;
 
   double total_torque = moment_fy + moment_fx + total_mz;
-  state_->total_torque_z = total_torque;
 
   // Update yaw
   double yaw_a = total_torque / simulator_parameters_->car_parameters->Izz;
@@ -241,17 +233,17 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   state_->y += v_global_y * dt;
 
   // Per-subsystem execution times in milliseconds.
-  state_->execution_times.powertrain_ms =
+  execution_times_->powertrain_ms =
       std::chrono::duration<double, std::milli>(powertrain_end - powertrain_start).count();
-  state_->execution_times.differential_ms =
+  execution_times_->differential_ms =
       std::chrono::duration<double, std::milli>(differential_end - differential_start).count();
-  state_->execution_times.aero_ms =
+  execution_times_->aero_ms =
       std::chrono::duration<double, std::milli>(aero_end - aero_start).count();
-  state_->execution_times.steering_ms =
+  execution_times_->steering_ms =
       std::chrono::duration<double, std::milli>(steering_end - steering_start).count();
-  state_->execution_times.load_transfer_ms =
+  execution_times_->load_transfer_ms =
       std::chrono::duration<double, std::milli>(load_transfer_end - load_transfer_start).count();
-  state_->execution_times.tire_ms =
+  execution_times_->tire_ms =
       std::chrono::duration<double, std::milli>(tire_end - tire_start).count();
 }
 
@@ -288,24 +280,10 @@ void FSFEUP02Model::reset() {
   state_->battery_soc = 0.0;
   state_->battery_current = 0.0;
   state_->battery_open_circuit_voltage = 0.0;
-  state_->total_force_x = 0.0;
-  state_->total_force_y = 0.0;
-  state_->moment_fy = 0.0;
-  state_->moment_fx = 0.0;
-  state_->self_aligning_moment = 0.0;
-  state_->total_torque_z = 0.0;
-  state_->execution_times = VehicleModelExecutionTimes{};
+  *execution_times_ = VehicleModelExecutionTimes{};
 }
 
 std::string FSFEUP02Model::get_model_name() const { return "FSFEUP02Model"; }
-
-double FSFEUP02Model::get_motor_torque() const { return state_->motor_torque; }
-
-double FSFEUP02Model::get_battery_current() const { return state_->battery_current; }
-
-double FSFEUP02Model::get_battery_voltage() const { return state_->battery_voltage; }
-
-double FSFEUP02Model::get_battery_soc() const { return state_->battery_soc; }
 
 double FSFEUP02Model::calculate_powertrain_torque(double throttle_input, double dt) {
   double avg_wheel_speed =

@@ -56,13 +56,6 @@ struct VehicleState {
   double battery_soc = 0.0;
   double battery_current = 0.0;
   double battery_open_circuit_voltage = 0.0;
-  double total_force_x = 0.0;
-  double total_force_y = 0.0;
-  double moment_fy = 0.0;
-  double moment_fx = 0.0;
-  double self_aligning_moment = 0.0;
-  double total_torque_z = 0.0;
-  VehicleModelExecutionTimes execution_times;
 };
 
 /**4
@@ -75,6 +68,7 @@ class VehicleModel {
 protected:
   std::shared_ptr<InvictaSimParameters> simulator_parameters_;
   std::shared_ptr<VehicleState> state_;
+  std::shared_ptr<VehicleModelExecutionTimes> execution_times_;
 
 public:
   /**
@@ -82,7 +76,8 @@ public:
    */
   VehicleModel(const InvictaSimParameters& simulator_parameters)
       : simulator_parameters_(std::make_shared<InvictaSimParameters>(simulator_parameters)),
-        state_(std::make_shared<VehicleState>()) {}
+        state_(std::make_shared<VehicleState>()),
+        execution_times_(std::make_shared<VehicleModelExecutionTimes>()) {}
 
   /**
    * @brief Destroy the VehicleModel object
@@ -92,6 +87,7 @@ public:
   // Core functions that all vehicle models must implement
   virtual void step(double dt, common_lib::structures::Wheels throttle, double angle) = 0;
   virtual void reset() = 0;
+  virtual std::string get_model_name() const = 0;
 
   // Common getters
   double get_position_x() const { return state_->x; }
@@ -119,47 +115,15 @@ public:
   Eigen::Vector3d get_rear_right_forces() const { return state_->rear_right_forces; }
   double get_aero_drag() const { return state_->aero_drag; }
   double get_aero_downforce() const { return state_->aero_downforce; }
+  double get_motor_torque() const { return state_->motor_torque; }
   double get_motor_omega() const { return state_->motor_omega; }
   double get_motor_current() const { return state_->motor_current; }
   double get_motor_thermal_state() const { return state_->motor_thermal_state; }
   double get_motor_thermal_capacity() const { return state_->motor_thermal_capacity; }
+  double get_battery_voltage() const { return state_->battery_voltage; }
+  double get_battery_soc() const { return state_->battery_soc; }
+  double get_battery_current() const { return state_->battery_current; }
   double get_battery_open_circuit_voltage() const { return state_->battery_open_circuit_voltage; }
   double get_steering_angle() const { return state_->steering_angle; }
-  double get_total_force_x() const { return state_->total_force_x; }
-  double get_total_force_y() const { return state_->total_force_y; }
-  double get_moment_fy() const { return state_->moment_fy; }
-  double get_moment_fx() const { return state_->moment_fx; }
-  double get_self_aligning_moment() const { return state_->self_aligning_moment; }
-  double get_total_torque_z() const { return state_->total_torque_z; }
-  VehicleModelExecutionTimes get_execution_times() const { return state_->execution_times; }
-
-  // Specific getters
-  virtual double get_motor_torque() const = 0;
-  virtual double get_battery_current() const = 0;
-  virtual double get_battery_voltage() const = 0;
-  virtual double get_battery_soc() const = 0;
-  virtual std::string get_model_name() const = 0;
-
-  // Essential model setters
-  void set_position(double x, double y, double z) {
-    state_->x = x;
-    state_->y = y;
-    state_->z = z;
-  }
-  void set_velocity(double vx, double vy, double vz) {
-    state_->vx = vx;
-    state_->vy = vy;
-    state_->vz = vz;
-  }
-  void set_orientation(double roll, double pitch, double yaw) {
-    state_->roll = roll;
-    state_->pitch = pitch;
-    state_->yaw = yaw;
-  }
-  void set_wheels_speed(const common_lib::structures::Wheels& wheels_speed) {
-    state_->wheels_speed = wheels_speed;
-  }
-  void set_wheels_torque(const common_lib::structures::Wheels& wheels_torque) {
-    state_->wheels_torque = wheels_torque;
-  }
+  VehicleModelExecutionTimes get_execution_times() const { return *execution_times_; }
 };

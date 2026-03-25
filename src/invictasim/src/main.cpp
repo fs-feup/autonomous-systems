@@ -26,29 +26,25 @@ int main(int argc, char* argv[]) {
   auto output_adapter = output_adapters_map.at(params.output_adapter.c_str())(simulator);
 
   std::thread simulator_thread([&simulator]() { simulator->run(); });
-  std::thread input_thread([&input_adapter]() { input_adapter->run(); });
-  std::thread output_thread([&output_adapter]() { output_adapter->run(); });
-
-  auto ros_input_node = std::dynamic_pointer_cast<rclcpp::Node>(input_adapter);
-  auto ros_output_node = std::dynamic_pointer_cast<rclcpp::Node>(output_adapter);
+  std::thread input_thread;
+  std::thread output_thread;
 
   rclcpp::executors::MultiThreadedExecutor executor;
-  if (ros_input_node) {
+
+  if (auto ros_input_node = std::dynamic_pointer_cast<rclcpp::Node>(input_adapter)) {
     executor.add_node(ros_input_node);
-  }
-  if (ros_output_node) {
-    executor.add_node(ros_output_node);
+  } else {
+    input_thread = std::thread([&input_adapter]() { input_adapter->run(); });
   }
 
-  if (ros_input_node || ros_output_node) {
-    executor.spin();
+  if (auto ros_output_node = std::dynamic_pointer_cast<rclcpp::Node>(output_adapter)) {
+    executor.add_node(ros_output_node);
   } else {
-    while (rclcpp::ok()) {
-      // This is for the main thread to just sleep while the simulator, input, and output
-      // threads do their work. This delay only affects how quickly the main dies after the
-      // simulator is stopped, does not affect the sim itself.
-      std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    }
+    output_thread = std::thread([&output_adapter]() { output_adapter->run(); });
+  }
+
+  while (rclcpp::ok()) {
+    executor.spin_some(std::chrono::milliseconds(1));
   }
 
   simulator->stop();
