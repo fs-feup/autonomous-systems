@@ -296,15 +296,19 @@ private:
   std::shared_ptr<Midpoint> find_nearest_midpoint(const Point& target) const;
 
   /**
-   * @brief Find the optimal point to close a track loop.
+   * @brief Finds the best loop closure point in a path.
    *
-   * Evaluates each point in the path to determine which produces the
-   * smoothest closure back to the starting point.
+
    *
-   * @param path The path points to analyze.
-   * @return Index of the best cutoff point.
+   * @param path A vector of PathPoint objects representing the path to analyze.
+   *             Each PathPoint must have a valid position with x and y coordinates.
+   *
+   * @return std::pair<int, double>
+   *         - first: The index of the path point that represents the optimal loop closure.
+   *         - second: The minimal combined cost associated with closing the loop at
+   *                   the returned index.
    */
-  int find_best_loop_closure(const std::vector<PathPoint>& path) const;
+  std::pair<int, double> find_best_loop_closure(const std::vector<PathPoint>& path) const;
 
   /**
    * @brief Converts a vector of Colorpoint objects into a vector of PathPoint objects.
