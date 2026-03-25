@@ -95,5 +95,7 @@ private:
   rclcpp::Publisher<custom_interfaces::msg::ExecutionTimes>::SharedPtr
       execution_times_pub_;  ///< Publisher for simulation execution timings.
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
-      visualization_pub_;  ///< Publisher for foxglove visualization marker.
+      visualization_ground_pub_;  ///< Publisher for ground visualization markers.
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
+      visualization_vehicle_pub_;  ///< Publisher for vehicle visualization markers.
 };

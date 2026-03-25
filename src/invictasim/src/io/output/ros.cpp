@@ -33,7 +33,9 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator)
       "invictasim/vehicle_model/status", 10);
   execution_times_pub_ = this->create_publisher<custom_interfaces::msg::ExecutionTimes>(
       "invictasim/execution_times", 10);
-  visualization_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
+  visualization_ground_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
+      "invictasim/visualization/ground", 10);
+  visualization_vehicle_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
       "invictasim/visualization/vehicle", 10);
 
   setup_timers();
@@ -244,11 +246,15 @@ void RosOutputAdapter::publish_visualization_group() {
     dt = 0.0;
   }
 
-  visualization_msgs::msg::MarkerArray marker_array;
-  publish_ground_marker(marker_array, stamp);
-  publish_body_marker(marker_array, stamp);
-  publish_wheel_markers(marker_array, stamp, dt);
-  visualization_pub_->publish(marker_array);
+  visualization_msgs::msg::MarkerArray ground_marker_array;
+  visualization_msgs::msg::MarkerArray vehicle_marker_array;
+
+  publish_ground_marker(ground_marker_array, stamp);
+  publish_body_marker(vehicle_marker_array, stamp);
+  publish_wheel_markers(vehicle_marker_array, stamp, dt);
+
+  visualization_ground_pub_->publish(ground_marker_array);
+  visualization_vehicle_pub_->publish(vehicle_marker_array);
 }
 
 void RosOutputAdapter::publish_ground_marker(visualization_msgs::msg::MarkerArray& marker_array,

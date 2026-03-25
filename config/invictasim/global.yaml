@@ -6,12 +6,12 @@ invictasim:
   timestep: 0.001  # seconds (0.001s = 1000 Hz)
   track_name: "FSG23"
   publish_frequencies:
-    tire: 50
-    battery: 50
-    motor: 50
-    differential: 50
-    aero: 50
-    load_transfer: 50
-    status: 1000
+    tire: 100
+    battery: 100
+    motor: 100
+    differential: 100
+    aero: 100
+    load_transfer: 100
+    status: 100
     execution_times: 30
     visualization: 30
