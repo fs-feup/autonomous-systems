@@ -99,16 +99,6 @@ private:
                            const std::function<void(int, int, double)>& add_coefficient) const;
 
   /**
-   * @brief Adds smoothness penalty terms to the quadratic objective function.
-   *
-   * @param num_path_points Number of points in the path
-   * @param circular_index Lambda function for circular array indexing
-   * @param add_coefficient Lambda function to add coefficients to the objective matrix
-   */
-  void add_smoothness_terms(int num_path_points, const std::function<int(int)>& circular_index,
-                            const std::function<void(int, int, double)>& add_coefficient) const;
-
-  /**
    * @brief Adds penalty terms for slack variables to the quadratic objective function.
    *
    * @param num_path_points Number of points in the path

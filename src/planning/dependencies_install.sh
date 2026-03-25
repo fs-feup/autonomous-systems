@@ -11,18 +11,20 @@ echo ">>> Installing OSQP dependencies for planning module..."
 echo "    Repo root: ${REPO_ROOT}"
 
 # Check submodules are initialized
-if [ ! -f "${OSQP_DIR}/src/CMakeLists.txt" ]; then
-    echo "ERROR: ext/osqp submodule not initialized."
-    echo "Run: git submodule update --init --recursive"
-    exit 1
-fi
-if [ ! -f "${OSQP_EIGEN_DIR}/src/CMakeLists.txt" ]; then
-    echo "ERROR: ext/osqp-eigen submodule not initialized."
-    echo "Run: git submodule update --init --recursive"
+if [[ ! -f "${OSQP_DIR}/src/CMakeLists.txt" ]]; then
+    echo "ERROR: ext/osqp submodule not initialized." >&2
+    echo "Run: git submodule update --init --recursive" >&2
     exit 1
 fi
 
-# System deps
+if [[ ! -f "${OSQP_EIGEN_DIR}/src/CMakeLists.txt" ]]; then
+    echo "ERROR: ext/osqp-eigen submodule not initialized." >&2
+    echo "Run: git submodule update --init --recursive" >&2
+    exit 1
+fi
+
+# System dependencies
+echo ">>> Installing system dependencies..."
 sudo apt-get update
 sudo apt-get install -y \
     build-essential \
@@ -33,22 +35,30 @@ sudo apt-get install -y \
     libgsl-dev
 
 # Build OSQP
+echo ">>> Building OSQP..."
 cd "${OSQP_DIR}/src"
-mkdir -p build && cd build
+mkdir -p build
+cd build
+
 cmake -G "Unix Makefiles" \
     -DCMAKE_INSTALL_PREFIX="${INSTALL_PREFIX}" \
     -DCMAKE_BUILD_TYPE=Release \
     ..
+
 cmake --build . --target install
 
 # Build osqp-eigen
+echo ">>> Building osqp-eigen..."
 cd "${OSQP_EIGEN_DIR}/src"
-mkdir -p build && cd build
+mkdir -p build
+cd build
+
 cmake \
     -DCMAKE_PREFIX_PATH="${INSTALL_PREFIX}" \
     -DCMAKE_INSTALL_PREFIX="${INSTALL_PREFIX}" \
     -DCMAKE_BUILD_TYPE=Release \
     ..
+
 make -j$(nproc)
 make install
 
