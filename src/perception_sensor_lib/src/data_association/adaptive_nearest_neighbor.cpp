@@ -1,4 +1,4 @@
-#include "perception_sensor_lib/data_association/iterative_nearest_neighbor.hpp"
+#include "perception_sensor_lib/data_association/adaptive_nearest_neighbor.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -6,22 +6,13 @@
 
 #include "perception_sensor_lib/data_association/nearest_neighbor.hpp"
 
-namespace {
+AdaptiveNearestNeighbor::AdaptiveNearestNeighbor(const DataAssociationParameters& params)
+    : DataAssociationModel(params) {}
 
-// TODO: move these to DataAssociationParameters once the configuration plumbing is added.
-constexpr double kFirstPassRadiusMeters = 10.0;
-constexpr int kNumClosestNeighborsToEvaluate = 3;
-
-static_assert(kNumClosestNeighborsToEvaluate >= 2,
-              "IterativeNearestNeighbor requires at least 2 tentative neighbors.");
-
-void get_tentative_nearest_neighbors(const Eigen::VectorXd& landmarks,
-                                     const Eigen::VectorXd& observations,
-                                     const Eigen::VectorXd& observation_confidences,
-                                     const DataAssociationParameters& params,
-                                     const Eigen::Vector3d& pose,
-                                     Eigen::VectorXi& nearest_landmarks,
-                                     Eigen::VectorXd& nearest_distances) {
+void AdaptiveNearestNeighbor::get_tentative_nearest_neighbors(
+    const Eigen::VectorXd& landmarks, const Eigen::VectorXd& observations,
+    const Eigen::VectorXd& observation_confidences, const Eigen::Vector3d& pose,
+    Eigen::VectorXi& nearest_landmarks, Eigen::VectorXd& nearest_distances) const {
   const int num_observations = observations.size() / 2;
   const int num_landmarks = landmarks.size() / 2;
 
@@ -30,14 +21,14 @@ void get_tentative_nearest_neighbors(const Eigen::VectorXd& landmarks,
       Eigen::VectorXd::Constant(num_observations, std::numeric_limits<double>::infinity());
 
   for (int observation_idx = 0; observation_idx < num_observations; ++observation_idx) {
-    if (observation_confidences(observation_idx) < params.new_landmark_confidence_gate) {
+    if (observation_confidences(observation_idx) < this->_params_.new_landmark_confidence_gate) {
       continue;
     }
 
     const double observation_distance_to_pose =
         std::hypot(observations(2 * observation_idx) - pose(0),
                    observations(2 * observation_idx + 1) - pose(1));
-    if (observation_distance_to_pose > kFirstPassRadiusMeters) {
+    if (observation_distance_to_pose > this->_params_.seed_radius) {
       continue;
     }
 
@@ -54,10 +45,11 @@ void get_tentative_nearest_neighbors(const Eigen::VectorXd& landmarks,
   }
 }
 
-Eigen::VectorXi get_seed_observation_indices(const Eigen::VectorXi& nearest_landmarks,
-                                             const Eigen::VectorXd& nearest_distances) {
+Eigen::VectorXi AdaptiveNearestNeighbor::get_seed_observation_indices(
+    const Eigen::VectorXi& nearest_landmarks, const Eigen::VectorXd& nearest_distances) const {
+  const int max_seed_observations = std::max(2, this->_params_.seed_count);
   const int num_seed_slots =
-      std::min(static_cast<int>(nearest_landmarks.size()), kNumClosestNeighborsToEvaluate);
+      std::min(static_cast<int>(nearest_landmarks.size()), max_seed_observations);
   Eigen::VectorXi closest_observation_indices = Eigen::VectorXi::Constant(num_seed_slots, -1);
   Eigen::VectorXd closest_distances =
       Eigen::VectorXd::Constant(num_seed_slots, std::numeric_limits<double>::infinity());
@@ -98,10 +90,10 @@ Eigen::VectorXi get_seed_observation_indices(const Eigen::VectorXi& nearest_land
   return seed_observation_indices;
 }
 
-bool estimate_transform_from_pair(const Eigen::VectorXd& landmarks,
-                                  const Eigen::VectorXd& observations, int first_observation_idx,
-                                  int first_landmark_idx, int second_observation_idx,
-                                  int second_landmark_idx, Eigen::Vector3d& transform) {
+bool AdaptiveNearestNeighbor::estimate_transform_from_pair(
+    const Eigen::VectorXd& landmarks, const Eigen::VectorXd& observations,
+    int first_observation_idx, int first_landmark_idx, int second_observation_idx,
+    int second_landmark_idx, Eigen::Vector3d& transform) const {
   if (first_observation_idx == second_observation_idx ||
       first_landmark_idx == second_landmark_idx) {
     return false;
@@ -125,9 +117,11 @@ bool estimate_transform_from_pair(const Eigen::VectorXd& landmarks,
   return true;
 }
 
-void score_associations(const Eigen::VectorXd& landmarks, const Eigen::VectorXd& observations,
-                        const Eigen::VectorXi& associations, int& num_associations,
-                        double& total_distance) {
+void AdaptiveNearestNeighbor::score_associations(const Eigen::VectorXd& landmarks,
+                                                 const Eigen::VectorXd& observations,
+                                                 const Eigen::VectorXi& associations,
+                                                 int& num_associations,
+                                                 double& total_distance) const {
   num_associations = 0;
   total_distance = 0.0;
 
@@ -144,12 +138,7 @@ void score_associations(const Eigen::VectorXd& landmarks, const Eigen::VectorXd&
   }
 }
 
-}  // namespace
-
-IterativeNearestNeighbor::IterativeNearestNeighbor(const DataAssociationParameters& params)
-    : DataAssociationModel(params) {}
-
-Eigen::VectorXi IterativeNearestNeighbor::associate(const Eigen::VectorXd& landmarks,
+Eigen::VectorXi AdaptiveNearestNeighbor::associate(const Eigen::VectorXd& landmarks,
                                                     const Eigen::VectorXd& observations,
                                                     const Eigen::MatrixXd& covariance,
                                                     const Eigen::VectorXd& observation_confidences,
@@ -165,8 +154,8 @@ Eigen::VectorXi IterativeNearestNeighbor::associate(const Eigen::VectorXd& landm
 
   Eigen::VectorXi nearest_landmarks;
   Eigen::VectorXd nearest_distances;
-  get_tentative_nearest_neighbors(landmarks, observations, observation_confidences, this->_params_,
-                                  pose, nearest_landmarks, nearest_distances);
+  get_tentative_nearest_neighbors(landmarks, observations, observation_confidences, pose,
+                                  nearest_landmarks, nearest_distances);
 
   const Eigen::VectorXi seed_observation_indices =
       get_seed_observation_indices(nearest_landmarks, nearest_distances);
@@ -208,7 +197,7 @@ Eigen::VectorXi IterativeNearestNeighbor::associate(const Eigen::VectorXd& landm
   return best_associations;
 }
 
-Eigen::VectorXd IterativeNearestNeighbor::adjust_observations(
+Eigen::VectorXd AdaptiveNearestNeighbor::adjust_observations(
     const Eigen::VectorXd& observations, const Eigen::Vector3d& transform) const {
   Eigen::VectorXd adjusted_observations(observations.size());
   const Eigen::Matrix2d rotation_matrix = common_lib::maths::get_rotation_matrix(transform(2));

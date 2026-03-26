@@ -24,10 +24,8 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam"), _params_(params
   // Initialize the models
   std::shared_ptr<V2PMotionModel> motion_model = v2p_models_map.at(params.motion_model_name_)();
   std::shared_ptr<DataAssociationModel> data_association =
-      data_association_models_map.at(params.data_association_model_name_)(DataAssociationParameters(
-          params.data_association_limit_distance_, params.data_association_gate_,
-          params.new_landmark_confidence_gate_, params.observation_x_noise_,
-          params.observation_y_noise_));
+      data_association_models_map.at(params.data_association_model_name_)(
+          params.get_data_association_parameters());
   std::shared_ptr<LandmarkFilter> landmark_filter =
       landmark_filters_map.at(params.landmark_filter_name_)(
           LandmarkFilterParameters(params.minimum_observation_count_,

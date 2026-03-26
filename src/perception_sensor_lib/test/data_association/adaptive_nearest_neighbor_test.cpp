@@ -1,4 +1,4 @@
-#include "perception_sensor_lib/data_association/iterative_nearest_neighbor.hpp"
+#include "perception_sensor_lib/data_association/adaptive_nearest_neighbor.hpp"
 
 #include <gtest/gtest.h>
 
@@ -19,7 +19,7 @@ int count_associations(const Eigen::VectorXi& associations) {
 
 }  // namespace
 
-TEST(IterativeNearestNeighbor, RecoversAssociationsAfterRigidOffset) {
+TEST(AdaptiveNearestNeighbor, RecoversAssociationsAfterRigidOffset) {
   Eigen::VectorXd landmarks(8);
   landmarks << 1.0, 1.0, 4.0, 1.0, 1.0, 4.0, 4.0, 4.0;
 
@@ -40,10 +40,10 @@ TEST(IterativeNearestNeighbor, RecoversAssociationsAfterRigidOffset) {
                                  Eigen::Vector3d::Zero());
   EXPECT_EQ(count_associations(raw_associations), 0);
 
-  IterativeNearestNeighbor iterative_nearest_neighbor(params);
+  AdaptiveNearestNeighbor adaptive_nearest_neighbor(params);
   const Eigen::VectorXi associations =
-      iterative_nearest_neighbor.associate(landmarks, observations, covariance,
-                                           observation_confidences, Eigen::Vector3d::Zero());
+      adaptive_nearest_neighbor.associate(landmarks, observations, covariance,
+                                          observation_confidences, Eigen::Vector3d::Zero());
 
   std::vector<int> expected_associations = {0, 2, 4, 6, -1, -2};
   for (int idx = 0; idx < associations.size(); ++idx) {
@@ -51,7 +51,7 @@ TEST(IterativeNearestNeighbor, RecoversAssociationsAfterRigidOffset) {
   }
 }
 
-TEST(IterativeNearestNeighbor, FallsBackToNearestNeighborWithSingleSeedMatch) {
+TEST(AdaptiveNearestNeighbor, FallsBackToNearestNeighborWithSingleSeedMatch) {
   Eigen::VectorXd landmarks(2);
   landmarks << 2.0, -1.0;
 
@@ -64,10 +64,10 @@ TEST(IterativeNearestNeighbor, FallsBackToNearestNeighborWithSingleSeedMatch) {
   Eigen::MatrixXd covariance = Eigen::MatrixXd::Zero(2, 2);
   DataAssociationParameters params(10.0, 0.1, 0.8, 0.1, 0.1);
 
-  IterativeNearestNeighbor iterative_nearest_neighbor(params);
+  AdaptiveNearestNeighbor adaptive_nearest_neighbor(params);
   const Eigen::VectorXi associations =
-      iterative_nearest_neighbor.associate(landmarks, observations, covariance,
-                                           observation_confidences, Eigen::Vector3d::Zero());
+      adaptive_nearest_neighbor.associate(landmarks, observations, covariance,
+                                          observation_confidences, Eigen::Vector3d::Zero());
 
   std::vector<int> expected_associations = {0, -1};
   for (int idx = 0; idx < associations.size(); ++idx) {
