@@ -17,7 +17,7 @@ jobs:
     env:
       SONAR_SCANNER_VERSION: 6.0.0.4432
       SONAR_SERVER_URL: "https://sonarcloud.io"
-      BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory
+      BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directoryd
       SONAR_SCANNER_DOWNLOAD_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.0.0.4432-linux.zip
       
     steps:
@@ -38,7 +38,7 @@ jobs:
             unzip -q sonar-scanner.zip &&
             export PATH=\$PATH:/workspace/sonar-scanner-${{env.SONAR_SCANNER_VERSION}}-linux/bin &&
             source /opt/ros/humble/setup.bash &&
-            bear -- colcon build --parallel-workers 10 --packages-up-to common_lib perception ekf_state_est control planning inspection mocker_node evaluator &&
+            bear -- colcon build --parallel-workers 4 --packages-up-to common_lib perception ekf_state_est control planning inspection mocker_node evaluator &&
             sonar-scanner --define sonar.cfamily.compile-commands='./compile_commands.json'
           "
 
@@ -75,6 +75,7 @@ jobs:
         run: |
           docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
             source /opt/ros/humble/setup.bash &&
+            export LD_LIBRARY_PATH=/usr/local/lib:\$LD_LIBRARY_PATH &&
             colcon build --packages-up-to slam &&
             source install/setup.bash &&
             colcon test --packages-select slam --event-handler=console_direct+ &&
