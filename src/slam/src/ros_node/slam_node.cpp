@@ -23,9 +23,8 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam"), _params_(params
   RCLCPP_INFO_STREAM(this->get_logger(), "SLAM Node parameters:" << params);
   // Initialize the models
   std::shared_ptr<V2PMotionModel> motion_model = v2p_models_map.at(params.motion_model_name_)();
-  std::shared_ptr<DataAssociationModel> data_association =
-      data_association_models_map.at(params.data_association_model_name_)(
-          params.get_data_association_parameters());
+  std::shared_ptr<DataAssociationModel> data_association = ::data_association_models_map.at(
+      params.data_association_model_name_)(params.get_data_association_parameters());
   std::shared_ptr<LandmarkFilter> landmark_filter =
       landmark_filters_map.at(params.landmark_filter_name_)(
           LandmarkFilterParameters(params.minimum_observation_count_,

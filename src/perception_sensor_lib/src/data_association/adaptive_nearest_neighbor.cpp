@@ -25,10 +25,10 @@ void AdaptiveNearestNeighbor::get_tentative_nearest_neighbors(
       continue;
     }
 
-    const double observation_distance_to_pose =
-        std::hypot(observations(2 * observation_idx) - pose(0),
-                   observations(2 * observation_idx + 1) - pose(1));
-    if (observation_distance_to_pose > this->_params_.seed_radius) {
+    if (const double observation_distance_to_pose =
+            std::hypot(observations(2 * observation_idx) - pose(0),
+                       observations(2 * observation_idx + 1) - pose(1));
+        observation_distance_to_pose > this->_params_.seed_radius) {
       continue;
     }
 
