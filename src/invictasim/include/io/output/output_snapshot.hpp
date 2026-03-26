@@ -64,3 +64,11 @@ struct ExecutionTimesSnapshot {
   double tire_ms = 0.0;
   double total_step_ms = 0.0;
 };
+
+/**
+ * @brief Snapshot of current simulator control input values.
+ */
+struct InputSnapshot {
+  common_lib::structures::Wheels throttle = {0.0, 0.0, 0.0, 0.0};
+  double steering = 0.0;
+};

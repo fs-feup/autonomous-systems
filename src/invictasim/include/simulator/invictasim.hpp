@@ -71,6 +71,18 @@ public:
     return execution_times_snapshot_;
   }
 
+  /**
+   * @brief Get snapshot of current control input.
+   * @return InputSnapshot Current throttle and steering values.
+   */
+  InputSnapshot get_input_snapshot() const {
+    std::lock_guard<std::mutex> lock(input_mutex_);
+    InputSnapshot snapshot;
+    snapshot.throttle = throttle_;
+    snapshot.steering = steering_;
+    return snapshot;
+  }
+
 private:
   InvictaSimParameters params_;  ///< Simulator configuration values.
 
@@ -108,18 +120,6 @@ private:
    * @return ExecutionTimesSnapshot Timing snapshot.
    */
   ExecutionTimesSnapshot build_execution_times_snapshot(double total_step_ms) const;
-
-  /**
-   * @brief Get snapshots of current input.
-   * @param out_throttle Output throttle snapshot.
-   * @param out_steering Output steering snapshot.
-   */
-  void get_input_snapshot(common_lib::structures::Wheels& out_throttle,
-                          double& out_steering) const {
-    std::lock_guard<std::mutex> lock(input_mutex_);
-    out_throttle = throttle_;
-    out_steering = steering_;
-  }
 
   /**
    * @brief Execute a simulation step.

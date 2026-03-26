@@ -5,6 +5,7 @@
 
 #include "custom_interfaces/msg/aero_forces.hpp"
 #include "custom_interfaces/msg/battery_state.hpp"
+#include "custom_interfaces/msg/control_command.hpp"
 #include "custom_interfaces/msg/execution_times.hpp"
 #include "custom_interfaces/msg/motor_state.hpp"
 #include "custom_interfaces/msg/tire_forces.hpp"
@@ -104,6 +105,11 @@ private:
   void publish_status_group();
 
   /**
+   * @brief Publish current simulator input command values.
+   */
+  void publish_input_group();
+
+  /**
    * @brief Publish simulation execution times information.
    */
   void publish_execution_times_group();
@@ -175,6 +181,8 @@ private:
       load_pub_;  ///< Publisher for wheel vertical loads.
   rclcpp::Publisher<custom_interfaces::msg::VehicleStateVector>::SharedPtr
       status_pub_;  ///< Publisher for vehicle status.
+  rclcpp::Publisher<custom_interfaces::msg::ControlCommand>::SharedPtr
+      input_command_pub_;  ///< Publisher for current input command.
   rclcpp::Publisher<custom_interfaces::msg::ExecutionTimes>::SharedPtr
       execution_times_pub_;  ///< Publisher for simulation execution timings.
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr

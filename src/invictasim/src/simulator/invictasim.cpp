@@ -38,12 +38,10 @@ void InvictaSim::simulation_step() {
   const auto step_start = std::chrono::steady_clock::now();
 
   // Use a copy of input so no locks are required during vehicle model step.
-  common_lib::structures::Wheels throttle;
-  double steering;
-  get_input_snapshot(throttle, steering);
+  const InputSnapshot input_snapshot = get_input_snapshot();
 
   // Use snapshot throughout step without locks
-  vehicle_model_->step(step_dt, throttle, steering);
+  vehicle_model_->step(step_dt, input_snapshot.throttle, input_snapshot.steering);
 
   // Update output snapshot for adapters to read (lock only to copy the data)
   VehicleModelSnapshot vehicle_snapshot = build_vehicle_model_snapshot();

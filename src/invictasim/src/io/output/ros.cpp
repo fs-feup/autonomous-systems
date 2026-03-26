@@ -29,6 +29,8 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator)
       "invictasim/vehicle_model/load_transfer", 10);
   status_pub_ = this->create_publisher<custom_interfaces::msg::VehicleStateVector>(
       "invictasim/vehicle_model/status", 10);
+  input_command_pub_ =
+      this->create_publisher<custom_interfaces::msg::ControlCommand>("invictasim/input", 10);
   execution_times_pub_ = this->create_publisher<custom_interfaces::msg::ExecutionTimes>(
       "invictasim/execution_times", 10);
   visualization_ground_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
@@ -96,6 +98,7 @@ void RosOutputAdapter::on_frequency_tick(int frequency_hz) {
   }
   if (publishes_at("status", frequency_hz)) {
     publish_status_group();
+    publish_input_group();
   }
   if (publishes_at("execution_times", frequency_hz)) {
     publish_execution_times_group();
@@ -213,6 +216,20 @@ void RosOutputAdapter::publish_status_group() {
   status_pub_->publish(status_msg);
 }
 
+void RosOutputAdapter::publish_input_group() {
+  const InputSnapshot input_snapshot = simulator_->get_input_snapshot();
+
+  custom_interfaces::msg::ControlCommand input_msg;
+  input_msg.header.stamp = this->now();
+  input_msg.header.frame_id = "base_link";
+  input_msg.throttle_fl = input_snapshot.throttle.front_left;
+  input_msg.throttle_fr = input_snapshot.throttle.front_right;
+  input_msg.throttle_rl = input_snapshot.throttle.rear_left;
+  input_msg.throttle_rr = input_snapshot.throttle.rear_right;
+  input_msg.steering = input_snapshot.steering;
+  input_command_pub_->publish(input_msg);
+}
+
 void RosOutputAdapter::publish_execution_times_group() {
   custom_interfaces::msg::ExecutionTimes times_msg;
   times_msg.header.stamp = this->now();
@@ -324,10 +341,10 @@ void RosOutputAdapter::publish_wheel_markers(visualization_msgs::msg::MarkerArra
 
   if (dt > 0.0) {
     const auto wheel_speed = vehicle_model_snapshot_cache_.wheel_speed;
-    wheel_spin_fl_ += (wheel_speed.front_left / wheel_radius) * dt;
-    wheel_spin_fr_ += (wheel_speed.front_right / wheel_radius) * dt;
-    wheel_spin_rl_ += (wheel_speed.rear_left / wheel_radius) * dt;
-    wheel_spin_rr_ += (wheel_speed.rear_right / wheel_radius) * dt;
+    wheel_spin_fl_ += (wheel_speed.front_left) * dt;
+    wheel_spin_fr_ += (wheel_speed.front_right) * dt;
+    wheel_spin_rl_ += (wheel_speed.rear_left) * dt;
+    wheel_spin_rr_ += (wheel_speed.rear_right) * dt;
   }
 
   const double body_x = vehicle_model_snapshot_cache_.x;
