@@ -38,7 +38,7 @@ jobs:
             unzip -q sonar-scanner.zip &&
             export PATH=\$PATH:/workspace/sonar-scanner-${{env.SONAR_SCANNER_VERSION}}-linux/bin &&
             source /opt/ros/humble/setup.bash &&
-            bear -- colcon build --packages-up-to common_lib perception ekf_state_est control planning inspection mocker_node evaluator &&
+            bear -- colcon build --parallel-workers 10 --packages-up-to common_lib perception ekf_state_est control planning inspection mocker_node evaluator &&
             sonar-scanner --define sonar.cfamily.compile-commands='./compile_commands.json'
           "
 
