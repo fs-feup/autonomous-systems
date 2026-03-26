@@ -9,7 +9,7 @@ on:
 
 jobs:
 
-  build: # Sonarcloud analysis - bla bla
+  build: # Sonarcloud analysis
     name: sonarcloud-build
     if: github.event_name == 'pull_request'
     runs-on: self-hosted 
