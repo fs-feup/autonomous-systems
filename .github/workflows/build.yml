@@ -17,7 +17,7 @@ jobs:
     env:
       SONAR_SCANNER_VERSION: 6.0.0.4432
       SONAR_SERVER_URL: "https://sonarcloud.io"
-      BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directoryd
+      BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory
       SONAR_SCANNER_DOWNLOAD_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.0.0.4432-linux.zip
       
     steps:
@@ -31,21 +31,21 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace \
+          docker run --rm -u root -v ${{ github.workspace }}:/workspace -w /workspace \
           -e GITHUB_TOKEN=$GITHUB_TOKEN -e SONAR_TOKEN=$SONAR_TOKEN \
           fsfeup-ros-base:latest bash -c "
             curl -s ${{ env.SONAR_SCANNER_DOWNLOAD_URL }} --output sonar-scanner.zip &&
             unzip -q sonar-scanner.zip &&
             export PATH=\$PATH:/workspace/sonar-scanner-${{env.SONAR_SCANNER_VERSION}}-linux/bin &&
             source /opt/ros/humble/setup.bash &&
-            bear -- colcon build --parallel-workers 4 --packages-up-to common_lib perception ekf_state_est control planning inspection mocker_node evaluator &&
+            bear -- colcon build --parallel-workers 1 --packages-up-to common_lib perception ekf_state_est control planning inspection mocker_node evaluator &&
             sonar-scanner --define sonar.cfamily.compile-commands='./compile_commands.json'
           "
 
       - name: Fix workspace permissions
         if: always()
-        run: docker run --rm -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
-
+        run: docker run --rm -u root -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
+        
   perception:
     runs-on: self-hosted
     steps:
@@ -54,7 +54,7 @@ jobs:
           submodules: 'true'
       - name: Build and Test Perception inside Local Docker
         run: |
-          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
+          docker run --rm -u root -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
             source /opt/ros/humble/setup.bash &&
             colcon build --packages-up-to perception &&
             source install/setup.bash &&
@@ -63,7 +63,7 @@ jobs:
           "
       - name: Fix workspace permissions
         if: always()
-        run: docker run --rm -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
+        run: docker run --rm -u root -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
 
   slam:
     runs-on: self-hosted
@@ -73,7 +73,7 @@ jobs:
           submodules: 'true'
       - name: Build and Test SLAM inside Local Docker
         run: |
-          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
+          docker run --rm -u root -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
             source /opt/ros/humble/setup.bash &&
             export LD_LIBRARY_PATH=/usr/local/lib:\$LD_LIBRARY_PATH &&
             colcon build --packages-up-to slam &&
@@ -83,7 +83,7 @@ jobs:
           "
       - name: Fix workspace permissions
         if: always()
-        run: docker run --rm -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
+        run: docker run --rm -u root -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
 
   velocity_estimation:
     runs-on: self-hosted
@@ -93,7 +93,7 @@ jobs:
           submodules: 'true'
       - name: Build and Test Velocity Estimation inside Local Docker
         run: |
-          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
+          docker run --rm -u root -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
             source /opt/ros/humble/setup.bash &&
             colcon build --packages-up-to velocity_estimation &&
             source install/setup.bash &&
@@ -102,7 +102,7 @@ jobs:
           "
       - name: Fix workspace permissions
         if: always()
-        run: docker run --rm -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
+        run: docker run --rm -u root -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
 
   control:
     runs-on: self-hosted
@@ -112,7 +112,7 @@ jobs:
           submodules: 'true'
       - name: Build and Test Control inside Local Docker
         run: |
-          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
+          docker run --rm -u root -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
             source /opt/ros/humble/setup.bash &&
             colcon build --packages-up-to control &&
             source install/setup.bash &&
@@ -121,7 +121,7 @@ jobs:
           "
       - name: Fix workspace permissions
         if: always()
-        run: docker run --rm -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
+        run: docker run --rm -u root -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
 
   planning:
     runs-on: self-hosted
@@ -131,7 +131,7 @@ jobs:
           submodules: 'true'
       - name: Build and Test Planning inside Local Docker
         run: |
-          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
+          docker run --rm -u root -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
             source /opt/ros/humble/setup.bash &&
             colcon build --packages-up-to planning &&
             source install/setup.bash &&
@@ -140,7 +140,7 @@ jobs:
           "
       - name: Fix workspace permissions
         if: always()
-        run: docker run --rm -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
+        run: docker run --rm -u root -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
 
   inspection:
     runs-on: self-hosted
@@ -150,7 +150,7 @@ jobs:
           submodules: 'true'
       - name: Build and Test Inspection inside Local Docker
         run: |
-          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
+          docker run --rm -u root -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
             source /opt/ros/humble/setup.bash &&
             colcon build --packages-up-to inspection &&
             source install/setup.bash &&
@@ -159,7 +159,7 @@ jobs:
           "
       - name: Fix workspace permissions
         if: always()
-        run: docker run --rm -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
+        run: docker run --rm -u root -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
 
   mocker_node:
     runs-on: self-hosted
@@ -169,7 +169,7 @@ jobs:
           submodules: 'true'
       - name: Build and Test Mocker Node inside Local Docker
         run: |
-          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
+          docker run --rm -u root -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
             source /opt/ros/humble/setup.bash &&
             colcon build --packages-up-to mocker_node &&
             source install/setup.bash &&
@@ -178,7 +178,7 @@ jobs:
           "
       - name: Fix workspace permissions
         if: always()
-        run: docker run --rm -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
+        run: docker run --rm -u root -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
 
   evaluator_node:
     runs-on: self-hosted
@@ -188,7 +188,7 @@ jobs:
           submodules: 'true'
       - name: Build and Test Evaluator Node inside Local Docker
         run: |
-          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
+          docker run --rm -u root -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
             source /opt/ros/humble/setup.bash &&
             colcon build --packages-up-to evaluator &&
             source install/setup.bash &&
@@ -197,4 +197,4 @@ jobs:
           "
       - name: Fix workspace permissions
         if: always()
-        run: docker run --rm -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
+        run: docker run --rm -u root -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
