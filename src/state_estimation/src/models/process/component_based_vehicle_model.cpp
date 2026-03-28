@@ -34,14 +34,7 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
   Eigen::Vector4d torques(torques_struct.front_left, torques_struct.front_right,
                           torques_struct.rear_left, torques_struct.rear_right);
 
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("VM"), "Torque Distribution: \n"
-                                                   << "FL: " << torques(FL) << "\n"
-                                                   << "FR: " << torques(FR) << "\n"
-                                                   << "RL: " << torques(RL) << "\n"
-                                                   << "RR: " << torques(RR));
-
-  // Calculate individual wheel yaw using the steering model [front left, front right, rear left,
-  // rear right]
+  // Calculate individual wheel yaw using the steering model
   Eigen::Vector4d wheel_angles = this->steering_model_->calculate_steering_angles(state(ST_ANGLE));
 
   // Calculate aerodynamic forces using the aero model
@@ -75,8 +68,6 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
   // Calculate steering rate using the steering motor model
   double steering_rate =
       steering_motor_model_->compute_steering_rate(state(ST_ANGLE), control_command.steering_angle);
-
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("VM"), "Steering Rate: " << steering_rate);
 
   // Update state using the calculated values
 

@@ -9,8 +9,7 @@ private:
   double time_constant_;  // Time constant for the first-order response (in seconds)
 
 public:
-  FirstOrderSteeringMotor(const common_lib::car_parameters::CarParameters& car_parameters)
-      : SteeringMotorModel(car_parameters) {}
+  FirstOrderSteeringMotor(const common_lib::car_parameters::CarParameters& car_parameters);
 
   /**
    * @brief Computes the change in steering angle based on first-order dynamics.

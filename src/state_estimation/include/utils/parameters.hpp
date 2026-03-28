@@ -45,6 +45,7 @@ struct SEParameters {
       car_parameters_;  // Car parameters to be used in the process and observation models
 
   double alpha_;  // UKF alpha parameter
+  double beta_;   // UKF beta parameter
   double kappa_;  // UKF kappa parameter
 
   /**

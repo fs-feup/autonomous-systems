@@ -56,8 +56,8 @@ void SENode::timer_callback() {
   rclcpp::Time start_time = this->get_clock()->now();
   State curr_state;
   this->_state_estimator_->timer_callback(curr_state);
-  publish_state(curr_state, start_time);
   rclcpp::Time end_time = this->get_clock()->now();
+  publish_state(curr_state, start_time);
   std_msgs::msg::Float64 execution_time_msg;
   execution_time_msg.data = (end_time - start_time).seconds() * 1000;
   this->_execution_time_pub_->publish(execution_time_msg);

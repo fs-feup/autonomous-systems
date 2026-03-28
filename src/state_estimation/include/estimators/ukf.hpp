@@ -6,6 +6,7 @@
 #include <Eigen/Sparse>
 #include <chrono>
 #include <memory>
+#include <mutex>
 #include <queue>
 #include <string>
 
@@ -32,11 +33,16 @@ class UKF : public StateEstimator {
 
   rclcpp::Time last_update_;
 
-  Eigen::VectorXd weights_;
+  Eigen::VectorXd weights_m_;
+  Eigen::VectorXd weights_c_;
   double lambda_;
 
   common_lib::structures::ControlCommand last_control_command_ =
       common_lib::structures::ControlCommand();
+
+  // Thread synchronization mutexes
+  std::mutex control_command_mutex_;
+  std::mutex observation_model_mutex_;
 
   /**
    * @brief Compute the sigma points for the given state and covariance using the Merwe Scaled Sigma

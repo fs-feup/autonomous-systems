@@ -42,6 +42,7 @@ set(IMPLEMENTATION_FILES
   src/load_transfer_model/rigid_body_model.cpp
   src/load_transfer_model/vd_load_transfer_model.cpp
   src/steering_motor_model/pid_steering_motor.cpp
+  src/steering_motor_model/first_order_model.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})

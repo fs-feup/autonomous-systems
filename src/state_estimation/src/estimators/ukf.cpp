@@ -13,10 +13,14 @@ UKF::UKF(std::shared_ptr<SEParameters> se_parameters, std::shared_ptr<ProcessMod
 
   // Compute sigma point weights
   int n = state_.size();
-  weights_ = Eigen::VectorXd(2 * n + 1);
-  weights_(0) = lambda_ / (n + lambda_);
+  weights_m_ = Eigen::VectorXd(2 * n + 1);
+  weights_c_ = Eigen::VectorXd(2 * n + 1);
+  weights_m_(0) = lambda_ / (n + lambda_);
+  weights_c_(0) = lambda_ / (n + lambda_) +
+                  (1 - se_parameters->alpha_ * se_parameters->alpha_ + se_parameters->beta_);
   for (int i = 1; i < 2 * n + 1; i++) {
-    weights_(i) = 1 / (2 * (n + lambda_));
+    weights_m_(i) = 1 / (2 * (n + lambda_));
+    weights_c_(i) = 1 / (2 * (n + lambda_));
   }
 
   // Initialize the process noise matrix
@@ -52,26 +56,31 @@ void UKF::compute_sigma_points(
 }
 
 void UKF::control_callback(const common_lib::structures::ControlCommand& control_command) {
+  std::lock_guard<std::mutex> lock(control_command_mutex_);
   this->last_control_command_ = control_command;
 }
 
 void UKF::imu_callback(const common_lib::sensor_data::ImuData& imu_data) {
   // TODO: Logic for broken sensor or data
+  std::lock_guard<std::mutex> lock(observation_model_mutex_);
   this->observation_model_->update_imu_data(imu_data);
 }
 
 void UKF::wss_callback(const common_lib::sensor_data::WheelEncoderData& wss_data) {
   // TODO: Logic for broken sensor or data
+  std::lock_guard<std::mutex> lock(observation_model_mutex_);
   this->observation_model_->update_wss_data(wss_data);
 }
 
 void UKF::motor_rpm_callback(double motor_rpm) {
   // TODO: Logic for broken sensor or data
+  std::lock_guard<std::mutex> lock(observation_model_mutex_);
   this->observation_model_->update_motor_rpm(motor_rpm);
 }
 
 void UKF::steering_callback(double steering_angle) {
   // TODO: Logic for broken sensor or data
+  std::lock_guard<std::mutex> lock(observation_model_mutex_);
   this->observation_model_->update_steering_angle(steering_angle);
 }
 
@@ -91,22 +100,31 @@ void UKF::timer_callback(State& curr_state) {
   }
 
   // Lock inputs
-  Eigen::VectorXd last_observation = this->observation_model_->get_last_observations();
-  Eigen::MatrixXd last_observation_noise = this->observation_model_->get_last_observations_noise();
-  common_lib::structures::ControlCommand control_command = this->last_control_command_;
+  Eigen::VectorXd last_observation;
+  Eigen::MatrixXd last_observation_noise;
+  common_lib::structures::ControlCommand control_command;
+
+  {
+    std::lock_guard<std::mutex> lock(observation_model_mutex_);
+    last_observation = this->observation_model_->get_last_observations();
+    last_observation_noise = this->observation_model_->get_last_observations_noise();
+  }
+
+  {
+    std::lock_guard<std::mutex> lock(control_command_mutex_);
+    control_command = this->last_control_command_;
+  }
 
   RCLCPP_INFO_STREAM(rclcpp::get_logger("state_estimation"),
                      "Time since last update: " << dt << " seconds");
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("state_estimation"), "Current State: \n" << state_);
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("state_estimation"), "Last Observation: \n"
-                                                                 << last_observation);
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("state_estimation"),
-                     "Control Command: \n"
-                         << "Throttle FL: " << control_command.throttle_fl
-                         << ", Throttle FR: " << control_command.throttle_fr
-                         << ", Throttle RL: " << control_command.throttle_rl
-                         << ", Throttle RR: " << control_command.throttle_rr
-                         << ", Steering Angle: " << control_command.steering_angle);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"), "Current State: \n" << state_);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"),
+                      "Control Command: \n"
+                          << "Throttle FL: " << control_command.throttle_fl
+                          << ", Throttle FR: " << control_command.throttle_fr
+                          << ", Throttle RL: " << control_command.throttle_rl
+                          << ", Throttle RR: " << control_command.throttle_rr
+                          << ", Steering Angle: " << control_command.steering_angle);
 
   // Prediction step
 
@@ -119,15 +137,15 @@ void UKF::timer_callback(State& curr_state) {
   }
 
   // Compute the predicted mean and covariance of the state
-  State predicted_state = sigma_points.transpose() * weights_;
+  State predicted_state = sigma_points.transpose() * weights_m_;
   Eigen::MatrixXd centered = sigma_points.rowwise() - predicted_state.transpose();
   Eigen::Matrix<double, StateSize, StateSize> predicted_covariance =
-      centered.transpose() * weights_.asDiagonal() * centered + process_noise_matrix_;
+      centered.transpose() * weights_c_.asDiagonal() * centered + process_noise_matrix_;
 
   RCLCPP_INFO_STREAM(rclcpp::get_logger("state_estimation"), "Predicted State: \n"
                                                                  << predicted_state);
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("state_estimation"), "Predicted Covariance: \n"
-                                                                 << predicted_covariance);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"), "Predicted Covariance: \n"
+                                                                  << predicted_covariance);
 
   // Correction step
 
@@ -139,19 +157,20 @@ void UKF::timer_callback(State& curr_state) {
   }
 
   // Compute the mean and covariance of the predicted measurements
-  Eigen::VectorXd predicted_measurement_mean = predicted_measurements.transpose() * weights_;
+  Eigen::VectorXd predicted_measurement_mean = predicted_measurements.transpose() * weights_m_;
   Eigen::MatrixXd centered_measurements =
       predicted_measurements.rowwise() - predicted_measurement_mean.transpose();
   Eigen::MatrixXd predicted_measurement_covariance =
-      centered_measurements.transpose() * weights_.asDiagonal() * centered_measurements;
+      centered_measurements.transpose() * weights_c_.asDiagonal() * centered_measurements;
   predicted_measurement_covariance +=
       last_observation_noise;  // Add measurement noise to predicted covariance
 
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("state_estimation"), "Predicted Measurement: \n"
-                                                                 << predicted_measurement_mean);
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("state_estimation"),
-                     "2 - Covariance: \n"
-                         << predicted_measurement_covariance);
+  RCLCPP_INFO_STREAM(rclcpp::get_logger("state_estimation"), "Last Observation: \n"
+                                                                 << last_observation);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"), "Predicted Measurement: \n"
+                                                                  << predicted_measurement_mean);
+  // RCLCPP_INFO_STREAM(rclcpp::get_logger("state_estimation"), "2 - Covariance: \n" <<
+  // predicted_measurement_covariance);
 
   // Compute the cross covariance between the state and the measurements (State_Errors)^T *
   // Diag(Weights) * (Meas_Errors)
@@ -159,7 +178,7 @@ void UKF::timer_callback(State& curr_state) {
   Eigen::MatrixXd meas_centered =
       predicted_measurements.rowwise() - predicted_measurement_mean.transpose();
   Eigen::MatrixXd cross_covariance =
-      state_centered.transpose() * weights_.asDiagonal() * meas_centered;
+      state_centered.transpose() * weights_c_.asDiagonal() * meas_centered;
 
   // Compute the Kalman gain
   Eigen::MatrixXd kalman_gain = cross_covariance * predicted_measurement_covariance.inverse();
@@ -176,7 +195,7 @@ void UKF::timer_callback(State& curr_state) {
   last_update_ = now;
 
   RCLCPP_INFO_STREAM(rclcpp::get_logger("state_estimation"), "Updated State: \n" << updated_state);
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("state_estimation"), "3 - Covariance: \n"
-                                                                 << updated_covariance);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"), "3 - Covariance: \n"
+                                                                  << updated_covariance);
   curr_state = state_;
 }

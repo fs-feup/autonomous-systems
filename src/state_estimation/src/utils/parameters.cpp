@@ -35,6 +35,7 @@ std::string SEParameters::load_config() {
 
   // Load UKF parameters
   this->alpha_ = se_config["alpha"].as<double>();
+  this->beta_ = se_config["beta"].as<double>();
   this->kappa_ = se_config["kappa"].as<double>();
 
   // Load Vehicle Model

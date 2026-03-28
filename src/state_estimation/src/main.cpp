@@ -17,7 +17,9 @@ int main(int argc, char **argv) {
   std::shared_ptr<SEParameters> params = std::make_shared<SEParameters>();
   std::string adapter_name = params->load_config();
   auto se_node = adapter_map.at(adapter_name)(params);
-  rclcpp::spin(se_node);
+  rclcpp::executors::MultiThreadedExecutor executor(rclcpp::ExecutorOptions(), 3);
+  executor.add_node(se_node);
+  executor.spin();
   rclcpp::shutdown();
 
   return 0;
