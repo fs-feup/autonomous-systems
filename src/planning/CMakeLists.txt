@@ -7,7 +7,6 @@ endif()
 
 add_link_options(-fuse-ld=lld)
 
-# ccache — speeds up repeated/incremental builds significantly
 find_program(CCACHE_PROGRAM ccache)
 if(CCACHE_PROGRAM)
   set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE_PROGRAM})
@@ -115,6 +114,12 @@ set_target_properties(planning_lib PROPERTIES
 
 add_executable(planning src/main.cpp)
 target_link_libraries(planning planning_lib)
+
+set_target_properties(planning PROPERTIES
+  INSTALL_RPATH "${OSQP_INSTALL_DIR}/lib"
+  BUILD_WITH_INSTALL_RPATH TRUE
+  INSTALL_RPATH_USE_LINK_PATH TRUE
+)
 
 ament_target_dependencies(planning
   ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs

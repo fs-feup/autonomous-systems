@@ -52,7 +52,7 @@ git submodule update --init --recursive
 
 ### Compiling
 ```sh
-colcon build --packages-up-to planning
+colcon build --packages-up-to planning --cmake-args -G Ninja
 ```
 
 ### Testing
@@ -70,7 +70,7 @@ colcon test-result --all --verbose
 Choose one of the launch files in the `launch` directory. Each file's name indicates the context in which it should be used:
 ```sh
 source ./install/setup.bash
-ros2 launch planning <file_name>
+ros2 launch planning planning.launch.py
 ```
 
 Each launch file exposes arguments that control visualization publishing, input source, and algorithm parameters. To change a value, edit the launch file and recompile.
