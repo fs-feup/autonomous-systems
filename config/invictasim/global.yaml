@@ -3,7 +3,7 @@ invictasim:
   input_adapter: "keyboard"  # Options: "ros", "keyboard"
   output_adapter: "ros"  # Options: "ros"
   vehicle_model: "FSFEUP02"  # Options: "FSFEUP02"
-  timestep: 0.001  # seconds (0.001s = 1000 Hz)
+  sim_frequency: 1000  # Hz 
   track_name: "FSG23"
   publish_frequencies:
     tire: 100

@@ -336,7 +336,6 @@ void RosOutputAdapter::publish_wheel_markers(visualization_msgs::msg::MarkerArra
                                              const rclcpp::Time& stamp, double dt) {
   // PACSIM mesh hardcoded paremeters
   constexpr double model_offset_x = 0.9;
-  constexpr double wheel_radius = 0.203;
   constexpr double wheel_center_z = 0.204;
 
   if (dt > 0.0) {

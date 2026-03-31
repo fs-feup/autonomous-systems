@@ -11,7 +11,7 @@ struct InvictaSimParameters {
   std::string discipline;
 
   // Simulator config parameters
-  double timestep;
+  int sim_frequency;
   std::string track_name;
   std::string input_adapter;
   std::string output_adapter;

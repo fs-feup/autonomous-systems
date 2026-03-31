@@ -8,7 +8,7 @@ InvictaSim::InvictaSim(const InvictaSimParameters& params)
       steering_(0.0) {
   vehicle_model_ = vehicle_models_map.at(params_.vehicle_model.c_str())(params);
   step_duration_ = std::chrono::duration_cast<std::chrono::steady_clock::duration>(
-      std::chrono::duration<double>(params_.timestep));
+      std::chrono::duration<double>(1 / static_cast<double>(params_.sim_frequency)));
   const auto now = std::chrono::steady_clock::now();
   next_step_time_ = now + step_duration_;
   last_step_time_ = now;

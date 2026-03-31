@@ -10,7 +10,7 @@ InvictaSimParameters::InvictaSimParameters() {
   YAML::Node global_config = YAML::LoadFile(global_config_path);
 
   discipline = global_config["global"]["discipline"].as<std::string>();
-  timestep = simulator_config["invictasim"]["timestep"].as<double>();
+  sim_frequency = simulator_config["invictasim"]["sim_frequency"].as<int>();
   track_name = simulator_config["invictasim"]["track_name"].as<std::string>();
   input_adapter = simulator_config["invictasim"]["input_adapter"].as<std::string>();
   output_adapter = simulator_config["invictasim"]["output_adapter"].as<std::string>();
