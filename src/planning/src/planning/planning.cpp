@@ -270,7 +270,6 @@ void Planning::compute_path_orientation(std::vector<PathPoint> &path) {
 
 void Planning::run_full_map() {
   is_path_final_ = true;
-  is_path_final_ = true;
   full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
 
   const std::vector<PathPoint> yellow_cones = path_calculation_.get_yellow_cones();
