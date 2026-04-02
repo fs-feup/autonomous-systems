@@ -7,10 +7,7 @@ std::vector<PathPoint> PathSmoothing::smooth_path(const std::vector<PathPoint>& 
   }
   std::vector<PathPoint> result_path = filter_path(::fit_spline(
       path, config_.spline_precision_, config_.spline_order_, config_.spline_coeffs_ratio_));
-
-  if (is_path_closed == true) {
-    result_path.push_back(result_path.front());
-  }
+      
   return result_path;
 }
 
@@ -27,9 +24,6 @@ std::vector<PathPoint> PathSmoothing::optimize_path(
   const std::vector<PathPoint> optimize_path =
       osqp_optimization(splines.center, splines.left, splines.right);
   std::vector<PathPoint> filtered_path = filter_path(optimize_path);
-
-  // Close the loop by adding the first point again
-  filtered_path.push_back(filtered_path.front());
 
   return filtered_path;
 }
