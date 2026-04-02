@@ -17,3 +17,9 @@
 [submodule "ext/xsens-imu"]
 	path = ext/xsens-imu
 	url = git@github.com:fs-feup/xsens-imu.git
+[submodule "osqp"]
+	path = ext/osqp/src
+	url = https://github.com/osqp/osqp.git
+[submodule "osqp-eigen"]
+	path = ext/osqp-eigen/src
+	url = https://github.com/robotology/osqp-eigen.git

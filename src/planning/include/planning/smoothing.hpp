@@ -34,14 +34,13 @@ public:
   explicit PathSmoothing(PathSmoothingConfig config) : config_(config) {}
 
   /**
-   * @brief Smooths a path by fitting a B-spline through the input points. This function provides
-   * a simple interface for path smoothing without boundary constraints or optimization.
+   * @brief Smooths a path by fitting a B-spline through the input points.
    *
    * @param path The input path to be smoothed
-   * @return std::vector<PathPoint> The smoothed path
-   *
+   * @param is_path_closed Whether the path is closed
+   * @return std::vector<PathPoint> The smoothed path, with closure point appended if applicable
    */
-  std::vector<PathPoint> smooth_path(const std::vector<PathPoint>& path) const;
+  std::vector<PathPoint> smooth_path(const std::vector<PathPoint>& path, bool is_path_closed) const;
 
   /**
    * @brief Optimizes a racing line path by fitting splines through track boundaries and applying
@@ -64,7 +63,7 @@ private:
    *
    */
   PathSmoothingConfig config_;
-  
+
   /**
    * @brief Filters path points using a minimum spacing constraint.
    *
@@ -98,16 +97,6 @@ private:
    */
   void add_curvature_terms(int num_path_points, const std::function<int(int)>& circular_index,
                            const std::function<void(int, int, double)>& add_coefficient) const;
-
-  /**
-   * @brief Adds smoothness penalty terms to the quadratic objective function.
-   *
-   * @param num_path_points Number of points in the path
-   * @param circular_index Lambda function for circular array indexing
-   * @param add_coefficient Lambda function to add coefficients to the objective matrix
-   */
-  void add_smoothness_terms(int num_path_points, const std::function<int(int)>& circular_index,
-                            const std::function<void(int, int, double)>& add_coefficient) const;
 
   /**
    * @brief Adds penalty terms for slack variables to the quadratic objective function.

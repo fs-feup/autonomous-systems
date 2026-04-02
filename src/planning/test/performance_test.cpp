@@ -20,7 +20,7 @@ void iterate_smoothing(const std::vector<PathPoint> &path) {
     auto t0 = std::chrono::high_resolution_clock::now();
 
     std::vector<PathPoint> smoothed_path =
-        path_smoothing.smooth_path(path);
+        path_smoothing.smooth_path(path,false);
 
     auto t1 = std::chrono::high_resolution_clock::now();
 
