@@ -230,59 +230,41 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &messa
 }
 
 /*--------------------- Mission-Specific Planning --------------------*/
-
 void Planning::compute_path_orientation(std::vector<PathPoint> &path) {
-  if (path.size() <= 2) {
+  int n = static_cast<int>(path.size());
+  if (n <= 2) {
     return;
   }
-  double previous_x = path[0].position.x;
-  double previous_y = path[0].position.y;
 
-  double current_x = path[1].position.x;
-  double current_y = path[1].position.y;
-
-  // Set orientation for the first point based on the first two points
-  double dx = current_x - previous_x;
-  double dy = current_y - previous_y;
-  path[0].orientation = std::atan2(dy, dx);
-
-  double next_x = path[2].position.x;
-  double next_y = path[2].position.y;
-
-  // Compute orientation for the rest of the points based on three consecutive points for better
-  // accuracy
-  for (int i = 1; i < (int)path.size() - 1; i++) {
-    next_x = path[i + 1].position.x;
-    next_y = path[i + 1].position.y;
-
-    dx = next_x - previous_x;
-    dy = next_y - previous_y;
-
-    path[i].orientation = std::atan2(dy, dx);
-
-    previous_x = current_x;
-    previous_y = current_y;
-    current_x = next_x;
-    current_y = next_y;
-  }
-
-  if (is_path_closed_) {
-    // The first and last points are the same point to represent the loop closure.
-    // So there orientation will be the same
-    next_x = path[1].position.x;
-    next_y = path[1].position.y;
-
-    dx = next_x - previous_x;
-    dy = next_y - previous_y;
-
+  if (!is_path_closed_) {
+    // Set orientation for the first point based on the first two points
+    double dx = path[1].position.x - path[0].position.x;
+    double dy = path[1].position.y - path[0].position.y;
     path[0].orientation = std::atan2(dy, dx);
-    path.back().orientation = std::atan2(dy, dx);
 
-  } else {
+    // Compute orientation for the rest of the points based on three consecutive points for better
+    // accuracy
+    for (int i = 1; i < n - 1; i++) {
+      dx = path[i + 1].position.x - path[i - 1].position.x;
+      dy = path[i + 1].position.y - path[i - 1].position.y;
+      path[i].orientation = std::atan2(dy, dx);
+    }
+
     // Set orientation for the last point based on the last two points
-    dx = next_x - previous_x;
-    dy = next_y - previous_y;
-    path.back().orientation = std::atan2(dy, dx);
+    dx = path[n - 1].position.x - path[n - 2].position.x;
+    dy = path[n - 1].position.y - path[n - 2].position.y;
+    path[n - 1].orientation = std::atan2(dy, dx);
+  } else {
+    // Orientation for circular path based on three consecutive points for better accuracy
+    for (int i = 0; i < n; i++) {
+      int prev = (i - 1 + n) % n;
+      int next = (i + 1) % n;
+
+      double dx = path[next].position.x - path[prev].position.x;
+      double dy = path[next].position.y - path[prev].position.y;
+
+      path[i].orientation = std::atan2(dy, dx);
+    }
   }
 }
 
