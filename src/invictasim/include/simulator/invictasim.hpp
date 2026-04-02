@@ -8,6 +8,7 @@
 #include "common_lib/structures/wheels.hpp"
 #include "config/config.hpp"
 #include "io/output/output_snapshot.hpp"
+#include "track/track.hpp"
 #include "vehicle_model/map.hpp"
 #include "vehicle_model/vehicle_model.hpp"
 
@@ -83,11 +84,19 @@ public:
     return snapshot;
   }
 
+  /**
+   * @brief Get the track information.
+   * @return Track pointer (No need for mutex as the track is immutable after loading, it will only
+   * be read).
+   */
+  std::shared_ptr<Track> get_track() const { return track_; }
+
 private:
   InvictaSimParameters params_;  ///< Simulator configuration values.
 
   // Simulation components
   std::shared_ptr<VehicleModel> vehicle_model_;  ///< Vehicle model.
+  std::shared_ptr<Track> track_;                 ///< Track information.
 
   // Simulation loop timing
   std::atomic<bool> running_;  ///< Indicates whether the simulation loop is running.

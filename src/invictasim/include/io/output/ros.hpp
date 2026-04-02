@@ -1,10 +1,15 @@
 #pragma once
 
 #include <atomic>
+#include <cmath>
 #include <map>
+#include <set>
 
+#include "common_lib/competition_logic/color.hpp"
 #include "custom_interfaces/msg/aero_forces.hpp"
 #include "custom_interfaces/msg/battery_state.hpp"
+#include "custom_interfaces/msg/cone.hpp"
+#include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/control_command.hpp"
 #include "custom_interfaces/msg/execution_times.hpp"
 #include "custom_interfaces/msg/motor_state.hpp"
@@ -13,6 +18,8 @@
 #include "custom_interfaces/msg/wheel_scalars.hpp"
 #include "io/output/output_adapter.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "tf2/LinearMath/Quaternion.h"
+#include "visualization_msgs/msg/marker.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
 
 /**
@@ -115,6 +122,11 @@ private:
   void publish_execution_times_group();
 
   /**
+   * @brief Publish the track information, in message format.
+   */
+  void publish_track_group();
+
+  /**
    * @brief Publish visualization markers for the ground and vehicle.
    */
   void publish_visualization_group();
@@ -143,6 +155,14 @@ private:
    */
   void publish_ground_marker(visualization_msgs::msg::MarkerArray& marker_array,
                              const rclcpp::Time& stamp) const;
+
+  /**
+   * @brief Publish visualization markers for all cones on the track.
+   * @param marker_array Marker array to populate with cone markers.
+   * @param stamp Current ROS time for timestamping markers.
+   */
+  void publish_cone_markers(visualization_msgs::msg::MarkerArray& marker_array,
+                            const rclcpp::Time& stamp) const;
 
   /**
    * @brief Publish visualization markers of the car body from mesh.
@@ -185,8 +205,12 @@ private:
       input_command_pub_;  ///< Publisher for current input command.
   rclcpp::Publisher<custom_interfaces::msg::ExecutionTimes>::SharedPtr
       execution_times_pub_;  ///< Publisher for simulation execution timings.
+  rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr
+      track_pub_;  ///< Publisher for the loaded track.
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
       visualization_ground_pub_;  ///< Publisher for ground visualization markers.
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
       visualization_vehicle_pub_;  ///< Publisher for vehicle visualization markers.
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
+      visualization_track_pub_;  ///< Publisher for track visualization markers.
 };

@@ -6,7 +6,15 @@ InvictaSim::InvictaSim(const InvictaSimParameters& params)
       sim_time_(0.0),
       throttle_({0.0, 0.0, 0.0, 0.0}),
       steering_(0.0) {
+  // Initialize Objects
   vehicle_model_ = vehicle_models_map.at(params_.vehicle_model.c_str())(params);
+  track_ = std::make_shared<Track>(params_.track_name);
+
+  // Set initial position according to track information
+  auto start_position = track_->getStartPosition();
+  vehicle_model_->set_initial_pose(start_position.x, start_position.y);
+
+  // Initialize step timings
   step_duration_ = std::chrono::duration_cast<std::chrono::steady_clock::duration>(
       std::chrono::duration<double>(1 / static_cast<double>(params_.sim_frequency)));
   const auto now = std::chrono::steady_clock::now();
