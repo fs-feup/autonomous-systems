@@ -29,7 +29,6 @@ All configuration files are located in `/home/ws/config/invictasim/`:
 - [/home/ws/config/global/global_config.yaml](/home/ws/config/global/global_config.yaml) - System-wide parameters:
   - Discipline (autocross, skidpad, acceleration)
   - Track name and vehicle frame ID
-  - Simulation speed ratio (1.0 = real-time)
 
 ## How to Run
 

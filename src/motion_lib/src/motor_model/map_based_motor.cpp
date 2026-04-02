@@ -98,6 +98,7 @@ void MapBasedMotor::update_state(double current_draw, double torque, double dt) 
   // Update thermal state
   this->thermal_state_ += heat_generation - heat_dissipation;
   this->thermal_state_ = std::max(0.0, std::min(this->thermal_capacity_, this->thermal_state_));
+  this->current_ = current_draw;
   this->torque_ = torque;
 }
 
@@ -108,6 +109,12 @@ void MapBasedMotor::reset() {
 }
 
 double MapBasedMotor::get_torque() const { return this->torque_; }
+
+double MapBasedMotor::get_current() const { return this->current_; }
+
+double MapBasedMotor::get_thermal_state() const { return this->thermal_state_; }
+
+double MapBasedMotor::get_thermal_capacity() const { return this->thermal_capacity_; }
 
 double MapBasedMotor::interpolate_from_map(const std::map<double, double>& map, double key) const {
   if (map.empty()) {

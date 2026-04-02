@@ -47,4 +47,22 @@ public:
    * @return Torque (Nm)
    */
   virtual double get_torque() const = 0;
+
+  /**
+   * @brief Get the motor current draw
+   * @return Current (A)
+   */
+  virtual double get_current() const = 0;
+
+  /**
+   * @brief Get motor thermal state
+   * @return Thermal state (A²s)
+   */
+  virtual double get_thermal_state() const = 0;
+
+  /**
+   * @brief Get motor thermal capacity
+   * @return Thermal capacity (A²s)
+   */
+  virtual double get_thermal_capacity() const = 0;
 };

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <chrono>
+
 #include "motion_lib/aero_model/map.hpp"
 #include "motion_lib/battery_model/map.hpp"
 #include "motion_lib/differential_model/map.hpp"
@@ -38,28 +40,6 @@ public:
    * @brief Get the model name
    */
   std::string get_model_name() const override;
-
-  /**
-   * @brief Get the current motor torque being applied
-   */
-  double get_motor_torque() const override;
-
-  /**
-   * @brief Get the current battery current draw
-   */
-  double get_battery_current() const override;
-
-  /**
-   * @brief Get the current battery voltage
-   */
-  double get_battery_voltage() const override;
-
-  /**
-   * @brief Get the current battery state of charge
-   */
-  double get_battery_soc() const override;
-
-  // Debug
 
 private:
   // Vehicle state struct is defined in the base class
