@@ -7,7 +7,7 @@
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="202,69,276,61,277,67,202,75"/>
 <area shape="rect" id="Node000004" href="$d7/db7/class_path_smoothing.html#a451ad9f28138148436574a91d6b3299d" title="Optimizes a path using quadratic programming (OSQP) to balance smoothness, curvature,..." alt="" coords="273,227,418,268"/>
 <area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="126,93,303,216,300,220,122,98"/>
-<area shape="rect" id="Node000010" href="$d7/db7/class_path_smoothing.html#a4a142bd68daf44f1b39e70314836eb4f" title="Smooths a path by fitting a B&#45;spline through the input points." alt="" coords="250,93,441,119"/>
+<area shape="rect" id="Node000010" href="$d7/db7/class_path_smoothing.html#a077045088473f134c44112388a1e6d95" title="Smooths a path by fitting a B&#45;spline through the input points." alt="" coords="250,93,441,119"/>
 <area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="202,89,234,92,234,98,202,95"/>
 <area shape="rect" id="Node000005" href="$d7/db7/class_path_smoothing.html#ac9884811317c7d7391b6eb07514c7cb0" title="Adds track boundary constraints to ensure the optimized path stays within the track." alt="" coords="500,261,651,301"/>
 <area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="418,255,484,265,484,270,418,261"/>

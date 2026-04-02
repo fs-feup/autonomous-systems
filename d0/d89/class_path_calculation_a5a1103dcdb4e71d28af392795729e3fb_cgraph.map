@@ -1,0 +1,7 @@
+<map id="PathCalculation::is_map_closed" name="PathCalculation::is_map_closed">
+<area shape="rect" id="Node000001" title="Checks if the path forms a closed loop and closes it if the transition cost is below config_...." alt="" coords="5,5,134,46"/>
+<area shape="rect" id="Node000002" href="$d0/d89/class_path_calculation.html#ad470af47aeeb85803b4a94cfbd5e4fb3" title="Finds the best loop closure point in a path." alt="" coords="182,5,320,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="134,23,166,23,166,28,134,28"/>
+<area shape="rect" id="Node000003" href="$d0/d89/class_path_calculation.html#a32453ba6eeddf24ab41fb6a4bd037984" title="Calculate the cost of transitioning through three consecutive points." alt="" coords="368,13,570,39"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="320,23,352,23,352,28,320,28"/>
+</map>

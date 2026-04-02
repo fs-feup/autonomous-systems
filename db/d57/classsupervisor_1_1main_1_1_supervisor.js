@@ -15,6 +15,7 @@ var classsupervisor_1_1main_1_1_supervisor =
     [ "consecutive_ts_off_count", "db/d57/classsupervisor_1_1main_1_1_supervisor.html#a2568f320c85e9604d9edc04d18aebfe6", null ],
     [ "consecutive_ts_on_count", "db/d57/classsupervisor_1_1main_1_1_supervisor.html#a0101999d1f7c858158404641e29f784a", null ],
     [ "creation_time", "db/d57/classsupervisor_1_1main_1_1_supervisor.html#a7700d576c55b93ff096b9d47bc42835a", null ],
+    [ "current_rosbag_name", "db/d57/classsupervisor_1_1main_1_1_supervisor.html#a796c076b16ff122cfed72e8c18178592", null ],
     [ "last_received_master_msg_time", "db/d57/classsupervisor_1_1main_1_1_supervisor.html#a2d99cd7a1a6b002632e1c027f2439328", null ],
     [ "master_callback", "db/d57/classsupervisor_1_1main_1_1_supervisor.html#a2536a74f2780b3f492bc302b359f3f41", null ],
     [ "master_topic", "db/d57/classsupervisor_1_1main_1_1_supervisor.html#aecac5c8b584d8edc51000622e6de6222", null ],
@@ -25,5 +26,6 @@ var classsupervisor_1_1main_1_1_supervisor =
     [ "record_rosbag_command", "db/d57/classsupervisor_1_1main_1_1_supervisor.html#a73fb700ad9163736c69f727f6db9e8d9", null ],
     [ "rosbag_process", "db/d57/classsupervisor_1_1main_1_1_supervisor.html#a14c6b6c2ec1a2f495bebace9988297e4", null ],
     [ "subscription", "db/d57/classsupervisor_1_1main_1_1_supervisor.html#a262e3c1729d349aa40394e033e73be3c", null ],
+    [ "temp_bag_dir", "db/d57/classsupervisor_1_1main_1_1_supervisor.html#a0ef0075c0f1b66d4e919bb15d00b1be7", null ],
     [ "timer_period_milliseconds", "db/d57/classsupervisor_1_1main_1_1_supervisor.html#a6fc2846082facdf528938d8dae518192", null ]
 ];

@@ -273,64 +273,63 @@ var NAVTREE =
         [ "Running", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md196", null ]
       ] ],
       [ "Design", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md197", [
-        [ "Class Diagram", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md198", null ],
-        [ "Sequence Diagram", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md199", null ],
-        [ "Activity Diagram", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md200", null ]
+        [ "Pipeline Overview", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md198", null ],
+        [ "Class Diagram", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md199", null ]
       ] ]
     ] ],
     [ "Testing Scenario Generation and Visualization", "d4/d8a/md_src_2planning_2test_2integration__tests_2_r_e_a_d_m_e.html", [
-      [ "Test Creation", "d4/d8a/md_src_2planning_2test_2integration__tests_2_r_e_a_d_m_e.html#autotoc_md202", [
-        [ "Instructions", "d4/d8a/md_src_2planning_2test_2integration__tests_2_r_e_a_d_m_e.html#autotoc_md203", null ],
-        [ "Test File Structure", "d4/d8a/md_src_2planning_2test_2integration__tests_2_r_e_a_d_m_e.html#autotoc_md204", null ]
+      [ "Test Creation", "d4/d8a/md_src_2planning_2test_2integration__tests_2_r_e_a_d_m_e.html#autotoc_md201", [
+        [ "Instructions", "d4/d8a/md_src_2planning_2test_2integration__tests_2_r_e_a_d_m_e.html#autotoc_md202", null ],
+        [ "Test File Structure", "d4/d8a/md_src_2planning_2test_2integration__tests_2_r_e_a_d_m_e.html#autotoc_md203", null ]
       ] ],
-      [ "Visualizing Results", "d4/d8a/md_src_2planning_2test_2integration__tests_2_r_e_a_d_m_e.html#autotoc_md206", null ]
+      [ "Visualizing Results", "d4/d8a/md_src_2planning_2test_2integration__tests_2_r_e_a_d_m_e.html#autotoc_md205", null ]
     ] ],
     [ "Power Log", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html", [
-      [ "Package Information", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md209", [
-        [ "Description", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md210", null ],
-        [ "Important Dependencies", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md211", null ]
+      [ "Package Information", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md208", [
+        [ "Description", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md209", null ],
+        [ "Important Dependencies", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md210", null ]
       ] ],
-      [ "How to Run", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md212", [
-        [ "Install Dependencies", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md213", null ],
-        [ "Compiling", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md214", null ],
-        [ "Running", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md215", null ]
+      [ "How to Run", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md211", [
+        [ "Install Dependencies", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md212", null ],
+        [ "Compiling", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md213", null ],
+        [ "Running", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md214", null ]
       ] ]
     ] ],
     [ "Src Folder", "d7/d37/md_src_2_r_e_a_d_m_e.html", null ],
     [ "SLAM Package", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html", [
-      [ "Package Information", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md218", [
-        [ "Description", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md219", null ],
-        [ "Folder Structure", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md220", null ],
-        [ "Launch Configurations", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md221", null ],
-        [ "Important Dependencies", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md222", null ]
+      [ "Package Information", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md217", [
+        [ "Description", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md218", null ],
+        [ "Folder Structure", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md219", null ],
+        [ "Launch Configurations", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md220", null ],
+        [ "Important Dependencies", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md221", null ]
       ] ],
-      [ "How to Run", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md223", [
-        [ "Install Dependencies", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md224", null ],
-        [ "Compiling", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md225", null ],
-        [ "Testing", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md226", null ],
-        [ "Running", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md227", null ]
+      [ "How to Run", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md222", [
+        [ "Install Dependencies", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md223", null ],
+        [ "Compiling", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md224", null ],
+        [ "Testing", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md225", null ],
+        [ "Running", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md226", null ]
       ] ],
-      [ "Design", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md228", [
-        [ "Behaviour", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md229", null ],
-        [ "Structure", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md230", null ]
+      [ "Design", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md227", [
+        [ "Behaviour", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md228", null ],
+        [ "Structure", "de/d58/md_src_2slam_2_r_e_a_d_m_e.html#autotoc_md229", null ]
       ] ]
     ] ],
     [ "Velocity Estimation Package", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html", [
-      [ "Description", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md232", null ],
-      [ "Directory Structure", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md233", null ],
-      [ "Launch Configurations", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md234", null ],
-      [ "How to Run", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md235", [
-        [ "Install Dependencies", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md236", null ],
-        [ "Compiling", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md237", null ],
-        [ "Running", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md238", null ],
-        [ "Testing", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md239", null ]
+      [ "Description", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md231", null ],
+      [ "Directory Structure", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md232", null ],
+      [ "Launch Configurations", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md233", null ],
+      [ "How to Run", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md234", [
+        [ "Install Dependencies", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md235", null ],
+        [ "Compiling", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md236", null ],
+        [ "Running", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md237", null ],
+        [ "Testing", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md238", null ]
       ] ],
-      [ "Estimators", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md240", [
-        [ "EKF", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md241", null ]
+      [ "Estimators", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md239", [
+        [ "EKF", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md240", null ]
       ] ],
-      [ "Structure", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md242", null ],
-      [ "Design", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md243", null ],
-      [ "Important Dependencies", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md244", null ]
+      [ "Structure", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md241", null ],
+      [ "Design", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md242", null ],
+      [ "Important Dependencies", "d1/dd4/md_src_2velocity__estimation_2_r_e_a_d_m_e.html#autotoc_md243", null ]
     ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -374,35 +373,35 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d0/d89/class_path_calculation.html#ab7648ed321c4e8adcde0d11f552f486d",
-"d1/d5c/class_i_vehicle_model.html#a6358fb4a0fae07958152ce7af1f4cb78",
-"d1/de3/deviation__validator_8cpp_source.html",
-"d2/da2/marker_8hpp.html#ad032521a6c8b87a7d9b09dbd35b27da5",
-"d3/d05/classvehicle__dynamics__node_1_1integrator__node_1_1_integrator.html#abb060e1217691d6e9b05f8ecf547e01d",
-"d3/dad/struct_vehicle_model_bicycle_1_1_tire_model.html#a959a465ae277ebd8365a260339112637",
-"d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md210",
+"d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94",
+"d1/d5c/class_i_vehicle_model.html#a630c1dfbea656feeed68e1ea45239fcb",
+"d1/de3/deviation__validator_8cpp.html",
+"d2/da2/marker_8hpp.html#acc06a51ec257283cb5f8afd4b19e7021",
+"d3/d05/classvehicle__dynamics__node_1_1integrator__node_1_1_integrator.html#aac11fdaa58b36f9499071b5eed1a199a",
+"d3/dad/struct_vehicle_model_bicycle_1_1_tire_model.html#a92a39728a51140ffe7787e7b06f927bd",
+"d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md209",
 "d4/dfa/spline_8py.html#a403fcd33dda06aec50d68edbd1ff2080",
 "d5/da5/classdraw_view_1_1draw_view.html#aa2c7d7f3d70a5848fea82b4acabd22d1",
 "d6/d51/classdraw_view_1_1draw_scene.html#aaacc0e2ac751bef835318273d3d0bf84",
 "d6/dc6/slam_2src_2main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627",
 "d7/d79/class_e_k_f_s_l_a_m_solver.html#a12f5879962ddc72ad65ca5bba150bc9f",
 "d7/d9e/classtest__data__association__metrics_1_1_test_data_association_metrics.html#ad731fdda1d4be04152b35dcca770a53d",
-"d8/d26/maximum__likelihood__md__test_8cpp.html#a54d2da7e7d9c0c61d8a736b6f07af743",
+"d8/d26/maximum__likelihood__md__test_8cpp.html#a7de52964048ee5d6240d261f951e279b",
 "d8/def/classmain_1_1_my_window.html#a7bdf44ee1e1c19d02b7502f0b8543662",
-"d9/d73/class_graph_s_l_a_m_solver.html#a954aa308eb7b5162489d72517943aa83",
-"d9/db5/splines__tests_8cpp.html#a83b61818f6ea0bfb86ff753855155bad",
-"da/da6/class_extended_kalman_filter.html#a257f891a98929e29bc2871ba7eeebc3b",
-"db/d57/classsupervisor_1_1main_1_1_supervisor.html#a7700d576c55b93ff096b9d47bc42835a",
-"db/df8/car__keys_2setup_8py.html#a92a81adbfdd219564d5246ce8d77f869",
-"dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a6e7da9169450b866fe319962b4093e74",
-"dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html",
-"dd/d05/classscenario__generator_1_1_point_tracker.html#ab7fc273a8ff57d568c0e82fee40d56b7",
-"dd/d70/constant__velocity__model_8cpp_source.html",
-"de/d11/class_himmelsbach_test.html#abbe1a5626eb9fa329d6c7a6faedfb317",
-"de/dce/struct_path_smoothing_config.html#ae6f69373403f75118d27960670ccb90e",
-"df/d8f/class_cone_evaluator.html#ae491a005e1d98cb483216a072a0c21e6",
-"dir_806266aa41659ecb8f2528e68cc1b8fa.html",
-"globals_func_w.html"
+"d9/d73/class_graph_s_l_a_m_solver.html#a9cd14357f3d77b05e7cc9374584cd81a",
+"d9/db5/splines__tests_8cpp.html#a6556ed322889d2511804a36ac4e8a7bd",
+"da/da6/class_extended_kalman_filter.html#a231c7a4454693616e689025120192433",
+"db/d57/classsupervisor_1_1main_1_1_supervisor.html#a73f2ac3cab0a2e953be6e5672c37f5f2",
+"db/df8/car__keys_2setup_8py.html",
+"dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a6cd92f94ca32fad79b620c5f3bffcd1e",
+"dc/da7/midpoint_8hpp.html#ab351a84f2421d5f971fbab843bbc3a62",
+"dd/d05/classscenario__generator_1_1_point_tracker.html#ab68dfb403d726ede156eff5ac864f4a0",
+"dd/d6b/namespaceoffsettrack.html#afefbbb4f39da3e83816bf5d31d797527",
+"de/d11/class_himmelsbach_test.html#a7141ecc12a5c169ce77cc030c5ac922e",
+"de/dce/struct_path_smoothing_config.html#ad4e00b7369576e2bfd934f8440868370",
+"df/d8f/class_cone_evaluator.html#a73dbb0369a2ac04e93520c3180b3a9d3",
+"dir_7d2c06cce4be60c2aa7354886cadfc86.html",
+"globals_func_q.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

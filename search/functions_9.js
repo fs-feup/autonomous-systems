@@ -25,7 +25,8 @@ var searchData=
   ['invictasimnode_22',['InvictaSimNode',['../d9/d43/class_invicta_sim_node.html#a04a253570106ff11accdf12d168250c4',1,'InvictaSimNode']]],
   ['invictasimparameters_23',['InvictaSimParameters',['../df/d28/struct_invicta_sim_parameters.html#aacdd9e124f64ce1566df60076dabad03',1,'InvictaSimParameters']]],
   ['is_5flandmark_5falready_5fassigned_24',['is_landmark_already_assigned',['../df/dd3/class_j_c_b_b.html#a3810be0eee640d7b51ca23dc5ae50c96',1,'JCBB']]],
-  ['isam2optimizer_25',['isam2optimizer',['../d8/dbe/class_i_s_a_m2_optimizer.html#a8b4e421444949a7650b71121e7a4cf16',1,'ISAM2Optimizer::ISAM2Optimizer(const ISAM2Optimizer &amp;other)'],['../d8/dbe/class_i_s_a_m2_optimizer.html#ac64e1b25ab38947bc2135e0c8aa2ad6c',1,'ISAM2Optimizer::ISAM2Optimizer(const SLAMParameters &amp;params)']]],
-  ['itemchange_26',['itemChange',['../d9/d25/classdraw_view_1_1_cone_item.html#a54464344eb579b70a82d868e7eab899c',1,'drawView::ConeItem']]],
-  ['iterate_5fsmoothing_27',['iterate_smoothing',['../d3/d72/planning_2test_2performance__test_8cpp.html#aaff3d99499fd3dfba82e1ee8641cf66b',1,'performance_test.cpp']]]
+  ['is_5fmap_5fclosed_25',['is_map_closed',['../d0/d89/class_path_calculation.html#a5a1103dcdb4e71d28af392795729e3fb',1,'PathCalculation']]],
+  ['isam2optimizer_26',['isam2optimizer',['../d8/dbe/class_i_s_a_m2_optimizer.html#a8b4e421444949a7650b71121e7a4cf16',1,'ISAM2Optimizer::ISAM2Optimizer(const ISAM2Optimizer &amp;other)'],['../d8/dbe/class_i_s_a_m2_optimizer.html#ac64e1b25ab38947bc2135e0c8aa2ad6c',1,'ISAM2Optimizer::ISAM2Optimizer(const SLAMParameters &amp;params)']]],
+  ['itemchange_27',['itemChange',['../d9/d25/classdraw_view_1_1_cone_item.html#a54464344eb579b70a82d868e7eab899c',1,'drawView::ConeItem']]],
+  ['iterate_5fsmoothing_28',['iterate_smoothing',['../d3/d72/planning_2test_2performance__test_8cpp.html#aaff3d99499fd3dfba82e1ee8641cf66b',1,'performance_test.cpp']]]
 ];

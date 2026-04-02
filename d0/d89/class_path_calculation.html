@@ -109,17 +109,17 @@ Collaboration diagram for PathCalculation:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/d1b/class_path_calculation__coll__graph.png" border="0" usemap="#a_path_calculation_coll__map" alt="Collaboration graph"/></div>
 <map name="a_path_calculation_coll__map" id="a_path_calculation_coll__map">
-<area shape="rect" title="Generates optimal local paths." alt="" coords="202,860,394,1549"/>
-<area shape="rect" href="../../df/d7d/struct_path_calculation_config.html" title=" " alt="" coords="5,491,180,797"/>
-<area shape="poly" title=" " alt="" coords="151,796,199,926,194,928,146,798"/>
+<area shape="rect" title="Generates optimal local paths." alt="" coords="202,880,394,1589"/>
+<area shape="rect" href="../../df/d7d/struct_path_calculation_config.html" title=" " alt="" coords="5,491,180,817"/>
+<area shape="poly" title=" " alt="" coords="153,816,199,946,194,948,147,818"/>
 <area shape="rect" href="../../d9/d46/struct_midpoint_generator_config.html" title="Configuration parameters for the Midpoint Generator class." alt="" coords="85,286,263,411"/>
 <area shape="poly" title=" " alt="" coords="120,412,98,453,92,475,86,474,93,451,115,409"/>
-<area shape="rect" href="../../d8/dab/class_midpoint_generator.html" title="Generates midpoints between cones using Delaunay triangulation." alt="" coords="205,521,394,767"/>
-<area shape="poly" title=" " alt="" coords="207,410,226,451,249,505,244,507,221,453,202,412"/>
-<area shape="poly" title=" " alt="" coords="302,766,302,842,296,842,296,766"/>
+<area shape="rect" href="../../d8/dab/class_midpoint_generator.html" title="Generates midpoints between cones using Delaunay triangulation." alt="" coords="205,531,394,777"/>
+<area shape="poly" title=" " alt="" coords="207,410,226,451,252,515,247,517,221,453,202,412"/>
+<area shape="poly" title=" " alt="" coords="302,776,302,863,296,863,296,776"/>
 <area shape="rect" href="../../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="313,268,459,428"/>
-<area shape="poly" title=" " alt="" coords="420,427,426,452,442,559,448,644,442,729,426,836,401,942,396,941,421,835,437,728,442,644,437,560,421,453,415,429"/>
-<area shape="poly" title=" " alt="" coords="345,429,336,453,322,505,316,504,331,451,340,427"/>
+<area shape="poly" title=" " alt="" coords="420,427,426,452,443,565,448,654,442,743,426,856,401,965,396,964,421,855,437,743,443,654,438,565,421,453,415,429"/>
+<area shape="poly" title=" " alt="" coords="345,429,336,453,320,515,314,514,331,452,340,427"/>
 <area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="313,5,459,205"/>
 <area shape="poly" title=" " alt="" coords="389,205,389,252,383,252,383,205"/>
 </map>
@@ -142,6 +142,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aed93cb437cf28eb7cd0a540894f35443" id="r_aed93cb437cf28eb7cd0a540894f35443"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d89/class_path_calculation.html#aed93cb437cf28eb7cd0a540894f35443">set_vehicle_pose</a> (const <a class="el" href="../../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html">common_lib::structures::Pose</a> &amp;vehicle_pose)</td></tr>
 <tr class="memdesc:aed93cb437cf28eb7cd0a540894f35443"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the current vehicle position and orientation.  <br /></td></tr>
 <tr class="separator:aed93cb437cf28eb7cd0a540894f35443"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a1103dcdb4e71d28af392795729e3fb" id="r_a5a1103dcdb4e71d28af392795729e3fb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d89/class_path_calculation.html#a5a1103dcdb4e71d28af392795729e3fb">is_map_closed</a> (std::vector&lt; <a class="el" href="../../df/ded/path__calculation_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;path) const</td></tr>
+<tr class="memdesc:a5a1103dcdb4e71d28af392795729e3fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the path forms a closed loop and closes it if the transition cost is below config_.close_cost_.  <br /></td></tr>
+<tr class="separator:a5a1103dcdb4e71d28af392795729e3fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32c98016b89039232744c40ae3be80c0" id="r_a32c98016b89039232744c40ae3be80c0"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../df/ded/path__calculation_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d89/class_path_calculation.html#a32c98016b89039232744c40ae3be80c0">get_path_to_car</a> () const</td></tr>
 <tr class="memdesc:a32c98016b89039232744c40ae3be80c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the path from the start to a lookback distance behind the car’s current position.  <br /></td></tr>
 <tr class="separator:a32c98016b89039232744c40ae3be80c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -199,9 +202,9 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a7f11a4bdef8eb9fdfd88d808dca1b90f" id="r_a7f11a4bdef8eb9fdfd88d808dca1b90f"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../df/ded/path__calculation_8hpp.html#aeca6449c6244f26528b330c1101c7ba6">Midpoint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d89/class_path_calculation.html#a7f11a4bdef8eb9fdfd88d808dca1b90f">find_nearest_midpoint</a> (const <a class="el" href="../../d2/da2/marker_8hpp.html#a3a78be97ed6744f53b38676709a25081">Point</a> &amp;target) const</td></tr>
 <tr class="memdesc:a7f11a4bdef8eb9fdfd88d808dca1b90f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the nearest valid midpoint to a target position.  <br /></td></tr>
 <tr class="separator:a7f11a4bdef8eb9fdfd88d808dca1b90f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7648ed321c4e8adcde0d11f552f486d" id="r_ab7648ed321c4e8adcde0d11f552f486d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d89/class_path_calculation.html#ab7648ed321c4e8adcde0d11f552f486d">find_best_loop_closure</a> (const std::vector&lt; <a class="el" href="../../df/ded/path__calculation_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;path) const</td></tr>
-<tr class="memdesc:ab7648ed321c4e8adcde0d11f552f486d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the optimal point to close a track loop.  <br /></td></tr>
-<tr class="separator:ab7648ed321c4e8adcde0d11f552f486d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad470af47aeeb85803b4a94cfbd5e4fb3" id="r_ad470af47aeeb85803b4a94cfbd5e4fb3"><td class="memItemLeft" align="right" valign="top">std::pair&lt; int, double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d89/class_path_calculation.html#ad470af47aeeb85803b4a94cfbd5e4fb3">find_best_loop_closure</a> (const std::vector&lt; <a class="el" href="../../df/ded/path__calculation_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;path) const</td></tr>
+<tr class="memdesc:ad470af47aeeb85803b4a94cfbd5e4fb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the best loop closure point in a path.  <br /></td></tr>
+<tr class="separator:ad470af47aeeb85803b4a94cfbd5e4fb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af87bf849e6229c74e758cd7fa4abf78d" id="r_af87bf849e6229c74e758cd7fa4abf78d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../df/ded/path__calculation_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d89/class_path_calculation.html#af87bf849e6229c74e758cd7fa4abf78d">get_path_points_from_colorpoints</a> (const std::vector&lt; <a class="el" href="../../d4/d10/class_colorpoint.html">Colorpoint</a> &gt; &amp;colorpoints) const</td></tr>
 <tr class="memdesc:af87bf849e6229c74e758cd7fa4abf78d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a vector of <a class="el" href="../../d4/d10/class_colorpoint.html" title="Path point with two boundary cones, provides cone classification into left/right boundaries.">Colorpoint</a> objects into a vector of PathPoint objects.  <br /></td></tr>
 <tr class="separator:af87bf849e6229c74e758cd7fa4abf78d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -379,71 +382,74 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Total cost combining angular deviation and distance penalties </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00410">410</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00427">427</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d89/class_path_calculation_a32453ba6eeddf24ab41fb6a4bd037984_icgraph.png" border="0" usemap="#ad0/d89/class_path_calculation_a32453ba6eeddf24ab41fb6a4bd037984_icgraph" alt=""/></div>
 <map name="ad0/d89/class_path_calculation_a32453ba6eeddf24ab41fb6a4bd037984_icgraph" id="ad0/d89/class_path_calculation_a32453ba6eeddf24ab41fb6a4bd037984_icgraph">
-<area shape="rect" title="Calculate the cost of transitioning through three consecutive points." alt="" coords="2464,61,2666,86"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab7648ed321c4e8adcde0d11f552f486d" title="Find the optimal point to close a track loop." alt="" coords="1840,12,1978,53"/>
-<area shape="poly" title=" " alt="" coords="2448,63,2416,60,2175,45,1979,37,1979,32,2175,40,2416,55,2449,58"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#aa57adbaba88d90c8f96909fb8dbf14d0" title="Recursively find the best next midpoint using depth&#45;first search." alt="" coords="2276,93,2416,134"/>
-<area shape="poly" title=" " alt="" coords="2477,92,2417,103,2416,98,2476,87"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,12,1529,53"/>
-<area shape="poly" title=" " alt="" coords="1824,35,1529,35,1529,30,1824,30"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,51,1090,77"/>
-<area shape="poly" title=" " alt="" coords="1343,16,1244,8,1190,10,1139,16,1084,33,1038,53,1036,48,1082,28,1137,11,1190,4,1244,3,1344,11"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,26,1300,52"/>
-<area shape="poly" title=" " alt="" coords="1343,38,1301,39,1300,34,1342,33"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,145,883,186"/>
-<area shape="poly" title=" " alt="" coords="970,87,851,147,849,142,968,82"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,92,659,133"/>
-<area shape="poly" title=" " alt="" coords="717,146,659,132,660,127,718,141"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="495,177,684,218"/>
-<area shape="poly" title=" " alt="" coords="718,181,685,186,685,181,717,176"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,78,444,104"/>
-<area shape="poly" title=" " alt="" coords="505,107,444,102,445,96,505,102"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructs a Planning node with the specified configuration parameters." alt="" coords="291,127,419,153"/>
-<area shape="poly" title=" " alt="" coords="505,125,419,135,419,130,505,120"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,13,429,54"/>
-<area shape="poly" title=" " alt="" coords="512,89,417,57,419,52,513,84"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,158,195,184"/>
-<area shape="poly" title=" " alt="" coords="280,111,264,117,240,131,216,145,172,160,170,155,214,140,237,127,262,112,278,106"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,105,215,130"/>
-<area shape="poly" title=" " alt="" coords="280,62,151,107,149,102,278,57"/>
-<area shape="poly" title=" " alt="" coords="488,176,410,156,411,151,490,170"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,242,446,268"/>
-<area shape="poly" title=" " alt="" coords="490,225,411,244,410,239,488,219"/>
-<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,291,447,317"/>
-<area shape="poly" title=" " alt="" coords="547,229,500,257,448,283,417,293,416,288,446,278,498,252,544,224"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="281,177,429,218"/>
-<area shape="poly" title=" " alt="" coords="480,200,429,200,429,195,480,195"/>
-<area shape="poly" title=" " alt="" coords="286,240,262,232,142,187,144,182,264,227,288,235"/>
-<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,291,198,317"/>
-<area shape="poly" title=" " alt="" coords="247,307,198,307,198,302,247,302"/>
-<area shape="poly" title=" " alt="" coords="278,174,262,168,214,148,165,133,167,128,216,143,264,163,279,169"/>
-<area shape="poly" title=" " alt="" coords="1133,52,1091,57,1090,52,1133,47"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,127,1090,153"/>
-<area shape="poly" title=" " alt="" coords="1183,61,1040,129,1038,125,1180,56"/>
-<area shape="poly" title=" " alt="" coords="916,155,884,159,883,153,915,149"/>
-<area shape="poly" title=" " alt="" coords="2380,80,2367,74,2346,72,2326,74,2313,78,2309,84,2311,92,2306,93,2304,83,2310,74,2324,69,2346,67,2369,69,2383,75"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a81c3a881015bcd88d48c641dd9a8f134" title="Extend the path by adding midpoints." alt="" coords="2039,89,2228,114"/>
-<area shape="poly" title=" " alt="" coords="2260,111,2228,110,2228,104,2260,106"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a11ab63e74a5f2de45bc8147b720c5882" title="Select the first two midpoints to start the path." alt="" coords="2057,139,2210,179"/>
-<area shape="poly" title=" " alt="" coords="2261,134,2211,145,2210,140,2260,129"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,127,1779,153"/>
-<area shape="poly" title=" " alt="" coords="2024,113,1827,130,1780,134,1779,128,1827,124,2024,108"/>
-<area shape="poly" title=" " alt="" coords="1633,123,1528,73,1489,55,1491,51,1530,68,1636,118"/>
-<area shape="poly" title=" " alt="" coords="1561,128,1528,124,1090,75,1091,70,1529,119,1562,123"/>
-<area shape="poly" title=" " alt="" coords="1620,161,1529,184,1421,207,1335,220,1248,224,1138,219,1034,207,930,190,882,182,883,176,931,184,1034,202,1138,214,1248,219,1334,215,1420,202,1528,179,1618,155"/>
-<area shape="poly" title=" " alt="" coords="1561,143,1090,143,1090,138,1561,138"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,178,1310,204"/>
-<area shape="poly" title=" " alt="" coords="1562,158,1529,162,1311,185,1310,180,1528,156,1561,152"/>
-<area shape="poly" title=" " alt="" coords="1123,187,883,173,883,167,1123,182"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a52cbb5e2cf46ba4e6716928b2d5b5ed9" title="Initialize the path from the vehicle&#39;s initial pose." alt="" coords="1827,139,1991,179"/>
-<area shape="poly" title=" " alt="" coords="2042,162,1992,162,1992,156,2042,156"/>
-<area shape="poly" title=" " alt="" coords="1811,154,1779,151,1780,146,1812,148"/>
+<area shape="rect" title="Calculate the cost of transitioning through three consecutive points." alt="" coords="2434,81,2636,107"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#ad470af47aeeb85803b4a94cfbd5e4fb3" title="Finds the best loop closure point in a path." alt="" coords="1590,32,1728,73"/>
+<area shape="poly" title=" " alt="" coords="2418,83,2386,81,2199,70,2015,62,1728,56,1728,51,2015,57,2200,64,2386,75,2419,78"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#aa57adbaba88d90c8f96909fb8dbf14d0" title="Recursively find the best next midpoint using depth&#45;first search." alt="" coords="2246,114,2386,154"/>
+<area shape="poly" title=" " alt="" coords="2447,113,2387,124,2386,118,2446,107"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1338,32,1509,73"/>
+<area shape="poly" title=" " alt="" coords="1574,55,1509,55,1509,50,1574,50"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a5a1103dcdb4e71d28af392795729e3fb" title="Checks if the path forms a closed loop and closes it if the transition cost is below config_...." alt="" coords="1150,32,1278,73"/>
+<area shape="poly" title=" " alt="" coords="1574,34,1509,23,1423,16,1338,23,1278,35,1277,30,1337,18,1423,11,1510,18,1575,29"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1138,97,1289,123"/>
+<area shape="poly" title=" " alt="" coords="1333,80,1264,99,1263,94,1332,75"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,73,1090,99"/>
+<area shape="poly" title=" " alt="" coords="1122,102,1090,98,1091,93,1123,96"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,122,1090,148"/>
+<area shape="poly" title=" " alt="" coords="1123,124,1091,128,1090,123,1122,119"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,166,883,206"/>
+<area shape="poly" title=" " alt="" coords="945,107,932,112,882,139,839,167,836,163,879,135,930,107,943,102"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,112,659,153"/>
+<area shape="poly" title=" " alt="" coords="717,166,659,152,660,147,718,161"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="495,198,684,238"/>
+<area shape="poly" title=" " alt="" coords="718,202,685,207,685,201,717,196"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,98,444,124"/>
+<area shape="poly" title=" " alt="" coords="505,128,444,122,445,117,505,122"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructs a Planning node with the specified configuration parameters." alt="" coords="291,148,419,173"/>
+<area shape="poly" title=" " alt="" coords="505,145,419,156,419,150,505,140"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,34,429,74"/>
+<area shape="poly" title=" " alt="" coords="512,109,417,77,419,72,513,104"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,178,195,204"/>
+<area shape="poly" title=" " alt="" coords="280,132,264,138,240,151,216,166,172,180,170,175,214,161,237,147,262,133,278,127"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,125,215,151"/>
+<area shape="poly" title=" " alt="" coords="280,82,151,127,149,122,278,77"/>
+<area shape="poly" title=" " alt="" coords="488,196,410,177,411,171,490,191"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,262,446,288"/>
+<area shape="poly" title=" " alt="" coords="490,245,411,264,410,259,488,240"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,312,447,337"/>
+<area shape="poly" title=" " alt="" coords="547,249,500,277,448,303,417,314,416,309,446,298,498,273,544,245"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="281,198,429,238"/>
+<area shape="poly" title=" " alt="" coords="480,221,429,221,429,215,480,215"/>
+<area shape="poly" title=" " alt="" coords="286,260,262,252,142,207,144,202,264,247,288,255"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,312,198,337"/>
+<area shape="poly" title=" " alt="" coords="247,327,198,327,198,322,247,322"/>
+<area shape="poly" title=" " alt="" coords="278,194,262,188,214,168,165,154,167,149,216,163,264,183,279,189"/>
+<area shape="poly" title=" " alt="" coords="942,155,884,170,883,164,941,150"/>
+<area shape="poly" title=" " alt="" coords="1134,68,1091,75,1090,70,1133,63"/>
+<area shape="poly" title=" " alt="" coords="1150,82,1139,87,1091,114,1062,124,1060,119,1089,109,1137,82,1147,77"/>
+<area shape="poly" title=" " alt="" coords="2347,100,2336,94,2316,92,2297,94,2286,99,2282,105,2284,112,2279,113,2277,104,2283,95,2296,89,2316,87,2337,89,2350,96"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a81c3a881015bcd88d48c641dd9a8f134" title="Extend the path by adding midpoints." alt="" coords="1808,90,1996,116"/>
+<area shape="poly" title=" " alt="" coords="2230,130,1997,113,1997,108,2231,125"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a11ab63e74a5f2de45bc8147b720c5882" title="Select the first two midpoints to start the path." alt="" coords="2044,140,2198,181"/>
+<area shape="poly" title=" " alt="" coords="2231,148,2198,153,2198,147,2230,143"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1558,148,1760,173"/>
+<area shape="poly" title=" " alt="" coords="1831,123,1717,150,1716,144,1829,118"/>
+<area shape="poly" title=" " alt="" coords="1615,143,1509,94,1470,76,1472,71,1511,89,1617,138"/>
+<area shape="poly" title=" " alt="" coords="1575,147,1430,115,1370,99,1336,87,1320,70,1312,52,1304,36,1288,23,1254,11,1218,8,1181,12,1145,21,1080,48,1033,75,1030,70,1078,43,1144,16,1180,7,1218,3,1255,6,1291,18,1308,33,1317,50,1324,67,1339,82,1371,94,1431,110,1576,141"/>
+<area shape="poly" title=" " alt="" coords="1542,167,883,186,883,181,1542,161"/>
+<area shape="poly" title=" " alt="" coords="1542,159,1090,141,1090,136,1542,153"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1337,249,1510,275"/>
+<area shape="poly" title=" " alt="" coords="1618,183,1511,232,1463,251,1461,246,1509,227,1616,178"/>
+<area shape="poly" title=" " alt="" coords="1322,266,1139,260,1034,249,930,232,856,209,858,204,931,227,1034,244,1139,254,1322,261"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a52cbb5e2cf46ba4e6716928b2d5b5ed9" title="Initialize the path from the vehicle&#39;s initial pose." alt="" coords="1820,140,1984,181"/>
+<area shape="poly" title=" " alt="" coords="2029,163,1985,163,1985,158,2029,158"/>
+<area shape="poly" title=" " alt="" coords="1804,163,1760,163,1760,158,1804,158"/>
 </map>
 </div>
 
@@ -544,20 +550,21 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d89/class_path_calculation_a501f9aba5c54c8f0d0cc158333eb58c2_icgraph.png" border="0" usemap="#ad0/d89/class_path_calculation_a501f9aba5c54c8f0d0cc158333eb58c2_icgraph" alt=""/></div>
 <map name="ad0/d89/class_path_calculation_a501f9aba5c54c8f0d0cc158333eb58c2_icgraph" id="ad0/d89/class_path_calculation_a501f9aba5c54c8f0d0cc158333eb58c2_icgraph">
-<area shape="rect" title="Generate a path from an array of cones." alt="" coords="1577,145,1779,171"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,137,1529,178"/>
-<area shape="poly" title=" " alt="" coords="1561,160,1529,160,1529,155,1561,155"/>
+<area shape="rect" title="Generate a path from an array of cones." alt="" coords="1577,144,1779,169"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,136,1529,177"/>
+<area shape="poly" title=" " alt="" coords="1561,159,1529,159,1529,154,1561,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1612,143,1528,128,1409,120,1290,119,1090,128,1090,123,1290,114,1409,115,1529,123,1613,138"/>
+<area shape="poly" title=" " alt="" coords="1612,142,1528,127,1409,119,1290,118,1090,128,1090,123,1290,113,1409,114,1529,122,1613,137"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
-<area shape="poly" title=" " alt="" coords="1634,140,1584,121,1528,106,1361,78,1293,71,1229,69,1165,71,1097,79,931,110,888,123,849,139,847,134,887,118,930,104,1097,74,1165,66,1229,64,1293,66,1362,73,1529,100,1586,116,1636,136"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,170,1090,196"/>
-<area shape="poly" title=" " alt="" coords="1608,177,1529,192,1420,209,1334,218,1248,219,1138,211,1066,199,1067,194,1138,206,1248,214,1334,212,1419,203,1528,187,1607,172"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,272,1310,297"/>
-<area shape="poly" title=" " alt="" coords="1651,183,1597,221,1564,240,1530,255,1474,270,1417,280,1311,288,1311,283,1416,275,1473,265,1528,250,1562,235,1594,217,1648,178"/>
-<area shape="poly" title=" " alt="" coords="1343,155,1090,140,1091,134,1343,149"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,170,1300,196"/>
-<area shape="poly" title=" " alt="" coords="1343,172,1301,177,1300,172,1342,167"/>
+<area shape="poly" title=" " alt="" coords="1634,139,1584,119,1528,104,1361,77,1293,70,1229,68,1165,71,1097,78,931,110,889,123,850,139,848,134,887,118,930,104,1097,73,1165,65,1229,63,1293,65,1362,72,1529,99,1586,114,1636,134"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
+<area shape="poly" title=" " alt="" coords="1613,176,1529,191,1409,199,1290,200,1090,191,1090,186,1290,195,1409,194,1528,186,1612,171"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,252,1310,277"/>
+<area shape="poly" title=" " alt="" coords="1645,180,1592,209,1529,235,1474,249,1416,258,1311,266,1311,261,1416,252,1473,243,1528,230,1590,205,1642,175"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,144,1300,169"/>
+<area shape="poly" title=" " alt="" coords="1343,159,1300,159,1300,154,1343,154"/>
+<area shape="poly" title=" " alt="" coords="1133,149,1090,144,1091,139,1133,143"/>
+<area shape="poly" title=" " alt="" coords="1133,170,1091,175,1090,170,1133,164"/>
 <area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
 <area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
@@ -584,10 +591,8 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
-<area shape="poly" title=" " alt="" coords="1151,169,1067,148,1068,143,1153,163"/>
-<area shape="poly" title=" " alt="" coords="1133,186,1090,186,1090,180,1133,180"/>
-<area shape="poly" title=" " alt="" coords="915,174,883,170,884,164,916,169"/>
-<area shape="poly" title=" " alt="" coords="1146,270,1042,244,930,211,854,181,856,176,932,206,1044,239,1147,265"/>
+<area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
+<area shape="poly" title=" " alt="" coords="1122,252,1028,234,930,210,853,181,855,176,931,204,1029,229,1123,247"/>
 </map>
 </div>
 
@@ -619,7 +624,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Vector of path points forming a closed loop. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00084">84</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00101">101</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -630,7 +635,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="176,261,208,261,208,266,176,266"/>
 <area shape="rect" href="../../d4/d10/class_colorpoint.html#a6446f8d044958be74084213a3838439c" title="Extracts and classifies all cones from a sequence of colorpoints." alt="" coords="511,26,635,67"/>
 <area shape="poly" title=" " alt="" coords="130,240,279,165,473,77,495,69,497,73,475,82,281,170,132,245"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab7648ed321c4e8adcde0d11f552f486d" title="Find the optimal point to close a track loop." alt="" coords="256,457,394,497"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#ad470af47aeeb85803b4a94cfbd5e4fb3" title="Finds the best loop closure point in a path." alt="" coords="256,457,394,497"/>
 <area shape="poly" title=" " alt="" coords="116,282,292,444,288,448,113,286"/>
 <area shape="rect" href="../../d0/d89/class_path_calculation.html#a9694a0284110864c9b546261ce1e4db4" title="Reset path construction state." alt="" coords="500,271,646,312"/>
 <area shape="poly" title=" " alt="" coords="427,272,485,279,484,284,426,278"/>
@@ -694,11 +699,13 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d89/class_path_calculation_ab49caee95f9ce6b27f015f68d9eb8f94_icgraph.png" border="0" usemap="#ad0/d89/class_path_calculation_ab49caee95f9ce6b27f015f68d9eb8f94_icgraph" alt=""/></div>
 <map name="ad0/d89/class_path_calculation_ab49caee95f9ce6b27f015f68d9eb8f94_icgraph" id="ad0/d89/class_path_calculation_ab49caee95f9ce6b27f015f68d9eb8f94_icgraph">
-<area shape="rect" title="Generate a closed loop path for trackdrive competition." alt="" coords="1337,136,1508,177"/>
+<area shape="rect" title="Generate a closed loop path for trackdrive competition." alt="" coords="1337,137,1508,178"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1138,145,1289,171"/>
+<area shape="poly" title=" " alt="" coords="1322,160,1290,160,1290,155,1322,155"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1321,153,1090,140,1091,134,1322,148"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1138,169,1289,195"/>
-<area shape="poly" title=" " alt="" coords="1322,171,1290,175,1289,170,1321,166"/>
+<area shape="poly" title=" " alt="" coords="1122,149,1090,145,1091,140,1123,144"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
+<area shape="poly" title=" " alt="" coords="1123,171,1091,175,1090,170,1122,166"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
 <area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
@@ -726,9 +733,6 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
-<area shape="poly" title=" " alt="" coords="1142,167,1066,148,1067,143,1143,162"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
-<area shape="poly" title=" " alt="" coords="1123,184,1090,184,1090,179,1123,179"/>
 <area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
 </map>
 </div>
@@ -761,28 +765,29 @@ Here is the caller graph for this function:</div>
 <p>Reset path construction state. </p>
 <p>Clears all internal tracking structures (current path, visited midpoints, discarded cones) to prepare for a fresh path calculation. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00119">119</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00135">135</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d89/class_path_calculation_a9694a0284110864c9b546261ce1e4db4_icgraph.png" border="0" usemap="#ad0/d89/class_path_calculation_a9694a0284110864c9b546261ce1e4db4_icgraph" alt=""/></div>
 <map name="ad0/d89/class_path_calculation_a9694a0284110864c9b546261ce1e4db4_icgraph" id="ad0/d89/class_path_calculation_a9694a0284110864c9b546261ce1e4db4_icgraph">
-<area shape="rect" title="Reset path construction state." alt="" coords="1827,137,1973,178"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,145,1779,171"/>
-<area shape="poly" title=" " alt="" coords="1812,160,1780,160,1780,155,1812,155"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,137,1529,178"/>
-<area shape="poly" title=" " alt="" coords="1561,160,1529,160,1529,155,1561,155"/>
+<area shape="rect" title="Reset path construction state." alt="" coords="1827,136,1973,177"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,144,1779,169"/>
+<area shape="poly" title=" " alt="" coords="1812,159,1780,159,1780,154,1812,154"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,136,1529,177"/>
+<area shape="poly" title=" " alt="" coords="1561,159,1529,159,1529,154,1561,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1612,143,1528,128,1409,120,1290,119,1090,128,1090,123,1290,114,1409,115,1529,123,1613,138"/>
+<area shape="poly" title=" " alt="" coords="1612,142,1528,127,1409,119,1290,118,1090,128,1090,123,1290,113,1409,114,1529,122,1613,137"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
-<area shape="poly" title=" " alt="" coords="1634,140,1584,121,1528,106,1361,78,1293,71,1229,69,1165,71,1097,79,931,110,888,123,849,139,847,134,887,118,930,104,1097,74,1165,66,1229,64,1293,66,1362,73,1529,100,1586,116,1636,136"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,170,1090,196"/>
-<area shape="poly" title=" " alt="" coords="1608,177,1529,192,1420,209,1334,218,1248,219,1138,211,1066,199,1067,194,1138,206,1248,214,1334,212,1419,203,1528,187,1607,172"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,272,1310,297"/>
-<area shape="poly" title=" " alt="" coords="1651,183,1597,221,1564,240,1530,255,1474,270,1417,280,1311,288,1311,283,1416,275,1473,265,1528,250,1562,235,1594,217,1648,178"/>
-<area shape="poly" title=" " alt="" coords="1343,155,1090,140,1091,134,1343,149"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,170,1300,196"/>
-<area shape="poly" title=" " alt="" coords="1343,172,1301,177,1300,172,1342,167"/>
+<area shape="poly" title=" " alt="" coords="1634,139,1584,119,1528,104,1361,77,1293,70,1229,68,1165,71,1097,78,931,110,889,123,850,139,848,134,887,118,930,104,1097,73,1165,65,1229,63,1293,65,1362,72,1529,99,1586,114,1636,134"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
+<area shape="poly" title=" " alt="" coords="1613,176,1529,191,1409,199,1290,200,1090,191,1090,186,1290,195,1409,194,1528,186,1612,171"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,252,1310,277"/>
+<area shape="poly" title=" " alt="" coords="1645,180,1592,209,1529,235,1474,249,1416,258,1311,266,1311,261,1416,252,1473,243,1528,230,1590,205,1642,175"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,144,1300,169"/>
+<area shape="poly" title=" " alt="" coords="1343,159,1300,159,1300,154,1343,154"/>
+<area shape="poly" title=" " alt="" coords="1133,149,1090,144,1091,139,1133,143"/>
+<area shape="poly" title=" " alt="" coords="1133,170,1091,175,1090,170,1133,164"/>
 <area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
 <area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
@@ -809,10 +814,8 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
-<area shape="poly" title=" " alt="" coords="1151,169,1067,148,1068,143,1153,163"/>
-<area shape="poly" title=" " alt="" coords="1133,186,1090,186,1090,180,1133,180"/>
-<area shape="poly" title=" " alt="" coords="915,174,883,170,884,164,916,169"/>
-<area shape="poly" title=" " alt="" coords="1146,270,1042,244,930,211,854,181,856,176,932,206,1044,239,1147,265"/>
+<area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
+<area shape="poly" title=" " alt="" coords="1122,252,1028,234,930,210,853,181,855,176,931,204,1029,229,1123,247"/>
 </map>
 </div>
 
@@ -862,32 +865,33 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00459">459</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00476">476</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d89/class_path_calculation_a300483005c7b12ce3b914edd050bf1ec_icgraph.png" border="0" usemap="#ad0/d89/class_path_calculation_a300483005c7b12ce3b914edd050bf1ec_icgraph" alt=""/></div>
 <map name="ad0/d89/class_path_calculation_a300483005c7b12ce3b914edd050bf1ec_icgraph" id="ad0/d89/class_path_calculation_a300483005c7b12ce3b914edd050bf1ec_icgraph">
-<area shape="rect" title="Determine which cone to discard between two consecutive midpoints." alt="" coords="2272,145,2467,171"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#ae596921fc9b984db42026132d4f5e78b" title="Invalidate cones and midpoints along the last path segment." alt="" coords="2063,137,2224,178"/>
-<area shape="poly" title=" " alt="" coords="2256,160,2224,160,2224,155,2256,155"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a81c3a881015bcd88d48c641dd9a8f134" title="Extend the path by adding midpoints." alt="" coords="1827,145,2015,171"/>
-<area shape="poly" title=" " alt="" coords="2048,160,2016,160,2016,155,2048,155"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,145,1779,171"/>
-<area shape="poly" title=" " alt="" coords="1811,160,1779,160,1779,155,1811,155"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,137,1529,178"/>
-<area shape="poly" title=" " alt="" coords="1561,160,1529,160,1529,155,1561,155"/>
+<area shape="rect" title="Determine which cone to discard between two consecutive midpoints." alt="" coords="2272,144,2467,169"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#ae596921fc9b984db42026132d4f5e78b" title="Invalidate cones and midpoints along the last path segment." alt="" coords="2063,136,2224,177"/>
+<area shape="poly" title=" " alt="" coords="2256,159,2224,159,2224,154,2256,154"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a81c3a881015bcd88d48c641dd9a8f134" title="Extend the path by adding midpoints." alt="" coords="1827,144,2015,169"/>
+<area shape="poly" title=" " alt="" coords="2048,159,2016,159,2016,154,2048,154"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,144,1779,169"/>
+<area shape="poly" title=" " alt="" coords="1811,159,1779,159,1779,154,1811,154"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,136,1529,177"/>
+<area shape="poly" title=" " alt="" coords="1561,159,1529,159,1529,154,1561,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1612,143,1528,128,1409,120,1290,119,1090,128,1090,123,1290,114,1409,115,1529,123,1613,138"/>
+<area shape="poly" title=" " alt="" coords="1612,142,1528,127,1409,119,1290,118,1090,128,1090,123,1290,113,1409,114,1529,122,1613,137"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
-<area shape="poly" title=" " alt="" coords="1634,140,1584,121,1528,106,1361,78,1293,71,1229,69,1165,71,1097,79,931,110,888,123,849,139,847,134,887,118,930,104,1097,74,1165,66,1229,64,1293,66,1362,73,1529,100,1586,116,1636,136"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,170,1090,196"/>
-<area shape="poly" title=" " alt="" coords="1608,177,1529,192,1420,209,1334,218,1248,219,1138,211,1066,199,1067,194,1138,206,1248,214,1334,212,1419,203,1528,187,1607,172"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,272,1310,297"/>
-<area shape="poly" title=" " alt="" coords="1651,183,1597,221,1564,240,1530,255,1474,270,1417,280,1311,288,1311,283,1416,275,1473,265,1528,250,1562,235,1594,217,1648,178"/>
-<area shape="poly" title=" " alt="" coords="1343,155,1090,140,1091,134,1343,149"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,170,1300,196"/>
-<area shape="poly" title=" " alt="" coords="1343,172,1301,177,1300,172,1342,167"/>
+<area shape="poly" title=" " alt="" coords="1634,139,1584,119,1528,104,1361,77,1293,70,1229,68,1165,71,1097,78,931,110,889,123,850,139,848,134,887,118,930,104,1097,73,1165,65,1229,63,1293,65,1362,72,1529,99,1586,114,1636,134"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
+<area shape="poly" title=" " alt="" coords="1613,176,1529,191,1409,199,1290,200,1090,191,1090,186,1290,195,1409,194,1528,186,1612,171"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,252,1310,277"/>
+<area shape="poly" title=" " alt="" coords="1645,180,1592,209,1529,235,1474,249,1416,258,1311,266,1311,261,1416,252,1473,243,1528,230,1590,205,1642,175"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,144,1300,169"/>
+<area shape="poly" title=" " alt="" coords="1343,159,1300,159,1300,154,1343,154"/>
+<area shape="poly" title=" " alt="" coords="1133,149,1090,144,1091,139,1133,143"/>
+<area shape="poly" title=" " alt="" coords="1133,170,1091,175,1090,170,1133,164"/>
 <area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
 <area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
@@ -914,10 +918,8 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
-<area shape="poly" title=" " alt="" coords="1151,169,1067,148,1068,143,1153,163"/>
-<area shape="poly" title=" " alt="" coords="1133,186,1090,186,1090,180,1133,180"/>
-<area shape="poly" title=" " alt="" coords="915,174,883,170,884,164,916,169"/>
-<area shape="poly" title=" " alt="" coords="1146,270,1042,244,930,211,854,181,856,176,932,206,1044,239,1147,265"/>
+<area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
+<area shape="poly" title=" " alt="" coords="1122,252,1028,234,930,210,853,181,855,176,931,204,1029,229,1123,247"/>
 </map>
 </div>
 
@@ -949,7 +951,7 @@ Here is the caller graph for this function:</div>
 <p>Invalidate cones and midpoints along the last path segment. </p>
 <p>Marks cones as discarded if they were on the side of the path that has been passed. Invalidates any midpoints that depend on discarded cones and removes invalid neighbors from connectivity lists. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00433">433</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00450">450</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -971,24 +973,25 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d89/class_path_calculation_ae596921fc9b984db42026132d4f5e78b_icgraph.png" border="0" usemap="#ad0/d89/class_path_calculation_ae596921fc9b984db42026132d4f5e78b_icgraph" alt=""/></div>
 <map name="ad0/d89/class_path_calculation_ae596921fc9b984db42026132d4f5e78b_icgraph" id="ad0/d89/class_path_calculation_ae596921fc9b984db42026132d4f5e78b_icgraph">
-<area shape="rect" title="Invalidate cones and midpoints along the last path segment." alt="" coords="2063,137,2224,178"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a81c3a881015bcd88d48c641dd9a8f134" title="Extend the path by adding midpoints." alt="" coords="1827,145,2015,171"/>
-<area shape="poly" title=" " alt="" coords="2048,160,2016,160,2016,155,2048,155"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,145,1779,171"/>
-<area shape="poly" title=" " alt="" coords="1811,160,1779,160,1779,155,1811,155"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,137,1529,178"/>
-<area shape="poly" title=" " alt="" coords="1561,160,1529,160,1529,155,1561,155"/>
+<area shape="rect" title="Invalidate cones and midpoints along the last path segment." alt="" coords="2063,136,2224,177"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a81c3a881015bcd88d48c641dd9a8f134" title="Extend the path by adding midpoints." alt="" coords="1827,144,2015,169"/>
+<area shape="poly" title=" " alt="" coords="2048,159,2016,159,2016,154,2048,154"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,144,1779,169"/>
+<area shape="poly" title=" " alt="" coords="1811,159,1779,159,1779,154,1811,154"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,136,1529,177"/>
+<area shape="poly" title=" " alt="" coords="1561,159,1529,159,1529,154,1561,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1612,143,1528,128,1409,120,1290,119,1090,128,1090,123,1290,114,1409,115,1529,123,1613,138"/>
+<area shape="poly" title=" " alt="" coords="1612,142,1528,127,1409,119,1290,118,1090,128,1090,123,1290,113,1409,114,1529,122,1613,137"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
-<area shape="poly" title=" " alt="" coords="1634,140,1584,121,1528,106,1361,78,1293,71,1229,69,1165,71,1097,79,931,110,888,123,849,139,847,134,887,118,930,104,1097,74,1165,66,1229,64,1293,66,1362,73,1529,100,1586,116,1636,136"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,170,1090,196"/>
-<area shape="poly" title=" " alt="" coords="1608,177,1529,192,1420,209,1334,218,1248,219,1138,211,1066,199,1067,194,1138,206,1248,214,1334,212,1419,203,1528,187,1607,172"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,272,1310,297"/>
-<area shape="poly" title=" " alt="" coords="1651,183,1597,221,1564,240,1530,255,1474,270,1417,280,1311,288,1311,283,1416,275,1473,265,1528,250,1562,235,1594,217,1648,178"/>
-<area shape="poly" title=" " alt="" coords="1343,155,1090,140,1091,134,1343,149"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,170,1300,196"/>
-<area shape="poly" title=" " alt="" coords="1343,172,1301,177,1300,172,1342,167"/>
+<area shape="poly" title=" " alt="" coords="1634,139,1584,119,1528,104,1361,77,1293,70,1229,68,1165,71,1097,78,931,110,889,123,850,139,848,134,887,118,930,104,1097,73,1165,65,1229,63,1293,65,1362,72,1529,99,1586,114,1636,134"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
+<area shape="poly" title=" " alt="" coords="1613,176,1529,191,1409,199,1290,200,1090,191,1090,186,1290,195,1409,194,1528,186,1612,171"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,252,1310,277"/>
+<area shape="poly" title=" " alt="" coords="1645,180,1592,209,1529,235,1474,249,1416,258,1311,266,1311,261,1416,252,1473,243,1528,230,1590,205,1642,175"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,144,1300,169"/>
+<area shape="poly" title=" " alt="" coords="1343,159,1300,159,1300,154,1343,154"/>
+<area shape="poly" title=" " alt="" coords="1133,149,1090,144,1091,139,1133,143"/>
+<area shape="poly" title=" " alt="" coords="1133,170,1091,175,1090,170,1133,164"/>
 <area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
 <area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
@@ -1015,10 +1018,8 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
-<area shape="poly" title=" " alt="" coords="1151,169,1067,148,1068,143,1153,163"/>
-<area shape="poly" title=" " alt="" coords="1133,186,1090,186,1090,180,1133,180"/>
-<area shape="poly" title=" " alt="" coords="915,174,883,170,884,164,916,169"/>
-<area shape="poly" title=" " alt="" coords="1146,270,1042,244,930,211,854,181,856,176,932,206,1044,239,1147,265"/>
+<area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
+<area shape="poly" title=" " alt="" coords="1122,252,1028,234,930,210,853,181,855,176,931,204,1029,229,1123,247"/>
 </map>
 </div>
 
@@ -1057,7 +1058,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00226">226</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00243">243</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1087,22 +1088,23 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d89/class_path_calculation_a81c3a881015bcd88d48c641dd9a8f134_icgraph.png" border="0" usemap="#ad0/d89/class_path_calculation_a81c3a881015bcd88d48c641dd9a8f134_icgraph" alt=""/></div>
 <map name="ad0/d89/class_path_calculation_a81c3a881015bcd88d48c641dd9a8f134_icgraph" id="ad0/d89/class_path_calculation_a81c3a881015bcd88d48c641dd9a8f134_icgraph">
-<area shape="rect" title="Extend the path by adding midpoints." alt="" coords="1827,145,2015,171"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,145,1779,171"/>
-<area shape="poly" title=" " alt="" coords="1811,160,1779,160,1779,155,1811,155"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,137,1529,178"/>
-<area shape="poly" title=" " alt="" coords="1561,160,1529,160,1529,155,1561,155"/>
+<area shape="rect" title="Extend the path by adding midpoints." alt="" coords="1827,144,2015,169"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,144,1779,169"/>
+<area shape="poly" title=" " alt="" coords="1811,159,1779,159,1779,154,1811,154"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,136,1529,177"/>
+<area shape="poly" title=" " alt="" coords="1561,159,1529,159,1529,154,1561,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1612,143,1528,128,1409,120,1290,119,1090,128,1090,123,1290,114,1409,115,1529,123,1613,138"/>
+<area shape="poly" title=" " alt="" coords="1612,142,1528,127,1409,119,1290,118,1090,128,1090,123,1290,113,1409,114,1529,122,1613,137"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
-<area shape="poly" title=" " alt="" coords="1634,140,1584,121,1528,106,1361,78,1293,71,1229,69,1165,71,1097,79,931,110,888,123,849,139,847,134,887,118,930,104,1097,74,1165,66,1229,64,1293,66,1362,73,1529,100,1586,116,1636,136"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,170,1090,196"/>
-<area shape="poly" title=" " alt="" coords="1608,177,1529,192,1420,209,1334,218,1248,219,1138,211,1066,199,1067,194,1138,206,1248,214,1334,212,1419,203,1528,187,1607,172"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,272,1310,297"/>
-<area shape="poly" title=" " alt="" coords="1651,183,1597,221,1564,240,1530,255,1474,270,1417,280,1311,288,1311,283,1416,275,1473,265,1528,250,1562,235,1594,217,1648,178"/>
-<area shape="poly" title=" " alt="" coords="1343,155,1090,140,1091,134,1343,149"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,170,1300,196"/>
-<area shape="poly" title=" " alt="" coords="1343,172,1301,177,1300,172,1342,167"/>
+<area shape="poly" title=" " alt="" coords="1634,139,1584,119,1528,104,1361,77,1293,70,1229,68,1165,71,1097,78,931,110,889,123,850,139,848,134,887,118,930,104,1097,73,1165,65,1229,63,1293,65,1362,72,1529,99,1586,114,1636,134"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
+<area shape="poly" title=" " alt="" coords="1613,176,1529,191,1409,199,1290,200,1090,191,1090,186,1290,195,1409,194,1528,186,1612,171"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,252,1310,277"/>
+<area shape="poly" title=" " alt="" coords="1645,180,1592,209,1529,235,1474,249,1416,258,1311,266,1311,261,1416,252,1473,243,1528,230,1590,205,1642,175"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,144,1300,169"/>
+<area shape="poly" title=" " alt="" coords="1343,159,1300,159,1300,154,1343,154"/>
+<area shape="poly" title=" " alt="" coords="1133,149,1090,144,1091,139,1133,143"/>
+<area shape="poly" title=" " alt="" coords="1133,170,1091,175,1090,170,1133,164"/>
 <area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
 <area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
@@ -1129,17 +1131,15 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
-<area shape="poly" title=" " alt="" coords="1151,169,1067,148,1068,143,1153,163"/>
-<area shape="poly" title=" " alt="" coords="1133,186,1090,186,1090,180,1133,180"/>
-<area shape="poly" title=" " alt="" coords="915,174,883,170,884,164,916,169"/>
-<area shape="poly" title=" " alt="" coords="1146,270,1042,244,930,211,854,181,856,176,932,206,1044,239,1147,265"/>
+<area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
+<area shape="poly" title=" " alt="" coords="1122,252,1028,234,930,210,853,181,855,176,931,204,1029,229,1123,247"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="ab7648ed321c4e8adcde0d11f552f486d" name="ab7648ed321c4e8adcde0d11f552f486d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7648ed321c4e8adcde0d11f552f486d">&#9670;&#160;</a></span>find_best_loop_closure()</h2>
+<a id="ad470af47aeeb85803b4a94cfbd5e4fb3" name="ad470af47aeeb85803b4a94cfbd5e4fb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad470af47aeeb85803b4a94cfbd5e4fb3">&#9670;&#160;</a></span>find_best_loop_closure()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1148,7 +1148,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int PathCalculation::find_best_loop_closure </td>
+          <td class="memname">std::pair&lt; int, double &gt; PathCalculation::find_best_loop_closure </td>
           <td>(</td>
           <td class="paramtype">const std::vector&lt; <a class="el" href="../../df/ded/path__calculation_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>path</em></td><td>)</td>
@@ -1162,23 +1162,26 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Find the optimal point to close a track loop. </p>
-<p>Evaluates each point in the path to determine which produces the smoothest closure back to the starting point.</p>
+<p>Finds the best loop closure point in a path. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">path</td><td>The path points to analyze. </td></tr>
+    <tr><td class="paramname">path</td><td>A vector of PathPoint objects representing the path to analyze. Each PathPoint must have a valid position with x and y coordinates.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Index of the best cutoff point. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>std::pair&lt;int, double&gt;<ul>
+<li>first: The index of the path point that represents the optimal loop closure.</li>
+<li>second: The minimal combined cost associated with closing the loop at the returned index. </li>
+</ul>
+</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00517">517</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00534">534</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d0/d89/class_path_calculation_ab7648ed321c4e8adcde0d11f552f486d_cgraph.png" border="0" usemap="#ad0/d89/class_path_calculation_ab7648ed321c4e8adcde0d11f552f486d_cgraph" alt=""/></div>
-<map name="ad0/d89/class_path_calculation_ab7648ed321c4e8adcde0d11f552f486d_cgraph" id="ad0/d89/class_path_calculation_ab7648ed321c4e8adcde0d11f552f486d_cgraph">
-<area shape="rect" title="Find the optimal point to close a track loop." alt="" coords="5,5,144,46"/>
+<div class="center"><img src="../../d0/d89/class_path_calculation_ad470af47aeeb85803b4a94cfbd5e4fb3_cgraph.png" border="0" usemap="#ad0/d89/class_path_calculation_ad470af47aeeb85803b4a94cfbd5e4fb3_cgraph" alt=""/></div>
+<map name="ad0/d89/class_path_calculation_ad470af47aeeb85803b4a94cfbd5e4fb3_cgraph" id="ad0/d89/class_path_calculation_ad470af47aeeb85803b4a94cfbd5e4fb3_cgraph">
+<area shape="rect" title="Finds the best loop closure point in a path." alt="" coords="5,5,144,46"/>
 <area shape="rect" href="../../d0/d89/class_path_calculation.html#a32453ba6eeddf24ab41fb6a4bd037984" title="Calculate the cost of transitioning through three consecutive points." alt="" coords="192,13,394,39"/>
 <area shape="poly" title=" " alt="" coords="144,23,176,23,176,28,144,28"/>
 </map>
@@ -1186,15 +1189,19 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d0/d89/class_path_calculation_ab7648ed321c4e8adcde0d11f552f486d_icgraph.png" border="0" usemap="#ad0/d89/class_path_calculation_ab7648ed321c4e8adcde0d11f552f486d_icgraph" alt=""/></div>
-<map name="ad0/d89/class_path_calculation_ab7648ed321c4e8adcde0d11f552f486d_icgraph" id="ad0/d89/class_path_calculation_ab7648ed321c4e8adcde0d11f552f486d_icgraph">
-<area shape="rect" title="Find the optimal point to close a track loop." alt="" coords="1556,136,1694,177"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1337,136,1508,177"/>
-<area shape="poly" title=" " alt="" coords="1540,159,1508,159,1508,154,1540,154"/>
+<div class="center"><img src="../../d0/d89/class_path_calculation_ad470af47aeeb85803b4a94cfbd5e4fb3_icgraph.png" border="0" usemap="#ad0/d89/class_path_calculation_ad470af47aeeb85803b4a94cfbd5e4fb3_icgraph" alt=""/></div>
+<map name="ad0/d89/class_path_calculation_ad470af47aeeb85803b4a94cfbd5e4fb3_icgraph" id="ad0/d89/class_path_calculation_ad470af47aeeb85803b4a94cfbd5e4fb3_icgraph">
+<area shape="rect" title="Finds the best loop closure point in a path." alt="" coords="1556,137,1694,178"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1337,108,1508,149"/>
+<area shape="poly" title=" " alt="" coords="1540,148,1508,143,1509,138,1541,143"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a5a1103dcdb4e71d28af392795729e3fb" title="Checks if the path forms a closed loop and closes it if the transition cost is below config_...." alt="" coords="1150,165,1278,206"/>
+<area shape="poly" title=" " alt="" coords="1540,166,1278,184,1278,179,1540,161"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1138,116,1289,141"/>
+<area shape="poly" title=" " alt="" coords="1322,131,1290,131,1290,126,1322,126"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1321,153,1090,140,1091,134,1322,148"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1138,169,1289,195"/>
-<area shape="poly" title=" " alt="" coords="1322,171,1290,175,1289,170,1321,166"/>
+<area shape="poly" title=" " alt="" coords="1123,133,1091,133,1090,128,1123,127"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
+<area shape="poly" title=" " alt="" coords="1148,148,1063,171,1062,166,1146,143"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
 <area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
@@ -1222,10 +1229,9 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
-<area shape="poly" title=" " alt="" coords="1142,167,1066,148,1067,143,1143,162"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
-<area shape="poly" title=" " alt="" coords="1123,184,1090,184,1090,179,1123,179"/>
 <area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
+<area shape="poly" title=" " alt="" coords="1133,167,1061,148,1063,143,1135,162"/>
+<area shape="poly" title=" " alt="" coords="1134,187,1091,186,1091,181,1134,181"/>
 </map>
 </div>
 
@@ -1290,7 +1296,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Pair of accumulated cost and best next midpoint pointer. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00371">371</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00388">388</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1307,27 +1313,28 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d89/class_path_calculation_aa57adbaba88d90c8f96909fb8dbf14d0_icgraph.png" border="0" usemap="#ad0/d89/class_path_calculation_aa57adbaba88d90c8f96909fb8dbf14d0_icgraph" alt=""/></div>
 <map name="ad0/d89/class_path_calculation_aa57adbaba88d90c8f96909fb8dbf14d0_icgraph" id="ad0/d89/class_path_calculation_aa57adbaba88d90c8f96909fb8dbf14d0_icgraph">
-<area shape="rect" title="Recursively find the best next midpoint using depth&#45;first search." alt="" coords="2265,137,2405,178"/>
-<area shape="poly" title=" " alt="" coords="2366,124,2355,118,2335,116,2316,118,2305,123,2301,128,2303,136,2298,137,2296,127,2302,118,2315,113,2335,111,2356,113,2369,119"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a81c3a881015bcd88d48c641dd9a8f134" title="Extend the path by adding midpoints." alt="" coords="1827,116,2015,141"/>
-<area shape="poly" title=" " alt="" coords="2249,154,2016,138,2016,132,2250,149"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a11ab63e74a5f2de45bc8147b720c5882" title="Select the first two midpoints to start the path." alt="" coords="2063,165,2217,206"/>
-<area shape="poly" title=" " alt="" coords="2250,173,2217,177,2217,172,2249,167"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,145,1779,171"/>
-<area shape="poly" title=" " alt="" coords="1812,144,1780,148,1779,143,1811,139"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,137,1529,178"/>
-<area shape="poly" title=" " alt="" coords="1561,160,1529,160,1529,155,1561,155"/>
+<area shape="rect" title="Recursively find the best next midpoint using depth&#45;first search." alt="" coords="2265,136,2405,177"/>
+<area shape="poly" title=" " alt="" coords="2366,123,2355,117,2335,115,2316,117,2305,121,2301,127,2303,135,2298,136,2296,126,2302,117,2315,111,2335,109,2356,112,2369,118"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a81c3a881015bcd88d48c641dd9a8f134" title="Extend the path by adding midpoints." alt="" coords="1827,114,2015,140"/>
+<area shape="poly" title=" " alt="" coords="2249,153,2016,136,2016,131,2250,148"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a11ab63e74a5f2de45bc8147b720c5882" title="Select the first two midpoints to start the path." alt="" coords="2063,164,2217,205"/>
+<area shape="poly" title=" " alt="" coords="2250,171,2217,176,2217,171,2249,166"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,144,1779,169"/>
+<area shape="poly" title=" " alt="" coords="1812,143,1780,147,1779,141,1811,138"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,136,1529,177"/>
+<area shape="poly" title=" " alt="" coords="1561,159,1529,159,1529,154,1561,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1612,143,1528,128,1409,120,1290,119,1090,128,1090,123,1290,114,1409,115,1529,123,1613,138"/>
+<area shape="poly" title=" " alt="" coords="1612,142,1528,127,1409,119,1290,118,1090,128,1090,123,1290,113,1409,114,1529,122,1613,137"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
-<area shape="poly" title=" " alt="" coords="1635,140,1585,120,1528,104,1361,77,1293,70,1229,68,1165,70,1097,78,931,110,889,123,850,139,848,134,887,118,930,104,1097,73,1165,65,1229,62,1293,64,1362,71,1529,99,1587,115,1637,136"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,170,1090,196"/>
-<area shape="poly" title=" " alt="" coords="1608,177,1529,192,1420,209,1334,218,1248,219,1138,211,1066,199,1067,194,1138,206,1248,214,1334,212,1419,203,1528,187,1607,172"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,272,1310,297"/>
-<area shape="poly" title=" " alt="" coords="1651,183,1597,221,1564,240,1530,255,1474,270,1417,280,1311,288,1311,283,1416,275,1473,265,1528,250,1562,235,1594,217,1648,178"/>
-<area shape="poly" title=" " alt="" coords="1343,155,1090,140,1091,134,1343,149"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,170,1300,196"/>
-<area shape="poly" title=" " alt="" coords="1343,172,1301,177,1300,172,1342,167"/>
+<area shape="poly" title=" " alt="" coords="1635,139,1585,119,1528,103,1361,75,1293,69,1229,67,1165,70,1097,78,931,110,889,123,850,139,848,134,887,118,930,104,1096,72,1165,64,1229,61,1293,63,1362,70,1529,98,1587,114,1637,134"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
+<area shape="poly" title=" " alt="" coords="1613,176,1529,191,1409,199,1290,200,1090,191,1090,186,1290,195,1409,194,1528,186,1612,171"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,252,1310,277"/>
+<area shape="poly" title=" " alt="" coords="1645,180,1592,209,1529,235,1474,249,1416,258,1311,266,1311,261,1416,252,1473,243,1528,230,1590,205,1642,175"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,144,1300,169"/>
+<area shape="poly" title=" " alt="" coords="1343,159,1300,159,1300,154,1343,154"/>
+<area shape="poly" title=" " alt="" coords="1133,149,1090,144,1091,139,1133,143"/>
+<area shape="poly" title=" " alt="" coords="1133,170,1091,175,1090,170,1133,164"/>
 <area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
 <area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
@@ -1354,13 +1361,11 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
-<area shape="poly" title=" " alt="" coords="1151,169,1067,148,1068,143,1153,163"/>
-<area shape="poly" title=" " alt="" coords="1133,186,1090,186,1090,180,1133,180"/>
-<area shape="poly" title=" " alt="" coords="915,174,883,170,884,164,916,169"/>
-<area shape="poly" title=" " alt="" coords="1146,270,1042,244,930,211,854,181,856,176,932,206,1044,239,1147,265"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a52cbb5e2cf46ba4e6716928b2d5b5ed9" title="Initialize the path from the vehicle&#39;s initial pose." alt="" coords="1839,165,2003,206"/>
-<area shape="poly" title=" " alt="" coords="2048,188,2004,188,2004,183,2048,183"/>
-<area shape="poly" title=" " alt="" coords="1823,177,1779,172,1780,167,1824,172"/>
+<area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
+<area shape="poly" title=" " alt="" coords="1122,252,1028,234,930,210,853,181,855,176,931,204,1029,229,1123,247"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a52cbb5e2cf46ba4e6716928b2d5b5ed9" title="Initialize the path from the vehicle&#39;s initial pose." alt="" coords="1839,164,2003,205"/>
+<area shape="poly" title=" " alt="" coords="2048,187,2004,187,2004,182,2048,182"/>
+<area shape="poly" title=" " alt="" coords="1823,176,1779,171,1780,165,1824,170"/>
 </map>
 </div>
 
@@ -1400,35 +1405,36 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to the nearest midpoint, or nullptr if none within tolerance. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00499">499</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00516">516</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d89/class_path_calculation_a7f11a4bdef8eb9fdfd88d808dca1b90f_icgraph.png" border="0" usemap="#ad0/d89/class_path_calculation_a7f11a4bdef8eb9fdfd88d808dca1b90f_icgraph" alt=""/></div>
 <map name="ad0/d89/class_path_calculation_a7f11a4bdef8eb9fdfd88d808dca1b90f_icgraph" id="ad0/d89/class_path_calculation_a7f11a4bdef8eb9fdfd88d808dca1b90f_icgraph">
-<area shape="rect" title="Find the nearest valid midpoint to a target position." alt="" coords="2272,115,2410,155"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#ae596921fc9b984db42026132d4f5e78b" title="Invalidate cones and midpoints along the last path segment." alt="" coords="2063,57,2224,98"/>
-<area shape="poly" title=" " alt="" coords="2256,113,2215,101,2217,96,2258,108"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a81c3a881015bcd88d48c641dd9a8f134" title="Extend the path by adding midpoints." alt="" coords="1827,116,2015,141"/>
-<area shape="poly" title=" " alt="" coords="2256,136,2016,132,2016,127,2256,131"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a9c6027b6e5239454d50c785c16f2c1cb" title="Initialize the path from the previous path." alt="" coords="1843,165,2000,206"/>
-<area shape="poly" title=" " alt="" coords="2257,148,2000,179,2000,174,2256,142"/>
-<area shape="poly" title=" " alt="" coords="2049,102,1982,117,1980,112,2047,97"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,145,1779,171"/>
-<area shape="poly" title=" " alt="" coords="1812,144,1780,148,1779,143,1811,139"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,137,1529,178"/>
-<area shape="poly" title=" " alt="" coords="1561,160,1529,160,1529,155,1561,155"/>
+<area shape="rect" title="Find the nearest valid midpoint to a target position." alt="" coords="2272,113,2410,154"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#ae596921fc9b984db42026132d4f5e78b" title="Invalidate cones and midpoints along the last path segment." alt="" coords="2063,56,2224,97"/>
+<area shape="poly" title=" " alt="" coords="2256,112,2215,100,2217,95,2258,107"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a81c3a881015bcd88d48c641dd9a8f134" title="Extend the path by adding midpoints." alt="" coords="1827,114,2015,140"/>
+<area shape="poly" title=" " alt="" coords="2256,135,2016,131,2016,126,2256,130"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a9c6027b6e5239454d50c785c16f2c1cb" title="Initialize the path from the previous path." alt="" coords="1843,164,2000,205"/>
+<area shape="poly" title=" " alt="" coords="2257,146,2000,178,2000,172,2256,141"/>
+<area shape="poly" title=" " alt="" coords="2049,101,1982,116,1980,111,2047,95"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,144,1779,169"/>
+<area shape="poly" title=" " alt="" coords="1812,143,1780,147,1779,141,1811,138"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,136,1529,177"/>
+<area shape="poly" title=" " alt="" coords="1561,159,1529,159,1529,154,1561,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1612,143,1528,128,1409,120,1290,119,1090,128,1090,123,1290,114,1409,115,1529,123,1613,138"/>
+<area shape="poly" title=" " alt="" coords="1612,142,1528,127,1409,119,1290,118,1090,128,1090,123,1290,113,1409,114,1529,122,1613,137"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
-<area shape="poly" title=" " alt="" coords="1634,140,1584,121,1528,106,1361,78,1293,71,1229,69,1165,71,1097,79,931,110,888,123,849,139,847,134,887,118,930,104,1097,74,1165,66,1229,64,1293,66,1362,73,1529,100,1586,116,1636,136"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,170,1090,196"/>
-<area shape="poly" title=" " alt="" coords="1608,177,1529,192,1420,209,1334,218,1248,219,1138,211,1066,199,1067,194,1138,206,1248,214,1334,212,1419,203,1528,187,1607,172"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,272,1310,297"/>
-<area shape="poly" title=" " alt="" coords="1651,183,1597,221,1564,240,1530,255,1474,270,1417,280,1311,288,1311,283,1416,275,1473,265,1528,250,1562,235,1594,217,1648,178"/>
-<area shape="poly" title=" " alt="" coords="1343,155,1090,140,1091,134,1343,149"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,170,1300,196"/>
-<area shape="poly" title=" " alt="" coords="1343,172,1301,177,1300,172,1342,167"/>
+<area shape="poly" title=" " alt="" coords="1634,139,1584,119,1528,104,1361,77,1293,70,1229,68,1165,71,1097,78,931,110,889,123,850,139,848,134,887,118,930,104,1097,73,1165,65,1229,63,1293,65,1362,72,1529,99,1586,114,1636,134"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
+<area shape="poly" title=" " alt="" coords="1613,176,1529,191,1409,199,1290,200,1090,191,1090,186,1290,195,1409,194,1528,186,1612,171"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,252,1310,277"/>
+<area shape="poly" title=" " alt="" coords="1645,180,1592,209,1529,235,1474,249,1416,258,1311,266,1311,261,1416,252,1473,243,1528,230,1590,205,1642,175"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,144,1300,169"/>
+<area shape="poly" title=" " alt="" coords="1343,159,1300,159,1300,154,1343,154"/>
+<area shape="poly" title=" " alt="" coords="1133,149,1090,144,1091,139,1133,143"/>
+<area shape="poly" title=" " alt="" coords="1133,170,1091,175,1090,170,1133,164"/>
 <area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
 <area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
@@ -1455,11 +1461,9 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
-<area shape="poly" title=" " alt="" coords="1151,169,1067,148,1068,143,1153,163"/>
-<area shape="poly" title=" " alt="" coords="1133,186,1090,186,1090,180,1133,180"/>
-<area shape="poly" title=" " alt="" coords="915,174,883,170,884,164,916,169"/>
-<area shape="poly" title=" " alt="" coords="1146,270,1042,244,930,211,854,181,856,176,932,206,1044,239,1147,265"/>
-<area shape="poly" title=" " alt="" coords="1827,178,1779,172,1780,167,1828,172"/>
+<area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
+<area shape="poly" title=" " alt="" coords="1122,252,1028,234,930,210,853,181,855,176,931,204,1029,229,1123,247"/>
+<area shape="poly" title=" " alt="" coords="1827,176,1779,171,1780,165,1828,171"/>
 </map>
 </div>
 
@@ -1483,7 +1487,7 @@ Here is the caller graph for this function:</div>
 <p>Gets the list of blue cones detected or used in the path calculation. </p>
 <dl class="section return"><dt>Returns</dt><dd>Constant reference to a vector containing the blue cones. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00567">567</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00590">590</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1565,31 +1569,32 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A vector of PathPoint objects constructed from the given points. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00544">544</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00567">567</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d89/class_path_calculation_af87bf849e6229c74e758cd7fa4abf78d_icgraph.png" border="0" usemap="#ad0/d89/class_path_calculation_af87bf849e6229c74e758cd7fa4abf78d_icgraph" alt=""/></div>
 <map name="ad0/d89/class_path_calculation_af87bf849e6229c74e758cd7fa4abf78d_icgraph" id="ad0/d89/class_path_calculation_af87bf849e6229c74e758cd7fa4abf78d_icgraph">
-<area shape="rect" title="Converts a vector of Colorpoint objects into a vector of PathPoint objects." alt="" coords="1892,215,2090,255"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1642,149,1844,175"/>
-<area shape="poly" title=" " alt="" coords="1905,212,1788,178,1790,173,1906,207"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a32c98016b89039232744c40ae3be80c0" title="Get the path from the start to a lookback distance behind the car’s current position." alt="" coords="1675,243,1811,283"/>
-<area shape="poly" title=" " alt="" coords="1877,251,1812,258,1811,253,1876,245"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1391,169,1561,210"/>
-<area shape="poly" title=" " alt="" coords="1627,177,1562,183,1561,178,1626,171"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,221,1090,247"/>
-<area shape="poly" title=" " alt="" coords="1704,184,1653,206,1594,224,1526,236,1457,244,1318,251,1192,250,1090,244,1091,239,1192,244,1318,246,1456,239,1526,231,1593,219,1651,201,1702,179"/>
+<area shape="rect" title="Converts a vector of Colorpoint objects into a vector of PathPoint objects." alt="" coords="1892,219,2090,259"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1642,172,1844,197"/>
+<area shape="poly" title=" " alt="" coords="1880,217,1804,200,1805,195,1881,212"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a32c98016b89039232744c40ae3be80c0" title="Get the path from the start to a lookback distance behind the car’s current position." alt="" coords="1675,247,1811,287"/>
+<area shape="poly" title=" " alt="" coords="1877,255,1812,262,1811,257,1876,249"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1422,192,1593,233"/>
+<area shape="poly" title=" " alt="" coords="1626,201,1594,205,1593,200,1626,196"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,145,1090,171"/>
+<area shape="poly" title=" " alt="" coords="1626,183,1090,163,1090,158,1626,177"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
-<area shape="poly" title=" " alt="" coords="1652,149,1593,142,1407,126,1262,118,1117,120,931,135,884,142,883,137,930,130,1117,115,1262,113,1408,121,1594,136,1652,143"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,145,1090,171"/>
-<area shape="poly" title=" " alt="" coords="1626,161,1594,160,1090,160,1090,154,1594,155,1626,156"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,18,1310,44"/>
-<area shape="poly" title=" " alt="" coords="1714,140,1660,100,1627,81,1593,66,1521,46,1446,35,1374,30,1311,29,1311,24,1374,25,1446,29,1522,41,1595,60,1630,76,1663,96,1717,136"/>
-<area shape="poly" title=" " alt="" coords="1376,204,1311,211,1091,230,1090,225,1310,206,1375,199"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,170,1300,196"/>
-<area shape="poly" title=" " alt="" coords="1375,190,1300,188,1300,182,1375,184"/>
-<area shape="poly" title=" " alt="" coords="959,217,863,181,865,176,961,212"/>
+<area shape="poly" title=" " alt="" coords="1662,171,1593,160,1407,138,1262,124,1117,121,931,135,884,142,883,137,930,130,1117,116,1262,118,1408,133,1594,155,1662,165"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,198,1090,224"/>
+<area shape="poly" title=" " alt="" coords="1705,207,1653,229,1594,247,1505,251,1361,249,1138,239,1067,227,1068,222,1138,234,1361,243,1505,246,1593,242,1651,224,1703,202"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1421,41,1594,67"/>
+<area shape="poly" title=" " alt="" coords="1711,164,1657,126,1592,88,1549,70,1551,65,1595,83,1660,122,1714,160"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1180,198,1331,224"/>
+<area shape="poly" title=" " alt="" coords="1406,214,1332,214,1332,209,1407,209"/>
+<area shape="poly" title=" " alt="" coords="1178,197,1072,174,1073,169,1179,192"/>
+<area shape="poly" title=" " alt="" coords="1164,214,1090,214,1090,208,1164,208"/>
+<area shape="poly" title=" " alt="" coords="915,160,883,160,883,155,915,155"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
 <area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="495,169,684,210"/>
@@ -1615,13 +1620,11 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
-<area shape="poly" title=" " alt="" coords="1153,203,1068,223,1067,218,1151,197"/>
-<area shape="poly" title=" " alt="" coords="1133,175,1090,170,1091,164,1133,170"/>
-<area shape="poly" title=" " alt="" coords="915,160,883,160,883,155,915,155"/>
-<area shape="poly" title=" " alt="" coords="1122,31,1028,40,979,50,932,65,902,81,874,100,830,139,826,135,871,96,899,76,930,61,977,45,1027,35,1122,26"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#ad6c3fad6bc5175529714461938aa9a46" title="Publishes all visualization markers." alt="" coords="1358,322,1594,348"/>
-<area shape="poly" title=" " alt="" coords="1660,288,1527,324,1526,319,1659,283"/>
-<area shape="poly" title=" " alt="" coords="1343,339,1249,334,1143,321,1034,298,981,281,930,261,898,244,869,223,825,180,829,176,873,218,901,240,932,257,983,276,1036,293,1144,316,1249,329,1343,334"/>
+<area shape="poly" title=" " alt="" coords="943,196,882,180,884,175,945,191"/>
+<area shape="poly" title=" " alt="" coords="1406,48,1305,44,1185,47,1057,60,993,72,932,88,880,111,837,139,834,134,877,106,930,83,992,67,1056,55,1185,42,1305,39,1406,42"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#ad6c3fad6bc5175529714461938aa9a46" title="Publishes all visualization markers." alt="" coords="1138,308,1373,333"/>
+<area shape="poly" title=" " alt="" coords="1659,282,1594,291,1374,313,1373,308,1593,286,1659,277"/>
+<area shape="poly" title=" " alt="" coords="1158,306,1047,280,987,261,930,239,877,211,834,181,837,176,880,206,932,234,989,256,1048,275,1159,301"/>
 </map>
 </div>
 
@@ -1645,7 +1648,7 @@ Here is the caller graph for this function:</div>
 <p>Get the path from the start to a lookback distance behind the car’s current position. </p>
 <dl class="section return"><dt>Returns</dt><dd>Vector of path points representing the global path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00557">557</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00580">580</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1714,7 +1717,7 @@ Here is the caller graph for this function:</div>
 <p>Get the triangulation segments used in path generation. </p>
 <dl class="section return"><dt>Returns</dt><dd>Reference to vector of point pairs representing triangulation edges. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00561">561</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00584">584</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1783,7 +1786,7 @@ Here is the caller graph for this function:</div>
 <p>Gets the list of yellow cones detected or used in the path calculation. </p>
 <dl class="section return"><dt>Returns</dt><dd>Constant reference to a vector containing the yellow cones. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00565">565</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00588">588</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1858,7 +1861,7 @@ Here is the caller graph for this function:</div>
 <p>Initialize the path from the vehicle's initial pose. </p>
 <p>Selects the first two midpoints ahead of the vehicle to start the path when no previous path exists. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00151">151</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00167">167</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1881,22 +1884,23 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d89/class_path_calculation_a52cbb5e2cf46ba4e6716928b2d5b5ed9_icgraph.png" border="0" usemap="#ad0/d89/class_path_calculation_a52cbb5e2cf46ba4e6716928b2d5b5ed9_icgraph" alt=""/></div>
 <map name="ad0/d89/class_path_calculation_a52cbb5e2cf46ba4e6716928b2d5b5ed9_icgraph" id="ad0/d89/class_path_calculation_a52cbb5e2cf46ba4e6716928b2d5b5ed9_icgraph">
-<area shape="rect" title="Initialize the path from the vehicle&#39;s initial pose." alt="" coords="1827,137,1991,178"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,145,1779,171"/>
-<area shape="poly" title=" " alt="" coords="1811,160,1779,160,1779,155,1811,155"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,137,1529,178"/>
-<area shape="poly" title=" " alt="" coords="1561,160,1529,160,1529,155,1561,155"/>
+<area shape="rect" title="Initialize the path from the vehicle&#39;s initial pose." alt="" coords="1827,136,1991,177"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,144,1779,169"/>
+<area shape="poly" title=" " alt="" coords="1811,159,1779,159,1779,154,1811,154"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,136,1529,177"/>
+<area shape="poly" title=" " alt="" coords="1561,159,1529,159,1529,154,1561,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1612,143,1528,128,1409,120,1290,119,1090,128,1090,123,1290,114,1409,115,1529,123,1613,138"/>
+<area shape="poly" title=" " alt="" coords="1612,142,1528,127,1409,119,1290,118,1090,128,1090,123,1290,113,1409,114,1529,122,1613,137"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
-<area shape="poly" title=" " alt="" coords="1634,140,1584,121,1528,106,1361,78,1293,71,1229,69,1165,71,1097,79,931,110,888,123,849,139,847,134,887,118,930,104,1097,74,1165,66,1229,64,1293,66,1362,73,1529,100,1586,116,1636,136"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,170,1090,196"/>
-<area shape="poly" title=" " alt="" coords="1608,177,1529,192,1420,209,1334,218,1248,219,1138,211,1066,199,1067,194,1138,206,1248,214,1334,212,1419,203,1528,187,1607,172"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,272,1310,297"/>
-<area shape="poly" title=" " alt="" coords="1651,183,1597,221,1564,240,1530,255,1474,270,1417,280,1311,288,1311,283,1416,275,1473,265,1528,250,1562,235,1594,217,1648,178"/>
-<area shape="poly" title=" " alt="" coords="1343,155,1090,140,1091,134,1343,149"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,170,1300,196"/>
-<area shape="poly" title=" " alt="" coords="1343,172,1301,177,1300,172,1342,167"/>
+<area shape="poly" title=" " alt="" coords="1634,139,1584,119,1528,104,1361,77,1293,70,1229,68,1165,71,1097,78,931,110,889,123,850,139,848,134,887,118,930,104,1097,73,1165,65,1229,63,1293,65,1362,72,1529,99,1586,114,1636,134"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
+<area shape="poly" title=" " alt="" coords="1613,176,1529,191,1409,199,1290,200,1090,191,1090,186,1290,195,1409,194,1528,186,1612,171"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,252,1310,277"/>
+<area shape="poly" title=" " alt="" coords="1645,180,1592,209,1529,235,1474,249,1416,258,1311,266,1311,261,1416,252,1473,243,1528,230,1590,205,1642,175"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,144,1300,169"/>
+<area shape="poly" title=" " alt="" coords="1343,159,1300,159,1300,154,1343,154"/>
+<area shape="poly" title=" " alt="" coords="1133,149,1090,144,1091,139,1133,143"/>
+<area shape="poly" title=" " alt="" coords="1133,170,1091,175,1090,170,1133,164"/>
 <area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
 <area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
@@ -1923,10 +1927,8 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
-<area shape="poly" title=" " alt="" coords="1151,169,1067,148,1068,143,1153,163"/>
-<area shape="poly" title=" " alt="" coords="1133,186,1090,186,1090,180,1133,180"/>
-<area shape="poly" title=" " alt="" coords="915,174,883,170,884,164,916,169"/>
-<area shape="poly" title=" " alt="" coords="1146,270,1042,244,930,211,854,181,856,176,932,206,1044,239,1147,265"/>
+<area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
+<area shape="poly" title=" " alt="" coords="1122,252,1028,234,930,210,853,181,855,176,931,204,1029,229,1123,247"/>
 </map>
 </div>
 
@@ -1958,32 +1960,33 @@ Here is the caller graph for this function:</div>
 <p>Mark midpoints as invalid if they use discarded cones. </p>
 <p>Iterates through all midpoints and invalidates those whose defining cones have been marked as discarded. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00474">474</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00491">491</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d89/class_path_calculation_a9e106e011f8ed4cc1ac53256f2b480fd_icgraph.png" border="0" usemap="#ad0/d89/class_path_calculation_a9e106e011f8ed4cc1ac53256f2b480fd_icgraph" alt=""/></div>
 <map name="ad0/d89/class_path_calculation_a9e106e011f8ed4cc1ac53256f2b480fd_icgraph" id="ad0/d89/class_path_calculation_a9e106e011f8ed4cc1ac53256f2b480fd_icgraph">
-<area shape="rect" title="Mark midpoints as invalid if they use discarded cones." alt="" coords="2272,137,2492,178"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#ae596921fc9b984db42026132d4f5e78b" title="Invalidate cones and midpoints along the last path segment." alt="" coords="2063,137,2224,178"/>
-<area shape="poly" title=" " alt="" coords="2256,160,2224,160,2224,155,2256,155"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a81c3a881015bcd88d48c641dd9a8f134" title="Extend the path by adding midpoints." alt="" coords="1827,145,2015,171"/>
-<area shape="poly" title=" " alt="" coords="2048,160,2016,160,2016,155,2048,155"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,145,1779,171"/>
-<area shape="poly" title=" " alt="" coords="1811,160,1779,160,1779,155,1811,155"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,137,1529,178"/>
-<area shape="poly" title=" " alt="" coords="1561,160,1529,160,1529,155,1561,155"/>
+<area shape="rect" title="Mark midpoints as invalid if they use discarded cones." alt="" coords="2272,136,2492,177"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#ae596921fc9b984db42026132d4f5e78b" title="Invalidate cones and midpoints along the last path segment." alt="" coords="2063,136,2224,177"/>
+<area shape="poly" title=" " alt="" coords="2256,159,2224,159,2224,154,2256,154"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a81c3a881015bcd88d48c641dd9a8f134" title="Extend the path by adding midpoints." alt="" coords="1827,144,2015,169"/>
+<area shape="poly" title=" " alt="" coords="2048,159,2016,159,2016,154,2048,154"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,144,1779,169"/>
+<area shape="poly" title=" " alt="" coords="1811,159,1779,159,1779,154,1811,154"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,136,1529,177"/>
+<area shape="poly" title=" " alt="" coords="1561,159,1529,159,1529,154,1561,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1612,143,1528,128,1409,120,1290,119,1090,128,1090,123,1290,114,1409,115,1529,123,1613,138"/>
+<area shape="poly" title=" " alt="" coords="1612,142,1528,127,1409,119,1290,118,1090,128,1090,123,1290,113,1409,114,1529,122,1613,137"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
-<area shape="poly" title=" " alt="" coords="1634,140,1584,121,1528,106,1361,78,1293,71,1229,69,1165,71,1097,79,931,110,888,123,849,139,847,134,887,118,930,104,1097,74,1165,66,1229,64,1293,66,1362,73,1529,100,1586,116,1636,136"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,170,1090,196"/>
-<area shape="poly" title=" " alt="" coords="1608,177,1529,192,1420,209,1334,218,1248,219,1138,211,1066,199,1067,194,1138,206,1248,214,1334,212,1419,203,1528,187,1607,172"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,272,1310,297"/>
-<area shape="poly" title=" " alt="" coords="1651,183,1597,221,1564,240,1530,255,1474,270,1417,280,1311,288,1311,283,1416,275,1473,265,1528,250,1562,235,1594,217,1648,178"/>
-<area shape="poly" title=" " alt="" coords="1343,155,1090,140,1091,134,1343,149"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,170,1300,196"/>
-<area shape="poly" title=" " alt="" coords="1343,172,1301,177,1300,172,1342,167"/>
+<area shape="poly" title=" " alt="" coords="1634,139,1584,119,1528,104,1361,77,1293,70,1229,68,1165,71,1097,78,931,110,889,123,850,139,848,134,887,118,930,104,1097,73,1165,65,1229,63,1293,65,1362,72,1529,99,1586,114,1636,134"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
+<area shape="poly" title=" " alt="" coords="1613,176,1529,191,1409,199,1290,200,1090,191,1090,186,1290,195,1409,194,1528,186,1612,171"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,252,1310,277"/>
+<area shape="poly" title=" " alt="" coords="1645,180,1592,209,1529,235,1474,249,1416,258,1311,266,1311,261,1416,252,1473,243,1528,230,1590,205,1642,175"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,144,1300,169"/>
+<area shape="poly" title=" " alt="" coords="1343,159,1300,159,1300,154,1343,154"/>
+<area shape="poly" title=" " alt="" coords="1133,149,1090,144,1091,139,1133,143"/>
+<area shape="poly" title=" " alt="" coords="1133,170,1091,175,1090,170,1133,164"/>
 <area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
 <area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
@@ -2010,10 +2013,89 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
-<area shape="poly" title=" " alt="" coords="1151,169,1067,148,1068,143,1153,163"/>
-<area shape="poly" title=" " alt="" coords="1133,186,1090,186,1090,180,1133,180"/>
-<area shape="poly" title=" " alt="" coords="915,174,883,170,884,164,916,169"/>
-<area shape="poly" title=" " alt="" coords="1146,270,1042,244,930,211,854,181,856,176,932,206,1044,239,1147,265"/>
+<area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
+<area shape="poly" title=" " alt="" coords="1122,252,1028,234,930,210,853,181,855,176,931,204,1029,229,1123,247"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a5a1103dcdb4e71d28af392795729e3fb" name="a5a1103dcdb4e71d28af392795729e3fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a1103dcdb4e71d28af392795729e3fb">&#9670;&#160;</a></span>is_map_closed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PathCalculation::is_map_closed </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="../../df/ded/path__calculation_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if the path forms a closed loop and closes it if the transition cost is below config_.close_cost_. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>The path to evaluate, modified in place if loop closure is found </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if loop closure was detected and applied, false Otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00080">80</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d0/d89/class_path_calculation_a5a1103dcdb4e71d28af392795729e3fb_cgraph.png" border="0" usemap="#ad0/d89/class_path_calculation_a5a1103dcdb4e71d28af392795729e3fb_cgraph" alt=""/></div>
+<map name="ad0/d89/class_path_calculation_a5a1103dcdb4e71d28af392795729e3fb_cgraph" id="ad0/d89/class_path_calculation_a5a1103dcdb4e71d28af392795729e3fb_cgraph">
+<area shape="rect" title="Checks if the path forms a closed loop and closes it if the transition cost is below config_...." alt="" coords="5,5,134,46"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#ad470af47aeeb85803b4a94cfbd5e4fb3" title="Finds the best loop closure point in a path." alt="" coords="182,5,320,46"/>
+<area shape="poly" title=" " alt="" coords="134,23,166,23,166,28,134,28"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a32453ba6eeddf24ab41fb6a4bd037984" title="Calculate the cost of transitioning through three consecutive points." alt="" coords="368,13,570,39"/>
+<area shape="poly" title=" " alt="" coords="320,23,352,23,352,28,320,28"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d0/d89/class_path_calculation_a5a1103dcdb4e71d28af392795729e3fb_icgraph.png" border="0" usemap="#ad0/d89/class_path_calculation_a5a1103dcdb4e71d28af392795729e3fb_icgraph" alt=""/></div>
+<map name="ad0/d89/class_path_calculation_a5a1103dcdb4e71d28af392795729e3fb_icgraph" id="ad0/d89/class_path_calculation_a5a1103dcdb4e71d28af392795729e3fb_icgraph">
+<area shape="rect" title="Checks if the path forms a closed loop and closes it if the transition cost is below config_...." alt="" coords="1138,137,1266,178"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
+<area shape="poly" title=" " alt="" coords="1123,150,1090,146,1091,140,1123,145"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
+<area shape="poly" title=" " alt="" coords="1123,170,1091,174,1090,169,1123,165"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
+<area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
+<area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="495,169,684,210"/>
+<area shape="poly" title=" " alt="" coords="718,174,685,178,685,173,717,168"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
+<area shape="poly" title=" " alt="" coords="505,99,444,94,445,88,505,94"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructs a Planning node with the specified configuration parameters." alt="" coords="291,120,419,145"/>
+<area shape="poly" title=" " alt="" coords="505,117,419,127,419,122,505,112"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,5,429,46"/>
+<area shape="poly" title=" " alt="" coords="512,81,417,49,419,44,513,76"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,150,195,176"/>
+<area shape="poly" title=" " alt="" coords="280,103,264,109,240,123,216,137,172,152,170,147,214,133,237,119,262,105,278,98"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,97,215,123"/>
+<area shape="poly" title=" " alt="" coords="280,54,151,99,149,94,278,49"/>
+<area shape="poly" title=" " alt="" coords="488,168,410,148,411,143,490,163"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,234,446,260"/>
+<area shape="poly" title=" " alt="" coords="490,217,411,236,410,231,488,212"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,284,447,309"/>
+<area shape="poly" title=" " alt="" coords="547,221,500,249,448,275,417,285,416,280,446,270,498,244,544,217"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="281,169,429,210"/>
+<area shape="poly" title=" " alt="" coords="480,192,429,192,429,187,480,187"/>
+<area shape="poly" title=" " alt="" coords="286,232,262,224,142,179,144,174,264,219,288,227"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
+<area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
+<area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
+<area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
 </map>
 </div>
 
@@ -2045,32 +2127,33 @@ Here is the caller graph for this function:</div>
 <p>Remove invalid neighbors from all midpoint connection lists. </p>
 <p>Filters out neighbors that have been invalidated from each midpoint's close_points list to maintain consistency. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00485">485</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00502">502</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d89/class_path_calculation_a57f0e530d67994fbc285a64da41f7ecb_icgraph.png" border="0" usemap="#ad0/d89/class_path_calculation_a57f0e530d67994fbc285a64da41f7ecb_icgraph" alt=""/></div>
 <map name="ad0/d89/class_path_calculation_a57f0e530d67994fbc285a64da41f7ecb_icgraph" id="ad0/d89/class_path_calculation_a57f0e530d67994fbc285a64da41f7ecb_icgraph">
-<area shape="rect" title="Remove invalid neighbors from all midpoint connection lists." alt="" coords="2272,137,2433,178"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#ae596921fc9b984db42026132d4f5e78b" title="Invalidate cones and midpoints along the last path segment." alt="" coords="2063,137,2224,178"/>
-<area shape="poly" title=" " alt="" coords="2256,160,2224,160,2224,155,2256,155"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a81c3a881015bcd88d48c641dd9a8f134" title="Extend the path by adding midpoints." alt="" coords="1827,145,2015,171"/>
-<area shape="poly" title=" " alt="" coords="2048,160,2016,160,2016,155,2048,155"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,145,1779,171"/>
-<area shape="poly" title=" " alt="" coords="1811,160,1779,160,1779,155,1811,155"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,137,1529,178"/>
-<area shape="poly" title=" " alt="" coords="1561,160,1529,160,1529,155,1561,155"/>
+<area shape="rect" title="Remove invalid neighbors from all midpoint connection lists." alt="" coords="2272,136,2433,177"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#ae596921fc9b984db42026132d4f5e78b" title="Invalidate cones and midpoints along the last path segment." alt="" coords="2063,136,2224,177"/>
+<area shape="poly" title=" " alt="" coords="2256,159,2224,159,2224,154,2256,154"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a81c3a881015bcd88d48c641dd9a8f134" title="Extend the path by adding midpoints." alt="" coords="1827,144,2015,169"/>
+<area shape="poly" title=" " alt="" coords="2048,159,2016,159,2016,154,2048,154"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,144,1779,169"/>
+<area shape="poly" title=" " alt="" coords="1811,159,1779,159,1779,154,1811,154"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,136,1529,177"/>
+<area shape="poly" title=" " alt="" coords="1561,159,1529,159,1529,154,1561,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1612,143,1528,128,1409,120,1290,119,1090,128,1090,123,1290,114,1409,115,1529,123,1613,138"/>
+<area shape="poly" title=" " alt="" coords="1612,142,1528,127,1409,119,1290,118,1090,128,1090,123,1290,113,1409,114,1529,122,1613,137"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
-<area shape="poly" title=" " alt="" coords="1634,140,1584,121,1528,106,1361,78,1293,71,1229,69,1165,71,1097,79,931,110,888,123,849,139,847,134,887,118,930,104,1097,74,1165,66,1229,64,1293,66,1362,73,1529,100,1586,116,1636,136"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,170,1090,196"/>
-<area shape="poly" title=" " alt="" coords="1608,177,1529,192,1420,209,1334,218,1248,219,1138,211,1066,199,1067,194,1138,206,1248,214,1334,212,1419,203,1528,187,1607,172"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,272,1310,297"/>
-<area shape="poly" title=" " alt="" coords="1651,183,1597,221,1564,240,1530,255,1474,270,1417,280,1311,288,1311,283,1416,275,1473,265,1528,250,1562,235,1594,217,1648,178"/>
-<area shape="poly" title=" " alt="" coords="1343,155,1090,140,1091,134,1343,149"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,170,1300,196"/>
-<area shape="poly" title=" " alt="" coords="1343,172,1301,177,1300,172,1342,167"/>
+<area shape="poly" title=" " alt="" coords="1634,139,1584,119,1528,104,1361,77,1293,70,1229,68,1165,71,1097,78,931,110,889,123,850,139,848,134,887,118,930,104,1097,73,1165,65,1229,63,1293,65,1362,72,1529,99,1586,114,1636,134"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
+<area shape="poly" title=" " alt="" coords="1613,176,1529,191,1409,199,1290,200,1090,191,1090,186,1290,195,1409,194,1528,186,1612,171"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,252,1310,277"/>
+<area shape="poly" title=" " alt="" coords="1645,180,1592,209,1529,235,1474,249,1416,258,1311,266,1311,261,1416,252,1473,243,1528,230,1590,205,1642,175"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,144,1300,169"/>
+<area shape="poly" title=" " alt="" coords="1343,159,1300,159,1300,154,1343,154"/>
+<area shape="poly" title=" " alt="" coords="1133,149,1090,144,1091,139,1133,143"/>
+<area shape="poly" title=" " alt="" coords="1133,170,1091,175,1090,170,1133,164"/>
 <area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
 <area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
@@ -2097,10 +2180,8 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
-<area shape="poly" title=" " alt="" coords="1151,169,1067,148,1068,143,1153,163"/>
-<area shape="poly" title=" " alt="" coords="1133,186,1090,186,1090,180,1133,180"/>
-<area shape="poly" title=" " alt="" coords="915,174,883,170,884,164,916,169"/>
-<area shape="poly" title=" " alt="" coords="1146,270,1042,244,930,211,854,181,856,176,932,206,1044,239,1147,265"/>
+<area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
+<area shape="poly" title=" " alt="" coords="1122,252,1028,234,930,210,853,181,855,176,931,204,1029,229,1123,247"/>
 </map>
 </div>
 
@@ -2140,28 +2221,29 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Adjusted maximum points for path extension. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00129">129</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00145">145</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d89/class_path_calculation_a175af4c0941c9de5f80ab7c55d05de51_icgraph.png" border="0" usemap="#ad0/d89/class_path_calculation_a175af4c0941c9de5f80ab7c55d05de51_icgraph" alt=""/></div>
 <map name="ad0/d89/class_path_calculation_a175af4c0941c9de5f80ab7c55d05de51_icgraph" id="ad0/d89/class_path_calculation_a175af4c0941c9de5f80ab7c55d05de51_icgraph">
-<area shape="rect" title="Handle path reset when completing a lap." alt="" coords="1827,145,2006,171"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,145,1779,171"/>
-<area shape="poly" title=" " alt="" coords="1811,160,1780,160,1780,155,1811,155"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,137,1529,178"/>
-<area shape="poly" title=" " alt="" coords="1561,160,1529,160,1529,155,1561,155"/>
+<area shape="rect" title="Handle path reset when completing a lap." alt="" coords="1827,144,2006,169"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,144,1779,169"/>
+<area shape="poly" title=" " alt="" coords="1811,159,1780,159,1780,154,1811,154"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,136,1529,177"/>
+<area shape="poly" title=" " alt="" coords="1561,159,1529,159,1529,154,1561,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1612,143,1528,128,1409,120,1290,119,1090,128,1090,123,1290,114,1409,115,1529,123,1613,138"/>
+<area shape="poly" title=" " alt="" coords="1612,142,1528,127,1409,119,1290,118,1090,128,1090,123,1290,113,1409,114,1529,122,1613,137"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
-<area shape="poly" title=" " alt="" coords="1634,140,1584,121,1528,106,1361,78,1293,71,1229,69,1165,71,1097,79,931,110,888,123,849,139,847,134,887,118,930,104,1097,74,1165,66,1229,64,1293,66,1362,73,1529,100,1586,116,1636,136"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,170,1090,196"/>
-<area shape="poly" title=" " alt="" coords="1608,177,1529,192,1420,209,1334,218,1248,219,1138,211,1066,199,1067,194,1138,206,1248,214,1334,212,1419,203,1528,187,1607,172"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,272,1310,297"/>
-<area shape="poly" title=" " alt="" coords="1651,183,1597,221,1564,240,1530,255,1474,270,1417,280,1311,288,1311,283,1416,275,1473,265,1528,250,1562,235,1594,217,1648,178"/>
-<area shape="poly" title=" " alt="" coords="1343,155,1090,140,1091,134,1343,149"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,170,1300,196"/>
-<area shape="poly" title=" " alt="" coords="1343,172,1301,177,1300,172,1342,167"/>
+<area shape="poly" title=" " alt="" coords="1634,139,1584,119,1528,104,1361,77,1293,70,1229,68,1165,71,1097,78,931,110,889,123,850,139,848,134,887,118,930,104,1097,73,1165,65,1229,63,1293,65,1362,72,1529,99,1586,114,1636,134"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
+<area shape="poly" title=" " alt="" coords="1613,176,1529,191,1409,199,1290,200,1090,191,1090,186,1290,195,1409,194,1528,186,1612,171"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,252,1310,277"/>
+<area shape="poly" title=" " alt="" coords="1645,180,1592,209,1529,235,1474,249,1416,258,1311,266,1311,261,1416,252,1473,243,1528,230,1590,205,1642,175"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,144,1300,169"/>
+<area shape="poly" title=" " alt="" coords="1343,159,1300,159,1300,154,1343,154"/>
+<area shape="poly" title=" " alt="" coords="1133,149,1090,144,1091,139,1133,143"/>
+<area shape="poly" title=" " alt="" coords="1133,170,1091,175,1090,170,1133,164"/>
 <area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
 <area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
@@ -2188,10 +2270,8 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
-<area shape="poly" title=" " alt="" coords="1151,169,1067,148,1068,143,1153,163"/>
-<area shape="poly" title=" " alt="" coords="1133,186,1090,186,1090,180,1133,180"/>
-<area shape="poly" title=" " alt="" coords="915,174,883,170,884,164,916,169"/>
-<area shape="poly" title=" " alt="" coords="1146,270,1042,244,930,211,854,181,856,176,932,206,1044,239,1147,265"/>
+<area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
+<area shape="poly" title=" " alt="" coords="1122,252,1028,234,930,210,853,181,855,176,931,204,1029,229,1123,247"/>
 </map>
 </div>
 
@@ -2242,32 +2322,33 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Vector of candidate midpoint pointers. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00321">321</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00338">338</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d89/class_path_calculation_a296093b702c261e1523bf6fe4fb864ca_icgraph.png" border="0" usemap="#ad0/d89/class_path_calculation_a296093b702c261e1523bf6fe4fb864ca_icgraph" alt=""/></div>
 <map name="ad0/d89/class_path_calculation_a296093b702c261e1523bf6fe4fb864ca_icgraph" id="ad0/d89/class_path_calculation_a296093b702c261e1523bf6fe4fb864ca_icgraph">
-<area shape="rect" title="Select candidate midpoints in front of the vehicle." alt="" coords="2241,137,2394,178"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a11ab63e74a5f2de45bc8147b720c5882" title="Select the first two midpoints to start the path." alt="" coords="2039,137,2193,178"/>
-<area shape="poly" title=" " alt="" coords="2225,160,2193,160,2193,155,2225,155"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a52cbb5e2cf46ba4e6716928b2d5b5ed9" title="Initialize the path from the vehicle&#39;s initial pose." alt="" coords="1827,137,1991,178"/>
-<area shape="poly" title=" " alt="" coords="2024,160,1992,160,1992,155,2024,155"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,145,1779,171"/>
-<area shape="poly" title=" " alt="" coords="1811,160,1779,160,1779,155,1811,155"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,137,1529,178"/>
-<area shape="poly" title=" " alt="" coords="1561,160,1529,160,1529,155,1561,155"/>
+<area shape="rect" title="Select candidate midpoints in front of the vehicle." alt="" coords="2241,136,2394,177"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a11ab63e74a5f2de45bc8147b720c5882" title="Select the first two midpoints to start the path." alt="" coords="2039,136,2193,177"/>
+<area shape="poly" title=" " alt="" coords="2225,159,2193,159,2193,154,2225,154"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a52cbb5e2cf46ba4e6716928b2d5b5ed9" title="Initialize the path from the vehicle&#39;s initial pose." alt="" coords="1827,136,1991,177"/>
+<area shape="poly" title=" " alt="" coords="2024,159,1992,159,1992,154,2024,154"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,144,1779,169"/>
+<area shape="poly" title=" " alt="" coords="1811,159,1779,159,1779,154,1811,154"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,136,1529,177"/>
+<area shape="poly" title=" " alt="" coords="1561,159,1529,159,1529,154,1561,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1612,143,1528,128,1409,120,1290,119,1090,128,1090,123,1290,114,1409,115,1529,123,1613,138"/>
+<area shape="poly" title=" " alt="" coords="1612,142,1528,127,1409,119,1290,118,1090,128,1090,123,1290,113,1409,114,1529,122,1613,137"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
-<area shape="poly" title=" " alt="" coords="1634,140,1584,121,1528,106,1361,78,1293,71,1229,69,1165,71,1097,79,931,110,888,123,849,139,847,134,887,118,930,104,1097,74,1165,66,1229,64,1293,66,1362,73,1529,100,1586,116,1636,136"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,170,1090,196"/>
-<area shape="poly" title=" " alt="" coords="1608,177,1529,192,1420,209,1334,218,1248,219,1138,211,1066,199,1067,194,1138,206,1248,214,1334,212,1419,203,1528,187,1607,172"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,272,1310,297"/>
-<area shape="poly" title=" " alt="" coords="1651,183,1597,221,1564,240,1530,255,1474,270,1417,280,1311,288,1311,283,1416,275,1473,265,1528,250,1562,235,1594,217,1648,178"/>
-<area shape="poly" title=" " alt="" coords="1343,155,1090,140,1091,134,1343,149"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,170,1300,196"/>
-<area shape="poly" title=" " alt="" coords="1343,172,1301,177,1300,172,1342,167"/>
+<area shape="poly" title=" " alt="" coords="1634,139,1584,119,1528,104,1361,77,1293,70,1229,68,1165,71,1097,78,931,110,889,123,850,139,848,134,887,118,930,104,1097,73,1165,65,1229,63,1293,65,1362,72,1529,99,1586,114,1636,134"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
+<area shape="poly" title=" " alt="" coords="1613,176,1529,191,1409,199,1290,200,1090,191,1090,186,1290,195,1409,194,1528,186,1612,171"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,252,1310,277"/>
+<area shape="poly" title=" " alt="" coords="1645,180,1592,209,1529,235,1474,249,1416,258,1311,266,1311,261,1416,252,1473,243,1528,230,1590,205,1642,175"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,144,1300,169"/>
+<area shape="poly" title=" " alt="" coords="1343,159,1300,159,1300,154,1343,154"/>
+<area shape="poly" title=" " alt="" coords="1133,149,1090,144,1091,139,1133,143"/>
+<area shape="poly" title=" " alt="" coords="1133,170,1091,175,1090,170,1133,164"/>
 <area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
 <area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
@@ -2294,10 +2375,8 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
-<area shape="poly" title=" " alt="" coords="1151,169,1067,148,1068,143,1153,163"/>
-<area shape="poly" title=" " alt="" coords="1133,186,1090,186,1090,180,1133,180"/>
-<area shape="poly" title=" " alt="" coords="915,174,883,170,884,164,916,169"/>
-<area shape="poly" title=" " alt="" coords="1146,270,1042,244,930,211,854,181,856,176,932,206,1044,239,1147,265"/>
+<area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
+<area shape="poly" title=" " alt="" coords="1122,252,1028,234,930,210,853,181,855,176,931,204,1029,229,1123,247"/>
 </map>
 </div>
 
@@ -2330,7 +2409,7 @@ Here is the caller graph for this function:</div>
 <p>Identifies candidate midpoints ahead of the vehicle and performs a cost-based search to select the best starting pair.</p>
 <dl class="section return"><dt>Returns</dt><dd>Pair of midpoint pointers for path initialization. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00278">278</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00295">295</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2351,24 +2430,25 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d89/class_path_calculation_a11ab63e74a5f2de45bc8147b720c5882_icgraph.png" border="0" usemap="#ad0/d89/class_path_calculation_a11ab63e74a5f2de45bc8147b720c5882_icgraph" alt=""/></div>
 <map name="ad0/d89/class_path_calculation_a11ab63e74a5f2de45bc8147b720c5882_icgraph" id="ad0/d89/class_path_calculation_a11ab63e74a5f2de45bc8147b720c5882_icgraph">
-<area shape="rect" title="Select the first two midpoints to start the path." alt="" coords="2039,137,2193,178"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a52cbb5e2cf46ba4e6716928b2d5b5ed9" title="Initialize the path from the vehicle&#39;s initial pose." alt="" coords="1827,137,1991,178"/>
-<area shape="poly" title=" " alt="" coords="2024,160,1992,160,1992,155,2024,155"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,145,1779,171"/>
-<area shape="poly" title=" " alt="" coords="1811,160,1779,160,1779,155,1811,155"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,137,1529,178"/>
-<area shape="poly" title=" " alt="" coords="1561,160,1529,160,1529,155,1561,155"/>
+<area shape="rect" title="Select the first two midpoints to start the path." alt="" coords="2039,136,2193,177"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a52cbb5e2cf46ba4e6716928b2d5b5ed9" title="Initialize the path from the vehicle&#39;s initial pose." alt="" coords="1827,136,1991,177"/>
+<area shape="poly" title=" " alt="" coords="2024,159,1992,159,1992,154,2024,154"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,144,1779,169"/>
+<area shape="poly" title=" " alt="" coords="1811,159,1779,159,1779,154,1811,154"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,136,1529,177"/>
+<area shape="poly" title=" " alt="" coords="1561,159,1529,159,1529,154,1561,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1612,143,1528,128,1409,120,1290,119,1090,128,1090,123,1290,114,1409,115,1529,123,1613,138"/>
+<area shape="poly" title=" " alt="" coords="1612,142,1528,127,1409,119,1290,118,1090,128,1090,123,1290,113,1409,114,1529,122,1613,137"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
-<area shape="poly" title=" " alt="" coords="1634,140,1584,121,1528,106,1361,78,1293,71,1229,69,1165,71,1097,79,931,110,888,123,849,139,847,134,887,118,930,104,1097,74,1165,66,1229,64,1293,66,1362,73,1529,100,1586,116,1636,136"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,170,1090,196"/>
-<area shape="poly" title=" " alt="" coords="1608,177,1529,192,1420,209,1334,218,1248,219,1138,211,1066,199,1067,194,1138,206,1248,214,1334,212,1419,203,1528,187,1607,172"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,272,1310,297"/>
-<area shape="poly" title=" " alt="" coords="1651,183,1597,221,1564,240,1530,255,1474,270,1417,280,1311,288,1311,283,1416,275,1473,265,1528,250,1562,235,1594,217,1648,178"/>
-<area shape="poly" title=" " alt="" coords="1343,155,1090,140,1091,134,1343,149"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,170,1300,196"/>
-<area shape="poly" title=" " alt="" coords="1343,172,1301,177,1300,172,1342,167"/>
+<area shape="poly" title=" " alt="" coords="1634,139,1584,119,1528,104,1361,77,1293,70,1229,68,1165,71,1097,78,931,110,889,123,850,139,848,134,887,118,930,104,1097,73,1165,65,1229,63,1293,65,1362,72,1529,99,1586,114,1636,134"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
+<area shape="poly" title=" " alt="" coords="1613,176,1529,191,1409,199,1290,200,1090,191,1090,186,1290,195,1409,194,1528,186,1612,171"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,252,1310,277"/>
+<area shape="poly" title=" " alt="" coords="1645,180,1592,209,1529,235,1474,249,1416,258,1311,266,1311,261,1416,252,1473,243,1528,230,1590,205,1642,175"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,144,1300,169"/>
+<area shape="poly" title=" " alt="" coords="1343,159,1300,159,1300,154,1343,154"/>
+<area shape="poly" title=" " alt="" coords="1133,149,1090,144,1091,139,1133,143"/>
+<area shape="poly" title=" " alt="" coords="1133,170,1091,175,1090,170,1133,164"/>
 <area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
 <area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
@@ -2395,10 +2475,8 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
-<area shape="poly" title=" " alt="" coords="1151,169,1067,148,1068,143,1153,163"/>
-<area shape="poly" title=" " alt="" coords="1133,186,1090,186,1090,180,1133,180"/>
-<area shape="poly" title=" " alt="" coords="915,174,883,170,884,164,916,169"/>
-<area shape="poly" title=" " alt="" coords="1146,270,1042,244,930,211,854,181,856,176,932,206,1044,239,1147,265"/>
+<area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
+<area shape="poly" title=" " alt="" coords="1122,252,1028,234,930,210,853,181,855,176,931,204,1029,229,1123,247"/>
 </map>
 </div>
 
@@ -2429,7 +2507,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00144">144</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00160">160</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2493,7 +2571,7 @@ Here is the caller graph for this function:</div>
 <p>Initialize the path from the previous path. </p>
 <p>Snaps past path points to valid midpoints and carries forward as much of the previous path as possible, respecting distance constraints. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00173">173</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d44/path__calculation_8cpp_source.html#l00189">189</a> of file <a class="el" href="../../db/d44/path__calculation_8cpp_source.html">path_calculation.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2509,22 +2587,23 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d89/class_path_calculation_a9c6027b6e5239454d50c785c16f2c1cb_icgraph.png" border="0" usemap="#ad0/d89/class_path_calculation_a9c6027b6e5239454d50c785c16f2c1cb_icgraph" alt=""/></div>
 <map name="ad0/d89/class_path_calculation_a9c6027b6e5239454d50c785c16f2c1cb_icgraph" id="ad0/d89/class_path_calculation_a9c6027b6e5239454d50c785c16f2c1cb_icgraph">
-<area shape="rect" title="Initialize the path from the previous path." alt="" coords="1827,137,1984,178"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,145,1779,171"/>
-<area shape="poly" title=" " alt="" coords="1812,160,1779,160,1779,155,1812,155"/>
-<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,137,1529,178"/>
-<area shape="poly" title=" " alt="" coords="1561,160,1529,160,1529,155,1561,155"/>
+<area shape="rect" title="Initialize the path from the previous path." alt="" coords="1827,136,1984,177"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#a501f9aba5c54c8f0d0cc158333eb58c2" title="Generate a path from an array of cones." alt="" coords="1577,144,1779,169"/>
+<area shape="poly" title=" " alt="" coords="1812,159,1779,159,1779,154,1812,154"/>
+<area shape="rect" href="../../d0/d89/class_path_calculation.html#ab49caee95f9ce6b27f015f68d9eb8f94" title="Generate a closed loop path for trackdrive competition." alt="" coords="1358,136,1529,177"/>
+<area shape="poly" title=" " alt="" coords="1561,159,1529,159,1529,154,1561,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1612,143,1528,128,1409,120,1290,119,1090,128,1090,123,1290,114,1409,115,1529,123,1613,138"/>
+<area shape="poly" title=" " alt="" coords="1612,142,1528,127,1409,119,1290,118,1090,128,1090,123,1290,113,1409,114,1529,122,1613,137"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
-<area shape="poly" title=" " alt="" coords="1634,140,1584,121,1528,106,1361,78,1293,71,1229,69,1165,71,1097,79,931,110,888,123,849,139,847,134,887,118,930,104,1097,74,1165,66,1229,64,1293,66,1362,73,1529,100,1586,116,1636,136"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,170,1090,196"/>
-<area shape="poly" title=" " alt="" coords="1608,177,1529,192,1420,209,1334,218,1248,219,1138,211,1066,199,1067,194,1138,206,1248,214,1334,212,1419,203,1528,187,1607,172"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,272,1310,297"/>
-<area shape="poly" title=" " alt="" coords="1651,183,1597,221,1564,240,1530,255,1474,270,1417,280,1311,288,1311,283,1416,275,1473,265,1528,250,1562,235,1594,217,1648,178"/>
-<area shape="poly" title=" " alt="" coords="1343,155,1090,140,1091,134,1343,149"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,170,1300,196"/>
-<area shape="poly" title=" " alt="" coords="1343,172,1301,177,1300,172,1342,167"/>
+<area shape="poly" title=" " alt="" coords="1634,139,1584,119,1528,104,1361,77,1293,70,1229,68,1165,71,1097,78,931,110,889,123,850,139,848,134,887,118,930,104,1097,73,1165,65,1229,63,1293,65,1362,72,1529,99,1586,114,1636,134"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
+<area shape="poly" title=" " alt="" coords="1613,176,1529,191,1409,199,1290,200,1090,191,1090,186,1290,195,1409,194,1528,186,1612,171"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,252,1310,277"/>
+<area shape="poly" title=" " alt="" coords="1645,180,1592,209,1529,235,1474,249,1416,258,1311,266,1311,261,1416,252,1473,243,1528,230,1590,205,1642,175"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,144,1300,169"/>
+<area shape="poly" title=" " alt="" coords="1343,159,1300,159,1300,154,1343,154"/>
+<area shape="poly" title=" " alt="" coords="1133,149,1090,144,1091,139,1133,143"/>
+<area shape="poly" title=" " alt="" coords="1133,170,1091,175,1090,170,1133,164"/>
 <area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
 <area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
@@ -2551,10 +2630,8 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
-<area shape="poly" title=" " alt="" coords="1151,169,1067,148,1068,143,1153,163"/>
-<area shape="poly" title=" " alt="" coords="1133,186,1090,186,1090,180,1133,180"/>
-<area shape="poly" title=" " alt="" coords="915,174,883,170,884,164,916,169"/>
-<area shape="poly" title=" " alt="" coords="1146,270,1042,244,930,211,854,181,856,176,932,206,1044,239,1147,265"/>
+<area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
+<area shape="poly" title=" " alt="" coords="1122,252,1028,234,930,210,853,181,855,176,931,204,1029,229,1123,247"/>
 </map>
 </div>
 
@@ -2581,7 +2658,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00129">129</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00139">139</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
 
 </div>
 </div>
@@ -2605,7 +2682,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00110">110</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00120">120</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
 
 </div>
 </div>
@@ -2629,7 +2706,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00127">127</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00137">137</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
 
 </div>
 </div>
@@ -2653,7 +2730,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00132">132</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00142">142</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
 
 </div>
 </div>
@@ -2677,7 +2754,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00114">114</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00124">124</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
 
 </div>
 </div>
@@ -2701,7 +2778,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00116">116</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00126">126</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
 
 </div>
 </div>
@@ -2725,7 +2802,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00111">111</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00121">121</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
 
 </div>
 </div>
@@ -2749,7 +2826,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00124">124</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00134">134</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
 
 </div>
 </div>
@@ -2773,7 +2850,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00120">120</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00130">130</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
 
 </div>
 </div>
@@ -2797,7 +2874,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00119">119</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00129">129</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
 
 </div>
 </div>
@@ -2821,7 +2898,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00130">130</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00140">140</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
 
 </div>
 </div>
@@ -2845,7 +2922,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00121">121</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00131">131</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
 
 </div>
 </div>
@@ -2869,7 +2946,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00115">115</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00125">125</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
 
 </div>
 </div>
@@ -2893,7 +2970,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00131">131</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00141">141</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
 
 </div>
 </div>
@@ -2917,7 +2994,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00128">128</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/ded/path__calculation_8hpp_source.html#l00138">138</a> of file <a class="el" href="../../df/ded/path__calculation_8hpp_source.html">path_calculation.hpp</a>.</p>
 
 </div>
 </div>

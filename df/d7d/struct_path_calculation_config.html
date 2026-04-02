@@ -105,7 +105,7 @@ Collaboration diagram for PathCalculationConfig:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d6/d88/struct_path_calculation_config__coll__graph.png" border="0" usemap="#a_path_calculation_config_coll__map" alt="Collaboration graph"/></div>
 <map name="a_path_calculation_config_coll__map" id="a_path_calculation_config_coll__map">
-<area shape="rect" title=" " alt="" coords="7,194,181,499"/>
+<area shape="rect" title=" " alt="" coords="7,194,181,519"/>
 <area shape="rect" href="../../d9/d46/struct_midpoint_generator_config.html" title="Configuration parameters for the Midpoint Generator class." alt="" coords="5,5,183,131"/>
 <area shape="poly" title=" " alt="" coords="97,131,97,177,91,177,91,131"/>
 </map>
@@ -116,9 +116,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab91c83bed2a0e226bac65a07b2fc631e" id="r_ab91c83bed2a0e226bac65a07b2fc631e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d7d/struct_path_calculation_config.html#ab91c83bed2a0e226bac65a07b2fc631e">PathCalculationConfig</a> ()</td></tr>
 <tr class="memdesc:ab91c83bed2a0e226bac65a07b2fc631e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <br /></td></tr>
 <tr class="separator:ab91c83bed2a0e226bac65a07b2fc631e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a99fad5ed141c042bf9aad9f02916e1" id="r_a9a99fad5ed141c042bf9aad9f02916e1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d7d/struct_path_calculation_config.html#a9a99fad5ed141c042bf9aad9f02916e1">PathCalculationConfig</a> (const <a class="el" href="../../d9/d46/struct_midpoint_generator_config.html">MidpointGeneratorConfig</a> &amp;mg_config, bool use_sliding_window, double angle_gain, double distance_gain, double angle_exponent, double distance_exponent, double max_cost, double minimum_point_distance, int lookback_points, int search_depth, int max_points, int reset_interval, bool use_reset_path)</td></tr>
-<tr class="memdesc:a9a99fad5ed141c042bf9aad9f02916e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parameterized constructor.  <br /></td></tr>
-<tr class="separator:a9a99fad5ed141c042bf9aad9f02916e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ed826e60b96862b43b7e520f787377e" id="r_a1ed826e60b96862b43b7e520f787377e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d7d/struct_path_calculation_config.html#a1ed826e60b96862b43b7e520f787377e">PathCalculationConfig</a> (const <a class="el" href="../../d9/d46/struct_midpoint_generator_config.html">MidpointGeneratorConfig</a> &amp;mg_config, bool use_sliding_window, double angle_gain, double distance_gain, double angle_exponent, double distance_exponent, double max_cost, double minimum_point_distance, int lookback_points, int search_depth, int max_points, int reset_interval, bool use_reset_path, double close_cost)</td></tr>
+<tr class="memdesc:a1ed826e60b96862b43b7e520f787377e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parameterized constructor.  <br /></td></tr>
+<tr class="separator:a1ed826e60b96862b43b7e520f787377e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -161,6 +161,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ac19cef0ff7223811bf0c446fe7ae97f9" id="r_ac19cef0ff7223811bf0c446fe7ae97f9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d7d/struct_path_calculation_config.html#ac19cef0ff7223811bf0c446fe7ae97f9">use_reset_path_</a></td></tr>
 <tr class="memdesc:ac19cef0ff7223811bf0c446fe7ae97f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to enable/disable path reset logic.  <br /></td></tr>
 <tr class="separator:ac19cef0ff7223811bf0c446fe7ae97f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5911f955fcf440bb19c9a47f94282e30" id="r_a5911f955fcf440bb19c9a47f94282e30"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d7d/struct_path_calculation_config.html#a5911f955fcf440bb19c9a47f94282e30">close_cost_</a></td></tr>
+<tr class="memdesc:a5911f955fcf440bb19c9a47f94282e30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cost threshold to determine whether the path is considered closed.  <br /></td></tr>
+<tr class="separator:a5911f955fcf440bb19c9a47f94282e30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -191,12 +194,12 @@ Public Attributes</h2></td></tr>
 
 <p>Default constructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/dc3/path__calculation__config_8hpp_source.html#l00075">75</a> of file <a class="el" href="../../d9/dc3/path__calculation__config_8hpp_source.html">path_calculation_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/dc3/path__calculation__config_8hpp_source.html#l00080">80</a> of file <a class="el" href="../../d9/dc3/path__calculation__config_8hpp_source.html">path_calculation_config.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a9a99fad5ed141c042bf9aad9f02916e1" name="a9a99fad5ed141c042bf9aad9f02916e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9a99fad5ed141c042bf9aad9f02916e1">&#9670;&#160;</a></span>PathCalculationConfig() <span class="overload">[2/2]</span></h2>
+<a id="a1ed826e60b96862b43b7e520f787377e" name="a1ed826e60b96862b43b7e520f787377e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ed826e60b96862b43b7e520f787377e">&#9670;&#160;</a></span>PathCalculationConfig() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -280,7 +283,13 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>use_reset_path</em>&#160;</td>
+          <td class="paramname"><em>use_reset_path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>close_cost</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -297,7 +306,7 @@ Public Attributes</h2></td></tr>
 
 <p>Parameterized constructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/dc3/path__calculation__config_8hpp_source.html#l00093">93</a> of file <a class="el" href="../../d9/dc3/path__calculation__config_8hpp_source.html">path_calculation_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/dc3/path__calculation__config_8hpp_source.html#l00099">99</a> of file <a class="el" href="../../d9/dc3/path__calculation__config_8hpp_source.html">path_calculation_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -335,6 +344,24 @@ Public Attributes</h2></td></tr>
 <p>Gain applied to the angle term in the cost function. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d9/dc3/path__calculation__config_8hpp_source.html#l00020">20</a> of file <a class="el" href="../../d9/dc3/path__calculation__config_8hpp_source.html">path_calculation_config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5911f955fcf440bb19c9a47f94282e30" name="a5911f955fcf440bb19c9a47f94282e30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5911f955fcf440bb19c9a47f94282e30">&#9670;&#160;</a></span>close_cost_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double PathCalculationConfig::close_cost_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cost threshold to determine whether the path is considered closed. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d9/dc3/path__calculation__config_8hpp_source.html#l00075">75</a> of file <a class="el" href="../../d9/dc3/path__calculation__config_8hpp_source.html">path_calculation_config.hpp</a>.</p>
 
 </div>
 </div>

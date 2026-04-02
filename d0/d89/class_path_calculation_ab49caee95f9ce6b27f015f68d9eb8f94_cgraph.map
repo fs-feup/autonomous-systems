@@ -4,7 +4,7 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,261,208,261,208,266,176,266"/>
 <area shape="rect" id="Node000012" href="$d4/d10/class_colorpoint.html#a6446f8d044958be74084213a3838439c" title="Extracts and classifies all cones from a sequence of colorpoints." alt="" coords="511,26,635,67"/>
 <area shape="poly" id="edge32_Node000001_Node000012" title=" " alt="" coords="130,240,279,165,473,77,495,69,497,73,475,82,281,170,132,245"/>
-<area shape="rect" id="Node000028" href="$d0/d89/class_path_calculation.html#ab7648ed321c4e8adcde0d11f552f486d" title="Find the optimal point to close a track loop." alt="" coords="256,457,394,497"/>
+<area shape="rect" id="Node000028" href="$d0/d89/class_path_calculation.html#ad470af47aeeb85803b4a94cfbd5e4fb3" title="Finds the best loop closure point in a path." alt="" coords="256,457,394,497"/>
 <area shape="poly" id="edge33_Node000001_Node000028" title=" " alt="" coords="116,282,292,444,288,448,113,286"/>
 <area shape="rect" id="Node000003" href="$d0/d89/class_path_calculation.html#a9694a0284110864c9b546261ce1e4db4" title="Reset path construction state." alt="" coords="500,271,646,312"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="427,272,485,279,484,284,426,278"/>

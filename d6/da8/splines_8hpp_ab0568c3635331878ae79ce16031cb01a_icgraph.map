@@ -1,6 +1,6 @@
 <map id="fit_spline" name="fit_spline">
 <area shape="rect" id="Node000001" title="This function takes a sequence of points (T), fits a spline to them using B&#45;spline basis functions,..." alt="" coords="1842,244,1914,269"/>
-<area shape="rect" id="Node000002" href="$d7/db7/class_path_smoothing.html#a4a142bd68daf44f1b39e70314836eb4f" title="Smooths a path by fitting a B&#45;spline through the input points." alt="" coords="1603,194,1794,220"/>
+<area shape="rect" id="Node000002" href="$d7/db7/class_path_smoothing.html#a077045088473f134c44112388a1e6d95" title="Smooths a path by fitting a B&#45;spline through the input points." alt="" coords="1603,194,1794,220"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1826,243,1793,234,1753,223,1755,218,1795,228,1828,238"/>
 <area shape="rect" id="Node000022" href="$d9/db5/splines__tests_8cpp.html#a6556ed322889d2511804a36ac4e8a7bd" title="Test the spline template function for a path point vector." alt="" coords="1671,244,1726,269"/>
 <area shape="poly" id="edge30_Node000001_Node000022" title=" " alt="" coords="1826,259,1726,259,1726,254,1826,254"/>

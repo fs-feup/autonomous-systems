@@ -1,9 +1,10 @@
 var struct_path_calculation_config =
 [
     [ "PathCalculationConfig", "df/d7d/struct_path_calculation_config.html#ab91c83bed2a0e226bac65a07b2fc631e", null ],
-    [ "PathCalculationConfig", "df/d7d/struct_path_calculation_config.html#a9a99fad5ed141c042bf9aad9f02916e1", null ],
+    [ "PathCalculationConfig", "df/d7d/struct_path_calculation_config.html#a1ed826e60b96862b43b7e520f787377e", null ],
     [ "angle_exponent_", "df/d7d/struct_path_calculation_config.html#a1bfd30e9460282c3c7d985f8acb6c4db", null ],
     [ "angle_gain_", "df/d7d/struct_path_calculation_config.html#a20e38314981af875bbe866288fac2f4f", null ],
+    [ "close_cost_", "df/d7d/struct_path_calculation_config.html#a5911f955fcf440bb19c9a47f94282e30", null ],
     [ "distance_exponent_", "df/d7d/struct_path_calculation_config.html#a1c9256f7f42d4df9ccf1db03458bb828", null ],
     [ "distance_gain_", "df/d7d/struct_path_calculation_config.html#a3c2984f33a8d9db5dec1fcaff719c8bd", null ],
     [ "lookback_points_", "df/d7d/struct_path_calculation_config.html#a19ff9aadf89b1f1078bbba18fc2386c6", null ],

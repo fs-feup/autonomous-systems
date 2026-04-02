@@ -7,11 +7,10 @@ var class_path_smoothing =
     [ "add_slack_nonnegativity_constraints", "d7/db7/class_path_smoothing.html#abf26b5322db30f37f7ce2ef8c1e615e2", null ],
     [ "add_slack_penalty_terms", "d7/db7/class_path_smoothing.html#adce7fe96dce3791075ff778f27459fdf", null ],
     [ "add_slack_penalty_terms", "d7/db7/class_path_smoothing.html#a02704a577c06ded4c57eb5294441f538", null ],
-    [ "add_smoothness_terms", "d7/db7/class_path_smoothing.html#abe5f49a0b8bf1fb49226d8a05c37b8cd", null ],
     [ "convert_to_csc_format", "d7/db7/class_path_smoothing.html#a0d3edb65439cb4aa32bf799e0293a243", null ],
     [ "filter_path", "d7/db7/class_path_smoothing.html#aa6784eb81a049d0cd070e55ac0001ff1", null ],
     [ "optimize_path", "d7/db7/class_path_smoothing.html#af8d116547f2d2adc2979676047abcfb4", null ],
     [ "osqp_optimization", "d7/db7/class_path_smoothing.html#a451ad9f28138148436574a91d6b3299d", null ],
-    [ "smooth_path", "d7/db7/class_path_smoothing.html#a4a142bd68daf44f1b39e70314836eb4f", null ],
+    [ "smooth_path", "d7/db7/class_path_smoothing.html#a077045088473f134c44112388a1e6d95", null ],
     [ "config_", "d7/db7/class_path_smoothing.html#aba97424070e38a365d98ed139adb7c88", null ]
 ];

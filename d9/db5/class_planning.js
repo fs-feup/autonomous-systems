@@ -1,6 +1,7 @@
 var class_planning =
 [
     [ "Planning", "d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d", null ],
+    [ "compute_path_orientation", "d9/db5/class_planning.html#a7f21b797195bcbdb309b690ade560da0", null ],
     [ "fetch_discipline", "d9/db5/class_planning.html#a252e828e61969388cb0ec48ed0eca293", null ],
     [ "finish", "d9/db5/class_planning.html#adbc4d2bec3251bd1053ee2201e9d22c2", null ],
     [ "load_config", "d9/db5/class_planning.html#a5650d2ddb277b0e80fed4c8bc72957fa", null ],
@@ -29,7 +30,8 @@ var class_planning =
     [ "has_received_track_", "d9/db5/class_planning.html#aa83954358c7f4534a345deb4dbd8e921", null ],
     [ "initial_car_orientation_", "d9/db5/class_planning.html#a7b0ca13f93982c3a36b19b188f176f32", null ],
     [ "is_braking_", "d9/db5/class_planning.html#a79136b63cfbc8a8f6072b37a0103586c", null ],
-    [ "is_map_closed_", "d9/db5/class_planning.html#a08991b408d4370c94c08909fd7cfed3f", null ],
+    [ "is_path_closed_", "d9/db5/class_planning.html#a1b556f86acd463e95078264a79dcf2d0", null ],
+    [ "is_path_final_", "d9/db5/class_planning.html#a358dd294f99d03ce53beff485af7f913", null ],
     [ "lap_counter_", "d9/db5/class_planning.html#acb604db0db31e0341b3157ad16d15987", null ],
     [ "lap_counter_sub_", "d9/db5/class_planning.html#aa22358ad77a3fb3d5e367a1d4da7251c", null ],
     [ "map_frame_id_", "d9/db5/class_planning.html#a3affba7088491811e092d850ec33c71b", null ],

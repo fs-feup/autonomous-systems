@@ -10,7 +10,7 @@ var searchData=
   ['filter_5fpath_7',['filter_path',['../d7/db7/class_path_smoothing.html#aa6784eb81a049d0cd070e55ac0001ff1',1,'PathSmoothing']]],
   ['filterfov_8',['filterFoV',['../d0/d8a/class_perception_sensor.html#a172545c4aa3ee7d6c29b8032b128aa91',1,'PerceptionSensor']]],
   ['filtertypeanddoo_9',['filterTypeAndDOO',['../d0/d8a/class_perception_sensor.html#ac656fa5ef2766fa48bb11c85133f5e64',1,'PerceptionSensor']]],
-  ['find_5fbest_5floop_5fclosure_10',['find_best_loop_closure',['../d0/d89/class_path_calculation.html#ab7648ed321c4e8adcde0d11f552f486d',1,'PathCalculation']]],
+  ['find_5fbest_5floop_5fclosure_10',['find_best_loop_closure',['../d0/d89/class_path_calculation.html#ad470af47aeeb85803b4a94cfbd5e4fb3',1,'PathCalculation']]],
   ['find_5fbest_5fnext_5fmidpoint_11',['find_best_next_midpoint',['../d0/d89/class_path_calculation.html#aa57adbaba88d90c8f96909fb8dbf14d0',1,'PathCalculation']]],
   ['find_5fclosest_5felements_12',['find_closest_elements',['../da/dad/namespaceevaluator_1_1formats.html#a87735713917cd17dd60fec1c124f1a1f',1,'evaluator::formats']]],
   ['find_5fclosest_5fpath_5findex_13',['find_closest_path_index',['../de/d3f/class_skidpad.html#afb0ea0b6d869e3a561ff5c755c82fe2a',1,'Skidpad']]],
