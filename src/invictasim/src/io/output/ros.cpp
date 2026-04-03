@@ -37,6 +37,7 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator)
       "invictasim/visualization/vehicle", 10);
   visualization_track_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
       "invictasim/visualization/track", 10);
+
   setup_timers();
 }
 

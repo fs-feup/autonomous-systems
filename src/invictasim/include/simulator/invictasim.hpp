@@ -86,7 +86,6 @@ public:
 
   /**
    * @brief Get the track information.
-   * @return Track pointer (No need for mutex as the track is immutable after loading, it will only
    * be read).
    */
   std::shared_ptr<Track> get_track() const { return track_; }
