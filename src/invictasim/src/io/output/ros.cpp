@@ -5,6 +5,7 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator)
       InvictaSimOutputAdapter(simulator),
       running_(true),
       publish_frequencies_(simulator->get_params().publish_frequencies) {
+  tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(this);
   tire_forces_pub_ = this->create_publisher<custom_interfaces::msg::TireForces>(
       "invictasim/vehicle_model/tire/forces", 10);
   tire_slip_ratio_pub_ = this->create_publisher<custom_interfaces::msg::WheelScalars>(
@@ -140,6 +141,27 @@ void RosOutputAdapter::publish_track_group() {
   }
 
   track_pub_->publish(track_msg);
+}
+
+void RosOutputAdapter::publish_vehicle_transform() {
+  const rclcpp::Time stamp = this->now();
+
+  geometry_msgs::msg::TransformStamped car_transform;
+  car_transform.header.stamp = stamp;
+  car_transform.header.frame_id = "map";
+  car_transform.child_frame_id = "car";
+  car_transform.transform.translation.x = vehicle_model_snapshot_cache_.x;
+  car_transform.transform.translation.y = vehicle_model_snapshot_cache_.y;
+  car_transform.transform.translation.z = 0.0;
+
+  tf2::Quaternion car_rotation;
+  car_rotation.setRPY(0.0, 0.0, vehicle_model_snapshot_cache_.yaw);
+  car_transform.transform.rotation.x = car_rotation.x();
+  car_transform.transform.rotation.y = car_rotation.y();
+  car_transform.transform.rotation.z = car_rotation.z();
+  car_transform.transform.rotation.w = car_rotation.w();
+
+  tf_broadcaster_->sendTransform(car_transform);
 }
 
 custom_interfaces::msg::WheelScalars RosOutputAdapter::to_wheels_msg(
@@ -286,6 +308,7 @@ void RosOutputAdapter::publish_visualization_group() {
   visualization_msgs::msg::MarkerArray vehicle_marker_array;
   visualization_msgs::msg::MarkerArray track_marker_array;
 
+  publish_vehicle_transform();
   publish_ground_marker(ground_marker_array, stamp);
   publish_body_marker(vehicle_marker_array, stamp);
   publish_wheel_markers(vehicle_marker_array, stamp, dt);
