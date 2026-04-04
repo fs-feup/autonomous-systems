@@ -1,7 +1,6 @@
 [submodule "docs/doxygen/doxygen-awesome-css"]
 	path = docs/doxygen/doxygen-awesome-css
 	url = git@github.com:jothepro/doxygen-awesome-css.git
-	
 [submodule "ext/gtsam"]
 	path = ext/gtsam
 	url = https://github.com/borglab/gtsam
@@ -20,3 +19,9 @@
 [submodule "ext/acados"]
 	path = ext/acados
 	url = https://github.com/acados/acados.git
+[submodule "ext/osqp"]
+	path = ext/osqp/src
+	url = https://github.com/osqp/osqp.git
+[submodule "ext/osqp-eigen"]
+	path = ext/osqp-eigen/src
+	url = https://github.com/robotology/osqp-eigen.git

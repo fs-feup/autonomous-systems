@@ -109,7 +109,8 @@ private:
   bool is_braking_ = false;
   bool has_received_track_ = false;
   bool has_received_pose_ = false;
-  bool is_map_closed_ = false;
+  bool is_path_final_ = false;
+  bool is_path_closed_ = false;
   std::chrono::steady_clock::time_point brake_time_;
 
   /*--------------------- Path Data --------------------*/
@@ -193,13 +194,22 @@ private:
 
   /*--------------------- Mission-Specific Planning --------------------*/
   /**
-   * @brief Executes planning for the EBS (Emergency Braking System) test mission.
+   * @brief Computes and assigns the orientation for each point in the path.
    *
-   * Calculates and smooths the path, then implements distance-based braking logic.
-   * Braking is triggered when the vehicle is more than 90m from origin, applying
-   * deceleration until the vehicle stops.
+   * @param path The path whose points will have their orientation field updated in-place.
    */
-  void run_ebs_test();
+  void compute_path_orientation(std::vector<PathPoint> &path);
+  /**
+   * @brief Generates and optimizes a closed-loop global track path.
+   *
+   * @note Intended to run once when the map is considered complete.
+   */
+  void run_full_map();
+  /**
+   * @brief Executes planning for the acceleration mission.
+   *
+   */
+  void run_acceleration();
 
   /**
    * @brief Executes planning for the autocross mission.

@@ -328,7 +328,7 @@ TripleSpline<T> fit_triple_spline(const std::vector<T> &center, const std::vecto
 
   // Check if we have enough points and all sequences have the same size
   if (n < 2 || left.size() != n || right.size() != n) {
-    RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),
                  "Invalid input for fit_triple_spline: center has %zu points, "
                  "left has %zu points, right has %zu points. All must be >= 2 and equal.",
                  center.size(), left.size(), right.size());

@@ -78,10 +78,20 @@ public:
    */
   void set_vehicle_pose(const common_lib::structures::Pose& vehicle_pose);
 
+  /**
+   * @brief Checks if the path forms a closed loop and closes it if the transition cost
+   * is below config_.close_cost_.
+   *
+   * @param path The path to evaluate, modified in place if loop closure is found
+   * @return true if loop closure was detected and applied, false Otherwise
+   */
+  bool is_map_closed(std::vector<PathPoint>& path) const;
+
   // ===================== Public Accessor Methods =====================
 
   /**
-   * @brief Get the path from the start to a lookback distance behind the car’s current position.
+   * @brief Get the path from the start to a lookback distance behind the car’s current
+   * position.
    * @return Vector of path points representing the global path.
    */
   std::vector<PathPoint> get_path_to_car() const;
@@ -96,13 +106,13 @@ public:
    * @brief Gets the list of yellow cones detected or used in the path calculation.
    * @return Constant reference to a vector containing the yellow cones.
    */
-  const std::vector<Cone>& get_yellow_cones() const;
+  const std::vector<PathPoint>& get_yellow_cones() const;
 
   /**
    * @brief Gets the list of blue cones detected or used in the path calculation.
    * @return Constant reference to a vector containing the blue cones.
    */
-  const std::vector<Cone>& get_blue_cones() const;
+  const std::vector<PathPoint>& get_blue_cones() const;
 
 private:
   // ===================== Configuration and State =====================
@@ -125,8 +135,8 @@ private:
 
   // Path construction state (temporary during calculation)
   std::vector<Colorpoint> current_path_;
-  std::vector<Cone> yellow_cones_;
-  std::vector<Cone> blue_cones_;
+  std::vector<PathPoint> yellow_cones_;
+  std::vector<PathPoint> blue_cones_;
   std::unordered_map<Point, std::shared_ptr<Midpoint>> point_to_midpoint_;
   std::unordered_set<std::shared_ptr<Midpoint>> visited_midpoints_;
   std::unordered_set<std::shared_ptr<Cone>> discarded_cones_;
@@ -221,17 +231,17 @@ private:
 
   /**
    * @brief Calculate the cost of transitioning through three consecutive points
-   * 
-   * Computes a weighted cost based on the distance (current→next) and the angle 
+   *
+   * Computes a weighted cost based on the distance (current→next) and the angle
    * change (previous→current→next). Lower costs indicate smoother, more efficient paths.
-   * 
+   *
    * @param previous_x, previous_y Coordinates of the previous point
    * @param current_x, current_y Coordinates of the current point
    * @param next_x, next_y Coordinates of the next point
    * @return Total cost combining angular deviation and distance penalties
    */
-  double calculate_cost(double previous_x, double previous_y, double current_x,
-                                      double current_y, double next_x, double next_y) const;
+  double calculate_cost(double previous_x, double previous_y, double current_x, double current_y,
+                        double next_x, double next_y) const;
 
   // ===================== Cone Discarding Methods =====================
 
@@ -286,15 +296,19 @@ private:
   std::shared_ptr<Midpoint> find_nearest_midpoint(const Point& target) const;
 
   /**
-   * @brief Find the optimal point to close a track loop.
+   * @brief Finds the best loop closure point in a path.
    *
-   * Evaluates each point in the path to determine which produces the
-   * smoothest closure back to the starting point.
+
    *
-   * @param path The path points to analyze.
-   * @return Index of the best cutoff point.
+   * @param path A vector of PathPoint objects representing the path to analyze.
+   *             Each PathPoint must have a valid position with x and y coordinates.
+   *
+   * @return std::pair<int, double>
+   *         - first: The index of the path point that represents the optimal loop closure.
+   *         - second: The minimal combined cost associated with closing the loop at
+   *                   the returned index.
    */
-  int find_best_loop_closure(const std::vector<PathPoint>& path) const;
+  std::pair<int, double> find_best_loop_closure(const std::vector<PathPoint>& path) const;
 
   /**
    * @brief Converts a vector of Colorpoint objects into a vector of PathPoint objects.
