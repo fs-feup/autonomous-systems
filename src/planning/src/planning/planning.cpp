@@ -1,5 +1,8 @@
 #include "planning/planning.hpp"
 
+#include <algorithm>
+#include <cmath>
+#include <limits>
 #include <vector>
 
 #include "adapter_planning/pacsim.hpp"
@@ -19,6 +22,8 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   YAML::Node global_config = YAML::LoadFile(global_config_path);
   adapter = global_config["global"]["adapter"].as<std::string>();
   params.simulation_using_simulated_se_ = global_config["global"]["use_simulated_se"].as<bool>();
+  params.simulation_using_simulated_velocities_ =
+      global_config["global"]["use_simulated_velocities"].as<bool>();
 
   std::string planning_config_path =
       common_lib::config_load::get_config_yaml_path("planning", "planning", adapter);
@@ -142,6 +147,12 @@ Planning::Planning(const PlanningParameters &params)
         });
   }
 
+  if (!planning_config_.simulation_.using_simulated_velocities_) {
+    estimated_velocities_sub_ = create_subscription<custom_interfaces::msg::Velocities>(
+        "/state_estimation/velocities", 10,
+        std::bind(&Planning::estimated_velocities_callback, this, std::placeholders::_1));
+  }
+
   RCLCPP_INFO(rclcpp::get_logger("planning"), "Using simulated state estimation: %d",
               planning_config_.simulation_.using_simulated_se_);
 }
@@ -217,6 +228,36 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &messa
   if (has_received_pose_) {
     run_planning_algorithms();
   }
+}
+
+void Planning::estimated_velocities_callback(const custom_interfaces::msg::Velocities &message) {
+  set_current_car_velocity(std::hypot(message.velocity_x, message.velocity_y));
+}
+
+void Planning::set_current_car_velocity(double velocity) {
+  current_car_velocity_ = std::max(0.0, velocity);
+}
+
+void Planning::set_closest_path_point_velocity() {
+  if (smoothed_path_.empty()) {
+    return;
+  }
+
+  size_t closest_idx = 0;
+  double min_distance_sq = std::numeric_limits<double>::max();
+
+  for (size_t i = 0; i < smoothed_path_.size(); ++i) {
+    const double dx = smoothed_path_[i].position.x - pose_.position.x;
+    const double dy = smoothed_path_[i].position.y - pose_.position.y;
+    const double distance_sq = dx * dx + dy * dy;
+
+    if (distance_sq < min_distance_sq) {
+      min_distance_sq = distance_sq;
+      closest_idx = i;
+    }
+  }
+
+  smoothed_path_[closest_idx].ideal_velocity = current_car_velocity_;
 }
 
 /*--------------------- Mission-Specific Planning --------------------*/
@@ -362,6 +403,8 @@ void Planning::run_planning_algorithms() {
     RCLCPP_INFO(rclcpp::get_logger("planning"), "Final path size: %d",
                 static_cast<int>(smoothed_path_.size()));
   }
+
+  set_closest_path_point_velocity();
 
   publish_execution_time(start_time);
   publish_path_points();

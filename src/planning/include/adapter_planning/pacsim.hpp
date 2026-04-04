@@ -20,6 +20,8 @@
 class PacSimAdapter : public Planning {
   rclcpp::Client<std_srvs::srv::Empty>::SharedPtr finished_client_;
   rclcpp::Subscription<visualization_msgs::msg::MarkerArray>::SharedPtr path_sub_;
+  rclcpp::Subscription<geometry_msgs::msg::TwistWithCovarianceStamped>::SharedPtr
+      pacsim_velocity_sub_;
   rclcpp::TimerBase::SharedPtr timer_;
 
   std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
@@ -30,6 +32,7 @@ public:
 
   void set_mission_state();
   void track_callback(const visualization_msgs::msg::MarkerArray& msg);
+  void pacsim_velocity_callback(const geometry_msgs::msg::TwistWithCovarianceStamped& msg);
   void finish() override;
   void timer_callback();
 };

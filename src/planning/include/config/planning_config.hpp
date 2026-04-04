@@ -59,6 +59,7 @@ struct PlanningParameters {
   /*---------------------- Simulation (simulation_) ----------------------*/
   bool simulation_publishing_visualization_msgs_;
   bool simulation_using_simulated_se_;
+  bool simulation_using_simulated_velocities_;
 
   std::string map_frame_id_;
 };
@@ -91,7 +92,8 @@ struct PlanningConfig {
                    params.smoothing_safety_weight_, params.smoothing_max_iterations_,
                    params.smoothing_tolerance_),
         simulation_(params.simulation_publishing_visualization_msgs_,
-                    params.simulation_using_simulated_se_),
+              params.simulation_using_simulated_se_,
+              params.simulation_using_simulated_velocities_),
         velocity_planning_(params.vp_minimum_velocity_, params.vp_desired_velocity_,
                            params.vp_braking_acceleration_, params.vp_acceleration_,
                            params.vp_lateral_acceleration_, params.vp_use_velocity_planning_),
