@@ -147,7 +147,7 @@ Install Dependencies</h2>
 <div class="line">./src/planning/dependencies_install.sh</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md194"></a>
 Compiling</h2>
-<div class="fragment"><div class="line">colcon build --packages-up-to planning</div>
+<div class="fragment"><div class="line">MAKEFLAGS=-j2 colcon build --packages-up-to planning --cmake-args -G Ninja</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md195"></a>
 Testing</h2>
 <div class="fragment"><div class="line">colcon test --packages-select planning # use --event-handlers console_direct+ for immediate output</div>
@@ -155,7 +155,7 @@ Testing</h2>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md196"></a>
 Running</h2>
 <p>Choose one of the launch files in the <code>launch</code> directory. Each file's name indicates the context in which it should be used: </p><div class="fragment"><div class="line">source ./install/setup.bash</div>
-<div class="line">ros2 launch planning &lt;file_name&gt;</div>
+<div class="line">ros2 launch planning planning.launch.py</div>
 </div><!-- fragment --><p>Each launch file exposes arguments that control visualization publishing, input source, and algorithm parameters. To change a value, edit the launch file and recompile.</p>
 <h1><a class="anchor" id="autotoc_md197"></a>
 Design</h1>
