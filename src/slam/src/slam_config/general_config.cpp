@@ -16,6 +16,10 @@ SLAMParameters::SLAMParameters(const SLAMParameters &params) {
   data_association_limit_distance_ = params.data_association_limit_distance_;
   observation_x_noise_ = params.observation_x_noise_;
   observation_y_noise_ = params.observation_y_noise_;
+  data_association_gate_ = params.data_association_gate_;
+  new_landmark_confidence_gate_ = params.new_landmark_confidence_gate_;
+  ann_seed_radius_ = params.ann_seed_radius_;
+  ann_seed_count_ = params.ann_seed_count_;
   velocity_x_noise_ = params.velocity_x_noise_;
   velocity_y_noise_ = params.velocity_y_noise_;
   imu_acceleration_x_noise_ = params.imu_acceleration_x_noise_;
@@ -65,6 +69,10 @@ SLAMParameters &SLAMParameters::operator=(const SLAMParameters &other) {
     data_association_limit_distance_ = other.data_association_limit_distance_;
     observation_x_noise_ = other.observation_x_noise_;
     observation_y_noise_ = other.observation_y_noise_;
+    data_association_gate_ = other.data_association_gate_;
+    new_landmark_confidence_gate_ = other.new_landmark_confidence_gate_;
+    ann_seed_radius_ = other.ann_seed_radius_;
+    ann_seed_count_ = other.ann_seed_count_;
     velocity_x_noise_ = other.velocity_x_noise_;
     velocity_y_noise_ = other.velocity_y_noise_;
     imu_acceleration_x_noise_ = other.imu_acceleration_x_noise_;
@@ -132,6 +140,8 @@ std::string SLAMParameters::load_config() {
   this->data_association_gate_ = slam_config["slam"]["data_association_gate"].as<double>();
   this->new_landmark_confidence_gate_ =
       slam_config["slam"]["new_landmark_confidence_gate"].as<double>();
+  this->ann_seed_radius_ = slam_config["slam"]["ann_seed_radius"].as<double>();
+  this->ann_seed_count_ = slam_config["slam"]["ann_seed_count"].as<int>();
   this->observation_x_noise_ = slam_config["slam"]["observation_x_noise"].as<float>();
   this->observation_y_noise_ = slam_config["slam"]["observation_y_noise"].as<float>();
   this->velocity_x_noise_ = slam_config["slam"]["velocity_x_noise"].as<float>();

@@ -8,7 +8,7 @@ class MockDataAssociationModel : public DataAssociationModel {
 public:
   MOCK_METHOD(Eigen::VectorXi, associate,
               (const Eigen::VectorXd& state, const Eigen::VectorXd& observations,
-               const Eigen::MatrixXd& covariance, const Eigen::VectorXd& observation_confidences),
+               const Eigen::MatrixXd& covariance, const Eigen::VectorXd& observation_confidences, const Eigen::Vector3d& pose),
               (const, override));
 };
 
