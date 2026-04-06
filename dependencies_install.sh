@@ -11,6 +11,7 @@ sudo apt install -y ros-humble-message-filters
 sudo apt install -y ros-humble-tf-transformations
 sudo apt install -y ros-humble-rosbag2-storage-mcap
 sudo apt install nano -y
+sudo apt install ninja-build build-essential cmake -y
 
 # planning
 sudo apt-get install libcgal-dev -y
