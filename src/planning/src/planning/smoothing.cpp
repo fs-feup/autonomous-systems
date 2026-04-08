@@ -5,26 +5,29 @@ std::vector<PathPoint> PathSmoothing::smooth_path(std::vector<PathPoint>& path,
   if (!config_.use_path_smoothing_) {
     return path;
   }
-  if(is_path_closed){
+  if (is_path_closed) {
     path.push_back(path[0]);
-    // yellow_cones_.push_back(yellow_cones_[0]);
-    // blue_cones_.push_back(blue_cones_[0]);
   }
   std::vector<PathPoint> result_path = filter_path(::fit_spline(
       path, config_.spline_precision_, config_.spline_order_, config_.spline_coeffs_ratio_));
-      
+
   return result_path;
 }
 
-std::vector<PathPoint> PathSmoothing::optimize_path(
-    std::vector<PathPoint>& path, const std::vector<PathPoint>& yellow_cones,
-    const std::vector<PathPoint>& blue_cones, bool is_path_closed) const {
-  if (!config_.use_optimization_) {
-    return smooth_path(path, is_path_closed);
+std::vector<PathPoint> PathSmoothing::optimize_path(std::vector<PathPoint>& path,
+                                                    std::vector<PathPoint>& yellow_cones,
+                                                    std::vector<PathPoint>& blue_cones,
+                                                    bool is_path_closed) const {
+  if (is_path_closed) {
+    path.push_back(path[0]);
+    yellow_cones.push_back(yellow_cones[0]);
+    blue_cones.push_back(blue_cones[0]);
   }
-
   auto splines = ::fit_triple_spline(path, blue_cones, yellow_cones, config_.spline_precision_,
                                      config_.spline_order_);
+  if (!config_.use_optimization_) {
+    return splines.center;
+  }
 
   const std::vector<PathPoint> optimize_path =
       osqp_optimization(splines.center, splines.left, splines.right);

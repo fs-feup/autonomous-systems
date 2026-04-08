@@ -272,8 +272,8 @@ void Planning::run_full_map() {
   is_path_final_ = true;
   full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
 
-  const std::vector<PathPoint> yellow_cones = path_calculation_.get_yellow_cones();
-  const std::vector<PathPoint> blue_cones = path_calculation_.get_blue_cones();
+  std::vector<PathPoint> yellow_cones = path_calculation_.get_yellow_cones();
+  std::vector<PathPoint> blue_cones = path_calculation_.get_blue_cones();
 
   smoothed_path_ = path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones, true);
   velocity_planning_.trackdrive_velocity(smoothed_path_);
@@ -318,9 +318,9 @@ void Planning::run_full_map() {
                  static_cast<int>(smoothed_path_.size()));
 
     RCLCPP_INFO(get_logger(),
-                 "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
-                 "| Max: %.2f m/s",
-                 lap_time, total_length, avg_vel, min_vel, max_vel);
+                "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
+                "| Max: %.2f m/s",
+                lap_time, total_length, avg_vel, min_vel, max_vel);
   }
 }
 
@@ -562,11 +562,12 @@ void Planning::publish_visualization_msgs() const {
       path_calculation_.get_triangulations(), "triangulations", map_frame_id_, 20, "white", 0.05f,
       visualization_msgs::msg::Marker::MODIFY));
 
-  yellow_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      path_calculation_.get_yellow_cones(), "map_cones", map_frame_id_, "yellow"));
+  // TODA: SAVE YELLOW AND BLUE CONES FOR DEBUGGING
+  // yellow_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(
+  //     path_calculation_.get_yellow_cones(), "map_cones", map_frame_id_, "yellow"));
 
-  blue_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      path_calculation_.get_blue_cones(), "map_cones", map_frame_id_, "blue"));
+  // blue_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(
+  //     path_calculation_.get_blue_cones(), "map_cones", map_frame_id_, "blue"));
 
   full_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
       full_path_, "full_path", map_frame_id_, "orange"));

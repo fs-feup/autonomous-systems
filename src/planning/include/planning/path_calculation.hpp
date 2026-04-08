@@ -104,15 +104,15 @@ public:
 
   /**
    * @brief Gets the list of yellow cones detected or used in the path calculation.
-   * @return Constant reference to a vector containing the yellow cones.
+   * @return Reference to a vector containing the yellow cones.
    */
-  const std::vector<PathPoint>& get_yellow_cones() const;
+  std::vector<PathPoint>& get_yellow_cones();
 
   /**
    * @brief Gets the list of blue cones detected or used in the path calculation.
-   * @return Constant reference to a vector containing the blue cones.
+   * @return Reference to a vector containing the blue cones.
    */
-  const std::vector<PathPoint>& get_blue_cones() const;
+  std::vector<PathPoint>& get_blue_cones();
 
 private:
   // ===================== Configuration and State =====================

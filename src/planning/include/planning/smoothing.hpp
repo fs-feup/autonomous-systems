@@ -56,8 +56,8 @@ public:
    */
   //TODO: CHANGE DOCS
   std::vector<PathPoint> optimize_path(std::vector<PathPoint>& path,
-                                       const std::vector<PathPoint>& yellow_cones,
-                                       const std::vector<PathPoint>& blue_cones,
+                                       std::vector<PathPoint>& yellow_cones,
+                                       std::vector<PathPoint>& blue_cones,
                                        bool is_path_closed) const;
 
 private:
