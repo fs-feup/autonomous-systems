@@ -18,6 +18,9 @@ std::vector<PathPoint> PathSmoothing::optimize_path(std::vector<PathPoint>& path
                                                     std::vector<PathPoint>& yellow_cones,
                                                     std::vector<PathPoint>& blue_cones,
                                                     bool is_path_closed) const {
+  if (!config_.use_optimization_) {
+    return ::smooth_path(path, is_path_closed);
+  }
   if (is_path_closed) {
     path.push_back(path[0]);
     yellow_cones.push_back(yellow_cones[0]);
@@ -25,10 +28,7 @@ std::vector<PathPoint> PathSmoothing::optimize_path(std::vector<PathPoint>& path
   }
   auto splines = ::fit_triple_spline(path, blue_cones, yellow_cones, config_.spline_precision_,
                                      config_.spline_order_);
-  if (!config_.use_optimization_) {
-    return splines.center;
-  }
-
+  
   const std::vector<PathPoint> optimize_path =
       osqp_optimization(splines.center, splines.left, splines.right);
   std::vector<PathPoint> filtered_path = filter_path(optimize_path);
