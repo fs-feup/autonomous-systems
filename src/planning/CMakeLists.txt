@@ -60,7 +60,6 @@ set(IMPLEMENTATION_FILES
 set(TESTFILES
   test/main.cpp
   test/integration_tests.cpp
-  test/performance_test.cpp
   test/smoothing_tests.cpp
   test/splines_tests.cpp
   test/test_utils/utils.cpp

@@ -122,11 +122,6 @@ std::vector<PathPoint> PathCalculation::calculate_trackdrive(const std::vector<C
     Colorpoint::extract_cones(current_path_, yellow_cones_, blue_cones_);
   }
 
-  // Close the loop by adding the first point again
-  result.push_back(result[0]);
-  yellow_cones_.push_back(yellow_cones_[0]);
-  blue_cones_.push_back(blue_cones_[0]);
-
   return result;
 }
 
