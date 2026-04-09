@@ -28,6 +28,7 @@ InvictaSimParameters::InvictaSimParameters() {
 
   tire_model = vehicle_model_config["vehicle_model"]["tire_model"].as<std::string>();
   aero_model = vehicle_model_config["vehicle_model"]["aero_model"].as<std::string>();
+  steering_model = vehicle_model_config["vehicle_model"]["steering_model"].as<std::string>();
   steering_motor_model =
       vehicle_model_config["vehicle_model"]["steering_motor_model"].as<std::string>();
   load_transfer_model =

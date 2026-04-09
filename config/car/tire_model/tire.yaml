@@ -1,4 +1,18 @@
 tire:
+  # Pacejka combined slip parameters
+  # Lateral coefficients
+  B_lateral: 9.63
+  C_lateral: -1.39
+  D_lateral: 1.6
+  E_lateral: 1.0
+  
+  # Longitudinal coefficients
+  B_longitudinal: 12.0
+  C_longitudinal: 1.625
+  D_longitudinal: 1.775
+  E_longitudinal: 0.3
+
+  # Camber and toe parameters
   fr:
     toe: 0.0
     camber: 0.0
@@ -11,10 +25,11 @@ tire:
   rl: 
     toe: 0.0
     camber: 0.0
-  #Valores que estavam na struct como default, faltam os dados reais
+
   camber_scaling_factor: 1.0
   effective_tire_r: 0.2275
 
+# Packejka MF6.2 parameters
   relaxation_length: 0.15
   d_bright: 0.706
   d_bleft: 0.706 # 1.06

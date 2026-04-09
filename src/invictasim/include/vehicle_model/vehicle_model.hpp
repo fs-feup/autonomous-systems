@@ -44,7 +44,7 @@ struct VehicleState {
   common_lib::structures::Wheels wheels_vertical_load = {0.0, 0.0, 0.0, 0.0};
   common_lib::structures::Wheels wheels_slip_ratio = {0.0, 0.0, 0.0, 0.0};
   common_lib::structures::Wheels wheels_slip_angle = {0.0, 0.0, 0.0, 0.0};
-  Eigen::Vector3d front_left_forces = {0.0, 0.0, 0.0};  // Fx, Fy, Fz
+  Eigen::Vector3d front_left_forces = {0.0, 0.0, 0.0};  // Fx, Fy, Mz
   Eigen::Vector3d front_right_forces = {0.0, 0.0, 0.0};
   Eigen::Vector3d rear_left_forces = {0.0, 0.0, 0.0};
   Eigen::Vector3d rear_right_forces = {0.0, 0.0, 0.0};
@@ -75,7 +75,7 @@ struct VehicleState {
  */
 class VehicleModel {
 protected:
-  std::shared_ptr<InvictaSimParameters> simulator_parameters_;
+  std::shared_ptr<common_lib::car_parameters::CarParameters> car_parameters_;
   std::shared_ptr<VehicleState> state_;
   std::shared_ptr<VehicleModelExecutionTimes> execution_times_;
 
@@ -84,7 +84,7 @@ public:
    * @brief Construct a new VehicleModel object
    */
   VehicleModel(const InvictaSimParameters& simulator_parameters)
-      : simulator_parameters_(std::make_shared<InvictaSimParameters>(simulator_parameters)),
+      : car_parameters_(simulator_parameters.car_parameters),
         state_(std::make_shared<VehicleState>()),
         execution_times_(std::make_shared<VehicleModelExecutionTimes>()) {}
 

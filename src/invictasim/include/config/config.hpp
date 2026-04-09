@@ -19,6 +19,7 @@ struct InvictaSimParameters {
   std::string vehicle_model;
   std::string tire_model;
   std::string aero_model;
+  std::string steering_model;
   std::string steering_motor_model;
   std::string load_transfer_model;
   std::string motor_model;

@@ -2,9 +2,9 @@
 
 KeyboardInputAdapter::KeyboardInputAdapter(const std::shared_ptr<InvictaSim>& simulator)
     : InvictaSimInputAdapter(simulator),
-      loop_period_ms_(20),
+      loop_period_ms_(10),
       acceleration_step_(0.015),        // Slower linear build-up
-      acceleration_decay_step_(0.005),  // Natural engine braking
+      acceleration_decay_step_(0.015),  // Natural engine braking
       steering_step_radians_(0.10),     // Fixed increment per keypress
       max_steering_radians_(0.39),      // Absolute physical limit (~28.6 degrees)
       help_row_(0),
