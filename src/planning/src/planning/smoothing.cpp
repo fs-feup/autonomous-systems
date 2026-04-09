@@ -21,9 +21,9 @@ std::vector<PathPoint> PathSmoothing::optimize_path(std::vector<PathPoint>& path
   if (!config_.use_optimization_) {
     return smooth_path(path, is_path_closed);
   }
-  
+
   const std::vector<PathPoint> optimize_path =
-      osqp_optimization(path,blue_cones, yellow_cones);
+      osqp_optimization(path, blue_cones, yellow_cones, is_path_closed);
   std::vector<PathPoint> filtered_path = filter_path(optimize_path);
 
   return filtered_path;
@@ -42,11 +42,18 @@ std::vector<PathPoint> PathSmoothing::filter_path(const std::vector<PathPoint>& 
 
 void PathSmoothing::add_curvature_terms(
     int num_path_points, const std::function<int(int)>& circular_index,
-    const std::function<void(int, int, double)>& add_coefficient) const {
+    const std::function<void(int, int, double)>& add_coefficient, bool is_path_closed) const {
+  int start = 1;
+  int end = num_path_points - 1;
+
+  if(is_path_closed) {
+    start = 0;
+    end = num_path_points;
+  }
   // -------- ADD CURVATURE PENALTY TERMS --------
   // Penalize second-order differences to minimize curvature
   // For each point, we penalize: (p[i-1] - 2*p[i] + p[i+1])^2
-  for (int point_idx = 0; point_idx < num_path_points; ++point_idx) {
+  for (int point_idx = start; point_idx < end; ++point_idx) {
     int prev_point = circular_index(point_idx - 1);
     int next_point = circular_index(point_idx + 1);
 
@@ -194,7 +201,8 @@ void PathSmoothing::convert_to_csc_format(const std::vector<OSQPFloat>& values,
 
 std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPoint>& center,
                                                         const std::vector<PathPoint>& left,
-                                                        const std::vector<PathPoint>& right) const {
+                                                        const std::vector<PathPoint>& right,
+                                                        bool is_path_closed) const {
   if (center.size() != left.size() || center.size() != right.size() ||
       left.size() != center.size()) {
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"),
@@ -213,8 +221,14 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
   // -------- COMPUTE SAFETY MARGIN --------
   const double safety_margin = config_.car_width_ / 2 + config_.safety_margin_;
 
-  // Helper lambda for circular indexing (wraps around the path)
-  auto circular_index = [&](int i) { return (i + num_path_points) % num_path_points; };
+  // Helper lambda for circular indexing, wraps around the path, if and only if the path is closed.
+  // For open paths, it clamps to the endpoints.
+  auto circular_index = [&](int i) -> int {
+    if (is_path_closed) {
+      return (i + num_path_points) % num_path_points;
+    }
+    return std::clamp(i, 0, num_path_points - 1);  // clamp endpoints
+  };
 
   // -------- DEFINE OPTIMIZATION VARIABLES --------
   // Decision variables: 2 coordinates (x,y) per point + 2 slack variables per point
@@ -233,7 +247,7 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
     quadratic_terms[{row_idx, col_idx}] += coefficient;
   };
 
-  add_curvature_terms(num_path_points, circular_index, add_quadratic_coefficient);
+  add_curvature_terms(num_path_points, circular_index, add_quadratic_coefficient, is_path_closed);
   add_slack_penalty_terms(num_path_points, add_quadratic_coefficient);
 
   // -------- BUILD LINEAR OBJECTIVE VECTOR (q) --------

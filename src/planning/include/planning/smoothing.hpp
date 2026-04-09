@@ -40,7 +40,6 @@ public:
    * @param is_path_closed Whether the path is closed
    * @return std::vector<PathPoint> The smoothed path, with closure point appended if applicable
    */
-  //TODA: REMOVE OR CHANGE FUNCTION!
   std::vector<PathPoint> smooth_path(std::vector<PathPoint>& path, bool is_path_closed) const;
 
   /**
@@ -54,7 +53,7 @@ public:
    * @return std::vector<PathPoint> The optimized path
    *
    */
-  //TODO: CHANGE DOCS
+  // TODA: CHANGE DOCS
   std::vector<PathPoint> optimize_path(std::vector<PathPoint>& path,
                                        std::vector<PathPoint>& yellow_cones,
                                        std::vector<PathPoint>& blue_cones,
@@ -87,9 +86,11 @@ private:
    * @return std::vector<PathPoint> Optimized path
    *
    */
+  // TODA: change docs
   std::vector<PathPoint> osqp_optimization(const std::vector<PathPoint>& center,
                                            const std::vector<PathPoint>& left,
-                                           const std::vector<PathPoint>& right) const;
+                                           const std::vector<PathPoint>& right,
+                                           bool is_path_closed) const;
 
   /**
    * @brief Adds curvature penalty terms to the quadratic objective function.
@@ -98,8 +99,10 @@ private:
    * @param circular_index Lambda function for circular array indexing
    * @param add_coefficient Lambda function to add coefficients to the objective matrix
    */
+  // TODA: Change docs
   void add_curvature_terms(int num_path_points, const std::function<int(int)>& circular_index,
-                           const std::function<void(int, int, double)>& add_coefficient) const;
+                           const std::function<void(int, int, double)>& add_coefficient,
+                           bool is_path_closed) const;
 
   /**
    * @brief Adds penalty terms for slack variables to the quadratic objective function.
