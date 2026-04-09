@@ -34,6 +34,7 @@ set(IMPLEMENTATION_FILES
   src/io/input/keyboard.cpp
   src/config/config.cpp
   src/vehicle_model/FSFEUP02.cpp
+  src/track/track.cpp
 )
 
 # Main executable

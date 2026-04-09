@@ -8,6 +8,9 @@
 #include "common_lib/structures/wheels.hpp"
 #include "config/config.hpp"
 
+/**
+ * @brief Struct to hold execution times for different components of the vehicle model
+ */
 struct VehicleModelExecutionTimes {
   double powertrain_ms = 0.0;
   double differential_ms = 0.0;
@@ -18,7 +21,7 @@ struct VehicleModelExecutionTimes {
 };
 
 /**
- * @brief Vehicle state struct, needs to be extended
+ * @brief Vehicle state struct
  */
 struct VehicleState {
   double x = 0.0;
@@ -64,7 +67,7 @@ struct VehicleState {
   double total_torque_z = 0.0;
 };
 
-/**4
+/**
  * @brief Vehicle model interface
  *
  * Defines a simplified interface that all vehicle models must implement. Certainly will be extended
@@ -95,7 +98,13 @@ public:
   virtual void reset() = 0;
   virtual std::string get_model_name() const = 0;
 
-  // Common getters
+  // Setters
+  void set_initial_pose(double x, double y) {
+    state_->x = x;
+    state_->y = y;
+  }
+
+  // Getters
   double get_position_x() const { return state_->x; }
   double get_position_y() const { return state_->y; }
   double get_position_z() const { return state_->z; }

@@ -1,16 +1,11 @@
 #include "io/output/ros.hpp"
 
-#include <cmath>
-#include <set>
-
-#include "tf2/LinearMath/Quaternion.h"
-#include "visualization_msgs/msg/marker.hpp"
-
 RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator)
     : Node("invictasim_output", rclcpp::NodeOptions().use_global_arguments(false)),
       InvictaSimOutputAdapter(simulator),
       running_(true),
       publish_frequencies_(simulator->get_params().publish_frequencies) {
+  tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(this);
   tire_forces_pub_ = this->create_publisher<custom_interfaces::msg::TireForces>(
       "invictasim/vehicle_model/tire/forces", 10);
   tire_slip_ratio_pub_ = this->create_publisher<custom_interfaces::msg::WheelScalars>(
@@ -33,10 +28,15 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator)
       this->create_publisher<custom_interfaces::msg::ControlCommand>("invictasim/input", 10);
   execution_times_pub_ = this->create_publisher<custom_interfaces::msg::ExecutionTimes>(
       "invictasim/execution_times", 10);
+  track_pub_ = this->create_publisher<custom_interfaces::msg::ConeArray>("invictasim/track", 10);
+
+  // Visualization Publishers
   visualization_ground_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
       "invictasim/visualization/ground", 10);
   visualization_vehicle_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
       "invictasim/visualization/vehicle", 10);
+  visualization_track_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
+      "invictasim/visualization/track", 10);
 
   setup_timers();
 }
@@ -103,6 +103,9 @@ void RosOutputAdapter::on_frequency_tick(int frequency_hz) {
   if (publishes_at("execution_times", frequency_hz)) {
     publish_execution_times_group();
   }
+  if (publishes_at("track", frequency_hz)) {
+    publish_track_group();
+  }
   if (publishes_at("visualization", frequency_hz)) {
     publish_visualization_group();
   }
@@ -114,6 +117,52 @@ void RosOutputAdapter::refresh_vehicle_model_snapshot() {
 
 void RosOutputAdapter::refresh_execution_times_snapshot() {
   execution_times_snapshot_cache_ = simulator_->get_execution_times_snapshot();
+}
+
+void RosOutputAdapter::publish_track_group() {
+  const auto track = simulator_->get_track();
+  if (!track) {
+    return;
+  }
+
+  const auto& cones = track->getTrack();
+  custom_interfaces::msg::ConeArray track_msg;
+  track_msg.header.stamp = this->now();
+  track_msg.header.frame_id = "map";
+  track_msg.cone_array.reserve(cones.size());
+
+  for (const auto& cone : cones) {
+    custom_interfaces::msg::Cone msg;
+    msg.position.x = cone.position.x;
+    msg.position.y = cone.position.y;
+    msg.color = common_lib::competition_logic::get_color_string(cone.color);
+    msg.confidence = cone.certainty;
+    msg.is_large = cone.is_large;
+    track_msg.cone_array.push_back(msg);
+  }
+
+  track_pub_->publish(track_msg);
+}
+
+void RosOutputAdapter::publish_vehicle_transform() {
+  const rclcpp::Time stamp = this->now();
+
+  geometry_msgs::msg::TransformStamped car_transform;
+  car_transform.header.stamp = stamp;
+  car_transform.header.frame_id = "map";
+  car_transform.child_frame_id = "car";
+  car_transform.transform.translation.x = vehicle_model_snapshot_cache_.x;
+  car_transform.transform.translation.y = vehicle_model_snapshot_cache_.y;
+  car_transform.transform.translation.z = 0.0;
+
+  tf2::Quaternion car_rotation;
+  car_rotation.setRPY(0.0, 0.0, vehicle_model_snapshot_cache_.yaw);
+  car_transform.transform.rotation.x = car_rotation.x();
+  car_transform.transform.rotation.y = car_rotation.y();
+  car_transform.transform.rotation.z = car_rotation.z();
+  car_transform.transform.rotation.w = car_rotation.w();
+
+  tf_broadcaster_->sendTransform(car_transform);
 }
 
 custom_interfaces::msg::WheelScalars RosOutputAdapter::to_wheels_msg(
@@ -258,13 +307,17 @@ void RosOutputAdapter::publish_visualization_group() {
 
   visualization_msgs::msg::MarkerArray ground_marker_array;
   visualization_msgs::msg::MarkerArray vehicle_marker_array;
+  visualization_msgs::msg::MarkerArray track_marker_array;
 
+  publish_vehicle_transform();
   publish_ground_marker(ground_marker_array, stamp);
   publish_body_marker(vehicle_marker_array, stamp);
   publish_wheel_markers(vehicle_marker_array, stamp, dt);
+  publish_cone_markers(track_marker_array, stamp);
 
   visualization_ground_pub_->publish(ground_marker_array);
   visualization_vehicle_pub_->publish(vehicle_marker_array);
+  visualization_track_pub_->publish(track_marker_array);
 }
 
 void RosOutputAdapter::publish_ground_marker(visualization_msgs::msg::MarkerArray& marker_array,
@@ -291,6 +344,57 @@ void RosOutputAdapter::publish_ground_marker(visualization_msgs::msg::MarkerArra
   ground.color.g = 0.2f;
   ground.color.b = 0.2f;
   marker_array.markers.push_back(ground);
+}
+
+void RosOutputAdapter::publish_cone_markers(visualization_msgs::msg::MarkerArray& marker_array,
+                                            const rclcpp::Time& stamp) const {
+  auto track_ptr = simulator_->get_track();
+  const auto& cones = track_ptr->getTrack();
+
+  int cone_id = 0;
+  for (const auto& cone : cones) {
+    visualization_msgs::msg::Marker m;
+    m.header.stamp = stamp;
+    m.header.frame_id = "map";
+    m.ns = "cones";
+    m.id = cone_id++;
+    m.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
+    m.action = visualization_msgs::msg::Marker::ADD;
+
+    m.pose.position.x = cone.position.x;
+    m.pose.position.y = cone.position.y;
+    m.pose.position.z = 0.1425;
+
+    m.pose.orientation.w = 1.0;
+    m.scale.x = 1.0;
+    m.scale.y = 1.0;
+    m.scale.z = 1.0;
+    m.mesh_use_embedded_materials = true;
+    m.color.r = 1.0f;
+    m.color.g = 1.0f;
+    m.color.b = 1.0f;
+    m.color.a = 1.0f;
+
+    std::string path = "package://invictasim/resources/meshes/cones/";
+
+    switch (cone.color) {
+      case common_lib::competition_logic::Color::BLUE:
+        m.mesh_resource = path + "cone_blue.dae";
+        break;
+      case common_lib::competition_logic::Color::YELLOW:
+        m.mesh_resource = path + "cone_yellow.dae";
+        break;
+      case common_lib::competition_logic::Color::LARGE_ORANGE:
+        m.mesh_resource = path + "cone_orange_big.dae";
+        m.pose.position.z = 0.03;  // Adjusted height for large cone
+        break;
+      case common_lib::competition_logic::Color::ORANGE:
+      default:
+        m.mesh_resource = path + "cone_orange.dae";
+        break;
+    }
+    marker_array.markers.push_back(m);
+  }
 }
 
 void RosOutputAdapter::publish_body_marker(visualization_msgs::msg::MarkerArray& marker_array,

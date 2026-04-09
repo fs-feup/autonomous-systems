@@ -1,18 +1,28 @@
 #pragma once
 
 #include <atomic>
+#include <cmath>
 #include <map>
+#include <memory>
+#include <set>
 
+#include "common_lib/competition_logic/color.hpp"
 #include "custom_interfaces/msg/aero_forces.hpp"
 #include "custom_interfaces/msg/battery_state.hpp"
+#include "custom_interfaces/msg/cone.hpp"
+#include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/control_command.hpp"
 #include "custom_interfaces/msg/execution_times.hpp"
 #include "custom_interfaces/msg/motor_state.hpp"
 #include "custom_interfaces/msg/tire_forces.hpp"
 #include "custom_interfaces/msg/vehicle_state_vector.hpp"
 #include "custom_interfaces/msg/wheel_scalars.hpp"
+#include "geometry_msgs/msg/transform_stamped.hpp"
 #include "io/output/output_adapter.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "tf2/LinearMath/Quaternion.h"
+#include "tf2_ros/transform_broadcaster.h"
+#include "visualization_msgs/msg/marker.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
 
 /**
@@ -115,6 +125,11 @@ private:
   void publish_execution_times_group();
 
   /**
+   * @brief Publish the track information, in message format.
+   */
+  void publish_track_group();
+
+  /**
    * @brief Publish visualization markers for the ground and vehicle.
    */
   void publish_visualization_group();
@@ -130,6 +145,12 @@ private:
   void refresh_execution_times_snapshot();
 
   /**
+   * @brief Publish the vehicle pose as a TF transform, so that it can be visualized with a car
+   * perspective.
+   */
+  void publish_vehicle_transform();
+
+  /**
    * @brief Convert the given Wheels data into a WheelScalars ROS message, including the provided
    * timestamp.
    */
@@ -143,6 +164,14 @@ private:
    */
   void publish_ground_marker(visualization_msgs::msg::MarkerArray& marker_array,
                              const rclcpp::Time& stamp) const;
+
+  /**
+   * @brief Publish visualization markers for all cones on the track.
+   * @param marker_array Marker array to populate with cone markers.
+   * @param stamp Current ROS time for timestamping markers.
+   */
+  void publish_cone_markers(visualization_msgs::msg::MarkerArray& marker_array,
+                            const rclcpp::Time& stamp) const;
 
   /**
    * @brief Publish visualization markers of the car body from mesh.
@@ -163,6 +192,8 @@ private:
   void publish_wheel_markers(visualization_msgs::msg::MarkerArray& marker_array,
                              const rclcpp::Time& stamp, double dt);
 
+  std::unique_ptr<tf2_ros::TransformBroadcaster>
+      tf_broadcaster_;  ///< Vehicle pose TF publisher, used for having a car perspective.
   rclcpp::Publisher<custom_interfaces::msg::TireForces>::SharedPtr
       tire_forces_pub_;  ///< Publisher for tire forces.
   rclcpp::Publisher<custom_interfaces::msg::WheelScalars>::SharedPtr
@@ -185,8 +216,12 @@ private:
       input_command_pub_;  ///< Publisher for current input command.
   rclcpp::Publisher<custom_interfaces::msg::ExecutionTimes>::SharedPtr
       execution_times_pub_;  ///< Publisher for simulation execution timings.
+  rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr
+      track_pub_;  ///< Publisher for the loaded track.
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
       visualization_ground_pub_;  ///< Publisher for ground visualization markers.
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
       visualization_vehicle_pub_;  ///< Publisher for vehicle visualization markers.
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
+      visualization_track_pub_;  ///< Publisher for track visualization markers.
 };
