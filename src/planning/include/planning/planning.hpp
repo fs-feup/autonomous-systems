@@ -234,7 +234,7 @@ private:
    * Publishes triangulation, full path, smoothed path, and path_to_car markers.
    *
    */
-  void publish_visualization_msgs() const;
+  void publish_visualization_msgs();
 
   /**
    * @brief Publishes the planning algorithm execution time.

@@ -317,10 +317,10 @@ void Planning::run_full_map() {
     RCLCPP_DEBUG(get_logger(), "Trackdrive path calculated with %d points",
                  static_cast<int>(smoothed_path_.size()));
 
-    RCLCPP_INFO(get_logger(),
-                "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
-                "| Max: %.2f m/s",
-                lap_time, total_length, avg_vel, min_vel, max_vel);
+    // RCLCPP_INFO(get_logger(),
+    //             "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
+    //             "| Max: %.2f m/s",
+    //             lap_time, total_length, avg_vel, min_vel, max_vel);
   }
 }
 
@@ -388,13 +388,13 @@ void Planning::run_autocross() {
 
       double avg_vel = sum_vel / smoothed_path_.size();
 
-      RCLCPP_INFO(get_logger(), "Trackdrive path calculated with %d points",
-                  static_cast<int>(smoothed_path_.size()));
+      // RCLCPP_INFO(get_logger(), "Trackdrive path calculated with %d points",
+      //             static_cast<int>(smoothed_path_.size()));
 
-      RCLCPP_INFO(get_logger(),
-                  "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
-                  "| Max: %.2f m/s",
-                  lap_time, total_length, avg_vel, min_vel, max_vel);
+      // RCLCPP_INFO(get_logger(),
+      //             "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
+      //             "| Max: %.2f m/s",
+      //             lap_time, total_length, avg_vel, min_vel, max_vel);
     }
   }
   if (lap_counter_ >= 1) {
@@ -463,13 +463,13 @@ void Planning::run_trackdrive() {
 
       double avg_vel = sum_vel / smoothed_path_.size();
 
-      RCLCPP_INFO(get_logger(), "Trackdrive path calculated with %d points",
-                  static_cast<int>(smoothed_path_.size()));
+      // RCLCPP_INFO(get_logger(), "Trackdrive path calculated with %d points",
+      //             static_cast<int>(smoothed_path_.size()));
 
-      RCLCPP_INFO(get_logger(),
-                  "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
-                  "| Max: %.2f m/s",
-                  lap_time, total_length, avg_vel, min_vel, max_vel);
+      // RCLCPP_INFO(get_logger(),
+      //             "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
+      //             "| Max: %.2f m/s",
+      //             lap_time, total_length, avg_vel, min_vel, max_vel);
     }
   } else if (lap_counter_ >= 1 && lap_counter_ < 10) {
     if (!is_path_final_) {
@@ -557,17 +557,16 @@ void Planning::publish_execution_time(rclcpp::Time start_time) {
   planning_execution_time_pub_->publish(planning_execution_time);
 }
 
-void Planning::publish_visualization_msgs() const {
+void Planning::publish_visualization_msgs() {
   triangulations_pub_->publish(common_lib::communication::lines_marker_from_triangulations(
       path_calculation_.get_triangulations(), "triangulations", map_frame_id_, 20, "white", 0.05f,
       visualization_msgs::msg::Marker::MODIFY));
 
-  // TODA: SAVE YELLOW AND BLUE CONES FOR DEBUGGING
-  // yellow_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-  //     path_calculation_.get_yellow_cones(), "map_cones", map_frame_id_, "yellow"));
+  yellow_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(
+      path_calculation_.get_yellow_cones(), "map_cones", map_frame_id_, "yellow"));
 
-  // blue_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-  //     path_calculation_.get_blue_cones(), "map_cones", map_frame_id_, "blue"));
+  blue_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(
+      path_calculation_.get_blue_cones(), "map_cones", map_frame_id_, "blue"));
 
   full_path_pub_->publish(common_lib::communication::marker_array_from_structure_array(
       full_path_, "full_path", map_frame_id_, "orange"));

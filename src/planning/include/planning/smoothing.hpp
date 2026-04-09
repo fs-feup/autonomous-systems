@@ -58,6 +58,13 @@ public:
                                        std::vector<PathPoint>& yellow_cones,
                                        std::vector<PathPoint>& blue_cones,
                                        bool is_path_closed) const;
+  // TODA: CHANGE DOCS
+  ~PathSmoothing() {
+    if (solver_) {
+      osqp_cleanup(solver_);
+      solver_ = nullptr;
+    } 
+  }
 
 private:
   /**
@@ -65,6 +72,12 @@ private:
    *
    */
   PathSmoothingConfig config_;
+  // Warm start cache
+  mutable OSQPSolver* solver_ = nullptr;
+  mutable int cached_num_points_ = -1;
+  mutable bool cached_is_closed_ = false;
+  mutable std::vector<OSQPFloat> cached_primal_;  // x solution
+  mutable std::vector<OSQPFloat> cached_dual_;    // y (lagrange multipliers)
 
   /**
    * @brief Filters path points using a minimum spacing constraint.

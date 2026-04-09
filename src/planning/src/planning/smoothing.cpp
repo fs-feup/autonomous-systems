@@ -46,7 +46,7 @@ void PathSmoothing::add_curvature_terms(
   int start = 1;
   int end = num_path_points - 1;
 
-  if(is_path_closed) {
+  if (is_path_closed) {
     start = 0;
     end = num_path_points;
   }
@@ -320,49 +320,118 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
   // -------- CONFIGURE OSQP SOLVER SETTINGS --------
   OSQPSettings solver_settings;
   ::osqp_set_default_settings(&solver_settings);
-  solver_settings.verbose = 1;
+  solver_settings.verbose = true;
   solver_settings.max_iter = config_.max_iterations_;
   solver_settings.eps_abs = config_.tolerance_;
   solver_settings.eps_rel = config_.tolerance_;
   solver_settings.polishing = 1;
 
   // -------- SETUP OSQP SOLVER --------
-  OSQPSolver* solver = nullptr;
+  // Determine if we can reuse the previous solver setup based on problem structure (number of
+  // points and closed/open)
+  bool same_structure = false;
+  if ((solver_ != nullptr) && (num_path_points == cached_num_points_) &&
+      (is_path_closed == cached_is_closed_)) {
+    same_structure = true;
+  }
 
-  OSQPInt setup_status =
-      ::osqp_setup(&solver, &objective_matrix, linear_objective.data(), &constraint_matrix,
-                   constraint_lower_bounds.data(), constraint_upper_bounds.data(), total_variables,
-                   total_constraints, &solver_settings);
+  OSQPInt solve_status = 0;
+  if (same_structure) {
+    // Reuse factorization, only update bounds
+    // P matrix is identical (curvature weight didn't change), so no re-factorization needed.
+    // Only the constraint bounds change because the track boundaries shifted.
+    osqp_update_data_vec(solver_, nullptr, constraint_lower_bounds.data(),
+                         constraint_upper_bounds.data());
 
-  if (setup_status != 0) {
-    RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "OSQP setup failed with status %lld", setup_status);
-    if (solver) {
-      (void)::osqp_cleanup(solver);
+    // Seed solver from previous solution to reduce iterations
+    osqp_warm_start(solver_, cached_primal_.data(), cached_dual_.data());
+
+  } else {
+    // Full setup required (point count or topology changed)
+    if (solver_ != nullptr) {
+      ::osqp_cleanup(solver_);
+      solver_ = nullptr;
     }
-    return center;
+
+    OSQPInt setup_status =
+        ::osqp_setup(&solver_, &objective_matrix, linear_objective.data(), &constraint_matrix,
+                     constraint_lower_bounds.data(), constraint_upper_bounds.data(),
+                     total_variables, total_constraints, &solver_settings);
+
+    if (setup_status != 0) {
+      RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "OSQP setup failed with status %lld",
+                   setup_status);
+      ::osqp_cleanup(solver_);
+      solver_ = nullptr;
+      return center;
+    }
+    // If a previous solution exists but with a different size, change it to use as a warm start.
+    if (!cached_primal_.empty()) {
+      std::vector<OSQPFloat> warm_x(total_variables, 0.0);
+      std::vector<OSQPFloat> warm_y(total_constraints, 0.0);
+
+      const int old_num = cached_num_points_;
+      const int reuse_num = std::min(old_num, num_path_points);
+
+      // Reuse old solution for points we already optimized
+      for (int i = 0; i < reuse_num; ++i) {
+        warm_x[2 * i] = cached_primal_[2 * i];
+        warm_x[2 * i + 1] = cached_primal_[2 * i + 1];
+      }
+
+      // Seed new points from the center path (unoptimized input)
+      for (int i = reuse_num; i < num_path_points; ++i) {
+        warm_x[2 * i] = static_cast<OSQPFloat>(center[i].position.x);
+        warm_x[2 * i + 1] = static_cast<OSQPFloat>(center[i].position.y);
+      }
+
+      // Slack variables left at zero
+      // Dual variables left at zero
+      osqp_warm_start(solver_, warm_x.data(), warm_y.data());
+    }
   }
 
   // -------- SOLVE THE OPTIMIZATION PROBLEM --------
-  OSQPInt solve_status = ::osqp_solve(solver);
+  solve_status = ::osqp_solve(solver_);
+
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "OSQP status: %s | iterations: %lld | obj: %.4f",
+              solver_->info->status, solver_->info->iter, solver_->info->obj_val);
+
+  if (solver_->info->obj_val < 1.0) {
+    RCLCPP_WARN(rclcpp::get_logger("rclcpp"),
+                "OSQP objective suspiciously low (%.4f), solution likely degenerate",
+                solver_->info->obj_val);
+    cached_num_points_ = -1;
+    cached_primal_.clear();
+    cached_dual_.clear();
+    return center;
+  }
 
   // -------- EXTRACT OPTIMIZED PATH FROM SOLUTION --------
   std::vector<PathPoint> optimized_path = center;
 
-  if ((solver->solution != nullptr) && (solver->solution->x != nullptr)) {
-    for (int point_idx = 0; point_idx < num_path_points; ++point_idx) {
-      optimized_path[point_idx].position.x = solver->solution->x[2 * point_idx];
-      optimized_path[point_idx].position.y = solver->solution->x[2 * point_idx + 1];
-    }
-
-    RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
-                 "OSQP optimization completed successfully with %d points (status: %lld)",
-                 num_path_points, solve_status);
-  } else {
+  if ((solver_->solution == nullptr) || (solver_->solution->x == nullptr)) {
     RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "OSQP solution is null, returning original path");
+    // Invalidate cache so next call does a clean setup
+    cached_num_points_ = -1;
+    cached_primal_.clear();
+    cached_dual_.clear();
+    return optimized_path;
+  }
+  for (int point_idx = 0; point_idx < num_path_points; ++point_idx) {
+    optimized_path[point_idx].position.x = solver_->solution->x[2 * point_idx];
+    optimized_path[point_idx].position.y = solver_->solution->x[2 * point_idx + 1];
   }
 
-  // -------- CLEANUP OSQP RESOURCES --------
-  (void)::osqp_cleanup(solver);
+  // -------- CACHE SOLUTION FOR NEXT CALL --------
+  cached_num_points_ = num_path_points;
+  cached_is_closed_ = is_path_closed;
+  cached_primal_.assign(solver_->solution->x, solver_->solution->x + total_variables);
+  cached_dual_.assign(solver_->solution->y, solver_->solution->y + total_constraints);
+
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
+               "OSQP optimization completed successfully with %d points (status: %lld)",
+               num_path_points, solve_status);
 
   return optimized_path;
 }
