@@ -122,7 +122,7 @@ void VelocityPlanning::set_velocity(std::vector<PathPoint> &final_path) {
 }
 
 void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
-  int path_size = static_cast<int>(final_path.size()) - 1;
+  int path_size = static_cast<int>(final_path.size());
   if (!config_.use_velocity_planning_ || path_size <= 3) {
     for (auto &p : final_path) {
       p.ideal_velocity = config_.minimum_velocity_;
@@ -146,9 +146,6 @@ void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
   for (int i = 0; i < path_size; ++i) {
     final_path[i].ideal_velocity = triple_path[offset + i].ideal_velocity;
   }
-
-  // Close loop explicitly
-  final_path.back().ideal_velocity = final_path.front().ideal_velocity;
 }
 
 void VelocityPlanning::stop(std::vector<PathPoint> &final_path, double braking_distance) {
