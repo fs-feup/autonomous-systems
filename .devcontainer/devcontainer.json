@@ -32,7 +32,9 @@
         }
     },
     "containerEnv": {
-        "DISPLAY": "unix:0",
+        "DISPLAY": ":0",
+        "WAYLAND_DISPLAY": "wayland-0",
+        "XDG_RUNTIME_DIR": "/mnt/wslg/runtime-dir",
         "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
         "ROS_DOMAIN_ID": "42"
     },
@@ -40,11 +42,13 @@
         "--net=host",
         "--ipc=host",
         "--pid=host",
-        "-e", "DISPLAY=${env:DISPLAY}"
+        "-e", "DISPLAY=:0",
+        "-e", "WAYLAND_DISPLAY=wayland-0",
+        "-e", "XDG_RUNTIME_DIR=/mnt/wslg/runtime-dir"
     ],
     "mounts": [
-        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
-        "source=/dev/dri,target=/dev/dri,type=bind,consistency=cached",
+        "source=/mnt/wslg,target=/mnt/wslg,type=bind,consistency=cached",
+        "source=/mnt/wslg/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
         "source=${localWorkspaceFolder}/cache/humble-ros-base-jammy/build,target=/home/ws/build,type=bind",
         "source=${localWorkspaceFolder}/cache/humble-ros-base-jammy/install,target=/home/ws/install,type=bind",
         "source=${localWorkspaceFolder}/cache/humble-ros-base-jammy/log,target=/home/ws/log,type=bind"
