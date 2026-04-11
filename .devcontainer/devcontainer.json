@@ -32,9 +32,9 @@
         }
     },
     "containerEnv": {
-        "DISPLAY": ":0",
-        "WAYLAND_DISPLAY": "wayland-0",
-        "XDG_RUNTIME_DIR": "/mnt/wslg/runtime-dir",
+        "DISPLAY": "${localEnv:DISPLAY}",
+        "WAYLAND_DISPLAY": "${localEnv:WAYLAND_DISPLAY}",
+        "XDG_RUNTIME_DIR": "/tmp/host-runtime-dir",
         "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
         "ROS_DOMAIN_ID": "42"
     },
@@ -42,17 +42,19 @@
         "--net=host",
         "--ipc=host",
         "--pid=host",
-        "-e", "DISPLAY=:0",
-        "-e", "WAYLAND_DISPLAY=wayland-0",
-        "-e", "XDG_RUNTIME_DIR=/mnt/wslg/runtime-dir"
+        "-e", "DISPLAY=${localEnv:DISPLAY}",
+        "-e", "WAYLAND_DISPLAY=${localEnv:WAYLAND_DISPLAY}",
+        "-e", "XDG_RUNTIME_DIR=/tmp/host-runtime-dir"
     ],
     "mounts": [
-        "source=/mnt/wslg,target=/mnt/wslg,type=bind,consistency=cached",
-        "source=/mnt/wslg/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
+        "source=/tmp,target=/host/tmp,type=bind,consistency=cached",
+        "source=/run,target=/host/run,type=bind,consistency=cached",
+        "source=/mnt,target=/host/mnt,type=bind,consistency=cached",
         "source=${localWorkspaceFolder}/cache/humble-ros-base-jammy/build,target=/home/ws/build,type=bind",
         "source=${localWorkspaceFolder}/cache/humble-ros-base-jammy/install,target=/home/ws/install,type=bind",
         "source=${localWorkspaceFolder}/cache/humble-ros-base-jammy/log,target=/home/ws/log,type=bind"
     ],
-    "postCreateCommand": "sudo apt update && sudo chown -R ${localEnv:USER} /home/ws/",
+    "postCreateCommand": "sudo apt update && sudo chown -R ${localEnv:USER} /home/ws/ && bash .devcontainer/setup-display-runtime.sh || true",
+    "postStartCommand": "bash .devcontainer/setup-display-runtime.sh || true",
 	"initializeCommand": "echo Initialize...."
 }
