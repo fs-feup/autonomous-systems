@@ -27,6 +27,7 @@ find_package(visualization_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
 
 pkg_check_modules(SDL2 REQUIRED sdl2)
+pkg_check_modules(SDL2_TTF REQUIRED SDL2_ttf)
 
 # Implementation files
 set(IMPLEMENTATION_FILES
@@ -45,10 +46,11 @@ target_include_directories(invictasim PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
   ${SDL2_INCLUDE_DIRS}
+  ${SDL2_TTF_INCLUDE_DIRS}
 )
 target_compile_features(invictasim PUBLIC c_std_99 cxx_std_17)
-target_compile_options(invictasim PUBLIC ${SDL2_CFLAGS_OTHER})
-target_link_libraries(invictasim yaml-cpp ${SDL2_LIBRARIES})
+target_compile_options(invictasim PUBLIC ${SDL2_CFLAGS_OTHER} ${SDL2_TTF_CFLAGS_OTHER})
+target_link_libraries(invictasim yaml-cpp ${SDL2_LIBRARIES} ${SDL2_TTF_LIBRARIES})
 ament_target_dependencies(invictasim
   ament_index_cpp
   rclcpp
@@ -91,9 +93,10 @@ if(BUILD_TESTING)
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
     ${SDL2_INCLUDE_DIRS}
+    ${SDL2_TTF_INCLUDE_DIRS}
   )
-  target_compile_options(invictasim_test PUBLIC ${SDL2_CFLAGS_OTHER})
-  target_link_libraries(invictasim_test ${SDL2_LIBRARIES})
+  target_compile_options(invictasim_test PUBLIC ${SDL2_CFLAGS_OTHER} ${SDL2_TTF_CFLAGS_OTHER})
+  target_link_libraries(invictasim_test ${SDL2_LIBRARIES} ${SDL2_TTF_LIBRARIES})
   ament_target_dependencies(invictasim_test
     ament_index_cpp
     rclcpp

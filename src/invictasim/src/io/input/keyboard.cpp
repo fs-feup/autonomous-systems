@@ -1,18 +1,19 @@
 #include "io/input/keyboard.hpp"
 
 #include <algorithm>
-#include <array>
 #include <chrono>
-#include <cstdint>
-#include <cstring>
 #include <iostream>
+#include <string>
 #include <thread>
+#include <vector>
 
 KeyboardInputAdapter::KeyboardInputAdapter(const std::shared_ptr<InvictaSim>& simulator)
     : InvictaSimInputAdapter(simulator),
       running_(false),
       window_(nullptr),
       renderer_(nullptr),
+      label_font_(nullptr),
+      note_font_(nullptr),
       loop_period_ms_(static_cast<int>(1000.0 / 60.0)),
       throttle_step_(0.08),
       steering_step_(0.04),
@@ -25,7 +26,8 @@ KeyboardInputAdapter::KeyboardInputAdapter(const std::shared_ptr<InvictaSim>& si
       throttle_bar_y_(42),
       steering_bar_y_(108),
       bar_height_(30),
-      label_scale_(2),
+      label_font_size_(18),
+      note_font_size_(12),
       label_top_offset_(18) {}
 
 KeyboardInputAdapter::~KeyboardInputAdapter() { stop(); }
@@ -63,6 +65,13 @@ void KeyboardInputAdapter::run() {
     return;
   }
 
+  if (TTF_Init() != 0) {
+    std::cerr << "SDL_ttf initialization failed. Labels will be hidden: " << TTF_GetError()
+              << std::endl;
+  } else {
+    initialize_fonts();
+  }
+
   std::cout << "Keyboard controls active. Use W/S and A/D in the SDL window." << std::endl;
 
   input_loop();
@@ -72,6 +81,8 @@ void KeyboardInputAdapter::run() {
 void KeyboardInputAdapter::stop() { running_ = false; }
 
 void KeyboardInputAdapter::shutdown_sdl() {
+  close_fonts();
+
   if (renderer_ != nullptr) {
     SDL_DestroyRenderer(renderer_);
     renderer_ = nullptr;
@@ -80,7 +91,57 @@ void KeyboardInputAdapter::shutdown_sdl() {
     SDL_DestroyWindow(window_);
     window_ = nullptr;
   }
+
+  if (TTF_WasInit() != 0) {
+    TTF_Quit();
+  }
+
   SDL_Quit();
+}
+
+bool KeyboardInputAdapter::initialize_fonts() {
+  if (TTF_WasInit() == 0) {
+    return false;
+  }
+
+  const std::vector<std::string> font_candidates = {
+      "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+      "/usr/share/fonts/truetype/freefont/FreeSans.ttf",
+      "/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf"};
+
+  for (const std::string& path : font_candidates) {
+    if (label_font_ == nullptr) {
+      label_font_ = TTF_OpenFont(path.c_str(), label_font_size_);
+    }
+    if (note_font_ == nullptr) {
+      note_font_ = TTF_OpenFont(path.c_str(), note_font_size_);
+    }
+    if (label_font_ != nullptr && note_font_ != nullptr) {
+      return true;
+    }
+    if (label_font_ != nullptr) {
+      TTF_CloseFont(label_font_);
+      label_font_ = nullptr;
+    }
+    if (note_font_ != nullptr) {
+      TTF_CloseFont(note_font_);
+      note_font_ = nullptr;
+    }
+  }
+
+  std::cerr << "Could not load a font from known system paths. Labels will be hidden." << std::endl;
+  return false;
+}
+
+void KeyboardInputAdapter::close_fonts() {
+  if (label_font_ != nullptr) {
+    TTF_CloseFont(label_font_);
+    label_font_ = nullptr;
+  }
+  if (note_font_ != nullptr) {
+    TTF_CloseFont(note_font_);
+    note_font_ = nullptr;
+  }
 }
 
 double KeyboardInputAdapter::approach(double current, double target, double max_delta) {
@@ -169,15 +230,17 @@ void KeyboardInputAdapter::render_bars(double throttle, double steering) {
   SDL_RenderDrawLine(renderer_, center_x, throttle_bar_y_, center_x, throttle_bar_y_ + bar_height_);
   SDL_RenderDrawLine(renderer_, center_x, steering_bar_y_, center_x, steering_bar_y_ + bar_height_);
 
-  SDL_SetRenderDrawColor(renderer_, 225, 225, 225, 255);
-  draw_label(bar_x_, throttle_bar_y_ - label_top_offset_, "THROTTLE", label_scale_);
-  draw_label(bar_x_, steering_bar_y_ - label_top_offset_, "STEERING", label_scale_);
+  const SDL_Color label_color{225, 225, 225, 255};
+  draw_label(bar_x_, throttle_bar_y_ - label_top_offset_, "THROTTLE", label_font_, label_color);
+  draw_label(bar_x_, steering_bar_y_ - label_top_offset_, "STEERING", label_font_, label_color);
 
   const char* focus_note = "FOCUS TO CONTROL";
-  const int focus_scale = 1;
-  const int focus_text_width = static_cast<int>((std::strlen(focus_note) * 6 - 1) * focus_scale);
+  int focus_text_width = 0;
+  if (note_font_ != nullptr) {
+    TTF_SizeUTF8(note_font_, focus_note, &focus_text_width, nullptr);
+  }
   const int focus_x = (window_width_ - focus_text_width) / 2;
-  draw_label(focus_x, window_height_ - 14, focus_note, focus_scale);
+  draw_label(focus_x, window_height_ - 14, focus_note, note_font_, label_color);
 
   const int throttle_delta =
       static_cast<int>(std::lround(throttle_norm * static_cast<double>(bar_width_ / 2)));
@@ -204,87 +267,26 @@ void KeyboardInputAdapter::render_bars(double throttle, double steering) {
   SDL_RenderPresent(renderer_);
 }
 
-void KeyboardInputAdapter::draw_label(int x, int y, const char* text, int scale) {
-  if (renderer_ == nullptr || text == nullptr || scale <= 0) {
+void KeyboardInputAdapter::draw_label(int x, int y, const char* text, TTF_Font* font,
+                                      const SDL_Color& color) {
+  if (renderer_ == nullptr || text == nullptr || font == nullptr) {
     return;
   }
 
-  int cursor_x = x;
-  for (const char* p = text; *p != '\0'; ++p) {
-    draw_glyph(cursor_x, y, *p, scale);
-    cursor_x += 6 * scale;
-  }
-}
-
-void KeyboardInputAdapter::draw_glyph(int x, int y, char c, int scale) {
-  using Glyph = std::array<std::uint8_t, 7>;
-  static const Glyph kSpace = {0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000};
-  static const Glyph kC = {0b01110, 0b10001, 0b10000, 0b10000, 0b10000, 0b10001, 0b01110};
-  static const Glyph kE = {0b11111, 0b10000, 0b11110, 0b10000, 0b10000, 0b10000, 0b11111};
-  static const Glyph kF = {0b11111, 0b10000, 0b11110, 0b10000, 0b10000, 0b10000, 0b10000};
-  static const Glyph kG = {0b01110, 0b10001, 0b10000, 0b10111, 0b10001, 0b10001, 0b01110};
-  static const Glyph kH = {0b10001, 0b10001, 0b11111, 0b10001, 0b10001, 0b10001, 0b10001};
-  static const Glyph kI = {0b11111, 0b00100, 0b00100, 0b00100, 0b00100, 0b00100, 0b11111};
-  static const Glyph kL = {0b10000, 0b10000, 0b10000, 0b10000, 0b10000, 0b10000, 0b11111};
-  static const Glyph kN = {0b10001, 0b11001, 0b10101, 0b10011, 0b10001, 0b10001, 0b10001};
-  static const Glyph kO = {0b01110, 0b10001, 0b10001, 0b10001, 0b10001, 0b10001, 0b01110};
-  static const Glyph kR = {0b11110, 0b10001, 0b10001, 0b11110, 0b10100, 0b10010, 0b10001};
-  static const Glyph kS = {0b01110, 0b10001, 0b10000, 0b01110, 0b00001, 0b10001, 0b01110};
-  static const Glyph kT = {0b11111, 0b00100, 0b00100, 0b00100, 0b00100, 0b00100, 0b00100};
-  static const Glyph kU = {0b10001, 0b10001, 0b10001, 0b10001, 0b10001, 0b10001, 0b01110};
-
-  const Glyph* glyph = &kSpace;
-  switch (c) {
-    case 'C':
-      glyph = &kC;
-      break;
-    case 'E':
-      glyph = &kE;
-      break;
-    case 'F':
-      glyph = &kF;
-      break;
-    case 'G':
-      glyph = &kG;
-      break;
-    case 'H':
-      glyph = &kH;
-      break;
-    case 'I':
-      glyph = &kI;
-      break;
-    case 'L':
-      glyph = &kL;
-      break;
-    case 'N':
-      glyph = &kN;
-      break;
-    case 'O':
-      glyph = &kO;
-      break;
-    case 'R':
-      glyph = &kR;
-      break;
-    case 'S':
-      glyph = &kS;
-      break;
-    case 'T':
-      glyph = &kT;
-      break;
-    case 'U':
-      glyph = &kU;
-      break;
-    default:
-      break;
+  SDL_Surface* text_surface = TTF_RenderUTF8_Blended(font, text, color);
+  if (text_surface == nullptr) {
+    return;
   }
 
-  for (int row = 0; row < 7; ++row) {
-    for (int col = 0; col < 5; ++col) {
-      if (((*glyph)[row] & (1 << (4 - col))) == 0) {
-        continue;
-      }
-      SDL_Rect pixel{x + col * scale, y + row * scale, scale, scale};
-      SDL_RenderFillRect(renderer_, &pixel);
-    }
+  SDL_Texture* text_texture = SDL_CreateTextureFromSurface(renderer_, text_surface);
+  if (text_texture == nullptr) {
+    SDL_FreeSurface(text_surface);
+    return;
   }
+
+  SDL_Rect destination{x, y, text_surface->w, text_surface->h};
+  SDL_RenderCopy(renderer_, text_texture, nullptr, &destination);
+
+  SDL_DestroyTexture(text_texture);
+  SDL_FreeSurface(text_surface);
 }
