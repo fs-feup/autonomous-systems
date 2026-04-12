@@ -50,6 +50,7 @@
         "source=/tmp,target=/host/tmp,type=bind,consistency=cached",
         "source=/run,target=/host/run,type=bind,consistency=cached",
         "source=/mnt,target=/host/mnt,type=bind,consistency=cached",
+        "source=/dev/dri,target=/dev/dri,type=bind,consistency=cached",
         "source=${localWorkspaceFolder}/cache/humble-ros-base-jammy/build,target=/home/ws/build,type=bind",
         "source=${localWorkspaceFolder}/cache/humble-ros-base-jammy/install,target=/home/ws/install,type=bind",
         "source=${localWorkspaceFolder}/cache/humble-ros-base-jammy/log,target=/home/ws/log,type=bind"
