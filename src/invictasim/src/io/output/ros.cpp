@@ -399,12 +399,10 @@ void RosOutputAdapter::publish_cone_markers(visualization_msgs::msg::MarkerArray
 
 void RosOutputAdapter::publish_body_marker(visualization_msgs::msg::MarkerArray& marker_array,
                                            const rclcpp::Time& stamp) const {
-  constexpr double model_offset_x = 0.9;
-
   tf2::Quaternion q_heading;
   q_heading.setRPY(0.0, 0.0, vehicle_model_snapshot_cache_.yaw);
   tf2::Quaternion q_mesh_offset;
-  q_mesh_offset.setRPY(-M_PI_2, 0.0, 0.0);
+  q_mesh_offset.setRPY(-M_PI_2, 0.0, M_PI_2);
   tf2::Quaternion q_body = q_heading * q_mesh_offset;
   q_body.normalize();
 
@@ -415,18 +413,18 @@ void RosOutputAdapter::publish_body_marker(visualization_msgs::msg::MarkerArray&
   body.id = 0;
   body.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
   body.action = visualization_msgs::msg::Marker::ADD;
-  body.pose.position.x = vehicle_model_snapshot_cache_.x +
-                         std::cos(vehicle_model_snapshot_cache_.yaw) * model_offset_x;
-  body.pose.position.y = vehicle_model_snapshot_cache_.y +
-                         std::sin(vehicle_model_snapshot_cache_.yaw) * model_offset_x;
+  body.pose.position.x =
+      vehicle_model_snapshot_cache_.x + std::cos(vehicle_model_snapshot_cache_.yaw);
+  body.pose.position.y =
+      vehicle_model_snapshot_cache_.y + std::sin(vehicle_model_snapshot_cache_.yaw);
   body.pose.position.z = 0.0;
   body.pose.orientation.x = q_body.x();
   body.pose.orientation.y = q_body.y();
   body.pose.orientation.z = q_body.z();
   body.pose.orientation.w = q_body.w();
-  body.scale.x = 0.01;
-  body.scale.y = 0.01;
-  body.scale.z = 0.01;
+  body.scale.x = 1.0;
+  body.scale.y = 1.0;
+  body.scale.z = 1.0;
   body.color.a = 1.0f;
   body.color.r = 0.85f;
   body.color.g = 0.1f;
@@ -438,9 +436,10 @@ void RosOutputAdapter::publish_body_marker(visualization_msgs::msg::MarkerArray&
 
 void RosOutputAdapter::publish_wheel_markers(visualization_msgs::msg::MarkerArray& marker_array,
                                              const rclcpp::Time& stamp, double dt) {
-  // PACSIM mesh hardcoded paremeters
-  constexpr double model_offset_x = 0.9;
-  constexpr double wheel_center_z = 0.204;
+  const auto car_params = simulator_->get_params().car_parameters;
+  const double wheel_center_z = car_params->wheel_diameter * 0.5;
+  const double long_offset =
+      0.15;  // Offset to align the wheel mesh center with the actual wheel center
 
   if (dt > 0.0) {
     const auto wheel_speed = vehicle_model_snapshot_cache_.wheel_speed;
@@ -457,14 +456,17 @@ void RosOutputAdapter::publish_wheel_markers(visualization_msgs::msg::MarkerArra
   const double s = std::sin(yaw);
   const double steer = vehicle_model_snapshot_cache_.steering_angle;
 
-  // Hardcoded for current mesh car from pacsim, will be done with parameters with 02
+  const double front_axle_x = car_params->wheelbase - car_params->cg_2_rear_axis + long_offset;
+  const double rear_axle_x = -car_params->cg_2_rear_axis + long_offset;
+  const double half_track = car_params->track_width * 0.5;
+
   const double local_x[4] = {
-      model_offset_x - 0.0998,
-      model_offset_x - 0.0998,
-      model_offset_x - 1.64,
-      model_offset_x - 1.64,
+      front_axle_x,
+      front_axle_x,
+      rear_axle_x,
+      rear_axle_x,
   };
-  const double local_y[4] = {0.6, -0.6, 0.58, -0.58};
+  const double local_y[4] = {half_track, -half_track, half_track, -half_track};
   const double steer_angles[4] = {steer, steer, 0.0, 0.0};
   const double spins[4] = {wheel_spin_fl_, wheel_spin_fr_, wheel_spin_rl_, wheel_spin_rr_};
 
@@ -478,7 +480,13 @@ void RosOutputAdapter::publish_wheel_markers(visualization_msgs::msg::MarkerArra
     q_spin.setRPY(0.0, spins[i], 0.0);
     tf2::Quaternion q_mesh_offset;
     q_mesh_offset.setRPY(-M_PI_2, 0.0, 0.0);
-    tf2::Quaternion q_wheel = q_heading * q_spin * q_mesh_offset;
+    tf2::Quaternion q_side_offset;
+    if (i == 1 || i == 3) {
+      q_side_offset.setRPY(0.0, 0.0, M_PI);
+    } else {
+      q_side_offset.setRPY(0.0, 0.0, 0.0);
+    }
+    tf2::Quaternion q_wheel = q_heading * q_spin * q_side_offset * q_mesh_offset;
     q_wheel.normalize();
 
     visualization_msgs::msg::Marker wheel;
