@@ -9,7 +9,7 @@ on:
 
 jobs:
 
-  build: # Sonarcloud analysis 
+  sonarcloud-build:
     name: sonarcloud-build
     if: github.event_name == 'pull_request'
     runs-on: self-hosted 
@@ -35,10 +35,13 @@ jobs:
           -e GITHUB_TOKEN=$GITHUB_TOKEN -e SONAR_TOKEN=$SONAR_TOKEN \
           fsfeup-ros-base:latest bash -c "
             bash ./dependencies_install.sh &&
+            sudo apt-get update && sudo apt-get install -y unzip &&
             curl -s ${{ env.SONAR_SCANNER_DOWNLOAD_URL }} --output sonar-scanner.zip &&
             unzip -q sonar-scanner.zip &&
             export PATH=\$PATH:/workspace/sonar-scanner-${{env.SONAR_SCANNER_VERSION}}-linux/bin &&
             source /opt/ros/humble/setup.bash &&
+            export CMAKE_PREFIX_PATH=/usr/local:\$CMAKE_PREFIX_PATH &&
+            export LD_LIBRARY_PATH=/usr/local/lib:\$LD_LIBRARY_PATH &&
             MAKEFLAGS=\"-j4\" bear -- colcon build --parallel-workers 1 --packages-up-to common_lib perception ekf_state_est control planning inspection mocker_node evaluator &&
             sonar-scanner --define sonar.cfamily.compile-commands='./compile_commands.json'
           "
@@ -47,163 +50,27 @@ jobs:
         if: always()
         run: docker run --rm -u root -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
 
-  perception:
+  build-and-test-all:
+    name: Build and Test All Modules
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: 'true'
-      - name: Build and Test Perception inside Local Docker
+          
+      - name: Build and Test All Modules inside Local Docker
         run: |
           docker run --rm -u root -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
             bash ./dependencies_install.sh &&
             source /opt/ros/humble/setup.bash &&
-            MAKEFLAGS=\"-j4\" colcon build --packages-up-to perception &&
-            source install/setup.bash &&
-            colcon test --packages-select perception --event-handler=console_direct+ &&
-            colcon test-result --all --verbose
-          "
-      - name: Fix workspace permissions
-        if: always()
-        run: docker run --rm -u root -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
-
-  slam:
-    runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: 'true'
-      - name: Build and Test SLAM inside Local Docker
-        run: |
-          docker run --rm -u root -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
-            bash ./dependencies_install.sh &&
-            source /opt/ros/humble/setup.bash &&
+            export CMAKE_PREFIX_PATH=/usr/local:\$CMAKE_PREFIX_PATH &&
             export LD_LIBRARY_PATH=/usr/local/lib:\$LD_LIBRARY_PATH &&
-            MAKEFLAGS=\"-j4\" colcon build --packages-up-to slam &&
+            MAKEFLAGS=\"-j4\" colcon build --packages-up-to perception slam velocity_estimation control planning inspection mocker_node evaluator &&
             source install/setup.bash &&
-            colcon test --packages-select slam --event-handler=console_direct+ &&
+            colcon test --packages-select perception slam velocity_estimation control planning inspection mocker_node evaluator --event-handler=console_direct+ &&
             colcon test-result --all --verbose
           "
-      - name: Fix workspace permissions
-        if: always()
-        run: docker run --rm -u root -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
-
-  velocity_estimation:
-    runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: 'true'
-      - name: Build and Test Velocity Estimation inside Local Docker
-        run: |
-          docker run --rm -u root -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
-            bash ./dependencies_install.sh &&
-            source /opt/ros/humble/setup.bash &&
-            MAKEFLAGS=\"-j4\" colcon build --packages-up-to velocity_estimation &&
-            source install/setup.bash &&
-            colcon test --packages-select velocity_estimation --event-handler=console_direct+ &&
-            colcon test-result --all --verbose
-          "
-      - name: Fix workspace permissions
-        if: always()
-        run: docker run --rm -u root -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
-
-  control:
-    runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: 'true'
-      - name: Build and Test Control inside Local Docker
-        run: |
-          docker run --rm -u root -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
-            bash ./dependencies_install.sh &&
-            source /opt/ros/humble/setup.bash &&
-            MAKEFLAGS=\"-j4\" colcon build --packages-up-to control &&
-            source install/setup.bash &&
-            colcon test --packages-select control --event-handler=console_direct+ &&
-            colcon test-result --all --verbose
-          "
-      - name: Fix workspace permissions
-        if: always()
-        run: docker run --rm -u root -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
-
-  planning:
-    runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: 'true'
-      - name: Build and Test Planning inside Local Docker
-        run: |
-          docker run --rm -u root -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
-            bash ./dependencies_install.sh &&
-            source /opt/ros/humble/setup.bash &&
-            MAKEFLAGS=\"-j4\" colcon build --packages-up-to planning &&
-            source install/setup.bash &&
-            colcon test --packages-select planning --event-handler=console_direct+ &&
-            colcon test-result --all --verbose
-          "
-      - name: Fix workspace permissions
-        if: always()
-        run: docker run --rm -u root -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
-
-  inspection:
-    runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: 'true'
-      - name: Build and Test Inspection inside Local Docker
-        run: |
-          docker run --rm -u root -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
-            bash ./dependencies_install.sh &&
-            source /opt/ros/humble/setup.bash &&
-            MAKEFLAGS=\"-j4\" colcon build --packages-up-to inspection &&
-            source install/setup.bash &&
-            colcon test --packages-select inspection --event-handler=console_direct+ &&
-            colcon test-result --all --verbose
-          "
-      - name: Fix workspace permissions
-        if: always()
-        run: docker run --rm -u root -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
-
-  mocker_node:
-    runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: 'true'
-      - name: Build and Test Mocker Node inside Local Docker
-        run: |
-          docker run --rm -u root -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
-            bash ./dependencies_install.sh &&
-            source /opt/ros/humble/setup.bash &&
-            MAKEFLAGS=\"-j4\" colcon build --packages-up-to mocker_node &&
-            source install/setup.bash &&
-            colcon test --packages-select mocker_node --event-handler=console_direct+ &&
-            colcon test-result --all --verbose
-          "
-      - name: Fix workspace permissions
-        if: always()
-        run: docker run --rm -u root -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
-
-  evaluator_node:
-    runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: 'true'
-      - name: Build and Test Evaluator Node inside Local Docker
-        run: |
-          docker run --rm -u root -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
-            bash ./dependencies_install.sh &&
-            source /opt/ros/humble/setup.bash &&
-            MAKEFLAGS=\"-j4\" colcon build --packages-up-to evaluator &&
-            source install/setup.bash &&
-            colcon test --packages-select evaluator --event-handler=console_direct+ &&
-            colcon test-result --all --verbose
-          "
+          
       - name: Fix workspace permissions
         if: always()
         run: docker run --rm -u root -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
