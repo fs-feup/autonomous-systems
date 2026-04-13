@@ -91,7 +91,7 @@ install(FILES ${pacsim_TRACKS}
 install(FILES ${pacsim_CONFIGS}
   DESTINATION config/${PROJECT_NAME}
 )
-ament_auto_package(USE_SCOPED_HEADER_INSTALL_DIR INSTALL_TO_SHARE
+ament_auto_package(INSTALL_TO_SHARE
   tracks
   config
   launch

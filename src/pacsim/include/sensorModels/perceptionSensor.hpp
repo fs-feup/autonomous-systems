@@ -29,6 +29,8 @@ public:
 
     std::string getName();
 
+    double getDeadTime();
+
     std::string getFrameId();
 
     bool RunTick(LandmarkList& in, Eigen::Vector3d& trans, Eigen::Vector3d& rot, double time);

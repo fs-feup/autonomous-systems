@@ -21,7 +21,9 @@ PoseUpdater::PoseUpdater(const PoseUpdater& other) : _pose_buffer_(other._pose_b
 }
 
 PoseUpdater& PoseUpdater::operator=(const PoseUpdater& other) {
-  if (this == &other) return *this;
+  if (this == &other) {
+    return *this;
+  }
 
   _last_pose_ = other._last_pose_;
   _last_graphed_pose_ = other._last_graphed_pose_;
@@ -41,12 +43,16 @@ std::shared_ptr<PoseUpdater> PoseUpdater::clone() const {
 }
 
 Eigen::Vector3d PoseUpdater::get_pose_at_timestamp(const rclcpp::Time& timestamp) const {
-  if (_pose_buffer_.size() == 0) throw std::out_of_range("Pose buffer is empty");
+  if (_pose_buffer_.size() == 0) {
+    throw std::out_of_range("Pose buffer is empty");
+  }
 
   for (size_t i = 0; i < _pose_buffer_.size(); i++) {
     const auto& curr = _pose_buffer_.from_end(i);
     if (curr.timestamp.seconds() <= timestamp.seconds()) {
-      if (i == 0) return curr.pose;
+      if (i == 0) {
+        return curr.pose;
+      }
       const auto& prev = _pose_buffer_.from_end(i - 1);
       auto diff_curr = timestamp.seconds() - curr.timestamp.seconds();
       auto diff_prev = prev.timestamp.seconds() - timestamp.seconds();

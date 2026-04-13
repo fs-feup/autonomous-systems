@@ -16,6 +16,10 @@ SLAMParameters::SLAMParameters(const SLAMParameters &params) {
   data_association_limit_distance_ = params.data_association_limit_distance_;
   observation_x_noise_ = params.observation_x_noise_;
   observation_y_noise_ = params.observation_y_noise_;
+  data_association_gate_ = params.data_association_gate_;
+  new_landmark_confidence_gate_ = params.new_landmark_confidence_gate_;
+  ann_seed_radius_ = params.ann_seed_radius_;
+  ann_seed_count_ = params.ann_seed_count_;
   velocity_x_noise_ = params.velocity_x_noise_;
   velocity_y_noise_ = params.velocity_y_noise_;
   imu_acceleration_x_noise_ = params.imu_acceleration_x_noise_;
@@ -36,7 +40,6 @@ SLAMParameters::SLAMParameters(const SLAMParameters &params) {
   slam_isam2_relinearize_skip_ = params.slam_isam2_relinearize_skip_;
   slam_isam2_factorization_ = params.slam_isam2_factorization_;
   sliding_window_size_ = params.sliding_window_size_;
-
   minimum_observation_count_ = params.minimum_observation_count_;
   minimum_frequency_of_detections_ = params.minimum_frequency_of_detections_;
 
@@ -49,6 +52,8 @@ SLAMParameters::SLAMParameters(const SLAMParameters &params) {
   max_pose_history_updater = params.max_pose_history_updater;
   max_pose_history_graph = params.max_pose_history_graph;
   publish_trajectory_ = params.publish_trajectory_;
+  publish_associations_ = params.publish_associations_;
+  publish_global_observations_ = params.publish_global_observations_;
 }
 
 SLAMParameters &SLAMParameters::operator=(const SLAMParameters &other) {
@@ -64,6 +69,10 @@ SLAMParameters &SLAMParameters::operator=(const SLAMParameters &other) {
     data_association_limit_distance_ = other.data_association_limit_distance_;
     observation_x_noise_ = other.observation_x_noise_;
     observation_y_noise_ = other.observation_y_noise_;
+    data_association_gate_ = other.data_association_gate_;
+    new_landmark_confidence_gate_ = other.new_landmark_confidence_gate_;
+    ann_seed_radius_ = other.ann_seed_radius_;
+    ann_seed_count_ = other.ann_seed_count_;
     velocity_x_noise_ = other.velocity_x_noise_;
     velocity_y_noise_ = other.velocity_y_noise_;
     imu_acceleration_x_noise_ = other.imu_acceleration_x_noise_;
@@ -97,6 +106,8 @@ SLAMParameters &SLAMParameters::operator=(const SLAMParameters &other) {
     max_pose_history_updater = other.max_pose_history_updater;
     max_pose_history_graph = other.max_pose_history_graph;
     publish_trajectory_ = other.publish_trajectory_;
+    publish_associations_ = other.publish_associations_;
+    publish_global_observations_ = other.publish_global_observations_;
   }
   return *this;
 }
@@ -129,6 +140,8 @@ std::string SLAMParameters::load_config() {
   this->data_association_gate_ = slam_config["slam"]["data_association_gate"].as<double>();
   this->new_landmark_confidence_gate_ =
       slam_config["slam"]["new_landmark_confidence_gate"].as<double>();
+  this->ann_seed_radius_ = slam_config["slam"]["ann_seed_radius"].as<double>();
+  this->ann_seed_count_ = slam_config["slam"]["ann_seed_count"].as<int>();
   this->observation_x_noise_ = slam_config["slam"]["observation_x_noise"].as<float>();
   this->observation_y_noise_ = slam_config["slam"]["observation_y_noise"].as<float>();
   this->velocity_x_noise_ = slam_config["slam"]["velocity_x_noise"].as<float>();
@@ -167,5 +180,9 @@ std::string SLAMParameters::load_config() {
   this->max_pose_history_updater = slam_config["slam"]["max_pose_history_updater"].as<int>();
   this->max_pose_history_graph = slam_config["slam"]["max_pose_history_graph"].as<int>();
   this->publish_trajectory_ = slam_config["slam"]["graph_publish_trajectory"].as<bool>();
+  this->publish_associations_ = slam_config["slam"]["publish_associations"].as<bool>();
+  this->publish_global_observations_ =
+      slam_config["slam"]["publish_global_observations"].as<bool>();
+
   return adapter;
 }

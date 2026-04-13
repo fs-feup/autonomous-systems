@@ -4,6 +4,28 @@ This guide aims to clarify the necessary steps for creating code that will resul
 
 You work with your **shell always in the root directory**. In it, you can find mutiple scripts that will help you on the upcoming tasks. You need to follow the tutorials listed before this one on the [Startup Guide](https://github.com/fs-feup/tutorials/blob/main/tutorials/startup_guide_as.md).
 
+## Compilation
+
+To compile the AS System, start by installing the dependencies:
+```sh
+./dependencies_install.sh
+```
+Then you will need to install the dependencies specific to the submodule you want.
+
+After installing the dependencies you need, compile the AS project:
+```sh
+# To compile specific packages
+colcon build --packages-select [your_package_name] --cmake-args -G Ninja
+
+# Shortcut to compile all subsystems
+./compile.sh
+```
+
+**Important:** Before running any AS package, you must source the environment:
+```sh
+source install/setup.bash
+```
+
 ## Natural Workflow 
 
 - Set up development environment.
