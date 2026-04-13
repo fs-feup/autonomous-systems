@@ -1,10 +1,13 @@
 #pragma once
 
+#include <chrono>
+
 #include "motion_lib/aero_model/map.hpp"
 #include "motion_lib/battery_model/map.hpp"
 #include "motion_lib/differential_model/map.hpp"
 #include "motion_lib/load_transfer_model/map.hpp"
 #include "motion_lib/motor_model/map.hpp"
+#include "motion_lib/steering_model/map.hpp"
 #include "motion_lib/tire_model/map.hpp"
 #include "vehicle_model/vehicle_model.hpp"
 
@@ -39,28 +42,6 @@ public:
    */
   std::string get_model_name() const override;
 
-  /**
-   * @brief Get the current motor torque being applied
-   */
-  double get_motor_torque() const override;
-
-  /**
-   * @brief Get the current battery current draw
-   */
-  double get_battery_current() const override;
-
-  /**
-   * @brief Get the current battery voltage
-   */
-  double get_battery_voltage() const override;
-
-  /**
-   * @brief Get the current battery state of charge
-   */
-  double get_battery_soc() const override;
-
-  // Debug
-
 private:
   // Vehicle state struct is defined in the base class
   std::shared_ptr<TireModel> tire_model_;
@@ -69,6 +50,7 @@ private:
   std::shared_ptr<DifferentialModel> differential_;
   std::shared_ptr<AeroModel> aero_;
   std::shared_ptr<LoadTransferModel> load_transfer_;
+  std::shared_ptr<SteeringModel> steering_;
 
   // Helper function to calculate the torque combining the motor model and the battery model
   double calculate_powertrain_torque(double throttle_input, double dt);

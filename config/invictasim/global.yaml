@@ -1,6 +1,18 @@
 invictasim:
   # Simulator config
+  input_adapter: "keyboard"  # Options: "ros", "keyboard"
+  output_adapter: "ros"  # Options: "ros"
   vehicle_model: "FSFEUP02"  # Options: "FSFEUP02"
-  timestep: 0.001  # seconds (0.001s = 1000 Hz)
-  simulation_speed: 1.0 # 1.0 = real-time, >1.0 faster, <1.0 slower
-  track_name: "FSG23"
+  sim_frequency: 1000  # Hz 
+  track_name: "EnduranceFSG25"  # Options: "Acceleration", "Skidpad", "FSG25", "FSG24", "FSG23", "FSE24", "FSE23", "EnduranceFSG25", "FSS22V1", "FSS22V2"
+  publish_frequencies:
+    tire: 1000
+    battery: 100
+    motor: 100
+    differential: 100
+    aero: 100
+    load_transfer: 100
+    status: 1000
+    execution_times: 100
+    track: 60
+    visualization: 60

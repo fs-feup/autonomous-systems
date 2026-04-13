@@ -9,6 +9,7 @@ endif()
 # Dependencies
 find_package(ament_cmake REQUIRED)
 find_package(ament_index_cpp REQUIRED)
+find_package(PkgConfig REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
@@ -25,11 +26,18 @@ find_package(fs_msgs REQUIRED)
 find_package(visualization_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
 
+pkg_check_modules(SDL2 REQUIRED sdl2)
+pkg_check_modules(SDL2_TTF REQUIRED SDL2_ttf)
+
 # Implementation files
 set(IMPLEMENTATION_FILES
-  src/node/invictasim_node.cpp
+  src/simulator/invictasim.cpp
+  src/io/input/ros.cpp
+  src/io/output/ros.cpp
+  src/io/input/keyboard.cpp
   src/config/config.cpp
   src/vehicle_model/FSFEUP02.cpp
+  src/track/track.cpp
 )
 
 # Main executable
@@ -37,9 +45,12 @@ add_executable(invictasim src/main.cpp ${IMPLEMENTATION_FILES})
 target_include_directories(invictasim PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
+  ${SDL2_INCLUDE_DIRS}
+  ${SDL2_TTF_INCLUDE_DIRS}
 )
 target_compile_features(invictasim PUBLIC c_std_99 cxx_std_17)
-target_link_libraries(invictasim yaml-cpp)
+target_compile_options(invictasim PUBLIC ${SDL2_CFLAGS_OTHER} ${SDL2_TTF_CFLAGS_OTHER})
+target_link_libraries(invictasim yaml-cpp ${SDL2_LIBRARIES} ${SDL2_TTF_LIBRARIES})
 ament_target_dependencies(invictasim
   ament_index_cpp
   rclcpp
@@ -66,6 +77,8 @@ install(DIRECTORY include/
   DESTINATION include)
 install(DIRECTORY launch
   DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY resources
+  DESTINATION share/${PROJECT_NAME})
 
 # Tests
 if(BUILD_TESTING)
@@ -79,7 +92,11 @@ if(BUILD_TESTING)
   target_include_directories(invictasim_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
+    ${SDL2_INCLUDE_DIRS}
+    ${SDL2_TTF_INCLUDE_DIRS}
   )
+  target_compile_options(invictasim_test PUBLIC ${SDL2_CFLAGS_OTHER} ${SDL2_TTF_CFLAGS_OTHER})
+  target_link_libraries(invictasim_test ${SDL2_LIBRARIES} ${SDL2_TTF_LIBRARIES})
   ament_target_dependencies(invictasim_test
     ament_index_cpp
     rclcpp
