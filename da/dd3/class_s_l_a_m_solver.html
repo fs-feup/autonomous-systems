@@ -109,8 +109,8 @@ Inheritance diagram for SLAMSolver:</div>
 <div class="center"><img src="../../df/d48/class_s_l_a_m_solver__inherit__graph.png" border="0" usemap="#a_s_l_a_m_solver_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_s_l_a_m_solver_inherit__map" id="a_s_l_a_m_solver_inherit__map">
 <area shape="rect" title="Interface for SLAM solvers." alt="" coords="103,5,282,511"/>
-<area shape="rect" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html" title=" " alt="" coords="5,566,177,1126"/>
-<area shape="poly" title=" " alt="" coords="149,526,142,567,137,566,144,525"/>
+<area shape="rect" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html" title=" " alt="" coords="5,576,177,1116"/>
+<area shape="poly" title=" " alt="" coords="149,526,140,577,135,576,144,525"/>
 <area shape="rect" href="../../d9/d73/class_graph_s_l_a_m_solver.html" title="Graph SLAM solver class." alt="" coords="202,559,389,1133"/>
 <area shape="poly" title=" " alt="" coords="242,525,248,558,243,559,237,526"/>
 </map>
@@ -133,9 +133,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a82cabbd52b46d17d6f55cdbf09e1f6fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae296331afb7a44e54363234d1a030b29" id="r_ae296331afb7a44e54363234d1a030b29"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#ae296331afb7a44e54363234d1a030b29">~SLAMSolver</a> ()=default</td></tr>
 <tr class="separator:ae296331afb7a44e54363234d1a030b29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6904433b817b8292bca3a4b08f1141d4" id="r_a6904433b817b8292bca3a4b08f1141d4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#a6904433b817b8292bca3a4b08f1141d4">add_observations</a> (const std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &amp;cones, rclcpp::Time cones_timestamp)=0</td></tr>
-<tr class="memdesc:a6904433b817b8292bca3a4b08f1141d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add observations to the solver.  <br /></td></tr>
-<tr class="separator:a6904433b817b8292bca3a4b08f1141d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbb01f73530a561571d26a6dd0ac7ce9" id="r_acbb01f73530a561571d26a6dd0ac7ce9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#acbb01f73530a561571d26a6dd0ac7ce9">add_observations</a> (const std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &amp;cones, rclcpp::Time cones_timestamp, bool is_moving=false)=0</td></tr>
+<tr class="memdesc:acbb01f73530a561571d26a6dd0ac7ce9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add observations to the solver.  <br /></td></tr>
+<tr class="separator:acbb01f73530a561571d26a6dd0ac7ce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2594ca886038ebd7c2c931ffa2125123" id="r_a2594ca886038ebd7c2c931ffa2125123"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#a2594ca886038ebd7c2c931ffa2125123">add_velocities</a> (const <a class="el" href="../../d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html">common_lib::structures::Velocities</a> &amp;velocities)=0</td></tr>
 <tr class="memdesc:a2594ca886038ebd7c2c931ffa2125123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process new velocity data.  <br /></td></tr>
 <tr class="separator:a2594ca886038ebd7c2c931ffa2125123"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -287,8 +287,8 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6904433b817b8292bca3a4b08f1141d4" name="a6904433b817b8292bca3a4b08f1141d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6904433b817b8292bca3a4b08f1141d4">&#9670;&#160;</a></span>add_observations()</h2>
+<a id="acbb01f73530a561571d26a6dd0ac7ce9" name="acbb01f73530a561571d26a6dd0ac7ce9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbb01f73530a561571d26a6dd0ac7ce9">&#9670;&#160;</a></span>add_observations()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -306,7 +306,13 @@ Protected Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">rclcpp::Time&#160;</td>
-          <td class="paramname"><em>cones_timestamp</em>&#160;</td>
+          <td class="paramname"><em>cones_timestamp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>is_moving</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -329,7 +335,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d9/d73/class_graph_s_l_a_m_solver.html#a6ebeac5f93735c046fa984450deb98a8">GraphSLAMSolver</a>, and <a class="el" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#ae22327aa3c5787a3412fe4341c708aba">EKFSLAMSolver</a>.</p>
+<p>Implemented in <a class="el" href="../../d9/d73/class_graph_s_l_a_m_solver.html#aa3c24a1b6d7ed3b758d867b68ac37386">GraphSLAMSolver</a>, and <a class="el" href="../../d7/d79/class_e_k_f_s_l_a_m_solver.html#a7b35f357eebe14cd90c8bd2ff1777d4f">EKFSLAMSolver</a>.</p>
 
 </div>
 </div>

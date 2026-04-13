@@ -112,18 +112,18 @@ Collaboration diagram for MockDataAssociationModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dc/d94/class_mock_data_association_model__coll__graph.png" border="0" usemap="#a_mock_data_association_model_coll__map" alt="Collaboration graph"/></div>
 <map name="a_mock_data_association_model_coll__map" id="a_mock_data_association_model_coll__map">
-<area shape="rect" title=" " alt="" coords="22,488,197,554"/>
-<area shape="rect" href="../../d1/d14/class_data_association_model.html" title="Data Association Method class, used to match observations to landmarks in the map." alt="" coords="11,234,207,439"/>
-<area shape="poly" title=" " alt="" coords="112,454,112,489,107,489,107,454"/>
-<area shape="rect" href="../../d9/d66/struct_data_association_parameters.html" title=" " alt="" coords="5,5,213,171"/>
-<area shape="poly" title=" " alt="" coords="112,170,112,217,107,217,107,170"/>
+<area shape="rect" title=" " alt="" coords="22,528,197,594"/>
+<area shape="rect" href="../../d1/d14/class_data_association_model.html" title="Data Association Method class, used to match observations to landmarks in the map." alt="" coords="11,274,207,479"/>
+<area shape="poly" title=" " alt="" coords="112,494,112,529,107,529,107,494"/>
+<area shape="rect" href="../../d9/d66/struct_data_association_parameters.html" title=" " alt="" coords="5,5,213,211"/>
+<area shape="poly" title=" " alt="" coords="112,211,112,257,107,257,107,211"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:abdc3dbd8ddaf367272ee1450fa191b4c" id="r_abdc3dbd8ddaf367272ee1450fa191b4c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/df5/class_mock_data_association_model.html#abdc3dbd8ddaf367272ee1450fa191b4c">MOCK_METHOD</a> (Eigen::VectorXi, <a class="el" href="../../d1/d14/class_data_association_model.html#a465075932dccc3fa6db50b81f9cf1af7">associate</a>,(const Eigen::VectorXd &amp;state, const Eigen::VectorXd &amp;observations, const Eigen::MatrixXd &amp;covariance, const Eigen::VectorXd &amp;observation_confidences),(const, override))</td></tr>
-<tr class="separator:abdc3dbd8ddaf367272ee1450fa191b4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fbd472f25365b2105a871da870ba9af" id="r_a3fbd472f25365b2105a871da870ba9af"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/df5/class_mock_data_association_model.html#a3fbd472f25365b2105a871da870ba9af">MOCK_METHOD</a> (Eigen::VectorXi, <a class="el" href="../../d1/d14/class_data_association_model.html#a55b0ebd1224cf8b5e5f6bf8811c6b27c">associate</a>,(const Eigen::VectorXd &amp;state, const Eigen::VectorXd &amp;observations, const Eigen::MatrixXd &amp;covariance, const Eigen::VectorXd &amp;observation_confidences, const Eigen::Vector3d &amp;pose),(const, override))</td></tr>
+<tr class="separator:a3fbd472f25365b2105a871da870ba9af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_data_association_model"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_data_association_model')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d1/d14/class_data_association_model.html">DataAssociationModel</a></td></tr>
 <tr class="memitem:ae0d2681ff464e0a80ed07ca1d422d64f inherit pub_methods_class_data_association_model" id="r_ae0d2681ff464e0a80ed07ca1d422d64f"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#ae0d2681ff464e0a80ed07ca1d422d64f">associate_n_filter</a> (const std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &amp;perception_map, Eigen::VectorXf &amp;_x_vector_, Eigen::MatrixXf &amp;_p_matrix_, std::vector&lt; int &gt; &amp;matched_ids, std::vector&lt; Eigen::Vector2f &gt; &amp;matched_cone_positions, std::vector&lt; Eigen::Vector2f &gt; &amp;new_features, <a class="el" href="../../d7/d64/class_observation_model.html">ObservationModel</a> *observation_model) const =0</td></tr>
 <tr class="memdesc:ae0d2681ff464e0a80ed07ca1d422d64f inherit pub_methods_class_data_association_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associate the observed landmarks to the expected landmarks and update the state vector and the covariance matrix.  <br /></td></tr>
@@ -138,9 +138,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a84e2c49b9e9a906da1966670d194c1fa inherit pub_methods_class_data_association_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76a5a370d193f667a122945ea7fc671f inherit pub_methods_class_data_association_model" id="r_a76a5a370d193f667a122945ea7fc671f"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#a76a5a370d193f667a122945ea7fc671f">~DataAssociationModel</a> ()=default</td></tr>
 <tr class="separator:a76a5a370d193f667a122945ea7fc671f inherit pub_methods_class_data_association_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a465075932dccc3fa6db50b81f9cf1af7 inherit pub_methods_class_data_association_model" id="r_a465075932dccc3fa6db50b81f9cf1af7"><td class="memItemLeft" align="right" valign="top">virtual Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#a465075932dccc3fa6db50b81f9cf1af7">associate</a> (const Eigen::VectorXd &amp;landmarks, const Eigen::VectorXd &amp;observations, const Eigen::MatrixXd &amp;covariance, const Eigen::VectorXd &amp;observation_confidences) const =0</td></tr>
-<tr class="memdesc:a465075932dccc3fa6db50b81f9cf1af7 inherit pub_methods_class_data_association_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function associates the landmarks with the observations.  <br /></td></tr>
-<tr class="separator:a465075932dccc3fa6db50b81f9cf1af7 inherit pub_methods_class_data_association_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55b0ebd1224cf8b5e5f6bf8811c6b27c inherit pub_methods_class_data_association_model" id="r_a55b0ebd1224cf8b5e5f6bf8811c6b27c"><td class="memItemLeft" align="right" valign="top">virtual Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#a55b0ebd1224cf8b5e5f6bf8811c6b27c">associate</a> (const Eigen::VectorXd &amp;landmarks, const Eigen::VectorXd &amp;observations, const Eigen::MatrixXd &amp;covariance, const Eigen::VectorXd &amp;observation_confidences, const Eigen::Vector3d &amp;pose) const =0</td></tr>
+<tr class="memdesc:a55b0ebd1224cf8b5e5f6bf8811c6b27c inherit pub_methods_class_data_association_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function associates the landmarks with the observations.  <br /></td></tr>
+<tr class="separator:a55b0ebd1224cf8b5e5f6bf8811c6b27c inherit pub_methods_class_data_association_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -155,8 +155,8 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="../../d2/d9b/graph__slam__solver__test_8cpp_source.html#l00007">7</a> of file <a class="el" href="../../d2/d9b/graph__slam__solver__test_8cpp_source.html">graph_slam_solver_test.cpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="abdc3dbd8ddaf367272ee1450fa191b4c" name="abdc3dbd8ddaf367272ee1450fa191b4c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdc3dbd8ddaf367272ee1450fa191b4c">&#9670;&#160;</a></span>MOCK_METHOD()</h2>
+<a id="a3fbd472f25365b2105a871da870ba9af" name="a3fbd472f25365b2105a871da870ba9af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fbd472f25365b2105a871da870ba9af">&#9670;&#160;</a></span>MOCK_METHOD()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -170,13 +170,13 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d1/d14/class_data_association_model.html#a465075932dccc3fa6db50b81f9cf1af7">associate</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d1/d14/class_data_association_model.html#a55b0ebd1224cf8b5e5f6bf8811c6b27c">associate</a>&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">(const Eigen::VectorXd &amp;state, const Eigen::VectorXd &amp;observations, const Eigen::MatrixXd &amp;covariance, const Eigen::VectorXd &amp;observation_confidences)&#160;</td>
+          <td class="paramtype">(const Eigen::VectorXd &amp;state, const Eigen::VectorXd &amp;observations, const Eigen::MatrixXd &amp;covariance, const Eigen::VectorXd &amp;observation_confidences, const Eigen::Vector3d &amp;pose)&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>

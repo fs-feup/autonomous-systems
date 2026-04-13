@@ -1,45 +1,56 @@
 <map id="common_lib::maths::get_rotation_matrix" name="common_lib::maths::get_rotation_matrix">
-<area shape="rect" id="Node000001" title="Function to get the rotation matrix for a given angle." alt="" coords="570,423,710,463"/>
-<area shape="rect" id="Node000002" href="$d2/d32/namespacecommon__lib_1_1maths.html#ab0ad3296dc284d5471c4035f3d63ad82" title="Transform points from a global reference frame to a local reference frame." alt="" coords="341,525,522,566"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="585,473,476,527,474,522,582,468"/>
-<area shape="rect" id="Node000013" href="$d2/d32/namespacecommon__lib_1_1maths.html#ae863ab27f119e71801d039179cba64b7" title="Transform points from a local reference frame to a global reference frame." alt="" coords="341,268,522,309"/>
-<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="597,415,459,311,462,307,601,411"/>
-<area shape="rect" id="Node000003" href="$d1/d99/class_s_l_a_m_observation_model.html#a756f368dc24dc0f0e06ba6ec84c26c47" title="transform landmarks&#39; positions from global frame to the car&#39;s frame" alt="" coords="119,497,282,538"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="325,535,282,530,283,525,326,530"/>
-<area shape="rect" id="Node000007" href="$dc/d72/transformations__test_8cpp.html#aeecfe6845ab7f7dbe601cf38fb330e2c" title="Randomized scenario where coordinates are transformed from global to local and then back to global." alt="" coords="173,398,228,424"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="398,517,350,475,292,437,259,425,227,417,229,412,261,420,294,433,353,471,401,513"/>
-<area shape="rect" id="Node000008" href="$dc/d72/transformations__test_8cpp.html#ae0c9d51b27f98db868b4a5ea90ebb917" title="Randomized scenario where coordinates are transformed from local to global and then back to local." alt="" coords="173,448,228,473"/>
-<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="372,521,292,488,227,469,229,464,294,483,374,516"/>
-<area shape="rect" id="Node000009" href="$dc/d72/transformations__test_8cpp.html#ae0c929fe2f12c0fad375743da4c871a6" title="Trivial scenario of transformation from global to local coordinates with no landmarks and trivial sta..." alt="" coords="173,710,228,736"/>
-<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="411,581,363,642,331,674,294,701,261,716,229,723,227,718,259,710,292,697,327,670,359,639,407,577"/>
-<area shape="rect" id="Node000010" href="$dc/d72/transformations__test_8cpp.html#a96d5c0610f2c1899368deeddd1f89a4d" title="Trivial scenario of transformation from global to local coordinates with no landmarks and non trivial..." alt="" coords="173,562,228,588"/>
-<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="326,562,228,574,227,569,325,556"/>
-<area shape="rect" id="Node000011" href="$dc/d72/transformations__test_8cpp.html#abfa84011adf94b7d5707929a5890d34b" title="test transformation from global to local coordinates with trivial state" alt="" coords="173,612,228,637"/>
-<area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="369,575,294,603,229,621,227,616,292,598,367,570"/>
-<area shape="rect" id="Node000012" href="$dc/d72/transformations__test_8cpp.html#ab7baadeb17299a3595acf24c2e863182" title="test transformation from global to local coordinates" alt="" coords="173,661,228,687"/>
-<area shape="poly" id="edge11_Node000002_Node000012" title=" " alt="" coords="399,578,352,617,294,652,260,665,228,672,227,667,259,660,292,647,349,612,396,574"/>
-<area shape="rect" id="Node000004" href="$d8/d17/slam__base__observation__model__test_8cpp.html#a70ce6a493debcb8620904a7ebd6858f4" title="Test the observation model with trivial state." alt="" coords="5,554,60,580"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="115,545,61,562,59,557,114,540"/>
-<area shape="rect" id="Node000005" href="$d8/d17/slam__base__observation__model__test_8cpp.html#a650a5fa18bf163e0dda68b1585a51732" title="Test observation model with a single landmark and trivial pose." alt="" coords="5,456,60,481"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="114,495,59,479,61,474,115,490"/>
-<area shape="rect" id="Node000006" href="$d8/d17/slam__base__observation__model__test_8cpp.html#afd76a23f11dc21c242fbc0b48d270ed5" title="Test observation model with a single landmark and non&#45;trivial pose." alt="" coords="5,505,60,531"/>
-<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="103,520,60,520,60,515,103,515"/>
-<area shape="poly" id="edge17_Node000013_Node000007" title=" " alt="" coords="397,321,350,357,294,389,261,402,229,409,228,404,259,397,292,385,347,352,394,317"/>
-<area shape="poly" id="edge18_Node000013_Node000008" title=" " alt="" coords="410,323,362,382,330,413,294,439,261,453,229,460,227,455,259,448,292,434,326,409,358,379,406,320"/>
-<area shape="rect" id="Node000014" href="$d9/d73/class_graph_s_l_a_m_solver.html#a6ebeac5f93735c046fa984450deb98a8" title="Add observations to the solver (correction step)" alt="" coords="122,5,279,46"/>
-<area shape="poly" id="edge13_Node000013_Node000014" title=" " alt="" coords="416,254,397,210,370,159,335,106,291,61,273,49,276,44,295,57,339,103,375,156,402,208,421,252"/>
-<area shape="rect" id="Node000015" href="$d7/d79/class_e_k_f_s_l_a_m_solver.html#ae22327aa3c5787a3412fe4341c708aba" title="process obervations of landmarks" alt="" coords="127,71,274,111"/>
-<area shape="poly" id="edge14_Node000013_Node000015" title=" " alt="" coords="408,256,359,191,327,156,291,127,270,114,272,110,295,122,331,153,364,187,412,253"/>
-<area shape="rect" id="Node000016" href="$d1/d99/class_s_l_a_m_observation_model.html#a6d5e78879bf20b4d66badaacd4cee199" title="transforms the landmarks&#39; coordinates from the car&#39;s frame to the global frame" alt="" coords="108,136,293,177"/>
-<area shape="poly" id="edge15_Node000013_Node000016" title=" " alt="" coords="393,260,346,224,292,191,267,180,270,175,294,186,349,220,396,256"/>
-<area shape="rect" id="Node000018" href="$dc/d72/transformations__test_8cpp.html#abf14692c40a7f73cd48963d581edf8a8" title="Trivial scenario of transformation from local to global coordinates with no landmarks and trivial sta..." alt="" coords="173,201,228,227"/>
-<area shape="poly" id="edge19_Node000013_Node000018" title=" " alt="" coords="362,265,292,240,227,222,229,217,294,235,364,260"/>
-<area shape="rect" id="Node000019" href="$dc/d72/transformations__test_8cpp.html#a9cb48e45588ff42bfa73f76b37ac9996" title="Test with no landmarks and non trivial state." alt="" coords="173,250,228,276"/>
-<area shape="poly" id="edge20_Node000013_Node000019" title=" " alt="" coords="325,279,227,269,228,263,326,274"/>
-<area shape="rect" id="Node000020" href="$dc/d72/transformations__test_8cpp.html#ae377b83c82edce760d818c1db2692357" title="Test with trivial state and some landmarks." alt="" coords="173,300,228,325"/>
-<area shape="poly" id="edge21_Node000013_Node000020" title=" " alt="" coords="326,302,228,312,227,307,325,297"/>
-<area shape="rect" id="Node000021" href="$dc/d72/transformations__test_8cpp.html#ae6ba48a9f45b22941789c7c9d436ff6a" title="Test transformation from local to global coordinates." alt="" coords="173,349,228,375"/>
-<area shape="poly" id="edge22_Node000013_Node000021" title=" " alt="" coords="363,317,294,340,229,358,227,353,292,335,361,312"/>
-<area shape="rect" id="Node000017" href="$d8/d17/slam__base__observation__model__test_8cpp.html#a2ba7820f7423fd9617573cae7d5314b1" title="Test inverse observation model with trivial state and a single observation." alt="" coords="5,144,60,169"/>
-<area shape="poly" id="edge16_Node000016_Node000017" title=" " alt="" coords="92,159,60,159,60,154,92,154"/>
+<area shape="rect" id="Node000001" title="Function to get the rotation matrix for a given angle." alt="" coords="589,250,729,291"/>
+<area shape="rect" id="Node000002" href="$da/d50/class_adaptive_nearest_neighbor.html#a2184bd0dc27f542871c156caf3beb255" title="Apply a 2D rigid transform to all observations." alt="" coords="356,41,526,81"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="632,239,591,188,540,133,475,84,478,80,543,130,595,184,636,236"/>
+<area shape="rect" id="Node000006" href="$da/d50/class_adaptive_nearest_neighbor.html#a08be141a2d39ab687eee20880b6c1af9" title="Estimate a 2D rigid transform from two observation&#45;landmark correspondences." alt="" coords="341,143,541,184"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="601,245,484,187,486,182,603,240"/>
+<area shape="rect" id="Node000007" href="$d2/d32/namespacecommon__lib_1_1maths.html#ab0ad3296dc284d5471c4035f3d63ad82" title="Transform points from a global reference frame to a local reference frame." alt="" coords="351,595,532,636"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="639,305,458,596,453,593,635,302"/>
+<area shape="rect" id="Node000018" href="$d2/d32/namespacecommon__lib_1_1maths.html#ae863ab27f119e71801d039179cba64b7" title="Transform points from a local reference frame to a global reference frame." alt="" coords="351,282,532,323"/>
+<area shape="poly" id="edge18_Node000001_Node000018" title=" " alt="" coords="574,285,533,291,532,286,573,280"/>
+<area shape="rect" id="Node000003" href="$da/d50/class_adaptive_nearest_neighbor.html#ad95427ac4b18cb55722f77b6e1641c5b" title="Associate observations to landmarks using an adaptive seed&#45;based alignment step." alt="" coords="115,22,286,63"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="340,56,286,51,286,46,341,50"/>
+<area shape="rect" id="Node000004" href="$d1/d58/adaptive__nearest__neighbor__test_8cpp.html#afc68daab4f276fdfaa355ef409800719" title=" " alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="100,30,60,25,61,19,100,25"/>
+<area shape="rect" id="Node000005" href="$d1/d58/adaptive__nearest__neighbor__test_8cpp.html#a285a8a09866c048efdb16ffaf43f6683" title=" " alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="101,60,61,66,60,61,100,55"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="396,137,347,106,292,77,266,66,268,61,294,72,349,101,399,132"/>
+<area shape="rect" id="Node000008" href="$d1/d99/class_s_l_a_m_observation_model.html#a756f368dc24dc0f0e06ba6ec84c26c47" title="transform landmarks&#39; positions from global frame to the car&#39;s frame" alt="" coords="119,727,282,768"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="404,647,353,683,294,718,269,729,267,724,292,713,350,679,401,643"/>
+<area shape="rect" id="Node000012" href="$dc/d72/transformations__test_8cpp.html#aeecfe6845ab7f7dbe601cf38fb330e2c" title="Randomized scenario where coordinates are transformed from global to local and then back to global." alt="" coords="173,529,228,555"/>
+<area shape="poly" id="edge12_Node000007_Node000012" title=" " alt="" coords="366,592,292,569,227,551,228,546,294,564,367,587"/>
+<area shape="rect" id="Node000013" href="$dc/d72/transformations__test_8cpp.html#ae0c9d51b27f98db868b4a5ea90ebb917" title="Randomized scenario where coordinates are transformed from local to global and then back to local." alt="" coords="173,480,228,506"/>
+<area shape="poly" id="edge13_Node000007_Node000013" title=" " alt="" coords="402,588,351,552,292,519,259,508,227,500,229,495,260,502,294,514,354,548,405,584"/>
+<area shape="rect" id="Node000014" href="$dc/d72/transformations__test_8cpp.html#ae0c929fe2f12c0fad375743da4c871a6" title="Trivial scenario of transformation from global to local coordinates with no landmarks and trivial sta..." alt="" coords="173,677,228,703"/>
+<area shape="poly" id="edge14_Node000007_Node000014" title=" " alt="" coords="369,644,294,669,228,686,227,681,292,664,367,639"/>
+<area shape="rect" id="Node000015" href="$dc/d72/transformations__test_8cpp.html#a96d5c0610f2c1899368deeddd1f89a4d" title="Trivial scenario of transformation from global to local coordinates with no landmarks and non trivial..." alt="" coords="173,792,228,818"/>
+<area shape="poly" id="edge15_Node000007_Node000015" title=" " alt="" coords="421,650,369,717,334,752,294,782,261,796,229,804,227,799,259,791,292,777,330,748,365,714,417,647"/>
+<area shape="rect" id="Node000016" href="$dc/d72/transformations__test_8cpp.html#abfa84011adf94b7d5707929a5890d34b" title="test transformation from global to local coordinates with trivial state" alt="" coords="173,579,228,604"/>
+<area shape="poly" id="edge16_Node000007_Node000016" title=" " alt="" coords="335,608,228,597,228,592,335,602"/>
+<area shape="rect" id="Node000017" href="$dc/d72/transformations__test_8cpp.html#ab7baadeb17299a3595acf24c2e863182" title="test transformation from global to local coordinates" alt="" coords="173,628,228,654"/>
+<area shape="poly" id="edge17_Node000007_Node000017" title=" " alt="" coords="335,629,228,641,228,635,335,624"/>
+<area shape="rect" id="Node000009" href="$d8/d17/slam__base__observation__model__test_8cpp.html#a70ce6a493debcb8620904a7ebd6858f4" title="Test the observation model with trivial state." alt="" coords="5,784,60,810"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="115,775,61,792,59,786,114,770"/>
+<area shape="rect" id="Node000010" href="$d8/d17/slam__base__observation__model__test_8cpp.html#a650a5fa18bf163e0dda68b1585a51732" title="Test observation model with a single landmark and trivial pose." alt="" coords="5,685,60,711"/>
+<area shape="poly" id="edge10_Node000008_Node000010" title=" " alt="" coords="114,725,59,709,61,703,115,720"/>
+<area shape="rect" id="Node000011" href="$d8/d17/slam__base__observation__model__test_8cpp.html#afd76a23f11dc21c242fbc0b48d270ed5" title="Test observation model with a single landmark and non&#45;trivial pose." alt="" coords="5,735,60,760"/>
+<area shape="poly" id="edge11_Node000008_Node000011" title=" " alt="" coords="103,750,60,750,60,745,103,745"/>
+<area shape="poly" id="edge23_Node000018_Node000012" title=" " alt="" coords="428,338,408,380,378,429,341,479,294,520,262,536,229,543,228,538,260,531,292,516,337,475,374,426,403,378,423,336"/>
+<area shape="poly" id="edge24_Node000018_Node000013" title=" " alt="" coords="421,338,369,406,334,441,294,471,261,485,229,493,228,487,259,480,292,467,331,437,365,402,417,334"/>
+<area shape="rect" id="Node000019" href="$d9/d73/class_graph_s_l_a_m_solver.html#aa3c24a1b6d7ed3b758d867b68ac37386" title="Add observations to the solver (correction step)" alt="" coords="122,235,279,276"/>
+<area shape="poly" id="edge19_Node000018_Node000019" title=" " alt="" coords="335,284,279,273,280,268,336,279"/>
+<area shape="rect" id="Node000020" href="$d7/d79/class_e_k_f_s_l_a_m_solver.html#a7b35f357eebe14cd90c8bd2ff1777d4f" title="process obervations of landmarks" alt="" coords="127,301,274,341"/>
+<area shape="poly" id="edge20_Node000018_Node000020" title=" " alt="" coords="336,313,275,318,274,312,335,308"/>
+<area shape="rect" id="Node000021" href="$d1/d99/class_s_l_a_m_observation_model.html#a6d5e78879bf20b4d66badaacd4cee199" title="transforms the landmarks&#39; coordinates from the car&#39;s frame to the global frame" alt="" coords="108,366,293,407"/>
+<area shape="poly" id="edge21_Node000018_Node000021" title=" " alt="" coords="367,331,262,368,260,363,365,326"/>
+<area shape="rect" id="Node000023" href="$dc/d72/transformations__test_8cpp.html#abf14692c40a7f73cd48963d581edf8a8" title="Trivial scenario of transformation from local to global coordinates with no landmarks and trivial sta..." alt="" coords="173,431,228,456"/>
+<area shape="poly" id="edge25_Node000018_Node000023" title=" " alt="" coords="410,335,358,379,294,421,261,434,229,442,227,437,259,429,292,416,355,375,407,331"/>
+<area shape="rect" id="Node000024" href="$dc/d72/transformations__test_8cpp.html#a9cb48e45588ff42bfa73f76b37ac9996" title="Test with no landmarks and non trivial state." alt="" coords="173,87,228,112"/>
+<area shape="poly" id="edge26_Node000018_Node000024" title=" " alt="" coords="406,273,339,197,326,176,317,158,308,142,291,126,260,111,227,104,228,99,261,106,295,121,312,138,322,155,330,173,343,194,410,269"/>
+<area shape="rect" id="Node000025" href="$dc/d72/transformations__test_8cpp.html#ae377b83c82edce760d818c1db2692357" title="Test with trivial state and some landmarks." alt="" coords="173,136,228,162"/>
+<area shape="poly" id="edge27_Node000018_Node000025" title=" " alt="" coords="410,272,358,222,326,197,292,175,259,162,227,155,229,150,261,157,294,170,329,192,361,218,414,268"/>
+<area shape="rect" id="Node000026" href="$dc/d72/transformations__test_8cpp.html#ae6ba48a9f45b22941789c7c9d436ff6a" title="Test transformation from local to global coordinates." alt="" coords="173,185,228,211"/>
+<area shape="poly" id="edge28_Node000018_Node000026" title=" " alt="" coords="392,276,344,250,292,226,227,206,229,201,294,221,346,245,394,271"/>
+<area shape="rect" id="Node000022" href="$d8/d17/slam__base__observation__model__test_8cpp.html#a2ba7820f7423fd9617573cae7d5314b1" title="Test inverse observation model with trivial state and a single observation." alt="" coords="5,373,60,399"/>
+<area shape="poly" id="edge22_Node000021_Node000022" title=" " alt="" coords="92,389,60,389,60,384,92,384"/>
 </map>

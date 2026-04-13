@@ -169,9 +169,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3de40ea7a7636a188deee0d1e1a594e7" id="r_a3de40ea7a7636a188deee0d1e1a594e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d73/class_graph_s_l_a_m_solver.html#a3de40ea7a7636a188deee0d1e1a594e7">add_imu_data</a> (const <a class="el" href="../../df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html">common_lib::sensor_data::ImuData</a> &amp;imu_data) override</td></tr>
 <tr class="memdesc:a3de40ea7a7636a188deee0d1e1a594e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add IMU data to the solver.  <br /></td></tr>
 <tr class="separator:a3de40ea7a7636a188deee0d1e1a594e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ebeac5f93735c046fa984450deb98a8" id="r_a6ebeac5f93735c046fa984450deb98a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d73/class_graph_s_l_a_m_solver.html#a6ebeac5f93735c046fa984450deb98a8">add_observations</a> (const std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &amp;cones, rclcpp::Time cones_timestamp) override</td></tr>
-<tr class="memdesc:a6ebeac5f93735c046fa984450deb98a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add observations to the solver (correction step)  <br /></td></tr>
-<tr class="separator:a6ebeac5f93735c046fa984450deb98a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3c24a1b6d7ed3b758d867b68ac37386" id="r_aa3c24a1b6d7ed3b758d867b68ac37386"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d73/class_graph_s_l_a_m_solver.html#aa3c24a1b6d7ed3b758d867b68ac37386">add_observations</a> (const std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &amp;cones, rclcpp::Time cones_timestamp, bool is_moving=false) override</td></tr>
+<tr class="memdesc:aa3c24a1b6d7ed3b758d867b68ac37386"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add observations to the solver (correction step)  <br /></td></tr>
+<tr class="separator:aa3c24a1b6d7ed3b758d867b68ac37386"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1d64041eddba2cd0a2acd2882ca0349" id="r_aa1d64041eddba2cd0a2acd2882ca0349"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d73/class_graph_s_l_a_m_solver.html#aa1d64041eddba2cd0a2acd2882ca0349">load_initial_state</a> (const Eigen::VectorXd &amp;map, const Eigen::Vector3d &amp;pose) override</td></tr>
 <tr class="memdesc:aa1d64041eddba2cd0a2acd2882ca0349"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the graph SLAM solver with a previously saved map and pose.  <br /></td></tr>
 <tr class="separator:aa1d64041eddba2cd0a2acd2882ca0349"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -458,7 +458,7 @@ Here is the caller graph for this function:</div>
 <area shape="rect" title="Adds motion data to the graph if the pose updater is ready." alt="" coords="482,92,646,133"/>
 <area shape="rect" href="../../d9/d73/class_graph_s_l_a_m_solver.html#a40faaba4cec75f1aeda8b35b756512c2" title="Asynchronous optimization routine." alt="" coords="211,5,434,46"/>
 <area shape="poly" title=" " alt="" coords="493,89,433,67,383,49,385,44,435,62,494,84"/>
-<area shape="rect" href="../../d9/d73/class_graph_s_l_a_m_solver.html#a6ebeac5f93735c046fa984450deb98a8" title="Add observations to the solver (correction step)" alt="" coords="5,35,163,75"/>
+<area shape="rect" href="../../d9/d73/class_graph_s_l_a_m_solver.html#aa3c24a1b6d7ed3b758d867b68ac37386" title="Add observations to the solver (correction step)" alt="" coords="5,35,163,75"/>
 <area shape="poly" title=" " alt="" coords="466,103,163,67,163,62,467,98"/>
 <area shape="rect" href="../../d9/d73/class_graph_s_l_a_m_solver.html#a2cf2fde99558ed0498d708ca5c21b2c1" title="Add odometry data to the solver (for prediction step)" alt="" coords="244,120,401,161"/>
 <area shape="poly" title=" " alt="" coords="467,126,402,134,401,129,466,121"/>
@@ -496,7 +496,7 @@ Here is the caller graph for this function:</div>
 <p>Asynchronous optimization routine. </p>
 <p>This method is used to run the optimization in a separate thread It is called by the timer and runs the optimization on the graph It also updates the pose and the graph values accordingly afterwards </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html#l00301">301</a> of file <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html">graph_slam_solver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html#l00294">294</a> of file <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html">graph_slam_solver.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -520,7 +520,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="../../d9/d73/class_graph_s_l_a_m_solver_a40faaba4cec75f1aeda8b35b756512c2_icgraph.png" border="0" usemap="#ad9/d73/class_graph_s_l_a_m_solver_a40faaba4cec75f1aeda8b35b756512c2_icgraph" alt=""/></div>
 <map name="ad9/d73/class_graph_s_l_a_m_solver_a40faaba4cec75f1aeda8b35b756512c2_icgraph" id="ad9/d73/class_graph_s_l_a_m_solver_a40faaba4cec75f1aeda8b35b756512c2_icgraph">
 <area shape="rect" title="Asynchronous optimization routine." alt="" coords="211,5,434,46"/>
-<area shape="rect" href="../../d9/d73/class_graph_s_l_a_m_solver.html#a6ebeac5f93735c046fa984450deb98a8" title="Add observations to the solver (correction step)" alt="" coords="5,5,163,46"/>
+<area shape="rect" href="../../d9/d73/class_graph_s_l_a_m_solver.html#aa3c24a1b6d7ed3b758d867b68ac37386" title="Add observations to the solver (correction step)" alt="" coords="5,5,163,46"/>
 <area shape="poly" title=" " alt="" coords="195,28,163,28,163,23,195,23"/>
 </map>
 </div>
@@ -565,8 +565,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a6ebeac5f93735c046fa984450deb98a8" name="a6ebeac5f93735c046fa984450deb98a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ebeac5f93735c046fa984450deb98a8">&#9670;&#160;</a></span>add_observations()</h2>
+<a id="aa3c24a1b6d7ed3b758d867b68ac37386" name="aa3c24a1b6d7ed3b758d867b68ac37386"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3c24a1b6d7ed3b758d867b68ac37386">&#9670;&#160;</a></span>add_observations()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -584,7 +584,13 @@ Here is the caller graph for this function:</div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">rclcpp::Time&#160;</td>
-          <td class="paramname"><em>cones_timestamp</em>&#160;</td>
+          <td class="paramname"><em>cones_timestamp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>is_moving</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -604,18 +610,19 @@ Here is the caller graph for this function:</div>
   <table class="params">
     <tr><td class="paramname">cones</td><td>Positions of the observations </td></tr>
     <tr><td class="paramname">cones_timestamp</td><td>Timestamp of the observations </td></tr>
+    <tr><td class="paramname">is_moving</td><td>Flag indicating if the car is moving </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#a6904433b817b8292bca3a4b08f1141d4">SLAMSolver</a>.</p>
+<p>Implements <a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#acbb01f73530a561571d26a6dd0ac7ce9">SLAMSolver</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html#l00168">168</a> of file <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html">graph_slam_solver.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d9/d73/class_graph_s_l_a_m_solver_a6ebeac5f93735c046fa984450deb98a8_cgraph.png" border="0" usemap="#ad9/d73/class_graph_s_l_a_m_solver_a6ebeac5f93735c046fa984450deb98a8_cgraph" alt=""/></div>
-<map name="ad9/d73/class_graph_s_l_a_m_solver_a6ebeac5f93735c046fa984450deb98a8_cgraph" id="ad9/d73/class_graph_s_l_a_m_solver_a6ebeac5f93735c046fa984450deb98a8_cgraph">
+<div class="center"><img src="../../d9/d73/class_graph_s_l_a_m_solver_aa3c24a1b6d7ed3b758d867b68ac37386_cgraph.png" border="0" usemap="#ad9/d73/class_graph_s_l_a_m_solver_aa3c24a1b6d7ed3b758d867b68ac37386_cgraph" alt=""/></div>
+<map name="ad9/d73/class_graph_s_l_a_m_solver_aa3c24a1b6d7ed3b758d867b68ac37386_cgraph" id="ad9/d73/class_graph_s_l_a_m_solver_aa3c24a1b6d7ed3b758d867b68ac37386_cgraph">
 <area shape="rect" title="Add observations to the solver (correction step)" alt="" coords="5,88,163,129"/>
 <area shape="rect" href="../../d9/d73/class_graph_s_l_a_m_solver.html#a4e2e959dbf1af452dfd21ec8c3adf9c0" title="Adds motion data to the graph if the pose updater is ready." alt="" coords="482,5,646,46"/>
 <area shape="poly" title=" " alt="" coords="117,85,160,63,210,44,276,31,343,23,466,19,466,24,343,28,276,36,211,50,162,68,120,90"/>
@@ -772,7 +779,7 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#a83efd39a6c4f791cf52dbc3b0be947fb">SLAMSolver</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html#l00441">441</a> of file <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html">graph_slam_solver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html#l00436">436</a> of file <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html">graph_slam_solver.cpp</a>.</p>
 
 </div>
 </div>
@@ -804,7 +811,7 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#a8cabdaa2261eaf1b579e995a8c2815a3">SLAMSolver</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html#l00436">436</a> of file <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html">graph_slam_solver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html#l00431">431</a> of file <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html">graph_slam_solver.cpp</a>.</p>
 
 </div>
 </div>
@@ -836,7 +843,7 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#a998963835a1741ad2969610a7e1d21ed">SLAMSolver</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d4d/graph__slam__solver_8hpp_source.html#l00183">183</a> of file <a class="el" href="../../d2/d4d/graph__slam__solver_8hpp_source.html">graph_slam_solver.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d4d/graph__slam__solver_8hpp_source.html#l00184">184</a> of file <a class="el" href="../../d2/d4d/graph__slam__solver_8hpp_source.html">graph_slam_solver.hpp</a>.</p>
 
 </div>
 </div>
@@ -865,7 +872,7 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#aca2165464894db682109aaf195e99eb2">SLAMSolver</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html#l00451">451</a> of file <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html">graph_slam_solver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html#l00446">446</a> of file <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html">graph_slam_solver.cpp</a>.</p>
 
 </div>
 </div>
@@ -897,7 +904,7 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#a3acebc9796e6aa676be2c1cb0ad54e01">SLAMSolver</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html#l00381">381</a> of file <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html">graph_slam_solver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html#l00376">376</a> of file <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html">graph_slam_solver.cpp</a>.</p>
 
 </div>
 </div>
@@ -926,7 +933,7 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#a8ba5cc7b653fdc6999ce59af8d442271">SLAMSolver</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html#l00446">446</a> of file <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html">graph_slam_solver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html#l00441">441</a> of file <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html">graph_slam_solver.cpp</a>.</p>
 
 </div>
 </div>
@@ -958,7 +965,7 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#a7842f64832dafab64f39c28466c9d88d">SLAMSolver</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html#l00410">410</a> of file <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html">graph_slam_solver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html#l00405">405</a> of file <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html">graph_slam_solver.cpp</a>.</p>
 
 </div>
 </div>
@@ -990,7 +997,7 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="../../d3/d86/class_trajectory_calculator.html#a1baa12e91b04a8e386979ed57b5616f0">TrajectoryCalculator</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html#l00421">421</a> of file <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html">graph_slam_solver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html#l00416">416</a> of file <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html">graph_slam_solver.cpp</a>.</p>
 
 </div>
 </div>
@@ -1071,14 +1078,14 @@ Here is the call graph for this function:</div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">map</td><td>Coordinates of the landmarks in the form of [x1, y1, x2, y2, ...] relative to the global frame </td></tr>
-    <tr><td class="paramname">pose</td><td><a class="el" href="../../d8/d11/struct_pose.html">Pose</a> of the robot in the form of [x, y, theta] relative to the global frame </td></tr>
+    <tr><td class="paramname">pose</td><td><a class="el" href="../../d8/d11/struct_pose.html">Pose</a> of the car in the form of [x, y, theta] relative to the global frame </td></tr>
   </table>
   </dd>
 </dl>
 
 <p>Implements <a class="el" href="../../da/dd3/class_s_l_a_m_solver.html#af0284814f8549537770ee57db68e8259">SLAMSolver</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html#l00296">296</a> of file <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html">graph_slam_solver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html#l00289">289</a> of file <a class="el" href="../../df/d98/graph__slam__solver_8cpp_source.html">graph_slam_solver.cpp</a>.</p>
 
 </div>
 </div>

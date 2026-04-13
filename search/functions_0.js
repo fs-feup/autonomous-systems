@@ -20,13 +20,14 @@ var searchData=
   ['_5fperception_5fsubscription_5fcallback_17',['_perception_subscription_callback',['../d4/d43/class_s_e_node.html#ae87a4d5f2baf38b9fb9a34a81b9149ad',1,'SENode::_perception_subscription_callback()'],['../d8/d84/class_s_l_a_m_node.html#aac21a292783c53d1f41cfaa255b3e9bf',1,'SLAMNode::_perception_subscription_callback(const custom_interfaces::msg::PerceptionOutput &amp;msg)']]],
   ['_5fpublish_5fassociations_18',['_publish_associations',['../d8/d84/class_s_l_a_m_node.html#a91b66a755ba32f65e90666fe56bc9629',1,'SLAMNode']]],
   ['_5fpublish_5fcovariance_19',['_publish_covariance',['../d8/d84/class_s_l_a_m_node.html#a75b8a3f5d616163b602ec78c148dd270',1,'SLAMNode']]],
-  ['_5fpublish_5flap_5fcounter_20',['_publish_lap_counter',['../d8/d84/class_s_l_a_m_node.html#a3e323b58014b3f31d0574d4be9ab092f',1,'SLAMNode']]],
-  ['_5fpublish_5fmap_21',['_publish_map',['../d4/d43/class_s_e_node.html#a6f3571b56b21f6d5fa7191fae4e21681',1,'SENode::_publish_map()'],['../d8/d84/class_s_l_a_m_node.html#a976a75ca26892057e2b0c2ea11a25496',1,'SLAMNode::_publish_map()']]],
-  ['_5fpublish_5fvehicle_5fpose_22',['_publish_vehicle_pose',['../d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379',1,'SLAMNode']]],
-  ['_5fpublish_5fvehicle_5fstate_23',['_publish_vehicle_state',['../d4/d43/class_s_e_node.html#a97f9cce4985902a634cd878f973715e6',1,'SENode']]],
-  ['_5fpublish_5fvehicle_5fstate_5fimu_24',['_publish_vehicle_state_imu',['../d4/d43/class_s_e_node.html#a7cf1958b75e734242d1085b4afd4e564',1,'SENode']]],
-  ['_5fpublish_5fvehicle_5fstate_5fwss_25',['_publish_vehicle_state_wss',['../d4/d43/class_s_e_node.html#a200e0eb89123dcf1ee7bb76ceb993e91',1,'SENode']]],
-  ['_5fupdate_5fand_5fpublish_26',['_update_and_publish',['../d4/d43/class_s_e_node.html#a807afbd7576422568395876d5c3e7296',1,'SENode']]],
-  ['_5fvelocities_5fsubscription_5fcallback_27',['_velocities_subscription_callback',['../d8/d84/class_s_l_a_m_node.html#a6e228ce696c330a4a43ae5807c632df7',1,'SLAMNode']]],
-  ['_5fwheel_5fspeeds_5fsubscription_5fcallback_28',['_wheel_speeds_subscription_callback',['../d4/d43/class_s_e_node.html#a5134a7c33ca9cd292c9840f748b36f09',1,'SENode']]]
+  ['_5fpublish_5fglobal_5fobservations_20',['_publish_global_observations',['../d8/d84/class_s_l_a_m_node.html#a47433c581a6cabedb714a0a7efb21d46',1,'SLAMNode']]],
+  ['_5fpublish_5flap_5fcounter_21',['_publish_lap_counter',['../d8/d84/class_s_l_a_m_node.html#a3e323b58014b3f31d0574d4be9ab092f',1,'SLAMNode']]],
+  ['_5fpublish_5fmap_22',['_publish_map',['../d4/d43/class_s_e_node.html#a6f3571b56b21f6d5fa7191fae4e21681',1,'SENode::_publish_map()'],['../d8/d84/class_s_l_a_m_node.html#a976a75ca26892057e2b0c2ea11a25496',1,'SLAMNode::_publish_map()']]],
+  ['_5fpublish_5fvehicle_5fpose_23',['_publish_vehicle_pose',['../d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379',1,'SLAMNode']]],
+  ['_5fpublish_5fvehicle_5fstate_24',['_publish_vehicle_state',['../d4/d43/class_s_e_node.html#a97f9cce4985902a634cd878f973715e6',1,'SENode']]],
+  ['_5fpublish_5fvehicle_5fstate_5fimu_25',['_publish_vehicle_state_imu',['../d4/d43/class_s_e_node.html#a7cf1958b75e734242d1085b4afd4e564',1,'SENode']]],
+  ['_5fpublish_5fvehicle_5fstate_5fwss_26',['_publish_vehicle_state_wss',['../d4/d43/class_s_e_node.html#a200e0eb89123dcf1ee7bb76ceb993e91',1,'SENode']]],
+  ['_5fupdate_5fand_5fpublish_27',['_update_and_publish',['../d4/d43/class_s_e_node.html#a807afbd7576422568395876d5c3e7296',1,'SENode']]],
+  ['_5fvelocities_5fsubscription_5fcallback_28',['_velocities_subscription_callback',['../d8/d84/class_s_l_a_m_node.html#a6e228ce696c330a4a43ae5807c632df7',1,'SLAMNode']]],
+  ['_5fwheel_5fspeeds_5fsubscription_5fcallback_29',['_wheel_speeds_subscription_callback',['../d4/d43/class_s_e_node.html#a5134a7c33ca9cd292c9840f748b36f09',1,'SENode']]]
 ];

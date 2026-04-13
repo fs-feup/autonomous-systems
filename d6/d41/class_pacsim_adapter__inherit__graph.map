@@ -1,12 +1,12 @@
 <map id="PacsimAdapter" name="PacsimAdapter">
-<area shape="rect" id="Node000001" title="Adapter class to interface with the Pacsim simulator for SLAM." alt="" coords="210,740,409,1368"/>
-<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="5,333,189,478"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,491,213,749,208,751,123,493"/>
-<area shape="rect" id="Node000003" href="$d8/d84/class_s_l_a_m_node.html" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="213,119,405,692"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="312,707,312,740,307,740,307,707"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="363,5,448,71"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="396,86,387,119,382,118,391,84"/>
-<area shape="rect" id="Node000005" href="$d3/d43/class_v_e_node.html" title="Node class for the velocity estimation node." alt="" coords="430,343,573,468"/>
-<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="420,84,488,342,483,343,415,86"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="482,483,420,693,405,741,400,740,415,691,477,482"/>
+<area shape="rect" id="Node000001" title="Adapter class to interface with the Pacsim simulator for SLAM." alt="" coords="215,775,414,1403"/>
+<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="5,350,189,495"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,509,218,783,213,785,123,510"/>
+<area shape="rect" id="Node000003" href="$d8/d84/class_s_l_a_m_node.html" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="214,119,415,727"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="317,742,317,775,312,775,312,742"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="369,5,455,71"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="403,86,394,120,389,118,398,85"/>
+<area shape="rect" id="Node000005" href="$d3/d43/class_v_e_node.html" title="Node class for the velocity estimation node." alt="" coords="439,360,582,485"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="426,84,497,359,492,361,421,86"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="493,500,429,727,415,775,410,774,424,726,488,499"/>
 </map>

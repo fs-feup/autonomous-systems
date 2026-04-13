@@ -1396,121 +1396,122 @@ $(document).ready(function(){initNavTree('d3/d4a/evaluator_8py_source.html','../
 <div class="line"><a id="l01265" name="l01265"></a><span class="lineno"> 1265</span>            self.get_logger().warn(<span class="stringliteral">&quot;No closest point found.&quot;</span>)</div>
 <div class="line"><a id="l01266" name="l01266"></a><span class="lineno"> 1266</span>            <span class="keywordflow">return</span></div>
 <div class="line"><a id="l01267" name="l01267"></a><span class="lineno"> 1267</span> </div>
-<div class="line"><a id="l01268" name="l01268"></a><span class="lineno"> 1268</span>        velocity_error_value = self.velocity - self.closest_point_velocity</div>
-<div class="line"><a id="l01269" name="l01269"></a><span class="lineno"> 1269</span> </div>
-<div class="line"><a id="l01270" name="l01270"></a><span class="lineno"> 1270</span>        position_error = Float32()</div>
-<div class="line"><a id="l01271" name="l01271"></a><span class="lineno"> 1271</span>        position_error.data = closest_point_distance</div>
-<div class="line"><a id="l01272" name="l01272"></a><span class="lineno"> 1272</span> </div>
-<div class="line"><a id="l01273" name="l01273"></a><span class="lineno"> 1273</span>        velocity_error = Float32()</div>
-<div class="line"><a id="l01274" name="l01274"></a><span class="lineno"> 1274</span>        velocity_error.data = float(velocity_error_value)</div>
-<div class="line"><a id="l01275" name="l01275"></a><span class="lineno"> 1275</span> </div>
-<div class="line"><a id="l01276" name="l01276"></a><span class="lineno"> 1276</span>        self.get_logger().debug(</div>
-<div class="line"><a id="l01277" name="l01277"></a><span class="lineno"> 1277</span>            <span class="stringliteral">&quot;Computed control metrics:\n \</span></div>
-<div class="line"><a id="l01278" name="l01278"></a><span class="lineno"> 1278</span><span class="stringliteral">                                Pose Difference: {}\n \</span></div>
-<div class="line"><a id="l01279" name="l01279"></a><span class="lineno"> 1279</span><span class="stringliteral">                                Velocity Difference: {}\n &quot;</span>.format(</div>
-<div class="line"><a id="l01280" name="l01280"></a><span class="lineno"> 1280</span>                position_error,</div>
-<div class="line"><a id="l01281" name="l01281"></a><span class="lineno"> 1281</span>                velocity_error,</div>
-<div class="line"><a id="l01282" name="l01282"></a><span class="lineno"> 1282</span>            )</div>
-<div class="line"><a id="l01283" name="l01283"></a><span class="lineno"> 1283</span>        )</div>
-<div class="line"><a id="l01284" name="l01284"></a><span class="lineno"> 1284</span> </div>
-<div class="line"><a id="l01285" name="l01285"></a><span class="lineno"> 1285</span>        <span class="comment"># Publish instantaneous control metrics</span></div>
-<div class="line"><a id="l01286" name="l01286"></a><span class="lineno"> 1286</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a8f1e01ad3bd00888beab5498c90bc341">_control_position_error_</a>.publish(position_error)</div>
-<div class="line"><a id="l01287" name="l01287"></a><span class="lineno"> 1287</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a6a5a1ab0781aa78a94b389a335f244b5">_control_velocity_error_</a>.publish(velocity_error)</div>
-<div class="line"><a id="l01288" name="l01288"></a><span class="lineno"> 1288</span> </div>
-<div class="line"><a id="l01289" name="l01289"></a><span class="lineno"> 1289</span>        <span class="comment"># =================== Compute Control metrics over time ===================</span></div>
-<div class="line"><a id="l01290" name="l01290"></a><span class="lineno"> 1290</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#abba1f4bad9fcd93827a067453d77ae77">_control_position_error_sum</a> += position_error.data</div>
-<div class="line"><a id="l01291" name="l01291"></a><span class="lineno"> 1291</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a24038733c003b2c218471ce71b57c6d6">_control_position_squared_error_sum</a> += position_error.data**2</div>
-<div class="line"><a id="l01292" name="l01292"></a><span class="lineno"> 1292</span> </div>
-<div class="line"><a id="l01293" name="l01293"></a><span class="lineno"> 1293</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a05c3ed05c536f14b3280dc2d7fa92330">_control_count</a> += 1</div>
-<div class="line"><a id="l01294" name="l01294"></a><span class="lineno"> 1294</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a60b6ecd844754f94189ce91186dd78af">_control_velocity_error_sum</a> += float(velocity_error)</div>
-<div class="line"><a id="l01295" name="l01295"></a><span class="lineno"> 1295</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a4daf1fd092e3fcd5c09d5ae83d576774">_control_velocity_squared_error_sum</a> += float(velocity_error) ** 2</div>
-<div class="line"><a id="l01296" name="l01296"></a><span class="lineno"> 1296</span> </div>
-<div class="line"><a id="l01297" name="l01297"></a><span class="lineno"> 1297</span>        <span class="comment"># Velocity ME</span></div>
-<div class="line"><a id="l01298" name="l01298"></a><span class="lineno"> 1298</span>        control_velocity_mean_error = Float32()</div>
-<div class="line"><a id="l01299" name="l01299"></a><span class="lineno"> 1299</span>        control_velocity_mean_error.data = float(</div>
-<div class="line"><a id="l01300" name="l01300"></a><span class="lineno"> 1300</span>            self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a60b6ecd844754f94189ce91186dd78af">_control_velocity_error_sum</a> / self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a05c3ed05c536f14b3280dc2d7fa92330">_control_count</a></div>
-<div class="line"><a id="l01301" name="l01301"></a><span class="lineno"> 1301</span>        )</div>
-<div class="line"><a id="l01302" name="l01302"></a><span class="lineno"> 1302</span>        <span class="comment"># Velocity MSE</span></div>
-<div class="line"><a id="l01303" name="l01303"></a><span class="lineno"> 1303</span>        control_velocity_mean_squared_error = Float32()</div>
-<div class="line"><a id="l01304" name="l01304"></a><span class="lineno"> 1304</span>        control_velocity_mean_squared_error.data = float(</div>
-<div class="line"><a id="l01305" name="l01305"></a><span class="lineno"> 1305</span>            self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a4daf1fd092e3fcd5c09d5ae83d576774">_control_velocity_squared_error_sum</a> / self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a05c3ed05c536f14b3280dc2d7fa92330">_control_count</a></div>
-<div class="line"><a id="l01306" name="l01306"></a><span class="lineno"> 1306</span>        )</div>
-<div class="line"><a id="l01307" name="l01307"></a><span class="lineno"> 1307</span>        <span class="comment"># Velocity RMSE</span></div>
-<div class="line"><a id="l01308" name="l01308"></a><span class="lineno"> 1308</span>        control_velocity_root_mean_squared_error = Float32()</div>
-<div class="line"><a id="l01309" name="l01309"></a><span class="lineno"> 1309</span>        control_velocity_root_mean_squared_error.data = sqrt(</div>
-<div class="line"><a id="l01310" name="l01310"></a><span class="lineno"> 1310</span>            self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a4daf1fd092e3fcd5c09d5ae83d576774">_control_velocity_squared_error_sum</a> / self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a05c3ed05c536f14b3280dc2d7fa92330">_control_count</a></div>
-<div class="line"><a id="l01311" name="l01311"></a><span class="lineno"> 1311</span>        )</div>
-<div class="line"><a id="l01312" name="l01312"></a><span class="lineno"> 1312</span> </div>
-<div class="line"><a id="l01313" name="l01313"></a><span class="lineno"> 1313</span>        <span class="comment"># Position ME</span></div>
-<div class="line"><a id="l01314" name="l01314"></a><span class="lineno"> 1314</span>        control_position_mean_error = Float32()</div>
-<div class="line"><a id="l01315" name="l01315"></a><span class="lineno"> 1315</span>        control_position_mean_error.data = float(</div>
-<div class="line"><a id="l01316" name="l01316"></a><span class="lineno"> 1316</span>            self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#abba1f4bad9fcd93827a067453d77ae77">_control_position_error_sum</a> / self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a05c3ed05c536f14b3280dc2d7fa92330">_control_count</a></div>
-<div class="line"><a id="l01317" name="l01317"></a><span class="lineno"> 1317</span>        )</div>
-<div class="line"><a id="l01318" name="l01318"></a><span class="lineno"> 1318</span>        <span class="comment"># Position MSE</span></div>
-<div class="line"><a id="l01319" name="l01319"></a><span class="lineno"> 1319</span>        control_position_mean_squared_error = Float32()</div>
-<div class="line"><a id="l01320" name="l01320"></a><span class="lineno"> 1320</span>        control_position_mean_squared_error.data = float(</div>
-<div class="line"><a id="l01321" name="l01321"></a><span class="lineno"> 1321</span>            self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a24038733c003b2c218471ce71b57c6d6">_control_position_squared_error_sum</a> / self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a05c3ed05c536f14b3280dc2d7fa92330">_control_count</a></div>
-<div class="line"><a id="l01322" name="l01322"></a><span class="lineno"> 1322</span>        )</div>
-<div class="line"><a id="l01323" name="l01323"></a><span class="lineno"> 1323</span>        <span class="comment"># Position RMSE</span></div>
-<div class="line"><a id="l01324" name="l01324"></a><span class="lineno"> 1324</span>        control_position_root_mean_squared_error = Float32()</div>
-<div class="line"><a id="l01325" name="l01325"></a><span class="lineno"> 1325</span>        control_position_root_mean_squared_error.data = sqrt(</div>
-<div class="line"><a id="l01326" name="l01326"></a><span class="lineno"> 1326</span>            self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a24038733c003b2c218471ce71b57c6d6">_control_position_squared_error_sum</a> / self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a05c3ed05c536f14b3280dc2d7fa92330">_control_count</a></div>
-<div class="line"><a id="l01327" name="l01327"></a><span class="lineno"> 1327</span>        )</div>
-<div class="line"><a id="l01328" name="l01328"></a><span class="lineno"> 1328</span> </div>
-<div class="line"><a id="l01329" name="l01329"></a><span class="lineno"> 1329</span>        <span class="comment"># =============== Publish control metrics over time ================</span></div>
-<div class="line"><a id="l01330" name="l01330"></a><span class="lineno"> 1330</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a2651dc13699e5d6fda4b044c368db31c">_control_position_mean_error_</a>.publish(control_position_mean_error)</div>
-<div class="line"><a id="l01331" name="l01331"></a><span class="lineno"> 1331</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aa45f42c51a9aeb3c68793952671a2bd9">_control_position_mean_squared_error_</a>.publish(</div>
-<div class="line"><a id="l01332" name="l01332"></a><span class="lineno"> 1332</span>            control_position_mean_squared_error</div>
-<div class="line"><a id="l01333" name="l01333"></a><span class="lineno"> 1333</span>        )</div>
-<div class="line"><a id="l01334" name="l01334"></a><span class="lineno"> 1334</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#abd374951247b31308e51a9abce1261e7">_control_position_root_mean_squared_error_</a>.publish(</div>
-<div class="line"><a id="l01335" name="l01335"></a><span class="lineno"> 1335</span>            control_position_root_mean_squared_error</div>
-<div class="line"><a id="l01336" name="l01336"></a><span class="lineno"> 1336</span>        )</div>
-<div class="line"><a id="l01337" name="l01337"></a><span class="lineno"> 1337</span> </div>
-<div class="line"><a id="l01338" name="l01338"></a><span class="lineno"> 1338</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a568447d78bd757cf8bc2c53ef0560908">_control_velocity_mean_error_</a>.publish(control_velocity_mean_error)</div>
-<div class="line"><a id="l01339" name="l01339"></a><span class="lineno"> 1339</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ae737d7eb712cbe7d65f52715c693f065">_control_velocity_mean_squared_error_</a>.publish(</div>
-<div class="line"><a id="l01340" name="l01340"></a><span class="lineno"> 1340</span>            control_velocity_mean_squared_error</div>
-<div class="line"><a id="l01341" name="l01341"></a><span class="lineno"> 1341</span>        )</div>
-<div class="line"><a id="l01342" name="l01342"></a><span class="lineno"> 1342</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a9c6d4c447c07c541c21ed882acca2609">_control_velocity_root_mean_squared_error_</a>.publish(</div>
-<div class="line"><a id="l01343" name="l01343"></a><span class="lineno"> 1343</span>            control_velocity_root_mean_squared_error</div>
-<div class="line"><a id="l01344" name="l01344"></a><span class="lineno"> 1344</span>        )</div>
-<div class="line"><a id="l01345" name="l01345"></a><span class="lineno"> 1345</span> </div>
-<div class="line"><a id="l01346" name="l01346"></a><span class="lineno"> 1346</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a5fb10cab00bc39cf3c1483fa934a735c">_control_execution_time_</a>.append(</div>
-<div class="line"><a id="l01347" name="l01347"></a><span class="lineno"> 1347</span>            {<span class="stringliteral">&quot;timestamp&quot;</span>: datetime.datetime.now(), <span class="stringliteral">&quot;execution_time&quot;</span>: msg.data[0]}</div>
-<div class="line"><a id="l01348" name="l01348"></a><span class="lineno"> 1348</span>        )</div>
-<div class="line"><a id="l01349" name="l01349"></a><span class="lineno"> 1349</span> </div>
-<div class="line"><a id="l01350" name="l01350"></a><span class="lineno"> 1350</span>        <span class="comment"># For exporting metrics to csv</span></div>
-<div class="line"><a id="l01351" name="l01351"></a><span class="lineno"> 1351</span>        metrics = {</div>
-<div class="line"><a id="l01352" name="l01352"></a><span class="lineno"> 1352</span>            <span class="stringliteral">&quot;timestamp&quot;</span>: datetime.datetime.now(),</div>
-<div class="line"><a id="l01353" name="l01353"></a><span class="lineno"> 1353</span>            <span class="stringliteral">&quot;position_error&quot;</span>: position_error.data,</div>
-<div class="line"><a id="l01354" name="l01354"></a><span class="lineno"> 1354</span>            <span class="stringliteral">&quot;position_mean_error&quot;</span>: control_position_mean_error.data,</div>
-<div class="line"><a id="l01355" name="l01355"></a><span class="lineno"> 1355</span>            <span class="stringliteral">&quot;position_mean_squared_error&quot;</span>: control_position_mean_squared_error.data,</div>
-<div class="line"><a id="l01356" name="l01356"></a><span class="lineno"> 1356</span>            <span class="stringliteral">&quot;position_root_mean_squared_error&quot;</span>: control_position_root_mean_squared_error.data,</div>
-<div class="line"><a id="l01357" name="l01357"></a><span class="lineno"> 1357</span>            <span class="stringliteral">&quot;velocity_error&quot;</span>: velocity_error.data,</div>
-<div class="line"><a id="l01358" name="l01358"></a><span class="lineno"> 1358</span>            <span class="stringliteral">&quot;velocity_mean_error&quot;</span>: control_velocity_mean_error.data,</div>
-<div class="line"><a id="l01359" name="l01359"></a><span class="lineno"> 1359</span>            <span class="stringliteral">&quot;velocity_mean_squared_error&quot;</span>: control_velocity_mean_squared_error.data,</div>
-<div class="line"><a id="l01360" name="l01360"></a><span class="lineno"> 1360</span>            <span class="stringliteral">&quot;velocity_root_mean_squared_error&quot;</span>: control_velocity_root_mean_squared_error.data,</div>
-<div class="line"><a id="l01361" name="l01361"></a><span class="lineno"> 1361</span>        }</div>
-<div class="line"><a id="l01362" name="l01362"></a><span class="lineno"> 1362</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ad7a438efb38aaeedf16c750cc0ad1e39">control_metrics</a>.append(metrics)</div>
-<div class="line"><a id="l01363" name="l01363"></a><span class="lineno"> 1363</span> </div>
+<div class="line"><a id="l01268" name="l01268"></a><span class="lineno"> 1268</span>        closest_point_velocity = float(closest_point[2])</div>
+<div class="line"><a id="l01269" name="l01269"></a><span class="lineno"> 1269</span>        velocity_error_value = self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a3df39d2bdd77c832577f4d7384b05fb4">absolute_velocity</a> - closest_point_velocity</div>
+<div class="line"><a id="l01270" name="l01270"></a><span class="lineno"> 1270</span> </div>
+<div class="line"><a id="l01271" name="l01271"></a><span class="lineno"> 1271</span>        position_error = Float32()</div>
+<div class="line"><a id="l01272" name="l01272"></a><span class="lineno"> 1272</span>        position_error.data = closest_point_distance</div>
+<div class="line"><a id="l01273" name="l01273"></a><span class="lineno"> 1273</span> </div>
+<div class="line"><a id="l01274" name="l01274"></a><span class="lineno"> 1274</span>        velocity_error = Float32()</div>
+<div class="line"><a id="l01275" name="l01275"></a><span class="lineno"> 1275</span>        velocity_error.data = float(velocity_error_value)</div>
+<div class="line"><a id="l01276" name="l01276"></a><span class="lineno"> 1276</span> </div>
+<div class="line"><a id="l01277" name="l01277"></a><span class="lineno"> 1277</span>        self.get_logger().debug(</div>
+<div class="line"><a id="l01278" name="l01278"></a><span class="lineno"> 1278</span>            <span class="stringliteral">&quot;Computed control metrics:\n \</span></div>
+<div class="line"><a id="l01279" name="l01279"></a><span class="lineno"> 1279</span><span class="stringliteral">                                Pose Difference: {}\n \</span></div>
+<div class="line"><a id="l01280" name="l01280"></a><span class="lineno"> 1280</span><span class="stringliteral">                                Velocity Difference: {}\n &quot;</span>.format(</div>
+<div class="line"><a id="l01281" name="l01281"></a><span class="lineno"> 1281</span>                position_error,</div>
+<div class="line"><a id="l01282" name="l01282"></a><span class="lineno"> 1282</span>                velocity_error,</div>
+<div class="line"><a id="l01283" name="l01283"></a><span class="lineno"> 1283</span>            )</div>
+<div class="line"><a id="l01284" name="l01284"></a><span class="lineno"> 1284</span>        )</div>
+<div class="line"><a id="l01285" name="l01285"></a><span class="lineno"> 1285</span> </div>
+<div class="line"><a id="l01286" name="l01286"></a><span class="lineno"> 1286</span>        <span class="comment"># Publish instantaneous control metrics</span></div>
+<div class="line"><a id="l01287" name="l01287"></a><span class="lineno"> 1287</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a8f1e01ad3bd00888beab5498c90bc341">_control_position_error_</a>.publish(position_error)</div>
+<div class="line"><a id="l01288" name="l01288"></a><span class="lineno"> 1288</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a6a5a1ab0781aa78a94b389a335f244b5">_control_velocity_error_</a>.publish(velocity_error)</div>
+<div class="line"><a id="l01289" name="l01289"></a><span class="lineno"> 1289</span> </div>
+<div class="line"><a id="l01290" name="l01290"></a><span class="lineno"> 1290</span>        <span class="comment"># =================== Compute Control metrics over time ===================</span></div>
+<div class="line"><a id="l01291" name="l01291"></a><span class="lineno"> 1291</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#abba1f4bad9fcd93827a067453d77ae77">_control_position_error_sum</a> += position_error.data</div>
+<div class="line"><a id="l01292" name="l01292"></a><span class="lineno"> 1292</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a24038733c003b2c218471ce71b57c6d6">_control_position_squared_error_sum</a> += position_error.data**2</div>
+<div class="line"><a id="l01293" name="l01293"></a><span class="lineno"> 1293</span> </div>
+<div class="line"><a id="l01294" name="l01294"></a><span class="lineno"> 1294</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a05c3ed05c536f14b3280dc2d7fa92330">_control_count</a> += 1</div>
+<div class="line"><a id="l01295" name="l01295"></a><span class="lineno"> 1295</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a60b6ecd844754f94189ce91186dd78af">_control_velocity_error_sum</a> += float(velocity_error.data)</div>
+<div class="line"><a id="l01296" name="l01296"></a><span class="lineno"> 1296</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a4daf1fd092e3fcd5c09d5ae83d576774">_control_velocity_squared_error_sum</a> += float(velocity_error.data) ** 2</div>
+<div class="line"><a id="l01297" name="l01297"></a><span class="lineno"> 1297</span> </div>
+<div class="line"><a id="l01298" name="l01298"></a><span class="lineno"> 1298</span>        <span class="comment"># Velocity ME</span></div>
+<div class="line"><a id="l01299" name="l01299"></a><span class="lineno"> 1299</span>        control_velocity_mean_error = Float32()</div>
+<div class="line"><a id="l01300" name="l01300"></a><span class="lineno"> 1300</span>        control_velocity_mean_error.data = float(</div>
+<div class="line"><a id="l01301" name="l01301"></a><span class="lineno"> 1301</span>            self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a60b6ecd844754f94189ce91186dd78af">_control_velocity_error_sum</a> / self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a05c3ed05c536f14b3280dc2d7fa92330">_control_count</a></div>
+<div class="line"><a id="l01302" name="l01302"></a><span class="lineno"> 1302</span>        )</div>
+<div class="line"><a id="l01303" name="l01303"></a><span class="lineno"> 1303</span>        <span class="comment"># Velocity MSE</span></div>
+<div class="line"><a id="l01304" name="l01304"></a><span class="lineno"> 1304</span>        control_velocity_mean_squared_error = Float32()</div>
+<div class="line"><a id="l01305" name="l01305"></a><span class="lineno"> 1305</span>        control_velocity_mean_squared_error.data = float(</div>
+<div class="line"><a id="l01306" name="l01306"></a><span class="lineno"> 1306</span>            self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a4daf1fd092e3fcd5c09d5ae83d576774">_control_velocity_squared_error_sum</a> / self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a05c3ed05c536f14b3280dc2d7fa92330">_control_count</a></div>
+<div class="line"><a id="l01307" name="l01307"></a><span class="lineno"> 1307</span>        )</div>
+<div class="line"><a id="l01308" name="l01308"></a><span class="lineno"> 1308</span>        <span class="comment"># Velocity RMSE</span></div>
+<div class="line"><a id="l01309" name="l01309"></a><span class="lineno"> 1309</span>        control_velocity_root_mean_squared_error = Float32()</div>
+<div class="line"><a id="l01310" name="l01310"></a><span class="lineno"> 1310</span>        control_velocity_root_mean_squared_error.data = sqrt(</div>
+<div class="line"><a id="l01311" name="l01311"></a><span class="lineno"> 1311</span>            self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a4daf1fd092e3fcd5c09d5ae83d576774">_control_velocity_squared_error_sum</a> / self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a05c3ed05c536f14b3280dc2d7fa92330">_control_count</a></div>
+<div class="line"><a id="l01312" name="l01312"></a><span class="lineno"> 1312</span>        )</div>
+<div class="line"><a id="l01313" name="l01313"></a><span class="lineno"> 1313</span> </div>
+<div class="line"><a id="l01314" name="l01314"></a><span class="lineno"> 1314</span>        <span class="comment"># Position ME</span></div>
+<div class="line"><a id="l01315" name="l01315"></a><span class="lineno"> 1315</span>        control_position_mean_error = Float32()</div>
+<div class="line"><a id="l01316" name="l01316"></a><span class="lineno"> 1316</span>        control_position_mean_error.data = float(</div>
+<div class="line"><a id="l01317" name="l01317"></a><span class="lineno"> 1317</span>            self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#abba1f4bad9fcd93827a067453d77ae77">_control_position_error_sum</a> / self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a05c3ed05c536f14b3280dc2d7fa92330">_control_count</a></div>
+<div class="line"><a id="l01318" name="l01318"></a><span class="lineno"> 1318</span>        )</div>
+<div class="line"><a id="l01319" name="l01319"></a><span class="lineno"> 1319</span>        <span class="comment"># Position MSE</span></div>
+<div class="line"><a id="l01320" name="l01320"></a><span class="lineno"> 1320</span>        control_position_mean_squared_error = Float32()</div>
+<div class="line"><a id="l01321" name="l01321"></a><span class="lineno"> 1321</span>        control_position_mean_squared_error.data = float(</div>
+<div class="line"><a id="l01322" name="l01322"></a><span class="lineno"> 1322</span>            self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a24038733c003b2c218471ce71b57c6d6">_control_position_squared_error_sum</a> / self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a05c3ed05c536f14b3280dc2d7fa92330">_control_count</a></div>
+<div class="line"><a id="l01323" name="l01323"></a><span class="lineno"> 1323</span>        )</div>
+<div class="line"><a id="l01324" name="l01324"></a><span class="lineno"> 1324</span>        <span class="comment"># Position RMSE</span></div>
+<div class="line"><a id="l01325" name="l01325"></a><span class="lineno"> 1325</span>        control_position_root_mean_squared_error = Float32()</div>
+<div class="line"><a id="l01326" name="l01326"></a><span class="lineno"> 1326</span>        control_position_root_mean_squared_error.data = sqrt(</div>
+<div class="line"><a id="l01327" name="l01327"></a><span class="lineno"> 1327</span>            self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a24038733c003b2c218471ce71b57c6d6">_control_position_squared_error_sum</a> / self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a05c3ed05c536f14b3280dc2d7fa92330">_control_count</a></div>
+<div class="line"><a id="l01328" name="l01328"></a><span class="lineno"> 1328</span>        )</div>
+<div class="line"><a id="l01329" name="l01329"></a><span class="lineno"> 1329</span> </div>
+<div class="line"><a id="l01330" name="l01330"></a><span class="lineno"> 1330</span>        <span class="comment"># =============== Publish control metrics over time ================</span></div>
+<div class="line"><a id="l01331" name="l01331"></a><span class="lineno"> 1331</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a2651dc13699e5d6fda4b044c368db31c">_control_position_mean_error_</a>.publish(control_position_mean_error)</div>
+<div class="line"><a id="l01332" name="l01332"></a><span class="lineno"> 1332</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aa45f42c51a9aeb3c68793952671a2bd9">_control_position_mean_squared_error_</a>.publish(</div>
+<div class="line"><a id="l01333" name="l01333"></a><span class="lineno"> 1333</span>            control_position_mean_squared_error</div>
+<div class="line"><a id="l01334" name="l01334"></a><span class="lineno"> 1334</span>        )</div>
+<div class="line"><a id="l01335" name="l01335"></a><span class="lineno"> 1335</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#abd374951247b31308e51a9abce1261e7">_control_position_root_mean_squared_error_</a>.publish(</div>
+<div class="line"><a id="l01336" name="l01336"></a><span class="lineno"> 1336</span>            control_position_root_mean_squared_error</div>
+<div class="line"><a id="l01337" name="l01337"></a><span class="lineno"> 1337</span>        )</div>
+<div class="line"><a id="l01338" name="l01338"></a><span class="lineno"> 1338</span> </div>
+<div class="line"><a id="l01339" name="l01339"></a><span class="lineno"> 1339</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a568447d78bd757cf8bc2c53ef0560908">_control_velocity_mean_error_</a>.publish(control_velocity_mean_error)</div>
+<div class="line"><a id="l01340" name="l01340"></a><span class="lineno"> 1340</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ae737d7eb712cbe7d65f52715c693f065">_control_velocity_mean_squared_error_</a>.publish(</div>
+<div class="line"><a id="l01341" name="l01341"></a><span class="lineno"> 1341</span>            control_velocity_mean_squared_error</div>
+<div class="line"><a id="l01342" name="l01342"></a><span class="lineno"> 1342</span>        )</div>
+<div class="line"><a id="l01343" name="l01343"></a><span class="lineno"> 1343</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a9c6d4c447c07c541c21ed882acca2609">_control_velocity_root_mean_squared_error_</a>.publish(</div>
+<div class="line"><a id="l01344" name="l01344"></a><span class="lineno"> 1344</span>            control_velocity_root_mean_squared_error</div>
+<div class="line"><a id="l01345" name="l01345"></a><span class="lineno"> 1345</span>        )</div>
+<div class="line"><a id="l01346" name="l01346"></a><span class="lineno"> 1346</span> </div>
+<div class="line"><a id="l01347" name="l01347"></a><span class="lineno"> 1347</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a5fb10cab00bc39cf3c1483fa934a735c">_control_execution_time_</a>.append(</div>
+<div class="line"><a id="l01348" name="l01348"></a><span class="lineno"> 1348</span>            {<span class="stringliteral">&quot;timestamp&quot;</span>: datetime.datetime.now(), <span class="stringliteral">&quot;execution_time&quot;</span>: msg.data[0]}</div>
+<div class="line"><a id="l01349" name="l01349"></a><span class="lineno"> 1349</span>        )</div>
+<div class="line"><a id="l01350" name="l01350"></a><span class="lineno"> 1350</span> </div>
+<div class="line"><a id="l01351" name="l01351"></a><span class="lineno"> 1351</span>        <span class="comment"># For exporting metrics to csv</span></div>
+<div class="line"><a id="l01352" name="l01352"></a><span class="lineno"> 1352</span>        metrics = {</div>
+<div class="line"><a id="l01353" name="l01353"></a><span class="lineno"> 1353</span>            <span class="stringliteral">&quot;timestamp&quot;</span>: datetime.datetime.now(),</div>
+<div class="line"><a id="l01354" name="l01354"></a><span class="lineno"> 1354</span>            <span class="stringliteral">&quot;position_error&quot;</span>: position_error.data,</div>
+<div class="line"><a id="l01355" name="l01355"></a><span class="lineno"> 1355</span>            <span class="stringliteral">&quot;position_mean_error&quot;</span>: control_position_mean_error.data,</div>
+<div class="line"><a id="l01356" name="l01356"></a><span class="lineno"> 1356</span>            <span class="stringliteral">&quot;position_mean_squared_error&quot;</span>: control_position_mean_squared_error.data,</div>
+<div class="line"><a id="l01357" name="l01357"></a><span class="lineno"> 1357</span>            <span class="stringliteral">&quot;position_root_mean_squared_error&quot;</span>: control_position_root_mean_squared_error.data,</div>
+<div class="line"><a id="l01358" name="l01358"></a><span class="lineno"> 1358</span>            <span class="stringliteral">&quot;velocity_error&quot;</span>: velocity_error.data,</div>
+<div class="line"><a id="l01359" name="l01359"></a><span class="lineno"> 1359</span>            <span class="stringliteral">&quot;velocity_mean_error&quot;</span>: control_velocity_mean_error.data,</div>
+<div class="line"><a id="l01360" name="l01360"></a><span class="lineno"> 1360</span>            <span class="stringliteral">&quot;velocity_mean_squared_error&quot;</span>: control_velocity_mean_squared_error.data,</div>
+<div class="line"><a id="l01361" name="l01361"></a><span class="lineno"> 1361</span>            <span class="stringliteral">&quot;velocity_root_mean_squared_error&quot;</span>: control_velocity_root_mean_squared_error.data,</div>
+<div class="line"><a id="l01362" name="l01362"></a><span class="lineno"> 1362</span>        }</div>
+<div class="line"><a id="l01363" name="l01363"></a><span class="lineno"> 1363</span>        self.<a class="code hl_variable" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ad7a438efb38aaeedf16c750cc0ad1e39">control_metrics</a>.append(metrics)</div>
 <div class="line"><a id="l01364" name="l01364"></a><span class="lineno"> 1364</span> </div>
+<div class="line"><a id="l01365" name="l01365"></a><span class="lineno"> 1365</span> </div>
 </div>
 </div>
-<div class="foldopen" id="foldopen01365" data-start="" data-end="">
-<div class="line"><a id="l01365" name="l01365"></a><span class="lineno"><a class="line" href="../../d0/d42/namespaceevaluator_1_1evaluator.html#a3a1db8bd3dfa3b0f31c5c673dad414ed"> 1365</a></span><span class="keyword">def </span><a class="code hl_namespace" href="../../d2/dc1/namespacemain.html">main</a>(args=None):</div>
-<div class="line"><a id="l01366" name="l01366"></a><span class="lineno"> 1366</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l01367" name="l01367"></a><span class="lineno"> 1367</span><span class="stringliteral">    Main function for the evaluator module.</span></div>
-<div class="line"><a id="l01368" name="l01368"></a><span class="lineno"> 1368</span><span class="stringliteral">    Args:</span></div>
-<div class="line"><a id="l01369" name="l01369"></a><span class="lineno"> 1369</span><span class="stringliteral">        args (list): Optional command-line arguments.</span></div>
-<div class="line"><a id="l01370" name="l01370"></a><span class="lineno"> 1370</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l01371" name="l01371"></a><span class="lineno"> 1371</span>    rclpy.init(args=args)</div>
-<div class="line"><a id="l01372" name="l01372"></a><span class="lineno"> 1372</span>    node = <a class="code hl_class" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html">Evaluator</a>()</div>
-<div class="line"><a id="l01373" name="l01373"></a><span class="lineno"> 1373</span>    rclpy.spin(node)</div>
-<div class="line"><a id="l01374" name="l01374"></a><span class="lineno"> 1374</span>    rclpy.shutdown()</div>
-<div class="line"><a id="l01375" name="l01375"></a><span class="lineno"> 1375</span> </div>
+<div class="foldopen" id="foldopen01366" data-start="" data-end="">
+<div class="line"><a id="l01366" name="l01366"></a><span class="lineno"><a class="line" href="../../d0/d42/namespaceevaluator_1_1evaluator.html#a3a1db8bd3dfa3b0f31c5c673dad414ed"> 1366</a></span><span class="keyword">def </span><a class="code hl_namespace" href="../../d2/dc1/namespacemain.html">main</a>(args=None):</div>
+<div class="line"><a id="l01367" name="l01367"></a><span class="lineno"> 1367</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l01368" name="l01368"></a><span class="lineno"> 1368</span><span class="stringliteral">    Main function for the evaluator module.</span></div>
+<div class="line"><a id="l01369" name="l01369"></a><span class="lineno"> 1369</span><span class="stringliteral">    Args:</span></div>
+<div class="line"><a id="l01370" name="l01370"></a><span class="lineno"> 1370</span><span class="stringliteral">        args (list): Optional command-line arguments.</span></div>
+<div class="line"><a id="l01371" name="l01371"></a><span class="lineno"> 1371</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l01372" name="l01372"></a><span class="lineno"> 1372</span>    rclpy.init(args=args)</div>
+<div class="line"><a id="l01373" name="l01373"></a><span class="lineno"> 1373</span>    node = <a class="code hl_class" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html">Evaluator</a>()</div>
+<div class="line"><a id="l01374" name="l01374"></a><span class="lineno"> 1374</span>    rclpy.spin(node)</div>
+<div class="line"><a id="l01375" name="l01375"></a><span class="lineno"> 1375</span>    rclpy.shutdown()</div>
 <div class="line"><a id="l01376" name="l01376"></a><span class="lineno"> 1376</span> </div>
+<div class="line"><a id="l01377" name="l01377"></a><span class="lineno"> 1377</span> </div>
 </div>
-<div class="line"><a id="l01377" name="l01377"></a><span class="lineno"> 1377</span><span class="keywordflow">if</span> __name__ == <span class="stringliteral">&quot;__main__&quot;</span>:</div>
-<div class="line"><a id="l01378" name="l01378"></a><span class="lineno"> 1378</span>    <a class="code hl_namespace" href="../../d2/dc1/namespacemain.html">main</a>()</div>
+<div class="line"><a id="l01378" name="l01378"></a><span class="lineno"> 1378</span><span class="keywordflow">if</span> __name__ == <span class="stringliteral">&quot;__main__&quot;</span>:</div>
+<div class="line"><a id="l01379" name="l01379"></a><span class="lineno"> 1379</span>    <a class="code hl_namespace" href="../../d2/dc1/namespacemain.html">main</a>()</div>
 <div class="ttc" id="aclassevaluator_1_1evaluator_1_1_evaluator_html"><div class="ttname"><a href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html">evaluator.evaluator.Evaluator</a></div><div class="ttdoc">A ROS2 node for computing and publishing the system's real-time metrics.</div><div class="ttdef"><b>Definition</b> <a href="../../d3/d4a/evaluator_8py_source.html#l00056">evaluator.py:56</a></div></div>
 <div class="ttc" id="aclassevaluator_1_1evaluator_1_1_evaluator_html_a01d7f73d009ecfaec263e51f0a38b871"><div class="ttname"><a href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a01d7f73d009ecfaec263e51f0a38b871">evaluator.evaluator.Evaluator._planning_mean_squared_difference_to_left_cones</a></div><div class="ttdeci">_planning_mean_squared_difference_to_left_cones</div><div class="ttdef"><b>Definition</b> <a href="../../d3/d4a/evaluator_8py_source.html#l00247">evaluator.py:247</a></div></div>
 <div class="ttc" id="aclassevaluator_1_1evaluator_1_1_evaluator_html_a02589b9f82e85fbc7d571fcb5ed7e73c"><div class="ttname"><a href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a02589b9f82e85fbc7d571fcb5ed7e73c">evaluator.evaluator.Evaluator.compute_and_publish_perception</a></div><div class="ttdeci">None compute_and_publish_perception(self, np.ndarray perception_output, np.ndarray perception_ground_truth)</div><div class="ttdoc">Computes perception metrics and publishes them.</div><div class="ttdef"><b>Definition</b> <a href="../../d3/d4a/evaluator_8py_source.html#l00922">evaluator.py:924</a></div></div>

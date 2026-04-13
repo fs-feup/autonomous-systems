@@ -64,6 +64,7 @@ var hierarchy =
       [ "DecoupledController", "dd/d8f/class_decoupled_controller.html", null ]
     ] ],
     [ "DataAssociationModel", "d1/d14/class_data_association_model.html", [
+      [ "AdaptiveNearestNeighbor", "da/d50/class_adaptive_nearest_neighbor.html", null ],
       [ "JCBB", "df/dd3/class_j_c_b_b.html", null ],
       [ "MaxLikelihood", "dd/d06/class_max_likelihood.html", null ],
       [ "MaximumLikelihoodMD", "db/d23/class_maximum_likelihood_m_d.html", null ],

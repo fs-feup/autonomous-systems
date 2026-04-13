@@ -1,7 +1,7 @@
 <map id="SLAMSolver" name="SLAMSolver">
 <area shape="rect" id="Node000001" title="Interface for SLAM solvers." alt="" coords="103,5,282,511"/>
-<area shape="rect" id="Node000002" href="$d7/d79/class_e_k_f_s_l_a_m_solver.html" title=" " alt="" coords="5,566,177,1126"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="149,526,142,567,137,566,144,525"/>
+<area shape="rect" id="Node000002" href="$d7/d79/class_e_k_f_s_l_a_m_solver.html" title=" " alt="" coords="5,576,177,1116"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="149,526,140,577,135,576,144,525"/>
 <area shape="rect" id="Node000003" href="$d9/d73/class_graph_s_l_a_m_solver.html" title="Graph SLAM solver class." alt="" coords="202,559,389,1133"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="242,525,248,558,243,559,237,526"/>
 </map>

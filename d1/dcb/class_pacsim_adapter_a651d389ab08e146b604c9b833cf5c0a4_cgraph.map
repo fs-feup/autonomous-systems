@@ -4,7 +4,7 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,56,203,56,203,62,171,62"/>
 <area shape="rect" id="Node000003" href="$d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="424,39,567,79"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="377,56,408,56,408,62,377,62"/>
-<area shape="rect" id="Node000004" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="615,5,844,46"/>
+<area shape="rect" id="Node000004" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a36e6de95afd006961d88dd500a17c3f8" title="Converts a vector of cones to a marker array." alt="" coords="615,5,844,46"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="567,46,599,42,600,47,568,51"/>
 <area shape="rect" id="Node000007" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966" title="Converts a position to a marker." alt="" coords="637,71,822,111"/>
 <area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="568,66,621,74,621,79,567,71"/>

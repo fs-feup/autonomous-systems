@@ -121,54 +121,55 @@ $(document).ready(function(){initNavTree('df/da5/nearest__neighbor_8cpp_source.h
 </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="foldopen" id="foldopen00016" data-start="{" data-end="}">
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="../../dd/db5/class_nearest_neighbor.html#a5bf2441648162e62b7e4cf1eb7df8e3b">   16</a></span>Eigen::VectorXi <a class="code hl_function" href="../../dd/db5/class_nearest_neighbor.html#a5bf2441648162e62b7e4cf1eb7df8e3b">NearestNeighbor::associate</a>(<span class="keyword">const</span> Eigen::VectorXd&amp; landmarks,</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="../../dd/db5/class_nearest_neighbor.html#a00837e1ebba614dc996e58b999649f8c">   16</a></span>Eigen::VectorXi <a class="code hl_function" href="../../dd/db5/class_nearest_neighbor.html#a00837e1ebba614dc996e58b999649f8c">NearestNeighbor::associate</a>(<span class="keyword">const</span> Eigen::VectorXd&amp; landmarks,</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>                                           <span class="keyword">const</span> Eigen::VectorXd&amp; observations,</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>                                           <span class="keyword">const</span> Eigen::MatrixXd&amp; covariance,</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>                                           <span class="keyword">const</span> Eigen::VectorXd&amp; observation_confidences)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  <span class="keyword">const</span> <span class="keywordtype">int</span> num_observations = observations.size() / 2;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  <span class="keyword">const</span> <span class="keywordtype">int</span> num_landmarks = landmarks.size() / 2;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  Eigen::VectorXi associations =</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>      Eigen::VectorXi::Constant(num_observations, -1);  <span class="comment">// Default: new landmark</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  std::priority_queue&lt;std::tuple&lt;double, unsigned int, unsigned int&gt;,</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                      std::vector&lt;std::tuple&lt;double, unsigned int, unsigned int&gt;&gt;, <a class="code hl_struct" href="../../dd/da8/struct_triple_comparator.html">TripleComparator</a>&gt;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>      distances;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  <span class="keywordtype">double</span> euclidean_distance;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; num_observations; ++i) {</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">if</span> (observation_confidences(i) &lt; this-&gt;<a class="code hl_variable" href="../../d1/d14/class_data_association_model.html#ad938c54e06a8318eb74e9cee7b1fff86">_params_</a>.<a class="code hl_variable" href="../../d9/d66/struct_data_association_parameters.html#a89098893ba81ace94c6c066803985ef3">new_landmark_confidence_gate</a>) {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>      associations(i) = -2;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>      <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; num_landmarks; ++j) {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>      euclidean_distance = std::hypot(observations(2 * i) - landmarks(2 * j),</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                                      observations(2 * i + 1) - landmarks(2 * j + 1));</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>      <span class="keywordflow">if</span> (euclidean_distance &lt; this-&gt;<a class="code hl_variable" href="../../d1/d14/class_data_association_model.html#ad938c54e06a8318eb74e9cee7b1fff86">_params_</a>.<a class="code hl_variable" href="../../d9/d66/struct_data_association_parameters.html#ab8806cb77c1268e2b3bb8d04294582b9">association_gate</a>) {</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        distances.emplace(euclidean_distance, i, j);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>      }</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    }</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  }</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  std::set&lt;unsigned int&gt; associated_landmarks;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  std::tuple&lt;double, unsigned int, unsigned int&gt; current_tuple;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="keywordflow">while</span> (!distances.empty()) {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    current_tuple = distances.top();</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    distances.pop();</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">if</span> (associated_landmarks.find(std::get&lt;2&gt;(current_tuple)) == associated_landmarks.end() &amp;&amp;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        associations(std::get&lt;1&gt;(current_tuple)) == -1) {</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>      associations(std::get&lt;1&gt;(current_tuple)) = 2 * std::get&lt;2&gt;(current_tuple);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>      associated_landmarks.insert(std::get&lt;2&gt;(current_tuple));</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    }</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  }</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  <span class="keywordflow">return</span> associations;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>}</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>                                           <span class="keyword">const</span> Eigen::VectorXd&amp; observation_confidences,</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>                                           <span class="keyword">const</span> Eigen::Vector3d&amp; pose)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  <span class="keyword">const</span> <span class="keywordtype">int</span> num_observations = observations.size() / 2;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  <span class="keyword">const</span> <span class="keywordtype">int</span> num_landmarks = landmarks.size() / 2;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  Eigen::VectorXi associations =</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>      Eigen::VectorXi::Constant(num_observations, -1);  <span class="comment">// Default: new landmark</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  std::priority_queue&lt;std::tuple&lt;double, unsigned int, unsigned int&gt;,</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                      std::vector&lt;std::tuple&lt;double, unsigned int, unsigned int&gt;&gt;, <a class="code hl_struct" href="../../dd/da8/struct_triple_comparator.html">TripleComparator</a>&gt;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>      distances;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  <span class="keywordtype">double</span> euclidean_distance;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; num_observations; ++i) {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">if</span> (observation_confidences(i) &lt; this-&gt;<a class="code hl_variable" href="../../d1/d14/class_data_association_model.html#ad938c54e06a8318eb74e9cee7b1fff86">_params_</a>.<a class="code hl_variable" href="../../d9/d66/struct_data_association_parameters.html#a89098893ba81ace94c6c066803985ef3">new_landmark_confidence_gate</a>) {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>      associations(i) = -2;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>      <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    }</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; num_landmarks; ++j) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>      euclidean_distance = std::hypot(observations(2 * i) - landmarks(2 * j),</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                                      observations(2 * i + 1) - landmarks(2 * j + 1));</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>      <span class="keywordflow">if</span> (euclidean_distance &lt; this-&gt;<a class="code hl_variable" href="../../d1/d14/class_data_association_model.html#ad938c54e06a8318eb74e9cee7b1fff86">_params_</a>.<a class="code hl_variable" href="../../d9/d66/struct_data_association_parameters.html#ab8806cb77c1268e2b3bb8d04294582b9">association_gate</a>) {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        distances.emplace(euclidean_distance, i, j);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>      }</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    }</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  }</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  std::set&lt;unsigned int&gt; associated_landmarks;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  std::tuple&lt;double, unsigned int, unsigned int&gt; current_tuple;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  <span class="keywordflow">while</span> (!distances.empty()) {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    current_tuple = distances.top();</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    distances.pop();</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">if</span> (associated_landmarks.find(std::get&lt;2&gt;(current_tuple)) == associated_landmarks.end() &amp;&amp;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        associations(std::get&lt;1&gt;(current_tuple)) == -1) {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>      associations(std::get&lt;1&gt;(current_tuple)) = 2 * std::get&lt;2&gt;(current_tuple);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>      associated_landmarks.insert(std::get&lt;2&gt;(current_tuple));</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  }</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  <span class="keywordflow">return</span> associations;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
 </div>
 <div class="ttc" id="aclass_data_association_model_html"><div class="ttname"><a href="../../d1/d14/class_data_association_model.html">DataAssociationModel</a></div><div class="ttdoc">Data Association Method class, used to match observations to landmarks in the map.</div><div class="ttdef"><b>Definition</b> <a href="../../da/d49/data__association_8hpp_source.html#l00017">data_association.hpp:17</a></div></div>
 <div class="ttc" id="aclass_data_association_model_html_ad938c54e06a8318eb74e9cee7b1fff86"><div class="ttname"><a href="../../d1/d14/class_data_association_model.html#ad938c54e06a8318eb74e9cee7b1fff86">DataAssociationModel::_params_</a></div><div class="ttdeci">DataAssociationParameters _params_</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d96/base__data__association_8hpp_source.html#l00013">base_data_association.hpp:13</a></div></div>
-<div class="ttc" id="aclass_nearest_neighbor_html_a5bf2441648162e62b7e4cf1eb7df8e3b"><div class="ttname"><a href="../../dd/db5/class_nearest_neighbor.html#a5bf2441648162e62b7e4cf1eb7df8e3b">NearestNeighbor::associate</a></div><div class="ttdeci">Eigen::VectorXi associate(const Eigen::VectorXd &amp;landmarks, const Eigen::VectorXd &amp;observations, const Eigen::MatrixXd &amp;covariance, const Eigen::VectorXd &amp;observation_confidences) const override</div><div class="ttdoc">This function associates the landmarks with the observations.</div><div class="ttdef"><b>Definition</b> <a href="../../df/da5/nearest__neighbor_8cpp_source.html#l00016">nearest_neighbor.cpp:16</a></div></div>
+<div class="ttc" id="aclass_nearest_neighbor_html_a00837e1ebba614dc996e58b999649f8c"><div class="ttname"><a href="../../dd/db5/class_nearest_neighbor.html#a00837e1ebba614dc996e58b999649f8c">NearestNeighbor::associate</a></div><div class="ttdeci">Eigen::VectorXi associate(const Eigen::VectorXd &amp;landmarks, const Eigen::VectorXd &amp;observations, const Eigen::MatrixXd &amp;covariance, const Eigen::VectorXd &amp;observation_confidences, const Eigen::Vector3d &amp;pose) const override</div><div class="ttdoc">This function associates the landmarks with the observations.</div><div class="ttdef"><b>Definition</b> <a href="../../df/da5/nearest__neighbor_8cpp_source.html#l00016">nearest_neighbor.cpp:16</a></div></div>
 <div class="ttc" id="aclass_nearest_neighbor_html_ad0258020a46ba60c36f0444735e04bb5"><div class="ttname"><a href="../../dd/db5/class_nearest_neighbor.html#ad0258020a46ba60c36f0444735e04bb5">NearestNeighbor::NearestNeighbor</a></div><div class="ttdeci">NearestNeighbor(const DataAssociationParameters &amp;params)</div><div class="ttdef"><b>Definition</b> <a href="../../df/da5/nearest__neighbor_8cpp_source.html#l00006">nearest_neighbor.cpp:6</a></div></div>
 <div class="ttc" id="anearest__neighbor_8hpp_html"><div class="ttname"><a href="../../da/d4e/nearest__neighbor_8hpp.html">nearest_neighbor.hpp</a></div></div>
 <div class="ttc" id="astruct_data_association_parameters_html"><div class="ttname"><a href="../../d9/d66/struct_data_association_parameters.html">DataAssociationParameters</a></div><div class="ttdef"><b>Definition</b> <a href="../../d8/d77/perception__sensor__lib_2include_2perception__sensor__lib_2data__association_2parameters_8hpp_source.html#l00003">parameters.hpp:3</a></div></div>

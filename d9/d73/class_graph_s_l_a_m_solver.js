@@ -5,7 +5,7 @@ var class_graph_s_l_a_m_solver =
     [ "_add_motion_data_to_graph", "d9/d73/class_graph_s_l_a_m_solver.html#a4e2e959dbf1af452dfd21ec8c3adf9c0", null ],
     [ "_asynchronous_optimization_routine", "d9/d73/class_graph_s_l_a_m_solver.html#a40faaba4cec75f1aeda8b35b756512c2", null ],
     [ "add_imu_data", "d9/d73/class_graph_s_l_a_m_solver.html#a3de40ea7a7636a188deee0d1e1a594e7", null ],
-    [ "add_observations", "d9/d73/class_graph_s_l_a_m_solver.html#a6ebeac5f93735c046fa984450deb98a8", null ],
+    [ "add_observations", "d9/d73/class_graph_s_l_a_m_solver.html#aa3c24a1b6d7ed3b758d867b68ac37386", null ],
     [ "add_odometry", "d9/d73/class_graph_s_l_a_m_solver.html#a2cf2fde99558ed0498d708ca5c21b2c1", null ],
     [ "add_velocities", "d9/d73/class_graph_s_l_a_m_solver.html#a52ad946ffdd1fd60035229f8d446ef7f", null ],
     [ "get_associations", "d9/d73/class_graph_s_l_a_m_solver.html#af54870884365175c8dda4344a0f99ef4", null ],

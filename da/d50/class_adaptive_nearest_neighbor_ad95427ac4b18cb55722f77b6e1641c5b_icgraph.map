@@ -1,0 +1,7 @@
+<map id="AdaptiveNearestNeighbor::associate" name="AdaptiveNearestNeighbor::associate">
+<area shape="rect" id="Node000001" title="Associate observations to landmarks using an adaptive seed&#45;based alignment step." alt="" coords="108,23,278,64"/>
+<area shape="rect" id="Node000002" href="$d1/d58/adaptive__nearest__neighbor__test_8cpp.html#afc68daab4f276fdfaa355ef409800719" title=" " alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,30,60,25,60,20,92,25"/>
+<area shape="rect" id="Node000003" href="$d1/d58/adaptive__nearest__neighbor__test_8cpp.html#a285a8a09866c048efdb16ffaf43f6683" title=" " alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="92,61,60,66,60,61,92,56"/>
+</map>

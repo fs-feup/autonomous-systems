@@ -1,9 +1,9 @@
 <map id="SLAMNode" name="SLAMNode">
-<area shape="rect" id="Node000001" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="122,119,314,692"/>
-<area shape="rect" id="Node000003" href="$d1/dcb/class_pacsim_adapter.html" title="Adapter class to interface with the Pacsim simulator for SLAM." alt="" coords="5,740,204,1368"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="168,707,162,741,157,740,163,707"/>
-<area shape="rect" id="Node000004" href="$d1/df1/class_vehicle_adapter.html" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="229,755,437,1353"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="274,706,282,755,277,756,269,707"/>
+<area shape="rect" id="Node000001" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="117,119,319,727"/>
+<area shape="rect" id="Node000003" href="$d1/dcb/class_pacsim_adapter.html" title="Adapter class to interface with the Pacsim simulator for SLAM." alt="" coords="5,775,204,1403"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="166,742,161,775,155,774,161,741"/>
+<area shape="rect" id="Node000004" href="$d1/df1/class_vehicle_adapter.html" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="229,789,437,1388"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="275,741,284,789,279,790,270,742"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="175,5,261,71"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="221,85,221,119,215,119,215,85"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="221,86,221,119,215,119,215,86"/>
 </map>

@@ -1,0 +1,22 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,164,60,189"/>
+<area shape="rect" id="Node000002" href="$da/d50/class_adaptive_nearest_neighbor.html#ad95427ac4b18cb55722f77b6e1641c5b" title="Associate observations to landmarks using an adaptive seed&#45;based alignment step." alt="" coords="108,156,278,197"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,174,92,174,92,179,60,179"/>
+<area shape="rect" id="Node000003" href="$da/d50/class_adaptive_nearest_neighbor.html#a2184bd0dc27f542871c156caf3beb255" title="Apply a 2D rigid transform to all observations." alt="" coords="341,5,511,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="210,154,259,105,290,78,325,55,334,50,336,55,327,60,294,83,262,109,214,157"/>
+<area shape="rect" id="Node000005" href="$dd/db5/class_nearest_neighbor.html#a00837e1ebba614dc996e58b999649f8c" title="This function associates the landmarks with the observations." alt="" coords="336,70,517,96"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="228,153,273,129,325,106,348,98,350,103,327,111,276,134,230,158"/>
+<area shape="rect" id="Node000006" href="$da/d50/class_adaptive_nearest_neighbor.html#a08be141a2d39ab687eee20880b6c1af9" title="Estimate a 2D rigid transform from two observation&#45;landmark correspondences." alt="" coords="326,120,526,161"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="278,161,310,156,311,161,279,166"/>
+<area shape="rect" id="Node000008" href="$da/d50/class_adaptive_nearest_neighbor.html#aacb85438349b055f2b66c593376732d3" title="Select the best observation indices to use as transform seeds." alt="" coords="341,185,511,240"/>
+<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="279,187,326,194,325,199,278,192"/>
+<area shape="rect" id="Node000009" href="$da/d50/class_adaptive_nearest_neighbor.html#abf13e7197e88f5d1e522f05192b09a29" title="Find the closest landmark candidate for each observation that can be used as a seed." alt="" coords="341,265,511,320"/>
+<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="228,195,327,250,339,255,337,260,325,255,226,199"/>
+<area shape="rect" id="Node000010" href="$da/d50/class_adaptive_nearest_neighbor.html#aef0f62b6d6bdaf81cf5fbc65ff2de676" title="Score a set of associations by match count and total Euclidean distance." alt="" coords="341,344,511,385"/>
+<area shape="poly" id="edge10_Node000002_Node000010" title=" " alt="" coords="209,196,256,262,289,299,328,330,334,334,331,339,324,334,285,302,251,265,204,199"/>
+<area shape="rect" id="Node000004" href="$d2/d32/namespacecommon__lib_1_1maths.html#a3155563fdd77267916f4362c3c976f11" title="Function to get the rotation matrix for a given angle." alt="" coords="574,31,714,71"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="512,33,559,38,558,44,512,38"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="496,117,525,106,590,76,592,81,527,111,497,122"/>
+<area shape="rect" id="Node000007" href="$d2/d32/namespacecommon__lib_1_1maths.html#acd35b7873c51d71ad7ee2396007da7a3" title="Function to keep angle in [&#45;Pi, Pi[ radians." alt="" coords="574,120,714,161"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="527,138,559,138,559,143,527,143"/>
+</map>

@@ -118,11 +118,11 @@ Collaboration diagram for MaximumLikelihoodNLL:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d6/da6/class_maximum_likelihood_n_l_l__coll__graph.png" border="0" usemap="#a_maximum_likelihood_n_l_l_coll__map" alt="Collaboration graph"/></div>
 <map name="a_maximum_likelihood_n_l_l_coll__map" id="a_maximum_likelihood_n_l_l_coll__map">
-<area shape="rect" title="Data association implementation that uses the Negative Log&#45;Likehood as criterion to make observation ..." alt="" coords="10,488,209,608"/>
-<area shape="rect" href="../../d1/d14/class_data_association_model.html" title="Data Association Method class, used to match observations to landmarks in the map." alt="" coords="11,234,207,439"/>
-<area shape="poly" title=" " alt="" coords="112,454,112,489,107,489,107,454"/>
-<area shape="rect" href="../../d9/d66/struct_data_association_parameters.html" title=" " alt="" coords="5,5,213,171"/>
-<area shape="poly" title=" " alt="" coords="112,170,112,217,107,217,107,170"/>
+<area shape="rect" title="Data association implementation that uses the Negative Log&#45;Likehood as criterion to make observation ..." alt="" coords="10,528,209,648"/>
+<area shape="rect" href="../../d1/d14/class_data_association_model.html" title="Data Association Method class, used to match observations to landmarks in the map." alt="" coords="11,274,207,479"/>
+<area shape="poly" title=" " alt="" coords="112,494,112,529,107,529,107,494"/>
+<area shape="rect" href="../../d9/d66/struct_data_association_parameters.html" title=" " alt="" coords="5,5,213,211"/>
+<area shape="poly" title=" " alt="" coords="112,211,112,257,107,257,107,211"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -132,9 +132,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab05cbde137bbf6869493b1c83c56daa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa36d345db334847595cf454e7e620550" id="r_aa36d345db334847595cf454e7e620550"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d4f/class_maximum_likelihood_n_l_l.html#aa36d345db334847595cf454e7e620550">~MaximumLikelihoodNLL</a> ()=default</td></tr>
 <tr class="separator:aa36d345db334847595cf454e7e620550"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3df2dcf84568788feac99f3e89d7cec3" id="r_a3df2dcf84568788feac99f3e89d7cec3"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d4f/class_maximum_likelihood_n_l_l.html#a3df2dcf84568788feac99f3e89d7cec3">associate</a> (const Eigen::VectorXd &amp;landmarks, const Eigen::VectorXd &amp;observations, const Eigen::MatrixXd &amp;covariance, const Eigen::VectorXd &amp;observation_confidences) const override</td></tr>
-<tr class="memdesc:a3df2dcf84568788feac99f3e89d7cec3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function associates the landmarks with the observations.  <br /></td></tr>
-<tr class="separator:a3df2dcf84568788feac99f3e89d7cec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a480f570389055fb6edec44e8a6f3c154" id="r_a480f570389055fb6edec44e8a6f3c154"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d4f/class_maximum_likelihood_n_l_l.html#a480f570389055fb6edec44e8a6f3c154">associate</a> (const Eigen::VectorXd &amp;landmarks, const Eigen::VectorXd &amp;observations, const Eigen::MatrixXd &amp;covariance, const Eigen::VectorXd &amp;observation_confidences, const Eigen::Vector3d &amp;pose) const override</td></tr>
+<tr class="memdesc:a480f570389055fb6edec44e8a6f3c154"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function associates the landmarks with the observations.  <br /></td></tr>
+<tr class="separator:a480f570389055fb6edec44e8a6f3c154"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_data_association_model"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_data_association_model')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d1/d14/class_data_association_model.html">DataAssociationModel</a></td></tr>
 <tr class="memitem:ae0d2681ff464e0a80ed07ca1d422d64f inherit pub_methods_class_data_association_model" id="r_ae0d2681ff464e0a80ed07ca1d422d64f"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#ae0d2681ff464e0a80ed07ca1d422d64f">associate_n_filter</a> (const std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &amp;perception_map, Eigen::VectorXf &amp;_x_vector_, Eigen::MatrixXf &amp;_p_matrix_, std::vector&lt; int &gt; &amp;matched_ids, std::vector&lt; Eigen::Vector2f &gt; &amp;matched_cone_positions, std::vector&lt; Eigen::Vector2f &gt; &amp;new_features, <a class="el" href="../../d7/d64/class_observation_model.html">ObservationModel</a> *observation_model) const =0</td></tr>
 <tr class="memdesc:ae0d2681ff464e0a80ed07ca1d422d64f inherit pub_methods_class_data_association_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associate the observed landmarks to the expected landmarks and update the state vector and the covariance matrix.  <br /></td></tr>
@@ -223,8 +223,8 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a3df2dcf84568788feac99f3e89d7cec3" name="a3df2dcf84568788feac99f3e89d7cec3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3df2dcf84568788feac99f3e89d7cec3">&#9670;&#160;</a></span>associate()</h2>
+<a id="a480f570389055fb6edec44e8a6f3c154" name="a480f570389055fb6edec44e8a6f3c154"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a480f570389055fb6edec44e8a6f3c154">&#9670;&#160;</a></span>associate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -254,7 +254,13 @@ Additional Inherited Members</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>observation_confidences</em>&#160;</td>
+          <td class="paramname"><em>observation_confidences</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Vector3d &amp;&#160;</td>
+          <td class="paramname"><em>pose</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -276,19 +282,20 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramname">observations</td><td>Observations in the form of [x1, y1, x2, y2, ...] in the global frame </td></tr>
     <tr><td class="paramname">covariance</td><td>Covariance matrix of the landmark vector </td></tr>
     <tr><td class="paramname">observation_confidences</td><td>Confidence in the observations in the same order as the observations </td></tr>
+    <tr><td class="paramname">pose</td><td>Current pose of the vehicle in the form of [x, y, theta] in the global frame </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::VectorXi Each entry corresponds to an observation and contains the index of the landmark that the observation is associated with in the landmark vector (x coordinate). If the observation is considered new, the entry is -1. If the observation is considered an outlier, the entry is -2. </dd></dl>
 
-<p>Implements <a class="el" href="../../d1/d14/class_data_association_model.html#a465075932dccc3fa6db50b81f9cf1af7">DataAssociationModel</a>.</p>
+<p>Implements <a class="el" href="../../d1/d14/class_data_association_model.html#a55b0ebd1224cf8b5e5f6bf8811c6b27c">DataAssociationModel</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="../../da/d6b/maximum__likelihood__nll_8cpp_source.html#l00007">7</a> of file <a class="el" href="../../da/d6b/maximum__likelihood__nll_8cpp_source.html">maximum_likelihood_nll.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d1/d4f/class_maximum_likelihood_n_l_l_a3df2dcf84568788feac99f3e89d7cec3_icgraph.png" border="0" usemap="#ad1/d4f/class_maximum_likelihood_n_l_l_a3df2dcf84568788feac99f3e89d7cec3_icgraph" alt=""/></div>
-<map name="ad1/d4f/class_maximum_likelihood_n_l_l_a3df2dcf84568788feac99f3e89d7cec3_icgraph" id="ad1/d4f/class_maximum_likelihood_n_l_l_a3df2dcf84568788feac99f3e89d7cec3_icgraph">
+<div class="center"><img src="../../d1/d4f/class_maximum_likelihood_n_l_l_a480f570389055fb6edec44e8a6f3c154_icgraph.png" border="0" usemap="#ad1/d4f/class_maximum_likelihood_n_l_l_a480f570389055fb6edec44e8a6f3c154_icgraph" alt=""/></div>
+<map name="ad1/d4f/class_maximum_likelihood_n_l_l_a480f570389055fb6edec44e8a6f3c154_icgraph" id="ad1/d4f/class_maximum_likelihood_n_l_l_a480f570389055fb6edec44e8a6f3c154_icgraph">
 <area shape="rect" title="This function associates the landmarks with the observations." alt="" coords="108,195,270,236"/>
 <area shape="rect" href="../../db/d3d/maximum__likelihood__nll__test_8cpp.html#a6f717d10a629075a6660dec02aa1a8cb" title="Test with mostly easy matches and a new landmark." alt="" coords="5,5,60,31"/>
 <area shape="poly" title=" " alt="" coords="163,184,117,117,58,44,47,33,51,30,62,40,121,114,168,181"/>

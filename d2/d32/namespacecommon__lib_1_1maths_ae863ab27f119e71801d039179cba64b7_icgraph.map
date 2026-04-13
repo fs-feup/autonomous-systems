@@ -1,8 +1,8 @@
 <map id="common_lib::maths::local_to_global_coordinates" name="common_lib::maths::local_to_global_coordinates">
 <area shape="rect" id="Node000001" title="Transform points from a local reference frame to a global reference frame." alt="" coords="341,243,522,283"/>
-<area shape="rect" id="Node000002" href="$d9/d73/class_graph_s_l_a_m_solver.html#a6ebeac5f93735c046fa984450deb98a8" title="Add observations to the solver (correction step)" alt="" coords="122,5,279,46"/>
+<area shape="rect" id="Node000002" href="$d9/d73/class_graph_s_l_a_m_solver.html#aa3c24a1b6d7ed3b758d867b68ac37386" title="Add observations to the solver (correction step)" alt="" coords="122,5,279,46"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="413,230,393,191,366,146,332,100,291,61,271,49,274,44,295,57,336,97,371,143,398,188,418,227"/>
-<area shape="rect" id="Node000003" href="$d7/d79/class_e_k_f_s_l_a_m_solver.html#ae22327aa3c5787a3412fe4341c708aba" title="process obervations of landmarks" alt="" coords="127,71,274,111"/>
+<area shape="rect" id="Node000003" href="$d7/d79/class_e_k_f_s_l_a_m_solver.html#a7b35f357eebe14cd90c8bd2ff1777d4f" title="process obervations of landmarks" alt="" coords="127,71,274,111"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="403,232,355,178,324,151,292,127,268,114,271,110,294,122,328,147,358,175,407,229"/>
 <area shape="rect" id="Node000004" href="$d1/d99/class_s_l_a_m_observation_model.html#a6d5e78879bf20b4d66badaacd4cee199" title="transforms the landmarks&#39; coordinates from the car&#39;s frame to the global frame" alt="" coords="108,136,293,177"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="381,237,292,191,265,180,267,175,294,186,384,232"/>

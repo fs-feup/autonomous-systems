@@ -1,7 +1,7 @@
 var class_e_k_f_s_l_a_m_solver =
 [
     [ "EKFSLAMSolver", "d7/d79/class_e_k_f_s_l_a_m_solver.html#a12f5879962ddc72ad65ca5bba150bc9f", null ],
-    [ "add_observations", "d7/d79/class_e_k_f_s_l_a_m_solver.html#ae22327aa3c5787a3412fe4341c708aba", null ],
+    [ "add_observations", "d7/d79/class_e_k_f_s_l_a_m_solver.html#a7b35f357eebe14cd90c8bd2ff1777d4f", null ],
     [ "add_velocities", "d7/d79/class_e_k_f_s_l_a_m_solver.html#a3433841fefcb7044aa62f407940ae833", null ],
     [ "correct", "d7/d79/class_e_k_f_s_l_a_m_solver.html#a5e1386c5f3781870b088f6b600af8657", null ],
     [ "get_associations", "d7/d79/class_e_k_f_s_l_a_m_solver.html#a1116afe697a0342c8526f5a65caa9679", null ],
@@ -25,7 +25,6 @@ var class_e_k_f_s_l_a_m_solver =
     [ "observation_model_", "d7/d79/class_e_k_f_s_l_a_m_solver.html#a9022dce43a4a776a87bc9c38b58426d7", null ],
     [ "pose_difference_", "d7/d79/class_e_k_f_s_l_a_m_solver.html#a7d7b5733ce1a966497441706972b3f71", null ],
     [ "process_noise_matrix_", "d7/d79/class_e_k_f_s_l_a_m_solver.html#afcecff484c94008ccdca894f0720954b", null ],
-    [ "slam_parameters_", "d7/d79/class_e_k_f_s_l_a_m_solver.html#a9ea051d8c9222434b155ec9558c9bf06", null ],
     [ "state_", "d7/d79/class_e_k_f_s_l_a_m_solver.html#ad246883c1d8f0417c3c8946e20ab417d", null ],
     [ "velocities_received_", "d7/d79/class_e_k_f_s_l_a_m_solver.html#a7969601ecc67261bcef3ccff9bd92735", null ]
 ];

@@ -2,7 +2,7 @@ var class_s_l_a_m_solver =
 [
     [ "SLAMSolver", "da/dd3/class_s_l_a_m_solver.html#a82cabbd52b46d17d6f55cdbf09e1f6fd", null ],
     [ "~SLAMSolver", "da/dd3/class_s_l_a_m_solver.html#ae296331afb7a44e54363234d1a030b29", null ],
-    [ "add_observations", "da/dd3/class_s_l_a_m_solver.html#a6904433b817b8292bca3a4b08f1141d4", null ],
+    [ "add_observations", "da/dd3/class_s_l_a_m_solver.html#acbb01f73530a561571d26a6dd0ac7ce9", null ],
     [ "add_velocities", "da/dd3/class_s_l_a_m_solver.html#a2594ca886038ebd7c2c931ffa2125123", null ],
     [ "get_associations", "da/dd3/class_s_l_a_m_solver.html#a83efd39a6c4f791cf52dbc3b0be947fb", null ],
     [ "get_covariance", "da/dd3/class_s_l_a_m_solver.html#a8cabdaa2261eaf1b579e995a8c2815a3", null ],

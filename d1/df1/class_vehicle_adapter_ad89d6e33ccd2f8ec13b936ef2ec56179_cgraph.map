@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title="LiDAR odometry subscription callback." alt="" coords="5,31,164,87"/>
 <area shape="rect" id="Node000002" href="$d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="212,39,355,79"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,56,196,56,196,62,164,62"/>
-<area shape="rect" id="Node000003" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="403,5,631,46"/>
+<area shape="rect" id="Node000003" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a36e6de95afd006961d88dd500a17c3f8" title="Converts a vector of cones to a marker array." alt="" coords="403,5,631,46"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="355,46,387,42,388,47,356,51"/>
 <area shape="rect" id="Node000006" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966" title="Converts a position to a marker." alt="" coords="425,71,610,111"/>
 <area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="356,66,409,74,408,79,355,71"/>

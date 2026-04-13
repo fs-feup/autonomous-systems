@@ -1,0 +1,5 @@
+<map id="AdaptiveNearestNeighbor::adjust_observations" name="AdaptiveNearestNeighbor::adjust_observations">
+<area shape="rect" id="Node000001" title="Apply a 2D rigid transform to all observations." alt="" coords="5,5,176,46"/>
+<area shape="rect" id="Node000002" href="$d2/d32/namespacecommon__lib_1_1maths.html#a3155563fdd77267916f4362c3c976f11" title="Function to get the rotation matrix for a given angle." alt="" coords="224,5,363,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,23,208,23,208,28,176,28"/>
+</map>

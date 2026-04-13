@@ -135,6 +135,7 @@ var annotated_dup =
     [ "AccelerationTrimming", "de/d98/class_acceleration_trimming.html", "de/d98/class_acceleration_trimming" ],
     [ "AccelerationTrimmingTest", "de/db8/class_acceleration_trimming_test.html", "de/db8/class_acceleration_trimming_test" ],
     [ "Adapter", "d3/d7f/class_adapter.html", "d3/d7f/class_adapter" ],
+    [ "AdaptiveNearestNeighbor", "da/d50/class_adaptive_nearest_neighbor.html", "da/d50/class_adaptive_nearest_neighbor" ],
     [ "AeroModel", "d2/d35/class_aero_model.html", "d2/d35/class_aero_model" ],
     [ "BaseOptimizer", "df/dc2/class_base_optimizer.html", "df/dc2/class_base_optimizer" ],
     [ "BaseVelocityProcessModel", "d7/d59/class_base_velocity_process_model.html", "d7/d59/class_base_velocity_process_model" ],

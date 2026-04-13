@@ -1,0 +1,7 @@
+<map id="AdaptiveNearestNeighbor::estimate_transform_from_pair" name="AdaptiveNearestNeighbor::estimate_transform_from_pair">
+<area shape="rect" id="Node000001" title="Estimate a 2D rigid transform from two observation&#45;landmark correspondences." alt="" coords="5,39,206,79"/>
+<area shape="rect" id="Node000002" href="$d2/d32/namespacecommon__lib_1_1maths.html#a3155563fdd77267916f4362c3c976f11" title="Function to get the rotation matrix for a given angle." alt="" coords="254,5,393,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="206,41,238,36,238,41,207,46"/>
+<area shape="rect" id="Node000003" href="$d2/d32/namespacecommon__lib_1_1maths.html#acd35b7873c51d71ad7ee2396007da7a3" title="Function to keep angle in [&#45;Pi, Pi[ radians." alt="" coords="254,71,393,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="207,71,238,76,238,81,206,76"/>
+</map>

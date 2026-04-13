@@ -8,7 +8,7 @@
 <area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="734,204,665,226,624,237,623,232,664,220,732,199"/>
 <area shape="rect" id="Node000003" href="$d9/d73/class_graph_s_l_a_m_solver.html#a40faaba4cec75f1aeda8b35b756512c2" title="Asynchronous optimization routine." alt="" coords="211,5,434,46"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="496,88,384,49,385,44,498,83"/>
-<area shape="rect" id="Node000004" href="$d9/d73/class_graph_s_l_a_m_solver.html#a6ebeac5f93735c046fa984450deb98a8" title="Add observations to the solver (correction step)" alt="" coords="5,35,163,75"/>
+<area shape="rect" id="Node000004" href="$d9/d73/class_graph_s_l_a_m_solver.html#aa3c24a1b6d7ed3b758d867b68ac37386" title="Add observations to the solver (correction step)" alt="" coords="5,35,163,75"/>
 <area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="475,103,163,67,163,61,476,97"/>
 <area shape="rect" id="Node000005" href="$d9/d73/class_graph_s_l_a_m_solver.html#a2cf2fde99558ed0498d708ca5c21b2c1" title="Add odometry data to the solver (for prediction step)" alt="" coords="244,120,401,161"/>
 <area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="476,125,402,134,401,129,475,120"/>

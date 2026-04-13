@@ -1,0 +1,9 @@
+<map id="SLAMNode::_publish_global_observations" name="SLAMNode::_publish_global_observations">
+<area shape="rect" id="Node000001" title="publishes the execution times of the different steps of the SLAM algorithm" alt="" coords="5,39,149,79"/>
+<area shape="rect" id="Node000002" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a36e6de95afd006961d88dd500a17c3f8" title="Converts a vector of cones to a marker array." alt="" coords="197,39,425,79"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="149,56,181,56,181,62,149,62"/>
+<area shape="rect" id="Node000003" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="473,5,658,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="425,41,457,37,458,42,426,47"/>
+<area shape="rect" id="Node000004" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="473,71,658,111"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="426,71,458,75,457,80,425,76"/>
+</map>

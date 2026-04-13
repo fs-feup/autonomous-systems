@@ -5,6 +5,7 @@ var class_perception_sensor =
     [ "addNoise", "d0/d8a/class_perception_sensor.html#a25f50761db7790e8dd156b81e24e817d", null ],
     [ "filterFoV", "d0/d8a/class_perception_sensor.html#a172545c4aa3ee7d6c29b8032b128aa91", null ],
     [ "filterTypeAndDOO", "d0/d8a/class_perception_sensor.html#ac656fa5ef2766fa48bb11c85133f5e64", null ],
+    [ "getDeadTime", "d0/d8a/class_perception_sensor.html#a95ed3b0d693d5824c5ca9a5ab8be1c8a", null ],
     [ "getFrameId", "d0/d8a/class_perception_sensor.html#a31e8caa6f8a3e4842d73e0a97390bcfa", null ],
     [ "getName", "d0/d8a/class_perception_sensor.html#ad0922062707465f6a05f626ff927ff57", null ],
     [ "handleFalsePositivesAndNegatives", "d0/d8a/class_perception_sensor.html#a6243a4c5c407dcdcb15da5f87ba5d212", null ],
