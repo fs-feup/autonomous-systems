@@ -21,7 +21,7 @@ TEST(MaximumLikelihoodNLL, TestCase1) {
   std::vector<int> expected_associations = {-1, 0, 4, 6, 8};
   // Act
   Eigen::VectorXi associations =
-      ml.associate(state, observations, covariance, observation_confidences);
+      ml.associate(state, observations, covariance, observation_confidences, Eigen::Vector3d::Zero());
   // Assert
   for (int i = 0; i < static_cast<int>(associations.size()); ++i) {
     EXPECT_EQ(associations[i], expected_associations[i]);
@@ -49,7 +49,7 @@ TEST(MaximumLikelihoodNLL, TestCase2) {
   std::vector<int> expected_associations = {-1, 0, 4, 6, 8};
   // Act
   Eigen::VectorXi associations =
-      ml.associate(state, observations, covariance, observation_confidences);
+      ml.associate(state, observations, covariance, observation_confidences, Eigen::Vector3d::Zero());
   // Assert
   for (int i = 0; i < static_cast<int>(associations.size()); ++i) {
     EXPECT_EQ(associations[i], expected_associations[i]);
@@ -77,7 +77,7 @@ TEST(MaximumLikelihoodNLL, TestCase3) {
   std::vector<int> expected_associations = {-1, 0, 4, 6, 8};
   // Act
   Eigen::VectorXi associations =
-      ml.associate(state, observations, covariance, observation_confidences);
+      ml.associate(state, observations, covariance, observation_confidences, Eigen::Vector3d::Zero());
   // Assert
   for (int i = 0; i < static_cast<int>(associations.size()); ++i) {
     EXPECT_EQ(associations[i], expected_associations[i]);
@@ -104,7 +104,7 @@ TEST(MaximumLikelihoodNLL, TestCase4) {
   std::vector<int> expected_associations = {-1, -1, -1, -1};
   // Act
   Eigen::VectorXi associations =
-      ml.associate(state, observations, covariance, observation_confidences);
+      ml.associate(state, observations, covariance, observation_confidences, Eigen::Vector3d::Zero());
   // Assert
   for (int i = 0; i < static_cast<int>(associations.size()); ++i) {
     EXPECT_EQ(associations[i], expected_associations[i]);
@@ -131,7 +131,7 @@ TEST(MaximumLikelihoodNLL, TestCase5) {
   std::vector<int> expected_associations = {-2, -2, -2, -2};
   // Act
   Eigen::VectorXi associations =
-      ml.associate(state, observations, covariance, observation_confidences);
+      ml.associate(state, observations, covariance, observation_confidences, Eigen::Vector3d::Zero());
   // Assert
   for (int i = 0; i < static_cast<int>(associations.size()); ++i) {
     EXPECT_EQ(associations[i], expected_associations[i]);
@@ -155,7 +155,7 @@ TEST(MaximumLikelihoodNLL, TestCase6) {
   std::vector<int> expected_associations = {-1, -1, -1, -1};
   // Act
   Eigen::VectorXi associations =
-      ml.associate(state, observations, covariance, observation_confidences);
+      ml.associate(state, observations, covariance, observation_confidences, Eigen::Vector3d::Zero());
   // Assert
   for (int i = 0; i < static_cast<int>(associations.size()); ++i) {
     EXPECT_EQ(associations[i], expected_associations[i]);
@@ -176,7 +176,7 @@ TEST(MaximumLikelihoodNLL, TestCase7) {
   MaximumLikelihoodNLL ml(params);
   // Act
   Eigen::VectorXi associations =
-      ml.associate(state, observations, covariance, observation_confidences);
+      ml.associate(state, observations, covariance, observation_confidences, Eigen::Vector3d::Zero());
   // Assert
   EXPECT_EQ(associations.size(), 0);
 }
@@ -204,7 +204,7 @@ TEST(MaximumLikelihoodNLL, TestCase8) {
   std::vector<int> expected_associations = {2, 0, 4, 6, 8};
   // Act
   Eigen::VectorXi associations =
-      ml.associate(state, observations, covariance, observation_confidences);
+      ml.associate(state, observations, covariance, observation_confidences, Eigen::Vector3d::Zero());
   // Assert
   for (int i = 0; i < static_cast<int>(associations.size()); ++i) {
     EXPECT_EQ(associations[i], expected_associations[i]);
@@ -234,7 +234,7 @@ TEST(MaximumLikelihoodNLL, TestCase9) {
   std::vector<int> expected_associations = {-1, -1, 4, 6, 8};
   // Act
   Eigen::VectorXi associations =
-      ml.associate(state, observations, covariance, observation_confidences);
+      ml.associate(state, observations, covariance, observation_confidences, Eigen::Vector3d::Zero());
   // Assert
   for (int i = 0; i < static_cast<int>(associations.size()); ++i) {
     EXPECT_EQ(associations[i], expected_associations[i]);

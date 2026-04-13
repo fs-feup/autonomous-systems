@@ -92,7 +92,7 @@ gtsam::Values SlidingWindowLevenbergOptimizer::optimize(
     ordering.push_back(key);
   }
   lm_params.setOrdering(ordering);
-  // lm_params.setMaxIterations(2);       // steady latency
+  lm_params.setMaxIterations(2);  // steady latency
   // lm_params.setlambdaInitial(1e-3);    // sane start
   lm_params.setlambdaUpperBound(1e3);  // clamp runaway damping
   // lm_params.setlambdaFactor(10.0);     // backoff multiplier

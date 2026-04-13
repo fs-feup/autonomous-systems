@@ -12,10 +12,7 @@ protected:
     SLAMParameters params;
     params.load_config();
     data_association = data_association_models_map.at(params.data_association_model_name_)(
-        DataAssociationParameters(params.data_association_limit_distance_,
-                                  params.data_association_gate_,
-                                  params.new_landmark_confidence_gate_, params.observation_x_noise_,
-                                  params.observation_y_noise_));
+        params.get_data_association_parameters());
     motion_model = v2p_models_map.at(params.motion_model_name_)();
 
     ekf_slam_solver = std::make_shared<EKFSLAMSolver>(params, data_association, motion_model,

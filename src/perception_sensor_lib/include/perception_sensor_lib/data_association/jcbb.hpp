@@ -63,5 +63,6 @@ public:
    */
   Eigen::VectorXi associate(const Eigen::VectorXd& landmarks, const Eigen::VectorXd& observations,
                             const Eigen::MatrixXd& covariance,
-                            const Eigen::VectorXd& observation_confidences) const override;
+                            const Eigen::VectorXd& observation_confidences,
+                            const Eigen::Vector3d& pose) const override;
 };
