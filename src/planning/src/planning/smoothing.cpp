@@ -22,8 +22,10 @@ std::vector<PathPoint> PathSmoothing::optimize_path(std::vector<PathPoint>& path
     return smooth_path(path, is_path_closed);
   }
 
+  auto splines = ::fit_triple_spline(path, blue_cones, yellow_cones, config_.spline_precision_,
+                                     config_.spline_order_);
   const std::vector<PathPoint> optimize_path =
-      osqp_optimization(path, blue_cones, yellow_cones, is_path_closed);
+      osqp_optimization(splines.center, splines.left, splines.right, is_path_closed);
   std::vector<PathPoint> filtered_path = filter_path(optimize_path);
 
   return filtered_path;
@@ -87,7 +89,8 @@ void PathSmoothing::add_slack_penalty_terms(
     int num_path_points, const std::function<void(int, int, double)>& add_coefficient) const {
   // -------- ADD SLACK VARIABLE PENALTY TERMS --------
   // Penalize slack variables to encourage staying within bounds
-  const int num_slack_variables = 2 * num_path_points;
+  // TODA: change the same
+  const int num_slack_variables = num_path_points;
   for (int slack_idx = 0; slack_idx < num_slack_variables; ++slack_idx) {
     int slack_variable_index = 2 * num_path_points + slack_idx;
     add_coefficient(slack_variable_index, slack_variable_index, config_.safety_weight_);
@@ -100,16 +103,26 @@ void PathSmoothing::add_boundary_constraints(
     std::vector<OSQPFloat>& constraint_upper_bounds, int& constraint_count,
     const std::vector<PathPoint>& left, const std::vector<PathPoint>& right, int num_path_points,
     double safety_margin) const {
-  // -------- ADD TRACK BOUNDARY CONSTRAINTS --------
-  // For each point, ensure it stays within the left and right boundaries
   for (int point_idx = 0; point_idx < num_path_points; ++point_idx) {
     Eigen::Vector2d left_boundary_point(left[point_idx].position.x, left[point_idx].position.y);
     Eigen::Vector2d right_boundary_point(right[point_idx].position.x, right[point_idx].position.y);
 
-    // Compute lateral direction (perpendicular to track)
     Eigen::Vector2d lateral_direction = (left_boundary_point - right_boundary_point).normalized();
 
-    // Right boundary constraint: lateral_direction · point + slack >= right_boundary_value
+    const double right_bound = right_boundary_point.dot(lateral_direction) + safety_margin;
+    const double left_bound = left_boundary_point.dot(lateral_direction) - safety_margin;
+
+    // Sanity check
+    if (right_bound >= left_bound) {
+      RCLCPP_WARN(rclcpp::get_logger("rclcpp"),
+                  "Point %d: corridor too narrow (right=%.3f >= left=%.3f)", point_idx, right_bound,
+                  left_bound);
+      continue;
+    }
+
+    int slack_idx = 2 * num_path_points + point_idx;
+
+    // RIGHT: n·p + s >= right_bound
     constraint_row_indices.push_back(constraint_count);
     constraint_col_indices.push_back(2 * point_idx);
     constraint_values.push_back(lateral_direction.x());
@@ -119,30 +132,28 @@ void PathSmoothing::add_boundary_constraints(
     constraint_values.push_back(lateral_direction.y());
 
     constraint_row_indices.push_back(constraint_count);
-    constraint_col_indices.push_back(2 * num_path_points + 2 * point_idx);
+    constraint_col_indices.push_back(slack_idx);
     constraint_values.push_back(1.0);
 
-    double right_boundary_constraint = right_boundary_point.dot(lateral_direction) + safety_margin;
-    constraint_lower_bounds.push_back(right_boundary_constraint);
+    constraint_lower_bounds.push_back(right_bound);
     constraint_upper_bounds.push_back(OSQP_INFTY);
     constraint_count++;
 
-    // Left boundary constraint: -lateral_direction · point + slack >= -left_boundary_value
+    // LEFT: n·p - s <= left_bound
     constraint_row_indices.push_back(constraint_count);
     constraint_col_indices.push_back(2 * point_idx);
-    constraint_values.push_back(-lateral_direction.x());
+    constraint_values.push_back(lateral_direction.x());
 
     constraint_row_indices.push_back(constraint_count);
     constraint_col_indices.push_back(2 * point_idx + 1);
-    constraint_values.push_back(-lateral_direction.y());
+    constraint_values.push_back(lateral_direction.y());
 
     constraint_row_indices.push_back(constraint_count);
-    constraint_col_indices.push_back(2 * num_path_points + 2 * point_idx + 1);
-    constraint_values.push_back(1.0);
+    constraint_col_indices.push_back(slack_idx);
+    constraint_values.push_back(-1.0);
 
-    double left_boundary_constraint = -left_boundary_point.dot(lateral_direction) + safety_margin;
-    constraint_lower_bounds.push_back(left_boundary_constraint);
-    constraint_upper_bounds.push_back(OSQP_INFTY);
+    constraint_lower_bounds.push_back(-OSQP_INFTY);
+    constraint_upper_bounds.push_back(left_bound);
     constraint_count++;
   }
 }
@@ -154,7 +165,8 @@ void PathSmoothing::add_slack_nonnegativity_constraints(
     int num_path_points) const {
   // -------- ADD SLACK VARIABLE NON-NEGATIVITY CONSTRAINTS --------
   // Ensure all slack variables are non-negative
-  const int num_slack_variables = 2 * num_path_points;
+  // TODA: change the same
+  const int num_slack_variables = num_path_points;
   for (int slack_idx = 0; slack_idx < num_slack_variables; ++slack_idx) {
     constraint_row_indices.push_back(constraint_count);
     constraint_col_indices.push_back(2 * num_path_points + slack_idx);
@@ -232,7 +244,8 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
 
   // -------- DEFINE OPTIMIZATION VARIABLES --------
   // Decision variables: 2 coordinates (x,y) per point + 2 slack variables per point
-  const int num_slack_variables = 2 * num_path_points;
+  // TODA: change to just 3*...
+  const int num_slack_variables = num_path_points;
   const int total_variables = 2 * num_path_points + num_slack_variables;
 
   // -------- BUILD QUADRATIC OBJECTIVE MATRIX (P) --------
