@@ -13,10 +13,11 @@ void TireModel::calculateSlipAngleFront(TireInput& tire_input) {
   if (std::sqrt(Vcx * Vcx + Vcy * Vcy) < 0.05) {
     tire_input.slip_angle = 0.0;
   } else {
-    tire_input.slip_angle =
-        atan((Vcy + (tire_input.yaw_rate * tire_input.distance_to_CG) +
-              (sign * tire_input.yaw_rate * car_parameters_->track_width / 2.0)) /
-             sqrt(Vcx * Vcx + (V_eps * V_eps)));
+    double Vlat = Vcy + (tire_input.yaw_rate * tire_input.distance_to_CG) +
+                  (sign * tire_input.yaw_rate * car_parameters_->track_width / 2.0);
+    double Vlong_reg = std::sqrt(Vcx * Vcx + (V_eps * V_eps));
+    double direction = Vcx / Vlong_reg;
+    tire_input.slip_angle = atan2(Vlat, Vlong_reg) * direction;
   }
 }
 
@@ -30,8 +31,9 @@ void TireModel::calculateSlipAngleRear(TireInput& tire_input) {
   if (std::sqrt(tire_input.vx * tire_input.vx + Vcy_contact * Vcy_contact) < 0.05) {
     tire_input.slip_angle = 0.0;
   } else {
-    tire_input.slip_angle =
-        atan(Vcy_contact / sqrt(tire_input.vx * tire_input.vx + (V_eps * V_eps)));
+    double Vlong_reg = std::sqrt(tire_input.vx * tire_input.vx + (V_eps * V_eps));
+    double direction = tire_input.vx / Vlong_reg;
+    tire_input.slip_angle = atan2(Vcy_contact, Vlong_reg) * direction;
   }
 }
 
@@ -41,19 +43,28 @@ void TireModel::calculateSlipRatio(TireInput& tire_input) {
   double sign = (tire_input.tire == FL || tire_input.tire == RL) ? -1.0 : 1.0;
 
   // Longitudinal velocity at the wheel patch
-  double Vcx_center = tire_input.vx * cos(tire_input.steering_angle) +
-                      tire_input.vy * sin(tire_input.steering_angle);
+  // Only apply steering angle to FRONT wheels, rear wheels go straight
+  double Vcx_center;
+  if (tire_input.tire == FL || tire_input.tire == FR) {
+    Vcx_center = tire_input.vx * cos(tire_input.steering_angle) +
+                 tire_input.vy * sin(tire_input.steering_angle);
+  } else {
+    // Rear wheels don't steer
+    Vcx_center = tire_input.vx;
+  }
 
   // Add the yaw component (tangential velocity)
   double Vcx = Vcx_center + (sign * tire_input.yaw_rate * car_parameters_->track_width / 2.0);
 
   double Vw = tire_input.wheel_angular_speed * car_parameters_->tire_parameters->effective_tire_r;
 
-  if (Vcx < 0.01 || Vw < 0.01) {
+  if (std::abs(Vcx) < 0.01 && std::abs(Vw) < 0.01) {
     tire_input.slip_ratio = 0.0;
+    tire_input.last_slip_ratio[tire_input.tire] = 0.0;
+    return;
   }
 
-  double stabilizer_expsilon = 1;
+  double stabilizer_expsilon = 0.1;
   // 2. Calculate the "Target" (Steady-State) Slip
   double denominator = std::sqrt(Vcx * Vcx + stabilizer_expsilon * stabilizer_expsilon);
   double slip_target = (Vw - Vcx) / denominator;

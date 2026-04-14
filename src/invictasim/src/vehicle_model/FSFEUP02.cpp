@@ -30,6 +30,8 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   double motor_torque = calculate_powertrain_torque(throttle_input, dt);
   const auto powertrain_end = Clock::now();
 
+  motor_torque *= 0.6;
+
   // Distribute torque to the wheels
   const auto differential_start = Clock::now();
   state_->wheels_torque =
@@ -291,7 +293,7 @@ double FSFEUP02Model::calculate_powertrain_torque(double throttle_input, double 
   double avg_wheel_speed =
       (state_->wheels_speed.rear_left + state_->wheels_speed.rear_right) / 2.0f;
   double motor_omega = avg_wheel_speed * car_parameters_->gear_ratio;
-  double motor_rpm = (motor_omega * 60.0f / (2.0f * M_PI));
+  double motor_rpm = std::abs(motor_omega * 60.0f / (2.0f * M_PI));
 
   // Calculate Max Torque at current RPM
   double max_motor_torque = motor_->get_max_torque_at_rpm(motor_rpm);
@@ -315,6 +317,16 @@ double FSFEUP02Model::calculate_powertrain_torque(double throttle_input, double 
   // Restore the sign of the torque
   if (reference_motor_torque < 0) {
     actual_motor_torque *= -1.0f;
+  }
+
+  // Passive drivetrain losses (viscous + Coulomb) to create natural coasting deceleration.
+  // This opposes shaft rotation in both forward and reverse.
+  const double viscous_drag_coeff = 0.03;  // [N.m / (rad/s)]
+  const double coulomb_drag = 3.0;         // [N.m]
+  if (std::abs(motor_omega) > 1e-3) {
+    double drag_sign = (motor_omega > 0.0) ? 1.0 : -1.0;
+    double drag_torque = (viscous_drag_coeff * std::abs(motor_omega)) + coulomb_drag;
+    actual_motor_torque -= drag_sign * drag_torque;
   }
 
   battery_->update_state(allowed_motor_current, dt);

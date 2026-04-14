@@ -24,6 +24,7 @@ struct InternalValues {
   double Kya;
   double Kya_prime;
   double Vcx;
+  double longitudinal_direction = 1.0;
   double LMUY_prime;
   double SVyg;
   double alpha_star;
@@ -175,7 +176,7 @@ private:
    * @return double Self aligning moment without using combined slip
    */
   double calculatePureMoment(double Fy0, double normal_load, double SHy, double SVy, double By,
-                             double Cy, double vx) const;
+                             double Cy, double longitudinal_velocity) const;
 
   /**
    * @brief Calculates the aligning moment using combined slip.
@@ -190,7 +191,8 @@ private:
    * @return double Self aligning moment using combined slip
    */
   double calculateCombinedMoment(double Fx, double Fy, double slip_ratio, double SHy, double SVy,
-                                 double By, double Cy, double vx, double normal_load) const;
+                                 double By, double Cy, double longitudinal_velocity,
+                                 double normal_load) const;
 
 private:
   double calculateZeta1(double slip_ratio) const;
@@ -208,5 +210,5 @@ private:
    * @param val The value
    * @return int 1 or -1
    */
-  static int sign(double val) { return (val > 0) ? 1 : -1; }
+  static int sign(double val) { return (val >= 0) ? 1 : -1; }
 };
