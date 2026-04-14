@@ -327,7 +327,7 @@ void RosOutputAdapter::publish_ground_marker(visualization_msgs::msg::MarkerArra
   ground.header.frame_id = "map";
   ground.ns = "invictasim_ground";
   ground.id = 100;
-  ground.type = visualization_msgs::msg::Marker::CUBE;
+  ground.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
   ground.action = visualization_msgs::msg::Marker::ADD;
   ground.pose.position.x = 0.0;
   ground.pose.position.y = 0.0;
@@ -338,11 +338,13 @@ void RosOutputAdapter::publish_ground_marker(visualization_msgs::msg::MarkerArra
   ground.pose.orientation.w = 1.0;
   ground.scale.x = 5000.0;
   ground.scale.y = 5000.0;
-  ground.scale.z = 0.04;
-  ground.color.a = 0.65f;
-  ground.color.r = 0.2f;
-  ground.color.g = 0.2f;
-  ground.color.b = 0.2f;
+  ground.scale.z = 1.0;
+  ground.color.a = 1.0f;
+  ground.color.r = 0.78f;
+  ground.color.g = 0.78f;
+  ground.color.b = 0.78f;
+  ground.mesh_resource = "package://invictasim/resources/meshes/ground_plane.dae";
+  ground.mesh_use_embedded_materials = true;
   marker_array.markers.push_back(ground);
 }
 
