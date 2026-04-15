@@ -109,6 +109,11 @@ void PathSmoothing::add_boundary_constraints(
 
     Eigen::Vector2d lateral_direction = (left_boundary_point - right_boundary_point).normalized();
 
+    if (lateral_direction.norm() < 1e-6) {
+      RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "Degenerate boundary at point %d", point_idx);
+      continue;
+    }
+
     const double right_bound = right_boundary_point.dot(lateral_direction) + safety_margin;
     const double left_bound = left_boundary_point.dot(lateral_direction) - safety_margin;
 
@@ -333,7 +338,7 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
   // -------- CONFIGURE OSQP SOLVER SETTINGS --------
   OSQPSettings solver_settings;
   ::osqp_set_default_settings(&solver_settings);
-  solver_settings.verbose = true;
+  solver_settings.verbose = false;
   solver_settings.max_iter = config_.max_iterations_;
   solver_settings.eps_abs = config_.tolerance_;
   solver_settings.eps_rel = config_.tolerance_;
