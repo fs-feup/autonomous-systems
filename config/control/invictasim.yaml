@@ -1,0 +1,20 @@
+control:
+  control_solver: "decoupled"
+  lateral_controller: "pure_pursuit"
+  longitudinal_controller: "pid"
+  pure_pursuit_lookahead_gain: 0.5
+  pure_pursuit_lookahead_minimum: 2.0
+  pure_pursuit_lpf_alpha: 1
+  pure_pursuit_lpf_initial_value: 0.0
+  first_last_max_dist: 5.0
+  pid_kp: 0.4
+  pid_ki: 0.2
+  pid_kd: 0.1
+  pid_tau: 0.5
+  pid_t: 0.025
+  pid_lim_min: -1.0
+  pid_lim_max: 1.0
+  pid_anti_windup: 0.7
+  pid_max_positive_error: 4
+  pid_max_negative_error: -5
+  command_time_interval: 25

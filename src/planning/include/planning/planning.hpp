@@ -85,6 +85,7 @@ public:
   friend class PacSimAdapter;
   friend class EufsAdapter;
   friend class FsdsAdapter;
+  friend class InvictaSimAdapter;
   friend class VehicleAdapter;
 
 private:

@@ -1,5 +1,18 @@
 #include "config/config.hpp"
 
+#include <algorithm>
+#include <cctype>
+#include <cstdlib>
+
+namespace {
+
+std::string get_string_env_or(const char* name, const std::string& fallback) {
+  const char* value = std::getenv(name);
+  return (value != nullptr && value[0] != '\0') ? std::string(value) : fallback;
+}
+
+}  // namespace
+
 InvictaSimParameters::InvictaSimParameters() {
   std::string simulator_config_path =
       common_lib::config_load::get_config_yaml_path("invictasim", "invictasim", "global");
@@ -9,11 +22,14 @@ InvictaSimParameters::InvictaSimParameters() {
       common_lib::config_load::get_config_yaml_path("invictasim", "global", "global_config");
   YAML::Node global_config = YAML::LoadFile(global_config_path);
 
-  discipline = global_config["global"]["discipline"].as<std::string>();
+  discipline = get_string_env_or("AS_DISCIPLINE", global_config["global"]["discipline"].as<std::string>());
   sim_frequency = simulator_config["invictasim"]["sim_frequency"].as<int>();
-  track_name = simulator_config["invictasim"]["track_name"].as<std::string>();
-  input_adapter = simulator_config["invictasim"]["input_adapter"].as<std::string>();
-  output_adapter = simulator_config["invictasim"]["output_adapter"].as<std::string>();
+  track_name =
+      get_string_env_or("INVICTASIM_TRACK_NAME", simulator_config["invictasim"]["track_name"].as<std::string>());
+  input_adapter = get_string_env_or("INVICTASIM_INPUT_ADAPTER",
+                                    simulator_config["invictasim"]["input_adapter"].as<std::string>());
+  output_adapter = get_string_env_or(
+      "INVICTASIM_OUTPUT_ADAPTER", simulator_config["invictasim"]["output_adapter"].as<std::string>());
 
   for (const auto& publish_frequency : simulator_config["invictasim"]["publish_frequencies"]) {
     publish_frequencies[publish_frequency.first.as<std::string>()] =

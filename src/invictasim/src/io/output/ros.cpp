@@ -24,6 +24,11 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator)
       "invictasim/vehicle_model/load_transfer", 10);
   status_pub_ = this->create_publisher<custom_interfaces::msg::VehicleStateVector>(
       "invictasim/vehicle_model/status", 10);
+  pose_pub_ = this->create_publisher<custom_interfaces::msg::Pose>("invictasim/pose", 10);
+  velocity_pub_ =
+      this->create_publisher<custom_interfaces::msg::Velocities>("invictasim/velocity", 10);
+  ground_truth_state_pub_ = this->create_publisher<custom_interfaces::msg::VehicleStateVector>(
+      "invictasim/state_vector", 10);
   input_command_pub_ =
       this->create_publisher<custom_interfaces::msg::ControlCommand>("invictasim/input", 10);
   execution_times_pub_ = this->create_publisher<custom_interfaces::msg::ExecutionTimes>(
@@ -248,8 +253,10 @@ void RosOutputAdapter::publish_load_group() {
 }
 
 void RosOutputAdapter::publish_status_group() {
+  const rclcpp::Time stamp = this->now();
+
   custom_interfaces::msg::VehicleStateVector status_msg;
-  status_msg.header.stamp = this->now();
+  status_msg.header.stamp = stamp;
   status_msg.header.frame_id = "base_link";
   status_msg.yaw_rate = vehicle_model_snapshot_cache_.yaw_rate;
   status_msg.velocity_x = vehicle_model_snapshot_cache_.velocity_x;
@@ -262,6 +269,24 @@ void RosOutputAdapter::publish_status_group() {
   status_msg.fr_rpm = wheels_speed.front_right * 60.0 / (2.0 * M_PI);
   status_msg.rl_rpm = wheels_speed.rear_left * 60.0 / (2.0 * M_PI);
   status_msg.rr_rpm = wheels_speed.rear_right * 60.0 / (2.0 * M_PI);
+
+  custom_interfaces::msg::Pose pose_msg;
+  pose_msg.header.stamp = stamp;
+  pose_msg.header.frame_id = "map";
+  pose_msg.x = vehicle_model_snapshot_cache_.x;
+  pose_msg.y = vehicle_model_snapshot_cache_.y;
+  pose_msg.theta = vehicle_model_snapshot_cache_.yaw;
+
+  custom_interfaces::msg::Velocities velocity_msg;
+  velocity_msg.header.stamp = stamp;
+  velocity_msg.header.frame_id = "base_link";
+  velocity_msg.velocity_x = vehicle_model_snapshot_cache_.velocity_x;
+  velocity_msg.velocity_y = vehicle_model_snapshot_cache_.velocity_y;
+  velocity_msg.angular_velocity = vehicle_model_snapshot_cache_.yaw_rate;
+
+  pose_pub_->publish(pose_msg);
+  velocity_pub_->publish(velocity_msg);
+  ground_truth_state_pub_->publish(status_msg);
   status_pub_->publish(status_msg);
 }
 

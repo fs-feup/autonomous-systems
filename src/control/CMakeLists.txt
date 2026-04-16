@@ -9,6 +9,7 @@ set(IMPLEMENTATION_FILES
   src/ros_node/ros_node.cpp
   src/adapter/pacsim.cpp
   src/adapter/eufs.cpp
+  src/adapter/invictasim.cpp
   src/adapter/vehicle.cpp
   src/lateral_controller/pure_pursuit.cpp
   src/longitudinal_controller/pid.cpp

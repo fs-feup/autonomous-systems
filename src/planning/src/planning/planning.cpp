@@ -1,10 +1,43 @@
 #include "planning/planning.hpp"
 
+#include <algorithm>
+#include <cctype>
+#include <cstdlib>
 #include <vector>
 
 #include "adapter_planning/pacsim.hpp"
 #include "adapter_planning/vehicle.hpp"
 #include "common_lib/config_load/config_load.hpp"
+
+namespace {
+
+std::string get_string_env_or(const char* name, const std::string& fallback) {
+  const char* value = std::getenv(name);
+  return (value != nullptr && value[0] != '\0') ? std::string(value) : fallback;
+}
+
+bool get_bool_env_or(const char* name, bool fallback) {
+  const char* value = std::getenv(name);
+  if (value == nullptr || value[0] == '\0') {
+    return fallback;
+  }
+
+  std::string normalized(value);
+  std::transform(normalized.begin(), normalized.end(), normalized.begin(),
+                 [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
+
+  if (normalized == "1" || normalized == "true" || normalized == "yes" || normalized == "on") {
+    return true;
+  }
+  if (normalized == "0" || normalized == "false" || normalized == "no" ||
+      normalized == "off") {
+    return false;
+  }
+
+  return fallback;
+}
+
+}  // namespace
 
 /*--------------------- Configuration Loading --------------------*/
 
@@ -17,9 +50,10 @@ PlanningParameters Planning::load_config(std::string &adapter) {
                global_config_path.c_str());
 
   YAML::Node global_config = YAML::LoadFile(global_config_path);
-  adapter = global_config["global"]["adapter"].as<std::string>();
+  adapter = get_string_env_or("AS_ADAPTER", global_config["global"]["adapter"].as<std::string>());
   params.planning_adapter_ = adapter;
-  params.planning_using_simulated_se_ = global_config["global"]["use_simulated_se"].as<bool>();
+  params.planning_using_simulated_se_ =
+      get_bool_env_or("AS_USE_SIMULATED_SE", global_config["global"]["use_simulated_se"].as<bool>());
 
   std::string planning_config_path =
       common_lib::config_load::get_config_yaml_path("planning", "planning", adapter);

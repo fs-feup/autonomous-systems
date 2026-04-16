@@ -1,5 +1,39 @@
 #include "control/include/config/parameters.hpp"
 
+#include <algorithm>
+#include <cctype>
+#include <cstdlib>
+
+namespace {
+
+std::string get_string_env_or(const char* name, const std::string& fallback) {
+  const char* value = std::getenv(name);
+  return (value != nullptr && value[0] != '\0') ? std::string(value) : fallback;
+}
+
+bool get_bool_env_or(const char* name, bool fallback) {
+  const char* value = std::getenv(name);
+  if (value == nullptr || value[0] == '\0') {
+    return fallback;
+  }
+
+  std::string normalized(value);
+  std::transform(normalized.begin(), normalized.end(), normalized.begin(),
+                 [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
+
+  if (normalized == "1" || normalized == "true" || normalized == "yes" || normalized == "on") {
+    return true;
+  }
+  if (normalized == "0" || normalized == "false" || normalized == "no" ||
+      normalized == "off") {
+    return false;
+  }
+
+  return fallback;
+}
+
+}  // namespace
+
 ControlParameters::ControlParameters(const ControlParameters &params) {
   car_parameters_ = params.car_parameters_;
   control_solver_ = params.control_solver_;
@@ -64,11 +98,13 @@ std::string ControlParameters::load_config() {
                global_config_path.c_str());
   YAML::Node global_config = YAML::LoadFile(global_config_path);
 
-  std::string adapter = global_config["global"]["adapter"].as<std::string>();
-  this->using_simulated_slam_ = global_config["global"]["use_simulated_se"].as<bool>();
-  this->using_simulated_velocities_ =
-      global_config["global"]["use_simulated_velocities"].as<bool>();
-  this->use_simulated_planning_ = global_config["global"]["use_simulated_planning"].as<bool>();
+  std::string adapter = get_string_env_or("AS_ADAPTER", global_config["global"]["adapter"].as<std::string>());
+  this->using_simulated_slam_ =
+      get_bool_env_or("AS_USE_SIMULATED_SE", global_config["global"]["use_simulated_se"].as<bool>());
+  this->using_simulated_velocities_ = get_bool_env_or(
+      "AS_USE_SIMULATED_VELOCITIES", global_config["global"]["use_simulated_velocities"].as<bool>());
+  this->use_simulated_planning_ = get_bool_env_or(
+      "AS_USE_SIMULATED_PLANNING", global_config["global"]["use_simulated_planning"].as<bool>());
 
   std::string control_path =
       common_lib::config_load::get_config_yaml_path("control", "control", adapter);

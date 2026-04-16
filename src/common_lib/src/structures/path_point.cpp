@@ -2,8 +2,14 @@
 
 namespace common_lib::structures {
 
+PathPoint::PathPoint(Position position, double value)
+    : position(position), orientation(value), ideal_velocity(value) {}
+
 PathPoint::PathPoint(Position position, double orientation, double ideal_velocity)
     : position(position), orientation(orientation), ideal_velocity(ideal_velocity) {}
+
+PathPoint::PathPoint(double x, double y, double value)
+    : position(x, y), orientation(value), ideal_velocity(value) {}
 
 PathPoint::PathPoint(double x, double y, double orientation, double ideal_velocity)
     : position(x, y), orientation(orientation), ideal_velocity(ideal_velocity) {}

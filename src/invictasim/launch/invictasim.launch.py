@@ -5,16 +5,26 @@ from launch import LaunchDescription
 from launch_ros.actions import Node
 from launch.event_handlers import OnProcessExit
 from launch.actions import (
+    DeclareLaunchArgument,
     RegisterEventHandler,
     LogInfo,
     EmitEvent,
     SetEnvironmentVariable,
 )
+from launch.substitutions import LaunchConfiguration
 from launch.events import Shutdown
 
 
 def generate_launch_description():
-    sdlWaylandEnv = SetEnvironmentVariable(name="SDL_VIDEODRIVER", value="wayland")
+    sdlVideoDriverArg = DeclareLaunchArgument(
+        "sdl_videodriver",
+        default_value=os.environ.get("SDL_VIDEODRIVER", "x11"),
+        description="SDL video backend to use (x11, wayland, etc).",
+    )
+
+    sdlVideoDriverEnv = SetEnvironmentVariable(
+        name="SDL_VIDEODRIVER", value=LaunchConfiguration("sdl_videodriver")
+    )
 
     nodeInvictasim = Node(
         package="invictasim",
@@ -42,5 +52,10 @@ def generate_launch_description():
     )
 
     return LaunchDescription(
-        [sdlWaylandEnv, nodeInvictasim, nodeInvictasimShutdownEventHandler]
+        [
+            sdlVideoDriverArg,
+            sdlVideoDriverEnv,
+            nodeInvictasim,
+            nodeInvictasimShutdownEventHandler,
+        ]
     )

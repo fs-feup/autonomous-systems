@@ -14,8 +14,10 @@
 #include "custom_interfaces/msg/control_command.hpp"
 #include "custom_interfaces/msg/execution_times.hpp"
 #include "custom_interfaces/msg/motor_state.hpp"
+#include "custom_interfaces/msg/pose.hpp"
 #include "custom_interfaces/msg/tire_forces.hpp"
 #include "custom_interfaces/msg/vehicle_state_vector.hpp"
+#include "custom_interfaces/msg/velocities.hpp"
 #include "custom_interfaces/msg/wheel_scalars.hpp"
 #include "geometry_msgs/msg/transform_stamped.hpp"
 #include "io/output/output_adapter.hpp"
@@ -212,6 +214,12 @@ private:
       load_pub_;  ///< Publisher for wheel vertical loads.
   rclcpp::Publisher<custom_interfaces::msg::VehicleStateVector>::SharedPtr
       status_pub_;  ///< Publisher for vehicle status.
+  rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr
+      pose_pub_;  ///< Publisher for simulator ground-truth pose.
+  rclcpp::Publisher<custom_interfaces::msg::Velocities>::SharedPtr
+      velocity_pub_;  ///< Publisher for simulator ground-truth velocities.
+  rclcpp::Publisher<custom_interfaces::msg::VehicleStateVector>::SharedPtr
+      ground_truth_state_pub_;  ///< Publisher for simulator ground-truth state vector.
   rclcpp::Publisher<custom_interfaces::msg::ControlCommand>::SharedPtr
       input_command_pub_;  ///< Publisher for current input command.
   rclcpp::Publisher<custom_interfaces::msg::ExecutionTimes>::SharedPtr

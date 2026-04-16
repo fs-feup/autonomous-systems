@@ -1,5 +1,6 @@
 #include "adapter_planning/eufs.hpp"
 #include "adapter_planning/fsds.hpp"
+#include "adapter_planning/invictasim.hpp"
 #include "adapter_planning/pacsim.hpp"
 #include "adapter_planning/vehicle.hpp"
 #include "planning/planning.hpp"
@@ -15,6 +16,8 @@ int main(int argc, char* argv[]) {
     planning = std::make_shared<VehicleAdapter>(params);
   } else if (adapter == "pacsim") {
     planning = std::make_shared<PacSimAdapter>(params);
+  } else if (adapter == "invictasim") {
+    planning = std::make_shared<InvictaSimAdapter>(params);
   } else if (adapter == "eufs") {
     planning = std::make_shared<EufsAdapter>(params);
   } else if (adapter == "fsds") {
