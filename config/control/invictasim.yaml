@@ -2,13 +2,13 @@ control:
   control_solver: "decoupled"
   lateral_controller: "pure_pursuit"
   longitudinal_controller: "pid"
-  pure_pursuit_lookahead_gain: 0.5
-  pure_pursuit_lookahead_minimum: 2.0
+  pure_pursuit_lookahead_gain: 0.2
+  pure_pursuit_lookahead_minimum: 0.6
   pure_pursuit_lpf_alpha: 1
   pure_pursuit_lpf_initial_value: 0.0
   first_last_max_dist: 5.0
-  pid_kp: 0.4
-  pid_ki: 0.2
+  pid_kp: 1.5
+  pid_ki: 0.1
   pid_kd: 0.1
   pid_tau: 0.5
   pid_t: 0.025

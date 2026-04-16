@@ -11,11 +11,6 @@ def generate_launch_description():
         default_value="autocross",
         description="Competition discipline used by planning and invictasim.",
     )
-    track_name_arg = DeclareLaunchArgument(
-        "track_name",
-        default_value="FSG25",
-        description="Invictasim track to load.",
-    )
 
     env = [
         SetEnvironmentVariable(name="AS_ADAPTER", value="invictasim"),
@@ -25,7 +20,6 @@ def generate_launch_description():
         SetEnvironmentVariable(name="AS_DISCIPLINE", value=LaunchConfiguration("discipline")),
         SetEnvironmentVariable(name="INVICTASIM_INPUT_ADAPTER", value="ros"),
         SetEnvironmentVariable(name="INVICTASIM_OUTPUT_ADAPTER", value="ros"),
-        SetEnvironmentVariable(name="INVICTASIM_TRACK_NAME", value=LaunchConfiguration("track_name")),
     ]
 
     invictasim_launch = IncludeLaunchDescription(
@@ -53,7 +47,6 @@ def generate_launch_description():
     return LaunchDescription(
         [
             discipline_arg,
-            track_name_arg,
             *env,
             invictasim_launch,
             planning_launch,

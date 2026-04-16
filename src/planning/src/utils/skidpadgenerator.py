@@ -4,11 +4,11 @@ import os
 centerX = 15.0
 centerY = 9.125
 radius = 8.7
-numPoints = 100  # Number of points to describe the circle
+numPoints = 200  # Number of points to describe the circle
 
-entryspeed = 2.5
+entryspeed = 13
 exitspeed = 2.5
-circular_speed = 3.5
+circular_speed = 11.0
 
 file_name = "./src/planning/src/utils/skidpad.txt"
 
