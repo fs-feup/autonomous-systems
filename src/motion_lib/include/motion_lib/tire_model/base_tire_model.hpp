@@ -41,6 +41,7 @@ protected:
   void calculateSlipAngleFront(TireInput& tire_input);
   void calculateSlipAngleRear(TireInput& tire_input);
   void calculateSlipRatio(TireInput& tire_input);
+  void calculateSlipRatioNotTransient(TireInput& tire_input);
 
   /**
    * @brief Calculate the forces acting in a tire based on the tire characteristics and dynamic
@@ -57,4 +58,5 @@ public:
             std::make_shared<common_lib::car_parameters::CarParameters>(car_parameters)) {}
 
   Eigen::Vector3d calculateTireForces(TireInput& tire_input);
+  Eigen::Vector3d calculateTireForcesNotTransient(TireInput& tire_input);
 };

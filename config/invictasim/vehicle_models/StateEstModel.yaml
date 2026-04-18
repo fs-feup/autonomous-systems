@@ -1,5 +1,5 @@
 vehicle_model:
-  name: "fsfeup02"
+  name: "StateEstModel"
 
   car_parameters: "02"
 
@@ -18,10 +18,10 @@ vehicle_model:
   differential_model: "viscous_lsd"
   differential_model_params: "differential"
 
-  load_transfer_model: "vd_model" # Options: "rigid_body_model", "vd_model"
+  load_transfer_model: "rigid_body" # Options: "rigid_body", "vd_model"
   load_transfer_model_params: "load_transfer"
 
-  steering_motor_model: "simple_steering_motor"
+  steering_motor_model: "first_order"
   steering_motor_model_params: "simple_steering_motor"
 
   steering_model: "ackerman_steering" # options: "ackerman_steering" , "parallel_front_steering"
