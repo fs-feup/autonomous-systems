@@ -1,0 +1,7 @@
+transmission:
+  gear_ratio: 3.67
+  efficiency: 0.95
+  kv: 40.0
+  t_max: 300.0
+  viscous_drag_coeff: 0.05  # Nm/(rad/s)  # Need tuning with actual car data
+  coulomb_drag: 5.0         # Nm

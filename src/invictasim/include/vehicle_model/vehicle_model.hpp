@@ -13,7 +13,7 @@
  */
 struct VehicleModelExecutionTimes {
   double powertrain_ms = 0.0;
-  double differential_ms = 0.0;
+  double transmission_ms = 0.0;
   double aero_ms = 0.0;
   double steering_ms = 0.0;
   double load_transfer_ms = 0.0;

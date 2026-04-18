@@ -29,8 +29,8 @@ struct VehicleModelSnapshot {
   double battery_soc = 0.0;
   double battery_current = 0.0;
 
-  // Differential data
-  common_lib::structures::Wheels differential_torque = {0.0, 0.0, 0.0, 0.0};
+  // Transmission data
+  common_lib::structures::Wheels transmission_torque = {0.0, 0.0, 0.0, 0.0};
 
   // Aero data
   double aero_drag = 0.0;
@@ -57,7 +57,7 @@ struct VehicleModelSnapshot {
  */
 struct ExecutionTimesSnapshot {
   double powertrain_ms = 0.0;
-  double differential_ms = 0.0;
+  double transmission_ms = 0.0;
   double aero_ms = 0.0;
   double steering_ms = 0.0;
   double load_transfer_ms = 0.0;

@@ -5,12 +5,12 @@
 #include "common_lib/config_load/config_load.hpp"
 #include "common_lib/structures/physical_constants.hpp"
 #include "common_lib/structures/wheels.hpp"
-#include "differential_parameters.hpp"
 #include "load_transfer_parameters.hpp"
 #include "motor_parameters.hpp"
 #include "steering_motor_parameters.hpp"
 #include "steering_parameters.hpp"
 #include "tire_parameters.hpp"
+#include "transmission_parameters.hpp"
 
 namespace common_lib::car_parameters {
 struct CarParameters {
@@ -37,7 +37,7 @@ struct CarParameters {
   std::shared_ptr<common_lib::car_parameters::LoadTransferParameters> load_transfer_parameters;
   std::shared_ptr<common_lib::car_parameters::MotorParameters> motor_parameters;
   std::shared_ptr<common_lib::car_parameters::BatteryParameters> battery_parameters;
-  std::shared_ptr<common_lib::car_parameters::DifferentialParameters> differential_parameters;
+  std::shared_ptr<common_lib::car_parameters::TransmissionParameters> transmission_parameters;
   std::shared_ptr<common_lib::structures::PhysicalConstants> physical_constants;
   std::shared_ptr<common_lib::structures::Wheels> wheels;
 

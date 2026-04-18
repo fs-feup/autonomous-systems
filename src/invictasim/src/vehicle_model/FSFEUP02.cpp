@@ -8,7 +8,7 @@ FSFEUP02Model::FSFEUP02Model(const InvictaSimParameters& simulator_parameters)
       simulator_parameters.car_parameters);
   this->battery_ = battery_models_map.at(simulator_parameters.battery_model.c_str())(
       simulator_parameters.car_parameters);
-  this->differential_ = differential_models_map.at(simulator_parameters.differential_model.c_str())(
+  this->transmission_ = transmission_models_map.at(simulator_parameters.transmission_model.c_str())(
       simulator_parameters.car_parameters);
   this->aero_ = aero_models_map.at(simulator_parameters.aero_model.c_str())(
       simulator_parameters.car_parameters);
@@ -30,11 +30,11 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   double motor_torque = calculate_powertrain_torque(throttle_input, dt);
   const auto powertrain_end = Clock::now();
 
-  // Distribute torque to the wheels
-  const auto differential_start = Clock::now();
+  // Apply transmission losses and distribute torque to the wheels
+  const auto transmission_start = Clock::now();
   state_->wheels_torque =
-      differential_->calculateTorqueDistribution(motor_torque, state_->wheels_speed);
-  const auto differential_end = Clock::now();
+      transmission_->calculate_wheel_torques(motor_torque, state_->wheels_speed);
+  const auto transmission_end = Clock::now();
 
   // Aerodynamics
   // based on implementation, this forces are negative by default, so we add them
@@ -215,8 +215,8 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   // Per-subsystem execution times in milliseconds.
   execution_times_->powertrain_ms =
       std::chrono::duration<double, std::milli>(powertrain_end - powertrain_start).count();
-  execution_times_->differential_ms =
-      std::chrono::duration<double, std::milli>(differential_end - differential_start).count();
+  execution_times_->transmission_ms =
+      std::chrono::duration<double, std::milli>(transmission_end - transmission_start).count();
   execution_times_->aero_ms =
       std::chrono::duration<double, std::milli>(aero_end - aero_start).count();
   execution_times_->steering_ms =
@@ -272,9 +272,7 @@ void FSFEUP02Model::reset() {
 std::string FSFEUP02Model::get_model_name() const { return "FSFEUP02Model"; }
 
 double FSFEUP02Model::calculate_powertrain_torque(double throttle_input, double dt) {
-  double avg_wheel_speed =
-      (state_->wheels_speed.rear_left + state_->wheels_speed.rear_right) / 2.0f;
-  double motor_omega = avg_wheel_speed * car_parameters_->gear_ratio;
+  double motor_omega = transmission_->calculate_motor_omega(state_->wheels_speed);
   double motor_rpm = std::abs(motor_omega * 60.0f / (2.0f * M_PI));
 
   // Calculate Max Torque at current RPM
@@ -299,16 +297,6 @@ double FSFEUP02Model::calculate_powertrain_torque(double throttle_input, double 
   // Restore the sign of the torque
   if (reference_motor_torque < 0) {
     actual_motor_torque *= -1.0f;
-  }
-
-  // Passive drivetrain losses (viscous + Coulomb) to create natural coasting deceleration.
-  // This opposes shaft rotation in both forward and reverse.
-  const double viscous_drag_coeff = 0.03;  // [N.m / (rad/s)]
-  const double coulomb_drag = 3.0;         // [N.m]
-  if (std::abs(motor_omega) > 1e-3) {
-    double drag_sign = (motor_omega > 0.0) ? 1.0 : -1.0;
-    double drag_torque = (viscous_drag_coeff * std::abs(motor_omega)) + coulomb_drag;
-    actual_motor_torque -= drag_sign * drag_torque;
   }
 
   battery_->update_state(allowed_motor_current, dt);

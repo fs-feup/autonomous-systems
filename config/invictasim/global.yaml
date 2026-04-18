@@ -9,7 +9,7 @@ invictasim:
     tire: 10
     battery: 10
     motor: 10
-    differential: 10
+    transmission: 10
     aero: 10
     load_transfer: 10
     status: 10

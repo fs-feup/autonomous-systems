@@ -16,8 +16,8 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator)
       "invictasim/vehicle_model/battery", 10);
   motor_pub_ = this->create_publisher<custom_interfaces::msg::MotorState>(
       "invictasim/vehicle_model/motor", 10);
-  differential_pub_ = this->create_publisher<custom_interfaces::msg::WheelScalars>(
-      "invictasim/vehicle_model/differential", 10);
+  transmission_pub_ = this->create_publisher<custom_interfaces::msg::WheelScalars>(
+      "invictasim/vehicle_model/transmission", 10);
   aero_pub_ = this->create_publisher<custom_interfaces::msg::AeroForces>(
       "invictasim/vehicle_model/aero", 10);
   load_pub_ = this->create_publisher<custom_interfaces::msg::WheelScalars>(
@@ -87,8 +87,8 @@ void RosOutputAdapter::on_frequency_tick(int frequency_hz) {
   if (publishes_at("battery", frequency_hz)) {
     publish_battery_group();
   }
-  if (publishes_at("differential", frequency_hz)) {
-    publish_differential_group();
+  if (publishes_at("transmission", frequency_hz)) {
+    publish_transmission_group();
   }
   if (publishes_at("aero", frequency_hz)) {
     publish_aero_group();
@@ -229,9 +229,9 @@ void RosOutputAdapter::publish_battery_group() {
   battery_pub_->publish(battery_msg);
 }
 
-void RosOutputAdapter::publish_differential_group() {
-  differential_pub_->publish(
-      to_wheels_msg(vehicle_model_snapshot_cache_.differential_torque, this->now()));
+void RosOutputAdapter::publish_transmission_group() {
+  transmission_pub_->publish(
+      to_wheels_msg(vehicle_model_snapshot_cache_.transmission_torque, this->now()));
 }
 
 void RosOutputAdapter::publish_aero_group() {
@@ -284,7 +284,7 @@ void RosOutputAdapter::publish_execution_times_group() {
   times_msg.header.stamp = this->now();
   times_msg.header.frame_id = "base_link";
   times_msg.powertrain_ms = execution_times_snapshot_cache_.powertrain_ms;
-  times_msg.differential_ms = execution_times_snapshot_cache_.differential_ms;
+  times_msg.transmission_ms = execution_times_snapshot_cache_.transmission_ms;
   times_msg.aero_ms = execution_times_snapshot_cache_.aero_ms;
   times_msg.steering_ms = execution_times_snapshot_cache_.steering_ms;
   times_msg.load_transfer_ms = execution_times_snapshot_cache_.load_transfer_ms;

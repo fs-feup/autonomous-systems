@@ -89,9 +89,9 @@ common_lib::car_parameters::CarParameters::CarParameters(std::string dir, std::s
     this->battery_parameters = std::make_shared<BatteryParameters>(
         config["vehicle_model"]["battery_model_params"].as<std::string>());
   }
-  if (config["vehicle_model"]["differential_model_params"]) {
-    this->differential_parameters = std::make_shared<DifferentialParameters>(
-        config["vehicle_model"]["differential_model_params"].as<std::string>());
+  if (config["vehicle_model"]["transmission_model_params"]) {
+    this->transmission_parameters = std::make_shared<TransmissionParameters>(
+        config["vehicle_model"]["transmission_model_params"].as<std::string>());
   }
   this->physical_constants = std::make_shared<common_lib::structures::PhysicalConstants>();
 }

@@ -95,9 +95,9 @@ private:
   void publish_battery_group();
 
   /**
-   * @brief Publish differential state information.
+   * @brief Publish transmission state information.
    */
-  void publish_differential_group();
+  void publish_transmission_group();
 
   /**
    * @brief Publish aerodynamic forces information.
@@ -205,7 +205,7 @@ private:
   rclcpp::Publisher<custom_interfaces::msg::BatteryState>::SharedPtr
       battery_pub_;  ///< Publisher for battery state.
   rclcpp::Publisher<custom_interfaces::msg::WheelScalars>::SharedPtr
-      differential_pub_;  ///< Publisher for differential state.
+      transmission_pub_;  ///< Publisher for transmission state.
   rclcpp::Publisher<custom_interfaces::msg::AeroForces>::SharedPtr
       aero_pub_;  ///< Publisher for aerodynamic forces.
   rclcpp::Publisher<custom_interfaces::msg::WheelScalars>::SharedPtr

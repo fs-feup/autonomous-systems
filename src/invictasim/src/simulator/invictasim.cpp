@@ -88,8 +88,8 @@ VehicleModelSnapshot InvictaSim::build_vehicle_model_snapshot() const {
   snapshot.battery_open_circuit_voltage = vehicle_model_->get_battery_open_circuit_voltage();
   snapshot.battery_soc = vehicle_model_->get_battery_soc();
 
-  // Differential
-  snapshot.differential_torque = vehicle_model_->get_wheels_torque();
+  // Transmission
+  snapshot.transmission_torque = vehicle_model_->get_wheels_torque();
 
   // Aero
   snapshot.aero_drag = vehicle_model_->get_aero_drag();
@@ -118,7 +118,7 @@ ExecutionTimesSnapshot InvictaSim::build_execution_times_snapshot(double total_s
   const VehicleModelExecutionTimes model_times = vehicle_model_->get_execution_times();
 
   snapshot.powertrain_ms = model_times.powertrain_ms;
-  snapshot.differential_ms = model_times.differential_ms;
+  snapshot.transmission_ms = model_times.transmission_ms;
   snapshot.aero_ms = model_times.aero_ms;
   snapshot.steering_ms = model_times.steering_ms;
   snapshot.load_transfer_ms = model_times.load_transfer_ms;
