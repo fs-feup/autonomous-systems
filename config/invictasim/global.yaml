@@ -6,13 +6,13 @@ invictasim:
   sim_frequency: 1000  # Hz 
   track_name: "EnduranceFSG25"  # Options: "Acceleration", "Skidpad", "FSG25", "FSG24", "FSG23", "FSE24", "FSE23", "EnduranceFSG25", "FSS22V1", "FSS22V2"
   publish_frequencies:
-    tire: 1000
-    battery: 100
-    motor: 100
-    differential: 100
-    aero: 100
-    load_transfer: 100
-    status: 1000
-    execution_times: 100
-    track: 60
+    tire: 10
+    battery: 10
+    motor: 10
+    differential: 10
+    aero: 10
+    load_transfer: 10
+    status: 10
+    execution_times: 0
+    track: 0
     visualization: 60

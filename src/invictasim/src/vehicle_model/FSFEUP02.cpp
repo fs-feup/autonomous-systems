@@ -30,8 +30,6 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   double motor_torque = calculate_powertrain_torque(throttle_input, dt);
   const auto powertrain_end = Clock::now();
 
-  motor_torque *= 0.6;
-
   // Distribute torque to the wheels
   const auto differential_start = Clock::now();
   state_->wheels_torque =
@@ -110,20 +108,6 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   state_->rear_right_forces = this->tire_model_->calculateTireForces(tire_input);
   state_->wheels_slip_ratio.rear_right = tire_input.slip_ratio;
   state_->wheels_slip_angle.rear_right = tire_input.slip_angle;
-
-  // Low-speed lateral force scaling
-  double v_total = std::sqrt(state_->vx * state_->vx + state_->vy * state_->vy);
-  double low_speed_factor = std::min(1.0, v_total / 1.0);  // fully active above 1 m/s
-                                                           /**
-                                                            state_->front_left_forces[1] *= low_speed_factor;
-                                                            state_->front_right_forces[1] *= low_speed_factor;
-                                                            state_->rear_left_forces[1] *= low_speed_factor;
-                                                            state_->rear_right_forces[1] *= low_speed_factor;
-                                                            state_->front_left_forces[2] *= low_speed_factor;
-                                                            state_->front_right_forces[2] *= low_speed_factor;
-                                                            state_->rear_left_forces[2] *= low_speed_factor;
-                                                            state_->rear_right_forces[2] *= low_speed_factor;
-                                                            */
   const auto tire_end = Clock::now();
 
   // Update wheel speeds
@@ -152,7 +136,6 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
 
   // Vehicle State Update
   // Sum of all forces normalized to the vehicle coordinate system
-  double alpha = 1;  // Tune between 0 and 1
   double Fx_fl = state_->front_left_forces[0] * cos(actual_steering_fl) -
                  state_->front_left_forces[1] * sin(actual_steering_fl);
   double Fy_fl = state_->front_left_forces[0] * sin(actual_steering_fl) +
@@ -167,10 +150,9 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
       Fy_fl + Fy_fr + state_->rear_left_forces[1] + state_->rear_right_forces[1] + aero_forces[1];
   state_->total_force_x = total_fx;
   state_->total_force_y = total_fy;
-  double final_fx = total_fx;
 
   // Update accelerations
-  state_->ax = final_fx / car_parameters_->total_mass + state_->vy * state_->yaw_rate;
+  state_->ax = total_fx / car_parameters_->total_mass + state_->vy * state_->yaw_rate;
   state_->ay = total_fy / car_parameters_->total_mass - state_->vx * state_->yaw_rate;
 
   // Update velocities
