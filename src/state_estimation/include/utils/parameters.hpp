@@ -44,9 +44,10 @@ struct SEParameters {
   std::shared_ptr<common_lib::car_parameters::CarParameters>
       car_parameters_;  // Car parameters to be used in the process and observation models
 
-  double alpha_;  // UKF alpha parameter
-  double beta_;   // UKF beta parameter
-  double kappa_;  // UKF kappa parameter
+  double mean_weight_;  // UKF mean weight parameter
+  double alpha_;        // UKF alpha parameter
+  double beta_;         // UKF beta parameter
+  double kappa_;        // UKF kappa parameter
 
   /**
    * @brief Load the configuration for the State Estimation node from YAML file

@@ -34,7 +34,7 @@ class UKF : public StateEstimator {
   rclcpp::Time last_update_;
 
   Eigen::VectorXd weights_m_;
-  Eigen::VectorXd weights_c_;
+  // Eigen::VectorXd weights_c_;
   double lambda_;
 
   common_lib::structures::ControlCommand last_control_command_ =

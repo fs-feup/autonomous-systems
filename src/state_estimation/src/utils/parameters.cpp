@@ -34,6 +34,7 @@ std::string SEParameters::load_config() {
   this->steering_angle_noise_ = se_config["steering_angle_noise"].as<double>();
 
   // Load UKF parameters
+  this->mean_weight_ = se_config["mean_weight"].as<double>();
   this->alpha_ = se_config["alpha"].as<double>();
   this->beta_ = se_config["beta"].as<double>();
   this->kappa_ = se_config["kappa"].as<double>();

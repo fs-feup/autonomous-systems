@@ -62,7 +62,8 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
     tire_input.steering_angle = wheel_angles(tire);
     tire_input.wheel_angular_speed = state(FL_WHEEL_SPEED + tire);
     tire_input.vertical_load = total_vertical_loads(tire);
-    tire_forces.segment<3>(tire * 3) = tire_model_->calculateTireForces(tire_input);  //[Fx, Fy, Fz]
+    tire_forces.segment<3>(tire * 3) =
+        tire_model_->calculateTireForcesNotTransient(tire_input);  //[Fx, Fy, Fz]
   }
 
   // Calculate steering rate using the steering motor model
@@ -107,7 +108,7 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
 
     // Calculate Moment arms
     double arm_x = (tire == FL || tire == FR) ? lf : -lr;
-    double arm_y = (tire == FL || tire == RL) ? -half_width : half_width;
+    double arm_y = (tire == FL || tire == RL) ? half_width : -half_width;
 
     // Sum moments
     total_torque += (arm_x * fy_veh) - (arm_y * fx_veh) + mz_tire;

@@ -8,19 +8,12 @@ UKF::UKF(std::shared_ptr<SEParameters> se_parameters, std::shared_ptr<ProcessMod
       process_model_(process_model),
       observation_model_(observation_model),
       last_update_(rclcpp::Time(0)) {
-  lambda_ = se_parameters->alpha_ * se_parameters->alpha_ * (StateSize + se_parameters->kappa_) -
-            StateSize;
-
   // Compute sigma point weights
-  int n = state_.size();
-  weights_m_ = Eigen::VectorXd(2 * n + 1);
-  weights_c_ = Eigen::VectorXd(2 * n + 1);
-  weights_m_(0) = lambda_ / (n + lambda_);
-  weights_c_(0) = lambda_ / (n + lambda_) +
-                  (1 - se_parameters->alpha_ * se_parameters->alpha_ + se_parameters->beta_);
-  for (int i = 1; i < 2 * n + 1; i++) {
-    weights_m_(i) = 1 / (2 * (n + lambda_));
-    weights_c_(i) = 1 / (2 * (n + lambda_));
+  double alpha2 = se_parameters->alpha_ * se_parameters->alpha_;
+  weights_m_ = Eigen::VectorXd(2 * StateSize + 1);
+  weights_m_(0) = se_parameters->mean_weight_ / alpha2 + (1 - 1 / alpha2);
+  for (int i = 1; i < 2 * StateSize + 1; i++) {
+    weights_m_(i) = ((1 - se_parameters->mean_weight_) / (2 * (StateSize)) / alpha2);
   }
 
   // Initialize the process noise matrix
@@ -41,15 +34,15 @@ void UKF::compute_sigma_points(
     const State& state, const Eigen::Matrix<double, StateSize, StateSize>& covariance,
     Eigen::Matrix<double, 2 * StateSize + 1, StateSize, Eigen::RowMajor>& sigma_points) {
   // Compute the square root of the covariance matrix using Cholesky decomposition.
-  Eigen::MatrixXd scaled_covariance = (StateSize + lambda_) * covariance;
+  Eigen::MatrixXd scaled_covariance = StateSize * covariance;
   Eigen::LLT<Eigen::MatrixXd> llt(scaled_covariance);
   Eigen::MatrixXd sqrt_covariance = llt.matrixL();
 
   // Compute the actual sigma points.
   sigma_points.row(0) = state;
   for (int i = 0; i < StateSize; i++) {
-    sigma_points.row(i + 1) = state + sqrt_covariance.col(i);
-    sigma_points.row(i + 1 + StateSize) = state - sqrt_covariance.col(i);
+    sigma_points.row(i + 1) = state + params_->alpha_ * (sqrt_covariance.col(i));
+    sigma_points.row(i + 1 + StateSize) = state - params_->alpha_ * (sqrt_covariance.col(i));
   }
 
   return;
@@ -85,7 +78,7 @@ void UKF::steering_callback(double steering_angle) {
 }
 
 void UKF::timer_callback(State& curr_state) {
-  RCLCPP_INFO(
+  RCLCPP_DEBUG(
       rclcpp::get_logger("state_estimation"),
       "Timer callback triggered for state estimation update.------------------------------------");
 
@@ -115,8 +108,8 @@ void UKF::timer_callback(State& curr_state) {
     control_command = this->last_control_command_;
   }
 
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("state_estimation"),
-                     "Time since last update: " << dt << " seconds");
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"),
+                      "Time since last update: " << dt << " seconds");
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"), "Current State: \n" << state_);
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"),
                       "Control Command: \n"
@@ -138,12 +131,17 @@ void UKF::timer_callback(State& curr_state) {
 
   // Compute the predicted mean and covariance of the state
   State predicted_state = sigma_points.transpose() * weights_m_;
+
   Eigen::MatrixXd centered = sigma_points.rowwise() - predicted_state.transpose();
   Eigen::Matrix<double, StateSize, StateSize> predicted_covariance =
-      centered.transpose() * weights_c_.asDiagonal() * centered + process_noise_matrix_;
+      centered.transpose() * weights_m_.asDiagonal() * centered +
+      (1 + params_->beta_ - params_->alpha_ * params_->alpha_) *
+          (sigma_points.row(0).transpose() - predicted_state) *
+          (sigma_points.row(0).transpose() - predicted_state).transpose() +
+      process_noise_matrix_;
 
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("state_estimation"), "Predicted State: \n"
-                                                                 << predicted_state);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"), "Predicted State: \n"
+                                                                  << predicted_state);
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"), "Predicted Covariance: \n"
                                                                   << predicted_covariance);
 
@@ -161,12 +159,14 @@ void UKF::timer_callback(State& curr_state) {
   Eigen::MatrixXd centered_measurements =
       predicted_measurements.rowwise() - predicted_measurement_mean.transpose();
   Eigen::MatrixXd predicted_measurement_covariance =
-      centered_measurements.transpose() * weights_c_.asDiagonal() * centered_measurements;
-  predicted_measurement_covariance +=
-      last_observation_noise;  // Add measurement noise to predicted covariance
+      centered_measurements.transpose() * weights_m_.asDiagonal() * centered_measurements +
+      (1 + params_->beta_ - params_->alpha_ * params_->alpha_) *
+          (predicted_measurements.row(0).transpose() - predicted_measurement_mean) *
+          (predicted_measurements.row(0).transpose() - predicted_measurement_mean).transpose() +
+      last_observation_noise;
 
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("state_estimation"), "Last Observation: \n"
-                                                                 << last_observation);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"), "Last Observation: \n"
+                                                                  << last_observation);
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"), "Predicted Measurement: \n"
                                                                   << predicted_measurement_mean);
   // RCLCPP_INFO_STREAM(rclcpp::get_logger("state_estimation"), "2 - Covariance: \n" <<
@@ -178,7 +178,10 @@ void UKF::timer_callback(State& curr_state) {
   Eigen::MatrixXd meas_centered =
       predicted_measurements.rowwise() - predicted_measurement_mean.transpose();
   Eigen::MatrixXd cross_covariance =
-      state_centered.transpose() * weights_c_.asDiagonal() * meas_centered;
+      state_centered.transpose() * weights_m_.asDiagonal() * meas_centered +
+      (1 + params_->beta_ - params_->alpha_ * params_->alpha_) *
+          (sigma_points.row(0).transpose() - predicted_state) *
+          (predicted_measurements.row(0).transpose() - predicted_measurement_mean).transpose();
 
   // Compute the Kalman gain
   Eigen::MatrixXd kalman_gain = cross_covariance * predicted_measurement_covariance.inverse();
@@ -186,15 +189,33 @@ void UKF::timer_callback(State& curr_state) {
   // Update the state and covariance
   State updated_state =
       predicted_state + kalman_gain * (last_observation - predicted_measurement_mean);
-  Eigen::Matrix<double, StateSize, StateSize> updated_covariance =
-      predicted_covariance -
-      kalman_gain * predicted_measurement_covariance * kalman_gain.transpose();
+  Eigen::Matrix<double, StateSize, StateSize> updated_covariance;
+  // 1. Setup
+  Eigen::Matrix<double, StateSize, StateSize> I =
+      Eigen::Matrix<double, StateSize, StateSize>::Identity();
+
+  // 2. Derive the 'Pseudo-H' for the Joseph Form
+  // Since Pxz = P * H', then H = (P^-1 * Pxz)'
+  Eigen::MatrixXd H = (predicted_covariance.ldlt().solve(cross_covariance)).transpose();
+
+  // 3. The Joseph Form term: (I - KH)
+  Eigen::MatrixXd K = kalman_gain;
+  Eigen::MatrixXd G = I - K * H;
+
+  // 4. Calculate P = (G * P_pred * G') + (K * R * K')
+  // This form is numerically guaranteed to be positive-definite
+  updated_covariance =
+      G * predicted_covariance * G.transpose() + K * last_observation_noise * K.transpose();
+
+  // 5. Final pass for symmetry and numerical health
+  updated_covariance = 0.5 * (updated_covariance + updated_covariance.transpose());
+  updated_covariance.diagonal().array() += 1e-9;
 
   state_ = updated_state;
   covariance_ = updated_covariance;
   last_update_ = now;
 
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("state_estimation"), "Updated State: \n" << updated_state);
+  RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"), "Updated State: \n" << updated_state);
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"), "3 - Covariance: \n"
                                                                   << updated_covariance);
   curr_state = state_;

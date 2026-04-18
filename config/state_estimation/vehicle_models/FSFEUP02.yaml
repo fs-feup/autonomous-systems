@@ -9,8 +9,8 @@ vehicle_model:
   steering_model: "ackerman_steering" # "parallel_front_steering" or "ackerman_steering" or ... -> name of the steering model
   steering_model_params: "simple_steering"
 
-  tire_model: "pacejka_combined_slip" # "simple_pacejka", "pacejka_MF6_2" or ... -> name of the tire model
-  tire_model_params: "pacejka_MF6_2" # Options: "simple_pacejka", "pacejka_MF6_2"
+  tire_model: "pacejka_MF6_2" # "simple_pacejka", "pacejka_MF6_2" or ... -> name of the tire model
+  tire_model_params: "tire" # Options: "simple_pacejka", "pacejka_MF6_2"
 
   motor_model: "map_based_motor" # "map_based_motor" -> name of the motor model (NOT USED BUT NEED PARAMS)
   motor_model_params: "motor"
