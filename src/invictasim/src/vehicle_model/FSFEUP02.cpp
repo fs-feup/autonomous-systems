@@ -282,9 +282,9 @@ double FSFEUP02Model::calculate_powertrain_torque(double throttle_input, double 
   // Motor Efficiency at this state
   double motor_efficiency = motor_->get_efficiency(std::abs(reference_motor_torque), motor_rpm);
 
-  // Corresponding Current Request for the desired torque, always positive
+  // Preserve current sign so regen charges the battery.
   double requested_motor_current =
-      std::abs(reference_motor_torque) /
+      reference_motor_torque /
       (car_parameters_->motor_parameters->kt_constant * std::max(motor_efficiency, 0.05));
 
   // Calculate the allowed current from the battery
@@ -293,11 +293,6 @@ double FSFEUP02Model::calculate_powertrain_torque(double throttle_input, double 
   // Actual motor torque limited by the battery
   double actual_motor_torque =
       allowed_motor_current * car_parameters_->motor_parameters->kt_constant * motor_efficiency;
-
-  // Restore the sign of the torque
-  if (reference_motor_torque < 0) {
-    actual_motor_torque *= -1.0f;
-  }
 
   battery_->update_state(allowed_motor_current, dt);
   motor_->update_state(allowed_motor_current, actual_motor_torque, dt);

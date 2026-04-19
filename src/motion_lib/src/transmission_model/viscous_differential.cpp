@@ -24,13 +24,15 @@ common_lib::structures::Wheels ViscousDifferential::calculate_wheel_torques(
     shaft_torque -= drag_sign * drag_torque;
   }
 
-  double delta_omega = wheel_speeds.rear_left - wheel_speeds.rear_right;
-  double avg_speed = (std::abs(wheel_speeds.rear_left) + std::abs(wheel_speeds.rear_right)) / 2.0;
+  double axle_torque = shaft_torque * p->efficiency * p->gear_ratio;
+
+  double delta_omega = (wheel_speeds.rear_left - wheel_speeds.rear_right) * p->gear_ratio;
+  double avg_speed =
+      ((std::abs(wheel_speeds.rear_left) + std::abs(wheel_speeds.rear_right)) / 2.0) *
+      p->gear_ratio;
   double smoothing = std::clamp(avg_speed / 0.5, 0.0, 1.0);
   double delta_tau = p->kv * delta_omega * smoothing;
   delta_tau = std::clamp(delta_tau, -p->t_max, p->t_max);
-
-  double axle_torque = shaft_torque * p->efficiency * p->gear_ratio;
 
   common_lib::structures::Wheels torques;
   torques.front_left = 0.0;

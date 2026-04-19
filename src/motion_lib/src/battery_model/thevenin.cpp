@@ -7,6 +7,11 @@ Thevenin::Thevenin(const common_lib::car_parameters::CarParameters& car_paramete
       current_(0.0f) {}
 
 double Thevenin::calculate_allowed_current(double requested_current) const {
+  if (requested_current <= 0.0) {
+    return std::max(requested_current,
+                    -this->car_parameters_->battery_parameters->max_charge_current);
+  }
+
   double ocv_cell = get_cell_ocv(soc_);
   double r0_cell = get_cell_r0(soc_);
 
