@@ -24,6 +24,7 @@ common_lib::car_parameters::CarParameters::CarParameters() {
   this->unsprung_cg_z = config["car"]["unsprung_cg_z"].as<double>();
   this->cg_height = config["car"]["cg_height"].as<double>();
   this->Izz = config["car"]["Izz"].as<double>();
+  this->front_bearing_drag = config["car"]["front_bearing_drag"].as<double>();
   this->physical_constants = std::make_shared<common_lib::structures::PhysicalConstants>();
 }
 
@@ -60,6 +61,7 @@ common_lib::car_parameters::CarParameters::CarParameters(std::string dir, std::s
   this->unsprung_cg_z = car_config["car"]["unsprung_cg_z"].as<double>();
   this->cg_height = car_config["car"]["cg_height"].as<double>();
   this->Izz = car_config["car"]["Izz"].as<double>();
+  this->front_bearing_drag = car_config["car"]["front_bearing_drag"].as<double>();
 
   if (config["vehicle_model"]["tire_model_params"]) {
     this->tire_parameters = std::make_shared<TireParameters>(

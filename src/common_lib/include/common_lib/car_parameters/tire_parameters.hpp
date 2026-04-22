@@ -7,6 +7,7 @@
 namespace common_lib::car_parameters {
 
 struct TireParameters {
+  double rolling_resistance_smooth_coeff;  // Smoothing coefficient for rolling resistance sign
   // Original fields
   double tire_B_lateral;
   double tire_C_lateral;

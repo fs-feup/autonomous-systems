@@ -14,6 +14,7 @@
 
 namespace common_lib::car_parameters {
 struct CarParameters {
+  double front_bearing_drag;
   double wheel_diameter;
   double wheelbase;
   double track_width;

@@ -111,6 +111,8 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   const auto tire_end = Clock::now();
 
   // Update wheel speeds
+  double front_bearing_drag = car_parameters_->front_bearing_drag;
+
   // Net torque = drive - tire_reaction (F * r acts as a braking moment on the wheel)
   state_->wheels_speed.rear_left +=
       ((state_->wheels_torque.rear_left -
@@ -126,11 +128,14 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
 
   // front wheels are unpowered, only tire reaction
   state_->wheels_speed.front_left +=
-      ((-state_->front_left_forces[0] * car_parameters_->tire_parameters->effective_tire_r) /
+      ((-state_->front_left_forces[0] * car_parameters_->tire_parameters->effective_tire_r -
+        (front_bearing_drag * state_->wheels_speed.front_left)) /
        car_parameters_->tire_parameters->wheel_inertia) *
       dt;
+
   state_->wheels_speed.front_right +=
-      ((-state_->front_right_forces[0] * car_parameters_->tire_parameters->effective_tire_r) /
+      ((-state_->front_right_forces[0] * car_parameters_->tire_parameters->effective_tire_r -
+        (front_bearing_drag * state_->wheels_speed.front_right)) /
        car_parameters_->tire_parameters->wheel_inertia) *
       dt;
 

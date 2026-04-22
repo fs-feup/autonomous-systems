@@ -102,9 +102,8 @@ private:
    * @param steering_angle Steering angle
    * @param distance_to_CG Distance from the wheel to the center of gravity
    * @param camber_angle Camber angle
-   * @return true Successful calculation of internal values
    */
-  bool calculateTireState(double slip_angle, double slip_ratio, double vertical_load, double vx,
+  void calculateTireState(double slip_angle, double slip_ratio, double vertical_load, double vx,
                           double vy, double yaw_rate, double wheel_angular_speed,
                           double steering_angle, double distance_to_CG, double camber_angle);
 
@@ -194,7 +193,16 @@ private:
                                  double By, double Cy, double longitudinal_velocity,
                                  double normal_load) const;
 
-private:
+  /**
+   * @brief Calculates the rolling resistance moment using the longitudinal slip and vertical load
+   *
+   * @param vertical_load Vertical load on the tire (Fz)
+   * @param Fx Longitudinal force on the tire
+   * @param vx Longitudinal velocity of the tire
+   * @return double Rolling resistance moment
+   */
+  double calculate_rolling_resistance_moment(double vertical_load, double Fx, double vx) const;
+
   double calculateZeta1(double slip_ratio) const;
 
   double calculateZeta2(double slip_angle) const;
@@ -204,11 +212,5 @@ private:
   double calculateSHyp(double camber_angle) const;
 
   double calculateSVyk(double vertical_load, double slip_ratio) const;
-  /**
-   * @brief Auxiliary function that returns the sign of a value
-   *
-   * @param val The value
-   * @return int 1 or -1
-   */
-  static int sign(double val) { return (val >= 0) ? 1 : -1; }
+  // sign function removed; use std::copysign instead
 };

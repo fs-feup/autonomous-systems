@@ -17,12 +17,15 @@ common_lib::structures::Wheels ViscousDifferential::calculate_wheel_torques(
 
   double shaft_torque = input_torque;
 
-  // Passive drivetrain drag opposes shaft rotation in both forward and reverse.
-  if (std::abs(motor_omega) > 1e-3) {
-    double drag_sign = (motor_omega > 0.0) ? 1.0 : -1.0;
-    double drag_torque = (p->viscous_drag_coeff * std::abs(motor_omega)) + p->coulomb_drag;
-    shaft_torque -= drag_sign * drag_torque;
-  }
+  double viscous_drag = p->viscous_drag_coeff * motor_omega;
+
+  // 2. Coulomb (Constant) Drag
+  // Uses the atan activation function to smoothly flip direction around 0 rad/s
+  double smooth_sign_omega = (2.0 / M_PI) * std::atan(p->coulomb_smooth_stiffness * motor_omega);
+  double coulomb_drag = p->coulomb_drag * smooth_sign_omega;
+
+  // Apply both resistances to the shaft torque
+  shaft_torque -= (viscous_drag + coulomb_drag);
 
   double axle_torque = shaft_torque * p->efficiency * p->gear_ratio;
 

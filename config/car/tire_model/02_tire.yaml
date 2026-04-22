@@ -265,6 +265,7 @@ tire:
     QSY6: 0
     QSY7: 0.85
     QSY8: -0.4
+    rolling_resistance_smooth_coeff: 10.0
 
   aligning_coefficients:
     QBZ1: 10

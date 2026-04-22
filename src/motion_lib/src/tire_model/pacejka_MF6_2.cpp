@@ -2,27 +2,6 @@
 
 #include <algorithm>
 
-// IMPORTANT: WE MIGHT NEED TO SUBTRACT THE STEERING ANGLE FROM THE FRONT WHEELS (THE WHEEL COULD BE
-// MOVING 5 deg because we turned 5 deg and then the net slip should be)
-//  double PacejkaMF6_2::calculateSlipAngle() const {
-//    double v_x = vehicle_model_state.velocities.velocity_x;
-//    if (v_x == 0.0) v_x = 0.1;
-//    double lateral_velocity_wheel = vehicle_model_state.velocities.velocity_y +
-//                      (internal_vals.distance_to_CG * vehicle_model_state.yaw_rate);
-//    return atan2(
-//        lateral_velocity_wheel,
-//        v_x);  // atan2 permite cobrir todos os ranges de angulo e não apenas de -pi/2 até pi/2
-//  }
-
-// double PacejkaMF6_2::calculateSlipRatio() const {
-//   double v_x = vehicle_model_state.velocities.velocity_x;
-//   if (v_x == 0.0) v_x = 0.1;
-//   double numerator =
-//       (car_parameters_->tire_parameters->effective_tire_r * vehicle_model_state.angular_speed) -
-//       v_x;
-//   return numerator / v_x;
-// }
-
 // (4.E17)
 double PacejkaMF6_2::calculateSHx() const {
   return (car_parameters_->tire_parameters->PHX1 +
@@ -38,7 +17,7 @@ double PacejkaMF6_2::calculateSHy() const {
           car_parameters_->tire_parameters->PHY2 * internal_vals.dfz) *
              car_parameters_->tire_parameters->LHY +
          ((internal_vals.Kyg0 * internal_vals.gamma_star - internal_vals.SVyg) /
-          (internal_vals.Kya + internal_vals.epsilon * sign(internal_vals.Kya))) +
+          (internal_vals.Kya + internal_vals.epsilon * std::copysign(1.0, internal_vals.Kya))) +
          zeta4 - 1;
 }
 
@@ -46,42 +25,53 @@ Eigen::Vector3d PacejkaMF6_2::tire_forces(const TireInput& tire_input) {
   double Fx = 0;
   double Fy = 0;
   double MZ = 0;
-  if (calculateTireState(tire_input.slip_angle, tire_input.slip_ratio, tire_input.vertical_load,
-                         tire_input.vx, tire_input.vy, tire_input.yaw_rate,
-                         tire_input.wheel_angular_speed, tire_input.steering_angle,
-                         tire_input.distance_to_CG, tire_input.camber_angle)) {
-    // Shifts for longitudinal and lateral slip
-    double SHx = calculateSHx();
-    double SHy = calculateSHy();
-    // (4.E20)
-    double shifted_slip_a = internal_vals.alpha_star + SHy;
-    // (4.E10)
-    double shifted_slip_r = tire_input.slip_ratio + SHx;
-    // Y parameter calculation
-    double Dy = calculateDy(tire_input.vertical_load);
-    double Cy = calculateCy(tire_input.vertical_load);
-    double By = calculateBy(Dy, Cy);
-    double Ey = calculateEy(shifted_slip_a);
-    double SVy = calculateSVy(tire_input.vertical_load);
-    // X parameter calculation
-    double Dx = calculateDx(tire_input.vertical_load);
-    double Cx = calculateCx(tire_input.vertical_load);
-    double Bx = calculateBx(Dx, Cx);
-    double Ex = calculateEx(shifted_slip_r);
-    double SVx = calculateSVx(tire_input.vertical_load);
-    // Pure slip calculations
-    double Fx0 = calculatePureSlip(Bx, Cx, Dx, Ex, shifted_slip_r, SVx);
-    double Fy0 = calculatePureSlip(By, Cy, Dy, Ey, shifted_slip_a, SVy);
-    // Combined slip calculations
-    Fx = calculateCombinedLongitudinal(Fx0, tire_input.slip_ratio);
-    Fy = calculateCombinedLateral(Fy0, shifted_slip_r, tire_input.slip_ratio,
-                                  tire_input.vertical_load);
 
-    // Aligining moment calculation
-    MZ = calculateCombinedMoment(Fx, Fy, tire_input.slip_ratio, SHy, SVy, By, Cy, tire_input.vx,
-                                 tire_input.vertical_load);
-  }
-  // After the definition of the input of tire models this needs to be deleted
+  // Calculate all the internal values needed for the calculations of forces and moments
+  calculateTireState(tire_input.slip_angle, tire_input.slip_ratio, tire_input.vertical_load,
+                     tire_input.vx, tire_input.vy, tire_input.yaw_rate,
+                     tire_input.wheel_angular_speed, tire_input.steering_angle,
+                     tire_input.distance_to_CG, tire_input.camber_angle);
+
+  // Shifts for longitudinal and lateral slip
+  double SHx = calculateSHx();
+  double SHy = calculateSHy();
+  // (4.E20)
+  double shifted_slip_a = internal_vals.alpha_star + SHy;
+  // (4.E10)
+  double shifted_slip_r = tire_input.slip_ratio + SHx;
+  // Y parameter calculation
+  double Dy = calculateDy(tire_input.vertical_load);
+  double Cy = calculateCy(tire_input.vertical_load);
+  double By = calculateBy(Dy, Cy);
+  double Ey = calculateEy(shifted_slip_a);
+  double SVy = calculateSVy(tire_input.vertical_load);
+  // X parameter calculation
+  double Dx = calculateDx(tire_input.vertical_load);
+  double Cx = calculateCx(tire_input.vertical_load);
+  double Bx = calculateBx(Dx, Cx);
+  double Ex = calculateEx(shifted_slip_r);
+  double SVx = calculateSVx(tire_input.vertical_load);
+  // Pure slip calculations
+  double Fx0 = calculatePureSlip(Bx, Cx, Dx, Ex, shifted_slip_r, SVx);
+  double Fy0 = calculatePureSlip(By, Cy, Dy, Ey, shifted_slip_a, SVy);
+  // Combined slip calculations
+  Fx = calculateCombinedLongitudinal(Fx0, tire_input.slip_ratio);
+  Fy = calculateCombinedLateral(Fy0, shifted_slip_r, tire_input.slip_ratio,
+                                tire_input.vertical_load);
+
+  // Aligining moment calculation
+  MZ = calculateCombinedMoment(Fx, Fy, tire_input.slip_ratio, SHy, SVy, By, Cy, tire_input.vx,
+                               tire_input.vertical_load);
+
+  double My = calculate_rolling_resistance_moment(tire_input.vertical_load, Fx, tire_input.vx);
+  double Frr = My / car_parameters_->tire_parameters->effective_tire_r;
+
+  // Apply the smooth zero-crossing to prevent chattering when stopped
+  double smooth_sign_vx =
+      (2.0 / M_PI) *
+      std::atan(car_parameters_->tire_parameters->rolling_resistance_smooth_coeff * tire_input.vx);
+  Fx += Frr * smooth_sign_vx;
+
   return Eigen::Vector3d(Fx, Fy, MZ);
 }
 
@@ -100,7 +90,7 @@ double PacejkaMF6_2::calculatePureSlip(double B, double C, double D, double E, d
 ------------------------------
 */
 
-bool PacejkaMF6_2::calculateTireState(double slip_angle, double slip_ratio, double vertical_load,
+void PacejkaMF6_2::calculateTireState(double slip_angle, double slip_ratio, double vertical_load,
                                       double vx, double vy, double yaw_rate,
                                       double wheel_angular_speed, double steering_angle,
                                       double distance_to_CG, double camber_angle) {
@@ -127,7 +117,7 @@ bool PacejkaMF6_2::calculateTireState(double slip_angle, double slip_ratio, doub
   // Longitudinal velocity of the wheel center in the direction of the steering angle
   internal_vals.Vcx = (vx * cos(steering_angle)) + (vy * sin(steering_angle)) +
                       yaw_rate * distance_to_CG * sin(steering_angle);
-  internal_vals.longitudinal_direction = sign(vx);
+  internal_vals.longitudinal_direction = std::copysign(1.0, vx);
 
   // Camber related calculations
   // Total spin slip
@@ -157,7 +147,8 @@ bool PacejkaMF6_2::calculateTireState(double slip_angle, double slip_ratio, doub
                 (1 + car_parameters_->tire_parameters->PPY2 * internal_vals.dpi)))) *
       internal_vals.zeta3 * car_parameters_->tire_parameters->LKY;  // Ensure not dividing by zero
 
-  internal_vals.Kya_prime = internal_vals.Kya + internal_vals.epsilon * sign(internal_vals.Kya);
+  internal_vals.Kya_prime =
+      internal_vals.Kya + internal_vals.epsilon * std::copysign(1.0, internal_vals.Kya);
   // (4.E8) Special degressive friction factor
   internal_vals.LMUY_prime =
       car_parameters_->tire_parameters->Amu * car_parameters_->tire_parameters->LMUY /
@@ -197,8 +188,7 @@ bool PacejkaMF6_2::calculateTireState(double slip_angle, double slip_ratio, doub
       (1 + car_parameters_->tire_parameters->PPX1 * internal_vals.dpi +
        car_parameters_->tire_parameters->PPX2 * (internal_vals.dpi * internal_vals.dpi)) *
       car_parameters_->tire_parameters->LKX;
-
-  return true;
+  return;
 }
 
 double PacejkaMF6_2::calculateDy(double vertical_load) const {
@@ -233,13 +223,13 @@ double PacejkaMF6_2::calculateCx(double vertical_load) const {
 }
 
 double PacejkaMF6_2::calculateBy(double Dy, double Cy) const {
-  return internal_vals.Kya / (Cy * Dy + internal_vals.epsilon * sign(Dy));
+  return internal_vals.Kya / (Cy * Dy + internal_vals.epsilon * std::copysign(1.0, Dy));
 }
 
 // (4.E16)
 double PacejkaMF6_2::calculateBx(double Dx, double Cx) const {
   // Expanded (4.E15) that accounts for changes in pressure
-  return internal_vals.kxk / (Cx * Dx + internal_vals.epsilon * sign(Dx));
+  return internal_vals.kxk / (Cx * Dx + internal_vals.epsilon * std::copysign(1.0, Dx));
 }
 
 double PacejkaMF6_2::calculateEy(double SHy) const {
@@ -251,18 +241,19 @@ double PacejkaMF6_2::calculateEy(double SHy) const {
                    (internal_vals.gamma_star * internal_vals.gamma_star) -
                (car_parameters_->tire_parameters->PEY3 +
                 car_parameters_->tire_parameters->PEY4 * internal_vals.gamma_star) *
-                   sign(alpha_y)) *
+                   std::copysign(1.0, alpha_y)) *
               car_parameters_->tire_parameters->LEY;
   return (Ey < 1) ? Ey : 1.0;  // E cannot be over 1
 }
 
 // (4.E14)
 double PacejkaMF6_2::calculateEx(double shifted_slip_ratio) const {
-  double Ex = (car_parameters_->tire_parameters->PEX1 +
-               car_parameters_->tire_parameters->PEX2 * internal_vals.dfz +
-               car_parameters_->tire_parameters->PEX3 * (internal_vals.dfz * internal_vals.dfz)) *
-              (1 - car_parameters_->tire_parameters->PEX4 * sign(shifted_slip_ratio)) *
-              car_parameters_->tire_parameters->LEX;
+  double Ex =
+      (car_parameters_->tire_parameters->PEX1 +
+       car_parameters_->tire_parameters->PEX2 * internal_vals.dfz +
+       car_parameters_->tire_parameters->PEX3 * (internal_vals.dfz * internal_vals.dfz)) *
+      (1 - car_parameters_->tire_parameters->PEX4 * std::copysign(1.0, shifted_slip_ratio)) *
+      car_parameters_->tire_parameters->LEX;
   return (Ex < 1) ? Ex : 1.0;  // E cannot be over 1
 }
 
@@ -379,7 +370,7 @@ double PacejkaMF6_2::calculatePureMoment(double Fy0, double normal_load, double 
                (car_parameters_->tire_parameters->QDZ1 +
                 car_parameters_->tire_parameters->QDZ2 * internal_vals.dfz) *
                (1 - car_parameters_->tire_parameters->PPZ1) *
-               car_parameters_->tire_parameters->LTR * sign(longitudinal_velocity);
+               car_parameters_->tire_parameters->LTR * std::copysign(1.0, longitudinal_velocity);
   // (4.E43)
   double Dt = Dt0 *
               (1 + car_parameters_->tire_parameters->QDZ3 * internal_vals.gamma_star +
@@ -417,12 +408,13 @@ double PacejkaMF6_2::calculatePureMoment(double Fy0, double normal_load, double 
                        internal_vals.gamma_star * car_parameters_->tire_parameters->LKZC *
                        internal_vals.zeta0) *
                   cos(internal_vals.alpha_prime) * car_parameters_->tire_parameters->LMUY *
-                  sign(longitudinal_velocity) +
+                  std::copysign(1.0, longitudinal_velocity) +
               internal_vals.zeta8 - 1;
   // (4.E45)
   double Br = car_parameters_->tire_parameters->QBZ10 * By * Cy;
   // (4.E38)
-  double SHf = SHy + SVy / (internal_vals.Kya + internal_vals.epsilon * sign(internal_vals.Kya));
+  double SHf = SHy + SVy / (internal_vals.Kya +
+                            internal_vals.epsilon * std::copysign(1.0, internal_vals.Kya));
   // (4.E37)
   double ar = internal_vals.alpha_star + SHf;
   // (4.E36) -> currently we set zeta7 to 1 to ignore turnslip effects, but if we want to consider
@@ -450,7 +442,7 @@ double PacejkaMF6_2::calculateCombinedMoment(double Fx, double Fy, double slip_r
   double at_eq =
       sqrt(at * at + (internal_vals.kxk / internal_vals.Kya_prime) *
                          (internal_vals.kxk / internal_vals.Kya_prime) * slip_ratio * slip_ratio) *
-      sign(at);
+      std::copysign(1.0, at);
   // ------------------ Bt calculation
   // (4.E40)
   double Bt = (car_parameters_->tire_parameters->QBZ1 +
@@ -469,7 +461,7 @@ double PacejkaMF6_2::calculateCombinedMoment(double Fx, double Fy, double slip_r
                (car_parameters_->tire_parameters->QDZ1 +
                 car_parameters_->tire_parameters->QDZ2 * internal_vals.dfz) *
                (1 - car_parameters_->tire_parameters->PPZ1) *
-               car_parameters_->tire_parameters->LTR * sign(longitudinal_velocity);
+               car_parameters_->tire_parameters->LTR * std::copysign(1.0, longitudinal_velocity);
   // (4.E43)
   double Dt = Dt0 *
               (1 + car_parameters_->tire_parameters->QDZ3 * internal_vals.gamma_star +
@@ -507,19 +499,20 @@ double PacejkaMF6_2::calculateCombinedMoment(double Fx, double Fy, double slip_r
                        internal_vals.gamma_star * car_parameters_->tire_parameters->LKZC *
                        internal_vals.zeta0) *
                   cos(internal_vals.alpha_prime) * car_parameters_->tire_parameters->LMUY *
-                  sign(longitudinal_velocity) +
+                  std::copysign(1.0, longitudinal_velocity) +
               internal_vals.zeta8 - 1;
   // (4.E45)
   double Br = car_parameters_->tire_parameters->QBZ10 * By * Cy;
   // (4.E38)
-  double SHf = SHy + SVy / (internal_vals.Kya + internal_vals.epsilon * sign(internal_vals.Kya));
+  double SHf = SHy + SVy / (internal_vals.Kya +
+                            internal_vals.epsilon * std::copysign(1.0, internal_vals.Kya));
   // (4.E37)
   double ar = internal_vals.alpha_star + SHf;
   // (4.E78)
   double ar_eq =
       sqrt(ar * ar + (internal_vals.kxk / internal_vals.Kya_prime) *
                          (internal_vals.kxk / internal_vals.Kya_prime) * slip_ratio * slip_ratio) *
-      sign(ar);
+      std::copysign(1.0, ar);
   // (4.E75)
   double MZr = Dr * cos(internal_vals.zeta7 * atan(Br * ar_eq));
   // (4.E71)
@@ -533,6 +526,19 @@ double PacejkaMF6_2::calculateCombinedMoment(double Fx, double Fy, double slip_r
                   internal_vals.gamma_star) *
              car_parameters_->tire_parameters->LS;
   return MZ_prime + MZr + s * Fx;
+}
+
+double PacejkaMF6_2::calculate_rolling_resistance_moment(double vertical_load, double Fx,
+                                                         double vx) const {
+  double Fz0 = internal_vals.Fz0_prime;
+  double unloaded_radius = car_parameters_->tire_parameters->UNLOADED_RADIUS;
+  double QSY1 = car_parameters_->tire_parameters->QSY1;
+  double QSY2 = car_parameters_->tire_parameters->QSY2;
+
+  // (4.E85) Simplified rolling resistance moment formula based on QSY1 and QSY2
+  double My = unloaded_radius * vertical_load * (QSY1 + QSY2 * (Fx / Fz0));
+
+  return My;
 }
 
 double PacejkaMF6_2::calculateZeta1(double slip_ratio) const {
@@ -574,7 +580,7 @@ double PacejkaMF6_2::calculateSHyp(double camber_angle) const {
            car_parameters_->tire_parameters->PPX4 * (internal_vals.dpi * internal_vals.dpi)) *
           (1 - car_parameters_->tire_parameters->PDX3 * (camber_angle * camber_angle))) *
       car_parameters_->tire_parameters->LMUX;
-  double Kyao_prime = Kya0 + internal_vals.epsilon * sign(Kya0);
+  double Kyao_prime = Kya0 + internal_vals.epsilon * std::copysign(1.0, Kya0);
 
   double DHyp = (car_parameters_->tire_parameters->PHYP2 +
                  car_parameters_->tire_parameters->PHYP3 * internal_vals.dfz) *

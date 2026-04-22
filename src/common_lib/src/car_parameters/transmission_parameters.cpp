@@ -14,6 +14,8 @@ TransmissionParameters::TransmissionParameters(const std::string& config_name) {
   t_max = config["t_max"].as<double>();
   viscous_drag_coeff = config["viscous_drag_coeff"].as<double>();
   coulomb_drag = config["coulomb_drag"].as<double>();
+  coulomb_smooth_stiffness =
+      config["coulomb_smooth_stiffness"] ? config["coulomb_smooth_stiffness"].as<double>() : 20.0;
 }
 
 }  // namespace common_lib::car_parameters
