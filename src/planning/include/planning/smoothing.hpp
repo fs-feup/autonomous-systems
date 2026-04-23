@@ -56,26 +56,34 @@ public:
   // TODA: CHANGE DOCS
   std::vector<PathPoint> optimize_path(std::vector<PathPoint>& path,
                                        std::vector<PathPoint>& yellow_cones,
-                                       std::vector<PathPoint>& blue_cones,
-                                       bool is_path_closed);
+                                       std::vector<PathPoint>& blue_cones, bool is_path_closed);
   // TODA: CHANGE DOCS
   ~PathSmoothing() {
     if (solver_) {
       osqp_cleanup(solver_);
       solver_ = nullptr;
-    } 
+    }
   }
 
 private:
-  void add_proximity_terms(
-      int num_path_points, const std::vector<PathPoint>& center,
-      const std::function<void(int, int, double)>& add_quadratic_coefficient,
-      std::vector<OSQPFloat>& linear_objective) const;
-      /**
-       * @brief configuration of the smoothing algorithm
-       *
-       */
-      PathSmoothingConfig config_;
+  std::vector<PathPoint> osqp_optimization_impl(const std::vector<PathPoint>& center,
+                                                const std::vector<PathPoint>& left,
+                                                const std::vector<PathPoint>& right, int opt_start,
+                                                bool is_path_closed) const;
+  void add_seam_constraints(std::vector<OSQPFloat>& constraint_values,
+                            std::vector<OSQPInt>& constraint_row_indices,
+                            std::vector<OSQPInt>& constraint_col_indices,
+                            std::vector<OSQPFloat>& constraint_lower_bounds,
+                            std::vector<OSQPFloat>& constraint_upper_bounds, int& constraint_count,
+                            const PathPoint& seam_point) const;
+  void add_proximity_terms(int num_path_points, const std::vector<PathPoint>& center,
+                           const std::function<void(int, int, double)>& add_quadratic_coefficient,
+                           std::vector<OSQPFloat>& linear_objective) const;
+  /**
+   * @brief configuration of the smoothing algorithm
+   *
+   */
+  PathSmoothingConfig config_;
   // Warm start cache
   mutable OSQPSolver* solver_ = nullptr;
   mutable int cached_num_points_ = -1;
@@ -106,8 +114,8 @@ private:
   // TODA: change docs
   std::vector<PathPoint> osqp_optimization(const std::vector<PathPoint>& center,
                                            const std::vector<PathPoint>& left,
-                                           const std::vector<PathPoint>& right,
-                                           bool is_path_closed) const;
+                                           const std::vector<PathPoint>& right, bool is_path_closed,
+                                           bool is_final) const;
 
   /**
    * @brief Adds curvature penalty terms to the quadratic objective function.

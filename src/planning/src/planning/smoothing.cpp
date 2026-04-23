@@ -24,8 +24,9 @@ std::vector<PathPoint> PathSmoothing::optimize_path(std::vector<PathPoint>& path
 
   // auto splines = ::fit_triple_spline(path, blue_cones, yellow_cones, config_.spline_precision_,
   //                                    config_.spline_order_);
+  //TODA: CHANGE THIS!!!!!!!
   const std::vector<PathPoint> optimize_path =
-      osqp_optimization(path, blue_cones, yellow_cones, is_path_closed);
+      osqp_optimization(path, blue_cones, yellow_cones, is_path_closed, false);
   std::vector<PathPoint> filtered_path = filter_path(optimize_path);
 
   return filtered_path;
@@ -81,7 +82,6 @@ void PathSmoothing::add_curvature_terms(
     int x_current = 2 * point_idx;
     int x_next = 2 * next_point;
 
-    // FIX: diagonal terms ×2, off-diagonal terms use full mathematical coefficient
     add_coefficient(x_prev, x_prev, 2 * config_.curvature_weight_);
     add_coefficient(x_current, x_current, 8 * config_.curvature_weight_);
     add_coefficient(x_next, x_next, 2 * config_.curvature_weight_);
@@ -106,7 +106,7 @@ void PathSmoothing::add_curvature_terms(
 void PathSmoothing::add_slack_penalty_terms(
     int num_path_points, const std::function<void(int, int, double)>& add_coefficient) const {
   // -------- ADD SLACK VARIABLE PENALTY TERMS --------
-  // FIX: multiply by 2 to account for OSQP's (1/2) x^T P x objective scaling
+  // Multiply by 2 to account for OSQP's (1/2) x^T P x objective scaling
   const int num_slack_variables = num_path_points;
   for (int slack_idx = 0; slack_idx < num_slack_variables; ++slack_idx) {
     int slack_variable_index = 2 * num_path_points + slack_idx;
@@ -158,9 +158,6 @@ void PathSmoothing::add_boundary_constraints(
     double right_bound = right_boundary_point.dot(lateral_direction) + safety_margin;
     double left_bound = left_boundary_point.dot(lateral_direction) - safety_margin;
 
-    // FIX: Instead of skipping narrow corridors (which leaves gaps in the
-    // constraint matrix and causes OSQP setup status 1), clamp to a minimal
-    // feasible corridor centered at the midpoint.
     if (right_bound >= left_bound) {
       RCLCPP_WARN(rclcpp::get_logger("rclcpp"),
                   "Point %d: corridor too narrow (right=%.3f >= left=%.3f), clamping to midpoint",
@@ -168,7 +165,6 @@ void PathSmoothing::add_boundary_constraints(
       double mid = (right_bound + left_bound) / 2.0;
       right_bound = mid - 0.01;
       left_bound = mid + 0.01;
-      // Do NOT skip — always add the constraint to keep matrix dimensions consistent
     }
 
     int slack_idx = 2 * num_path_points + point_idx;
@@ -227,6 +223,32 @@ void PathSmoothing::add_slack_nonnegativity_constraints(
   }
 }
 
+// -------- ADD SEAM EQUALITY CONSTRAINTS --------
+// Pins window point 0 exactly to center[opt_start], preventing the open seam
+// from drifting away from the already-fixed prefix of the path.
+void PathSmoothing::add_seam_constraints(std::vector<OSQPFloat>& constraint_values,
+                                         std::vector<OSQPInt>& constraint_row_indices,
+                                         std::vector<OSQPInt>& constraint_col_indices,
+                                         std::vector<OSQPFloat>& constraint_lower_bounds,
+                                         std::vector<OSQPFloat>& constraint_upper_bounds,
+                                         int& constraint_count, const PathPoint& seam_point) const {
+  // Pin x[0] == seam_point.x
+  constraint_row_indices.push_back(constraint_count);
+  constraint_col_indices.push_back(0);
+  constraint_values.push_back(1.0);
+  constraint_lower_bounds.push_back(seam_point.position.x);
+  constraint_upper_bounds.push_back(seam_point.position.x);
+  constraint_count++;
+
+  // Pin y[0] == seam_point.y  (variable index 1)
+  constraint_row_indices.push_back(constraint_count);
+  constraint_col_indices.push_back(1);
+  constraint_values.push_back(1.0);
+  constraint_lower_bounds.push_back(seam_point.position.y);
+  constraint_upper_bounds.push_back(seam_point.position.y);
+  constraint_count++;
+}
+
 void PathSmoothing::convert_to_csc_format(const std::vector<OSQPFloat>& values,
                                           const std::vector<OSQPInt>& row_indices,
                                           const std::vector<OSQPInt>& col_indices,
@@ -260,7 +282,7 @@ void PathSmoothing::convert_to_csc_format(const std::vector<OSQPFloat>& values,
 std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPoint>& center,
                                                         const std::vector<PathPoint>& left,
                                                         const std::vector<PathPoint>& right,
-                                                        bool is_path_closed) const {
+                                                        bool is_path_closed, bool is_final) const {
   if (center.size() != left.size() || center.size() != right.size() ||
       left.size() != center.size()) {
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"),
@@ -268,6 +290,53 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
                 center.size(), left.size(), right.size());
   }
   const int num_path_points = center.size();
+  //TODA changethis is bad!!
+  int total_points = num_path_points;
+
+  if (num_path_points < 5) {
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),
+                "Too few points for OSQP optimization (%d points). Minimum is 5.", num_path_points);
+    return center;
+  }
+
+  if (is_final) {
+    // ── Final iteration: optimize the full path as a closed loop ─────────────
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),
+                "Final iteration: optimizing full path (%d points) as closed loop", total_points);
+    return osqp_optimization_impl(center, left, right, /*opt_start=*/0, /*is_path_closed=*/true);
+  }
+
+  // ── Incremental iteration: sliding window over the last N points ──────────
+  //TODA: change 50 to parameters
+  const int window_size = std::min(50, total_points);
+  const int opt_start = total_points - window_size;
+
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
+               "Incremental iteration: optimizing window [%d, %d) (%d points) as open path",
+               opt_start, total_points, window_size);
+
+  return osqp_optimization_impl(center, left, right, opt_start, /*is_path_closed=*/false);
+}
+
+std::vector<PathPoint> PathSmoothing::osqp_optimization_impl(const std::vector<PathPoint>& center,
+                                                             const std::vector<PathPoint>& left,
+                                                             const std::vector<PathPoint>& right,
+                                                             int opt_start,
+                                                             bool is_path_closed) const {
+  const int total_points = static_cast<int>(center.size());
+
+  if (center.size() != left.size() || center.size() != right.size()) {
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),
+                "The splines have different sizes. Right - %ld, Left - %ld, Center - %ld",
+                right.size(), left.size(), center.size());
+  }
+
+  // Slice inputs to the optimization window
+  const std::vector<PathPoint> w_center(center.begin() + opt_start, center.end());
+  const std::vector<PathPoint> w_left(left.begin() + opt_start, left.end());
+  const std::vector<PathPoint> w_right(right.begin() + opt_start, right.end());
+
+  const int num_path_points = static_cast<int>(w_center.size());
 
   if (num_path_points < 5) {
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"),
@@ -297,15 +366,11 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
   };
 
   // -------- BUILD LINEAR OBJECTIVE VECTOR (q) --------
-  // Allocated before curvature/proximity terms so proximity can write into it
   std::vector<OSQPFloat> linear_objective(total_variables, 0.0);
 
   add_curvature_terms(num_path_points, circular_index, add_quadratic_coefficient, is_path_closed);
   add_slack_penalty_terms(num_path_points, add_quadratic_coefficient);
-
-  // FIX: add proximity terms to anchor points near center path and prevent
-  // the degenerate zero-curvature solution
-  add_proximity_terms(num_path_points, center, add_quadratic_coefficient, linear_objective);
+  add_proximity_terms(num_path_points, w_center, add_quadratic_coefficient, linear_objective);
 
   std::vector<OSQPFloat> P_values;
   std::vector<OSQPInt> P_row_indices, P_col_indices;
@@ -326,9 +391,19 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
 
   int constraint_count = 0;
 
+  // ── Seam equality constraint ─────────────────────────────────────────────
+  // When optimizing a window (not the full path), pin the first point of the
+  // window to the last fixed point so the two segments stay connected.
+  const bool has_fixed_prefix = (opt_start > 0);
+  if (has_fixed_prefix) {
+    add_seam_constraints(constraint_values, constraint_row_indices, constraint_col_indices,
+                         constraint_lower_bounds, constraint_upper_bounds, constraint_count,
+                         center[opt_start]);
+  }
+
   add_boundary_constraints(constraint_values, constraint_row_indices, constraint_col_indices,
-                           constraint_lower_bounds, constraint_upper_bounds, constraint_count, left,
-                           right, num_path_points, safety_margin);
+                           constraint_lower_bounds, constraint_upper_bounds, constraint_count,
+                           w_left, w_right, num_path_points, safety_margin);
 
   add_slack_nonnegativity_constraints(constraint_values, constraint_row_indices,
                                       constraint_col_indices, constraint_lower_bounds,
@@ -391,39 +466,35 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
   }
 
   // -------- WARM START --------
-  if (!cached_primal_.empty()) {
+  // Cache is keyed on window size. If the window size matches the previous
+  // call we reuse primal/dual variables; otherwise we seed from center.
+  if (!cached_primal_.empty() && cached_num_points_ == num_path_points) {
     std::vector<OSQPFloat> warm_x(total_variables, 0.0);
     std::vector<OSQPFloat> warm_y(total_constraints, 0.0);
 
-    const int old_num = cached_num_points_;
-    const int reuse_num = std::min(old_num, num_path_points);
-
-    // Primal: reuse old coords, seed new points from center
-    for (int i = 0; i < reuse_num; ++i) {
+    // Reuse full cached primal (same window size)
+    for (int i = 0; i < num_path_points; ++i) {
       warm_x[2 * i] = cached_primal_[2 * i];
       warm_x[2 * i + 1] = cached_primal_[2 * i + 1];
     }
-    for (int i = reuse_num; i < num_path_points; ++i) {
-      warm_x[2 * i] = static_cast<OSQPFloat>(center[i].position.x);
-      warm_x[2 * i + 1] = static_cast<OSQPFloat>(center[i].position.y);
+
+    // Reuse dual variables if constraint count also matches
+    if (!cached_dual_.empty() && static_cast<int>(cached_dual_.size()) == total_constraints) {
+      for (int i = 0; i < total_constraints; ++i) {
+        warm_y[i] = cached_dual_[i];
+      }
     }
 
-    // Reuse dual variables (boundary and slack duals)
-    // Constraint layout: [right_0, left_0, ..., right_n, left_n, slack_0, ..., slack_n]
-    if (!cached_dual_.empty()) {
-      const int old_slack_offset = 2 * old_num;
-      const int new_slack_offset = 2 * num_path_points;
-
-      for (int i = 0; i < reuse_num; ++i) {
-        warm_y[2 * i] = cached_dual_[2 * i];          // right boundary dual
-        warm_y[2 * i + 1] = cached_dual_[2 * i + 1];  // left boundary dual
-      }
-      for (int i = 0; i < reuse_num; ++i) {
-        warm_y[new_slack_offset + i] = cached_dual_[old_slack_offset + i];  // slack dual
-      }
-      // New points left at zero — no prior info available
+    osqp_warm_start(solver_, warm_x.data(), warm_y.data());
+  } else if (!cached_primal_.empty()) {
+    // Window size changed (e.g. growing path before first full window):
+    // seed from center coordinates, no dual reuse.
+    std::vector<OSQPFloat> warm_x(total_variables, 0.0);
+    std::vector<OSQPFloat> warm_y(total_constraints, 0.0);
+    for (int i = 0; i < num_path_points; ++i) {
+      warm_x[2 * i] = static_cast<OSQPFloat>(w_center[i].position.x);
+      warm_x[2 * i + 1] = static_cast<OSQPFloat>(w_center[i].position.y);
     }
-
     osqp_warm_start(solver_, warm_x.data(), warm_y.data());
   }
 
@@ -442,30 +513,30 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(const std::vector<PathPo
     return center;
   }
 
-  std::vector<PathPoint> optimized_path = center;
-
   if ((solver_->solution == nullptr) || (solver_->solution->x == nullptr)) {
     RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "OSQP solution is null, returning original path");
     cached_num_points_ = -1;
     cached_primal_.clear();
     cached_dual_.clear();
-    return optimized_path;
+    return center;
   }
 
-  for (int point_idx = 0; point_idx < num_path_points; ++point_idx) {
-    optimized_path[point_idx].position.x = solver_->solution->x[2 * point_idx];
-    optimized_path[point_idx].position.y = solver_->solution->x[2 * point_idx + 1];
+  // ── Reassemble: fixed prefix + optimized window ───────────────────────────
+  std::vector<PathPoint> result = center;  // copies fixed prefix unchanged
+  for (int i = 0; i < num_path_points; ++i) {
+    result[opt_start + i].position.x = solver_->solution->x[2 * i];
+    result[opt_start + i].position.y = solver_->solution->x[2 * i + 1];
   }
 
-  // Cache solution for next call
+  // Cache solution for next call (keyed on window size)
   cached_num_points_ = num_path_points;
   cached_is_closed_ = is_path_closed;
   cached_primal_.assign(solver_->solution->x, solver_->solution->x + total_variables);
   cached_dual_.assign(solver_->solution->y, solver_->solution->y + total_constraints);
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
-               "OSQP optimization completed successfully with %d points (status: %lld)",
-               num_path_points, solve_status);
+               "OSQP optimization completed: opt_start=%d, window=%d, total=%d (status: %lld)",
+               opt_start, num_path_points, total_points, solve_status);
 
-  return optimized_path;
+  return result;
 }
