@@ -77,21 +77,23 @@ void TireModel::calculateSlipRatio(TireInput& tire_input) {
 }
 
 void TireModel::calculateSlipRatioNotTransient(TireInput& tire_input) {
-  // 1. Calculate the Wheel Longitudinal Velocity with yaw
-  // Sign: Left wheels move slower in a positive yaw (turning left), Right move faster.
   double sign = (tire_input.tire == FL || tire_input.tire == RL) ? -1.0 : 1.0;
 
-  // Longitudinal velocity at the wheel patch
   double Vcx_center = tire_input.vx * cos(tire_input.steering_angle) +
                       tire_input.vy * sin(tire_input.steering_angle);
 
-  // Add the yaw component (tangential velocity)
   double Vcx = Vcx_center + (sign * tire_input.yaw_rate * car_parameters_->track_width / 2.0);
-
   double Vw = tire_input.wheel_angular_speed * car_parameters_->tire_parameters->effective_tire_r;
 
-  // Calculate the "Target" (Steady-State) Slip
-  double slip_target = (Vw - Vcx) / std::max(std::abs(Vcx), 0.5);
+  // Reference velocity uses BOTH Vcx and Vw.
+  // When Vcx≈0 but wheel spins, Vw saves the denominator (and vice versa).
+  // sqrt form keeps it C∞ — no kinks anywhere.
+  constexpr double epsilon = 0.7;
+  double V_ref = std::sqrt(Vcx * Vcx + Vw * Vw + epsilon * epsilon);
+
+  double slip_target = (Vw - Vcx) / V_ref;
+
+  // Clamp is now a true safety net, not a wall you're constantly hitting
   slip_target = std::clamp(slip_target, -1.0, 1.0);
 
   tire_input.slip_ratio = slip_target;

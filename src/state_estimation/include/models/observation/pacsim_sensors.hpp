@@ -1,16 +1,22 @@
 #pragma once
 
 #include "models/observation/observation_model.hpp"
+#include "motion_lib/steering_model/map.hpp"
 
 class ObservationModelPacsim : public ObservationModel {
   common_lib::sensor_data::ImuData last_imu_data_ = common_lib::sensor_data::ImuData();
   common_lib::sensor_data::WheelEncoderData last_wss_data_ =
       common_lib::sensor_data::WheelEncoderData();
   double last_steering_angle_ = 0.0;
+  std::shared_ptr<SteeringModel> steering_model_;
 
 public:
   ObservationModelPacsim(const std::shared_ptr<SEParameters>& parameters)
-      : ObservationModel(parameters) {}
+      : ObservationModel(parameters) {
+    // Initialize the steering model based on the provided parameters
+    this->steering_model_ = steering_models_map.at(this->parameters_->steering_model_name_)(
+        this->parameters_->car_parameters_);
+  }
   /**
    * @brief Transforms the state of the vehicle into the Pacsim's sensor observation space.
    * @param state The state of the vehicle.
