@@ -339,8 +339,15 @@ void Planning::run_autocross() {
     return;
   }
   if (lap_counter_ == 0) {
+    last_full_path_ = full_path_;
+    last_is_path_closed_ = is_path_closed_;
+
     full_path_ = path_calculation_.calculate_path(cone_array_);
     is_path_closed_ = path_calculation_.is_map_closed(full_path_);
+
+    if (last_full_path_.size() == full_path_.size() && last_is_path_closed_ == is_path_closed_) {
+      return;
+    }
 
     std::vector<PathPoint> yellow_cones = path_calculation_.get_yellow_cones();
     std::vector<PathPoint> blue_cones = path_calculation_.get_blue_cones();
@@ -391,10 +398,10 @@ void Planning::run_autocross() {
       // RCLCPP_INFO(get_logger(), "Trackdrive path calculated with %d points",
       //             static_cast<int>(smoothed_path_.size()));
 
-      // RCLCPP_INFO(get_logger(),
-      //             "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
-      //             "| Max: %.2f m/s",
-      //             lap_time, total_length, avg_vel, min_vel, max_vel);
+      RCLCPP_INFO(get_logger(),
+                  "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
+                  "| Max: %.2f m/s",
+                  lap_time, total_length, avg_vel, min_vel, max_vel);
     }
   }
   if (lap_counter_ >= 1) {
@@ -414,8 +421,15 @@ void Planning::run_trackdrive() {
     return;
   }
   if (lap_counter_ == 0) {
+    last_full_path_ = full_path_;
+    last_is_path_closed_ = is_path_closed_;
+
     full_path_ = path_calculation_.calculate_path(cone_array_);
     is_path_closed_ = path_calculation_.is_map_closed(full_path_);
+
+    if (last_full_path_ == full_path_ && last_is_path_closed_ == is_path_closed_) {
+      return;
+    }
 
     std::vector<PathPoint> yellow_cones = path_calculation_.get_yellow_cones();
     std::vector<PathPoint> blue_cones = path_calculation_.get_blue_cones();

@@ -57,7 +57,7 @@ public:
   std::vector<PathPoint> optimize_path(std::vector<PathPoint>& path,
                                        std::vector<PathPoint>& yellow_cones,
                                        std::vector<PathPoint>& blue_cones,
-                                       bool is_path_closed) const;
+                                       bool is_path_closed);
   // TODA: CHANGE DOCS
   ~PathSmoothing() {
     if (solver_) {
@@ -67,11 +67,15 @@ public:
   }
 
 private:
-  /**
-   * @brief configuration of the smoothing algorithm
-   *
-   */
-  PathSmoothingConfig config_;
+  void add_proximity_terms(
+      int num_path_points, const std::vector<PathPoint>& center,
+      const std::function<void(int, int, double)>& add_quadratic_coefficient,
+      std::vector<OSQPFloat>& linear_objective) const;
+      /**
+       * @brief configuration of the smoothing algorithm
+       *
+       */
+      PathSmoothingConfig config_;
   // Warm start cache
   mutable OSQPSolver* solver_ = nullptr;
   mutable int cached_num_points_ = -1;
