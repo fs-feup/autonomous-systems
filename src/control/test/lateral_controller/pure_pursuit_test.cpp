@@ -20,6 +20,11 @@ protected:
     // LPF with alpha=1.0 means no filtering
     params_.pure_pursuit_lpf_alpha_ = 1.0;
     params_.pure_pursuit_lpf_initial_value_ = 0.0;
+
+    // Initialize steering_parameters
+    auto steering_params =
+        std::make_shared<common_lib::car_parameters::SteeringParameters>("simple_steering");
+    params_.car_parameters_.steering_parameters = steering_params;
     lat_controller_ = std::make_shared<PurePursuit>(params_);
   }
 };

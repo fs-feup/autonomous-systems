@@ -1,0 +1,6 @@
+differential:
+  efficiency: 0.95
+  kv: 40.0   # Coeficiente de viscusidade do diferencial (N.m.s/rad), tem de ser tunado, é um valor supostamente rasoável
+  t_max: 300.0  # Torque máximo do diferencial (N.m), tem de ser tunado também
+
+ 

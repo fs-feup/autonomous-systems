@@ -1,0 +1,15 @@
+car:
+  wheel_base: 1.53
+  track_width: 1.2
+  wheel_diameter: 0.406
+  sprung_mass: 214
+  unsprung_mass: 28
+  total_mass: 242
+  sprung_cg_y: 0.726
+  sprung_cg_z: 0.245
+  unsprung_cg_y: 0.765
+  unsprung_cg_z: 0.206
+  cg_height: 0.208
+  cg_2_rear_axis: 0.706
+  gear_ratio: 3.67
+  Izz: 101.082
