@@ -113,18 +113,24 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
     // Sum moments
     total_torque += (arm_x * fy_veh) - (arm_y * fx_veh) + mz_tire;
   }
+  // RCLCPP_INFO_STREAM(rclcpp::get_logger("ComponentBasedVehicleModel"),"Torque command: " <<
+  // throttle_input << " Total Fx: " << total_fx << " Total Fy: " << total_fy << " Total Torque: "
+  // << total_torque);
+  //  RCLCPP_INFO_STREAM(rclcpp::get_logger("ComponentBasedVehicleModel"),"Slip ratios: " <<
+  //  tire_input.last_slip_ratio.transpose());
 
-  // Update Accelerations
-  double total_ax =
-      total_fx / parameters_->car_parameters_->total_mass + state(VY) * state(YAW_RATE);
-  double total_ay =
-      total_fy / parameters_->car_parameters_->total_mass - state(VX) * state(YAW_RATE);
+  // Compute accelerations
+  double ax = total_fx / parameters_->car_parameters_->total_mass + state(VY) * state(YAW_RATE);
 
-  // Integration via trapezoidal rule
-  state(VX) += (0.5 * (total_ax + state(AX))) * dt;
-  state(VY) += (0.5 * (total_ay + state(AY))) * dt;
-  state(AX) = total_ax;
-  state(AY) = total_ay;
+  double ay = total_fy / parameters_->car_parameters_->total_mass - state(VX) * state(YAW_RATE);
+
+  // Integrate velocities using derived values
+  state(VX) += ax * dt;
+  state(VY) += ay * dt;
+
+  // Store accelerations
+  state(AX) = ax;
+  state(AY) = ay;
 
   // Update Yaw Rate
   state(YAW_RATE) += (total_torque / parameters_->car_parameters_->Izz) * dt;

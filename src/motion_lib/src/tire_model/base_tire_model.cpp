@@ -51,10 +51,6 @@ void TireModel::calculateSlipRatio(TireInput& tire_input) {
 
   double Vw = tire_input.wheel_angular_speed * car_parameters_->tire_parameters->effective_tire_r;
 
-  if (Vcx < 0.01 || Vw < 0.01) {
-    tire_input.slip_ratio = 0.0;
-  }
-
   double stabilizer_expsilon = 1;
   // 2. Calculate the "Target" (Steady-State) Slip
   double denominator = std::sqrt(Vcx * Vcx + stabilizer_expsilon * stabilizer_expsilon);
@@ -94,16 +90,12 @@ void TireModel::calculateSlipRatioNotTransient(TireInput& tire_input) {
 
   double Vw = tire_input.wheel_angular_speed * car_parameters_->tire_parameters->effective_tire_r;
 
-  if (Vcx < 0.01 || Vw < 0.01) {
-    tire_input.slip_ratio = 0.0;
-    return;
-  }
-
   // Calculate the "Target" (Steady-State) Slip
-  double slip_target = (Vw - Vcx) / std::abs(Vcx);
+  double slip_target = (Vw - Vcx) / std::max(std::abs(Vcx), 0.5);
   slip_target = std::clamp(slip_target, -1.0, 1.0);
 
   tire_input.slip_ratio = slip_target;
+  tire_input.last_slip_ratio[tire_input.tire] = slip_target;
 }
 
 Eigen::Vector3d TireModel::calculateTireForces(TireInput& tire_input) {
@@ -156,6 +148,8 @@ Eigen::Vector3d TireModel::calculateTireForcesNotTransient(TireInput& tire_input
 
     calculateSlipAngleRear(tire_input);
   }
+
+  calculateSlipRatioNotTransient(tire_input);
 
   // Return tire forces using the specific tire model
   return this->tire_forces(tire_input);
