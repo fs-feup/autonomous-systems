@@ -314,6 +314,11 @@ def create_ocp_solver(gen_base_dir="./build/acados"):
     ocp.solver_options.with_batch_functionality = False
     ocp.solver_options.ext_fun_compile_flags = "-O3 -march=native -ffast-math"
     ocp.solver_options.nlp_solver_max_iter = 20
+    ocp.solver_options.with_batch_functionality = True 
+    ocp.solver_options.num_threads_in_batch_ext_fun = 4
+
+    ocp.solver_options.nlp_solver_tol_stat = 1e-2
+    ocp.solver_options.nlp_solver_tol_eq = 1e-2
 
     # Initial state constraint (required for set_state logic)
     ocp.constraints.x0 = np.zeros(13)

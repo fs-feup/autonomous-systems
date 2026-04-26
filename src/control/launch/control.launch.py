@@ -13,6 +13,7 @@ def generate_launch_description():
                 name="control_adapter",
                 arguments=["--ros-args", "--log-level", "control:=info"],
                 output="screen",
+                additional_env={'OMP_NUM_THREADS': '4'}
             ),
         ]
     )
