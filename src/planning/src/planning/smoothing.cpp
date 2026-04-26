@@ -104,7 +104,7 @@ void PathSmoothing::add_proximity_terms(
     const std::function<void(int, int, double)>& add_quadratic_coefficient,
     std::vector<OSQPFloat>& linear_objective) const {
   // Penalize deviation from the center path to prevent degenerate solutions.
-
+  //TODA: Change this to param
   const double proximity_weight = 0.001 * config_.curvature_weight_;
 
   for (int point_index = 0; point_index < num_path_points; ++point_index) {
@@ -468,13 +468,9 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization_impl(
   }
 
   // -------- WARM START --------
+  // TODA: ACTUALLY WARM STARTING!
   if (!cached_primal_.empty()) {
     std::vector<OSQPFloat> warm_start_primal(total_variables, 0.0);
-
-
-
-
-
     const bool same_window_size = (cached_num_points_ == num_path_points);
     const int window_shift = window_start - cached_opt_start_;
 
@@ -534,9 +530,6 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization_impl(
 
   const OSQPInt solve_status = ::osqp_solve(solver_);
 
-  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "OSQP status: %s | iterations: %lld | obj: %.4f",
-              solver_->info->status, solver_->info->iter, solver_->info->obj_val);
-
   if (solver_->info->status_val != 1 && solver_->info->status_val != 2) {
     RCLCPP_WARN(rclcpp::get_logger("rclcpp"),
                 "OSQP did not converge (status: %s), returning original path",
@@ -556,42 +549,31 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization_impl(
     return center_path;
   }
 
-  // ── Reassemble full result path ───────────────────────────────────────────
-  // Start from the raw center path (preserves non-position attributes like speed targets).
-  // Then layer in two sources of better data, in order:
-  //   1. The globally-smoothed prefix (points before window_start already committed).
-  //   2. The fresh optimizer solution for the current window.
+  // Reassemble full result path 
   std::vector<PathPoint> result_path = center_path;
 
   // Overwrite the prefix with previously committed smoothed points.
-  // Only copy as far as globally_smoothed_path_ actually extends — it may be shorter
-  // than window_start if this is still an early growing-window iteration.
+
   const int preserved_prefix_count =
       std::min(static_cast<int>(globally_smoothed_path_.size()), window_start);
   for (int i = 0; i < preserved_prefix_count; ++i) result_path[i] = globally_smoothed_path_[i];
 
-  // Write the optimizer's solution into the window slots.
-  // OSQP interleaves x/y: solution[2*i] = x, solution[2*i+1] = y for point i.
+  // OSQP uses: solution[2*i] = x, solution[2*i+1] = y for point i.
   for (int i = 0; i < num_path_points; ++i) {
     result_path[window_start + i].position.x = solver_->solution->x[2 * i];
     result_path[window_start + i].position.y = solver_->solution->x[2 * i + 1];
   }
 
-  // Commit everything up to (but not including) any raw-center suffix — points
-  // beyond window_start + num_path_points have not been optimized yet.
   globally_smoothed_path_.assign(result_path.begin(),
                                  result_path.begin() + window_start + num_path_points);
 
-  // Update warm-start cache
+  // Update cache
   cached_num_points_ = num_path_points;
   cached_opt_start_ = window_start;
   cached_is_closed_ = is_path_closed;
   cached_primal_.assign(solver_->solution->x, solver_->solution->x + total_variables);
   cached_dual_.assign(solver_->solution->y, solver_->solution->y + total_constraints);
 
-  RCLCPP_INFO(rclcpp::get_logger("rclcpp"),
-              "OSQP done: window_start=%d window=%d total=%d status=%lld", window_start,
-              num_path_points, static_cast<int>(center_path.size()), solve_status);
 
   return result_path;
 }
