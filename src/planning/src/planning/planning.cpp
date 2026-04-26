@@ -328,6 +328,7 @@ void Planning::run_full_map() {
 void Planning::run_acceleration() {
   full_path_ = path_calculation_.calculate_path(cone_array_);
   smoothed_path_ = path_smoothing_.smooth_path(full_path_, false);
+  velocity_planning_.set_velocity(smoothed_path_);
   velocity_planning_.stop(smoothed_path_, planning_config_.braking_distance_acceleration_);
 }
 
