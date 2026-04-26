@@ -685,10 +685,6 @@ TireParameters::TireParameters(const std::string& config_name) {
   if (config["rolling_coefficients"]["QSY8"]) {
     QSY8 = config["rolling_coefficients"]["QSY8"].as<double>();
   }
-  if (config["rolling_coefficients"]["rolling_resistance_smooth_coeff"]) {
-    rolling_resistance_smooth_coeff =
-        config["rolling_coefficients"]["rolling_resistance_smooth_coeff"].as<double>();
-  }
 
   // Aligning coefficients
   if (config["aligning_coefficients"]["QBZ1"]) {

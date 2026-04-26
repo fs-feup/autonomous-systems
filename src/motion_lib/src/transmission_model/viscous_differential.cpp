@@ -17,9 +17,10 @@ common_lib::structures::Wheels ViscousDifferential::calculate_wheel_torques(
 
   double shaft_torque = input_torque;
 
+  // Viscous Drag
   double viscous_drag = p->viscous_drag_coeff * motor_omega;
 
-  // 2. Coulomb (Constant) Drag
+  // Coulomb Drag
   // Uses the atan activation function to smoothly flip direction around 0 rad/s
   double smooth_sign_omega = (2.0 / M_PI) * std::atan(p->coulomb_smooth_stiffness * motor_omega);
   double coulomb_drag = p->coulomb_drag * smooth_sign_omega;
@@ -29,10 +30,8 @@ common_lib::structures::Wheels ViscousDifferential::calculate_wheel_torques(
 
   double axle_torque = shaft_torque * p->efficiency * p->gear_ratio;
 
-  double delta_omega = (wheel_speeds.rear_left - wheel_speeds.rear_right) * p->gear_ratio;
-  double avg_speed =
-      ((std::abs(wheel_speeds.rear_left) + std::abs(wheel_speeds.rear_right)) / 2.0) *
-      p->gear_ratio;
+  double delta_omega = (wheel_speeds.rear_left - wheel_speeds.rear_right);
+  double avg_speed = ((std::abs(wheel_speeds.rear_left) + std::abs(wheel_speeds.rear_right)) / 2.0);
   double smoothing = std::clamp(avg_speed / 0.5, 0.0, 1.0);
   double delta_tau = p->kv * delta_omega * smoothing;
   delta_tau = std::clamp(delta_tau, -p->t_max, p->t_max);

@@ -9,10 +9,10 @@
  */
 struct VehicleModelSnapshot {
   // Tire data
-  Eigen::Vector3d front_left_force = {0.0, 0.0, 0.0};
-  Eigen::Vector3d front_right_force = {0.0, 0.0, 0.0};
-  Eigen::Vector3d rear_left_force = {0.0, 0.0, 0.0};
-  Eigen::Vector3d rear_right_force = {0.0, 0.0, 0.0};
+  Eigen::Vector4d front_left_force = {0.0, 0.0, 0.0, 0.0};
+  Eigen::Vector4d front_right_force = {0.0, 0.0, 0.0, 0.0};
+  Eigen::Vector4d rear_left_force = {0.0, 0.0, 0.0, 0.0};
+  Eigen::Vector4d rear_right_force = {0.0, 0.0, 0.0, 0.0};
   common_lib::structures::Wheels slip_ratio = {0.0, 0.0, 0.0, 0.0};
   common_lib::structures::Wheels slip_angle = {0.0, 0.0, 0.0, 0.0};
 

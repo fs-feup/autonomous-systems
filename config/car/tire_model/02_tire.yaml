@@ -2,7 +2,7 @@ tire:
   # Pacejka combined slip parameters
   # Lateral coefficients
   B_lateral: 9.63
-  C_lateral: -1.39
+  C_lateral: 1.39
   D_lateral: 1.6
   E_lateral: 1.0
   
@@ -265,7 +265,6 @@ tire:
     QSY6: 0
     QSY7: 0.85
     QSY8: -0.4
-    rolling_resistance_smooth_coeff: 10.0
 
   aligning_coefficients:
     QBZ1: 10

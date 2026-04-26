@@ -105,11 +105,6 @@ private:
   void publish_aero_group();
 
   /**
-   * @brief Publish wheel vertical load information.
-   */
-  void publish_load_group();
-
-  /**
    * @brief Publish vehicle status information.
    */
   void publish_status_group();
@@ -208,8 +203,6 @@ private:
       transmission_pub_;  ///< Publisher for transmission state.
   rclcpp::Publisher<custom_interfaces::msg::AeroForces>::SharedPtr
       aero_pub_;  ///< Publisher for aerodynamic forces.
-  rclcpp::Publisher<custom_interfaces::msg::WheelScalars>::SharedPtr
-      load_pub_;  ///< Publisher for wheel vertical loads.
   rclcpp::Publisher<custom_interfaces::msg::VehicleStateVector>::SharedPtr
       status_pub_;  ///< Publisher for vehicle status.
   rclcpp::Publisher<custom_interfaces::msg::ControlCommand>::SharedPtr
