@@ -7,12 +7,15 @@ class MPC : public Controller {
   std::shared_ptr<SolverInterface> solver_;
   std::vector<double> solver_state_ = std::vector<double>(13, 0.0); // state vector for the solver
   bool _path_received_ = false;
+  custom_interfaces::msg::PathPointArray latest_path_;
 public:
   void path_callback(const custom_interfaces::msg::PathPointArray& msg) override;
   void vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& msg) override;
   void vehicle_pose_callback(const custom_interfaces::msg::Pose& msg) override;
+  void create_local_path(custom_interfaces::msg::PathPointArray& path_msg);
   void publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) override;
   common_lib::structures::ControlCommand get_control_command() override;
+  void set_path_in_solver();
 
   MPC(const ControlParameters& params);
   virtual ~MPC() = default;

@@ -1,7 +1,7 @@
 #ifndef SRC_PLANNING_INCLUDE_PLANNING_SMOOTHING2_HPP_
 #define SRC_PLANNING_INCLUDE_PLANNING_SMOOTHING2_HPP_
 
-#include <osqp.h>
+#include <osqp/osqp.h>
 
 #include <Eigen/Dense>
 #include <cmath>

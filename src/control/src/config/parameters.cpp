@@ -25,6 +25,7 @@ ControlParameters::ControlParameters(const ControlParameters &params) {
   pid_max_negative_error_ = params.pid_max_negative_error_;
   mpc_prediction_horizon_seconds_ = params.mpc_prediction_horizon_seconds_;
   mpc_prediction_horizon_steps_ = params.mpc_prediction_horizon_steps_;
+  wheel_speeds_scale_mpc_ = params.wheel_speeds_scale_mpc_;
   map_frame_id_ = params.map_frame_id_;
   command_time_interval_ = params.command_time_interval_;
 }
@@ -55,6 +56,7 @@ ControlParameters &ControlParameters::operator=(const ControlParameters &other) 
     pid_max_negative_error_ = other.pid_max_negative_error_;
     mpc_prediction_horizon_seconds_ = other.mpc_prediction_horizon_seconds_;
     mpc_prediction_horizon_steps_ = other.mpc_prediction_horizon_steps_;
+    wheel_speeds_scale_mpc_ = other.wheel_speeds_scale_mpc_;
     map_frame_id_ = other.map_frame_id_;
     command_time_interval_ = other.command_time_interval_;
   }
@@ -104,6 +106,7 @@ std::string ControlParameters::load_config() {
   this->pid_max_negative_error_ = control_config["pid_max_negative_error"].as<double>();
   this->mpc_prediction_horizon_seconds_ = control_config["mpc_prediction_horizon_seconds"].as<double>();
   this->mpc_prediction_horizon_steps_ = control_config["mpc_prediction_horizon_steps"].as<unsigned int>();
+  this->wheel_speeds_scale_mpc_ = control_config["wheel_speeds_scale_mpc"].as<double>();
   this->map_frame_id_ = adapter == "eufs" ? "base_footprint" : "map";
   this->command_time_interval_ = control_config["command_time_interval"].as<int>();
 

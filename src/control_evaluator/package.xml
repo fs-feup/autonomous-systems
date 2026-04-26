@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>control_evaluator</name>
+  <version>0.0.0</version>
+  <description>Controller performance evaluation node and metrics publishers</description>
+  <maintainer email="r.lourenco.a@gmail.com">lourenco</maintainer>
+  <license>TODO: License declaration</license>
+
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+  <depend>custom_interfaces</depend>
+  <depend>fs_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>pacsim</depend>
+  <exec_depend>python3-yaml</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

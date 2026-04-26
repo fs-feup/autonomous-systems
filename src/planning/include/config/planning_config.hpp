@@ -68,11 +68,6 @@ struct PlanningParameters {
   bool planning_using_simulated_se_;
 
   /**
-   * @brief Flag to enable/disable the use of simulated velocities.
-   */
-  bool planning_using_simulated_velocities_;
-
-  /**
    * @brief Flag to enable/disable using planning with the full map
    */
   bool planning_using_full_map_;
@@ -101,7 +96,6 @@ struct PlanningConfig {
   SkidpadConfig skidpad_;
   bool publishing_visualization_msgs_;
   bool using_simulated_se_;
-  bool using_simulated_velocities_;
   bool using_full_map_;
   double braking_distance_acceleration_;
   double braking_distance_autocross_;
@@ -125,17 +119,8 @@ struct PlanningConfig {
                    params.smoothing_spline_coeffs_ratio_, params.smoothing_min_path_point_distance_,
                    params.smoothing_use_path_smoothing_, params.smoothing_use_optimization_,
                    params.smoothing_car_width_, params.smoothing_safety_margin_,
-<<<<<<< HEAD
-                   params.smoothing_curvature_weight_, params.smoothing_smoothness_weight_,
-                   params.smoothing_safety_weight_, params.smoothing_max_iterations_,
-                   params.smoothing_tolerance_),
-        simulation_(params.simulation_publishing_visualization_msgs_,
-              params.simulation_using_simulated_se_,
-              params.simulation_using_simulated_velocities_),
-=======
                    params.smoothing_curvature_weight_, params.smoothing_safety_weight_,
                    params.smoothing_max_iterations_, params.smoothing_tolerance_),
->>>>>>> main
         velocity_planning_(params.vp_minimum_velocity_, params.vp_desired_velocity_,
                            params.vp_braking_acceleration_, params.vp_acceleration_,
                            params.vp_lateral_acceleration_, params.vp_longitudinal_acceleration_,

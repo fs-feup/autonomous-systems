@@ -33,6 +33,7 @@ struct ControlParameters {
   double pid_max_negative_error_; // maximum negative error for PID controller (restricts braking)
   double mpc_prediction_horizon_seconds_; // prediction horizon in seconds for MPC controller
   unsigned int mpc_prediction_horizon_steps_; // prediction horizon in steps for MPC controller
+  double wheel_speeds_scale_mpc_; // scale factor for wheel speeds (used to improve numerical stability of the solver, can be tuned)
   std::string map_frame_id_; // frame id to publish visualization markers (can be "map", ...), for example closest point and lookahead point
   uint command_time_interval_; // time interval (in ms) between command publications
 

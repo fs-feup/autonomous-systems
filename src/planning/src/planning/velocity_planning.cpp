@@ -1,5 +1,9 @@
 #include "planning/velocity_planning.hpp"
 
+#include <algorithm>
+
+#include <rclcpp/rclcpp.hpp>
+
 double VelocityPlanning::find_curvature(const PathPoint &p1, const PathPoint &p2,
                                         const PathPoint &p3) {
   // lengths of the sides of the triangle formed by the three points

@@ -14,13 +14,6 @@ PacSimAdapter::PacSimAdapter(const PlanningParameters& params) : Planning(params
 
     this->path_sub_ = this->create_subscription<visualization_msgs::msg::MarkerArray>(
         "/pacsim/map", 10, std::bind(&PacSimAdapter::track_callback, this, std::placeholders::_1));
-
-    if (params.simulation_using_simulated_velocities_) {
-      this->pacsim_velocity_sub_ =
-        this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
-          "/pacsim/velocity", 1,
-          std::bind(&PacSimAdapter::pacsim_velocity_callback, this, std::placeholders::_1));
-    }
   }
   RCLCPP_DEBUG(this->get_logger(), "Planning : Pacsim adapter created");
   this->mission_ = common_lib::competition_logic::Mission::AUTOCROSS;
@@ -75,9 +68,4 @@ void PacSimAdapter::track_callback(const visualization_msgs::msg::MarkerArray& m
     cones.cone_array.push_back(cone);
   }
   this->track_map_callback(cones);
-}
-
-void PacSimAdapter::pacsim_velocity_callback(
-    const geometry_msgs::msg::TwistWithCovarianceStamped& msg) {
-  set_current_car_velocity(std::hypot(msg.twist.twist.linear.x, msg.twist.twist.linear.y));
 }

@@ -3,11 +3,6 @@
 #include <tf2/LinearMath/Matrix3x3.h>
 #include <tf2/LinearMath/Quaternion.h>
 
-#include <geometry_msgs/msg/twist_with_covariance_stamped.hpp>
-#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
-
-#include "custom_interfaces/msg/vehicle_state.hpp"
-#include "geometry_msgs/msg/transform_stamped.hpp"
 #include "pacsim/msg/stamped_scalar.hpp"
 #include "planning/planning.hpp"
 #include "sensor_msgs/msg/joint_state.hpp"
@@ -20,8 +15,6 @@
 class PacSimAdapter : public Planning {
   rclcpp::Client<std_srvs::srv::Empty>::SharedPtr finished_client_;
   rclcpp::Subscription<visualization_msgs::msg::MarkerArray>::SharedPtr path_sub_;
-  rclcpp::Subscription<geometry_msgs::msg::TwistWithCovarianceStamped>::SharedPtr
-      pacsim_velocity_sub_;
   rclcpp::TimerBase::SharedPtr timer_;
 
   std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
@@ -32,7 +25,6 @@ public:
 
   void set_mission_state();
   void track_callback(const visualization_msgs::msg::MarkerArray& msg);
-  void pacsim_velocity_callback(const geometry_msgs::msg::TwistWithCovarianceStamped& msg);
   void finish() override;
   void timer_callback();
 };

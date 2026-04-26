@@ -22,7 +22,6 @@
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/point_array.hpp"
 #include "custom_interfaces/msg/pose.hpp"
-#include "custom_interfaces/msg/velocities.hpp"
 #include "planning/path_calculation.hpp"
 #include "planning/skidpad.hpp"
 #include "planning/smoothing.hpp"
@@ -95,7 +94,6 @@ private:
   Pose pose_;
   std::string map_frame_id_;
   double desired_velocity_;
-  double current_car_velocity_ = 0.0;
   double initial_car_orientation_;
   int lap_counter_ = 0;
 
@@ -123,7 +121,6 @@ private:
   rclcpp::Subscription<custom_interfaces::msg::Pose>::SharedPtr vehicle_localization_sub_;
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr track_map_sub_;
   rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr lap_counter_sub_;
-  rclcpp::Subscription<custom_interfaces::msg::Velocities>::SharedPtr estimated_velocities_sub_;
 
   /*--------------------- Publishers --------------------*/
   /**< Publisher of the smoothed path to control */
@@ -170,27 +167,6 @@ private:
    * @param message The received ConeArray message
    */
   void track_map_callback(const custom_interfaces::msg::ConeArray &message);
-
-  /**
-   * @brief Callback for estimated velocities.
-   *
-   * @param message The received Velocities message from state estimation.
-   */
-  void estimated_velocities_callback(const custom_interfaces::msg::Velocities &message);
-
-protected:
-  /**
-   * @brief Updates the scalar current car speed used by velocity profile anchoring.
-   *
-   * @param velocity Current speed in m/s.
-   */
-  void set_current_car_velocity(double velocity);
-
-private:
-  /**
-   * @brief Sets the closest path point target velocity to current car velocity.
-   */
-  void set_closest_path_point_velocity();
 
   /*--------------------- Mission-Specific Planning --------------------*/
   /**

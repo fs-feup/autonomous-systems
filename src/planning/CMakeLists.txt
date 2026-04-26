@@ -80,6 +80,7 @@ ament_target_dependencies(planning
 target_include_directories(planning PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
+  ${OSQP_INSTALL_DIR}/include
   ${PCL_INCLUDE_DIRS}
   ${GSL_INCLUDE_DIRS}
 )
@@ -121,6 +122,7 @@ if(BUILD_TESTING)
   target_include_directories(planning_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
+    ${OSQP_INSTALL_DIR}/include
     ${PCL_INCLUDE_DIRS}
     ${GSL_INCLUDE_DIRS}
   )

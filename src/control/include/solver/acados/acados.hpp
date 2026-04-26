@@ -20,6 +20,9 @@ public:
 private:
     void set_path_point_per_stage();
     void update_execution_times();
+    void initialize_solver_memory();
+    void calculate_stage_parameters();
+    void add_orientation(std::vector<double>& path_data);
 
     // Acados solver components using the "mpc" prefix
     mpc_solver_capsule* capsule_;
@@ -41,4 +44,6 @@ private:
     std::vector<double> last_path_;
     bool has_state_ = false;
     bool has_path_ = false;
+    bool is_initialized_ = false;
+    std::vector<double> parameters_per_stage;
 };
