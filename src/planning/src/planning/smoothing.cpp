@@ -43,7 +43,6 @@ std::vector<PathPoint> PathSmoothing::filter_path(const std::vector<PathPoint>& 
 void PathSmoothing::add_curvature_terms(
     int num_path_points, const std::function<int(int)>& circular_index,
     const std::function<void(int, int, double)>& add_coefficient, bool is_path_closed) const {
-
   // For each point, we penalize: (p[i-1] - 2*p[i] + p[i+1])^2
   // OSQP minimizes (1/2) x^T P x, so all P coefficients must be multiplied by 2
   // to get the true mathematical penalty weight.
@@ -51,7 +50,7 @@ void PathSmoothing::add_curvature_terms(
   int range_start = 1;
   int range_end = num_path_points - 1;
 
-  if(is_path_closed){
+  if (is_path_closed) {
     range_start = 0;
     range_end = num_path_points;
   }
@@ -104,7 +103,7 @@ void PathSmoothing::add_proximity_terms(
     const std::function<void(int, int, double)>& add_quadratic_coefficient,
     std::vector<OSQPFloat>& linear_objective) const {
   // Penalize deviation from the center path to prevent degenerate solutions.
-  //TODA: Change this to param
+  // TODA: Change this to param
   const double proximity_weight = 0.001 * config_.curvature_weight_;
 
   for (int point_index = 0; point_index < num_path_points; ++point_index) {
@@ -125,7 +124,6 @@ void PathSmoothing::add_boundary_constraints(
     std::vector<OSQPFloat>& constraint_upper_bounds, int& constraint_count,
     const std::vector<PathPoint>& left_boundary, const std::vector<PathPoint>& right_boundary,
     const std::vector<PathPoint>& center_path, int num_path_points, double safety_margin) const {
-
   for (int point_index = 0; point_index < num_path_points; ++point_index) {
     const Eigen::Vector2d left_boundary_point(left_boundary[point_index].position.x,
                                               left_boundary[point_index].position.y);
@@ -222,7 +220,6 @@ void PathSmoothing::add_slack_nonnegativity_constraints(
     std::vector<OSQPInt>& constraint_col_indices, std::vector<OSQPFloat>& constraint_lower_bounds,
     std::vector<OSQPFloat>& constraint_upper_bounds, int& constraint_count,
     int num_path_points) const {
-
   for (int slack_index = 0; slack_index < num_path_points; ++slack_index) {
     const int slack_col = 2 * num_path_points + slack_index;
 
@@ -303,8 +300,8 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(
     cached_primal_.clear();
     cached_dual_.clear();
     cached_num_points_ = -1;
-    return osqp_optimization_impl(center_path, left_boundary, right_boundary,
-                                  0, is_path_closed);
+    return osqp_optimization_implementation(center_path, left_boundary, right_boundary, 0,
+                                            is_path_closed);
   }
 
   // TODA: Change 50 to a parameter
@@ -314,14 +311,14 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Incremental: window [%d, %d) (%d pts) open path",
                window_start, total_points, window_size);
 
-  return osqp_optimization_impl(center_path, left_boundary, right_boundary, window_start,
-                                is_path_closed);
+  // TODA: Change this when it works!
+  return osqp_optimization_implementation(center_path, left_boundary, right_boundary, window_start,
+                                          false);
 }
 
-std::vector<PathPoint> PathSmoothing::osqp_optimization_impl(
+std::vector<PathPoint> PathSmoothing::osqp_optimization_implementation(
     const std::vector<PathPoint>& center_path, const std::vector<PathPoint>& left_boundary,
     const std::vector<PathPoint>& right_boundary, int window_start, bool is_path_closed) const {
-
   // Slice inputs to the sliding window
   const std::vector<PathPoint> window_center(center_path.begin() + window_start, center_path.end());
   const std::vector<PathPoint> window_left(left_boundary.begin() + window_start,
@@ -382,7 +379,7 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization_impl(
   std::vector<OSQPFloat> constraint_lower_bounds, constraint_upper_bounds;
   int constraint_count = 0;
 
-  // Seam pinning via corridor tightening 
+  // Seam pinning via corridor tightening
   std::vector<PathPoint> effective_left = window_left;
   std::vector<PathPoint> effective_right = window_right;
 
@@ -476,7 +473,8 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization_impl(
 
     if (same_window_size && window_start > 0) {
       if (window_shift > 0 && window_shift < num_path_points) {
-        // Slide cached solution left: overlapping points carry over, new tail is seeded from center.
+        // Slide cached solution left: overlapping points carry over, new tail is seeded from
+        // center.
         for (int i = 0; i < num_path_points - window_shift; ++i) {
           warm_start_primal[2 * i] = cached_primal_[2 * (i + window_shift)];
           warm_start_primal[2 * i + 1] = cached_primal_[2 * (i + window_shift) + 1];
@@ -549,7 +547,7 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization_impl(
     return center_path;
   }
 
-  // Reassemble full result path 
+  // Reassemble full result path
   std::vector<PathPoint> result_path = center_path;
 
   // Overwrite the prefix with previously committed smoothed points.
@@ -573,7 +571,6 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization_impl(
   cached_is_closed_ = is_path_closed;
   cached_primal_.assign(solver_->solution->x, solver_->solution->x + total_variables);
   cached_dual_.assign(solver_->solution->y, solver_->solution->y + total_constraints);
-
 
   return result_path;
 }

@@ -67,10 +67,10 @@ public:
   }
 
 private:
-  std::vector<PathPoint> osqp_optimization_impl(const std::vector<PathPoint>& center,
-                                                const std::vector<PathPoint>& left,
-                                                const std::vector<PathPoint>& right, int opt_start,
-                                                bool is_path_closed) const;
+  std::vector<PathPoint> osqp_optimization_implementation(const std::vector<PathPoint>& center,
+                                                          const std::vector<PathPoint>& left,
+                                                          const std::vector<PathPoint>& right,
+                                                          int opt_start, bool is_path_closed) const;
 
   void add_proximity_terms(int num_path_points, const std::vector<PathPoint>& center,
                            const std::function<void(int, int, double)>& add_quadratic_coefficient,
