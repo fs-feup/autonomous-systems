@@ -8,6 +8,16 @@ class MPC : public Controller {
   std::vector<double> solver_state_ = std::vector<double>(13, 0.0); // state vector for the solver
   bool _path_received_ = false;
   custom_interfaces::msg::PathPointArray latest_path_;
+
+  // Debug strings
+  std::string path_before_local;
+  std::string local_path_debug;
+  std::string current_state;
+  std::string computed_command;
+  std::string solver_state_over_horizon;
+  std::string solver_command_over_horizon;
+
+  void print_debug_info();
 public:
   void path_callback(const custom_interfaces::msg::PathPointArray& msg) override;
   void vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& msg) override;

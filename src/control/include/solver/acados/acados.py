@@ -19,7 +19,7 @@ L = lr + lf
 sf = 1.2  # Track width front
 sr = 1.2  # Track width rear
 s = sf / 2
-tire_linear_coefficient = 15.4
+tire_linear_coefficient = 34.6
 tire_lateral_B = 9.63
 tire_lateral_C = 1.39
 tire_lateral_D = 1.60
@@ -240,7 +240,7 @@ def setup_cost_function(ocp: AcadosOcp):
     # 3. Define the Residuals
     psi = x[2]
     ref_theta = p[3]
-    theta_cost_term = 2.0 * (1.0 - cos(psi - ref_theta)) # sin(psi - ref_theta)
+    theta_cost_term = sin(psi - ref_theta)
 
     # --- FIX: Add 'u' to the residuals ---
     # We want u[0] (throttle), u[1] (brake), u[2] (steer) to ideally be 0 (or low)
@@ -313,12 +313,7 @@ def create_ocp_solver(gen_base_dir="./build/acados"):
     ocp.solver_options.levenberg_marquardt = 1e-2
     ocp.solver_options.with_batch_functionality = False
     ocp.solver_options.ext_fun_compile_flags = "-O3 -march=native -ffast-math"
-    #ocp.solver_options.print_level = 4
-
-    ocp.solver_options.nlp_solver_tol_stat = 1e-3
-    ocp.solver_options.nlp_solver_tol_eq = 1e-3
-    ocp.solver_options.nlp_solver_tol_ineq = 1e-3
-    ocp.solver_options.nlp_solver_tol_comp = 1e-3
+    ocp.solver_options.nlp_solver_max_iter = 20
 
     # Initial state constraint (required for set_state logic)
     ocp.constraints.x0 = np.zeros(13)

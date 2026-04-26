@@ -34,9 +34,11 @@ public:
     /**
      * @brief Solve the optimization problem
      * 
+     * @param solver_status Optional pointer to an integer to store the solver status code (0 for success, 1 for benign failure such as infeasibility, negative for solver errors or divergences)
+     * 
      * @return the computed control command for the current state
      */
-    virtual common_lib::structures::ControlCommand solve() = 0;
+    virtual common_lib::structures::ControlCommand solve(int* solver_status = nullptr) = 0;
 
     /**
      * @brief Get the full predicted control solution (for the whole horizon)

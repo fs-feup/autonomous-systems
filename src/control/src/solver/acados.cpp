@@ -148,6 +148,7 @@ void AcadosSolver::calculate_stage_parameters() {
       first_v = path_point_v;
       first_orientation = path_point_orientation;
       first_point_time = path_point_time;
+      segment_length_sq = ( second_x - first_x) * (second_x - first_x) + (second_y - first_y) * (second_y - first_y);
     }
 }
 
@@ -235,22 +236,20 @@ void AcadosSolver::add_orientation(std::vector<double>& path_data) {
 void AcadosSolver::set_path_point_per_stage() {
   int N = this->control_params_->mpc_prediction_horizon_steps_;
   this->calculate_stage_parameters();
-  this->add_orientation(this->parameters_per_stage);
-  std::string stage_log_debug = "Stage parameters debug:  \n";
-  for (int i = 0; i <= 10; ++i) {
+  //this->add_orientation(this->parameters_per_stage);
+  this->stage_parameters_debug = "Stage parameters debug:  \n";
+  for (int i = 0; i <= N; ++i) {
     double path_point_x = this->parameters_per_stage[i*4];
     double path_point_y = this->parameters_per_stage[i*4 + 1];
     double path_point_v = this->parameters_per_stage[i*4 + 2];
     double path_point_orientation = this->parameters_per_stage[i*4 + 3];
-    stage_log_debug += "(" + std::to_string(path_point_x) + ", " + std::to_string(path_point_y) + ", " + std::to_string(path_point_v) + ", " + std::to_string(path_point_orientation) + ")\n";
+    this->stage_parameters_debug += "(" + std::to_string(path_point_x) + ", " + std::to_string(path_point_y) + ", " + std::to_string(path_point_v) + ", " + std::to_string(path_point_orientation) + ")\n";
     double point_for_stage[4] = {this->parameters_per_stage[i*4], this->parameters_per_stage[i*4 + 1], this->parameters_per_stage[i*4 + 2], this->parameters_per_stage[i*4 + 3]};
     mpc_acados_update_params(this->capsule_, i, point_for_stage, kPathPointSize);
   }
-  // DEBUG PRINT
-  // std::cout << stage_log_debug << std::endl;
 }
 
-void AcadosSolver::update_execution_times() {
+void AcadosSolver::update_mpc_stats() {
   // Create temporary variables to receive the raw values
   double t_tot, t_lin, t_sim, t_qp, t_reg;
   int sqp_iter;
@@ -293,7 +292,7 @@ void AcadosSolver::set_path(const std::vector<double>& x_path) {
   this->has_path_ = true;
 }
 
-common_lib::structures::ControlCommand AcadosSolver::solve() {
+common_lib::structures::ControlCommand AcadosSolver::solve(int* solver_status) {
   common_lib::structures::ControlCommand command;
   if (!(this->has_state_ && this->has_path_)) {
     return command;
@@ -322,8 +321,15 @@ common_lib::structures::ControlCommand AcadosSolver::solve() {
   int status = mpc_acados_solve(this->capsule_);
   if (status != ACADOS_SUCCESS) {
     RCLCPP_ERROR(rclcpp::get_logger("AcadosSolver"), "Acados solver failed with status %d", status);
+    if (this->sanity_check_output()) {
+      *solver_status = 1; // Positive to indicate benign failure (e.g. infeasibility)
+    } else {
+      print_debug_info(); // If solver failed, print debug info
+      *solver_status = -1; // Negative to indicate malign failure
+    }
   }
-  this->update_execution_times();
+
+  this->update_mpc_stats();
   // Extracting 3 controls
   std::vector<common_lib::structures::ControlCommand> full_solution = this->get_full_solution();
 
@@ -345,8 +351,10 @@ common_lib::structures::ControlCommand AcadosSolver::solve() {
 
   // Linear interpolation of control commands
   double alpha = (total_delay_s - steps_ahead * time_step) / time_step;
-  // DEBUG PRINT
-  //std::cout << "Total delay: " << total_delay_ms << " ms, steps ahead: " << steps_ahead << ", interpolation alpha: " << alpha << std::endl;
+
+  // DEBUG STRING
+  this->total_delay_debug = "Total delay: " + std::to_string(total_delay_ms) + " ms, steps ahead: " + std::to_string(steps_ahead) + ", interpolation alpha: " + std::to_string(alpha);
+
   command.throttle_rl = (1 - alpha) * command_zero.throttle_rl + alpha * command_one.throttle_rl;
   command.throttle_rr = (1 - alpha) * command_zero.throttle_rr + alpha * command_one.throttle_rr;
   command.steering_angle = (1 - alpha) * command_zero.steering_angle + alpha * command_one.steering_angle;
@@ -409,4 +417,14 @@ void AcadosSolver::publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::
   std_msgs::msg::Float64MultiArray msg;
   msg.data = *this->_execution_times_;
   publisher->publish(msg);
+}
+
+void AcadosSolver::print_debug_info() {
+  std::cout << this->stage_parameters_debug << std::endl;
+  std::cout << this->total_delay_debug << std::endl;
+}
+
+bool AcadosSolver::sanity_check_output() {
+  // TODO: Implement actual checks
+  return true;
 }
