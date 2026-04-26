@@ -70,12 +70,7 @@ private:
                                                 const std::vector<PathPoint>& left,
                                                 const std::vector<PathPoint>& right, int opt_start,
                                                 bool is_path_closed) const;
-  void add_seam_constraints(std::vector<OSQPFloat>& constraint_values,
-                            std::vector<OSQPInt>& constraint_row_indices,
-                            std::vector<OSQPInt>& constraint_col_indices,
-                            std::vector<OSQPFloat>& constraint_lower_bounds,
-                            std::vector<OSQPFloat>& constraint_upper_bounds, int& constraint_count,
-                            const PathPoint& seam_point) const;
+
   void add_proximity_terms(int num_path_points, const std::vector<PathPoint>& center,
                            const std::function<void(int, int, double)>& add_quadratic_coefficient,
                            std::vector<OSQPFloat>& linear_objective) const;
@@ -90,6 +85,8 @@ private:
   mutable bool cached_is_closed_ = false;
   mutable std::vector<OSQPFloat> cached_primal_;  // x solution
   mutable std::vector<OSQPFloat> cached_dual_;    // y (lagrange multipliers)
+  mutable int cached_opt_start_ = -1;
+  mutable std::vector<PathPoint> globally_smoothed_path_;
 
   /**
    * @brief Filters path points using a minimum spacing constraint.
