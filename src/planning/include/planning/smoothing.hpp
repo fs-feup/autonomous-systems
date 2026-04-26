@@ -160,32 +160,30 @@ private:
    * @param num_path_points Number of points in the path
    * @param safety_margin Safety distance from track boundaries
    */
-  void add_boundary_constraints(std::vector<OSQPFloat>& constraint_values,
-                                std::vector<OSQPInt>& constraint_row_indices,
-                                std::vector<OSQPInt>& constraint_col_indices,
-                                std::vector<OSQPFloat>& constraint_lower_bounds,
-                                std::vector<OSQPFloat>& constraint_upper_bounds,
-                                int& constraint_count, const std::vector<PathPoint>& left,
-                                const std::vector<PathPoint>& right, int num_path_points,
-                                double safety_margin) const;
+  void add_boundary_constraints(
+      std::vector<OSQPFloat>& constraint_values, std::vector<OSQPInt>& constraint_row_indices,
+      std::vector<OSQPInt>& constraint_col_indices, std::vector<OSQPFloat>& constraint_lower_bounds,
+      std::vector<OSQPFloat>& constraint_upper_bounds, int& constraint_count,
+      const std::vector<PathPoint>& left, const std::vector<PathPoint>& right,
+      const std::vector<PathPoint>& center, int num_path_points, double safety_margin) const;
 
-  /**
-   * @brief Adds non-negativity constraints for slack variables.
-   *
-   * @param constraint_values Non-zero values in the constraint matrix
-   * @param constraint_row_indices Row indices for constraint matrix entries
-   * @param constraint_col_indices Column indices for constraint matrix entries
-   * @param constraint_lower_bounds Lower bounds for each constraint
-   * @param constraint_upper_bounds Upper bounds for each constraint
-   * @param constraint_count Running count of constraints added
-   * @param num_path_points Number of points in the path
-   */
-  void add_slack_nonnegativity_constraints(std::vector<OSQPFloat>& constraint_values,
-                                           std::vector<OSQPInt>& constraint_row_indices,
-                                           std::vector<OSQPInt>& constraint_col_indices,
-                                           std::vector<OSQPFloat>& constraint_lower_bounds,
-                                           std::vector<OSQPFloat>& constraint_upper_bounds,
-                                           int& constraint_count, int num_path_points) const;
+      /**
+       * @brief Adds non-negativity constraints for slack variables.
+       *
+       * @param constraint_values Non-zero values in the constraint matrix
+       * @param constraint_row_indices Row indices for constraint matrix entries
+       * @param constraint_col_indices Column indices for constraint matrix entries
+       * @param constraint_lower_bounds Lower bounds for each constraint
+       * @param constraint_upper_bounds Upper bounds for each constraint
+       * @param constraint_count Running count of constraints added
+       * @param num_path_points Number of points in the path
+       */
+      void add_slack_nonnegativity_constraints(std::vector<OSQPFloat>& constraint_values,
+                                               std::vector<OSQPInt>& constraint_row_indices,
+                                               std::vector<OSQPInt>& constraint_col_indices,
+                                               std::vector<OSQPFloat>& constraint_lower_bounds,
+                                               std::vector<OSQPFloat>& constraint_upper_bounds,
+                                               int& constraint_count, int num_path_points) const;
 
   /**
    * @brief Converts sparse matrix data from coordinate format to Compressed Sparse Column (CSC)

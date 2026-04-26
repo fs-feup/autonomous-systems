@@ -141,21 +141,43 @@ void PathSmoothing::add_boundary_constraints(
     std::vector<OSQPFloat>& constraint_values, std::vector<OSQPInt>& constraint_row_indices,
     std::vector<OSQPInt>& constraint_col_indices, std::vector<OSQPFloat>& constraint_lower_bounds,
     std::vector<OSQPFloat>& constraint_upper_bounds, int& constraint_count,
-    const std::vector<PathPoint>& left, const std::vector<PathPoint>& right, int num_path_points,
-    double safety_margin) const {
+    const std::vector<PathPoint>& left, const std::vector<PathPoint>& right,
+    const std::vector<PathPoint>& center, int num_path_points, double safety_margin) const {
   for (int point_idx = 0; point_idx < num_path_points; ++point_idx) {
     Eigen::Vector2d left_boundary_point(left[point_idx].position.x, left[point_idx].position.y);
     Eigen::Vector2d right_boundary_point(right[point_idx].position.x, right[point_idx].position.y);
 
-    Eigen::Vector2d lateral_direction = (left_boundary_point - right_boundary_point).normalized();
-
-    if (lateral_direction.norm() < 1e-6) {
-      RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "Degenerate boundary at point %d", point_idx);
-      continue;
+    // Compute forward direction from center path
+    Eigen::Vector2d forward;
+    if (point_idx + 1 < num_path_points) {
+      forward = Eigen::Vector2d(center[point_idx + 1].position.x - center[point_idx].position.x,
+                                center[point_idx + 1].position.y - center[point_idx].position.y);
+    } else {
+      forward = Eigen::Vector2d(center[point_idx].position.x - center[point_idx - 1].position.x,
+                                center[point_idx].position.y - center[point_idx - 1].position.y);
     }
 
-    double right_bound = right_boundary_point.dot(lateral_direction) + safety_margin;
-    double left_bound = left_boundary_point.dot(lateral_direction) - safety_margin;
+    if (forward.norm() < 1e-6) {
+      RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "Degenerate forward direction at point %d",
+                  point_idx);
+      continue;
+    }
+    forward.normalize();
+
+    // Lateral is perpendicular to forward
+    Eigen::Vector2d lateral_direction(-forward.y(), forward.x());
+
+    // Ensure lateral points from right to left (left proj > right proj)
+    double left_proj = left_boundary_point.dot(lateral_direction);
+    double right_proj = right_boundary_point.dot(lateral_direction);
+    if (left_proj < right_proj) {
+      lateral_direction = -lateral_direction;
+      left_proj = left_boundary_point.dot(lateral_direction);
+      right_proj = right_boundary_point.dot(lateral_direction);
+    }
+
+    double right_bound = right_proj + safety_margin;
+    double left_bound = left_proj - safety_margin;
 
     if (right_bound >= left_bound) {
       RCLCPP_WARN(rclcpp::get_logger("rclcpp"),
@@ -376,7 +398,11 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization_impl(const std::vector<P
       rclcpp::get_logger("rclcpp"),
       "PRE-BUILD: opt_start=%d, num_path_points=%d, total_variables=%d, constraint_count=%d",
       opt_start, num_path_points, total_variables, constraint_count);
-      
+
+  RCLCPP_ERROR(rclcpp::get_logger("rclcpp"),
+               "Seam boundaries: left=(%.3f,%.3f) right=(%.3f,%.3f) opt_start=%d",
+               w_left[0].position.x, w_left[0].position.y, w_right[0].position.x,
+               w_right[0].position.y, opt_start);
   // ── Seam pinning via corridor tightening (keeps A always 3N x 3N) ────────
   std::vector<PathPoint> eff_left = w_left;
   std::vector<PathPoint> eff_right = w_right;
@@ -400,8 +426,7 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization_impl(const std::vector<P
   // constraint_count stays 0 here — no extra seam rows added
   add_boundary_constraints(constraint_values, constraint_row_indices, constraint_col_indices,
                            constraint_lower_bounds, constraint_upper_bounds, constraint_count,
-                           eff_left, eff_right, num_path_points,
-                           safety_margin);
+                           eff_left, eff_right, w_center, num_path_points, safety_margin);
 
   add_slack_nonnegativity_constraints(constraint_values, constraint_row_indices,
                                       constraint_col_indices, constraint_lower_bounds,
@@ -569,44 +594,23 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization_impl(const std::vector<P
     return center;
   }
 
-  // ── Reassemble: fixed prefix unchanged + optimised window ─────────────────
-  std::vector<PathPoint> result = center;  // Start with raw to get correct size/attributes
+  // ── Reassemble ────────────────────────────────────────────────────────────
+  std::vector<PathPoint> result = center;  // correct size + attributes
 
-  // Copy the PREVIOUSLY optimized prefix (if it exists and sizes match reasonably)
-  if (opt_start > 0 && globally_smoothed_path_.size() >= static_cast<size_t>(opt_start)) {
-    for (int i = 0; i < opt_start; ++i) {
-      result[i].position.x = globally_smoothed_path_[i].position.x;
-      result[i].position.y = globally_smoothed_path_[i].position.y;
-    }
+  // Copy only truly-optimized prefix points
+  const int preserved = std::min(static_cast<int>(globally_smoothed_path_.size()), opt_start);
+  for (int i = 0; i < preserved; ++i) {
+    result[i] = globally_smoothed_path_[i];
   }
 
-  // Sanity check solution before writing
-  bool result_sane = true;
-  for (int i = 0; i < num_path_points; ++i) {
-    double x = solver_->solution->x[2 * i];
-    double y = solver_->solution->x[2 * i + 1];
-    if (!std::isfinite(x) || !std::isfinite(y) || std::abs(x) > 1e6 || std::abs(y) > 1e6) {
-      result_sane = false;
-      break;
-    }
-  }
-
-  if (!result_sane) {
-    RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "Solution contains invalid coordinates, discarding");
-    globally_smoothed_path_.clear();
-    cached_primal_.clear();
-    cached_dual_.clear();
-    cached_num_points_ = -1;
-    return center;
-  }
-  // Overwrite tail with new optimization results
+  // Overwrite window with optimizer result
   for (int i = 0; i < num_path_points; ++i) {
     result[opt_start + i].position.x = solver_->solution->x[2 * i];
     result[opt_start + i].position.y = solver_->solution->x[2 * i + 1];
   }
 
-  // Save this globally optimized path for the next tick
-  globally_smoothed_path_ = result;
+  // Only save up to opt_start + num_path_points — no raw points beyond that
+  globally_smoothed_path_.assign(result.begin(), result.begin() + opt_start + num_path_points);
 
   // Update cache
   cached_num_points_ = num_path_points;
