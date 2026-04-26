@@ -103,18 +103,16 @@ void PathSmoothing::add_proximity_terms(
     const std::function<void(int, int, double)>& add_quadratic_coefficient,
     std::vector<OSQPFloat>& linear_objective) const {
   // Penalize deviation from the center path to prevent degenerate solutions.
-  // TODA: Change this to param
-  const double proximity_weight = 0.001 * config_.curvature_weight_;
 
   for (int point_index = 0; point_index < num_path_points; ++point_index) {
     const int x_col = 2 * point_index;
     const int y_col = 2 * point_index + 1;
 
-    add_quadratic_coefficient(x_col, x_col, 2 * proximity_weight);
-    add_quadratic_coefficient(y_col, y_col, 2 * proximity_weight);
+    add_quadratic_coefficient(x_col, x_col, 2 * config_.proximity_weight_);
+    add_quadratic_coefficient(y_col, y_col, 2 * config_.proximity_weight_);
 
-    linear_objective[x_col] = -2.0 * proximity_weight * center_path[point_index].position.x;
-    linear_objective[y_col] = -2.0 * proximity_weight * center_path[point_index].position.y;
+    linear_objective[x_col] = -2.0 * config_.proximity_weight_ * center_path[point_index].position.x;
+    linear_objective[y_col] = -2.0 * config_.proximity_weight_ * center_path[point_index].position.y;
   }
 }
 
@@ -304,8 +302,7 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(
                                             is_path_closed);
   }
 
-  // TODA: Change 50 to a parameter
-  const int window_size = std::min(50, total_points);
+  const int window_size = std::min(config_.window_size_, total_points);
   const int window_start = total_points - window_size;
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Incremental: window [%d, %d) (%d pts) open path",
@@ -439,17 +436,12 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization_implementation(
   constraint_matrix.i = A_csc_row_indices.data();
   constraint_matrix.p = A_csc_col_pointers.data();
 
-  OSQPSettings solver_settings;
-  ::osqp_set_default_settings(&solver_settings);
-  solver_settings.verbose = true;
-  solver_settings.max_iter = config_.max_iterations_;
-  solver_settings.eps_abs = config_.tolerance_;
-  solver_settings.eps_rel = config_.tolerance_;
-  solver_settings.polishing = 1;
-
   // -------- SETUP OR UPDATE SOLVER --------
-  const bool reuse_solver = (solver_ != nullptr) && (cached_num_points_ == num_path_points) &&
-                            (cached_is_closed_ == is_path_closed);
+  bool reuse_solver = false;
+  if ((solver_ != nullptr) && (cached_num_points_ == num_path_points) &&
+      (cached_is_closed_ == is_path_closed)) {
+    reuse_solver = true;
+  }
 
   if (reuse_solver) {
     ::osqp_update_data_mat(solver_, P_csc_values.data(), nullptr,
@@ -458,10 +450,12 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization_implementation(
     ::osqp_update_data_vec(solver_, linear_objective.data(), constraint_lower_bounds.data(),
                            constraint_upper_bounds.data());
   } else {
+
     if (solver_ != nullptr) {
       ::osqp_cleanup(solver_);
       solver_ = nullptr;
     }
+
     OSQPSettings solver_settings;
     ::osqp_set_default_settings(&solver_settings);
     solver_settings.verbose = false;
@@ -527,7 +521,6 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization_implementation(
 
   ::osqp_warm_start(solver_, warm_x.data(), nullptr);
 
-  // -------- SOLVE --------
   ::osqp_solve(solver_);
 
   if (solver_->info->status_val != 1 && solver_->info->status_val != 2) {
@@ -565,7 +558,7 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization_implementation(
                                  result_path.begin() + window_start + num_path_points);
 
   // -------- UPDATE CACHE --------
-  cached_num_points_ = num_path_points;  // tracks window size, not total path size
+  cached_num_points_ = num_path_points;
   cached_opt_start_ = window_start;
   cached_is_closed_ = is_path_closed;
   cached_primal_.assign(solver_->solution->x, solver_->solution->x + total_variables);

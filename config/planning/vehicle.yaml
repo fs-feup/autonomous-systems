@@ -31,6 +31,8 @@ planning:
   smoothing_safety_margin: 0.30
   smoothing_curvature_weight: 1.0
   smoothing_safety_weight: 1000.0
+  smoothing_proximity_weight: 0.001
+  smoothing_window_size: 100
   smoothing_max_iterations: 4000
   smoothing_tolerance: 1e-5     
   #---------------------- Velocity Planning (vp_) -----------------------
