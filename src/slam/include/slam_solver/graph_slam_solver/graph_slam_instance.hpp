@@ -40,7 +40,12 @@ protected:
   CircularBuffer<TimedPose>
       _pose_timestamps_;  //< Buffer to hold the timestamps of the poses added to the graph
 
-  unsigned int get_landmark_id_at_time(const rclcpp::Time& timestamp) const;
+  /**
+   * @brief Get the pose id at a given timestamp
+   * @param timestamp Timestamp to get the pose id for
+   * @return unsigned int pose id at the given timestamp
+   */
+  unsigned int get_pose_id_at_time(const rclcpp::Time& timestamp) const;
 
 public:
   GraphSLAMInstance() = default;

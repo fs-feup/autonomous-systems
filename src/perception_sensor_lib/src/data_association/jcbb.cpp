@@ -3,7 +3,8 @@
 Eigen::VectorXi JCBB::associate(const Eigen::VectorXd& landmarks,
                                 const Eigen::VectorXd& observations,
                                 const Eigen::MatrixXd& covariance,
-                                const Eigen::VectorXd& observation_confidences) const {
+                                const Eigen::VectorXd& observation_confidences,
+                                const Eigen::Vector3d& pose) const {
   const int num_observations = observations.size() / 2;
   const int num_landmarks = landmarks.size() / 2;
 

@@ -5,6 +5,13 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic -O3)
 endif()
 
+add_link_options(-fuse-ld=lld)
+
+find_program(CCACHE_PROGRAM ccache)
+if(CCACHE_PROGRAM)
+  set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE_PROGRAM})
+endif()
+
 set(OSQP_INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../ext/osqp/install)
 list(PREPEND CMAKE_PREFIX_PATH "${OSQP_INSTALL_DIR}")
 
@@ -63,7 +70,50 @@ set(TESTFILES
 add_definitions(-DCGAL_USE_BASIC_VIEWER)
 set(CMAKE_BUILD_TYPE "Release")
 
-add_executable(planning src/main.cpp ${IMPLEMENTATION_FILES})
+add_library(planning_lib ${IMPLEMENTATION_FILES})
+
+target_precompile_headers(planning_lib PRIVATE
+  <CGAL/Delaunay_triangulation_2.h>
+  <CGAL/Exact_predicates_inexact_constructions_kernel.h>
+  <rclcpp/rclcpp.hpp>
+  <yaml-cpp/yaml.h>
+)
+
+target_compile_features(planning_lib PUBLIC c_std_99 cxx_std_17)
+
+ament_target_dependencies(planning_lib
+  ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs
+  tf2_ros tf2_geometry_msgs pacsim common_lib std_srvs nav_msgs
+  visualization_msgs
+)
+
+target_include_directories(planning_lib PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+  ${PCL_INCLUDE_DIRS}
+  ${GSL_INCLUDE_DIRS}
+)
+
+target_link_libraries(planning_lib
+  ${CGAL_LIBRARIES}
+  ${GMP_LIBRARIES}
+  ${MPFR_LIBRARIES}
+  ${QT5_LIBRARIES}
+  ${GSL_LIBRARIES}
+  yaml-cpp
+  ${PCL_LIBRARIES}
+  osqp::osqp
+  OsqpEigen::OsqpEigen
+)
+
+set_target_properties(planning_lib PROPERTIES
+  INSTALL_RPATH "${OSQP_INSTALL_DIR}/lib"
+  BUILD_WITH_INSTALL_RPATH TRUE
+  INSTALL_RPATH_USE_LINK_PATH TRUE
+)
+
+add_executable(planning src/main.cpp)
+target_link_libraries(planning planning_lib)
 
 set_target_properties(planning PROPERTIES
   INSTALL_RPATH "${OSQP_INSTALL_DIR}/lib"
@@ -80,24 +130,7 @@ ament_target_dependencies(planning
 target_include_directories(planning PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
-  ${OSQP_INSTALL_DIR}/include
-  ${PCL_INCLUDE_DIRS}
-  ${GSL_INCLUDE_DIRS}
 )
-
-target_link_libraries(planning
-  ${CGAL_LIBRARIES}
-  ${GMP_LIBRARIES}
-  ${MPFR_LIBRARIES}
-  ${QT5_LIBRARIES}
-  ${GSL_LIBRARIES}
-  yaml-cpp
-  ${PCL_LIBRARIES}
-  osqp::osqp
-  OsqpEigen::OsqpEigen
-)
-
-target_compile_features(planning PUBLIC c_std_99 cxx_std_17)
 
 install(TARGETS planning DESTINATION lib/${PROJECT_NAME})
 install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
@@ -105,13 +138,11 @@ install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
 
-  ament_add_gtest(planning_test ${TESTFILES} ${IMPLEMENTATION_FILES})
+  ament_add_gtest(planning_test ${TESTFILES})
 
-  set_target_properties(planning_test PROPERTIES
-    INSTALL_RPATH "${OSQP_INSTALL_DIR}/lib"
-    BUILD_WITH_INSTALL_RPATH TRUE
-    INSTALL_RPATH_USE_LINK_PATH TRUE
-  )
+  target_precompile_headers(planning_test REUSE_FROM planning_lib)
+
+  target_link_libraries(planning_test planning_lib)
 
   ament_target_dependencies(planning_test
     ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs
@@ -127,19 +158,13 @@ if(BUILD_TESTING)
     ${GSL_INCLUDE_DIRS}
   )
 
-  target_link_libraries(planning_test
-    ${CGAL_LIBRARIES}
-    ${GMP_LIBRARIES}
-    ${MPFR_LIBRARIES}
-    ${QT5_LIBRARIES}
-    ${GSL_LIBRARIES}
-    yaml-cpp
-    ${PCL_LIBRARIES}
-    osqp::osqp
-    OsqpEigen::OsqpEigen
+  set_target_properties(planning_test PROPERTIES
+    INSTALL_RPATH "${OSQP_INSTALL_DIR}/lib"
+    BUILD_WITH_INSTALL_RPATH TRUE
+    INSTALL_RPATH_USE_LINK_PATH TRUE
   )
 
-  install(TARGETS ${PROJECT_NAME}_test DESTINATION lib/${PROJECT_NAME})
+  install(TARGETS planning_test DESTINATION lib/${PROJECT_NAME})
 endif()
 
 ament_package()

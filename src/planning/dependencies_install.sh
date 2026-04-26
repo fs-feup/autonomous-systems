@@ -62,4 +62,6 @@ cmake \
 make -j$(nproc)
 make install
 
+sudo apt-get install -y lld
+
 echo ">>> OSQP installed successfully to ${INSTALL_PREFIX}"

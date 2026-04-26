@@ -19,7 +19,7 @@ TEST(NearestNeighbor, TestCase1) {
   std::vector<int> expected_associations = {-1, 0, 4, 6, 8};
   // Act
   Eigen::VectorXi associations =
-      ml.associate(landmarks, observations, covariance, observation_confidences);
+      ml.associate(landmarks, observations, covariance, observation_confidences, Eigen::Vector3d::Zero());
   // Assert
   for (int i = 0; i < static_cast<int>(associations.size()); ++i) {
     EXPECT_EQ(associations[i], expected_associations[i]);
@@ -45,7 +45,7 @@ TEST(NearestNeighbor, TestCase2) {
   std::vector<int> expected_associations = {-1, 0, 4, 6, 8};
   // Act
   Eigen::VectorXi associations =
-      ml.associate(landmarks, observations, covariance, observation_confidences);
+      ml.associate(landmarks, observations, covariance, observation_confidences, Eigen::Vector3d::Zero());
   // Assert
   for (int i = 0; i < static_cast<int>(associations.size()); ++i) {
     EXPECT_EQ(associations[i], expected_associations[i]);
@@ -71,7 +71,7 @@ TEST(NearestNeighbor, TestCase3) {
   NearestNeighbor ml(params);
   // Act
   Eigen::VectorXi associations =
-      ml.associate(landmarks, observations, covariance, observation_confidences);
+      ml.associate(landmarks, observations, covariance, observation_confidences, Eigen::Vector3d::Zero());
   // Assert
   for (int i = 0; i < static_cast<int>(associations.size()); ++i) {
     EXPECT_EQ(associations[i], expected_associations[i]);
@@ -96,7 +96,7 @@ TEST(NearestNeighbor, TestCase4) {
   std::vector<int> expected_associations = {-1, -1, -1, -1};
   // Act
   Eigen::VectorXi associations =
-      ml.associate(landmarks, observations, covariance, observation_confidences);
+      ml.associate(landmarks, observations, covariance, observation_confidences, Eigen::Vector3d::Zero());
   // Assert
   for (int i = 0; i < static_cast<int>(associations.size()); ++i) {
     EXPECT_EQ(associations[i], expected_associations[i]);
@@ -121,7 +121,7 @@ TEST(NearestNeighbor, TestCase5) {
   std::vector<int> expected_associations = {-2, -2, -2, -2};
   // Act
   Eigen::VectorXi associations =
-      ml.associate(landmarks, observations, covariance, observation_confidences);
+      ml.associate(landmarks, observations, covariance, observation_confidences, Eigen::Vector3d::Zero());
   // Assert
   for (int i = 0; i < static_cast<int>(associations.size()); ++i) {
     EXPECT_EQ(associations[i], expected_associations[i]);
@@ -145,7 +145,7 @@ TEST(NearestNeighbor, TestCase6) {
   std::vector<int> expected_associations = {-1, -1, -1, -1};
   // Act
   Eigen::VectorXi associations =
-      ml.associate(landmarks, observations, covariance, observation_confidences);
+      ml.associate(landmarks, observations, covariance, observation_confidences, Eigen::Vector3d::Zero());
   // Assert
   for (int i = 0; i < static_cast<int>(associations.size()); ++i) {
     EXPECT_EQ(associations[i], expected_associations[i]);
@@ -166,7 +166,7 @@ TEST(NearestNeighbor, TestCase7) {
   NearestNeighbor ml(params);
   // Act
   Eigen::VectorXi associations =
-      ml.associate(landmarks, observations, covariance, observation_confidences);
+      ml.associate(landmarks, observations, covariance, observation_confidences, Eigen::Vector3d::Zero());
   // Assert
   EXPECT_EQ(associations.size(), 0);
 }
@@ -190,7 +190,7 @@ TEST(NearestNeighbor, TestCase8) {
   std::vector<int> expected_associations = {0, 2, 6, 4, 18, 8, 10, 20, 22, -1, 14, -1, -1, 12, -1};
   // Act
   Eigen::VectorXi associations =
-      ml.associate(landmarks, observations, covariance, observation_confidences);
+      ml.associate(landmarks, observations, covariance, observation_confidences, Eigen::Vector3d::Zero());
   // Assert
   for (int i = 0; i < static_cast<int>(associations.size()); ++i) {
     EXPECT_EQ(associations[i], expected_associations[i]);

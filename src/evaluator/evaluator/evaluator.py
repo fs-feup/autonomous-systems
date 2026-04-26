@@ -1265,7 +1265,8 @@ class Evaluator(Node):
             self.get_logger().warn("No closest point found.")
             return
 
-        velocity_error_value = self.velocity - self.closest_point_velocity
+        closest_point_velocity = float(closest_point[2])
+        velocity_error_value = self.absolute_velocity - closest_point_velocity
 
         position_error = Float32()
         position_error.data = closest_point_distance
@@ -1291,8 +1292,8 @@ class Evaluator(Node):
         self._control_position_squared_error_sum += position_error.data**2
 
         self._control_count += 1
-        self._control_velocity_error_sum += float(velocity_error)
-        self._control_velocity_squared_error_sum += float(velocity_error) ** 2
+        self._control_velocity_error_sum += float(velocity_error.data)
+        self._control_velocity_squared_error_sum += float(velocity_error.data) ** 2
 
         # Velocity ME
         control_velocity_mean_error = Float32()
