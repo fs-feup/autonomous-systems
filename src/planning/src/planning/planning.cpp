@@ -275,7 +275,7 @@ void Planning::run_full_map() {
   std::vector<PathPoint> yellow_cones = path_calculation_.get_yellow_cones();
   std::vector<PathPoint> blue_cones = path_calculation_.get_blue_cones();
 
-  smoothed_path_ = path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones, true);
+  smoothed_path_ = path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones, true, true);
   velocity_planning_.trackdrive_velocity(smoothed_path_);
   compute_path_orientation(smoothed_path_);
 
@@ -352,7 +352,7 @@ void Planning::run_autocross() {
     std::vector<PathPoint> yellow_cones = path_calculation_.get_yellow_cones();
     std::vector<PathPoint> blue_cones = path_calculation_.get_blue_cones();
     smoothed_path_ =
-        path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones, is_path_closed_);
+        path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones, is_path_closed_, false);
 
     if (is_path_closed_) {
       velocity_planning_.trackdrive_velocity(smoothed_path_);
@@ -434,7 +434,7 @@ void Planning::run_trackdrive() {
     std::vector<PathPoint> yellow_cones = path_calculation_.get_yellow_cones();
     std::vector<PathPoint> blue_cones = path_calculation_.get_blue_cones();
     smoothed_path_ =
-        path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones, is_path_closed_);
+        path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones, is_path_closed_,false);
 
     if (is_path_closed_) {
       velocity_planning_.trackdrive_velocity(smoothed_path_);
@@ -477,13 +477,13 @@ void Planning::run_trackdrive() {
 
       double avg_vel = sum_vel / smoothed_path_.size();
 
-      // RCLCPP_INFO(get_logger(), "Trackdrive path calculated with %d points",
-      //             static_cast<int>(smoothed_path_.size()));
+      RCLCPP_INFO(get_logger(), "Trackdrive path calculated with %d points",
+                  static_cast<int>(smoothed_path_.size()));
 
-      // RCLCPP_INFO(get_logger(),
-      //             "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
-      //             "| Max: %.2f m/s",
-      //             lap_time, total_length, avg_vel, min_vel, max_vel);
+      RCLCPP_INFO(get_logger(),
+                  "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
+                  "| Max: %.2f m/s",
+                  lap_time, total_length, avg_vel, min_vel, max_vel);
     }
   } else if (lap_counter_ >= 1 && lap_counter_ < 10) {
     if (!is_path_final_) {

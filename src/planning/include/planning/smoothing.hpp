@@ -56,7 +56,8 @@ public:
   // TODA: CHANGE DOCS
   std::vector<PathPoint> optimize_path(std::vector<PathPoint>& path,
                                        std::vector<PathPoint>& yellow_cones,
-                                       std::vector<PathPoint>& blue_cones, bool is_path_closed);
+                                       std::vector<PathPoint>& blue_cones, bool is_path_closed,
+                                       bool is_path_final);
   // TODA: CHANGE DOCS
   ~PathSmoothing() {
     if (solver_) {
