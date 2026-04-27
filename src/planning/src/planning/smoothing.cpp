@@ -294,144 +294,46 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(
   }
 
   if (is_final) {
-    // Final lap: optimise the entire path as a closed loop.
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),
-                "Final iteration: optimizing full path (%d points) closed", total_points);
     cached_primal_.clear();
     cached_dual_.clear();
     cached_num_points_ = -1;
-    return osqp_optimization_implementation(center_path, left_boundary, right_boundary, 0,
-                                            is_path_closed);
   }
 
-  const int window_size = std::min(config_.window_size_, total_points);
-  const int window_start = total_points - window_size;
-
-  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Incremental: window [%d, %d) (%d pts) open path",
-               window_start, total_points, window_size);
-
-  return osqp_optimization_implementation(center_path, left_boundary, right_boundary, window_start,
+  return osqp_optimization_implementation(center_path, left_boundary, right_boundary,
                                           is_path_closed);
 }
 
-static void build_warm_start(std::vector<OSQPFloat>& warm_x, int num_path_points, int window_start,
-                             int cached_opt_start, const std::vector<OSQPFloat>& cached_primal,
-                             const std::vector<PathPoint>& window_center) {
-  if (cached_primal.empty()) {
-    for (int i = 0; i < num_path_points; ++i) {
-      warm_x[2 * i] = static_cast<OSQPFloat>(window_center[i].position.x);
-      warm_x[2 * i + 1] = static_cast<OSQPFloat>(window_center[i].position.y);
-    }
-    return;
-  }
+void PathSmoothing::build_warm_start(int total_variables, int num_path_points,
+                                     int total_constraints,
+                                     const std::vector<PathPoint>& center_path) const {
+  std::vector<OSQPFloat> warm_x(total_variables, 0.0);
+  std::vector<OSQPFloat> warm_y(total_constraints, 0.0);
 
-  const int prev_window = static_cast<int>(cached_primal.size() / 3);
-  const int shift = window_start - cached_opt_start;
-  const int overlap = prev_window - std::max(0, shift);
-
-  if (overlap > 0 && shift >= 0) {
-    for (int i = 0; i < overlap && i < num_path_points; ++i) {
-      warm_x[2 * i] = cached_primal[2 * (i + shift)];
-      warm_x[2 * i + 1] = cached_primal[2 * (i + shift) + 1];
-    }
-    for (int i = 0; i < overlap && i < num_path_points; ++i) {
-      warm_x[2 * num_path_points + i] = cached_primal[2 * prev_window + i + shift];
-    }
-    for (int i = overlap; i < num_path_points; ++i) {
-      warm_x[2 * i] = static_cast<OSQPFloat>(window_center[i].position.x);
-      warm_x[2 * i + 1] = static_cast<OSQPFloat>(window_center[i].position.y);
-    }
+  if (!cached_primal_.empty() && cached_primal_.size() == static_cast<size_t>(total_variables)) {
+    warm_x = cached_primal_;
   } else {
     for (int i = 0; i < num_path_points; ++i) {
-      warm_x[2 * i] = static_cast<OSQPFloat>(window_center[i].position.x);
-      warm_x[2 * i + 1] = static_cast<OSQPFloat>(window_center[i].position.y);
+      warm_x[2 * i] = static_cast<OSQPFloat>(center_path[i].position.x);
+      warm_x[2 * i + 1] = static_cast<OSQPFloat>(center_path[i].position.y);
     }
   }
+
+  if (!cached_dual_.empty() && cached_dual_.size() == static_cast<size_t>(total_constraints)) {
+    warm_y = cached_dual_;
+  }
+
+  (void)::osqp_warm_start(solver_, warm_x.data(), warm_y.data());
+
 }
-
-
-bool PathSmoothing::setup_or_update_solver(int num_path_points, bool is_path_closed,
-                                           int total_constraints, OSQPCscMatrix& objective_matrix,
-                                           OSQPCscMatrix& constraint_matrix,
-                                           const std::vector<OSQPFloat>& linear_objective,
-                                           const std::vector<OSQPFloat>& P_csc_values,
-                                           const std::vector<OSQPFloat>& A_csc_values,
-                                           const std::vector<OSQPFloat>& constraint_lower_bounds,
-                                           const std::vector<OSQPFloat>& constraint_upper_bounds,
-                                           int total_variables) const {
-  const bool reuse_solver = (solver_ != nullptr) && (cached_num_points_ == num_path_points) &&
-                            (cached_is_closed_ == is_path_closed);
-
-  if (reuse_solver) {
-    const OSQPInt mat_status = ::osqp_update_data_mat(
-        solver_, P_csc_values.data(), nullptr, static_cast<OSQPInt>(P_csc_values.size()),
-        A_csc_values.data(), nullptr, static_cast<OSQPInt>(A_csc_values.size()));
-    if (mat_status != 0) {
-      RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "osqp_update_data_mat failed with status %lld",
-                  mat_status);
-    }
-
-    const OSQPInt vec_status =
-        ::osqp_update_data_vec(solver_, linear_objective.data(), constraint_lower_bounds.data(),
-                               constraint_upper_bounds.data());
-    if (vec_status != 0) {
-      RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "osqp_update_data_vec failed with status %lld",
-                  vec_status);
-    }
-    return true;
-  }
-
-  if (solver_ != nullptr) {
-    const OSQPInt cleanup_status = ::osqp_cleanup(solver_);
-    if (cleanup_status != 0) {
-      RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "osqp_cleanup failed with status %lld",
-                  cleanup_status);
-    }
-    solver_ = nullptr;
-  }
-
-  OSQPSettings solver_settings;
-  ::osqp_set_default_settings(&solver_settings);
-  solver_settings.verbose = false;
-  solver_settings.max_iter = config_.max_iterations_;
-  solver_settings.eps_abs = config_.tolerance_;
-  solver_settings.eps_rel = config_.tolerance_;
-  solver_settings.polishing = 1;
-
-  const OSQPInt setup_status =
-      ::osqp_setup(&solver_, &objective_matrix, linear_objective.data(), &constraint_matrix,
-                   constraint_lower_bounds.data(), constraint_upper_bounds.data(), total_variables,
-                   total_constraints, &solver_settings);
-
-  if (setup_status != 0) {
-    RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "OSQP setup failed with status %lld", setup_status);
-    const OSQPInt cleanup_status = ::osqp_cleanup(solver_);
-    if (cleanup_status != 0) {
-      RCLCPP_WARN(rclcpp::get_logger("rclcpp"),
-                  "osqp_cleanup after failed setup returned status %lld", cleanup_status);
-    }
-    solver_ = nullptr;
-    return false;
-  }
-  return true;
-}
-
 
 std::vector<PathPoint> PathSmoothing::osqp_optimization_implementation(
     const std::vector<PathPoint>& center_path, const std::vector<PathPoint>& left_boundary,
-    const std::vector<PathPoint>& right_boundary, int window_start, bool is_path_closed) const {
-  // Slice inputs to the sliding window
-  const std::vector<PathPoint> window_center(center_path.begin() + window_start, center_path.end());
-  const std::vector<PathPoint> window_left(left_boundary.begin() + window_start,
-                                           left_boundary.end());
-  const std::vector<PathPoint> window_right(right_boundary.begin() + window_start,
-                                            right_boundary.end());
-
-  const int num_path_points = static_cast<int>(window_center.size());
+    const std::vector<PathPoint>& right_boundary, bool is_path_closed) const {
+  const int num_path_points = static_cast<int>(center_path.size());
 
   if (num_path_points < 5) {
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"),
-                "Window too small for OSQP (%d points). Minimum is 5.", num_path_points);
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Too few points for OSQP (%d points). Minimum is 5.",
+                num_path_points);
     return center_path;
   }
 
@@ -462,7 +364,7 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization_implementation(
 
   add_curvature_terms(num_path_points, circular_index, add_quadratic_coefficient, is_path_closed);
   add_slack_penalty_terms(num_path_points, add_quadratic_coefficient);
-  add_proximity_terms(num_path_points, window_center, add_quadratic_coefficient, linear_objective);
+  add_proximity_terms(num_path_points, center_path, add_quadratic_coefficient, linear_objective);
 
   std::vector<OSQPFloat> P_values;
   std::vector<OSQPInt> P_row_indices, P_col_indices;
@@ -482,29 +384,9 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization_implementation(
   std::vector<OSQPFloat> constraint_lower_bounds, constraint_upper_bounds;
   int constraint_count = 0;
 
-  // Seam pinning via corridor tightening
-  std::vector<PathPoint> effective_left = window_left;
-  std::vector<PathPoint> effective_right = window_right;
-
-  if (window_start > 0 && globally_smoothed_path_.size() > static_cast<size_t>(window_start)) {
-    const PathPoint& seam_point = globally_smoothed_path_[window_start];
-
-    if (std::abs(seam_point.position.x) > 1000.0 || std::abs(seam_point.position.y) > 1000.0) {
-      RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "Seam corrupted (%.1f,%.1f), skipping",
-                  seam_point.position.x, seam_point.position.y);
-      globally_smoothed_path_.clear();
-    } else {
-      const double pin_half_width = 0.01;
-      effective_left[0].position.x = seam_point.position.x + pin_half_width;
-      effective_left[0].position.y = seam_point.position.y + pin_half_width;
-      effective_right[0].position.x = seam_point.position.x - pin_half_width;
-      effective_right[0].position.y = seam_point.position.y - pin_half_width;
-    }
-  }
-
   add_boundary_constraints(constraint_values, constraint_row_indices, constraint_col_indices,
                            constraint_lower_bounds, constraint_upper_bounds, constraint_count,
-                           effective_left, effective_right, window_center, num_path_points,
+                           left_boundary, right_boundary, center_path, num_path_points,
                            safety_margin);
 
   add_slack_nonnegativity_constraints(constraint_values, constraint_row_indices,
@@ -543,36 +425,44 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization_implementation(
   constraint_matrix.p = A_csc_col_pointers.data();
 
   // -------- SETUP OR UPDATE SOLVER --------
-  const bool solver_ready =
-      setup_or_update_solver(num_path_points, is_path_closed, total_constraints, objective_matrix,
-                             constraint_matrix, linear_objective, P_csc_values, A_csc_values,
-                             constraint_lower_bounds, constraint_upper_bounds, total_variables);
+  if ((solver_ != nullptr) && (cached_num_points_ == num_path_points) &&
+      (cached_is_closed_ == is_path_closed)) {
+    (void)::osqp_update_data_mat(solver_, P_csc_values.data(), nullptr,
+                                 static_cast<OSQPInt>(P_csc_values.size()), A_csc_values.data(),
+                                 nullptr, static_cast<OSQPInt>(A_csc_values.size()));
 
-  if (!solver_ready) {
-    return center_path;
+    (void)::osqp_update_data_vec(solver_, linear_objective.data(), constraint_lower_bounds.data(),
+                                 constraint_upper_bounds.data());
+  }else{
+    if (solver_ != nullptr) {
+      (void)::osqp_cleanup(solver_);
+      solver_ = nullptr;
+    }
+
+    OSQPSettings solver_settings;
+    ::osqp_set_default_settings(&solver_settings);
+    solver_settings.verbose = false;
+    solver_settings.max_iter = config_.max_iterations_;
+    solver_settings.eps_abs = config_.tolerance_;
+    solver_settings.eps_rel = config_.tolerance_;
+    solver_settings.polishing = 1;
+
+    const OSQPInt setup_status =
+        ::osqp_setup(&solver_, &objective_matrix, linear_objective.data(), &constraint_matrix,
+                     constraint_lower_bounds.data(), constraint_upper_bounds.data(),
+                     total_variables, total_constraints, &solver_settings);
+
+    if (setup_status != 0) {
+      RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "OSQP setup failed with status %lld",
+                   setup_status);
+      (void)::osqp_cleanup(solver_);
+      solver_ = nullptr;
+      return center_path;
+    }
   }
 
   // -------- WARM START --------
-  std::vector<OSQPFloat> warm_x(total_variables, 0.0);
-  build_warm_start(warm_x, num_path_points, window_start, cached_opt_start_, cached_primal_,
-                   window_center);
-
-  if (window_start > 0) {
-    PathPoint seam;
-    if (globally_smoothed_path_.size() > static_cast<size_t>(window_start)) {
-      seam = globally_smoothed_path_[window_start];
-    } else {
-      seam = center_path[window_start];
-    }
-    warm_x[0] = static_cast<OSQPFloat>(seam.position.x);
-    warm_x[1] = static_cast<OSQPFloat>(seam.position.y);
-  }
-
-  const OSQPInt warm_status = ::osqp_warm_start(solver_, warm_x.data(), nullptr);
-  if (warm_status != 0) {
-    RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "osqp_warm_start failed with status %lld",
-                warm_status);
-  }
+  build_warm_start(total_variables, num_path_points, total_constraints, center_path);
 
   const OSQPInt solve_status = ::osqp_solve(solver_);
   if (solve_status != 0) {
@@ -586,7 +476,6 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization_implementation(
     cached_num_points_ = -1;
     cached_primal_.clear();
     cached_dual_.clear();
-    globally_smoothed_path_.clear();
     return center_path;
   }
 
@@ -598,26 +487,14 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization_implementation(
     return center_path;
   }
 
-  // -------- REASSEMBLE RESULT --------
   std::vector<PathPoint> result_path = center_path;
-
-  const int preserved_prefix_count =
-      std::min(static_cast<int>(globally_smoothed_path_.size()), window_start);
-  for (int i = 0; i < preserved_prefix_count; ++i) {
-    result_path[i] = globally_smoothed_path_[i];
-  }
-
   for (int i = 0; i < num_path_points; ++i) {
-    result_path[window_start + i].position.x = solver_->solution->x[2 * i];
-    result_path[window_start + i].position.y = solver_->solution->x[2 * i + 1];
+    result_path[i].position.x = solver_->solution->x[2 * i];
+    result_path[i].position.y = solver_->solution->x[2 * i + 1];
   }
-
-  globally_smoothed_path_.assign(result_path.begin(),
-                                 result_path.begin() + window_start + num_path_points);
 
   // -------- UPDATE CACHE --------
   cached_num_points_ = num_path_points;
-  cached_opt_start_ = window_start;
   cached_is_closed_ = is_path_closed;
   cached_primal_.assign(solver_->solution->x, solver_->solution->x + total_variables);
   cached_dual_.assign(solver_->solution->y, solver_->solution->y + total_constraints);

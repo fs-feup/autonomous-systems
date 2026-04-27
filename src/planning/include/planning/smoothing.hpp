@@ -79,8 +79,6 @@ private:
   mutable bool cached_is_closed_ = false;
   mutable std::vector<OSQPFloat> cached_primal_;
   mutable std::vector<OSQPFloat> cached_dual_;
-  mutable int cached_opt_start_ = -1;
-  mutable std::vector<PathPoint> globally_smoothed_path_;
 
   /**
    * @brief Filters path points using a minimum spacing constraint.
@@ -198,31 +196,6 @@ private:
                              std::vector<OSQPInt>& csc_col_pointers) const;
 
   /**
-   * @brief Either warm-updates the existing OSQP solver or tears it down and creates a new one.
-   *
-   * @param num_path_points Number of path points in the current window
-   * @param is_path_closed Whether the path is closed
-   * @param total_constraints Total number of constraints
-   * @param objective_matrix OSQP objective (P) matrix
-   * @param constraint_matrix OSQP constraint (A) matrix
-   * @param linear_objective Linear objective vector (q)
-   * @param P_csc_values CSC values for P
-   * @param A_csc_values CSC values for A
-   * @param constraint_lower_bounds Lower bounds vector
-   * @param constraint_upper_bounds Upper bounds vector
-   * @param total_variables Total number of decision variables
-   * @return true if the solver is ready for solving; false on setup failure
-   */
-  bool setup_or_update_solver(int num_path_points, bool is_path_closed, int total_constraints,
-                              OSQPCscMatrix& objective_matrix, OSQPCscMatrix& constraint_matrix,
-                              const std::vector<OSQPFloat>& linear_objective,
-                              const std::vector<OSQPFloat>& P_csc_values,
-                              const std::vector<OSQPFloat>& A_csc_values,
-                              const std::vector<OSQPFloat>& constraint_lower_bounds,
-                              const std::vector<OSQPFloat>& constraint_upper_bounds,
-                              int total_variables) const;
-
-  /**
    * @brief Core OSQP optimization implementation operating on a given window.
    *
    * @param center Sequence of points representing the initial center line path
@@ -232,10 +205,12 @@ private:
    * @param is_path_closed Whether the path forms a closed loop
    * @return std::vector<PathPoint> Optimized path
    */
-  std::vector<PathPoint> osqp_optimization_implementation(const std::vector<PathPoint>& center,
-                                                          const std::vector<PathPoint>& left,
-                                                          const std::vector<PathPoint>& right,
-                                                          int opt_start, bool is_path_closed) const;
+  std::vector<PathPoint> osqp_optimization_implementation(
+      const std::vector<PathPoint>& center_path, const std::vector<PathPoint>& left_boundary,
+      const std::vector<PathPoint>& right_boundary, bool is_path_closed) const;
+  // TODO: dioxigen
+  void build_warm_start(int total_variables, int num_path_points, int total_constraints,
+                        const std::vector<PathPoint>& center_path) const;
 };
 
 #endif  // SRC_PLANNING_INCLUDE_PLANNING_SMOOTHING_HPP_
