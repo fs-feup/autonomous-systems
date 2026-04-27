@@ -297,6 +297,8 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(
     cached_primal_.clear();
     cached_dual_.clear();
     cached_num_points_ = -1;
+    RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
+                "Final optimization with %d points.", total_points);
   }
 
   return osqp_optimization_implementation(center_path, left_boundary, right_boundary,

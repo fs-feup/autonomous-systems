@@ -208,6 +208,14 @@ private:
       const std::vector<PathPoint>& center_path, const std::vector<PathPoint>& left_boundary,
       const std::vector<PathPoint>& right_boundary, bool is_path_closed) const;
 
+  /**
+   * @brief Builds the warm-start vectors for the OSQP solver.
+   *
+   * @param total_variables Total number of primal variables in the optimization problem.
+   * @param num_path_points Number of points in the path (used to fill the primal solution).
+   * @param total_constraints Total number of constraints (dual variables).
+   * @param center_path Reference path used to initialize the primal variables if no cache exists.
+   */
   void build_warm_start(int total_variables, int num_path_points, int total_constraints,
                         const std::vector<PathPoint>& center_path) const;
 };
