@@ -165,7 +165,7 @@ void PathSmoothing::add_boundary_constraints(
     double left_bound = left_lateral_projection - safety_margin;
 
     if (right_bound >= left_bound) {
-      RCLCPP_WARN(rclcpp::get_logger("rclcpp"),
+      RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
                   "Point %d: corridor too narrow (right=%.3f >= left=%.3f), clamping to midpoint",
                   point_index, right_bound, left_bound);
       const double midpoint = (right_bound + left_bound) / 2.0;
