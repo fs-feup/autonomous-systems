@@ -1,5 +1,0 @@
-self aligning moment && rolling resistance && aero
-parametros a vir de ficheiros
-vehicle model modular e escolher a partir de parametros
-corrigir localização do acados compilado e c_generated_code
-constraint velocidade nao ser negativo (não andar para trás), corrente do motor
