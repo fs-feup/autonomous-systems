@@ -16,12 +16,10 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator)
       "invictasim/vehicle_model/battery", 10);
   motor_pub_ = this->create_publisher<custom_interfaces::msg::MotorState>(
       "invictasim/vehicle_model/motor", 10);
-  differential_pub_ = this->create_publisher<custom_interfaces::msg::WheelScalars>(
-      "invictasim/vehicle_model/differential", 10);
+  transmission_pub_ = this->create_publisher<custom_interfaces::msg::WheelScalars>(
+      "invictasim/vehicle_model/transmission", 10);
   aero_pub_ = this->create_publisher<custom_interfaces::msg::AeroForces>(
       "invictasim/vehicle_model/aero", 10);
-  load_pub_ = this->create_publisher<custom_interfaces::msg::WheelScalars>(
-      "invictasim/vehicle_model/load_transfer", 10);
   status_pub_ = this->create_publisher<custom_interfaces::msg::VehicleStateVector>(
       "invictasim/vehicle_model/status", 10);
   input_command_pub_ =
@@ -87,14 +85,11 @@ void RosOutputAdapter::on_frequency_tick(int frequency_hz) {
   if (publishes_at("battery", frequency_hz)) {
     publish_battery_group();
   }
-  if (publishes_at("differential", frequency_hz)) {
-    publish_differential_group();
+  if (publishes_at("transmission", frequency_hz)) {
+    publish_transmission_group();
   }
   if (publishes_at("aero", frequency_hz)) {
     publish_aero_group();
-  }
-  if (publishes_at("load_transfer", frequency_hz)) {
-    publish_load_group();
   }
   if (publishes_at("status", frequency_hz)) {
     publish_status_group();
@@ -183,18 +178,35 @@ void RosOutputAdapter::publish_tire_group() {
   custom_interfaces::msg::TireForces tire_forces_msg;
   tire_forces_msg.header.stamp = stamp;
   tire_forces_msg.header.frame_id = "base_link";
-  tire_forces_msg.fl_force.x = vehicle_model_snapshot_cache_.front_left_force[0];
-  tire_forces_msg.fl_force.y = vehicle_model_snapshot_cache_.front_left_force[1];
-  tire_forces_msg.fl_force.z = vehicle_model_snapshot_cache_.front_left_force[2];
-  tire_forces_msg.fr_force.x = vehicle_model_snapshot_cache_.front_right_force[0];
-  tire_forces_msg.fr_force.y = vehicle_model_snapshot_cache_.front_right_force[1];
-  tire_forces_msg.fr_force.z = vehicle_model_snapshot_cache_.front_right_force[2];
-  tire_forces_msg.rl_force.x = vehicle_model_snapshot_cache_.rear_left_force[0];
-  tire_forces_msg.rl_force.y = vehicle_model_snapshot_cache_.rear_left_force[1];
-  tire_forces_msg.rl_force.z = vehicle_model_snapshot_cache_.rear_left_force[2];
-  tire_forces_msg.rr_force.x = vehicle_model_snapshot_cache_.rear_right_force[0];
-  tire_forces_msg.rr_force.y = vehicle_model_snapshot_cache_.rear_right_force[1];
-  tire_forces_msg.rr_force.z = vehicle_model_snapshot_cache_.rear_right_force[2];
+
+  // Front Left
+  tire_forces_msg.fl_wrench.force.x = vehicle_model_snapshot_cache_.front_left_force[0];
+  tire_forces_msg.fl_wrench.force.y = vehicle_model_snapshot_cache_.front_left_force[1];
+  tire_forces_msg.fl_wrench.force.z = vehicle_model_snapshot_cache_.vertical_load.front_left;
+  tire_forces_msg.fl_wrench.torque.y = vehicle_model_snapshot_cache_.front_left_force[2];
+  tire_forces_msg.fl_wrench.torque.z = vehicle_model_snapshot_cache_.front_left_force[3];
+
+  // Front Right
+  tire_forces_msg.fr_wrench.force.x = vehicle_model_snapshot_cache_.front_right_force[0];
+  tire_forces_msg.fr_wrench.force.y = vehicle_model_snapshot_cache_.front_right_force[1];
+  tire_forces_msg.fr_wrench.force.z = vehicle_model_snapshot_cache_.vertical_load.front_right;
+  tire_forces_msg.fr_wrench.torque.y = vehicle_model_snapshot_cache_.front_right_force[2];
+  tire_forces_msg.fr_wrench.torque.z = vehicle_model_snapshot_cache_.front_right_force[3];
+
+  // Rear Left
+  tire_forces_msg.rl_wrench.force.x = vehicle_model_snapshot_cache_.rear_left_force[0];
+  tire_forces_msg.rl_wrench.force.y = vehicle_model_snapshot_cache_.rear_left_force[1];
+  tire_forces_msg.rl_wrench.force.z = vehicle_model_snapshot_cache_.vertical_load.rear_left;
+  tire_forces_msg.rl_wrench.torque.y = vehicle_model_snapshot_cache_.rear_left_force[2];
+  tire_forces_msg.rl_wrench.torque.z = vehicle_model_snapshot_cache_.rear_left_force[3];
+
+  // Rear Right
+  tire_forces_msg.rr_wrench.force.x = vehicle_model_snapshot_cache_.rear_right_force[0];
+  tire_forces_msg.rr_wrench.force.y = vehicle_model_snapshot_cache_.rear_right_force[1];
+  tire_forces_msg.rr_wrench.force.z = vehicle_model_snapshot_cache_.vertical_load.rear_right;
+  tire_forces_msg.rr_wrench.torque.y = vehicle_model_snapshot_cache_.rear_right_force[2];
+  tire_forces_msg.rr_wrench.torque.z = vehicle_model_snapshot_cache_.rear_right_force[3];
+
   tire_forces_pub_->publish(tire_forces_msg);
 
   tire_slip_ratio_pub_->publish(to_wheels_msg(vehicle_model_snapshot_cache_.slip_ratio, stamp));
@@ -229,9 +241,9 @@ void RosOutputAdapter::publish_battery_group() {
   battery_pub_->publish(battery_msg);
 }
 
-void RosOutputAdapter::publish_differential_group() {
-  differential_pub_->publish(
-      to_wheels_msg(vehicle_model_snapshot_cache_.differential_torque, this->now()));
+void RosOutputAdapter::publish_transmission_group() {
+  transmission_pub_->publish(
+      to_wheels_msg(vehicle_model_snapshot_cache_.transmission_torque, this->now()));
 }
 
 void RosOutputAdapter::publish_aero_group() {
@@ -241,10 +253,6 @@ void RosOutputAdapter::publish_aero_group() {
   aero_msg.drag = vehicle_model_snapshot_cache_.aero_drag;
   aero_msg.downforce = vehicle_model_snapshot_cache_.aero_downforce;
   aero_pub_->publish(aero_msg);
-}
-
-void RosOutputAdapter::publish_load_group() {
-  load_pub_->publish(to_wheels_msg(vehicle_model_snapshot_cache_.vertical_load, this->now()));
 }
 
 void RosOutputAdapter::publish_status_group() {
@@ -284,7 +292,7 @@ void RosOutputAdapter::publish_execution_times_group() {
   times_msg.header.stamp = this->now();
   times_msg.header.frame_id = "base_link";
   times_msg.powertrain_ms = execution_times_snapshot_cache_.powertrain_ms;
-  times_msg.differential_ms = execution_times_snapshot_cache_.differential_ms;
+  times_msg.transmission_ms = execution_times_snapshot_cache_.transmission_ms;
   times_msg.aero_ms = execution_times_snapshot_cache_.aero_ms;
   times_msg.steering_ms = execution_times_snapshot_cache_.steering_ms;
   times_msg.load_transfer_ms = execution_times_snapshot_cache_.load_transfer_ms;

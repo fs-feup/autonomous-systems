@@ -27,6 +27,7 @@ struct TireInput {
   double camber_angle;
 
   Eigen::Vector4d last_slip_ratio = Eigen::Vector4d::Zero();
+  Eigen::Vector4d last_slip_angle = Eigen::Vector4d::Zero();
   double dt = 0;
 };
 
@@ -38,23 +39,23 @@ class TireModel {
 protected:
   std::shared_ptr<common_lib::car_parameters::CarParameters> car_parameters_;
 
-  void calculateSlipAngleFront(TireInput& tire_input);
-  void calculateSlipAngleRear(TireInput& tire_input);
-  void calculateSlipRatio(TireInput& tire_input);
+  void calculate_slip_angle_front(TireInput& tire_input);
+  void calculate_slip_angle_rear(TireInput& tire_input);
+  void calculate_slip_ratio(TireInput& tire_input);
 
   /**
    * @brief Calculate the forces acting in a tire based on the tire characteristics and dynamic
    * state.
    *
    * @param tire_input The input parameters for all possible tire models
-   * @return Eigen::Vector3d The resulting forces in the tire (Fx, Fy, Mz)
+   * @return Eigen::Vector4d The resulting forces in the tire (Fx, Fy, My, Mz)
    */
-  virtual Eigen::Vector3d tire_forces(const TireInput& tire_input) = 0;
+  virtual Eigen::Vector4d tire_forces(const TireInput& tire_input) = 0;
 
 public:
   TireModel(const common_lib::car_parameters::CarParameters& car_parameters)
       : car_parameters_(
             std::make_shared<common_lib::car_parameters::CarParameters>(car_parameters)) {}
 
-  Eigen::Vector3d calculateTireForces(TireInput& tire_input);
+  Eigen::Vector4d calculate_tire_forces(TireInput& tire_input);
 };
