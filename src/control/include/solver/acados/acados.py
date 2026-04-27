@@ -11,7 +11,7 @@ path_size = 31
 path_point_size = 4  # x, y, velocity, orientation
 
 alpha_max = 0.15
-m = 240
+mass = 240
 Izz = 153
 lr = 0.804  # Distance from the center of mass to the rear axle
 lf = 0.726  # Distance from the center of mass to the front axle
@@ -32,6 +32,14 @@ ackermann_deviation = 0.0
 wheel_radius = 0.203
 max_motor_torque = 200  # in Nm
 wheel_rotational_inertia = 0.2 # kg*m^2
+air_density = 1.225  # kg/m^3
+drag_coefficient = 0.3
+lift_coefficient = -0.1
+frontal_area = 2.0  # m^2
+dx_cop = 0.0  # Longitudinal position of the center of pressure (m) relative to the center of mass
+cog_height = 0.2  # Height of the center of gravity (m)
+roll_stiffness_front = 5000  # N*m/rad
+roll_stiffness_rear = 5000   # N*m/rad
 
 rolling_resistance_coefficient = 0.015
 
@@ -92,12 +100,6 @@ def export_mpc_model() -> AcadosModel:
     sa_rl = 0
     sa_rr = 0
 
-    # Normal load on each tire
-    vertical_load_fl = m * gravity_acceleration * lr / (L * 2) # + d_force_fl - longitudinal_weight_transfer / 2 - lateral_weight_transfer / 2
-    vertical_load_fr = m * gravity_acceleration * lr / (L * 2) # + d_force_fr - longitudinal_weight_transfer / 2 + lateral_weight_transfer / 2
-    vertical_load_rl = m * gravity_acceleration * lf / (L * 2) # + d_force_rl + longitudinal_weight_transfer / 2 - lateral_weight_transfer / 2
-    vertical_load_rr = m * gravity_acceleration * lf / (L * 2) # + d_force_rr + longitudinal_weight_transfer / 2 + lateral_weight_transfer / 2
-
     # Longitudinal velocity of each wheel in the car's frame
     v_fl_x = x[3] - x[5] * sf / 2
     v_fr_x = x[3] + x[5] * sf / 2
@@ -138,11 +140,40 @@ def export_mpc_model() -> AcadosModel:
     vx_rl_reg = sqrt(vx_rl**2 + eps_vx**2)
     vx_rr_reg = sqrt(vx_rr**2 + eps_vx**2)
 
-    ## Slip ratios (No if_else needed)
+    # Slip ratios (No if_else needed)
     slip_ratio_fl = (wheel_radius * wheel_speed_scale * x[9]  - vx_fl) / vx_fl_reg
     slip_ratio_fr = (wheel_radius * wheel_speed_scale * x[10] - vx_fr) / vx_fr_reg
     slip_ratio_rl = (wheel_radius * wheel_speed_scale * x[11] - vx_rl) / vx_rl_reg
     slip_ratio_rr = (wheel_radius * wheel_speed_scale * x[12] - vx_rr) / vx_rr_reg
+
+    # Aerodynamic forces
+    drag = 0.5 * air_density * drag_coefficient * frontal_area * x[3]**2
+    lift = 0.5 * air_density * lift_coefficient * frontal_area * x[3]**2
+    downforce = -lift  # Lift is negative downforce
+
+    # Downforce distribution using center of pressure location
+    d_force_front = downforce * (lr + dx_cop) / L
+    d_force_rear  = downforce * (lf - dx_cop) / L
+
+    # Load transfer calculations
+    fx = mass * x[6]
+    fy = mass * x[7]
+    longitudinal_weight_transfer = cog_height * fx / L
+    total_roll_stiffness = roll_stiffness_front + roll_stiffness_rear
+    lateral_weight_transfer_front = (cog_height * fy / sf) * (roll_stiffness_front / total_roll_stiffness)
+    lateral_weight_transfer_rear =  (cog_height * fy / sr) * (roll_stiffness_rear / total_roll_stiffness)
+
+    # Load transfer distribution
+    total_load_transfer_fl = - longitudinal_weight_transfer / 2 - lateral_weight_transfer_front
+    total_load_transfer_fr = - longitudinal_weight_transfer / 2 + lateral_weight_transfer_front
+    total_load_transfer_rl =   longitudinal_weight_transfer / 2 - lateral_weight_transfer_rear
+    total_load_transfer_rr =   longitudinal_weight_transfer / 2 + lateral_weight_transfer_rear
+
+    # Normal load on each tire
+    vertical_load_fl = mass * gravity_acceleration * lr / (L * 2) + d_force_front / 2 + total_load_transfer_fl
+    vertical_load_fr = mass * gravity_acceleration * lr / (L * 2) + d_force_front / 2 + total_load_transfer_fr
+    vertical_load_rl = mass * gravity_acceleration * lf / (L * 2) + d_force_rear / 2 + total_load_transfer_rl
+    vertical_load_rr = mass * gravity_acceleration * lf / (L * 2) + d_force_rear / 2 + total_load_transfer_rr
 
     # Lateral tire forces
     fy_fl = (tire_lateral_D * vertical_load_fl * sin(tire_lateral_C * atan(tire_lateral_B * slip_angle_fl - tire_lateral_E * (tire_lateral_B * slip_angle_fl - atan(tire_lateral_B * slip_angle_fl)))))
@@ -153,31 +184,34 @@ def export_mpc_model() -> AcadosModel:
     # Longitudinal tire forces
     speed_blend = 0.5 * (tanh((x[3] - 5.0)) + 1.0)
 
-    linear_stiffness = tire_linear_coefficient * vertical_load_fl
+    linear_stiffness_fl = tire_linear_coefficient * vertical_load_fl
+    linear_stiffness_fr = tire_linear_coefficient * vertical_load_fr
+    linear_stiffness_rl = tire_linear_coefficient * vertical_load_rl
+    linear_stiffness_rr = tire_linear_coefficient * vertical_load_rr
 
     pacejka_fx_fl = (tire_D * vertical_load_fl * sin(tire_C * atan(tire_B * slip_ratio_fl - tire_E * (tire_B * slip_ratio_fl - atan(tire_B * slip_ratio_fl))))) #- rolling_resistance_fl
     pacejka_fx_fr = (tire_D * vertical_load_fr * sin(tire_C * atan(tire_B * slip_ratio_fr - tire_E * (tire_B * slip_ratio_fr - atan(tire_B * slip_ratio_fr))))) #- rolling_resistance_fr
     pacejka_fx_rl = (tire_D * vertical_load_rl * sin(tire_C * atan(tire_B * slip_ratio_rl - tire_E * (tire_B * slip_ratio_rl - atan(tire_B * slip_ratio_rl))))) #- rolling_resistance_rl
     pacejka_fx_rr = (tire_D * vertical_load_rr * sin(tire_C * atan(tire_B * slip_ratio_rr - tire_E * (tire_B * slip_ratio_rr - atan(tire_B * slip_ratio_rr))))) #- rolling_resistance_rr
 
-    fx_fl = (1.0 - speed_blend) * (linear_stiffness * slip_ratio_fl) + (speed_blend) * pacejka_fx_fl
-    fx_fr = (1.0 - speed_blend) * (linear_stiffness * slip_ratio_fr) + (speed_blend) * pacejka_fx_fr
-    fx_rl = (1.0 - speed_blend) * (linear_stiffness * slip_ratio_rl) + (speed_blend) * pacejka_fx_rl
-    fx_rr = (1.0 - speed_blend) * (linear_stiffness * slip_ratio_rr) + (speed_blend) * pacejka_fx_rr
+    fx_fl = (1.0 - speed_blend) * (linear_stiffness_fl * slip_ratio_fl) + (speed_blend) * pacejka_fx_fl
+    fx_fr = (1.0 - speed_blend) * (linear_stiffness_fr * slip_ratio_fr) + (speed_blend) * pacejka_fx_fr
+    fx_rl = (1.0 - speed_blend) * (linear_stiffness_rl * slip_ratio_rl) + (speed_blend) * pacejka_fx_rl
+    fx_rr = (1.0 - speed_blend) * (linear_stiffness_rr * slip_ratio_rr) + (speed_blend) * pacejka_fx_rr
 
     # FX in the car's frame
     fx_car_fl = - fy_fl * sin(sa_fl) + fx_fl * cos(sa_fl) 
     fx_car_fr = - fy_fr * sin(sa_fr) + fx_fr * cos(sa_fr) 
     fx_car_rl = - fy_rl * sin(sa_rl) + fx_rl * cos(sa_rl) 
     fx_car_rr = - fy_rr * sin(sa_rr) + fx_rr * cos(sa_rr) 
-    acceleration_x = (fx_car_fl + fx_car_fr + fx_car_rl + fx_car_rr) / m
+    acceleration_x = (fx_car_fl + fx_car_fr + fx_car_rl + fx_car_rr - drag) / mass
 
     # FY in the car's frame
     fy_car_fl = fy_fl * cos(sa_fl) + fx_fl * sin(sa_fl)
     fy_car_fr = fy_fr * cos(sa_fr) + fx_fr * sin(sa_fr)
     fy_car_rl = fy_rl * cos(sa_rl) + fx_rl * sin(sa_rl)
     fy_car_rr = fy_rr * cos(sa_rr) + fx_rr * sin(sa_rr)
-    acceleration_y = (fy_car_fl + fy_car_fr + fy_car_rl + fy_car_rr) / m
+    acceleration_y = (fy_car_fl + fy_car_fr + fy_car_rl + fy_car_rr) / mass
 
     yaw_moment_fl =   lf * (fy_car_fl) - s * (fx_car_fl)
     yaw_moment_fr =   lf * (fy_car_fr) + s * (fx_car_fr)
