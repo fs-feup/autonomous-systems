@@ -189,15 +189,21 @@ def export_mpc_model() -> AcadosModel:
     linear_stiffness_rl = tire_linear_coefficient * vertical_load_rl
     linear_stiffness_rr = tire_linear_coefficient * vertical_load_rr
 
-    pacejka_fx_fl = (tire_D * vertical_load_fl * sin(tire_C * atan(tire_B * slip_ratio_fl - tire_E * (tire_B * slip_ratio_fl - atan(tire_B * slip_ratio_fl))))) #- rolling_resistance_fl
-    pacejka_fx_fr = (tire_D * vertical_load_fr * sin(tire_C * atan(tire_B * slip_ratio_fr - tire_E * (tire_B * slip_ratio_fr - atan(tire_B * slip_ratio_fr))))) #- rolling_resistance_fr
-    pacejka_fx_rl = (tire_D * vertical_load_rl * sin(tire_C * atan(tire_B * slip_ratio_rl - tire_E * (tire_B * slip_ratio_rl - atan(tire_B * slip_ratio_rl))))) #- rolling_resistance_rl
-    pacejka_fx_rr = (tire_D * vertical_load_rr * sin(tire_C * atan(tire_B * slip_ratio_rr - tire_E * (tire_B * slip_ratio_rr - atan(tire_B * slip_ratio_rr))))) #- rolling_resistance_rr
+    pacejka_fx_fl = (tire_D * vertical_load_fl * sin(tire_C * atan(tire_B * slip_ratio_fl - tire_E * (tire_B * slip_ratio_fl - atan(tire_B * slip_ratio_fl)))))
+    pacejka_fx_fr = (tire_D * vertical_load_fr * sin(tire_C * atan(tire_B * slip_ratio_fr - tire_E * (tire_B * slip_ratio_fr - atan(tire_B * slip_ratio_fr)))))
+    pacejka_fx_rl = (tire_D * vertical_load_rl * sin(tire_C * atan(tire_B * slip_ratio_rl - tire_E * (tire_B * slip_ratio_rl - atan(tire_B * slip_ratio_rl)))))
+    pacejka_fx_rr = (tire_D * vertical_load_rr * sin(tire_C * atan(tire_B * slip_ratio_rr - tire_E * (tire_B * slip_ratio_rr - atan(tire_B * slip_ratio_rr)))))
 
-    fx_fl = (1.0 - speed_blend) * (linear_stiffness_fl * slip_ratio_fl) + (speed_blend) * pacejka_fx_fl
-    fx_fr = (1.0 - speed_blend) * (linear_stiffness_fr * slip_ratio_fr) + (speed_blend) * pacejka_fx_fr
-    fx_rl = (1.0 - speed_blend) * (linear_stiffness_rl * slip_ratio_rl) + (speed_blend) * pacejka_fx_rl
-    fx_rr = (1.0 - speed_blend) * (linear_stiffness_rr * slip_ratio_rr) + (speed_blend) * pacejka_fx_rr
+    atan_normalization = 2.0 / np.pi
+    rolling_resistance_fl = rolling_resistance_coefficient * vertical_load_fl * atan(x[9]) * atan_normalization
+    rolling_resistance_fr = rolling_resistance_coefficient * vertical_load_fr * atan(x[10]) * atan_normalization
+    rolling_resistance_rl = rolling_resistance_coefficient * vertical_load_rl * atan(x[11]) * atan_normalization
+    rolling_resistance_rr = rolling_resistance_coefficient * vertical_load_rr * atan(x[12]) * atan_normalization
+
+    fx_fl = (1.0 - speed_blend) * (linear_stiffness_fl * slip_ratio_fl) + (speed_blend) * pacejka_fx_fl - rolling_resistance_fl
+    fx_fr = (1.0 - speed_blend) * (linear_stiffness_fr * slip_ratio_fr) + (speed_blend) * pacejka_fx_fr - rolling_resistance_fr
+    fx_rl = (1.0 - speed_blend) * (linear_stiffness_rl * slip_ratio_rl) + (speed_blend) * pacejka_fx_rl - rolling_resistance_rl
+    fx_rr = (1.0 - speed_blend) * (linear_stiffness_rr * slip_ratio_rr) + (speed_blend) * pacejka_fx_rr - rolling_resistance_rr
 
     # FX in the car's frame
     fx_car_fl = - fy_fl * sin(sa_fl) + fx_fl * cos(sa_fl) 
