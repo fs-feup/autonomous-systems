@@ -4,7 +4,7 @@ planning:
   mg_maximum_cone_distance: 10.0 
   mg_sliding_window_radius: 40.0
   #---------------------- Path Calculation (pc_) ------------------------
-  pc_use_sliding_window: false
+  pc_use_sliding_window: true
   pc_angle_gain: 70.0  
   pc_distance_gain: 6.0
   pc_angle_exponent: 2.0
@@ -32,7 +32,7 @@ planning:
   smoothing_curvature_weight: 1.0
   smoothing_safety_weight: 1000.0
   smoothing_proximity_weight: 0.001
-  smoothing_window_size: 400
+  smoothing_window_size: 300
   smoothing_max_iterations: 4000
   smoothing_tolerance: 1e-5     
   #---------------------- Velocity Planning (vp_) -----------------------

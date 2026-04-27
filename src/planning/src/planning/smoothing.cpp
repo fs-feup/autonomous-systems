@@ -308,9 +308,8 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Incremental: window [%d, %d) (%d pts) open path",
                window_start, total_points, window_size);
 
-  // TODA: Change this when it works!
   return osqp_optimization_implementation(center_path, left_boundary, right_boundary, window_start,
-                                          false);
+                                          is_path_closed);
 }
 
 std::vector<PathPoint> PathSmoothing::osqp_optimization_implementation(
