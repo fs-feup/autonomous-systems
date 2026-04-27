@@ -42,14 +42,14 @@ public:
   std::vector<PathPoint> smooth_path(std::vector<PathPoint>& path, bool is_path_closed) const;
 
   /**
-   * @brief Optimizes a racing line path using the minimum curvature
+   * @brief Optimizes a racing line path using quadratic programming.
    *
-   * @param path The initial center path to be optimized
-   * @param yellow_cones Track boundary markers on the right boundary
-   * @param blue_cones Track boundary markers on the left boundary
-   * @param is_path_closed Whether the path forms a closed loop
-   * @param is_path_final If true, optimizes the full path as a closed loop (final lap)
-   * @return std::vector<PathPoint> The optimized path
+   * @param path Initial center path
+   * @param yellow_cones Right boundary markers
+   * @param blue_cones Left boundary markers
+   * @param is_path_closed Whether the path is a closed loop
+   * @param is_path_final If true, resets solver cache before solving full path
+   * @return std::vector<PathPoint> Optimized path
    */
   std::vector<PathPoint> optimize_path(std::vector<PathPoint>& path,
                                        const std::vector<PathPoint>& yellow_cones,
@@ -196,19 +196,18 @@ private:
                              std::vector<OSQPInt>& csc_col_pointers) const;
 
   /**
-   * @brief Core OSQP optimization implementation operating on a given window.
+   * @brief Core OSQP optimization implementation.
    *
-   * @param center Sequence of points representing the initial center line path
-   * @param left Sequence of points representing the left track boundary
-   * @param right Sequence of points representing the right track boundary
-   * @param opt_start Index into center/left/right where the optimization window starts
+   * @param center_path Center line path
+   * @param left_boundary Left track boundary
+   * @param right_boundary Right track boundary
    * @param is_path_closed Whether the path forms a closed loop
    * @return std::vector<PathPoint> Optimized path
    */
   std::vector<PathPoint> osqp_optimization_implementation(
       const std::vector<PathPoint>& center_path, const std::vector<PathPoint>& left_boundary,
       const std::vector<PathPoint>& right_boundary, bool is_path_closed) const;
-  // TODO: dioxigen
+
   void build_warm_start(int total_variables, int num_path_points, int total_constraints,
                         const std::vector<PathPoint>& center_path) const;
 };

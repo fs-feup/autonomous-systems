@@ -67,7 +67,6 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.smoothing_curvature_weight_ = planning_config["smoothing_curvature_weight"].as<double>();
   params.smoothing_safety_weight_ = planning_config["smoothing_safety_weight"].as<double>();
   params.smoothing_proximity_weight_ = planning_config["smoothing_proximity_weight"].as<double>();
-  params.smoothing_window_size_ = planning_config["smoothing_window_size"].as<int>();
   params.smoothing_max_iterations_ = planning_config["smoothing_max_iterations"].as<int>();
   params.smoothing_tolerance_ = planning_config["smoothing_tolerance"].as<double>();
 
