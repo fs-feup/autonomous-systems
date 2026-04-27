@@ -52,16 +52,17 @@ public:
    * @return std::vector<PathPoint> The optimized path
    */
   std::vector<PathPoint> optimize_path(std::vector<PathPoint>& path,
-                                       std::vector<PathPoint>& yellow_cones,
-                                       std::vector<PathPoint>& blue_cones, bool is_path_closed,
-                                       bool is_path_final);
+                                       const std::vector<PathPoint>& yellow_cones,
+                                       const std::vector<PathPoint>& blue_cones,
+                                       bool is_path_closed, bool is_path_final);
 
   /**
    * @brief Destroys the PathSmoothing object and cleans up the OSQP solver if allocated.
    */
   ~PathSmoothing() {
     if (solver_) {
-      osqp_cleanup(solver_);
+      const OSQPInt status = ::osqp_cleanup(solver_);
+      (void)status;
       solver_ = nullptr;
     }
   }
@@ -90,7 +91,7 @@ private:
   std::vector<PathPoint> filter_path(const std::vector<PathPoint>& path) const;
 
   /**
-   * @brief Optimizes a path using quadratic programming (OSQP)
+   * @brief Optimizes a path using quadratic programming (OSQP).
    *
    * @param center Sequence of points representing the initial center line path
    * @param left Sequence of points representing the left track boundary
@@ -164,15 +165,14 @@ private:
                                            std::vector<OSQPFloat>& constraint_lower_bounds,
                                            std::vector<OSQPFloat>& constraint_upper_bounds,
                                            int& constraint_count, int num_path_points) const;
+
   /**
-   * @brief Optimizes a path using quadratic programming (OSQP)
+   * @brief Adds proximity penalty terms to keep the optimized path near the center line.
    *
-   * @param center Sequence of points representing the initial center line path
-   * @param left Sequence of points representing the left track boundary
-   * @param right Sequence of points representing the right track boundary
-   * @param is_path_closed Whether the path forms a closed loop
-   * @param is_final If true, optimizes the full path; otherwise uses a sliding window
-   * @return std::vector<PathPoint> Optimized path
+   * @param num_path_points Number of points in the path
+   * @param center Center line reference points
+   * @param add_quadratic_coefficient Lambda to add quadratic objective coefficients
+   * @param linear_objective Linear objective vector (modified in-place)
    */
   void add_proximity_terms(int num_path_points, const std::vector<PathPoint>& center,
                            const std::function<void(int, int, double)>& add_quadratic_coefficient,
@@ -198,16 +198,40 @@ private:
                              std::vector<OSQPInt>& csc_col_pointers) const;
 
   /**
-   * @brief Optimizes a path using quadratic programming (OSQP)
+   * @brief Either warm-updates the existing OSQP solver or tears it down and creates a new one.
+   *
+   * @param num_path_points Number of path points in the current window
+   * @param is_path_closed Whether the path is closed
+   * @param total_constraints Total number of constraints
+   * @param objective_matrix OSQP objective (P) matrix
+   * @param constraint_matrix OSQP constraint (A) matrix
+   * @param linear_objective Linear objective vector (q)
+   * @param P_csc_values CSC values for P
+   * @param A_csc_values CSC values for A
+   * @param constraint_lower_bounds Lower bounds vector
+   * @param constraint_upper_bounds Upper bounds vector
+   * @param total_variables Total number of decision variables
+   * @return true if the solver is ready for solving; false on setup failure
+   */
+  bool setup_or_update_solver(int num_path_points, bool is_path_closed, int total_constraints,
+                              OSQPCscMatrix& objective_matrix, OSQPCscMatrix& constraint_matrix,
+                              const std::vector<OSQPFloat>& linear_objective,
+                              const std::vector<OSQPFloat>& P_csc_values,
+                              const std::vector<OSQPFloat>& A_csc_values,
+                              const std::vector<OSQPFloat>& constraint_lower_bounds,
+                              const std::vector<OSQPFloat>& constraint_upper_bounds,
+                              int total_variables) const;
+
+  /**
+   * @brief Core OSQP optimization implementation operating on a given window.
    *
    * @param center Sequence of points representing the initial center line path
    * @param left Sequence of points representing the left track boundary
    * @param right Sequence of points representing the right track boundary
+   * @param opt_start Index into center/left/right where the optimization window starts
    * @param is_path_closed Whether the path forms a closed loop
-   * @param is_final If true, optimizes the full path; otherwise uses a sliding window
    * @return std::vector<PathPoint> Optimized path
    */
-
   std::vector<PathPoint> osqp_optimization_implementation(const std::vector<PathPoint>& center,
                                                           const std::vector<PathPoint>& left,
                                                           const std::vector<PathPoint>& right,
