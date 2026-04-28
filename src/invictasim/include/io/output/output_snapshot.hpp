@@ -72,3 +72,34 @@ struct InputSnapshot {
   common_lib::structures::Wheels throttle = {0.0, 0.0, 0.0, 0.0};
   double steering = 0.0;
 };
+
+/**
+ * @brief Snapshot of the track map, containing both the ground truth cone positions and simulated
+ * slam map
+ */
+struct MapSnapshot {
+  std::vector<common_lib::structures::Cone> ground_truth;
+  std::vector<common_lib::structures::Cone> simulated_slam_map;
+  std::vector<common_lib::structures::Cone> perception_cones;
+};
+
+/**
+ * @brief Snapshot of sensor data for publishing simulated IMU, WSS, steering angle sensor and
+ * resolver
+ */
+struct SensorsSnapshot {
+  Eigen::Vector3d free_acceleration = {0.0, 0.0, 0.0};
+  Eigen::Vector3d angular_velocity = {0.0, 0.0, 0.0};
+  common_lib::structures::Wheels wheel_rpm = {0.0, 0.0, 0.0, 0.0};
+  double steering_angle = 0.0;
+  double motor_rpm = 0.0;
+};
+
+/**
+ * @brief Snapshot of the vehicle's state for publishing the current pose and operational status,
+ * used for state estimation / SLAM / planning compatibility topics.
+ */
+struct VehicleStateSnapshot {
+  double x = 0.0;
+  bool go_signal = false;
+};

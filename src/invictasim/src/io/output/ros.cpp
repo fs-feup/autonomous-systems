@@ -1,10 +1,10 @@
 #include "io/output/ros.hpp"
 
-RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator)
+RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator,
+                                   const std::string& config_file)
     : Node("invictasim_output", rclcpp::NodeOptions().use_global_arguments(false)),
       InvictaSimOutputAdapter(simulator),
-      running_(true),
-      publish_frequencies_(simulator->get_params().publish_frequencies) {
+      running_(true) {
   tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(this);
   tire_forces_pub_ = this->create_publisher<custom_interfaces::msg::TireForces>(
       "invictasim/vehicle_model/tire/forces", 10);
@@ -26,16 +26,48 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator)
       this->create_publisher<custom_interfaces::msg::ControlCommand>("invictasim/input", 10);
   execution_times_pub_ = this->create_publisher<custom_interfaces::msg::ExecutionTimes>(
       "invictasim/execution_times", 10);
-  track_pub_ = this->create_publisher<custom_interfaces::msg::ConeArray>("invictasim/track", 10);
+  map_pub_ = this->create_publisher<custom_interfaces::msg::ConeArray>("invictasim/map", 10);
 
   // Visualization Publishers
   visualization_ground_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
       "invictasim/visualization/ground", 10);
   visualization_vehicle_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
       "invictasim/visualization/vehicle", 10);
-  visualization_track_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
-      "invictasim/visualization/track", 10);
+  visualization_gt_cones_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
+      "invictasim/visualization/ground_truth_cones", 10);
+  visualization_slam_cones_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
+      "invictasim/visualization/slam_cones", 10);
+  visualization_perception_cones_pub_ =
+      this->create_publisher<visualization_msgs::msg::MarkerArray>(
+          "invictasim/visualization/perception_cones", 10);
 
+  // Sensors
+  free_accel_pub_ = this->create_publisher<geometry_msgs::msg::Vector3Stamped>(
+      "invictasim/imu/free_acceleration", 10);
+  angular_vel_pub_ = this->create_publisher<geometry_msgs::msg::Vector3Stamped>(
+      "invictasim/imu/angular_velocity", 10);
+  vehicle_fl_rpm_pub_ =
+      this->create_publisher<custom_interfaces::msg::WheelRPM>("invictasim/wss/front_left", 10);
+  vehicle_fr_rpm_pub_ =
+      this->create_publisher<custom_interfaces::msg::WheelRPM>("invictasim/wss/front_right", 10);
+  vehicle_motor_rpm_pub_ =
+      this->create_publisher<custom_interfaces::msg::WheelRPM>("invictasim/resolver", 10);
+  steering_pub_ = this->create_publisher<custom_interfaces::msg::SteeringAngle>(
+      "invictasim/steering_angle_sensor", 10);
+
+  // Pipeline compatibility topics
+  perception_pub_ = this->create_publisher<custom_interfaces::msg::PerceptionOutput>(
+      "invictasim/perception/cones", 10);
+  velocities_pub_ = this->create_publisher<custom_interfaces::msg::Velocities>(
+      "invictasim/state_estimation/velocities", 10);
+  state_map_pub_ = this->create_publisher<custom_interfaces::msg::ConeArray>(
+      "invictasim/state_estimation/map", 10);
+  vehicle_pose_pub_ = this->create_publisher<custom_interfaces::msg::Pose>(
+      "invictasim/state_estimation/vehicle_pose", 10);
+  operational_status_pub_ = this->create_publisher<custom_interfaces::msg::OperationalStatus>(
+      "invictasim/operational_status", 10);
+
+  load_publish_frequencies(config_file);
   setup_timers();
 }
 
@@ -43,66 +75,103 @@ void RosOutputAdapter::run() {}
 
 void RosOutputAdapter::stop() { running_ = false; }
 
-void RosOutputAdapter::setup_timers() {
-  std::set<int> unique_frequencies;
-  for (const auto& publish_frequency : publish_frequencies_) {
-    if (publish_frequency.second > 0) {
-      unique_frequencies.insert(publish_frequency.second);
+void RosOutputAdapter::load_publish_frequencies(const std::string& config_file) {
+  YAML::Node config = YAML::LoadFile(config_file);
+  if (!config["publish_frequencies"]) return;
+
+  // Helper lambda to flatten the nested YAML structure into our single map
+  auto load_group = [&](const std::string& group_name) {
+    if (config["publish_frequencies"][group_name]) {
+      for (const auto& item : config["publish_frequencies"][group_name].items()) {
+        topic_frequencies_[item.first.as<std::string>()] = item.second.as<int>();
+      }
     }
+  };
+
+  load_group("vehicle_model");
+  load_group("visualization");
+  load_group("sensors");
+  load_group("map");
+  load_group("vehicle_state");
+
+  if (config["publish_frequencies"]["execution_time"]) {
+    topic_frequencies_["execution_time"] =
+        config["publish_frequencies"]["execution_time"].as<int>();
   }
 
-  for (int frequency_hz : unique_frequencies) {
+  // After loading the config, build the dispatch table
+  map_callbacks();
+}
+
+void RosOutputAdapter::map_callbacks() {
+  // Helper lambda to register a publisher function to its configured frequency
+  auto register_pub = [&](const std::string& topic, std::function<void()> func) {
+    if (topic_frequencies_.count(topic) && topic_frequencies_[topic] > 0) {
+      frequency_callbacks_[topic_frequencies_[topic]].push_back(func);
+    }
+  };
+
+  // --- Vehicle Model ---
+  register_pub("tire", [this]() { publish_vm_tire(); });
+  register_pub("motor", [this]() { publish_vm_motor(); });
+  register_pub("battery", [this]() { publish_vm_battery(); });
+  register_pub("transmission", [this]() { publish_vm_transmission(); });
+  register_pub("aero", [this]() { publish_vm_aero(); });
+  register_pub("status", [this]() {
+    publish_vm_status();
+    publish_input();
+  });
+
+  // --- Visualization ---
+  register_pub("car", [this]() { publish_visualization_car(); });
+  register_pub("ground", [this]() { publish_visualization_ground(); });
+  register_pub("ground_truth_cones", [this]() { publish_visualization_gt_cones(); });
+  register_pub("slam_cones", [this]() { publish_visualization_slam_cones(); });
+  register_pub("perception_cones", [this]() { publish_visualization_perception_cones(); });
+
+  // --- Sensors ---
+  register_pub("imu", [this]() { publish_sensors_imu(); });
+  register_pub("wheel_speed", [this]() { publish_sensors_wheel_speed(); });
+  register_pub("resolver", [this]() { publish_sensors_resolver(); });
+  register_pub("steering", [this]() { publish_sensors_steering(); });
+  register_pub("perception", [this]() { publish_perception_cones(); });
+
+  // --- Map ---
+  register_pub("ground_truth", [this]() { publish_map_ground_truth(); });
+  register_pub("simulated_slam", [this]() { publish_state_estimation_map(); });
+
+  // --- Vehicle State ---
+  register_pub("pose", [this]() { publish_state_estimation_pose(); });
+  register_pub("velocities", [this]() { publish_state_estimation_velocities(); });
+  register_pub("operational_status", [this]() { publish_operational_status(); });
+
+  // --- Execution Times ---
+  register_pub("execution_time", [this]() { publish_execution_time(); });
+}
+
+void RosOutputAdapter::setup_timers() {
+  for (const auto& [frequency_hz, callbacks] : frequency_callbacks_) {
     auto period = std::chrono::duration_cast<std::chrono::nanoseconds>(
         std::chrono::duration<double>(1.0 / static_cast<double>(frequency_hz)));
+
     frequency_timers_[frequency_hz] = this->create_wall_timer(period, [this, frequency_hz]() {
-      if (!running_) {
-        return;
-      }
+      if (!running_) return;
       on_frequency_tick(frequency_hz);
     });
   }
 }
 
-bool RosOutputAdapter::publishes_at(const std::string& group, int frequency_hz) const {
-  auto group_frequency_it = publish_frequencies_.find(group);
-  if (group_frequency_it == publish_frequencies_.end()) {
-    return false;
-  }
-  return group_frequency_it->second == frequency_hz;
-}
-
 void RosOutputAdapter::on_frequency_tick(int frequency_hz) {
-  // Refresh snapshot once per tick
+  // Refresh snapshots
   refresh_vehicle_model_snapshot();
   refresh_execution_times_snapshot();
+  refresh_map_snapshot();
+  refresh_sensors_snapshot();
+  refresh_vehicle_state_snapshot();
 
-  if (publishes_at("tire", frequency_hz)) {
-    publish_tire_group();
-  }
-  if (publishes_at("motor", frequency_hz)) {
-    publish_motor_group();
-  }
-  if (publishes_at("battery", frequency_hz)) {
-    publish_battery_group();
-  }
-  if (publishes_at("transmission", frequency_hz)) {
-    publish_transmission_group();
-  }
-  if (publishes_at("aero", frequency_hz)) {
-    publish_aero_group();
-  }
-  if (publishes_at("status", frequency_hz)) {
-    publish_status_group();
-    publish_input_group();
-  }
-  if (publishes_at("execution_times", frequency_hz)) {
-    publish_execution_times_group();
-  }
-  if (publishes_at("track", frequency_hz)) {
-    publish_track_group();
-  }
-  if (publishes_at("visualization", frequency_hz)) {
-    publish_visualization_group();
+  // Execute functions for this frequency
+  for (const auto& publish_func : frequency_callbacks_[frequency_hz]) {
+    publish_func();
   }
 }
 
@@ -114,7 +183,40 @@ void RosOutputAdapter::refresh_execution_times_snapshot() {
   execution_times_snapshot_cache_ = simulator_->get_execution_times_snapshot();
 }
 
-void RosOutputAdapter::publish_track_group() {
+void RosOutputAdapter::refresh_map_snapshot() {
+  // Placeholder for map snapshot refresh logic
+}
+
+void RosOutputAdapter::refresh_sensors_snapshot() {
+  // Placeholder for sensors snapshot refresh logic
+}
+
+void RosOutputAdapter::refresh_vehicle_state_snapshot() {
+  // Placeholder for vehicle state snapshot refresh logic
+}
+
+void RosOutputAdapter::publish_sensors_imu() {
+  rclcpp::Time stamp = this->now();
+  // Publish free acceleration
+  // Publish angular velocity
+}
+
+void RosOutputAdapter::publish_sensors_wheel_speed() {
+  rclcpp::Time stamp = this->now();
+  // Publish wheel RPMs
+}
+
+void RosOutputAdapter::publish_sensors_resolver() {
+  rclcpp::Time stamp = this->now();
+  // Publish motor RPM from resolver
+}
+
+void RosOutputAdapter::publish_sensors_steering() {
+  rclcpp::Time stamp = this->now();
+  // Publish steering angle
+}
+
+void RosOutputAdapter::publish_map_ground_truth() {
   const auto track = simulator_->get_track();
   if (!track) {
     return;
@@ -136,7 +238,15 @@ void RosOutputAdapter::publish_track_group() {
     track_msg.cone_array.push_back(msg);
   }
 
-  track_pub_->publish(track_msg);
+  map_pub_->publish(track_msg);
+}
+
+void RosOutputAdapter::publish_state_estimation_map() {
+  // Placeholder for SLAM map publishing logic
+}
+
+void RosOutputAdapter::publish_perception_cones() {
+  // Placeholder for perception cones publishing logic
 }
 
 void RosOutputAdapter::publish_vehicle_transform() {
@@ -172,7 +282,7 @@ custom_interfaces::msg::WheelScalars RosOutputAdapter::to_wheels_msg(
   return msg;
 }
 
-void RosOutputAdapter::publish_tire_group() {
+void RosOutputAdapter::publish_vm_tire() {
   rclcpp::Time stamp = this->now();
 
   custom_interfaces::msg::TireForces tire_forces_msg;
@@ -213,7 +323,7 @@ void RosOutputAdapter::publish_tire_group() {
   tire_slip_angle_pub_->publish(to_wheels_msg(vehicle_model_snapshot_cache_.slip_angle, stamp));
 }
 
-void RosOutputAdapter::publish_motor_group() {
+void RosOutputAdapter::publish_vm_motor() {
   rclcpp::Time stamp = this->now();
 
   custom_interfaces::msg::MotorState motor_msg;
@@ -228,7 +338,7 @@ void RosOutputAdapter::publish_motor_group() {
   motor_pub_->publish(motor_msg);
 }
 
-void RosOutputAdapter::publish_battery_group() {
+void RosOutputAdapter::publish_vm_battery() {
   rclcpp::Time stamp = this->now();
 
   custom_interfaces::msg::BatteryState battery_msg;
@@ -241,12 +351,12 @@ void RosOutputAdapter::publish_battery_group() {
   battery_pub_->publish(battery_msg);
 }
 
-void RosOutputAdapter::publish_transmission_group() {
+void RosOutputAdapter::publish_vm_transmission() {
   transmission_pub_->publish(
       to_wheels_msg(vehicle_model_snapshot_cache_.transmission_torque, this->now()));
 }
 
-void RosOutputAdapter::publish_aero_group() {
+void RosOutputAdapter::publish_vm_aero() {
   custom_interfaces::msg::AeroForces aero_msg;
   aero_msg.header.stamp = this->now();
   aero_msg.header.frame_id = "base_link";
@@ -255,7 +365,7 @@ void RosOutputAdapter::publish_aero_group() {
   aero_pub_->publish(aero_msg);
 }
 
-void RosOutputAdapter::publish_status_group() {
+void RosOutputAdapter::publish_vm_status() {
   custom_interfaces::msg::VehicleStateVector status_msg;
   status_msg.header.stamp = this->now();
   status_msg.header.frame_id = "base_link";
@@ -273,7 +383,7 @@ void RosOutputAdapter::publish_status_group() {
   status_pub_->publish(status_msg);
 }
 
-void RosOutputAdapter::publish_input_group() {
+void RosOutputAdapter::publish_input() {
   const InputSnapshot input_snapshot = simulator_->get_input_snapshot();
 
   custom_interfaces::msg::ControlCommand input_msg;
@@ -287,7 +397,7 @@ void RosOutputAdapter::publish_input_group() {
   input_command_pub_->publish(input_msg);
 }
 
-void RosOutputAdapter::publish_execution_times_group() {
+void RosOutputAdapter::publish_execution_time() {
   custom_interfaces::msg::ExecutionTimes times_msg;
   times_msg.header.stamp = this->now();
   times_msg.header.frame_id = "base_link";
@@ -301,7 +411,19 @@ void RosOutputAdapter::publish_execution_times_group() {
   execution_times_pub_->publish(times_msg);
 }
 
-void RosOutputAdapter::publish_visualization_group() {
+void RosOutputAdapter::publish_state_estimation_velocities() {
+  // Placeholder for publishing velocity estimates for state estimation pipeline
+}
+
+void RosOutputAdapter::publish_state_estimation_pose() {
+  // Placeholder for publishing pose estimates for state estimation pipeline
+}
+
+void RosOutputAdapter::publish_operational_status() {
+  // Placeholder for publishing operational status (e.g., faults, warnings)
+}
+
+void RosOutputAdapter::publish_visualization_car() {
   const rclcpp::Time stamp = this->now();
   const double stamp_sec = stamp.seconds();
   double dt = 0.0;
@@ -312,24 +434,18 @@ void RosOutputAdapter::publish_visualization_group() {
   if (dt < 0.0 || dt > 0.2) {
     dt = 0.0;
   }
-
-  visualization_msgs::msg::MarkerArray ground_marker_array;
   visualization_msgs::msg::MarkerArray vehicle_marker_array;
-  visualization_msgs::msg::MarkerArray track_marker_array;
 
   publish_vehicle_transform();
-  publish_ground_marker(ground_marker_array, stamp);
   publish_body_marker(vehicle_marker_array, stamp);
   publish_wheel_markers(vehicle_marker_array, stamp, dt);
-  publish_cone_markers(track_marker_array, stamp);
 
-  visualization_ground_pub_->publish(ground_marker_array);
   visualization_vehicle_pub_->publish(vehicle_marker_array);
-  visualization_track_pub_->publish(track_marker_array);
 }
 
-void RosOutputAdapter::publish_ground_marker(visualization_msgs::msg::MarkerArray& marker_array,
-                                             const rclcpp::Time& stamp) const {
+void RosOutputAdapter::publish_visualization_ground() {
+  const rclcpp::Time stamp = this->now();
+  visualization_msgs::msg::MarkerArray ground_marker_array;
   visualization_msgs::msg::Marker ground;
   ground.header.stamp = stamp;
   ground.header.frame_id = "map";
@@ -353,7 +469,29 @@ void RosOutputAdapter::publish_ground_marker(visualization_msgs::msg::MarkerArra
   ground.color.b = 0.78f;
   ground.mesh_resource = "package://invictasim/resources/meshes/ground_plane.dae";
   ground.mesh_use_embedded_materials = true;
-  marker_array.markers.push_back(ground);
+  ground_marker_array.markers.push_back(ground);
+  visualization_ground_pub_->publish(ground_marker_array);
+}
+
+void RosOutputAdapter::publish_visualization_gt_cones() {
+  const rclcpp::Time stamp = this->now();
+  visualization_msgs::msg::MarkerArray track_marker_array;
+  publish_cone_markers(track_marker_array, stamp);
+  visualization_gt_cones_pub_->publish(track_marker_array);
+}
+
+void RosOutputAdapter::publish_visualization_slam_cones() {
+  const rclcpp::Time stamp = this->now();
+  visualization_msgs::msg::MarkerArray map_marker_array;
+  publish_cone_markers(map_marker_array, stamp);
+  visualization_slam_cones_pub_->publish(map_marker_array);
+}
+
+void RosOutputAdapter::publish_visualization_perception_cones() {
+  const rclcpp::Time stamp = this->now();
+  visualization_msgs::msg::MarkerArray perception_marker_array;
+  publish_cone_markers(perception_marker_array, stamp);
+  visualization_perception_cones_pub_->publish(perception_marker_array);
 }
 
 void RosOutputAdapter::publish_cone_markers(visualization_msgs::msg::MarkerArray& marker_array,

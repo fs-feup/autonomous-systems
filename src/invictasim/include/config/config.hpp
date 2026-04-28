@@ -26,8 +26,6 @@ struct InvictaSimParameters {
   std::string battery_model;
   std::string transmission_model;
 
-  std::map<std::string, int> publish_frequencies;
-
   std::shared_ptr<common_lib::car_parameters::CarParameters> car_parameters;
 
   // Constructor will read the config files and populate the parameters
