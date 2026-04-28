@@ -45,6 +45,7 @@ set(IMPLEMENTATION_FILES
   src/adapter/pacsim.cpp
   src/adapter/eufs.cpp
   src/adapter/vehicle.cpp
+  src/local_pather/interpolator.cpp
   src/lateral_controller/pure_pursuit.cpp
   src/longitudinal_controller/pid.cpp
   src/config/parameters.cpp
@@ -149,6 +150,12 @@ target_link_libraries(node_control
 )
 
 target_compile_features(node_control PUBLIC c_std_99 cxx_std_17)
+
+set_target_properties(node_control PROPERTIES
+  BUILD_WITH_INSTALL_RPATH TRUE
+  INSTALL_RPATH "${ACADOS_LIB_DIR};${ACADOS_GEN_DIR}"
+  INSTALL_RPATH_USE_LINK_PATH TRUE
+)
 
 install(TARGETS node_control
   DESTINATION lib/${PROJECT_NAME}

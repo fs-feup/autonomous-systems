@@ -5,7 +5,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic -O3)
 endif()
 
-add_link_options(-fuse-ld=lld)
+add_link_options(-fuse-ld=lld "-Wl,--disable-new-dtags")
 
 find_program(CCACHE_PROGRAM ccache)
 if(CCACHE_PROGRAM)
