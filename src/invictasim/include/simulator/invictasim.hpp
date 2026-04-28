@@ -85,10 +85,31 @@ public:
   }
 
   /**
-   * @brief Get the track information.
-   * be read).
+   * @brief Get the map information.
+   * @return MapSnapshot Latest map snapshot.
    */
-  std::shared_ptr<Track> get_track() const { return track_; }
+  MapSnapshot get_map_snapshot() const {
+    std::lock_guard<std::mutex> lock(output_snapshot_mutex_);
+    return map_snapshot_;
+  }
+
+  /**
+   * @brief Get the latest sensors snapshot.
+   * @return SensorsSnapshot Latest snapshot with sensors data.
+   */
+  SensorsSnapshot get_sensors_snapshot() const {
+    std::lock_guard<std::mutex> lock(output_snapshot_mutex_);
+    return sensors_snapshot_;
+  }
+
+  /**
+   * @brief Get the latest vehicle state snapshot.
+   * @return VehicleStateSnapshot Latest snapshot with vehicle state data.
+   */
+  VehicleStateSnapshot get_vehicle_state_snapshot() const {
+    std::lock_guard<std::mutex> lock(output_snapshot_mutex_);
+    return vehicle_state_snapshot_;
+  }
 
 private:
   InvictaSimParameters params_;  ///< Simulator configuration values.
@@ -107,9 +128,12 @@ private:
       last_step_time_;  ///< Last wall-clock time used to compute step dt.
 
   // Output snapshot data
-  mutable std::mutex output_snapshot_mutex_;     ///< Protects output snapshot access.
-  VehicleModelSnapshot vehicle_model_snapshot_;  ///< Latest consolidated vehicle model snapshot.
+  mutable std::mutex output_snapshot_mutex_;         ///< Protects output snapshot access.
+  VehicleModelSnapshot vehicle_model_snapshot_;      ///< Latest vehicle model snapshot.
   ExecutionTimesSnapshot execution_times_snapshot_;  ///< Latest per-step execution timings.
+  MapSnapshot map_snapshot_;                         ///< Latest map snapshot.
+  SensorsSnapshot sensors_snapshot_;                 ///< Latest sensors snapshot.
+  VehicleStateSnapshot vehicle_state_snapshot_;      ///< Latest vehicle state snapshot.
 
   // Current commands
   mutable std::mutex input_mutex_;           ///< Protects input access.
@@ -128,6 +152,24 @@ private:
    * @return ExecutionTimesSnapshot Timing snapshot.
    */
   ExecutionTimesSnapshot build_execution_times_snapshot(double total_step_ms) const;
+
+  /**
+   * @brief Build map snapshot with ground truth map, slam simulation and perception cones.
+   * @return MapSnapshot Latest map snapshot.
+   */
+  MapSnapshot build_map_snapshot() const;
+
+  /**
+   * @brief Build sensors snapshot with latest simulated sensors data.
+   * @return SensorsSnapshot Latest sensors snapshot.
+   */
+  SensorsSnapshot build_sensors_snapshot(const VehicleModelSnapshot& vehicle_snapshot) const;
+
+  /**
+   * @brief Build vehicle state snapshot with latest needed information for other subsystems.
+   * @return VehicleStateSnapshot Latest vehicle state snapshot.
+   */
+  VehicleStateSnapshot build_vehicle_state_snapshot() const;
 
   /**
    * @brief Execute a simulation step.

@@ -11,7 +11,7 @@ InvictaSim::InvictaSim(const InvictaSimParameters& params)
   track_ = std::make_shared<Track>(params_.track_name);
 
   // Set initial position according to track information
-  auto start_position = track_->getStartPosition();
+  auto start_position = track_->get_start_position();
   vehicle_model_->set_initial_pose(start_position.x, start_position.y);
 
   // Initialize step timings
@@ -51,16 +51,24 @@ void InvictaSim::simulation_step() {
   // Use snapshot throughout step without locks
   vehicle_model_->step(step_dt, input_snapshot.throttle, input_snapshot.steering);
 
-  // Update output snapshot for adapters to read (lock only to copy the data)
-  VehicleModelSnapshot vehicle_snapshot = build_vehicle_model_snapshot();
+  // Compute total step execution time
   const auto step_end = std::chrono::steady_clock::now();
   const double total_step_ms =
       std::chrono::duration<double, std::milli>(step_end - step_start).count();
+
+  // Update output snapshot for adapters to read (lock only to copy the data)
+  VehicleModelSnapshot vehicle_snapshot = build_vehicle_model_snapshot();
   ExecutionTimesSnapshot execution_times_snapshot = build_execution_times_snapshot(total_step_ms);
+  MapSnapshot map_snapshot = build_map_snapshot();
+  SensorsSnapshot sensors_snapshot = build_sensors_snapshot(vehicle_snapshot);
+  VehicleStateSnapshot vehicle_state_snapshot = build_vehicle_state_snapshot();
   {
     std::lock_guard<std::mutex> lock(output_snapshot_mutex_);
     vehicle_model_snapshot_ = vehicle_snapshot;
     execution_times_snapshot_ = execution_times_snapshot;
+    map_snapshot_ = map_snapshot;
+    sensors_snapshot_ = sensors_snapshot;
+    vehicle_state_snapshot_ = vehicle_state_snapshot;
   }
 }
 
@@ -125,5 +133,58 @@ ExecutionTimesSnapshot InvictaSim::build_execution_times_snapshot(double total_s
   snapshot.tire_ms = model_times.tire_ms;
   snapshot.total_step_ms = total_step_ms;
 
+  return snapshot;
+}
+
+MapSnapshot InvictaSim::build_map_snapshot() const {
+  MapSnapshot snapshot;
+  // For now, all of them publish the same ground truth cones,
+  // but later this would publish the slam map and the perception cones
+  snapshot.ground_truth = track_->get_cones();
+  snapshot.simulated_slam_map = track_->get_cones();
+  snapshot.perception_cones = track_->get_cones();
+  snapshot.perception_exec_time_ms = 0.0;  // Will allow to simualte the perception delay
+  return snapshot;
+}
+
+SensorsSnapshot InvictaSim::build_sensors_snapshot(
+    const VehicleModelSnapshot& vehicle_snapshot) const {
+  SensorsSnapshot snapshot;
+  // For now, publishing the ground truth as sensor data, but later this would be the sensor
+  // simulated data
+  snapshot.free_acceleration =
+      Eigen::Vector3d(vehicle_snapshot.acceleration_x, vehicle_snapshot.acceleration_y, 0.0);
+  snapshot.angular_velocity = Eigen::Vector3d(0.0, 0.0, vehicle_snapshot.yaw_rate);
+  snapshot.wheel_rpm =
+      common_lib::structures::Wheels(vehicle_snapshot.wheel_speed.front_left * 60 / (2 * M_PI),
+                                     vehicle_snapshot.wheel_speed.front_right * 60 / (2 * M_PI),
+                                     vehicle_snapshot.wheel_speed.rear_left * 60 / (2 * M_PI),
+                                     vehicle_snapshot.wheel_speed.rear_right * 60 / (2 * M_PI));
+  snapshot.steering_angle = vehicle_snapshot.steering_angle;
+  snapshot.motor_rpm = vehicle_snapshot.motor_omega * 60 / (2 * M_PI);  // Convert rad/s to rpm
+  return snapshot;
+}
+
+VehicleStateSnapshot InvictaSim::build_vehicle_state_snapshot() const {
+  // For now using ground truth values, but later this would incluse state estimation simulation
+  // data
+  VehicleStateSnapshot snapshot;
+
+  // Pose
+  snapshot.position = {vehicle_model_->get_position_x(), vehicle_model_->get_position_y()};
+  snapshot.yaw = vehicle_model_->get_yaw();
+  snapshot.pose_covariance = std::vector<double>(9, 0.0);  // Placeholder for pose covariance
+
+  // Velocities
+  snapshot.velocity_x = vehicle_model_->get_velocity_x();
+  snapshot.velocity_y = vehicle_model_->get_velocity_y();
+  snapshot.yaw_rate = vehicle_model_->get_yaw_rate();
+  snapshot.velocity_covariance =
+      std::vector<double>(9, 0.0);  // Placeholder for velocity covariance
+
+  // Operational status
+  snapshot.go_signal = true;  // For now, always true, but can have a delay or be controled by
+                              // keyboard input in the future
+  snapshot.mission = common_lib::competition_logic::get_mission_from_string(params_.discipline);
   return snapshot;
 }

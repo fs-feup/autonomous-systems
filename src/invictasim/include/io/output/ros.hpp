@@ -1,5 +1,6 @@
 #pragma once
 
+#include <ament_index_cpp/get_package_share_directory.hpp>
 #include <atomic>
 #include <cmath>
 #include <map>
@@ -7,6 +8,8 @@
 #include <set>
 
 #include "common_lib/competition_logic/color.hpp"
+#include "common_lib/competition_logic/mission_logic.hpp"
+#include "common_lib/structures/cone.hpp"
 #include "custom_interfaces/msg/aero_forces.hpp"
 #include "custom_interfaces/msg/battery_state.hpp"
 #include "custom_interfaces/msg/cone.hpp"
@@ -14,8 +17,14 @@
 #include "custom_interfaces/msg/control_command.hpp"
 #include "custom_interfaces/msg/execution_times.hpp"
 #include "custom_interfaces/msg/motor_state.hpp"
+#include "custom_interfaces/msg/operational_status.hpp"
+#include "custom_interfaces/msg/perception_output.hpp"
+#include "custom_interfaces/msg/pose.hpp"
+#include "custom_interfaces/msg/steering_angle.hpp"
 #include "custom_interfaces/msg/tire_forces.hpp"
 #include "custom_interfaces/msg/vehicle_state_vector.hpp"
+#include "custom_interfaces/msg/velocities.hpp"
+#include "custom_interfaces/msg/wheel_rpm.hpp"
 #include "custom_interfaces/msg/wheel_scalars.hpp"
 #include "fs_msgs/msg/go_signal.hpp"
 #include "geometry_msgs/msg/transform_stamped.hpp"
@@ -80,15 +89,13 @@ private:
   std::unordered_map<std::string, int> topic_frequencies_;
   std::unordered_map<int, std::vector<std::function<void()>>> frequency_callbacks_;
 
+  // Topic frequency setup functions
   void load_publish_frequencies(const std::string& config_file);
   void map_callbacks();
   void setup_timers();
   void on_frequency_tick(int frequency_hz);
-
-  // Publish frequency functions
-  void load_publish_frequencies(const std::string& config_file);
-  void setup_timers();
-  void on_frequency_tick(int frequency_hz);
+  void load_group_from_yaml(const YAML::Node& config, const std::string& group_name);
+  void register_pub_helper(const std::string& topic, std::function<void()> func);
 
   // Update snapshot caches with latest data from simulator
   void refresh_vehicle_model_snapshot();
@@ -139,13 +146,13 @@ private:
                                                      const rclcpp::Time& stamp) const;
 
   // Visualization marker publishing helper functions
-  void publish_cone_markers(visualization_msgs::msg::MarkerArray& marker_array,
-                            const rclcpp::Time& stamp) const;
-  void publish_body_marker(visualization_msgs::msg::MarkerArray& marker_array,
-                           const rclcpp::Time& stamp) const;
-  void publish_wheel_markers(visualization_msgs::msg::MarkerArray& marker_array,
-                             const rclcpp::Time& stamp, double dt);
-  void publish_vehicle_transform();
+  visualization_msgs::msg::MarkerArray convert_cone_array_to_markers(
+      std::vector<common_lib::structures::Cone>& cone_array, const rclcpp::Time& stamp) const;
+  void add_body_marker(visualization_msgs::msg::MarkerArray& marker_array,
+                       const rclcpp::Time& stamp) const;
+  void add_wheel_markers(visualization_msgs::msg::MarkerArray& marker_array,
+                         const rclcpp::Time& stamp, double dt);
+  void add_vehicle_transform();
 
   // ROS publishers
   std::unique_ptr<tf2_ros::TransformBroadcaster>
@@ -191,7 +198,7 @@ private:
   rclcpp::Publisher<custom_interfaces::msg::WheelRPM>::SharedPtr vehicle_fr_rpm_pub_;
   rclcpp::Publisher<custom_interfaces::msg::WheelRPM>::SharedPtr vehicle_motor_rpm_pub_;
   rclcpp::Publisher<custom_interfaces::msg::SteeringAngle>::SharedPtr steering_pub_;
-  rclcpp::Publisher<custom_interfaces::msg::Perception>::SharedPtr perception_pub_;
+  rclcpp::Publisher<custom_interfaces::msg::PerceptionOutput>::SharedPtr perception_pub_;
   rclcpp::Publisher<custom_interfaces::msg::Velocities>::SharedPtr velocities_pub_;
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr state_map_pub_;
   rclcpp::Publisher<custom_interfaces::msg::OperationalStatus>::SharedPtr operational_status_pub_;

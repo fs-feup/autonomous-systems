@@ -8,21 +8,21 @@ publish_frequencies:
     status: 10        # Overall vehicle status (speed, acceleration, position, yaw, etc.)
   visualization:
     car: 30           # Car visualization 
-    ground: 1         # Ground visualization 
-    ground_truth_cones: 1   # Ground-truth cones visualization
-    slam_cones: 1          # SLAM cones visualization
-    perception_cones: 1    # Perception cones visualization
+    ground: 30         # Ground visualization 
+    ground_truth_cones: 30   # Ground-truth cones visualization
+    slam_cones: 0          # SLAM cones visualization
+    perception_cones: 0    # Perception cones visualization
   sensors:
-    perception: 30      # Simulated perception output
-    imu: 100             # Simulated IMU (free_acceleration, angular_velocity)
-    wheel_speed: 50      # Simulated wheel speed sensors
-    resolver: 50         # Simulated motor/resolver RPM
-    steering: 50         # Simulated steering sensor
+    perception: 0      # Simulated perception output
+    imu: 0             # Simulated IMU (free_acceleration, angular_velocity)
+    wheel_speed: 0      # Simulated wheel speed sensors
+    resolver: 0         # Simulated motor/resolver RPM
+    steering: 0         # Simulated steering sensor
   map:
-    ground_truth: 1       # Ground-truth track map
-    simulated_slam: 1      # Simulated SLAM map 
+    ground_truth: 0       # Ground-truth track map
+    simulated_slam: 0      # Simulated SLAM map 
   vehicle_state:
-    pose: 30              # Simulated vehicle pose (slam output)
-    velocities: 30        # Simulated velocities (velocity estimation output)
-    operational_status: 1  # Simulated operational status (contains go_signal and mission)
-  execution_time: 10      # Time taken for each simulation step (ms)
+    pose: 0              # Simulated vehicle pose (slam output)
+    velocities: 0        # Simulated velocities (velocity estimation output)
+    operational_status: 0  # Simulated operational status (contains go_signal and mission)
+  execution_time: 0      # Time taken for each simulation step (ms)

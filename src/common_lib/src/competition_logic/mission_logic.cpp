@@ -5,6 +5,15 @@ std::string get_mission_string(int mission) {
   return MISSION_STRING_MAP.find(static_cast<Mission>(mission))->second;
 }
 
+Mission get_mission_from_string(const std::string& name) {
+  for (const auto& [mission, str] : MISSION_STRING_MAP) {
+    if (str == name) {
+      return mission;
+    }
+  }
+  return Mission::NONE;
+}
+
 bool operator==(const Mission& mission, const int& value) {
   return static_cast<int>(mission) == value;
 }

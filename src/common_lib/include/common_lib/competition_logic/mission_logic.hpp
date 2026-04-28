@@ -34,6 +34,8 @@ const std::map<Mission, std::string> MISSION_STRING_MAP = {{Mission::ACCELERATIO
 
 std::string get_mission_string(int mission);
 
+Mission get_mission_from_string(const std::string& name);
+
 // the message type is not accepted in map - not recognized by std namespace. Cast to identical type
 Mission get_mission_from_eufs(unsigned short eufs_mission);
 const std::unordered_map<unsigned short, Mission> eufs_to_system = {

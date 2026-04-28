@@ -9,6 +9,10 @@
 struct InvictaSimParameters {
   // Global config parameters
   std::string discipline;
+  bool use_simulated_se;
+  bool use_simulated_perception;
+  bool use_simulated_planning;
+  bool use_simulated_velocities;
 
   // Simulator config parameters
   int sim_frequency;

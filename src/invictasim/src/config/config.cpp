@@ -9,7 +9,14 @@ InvictaSimParameters::InvictaSimParameters() {
       common_lib::config_load::get_config_yaml_path("invictasim", "global", "global_config");
   YAML::Node global_config = YAML::LoadFile(global_config_path);
 
+  // Global config
   discipline = global_config["global"]["discipline"].as<std::string>();
+  use_simulated_se = global_config["global"]["use_simulated_se"].as<bool>();
+  use_simulated_perception = global_config["global"]["use_simulated_perception"].as<bool>();
+  use_simulated_planning = global_config["global"]["use_simulated_planning"].as<bool>();
+  use_simulated_velocities = global_config["global"]["use_simulated_velocities"].as<bool>();
+
+  // Invictasim config
   sim_frequency = simulator_config["invictasim"]["sim_frequency"].as<int>();
   track_name = simulator_config["invictasim"]["track_name"].as<std::string>();
   input_adapter = simulator_config["invictasim"]["input_adapter"].as<std::string>();
@@ -21,6 +28,7 @@ InvictaSimParameters::InvictaSimParameters() {
       "invictasim", "invictasim/vehicle_models", vehicle_model);
   YAML::Node vehicle_model_config = YAML::LoadFile(vehicle_model_config_path);
 
+  // Vehicle model config
   tire_model = vehicle_model_config["vehicle_model"]["tire_model"].as<std::string>();
   aero_model = vehicle_model_config["vehicle_model"]["aero_model"].as<std::string>();
   steering_model = vehicle_model_config["vehicle_model"]["steering_model"].as<std::string>();

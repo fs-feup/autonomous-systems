@@ -2,6 +2,9 @@
 
 #include <Eigen/Core>
 
+#include "common_lib/competition_logic/mission_logic.hpp"
+#include "common_lib/structures/cone.hpp"
+#include "common_lib/structures/position.hpp"
 #include "common_lib/structures/wheels.hpp"
 
 /**
@@ -78,9 +81,10 @@ struct InputSnapshot {
  * slam map
  */
 struct MapSnapshot {
-  std::vector<common_lib::structures::Cone> ground_truth;
-  std::vector<common_lib::structures::Cone> simulated_slam_map;
-  std::vector<common_lib::structures::Cone> perception_cones;
+  std::vector<common_lib::structures::Cone> ground_truth = {};
+  std::vector<common_lib::structures::Cone> simulated_slam_map = {};
+  std::vector<common_lib::structures::Cone> perception_cones = {};
+  double perception_exec_time_ms = 0.0;
 };
 
 /**
@@ -100,6 +104,18 @@ struct SensorsSnapshot {
  * used for state estimation / SLAM / planning compatibility topics.
  */
 struct VehicleStateSnapshot {
-  double x = 0.0;
+  // Pose from state_estimation
+  common_lib::structures::Position position = {0.0, 0.0};
+  double yaw = 0.0;
+  std::vector<double> pose_covariance = std::vector<double>(9, 0.0);
+
+  // Velocities from velocity_estimation
+  double velocity_x = 0.0;
+  double velocity_y = 0.0;
+  double yaw_rate = 0.0;
+  std::vector<double> velocity_covariance = std::vector<double>(9, 0.0);
+
+  // Operational status
   bool go_signal = false;
+  common_lib::competition_logic::Mission mission = common_lib::competition_logic::Mission::NONE;
 };

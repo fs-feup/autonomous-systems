@@ -76,23 +76,16 @@ void RosOutputAdapter::run() {}
 void RosOutputAdapter::stop() { running_ = false; }
 
 void RosOutputAdapter::load_publish_frequencies(const std::string& config_file) {
-  YAML::Node config = YAML::LoadFile(config_file);
+  std::string full_path =
+      common_lib::config_load::get_config_yaml_path("invictasim", "invictasim/output", config_file);
+  YAML::Node config = YAML::LoadFile(full_path);
   if (!config["publish_frequencies"]) return;
 
-  // Helper lambda to flatten the nested YAML structure into our single map
-  auto load_group = [&](const std::string& group_name) {
-    if (config["publish_frequencies"][group_name]) {
-      for (const auto& item : config["publish_frequencies"][group_name].items()) {
-        topic_frequencies_[item.first.as<std::string>()] = item.second.as<int>();
-      }
-    }
-  };
-
-  load_group("vehicle_model");
-  load_group("visualization");
-  load_group("sensors");
-  load_group("map");
-  load_group("vehicle_state");
+  load_group_from_yaml(config, "vehicle_model");
+  load_group_from_yaml(config, "visualization");
+  load_group_from_yaml(config, "sensors");
+  load_group_from_yaml(config, "map");
+  load_group_from_yaml(config, "vehicle_state");
 
   if (config["publish_frequencies"]["execution_time"]) {
     topic_frequencies_["execution_time"] =
@@ -104,49 +97,61 @@ void RosOutputAdapter::load_publish_frequencies(const std::string& config_file) 
 }
 
 void RosOutputAdapter::map_callbacks() {
-  // Helper lambda to register a publisher function to its configured frequency
-  auto register_pub = [&](const std::string& topic, std::function<void()> func) {
-    if (topic_frequencies_.count(topic) && topic_frequencies_[topic] > 0) {
-      frequency_callbacks_[topic_frequencies_[topic]].push_back(func);
-    }
-  };
-
-  // --- Vehicle Model ---
-  register_pub("tire", [this]() { publish_vm_tire(); });
-  register_pub("motor", [this]() { publish_vm_motor(); });
-  register_pub("battery", [this]() { publish_vm_battery(); });
-  register_pub("transmission", [this]() { publish_vm_transmission(); });
-  register_pub("aero", [this]() { publish_vm_aero(); });
-  register_pub("status", [this]() {
+  // Vehicle model
+  register_pub_helper("tire", [this]() { publish_vm_tire(); });
+  register_pub_helper("motor", [this]() { publish_vm_motor(); });
+  register_pub_helper("battery", [this]() { publish_vm_battery(); });
+  register_pub_helper("transmission", [this]() { publish_vm_transmission(); });
+  register_pub_helper("aero", [this]() { publish_vm_aero(); });
+  register_pub_helper("status", [this]() {
     publish_vm_status();
     publish_input();
   });
 
-  // --- Visualization ---
-  register_pub("car", [this]() { publish_visualization_car(); });
-  register_pub("ground", [this]() { publish_visualization_ground(); });
-  register_pub("ground_truth_cones", [this]() { publish_visualization_gt_cones(); });
-  register_pub("slam_cones", [this]() { publish_visualization_slam_cones(); });
-  register_pub("perception_cones", [this]() { publish_visualization_perception_cones(); });
+  // Visualization
+  register_pub_helper("car", [this]() { publish_visualization_car(); });
+  register_pub_helper("ground", [this]() { publish_visualization_ground(); });
+  register_pub_helper("ground_truth_cones", [this]() { publish_visualization_gt_cones(); });
+  register_pub_helper("slam_cones", [this]() { publish_visualization_slam_cones(); });
+  register_pub_helper("perception_cones", [this]() { publish_visualization_perception_cones(); });
 
-  // --- Sensors ---
-  register_pub("imu", [this]() { publish_sensors_imu(); });
-  register_pub("wheel_speed", [this]() { publish_sensors_wheel_speed(); });
-  register_pub("resolver", [this]() { publish_sensors_resolver(); });
-  register_pub("steering", [this]() { publish_sensors_steering(); });
-  register_pub("perception", [this]() { publish_perception_cones(); });
+  // Sensors
+  register_pub_helper("imu", [this]() { publish_sensors_imu(); });
+  register_pub_helper("wheel_speed", [this]() { publish_sensors_wheel_speed(); });
+  register_pub_helper("resolver", [this]() { publish_sensors_resolver(); });
+  register_pub_helper("steering", [this]() { publish_sensors_steering(); });
 
-  // --- Map ---
-  register_pub("ground_truth", [this]() { publish_map_ground_truth(); });
-  register_pub("simulated_slam", [this]() { publish_state_estimation_map(); });
+  // Map + Perception cones
+  register_pub_helper("ground_truth", [this]() { publish_map_ground_truth(); });
+  register_pub_helper("simulated_slam", [this]() { publish_state_estimation_map(); });
+  register_pub_helper("perception", [this]() { publish_perception_cones(); });
 
-  // --- Vehicle State ---
-  register_pub("pose", [this]() { publish_state_estimation_pose(); });
-  register_pub("velocities", [this]() { publish_state_estimation_velocities(); });
-  register_pub("operational_status", [this]() { publish_operational_status(); });
+  // Vehicle state
+  register_pub_helper("pose", [this]() { publish_state_estimation_pose(); });
+  register_pub_helper("velocities", [this]() { publish_state_estimation_velocities(); });
+  register_pub_helper("operational_status", [this]() { publish_operational_status(); });
 
-  // --- Execution Times ---
-  register_pub("execution_time", [this]() { publish_execution_time(); });
+  // Exec times
+  register_pub_helper("execution_time", [this]() { publish_execution_time(); });
+}
+
+void RosOutputAdapter::load_group_from_yaml(const YAML::Node& config,
+                                            const std::string& group_name) {
+  const YAML::Node& group_node = config["publish_frequencies"][group_name];
+  if (group_node && group_node.IsMap()) {
+    for (const auto& node : group_node) {
+      std::string topic_key = node.first.as<std::string>();
+      int frequency = node.second.as<int>();
+
+      topic_frequencies_[topic_key] = frequency;
+    }
+  }
+}
+
+void RosOutputAdapter::register_pub_helper(const std::string& topic, std::function<void()> func) {
+  if (topic_frequencies_.count(topic) && topic_frequencies_[topic] > 0) {
+    frequency_callbacks_[topic_frequencies_[topic]].push_back(func);
+  }
 }
 
 void RosOutputAdapter::setup_timers() {
@@ -184,45 +189,72 @@ void RosOutputAdapter::refresh_execution_times_snapshot() {
 }
 
 void RosOutputAdapter::refresh_map_snapshot() {
-  // Placeholder for map snapshot refresh logic
+  map_snapshot_cache_ = simulator_->get_map_snapshot();
 }
 
 void RosOutputAdapter::refresh_sensors_snapshot() {
-  // Placeholder for sensors snapshot refresh logic
+  sensors_snapshot_cache_ = simulator_->get_sensors_snapshot();
 }
 
 void RosOutputAdapter::refresh_vehicle_state_snapshot() {
-  // Placeholder for vehicle state snapshot refresh logic
+  vehicle_state_snapshot_cache_ = simulator_->get_vehicle_state_snapshot();
 }
 
 void RosOutputAdapter::publish_sensors_imu() {
   rclcpp::Time stamp = this->now();
-  // Publish free acceleration
-  // Publish angular velocity
+
+  geometry_msgs::msg::Vector3Stamped free_accel_msg;
+  free_accel_msg.header.stamp = stamp;
+  free_accel_msg.header.frame_id = "base_link";
+  free_accel_msg.vector.x = sensors_snapshot_cache_.free_acceleration.x();
+  free_accel_msg.vector.y = sensors_snapshot_cache_.free_acceleration.y();
+  free_accel_msg.vector.z = sensors_snapshot_cache_.free_acceleration.z();
+  free_accel_pub_->publish(free_accel_msg);
+
+  geometry_msgs::msg::Vector3Stamped angular_vel_msg;
+  angular_vel_msg.header.stamp = stamp;
+  angular_vel_msg.header.frame_id = "base_link";
+  angular_vel_msg.vector.x = sensors_snapshot_cache_.angular_velocity.x();
+  angular_vel_msg.vector.y = sensors_snapshot_cache_.angular_velocity.y();
+  angular_vel_msg.vector.z = sensors_snapshot_cache_.angular_velocity.z();
+  angular_vel_pub_->publish(angular_vel_msg);
 }
 
 void RosOutputAdapter::publish_sensors_wheel_speed() {
   rclcpp::Time stamp = this->now();
-  // Publish wheel RPMs
+  // Publish wheel RPMs for each wheel
+  custom_interfaces::msg::WheelRPM fl_msg;
+  fl_msg.header.stamp = stamp;
+  fl_msg.header.frame_id = "base_link";
+  fl_msg.fl_rpm = sensors_snapshot_cache_.wheel_rpm.front_left;
+  vehicle_fl_rpm_pub_->publish(fl_msg);
+
+  custom_interfaces::msg::WheelRPM fr_msg = fl_msg;
+  fr_msg.fr_rpm = sensors_snapshot_cache_.wheel_rpm.front_right;
+  vehicle_fr_rpm_pub_->publish(fr_msg);
 }
 
 void RosOutputAdapter::publish_sensors_resolver() {
   rclcpp::Time stamp = this->now();
-  // Publish motor RPM from resolver
+  custom_interfaces::msg::WheelRPM resolver_msg;
+  resolver_msg.header.stamp = stamp;
+  resolver_msg.header.frame_id = "base_link";
+  resolver_msg.rr_rpm =
+      sensors_snapshot_cache_.motor_rpm;  // Using rr_rpm field to publish motor rpm
+  vehicle_motor_rpm_pub_->publish(resolver_msg);
 }
 
 void RosOutputAdapter::publish_sensors_steering() {
   rclcpp::Time stamp = this->now();
-  // Publish steering angle
+  custom_interfaces::msg::SteeringAngle steering_msg;
+  steering_msg.header.stamp = stamp;
+  steering_msg.header.frame_id = "base_link";
+  steering_msg.steering_angle = sensors_snapshot_cache_.steering_angle;
+  steering_pub_->publish(steering_msg);
 }
 
 void RosOutputAdapter::publish_map_ground_truth() {
-  const auto track = simulator_->get_track();
-  if (!track) {
-    return;
-  }
-
-  const auto& cones = track->getTrack();
+  const auto& cones = map_snapshot_cache_.ground_truth;
   custom_interfaces::msg::ConeArray track_msg;
   track_msg.header.stamp = this->now();
   track_msg.header.frame_id = "map";
@@ -242,44 +274,43 @@ void RosOutputAdapter::publish_map_ground_truth() {
 }
 
 void RosOutputAdapter::publish_state_estimation_map() {
-  // Placeholder for SLAM map publishing logic
+  const auto& cones = map_snapshot_cache_.simulated_slam_map;
+  custom_interfaces::msg::ConeArray map_msg;
+  map_msg.header.stamp = this->now();
+  map_msg.header.frame_id = "map";
+  map_msg.cone_array.reserve(cones.size());
+
+  for (const auto& cone : cones) {
+    custom_interfaces::msg::Cone msg;
+    msg.position.x = cone.position.x;
+    msg.position.y = cone.position.y;
+    msg.color = common_lib::competition_logic::get_color_string(cone.color);
+    msg.confidence = cone.certainty;
+    msg.is_large = cone.is_large;
+    map_msg.cone_array.push_back(msg);
+  }
+
+  state_map_pub_->publish(map_msg);
 }
 
 void RosOutputAdapter::publish_perception_cones() {
-  // Placeholder for perception cones publishing logic
-}
-
-void RosOutputAdapter::publish_vehicle_transform() {
-  const rclcpp::Time stamp = this->now();
-
-  geometry_msgs::msg::TransformStamped car_transform;
-  car_transform.header.stamp = stamp;
-  car_transform.header.frame_id = "map";
-  car_transform.child_frame_id = "car";
-  car_transform.transform.translation.x = vehicle_model_snapshot_cache_.x;
-  car_transform.transform.translation.y = vehicle_model_snapshot_cache_.y;
-  car_transform.transform.translation.z = 0.0;
-
-  tf2::Quaternion car_rotation;
-  car_rotation.setRPY(0.0, 0.0, vehicle_model_snapshot_cache_.yaw);
-  car_transform.transform.rotation.x = car_rotation.x();
-  car_transform.transform.rotation.y = car_rotation.y();
-  car_transform.transform.rotation.z = car_rotation.z();
-  car_transform.transform.rotation.w = car_rotation.w();
-
-  tf_broadcaster_->sendTransform(car_transform);
-}
-
-custom_interfaces::msg::WheelScalars RosOutputAdapter::to_wheels_msg(
-    const common_lib::structures::Wheels& wheels, const rclcpp::Time& stamp) const {
-  custom_interfaces::msg::WheelScalars msg;
-  msg.header.stamp = stamp;
-  msg.header.frame_id = "base_link";
-  msg.fl = static_cast<float>(wheels.front_left);
-  msg.fr = static_cast<float>(wheels.front_right);
-  msg.rl = static_cast<float>(wheels.rear_left);
-  msg.rr = static_cast<float>(wheels.rear_right);
-  return msg;
+  const auto& cones = map_snapshot_cache_.perception_cones;
+  custom_interfaces::msg::PerceptionOutput perception_msg;
+  perception_msg.header.stamp = this->now();
+  perception_msg.header.frame_id = "base_link";
+  perception_msg.cones.header = perception_msg.header;
+  perception_msg.cones.cone_array.reserve(cones.size());
+  for (const auto& cone : cones) {
+    custom_interfaces::msg::Cone msg;
+    msg.position.x = cone.position.x;
+    msg.position.y = cone.position.y;
+    msg.color = common_lib::competition_logic::get_color_string(cone.color);
+    msg.confidence = cone.certainty;
+    msg.is_large = cone.is_large;
+    perception_msg.cones.cone_array.push_back(msg);
+  }
+  perception_msg.exec_time = map_snapshot_cache_.perception_exec_time_ms;
+  perception_pub_->publish(perception_msg);
 }
 
 void RosOutputAdapter::publish_vm_tire() {
@@ -412,15 +443,38 @@ void RosOutputAdapter::publish_execution_time() {
 }
 
 void RosOutputAdapter::publish_state_estimation_velocities() {
-  // Placeholder for publishing velocity estimates for state estimation pipeline
+  custom_interfaces::msg::Velocities vel_msg;
+  vel_msg.header.stamp = this->now();
+  vel_msg.header.frame_id = "base_link";
+  vel_msg.velocity_x = vehicle_state_snapshot_cache_.velocity_x;
+  vel_msg.velocity_y = vehicle_state_snapshot_cache_.velocity_y;
+  vel_msg.angular_velocity = vehicle_state_snapshot_cache_.yaw_rate;
+  std::copy(vehicle_state_snapshot_cache_.velocity_covariance.begin(),
+            vehicle_state_snapshot_cache_.velocity_covariance.end(), vel_msg.covariance.begin());
+
+  velocities_pub_->publish(vel_msg);
 }
 
 void RosOutputAdapter::publish_state_estimation_pose() {
-  // Placeholder for publishing pose estimates for state estimation pipeline
+  custom_interfaces::msg::Pose pose_msg;
+  pose_msg.header.stamp = this->now();
+  pose_msg.header.frame_id = "base_link";
+  pose_msg.x = vehicle_state_snapshot_cache_.position.x;
+  pose_msg.y = vehicle_state_snapshot_cache_.position.y;
+  pose_msg.theta = vehicle_state_snapshot_cache_.yaw;
+  std::copy(vehicle_state_snapshot_cache_.pose_covariance.begin(),
+            vehicle_state_snapshot_cache_.pose_covariance.end(), pose_msg.covariance.begin());
+
+  vehicle_pose_pub_->publish(pose_msg);
 }
 
 void RosOutputAdapter::publish_operational_status() {
-  // Placeholder for publishing operational status (e.g., faults, warnings)
+  custom_interfaces::msg::OperationalStatus status_msg;
+  status_msg.header.stamp = this->now();
+  status_msg.header.frame_id = "base_link";
+  status_msg.go_signal = vehicle_state_snapshot_cache_.go_signal;
+  status_msg.as_mission = static_cast<int>(vehicle_state_snapshot_cache_.mission);
+  operational_status_pub_->publish(status_msg);
 }
 
 void RosOutputAdapter::publish_visualization_car() {
@@ -436,9 +490,9 @@ void RosOutputAdapter::publish_visualization_car() {
   }
   visualization_msgs::msg::MarkerArray vehicle_marker_array;
 
-  publish_vehicle_transform();
-  publish_body_marker(vehicle_marker_array, stamp);
-  publish_wheel_markers(vehicle_marker_array, stamp, dt);
+  add_vehicle_transform();
+  add_body_marker(vehicle_marker_array, stamp);
+  add_wheel_markers(vehicle_marker_array, stamp, dt);
 
   visualization_vehicle_pub_->publish(vehicle_marker_array);
 }
@@ -476,31 +530,30 @@ void RosOutputAdapter::publish_visualization_ground() {
 void RosOutputAdapter::publish_visualization_gt_cones() {
   const rclcpp::Time stamp = this->now();
   visualization_msgs::msg::MarkerArray track_marker_array;
-  publish_cone_markers(track_marker_array, stamp);
+  track_marker_array = convert_cone_array_to_markers(map_snapshot_cache_.ground_truth, stamp);
   visualization_gt_cones_pub_->publish(track_marker_array);
 }
 
 void RosOutputAdapter::publish_visualization_slam_cones() {
   const rclcpp::Time stamp = this->now();
   visualization_msgs::msg::MarkerArray map_marker_array;
-  publish_cone_markers(map_marker_array, stamp);
+  map_marker_array = convert_cone_array_to_markers(map_snapshot_cache_.simulated_slam_map, stamp);
   visualization_slam_cones_pub_->publish(map_marker_array);
 }
 
 void RosOutputAdapter::publish_visualization_perception_cones() {
   const rclcpp::Time stamp = this->now();
   visualization_msgs::msg::MarkerArray perception_marker_array;
-  publish_cone_markers(perception_marker_array, stamp);
+  perception_marker_array =
+      convert_cone_array_to_markers(map_snapshot_cache_.perception_cones, stamp);
   visualization_perception_cones_pub_->publish(perception_marker_array);
 }
 
-void RosOutputAdapter::publish_cone_markers(visualization_msgs::msg::MarkerArray& marker_array,
-                                            const rclcpp::Time& stamp) const {
-  auto track_ptr = simulator_->get_track();
-  const auto& cones = track_ptr->getTrack();
-
+visualization_msgs::msg::MarkerArray RosOutputAdapter::convert_cone_array_to_markers(
+    std::vector<common_lib::structures::Cone>& cone_array, const rclcpp::Time& stamp) const {
+  visualization_msgs::msg::MarkerArray marker_array;
   int cone_id = 0;
-  for (const auto& cone : cones) {
+  for (const auto& cone : cone_array) {
     visualization_msgs::msg::Marker m;
     m.header.stamp = stamp;
     m.header.frame_id = "map";
@@ -543,10 +596,11 @@ void RosOutputAdapter::publish_cone_markers(visualization_msgs::msg::MarkerArray
     }
     marker_array.markers.push_back(m);
   }
+  return marker_array;
 }
 
-void RosOutputAdapter::publish_body_marker(visualization_msgs::msg::MarkerArray& marker_array,
-                                           const rclcpp::Time& stamp) const {
+void RosOutputAdapter::add_body_marker(visualization_msgs::msg::MarkerArray& marker_array,
+                                       const rclcpp::Time& stamp) const {
   tf2::Quaternion q_heading;
   q_heading.setRPY(0.0, 0.0, vehicle_model_snapshot_cache_.yaw);
   tf2::Quaternion q_mesh_offset;
@@ -582,8 +636,8 @@ void RosOutputAdapter::publish_body_marker(visualization_msgs::msg::MarkerArray&
   marker_array.markers.push_back(body);
 }
 
-void RosOutputAdapter::publish_wheel_markers(visualization_msgs::msg::MarkerArray& marker_array,
-                                             const rclcpp::Time& stamp, double dt) {
+void RosOutputAdapter::add_wheel_markers(visualization_msgs::msg::MarkerArray& marker_array,
+                                         const rclcpp::Time& stamp, double dt) {
   const auto car_params = simulator_->get_params().car_parameters;
   const double wheel_center_z = car_params->wheel_diameter * 0.5;
   const double long_offset =
@@ -662,4 +716,37 @@ void RosOutputAdapter::publish_wheel_markers(visualization_msgs::msg::MarkerArra
     wheel.mesh_use_embedded_materials = false;
     marker_array.markers.push_back(wheel);
   }
+}
+
+void RosOutputAdapter::add_vehicle_transform() {
+  const rclcpp::Time stamp = this->now();
+
+  geometry_msgs::msg::TransformStamped car_transform;
+  car_transform.header.stamp = stamp;
+  car_transform.header.frame_id = "map";
+  car_transform.child_frame_id = "car";
+  car_transform.transform.translation.x = vehicle_model_snapshot_cache_.x;
+  car_transform.transform.translation.y = vehicle_model_snapshot_cache_.y;
+  car_transform.transform.translation.z = 0.0;
+
+  tf2::Quaternion car_rotation;
+  car_rotation.setRPY(0.0, 0.0, vehicle_model_snapshot_cache_.yaw);
+  car_transform.transform.rotation.x = car_rotation.x();
+  car_transform.transform.rotation.y = car_rotation.y();
+  car_transform.transform.rotation.z = car_rotation.z();
+  car_transform.transform.rotation.w = car_rotation.w();
+
+  tf_broadcaster_->sendTransform(car_transform);
+}
+
+custom_interfaces::msg::WheelScalars RosOutputAdapter::to_wheels_msg(
+    const common_lib::structures::Wheels& wheels, const rclcpp::Time& stamp) const {
+  custom_interfaces::msg::WheelScalars msg;
+  msg.header.stamp = stamp;
+  msg.header.frame_id = "base_link";
+  msg.fl = static_cast<float>(wheels.front_left);
+  msg.fr = static_cast<float>(wheels.front_right);
+  msg.rl = static_cast<float>(wheels.rear_left);
+  msg.rr = static_cast<float>(wheels.rear_right);
+  return msg;
 }
