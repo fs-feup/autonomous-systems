@@ -5,7 +5,7 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator,
     : Node("invictasim_output", rclcpp::NodeOptions().use_global_arguments(false)),
       InvictaSimOutputAdapter(simulator),
       running_(true) {
-  tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(this);
+  // Vehicle model publishers
   tire_forces_pub_ = this->create_publisher<custom_interfaces::msg::TireForces>(
       "invictasim/vehicle_model/tire/forces", 10);
   tire_slip_ratio_pub_ = this->create_publisher<custom_interfaces::msg::WheelScalars>(
@@ -22,6 +22,8 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator,
       "invictasim/vehicle_model/aero", 10);
   status_pub_ = this->create_publisher<custom_interfaces::msg::VehicleStateVector>(
       "invictasim/vehicle_model/status", 10);
+
+  // Input + execution times + map publishers
   input_command_pub_ =
       this->create_publisher<custom_interfaces::msg::ControlCommand>("invictasim/input", 10);
   execution_times_pub_ = this->create_publisher<custom_interfaces::msg::ExecutionTimes>(
@@ -29,17 +31,38 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator,
   map_pub_ = this->create_publisher<custom_interfaces::msg::ConeArray>("invictasim/map", 10);
 
   // Visualization Publishers
+  tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(this);
   visualization_ground_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
       "invictasim/visualization/ground", 10);
   visualization_vehicle_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
       "invictasim/visualization/vehicle", 10);
   visualization_gt_cones_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
       "invictasim/visualization/ground_truth_cones", 10);
-  visualization_slam_cones_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
-      "invictasim/visualization/slam_cones", 10);
-  visualization_perception_cones_pub_ =
-      this->create_publisher<visualization_msgs::msg::MarkerArray>(
-          "invictasim/visualization/perception_cones", 10);
+
+  // Simulated perception publishers
+  if (simulator_->get_params().use_simulated_perception) {
+    visualization_perception_cones_pub_ =
+        this->create_publisher<visualization_msgs::msg::MarkerArray>(
+            "invictasim/visualization/perception_cones", 10);
+    perception_pub_ = this->create_publisher<custom_interfaces::msg::PerceptionOutput>(
+        "invictasim/perception/cones", 10);
+  }
+
+  // Simulated state estimation publishers
+  if (simulator_->get_params().use_simulated_se) {
+    state_map_pub_ = this->create_publisher<custom_interfaces::msg::ConeArray>(
+        "invictasim/state_estimation/map", 10);
+    visualization_slam_cones_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
+        "invictasim/visualization/slam_cones", 10);
+    vehicle_pose_pub_ = this->create_publisher<custom_interfaces::msg::Pose>(
+        "invictasim/state_estimation/vehicle_pose", 10);
+  }
+
+  // Simulated velocities publisher
+  if (simulator_->get_params().use_simulated_velocities) {
+    velocities_pub_ = this->create_publisher<custom_interfaces::msg::Velocities>(
+        "invictasim/state_estimation/velocities", 10);
+  }
 
   // Sensors
   free_accel_pub_ = this->create_publisher<geometry_msgs::msg::Vector3Stamped>(
@@ -55,15 +78,7 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator,
   steering_pub_ = this->create_publisher<custom_interfaces::msg::SteeringAngle>(
       "invictasim/steering_angle_sensor", 10);
 
-  // Pipeline compatibility topics
-  perception_pub_ = this->create_publisher<custom_interfaces::msg::PerceptionOutput>(
-      "invictasim/perception/cones", 10);
-  velocities_pub_ = this->create_publisher<custom_interfaces::msg::Velocities>(
-      "invictasim/state_estimation/velocities", 10);
-  state_map_pub_ = this->create_publisher<custom_interfaces::msg::ConeArray>(
-      "invictasim/state_estimation/map", 10);
-  vehicle_pose_pub_ = this->create_publisher<custom_interfaces::msg::Pose>(
-      "invictasim/state_estimation/vehicle_pose", 10);
+  // Operational status
   operational_status_pub_ = this->create_publisher<custom_interfaces::msg::OperationalStatus>(
       "invictasim/operational_status", 10);
 
@@ -112,8 +127,6 @@ void RosOutputAdapter::map_callbacks() {
   register_pub_helper("car", [this]() { publish_visualization_car(); });
   register_pub_helper("ground", [this]() { publish_visualization_ground(); });
   register_pub_helper("ground_truth_cones", [this]() { publish_visualization_gt_cones(); });
-  register_pub_helper("slam_cones", [this]() { publish_visualization_slam_cones(); });
-  register_pub_helper("perception_cones", [this]() { publish_visualization_perception_cones(); });
 
   // Sensors
   register_pub_helper("imu", [this]() { publish_sensors_imu(); });
@@ -121,18 +134,32 @@ void RosOutputAdapter::map_callbacks() {
   register_pub_helper("resolver", [this]() { publish_sensors_resolver(); });
   register_pub_helper("steering", [this]() { publish_sensors_steering(); });
 
-  // Map + Perception cones
+  // Map
   register_pub_helper("ground_truth", [this]() { publish_map_ground_truth(); });
-  register_pub_helper("simulated_slam", [this]() { publish_state_estimation_map(); });
-  register_pub_helper("perception", [this]() { publish_perception_cones(); });
 
-  // Vehicle state
-  register_pub_helper("pose", [this]() { publish_state_estimation_pose(); });
-  register_pub_helper("velocities", [this]() { publish_state_estimation_velocities(); });
+  // Operational status
   register_pub_helper("operational_status", [this]() { publish_operational_status(); });
 
   // Exec times
   register_pub_helper("execution_time", [this]() { publish_execution_time(); });
+
+  // Simulated state estimation
+  if (simulator_->get_params().use_simulated_se) {
+    register_pub_helper("slam_cones", [this]() { publish_visualization_slam_cones(); });
+    register_pub_helper("simulated_slam", [this]() { publish_state_estimation_map(); });
+    register_pub_helper("pose", [this]() { publish_state_estimation_pose(); });
+  }
+
+  // Simulated perception
+  if (simulator_->get_params().use_simulated_perception) {
+    register_pub_helper("perception_cones", [this]() { publish_perception_cones(); });
+    register_pub_helper("perception_cones", [this]() { publish_visualization_perception_cones(); });
+  }
+
+  // Simulated velocities
+  if (simulator_->get_params().use_simulated_velocities) {
+    register_pub_helper("velocities", [this]() { publish_state_estimation_velocities(); });
+  }
 }
 
 void RosOutputAdapter::load_group_from_yaml(const YAML::Node& config,

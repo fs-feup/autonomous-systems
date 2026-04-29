@@ -6,7 +6,7 @@ publish_frequencies:
     transmission: 10  # Transmission status (torque on each wheel)
     aero: 10          # Aerodynamic status (drag, downforce)
     status: 10        # Overall vehicle status (speed, acceleration, position, yaw, etc.)
-  visualization:
+  visualization:     # Visualization will work at the minimum of this frequencies (excluding 0s)
     car: 30           # Car visualization 
     ground: 30         # Ground visualization 
     ground_truth_cones: 30   # Ground-truth cones visualization
