@@ -10,6 +10,7 @@ set(IMPLEMENTATION_FILES
   src/adapter/pacsim.cpp
   src/adapter/eufs.cpp
   src/adapter/vehicle.cpp
+  src/adapter/invictasim.cpp
   src/lateral_controller/pure_pursuit.cpp
   src/longitudinal_controller/pid.cpp
   src/config/parameters.cpp

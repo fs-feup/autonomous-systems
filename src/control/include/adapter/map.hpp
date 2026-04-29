@@ -5,6 +5,7 @@
 #include <string>
 
 #include "adapter/eufs.hpp"
+#include "adapter/invictasim.hpp"
 #include "adapter/pacsim.hpp"
 #include "adapter/vehicle.hpp"
 #include "ros_node/ros_node.hpp"
@@ -15,14 +16,19 @@
  */
 const std::map<std::string, std::function<std::shared_ptr<ControlNode>(const ControlParameters&)>,
                std::less<>>
-    adapter_map = {{"pacsim",
-                    [](const ControlParameters& params) -> std::shared_ptr<ControlNode> {
-                      return std::make_shared<PacSimAdapter>(params);
-                    }},
-                   {"vehicle",
-                    [](const ControlParameters& params) -> std::shared_ptr<ControlNode> {
-                      return std::make_shared<VehicleAdapter>(params);
-                    }},
-                   {"eufs", [](const ControlParameters& params) -> std::shared_ptr<ControlNode> {
-                      return std::make_shared<EufsAdapter>(params);
-                    }}};
+    adapter_map = {
+        {"pacsim",
+         [](const ControlParameters& params) -> std::shared_ptr<ControlNode> {
+           return std::make_shared<PacSimAdapter>(params);
+         }},
+        {"vehicle",
+         [](const ControlParameters& params) -> std::shared_ptr<ControlNode> {
+           return std::make_shared<VehicleAdapter>(params);
+         }},
+        {"eufs",
+         [](const ControlParameters& params) -> std::shared_ptr<ControlNode> {
+           return std::make_shared<EufsAdapter>(params);
+         }},
+        {"invictasim", [](const ControlParameters& params) -> std::shared_ptr<ControlNode> {
+           return std::make_shared<InvictasimAdapter>(params);
+         }}};
