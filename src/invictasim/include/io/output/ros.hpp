@@ -154,7 +154,7 @@ private:
                        const rclcpp::Time& stamp) const;
   void add_wheel_markers(visualization_msgs::msg::MarkerArray& marker_array,
                          const rclcpp::Time& stamp, double dt);
-  void add_vehicle_transform();
+  void add_vehicle_transform(const rclcpp::Time& stamp);
 
   // ROS publishers
   std::unique_ptr<tf2_ros::TransformBroadcaster>

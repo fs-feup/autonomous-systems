@@ -9,7 +9,7 @@ InvictasimAdapter::InvictasimAdapter(const ControlParameters &params)
           create_publisher<custom_interfaces::msg::ControlCommand>("/control/command", 10)) {
   if (this->params_.using_simulated_slam_) {
     pose_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
-        "/invictasim/state_estimation/pose", 1,
+        "/invictasim/state_estimation/vehicle_pose", 1,
         std::bind(&InvictasimAdapter::pose_callback, this, std::placeholders::_1));
   }
 

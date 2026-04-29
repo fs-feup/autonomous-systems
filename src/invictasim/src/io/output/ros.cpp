@@ -516,7 +516,7 @@ void RosOutputAdapter::publish_operational_status() {
 }
 
 void RosOutputAdapter::publish_visualization_car() {
-  const rclcpp::Time stamp = this->now();
+  const rclcpp::Time stamp = this->now() + rclcpp::Duration::from_seconds(0.005);
   const double stamp_sec = stamp.seconds();
   double dt = 0.0;
   if (last_visualization_stamp_sec_ >= 0.0) {
@@ -528,7 +528,7 @@ void RosOutputAdapter::publish_visualization_car() {
   }
   visualization_msgs::msg::MarkerArray vehicle_marker_array;
 
-  add_vehicle_transform();
+  add_vehicle_transform(stamp);
   add_body_marker(vehicle_marker_array, stamp);
   add_wheel_markers(vehicle_marker_array, stamp, dt);
 
@@ -639,29 +639,26 @@ visualization_msgs::msg::MarkerArray RosOutputAdapter::convert_cone_array_to_mar
 
 void RosOutputAdapter::add_body_marker(visualization_msgs::msg::MarkerArray& marker_array,
                                        const rclcpp::Time& stamp) const {
-  tf2::Quaternion q_heading;
-  q_heading.setRPY(0.0, 0.0, vehicle_model_snapshot_cache_.yaw);
   tf2::Quaternion q_mesh_offset;
   q_mesh_offset.setRPY(-M_PI_2, 0.0, M_PI_2);
-  tf2::Quaternion q_body = q_heading * q_mesh_offset;
-  q_body.normalize();
 
   visualization_msgs::msg::Marker body;
   body.header.stamp = stamp;
-  body.header.frame_id = "map";
+  body.header.frame_id = "car";
   body.ns = "invictasim_vehicle";
   body.id = 0;
   body.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
   body.action = visualization_msgs::msg::Marker::ADD;
-  body.pose.position.x =
-      vehicle_model_snapshot_cache_.x + std::cos(vehicle_model_snapshot_cache_.yaw);
-  body.pose.position.y =
-      vehicle_model_snapshot_cache_.y + std::sin(vehicle_model_snapshot_cache_.yaw);
+
+  body.pose.position.x = 1.0;
+  body.pose.position.y = 0.0;
   body.pose.position.z = 0.0;
-  body.pose.orientation.x = q_body.x();
-  body.pose.orientation.y = q_body.y();
-  body.pose.orientation.z = q_body.z();
-  body.pose.orientation.w = q_body.w();
+
+  body.pose.orientation.x = q_mesh_offset.x();
+  body.pose.orientation.y = q_mesh_offset.y();
+  body.pose.orientation.z = q_mesh_offset.z();
+  body.pose.orientation.w = q_mesh_offset.w();
+
   body.scale.x = 1.0;
   body.scale.y = 1.0;
   body.scale.z = 1.0;
@@ -671,6 +668,7 @@ void RosOutputAdapter::add_body_marker(visualization_msgs::msg::MarkerArray& mar
   body.color.b = 0.1f;
   body.mesh_resource = "package://invictasim/resources/meshes/car_body.stl";
   body.mesh_use_embedded_materials = false;
+
   marker_array.markers.push_back(body);
 }
 
@@ -678,8 +676,7 @@ void RosOutputAdapter::add_wheel_markers(visualization_msgs::msg::MarkerArray& m
                                          const rclcpp::Time& stamp, double dt) {
   const auto car_params = simulator_->get_params().car_parameters;
   const double wheel_center_z = car_params->wheel_diameter * 0.5;
-  const double long_offset =
-      0.15;  // Offset to align the wheel mesh center with the actual wheel center
+  const double long_offset = 0.15;
 
   if (dt > 0.0) {
     const auto wheel_speed = vehicle_model_snapshot_cache_.wheel_speed;
@@ -689,60 +686,53 @@ void RosOutputAdapter::add_wheel_markers(visualization_msgs::msg::MarkerArray& m
     wheel_spin_rr_ += (wheel_speed.rear_right) * dt;
   }
 
-  const double body_x = vehicle_model_snapshot_cache_.x;
-  const double body_y = vehicle_model_snapshot_cache_.y;
-  const double yaw = vehicle_model_snapshot_cache_.yaw;
-  const double c = std::cos(yaw);
-  const double s = std::sin(yaw);
   const double steer = vehicle_model_snapshot_cache_.steering_angle;
 
   const double front_axle_x = car_params->wheelbase - car_params->cg_2_rear_axis + long_offset;
   const double rear_axle_x = -car_params->cg_2_rear_axis + long_offset;
   const double half_track = car_params->track_width * 0.5;
 
-  const double local_x[4] = {
-      front_axle_x,
-      front_axle_x,
-      rear_axle_x,
-      rear_axle_x,
-  };
+  const double local_x[4] = {front_axle_x, front_axle_x, rear_axle_x, rear_axle_x};
   const double local_y[4] = {half_track, -half_track, half_track, -half_track};
   const double steer_angles[4] = {steer, steer, 0.0, 0.0};
   const double spins[4] = {wheel_spin_fl_, wheel_spin_fr_, wheel_spin_rl_, wheel_spin_rr_};
 
   for (int i = 0; i < 4; ++i) {
-    const double world_x = body_x + c * local_x[i] - s * local_y[i];
-    const double world_y = body_y + s * local_x[i] + c * local_y[i];
+    // Rotation logic in the local frame:
+    tf2::Quaternion q_steer;
+    q_steer.setRPY(0.0, 0.0, steer_angles[i]);
 
-    tf2::Quaternion q_heading;
-    q_heading.setRPY(0.0, 0.0, yaw + steer_angles[i]);
     tf2::Quaternion q_spin;
     q_spin.setRPY(0.0, spins[i], 0.0);
+
     tf2::Quaternion q_mesh_offset;
     q_mesh_offset.setRPY(-M_PI_2, 0.0, 0.0);
+
     tf2::Quaternion q_side_offset;
-    if (i == 1 || i == 3) {
-      q_side_offset.setRPY(0.0, 0.0, M_PI);
-    } else {
-      q_side_offset.setRPY(0.0, 0.0, 0.0);
-    }
-    tf2::Quaternion q_wheel = q_heading * q_spin * q_side_offset * q_mesh_offset;
+    q_side_offset.setRPY(0.0, 0.0, (i == 1 || i == 3) ? M_PI : 0.0);
+
+    // Order: apply steering, then wheel spin, then mesh corrections
+    tf2::Quaternion q_wheel = q_steer * q_spin * q_side_offset * q_mesh_offset;
     q_wheel.normalize();
 
     visualization_msgs::msg::Marker wheel;
     wheel.header.stamp = stamp;
-    wheel.header.frame_id = "map";
+    wheel.header.frame_id = "car";  // Locked to the moving car frame
     wheel.ns = "invictasim_vehicle";
     wheel.id = i + 1;
     wheel.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
     wheel.action = visualization_msgs::msg::Marker::ADD;
-    wheel.pose.position.x = world_x;
-    wheel.pose.position.y = world_y;
+
+    // Use pure local offsets
+    wheel.pose.position.x = local_x[i];
+    wheel.pose.position.y = local_y[i];
     wheel.pose.position.z = wheel_center_z;
+
     wheel.pose.orientation.x = q_wheel.x();
     wheel.pose.orientation.y = q_wheel.y();
     wheel.pose.orientation.z = q_wheel.z();
     wheel.pose.orientation.w = q_wheel.w();
+
     wheel.scale.x = 0.01;
     wheel.scale.y = 0.01;
     wheel.scale.z = 0.01;
@@ -752,13 +742,12 @@ void RosOutputAdapter::add_wheel_markers(visualization_msgs::msg::MarkerArray& m
     wheel.color.b = 0.08f;
     wheel.mesh_resource = "package://invictasim/resources/meshes/tire.stl";
     wheel.mesh_use_embedded_materials = false;
+
     marker_array.markers.push_back(wheel);
   }
 }
 
-void RosOutputAdapter::add_vehicle_transform() {
-  const rclcpp::Time stamp = this->now();
-
+void RosOutputAdapter::add_vehicle_transform(const rclcpp::Time& stamp) {
   geometry_msgs::msg::TransformStamped car_transform;
   car_transform.header.stamp = stamp;
   car_transform.header.frame_id = "map";
