@@ -144,6 +144,7 @@ MapSnapshot InvictaSim::build_map_snapshot() const {
   snapshot.simulated_slam_map = track_->get_cones();
   snapshot.perception_cones = track_->get_cones();
   snapshot.perception_exec_time_ms = 0.0;  // Will allow to simualte the perception delay
+  snapshot.lap_counter = 0;                // Placeholder for lap counting logic
   return snapshot;
 }
 

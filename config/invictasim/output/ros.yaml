@@ -20,9 +20,9 @@ publish_frequencies:
     steering: 50         # Simulated steering sensor
   map:
     ground_truth: 0       # Ground-truth track map
-    simulated_slam: 0      # Simulated SLAM map 
+    simulated_slam: 10      # Simulated SLAM map 
   vehicle_state:
-    pose: 0              # Simulated vehicle pose (slam output)
-    velocities: 0        # Simulated velocities (velocity estimation output)
-    operational_status: 0  # Simulated operational status (contains go_signal and mission)
+    pose: 50              # Simulated vehicle pose (slam output)
+    velocities: 50        # Simulated velocities (velocity estimation output)
+    operational_status: 1  # Simulated operational status (contains go_signal and mission)
   execution_time: 0      # Time taken for each simulation step (ms)

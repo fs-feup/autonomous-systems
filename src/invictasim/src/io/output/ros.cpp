@@ -56,6 +56,8 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator,
         "invictasim/visualization/slam_cones", 10);
     vehicle_pose_pub_ = this->create_publisher<custom_interfaces::msg::Pose>(
         "invictasim/state_estimation/vehicle_pose", 10);
+    lap_counter_pub_ = this->create_publisher<std_msgs::msg::Float64>(
+        "invictasim/state_estimation/lap_counter", 10);
   }
 
   // Simulated velocities publisher
@@ -146,7 +148,10 @@ void RosOutputAdapter::map_callbacks() {
   // Simulated state estimation
   if (simulator_->get_params().use_simulated_se) {
     register_pub_helper("slam_cones", [this]() { publish_visualization_slam_cones(); });
-    register_pub_helper("simulated_slam", [this]() { publish_state_estimation_map(); });
+    register_pub_helper("simulated_slam", [this]() {
+      publish_state_estimation_map();
+      publish_state_estimation_lap_counter();
+    });
     register_pub_helper("pose", [this]() { publish_state_estimation_pose(); });
   }
 
@@ -318,6 +323,12 @@ void RosOutputAdapter::publish_state_estimation_map() {
   }
 
   state_map_pub_->publish(map_msg);
+}
+
+void RosOutputAdapter::publish_state_estimation_lap_counter() {
+  std_msgs::msg::Float64 lap_msg;
+  lap_msg.data = static_cast<double>(map_snapshot_cache_.lap_counter);
+  lap_counter_pub_->publish(lap_msg);
 }
 
 void RosOutputAdapter::publish_perception_cones() {

@@ -31,6 +31,7 @@
 #include "geometry_msgs/msg/vector3_stamped.hpp"
 #include "io/output/output_adapter.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/float64.hpp"
 #include "std_msgs/msg/float64_multi_array.hpp"
 #include "tf2/LinearMath/Quaternion.h"
 #include "tf2_ros/transform_broadcaster.h"
@@ -129,6 +130,7 @@ private:
   void publish_map_ground_truth();
   void publish_state_estimation_map();
   void publish_perception_cones();
+  void publish_state_estimation_lap_counter();
 
   // Vehicle state (for state estimation, SLAM, planning pipelines)
   void publish_state_estimation_pose();
@@ -203,4 +205,5 @@ private:
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr state_map_pub_;
   rclcpp::Publisher<custom_interfaces::msg::OperationalStatus>::SharedPtr operational_status_pub_;
   rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr vehicle_pose_pub_;
+  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr lap_counter_pub_;
 };

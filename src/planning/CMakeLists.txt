@@ -51,6 +51,7 @@ set(IMPLEMENTATION_FILES
   src/adapter_planning/fsds.cpp
   src/adapter_planning/pacsim.cpp
   src/adapter_planning/vehicle.cpp
+  src/adapter_planning/invictasim.cpp
   src/planning/path_calculation.cpp
   src/planning/smoothing.cpp
   src/planning/planning.cpp

@@ -85,6 +85,7 @@ struct MapSnapshot {
   std::vector<common_lib::structures::Cone> simulated_slam_map = {};
   std::vector<common_lib::structures::Cone> perception_cones = {};
   double perception_exec_time_ms = 0.0;
+  int lap_counter = 0;
 };
 
 /**

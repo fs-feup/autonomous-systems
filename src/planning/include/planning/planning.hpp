@@ -86,6 +86,7 @@ public:
   friend class EufsAdapter;
   friend class FsdsAdapter;
   friend class VehicleAdapter;
+  friend class InvictaSimAdapter;
 
 private:
   /*--------------------- Mission and Configuration --------------------*/
