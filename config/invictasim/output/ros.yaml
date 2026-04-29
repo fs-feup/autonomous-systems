@@ -14,10 +14,10 @@ publish_frequencies:
     perception_cones: 0    # Perception cones visualization
   sensors:
     perception: 0      # Simulated perception output
-    imu: 0             # Simulated IMU (free_acceleration, angular_velocity)
-    wheel_speed: 0      # Simulated wheel speed sensors
-    resolver: 0         # Simulated motor/resolver RPM
-    steering: 0         # Simulated steering sensor
+    imu: 100             # Simulated IMU (free_acceleration, angular_velocity)
+    wheel_speed: 50      # Simulated wheel speed sensors
+    resolver: 10         # Simulated motor/resolver RPM
+    steering: 50         # Simulated steering sensor
   map:
     ground_truth: 0       # Ground-truth track map
     simulated_slam: 0      # Simulated SLAM map 
