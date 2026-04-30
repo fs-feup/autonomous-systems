@@ -88,7 +88,8 @@ private:
 
   // Topic frequency
   std::unordered_map<std::string, int> topic_frequencies_;
-  std::unordered_map<int, std::vector<std::function<void()>>> frequency_callbacks_;
+  std::unordered_map<int, std::vector<std::function<void(const rclcpp::Time&)>>>
+      frequency_callbacks_;
 
   // Topic frequency setup functions
   void load_publish_frequencies(const std::string& config_file);
@@ -96,7 +97,7 @@ private:
   void setup_timers();
   void on_frequency_tick(int frequency_hz);
   void load_group_from_yaml(const YAML::Node& config, const std::string& group_name);
-  void register_pub_helper(const std::string& topic, std::function<void()> func);
+  void register_pub_helper(const std::string& topic, std::function<void(const rclcpp::Time&)> func);
 
   // Update snapshot caches with latest data from simulator
   void refresh_vehicle_model_snapshot();
@@ -106,42 +107,42 @@ private:
   void refresh_vehicle_state_snapshot();
 
   // Vehicle model
-  void publish_vm_tire();
-  void publish_vm_battery();
-  void publish_vm_motor();
-  void publish_vm_transmission();
-  void publish_vm_aero();
-  void publish_vm_status();
+  void publish_vm_tire(const rclcpp::Time& stamp);
+  void publish_vm_battery(const rclcpp::Time& stamp);
+  void publish_vm_motor(const rclcpp::Time& stamp);
+  void publish_vm_transmission(const rclcpp::Time& stamp);
+  void publish_vm_aero(const rclcpp::Time& stamp);
+  void publish_vm_status(const rclcpp::Time& stamp);
 
   // Visualization
-  void publish_visualization_ground();
-  void publish_visualization_gt_cones();
-  void publish_visualization_slam_cones();
-  void publish_visualization_car();
-  void publish_visualization_perception_cones();
+  void publish_visualization_ground(const rclcpp::Time& stamp);
+  void publish_visualization_gt_cones(const rclcpp::Time& stamp);
+  void publish_visualization_slam_cones(const rclcpp::Time& stamp);
+  void publish_visualization_car(const rclcpp::Time& stamp);
+  void publish_visualization_perception_cones(const rclcpp::Time& stamp);
 
   // Sensors
-  void publish_sensors_imu();
-  void publish_sensors_wheel_speed();
-  void publish_sensors_resolver();
-  void publish_sensors_steering();
+  void publish_sensors_imu(const rclcpp::Time& stamp);
+  void publish_sensors_wheel_speed(const rclcpp::Time& stamp);
+  void publish_sensors_resolver(const rclcpp::Time& stamp);
+  void publish_sensors_steering(const rclcpp::Time& stamp);
 
   // Map
-  void publish_map_ground_truth();
-  void publish_state_estimation_map();
-  void publish_perception_cones();
-  void publish_state_estimation_lap_counter();
+  void publish_map_ground_truth(const rclcpp::Time& stamp);
+  void publish_state_estimation_map(const rclcpp::Time& stamp);
+  void publish_perception_cones(const rclcpp::Time& stamp);
+  void publish_state_estimation_lap_counter(const rclcpp::Time& stamp);
 
   // Vehicle state (for state estimation, SLAM, planning pipelines)
-  void publish_state_estimation_pose();
-  void publish_state_estimation_velocities();
-  void publish_operational_status();
+  void publish_state_estimation_pose(const rclcpp::Time& stamp);
+  void publish_state_estimation_velocities(const rclcpp::Time& stamp);
+  void publish_operational_status(const rclcpp::Time& stamp);
 
   // Execution time
-  void publish_execution_time();
+  void publish_execution_time(const rclcpp::Time& stamp);
 
   // Input commands
-  void publish_input();
+  void publish_input(const rclcpp::Time& stamp);
 
   // Helper functions for message conversions and visualization
   custom_interfaces::msg::WheelScalars to_wheels_msg(const common_lib::structures::Wheels& wheels,
