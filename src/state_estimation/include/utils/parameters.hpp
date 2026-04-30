@@ -23,7 +23,7 @@ struct SEParameters {
   std::string aero_model_name_;            // Choose between different aero models
   std::string steering_model_name_;        // Choose between different steering models
   std::string steering_motor_model_name_;  // Choose between different steering motor models
-  std::string differential_model_name_;    // Choose between different differential models
+  std::string transmission_model_name_;    // Choose between different transmission models
   std::string tire_model_name_;            // Choose between different tire models
 
   double velocity_x_process_noise_;      // Process noise for the velocity x predicted state

@@ -8,7 +8,7 @@ FSFEUP02Model::FSFEUP02Model(const InvictaSimParameters& simulator_parameters)
       simulator_parameters.car_parameters);
   this->battery_ = battery_models_map.at(simulator_parameters.battery_model.c_str())(
       simulator_parameters.car_parameters);
-  this->differential_ = differential_models_map.at(simulator_parameters.differential_model.c_str())(
+  this->transmission_ = transmission_models_map.at(simulator_parameters.transmission_model.c_str())(
       simulator_parameters.car_parameters);
   this->aero_ = aero_models_map.at(simulator_parameters.aero_model.c_str())(
       simulator_parameters.car_parameters);
@@ -30,11 +30,11 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   double motor_torque = calculate_powertrain_torque(throttle_input, dt);
   const auto powertrain_end = Clock::now();
 
-  // Distribute torque to the wheels
-  const auto differential_start = Clock::now();
+  // Apply transmission losses and distribute torque to the wheels
+  const auto transmission_start = Clock::now();
   state_->wheels_torque =
-      differential_->calculateTorqueDistribution(motor_torque, state_->wheels_speed);
-  const auto differential_end = Clock::now();
+      transmission_->calculate_wheel_torques(motor_torque, state_->wheels_speed);
+  const auto transmission_end = Clock::now();
 
   // Aerodynamics
   // based on implementation, this forces are negative by default, so we add them
@@ -73,7 +73,10 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   tire_input.last_slip_ratio =
       Eigen::Vector4d(state_->wheels_slip_ratio.front_left, state_->wheels_slip_ratio.front_right,
                       state_->wheels_slip_ratio.rear_left, state_->wheels_slip_ratio.rear_right);
-  state_->front_left_forces = this->tire_model_->calculateTireForces(tire_input);
+  tire_input.last_slip_angle =
+      Eigen::Vector4d(state_->wheels_slip_angle.front_left, state_->wheels_slip_angle.front_right,
+                      state_->wheels_slip_angle.rear_left, state_->wheels_slip_angle.rear_right);
+  state_->front_left_forces = this->tire_model_->calculate_tire_forces(tire_input);
   state_->wheels_slip_ratio.front_left = tire_input.slip_ratio;
   state_->wheels_slip_angle.front_left = tire_input.slip_angle;
 
@@ -84,7 +87,10 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   tire_input.last_slip_ratio =
       Eigen::Vector4d(state_->wheels_slip_ratio.front_left, state_->wheels_slip_ratio.front_right,
                       state_->wheels_slip_ratio.rear_left, state_->wheels_slip_ratio.rear_right);
-  state_->front_right_forces = this->tire_model_->calculateTireForces(tire_input);
+  tire_input.last_slip_angle =
+      Eigen::Vector4d(state_->wheels_slip_angle.front_left, state_->wheels_slip_angle.front_right,
+                      state_->wheels_slip_angle.rear_left, state_->wheels_slip_angle.rear_right);
+  state_->front_right_forces = this->tire_model_->calculate_tire_forces(tire_input);
   state_->wheels_slip_ratio.front_right = tire_input.slip_ratio;
   state_->wheels_slip_angle.front_right = tire_input.slip_angle;
 
@@ -95,7 +101,10 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   tire_input.last_slip_ratio =
       Eigen::Vector4d(state_->wheels_slip_ratio.front_left, state_->wheels_slip_ratio.front_right,
                       state_->wheels_slip_ratio.rear_left, state_->wheels_slip_ratio.rear_right);
-  state_->rear_left_forces = this->tire_model_->calculateTireForces(tire_input);
+  tire_input.last_slip_angle =
+      Eigen::Vector4d(state_->wheels_slip_angle.front_left, state_->wheels_slip_angle.front_right,
+                      state_->wheels_slip_angle.rear_left, state_->wheels_slip_angle.rear_right);
+  state_->rear_left_forces = this->tire_model_->calculate_tire_forces(tire_input);
   state_->wheels_slip_ratio.rear_left = tire_input.slip_ratio;
   state_->wheels_slip_angle.rear_left = tire_input.slip_angle;
 
@@ -105,52 +114,54 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   tire_input.last_slip_ratio =
       Eigen::Vector4d(state_->wheels_slip_ratio.front_left, state_->wheels_slip_ratio.front_right,
                       state_->wheels_slip_ratio.rear_left, state_->wheels_slip_ratio.rear_right);
-  state_->rear_right_forces = this->tire_model_->calculateTireForces(tire_input);
+  tire_input.last_slip_angle =
+      Eigen::Vector4d(state_->wheels_slip_angle.front_left, state_->wheels_slip_angle.front_right,
+                      state_->wheels_slip_angle.rear_left, state_->wheels_slip_angle.rear_right);
+  state_->rear_right_forces = this->tire_model_->calculate_tire_forces(tire_input);
   state_->wheels_slip_ratio.rear_right = tire_input.slip_ratio;
   state_->wheels_slip_angle.rear_right = tire_input.slip_angle;
-
-  // Low-speed lateral force scaling
-  double v_total = std::sqrt(state_->vx * state_->vx + state_->vy * state_->vy);
-  double low_speed_factor = std::min(1.0, v_total / 1.0);  // fully active above 1 m/s
-                                                           /**
-                                                            state_->front_left_forces[1] *= low_speed_factor;
-                                                            state_->front_right_forces[1] *= low_speed_factor;
-                                                            state_->rear_left_forces[1] *= low_speed_factor;
-                                                            state_->rear_right_forces[1] *= low_speed_factor;
-                                                            state_->front_left_forces[2] *= low_speed_factor;
-                                                            state_->front_right_forces[2] *= low_speed_factor;
-                                                            state_->rear_left_forces[2] *= low_speed_factor;
-                                                            state_->rear_right_forces[2] *= low_speed_factor;
-                                                            */
   const auto tire_end = Clock::now();
 
   // Update wheel speeds
-  // Net torque = drive - tire_reaction (F * r acts as a braking moment on the wheel)
+  double R = car_parameters_->tire_parameters->effective_tire_r;
+  double I = car_parameters_->tire_parameters->wheel_inertia;
+
+  // Activation function for smooth rolling resistance at low speeds
+  double sign_rl = 2.0 / M_PI * std::atan(10.0 * state_->wheels_speed.rear_left);
+  double sign_rr = 2.0 / M_PI * std::atan(10.0 * state_->wheels_speed.rear_right);
+  double sign_fl = 2.0 / M_PI * std::atan(10.0 * state_->wheels_speed.front_left);
+  double sign_fr = 2.0 / M_PI * std::atan(10.0 * state_->wheels_speed.front_right);
+
+  // Rear Wheels: Input Torque (Contains transmission losses) - Tire Reaction - Rolling Resistance
   state_->wheels_speed.rear_left +=
-      ((state_->wheels_torque.rear_left -
-        state_->rear_left_forces[0] * car_parameters_->tire_parameters->effective_tire_r) /
-       car_parameters_->tire_parameters->wheel_inertia) *
+      ((state_->wheels_torque.rear_left - (state_->rear_left_forces[0] * R) -
+        (std::abs(state_->rear_left_forces[2]) * sign_rl)) /
+       I) *
       dt;
 
   state_->wheels_speed.rear_right +=
-      ((state_->wheels_torque.rear_right -
-        state_->rear_right_forces[0] * car_parameters_->tire_parameters->effective_tire_r) /
-       car_parameters_->tire_parameters->wheel_inertia) *
+      ((state_->wheels_torque.rear_right - (state_->rear_right_forces[0] * R) -
+        (std::abs(state_->rear_right_forces[2]) * sign_rr)) /
+       I) *
       dt;
 
-  // front wheels are unpowered, only tire reaction
+  // Front Wheels: Tire Reaction - Bearing Drag - Rolling Resistance
   state_->wheels_speed.front_left +=
-      ((-state_->front_left_forces[0] * car_parameters_->tire_parameters->effective_tire_r) /
-       car_parameters_->tire_parameters->wheel_inertia) *
+      ((-(state_->front_left_forces[0] * R) -
+        (car_parameters_->front_bearing_drag * state_->wheels_speed.front_left) -
+        (std::abs(state_->front_left_forces[2]) * sign_fl)) /
+       I) *
       dt;
+
   state_->wheels_speed.front_right +=
-      ((-state_->front_right_forces[0] * car_parameters_->tire_parameters->effective_tire_r) /
-       car_parameters_->tire_parameters->wheel_inertia) *
+      ((-(state_->front_right_forces[0] * R) -
+        (car_parameters_->front_bearing_drag * state_->wheels_speed.front_right) -
+        (std::abs(state_->front_right_forces[2]) * sign_fr)) /
+       I) *
       dt;
 
   // Vehicle State Update
   // Sum of all forces normalized to the vehicle coordinate system
-  double alpha = 1;  // Tune between 0 and 1
   double Fx_fl = state_->front_left_forces[0] * cos(actual_steering_fl) -
                  state_->front_left_forces[1] * sin(actual_steering_fl);
   double Fy_fl = state_->front_left_forces[0] * sin(actual_steering_fl) +
@@ -165,15 +176,30 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
       Fy_fl + Fy_fr + state_->rear_left_forces[1] + state_->rear_right_forces[1] + aero_forces[1];
   state_->total_force_x = total_fx;
   state_->total_force_y = total_fy;
-  double final_fx = total_fx;
 
   // Update accelerations
-  state_->ax = final_fx / car_parameters_->total_mass + state_->vy * state_->yaw_rate;
+  state_->ax = total_fx / car_parameters_->total_mass + state_->vy * state_->yaw_rate;
   state_->ay = total_fy / car_parameters_->total_mass - state_->vx * state_->yaw_rate;
 
   // Update velocities
   state_->vx += state_->ax * dt;
   state_->vy += state_->ay * dt;
+
+  // Prevent oscillations at very low speeds by forcing a dead stop
+  double speed = std::sqrt(state_->vx * state_->vx + state_->vy * state_->vy);
+  if (speed < 0.05 && std::abs(throttle_input) < 0.01) {
+    state_->vx = 0.0;
+    state_->vy = 0.0;
+    state_->ax = 0.0;
+    state_->ay = 0.0;
+    state_->yaw_rate = 0.0;
+    state_->wheels_speed.front_left = 0.0;
+    state_->wheels_speed.front_right = 0.0;
+    state_->wheels_speed.rear_left = 0.0;
+    state_->wheels_speed.rear_right = 0.0;
+    state_->wheels_slip_ratio = {0.0, 0.0, 0.0, 0.0};
+    state_->wheels_slip_angle = {0.0, 0.0, 0.0, 0.0};
+  }
 
   double lr = car_parameters_->cg_2_rear_axis;  // Distance from CG to rear axle
   double lf = car_parameters_->wheelbase - lr;  // Distance from CG to front axle
@@ -185,18 +211,14 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   state_->moment_fy = moment_fy;
 
   // 2. Moment from Longitudinal Forces (Fx)
-  // Right side pushing forward (+) and Left side pushing forward (-) creates yaw
-  //   double moment_fx =
-  //       (Fx_fr + rear_right_forces[0]) * half_width - (Fx_fl + rear_left_forces[0]) *
-  //       half_width;
   double moment_fx =
       (Fx_fr - Fx_fl) * half_width                                                  // front axle
       + (state_->rear_right_forces[0] - state_->rear_left_forces[0]) * half_width;  // rear axle
   state_->moment_fx = moment_fx;
 
   // 3. Self-Aligning Moments (Mz) from the tires themselves
-  double total_mz = state_->front_left_forces[2] + state_->front_right_forces[2] +
-                    state_->rear_left_forces[2] + state_->rear_right_forces[2];
+  double total_mz = state_->front_left_forces[3] + state_->front_right_forces[3] +
+                    state_->rear_left_forces[3] + state_->rear_right_forces[3];
   state_->self_aligning_moment = total_mz;
 
   double total_torque = moment_fy + moment_fx + total_mz;
@@ -205,7 +227,6 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   // Update yaw
   double yaw_a = total_torque / car_parameters_->Izz;
   state_->yaw_rate += yaw_a * dt;
-
   state_->yaw += state_->yaw_rate * dt;
 
   // Keep yaw within [-pi, pi]
@@ -231,8 +252,8 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   // Per-subsystem execution times in milliseconds.
   execution_times_->powertrain_ms =
       std::chrono::duration<double, std::milli>(powertrain_end - powertrain_start).count();
-  execution_times_->differential_ms =
-      std::chrono::duration<double, std::milli>(differential_end - differential_start).count();
+  execution_times_->transmission_ms =
+      std::chrono::duration<double, std::milli>(transmission_end - transmission_start).count();
   execution_times_->aero_ms =
       std::chrono::duration<double, std::milli>(aero_end - aero_start).count();
   execution_times_->steering_ms =
@@ -261,10 +282,10 @@ void FSFEUP02Model::reset() {
   state_->wheels_vertical_load = {0.0, 0.0, 0.0, 0.0};
   state_->wheels_slip_ratio = {0.0, 0.0, 0.0, 0.0};
   state_->wheels_slip_angle = {0.0, 0.0, 0.0, 0.0};
-  state_->front_left_forces = {0.0, 0.0, 0.0};
-  state_->front_right_forces = {0.0, 0.0, 0.0};
-  state_->rear_left_forces = {0.0, 0.0, 0.0};
-  state_->rear_right_forces = {0.0, 0.0, 0.0};
+  state_->front_left_forces = {0.0, 0.0, 0.0, 0.0};
+  state_->front_right_forces = {0.0, 0.0, 0.0, 0.0};
+  state_->rear_left_forces = {0.0, 0.0, 0.0, 0.0};
+  state_->rear_right_forces = {0.0, 0.0, 0.0, 0.0};
   state_->aero_drag = 0.0;
   state_->aero_downforce = 0.0;
   state_->motor_torque = 0.0;
@@ -288,10 +309,8 @@ void FSFEUP02Model::reset() {
 std::string FSFEUP02Model::get_model_name() const { return "FSFEUP02Model"; }
 
 double FSFEUP02Model::calculate_powertrain_torque(double throttle_input, double dt) {
-  double avg_wheel_speed =
-      (state_->wheels_speed.rear_left + state_->wheels_speed.rear_right) / 2.0f;
-  double motor_omega = avg_wheel_speed * car_parameters_->gear_ratio;
-  double motor_rpm = (motor_omega * 60.0f / (2.0f * M_PI));
+  double motor_omega = transmission_->calculate_motor_omega(state_->wheels_speed);
+  double motor_rpm = std::abs(motor_omega * 60.0f / (2.0f * M_PI));
 
   // Calculate Max Torque at current RPM
   double max_motor_torque = motor_->get_max_torque_at_rpm(motor_rpm);
@@ -300,9 +319,9 @@ double FSFEUP02Model::calculate_powertrain_torque(double throttle_input, double 
   // Motor Efficiency at this state
   double motor_efficiency = motor_->get_efficiency(std::abs(reference_motor_torque), motor_rpm);
 
-  // Corresponding Current Request for the desired torque, always positive
+  // Preserve current sign so regen charges the battery.
   double requested_motor_current =
-      std::abs(reference_motor_torque) /
+      reference_motor_torque /
       (car_parameters_->motor_parameters->kt_constant * std::max(motor_efficiency, 0.05));
 
   // Calculate the allowed current from the battery
@@ -311,11 +330,6 @@ double FSFEUP02Model::calculate_powertrain_torque(double throttle_input, double 
   // Actual motor torque limited by the battery
   double actual_motor_torque =
       allowed_motor_current * car_parameters_->motor_parameters->kt_constant * motor_efficiency;
-
-  // Restore the sign of the torque
-  if (reference_motor_torque < 0) {
-    actual_motor_torque *= -1.0f;
-  }
 
   battery_->update_state(allowed_motor_current, dt);
   motor_->update_state(allowed_motor_current, actual_motor_torque, dt);

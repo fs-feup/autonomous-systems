@@ -24,6 +24,7 @@ struct InternalValues {
   double Kya;
   double Kya_prime;
   double Vcx;
+  double longitudinal_direction = 1.0;
   double LMUY_prime;
   double SVyg;
   double alpha_star;
@@ -50,10 +51,7 @@ public:
   explicit PacejkaMF6_2(const common_lib::car_parameters::CarParameters& car_parameters)
       : TireModel(car_parameters){};
 
-  // Esta definição é precisa para que ele compile, tens de mudar isto para o que for preciso como
-  // input e mudar o base model, não sei muito bem como conciliar este com o pacejka_combined_slip,
-  // mas o ideal é que ambos usem a mesma interface
-  Eigen::Vector3d tire_forces(const TireInput& tire_input) override;
+  Eigen::Vector4d tire_forces(const TireInput& tire_input) override;
 
 private:
   InternalValues internal_vals;
@@ -63,14 +61,14 @@ private:
    *
    * @return double Shift
    */
-  double calculateSHx() const;
+  double calculate_SHx() const;
 
   /**
    * @brief Calculates the shift for the slip angle calculation
    *
    * @return double Shift
    */
-  double calculateSHy() const;
+  double calculate_SHy() const;
 
   /**
    * @brief Uses the pacejka magic formula to calculate either Fx or Fy depending on the input
@@ -84,8 +82,8 @@ private:
    * @param SV Vertical Shift
    * @return double Either Fx or Fy depeding on inputs
    */
-  double calculatePureSlip(double B, double C, double D, double E, double shifted_slip,
-                           double SV) const;
+  double calculate_pure_slip(double B, double C, double D, double E, double shifted_slip,
+                             double SV) const;
 
   /**
    * @brief Intermediate function that calculates all the internal values needed for future
@@ -101,46 +99,45 @@ private:
    * @param steering_angle Steering angle
    * @param distance_to_CG Distance from the wheel to the center of gravity
    * @param camber_angle Camber angle
-   * @return true Successful calculation of internal values
    */
-  bool calculateTireState(double slip_angle, double slip_ratio, double vertical_load, double vx,
-                          double vy, double yaw_rate, double wheel_angular_speed,
-                          double steering_angle, double distance_to_CG, double camber_angle);
+  void calculate_tire_state(double slip_angle, double slip_ratio, double vertical_load, double vx,
+                            double vy, double yaw_rate, double wheel_angular_speed,
+                            double steering_angle, double distance_to_CG, double camber_angle);
 
   /**
    * @brief Calculates the D parameter for the Fy calculation using pacejka MF (Peak)
    *
    * @return double The value of Dy
    */
-  double calculateDy(double vertical_load) const;
+  double calculate_Dy(double vertical_load) const;
 
-  double calculateDx(double vertical_load) const;
+  double calculate_Dx(double vertical_load) const;
 
-  double calculateCy(double vertical_load) const;
+  double calculate_Cy(double vertical_load) const;
   /**
 
    * @brief Calculates the C component for the pure longitudinal slip (4.E11)
    *
    * @return double value of Cx
    */
-  double calculateCx(double vertical_load) const;
+  double calculate_Cx(double vertical_load) const;
 
-  double calculateBx(double Dx, double Cx) const;
+  double calculate_Bx(double Dx, double Cx) const;
 
-  double calculateBy(double Dy, double Cy) const;
+  double calculate_By(double Dy, double Cy) const;
 
-  double calculateEy(double slip_angle) const;
+  double calculate_Ey(double slip_angle) const;
   /**
    * @brief Calculates the E component for the longitudinal slip
    *
    * @param shifted_slip_ratio The already shited slip ratio (kappax)
    * @return double Value of Ex
    */
-  double calculateEx(double shifted_slip_ratio) const;
+  double calculate_Ex(double shifted_slip_ratio) const;
 
-  double calculateSVy(double vertical_load) const;
+  double calculate_SVy(double vertical_load) const;
 
-  double calculateSVx(double vertical_load) const;
+  double calculate_SVx(double vertical_load) const;
 
   /**
    * @brief Calculates Fx using combined slip
@@ -149,7 +146,7 @@ private:
    * @param slip_ratio Slip ratio (kappa)
    * @return double Fx using combined slip
    */
-  double calculateCombinedLongitudinal(double Fx0, double slip_ratio) const;
+  double calculate_combined_longitudinal(double Fx0, double slip_ratio) const;
 
   /**
    * @brief Calculates Fy using combined slip
@@ -160,8 +157,8 @@ private:
    * @param vertical_load Fz
    * @return double Fy using combined slip
    */
-  double calculateCombinedLateral(double Fy0, double shifted_slip_ratio, double slip_ratio,
-                                  double vertical_load) const;
+  double calculate_combined_lateral(double Fy0, double shifted_slip_ratio, double slip_ratio,
+                                    double vertical_load) const;
 
   /**
    * @brief [!NOT USED] Calculates the aligning moment without using combined slip
@@ -174,8 +171,8 @@ private:
    * @param Cy C component for slip angle
    * @return double Self aligning moment without using combined slip
    */
-  double calculatePureMoment(double Fy0, double normal_load, double SHy, double SVy, double By,
-                             double Cy, double vx) const;
+  double calculate_pure_moment(double Fy0, double normal_load, double SHy, double SVy, double By,
+                               double Cy, double longitudinal_velocity) const;
 
   /**
    * @brief Calculates the aligning moment using combined slip.
@@ -189,24 +186,27 @@ private:
    * @param Cy C component for slip angle
    * @return double Self aligning moment using combined slip
    */
-  double calculateCombinedMoment(double Fx, double Fy, double slip_ratio, double SHy, double SVy,
-                                 double By, double Cy, double vx, double normal_load) const;
+  double calculate_combined_moment(double Fx, double Fy, double slip_ratio, double SHy, double SVy,
+                                   double By, double Cy, double longitudinal_velocity,
+                                   double normal_load) const;
 
-private:
-  double calculateZeta1(double slip_ratio) const;
-
-  double calculateZeta2(double slip_angle) const;
-
-  double calculateZeta3() const;
-
-  double calculateSHyp(double camber_angle) const;
-
-  double calculateSVyk(double vertical_load, double slip_ratio) const;
   /**
-   * @brief Auxiliary function that returns the sign of a value
+   * @brief Calculates the rolling resistance moment using the longitudinal slip and vertical load
    *
-   * @param val The value
-   * @return int 1 or -1
+   * @param vertical_load Vertical load on the tire (Fz)
+   * @param Fx Longitudinal force on the tire
+   * @param vx Longitudinal velocity of the tire
+   * @return double Rolling resistance moment
    */
-  static int sign(double val) { return (val > 0) ? 1 : -1; }
+  double calculate_rolling_resistance_moment(double vertical_load, double Fx, double vx) const;
+
+  double calculate_Zeta1(double slip_ratio) const;
+
+  double calculate_Zeta2(double slip_angle) const;
+
+  double calculate_Zeta3() const;
+
+  double calculate_SHyp(double camber_angle) const;
+
+  double calculate_SVyk(double vertical_load, double slip_ratio) const;
 };

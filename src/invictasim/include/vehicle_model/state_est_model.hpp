@@ -4,12 +4,12 @@
 
 #include "motion_lib/aero_model/map.hpp"
 #include "motion_lib/battery_model/map.hpp"
-#include "motion_lib/differential_model/map.hpp"
 #include "motion_lib/load_transfer_model/map.hpp"
 #include "motion_lib/motor_model/map.hpp"
 #include "motion_lib/steering_model/map.hpp"
 #include "motion_lib/steering_motor_model/map.hpp"
 #include "motion_lib/tire_model/map.hpp"
+#include "motion_lib/transmission_model/map.hpp"
 #include "vehicle_model/vehicle_model.hpp"
 
 /**
@@ -49,7 +49,7 @@ private:
   std::shared_ptr<MotorModel> motor_;
   std::shared_ptr<BatteryModel> battery_;
   std::shared_ptr<SteeringMotorModel> steering_motor_;
-  std::shared_ptr<DifferentialModel> differential_;
+  std::shared_ptr<TransmissionModel> transmission_;
   std::shared_ptr<AeroModel> aero_;
   std::shared_ptr<LoadTransferModel> load_transfer_;
   std::shared_ptr<SteeringModel> steering_;

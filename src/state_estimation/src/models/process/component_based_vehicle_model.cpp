@@ -3,8 +3,8 @@
 ComponentBasedVehicleModel::ComponentBasedVehicleModel(
     const std::shared_ptr<SEParameters>& parameters)
     : ProcessModel(parameters) {
-  this->differential_model_ =
-      differential_models_map.at(parameters->differential_model_name_)(parameters->car_parameters_);
+  this->transmission_model_ =
+      transmission_models_map.at(parameters->transmission_model_name_)(parameters->car_parameters_);
   this->load_transfer_model_ = load_transfer_models_map.at(parameters->load_transfer_model_name_)(
       parameters->car_parameters_);
   this->aero_model_ = aero_models_map.at(parameters->aero_model_name_)(parameters->car_parameters_);
@@ -22,7 +22,7 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
   double throttle_input =
       control_command.throttle_rl * parameters_->car_parameters_->motor_parameters->max_peak_torque;
 
-  // Calculate torque distribution using the differential model
+  // Calculate torque distribution using the transmission model
   common_lib::structures::Wheels wheel_speeds;
   wheel_speeds.front_left = state(FL_WHEEL_SPEED);
   wheel_speeds.front_right = state(FR_WHEEL_SPEED);
@@ -30,7 +30,7 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
   wheel_speeds.rear_right = state(RR_WHEEL_SPEED);
 
   common_lib::structures::Wheels torques_struct =
-      differential_model_->calculateTorqueDistribution(throttle_input, wheel_speeds);
+      transmission_model_->calculate_wheel_torques(throttle_input, wheel_speeds);
   Eigen::Vector4d torques(torques_struct.front_left, torques_struct.front_right,
                           torques_struct.rear_left, torques_struct.rear_right);
 
@@ -53,7 +53,7 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
 
   // TIRE MODEL
   TireInput tire_input;
-  Eigen::VectorXd tire_forces = Eigen::VectorXd(12);  // 4 tires * 3 forces each
+  Eigen::VectorXd tire_forces = Eigen::VectorXd(16);  // 4 tires * 4 forces each
   tire_input.vx = state(VX);
   tire_input.vy = state(VY);
   tire_input.yaw_rate = state(YAW_RATE);
@@ -62,8 +62,8 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
     tire_input.steering_angle = wheel_angles(tire);
     tire_input.wheel_angular_speed = state(FL_WHEEL_SPEED + tire);
     tire_input.vertical_load = total_vertical_loads(tire);
-    tire_forces.segment<3>(tire * 3) =
-        tire_model_->calculateTireForcesNotTransient(tire_input);  //[Fx, Fy, Fz]
+    tire_forces.segment<4>(tire * 4) =
+        tire_model_->calculate_tire_forces(tire_input);  //[Fx, Fy, My, Mz]
   }
 
   // Calculate steering rate using the steering motor model
@@ -88,13 +88,13 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
   for (Tire tire : {FL, FR, RL, RR}) {
     // Update wheel speeds using the calculated torques and tire forces
     state(FL_WHEEL_SPEED + tire) +=
-        ((torques(tire) - tire_forces(tire * 3) * wheel_radius) / inertia) *
-        dt;  // No braking torque
+        (torques(tire) - tire_forces(tire * 4) * wheel_radius / inertia) *
+        dt;  // No braking torque and no rolling resistance
 
     // Current tire forces in tire-local frame
-    double fx_tire = tire_forces(tire * 3);
-    double fy_tire = tire_forces(tire * 3 + 1);
-    double mz_tire = tire_forces(tire * 3 + 2);
+    double fx_tire = tire_forces(tire * 4);
+    double fy_tire = tire_forces(tire * 4 + 1);
+    double mz_tire = tire_forces(tire * 4 + 3);
 
     // Transform to vehicle frame
     double cos_delta = cos(wheel_angles(tire));
