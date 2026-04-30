@@ -2,7 +2,7 @@ invictasim:
   # Simulator config
   input_adapter: "keyboard"  # Options: "ros", "keyboard"
   output_adapter: "ros"  # Options: "ros"
-  vehicle_model: "FSFEUP02"  # Options: "FSFEUP02"
+  vehicle_model: "StateEstModel"  # Options: "FSFEUP02" "StateEstModel"
   sim_frequency: 1000  # Hz 
   track_name: "EnduranceFSG25"  # Options: "Acceleration", "Skidpad", "FSG25", "FSG24", "FSG23", "FSE24", "FSE23", "EnduranceFSG25", "FSS22V1", "FSS22V2"
   publish_frequencies:

@@ -51,7 +51,7 @@ std::string SEParameters::load_config() {
   this->aero_model_name_ = vm_config["aero_model"].as<std::string>();
   this->steering_model_name_ = vm_config["steering_model"].as<std::string>();
   this->steering_motor_model_name_ = vm_config["steering_motor_model"].as<std::string>();
-  this->differential_model_name_ = vm_config["differential_model"].as<std::string>();
+  this->transmission_model_name_ = vm_config["transmission_model"].as<std::string>();
   this->tire_model_name_ = vm_config["tire_model"].as<std::string>();
 
   // Load car parameters

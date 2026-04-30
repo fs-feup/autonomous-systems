@@ -40,7 +40,9 @@ protected:
   std::shared_ptr<common_lib::car_parameters::CarParameters> car_parameters_;
 
   void calculate_slip_angle_front(TireInput& tire_input);
+  void calculate_slip_angle_front_not_transient(TireInput& tire_input);
   void calculate_slip_angle_rear(TireInput& tire_input);
+  void calculate_slip_angle_rear_not_transient(TireInput& tire_input);
   void calculate_slip_ratio(TireInput& tire_input);
   void calculate_slip_ratio_not_transient(TireInput& tire_input);
 
@@ -59,5 +61,5 @@ public:
             std::make_shared<common_lib::car_parameters::CarParameters>(car_parameters)) {}
 
   Eigen::Vector4d calculate_tire_forces(TireInput& tire_input);
-  Eigen::Vector3d calculate_tire_forces_not_transient(TireInput& tire_input);
+  Eigen::Vector4d calculate_tire_forces_not_transient(TireInput& tire_input);
 };

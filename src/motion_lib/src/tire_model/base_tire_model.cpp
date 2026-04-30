@@ -42,6 +42,27 @@ void TireModel::calculate_slip_angle_front(TireInput& tire_input) {
   tire_input.last_slip_angle[tire_input.tire] = tire_input.slip_angle;
 }
 
+void TireModel::calculate_slip_angle_front_not_transient(TireInput& tire_input) {
+  // Sign used to apply the effect of yaw_rate
+  double sign_y = (tire_input.tire == FL || tire_input.tire == RL) ? -1.0 : 1.0;
+  double lf = tire_input.distance_to_CG;
+
+  // Wheel velocities at vehicle frame
+  double v_wheel_x =
+      tire_input.vx + (sign_y * tire_input.yaw_rate * car_parameters_->track_width / 2.0);
+  double v_wheel_y = tire_input.vy + (tire_input.yaw_rate * lf);
+
+  // Projection to wheels frame
+  double Vcx =
+      v_wheel_x * cos(tire_input.steering_angle) + v_wheel_y * sin(tire_input.steering_angle);
+  double Vcy =
+      -v_wheel_x * sin(tire_input.steering_angle) + v_wheel_y * cos(tire_input.steering_angle);
+
+  // Target slip angle
+  double alpha_target = atan2(Vcy, Vcx);
+  tire_input.slip_angle = alpha_target;
+}
+
 void TireModel::calculate_slip_angle_rear(TireInput& tire_input) {
   const double V_eps = 0.5;
 
@@ -80,6 +101,25 @@ void TireModel::calculate_slip_angle_rear(TireInput& tire_input) {
 
   // Update state for next frame
   tire_input.last_slip_angle[tire_input.tire] = tire_input.slip_angle;
+}
+
+void TireModel::calculate_slip_angle_rear_not_transient(TireInput& tire_input) {
+  // Sign used to apply the effect of yaw_rate
+  double sign_y = (tire_input.tire == FL || tire_input.tire == RL) ? -1.0 : 1.0;
+  double lr = tire_input.distance_to_CG;
+
+  // Wheel velocities at vehicle frame
+  double v_wheel_x =
+      tire_input.vx + (sign_y * tire_input.yaw_rate * car_parameters_->track_width / 2.0);
+  double v_wheel_y = tire_input.vy - (tire_input.yaw_rate * lr);
+
+  // Project to wheel frame
+  double Vcx = v_wheel_x;
+  double Vcy = v_wheel_y;
+
+  // Target slip angle
+  double alpha_target = atan2(Vcy, Vcx);
+  tire_input.slip_angle = alpha_target;
 }
 
 void TireModel::calculate_slip_ratio(TireInput& tire_input) {
@@ -182,7 +222,7 @@ Eigen::Vector4d TireModel::calculate_tire_forces(TireInput& tire_input) {
   return this->tire_forces(tire_input);
 }
 
-Eigen::Vector3d TireModel::calculate_tire_forces_not_transient(TireInput& tire_input) {
+Eigen::Vector4d TireModel::calculate_tire_forces_not_transient(TireInput& tire_input) {
   if (tire_input.tire == FL || tire_input.tire == FR) {
     if (tire_input.tire == FL) {
       tire_input.distance_to_CG = car_parameters_->tire_parameters->d_fleft;
