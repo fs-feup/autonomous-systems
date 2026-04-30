@@ -560,8 +560,8 @@ void RosOutputAdapter::publish_visualization_ground(const rclcpp::Time& stamp) {
   ground.pose.orientation.y = 0.0;
   ground.pose.orientation.z = 0.0;
   ground.pose.orientation.w = 1.0;
-  ground.scale.x = 5000.0;
-  ground.scale.y = 5000.0;
+  ground.scale.x = 1000.0;
+  ground.scale.y = 1000.0;
   ground.scale.z = 1.0;
   ground.color.a = 1.0f;
   ground.color.r = 0.78f;

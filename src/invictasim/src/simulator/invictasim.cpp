@@ -14,11 +14,11 @@ InvictaSim::InvictaSim(const InvictaSimParameters& params)
   auto start_position = track_->get_start_position();
   vehicle_model_->set_initial_pose(start_position.x, start_position.y);
 
-  // Initialize step timings
-  step_duration_ = std::chrono::duration_cast<std::chrono::steady_clock::duration>(
-      std::chrono::duration<double>(1 / static_cast<double>(params_.sim_frequency)));
+  // Initialize step timings: Calculate the very first sleep target
+  double initial_sleep_sec = (1.0 / static_cast<double>(params_.sim_frequency)) / params_.sim_speed;
   const auto now = std::chrono::steady_clock::now();
-  next_step_time_ = now + step_duration_;
+  next_step_time_ = now + std::chrono::duration_cast<std::chrono::steady_clock::duration>(
+                              std::chrono::duration<double>(initial_sleep_sec));
   last_step_time_ = now;
 }
 
@@ -33,15 +33,31 @@ void InvictaSim::stop() { running_ = false; }
 
 void InvictaSim::simulation_step() {
   auto current_time = std::chrono::steady_clock::now();
+
+  // 1. Calculate the dynamic sleep duration based on the CURRENT sim_speed
+  double dynamic_sleep_sec = (1.0 / static_cast<double>(params_.sim_frequency)) / params_.sim_speed;
+  auto dynamic_step_duration = std::chrono::duration_cast<std::chrono::steady_clock::duration>(
+      std::chrono::duration<double>(dynamic_sleep_sec));
+
+  // Sleep if we are running ahead of schedule
   if (current_time < next_step_time_) {
     std::this_thread::sleep_until(next_step_time_);
-    current_time = next_step_time_;
+    current_time = std::chrono::steady_clock::now();  // Get time after waking up
   }
-  double step_dt = std::chrono::duration<double>(current_time - last_step_time_).count();
 
+  // 2. Measure the REAL wall-clock time that actually passed
+  double real_dt = std::chrono::duration<double>(current_time - last_step_time_).count();
+
+  // 3. Scale the time by the CURRENT sim_speed
+  // (MULTIPLY by sim_speed so the physics math advances faster)
+  double sim_dt = real_dt * params_.sim_speed;
+
+  // Update tracking variables for the next loop
   last_step_time_ = current_time;
-  next_step_time_ = current_time + step_duration_;
-  sim_time_ += step_dt;
+  next_step_time_ = current_time + dynamic_step_duration;
+
+  // 4. Advance the perfect simulation clock!
+  sim_time_ += sim_dt;
 
   const auto step_start = std::chrono::steady_clock::now();
 
@@ -49,7 +65,7 @@ void InvictaSim::simulation_step() {
   const InputSnapshot input_snapshot = get_input_snapshot();
 
   // Use snapshot throughout step without locks
-  vehicle_model_->step(step_dt, input_snapshot.throttle, input_snapshot.steering);
+  vehicle_model_->step(sim_dt, input_snapshot.throttle, input_snapshot.steering);
 
   // Compute total step execution time
   const auto step_end = std::chrono::steady_clock::now();

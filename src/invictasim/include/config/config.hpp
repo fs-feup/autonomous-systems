@@ -16,6 +16,7 @@ struct InvictaSimParameters {
 
   // Simulator config parameters
   int sim_frequency;
+  double sim_speed;
   std::string track_name;
   std::string input_adapter;
   std::string output_adapter;
