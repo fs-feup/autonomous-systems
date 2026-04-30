@@ -90,7 +90,7 @@ bool PathCalculation::is_map_closed(std::vector<PathPoint>& path) const {
     }
 
     RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Loop closure cost: %.4f (threshold: %.4f)",
-                combined_cost, config_.close_cost_);
+                 combined_cost, config_.close_cost_);
     return true;
   }
 
@@ -224,11 +224,10 @@ void PathCalculation::update_path_from_past_path() {
     if (candidate_midpoint) {
       (void)visited_midpoints_.insert(candidate_midpoint);
     }
-    
+
     current_path_.push_back(candidate_colorpoint);
     last_added_point = candidate_colorpoint.point;
     first_point_added = true;
-
   }
 }
 
@@ -579,6 +578,6 @@ const std::vector<std::pair<Point, Point>>& PathCalculation::get_triangulations(
   return midpoint_generator_.get_triangulations();
 }
 
-std::vector<PathPoint>& PathCalculation::get_yellow_cones() { return yellow_cones_; }
+const std::vector<PathPoint>& PathCalculation::get_yellow_cones() const { return yellow_cones_; }
 
-std::vector<PathPoint>& PathCalculation::get_blue_cones() { return blue_cones_; }
+const std::vector<PathPoint>& PathCalculation::get_blue_cones() const { return blue_cones_; }

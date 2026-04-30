@@ -484,7 +484,7 @@ void Planning::publish_execution_time(rclcpp::Time start_time) {
   planning_execution_time_pub_->publish(planning_execution_time);
 }
 
-void Planning::publish_visualization_msgs() {
+void Planning::publish_visualization_msgs() const {
   triangulations_pub_->publish(common_lib::communication::lines_marker_from_triangulations(
       path_calculation_.get_triangulations(), "triangulations", map_frame_id_, 20, "white", 0.05f,
       visualization_msgs::msg::Marker::MODIFY));
