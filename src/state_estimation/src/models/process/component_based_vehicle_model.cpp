@@ -86,12 +86,10 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
   double inertia = parameters_->car_parameters_->tire_parameters->wheel_inertia;
 
   for (Tire tire : {FL, FR, RL, RR}) {
-    double rolling_resistance_coef = 2.0 / M_PI * std::atan(10.0 * state(FL_WHEEL_SPEED + tire));
     // Update wheel speeds using the calculated torques and tire forces
-    state(FL_WHEEL_SPEED + tire) += ((torques(tire) - tire_forces(tire * 4) * wheel_radius -
-                                      tire_forces(tire * 4 + 2) * rolling_resistance_coef) /
-                                     inertia) *
-                                    dt;  // No braking torque
+    state(FL_WHEEL_SPEED + tire) +=
+        (torques(tire) - tire_forces(tire * 4) * wheel_radius / inertia) *
+        dt;  // No braking torque and no rolling resistance
 
     // Current tire forces in tire-local frame
     double fx_tire = tire_forces(tire * 4);

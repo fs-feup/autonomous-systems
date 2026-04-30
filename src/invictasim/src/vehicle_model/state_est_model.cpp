@@ -122,7 +122,7 @@ void StateEstModel::step(double dt, common_lib::structures::Wheels throttle, dou
     double sign_r = 2.0 / M_PI * std::atan(10.0 * wheel_speeds(tire));
     // Update wheel speeds using the calculated torques and tire forces
     wheel_speeds(tire) += ((torques(tire) - tire_forces(tire * 4) * wheel_radius -
-                            tire_forces(tire * 4 + 2) * sign_r) /
+                            std::abs(tire_forces(tire * 4 + 2)) * sign_r) /
                            inertia) *
                           dt;  // No braking torque
 
@@ -166,8 +166,8 @@ void StateEstModel::step(double dt, common_lib::structures::Wheels throttle, dou
   state_->total_torque_z = total_torque;
 
   // Trapezoidal integration for velocity
-  state_->vx += 0.5 * (total_ax + state_->ax) * dt;
-  state_->vy += 0.5 * (total_ay + state_->ay) * dt;
+  state_->vx += total_ax * dt;
+  state_->vy += total_ay * dt;
   state_->ax = total_ax;
   state_->ay = total_ay;
 

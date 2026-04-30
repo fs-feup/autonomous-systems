@@ -43,24 +43,24 @@ void TireModel::calculate_slip_angle_front(TireInput& tire_input) {
 }
 
 void TireModel::calculate_slip_angle_front_not_transient(TireInput& tire_input) {
-  // Sign used to apply the effect of yaw_rate
-  double sign_y = (tire_input.tire == FL || tire_input.tire == RL) ? -1.0 : 1.0;
-  double lf = tire_input.distance_to_CG;
+  const double V_eps = 0.5;  // Regularization constant to prevent incorrect low speed behavior can
+                             // be lower if needed
+  double sign = (tire_input.tire == FL) ? -1.0 : 1.0;  // Sign used to apply the effect of yaw_rate
 
-  // Wheel velocities at vehicle frame
-  double v_wheel_x =
-      tire_input.vx + (sign_y * tire_input.yaw_rate * car_parameters_->track_width / 2.0);
-  double v_wheel_y = tire_input.vy + (tire_input.yaw_rate * lf);
-
-  // Projection to wheels frame
-  double Vcx =
-      v_wheel_x * cos(tire_input.steering_angle) + v_wheel_y * sin(tire_input.steering_angle);
-  double Vcy =
-      -v_wheel_x * sin(tire_input.steering_angle) + v_wheel_y * cos(tire_input.steering_angle);
-
-  // Target slip angle
-  double alpha_target = atan2(Vcy, Vcx);
-  tire_input.slip_angle = alpha_target;
+  // Normalize velocity to wheels coordinate system
+  double Vcx = tire_input.vx * cos(tire_input.steering_angle) +
+               tire_input.vy * sin(tire_input.steering_angle);
+  double Vcy = -tire_input.vx * sin(tire_input.steering_angle) +
+               tire_input.vy * cos(tire_input.steering_angle);
+  if (std::sqrt(Vcx * Vcx + Vcy * Vcy) < 0.05) {
+    tire_input.slip_angle = 0.0;
+  } else {
+    double Vlat = Vcy + (tire_input.yaw_rate * tire_input.distance_to_CG) +
+                  (sign * tire_input.yaw_rate * car_parameters_->track_width / 2.0);
+    double Vlong_reg = std::sqrt(Vcx * Vcx + (V_eps * V_eps));
+    double direction = Vcx / Vlong_reg;
+    tire_input.slip_angle = atan2(Vlat, Vlong_reg) * direction;
+  }
 }
 
 void TireModel::calculate_slip_angle_rear(TireInput& tire_input) {
@@ -104,22 +104,19 @@ void TireModel::calculate_slip_angle_rear(TireInput& tire_input) {
 }
 
 void TireModel::calculate_slip_angle_rear_not_transient(TireInput& tire_input) {
-  // Sign used to apply the effect of yaw_rate
-  double sign_y = (tire_input.tire == FL || tire_input.tire == RL) ? -1.0 : 1.0;
-  double lr = tire_input.distance_to_CG;
+  const double V_eps = 0.5;
+  double sign = (tire_input.tire == RL) ? -1.0 : 1.0;
 
-  // Wheel velocities at vehicle frame
-  double v_wheel_x =
-      tire_input.vx + (sign_y * tire_input.yaw_rate * car_parameters_->track_width / 2.0);
-  double v_wheel_y = tire_input.vy - (tire_input.yaw_rate * lr);
-
-  // Project to wheel frame
-  double Vcx = v_wheel_x;
-  double Vcy = v_wheel_y;
-
-  // Target slip angle
-  double alpha_target = atan2(Vcy, Vcx);
-  tire_input.slip_angle = alpha_target;
+  // Lateral velocity at the wheel contact patch
+  double Vcy_contact = tire_input.vy - (tire_input.yaw_rate * tire_input.distance_to_CG) +
+                       (sign * tire_input.yaw_rate * car_parameters_->track_width / 2.0);
+  if (std::sqrt(tire_input.vx * tire_input.vx + Vcy_contact * Vcy_contact) < 0.05) {
+    tire_input.slip_angle = 0.0;
+  } else {
+    double Vlong_reg = std::sqrt(tire_input.vx * tire_input.vx + (V_eps * V_eps));
+    double direction = tire_input.vx / Vlong_reg;
+    tire_input.slip_angle = atan2(Vcy_contact, Vlong_reg) * direction;
+  }
 }
 
 void TireModel::calculate_slip_ratio(TireInput& tire_input) {
@@ -183,16 +180,12 @@ void TireModel::calculate_slip_ratio_not_transient(TireInput& tire_input) {
 
   double Vw = tire_input.wheel_angular_speed * car_parameters_->tire_parameters->effective_tire_r;
 
-  if (Vcx < 0.01 || Vw < 0.01) {
-    tire_input.slip_ratio = 0.0;
-    return;
-  }
-
   // Calculate the "Target" (Steady-State) Slip
-  double slip_target = (Vw - Vcx) / std::abs(Vcx);
+  double slip_target = (Vw - Vcx) / std::max(std::abs(Vcx), 0.5);
   slip_target = std::clamp(slip_target, -1.0, 1.0);
 
   tire_input.slip_ratio = slip_target;
+  tire_input.last_slip_ratio[tire_input.tire] = slip_target;
 }
 
 Eigen::Vector4d TireModel::calculate_tire_forces(TireInput& tire_input) {
@@ -232,7 +225,7 @@ Eigen::Vector4d TireModel::calculate_tire_forces_not_transient(TireInput& tire_i
       tire_input.camber_angle = car_parameters_->tire_parameters->fr_camber;
     }
 
-    calculate_slip_angle_front(tire_input);
+    calculate_slip_angle_front_not_transient(tire_input);
   } else {
     if (tire_input.tire == RL) {
       tire_input.distance_to_CG = car_parameters_->tire_parameters->d_bleft;
@@ -242,8 +235,9 @@ Eigen::Vector4d TireModel::calculate_tire_forces_not_transient(TireInput& tire_i
       tire_input.camber_angle = car_parameters_->tire_parameters->rr_camber;
     }
 
-    calculate_slip_angle_rear(tire_input);
+    calculate_slip_angle_rear_not_transient(tire_input);
   }
+  calculate_slip_ratio_not_transient(tire_input);
 
   // Return tire forces using the specific tire model
   return this->tire_forces(tire_input);
