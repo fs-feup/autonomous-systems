@@ -4,11 +4,7 @@ invictasim:
   output_adapter: "ros"  # Options: "ros"
   vehicle_model: "FSFEUP02"  # Options: "FSFEUP02"
   sim_frequency: 1000  # Hz 
-<<<<<<< HEAD
   track_name: "EnduranceFSG25"  # Options: "Acceleration", "Skidpad", "FSG25", "FSG24", "FSG23", "FSE24", "FSE23", "EnduranceFSG25", "FSS22V1", "FSS22V2"
-=======
-  track_name: "Acceleration"  # Options: "Acceleration", "Skidpad", "FSG25", "FSG24", "FSG23", "FSE24", "FSE23", "EnduranceFSG25", "FSS22V1", "FSS22V2"
->>>>>>> feat/power_model
   publish_frequencies:
     tire: 1000
     battery: 100
@@ -16,14 +12,16 @@ invictasim:
     differential: 100
     aero: 100
     load_transfer: 100
-<<<<<<< HEAD
-    status: 1000
-    execution_times: 100
-    track: 60
-    visualization: 60
-=======
     status: 100
     execution_times: 30
     track: 30
     visualization: 30
->>>>>>> feat/power_model
+    tire: 10
+    battery: 10
+    motor: 10
+    transmission: 10
+    aero: 10
+    status: 10
+    execution_times: 0
+    track: 0
+    visualization: 30
