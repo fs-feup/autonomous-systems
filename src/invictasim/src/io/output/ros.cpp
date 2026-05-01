@@ -162,7 +162,7 @@ void RosOutputAdapter::map_callbacks() {
     });
     register_pub_helper("simulated_slam", [this](const rclcpp::Time& stamp) {
       publish_state_estimation_map(stamp);
-      publish_state_estimation_lap_counter(stamp);
+      publish_state_estimation_lap_counter();
     });
     register_pub_helper(
         "pose", [this](const rclcpp::Time& stamp) { publish_state_estimation_pose(stamp); });
@@ -341,7 +341,7 @@ void RosOutputAdapter::publish_state_estimation_map(const rclcpp::Time& stamp) {
   state_map_pub_->publish(map_msg);
 }
 
-void RosOutputAdapter::publish_state_estimation_lap_counter(const rclcpp::Time& stamp) {
+void RosOutputAdapter::publish_state_estimation_lap_counter() {
   std_msgs::msg::Float64 lap_msg;
   lap_msg.data = static_cast<double>(map_snapshot_cache_.lap_counter);
   lap_counter_pub_->publish(lap_msg);

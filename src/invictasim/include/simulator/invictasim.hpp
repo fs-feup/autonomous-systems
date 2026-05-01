@@ -45,8 +45,52 @@ public:
    */
   void set_input(const common_lib::structures::Wheels& throttle, double steering) {
     std::lock_guard<std::mutex> lock(input_mutex_);
-    throttle_ = throttle;
-    steering_ = steering;
+    if (!go_signal_) {
+      throttle_ = {0.0, 0.0, 0.0, 0.0};
+      steering_ = 0.0;
+    } else {
+      throttle_ = throttle;
+      steering_ = steering;
+    }
+  }
+
+  /**
+   * @brief Activate the go signal state.
+   */
+  void activate_go_signal();
+
+  /**
+   * @brief Modify the simulation speed by adding a delta.
+   * @param delta The value to add to the simulation speed.
+   */
+  void add_sim_speed(double delta);
+
+  /**
+   * @brief Toggle the Emergency Brake System.
+   */
+  void toggle_ebs();
+
+  /**
+   * @brief Reset the simulation to default state.
+   */
+  void reset_sim();
+
+  /**
+   * @brief Check if the simulator is running.
+   */
+  bool is_running() const { return running_; }
+
+  /**
+   * @brief Get the current go signal state.
+   */
+  bool get_go_signal() const { return go_signal_; }
+
+  /**
+   * @brief Get the current EBS state.
+   */
+  bool is_ebs_active() const {
+    std::lock_guard<std::mutex> lock(input_mutex_);
+    return ebs_active_;
   }
 
   /**
@@ -139,6 +183,9 @@ private:
   mutable std::mutex input_mutex_;           ///< Protects input access.
   common_lib::structures::Wheels throttle_;  ///< Current throttle commands (all wheels).
   double steering_;                          ///< Current steering command (radians).
+  bool ebs_active_{false};                   ///< Current EBS state.
+
+  std::atomic<bool> go_signal_{false};       ///< Global go signal state.
 
   /**
    * @brief Build a consolidated vehicle model snapshot with all vehicle state data.

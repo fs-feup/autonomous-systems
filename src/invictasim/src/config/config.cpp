@@ -19,6 +19,7 @@ InvictaSimParameters::InvictaSimParameters() {
   // Invictasim config
   sim_frequency = simulator_config["invictasim"]["sim_frequency"].as<int>();
   sim_speed = simulator_config["invictasim"]["sim_speed"].as<double>();
+  initial_go_signal = simulator_config["invictasim"]["initial_go_signal"].as<bool>();
   track_name = simulator_config["invictasim"]["track_name"].as<std::string>();
   input_adapter = simulator_config["invictasim"]["input_adapter"].as<std::string>();
   output_adapter = simulator_config["invictasim"]["output_adapter"].as<std::string>();

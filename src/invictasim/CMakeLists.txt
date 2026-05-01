@@ -32,6 +32,7 @@ pkg_check_modules(SDL2_TTF REQUIRED SDL2_ttf)
 # Implementation files
 set(IMPLEMENTATION_FILES
   src/simulator/invictasim.cpp
+  src/io/input/input_adapter.cpp
   src/io/input/ros.cpp
   src/io/output/ros.cpp
   src/io/input/keyboard.cpp

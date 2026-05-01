@@ -123,8 +123,11 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   const auto tire_end = Clock::now();
 
   // Update wheel speeds
-  double R = car_parameters_->tire_parameters->effective_tire_r;
-  double I = car_parameters_->tire_parameters->wheel_inertia;
+  if (state_->ebs_active) {
+    state_->wheels_speed = {0.0, 0.0, 0.0, 0.0};
+  } else {
+    double R = car_parameters_->tire_parameters->effective_tire_r;
+    double I = car_parameters_->tire_parameters->wheel_inertia;
 
   // Activation function for smooth rolling resistance at low speeds
   double sign_rl = 2.0 / M_PI * std::atan(10.0 * state_->wheels_speed.rear_left);
@@ -159,6 +162,7 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
         (std::abs(state_->front_right_forces[2]) * sign_fr)) /
        I) *
       dt;
+  }
 
   // Vehicle State Update
   // Sum of all forces normalized to the vehicle coordinate system

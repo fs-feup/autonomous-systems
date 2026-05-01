@@ -131,7 +131,7 @@ private:
   void publish_map_ground_truth(const rclcpp::Time& stamp);
   void publish_state_estimation_map(const rclcpp::Time& stamp);
   void publish_perception_cones(const rclcpp::Time& stamp);
-  void publish_state_estimation_lap_counter(const rclcpp::Time& stamp);
+  void publish_state_estimation_lap_counter();
 
   // Vehicle state (for state estimation, SLAM, planning pipelines)
   void publish_state_estimation_pose(const rclcpp::Time& stamp);

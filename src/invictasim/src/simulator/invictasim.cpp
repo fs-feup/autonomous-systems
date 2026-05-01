@@ -14,12 +14,15 @@ InvictaSim::InvictaSim(const InvictaSimParameters& params)
   auto start_position = track_->get_start_position();
   vehicle_model_->set_initial_pose(start_position.x, start_position.y);
 
-  // Initialize step timings: Calculate the very first sleep target
+  // Initialize step timings
   double initial_sleep_sec = (1.0 / static_cast<double>(params_.sim_frequency)) / params_.sim_speed;
   const auto now = std::chrono::steady_clock::now();
   next_step_time_ = now + std::chrono::duration_cast<std::chrono::steady_clock::duration>(
                               std::chrono::duration<double>(initial_sleep_sec));
   last_step_time_ = now;
+
+  // Initialize go_signal from config
+  go_signal_ = params_.initial_go_signal;
 }
 
 void InvictaSim::run() {
@@ -31,34 +34,77 @@ void InvictaSim::run() {
 
 void InvictaSim::stop() { running_ = false; }
 
+void InvictaSim::activate_go_signal() { go_signal_ = true; }
+
+void InvictaSim::add_sim_speed(double delta) {
+  params_.sim_speed += delta;
+  if (params_.sim_speed < 0.25) {
+    params_.sim_speed = 0.25;
+  }
+}
+
+void InvictaSim::toggle_ebs() {
+  std::lock_guard<std::mutex> lock(input_mutex_);
+  ebs_active_ = !ebs_active_;
+  vehicle_model_->set_ebs(ebs_active_);
+}
+
+void InvictaSim::reset_sim() {
+  // Send signal to control node to stop sending commands
+  go_signal_ = false;
+  std::this_thread::sleep_for(std::chrono::milliseconds(500));
+
+  std::lock_guard<std::mutex> lock(input_mutex_);
+  // Reset time
+  sim_time_ = 0.0;
+
+  // Reset vehicle model
+  vehicle_model_->reset();
+  auto start_position = track_->get_start_position();
+  vehicle_model_->set_initial_pose(start_position.x, start_position.y);
+
+  // Reset EBS
+  ebs_active_ = false;
+  vehicle_model_->set_ebs(false);
+
+  // Reset inputs
+  throttle_ = {0.0, 0.0, 0.0, 0.0};
+  steering_ = 0.0;
+
+  // Reset loop timing
+  const auto now = std::chrono::steady_clock::now();
+  double initial_sleep_sec = (1.0 / static_cast<double>(params_.sim_frequency)) / params_.sim_speed;
+  next_step_time_ = now + std::chrono::duration_cast<std::chrono::steady_clock::duration>(
+                              std::chrono::duration<double>(initial_sleep_sec));
+  last_step_time_ = now;
+}
+
 void InvictaSim::simulation_step() {
   auto current_time = std::chrono::steady_clock::now();
 
-  // 1. Calculate the dynamic sleep duration based on the CURRENT sim_speed
-  double dynamic_sleep_sec = (1.0 / static_cast<double>(params_.sim_frequency)) / params_.sim_speed;
-  auto dynamic_step_duration = std::chrono::duration_cast<std::chrono::steady_clock::duration>(
-      std::chrono::duration<double>(dynamic_sleep_sec));
+  // Calculate step duration
+  double step_duration = (1.0 / static_cast<double>(params_.sim_frequency)) / params_.sim_speed;
+  auto step_duration_ros = std::chrono::duration_cast<std::chrono::steady_clock::duration>(
+      std::chrono::duration<double>(step_duration));
 
-  // Sleep if we are running ahead of schedule
+  // Sleep until the next step
   if (current_time < next_step_time_) {
     std::this_thread::sleep_until(next_step_time_);
-    current_time = std::chrono::steady_clock::now();  // Get time after waking up
+    current_time = std::chrono::steady_clock::now();
   }
 
-  // 2. Measure the REAL wall-clock time that actually passed
+  // Real time passed since last step
   double real_dt = std::chrono::duration<double>(current_time - last_step_time_).count();
 
-  // 3. Scale the time by the CURRENT sim_speed
-  // (MULTIPLY by sim_speed so the physics math advances faster)
+  // Scale passed time by simulation speed
   double sim_dt = real_dt * params_.sim_speed;
 
-  // Update tracking variables for the next loop
+  // Update next step
   last_step_time_ = current_time;
-  next_step_time_ = current_time + dynamic_step_duration;
+  next_step_time_ = current_time + step_duration_ros;
 
-  // 4. Advance the perfect simulation clock!
+  // Increase simulation time
   sim_time_ += sim_dt;
-
   const auto step_start = std::chrono::steady_clock::now();
 
   // Use a copy of input so no locks are required during vehicle model step.
@@ -200,8 +246,7 @@ VehicleStateSnapshot InvictaSim::build_vehicle_state_snapshot() const {
       std::vector<double>(9, 0.0);  // Placeholder for velocity covariance
 
   // Operational status
-  snapshot.go_signal = true;  // For now, always true, but can have a delay or be controled by
-                              // keyboard input in the future
+  snapshot.go_signal = go_signal_;
   snapshot.mission = common_lib::competition_logic::get_mission_from_string(params_.discipline);
   return snapshot;
 }
