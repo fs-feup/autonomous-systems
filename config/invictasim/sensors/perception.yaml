@@ -1,0 +1,17 @@
+lidar_sensor:
+    # Physical sensor parameters
+    height: 1.2                          # Height of LiDAR relative to vehicle origin (meters)
+    max_range: 75.0                      # Maximum detection range (meters)
+    horizontal_fov_angle: 3.14159        # Horizontal field of view (radians) - approximately 180 degrees
+    vertical_fov_angle: 0.3490659        # Vertical field of view (radians) - approximately 20 degrees
+    
+    # Scan parameters
+    angular_velocity: 600.0              # LiDAR angular velocity (RPM converted to rad/s, ~20 Hz rotation)
+    
+    # Detection probability parameters
+    detection_probability_alpha: 0.1     # Alpha parameter for sigmoid curve steepness (higher = steeper drop-off)
+    
+    # Noise parameters
+    noise_std_dev_base: 0.02             # Base standard deviation for Gaussian noise (meters)
+    noise_scales_with_range: true        # Whether noise increases with range
+    noise_range_scaling: 0.001           # Scaling factor for range-dependent noise (sigma_range = scaling *

@@ -3,33 +3,21 @@
 #include <vector>
 #include <cmath>
 #include <memory>
+#include <string>
 
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/pose.hpp"
 #include "common_lib/structures/velocities.hpp"
+#include "sensors/sensors_base.hpp"
 
 /**
- * @brief Sensor class for simulating LiDAR perception with realistic error modeling
- *
+ * @brief Perception output class for handling LiDAR perception with error modeling
+ * 
  * This class transforms global cone coordinates into the LiDAR's local reference frame
  * and applies error injection including detection probability, motion skew, and noise.
  */
-class Sensor {
+class PerceptionOutput : public Sensor {
 public:
-  /**
-   * @brief Structure to hold LiDAR sensor parameters
-   */
-  struct LidarParameters {
-    double height;                    ///< Height of LiDAR relative to vehicle origin (meters)
-    double max_range;                 ///< Maximum detection range (meters)
-    double horizontal_fov_angle;      ///< Horizontal field of view (radians)
-    double vertical_fov_angle;        ///< Vertical field of view (radians)
-    double angular_velocity;          ///< LiDAR angular velocity (rad/s)
-    double detection_probability_alpha;  ///< Alpha parameter for detection sigmoid
-    double noise_std_dev_base;        ///< Base standard deviation for noise (meters)
-    bool noise_scales_with_range;     ///< Whether noise scales with range
-    double noise_range_scaling;       ///< Scaling factor for range-dependent noise
-  };
 
   /**
    * @brief Structure to hold transformed cone data
@@ -53,10 +41,10 @@ public:
   };
 
   /**
-   * @brief Construct a new Sensor object
-   * @param params LiDAR sensor parameters
+   * @brief Construct a new PerceptionOutput object
+   * @param config_path Path to the perception.yaml configuration file
    */
-  explicit Sensor(const LidarParameters& params);
+  explicit PerceptionOutput(const std::string& config_path);
 
   /**
    * @brief Apply perception error modeling to global cone coordinates
@@ -73,18 +61,16 @@ public:
       const common_lib::structures::Pose& vehicle_pose,
       const common_lib::structures::Velocities& vehicle_velocities);
 
-  /**
-   * @brief Get the LiDAR parameters
-   * @return const LidarParameters& Current LiDAR parameters
-   */
-  const LidarParameters& get_parameters() const { return lidar_params_; }
-
-  /**
-   * @brief Set new LiDAR parameters
-   * @param params New LiDAR parameters
-   */
-  void set_parameters(const LidarParameters& params) { lidar_params_ = params; }
-
 private:
-  LidarParameters lidar_params_;  ///< LiDAR sensor parameters
+  // LiDAR sensor parameters
+  double height_;                    // Height of LiDAR relative to vehicle origin (meters)
+  double max_range_;                 // Maximum detection range (meters)
+  double horizontal_fov_angle_;      // Horizontal field of view (radians)
+  double vertical_fov_angle_;        // Vertical field of view (radians)
+  double angular_velocity_;          // LiDAR angular velocity (rad/s)
+  double detection_probability_alpha_;  // Alpha parameter for detection sigmoid
+  double noise_std_dev_base_;        // Base standard deviation for noise (meters)
+  bool noise_scales_with_range_;     // Whether noise scales with range
+  double noise_range_scaling_;       // Scaling factor for range-dependent noise
+
 };

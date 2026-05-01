@@ -35,6 +35,9 @@ set(IMPLEMENTATION_FILES
   src/config/config.cpp
   src/vehicle_model/FSFEUP02.cpp
   src/track/track.cpp
+  src/sensors/sensors_base.cpp
+  src/sensors/perception_output.cpp
+  src/sensors/imu.cpp
 )
 
 # Main executable

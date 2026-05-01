@@ -1,12 +1,26 @@
-#include "simulator/sensor.hpp"
+#include "sensors/perception_output.hpp"
 
-#include <random>
 #include <cmath>
 #include <algorithm>
+#include <yaml-cpp/yaml.h>
+#include <fstream>
 
-Sensor::Sensor(const LidarParameters& params) : lidar_params_(params) {}
+PerceptionOutput::PerceptionOutput(const std::string& config_path) {
+  YAML::Node config = YAML::LoadFile(config_path);
+  YAML::Node lidar = config["lidar_sensor"];
 
-std::vector<Sensor::TransformedCone> Sensor::perception_error(
+  height_ = lidar["height"].as<double>();
+  max_range_ = lidar["max_range"].as<double>();
+  horizontal_fov_angle_ = lidar["horizontal_fov_angle"].as<double>();
+  vertical_fov_angle_ = lidar["vertical_fov_angle"].as<double>();
+  angular_velocity_ = lidar["angular_velocity"].as<double>();
+  detection_probability_alpha_ = lidar["detection_probability_alpha"].as<double>();
+  noise_std_dev_base_ = lidar["noise_std_dev_base"].as<double>();
+  noise_scales_with_range_ = lidar["noise_scales_with_range"].as<bool>();
+  noise_range_scaling_ = lidar["noise_range_scaling"].as<double>();
+}
+
+std::vector<PerceptionOutput::TransformedCone> PerceptionOutput::perception_error(
     const std::vector<common_lib::structures::Cone>& cones,
     const common_lib::structures::Pose& vehicle_pose,
     const common_lib::structures::Velocities& vehicle_velocities) {
@@ -14,10 +28,6 @@ std::vector<Sensor::TransformedCone> Sensor::perception_error(
 
   double yaw_cos = std::cos(vehicle_pose.orientation);
   double yaw_sin = std::sin(vehicle_pose.orientation);
-
-  // Random number generator for Gaussian noise (static for performance)
-  static std::random_device rd;
-  static std::mt19937 gen(rd());
 
   // Transform each cone
   for (const auto& cone : cones) {
@@ -38,7 +48,7 @@ std::vector<Sensor::TransformedCone> Sensor::perception_error(
     // Transform to LiDAR local frame (accounting for height offset)
     transformed.x_local = x_vehicle;
     transformed.y_local = y_vehicle;
-    transformed.z_local = dz - lidar_params_.height;
+    transformed.z_local = dz - height_;
 
     // Calculate 3D slant range
     transformed.range_3d =
@@ -58,7 +68,7 @@ std::vector<Sensor::TransformedCone> Sensor::perception_error(
 
     // Check elevation angle (V-FOV)
     if (is_visible) {
-      double v_fov_half = lidar_params_.vertical_fov_angle / 2.0;
+      double v_fov_half = vertical_fov_angle_ / 2.0;
       if (std::abs(transformed.elevation_angle) > v_fov_half) {
         is_visible = false;
       }
@@ -66,7 +76,7 @@ std::vector<Sensor::TransformedCone> Sensor::perception_error(
 
     // Check azimuth angle (H-FOV)
     if (is_visible) {
-      double h_fov_half = lidar_params_.horizontal_fov_angle / 2.0;
+      double h_fov_half = horizontal_fov_angle_ / 2.0;
       if (std::abs(transformed.azimuth_angle) > h_fov_half) {
         is_visible = false;
       }
@@ -77,7 +87,7 @@ std::vector<Sensor::TransformedCone> Sensor::perception_error(
     if (transformed.is_visible) {
       // Inverted sigmoid function: P_det(r_3D) = 1 / (1 + e^(alpha * (r_3D - R_max)))
       double exponent =
-          lidar_params_.detection_probability_alpha * (transformed.range_3d - lidar_params_.max_range);
+          detection_probability_alpha_ * (transformed.range_3d - max_range_);
       // Clamp exponent to avoid overflow
       exponent = std::clamp(exponent, -100.0, 100.0);
       transformed.detection_probability = 1.0 / (1.0 + std::exp(exponent));
@@ -86,7 +96,7 @@ std::vector<Sensor::TransformedCone> Sensor::perception_error(
       if (scan_angle < 0) {
         scan_angle += 2.0 * M_PI;
       }
-      double delta_t_skew = scan_angle / lidar_params_.angular_velocity;
+      double delta_t_skew = scan_angle / angular_velocity_;
 
       // Apply velocity-based displacement
       transformed.x_skew =
@@ -96,18 +106,16 @@ std::vector<Sensor::TransformedCone> Sensor::perception_error(
       transformed.z_skew = transformed.z_local;
 
       // Calculate noise standard deviation
-      double sigma = lidar_params_.noise_std_dev_base;
-      if (lidar_params_.noise_scales_with_range) {
+      double sigma = noise_std_dev_base_;
+      if (noise_scales_with_range_) {
         sigma +=
-            lidar_params_.noise_range_scaling * transformed.range_3d;
+            noise_range_scaling_ * transformed.range_3d;
       }
 
-      std::normal_distribution<double> distribution(0.0, sigma);
-
-      // Apply noise to skew-corrected coordinates
-      transformed.x_noisy = transformed.x_skew + distribution(gen);
-      transformed.y_noisy = transformed.y_skew + distribution(gen);
-      transformed.z_noisy = transformed.z_skew + distribution(gen);
+      // Apply Gaussian noise to skew-corrected coordinates
+      transformed.x_noisy = transformed.x_skew + gaussian_noise(sigma);
+      transformed.y_noisy = transformed.y_skew + gaussian_noise(sigma);
+      transformed.z_noisy = transformed.z_skew + gaussian_noise(sigma);
 
       transformed_cones.push_back(transformed);
     }
