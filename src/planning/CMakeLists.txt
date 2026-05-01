@@ -12,8 +12,6 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
 find_package(custom_interfaces REQUIRED)
-find_package(eufs_msgs REQUIRED)
-find_package(fs_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
@@ -47,8 +45,6 @@ set(TESTFILES
 )
 
 set(IMPLEMENTATION_FILES
-  src/adapter_planning/eufs.cpp
-  src/adapter_planning/fsds.cpp
   src/adapter_planning/pacsim.cpp
   src/adapter_planning/vehicle.cpp
   src/adapter_planning/invictasim.cpp
@@ -66,7 +62,7 @@ add_definitions(-DCGAL_USE_BASIC_VIEWER)
 set(CMAKE_BUILD_TYPE "Release")
 
 add_executable(planning src/main.cpp ${IMPLEMENTATION_FILES})
-ament_target_dependencies(planning ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs tf2_ros tf2_geometry_msgs pacsim common_lib std_srvs nav_msgs visualization_msgs)
+ament_target_dependencies(planning ament_index_cpp rclcpp std_msgs custom_interfaces tf2_ros tf2_geometry_msgs pacsim common_lib std_srvs nav_msgs visualization_msgs)
 
 # Include directories
 include_directories(
@@ -107,7 +103,7 @@ install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
   ament_add_gtest(planning_test ${TESTFILES} ${IMPLEMENTATION_FILES})
-  ament_target_dependencies(planning_test ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs tf2_ros tf2_geometry_msgs pacsim common_lib std_srvs nav_msgs visualization_msgs)
+  ament_target_dependencies(planning_test ament_index_cpp rclcpp std_msgs custom_interfaces tf2_ros tf2_geometry_msgs pacsim common_lib std_srvs nav_msgs visualization_msgs)
   
   target_include_directories(planning_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

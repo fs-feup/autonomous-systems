@@ -10,7 +10,6 @@ with the launch file available at the launch folder.
 
 ### Launch Configurations
 
-- [eufs.launch.py](launch/eufs.launch.py): Launches the mocker node with the configuration for EUFS simulator.
 - [pacsim.launch.py](launch/pacsim.launch.py): Launches the mocker node with the configuration for PacSim simulator.
 
 ## How to Run
@@ -33,7 +32,7 @@ Use a launch file:
 
 ```sh
 source ./install/setup.bash # If in a new terminal
-ros2 launch mocker_node eufs.launch.py
+ros2 launch mocker_node mocker_node.launch.py
 ```
 
 or run directly:

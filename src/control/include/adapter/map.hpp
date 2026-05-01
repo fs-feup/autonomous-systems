@@ -4,7 +4,6 @@
 #include <memory>
 #include <string>
 
-#include "adapter/eufs.hpp"
 #include "adapter/invictasim.hpp"
 #include "adapter/pacsim.hpp"
 #include "adapter/vehicle.hpp"
@@ -24,10 +23,6 @@ const std::map<std::string, std::function<std::shared_ptr<ControlNode>(const Con
         {"vehicle",
          [](const ControlParameters& params) -> std::shared_ptr<ControlNode> {
            return std::make_shared<VehicleAdapter>(params);
-         }},
-        {"eufs",
-         [](const ControlParameters& params) -> std::shared_ptr<ControlNode> {
-           return std::make_shared<EufsAdapter>(params);
          }},
         {"invictasim", [](const ControlParameters& params) -> std::shared_ptr<ControlNode> {
            return std::make_shared<InvictasimAdapter>(params);

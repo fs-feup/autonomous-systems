@@ -20,7 +20,6 @@ The Perception module is responsible for the processing of the perception module
 
 ### Launch Configurations
 
-- [eufs.launch.py](launch/eufs.launch.py): Launch file for the EUFS simulator
 - [rosbag-preprocessed.launch.py](launch/rosbag-preprocessed.launch.py): Launch file for the a preprocessed rosbag with a cone scene
 - [vehicle.launch.py](launch/vehicle.launch.py): Launch file for the 01 vehicle
 
@@ -62,7 +61,7 @@ Use a launch file:
 
 ```sh
 source ./install/setup.bash # If in a new terminal
-ros2 launch perception eufs.launch.py
+ros2 launch perception perception.launch.py
 ```
 
 or run directly:

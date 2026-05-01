@@ -1,5 +1,0 @@
-std_msgs/Header header
-
-float64 average_time_between_poses
-float64 average_optimization_cycle_time
-float64 average_sleep_time

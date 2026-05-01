@@ -14,8 +14,6 @@ set(PACKAGES
     geometry_msgs
     custom_interfaces
     common_lib
-    eufs_msgs
-    fs_msgs
 )
 
 foreach(pkg ${PACKAGES})

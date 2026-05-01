@@ -26,7 +26,6 @@
 #include "custom_interfaces/msg/velocities.hpp"
 #include "custom_interfaces/msg/wheel_rpm.hpp"
 #include "custom_interfaces/msg/wheel_scalars.hpp"
-#include "fs_msgs/msg/go_signal.hpp"
 #include "geometry_msgs/msg/transform_stamped.hpp"
 #include "geometry_msgs/msg/vector3_stamped.hpp"
 #include "io/output/output_adapter.hpp"
@@ -150,7 +149,8 @@ private:
 
   // Visualization marker publishing helper functions
   visualization_msgs::msg::MarkerArray convert_cone_array_to_markers(
-      const std::vector<common_lib::structures::Cone>& cone_array, const rclcpp::Time& stamp, const std::string& frame_id = "map") const;
+      const std::vector<common_lib::structures::Cone>& cone_array, const rclcpp::Time& stamp,
+      const std::string& frame_id = "map") const;
   void add_body_marker(visualization_msgs::msg::MarkerArray& marker_array,
                        const rclcpp::Time& stamp) const;
   void add_wheel_markers(visualization_msgs::msg::MarkerArray& marker_array,

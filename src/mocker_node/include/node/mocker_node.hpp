@@ -8,8 +8,6 @@
 
 #include "common_lib/communication/interfaces.hpp"
 #include "common_lib/communication/marker.hpp"
-#include "fs_msgs/msg/finished_signal.hpp"
-#include "fs_msgs/msg/go_signal.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "utils/mocks.hpp"
 #include "visualization_msgs/msg/marker.hpp"

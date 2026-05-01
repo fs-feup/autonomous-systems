@@ -23,7 +23,6 @@ The planning module is the third main module in the autonomous system. It comes 
 
 ### Launch Configurations
 
-- [eufs.launch.py](launch/eufs.launch.py): Launches the planning node with the necessary parameters for the EUFS simulator.
 - [vehicle.launch.py](launch/vehicle.launch.py): Launches the planning node with the necessary parameters for the 01 vehicle.
 - [pacsim.launch.py](launch/pacsim.launch.py): Launches the planning node with the necessary parameters for the PacSim simulator.
 

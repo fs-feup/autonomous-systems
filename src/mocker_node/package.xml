@@ -16,8 +16,6 @@
   <depend>std_msgs</depend>
   <depend>sensor_msgs</depend>
   <depend>custom_interfaces</depend>
-  <depend>eufs_msgs</depend>
-  <depend>fs_msgs</depend>
   <depend>common_lib</depend>
   <depend>visualization_msgs</depend>
 
