@@ -650,6 +650,7 @@ void RosOutputAdapter::add_body_marker(visualization_msgs::msg::MarkerArray& mar
   visualization_msgs::msg::Marker body;
   body.header.stamp = stamp;
   body.header.frame_id = "car";
+  body.frame_locked = true;
   body.ns = "invictasim_vehicle";
   body.id = 0;
   body.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
@@ -722,6 +723,7 @@ void RosOutputAdapter::add_wheel_markers(visualization_msgs::msg::MarkerArray& m
 
     visualization_msgs::msg::Marker wheel;
     wheel.header.stamp = stamp;
+    wheel.frame_locked = true;
     wheel.header.frame_id = "car";  // Locked to the moving car frame
     wheel.ns = "invictasim_vehicle";
     wheel.id = i + 1;
