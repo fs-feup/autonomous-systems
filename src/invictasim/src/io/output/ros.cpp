@@ -38,6 +38,8 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator,
       "invictasim/visualization/vehicle", 10);
   visualization_gt_cones_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
       "invictasim/visualization/ground_truth_cones", 10);
+  visualization_slam_cones_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
+      "invictasim/visualization/slam_cones", 10);
 
   // Simulated perception publishers
   if (simulator_->get_params().use_simulated_perception) {
@@ -52,8 +54,6 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator,
   if (simulator_->get_params().use_simulated_se) {
     state_map_pub_ = this->create_publisher<custom_interfaces::msg::ConeArray>(
         "invictasim/state_estimation/map", 10);
-    visualization_slam_cones_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
-        "invictasim/visualization/slam_cones", 10);
     vehicle_pose_pub_ = this->create_publisher<custom_interfaces::msg::Pose>(
         "invictasim/state_estimation/vehicle_pose", 10);
     lap_counter_pub_ = this->create_publisher<std_msgs::msg::Float64>(
@@ -155,11 +155,13 @@ void RosOutputAdapter::map_callbacks() {
   register_pub_helper("execution_time",
                       [this](const rclcpp::Time& stamp) { publish_execution_time(stamp); });
 
+  // SLAM Cones Visualization (either external or simulated)
+  register_pub_helper("slam_cones", [this](const rclcpp::Time& stamp) {
+    publish_visualization_slam_cones(stamp);
+  });
+
   // Simulated state estimation
   if (simulator_->get_params().use_simulated_se) {
-    register_pub_helper("slam_cones", [this](const rclcpp::Time& stamp) {
-      publish_visualization_slam_cones(stamp);
-    });
     register_pub_helper("simulated_slam", [this](const rclcpp::Time& stamp) {
       publish_state_estimation_map(stamp);
       publish_state_estimation_lap_counter();
@@ -170,7 +172,7 @@ void RosOutputAdapter::map_callbacks() {
 
   // Simulated perception
   if (simulator_->get_params().use_simulated_perception) {
-    register_pub_helper("perception_cones",
+    register_pub_helper("perception",
                         [this](const rclcpp::Time& stamp) { publish_perception_cones(stamp); });
     register_pub_helper("perception_cones", [this](const rclcpp::Time& stamp) {
       publish_visualization_perception_cones(stamp);
@@ -593,7 +595,7 @@ void RosOutputAdapter::publish_visualization_perception_cones(const rclcpp::Time
 }
 
 visualization_msgs::msg::MarkerArray RosOutputAdapter::convert_cone_array_to_markers(
-    std::vector<common_lib::structures::Cone>& cone_array, const rclcpp::Time& stamp) const {
+    const std::vector<common_lib::structures::Cone>& cone_array, const rclcpp::Time& stamp) const {
   visualization_msgs::msg::MarkerArray marker_array;
   int cone_id = 0;
   for (const auto& cone : cone_array) {
@@ -631,6 +633,9 @@ visualization_msgs::msg::MarkerArray RosOutputAdapter::convert_cone_array_to_mar
       case common_lib::competition_logic::Color::LARGE_ORANGE:
         m.mesh_resource = path + "cone_orange_big.dae";
         m.pose.position.z = 0.03;  // Adjusted height for large cone
+        break;
+      case common_lib::competition_logic::Color::UNKNOWN:
+        m.mesh_resource = path + "cone_red.dae";
         break;
       case common_lib::competition_logic::Color::ORANGE:
       default:

@@ -203,7 +203,13 @@ MapSnapshot InvictaSim::build_map_snapshot() const {
   // For now, all of them publish the same ground truth cones,
   // but later this would publish the slam map and the perception cones
   snapshot.ground_truth = track_->get_cones();
-  snapshot.simulated_slam_map = track_->get_cones();
+
+  if (params_.use_simulated_se) {
+    snapshot.simulated_slam_map = track_->get_cones();
+  } else {
+    snapshot.simulated_slam_map = external_slam_cones_;
+  }
+
   snapshot.perception_cones = track_->get_cones();
   snapshot.perception_exec_time_ms = 0.0;  // Will allow to simualte the perception delay
   snapshot.lap_counter = 0;                // Placeholder for lap counting logic

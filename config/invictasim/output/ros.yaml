@@ -10,15 +10,15 @@ publish_frequencies:
     car: 30           # Car visualization 
     ground: 30         # Ground visualization 
     ground_truth_cones: 0   # Ground-truth cones visualization
-    slam_cones: 30          # SLAM cones visualization
-    perception_cones: 0    # Perception cones visualization
+    slam_cones: 30          # SLAM cones visualization (simulated or from state estimation)
+    perception_cones: 0    # Perception cones visualization (simulated or from perception)
   sensors:
-    perception: 0      # Simulated perception output
     imu: 0             # Simulated IMU (free_acceleration, angular_velocity)
     wheel_speed: 0      # Simulated wheel speed sensors
     resolver: 0         # Simulated motor/resolver RPM
     steering: 0         # Simulated steering sensor
   map:
+    perception: 10      # Simulated perception output
     ground_truth: 0       # Ground-truth track map
     simulated_slam: 10      # Simulated SLAM map 
   vehicle_state:

@@ -155,6 +155,15 @@ public:
     return vehicle_state_snapshot_;
   }
 
+  /**
+   * @brief Set the external SLAM cones.
+   * @param cones The map cones received from the external SLAM node.
+   */
+  void set_external_slam_cones(const std::vector<common_lib::structures::Cone>& cones) {
+    std::lock_guard<std::mutex> lock(output_snapshot_mutex_);
+    external_slam_cones_ = cones;
+  }
+
 private:
   InvictaSimParameters params_;  ///< Simulator configuration values.
 
@@ -186,6 +195,8 @@ private:
   bool ebs_active_{false};                   ///< Current EBS state.
 
   std::atomic<bool> go_signal_{false};       ///< Global go signal state.
+
+  std::vector<common_lib::structures::Cone> external_slam_cones_; ///< External SLAM cones.
 
   /**
    * @brief Build a consolidated vehicle model snapshot with all vehicle state data.

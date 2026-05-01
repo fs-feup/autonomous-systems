@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common_lib/structures/cone.hpp"
+#include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/control_command.hpp"
 #include "io/input/input_adapter.hpp"
 #include "rclcpp/rclcpp.hpp"
@@ -18,4 +20,6 @@ public:
 private:
   rclcpp::Subscription<custom_interfaces::msg::ControlCommand>::SharedPtr
       control_command_sub_;  ///< Subscription for control commands.
+  rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr
+      slam_map_sub_;  ///< Subscription for SLAM map cones.
 };
