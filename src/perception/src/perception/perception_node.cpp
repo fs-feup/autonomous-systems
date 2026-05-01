@@ -21,7 +21,7 @@ PerceptionParameters Perception::load_config() {
   params.adapter_ = global_config["global"]["adapter"].as<std::string>();
   params.vehicle_frame_id_ = global_config["global"]["vehicle_frame_id"].as<std::string>();
 
-  if (params.adapter_ == "pacsim") {
+  if (params.adapter_ == "pacsim" || params.adapter_ == "invictasim") {
     params.adapter_ = "vehicle";
   }
 

@@ -22,10 +22,26 @@ RosInputAdapter::RosInputAdapter(const std::shared_ptr<InvictaSim>& simulator)
           for (const auto& cone_msg : msg->cone_array) {
             cones.push_back(common_lib::structures::Cone(
                 common_lib::structures::Position{cone_msg.position.x, cone_msg.position.y},
-                common_lib::competition_logic::Color::UNKNOWN, cone_msg.confidence,
+                common_lib::competition_logic::Color::RED, cone_msg.confidence,
                 msg->header.stamp));
           }
           simulator_->set_external_slam_cones(cones);
+        });
+  }
+
+  if (!simulator_->get_params().use_simulated_perception) {
+    perception_sub_ = this->create_subscription<custom_interfaces::msg::PerceptionOutput>(
+        "/perception/cones", 10,
+        [this](const custom_interfaces::msg::PerceptionOutput::SharedPtr msg) {
+          std::vector<common_lib::structures::Cone> cones;
+          cones.reserve(msg->cones.cone_array.size());
+          for (const auto& cone_msg : msg->cones.cone_array) {
+            cones.push_back(common_lib::structures::Cone(
+                common_lib::structures::Position{cone_msg.position.x, cone_msg.position.y},
+                common_lib::competition_logic::Color::GREEN, cone_msg.confidence,
+                msg->header.stamp));
+          }
+          simulator_->set_external_perception_cones(cones);
         });
   }
 }

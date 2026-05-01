@@ -164,6 +164,15 @@ public:
     external_slam_cones_ = cones;
   }
 
+  /**
+   * @brief Set the external perception cones.
+   * @param cones The map cones received from the external perception node.
+   */
+  void set_external_perception_cones(const std::vector<common_lib::structures::Cone>& cones) {
+    std::lock_guard<std::mutex> lock(output_snapshot_mutex_);
+    external_perception_cones_ = cones;
+  }
+
 private:
   InvictaSimParameters params_;  ///< Simulator configuration values.
 
@@ -196,7 +205,8 @@ private:
 
   std::atomic<bool> go_signal_{false};       ///< Global go signal state.
 
-  std::vector<common_lib::structures::Cone> external_slam_cones_; ///< External SLAM cones.
+  std::vector<common_lib::structures::Cone> external_slam_cones_;       ///< External SLAM cones.
+  std::vector<common_lib::structures::Cone> external_perception_cones_; ///< External perception cones.
 
   /**
    * @brief Build a consolidated vehicle model snapshot with all vehicle state data.
