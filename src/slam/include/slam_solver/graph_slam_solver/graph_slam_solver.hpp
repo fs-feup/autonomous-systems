@@ -134,16 +134,17 @@ public:
    *
    * @param cones Positions of the observations
    * @param cones_timestamp Timestamp of the observations
+   * @param is_moving Flag indicating if the car is moving
    */
   void add_observations(const std::vector<common_lib::structures::Cone>& cones,
-                        rclcpp::Time cones_timestamp) override;
+                        rclcpp::Time cones_timestamp, bool is_moving = false) override;
 
   /**
    * @brief Initialize the graph SLAM solver with a previously saved map and pose
    *
    * @param map Coordinates of the landmarks in the form of [x1, y1, x2, y2, ...] relative to the
    * global frame
-   * @param pose Pose of the robot in the form of [x, y, theta] relative to the global frame
+   * @param pose Pose of the car in the form of [x, y, theta] relative to the global frame
    */
   void load_initial_state(const Eigen::VectorXd& map, const Eigen::Vector3d& pose) override;
 

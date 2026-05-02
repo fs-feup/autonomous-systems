@@ -8,15 +8,20 @@ struct DataAssociationParameters {
       0.8;  // minimum confidence to consider a landmark new and not outlier
   double observation_x_noise = 0.1;
   double observation_y_noise = 0.1;
+  double seed_radius = 10.0;
+  int seed_count = 3;
 
   DataAssociationParameters() = default;
 
   DataAssociationParameters(const double max_landmark_distance, const double association_gate,
                             const double new_landmark_confidence_gate,
-                            const double observation_x_noise, const double observation_y_noise)
+                            const double observation_x_noise, const double observation_y_noise,
+                            const double seed_radius = 10.0, const int seed_count = 3)
       : max_landmark_distance(max_landmark_distance),
         association_gate(association_gate),
         new_landmark_confidence_gate(new_landmark_confidence_gate),
         observation_x_noise(observation_x_noise),
-        observation_y_noise(observation_y_noise) {}
+        observation_y_noise(observation_y_noise),
+        seed_radius(seed_radius),
+        seed_count(seed_count) {}
 };
