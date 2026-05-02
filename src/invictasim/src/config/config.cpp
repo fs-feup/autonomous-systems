@@ -35,8 +35,8 @@ InvictaSimParameters::InvictaSimParameters() {
       vehicle_model_config["vehicle_model"]["load_transfer_model"].as<std::string>();
   motor_model = vehicle_model_config["vehicle_model"]["motor_model"].as<std::string>();
   battery_model = vehicle_model_config["vehicle_model"]["battery_model"].as<std::string>();
-  differential_model =
-      vehicle_model_config["vehicle_model"]["differential_model"].as<std::string>();
+  transmission_model =
+      vehicle_model_config["vehicle_model"]["transmission_model"].as<std::string>();
 
   car_parameters = std::make_shared<common_lib::car_parameters::CarParameters>(
       "invictasim/vehicle_models", vehicle_model);

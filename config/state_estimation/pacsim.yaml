@@ -23,6 +23,6 @@ state_estimation:
   motor_rpm_noise: 0.1 # variance of the noise for the motor rpm from motor sensor
 
   mean_weight: 0.4
-  alpha: 0.01 # UKF alpha parameter 
+  alpha: 0.15 # UKF alpha parameter 
   beta: 2.0 # UKF beta parameter
   kappa: 0.0 # UKF kappa parameter

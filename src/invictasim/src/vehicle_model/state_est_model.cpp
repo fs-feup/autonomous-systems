@@ -10,7 +10,7 @@ StateEstModel::StateEstModel(const InvictaSimParameters& simulator_parameters)
       simulator_parameters.car_parameters);
   this->steering_motor_ = steering_motor_models_map.at(
       simulator_parameters.steering_motor_model.c_str())(simulator_parameters.car_parameters);
-  this->differential_ = differential_models_map.at(simulator_parameters.differential_model.c_str())(
+  this->transmission_ = transmission_models_map.at(simulator_parameters.transmission_model.c_str())(
       simulator_parameters.car_parameters);
   this->aero_ = aero_models_map.at(simulator_parameters.aero_model.c_str())(
       simulator_parameters.car_parameters);
@@ -28,11 +28,11 @@ void StateEstModel::step(double dt, common_lib::structures::Wheels throttle, dou
   double motor_torque = throttle.rear_left * car_parameters_->motor_parameters->max_peak_torque;
   const auto powertrain_end = Clock::now();
 
-  // Calculate torque distribution using the differential model
-  const auto differential_start = Clock::now();
+  // Calculate torque distribution using the transmission model
+  const auto transmission_start = Clock::now();
   state_->wheels_torque =
-      differential_->calculateTorqueDistribution(motor_torque, state_->wheels_speed);
-  const auto differential_end = Clock::now();
+      transmission_->calculate_wheel_torques(motor_torque, state_->wheels_speed);
+  const auto transmission_end = Clock::now();
   Eigen::Vector4d torques(state_->wheels_torque.front_left, state_->wheels_torque.front_right,
                           state_->wheels_torque.rear_left, state_->wheels_torque.rear_right);
 
@@ -72,7 +72,7 @@ void StateEstModel::step(double dt, common_lib::structures::Wheels throttle, dou
                                state_->wheels_speed.rear_left, state_->wheels_speed.rear_right);
   TireInput tire_input;
   const auto tire_start = Clock::now();
-  Eigen::VectorXd tire_forces = Eigen::VectorXd(12);  // 4 tires * 3 forces each
+  Eigen::VectorXd tire_forces = Eigen::VectorXd(16);  // 4 tires * 4 forces each
   Eigen::Vector4d slip_angles = Eigen::Vector4d::Zero();
   tire_input.vx = state_->vx;
   tire_input.vy = state_->vy;
@@ -86,18 +86,18 @@ void StateEstModel::step(double dt, common_lib::structures::Wheels throttle, dou
     tire_input.steering_angle = wheel_angles(tire);
     tire_input.wheel_angular_speed = wheel_speeds(tire);
     tire_input.vertical_load = total_vertical_loads(tire);
-    tire_forces.segment<3>(tire * 3) =
-        tire_model_->calculateTireForcesNotTransient(tire_input);  //[Fx, Fy, Fz]
+    tire_forces.segment<4>(tire * 4) =
+        tire_model_->calculate_tire_forces_not_transient(tire_input);  //[Fx, Fy, My, Mz]
     slip_angles(tire) = tire_input.slip_angle;
   }
 
   // Info for simulator publishers
   state_->wheels_slip_angle = common_lib::structures::Wheels(slip_angles(0), slip_angles(1),
                                                              slip_angles(2), slip_angles(3));
-  state_->front_left_forces = tire_forces.segment<3>(FL * 3);
-  state_->front_right_forces = tire_forces.segment<3>(FR * 3);
-  state_->rear_left_forces = tire_forces.segment<3>(RL * 3);
-  state_->rear_right_forces = tire_forces.segment<3>(RR * 3);
+  state_->front_left_forces = tire_forces.segment<4>(FL * 4);
+  state_->front_right_forces = tire_forces.segment<4>(FR * 4);
+  state_->rear_left_forces = tire_forces.segment<4>(RL * 4);
+  state_->rear_right_forces = tire_forces.segment<4>(RR * 4);
   state_->wheels_slip_ratio =
       common_lib::structures::Wheels(tire_input.last_slip_ratio(0), tire_input.last_slip_ratio(1),
                                      tire_input.last_slip_ratio(2), tire_input.last_slip_ratio(3));
@@ -119,14 +119,17 @@ void StateEstModel::step(double dt, common_lib::structures::Wheels throttle, dou
   double inertia = car_parameters_->tire_parameters->wheel_inertia;
 
   for (Tire tire : {FL, FR, RL, RR}) {
+    double sign_r = 2.0 / M_PI * std::atan(10.0 * wheel_speeds(tire));
     // Update wheel speeds using the calculated torques and tire forces
-    wheel_speeds(tire) += ((torques(tire) - tire_forces(tire * 3) * wheel_radius) / inertia) *
+    wheel_speeds(tire) += ((torques(tire) - tire_forces(tire * 4) * wheel_radius -
+                            std::abs(tire_forces(tire * 4 + 2)) * sign_r) /
+                           inertia) *
                           dt;  // No braking torque
 
     // Current tire forces in tire-local frame
-    double fx_tire = tire_forces(tire * 3);
-    double fy_tire = tire_forces(tire * 3 + 1);
-    double mz_tire = tire_forces(tire * 3 + 2);
+    double fx_tire = tire_forces(tire * 4);
+    double fy_tire = tire_forces(tire * 4 + 1);
+    double mz_tire = tire_forces(tire * 4 + 3);
 
     // Transform to vehicle frame
     double cos_delta = cos(wheel_angles(tire));
@@ -190,8 +193,8 @@ void StateEstModel::step(double dt, common_lib::structures::Wheels throttle, dou
   // Per-subsystem execution times in milliseconds.
   execution_times_->powertrain_ms =
       std::chrono::duration<double, std::milli>(powertrain_end - powertrain_start).count();
-  execution_times_->differential_ms =
-      std::chrono::duration<double, std::milli>(differential_end - differential_start).count();
+  execution_times_->transmission_ms =
+      std::chrono::duration<double, std::milli>(transmission_end - transmission_start).count();
   execution_times_->aero_ms =
       std::chrono::duration<double, std::milli>(aero_end - aero_start).count();
   execution_times_->steering_ms =

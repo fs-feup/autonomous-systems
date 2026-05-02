@@ -24,7 +24,7 @@ struct InvictaSimParameters {
   std::string load_transfer_model;
   std::string motor_model;
   std::string battery_model;
-  std::string differential_model;
+  std::string transmission_model;
 
   std::map<std::string, int> publish_frequencies;
 
