@@ -285,6 +285,8 @@ std::string PerceptionSensor::getName() { return this->name; }
 
 std::string PerceptionSensor::getFrameId() { return this->frame_id; }
 
+double PerceptionSensor::getDeadTime() { return this->deadTime; }
+
 bool PerceptionSensor::RunTick(LandmarkList& in, Eigen::Vector3d& trans, Eigen::Vector3d& rot, double time)
 {
     if (this->sampleReady(time))

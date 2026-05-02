@@ -24,13 +24,15 @@ public:
    * @param covariance Covariance matrix of the landmark vector
    * @param observation_confidences Confidence in the observations in the same order as the
    * observations
+   * @param pose Current pose of the vehicle in the form of [x, y, theta] in the global frame
    * @return Eigen::VectorXi Each entry corresponds to an observation and contains the index of the
    * landmark that the observation is associated with in the landmark vector (x coordinate). If the
    * observation is considered new, the entry is -1. If the observation is considered an outlier,
    * the entry is -2.
    */
-  virtual Eigen::VectorXi associate(const Eigen::VectorXd& landmarks,
+  virtual Eigen::VectorXi associate(const Eigen::VectorXd& landmarks, 
                                     const Eigen::VectorXd& observations,
                                     const Eigen::MatrixXd& covariance,
-                                    const Eigen::VectorXd& observation_confidences) const = 0;
+                                    const Eigen::VectorXd& observation_confidences,
+                                    const Eigen::Vector3d& pose) const = 0;
 };

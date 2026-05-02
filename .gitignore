@@ -20,3 +20,7 @@ compile_commands.json
 !.vscode/c_cpp_properties.json
 rosbag2*
 *.mcap
+# OSQP build artifacts (optional planning dependency)
+ext/osqp/install/
+ext/osqp/src/build/
+ext/osqp-eigen/src/build/

@@ -4,7 +4,7 @@
 #include <gtsam/geometry/Pose2.h>
 #include <gtsam/nonlinear/ISAM2.h>
 #include <gtsam/nonlinear/ISAM2Params.h>
-#include <gtsam/slam/BearingRangeFactor.h>
+#include <gtsam/sam/BearingRangeFactor.h>
 #include <gtsam/slam/BetweenFactor.h>
 
 #include <algorithm>
@@ -36,7 +36,9 @@ ISAM2Optimizer::ISAM2Optimizer(const ISAM2Optimizer& other) : BaseOptimizer(othe
 }
 
 ISAM2Optimizer& ISAM2Optimizer::operator=(const ISAM2Optimizer& other) {
-  if (this == &other) return *this;  // Prevent self-assignment
+  if (this == &other) {
+    return *this;  // Prevent self-assignment
+  }
 
   // Copy each member individually
   BaseOptimizer::operator=(other);
@@ -52,28 +54,12 @@ std::shared_ptr<BaseOptimizer> ISAM2Optimizer::clone() const {
   return std::make_shared<ISAM2Optimizer>(*this);
 }
 
-gtsam::Values ISAM2Optimizer::optimize(gtsam::NonlinearFactorGraph& factor_graph,
+gtsam::Values ISAM2Optimizer::optimize([[maybe_unused]] gtsam::NonlinearFactorGraph& factor_graph,
                                        [[maybe_unused]] gtsam::Values& graph_values,
                                        [[maybe_unused]] unsigned int pose_num,
                                        [[maybe_unused]] unsigned int landmark_num) {
-  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "ISAM2Optimizer - Adding %zu new factors",
-               factor_graph.size());
-
-  // Ensure all keys in factor_graph exist in either _last_estimate_ or _new_values_ DONT KNOW IF
-  // CHANGES ANYTHING
-  for (const auto& factor : factor_graph) {
-    gtsam::KeyVector keys = factor->keys();  // use KeyVector directly
-    for (gtsam::Key key : keys) {
-      if (!_last_estimate_.exists(key) && !_new_values_.exists(key)) {
-        // Insert an initial guess
-        if (gtsam::Symbol(key).chr() == 'x') {
-          _new_values_.insert(key, gtsam::Pose2(0, 0, 0));
-        } else if (gtsam::Symbol(key).chr() == 'l') {
-          _new_values_.insert(key, gtsam::Point2(0, 0));
-        }
-      }
-    }
-  }
+  // RCLCPP_DEBUG(rclcpp::get_logger("slam"), "ISAM2Optimizer - Adding %zu new
+  // factors",factor_graph.size());
 
   // Add new factors and values to iSAM2
   _isam2_.update(this->_new_factors_, this->_new_values_);
@@ -81,6 +67,7 @@ gtsam::Values ISAM2Optimizer::optimize(gtsam::NonlinearFactorGraph& factor_graph
   _new_values_.clear();
 
   _last_estimate_ = _isam2_.calculateEstimate();
-  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "ISAM2Optimizer - Optimization complete");
+  // RCLCPP_DEBUG(rclcpp::get_logger("slam"), "ISAM2Optimizer - Optimization
+  // complete");
   return _last_estimate_;
 }
