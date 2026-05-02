@@ -539,6 +539,7 @@ void RosOutputAdapter::publish_visualization_car(const rclcpp::Time& stamp) {
     dt = 0.0;
   }
   visualization_msgs::msg::MarkerArray vehicle_marker_array;
+  visualization_msgs::msg::MarkerArray track_marker_array;
 
   add_vehicle_transform(stamp);
   add_body_marker(vehicle_marker_array, stamp);
