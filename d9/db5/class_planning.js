@@ -34,6 +34,8 @@ var class_planning =
     [ "is_path_final_", "d9/db5/class_planning.html#a358dd294f99d03ce53beff485af7f913", null ],
     [ "lap_counter_", "d9/db5/class_planning.html#acb604db0db31e0341b3157ad16d15987", null ],
     [ "lap_counter_sub_", "d9/db5/class_planning.html#aa22358ad77a3fb3d5e367a1d4da7251c", null ],
+    [ "last_full_path_", "d9/db5/class_planning.html#a9caa45a416c7081ac7eaea45953b340f", null ],
+    [ "last_is_path_closed_", "d9/db5/class_planning.html#ac9371b2537383e9eb5c1e2b5837d2ec5", null ],
     [ "map_frame_id_", "d9/db5/class_planning.html#a3affba7088491811e092d850ec33c71b", null ],
     [ "mission_", "d9/db5/class_planning.html#a49411bc67d2faa39e029bf53124bb6ca", null ],
     [ "param_client_", "d9/db5/class_planning.html#a9a82b0193f10a4c01706639351b14a1e", null ],

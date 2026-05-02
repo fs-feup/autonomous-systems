@@ -1,5 +1,5 @@
 <map id="PathSmoothing" name="PathSmoothing">
-<area shape="rect" id="Node000001" title="class that defines the path smoothing algorithm" alt="" coords="5,374,188,674"/>
-<area shape="rect" id="Node000002" href="$de/dce/struct_path_smoothing_config.html" title="Configuration parameters for the Path Smoothing class." alt="" coords="9,5,184,311"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,311,99,357,94,357,94,311"/>
+<area shape="rect" id="Node000001" title="class that defines the path smoothing algorithm" alt="" coords="5,394,236,834"/>
+<area shape="rect" id="Node000002" href="$de/dce/struct_path_smoothing_config.html" title="Configuration parameters for the Path Smoothing class." alt="" coords="33,5,208,331"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="123,331,123,377,118,377,118,331"/>
 </map>

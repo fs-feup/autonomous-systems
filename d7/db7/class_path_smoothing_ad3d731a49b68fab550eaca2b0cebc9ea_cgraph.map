@@ -1,0 +1,17 @@
+<map id="PathSmoothing::osqp_optimization_implementation" name="PathSmoothing::osqp_optimization_implementation">
+<area shape="rect" id="Node000001" title="Core OSQP optimization implementation." alt="" coords="5,208,198,249"/>
+<area shape="rect" id="Node000002" href="$d7/db7/class_path_smoothing.html#ab58e35a7004fe7b88be0a0ced96294e6" title="Adds track boundary constraints to ensure the optimized path stays within the track." alt="" coords="250,5,401,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="114,206,165,134,202,93,244,57,252,52,255,56,247,61,206,97,170,138,118,209"/>
+<area shape="rect" id="Node000003" href="$d7/db7/class_path_smoothing.html#a12d1f39f2991f3432f3c6eeb31b3b914" title="Adds curvature penalty terms to the quadratic objective function." alt="" coords="257,71,394,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="126,206,179,165,244,122,256,116,258,121,247,127,182,169,129,210"/>
+<area shape="rect" id="Node000004" href="$d7/db7/class_path_smoothing.html#a8649e86268705d25f9d4beca4bbc5dce" title="Adds proximity penalty terms to keep the optimized path near the center line." alt="" coords="257,136,394,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="166,205,245,179,246,184,168,210"/>
+<area shape="rect" id="Node000005" href="$d7/db7/class_path_smoothing.html#abf26b5322db30f37f7ce2ef8c1e615e2" title="Adds non&#45;negativity constraints for slack variables." alt="" coords="254,201,397,256"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="198,226,238,226,238,231,198,231"/>
+<area shape="rect" id="Node000006" href="$d7/db7/class_path_smoothing.html#adce7fe96dce3791075ff778f27459fdf" title="Adds penalty terms for slack variables to the quadratic objective function." alt="" coords="252,280,399,321"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="168,247,246,272,245,277,166,252"/>
+<area shape="rect" id="Node000007" href="$d7/db7/class_path_smoothing.html#a282cce851a3aaebd22e870fcc6d23a39" title="Builds the warm&#45;start vectors for the OSQP solver." alt="" coords="254,345,397,386"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="129,247,182,288,247,330,258,336,256,341,244,335,179,292,126,251"/>
+<area shape="rect" id="Node000008" href="$d7/db7/class_path_smoothing.html#aad1ddc2215dbbee4cd94221655a884b5" title="Converts sparse matrix data from coordinate format to Compressed Sparse Column (CSC) format required ..." alt="" coords="246,411,405,451"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="118,248,170,319,206,359,247,396,255,400,252,405,244,400,202,363,165,322,114,251"/>
+</map>

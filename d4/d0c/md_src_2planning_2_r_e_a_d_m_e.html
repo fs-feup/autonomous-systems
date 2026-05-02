@@ -147,7 +147,7 @@ Install Dependencies</h2>
 <div class="line">./src/planning/dependencies_install.sh</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md194"></a>
 Compiling</h2>
-<div class="fragment"><div class="line">MAKEFLAGS=-j2 colcon build --packages-up-to planning --cmake-args -G Ninja</div>
+<div class="fragment"><div class="line">MAKEFLAGS=-j2 colcon build --packages-up-to planning --cmake-args -G Ninja --event-handlers console_direct+</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md195"></a>
 Testing</h2>
 <div class="fragment"><div class="line">colcon test --packages-select planning # use --event-handlers console_direct+ for immediate output</div>

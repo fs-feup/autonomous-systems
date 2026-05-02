@@ -1,7 +1,7 @@
 var searchData=
 [
   ['r_5ftest_0',['r_test',['../df/d4f/class_performance_test.html#a083128b67975fea995b37a31b78ebf6a',1,'PerformanceTest']]],
-  ['radius_1',['radius',['../d0/da6/struct_grid_geometry.html#ad9ed11f5df47c39501ff167486446194',1,'GridGeometry::radius'],['../d2/de4/namespaceskidpad__mapper.html#ad6c664e08886d47a27db076238ff9dec',1,'skidpad_mapper.RADIUS'],['../df/d9a/namespaceskidpad__conesgenerator.html#a64689e02214b8a3f39cbc7cb6b1f534f',1,'skidpad_conesgenerator.radius'],['../db/d61/namespaceskidpadgenerator.html#af9b5a88bb94a8f7c34b9b15a9f19fb69',1,'skidpadgenerator.radius']]],
+  ['radius_1',['radius',['../d0/da6/struct_grid_geometry.html#ad9ed11f5df47c39501ff167486446194',1,'GridGeometry::radius'],['../df/d9a/namespaceskidpad__conesgenerator.html#a64689e02214b8a3f39cbc7cb6b1f534f',1,'skidpad_conesgenerator.radius'],['../db/d61/namespaceskidpadgenerator.html#af9b5a88bb94a8f7c34b9b15a9f19fb69',1,'skidpadgenerator.radius'],['../d2/de4/namespaceskidpad__mapper.html#ad6c664e08886d47a27db076238ff9dec',1,'skidpad_mapper.RADIUS']]],
   ['radius_5faugmentation_2',['radius_augmentation',['../d0/da6/struct_grid_geometry.html#a3455265bbe486c81fee8380e633e3df2',1,'GridGeometry']]],
   ['range_5f_3',['range_',['../dc/d71/class_ground_grid.html#a19887e5aaa305fbf7179b7064d0978a2',1,'GroundGrid']]],
   ['ransac_5feps_4',['ransac_eps',['../d2/d36/struct_perception_execution_data.html#a54eb7b3cfd276914a1800126f6106ed5',1,'PerceptionExecutionData::RANSAC_eps'],['../d3/d0d/class_perception_performance_test.html#ad184b1947b67f7bb9fe9d322b70d2c08',1,'PerceptionPerformanceTest::RANSAC_eps']]],

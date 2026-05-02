@@ -1,0 +1,28 @@
+<map id="PathSmoothing::optimize_path" name="PathSmoothing::optimize_path">
+<area shape="rect" id="Node000001" title="Optimizes a racing line path using quadratic programming." alt="" coords="5,273,202,299"/>
+<area shape="rect" id="Node000002" href="$d7/db7/class_path_smoothing.html#aa6784eb81a049d0cd070e55ac0001ff1" title="Filters path points using a minimum spacing constraint." alt="" coords="499,273,671,299"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="202,283,484,283,484,288,202,288"/>
+<area shape="rect" id="Node000003" href="$d7/db7/class_path_smoothing.html#a5ee61a4685c66c50ba4f207f927fafe7" title="Optimizes a path using quadratic programming (OSQP)." alt="" coords="273,208,418,249"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="160,270,258,246,259,251,162,275"/>
+<area shape="rect" id="Node000012" href="$d7/db7/class_path_smoothing.html#a3fa2dbea9bdf6a68fd7de37964c6012e" title="Smooths a path by fitting a B&#45;spline through the input points." alt="" coords="250,324,441,349"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="169,297,267,317,265,322,168,302"/>
+<area shape="rect" id="Node000004" href="$d7/db7/class_path_smoothing.html#ad3d731a49b68fab550eaca2b0cebc9ea" title="Core OSQP optimization implementation." alt="" coords="489,208,681,249"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="418,226,474,226,474,231,418,231"/>
+<area shape="rect" id="Node000005" href="$d7/db7/class_path_smoothing.html#ab58e35a7004fe7b88be0a0ced96294e6" title="Adds track boundary constraints to ensure the optimized path stays within the track." alt="" coords="733,5,885,46"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="597,206,649,134,686,93,728,57,735,52,738,56,731,61,690,97,653,138,602,209"/>
+<area shape="rect" id="Node000006" href="$d7/db7/class_path_smoothing.html#a12d1f39f2991f3432f3c6eeb31b3b914" title="Adds curvature penalty terms to the quadratic objective function." alt="" coords="740,71,878,111"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="609,206,663,165,728,122,739,116,742,121,731,127,666,169,613,210"/>
+<area shape="rect" id="Node000007" href="$d7/db7/class_path_smoothing.html#a8649e86268705d25f9d4beca4bbc5dce" title="Adds proximity penalty terms to keep the optimized path near the center line." alt="" coords="740,136,878,177"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="650,205,728,179,730,184,651,210"/>
+<area shape="rect" id="Node000008" href="$d7/db7/class_path_smoothing.html#abf26b5322db30f37f7ce2ef8c1e615e2" title="Adds non&#45;negativity constraints for slack variables." alt="" coords="738,201,880,256"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="682,226,722,226,722,231,682,231"/>
+<area shape="rect" id="Node000009" href="$d7/db7/class_path_smoothing.html#adce7fe96dce3791075ff778f27459fdf" title="Adds penalty terms for slack variables to the quadratic objective function." alt="" coords="735,280,883,321"/>
+<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="651,247,730,272,728,277,650,252"/>
+<area shape="rect" id="Node000010" href="$d7/db7/class_path_smoothing.html#a282cce851a3aaebd22e870fcc6d23a39" title="Builds the warm&#45;start vectors for the OSQP solver." alt="" coords="737,345,881,386"/>
+<area shape="poly" id="edge9_Node000004_Node000010" title=" " alt="" coords="665,247,683,258,700,277,708,295,716,313,731,330,737,335,734,339,728,334,711,315,703,297,695,279,680,262,662,251"/>
+<area shape="rect" id="Node000011" href="$d7/db7/class_path_smoothing.html#aad1ddc2215dbbee4cd94221655a884b5" title="Converts sparse matrix data from coordinate format to Compressed Sparse Column (CSC) format required ..." alt="" coords="729,411,889,451"/>
+<area shape="poly" id="edge10_Node000004_Node000011" title=" " alt="" coords="668,247,683,258,697,276,705,294,709,328,712,362,719,379,731,396,735,399,731,403,727,399,714,381,707,363,703,329,699,295,692,279,679,262,665,251"/>
+<area shape="poly" id="edge12_Node000012_Node000002" title=" " alt="" coords="409,320,506,300,507,305,410,325"/>
+<area shape="rect" id="Node000013" href="$d6/da8/splines_8hpp.html#ab0568c3635331878ae79ce16031cb01a" title="This function takes a sequence of points (T), fits a spline to them using B&#45;spline basis functions,..." alt="" coords="549,324,621,349"/>
+<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="441,334,533,334,533,339,441,339"/>
+</map>

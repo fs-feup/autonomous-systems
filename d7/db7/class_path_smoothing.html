@@ -109,9 +109,9 @@ Collaboration diagram for PathSmoothing:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d45/class_path_smoothing__coll__graph.png" border="0" usemap="#a_path_smoothing_coll__map" alt="Collaboration graph"/></div>
 <map name="a_path_smoothing_coll__map" id="a_path_smoothing_coll__map">
-<area shape="rect" title="class that defines the path smoothing algorithm" alt="" coords="5,374,188,674"/>
-<area shape="rect" href="../../de/dce/struct_path_smoothing_config.html" title="Configuration parameters for the Path Smoothing class." alt="" coords="9,5,184,311"/>
-<area shape="poly" title=" " alt="" coords="99,311,99,357,94,357,94,311"/>
+<area shape="rect" title="class that defines the path smoothing algorithm" alt="" coords="5,394,236,834"/>
+<area shape="rect" href="../../de/dce/struct_path_smoothing_config.html" title="Configuration parameters for the Path Smoothing class." alt="" coords="33,5,208,331"/>
+<area shape="poly" title=" " alt="" coords="123,331,123,377,118,377,118,331"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -123,50 +123,69 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad750c5c3a2780780250193e0e84321bf" id="r_ad750c5c3a2780780250193e0e84321bf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#ad750c5c3a2780780250193e0e84321bf">PathSmoothing</a> (<a class="el" href="../../de/dce/struct_path_smoothing_config.html">PathSmoothingConfig</a> config)</td></tr>
 <tr class="memdesc:ad750c5c3a2780780250193e0e84321bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Path Smoothing object with a given configuration.  <br /></td></tr>
 <tr class="separator:ad750c5c3a2780780250193e0e84321bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a077045088473f134c44112388a1e6d95" id="r_a077045088473f134c44112388a1e6d95"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a077045088473f134c44112388a1e6d95">smooth_path</a> (const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;path, bool is_path_closed) const</td></tr>
-<tr class="memdesc:a077045088473f134c44112388a1e6d95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Smooths a path by fitting a B-spline through the input points.  <br /></td></tr>
-<tr class="separator:a077045088473f134c44112388a1e6d95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8d116547f2d2adc2979676047abcfb4" id="r_af8d116547f2d2adc2979676047abcfb4"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#af8d116547f2d2adc2979676047abcfb4">optimize_path</a> (const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;path, const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;yellow_cones, const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;blue_cones) const</td></tr>
-<tr class="memdesc:af8d116547f2d2adc2979676047abcfb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optimizes a racing line path by fitting splines through track boundaries and applying quadratic programming optimization.  <br /></td></tr>
-<tr class="separator:af8d116547f2d2adc2979676047abcfb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fa2dbea9bdf6a68fd7de37964c6012e" id="r_a3fa2dbea9bdf6a68fd7de37964c6012e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a3fa2dbea9bdf6a68fd7de37964c6012e">smooth_path</a> (std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;path, bool is_path_closed) const</td></tr>
+<tr class="memdesc:a3fa2dbea9bdf6a68fd7de37964c6012e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Smooths a path by fitting a B-spline through the input points.  <br /></td></tr>
+<tr class="separator:a3fa2dbea9bdf6a68fd7de37964c6012e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8890c779625ceba23759dea333dc67f" id="r_af8890c779625ceba23759dea333dc67f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#af8890c779625ceba23759dea333dc67f">optimize_path</a> (std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;path, const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;yellow_cones, const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;blue_cones, bool is_path_closed, bool is_path_final)</td></tr>
+<tr class="memdesc:af8890c779625ceba23759dea333dc67f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optimizes a racing line path using quadratic programming.  <br /></td></tr>
+<tr class="separator:af8890c779625ceba23759dea333dc67f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5a6a837b23202216ca0a6de4e7cad51" id="r_aa5a6a837b23202216ca0a6de4e7cad51"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#aa5a6a837b23202216ca0a6de4e7cad51">~PathSmoothing</a> ()</td></tr>
+<tr class="memdesc:aa5a6a837b23202216ca0a6de4e7cad51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the <a class="el" href="../../d7/db7/class_path_smoothing.html" title="class that defines the path smoothing algorithm">PathSmoothing</a> object and cleans up the OSQP solver if allocated.  <br /></td></tr>
+<tr class="separator:aa5a6a837b23202216ca0a6de4e7cad51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:aa6784eb81a049d0cd070e55ac0001ff1" id="r_aa6784eb81a049d0cd070e55ac0001ff1"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#aa6784eb81a049d0cd070e55ac0001ff1">filter_path</a> (const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;path) const</td></tr>
 <tr class="memdesc:aa6784eb81a049d0cd070e55ac0001ff1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Filters path points using a minimum spacing constraint.  <br /></td></tr>
 <tr class="separator:aa6784eb81a049d0cd070e55ac0001ff1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a451ad9f28138148436574a91d6b3299d" id="r_a451ad9f28138148436574a91d6b3299d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a451ad9f28138148436574a91d6b3299d">osqp_optimization</a> (const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;center, const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;left, const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;right) const</td></tr>
-<tr class="memdesc:a451ad9f28138148436574a91d6b3299d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optimizes a path using quadratic programming (OSQP) to balance smoothness, curvature, and safety constraints.  <br /></td></tr>
-<tr class="separator:a451ad9f28138148436574a91d6b3299d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d550ee1b872ad880b6a47ed193f16ac" id="r_a5d550ee1b872ad880b6a47ed193f16ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a5d550ee1b872ad880b6a47ed193f16ac">add_curvature_terms</a> (int num_path_points, const std::function&lt; int(int)&gt; &amp;circular_index, const std::function&lt; void(int, int, double)&gt; &amp;add_coefficient) const</td></tr>
-<tr class="memdesc:a5d550ee1b872ad880b6a47ed193f16ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds curvature penalty terms to the quadratic objective function.  <br /></td></tr>
-<tr class="separator:a5d550ee1b872ad880b6a47ed193f16ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ee61a4685c66c50ba4f207f927fafe7" id="r_a5ee61a4685c66c50ba4f207f927fafe7"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a5ee61a4685c66c50ba4f207f927fafe7">osqp_optimization</a> (const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;center, const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;left, const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;right, bool is_path_closed, bool is_final) const</td></tr>
+<tr class="memdesc:a5ee61a4685c66c50ba4f207f927fafe7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optimizes a path using quadratic programming (OSQP).  <br /></td></tr>
+<tr class="separator:a5ee61a4685c66c50ba4f207f927fafe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12d1f39f2991f3432f3c6eeb31b3b914" id="r_a12d1f39f2991f3432f3c6eeb31b3b914"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a12d1f39f2991f3432f3c6eeb31b3b914">add_curvature_terms</a> (int num_path_points, const std::function&lt; int(int)&gt; &amp;circular_index, const std::function&lt; void(int, int, double)&gt; &amp;add_coefficient, bool is_path_closed) const</td></tr>
+<tr class="memdesc:a12d1f39f2991f3432f3c6eeb31b3b914"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds curvature penalty terms to the quadratic objective function.  <br /></td></tr>
+<tr class="separator:a12d1f39f2991f3432f3c6eeb31b3b914"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adce7fe96dce3791075ff778f27459fdf" id="r_adce7fe96dce3791075ff778f27459fdf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#adce7fe96dce3791075ff778f27459fdf">add_slack_penalty_terms</a> (int num_path_points, const std::function&lt; void(int, int, double)&gt; &amp;add_coefficient) const</td></tr>
 <tr class="memdesc:adce7fe96dce3791075ff778f27459fdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds penalty terms for slack variables to the quadratic objective function.  <br /></td></tr>
 <tr class="separator:adce7fe96dce3791075ff778f27459fdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02704a577c06ded4c57eb5294441f538" id="r_a02704a577c06ded4c57eb5294441f538"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a02704a577c06ded4c57eb5294441f538">add_slack_penalty_terms</a> (std::map&lt; std::pair&lt; int, int &gt;, double &gt; &amp;quadratic_terms, int num_path_points, const std::function&lt; void(int, int, double)&gt; &amp;add_coefficient) const</td></tr>
-<tr class="memdesc:a02704a577c06ded4c57eb5294441f538"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds penalty terms for slack variables to the quadratic objective function.  <br /></td></tr>
-<tr class="separator:a02704a577c06ded4c57eb5294441f538"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9884811317c7d7391b6eb07514c7cb0" id="r_ac9884811317c7d7391b6eb07514c7cb0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#ac9884811317c7d7391b6eb07514c7cb0">add_boundary_constraints</a> (std::vector&lt; OSQPFloat &gt; &amp;constraint_values, std::vector&lt; OSQPInt &gt; &amp;constraint_row_indices, std::vector&lt; OSQPInt &gt; &amp;constraint_col_indices, std::vector&lt; OSQPFloat &gt; &amp;constraint_lower_bounds, std::vector&lt; OSQPFloat &gt; &amp;constraint_upper_bounds, int &amp;constraint_count, const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;left, const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;right, int num_path_points, double safety_margin) const</td></tr>
-<tr class="memdesc:ac9884811317c7d7391b6eb07514c7cb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds track boundary constraints to ensure the optimized path stays within the track.  <br /></td></tr>
-<tr class="separator:ac9884811317c7d7391b6eb07514c7cb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab58e35a7004fe7b88be0a0ced96294e6" id="r_ab58e35a7004fe7b88be0a0ced96294e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#ab58e35a7004fe7b88be0a0ced96294e6">add_boundary_constraints</a> (std::vector&lt; OSQPFloat &gt; &amp;constraint_values, std::vector&lt; OSQPInt &gt; &amp;constraint_row_indices, std::vector&lt; OSQPInt &gt; &amp;constraint_col_indices, std::vector&lt; OSQPFloat &gt; &amp;constraint_lower_bounds, std::vector&lt; OSQPFloat &gt; &amp;constraint_upper_bounds, int &amp;constraint_count, const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;left, const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;right, const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;center, int num_path_points, double safety_margin) const</td></tr>
+<tr class="memdesc:ab58e35a7004fe7b88be0a0ced96294e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds track boundary constraints to ensure the optimized path stays within the track.  <br /></td></tr>
+<tr class="separator:ab58e35a7004fe7b88be0a0ced96294e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf26b5322db30f37f7ce2ef8c1e615e2" id="r_abf26b5322db30f37f7ce2ef8c1e615e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#abf26b5322db30f37f7ce2ef8c1e615e2">add_slack_nonnegativity_constraints</a> (std::vector&lt; OSQPFloat &gt; &amp;constraint_values, std::vector&lt; OSQPInt &gt; &amp;constraint_row_indices, std::vector&lt; OSQPInt &gt; &amp;constraint_col_indices, std::vector&lt; OSQPFloat &gt; &amp;constraint_lower_bounds, std::vector&lt; OSQPFloat &gt; &amp;constraint_upper_bounds, int &amp;constraint_count, int num_path_points) const</td></tr>
 <tr class="memdesc:abf26b5322db30f37f7ce2ef8c1e615e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds non-negativity constraints for slack variables.  <br /></td></tr>
 <tr class="separator:abf26b5322db30f37f7ce2ef8c1e615e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d3edb65439cb4aa32bf799e0293a243" id="r_a0d3edb65439cb4aa32bf799e0293a243"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a0d3edb65439cb4aa32bf799e0293a243">convert_to_csc_format</a> (const std::vector&lt; OSQPFloat &gt; &amp;values, const std::vector&lt; OSQPInt &gt; &amp;row_indices, const std::vector&lt; OSQPInt &gt; &amp;col_indices, int total_variables, std::vector&lt; OSQPFloat &gt; &amp;csc_x, std::vector&lt; OSQPInt &gt; &amp;csc_i, std::vector&lt; OSQPInt &gt; &amp;csc_p) const</td></tr>
-<tr class="memdesc:a0d3edb65439cb4aa32bf799e0293a243"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts sparse matrix data from coordinate format to Compressed Sparse Column (CSC) format.  <br /></td></tr>
-<tr class="separator:a0d3edb65439cb4aa32bf799e0293a243"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8649e86268705d25f9d4beca4bbc5dce" id="r_a8649e86268705d25f9d4beca4bbc5dce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a8649e86268705d25f9d4beca4bbc5dce">add_proximity_terms</a> (int num_path_points, const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;center, const std::function&lt; void(int, int, double)&gt; &amp;add_quadratic_coefficient, std::vector&lt; OSQPFloat &gt; &amp;linear_objective) const</td></tr>
+<tr class="memdesc:a8649e86268705d25f9d4beca4bbc5dce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds proximity penalty terms to keep the optimized path near the center line.  <br /></td></tr>
+<tr class="separator:a8649e86268705d25f9d4beca4bbc5dce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad1ddc2215dbbee4cd94221655a884b5" id="r_aad1ddc2215dbbee4cd94221655a884b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#aad1ddc2215dbbee4cd94221655a884b5">convert_to_csc_format</a> (const std::vector&lt; OSQPFloat &gt; &amp;values, const std::vector&lt; OSQPInt &gt; &amp;row_indices, const std::vector&lt; OSQPInt &gt; &amp;col_indices, int total_variables, std::vector&lt; OSQPFloat &gt; &amp;csc_values, std::vector&lt; OSQPInt &gt; &amp;csc_row_indices, std::vector&lt; OSQPInt &gt; &amp;csc_col_pointers) const</td></tr>
+<tr class="memdesc:aad1ddc2215dbbee4cd94221655a884b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts sparse matrix data from coordinate format to Compressed Sparse Column (CSC) format required by the OSQP solver.  <br /></td></tr>
+<tr class="separator:aad1ddc2215dbbee4cd94221655a884b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3d731a49b68fab550eaca2b0cebc9ea" id="r_ad3d731a49b68fab550eaca2b0cebc9ea"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#ad3d731a49b68fab550eaca2b0cebc9ea">osqp_optimization_implementation</a> (const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;center_path, const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;left_boundary, const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;right_boundary, bool is_path_closed) const</td></tr>
+<tr class="memdesc:ad3d731a49b68fab550eaca2b0cebc9ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core OSQP optimization implementation.  <br /></td></tr>
+<tr class="separator:ad3d731a49b68fab550eaca2b0cebc9ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a282cce851a3aaebd22e870fcc6d23a39" id="r_a282cce851a3aaebd22e870fcc6d23a39"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a282cce851a3aaebd22e870fcc6d23a39">build_warm_start</a> (int total_variables, int num_path_points, int total_constraints, const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;center_path) const</td></tr>
+<tr class="memdesc:a282cce851a3aaebd22e870fcc6d23a39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the warm-start vectors for the OSQP solver.  <br /></td></tr>
+<tr class="separator:a282cce851a3aaebd22e870fcc6d23a39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:aba97424070e38a365d98ed139adb7c88" id="r_aba97424070e38a365d98ed139adb7c88"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/dce/struct_path_smoothing_config.html">PathSmoothingConfig</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#aba97424070e38a365d98ed139adb7c88">config_</a></td></tr>
 <tr class="memdesc:aba97424070e38a365d98ed139adb7c88"><td class="mdescLeft">&#160;</td><td class="mdescRight">configuration of the smoothing algorithm  <br /></td></tr>
 <tr class="separator:aba97424070e38a365d98ed139adb7c88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d83a7deef7aaaf4220c006e90cb5e2e" id="r_a8d83a7deef7aaaf4220c006e90cb5e2e"><td class="memItemLeft" align="right" valign="top">OSQPSolver *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a8d83a7deef7aaaf4220c006e90cb5e2e">solver_</a> = nullptr</td></tr>
+<tr class="separator:a8d83a7deef7aaaf4220c006e90cb5e2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49a8b9f35e59118accd98bfc7169c5f4" id="r_a49a8b9f35e59118accd98bfc7169c5f4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a49a8b9f35e59118accd98bfc7169c5f4">cached_num_points_</a> = -1</td></tr>
+<tr class="separator:a49a8b9f35e59118accd98bfc7169c5f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb17b7ce7e475754b371d2090424cfea" id="r_afb17b7ce7e475754b371d2090424cfea"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#afb17b7ce7e475754b371d2090424cfea">cached_is_closed_</a> = false</td></tr>
+<tr class="separator:afb17b7ce7e475754b371d2090424cfea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2edd803a03f64da447486c33677cf981" id="r_a2edd803a03f64da447486c33677cf981"><td class="memItemLeft" align="right" valign="top">std::vector&lt; OSQPFloat &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a2edd803a03f64da447486c33677cf981">cached_primal_</a></td></tr>
+<tr class="separator:a2edd803a03f64da447486c33677cf981"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cbc4b38f7675a01c6502c8263b845cf" id="r_a8cbc4b38f7675a01c6502c8263b845cf"><td class="memItemLeft" align="right" valign="top">std::vector&lt; OSQPFloat &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a8cbc4b38f7675a01c6502c8263b845cf">cached_dual_</a></td></tr>
+<tr class="separator:a8cbc4b38f7675a01c6502c8263b845cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>class that defines the path smoothing algorithm </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d28/smoothing_8hpp_source.html#l00022">22</a> of file <a class="el" href="../../d0/d28/smoothing_8hpp_source.html">smoothing.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d28/smoothing_8hpp_source.html#l00021">21</a> of file <a class="el" href="../../d0/d28/smoothing_8hpp_source.html">smoothing.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a48524dbf971d4469d992c09d56178e19" name="a48524dbf971d4469d992c09d56178e19"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a48524dbf971d4469d992c09d56178e19">&#9670;&#160;</a></span>PathSmoothing() <span class="overload">[1/2]</span></h2>
@@ -221,13 +240,42 @@ Private Attributes</h2></td></tr>
 
 <p>Construct a new Path Smoothing object with a given configuration. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d28/smoothing_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../d0/d28/smoothing_8hpp_source.html">smoothing.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d28/smoothing_8hpp_source.html#l00033">33</a> of file <a class="el" href="../../d0/d28/smoothing_8hpp_source.html">smoothing.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa5a6a837b23202216ca0a6de4e7cad51" name="aa5a6a837b23202216ca0a6de4e7cad51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5a6a837b23202216ca0a6de4e7cad51">&#9670;&#160;</a></span>~PathSmoothing()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">PathSmoothing::~PathSmoothing </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroys the <a class="el" href="../../d7/db7/class_path_smoothing.html" title="class that defines the path smoothing algorithm">PathSmoothing</a> object and cleans up the OSQP solver if allocated. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/d28/smoothing_8hpp_source.html#l00062">62</a> of file <a class="el" href="../../d0/d28/smoothing_8hpp_source.html">smoothing.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac9884811317c7d7391b6eb07514c7cb0" name="ac9884811317c7d7391b6eb07514c7cb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9884811317c7d7391b6eb07514c7cb0">&#9670;&#160;</a></span>add_boundary_constraints()</h2>
+<a id="ab58e35a7004fe7b88be0a0ced96294e6" name="ab58e35a7004fe7b88be0a0ced96294e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab58e35a7004fe7b88be0a0ced96294e6">&#9670;&#160;</a></span>add_boundary_constraints()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -286,6 +334,12 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>center</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>num_path_points</em>, </td>
         </tr>
@@ -319,30 +373,32 @@ Private Attributes</h2></td></tr>
     <tr><td class="paramname">constraint_count</td><td>Running count of constraints added </td></tr>
     <tr><td class="paramname">left</td><td>Left track boundary points </td></tr>
     <tr><td class="paramname">right</td><td>Right track boundary points </td></tr>
+    <tr><td class="paramname">center</td><td>Center line points, used to derive the forward direction </td></tr>
     <tr><td class="paramname">num_path_points</td><td>Number of points in the path </td></tr>
     <tr><td class="paramname">safety_margin</td><td>Safety distance from track boundaries </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d35/smoothing_8cpp_source.html#l00089">89</a> of file <a class="el" href="../../d8/d35/smoothing_8cpp_source.html">smoothing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d35/smoothing_8cpp_source.html#l00121">121</a> of file <a class="el" href="../../d8/d35/smoothing_8cpp_source.html">smoothing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_ac9884811317c7d7391b6eb07514c7cb0_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_ac9884811317c7d7391b6eb07514c7cb0_icgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_ac9884811317c7d7391b6eb07514c7cb0_icgraph" id="ad7/db7/class_path_smoothing_ac9884811317c7d7391b6eb07514c7cb0_icgraph">
-<area shape="rect" title="Adds track boundary constraints to ensure the optimized path stays within the track." alt="" coords="1774,137,1925,178"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a451ad9f28138148436574a91d6b3299d" title="Optimizes a path using quadratic programming (OSQP) to balance smoothness, curvature,..." alt="" coords="1582,137,1726,178"/>
-<area shape="poly" title=" " alt="" coords="1759,160,1726,160,1726,155,1759,155"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#af8d116547f2d2adc2979676047abcfb4" title="Optimizes a racing line path by fitting splines through track boundaries and applying quadratic progr..." alt="" coords="1337,145,1534,171"/>
-<area shape="poly" title=" " alt="" coords="1566,160,1534,160,1534,155,1566,155"/>
-<area shape="poly" title=" " alt="" coords="1473,132,1461,126,1435,123,1412,126,1400,130,1397,136,1403,143,1399,146,1392,136,1396,126,1411,120,1436,118,1462,121,1476,128"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1138,145,1289,171"/>
-<area shape="poly" title=" " alt="" coords="1322,160,1290,160,1290,155,1322,155"/>
+<div class="center"><img src="../../d7/db7/class_path_smoothing_ab58e35a7004fe7b88be0a0ced96294e6_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_ab58e35a7004fe7b88be0a0ced96294e6_icgraph" alt=""/></div>
+<map name="ad7/db7/class_path_smoothing_ab58e35a7004fe7b88be0a0ced96294e6_icgraph" id="ad7/db7/class_path_smoothing_ab58e35a7004fe7b88be0a0ced96294e6_icgraph">
+<area shape="rect" title="Adds track boundary constraints to ensure the optimized path stays within the track." alt="" coords="2014,136,2166,177"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ad3d731a49b68fab550eaca2b0cebc9ea" title="Core OSQP optimization implementation." alt="" coords="1774,136,1966,177"/>
+<area shape="poly" title=" " alt="" coords="1999,159,1967,159,1967,154,1999,154"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a5ee61a4685c66c50ba4f207f927fafe7" title="Optimizes a path using quadratic programming (OSQP)." alt="" coords="1582,136,1726,177"/>
+<area shape="poly" title=" " alt="" coords="1759,159,1726,159,1726,154,1759,154"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#af8890c779625ceba23759dea333dc67f" title="Optimizes a racing line path using quadratic programming." alt="" coords="1337,144,1534,169"/>
+<area shape="poly" title=" " alt="" coords="1566,159,1534,159,1534,154,1566,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1122,149,1090,145,1091,140,1123,144"/>
+<area shape="poly" title=" " alt="" coords="1356,143,1289,134,1214,131,1138,134,1091,134,1090,129,1138,128,1214,126,1290,128,1357,138"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1138,144,1289,169"/>
+<area shape="poly" title=" " alt="" coords="1322,159,1290,159,1290,154,1322,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
-<area shape="poly" title=" " alt="" coords="1123,171,1091,175,1090,170,1122,166"/>
+<area shape="poly" title=" " alt="" coords="1357,175,1290,184,1186,189,1090,188,1090,183,1185,184,1289,179,1356,170"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
 <area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
@@ -370,14 +426,16 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
+<area shape="poly" title=" " alt="" coords="1122,148,1090,144,1091,139,1123,143"/>
+<area shape="poly" title=" " alt="" coords="1123,170,1091,174,1090,169,1122,165"/>
 <area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a5d550ee1b872ad880b6a47ed193f16ac" name="a5d550ee1b872ad880b6a47ed193f16ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d550ee1b872ad880b6a47ed193f16ac">&#9670;&#160;</a></span>add_curvature_terms()</h2>
+<a id="a12d1f39f2991f3432f3c6eeb31b3b914" name="a12d1f39f2991f3432f3c6eeb31b3b914"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12d1f39f2991f3432f3c6eeb31b3b914">&#9670;&#160;</a></span>add_curvature_terms()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -401,7 +459,13 @@ Here is the caller graph for this function:</div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::function&lt; void(int, int, double)&gt; &amp;&#160;</td>
-          <td class="paramname"><em>add_coefficient</em>&#160;</td>
+          <td class="paramname"><em>add_coefficient</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>is_path_closed</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -422,28 +486,30 @@ Here is the caller graph for this function:</div>
     <tr><td class="paramname">num_path_points</td><td>Number of points in the path </td></tr>
     <tr><td class="paramname">circular_index</td><td>Lambda function for circular array indexing </td></tr>
     <tr><td class="paramname">add_coefficient</td><td>Lambda function to add coefficients to the objective matrix </td></tr>
+    <tr><td class="paramname">is_path_closed</td><td>Whether curvature should wrap at the endpoints </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d35/smoothing_8cpp_source.html#l00042">42</a> of file <a class="el" href="../../d8/d35/smoothing_8cpp_source.html">smoothing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d35/smoothing_8cpp_source.html#l00043">43</a> of file <a class="el" href="../../d8/d35/smoothing_8cpp_source.html">smoothing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_a5d550ee1b872ad880b6a47ed193f16ac_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a5d550ee1b872ad880b6a47ed193f16ac_icgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_a5d550ee1b872ad880b6a47ed193f16ac_icgraph" id="ad7/db7/class_path_smoothing_a5d550ee1b872ad880b6a47ed193f16ac_icgraph">
-<area shape="rect" title="Adds curvature penalty terms to the quadratic objective function." alt="" coords="1774,137,1911,178"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a451ad9f28138148436574a91d6b3299d" title="Optimizes a path using quadratic programming (OSQP) to balance smoothness, curvature,..." alt="" coords="1582,137,1726,178"/>
-<area shape="poly" title=" " alt="" coords="1759,160,1726,160,1726,155,1759,155"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#af8d116547f2d2adc2979676047abcfb4" title="Optimizes a racing line path by fitting splines through track boundaries and applying quadratic progr..." alt="" coords="1337,145,1534,171"/>
-<area shape="poly" title=" " alt="" coords="1566,160,1534,160,1534,155,1566,155"/>
-<area shape="poly" title=" " alt="" coords="1473,132,1461,126,1435,123,1412,126,1400,130,1397,136,1403,143,1399,146,1392,136,1396,126,1411,120,1436,118,1462,121,1476,128"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1138,145,1289,171"/>
-<area shape="poly" title=" " alt="" coords="1322,160,1290,160,1290,155,1322,155"/>
+<div class="center"><img src="../../d7/db7/class_path_smoothing_a12d1f39f2991f3432f3c6eeb31b3b914_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a12d1f39f2991f3432f3c6eeb31b3b914_icgraph" alt=""/></div>
+<map name="ad7/db7/class_path_smoothing_a12d1f39f2991f3432f3c6eeb31b3b914_icgraph" id="ad7/db7/class_path_smoothing_a12d1f39f2991f3432f3c6eeb31b3b914_icgraph">
+<area shape="rect" title="Adds curvature penalty terms to the quadratic objective function." alt="" coords="2014,136,2152,177"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ad3d731a49b68fab550eaca2b0cebc9ea" title="Core OSQP optimization implementation." alt="" coords="1774,136,1966,177"/>
+<area shape="poly" title=" " alt="" coords="1999,159,1967,159,1967,154,1999,154"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a5ee61a4685c66c50ba4f207f927fafe7" title="Optimizes a path using quadratic programming (OSQP)." alt="" coords="1582,136,1726,177"/>
+<area shape="poly" title=" " alt="" coords="1759,159,1726,159,1726,154,1759,154"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#af8890c779625ceba23759dea333dc67f" title="Optimizes a racing line path using quadratic programming." alt="" coords="1337,144,1534,169"/>
+<area shape="poly" title=" " alt="" coords="1566,159,1534,159,1534,154,1566,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1122,149,1090,145,1091,140,1123,144"/>
+<area shape="poly" title=" " alt="" coords="1356,143,1289,134,1214,131,1138,134,1091,134,1090,129,1138,128,1214,126,1290,128,1357,138"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1138,144,1289,169"/>
+<area shape="poly" title=" " alt="" coords="1322,159,1290,159,1290,154,1322,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
-<area shape="poly" title=" " alt="" coords="1123,171,1091,175,1090,170,1122,166"/>
+<area shape="poly" title=" " alt="" coords="1357,175,1290,184,1186,189,1090,188,1090,183,1185,184,1289,179,1356,170"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
 <area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
@@ -471,6 +537,119 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
+<area shape="poly" title=" " alt="" coords="1122,148,1090,144,1091,139,1123,143"/>
+<area shape="poly" title=" " alt="" coords="1123,170,1091,174,1090,169,1122,165"/>
+<area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a8649e86268705d25f9d4beca4bbc5dce" name="a8649e86268705d25f9d4beca4bbc5dce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8649e86268705d25f9d4beca4bbc5dce">&#9670;&#160;</a></span>add_proximity_terms()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PathSmoothing::add_proximity_terms </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>num_path_points</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>center</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::function&lt; void(int, int, double)&gt; &amp;&#160;</td>
+          <td class="paramname"><em>add_quadratic_coefficient</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; OSQPFloat &gt; &amp;&#160;</td>
+          <td class="paramname"><em>linear_objective</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds proximity penalty terms to keep the optimized path near the center line. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">num_path_points</td><td>Number of points in the path </td></tr>
+    <tr><td class="paramname">center</td><td>Center line reference points </td></tr>
+    <tr><td class="paramname">add_quadratic_coefficient</td><td>Lambda to add quadratic objective coefficients </td></tr>
+    <tr><td class="paramname">linear_objective</td><td>Linear objective vector (modified in-place) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d8/d35/smoothing_8cpp_source.html#l00101">101</a> of file <a class="el" href="../../d8/d35/smoothing_8cpp_source.html">smoothing.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d7/db7/class_path_smoothing_a8649e86268705d25f9d4beca4bbc5dce_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a8649e86268705d25f9d4beca4bbc5dce_icgraph" alt=""/></div>
+<map name="ad7/db7/class_path_smoothing_a8649e86268705d25f9d4beca4bbc5dce_icgraph" id="ad7/db7/class_path_smoothing_a8649e86268705d25f9d4beca4bbc5dce_icgraph">
+<area shape="rect" title="Adds proximity penalty terms to keep the optimized path near the center line." alt="" coords="2014,136,2152,177"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ad3d731a49b68fab550eaca2b0cebc9ea" title="Core OSQP optimization implementation." alt="" coords="1774,136,1966,177"/>
+<area shape="poly" title=" " alt="" coords="1999,159,1967,159,1967,154,1999,154"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a5ee61a4685c66c50ba4f207f927fafe7" title="Optimizes a path using quadratic programming (OSQP)." alt="" coords="1582,136,1726,177"/>
+<area shape="poly" title=" " alt="" coords="1759,159,1726,159,1726,154,1759,154"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#af8890c779625ceba23759dea333dc67f" title="Optimizes a racing line path using quadratic programming." alt="" coords="1337,144,1534,169"/>
+<area shape="poly" title=" " alt="" coords="1566,159,1534,159,1534,154,1566,154"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
+<area shape="poly" title=" " alt="" coords="1356,143,1289,134,1214,131,1138,134,1091,134,1090,129,1138,128,1214,126,1290,128,1357,138"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1138,144,1289,169"/>
+<area shape="poly" title=" " alt="" coords="1322,159,1290,159,1290,154,1322,154"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
+<area shape="poly" title=" " alt="" coords="1357,175,1290,184,1186,189,1090,188,1090,183,1185,184,1289,179,1356,170"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
+<area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
+<area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="495,169,684,210"/>
+<area shape="poly" title=" " alt="" coords="718,174,685,178,685,173,717,168"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
+<area shape="poly" title=" " alt="" coords="505,99,444,94,445,88,505,94"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructs a Planning node with the specified configuration parameters." alt="" coords="291,120,419,145"/>
+<area shape="poly" title=" " alt="" coords="505,117,419,127,419,122,505,112"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,5,429,46"/>
+<area shape="poly" title=" " alt="" coords="512,81,417,49,419,44,513,76"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,150,195,176"/>
+<area shape="poly" title=" " alt="" coords="280,103,264,109,240,123,216,137,172,152,170,147,214,133,237,119,262,105,278,98"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,97,215,123"/>
+<area shape="poly" title=" " alt="" coords="280,54,151,99,149,94,278,49"/>
+<area shape="poly" title=" " alt="" coords="488,168,410,148,411,143,490,163"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,234,446,260"/>
+<area shape="poly" title=" " alt="" coords="490,217,411,236,410,231,488,212"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,284,447,309"/>
+<area shape="poly" title=" " alt="" coords="547,221,500,249,448,275,417,285,416,280,446,270,498,244,544,217"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="281,169,429,210"/>
+<area shape="poly" title=" " alt="" coords="480,192,429,192,429,187,480,187"/>
+<area shape="poly" title=" " alt="" coords="286,232,262,224,142,179,144,174,264,219,288,227"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
+<area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
+<area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
+<area shape="poly" title=" " alt="" coords="1122,148,1090,144,1091,139,1123,143"/>
+<area shape="poly" title=" " alt="" coords="1123,170,1091,174,1090,169,1122,165"/>
 <area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
 </map>
 </div>
@@ -555,24 +734,25 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d35/smoothing_8cpp_source.html#l00142">142</a> of file <a class="el" href="../../d8/d35/smoothing_8cpp_source.html">smoothing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d35/smoothing_8cpp_source.html#l00218">218</a> of file <a class="el" href="../../d8/d35/smoothing_8cpp_source.html">smoothing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/db7/class_path_smoothing_abf26b5322db30f37f7ce2ef8c1e615e2_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_abf26b5322db30f37f7ce2ef8c1e615e2_icgraph" alt=""/></div>
 <map name="ad7/db7/class_path_smoothing_abf26b5322db30f37f7ce2ef8c1e615e2_icgraph" id="ad7/db7/class_path_smoothing_abf26b5322db30f37f7ce2ef8c1e615e2_icgraph">
-<area shape="rect" title="Adds non&#45;negativity constraints for slack variables." alt="" coords="1774,130,1916,186"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a451ad9f28138148436574a91d6b3299d" title="Optimizes a path using quadratic programming (OSQP) to balance smoothness, curvature,..." alt="" coords="1582,137,1726,178"/>
-<area shape="poly" title=" " alt="" coords="1758,160,1726,160,1726,155,1758,155"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#af8d116547f2d2adc2979676047abcfb4" title="Optimizes a racing line path by fitting splines through track boundaries and applying quadratic progr..." alt="" coords="1337,145,1534,171"/>
-<area shape="poly" title=" " alt="" coords="1566,160,1534,160,1534,155,1566,155"/>
-<area shape="poly" title=" " alt="" coords="1473,132,1461,126,1435,123,1412,126,1400,130,1397,136,1403,143,1399,146,1392,136,1396,126,1411,120,1436,118,1462,121,1476,128"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1138,145,1289,171"/>
-<area shape="poly" title=" " alt="" coords="1322,160,1290,160,1290,155,1322,155"/>
+<area shape="rect" title="Adds non&#45;negativity constraints for slack variables." alt="" coords="2014,129,2157,184"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ad3d731a49b68fab550eaca2b0cebc9ea" title="Core OSQP optimization implementation." alt="" coords="1774,136,1966,177"/>
+<area shape="poly" title=" " alt="" coords="1999,159,1967,159,1967,154,1999,154"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a5ee61a4685c66c50ba4f207f927fafe7" title="Optimizes a path using quadratic programming (OSQP)." alt="" coords="1582,136,1726,177"/>
+<area shape="poly" title=" " alt="" coords="1759,159,1726,159,1726,154,1759,154"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#af8890c779625ceba23759dea333dc67f" title="Optimizes a racing line path using quadratic programming." alt="" coords="1337,144,1534,169"/>
+<area shape="poly" title=" " alt="" coords="1566,159,1534,159,1534,154,1566,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1122,149,1090,145,1091,140,1123,144"/>
+<area shape="poly" title=" " alt="" coords="1356,143,1289,134,1214,131,1138,134,1091,134,1090,129,1138,128,1214,126,1290,128,1357,138"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1138,144,1289,169"/>
+<area shape="poly" title=" " alt="" coords="1322,159,1290,159,1290,154,1322,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
-<area shape="poly" title=" " alt="" coords="1123,171,1091,175,1090,170,1122,166"/>
+<area shape="poly" title=" " alt="" coords="1357,175,1290,184,1186,189,1090,188,1090,183,1185,184,1289,179,1356,170"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
 <area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
@@ -600,6 +780,8 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
+<area shape="poly" title=" " alt="" coords="1122,148,1090,144,1091,139,1123,143"/>
+<area shape="poly" title=" " alt="" coords="1123,170,1091,174,1090,169,1122,165"/>
 <area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
 </map>
 </div>
@@ -607,7 +789,7 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <a id="adce7fe96dce3791075ff778f27459fdf" name="adce7fe96dce3791075ff778f27459fdf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adce7fe96dce3791075ff778f27459fdf">&#9670;&#160;</a></span>add_slack_penalty_terms() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#adce7fe96dce3791075ff778f27459fdf">&#9670;&#160;</a></span>add_slack_penalty_terms()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -649,24 +831,25 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d35/smoothing_8cpp_source.html#l00078">78</a> of file <a class="el" href="../../d8/d35/smoothing_8cpp_source.html">smoothing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d35/smoothing_8cpp_source.html#l00092">92</a> of file <a class="el" href="../../d8/d35/smoothing_8cpp_source.html">smoothing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/db7/class_path_smoothing_adce7fe96dce3791075ff778f27459fdf_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_adce7fe96dce3791075ff778f27459fdf_icgraph" alt=""/></div>
 <map name="ad7/db7/class_path_smoothing_adce7fe96dce3791075ff778f27459fdf_icgraph" id="ad7/db7/class_path_smoothing_adce7fe96dce3791075ff778f27459fdf_icgraph">
-<area shape="rect" title="Adds penalty terms for slack variables to the quadratic objective function." alt="" coords="1774,137,1921,178"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a451ad9f28138148436574a91d6b3299d" title="Optimizes a path using quadratic programming (OSQP) to balance smoothness, curvature,..." alt="" coords="1582,137,1726,178"/>
-<area shape="poly" title=" " alt="" coords="1759,160,1727,160,1727,155,1759,155"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#af8d116547f2d2adc2979676047abcfb4" title="Optimizes a racing line path by fitting splines through track boundaries and applying quadratic progr..." alt="" coords="1337,145,1534,171"/>
-<area shape="poly" title=" " alt="" coords="1566,160,1534,160,1534,155,1566,155"/>
-<area shape="poly" title=" " alt="" coords="1473,132,1461,126,1435,123,1412,126,1400,130,1397,136,1403,143,1399,146,1392,136,1396,126,1411,120,1436,118,1462,121,1476,128"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1138,145,1289,171"/>
-<area shape="poly" title=" " alt="" coords="1322,160,1290,160,1290,155,1322,155"/>
+<area shape="rect" title="Adds penalty terms for slack variables to the quadratic objective function." alt="" coords="2014,136,2162,177"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ad3d731a49b68fab550eaca2b0cebc9ea" title="Core OSQP optimization implementation." alt="" coords="1774,136,1966,177"/>
+<area shape="poly" title=" " alt="" coords="1999,159,1967,159,1967,154,1999,154"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a5ee61a4685c66c50ba4f207f927fafe7" title="Optimizes a path using quadratic programming (OSQP)." alt="" coords="1582,136,1726,177"/>
+<area shape="poly" title=" " alt="" coords="1759,159,1726,159,1726,154,1759,154"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#af8890c779625ceba23759dea333dc67f" title="Optimizes a racing line path using quadratic programming." alt="" coords="1337,144,1534,169"/>
+<area shape="poly" title=" " alt="" coords="1566,159,1534,159,1534,154,1566,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1122,149,1090,145,1091,140,1123,144"/>
+<area shape="poly" title=" " alt="" coords="1356,143,1289,134,1214,131,1138,134,1091,134,1090,129,1138,128,1214,126,1290,128,1357,138"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1138,144,1289,169"/>
+<area shape="poly" title=" " alt="" coords="1322,159,1290,159,1290,154,1322,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
-<area shape="poly" title=" " alt="" coords="1123,171,1091,175,1090,170,1122,166"/>
+<area shape="poly" title=" " alt="" coords="1357,175,1290,184,1186,189,1090,188,1090,183,1185,184,1289,179,1356,170"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
 <area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
@@ -694,14 +877,16 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
+<area shape="poly" title=" " alt="" coords="1122,148,1090,144,1091,139,1123,143"/>
+<area shape="poly" title=" " alt="" coords="1123,170,1091,174,1090,169,1122,165"/>
 <area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a02704a577c06ded4c57eb5294441f538" name="a02704a577c06ded4c57eb5294441f538"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02704a577c06ded4c57eb5294441f538">&#9670;&#160;</a></span>add_slack_penalty_terms() <span class="overload">[2/2]</span></h2>
+<a id="a282cce851a3aaebd22e870fcc6d23a39" name="a282cce851a3aaebd22e870fcc6d23a39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a282cce851a3aaebd22e870fcc6d23a39">&#9670;&#160;</a></span>build_warm_start()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -710,10 +895,10 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void PathSmoothing::add_slack_penalty_terms </td>
+          <td class="memname">void PathSmoothing::build_warm_start </td>
           <td>(</td>
-          <td class="paramtype">std::map&lt; std::pair&lt; int, int &gt;, double &gt; &amp;&#160;</td>
-          <td class="paramname"><em>quadratic_terms</em>, </td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>total_variables</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -724,8 +909,14 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::function&lt; void(int, int, double)&gt; &amp;&#160;</td>
-          <td class="paramname"><em>add_coefficient</em>&#160;</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>total_constraints</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>center_path</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -740,20 +931,73 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Adds penalty terms for slack variables to the quadratic objective function. </p>
+<p>Builds the warm-start vectors for the OSQP solver. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">quadratic_terms</td><td><a class="el" href="../../df/d91/struct_map.html">Map</a> storing quadratic coefficient terms </td></tr>
-    <tr><td class="paramname">num_path_points</td><td>Number of points in the path </td></tr>
-    <tr><td class="paramname">add_coefficient</td><td>Lambda function to add coefficients to the objective matrix </td></tr>
+    <tr><td class="paramname">total_variables</td><td>Total number of primal variables in the optimization problem. </td></tr>
+    <tr><td class="paramname">num_path_points</td><td>Number of points in the path (used to fill the primal solution). </td></tr>
+    <tr><td class="paramname">total_constraints</td><td>Total number of constraints (dual variables). </td></tr>
+    <tr><td class="paramname">center_path</td><td>Reference path used to initialize the primal variables if no cache exists. </td></tr>
   </table>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="../../d8/d35/smoothing_8cpp_source.html#l00308">308</a> of file <a class="el" href="../../d8/d35/smoothing_8cpp_source.html">smoothing.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d7/db7/class_path_smoothing_a282cce851a3aaebd22e870fcc6d23a39_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a282cce851a3aaebd22e870fcc6d23a39_icgraph" alt=""/></div>
+<map name="ad7/db7/class_path_smoothing_a282cce851a3aaebd22e870fcc6d23a39_icgraph" id="ad7/db7/class_path_smoothing_a282cce851a3aaebd22e870fcc6d23a39_icgraph">
+<area shape="rect" title="Builds the warm&#45;start vectors for the OSQP solver." alt="" coords="2014,136,2158,177"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ad3d731a49b68fab550eaca2b0cebc9ea" title="Core OSQP optimization implementation." alt="" coords="1774,136,1966,177"/>
+<area shape="poly" title=" " alt="" coords="1999,159,1967,159,1967,154,1999,154"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a5ee61a4685c66c50ba4f207f927fafe7" title="Optimizes a path using quadratic programming (OSQP)." alt="" coords="1582,136,1726,177"/>
+<area shape="poly" title=" " alt="" coords="1759,159,1726,159,1726,154,1759,154"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#af8890c779625ceba23759dea333dc67f" title="Optimizes a racing line path using quadratic programming." alt="" coords="1337,144,1534,169"/>
+<area shape="poly" title=" " alt="" coords="1566,159,1534,159,1534,154,1566,154"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
+<area shape="poly" title=" " alt="" coords="1356,143,1289,134,1214,131,1138,134,1091,134,1090,129,1138,128,1214,126,1290,128,1357,138"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1138,144,1289,169"/>
+<area shape="poly" title=" " alt="" coords="1322,159,1290,159,1290,154,1322,154"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
+<area shape="poly" title=" " alt="" coords="1357,175,1290,184,1186,189,1090,188,1090,183,1185,184,1289,179,1356,170"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
+<area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
+<area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="495,169,684,210"/>
+<area shape="poly" title=" " alt="" coords="718,174,685,178,685,173,717,168"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
+<area shape="poly" title=" " alt="" coords="505,99,444,94,445,88,505,94"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructs a Planning node with the specified configuration parameters." alt="" coords="291,120,419,145"/>
+<area shape="poly" title=" " alt="" coords="505,117,419,127,419,122,505,112"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,5,429,46"/>
+<area shape="poly" title=" " alt="" coords="512,81,417,49,419,44,513,76"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,150,195,176"/>
+<area shape="poly" title=" " alt="" coords="280,103,264,109,240,123,216,137,172,152,170,147,214,133,237,119,262,105,278,98"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,97,215,123"/>
+<area shape="poly" title=" " alt="" coords="280,54,151,99,149,94,278,49"/>
+<area shape="poly" title=" " alt="" coords="488,168,410,148,411,143,490,163"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,234,446,260"/>
+<area shape="poly" title=" " alt="" coords="490,217,411,236,410,231,488,212"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,284,447,309"/>
+<area shape="poly" title=" " alt="" coords="547,221,500,249,448,275,417,285,416,280,446,270,498,244,544,217"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="281,169,429,210"/>
+<area shape="poly" title=" " alt="" coords="480,192,429,192,429,187,480,187"/>
+<area shape="poly" title=" " alt="" coords="286,232,262,224,142,179,144,174,264,219,288,227"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
+<area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
+<area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
+<area shape="poly" title=" " alt="" coords="1122,148,1090,144,1091,139,1123,143"/>
+<area shape="poly" title=" " alt="" coords="1123,170,1091,174,1090,169,1122,165"/>
+<area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
+</map>
+</div>
+
 </div>
 </div>
-<a id="a0d3edb65439cb4aa32bf799e0293a243" name="a0d3edb65439cb4aa32bf799e0293a243"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d3edb65439cb4aa32bf799e0293a243">&#9670;&#160;</a></span>convert_to_csc_format()</h2>
+<a id="aad1ddc2215dbbee4cd94221655a884b5" name="aad1ddc2215dbbee4cd94221655a884b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad1ddc2215dbbee4cd94221655a884b5">&#9670;&#160;</a></span>convert_to_csc_format()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -789,19 +1033,19 @@ Here is the caller graph for this function:</div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::vector&lt; OSQPFloat &gt; &amp;&#160;</td>
-          <td class="paramname"><em>csc_x</em>, </td>
+          <td class="paramname"><em>csc_values</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::vector&lt; OSQPInt &gt; &amp;&#160;</td>
-          <td class="paramname"><em>csc_i</em>, </td>
+          <td class="paramname"><em>csc_row_indices</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::vector&lt; OSQPInt &gt; &amp;&#160;</td>
-          <td class="paramname"><em>csc_p</em>&#160;</td>
+          <td class="paramname"><em>csc_col_pointers</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -816,39 +1060,39 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Converts sparse matrix data from coordinate format to Compressed Sparse Column (CSC) format. </p>
-<p>CSC format is required by the OSQP solver for efficient matrix operations.</p>
+<p>Converts sparse matrix data from coordinate format to Compressed Sparse Column (CSC) format required by the OSQP solver. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">values</td><td>Non-zero values in coordinate format </td></tr>
     <tr><td class="paramname">row_indices</td><td>Row indices in coordinate format </td></tr>
     <tr><td class="paramname">col_indices</td><td>Column indices in coordinate format </td></tr>
     <tr><td class="paramname">total_variables</td><td>Number of columns in the matrix </td></tr>
-    <tr><td class="paramname">csc_x</td><td>Output: non-zero values in CSC format </td></tr>
-    <tr><td class="paramname">csc_i</td><td>Output: row indices in CSC format </td></tr>
-    <tr><td class="paramname">csc_p</td><td>Output: column pointers in CSC format </td></tr>
+    <tr><td class="paramname">csc_values</td><td>Output: non-zero values in CSC format </td></tr>
+    <tr><td class="paramname">csc_row_indices</td><td>Output: row indices in CSC format </td></tr>
+    <tr><td class="paramname">csc_col_pointers</td><td>Output: column pointers in CSC format </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d35/smoothing_8cpp_source.html#l00161">161</a> of file <a class="el" href="../../d8/d35/smoothing_8cpp_source.html">smoothing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d35/smoothing_8cpp_source.html#l00236">236</a> of file <a class="el" href="../../d8/d35/smoothing_8cpp_source.html">smoothing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_a0d3edb65439cb4aa32bf799e0293a243_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a0d3edb65439cb4aa32bf799e0293a243_icgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_a0d3edb65439cb4aa32bf799e0293a243_icgraph" id="ad7/db7/class_path_smoothing_a0d3edb65439cb4aa32bf799e0293a243_icgraph">
-<area shape="rect" title="Converts sparse matrix data from coordinate format to Compressed Sparse Column (CSC) format." alt="" coords="1774,137,1933,178"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a451ad9f28138148436574a91d6b3299d" title="Optimizes a path using quadratic programming (OSQP) to balance smoothness, curvature,..." alt="" coords="1582,137,1726,178"/>
-<area shape="poly" title=" " alt="" coords="1759,160,1726,160,1726,155,1759,155"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#af8d116547f2d2adc2979676047abcfb4" title="Optimizes a racing line path by fitting splines through track boundaries and applying quadratic progr..." alt="" coords="1337,145,1534,171"/>
-<area shape="poly" title=" " alt="" coords="1566,160,1534,160,1534,155,1566,155"/>
-<area shape="poly" title=" " alt="" coords="1473,132,1461,126,1435,123,1412,126,1400,130,1397,136,1403,143,1399,146,1392,136,1396,126,1411,120,1436,118,1462,121,1476,128"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1138,145,1289,171"/>
-<area shape="poly" title=" " alt="" coords="1322,160,1290,160,1290,155,1322,155"/>
+<div class="center"><img src="../../d7/db7/class_path_smoothing_aad1ddc2215dbbee4cd94221655a884b5_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_aad1ddc2215dbbee4cd94221655a884b5_icgraph" alt=""/></div>
+<map name="ad7/db7/class_path_smoothing_aad1ddc2215dbbee4cd94221655a884b5_icgraph" id="ad7/db7/class_path_smoothing_aad1ddc2215dbbee4cd94221655a884b5_icgraph">
+<area shape="rect" title="Converts sparse matrix data from coordinate format to Compressed Sparse Column (CSC) format required ..." alt="" coords="2014,136,2174,177"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ad3d731a49b68fab550eaca2b0cebc9ea" title="Core OSQP optimization implementation." alt="" coords="1774,136,1966,177"/>
+<area shape="poly" title=" " alt="" coords="1999,159,1967,159,1967,154,1999,154"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a5ee61a4685c66c50ba4f207f927fafe7" title="Optimizes a path using quadratic programming (OSQP)." alt="" coords="1582,136,1726,177"/>
+<area shape="poly" title=" " alt="" coords="1759,159,1726,159,1726,154,1759,154"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#af8890c779625ceba23759dea333dc67f" title="Optimizes a racing line path using quadratic programming." alt="" coords="1337,144,1534,169"/>
+<area shape="poly" title=" " alt="" coords="1566,159,1534,159,1534,154,1566,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1122,149,1090,145,1091,140,1123,144"/>
+<area shape="poly" title=" " alt="" coords="1356,143,1289,134,1214,131,1138,134,1091,134,1090,129,1138,128,1214,126,1290,128,1357,138"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1138,144,1289,169"/>
+<area shape="poly" title=" " alt="" coords="1322,159,1290,159,1290,154,1322,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
-<area shape="poly" title=" " alt="" coords="1123,171,1091,175,1090,170,1122,166"/>
+<area shape="poly" title=" " alt="" coords="1357,175,1290,184,1186,189,1090,188,1090,183,1185,184,1289,179,1356,170"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
 <area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
@@ -876,6 +1120,8 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
+<area shape="poly" title=" " alt="" coords="1122,148,1090,144,1091,139,1123,143"/>
+<area shape="poly" title=" " alt="" coords="1123,170,1091,174,1090,169,1122,165"/>
 <area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
 </map>
 </div>
@@ -915,155 +1161,23 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Filtered path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d35/smoothing_8cpp_source.html#l00031">31</a> of file <a class="el" href="../../d8/d35/smoothing_8cpp_source.html">smoothing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d35/smoothing_8cpp_source.html#l00032">32</a> of file <a class="el" href="../../d8/d35/smoothing_8cpp_source.html">smoothing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/db7/class_path_smoothing_aa6784eb81a049d0cd070e55ac0001ff1_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_aa6784eb81a049d0cd070e55ac0001ff1_icgraph" alt=""/></div>
 <map name="ad7/db7/class_path_smoothing_aa6784eb81a049d0cd070e55ac0001ff1_icgraph" id="ad7/db7/class_path_smoothing_aa6784eb81a049d0cd070e55ac0001ff1_icgraph">
-<area shape="rect" title="Filters path points using a minimum spacing constraint." alt="" coords="1842,125,2014,151"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#af8d116547f2d2adc2979676047abcfb4" title="Optimizes a racing line path by fitting splines through track boundaries and applying quadratic progr..." alt="" coords="1358,74,1555,100"/>
-<area shape="poly" title=" " alt="" coords="1826,129,1555,100,1556,95,1827,124"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a077045088473f134c44112388a1e6d95" title="Smooths a path by fitting a B&#45;spline through the input points." alt="" coords="1603,150,1794,176"/>
-<area shape="poly" title=" " alt="" coords="1827,151,1795,155,1794,150,1826,146"/>
-<area shape="poly" title=" " alt="" coords="1497,62,1483,55,1456,53,1432,55,1419,60,1416,65,1422,72,1418,75,1410,66,1415,56,1431,50,1457,48,1485,50,1499,57"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,74,1300,100"/>
-<area shape="poly" title=" " alt="" coords="1343,90,1300,90,1300,84,1343,84"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,74,1090,100"/>
-<area shape="poly" title=" " alt="" coords="1133,90,1090,90,1090,84,1133,84"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,125,1090,151"/>
-<area shape="poly" title=" " alt="" coords="1153,107,1068,127,1067,122,1151,101"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
-<area shape="poly" title=" " alt="" coords="953,108,932,115,864,139,862,134,930,110,951,103"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
-<area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="495,169,684,210"/>
-<area shape="poly" title=" " alt="" coords="718,174,685,178,685,173,717,168"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
-<area shape="poly" title=" " alt="" coords="505,99,444,94,445,88,505,94"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructs a Planning node with the specified configuration parameters." alt="" coords="291,120,419,145"/>
-<area shape="poly" title=" " alt="" coords="505,117,419,127,419,122,505,112"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,5,429,46"/>
-<area shape="poly" title=" " alt="" coords="512,81,417,49,419,44,513,76"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,150,195,176"/>
-<area shape="poly" title=" " alt="" coords="280,103,264,109,240,123,216,137,172,152,170,147,214,133,237,119,262,105,278,98"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,97,215,123"/>
-<area shape="poly" title=" " alt="" coords="280,54,151,99,149,94,278,49"/>
-<area shape="poly" title=" " alt="" coords="488,168,410,148,411,143,490,163"/>
-<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,234,446,260"/>
-<area shape="poly" title=" " alt="" coords="490,217,411,236,410,231,488,212"/>
-<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,284,447,309"/>
-<area shape="poly" title=" " alt="" coords="547,221,500,249,448,275,417,285,416,280,446,270,498,244,544,217"/>
-<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="281,169,429,210"/>
-<area shape="poly" title=" " alt="" coords="480,192,429,192,429,187,480,187"/>
-<area shape="poly" title=" " alt="" coords="286,232,262,224,142,179,144,174,264,219,288,227"/>
-<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
-<area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
-<area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
-<area shape="poly" title=" " alt="" coords="916,150,883,153,883,148,915,144"/>
-<area shape="poly" title=" " alt="" coords="1639,148,1499,103,1501,98,1641,142"/>
-<area shape="poly" title=" " alt="" coords="1676,140,1625,86,1592,60,1554,40,1484,21,1411,13,1338,13,1266,21,1199,33,1139,47,1048,76,1046,71,1137,42,1198,28,1266,15,1338,8,1411,7,1485,16,1556,35,1594,55,1629,82,1680,136"/>
-<area shape="poly" title=" " alt="" coords="1679,190,1628,242,1594,268,1556,287,1464,316,1384,333,1311,338,1241,332,1172,317,1100,294,930,228,881,205,839,181,842,176,884,201,932,223,1102,289,1174,312,1242,327,1311,332,1383,327,1463,311,1554,282,1591,263,1625,238,1676,186"/>
-<area shape="poly" title=" " alt="" coords="1587,162,1090,143,1090,138,1587,156"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,238,1310,264"/>
-<area shape="poly" title=" " alt="" coords="1675,189,1623,231,1591,251,1555,266,1483,280,1409,282,1340,277,1282,267,1283,262,1341,271,1409,277,1482,275,1554,260,1588,246,1620,226,1672,185"/>
-<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html#acd526ec95d9464063023a78fcf0f64d9" title="simple scenario with few points in the path" alt="" coords="1429,176,1484,201"/>
-<area shape="poly" title=" " alt="" coords="1587,177,1485,188,1484,183,1587,172"/>
-<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html#a39420284a210f074cd5864281df8c9b5" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="1429,225,1484,251"/>
-<area shape="poly" title=" " alt="" coords="1649,184,1555,216,1485,234,1484,229,1554,211,1647,179"/>
-<area shape="poly" title=" " alt="" coords="1148,237,883,177,884,172,1149,232"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="af8d116547f2d2adc2979676047abcfb4" name="af8d116547f2d2adc2979676047abcfb4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8d116547f2d2adc2979676047abcfb4">&#9670;&#160;</a></span>optimize_path()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; PathSmoothing::optimize_path </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>path</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>yellow_cones</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>blue_cones</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Optimizes a racing line path by fitting splines through track boundaries and applying quadratic programming optimization. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">path</td><td>The initial center path to be optimized </td></tr>
-    <tr><td class="paramname">yellow_cones</td><td><a class="el" href="../../db/df3/struct_track.html">Track</a> boundary markers on the right boundary </td></tr>
-    <tr><td class="paramname">blue_cones</td><td><a class="el" href="../../db/df3/struct_track.html">Track</a> boundary markers on the left boundary</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;PathPoint&gt; The optimized path </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d8/d35/smoothing_8cpp_source.html#l00014">14</a> of file <a class="el" href="../../d8/d35/smoothing_8cpp_source.html">smoothing.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_af8d116547f2d2adc2979676047abcfb4_cgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_af8d116547f2d2adc2979676047abcfb4_cgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_af8d116547f2d2adc2979676047abcfb4_cgraph" id="ad7/db7/class_path_smoothing_af8d116547f2d2adc2979676047abcfb4_cgraph">
-<area shape="rect" title="Optimizes a racing line path by fitting splines through track boundaries and applying quadratic progr..." alt="" coords="5,69,202,95"/>
-<area shape="poly" title=" " alt="" coords="64,71,56,61,60,51,77,45,104,43,134,45,148,53,146,57,132,51,103,48,78,50,64,55,61,60,68,67"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#aa6784eb81a049d0cd070e55ac0001ff1" title="Filters path points using a minimum spacing constraint." alt="" coords="489,5,661,31"/>
-<area shape="poly" title=" " alt="" coords="134,66,187,46,249,29,365,15,473,12,473,17,365,20,250,34,188,51,136,71"/>
-<area shape="rect" href="../../d6/da8/splines_8hpp.html#a17fae428cadc635f31d275efded45a67" title="This function takes three sequences of points (center, left, right), fits splines to them using GSL i..." alt="" coords="292,44,399,70"/>
-<area shape="poly" title=" " alt="" coords="202,69,276,61,277,67,202,75"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a451ad9f28138148436574a91d6b3299d" title="Optimizes a path using quadratic programming (OSQP) to balance smoothness, curvature,..." alt="" coords="273,227,418,268"/>
-<area shape="poly" title=" " alt="" coords="126,93,303,216,300,220,122,98"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a077045088473f134c44112388a1e6d95" title="Smooths a path by fitting a B&#45;spline through the input points." alt="" coords="250,93,441,119"/>
-<area shape="poly" title=" " alt="" coords="202,89,234,92,234,98,202,95"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ac9884811317c7d7391b6eb07514c7cb0" title="Adds track boundary constraints to ensure the optimized path stays within the track." alt="" coords="500,261,651,301"/>
-<area shape="poly" title=" " alt="" coords="418,255,484,265,484,270,418,261"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a5d550ee1b872ad880b6a47ed193f16ac" title="Adds curvature penalty terms to the quadratic objective function." alt="" coords="507,326,644,367"/>
-<area shape="poly" title=" " alt="" coords="392,266,490,310,506,317,504,322,488,315,390,271"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#abf26b5322db30f37f7ce2ef8c1e615e2" title="Adds non&#45;negativity constraints for slack variables." alt="" coords="504,390,646,446"/>
-<area shape="poly" title=" " alt="" coords="367,266,420,319,491,376,497,380,494,385,487,380,417,323,363,270"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#adce7fe96dce3791075ff778f27459fdf" title="Adds penalty terms for slack variables to the quadratic objective function." alt="" coords="502,130,649,171"/>
-<area shape="poly" title=" " alt="" coords="390,224,488,181,504,174,507,179,490,186,392,229"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a0d3edb65439cb4aa32bf799e0293a243" title="Converts sparse matrix data from coordinate format to Compressed Sparse Column (CSC) format." alt="" coords="496,195,655,236"/>
-<area shape="poly" title=" " alt="" coords="418,235,480,226,480,231,418,240"/>
-<area shape="poly" title=" " alt="" coords="406,90,440,80,490,59,535,36,538,41,493,63,442,85,408,95"/>
-<area shape="rect" href="../../d6/da8/splines_8hpp.html#ab0568c3635331878ae79ce16031cb01a" title="This function takes a sequence of points (T), fits a spline to them using B&#45;spline basis functions,..." alt="" coords="539,80,611,106"/>
-<area shape="poly" title=" " alt="" coords="441,98,524,93,524,98,441,103"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_af8d116547f2d2adc2979676047abcfb4_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_af8d116547f2d2adc2979676047abcfb4_icgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_af8d116547f2d2adc2979676047abcfb4_icgraph" id="ad7/db7/class_path_smoothing_af8d116547f2d2adc2979676047abcfb4_icgraph">
-<area shape="rect" title="Optimizes a racing line path by fitting splines through track boundaries and applying quadratic progr..." alt="" coords="1337,145,1534,171"/>
-<area shape="poly" title=" " alt="" coords="1474,132,1461,126,1435,123,1412,126,1399,130,1397,136,1403,143,1399,146,1391,136,1396,126,1411,120,1436,118,1463,121,1476,128"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1138,145,1289,171"/>
-<area shape="poly" title=" " alt="" coords="1322,160,1290,160,1290,155,1322,155"/>
+<area shape="rect" title="Filters path points using a minimum spacing constraint." alt="" coords="1842,120,2014,145"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#af8890c779625ceba23759dea333dc67f" title="Optimizes a racing line path using quadratic programming." alt="" coords="1358,69,1555,95"/>
+<area shape="poly" title=" " alt="" coords="1826,124,1555,95,1556,90,1827,119"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a3fa2dbea9bdf6a68fd7de37964c6012e" title="Smooths a path by fitting a B&#45;spline through the input points." alt="" coords="1603,145,1794,171"/>
+<area shape="poly" title=" " alt="" coords="1827,146,1795,150,1794,144,1826,141"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1122,149,1090,145,1091,140,1123,144"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
-<area shape="poly" title=" " alt="" coords="1123,171,1091,175,1090,170,1122,166"/>
+<area shape="poly" title=" " alt="" coords="1371,100,1311,110,1195,122,1091,130,1090,125,1195,117,1310,104,1370,95"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,69,1300,95"/>
+<area shape="poly" title=" " alt="" coords="1343,84,1300,84,1300,79,1343,79"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,69,1090,95"/>
+<area shape="poly" title=" " alt="" coords="1377,68,1310,59,1224,54,1138,59,1067,71,1066,66,1138,54,1224,48,1311,54,1378,63"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
 <area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
@@ -1091,14 +1205,163 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
+<area shape="poly" title=" " alt="" coords="1153,101,1068,122,1067,116,1151,96"/>
+<area shape="poly" title=" " alt="" coords="1133,84,1090,84,1090,79,1133,79"/>
+<area shape="poly" title=" " alt="" coords="952,102,932,109,857,139,856,134,930,105,950,97"/>
+<area shape="poly" title=" " alt="" coords="1639,142,1499,98,1501,93,1641,137"/>
+<area shape="poly" title=" " alt="" coords="1675,183,1623,225,1591,245,1556,260,1507,273,1457,282,1356,289,1254,283,1156,269,1064,249,981,225,857,181,859,176,983,220,1065,243,1157,264,1255,278,1356,283,1456,277,1506,268,1554,255,1588,241,1620,221,1672,179"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,170,1310,196"/>
+<area shape="poly" title=" " alt="" coords="1587,155,1476,154,1359,160,1284,172,1283,167,1358,155,1476,149,1587,150"/>
+<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html#acd526ec95d9464063023a78fcf0f64d9" title="simple scenario with few points in the path" alt="" coords="1429,170,1484,196"/>
+<area shape="poly" title=" " alt="" coords="1587,172,1485,183,1484,178,1587,167"/>
+<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html#a39420284a210f074cd5864281df8c9b5" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="1429,220,1484,245"/>
+<area shape="poly" title=" " alt="" coords="1649,179,1555,211,1485,229,1484,224,1554,206,1647,174"/>
+<area shape="poly" title=" " alt="" coords="1123,180,883,165,883,160,1123,174"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="af8890c779625ceba23759dea333dc67f" name="af8890c779625ceba23759dea333dc67f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8890c779625ceba23759dea333dc67f">&#9670;&#160;</a></span>optimize_path()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; PathSmoothing::optimize_path </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>yellow_cones</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>blue_cones</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>is_path_closed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>is_path_final</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Optimizes a racing line path using quadratic programming. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>Initial center path </td></tr>
+    <tr><td class="paramname">yellow_cones</td><td>Right boundary markers </td></tr>
+    <tr><td class="paramname">blue_cones</td><td>Left boundary markers </td></tr>
+    <tr><td class="paramname">is_path_closed</td><td>Whether the path is a closed loop </td></tr>
+    <tr><td class="paramname">is_path_final</td><td>If true, resets solver cache before solving full path </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;PathPoint&gt; Optimized path </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d8/d35/smoothing_8cpp_source.html#l00018">18</a> of file <a class="el" href="../../d8/d35/smoothing_8cpp_source.html">smoothing.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d7/db7/class_path_smoothing_af8890c779625ceba23759dea333dc67f_cgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_af8890c779625ceba23759dea333dc67f_cgraph" alt=""/></div>
+<map name="ad7/db7/class_path_smoothing_af8890c779625ceba23759dea333dc67f_cgraph" id="ad7/db7/class_path_smoothing_af8890c779625ceba23759dea333dc67f_cgraph">
+<area shape="rect" title="Optimizes a racing line path using quadratic programming." alt="" coords="5,273,202,299"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#aa6784eb81a049d0cd070e55ac0001ff1" title="Filters path points using a minimum spacing constraint." alt="" coords="499,273,671,299"/>
+<area shape="poly" title=" " alt="" coords="202,283,484,283,484,288,202,288"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a5ee61a4685c66c50ba4f207f927fafe7" title="Optimizes a path using quadratic programming (OSQP)." alt="" coords="273,208,418,249"/>
+<area shape="poly" title=" " alt="" coords="160,270,258,246,259,251,162,275"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a3fa2dbea9bdf6a68fd7de37964c6012e" title="Smooths a path by fitting a B&#45;spline through the input points." alt="" coords="250,324,441,349"/>
+<area shape="poly" title=" " alt="" coords="169,297,267,317,265,322,168,302"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ad3d731a49b68fab550eaca2b0cebc9ea" title="Core OSQP optimization implementation." alt="" coords="489,208,681,249"/>
+<area shape="poly" title=" " alt="" coords="418,226,474,226,474,231,418,231"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ab58e35a7004fe7b88be0a0ced96294e6" title="Adds track boundary constraints to ensure the optimized path stays within the track." alt="" coords="733,5,885,46"/>
+<area shape="poly" title=" " alt="" coords="597,206,649,134,686,93,728,57,735,52,738,56,731,61,690,97,653,138,602,209"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a12d1f39f2991f3432f3c6eeb31b3b914" title="Adds curvature penalty terms to the quadratic objective function." alt="" coords="740,71,878,111"/>
+<area shape="poly" title=" " alt="" coords="609,206,663,165,728,122,739,116,742,121,731,127,666,169,613,210"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a8649e86268705d25f9d4beca4bbc5dce" title="Adds proximity penalty terms to keep the optimized path near the center line." alt="" coords="740,136,878,177"/>
+<area shape="poly" title=" " alt="" coords="650,205,728,179,730,184,651,210"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#abf26b5322db30f37f7ce2ef8c1e615e2" title="Adds non&#45;negativity constraints for slack variables." alt="" coords="738,201,880,256"/>
+<area shape="poly" title=" " alt="" coords="682,226,722,226,722,231,682,231"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#adce7fe96dce3791075ff778f27459fdf" title="Adds penalty terms for slack variables to the quadratic objective function." alt="" coords="735,280,883,321"/>
+<area shape="poly" title=" " alt="" coords="651,247,730,272,728,277,650,252"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a282cce851a3aaebd22e870fcc6d23a39" title="Builds the warm&#45;start vectors for the OSQP solver." alt="" coords="737,345,881,386"/>
+<area shape="poly" title=" " alt="" coords="665,247,683,258,700,277,708,295,716,313,731,330,737,335,734,339,728,334,711,315,703,297,695,279,680,262,662,251"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#aad1ddc2215dbbee4cd94221655a884b5" title="Converts sparse matrix data from coordinate format to Compressed Sparse Column (CSC) format required ..." alt="" coords="729,411,889,451"/>
+<area shape="poly" title=" " alt="" coords="668,247,683,258,697,276,705,294,709,328,712,362,719,379,731,396,735,399,731,403,727,399,714,381,707,363,703,329,699,295,692,279,679,262,665,251"/>
+<area shape="poly" title=" " alt="" coords="409,320,506,300,507,305,410,325"/>
+<area shape="rect" href="../../d6/da8/splines_8hpp.html#ab0568c3635331878ae79ce16031cb01a" title="This function takes a sequence of points (T), fits a spline to them using B&#45;spline basis functions,..." alt="" coords="549,324,621,349"/>
+<area shape="poly" title=" " alt="" coords="441,334,533,334,533,339,441,339"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d7/db7/class_path_smoothing_af8890c779625ceba23759dea333dc67f_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_af8890c779625ceba23759dea333dc67f_icgraph" alt=""/></div>
+<map name="ad7/db7/class_path_smoothing_af8890c779625ceba23759dea333dc67f_icgraph" id="ad7/db7/class_path_smoothing_af8890c779625ceba23759dea333dc67f_icgraph">
+<area shape="rect" title="Optimizes a racing line path using quadratic programming." alt="" coords="1337,144,1534,169"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
+<area shape="poly" title=" " alt="" coords="1356,143,1289,134,1214,131,1138,134,1091,134,1090,129,1138,128,1214,126,1290,128,1357,138"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1138,144,1289,169"/>
+<area shape="poly" title=" " alt="" coords="1322,159,1290,159,1290,154,1322,154"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
+<area shape="poly" title=" " alt="" coords="1357,175,1290,184,1186,189,1090,188,1090,183,1185,184,1289,179,1356,170"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
+<area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
+<area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="495,169,684,210"/>
+<area shape="poly" title=" " alt="" coords="718,174,685,178,685,173,717,168"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
+<area shape="poly" title=" " alt="" coords="505,99,444,94,445,88,505,94"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructs a Planning node with the specified configuration parameters." alt="" coords="291,120,419,145"/>
+<area shape="poly" title=" " alt="" coords="505,117,419,127,419,122,505,112"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,5,429,46"/>
+<area shape="poly" title=" " alt="" coords="512,81,417,49,419,44,513,76"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,150,195,176"/>
+<area shape="poly" title=" " alt="" coords="280,103,264,109,240,123,216,137,172,152,170,147,214,133,237,119,262,105,278,98"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,97,215,123"/>
+<area shape="poly" title=" " alt="" coords="280,54,151,99,149,94,278,49"/>
+<area shape="poly" title=" " alt="" coords="488,168,410,148,411,143,490,163"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,234,446,260"/>
+<area shape="poly" title=" " alt="" coords="490,217,411,236,410,231,488,212"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,284,447,309"/>
+<area shape="poly" title=" " alt="" coords="547,221,500,249,448,275,417,285,416,280,446,270,498,244,544,217"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="281,169,429,210"/>
+<area shape="poly" title=" " alt="" coords="480,192,429,192,429,187,480,187"/>
+<area shape="poly" title=" " alt="" coords="286,232,262,224,142,179,144,174,264,219,288,227"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
+<area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
+<area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
+<area shape="poly" title=" " alt="" coords="1122,148,1090,144,1091,139,1123,143"/>
+<area shape="poly" title=" " alt="" coords="1123,170,1091,174,1090,169,1122,165"/>
 <area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a451ad9f28138148436574a91d6b3299d" name="a451ad9f28138148436574a91d6b3299d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a451ad9f28138148436574a91d6b3299d">&#9670;&#160;</a></span>osqp_optimization()</h2>
+<a id="a5ee61a4685c66c50ba4f207f927fafe7" name="a5ee61a4685c66c50ba4f207f927fafe7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ee61a4685c66c50ba4f207f927fafe7">&#9670;&#160;</a></span>osqp_optimization()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1122,7 +1385,19 @@ Here is the caller graph for this function:</div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>right</em>&#160;</td>
+          <td class="paramname"><em>right</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>is_path_closed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>is_final</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1137,52 +1412,58 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Optimizes a path using quadratic programming (OSQP) to balance smoothness, curvature, and safety constraints. </p>
-<p>The function takes a center line and left/right boundaries, then computes an optimized path that minimizes curvature and jerk while staying within the track boundaries with a safety margin.</p>
+<p>Optimizes a path using quadratic programming (OSQP). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">center</td><td>Sequence of points representing the initial center line path </td></tr>
     <tr><td class="paramname">left</td><td>Sequence of points representing the left track boundary </td></tr>
     <tr><td class="paramname">right</td><td>Sequence of points representing the right track boundary </td></tr>
+    <tr><td class="paramname">is_path_closed</td><td>Whether the path forms a closed loop </td></tr>
+    <tr><td class="paramname">is_final</td><td>If true, optimizes the full path; otherwise uses a sliding window </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>std::vector&lt;PathPoint&gt; Optimized path </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d35/smoothing_8cpp_source.html#l00194">194</a> of file <a class="el" href="../../d8/d35/smoothing_8cpp_source.html">smoothing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d35/smoothing_8cpp_source.html#l00279">279</a> of file <a class="el" href="../../d8/d35/smoothing_8cpp_source.html">smoothing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_a451ad9f28138148436574a91d6b3299d_cgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a451ad9f28138148436574a91d6b3299d_cgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_a451ad9f28138148436574a91d6b3299d_cgraph" id="ad7/db7/class_path_smoothing_a451ad9f28138148436574a91d6b3299d_cgraph">
-<area shape="rect" title="Optimizes a path using quadratic programming (OSQP) to balance smoothness, curvature,..." alt="" coords="5,143,150,183"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ac9884811317c7d7391b6eb07514c7cb0" title="Adds track boundary constraints to ensure the optimized path stays within the track." alt="" coords="202,5,353,46"/>
-<area shape="poly" title=" " alt="" coords="97,140,140,99,196,57,206,51,208,56,199,61,144,103,101,144"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a5d550ee1b872ad880b6a47ed193f16ac" title="Adds curvature penalty terms to the quadratic objective function." alt="" coords="209,71,346,111"/>
-<area shape="poly" title=" " alt="" coords="135,140,204,114,206,119,137,145"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#abf26b5322db30f37f7ce2ef8c1e615e2" title="Adds non&#45;negativity constraints for slack variables." alt="" coords="206,135,349,191"/>
-<area shape="poly" title=" " alt="" coords="150,160,191,160,191,166,150,166"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#adce7fe96dce3791075ff778f27459fdf" title="Adds penalty terms for slack variables to the quadratic objective function." alt="" coords="204,215,351,255"/>
-<area shape="poly" title=" " alt="" coords="137,181,206,207,204,212,135,186"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a0d3edb65439cb4aa32bf799e0293a243" title="Converts sparse matrix data from coordinate format to Compressed Sparse Column (CSC) format." alt="" coords="198,280,357,321"/>
-<area shape="poly" title=" " alt="" coords="101,182,144,223,199,265,208,270,206,275,196,269,140,227,97,186"/>
+<div class="center"><img src="../../d7/db7/class_path_smoothing_a5ee61a4685c66c50ba4f207f927fafe7_cgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a5ee61a4685c66c50ba4f207f927fafe7_cgraph" alt=""/></div>
+<map name="ad7/db7/class_path_smoothing_a5ee61a4685c66c50ba4f207f927fafe7_cgraph" id="ad7/db7/class_path_smoothing_a5ee61a4685c66c50ba4f207f927fafe7_cgraph">
+<area shape="rect" title="Optimizes a path using quadratic programming (OSQP)." alt="" coords="5,208,150,249"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ad3d731a49b68fab550eaca2b0cebc9ea" title="Core OSQP optimization implementation." alt="" coords="198,208,390,249"/>
+<area shape="poly" title=" " alt="" coords="150,226,182,226,182,231,150,231"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ab58e35a7004fe7b88be0a0ced96294e6" title="Adds track boundary constraints to ensure the optimized path stays within the track." alt="" coords="442,5,593,46"/>
+<area shape="poly" title=" " alt="" coords="306,206,358,134,395,93,436,57,444,52,447,56,440,61,398,97,362,138,310,209"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a12d1f39f2991f3432f3c6eeb31b3b914" title="Adds curvature penalty terms to the quadratic objective function." alt="" coords="449,71,586,111"/>
+<area shape="poly" title=" " alt="" coords="318,206,371,165,437,122,448,116,451,121,439,127,374,169,321,210"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a8649e86268705d25f9d4beca4bbc5dce" title="Adds proximity penalty terms to keep the optimized path near the center line." alt="" coords="449,136,586,177"/>
+<area shape="poly" title=" " alt="" coords="358,205,437,179,439,184,360,210"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#abf26b5322db30f37f7ce2ef8c1e615e2" title="Adds non&#45;negativity constraints for slack variables." alt="" coords="447,201,589,256"/>
+<area shape="poly" title=" " alt="" coords="390,226,431,226,431,231,390,231"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#adce7fe96dce3791075ff778f27459fdf" title="Adds penalty terms for slack variables to the quadratic objective function." alt="" coords="444,280,591,321"/>
+<area shape="poly" title=" " alt="" coords="360,247,439,272,437,277,358,252"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a282cce851a3aaebd22e870fcc6d23a39" title="Builds the warm&#45;start vectors for the OSQP solver." alt="" coords="446,345,589,386"/>
+<area shape="poly" title=" " alt="" coords="321,247,374,288,439,330,451,336,448,341,437,335,371,292,318,251"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#aad1ddc2215dbbee4cd94221655a884b5" title="Converts sparse matrix data from coordinate format to Compressed Sparse Column (CSC) format required ..." alt="" coords="438,411,597,451"/>
+<area shape="poly" title=" " alt="" coords="310,248,362,319,398,359,440,396,447,400,444,405,436,400,395,363,358,322,306,251"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_a451ad9f28138148436574a91d6b3299d_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a451ad9f28138148436574a91d6b3299d_icgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_a451ad9f28138148436574a91d6b3299d_icgraph" id="ad7/db7/class_path_smoothing_a451ad9f28138148436574a91d6b3299d_icgraph">
-<area shape="rect" title="Optimizes a path using quadratic programming (OSQP) to balance smoothness, curvature,..." alt="" coords="1582,137,1726,178"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#af8d116547f2d2adc2979676047abcfb4" title="Optimizes a racing line path by fitting splines through track boundaries and applying quadratic progr..." alt="" coords="1337,145,1534,171"/>
-<area shape="poly" title=" " alt="" coords="1566,160,1534,160,1534,155,1566,155"/>
-<area shape="poly" title=" " alt="" coords="1473,132,1461,126,1435,123,1412,126,1400,130,1397,136,1403,143,1399,146,1392,136,1396,126,1411,120,1436,118,1462,121,1476,128"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1138,145,1289,171"/>
-<area shape="poly" title=" " alt="" coords="1322,160,1290,160,1290,155,1322,155"/>
+<div class="center"><img src="../../d7/db7/class_path_smoothing_a5ee61a4685c66c50ba4f207f927fafe7_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a5ee61a4685c66c50ba4f207f927fafe7_icgraph" alt=""/></div>
+<map name="ad7/db7/class_path_smoothing_a5ee61a4685c66c50ba4f207f927fafe7_icgraph" id="ad7/db7/class_path_smoothing_a5ee61a4685c66c50ba4f207f927fafe7_icgraph">
+<area shape="rect" title="Optimizes a path using quadratic programming (OSQP)." alt="" coords="1582,136,1726,177"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#af8890c779625ceba23759dea333dc67f" title="Optimizes a racing line path using quadratic programming." alt="" coords="1337,144,1534,169"/>
+<area shape="poly" title=" " alt="" coords="1566,159,1534,159,1534,154,1566,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1122,149,1090,145,1091,140,1123,144"/>
+<area shape="poly" title=" " alt="" coords="1356,143,1289,134,1214,131,1138,134,1091,134,1090,129,1138,128,1214,126,1290,128,1357,138"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1138,144,1289,169"/>
+<area shape="poly" title=" " alt="" coords="1322,159,1290,159,1290,154,1322,154"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
-<area shape="poly" title=" " alt="" coords="1123,171,1091,175,1090,170,1122,166"/>
+<area shape="poly" title=" " alt="" coords="1357,175,1290,184,1186,189,1090,188,1090,183,1185,184,1289,179,1356,170"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
 <area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
@@ -1210,14 +1491,148 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
+<area shape="poly" title=" " alt="" coords="1122,148,1090,144,1091,139,1123,143"/>
+<area shape="poly" title=" " alt="" coords="1123,170,1091,174,1090,169,1122,165"/>
 <area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a077045088473f134c44112388a1e6d95" name="a077045088473f134c44112388a1e6d95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a077045088473f134c44112388a1e6d95">&#9670;&#160;</a></span>smooth_path()</h2>
+<a id="ad3d731a49b68fab550eaca2b0cebc9ea" name="ad3d731a49b68fab550eaca2b0cebc9ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3d731a49b68fab550eaca2b0cebc9ea">&#9670;&#160;</a></span>osqp_optimization_implementation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; PathSmoothing::osqp_optimization_implementation </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>center_path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>left_boundary</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>right_boundary</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>is_path_closed</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Core OSQP optimization implementation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">center_path</td><td>Center line path </td></tr>
+    <tr><td class="paramname">left_boundary</td><td>Left track boundary </td></tr>
+    <tr><td class="paramname">right_boundary</td><td>Right track boundary </td></tr>
+    <tr><td class="paramname">is_path_closed</td><td>Whether the path forms a closed loop </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;PathPoint&gt; Optimized path </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d8/d35/smoothing_8cpp_source.html#l00331">331</a> of file <a class="el" href="../../d8/d35/smoothing_8cpp_source.html">smoothing.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d7/db7/class_path_smoothing_ad3d731a49b68fab550eaca2b0cebc9ea_cgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_ad3d731a49b68fab550eaca2b0cebc9ea_cgraph" alt=""/></div>
+<map name="ad7/db7/class_path_smoothing_ad3d731a49b68fab550eaca2b0cebc9ea_cgraph" id="ad7/db7/class_path_smoothing_ad3d731a49b68fab550eaca2b0cebc9ea_cgraph">
+<area shape="rect" title="Core OSQP optimization implementation." alt="" coords="5,208,198,249"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ab58e35a7004fe7b88be0a0ced96294e6" title="Adds track boundary constraints to ensure the optimized path stays within the track." alt="" coords="250,5,401,46"/>
+<area shape="poly" title=" " alt="" coords="114,206,165,134,202,93,244,57,252,52,255,56,247,61,206,97,170,138,118,209"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a12d1f39f2991f3432f3c6eeb31b3b914" title="Adds curvature penalty terms to the quadratic objective function." alt="" coords="257,71,394,111"/>
+<area shape="poly" title=" " alt="" coords="126,206,179,165,244,122,256,116,258,121,247,127,182,169,129,210"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a8649e86268705d25f9d4beca4bbc5dce" title="Adds proximity penalty terms to keep the optimized path near the center line." alt="" coords="257,136,394,177"/>
+<area shape="poly" title=" " alt="" coords="166,205,245,179,246,184,168,210"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#abf26b5322db30f37f7ce2ef8c1e615e2" title="Adds non&#45;negativity constraints for slack variables." alt="" coords="254,201,397,256"/>
+<area shape="poly" title=" " alt="" coords="198,226,238,226,238,231,198,231"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#adce7fe96dce3791075ff778f27459fdf" title="Adds penalty terms for slack variables to the quadratic objective function." alt="" coords="252,280,399,321"/>
+<area shape="poly" title=" " alt="" coords="168,247,246,272,245,277,166,252"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a282cce851a3aaebd22e870fcc6d23a39" title="Builds the warm&#45;start vectors for the OSQP solver." alt="" coords="254,345,397,386"/>
+<area shape="poly" title=" " alt="" coords="129,247,182,288,247,330,258,336,256,341,244,335,179,292,126,251"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#aad1ddc2215dbbee4cd94221655a884b5" title="Converts sparse matrix data from coordinate format to Compressed Sparse Column (CSC) format required ..." alt="" coords="246,411,405,451"/>
+<area shape="poly" title=" " alt="" coords="118,248,170,319,206,359,247,396,255,400,252,405,244,400,202,363,165,322,114,251"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d7/db7/class_path_smoothing_ad3d731a49b68fab550eaca2b0cebc9ea_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_ad3d731a49b68fab550eaca2b0cebc9ea_icgraph" alt=""/></div>
+<map name="ad7/db7/class_path_smoothing_ad3d731a49b68fab550eaca2b0cebc9ea_icgraph" id="ad7/db7/class_path_smoothing_ad3d731a49b68fab550eaca2b0cebc9ea_icgraph">
+<area shape="rect" title="Core OSQP optimization implementation." alt="" coords="1774,136,1966,177"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a5ee61a4685c66c50ba4f207f927fafe7" title="Optimizes a path using quadratic programming (OSQP)." alt="" coords="1582,136,1726,177"/>
+<area shape="poly" title=" " alt="" coords="1759,159,1726,159,1726,154,1759,154"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#af8890c779625ceba23759dea333dc67f" title="Optimizes a racing line path using quadratic programming." alt="" coords="1337,144,1534,169"/>
+<area shape="poly" title=" " alt="" coords="1566,159,1534,159,1534,154,1566,154"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
+<area shape="poly" title=" " alt="" coords="1356,143,1289,134,1214,131,1138,134,1091,134,1090,129,1138,128,1214,126,1290,128,1357,138"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1138,144,1289,169"/>
+<area shape="poly" title=" " alt="" coords="1322,159,1290,159,1290,154,1322,154"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
+<area shape="poly" title=" " alt="" coords="1357,175,1290,184,1186,189,1090,188,1090,183,1185,184,1289,179,1356,170"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
+<area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
+<area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="495,169,684,210"/>
+<area shape="poly" title=" " alt="" coords="718,174,685,178,685,173,717,168"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
+<area shape="poly" title=" " alt="" coords="505,99,444,94,445,88,505,94"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructs a Planning node with the specified configuration parameters." alt="" coords="291,120,419,145"/>
+<area shape="poly" title=" " alt="" coords="505,117,419,127,419,122,505,112"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,5,429,46"/>
+<area shape="poly" title=" " alt="" coords="512,81,417,49,419,44,513,76"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,150,195,176"/>
+<area shape="poly" title=" " alt="" coords="280,103,264,109,240,123,216,137,172,152,170,147,214,133,237,119,262,105,278,98"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,97,215,123"/>
+<area shape="poly" title=" " alt="" coords="280,54,151,99,149,94,278,49"/>
+<area shape="poly" title=" " alt="" coords="488,168,410,148,411,143,490,163"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,234,446,260"/>
+<area shape="poly" title=" " alt="" coords="490,217,411,236,410,231,488,212"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,284,447,309"/>
+<area shape="poly" title=" " alt="" coords="547,221,500,249,448,275,417,285,416,280,446,270,498,244,544,217"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="281,169,429,210"/>
+<area shape="poly" title=" " alt="" coords="480,192,429,192,429,187,480,187"/>
+<area shape="poly" title=" " alt="" coords="286,232,262,224,142,179,144,174,264,219,288,227"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
+<area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
+<area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
+<area shape="poly" title=" " alt="" coords="1122,148,1090,144,1091,139,1123,143"/>
+<area shape="poly" title=" " alt="" coords="1123,170,1091,174,1090,169,1122,165"/>
+<area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a3fa2dbea9bdf6a68fd7de37964c6012e" name="a3fa2dbea9bdf6a68fd7de37964c6012e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fa2dbea9bdf6a68fd7de37964c6012e">&#9670;&#160;</a></span>smooth_path()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1225,7 +1640,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; PathSmoothing::smooth_path </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>path</em>, </td>
         </tr>
         <tr>
@@ -1256,8 +1671,8 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_a077045088473f134c44112388a1e6d95_cgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a077045088473f134c44112388a1e6d95_cgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_a077045088473f134c44112388a1e6d95_cgraph" id="ad7/db7/class_path_smoothing_a077045088473f134c44112388a1e6d95_cgraph">
+<div class="center"><img src="../../d7/db7/class_path_smoothing_a3fa2dbea9bdf6a68fd7de37964c6012e_cgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a3fa2dbea9bdf6a68fd7de37964c6012e_cgraph" alt=""/></div>
+<map name="ad7/db7/class_path_smoothing_a3fa2dbea9bdf6a68fd7de37964c6012e_cgraph" id="ad7/db7/class_path_smoothing_a3fa2dbea9bdf6a68fd7de37964c6012e_cgraph">
 <area shape="rect" title="Smooths a path by fitting a B&#45;spline through the input points." alt="" coords="5,31,197,56"/>
 <area shape="rect" href="../../d7/db7/class_path_smoothing.html#aa6784eb81a049d0cd070e55ac0001ff1" title="Filters path points using a minimum spacing constraint." alt="" coords="245,5,417,31"/>
 <area shape="poly" title=" " alt="" coords="196,30,229,27,229,32,197,36"/>
@@ -1268,29 +1683,26 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_a077045088473f134c44112388a1e6d95_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a077045088473f134c44112388a1e6d95_icgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_a077045088473f134c44112388a1e6d95_icgraph" id="ad7/db7/class_path_smoothing_a077045088473f134c44112388a1e6d95_icgraph">
+<div class="center"><img src="../../d7/db7/class_path_smoothing_a3fa2dbea9bdf6a68fd7de37964c6012e_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a3fa2dbea9bdf6a68fd7de37964c6012e_icgraph" alt=""/></div>
+<map name="ad7/db7/class_path_smoothing_a3fa2dbea9bdf6a68fd7de37964c6012e_icgraph" id="ad7/db7/class_path_smoothing_a3fa2dbea9bdf6a68fd7de37964c6012e_icgraph">
 <area shape="rect" title="Smooths a path by fitting a B&#45;spline through the input points." alt="" coords="1603,194,1794,220"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#af8d116547f2d2adc2979676047abcfb4" title="Optimizes a racing line path by fitting splines through track boundaries and applying quadratic progr..." alt="" coords="1358,144,1555,169"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#af8890c779625ceba23759dea333dc67f" title="Optimizes a racing line path using quadratic programming." alt="" coords="1358,144,1555,169"/>
 <area shape="poly" title=" " alt="" coords="1618,193,1521,172,1522,167,1619,188"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,120,1090,145"/>
-<area shape="poly" title=" " alt="" coords="1672,185,1620,144,1588,124,1554,110,1487,93,1417,85,1347,83,1279,86,1155,102,1062,121,1061,116,1154,96,1279,81,1347,77,1418,80,1488,88,1556,104,1591,119,1623,139,1675,181"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="732,137,883,178"/>
-<area shape="poly" title=" " alt="" coords="1677,183,1626,126,1592,98,1554,77,1464,47,1385,29,1314,23,1246,27,1178,39,1105,58,932,110,853,139,851,134,930,104,1104,53,1177,34,1246,22,1314,18,1386,24,1465,41,1556,73,1595,94,1630,122,1681,179"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,169,1090,195"/>
-<area shape="poly" title=" " alt="" coords="1587,206,1090,187,1090,182,1587,200"/>
+<area shape="poly" title=" " alt="" coords="1664,188,1614,158,1554,134,1383,89,1312,77,1245,72,1178,73,1106,79,931,110,888,122,849,139,847,134,886,117,930,104,1105,74,1177,67,1245,67,1312,72,1384,84,1556,128,1616,154,1667,183"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="1138,245,1310,271"/>
-<area shape="poly" title=" " alt="" coords="1588,224,1555,228,1311,253,1311,248,1554,223,1587,219"/>
-<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html#acd526ec95d9464063023a78fcf0f64d9" title="simple scenario with few points in the path" alt="" coords="1429,296,1484,321"/>
-<area shape="poly" title=" " alt="" coords="1660,230,1556,279,1485,303,1483,298,1554,274,1658,225"/>
-<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html#a39420284a210f074cd5864281df8c9b5" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="1429,345,1484,371"/>
-<area shape="poly" title=" " alt="" coords="1678,234,1626,286,1592,313,1556,336,1519,350,1485,357,1484,352,1518,345,1553,331,1589,309,1622,282,1674,230"/>
-<area shape="poly" title=" " alt="" coords="1497,131,1483,125,1456,122,1432,124,1419,129,1416,134,1422,141,1418,145,1410,135,1415,125,1431,119,1457,117,1485,120,1499,126"/>
+<area shape="poly" title=" " alt="" coords="1587,215,1477,223,1359,235,1289,247,1288,242,1358,230,1476,217,1587,209"/>
+<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html#acd526ec95d9464063023a78fcf0f64d9" title="simple scenario with few points in the path" alt="" coords="1429,245,1484,271"/>
+<area shape="poly" title=" " alt="" coords="1619,226,1485,255,1484,249,1618,221"/>
+<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html#a39420284a210f074cd5864281df8c9b5" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="1429,294,1484,320"/>
+<area shape="poly" title=" " alt="" coords="1664,231,1614,259,1556,286,1485,305,1484,300,1554,280,1612,254,1662,226"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="931,169,1090,195"/>
+<area shape="poly" title=" " alt="" coords="1378,175,1311,184,1195,189,1090,188,1090,183,1195,184,1310,179,1377,170"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a2bcd690d708bad6f41d4376b1bb10d2c" title="Generates and optimizes a closed&#45;loop global track path." alt="" coords="1149,144,1300,169"/>
 <area shape="poly" title=" " alt="" coords="1343,159,1300,159,1300,154,1343,154"/>
-<area shape="poly" title=" " alt="" coords="1133,149,1090,144,1091,139,1133,143"/>
-<area shape="poly" title=" " alt="" coords="1133,170,1091,175,1090,170,1133,164"/>
-<area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="931,120,1090,145"/>
+<area shape="poly" title=" " alt="" coords="1377,143,1310,134,1224,131,1138,134,1091,134,1090,129,1138,128,1224,126,1311,128,1378,138"/>
+<area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="521,84,659,125"/>
 <area shape="poly" title=" " alt="" coords="717,138,659,124,660,119,718,133"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="495,169,684,210"/>
@@ -1316,7 +1728,9 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,284,198,309"/>
 <area shape="poly" title=" " alt="" coords="247,299,198,299,198,294,247,294"/>
 <area shape="poly" title=" " alt="" coords="278,166,262,160,214,140,165,126,167,120,216,135,264,155,279,161"/>
-<area shape="poly" title=" " alt="" coords="915,173,883,169,884,164,916,168"/>
+<area shape="poly" title=" " alt="" coords="1133,170,1091,175,1090,170,1133,164"/>
+<area shape="poly" title=" " alt="" coords="1133,149,1090,144,1091,139,1133,143"/>
+<area shape="poly" title=" " alt="" coords="916,147,884,151,883,146,915,142"/>
 <area shape="poly" title=" " alt="" coords="1122,248,1028,233,930,210,853,181,855,176,931,204,1029,227,1123,243"/>
 </map>
 </div>
@@ -1324,6 +1738,102 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a8cbc4b38f7675a01c6502c8263b845cf" name="a8cbc4b38f7675a01c6502c8263b845cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cbc4b38f7675a01c6502c8263b845cf">&#9670;&#160;</a></span>cached_dual_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;OSQPFloat&gt; PathSmoothing::cached_dual_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">mutable</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d0/d28/smoothing_8hpp_source.html#l00081">81</a> of file <a class="el" href="../../d0/d28/smoothing_8hpp_source.html">smoothing.hpp</a>.</p>
+
+</div>
+</div>
+<a id="afb17b7ce7e475754b371d2090424cfea" name="afb17b7ce7e475754b371d2090424cfea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb17b7ce7e475754b371d2090424cfea">&#9670;&#160;</a></span>cached_is_closed_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PathSmoothing::cached_is_closed_ = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">mutable</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d0/d28/smoothing_8hpp_source.html#l00079">79</a> of file <a class="el" href="../../d0/d28/smoothing_8hpp_source.html">smoothing.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a49a8b9f35e59118accd98bfc7169c5f4" name="a49a8b9f35e59118accd98bfc7169c5f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49a8b9f35e59118accd98bfc7169c5f4">&#9670;&#160;</a></span>cached_num_points_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int PathSmoothing::cached_num_points_ = -1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">mutable</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d0/d28/smoothing_8hpp_source.html#l00078">78</a> of file <a class="el" href="../../d0/d28/smoothing_8hpp_source.html">smoothing.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2edd803a03f64da447486c33677cf981" name="a2edd803a03f64da447486c33677cf981"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2edd803a03f64da447486c33677cf981">&#9670;&#160;</a></span>cached_primal_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;OSQPFloat&gt; PathSmoothing::cached_primal_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">mutable</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d0/d28/smoothing_8hpp_source.html#l00080">80</a> of file <a class="el" href="../../d0/d28/smoothing_8hpp_source.html">smoothing.hpp</a>.</p>
+
+</div>
+</div>
 <a id="aba97424070e38a365d98ed139adb7c88" name="aba97424070e38a365d98ed139adb7c88"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aba97424070e38a365d98ed139adb7c88">&#9670;&#160;</a></span>config_</h2>
 
@@ -1346,7 +1856,31 @@ Here is the caller graph for this function:</div>
 
 <p>configuration of the smoothing algorithm </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d28/smoothing_8hpp_source.html#l00065">65</a> of file <a class="el" href="../../d0/d28/smoothing_8hpp_source.html">smoothing.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d28/smoothing_8hpp_source.html#l00075">75</a> of file <a class="el" href="../../d0/d28/smoothing_8hpp_source.html">smoothing.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a8d83a7deef7aaaf4220c006e90cb5e2e" name="a8d83a7deef7aaaf4220c006e90cb5e2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d83a7deef7aaaf4220c006e90cb5e2e">&#9670;&#160;</a></span>solver_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">OSQPSolver* PathSmoothing::solver_ = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">mutable</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d0/d28/smoothing_8hpp_source.html#l00077">77</a> of file <a class="el" href="../../d0/d28/smoothing_8hpp_source.html">smoothing.hpp</a>.</p>
 
 </div>
 </div>

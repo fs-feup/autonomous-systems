@@ -31,12 +31,13 @@ var searchData=
   ['_7enormallevenbergoptimizer_28',['~NormalLevenbergOptimizer',['../d2/dd8/class_normal_levenberg_optimizer.html#ac662cd9e8d9fe585bc9de767870a9ea9',1,'NormalLevenbergOptimizer']]],
   ['_7enpointsvalidator_29',['~NPointsValidator',['../d2/ddf/class_n_points_validator.html#a65bbeac6285b54df66faf2cd2a6626ce',1,'NPointsValidator']]],
   ['_7eodometryintegratortrait_30',['~OdometryIntegratorTrait',['../d2/da4/class_odometry_integrator_trait.html#a51443ca9afa09fed16bb383299994a81',1,'OdometryIntegratorTrait']]],
-  ['_7eposeupdater_31',['~PoseUpdater',['../d0/d87/class_pose_updater.html#afdd276ac229872a0f64ddafee7eec4a8',1,'PoseUpdater']]],
-  ['_7eslamobservationmodel_32',['~SLAMObservationModel',['../d1/d99/class_s_l_a_m_observation_model.html#a2ed9fea736e9e8a7b7cd689282c40159',1,'SLAMObservationModel']]],
-  ['_7eslamsolver_33',['~SLAMSolver',['../da/dd3/class_s_l_a_m_solver.html#ae296331afb7a44e54363234d1a030b29',1,'SLAMSolver']]],
-  ['_7eslidingwindowlevenbergoptimizer_34',['~SlidingWindowLevenbergOptimizer',['../d2/d19/class_sliding_window_levenberg_optimizer.html#a3cd024921ba08cce97bf811253cc4fc8',1,'SlidingWindowLevenbergOptimizer']]],
-  ['_7ev2pmotionmodel_35',['~V2PMotionModel',['../d0/d20/class_v2_p_motion_model.html#a373d9c819bcbcc883c74c7b0bebddf87',1,'V2PMotionModel']]],
-  ['_7evehiclemodel_36',['~VehicleModel',['../d6/dbc/class_vehicle_model.html#a95d86bdeebab1e74b1b73f21b52bd700',1,'VehicleModel']]],
-  ['_7evelocitiesintegratortrait_37',['~VelocitiesIntegratorTrait',['../d2/dee/class_velocities_integrator_trait.html#a166c80fc6b693c248edeb8d7fdd82b62',1,'VelocitiesIntegratorTrait']]],
-  ['_7ezscorevalidator_38',['~ZScoreValidator',['../d5/d4f/class_z_score_validator.html#a999992567a10a7339440e6cc6cba91bb',1,'ZScoreValidator']]]
+  ['_7epathsmoothing_31',['~PathSmoothing',['../d7/db7/class_path_smoothing.html#aa5a6a837b23202216ca0a6de4e7cad51',1,'PathSmoothing']]],
+  ['_7eposeupdater_32',['~PoseUpdater',['../d0/d87/class_pose_updater.html#afdd276ac229872a0f64ddafee7eec4a8',1,'PoseUpdater']]],
+  ['_7eslamobservationmodel_33',['~SLAMObservationModel',['../d1/d99/class_s_l_a_m_observation_model.html#a2ed9fea736e9e8a7b7cd689282c40159',1,'SLAMObservationModel']]],
+  ['_7eslamsolver_34',['~SLAMSolver',['../da/dd3/class_s_l_a_m_solver.html#ae296331afb7a44e54363234d1a030b29',1,'SLAMSolver']]],
+  ['_7eslidingwindowlevenbergoptimizer_35',['~SlidingWindowLevenbergOptimizer',['../d2/d19/class_sliding_window_levenberg_optimizer.html#a3cd024921ba08cce97bf811253cc4fc8',1,'SlidingWindowLevenbergOptimizer']]],
+  ['_7ev2pmotionmodel_36',['~V2PMotionModel',['../d0/d20/class_v2_p_motion_model.html#a373d9c819bcbcc883c74c7b0bebddf87',1,'V2PMotionModel']]],
+  ['_7evehiclemodel_37',['~VehicleModel',['../d6/dbc/class_vehicle_model.html#a95d86bdeebab1e74b1b73f21b52bd700',1,'VehicleModel']]],
+  ['_7evelocitiesintegratortrait_38',['~VelocitiesIntegratorTrait',['../d2/dee/class_velocities_integrator_trait.html#a166c80fc6b693c248edeb8d7fdd82b62',1,'VelocitiesIntegratorTrait']]],
+  ['_7ezscorevalidator_39',['~ZScoreValidator',['../d5/d4f/class_z_score_validator.html#a999992567a10a7339440e6cc6cba91bb',1,'ZScoreValidator']]]
 ];

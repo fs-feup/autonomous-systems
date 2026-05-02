@@ -5,5 +5,6 @@ var searchData=
   ['bicyclemodel_2',['bicyclemodel',['../d6/d89/class_bicycle_model.html#aa103f91a803b3b98e72f955cf1e97b10',1,'BicycleModel::BicycleModel(const std::string &amp;config_path)'],['../d6/d89/class_bicycle_model.html#a4a46b4007f508fd78b4b36883d3de621',1,'BicycleModel::BicycleModel(common_lib::car_parameters::CarParameters car_parameters)']]],
   ['blue_5fcones_5fcallback_3',['blue_cones_callback',['../d6/d04/classevaluator_1_1onground__adapter_1_1_on_ground_adapter.html#a35a8f35ce682b59431fa0862ad02f755',1,'evaluator::onground_adapter::OnGroundAdapter']]],
   ['braking_5flimiter_4',['braking_limiter',['../d3/dcc/class_velocity_planning.html#a7cdfc3e526166d4f9e73149a708acfd1',1,'VelocityPlanning']]],
-  ['build_5fadjacency_5fmatrix_5',['build_adjacency_matrix',['../d7/d92/namespaceevaluator_1_1metrics.html#a67fb2de017620156f3758f24363e7853',1,'evaluator::metrics']]]
+  ['build_5fadjacency_5fmatrix_5',['build_adjacency_matrix',['../d7/d92/namespaceevaluator_1_1metrics.html#a67fb2de017620156f3758f24363e7853',1,'evaluator::metrics']]],
+  ['build_5fwarm_5fstart_6',['build_warm_start',['../d7/db7/class_path_smoothing.html#a282cce851a3aaebd22e870fcc6d23a39',1,'PathSmoothing']]]
 ];

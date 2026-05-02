@@ -60,5 +60,6 @@ var searchData=
   ['bucket_5foperations_57',['bucket_operations',['../d8/dc7/namespacebucket__operations.html',1,'']]],
   ['bucket_5foperations_2epy_58',['bucket_operations.py',['../dc/d23/bucket__operations_8py.html',1,'']]],
   ['buffer_5f_59',['buffer_',['../d9/d1a/class_circular_buffer.html#a8dec6941db72a0d1111de5d261878c51',1,'CircularBuffer']]],
-  ['build_5fadjacency_5fmatrix_60',['build_adjacency_matrix',['../d7/d92/namespaceevaluator_1_1metrics.html#a67fb2de017620156f3758f24363e7853',1,'evaluator::metrics']]]
+  ['build_5fadjacency_5fmatrix_60',['build_adjacency_matrix',['../d7/d92/namespaceevaluator_1_1metrics.html#a67fb2de017620156f3758f24363e7853',1,'evaluator::metrics']]],
+  ['build_5fwarm_5fstart_61',['build_warm_start',['../d7/db7/class_path_smoothing.html#a282cce851a3aaebd22e870fcc6d23a39',1,'PathSmoothing']]]
 ];

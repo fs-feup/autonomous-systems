@@ -4,7 +4,7 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,751,310,329,314,331,102,754"/>
 <area shape="rect" id="Node000028" href="$d3/dcc/class_velocity_planning.html#aa0af0b050d79a4efe649c778810ab5ef" title="Assigns an velocity to each point of the path." alt="" coords="256,716,398,757"/>
 <area shape="poly" id="edge32_Node000001_Node000028" title=" " alt="" coords="178,752,241,744,242,750,178,758"/>
-<area shape="rect" id="Node000033" href="$d7/db7/class_path_smoothing.html#a077045088473f134c44112388a1e6d95" title="Smooths a path by fitting a B&#45;spline through the input points." alt="" coords="231,846,423,872"/>
+<area shape="rect" id="Node000033" href="$d7/db7/class_path_smoothing.html#a3fa2dbea9bdf6a68fd7de37964c6012e" title="Smooths a path by fitting a B&#45;spline through the input points." alt="" coords="231,846,423,872"/>
 <area shape="poly" id="edge37_Node000001_Node000033" title=" " alt="" coords="123,776,227,821,273,838,271,843,225,825,121,781"/>
 <area shape="rect" id="Node000036" href="$d3/dcc/class_velocity_planning.html#a9ea9a22c5bbe7c086f8813331e5111dd" title="Applies a braking velocity profile starting after a given braking distance." alt="" coords="253,785,401,811"/>
 <area shape="poly" id="edge40_Node000001_Node000036" title=" " alt="" coords="179,775,237,783,237,788,178,780"/>
