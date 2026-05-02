@@ -18,7 +18,6 @@ from evaluator.formats import (
     format_marker_array_msg,
     format_transform_stamped_msg,
     format_twist_with_covariance_stamped_msg,
-    format_car_state_msg,
     format_nav_odometry_msg,
     format_path_point_array_msg,
     format_point2d_msg,
@@ -165,31 +164,6 @@ class TestFormats(unittest.TestCase):
 
         npt.assert_array_almost_equal(
             formated_msg, self.expected_velocities[0], decimal=6
-        )
-
-    def test_format_car_state(self):
-        """
-        Test case to check the formatting of a CarState message
-        """
-
-        msg = CarState()
-        msg.pose.pose.position.x = 1.0
-        msg.pose.pose.position.y = 2.0
-        msg.pose.pose.orientation.x = 0.0
-        msg.pose.pose.orientation.y = 0.0
-        msg.pose.pose.orientation.z = 0.7071
-        msg.pose.pose.orientation.w = 0.7071
-        msg.twist.twist.linear.x = 1.0
-        msg.twist.twist.linear.y = 1.0
-        msg.twist.twist.angular.z = 2.0
-
-        formated_msg1, formated_msg2 = format_car_state_msg(msg)
-
-        npt.assert_array_almost_equal(
-            formated_msg1, self.expected_stamped_message, decimal=4
-        )
-        npt.assert_array_almost_equal(
-            formated_msg2, self.expected_velocities[0], decimal=4
         )
 
     def test_format_nav_odometry(self):
