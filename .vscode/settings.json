@@ -1,20 +1,12 @@
 {
     "ROS2.distro": "humble",
     "python.autoComplete.extraPaths": [
-<<<<<<< HEAD
-=======
-        "/home/ws/install/invictasim_keys/lib/python3.10/site-packages",
-        "/home/ws/install/fs_msgs/local/lib/python3.10/dist-packages",
-        "/home/ws/install/eufs_msgs/local/lib/python3.10/dist-packages",
->>>>>>> main
         "/home/ws/install/custom_interfaces/local/lib/python3.10/dist-packages",
         "/opt/ros/humble/lib/python3.10/site-packages",
         "/opt/ros/humble/local/lib/python3.10/dist-packages"
     ],
     "python.analysis.extraPaths": [
         "/home/ws/install/invictasim_keys/lib/python3.10/site-packages",
-        "/home/ws/install/fs_msgs/local/lib/python3.10/dist-packages",
-        "/home/ws/install/eufs_msgs/local/lib/python3.10/dist-packages",
         "/home/ws/install/custom_interfaces/local/lib/python3.10/dist-packages",
         "/opt/ros/humble/lib/python3.10/site-packages",
         "/opt/ros/humble/local/lib/python3.10/dist-packages"

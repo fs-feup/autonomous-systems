@@ -9,8 +9,6 @@
         "/home/ws/install/invictasim/include/**",
         "/home/ws/install/motion_lib/include/**",
         "/home/ws/install/common_lib/include/**",
-        "/home/ws/install/fs_msgs/include/**",
-        "/home/ws/install/eufs_msgs/include/**",
         "/home/ws/install/custom_interfaces/include/**",
         "/opt/ros/humble/include/**",
         "/home/ws/src/common_lib/include/**",

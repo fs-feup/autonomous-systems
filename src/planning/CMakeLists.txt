@@ -85,7 +85,7 @@ target_precompile_headers(planning_lib PRIVATE
 target_compile_features(planning_lib PUBLIC c_std_99 cxx_std_17)
 
 ament_target_dependencies(planning_lib
-  ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs
+  ament_index_cpp rclcpp std_msgs custom_interfaces
   tf2_ros tf2_geometry_msgs pacsim common_lib std_srvs nav_msgs
   visualization_msgs
 )
@@ -95,6 +95,7 @@ target_include_directories(planning_lib PUBLIC
   $<INSTALL_INTERFACE:include>
   ${PCL_INCLUDE_DIRS}
   ${GSL_INCLUDE_DIRS}
+  ${PCAP_INCLUDE_DIRS}
 )
 
 target_link_libraries(planning_lib
@@ -103,6 +104,7 @@ target_link_libraries(planning_lib
   ${MPFR_LIBRARIES}
   ${QT5_LIBRARIES}
   ${GSL_LIBRARIES}
+  ${PCAP_LIBRARIES}
   yaml-cpp
   ${PCL_LIBRARIES}
   osqp::osqp
@@ -125,7 +127,7 @@ set_target_properties(planning PROPERTIES
 )
 
 ament_target_dependencies(planning
-  ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs
+  ament_index_cpp rclcpp std_msgs custom_interfaces
   tf2_ros tf2_geometry_msgs pacsim common_lib std_srvs nav_msgs
   visualization_msgs
 )
@@ -140,11 +142,6 @@ install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
 
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
-<<<<<<< HEAD
-  ament_add_gtest(planning_test ${TESTFILES} ${IMPLEMENTATION_FILES})
-  ament_target_dependencies(planning_test ament_index_cpp rclcpp std_msgs custom_interfaces tf2_ros tf2_geometry_msgs pacsim common_lib std_srvs nav_msgs visualization_msgs)
-  
-=======
 
   ament_add_gtest(planning_test ${TESTFILES})
 
@@ -153,12 +150,11 @@ if(BUILD_TESTING)
   target_link_libraries(planning_test planning_lib)
 
   ament_target_dependencies(planning_test
-    ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs
+    ament_index_cpp rclcpp std_msgs custom_interfaces
     tf2_ros tf2_geometry_msgs pacsim common_lib std_srvs nav_msgs
     visualization_msgs
   )
 
->>>>>>> main
   target_include_directories(planning_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
