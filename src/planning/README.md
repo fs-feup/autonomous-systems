@@ -52,7 +52,7 @@ git submodule update --init --recursive
 
 ### Compiling
 ```sh
-MAKEFLAGS=-j2 colcon build --packages-up-to planning --cmake-args -G Ninja
+MAKEFLAGS=-j2 colcon build --packages-up-to planning --cmake-args -G Ninja --event-handlers console_direct+
 ```
 
 ### Testing

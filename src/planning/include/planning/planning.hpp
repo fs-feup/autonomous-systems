@@ -109,12 +109,14 @@ private:
   bool has_received_pose_ = false;
   bool is_path_final_ = false;
   bool is_path_closed_ = false;
+  bool last_is_path_closed_ = false;
   std::chrono::steady_clock::time_point brake_time_;
 
   /*--------------------- Path Data --------------------*/
 
   std::vector<PathPoint> full_path_;
   std::vector<PathPoint> smoothed_path_;
+  std::vector<PathPoint> last_full_path_;
   std::vector<Cone> cone_array_;
 
   /*--------------------- Subscriptions --------------------*/
