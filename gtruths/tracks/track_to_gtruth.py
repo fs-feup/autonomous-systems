@@ -23,7 +23,9 @@ class PointCollector:
         self.points = list(initial_points)
         self.added_points = []  # Track the added points separately
         self.ax.set_aspect("equal")
-        self.ax.set_title("Click to add points, drag to pan, scroll to zoom, press 'u' to undo")
+        self.ax.set_title(
+            "Click to add points, drag to pan, scroll to zoom, press 'u' to undo"
+        )
         self.ax.scatter(*zip(*self.points), color="blue")
         self.is_dragging = False
         self.clicked = False
@@ -65,7 +67,7 @@ class PointCollector:
             self.is_dragging = False
 
     def onkey(self, event):
-        if event.key == 'u' and self.added_points:
+        if event.key == "u" and self.added_points:
             self.undo_last_point()
 
     def undo_last_point(self):
@@ -82,17 +84,19 @@ class PointCollector:
     def calculate_angle(self, points):
         """Calculate the average angle given a list of points."""
         if len(points) < 3:
-            raise ValueError("At least three points are required to calculate an angle.")
-        
+            raise ValueError(
+                "At least three points are required to calculate an angle."
+            )
+
         angles = []
         for i in range(1, len(points) - 1):
-            BA = np.array(points[i-1]) - np.array(points[i])
-            BC = np.array(points[i+1]) - np.array(points[i])
+            BA = np.array(points[i - 1]) - np.array(points[i])
+            BC = np.array(points[i + 1]) - np.array(points[i])
             cosine_angle = np.dot(BA, BC) / (np.linalg.norm(BA) * np.linalg.norm(BC))
             cosine_angle = np.clip(cosine_angle, -1.0, 1.0)
             angle = np.arccos(cosine_angle)
             angles.append(np.degrees(angle))
-        
+
         return np.mean(angles)
 
     def determine_velocity(self, angle, max_velocity=5, min_velocity=1):
@@ -103,11 +107,15 @@ class PointCollector:
             return min_velocity
         else:
             # Linear interpolation between min_velocity and max_velocity (could tuner further)
-            return min_velocity + (max_velocity - min_velocity) * (angle - 135) / (180 - 135)
-        
+            return min_velocity + (max_velocity - min_velocity) * (angle - 135) / (
+                180 - 135
+            )
+
     def export_to_csv(self, filename):
-        os.makedirs(os.path.dirname(filename), exist_ok=True)  # Ensure the directory exists
-        
+        os.makedirs(
+            os.path.dirname(filename), exist_ok=True
+        )  # Ensure the directory exists
+
         # Calculate velocities based on angles
         velocities = [0] * len(self.added_points)
         window_size = 5
@@ -116,14 +124,12 @@ class PointCollector:
             end_index = min(len(self.added_points), i + window_size // 2 + 1)
             angle = self.calculate_angle(self.added_points[start_index:end_index])
             velocities[i] = self.determine_velocity(angle)
-            
 
         velocities[0] = velocities[-1] = 5
-        
+
         df = pd.DataFrame(self.added_points, columns=["x", "y"])
         df["z"] = velocities
         df.to_csv(filename, index=False)
-        
 
 
 def main():
@@ -131,7 +137,7 @@ def main():
         description="Create ground truth points for a track."
     )
     parser.add_argument(
-        "--sim", type=str, default="fsds", help="Simulator type (fsds, eufs, pacsim)"
+        "--sim", type=str, default="pacsim", help="Simulator type (pacsim)"
     )
     parser.add_argument(
         "--track_name",
@@ -156,7 +162,9 @@ def main():
 
     pc = PointCollector(initial_points)
 
-    filename = input("Please enter the name of the gtruth to save the points (e.g., skidpad): ")
+    filename = input(
+        "Please enter the name of the gtruth to save the points (e.g., skidpad): "
+    )
     final_file_name = os.path.join(
         "gtruths", "tracks", sim, filename, f"{filename}_gtruth.csv"
     )

@@ -21,8 +21,6 @@ find_package(tf2_ros REQUIRED)
 find_package(yaml-cpp REQUIRED)
 find_package(common_lib REQUIRED)
 find_package(motion_lib REQUIRED)
-find_package(eufs_msgs REQUIRED)
-find_package(fs_msgs REQUIRED)
 find_package(visualization_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
 
@@ -32,6 +30,7 @@ pkg_check_modules(SDL2_TTF REQUIRED SDL2_ttf)
 # Implementation files
 set(IMPLEMENTATION_FILES
   src/simulator/invictasim.cpp
+  src/io/input/input_adapter.cpp
   src/io/input/ros.cpp
   src/io/output/ros.cpp
   src/io/input/keyboard.cpp
@@ -63,8 +62,6 @@ ament_target_dependencies(invictasim
   tf2_ros
   yaml-cpp
   common_lib
-  eufs_msgs
-  fs_msgs
   visualization_msgs
   custom_interfaces
   motion_lib
@@ -109,8 +106,6 @@ if(BUILD_TESTING)
     tf2_ros
     yaml-cpp
     common_lib
-    eufs_msgs
-    fs_msgs
     visualization_msgs
     custom_interfaces
     motion_lib
@@ -132,8 +127,6 @@ ament_export_dependencies(
   tf2_ros
   yaml-cpp
   common_lib
-  eufs_msgs
-  fs_msgs
   visualization_msgs
   custom_interfaces
 )

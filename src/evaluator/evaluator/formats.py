@@ -8,7 +8,6 @@ from custom_interfaces.msg import (
 from visualization_msgs.msg import MarkerArray
 from geometry_msgs.msg import TransformStamped, TwistWithCovarianceStamped
 from tf_transformations import euler_from_quaternion
-from eufs_msgs.msg import ConeArrayWithCovariance, CarState
 from nav_msgs.msg import Odometry
 import numpy as np
 
@@ -192,77 +191,6 @@ def format_twist_with_covariance_stamped_msg(
     )
 
 
-def format_car_state_msg(
-    msg: CarState,
-) -> tuple[np.ndarray, np.ndarray]:
-    """!
-
-    Formats the CarState message from eufs into a tuple of numpy arrays.
-
-    Args: msg (CarState): CarState message from eufs
-
-    Returns: tuple[np.ndarray, np.ndarray]: (state, velocities)
-    """
-    return (
-        np.array(
-            [
-                msg.pose.pose.position.x,
-                msg.pose.pose.position.y,
-                euler_from_quaternion(
-                    [
-                        msg.pose.pose.orientation.x,
-                        msg.pose.pose.orientation.y,
-                        msg.pose.pose.orientation.z,
-                        msg.pose.pose.orientation.w,
-                    ]
-                )[2],
-            ]
-        ),
-        np.array(
-            [
-                msg.twist.twist.linear.x,
-                msg.twist.twist.linear.y,
-                msg.twist.twist.angular.z,
-            ],
-        ),
-    )
-
-
-def format_eufs_cone_array_with_covariance_msg(
-    msg: ConeArrayWithCovariance,
-):
-    """!
-
-    Args:
-        msg (ConeArrayWithCovariance): cone array message from eufs
-
-    Returns:
-        np.ndarray[np.ndarray]: [[x, y, color, confidence], ...]
-    """
-    output: list = []
-    cone_types: list[str] = [
-        "blue_cones",
-        "yellow_cones",
-        "orange_cones",
-        "big_orange_cones",
-        "unknown_color_cones",
-    ]
-    for i, cone_type in enumerate(cone_types):
-        for cone in getattr(msg, cone_type):
-            output.append(
-                np.array(
-                    [
-                        cone.point.x,
-                        cone.point.y,
-                        i,
-                        1.0,
-                    ]  # TODO: confidence dependent on the cone's covariance
-                )
-            )
-
-    return np.array(output)
-
-
 def format_nav_odometry_msg(msg: Odometry) -> tuple[np.ndarray, np.ndarray]:
     """!
     Formats the Odometry message into a numpy array.
@@ -363,43 +291,3 @@ def find_closest_elements(arr1: np.ndarray, arr2: np.ndarray) -> np.ndarray:
     closest_elements = np.unique(arr2[closest_indices], axis=0)
 
     return closest_elements
-
-
-def get_blue_and_yellow_cones_after_msg_treatment(
-    arr: np.ndarray,
-) -> tuple[np.ndarray, np.ndarray]:
-    """!
-    Divides the result of converting the EUFS or FSDS map message to np.ndarray into blue and yellow cones arrays, attributing orange
-    cones into blue or yellow cones.
-
-    Args:
-        arr (np.ndarray): Array of cones with the following attributes: x, y, index, confidence, type.
-
-    Returns:
-        tuple[np.ndarray, np.ndarray]: the first array is the array of blue cones and the second contains yellow cones.
-    """
-    array1 = []
-    array2 = []
-    for element in arr:
-        if element[2] == 0:
-            array1.append(element)
-        elif element[2] == 1:
-            array2.append(element)
-        elif element[2] in [2, 3]:
-            closest_distance = float("inf")
-            closest_array = None
-
-            for array in [array1, array2]:
-                for array_element in array:
-                    distance = np.linalg.norm(element[:2] - array_element[:2])
-
-                    if distance < closest_distance:
-                        closest_distance = distance
-                        closest_array = array
-
-            if closest_array is not None:
-                closest_array.append(element)
-        else:
-            raise ValueError("Invalid cone color index: %d" % element[2])
-
-    return np.array(array1), np.array(array2)

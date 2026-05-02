@@ -3,11 +3,7 @@
 static const std_msgs::msg::Header header;
 
 static const inline std::unordered_map<std::string, std::string> adapter_frame_map = {
-    {"vehicle", "lidar"},
-    {"eufs", "velodyne"},
-    {"fsds", "lidar"},
-    {"vehicle_preprocessed", "lidar"},
-    {"fst", "lidar"}};
+    {"vehicle", "lidar"}, {"vehicle_preprocessed", "lidar"}, {"fst", "lidar"}};
 
 PerceptionParameters Perception::load_config() {
   PerceptionParameters params;
@@ -21,7 +17,7 @@ PerceptionParameters Perception::load_config() {
   params.adapter_ = global_config["global"]["adapter"].as<std::string>();
   params.vehicle_frame_id_ = global_config["global"]["vehicle_frame_id"].as<std::string>();
 
-  if (params.adapter_ == "pacsim") {
+  if (params.adapter_ == "pacsim" || params.adapter_ == "invictasim") {
     params.adapter_ = "vehicle";
   }
 
@@ -36,8 +32,8 @@ PerceptionParameters Perception::load_config() {
                YAML::Dump(perception_config).c_str());
 
   const auto default_mission_str = perception_config["default_mission"].as<std::string>();
-  params.default_mission_ =
-      static_cast<uint8_t>(common_lib::competition_logic::fsds_to_system.at(default_mission_str));
+  params.default_mission_ = static_cast<uint8_t>(
+      common_lib::competition_logic::get_mission_from_string(default_mission_str));
 
   // Publishers
   params.publish_fov_trimmed_cloud = perception_config["publish_fov_trimmed_cloud"].as<bool>();
@@ -223,9 +219,7 @@ Perception::Perception(const PerceptionParameters& params)
   // Determine which adapter is being used
   std::unordered_map<std::string, std::tuple<std::string, rclcpp::QoS>> adapter_topic_map = {
       {"vehicle", {"/lidar_points", rclcpp::QoS(10)}},
-      {"eufs",
-       {"/velodyne_points", rclcpp::QoS(1).reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT)}},
-      {"fsds", {"/lidar/Lidar1", rclcpp::QoS(10)}},
+
       {"vehicle_preprocessed", {"/rslidar_points/pre_processed", rclcpp::QoS(10)}},
       {"fst", {"/hesai/pandar", rclcpp::QoS(10)}}};
 
