@@ -171,21 +171,17 @@ void TireModel::calculate_slip_ratio_not_transient(TireInput& tire_input) {
   // Sign: Left wheels move slower in a positive yaw (turning left), Right move faster.
   double sign = (tire_input.tire == FL || tire_input.tire == RL) ? -1.0 : 1.0;
 
+  // Longitudinal velocity at the wheel patch
   double Vcx_center = tire_input.vx * cos(tire_input.steering_angle) +
                       tire_input.vy * sin(tire_input.steering_angle);
 
+  // Add the yaw component (tangential velocity)
   double Vcx = Vcx_center + (sign * tire_input.yaw_rate * car_parameters_->track_width / 2.0);
+
   double Vw = tire_input.wheel_angular_speed * car_parameters_->tire_parameters->effective_tire_r;
 
-  // Reference velocity uses BOTH Vcx and Vw.
-  // When Vcx≈0 but wheel spins, Vw saves the denominator (and vice versa).
-  // sqrt form keeps it C∞ — no kinks anywhere.
-  constexpr double epsilon = 0.7;
-  double V_ref = std::sqrt(Vcx * Vcx + Vw * Vw + epsilon * epsilon);
-
-  double slip_target = (Vw - Vcx) / V_ref;
-
-  // Clamp is now a true safety net, not a wall you're constantly hitting
+  // Calculate the "Target" (Steady-State) Slip
+  double slip_target = (Vw - Vcx) / std::max(std::abs(Vcx), 0.5);
   slip_target = std::clamp(slip_target, -1.0, 1.0);
 
   tire_input.slip_ratio = slip_target;
@@ -244,14 +240,5 @@ Eigen::Vector4d TireModel::calculate_tire_forces_not_transient(TireInput& tire_i
   calculate_slip_ratio_not_transient(tire_input);
 
   // Return tire forces using the specific tire model
-  Eigen::Vector4d forces = this->tire_forces(tire_input);
-  double linear_coef = 34.3;
-  double speed_blend = 0.5 * (tanh(tire_input.vx - 5.0) + 1.0);  // Blend factor based on speed
-
-  double linear_component = linear_coef * tire_input.vertical_load;
-
-  forces(0) =
-      (1.0 - speed_blend) * linear_component * tire_input.slip_ratio + speed_blend * forces(0);
-
-  return forces;
+  return this->tire_forces(tire_input);
 }
