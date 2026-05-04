@@ -74,7 +74,9 @@ jobs:
         run: |
           set -euo pipefail
 
+          set +u
           source /opt/ros/${ROS_DISTRO}/setup.bash
+          set -u
 
           echo "Checking whether ROS/system dependencies are already installed on the self-hosted runner..."
           echo "This workflow intentionally does not use sudo and will not install packages."
@@ -90,7 +92,9 @@ jobs:
         run: |
           set -euo pipefail
 
+          set +u
           source /opt/ros/${ROS_DISTRO}/setup.bash
+          set -u
 
           export CMAKE_PREFIX_PATH=/usr/local:${CMAKE_PREFIX_PATH:-}
           export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH:-}
@@ -220,8 +224,12 @@ jobs:
         run: |
           set -euo pipefail
 
+          set +u
           source /opt/ros/${ROS_DISTRO}/setup.bash
+          set -u
+          set +u
           source install/setup.bash
+          set -u
 
           export CMAKE_PREFIX_PATH=/usr/local:${CMAKE_PREFIX_PATH:-}
           export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH:-}
