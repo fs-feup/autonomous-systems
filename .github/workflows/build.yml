@@ -19,6 +19,11 @@ env:
   # Persistent cache stored inside the self-hosted runner _work directory,
   # but outside the checked-out repository folder.
   CI_CACHE_DIR: ${{ github.workspace }}/../_ci_cache
+  # Rough total build parallelism is approximately:
+  # COLCON_PARALLEL_WORKERS * CMAKE_BUILD_PARALLEL_LEVEL
+  # 2 * 4 ≈ 8 concurrent compile jobs.
+  COLCON_PARALLEL_WORKERS: 4
+  CMAKE_BUILD_PARALLEL_LEVEL: 4
   BUILD_PACKAGES: >-
     common_lib
     perception
@@ -57,7 +62,7 @@ jobs:
 
           missing=0
 
-          for tool in colcon bear ccache; do
+          for tool in colcon bear ccache ninja; do
             if ! command -v "$tool" >/dev/null 2>&1; then
               echo "Missing required tool: $tool"
               missing=1
@@ -101,12 +106,7 @@ jobs:
           export PATH="/usr/lib/ccache:${PATH}"
           ccache --max-size=10G || true
 
-          bear -- colcon build \
-            --parallel-workers 8 \
-            --packages-up-to ${BUILD_PACKAGES} \
-            --cmake-args \
-              -DCMAKE_C_COMPILER_LAUNCHER=ccache \
-              -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
+          bear -- colcon build --parallel-workers "${COLCON_PARALLEL_WORKERS}" --packages-up-to ${BUILD_PACKAGES} --cmake-args -G Ninja -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 
           ccache --show-stats || true
 
