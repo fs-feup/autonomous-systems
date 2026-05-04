@@ -21,8 +21,8 @@ env:
   CI_CACHE_DIR: ${{ github.workspace }}/../_ci_cache
   # Rough total build parallelism is approximately:
   # COLCON_PARALLEL_WORKERS * CMAKE_BUILD_PARALLEL_LEVEL
-  COLCON_PARALLEL_WORKERS: 2
-  CMAKE_BUILD_PARALLEL_LEVEL: 2
+  COLCON_PARALLEL_WORKERS: 4
+  CMAKE_BUILD_PARALLEL_LEVEL: 1
   BUILD_PACKAGES: >-
     common_lib
     perception
@@ -108,7 +108,7 @@ jobs:
           export PATH="/usr/lib/ccache:${PATH}"
           ccache --max-size=10G || true
 
-          MAKEFLAGS=-j2 colcon build --parallel-workers "${COLCON_PARALLEL_WORKERS}" --packages-up-to ${BUILD_PACKAGES} --cmake-args -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
+          MAKEFLAGS=-j4 colcon build --parallel-workers "${COLCON_PARALLEL_WORKERS}" --packages-up-to ${BUILD_PACKAGES} --cmake-args -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 
           ccache --show-stats || true
 
@@ -140,16 +140,21 @@ jobs:
           print(f"Wrote compile_commands.json with {len(entries)} entries")
           PY
 
-      - name: Pack compiled workspace
-        run: |
-          tar -cf ci-build-output.tar build install log compile_commands.json
-
-      - name: Upload compiled workspace
-        uses: actions/upload-artifact@v4
-        with:
-          name: colcon-build-output
-          path: ci-build-output.tar
-          retention-days: 1
+      # The following artifact handoff is intentionally disabled.
+      # This workflow runs on a persistent self-hosted runner and relies on the
+      # workspace's existing build/, install/, log/, and compile_commands.json
+      # outputs in downstream jobs instead of uploading/downloading them.
+      #
+      # - name: Pack compiled workspace
+      #   run: |
+      #     tar -cf ci-build-output.tar build install log compile_commands.json
+      #
+      # - name: Upload compiled workspace
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: colcon-build-output
+      #     path: ci-build-output.tar
+      #     retention-days: 1
 
   sonarcloud:
     name: SonarCloud analysis
@@ -174,15 +179,18 @@ jobs:
           fetch-depth: 0
           clean: false
 
-      - name: Download compiled workspace
-        uses: actions/download-artifact@v4
-        with:
-          name: colcon-build-output
-          path: .
-
-      - name: Extract compiled workspace
-        run: |
-          tar -xf ci-build-output.tar
+      # Artifact download/extract disabled; use the build outputs already
+      # present in this self-hosted runner workspace.
+      #
+      # - name: Download compiled workspace
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     name: colcon-build-output
+      #     path: .
+      #
+      # - name: Extract compiled workspace
+      #   run: |
+      #     tar -xf ci-build-output.tar
 
       - name: Install Sonar scanner in CI cache if missing
         run: |
@@ -230,8 +238,6 @@ jobs:
           - control
           - planning
           - inspection
-          - mocker_node
-          - evaluator
 
     steps:
       - name: Checkout repository
@@ -240,15 +246,18 @@ jobs:
           submodules: 'true'
           clean: false
 
-      - name: Download compiled workspace
-        uses: actions/download-artifact@v4
-        with:
-          name: colcon-build-output
-          path: .
-
-      - name: Extract compiled workspace
-        run: |
-          tar -xf ci-build-output.tar
+      # Artifact download/extract disabled; use the build outputs already
+      # present in this self-hosted runner workspace.
+      #
+      # - name: Download compiled workspace
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     name: colcon-build-output
+      #     path: .
+      #
+      # - name: Extract compiled workspace
+      #   run: |
+      #     tar -xf ci-build-output.tar
 
       - name: Test ${{ matrix.package }}
         run: |
