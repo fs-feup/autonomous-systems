@@ -21,9 +21,8 @@ env:
   CI_CACHE_DIR: ${{ github.workspace }}/../_ci_cache
   # Rough total build parallelism is approximately:
   # COLCON_PARALLEL_WORKERS * CMAKE_BUILD_PARALLEL_LEVEL
-  # 2 * 4 ≈ 8 concurrent compile jobs.
-  COLCON_PARALLEL_WORKERS: 2
-  CMAKE_BUILD_PARALLEL_LEVEL: 4
+  COLCON_PARALLEL_WORKERS: 4
+  CMAKE_BUILD_PARALLEL_LEVEL: 2
   BUILD_PACKAGES: >-
     common_lib
     perception
