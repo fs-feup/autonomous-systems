@@ -170,6 +170,7 @@ jobs:
       SONAR_SCANNER_VERSION: 6.0.0.4432
       SONAR_SERVER_URL: https://sonarcloud.io
       SONAR_SCANNER_DOWNLOAD_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.0.0.4432-linux.zip
+      SONAR_CFAMILY_THREADS: 20
 
     steps:
       - name: Checkout repository
@@ -217,7 +218,9 @@ jobs:
         run: |
           set -euo pipefail
           export PATH="${CI_CACHE_DIR}/sonar-scanner-${SONAR_SCANNER_VERSION}-linux/bin:${PATH}"
-          sonar-scanner --define sonar.cfamily.compile-commands="./compile_commands.json"
+          sonar-scanner \
+            --define sonar.cfamily.compile-commands="./compile_commands.json" \
+            --define sonar.cfamily.threads="${SONAR_CFAMILY_THREADS}"
 
   test:
     name: Test ${{ matrix.package }}
