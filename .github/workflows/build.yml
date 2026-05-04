@@ -2,21 +2,168 @@ name: Testing and Building
 
 on:
   push:
-    branches:
-      [main, dev]
+    branches: [main, dev]
   pull_request:
     types: [opened, synchronize, reopened]
 
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  ROS_DISTRO: humble
+  # Persistent cache stored inside the self-hosted runner _work directory,
+  # but outside the checked-out repository folder.
+  CI_CACHE_DIR: ${{ github.workspace }}/../_ci_cache
+  # Rough total build parallelism is approximately:
+  # COLCON_PARALLEL_WORKERS * CMAKE_BUILD_PARALLEL_LEVEL
+  COLCON_PARALLEL_WORKERS: 4
+  CMAKE_BUILD_PARALLEL_LEVEL: 1
+  BUILD_PACKAGES: >-
+    common_lib
+    perception
+    slam
+    velocity_estimation
+    control
+    planning
+    inspection
+    mocker_node
+    evaluator
+
 jobs:
+  build:
+    permissions:
+      contents: read
+      pull-requests: read
+    name: Build once
+    runs-on: [self-hosted, linux]
 
-  build: # Sonarcloud analysis
-    name: sonarcloud-build
-    if: github.event_name == 'pull_request'
+    defaults:
+      run:
+        shell: bash
 
-    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+          fetch-depth: 0
+          clean: false
 
-    container:
-      image: ros:humble-ros-base-jammy
+      - name: Prepare persistent CI cache directories
+        run: |
+          set -euo pipefail
+          mkdir -p "${CI_CACHE_DIR}/ccache"
+
+      - name: Check required host tools
+        run: |
+          set -euo pipefail
+
+          missing=0
+
+          for tool in colcon bear ccache ninja; do
+            if ! command -v "$tool" >/dev/null 2>&1; then
+              echo "Missing required tool: $tool"
+              missing=1
+            fi
+          done
+
+          if [[ "$missing" -ne 0 ]]; then
+            echo "Install the missing tools manually on the self-hosted server, then rerun this workflow."
+            echo "Example: sudo apt install python3-colcon-common-extensions python3-rosdep bear ccache"
+            exit 1
+          fi
+
+      - name: Check ROS environment
+        run: |
+          set -euo pipefail
+
+          set +u
+          source /opt/ros/${ROS_DISTRO}/setup.bash
+          set -u
+
+          echo "ROS environment loaded from /opt/ros/${ROS_DISTRO}."
+          echo "This workflow intentionally does not use sudo, Docker, or rosdep."
+          echo "All system/project dependencies must already be installed manually on the self-hosted server."
+
+      - name: Keep previous build output for incremental compilation
+        run: |
+          # Do not delete build/, install/, or log/ here.
+          # Keeping them allows colcon/CMake/Ninja to do incremental builds on the self-hosted runner.
+          rm -f ci-build-output.tar compile_commands.json
+
+      - name: Build all required packages
+        run: |
+          set -euo pipefail
+
+          set +u
+          source /opt/ros/${ROS_DISTRO}/setup.bash
+          set -u
+
+          export CMAKE_PREFIX_PATH=/usr/local:${CMAKE_PREFIX_PATH:-}
+          export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH:-}
+
+          export CCACHE_DIR="${CI_CACHE_DIR}/ccache"
+          export PATH="/usr/lib/ccache:${PATH}"
+          ccache --max-size=10G || true
+
+          MAKEFLAGS=-j4 colcon build --parallel-workers "${COLCON_PARALLEL_WORKERS}" --packages-up-to ${BUILD_PACKAGES} --cmake-args -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
+
+          ccache --show-stats || true
+
+      - name: Merge CMake compile databases for SonarCloud
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          entries = []
+          seen = set()
+
+          for path in sorted(Path('build').glob('**/compile_commands.json')):
+              try:
+                  data = json.loads(path.read_text())
+              except Exception as exc:
+                  print(f"Skipping {path}: {exc}")
+                  continue
+
+              for entry in data:
+                  key = (entry.get('directory'), entry.get('file'), entry.get('command'))
+                  if key not in seen:
+                      seen.add(key)
+                      entries.append(entry)
+
+          Path('compile_commands.json').write_text(json.dumps(entries, indent=2))
+          print(f"Wrote compile_commands.json with {len(entries)} entries")
+          PY
+
+      # The following artifact handoff is intentionally disabled.
+      # This workflow runs on a persistent self-hosted runner and relies on the
+      # workspace's existing build/, install/, log/, and compile_commands.json
+      # outputs in downstream jobs instead of uploading/downloading them.
+      #
+      # - name: Pack compiled workspace
+      #   run: |
+      #     tar -cf ci-build-output.tar build install log compile_commands.json
+      #
+      # - name: Upload compiled workspace
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: colcon-build-output
+      #     path: ci-build-output.tar
+      #     retention-days: 1
+
+  sonarcloud:
+    permissions:
+      contents: read
+      pull-requests: read
+    name: SonarCloud analysis
+    if: always() && github.event_name == 'pull_request'
+    needs: test
+    runs-on: [self-hosted, linux]
 
     defaults:
       run:
@@ -24,395 +171,146 @@ jobs:
 
     env:
       SONAR_SCANNER_VERSION: 6.0.0.4432
-      SONAR_SERVER_URL: "https://sonarcloud.io"
-      BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
+      SONAR_SERVER_URL: https://sonarcloud.io
       SONAR_SCANNER_DOWNLOAD_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.0.0.4432-linux.zip
-      
+      SONAR_CFAMILY_THREADS: 10
+
     steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: 'true'
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      # Checkout is intentionally skipped here. The build job already checked
+      # out the repository on this persistent self-hosted runner workspace.
+      #
+      # - name: Checkout repository
+      #   uses: actions/checkout@v4
+      #   with:
+      #     submodules: 'true'
+      #     fetch-depth: 0
+      #     clean: false
 
-      - name: Install dependencies
-        run: |
-          echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
-          ./dependencies_install.sh
-          ./src/slam/dependencies_install.sh
-          ./src/planning/dependencies_install.sh
-          echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> /home/$USERNAME/.bashrc
-          sudo apt install curl -y
-          sudo apt install unzip -y
-          sudo apt install bear -y
+      # Artifact download/extract disabled; use the build outputs already
+      # present in this self-hosted runner workspace.
+      #
+      # - name: Download compiled workspace
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     name: colcon-build-output
+      #     path: .
+      #
+      # - name: Extract compiled workspace
+      #   run: |
+      #     tar -xf ci-build-output.tar
 
-      - name: Download and set up sonar-scanner
+      - name: Install Sonar scanner in CI cache if missing
         run: |
-          curl ${{ env.SONAR_SCANNER_DOWNLOAD_URL }} --output sonar-scanner-cli-${{env.SONAR_SCANNER_VERSION}}-linux.zip
-          unzip ./sonar-scanner-cli-${{env.SONAR_SCANNER_VERSION}}-linux.zip
-          echo "./sonar-scanner-${{env.SONAR_SCANNER_VERSION}}-linux/bin" >> $GITHUB_PATH
-    
-      - name: Compile with bear
-        run: |
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          bear -- colcon build --packages-up-to common_lib perception slam control planning inspection mocker_node evaluator
-          
-      - name: Run sonar-scanner
+          set -euo pipefail
+          mkdir -p "${CI_CACHE_DIR}"
+
+          command -v curl >/dev/null || { echo "curl is missing. Install it once on the server: sudo apt install curl"; exit 1; }
+          command -v unzip >/dev/null || { echo "unzip is missing. Install it once on the server: sudo apt install unzip"; exit 1; }
+
+          SCANNER_DIR="${CI_CACHE_DIR}/sonar-scanner-${SONAR_SCANNER_VERSION}-linux"
+
+          if [[ -x "${SCANNER_DIR}/bin/sonar-scanner" ]]; then
+            echo "Sonar scanner already installed."
+            exit 0
+          fi
+
+          curl -sSL "${SONAR_SCANNER_DOWNLOAD_URL}" --output sonar-scanner.zip
+          unzip -q sonar-scanner.zip -d "${CI_CACHE_DIR}"
+
+      - name: Run SonarCloud analysis
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          sonar-scanner --define sonar.cfamily.compile-commands="./compile_commands.json"
+          set -euo pipefail
+          export PATH="${CI_CACHE_DIR}/sonar-scanner-${SONAR_SCANNER_VERSION}-linux/bin:${PATH}"
+          sonar-scanner \
+            --define sonar.cfamily.compile-commands="./compile_commands.json" \
+            --define sonar.cfamily.threads="${SONAR_CFAMILY_THREADS}"
 
-
-  perception:
-    runs-on: ubuntu-latest
-
-    container:
-      image: ros:humble-ros-base-jammy
-
-    defaults:
-      run:
-        shell: bash
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: 'true'
-
-      - name: Install dependencies
-        run: |
-          echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
-          ./dependencies_install.sh
-      
-      - name: Rosdep
-        run: |
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          rosdep update
-          rosdep install --from-paths src --ignore-src -r -y
-      
-      - name: Build Dependencies
-        run: |
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
-
-      - name: Build and Test Perception
-        run: |
-          source install/setup.bash
-          colcon build --packages-select perception
-          colcon test --packages-select perception
-          colcon test-result --all --verbose
-
-  #ekf_state_est:
-  #  runs-on: ubuntu-latest
-
-  #  container:
-  #    image: ros:humble-ros-base-jammy
-
-  #  defaults:
-  #    run:
-  #      shell: bash
-
-  # steps:
-  #    - uses: actions/checkout@v4
-  #      with:
-  #        submodules: 'true'
-
-  #    - name: Install dependencies
-  #      run: |
-  #        echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
-  #        ./dependencies_install.sh
-      
-  #    - name: Rosdep
-  #      run: |
-  #        source /opt/ros/$ROS_DISTRO/setup.bash
-  #        rosdep update
-  #        rosdep install --from-paths src --ignore-src -r -y
-      
-  #    - name: Build Dependencies
-  #     run: |
-  #        source /opt/ros/$ROS_DISTRO/setup.bash
-  #        colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim motion_lib perception_sensor_lib
-
-  #    - name: Build and Test EKF State Estimation
-  #      run: |
-  #        source install/setup.bash
-  #        colcon build --packages-select ekf_state_est
-  #        colcon test --packages-select ekf_state_est
-  #        colcon test-result --all --verbose
-
-  slam:
-    runs-on: ubuntu-latest
-
-    container:
-      image: ros:humble-ros-base-jammy
+  test:
+    permissions:
+      contents: read
+      pull-requests: read
+    name: Test ${{ matrix.package }}
+    needs: build
+    runs-on: [self-hosted, linux]
 
     defaults:
       run:
         shell: bash
 
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: 'true'
-
-      - name: Install dependencies
-        run: |
-          echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
-          ./dependencies_install.sh
-          ./src/slam/dependencies_install.sh
-
-      - name: Set up GTSAM path
-        run: |
-          echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> /home/$USERNAME/.bashrc
-      
-      - name: Rosdep
-        run: |
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          rosdep update
-          rosdep install --from-paths src --ignore-src -r -y
-      
-      - name: Build Dependencies
-        run: |
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim motion_lib perception_sensor_lib
-
-      - name: Build and Test SLAM
-        run: |
-          source install/setup.bash
-          export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
-          echo $LD_LIBRARY_PATH
-          cat ~/.bashrc
-          colcon build --packages-select slam
-          colcon test --packages-select slam
-          colcon test-result --all --verbose
-
-  velocity_estimation:
-            runs-on: ubuntu-latest
-        
-            container:
-              image: ros:humble-ros-base-jammy
-        
-            defaults:
-              run:
-                shell: bash
-        
-            steps:
-              - uses: actions/checkout@v4
-                with:
-                  submodules: 'true'
-        
-              - name: Install dependencies
-                run: |
-                  echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
-                  ./dependencies_install.sh
-              
-              - name: Rosdep
-                run: |
-                  source /opt/ros/$ROS_DISTRO/setup.bash
-                  rosdep update
-                  rosdep install --from-paths src --ignore-src -r -y
-              
-              - name: Build Dependencies
-                run: |
-                  source /opt/ros/$ROS_DISTRO/setup.bash
-                  colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim motion_lib perception_sensor_lib
-        
-              - name: Build and Test Velocity Estimation
-                run: |
-                  source install/setup.bash
-                  colcon build --packages-select velocity_estimation
-                  colcon test --packages-select velocity_estimation
-                  colcon test-result --all --verbose
-      
-  control:
-    runs-on: ubuntu-latest
-
-    container:
-      image: ros:humble-ros-base-jammy
-
-    defaults:
-      run:
-        shell: bash
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - perception
+          - slam
+          - velocity_estimation
+          - control
+          - planning
+          - inspection
 
     steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: 'true'
+      # Checkout is intentionally skipped here. The build job already checked
+      # out the repository on this persistent self-hosted runner workspace.
+      #
+      # - name: Checkout repository
+      #   uses: actions/checkout@v4
+      #   with:
+      #     submodules: 'true'
+      #     clean: false
 
-      - name: Install dependencies
-        run: |
-          echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
-          ./dependencies_install.sh
-      
-      - name: Rosdep
-        run: |
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          rosdep update
-          rosdep install --from-paths src --ignore-src -r -y
-      
-      - name: Build Dependencies
-        run: |
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim motion_lib
+      # Artifact download/extract disabled; use the build outputs already
+      # present in this self-hosted runner workspace.
+      #
+      # - name: Download compiled workspace
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     name: colcon-build-output
+      #     path: .
+      #
+      # - name: Extract compiled workspace
+      #   run: |
+      #     tar -xf ci-build-output.tar
 
-      - name: Build and Test Control
+      - name: Test ${{ matrix.package }}
         run: |
+          set -euo pipefail
+
+          set +u
+          source /opt/ros/${ROS_DISTRO}/setup.bash
+          set -u
+          set +u
           source install/setup.bash
-          colcon build --packages-select control
-          colcon test --packages-select control
-          colcon test-result --all --verbose
+          set -u
+
+          export CMAKE_PREFIX_PATH=/usr/local:${CMAKE_PREFIX_PATH:-}
+          export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH:-}
+
+          rm -rf \
+            "build/${{ matrix.package }}/Testing" \
+            "build/${{ matrix.package }}/test_results"
+
+          colcon test \
+            --packages-select "${{ matrix.package }}" \
+            --event-handlers console_direct+
+
+          colcon test-result \
+            --test-result-base "build/${{ matrix.package }}" \
+            --all \
+            --verbose
 
 
-  planning:
-    runs-on: ubuntu-latest
-
-    container:
-      image: ros:humble-ros-base-jammy
-
-    defaults:
-      run:
-        shell: bash
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: 'true'
-
-      - name: Install dependencies
-        run: |
-          echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
-          ./dependencies_install.sh
-          ./src/planning/dependencies_install.sh
-      
-      - name: Rosdep
-        run: |
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          rosdep update
-          rosdep install --from-paths src --ignore-src -r -y
-      
-      - name: Build Dependencies
-        run: |
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
-
-      - name: Build and Test Planning
-        run: |
-          source install/setup.bash
-          colcon build --packages-select planning
-          colcon test --packages-select planning
-          colcon test-result --all --verbose
-
-
-  inspection:
-    runs-on: ubuntu-latest
-
-    container:
-      image: ros:humble-ros-base-jammy
-
-    defaults:
-      run:
-        shell: bash
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: 'true'
-
-      - name: Install dependencies
-        run: |
-          echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
-          ./dependencies_install.sh
-      
-      - name: Rosdep
-        run: |
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          rosdep update
-          rosdep install --from-paths src --ignore-src -r -y
-      
-      - name: Build Dependencies
-        run: |
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
-
-      - name: Build and Test Inspection Node
-        run: |
-          source install/setup.bash
-          colcon build --packages-select inspection
-          colcon test --packages-select inspection
-          colcon test-result --all --verbose
-
-  mocker_node:
-    runs-on: ubuntu-latest
-
-    container:
-      image: ros:humble-ros-base-jammy
-
-    defaults:
-      run:
-        shell: bash
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: 'true'
-
-      - name: Install dependencies
-        run: |
-          echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
-          ./dependencies_install.sh
-      
-      - name: Rosdep
-        run: |
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          rosdep update
-          rosdep install --from-paths src --ignore-src -r -y
-      
-      - name: Build Dependencies
-        run: |
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
-
-      - name: Build and Test Mocker Node
-        run: |
-          source install/setup.bash
-          colcon build --packages-select mocker_node
-          colcon test --packages-select mocker_node
-          colcon test-result --all --verbose
-
-  evaluator_node:
-    runs-on: ubuntu-latest
-
-    container:
-      image: ros:humble-ros-base-jammy
-
-    defaults:
-      run:
-        shell: bash
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: 'true'
-
-      - name: Install dependencies
-        run: |
-          echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
-          ./dependencies_install.sh
-      
-      - name: Rosdep
-        run: |
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          rosdep update
-          rosdep install --from-paths src --ignore-src -r -y
-      
-      - name: Build Dependencies
-        run: |
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
-
-      - name: Build and Test Evaluator Node
-        run: |
-          source install/setup.bash
-          colcon build --packages-select evaluator
-          colcon test --packages-select evaluator --event-handler=console_direct+
-          colcon test-result --all --verbose
+      # Disabled test logs upload to make the actions faster 
+      # - name: Upload test logs
+      #   if: always()
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: test-logs-${{ matrix.package }}
+      #     path: |
+      #       # log/
+      #       build/${{ matrix.package }}/Testing/
+      #       build/${{ matrix.package }}/test_results/
+      #     if-no-files-found: ignore
+      #     retention-days: 7
