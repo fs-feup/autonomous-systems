@@ -57,7 +57,7 @@ jobs:
 
           missing=0
 
-          for tool in colcon rosdep bear ccache; do
+          for tool in colcon bear ccache; do
             if ! command -v "$tool" >/dev/null 2>&1; then
               echo "Missing required tool: $tool"
               missing=1
@@ -70,7 +70,7 @@ jobs:
             exit 1
           fi
 
-      - name: Check host dependencies without sudo
+      - name: Check ROS environment
         run: |
           set -euo pipefail
 
@@ -78,11 +78,9 @@ jobs:
           source /opt/ros/${ROS_DISTRO}/setup.bash
           set -u
 
-          echo "Checking whether ROS/system dependencies are already installed on the self-hosted runner..."
-          echo "This workflow intentionally does not use sudo and will not install packages."
-          echo "If dependencies are missing, SSH into the server and install them once."
-
-          rosdep check --from-paths src --ignore-src -r --rosdistro "${ROS_DISTRO}"
+          echo "ROS environment loaded from /opt/ros/${ROS_DISTRO}."
+          echo "This workflow intentionally does not use sudo, Docker, or rosdep."
+          echo "All system/project dependencies must already be installed manually on the self-hosted server."
 
       - name: Clean previous build output for this run
         run: |
