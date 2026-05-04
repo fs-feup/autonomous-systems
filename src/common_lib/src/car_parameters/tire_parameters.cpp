@@ -8,6 +8,32 @@ TireParameters::TireParameters(const std::string& config_name) {
   YAML::Node root = YAML::LoadFile(config_path);
   YAML::Node config = root["tire"];
 
+  // Pacejka combined slip parameters
+  if (config["B_lateral"]) {
+    tire_B_lateral = config["B_lateral"].as<double>();
+  }
+  if (config["C_lateral"]) {
+    tire_C_lateral = config["C_lateral"].as<double>();
+  }
+  if (config["D_lateral"]) {
+    tire_D_lateral = config["D_lateral"].as<double>();
+  }
+  if (config["E_lateral"]) {
+    tire_E_lateral = config["E_lateral"].as<double>();
+  }
+  if (config["B_longitudinal"]) {
+    tire_B_longitudinal = config["B_longitudinal"].as<double>();
+  }
+  if (config["C_longitudinal"]) {
+    tire_C_longitudinal = config["C_longitudinal"].as<double>();
+  }
+  if (config["D_longitudinal"]) {
+    tire_D_longitudinal = config["D_longitudinal"].as<double>();
+  }
+  if (config["E_longitudinal"]) {
+    tire_E_longitudinal = config["E_longitudinal"].as<double>();
+  }
+
   // Top level parameters
   if (config["camber_scaling_factor"]) {
     camber_scaling_factor = config["camber_scaling_factor"].as<double>();

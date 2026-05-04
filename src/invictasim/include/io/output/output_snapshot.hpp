@@ -2,6 +2,9 @@
 
 #include <Eigen/Core>
 
+#include "common_lib/competition_logic/mission_logic.hpp"
+#include "common_lib/structures/cone.hpp"
+#include "common_lib/structures/position.hpp"
 #include "common_lib/structures/wheels.hpp"
 
 /**
@@ -9,10 +12,10 @@
  */
 struct VehicleModelSnapshot {
   // Tire data
-  Eigen::Vector3d front_left_force = {0.0, 0.0, 0.0};
-  Eigen::Vector3d front_right_force = {0.0, 0.0, 0.0};
-  Eigen::Vector3d rear_left_force = {0.0, 0.0, 0.0};
-  Eigen::Vector3d rear_right_force = {0.0, 0.0, 0.0};
+  Eigen::Vector4d front_left_force = {0.0, 0.0, 0.0, 0.0};
+  Eigen::Vector4d front_right_force = {0.0, 0.0, 0.0, 0.0};
+  Eigen::Vector4d rear_left_force = {0.0, 0.0, 0.0, 0.0};
+  Eigen::Vector4d rear_right_force = {0.0, 0.0, 0.0, 0.0};
   common_lib::structures::Wheels slip_ratio = {0.0, 0.0, 0.0, 0.0};
   common_lib::structures::Wheels slip_angle = {0.0, 0.0, 0.0, 0.0};
 
@@ -29,8 +32,8 @@ struct VehicleModelSnapshot {
   double battery_soc = 0.0;
   double battery_current = 0.0;
 
-  // Differential data
-  common_lib::structures::Wheels differential_torque = {0.0, 0.0, 0.0, 0.0};
+  // Transmission data
+  common_lib::structures::Wheels transmission_torque = {0.0, 0.0, 0.0, 0.0};
 
   // Aero data
   double aero_drag = 0.0;
@@ -57,7 +60,7 @@ struct VehicleModelSnapshot {
  */
 struct ExecutionTimesSnapshot {
   double powertrain_ms = 0.0;
-  double differential_ms = 0.0;
+  double transmission_ms = 0.0;
   double aero_ms = 0.0;
   double steering_ms = 0.0;
   double load_transfer_ms = 0.0;
@@ -71,4 +74,49 @@ struct ExecutionTimesSnapshot {
 struct InputSnapshot {
   common_lib::structures::Wheels throttle = {0.0, 0.0, 0.0, 0.0};
   double steering = 0.0;
+};
+
+/**
+ * @brief Snapshot of the track map, containing both the ground truth cone positions and simulated
+ * slam map
+ */
+struct MapSnapshot {
+  std::vector<common_lib::structures::Cone> ground_truth = {};
+  std::vector<common_lib::structures::Cone> simulated_slam_map = {};
+  std::vector<common_lib::structures::Cone> perception_cones = {};
+  double perception_exec_time_ms = 0.0;
+  int lap_counter = 0;
+};
+
+/**
+ * @brief Snapshot of sensor data for publishing simulated IMU, WSS, steering angle sensor and
+ * resolver
+ */
+struct SensorsSnapshot {
+  Eigen::Vector3d free_acceleration = {0.0, 0.0, 0.0};
+  Eigen::Vector3d angular_velocity = {0.0, 0.0, 0.0};
+  common_lib::structures::Wheels wheel_rpm = {0.0, 0.0, 0.0, 0.0};
+  double steering_angle = 0.0;
+  double motor_rpm = 0.0;
+};
+
+/**
+ * @brief Snapshot of the vehicle's state for publishing the current pose and operational status,
+ * used for state estimation / SLAM / planning compatibility topics.
+ */
+struct VehicleStateSnapshot {
+  // Pose from state_estimation
+  common_lib::structures::Position position = {0.0, 0.0};
+  double yaw = 0.0;
+  std::vector<double> pose_covariance = std::vector<double>(9, 0.0);
+
+  // Velocities from velocity_estimation
+  double velocity_x = 0.0;
+  double velocity_y = 0.0;
+  double yaw_rate = 0.0;
+  std::vector<double> velocity_covariance = std::vector<double>(9, 0.0);
+
+  // Operational status
+  bool go_signal = false;
+  common_lib::competition_logic::Mission mission = common_lib::competition_logic::Mission::NONE;
 };

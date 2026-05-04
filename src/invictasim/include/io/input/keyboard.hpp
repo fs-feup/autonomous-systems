@@ -1,21 +1,18 @@
 #pragma once
 
-#include <ncurses.h>
+#include <SDL.h>
+#include <SDL2/SDL_ttf.h>
 
-#include <algorithm>
 #include <atomic>
-#include <cctype>
-#include <chrono>
-#include <cmath>
-#include <cstdio>
-#include <iostream>
-#include <mutex>
-#include <thread>
+#include <memory>
 
 #include "io/input/input_adapter.hpp"
 
 /**
- * @brief Keyboard-based simulator input adapter.
+ * @brief SDL-backed keyboard simulator input adapter.
+ *
+ * Runs in its own thread and reads simultaneous key states from an SDL window instead of a
+ * terminal.
  */
 class KeyboardInputAdapter : public InvictaSimInputAdapter {
 public:
@@ -42,25 +39,42 @@ public:
 
 private:
   /**
-   * @brief Run the keyboard polling loop.s
+   * @brief Main SDL polling loop.
    */
   void input_loop();
 
   /**
-   * @brief Restore terminal state before exit.
+   * @brief Close SDL resources before exit.
    */
-  void restore_terminal();
+  void shutdown_sdl();
+  bool initialize_fonts();
+  void close_fonts();
 
-  const int loop_period_ms_;              ///< Keyboard polling period in milliseconds.
-  const double acceleration_step_;        ///< Step applied when increasing throttle.
-  const double acceleration_decay_step_;  ///< Decay applied when no throttle key is pressed.
-  const double steering_step_radians_;    ///< Step applied when changing steering.
-  const double max_steering_radians_;     ///< Maximum steering magnitude.
-  const int help_row_;                    ///< Row used to print help text.
-  const int status_row_;                  ///< Row used to print live status.
+  void render_bars(double throttle, double steering);
+  void draw_label(int x, int y, const char* text, TTF_Font* font, const SDL_Color& color);
 
-  std::atomic<bool> running_;  ///< Indicates whether the adapter loop is active.
-  bool curses_initialized_;    ///< Indicates whether curses was initialized.
-  FILE* tty_file_;             ///< TTY handle used by curses.
-  void* screen_;               ///< Native curses screen handle.
+  static double approach(double current, double target, double max_delta);
+
+  std::atomic<bool> running_;
+  SDL_Window* window_;
+  SDL_Renderer* renderer_;
+  TTF_Font* label_font_;
+  TTF_Font* note_font_;
+
+  const int loop_period_ms_;
+  const double throttle_step_;
+  const double steering_step_;
+  const double max_throttle_;
+  const double max_steering_radians_;
+
+  const int window_width_;
+  const int window_height_;
+  const int bar_x_;
+  const int bar_width_;
+  const int throttle_bar_y_;
+  const int steering_bar_y_;
+  const int bar_height_;
+  const int label_font_size_;
+  const int note_font_size_;
+  const int label_top_offset_;
 };

@@ -9,9 +9,15 @@
 struct InvictaSimParameters {
   // Global config parameters
   std::string discipline;
+  bool use_simulated_se;
+  bool use_simulated_perception;
+  bool use_simulated_planning;
+  bool use_simulated_velocities;
 
   // Simulator config parameters
   int sim_frequency;
+  double sim_speed;
+  bool initial_go_signal;
   std::string track_name;
   std::string input_adapter;
   std::string output_adapter;
@@ -19,13 +25,12 @@ struct InvictaSimParameters {
   std::string vehicle_model;
   std::string tire_model;
   std::string aero_model;
+  std::string steering_model;
   std::string steering_motor_model;
   std::string load_transfer_model;
   std::string motor_model;
   std::string battery_model;
-  std::string differential_model;
-
-  std::map<std::string, int> publish_frequencies;
+  std::string transmission_model;
 
   std::shared_ptr<common_lib::car_parameters::CarParameters> car_parameters;
 

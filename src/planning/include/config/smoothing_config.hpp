@@ -51,14 +51,14 @@ struct PathSmoothingConfig {
   double curvature_weight_;
 
   /**
-   * @brief Weight for path smoothness in the optimization cost function.
-   */
-  double smoothness_weight_;
-
-  /**
    * @brief Weight for safety distance from obstacles in the optimization cost function.
    */
   double safety_weight_;
+
+  /**
+   * @brief Weight to penalise distance to middle path
+   */
+  double proximity_weight_;
 
   /**
    * @brief Maximum number of iterations for the optimization solver.
@@ -83,8 +83,8 @@ struct PathSmoothingConfig {
         car_width_(1.2),
         safety_margin_(0.3),
         curvature_weight_(100.0),
-        smoothness_weight_(0.1),
-        safety_weight_(100'000.0),
+        safety_weight_(1000.0),
+        proximity_weight_(0.001),
         max_iterations_(2000),
         tolerance_(1e-4) {}
 
@@ -94,8 +94,7 @@ struct PathSmoothingConfig {
   PathSmoothingConfig(int spline_precision, int spline_order, float spline_coeffs_ratio,
                       float min_path_point_distance, bool use_path_smoothing, bool use_optimization,
                       double car_width, double safety_margin, double curvature_weight,
-                      double smoothness_weight, double safety_weight, int max_iterations,
-                      double tolerance)
+                      double safety_weight, double proximity_weight, int max_iterations, double tolerance)
       : spline_precision_(spline_precision),
         spline_order_(spline_order),
         spline_coeffs_ratio_(spline_coeffs_ratio),
@@ -105,8 +104,8 @@ struct PathSmoothingConfig {
         car_width_(car_width),
         safety_margin_(safety_margin),
         curvature_weight_(curvature_weight),
-        smoothness_weight_(smoothness_weight),
         safety_weight_(safety_weight),
+        proximity_weight_(proximity_weight),
         max_iterations_(max_iterations),
         tolerance_(tolerance) {}
 };

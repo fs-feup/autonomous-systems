@@ -41,6 +41,8 @@ struct SLAMParameters {
   double preloaded_map_noise_ = 0.1;       // Noise for preloaded map landmarks
   double data_association_gate_ = 1.23;
   double new_landmark_confidence_gate_ = 0.6;
+  double ann_seed_radius_ = 10.0;
+  int ann_seed_count_ = 3;
   bool using_preloaded_map_ = false;  // Use preloaded map for SLAM
   double slam_min_pose_difference_ =
       0.3;  //< Minimum pose difference to add a new pose to the graph
@@ -54,7 +56,13 @@ struct SLAMParameters {
   double slam_isam2_relinearize_skip_ = 1;
   std::string slam_isam2_factorization_ = "QR";
   unsigned int sliding_window_size_ = 5;
+
   bool publish_trajectory_ = false;  // Whether to publish the trajectory of the graph SLAM
+  bool publish_associations_ =
+      false;  // Whether to publish the associations of the data association
+  bool publish_global_observations_ =
+      false;  // Whether to publish the perception observations transformed to the global frame (map
+              // frame) after compensation
 
   // Loop closure parameters
   double threshold_dist = 4.0;  // Distance around origin to trigger loop closure
@@ -82,10 +90,10 @@ struct SLAMParameters {
    * @brief Get data association parameters
    * @return DataAssociationParameters
    */
-  DataAssociationParameters get_data_association_parameters() {
+  DataAssociationParameters get_data_association_parameters() const {
     return DataAssociationParameters(data_association_limit_distance_, data_association_gate_,
                                      new_landmark_confidence_gate_, observation_x_noise_,
-                                     observation_y_noise_);
+                                     observation_y_noise_, ann_seed_radius_, ann_seed_count_);
   }
 
   /**
@@ -108,6 +116,8 @@ struct SLAMParameters {
        << ", data_association_limit_distance_: " << params.data_association_limit_distance_
        << ", data_association_gate_: " << params.data_association_gate_
        << ", new_landmark_confidence_gate_: " << params.new_landmark_confidence_gate_
+       << ", ann_seed_radius_: " << params.ann_seed_radius_
+       << ", ann_seed_count_: " << params.ann_seed_count_
        << ", observation_x_noise_: " << params.observation_x_noise_
        << ", observation_y_noise_: " << params.observation_y_noise_
        << ", velocity_x_noise_: " << params.velocity_x_noise_

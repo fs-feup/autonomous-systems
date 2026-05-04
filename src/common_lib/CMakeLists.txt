@@ -2,15 +2,13 @@ cmake_minimum_required(VERSION 3.8)
 project(common_lib)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic)
+  add_compile_options(-Wall -Wextra -Wpedantic -O3)
 endif()
 
 # find dependencies
 set(PACKAGES
   ament_cmake
   Eigen3
-  eufs_msgs
-  fs_msgs
   visualization_msgs
   std_msgs
   rclcpp
@@ -55,7 +53,7 @@ set(IMPLEMENTATION_FILES
   src/car_parameters/load_transfer_parameters.cpp
   src/car_parameters/motor_parameters.cpp
   src/car_parameters/battery_parameters.cpp
-  src/car_parameters/differential_parameters.cpp
+  src/car_parameters/transmission_parameters.cpp
   src/car_parameters/steering_motor_parameters.cpp
   src/car_parameters/steering_parameters.cpp
   src/car_parameters/tire_parameters.cpp

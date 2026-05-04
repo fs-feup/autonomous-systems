@@ -4,26 +4,26 @@ vehicle_model:
   car_parameters: "02"
 
   aero_model: "default_aero"
-  aero_model_params: "simple_aero"
+  aero_model_params: "02_aero"
 
-  tire_model: "pacejka_MF6_2" # Options: "simple_pacejka", "pacejka_MF6_2"
-  tire_model_params: "pacejka_MF6_2" # Options: "simple_pacejka", "pacejka_MF6_2"
+  tire_model: "pacejka_MF6_2" # Options: "pacejka_combined_slip", "pacejka_MF6_2"
+  tire_model_params: "02_tire"
 
   motor_model: "map_based_motor"
-  motor_model_params: "motor"
+  motor_model_params: "02_motor"
 
   battery_model: "thevenin"
-  battery_model_params: "battery"
+  battery_model_params: "02_battery"
 
-  differential_model: "viscous_lsd"
-  differential_model_params: "differential"
+  transmission_model: "diff_viscous"
+  transmission_model_params: "02_transmission"
 
   load_transfer_model: "vd_model" # Options: "rigid_body_model", "vd_model"
-  load_transfer_model_params: "load_transfer"
+  load_transfer_model_params: "02_load_transfer"
 
-  steering_motor_model: "simple_steering_motor"
-  steering_motor_model_params: "simple_steering_motor"
+  steering_motor_model: "first_order"
+  steering_motor_model_params: "02_steering_motor"
 
   steering_model: "ackerman_steering" # options: "ackerman_steering" , "parallel_front_steering"
-  steering_model_params: "simple_steering"
+  steering_model_params: "02_steering"
   

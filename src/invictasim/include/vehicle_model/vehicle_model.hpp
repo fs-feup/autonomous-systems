@@ -13,7 +13,7 @@
  */
 struct VehicleModelExecutionTimes {
   double powertrain_ms = 0.0;
-  double differential_ms = 0.0;
+  double transmission_ms = 0.0;
   double aero_ms = 0.0;
   double steering_ms = 0.0;
   double load_transfer_ms = 0.0;
@@ -44,10 +44,10 @@ struct VehicleState {
   common_lib::structures::Wheels wheels_vertical_load = {0.0, 0.0, 0.0, 0.0};
   common_lib::structures::Wheels wheels_slip_ratio = {0.0, 0.0, 0.0, 0.0};
   common_lib::structures::Wheels wheels_slip_angle = {0.0, 0.0, 0.0, 0.0};
-  Eigen::Vector3d front_left_forces = {0.0, 0.0, 0.0};  // Fx, Fy, Fz
-  Eigen::Vector3d front_right_forces = {0.0, 0.0, 0.0};
-  Eigen::Vector3d rear_left_forces = {0.0, 0.0, 0.0};
-  Eigen::Vector3d rear_right_forces = {0.0, 0.0, 0.0};
+  Eigen::Vector4d front_left_forces = {0.0, 0.0, 0.0, 0.0};  // Fx, Fy, My, Mz
+  Eigen::Vector4d front_right_forces = {0.0, 0.0, 0.0, 0.0};
+  Eigen::Vector4d rear_left_forces = {0.0, 0.0, 0.0, 0.0};
+  Eigen::Vector4d rear_right_forces = {0.0, 0.0, 0.0, 0.0};
   double aero_drag = 0.0;
   double aero_downforce = 0.0;
   double motor_torque = 0.0;
@@ -65,6 +65,7 @@ struct VehicleState {
   double moment_fx = 0.0;
   double self_aligning_moment = 0.0;
   double total_torque_z = 0.0;
+  bool ebs_active = false;
 };
 
 /**
@@ -75,7 +76,7 @@ struct VehicleState {
  */
 class VehicleModel {
 protected:
-  std::shared_ptr<InvictaSimParameters> simulator_parameters_;
+  std::shared_ptr<common_lib::car_parameters::CarParameters> car_parameters_;
   std::shared_ptr<VehicleState> state_;
   std::shared_ptr<VehicleModelExecutionTimes> execution_times_;
 
@@ -84,7 +85,7 @@ public:
    * @brief Construct a new VehicleModel object
    */
   VehicleModel(const InvictaSimParameters& simulator_parameters)
-      : simulator_parameters_(std::make_shared<InvictaSimParameters>(simulator_parameters)),
+      : car_parameters_(simulator_parameters.car_parameters),
         state_(std::make_shared<VehicleState>()),
         execution_times_(std::make_shared<VehicleModelExecutionTimes>()) {}
 
@@ -102,6 +103,9 @@ public:
   void set_initial_pose(double x, double y) {
     state_->x = x;
     state_->y = y;
+  }
+  void set_ebs(bool active) {
+    state_->ebs_active = active;
   }
 
   // Getters
@@ -124,10 +128,10 @@ public:
   }
   common_lib::structures::Wheels get_wheels_slip_ratio() const { return state_->wheels_slip_ratio; }
   common_lib::structures::Wheels get_wheels_slip_angle() const { return state_->wheels_slip_angle; }
-  Eigen::Vector3d get_front_left_forces() const { return state_->front_left_forces; }
-  Eigen::Vector3d get_front_right_forces() const { return state_->front_right_forces; }
-  Eigen::Vector3d get_rear_left_forces() const { return state_->rear_left_forces; }
-  Eigen::Vector3d get_rear_right_forces() const { return state_->rear_right_forces; }
+  Eigen::Vector4d get_front_left_forces() const { return state_->front_left_forces; }
+  Eigen::Vector4d get_front_right_forces() const { return state_->front_right_forces; }
+  Eigen::Vector4d get_rear_left_forces() const { return state_->rear_left_forces; }
+  Eigen::Vector4d get_rear_right_forces() const { return state_->rear_right_forces; }
   double get_aero_drag() const { return state_->aero_drag; }
   double get_aero_downforce() const { return state_->aero_downforce; }
   double get_motor_torque() const { return state_->motor_torque; }
