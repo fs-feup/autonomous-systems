@@ -102,7 +102,7 @@ jobs:
           ccache --max-size=10G || true
 
           bear -- colcon build \
-            --parallel-workers 1 \
+            --parallel-workers 8 \
             --packages-up-to ${BUILD_PACKAGES} \
             --cmake-args \
               -DCMAKE_C_COMPILER_LAUNCHER=ccache \
