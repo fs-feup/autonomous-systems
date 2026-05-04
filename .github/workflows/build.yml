@@ -2,75 +2,225 @@ name: Testing and Building
 
 on:
   push:
-    branches:
-      [main]
+    branches: [main, dev]
   pull_request:
     types: [opened, synchronize, reopened]
 
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOCKER_IMAGE: fsfeup-ros-base:latest
+  ROS_DISTRO: humble
+  BUILD_PACKAGES: >-
+    common_lib
+    perception
+    slam
+    velocity_estimation
+    control
+    planning
+    inspection
+    mocker_node
+    evaluator
+
 jobs:
+  build:
+    name: Build once
+    runs-on: [self-hosted, linux]
 
-  sonarcloud-build:
-    name: sonarcloud-build
-    if: github.event_name == 'pull_request'
-    runs-on: self-hosted 
+    defaults:
+      run:
+        shell: bash
 
-    env:
-      SONAR_SCANNER_VERSION: 6.0.0.4432
-      SONAR_SERVER_URL: "https://sonarcloud.io"
-      BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory
-      SONAR_SCANNER_DOWNLOAD_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.0.0.4432-linux.zip
-      
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
           submodules: 'true'
           fetch-depth: 0
 
-      - name: Run SonarCloud Analysis inside Docker
+      - name: Clean previous local build output
+        run: |
+          rm -rf build install log compile_commands.json ci-build-output.tar
+
+      - name: Build all required packages inside Docker
+        run: |
+          docker run --rm \
+            --user "$(id -u):$(id -g)" \
+            -v "${{ github.workspace }}:/workspace" \
+            -w /workspace \
+            -e HOME=/tmp \
+            -e ROS_DISTRO="${ROS_DISTRO}" \
+            -e BUILD_PACKAGES="${BUILD_PACKAGES}" \
+            "${DOCKER_IMAGE}" \
+            bash -lc '
+              set -euo pipefail
+              source /opt/ros/${ROS_DISTRO}/setup.bash
+              export CMAKE_PREFIX_PATH=/usr/local:${CMAKE_PREFIX_PATH:-}
+              export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH:-}
+
+              # The Docker image should already contain the heavy dependencies.
+              # If you keep this line, remember that installs inside docker run --rm
+              # do not persist after the container exits unless they modify a mounted path.
+              # bash ./dependencies_install.sh
+              # bash ./src/slam/dependencies_install.sh
+
+              bear -- colcon build \
+                --parallel-workers 1 \
+                --packages-up-to ${BUILD_PACKAGES}
+            '
+
+      - name: Pack build output
+        run: |
+          tar -cf ci-build-output.tar build install log compile_commands.json
+
+      - name: Upload compiled workspace
+        uses: actions/upload-artifact@v4
+        with:
+          name: colcon-build-output
+          path: ci-build-output.tar
+          retention-days: 1
+
+  sonarcloud:
+    name: SonarCloud analysis
+    if: github.event_name == 'pull_request'
+    needs: build
+    runs-on: [self-hosted, linux]
+
+    defaults:
+      run:
+        shell: bash
+
+    env:
+      SONAR_SCANNER_VERSION: 6.0.0.4432
+      SONAR_SERVER_URL: https://sonarcloud.io
+      SONAR_SCANNER_DOWNLOAD_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.0.0.4432-linux.zip
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+          fetch-depth: 0
+
+      - name: Download compiled workspace
+        uses: actions/download-artifact@v4
+        with:
+          name: colcon-build-output
+          path: .
+
+      - name: Extract compiled workspace
+        run: |
+          tar -xf ci-build-output.tar
+
+      - name: Run SonarCloud analysis inside Docker
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          docker run --rm -u root -v ${{ github.workspace }}:/workspace -w /workspace \
-          -e GITHUB_TOKEN=$GITHUB_TOKEN -e SONAR_TOKEN=$SONAR_TOKEN \
-          fsfeup-ros-base:latest bash -c "
-            bash ./dependencies_install.sh &&
-            sudo apt-get update && sudo apt-get install -y unzip &&
-            curl -s ${{ env.SONAR_SCANNER_DOWNLOAD_URL }} --output sonar-scanner.zip &&
-            unzip -q sonar-scanner.zip &&
-            export PATH=\$PATH:/workspace/sonar-scanner-${{env.SONAR_SCANNER_VERSION}}-linux/bin &&
-            source /opt/ros/humble/setup.bash &&
-            export CMAKE_PREFIX_PATH=/usr/local:\$CMAKE_PREFIX_PATH &&
-            export LD_LIBRARY_PATH=/usr/local/lib:\$LD_LIBRARY_PATH &&
-            MAKEFLAGS=\"-j4\" bear -- colcon build --parallel-workers 1 --packages-up-to common_lib perception ekf_state_est control planning inspection mocker_node evaluator &&
-            sonar-scanner --define sonar.cfamily.compile-commands='./compile_commands.json'
-          "
+          docker run --rm \
+            -u root \
+            -v "${{ github.workspace }}:/workspace" \
+            -w /workspace \
+            -e GITHUB_TOKEN="${GITHUB_TOKEN}" \
+            -e SONAR_TOKEN="${SONAR_TOKEN}" \
+            -e SONAR_SCANNER_VERSION="${SONAR_SCANNER_VERSION}" \
+            -e SONAR_SCANNER_DOWNLOAD_URL="${SONAR_SCANNER_DOWNLOAD_URL}" \
+            "${DOCKER_IMAGE}" \
+            bash -lc '
+              set -euo pipefail
+              apt-get update
+              apt-get install -y curl unzip
+              curl -sSL "${SONAR_SCANNER_DOWNLOAD_URL}" --output sonar-scanner.zip
+              unzip -q sonar-scanner.zip
+              export PATH="/workspace/sonar-scanner-${SONAR_SCANNER_VERSION}-linux/bin:${PATH}"
+              sonar-scanner --define sonar.cfamily.compile-commands="/workspace/compile_commands.json"
+            '
 
       - name: Fix workspace permissions
         if: always()
-        run: docker run --rm -u root -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
+        run: |
+          docker run --rm \
+            -u root \
+            -v "${{ github.workspace }}:/workspace" \
+            "${DOCKER_IMAGE}" \
+            chown -R "$(id -u):$(id -g)" /workspace
 
-  build-and-test-all:
-    name: Build and Test All Modules
-    runs-on: self-hosted
+  test:
+    name: Test ${{ matrix.package }}
+    needs: build
+    runs-on: [self-hosted, linux]
+
+    defaults:
+      run:
+        shell: bash
+
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - perception
+          - slam
+          - velocity_estimation
+          - control
+          - planning
+          - inspection
+          - mocker_node
+          - evaluator
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
           submodules: 'true'
-          
-      - name: Build and Test All Modules inside Local Docker
+
+      - name: Download compiled workspace
+        uses: actions/download-artifact@v4
+        with:
+          name: colcon-build-output
+          path: .
+
+      - name: Extract compiled workspace
         run: |
-          docker run --rm -u root -v ${{ github.workspace }}:/workspace -w /workspace fsfeup-ros-base:latest bash -c "
-            bash ./dependencies_install.sh &&
-            source /opt/ros/humble/setup.bash &&
-            export CMAKE_PREFIX_PATH=/usr/local:\$CMAKE_PREFIX_PATH &&
-            export LD_LIBRARY_PATH=/usr/local/lib:\$LD_LIBRARY_PATH &&
-            MAKEFLAGS=\"-j4\" colcon build --packages-up-to perception slam velocity_estimation control planning inspection mocker_node evaluator &&
-            source install/setup.bash &&
-            colcon test --packages-select perception slam velocity_estimation control planning inspection mocker_node evaluator --event-handler=console_direct+ &&
-            colcon test-result --all --verbose
-          "
-          
-      - name: Fix workspace permissions
+          tar -xf ci-build-output.tar
+
+      - name: Test ${{ matrix.package }} inside Docker
+        run: |
+          docker run --rm \
+            --user "$(id -u):$(id -g)" \
+            -v "${{ github.workspace }}:/workspace" \
+            -w /workspace \
+            -e HOME=/tmp \
+            -e ROS_DISTRO="${ROS_DISTRO}" \
+            -e TEST_PACKAGE="${{ matrix.package }}" \
+            "${DOCKER_IMAGE}" \
+            bash -lc '
+              set -euo pipefail
+              source /opt/ros/${ROS_DISTRO}/setup.bash
+              source install/setup.bash
+              export CMAKE_PREFIX_PATH=/usr/local:${CMAKE_PREFIX_PATH:-}
+              export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH:-}
+
+              colcon test \
+                --packages-select ${TEST_PACKAGE} \
+                --event-handlers console_direct+
+
+              colcon test-result --all --verbose
+            '
+
+      - name: Upload test logs
         if: always()
-        run: docker run --rm -u root -v ${{ github.workspace }}:/workspace fsfeup-ros-base:latest chmod -R 777 /workspace
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-logs-${{ matrix.package }}
+          path: |
+            log/
+            build/${{ matrix.package }}/Testing/
+            build/${{ matrix.package }}/test_results/
+          if-no-files-found: ignore
+          retention-days: 7
