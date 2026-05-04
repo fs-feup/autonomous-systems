@@ -173,12 +173,15 @@ jobs:
       SONAR_CFAMILY_THREADS: 20
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          submodules: 'true'
-          fetch-depth: 0
-          clean: false
+      # Checkout is intentionally skipped here. The build job already checked
+      # out the repository on this persistent self-hosted runner workspace.
+      #
+      # - name: Checkout repository
+      #   uses: actions/checkout@v4
+      #   with:
+      #     submodules: 'true'
+      #     fetch-depth: 0
+      #     clean: false
 
       # Artifact download/extract disabled; use the build outputs already
       # present in this self-hosted runner workspace.
@@ -243,11 +246,14 @@ jobs:
           - inspection
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          submodules: 'true'
-          clean: false
+      # Checkout is intentionally skipped here. The build job already checked
+      # out the repository on this persistent self-hosted runner workspace.
+      #
+      # - name: Checkout repository
+      #   uses: actions/checkout@v4
+      #   with:
+      #     submodules: 'true'
+      #     clean: false
 
       # Artifact download/extract disabled; use the build outputs already
       # present in this self-hosted runner workspace.
