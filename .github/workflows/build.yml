@@ -295,14 +295,16 @@ jobs:
             --all \
             --verbose
 
-      - name: Upload test logs
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-logs-${{ matrix.package }}
-          path: |
-            log/
-            build/${{ matrix.package }}/Testing/
-            build/${{ matrix.package }}/test_results/
-          if-no-files-found: ignore
-          retention-days: 7
+
+      # Disabled test logs upload to make the actions faster 
+      # - name: Upload test logs
+      #   if: always()
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: test-logs-${{ matrix.package }}
+      #     path: |
+      #       # log/
+      #       build/${{ matrix.package }}/Testing/
+      #       build/${{ matrix.package }}/test_results/
+      #     if-no-files-found: ignore
+      #     retention-days: 7
