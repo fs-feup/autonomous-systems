@@ -273,11 +273,18 @@ jobs:
           export CMAKE_PREFIX_PATH=/usr/local:${CMAKE_PREFIX_PATH:-}
           export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH:-}
 
+          rm -rf \
+            "build/${{ matrix.package }}/Testing" \
+            "build/${{ matrix.package }}/test_results"
+
           colcon test \
             --packages-select "${{ matrix.package }}" \
             --event-handlers console_direct+
 
-          colcon test-result --all --verbose
+          colcon test-result \
+            --test-result-base "build/${{ matrix.package }}" \
+            --all \
+            --verbose
 
       - name: Upload test logs
         if: always()
