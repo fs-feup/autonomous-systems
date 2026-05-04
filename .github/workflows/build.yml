@@ -159,7 +159,7 @@ jobs:
   sonarcloud:
     name: SonarCloud analysis
     if: github.event_name == 'pull_request'
-    needs: build
+    needs: test
     runs-on: [self-hosted, linux]
 
     defaults:
