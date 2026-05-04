@@ -6,9 +6,6 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
-permissions:
-  contents: read
-  pull-requests: read
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
@@ -36,6 +33,9 @@ env:
 
 jobs:
   build:
+    permissions:
+      contents: read
+      pull-requests: read
     name: Build once
     runs-on: [self-hosted, linux]
 
@@ -157,6 +157,9 @@ jobs:
       #     retention-days: 1
 
   sonarcloud:
+    permissions:
+      contents: read
+      pull-requests: read
     name: SonarCloud analysis
     if: always() && github.event_name == 'pull_request'
     needs: test
@@ -226,6 +229,9 @@ jobs:
             --define sonar.cfamily.threads="${SONAR_CFAMILY_THREADS}"
 
   test:
+    permissions:
+      contents: read
+      pull-requests: read
     name: Test ${{ matrix.package }}
     needs: build
     runs-on: [self-hosted, linux]
