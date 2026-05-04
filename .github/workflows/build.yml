@@ -22,7 +22,7 @@ env:
   # Rough total build parallelism is approximately:
   # COLCON_PARALLEL_WORKERS * CMAKE_BUILD_PARALLEL_LEVEL
   # 2 * 4 ≈ 8 concurrent compile jobs.
-  COLCON_PARALLEL_WORKERS: 4
+  COLCON_PARALLEL_WORKERS: 2
   CMAKE_BUILD_PARALLEL_LEVEL: 4
   BUILD_PACKAGES: >-
     common_lib
@@ -50,6 +50,7 @@ jobs:
         with:
           submodules: 'true'
           fetch-depth: 0
+          clean: false
 
       - name: Prepare persistent CI cache directories
         run: |
@@ -87,9 +88,11 @@ jobs:
           echo "This workflow intentionally does not use sudo, Docker, or rosdep."
           echo "All system/project dependencies must already be installed manually on the self-hosted server."
 
-      - name: Clean previous build output for this run
+      - name: Keep previous build output for incremental compilation
         run: |
-          rm -rf build install log compile_commands.json ci-build-output.tar
+          # Do not delete build/, install/, or log/ here.
+          # Keeping them allows colcon/CMake/Ninja to do incremental builds on the self-hosted runner.
+          rm -f ci-build-output.tar compile_commands.json
 
       - name: Build all required packages
         run: |
@@ -106,9 +109,37 @@ jobs:
           export PATH="/usr/lib/ccache:${PATH}"
           ccache --max-size=10G || true
 
-          bear -- colcon build --parallel-workers "${COLCON_PARALLEL_WORKERS}" --packages-up-to ${BUILD_PACKAGES} --cmake-args -G Ninja -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
+          colcon build --parallel-workers "${COLCON_PARALLEL_WORKERS}" --packages-up-to ${BUILD_PACKAGES} --cmake-args -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 
           ccache --show-stats || true
+
+      - name: Merge CMake compile databases for SonarCloud
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          entries = []
+          seen = set()
+
+          for path in sorted(Path('build').glob('**/compile_commands.json')):
+              try:
+                  data = json.loads(path.read_text())
+              except Exception as exc:
+                  print(f"Skipping {path}: {exc}")
+                  continue
+
+              for entry in data:
+                  key = (entry.get('directory'), entry.get('file'), entry.get('command'))
+                  if key not in seen:
+                      seen.add(key)
+                      entries.append(entry)
+
+          Path('compile_commands.json').write_text(json.dumps(entries, indent=2))
+          print(f"Wrote compile_commands.json with {len(entries)} entries")
+          PY
 
       - name: Pack compiled workspace
         run: |
@@ -142,6 +173,7 @@ jobs:
         with:
           submodules: 'true'
           fetch-depth: 0
+          clean: false
 
       - name: Download compiled workspace
         uses: actions/download-artifact@v4
@@ -207,6 +239,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: 'true'
+          clean: false
 
       - name: Download compiled workspace
         uses: actions/download-artifact@v4
