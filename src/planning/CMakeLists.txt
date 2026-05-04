@@ -95,7 +95,6 @@ target_include_directories(planning_lib PUBLIC
   $<INSTALL_INTERFACE:include>
   ${PCL_INCLUDE_DIRS}
   ${GSL_INCLUDE_DIRS}
-  ${PCAP_INCLUDE_DIRS}
 )
 
 target_link_libraries(planning_lib
@@ -104,7 +103,6 @@ target_link_libraries(planning_lib
   ${MPFR_LIBRARIES}
   ${QT5_LIBRARIES}
   ${GSL_LIBRARIES}
-  ${PCAP_LIBRARIES}
   yaml-cpp
   ${PCL_LIBRARIES}
   osqp::osqp
