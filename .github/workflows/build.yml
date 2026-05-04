@@ -15,8 +15,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  DOCKER_IMAGE: fsfeup-ros-base:latest
   ROS_DISTRO: humble
+  CI_CACHE_DIR: /opt/fsfeup-ci-cache
   BUILD_PACKAGES: >-
     common_lib
     perception
@@ -44,38 +44,82 @@ jobs:
           submodules: 'true'
           fetch-depth: 0
 
-      - name: Clean previous local build output
+      - name: Prepare persistent CI cache directories
+        run: |
+          set -euo pipefail
+          sudo mkdir -p "${CI_CACHE_DIR}/dependency-stamps"
+          sudo mkdir -p "${CI_CACHE_DIR}/ccache"
+          sudo chown -R "$(id -u):$(id -g)" "${CI_CACHE_DIR}"
+
+      - name: Install only missing dependencies when manifests change
+        run: |
+          set -euo pipefail
+
+          DEP_FILES=$(
+            {
+              find . -name package.xml -print
+              find . -name dependencies_install.sh -print
+            } | sort
+          )
+
+          DEPS_HASH=$(echo "${DEP_FILES}" | xargs sha256sum | sha256sum | awk '{print $1}')
+          STAMP_FILE="${CI_CACHE_DIR}/dependency-stamps/${DEPS_HASH}"
+
+          if [[ -f "${STAMP_FILE}" ]]; then
+            echo "Dependency manifests unchanged. Skipping dependency install."
+            exit 0
+          fi
+
+          echo "Dependency manifests changed or first run. Checking/installing missing dependencies."
+
+          source /opt/ros/${ROS_DISTRO}/setup.bash
+
+          sudo apt-get update
+
+          # rosdep installs only missing system dependencies using apt underneath.
+          rosdep update
+          rosdep install --from-paths src --ignore-src -r -y --rosdistro "${ROS_DISTRO}"
+
+          # Keep these scripts only if they are idempotent.
+          # If they build/install heavy libraries from source every time, move those installs
+          # to the server bootstrap process instead of running them in CI.
+          if [[ -f ./dependencies_install.sh ]]; then
+            bash ./dependencies_install.sh
+          fi
+
+          if [[ -f ./src/slam/dependencies_install.sh ]]; then
+            bash ./src/slam/dependencies_install.sh
+          fi
+
+          touch "${STAMP_FILE}"
+
+      - name: Clean previous build output for this run
         run: |
           rm -rf build install log compile_commands.json ci-build-output.tar
 
-      - name: Build all required packages inside Docker
+      - name: Build all required packages
         run: |
-          docker run --rm \
-            --user "$(id -u):$(id -g)" \
-            -v "${{ github.workspace }}:/workspace" \
-            -w /workspace \
-            -e HOME=/tmp \
-            -e ROS_DISTRO="${ROS_DISTRO}" \
-            -e BUILD_PACKAGES="${BUILD_PACKAGES}" \
-            "${DOCKER_IMAGE}" \
-            bash -lc '
-              set -euo pipefail
-              source /opt/ros/${ROS_DISTRO}/setup.bash
-              export CMAKE_PREFIX_PATH=/usr/local:${CMAKE_PREFIX_PATH:-}
-              export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH:-}
+          set -euo pipefail
 
-              # The Docker image should already contain the heavy dependencies.
-              # If you keep this line, remember that installs inside docker run --rm
-              # do not persist after the container exits unless they modify a mounted path.
-              # bash ./dependencies_install.sh
-              # bash ./src/slam/dependencies_install.sh
+          source /opt/ros/${ROS_DISTRO}/setup.bash
 
-              bear -- colcon build \
-                --parallel-workers 1 \
-                --packages-up-to ${BUILD_PACKAGES}
-            '
+          export CMAKE_PREFIX_PATH=/usr/local:${CMAKE_PREFIX_PATH:-}
+          export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH:-}
 
-      - name: Pack build output
+          export CCACHE_DIR="${CI_CACHE_DIR}/ccache"
+          export PATH="/usr/lib/ccache:${PATH}"
+          ccache --max-size=10G || true
+
+          bear -- colcon build \
+            --parallel-workers 1 \
+            --packages-up-to ${BUILD_PACKAGES} \
+            --cmake-args \
+              -DCMAKE_C_COMPILER_LAUNCHER=ccache \
+              -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
+
+          ccache --show-stats || true
+
+      - name: Pack compiled workspace
         run: |
           tar -cf ci-build-output.tar build install log compile_commands.json
 
@@ -118,38 +162,33 @@ jobs:
         run: |
           tar -xf ci-build-output.tar
 
-      - name: Run SonarCloud analysis inside Docker
+      - name: Install Sonar scanner if missing
+        run: |
+          set -euo pipefail
+          sudo mkdir -p "${CI_CACHE_DIR}"
+          sudo chown -R "$(id -u):$(id -g)" "${CI_CACHE_DIR}"
+
+          SCANNER_DIR="${CI_CACHE_DIR}/sonar-scanner-${SONAR_SCANNER_VERSION}-linux"
+
+          if [[ -x "${SCANNER_DIR}/bin/sonar-scanner" ]]; then
+            echo "Sonar scanner already installed."
+            exit 0
+          fi
+
+          sudo apt-get update
+          sudo apt-get install -y curl unzip
+
+          curl -sSL "${SONAR_SCANNER_DOWNLOAD_URL}" --output sonar-scanner.zip
+          unzip -q sonar-scanner.zip -d "${CI_CACHE_DIR}"
+
+      - name: Run SonarCloud analysis
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          docker run --rm \
-            -u root \
-            -v "${{ github.workspace }}:/workspace" \
-            -w /workspace \
-            -e GITHUB_TOKEN="${GITHUB_TOKEN}" \
-            -e SONAR_TOKEN="${SONAR_TOKEN}" \
-            -e SONAR_SCANNER_VERSION="${SONAR_SCANNER_VERSION}" \
-            -e SONAR_SCANNER_DOWNLOAD_URL="${SONAR_SCANNER_DOWNLOAD_URL}" \
-            "${DOCKER_IMAGE}" \
-            bash -lc '
-              set -euo pipefail
-              apt-get update
-              apt-get install -y curl unzip
-              curl -sSL "${SONAR_SCANNER_DOWNLOAD_URL}" --output sonar-scanner.zip
-              unzip -q sonar-scanner.zip
-              export PATH="/workspace/sonar-scanner-${SONAR_SCANNER_VERSION}-linux/bin:${PATH}"
-              sonar-scanner --define sonar.cfamily.compile-commands="/workspace/compile_commands.json"
-            '
-
-      - name: Fix workspace permissions
-        if: always()
-        run: |
-          docker run --rm \
-            -u root \
-            -v "${{ github.workspace }}:/workspace" \
-            "${DOCKER_IMAGE}" \
-            chown -R "$(id -u):$(id -g)" /workspace
+          set -euo pipefail
+          export PATH="${CI_CACHE_DIR}/sonar-scanner-${SONAR_SCANNER_VERSION}-linux/bin:${PATH}"
+          sonar-scanner --define sonar.cfamily.compile-commands="./compile_commands.json"
 
   test:
     name: Test ${{ matrix.package }}
@@ -189,29 +228,21 @@ jobs:
         run: |
           tar -xf ci-build-output.tar
 
-      - name: Test ${{ matrix.package }} inside Docker
+      - name: Test ${{ matrix.package }}
         run: |
-          docker run --rm \
-            --user "$(id -u):$(id -g)" \
-            -v "${{ github.workspace }}:/workspace" \
-            -w /workspace \
-            -e HOME=/tmp \
-            -e ROS_DISTRO="${ROS_DISTRO}" \
-            -e TEST_PACKAGE="${{ matrix.package }}" \
-            "${DOCKER_IMAGE}" \
-            bash -lc '
-              set -euo pipefail
-              source /opt/ros/${ROS_DISTRO}/setup.bash
-              source install/setup.bash
-              export CMAKE_PREFIX_PATH=/usr/local:${CMAKE_PREFIX_PATH:-}
-              export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH:-}
+          set -euo pipefail
 
-              colcon test \
-                --packages-select ${TEST_PACKAGE} \
-                --event-handlers console_direct+
+          source /opt/ros/${ROS_DISTRO}/setup.bash
+          source install/setup.bash
 
-              colcon test-result --all --verbose
-            '
+          export CMAKE_PREFIX_PATH=/usr/local:${CMAKE_PREFIX_PATH:-}
+          export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH:-}
+
+          colcon test \
+            --packages-select "${{ matrix.package }}" \
+            --event-handlers console_direct+
+
+          colcon test-result --all --verbose
 
       - name: Upload test logs
         if: always()
