@@ -23,4 +23,7 @@ public:
 
   void predict(Eigen::Ref<State> state, common_lib::structures::ControlCommand control_command,
                double dt) override;
+
+  VehicleState get_process_model_data(
+      const State& state, const common_lib::structures::ControlCommand& control_command) override;
 };

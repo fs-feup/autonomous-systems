@@ -49,6 +49,8 @@ struct SEParameters {
   double beta_;         // UKF beta parameter
   double kappa_;        // UKF kappa parameter
 
+  bool publish_vm_debug_info_;  // Publish debug information about the vehicle model
+
   /**
    * @brief Load the configuration for the State Estimation node from YAML file
    *

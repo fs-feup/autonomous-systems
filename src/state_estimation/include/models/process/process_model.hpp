@@ -26,4 +26,7 @@ public:
                        common_lib::structures::ControlCommand control_command, double dt) = 0;
 
   virtual ~ProcessModel() = default;
+
+  virtual VehicleState get_process_model_data(
+      const State& state, const common_lib::structures::ControlCommand& control_command) = 0;
 };

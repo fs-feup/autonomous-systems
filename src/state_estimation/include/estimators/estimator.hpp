@@ -49,4 +49,6 @@ public:
    * estimation updates
    */
   virtual void timer_callback(State& curr_state) = 0;
+
+  virtual VehicleState get_process_model_data() const = 0;
 };

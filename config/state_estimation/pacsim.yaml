@@ -26,3 +26,6 @@ state_estimation:
   alpha: 0.15 # UKF alpha parameter 
   beta: 2.0 # UKF beta parameter
   kappa: 0.0 # UKF kappa parameter
+
+  # --- Publishing options ---
+  publish_vm_debug_info: true # Whether to publish debug information about the vehicle model calculations (e.g., tire forces, slip ratios, etc.)

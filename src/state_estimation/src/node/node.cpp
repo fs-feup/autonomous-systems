@@ -26,6 +26,13 @@ SENode::SENode(const std::shared_ptr<SEParameters>& parameters)
 
   this->_velocity_pub_ = this->create_publisher<custom_interfaces::msg::Velocities>(
       "/state_estimation/velocities", 10);
+
+  this->_slip_ratio_pub_ = this->create_publisher<custom_interfaces::msg::WheelScalars>(
+      "/state_estimation/slip_ratio", 10);
+  this->_slip_angles_pub_ = this->create_publisher<custom_interfaces::msg::WheelScalars>(
+      "/state_estimation/slip_angles", 10);
+  this->_tire_forces_pub_ = this->create_publisher<custom_interfaces::msg::TireForces>(
+      "/state_estimation/tire_forces", 10);
 }
 
 void SENode::publish_state(const State& state, const rclcpp::Time time) {
@@ -61,4 +68,54 @@ void SENode::timer_callback() {
   std_msgs::msg::Float64 execution_time_msg;
   execution_time_msg.data = (end_time - start_time).seconds() * 1000;
   this->_execution_time_pub_->publish(execution_time_msg);
+
+  if (!this->_params_->publish_vm_debug_info_) {
+    return;  // Don't publish debug info if the parameter is set to false
+  }
+
+  VehicleState process_model_data = this->_state_estimator_->get_process_model_data();
+  custom_interfaces::msg::WheelScalars slip_ratio_msg;
+  slip_ratio_msg.header.stamp = start_time;
+  slip_ratio_msg.fl = process_model_data.wheels_slip_ratio.front_left;
+  slip_ratio_msg.fr = process_model_data.wheels_slip_ratio.front_right;
+  slip_ratio_msg.rl = process_model_data.wheels_slip_ratio.rear_left;
+  slip_ratio_msg.rr = process_model_data.wheels_slip_ratio.rear_right;
+  this->_slip_ratio_pub_->publish(slip_ratio_msg);
+
+  custom_interfaces::msg::WheelScalars slip_angles_msg;
+  slip_angles_msg.header.stamp = start_time;
+  slip_angles_msg.fl = process_model_data.wheels_slip_angle.front_left;
+  slip_angles_msg.fr = process_model_data.wheels_slip_angle.front_right;
+  slip_angles_msg.rl = process_model_data.wheels_slip_angle.rear_left;
+  slip_angles_msg.rr = process_model_data.wheels_slip_angle.rear_right;
+  this->_slip_angles_pub_->publish(slip_angles_msg);
+
+  custom_interfaces::msg::TireForces tire_forces_msg;
+  tire_forces_msg.header.stamp = start_time;
+
+  // FL
+  tire_forces_msg.fl_wrench.force.x = process_model_data.front_left_forces[0];
+  tire_forces_msg.fl_wrench.force.y = process_model_data.front_left_forces[1];
+  tire_forces_msg.fl_wrench.torque.y = process_model_data.front_left_forces[2];
+  tire_forces_msg.fl_wrench.torque.z = process_model_data.front_left_forces[3];
+
+  // FR
+  tire_forces_msg.fr_wrench.force.x = process_model_data.front_right_forces[0];
+  tire_forces_msg.fr_wrench.force.y = process_model_data.front_right_forces[1];
+  tire_forces_msg.fr_wrench.torque.y = process_model_data.front_right_forces[2];
+  tire_forces_msg.fr_wrench.torque.z = process_model_data.front_right_forces[3];
+
+  // RL
+  tire_forces_msg.rl_wrench.force.x = process_model_data.rear_left_forces[0];
+  tire_forces_msg.rl_wrench.force.y = process_model_data.rear_left_forces[1];
+  tire_forces_msg.rl_wrench.torque.y = process_model_data.rear_left_forces[2];
+  tire_forces_msg.rl_wrench.torque.z = process_model_data.rear_left_forces[3];
+
+  // RR
+  tire_forces_msg.rr_wrench.force.x = process_model_data.rear_right_forces[0];
+  tire_forces_msg.rr_wrench.force.y = process_model_data.rear_right_forces[1];
+  tire_forces_msg.rr_wrench.torque.y = process_model_data.rear_right_forces[2];
+  tire_forces_msg.rr_wrench.torque.z = process_model_data.rear_right_forces[3];
+
+  this->_tire_forces_pub_->publish(tire_forces_msg);
 }

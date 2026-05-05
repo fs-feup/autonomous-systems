@@ -2,7 +2,9 @@
 
 #include <std_msgs/msg/float64.hpp>
 
+#include "custom_interfaces/msg/tire_forces.hpp"
 #include "custom_interfaces/msg/vehicle_state_vector.hpp"
+#include "custom_interfaces/msg/wheel_scalars.hpp"
 #include "estimators/estimator.hpp"
 #include "estimators/map.hpp"
 #include "rclcpp/rclcpp.hpp"
@@ -23,6 +25,9 @@ protected:
 
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _execution_time_pub_;
   rclcpp::Publisher<custom_interfaces::msg::VehicleStateVector>::SharedPtr _state_pub_;
+  rclcpp::Publisher<custom_interfaces::msg::WheelScalars>::SharedPtr _slip_ratio_pub_;
+  rclcpp::Publisher<custom_interfaces::msg::WheelScalars>::SharedPtr _slip_angles_pub_;
+  rclcpp::Publisher<custom_interfaces::msg::TireForces>::SharedPtr _tire_forces_pub_;
   rclcpp::TimerBase::SharedPtr _timer_;
 
   // For now so i dont have to change the entire fucking pipeline

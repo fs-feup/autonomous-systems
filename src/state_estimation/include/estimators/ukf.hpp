@@ -29,6 +29,7 @@ class UKF : public StateEstimator {
   Eigen::MatrixXd measurement_noise_matrix_;
 
   std::shared_ptr<ProcessModel> process_model_;
+  VehicleState process_model_data_;
   std::shared_ptr<ObservationModel> observation_model_;
 
   rclcpp::Time last_update_;
@@ -70,4 +71,6 @@ public:
   void motor_rpm_callback(double motor_rpm) override;
   void steering_callback(double steering_angle) override;
   void timer_callback(State& curr_state) override;
+
+  VehicleState get_process_model_data() const override { return process_model_data_; }
 };

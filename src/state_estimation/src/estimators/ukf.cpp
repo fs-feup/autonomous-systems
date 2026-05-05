@@ -219,4 +219,7 @@ void UKF::timer_callback(State& curr_state) {
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"), "3 - Covariance: \n"
                                                                   << updated_covariance);
   curr_state = state_;
+  if (params_->publish_vm_debug_info_) {
+    this->process_model_data_ = process_model_->get_process_model_data(state_, control_command);
+  }
 }

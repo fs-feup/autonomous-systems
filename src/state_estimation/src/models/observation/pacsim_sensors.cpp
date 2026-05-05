@@ -2,11 +2,6 @@
 
 void ObservationModelPacsim::expected_observations(
     const State& state, Eigen::Ref<Eigen::VectorXd> expected_observations) {
-  // Observation vector order:
-  // [ax, ay, yaw_rate,
-  //  wss_fl_state, wss_fr_state, wss_rl_state, wss_rr_state,
-  //  wss_fl_kin,   wss_fr_kin,   wss_rl_kin,   wss_rr_kin,
-  //  steering]
   expected_observations.resize(12);
   double rad_to_rpm = 60 / (2 * M_PI);
   expected_observations(0) = state(AX);
@@ -22,9 +17,12 @@ void ObservationModelPacsim::expected_observations(
   double lf = parameters_->car_parameters_->wheelbase - lr;  // distance from CG to front axle
   double wheel_radius = parameters_->car_parameters_->tire_parameters->effective_tire_r;
 
+  Eigen::Vector4d x_pos = {lf, lf, -lr, -lr};
+  Eigen::Vector4d y_pos = {half_width, -half_width, half_width, -half_width};
+
   for (int i = 0; i < 4; i++) {
-    double v_x = state(VX) - state(YAW_RATE) * (i % 2 == 0 ? half_width : -half_width);
-    double v_y = state(VY) + state(YAW_RATE) * (i < 2 ? lf : -lr);
+    double v_x = state(VX) - state(YAW_RATE) * y_pos(i);
+    double v_y = state(VY) + state(YAW_RATE) * x_pos(i);
     double v_lon = v_x * cos(wheel_angles(i)) + v_y * sin(wheel_angles(i));
 
     // State-based wheel angular speed prediction.
