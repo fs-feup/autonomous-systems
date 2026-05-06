@@ -3,7 +3,7 @@ import os
 import shutil
 import numpy as np
 from acados_template import AcadosOcp, AcadosOcpSolver, AcadosModel
-from casadi import SX, vertcat, sin, cos, sqrt, atan, atan2, tan, if_else, fabs, tanh
+from casadi import SX, vertcat, sin, cos, sqrt, atan, atan2, tan, if_else, fabs, tanh, fmin, fabs
 from ament_index_python.packages import get_package_prefix
 import yaml
 
@@ -30,7 +30,8 @@ tire_D = 1.775 # 1.60
 tire_E = 0.3   # 0.95
 ackermann_deviation = 0.0
 wheel_radius = 0.203
-max_motor_torque = 200  # in Nm
+max_motor_torque = 300  # in Nm
+max_motor_power = 36000
 wheel_rotational_inertia = 0.2 # kg*m^2
 air_density = 1.225  # kg/m^3
 drag_coefficient = 0.3
@@ -95,8 +96,8 @@ def export_mpc_model() -> AcadosModel:
     u = SX.sym("u", 3)
 
     # Steering angle at wheels (ackermann geometry). The sign of tan(state[8]) naturally adds or subtracts the track width!
-    sa_fl = x[8] # atan(L * tan(x[8]) / (L - s * (1 + ackermann_deviation) * tan(x[8])))
-    sa_fr = x[8] # atan(L * tan(x[8]) / (L + s * (1 + ackermann_deviation) * tan(x[8])))
+    sa_fl = atan(L * tan(x[8]) / (L - s * (1 + ackermann_deviation) * tan(x[8])))
+    sa_fr = atan(L * tan(x[8]) / (L + s * (1 + ackermann_deviation) * tan(x[8])))
     sa_rl = 0
     sa_rr = 0
 
@@ -227,11 +228,17 @@ def export_mpc_model() -> AcadosModel:
     yaw_rate_dot = (yaw_moment_fl + yaw_moment_fr + yaw_moment_rl + yaw_moment_rr) / Izz
     steering_dot = (u[2] - x[8]) / steering_motor_tau
 
+    # Dynamic torque limits
+    max_torque_fl = max_motor_torque
+    max_torque_fr = max_motor_torque
+    max_torque_rl = max_motor_torque
+    max_torque_rr = max_motor_torque
+
     # Demanded torque at wheels
-    demanded_torque_fl = 0 # max_torque_fl * 0
-    demanded_torque_fr = 0 # max_torque_fr * 0
-    demanded_torque_rl = max_motor_torque * u[0] # fmin(max_motor_torque * controls[0], max_torque_rl)
-    demanded_torque_rr = max_motor_torque * u[1] # fmin(max_motor_torque * controls[1], max_torque_rr)
+    demanded_torque_fl = max_torque_fl * 0
+    demanded_torque_fr = max_torque_fr * 0
+    demanded_torque_rl = max_torque_rl * u[0]
+    demanded_torque_rr = max_torque_rr * u[1]
 
     # Angular acceleration at wheels
     alpha_fl = (demanded_torque_fl - wheel_radius * fx_fl) / wheel_rotational_inertia
@@ -244,7 +251,7 @@ def export_mpc_model() -> AcadosModel:
         x[3] * cos(x[2]) - x[4] * sin(x[2]),
         x[3] * sin(x[2]) + x[4] * cos(x[2]),
         x[5],
-        acceleration_x + x[5] * x[4], #(u[0] + u[1]) * 80, # simplified dynamics for longitudinal acceleration, will be replaced with acceleration_x + x[5] * x[4]
+        acceleration_x + x[5] * x[4],
         acceleration_y - x[5] * x[3],
         yaw_rate_dot,
         (acceleration_x - x[6]) / 10, # simplified dynamics
@@ -261,7 +268,15 @@ def export_mpc_model() -> AcadosModel:
     model.u = u
     model.f_expl_expr = f_expl
     model.f_impl_expr = xdot - f_expl
-    model.con_h_expr = u[0] - u[1]
+
+    model.con_h_expr_0 = u[0] - u[1]
+    model.con_h_expr = vertcat(
+        u[0] - u[1],       # Index 0: Torque difference limit
+        slip_ratio_fl,     # Index 1: Front-Left slip
+        slip_ratio_fr,     # Index 2: Front-Right slip
+        slip_ratio_rl,     # Index 3: Rear-Left slip
+        slip_ratio_rr      # Index 4: Rear-Right slip
+    )
     return model
 
 def setup_cost_function(ocp: AcadosOcp):
@@ -307,9 +322,9 @@ def setup_cost_function(ocp: AcadosOcp):
     ocp.model.cost_y_expr_e = cost_expression_e
 
     # 4. Define Weight Matrices (W)
-    # Weights: [X, Y, V, Theta, Throttle, Brake, Steer]
+    # Weights: [X, Y, V, Theta, Throttle,  Steer]
     # Note: High weight on Steer (e.g. 5.0 or 10.0) prevents shaky steering
-    weights = np.array([2.0, 2.0, 4.0, 1.0, 0.2, 0.2, 5.0])
+    weights = np.array([2.0, 2.0, 4.0, 1.0, 0.2, 0.2, 10.0])
     
     # Terminal weights (Only 4 states)
     weights_e = np.array([2.0, 2.0, 1.0, 1.0])
@@ -377,20 +392,27 @@ def create_ocp_solver(gen_base_dir="./build/acados"):
     ocp.constraints.idxbu = np.array([0, 1, 2])  # which control inputs have bounds
 
     max_diff = 0.1  # |u[0] - u[1]| <= max_diff
-    ocp.constraints.lh = np.array([-max_diff])  # lower bound
-    ocp.constraints.uh = np.array([max_diff])  # upper bound
-    ocp.dims.nh = 1
+    max_slip = 0.1367
+    ocp.constraints.lh = np.array([-max_diff, -max_slip, -max_slip, -max_slip, -max_slip])  # lower bound
+    ocp.constraints.uh = np.array([max_diff, max_slip, max_slip, max_slip, max_slip])  # upper bound
+    ocp.dims.nh = 5
 
-    ocp.model.con_h_expr_0 = ocp.model.con_h_expr
-
-    # 2. Set bounds for the initial stage (Stage 0)
-    ocp.constraints.lh_0 = np.array([-max_diff])
-    ocp.constraints.uh_0 = np.array([max_diff])
+    ocp.constraints.lh_0 = np.array([-max_diff])  # lower bound
+    ocp.constraints.uh_0 = np.array([max_diff])  # upper bound
     ocp.dims.nh_0 = 1
 
-    # 3. Explicitly define the number of constraints (Good practice)
-    ocp.dims.nh = 1
-    ocp.dims.nh_0 = 1
+    # Make the constraints soft
+    ocp.constraints.idxsh = np.array([1, 2, 3, 4])
+    ocp.dims.nsh = 4
+
+    # Define high penalties for the slack variables
+    slack_L1_penalty = 1e5
+    slack_L2_penalty = 1e5
+
+    ocp.cost.Zl = slack_L2_penalty * np.ones(4)
+    ocp.cost.Zu = slack_L2_penalty * np.ones(4)
+    ocp.cost.zl = slack_L1_penalty * np.ones(4)
+    ocp.cost.zu = slack_L1_penalty * np.ones(4)
 
     try:
         solver = AcadosOcpSolver(ocp, json_file=json_path)

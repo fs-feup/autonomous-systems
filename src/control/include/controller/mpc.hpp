@@ -2,12 +2,14 @@
 
 #include "base_controller.hpp"
 #include "solver/acados/acados.hpp"
+#include "local_pather/map.hpp"
 
 class MPC : public Controller {
   std::shared_ptr<SolverInterface> solver_;
   std::vector<double> solver_state_ = std::vector<double>(13, 0.0); // state vector for the solver
   bool _path_received_ = false;
   custom_interfaces::msg::PathPointArray latest_path_;
+  std::shared_ptr<LocalPather> local_pather_;
 
   // Debug strings
   std::string path_before_local;
@@ -19,6 +21,9 @@ class MPC : public Controller {
 
   void print_debug_info();
 public:
+  void limit_velocity_according_to_current(custom_interfaces::msg::PathPointArray& path_msg);
+  unsigned int compute_starting_index();
+  void resample_path_with_spline(custom_interfaces::msg::PathPointArray& path_msg);
   void path_callback(const custom_interfaces::msg::PathPointArray& msg) override;
   void vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& msg) override;
   void vehicle_pose_callback(const custom_interfaces::msg::Pose& msg) override;

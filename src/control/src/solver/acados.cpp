@@ -3,9 +3,7 @@
 #include <cmath>
 #include <limits>
 
-constexpr int kPathSize = 31;
-constexpr int kPathPointSize = 4;
-constexpr double kWeightEps = 0.5;
+constexpr int path_point_size = 4;
 
 AcadosSolver::AcadosSolver(const ControlParameters& params) : SolverInterface(params), _execution_times_(std::make_shared<std::vector<double>>(9, 0.0)) {
     // 1. Create the capsule
@@ -39,7 +37,7 @@ void AcadosSolver::set_state(const std::vector<double>& x0) {
         return;
     }
 
-    this->last_state_ = x0;
+    this->latest_state_ = x0;
     this->has_state_ = true;
 
     std::vector<double> scaled_state = x0;
@@ -52,104 +50,6 @@ void AcadosSolver::set_state(const std::vector<double>& x0) {
     // Set the initial state constraint (lbx and ubx) at stage 0
     ocp_nlp_constraints_model_set(nlp_config_, nlp_dims_, nlp_in_, nlp_out_, 0, "lbx", (void*)scaled_state.data());
     ocp_nlp_constraints_model_set(nlp_config_, nlp_dims_, nlp_in_, nlp_out_, 0, "ubx", (void*)scaled_state.data());
-}
-
-void AcadosSolver::calculate_stage_parameters() {
-    unsigned int path_point_count = this->last_path_.size() / kPathPointSize;
-
-    // Get the horizon length and time step
-    int N = this->control_params_->mpc_prediction_horizon_steps_;
-    double time_step = this->control_params_->mpc_prediction_horizon_seconds_ / static_cast<double>(N);
-
-    // Find the closest point on the line segment between first and second points
-    double first_x = this->last_path_[0];
-    double first_y = this->last_path_[1];
-    double first_v = this->last_path_[2];
-    double first_orientation = this->last_path_[3];
-    double first_point_time = 0; // Can be the time of a path point or stage point
-  
-    double second_x = this->last_path_[kPathPointSize];
-    double second_y = this->last_path_[kPathPointSize + 1];
-    double second_v = this->last_path_[kPathPointSize + 2];
-    double second_orientation = this->last_path_[kPathPointSize + 3];
-
-    // Find the closest point on the line segment between first and second points
-    double car_x = this->last_state_[0];
-    double car_y = this->last_state_[1];
-    double dx = second_x - first_x;
-    double dy = second_y - first_y;
-    double segment_length_sq = dx * dx + dy * dy;
-    double t = 0.0;
-    if (segment_length_sq > 1e-6) {
-      t = ((car_x - first_x) * dx + (car_y - first_y) * dy) / segment_length_sq;
-      t = std::max(0.0, std::min(1.0, t));
-    }
-
-    // First point is the closest
-    double path_point_x = first_x + t * dx;
-    double path_point_y = first_y + t * dy;
-    double path_point_v = (1-t) * first_v + t * (second_v);
-    double path_point_orientation = (1-t) * first_orientation + t * (second_orientation);
-    double path_point_time = 0;
-
-    double average_velocity = (path_point_v + second_v) / 2.0;
-    double second_point_time = (1-t)*std::sqrt(segment_length_sq)/(average_velocity + 1e-6); // Assumes constant acceleration
-
-    unsigned int segment_end_index = 1;
-    // Iterate over all stages (0 to N) to set the time-varying parameters
-    for (int i = 0; i <= N; ++i) {
-      parameters_per_stage[i*4] = path_point_x;
-      parameters_per_stage[i*4 + 1] = path_point_y;
-      parameters_per_stage[i*4 + 2] = path_point_v;
-      parameters_per_stage[i*4 + 3] = path_point_orientation;
-
-      while (second_point_time - path_point_time < time_step && segment_end_index < path_point_count - 1) {
-        segment_end_index++;
-
-        first_x = second_x;
-        first_y = second_y;
-        first_v = second_v;
-        first_orientation = second_orientation;
-        first_point_time = second_point_time;
-
-        second_x = this->last_path_[segment_end_index * kPathPointSize];
-        second_y = this->last_path_[segment_end_index * kPathPointSize + 1];
-        second_v = this->last_path_[segment_end_index * kPathPointSize + 2];
-        second_orientation = this->last_path_[segment_end_index * kPathPointSize + 3];
-
-        dx = second_x - first_x;
-        dy = second_y - first_y;
-        segment_length_sq = dx * dx + dy * dy;
-
-        average_velocity = (first_v + second_v) / 2.0;
-        second_point_time += std::sqrt(segment_length_sq)/(average_velocity + 1e-6);
-      }
-
-      double time_spent_on_segment = time_step - (first_point_time - path_point_time);
-      double segment_delta_time = second_point_time - first_point_time;
-      double segment_acceleration = (second_v - first_v) / (segment_delta_time + 1e-6);
-      double average_velocity_in_segment = (first_v + (first_v + segment_acceleration * time_spent_on_segment)) / 2.0;
-      double distance_traveled_in_segment = average_velocity_in_segment * time_spent_on_segment;
-
-      t = distance_traveled_in_segment / (std::sqrt(segment_length_sq) + 1e-6);
-
-      dx = second_x - first_x;
-      dy = second_y - first_y;
-
-      // First point is the closest
-      path_point_x = first_x + t * dx;
-      path_point_y = first_y + t * dy;
-      path_point_v = first_v + segment_acceleration * time_spent_on_segment;
-      path_point_orientation = (1-t) * first_orientation + t * (second_orientation);
-      path_point_time += time_step;
-
-      first_x = path_point_x;
-      first_y = path_point_y;
-      first_v = path_point_v;
-      first_orientation = path_point_orientation;
-      first_point_time = path_point_time;
-      segment_length_sq = ( second_x - first_x) * (second_x - first_x) + (second_y - first_y) * (second_y - first_y);
-    }
 }
 
 void AcadosSolver::initialize_solver_memory() {
@@ -193,59 +93,17 @@ void AcadosSolver::initialize_solver_memory() {
   this->is_initialized_ = true;
 }
 
-void AcadosSolver::add_orientation(std::vector<double>& path_data) {
-  unsigned int PATHPOINT_SIZE = 4; // Assuming each point has x, y, v, orientation
-  // Add orientation for each point
-  double prev_x = path_data[0];
-  double prev_y = path_data[1];
-
-  double current_x = path_data[PATHPOINT_SIZE];
-  double current_y = path_data[PATHPOINT_SIZE + 1];
-
-  double next_x = path_data[2 * PATHPOINT_SIZE];
-  double next_y = path_data[2 * PATHPOINT_SIZE + 1];
-
-  // Set orientation for the first point based on the first two points
-  double dx = current_x - prev_x;
-  double dy = current_y - prev_y;
-  double orientation = std::atan2(dy, dx);
-  path_data[3] = orientation;
-
-  // Compute orientation for the rest of the points based on three consecutive points for better accuracy
-  size_t i = PATHPOINT_SIZE;
-  for (; i < path_data.size() - PATHPOINT_SIZE; i += PATHPOINT_SIZE) {
-    next_x = path_data[i + PATHPOINT_SIZE];
-    next_y = path_data[i + PATHPOINT_SIZE + 1];
-    dx = next_x - prev_x;
-    dy = next_y - prev_y;
-    orientation = std::atan2(dy, dx);
-    path_data[i + 3] = orientation;
-    prev_x = current_x;
-    prev_y = current_y;
-    current_x = next_x;
-    current_y = next_y;
-  }
-
-  // Set orientation for the last point based on the last two points
-  dx = next_x - prev_x;
-  dy = next_y - prev_y;
-  orientation = std::atan2(dy, dx);
-  path_data[path_data.size() - 1] = orientation;
-}
-
 void AcadosSolver::set_path_point_per_stage() {
   int N = this->control_params_->mpc_prediction_horizon_steps_;
-  this->calculate_stage_parameters();
-  //this->add_orientation(this->parameters_per_stage);
   this->stage_parameters_debug = "Stage parameters debug:  \n";
   for (int i = 0; i <= N; ++i) {
-    double path_point_x = this->parameters_per_stage[i*4];
-    double path_point_y = this->parameters_per_stage[i*4 + 1];
-    double path_point_v = this->parameters_per_stage[i*4 + 2];
-    double path_point_orientation = this->parameters_per_stage[i*4 + 3];
+    double path_point_x = this->parameters_per_stage[i*path_point_size];
+    double path_point_y = this->parameters_per_stage[i*path_point_size + 1];
+    double path_point_v = this->parameters_per_stage[i*path_point_size + 2];
+    double path_point_orientation = this->parameters_per_stage[i*path_point_size + 3];
     this->stage_parameters_debug += "(" + std::to_string(path_point_x) + ", " + std::to_string(path_point_y) + ", " + std::to_string(path_point_v) + ", " + std::to_string(path_point_orientation) + ")\n";
-    double point_for_stage[4] = {this->parameters_per_stage[i*4], this->parameters_per_stage[i*4 + 1], this->parameters_per_stage[i*4 + 2], this->parameters_per_stage[i*4 + 3]};
-    mpc_acados_update_params(this->capsule_, i, point_for_stage, kPathPointSize);
+    double point_for_stage[path_point_size] = {this->parameters_per_stage[i*path_point_size], this->parameters_per_stage[i*path_point_size + 1], this->parameters_per_stage[i*path_point_size + 2], this->parameters_per_stage[i*path_point_size + 3]};
+    mpc_acados_update_params(this->capsule_, i, point_for_stage, path_point_size);
   }
 }
 
@@ -288,7 +146,7 @@ void AcadosSolver::update_mpc_stats() {
 }
 
 void AcadosSolver::set_path(const std::vector<double>& x_path) {
-  this->last_path_ = x_path;
+  this->parameters_per_stage= x_path;
   this->has_path_ = true;
 }
 
@@ -300,17 +158,17 @@ common_lib::structures::ControlCommand AcadosSolver::solve(int* solver_status) {
 
   this->set_path_point_per_stage();
 
-  double first_x = this->last_path_[0];
-  double first_y = this->last_path_[1];
-  double first_v = this->last_path_[2];
-  double first_orientation = this->last_path_[3];
-  first_x -= this->last_state_[0];
-  first_y -= this->last_state_[1];
-  first_orientation -= this->last_state_[2];
-  first_v -= this->last_state_[3];
+  double first_x = this->parameters_per_stage[0];
+  double first_y = this->parameters_per_stage[1];
+  double first_v = this->parameters_per_stage[2];
+  double first_orientation = this->parameters_per_stage[3];
+  first_x -= this->latest_state_[0];
+  first_y -= this->latest_state_[1];
+  first_orientation -= this->latest_state_[2];
+  first_v -= this->latest_state_[3];
   //DEBUG PRINT
   if (std::fabs(first_x) > 0.01 || std::fabs(first_y) > 0.01 || std::fabs(first_v) > 0.01 || std::fabs(first_orientation) > 0.01) {
-    RCLCPP_ERROR(rclcpp::get_logger("AcadosSolver"), "ERROR: first point doens't match state x:%.2f, y:%.2f, v:%.2f, orientation:%.2f", this->last_state_[0], this->last_state_[1], this->last_state_[2], this->last_state_[3]);
+    RCLCPP_ERROR(rclcpp::get_logger("AcadosSolver"), "ERROR: first point doens't match state x:%.2f, y:%.2f, v:%.2f, orientation:%.2f", this->latest_state_[0], this->latest_state_[1], this->latest_state_[2], this->latest_state_[3]);
   }
 
 
@@ -426,5 +284,5 @@ void AcadosSolver::print_debug_info() {
 
 bool AcadosSolver::sanity_check_output() {
   // TODO: Implement actual checks
-  return true;
+  return false;
 }

@@ -21,8 +21,6 @@ private:
     void set_path_point_per_stage();
     void update_mpc_stats();
     void initialize_solver_memory();
-    void calculate_stage_parameters();
-    void add_orientation(std::vector<double>& path_data);
     void print_debug_info();
 
     /**
@@ -50,8 +48,7 @@ private:
     unsigned int regularization_count_ = 0;
     unsigned int total_sqp_iterations_ = 0;
 
-    std::vector<double> last_state_;
-    std::vector<double> last_path_;
+    std::vector<double> latest_state_;
     bool has_state_ = false;
     bool has_path_ = false;
     bool is_initialized_ = false;
