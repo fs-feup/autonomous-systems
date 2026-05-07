@@ -28,10 +28,6 @@ IMU::IMU(const std::string& config_path) {
 IMU::IMUMeasurement IMU::apply_imu_error(double acceleration_x, double acceleration_y, double yaw_rate) 
 {
   IMUMeasurement measurement;
-
-  // Calculate acceleration magnitude for scale factor error
-  double acceleration_magnitude = calculate_acceleration_scale_error(acceleration_x, acceleration_y);
-
   // Apply accelerometer error modeling
   // Add bias
   double acc_x_with_bias = acceleration_x + accelerometer_bias_x_;
@@ -39,8 +35,8 @@ IMU::IMUMeasurement IMU::apply_imu_error(double acceleration_x, double accelerat
 
   // Apply scale factor error that depends on acceleration magnitude
   // error = scale_factor * acceleration_magnitude
-  double scale_error_x = acceleration_scale_factor_ * acceleration_x * acceleration_magnitude;
-  double scale_error_y = acceleration_scale_factor_ * acceleration_y * acceleration_magnitude;
+  double scale_error_x = acceleration_scale_factor_ * acceleration_x;
+  double scale_error_y = acceleration_scale_factor_ * acceleration_y;
 
   acc_x_with_bias += scale_error_x;
   acc_y_with_bias += scale_error_y;
@@ -64,9 +60,6 @@ IMU::IMUMeasurement IMU::apply_imu_error(double acceleration_x, double accelerat
   return measurement;
 }
 
-double IMU::calculate_acceleration_scale_error(double acceleration_x, double acceleration_y) 
-{
-  // Calculate the magnitude of the acceleration vector
-  // ||a|| = sqrt(ax^2 + ay^2)
-  return std::sqrt(acceleration_x * acceleration_x + acceleration_y * acceleration_y);
-}
+//cenas para perguntar segunda. 
+//A cena do refresh rate nao interessa aqui certo?
+//o gaussian noise nao teria parametros diferentes para cada sensor?
