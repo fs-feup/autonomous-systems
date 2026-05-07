@@ -12,10 +12,10 @@ MPC::MPC(const ControlParameters& params) : Controller(params) {
   RCLCPP_INFO(rclcpp::get_logger("mpc"), "Initializing MPC Controller");
   this->solver_ = std::make_shared<AcadosSolver>(params);
   this->local_pather_ = local_pather_map.at("interpolator")(params);
+  this->path_data.resize((this->params_->mpc_prediction_horizon_steps_ + 1) * PATHPOINT_SIZE);
 }
 
 void print_path(custom_interfaces::msg::PathPointArray& path) {
-  return;
   std::ios old_state(nullptr);
   old_state.copyfmt(std::cout);
   std::cout << std::fixed << std::setprecision(5);
@@ -52,8 +52,53 @@ double acceleration_for_segment(unsigned int start_idx, std::vector<double>& v, 
 }
 
 void MPC::resample_path_with_spline(custom_interfaces::msg::PathPointArray& path_msg) {
-  // Need at least 3 points for a cubic spline
-  if (path_msg.pathpoint_array.size() < 3) return;
+  if (path_msg.pathpoint_array.size() == 0) {
+    RCLCPP_ERROR(rclcpp::get_logger("MPC"), "Received empty path, should at least have the car's position as the first point");
+    return;
+  }
+
+  // Default to just breaking until stopped
+  if (path_msg.pathpoint_array.size() < 3) {
+    double dt = this->params_->mpc_prediction_horizon_seconds_ / static_cast<double>(this->params_->mpc_prediction_horizon_steps_);
+    double max_breaking_acceleration = 3.5; // m/s^2
+    double max_yaw_acceleration = 1.0; // rad/s^2
+    double current_v = path_msg.pathpoint_array[0].v;
+    double current_yaw_rate = this->solver_state_[5];
+    double time_to_stop = std::max(std::fabs(current_v / max_breaking_acceleration), std::fabs(current_yaw_rate / max_yaw_acceleration));
+
+    double effective_acceleration = time_to_stop == 0 ? 0 : current_v / time_to_stop;
+    double effective_yaw_acceleration = time_to_stop == 0 ? 0 : current_yaw_rate / time_to_stop;
+
+    double current_x = path_msg.pathpoint_array[0].x;
+    double current_y = path_msg.pathpoint_array[0].y;
+    double current_yaw = path_msg.pathpoint_array[0].orientation;
+    double yaw_acceleration = current_yaw_rate / time_to_stop;
+
+    path_msg.pathpoint_array.clear();
+
+    for (int i = 0; i <= this->params_->mpc_prediction_horizon_steps_; ++i) {
+      custom_interfaces::msg::PathPoint p;
+      p.x = current_x;
+      p.y = current_y;
+      p.orientation = current_yaw;
+      p.v = current_v;
+      path_msg.pathpoint_array.push_back(p);
+
+      // Update
+      double next_v = current_v - effective_acceleration * dt;
+      next_v = (current_v >= 0.0) ? std::max(0.0, next_v) : std::min(0.0, next_v);
+      double next_yaw_rate = current_yaw_rate - effective_yaw_acceleration * dt;
+      next_yaw_rate = (current_yaw_rate >= 0.0) ? std::max(0.0, next_yaw_rate) : std::min(0.0, next_yaw_rate);
+      double average_v = (current_v + next_v) / 2.0;
+      double average_yaw_rate = (current_yaw_rate + next_yaw_rate) / 2.0;
+
+      current_x += std::cos(current_yaw) * average_v * dt;
+      current_y += std::sin(current_yaw) * average_v * dt;
+      current_yaw += average_yaw_rate * dt;
+      current_v = next_v;
+    }
+    return;
+  }
 
   // --- 1. Extract cumulative distance (s) from your existing local path ---
   std::vector<double> s, x, y, velocities;
@@ -82,7 +127,6 @@ void MPC::resample_path_with_spline(custom_interfaces::msg::PathPointArray& path
     double ghost_v_sq = car_v * car_v + 2.0 * acceleration * lookahead_dist;
     ghost_v = std::sqrt(std::max(0.0, ghost_v_sq));
   }
-  std::cout << "Ghost Point Velocity: " << ghost_v << ", car v: " << car_v << std::endl;
 
   // Point 1: THE GHOST POINT
   current_s += lookahead_dist;
@@ -265,7 +309,7 @@ void MPC::create_local_path(custom_interfaces::msg::PathPointArray& path_msg) {
   double diff_v = path_msg.pathpoint_array[0].v - this->solver_state_[3];
   double diff_orientation = path_msg.pathpoint_array[0].orientation - this->solver_state_[2];
   if (std::fabs(diff_x) > 0.01 || std::abs(diff_y) > 0.01 || std::abs(diff_v) > 0.01 || std::abs(diff_orientation) > 0.01) {
-    std::cout << "CRAZYERROR1" << std::endl;
+    RCLCPP_ERROR(rclcpp::get_logger("MPC"), "Local path's first point should be equal to car state. This can cause instability. Diff x: %.3f, Diff y: %.3f, Diff v: %.3f, Diff orientation: %.3f", diff_x, diff_y, diff_v, diff_orientation);
   }
 }
 
@@ -273,39 +317,43 @@ void MPC::set_path_in_solver() {
   unsigned int starting_idx = this->compute_starting_index();
 
   size_t received_point_count = this->latest_path_.pathpoint_array.size();
+  size_t limit = received_point_count;
+
+  if (this->latest_path_.is_map_closed) {
+    limit = starting_idx + received_point_count;
+  }
 
   // Create new path starting from the closest point
   custom_interfaces::msg::PathPointArray new_path;
-  for (size_t i = 0; i < received_point_count; ++i) {
-    size_t idx = (starting_idx + i) % this->latest_path_.pathpoint_array.size();
-    new_path.pathpoint_array.push_back(this->latest_path_.pathpoint_array[idx]);
+  for (size_t i = starting_idx; i < limit; ++i) {
+    new_path.pathpoint_array.push_back(this->latest_path_.pathpoint_array[i % received_point_count]);
   }
-  std::cout << "Latest: \n";
-  print_path(this->latest_path_);
+  
+  // std::cout << "Latest: \n";
+  // print_path(this->latest_path_);
 
   this->create_local_path(new_path);
-  std::cout << "Local: \n";
-  print_path(new_path);
+  // std::cout << "Local: \n";
+  // print_path(new_path);
 
   this->limit_velocity_according_to_current(new_path);
-  std::cout << "Limited: \n";
-  print_path(new_path);
+  // std::cout << "Limited: \n";
+  // print_path(new_path);
 
   this->resample_path_with_spline(new_path);
-  std::cout << "Sampled: \n";
-  print_path(new_path);
+  // std::cout << "Sampled: \n";
+  // print_path(new_path);
 
-  std::vector<double> path_data;
   // Add path_size points starting from closest point
   for (size_t i = 0; i <= this->params_->mpc_prediction_horizon_steps_; ++i) {
     size_t idx = (i) % new_path.pathpoint_array.size();
     const auto& point = new_path.pathpoint_array[idx];
-    path_data.push_back(point.x);
-    path_data.push_back(point.y);
-    path_data.push_back(point.v);
-    path_data.push_back(point.orientation);
+    this->path_data[PATHPOINT_SIZE*i] = point.x;
+    this->path_data[PATHPOINT_SIZE*i + 1] = point.y;
+    this->path_data[PATHPOINT_SIZE*i + 2] = point.v;
+    this->path_data[PATHPOINT_SIZE*i + 3] = point.orientation;
   }
-  this->solver_->set_path(path_data);
+  this->solver_->set_path(this->path_data);
 }
 
 void MPC::path_callback(const custom_interfaces::msg::PathPointArray& new_msg) {
@@ -341,14 +389,54 @@ void MPC::publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::
   this->solver_->publish_solver_data(node, publisher_map);
 }
 
+bool MPC::stopping_the_car() {
+  double speed_threshold = 0.4; // m/s
+
+  // Check current speed
+  if (std::fabs(this->solver_state_[3]) > speed_threshold) {
+    return false;
+  }
+
+  // Check average goal speed over the horizon
+  double goal_speed_average = 0;
+  for (size_t i = 0; i <= this->params_->mpc_prediction_horizon_steps_; ++i) {
+    goal_speed_average += this->path_data[PATHPOINT_SIZE*i + 2];
+  }
+  goal_speed_average /= (this->params_->mpc_prediction_horizon_steps_ + 1);
+  if (goal_speed_average > speed_threshold) {
+    return false;
+  }
+  
+  // Check if speed is tending towards 0: calculate average speed goal variation
+  double speed_variation_average = 0;
+  for (size_t i = 0; i < this->params_->mpc_prediction_horizon_steps_; ++i) {
+    double current_goal_speed = this->path_data[PATHPOINT_SIZE*i + 2];
+    double next_goal_speed = this->path_data[PATHPOINT_SIZE*(i+1) + 2];
+    speed_variation_average += (next_goal_speed - current_goal_speed);
+  }
+  speed_variation_average /= this->params_->mpc_prediction_horizon_steps_;
+  double current_velocity = this->solver_state_[3];
+  double allowed_negative_speed_due_to_noise = -0.1;
+  if (speed_variation_average > 0 && current_velocity > allowed_negative_speed_due_to_noise) {
+    return false;
+  }
+
+  return true;
+}
+
 common_lib::structures::ControlCommand MPC::get_control_command() {
-  this->solver_->set_state(this->solver_state_);
   if (!this->_path_received_) {
     return common_lib::structures::ControlCommand(); // Return zero command if path not received yet
   }
 
   this->set_path_in_solver();
 
+  if (this->stopping_the_car()) {
+    common_lib::structures::ControlCommand stop_command; // all 0, maybe dangerous if the steering isn't at 0, TODO: reconsider
+    return stop_command;
+  }
+
+  this->solver_->set_state(this->solver_state_);
   int solver_status = 0;
   common_lib::structures::ControlCommand command = this->solver_->solve(&solver_status);
 

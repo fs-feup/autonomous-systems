@@ -19,7 +19,11 @@ class MPC : public Controller {
   std::string solver_state_over_horizon;
   std::string solver_command_over_horizon;
 
+  // Path data for the solver
+  std::vector<double> path_data;
+
   void print_debug_info();
+  bool stopping_the_car(); // Checks if we're trying to fully stop the car
 public:
   void limit_velocity_according_to_current(custom_interfaces::msg::PathPointArray& path_msg);
   unsigned int compute_starting_index();

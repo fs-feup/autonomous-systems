@@ -362,13 +362,13 @@ def create_ocp_solver(gen_base_dir="./build/acados"):
 
     ocp.solver_options.N_horizon = prediction_horizon_steps
     ocp.solver_options.tf = prediction_horizon_seconds
-    ocp.solver_options.nlp_solver_type = "SQP"  # Change from SQP_RTI
+    ocp.solver_options.nlp_solver_type = "SQP" 
     ocp.solver_options.qp_solver_cond_N = 1
     ocp.solver_options.integrator_type = "IRK"
     ocp.solver_options.levenberg_marquardt = 1e-2
     ocp.solver_options.with_batch_functionality = False
     ocp.solver_options.ext_fun_compile_flags = "-O3 -march=native -ffast-math"
-    ocp.solver_options.nlp_solver_max_iter = 20
+    ocp.solver_options.nlp_solver_max_iter = 10
     ocp.solver_options.with_batch_functionality = True 
     ocp.solver_options.num_threads_in_batch_ext_fun = 4
 
