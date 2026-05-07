@@ -39,6 +39,9 @@ std::string SEParameters::load_config() {
   this->beta_ = se_config["beta"].as<double>();
   this->kappa_ = se_config["kappa"].as<double>();
 
+  // Load Publishing options
+  this->publish_vm_debug_info_ = se_config["publish_vm_debug_info"].as<bool>();
+
   // Load Vehicle Model
   this->vehicle_model_name_ = se_config["vehicle_model"].as<std::string>();
 
