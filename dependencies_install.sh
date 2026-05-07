@@ -11,8 +11,15 @@ sudo apt install -y ros-humble-message-filters
 sudo apt install -y ros-humble-tf-transformations
 sudo apt install -y ros-humble-rosbag2-storage-mcap
 sudo apt install nano -y
+<<<<<<< HEAD
 sudo apt install ninja-build build-essential cmake -y
 sudo apt install -y libncurses-dev
+=======
+sudo apt install -y pkg-config
+sudo apt install -y libsdl2-dev
+sudo apt install -y libsdl2-ttf-dev
+sudo apt install ninja-build build-essential cmake -y
+>>>>>>> feat/power_model
 
 # planning
 sudo apt-get install libcgal-dev -y

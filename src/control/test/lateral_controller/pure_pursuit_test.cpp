@@ -23,7 +23,7 @@ protected:
 
     // Initialize steering_parameters
     auto steering_params =
-        std::make_shared<common_lib::car_parameters::SteeringParameters>("simple_steering");
+        std::make_shared<common_lib::car_parameters::SteeringParameters>("02_steering");
     params_.car_parameters_.steering_parameters = steering_params;
     lat_controller_ = std::make_shared<PurePursuit>(params_);
   }

@@ -8,7 +8,7 @@
  *
  */
 namespace common_lib::competition_logic {
-enum class Color { BLUE = 0, YELLOW, ORANGE, LARGE_ORANGE, UNKNOWN };
+enum class Color { BLUE = 0, YELLOW, ORANGE, LARGE_ORANGE, UNKNOWN, GREEN, RED };
 bool operator==(const Color& color, const int& value);
 bool operator==(const int& value, const Color& color);
 extern const std::map<std::string, Color, std::less<>> STRING_COLOR_MAP;

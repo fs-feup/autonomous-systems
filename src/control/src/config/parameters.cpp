@@ -100,11 +100,11 @@ std::string ControlParameters::load_config() {
   this->pid_anti_windup_ = control_config["pid_anti_windup"].as<double>();
   this->pid_max_positive_error_ = control_config["pid_max_positive_error"].as<double>();
   this->pid_max_negative_error_ = control_config["pid_max_negative_error"].as<double>();
-  this->map_frame_id_ = adapter == "eufs" ? "base_footprint" : "map";
+  this->map_frame_id_ = "map";
   this->command_time_interval_ = control_config["command_time_interval"].as<int>();
   this->car_parameters_ = common_lib::car_parameters::CarParameters();
   this->car_parameters_.steering_parameters =
-      std::make_shared<common_lib::car_parameters::SteeringParameters>("simple_steering");
+      std::make_shared<common_lib::car_parameters::SteeringParameters>("02_steering");
 
   return adapter;
 }

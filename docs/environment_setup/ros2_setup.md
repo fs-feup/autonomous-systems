@@ -77,7 +77,7 @@ sudo apt install ros-dev-tools
 ```
 ### Environment Setup
 
-Run every time you open your shell (**important** this is meant to be run in any open shell that wants to use ros2 commands involving **eufs** custom interfaces).
+Run every time you open your shell (**important** this is meant to be run in any open shell that wants to use ros2 commands).
 
 ```bash
 # Replace ".bash" with your shell if you're not using bash

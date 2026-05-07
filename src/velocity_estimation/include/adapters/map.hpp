@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 
+#include "adapters/invictasim_adapter.hpp"
 #include "adapters/pacsim_adapter.hpp"
 #include "adapters/vehicle_adapter.hpp"
 
@@ -17,6 +18,10 @@ const std::map<std::string, std::function<std::shared_ptr<VENode>(const VEParame
                     [](const VEParameters& params) -> std::shared_ptr<VENode> {
                       return std::make_shared<PacsimAdapter>(params);
                     }},
-                   {"vehicle", [](const VEParameters& params) -> std::shared_ptr<VENode> {
+                   {"vehicle",
+                    [](const VEParameters& params) -> std::shared_ptr<VENode> {
                       return std::make_shared<VehicleAdapter>(params);
+                    }},
+                   {"invictasim", [](const VEParameters& params) -> std::shared_ptr<VENode> {
+                      return std::make_shared<InvictaSimAdapter>(params);
                     }}};
