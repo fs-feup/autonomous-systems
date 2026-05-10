@@ -73,7 +73,6 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   /*--------------------- Velocity Planning Parameters --------------------*/
   params.vp_minimum_velocity_ = planning_config["vp_minimum_velocity"].as<double>();
   params.vp_braking_acceleration_ = planning_config["vp_braking_acceleration"].as<double>();
-  params.vp_acceleration_ = planning_config["vp_acceleration"].as<double>();
   params.vp_lateral_acceleration_ = planning_config["vp_lateral_acceleration"].as<double>();
   params.vp_longitudinal_acceleration_ =
       planning_config["vp_longitudinal_acceleration"].as<double>();
