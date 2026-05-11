@@ -210,8 +210,11 @@ void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose 
     initial_car_orientation_ = message.theta;
   }
 
-  if (has_received_track_ && !has_received_pose_) {
-    run_planning_algorithms();
+  if (has_received_track_) {
+    if (!has_received_pose_) {
+      run_planning_algorithms();
+    }
+    velocity_planning_.adapt_limits(pose_, smoothed_path_);
   }
 
   has_received_pose_ = true;

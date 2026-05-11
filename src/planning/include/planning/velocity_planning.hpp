@@ -3,9 +3,11 @@
 #include <cmath>
 
 #include "common_lib/structures/path_point.hpp"
+#include "common_lib/structures/pose.hpp"
 #include "config/velocity_config.hpp"
 
 using PathPoint = common_lib::structures::PathPoint;
+using Pose = common_lib::structures::Pose;
 
 /**
  * @brief Computes velocity profiles for a planned path based on curvature and dynamics constraints.
@@ -55,6 +57,9 @@ public:
    */
   void stop(std::vector<PathPoint> &final_path, double braking_distance);
 
+  // TODO: DOCS
+  void adapt_limits(Pose &pose, std::vector<PathPoint> &path);
+
 private:
   /**
    * @brief configuration of the velocity planning algorithm
@@ -67,7 +72,6 @@ private:
    */
   static constexpr double epsilon = 1e-9;
 
-  
   std::vector<double> max_longitudinal_acceleration_;
   std::vector<double> max_lateral_acceleration_;
 
@@ -109,4 +113,10 @@ private:
    */
   void braking_limiter(std::vector<PathPoint> &points, std::vector<double> &velocities,
                        const std::vector<double> &curvatures);
+  // TODO: DOCS
+  double get_pose_error(const Pose &pose, const std::vector<PathPoint> &path, size_t &best_index);
+  // TODO: DOCS
+  void change_limits(int index, double longitudinal_acc, double lateral_acc);
+  // TODO: DOCS
+  void change_all_limits(double longitudinal_acc, double lateral_acc);
 };

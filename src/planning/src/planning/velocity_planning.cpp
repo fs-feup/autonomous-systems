@@ -210,3 +210,93 @@ void VelocityPlanning::stop(std::vector<PathPoint> &final_path, double braking_d
     ++index;
   }
 }
+
+double VelocityPlanning::get_pose_error(const Pose &pose, const std::vector<PathPoint> &path,
+                                        size_t &best_index) {
+  if (path.size() < 2) {
+    return -1.0;
+  }
+
+  double best_dist_sq = std::numeric_limits<double>::max();
+
+  for (size_t i = 0; i + 1 < path.size(); ++i) {
+    const auto &before = path[i].position;
+    const auto &after = path[i + 1].position;
+
+    double x = after.x - before.x;
+    double y = after.y - before.y;
+
+    double len_sq = x * x + y * y;
+
+    if (len_sq < 1e-9) {
+      continue;
+    }
+
+    double px = pose.position.x - before.x;
+    double py = pose.position.y - before.y;
+
+    double t = std::clamp((px * x + py * y) / len_sq, 0.0, 1.0);
+
+    double proj_x = before.x + t * x;
+    double proj_y = before.y + t * y;
+
+    double dx = pose.position.x - proj_x;
+    double dy = pose.position.y - proj_y;
+
+    double dist_sq = dx * dx + dy * dy;
+
+    if (dist_sq < best_dist_sq) {
+      best_dist_sq = dist_sq;
+      best_index = i;
+    }
+  }
+
+  if (best_dist_sq == std::numeric_limits<double>::max()) {
+    return -1.0;
+  }
+
+  return std::sqrt(best_dist_sq);
+}
+
+void VelocityPlanning::change_limits(int index, double longitudinal_acc, double lateral_acc) {
+  if (index < static_cast<int>(max_longitudinal_acceleration_.size())) {
+    max_longitudinal_acceleration_[index] += longitudinal_acc;
+    max_lateral_acceleration_[index] += lateral_acc;
+  }
+}
+
+void VelocityPlanning::change_all_limits(double longitudinal_acc, double lateral_acc) {
+  for (size_t i = 0; i < max_longitudinal_acceleration_.size(); ++i) {
+    change_limits(i, longitudinal_acc, lateral_acc);
+  }
+}
+
+void VelocityPlanning::adapt_limits(Pose &pose, std::vector<PathPoint> &path) { 
+  size_t index = 0;
+  double error = get_pose_error(pose, path, index);
+  if (error < 0) { 
+    RCLCPP_ERROR(rclcpp::get_logger("planning"), "Cannot adapt limits, invalid path."); 
+    return;
+  }
+
+  //change to values that make sense:
+  if (error > 1.0) { 
+    change_limits(index, -1.0, -1.0);
+    change_limits(index+1, -1.0, -1.0);
+    change_all_limits(-0.1, -0.1);
+  } else if (error > 0.5) { 
+    change_limits(index, -0.2, -0.2);
+    change_limits(index+1, -0.2, -0.2);
+    change_all_limits(-0.02, -0.02);
+  } else if (error > 0.2) { 
+    change_limits(index, 0.2, 0.2);
+    change_limits(index+1, 0.2, 0.2);
+    change_all_limits(0.02, 0.02);
+  } else {
+    change_limits(index, 0.1, 0.1);
+    change_limits(index+1, 0.1, 0.1);
+    change_all_limits(0.01, 0.01);
+  }
+
+  return; 
+}
