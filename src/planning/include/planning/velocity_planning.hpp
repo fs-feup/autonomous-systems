@@ -67,6 +67,10 @@ private:
    */
   static constexpr double epsilon = 1e-9;
 
+  
+  std::vector<double> max_longitudinal_acceleration_;
+  std::vector<double> max_lateral_acceleration_;
+
   /**
    * @brief Computes the curvature at a point using the Menger curvature formula.
    *

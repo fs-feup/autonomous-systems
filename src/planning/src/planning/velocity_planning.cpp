@@ -24,14 +24,14 @@ double VelocityPlanning::find_curvature(const PathPoint &p1, const PathPoint &p2
 
 void VelocityPlanning::point_speed(const std::vector<double> &curvatures,
                                    std::vector<double> &velocities) {
-  for (const auto &k : curvatures) {
+  for (int i = 0; i < (int)curvatures.size(); i++) {
     // This is a straight line, there is no curvature limit on the velocity
-    if (std::abs(k) < epsilon) {
+    if (std::abs(curvatures[i]) < epsilon) {
       velocities.push_back(config_.desired_velocity_);
       continue;
     }
-
-    double velocity = std::sqrt(config_.lateral_acceleration_ / std::abs(k));
+    // Per-point lateral acceleration limit
+    double velocity = std::sqrt(max_lateral_acceleration_[i] / std::abs(curvatures[i]));
     velocities.push_back(std::min(velocity, config_.desired_velocity_));
   }
   // The last point is always the minimum velocity for safety
@@ -47,15 +47,18 @@ void VelocityPlanning::acceleration_limiter(const std::vector<PathPoint> &points
     double dy = points[i].position.y - points[i - 1].position.y;
     double d = std::sqrt(dx * dx + dy * dy);
 
+    double lateral_acc = max_lateral_acceleration_[i];
+    double longitudinal_acc = max_longitudinal_acceleration_[i];
+
     // lateral acceleration at previous point: v(i-1)^2 * curvature
-    double ay = std::min(velocities[i - 1] * velocities[i - 1] * std::abs(curvatures[i - 1]),
-                         config_.lateral_acceleration_);
+    double ay =
+        std::min(velocities[i - 1] * velocities[i - 1] * std::abs(curvatures[i - 1]), lateral_acc);
     // Friction ellipse: (ax/ax_max)^2 + (ay/ay_max)^2 = 1
-    double ax_max = config_.longitudinal_acceleration_ *
-                    std::sqrt(std::max(0.0, 1.0 - std::pow(ay / config_.lateral_acceleration_, 2)));
+    double ax_max =
+        longitudinal_acc * std::sqrt(std::max(0.0, 1.0 - std::pow(ay / lateral_acc, 2)));
 
     // Cap by acceleration limit
-    ax_max = std::min(ax_max, config_.longitudinal_acceleration_);
+    ax_max = std::min(ax_max, longitudinal_acc);
 
     // v_i^2 = v_(i-1)^2 + 2 * a_x_available * d
     double max_velocity =
@@ -73,16 +76,16 @@ void VelocityPlanning::braking_limiter(std::vector<PathPoint> &points,
     double distance = std::hypot(points[j].position.x - points[i].position.x,
                                  points[j].position.y - points[i].position.y);
 
+    double lateral_acc = max_lateral_acceleration_[i];
+
     // Lateral acceleration at the next point: a = v(j)^2 * curvature
     // Clamped to lateral_acceleration_ to avoid ay exceeding the lateral acceleration limit
-    double ay = std::min(velocities[j] * velocities[j] * std::abs(curvatures[j]),
-                         config_.lateral_acceleration_);
+    double ay = std::min(velocities[j] * velocities[j] * std::abs(curvatures[j]), lateral_acc);
 
     // Friction ellipse: remaining longitudinal braking
 
-    double ax_brake =
-        config_.braking_acceleration_ *
-        std::sqrt(std::max(0.0, 1.0 - std::pow(ay / config_.lateral_acceleration_, 2)));
+    double ax_brake = config_.braking_acceleration_ *
+                      std::sqrt(std::max(0.0, 1.0 - std::pow(ay / lateral_acc, 2)));
 
     // Cap by braking limit
     ax_brake = -(std::min(ax_brake, config_.braking_acceleration_));
@@ -105,6 +108,13 @@ void VelocityPlanning::set_velocity(std::vector<PathPoint> &final_path) {
       p.ideal_velocity = config_.minimum_velocity_;
     }
     return;
+  }
+
+  if (max_longitudinal_acceleration_.size() < path_size) {
+    while (max_longitudinal_acceleration_.size() < path_size) {
+      max_longitudinal_acceleration_.push_back(config_.longitudinal_acceleration_);
+      max_lateral_acceleration_.push_back(config_.lateral_acceleration_);
+    }
   }
 
   std::vector<double> curvatures(path_size, 0.0);
@@ -176,17 +186,18 @@ void VelocityPlanning::stop(std::vector<PathPoint> &final_path, double braking_d
 
     double vi = final_path[index].ideal_velocity;
 
+    double lateral_acc = max_lateral_acceleration_[index];
+
     // Lateral acceleration at current point
     // Clamped to lateral_acceleration_ to avoid ay exceeding the lateral grip limit
     double ay = std::min(vi * vi *
                              std::abs(find_curvature(final_path[std::max(index - 1, 0)],
                                                      final_path[index], final_path[j])),
-                         config_.lateral_acceleration_);
+                         lateral_acc);
 
     // Friction ellipse: remaining longitudinal braking
-    double ax_available =
-        config_.braking_acceleration_ *
-        std::sqrt(std::max(0.0, 1.0 - std::pow(ay / config_.lateral_acceleration_, 2)));
+    double ax_available = config_.braking_acceleration_ *
+                          std::sqrt(std::max(0.0, 1.0 - std::pow(ay / lateral_acc, 2)));
 
     // Cap with maximum braking capability
     ax_available = -(std::min(ax_available, -config_.braking_acceleration_));
