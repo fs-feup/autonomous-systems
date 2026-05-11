@@ -87,9 +87,6 @@ void VelocityPlanning::braking_limiter(std::vector<PathPoint> &points,
     double ax_brake = config_.braking_acceleration_ *
                       std::sqrt(std::max(0.0, 1.0 - std::pow(ay / lateral_acc, 2)));
 
-    // Cap by braking limit
-    ax_brake = -(std::min(ax_brake, config_.braking_acceleration_));
-
     // Correct kinematic speed calculation
     // v_f² = v_i² + 2ad
     double max_speed =
@@ -110,8 +107,8 @@ void VelocityPlanning::set_velocity(std::vector<PathPoint> &final_path) {
     return;
   }
 
-  if (max_longitudinal_acceleration_.size() < path_size) {
-    while (max_longitudinal_acceleration_.size() < path_size) {
+  if (static_cast<int>(max_longitudinal_acceleration_.size()) < path_size) {
+    while (static_cast<int>(max_longitudinal_acceleration_.size()) < path_size) {
       max_longitudinal_acceleration_.push_back(config_.longitudinal_acceleration_);
       max_lateral_acceleration_.push_back(config_.lateral_acceleration_);
     }
@@ -199,11 +196,8 @@ void VelocityPlanning::stop(std::vector<PathPoint> &final_path, double braking_d
     double ax_available = config_.braking_acceleration_ *
                           std::sqrt(std::max(0.0, 1.0 - std::pow(ay / lateral_acc, 2)));
 
-    // Cap with maximum braking capability
-    ax_available = -(std::min(ax_available, -config_.braking_acceleration_));
-
     // Forward braking kinematics: v_j^2 = v_i^2 + 2 * a * d
-    double vj = std::sqrt(std::max(0.0, vi * vi + 2.0 * ax_available * d));
+    double vj = std::sqrt(std::max(0.0, vi * vi - 2.0 * ax_available * d));
     vj = std::max(vj, 0.0);
 
     final_path[j].ideal_velocity = std::min(final_path[j].ideal_velocity, vj);

@@ -36,7 +36,7 @@ planning:
   smoothing_tolerance: 1e-5     
   #---------------------- Velocity Planning (vp_) -----------------------
   vp_minimum_velocity: 2.0
-  vp_braking_acceleration: -2.0
+  vp_braking_acceleration: 3.0
   vp_lateral_acceleration: 2.0
   vp_longitudinal_acceleration: 3.0
   vp_use_velocity_planning: true
