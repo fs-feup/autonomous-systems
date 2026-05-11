@@ -1,3 +1,5 @@
+#include <chrono>
+
 #include "node/node.hpp"
 
 SENode::SENode(const std::shared_ptr<SEParameters>& parameters)
@@ -18,8 +20,8 @@ SENode::SENode(const std::shared_ptr<SEParameters>& parameters)
   }
 
   // Publishers
-  this->_execution_time_pub_ =
-      this->create_publisher<std_msgs::msg::Float64>("/state_estimation/execution_time", 10);
+  this->_execution_time_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>(
+      "/state_estimation/execution_time", 10);
 
   this->_state_pub_ = this->create_publisher<custom_interfaces::msg::VehicleStateVector>(
       "/state_estimation/vehicle_state", 10);
@@ -61,12 +63,30 @@ void SENode::publish_state(const State& state, const rclcpp::Time time) {
 
 void SENode::timer_callback() {
   rclcpp::Time start_time = this->get_clock()->now();
+  auto hrc_start = std::chrono::high_resolution_clock::now();
   State curr_state;
   this->_state_estimator_->timer_callback(curr_state);
-  rclcpp::Time end_time = this->get_clock()->now();
+  auto hrc_end = std::chrono::high_resolution_clock::now();
   publish_state(curr_state, start_time);
-  std_msgs::msg::Float64 execution_time_msg;
-  execution_time_msg.data = (end_time - start_time).seconds() * 1000;
+
+  // Publish execution times if enabled
+  std_msgs::msg::Float64MultiArray execution_time_msg;
+
+  if (this->_params_->publish_exec_times_) {
+    Eigen::Vector4d execution_times = this->_state_estimator_->get_exec_times();
+    // Array: [total_time, overhead, prediction, correction, update]
+    execution_time_msg.data.resize(5);
+    execution_time_msg.data[0] =
+        std::chrono::duration<double, std::milli>(hrc_end - hrc_start).count();
+    execution_time_msg.data[1] = execution_times(0);  // Overhead/input gathering (ms)
+    execution_time_msg.data[2] = execution_times(1);  // Prediction stage (ms)
+    execution_time_msg.data[3] = execution_times(2);  // Correction stage (ms)
+    execution_time_msg.data[4] = execution_times(3);  // Update stage (ms)
+  } else {
+    execution_time_msg.data.resize(1);
+    execution_time_msg.data[0] =
+        std::chrono::duration<double, std::milli>(hrc_end - hrc_start).count();
+  }
   this->_execution_time_pub_->publish(execution_time_msg);
 
   if (!this->_params_->publish_vm_debug_info_) {

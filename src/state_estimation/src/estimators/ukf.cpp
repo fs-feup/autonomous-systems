@@ -28,24 +28,35 @@ UKF::UKF(std::shared_ptr<SEParameters> se_parameters, std::shared_ptr<ProcessMod
   process_noise_matrix_(FR_WHEEL_SPEED, FR_WHEEL_SPEED) = se_parameters->wheel_speed_process_noise_;
   process_noise_matrix_(RL_WHEEL_SPEED, RL_WHEEL_SPEED) = se_parameters->wheel_speed_process_noise_;
   process_noise_matrix_(RR_WHEEL_SPEED, RR_WHEEL_SPEED) = se_parameters->wheel_speed_process_noise_;
+
+  // Precomputed constant used in every covariance update
+  w0_cov_correction_ = 1.0 + se_parameters->beta_ - alpha2;
+
+  // Cache measurement size and preallocate all workspace matrices to eliminate per-callback heap
+  // allocations, which are the primary cause of execution-time variance
+  meas_size_ = observation_model->get_measurement_size();
+  predicted_measurements_.resize(2 * StateSize + 1, meas_size_);
+  centered_measurements_.resize(2 * StateSize + 1, meas_size_);
+  cross_covariance_.resize(StateSize, meas_size_);
+  kalman_gain_.resize(StateSize, meas_size_);
+  predicted_measurement_covariance_.resize(meas_size_, meas_size_);
+  H_.resize(meas_size_, StateSize);
+  predicted_measurement_mean_.resize(meas_size_);
+  G_.resize(StateSize, StateSize);
 }
 
 void UKF::compute_sigma_points(
     const State& state, const Eigen::Matrix<double, StateSize, StateSize>& covariance,
     Eigen::Matrix<double, 2 * StateSize + 1, StateSize, Eigen::RowMajor>& sigma_points) {
-  // Compute the square root of the covariance matrix using Cholesky decomposition.
-  Eigen::MatrixXd scaled_covariance = StateSize * covariance;
-  Eigen::LLT<Eigen::MatrixXd> llt(scaled_covariance);
-  Eigen::MatrixXd sqrt_covariance = llt.matrixL();
+  // Fixed-size LLT keeps the factorization on the stack (no heap allocation).
+  Eigen::LLT<Eigen::Matrix<double, StateSize, StateSize>> llt(StateSize * covariance);
+  const Eigen::Matrix<double, StateSize, StateSize> sqrt_covariance = llt.matrixL();
 
-  // Compute the actual sigma points.
   sigma_points.row(0) = state;
   for (int i = 0; i < StateSize; i++) {
-    sigma_points.row(i + 1) = state + params_->alpha_ * (sqrt_covariance.col(i));
-    sigma_points.row(i + 1 + StateSize) = state - params_->alpha_ * (sqrt_covariance.col(i));
+    sigma_points.row(i + 1) = state + params_->alpha_ * sqrt_covariance.col(i);
+    sigma_points.row(i + 1 + StateSize) = state - params_->alpha_ * sqrt_covariance.col(i);
   }
-
-  return;
 }
 
 void UKF::control_callback(const common_lib::structures::ControlCommand& control_command) {
@@ -78,6 +89,9 @@ void UKF::steering_callback(double steering_angle) {
 }
 
 void UKF::timer_callback(State& curr_state) {
+  // Measure timing overhead (input gathering, locking, etc.)
+  auto start_time = std::chrono::high_resolution_clock::now();
+
   RCLCPP_DEBUG(
       rclcpp::get_logger("state_estimation"),
       "Timer callback triggered for state estimation update.------------------------------------");
@@ -119,25 +133,24 @@ void UKF::timer_callback(State& curr_state) {
                           << ", Throttle RR: " << control_command.throttle_rr
                           << ", Steering Angle: " << control_command.steering_angle);
 
-  // Prediction step
+  // Predict Step
+  auto prediction_start = std::chrono::high_resolution_clock::now();
 
-  Eigen::Matrix<double, 2 * StateSize + 1, StateSize, Eigen::RowMajor> sigma_points;
-  compute_sigma_points(state_, covariance_, sigma_points);
+  compute_sigma_points(state_, covariance_, sigma_points_);
 
   // Predict the sigma points through the process model
-  for (int i = 0; i < sigma_points.rows(); ++i) {
-    process_model_->predict(sigma_points.row(i), control_command, dt);
+  for (int i = 0; i < sigma_points_.rows(); ++i) {
+    process_model_->predict(sigma_points_.row(i), control_command, dt);
   }
 
   // Compute the predicted mean and covariance of the state
-  State predicted_state = sigma_points.transpose() * weights_m_;
+  State predicted_state = sigma_points_.transpose() * weights_m_;
 
-  Eigen::MatrixXd centered = sigma_points.rowwise() - predicted_state.transpose();
+  centered_ = sigma_points_.rowwise() - predicted_state.transpose();
   Eigen::Matrix<double, StateSize, StateSize> predicted_covariance =
-      centered.transpose() * weights_m_.asDiagonal() * centered +
-      (1 + params_->beta_ - params_->alpha_ * params_->alpha_) *
-          (sigma_points.row(0).transpose() - predicted_state) *
-          (sigma_points.row(0).transpose() - predicted_state).transpose() +
+      centered_.transpose() * weights_m_.asDiagonal() * centered_ +
+      w0_cov_correction_ * (sigma_points_.row(0).transpose() - predicted_state) *
+          (sigma_points_.row(0).transpose() - predicted_state).transpose() +
       process_noise_matrix_;
 
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"), "Predicted State: \n"
@@ -145,69 +158,74 @@ void UKF::timer_callback(State& curr_state) {
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"), "Predicted Covariance: \n"
                                                                   << predicted_covariance);
 
-  // Correction step
+  // Correction Step
+  auto correction_start = std::chrono::high_resolution_clock::now();
+
+  // Support runtime measurement-size changes
+  {
+    int current_meas_size = observation_model_->get_measurement_size();
+    if (current_meas_size != meas_size_) {
+      meas_size_ = current_meas_size;
+      predicted_measurements_.resize(2 * StateSize + 1, meas_size_);
+      centered_measurements_.resize(2 * StateSize + 1, meas_size_);
+      cross_covariance_.resize(StateSize, meas_size_);
+      kalman_gain_.resize(StateSize, meas_size_);
+      predicted_measurement_covariance_.resize(meas_size_, meas_size_);
+      H_.resize(meas_size_, StateSize);
+      predicted_measurement_mean_.resize(meas_size_);
+    }
+  }
 
   // Predict the measurements for each sigma point
-  Eigen::Matrix<double, 2 * StateSize + 1, Eigen::Dynamic, Eigen::RowMajor> predicted_measurements =
-      Eigen::MatrixXd::Zero(2 * StateSize + 1, observation_model_->get_measurement_size());
   for (int i = 0; i < 2 * StateSize + 1; i++) {
-    observation_model_->expected_observations(sigma_points.row(i), predicted_measurements.row(i));
+    observation_model_->expected_observations(sigma_points_.row(i), predicted_measurements_.row(i));
   }
 
   // Compute the mean and covariance of the predicted measurements
-  Eigen::VectorXd predicted_measurement_mean = predicted_measurements.transpose() * weights_m_;
-  Eigen::MatrixXd centered_measurements =
-      predicted_measurements.rowwise() - predicted_measurement_mean.transpose();
-  Eigen::MatrixXd predicted_measurement_covariance =
-      centered_measurements.transpose() * weights_m_.asDiagonal() * centered_measurements +
-      (1 + params_->beta_ - params_->alpha_ * params_->alpha_) *
-          (predicted_measurements.row(0).transpose() - predicted_measurement_mean) *
-          (predicted_measurements.row(0).transpose() - predicted_measurement_mean).transpose() +
+  predicted_measurement_mean_ = predicted_measurements_.transpose() * weights_m_;
+  centered_measurements_ =
+      predicted_measurements_.rowwise() - predicted_measurement_mean_.transpose();
+  predicted_measurement_covariance_ =
+      centered_measurements_.transpose() * weights_m_.asDiagonal() * centered_measurements_ +
+      w0_cov_correction_ *
+          (predicted_measurements_.row(0).transpose() - predicted_measurement_mean_) *
+          (predicted_measurements_.row(0).transpose() - predicted_measurement_mean_).transpose() +
       last_observation_noise;
 
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"), "Last Observation: \n"
                                                                   << last_observation);
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"), "Predicted Measurement: \n"
-                                                                  << predicted_measurement_mean);
+                                                                  << predicted_measurement_mean_);
   // RCLCPP_INFO_STREAM(rclcpp::get_logger("state_estimation"), "2 - Covariance: \n" <<
-  // predicted_measurement_covariance);
+  // predicted_measurement_covariance_);
 
-  // Compute the cross covariance between the state and the measurements (State_Errors)^T *
-  // Diag(Weights) * (Meas_Errors)
-  Eigen::MatrixXd state_centered = sigma_points.rowwise() - predicted_state.transpose();
-  Eigen::MatrixXd meas_centered =
-      predicted_measurements.rowwise() - predicted_measurement_mean.transpose();
-  Eigen::MatrixXd cross_covariance =
-      state_centered.transpose() * weights_m_.asDiagonal() * meas_centered +
-      (1 + params_->beta_ - params_->alpha_ * params_->alpha_) *
-          (sigma_points.row(0).transpose() - predicted_state) *
-          (predicted_measurements.row(0).transpose() - predicted_measurement_mean).transpose();
+  // Update Step
+  auto update_start = std::chrono::high_resolution_clock::now();
 
-  // Compute the Kalman gain
-  Eigen::MatrixXd kalman_gain = cross_covariance * predicted_measurement_covariance.inverse();
+  // Compute the cross covariance
+  cross_covariance_ =
+      centered_.transpose() * weights_m_.asDiagonal() * centered_measurements_ +
+      w0_cov_correction_ * (sigma_points_.row(0).transpose() - predicted_state) *
+          (predicted_measurements_.row(0).transpose() - predicted_measurement_mean_).transpose();
+
+  // Compute Kalman gain
+  kalman_gain_ =
+      predicted_measurement_covariance_.ldlt().solve(cross_covariance_.transpose()).transpose();
 
   // Update the state and covariance
   State updated_state =
-      predicted_state + kalman_gain * (last_observation - predicted_measurement_mean);
+      predicted_state + kalman_gain_ * (last_observation - predicted_measurement_mean_);
   Eigen::Matrix<double, StateSize, StateSize> updated_covariance;
-  // 1. Setup
-  Eigen::Matrix<double, StateSize, StateSize> I =
-      Eigen::Matrix<double, StateSize, StateSize>::Identity();
 
-  // 2. Derive the 'Pseudo-H' for the Joseph Form
-  // Since Pxz = P * H', then H = (P^-1 * Pxz)'
-  Eigen::MatrixXd H = (predicted_covariance.ldlt().solve(cross_covariance)).transpose();
+  // Derive the 'Pseudo-H' for the Joseph Form: Pxz = P * H'  →  H = (P^{-1} * Pxz)'
+  H_ = (predicted_covariance.ldlt().solve(cross_covariance_)).transpose();
 
-  // 3. The Joseph Form term: (I - KH)
-  Eigen::MatrixXd K = kalman_gain;
-  Eigen::MatrixXd G = I - K * H;
+  // Joseph Form: P = (I - KH) * P_pred * (I - KH)' + K * R * K'
+  // Numerically guaranteed to be positive-definite
+  G_ = Eigen::Matrix<double, StateSize, StateSize>::Identity() - kalman_gain_ * H_;
+  updated_covariance = G_ * predicted_covariance * G_.transpose() +
+                       kalman_gain_ * last_observation_noise * kalman_gain_.transpose();
 
-  // 4. Calculate P = (G * P_pred * G') + (K * R * K')
-  // This form is numerically guaranteed to be positive-definite
-  updated_covariance =
-      G * predicted_covariance * G.transpose() + K * last_observation_noise * K.transpose();
-
-  // 5. Final pass for symmetry and numerical health
   updated_covariance = 0.5 * (updated_covariance + updated_covariance.transpose());
   updated_covariance.diagonal().array() += 1e-9;
 
@@ -219,7 +237,22 @@ void UKF::timer_callback(State& curr_state) {
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"), "3 - Covariance: \n"
                                                                   << updated_covariance);
   curr_state = state_;
+  auto end_time = std::chrono::high_resolution_clock::now();
+
   if (params_->publish_vm_debug_info_) {
     this->process_model_data_ = process_model_->get_process_model_data(state_, control_command);
   }
+
+  // Store execution times for each stage in milliseconds
+  // [0] = input gathering + overhead (setup to prediction start)
+  // [1] = prediction stage (sigma points, prediction, state mean/covariance)
+  // [2] = correction stage (measurement prediction, measurement mean/covariance)
+  // [3] = update stage (cross-covariance, Kalman gain, state update, process model data)
+  execution_times_(0) =
+      std::chrono::duration<double, std::milli>(prediction_start - start_time).count();
+  execution_times_(1) =
+      std::chrono::duration<double, std::milli>(correction_start - prediction_start).count();
+  execution_times_(2) =
+      std::chrono::duration<double, std::milli>(update_start - correction_start).count();
+  execution_times_(3) = std::chrono::duration<double, std::milli>(end_time - update_start).count();
 }

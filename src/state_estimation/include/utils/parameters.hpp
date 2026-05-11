@@ -50,6 +50,7 @@ struct SEParameters {
   double kappa_;        // UKF kappa parameter
 
   bool publish_vm_debug_info_;  // Publish debug information about the vehicle model
+  bool publish_exec_times_;     // Publish execution time statistics for filter stages
 
   /**
    * @brief Load the configuration for the State Estimation node from YAML file

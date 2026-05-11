@@ -33,10 +33,28 @@ class UKF : public StateEstimator {
   std::shared_ptr<ObservationModel> observation_model_;
 
   rclcpp::Time last_update_;
+  Eigen::Vector4d execution_times_;
 
   Eigen::VectorXd weights_m_;
-  // Eigen::VectorXd weights_c_;
   double lambda_;
+
+  // Precomputed constant: (1 + beta - alpha^2), used in every covariance update
+  double w0_cov_correction_;
+
+  // Cached measurement size (fixed at construction)
+  int meas_size_;
+
+  // Preallocated workspace matrices
+  Eigen::Matrix<double, 2 * StateSize + 1, StateSize, Eigen::RowMajor> sigma_points_;
+  Eigen::Matrix<double, 2 * StateSize + 1, StateSize> centered_;
+  Eigen::Matrix<double, 2 * StateSize + 1, Eigen::Dynamic, Eigen::RowMajor> predicted_measurements_;
+  Eigen::Matrix<double, 2 * StateSize + 1, Eigen::Dynamic, Eigen::RowMajor> centered_measurements_;
+  Eigen::MatrixXd cross_covariance_;
+  Eigen::MatrixXd kalman_gain_;
+  Eigen::MatrixXd predicted_measurement_covariance_;
+  Eigen::MatrixXd H_;
+  Eigen::VectorXd predicted_measurement_mean_;
+  Eigen::MatrixXd G_;
 
   common_lib::structures::ControlCommand last_control_command_ =
       common_lib::structures::ControlCommand();
@@ -73,4 +91,5 @@ public:
   void timer_callback(State& curr_state) override;
 
   VehicleState get_process_model_data() const override { return process_model_data_; }
+  Eigen::Vector4d get_exec_times() const override { return execution_times_; }
 };

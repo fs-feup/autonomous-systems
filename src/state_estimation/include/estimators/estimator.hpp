@@ -51,4 +51,5 @@ public:
   virtual void timer_callback(State& curr_state) = 0;
 
   virtual VehicleState get_process_model_data() const = 0;
+  virtual Eigen::Vector4d get_exec_times() const = 0;
 };

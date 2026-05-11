@@ -53,7 +53,7 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
 
   // TIRE MODEL
   TireInput tire_input;
-  Eigen::VectorXd tire_forces = Eigen::VectorXd(16);  // 4 tires * 4 forces each
+  Eigen::Matrix<double, 16, 1> tire_forces;  // 4 tires * 4 forces each
   tire_input.vx = state(VX);
   tire_input.vy = state(VY);
   tire_input.yaw_rate = state(YAW_RATE);
@@ -175,7 +175,8 @@ VehicleState ComponentBasedVehicleModel::get_process_model_data(
 
   // TIRE MODEL
   TireInput tire_input;
-  Eigen::VectorXd tire_forces = Eigen::VectorXd(16);  // 4 tires * 4 forces each
+  Eigen::Matrix<double, 16, 1>
+      tire_forces;  // 4 tires * 4 forces each, fixed-size avoids heap alloc
   tire_input.vx = state(VX);
   tire_input.vy = state(VY);
   tire_input.yaw_rate = state(YAW_RATE);

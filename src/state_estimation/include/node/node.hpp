@@ -1,6 +1,6 @@
 #pragma once
 
-#include <std_msgs/msg/float64.hpp>
+#include <std_msgs/msg/float64_multi_array.hpp>
 
 #include "custom_interfaces/msg/tire_forces.hpp"
 #include "custom_interfaces/msg/vehicle_state_vector.hpp"
@@ -23,7 +23,7 @@ protected:
   std::shared_ptr<SEParameters> _params_;
   std::shared_ptr<StateEstimator> _state_estimator_;
 
-  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _execution_time_pub_;
+  rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr _execution_time_pub_;
   rclcpp::Publisher<custom_interfaces::msg::VehicleStateVector>::SharedPtr _state_pub_;
   rclcpp::Publisher<custom_interfaces::msg::WheelScalars>::SharedPtr _slip_ratio_pub_;
   rclcpp::Publisher<custom_interfaces::msg::WheelScalars>::SharedPtr _slip_angles_pub_;
