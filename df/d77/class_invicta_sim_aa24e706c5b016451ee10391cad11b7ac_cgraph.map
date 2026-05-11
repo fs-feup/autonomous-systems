@@ -1,0 +1,5 @@
+<map id="InvictaSim::build_vehicle_state_snapshot" name="InvictaSim::build_vehicle_state_snapshot">
+<area shape="rect" id="Node000001" title="Build vehicle state snapshot with latest needed information for other subsystems." alt="" coords="5,13,170,54"/>
+<area shape="rect" id="Node000002" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#a4ad361c69cfec9c842d6077d649191b0" title=" " alt="" coords="218,5,382,61"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,31,202,31,202,36,170,36"/>
+</map>

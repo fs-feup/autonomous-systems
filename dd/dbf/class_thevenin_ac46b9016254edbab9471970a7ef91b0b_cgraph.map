@@ -1,0 +1,7 @@
+<map id="Thevenin::get_open_circuit_voltage" name="Thevenin::get_open_circuit_voltage">
+<area shape="rect" id="Node000001" title="Get open circuit voltage." alt="" coords="5,5,139,46"/>
+<area shape="rect" id="Node000002" href="$dd/dbf/class_thevenin.html#a37ea682d95f1d274d72c91c24610a571" title=" " alt="" coords="187,13,340,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,23,171,23,171,28,139,28"/>
+<area shape="rect" id="Node000003" href="$dd/dbf/class_thevenin.html#ae0de409d755ce9005aad8b7b4307cf0b" title=" " alt="" coords="388,13,571,39"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="341,23,372,23,372,28,341,28"/>
+</map>

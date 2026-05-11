@@ -1,0 +1,9 @@
+<map id="VDLoadTransferModel::compute_loads" name="VDLoadTransferModel::compute_loads">
+<area shape="rect" id="Node000001" title="Computes loads on the tires based on the dynamic state of the vehicle." alt="" coords="5,93,157,134"/>
+<area shape="rect" id="Node000002" href="$dc/d38/class_v_d_load_transfer_model.html#a8ba9b1a54f458e6cc7b5caac4bf36563" title="Calculates the total difference in frontal load caused by lateral weight transfer using static load,..." alt="" coords="205,5,359,61"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,90,195,65,197,70,135,95"/>
+<area shape="rect" id="Node000003" href="$dc/d38/class_v_d_load_transfer_model.html#a5da28cdc79c2774bdafdbcf729acd897" title="Calculates the total difference in load caused by longitudinal weight transfer." alt="" coords="206,85,358,141"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="157,111,191,111,191,116,157,116"/>
+<area shape="rect" id="Node000004" href="$dc/d38/class_v_d_load_transfer_model.html#a524123f1187f26fc3c1106bd78ea27dc" title="Calculates the total difference in rear load caused by lateral weight transfer using static load,..." alt="" coords="206,165,358,221"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="135,132,197,157,195,162,133,136"/>
+</map>

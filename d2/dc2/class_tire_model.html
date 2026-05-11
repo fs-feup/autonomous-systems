@@ -93,6 +93,7 @@ $(document).ready(function(){initNavTree('d2/dc2/class_tire_model.html','../../'
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="../../d0/d15/class_tire_model-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">TireModel Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
@@ -108,9 +109,11 @@ Inheritance diagram for TireModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/d86/class_tire_model__inherit__graph.png" border="0" usemap="#a_tire_model_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_tire_model_inherit__map" id="a_tire_model_inherit__map">
-<area shape="rect" title="Class used to model tires." alt="" coords="15,5,135,91"/>
-<area shape="rect" href="../../d2/db1/class_pacejka_combined_slip.html" title=" " alt="" coords="5,139,145,204"/>
-<area shape="poly" title=" " alt="" coords="78,106,78,139,73,139,73,106"/>
+<area shape="rect" title="Class used to model tires." alt="" coords="97,5,249,200"/>
+<area shape="rect" href="../../d2/db1/class_pacejka_combined_slip.html" title=" " alt="" coords="5,358,164,443"/>
+<area shape="poly" title=" " alt="" coords="142,215,99,359,94,357,137,214"/>
+<area shape="rect" href="../../d3/da3/class_pacejka_m_f6__2.html" title=" " alt="" coords="189,248,333,553"/>
+<area shape="poly" title=" " alt="" coords="208,214,218,247,213,249,203,215"/>
 </map>
 </div>
 <div class="dynheader">
@@ -118,7 +121,7 @@ Collaboration diagram for TireModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d2/dae/class_tire_model__coll__graph.png" border="0" usemap="#a_tire_model_coll__map" alt="Collaboration graph"/></div>
 <map name="a_tire_model_coll__map" id="a_tire_model_coll__map">
-<area shape="rect" title="Class used to model tires." alt="" coords="5,5,125,91"/>
+<area shape="rect" title="Class used to model tires." alt="" coords="5,5,157,200"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -126,9 +129,20 @@ Collaboration diagram for TireModel:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a55a41664cd7ff0e02405f121764b60dd" id="r_a55a41664cd7ff0e02405f121764b60dd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dc2/class_tire_model.html#a55a41664cd7ff0e02405f121764b60dd">TireModel</a> (const <a class="el" href="../../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html">common_lib::car_parameters::CarParameters</a> &amp;car_parameters)</td></tr>
 <tr class="separator:a55a41664cd7ff0e02405f121764b60dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39efacccb02bca44e714f3e10c3cb863" id="r_a39efacccb02bca44e714f3e10c3cb863"><td class="memItemLeft" align="right" valign="top">virtual std::pair&lt; double, double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dc2/class_tire_model.html#a39efacccb02bca44e714f3e10c3cb863">tire_forces</a> (double slip_angle, double slip_ratio, double vertical_load) const =0</td></tr>
-<tr class="memdesc:a39efacccb02bca44e714f3e10c3cb863"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the forces acting in a tire based on the tire characteristics and dynamic state.  <br /></td></tr>
-<tr class="separator:a39efacccb02bca44e714f3e10c3cb863"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28193de8c7fd222eee272235ba8b879f" id="r_a28193de8c7fd222eee272235ba8b879f"><td class="memItemLeft" align="right" valign="top">Eigen::Vector4d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dc2/class_tire_model.html#a28193de8c7fd222eee272235ba8b879f">calculate_tire_forces</a> (<a class="el" href="../../d6/da5/struct_tire_input.html">TireInput</a> &amp;tire_input)</td></tr>
+<tr class="separator:a28193de8c7fd222eee272235ba8b879f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a920cbb6ad43ee45690dcea298e35033b" id="r_a920cbb6ad43ee45690dcea298e35033b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dc2/class_tire_model.html#a920cbb6ad43ee45690dcea298e35033b">calculate_slip_angle_front</a> (<a class="el" href="../../d6/da5/struct_tire_input.html">TireInput</a> &amp;tire_input)</td></tr>
+<tr class="separator:a920cbb6ad43ee45690dcea298e35033b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5d090c4250ceefa55ec8dce9325620d" id="r_ab5d090c4250ceefa55ec8dce9325620d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dc2/class_tire_model.html#ab5d090c4250ceefa55ec8dce9325620d">calculate_slip_angle_rear</a> (<a class="el" href="../../d6/da5/struct_tire_input.html">TireInput</a> &amp;tire_input)</td></tr>
+<tr class="separator:ab5d090c4250ceefa55ec8dce9325620d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81006948323b6dfefb3f37de392c16e3" id="r_a81006948323b6dfefb3f37de392c16e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dc2/class_tire_model.html#a81006948323b6dfefb3f37de392c16e3">calculate_slip_ratio</a> (<a class="el" href="../../d6/da5/struct_tire_input.html">TireInput</a> &amp;tire_input)</td></tr>
+<tr class="separator:a81006948323b6dfefb3f37de392c16e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6701cdb11042b00c12b5de13d14ef73" id="r_af6701cdb11042b00c12b5de13d14ef73"><td class="memItemLeft" align="right" valign="top">virtual Eigen::Vector4d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dc2/class_tire_model.html#af6701cdb11042b00c12b5de13d14ef73">tire_forces</a> (const <a class="el" href="../../d6/da5/struct_tire_input.html">TireInput</a> &amp;tire_input)=0</td></tr>
+<tr class="memdesc:af6701cdb11042b00c12b5de13d14ef73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the forces acting in a tire based on the tire characteristics and dynamic state.  <br /></td></tr>
+<tr class="separator:af6701cdb11042b00c12b5de13d14ef73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -139,7 +153,7 @@ Protected Attributes</h2></td></tr>
 <div class="textblock"><p>Class used to model tires. </p>
 <p>Currently used to model tire forces based on slip. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d42/base__tire__model_8hpp_source.html#l00008">8</a> of file <a class="el" href="../../d0/d42/base__tire__model_8hpp_source.html">base_tire_model.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d42/base__tire__model_8hpp_source.html#l00038">38</a> of file <a class="el" href="../../d0/d42/base__tire__model_8hpp_source.html">base_tire_model.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a55a41664cd7ff0e02405f121764b60dd" name="a55a41664cd7ff0e02405f121764b60dd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a55a41664cd7ff0e02405f121764b60dd">&#9670;&#160;</a></span>TireModel()</h2>
@@ -165,13 +179,13 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d42/base__tire__model_8hpp_source.html#l00013">13</a> of file <a class="el" href="../../d0/d42/base__tire__model_8hpp_source.html">base_tire_model.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d42/base__tire__model_8hpp_source.html#l00056">56</a> of file <a class="el" href="../../d0/d42/base__tire__model_8hpp_source.html">base_tire_model.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a39efacccb02bca44e714f3e10c3cb863" name="a39efacccb02bca44e714f3e10c3cb863"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39efacccb02bca44e714f3e10c3cb863">&#9670;&#160;</a></span>tire_forces()</h2>
+<a id="a920cbb6ad43ee45690dcea298e35033b" name="a920cbb6ad43ee45690dcea298e35033b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a920cbb6ad43ee45690dcea298e35033b">&#9670;&#160;</a></span>calculate_slip_angle_front()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -180,32 +194,166 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::pair&lt; double, double &gt; TireModel::tire_forces </td>
+          <td class="memname">void TireModel::calculate_slip_angle_front </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>slip_angle</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="../../d6/da5/struct_tire_input.html">TireInput</a> &amp;&#160;</td>
+          <td class="paramname"><em>tire_input</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>slip_ratio</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>vertical_load</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d1/d41/base__tire__model_8cpp_source.html#l00002">2</a> of file <a class="el" href="../../d1/d41/base__tire__model_8cpp_source.html">base_tire_model.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d2/dc2/class_tire_model_a920cbb6ad43ee45690dcea298e35033b_icgraph.png" border="0" usemap="#ad2/dc2/class_tire_model_a920cbb6ad43ee45690dcea298e35033b_icgraph" alt=""/></div>
+<map name="ad2/dc2/class_tire_model_a920cbb6ad43ee45690dcea298e35033b_icgraph" id="ad2/dc2/class_tire_model_a920cbb6ad43ee45690dcea298e35033b_icgraph">
+<area shape="rect" title=" " alt="" coords="190,5,326,46"/>
+<area shape="rect" href="../../d2/dc2/class_tire_model.html#a28193de8c7fd222eee272235ba8b879f" title=" " alt="" coords="5,5,142,46"/>
+<area shape="poly" title=" " alt="" coords="174,28,142,28,142,23,174,23"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ab5d090c4250ceefa55ec8dce9325620d" name="ab5d090c4250ceefa55ec8dce9325620d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5d090c4250ceefa55ec8dce9325620d">&#9670;&#160;</a></span>calculate_slip_angle_rear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TireModel::calculate_slip_angle_rear </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/da5/struct_tire_input.html">TireInput</a> &amp;&#160;</td>
+          <td class="paramname"><em>tire_input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d1/d41/base__tire__model_8cpp_source.html#l00044">44</a> of file <a class="el" href="../../d1/d41/base__tire__model_8cpp_source.html">base_tire_model.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d2/dc2/class_tire_model_ab5d090c4250ceefa55ec8dce9325620d_icgraph.png" border="0" usemap="#ad2/dc2/class_tire_model_ab5d090c4250ceefa55ec8dce9325620d_icgraph" alt=""/></div>
+<map name="ad2/dc2/class_tire_model_ab5d090c4250ceefa55ec8dce9325620d_icgraph" id="ad2/dc2/class_tire_model_ab5d090c4250ceefa55ec8dce9325620d_icgraph">
+<area shape="rect" title=" " alt="" coords="190,5,326,46"/>
+<area shape="rect" href="../../d2/dc2/class_tire_model.html#a28193de8c7fd222eee272235ba8b879f" title=" " alt="" coords="5,5,142,46"/>
+<area shape="poly" title=" " alt="" coords="174,28,142,28,142,23,174,23"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a81006948323b6dfefb3f37de392c16e3" name="a81006948323b6dfefb3f37de392c16e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81006948323b6dfefb3f37de392c16e3">&#9670;&#160;</a></span>calculate_slip_ratio()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TireModel::calculate_slip_ratio </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/da5/struct_tire_input.html">TireInput</a> &amp;&#160;</td>
+          <td class="paramname"><em>tire_input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d1/d41/base__tire__model_8cpp_source.html#l00084">84</a> of file <a class="el" href="../../d1/d41/base__tire__model_8cpp_source.html">base_tire_model.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d2/dc2/class_tire_model_a81006948323b6dfefb3f37de392c16e3_icgraph.png" border="0" usemap="#ad2/dc2/class_tire_model_a81006948323b6dfefb3f37de392c16e3_icgraph" alt=""/></div>
+<map name="ad2/dc2/class_tire_model_a81006948323b6dfefb3f37de392c16e3_icgraph" id="ad2/dc2/class_tire_model_a81006948323b6dfefb3f37de392c16e3_icgraph">
+<area shape="rect" title=" " alt="" coords="190,5,326,46"/>
+<area shape="rect" href="../../d2/dc2/class_tire_model.html#a28193de8c7fd222eee272235ba8b879f" title=" " alt="" coords="5,5,142,46"/>
+<area shape="poly" title=" " alt="" coords="174,28,142,28,142,23,174,23"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a28193de8c7fd222eee272235ba8b879f" name="a28193de8c7fd222eee272235ba8b879f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28193de8c7fd222eee272235ba8b879f">&#9670;&#160;</a></span>calculate_tire_forces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::Vector4d TireModel::calculate_tire_forces </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/da5/struct_tire_input.html">TireInput</a> &amp;&#160;</td>
+          <td class="paramname"><em>tire_input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d1/d41/base__tire__model_8cpp_source.html#l00131">131</a> of file <a class="el" href="../../d1/d41/base__tire__model_8cpp_source.html">base_tire_model.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d2/dc2/class_tire_model_a28193de8c7fd222eee272235ba8b879f_cgraph.png" border="0" usemap="#ad2/dc2/class_tire_model_a28193de8c7fd222eee272235ba8b879f_cgraph" alt=""/></div>
+<map name="ad2/dc2/class_tire_model_a28193de8c7fd222eee272235ba8b879f_cgraph" id="ad2/dc2/class_tire_model_a28193de8c7fd222eee272235ba8b879f_cgraph">
+<area shape="rect" title=" " alt="" coords="5,104,142,145"/>
+<area shape="rect" href="../../d2/dc2/class_tire_model.html#a920cbb6ad43ee45690dcea298e35033b" title=" " alt="" coords="194,5,331,46"/>
+<area shape="poly" title=" " alt="" coords="108,101,188,57,200,51,202,56,191,61,111,106"/>
+<area shape="rect" href="../../d2/dc2/class_tire_model.html#ab5d090c4250ceefa55ec8dce9325620d" title=" " alt="" coords="194,71,331,111"/>
+<area shape="poly" title=" " alt="" coords="142,110,179,103,179,108,143,115"/>
+<area shape="rect" href="../../d2/dc2/class_tire_model.html#a81006948323b6dfefb3f37de392c16e3" title=" " alt="" coords="194,136,331,177"/>
+<area shape="poly" title=" " alt="" coords="142,133,179,140,179,145,142,139"/>
+<area shape="rect" href="../../d2/dc2/class_tire_model.html#af6701cdb11042b00c12b5de13d14ef73" title="Calculate the forces acting in a tire based on the tire characteristics and dynamic state." alt="" coords="190,201,335,227"/>
+<area shape="poly" title=" " alt="" coords="110,143,191,186,206,192,204,197,189,191,107,148"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="af6701cdb11042b00c12b5de13d14ef73" name="af6701cdb11042b00c12b5de13d14ef73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6701cdb11042b00c12b5de13d14ef73">&#9670;&#160;</a></span>tire_forces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual Eigen::Vector4d TireModel::tire_forces </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d6/da5/struct_tire_input.html">TireInput</a> &amp;&#160;</td>
+          <td class="paramname"><em>tire_input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -213,15 +361,23 @@ Protected Attributes</h2></td></tr>
 <p>Calculate the forces acting in a tire based on the tire characteristics and dynamic state. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">slip_angle</td><td>Slip angle of the tire in radians </td></tr>
-    <tr><td class="paramname">slip_ratio</td><td>Slip ratio of the tire </td></tr>
-    <tr><td class="paramname">load</td><td>Load on the tire in Newtons </td></tr>
+    <tr><td class="paramname">tire_input</td><td>The input parameters for all possible tire models </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>std::pair&lt;double, double&gt; Longitudinal and lateral forces </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Eigen::Vector4d The resulting forces in the tire (Fx, Fy, My, Mz) </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d2/db1/class_pacejka_combined_slip.html#ac3ac7312e35bb93e52961ec7beb12959">PacejkaCombinedSlip</a>.</p>
+<p>Implemented in <a class="el" href="../../d2/db1/class_pacejka_combined_slip.html#afc92bff3d58279e47948a8fed2022152">PacejkaCombinedSlip</a>, and <a class="el" href="../../d3/da3/class_pacejka_m_f6__2.html#a2355a4c9221d7c68a01593c98114715f">PacejkaMF6_2</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d2/dc2/class_tire_model_af6701cdb11042b00c12b5de13d14ef73_icgraph.png" border="0" usemap="#ad2/dc2/class_tire_model_af6701cdb11042b00c12b5de13d14ef73_icgraph" alt=""/></div>
+<map name="ad2/dc2/class_tire_model_af6701cdb11042b00c12b5de13d14ef73_icgraph" id="ad2/dc2/class_tire_model_af6701cdb11042b00c12b5de13d14ef73_icgraph">
+<area shape="rect" title="Calculate the forces acting in a tire based on the tire characteristics and dynamic state." alt="" coords="190,13,335,39"/>
+<area shape="rect" href="../../d2/dc2/class_tire_model.html#a28193de8c7fd222eee272235ba8b879f" title=" " alt="" coords="5,5,142,46"/>
+<area shape="poly" title=" " alt="" coords="174,28,142,28,142,23,174,23"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -246,12 +402,13 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d42/base__tire__model_8hpp_source.html#l00010">10</a> of file <a class="el" href="../../d0/d42/base__tire__model_8hpp_source.html">base_tire_model.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d42/base__tire__model_8hpp_source.html#l00040">40</a> of file <a class="el" href="../../d0/d42/base__tire__model_8hpp_source.html">base_tire_model.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/motion_lib/include/motion_lib/tire_model/<a class="el" href="../../d0/d42/base__tire__model_8hpp_source.html">base_tire_model.hpp</a></li>
+<li>src/motion_lib/src/tire_model/<a class="el" href="../../d1/d41/base__tire__model_8cpp_source.html">base_tire_model.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

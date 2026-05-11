@@ -1,0 +1,17 @@
+<map id="InvictaSim::simulation_step" name="InvictaSim::simulation_step">
+<area shape="rect" id="Node000001" title="Execute a simulation step." alt="" coords="5,177,186,203"/>
+<area shape="rect" id="Node000002" href="$df/d77/class_invicta_sim.html#a42452e684b0f3746a385ee48b39326bf" title="Build per&#45;subsystem execution timings snapshot." alt="" coords="234,5,412,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,175,157,119,193,86,232,57,242,51,245,56,235,61,196,90,160,123,110,178"/>
+<area shape="rect" id="Node000003" href="$df/d77/class_invicta_sim.html#a4f26451183de42b9877a83b98e8702d6" title="Build map snapshot with ground truth map, slam simulation and perception cones." alt="" coords="249,71,397,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="122,174,233,122,249,115,251,120,235,127,124,179"/>
+<area shape="rect" id="Node000004" href="$df/d77/class_invicta_sim.html#ab5abb4c1fca9382738d68076ad4d732a" title="Build sensors snapshot with latest simulated sensors data." alt="" coords="238,136,408,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="186,174,222,168,223,174,187,179"/>
+<area shape="rect" id="Node000005" href="$df/d77/class_invicta_sim.html#ad91d46cdcfee6cfb63b1194e776bf566" title="Build a consolidated vehicle model snapshot with all vehicle state data." alt="" coords="241,201,405,242"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="187,200,225,205,225,211,186,205"/>
+<area shape="rect" id="Node000006" href="$df/d77/class_invicta_sim.html#aa24e706c5b016451ee10391cad11b7ac" title="Build vehicle state snapshot with latest needed information for other subsystems." alt="" coords="241,267,405,307"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="125,201,235,251,251,258,249,263,233,256,123,205"/>
+<area shape="rect" id="Node000008" href="$df/d77/class_invicta_sim.html#a15a08308bddf17ea19896e8df8e75842" title="Get snapshot of current control input." alt="" coords="252,332,394,373"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="110,201,160,256,196,288,235,317,245,322,242,327,232,321,193,292,157,260,106,205"/>
+<area shape="rect" id="Node000007" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#a4ad361c69cfec9c842d6077d649191b0" title=" " alt="" coords="460,259,624,315"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="405,284,444,284,444,290,405,290"/>
+</map>

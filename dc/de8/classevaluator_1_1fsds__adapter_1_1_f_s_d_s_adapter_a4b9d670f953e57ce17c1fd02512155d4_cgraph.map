@@ -1,5 +1,0 @@
-<map id="evaluator.fsds_adapter.FSDSAdapter.perception_callback" name="evaluator.fsds_adapter.FSDSAdapter.perception_callback">
-<area shape="rect" id="Node000001" title="Callback function to process synchronized messages and compute perception metrics." alt="" coords="5,5,304,46"/>
-<area shape="rect" id="Node000002" href="$dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html#ab0b59330ed75cb71c63e28d6666e150e" title="Creates ground truth from odometry data and a predefined track." alt="" coords="352,5,626,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="304,23,336,23,336,28,304,28"/>
-</map>

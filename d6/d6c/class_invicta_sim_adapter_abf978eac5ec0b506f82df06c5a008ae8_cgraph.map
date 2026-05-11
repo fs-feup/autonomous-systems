@@ -1,0 +1,36 @@
+<map id="InvictaSimAdapter::InvictaSimAdapter" name="InvictaSimAdapter::InvictaSimAdapter">
+<area shape="rect" id="Node000001" title="Constructor of the InvictaSim adapter node." alt="" coords="5,276,140,317"/>
+<area shape="rect" id="Node000002" href="$d8/d84/class_s_l_a_m_node.html#aac21a292783c53d1f41cfaa255b3e9bf" title="Callback that updates everytime information is received from the perception module." alt="" coords="188,211,350,251"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="135,273,190,254,192,259,136,278"/>
+<area shape="rect" id="Node000015" href="$d8/d84/class_s_l_a_m_node.html#a6e228ce696c330a4a43ae5807c632df7" title="Callback that updates everytime information is received from velocity estimation node." alt="" coords="190,308,348,349"/>
+<area shape="poly" id="edge18_Node000001_Node000015" title=" " alt="" coords="140,305,175,310,174,316,140,310"/>
+<area shape="rect" id="Node000003" href="$d8/d84/class_s_l_a_m_node.html#ad85455fe3aa893627d226f26a16d0390" title="Checks if the mission is finished." alt="" coords="404,177,568,218"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="350,216,388,210,388,215,351,221"/>
+<area shape="rect" id="Node000004" href="$d8/d84/class_s_l_a_m_node.html#a91b66a755ba32f65e90666fe56bc9629" title="Publishes the visualization of the associations by data association." alt="" coords="414,243,557,283"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="351,240,399,248,398,253,350,246"/>
+<area shape="rect" id="Node000005" href="$d8/d84/class_s_l_a_m_node.html#a47433c581a6cabedb714a0a7efb21d46" title="publishes the execution times of the different steps of the SLAM algorithm" alt="" coords="414,63,557,103"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="286,208,333,161,364,135,397,113,404,108,407,113,399,117,367,140,337,165,290,212"/>
+<area shape="rect" id="Node000009" href="$d8/d84/class_s_l_a_m_node.html#a3e323b58014b3f31d0574d4be9ab092f" title="publishes the lap counter" alt="" coords="414,308,557,349"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="311,249,399,293,415,299,413,304,397,297,308,254"/>
+<area shape="rect" id="Node000010" href="$d8/d84/class_s_l_a_m_node.html#a976a75ca26892057e2b0c2ea11a25496" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="398,13,573,39"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="277,209,294,174,321,131,355,87,396,49,405,43,408,48,400,53,359,90,325,134,299,177,282,211"/>
+<area shape="rect" id="Node000012" href="$d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379" title="publishes the localization (&#39;vehicle_pose&#39;) to the topic vehicle_pose" alt="" coords="414,373,557,414"/>
+<area shape="poly" id="edge12_Node000002_Node000012" title=" " alt="" coords="301,250,352,294,366,313,375,329,384,343,400,358,407,363,404,368,396,362,380,347,370,331,362,316,348,298,297,254"/>
+<area shape="rect" id="Node000014" href="$d8/d84/class_s_l_a_m_node.html#a4fe92c9a730b5fd9c1f4ebc9b007e4ae" title="Finish the mission." alt="" coords="423,128,548,153"/>
+<area shape="poly" id="edge17_Node000002_Node000014" title=" " alt="" coords="305,208,397,163,418,156,419,161,399,168,307,213"/>
+<area shape="rect" id="Node000006" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a36e6de95afd006961d88dd500a17c3f8" title="Converts a vector of cones to a marker array." alt="" coords="621,189,850,230"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="549,101,574,113,636,145,691,178,688,183,634,150,572,117,546,106"/>
+<area shape="rect" id="Node000007" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="898,189,1083,230"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="850,207,882,207,882,212,850,212"/>
+<area shape="rect" id="Node000008" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="898,255,1083,295"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="818,228,894,248,893,253,817,233"/>
+<area shape="poly" id="edge11_Node000010_Node000006" title=" " alt="" coords="548,37,575,49,616,78,654,111,711,175,708,179,650,115,613,82,572,53,546,42"/>
+<area shape="rect" id="Node000011" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="653,5,818,46"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="574,23,638,23,638,28,574,28"/>
+<area shape="poly" id="edge13_Node000012_Node000006" title=" " alt="" coords="555,371,571,358,583,344,589,330,594,301,599,271,607,256,619,241,625,237,628,241,623,245,611,259,604,273,599,301,594,331,588,347,575,362,558,375"/>
+<area shape="rect" id="Node000013" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad7405068572deb44a80b03663ecfb966" title="Converts a position to a marker." alt="" coords="643,255,828,295"/>
+<area shape="poly" id="edge14_Node000012_Node000013" title=" " alt="" coords="543,370,572,358,683,301,686,306,574,363,545,375"/>
+<area shape="poly" id="edge15_Node000013_Node000007" title=" " alt="" coords="817,251,893,232,894,237,818,257"/>
+<area shape="poly" id="edge16_Node000013_Node000008" title=" " alt="" coords="829,272,882,272,882,278,829,278"/>
+<area shape="poly" id="edge19_Node000015_Node000012" title=" " alt="" coords="339,347,402,366,401,371,338,352"/>
+</map>

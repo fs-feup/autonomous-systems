@@ -1,0 +1,49 @@
+<map id="PacejkaMF6_2::tire_forces" name="PacejkaMF6_2::tire_forces">
+<area shape="rect" id="Node000001" title="Calculate the forces acting in a tire based on the tire characteristics and dynamic state." alt="" coords="5,466,138,507"/>
+<area shape="rect" id="Node000002" href="$d3/da3/class_pacejka_m_f6__2.html#a86f6ae692a89957bc743913af19b10ac" title=" " alt="" coords="191,5,379,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="73,465,85,374,108,247,123,182,141,122,161,73,184,40,186,38,190,42,188,44,166,76,146,124,129,183,114,248,91,375,78,466"/>
+<area shape="rect" id="Node000003" href="$d3/da3/class_pacejka_m_f6__2.html#a70744eed192d3cc15d021710e79a81c7" title=" " alt="" coords="191,55,379,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="69,465,72,395,85,294,99,239,120,185,147,135,184,91,188,87,192,91,188,95,152,138,124,188,104,241,91,295,77,395,75,466"/>
+<area shape="rect" id="Node000004" href="$d3/da3/class_pacejka_m_f6__2.html#af1cb5a72c198c699cfc772297a113667" title="Calculates Fy using combined slip." alt="" coords="202,105,368,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="71,465,78,405,95,323,110,278,129,234,153,193,184,156,188,152,192,156,188,160,158,196,134,237,115,280,101,324,83,406,77,466"/>
+<area shape="rect" id="Node000005" href="$d3/da3/class_pacejka_m_f6__2.html#a8b5afd0e43f908a2389ab2527c9ad5f5" title="Calculates Fx using combined slip." alt="" coords="202,170,368,211"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="73,465,84,416,104,351,136,282,158,250,184,222,189,217,193,221,188,225,162,253,141,285,109,353,89,417,79,466"/>
+<area shape="rect" id="Node000006" href="$d3/da3/class_pacejka_m_f6__2.html#a35e25c7b5798d603c616239523072139" title="Calculates the aligning moment using combined slip." alt="" coords="202,235,368,276"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="76,465,90,426,113,378,144,329,184,286,189,282,192,286,187,289,148,332,117,381,95,429,82,466"/>
+<area shape="rect" id="Node000007" href="$d3/da3/class_pacejka_m_f6__2.html#a44a3e8afbbcb66ae727d7215e7bfb027" title="Calculates the C component for the pure longitudinal slip (4.E11)" alt="" coords="191,300,379,326"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="80,464,120,400,149,364,184,335,192,330,195,335,187,339,153,368,124,403,85,467"/>
+<area shape="rect" id="Node000008" href="$d3/da3/class_pacejka_m_f6__2.html#a52d96d7127f846a4e5e90d22f80039c8" title=" " alt="" coords="191,349,379,375"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="89,463,130,423,156,402,184,384,196,378,199,383,187,389,159,406,133,427,92,467"/>
+<area shape="rect" id="Node000009" href="$d3/da3/class_pacejka_m_f6__2.html#ad4896d0f682c1a6c9c24abbc59c8eb0e" title=" " alt="" coords="191,399,379,424"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="113,463,185,433,206,426,208,431,187,438,115,468"/>
+<area shape="rect" id="Node000010" href="$d3/da3/class_pacejka_m_f6__2.html#acfb5683d094c0418dc26108801b30c1d" title="Calculates the D parameter for the Fy calculation using pacejka MF (Peak)" alt="" coords="191,448,379,474"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="137,476,175,471,175,477,138,481"/>
+<area shape="rect" id="Node000011" href="$d3/da3/class_pacejka_m_f6__2.html#a75b6a96686c58619e067f0091c148b79" title="Calculates the E component for the longitudinal slip." alt="" coords="191,497,379,523"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="138,491,176,495,175,501,137,496"/>
+<area shape="rect" id="Node000012" href="$d3/da3/class_pacejka_m_f6__2.html#aa5c2b1306e3bb494ddb5bf2c0ea9b208" title=" " alt="" coords="191,547,379,572"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="117,505,187,533,208,540,207,545,185,538,115,510"/>
+<area shape="rect" id="Node000013" href="$d3/da3/class_pacejka_m_f6__2.html#a5177cecaf746888a953b7db7e8c45505" title="Uses the pacejka magic formula to calculate either Fx or Fy depending on the input values." alt="" coords="202,597,368,637"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="94,505,134,544,187,583,196,587,194,592,184,587,131,548,90,509"/>
+<area shape="rect" id="Node000014" href="$d3/da3/class_pacejka_m_f6__2.html#a546d12fe79c80b09d4ad103dd7654484" title="Calculates the rolling resistance moment using the longitudinal slip and vertical load." alt="" coords="193,662,377,703"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="84,506,123,575,152,613,187,647,195,652,192,656,184,651,148,617,118,578,79,508"/>
+<area shape="rect" id="Node000015" href="$d3/da3/class_pacejka_m_f6__2.html#a0d49bf45845df237ca11cc579671a473" title="Calculates the shift for the slip ratio calculation." alt="" coords="186,727,384,752"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="80,506,91,550,112,606,144,663,164,689,187,712,194,717,191,721,184,716,160,693,139,666,107,608,86,552,74,508"/>
+<area shape="rect" id="Node000016" href="$d3/da3/class_pacejka_m_f6__2.html#a3f77b024d1ef5d62eae8aef352f0825f" title="Calculates the shift for the slip angle calculation." alt="" coords="186,776,384,802"/>
+<area shape="poly" id="edge15_Node000001_Node000016" title=" " alt="" coords="78,507,86,559,105,628,119,665,137,701,160,734,187,763,191,765,187,770,184,767,156,738,133,704,114,667,100,630,81,560,72,507"/>
+<area shape="rect" id="Node000017" href="$d3/da3/class_pacejka_m_f6__2.html#a21e38c0631c097f2127c943523916f6a" title=" " alt="" coords="186,825,384,851"/>
+<area shape="poly" id="edge16_Node000001_Node000017" title=" " alt="" coords="76,507,82,567,98,650,113,694,132,737,156,777,188,812,191,815,187,819,184,816,152,781,127,740,108,696,93,651,77,568,71,507"/>
+<area shape="rect" id="Node000018" href="$d3/da3/class_pacejka_m_f6__2.html#af07a664f4830c1eca939c26f782ffdf5" title=" " alt="" coords="186,875,384,900"/>
+<area shape="poly" id="edge17_Node000001_Node000018" title=" " alt="" coords="75,507,78,575,92,671,106,723,126,773,153,821,188,862,190,864,186,868,184,865,148,824,121,776,101,724,87,672,73,576,70,507"/>
+<area shape="rect" id="Node000019" href="$d3/da3/class_pacejka_m_f6__2.html#a24aaa6ca5dd2b31279aad323e863cd4d" title="Intermediate function that calculates all the internal values needed for future calculations." alt="" coords="202,925,368,965"/>
+<area shape="poly" id="edge18_Node000001_Node000019" title=" " alt="" coords="75,507,76,582,80,633,88,690,102,749,122,807,151,862,188,911,191,914,187,918,184,915,146,865,118,810,97,750,83,691,75,634,70,582,69,507"/>
+<area shape="rect" id="Node000020" href="$d3/da3/class_pacejka_m_f6__2.html#a76dbc84d6466dffb7a08b377a9b15631" title=" " alt="" coords="432,825,637,851"/>
+<area shape="poly" id="edge19_Node000019_Node000020" title=" " alt="" coords="361,922,383,911,397,898,406,886,415,872,431,860,440,855,443,860,433,864,419,876,410,889,401,902,385,915,364,926"/>
+<area shape="rect" id="Node000021" href="$d3/da3/class_pacejka_m_f6__2.html#a366cb9bb76dfdc3bc1b5b44bf1a73d27" title=" " alt="" coords="433,875,637,900"/>
+<area shape="poly" id="edge20_Node000019_Node000021" title=" " alt="" coords="368,923,460,902,461,907,369,928"/>
+<area shape="rect" id="Node000022" href="$d3/da3/class_pacejka_m_f6__2.html#ad9119e9e68e883c91a31184c7dc2ab73" title=" " alt="" coords="452,925,618,965"/>
+<area shape="poly" id="edge21_Node000019_Node000022" title=" " alt="" coords="368,942,436,942,436,948,368,948"/>
+<area shape="rect" id="Node000023" href="$d3/da3/class_pacejka_m_f6__2.html#aeebb0aa0540eda5e29495a0a2209a1b3" title=" " alt="" coords="452,990,618,1031"/>
+<area shape="poly" id="edge22_Node000019_Node000023" title=" " alt="" coords="366,963,440,983,439,988,365,968"/>
+<area shape="rect" id="Node000024" href="$d3/da3/class_pacejka_m_f6__2.html#a33d1283502535e08e111c5d858f92e31" title=" " alt="" coords="452,1055,618,1096"/>
+<area shape="poly" id="edge23_Node000019_Node000024" title=" " alt="" coords="314,964,368,1002,433,1040,448,1047,446,1051,431,1045,365,1006,311,968"/>
+</map>

@@ -5,13 +5,20 @@ var annotated_dup =
         [ "PublishThread", "d5/d69/classcar__keys_1_1main_1_1_publish_thread.html", "d5/d69/classcar__keys_1_1main_1_1_publish_thread" ]
       ] ]
     ] ],
+    [ "colour_track_cones", "d1/d88/namespacecolour__track__cones.html", [
+      [ "TrackGenerator", "d7/df1/classcolour__track__cones_1_1_track_generator.html", "d7/df1/classcolour__track__cones_1_1_track_generator" ]
+    ] ],
     [ "common_lib", "dd/d5f/namespacecommon__lib.html", [
       [ "car_parameters", "dc/dd9/namespacecommon__lib_1_1car__parameters.html", [
         [ "AeroParameters", "d5/d5a/structcommon__lib_1_1car__parameters_1_1_aero_parameters.html", "d5/d5a/structcommon__lib_1_1car__parameters_1_1_aero_parameters" ],
+        [ "BatteryParameters", "dd/d0c/structcommon__lib_1_1car__parameters_1_1_battery_parameters.html", "dd/d0c/structcommon__lib_1_1car__parameters_1_1_battery_parameters" ],
         [ "CarParameters", "dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html", "dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters" ],
+        [ "LoadTransferParameters", "da/d10/structcommon__lib_1_1car__parameters_1_1_load_transfer_parameters.html", "da/d10/structcommon__lib_1_1car__parameters_1_1_load_transfer_parameters" ],
+        [ "MotorParameters", "d3/dba/structcommon__lib_1_1car__parameters_1_1_motor_parameters.html", "d3/dba/structcommon__lib_1_1car__parameters_1_1_motor_parameters" ],
         [ "SteeringMotorParameters", "d2/d2e/structcommon__lib_1_1car__parameters_1_1_steering_motor_parameters.html", "d2/d2e/structcommon__lib_1_1car__parameters_1_1_steering_motor_parameters" ],
         [ "SteeringParameters", "d9/d6f/structcommon__lib_1_1car__parameters_1_1_steering_parameters.html", "d9/d6f/structcommon__lib_1_1car__parameters_1_1_steering_parameters" ],
-        [ "TireParameters", "dd/d7d/structcommon__lib_1_1car__parameters_1_1_tire_parameters.html", "dd/d7d/structcommon__lib_1_1car__parameters_1_1_tire_parameters" ]
+        [ "TireParameters", "dd/d7d/structcommon__lib_1_1car__parameters_1_1_tire_parameters.html", "dd/d7d/structcommon__lib_1_1car__parameters_1_1_tire_parameters" ],
+        [ "TransmissionParameters", "d2/d1f/structcommon__lib_1_1car__parameters_1_1_transmission_parameters.html", "d2/d1f/structcommon__lib_1_1car__parameters_1_1_transmission_parameters" ]
       ] ],
       [ "communication", "d1/dd0/namespacecommon__lib_1_1communication.html", [
         [ "HasPosition", "d3/d65/structcommon__lib_1_1communication_1_1_has_position.html", null ],
@@ -27,13 +34,16 @@ var annotated_dup =
       [ "structures", "d9/d8a/namespacecommon__lib_1_1structures.html", [
         [ "Cone", "d6/dd0/structcommon__lib_1_1structures_1_1_cone.html", "d6/dd0/structcommon__lib_1_1structures_1_1_cone" ],
         [ "ControlCommand", "da/d16/structcommon__lib_1_1structures_1_1_control_command.html", "da/d16/structcommon__lib_1_1structures_1_1_control_command" ],
+        [ "Force", "d4/db6/structcommon__lib_1_1structures_1_1_force.html", "d4/db6/structcommon__lib_1_1structures_1_1_force" ],
         [ "Midpoint", "db/df1/structcommon__lib_1_1structures_1_1_midpoint.html", "db/df1/structcommon__lib_1_1structures_1_1_midpoint" ],
         [ "PathPoint", "d9/db0/structcommon__lib_1_1structures_1_1_path_point.html", "d9/db0/structcommon__lib_1_1structures_1_1_path_point" ],
+        [ "PhysicalConstants", "d2/dea/structcommon__lib_1_1structures_1_1_physical_constants.html", "d2/dea/structcommon__lib_1_1structures_1_1_physical_constants" ],
         [ "Pose", "d8/d4a/structcommon__lib_1_1structures_1_1_pose.html", "d8/d4a/structcommon__lib_1_1structures_1_1_pose" ],
         [ "Position", "dc/d1b/structcommon__lib_1_1structures_1_1_position.html", "dc/d1b/structcommon__lib_1_1structures_1_1_position" ],
         [ "VehiclePose", "de/d41/structcommon__lib_1_1structures_1_1_vehicle_pose.html", "de/d41/structcommon__lib_1_1structures_1_1_vehicle_pose" ],
         [ "VehicleState", "d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html", "d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state" ],
-        [ "Velocities", "d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html", "d0/d4e/structcommon__lib_1_1structures_1_1_velocities" ]
+        [ "Velocities", "d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html", "d0/d4e/structcommon__lib_1_1structures_1_1_velocities" ],
+        [ "Wheels", "d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html", "d4/d9d/structcommon__lib_1_1structures_1_1_wheels" ]
       ] ]
     ] ],
     [ "convert_fssim_sdf_to_yaml", "da/d44/namespaceconvert__fssim__sdf__to__yaml.html", [
@@ -55,14 +65,8 @@ var annotated_dup =
       [ "adapter", "dc/da0/namespaceevaluator_1_1adapter.html", [
         [ "Adapter", "d7/dff/classevaluator_1_1adapter_1_1_adapter.html", "d7/dff/classevaluator_1_1adapter_1_1_adapter" ]
       ] ],
-      [ "eufs_adapter", "d9/d12/namespaceevaluator_1_1eufs__adapter.html", [
-        [ "EufsAdapter", "dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html", "dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter" ]
-      ] ],
       [ "evaluator", "d0/d42/namespaceevaluator_1_1evaluator.html", [
         [ "Evaluator", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator" ]
-      ] ],
-      [ "fsds_adapter", "d8/daa/namespaceevaluator_1_1fsds__adapter.html", [
-        [ "FSDSAdapter", "dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html", "dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter" ]
       ] ],
       [ "onground_adapter", "d2/d84/namespaceevaluator_1_1onground__adapter.html", [
         [ "OnGroundAdapter", "d6/d04/classevaluator_1_1onground__adapter_1_1_on_ground_adapter.html", "d6/d04/classevaluator_1_1onground__adapter_1_1_on_ground_adapter" ]
@@ -82,6 +86,9 @@ var annotated_dup =
     [ "main", "d2/dc1/namespacemain.html", [
       [ "MyWindow", "d8/def/classmain_1_1_my_window.html", "d8/def/classmain_1_1_my_window" ],
       [ "Ui_MainWindow", "d7/d8e/classmain_1_1_ui___main_window.html", "d7/d8e/classmain_1_1_ui___main_window" ]
+    ] ],
+    [ "manual_to_as", "df/d76/namespacemanual__to__as.html", [
+      [ "ManualThrottleBridge", "d5/dc8/classmanual__to__as_1_1_manual_throttle_bridge.html", "d5/dc8/classmanual__to__as_1_1_manual_throttle_bridge" ]
     ] ],
     [ "mapFile", "d6/dff/namespacemap_file.html", [
       [ "My_Yaml_Dump", "dd/d24/classmap_file_1_1_my___yaml___dump.html", "dd/d24/classmap_file_1_1_my___yaml___dump" ]
@@ -134,12 +141,13 @@ var annotated_dup =
     ] ],
     [ "AccelerationTrimming", "de/d98/class_acceleration_trimming.html", "de/d98/class_acceleration_trimming" ],
     [ "AccelerationTrimmingTest", "de/db8/class_acceleration_trimming_test.html", "de/db8/class_acceleration_trimming_test" ],
+    [ "AckermanSteering", "dd/dc4/class_ackerman_steering.html", "dd/dc4/class_ackerman_steering" ],
     [ "Adapter", "d3/d7f/class_adapter.html", "d3/d7f/class_adapter" ],
     [ "AdaptiveNearestNeighbor", "da/d50/class_adaptive_nearest_neighbor.html", "da/d50/class_adaptive_nearest_neighbor" ],
     [ "AeroModel", "d2/d35/class_aero_model.html", "d2/d35/class_aero_model" ],
     [ "BaseOptimizer", "df/dc2/class_base_optimizer.html", "df/dc2/class_base_optimizer" ],
     [ "BaseVelocityProcessModel", "d7/d59/class_base_velocity_process_model.html", "d7/d59/class_base_velocity_process_model" ],
-    [ "BicycleModel", "d6/d89/class_bicycle_model.html", "d6/d89/class_bicycle_model" ],
+    [ "BatteryModel", "db/dc2/class_battery_model.html", "db/dc2/class_battery_model" ],
     [ "CAParticleModel", "d6/dba/class_c_a_particle_model.html", "d6/dba/class_c_a_particle_model" ],
     [ "CenterCalculator", "df/daa/class_center_calculator.html", "df/daa/class_center_calculator" ],
     [ "CentroidCalculator", "da/d39/class_centroid_calculator.html", "da/d39/class_centroid_calculator" ],
@@ -181,13 +189,14 @@ var annotated_dup =
     [ "EKF", "d7/dbe/class_e_k_f.html", "d7/dbe/class_e_k_f" ],
     [ "EKFSLAMSolver", "d7/d79/class_e_k_f_s_l_a_m_solver.html", "d7/d79/class_e_k_f_s_l_a_m_solver" ],
     [ "EKFSLAMSolverTest", "d3/d78/class_e_k_f_s_l_a_m_solver_test.html", "d3/d78/class_e_k_f_s_l_a_m_solver_test" ],
-    [ "EufsAdapter", "d0/d1d/class_eufs_adapter.html", "d0/d1d/class_eufs_adapter" ],
     [ "EvaluatorParameters", "d9/d9f/struct_evaluator_parameters.html", "d9/d9f/struct_evaluator_parameters" ],
     [ "ExecTimeTestEKFTests", "d2/dac/class_exec_time_test_e_k_f_tests.html", null ],
+    [ "ExecutionTimesSnapshot", "dd/d2b/struct_execution_times_snapshot.html", "dd/d2b/struct_execution_times_snapshot" ],
     [ "ExtendedKalmanFilter", "da/da6/class_extended_kalman_filter.html", "da/da6/class_extended_kalman_filter" ],
     [ "Filter", "d2/d70/class_filter.html", "d2/d70/class_filter" ],
+    [ "FirstOrderSteeringMotor", "dd/d13/class_first_order_steering_motor.html", "dd/d13/class_first_order_steering_motor" ],
     [ "FovTrimming", "de/dd9/class_fov_trimming.html", "de/dd9/class_fov_trimming" ],
-    [ "FsdsAdapter", "d7/d8e/class_fsds_adapter.html", "d7/d8e/class_fsds_adapter" ],
+    [ "FSFEUP02Model", "df/d75/class_f_s_f_e_u_p02_model.html", "df/d75/class_f_s_f_e_u_p02_model" ],
     [ "GnssData", "da/d17/struct_gnss_data.html", "da/d17/struct_gnss_data" ],
     [ "GnssSensor", "d9/df9/class_gnss_sensor.html", "d9/df9/class_gnss_sensor" ],
     [ "GraphSLAMInstance", "d4/dca/class_graph_s_l_a_m_instance.html", "d4/dca/class_graph_s_l_a_m_instance" ],
@@ -221,11 +230,17 @@ var annotated_dup =
     [ "ImuIntegratorTrait", "db/df5/class_imu_integrator_trait.html", "db/df5/class_imu_integrator_trait" ],
     [ "ImuSensor", "d6/d71/class_imu_sensor.html", "d6/d71/class_imu_sensor" ],
     [ "ImuVelocityModel", "d2/d58/class_imu_velocity_model.html", "d2/d58/class_imu_velocity_model" ],
+    [ "InputSnapshot", "d1/d26/struct_input_snapshot.html", "d1/d26/struct_input_snapshot" ],
     [ "InspectionFunctions", "d4/d89/class_inspection_functions.html", "d4/d89/class_inspection_functions" ],
     [ "InspectionMission", "de/d3d/class_inspection_mission.html", "de/d3d/class_inspection_mission" ],
     [ "IntegrationTest", "d7/d4e/class_integration_test.html", "d7/d4e/class_integration_test" ],
+    [ "InternalValues", "dd/d8c/struct_internal_values.html", "dd/d8c/struct_internal_values" ],
     [ "InvalidMissionException", "d3/df9/class_invalid_mission_exception.html", "d3/df9/class_invalid_mission_exception" ],
-    [ "InvictaSimNode", "d9/d43/class_invicta_sim_node.html", "d9/d43/class_invicta_sim_node" ],
+    [ "InvictaSim", "df/d77/class_invicta_sim.html", "df/d77/class_invicta_sim" ],
+    [ "InvictaSimAdapter", "d6/d6c/class_invicta_sim_adapter.html", "d6/d6c/class_invicta_sim_adapter" ],
+    [ "InvictasimAdapter", "dc/d0e/class_invictasim_adapter.html", "dc/d0e/class_invictasim_adapter" ],
+    [ "InvictaSimInputAdapter", "d0/d4b/class_invicta_sim_input_adapter.html", "d0/d4b/class_invicta_sim_input_adapter" ],
+    [ "InvictaSimOutputAdapter", "dc/d98/class_invicta_sim_output_adapter.html", "dc/d98/class_invicta_sim_output_adapter" ],
     [ "InvictaSimParameters", "df/d28/struct_invicta_sim_parameters.html", "df/d28/struct_invicta_sim_parameters" ],
     [ "ISAM2Optimizer", "d8/dbe/class_i_s_a_m2_optimizer.html", "d8/dbe/class_i_s_a_m2_optimizer" ],
     [ "IsCopyConstructor", "d7/de5/struct_is_copy_constructor.html", null ],
@@ -234,6 +249,7 @@ var annotated_dup =
     [ "IsHashable< T, std::void_t< decltype(std::hash< T >{}(std::declval< T >()))> >", "d6/d10/struct_is_hashable_3_01_t_00_01std_1_1void__t_3_01decltype_07std_1_1hash_3_01_t_01_4_02_03_07std25ddd8d3622353e1429f952e1dd1e659.html", null ],
     [ "IVehicleModel", "d1/d5c/class_i_vehicle_model.html", "d1/d5c/class_i_vehicle_model" ],
     [ "JCBB", "df/dd3/class_j_c_b_b.html", "df/dd3/class_j_c_b_b" ],
+    [ "KeyboardInputAdapter", "d7/dce/class_keyboard_input_adapter.html", "d7/dce/class_keyboard_input_adapter" ],
     [ "Landmark", "d7/d13/struct_landmark.html", "d7/d13/struct_landmark" ],
     [ "LandmarkFilter", "d2/d5d/class_landmark_filter.html", "d2/d5d/class_landmark_filter" ],
     [ "LandmarkFilterParameters", "d4/de4/struct_landmark_filter_parameters.html", "d4/de4/struct_landmark_filter_parameters" ],
@@ -243,13 +259,17 @@ var annotated_dup =
     [ "LateralController", "d7/d69/class_lateral_controller.html", "d7/d69/class_lateral_controller" ],
     [ "LeastSquaresDifferentiation", "d7/d15/class_least_squares_differentiation.html", "d7/d15/class_least_squares_differentiation" ],
     [ "LeastSquaresDifferentiationTest", "de/d1e/class_least_squares_differentiation_test.html", "de/d1e/class_least_squares_differentiation_test" ],
+    [ "LoadTransferInput", "d9/dda/struct_load_transfer_input.html", "d9/dda/struct_load_transfer_input" ],
     [ "LoadTransferModel", "d4/da2/class_load_transfer_model.html", "d4/da2/class_load_transfer_model" ],
+    [ "LoadTransferOutput", "da/d85/struct_load_transfer_output.html", "da/d85/struct_load_transfer_output" ],
     [ "Logger", "d3/d42/class_logger.html", "d3/d42/class_logger" ],
     [ "LongitudinalController", "da/ded/class_longitudinal_controller.html", "da/ded/class_longitudinal_controller" ],
     [ "LoopClosure", "d2/d8e/class_loop_closure.html", "d2/d8e/class_loop_closure" ],
     [ "LowPassFilter", "d7/d25/class_low_pass_filter.html", "d7/d25/class_low_pass_filter" ],
     [ "MainConfig", "d7/d28/struct_main_config.html", "d7/d28/struct_main_config" ],
     [ "Map", "df/d91/struct_map.html", "df/d91/struct_map" ],
+    [ "MapBasedMotor", "dd/d43/class_map_based_motor.html", "dd/d43/class_map_based_motor" ],
+    [ "MapSnapshot", "d0/dc5/struct_map_snapshot.html", "d0/dc5/struct_map_snapshot" ],
     [ "MaximumLikelihoodMD", "db/d23/class_maximum_likelihood_m_d.html", "db/d23/class_maximum_likelihood_m_d" ],
     [ "MaximumLikelihoodNLL", "d1/d4f/class_maximum_likelihood_n_l_l.html", "d1/d4f/class_maximum_likelihood_n_l_l" ],
     [ "MaxLikelihood", "dd/d06/class_max_likelihood.html", "dd/d06/class_max_likelihood" ],
@@ -263,15 +283,14 @@ var annotated_dup =
     [ "MotionData", "d2/d50/struct_motion_data.html", "d2/d50/struct_motion_data" ],
     [ "MotionModel", "db/d66/class_motion_model.html", "db/d66/class_motion_model" ],
     [ "MotionUpdate", "db/d6d/struct_motion_update.html", "db/d6d/struct_motion_update" ],
+    [ "MotorModel", "d3/d0e/class_motor_model.html", "d3/d0e/class_motor_model" ],
     [ "NearestNeighbor", "dd/db5/class_nearest_neighbor.html", "dd/db5/class_nearest_neighbor" ],
     [ "NodeControllerTrait", "da/d8d/class_node_controller_trait.html", "da/d8d/class_node_controller_trait" ],
     [ "NonOwningDeleter", "dd/d52/struct_non_owning_deleter.html", "dd/d52/struct_non_owning_deleter" ],
-    [ "NoRearWSSBicycleModel", "d6/d99/class_no_rear_w_s_s_bicycle_model.html", "d6/d99/class_no_rear_w_s_s_bicycle_model" ],
     [ "NoRearWSSEKF", "dd/da2/class_no_rear_w_s_s_e_k_f.html", "dd/da2/class_no_rear_w_s_s_e_k_f" ],
     [ "NormalLevenbergOptimizer", "d2/dd8/class_normal_levenberg_optimizer.html", "d2/dd8/class_normal_levenberg_optimizer" ],
     [ "NormalVelocityModel", "d7/df9/class_normal_velocity_model.html", "d7/df9/class_normal_velocity_model" ],
     [ "NoSlipBicycleModel", "db/df5/class_no_slip_bicycle_model.html", "db/df5/class_no_slip_bicycle_model" ],
-    [ "NoWSSBicycleModel", "d9/d8e/class_no_w_s_s_bicycle_model.html", "d9/d8e/class_no_w_s_s_bicycle_model" ],
     [ "NPointsValidator", "d2/ddf/class_n_points_validator.html", "d2/ddf/class_n_points_validator" ],
     [ "NPointsValidatorTest", "d2/dd4/class_n_points_validator_test.html", "d2/dd4/class_n_points_validator_test" ],
     [ "ObservationData", "d9/d90/struct_observation_data.html", "d9/d90/struct_observation_data" ],
@@ -279,8 +298,9 @@ var annotated_dup =
     [ "OdometryIntegratorTrait", "d2/da4/class_odometry_integrator_trait.html", "d2/da4/class_odometry_integrator_trait" ],
     [ "OdometryModel", "db/d0c/class_odometry_model.html", "db/d0c/class_odometry_model" ],
     [ "PacejkaCombinedSlip", "d2/db1/class_pacejka_combined_slip.html", "d2/db1/class_pacejka_combined_slip" ],
-    [ "PacsimAdapter", "d1/dcb/class_pacsim_adapter.html", "d1/dcb/class_pacsim_adapter" ],
+    [ "PacejkaMF6_2", "d3/da3/class_pacejka_m_f6__2.html", "d3/da3/class_pacejka_m_f6__2" ],
     [ "PacSimAdapter", "db/d68/class_pac_sim_adapter.html", "db/d68/class_pac_sim_adapter" ],
+    [ "PacsimAdapter", "d1/dcb/class_pacsim_adapter.html", "d1/dcb/class_pacsim_adapter" ],
     [ "ParallelFrontSteering", "d2/dab/class_parallel_front_steering.html", "d2/dab/class_parallel_front_steering" ],
     [ "PathCalculation", "d0/d89/class_path_calculation.html", "d0/d89/class_path_calculation" ],
     [ "PathCalculationConfig", "df/d7d/struct_path_calculation_config.html", "df/d7d/struct_path_calculation_config" ],
@@ -313,11 +333,13 @@ var annotated_dup =
     [ "Report", "d7/dac/struct_report.html", "d7/dac/struct_report" ],
     [ "RigidBodyLoadTransferModel", "d1/dde/class_rigid_body_load_transfer_model.html", "d1/dde/class_rigid_body_load_transfer_model" ],
     [ "Ring", "d2/db2/struct_ring.html", "d2/db2/struct_ring" ],
-    [ "S2VModel", "db/d7d/class_s2_v_model.html", "db/d7d/class_s2_v_model" ],
+    [ "RosInputAdapter", "dc/d46/class_ros_input_adapter.html", "dc/d46/class_ros_input_adapter" ],
+    [ "RosOutputAdapter", "d6/dc0/class_ros_output_adapter.html", "d6/dc0/class_ros_output_adapter" ],
     [ "ScalarValueSensor", "df/d7c/class_scalar_value_sensor.html", "df/d7c/class_scalar_value_sensor" ],
     [ "SecondPoseInputTrait", "da/df3/class_second_pose_input_trait.html", "da/df3/class_second_pose_input_trait" ],
     [ "SENode", "d4/d43/class_s_e_node.html", "d4/d43/class_s_e_node" ],
     [ "SensorBase", "dd/dc4/class_sensor_base.html", "dd/dc4/class_sensor_base" ],
+    [ "SensorsSnapshot", "db/d58/struct_sensors_snapshot.html", "db/d58/struct_sensors_snapshot" ],
     [ "Skidpad", "de/d3f/class_skidpad.html", "de/d3f/class_skidpad" ],
     [ "SkidpadConfig", "d2/de2/struct_skidpad_config.html", "d2/de2/struct_skidpad_config" ],
     [ "SkidpadTrimming", "d6/df3/class_skidpad_trimming.html", "d6/df3/class_skidpad_trimming" ],
@@ -333,17 +355,25 @@ var annotated_dup =
     [ "StandardDeviationTest", "d9/d2d/class_standard_deviation_test.html", "d9/d2d/class_standard_deviation_test" ],
     [ "SteeringModel", "d0/db0/class_steering_model.html", "d0/db0/class_steering_model" ],
     [ "SteeringMotorModel", "d1/d48/class_steering_motor_model.html", "d1/d48/class_steering_motor_model" ],
+    [ "Thevenin", "dd/dbf/class_thevenin.html", "dd/dbf/class_thevenin" ],
+    [ "TireInput", "d6/da5/struct_tire_input.html", "d6/da5/struct_tire_input" ],
     [ "TireModel", "d2/dc2/class_tire_model.html", "d2/dc2/class_tire_model" ],
-    [ "Track", "db/df3/struct_track.html", "db/df3/struct_track" ],
+    [ "Track", "d6/d2c/class_track.html", "d6/d2c/class_track" ],
     [ "TrajectoryCalculator", "d3/d86/class_trajectory_calculator.html", "d3/d86/class_trajectory_calculator" ],
+    [ "TransmissionModel", "dc/d7c/class_transmission_model.html", "dc/d7c/class_transmission_model" ],
     [ "TrimmingParameters", "d8/d2c/struct_trimming_parameters.html", "d8/d2c/struct_trimming_parameters" ],
     [ "TripleComparator", "dd/da8/struct_triple_comparator.html", "dd/da8/struct_triple_comparator" ],
     [ "TripleSpline", "d1/d77/struct_triple_spline.html", "d1/d77/struct_triple_spline" ],
     [ "V2PMotionModel", "d0/d20/class_v2_p_motion_model.html", "d0/d20/class_v2_p_motion_model" ],
+    [ "VDLoadTransferModel", "dc/d38/class_v_d_load_transfer_model.html", "dc/d38/class_v_d_load_transfer_model" ],
     [ "VehicleAdapter", "d1/df1/class_vehicle_adapter.html", "d1/df1/class_vehicle_adapter" ],
     [ "VehicleModel", "d6/dbc/class_vehicle_model.html", "d6/dbc/class_vehicle_model" ],
     [ "VehicleModelBicycle", "dd/d52/class_vehicle_model_bicycle.html", "dd/d52/class_vehicle_model_bicycle" ],
+    [ "VehicleModelExecutionTimes", "d6/dba/struct_vehicle_model_execution_times.html", "d6/dba/struct_vehicle_model_execution_times" ],
+    [ "VehicleModelSnapshot", "d9/de2/struct_vehicle_model_snapshot.html", "d9/de2/struct_vehicle_model_snapshot" ],
     [ "VehicleModelTest", "d9/d4d/class_vehicle_model_test.html", "d9/d4d/class_vehicle_model_test" ],
+    [ "VehicleState", "de/dfe/struct_vehicle_state.html", "de/dfe/struct_vehicle_state" ],
+    [ "VehicleStateSnapshot", "d8/dfe/struct_vehicle_state_snapshot.html", "d8/dfe/struct_vehicle_state_snapshot" ],
     [ "VelocitiesIntegratorTrait", "d2/dee/class_velocities_integrator_trait.html", "d2/dee/class_velocities_integrator_trait" ],
     [ "VelocityEstimator", "d9/d08/class_velocity_estimator.html", "d9/d08/class_velocity_estimator" ],
     [ "VelocityPlanning", "d3/dcc/class_velocity_planning.html", "d3/dcc/class_velocity_planning" ],
@@ -351,6 +381,7 @@ var annotated_dup =
     [ "VENode", "d3/d43/class_v_e_node.html", "d3/d43/class_v_e_node" ],
     [ "VEObservationModel", "d3/d28/class_v_e_observation_model.html", "d3/d28/class_v_e_observation_model" ],
     [ "VEParameters", "d5/db7/struct_v_e_parameters.html", "d5/db7/struct_v_e_parameters" ],
+    [ "ViscousDifferential", "d4/d46/class_viscous_differential.html", "d4/d46/class_viscous_differential" ],
     [ "WallRemoval", "d8/d0d/class_wall_removal.html", "d8/d0d/class_wall_removal" ],
     [ "Wheels", "de/d84/struct_wheels.html", "de/d84/struct_wheels" ],
     [ "WheelsSensor", "dc/df1/class_wheels_sensor.html", "dc/df1/class_wheels_sensor" ],

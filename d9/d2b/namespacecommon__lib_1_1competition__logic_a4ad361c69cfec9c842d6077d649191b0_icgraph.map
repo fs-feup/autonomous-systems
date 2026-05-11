@@ -1,0 +1,18 @@
+<map id="common_lib::competition_logic::get_mission_from_string" name="common_lib::competition_logic::get_mission_from_string">
+<area shape="rect" id="Node000001" title=" " alt="" coords="611,73,776,129"/>
+<area shape="rect" id="Node000002" href="$df/d77/class_invicta_sim.html#aa24e706c5b016451ee10391cad11b7ac" title="Build vehicle state snapshot with latest needed information for other subsystems." alt="" coords="399,25,563,65"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="596,78,560,68,562,63,597,73"/>
+<area shape="rect" id="Node000005" href="$de/d07/class_perception.html#a386ba1a3deb02d41931aeef1c52645f5" title="Turns the parameters in the yaml file into PerceptionParameters class." alt="" coords="404,116,558,142"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="596,116,559,121,559,116,596,111"/>
+<area shape="rect" id="Node000003" href="$df/d77/class_invicta_sim.html#ac4656d63897bde576877d869b1e70ab8" title="Execute a simulation step." alt="" coords="166,5,346,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="384,36,346,32,347,26,384,31"/>
+<area shape="rect" id="Node000004" href="$df/d77/class_invicta_sim.html#a8109637af5f8ef34e5cdbe9b85d5b2b6" title="Start the simulation loop." alt="" coords="5,5,113,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="150,21,113,21,113,16,150,16"/>
+<area shape="rect" id="Node000006" href="$dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aa18ac7a345a445145c329fadb7da9746" title=" " alt="" coords="161,79,351,120"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="389,120,351,115,352,109,389,114"/>
+<area shape="rect" id="Node000007" href="$d9/dc1/perception_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="231,144,281,170"/>
+<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="389,143,281,157,280,151,389,138"/>
+<area shape="rect" id="Node000008" href="$de/de3/class_perception_integration_test.html#a2696d6998332fde00560c384debaf7b2" title=" " alt="" coords="171,194,341,235"/>
+<area shape="poly" id="edge8_Node000005_Node000008" title=" " alt="" coords="436,151,352,185,321,196,320,191,350,180,434,146"/>
+<area shape="poly" id="edge6_Node000006_Node000006" title=" " alt="" coords="288,66,276,60,256,58,237,60,226,64,222,70,224,78,218,79,217,69,223,60,236,55,256,53,277,55,290,61"/>
+</map>

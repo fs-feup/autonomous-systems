@@ -1,0 +1,7 @@
+<map id="RosInputAdapter" name="RosInputAdapter">
+<area shape="rect" id="Node000001" title="ROS&#45;based simulator input adapter." alt="" coords="45,239,206,344"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,65,91,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="69,143,107,238,102,240,64,145"/>
+<area shape="rect" id="Node000003" href="$d0/d4b/class_invicta_sim_input_adapter.html" title="Base interface for simulator input adapters." alt="" coords="115,5,290,191"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="163,205,149,240,144,238,158,203"/>
+</map>

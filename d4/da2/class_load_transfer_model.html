@@ -108,9 +108,11 @@ Inheritance diagram for LoadTransferModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/df5/class_load_transfer_model__inherit__graph.png" border="0" usemap="#a_load_transfer_model_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_load_transfer_model_inherit__map" id="a_load_transfer_model_inherit__map">
-<area shape="rect" title="Base class for models that compute load transfer on a vehicle." alt="" coords="34,5,178,91"/>
-<area shape="rect" href="../../d1/dde/class_rigid_body_load_transfer_model.html" title=" " alt="" coords="5,139,207,224"/>
-<area shape="poly" title=" " alt="" coords="109,106,109,139,103,139,103,106"/>
+<area shape="rect" title="Base class for models that compute load transfer on a vehicle." alt="" coords="137,5,281,91"/>
+<area shape="rect" href="../../d1/dde/class_rigid_body_load_transfer_model.html" title=" " alt="" coords="5,191,207,276"/>
+<area shape="poly" title=" " alt="" coords="180,105,131,192,127,190,176,102"/>
+<area shape="rect" href="../../dc/d38/class_v_d_load_transfer_model.html" title=" " alt="" coords="231,139,392,328"/>
+<area shape="poly" title=" " alt="" coords="241,102,261,138,257,140,237,105"/>
 </map>
 </div>
 <div class="dynheader">
@@ -126,9 +128,9 @@ Collaboration diagram for LoadTransferModel:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad7f2c8814caeae39795c977bafae0b0d" id="r_ad7f2c8814caeae39795c977bafae0b0d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da2/class_load_transfer_model.html#ad7f2c8814caeae39795c977bafae0b0d">LoadTransferModel</a> (const <a class="el" href="../../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html">common_lib::car_parameters::CarParameters</a> &amp;car_parameters)</td></tr>
 <tr class="separator:ad7f2c8814caeae39795c977bafae0b0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a43b018a8ea0fc536890151c59b2b59" id="r_a8a43b018a8ea0fc536890151c59b2b59"><td class="memItemLeft" align="right" valign="top">virtual Eigen::Vector4d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da2/class_load_transfer_model.html#a8a43b018a8ea0fc536890151c59b2b59">compute_loads</a> (const Eigen::VectorXd &amp;dynamic_state) const =0</td></tr>
-<tr class="memdesc:a8a43b018a8ea0fc536890151c59b2b59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes loads on the tires based on the dynamic state of the vehicle.  <br /></td></tr>
-<tr class="separator:a8a43b018a8ea0fc536890151c59b2b59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07eba7316690a15b03fbacf7fcf49a79" id="r_a07eba7316690a15b03fbacf7fcf49a79"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html">common_lib::structures::Wheels</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da2/class_load_transfer_model.html#a07eba7316690a15b03fbacf7fcf49a79">compute_loads</a> (const <a class="el" href="../../d9/dda/struct_load_transfer_input.html">LoadTransferInput</a> &amp;input) const =0</td></tr>
+<tr class="memdesc:a07eba7316690a15b03fbacf7fcf49a79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes loads on the tires based on the dynamic state of the vehicle.  <br /></td></tr>
+<tr class="separator:a07eba7316690a15b03fbacf7fcf49a79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -138,7 +140,7 @@ Protected Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class for models that compute load transfer on a vehicle. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d84/base__load__transfer__model_8hpp_source.html#l00012">12</a> of file <a class="el" href="../../dd/d84/base__load__transfer__model_8hpp_source.html">base_load_transfer_model.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d84/base__load__transfer__model_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../dd/d84/base__load__transfer__model_8hpp_source.html">base_load_transfer_model.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad7f2c8814caeae39795c977bafae0b0d" name="ad7f2c8814caeae39795c977bafae0b0d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad7f2c8814caeae39795c977bafae0b0d">&#9670;&#160;</a></span>LoadTransferModel()</h2>
@@ -164,13 +166,13 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d84/base__load__transfer__model_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../dd/d84/base__load__transfer__model_8hpp_source.html">base_load_transfer_model.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d84/base__load__transfer__model_8hpp_source.html#l00039">39</a> of file <a class="el" href="../../dd/d84/base__load__transfer__model_8hpp_source.html">base_load_transfer_model.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8a43b018a8ea0fc536890151c59b2b59" name="a8a43b018a8ea0fc536890151c59b2b59"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a43b018a8ea0fc536890151c59b2b59">&#9670;&#160;</a></span>compute_loads()</h2>
+<a id="a07eba7316690a15b03fbacf7fcf49a79" name="a07eba7316690a15b03fbacf7fcf49a79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07eba7316690a15b03fbacf7fcf49a79">&#9670;&#160;</a></span>compute_loads()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -179,10 +181,10 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual Eigen::Vector4d LoadTransferModel::compute_loads </td>
+          <td class="memname">virtual <a class="el" href="../../d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html">common_lib::structures::Wheels</a> LoadTransferModel::compute_loads </td>
           <td>(</td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>dynamic_state</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dda/struct_load_transfer_input.html">LoadTransferInput</a> &amp;&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -196,13 +198,13 @@ Protected Attributes</h2></td></tr>
 <p>Computes loads on the tires based on the dynamic state of the vehicle. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dynamic_state</td><td>Contains the relevant dynamic state that affects the load transfer, can include accelerations, euler angles, velocities, etc. </td></tr>
+    <tr><td class="paramname">input</td><td>Contains the relevant dynamic state that affects the load transfer, can include accelerations, euler angles, velocities, etc. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Eigen::Vector4d a vector containing the loads on the four tires in Newtons, in the order: FL, FR, RL, RR. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../de/d84/struct_wheels.html">Wheels</a> a struct containing the loads on the four tires in Newtons </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d1/dde/class_rigid_body_load_transfer_model.html#a7d5a492abff7c6bc44287b1639af94d9">RigidBodyLoadTransferModel</a>.</p>
+<p>Implemented in <a class="el" href="../../d1/dde/class_rigid_body_load_transfer_model.html#a884de468656022c91f124467ab172b4b">RigidBodyLoadTransferModel</a>, and <a class="el" href="../../dc/d38/class_v_d_load_transfer_model.html#a791f64214c2cbb3407ab53befeca094e">VDLoadTransferModel</a>.</p>
 
 </div>
 </div>
@@ -227,7 +229,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d84/base__load__transfer__model_8hpp_source.html#l00014">14</a> of file <a class="el" href="../../dd/d84/base__load__transfer__model_8hpp_source.html">base_load_transfer_model.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d84/base__load__transfer__model_8hpp_source.html#l00036">36</a> of file <a class="el" href="../../dd/d84/base__load__transfer__model_8hpp_source.html">base_load_transfer_model.hpp</a>.</p>
 
 </div>
 </div>

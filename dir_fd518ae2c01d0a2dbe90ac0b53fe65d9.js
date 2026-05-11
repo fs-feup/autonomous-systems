@@ -1,6 +1,5 @@
 var dir_fd518ae2c01d0a2dbe90ac0b53fe65d9 =
 [
-    [ "car_model", "dir_88143734df3dad317b8be6b24459d403.html", "dir_88143734df3dad317b8be6b24459d403" ],
     [ "car_parameters", "dir_a943aaaecbd24ed4dcdebb8829dd6ce6.html", "dir_a943aaaecbd24ed4dcdebb8829dd6ce6" ],
     [ "communication", "dir_84f51b7bc8c0a2c3c8ebdad5c1f0669f.html", "dir_84f51b7bc8c0a2c3c8ebdad5c1f0669f" ],
     [ "competition_logic", "dir_81cb2243735e41a642044d6198bb6867.html", "dir_81cb2243735e41a642044d6198bb6867" ],

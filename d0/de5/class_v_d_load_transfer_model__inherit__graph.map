@@ -1,0 +1,5 @@
+<map id="VDLoadTransferModel" name="VDLoadTransferModel">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,139,167,328"/>
+<area shape="rect" id="Node000002" href="$d4/da2/class_load_transfer_model.html" title="Base class for models that compute load transfer on a vehicle." alt="" coords="14,5,158,91"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,105,89,139,83,139,83,105"/>
+</map>

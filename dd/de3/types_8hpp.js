@@ -2,7 +2,7 @@ var types_8hpp =
 [
     [ "Landmark", "d7/d13/struct_landmark.html", "d7/d13/struct_landmark" ],
     [ "Map", "df/d91/struct_map.html", "df/d91/struct_map" ],
-    [ "Track", "db/df3/struct_track.html", "db/df3/struct_track" ],
+    [ "Track", "d6/d2c/class_track.html", "d6/d2c/class_track" ],
     [ "LandmarkList", "d9/d09/struct_landmark_list.html", "d9/d09/struct_landmark_list" ],
     [ "Pose", "d8/d11/struct_pose.html", "d8/d11/struct_pose" ],
     [ "Wheels", "de/d84/struct_wheels.html", "de/d84/struct_wheels" ],

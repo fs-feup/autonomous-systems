@@ -1,0 +1,17 @@
+<map id="KeyboardInputAdapter::run" name="KeyboardInputAdapter::run">
+<area shape="rect" id="Node000001" title="Start reading keyboard input." alt="" coords="5,78,179,104"/>
+<area shape="rect" id="Node000002" href="$d7/dce/class_keyboard_input_adapter.html#af651523ff8fa4b0ac0155da657f15025" title=" " alt="" coords="227,5,376,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="135,75,219,49,220,54,136,80"/>
+<area shape="rect" id="Node000003" href="$d7/dce/class_keyboard_input_adapter.html#a3bc25f3c51460beecc5c1df185a8fc0d" title="Main SDL polling loop." alt="" coords="227,71,376,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="179,88,212,88,212,94,179,94"/>
+<area shape="rect" id="Node000007" href="$d7/dce/class_keyboard_input_adapter.html#af253f3bc577a43c2079ea5edbd012d86" title="Close SDL resources before exit." alt="" coords="227,136,376,177"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="136,102,220,128,219,133,135,107"/>
+<area shape="rect" id="Node000004" href="$d7/dce/class_keyboard_input_adapter.html#a9c1e71db0addc2a3f8aac1795a5536aa" title=" " alt="" coords="424,5,573,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="364,68,419,49,421,54,366,73"/>
+<area shape="rect" id="Node000005" href="$d7/dce/class_keyboard_input_adapter.html#a98c58f3165d9cb54f6a538c51996482e" title=" " alt="" coords="424,71,573,111"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="376,88,409,88,409,94,376,94"/>
+<area shape="rect" id="Node000006" href="$d7/dce/class_keyboard_input_adapter.html#aeac0ceb8de5bfe23698ff809f6bdf454" title=" " alt="" coords="621,71,771,111"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="574,88,606,88,606,94,574,94"/>
+<area shape="rect" id="Node000008" href="$d7/dce/class_keyboard_input_adapter.html#aa210b2b978951829fa8bf3a24a700545" title=" " alt="" coords="424,136,573,177"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="376,154,409,154,409,159,376,159"/>
+</map>

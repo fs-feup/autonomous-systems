@@ -99,16 +99,29 @@ $(document).ready(function(){initNavTree('d3/dcc/invictasim_2test_2test_8cpp_sou
   <div class="headertitle"><div class="title">test.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="../../d3/dcc/invictasim_2test_2test_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;gtest/gtest.h&quot;</span></div>
+<a href="../../d3/dcc/invictasim_2test_2test_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="foldopen" id="foldopen00006" data-start="{" data-end="}">
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="../../d3/dcc/invictasim_2test_2test_8cpp.html#a3a60b80247d261b33b83cdff0d0da075">    6</a></span><a class="code hl_function" href="../../d3/dcc/invictasim_2test_2test_8cpp.html#a3a60b80247d261b33b83cdff0d0da075">TEST</a>(<a class="code hl_namespace" href="../../dd/d91/namespaceinvictasim.html">invictasim</a>, example_test) {</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>  <span class="comment">// Just to see if tests are running</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>  EXPECT_EQ(1, 1);</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>}</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;gtest/gtest.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="../../dc/dbb/_f_s_f_e_u_p02_8hpp.html">vehicle_model/FSFEUP02.hpp</a>&quot;</span></div>
+<div class="foldopen" id="foldopen00008" data-start="{" data-end="}">
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="../../d3/dcc/invictasim_2test_2test_8cpp.html#a3a60b80247d261b33b83cdff0d0da075">    8</a></span><a class="code hl_function" href="../../d3/dcc/invictasim_2test_2test_8cpp.html#a3a60b80247d261b33b83cdff0d0da075">TEST</a>(invictasim, example_test) {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>  <span class="comment">// Just to see if tests are running</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>  EXPECT_EQ(1, 1);</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>}</div>
 </div>
-<div class="ttc" id="ainvictasim_2test_2test_8cpp_html_a3a60b80247d261b33b83cdff0d0da075"><div class="ttname"><a href="../../d3/dcc/invictasim_2test_2test_8cpp.html#a3a60b80247d261b33b83cdff0d0da075">TEST</a></div><div class="ttdeci">TEST(invictasim, example_test)</div><div class="ttdoc">Example test.</div><div class="ttdef"><b>Definition</b> <a href="../../d3/dcc/invictasim_2test_2test_8cpp_source.html#l00006">test.cpp:6</a></div></div>
-<div class="ttc" id="anamespaceinvictasim_html"><div class="ttname"><a href="../../dd/d91/namespaceinvictasim.html">invictasim</a></div><div class="ttdef"><b>Definition</b> <a href="../../dd/d98/config__loader_8hpp_source.html#l00007">config_loader.hpp:7</a></div></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="foldopen" id="foldopen00013" data-start="{" data-end="}">
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="../../d3/dcc/invictasim_2test_2test_8cpp.html#a73640cb26ae62565c17b9802d00e601f">   13</a></span><a class="code hl_function" href="../../d3/dcc/invictasim_2test_2test_8cpp.html#a3a60b80247d261b33b83cdff0d0da075">TEST</a>(FSFEUP02Model_, initializeVehicleModel) {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>  <a class="code hl_struct" href="../../df/d28/struct_invicta_sim_parameters.html">InvictaSimParameters</a> params = <a class="code hl_struct" href="../../df/d28/struct_invicta_sim_parameters.html">InvictaSimParameters</a>();</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>  <a class="code hl_class" href="../../df/d75/class_f_s_f_e_u_p02_model.html">FSFEUP02Model</a> vehicle(params);</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>  EXPECT_EQ(vehicle.<a class="code hl_function" href="../../df/d75/class_f_s_f_e_u_p02_model.html#a1fe4595876d32d84f72467f45c23caa4">get_model_name</a>(), <span class="stringliteral">&quot;FSFEUP02Model&quot;</span>);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
+</div>
+<div class="ttc" id="a_f_s_f_e_u_p02_8hpp_html"><div class="ttname"><a href="../../dc/dbb/_f_s_f_e_u_p02_8hpp.html">FSFEUP02.hpp</a></div></div>
+<div class="ttc" id="aclass_f_s_f_e_u_p02_model_html"><div class="ttname"><a href="../../df/d75/class_f_s_f_e_u_p02_model.html">FSFEUP02Model</a></div><div class="ttdoc">Four wheel vehicle model (tuned for FSFEUP02)</div><div class="ttdef"><b>Definition</b> <a href="../../dc/dbb/_f_s_f_e_u_p02_8hpp_source.html#l00018">FSFEUP02.hpp:18</a></div></div>
+<div class="ttc" id="aclass_f_s_f_e_u_p02_model_html_a1fe4595876d32d84f72467f45c23caa4"><div class="ttname"><a href="../../df/d75/class_f_s_f_e_u_p02_model.html#a1fe4595876d32d84f72467f45c23caa4">FSFEUP02Model::get_model_name</a></div><div class="ttdeci">std::string get_model_name() const override</div><div class="ttdoc">Get the model name.</div><div class="ttdef"><b>Definition</b> <a href="../../d3/d2b/_f_s_f_e_u_p02_8cpp_source.html#l00318">FSFEUP02.cpp:318</a></div></div>
+<div class="ttc" id="ainvictasim_2test_2test_8cpp_html_a3a60b80247d261b33b83cdff0d0da075"><div class="ttname"><a href="../../d3/dcc/invictasim_2test_2test_8cpp.html#a3a60b80247d261b33b83cdff0d0da075">TEST</a></div><div class="ttdeci">TEST(invictasim, example_test)</div><div class="ttdoc">Example test.</div><div class="ttdef"><b>Definition</b> <a href="../../d3/dcc/invictasim_2test_2test_8cpp_source.html#l00008">test.cpp:8</a></div></div>
+<div class="ttc" id="astruct_invicta_sim_parameters_html"><div class="ttname"><a href="../../df/d28/struct_invicta_sim_parameters.html">InvictaSimParameters</a></div><div class="ttdef"><b>Definition</b> <a href="../../d8/dfd/config_8hpp_source.html#l00009">config.hpp:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

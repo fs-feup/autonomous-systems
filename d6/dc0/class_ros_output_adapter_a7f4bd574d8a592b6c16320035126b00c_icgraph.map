@@ -1,0 +1,17 @@
+<map id="RosOutputAdapter::convert_cone_array_to_markers" name="RosOutputAdapter::convert_cone_array_to_markers">
+<area shape="rect" id="Node000001" title=" " alt="" coords="920,71,1097,111"/>
+<area shape="rect" id="Node000002" href="$d6/dc0/class_ros_output_adapter.html#a3b114e2c9ed0de6087e68a04a02d7f22" title=" " alt="" coords="680,5,855,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="916,69,845,49,846,44,917,64"/>
+<area shape="rect" id="Node000006" href="$d6/dc0/class_ros_output_adapter.html#a23e725f5558b0ec37b09cc76f236a528" title=" " alt="" coords="663,71,872,111"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="904,94,872,94,872,88,904,88"/>
+<area shape="rect" id="Node000007" href="$d6/dc0/class_ros_output_adapter.html#a2a28b606651e04aba318973734d721bb" title=" " alt="" coords="679,136,856,177"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="917,118,846,138,845,133,916,113"/>
+<area shape="rect" id="Node000003" href="$d6/dc0/class_ros_output_adapter.html#af5c8880e354607d78f4dcc291affddf3" title=" " alt="" coords="456,71,615,111"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="679,53,611,73,610,67,678,48"/>
+<area shape="rect" id="Node000004" href="$d6/dc0/class_ros_output_adapter.html#ae0731f4371f82f41a127242dfd4316e3" title=" " alt="" coords="250,71,408,111"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="440,94,409,94,409,88,440,88"/>
+<area shape="rect" id="Node000005" href="$d6/dc0/class_ros_output_adapter.html#a395da5a7032d98f5eeabfcc4e1c5ca94" title="Construct a new RosOutputAdapter." alt="" coords="5,71,202,111"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="234,94,202,94,202,88,234,88"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="648,94,616,94,616,88,648,88"/>
+<area shape="poly" id="edge8_Node000007_Node000003" title=" " alt="" coords="678,134,610,115,611,109,679,129"/>
+</map>

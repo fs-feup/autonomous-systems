@@ -1,17 +1,9 @@
 <map id="ControlNode" name="ControlNode">
-<area shape="rect" id="Node000001" title="Class responsible for the ROS2 communication of the control module." alt="" coords="179,1064,343,1389"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="197,783,283,849"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="245,864,256,1064,250,1064,240,864"/>
-<area shape="rect" id="Node000003" href="$d4/de1/struct_control_parameters.html" title=" " alt="" coords="307,631,493,1001"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="340,1001,324,1048,319,1047,335,999"/>
-<area shape="rect" id="Node000004" href="$dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html" title=" " alt="" coords="311,288,489,568"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="403,568,403,615,397,615,397,568"/>
-<area shape="rect" id="Node000005" href="$dd/d7d/structcommon__lib_1_1car__parameters_1_1_tire_parameters.html" title=" " alt="" coords="5,5,184,225"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="186,211,198,223,301,327,297,330,194,227,182,215"/>
-<area shape="rect" id="Node000006" href="$d5/d5a/structcommon__lib_1_1car__parameters_1_1_aero_parameters.html" title=" " alt="" coords="209,35,389,195"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="327,194,352,272,347,273,322,196"/>
-<area shape="rect" id="Node000007" href="$d2/d2e/structcommon__lib_1_1car__parameters_1_1_steering_motor_parameters.html" title=" " alt="" coords="413,55,592,175"/>
-<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="489,176,461,265,458,273,453,272,456,264,484,174"/>
-<area shape="rect" id="Node000008" href="$d9/d6f/structcommon__lib_1_1car__parameters_1_1_steering_parameters.html" title=" " alt="" coords="616,65,795,165"/>
-<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="692,166,670,217,638,266,608,298,574,326,505,375,502,370,571,322,604,294,634,263,666,214,688,164"/>
+<area shape="rect" id="Node000001" title="Class responsible for the ROS2 communication of the control module." alt="" coords="17,801,181,1126"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,520,91,586"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="56,600,81,801,76,801,51,601"/>
+<area shape="rect" id="Node000003" href="$d4/de1/struct_control_parameters.html" title=" " alt="" coords="115,368,301,738"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="162,738,149,785,144,783,156,737"/>
+<area shape="rect" id="Node000004" href="$dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html" title=" " alt="" coords="119,5,297,305"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="211,305,211,352,205,352,205,305"/>
 </map>

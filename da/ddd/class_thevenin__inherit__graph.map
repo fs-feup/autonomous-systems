@@ -1,0 +1,5 @@
+<map id="Thevenin" name="Thevenin">
+<area shape="rect" id="Node000001" title="Equivalent circuit model of a battery." alt="" coords="5,279,187,644"/>
+<area shape="rect" id="Node000002" href="$db/dc2/class_battery_model.html" title="Base class for battery models." alt="" coords="5,5,187,231"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,246,99,279,93,279,93,246"/>
+</map>

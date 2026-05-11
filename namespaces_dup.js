@@ -60,7 +60,23 @@ var namespaces_dup =
       [ "upload_csv_to_bucket", "d8/dc7/namespacebucket__operations.html#aa899ad61fdb53bd44dd8c1bf7e94cc28", null ]
     ] ],
     [ "car_keys", "d1/d0f/namespacecar__keys.html", "d1/d0f/namespacecar__keys" ],
+    [ "colour_track_cones", "d1/d88/namespacecolour__track__cones.html", "d1/d88/namespacecolour__track__cones" ],
     [ "common_lib", "dd/d5f/namespacecommon__lib.html", "dd/d5f/namespacecommon__lib" ],
+    [ "control_command_bridge_node", "dd/d82/namespacecontrol__command__bridge__node.html", [
+      [ "_build_control_from_legacy", "dd/d82/namespacecontrol__command__bridge__node.html#a89a4343caf131a79e39868140adc443e", null ],
+      [ "_deserialize_control_message", "dd/d82/namespacecontrol__command__bridge__node.html#a7e6ad1a2373b6bc76210ad329961f443", null ],
+      [ "convert_bag", "dd/d82/namespacecontrol__command__bridge__node.html#a29e9e805b5f28770e6c4b8a54f9d4fc9", null ],
+      [ "main", "dd/d82/namespacecontrol__command__bridge__node.html#a28796809e07a889c6c149a15569599c7", null ],
+      [ "parse_args", "dd/d82/namespacecontrol__command__bridge__node.html#acbd7206b86dda9180d0b47958ef70ecc", null ],
+      [ "DEFAULT_INPUT_BAG", "dd/d82/namespacecontrol__command__bridge__node.html#a263d9946b05c47bbc64fea51ddd90e2d", null ],
+      [ "DEFAULT_INPUT_STORAGE_ID", "dd/d82/namespacecontrol__command__bridge__node.html#a3c52a40395d235b00acd40eff0559952", null ],
+      [ "DEFAULT_INPUT_TOPIC", "dd/d82/namespacecontrol__command__bridge__node.html#abce3458ef6fa84c04ddf6a0d2c277b58", null ],
+      [ "DEFAULT_OUTPUT_BAG", "dd/d82/namespacecontrol__command__bridge__node.html#a1c4b26379a1c355f97783b269a693168", null ],
+      [ "DEFAULT_OUTPUT_STORAGE_ID", "dd/d82/namespacecontrol__command__bridge__node.html#a5da94f39c48a439c562fdc878da8e13c", null ],
+      [ "DEFAULT_OUTPUT_TOPIC", "dd/d82/namespacecontrol__command__bridge__node.html#ad7d92e09f9c2a785aa534f4e7c2ac9d9", null ],
+      [ "LEGACY_INPUT_TYPE", "dd/d82/namespacecontrol__command__bridge__node.html#a6828231844c9b32a7929fd0fa7093754", null ],
+      [ "OUTPUT_TYPE", "dd/d82/namespacecontrol__command__bridge__node.html#a7b246fdc4d8d3f9b6283f1d0e21251dd", null ]
+    ] ],
     [ "convert_fssim_sdf_to_yaml", "da/d44/namespaceconvert__fssim__sdf__to__yaml.html", "da/d44/namespaceconvert__fssim__sdf__to__yaml" ],
     [ "dashboard", "df/d91/namespacedashboard.html", [
       [ "cleanup_temp_folder", "df/d91/namespacedashboard.html#a1e6e5d5c2c545f230e2a03ff914b2720", null ],
@@ -88,9 +104,6 @@ var namespaces_dup =
     [ "drawView", "d2/dfb/namespacedraw_view.html", "d2/dfb/namespacedraw_view" ],
     [ "evaluator", "db/d6f/namespaceevaluator.html", "db/d6f/namespaceevaluator" ],
     [ "guiLogic", "db/d15/namespacegui_logic.html", "db/d15/namespacegui_logic" ],
-    [ "invictasim", "dd/d91/namespaceinvictasim.html", [
-      [ "load_config", "dd/d91/namespaceinvictasim.html#afcb93f3491e15b3cd3b1ffa65a954bba", null ]
-    ] ],
     [ "LidarPoint", "dc/d9c/namespace_lidar_point.html", [
       [ "PointIntensity", "dc/d9c/namespace_lidar_point.html#a8edce3288bc1c20a132f287330d99cf9", null ],
       [ "PointRing", "dc/d9c/namespace_lidar_point.html#aeafcf936beaf572e949b0c4bdc0e2087", null ],
@@ -107,6 +120,7 @@ var namespaces_dup =
       [ "POINT_STEP", "dc/d9c/namespace_lidar_point.html#a224c9c7b9f7fbaa4f6437f104efb564f", null ]
     ] ],
     [ "main", "d2/dc1/namespacemain.html", "d2/dc1/namespacemain" ],
+    [ "manual_to_as", "df/d76/namespacemanual__to__as.html", "df/d76/namespacemanual__to__as" ],
     [ "mapFile", "d6/dff/namespacemap_file.html", "d6/dff/namespacemap_file" ],
     [ "offsettrack", "dd/d6b/namespaceoffsettrack.html", [
       [ "c", "dd/d6b/namespaceoffsettrack.html#a69901488f64f2102f31272f623559e12", null ],

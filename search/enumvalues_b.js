@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['skidpad_0',['skidpad',['../dd/de3/types_8hpp.html#a602139322e3c68f68d494fc57800b110a6bc0810ff00cd4a385271784ee4c46eb',1,'SKIDPAD:&#160;types.hpp'],['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140abaf272b06d68165527e91888c294dd52',1,'common_lib::competition_logic::SKIDPAD']]]
+  ['red_0',['RED',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a36deec2ca2854e7543cc4d5caab92febaa2d9547b5d3dd9f05984475f7c926da0',1,'common_lib::competition_logic']]],
+  ['right_1',['right',['../d9/d8a/namespacecommon__lib_1_1structures.html#a215a4ec12608ced25978cf0e507d24e4a21507b40c80068eda19865706fdc2403',1,'common_lib::structures::RIGHT'],['../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186a21507b40c80068eda19865706fdc2403',1,'RIGHT:&#160;right_left_enum.hpp']]],
+  ['rl_2',['RL',['../d0/d42/base__tire__model_8hpp.html#a5d4d9f3cdf4eb79ef0fce0101c0987e8a82a0bbc419483ee9d455be67e89ef7a4',1,'base_tire_model.hpp']]],
+  ['rr_3',['RR',['../d0/d42/base__tire__model_8hpp.html#a5d4d9f3cdf4eb79ef0fce0101c0987e8aea4586c054afe1678864fa75dfb1787d',1,'base_tire_model.hpp']]]
 ];

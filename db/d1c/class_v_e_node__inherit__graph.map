@@ -1,9 +1,11 @@
 <map id="VENode" name="VENode">
-<area shape="rect" id="Node000001" title="Node class for the velocity estimation node." alt="" coords="147,119,289,244"/>
-<area shape="rect" id="Node000003" href="$d1/dcb/class_pacsim_adapter.html" title="Adapter class to interface with the Pacsim simulator for SLAM." alt="" coords="5,292,204,920"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="200,259,191,293,186,292,195,257"/>
-<area shape="rect" id="Node000004" href="$d1/df1/class_vehicle_adapter.html" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="229,307,437,905"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="241,257,254,306,249,307,236,259"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="175,5,261,71"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="221,86,221,119,215,119,215,86"/>
+<area shape="rect" id="Node000001" title="Node class for the velocity estimation node." alt="" coords="252,119,423,304"/>
+<area shape="rect" id="Node000003" href="$d6/d6c/class_invicta_sim_adapter.html" title="Adapter class to interface with the InvictaSim simulator for SLAM." alt="" coords="5,379,213,953"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="251,317,228,353,213,380,209,377,223,351,246,314"/>
+<area shape="rect" id="Node000004" href="$d1/dcb/class_pacsim_adapter.html" title="Adapter class to interface with the Pacsim simulator for SLAM." alt="" coords="238,352,437,980"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="340,319,340,352,335,352,335,319"/>
+<area shape="rect" id="Node000005" href="$d1/df1/class_vehicle_adapter.html" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="461,367,669,965"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="428,314,452,351,464,373,459,376,447,353,424,317"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="295,5,380,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="340,86,340,119,335,119,335,86"/>
 </map>

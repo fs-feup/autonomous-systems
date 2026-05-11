@@ -1,0 +1,5 @@
+<map id="MapBasedMotor" name="MapBasedMotor">
+<area shape="rect" id="Node000001" title="Map based motor model for electric powertrain." alt="" coords="5,279,176,584"/>
+<area shape="rect" id="Node000002" href="$d3/d0e/class_motor_model.html" title="Base class for motor models for electric powertrain." alt="" coords="5,5,176,231"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,246,93,279,88,279,88,246"/>
+</map>

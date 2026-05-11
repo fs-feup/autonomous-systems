@@ -105,29 +105,35 @@ $(document).ready(function(){initNavTree('d0/d1e/motion__lib_2include_2motion__l
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="../../d6/d15/pid__steering__motor_8hpp.html">motion_lib/steering_motor_model/pid_steering_motor.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * Map of steering motor models, with the key being the name of the steering motor model and the</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> * value being a lambda function that returns a shared pointer to the corresponding steering motor</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> * model</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">const</span> std::map&lt;std::string,</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>               std::function&lt;std::shared_ptr&lt;SteeringMotorModel&gt;(</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>                   <span class="keyword">const</span> <a class="code hl_struct" href="../../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html">common_lib::car_parameters::CarParameters</a>&amp;)&gt;,</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>               std::less&lt;&gt;&gt;</div>
-<div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="../../d0/d1e/motion__lib_2include_2motion__lib_2steering__motor__model_2map_8hpp.html#aa2d7bd6546e3670338071ae43bca9ff2">   18</a></span>    <a class="code hl_variable" href="../../d0/d1e/motion__lib_2include_2motion__lib_2steering__motor__model_2map_8hpp.html#aa2d7bd6546e3670338071ae43bca9ff2">steering_motor_models_map</a> = {</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        {<span class="stringliteral">&quot;pid&quot;</span>,</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>         [](<span class="keyword">const</span> <a class="code hl_struct" href="../../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html">common_lib::car_parameters::CarParameters</a>&amp; params)</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>             -&gt; std::shared_ptr&lt;SteeringMotorModel&gt; {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>           <span class="keywordflow">return</span> std::make_shared&lt;PIDSteeringMotor&gt;(params);</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>         }},</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>};</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="../../dd/d1a/first__order__model_8hpp.html">motion_lib/steering_motor_model/first_order_model.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="../../d6/d15/pid__steering__motor_8hpp.html">motion_lib/steering_motor_model/pid_steering_motor.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> * Map of steering motor models, with the key being the name of the steering motor model and the</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> * value being a lambda function that returns a shared pointer to the corresponding steering motor</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> * model</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">const</span> std::map&lt;std::string,</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>               std::function&lt;std::shared_ptr&lt;SteeringMotorModel&gt;(</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>                   <span class="keyword">const</span> std::shared_ptr&lt;common_lib::car_parameters::CarParameters&gt;)&gt;,</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>               std::less&lt;&gt;&gt;</div>
+<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="../../d0/d1e/motion__lib_2include_2motion__lib_2steering__motor__model_2map_8hpp.html#a7609975280141b98d36e540b2d660cd7">   19</a></span>    <a class="code hl_variable" href="../../d0/d1e/motion__lib_2include_2motion__lib_2steering__motor__model_2map_8hpp.html#a7609975280141b98d36e540b2d660cd7">steering_motor_models_map</a> = {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        {<span class="stringliteral">&quot;pid&quot;</span>,</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>         [](<span class="keyword">const</span> std::shared_ptr&lt;common_lib::car_parameters::CarParameters&gt; params)</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>             -&gt; std::shared_ptr&lt;SteeringMotorModel&gt; {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>           <span class="keywordflow">return</span> std::make_shared&lt;PIDSteeringMotor&gt;(*params);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>         }},</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        {<span class="stringliteral">&quot;first_order&quot;</span>,</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>         [](<span class="keyword">const</span> std::shared_ptr&lt;common_lib::car_parameters::CarParameters&gt; params)</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>             -&gt; std::shared_ptr&lt;SteeringMotorModel&gt; {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>           <span class="keywordflow">return</span> std::make_shared&lt;FirstOrderSteeringMotor&gt;(*params);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>         }},</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>};</div>
 </div>
-<div class="ttc" id="amotion__lib_2include_2motion__lib_2steering__motor__model_2map_8hpp_html_aa2d7bd6546e3670338071ae43bca9ff2"><div class="ttname"><a href="../../d0/d1e/motion__lib_2include_2motion__lib_2steering__motor__model_2map_8hpp.html#aa2d7bd6546e3670338071ae43bca9ff2">steering_motor_models_map</a></div><div class="ttdeci">const std::map&lt; std::string, std::function&lt; std::shared_ptr&lt; SteeringMotorModel &gt;(const common_lib::car_parameters::CarParameters &amp;)&gt;, std::less&lt;&gt; &gt; steering_motor_models_map</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d1e/motion__lib_2include_2motion__lib_2steering__motor__model_2map_8hpp_source.html#l00018">map.hpp:18</a></div></div>
+<div class="ttc" id="afirst__order__model_8hpp_html"><div class="ttname"><a href="../../dd/d1a/first__order__model_8hpp.html">first_order_model.hpp</a></div></div>
+<div class="ttc" id="amotion__lib_2include_2motion__lib_2steering__motor__model_2map_8hpp_html_a7609975280141b98d36e540b2d660cd7"><div class="ttname"><a href="../../d0/d1e/motion__lib_2include_2motion__lib_2steering__motor__model_2map_8hpp.html#a7609975280141b98d36e540b2d660cd7">steering_motor_models_map</a></div><div class="ttdeci">const std::map&lt; std::string, std::function&lt; std::shared_ptr&lt; SteeringMotorModel &gt;(const std::shared_ptr&lt; common_lib::car_parameters::CarParameters &gt;)&gt;, std::less&lt;&gt; &gt; steering_motor_models_map</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d1e/motion__lib_2include_2motion__lib_2steering__motor__model_2map_8hpp_source.html#l00019">map.hpp:19</a></div></div>
 <div class="ttc" id="apid__steering__motor_8hpp_html"><div class="ttname"><a href="../../d6/d15/pid__steering__motor_8hpp.html">pid_steering_motor.hpp</a></div></div>
-<div class="ttc" id="astructcommon__lib_1_1car__parameters_1_1_car_parameters_html"><div class="ttname"><a href="../../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html">common_lib::car_parameters::CarParameters</a></div><div class="ttdef"><b>Definition</b> <a href="../../da/de9/common__lib_2include_2common__lib_2car__parameters_2car__parameters_8hpp_source.html#l00015">car_parameters.hpp:15</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

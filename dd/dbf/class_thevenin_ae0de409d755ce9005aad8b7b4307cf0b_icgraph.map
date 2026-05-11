@@ -1,0 +1,25 @@
+<map id="Thevenin::solve_polinomial5" name="Thevenin::solve_polinomial5">
+<area shape="rect" id="Node000001" title=" " alt="" coords="410,80,593,106"/>
+<area shape="rect" id="Node000002" href="$dd/dbf/class_thevenin.html#a993508379be085cf27213a8df6e32009" title=" " alt="" coords="212,5,359,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="450,77,361,45,329,34,331,29,363,40,452,72"/>
+<area shape="rect" id="Node000004" href="$dd/dbf/class_thevenin.html#a37ea682d95f1d274d72c91c24610a571" title=" " alt="" coords="209,153,362,179"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="451,114,363,145,331,155,329,150,361,140,449,109"/>
+<area shape="rect" id="Node000009" href="$dd/dbf/class_thevenin.html#a26b3dbad2318b5ac9bf08894c64dba0d" title=" " alt="" coords="214,104,357,130"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="395,107,358,112,357,106,395,102"/>
+<area shape="rect" id="Node000010" href="$dd/dbf/class_thevenin.html#a147fc3c09042b46cc65e18f5e736a24a" title=" " alt="" coords="214,55,357,80"/>
+<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="395,83,357,79,358,73,395,78"/>
+<area shape="rect" id="Node000003" href="$dd/dbf/class_thevenin.html#a2e053790ba383981b028ea10d9dad7ac" title="Update battery state." alt="" coords="5,5,161,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="197,21,161,21,161,16,197,16"/>
+<area shape="rect" id="Node000005" href="$dd/dbf/class_thevenin.html#a35bcc7c0a646f5c5e504256a331cf2d2" title="Calculate the maximum allowed current based on battery state and limits." alt="" coords="17,55,149,96"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="219,150,207,144,183,127,159,110,137,99,140,94,162,105,186,123,210,140,221,145"/>
+<area shape="rect" id="Node000006" href="$dd/dbf/class_thevenin.html#ac46b9016254edbab9471970a7ef91b0b" title="Get open circuit voltage." alt="" coords="16,219,150,260"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="234,187,142,221,141,216,232,182"/>
+<area shape="rect" id="Node000007" href="$dd/dbf/class_thevenin.html#a87f403f75a4faefbd5a568b2d6f0f2f4" title="Get current battery voltage with current state." alt="" coords="9,120,157,146"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="193,154,157,148,158,142,194,148"/>
+<area shape="rect" id="Node000008" href="$dd/dbf/class_thevenin.html#a4eafe772d140fb7331ecb68e3bcb12eb" title="Get current battery voltage under provided current draw." alt="" coords="9,169,157,195"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="194,176,157,179,157,174,193,171"/>
+<area shape="poly" id="edge9_Node000009_Node000005" title=" " alt="" coords="204,103,149,92,150,86,205,98"/>
+<area shape="poly" id="edge10_Node000009_Node000007" title=" " alt="" coords="198,126,157,130,157,124,198,121"/>
+<area shape="poly" id="edge11_Node000009_Node000008" title=" " alt="" coords="228,137,210,143,162,161,129,171,127,166,160,156,208,138,226,132"/>
+<area shape="poly" id="edge13_Node000010_Node000003" title=" " alt="" coords="214,53,138,34,139,29,215,48"/>
+</map>

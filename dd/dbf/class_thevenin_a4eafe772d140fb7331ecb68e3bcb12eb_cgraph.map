@@ -1,0 +1,10 @@
+<map id="Thevenin::get_voltage" name="Thevenin::get_voltage">
+<area shape="rect" id="Node000001" title="Get current battery voltage under provided current draw." alt="" coords="5,31,153,56"/>
+<area shape="rect" id="Node000002" href="$dd/dbf/class_thevenin.html#a37ea682d95f1d274d72c91c24610a571" title=" " alt="" coords="201,5,354,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,31,185,27,186,33,154,37"/>
+<area shape="rect" id="Node000004" href="$dd/dbf/class_thevenin.html#a26b3dbad2318b5ac9bf08894c64dba0d" title=" " alt="" coords="206,55,349,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="154,50,190,54,190,60,153,55"/>
+<area shape="rect" id="Node000003" href="$dd/dbf/class_thevenin.html#ae0de409d755ce9005aad8b7b4307cf0b" title=" " alt="" coords="402,31,585,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="355,25,387,28,386,34,354,30"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="349,57,386,53,387,58,350,62"/>
+</map>

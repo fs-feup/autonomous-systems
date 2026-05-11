@@ -11,8 +11,6 @@ var class_s_e_node =
     [ "_update_and_publish", "d4/d43/class_s_e_node.html#a807afbd7576422568395876d5c3e7296", null ],
     [ "_wheel_speeds_subscription_callback", "d4/d43/class_s_e_node.html#a5134a7c33ca9cd292c9840f748b36f09", null ],
     [ "Adapter", "d4/d43/class_s_e_node.html#a214994091e9a150016e217b9782bbfb9", null ],
-    [ "EufsAdapter", "d4/d43/class_s_e_node.html#aec0746e73051cb3b3754932854a96582", null ],
-    [ "FsdsAdapter", "d4/d43/class_s_e_node.html#a2ef9fe7fc2ed642f3a8fbf09bb5e1bc9", null ],
     [ "PacsimAdapter", "d4/d43/class_s_e_node.html#a8c3bff35c3e7ded331c0b8cf5d453315", null ],
     [ "VehicleAdapter", "d4/d43/class_s_e_node.html#a7533e3444801bb395e08fb6790b29647", null ],
     [ "_adapter_", "d4/d43/class_s_e_node.html#aa0b142ec017f45737517251bf99ed0fe", null ],

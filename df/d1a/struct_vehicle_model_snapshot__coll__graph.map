@@ -1,0 +1,5 @@
+<map id="VehicleModelSnapshot" name="VehicleModelSnapshot">
+<area shape="rect" id="Node000001" title="Vehicle model snapshot containing all vehicle state data to be published." alt="" coords="5,288,167,554"/>
+<area shape="rect" id="Node000002" href="$d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html" title=" " alt="" coords="13,5,159,165"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,165,89,272,83,272,83,165"/>
+</map>

@@ -1,0 +1,16 @@
+<map id="InvictaSimAdapter::InvictaSimAdapter" name="InvictaSimAdapter::InvictaSimAdapter">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,104,140,145"/>
+<area shape="rect" id="Node000002" href="$d6/d6c/class_invicta_sim_adapter.html#a2c33c3c59849e5363ca2f8bb73a5dd93" title="IMU subscription callback, which receives both free acceleration and angular velocity through a synch..." alt="" coords="201,5,335,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,101,186,57,199,51,202,55,189,61,109,106"/>
+<area shape="rect" id="Node000004" href="$d6/d6c/class_invicta_sim_adapter.html#aa21c4af366ceb15c62b08eab6728e16f" title="Callback for the subscription of the resolver which measures the motor RPM." alt="" coords="201,71,335,111"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="140,110,185,102,186,108,141,115"/>
+<area shape="rect" id="Node000005" href="$d6/d6c/class_invicta_sim_adapter.html#a37541364b7fbf2f38d11c18300d76270" title="Callback for the subscription of the steering angle sensor." alt="" coords="188,136,348,177"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="141,133,172,138,172,143,140,138"/>
+<area shape="rect" id="Node000006" href="$d6/d6c/class_invicta_sim_adapter.html#af4da8573618c3b7c33b567ef126befeb" title="Wheel speed subscription callback, which receives both wheel speeds through a synchronizer message fi..." alt="" coords="201,201,335,242"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="110,143,189,186,202,192,200,197,186,191,107,148"/>
+<area shape="rect" id="Node000003" href="$d3/d43/class_v_e_node.html#a5357a8432d55569fc7c5458386c5cb78" title=" " alt="" coords="396,112,574,137"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="321,44,349,57,445,102,442,107,347,61,319,49"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="336,99,382,106,381,111,335,104"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="348,142,380,137,381,142,349,147"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="318,198,347,186,442,142,444,147,349,191,320,203"/>
+</map>

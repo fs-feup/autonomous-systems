@@ -93,6 +93,7 @@ $(document).ready(function(){initNavTree('d6/dbc/class_vehicle_model.html','../.
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="../../d4/d35/class_vehicle_model-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">VehicleModel Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
@@ -107,9 +108,9 @@ Inheritance diagram for VehicleModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dd/d83/class_vehicle_model__inherit__graph.png" border="0" usemap="#a_vehicle_model_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_vehicle_model_inherit__map" id="a_vehicle_model_inherit__map">
-<area shape="rect" title="Vehicle model interface." alt="" coords="13,5,143,291"/>
-<area shape="rect" href="../../d6/d89/class_bicycle_model.html" title="Simple bicycle model structure." alt="" coords="5,339,151,804"/>
-<area shape="poly" title=" " alt="" coords="81,306,81,339,75,339,75,306"/>
+<area shape="rect" title="Vehicle model interface." alt="" coords="11,5,142,311"/>
+<area shape="rect" href="../../df/d75/class_f_s_f_e_u_p02_model.html" title="Four wheel vehicle model (tuned for FSFEUP02)" alt="" coords="5,359,148,679"/>
+<area shape="poly" title=" " alt="" coords="79,326,79,359,74,359,74,326"/>
 </map>
 </div>
 <div class="dynheader">
@@ -117,43 +118,154 @@ Collaboration diagram for VehicleModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/ded/class_vehicle_model__coll__graph.png" border="0" usemap="#a_vehicle_model_coll__map" alt="Collaboration graph"/></div>
 <map name="a_vehicle_model_coll__map" id="a_vehicle_model_coll__map">
-<area shape="rect" title="Vehicle model interface." alt="" coords="5,5,136,291"/>
+<area shape="rect" title="Vehicle model interface." alt="" coords="5,5,136,311"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a37b18eb9980c87610d3370112e96ddf9" id="r_a37b18eb9980c87610d3370112e96ddf9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a37b18eb9980c87610d3370112e96ddf9">VehicleModel</a> (const <a class="el" href="../../df/d28/struct_invicta_sim_parameters.html">InvictaSimParameters</a> &amp;simulator_parameters)</td></tr>
+<tr class="memdesc:a37b18eb9980c87610d3370112e96ddf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="../../d6/dbc/class_vehicle_model.html" title="Vehicle model interface.">VehicleModel</a> object.  <br /></td></tr>
+<tr class="separator:a37b18eb9980c87610d3370112e96ddf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95d86bdeebab1e74b1b73f21b52bd700" id="r_a95d86bdeebab1e74b1b73f21b52bd700"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a95d86bdeebab1e74b1b73f21b52bd700">~VehicleModel</a> ()=default</td></tr>
+<tr class="memdesc:a95d86bdeebab1e74b1b73f21b52bd700"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="../../d6/dbc/class_vehicle_model.html" title="Vehicle model interface.">VehicleModel</a> object.  <br /></td></tr>
 <tr class="separator:a95d86bdeebab1e74b1b73f21b52bd700"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7a372f4fd0a2b1a4f8b614fabd1c3db" id="r_ae7a372f4fd0a2b1a4f8b614fabd1c3db"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#ae7a372f4fd0a2b1a4f8b614fabd1c3db">step</a> (double dt)=0</td></tr>
-<tr class="separator:ae7a372f4fd0a2b1a4f8b614fabd1c3db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97b8f1f584858e97f06eb5c972e9b65e" id="r_a97b8f1f584858e97f06eb5c972e9b65e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a97b8f1f584858e97f06eb5c972e9b65e">step</a> (double dt, <a class="el" href="../../d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html">common_lib::structures::Wheels</a> throttle, double angle)=0</td></tr>
+<tr class="separator:a97b8f1f584858e97f06eb5c972e9b65e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af474e391f855e49b05b2b402abf9fa0b" id="r_af474e391f855e49b05b2b402abf9fa0b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#af474e391f855e49b05b2b402abf9fa0b">reset</a> ()=0</td></tr>
 <tr class="separator:af474e391f855e49b05b2b402abf9fa0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38b46e379d961c52756e9cf774230713" id="r_a38b46e379d961c52756e9cf774230713"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a38b46e379d961c52756e9cf774230713">get_position_x</a> () const =0</td></tr>
-<tr class="separator:a38b46e379d961c52756e9cf774230713"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a70e26b3305781f51fff075fd94a3de" id="r_a3a70e26b3305781f51fff075fd94a3de"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a3a70e26b3305781f51fff075fd94a3de">get_position_y</a> () const =0</td></tr>
-<tr class="separator:a3a70e26b3305781f51fff075fd94a3de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a185ed1dd0af1de94925fc97d6536a70e" id="r_a185ed1dd0af1de94925fc97d6536a70e"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a185ed1dd0af1de94925fc97d6536a70e">get_yaw</a> () const =0</td></tr>
-<tr class="separator:a185ed1dd0af1de94925fc97d6536a70e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa812840fe20391eb5b948c6e911d1b5" id="r_afa812840fe20391eb5b948c6e911d1b5"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#afa812840fe20391eb5b948c6e911d1b5">get_velocity_x</a> () const =0</td></tr>
-<tr class="separator:afa812840fe20391eb5b948c6e911d1b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77d70f0501c6a65e6f856b0d0d925267" id="r_a77d70f0501c6a65e6f856b0d0d925267"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a77d70f0501c6a65e6f856b0d0d925267">set_position</a> (double x, double y, double yaw)=0</td></tr>
-<tr class="separator:a77d70f0501c6a65e6f856b0d0d925267"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11007a298c3a204720716546e3b691d6" id="r_a11007a298c3a204720716546e3b691d6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a11007a298c3a204720716546e3b691d6">set_velocity</a> (double vx)=0</td></tr>
-<tr class="separator:a11007a298c3a204720716546e3b691d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a065f6a748a619b9476a6b75f949758c9" id="r_a065f6a748a619b9476a6b75f949758c9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a065f6a748a619b9476a6b75f949758c9">set_steering</a> (double angle)=0</td></tr>
-<tr class="separator:a065f6a748a619b9476a6b75f949758c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a492e6defbcaf5d5b0e2a107c6f218466" id="r_a492e6defbcaf5d5b0e2a107c6f218466"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a492e6defbcaf5d5b0e2a107c6f218466">set_throttle</a> (double throttle)=0</td></tr>
-<tr class="separator:a492e6defbcaf5d5b0e2a107c6f218466"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52cb0863f25e6af7819ae264195096c5" id="r_a52cb0863f25e6af7819ae264195096c5"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a52cb0863f25e6af7819ae264195096c5">get_model_name</a> () const =0</td></tr>
 <tr class="separator:a52cb0863f25e6af7819ae264195096c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c6f94f94059a74ab8cfacda158ca7cf" id="r_a2c6f94f94059a74ab8cfacda158ca7cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a2c6f94f94059a74ab8cfacda158ca7cf">set_initial_pose</a> (double x, double y)</td></tr>
+<tr class="separator:a2c6f94f94059a74ab8cfacda158ca7cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95daf4abaf6cabf3570d923f529b522e" id="r_a95daf4abaf6cabf3570d923f529b522e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a95daf4abaf6cabf3570d923f529b522e">set_ebs</a> (bool active)</td></tr>
+<tr class="separator:a95daf4abaf6cabf3570d923f529b522e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a0820244a95113cf1e9d042dfda7892" id="r_a3a0820244a95113cf1e9d042dfda7892"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a3a0820244a95113cf1e9d042dfda7892">get_position_x</a> () const</td></tr>
+<tr class="separator:a3a0820244a95113cf1e9d042dfda7892"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f6d5a8d8fe9c18fc0ce6eb5040ab6d7" id="r_a1f6d5a8d8fe9c18fc0ce6eb5040ab6d7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a1f6d5a8d8fe9c18fc0ce6eb5040ab6d7">get_position_y</a> () const</td></tr>
+<tr class="separator:a1f6d5a8d8fe9c18fc0ce6eb5040ab6d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5eee09b1d18bf8b7ed20106967b030c" id="r_aa5eee09b1d18bf8b7ed20106967b030c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#aa5eee09b1d18bf8b7ed20106967b030c">get_position_z</a> () const</td></tr>
+<tr class="separator:aa5eee09b1d18bf8b7ed20106967b030c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a894e074d77531b375c51aa8245b085ed" id="r_a894e074d77531b375c51aa8245b085ed"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a894e074d77531b375c51aa8245b085ed">get_roll</a> () const</td></tr>
+<tr class="separator:a894e074d77531b375c51aa8245b085ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad470281ecc08196caa9a3d552a8f5464" id="r_ad470281ecc08196caa9a3d552a8f5464"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#ad470281ecc08196caa9a3d552a8f5464">get_pitch</a> () const</td></tr>
+<tr class="separator:ad470281ecc08196caa9a3d552a8f5464"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf01b56e55ca6f120afa682a696cc3a1" id="r_aaf01b56e55ca6f120afa682a696cc3a1"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#aaf01b56e55ca6f120afa682a696cc3a1">get_yaw</a> () const</td></tr>
+<tr class="separator:aaf01b56e55ca6f120afa682a696cc3a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56092907a808959993e593ce31e37d70" id="r_a56092907a808959993e593ce31e37d70"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a56092907a808959993e593ce31e37d70">get_yaw_rate</a> () const</td></tr>
+<tr class="separator:a56092907a808959993e593ce31e37d70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a390a907b92eefb2e0f3bd4183c5d0054" id="r_a390a907b92eefb2e0f3bd4183c5d0054"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a390a907b92eefb2e0f3bd4183c5d0054">get_velocity_x</a> () const</td></tr>
+<tr class="separator:a390a907b92eefb2e0f3bd4183c5d0054"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9f794c1687b0d6a091c19b70450d88c" id="r_af9f794c1687b0d6a091c19b70450d88c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#af9f794c1687b0d6a091c19b70450d88c">get_velocity_y</a> () const</td></tr>
+<tr class="separator:af9f794c1687b0d6a091c19b70450d88c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4da34f0d2f0b62358722c4074d1c3a6" id="r_aa4da34f0d2f0b62358722c4074d1c3a6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#aa4da34f0d2f0b62358722c4074d1c3a6">get_velocity_z</a> () const</td></tr>
+<tr class="separator:aa4da34f0d2f0b62358722c4074d1c3a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4bec9f9f71c503a5e60695f082dee23" id="r_ab4bec9f9f71c503a5e60695f082dee23"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#ab4bec9f9f71c503a5e60695f082dee23">get_acceleration_x</a> () const</td></tr>
+<tr class="separator:ab4bec9f9f71c503a5e60695f082dee23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add87855c697c5dc9aa7709922d63e854" id="r_add87855c697c5dc9aa7709922d63e854"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#add87855c697c5dc9aa7709922d63e854">get_acceleration_y</a> () const</td></tr>
+<tr class="separator:add87855c697c5dc9aa7709922d63e854"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28226d1dbec9ab92114a873c76049c31" id="r_a28226d1dbec9ab92114a873c76049c31"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html">common_lib::structures::Wheels</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a28226d1dbec9ab92114a873c76049c31">get_wheels_speed</a> () const</td></tr>
+<tr class="separator:a28226d1dbec9ab92114a873c76049c31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1db3f8081d7f9ae4564ee010eb24100a" id="r_a1db3f8081d7f9ae4564ee010eb24100a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html">common_lib::structures::Wheels</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a1db3f8081d7f9ae4564ee010eb24100a">get_wheels_torque</a> () const</td></tr>
+<tr class="separator:a1db3f8081d7f9ae4564ee010eb24100a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2aebfd000d92a7767ed46dbb682efd71" id="r_a2aebfd000d92a7767ed46dbb682efd71"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html">common_lib::structures::Wheels</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a2aebfd000d92a7767ed46dbb682efd71">get_wheels_vertical_load</a> () const</td></tr>
+<tr class="separator:a2aebfd000d92a7767ed46dbb682efd71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac99c9d414bb340084229284606e0d655" id="r_ac99c9d414bb340084229284606e0d655"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html">common_lib::structures::Wheels</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#ac99c9d414bb340084229284606e0d655">get_wheels_slip_ratio</a> () const</td></tr>
+<tr class="separator:ac99c9d414bb340084229284606e0d655"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad307dc23e017a215546fe076145d1b5" id="r_aad307dc23e017a215546fe076145d1b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html">common_lib::structures::Wheels</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#aad307dc23e017a215546fe076145d1b5">get_wheels_slip_angle</a> () const</td></tr>
+<tr class="separator:aad307dc23e017a215546fe076145d1b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbdf365e73e4ea6b4d88eb44ec309bba" id="r_acbdf365e73e4ea6b4d88eb44ec309bba"><td class="memItemLeft" align="right" valign="top">Eigen::Vector4d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#acbdf365e73e4ea6b4d88eb44ec309bba">get_front_left_forces</a> () const</td></tr>
+<tr class="separator:acbdf365e73e4ea6b4d88eb44ec309bba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0021cded859e5c664e91147f9b5f4d74" id="r_a0021cded859e5c664e91147f9b5f4d74"><td class="memItemLeft" align="right" valign="top">Eigen::Vector4d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a0021cded859e5c664e91147f9b5f4d74">get_front_right_forces</a> () const</td></tr>
+<tr class="separator:a0021cded859e5c664e91147f9b5f4d74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a390171bab80f0acfd8ed0f18419a64fe" id="r_a390171bab80f0acfd8ed0f18419a64fe"><td class="memItemLeft" align="right" valign="top">Eigen::Vector4d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a390171bab80f0acfd8ed0f18419a64fe">get_rear_left_forces</a> () const</td></tr>
+<tr class="separator:a390171bab80f0acfd8ed0f18419a64fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84efcacc154f49cbff7a7601861281a4" id="r_a84efcacc154f49cbff7a7601861281a4"><td class="memItemLeft" align="right" valign="top">Eigen::Vector4d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a84efcacc154f49cbff7a7601861281a4">get_rear_right_forces</a> () const</td></tr>
+<tr class="separator:a84efcacc154f49cbff7a7601861281a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c6c0fb4e5b4922d44010f45f0f43ccd" id="r_a6c6c0fb4e5b4922d44010f45f0f43ccd"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a6c6c0fb4e5b4922d44010f45f0f43ccd">get_aero_drag</a> () const</td></tr>
+<tr class="separator:a6c6c0fb4e5b4922d44010f45f0f43ccd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac48a8262a09a4bf88b1a2ad58359ce5b" id="r_ac48a8262a09a4bf88b1a2ad58359ce5b"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#ac48a8262a09a4bf88b1a2ad58359ce5b">get_aero_downforce</a> () const</td></tr>
+<tr class="separator:ac48a8262a09a4bf88b1a2ad58359ce5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaacf360e58fb8e0a8324fa195b914354" id="r_aaacf360e58fb8e0a8324fa195b914354"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#aaacf360e58fb8e0a8324fa195b914354">get_motor_torque</a> () const</td></tr>
+<tr class="separator:aaacf360e58fb8e0a8324fa195b914354"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e27d5df12bf3e75964d6bda780a0354" id="r_a2e27d5df12bf3e75964d6bda780a0354"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a2e27d5df12bf3e75964d6bda780a0354">get_motor_omega</a> () const</td></tr>
+<tr class="separator:a2e27d5df12bf3e75964d6bda780a0354"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a305e6ede326f5da4fecb71084cbb5ef6" id="r_a305e6ede326f5da4fecb71084cbb5ef6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a305e6ede326f5da4fecb71084cbb5ef6">get_motor_current</a> () const</td></tr>
+<tr class="separator:a305e6ede326f5da4fecb71084cbb5ef6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87c8b3bf6d35b40c54593491ccd9a31c" id="r_a87c8b3bf6d35b40c54593491ccd9a31c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a87c8b3bf6d35b40c54593491ccd9a31c">get_motor_thermal_state</a> () const</td></tr>
+<tr class="separator:a87c8b3bf6d35b40c54593491ccd9a31c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10531d21f7ac5aa2e94039bdaae69cd0" id="r_a10531d21f7ac5aa2e94039bdaae69cd0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a10531d21f7ac5aa2e94039bdaae69cd0">get_motor_thermal_capacity</a> () const</td></tr>
+<tr class="separator:a10531d21f7ac5aa2e94039bdaae69cd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76154c8ae15c4f0dc03b30c47179026e" id="r_a76154c8ae15c4f0dc03b30c47179026e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a76154c8ae15c4f0dc03b30c47179026e">get_battery_voltage</a> () const</td></tr>
+<tr class="separator:a76154c8ae15c4f0dc03b30c47179026e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a140e937f72a9a91cbd903e4245527e06" id="r_a140e937f72a9a91cbd903e4245527e06"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a140e937f72a9a91cbd903e4245527e06">get_battery_soc</a> () const</td></tr>
+<tr class="separator:a140e937f72a9a91cbd903e4245527e06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf00010667fcafed331cd2b58b88280e" id="r_acf00010667fcafed331cd2b58b88280e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#acf00010667fcafed331cd2b58b88280e">get_battery_current</a> () const</td></tr>
+<tr class="separator:acf00010667fcafed331cd2b58b88280e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6354a2de60581ae5efd20061e6e72182" id="r_a6354a2de60581ae5efd20061e6e72182"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a6354a2de60581ae5efd20061e6e72182">get_battery_open_circuit_voltage</a> () const</td></tr>
+<tr class="separator:a6354a2de60581ae5efd20061e6e72182"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeeecb6dcd448a46dedd09139e4d29239" id="r_aeeecb6dcd448a46dedd09139e4d29239"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#aeeecb6dcd448a46dedd09139e4d29239">get_steering_angle</a> () const</td></tr>
+<tr class="separator:aeeecb6dcd448a46dedd09139e4d29239"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac72dfd2afa010fcab6e962abf7d88a61" id="r_ac72dfd2afa010fcab6e962abf7d88a61"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#ac72dfd2afa010fcab6e962abf7d88a61">get_total_force_x</a> () const</td></tr>
+<tr class="separator:ac72dfd2afa010fcab6e962abf7d88a61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac500473f33e8557ac0b3e1d13ca1b1fb" id="r_ac500473f33e8557ac0b3e1d13ca1b1fb"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#ac500473f33e8557ac0b3e1d13ca1b1fb">get_total_force_y</a> () const</td></tr>
+<tr class="separator:ac500473f33e8557ac0b3e1d13ca1b1fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a025bc120e1bd4986c17d15d5a725ec8b" id="r_a025bc120e1bd4986c17d15d5a725ec8b"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a025bc120e1bd4986c17d15d5a725ec8b">get_moment_fy</a> () const</td></tr>
+<tr class="separator:a025bc120e1bd4986c17d15d5a725ec8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9680f4701b2f5a22a8fe72678ea5b8ed" id="r_a9680f4701b2f5a22a8fe72678ea5b8ed"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a9680f4701b2f5a22a8fe72678ea5b8ed">get_moment_fx</a> () const</td></tr>
+<tr class="separator:a9680f4701b2f5a22a8fe72678ea5b8ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a123e55341651c59b24e0b7008dac2906" id="r_a123e55341651c59b24e0b7008dac2906"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a123e55341651c59b24e0b7008dac2906">get_self_aligning_moment</a> () const</td></tr>
+<tr class="separator:a123e55341651c59b24e0b7008dac2906"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab31658f785ff6015035852863d221ed3" id="r_ab31658f785ff6015035852863d221ed3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#ab31658f785ff6015035852863d221ed3">get_total_torque_z</a> () const</td></tr>
+<tr class="separator:ab31658f785ff6015035852863d221ed3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3144108c6ca70f5a5b617ab6ec7c10ad" id="r_a3144108c6ca70f5a5b617ab6ec7c10ad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/dba/struct_vehicle_model_execution_times.html">VehicleModelExecutionTimes</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a3144108c6ca70f5a5b617ab6ec7c10ad">get_execution_times</a> () const</td></tr>
+<tr class="separator:a3144108c6ca70f5a5b617ab6ec7c10ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:aff5b91a22c6c07531a3ab313f2fd513a" id="r_aff5b91a22c6c07531a3ab313f2fd513a"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html">common_lib::car_parameters::CarParameters</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#aff5b91a22c6c07531a3ab313f2fd513a">car_parameters_</a></td></tr>
+<tr class="separator:aff5b91a22c6c07531a3ab313f2fd513a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f254eca5b9a0833936de700d2cabc71" id="r_a3f254eca5b9a0833936de700d2cabc71"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../de/dfe/struct_vehicle_state.html">VehicleState</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a3f254eca5b9a0833936de700d2cabc71">state_</a></td></tr>
+<tr class="separator:a3f254eca5b9a0833936de700d2cabc71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade65ab3d73e3daba093878317c52fa7b" id="r_ade65ab3d73e3daba093878317c52fa7b"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d6/dba/struct_vehicle_model_execution_times.html">VehicleModelExecutionTimes</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#ade65ab3d73e3daba093878317c52fa7b">execution_times_</a></td></tr>
+<tr class="separator:ade65ab3d73e3daba093878317c52fa7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Vehicle model interface. </p>
 <p>Defines a simplified interface that all vehicle models must implement. Certainly will be extended during the vehicle model implementation. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00012">12</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00077">77</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a37b18eb9980c87610d3370112e96ddf9" name="a37b18eb9980c87610d3370112e96ddf9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37b18eb9980c87610d3370112e96ddf9">&#9670;&#160;</a></span>VehicleModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VehicleModel::VehicleModel </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../df/d28/struct_invicta_sim_parameters.html">InvictaSimParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>simulator_parameters</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="../../d6/dbc/class_vehicle_model.html" title="Vehicle model interface.">VehicleModel</a> object. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00087">87</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a95d86bdeebab1e74b1b73f21b52bd700" name="a95d86bdeebab1e74b1b73f21b52bd700"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a95d86bdeebab1e74b1b73f21b52bd700">&#9670;&#160;</a></span>~VehicleModel()</h2>
 
@@ -177,9 +289,308 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Destroy the <a class="el" href="../../d6/dbc/class_vehicle_model.html" title="Vehicle model interface.">VehicleModel</a> object. </p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab4bec9f9f71c503a5e60695f082dee23" name="ab4bec9f9f71c503a5e60695f082dee23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4bec9f9f71c503a5e60695f082dee23">&#9670;&#160;</a></span>get_acceleration_x()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_acceleration_x </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00122">122</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="add87855c697c5dc9aa7709922d63e854" name="add87855c697c5dc9aa7709922d63e854"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add87855c697c5dc9aa7709922d63e854">&#9670;&#160;</a></span>get_acceleration_y()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_acceleration_y </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00123">123</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac48a8262a09a4bf88b1a2ad58359ce5b" name="ac48a8262a09a4bf88b1a2ad58359ce5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac48a8262a09a4bf88b1a2ad58359ce5b">&#9670;&#160;</a></span>get_aero_downforce()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_aero_downforce </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00136">136</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6c6c0fb4e5b4922d44010f45f0f43ccd" name="a6c6c0fb4e5b4922d44010f45f0f43ccd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c6c0fb4e5b4922d44010f45f0f43ccd">&#9670;&#160;</a></span>get_aero_drag()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_aero_drag </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00135">135</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="acf00010667fcafed331cd2b58b88280e" name="acf00010667fcafed331cd2b58b88280e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf00010667fcafed331cd2b58b88280e">&#9670;&#160;</a></span>get_battery_current()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_battery_current </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00144">144</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6354a2de60581ae5efd20061e6e72182" name="a6354a2de60581ae5efd20061e6e72182"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6354a2de60581ae5efd20061e6e72182">&#9670;&#160;</a></span>get_battery_open_circuit_voltage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_battery_open_circuit_voltage </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00145">145</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a140e937f72a9a91cbd903e4245527e06" name="a140e937f72a9a91cbd903e4245527e06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a140e937f72a9a91cbd903e4245527e06">&#9670;&#160;</a></span>get_battery_soc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_battery_soc </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00143">143</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a76154c8ae15c4f0dc03b30c47179026e" name="a76154c8ae15c4f0dc03b30c47179026e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76154c8ae15c4f0dc03b30c47179026e">&#9670;&#160;</a></span>get_battery_voltage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_battery_voltage </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00142">142</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3144108c6ca70f5a5b617ab6ec7c10ad" name="a3144108c6ca70f5a5b617ab6ec7c10ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3144108c6ca70f5a5b617ab6ec7c10ad">&#9670;&#160;</a></span>get_execution_times()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d6/dba/struct_vehicle_model_execution_times.html">VehicleModelExecutionTimes</a> VehicleModel::get_execution_times </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00153">153</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="acbdf365e73e4ea6b4d88eb44ec309bba" name="acbdf365e73e4ea6b4d88eb44ec309bba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbdf365e73e4ea6b4d88eb44ec309bba">&#9670;&#160;</a></span>get_front_left_forces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::Vector4d VehicleModel::get_front_left_forces </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00131">131</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0021cded859e5c664e91147f9b5f4d74" name="a0021cded859e5c664e91147f9b5f4d74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0021cded859e5c664e91147f9b5f4d74">&#9670;&#160;</a></span>get_front_right_forces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::Vector4d VehicleModel::get_front_right_forces </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00132">132</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a52cb0863f25e6af7819ae264195096c5" name="a52cb0863f25e6af7819ae264195096c5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a52cb0863f25e6af7819ae264195096c5">&#9670;&#160;</a></span>get_model_name()</h2>
 
@@ -203,12 +614,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../d6/d89/class_bicycle_model.html#a28adeaa1a78e554cc7cb837ed97bfb78">BicycleModel</a>.</p>
+<p>Implemented in <a class="el" href="../../df/d75/class_f_s_f_e_u_p02_model.html#a1fe4595876d32d84f72467f45c23caa4">FSFEUP02Model</a>.</p>
 
 </div>
 </div>
-<a id="a38b46e379d961c52756e9cf774230713" name="a38b46e379d961c52756e9cf774230713"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38b46e379d961c52756e9cf774230713">&#9670;&#160;</a></span>get_position_x()</h2>
+<a id="a9680f4701b2f5a22a8fe72678ea5b8ed" name="a9680f4701b2f5a22a8fe72678ea5b8ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9680f4701b2f5a22a8fe72678ea5b8ed">&#9670;&#160;</a></span>get_moment_fx()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -217,7 +628,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual double VehicleModel::get_position_x </td>
+          <td class="memname">double VehicleModel::get_moment_fx </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -225,17 +636,17 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../d6/d89/class_bicycle_model.html#ac4a02880bfa5cbd767dc6efec5ce2f59">BicycleModel</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00150">150</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a3a70e26b3305781f51fff075fd94a3de" name="a3a70e26b3305781f51fff075fd94a3de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a70e26b3305781f51fff075fd94a3de">&#9670;&#160;</a></span>get_position_y()</h2>
+<a id="a025bc120e1bd4986c17d15d5a725ec8b" name="a025bc120e1bd4986c17d15d5a725ec8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a025bc120e1bd4986c17d15d5a725ec8b">&#9670;&#160;</a></span>get_moment_fy()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -244,7 +655,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual double VehicleModel::get_position_y </td>
+          <td class="memname">double VehicleModel::get_moment_fy </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -252,17 +663,17 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../d6/d89/class_bicycle_model.html#afeca0a2b7ffc8aef3bd17e4d4d9b4068">BicycleModel</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00149">149</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
 
 </div>
 </div>
-<a id="afa812840fe20391eb5b948c6e911d1b5" name="afa812840fe20391eb5b948c6e911d1b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa812840fe20391eb5b948c6e911d1b5">&#9670;&#160;</a></span>get_velocity_x()</h2>
+<a id="a305e6ede326f5da4fecb71084cbb5ef6" name="a305e6ede326f5da4fecb71084cbb5ef6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a305e6ede326f5da4fecb71084cbb5ef6">&#9670;&#160;</a></span>get_motor_current()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -271,7 +682,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual double VehicleModel::get_velocity_x </td>
+          <td class="memname">double VehicleModel::get_motor_current </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -279,17 +690,17 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../d6/d89/class_bicycle_model.html#abef56ae9ace3a74c84dfa713302af026">BicycleModel</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00139">139</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a185ed1dd0af1de94925fc97d6536a70e" name="a185ed1dd0af1de94925fc97d6536a70e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a185ed1dd0af1de94925fc97d6536a70e">&#9670;&#160;</a></span>get_yaw()</h2>
+<a id="a2e27d5df12bf3e75964d6bda780a0354" name="a2e27d5df12bf3e75964d6bda780a0354"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e27d5df12bf3e75964d6bda780a0354">&#9670;&#160;</a></span>get_motor_omega()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -298,7 +709,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual double VehicleModel::get_yaw </td>
+          <td class="memname">double VehicleModel::get_motor_omega </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -306,12 +717,687 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../d6/d89/class_bicycle_model.html#a6843b127ae33b608a880cd46154b29f2">BicycleModel</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00138">138</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a10531d21f7ac5aa2e94039bdaae69cd0" name="a10531d21f7ac5aa2e94039bdaae69cd0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10531d21f7ac5aa2e94039bdaae69cd0">&#9670;&#160;</a></span>get_motor_thermal_capacity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_motor_thermal_capacity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00141">141</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a87c8b3bf6d35b40c54593491ccd9a31c" name="a87c8b3bf6d35b40c54593491ccd9a31c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87c8b3bf6d35b40c54593491ccd9a31c">&#9670;&#160;</a></span>get_motor_thermal_state()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_motor_thermal_state </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00140">140</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aaacf360e58fb8e0a8324fa195b914354" name="aaacf360e58fb8e0a8324fa195b914354"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaacf360e58fb8e0a8324fa195b914354">&#9670;&#160;</a></span>get_motor_torque()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_motor_torque </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00137">137</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad470281ecc08196caa9a3d552a8f5464" name="ad470281ecc08196caa9a3d552a8f5464"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad470281ecc08196caa9a3d552a8f5464">&#9670;&#160;</a></span>get_pitch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_pitch </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00116">116</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3a0820244a95113cf1e9d042dfda7892" name="a3a0820244a95113cf1e9d042dfda7892"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a0820244a95113cf1e9d042dfda7892">&#9670;&#160;</a></span>get_position_x()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_position_x </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00112">112</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1f6d5a8d8fe9c18fc0ce6eb5040ab6d7" name="a1f6d5a8d8fe9c18fc0ce6eb5040ab6d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f6d5a8d8fe9c18fc0ce6eb5040ab6d7">&#9670;&#160;</a></span>get_position_y()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_position_y </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00113">113</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa5eee09b1d18bf8b7ed20106967b030c" name="aa5eee09b1d18bf8b7ed20106967b030c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5eee09b1d18bf8b7ed20106967b030c">&#9670;&#160;</a></span>get_position_z()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_position_z </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00114">114</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a390171bab80f0acfd8ed0f18419a64fe" name="a390171bab80f0acfd8ed0f18419a64fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a390171bab80f0acfd8ed0f18419a64fe">&#9670;&#160;</a></span>get_rear_left_forces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::Vector4d VehicleModel::get_rear_left_forces </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00133">133</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a84efcacc154f49cbff7a7601861281a4" name="a84efcacc154f49cbff7a7601861281a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84efcacc154f49cbff7a7601861281a4">&#9670;&#160;</a></span>get_rear_right_forces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::Vector4d VehicleModel::get_rear_right_forces </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00134">134</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a894e074d77531b375c51aa8245b085ed" name="a894e074d77531b375c51aa8245b085ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a894e074d77531b375c51aa8245b085ed">&#9670;&#160;</a></span>get_roll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_roll </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00115">115</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a123e55341651c59b24e0b7008dac2906" name="a123e55341651c59b24e0b7008dac2906"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a123e55341651c59b24e0b7008dac2906">&#9670;&#160;</a></span>get_self_aligning_moment()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_self_aligning_moment </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00151">151</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aeeecb6dcd448a46dedd09139e4d29239" name="aeeecb6dcd448a46dedd09139e4d29239"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeeecb6dcd448a46dedd09139e4d29239">&#9670;&#160;</a></span>get_steering_angle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_steering_angle </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00146">146</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac72dfd2afa010fcab6e962abf7d88a61" name="ac72dfd2afa010fcab6e962abf7d88a61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac72dfd2afa010fcab6e962abf7d88a61">&#9670;&#160;</a></span>get_total_force_x()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_total_force_x </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00147">147</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac500473f33e8557ac0b3e1d13ca1b1fb" name="ac500473f33e8557ac0b3e1d13ca1b1fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac500473f33e8557ac0b3e1d13ca1b1fb">&#9670;&#160;</a></span>get_total_force_y()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_total_force_y </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00148">148</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab31658f785ff6015035852863d221ed3" name="ab31658f785ff6015035852863d221ed3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab31658f785ff6015035852863d221ed3">&#9670;&#160;</a></span>get_total_torque_z()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_total_torque_z </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00152">152</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a390a907b92eefb2e0f3bd4183c5d0054" name="a390a907b92eefb2e0f3bd4183c5d0054"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a390a907b92eefb2e0f3bd4183c5d0054">&#9670;&#160;</a></span>get_velocity_x()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_velocity_x </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00119">119</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af9f794c1687b0d6a091c19b70450d88c" name="af9f794c1687b0d6a091c19b70450d88c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9f794c1687b0d6a091c19b70450d88c">&#9670;&#160;</a></span>get_velocity_y()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_velocity_y </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00120">120</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa4da34f0d2f0b62358722c4074d1c3a6" name="aa4da34f0d2f0b62358722c4074d1c3a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4da34f0d2f0b62358722c4074d1c3a6">&#9670;&#160;</a></span>get_velocity_z()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_velocity_z </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00121">121</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aad307dc23e017a215546fe076145d1b5" name="aad307dc23e017a215546fe076145d1b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad307dc23e017a215546fe076145d1b5">&#9670;&#160;</a></span>get_wheels_slip_angle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html">common_lib::structures::Wheels</a> VehicleModel::get_wheels_slip_angle </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00130">130</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac99c9d414bb340084229284606e0d655" name="ac99c9d414bb340084229284606e0d655"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac99c9d414bb340084229284606e0d655">&#9670;&#160;</a></span>get_wheels_slip_ratio()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html">common_lib::structures::Wheels</a> VehicleModel::get_wheels_slip_ratio </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00129">129</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a28226d1dbec9ab92114a873c76049c31" name="a28226d1dbec9ab92114a873c76049c31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28226d1dbec9ab92114a873c76049c31">&#9670;&#160;</a></span>get_wheels_speed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html">common_lib::structures::Wheels</a> VehicleModel::get_wheels_speed </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00124">124</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1db3f8081d7f9ae4564ee010eb24100a" name="a1db3f8081d7f9ae4564ee010eb24100a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1db3f8081d7f9ae4564ee010eb24100a">&#9670;&#160;</a></span>get_wheels_torque()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html">common_lib::structures::Wheels</a> VehicleModel::get_wheels_torque </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00125">125</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2aebfd000d92a7767ed46dbb682efd71" name="a2aebfd000d92a7767ed46dbb682efd71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2aebfd000d92a7767ed46dbb682efd71">&#9670;&#160;</a></span>get_wheels_vertical_load()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html">common_lib::structures::Wheels</a> VehicleModel::get_wheels_vertical_load </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00126">126</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aaf01b56e55ca6f120afa682a696cc3a1" name="aaf01b56e55ca6f120afa682a696cc3a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf01b56e55ca6f120afa682a696cc3a1">&#9670;&#160;</a></span>get_yaw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_yaw </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00117">117</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a56092907a808959993e593ce31e37d70" name="a56092907a808959993e593ce31e37d70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56092907a808959993e593ce31e37d70">&#9670;&#160;</a></span>get_yaw_rate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleModel::get_yaw_rate </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00118">118</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
 
 </div>
 </div>
@@ -338,12 +1424,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../d6/d89/class_bicycle_model.html#abec5f029d2042f0f0e0adc3746fe343c">BicycleModel</a>.</p>
+<p>Implemented in <a class="el" href="../../df/d75/class_f_s_f_e_u_p02_model.html#a288ba5e7e071493beca7a4dc86b46ef6">FSFEUP02Model</a>.</p>
 
 </div>
 </div>
-<a id="a77d70f0501c6a65e6f856b0d0d925267" name="a77d70f0501c6a65e6f856b0d0d925267"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a77d70f0501c6a65e6f856b0d0d925267">&#9670;&#160;</a></span>set_position()</h2>
+<a id="a95daf4abaf6cabf3570d923f529b522e" name="a95daf4abaf6cabf3570d923f529b522e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95daf4abaf6cabf3570d923f529b522e">&#9670;&#160;</a></span>set_ebs()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -352,7 +1438,35 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void VehicleModel::set_position </td>
+          <td class="memname">void VehicleModel::set_ebs </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>active</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00107">107</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2c6f94f94059a74ab8cfacda158ca7cf" name="a2c6f94f94059a74ab8cfacda158ca7cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c6f94f94059a74ab8cfacda158ca7cf">&#9670;&#160;</a></span>set_initial_pose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void VehicleModel::set_initial_pose </td>
           <td>(</td>
           <td class="paramtype">double&#160;</td>
           <td class="paramname"><em>x</em>, </td>
@@ -361,13 +1475,51 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>y</em>, </td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00103">103</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a97b8f1f584858e97f06eb5c972e9b65e" name="a97b8f1f584858e97f06eb5c972e9b65e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97b8f1f584858e97f06eb5c972e9b65e">&#9670;&#160;</a></span>step()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void VehicleModel::step </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>dt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html">common_lib::structures::Wheels</a>&#160;</td>
+          <td class="paramname"><em>throttle</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>yaw</em>&#160;</td>
+          <td class="paramname"><em>angle</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -382,12 +1534,13 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../d6/d89/class_bicycle_model.html#a50f21681ab700316f623c925922f9b50">BicycleModel</a>.</p>
+<p>Implemented in <a class="el" href="../../df/d75/class_f_s_f_e_u_p02_model.html#ad6ef8c892e799723580b7e080e60025c">FSFEUP02Model</a>.</p>
 
 </div>
 </div>
-<a id="a065f6a748a619b9476a6b75f949758c9" name="a065f6a748a619b9476a6b75f949758c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a065f6a748a619b9476a6b75f949758c9">&#9670;&#160;</a></span>set_steering()</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aff5b91a22c6c07531a3ab313f2fd513a" name="aff5b91a22c6c07531a3ab313f2fd513a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff5b91a22c6c07531a3ab313f2fd513a">&#9670;&#160;</a></span>car_parameters_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -396,26 +1549,22 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void VehicleModel::set_steering </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>angle</em></td><td>)</td>
-          <td></td>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html">common_lib::car_parameters::CarParameters</a>&gt; VehicleModel::car_parameters_</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../d6/d89/class_bicycle_model.html#acb7cda0b459f8027fdcf054a48c5bc7c">BicycleModel</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00079">79</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a492e6defbcaf5d5b0e2a107c6f218466" name="a492e6defbcaf5d5b0e2a107c6f218466"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a492e6defbcaf5d5b0e2a107c6f218466">&#9670;&#160;</a></span>set_throttle()</h2>
+<a id="ade65ab3d73e3daba093878317c52fa7b" name="ade65ab3d73e3daba093878317c52fa7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade65ab3d73e3daba093878317c52fa7b">&#9670;&#160;</a></span>execution_times_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -424,26 +1573,22 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void VehicleModel::set_throttle </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>throttle</em></td><td>)</td>
-          <td></td>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d6/dba/struct_vehicle_model_execution_times.html">VehicleModelExecutionTimes</a>&gt; VehicleModel::execution_times_</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../d6/d89/class_bicycle_model.html#a77526d168260c56f110970bf5af7a49b">BicycleModel</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00081">81</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a11007a298c3a204720716546e3b691d6" name="a11007a298c3a204720716546e3b691d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11007a298c3a204720716546e3b691d6">&#9670;&#160;</a></span>set_velocity()</h2>
+<a id="a3f254eca5b9a0833936de700d2cabc71" name="a3f254eca5b9a0833936de700d2cabc71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f254eca5b9a0833936de700d2cabc71">&#9670;&#160;</a></span>state_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -452,49 +1597,17 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void VehicleModel::set_velocity </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>vx</em></td><td>)</td>
-          <td></td>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../de/dfe/struct_vehicle_state.html">VehicleState</a>&gt; VehicleModel::state_</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="../../d6/d89/class_bicycle_model.html#a29a82cadfd765038d7cb23d018239590">BicycleModel</a>.</p>
-
-</div>
-</div>
-<a id="ae7a372f4fd0a2b1a4f8b614fabd1c3db" name="ae7a372f4fd0a2b1a4f8b614fabd1c3db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae7a372f4fd0a2b1a4f8b614fabd1c3db">&#9670;&#160;</a></span>step()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void VehicleModel::step </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>dt</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="../../d6/d89/class_bicycle_model.html#a62f887109cd27f9753ea53ee11ad0641">BicycleModel</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html#l00080">80</a> of file <a class="el" href="../../dc/d7e/vehicle__model_8hpp_source.html">vehicle_model.hpp</a>.</p>
 
 </div>
 </div>

@@ -1,9 +1,7 @@
 var classtest__formats_1_1_test_formats =
 [
     [ "setUp", "d7/db4/classtest__formats_1_1_test_formats.html#a72dc6c592990521271ec651c144b6c7a", null ],
-    [ "test_format_car_state", "d7/db4/classtest__formats_1_1_test_formats.html#a92582524ba16d679d5c141931f95133d", null ],
     [ "test_format_cone_array_msg", "d7/db4/classtest__formats_1_1_test_formats.html#a5a89dd1ff2e9c6b78939177d0cab7962", null ],
-    [ "test_format_eufs_cone_array_with_covariance", "d7/db4/classtest__formats_1_1_test_formats.html#a646acc6e276dab17a06a71b25a7531d2", null ],
     [ "test_format_marker_array", "d7/db4/classtest__formats_1_1_test_formats.html#a4afa5c3c8819fd04a0997565c231af8d", null ],
     [ "test_format_nav_odometry", "d7/db4/classtest__formats_1_1_test_formats.html#a6d4cd44c6a50ecacd7022e2385d48710", null ],
     [ "test_format_path_point_array", "d7/db4/classtest__formats_1_1_test_formats.html#a83860b6e5d06f9773e2a980a141cd7d6", null ],

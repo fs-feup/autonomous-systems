@@ -1,0 +1,76 @@
+<map id="RosOutputAdapter::load_publish_frequencies" name="RosOutputAdapter::load_publish_frequencies">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,724,164,765"/>
+<area shape="rect" id="Node000002" href="$de/dca/namespacecommon__lib_1_1config__load.html#a1b7b070d3b2eb3e25bf4d0effc5fea08" title=" " alt="" coords="212,659,395,699"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,721,217,702,219,707,156,726"/>
+<area shape="rect" id="Node000003" href="$d6/dc0/class_ros_output_adapter.html#a226b05397d8c6ce62aa4752c114c9a0a" title=" " alt="" coords="224,724,383,765"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="164,742,208,742,208,747,164,747"/>
+<area shape="rect" id="Node000004" href="$d6/dc0/class_ros_output_adapter.html#af5c8880e354607d78f4dcc291affddf3" title=" " alt="" coords="224,789,383,830"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="156,763,219,782,217,787,154,768"/>
+<area shape="rect" id="Node000005" href="$d6/dc0/class_ros_output_adapter.html#ac79ebc0e1bfc97a2b815613ac006a586" title=" " alt="" coords="460,5,635,46"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="380,787,393,775,408,748,418,713,424,673,426,628,424,526,415,417,407,308,405,206,408,161,414,120,425,85,441,57,445,52,450,56,445,61,430,87,419,121,413,161,410,206,413,307,421,417,429,526,432,628,429,674,423,715,413,750,397,778,384,791"/>
+<area shape="rect" id="Node000006" href="$d6/dc0/class_ros_output_adapter.html#ad9fdff984f9e5e5525060c8f6e69e9ff" title=" " alt="" coords="460,71,635,111"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="380,787,393,775,406,750,416,719,424,641,422,549,415,450,409,350,407,258,416,180,426,148,441,123,446,117,450,121,445,126,431,150,421,181,413,258,414,350,421,449,428,549,429,642,421,720,411,752,397,778,384,791"/>
+<area shape="rect" id="Node000007" href="$d6/dc0/class_ros_output_adapter.html#aebc8a3ee7069fcbaa76bfb61b33daa77" title=" " alt="" coords="460,136,635,177"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="380,787,393,775,405,753,414,725,422,655,421,572,416,483,410,393,410,310,418,239,428,211,441,188,446,183,450,186,445,191,432,213,423,241,415,310,416,393,421,482,426,572,427,655,419,726,410,755,397,778,384,791"/>
+<area shape="rect" id="Node000009" href="$d6/dc0/class_ros_output_adapter.html#a82356e8a791410a7d293639b9da245dd" title=" " alt="" coords="460,201,635,242"/>
+<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="380,787,393,775,404,755,412,731,420,669,419,595,416,515,412,436,412,362,420,299,429,274,441,253,446,248,450,252,445,257,434,276,426,300,417,362,417,435,421,515,425,595,425,669,417,732,409,757,397,778,384,791"/>
+<area shape="rect" id="Node000010" href="$d6/dc0/class_ros_output_adapter.html#a5b0a54007cadfa94ddcc81f35fdcbe58" title=" " alt="" coords="460,267,635,307"/>
+<area shape="poly" id="edge9_Node000004_Node000010" title=" " alt="" coords="380,787,393,775,412,745,425,716,432,688,435,660,429,604,415,548,402,492,396,436,399,407,407,378,420,348,441,319,445,314,449,318,445,322,425,351,412,380,404,408,402,436,407,491,420,547,434,603,440,659,438,689,430,718,417,748,397,778,383,791"/>
+<area shape="rect" id="Node000011" href="$d6/dc0/class_ros_output_adapter.html#a9aa2e29605b423e2932762311bdbd53b" title=" " alt="" coords="460,332,635,373"/>
+<area shape="poly" id="edge11_Node000004_Node000011" title=" " alt="" coords="380,787,393,775,410,750,421,725,428,700,430,676,426,628,415,581,405,533,401,484,404,460,411,435,423,409,441,384,445,379,449,383,445,387,428,412,416,437,409,461,406,484,410,532,421,580,431,628,435,676,433,701,426,727,415,752,397,778,383,791"/>
+<area shape="rect" id="Node000012" href="$d6/dc0/class_ros_output_adapter.html#a5a9a758482902e9826045307ef2a62a1" title=" " alt="" coords="460,397,635,438"/>
+<area shape="poly" id="edge12_Node000004_Node000012" title=" " alt="" coords="380,787,393,775,407,754,417,734,425,693,423,653,416,613,408,573,406,533,415,491,426,470,441,449,445,445,449,448,445,453,430,473,420,493,411,533,413,573,421,612,428,653,431,694,422,735,412,757,397,778,383,791"/>
+<area shape="rect" id="Node000013" href="$d6/dc0/class_ros_output_adapter.html#a72109ca8b92f6dd81aceec53b3977aa0" title=" " alt="" coords="460,463,635,503"/>
+<area shape="poly" id="edge13_Node000004_Node000013" title=" " alt="" coords="379,787,393,775,413,742,421,710,420,678,416,646,411,614,411,581,419,548,441,515,445,510,449,514,445,518,424,550,416,582,416,614,421,645,426,678,426,711,418,744,397,778,382,791"/>
+<area shape="rect" id="Node000014" href="$d6/dc0/class_ros_output_adapter.html#ae4c0cf88442f890c89fa5f307d9a4fd0" title=" " alt="" coords="460,528,635,569"/>
+<area shape="poly" id="edge14_Node000004_Node000014" title=" " alt="" coords="378,787,393,775,409,750,416,727,418,703,416,679,414,654,416,630,424,605,441,580,445,576,449,579,445,583,428,607,421,631,419,654,421,678,423,703,422,728,414,753,397,778,382,791"/>
+<area shape="rect" id="Node000015" href="$d6/dc0/class_ros_output_adapter.html#a3c7d1879fbfec77b00332ef8186496ad" title=" " alt="" coords="448,593,646,634"/>
+<area shape="poly" id="edge15_Node000004_Node000015" title=" " alt="" coords="377,787,393,774,405,759,412,743,416,711,420,678,428,662,441,645,446,641,449,645,445,649,432,664,426,680,421,712,417,745,410,761,397,778,380,791"/>
+<area shape="rect" id="Node000016" href="$d6/dc0/class_ros_output_adapter.html#acc261a6e4c947abd362dfe4ad095fb8d" title=" " alt="" coords="460,659,635,699"/>
+<area shape="poly" id="edge16_Node000004_Node000016" title=" " alt="" coords="373,786,393,774,408,759,416,743,425,726,441,710,450,705,453,709,445,714,429,730,421,745,413,762,397,778,376,791"/>
+<area shape="rect" id="Node000017" href="$d6/dc0/class_ros_output_adapter.html#abef123887e3524cfbc1e4280c15e93d1" title=" " alt="" coords="460,724,635,765"/>
+<area shape="poly" id="edge18_Node000004_Node000017" title=" " alt="" coords="381,786,453,767,454,772,382,791"/>
+<area shape="rect" id="Node000018" href="$d6/dc0/class_ros_output_adapter.html#a0dd9e0bcc81226e74ac4ad1cdaac9db4" title=" " alt="" coords="454,789,640,830"/>
+<area shape="poly" id="edge19_Node000004_Node000018" title=" " alt="" coords="384,807,438,807,438,812,384,812"/>
+<area shape="rect" id="Node000019" href="$d6/dc0/class_ros_output_adapter.html#acbb05addf6ab772532a720fcf8b27590" title=" " alt="" coords="460,855,635,895"/>
+<area shape="poly" id="edge20_Node000004_Node000019" title=" " alt="" coords="382,828,454,847,453,853,381,833"/>
+<area shape="rect" id="Node000023" href="$d6/dc0/class_ros_output_adapter.html#aeac03eb5f9ceb3acb550938b9ef54614" title=" " alt="" coords="460,920,635,961"/>
+<area shape="poly" id="edge24_Node000004_Node000023" title=" " alt="" coords="331,828,382,867,444,905,459,912,457,916,442,909,379,871,328,833"/>
+<area shape="rect" id="Node000024" href="$d6/dc0/class_ros_output_adapter.html#a3b114e2c9ed0de6087e68a04a02d7f22" title=" " alt="" coords="460,985,635,1026"/>
+<area shape="poly" id="edge25_Node000004_Node000024" title=" " alt="" coords="319,829,368,898,404,937,445,970,454,976,451,981,441,975,400,941,364,901,315,832"/>
+<area shape="rect" id="Node000026" href="$d6/dc0/class_ros_output_adapter.html#a23e725f5558b0ec37b09cc76f236a528" title=" " alt="" coords="443,1051,651,1091"/>
+<area shape="poly" id="edge27_Node000004_Node000026" title=" " alt="" coords="314,829,331,872,359,928,396,986,419,1012,445,1036,452,1041,449,1045,441,1040,415,1016,392,989,354,931,326,875,309,831"/>
+<area shape="rect" id="Node000027" href="$d6/dc0/class_ros_output_adapter.html#a2a28b606651e04aba318973734d721bb" title=" " alt="" coords="459,1116,635,1157"/>
+<area shape="poly" id="edge29_Node000004_Node000027" title=" " alt="" coords="311,830,325,884,350,957,368,996,389,1034,415,1070,445,1101,450,1105,447,1109,441,1105,411,1073,385,1037,363,998,345,959,319,886,306,831"/>
+<area shape="rect" id="Node000028" href="$d6/dc0/class_ros_output_adapter.html#a3464c89685686f62b26d327b4959622c" title=" " alt="" coords="460,1181,635,1222"/>
+<area shape="poly" id="edge31_Node000004_Node000028" title=" " alt="" coords="309,830,319,895,342,985,359,1034,382,1082,410,1127,445,1166,449,1170,446,1174,441,1170,406,1130,377,1085,354,1036,336,987,314,896,304,831"/>
+<area shape="rect" id="Node000029" href="$d6/dc0/class_ros_output_adapter.html#ac62bb9b8cf9fc24eec8067b68e8dbeb5" title=" " alt="" coords="460,1247,635,1287"/>
+<area shape="poly" id="edge32_Node000004_Node000029" title=" " alt="" coords="308,830,314,905,334,1013,351,1071,375,1129,406,1184,445,1232,449,1235,445,1239,441,1235,401,1187,370,1132,346,1073,328,1014,309,906,302,830"/>
+<area shape="rect" id="Node000030" href="$d6/dc0/class_ros_output_adapter.html#afc37221143abeba2daebcbd820198aab" title=" " alt="" coords="460,1312,635,1353"/>
+<area shape="poly" id="edge33_Node000004_Node000030" title=" " alt="" coords="307,830,309,915,315,974,326,1040,343,1109,367,1177,401,1241,445,1297,448,1301,445,1304,441,1301,397,1244,363,1179,338,1110,321,1041,310,975,304,915,301,830"/>
+<area shape="rect" id="Node000031" href="$d6/dc0/class_ros_output_adapter.html#afa24fe1473d422987c9b19e56ec561a4" title=" " alt="" coords="460,1377,635,1418"/>
+<area shape="poly" id="edge34_Node000004_Node000031" title=" " alt="" coords="310,830,325,940,354,1100,372,1183,394,1259,418,1321,445,1363,449,1367,445,1370,441,1366,414,1323,389,1260,367,1184,348,1101,320,941,304,831"/>
+<area shape="rect" id="Node000032" href="$d6/dc0/class_ros_output_adapter.html#a601f72cebc28e731630b707d7f7ff730" title=" " alt="" coords="460,1443,635,1483"/>
+<area shape="poly" id="edge35_Node000004_Node000032" title=" " alt="" coords="309,830,323,951,349,1131,368,1224,390,1310,416,1380,430,1407,445,1428,449,1432,445,1436,441,1431,426,1410,411,1383,385,1312,363,1226,344,1132,317,952,304,830"/>
+<area shape="rect" id="Node000034" href="$d6/dc0/class_ros_output_adapter.html#ad4af4d30a8d5f7613f37ef364afc3675" title=" " alt="" coords="460,1508,635,1549"/>
+<area shape="poly" id="edge37_Node000004_Node000034" title=" " alt="" coords="309,830,320,963,346,1163,364,1266,387,1362,414,1440,429,1470,445,1493,449,1497,445,1501,441,1497,424,1473,409,1442,381,1363,359,1267,340,1163,315,964,303,831"/>
+<area shape="rect" id="Node000035" href="$d6/dc0/class_ros_output_adapter.html#a7479a2ceef8b24d981f27535d8865d9f" title=" " alt="" coords="459,1573,636,1614"/>
+<area shape="poly" id="edge39_Node000004_Node000035" title=" " alt="" coords="308,830,318,975,342,1194,360,1308,383,1413,411,1500,427,1533,445,1559,448,1562,444,1566,441,1562,423,1536,406,1502,378,1414,355,1309,337,1194,313,975,303,831"/>
+<area shape="rect" id="Node000008" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="706,267,870,307"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="624,175,653,187,707,220,753,255,750,259,704,224,650,192,622,180"/>
+<area shape="poly" id="edge10_Node000010_Node000008" title=" " alt="" coords="635,284,690,284,690,290,635,290"/>
+<area shape="poly" id="edge17_Node000016_Node000008" title=" " alt="" coords="633,656,650,644,682,607,708,566,730,522,747,477,770,390,781,322,786,323,775,391,752,478,735,524,713,569,686,611,653,648,636,660"/>
+<area shape="rect" id="Node000020" href="$d6/dc0/class_ros_output_adapter.html#a11595fc09a4c70f2ab4ebd49b2fea4ae" title=" " alt="" coords="710,789,866,830"/>
+<area shape="poly" id="edge21_Node000019_Node000020" title=" " alt="" coords="624,852,695,832,696,837,625,857"/>
+<area shape="rect" id="Node000021" href="$d6/dc0/class_ros_output_adapter.html#aada839ec5ae08056155cf674468a5813" title=" " alt="" coords="710,855,866,895"/>
+<area shape="poly" id="edge22_Node000019_Node000021" title=" " alt="" coords="635,872,694,872,694,878,635,878"/>
+<area shape="rect" id="Node000022" href="$d6/dc0/class_ros_output_adapter.html#a0ff7a92fa684f5372afa34b79e378be9" title=" " alt="" coords="710,920,866,961"/>
+<area shape="poly" id="edge23_Node000019_Node000022" title=" " alt="" coords="625,893,696,913,695,918,624,898"/>
+<area shape="rect" id="Node000025" href="$d6/dc0/class_ros_output_adapter.html#a7f4bd574d8a592b6c16320035126b00c" title=" " alt="" coords="699,1051,877,1091"/>
+<area shape="poly" id="edge26_Node000024_Node000025" title=" " alt="" coords="625,1024,696,1043,695,1049,624,1029"/>
+<area shape="poly" id="edge28_Node000026_Node000025" title=" " alt="" coords="652,1068,684,1068,684,1074,652,1074"/>
+<area shape="poly" id="edge30_Node000027_Node000025" title=" " alt="" coords="624,1113,695,1093,696,1099,625,1118"/>
+<area shape="rect" id="Node000033" href="$d6/dc0/class_ros_output_adapter.html#adc83e8f39bccb2f399473c2eb7e31dcd" title=" " alt="" coords="715,1475,861,1515"/>
+<area shape="poly" id="edge36_Node000032_Node000033" title=" " alt="" coords="636,1472,700,1481,699,1486,635,1477"/>
+<area shape="poly" id="edge38_Node000034_Node000033" title=" " alt="" coords="635,1514,699,1505,700,1510,636,1519"/>
+</map>

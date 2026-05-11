@@ -117,14 +117,14 @@ $(document).ready(function(){initNavTree('df/d16/ekf__state__est_2src_2utils_2ut
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    velocities.second =</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        rl_velocity / (rear_axis_center_rotation_radius - (car_parameters-&gt;track_width / 2));</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    velocities.first = std::sqrt(std::pow(rear_axis_center_rotation_radius, 2) +</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>                            std::pow(car_parameters-&gt;dist_cg_2_rear_axis, 2)) *</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>                            std::pow(car_parameters-&gt;cg_2_rear_axis, 2)) *</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>                       std::fabs(velocities.second);</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordtype">double</span> rear_axis_center_rotation_radius = car_parameters-&gt;wheelbase / std::tan(steering_angle);</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    velocities.second =</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        rr_velocity / (rear_axis_center_rotation_radius + (car_parameters-&gt;track_width / 2));</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    velocities.first = std::sqrt(std::pow(rear_axis_center_rotation_radius, 2) +</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>                            std::pow(car_parameters-&gt;dist_cg_2_rear_axis, 2)) *</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>                            std::pow(car_parameters-&gt;cg_2_rear_axis, 2)) *</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                       std::fabs(velocities.second);</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  }</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  <span class="keywordflow">return</span> velocities;</div>

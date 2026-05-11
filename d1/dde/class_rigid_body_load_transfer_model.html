@@ -124,9 +124,9 @@ Collaboration diagram for RigidBodyLoadTransferModel:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad30176a70a468d8bd9535bab6593a1e3" id="r_ad30176a70a468d8bd9535bab6593a1e3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dde/class_rigid_body_load_transfer_model.html#ad30176a70a468d8bd9535bab6593a1e3">RigidBodyLoadTransferModel</a> (const <a class="el" href="../../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html">common_lib::car_parameters::CarParameters</a> &amp;car_parameters)</td></tr>
 <tr class="separator:ad30176a70a468d8bd9535bab6593a1e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d5a492abff7c6bc44287b1639af94d9" id="r_a7d5a492abff7c6bc44287b1639af94d9"><td class="memItemLeft" align="right" valign="top">Eigen::Vector4d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dde/class_rigid_body_load_transfer_model.html#a7d5a492abff7c6bc44287b1639af94d9">compute_loads</a> (const Eigen::VectorXd &amp;dynamic_state) const override</td></tr>
-<tr class="memdesc:a7d5a492abff7c6bc44287b1639af94d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes loads on the tires based on the dynamic state of the vehicle.  <br /></td></tr>
-<tr class="separator:a7d5a492abff7c6bc44287b1639af94d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a884de468656022c91f124467ab172b4b" id="r_a884de468656022c91f124467ab172b4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html">common_lib::structures::Wheels</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dde/class_rigid_body_load_transfer_model.html#a884de468656022c91f124467ab172b4b">compute_loads</a> (const <a class="el" href="../../d9/dda/struct_load_transfer_input.html">LoadTransferInput</a> &amp;input) const override</td></tr>
+<tr class="memdesc:a884de468656022c91f124467ab172b4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes loads on the tires based on the dynamic state of the vehicle.  <br /></td></tr>
+<tr class="separator:a884de468656022c91f124467ab172b4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_load_transfer_model"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_load_transfer_model')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d4/da2/class_load_transfer_model.html">LoadTransferModel</a></td></tr>
 <tr class="memitem:ad7f2c8814caeae39795c977bafae0b0d inherit pub_methods_class_load_transfer_model" id="r_ad7f2c8814caeae39795c977bafae0b0d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/da2/class_load_transfer_model.html#ad7f2c8814caeae39795c977bafae0b0d">LoadTransferModel</a> (const <a class="el" href="../../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html">common_lib::car_parameters::CarParameters</a> &amp;car_parameters)</td></tr>
 <tr class="separator:ad7f2c8814caeae39795c977bafae0b0d inherit pub_methods_class_load_transfer_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -170,8 +170,8 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7d5a492abff7c6bc44287b1639af94d9" name="a7d5a492abff7c6bc44287b1639af94d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d5a492abff7c6bc44287b1639af94d9">&#9670;&#160;</a></span>compute_loads()</h2>
+<a id="a884de468656022c91f124467ab172b4b" name="a884de468656022c91f124467ab172b4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a884de468656022c91f124467ab172b4b">&#9670;&#160;</a></span>compute_loads()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -180,10 +180,10 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Eigen::Vector4d RigidBodyLoadTransferModel::compute_loads </td>
+          <td class="memname"><a class="el" href="../../d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html">common_lib::structures::Wheels</a> RigidBodyLoadTransferModel::compute_loads </td>
           <td>(</td>
-          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
-          <td class="paramname"><em>dynamic_state</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="../../d9/dda/struct_load_transfer_input.html">LoadTransferInput</a> &amp;&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -197,13 +197,13 @@ Additional Inherited Members</h2></td></tr>
 <p>Computes loads on the tires based on the dynamic state of the vehicle. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dynamic_state</td><td>Receives only the lateral and longitudinal accelerations </td></tr>
+    <tr><td class="paramname">input</td><td>Receives a pointer to a struct that contains the relevant dynamic state that affects the load transfer. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Eigen::Vector4d a vector containing the loads on the four tires in Newtons, in the order: FL, FR, RL, RR. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../de/d84/struct_wheels.html">Wheels</a> a struct containing the loads on the four tires in Newtons </dd></dl>
 
-<p>Implements <a class="el" href="../../d4/da2/class_load_transfer_model.html#a8a43b018a8ea0fc536890151c59b2b59">LoadTransferModel</a>.</p>
+<p>Implements <a class="el" href="../../d4/da2/class_load_transfer_model.html#a07eba7316690a15b03fbacf7fcf49a79">LoadTransferModel</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="../../de/dfa/rigid__body__model_8cpp_source.html#l00003">3</a> of file <a class="el" href="../../de/dfa/rigid__body__model_8cpp_source.html">rigid_body_model.cpp</a>.</p>
 

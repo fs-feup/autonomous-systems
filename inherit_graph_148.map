@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$d3/dcc/class_velocity_planning.html" title="Computes velocity profiles for a planned path based on curvature and dynamics constraints." alt="" coords="5,5,123,31"/>
+<area shape="rect" id="Node000000" href="$d0/db0/class_steering_model.html" title=" " alt="" coords="5,31,110,56"/>
+<area shape="rect" id="Node000001" href="$dd/dc4/class_ackerman_steering.html" title="Steering model that assumes Ackerman steering geometry, meaning that front wheels turn at different a..." alt="" coords="165,5,293,31"/>
+<area shape="poly" id="edge129_Node000000_Node000001" title=" " alt="" coords="124,31,164,25,164,30,125,36"/>
+<area shape="rect" id="Node000002" href="$d2/dab/class_parallel_front_steering.html" title="Steering model that assumes parallel front steering, meaning that front wheels turn as much as the st..." alt="" coords="158,55,300,80"/>
+<area shape="poly" id="edge130_Node000000_Node000002" title=" " alt="" coords="125,50,158,55,157,60,125,56"/>
 </map>

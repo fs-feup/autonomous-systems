@@ -1,0 +1,5 @@
+<map id="KeyboardInputAdapter" name="KeyboardInputAdapter">
+<area shape="rect" id="Node000001" title="SDL&#45;backed keyboard simulator input adapter." alt="" coords="9,239,176,704"/>
+<area shape="rect" id="Node000002" href="$d0/d4b/class_invicta_sim_input_adapter.html" title="Base interface for simulator input adapters." alt="" coords="5,5,180,191"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,206,95,239,90,239,90,206"/>
+</map>

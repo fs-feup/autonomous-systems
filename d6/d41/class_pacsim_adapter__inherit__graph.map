@@ -4,9 +4,9 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,509,218,783,213,785,123,510"/>
 <area shape="rect" id="Node000003" href="$d8/d84/class_s_l_a_m_node.html" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="214,119,415,727"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="317,742,317,775,312,775,312,742"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="369,5,455,71"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="403,86,394,120,389,118,398,85"/>
-<area shape="rect" id="Node000005" href="$d3/d43/class_v_e_node.html" title="Node class for the velocity estimation node." alt="" coords="439,360,582,485"/>
-<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="426,84,497,359,492,361,421,86"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="493,500,429,727,415,775,410,774,424,726,488,499"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="377,5,463,71"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="410,86,401,120,395,118,405,85"/>
+<area shape="rect" id="Node000005" href="$d3/d43/class_v_e_node.html" title="Node class for the velocity estimation node." alt="" coords="440,330,611,515"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="435,85,503,329,498,331,430,86"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="494,530,416,776,411,774,489,529"/>
 </map>

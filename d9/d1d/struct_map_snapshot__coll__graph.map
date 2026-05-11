@@ -1,0 +1,3 @@
+<map id="MapSnapshot" name="MapSnapshot">
+<area shape="rect" id="Node000001" title="Snapshot of the track map, containing both the ground truth cone positions and simulated slam map." alt="" coords="5,5,180,151"/>
+</map>

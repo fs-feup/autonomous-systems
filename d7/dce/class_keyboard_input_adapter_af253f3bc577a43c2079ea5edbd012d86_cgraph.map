@@ -1,0 +1,5 @@
+<map id="KeyboardInputAdapter::shutdown_sdl" name="KeyboardInputAdapter::shutdown_sdl">
+<area shape="rect" id="Node000001" title="Close SDL resources before exit." alt="" coords="5,5,155,46"/>
+<area shape="rect" id="Node000002" href="$d7/dce/class_keyboard_input_adapter.html#aa210b2b978951829fa8bf3a24a700545" title=" " alt="" coords="203,5,352,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="155,23,187,23,187,28,155,28"/>
+</map>

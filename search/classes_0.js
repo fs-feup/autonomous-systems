@@ -2,10 +2,11 @@ var searchData=
 [
   ['accelerationtrimming_0',['AccelerationTrimming',['../de/d98/class_acceleration_trimming.html',1,'']]],
   ['accelerationtrimmingtest_1',['AccelerationTrimmingTest',['../de/db8/class_acceleration_trimming_test.html',1,'']]],
-  ['adapter_2',['adapter',['../d3/d7f/class_adapter.html',1,'Adapter'],['../d7/dff/classevaluator_1_1adapter_1_1_adapter.html',1,'evaluator.adapter.Adapter']]],
-  ['adaptivenearestneighbor_3',['AdaptiveNearestNeighbor',['../da/d50/class_adaptive_nearest_neighbor.html',1,'']]],
-  ['aerodynamicsmodel_4',['AerodynamicsModel',['../d9/dea/struct_vehicle_model_bicycle_1_1_aerodynamics_model.html',1,'VehicleModelBicycle']]],
-  ['aeromodel_5',['AeroModel',['../d2/d35/class_aero_model.html',1,'']]],
-  ['aeroparameters_6',['AeroParameters',['../d5/d5a/structcommon__lib_1_1car__parameters_1_1_aero_parameters.html',1,'common_lib::car_parameters']]],
-  ['angleandnorms_7',['AngleAndNorms',['../de/df9/structcommon__lib_1_1maths_1_1_angle_and_norms.html',1,'common_lib::maths']]]
+  ['ackermansteering_2',['AckermanSteering',['../dd/dc4/class_ackerman_steering.html',1,'']]],
+  ['adapter_3',['adapter',['../d3/d7f/class_adapter.html',1,'Adapter'],['../d7/dff/classevaluator_1_1adapter_1_1_adapter.html',1,'evaluator.adapter.Adapter']]],
+  ['adaptivenearestneighbor_4',['AdaptiveNearestNeighbor',['../da/d50/class_adaptive_nearest_neighbor.html',1,'']]],
+  ['aerodynamicsmodel_5',['AerodynamicsModel',['../d9/dea/struct_vehicle_model_bicycle_1_1_aerodynamics_model.html',1,'VehicleModelBicycle']]],
+  ['aeromodel_6',['AeroModel',['../d2/d35/class_aero_model.html',1,'']]],
+  ['aeroparameters_7',['AeroParameters',['../d5/d5a/structcommon__lib_1_1car__parameters_1_1_aero_parameters.html',1,'common_lib::car_parameters']]],
+  ['angleandnorms_8',['AngleAndNorms',['../de/df9/structcommon__lib_1_1maths_1_1_angle_and_norms.html',1,'common_lib::maths']]]
 ];

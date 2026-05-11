@@ -1,0 +1,5 @@
+<map id="FSFEUP02Model" name="FSFEUP02Model">
+<area shape="rect" id="Node000001" title="Four wheel vehicle model (tuned for FSFEUP02)" alt="" coords="5,359,148,679"/>
+<area shape="rect" id="Node000002" href="$d6/dbc/class_vehicle_model.html" title="Vehicle model interface." alt="" coords="11,5,142,311"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,326,79,359,74,359,74,326"/>
+</map>

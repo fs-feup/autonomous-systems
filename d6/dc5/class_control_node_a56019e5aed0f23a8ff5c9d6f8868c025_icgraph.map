@@ -1,9 +1,13 @@
 <map id="ControlNode::vehicle_state_callback" name="ControlNode::vehicle_state_callback">
-<area shape="rect" id="Node000001" title="Called when a new velocity is received." alt="" coords="482,35,622,75"/>
+<area shape="rect" id="Node000001" title="Called when a new velocity is received." alt="" coords="482,63,622,103"/>
 <area shape="rect" id="Node000002" href="$db/d68/class_pac_sim_adapter.html#ace940c40e28e3fffd0c762adb3de48f3" title="Callback for the pacsim ground truth velocity topic, used when using simulated velocity estimation." alt="" coords="265,5,432,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="466,45,432,40,433,35,467,40"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="466,62,422,49,424,44,468,57"/>
 <area shape="rect" id="Node000004" href="$d6/dc5/class_control_node.html#abd6f2010c9af09c52a7ac5f49a95c2ad" title=" " alt="" coords="263,70,434,96"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="467,69,435,74,434,69,466,64"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="466,86,434,86,434,80,466,80"/>
+<area shape="rect" id="Node000005" href="$dc/d0e/class_invictasim_adapter.html#aa4495de31797c5fb3c0bb815c7e6906a" title=" " alt="" coords="282,120,415,161"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="468,109,416,124,414,119,466,104"/>
 <area shape="rect" id="Node000003" href="$db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868" title=" " alt="" coords="5,13,215,39"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="249,28,215,28,215,23,249,23"/>
+<area shape="rect" id="Node000006" href="$dc/d0e/class_invictasim_adapter.html#ae56d46f61925c91ec26257dfe37d24c3" title=" " alt="" coords="44,120,176,161"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="267,143,177,143,177,138,267,138"/>
 </map>

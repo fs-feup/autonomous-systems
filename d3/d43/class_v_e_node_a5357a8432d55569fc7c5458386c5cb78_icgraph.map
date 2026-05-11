@@ -1,0 +1,39 @@
+<map id="VENode::publish_velocities" name="VENode::publish_velocities">
+<area shape="rect" id="Node000001" title=" " alt="" coords="469,340,647,365"/>
+<area shape="rect" id="Node000002" href="$d6/d6c/class_invicta_sim_adapter.html#a2c33c3c59849e5363ca2f8bb73a5dd93" title="IMU subscription callback, which receives both free acceleration and angular velocity through a synch..." alt="" coords="273,5,407,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="548,325,534,270,508,200,471,126,447,92,419,61,403,49,406,44,423,57,451,88,475,123,513,198,539,269,554,324"/>
+<area shape="rect" id="Node000004" href="$d1/df1/class_vehicle_adapter.html#a9060aa6d8c595e00c59f92621edff3c5" title="IMU subscription callback, which receives both free acceleration and angular velocity through a synch..." alt="" coords="272,267,408,307"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="498,337,408,310,409,305,499,332"/>
+<area shape="rect" id="Node000006" href="$d1/dcb/class_pacsim_adapter.html#a84f8050582171d9ede535e6a73d1ce79" title="callback that gets called when the IMU data is received" alt="" coords="271,528,409,569"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="543,380,494,447,460,484,423,517,402,530,399,525,419,513,457,480,490,444,539,377"/>
+<area shape="rect" id="Node000008" href="$d6/d6c/class_invicta_sim_adapter.html#aa21c4af366ceb15c62b08eab6728e16f" title="Callback for the subscription of the resolver which measures the motor RPM." alt="" coords="273,71,407,111"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="545,326,527,283,500,230,464,175,419,126,401,114,404,110,423,122,468,171,504,227,532,281,550,324"/>
+<area shape="rect" id="Node000009" href="$d1/df1/class_vehicle_adapter.html#ad764a66db05e6ac5dbdf62bae1c8db6e" title="Callback for the subscription of the resolver which measures the motor RPM." alt="" coords="259,332,421,373"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="453,355,421,355,421,350,453,350"/>
+<area shape="rect" id="Node000010" href="$d6/d6c/class_invicta_sim_adapter.html#a37541364b7fbf2f38d11c18300d76270" title="Callback for the subscription of the steering angle sensor." alt="" coords="260,136,420,177"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="539,328,490,261,457,224,419,192,399,180,402,175,423,188,460,220,494,258,543,325"/>
+<area shape="rect" id="Node000011" href="$d1/df1/class_vehicle_adapter.html#ac8c38dbfb560f06fdd1000ff1eb40448" title="Callback for the subscription of the steering angle sensor." alt="" coords="259,397,421,438"/>
+<area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="499,373,411,399,410,394,497,368"/>
+<area shape="rect" id="Node000012" href="$d1/dcb/class_pacsim_adapter.html#a2bd95ac09a4e727a01672da8c0831dd5" title="callback that gets called when the steering angle is received" alt="" coords="259,593,421,634"/>
+<area shape="poly" id="edge15_Node000001_Node000012" title=" " alt="" coords="550,381,532,424,504,478,468,533,423,582,404,595,401,591,419,578,464,530,500,475,527,422,545,379"/>
+<area shape="rect" id="Node000013" href="$d6/d6c/class_invicta_sim_adapter.html#af4da8573618c3b7c33b567ef126befeb" title="Wheel speed subscription callback, which receives both wheel speeds through a synchronizer message fi..." alt="" coords="273,201,407,242"/>
+<area shape="poly" id="edge17_Node000001_Node000013" title=" " alt="" coords="528,332,478,295,420,257,395,245,397,240,422,253,481,290,531,328"/>
+<area shape="rect" id="Node000014" href="$d1/df1/class_vehicle_adapter.html#a4af19314f0fc8a4643c8f8a4a6abfc3d" title="Wheel speed subscription callback, which receives both wheel speeds through a synchronizer message fi..." alt="" coords="270,463,410,503"/>
+<area shape="poly" id="edge19_Node000001_Node000014" title=" " alt="" coords="531,377,481,414,422,452,397,464,395,460,420,447,478,410,528,373"/>
+<area shape="rect" id="Node000015" href="$d1/dcb/class_pacsim_adapter.html#a77b1b534a8cd331a964cba15532cb01f" title="callback that gets called when the wheel speeds are received" alt="" coords="270,659,410,699"/>
+<area shape="poly" id="edge21_Node000001_Node000015" title=" " alt="" coords="554,381,539,436,513,507,475,581,451,616,423,648,406,660,403,656,419,644,447,613,471,579,508,505,534,434,548,380"/>
+<area shape="rect" id="Node000003" href="$d6/d6c/class_invicta_sim_adapter.html#aa1eb2b5a7cf531686ea57c9e7f905651" title=" " alt="" coords="41,104,175,145"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="275,55,260,61,158,106,156,101,258,57,273,50"/>
+<area shape="rect" id="Node000005" href="$d1/df1/class_vehicle_adapter.html#aebeaec32c8cdc951d1b3d41817890cf9" title=" " alt="" coords="6,373,210,399"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="275,316,260,323,141,375,139,370,258,318,273,311"/>
+<area shape="rect" id="Node000007" href="$d1/dcb/class_pacsim_adapter.html#a00836c9f1567034e7e403fae0faefd90" title=" " alt="" coords="5,601,211,627"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="257,574,157,603,156,598,256,569"/>
+<area shape="poly" id="edge8_Node000008_Node000003" title=" " alt="" coords="258,105,176,117,175,112,257,100"/>
+<area shape="poly" id="edge10_Node000009_Node000005" title=" " alt="" coords="245,369,202,375,202,370,244,363"/>
+<area shape="poly" id="edge12_Node000010_Node000003" title=" " alt="" coords="244,146,175,136,176,131,245,141"/>
+<area shape="poly" id="edge14_Node000011_Node000005" title=" " alt="" coords="243,407,205,402,206,396,244,402"/>
+<area shape="poly" id="edge16_Node000012_Node000007" title=" " alt="" coords="243,616,211,616,211,611,243,611"/>
+<area shape="poly" id="edge18_Node000013_Node000003" title=" " alt="" coords="273,197,258,191,157,148,159,143,260,186,275,192"/>
+<area shape="poly" id="edge20_Node000014_Node000005" title=" " alt="" coords="273,459,258,452,139,401,141,397,260,447,275,454"/>
+<area shape="poly" id="edge22_Node000015_Node000007" title=" " alt="" coords="254,658,156,630,157,625,255,653"/>
+</map>

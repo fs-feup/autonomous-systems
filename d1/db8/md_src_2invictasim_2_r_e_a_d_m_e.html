@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Formula Student Autonomous Systems: Invictasim Package</title>
+<title>Formula Student Autonomous Systems: Invictasim</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -91,65 +91,128 @@ $(document).ready(function(){initNavTree('d1/db8/md_src_2invictasim_2_r_e_a_d_m_
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">Invictasim Package</div></div>
+  <div class="headertitle"><div class="title">Invictasim</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md106"></a> </p>
-<h1><a class="anchor" id="autotoc_md107"></a>
-Package Information</h1>
-<h2><a class="anchor" id="autotoc_md108"></a>
-Description</h2>
-<p>This package contains the invictasim simulator built by Formula Student FEUP for the autonomous system.</p>
-<h2><a class="anchor" id="autotoc_md109"></a>
-Features</h2>
+<div class="textblock"><p><a class="anchor" id="autotoc_md96"></a> Invictasim is the Formula Student FEUP simulator package for autonomous system development. It supports ROS-driven input and SDL keyboard input, publishes vehicle/track/visualization outputs, and runs with configurable vehicle and track models.</p>
+<h1><a class="anchor" id="autotoc_md97"></a>
+Current Package Structure</h1>
+<div class="fragment"><div class="line">src/invictasim/</div>
+<div class="line">├── include/</div>
+<div class="line">│   ├── config/</div>
+<div class="line">│   ├── io/</div>
+<div class="line">│   │   ├── input/</div>
+<div class="line">│   │   └── output/</div>
+<div class="line">│   ├── simulator/</div>
+<div class="line">│   ├── track/</div>
+<div class="line">│   └── vehicle_model/</div>
+<div class="line">├── launch/</div>
+<div class="line">│   └── invictasim.launch.py</div>
+<div class="line">├── resources/</div>
+<div class="line">│   ├── meshes/</div>
+<div class="line">│   └── tracks/</div>
+<div class="line">├── src/</div>
+<div class="line">│   ├── config/</div>
+<div class="line">│   ├── io/</div>
+<div class="line">│   │   ├── input/</div>
+<div class="line">│   │   └── output/</div>
+<div class="line">│   ├── simulator/</div>
+<div class="line">│   ├── track/</div>
+<div class="line">│   ├── vehicle_model/</div>
+<div class="line">│   └── main.cpp</div>
+<div class="line">├── test/</div>
+<div class="line">├── CMakeLists.txt</div>
+<div class="line">└── package.xml</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md98"></a>
+Runtime Overview</h1>
 <ul>
-<li><b>Vehicle Model:</b> Bicycle kinematic and dynamic model with configurable tire, aerodynamic, and drivetrain parameters</li>
-<li><b>Real-time Simulation:</b> 1000 Hz simulation loop with real-time synchronization</li>
-<li><b>ROS 2 Integration:</b> Publishes simulation state and accepts control inputs via ROS topics</li>
+<li><code>invictasim</code> executable starts simulator, input adapter, and output adapter.</li>
+<li>Input adapter options:<ul>
+<li><code>ros</code>: subscribes to <code>/control/command</code></li>
+<li><code>keyboard</code>: opens an SDL window (<code>W/S</code> throttle, <code>A/D</code> steering)</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md110"></a>
-Launch Configurations</h2>
-<ul>
-<li><a href="../../launch/invictasim.launch.py">invictasim.launch.py</a>: Launches the invictasim simulator node with configuration from workspace config files.</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md111"></a>
-Configuration</h2>
-<p>All configuration files are located in <code>/home/ws/config/invictasim/</code>:</p>
-<p><b>Main Simulator Configuration:</b></p><ul>
-<li><a href="../..//home/ws/config/invictasim/config.yaml">config.yaml</a> - Simulator parameters:<ul>
-<li>Vehicle model selection</li>
-<li>Simulation timestep (default: 0.001s = 1000 Hz)</li>
+</li>
+<li>Output adapter currently available:<ul>
+<li><code>ros</code>: publishes simulator telemetry, input echo, track, TF, and visualization topics.</li>
 </ul>
 </li>
 </ul>
-<p><b>Global Configuration (Workspace):</b></p><ul>
-<li><a href="../..//home/ws/config/global/global_config.yaml">/home/ws/config/global/global_config.yaml</a> - System-wide parameters:<ul>
-<li>Discipline (autocross, skidpad, acceleration)</li>
-<li><a class="el" href="../../db/df3/struct_track.html">Track</a> name and vehicle frame ID</li>
-<li>Simulation speed ratio (1.0 = real-time)</li>
+<p><a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a> mapping is defined in:</p>
+<ul>
+<li><a href="../../include/io/input/map.hpp">include/io/input/map.hpp</a></li>
+<li><a href="../../include/io/output/map.hpp">include/io/output/map.hpp</a></li>
+</ul>
+<h1><a class="anchor" id="autotoc_md99"></a>
+Configuration Files Used</h1>
+<p>Invictasim reads configuration through <code><a class="el" href="../../de/dca/namespacecommon__lib_1_1config__load.html">common_lib::config_load</a></code>:</p>
+<ul>
+<li><a href="../../../../config/invictasim/global.yaml">config/invictasim/global.yaml</a><ul>
+<li><code>input_adapter</code>, <code>output_adapter</code>, <code>vehicle_model</code>, <code>sim_frequency</code>, <code>track_name</code>, <code>publish_frequencies</code></li>
+</ul>
+</li>
+<li><a href="../../../../config/global/global_config.yaml">config/global/global_config.yaml</a><ul>
+<li>global discipline/system parameters used by the simulator context</li>
+</ul>
+</li>
+<li><a href="../../../../config/invictasim/vehicle_models/FSFEUP02.yaml">config/invictasim/vehicle_models/FSFEUP02.yaml</a><ul>
+<li>selected vehicle model parameters</li>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md112"></a>
-How to Run</h1>
-<h2><a class="anchor" id="autotoc_md113"></a>
-Install Dependencies</h2>
-<div class="fragment"><div class="line">./dependencies_install.sh</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md114"></a>
-Compiling</h2>
-<div class="fragment"><div class="line">colcon build --packages-up-to invictasim</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md115"></a>
-Testing</h2>
-<div class="fragment"><div class="line">colcon test --packages-select invictasim</div>
-</div><!-- fragment --><p>To check test results: </p><div class="fragment"><div class="line">colcon test-result --all --verbose</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md116"></a>
-Running</h2>
-<p>Use a launch file:</p>
-<div class="fragment"><div class="line">source ./install/setup.bash # If in a new terminal</div>
+<p>Code reference for config loading:</p>
+<ul>
+<li><a href="../../src/config/config.cpp">src/config/config.cpp</a></li>
+</ul>
+<h1><a class="anchor" id="autotoc_md100"></a>
+Build</h1>
+<p>From workspace root:</p>
+<div class="fragment"><div class="line">source install/setup.bash</div>
+<div class="line">colcon build --packages-select invictasim</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md101"></a>
+Run</h1>
+<p>From workspace root:</p>
+<div class="fragment"><div class="line">source install/setup.bash</div>
 <div class="line">ros2 launch invictasim invictasim.launch.py</div>
-</div><!-- fragment --><p>or run directly:</p>
-<div class="fragment"><div class="line">source ./install/setup.bash # If in a new terminal</div>
+</div><!-- fragment --><p>Or run the node directly:</p>
+<div class="fragment"><div class="line">source install/setup.bash</div>
 <div class="line">ros2 run invictasim invictasim</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md102"></a>
+Keyboard Mode</h1>
+<p>Set in <a href="../../../../config/invictasim/global.yaml">config/invictasim/global.yaml</a>:</p>
+<div class="fragment"><div class="line">invictasim:</div>
+<div class="line">  input_adapter: &quot;keyboard&quot;</div>
+</div><!-- fragment --><p>Controls and UI:</p>
+<ul>
+<li><code>W</code>: increase throttle</li>
+<li><code>S</code>: brake/reverse throttle</li>
+<li><code>A</code>: steer left</li>
+<li><code>D</code>: steer right</li>
+<li><code>Q</code> or window close: exit keyboard input window</li>
+<li>SDL window shows labeled throttle and steering bars plus a focus hint</li>
+</ul>
+<p>Keyboard implementation:</p>
+<ul>
+<li><a href="../../src/io/input/keyboard.cpp">src/io/input/keyboard.cpp</a></li>
+</ul>
+<h1><a class="anchor" id="autotoc_md103"></a>
+ROS Input Mode</h1>
+<p>Set in <a href="../../../../config/invictasim/global.yaml">config/invictasim/global.yaml</a>:</p>
+<div class="fragment"><div class="line">invictasim:</div>
+<div class="line">  input_adapter: &quot;ros&quot;</div>
+</div><!-- fragment --><p>Expected input topic:</p>
+<ul>
+<li><code>/control/command</code> (<code>custom_interfaces/msg/ControlCommand</code>)</li>
+</ul>
+<p>ROS input implementation:</p>
+<ul>
+<li><a href="../../src/io/input/ros.cpp">src/io/input/ros.cpp</a></li>
+</ul>
+<h1><a class="anchor" id="autotoc_md104"></a>
+Tests</h1>
+<p>Run tests for this package:</p>
+<div class="fragment"><div class="line">source install/setup.bash</div>
+<div class="line">colcon test --packages-select invictasim</div>
+<div class="line">colcon test-result --all --verbose</div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

@@ -1,0 +1,5 @@
+<map id="AckermanSteering" name="AckermanSteering">
+<area shape="rect" id="Node000001" title="Steering model that assumes Ackerman steering geometry, meaning that front wheels turn at different a..." alt="" coords="5,153,183,333"/>
+<area shape="rect" id="Node000002" href="$d0/db0/class_steering_model.html" title=" " alt="" coords="30,5,158,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,120,97,153,91,153,91,120"/>
+</map>

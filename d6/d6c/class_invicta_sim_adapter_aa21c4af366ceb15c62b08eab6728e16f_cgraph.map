@@ -1,0 +1,5 @@
+<map id="InvictaSimAdapter::resolver_callback" name="InvictaSimAdapter::resolver_callback">
+<area shape="rect" id="Node000001" title="Callback for the subscription of the resolver which measures the motor RPM." alt="" coords="5,5,140,46"/>
+<area shape="rect" id="Node000002" href="$d3/d43/class_v_e_node.html#a5357a8432d55569fc7c5458386c5cb78" title=" " alt="" coords="188,13,366,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,23,172,23,172,28,140,28"/>
+</map>

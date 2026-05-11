@@ -1,0 +1,5 @@
+<map id="MapBasedMotor::get_efficiency" name="MapBasedMotor::get_efficiency">
+<area shape="rect" id="Node000001" title="Get motor efficiency at current state." alt="" coords="5,5,146,46"/>
+<area shape="rect" id="Node000002" href="$dd/d43/class_map_based_motor.html#a96e265ae6b0409bfaeea1acb22dc6ae1" title="Generic linear interpolation from a map." alt="" coords="194,5,376,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,23,178,23,178,28,146,28"/>
+</map>

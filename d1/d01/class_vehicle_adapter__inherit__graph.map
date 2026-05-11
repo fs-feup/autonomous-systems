@@ -8,11 +8,11 @@
 <area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="380,86,368,126,363,125,375,84"/>
 <area shape="rect" id="Node000006" href="$d8/d84/class_s_l_a_m_node.html" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="397,119,599,727"/>
 <area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="406,85,415,118,410,120,400,86"/>
-<area shape="rect" id="Node000007" href="$d3/d43/class_v_e_node.html" title="Node class for the velocity estimation node." alt="" coords="623,360,765,485"/>
-<area shape="poly" id="edge9_Node000007_Node000003" title=" " alt="" coords="448,43,489,51,533,65,576,87,613,117,635,144,652,174,676,238,690,303,696,360,691,360,685,304,671,240,647,176,630,147,609,121,573,91,531,70,488,56,447,48"/>
-<area shape="rect" id="Node000004" href="$d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="790,350,974,495"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="864,510,830,616,807,673,780,728,741,793,696,856,604,967,600,963,692,852,736,790,776,725,802,671,825,615,859,509"/>
+<area shape="rect" id="Node000007" href="$d3/d43/class_v_e_node.html" title="Node class for the velocity estimation node." alt="" coords="623,330,794,515"/>
+<area shape="poly" id="edge9_Node000007_Node000003" title=" " alt="" coords="448,43,488,52,532,66,576,87,613,117,649,165,675,220,693,277,703,330,698,331,688,278,670,222,645,168,609,121,573,92,530,71,487,57,446,48"/>
+<area shape="rect" id="Node000004" href="$d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="818,350,1002,495"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="893,511,859,617,836,674,808,728,762,798,710,865,656,926,604,979,600,976,652,922,706,861,758,795,804,725,831,672,854,615,888,509"/>
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="381,709,402,774,397,776,375,711"/>
 <area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="501,742,501,775,495,775,495,742"/>
-<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="677,500,614,727,599,776,594,774,609,726,672,499"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="678,530,614,727,598,776,593,774,609,726,672,528"/>
 </map>

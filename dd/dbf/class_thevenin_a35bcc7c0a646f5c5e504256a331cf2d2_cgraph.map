@@ -1,0 +1,10 @@
+<map id="Thevenin::calculate_allowed_current" name="Thevenin::calculate_allowed_current">
+<area shape="rect" id="Node000001" title="Calculate the maximum allowed current based on battery state and limits." alt="" coords="5,23,138,64"/>
+<area shape="rect" id="Node000002" href="$dd/dbf/class_thevenin.html#a37ea682d95f1d274d72c91c24610a571" title=" " alt="" coords="186,5,339,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="138,32,170,28,171,33,138,37"/>
+<area shape="rect" id="Node000004" href="$dd/dbf/class_thevenin.html#a26b3dbad2318b5ac9bf08894c64dba0d" title=" " alt="" coords="191,55,334,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="138,49,175,54,175,59,138,54"/>
+<area shape="rect" id="Node000003" href="$dd/dbf/class_thevenin.html#ae0de409d755ce9005aad8b7b4307cf0b" title=" " alt="" coords="387,31,570,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="340,25,372,28,371,34,339,30"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="334,57,371,53,372,58,335,62"/>
+</map>

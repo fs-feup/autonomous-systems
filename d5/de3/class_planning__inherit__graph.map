@@ -1,13 +1,11 @@
 <map id="Planning" name="Planning">
-<area shape="rect" id="Node000001" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="345,119,525,713"/>
-<area shape="rect" id="Node000003" href="$d0/d1d/class_eufs_adapter.html" title="Adapter class to interface with the EUFS simulator." alt="" coords="5,771,189,1350"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="338,547,268,650,204,763,192,788,187,785,199,760,264,647,334,544"/>
-<area shape="rect" id="Node000004" href="$d7/d8e/class_fsds_adapter.html" title=" " alt="" coords="213,901,429,1221"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="382,728,352,901,347,900,377,727"/>
-<area shape="rect" id="Node000005" href="$db/d68/class_pac_sim_adapter.html" title="Adapter for the PacSim simulator." alt="" coords="454,833,642,1288"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="492,727,511,833,505,834,487,728"/>
-<area shape="rect" id="Node000006" href="$d1/df1/class_vehicle_adapter.html" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="667,761,875,1360"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="535,555,598,654,657,760,669,785,664,787,652,763,593,657,531,558"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="392,5,477,71"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="437,85,437,119,432,119,432,85"/>
+<area shape="rect" id="Node000001" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="242,119,422,713"/>
+<area shape="rect" id="Node000003" href="$d6/d6c/class_invicta_sim_adapter.html" title="Adapter class to interface with the InvictaSim simulator for SLAM." alt="" coords="5,773,213,1348"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="240,692,211,774,206,772,235,690"/>
+<area shape="rect" id="Node000004" href="$db/d68/class_pac_sim_adapter.html" title="Adapter for the PacSim simulator." alt="" coords="238,833,426,1288"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="335,728,335,833,329,833,329,728"/>
+<area shape="rect" id="Node000005" href="$d1/df1/class_vehicle_adapter.html" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="451,761,659,1360"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="429,690,454,761,449,763,424,692"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="289,5,375,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="335,85,335,119,329,119,329,85"/>
 </map>

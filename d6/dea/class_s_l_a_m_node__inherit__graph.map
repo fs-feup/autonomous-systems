@@ -1,9 +1,11 @@
 <map id="SLAMNode" name="SLAMNode">
-<area shape="rect" id="Node000001" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="117,119,319,727"/>
-<area shape="rect" id="Node000003" href="$d1/dcb/class_pacsim_adapter.html" title="Adapter class to interface with the Pacsim simulator for SLAM." alt="" coords="5,775,204,1403"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="166,742,161,775,155,774,161,741"/>
-<area shape="rect" id="Node000004" href="$d1/df1/class_vehicle_adapter.html" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="229,789,437,1388"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="275,741,284,789,279,790,270,742"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="175,5,261,71"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="221,86,221,119,215,119,215,86"/>
+<area shape="rect" id="Node000001" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="237,119,438,727"/>
+<area shape="rect" id="Node000003" href="$d6/d6c/class_invicta_sim_adapter.html" title="Adapter class to interface with the InvictaSim simulator for SLAM." alt="" coords="5,801,213,1376"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="235,731,210,803,205,801,230,729"/>
+<area shape="rect" id="Node000004" href="$d1/dcb/class_pacsim_adapter.html" title="Adapter class to interface with the Pacsim simulator for SLAM." alt="" coords="238,775,437,1403"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="340,742,340,775,335,775,335,742"/>
+<area shape="rect" id="Node000005" href="$d1/df1/class_vehicle_adapter.html" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="461,789,669,1388"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="445,730,466,789,460,791,440,732"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="295,5,380,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="340,86,340,119,335,119,335,86"/>
 </map>

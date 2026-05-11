@@ -1,5 +1,0 @@
-<map id="EufsAdapter::vehicle_state_callback" name="EufsAdapter::vehicle_state_callback">
-<area shape="rect" id="Node000001" title="Callback function for velocities and poses, which are coupled in EUFS." alt="" coords="5,5,145,46"/>
-<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html#a73f934ff5ed27706be539777807b2a5f" title="Called when a new vehicle pose is received." alt="" coords="193,5,333,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,23,177,23,177,28,145,28"/>
-</map>

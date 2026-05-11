@@ -1,0 +1,7 @@
+<map id="RosOutputAdapter::load_group_from_yaml" name="RosOutputAdapter::load_group_from_yaml">
+<area shape="rect" id="Node000001" title=" " alt="" coords="456,5,614,46"/>
+<area shape="rect" id="Node000002" href="$d6/dc0/class_ros_output_adapter.html#ae0731f4371f82f41a127242dfd4316e3" title=" " alt="" coords="250,5,408,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="441,28,408,28,408,23,441,23"/>
+<area shape="rect" id="Node000003" href="$d6/dc0/class_ros_output_adapter.html#a395da5a7032d98f5eeabfcc4e1c5ca94" title="Construct a new RosOutputAdapter." alt="" coords="5,5,202,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="234,28,202,28,202,23,234,23"/>
+</map>

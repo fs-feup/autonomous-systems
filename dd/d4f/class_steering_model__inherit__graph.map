@@ -1,5 +1,7 @@
 <map id="SteeringModel" name="SteeringModel">
-<area shape="rect" id="Node000001" title=" " alt="" coords="17,5,145,105"/>
-<area shape="rect" id="Node000002" href="$d2/dab/class_parallel_front_steering.html" title="Steering model that assumes parallel front steering, meaning that front wheels turn as much as the st..." alt="" coords="5,153,157,253"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,120,84,154,79,154,79,120"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="125,5,253,105"/>
+<area shape="rect" id="Node000002" href="$dd/dc4/class_ackerman_steering.html" title="Steering model that assumes Ackerman steering geometry, meaning that front wheels turn at different a..." alt="" coords="5,153,183,333"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="160,119,142,155,137,152,155,117"/>
+<area shape="rect" id="Node000003" href="$d2/dab/class_parallel_front_steering.html" title="Steering model that assumes parallel front steering, meaning that front wheels turn as much as the st..." alt="" coords="207,193,359,293"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="223,117,261,192,256,195,218,120"/>
 </map>

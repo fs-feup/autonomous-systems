@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['oc_0',['OC',['../de/dbe/class_competition_logic.html#ae930134d51d4ec48b29758da3811c8d0a6ffa591dabe7b638d98a5c2226b96efe',1,'CompetitionLogic']]],
-  ['odometry_1',['ODOMETRY',['../d7/d4c/factor__data__structures_8hpp.html#aa382d01397bea2c9f0f23abf9b5bdb87a0c48d1aa0f17b3c10b54c7de041b8413',1,'factor_data_structures.hpp']]],
-  ['orange_2',['orange',['../dd/de3/types_8hpp.html#a9bea77c5585e2b9481fe74ff0be72942ace9ee4c1a6b777940c7f3a766a9a88d4',1,'ORANGE:&#160;types.hpp'],['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a36deec2ca2854e7543cc4d5caab92feba5b6490317b6f7270bc3ab5ffd07c1f52',1,'common_lib::competition_logic::ORANGE']]]
+  ['no_5ffix_0',['NO_FIX',['../da/d17/struct_gnss_data.html#a73e0921bb90bb7e1e1aa30d647453433a5c4528e538cfd90c060afd1e3c9552f6',1,'GnssData']]],
+  ['none_1',['NONE',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140ab50339a10e1de285ac99d4c3990b8693',1,'common_lib::competition_logic']]]
 ];

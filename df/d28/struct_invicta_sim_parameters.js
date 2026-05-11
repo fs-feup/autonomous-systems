@@ -1,9 +1,25 @@
 var struct_invicta_sim_parameters =
 [
-    [ "InvictaSimParameters", "df/d28/struct_invicta_sim_parameters.html#aacdd9e124f64ce1566df60076dabad03", null ],
+    [ "InvictaSimParameters", "df/d28/struct_invicta_sim_parameters.html#a684dd051a645ecc1a1f70e95186cb75b", null ],
+    [ "aero_model", "df/d28/struct_invicta_sim_parameters.html#a7371cf59b91c360ebaf84c111dc4266f", null ],
+    [ "battery_model", "df/d28/struct_invicta_sim_parameters.html#a3fb4fa9fb90ec9b5f11ea74238a7217d", null ],
+    [ "car_parameters", "df/d28/struct_invicta_sim_parameters.html#a8b86372bd9293e2bde53538df8f6ad67", null ],
     [ "discipline", "df/d28/struct_invicta_sim_parameters.html#abca5edb04fed1f0e3d5628f75fcd42bf", null ],
-    [ "simulation_speed", "df/d28/struct_invicta_sim_parameters.html#a6d23bf1b826a494fa0d8ebbeac949880", null ],
-    [ "timestep", "df/d28/struct_invicta_sim_parameters.html#adfcbc1635b6d04bace17996b259f6ff8", null ],
+    [ "initial_go_signal", "df/d28/struct_invicta_sim_parameters.html#a125c9d99e0c41c93c3a5261101f91604", null ],
+    [ "input_adapter", "df/d28/struct_invicta_sim_parameters.html#a73e77211ea42724debeaef93c71d513f", null ],
+    [ "load_transfer_model", "df/d28/struct_invicta_sim_parameters.html#ab86285ef81839c63e72a56aae1449684", null ],
+    [ "motor_model", "df/d28/struct_invicta_sim_parameters.html#a7e3718dcf55f63fb98199814e5ef91b0", null ],
+    [ "output_adapter", "df/d28/struct_invicta_sim_parameters.html#a775e2d32259aa6200b65fd8c81d85759", null ],
+    [ "sim_frequency", "df/d28/struct_invicta_sim_parameters.html#a8571cf2d126195e54023bc50dad09573", null ],
+    [ "sim_speed", "df/d28/struct_invicta_sim_parameters.html#a6087ecbaaace65a823306a316e4ca4ba", null ],
+    [ "steering_model", "df/d28/struct_invicta_sim_parameters.html#a28414dffcae40d5d3e4dba2c5e3c30cb", null ],
+    [ "steering_motor_model", "df/d28/struct_invicta_sim_parameters.html#a3a9fa8b4b92bcaaa939f8beb745df05b", null ],
+    [ "tire_model", "df/d28/struct_invicta_sim_parameters.html#ad13eb9f1eac6393ed5f080dcf91c0350", null ],
     [ "track_name", "df/d28/struct_invicta_sim_parameters.html#aa4fffb4baaf40b947d6f98ed247c5792", null ],
+    [ "transmission_model", "df/d28/struct_invicta_sim_parameters.html#a64a428d4cee9aa2d9e23b579eb9cccf9", null ],
+    [ "use_simulated_perception", "df/d28/struct_invicta_sim_parameters.html#a840cf994abe44c4ca4eda2c70ba1509f", null ],
+    [ "use_simulated_planning", "df/d28/struct_invicta_sim_parameters.html#a6f0a0ea5703d46be3f147f915c389a63", null ],
+    [ "use_simulated_se", "df/d28/struct_invicta_sim_parameters.html#aaacb97747596115f591fe97c1d78d37c", null ],
+    [ "use_simulated_velocities", "df/d28/struct_invicta_sim_parameters.html#ab89a0b7a02b24d7e27aadb93929022c9", null ],
     [ "vehicle_model", "df/d28/struct_invicta_sim_parameters.html#a53d6aade8305f835e4c9aa2e53ab239c", null ]
 ];

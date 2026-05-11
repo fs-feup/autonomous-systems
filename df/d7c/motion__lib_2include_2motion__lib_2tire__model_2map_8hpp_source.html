@@ -105,27 +105,32 @@ $(document).ready(function(){initNavTree('df/d7c/motion__lib_2include_2motion__l
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="../../db/d6c/pacejka__combined__slip_8hpp.html">pacejka_combined_slip.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * Map of tire models, with the key being the name of the tire model and the value being a lambda</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> * function that returns a shared pointer to the corresponding tire model</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">const</span> std::map&lt;</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    std::string,</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    std::function&lt;std::shared_ptr&lt;TireModel&gt;(<span class="keyword">const</span> <a class="code hl_struct" href="../../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html">common_lib::car_parameters::CarParameters</a>&amp;)&gt;,</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    std::less&lt;&gt;&gt;</div>
-<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="../../df/d7c/motion__lib_2include_2motion__lib_2tire__model_2map_8hpp.html#ae156515e93d2c1e09471ad2cdfe0568d">   17</a></span>    <a class="code hl_variable" href="../../df/d7c/motion__lib_2include_2motion__lib_2tire__model_2map_8hpp.html#ae156515e93d2c1e09471ad2cdfe0568d">tire_models_map</a> = {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        {<span class="stringliteral">&quot;pacejka_combined_slip&quot;</span>,</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>         [](<span class="keyword">const</span> <a class="code hl_struct" href="../../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html">common_lib::car_parameters::CarParameters</a>&amp; params) -&gt; std::shared_ptr&lt;TireModel&gt; {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>           <span class="keywordflow">return</span> std::make_shared&lt;PacejkaCombinedSlip&gt;(params);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>         }},</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>};</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="../../d4/d21/pacejka___m_f6__2_8hpp.html">pacejka_MF6_2.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="../../db/d6c/pacejka__combined__slip_8hpp.html">pacejka_combined_slip.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> * Map of tire models, with the key being the name of the tire model and the value being a lambda</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> * function that returns a shared pointer to the corresponding tire model</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">const</span> std::map&lt;std::string,</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>               std::function&lt;std::shared_ptr&lt;TireModel&gt;(</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>                   <span class="keyword">const</span> std::shared_ptr&lt;common_lib::car_parameters::CarParameters&gt;)&gt;,</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>               std::less&lt;&gt;&gt;</div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="../../df/d7c/motion__lib_2include_2motion__lib_2tire__model_2map_8hpp.html#a58198996a1a32dcd00d3d2e518053897">   18</a></span>    <a class="code hl_variable" href="../../df/d7c/motion__lib_2include_2motion__lib_2tire__model_2map_8hpp.html#a58198996a1a32dcd00d3d2e518053897">tire_models_map</a> = {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        {<span class="stringliteral">&quot;pacejka_combined_slip&quot;</span>,</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>         [](<span class="keyword">const</span> std::shared_ptr&lt;common_lib::car_parameters::CarParameters&gt; params)</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>             -&gt; std::shared_ptr&lt;TireModel&gt; {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>           <span class="keywordflow">return</span> std::make_shared&lt;PacejkaCombinedSlip&gt;(*params);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>         }},</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        {<span class="stringliteral">&quot;pacejka_MF6_2&quot;</span>,</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>         [](<span class="keyword">const</span> std::shared_ptr&lt;common_lib::car_parameters::CarParameters&gt; params)</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>             -&gt; std::shared_ptr&lt;TireModel&gt; { <span class="keywordflow">return</span> std::make_shared&lt;PacejkaMF6_2&gt;(*params); }},</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>};</div>
 </div>
-<div class="ttc" id="amotion__lib_2include_2motion__lib_2tire__model_2map_8hpp_html_ae156515e93d2c1e09471ad2cdfe0568d"><div class="ttname"><a href="../../df/d7c/motion__lib_2include_2motion__lib_2tire__model_2map_8hpp.html#ae156515e93d2c1e09471ad2cdfe0568d">tire_models_map</a></div><div class="ttdeci">const std::map&lt; std::string, std::function&lt; std::shared_ptr&lt; TireModel &gt;(const common_lib::car_parameters::CarParameters &amp;)&gt;, std::less&lt;&gt; &gt; tire_models_map</div><div class="ttdef"><b>Definition</b> <a href="../../df/d7c/motion__lib_2include_2motion__lib_2tire__model_2map_8hpp_source.html#l00017">map.hpp:17</a></div></div>
+<div class="ttc" id="amotion__lib_2include_2motion__lib_2tire__model_2map_8hpp_html_a58198996a1a32dcd00d3d2e518053897"><div class="ttname"><a href="../../df/d7c/motion__lib_2include_2motion__lib_2tire__model_2map_8hpp.html#a58198996a1a32dcd00d3d2e518053897">tire_models_map</a></div><div class="ttdeci">const std::map&lt; std::string, std::function&lt; std::shared_ptr&lt; TireModel &gt;(const std::shared_ptr&lt; common_lib::car_parameters::CarParameters &gt;)&gt;, std::less&lt;&gt; &gt; tire_models_map</div><div class="ttdef"><b>Definition</b> <a href="../../df/d7c/motion__lib_2include_2motion__lib_2tire__model_2map_8hpp_source.html#l00018">map.hpp:18</a></div></div>
+<div class="ttc" id="apacejka___m_f6__2_8hpp_html"><div class="ttname"><a href="../../d4/d21/pacejka___m_f6__2_8hpp.html">pacejka_MF6_2.hpp</a></div></div>
 <div class="ttc" id="apacejka__combined__slip_8hpp_html"><div class="ttname"><a href="../../db/d6c/pacejka__combined__slip_8hpp.html">pacejka_combined_slip.hpp</a></div></div>
-<div class="ttc" id="astructcommon__lib_1_1car__parameters_1_1_car_parameters_html"><div class="ttname"><a href="../../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html">common_lib::car_parameters::CarParameters</a></div><div class="ttdef"><b>Definition</b> <a href="../../da/de9/common__lib_2include_2common__lib_2car__parameters_2car__parameters_8hpp_source.html#l00015">car_parameters.hpp:15</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

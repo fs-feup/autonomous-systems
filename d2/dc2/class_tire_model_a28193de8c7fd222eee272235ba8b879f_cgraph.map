@@ -1,0 +1,11 @@
+<map id="TireModel::calculate_tire_forces" name="TireModel::calculate_tire_forces">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,104,142,145"/>
+<area shape="rect" id="Node000002" href="$d2/dc2/class_tire_model.html#a920cbb6ad43ee45690dcea298e35033b" title=" " alt="" coords="194,5,331,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,101,188,57,200,51,202,56,191,61,111,106"/>
+<area shape="rect" id="Node000003" href="$d2/dc2/class_tire_model.html#ab5d090c4250ceefa55ec8dce9325620d" title=" " alt="" coords="194,71,331,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="142,110,179,103,179,108,143,115"/>
+<area shape="rect" id="Node000004" href="$d2/dc2/class_tire_model.html#a81006948323b6dfefb3f37de392c16e3" title=" " alt="" coords="194,136,331,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="142,133,179,140,179,145,142,139"/>
+<area shape="rect" id="Node000005" href="$d2/dc2/class_tire_model.html#af6701cdb11042b00c12b5de13d14ef73" title="Calculate the forces acting in a tire based on the tire characteristics and dynamic state." alt="" coords="190,201,335,227"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="110,143,191,186,206,192,204,197,189,191,107,148"/>
+</map>

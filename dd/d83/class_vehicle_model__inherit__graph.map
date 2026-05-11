@@ -1,5 +1,5 @@
 <map id="VehicleModel" name="VehicleModel">
-<area shape="rect" id="Node000001" title="Vehicle model interface." alt="" coords="13,5,143,291"/>
-<area shape="rect" id="Node000002" href="$d6/d89/class_bicycle_model.html" title="Simple bicycle model structure." alt="" coords="5,339,151,804"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,306,81,339,75,339,75,306"/>
+<area shape="rect" id="Node000001" title="Vehicle model interface." alt="" coords="11,5,142,311"/>
+<area shape="rect" id="Node000002" href="$df/d75/class_f_s_f_e_u_p02_model.html" title="Four wheel vehicle model (tuned for FSFEUP02)" alt="" coords="5,359,148,679"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,326,79,359,74,359,74,326"/>
 </map>

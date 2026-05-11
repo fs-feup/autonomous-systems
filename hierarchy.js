@@ -1,14 +1,10 @@
 var hierarchy =
 [
     [ "Adapter", "d3/d7f/class_adapter.html", [
-      [ "EufsAdapter", "d0/d1d/class_eufs_adapter.html", null ],
-      [ "FsdsAdapter", "d7/d8e/class_fsds_adapter.html", null ],
       [ "PacsimAdapter", "d1/dcb/class_pacsim_adapter.html", null ],
       [ "VehicleAdapter", "d1/df1/class_vehicle_adapter.html", null ]
     ] ],
     [ "evaluator.adapter.Adapter", "d7/dff/classevaluator_1_1adapter_1_1_adapter.html", [
-      [ "evaluator.eufs_adapter.EufsAdapter", "dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html", null ],
-      [ "evaluator.fsds_adapter.FSDSAdapter", "dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html", null ],
       [ "evaluator.onground_adapter.OnGroundAdapter", "d6/d04/classevaluator_1_1onground__adapter_1_1_on_ground_adapter.html", null ],
       [ "evaluator.pacsim_adapter.PacsimAdapter", "d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html", null ],
       [ "evaluator.vehicle_adapter.VehicleAdapter", "dc/d76/classevaluator_1_1vehicle__adapter_1_1_vehicle_adapter.html", null ]
@@ -27,6 +23,10 @@ var hierarchy =
     [ "BaseVelocityProcessModel", "d7/d59/class_base_velocity_process_model.html", [
       [ "CAParticleModel", "d6/dba/class_c_a_particle_model.html", null ]
     ] ],
+    [ "BatteryModel", "db/dc2/class_battery_model.html", [
+      [ "Thevenin", "dd/dbf/class_thevenin.html", null ]
+    ] ],
+    [ "common_lib::car_parameters::BatteryParameters", "dd/d0c/structcommon__lib_1_1car__parameters_1_1_battery_parameters.html", null ],
     [ "common_lib::car_parameters::CarParameters", "dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html", null ],
     [ "CenterCalculator", "df/daa/class_center_calculator.html", [
       [ "CentroidCalculator", "da/d39/class_centroid_calculator.html", null ],
@@ -80,6 +80,7 @@ var hierarchy =
       [ "InvalidMissionException", "d3/df9/class_invalid_mission_exception.html", null ]
     ] ],
     [ "ExecTimeTestEKFTests", "d2/dac/class_exec_time_test_e_k_f_tests.html", null ],
+    [ "ExecutionTimesSnapshot", "dd/d2b/struct_execution_times_snapshot.html", null ],
     [ "ExtendedKalmanFilter", "da/da6/class_extended_kalman_filter.html", null ],
     [ "std::false_type", null, [
       [ "HasDefaultConstructor< T, typename >", "d2/de8/struct_has_default_constructor.html", null ],
@@ -95,6 +96,7 @@ var hierarchy =
     [ "Filter", "d2/d70/class_filter.html", [
       [ "LowPassFilter", "d7/d25/class_low_pass_filter.html", null ]
     ] ],
+    [ "common_lib::structures::Force", "d4/db6/structcommon__lib_1_1structures_1_1_force.html", null ],
     [ "FovTrimming", "de/dd9/class_fov_trimming.html", [
       [ "AccelerationTrimming", "de/d98/class_acceleration_trimming.html", null ],
       [ "CutTrimming", "d4/d48/class_cut_trimming.html", null ],
@@ -122,7 +124,17 @@ var hierarchy =
     [ "ImuIntegratorTrait", "db/df5/class_imu_integrator_trait.html", [
       [ "GraphSLAMSolver", "d9/d73/class_graph_s_l_a_m_solver.html", null ]
     ] ],
+    [ "InputSnapshot", "d1/d26/struct_input_snapshot.html", null ],
     [ "InspectionFunctions", "d4/d89/class_inspection_functions.html", null ],
+    [ "InternalValues", "dd/d8c/struct_internal_values.html", null ],
+    [ "InvictaSim", "df/d77/class_invicta_sim.html", null ],
+    [ "InvictaSimInputAdapter", "d0/d4b/class_invicta_sim_input_adapter.html", [
+      [ "KeyboardInputAdapter", "d7/dce/class_keyboard_input_adapter.html", null ],
+      [ "RosInputAdapter", "dc/d46/class_ros_input_adapter.html", null ]
+    ] ],
+    [ "InvictaSimOutputAdapter", "dc/d98/class_invicta_sim_output_adapter.html", [
+      [ "RosOutputAdapter", "d6/dc0/class_ros_output_adapter.html", null ]
+    ] ],
     [ "InvictaSimParameters", "df/d28/struct_invicta_sim_parameters.html", null ],
     [ "IVehicleModel", "d1/d5c/class_i_vehicle_model.html", [
       [ "VehicleModelBicycle", "dd/d52/class_vehicle_model_bicycle.html", null ]
@@ -139,9 +151,13 @@ var hierarchy =
     [ "LateralController", "d7/d69/class_lateral_controller.html", [
       [ "PurePursuit", "dc/dde/class_pure_pursuit.html", null ]
     ] ],
+    [ "LoadTransferInput", "d9/dda/struct_load_transfer_input.html", null ],
     [ "LoadTransferModel", "d4/da2/class_load_transfer_model.html", [
-      [ "RigidBodyLoadTransferModel", "d1/dde/class_rigid_body_load_transfer_model.html", null ]
+      [ "RigidBodyLoadTransferModel", "d1/dde/class_rigid_body_load_transfer_model.html", null ],
+      [ "VDLoadTransferModel", "dc/d38/class_v_d_load_transfer_model.html", null ]
     ] ],
+    [ "LoadTransferOutput", "da/d85/struct_load_transfer_output.html", null ],
+    [ "common_lib::car_parameters::LoadTransferParameters", "da/d10/structcommon__lib_1_1car__parameters_1_1_load_transfer_parameters.html", null ],
     [ "Logger", "d3/d42/class_logger.html", null ],
     [ "LongitudinalController", "da/ded/class_longitudinal_controller.html", [
       [ "PID", "d6/d5a/class_p_i_d.html", null ]
@@ -152,6 +168,7 @@ var hierarchy =
     ] ],
     [ "MainConfig", "d7/d28/struct_main_config.html", null ],
     [ "Map", "df/d91/struct_map.html", null ],
+    [ "MapSnapshot", "d0/dc5/struct_map_snapshot.html", null ],
     [ "common_lib::structures::Midpoint", "db/df1/structcommon__lib_1_1structures_1_1_midpoint.html", null ],
     [ "MidpointGenerator", "d8/dab/class_midpoint_generator.html", null ],
     [ "MidpointGeneratorConfig", "d9/d46/struct_midpoint_generator_config.html", null ],
@@ -161,30 +178,36 @@ var hierarchy =
       [ "NormalVelocityModel", "d7/df9/class_normal_velocity_model.html", null ]
     ] ],
     [ "MotionUpdate", "db/d6d/struct_motion_update.html", null ],
+    [ "MotorModel", "d3/d0e/class_motor_model.html", [
+      [ "MapBasedMotor", "dd/d43/class_map_based_motor.html", null ]
+    ] ],
+    [ "common_lib::car_parameters::MotorParameters", "d3/dba/structcommon__lib_1_1car__parameters_1_1_motor_parameters.html", null ],
     [ "convert_fssim_sdf_to_yaml.My_Yaml_Dump", "d1/d79/classconvert__fssim__sdf__to__yaml_1_1_my___yaml___dump.html", null ],
     [ "mapFile.My_Yaml_Dump", "dd/d24/classmap_file_1_1_my___yaml___dump.html", null ],
     [ "rclcpp::Node", null, [
       [ "ControlNode", "d6/dc5/class_control_node.html", [
-        [ "EufsAdapter", "d0/d1d/class_eufs_adapter.html", null ],
+        [ "InvictasimAdapter", "dc/d0e/class_invictasim_adapter.html", null ],
         [ "PacSimAdapter", "db/d68/class_pac_sim_adapter.html", null ],
         [ "VehicleAdapter", "d1/df1/class_vehicle_adapter.html", null ]
       ] ],
       [ "InspectionMission", "de/d3d/class_inspection_mission.html", null ],
-      [ "InvictaSimNode", "d9/d43/class_invicta_sim_node.html", null ],
       [ "MockerNode", "d1/d4c/class_mocker_node.html", null ],
       [ "Perception", "de/d07/class_perception.html", null ],
       [ "Planning", "d9/db5/class_planning.html", [
-        [ "EufsAdapter", "d0/d1d/class_eufs_adapter.html", null ],
-        [ "FsdsAdapter", "d7/d8e/class_fsds_adapter.html", null ],
+        [ "InvictaSimAdapter", "d6/d6c/class_invicta_sim_adapter.html", null ],
         [ "PacSimAdapter", "db/d68/class_pac_sim_adapter.html", null ],
         [ "VehicleAdapter", "d1/df1/class_vehicle_adapter.html", null ]
       ] ],
+      [ "RosInputAdapter", "dc/d46/class_ros_input_adapter.html", null ],
+      [ "RosOutputAdapter", "d6/dc0/class_ros_output_adapter.html", null ],
       [ "SENode", "d4/d43/class_s_e_node.html", null ],
       [ "SLAMNode", "d8/d84/class_s_l_a_m_node.html", [
+        [ "InvictaSimAdapter", "d6/d6c/class_invicta_sim_adapter.html", null ],
         [ "PacsimAdapter", "d1/dcb/class_pacsim_adapter.html", null ],
         [ "VehicleAdapter", "d1/df1/class_vehicle_adapter.html", null ]
       ] ],
       [ "VENode", "d3/d43/class_v_e_node.html", [
+        [ "InvictaSimAdapter", "d6/d6c/class_invicta_sim_adapter.html", null ],
         [ "PacsimAdapter", "d1/dcb/class_pacsim_adapter.html", null ],
         [ "VehicleAdapter", "d1/df1/class_vehicle_adapter.html", null ]
       ] ]
@@ -212,6 +235,7 @@ var hierarchy =
     [ "Report::Penalty", "dc/dbf/struct_report_1_1_penalty.html", null ],
     [ "PerceptionExecutionData", "d2/d36/struct_perception_execution_data.html", null ],
     [ "PerceptionParameters", "de/dda/struct_perception_parameters.html", null ],
+    [ "common_lib::structures::PhysicalConstants", "d2/dea/structcommon__lib_1_1structures_1_1_physical_constants.html", null ],
     [ "Plane", "d2/d8d/class_plane.html", null ],
     [ "PlanningConfig", "df/dec/struct_planning_config.html", null ],
     [ "PlanningParameters", "d2/deb/struct_planning_parameters.html", null ],
@@ -240,11 +264,6 @@ var hierarchy =
     [ "Report", "d7/dac/struct_report.html", null ],
     [ "LoopClosure::Result", "dc/d0f/struct_loop_closure_1_1_result.html", null ],
     [ "Ring", "d2/db2/struct_ring.html", null ],
-    [ "S2VModel", "db/d7d/class_s2_v_model.html", [
-      [ "BicycleModel", "d6/d89/class_bicycle_model.html", null ],
-      [ "NoRearWSSBicycleModel", "d6/d99/class_no_rear_w_s_s_bicycle_model.html", null ],
-      [ "NoWSSBicycleModel", "d9/d8e/class_no_w_s_s_bicycle_model.html", null ]
-    ] ],
     [ "SecondPoseInputTrait", "da/df3/class_second_pose_input_trait.html", [
       [ "DoublePoseUpdater", "dd/d7d/class_double_pose_updater.html", null ]
     ] ],
@@ -264,6 +283,7 @@ var hierarchy =
     [ "SensorBase< Wheels >", "dd/dc4/class_sensor_base.html", [
       [ "WheelsSensor", "dc/df1/class_wheels_sensor.html", null ]
     ] ],
+    [ "SensorsSnapshot", "db/d58/struct_sensors_snapshot.html", null ],
     [ "Skidpad", "de/d3f/class_skidpad.html", null ],
     [ "SkidpadConfig", "d2/de2/struct_skidpad_config.html", null ],
     [ "SLAMObservationModel", "d1/d99/class_s_l_a_m_observation_model.html", null ],
@@ -275,10 +295,12 @@ var hierarchy =
     [ "Slice", "d0/da8/struct_slice.html", null ],
     [ "StampedScalar", "d1/d2c/struct_stamped_scalar.html", null ],
     [ "SteeringModel", "d0/db0/class_steering_model.html", [
+      [ "AckermanSteering", "dd/dc4/class_ackerman_steering.html", null ],
       [ "ParallelFrontSteering", "d2/dab/class_parallel_front_steering.html", null ]
     ] ],
     [ "VehicleModelBicycle::SteeringModel", "d9/d39/struct_vehicle_model_bicycle_1_1_steering_model.html", null ],
     [ "SteeringMotorModel", "d1/d48/class_steering_motor_model.html", [
+      [ "FirstOrderSteeringMotor", "dd/d13/class_first_order_steering_motor.html", null ],
       [ "PIDSteeringMotor", "d0/db2/class_p_i_d_steering_motor.html", null ]
     ] ],
     [ "common_lib::car_parameters::SteeringMotorParameters", "d2/d2e/structcommon__lib_1_1car__parameters_1_1_steering_motor_parameters.html", null ],
@@ -319,15 +341,21 @@ var hierarchy =
     ] ],
     [ "GraphSLAMInstance::TimedPose", "d4/dee/struct_graph_s_l_a_m_instance_1_1_timed_pose.html", null ],
     [ "PoseUpdater::TimedPose", "dd/dc0/struct_pose_updater_1_1_timed_pose.html", null ],
+    [ "TireInput", "d6/da5/struct_tire_input.html", null ],
     [ "TireModel", "d2/dc2/class_tire_model.html", [
-      [ "PacejkaCombinedSlip", "d2/db1/class_pacejka_combined_slip.html", null ]
+      [ "PacejkaCombinedSlip", "d2/db1/class_pacejka_combined_slip.html", null ],
+      [ "PacejkaMF6_2", "d3/da3/class_pacejka_m_f6__2.html", null ]
     ] ],
     [ "VehicleModelBicycle::TireModel", "d3/dad/struct_vehicle_model_bicycle_1_1_tire_model.html", null ],
     [ "common_lib::car_parameters::TireParameters", "dd/d7d/structcommon__lib_1_1car__parameters_1_1_tire_parameters.html", null ],
-    [ "Track", "db/df3/struct_track.html", null ],
+    [ "Track", "d6/d2c/class_track.html", null ],
     [ "TrajectoryCalculator", "d3/d86/class_trajectory_calculator.html", [
       [ "GraphSLAMSolver", "d9/d73/class_graph_s_l_a_m_solver.html", null ]
     ] ],
+    [ "TransmissionModel", "dc/d7c/class_transmission_model.html", [
+      [ "ViscousDifferential", "d4/d46/class_viscous_differential.html", null ]
+    ] ],
+    [ "common_lib::car_parameters::TransmissionParameters", "d2/d1f/structcommon__lib_1_1car__parameters_1_1_transmission_parameters.html", null ],
     [ "TrimmingParameters", "d8/d2c/struct_trimming_parameters.html", null ],
     [ "TripleComparator", "dd/da8/struct_triple_comparator.html", null ],
     [ "TripleSpline< T >", "d1/d77/struct_triple_spline.html", null ],
@@ -350,9 +378,13 @@ var hierarchy =
       [ "OdometryModel", "db/d0c/class_odometry_model.html", null ]
     ] ],
     [ "VehicleModel", "d6/dbc/class_vehicle_model.html", [
-      [ "BicycleModel", "d6/d89/class_bicycle_model.html", null ]
+      [ "FSFEUP02Model", "df/d75/class_f_s_f_e_u_p02_model.html", null ]
     ] ],
+    [ "VehicleModelExecutionTimes", "d6/dba/struct_vehicle_model_execution_times.html", null ],
+    [ "VehicleModelSnapshot", "d9/de2/struct_vehicle_model_snapshot.html", null ],
     [ "common_lib::structures::VehicleState", "d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html", null ],
+    [ "VehicleState", "de/dfe/struct_vehicle_state.html", null ],
+    [ "VehicleStateSnapshot", "d8/dfe/struct_vehicle_state_snapshot.html", null ],
     [ "common_lib::structures::Velocities", "d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html", null ],
     [ "VelocitiesIntegratorTrait", "d2/dee/class_velocities_integrator_trait.html", [
       [ "EKFSLAMSolver", "d7/d79/class_e_k_f_s_l_a_m_solver.html", null ],
@@ -372,14 +404,17 @@ var hierarchy =
       [ "GridWallRemoval", "df/d89/class_grid_wall_removal.html", null ]
     ] ],
     [ "common_lib::sensor_data::WheelEncoderData", "d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data.html", null ],
+    [ "common_lib::structures::Wheels", "d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html", null ],
     [ "Wheels", "de/d84/struct_wheels.html", null ],
     [ "Enum", null, [
       [ "guiLogic.editorMode", "d7/dea/classgui_logic_1_1editor_mode.html", null ],
       [ "guiLogic.landmarkType", "d9/d45/classgui_logic_1_1landmark_type.html", null ]
     ] ],
     [ "Node", null, [
+      [ "colour_track_cones.TrackGenerator", "d7/df1/classcolour__track__cones_1_1_track_generator.html", null ],
       [ "data_infrastructure.data_infrastructure_node.DataInfrastructureNode", "d1/daf/classdata__infrastructure_1_1data__infrastructure__node_1_1_data_infrastructure_node.html", null ],
       [ "evaluator.evaluator.Evaluator", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html", null ],
+      [ "manual_to_as.ManualThrottleBridge", "d5/dc8/classmanual__to__as_1_1_manual_throttle_bridge.html", null ],
       [ "power_log.power_log_node.PowerNode", "db/d78/classpower__log_1_1power__log__node_1_1_power_node.html", null ],
       [ "rosbag_groundtruth.rosbag_node.BagNode", "da/deb/classrosbag__groundtruth_1_1rosbag__node_1_1_bag_node.html", null ],
       [ "supervisor.main.Supervisor", "db/d57/classsupervisor_1_1main_1_1_supervisor.html", null ],

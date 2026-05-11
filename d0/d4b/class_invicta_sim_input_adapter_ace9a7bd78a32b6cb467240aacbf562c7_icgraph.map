@@ -1,0 +1,5 @@
+<map id="InvictaSimInputAdapter::terminal_loop" name="InvictaSimInputAdapter::terminal_loop">
+<area shape="rect" id="Node000001" title="Background loop to listen for global terminal hotkeys." alt="" coords="217,5,374,46"/>
+<area shape="rect" id="Node000002" href="$d0/d4b/class_invicta_sim_input_adapter.html#a02579bd24418d3ea447224f27875e746" title="Construct a new input adapter and start the global terminal listener." alt="" coords="5,5,169,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="201,28,169,28,169,23,201,23"/>
+</map>

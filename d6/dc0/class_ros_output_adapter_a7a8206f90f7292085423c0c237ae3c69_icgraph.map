@@ -1,0 +1,9 @@
+<map id="RosOutputAdapter::refresh_sensors_snapshot" name="RosOutputAdapter::refresh_sensors_snapshot">
+<area shape="rect" id="Node000001" title=" " alt="" coords="660,5,835,46"/>
+<area shape="rect" id="Node000002" href="$d6/dc0/class_ros_output_adapter.html#acebe04a962686a4be850a2401a576bbb" title=" " alt="" coords="464,5,612,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="645,28,612,28,612,23,645,23"/>
+<area shape="rect" id="Node000003" href="$d6/dc0/class_ros_output_adapter.html#a85502a02392f2fa33754ee2742ab9754" title=" " alt="" coords="250,5,416,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="448,28,417,28,417,23,448,23"/>
+<area shape="rect" id="Node000004" href="$d6/dc0/class_ros_output_adapter.html#a395da5a7032d98f5eeabfcc4e1c5ca94" title="Construct a new RosOutputAdapter." alt="" coords="5,5,202,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="234,28,202,28,202,23,234,23"/>
+</map>

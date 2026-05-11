@@ -1,0 +1,11 @@
+<map id="Thevenin::get_cell_ocv" name="Thevenin::get_cell_ocv">
+<area shape="rect" id="Node000001" title=" " alt="" coords="201,108,354,133"/>
+<area shape="rect" id="Node000002" href="$dd/dbf/class_thevenin.html#a35bcc7c0a646f5c5e504256a331cf2d2" title="Calculate the maximum allowed current based on battery state and limits." alt="" coords="13,5,145,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="235,102,152,61,125,49,127,44,154,57,237,98"/>
+<area shape="rect" id="Node000003" href="$dd/dbf/class_thevenin.html#ac46b9016254edbab9471970a7ef91b0b" title="Get open circuit voltage." alt="" coords="12,71,146,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="185,109,146,104,147,98,186,104"/>
+<area shape="rect" id="Node000004" href="$dd/dbf/class_thevenin.html#a87f403f75a4faefbd5a568b2d6f0f2f4" title="Get current battery voltage with current state." alt="" coords="5,136,153,161"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="186,136,154,141,153,135,185,131"/>
+<area shape="rect" id="Node000005" href="$dd/dbf/class_thevenin.html#a4eafe772d140fb7331ecb68e3bcb12eb" title="Get current battery voltage under provided current draw." alt="" coords="5,185,153,211"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="234,142,154,176,124,187,122,182,152,171,232,138"/>
+</map>

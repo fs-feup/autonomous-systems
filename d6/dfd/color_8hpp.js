@@ -5,7 +5,9 @@ var color_8hpp =
       [ "YELLOW", "d6/dfd/color_8hpp.html#a36deec2ca2854e7543cc4d5caab92feba8a568e5f41b7e4da88fe5c4a00aad34e", null ],
       [ "ORANGE", "d6/dfd/color_8hpp.html#a36deec2ca2854e7543cc4d5caab92feba5b6490317b6f7270bc3ab5ffd07c1f52", null ],
       [ "LARGE_ORANGE", "d6/dfd/color_8hpp.html#a36deec2ca2854e7543cc4d5caab92feba70bb9e0642997c23100fb78e101f4c4f", null ],
-      [ "UNKNOWN", "d6/dfd/color_8hpp.html#a36deec2ca2854e7543cc4d5caab92feba696b031073e74bf2cb98e5ef201d4aa3", null ]
+      [ "UNKNOWN", "d6/dfd/color_8hpp.html#a36deec2ca2854e7543cc4d5caab92feba696b031073e74bf2cb98e5ef201d4aa3", null ],
+      [ "GREEN", "d6/dfd/color_8hpp.html#a36deec2ca2854e7543cc4d5caab92feba9de0e5dd94e861317e74964bed179fa0", null ],
+      [ "RED", "d6/dfd/color_8hpp.html#a36deec2ca2854e7543cc4d5caab92febaa2d9547b5d3dd9f05984475f7c926da0", null ]
     ] ],
     [ "get_color_enum", "d6/dfd/color_8hpp.html#a72953c74cbe411c7b5ac5aa72e437b05", null ],
     [ "get_color_string", "d6/dfd/color_8hpp.html#a37abda74e8868f424f1b353ca0600022", null ],

@@ -1,0 +1,13 @@
+<map id="InvictaSimAdapter" name="InvictaSimAdapter">
+<area shape="rect" id="Node000001" title="Adapter class to interface with the InvictaSim simulator for SLAM." alt="" coords="206,775,414,1349"/>
+<area shape="rect" id="Node000002" href="$d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="5,125,185,720"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,706,199,726,216,774,210,776,194,728,188,708"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="267,5,353,71"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="257,70,226,92,199,120,187,137,183,134,195,117,222,88,253,66"/>
+<area shape="rect" id="Node000004" href="$d8/d84/class_s_l_a_m_node.html" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="209,119,411,727"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="313,86,313,119,307,119,307,86"/>
+<area shape="rect" id="Node000005" href="$d3/d43/class_v_e_node.html" title="Node class for the velocity estimation node." alt="" coords="435,330,606,515"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="367,66,398,88,425,117,456,168,480,223,498,278,510,330,505,331,493,280,475,225,452,170,421,120,395,92,364,70"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="313,742,313,775,307,775,307,742"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="490,530,426,727,410,776,405,774,421,726,485,529"/>
+</map>

@@ -8,7 +8,6 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
     [ "dashboard", "dir_654fa84e69ce24e2f1c127f154eeb7c2.html", "dir_654fa84e69ce24e2f1c127f154eeb7c2" ],
     [ "data_infrastructure", "dir_fac03c6e6ef4cc079b6c4a1973a45eb0.html", "dir_fac03c6e6ef4cc079b6c4a1973a45eb0" ],
     [ "ekf_state_est", "dir_388d5df3221aab46ce4275c3697a683f.html", "dir_388d5df3221aab46ce4275c3697a683f" ],
-    [ "eufs_msgs", "dir_502294da55662525e2d6521608bb358d.html", null ],
     [ "evaluator", "dir_0617ceac5f25b5039ecf4448deaf5712.html", "dir_0617ceac5f25b5039ecf4448deaf5712" ],
     [ "inspection", "dir_e144e2a79aad0ca59db1dc1edf8ed812.html", "dir_e144e2a79aad0ca59db1dc1edf8ed812" ],
     [ "invictasim", "dir_79bbdcb51eaf56107a5cbee1ac0d9c1f.html", "dir_79bbdcb51eaf56107a5cbee1ac0d9c1f" ],
