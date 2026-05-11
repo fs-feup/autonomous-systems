@@ -6,6 +6,7 @@
 #include "motion_lib/battery_model/map.hpp"
 #include "motion_lib/load_transfer_model/map.hpp"
 #include "motion_lib/motor_model/map.hpp"
+#include "motion_lib/steering_motor_model/map.hpp"
 #include "motion_lib/steering_model/map.hpp"
 #include "motion_lib/tire_model/map.hpp"
 #include "motion_lib/transmission_model/map.hpp"
@@ -51,6 +52,7 @@ private:
   std::shared_ptr<AeroModel> aero_;
   std::shared_ptr<LoadTransferModel> load_transfer_;
   std::shared_ptr<SteeringModel> steering_;
+  std::shared_ptr<SteeringMotorModel> steering_motor_;
 
   // Helper function to calculate the torque combining the motor model and the battery model
   double calculate_powertrain_torque(double throttle_input, double dt);

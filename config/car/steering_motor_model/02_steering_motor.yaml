@@ -1,5 +1,5 @@
 steering_motor:
-  kp: 0.00250
+  kp: 0.0025
   ki: 0.01
-  kd: 0.00001
-  time_constant: 0.112
+  kd: 1.0e-05
+  time_constant: 0.10499970677431689

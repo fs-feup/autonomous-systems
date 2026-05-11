@@ -1,29 +1,19 @@
 vehicle_model:
-  name: "fsfeup02"
-
-  car_parameters: "02"
-
-  aero_model: "default_aero"
-  aero_model_params: "02_aero"
-
-  tire_model: "pacejka_MF6_2" # Options: "pacejka_combined_slip", "pacejka_MF6_2"
-  tire_model_params: "02_tire"
-
-  motor_model: "map_based_motor"
-  motor_model_params: "02_motor"
-
-  battery_model: "thevenin"
-  battery_model_params: "02_battery"
-
-  transmission_model: "diff_viscous"
-  transmission_model_params: "02_transmission"
-
-  load_transfer_model: "vd_model" # Options: "rigid_body_model", "vd_model"
-  load_transfer_model_params: "02_load_transfer"
-
-  steering_motor_model: "first_order"
-  steering_motor_model_params: "02_steering_motor"
-
-  steering_model: "ackerman_steering" # options: "ackerman_steering" , "parallel_front_steering"
-  steering_model_params: "02_steering"
-  
+  name: fsfeup02
+  car_parameters: '02'
+  aero_model: default_aero
+  aero_model_params: 02_aero
+  tire_model: pacejka_MF6_2
+  tire_model_params: 02_tire
+  motor_model: map_based_motor
+  motor_model_params: 02_motor
+  battery_model: thevenin
+  battery_model_params: 02_battery
+  transmission_model: diff_viscous
+  transmission_model_params: 02_transmission
+  load_transfer_model: vd_model
+  load_transfer_model_params: 02_load_transfer
+  steering_motor_model: first_order
+  steering_motor_model_params: 02_steering_motor
+  steering_model: ackerman_steering
+  steering_model_params: 02_steering

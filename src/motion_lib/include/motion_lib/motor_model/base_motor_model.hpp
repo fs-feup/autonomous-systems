@@ -30,6 +30,13 @@ public:
   virtual double get_max_torque_at_rpm(double rpm) const = 0;
 
   /**
+   * @brief Convert throttle command to a signed torque fraction.
+   * @param throttle Throttle command in [-1, 1]
+   * @return Signed torque fraction in [-1, 1]
+   */
+  virtual double get_torque_fraction_for_throttle(double throttle) const = 0;
+
+  /**
    * @brief Update motor state
    * @param current_draw Current drawn (A)
    * @param torque Torque being applied to the motor (Nm)

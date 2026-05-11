@@ -1,5 +1,8 @@
 #include "motion_lib/motor_model/map_based_motor.hpp"
 
+#include <algorithm>
+#include <cmath>
+
 MapBasedMotor::MapBasedMotor(const common_lib::car_parameters::CarParameters& car_parameters)
     : MotorModel(car_parameters), current_(0.0f), thermal_state_(0.0f) {
   // K = (I_peak² - I_cont²) × T_max_peak
@@ -80,6 +83,18 @@ double MapBasedMotor::get_max_torque_at_rpm(double rpm) const {
   double power_limited_torque = (current_max_p / omega) * proximity_to_limit;
 
   return std::min(current_max_t, power_limited_torque);
+}
+
+double MapBasedMotor::get_torque_fraction_for_throttle(double throttle) const {
+  const double sign = throttle < 0.0 ? -1.0 : 1.0;
+  const double abs_throttle = std::clamp(std::abs(throttle), 0.0, 1.0);
+
+  const auto& curve = car_parameters_->motor_parameters->throttle_torque_curve;
+  if (curve.empty()) {
+    return sign * abs_throttle;
+  }
+
+  return sign * std::clamp(interpolate_from_map(curve, abs_throttle), 0.0, 1.0);
 }
 
 void MapBasedMotor::update_state(double current_draw, double torque, double dt) {

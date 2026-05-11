@@ -39,6 +39,7 @@ set(IMPLEMENTATION_FILES
   src/steering_model/ackerman_steering.cpp
   src/load_transfer_model/rigid_body_model.cpp
   src/load_transfer_model/vd_load_transfer_model.cpp
+  src/steering_motor_model/first_order_model.cpp
   src/steering_motor_model/pid_steering_motor.cpp
 )
 

@@ -1,0 +1,4 @@
+[InvictaSim] Failed to open /dev/tty, falling back to stdin.
+[InvictaSim] Terminal listener started.
+[InvictaSim] Hotkeys: [SPACE] Go Signal, [+] Speed Up, [-] Slow Down, [e] Toggle EBS, [r] Reset
+[INFO] [1778179725.135939532] [rclcpp]: signal_handler(SIGINT/SIGTERM)

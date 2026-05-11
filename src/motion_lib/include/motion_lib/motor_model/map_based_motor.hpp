@@ -14,6 +14,8 @@ public:
 
   double get_max_torque_at_rpm(double rpm) const override;
 
+  double get_torque_fraction_for_throttle(double throttle) const override;
+
   void update_state(double current_draw, double torque, double dt) override;
 
   void reset() override;

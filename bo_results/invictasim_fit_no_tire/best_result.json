@@ -1,0 +1,156 @@
+{
+  "certainty_from_elite_trials": [
+    {
+      "elite_mean": 0.8457560130586635,
+      "elite_std": 0.03249934804930978,
+      "name": "motor.throttle_torque_curve.0.8",
+      "relative_std": 0.054165580082182974
+    },
+    {
+      "elite_mean": 0.7711587054443811,
+      "elite_std": 0.03435066032560299,
+      "name": "motor.throttle_torque_curve.0.7",
+      "relative_std": 0.05725110054267165
+    },
+    {
+      "elite_mean": 0.7575944991830715,
+      "elite_std": 0.042021892488869096,
+      "name": "motor.throttle_torque_curve.0.6",
+      "relative_std": 0.060031274984098715
+    },
+    {
+      "elite_mean": 0.08087973929393433,
+      "elite_std": 0.02968969447427731,
+      "name": "motor.throttle_torque_curve.0.1",
+      "relative_std": 0.07422423618569328
+    },
+    {
+      "elite_mean": 0.716092911849086,
+      "elite_std": 0.06088265519876891,
+      "name": "motor.throttle_torque_curve.0.5",
+      "relative_std": 0.07610331899846114
+    },
+    {
+      "elite_mean": 0.8859855614879943,
+      "elite_std": 0.026369334267178256,
+      "name": "motor.throttle_torque_curve.0.9",
+      "relative_std": 0.08789778089059418
+    },
+    {
+      "elite_mean": 0.4461844057351458,
+      "elite_std": 0.09667930182226601,
+      "name": "motor.throttle_torque_curve.0.4",
+      "relative_std": 0.09667930182226601
+    },
+    {
+      "elite_mean": 0.2465977731586643,
+      "elite_std": 0.05123110055164733,
+      "name": "steering.ackerman_factor",
+      "relative_std": 0.10246220110329465
+    },
+    {
+      "elite_mean": 2.9347856586348513,
+      "elite_std": 2.0496401425189674,
+      "name": "transmission.coulomb_drag",
+      "relative_std": 0.10248200712594838
+    },
+    {
+      "elite_mean": 113.33472804224635,
+      "elite_std": 18.513128727732735,
+      "name": "car.Izz",
+      "relative_std": 0.16830117025211577
+    },
+    {
+      "elite_mean": 0.3399500832836844,
+      "elite_std": 0.1353373609464907,
+      "name": "motor.throttle_torque_curve.0.3",
+      "relative_std": 0.16917170118311337
+    },
+    {
+      "elite_mean": 10.116340908013683,
+      "elite_std": 20.633364556436234,
+      "name": "transmission.kv",
+      "relative_std": 0.17194470463696862
+    },
+    {
+      "elite_mean": 0.3161554313631621,
+      "elite_std": 0.11457656027105823,
+      "name": "motor.throttle_torque_curve.0.2",
+      "relative_std": 0.19096093378509704
+    },
+    {
+      "elite_mean": 0.2678143298947565,
+      "elite_std": 0.4017488172249064,
+      "name": "transmission.viscous_drag_coeff",
+      "relative_std": 0.2008744086124532
+    },
+    {
+      "elite_mean": 1.185356824318595,
+      "elite_std": 1.1826028035865912,
+      "name": "car.front_bearing_drag",
+      "relative_std": 0.23652056071731825
+    },
+    {
+      "elite_mean": 274.97620299906947,
+      "elite_std": 148.28417178557083,
+      "name": "transmission.t_max",
+      "relative_std": 0.2513291047213065
+    },
+    {
+      "elite_mean": 0.9522349150274194,
+      "elite_std": 0.05377233206925983,
+      "name": "transmission.efficiency",
+      "relative_std": 0.283012274048736
+    },
+    {
+      "elite_mean": 0.16689154485391583,
+      "elite_std": 0.15958375417310075,
+      "name": "steering_motor.time_constant",
+      "relative_std": 0.29068079084353504
+    }
+  ],
+  "duration_s": 45.0,
+  "metrics": {
+    "overlap_s": 45.14026086000172,
+    "position_max": 50.72117706974175,
+    "position_rmse": 25.69000242970091,
+    "real_pose_samples": 5543.0,
+    "real_velocity_samples": 5543.0,
+    "samples": 75.0,
+    "score": 150.84736419934922,
+    "sim_pose_samples": 162.0,
+    "sim_velocity_samples": 162.0,
+    "simulated_duration_s": 45.0,
+    "speedup": 30.0,
+    "vx_max": 11.167319142233165,
+    "vx_rmse": 5.088512603396382,
+    "wall_duration_s": 1.5,
+    "wall_overlap_s": 1.5046753620000572,
+    "x_rmse": 20.91946091785603,
+    "y_rmse": 14.91148482694908,
+    "yaw_max": 3.0156056179154724,
+    "yaw_rmse": 1.3986270085704176
+  },
+  "params": {
+    "car.Izz": 110.4442831285888,
+    "car.front_bearing_drag": 0.8929604666854417,
+    "motor.throttle_torque_curve.0.1": 0.10005521600587215,
+    "motor.throttle_torque_curve.0.2": 0.2478139444790945,
+    "motor.throttle_torque_curve.0.3": 0.24791394447909448,
+    "motor.throttle_torque_curve.0.4": 0.36452281588723345,
+    "motor.throttle_torque_curve.0.5": 0.7557488221593711,
+    "motor.throttle_torque_curve.0.6": 0.7558488221593711,
+    "motor.throttle_torque_curve.0.7": 0.7559488221593711,
+    "motor.throttle_torque_curve.0.8": 0.8822593006010212,
+    "motor.throttle_torque_curve.0.9": 0.8823593006010212,
+    "steering.ackerman_factor": 0.2683436568262476,
+    "steering_motor.time_constant": 0.10499970677431689,
+    "transmission.coulomb_drag": 2.807411749006378,
+    "transmission.efficiency": 0.97636924282919,
+    "transmission.kv": 0.8863406661987128,
+    "transmission.t_max": 189.91507342800148,
+    "transmission.viscous_drag_coeff": 0.09815165459675768
+  },
+  "score": 150.84736419934922,
+  "trial": 4
+}

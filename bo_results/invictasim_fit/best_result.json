@@ -1,0 +1,240 @@
+{
+  "certainty_from_elite_trials": [
+    {
+      "elite_mean": 0.799363574089831,
+      "elite_std": 0.0693281279036359,
+      "name": "motor.throttle_torque_curve.0.7",
+      "relative_std": 0.0693281279036359
+    },
+    {
+      "elite_mean": 0.7026534704446119,
+      "elite_std": 0.07542128567828808,
+      "name": "motor.throttle_torque_curve.0.6",
+      "relative_std": 0.07542128567828808
+    },
+    {
+      "elite_mean": 0.8575235006509916,
+      "elite_std": 0.07682631820182398,
+      "name": "motor.throttle_torque_curve.0.8",
+      "relative_std": 0.07682631820182398
+    },
+    {
+      "elite_mean": 0.9194993082821729,
+      "elite_std": 0.0947313029935685,
+      "name": "motor.throttle_torque_curve.0.9",
+      "relative_std": 0.0947313029935685
+    },
+    {
+      "elite_mean": 1.448245824200765,
+      "elite_std": 0.15521156083796175,
+      "name": "tire.C_longitudinal",
+      "relative_std": 0.0970072255237261
+    },
+    {
+      "elite_mean": 199.53277989132323,
+      "elite_std": 12.541937681015128,
+      "name": "motor.max_peak_torque",
+      "relative_std": 0.10451614734179274
+    },
+    {
+      "elite_mean": 0.16166864083848803,
+      "elite_std": 0.19766875600152353,
+      "name": "tire.E_longitudinal",
+      "relative_std": 0.11627573882442561
+    },
+    {
+      "elite_mean": 13.931202984811568,
+      "elite_std": 1.8808593174879789,
+      "name": "tire.B_longitudinal",
+      "relative_std": 0.11755370734299868
+    },
+    {
+      "elite_mean": 0.018501659062760398,
+      "elite_std": 0.00982101625987399,
+      "name": "transmission.viscous_drag_coeff",
+      "relative_std": 0.12276270324842488
+    },
+    {
+      "elite_mean": 21.82443933832358,
+      "elite_std": 15.011943215658324,
+      "name": "transmission.kv",
+      "relative_std": 0.1250995267971527
+    },
+    {
+      "elite_mean": 1.8690541014356965,
+      "elite_std": 0.26195905450359536,
+      "name": "tire.D_lateral",
+      "relative_std": 0.1309795272517977
+    },
+    {
+      "elite_mean": 0.8940077629053559,
+      "elite_std": 0.2643992415895076,
+      "name": "tire.E_lateral",
+      "relative_std": 0.1321996207947538
+    },
+    {
+      "elite_mean": 1.9051832503747699,
+      "elite_std": 0.3652338459245416,
+      "name": "tire.C_lateral",
+      "relative_std": 0.13527179478686727
+    },
+    {
+      "elite_mean": 0.9615177778012571,
+      "elite_std": 0.02305751238743853,
+      "name": "transmission.efficiency",
+      "relative_std": 0.1356324258084619
+    },
+    {
+      "elite_mean": 2.118765628704572,
+      "elite_std": 1.1235203446238273,
+      "name": "transmission.coulomb_drag",
+      "relative_std": 0.14044004307797842
+    },
+    {
+      "elite_mean": 0.5031247292051493,
+      "elite_std": 0.1451910997084688,
+      "name": "motor.throttle_torque_curve.0.5",
+      "relative_std": 0.1451910997084688
+    },
+    {
+      "elite_mean": 0.2991314490588393,
+      "elite_std": 0.1453766817181935,
+      "name": "motor.throttle_torque_curve.0.2",
+      "relative_std": 0.1453766817181935
+    },
+    {
+      "elite_mean": 0.07219412729924275,
+      "elite_std": 0.21808802521604367,
+      "name": "car.front_bearing_drag",
+      "relative_std": 0.14539201681069577
+    },
+    {
+      "elite_mean": 134.80538144251025,
+      "elite_std": 16.630171329838305,
+      "name": "car.Izz",
+      "relative_std": 0.15118337572580276
+    },
+    {
+      "elite_mean": 0.190084430245565,
+      "elite_std": 0.230207305980373,
+      "name": "steering.ackerman_factor",
+      "relative_std": 0.15347153732024868
+    },
+    {
+      "elite_mean": 0.1785995845577795,
+      "elite_std": 0.15743627068602337,
+      "name": "motor.throttle_torque_curve.0.1",
+      "relative_std": 0.15743627068602337
+    },
+    {
+      "elite_mean": 280.1432598801562,
+      "elite_std": 90.9031998622896,
+      "name": "transmission.t_max",
+      "relative_std": 0.16232714261123143
+    },
+    {
+      "elite_mean": 0.45466994306542075,
+      "elite_std": 0.16850930654765942,
+      "name": "motor.throttle_torque_curve.0.4",
+      "relative_std": 0.16850930654765942
+    },
+    {
+      "elite_mean": 0.40807448041174715,
+      "elite_std": 0.17977625351001683,
+      "name": "motor.throttle_torque_curve.0.3",
+      "relative_std": 0.17977625351001683
+    },
+    {
+      "elite_mean": 1.9206549571352585,
+      "elite_std": 0.40454035994744925,
+      "name": "tire.D_longitudinal",
+      "relative_std": 0.1838819817942951
+    },
+    {
+      "elite_mean": 8.429076036545352,
+      "elite_std": 3.067190110560845,
+      "name": "tire.B_lateral",
+      "relative_std": 0.1916993819100528
+    },
+    {
+      "elite_mean": 107.93832999958768,
+      "elite_std": 19.24297879262297,
+      "name": "motor.max_continous_torque",
+      "relative_std": 0.1924297879262297
+    },
+    {
+      "elite_mean": 0.09825892301666504,
+      "elite_std": 0.13231965040300597,
+      "name": "tire.relaxation_length",
+      "relative_std": 0.2223859670638756
+    },
+    {
+      "elite_mean": 0.2124830790503493,
+      "elite_std": 0.008961935978522061,
+      "name": "tire.effective_tire_r",
+      "relative_std": 0.22404839946305147
+    },
+    {
+      "elite_mean": 0.12305219658665381,
+      "elite_std": 0.1041502447955289,
+      "name": "steering_motor.time_constant",
+      "relative_std": 0.24797677332268783
+    }
+  ],
+  "duration_s": 25.0,
+  "metrics": {
+    "overlap_s": 25.346559039999192,
+    "position_max": 28.60197687984312,
+    "position_rmse": 11.95685400302562,
+    "real_pose_samples": 12510.0,
+    "real_velocity_samples": 12546.0,
+    "samples": 126.0,
+    "score": 79.14183503173187,
+    "sim_pose_samples": 191.0,
+    "sim_velocity_samples": 191.0,
+    "simulated_duration_s": 25.0,
+    "speedup": 10.0,
+    "vx_max": 11.02828399736493,
+    "vx_rmse": 5.242838856196023,
+    "wall_duration_s": 2.5,
+    "wall_overlap_s": 2.5346559039999192,
+    "x_rmse": 6.507392547275647,
+    "y_rmse": 10.030962061803004,
+    "yaw_max": 3.046015164500634,
+    "yaw_rmse": 1.3518526642796913
+  },
+  "params": {
+    "car.Izz": 142.59110332260633,
+    "car.front_bearing_drag": 0.02241371632192001,
+    "motor.max_continous_torque": 109.49179096818457,
+    "motor.max_peak_torque": 198.78808116162574,
+    "motor.throttle_torque_curve.0.1": 0.2165440801390661,
+    "motor.throttle_torque_curve.0.2": 0.3402036663059326,
+    "motor.throttle_torque_curve.0.3": 0.34030366630593256,
+    "motor.throttle_torque_curve.0.4": 0.34040366630593255,
+    "motor.throttle_torque_curve.0.5": 0.39649493760795473,
+    "motor.throttle_torque_curve.0.6": 0.7447152358483233,
+    "motor.throttle_torque_curve.0.7": 0.8535052781444085,
+    "motor.throttle_torque_curve.0.8": 0.8536052781444085,
+    "motor.throttle_torque_curve.0.9": 0.9999,
+    "steering.ackerman_factor": 0.0,
+    "steering_motor.time_constant": 0.05948309890146267,
+    "tire.B_lateral": 7.0856703400343095,
+    "tire.B_longitudinal": 13.824056005123628,
+    "tire.C_lateral": 1.9546168770288534,
+    "tire.C_longitudinal": 1.455204893440129,
+    "tire.D_lateral": 1.951666224020983,
+    "tire.D_longitudinal": 1.9114890933759612,
+    "tire.E_lateral": 0.9520902675347116,
+    "tire.E_longitudinal": 0.14690475084120713,
+    "tire.effective_tire_r": 0.2070322650816268,
+    "tire.relaxation_length": 0.005,
+    "transmission.coulomb_drag": 1.5334726730920079,
+    "transmission.efficiency": 0.9636479649404643,
+    "transmission.kv": 18.652226365599184,
+    "transmission.t_max": 293.1583895889826,
+    "transmission.viscous_drag_coeff": 0.014990475603494976
+  },
+  "score": 79.14183503173187,
+  "trial": 5
+}

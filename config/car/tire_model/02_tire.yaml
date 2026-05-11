@@ -1,18 +1,12 @@
 tire:
-  # Pacejka combined slip parameters
-  # Lateral coefficients
-  B_lateral: 9.63
-  C_lateral: 1.39
-  D_lateral: 1.6
-  E_lateral: 1.0
-  
-  # Longitudinal coefficients
-  B_longitudinal: 12.0
-  C_longitudinal: 1.625
-  D_longitudinal: 1.775
-  E_longitudinal: 0.3
-
-  # Camber and toe parameters
+  B_lateral: 7.0856703400343095
+  C_lateral: 1.9546168770288534
+  D_lateral: 1.951666224020983
+  E_lateral: 0.9520902675347116
+  B_longitudinal: 13.824056005123628
+  C_longitudinal: 1.455204893440129
+  D_longitudinal: 1.9114890933759612
+  E_longitudinal: 0.14690475084120713
   fr:
     toe: 0.0
     camber: 0.0
@@ -22,19 +16,16 @@ tire:
   rr:
     toe: 0.0
     camber: 0.0
-  rl: 
+  rl:
     toe: 0.0
     camber: 0.0
-
   camber_scaling_factor: 1.0
-  effective_tire_r: 0.2275
-
-# Packejka MF6.2 parameters
-  relaxation_length: 0.15
+  effective_tire_r: 0.2070322650816268
+  relaxation_length: 0.005
   d_bright: 1.06
-  d_bleft: 1.06 
+  d_bleft: 1.06
   d_fright: 0.99
-  d_fleft: 0.99  
+  d_fleft: 0.99
   camber: 0
   dimension:
     UNLOADED_RADIUS: 0.235
@@ -42,11 +33,9 @@ tire:
     ASPECT_RATIO: 0.55
     RIM_RADIUS: 0.1905
     RIM_WIDTH: 0.152
-
   operating_conditions:
     INFLPRES: 220000
     NOMPRES: 220000
-
   inertia:
     MASS: 17.451
     IXX: 0.4
@@ -55,7 +44,6 @@ tire:
     BELT_IXX: 0.34
     BELT_IYY: 0.6
     GRAVITY: -9.81
-
   vertical:
     FNOMIN: 1113.5001
     VERTICAL_STIFFNESS: 200000
@@ -82,7 +70,6 @@ tire:
     Q_FYS3: 88211.7
     BOTTOM_OFFST: 0.01
     BOTTOM_STIFF: 2000000
-
   structural:
     LONGITUDINAL_STIFFNESS: 300000
     LATERAL_STIFFNESS: 100000
@@ -106,7 +93,6 @@ tire:
     PCFY2: 0
     PCFY3: 0
     PCMZ1: 0
-
   contact_patch:
     Q_RA1: 0.5
     Q_RA2: 1
@@ -119,27 +105,21 @@ tire:
     ELLIPS_MAX_STEP: 0.025
     ELLIPS_NWIDTH: 10
     ELLIPS_NLENGTH: 10
-
   inflation_pressure_range:
     PRESMIN: 10000
     PRESMAX: 1000000
-
   vertical_force_range:
     FZMIN: 228.6
     FZMAX: 1600
-
   long_slip_range:
     KPUMIN: -0.25
     KPUMAX: 0.25
-
   slip_angle_range:
     ALPMIN: -0.2094
     ALPMAX: 0.2094
-
   inclination_angle_range:
     CAMMIN: -0.1047
     CAMMAX: 0.1047
-
   scaling_coefficients:
     LFZO: 1
     LCX: 1
@@ -149,7 +129,7 @@ tire:
     LHX: 0
     LVX: 0
     LCY: 1
-    LMUY: 1 
+    LMUY: 1
     LEY: 1
     LKY: 1
     LHY: 0
@@ -166,7 +146,6 @@ tire:
     LMX: 1
     LMY: 1
     LMP: 1
-
   longitudinal_coefficients:
     PCX1: 1.786
     PDX1: 2.933
@@ -194,7 +173,6 @@ tire:
     REX1: -0.4759
     REX2: 0.8109
     RHX1: 0
-
   overturning_coefficients:
     QSX1: 0
     QSX2: 0
@@ -211,7 +189,6 @@ tire:
     QSX13: 0
     QSX14: 0
     PPMX1: 0
-
   lateral_coefficients:
     PCY1: 1.6384
     PDY1: 2.3749
@@ -255,7 +232,6 @@ tire:
     RVY4: -6.7562e-18
     RVY5: 7.583e-18
     RVY6: 2.0886e-17
-
   rolling_coefficients:
     QSY1: -0.0309
     QSY2: -0.0921
@@ -265,7 +241,6 @@ tire:
     QSY6: 0
     QSY7: 0.85
     QSY8: -0.4
-
   aligning_coefficients:
     QBZ1: 10
     QBZ2: 0
@@ -300,8 +275,6 @@ tire:
     SSZ2: 0
     SSZ3: 0
     SSZ4: 0
-
-    # POSTA DO CHAT ATE TER DADOS DE VD
   turnslip_coefficients:
     PECP1: 0.8
     PECP2: 0.1
@@ -318,7 +291,5 @@ tire:
     PHYP2: 0.1
     PHYP3: 0.3
     PHYP4: 0.0
-
-  # Other configuration numbers
   configurations:
     Amu: 1.0

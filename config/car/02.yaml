@@ -12,5 +12,5 @@ car:
   cg_height: 0.208
   cg_2_rear_axis: 0.706
   gear_ratio: 3.67
-  Izz: 101.082
-  front_bearing_drag: 0.25
+  Izz: 110.4442831285888
+  front_bearing_drag: 0.8929604666854417

@@ -1,5 +1,7 @@
 #include "vehicle_model/FSFEUP02.hpp"
 
+#include <algorithm>
+
 FSFEUP02Model::FSFEUP02Model(const InvictaSimParameters& simulator_parameters)
     : VehicleModel(simulator_parameters) {
   this->tire_model_ = tire_models_map.at(simulator_parameters.tire_model.c_str())(
@@ -16,12 +18,12 @@ FSFEUP02Model::FSFEUP02Model(const InvictaSimParameters& simulator_parameters)
       simulator_parameters.load_transfer_model.c_str())(simulator_parameters.car_parameters);
   this->steering_ = steering_models_map.at(simulator_parameters.steering_model.c_str())(
       simulator_parameters.car_parameters);
+  this->steering_motor_ = steering_motor_models_map.at(
+      simulator_parameters.steering_motor_model.c_str())(simulator_parameters.car_parameters);
 }
 
 void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, double angle) {
   using Clock = std::chrono::steady_clock;
-
-  state_->steering_angle = angle;
 
   // Motor + battery
   const auto powertrain_start = Clock::now();
@@ -47,7 +49,18 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
 
   // Steering
   const auto steering_start = Clock::now();
-  auto steering = this->steering_->calculate_steering_angles(angle);
+  const double steering_command =
+      std::clamp(angle, car_parameters_->steering_parameters->minimum_steering_angle,
+                 car_parameters_->steering_parameters->maximum_steering_angle);
+  double steering_rate =
+      steering_motor_->compute_steering_rate(state_->steering_angle, steering_command);
+  state_->steering_angle += steering_rate * dt;
+  state_->steering_angle =
+      std::clamp(state_->steering_angle,
+                 car_parameters_->steering_parameters->minimum_steering_angle,
+                 car_parameters_->steering_parameters->maximum_steering_angle);
+
+  auto steering = this->steering_->calculate_steering_angles(state_->steering_angle);
   double actual_steering_fl = steering[0];
   double actual_steering_fr = steering[1];
   const auto steering_end = Clock::now();
@@ -318,7 +331,8 @@ double FSFEUP02Model::calculate_powertrain_torque(double throttle_input, double 
 
   // Calculate Max Torque at current RPM
   double max_motor_torque = motor_->get_max_torque_at_rpm(motor_rpm);
-  double reference_motor_torque = throttle_input * max_motor_torque;
+  double torque_fraction = motor_->get_torque_fraction_for_throttle(throttle_input);
+  double reference_motor_torque = torque_fraction * max_motor_torque;
 
   // Motor Efficiency at this state
   double motor_efficiency = motor_->get_efficiency(std::abs(reference_motor_torque), motor_rpm);

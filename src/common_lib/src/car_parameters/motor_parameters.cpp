@@ -38,6 +38,17 @@ MotorParameters::MotorParameters(const std::string& config_name) {
     kt_constant = config["kt_constant"].as<double>();
   }
 
+  if (config["throttle_torque_curve"]) {
+    for (const auto& point : config["throttle_torque_curve"]) {
+      double throttle = point.first.as<double>();
+      double torque_fraction = point.second.as<double>();
+      throttle_torque_curve[throttle] = torque_fraction;
+    }
+  } else {
+    throttle_torque_curve[0.0] = 0.0;
+    throttle_torque_curve[1.0] = 1.0;
+  }
+
   if (config["efficiency_map"]) {
     for (const auto& rpm_node : config["efficiency_map"]) {
       double rpm = rpm_node.first.as<double>();

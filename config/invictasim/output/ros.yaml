@@ -1,28 +1,28 @@
 publish_frequencies:
   vehicle_model:
-    tire: 0          # Tire status (FX, FY, MY, MZ, slip ratio, slip angle)
-    battery: 0       # Battery status (voltage, current, state of charge)
-    motor: 0         # Motor status (RPM, torque, temperature)
-    transmission: 0  # Transmission status (torque on each wheel)
-    aero: 0          # Aerodynamic status (drag, downforce)
-    status: 0        # Overall vehicle status (speed, acceleration, position, yaw, etc.)
-  visualization:     # Visualization will work at the minimum of this frequencies (excluding 0s)
-    car: 30           # Car visualization 
-    ground: 1         # Ground visualization 
-    ground_truth_cones: 0   # Ground-truth cones visualization
-    slam_cones: 10          # SLAM cones visualization (simulated or from state estimation)
-    perception_cones: 30    # Perception cones visualization (simulated or from perception)
+    tire: 10
+    battery: 10
+    motor: 20
+    transmission: 20
+    aero: 10
+    status: 50
+  visualization:
+    car: 30
+    ground: 1
+    ground_truth_cones: 0
+    slam_cones: 10
+    perception_cones: 30
   sensors:
-    imu: 100             # Simulated IMU (free_acceleration, angular_velocity)
-    wheel_speed: 50      # Simulated wheel speed sensors
-    resolver: 10         # Simulated motor/resolver RPM
-    steering: 10         # Simulated steering sensor
+    imu: 100
+    wheel_speed: 50
+    resolver: 10
+    steering: 10
   map:
-    perception: 10      # Simulated perception output
-    ground_truth: 0       # Ground-truth track map
-    simulated_slam: 10      # Simulated SLAM map 
+    perception: 10
+    ground_truth: 0
+    simulated_slam: 10
   vehicle_state:
-    pose: 10              # Simulated vehicle pose (slam output)
-    velocities: 10        # Simulated velocities (velocity estimation output)
-    operational_status: 1  # Simulated operational status (contains go_signal and mission)
-  execution_time: 0      # Time taken for each simulation step (ms)
+    pose: 50
+    velocities: 50
+    operational_status: 1
+  execution_time: 50
