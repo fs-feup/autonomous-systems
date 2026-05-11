@@ -8,4 +8,4 @@ fi
 echo "Sourcing workspace..."
 source install/setup.bash
 echo "Building selected packages with -j2 parallelism..."
-MAKEFLAGS=-j2 colcon build --packages-up-to perception slam velocity_estimation planning control launcher invictasim --cmake-args -G Ninja
+CMAKE_BUILD_PARALLEL_LEVEL=2 colcon build --parallel-workers 2 --packages-up-to perception slam velocity_estimation planning control launcher invictasim --cmake-args -G Ninja
