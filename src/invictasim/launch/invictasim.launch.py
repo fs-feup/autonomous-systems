@@ -4,19 +4,24 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch_ros.actions import Node
 from launch.event_handlers import OnProcessExit
-from launch.actions import RegisterEventHandler, LogInfo, EmitEvent
+from launch.actions import (
+    RegisterEventHandler,
+    LogInfo,
+    EmitEvent,
+    SetEnvironmentVariable,
+)
 from launch.events import Shutdown
 
 
 def generate_launch_description():
+    sdlWaylandEnv = SetEnvironmentVariable(name="SDL_VIDEODRIVER", value="wayland")
+
     nodeInvictasim = Node(
         package="invictasim",
         namespace="invictasim",
         executable="invictasim",
         name="invictasim_node",
-        parameters=[
-            {"use_sim_time": True},
-        ],
+        parameters=[],
         output="screen",
     )
 
@@ -34,4 +39,6 @@ def generate_launch_description():
         )
     )
 
-    return LaunchDescription([nodeInvictasim, nodeInvictasimShutdownEventHandler])
+    return LaunchDescription(
+        [sdlWaylandEnv, nodeInvictasim, nodeInvictasimShutdownEventHandler]
+    )

@@ -18,6 +18,5 @@ This directory contains the code for the main AS Pipeline.
 - **pacsim** -> package for the PacSim simulator
 - **bayesian_optimization** -> package for the Bayesian Optimization, to be used to tune parameters
 - **custom_interfaces** -> package for the ROS2 messages and services
-- **eufs_msgs** and **fs_msgs** -> old servers' messages (to be removed)
 
 All code for the main pipeline is developed in ROS2 packages and is meant to be developed inside the teams' dev container environment. Some software is located in separate repositories, such as the simulator, interfaces and vehicle integration software, which are configured as submodules of this repository.

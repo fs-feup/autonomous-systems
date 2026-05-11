@@ -22,6 +22,8 @@ protected:
     params.acc_max_y = 10.0;
     params.apply_rotation = true;
     params.rotation = 90.0;
+    params.is_raining = false;
+    params.minimum_intensity = 0.0f;
   }
 
   TrimmingParameters params;

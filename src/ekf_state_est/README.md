@@ -20,7 +20,6 @@ The State Estimation module is responsible for the processing of the perception 
 
 ### Launch Configurations
 
-- [eufs.launch.py](./launch/eufs.launch.py): Launch file for the EUFS simulator
 - [pacsim.launch.py](./launch/pacsim.launch.py): Launch file for the PacSim simulator
 
 ### Important Dependencies
@@ -65,7 +64,7 @@ Use a launch file:
 
 ```sh
 source ./install/setup.bash # If in a new terminal
-ros2 launch ekf_state_est eufs.launch.py
+ros2 launch ekf_state_est ekf_state_est.launch.py
 ```
 
 or run directly:

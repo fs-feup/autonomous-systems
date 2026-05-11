@@ -35,6 +35,8 @@ protected:
     trim_params.max_height = 2.0;
     trim_params.min_range = 0.0;
     trim_params.max_range = 100.0;
+    trim_params.is_raining = false;
+    trim_params.minimum_intensity = 0.0f;
     ground_grid = std::make_unique<GroundGrid>(30.0, 0.1, 0.5, 10.0, 0.1, 3.14);
     algo = std::make_unique<Himmelsbach>(grid_angle, max_slope, initial_alpha, alpha_augmentation_m,
                                          start_augmentation, trim_params);

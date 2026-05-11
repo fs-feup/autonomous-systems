@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 
+#include "motion_lib/steering_motor_model/first_order_model.hpp"
 #include "motion_lib/steering_motor_model/pid_steering_motor.hpp"
 
 /*
@@ -13,12 +14,17 @@
  */
 const std::map<std::string,
                std::function<std::shared_ptr<SteeringMotorModel>(
-                   const common_lib::car_parameters::CarParameters&)>,
+                   const std::shared_ptr<common_lib::car_parameters::CarParameters>)>,
                std::less<>>
     steering_motor_models_map = {
         {"pid",
-         [](const common_lib::car_parameters::CarParameters& params)
+         [](const std::shared_ptr<common_lib::car_parameters::CarParameters> params)
              -> std::shared_ptr<SteeringMotorModel> {
-           return std::make_shared<PIDSteeringMotor>(params);
+           return std::make_shared<PIDSteeringMotor>(*params);
+         }},
+        {"first_order",
+         [](const std::shared_ptr<common_lib::car_parameters::CarParameters> params)
+             -> std::shared_ptr<SteeringMotorModel> {
+           return std::make_shared<FirstOrderSteeringMotor>(*params);
          }},
 };

@@ -10,8 +10,6 @@ This package contains the evaluator node, used to evaluate the AS main pipeline 
 
 - [adapter](evaluator/adapter.py): Adapter base class to change ROS2 interfaces according to the simulator or environment
 - [pacsim_adapter](evaluator/pacsim_adapter.py): Adapter for PacSim simulator
-- [eufs_adapter](evaluator/eufs_adapter.py): Adapter for EUFS simulator
-- [fsds_adapter](evaluator/fsds_adapter.py): Adapter for FSDS simulator
 - [vehicle_adapter](evaluator/vehicle_adapter.py): Adapter for the vehicle
 - [formats](evaluator/formats.py): Functions for formatting messages into a common format
 - [metrics](evaluator/metrics.py): Functions for metrics calculation
@@ -21,9 +19,7 @@ This package contains the evaluator node, used to evaluate the AS main pipeline 
 
 ### Launch Configurations
 
-- [evaluator-eufs.launch.py]: evaluator with adapters for EUFS SIM
 - [evaluator-pacsim.launch.py]: evaluator with adapters for PacSim
-- [evaluator-fsds.launch.py]: evaluator with adapters for FSDS
 
 ## Design
 
@@ -85,7 +81,7 @@ Use a launch file:
 
 ```sh
 source ./install/setup.bash # If in a new terminal
-ros2 launch evaluator evaluator-eufs.launch.py
+ros2 launch evaluator evaluator.launch.py
 ```
 
 or run directly:

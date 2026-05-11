@@ -1,4 +1,0 @@
-invictasim:
-  # Simulator config
-  vehicle_model: "bicycle_model"  # Options: "bicycle_model"
-  timestep: 0.001  # seconds (0.001s = 1000 Hz)
