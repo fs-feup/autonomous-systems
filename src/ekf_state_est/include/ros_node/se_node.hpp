@@ -8,14 +8,11 @@
 #include <string>
 #include <typeinfo>
 
-#include "adapter_ekf_state_est/eufs.hpp"
-#include "adapter_ekf_state_est/fsds.hpp"
-#include "common_lib/competition_logic/mission_logic.hpp"
 #include "common_lib/car_parameters/car_parameters.hpp"
+#include "common_lib/competition_logic/mission_logic.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
-#include "eufs_msgs/msg/wheel_speeds_stamped.hpp"
 #include "kalman_filter/ekf.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/float64.hpp"
@@ -54,7 +51,8 @@ class SENode : public rclcpp::Node {
   std::string _adapter_name_;
   std::shared_ptr<Adapter> _adapter_;
   std::mutex _mutex_;  /// Mutex used to lock EKF access
-  std::shared_ptr<common_lib::car_parameters::CarParameters> _car_parameters_ = std::make_shared<common_lib::car_parameters::CarParameters>();
+  std::shared_ptr<common_lib::car_parameters::CarParameters> _car_parameters_ =
+      std::make_shared<common_lib::car_parameters::CarParameters>();
 
   /**
    * @brief Callback that updates everytime information
@@ -138,8 +136,6 @@ public:
   SENode();
 
   friend class Adapter;
-  friend class EufsAdapter;
-  friend class FsdsAdapter;
   friend class PacsimAdapter;
   friend class VehicleAdapter;
 };

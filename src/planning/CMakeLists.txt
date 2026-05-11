@@ -28,8 +28,6 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
 find_package(custom_interfaces REQUIRED)
-find_package(eufs_msgs REQUIRED)
-find_package(fs_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
@@ -50,10 +48,9 @@ find_package(osqp REQUIRED)
 find_package(OsqpEigen REQUIRED)
 
 set(IMPLEMENTATION_FILES
-  src/adapter_planning/eufs.cpp
-  src/adapter_planning/fsds.cpp
   src/adapter_planning/pacsim.cpp
   src/adapter_planning/vehicle.cpp
+  src/adapter_planning/invictasim.cpp
   src/planning/path_calculation.cpp
   src/planning/smoothing.cpp
   src/planning/planning.cpp
@@ -88,7 +85,7 @@ target_precompile_headers(planning_lib PRIVATE
 target_compile_features(planning_lib PUBLIC c_std_99 cxx_std_17)
 
 ament_target_dependencies(planning_lib
-  ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs
+  ament_index_cpp rclcpp std_msgs custom_interfaces
   tf2_ros tf2_geometry_msgs pacsim common_lib std_srvs nav_msgs
   visualization_msgs
 )
@@ -128,7 +125,7 @@ set_target_properties(planning PROPERTIES
 )
 
 ament_target_dependencies(planning
-  ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs
+  ament_index_cpp rclcpp std_msgs custom_interfaces
   tf2_ros tf2_geometry_msgs pacsim common_lib std_srvs nav_msgs
   visualization_msgs
 )
@@ -151,7 +148,7 @@ if(BUILD_TESTING)
   target_link_libraries(planning_test planning_lib)
 
   ament_target_dependencies(planning_test
-    ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs
+    ament_index_cpp rclcpp std_msgs custom_interfaces
     tf2_ros tf2_geometry_msgs pacsim common_lib std_srvs nav_msgs
     visualization_msgs
   )

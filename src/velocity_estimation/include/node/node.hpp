@@ -1,5 +1,7 @@
 #pragma once
 
+#include <std_msgs/msg/float64.hpp>
+
 #include "config/parameters.hpp"
 #include "custom_interfaces/msg/velocities.hpp"
 #include "estimators/estimator.hpp"
@@ -18,7 +20,10 @@ protected:
   VEParameters _parameters_;
   std::shared_ptr<VelocityEstimator> _velocity_estimator_;
   rclcpp::Publisher<custom_interfaces::msg::Velocities>::SharedPtr _velocities_pub_;
-  void publish_velocities() const;
+  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr execution_time_pub_;
+  double average_execution_time_ = 0.0;
+  int execution_count_ = 0;
+  void publish_velocities();
 
 public:
   VENode(const VEParameters& parameters);

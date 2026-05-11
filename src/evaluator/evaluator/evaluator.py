@@ -74,12 +74,6 @@ class Evaluator(Node):
         # Load configuration from YAML file
         self.load_config()
 
-        if (self._adapter_name_ == "fsds") and (self.use_simulated_perception_):
-            self.get_logger().error(
-                "Simulated perception is not supported for FSDS adapter"
-            )
-            sys.exit(1)
-
         # Subscriptions
         self.perception_subscription_ = message_filters.Subscriber(
             self, ConeArray, "/perception/cones"

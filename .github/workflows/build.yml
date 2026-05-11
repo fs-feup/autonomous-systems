@@ -28,7 +28,7 @@ env:
     control
     planning
     inspection
-    mocker_node
+    invictasim
     evaluator
 
 jobs:

@@ -4,13 +4,13 @@ namespace common_lib::competition_logic {
 const std::map<std::string, Color, std::less<>> STRING_TO_COLOR = {
     {"blue_cone", Color::BLUE},     {"yellow_cone", Color::YELLOW},
     {"orange_cone", Color::ORANGE}, {"large_orange_cone", Color::LARGE_ORANGE},
-    {"unknown", Color::UNKNOWN},
+    {"unknown", Color::UNKNOWN}, {"green_cone", Color::GREEN}, {"red_cone", Color::RED},
 };
 
 const std::map<Color, std::string> COLOR_TO_STRING = {
     {Color::BLUE, "blue_cone"},     {Color::YELLOW, "yellow_cone"},
     {Color::ORANGE, "orange_cone"}, {Color::LARGE_ORANGE, "large_orange_cone"},
-    {Color::UNKNOWN, "unknown"},
+    {Color::UNKNOWN, "unknown"}, {Color::GREEN, "green_cone"}, {Color::RED, "red_cone"},
 };
 
 std::string get_color_string(int color) {

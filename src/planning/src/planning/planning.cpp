@@ -89,11 +89,7 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.planning_braking_distance_autocross_ =
       planning_config["planning_braking_distance_autocross"].as<double>();
 
-  if (adapter == "eufs") {
-    params.map_frame_id_ = "base_footprint";
-  } else {
-    params.map_frame_id_ = "map";
-  }
+  params.map_frame_id_ = "map";
 
   return params;
 }

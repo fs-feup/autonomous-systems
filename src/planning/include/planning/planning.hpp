@@ -70,7 +70,8 @@ public:
    * Reads global configuration to determine the adapter type, then loads adapter-specific
    * planning parameters from the corresponding YAML file.
    *
-   * @param adapter Output parameter that stores the adapter type ("eufs", "pacsim", "vehicle")
+   * @param adapter Output parameter that stores the adapter type ("pacsim", "vehicle",
+   * "invictasim")
    * @return PlanningParameters Struct containing all loaded configuration parameters
    */
   static PlanningParameters load_config(std::string &adapter);
@@ -83,9 +84,8 @@ public:
   void set_mission(Mission mission);
 
   friend class PacSimAdapter;
-  friend class EufsAdapter;
-  friend class FsdsAdapter;
   friend class VehicleAdapter;
+  friend class InvictaSimAdapter;
 
 private:
   /*--------------------- Mission and Configuration --------------------*/

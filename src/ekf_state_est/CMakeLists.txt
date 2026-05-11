@@ -12,9 +12,7 @@ set(PACKAGES
     std_msgs
     sensor_msgs
     custom_interfaces
-    eufs_msgs
     std_srvs
-    fs_msgs
     pacsim
     geometry_msgs
     common_lib
@@ -40,8 +38,6 @@ set(IMPLEMENTATION_FILES
   src/kalman_filter/observation_models.cpp
   src/kalman_filter/data_association.cpp
   src/adapter_ekf_state_est/adapter.cpp
-  src/adapter_ekf_state_est/eufs.cpp
-  src/adapter_ekf_state_est/fsds.cpp
   src/adapter_ekf_state_est/pacsim.cpp
   src/adapter_ekf_state_est/vehicle.cpp
   src/utils/utils.cpp
