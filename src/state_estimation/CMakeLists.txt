@@ -40,6 +40,7 @@ set(IMPLEMENTATION_FILES
   src/adapters/pacsim.cpp
   src/estimators/ukf.cpp
   src/models/process/component_based_vehicle_model.cpp
+  src/models/process/rk4_model.cpp
   src/models/observation/02_sensors.cpp
   src/models/observation/pacsim_sensors.cpp
   src/utils/parameters.cpp

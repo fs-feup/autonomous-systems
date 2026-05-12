@@ -7,6 +7,7 @@
 #include <string>
 
 #include "models/process/component_based_vehicle_model.hpp"
+#include "models/process/rk4_model.hpp"
 
 const std::map<std::string,
                std::function<std::shared_ptr<ProcessModel>(std::shared_ptr<SEParameters>)>,
@@ -15,5 +16,9 @@ const std::map<std::string,
         {"component_based_vehicle_model",
          [](std::shared_ptr<SEParameters> parameters) -> std::shared_ptr<ProcessModel> {
            return std::make_shared<ComponentBasedVehicleModel>(parameters);
+         }},
+        {"rk4_vehicle_model",
+         [](std::shared_ptr<SEParameters> parameters) -> std::shared_ptr<ProcessModel> {
+           return std::make_shared<RK4VehicleModel>(parameters);
          }},
 };
