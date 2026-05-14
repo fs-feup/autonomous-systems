@@ -41,8 +41,13 @@ void RK4VehicleModel::predict(Eigen::Ref<State> state,
 }
 
 void RK4VehicleModel::compute_forces_and_moments(
-    const State& state, common_lib::structures::ControlCommand control_command,
-    double& total_fx, double& total_fy, double& total_torque) {
+    const State& state, common_lib::structures::ControlCommand control_command, double& total_fx,
+    double& total_fy, double& total_torque) {
+  if (abs(state(VX)) < 1e-2 && abs(control_command.throttle_rl) < 1e-6) {
+    state_derivative_.setZero();
+    return;
+  }
+
   // Scale control command to torque
   double throttle_input = control_command.throttle_rl * max_peak_torque_;
 
@@ -143,8 +148,7 @@ Eigen::Matrix<double, StateSize, 1> RK4VehicleModel::get_state_derivative(
   // Wheel speed derivatives
   for (Tire tire : {FL, FR, RL, RR}) {
     state_derivative_(FL_WHEEL_SPEED + tire) =
-        (torques_cache_(tire) -
-         tire_forces_cache_(tire * 4) * wheel_radius_ / inertia_);
+        (torques_cache_(tire) - tire_forces_cache_(tire * 4) * wheel_radius_ / inertia_);
   }
 
   return state_derivative_;
@@ -191,11 +195,12 @@ VehicleState RK4VehicleModel::get_process_model_data(
   vehicle_state.rear_left_forces = tire_forces_cache_.segment<4>(RL * 4);
   vehicle_state.rear_right_forces = tire_forces_cache_.segment<4>(RR * 4);
   vehicle_state.wheels_torque = {torques_cache_(0), torques_cache_(1), torques_cache_(2),
-                                  torques_cache_(3)};
+                                 torques_cache_(3)};
   vehicle_state.wheels_speed = {state(FL_WHEEL_SPEED), state(FR_WHEEL_SPEED), state(RL_WHEEL_SPEED),
                                 state(RR_WHEEL_SPEED)};
-  vehicle_state.wheels_vertical_load = {total_vertical_loads_cache_(0), total_vertical_loads_cache_(1),
-                                        total_vertical_loads_cache_(2), total_vertical_loads_cache_(3)};
+  vehicle_state.wheels_vertical_load = {
+      total_vertical_loads_cache_(0), total_vertical_loads_cache_(1),
+      total_vertical_loads_cache_(2), total_vertical_loads_cache_(3)};
   vehicle_state.aero_drag = aero_forces_cache_(0);
   vehicle_state.aero_downforce = aero_forces_cache_(2);
   vehicle_state.total_force_x = total_fx;
