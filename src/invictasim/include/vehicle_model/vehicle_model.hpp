@@ -65,6 +65,7 @@ struct VehicleState {
   double moment_fx = 0.0;
   double self_aligning_moment = 0.0;
   double total_torque_z = 0.0;
+  bool ebs_active = false;
 };
 
 /**
@@ -103,6 +104,12 @@ public:
     state_->x = x;
     state_->y = y;
   }
+<<<<<<< HEAD
+=======
+  void set_ebs(bool active) {
+    state_->ebs_active = active;
+  }
+>>>>>>> main
 
   // Getters
   double get_position_x() const { return state_->x; }

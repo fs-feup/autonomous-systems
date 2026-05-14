@@ -36,6 +36,12 @@ Track::Track(std::string file_name) {
   return;
 }
 
+<<<<<<< HEAD
 const std::vector<common_lib::structures::Cone>& Track::getTrack() const { return cones_; }
 
 common_lib::structures::Position Track::getStartPosition() const { return start_position_; }
+=======
+const std::vector<common_lib::structures::Cone>& Track::get_cones() const { return cones_; }
+
+common_lib::structures::Position Track::get_start_position() const { return start_position_; }
+>>>>>>> main

@@ -88,10 +88,9 @@ bool PathCalculation::is_map_closed(std::vector<PathPoint>& path) const {
     if (best_cutoff_index + 1 < static_cast<int>(path.size())) {
       (void)path.erase(path.begin() + best_cutoff_index + 1, path.end());
     }
-    path.push_back(path[0]);
 
     RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Loop closure cost: %.4f (threshold: %.4f)",
-                combined_cost, config_.close_cost_);
+                 combined_cost, config_.close_cost_);
     return true;
   }
 
@@ -121,11 +120,6 @@ std::vector<PathPoint> PathCalculation::calculate_trackdrive(const std::vector<C
     (void)current_path_.erase(current_path_.begin() + best_cutoff_index + 1, current_path_.end());
     Colorpoint::extract_cones(current_path_, yellow_cones_, blue_cones_);
   }
-
-  // Close the loop by adding the first point again
-  result.push_back(result[0]);
-  yellow_cones_.push_back(yellow_cones_[0]);
-  blue_cones_.push_back(blue_cones_[0]);
 
   return result;
 }
@@ -230,11 +224,10 @@ void PathCalculation::update_path_from_past_path() {
     if (candidate_midpoint) {
       (void)visited_midpoints_.insert(candidate_midpoint);
     }
-    
+
     current_path_.push_back(candidate_colorpoint);
     last_added_point = candidate_colorpoint.point;
     first_point_added = true;
-
   }
 }
 

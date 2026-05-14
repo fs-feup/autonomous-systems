@@ -12,14 +12,12 @@
   <depend>rclcpp</depend>
   <depend>std_msgs</depend>
   <depend>sensor_msgs</depend>
-  <depend>fs_msgs</depend>
   <depend>custom_interfaces</depend>
   <depend>pacsim</depend>
   <depend>ackermann_msgs</depend>
   <depend>tf2_geometry_msgs</depend>
   <depend>tf2_ros</depend>
   <depend>std_srvs</depend>
-  <depend>eufs_msgs</depend>
   <depend>common_lib</depend>
   <depend>visualization_msgs</depend>
   <depend>motion_lib</depend>

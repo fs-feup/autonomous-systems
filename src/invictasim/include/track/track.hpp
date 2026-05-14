@@ -26,13 +26,13 @@ public:
    * contains the position and color of a cone on the track.
    * @return std::vector<common_lib::structures::Cone> Vector of Cone objects
    */
-  const std::vector<common_lib::structures::Cone>& getTrack() const;
+  const std::vector<common_lib::structures::Cone>& get_cones() const;
 
   /**
    * @brief Get the starting position for the vehicle on the specified track.
    * @return common_lib::structures::Position Starting position for the vehicle.
    */
-  common_lib::structures::Position getStartPosition() const;
+  common_lib::structures::Position get_start_position() const;
 
 private:
   std::vector<common_lib::structures::Cone> cones_;  ///< List of cones on the track

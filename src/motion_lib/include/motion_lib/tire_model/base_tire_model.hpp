@@ -40,11 +40,16 @@ protected:
   std::shared_ptr<common_lib::car_parameters::CarParameters> car_parameters_;
 
   void calculate_slip_angle_front(TireInput& tire_input);
+<<<<<<< HEAD
   void calculate_slip_angle_front_not_transient(TireInput& tire_input);
   void calculate_slip_angle_rear(TireInput& tire_input);
   void calculate_slip_angle_rear_not_transient(TireInput& tire_input);
   void calculate_slip_ratio(TireInput& tire_input);
   void calculate_slip_ratio_not_transient(TireInput& tire_input);
+=======
+  void calculate_slip_angle_rear(TireInput& tire_input);
+  void calculate_slip_ratio(TireInput& tire_input);
+>>>>>>> main
 
   /**
    * @brief Calculate the forces acting in a tire based on the tire characteristics and dynamic
@@ -61,5 +66,8 @@ public:
             std::make_shared<common_lib::car_parameters::CarParameters>(car_parameters)) {}
 
   Eigen::Vector4d calculate_tire_forces(TireInput& tire_input);
+<<<<<<< HEAD
   Eigen::Vector4d calculate_tire_forces_not_transient(TireInput& tire_input);
+=======
+>>>>>>> main
 };

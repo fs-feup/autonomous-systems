@@ -16,6 +16,10 @@ const std::map<
     output_adapters_map = {
         {"ros",
          [](const std::shared_ptr<InvictaSim>& sim) -> std::shared_ptr<InvictaSimOutputAdapter> {
+<<<<<<< HEAD
            return std::make_shared<RosOutputAdapter>(sim);
+=======
+           return std::make_shared<RosOutputAdapter>(sim, "ros");
+>>>>>>> main
          }},
 };

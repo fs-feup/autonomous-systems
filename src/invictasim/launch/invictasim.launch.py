@@ -21,9 +21,7 @@ def generate_launch_description():
         namespace="invictasim",
         executable="invictasim",
         name="invictasim_node",
-        parameters=[
-            {"use_sim_time": True},
-        ],
+        parameters=[],
         output="screen",
     )
 

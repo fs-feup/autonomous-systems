@@ -9,23 +9,44 @@ InvictaSimParameters::InvictaSimParameters() {
       common_lib::config_load::get_config_yaml_path("invictasim", "global", "global_config");
   YAML::Node global_config = YAML::LoadFile(global_config_path);
 
+<<<<<<< HEAD
   discipline = global_config["global"]["discipline"].as<std::string>();
   sim_frequency = simulator_config["invictasim"]["sim_frequency"].as<int>();
+=======
+  // Global config
+  discipline = global_config["global"]["discipline"].as<std::string>();
+  use_simulated_se = global_config["global"]["use_simulated_se"].as<bool>();
+  use_simulated_perception = global_config["global"]["use_simulated_perception"].as<bool>();
+  use_simulated_planning = global_config["global"]["use_simulated_planning"].as<bool>();
+  use_simulated_velocities = global_config["global"]["use_simulated_velocities"].as<bool>();
+
+  // Invictasim config
+  sim_frequency = simulator_config["invictasim"]["sim_frequency"].as<int>();
+  sim_speed = simulator_config["invictasim"]["sim_speed"].as<double>();
+  initial_go_signal = simulator_config["invictasim"]["initial_go_signal"].as<bool>();
+>>>>>>> main
   track_name = simulator_config["invictasim"]["track_name"].as<std::string>();
   input_adapter = simulator_config["invictasim"]["input_adapter"].as<std::string>();
   output_adapter = simulator_config["invictasim"]["output_adapter"].as<std::string>();
 
+<<<<<<< HEAD
   for (const auto& publish_frequency : simulator_config["invictasim"]["publish_frequencies"]) {
     publish_frequencies[publish_frequency.first.as<std::string>()] =
         publish_frequency.second.as<int>();
   }
 
+=======
+>>>>>>> main
   vehicle_model = simulator_config["invictasim"]["vehicle_model"].as<std::string>();
 
   std::string vehicle_model_config_path = common_lib::config_load::get_config_yaml_path(
       "invictasim", "invictasim/vehicle_models", vehicle_model);
   YAML::Node vehicle_model_config = YAML::LoadFile(vehicle_model_config_path);
 
+<<<<<<< HEAD
+=======
+  // Vehicle model config
+>>>>>>> main
   tire_model = vehicle_model_config["vehicle_model"]["tire_model"].as<std::string>();
   aero_model = vehicle_model_config["vehicle_model"]["aero_model"].as<std::string>();
   steering_model = vehicle_model_config["vehicle_model"]["steering_model"].as<std::string>();

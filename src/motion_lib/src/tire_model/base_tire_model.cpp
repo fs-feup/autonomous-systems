@@ -1,5 +1,8 @@
 #include "motion_lib/tire_model/base_tire_model.hpp"
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 void TireModel::calculate_slip_angle_front(TireInput& tire_input) {
   const double V_eps = 0.5;
 
@@ -42,6 +45,7 @@ void TireModel::calculate_slip_angle_front(TireInput& tire_input) {
   tire_input.last_slip_angle[tire_input.tire] = tire_input.slip_angle;
 }
 
+<<<<<<< HEAD
 void TireModel::calculate_slip_angle_front_not_transient(TireInput& tire_input) {
   const double V_eps = 0.5;  // Regularization constant to prevent incorrect low speed behavior can
                              // be lower if needed
@@ -63,6 +67,8 @@ void TireModel::calculate_slip_angle_front_not_transient(TireInput& tire_input) 
   }
 }
 
+=======
+>>>>>>> main
 void TireModel::calculate_slip_angle_rear(TireInput& tire_input) {
   const double V_eps = 0.5;
 
@@ -103,6 +109,7 @@ void TireModel::calculate_slip_angle_rear(TireInput& tire_input) {
   tire_input.last_slip_angle[tire_input.tire] = tire_input.slip_angle;
 }
 
+<<<<<<< HEAD
 void TireModel::calculate_slip_angle_rear_not_transient(TireInput& tire_input) {
   const double V_eps = 0.5;
   double sign = (tire_input.tire == RL) ? -1.0 : 1.0;
@@ -119,6 +126,8 @@ void TireModel::calculate_slip_angle_rear_not_transient(TireInput& tire_input) {
   }
 }
 
+=======
+>>>>>>> main
 void TireModel::calculate_slip_ratio(TireInput& tire_input) {
   double sign_y = (tire_input.tire == FL || tire_input.tire == RL) ? -1.0 : 1.0;
 
@@ -166,6 +175,7 @@ void TireModel::calculate_slip_ratio(TireInput& tire_input) {
   tire_input.last_slip_ratio[tire_input.tire] = tire_input.slip_ratio;
 }
 
+<<<<<<< HEAD
 void TireModel::calculate_slip_ratio_not_transient(TireInput& tire_input) {
   // 1. Calculate the Wheel Longitudinal Velocity with yaw
   // Sign: Left wheels move slower in a positive yaw (turning left), Right move faster.
@@ -188,6 +198,8 @@ void TireModel::calculate_slip_ratio_not_transient(TireInput& tire_input) {
   tire_input.last_slip_ratio[tire_input.tire] = slip_target;
 }
 
+=======
+>>>>>>> main
 Eigen::Vector4d TireModel::calculate_tire_forces(TireInput& tire_input) {
   if (tire_input.tire == FL || tire_input.tire == FR) {
     if (tire_input.tire == FL) {
@@ -213,6 +225,7 @@ Eigen::Vector4d TireModel::calculate_tire_forces(TireInput& tire_input) {
 
   // Return tire forces using the specific derived tire model
   return this->tire_forces(tire_input);
+<<<<<<< HEAD
 }
 
 Eigen::Vector4d TireModel::calculate_tire_forces_not_transient(TireInput& tire_input) {
@@ -241,4 +254,6 @@ Eigen::Vector4d TireModel::calculate_tire_forces_not_transient(TireInput& tire_i
 
   // Return tire forces using the specific tire model
   return this->tire_forces(tire_input);
+=======
+>>>>>>> main
 }

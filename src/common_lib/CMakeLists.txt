@@ -9,8 +9,6 @@ endif()
 set(PACKAGES
   ament_cmake
   Eigen3
-  eufs_msgs
-  fs_msgs
   visualization_msgs
   std_msgs
   rclcpp

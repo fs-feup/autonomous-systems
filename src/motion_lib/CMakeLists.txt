@@ -8,8 +8,6 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(Eigen3 REQUIRED)
-find_package(eufs_msgs REQUIRED)
-find_package(fs_msgs REQUIRED)
 find_package(visualization_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
@@ -41,12 +39,13 @@ set(IMPLEMENTATION_FILES
   src/steering_model/ackerman_steering.cpp
   src/load_transfer_model/rigid_body_model.cpp
   src/load_transfer_model/vd_load_transfer_model.cpp
+  src/steering_motor_model/first_order_model.cpp
   src/steering_motor_model/pid_steering_motor.cpp
   src/steering_motor_model/first_order_model.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})
-ament_target_dependencies(${PROJECT_NAME} eufs_msgs std_msgs rclcpp visualization_msgs fs_msgs Eigen3 custom_interfaces common_lib)
+ament_target_dependencies(${PROJECT_NAME} std_msgs rclcpp visualization_msgs Eigen3 custom_interfaces common_lib)
 
 ament_export_targets(${PROJECT_NAME} HAS_LIBRARY_TARGET)
 
@@ -86,7 +85,7 @@ if(BUILD_TESTING)
 
   # Unit tests
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES} TIMEOUT 600)
-  ament_target_dependencies(${PROJECT_NAME}_test eufs_msgs rclcpp fs_msgs std_msgs visualization_msgs Eigen3 custom_interfaces common_lib)
+  ament_target_dependencies(${PROJECT_NAME}_test rclcpp std_msgs visualization_msgs Eigen3 custom_interfaces common_lib)
   target_include_directories(${PROJECT_NAME}_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>

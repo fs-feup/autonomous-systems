@@ -33,7 +33,7 @@ MockerNode::MockerNode() : rclcpp::Node("mocker_node") {
   planning_visualization_publisher = this->create_publisher<visualization_msgs::msg::Marker>(
       "/path_planning/smoothed_mock_path", 10);
 
-  this->_map_frame_id_ = sim == "eufs" ? "base_footprint" : "map";
+  this->_map_frame_id_ = "map";
 
   this->timer_ = this->create_wall_timer(std::chrono::milliseconds(100),
                                          std::bind(&MockerNode::publish_data, this));

@@ -70,7 +70,8 @@ public:
    * Reads global configuration to determine the adapter type, then loads adapter-specific
    * planning parameters from the corresponding YAML file.
    *
-   * @param adapter Output parameter that stores the adapter type ("eufs", "pacsim", "vehicle")
+   * @param adapter Output parameter that stores the adapter type ("pacsim", "vehicle",
+   * "invictasim")
    * @return PlanningParameters Struct containing all loaded configuration parameters
    */
   static PlanningParameters load_config(std::string &adapter);
@@ -83,9 +84,8 @@ public:
   void set_mission(Mission mission);
 
   friend class PacSimAdapter;
-  friend class EufsAdapter;
-  friend class FsdsAdapter;
   friend class VehicleAdapter;
+  friend class InvictaSimAdapter;
 
 private:
   /*--------------------- Mission and Configuration --------------------*/
@@ -109,12 +109,14 @@ private:
   bool has_received_pose_ = false;
   bool is_path_final_ = false;
   bool is_path_closed_ = false;
+  bool last_is_path_closed_ = false;
   std::chrono::steady_clock::time_point brake_time_;
 
   /*--------------------- Path Data --------------------*/
 
   std::vector<PathPoint> full_path_;
   std::vector<PathPoint> smoothed_path_;
+  std::vector<PathPoint> last_full_path_;
   std::vector<Cone> cone_array_;
 
   /*--------------------- Subscriptions --------------------*/

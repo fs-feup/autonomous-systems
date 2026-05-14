@@ -25,7 +25,6 @@ The module operates in two modes:
 
 ### Launch Configurations
 
-- [eufs.launch.py](launch/eufs.launch.py): Launches the planning node with the necessary parameters for the EUFS simulator.
 - [vehicle.launch.py](launch/vehicle.launch.py): Launches the planning node with the necessary parameters for the 03 vehicle.
 - [pacsim.launch.py](launch/pacsim.launch.py): Launches the planning node with the necessary parameters for the PacSim simulator.
 
@@ -52,7 +51,7 @@ git submodule update --init --recursive
 
 ### Compiling
 ```sh
-MAKEFLAGS=-j2 colcon build --packages-up-to planning --cmake-args -G Ninja
+MAKEFLAGS=-j2 colcon build --packages-up-to planning --cmake-args -G Ninja --event-handlers console_direct+
 ```
 
 ### Testing
