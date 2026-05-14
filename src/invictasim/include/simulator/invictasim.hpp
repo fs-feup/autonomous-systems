@@ -4,6 +4,7 @@
 #include <chrono>
 #include <memory>
 #include <mutex>
+#include <vector>
 
 #include "common_lib/structures/wheels.hpp"
 #include "config/config.hpp"
@@ -90,8 +91,7 @@ public:
    */
   bool is_ebs_active() const {
     std::lock_guard<std::mutex> lock(input_mutex_);
-    return ebs_active_;
-  }
+    return ebs_active_; }
 
   /**
    * @brief Get the simulator configuration parameters. Used by adapters to get car config.
@@ -129,12 +129,6 @@ public:
   }
 
   /**
-<<<<<<< HEAD
-   * @brief Get the track information.
-   * be read).
-   */
-  std::shared_ptr<Track> get_track() const { return track_; }
-=======
    * @brief Get the map information.
    * @return MapSnapshot Latest map snapshot.
    */
@@ -178,7 +172,6 @@ public:
     std::lock_guard<std::mutex> lock(output_snapshot_mutex_);
     external_perception_cones_ = cones;
   }
->>>>>>> main
 
 private:
   InvictaSimParameters params_;  ///< Simulator configuration values.
@@ -197,32 +190,23 @@ private:
       last_step_time_;  ///< Last wall-clock time used to compute step dt.
 
   // Output snapshot data
-<<<<<<< HEAD
-  mutable std::mutex output_snapshot_mutex_;     ///< Protects output snapshot access.
-  VehicleModelSnapshot vehicle_model_snapshot_;  ///< Latest consolidated vehicle model snapshot.
-  ExecutionTimesSnapshot execution_times_snapshot_;  ///< Latest per-step execution timings.
-=======
   mutable std::mutex output_snapshot_mutex_;         ///< Protects output snapshot access.
   VehicleModelSnapshot vehicle_model_snapshot_;      ///< Latest vehicle model snapshot.
   ExecutionTimesSnapshot execution_times_snapshot_;  ///< Latest per-step execution timings.
   MapSnapshot map_snapshot_;                         ///< Latest map snapshot.
   SensorsSnapshot sensors_snapshot_;                 ///< Latest sensors snapshot.
   VehicleStateSnapshot vehicle_state_snapshot_;      ///< Latest vehicle state snapshot.
->>>>>>> main
 
   // Current commands
   mutable std::mutex input_mutex_;           ///< Protects input access.
   common_lib::structures::Wheels throttle_;  ///< Current throttle commands (all wheels).
   double steering_;                          ///< Current steering command (radians).
-<<<<<<< HEAD
-=======
   bool ebs_active_{false};                   ///< Current EBS state.
 
   std::atomic<bool> go_signal_{false};       ///< Global go signal state.
 
   std::vector<common_lib::structures::Cone> external_slam_cones_;       ///< External SLAM cones.
   std::vector<common_lib::structures::Cone> external_perception_cones_; ///< External perception cones.
->>>>>>> main
 
   /**
    * @brief Build a consolidated vehicle model snapshot with all vehicle state data.
@@ -238,8 +222,6 @@ private:
   ExecutionTimesSnapshot build_execution_times_snapshot(double total_step_ms) const;
 
   /**
-<<<<<<< HEAD
-=======
    * @brief Build map snapshot with ground truth map, slam simulation and perception cones.
    * @return MapSnapshot Latest map snapshot.
    */
@@ -258,7 +240,6 @@ private:
   VehicleStateSnapshot build_vehicle_state_snapshot() const;
 
   /**
->>>>>>> main
    * @brief Execute a simulation step.
    */
   void simulation_step();

@@ -11,17 +11,6 @@ InvictaSim::InvictaSim(const InvictaSimParameters& params)
   track_ = std::make_shared<Track>(params_.track_name);
 
   // Set initial position according to track information
-<<<<<<< HEAD
-  auto start_position = track_->getStartPosition();
-  vehicle_model_->set_initial_pose(start_position.x, start_position.y);
-
-  // Initialize step timings
-  step_duration_ = std::chrono::duration_cast<std::chrono::steady_clock::duration>(
-      std::chrono::duration<double>(1 / static_cast<double>(params_.sim_frequency)));
-  const auto now = std::chrono::steady_clock::now();
-  next_step_time_ = now + step_duration_;
-  last_step_time_ = now;
-=======
   auto start_position = track_->get_start_position();
   vehicle_model_->set_initial_pose(start_position.x, start_position.y);
 
@@ -34,7 +23,6 @@ InvictaSim::InvictaSim(const InvictaSimParameters& params)
 
   // Initialize go_signal from config
   go_signal_ = params_.initial_go_signal;
->>>>>>> main
 }
 
 void InvictaSim::run() {
@@ -46,20 +34,6 @@ void InvictaSim::run() {
 
 void InvictaSim::stop() { running_ = false; }
 
-<<<<<<< HEAD
-void InvictaSim::simulation_step() {
-  auto current_time = std::chrono::steady_clock::now();
-  if (current_time < next_step_time_) {
-    std::this_thread::sleep_until(next_step_time_);
-    current_time = next_step_time_;
-  }
-  double step_dt = std::chrono::duration<double>(current_time - last_step_time_).count();
-
-  last_step_time_ = current_time;
-  next_step_time_ = current_time + step_duration_;
-  sim_time_ += step_dt;
-
-=======
 void InvictaSim::activate_go_signal() { go_signal_ = true; }
 
 void InvictaSim::add_sim_speed(double delta) {
@@ -131,23 +105,12 @@ void InvictaSim::simulation_step() {
 
   // Increase simulation time
   sim_time_ += sim_dt;
->>>>>>> main
   const auto step_start = std::chrono::steady_clock::now();
 
   // Use a copy of input so no locks are required during vehicle model step.
   const InputSnapshot input_snapshot = get_input_snapshot();
 
   // Use snapshot throughout step without locks
-<<<<<<< HEAD
-  vehicle_model_->step(step_dt, input_snapshot.throttle, input_snapshot.steering);
-
-  // Update output snapshot for adapters to read (lock only to copy the data)
-  VehicleModelSnapshot vehicle_snapshot = build_vehicle_model_snapshot();
-  const auto step_end = std::chrono::steady_clock::now();
-  const double total_step_ms =
-      std::chrono::duration<double, std::milli>(step_end - step_start).count();
-  ExecutionTimesSnapshot execution_times_snapshot = build_execution_times_snapshot(total_step_ms);
-=======
   vehicle_model_->step(sim_dt, input_snapshot.throttle, input_snapshot.steering);
 
   // Compute total step execution time
@@ -161,17 +124,13 @@ void InvictaSim::simulation_step() {
   MapSnapshot map_snapshot = build_map_snapshot();
   SensorsSnapshot sensors_snapshot = build_sensors_snapshot(vehicle_snapshot);
   VehicleStateSnapshot vehicle_state_snapshot = build_vehicle_state_snapshot();
->>>>>>> main
   {
     std::lock_guard<std::mutex> lock(output_snapshot_mutex_);
     vehicle_model_snapshot_ = vehicle_snapshot;
     execution_times_snapshot_ = execution_times_snapshot;
-<<<<<<< HEAD
-=======
     map_snapshot_ = map_snapshot;
     sensors_snapshot_ = sensors_snapshot;
     vehicle_state_snapshot_ = vehicle_state_snapshot;
->>>>>>> main
   }
 }
 
@@ -238,8 +197,6 @@ ExecutionTimesSnapshot InvictaSim::build_execution_times_snapshot(double total_s
 
   return snapshot;
 }
-<<<<<<< HEAD
-=======
 
 MapSnapshot InvictaSim::build_map_snapshot() const {
   MapSnapshot snapshot;
@@ -304,4 +261,3 @@ VehicleStateSnapshot InvictaSim::build_vehicle_state_snapshot() const {
   snapshot.mission = common_lib::competition_logic::get_mission_from_string(params_.discipline);
   return snapshot;
 }
->>>>>>> main

@@ -2,12 +2,9 @@
 
 #include <Eigen/Core>
 
-<<<<<<< HEAD
-=======
 #include "common_lib/competition_logic/mission_logic.hpp"
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/position.hpp"
->>>>>>> main
 #include "common_lib/structures/wheels.hpp"
 
 /**
@@ -77,8 +74,6 @@ struct ExecutionTimesSnapshot {
 struct InputSnapshot {
   common_lib::structures::Wheels throttle = {0.0, 0.0, 0.0, 0.0};
   double steering = 0.0;
-<<<<<<< HEAD
-=======
 };
 
 /**
@@ -124,5 +119,4 @@ struct VehicleStateSnapshot {
   // Operational status
   bool go_signal = false;
   common_lib::competition_logic::Mission mission = common_lib::competition_logic::Mission::NONE;
->>>>>>> main
 };

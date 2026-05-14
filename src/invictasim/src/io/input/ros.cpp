@@ -12,8 +12,6 @@ RosInputAdapter::RosInputAdapter(const std::shared_ptr<InvictaSim>& simulator)
         throttle.rear_right = msg->throttle_rr;
         simulator_->set_input(throttle, msg->steering);
       });
-<<<<<<< HEAD
-=======
 
   if (!simulator_->get_params().use_simulated_se) {
     slam_map_sub_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
@@ -46,5 +44,4 @@ RosInputAdapter::RosInputAdapter(const std::shared_ptr<InvictaSim>& simulator)
           simulator_->set_external_perception_cones(cones);
         });
   }
->>>>>>> main
 }

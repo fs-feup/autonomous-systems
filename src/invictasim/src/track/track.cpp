@@ -33,15 +33,8 @@ Track::Track(std::string file_name) {
     std::string color_str = node[2].as<std::string>();
     this->cones_.emplace_back(x, y, color_str);
   }
-  return;
 }
 
-<<<<<<< HEAD
-const std::vector<common_lib::structures::Cone>& Track::getTrack() const { return cones_; }
-
-common_lib::structures::Position Track::getStartPosition() const { return start_position_; }
-=======
 const std::vector<common_lib::structures::Cone>& Track::get_cones() const { return cones_; }
 
 common_lib::structures::Position Track::get_start_position() const { return start_position_; }
->>>>>>> main

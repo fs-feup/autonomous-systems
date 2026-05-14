@@ -16,21 +16,13 @@ FSFEUP02Model::FSFEUP02Model(const InvictaSimParameters& simulator_parameters)
       simulator_parameters.load_transfer_model.c_str())(simulator_parameters.car_parameters);
   this->steering_ = steering_models_map.at(simulator_parameters.steering_model.c_str())(
       simulator_parameters.car_parameters);
-<<<<<<< HEAD
-=======
   this->steering_motor_ = steering_motor_models_map.at(
       simulator_parameters.steering_motor_model.c_str())(simulator_parameters.car_parameters);
->>>>>>> main
 }
 
 void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, double angle) {
   using Clock = std::chrono::steady_clock;
 
-<<<<<<< HEAD
-  state_->steering_angle = angle;
-
-=======
->>>>>>> main
   // Motor + battery
   const auto powertrain_start = Clock::now();
   double throttle_input =
@@ -55,15 +47,11 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
 
   // Steering
   const auto steering_start = Clock::now();
-<<<<<<< HEAD
-  auto steering = this->steering_->calculate_steering_angles(angle);
-=======
   const double steering_rate =
       this->steering_motor_->compute_steering_rate(state_->steering_angle, angle);
   state_->steering_angle += steering_rate * dt;
 
   auto steering = this->steering_->calculate_steering_angles(state_->steering_angle);
->>>>>>> main
   double actual_steering_fl = steering[0];
   double actual_steering_fr = steering[1];
   const auto steering_end = Clock::now();
@@ -139,16 +127,11 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   const auto tire_end = Clock::now();
 
   // Update wheel speeds
-<<<<<<< HEAD
-  double R = car_parameters_->tire_parameters->effective_tire_r;
-  double I = car_parameters_->tire_parameters->wheel_inertia;
-=======
   if (state_->ebs_active) {
     state_->wheels_speed = {0.0, 0.0, 0.0, 0.0};
   } else {
     double R = car_parameters_->tire_parameters->effective_tire_r;
     double I = car_parameters_->tire_parameters->wheel_inertia;
->>>>>>> main
 
   // Activation function for smooth rolling resistance at low speeds
   double sign_rl = 2.0 / M_PI * std::atan(10.0 * state_->wheels_speed.rear_left);
@@ -183,10 +166,7 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
         (std::abs(state_->front_right_forces[2]) * sign_fr)) /
        I) *
       dt;
-<<<<<<< HEAD
-=======
   }
->>>>>>> main
 
   // Vehicle State Update
   // Sum of all forces normalized to the vehicle coordinate system
@@ -325,10 +305,7 @@ void FSFEUP02Model::reset() {
   state_->battery_soc = 0.0;
   state_->battery_current = 0.0;
   state_->battery_open_circuit_voltage = 0.0;
-<<<<<<< HEAD
-=======
   state_->steering_angle = 0.0;
->>>>>>> main
   state_->total_force_x = 0.0;
   state_->total_force_y = 0.0;
   state_->moment_fy = 0.0;
@@ -377,8 +354,4 @@ double FSFEUP02Model::calculate_powertrain_torque(double throttle_input, double 
   state_->battery_open_circuit_voltage = battery_->get_open_circuit_voltage();
 
   return static_cast<double>(actual_motor_torque);
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> main
