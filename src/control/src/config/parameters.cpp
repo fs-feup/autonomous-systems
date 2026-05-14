@@ -104,11 +104,7 @@ std::string ControlParameters::load_config() {
   this->command_time_interval_ = control_config["command_time_interval"].as<int>();
   this->car_parameters_ = common_lib::car_parameters::CarParameters();
   this->car_parameters_.steering_parameters =
-<<<<<<< HEAD
-      std::make_shared<common_lib::car_parameters::SteeringParameters>("simple_steering");
-=======
       std::make_shared<common_lib::car_parameters::SteeringParameters>("02_steering");
->>>>>>> main
 
   return adapter;
 }
