@@ -16,6 +16,7 @@ planning:
   pc_minimum_point_distance: 1.0
   pc_reset_interval: 1000000000
   pc_use_reset_path: false
+  pc_close_cost: 50.0
   #---------------------- Skidpad (skidpad_) ------------------
   skidpad_minimum_cones: 10
   skidpad_tolerance: 5
@@ -25,24 +26,23 @@ planning:
   smoothing_spline_coeffs_ratio: 3.0
   smoothing_min_path_point_distance: 0
   smoothing_use_path_smoothing: true
-  smoothing_use_optimization: true
+  smoothing_use_optimization: false
   smoothing_car_width: 1.2
-  smoothing_safety_margin: 0.3
+  smoothing_safety_margin: 0
   smoothing_curvature_weight: 100.0
-  smoothing_smoothness_weight: 0.1
   smoothing_safety_weight: 1000000
   smoothing_max_iterations: 4000
   smoothing_tolerance: 1e-5     
   #---------------------- Velocity Planning (vp_) -----------------------
   vp_minimum_velocity: 2.0
-  vp_braking_acceleration: -10.0
-  vp_acceleration: 10.0
-  vp_lateral_acceleration: 10.0
-  vp_longitudinal_acceleration: 8.0
+  vp_braking_acceleration: -3.0
+  vp_acceleration: 5.0
+  vp_lateral_acceleration: 5.0
+  vp_longitudinal_acceleration: 4.0
   vp_use_velocity_planning: true
-  vp_desired_velocity: 25.0
+  vp_desired_velocity: 20.0
   #---------------------- Planning Config (planning_) ---------------------------
   planning_publishing_visualization_msgs: true
   planning_using_full_map: false
-  planning_braking_distance_acceleration: 90.0
+  planning_braking_distance_acceleration: 75.0
   planning_braking_distance_autocross: 10.0
