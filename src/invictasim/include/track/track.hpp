@@ -4,6 +4,7 @@
 
 #include <ament_index_cpp/get_package_share_directory.hpp>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "common_lib/competition_logic/color.hpp"
@@ -34,7 +35,16 @@ public:
    */
   common_lib::structures::Position get_start_position() const;
 
+  /**
+   * @brief Get the start/finish line endpoints for lap counting.
+   * @return Pair with the two endpoints of the start line.
+   */
+  std::pair<common_lib::structures::Position, common_lib::structures::Position> get_start_line()
+      const;
+
 private:
   std::vector<common_lib::structures::Cone> cones_;  ///< List of cones on the track
   common_lib::structures::Position start_position_;  ///< Starting position
+  std::pair<common_lib::structures::Position, common_lib::structures::Position>
+      start_line_;  ///< Start/finish line endpoints
 };

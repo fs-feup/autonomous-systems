@@ -8,6 +8,7 @@
 #include "common_lib/structures/wheels.hpp"
 #include "config/config.hpp"
 #include "io/output/output_snapshot.hpp"
+#include "statistics/statistics.hpp"
 #include "track/track.hpp"
 #include "vehicle_model/map.hpp"
 #include "vehicle_model/vehicle_model.hpp"
@@ -156,6 +157,23 @@ public:
   }
 
   /**
+   * @brief Get the latest statistics snapshot.
+   * @return StatisticsSnapshot Latest accumulated simulator statistics.
+   */
+  StatisticsSnapshot get_statistics_snapshot() const {
+    std::lock_guard<std::mutex> lock(output_snapshot_mutex_);
+    return statistics_snapshot_;
+  }
+
+  /**
+   * @brief Get the immutable track start/finish line endpoints.
+   */
+  std::pair<common_lib::structures::Position, common_lib::structures::Position> get_start_line()
+      const {
+    return track_->get_start_line();
+  }
+
+  /**
    * @brief Set the external SLAM cones.
    * @param cones The map cones received from the external SLAM node.
    */
@@ -179,6 +197,7 @@ private:
   // Simulation components
   std::shared_ptr<VehicleModel> vehicle_model_;  ///< Vehicle model.
   std::shared_ptr<Track> track_;                 ///< Track information.
+  std::unique_ptr<Statistics> statistics_;       ///< Simulator statistics calculator.
 
   // Simulation loop timing
   std::atomic<bool> running_;  ///< Indicates whether the simulation loop is running.
@@ -196,6 +215,7 @@ private:
   MapSnapshot map_snapshot_;                         ///< Latest map snapshot.
   SensorsSnapshot sensors_snapshot_;                 ///< Latest sensors snapshot.
   VehicleStateSnapshot vehicle_state_snapshot_;      ///< Latest vehicle state snapshot.
+  StatisticsSnapshot statistics_snapshot_;           ///< Latest statistics snapshot.
 
   // Current commands
   mutable std::mutex input_mutex_;           ///< Protects input access.
@@ -203,10 +223,11 @@ private:
   double steering_;                          ///< Current steering command (radians).
   bool ebs_active_{false};                   ///< Current EBS state.
 
-  std::atomic<bool> go_signal_{false};       ///< Global go signal state.
+  std::atomic<bool> go_signal_{false};  ///< Global go signal state.
 
-  std::vector<common_lib::structures::Cone> external_slam_cones_;       ///< External SLAM cones.
-  std::vector<common_lib::structures::Cone> external_perception_cones_; ///< External perception cones.
+  std::vector<common_lib::structures::Cone> external_slam_cones_;  ///< External SLAM cones.
+  std::vector<common_lib::structures::Cone>
+      external_perception_cones_;  ///< External perception cones.
 
   /**
    * @brief Build a consolidated vehicle model snapshot with all vehicle state data.

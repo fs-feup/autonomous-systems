@@ -9,6 +9,7 @@ InvictaSim::InvictaSim(const InvictaSimParameters& params)
   // Initialize Objects
   vehicle_model_ = vehicle_models_map.at(params_.vehicle_model.c_str())(params);
   track_ = std::make_shared<Track>(params_.track_name);
+  statistics_ = std::make_unique<Statistics>(*track_);
 
   // Set initial position according to track information
   auto start_position = track_->get_start_position();
@@ -60,6 +61,7 @@ void InvictaSim::reset_sim() {
 
   // Reset vehicle model
   vehicle_model_->reset();
+  statistics_->reset();
   auto start_position = track_->get_start_position();
   vehicle_model_->set_initial_pose(start_position.x, start_position.y);
 
@@ -112,6 +114,8 @@ void InvictaSim::simulation_step() {
 
   // Use snapshot throughout step without locks
   vehicle_model_->step(sim_dt, input_snapshot.throttle, input_snapshot.steering);
+  VehicleModelSnapshot vehicle_snapshot = build_vehicle_model_snapshot();
+  statistics_->update(vehicle_snapshot, sim_time_, sim_dt);
 
   // Compute total step execution time
   const auto step_end = std::chrono::steady_clock::now();
@@ -119,8 +123,8 @@ void InvictaSim::simulation_step() {
       std::chrono::duration<double, std::milli>(step_end - step_start).count();
 
   // Update output snapshot for adapters to read (lock only to copy the data)
-  VehicleModelSnapshot vehicle_snapshot = build_vehicle_model_snapshot();
   ExecutionTimesSnapshot execution_times_snapshot = build_execution_times_snapshot(total_step_ms);
+  StatisticsSnapshot statistics_snapshot = statistics_->get_snapshot();
   MapSnapshot map_snapshot = build_map_snapshot();
   SensorsSnapshot sensors_snapshot = build_sensors_snapshot(vehicle_snapshot);
   VehicleStateSnapshot vehicle_state_snapshot = build_vehicle_state_snapshot();
@@ -131,6 +135,7 @@ void InvictaSim::simulation_step() {
     map_snapshot_ = map_snapshot;
     sensors_snapshot_ = sensors_snapshot;
     vehicle_state_snapshot_ = vehicle_state_snapshot;
+    statistics_snapshot_ = statistics_snapshot;
   }
 }
 
@@ -215,9 +220,8 @@ MapSnapshot InvictaSim::build_map_snapshot() const {
   } else {
     snapshot.perception_cones = external_perception_cones_;
   }
-  
+
   snapshot.perception_exec_time_ms = 0.0;  // Will allow to simualte the perception delay
-  snapshot.lap_counter = 0;                // Placeholder for lap counting logic
   return snapshot;
 }
 

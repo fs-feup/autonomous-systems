@@ -1,5 +1,6 @@
 track:
   start_position: [0, 0]
+  start_line: [[0, -5], [0, 5]]
   cones:
   - [7.90220550255071, -5.60537068520033, "large_orange_cone"]
   - [8.03892186072633, 4.21086383180903, "large_orange_cone"]

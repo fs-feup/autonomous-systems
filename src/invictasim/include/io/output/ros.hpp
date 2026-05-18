@@ -16,6 +16,11 @@
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/control_command.hpp"
 #include "custom_interfaces/msg/execution_times.hpp"
+#include "custom_interfaces/msg/invicta_sim_current_cross_track_error.hpp"
+#include "custom_interfaces/msg/invicta_sim_current_dynamics.hpp"
+#include "custom_interfaces/msg/invicta_sim_current_lap_time.hpp"
+#include "custom_interfaces/msg/invicta_sim_current_velocity.hpp"
+#include "custom_interfaces/msg/invicta_sim_statistics.hpp"
 #include "custom_interfaces/msg/motor_state.hpp"
 #include "custom_interfaces/msg/operational_status.hpp"
 #include "custom_interfaces/msg/perception_output.hpp"
@@ -31,7 +36,6 @@
 #include "io/output/output_adapter.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/float64.hpp"
-#include "std_msgs/msg/float64_multi_array.hpp"
 #include "tf2/LinearMath/Quaternion.h"
 #include "tf2_ros/transform_broadcaster.h"
 #include "visualization_msgs/msg/marker.hpp"
@@ -67,6 +71,7 @@ private:
   double wheel_spin_rl_ = 0.0;
   double wheel_spin_rr_ = 0.0;
   double last_visualization_stamp_sec_ = -1.0;
+  int last_published_statistics_lap_ = 0;
 
   // Publishing timers and frequencies
   std::atomic<bool> running_;
@@ -84,6 +89,7 @@ private:
   MapSnapshot map_snapshot_cache_;
   SensorsSnapshot sensors_snapshot_cache_;
   VehicleStateSnapshot vehicle_state_snapshot_cache_;
+  StatisticsSnapshot statistics_snapshot_cache_;
 
   // Topic frequency
   std::unordered_map<std::string, int> topic_frequencies_;
@@ -104,6 +110,7 @@ private:
   void refresh_map_snapshot();
   void refresh_sensors_snapshot();
   void refresh_vehicle_state_snapshot();
+  void refresh_statistics_snapshot();
 
   // Vehicle model
   void publish_vm_tire(const rclcpp::Time& stamp);
@@ -140,6 +147,13 @@ private:
   // Execution time
   void publish_execution_time(const rclcpp::Time& stamp);
 
+  // Statistics
+  void publish_statistics_summary(const rclcpp::Time& stamp);
+  void publish_statistics_lap_time(const rclcpp::Time& stamp);
+  void publish_statistics_cross_track_error(const rclcpp::Time& stamp);
+  void publish_statistics_velocity(const rclcpp::Time& stamp);
+  void publish_statistics_dynamics(const rclcpp::Time& stamp);
+
   // Input commands
   void publish_input(const rclcpp::Time& stamp);
 
@@ -151,6 +165,8 @@ private:
   visualization_msgs::msg::MarkerArray convert_cone_array_to_markers(
       const std::vector<common_lib::structures::Cone>& cone_array, const rclcpp::Time& stamp,
       const std::string& frame_id = "map") const;
+  void add_start_line_markers(visualization_msgs::msg::MarkerArray& marker_array,
+                              const rclcpp::Time& stamp) const;
   void add_body_marker(visualization_msgs::msg::MarkerArray& marker_array,
                        const rclcpp::Time& stamp) const;
   void add_wheel_markers(visualization_msgs::msg::MarkerArray& marker_array,
@@ -207,4 +223,13 @@ private:
   rclcpp::Publisher<custom_interfaces::msg::OperationalStatus>::SharedPtr operational_status_pub_;
   rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr vehicle_pose_pub_;
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr lap_counter_pub_;
+  rclcpp::Publisher<custom_interfaces::msg::InvictaSimStatistics>::SharedPtr statistics_pub_;
+  rclcpp::Publisher<custom_interfaces::msg::InvictaSimCurrentLapTime>::SharedPtr
+      statistics_lap_time_pub_;
+  rclcpp::Publisher<custom_interfaces::msg::InvictaSimCurrentCrossTrackError>::SharedPtr
+      statistics_cross_track_error_pub_;
+  rclcpp::Publisher<custom_interfaces::msg::InvictaSimCurrentVelocity>::SharedPtr
+      statistics_velocity_pub_;
+  rclcpp::Publisher<custom_interfaces::msg::InvictaSimCurrentDynamics>::SharedPtr
+      statistics_dynamics_pub_;
 };
