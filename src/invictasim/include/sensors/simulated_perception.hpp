@@ -16,7 +16,7 @@
  * This class transforms global cone coordinates into the LiDAR's local reference frame
  * and applies error injection including detection probability, motion skew, and noise.
  */
-class PerceptionOutput : public Sensor {
+class SimulatedPerception : public Sensor {
 public:
 
   /**
@@ -44,7 +44,7 @@ public:
    * @brief Construct a new PerceptionOutput object
    * @param config_path Path to the perception.yaml configuration file
    */
-  explicit PerceptionOutput(const std::string& config_path);
+  explicit SimulatedPerception(const std::string& config_path);
 
   /**
    * @brief Apply perception error modeling to global cone coordinates
@@ -72,5 +72,5 @@ private:
   double noise_std_dev_base_;        // Base standard deviation for noise (meters)
   bool noise_scales_with_range_;     // Whether noise scales with range
   double noise_range_scaling_;       // Scaling factor for range-dependent noise
-
+  double mounting_pitch_;            // Mounting pitch angle of the LiDAR (radians)
 };

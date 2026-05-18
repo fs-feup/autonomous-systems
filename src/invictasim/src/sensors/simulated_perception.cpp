@@ -1,11 +1,11 @@
-#include "sensors/perception_output.hpp"
+#include "sensors/simulated_perception.hpp"
 
 #include <cmath>
 #include <algorithm>
 #include <yaml-cpp/yaml.h>
 #include <fstream>
 
-PerceptionOutput::PerceptionOutput(const std::string& config_path) {
+SimulatedPerception::SimulatedPerception(const std::string& config_path) {
   YAML::Node config = YAML::LoadFile(config_path);
   YAML::Node lidar = config["lidar_sensor"];
 
@@ -18,9 +18,10 @@ PerceptionOutput::PerceptionOutput(const std::string& config_path) {
   noise_std_dev_base_ = lidar["noise_std_dev_base"].as<double>();
   noise_scales_with_range_ = lidar["noise_scales_with_range"].as<bool>();
   noise_range_scaling_ = lidar["noise_range_scaling"].as<double>();
+  mounting_pitch_ = lidar["mounting_pitch"].as<double>();
 }
 
-std::vector<PerceptionOutput::TransformedCone> PerceptionOutput::perception_error(
+std::vector<SimulatedPerception::TransformedCone> SimulatedPerception::perception_error(
     const std::vector<common_lib::structures::Cone>& cones,
     const common_lib::structures::Pose& vehicle_pose,
     const common_lib::structures::Velocities& vehicle_velocities) {
@@ -39,17 +40,30 @@ std::vector<PerceptionOutput::TransformedCone> PerceptionOutput::perception_erro
     double dy = cone.position.y - vehicle_pose.position.y;
     double dz = 0.0;
     
-    // Rotate to vehicle frame based on yaw angle (psi)
-    // [ cos(psi)  sin(psi) ]
-    // [-sin(psi)  cos(psi) ]
+    // Rotate into LiDAR frame (accounting for yaw only)
     double x_vehicle = yaw_cos * dx + yaw_sin * dy;
     double y_vehicle = -yaw_sin * dx + yaw_cos * dy;
+    double z_vehicle = dz - height_;
 
-    // Transform to LiDAR local frame (accounting for height offset)
-    transformed.x_local = x_vehicle;
-    transformed.y_local = y_vehicle;
-    transformed.z_local = dz - height_;
+    // Convert to spherical coordinates (no pitch yet)
+    double range_2d = std::sqrt(x_vehicle * x_vehicle + y_vehicle * y_vehicle);
+    double azimuth = std::atan2(y_vehicle, x_vehicle);
+    double elevation = std::atan2(z_vehicle, range_2d);
+    double range_3d_raw = std::sqrt(range_2d * range_2d + z_vehicle * z_vehicle);
 
+    // Apply pitch in spherical space — effect is maximum at azimuth=0 (front),
+    // zero at azimuth=90° (side), and inverted at azimuth=180° (rear)
+    double elevation_with_pitch = elevation + mounting_pitch_ * std::cos(azimuth);
+
+    // Convert back to Cartesian in LiDAR local frame
+    transformed.x_local = range_3d_raw * std::cos(elevation_with_pitch) * std::cos(azimuth);
+    transformed.y_local = range_3d_raw * std::cos(elevation_with_pitch) * std::sin(azimuth);
+    transformed.z_local = range_3d_raw * std::sin(elevation_with_pitch);
+
+    // Pre-compute angles and range for the rest of the pipeline
+    transformed.range_3d = range_3d_raw;
+    transformed.elevation_angle = elevation_with_pitch;
+    transformed.azimuth_angle = azimuth;
     // Calculate 3D slant range
     transformed.range_3d =
         std::sqrt(std::pow(transformed.x_local, 2) + std::pow(transformed.y_local, 2) +

@@ -36,6 +36,8 @@
 #include "tf2_ros/transform_broadcaster.h"
 #include "visualization_msgs/msg/marker.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
+#include "sensors/simulated_perception.hpp"
+#include "sensors/imu.hpp"
 
 /**
  * @brief ROS-based simulator output adapter.
@@ -61,6 +63,7 @@ public:
   void stop() override;
 
 private:
+
   // Used for spinning wheels visualization
   double wheel_spin_fl_ = 0.0;
   double wheel_spin_fr_ = 0.0;
@@ -70,6 +73,9 @@ private:
 
   // Publishing timers and frequencies
   std::atomic<bool> running_;
+  std::unique_ptr<SimulatedPerception> perception_model_;
+  std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
+    std::unique_ptr<IMU> imu_model_;
   std::map<int, rclcpp::TimerBase::SharedPtr> frequency_timers_;
   std::map<std::string, int> vehicle_model_publish_frequencies_;
   std::map<std::string, int> visualization_publish_frequencies_;
@@ -158,8 +164,6 @@ private:
   void add_vehicle_transform(const rclcpp::Time& stamp);
 
   // ROS publishers
-  std::unique_ptr<tf2_ros::TransformBroadcaster>
-      tf_broadcaster_;  ///< Vehicle pose TF publisher, used for having a car perspective.
   rclcpp::Publisher<custom_interfaces::msg::TireForces>::SharedPtr
       tire_forces_pub_;  ///< Publisher for tire forces.
   rclcpp::Publisher<custom_interfaces::msg::WheelScalars>::SharedPtr
@@ -193,6 +197,7 @@ private:
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
       visualization_perception_cones_pub_;  ///< Publisher for perception cones visualization
                                             ///< markers.
+
 
   // Compatibility publishers for other nodes (ground-truth topics expected by adapters)
   rclcpp::Publisher<geometry_msgs::msg::Vector3Stamped>::SharedPtr free_accel_pub_;

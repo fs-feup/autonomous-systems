@@ -1,0 +1,20 @@
+# Wheel Speed Sensor (WSS) Configuration
+wss_sensor:
+  # Quantization parameter
+  quantization_step: 0.01  # rad/s
+
+  # White noise parameters
+  noise:
+    std_dev: 0.05
+
+  # Outlier parameters
+  outliers:
+    # Probability of outlier occurrence (0.0 to 1.0)
+    probability: 0.02
+    impact_factor: 2.5
+
+  # Dropout parameter
+  # Probability of signal dropout (0.0 to 1.0)
+  dropout_probability: 0.01
+
+  speed_cutoff: 0.01

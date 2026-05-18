@@ -19,10 +19,6 @@ IMU::IMU(const std::string& config_path) {
   gyroscope_noise_std_dev_ = gyroscope["noise_std_dev"].as<double>();
   angular_velocity_scale_factor_ = gyroscope["angular_velocity_scale_factor"].as<double>();
   gyroscope_bias_ = gyroscope["bias"].as<double>();
-
-  // Load general parameters
-  update_rate_hz_ = imu["update_rate_hz"].as<double>();
-  temperature_sensitivity_ = imu["temperature_sensitivity"].as<bool>();
 }
 
 IMU::IMUMeasurement IMU::apply_imu_error(double acceleration_x, double acceleration_y, double yaw_rate) 

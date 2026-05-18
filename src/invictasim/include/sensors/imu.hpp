@@ -60,8 +60,4 @@ private:
   double gyroscope_noise_std_dev_;        ///< Gaussian noise std dev (rad/s)
   double angular_velocity_scale_factor_;  ///< Scale error coefficient
   double gyroscope_bias_;                 ///< Bias (rad/s)
-
-  // General parameters
-  double update_rate_hz_;         ///< IMU update rate
-  bool temperature_sensitivity_;  ///< Flag for temperature modeling
 };
