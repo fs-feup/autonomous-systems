@@ -11,8 +11,20 @@ endif()
 # ------------------------------------------------------------------------------
 # Paths
 # ------------------------------------------------------------------------------
-set(ACADOS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../ext/acados)
+set(ACADOS_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../ext/acados)
+set(ACADOS_INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../build/acados-install)
+set(WORKSPACE_INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../install)
+
+# REQUIRE acados-install: fail if not present (never use system acados)
+if(NOT EXISTS "${ACADOS_INSTALL_DIR}/lib")
+  message(FATAL_ERROR 
+    "acados not found at: ${ACADOS_INSTALL_DIR}\n"
+    "Please run: bash src/control/dependencies_install.sh")
+endif()
+
+set(ACADOS_DIR ${ACADOS_INSTALL_DIR})
 set(ACADOS_LIB_DIR ${ACADOS_DIR}/lib)
+message(STATUS "Using acados from: ${ACADOS_DIR}")
 set(ACADOS_GEN_DIR
   ${CMAKE_CURRENT_SOURCE_DIR}/include/solver/acados/c_generated_code
 )
@@ -27,11 +39,16 @@ file(MAKE_DIRECTORY ${ACADOS_GEN_DIR})
 
 add_custom_command(
   OUTPUT ${ACADOS_GENERATED_MARKER}
-  COMMAND echo "y" | python3 ${ACADOS_SCRIPT}
+  COMMAND ${CMAKE_COMMAND} -E env
+    AMENT_PREFIX_PATH=${WORKSPACE_INSTALL_DIR}:$ENV{AMENT_PREFIX_PATH}
+    CMAKE_PREFIX_PATH=${WORKSPACE_INSTALL_DIR}:$ENV{CMAKE_PREFIX_PATH}
+    ACADOS_SOURCE_DIR=${ACADOS_DIR}
+    LD_LIBRARY_PATH=${ACADOS_LIB_DIR}:$ENV{LD_LIBRARY_PATH}
+    echo y | python3 ${ACADOS_SCRIPT}
   COMMAND ${CMAKE_COMMAND} -E touch ${ACADOS_GENERATED_MARKER}
   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../..
   DEPENDS ${ACADOS_SCRIPT}
-  COMMENT "Generating ACADOS solver code..."
+  COMMENT "Generating ACADOS solver code (with ROS environment)..."
 )
 
 add_custom_target(generate_acados_solver DEPENDS ${ACADOS_GENERATED_MARKER})
@@ -108,11 +125,12 @@ set(CONTROL_INCLUDE_DIRS
   ${CMAKE_CURRENT_SOURCE_DIR}/../common_lib/include
   ${CMAKE_CURRENT_SOURCE_DIR}/..
   ${ACADOS_DIR}/include
+  ${ACADOS_SOURCE_DIR}/include
   ${ACADOS_DIR}/include/blasfeo/include
-  ${ACADOS_DIR}/external/blasfeo/include
+  ${ACADOS_SOURCE_DIR}/external/blasfeo/include
   ${ACADOS_DIR}/include/hpipm/include
-  ${ACADOS_DIR}/external/hpipm/include
-  ${ACADOS_DIR}/interfaces/acados_c
+  ${ACADOS_SOURCE_DIR}/external/hpipm/include
+  ${ACADOS_SOURCE_DIR}/interfaces/acados_c
   ${ACADOS_GEN_DIR}
 )
 

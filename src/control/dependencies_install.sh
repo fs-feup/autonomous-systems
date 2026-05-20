@@ -28,25 +28,27 @@ sudo apt-get install -y \
 # ------------------------------------------------------------------
 # 2. Build acados
 # ------------------------------------------------------------------
-ACADOS_DIR="$(pwd)/ext/acados"
+WORKSPACE_DIR="$(pwd)"
+ACADOS_SRC_DIR="${WORKSPACE_DIR}/ext/acados"
+ACADOS_INSTALL_DIR="${WORKSPACE_DIR}/build/acados-install"
 
 # We proactively fix ownership to ensure the current user owns the folder.
-echo "Ensuring ownership of ${ACADOS_DIR}..."
-sudo chown -R $USER:$USER "${ACADOS_DIR}/include/acados"
+echo "Ensuring ownership of ${ACADOS_SRC_DIR}..."
+# sudo chown -R $USER:$USER "${ACADOS_SRC_DIR}/include/acados"
 
-echo "Using acados at: ${ACADOS_DIR}"
+echo "Using acados source at: ${ACADOS_SRC_DIR}"
+echo "Installing acados to: ${ACADOS_INSTALL_DIR}"
 
-cd "${ACADOS_DIR}"
+mkdir -p "${ACADOS_SRC_DIR}"
+
+cd "${ACADOS_SRC_DIR}"
 
 # Update submodules inside acados
 git submodule update --init --recursive
 
 # Clean previous builds if any
 sudo rm -rf build
-sudo rm -rf include
-sudo rm -rf lib
-sudo rm -rf bin
-sudo rm -rf share
+sudo rm -rf "${ACADOS_INSTALL_DIR}"
 mkdir build
 cd build
 
@@ -56,6 +58,10 @@ cmake .. \
     -DACADOS_WITH_OPENMP=ON \
     -DBLASFEO_TARGET=X64_INTEL_HASWELL \
     -DHPIPM_TARGET=GENERIC \
+    -DCMAKE_BUILD_RPATH=\$ORIGIN \
+    -DCMAKE_INSTALL_RPATH=\$ORIGIN \
+    -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=ON \
+    -DCMAKE_INSTALL_PREFIX="${ACADOS_INSTALL_DIR}" \
     -DCMAKE_BUILD_TYPE=Release
 
 make -j$(nproc)
@@ -64,25 +70,21 @@ make install
 # ------------------------------------------------------------------
 # 3. Python interface
 # ------------------------------------------------------------------
-cd "${ACADOS_DIR}/interfaces/acados_template"
+cd "${ACADOS_SRC_DIR}/interfaces/acados_template"
 
 pip3 install --user -e .
 
-
 # ------------------------------------------------------------------
-# 4. Environment variables
+# 4. Done
 # ------------------------------------------------------------------
-echo "Configuring environment variables..."
-
-if ! grep -q "ACADOS_SOURCE_DIR" ~/.bashrc; then
-    echo "export ACADOS_SOURCE_DIR=${ACADOS_DIR}" >> ~/.bashrc
-    echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:/home/ws/ext/acados/lib" >> ~/.bashrc
-    echo "export PYTHONPATH=\$PYTHONPATH:${ACADOS_DIR}/interfaces/acados_template" >> ~/.bashrc
-fi
-
-# Apply immediately for current shell
-export ACADOS_SOURCE_DIR="${ACADOS_DIR}"
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/home/ws/c_generated_code
-export PYTHONPATH=$PYTHONPATH:${ACADOS_DIR}/interfaces/acados_template
-
 echo "=== acados setup complete ==="
+echo ""
+echo "You can now compile and run the control package."
+echo ""
+echo "Build the control package:"
+echo "  colcon build --packages-select control"
+echo ""
+echo "The acados libraries are installed to:"
+echo "  ${ACADOS_INSTALL_DIR}"
+echo ""
+echo "No additional environment setup is needed - CMakeLists will auto-detect."
