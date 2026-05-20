@@ -5,7 +5,7 @@ publish_frequencies:
     motor: 0         # Motor status (RPM, torque, temperature)
     transmission: 0  # Transmission status (torque on each wheel)
     aero: 0          # Aerodynamic status (drag, downforce)
-    status: 0        # Overall vehicle status (speed, acceleration, position, yaw, etc.)
+    status: 60        # Overall vehicle status (speed, acceleration, position, yaw, etc.)
   visualization:     # Visualization 
     car: 30           # Car visualization 
     ground: 1         # Ground visualization 
@@ -26,10 +26,7 @@ publish_frequencies:
     velocities: 10        # Simulated velocities (velocity estimation output)
     operational_status: 1  # Simulated operational status (contains go_signal and mission)
   statistics:
-    summary: 10            # End-of-lap summary only (last/best/average/max values)
-    lap_counter: 10        # Lap counter from simulator statistics
-    lap_time: 10           # Current lap time
-    cross_track_error: 10  # Current cross-track error
-    velocity: 10           # Current velocity in km/h
-    dynamics: 5            # Current longitudinal/lateral acceleration and yaw rate
+    summary: 1            # End-of-lap summary: 0 disables, 1 enables
+    current: 60           # Current simulator statistics
+    lap_counter: 5        # Lap counter from simulator statistics
   execution_time: 0      # Time taken for each simulation step (ms)

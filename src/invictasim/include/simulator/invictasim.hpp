@@ -191,6 +191,15 @@ public:
     external_perception_cones_ = cones;
   }
 
+  /**
+   * @brief Set the path used as autonomous tracking reference.
+   * @param path_points Planning path points in map coordinates.
+   */
+  void set_path_points(const std::vector<PathPointSnapshot>& path_points) {
+    std::lock_guard<std::mutex> lock(output_snapshot_mutex_);
+    path_points_ = path_points;
+  }
+
 private:
   InvictaSimParameters params_;  ///< Simulator configuration values.
 
@@ -227,7 +236,8 @@ private:
 
   std::vector<common_lib::structures::Cone> external_slam_cones_;  ///< External SLAM cones.
   std::vector<common_lib::structures::Cone>
-      external_perception_cones_;  ///< External perception cones.
+      external_perception_cones_;               ///< External perception cones.
+  std::vector<PathPointSnapshot> path_points_;  ///< Latest autonomous tracking reference path.
 
   /**
    * @brief Build a consolidated vehicle model snapshot with all vehicle state data.

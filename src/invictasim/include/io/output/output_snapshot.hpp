@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Eigen/Core>
+#include <vector>
 
 #include "common_lib/competition_logic/mission_logic.hpp"
 #include "common_lib/structures/cone.hpp"
@@ -77,6 +78,14 @@ struct InputSnapshot {
 };
 
 /**
+ * @brief Minimal path point data used by simulator statistics.
+ */
+struct PathPointSnapshot {
+  common_lib::structures::Position position = {0.0, 0.0};
+  double velocity = 0.0;
+};
+
+/**
  * @brief Snapshot of the track map, containing both the ground truth cone positions and simulated
  * slam map
  */
@@ -84,6 +93,7 @@ struct MapSnapshot {
   std::vector<common_lib::structures::Cone> ground_truth = {};
   std::vector<common_lib::structures::Cone> simulated_slam_map = {};
   std::vector<common_lib::structures::Cone> perception_cones = {};
+  std::vector<common_lib::structures::Cone> recently_hit_cones = {};
   double perception_exec_time_ms = 0.0;
 };
 
@@ -101,22 +111,18 @@ struct StatisticsSnapshot {
   double current_velocity = 0.0;
   double average_velocity = 0.0;
   double max_velocity = 0.0;
-  double current_cross_track_error = 0.0;
-  double average_cross_track_error = 0.0;
-  double max_cross_track_error = 0.0;
-  double current_longitudinal_acceleration = 0.0;
-  double current_lateral_acceleration = 0.0;
-  double current_yaw_rate = 0.0;
-  double max_longitudinal_acceleration = 0.0;
-  double max_lateral_acceleration = 0.0;
-  double max_yaw_rate = 0.0;
   double completed_lap_average_velocity = 0.0;
   double completed_lap_max_velocity = 0.0;
-  double completed_lap_average_cross_track_error = 0.0;
-  double completed_lap_max_cross_track_error = 0.0;
-  double completed_lap_max_longitudinal_acceleration = 0.0;
-  double completed_lap_max_lateral_acceleration = 0.0;
-  double completed_lap_max_yaw_rate = 0.0;
+  // Cone-hit information for the most recently completed lap.
+  int cones_hit = 0;            // number of cones hit
+  double penalties_time = 0.0;  // seconds added from cone hits
+  double total_lap_time = 0.0;  // last_lap_time + penalties_time
+  int current_lap_cones_hit = 0;
+  std::vector<common_lib::structures::Cone> recently_hit_cones = {};
+  bool has_tracking_reference = false;
+  double objective_velocity = 0.0;
+  double tracking_cross_track_error = 0.0;
+  double tracking_velocity_error = 0.0;
 };
 
 /**

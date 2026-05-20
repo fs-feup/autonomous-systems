@@ -31,20 +31,11 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator,
   map_pub_ = this->create_publisher<custom_interfaces::msg::ConeArray>("invictasim/map", 10);
 
   // Statistics publishers
-  statistics_pub_ = this->create_publisher<custom_interfaces::msg::InvictaSimStatistics>(
-      "invictasim/statistics/summary", 10);
-  statistics_lap_time_pub_ =
-      this->create_publisher<custom_interfaces::msg::InvictaSimCurrentLapTime>(
-      "invictasim/statistics/lap_time", 10);
-  statistics_cross_track_error_pub_ =
-      this->create_publisher<custom_interfaces::msg::InvictaSimCurrentCrossTrackError>(
-      "invictasim/statistics/cross_track_error", 10);
-  statistics_velocity_pub_ =
-      this->create_publisher<custom_interfaces::msg::InvictaSimCurrentVelocity>(
-      "invictasim/statistics/velocity", 10);
-  statistics_dynamics_pub_ =
-      this->create_publisher<custom_interfaces::msg::InvictaSimCurrentDynamics>(
-      "invictasim/statistics/dynamics", 10);
+  statistics_history_pub_ =
+      this->create_publisher<custom_interfaces::msg::InvictaSimStatisticsArray>(
+          "invictasim/statistics/summary", rclcpp::QoS(10).transient_local());
+  statistics_current_pub_ = this->create_publisher<custom_interfaces::msg::InvictaSimCurrentStatus>(
+      "invictasim/statistics/current", 10);
 
   // Visualization Publishers
   tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(this);
@@ -175,15 +166,8 @@ void RosOutputAdapter::map_callbacks() {
   // Statistics
   register_pub_helper("summary",
                       [this](const rclcpp::Time& stamp) { publish_statistics_summary(stamp); });
-  register_pub_helper("lap_time",
-                      [this](const rclcpp::Time& stamp) { publish_statistics_lap_time(stamp); });
-  register_pub_helper("cross_track_error", [this](const rclcpp::Time& stamp) {
-    publish_statistics_cross_track_error(stamp);
-  });
-  register_pub_helper("velocity",
-                      [this](const rclcpp::Time& stamp) { publish_statistics_velocity(stamp); });
-  register_pub_helper("dynamics",
-                      [this](const rclcpp::Time& stamp) { publish_statistics_dynamics(stamp); });
+  register_pub_helper("current",
+                      [this](const rclcpp::Time& stamp) { publish_statistics_current(stamp); });
 
   // SLAM Cones Visualization (either external or simulated)
   register_pub_helper(
@@ -225,6 +209,9 @@ void RosOutputAdapter::load_group_from_yaml(const YAML::Node& config,
     for (const auto& node : group_node) {
       std::string topic_key = node.first.as<std::string>();
       int frequency = node.second.as<int>();
+      if (group_name == "statistics" && topic_key == "summary") {
+        frequency = frequency > 0 ? 1 : 0;
+      }
 
       topic_frequencies_[topic_key] = frequency;
     }
@@ -529,76 +516,40 @@ void RosOutputAdapter::publish_execution_time(const rclcpp::Time& stamp) {
 }
 
 void RosOutputAdapter::publish_statistics_summary(const rclcpp::Time& stamp) {
-  if (statistics_snapshot_cache_.lap_counter <= last_published_statistics_lap_) {
-    return;
-  }
+  if (statistics_snapshot_cache_.lap_counter <= last_published_statistics_lap_) return;
+
   last_published_statistics_lap_ = statistics_snapshot_cache_.lap_counter;
 
-  custom_interfaces::msg::InvictaSimStatistics statistics_msg;
-  statistics_msg.header.stamp = stamp;
-  statistics_msg.header.frame_id = "map";
-  statistics_msg.sim_time = statistics_snapshot_cache_.sim_time;
-  statistics_msg.lap_counter = statistics_snapshot_cache_.lap_counter;
-  statistics_msg.last_lap_time = statistics_snapshot_cache_.last_lap_time;
-  statistics_msg.best_lap_time = statistics_snapshot_cache_.best_lap_time;
-  statistics_msg.distance_traveled = statistics_snapshot_cache_.distance_traveled;
-  statistics_msg.average_velocity = statistics_snapshot_cache_.completed_lap_average_velocity * 3.6;
-  statistics_msg.max_velocity = statistics_snapshot_cache_.completed_lap_max_velocity * 3.6;
-  statistics_msg.average_cross_track_error =
-      statistics_snapshot_cache_.completed_lap_average_cross_track_error;
-  statistics_msg.max_cross_track_error =
-      statistics_snapshot_cache_.completed_lap_max_cross_track_error;
-  statistics_msg.max_longitudinal_acceleration =
-      statistics_snapshot_cache_.completed_lap_max_longitudinal_acceleration;
-  statistics_msg.max_lateral_acceleration =
-      statistics_snapshot_cache_.completed_lap_max_lateral_acceleration;
-  statistics_msg.max_yaw_rate = statistics_snapshot_cache_.completed_lap_max_yaw_rate;
-  statistics_pub_->publish(statistics_msg);
+  custom_interfaces::msg::InvictaSimStatisticsRow row_msg;
+  row_msg.lap_counter = statistics_snapshot_cache_.lap_counter;
+  row_msg.time = statistics_snapshot_cache_.last_lap_time;
+  row_msg.cones_hit = statistics_snapshot_cache_.cones_hit;
+  row_msg.total_time = statistics_snapshot_cache_.total_lap_time;
+  row_msg.best_time = statistics_snapshot_cache_.best_lap_time;
+  row_msg.avg_velocity = statistics_snapshot_cache_.completed_lap_average_velocity * 3.6;
+  row_msg.max_velocity = statistics_snapshot_cache_.completed_lap_max_velocity * 3.6;
+  statistics_summary_history_.push_back(row_msg);
+
+  custom_interfaces::msg::InvictaSimStatisticsArray history_msg;
+  history_msg.header.stamp = stamp;
+  history_msg.header.frame_id = "map";
+  history_msg.rows = statistics_summary_history_;
+  statistics_history_pub_->publish(history_msg);
 }
 
-void RosOutputAdapter::publish_statistics_lap_time(const rclcpp::Time& stamp) {
-  custom_interfaces::msg::InvictaSimCurrentLapTime lap_time_msg;
-  lap_time_msg.header.stamp = stamp;
-  lap_time_msg.header.frame_id = "map";
-  lap_time_msg.sim_time = statistics_snapshot_cache_.sim_time;
-  lap_time_msg.lap_counter = statistics_snapshot_cache_.lap_counter;
-  lap_time_msg.current_lap_time = statistics_snapshot_cache_.current_lap_time;
-  statistics_lap_time_pub_->publish(lap_time_msg);
-}
-
-void RosOutputAdapter::publish_statistics_cross_track_error(const rclcpp::Time& stamp) {
-  custom_interfaces::msg::InvictaSimCurrentCrossTrackError cross_track_error_msg;
-  cross_track_error_msg.header.stamp = stamp;
-  cross_track_error_msg.header.frame_id = "map";
-  cross_track_error_msg.sim_time = statistics_snapshot_cache_.sim_time;
-  cross_track_error_msg.lap_counter = statistics_snapshot_cache_.lap_counter;
-  cross_track_error_msg.current_cross_track_error =
-      statistics_snapshot_cache_.current_cross_track_error;
-  statistics_cross_track_error_pub_->publish(cross_track_error_msg);
-}
-
-void RosOutputAdapter::publish_statistics_velocity(const rclcpp::Time& stamp) {
-  custom_interfaces::msg::InvictaSimCurrentVelocity velocity_msg;
-  velocity_msg.header.stamp = stamp;
-  velocity_msg.header.frame_id = "map";
-  velocity_msg.sim_time = statistics_snapshot_cache_.sim_time;
-  velocity_msg.lap_counter = statistics_snapshot_cache_.lap_counter;
-  velocity_msg.current_velocity = statistics_snapshot_cache_.current_velocity * 3.6;
-  statistics_velocity_pub_->publish(velocity_msg);
-}
-
-void RosOutputAdapter::publish_statistics_dynamics(const rclcpp::Time& stamp) {
-  custom_interfaces::msg::InvictaSimCurrentDynamics dynamics_msg;
-  dynamics_msg.header.stamp = stamp;
-  dynamics_msg.header.frame_id = "map";
-  dynamics_msg.sim_time = statistics_snapshot_cache_.sim_time;
-  dynamics_msg.lap_counter = statistics_snapshot_cache_.lap_counter;
-  dynamics_msg.current_longitudinal_acceleration =
-      statistics_snapshot_cache_.current_longitudinal_acceleration;
-  dynamics_msg.current_lateral_acceleration =
-      statistics_snapshot_cache_.current_lateral_acceleration;
-  dynamics_msg.current_yaw_rate = statistics_snapshot_cache_.current_yaw_rate;
-  statistics_dynamics_pub_->publish(dynamics_msg);
+void RosOutputAdapter::publish_statistics_current(const rclcpp::Time& stamp) {
+  custom_interfaces::msg::InvictaSimCurrentStatus status_msg;
+  status_msg.header.stamp = stamp;
+  status_msg.header.frame_id = "map";
+  status_msg.current_lap = statistics_snapshot_cache_.lap_counter + 1;
+  status_msg.current_lap_time = statistics_snapshot_cache_.current_lap_time;
+  status_msg.current_cones_hit = statistics_snapshot_cache_.current_lap_cones_hit;
+  status_msg.current_velocity = statistics_snapshot_cache_.current_velocity * 3.6;
+  status_msg.has_tracking_reference = statistics_snapshot_cache_.has_tracking_reference;
+  status_msg.objective_velocity = statistics_snapshot_cache_.objective_velocity * 3.6;
+  status_msg.tracking_cross_track_error = statistics_snapshot_cache_.tracking_cross_track_error;
+  status_msg.tracking_velocity_error = statistics_snapshot_cache_.tracking_velocity_error * 3.6;
+  statistics_current_pub_->publish(status_msg);
 }
 
 void RosOutputAdapter::publish_state_estimation_velocities(const rclcpp::Time& stamp) {
@@ -731,6 +682,7 @@ visualization_msgs::msg::MarkerArray RosOutputAdapter::convert_cone_array_to_mar
     m.scale.x = 1.0;
     m.scale.y = 1.0;
     m.scale.z = 1.0;
+    const bool recently_hit = frame_id != "car" && is_recently_hit_cone(cone);
     m.mesh_use_embedded_materials = true;
     m.color.r = 1.0f;
     m.color.g = 1.0f;
@@ -738,6 +690,12 @@ visualization_msgs::msg::MarkerArray RosOutputAdapter::convert_cone_array_to_mar
     m.color.a = 1.0f;
 
     std::string path = "package://invictasim/resources/meshes/cones/";
+
+    if (recently_hit) {
+      m.mesh_resource = path + "cone_red.dae";
+      marker_array.markers.push_back(m);
+      continue;
+    }
 
     switch (cone.color) {
       case common_lib::competition_logic::Color::BLUE:
@@ -764,6 +722,16 @@ visualization_msgs::msg::MarkerArray RosOutputAdapter::convert_cone_array_to_mar
     marker_array.markers.push_back(m);
   }
   return marker_array;
+}
+
+bool RosOutputAdapter::is_recently_hit_cone(const common_lib::structures::Cone& cone) const {
+  constexpr double kHitConeMatchDistanceM = 0.35;
+  for (const auto& hit_cone : map_snapshot_cache_.recently_hit_cones) {
+    if (cone.position.euclidean_distance(hit_cone.position) <= kHitConeMatchDistanceM) {
+      return true;
+    }
+  }
+  return false;
 }
 
 void RosOutputAdapter::add_start_line_markers(visualization_msgs::msg::MarkerArray& marker_array,
@@ -797,9 +765,8 @@ void RosOutputAdapter::add_start_line_markers(visualization_msgs::msg::MarkerArr
       cell.action = visualization_msgs::msg::Marker::ADD;
 
       const double t = (static_cast<double>(column) + 0.5) / static_cast<double>(column_count);
-      const double lateral_offset = (static_cast<double>(row) + 0.5 -
-                                     static_cast<double>(row_count) * 0.5) *
-                                    cell_width;
+      const double lateral_offset =
+          (static_cast<double>(row) + 0.5 - static_cast<double>(row_count) * 0.5) * cell_width;
       cell.pose.position.x = start_line.first.x + t * dx - std::sin(yaw) * lateral_offset;
       cell.pose.position.y = start_line.first.y + t * dy + std::cos(yaw) * lateral_offset;
       cell.pose.position.z = 0.01;

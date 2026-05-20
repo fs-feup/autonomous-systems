@@ -47,4 +47,9 @@ private:
   common_lib::structures::Position start_position_;  ///< Starting position
   std::pair<common_lib::structures::Position, common_lib::structures::Position>
       start_line_;  ///< Start/finish line endpoints
+
+  /**
+   * @brief Adjust start/finish line endpoints to the local track width near the configured line.
+   */
+  void fit_start_line_to_track_width();
 };

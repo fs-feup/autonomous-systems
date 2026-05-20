@@ -59,11 +59,9 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/BatteryState.msg"
   "msg/MotorState.msg"
   "msg/ExecutionTimes.msg"
-  "msg/InvictaSimStatistics.msg"
-  "msg/InvictaSimCurrentLapTime.msg"
-  "msg/InvictaSimCurrentCrossTrackError.msg"
-  "msg/InvictaSimCurrentVelocity.msg"
-  "msg/InvictaSimCurrentDynamics.msg"
+  "msg/InvictaSimStatisticsRow.msg"
+  "msg/InvictaSimStatisticsArray.msg"
+  "msg/InvictaSimCurrentStatus.msg"
   DEPENDENCIES builtin_interfaces std_msgs geometry_msgs
 )
 

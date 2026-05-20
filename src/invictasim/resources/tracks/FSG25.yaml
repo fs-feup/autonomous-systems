@@ -1,6 +1,6 @@
 track:
   start_position: [0, 0]
-  start_line: [[0, -5], [0, 5]]
+  start_line: [[6, -3], [6, 3]]
   cones:
   - [2.105870008468628, -1.633739948272705, yellow_cone]
   - [2.105870008468628, -1.633739948272705, yellow_cone]
