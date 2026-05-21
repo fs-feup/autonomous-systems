@@ -8,9 +8,6 @@ WSS::WSS(const std::string& config_path) {
   YAML::Node config = YAML::LoadFile(config_path);
   YAML::Node wss = config["wss_sensor"];
 
-  // Load quantization parameters
-  quantization_step_ = wss["quantization_step"].as<double>();
-
   // Load white noise parameters
   YAML::Node noise = wss["noise"];
   noise_std_dev_ = noise["std_dev"].as<double>();
@@ -25,36 +22,63 @@ WSS::WSS(const std::string& config_path) {
 
   // Load speed cutoff
   speed_cutoff_ = wss["speed_cutoff"].as<double>();
+
+  // Load quantization parameters
+  if (wss["quantization_steps"]) {
+    quantization_bits_ = wss["quantization_bits"].as<int>();
+  } else {
+    quantization_bits_ = 0;  // Disabled by default
+  }
+}
+
+common_lib::structures::Wheels WSS::process_wheel_speeds(double wheel_speeds_fl,
+                                                          double wheel_speeds_fr,
+                                                          double wheel_speeds_rl,
+                                                          double wheel_speeds_rr) {
+  // Apply sensor errors to individual wheel speeds (in rad/s)
+  double fl_noisy = apply_wss_error(wheel_speeds_fl);
+  double fr_noisy = apply_wss_error(wheel_speeds_fr);
+  double rl_noisy = apply_wss_error(wheel_speeds_rl);
+  double rr_noisy = apply_wss_error(wheel_speeds_rr);
+
+  // Convert from rad/s to rpm: rpm = rad_s * 60 / (2 * pi)
+  constexpr double RAD_S_TO_RPM = 60.0 / (2.0 * M_PI);
+  
+  double fl_rpm = fl_noisy * RAD_S_TO_RPM;
+  double fr_rpm = fr_noisy * RAD_S_TO_RPM;
+  double rl_rpm = rl_noisy * RAD_S_TO_RPM;
+  double rr_rpm = rr_noisy * RAD_S_TO_RPM;
+  
+  // Apply quantization if enabled
+  if (quantization_bits_ > 0) {
+    fl_rpm = apply_quantization(fl_rpm);
+    fr_rpm = apply_quantization(fr_rpm);
+    rl_rpm = apply_quantization(rl_rpm);
+    rr_rpm = apply_quantization(rr_rpm);
+  }
+  
+  return common_lib::structures::Wheels(fl_rpm, fr_rpm, rl_rpm, rr_rpm);
 }
 
 double WSS::apply_wss_error(double rotational_speed) {
-  // Step 1: Apply speed cutoff (below cutoff, output is zero)
+  // Apply speed cutoff
+  double measurement = rotational_speed;
   if (std::abs(rotational_speed) < speed_cutoff_) {
-    rotational_speed = 0.0;
+    measurement = 0.0;
   }
 
-  // Step 2: Apply white Gaussian noise
-  double measurement = rotational_speed + gaussian_noise(noise_std_dev_);
+  // Apply white Gaussian noise
+  measurement = measurement + gaussian_noise(noise_std_dev_);
 
-  // Step 3: Apply quantization
-  measurement = apply_quantization(measurement);
-
-  // Step 4: Apply outlier
+  // Apply outlier
   measurement = apply_outlier(measurement);
 
-  // Step 5: Apply dropout
+  // Apply dropout
   measurement = apply_dropout(measurement);
 
   return measurement;
 }
 
-double WSS::apply_quantization(double value) {
-  if (quantization_step_ <= 0.0) {
-    return value;
-  }
-  // Round to nearest quantization step
-  return std::round(value / quantization_step_) * quantization_step_;
-}
 
 double WSS::apply_outlier(double value) {
   // Check if outlier should occur
@@ -73,6 +97,27 @@ double WSS::apply_dropout(double value) {
     return 0.0;
   }
   return value;
+}
+
+double WSS::apply_quantization(double value) {
+  // Quantize the value based on the configured bit depth
+  // Assumes range of [-4000, 4000] rpm (sufficient for typical wheel speeds)
+  constexpr double MIN_RPM = -4000.0;
+  constexpr double MAX_RPM = 4000.0;
+  
+  // Calculate the number of levels: 2^bits
+  long long num_levels = 1LL << quantization_bits_;  // 2^quantization_bits_
+  
+  // Calculate step size: (max - min) / (levels - 1)
+  double step_size = (MAX_RPM - MIN_RPM) / (num_levels - 1);
+  
+  // Clamp value to range
+  double clamped = std::max(MIN_RPM, std::min(MAX_RPM, value));
+  
+  // Quantize: find nearest level
+  double quantized = std::round((clamped - MIN_RPM) / step_size) * step_size + MIN_RPM;
+  
+  return quantized;
 }
 
 double WSS::random_uniform() {

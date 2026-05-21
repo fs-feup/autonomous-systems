@@ -29,13 +29,14 @@ public:
    * @param config_path Path to the imu.yaml configuration file
    */
   explicit IMU(const std::string& config_path);
+
   /**
    * @param acceleration_x Raw acceleration in X direction (m/s²)
    * @param acceleration_y Raw acceleration in Y direction (m/s²)
    * @param yaw_rate Raw yaw rate (rad/s)
-   * @return IMUMeasurement struct containing error-corrupted measurements
+   * @return std::vector<double> Vector containing [acceleration_x, acceleration_y, angular_velocity_z] with error applied
    */
-  IMUMeasurement apply_imu_error(double acceleration_x, double acceleration_y, double yaw_rate);
+  std::vector<double> apply_imu_error(double acceleration_x, double acceleration_y, double yaw_rate);
 
   /**
    * @brief Simulate acceleration-dependent scale factor error
@@ -54,7 +55,6 @@ private:
   double acceleration_scale_factor_;    ///< Scale error coefficient
   double accelerometer_bias_x_;         ///< Bias in X (m/s²)
   double accelerometer_bias_y_;         ///< Bias in Y (m/s²)
-  double accelerometer_bias_z_;         ///< Bias in Z (m/s²)
 
   // Gyroscope parameters
   double gyroscope_noise_std_dev_;        ///< Gaussian noise std dev (rad/s)

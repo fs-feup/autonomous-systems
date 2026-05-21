@@ -2,6 +2,7 @@
 
 #include <string>
 
+#include "common_lib/structures/wheels.hpp"
 #include "sensors/sensors_base.hpp"
 
 /**
@@ -9,10 +10,10 @@
  *
  * Simulates realistic wheel speed sensor characteristics including:
  * - White Gaussian noise on rotational speed measurements
- * - Quantization error (discrete resolution)
  * - Random outliers with configurable probability and magnitude
  * - Signal dropout events
  * - Speed cutoff (zero output below minimum threshold)
+ * - Returns wheel speeds in rpm
  */
 class WSS : public Sensor {
 public:
@@ -24,14 +25,29 @@ public:
   explicit WSS(const std::string& config_path);
 
   /**
+   * @brief Process all four wheel speeds and return them in rpm
+   *
+   * Applies sensor errors to all wheel speeds and converts from rad/s to rpm.
+   *
+   * @param wheel_speeds_fl Front left wheel speed (rad/s)
+   * @param wheel_speeds_fr Front right wheel speed (rad/s)
+   * @param wheel_speeds_rl Rear left wheel speed (rad/s)
+   * @param wheel_speeds_rr Rear right wheel speed (rad/s)
+   * @return common_lib::structures::Wheels Wheel speeds in rpm
+   */
+  common_lib::structures::Wheels process_wheel_speeds(double wheel_speeds_fl,
+                                                      double wheel_speeds_fr,
+                                                      double wheel_speeds_rl,
+                                                      double wheel_speeds_rr);
+
+  /**
    * @brief Apply realistic sensor errors to rotational speed measurement
    *
    * Applies the following error sources in sequence:
    * 1. Speed cutoff check
    * 2. White noise
-   * 3. Quantization
-   * 4. Outliers
-   * 5. Dropout
+   * 3. Outliers
+   * 4. Dropout
    *
    * @param rotational_speed Ground truth rotational speed (rad/s)
    * @return double The corrupted measurement (rad/s)
@@ -39,8 +55,6 @@ public:
   double apply_wss_error(double rotational_speed);
 
 private:
-  // Quantization parameters
-  double quantization_step_;  ///< Quantization resolution (rad/s)
 
   // White noise parameters
   double noise_std_dev_;  ///< Gaussian noise standard deviation (rad/s)
@@ -55,13 +69,8 @@ private:
   // Speed cutoff
   double speed_cutoff_;  ///< Minimum speed threshold (rad/s)
 
-  /**
-   * @brief Apply quantization to the measurement
-   *
-   * @param value Raw measurement value
-   * @return double Quantized value
-   */
-  double apply_quantization(double value);
+  // Quantization
+  int quantization_bits_;  ///< Number of bits for ADC quantization (0 to disable)
 
   /**
    * @brief Apply random outlier with configurable probability
@@ -78,6 +87,17 @@ private:
    * @return double Zero if dropout occurs, otherwise the input value
    */
   double apply_dropout(double value);
+
+  /**
+   * @brief Apply quantization (ADC resolution) to a value
+   *
+   * Quantizes the input value based on the configured bit depth.
+   * Assumes a range of [-4000, 4000] rpm for 12-bit quantization.
+   *
+   * @param value Value in rpm to quantize
+   * @return double Quantized value in rpm
+   */
+  double apply_quantization(double value);
 
   /**
    * @brief Generate random number between 0.0 and 1.0

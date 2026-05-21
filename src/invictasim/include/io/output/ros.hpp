@@ -36,8 +36,7 @@
 #include "tf2_ros/transform_broadcaster.h"
 #include "visualization_msgs/msg/marker.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
-#include "sensors/simulated_perception.hpp"
-#include "sensors/imu.hpp"
+
 
 /**
  * @brief ROS-based simulator output adapter.
@@ -73,9 +72,6 @@ private:
 
   // Publishing timers and frequencies
   std::atomic<bool> running_;
-  std::unique_ptr<SimulatedPerception> perception_model_;
-  std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
-    std::unique_ptr<IMU> imu_model_;
   std::map<int, rclcpp::TimerBase::SharedPtr> frequency_timers_;
   std::map<std::string, int> vehicle_model_publish_frequencies_;
   std::map<std::string, int> visualization_publish_frequencies_;
@@ -212,4 +208,7 @@ private:
   rclcpp::Publisher<custom_interfaces::msg::OperationalStatus>::SharedPtr operational_status_pub_;
   rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr vehicle_pose_pub_;
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr lap_counter_pub_;
+
+  // Transform broadcaster for visualization
+  std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
 };

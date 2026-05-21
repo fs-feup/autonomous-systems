@@ -48,11 +48,6 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator,
   if (simulator_->get_params().use_simulated_perception) {
       perception_pub_ = this->create_publisher<custom_interfaces::msg::PerceptionOutput>(
           "invictasim/perception/cones", 10);
-      
-      // INSTANCIAÇÃO OBRIGATÓRIA AQUI:
-      std::string perception_cfg = common_lib::config_load::get_config_yaml_path(
-      "invictasim", "invictasim/sensors", "perception");
-      perception_model_ = std::make_unique<SimulatedPerception>(perception_cfg);
   }
   // Simulated state estimation publishers
   if (simulator_->get_params().use_simulated_se) {
@@ -83,9 +78,6 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator,
       this->create_publisher<custom_interfaces::msg::WheelRPM>("invictasim/resolver", 10);
   steering_pub_ = this->create_publisher<custom_interfaces::msg::SteeringAngle>(
       "invictasim/steering_angle_sensor", 10);
-  std::string imu_cfg = common_lib::config_load::get_config_yaml_path(
-      "invictasim", "invictasim/sensors", "imu");
-  imu_model_ = std::make_unique<IMU>(imu_cfg);
 
 
   // Operational status
@@ -266,29 +258,20 @@ void RosOutputAdapter::refresh_vehicle_state_snapshot() {
 }
 
 void RosOutputAdapter::publish_sensors_imu(const rclcpp::Time& stamp) {
-    if (!imu_model_) return;
-
-  // Aplicar modelo de erro do IMU
-  auto measurement = imu_model_->apply_imu_error(
-      sensors_snapshot_cache_.free_acceleration.x(),
-      sensors_snapshot_cache_.free_acceleration.y(),
-      sensors_snapshot_cache_.angular_velocity.z()
-  );
-
   geometry_msgs::msg::Vector3Stamped free_accel_msg;
   free_accel_msg.header.stamp = stamp;
   free_accel_msg.header.frame_id = "base_link";
-  free_accel_msg.vector.x = measurement.acceleration_x;   // ← era .free_acceleration.x()
-  free_accel_msg.vector.y = measurement.acceleration_y;   // ← era .free_acceleration.y()
-  free_accel_msg.vector.z = sensors_snapshot_cache_.free_acceleration.z();  // z mantém-se raw
+  free_accel_msg.vector.x = sensors_snapshot_cache_.free_acceleration.x();
+  free_accel_msg.vector.y = sensors_snapshot_cache_.free_acceleration.y();
+  free_accel_msg.vector.z = sensors_snapshot_cache_.free_acceleration.z();
   free_accel_pub_->publish(free_accel_msg);
 
   geometry_msgs::msg::Vector3Stamped angular_vel_msg;
   angular_vel_msg.header.stamp = stamp;
   angular_vel_msg.header.frame_id = "base_link";
-  angular_vel_msg.vector.x = sensors_snapshot_cache_.angular_velocity.x();  // raw
-  angular_vel_msg.vector.y = sensors_snapshot_cache_.angular_velocity.y();  // raw
-  angular_vel_msg.vector.z = measurement.angular_velocity_z;  // ← era .angular_velocity.z()
+  angular_vel_msg.vector.x = sensors_snapshot_cache_.angular_velocity.x();
+  angular_vel_msg.vector.y = sensors_snapshot_cache_.angular_velocity.y();
+  angular_vel_msg.vector.z = sensors_snapshot_cache_.angular_velocity.z();
   angular_vel_pub_->publish(angular_vel_msg);
 }
 void RosOutputAdapter::publish_sensors_wheel_speed(const rclcpp::Time& stamp) {
@@ -368,50 +351,26 @@ void RosOutputAdapter::publish_state_estimation_lap_counter() {
 }
 
 void RosOutputAdapter::publish_perception_cones(const rclcpp::Time& stamp) {
-  // Se o modelo não existe ou o publisher não foi criado, saímos
-  if (!perception_model_ || !perception_pub_) return;
-
-  // 1. Gerar os cones com erro no momento exato da publicação
-  // Utilizamos os snapshots mais recentes do Ground Truth e do Estado do Veículo
-  common_lib::structures::Pose pose;
-  pose.position.x = vehicle_model_snapshot_cache_.x;
-  pose.position.y = vehicle_model_snapshot_cache_.y;
-  pose.orientation = vehicle_model_snapshot_cache_.yaw;
-
-  common_lib::structures::Velocities velocities;
-  velocities.velocity_x = vehicle_model_snapshot_cache_.velocity_x;
-  velocities.velocity_y = vehicle_model_snapshot_cache_.velocity_y;
-
-  auto simulated_results = perception_model_->perception_error(
-    map_snapshot_cache_.ground_truth,
-    pose,
-    velocities
-  );
+  if (!perception_pub_) return;
 
   custom_interfaces::msg::PerceptionOutput perception_msg;
   perception_msg.header.stamp = stamp;
-  perception_msg.header.frame_id = "car"; // Coordenadas relativas ao carro
+  perception_msg.header.frame_id = "car";
   perception_msg.cones.header = perception_msg.header;
 
-  for (const auto& tc : simulated_results) {
-    // Filtro probabilístico: decide se o sensor "viu" o cone neste frame
-    double r = static_cast<double>(rand()) / RAND_MAX;
-    if (r > tc.detection_probability) continue;
-
+  for (const auto& cone : map_snapshot_cache_.perception_cones) {
     custom_interfaces::msg::Cone msg;
-    msg.position.x = tc.x_noisy;
-    msg.position.y = tc.y_noisy;
-    msg.color = common_lib::competition_logic::get_color_string(tc.original_cone.color);
-    msg.confidence = tc.detection_probability;
-    msg.is_large = tc.original_cone.is_large;
-    
+    msg.position.x = cone.position.x;
+    msg.position.y = cone.position.y;
+    msg.color = common_lib::competition_logic::get_color_string(cone.color);
+    msg.confidence = cone.certainty;
+    msg.is_large = cone.is_large;
     perception_msg.cones.cone_array.push_back(msg);
   }
 
-  perception_msg.exec_time = 0.0; // Simulado, sem tempo de execução real
+  perception_msg.exec_time = 0.0;
   perception_pub_->publish(perception_msg);
 }
-
 
 void RosOutputAdapter::publish_vm_tire(const rclcpp::Time& stamp) {
   custom_interfaces::msg::TireForces tire_forces_msg;
@@ -633,40 +592,10 @@ void RosOutputAdapter::publish_visualization_slam_cones(const rclcpp::Time& stam
 }
 
 void RosOutputAdapter::publish_visualization_perception_cones(const rclcpp::Time& stamp) {
-  if (!perception_model_ || !visualization_perception_cones_pub_) return;
+  if (!visualization_perception_cones_pub_) return;
 
-  // Geramos novamente os dados (sem cache, o ruído pode variar ligeiramente entre visualização e tópico)
-  common_lib::structures::Pose pose;
-  pose.position.x = vehicle_model_snapshot_cache_.x;
-  pose.position.y = vehicle_model_snapshot_cache_.y;
-  pose.orientation = vehicle_model_snapshot_cache_.yaw;
-
-  common_lib::structures::Velocities velocities;
-  velocities.velocity_x = vehicle_model_snapshot_cache_.velocity_x;
-  velocities.velocity_y = vehicle_model_snapshot_cache_.velocity_y;
-
-  auto simulated_results = perception_model_->perception_error(
-      map_snapshot_cache_.ground_truth,
-      pose,
-      velocities
-  );
-
-
-  std::vector<common_lib::structures::Cone> local_cones;
-  for (const auto& tc : simulated_results) {
-    // Mantemos a mesma lógica de probabilidade para consistência visual
-    double r = static_cast<double>(rand()) / RAND_MAX;
-    if (r > tc.detection_probability) continue;
-
-    // Criamos um cone temporário com as coordenadas ruidosas para o visualizador
-    common_lib::structures::Cone c = tc.original_cone;
-    c.position.x = tc.x_noisy;
-    c.position.y = tc.y_noisy;
-    local_cones.push_back(c);
-  }
-
-  // Convertemos a lista de cones locais para Markers no frame "car"
-  auto markers = convert_cone_array_to_markers(local_cones, stamp, "car");
+  auto markers = convert_cone_array_to_markers(
+      map_snapshot_cache_.perception_cones, stamp, "car");
   visualization_perception_cones_pub_->publish(markers);
 }
 

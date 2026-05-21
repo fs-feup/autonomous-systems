@@ -1,7 +1,5 @@
 # Wheel Speed Sensor (WSS) Configuration
 wss_sensor:
-  # Quantization parameter
-  quantization_step: 0.01  # rad/s
 
   # White noise parameters
   noise:
@@ -18,3 +16,6 @@ wss_sensor:
   dropout_probability: 0.01
 
   speed_cutoff: 0.01
+
+  # Quantization parameter
+  quantization_steps: 12

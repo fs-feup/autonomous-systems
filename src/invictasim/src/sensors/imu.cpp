@@ -21,9 +21,9 @@ IMU::IMU(const std::string& config_path) {
   gyroscope_bias_ = gyroscope["bias"].as<double>();
 }
 
-IMU::IMUMeasurement IMU::apply_imu_error(double acceleration_x, double acceleration_y, double yaw_rate) 
+std::vector<double> IMU::apply_imu_error(double acceleration_x, double acceleration_y, double yaw_rate) 
 {
-  IMUMeasurement measurement;
+  std::vector<double> measurement(3);
   // Apply accelerometer error modeling
   // Add bias
   double acc_x_with_bias = acceleration_x + accelerometer_bias_x_;
@@ -38,8 +38,8 @@ IMU::IMUMeasurement IMU::apply_imu_error(double acceleration_x, double accelerat
   acc_y_with_bias += scale_error_y;
 
   // Apply white Gaussian noise
-  measurement.acceleration_x = acc_x_with_bias + gaussian_noise(accelerometer_noise_std_dev_);
-  measurement.acceleration_y = acc_y_with_bias + gaussian_noise(accelerometer_noise_std_dev_);
+  measurement[0] = acc_x_with_bias + gaussian_noise(accelerometer_noise_std_dev_);
+  measurement[1] = acc_y_with_bias + gaussian_noise(accelerometer_noise_std_dev_);
 
   // Apply gyroscope error modeling
   // Add bias
@@ -51,11 +51,7 @@ IMU::IMUMeasurement IMU::apply_imu_error(double acceleration_x, double accelerat
   yaw_rate_with_bias += scale_error_angular;
 
   // Apply white Gaussian noise
-  measurement.angular_velocity_z = yaw_rate_with_bias + gaussian_noise(gyroscope_noise_std_dev_);
+  measurement[2] = yaw_rate_with_bias + gaussian_noise(gyroscope_noise_std_dev_);
 
   return measurement;
 }
-
-//cenas para perguntar segunda. 
-//A cena do refresh rate nao interessa aqui certo?
-//o gaussian noise nao teria parametros diferentes para cada sensor?

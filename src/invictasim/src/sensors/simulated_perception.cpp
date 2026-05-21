@@ -11,29 +11,27 @@ SimulatedPerception::SimulatedPerception(const std::string& config_path) {
 
   height_ = lidar["height"].as<double>();
   max_range_ = lidar["max_range"].as<double>();
-  horizontal_fov_angle_ = lidar["horizontal_fov_angle"].as<double>();
-  vertical_fov_angle_ = lidar["vertical_fov_angle"].as<double>();
-  angular_velocity_ = lidar["angular_velocity"].as<double>();
+  horizontal_fov_angle_ = lidar["horizontal_fov_angle"].as<double>() * M_PI / 180.0;
+  vertical_fov_angle_ = lidar["vertical_fov_angle"].as<double>() * M_PI / 180.0;
   detection_probability_alpha_ = lidar["detection_probability_alpha"].as<double>();
   noise_std_dev_base_ = lidar["noise_std_dev_base"].as<double>();
   noise_scales_with_range_ = lidar["noise_scales_with_range"].as<bool>();
   noise_range_scaling_ = lidar["noise_range_scaling"].as<double>();
-  mounting_pitch_ = lidar["mounting_pitch"].as<double>();
+  mounting_pitch_ = lidar["mounting_pitch"].as<double>() * M_PI / 180.0;
 }
 
-std::vector<SimulatedPerception::TransformedCone> SimulatedPerception::perception_error(
+std::vector<common_lib::structures::Cone> SimulatedPerception::perception_error(
     const std::vector<common_lib::structures::Cone>& cones,
     const common_lib::structures::Pose& vehicle_pose,
     const common_lib::structures::Velocities& vehicle_velocities) {
-  std::vector<TransformedCone> transformed_cones;
+  std::vector<common_lib::structures::Cone> result;
 
   double yaw_cos = std::cos(vehicle_pose.orientation);
   double yaw_sin = std::sin(vehicle_pose.orientation);
 
   // Transform each cone
   for (const auto& cone : cones) {
-    TransformedCone transformed;
-    transformed.original_cone = cone;
+    auto noisy_cone = cone;
 
     // Translate to vehicle-relative coordinates
     double dx = cone.position.x - vehicle_pose.position.x;
@@ -45,95 +43,51 @@ std::vector<SimulatedPerception::TransformedCone> SimulatedPerception::perceptio
     double y_vehicle = -yaw_sin * dx + yaw_cos * dy;
     double z_vehicle = dz - height_;
 
-    // Convert to spherical coordinates (no pitch yet)
+    // Convert to spherical coordinates
     double range_2d = std::sqrt(x_vehicle * x_vehicle + y_vehicle * y_vehicle);
     double azimuth = std::atan2(y_vehicle, x_vehicle);
     double elevation = std::atan2(z_vehicle, range_2d);
-    double range_3d_raw = std::sqrt(range_2d * range_2d + z_vehicle * z_vehicle);
+    double range_3d = std::sqrt(range_2d * range_2d + z_vehicle * z_vehicle);
 
-    // Apply pitch in spherical space — effect is maximum at azimuth=0 (front),
-    // zero at azimuth=90° (side), and inverted at azimuth=180° (rear)
+    // Apply pitch in spherical space
     double elevation_with_pitch = elevation + mounting_pitch_ * std::cos(azimuth);
 
     // Convert back to Cartesian in LiDAR local frame
-    transformed.x_local = range_3d_raw * std::cos(elevation_with_pitch) * std::cos(azimuth);
-    transformed.y_local = range_3d_raw * std::cos(elevation_with_pitch) * std::sin(azimuth);
-    transformed.z_local = range_3d_raw * std::sin(elevation_with_pitch);
+    double x_local = range_3d * std::cos(elevation_with_pitch) * std::cos(azimuth);
+    double y_local = range_3d * std::cos(elevation_with_pitch) * std::sin(azimuth);
+    double z_local = range_3d * std::sin(elevation_with_pitch);
 
-    // Pre-compute angles and range for the rest of the pipeline
-    transformed.range_3d = range_3d_raw;
-    transformed.elevation_angle = elevation_with_pitch;
-    transformed.azimuth_angle = azimuth;
-    // Calculate 3D slant range
-    transformed.range_3d =
-        std::sqrt(std::pow(transformed.x_local, 2) + std::pow(transformed.y_local, 2) +
-                  std::pow(transformed.z_local, 2));
-
-    // Calculate elevation angle (vertical FOV angle)
-    double horizontal_distance =
-        std::sqrt(std::pow(transformed.x_local, 2) + std::pow(transformed.y_local, 2));
-    transformed.elevation_angle =
-        std::atan2(transformed.z_local, horizontal_distance);
-
-    // Calculate azimuth angle (horizontal FOV angle)
-    transformed.azimuth_angle = std::atan2(transformed.y_local, transformed.x_local);
-
+    // Check field of view
     bool is_visible = true;
 
-    // Check elevation angle (V-FOV)
-    if (is_visible) {
-      double v_fov_half = vertical_fov_angle_ / 2.0;
-      if (std::abs(transformed.elevation_angle) > v_fov_half) {
-        is_visible = false;
-      }
+    double v_fov_half = vertical_fov_angle_ / 2.0;
+    if (std::abs(elevation_with_pitch) > v_fov_half) {
+      is_visible = false;
     }
 
-    // Check azimuth angle (H-FOV)
-    if (is_visible) {
-      double h_fov_half = horizontal_fov_angle_ / 2.0;
-      if (std::abs(transformed.azimuth_angle) > h_fov_half) {
-        is_visible = false;
-      }
+    double h_fov_half = horizontal_fov_angle_ / 2.0;
+    if (std::abs(azimuth) > h_fov_half) {
+      is_visible = false;
     }
 
-    transformed.is_visible = is_visible;
-
-    if (transformed.is_visible) {
-      // Inverted sigmoid function: P_det(r_3D) = 1 / (1 + e^(alpha * (r_3D - R_max)))
-      double exponent =
-          detection_probability_alpha_ * (transformed.range_3d - max_range_);
-      // Clamp exponent to avoid overflow
-      exponent = std::clamp(exponent, -100.0, 100.0);
-      transformed.detection_probability = 1.0 / (1.0 + std::exp(exponent));
-
-      double scan_angle = transformed.azimuth_angle;
-      if (scan_angle < 0) {
-        scan_angle += 2.0 * M_PI;
-      }
-      double delta_t_skew = scan_angle / angular_velocity_;
-
-      // Apply velocity-based displacement
-      transformed.x_skew =
-          transformed.x_local + vehicle_velocities.velocity_x * delta_t_skew;
-      transformed.y_skew =
-          transformed.y_local + vehicle_velocities.velocity_y * delta_t_skew;
-      transformed.z_skew = transformed.z_local;
-
+    if (is_visible && range_3d <= max_range_) {
       // Calculate noise standard deviation
       double sigma = noise_std_dev_base_;
       if (noise_scales_with_range_) {
-        sigma +=
-            noise_range_scaling_ * transformed.range_3d;
+        sigma += noise_range_scaling_ * range_3d;
       }
 
-      // Apply Gaussian noise to skew-corrected coordinates
-      transformed.x_noisy = transformed.x_skew + gaussian_noise(sigma);
-      transformed.y_noisy = transformed.y_skew + gaussian_noise(sigma);
-      transformed.z_noisy = transformed.z_skew + gaussian_noise(sigma);
+      // Apply Gaussian noise to coordinates
+      double x_noisy = x_local + gaussian_noise(sigma);
+      double y_noisy = y_local + gaussian_noise(sigma);
 
-      transformed_cones.push_back(transformed);
+      // Update the cone's position with noisy values
+      noisy_cone.position.x = x_noisy;
+      noisy_cone.position.y = y_noisy;
     }
+
+    result.push_back(noisy_cone);
   }
 
-  return transformed_cones;
+  return result;
 }
