@@ -116,12 +116,7 @@ void InvictaSim::simulation_step() {
   vehicle_model_->step(sim_dt, input_snapshot.throttle, input_snapshot.steering);
   VehicleModelSnapshot vehicle_snapshot = build_vehicle_model_snapshot();
 
-  std::vector<PathPointSnapshot> path_points;
-  {
-    std::lock_guard<std::mutex> lock(output_snapshot_mutex_);
-    path_points = path_points_;
-  }
-  statistics_->update(vehicle_snapshot, sim_time_, sim_dt, path_points);
+  statistics_->update(vehicle_snapshot, sim_time_, sim_dt, input_snapshot.external_path_points);
 
   // Compute total step execution time
   const auto step_end = std::chrono::steady_clock::now();
@@ -131,7 +126,7 @@ void InvictaSim::simulation_step() {
   // Update output snapshot for adapters to read (lock only to copy the data)
   ExecutionTimesSnapshot execution_times_snapshot = build_execution_times_snapshot(total_step_ms);
   StatisticsSnapshot statistics_snapshot = statistics_->get_snapshot();
-  MapSnapshot map_snapshot = build_map_snapshot();
+  MapSnapshot map_snapshot = build_map_snapshot(input_snapshot);
   SensorsSnapshot sensors_snapshot = build_sensors_snapshot(vehicle_snapshot);
   VehicleStateSnapshot vehicle_state_snapshot = build_vehicle_state_snapshot();
   {
@@ -209,38 +204,24 @@ ExecutionTimesSnapshot InvictaSim::build_execution_times_snapshot(double total_s
   return snapshot;
 }
 
-MapSnapshot InvictaSim::build_map_snapshot() const {
+MapSnapshot InvictaSim::build_map_snapshot(const InputSnapshot& input_snapshot) const {
   MapSnapshot snapshot;
-  const auto statistics_snapshot = statistics_->get_snapshot();
-  snapshot.recently_hit_cones = statistics_snapshot.recently_hit_cones;
-
-  auto mark_hit_cones_red = [&snapshot](std::vector<common_lib::structures::Cone> cones) {
-    constexpr double hit_cone_match_distance_m = 0.35;
-    for (auto& cone : cones) {
-      for (const auto& hit_cone : snapshot.recently_hit_cones) {
-        if (cone.position.euclidean_distance(hit_cone.position) <= hit_cone_match_distance_m) {
-          cone.color = common_lib::competition_logic::Color::RED;
-          break;
-        }
-      }
-    }
-    return cones;
-  };
-
+  
   // For now, all of them publish the same ground truth cones,
   // but later this would publish the slam map and the perception cones
-  snapshot.ground_truth = mark_hit_cones_red(track_->get_cones());
+  snapshot.ground_truth = track_->get_cones();
+  snapshot.recently_hit_cones = statistics_->get_recently_hit_cones();
 
   if (params_.use_simulated_se) {
-    snapshot.simulated_slam_map = mark_hit_cones_red(track_->get_cones());
+    snapshot.simulated_slam_map = track_->get_cones();
   } else {
-    snapshot.simulated_slam_map = mark_hit_cones_red(external_slam_cones_);
+    snapshot.simulated_slam_map = input_snapshot.external_slam_cones;
   }
 
   if (params_.use_simulated_perception) {
     snapshot.perception_cones = track_->get_cones();
   } else {
-    snapshot.perception_cones = external_perception_cones_;
+    snapshot.perception_cones = input_snapshot.external_perception_cones;
   }
 
   snapshot.perception_exec_time_ms = 0.0;  // Will allow to simualte the perception delay

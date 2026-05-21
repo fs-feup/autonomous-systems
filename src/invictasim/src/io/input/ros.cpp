@@ -1,5 +1,7 @@
 #include "io/input/ros.hpp"
 
+#include "common_lib/communication/interfaces.hpp"
+
 RosInputAdapter::RosInputAdapter(const std::shared_ptr<InvictaSim>& simulator)
     : Node("invictasim_input", rclcpp::NodeOptions().use_global_arguments(false)),
       InvictaSimInputAdapter(simulator) {
@@ -13,20 +15,11 @@ RosInputAdapter::RosInputAdapter(const std::shared_ptr<InvictaSim>& simulator)
         simulator_->set_input(throttle, msg->steering);
       });
 
-  const std::string path_topic = simulator_->get_params().use_simulated_planning
-                                     ? "/path_planning/mock_path"
-                                     : "/path_planning/path";
   path_sub_ = this->create_subscription<custom_interfaces::msg::PathPointArray>(
-      path_topic, 10, [this](const custom_interfaces::msg::PathPointArray::SharedPtr msg) {
-        std::vector<PathPointSnapshot> path_points;
-        path_points.reserve(msg->pathpoint_array.size());
-        for (const auto& path_point_msg : msg->pathpoint_array) {
-          PathPointSnapshot path_point;
-          path_point.position = {path_point_msg.x, path_point_msg.y};
-          path_point.velocity = path_point_msg.v;
-          path_points.push_back(path_point);
-        }
-        simulator_->set_path_points(path_points);
+      "/path_planning/path", 10,
+      [this](const custom_interfaces::msg::PathPointArray::SharedPtr msg) {
+        simulator_->set_path_points(
+            common_lib::communication::path_point_array_from_ci_vector(*msg));
       });
 
   if (!simulator_->get_params().use_simulated_se) {

@@ -31,11 +31,12 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator,
   map_pub_ = this->create_publisher<custom_interfaces::msg::ConeArray>("invictasim/map", 10);
 
   // Statistics publishers
-  statistics_history_pub_ =
-      this->create_publisher<custom_interfaces::msg::InvictaSimStatisticsArray>(
-          "invictasim/statistics/summary", rclcpp::QoS(10).transient_local());
-  statistics_current_pub_ = this->create_publisher<custom_interfaces::msg::InvictaSimCurrentStatus>(
-      "invictasim/statistics/current", 10);
+  lap_summary_pub_ = this->create_publisher<custom_interfaces::msg::LapSummary>(
+      "invictasim/statistics/lap_summary", rclcpp::QoS(10).transient_local());
+  lap_current_pub_ = this->create_publisher<custom_interfaces::msg::LapCurrent>(
+      "invictasim/statistics/lap_current", 10);
+  control_statistics_pub_ = this->create_publisher<custom_interfaces::msg::ControlStatistics>(
+      "invictasim/statistics/control_statistics", 10);
 
   // Visualization Publishers
   tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(this);
@@ -164,10 +165,12 @@ void RosOutputAdapter::map_callbacks() {
                       [this](const rclcpp::Time& stamp) { publish_execution_time(stamp); });
 
   // Statistics
-  register_pub_helper("summary",
-                      [this](const rclcpp::Time& stamp) { publish_statistics_summary(stamp); });
-  register_pub_helper("current",
-                      [this](const rclcpp::Time& stamp) { publish_statistics_current(stamp); });
+  register_pub_helper("lap_summary",
+                      [this](const rclcpp::Time& stamp) { publish_lap_summary(stamp); });
+  register_pub_helper("lap_current",
+                      [this](const rclcpp::Time& stamp) { publish_lap_current(stamp); });
+  register_pub_helper("control_statistics",
+                      [this](const rclcpp::Time& stamp) { publish_control_statistics(stamp); });
 
   // SLAM Cones Visualization (either external or simulated)
   register_pub_helper(
@@ -209,9 +212,6 @@ void RosOutputAdapter::load_group_from_yaml(const YAML::Node& config,
     for (const auto& node : group_node) {
       std::string topic_key = node.first.as<std::string>();
       int frequency = node.second.as<int>();
-      if (group_name == "statistics" && topic_key == "summary") {
-        frequency = frequency > 0 ? 1 : 0;
-      }
 
       topic_frequencies_[topic_key] = frequency;
     }
@@ -327,7 +327,7 @@ void RosOutputAdapter::publish_sensors_steering(const rclcpp::Time& stamp) {
 }
 
 void RosOutputAdapter::publish_map_ground_truth(const rclcpp::Time& stamp) {
-  const auto& cones = map_snapshot_cache_.ground_truth;
+  const auto cones = mark_recently_hit_cones_red(map_snapshot_cache_.ground_truth);
   custom_interfaces::msg::ConeArray track_msg;
   track_msg.header.stamp = stamp;
   track_msg.header.frame_id = "map";
@@ -347,7 +347,7 @@ void RosOutputAdapter::publish_map_ground_truth(const rclcpp::Time& stamp) {
 }
 
 void RosOutputAdapter::publish_state_estimation_map(const rclcpp::Time& stamp) {
-  const auto& cones = map_snapshot_cache_.simulated_slam_map;
+  const auto cones = mark_recently_hit_cones_red(map_snapshot_cache_.simulated_slam_map);
   custom_interfaces::msg::ConeArray map_msg;
   map_msg.header.stamp = stamp;
   map_msg.header.frame_id = "map";
@@ -515,41 +515,54 @@ void RosOutputAdapter::publish_execution_time(const rclcpp::Time& stamp) {
   execution_times_pub_->publish(times_msg);
 }
 
-void RosOutputAdapter::publish_statistics_summary(const rclcpp::Time& stamp) {
-  if (statistics_snapshot_cache_.lap_counter <= last_published_statistics_lap_) return;
+void RosOutputAdapter::publish_lap_summary(const rclcpp::Time& stamp) {
+  if (statistics_snapshot_cache_.lap_counter <= last_published_summary_lap_) return;
 
-  last_published_statistics_lap_ = statistics_snapshot_cache_.lap_counter;
+  last_published_summary_lap_ = statistics_snapshot_cache_.lap_counter;
 
-  custom_interfaces::msg::InvictaSimStatisticsRow row_msg;
-  row_msg.lap_counter = statistics_snapshot_cache_.lap_counter;
+  custom_interfaces::msg::LapStatistics row_msg;
+  row_msg.lap_number = statistics_snapshot_cache_.lap_counter;
   row_msg.time = statistics_snapshot_cache_.last_lap_time;
   row_msg.cones_hit = statistics_snapshot_cache_.cones_hit;
   row_msg.total_time = statistics_snapshot_cache_.total_lap_time;
   row_msg.best_time = statistics_snapshot_cache_.best_lap_time;
   row_msg.avg_velocity = statistics_snapshot_cache_.completed_lap_average_velocity * 3.6;
   row_msg.max_velocity = statistics_snapshot_cache_.completed_lap_max_velocity * 3.6;
-  statistics_summary_history_.push_back(row_msg);
+  row_msg.avg_tracking_error_distance =
+      statistics_snapshot_cache_.completed_lap_average_tracking_error;
+  row_msg.max_tracking_error_distance = statistics_snapshot_cache_.completed_lap_max_tracking_error;
+  row_msg.avg_velocity_error =
+      statistics_snapshot_cache_.completed_lap_average_velocity_error * 3.6;
+  row_msg.max_velocity_error = statistics_snapshot_cache_.completed_lap_max_velocity_error * 3.6;
+  lap_summary_history_.push_back(row_msg);
 
-  custom_interfaces::msg::InvictaSimStatisticsArray history_msg;
+  custom_interfaces::msg::LapSummary history_msg;
   history_msg.header.stamp = stamp;
   history_msg.header.frame_id = "map";
-  history_msg.rows = statistics_summary_history_;
-  statistics_history_pub_->publish(history_msg);
+  history_msg.rows = lap_summary_history_;
+  lap_summary_pub_->publish(history_msg);
 }
 
-void RosOutputAdapter::publish_statistics_current(const rclcpp::Time& stamp) {
-  custom_interfaces::msg::InvictaSimCurrentStatus status_msg;
-  status_msg.header.stamp = stamp;
-  status_msg.header.frame_id = "map";
-  status_msg.current_lap = statistics_snapshot_cache_.lap_counter + 1;
-  status_msg.current_lap_time = statistics_snapshot_cache_.current_lap_time;
-  status_msg.current_cones_hit = statistics_snapshot_cache_.current_lap_cones_hit;
-  status_msg.current_velocity = statistics_snapshot_cache_.current_velocity * 3.6;
-  status_msg.has_tracking_reference = statistics_snapshot_cache_.has_tracking_reference;
-  status_msg.objective_velocity = statistics_snapshot_cache_.objective_velocity * 3.6;
-  status_msg.tracking_cross_track_error = statistics_snapshot_cache_.tracking_cross_track_error;
-  status_msg.tracking_velocity_error = statistics_snapshot_cache_.tracking_velocity_error * 3.6;
-  statistics_current_pub_->publish(status_msg);
+void RosOutputAdapter::publish_lap_current(const rclcpp::Time& stamp) {
+  custom_interfaces::msg::LapCurrent lap_msg;
+  lap_msg.header.stamp = stamp;
+  lap_msg.header.frame_id = "map";
+  lap_msg.lap_number = statistics_snapshot_cache_.lap_counter + 1;
+  lap_msg.current_lap_time = statistics_snapshot_cache_.current_lap_time;
+  lap_msg.current_lap_cones_hit = statistics_snapshot_cache_.current_lap_cones_hit;
+  lap_current_pub_->publish(lap_msg);
+}
+
+void RosOutputAdapter::publish_control_statistics(const rclcpp::Time& stamp) {
+  custom_interfaces::msg::ControlStatistics statistics_msg;
+  statistics_msg.header.stamp = stamp;
+  statistics_msg.header.frame_id = "map";
+  statistics_msg.current_velocity = statistics_snapshot_cache_.current_velocity;
+  statistics_msg.current_velocity_kmh = statistics_snapshot_cache_.current_velocity * 3.6;
+  statistics_msg.desired_velocity = statistics_snapshot_cache_.objective_velocity;
+  statistics_msg.tracking_error = statistics_snapshot_cache_.tracking_cross_track_error;
+  statistics_msg.velocity_error = statistics_snapshot_cache_.velocity_error;
+  control_statistics_pub_->publish(statistics_msg);
 }
 
 void RosOutputAdapter::publish_state_estimation_velocities(const rclcpp::Time& stamp) {
@@ -639,13 +652,16 @@ void RosOutputAdapter::publish_visualization_ground(const rclcpp::Time& stamp) {
 
 void RosOutputAdapter::publish_visualization_gt_cones(const rclcpp::Time& stamp) {
   visualization_msgs::msg::MarkerArray track_marker_array;
-  track_marker_array = convert_cone_array_to_markers(map_snapshot_cache_.ground_truth, stamp);
+  track_marker_array =
+      convert_cone_array_to_markers(mark_recently_hit_cones_red(map_snapshot_cache_.ground_truth),
+                                    stamp);
   visualization_gt_cones_pub_->publish(track_marker_array);
 }
 
 void RosOutputAdapter::publish_visualization_slam_cones(const rclcpp::Time& stamp) {
   visualization_msgs::msg::MarkerArray map_marker_array;
-  map_marker_array = convert_cone_array_to_markers(map_snapshot_cache_.simulated_slam_map, stamp);
+  map_marker_array = convert_cone_array_to_markers(
+      mark_recently_hit_cones_red(map_snapshot_cache_.simulated_slam_map), stamp);
   visualization_slam_cones_pub_->publish(map_marker_array);
 }
 
@@ -682,7 +698,6 @@ visualization_msgs::msg::MarkerArray RosOutputAdapter::convert_cone_array_to_mar
     m.scale.x = 1.0;
     m.scale.y = 1.0;
     m.scale.z = 1.0;
-    const bool recently_hit = frame_id != "car" && is_recently_hit_cone(cone);
     m.mesh_use_embedded_materials = true;
     m.color.r = 1.0f;
     m.color.g = 1.0f;
@@ -690,12 +705,6 @@ visualization_msgs::msg::MarkerArray RosOutputAdapter::convert_cone_array_to_mar
     m.color.a = 1.0f;
 
     std::string path = "package://invictasim/resources/meshes/cones/";
-
-    if (recently_hit) {
-      m.mesh_resource = path + "cone_red.dae";
-      marker_array.markers.push_back(m);
-      continue;
-    }
 
     switch (cone.color) {
       case common_lib::competition_logic::Color::BLUE:
@@ -724,14 +733,18 @@ visualization_msgs::msg::MarkerArray RosOutputAdapter::convert_cone_array_to_mar
   return marker_array;
 }
 
-bool RosOutputAdapter::is_recently_hit_cone(const common_lib::structures::Cone& cone) const {
-  constexpr double kHitConeMatchDistanceM = 0.35;
-  for (const auto& hit_cone : map_snapshot_cache_.recently_hit_cones) {
-    if (cone.position.euclidean_distance(hit_cone.position) <= kHitConeMatchDistanceM) {
-      return true;
+std::vector<common_lib::structures::Cone> RosOutputAdapter::mark_recently_hit_cones_red(
+    std::vector<common_lib::structures::Cone> cones) const {
+  constexpr double same_cone_max_dist = 0.35;
+  for (auto& cone : cones) {
+    for (const auto& hit_cone : map_snapshot_cache_.recently_hit_cones) {
+      if (cone.position.euclidean_distance(hit_cone.position) <= same_cone_max_dist) {
+        cone.color = common_lib::competition_logic::Color::RED;
+        break;
+      }
     }
   }
-  return false;
+  return cones;
 }
 
 void RosOutputAdapter::add_start_line_markers(visualization_msgs::msg::MarkerArray& marker_array,

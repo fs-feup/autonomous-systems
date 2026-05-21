@@ -17,9 +17,10 @@
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/control_command.hpp"
 #include "custom_interfaces/msg/execution_times.hpp"
-#include "custom_interfaces/msg/invicta_sim_current_status.hpp"
-#include "custom_interfaces/msg/invicta_sim_statistics_array.hpp"
-#include "custom_interfaces/msg/invicta_sim_statistics_row.hpp"
+#include "custom_interfaces/msg/control_statistics.hpp"
+#include "custom_interfaces/msg/lap_current.hpp"
+#include "custom_interfaces/msg/lap_statistics.hpp"
+#include "custom_interfaces/msg/lap_summary.hpp"
 #include "custom_interfaces/msg/motor_state.hpp"
 #include "custom_interfaces/msg/operational_status.hpp"
 #include "custom_interfaces/msg/perception_output.hpp"
@@ -70,8 +71,8 @@ private:
   double wheel_spin_rl_ = 0.0;
   double wheel_spin_rr_ = 0.0;
   double last_visualization_stamp_sec_ = -1.0;
-  int last_published_statistics_lap_ = 0;
-  std::vector<custom_interfaces::msg::InvictaSimStatisticsRow> statistics_summary_history_;
+  int last_published_summary_lap_ = 0;
+  std::vector<custom_interfaces::msg::LapStatistics> lap_summary_history_;
 
   // Publishing timers and frequencies
   std::atomic<bool> running_;
@@ -145,8 +146,9 @@ private:
   void publish_execution_time(const rclcpp::Time& stamp);
 
   // Statistics
-  void publish_statistics_summary(const rclcpp::Time& stamp);
-  void publish_statistics_current(const rclcpp::Time& stamp);
+  void publish_lap_summary(const rclcpp::Time& stamp);
+  void publish_lap_current(const rclcpp::Time& stamp);
+  void publish_control_statistics(const rclcpp::Time& stamp);
 
   // Simulated perception
   void publish_perception_cones(const rclcpp::Time& stamp);
@@ -157,12 +159,13 @@ private:
   // Helper functions for message conversions and visualization
   custom_interfaces::msg::WheelScalars to_wheels_msg(const common_lib::structures::Wheels& wheels,
                                                      const rclcpp::Time& stamp) const;
+  std::vector<common_lib::structures::Cone> mark_recently_hit_cones_red(
+      std::vector<common_lib::structures::Cone> cones) const;
 
   // Visualization marker publishing helper functions
   visualization_msgs::msg::MarkerArray convert_cone_array_to_markers(
       const std::vector<common_lib::structures::Cone>& cone_array, const rclcpp::Time& stamp,
       const std::string& frame_id = "map") const;
-  bool is_recently_hit_cone(const common_lib::structures::Cone& cone) const;
   void add_start_line_markers(visualization_msgs::msg::MarkerArray& marker_array,
                               const rclcpp::Time& stamp) const;
   void add_body_marker(visualization_msgs::msg::MarkerArray& marker_array,
@@ -196,6 +199,12 @@ private:
       execution_times_pub_;  ///< Publisher for simulation execution timings.
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr
       map_pub_;  ///< Publisher for the loaded ground truth map.
+  rclcpp::Publisher<custom_interfaces::msg::LapSummary>::SharedPtr
+      lap_summary_pub_;  ///< Publisher for completed lap history.
+  rclcpp::Publisher<custom_interfaces::msg::LapCurrent>::SharedPtr
+      lap_current_pub_;  ///< Publisher for current lap status.
+  rclcpp::Publisher<custom_interfaces::msg::ControlStatistics>::SharedPtr
+      control_statistics_pub_;  ///< Publisher for controller tracking statistics.
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
       visualization_ground_pub_;  ///< Publisher for ground visualization markers.
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
@@ -221,8 +230,4 @@ private:
   rclcpp::Publisher<custom_interfaces::msg::OperationalStatus>::SharedPtr operational_status_pub_;
   rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr vehicle_pose_pub_;
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr lap_counter_pub_;
-  rclcpp::Publisher<custom_interfaces::msg::InvictaSimStatisticsArray>::SharedPtr
-      statistics_history_pub_;
-  rclcpp::Publisher<custom_interfaces::msg::InvictaSimCurrentStatus>::SharedPtr
-      statistics_current_pub_;
 };

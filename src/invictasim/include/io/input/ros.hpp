@@ -26,5 +26,5 @@ private:
   rclcpp::Subscription<custom_interfaces::msg::PerceptionOutput>::SharedPtr
       perception_sub_;  ///< Subscription for external perception cones.
   rclcpp::Subscription<custom_interfaces::msg::PathPointArray>::SharedPtr
-      path_sub_;  ///< Subscription for autonomous tracking reference path.
+      path_sub_;  ///< Subscription for external path points.
 };

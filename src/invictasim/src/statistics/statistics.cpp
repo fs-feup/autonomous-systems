@@ -18,14 +18,14 @@ double Statistics::distance_between(const common_lib::structures::Position& a,
 
 std::pair<double, double> Statistics::tracking_error_and_objective_velocity(
     const common_lib::structures::Position& car_position,
-    const std::vector<PathPointSnapshot>& path_points) const {
+    const std::vector<common_lib::structures::PathPoint>& path_points) const {
   if (path_points.empty()) {
     return {0.0, 0.0};
   }
 
   if (path_points.size() == 1) {
     return {distance_between(car_position, path_points.front().position),
-            path_points.front().velocity};
+            path_points.front().ideal_velocity};
   }
 
   double best_distance_sq = std::numeric_limits<double>::max();
@@ -54,7 +54,8 @@ std::pair<double, double> Statistics::tracking_error_and_objective_velocity(
 
     if (distance_sq < best_distance_sq) {
       best_distance_sq = distance_sq;
-      best_velocity = start.velocity + interpolation * (end.velocity - start.velocity);
+      best_velocity =
+          start.ideal_velocity + interpolation * (end.ideal_velocity - start.ideal_velocity);
     }
   }
 
@@ -72,11 +73,7 @@ double Statistics::penalty_time_for_discipline(std::string discipline) const {
 }
 
 std::filesystem::path Statistics::run_directory() const {
-#ifdef INVICTASIM_SOURCE_DIR
-  return std::filesystem::path(INVICTASIM_SOURCE_DIR) / "run";
-#else
-  return std::filesystem::current_path() / "src" / "invictasim" / "run";
-#endif
+  return std::filesystem::current_path() / "src" / "invictasim" / "runs";
 }
 
 Statistics::Statistics(
@@ -107,45 +104,34 @@ void Statistics::reset() {
   lap_timing_started_ = false;
   lap_start_time_ = 0.0;
   lap_start_distance_ = 0.0;
+  distance_traveled_ = 0.0;
   reset_lap_accumulators();
   cones_been_hit_.assign(cones_.size(), false);
+  recently_hit_cones_.clear();
   reset_lap_cone_hits();
   start_csv_file();
 }
 
 void Statistics::update(const VehicleModelSnapshot& vehicle_snapshot, double sim_time,
-                        double sim_dt, const std::vector<PathPointSnapshot>& path_points) {
+                        double sim_dt,
+                        const std::vector<common_lib::structures::PathPoint>& path_points) {
   const common_lib::structures::Position position(vehicle_snapshot.x, vehicle_snapshot.y);
-  update_distance_and_current_values(vehicle_snapshot, position, sim_time);
-  update_lap_aggregates(snapshot_.current_velocity, sim_dt);
-  update_tracking_metrics(vehicle_snapshot, path_points);
-  update_cone_collisions(vehicle_snapshot, sim_time);
-  update_lap_counter(position, sim_time);
-
-  if (snapshot_.lap_completed) {
-    write_csv_row("lap_summary");
-  }
-}
-
-void Statistics::update_distance_and_current_values(
-    const VehicleModelSnapshot& vehicle_snapshot, const common_lib::structures::Position& position,
-    double sim_time) {
-  const double speed = speed_from_snapshot(vehicle_snapshot);
-  snapshot_.sim_time = sim_time;
-  snapshot_.lap_completed = false;
+  snapshot_.current_velocity = speed_from_snapshot(vehicle_snapshot);
   snapshot_.current_lap_time = lap_timing_started_ ? sim_time - lap_start_time_ : 0.0;
-  snapshot_.current_velocity = speed;
 
   if (previous_position_) {
-    snapshot_.distance_traveled += distance_between(*previous_position_, position);
+    distance_traveled_ += distance_between(*previous_position_, position);
   }
   previous_position_ = position;
+
+  update_lap_aggregates(snapshot_.current_velocity, sim_dt);
+  update_tracking_metrics(vehicle_snapshot, path_points, sim_dt);
+  update_cone_collisions(vehicle_snapshot);
+  update_lap_counter(position, sim_time);
 }
 
 void Statistics::update_lap_aggregates(double speed, double sim_dt) {
   if (!lap_timing_started_) {
-    snapshot_.average_velocity = 0.0;
-    snapshot_.max_velocity = 0.0;
     return;
   }
 
@@ -153,21 +139,15 @@ void Statistics::update_lap_aggregates(double speed, double sim_dt) {
   lap_accumulated_time_ += safe_dt;
   lap_velocity_integral_ += speed * safe_dt;
 
-  if (lap_accumulated_time_ > 0.0) {
-    snapshot_.average_velocity = lap_velocity_integral_ / lap_accumulated_time_;
-  }
-
   lap_max_velocity_ = std::max(lap_max_velocity_, speed);
-  snapshot_.max_velocity = lap_max_velocity_;
 }
 
-void Statistics::update_tracking_metrics(const VehicleModelSnapshot& vehicle_snapshot,
-                                         const std::vector<PathPointSnapshot>& path_points) {
+void Statistics::update_tracking_metrics(
+    const VehicleModelSnapshot& vehicle_snapshot,
+    const std::vector<common_lib::structures::PathPoint>& path_points, double sim_dt) {
   if (path_points.empty()) {
-    snapshot_.has_tracking_reference = false;
     snapshot_.objective_velocity = 0.0;
     snapshot_.tracking_cross_track_error = 0.0;
-    snapshot_.tracking_velocity_error = 0.0;
     return;
   }
 
@@ -175,10 +155,21 @@ void Statistics::update_tracking_metrics(const VehicleModelSnapshot& vehicle_sna
   const auto [cross_track_error, objective_velocity] =
       tracking_error_and_objective_velocity(car_position, path_points);
 
-  snapshot_.has_tracking_reference = true;
   snapshot_.objective_velocity = objective_velocity;
   snapshot_.tracking_cross_track_error = cross_track_error;
-  snapshot_.tracking_velocity_error = snapshot_.current_velocity - objective_velocity;
+  snapshot_.velocity_error = objective_velocity - snapshot_.current_velocity;
+
+  if (!lap_timing_started_) {
+    return;
+  }
+
+  const double safe_dt = std::max(0.0, sim_dt);
+  const double velocity_error = std::abs(snapshot_.current_velocity - objective_velocity);
+  lap_tracking_accumulated_time_ += safe_dt;
+  lap_tracking_error_integral_ += cross_track_error * safe_dt;
+  lap_velocity_error_integral_ += velocity_error * safe_dt;
+  lap_max_tracking_error_ = std::max(lap_max_tracking_error_, cross_track_error);
+  lap_max_velocity_error_ = std::max(lap_max_velocity_error_, velocity_error);
 }
 
 double Statistics::cone_radius(const common_lib::structures::Cone& cone) const {
@@ -201,9 +192,28 @@ bool Statistics::collides_with_cone(const VehicleModelSnapshot& vehicle_snapshot
   return std::hypot(local_x - closest_x, local_y - closest_y) <= cone_radius(cone);
 }
 
-void Statistics::update_cone_collisions(const VehicleModelSnapshot& vehicle_snapshot,
-                                        double sim_time) {
-  (void)sim_time;
+double Statistics::current_lap_average_velocity() const {
+  if (lap_accumulated_time_ <= 0.0) {
+    return 0.0;
+  }
+  return lap_velocity_integral_ / lap_accumulated_time_;
+}
+
+double Statistics::current_lap_average_tracking_error() const {
+  if (lap_tracking_accumulated_time_ <= 0.0) {
+    return 0.0;
+  }
+  return lap_tracking_error_integral_ / lap_tracking_accumulated_time_;
+}
+
+double Statistics::current_lap_average_velocity_error() const {
+  if (lap_tracking_accumulated_time_ <= 0.0) {
+    return 0.0;
+  }
+  return lap_velocity_error_integral_ / lap_tracking_accumulated_time_;
+}
+
+void Statistics::update_cone_collisions(const VehicleModelSnapshot& vehicle_snapshot) {
   if (!lap_timing_started_) {
     return;
   }
@@ -218,19 +228,9 @@ void Statistics::update_cone_collisions(const VehicleModelSnapshot& vehicle_snap
     }
 
     cones_been_hit_[i] = true;
-    current_lap_cones_hit_ += 1;
+    snapshot_.current_lap_cones_hit += 1;
     current_lap_penalty_time_ += penalty_time_per_cone_;
-    snapshot_.current_lap_cones_hit = current_lap_cones_hit_;
-    update_hit_cones_snapshot();
-  }
-}
-
-void Statistics::update_hit_cones_snapshot() {
-  snapshot_.recently_hit_cones.clear();
-  for (size_t i = 0; i < cones_.size(); ++i) {
-    if (cones_been_hit_[i]) {
-      snapshot_.recently_hit_cones.push_back(cones_[i]);
-    }
+    recently_hit_cones_.push_back(cones_[i]);
   }
 }
 
@@ -272,27 +272,31 @@ bool Statistics::crossed_start_line(const common_lib::structures::Position& posi
                             (*previous_start_line_side_ >= 0.0 && current_side < 0.0);
   const bool enough_time = (sim_time - lap_start_time_) >= minimum_lap_time_s_;
   const bool enough_distance =
-      (snapshot_.distance_traveled - lap_start_distance_) >= minimum_lap_distance_m_;
+      (distance_traveled_ - lap_start_distance_) >= minimum_lap_distance_m_;
   return changed_side && enough_time && enough_distance;
 }
 
 void Statistics::finish_lap(double sim_time) {
   const double lap_time = sim_time - lap_start_time_;
   snapshot_.lap_counter += 1;
-  snapshot_.lap_completed = true;
   snapshot_.last_lap_time = lap_time;
-  snapshot_.penalties_time = current_lap_penalty_time_;
-  snapshot_.cones_hit = current_lap_cones_hit_;
-  snapshot_.total_lap_time = snapshot_.last_lap_time + snapshot_.penalties_time;
-  snapshot_.completed_lap_average_velocity = snapshot_.average_velocity;
-  snapshot_.completed_lap_max_velocity = snapshot_.max_velocity;
+  snapshot_.cones_hit = snapshot_.current_lap_cones_hit;
+  snapshot_.total_lap_time = snapshot_.last_lap_time + current_lap_penalty_time_;
+  snapshot_.completed_lap_average_velocity = current_lap_average_velocity();
+  snapshot_.completed_lap_max_velocity = lap_max_velocity_;
+  snapshot_.completed_lap_average_tracking_error = current_lap_average_tracking_error();
+  snapshot_.completed_lap_max_tracking_error = lap_max_tracking_error_;
+  snapshot_.completed_lap_average_velocity_error = current_lap_average_velocity_error();
+  snapshot_.completed_lap_max_velocity_error = lap_max_velocity_error_;
 
   if (snapshot_.best_lap_time <= 0.0 || snapshot_.total_lap_time < snapshot_.best_lap_time) {
     snapshot_.best_lap_time = snapshot_.total_lap_time;
   }
 
+  write_csv_row("lap_summary", sim_time, current_lap_penalty_time_);
+
   lap_start_time_ = sim_time;
-  lap_start_distance_ = snapshot_.distance_traveled;
+  lap_start_distance_ = distance_traveled_;
   snapshot_.current_lap_time = 0.0;
   reset_lap_accumulators();
   cones_been_hit_.assign(cones_.size(), false);
@@ -310,7 +314,7 @@ void Statistics::update_lap_counter(const common_lib::structures::Position& posi
     if (crossed_line) {
       lap_timing_started_ = true;
       lap_start_time_ = sim_time;
-      lap_start_distance_ = snapshot_.distance_traveled;
+      lap_start_distance_ = distance_traveled_;
       snapshot_.current_lap_time = 0.0;
       reset_lap_accumulators();
       cones_been_hit_.assign(cones_.size(), false);
@@ -331,13 +335,17 @@ void Statistics::reset_lap_accumulators() {
   lap_velocity_integral_ = 0.0;
   lap_accumulated_time_ = 0.0;
   lap_max_velocity_ = 0.0;
+  lap_tracking_error_integral_ = 0.0;
+  lap_max_tracking_error_ = 0.0;
+  lap_velocity_error_integral_ = 0.0;
+  lap_max_velocity_error_ = 0.0;
+  lap_tracking_accumulated_time_ = 0.0;
 }
 
 void Statistics::reset_lap_cone_hits() {
   current_lap_penalty_time_ = 0.0;
-  current_lap_cones_hit_ = 0;
   snapshot_.current_lap_cones_hit = 0;
-  snapshot_.recently_hit_cones.clear();
+  recently_hit_cones_.clear();
 }
 
 void Statistics::start_csv_file() {
@@ -373,23 +381,30 @@ void Statistics::start_csv_file() {
 }
 
 void Statistics::write_csv_header() {
-  csv_file_ << "event,sim_time,lap_counter,lap_time,best_lap_time,distance_traveled,"
-               "average_velocity_kmh,max_velocity_kmh,cones_hit,penalties_time,"
-               "total_lap_time\n";
+  csv_file_ << "lap_counter,lap_time,cones_hit,total_lap_time,best_lap_time,"
+               "avg_velocity_kmh,max_velocity_kmh,"
+               "avg_tracking_error_distance,max_tracking_error_distance,"
+               "avg_velocity_error_kmh,max_velocity_error_kmh\n";
 }
 
-void Statistics::write_csv_row(const char* event) {
+void Statistics::write_csv_row(const char* event, double sim_time, double penalty_time) {
   if (!csv_file_.is_open()) {
     return;
   }
 
-  csv_file_ << event << "," << snapshot_.sim_time << "," << snapshot_.lap_counter << ","
-            << snapshot_.last_lap_time << "," << snapshot_.best_lap_time << ","
-            << snapshot_.distance_traveled << ","
+  csv_file_ << snapshot_.lap_counter << ","
+            << snapshot_.last_lap_time << "," << snapshot_.cones_hit << ","
+            << snapshot_.total_lap_time << "," << snapshot_.best_lap_time << ","
             << snapshot_.completed_lap_average_velocity * meters_per_second_to_kilometers_per_hour_
             << ","
             << snapshot_.completed_lap_max_velocity * meters_per_second_to_kilometers_per_hour_
-            << "," << snapshot_.cones_hit << "," << snapshot_.penalties_time << ","
-            << snapshot_.total_lap_time << "\n";
+            << "," << snapshot_.completed_lap_average_tracking_error
+            << "," << snapshot_.completed_lap_max_tracking_error << ","
+            << snapshot_.completed_lap_average_velocity_error *
+                   meters_per_second_to_kilometers_per_hour_
+            << ","
+            << snapshot_.completed_lap_max_velocity_error *
+                   meters_per_second_to_kilometers_per_hour_
+            << "\n";
   csv_file_.flush();
 }

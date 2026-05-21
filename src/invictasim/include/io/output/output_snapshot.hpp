@@ -5,6 +5,7 @@
 
 #include "common_lib/competition_logic/mission_logic.hpp"
 #include "common_lib/structures/cone.hpp"
+#include "common_lib/structures/path_point.hpp"
 #include "common_lib/structures/position.hpp"
 #include "common_lib/structures/wheels.hpp"
 
@@ -75,14 +76,9 @@ struct ExecutionTimesSnapshot {
 struct InputSnapshot {
   common_lib::structures::Wheels throttle = {0.0, 0.0, 0.0, 0.0};
   double steering = 0.0;
-};
-
-/**
- * @brief Minimal path point data used by simulator statistics.
- */
-struct PathPointSnapshot {
-  common_lib::structures::Position position = {0.0, 0.0};
-  double velocity = 0.0;
+  std::vector<common_lib::structures::Cone> external_slam_cones = {};
+  std::vector<common_lib::structures::Cone> external_perception_cones = {};
+  std::vector<common_lib::structures::PathPoint> external_path_points = {};
 };
 
 /**
@@ -101,28 +97,28 @@ struct MapSnapshot {
  * @brief Snapshot of accumulated simulator statistics.
  */
 struct StatisticsSnapshot {
-  double sim_time = 0.0;
+  // Completed lap summary
   int lap_counter = 0;
-  bool lap_completed = false;
-  double current_lap_time = 0.0;
   double last_lap_time = 0.0;
+  int cones_hit = 0;
+  double total_lap_time = 0.0;
   double best_lap_time = 0.0;
-  double distance_traveled = 0.0;
-  double current_velocity = 0.0;
-  double average_velocity = 0.0;
-  double max_velocity = 0.0;
   double completed_lap_average_velocity = 0.0;
   double completed_lap_max_velocity = 0.0;
-  // Cone-hit information for the most recently completed lap.
-  int cones_hit = 0;            // number of cones hit
-  double penalties_time = 0.0;  // seconds added from cone hits
-  double total_lap_time = 0.0;  // last_lap_time + penalties_time
+  double completed_lap_average_tracking_error = 0.0;
+  double completed_lap_max_tracking_error = 0.0;
+  double completed_lap_average_velocity_error = 0.0;
+  double completed_lap_max_velocity_error = 0.0;
+
+  // Current lap
+  double current_lap_time = 0.0;
   int current_lap_cones_hit = 0;
-  std::vector<common_lib::structures::Cone> recently_hit_cones = {};
-  bool has_tracking_reference = false;
+
+  // Control statistics
+  double current_velocity = 0.0;
   double objective_velocity = 0.0;
   double tracking_cross_track_error = 0.0;
-  double tracking_velocity_error = 0.0;
+  double velocity_error = 0.0;
 };
 
 /**
