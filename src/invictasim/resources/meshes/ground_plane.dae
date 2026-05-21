@@ -39,16 +39,16 @@
               <color>0 0 0 1</color>
             </emission>
             <ambient>
-              <color>0.16 0.16 0.16 1</color>
+              <color>0.035 0.035 0.035 1</color>
             </ambient>
             <diffuse>
               <texture texture="ground_sampler" texcoord="UVMap"/>
             </diffuse>
             <specular>
-              <color>0.005 0.005 0.005 1</color>
+              <color>0 0 0 1</color>
             </specular>
             <shininess>
-              <float>1</float>
+              <float>0.75</float>
             </shininess>
           </phong>
         </technique>
@@ -88,7 +88,7 @@
         </source>
 
         <source id="ground_plane-map-0">
-          <float_array id="ground_plane-map-0-array" count="8">0 0 2500 0 2500 2500 0 2500</float_array>
+          <float_array id="ground_plane-map-0-array" count="8">0 0 420 0 420 420 0 420</float_array>
           <technique_common>
             <accessor source="#ground_plane-map-0-array" count="4" stride="2">
               <param name="S" type="float"/>
