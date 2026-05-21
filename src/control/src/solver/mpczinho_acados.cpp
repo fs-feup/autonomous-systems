@@ -1,96 +1,67 @@
-#include "solver/bombated_mpc_acados/bombated_mpc_acados.hpp"
+#include "solver/mpczinho_acados/mpczinho_acados.hpp"
 
 #include <cmath>
 #include <limits>
 
 constexpr int path_point_size = 4;
 
-AcadosSolver::AcadosSolver(const ControlParameters& params) : SolverInterface(params), _execution_times_(std::make_shared<std::vector<double>>(9, 0.0)) {
-    // 1. Create the capsule
-    this->capsule_ = bombated_mpc_acados_create_capsule();
+MPCzinhoAcadosSolver::MPCzinhoAcadosSolver(const ControlParameters& params) : SolverInterface(params), _execution_times_(std::make_shared<std::vector<double>>(9, 0.0)) {
+  // 1. Create the capsule
+  this->capsule_ = mpczinho_acados_create_capsule();
     
-    // 2. Allocate solver memory
-    int status = bombated_mpc_acados_create(this->capsule_);
-    if (status != 0) {
-        RCLCPP_ERROR(rclcpp::get_logger("AcadosSolver"), "Failed to create Acados solver 'bombated_mpc', status: %d", status);
-    }
+  // 2. Allocate solver memory
+  int status = mpczinho_acados_create(this->capsule_);
+  if (status != 0) {
+      RCLCPP_ERROR(rclcpp::get_logger("MPCzinhoAcadosSolver"), "Failed to create Acados solver 'mpczinho_acados', status: %d", status);
+  }
 
-    // 3. Cache internal pointers
-    nlp_config_ = bombated_mpc_acados_get_nlp_config(this->capsule_);
-    nlp_dims_ = bombated_mpc_acados_get_nlp_dims(this->capsule_);
-    nlp_in_ = bombated_mpc_acados_get_nlp_in(this->capsule_);
-    nlp_out_ = bombated_mpc_acados_get_nlp_out(this->capsule_);
+  // 3. Cache internal pointers
+  nlp_config_ = mpczinho_acados_get_nlp_config(this->capsule_);
+  nlp_dims_ = mpczinho_acados_get_nlp_dims(this->capsule_);
+  nlp_in_ = mpczinho_acados_get_nlp_in(this->capsule_);
+  nlp_out_ = mpczinho_acados_get_nlp_out(this->capsule_);
 
-    // 4. Initialize parameters per stage vector
-    int N = this->control_params_->mpc_prediction_horizon_steps_;
-    parameters_per_stage.resize((N+1)*4, 0.0); // Assuming 1 parameter
+  // 4. Initialize parameters per stage vector
+  int N = this->control_params_->mpc_prediction_horizon_steps_;
+  parameters_per_stage.resize((N+1)*4, 0.0); // Assuming 1 parameter
 }
 
-AcadosSolver::~AcadosSolver() {
-  bombated_mpc_acados_free(this->capsule_);
-  bombated_mpc_acados_free_capsule(this->capsule_);
+MPCzinhoAcadosSolver::~MPCzinhoAcadosSolver() {
+  mpczinho_acados_free(this->capsule_);
+  mpczinho_acados_free_capsule(this->capsule_);
 }
 
-void AcadosSolver::set_state(const custom_interfaces::msg::VehicleStateVector& state) {
+void MPCzinhoAcadosSolver::set_state(const custom_interfaces::msg::VehicleStateVector& state) {
   this->latest_state_ = state;
   this->has_state_ = true;
 
-  std::vector<double> scaled_state(13, 0.0);
+  std::vector<double> state_vector(4, 0.0);
 
-  scaled_state[0] = state.x;
-  scaled_state[1] = state.y;
-  scaled_state[2] = state.orientation;
-  scaled_state[3] = state.velocity_x;
-  scaled_state[4] = state.velocity_y;
-  scaled_state[5] = state.yaw_rate;
-  scaled_state[6] = state.acceleration_x;
-  scaled_state[7] = state.acceleration_y;
-  scaled_state[8] = state.steering_angle;
-  scaled_state[9] = state.fl_rpm;
-  scaled_state[10] = state.fr_rpm;
-  scaled_state[11] = state.rl_rpm;
-  scaled_state[12] = state.rr_rpm;
-
-  scaled_state[9] /= this->control_params_->wheel_speeds_scale_mpc_;
-  scaled_state[10] /= this->control_params_->wheel_speeds_scale_mpc_;
-  scaled_state[11] /= this->control_params_->wheel_speeds_scale_mpc_;
-  scaled_state[12] /= this->control_params_->wheel_speeds_scale_mpc_;
+  state_vector[0] = state.x;
+  state_vector[1] = state.y;
+  state_vector[2] = state.orientation;
+  state_vector[3] = state.steering_angle;
 
   // Set the initial state constraint (lbx and ubx) at stage 0
-  ocp_nlp_constraints_model_set(nlp_config_, nlp_dims_, nlp_in_, nlp_out_, 0, "lbx", (void*)scaled_state.data());
-  ocp_nlp_constraints_model_set(nlp_config_, nlp_dims_, nlp_in_, nlp_out_, 0, "ubx", (void*)scaled_state.data());
+  ocp_nlp_constraints_model_set(nlp_config_, nlp_dims_, nlp_in_, nlp_out_, 0, "lbx", (void*)state_vector.data());
+  ocp_nlp_constraints_model_set(nlp_config_, nlp_dims_, nlp_in_, nlp_out_, 0, "ubx", (void*)state_vector.data());
 }
 
-void AcadosSolver::initialize_solver_memory() {
+void MPCzinhoAcadosSolver::initialize_solver_memory() {
   int N = this->control_params_->mpc_prediction_horizon_steps_;
-  double u_zero[3] = {0.5, 0.5, 0.0}; // Baseline control guess
+  double u_zero[1] = {0.0}; // Baseline control guess
   double time_step = this->control_params_->mpc_prediction_horizon_seconds_ / static_cast<double>(N);
 
   double wheel_radius = 0.203;
   double wheelbase = 1.50;
 
   // Fill the state guess across the entire horizon (stages 0 to N)
-  double next_yaw = 0;
-  double next_v = 0;
-  double yaw_rate = 0;
-  double acceleration = 0;
   for (int i = 0; i <= N; ++i) {
     double x = this->parameters_per_stage[i*4];
     double y = this->parameters_per_stage[i*4 + 1];
-    double v = this->parameters_per_stage[i*4 + 2];
     double yaw = this->parameters_per_stage[i*4 + 3];
 
-    if (i != N) {
-      next_yaw = this->parameters_per_stage[(i+1)*4 + 3];
-      next_v = this->parameters_per_stage[(i+1)*4 + 2];
-      yaw_rate = (next_yaw - yaw) / time_step;
-      acceleration = (next_v - v) / time_step;
-    }
-
-    double steering = std::atan(wheelbase * yaw_rate / (v + 1e-6)); // Simple bicycle model for steering angle
-    
-    double wheel_speed_radians_scaled = (v / wheel_radius) / this->control_params_->wheel_speeds_scale_mpc_; // Convert linear velocity to angular velocity
-    double state_guess[13] = {x, y, yaw, v, 0.0, yaw_rate, acceleration, 0.0, steering, wheel_speed_radians_scaled, wheel_speed_radians_scaled , wheel_speed_radians_scaled, wheel_speed_radians_scaled}; // [x, y, theta, v, ...] with some initial guess for velocities and other states
+    double state_guess[4] = {x, y, yaw, 0.0}; // [x, y, theta, steering_angle] with some initial guess for velocities and other states
     ocp_nlp_out_set(nlp_config_, nlp_dims_, nlp_out_, nlp_in_, i, "x", (void*)state_guess);
   }
 
@@ -102,7 +73,7 @@ void AcadosSolver::initialize_solver_memory() {
   this->is_initialized_ = true;
 }
 
-void AcadosSolver::set_path_point_per_stage() {
+void MPCzinhoAcadosSolver::set_path_point_per_stage() {
   int N = this->control_params_->mpc_prediction_horizon_steps_;
   this->stage_parameters_debug = "Stage parameters debug:  \n";
   for (int i = 0; i <= N; ++i) {
@@ -112,16 +83,16 @@ void AcadosSolver::set_path_point_per_stage() {
     double path_point_orientation = this->parameters_per_stage[i*path_point_size + 3];
     this->stage_parameters_debug += "(" + std::to_string(path_point_x) + ", " + std::to_string(path_point_y) + ", " + std::to_string(path_point_v) + ", " + std::to_string(path_point_orientation) + ")\n";
     double point_for_stage[path_point_size] = {this->parameters_per_stage[i*path_point_size], this->parameters_per_stage[i*path_point_size + 1], this->parameters_per_stage[i*path_point_size + 2], this->parameters_per_stage[i*path_point_size + 3]};
-    bombated_mpc_acados_update_params(this->capsule_, i, point_for_stage, path_point_size);
+    mpczinho_acados_update_params(this->capsule_, i, point_for_stage, path_point_size);
   }
 }
 
-void AcadosSolver::update_mpc_stats() {
+void MPCzinhoAcadosSolver::update_mpc_stats() {
   // Create temporary variables to receive the raw values
   double t_tot, t_lin, t_sim, t_qp, t_reg;
   int sqp_iter;
   // Get the values from Acados (Times are in Seconds, Iterations is Int)
-  ocp_nlp_solver *nlp_solver = bombated_mpc_acados_get_nlp_solver(this->capsule_);
+  ocp_nlp_solver *nlp_solver = mpczinho_acados_get_nlp_solver(this->capsule_);
   ocp_nlp_get(nlp_solver, "time_tot", &t_tot);
   ocp_nlp_get(nlp_solver, "time_lin", &t_lin);
   ocp_nlp_get(nlp_solver, "time_sim", &t_sim);
@@ -154,9 +125,9 @@ void AcadosSolver::update_mpc_stats() {
   (*_execution_times_)[8] = average_regularization_time_;
 }
 
-void AcadosSolver::set_path(const custom_interfaces::msg::PathPointArray& path) {
+void MPCzinhoAcadosSolver::set_path(const custom_interfaces::msg::PathPointArray& path) {
   if (path.pathpoint_array.size() != static_cast<size_t>(this->control_params_->mpc_prediction_horizon_steps_ + 1)) {
-    RCLCPP_ERROR(rclcpp::get_logger("AcadosSolver"), "Received path with %zu points, but expected %d points based on MPC horizon. Ignoring path update.", path.pathpoint_array.size(), this->control_params_->mpc_prediction_horizon_steps_ + 1);
+    RCLCPP_ERROR(rclcpp::get_logger("MPCzinhoAcadosSolver"), "Received path with %zu points, but expected %d points based on MPC horizon. Ignoring path update.", path.pathpoint_array.size(), this->control_params_->mpc_prediction_horizon_steps_ + 1);
     return;
   }
 
@@ -171,7 +142,7 @@ void AcadosSolver::set_path(const custom_interfaces::msg::PathPointArray& path) 
   this->has_path_ = true;
 }
 
-common_lib::structures::ControlCommand AcadosSolver::solve(int* solver_status) {
+common_lib::structures::ControlCommand MPCzinhoAcadosSolver::solve(int* solver_status) {
   common_lib::structures::ControlCommand command;
   if (!(this->has_state_ && this->has_path_)) {
     return command;
@@ -197,9 +168,9 @@ common_lib::structures::ControlCommand AcadosSolver::solve(int* solver_status) {
     this->initialize_solver_memory();
   }
 
-  int status = bombated_mpc_acados_solve(this->capsule_);
+  int status = mpczinho_acados_solve(this->capsule_);
   if (status != ACADOS_SUCCESS) {
-    RCLCPP_ERROR(rclcpp::get_logger("AcadosSolver"), "Acados solver failed with status %d", status);
+    RCLCPP_ERROR(rclcpp::get_logger("MPCzinhoAcadosSolver"), "Acados solver failed with status %d", status);
     if (this->sanity_check_output()) {
       *solver_status = 1; // Positive to indicate benign failure (e.g. infeasibility)
     } else {
@@ -240,27 +211,25 @@ common_lib::structures::ControlCommand AcadosSolver::solve(int* solver_status) {
   return command;
 }
 
-std::vector<common_lib::structures::ControlCommand> AcadosSolver::get_full_solution() {
+std::vector<common_lib::structures::ControlCommand> MPCzinhoAcadosSolver::get_full_solution() {
   int N = nlp_dims_->N;
   std::vector<common_lib::structures::ControlCommand> full_u;
   full_u.reserve(N);
   
   for (int i = 0; i < N; ++i) {
-    double solved_controls[3]; 
+    double solved_controls[1]; 
     ocp_nlp_out_get(nlp_config_, nlp_dims_, nlp_out_, i, "u", (void*)solved_controls);
 
     common_lib::structures::ControlCommand cmd;
-    cmd.throttle_rl= solved_controls[0]; 
-    cmd.throttle_rr= solved_controls[1];
-    cmd.steering_angle = solved_controls[2];
+    cmd.steering_angle = solved_controls[0];
     full_u.push_back(cmd);
   }
   return full_u;
 }
 
-std::vector<custom_interfaces::msg::VehicleStateVector> AcadosSolver::get_full_horizon() {
+std::vector<custom_interfaces::msg::VehicleStateVector> MPCzinhoAcadosSolver::get_full_horizon() {
   int N = nlp_dims_->N;
-  constexpr int kStateSize = 13;
+  constexpr int kStateSize = 4;
   std::vector<custom_interfaces::msg::VehicleStateVector> full_horizon;
   full_horizon.reserve(N + 1);
   for (int i = 0; i <= N; ++i) {
@@ -270,22 +239,13 @@ std::vector<custom_interfaces::msg::VehicleStateVector> AcadosSolver::get_full_h
     state_vector.x = solved_state[0];
     state_vector.y = solved_state[1];
     state_vector.orientation = solved_state[2];
-    state_vector.velocity_x = solved_state[3];
-    state_vector.velocity_y = solved_state[4];
-    state_vector.yaw_rate = solved_state[5];
-    state_vector.acceleration_x = solved_state[6];
-    state_vector.acceleration_y = solved_state[7];
-    state_vector.steering_angle = solved_state[8];
-    state_vector.fl_rpm = solved_state[9];
-    state_vector.fr_rpm = solved_state[10];
-    state_vector.rl_rpm = solved_state[11];
-    state_vector.rr_rpm = solved_state[12];
+    state_vector.steering_angle = solved_state[3];
     full_horizon.emplace_back(state_vector);
   }
   return full_horizon;
 }
 
-void AcadosSolver::publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
+void MPCzinhoAcadosSolver::publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
   if (publisher_map.find("/acados/execution_times") == publisher_map.end()) {
     auto publisher = node->create_publisher<std_msgs::msg::Float64MultiArray>(
           "/acados/execution_times", 10);
@@ -298,12 +258,12 @@ void AcadosSolver::publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::
   publisher->publish(msg);
 }
 
-void AcadosSolver::print_debug_info() {
+void MPCzinhoAcadosSolver::print_debug_info() {
   std::cout << this->stage_parameters_debug << std::endl;
   std::cout << this->total_delay_debug << std::endl;
 }
 
-bool AcadosSolver::sanity_check_output() {
+bool MPCzinhoAcadosSolver::sanity_check_output() {
   // TODO: Implement actual checks
   return false;
 }

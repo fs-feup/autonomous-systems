@@ -21,7 +21,7 @@ void MPC::set_path_in_solver() {
   local_path_resampled_with_spline(this->latest_path_, this->solver_state_, this->local_pather_, this->params_->mpc_prediction_horizon_steps_, this->params_->mpc_prediction_horizon_seconds_, resampled_path);
 
   if (resampled_path.pathpoint_array.size() != this->params_->mpc_prediction_horizon_steps_ + 1) {
-    RCLCPP_ERROR(rclcpp::get_logger("mpc"), "Resampled path has less points than the MPC horizon. Resampled points: %zu, required: %u. This can lead to unexpected behavior.", resampled_path.pathpoint_array.size(), this->params_->mpc_prediction_horizon_steps_ + 1);
+    RCLCPP_ERROR(rclcpp::get_logger("bombated_mpc"), "Resampled path has less points than the MPC horizon. Resampled points: %zu, required: %u. This can lead to unexpected behavior.", resampled_path.pathpoint_array.size(), this->params_->mpc_prediction_horizon_steps_ + 1);
     return;
   }
   this->path_data = resampled_path;
@@ -30,7 +30,7 @@ void MPC::set_path_in_solver() {
 
 void MPC::path_callback(const custom_interfaces::msg::PathPointArray& new_msg) {
   if (new_msg.pathpoint_array.size() < MIN_PATH_SIZE) {
-    RCLCPP_ERROR(rclcpp::get_logger("mpc"), "Received path has less than %d points, will be discarded. Received %zu points.", MIN_PATH_SIZE, new_msg.pathpoint_array.size());
+    RCLCPP_ERROR(rclcpp::get_logger("bombated_mpc"), "Received path has less than %d points, will be discarded. Received %zu points.", MIN_PATH_SIZE, new_msg.pathpoint_array.size());
     return;
   }
 

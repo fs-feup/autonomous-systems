@@ -25,13 +25,13 @@ class MPC : public Controller {
 
   void print_debug_info();
   bool stopping_the_car(); // Checks if we're trying to fully stop the car
+  void set_path_in_solver();
 public:
   void path_callback(const custom_interfaces::msg::PathPointArray& msg) override;
   void vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& msg) override;
   void vehicle_pose_callback(const custom_interfaces::msg::Pose& msg) override;
   void publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) override;
   common_lib::structures::ControlCommand get_control_command() override;
-  void set_path_in_solver();
 
   MPC(const ControlParameters& params);
   virtual ~MPC() = default;
