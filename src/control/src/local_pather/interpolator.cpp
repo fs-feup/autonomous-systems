@@ -1,7 +1,7 @@
 #include "local_pather/interpolator.hpp"
 
 void Interpolator::create_local_path(custom_interfaces::msg::PathPointArray& path_msg, const custom_interfaces::msg::VehicleStateVector& vehicle_state) {
-  int path_points_local = 1;
+  unsigned int path_points_local = 1;
 
   if (path_msg.pathpoint_array.size() <= path_points_local) {
     custom_interfaces::msg::PathPoint p;
@@ -30,7 +30,7 @@ void Interpolator::create_local_path(custom_interfaces::msg::PathPointArray& pat
 
   
   std::vector<custom_interfaces::msg::PathPoint> interpolated_points;
-  for (int i = 0; i < path_points_local; ++i) {
+  for (unsigned int i = 0; i < path_points_local; ++i) {
     if (distance > 1e-6) {
       double ratio = i / static_cast<double>(path_points_local);
       custom_interfaces::msg::PathPoint new_point;

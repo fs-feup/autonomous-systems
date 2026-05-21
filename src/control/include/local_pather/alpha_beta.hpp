@@ -11,7 +11,7 @@ private:
 
   double error_distance(custom_interfaces::msg::PathPointArray& msg, const custom_interfaces::msg::VehicleStateVector& vehicle_state) const;
   double convergence_distance(double error_distance) const;
-  unsigned int number_of_points(custom_interfaces::msg::PathPointArray& msg, const custom_interfaces::msg::VehicleStateVector& vehicle_state, double convergence_distance) const;
+  unsigned int number_of_points(custom_interfaces::msg::PathPointArray& msg, double convergence_distance) const;
   double phoenician_factor(double number_of_points) const;
 public:
   /**

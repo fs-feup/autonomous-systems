@@ -2,18 +2,19 @@ cmake_minimum_required(VERSION 3.8)
 project(control)
 
 # ------------------------------------------------------------------------------
-# Compiler options
-# ------------------------------------------------------------------------------
+# Compiler options 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic -O3 -march=native -ffast-math)
 endif()
 
 # ------------------------------------------------------------------------------
 # Paths
-# ------------------------------------------------------------------------------
+
+# Acados install paths
 set(ACADOS_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../ext/acados)
 set(ACADOS_INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../build/acados-install)
-set(WORKSPACE_INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../install)
+set(ACADOS_LIB_DIR ${ACADOS_INSTALL_DIR}/lib)
+message(STATUS "Using acados from: ${ACADOS_INSTALL_DIR}")
 
 # REQUIRE acados-install: fail if not present (never use system acados)
 if(NOT EXISTS "${ACADOS_INSTALL_DIR}/lib")
@@ -22,41 +23,48 @@ if(NOT EXISTS "${ACADOS_INSTALL_DIR}/lib")
     "Please run: bash src/control/dependencies_install.sh")
 endif()
 
-set(ACADOS_DIR ${ACADOS_INSTALL_DIR})
-set(ACADOS_LIB_DIR ${ACADOS_DIR}/lib)
-message(STATUS "Using acados from: ${ACADOS_DIR}")
-set(ACADOS_GEN_DIR
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/solver/acados/c_generated_code
+# Workspace paths
+set(WORKSPACE_INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../install)
+
+# Bombated MPC paths
+set(ACADOS_BOMBATED_MPC_NAME "bombated_mpc" CACHE STRING "Name of the generated acados MPC")
+set(ACADOS_BOMBATED_MPC_GEN_DIR
+  ${CMAKE_BINARY_DIR}/control/${ACADOS_BOMBATED_MPC_NAME}/acados/c_generated_code
 )
 
 # ------------------------------------------------------------------------------
-# Generate ACADOS solver code - only runs if acados.py changes
+# Code generation - Bombated MPC with acados
+set(GENERATE_BOMBATED_MPC_ACADOS ON)
+message(STATUS "Will generate acados into build tree: ${ACADOS_BOMBATED_MPC_GEN_DIR}")
+
+set(BOMBATED_MPC_ACADOS_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/include/solver/bombated_mpc_acados/bombated_mpc_acados.py)
+
+if(GENERATE_BOMBATED_MPC_ACADOS)
+  file(MAKE_DIRECTORY ${ACADOS_BOMBATED_MPC_GEN_DIR})
+
+  add_custom_target(generate_bombated_mpc_acados_solver
+    COMMAND ${CMAKE_COMMAND} -E rm -rf ${ACADOS_BOMBATED_MPC_GEN_DIR}
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${ACADOS_BOMBATED_MPC_GEN_DIR}
+    COMMAND ${CMAKE_COMMAND} -E env
+      AMENT_PREFIX_PATH=${WORKSPACE_INSTALL_DIR}:$ENV{AMENT_PREFIX_PATH}
+      CMAKE_PREFIX_PATH=${WORKSPACE_INSTALL_DIR}:$ENV{CMAKE_PREFIX_PATH}
+      LD_LIBRARY_PATH=${ACADOS_LIB_DIR}:$ENV{LD_LIBRARY_PATH}
+      python3 ${BOMBATED_MPC_ACADOS_SCRIPT}
+      --out-dir ${CMAKE_BINARY_DIR}/control/${ACADOS_BOMBATED_MPC_NAME}/acados
+      --acados-dir ${ACADOS_INSTALL_DIR}
+      --acados-lib-dir ${ACADOS_LIB_DIR}
+    COMMAND /bin/sh -c "sed -i -e 's#^INCLUDE_PATH = .*#INCLUDE_PATH = ${ACADOS_INSTALL_DIR}/include#' -e 's#^LIB_PATH = .*#LIB_PATH = ${ACADOS_LIB_DIR}#' ${ACADOS_BOMBATED_MPC_GEN_DIR}/Makefile"
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../..
+    DEPENDS ${BOMBATED_MPC_ACADOS_SCRIPT}
+    COMMENT "Generating Bombated MPC Acados solver code..."
+  )
+else()
+  message(STATUS "Skipping generation; using existing generated files at ${ACADOS_BOMBATED_MPC_GEN_DIR}")
+endif()
+
+
 # ------------------------------------------------------------------------------
-set(ACADOS_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/include/solver/acados/acados.py)
-set(ACADOS_GENERATED_MARKER ${ACADOS_GEN_DIR}/.generated)
-
-file(MAKE_DIRECTORY ${ACADOS_GEN_DIR})
-
-add_custom_command(
-  OUTPUT ${ACADOS_GENERATED_MARKER}
-  COMMAND ${CMAKE_COMMAND} -E env
-    AMENT_PREFIX_PATH=${WORKSPACE_INSTALL_DIR}:$ENV{AMENT_PREFIX_PATH}
-    CMAKE_PREFIX_PATH=${WORKSPACE_INSTALL_DIR}:$ENV{CMAKE_PREFIX_PATH}
-    ACADOS_SOURCE_DIR=${ACADOS_DIR}
-    LD_LIBRARY_PATH=${ACADOS_LIB_DIR}:$ENV{LD_LIBRARY_PATH}
-    echo y | python3 ${ACADOS_SCRIPT}
-  COMMAND ${CMAKE_COMMAND} -E touch ${ACADOS_GENERATED_MARKER}
-  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../..
-  DEPENDS ${ACADOS_SCRIPT}
-  COMMENT "Generating ACADOS solver code (with ROS environment)..."
-)
-
-add_custom_target(generate_acados_solver DEPENDS ${ACADOS_GENERATED_MARKER})
-
-
-# ------------------------------------------------------------------------------
-# Sources
-# ------------------------------------------------------------------------------
+# Sources (cpp implementation files)
 set(IMPLEMENTATION_FILES
   src/ros_node/ros_node.cpp
   src/adapter/pacsim.cpp
@@ -68,14 +76,13 @@ set(IMPLEMENTATION_FILES
   src/longitudinal_controller/pid.cpp
   src/config/parameters.cpp
   src/controller/base_decoupled_controller.cpp
-  src/controller/mpc.cpp
-  src/solver/acados.cpp
+  src/controller/bombated_mpc.cpp
+  src/solver/bombated_mpc_acados.cpp
   src/utils/utils.cpp
 )
 
 # ------------------------------------------------------------------------------
 # Dependencies
-# ------------------------------------------------------------------------------
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
@@ -95,13 +102,18 @@ find_package(motion_lib REQUIRED)
 find_package(yaml-cpp REQUIRED)
 
 # ------------------------------------------------------------------------------
-# Imported acados libraries
-# ------------------------------------------------------------------------------
-add_library(acados_ocp_solver_mpc SHARED IMPORTED)
-set_target_properties(acados_ocp_solver_mpc PROPERTIES
-  IMPORTED_LOCATION ${ACADOS_GEN_DIR}/libacados_ocp_solver_mpc.so
+# Link against acados libraries (acados install and generated solver)
+
+# Generated solver - Bombated MPC
+set(ACADOS_BOMBATED_MPC_SOLVER_TARGET acados_ocp_solver_${ACADOS_BOMBATED_MPC_NAME})
+
+add_library(${ACADOS_BOMBATED_MPC_SOLVER_TARGET} SHARED IMPORTED)
+set_target_properties(${ACADOS_BOMBATED_MPC_SOLVER_TARGET} PROPERTIES
+  IMPORTED_LOCATION ${ACADOS_BOMBATED_MPC_GEN_DIR}/libacados_ocp_solver_${ACADOS_BOMBATED_MPC_NAME}.so
+  IMPORTED_NO_SONAME TRUE
 )
 
+# acados, hpipm, and blasfeo
 foreach(lib acados hpipm blasfeo)
   add_library(${lib} SHARED IMPORTED)
   set_target_properties(${lib} PROPERTIES
@@ -110,7 +122,7 @@ foreach(lib acados hpipm blasfeo)
 endforeach()
 
 set(ACADOS_LIBS
-  acados_ocp_solver_mpc
+  ${ACADOS_BOMBATED_MPC_SOLVER_TARGET}
   acados
   hpipm
   blasfeo
@@ -118,28 +130,28 @@ set(ACADOS_LIBS
 )
 
 # ------------------------------------------------------------------------------
-# Common include directories
-# ------------------------------------------------------------------------------
+# Set include directories
 set(CONTROL_INCLUDE_DIRS
   ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${CMAKE_CURRENT_SOURCE_DIR}/../common_lib/include
   ${CMAKE_CURRENT_SOURCE_DIR}/..
-  ${ACADOS_DIR}/include
+  ${ACADOS_INSTALL_DIR}/include
   ${ACADOS_SOURCE_DIR}/include
-  ${ACADOS_DIR}/include/blasfeo/include
+  ${ACADOS_INSTALL_DIR}/include/blasfeo/include
   ${ACADOS_SOURCE_DIR}/external/blasfeo/include
-  ${ACADOS_DIR}/include/hpipm/include
+  ${ACADOS_INSTALL_DIR}/include/hpipm/include
   ${ACADOS_SOURCE_DIR}/external/hpipm/include
-  ${ACADOS_SOURCE_DIR}/interfaces/acados_c
-  ${ACADOS_GEN_DIR}
+  ${ACADOS_SOURCE_DIR}/interfaces
+  ${ACADOS_BOMBATED_MPC_GEN_DIR}
 )
 
 # ------------------------------------------------------------------------------
 # Main executable
-# ------------------------------------------------------------------------------
 add_executable(node_control src/main.cpp ${IMPLEMENTATION_FILES})
 
-add_dependencies(node_control generate_acados_solver)
+if(GENERATE_BOMBATED_MPC_ACADOS)
+  add_dependencies(node_control generate_bombated_mpc_acados_solver)
+endif()
 
 target_include_directories(node_control PUBLIC
   ${CONTROL_INCLUDE_DIRS}
@@ -172,7 +184,7 @@ target_compile_features(node_control PUBLIC c_std_99 cxx_std_17)
 
 set_target_properties(node_control PROPERTIES
   BUILD_WITH_INSTALL_RPATH TRUE
-  INSTALL_RPATH "${ACADOS_LIB_DIR};${ACADOS_GEN_DIR}"
+  INSTALL_RPATH "${ACADOS_LIB_DIR};${ACADOS_BOMBATED_MPC_GEN_DIR}"
   INSTALL_RPATH_USE_LINK_PATH TRUE
 )
 
@@ -203,7 +215,7 @@ if(BUILD_TESTING)
     ${IMPLEMENTATION_FILES}
   )
 
-  add_dependencies(${PROJECT_NAME}_test generate_acados_solver)
+  add_dependencies(${PROJECT_NAME}_test generate_bombated_mpc_acados_solver)
 
   target_include_directories(${PROJECT_NAME}_test PUBLIC
     ${CONTROL_INCLUDE_DIRS}
@@ -235,7 +247,7 @@ if(BUILD_TESTING)
 
   set_target_properties(${PROJECT_NAME}_test PROPERTIES
     BUILD_WITH_INSTALL_RPATH TRUE
-    INSTALL_RPATH "${ACADOS_LIB_DIR};${ACADOS_GEN_DIR}"
+    INSTALL_RPATH "${ACADOS_LIB_DIR};${ACADOS_BOMBATED_MPC_GEN_DIR}"
     INSTALL_RPATH_USE_LINK_PATH TRUE
   )
 endif()

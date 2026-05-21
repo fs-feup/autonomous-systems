@@ -5,6 +5,7 @@
 #include "utils/utils.hpp"
 #include "gtest/gtest.h"
 #include <rclcpp/rclcpp.hpp>
+#include "std_msgs/msg/float64_multi_array.hpp"
 
 /**
  * @brief PI-D Controller class

@@ -86,7 +86,7 @@ def load_mpc_parameters():
 
 def export_mpc_model() -> AcadosModel:
     model = AcadosModel()
-    model.name = "mpc"
+    model.name = "bombated_mpc"
     model.p = SX.sym("p", 4)
 
     _, _, wheel_speed_scale = load_mpc_parameters()
@@ -342,8 +342,11 @@ def setup_cost_function(ocp: AcadosOcp):
     ocp.dims.ny_e = 4
 
 
-def create_ocp_solver(gen_base_dir="./build/acados"):
-    c_code_dir = os.path.abspath("./src/control/include/solver/acados/c_generated_code")
+def create_ocp_solver(gen_base_dir: str = "./build/acados", acados_dir: str | None = None, acados_lib_dir: str | None = None):
+    # gen_base_dir should point to a folder that will contain the generated
+    # acados artifacts. We place the C sources under <gen_base_dir>/c_generated_code
+    # and the json model at <gen_base_dir>/acados_ocp_mpc.json
+    c_code_dir = os.path.abspath(os.path.join(gen_base_dir, "c_generated_code"))
     json_path = os.path.abspath(os.path.join(gen_base_dir, "acados_ocp_mpc.json"))
 
     if os.path.exists(c_code_dir):
@@ -356,7 +359,10 @@ def create_ocp_solver(gen_base_dir="./build/acados"):
 
     prediction_horizon_seconds, prediction_horizon_steps, _ = load_mpc_parameters()
 
-    ocp = AcadosOcp()
+    if acados_dir is not None:
+        ocp = AcadosOcp(acados_path=acados_dir, acados_lib_path=acados_lib_dir)
+    else:
+        ocp = AcadosOcp()
     ocp.model = export_mpc_model()
     ocp.code_export_directory = c_code_dir
 
@@ -423,4 +429,16 @@ def create_ocp_solver(gen_base_dir="./build/acados"):
 
 
 if __name__ == "__main__":
-    create_ocp_solver()
+    # Allow specifying an output directory so multiple MPCs can coexist
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Generate acados C code for MPC")
+    parser.add_argument("--out-dir", dest="out_dir", default="./build/acados",
+                        help="Base output directory for generated files (contains c_generated_code/ and json)")
+    parser.add_argument("--acados-dir", dest="acados_dir", default=None,
+                        help="Path to acados install root (contains include/ and lib/)")
+    parser.add_argument("--acados-lib-dir", dest="acados_lib_dir", default=None,
+                        help="Path to acados libraries (defaults to <acados-dir>/lib)")
+    args = parser.parse_args()
+
+    create_ocp_solver(args.out_dir, args.acados_dir, args.acados_lib_dir)

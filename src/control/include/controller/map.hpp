@@ -5,7 +5,7 @@
 #include <string>
 
 #include "base_decoupled_controller.hpp"
-#include "mpc.hpp"
+#include "bombated_mpc.hpp"
 
 /*
  * Map of control solvers, with the key being the type of the solver and the value being a lambda
@@ -17,7 +17,7 @@ const std::map<std::string, std::function<std::shared_ptr<Controller>(const Cont
                     [](const ControlParameters& params) -> std::shared_ptr<Controller> {
                       return std::make_shared<DecoupledController>(params);
                     }},
-                    {"mpc",
+                    {"bombated_mpc",
                     [](const ControlParameters& params) -> std::shared_ptr<Controller> {
                       return std::make_shared<MPC>(params);
                     }}};

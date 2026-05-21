@@ -27,7 +27,7 @@ double AlphaBeta::convergence_distance(double error_distance) const {
   return 5.0 * std::log(error_distance + 1.0);
 }
 
-unsigned int AlphaBeta::number_of_points(custom_interfaces::msg::PathPointArray& msg, const custom_interfaces::msg::VehicleStateVector& vehicle_state, double convergence_distance) const {
+unsigned int AlphaBeta::number_of_points(custom_interfaces::msg::PathPointArray& msg, double convergence_distance) const {
   double distance_along_path = 0.0;
   unsigned int points = 1;
 
@@ -59,7 +59,7 @@ void AlphaBeta::create_local_path(custom_interfaces::msg::PathPointArray& path_m
 
   double error_dist = error_distance(path_msg, vehicle_state);
   double conv_dist = convergence_distance(error_dist);
-  unsigned int num_points = number_of_points(path_msg, vehicle_state, conv_dist);
+  unsigned int num_points = number_of_points(path_msg, conv_dist);
   
   unsigned int path_points_local = std::min((unsigned int)path_msg.pathpoint_array.size(), num_points);
   double factor = phoenician_factor(path_points_local);

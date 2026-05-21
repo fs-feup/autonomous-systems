@@ -1,7 +1,7 @@
 #pragma once
 
 #include "solver/solver.hpp"
-#include "c_generated_code/acados_solver_mpc.h"
+#include "acados_solver_bombated_mpc.h"
 #include "std_msgs/msg/float64_multi_array.hpp"
 
 class AcadosSolver : public SolverInterface {
@@ -31,8 +31,8 @@ private:
      */
     bool sanity_check_output();
 
-    // Acados solver components using the "mpc" prefix
-    mpc_solver_capsule* capsule_;
+    // Acados solver components using the "bombated_mpc" prefix
+    bombated_mpc_solver_capsule* capsule_;
     ocp_nlp_config* nlp_config_;
     ocp_nlp_dims* nlp_dims_;
     ocp_nlp_in* nlp_in_;

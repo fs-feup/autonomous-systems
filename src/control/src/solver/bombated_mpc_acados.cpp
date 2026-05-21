@@ -1,4 +1,4 @@
-#include "solver/acados/acados.hpp"
+#include "solver/bombated_mpc_acados/bombated_mpc_acados.hpp"
 
 #include <cmath>
 #include <limits>
@@ -7,19 +7,19 @@ constexpr int path_point_size = 4;
 
 AcadosSolver::AcadosSolver(const ControlParameters& params) : SolverInterface(params), _execution_times_(std::make_shared<std::vector<double>>(9, 0.0)) {
     // 1. Create the capsule
-    this->capsule_ = mpc_acados_create_capsule();
+    this->capsule_ = bombated_mpc_acados_create_capsule();
     
     // 2. Allocate solver memory
-    int status = mpc_acados_create(this->capsule_);
+    int status = bombated_mpc_acados_create(this->capsule_);
     if (status != 0) {
-        RCLCPP_ERROR(rclcpp::get_logger("AcadosSolver"), "Failed to create Acados solver 'mpc', status: %d", status);
+        RCLCPP_ERROR(rclcpp::get_logger("AcadosSolver"), "Failed to create Acados solver 'bombated_mpc', status: %d", status);
     }
 
     // 3. Cache internal pointers
-    nlp_config_ = mpc_acados_get_nlp_config(this->capsule_);
-    nlp_dims_ = mpc_acados_get_nlp_dims(this->capsule_);
-    nlp_in_ = mpc_acados_get_nlp_in(this->capsule_);
-    nlp_out_ = mpc_acados_get_nlp_out(this->capsule_);
+    nlp_config_ = bombated_mpc_acados_get_nlp_config(this->capsule_);
+    nlp_dims_ = bombated_mpc_acados_get_nlp_dims(this->capsule_);
+    nlp_in_ = bombated_mpc_acados_get_nlp_in(this->capsule_);
+    nlp_out_ = bombated_mpc_acados_get_nlp_out(this->capsule_);
 
     // 4. Initialize parameters per stage vector
     int N = this->control_params_->mpc_prediction_horizon_steps_;
@@ -27,8 +27,8 @@ AcadosSolver::AcadosSolver(const ControlParameters& params) : SolverInterface(pa
 }
 
 AcadosSolver::~AcadosSolver() {
-    mpc_acados_free(this->capsule_);
-    mpc_acados_free_capsule(this->capsule_);
+    bombated_mpc_acados_free(this->capsule_);
+    bombated_mpc_acados_free_capsule(this->capsule_);
 }
 
 void AcadosSolver::set_state(const std::vector<double>& x0) {
@@ -103,7 +103,7 @@ void AcadosSolver::set_path_point_per_stage() {
     double path_point_orientation = this->parameters_per_stage[i*path_point_size + 3];
     this->stage_parameters_debug += "(" + std::to_string(path_point_x) + ", " + std::to_string(path_point_y) + ", " + std::to_string(path_point_v) + ", " + std::to_string(path_point_orientation) + ")\n";
     double point_for_stage[path_point_size] = {this->parameters_per_stage[i*path_point_size], this->parameters_per_stage[i*path_point_size + 1], this->parameters_per_stage[i*path_point_size + 2], this->parameters_per_stage[i*path_point_size + 3]};
-    mpc_acados_update_params(this->capsule_, i, point_for_stage, path_point_size);
+    bombated_mpc_acados_update_params(this->capsule_, i, point_for_stage, path_point_size);
   }
 }
 
@@ -112,7 +112,7 @@ void AcadosSolver::update_mpc_stats() {
   double t_tot, t_lin, t_sim, t_qp, t_reg;
   int sqp_iter;
   // Get the values from Acados (Times are in Seconds, Iterations is Int)
-  ocp_nlp_solver *nlp_solver = mpc_acados_get_nlp_solver(this->capsule_);
+  ocp_nlp_solver *nlp_solver = bombated_mpc_acados_get_nlp_solver(this->capsule_);
   ocp_nlp_get(nlp_solver, "time_tot", &t_tot);
   ocp_nlp_get(nlp_solver, "time_lin", &t_lin);
   ocp_nlp_get(nlp_solver, "time_sim", &t_sim);
@@ -176,7 +176,7 @@ common_lib::structures::ControlCommand AcadosSolver::solve(int* solver_status) {
     this->initialize_solver_memory();
   }
 
-  int status = mpc_acados_solve(this->capsule_);
+  int status = bombated_mpc_acados_solve(this->capsule_);
   if (status != ACADOS_SUCCESS) {
     RCLCPP_ERROR(rclcpp::get_logger("AcadosSolver"), "Acados solver failed with status %d", status);
     if (this->sanity_check_output()) {

@@ -1,4 +1,4 @@
-#include "controller/mpc.hpp"
+#include "controller/bombated_mpc.hpp"
 #include "local_pather/spline.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include <chrono>
@@ -9,8 +9,8 @@
 #define MIN_PATH_SIZE 5 // number of points in the path horizon
 
 MPC::MPC(const ControlParameters& params) : Controller(params) {
-  RCLCPP_INFO(rclcpp::get_logger("mpc"), "Initializing MPC Controller");
-  this->solver_ = std::make_shared<AcadosSolver>(params);
+  RCLCPP_INFO(rclcpp::get_logger("bombated_mpc"), "Initializing Bombated MPC Controller");
+  this->solver_ = solver_map.at("bombated_mpc_acados")(params);
   this->local_pather_ = local_pather_map.at("interpolator")(params);
   this->path_data.resize((this->params_->mpc_prediction_horizon_steps_ + 1) * PATHPOINT_SIZE);
 }
@@ -72,11 +72,10 @@ void MPC::resample_path_with_spline(custom_interfaces::msg::PathPointArray& path
     double current_x = path_msg.pathpoint_array[0].x;
     double current_y = path_msg.pathpoint_array[0].y;
     double current_yaw = path_msg.pathpoint_array[0].orientation;
-    double yaw_acceleration = current_yaw_rate / time_to_stop;
 
     path_msg.pathpoint_array.clear();
 
-    for (int i = 0; i <= this->params_->mpc_prediction_horizon_steps_; ++i) {
+    for (unsigned int i = 0; i <= this->params_->mpc_prediction_horizon_steps_; ++i) {
       custom_interfaces::msg::PathPoint p;
       p.x = current_x;
       p.y = current_y;

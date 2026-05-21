@@ -1,7 +1,7 @@
 #pragma once
 
 #include "base_controller.hpp"
-#include "solver/acados/acados.hpp"
+#include "solver/map.hpp"
 #include "local_pather/map.hpp"
 
 class MPC : public Controller {
