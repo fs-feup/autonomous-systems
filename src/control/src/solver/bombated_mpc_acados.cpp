@@ -31,25 +31,34 @@ AcadosSolver::~AcadosSolver() {
     bombated_mpc_acados_free_capsule(this->capsule_);
 }
 
-void AcadosSolver::set_state(const std::vector<double>& x0) {
-    if (x0.size() != 13) {
-        RCLCPP_WARN(rclcpp::get_logger("AcadosSolver"), "State size mismatch: expected 13, got %zu", x0.size());
-        return;
-    }
+void AcadosSolver::set_state(const custom_interfaces::msg::VehicleStateVector& state) {
+  this->latest_state_ = state;
+  this->has_state_ = true;
 
-    this->latest_state_ = x0;
-    this->has_state_ = true;
+  std::vector<double> scaled_state(13, 0.0);
 
-    std::vector<double> scaled_state = x0;
+  scaled_state[0] = state.x;
+  scaled_state[1] = state.y;
+  scaled_state[2] = state.orientation;
+  scaled_state[3] = state.velocity_x;
+  scaled_state[4] = state.velocity_y;
+  scaled_state[5] = state.yaw_rate;
+  scaled_state[6] = state.acceleration_x;
+  scaled_state[7] = state.acceleration_y;
+  scaled_state[8] = state.steering_angle;
+  scaled_state[9] = state.fl_rpm;
+  scaled_state[10] = state.fr_rpm;
+  scaled_state[11] = state.rl_rpm;
+  scaled_state[12] = state.rr_rpm;
 
-    scaled_state[9] /= this->control_params_->wheel_speeds_scale_mpc_;
-    scaled_state[10] /= this->control_params_->wheel_speeds_scale_mpc_;
-    scaled_state[11] /= this->control_params_->wheel_speeds_scale_mpc_;
-    scaled_state[12] /= this->control_params_->wheel_speeds_scale_mpc_;
+  scaled_state[9] /= this->control_params_->wheel_speeds_scale_mpc_;
+  scaled_state[10] /= this->control_params_->wheel_speeds_scale_mpc_;
+  scaled_state[11] /= this->control_params_->wheel_speeds_scale_mpc_;
+  scaled_state[12] /= this->control_params_->wheel_speeds_scale_mpc_;
 
-    // Set the initial state constraint (lbx and ubx) at stage 0
-    ocp_nlp_constraints_model_set(nlp_config_, nlp_dims_, nlp_in_, nlp_out_, 0, "lbx", (void*)scaled_state.data());
-    ocp_nlp_constraints_model_set(nlp_config_, nlp_dims_, nlp_in_, nlp_out_, 0, "ubx", (void*)scaled_state.data());
+  // Set the initial state constraint (lbx and ubx) at stage 0
+  ocp_nlp_constraints_model_set(nlp_config_, nlp_dims_, nlp_in_, nlp_out_, 0, "lbx", (void*)scaled_state.data());
+  ocp_nlp_constraints_model_set(nlp_config_, nlp_dims_, nlp_in_, nlp_out_, 0, "ubx", (void*)scaled_state.data());
 }
 
 void AcadosSolver::initialize_solver_memory() {
@@ -145,8 +154,20 @@ void AcadosSolver::update_mpc_stats() {
   (*_execution_times_)[8] = average_regularization_time_;
 }
 
-void AcadosSolver::set_path(const std::vector<double>& x_path) {
-  this->parameters_per_stage= x_path;
+void AcadosSolver::set_path(const custom_interfaces::msg::PathPointArray& path) {
+  if (path.pathpoint_array.size() != static_cast<size_t>(this->control_params_->mpc_prediction_horizon_steps_ + 1)) {
+    RCLCPP_ERROR(rclcpp::get_logger("AcadosSolver"), "Received path with %zu points, but expected %d points based on MPC horizon. Ignoring path update.", path.pathpoint_array.size(), this->control_params_->mpc_prediction_horizon_steps_ + 1);
+    return;
+  }
+
+  for (size_t i = 0; i < path.pathpoint_array.size(); ++i) {
+    const auto& point = path.pathpoint_array[i];
+    this->parameters_per_stage[i*path_point_size] = point.x;
+    this->parameters_per_stage[i*path_point_size + 1] = point.y;
+    this->parameters_per_stage[i*path_point_size + 2] = point.v;
+    this->parameters_per_stage[i*path_point_size + 3] = point.orientation;
+  }
+
   this->has_path_ = true;
 }
 
@@ -162,13 +183,13 @@ common_lib::structures::ControlCommand AcadosSolver::solve(int* solver_status) {
   double first_y = this->parameters_per_stage[1];
   double first_v = this->parameters_per_stage[2];
   double first_orientation = this->parameters_per_stage[3];
-  first_x -= this->latest_state_[0];
-  first_y -= this->latest_state_[1];
-  first_orientation -= this->latest_state_[2];
-  first_v -= this->latest_state_[3];
+  first_x -= this->latest_state_.x;
+  first_y -= this->latest_state_.y;
+  first_orientation -= this->latest_state_.orientation;
+  first_v -= this->latest_state_.velocity_x;
   //DEBUG PRINT
   if (std::fabs(first_x) > 0.01 || std::fabs(first_y) > 0.01 || std::fabs(first_v) > 0.01 || std::fabs(first_orientation) > 0.01) {
-    RCLCPP_ERROR(rclcpp::get_logger("AcadosSolver"), "ERROR: first point doens't match state x:%.2f, y:%.2f, v:%.2f, orientation:%.2f", this->latest_state_[0], this->latest_state_[1], this->latest_state_[2], this->latest_state_[3]);
+    RCLCPP_ERROR(rclcpp::get_logger("AcadosSolver"), "ERROR: first point doens't match state x:%.2f, y:%.2f, v:%.2f, orientation:%.2f", this->latest_state_.x, this->latest_state_.y, this->latest_state_.velocity_x, this->latest_state_.orientation);
   }
 
 

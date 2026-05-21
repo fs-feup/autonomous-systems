@@ -3,14 +3,16 @@
 #include "solver/solver.hpp"
 #include "acados_solver_bombated_mpc.h"
 #include "std_msgs/msg/float64_multi_array.hpp"
+#include "custom_interfaces/msg/vehicle_state_vector.hpp"
+#include "custom_interfaces/msg/path_point_array.hpp"
 
 class AcadosSolver : public SolverInterface {
 public:
     AcadosSolver(const ControlParameters& params);
     ~AcadosSolver();
 
-    void set_state(const std::vector<double>& x0) override;
-    void set_path(const std::vector<double>& x_path) override;
+    void set_state(const custom_interfaces::msg::VehicleStateVector& state) override;
+    void set_path(const custom_interfaces::msg::PathPointArray& path) override;
     common_lib::structures::ControlCommand solve(int* solver_status = nullptr) override; 
     
     std::vector<common_lib::structures::ControlCommand> get_full_solution() override;
@@ -48,7 +50,7 @@ private:
     unsigned int regularization_count_ = 0;
     unsigned int total_sqp_iterations_ = 0;
 
-    std::vector<double> latest_state_;
+    custom_interfaces::msg::VehicleStateVector latest_state_;
     bool has_state_ = false;
     bool has_path_ = false;
     bool is_initialized_ = false;

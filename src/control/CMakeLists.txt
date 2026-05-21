@@ -79,6 +79,7 @@ set(IMPLEMENTATION_FILES
   src/controller/bombated_mpc.cpp
   src/solver/bombated_mpc_acados.cpp
   src/utils/utils.cpp
+  src/utils/path_stager.cpp
 )
 
 # ------------------------------------------------------------------------------

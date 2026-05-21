@@ -6,6 +6,7 @@
 #include "config/parameters.hpp"
 #include "common_lib/structures/control_command.hpp"
 #include "custom_interfaces/msg/vehicle_state_vector.hpp"
+#include "custom_interfaces/msg/path_point_array.hpp"
 
 class SolverInterface {
 protected:
@@ -21,7 +22,7 @@ public:
      * 
      * @param x0 Current state vector
      */
-    virtual void set_state(const std::vector<double>& x0) = 0;
+    virtual void set_state(const custom_interfaces::msg::VehicleStateVector& state) = 0;
 
 
     /**
@@ -29,7 +30,7 @@ public:
      * 
      * @param x0 Current state vector
      */
-    virtual void set_path(const std::vector<double>& x0) = 0;
+    virtual void set_path(const custom_interfaces::msg::PathPointArray& path) = 0;
 
     /**
      * @brief Solve the optimization problem
