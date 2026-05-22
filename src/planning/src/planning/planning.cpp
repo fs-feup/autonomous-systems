@@ -67,6 +67,7 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.smoothing_safety_margin_ = planning_config["smoothing_safety_margin"].as<double>();
   params.smoothing_curvature_weight_ = planning_config["smoothing_curvature_weight"].as<double>();
   params.smoothing_safety_weight_ = planning_config["smoothing_safety_weight"].as<double>();
+  params.smoothing_proximity_weight_ = planning_config["smoothing_proximity_weight"].as<double>();
   params.smoothing_max_iterations_ = planning_config["smoothing_max_iterations"].as<int>();
   params.smoothing_tolerance_ = planning_config["smoothing_tolerance"].as<double>();
 
@@ -89,11 +90,7 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.planning_braking_distance_autocross_ =
       planning_config["planning_braking_distance_autocross"].as<double>();
 
-  if (adapter == "eufs") {
-    params.map_frame_id_ = "base_footprint";
-  } else {
-    params.map_frame_id_ = "map";
-  }
+  params.map_frame_id_ = "map";
 
   return params;
 }
@@ -273,10 +270,10 @@ void Planning::run_full_map() {
   is_path_final_ = true;
   full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
 
-  const std::vector<PathPoint> yellow_cones = path_calculation_.get_yellow_cones();
-  const std::vector<PathPoint> blue_cones = path_calculation_.get_blue_cones();
+  std::vector<PathPoint> yellow_cones = path_calculation_.get_yellow_cones();
+  std::vector<PathPoint> blue_cones = path_calculation_.get_blue_cones();
 
-  smoothed_path_ = path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones);
+  smoothed_path_ = path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones, true, true);
   velocity_planning_.trackdrive_velocity(smoothed_path_);
   compute_path_orientation(smoothed_path_);
 
@@ -319,9 +316,9 @@ void Planning::run_full_map() {
                  static_cast<int>(smoothed_path_.size()));
 
     RCLCPP_DEBUG(get_logger(),
-                 "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
-                 "| Max: %.2f m/s",
-                 lap_time, total_length, avg_vel, min_vel, max_vel);
+                "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
+                "| Max: %.2f m/s",
+                lap_time, total_length, avg_vel, min_vel, max_vel);
   }
 }
 
@@ -340,9 +337,20 @@ void Planning::run_autocross() {
     return;
   }
   if (lap_counter_ == 0) {
+    last_full_path_ = full_path_;
+    last_is_path_closed_ = is_path_closed_;
+
     full_path_ = path_calculation_.calculate_path(cone_array_);
     is_path_closed_ = path_calculation_.is_map_closed(full_path_);
-    smoothed_path_ = path_smoothing_.smooth_path(full_path_, is_path_closed_);
+
+    if (last_full_path_.size() == full_path_.size() && last_is_path_closed_ == is_path_closed_) {
+      return;
+    }
+
+    std::vector<PathPoint> yellow_cones = path_calculation_.get_yellow_cones();
+    std::vector<PathPoint> blue_cones = path_calculation_.get_blue_cones();
+    smoothed_path_ =
+        path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones, is_path_closed_, false);
 
     if (is_path_closed_) {
       velocity_planning_.trackdrive_velocity(smoothed_path_);
@@ -367,16 +375,26 @@ void Planning::run_trackdrive() {
     return;
   }
   if (lap_counter_ == 0) {
+    last_full_path_ = full_path_;
+    last_is_path_closed_ = is_path_closed_;
+
     full_path_ = path_calculation_.calculate_path(cone_array_);
     is_path_closed_ = path_calculation_.is_map_closed(full_path_);
-    smoothed_path_ = path_smoothing_.smooth_path(full_path_, is_path_closed_);
+
+    if (last_full_path_ == full_path_ && last_is_path_closed_ == is_path_closed_) {
+      return;
+    }
+
+    std::vector<PathPoint> yellow_cones = path_calculation_.get_yellow_cones();
+    std::vector<PathPoint> blue_cones = path_calculation_.get_blue_cones();
+    smoothed_path_ =
+        path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones, is_path_closed_,false);
 
     if (is_path_closed_) {
       velocity_planning_.trackdrive_velocity(smoothed_path_);
     } else {
       velocity_planning_.set_velocity(smoothed_path_);
     }
-
   } else if (lap_counter_ >= 1 && lap_counter_ < 10) {
     if (!is_path_final_) {
       run_full_map();

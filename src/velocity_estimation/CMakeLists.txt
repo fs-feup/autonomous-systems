@@ -13,9 +13,7 @@ set(PACKAGES
     std_msgs
     sensor_msgs
     custom_interfaces
-    eufs_msgs
     std_srvs
-    fs_msgs
     pacsim
     geometry_msgs
     common_lib
@@ -41,6 +39,7 @@ set(IMPLEMENTATION_FILES
   src/node/node.cpp
   src/adapters/pacsim_adapter.cpp
   src/adapters/vehicle_adapter.cpp
+  src/adapters/invictasim_adapter.cpp
   src/estimators/ekf.cpp
   src/estimators/no_rear_wss_ekf.cpp
   src/config/parameters.cpp

@@ -120,7 +120,7 @@ common_lib::structures::ControlCommand PID::get_throttle_command()  {
   if (this->received_first_path_ && this->received_first_state_ && this->received_first_pose_) {
     Position vehicle_cog = Position(this->last_pose_msg_.x, this->last_pose_msg_.y);
     Position rear_axis = ::rear_axis_position(vehicle_cog, this->last_pose_msg_.theta,
-        this->params_->car_parameters_.dist_cg_2_rear_axis);
+        this->params_->car_parameters_.cg_2_rear_axis);
 
     auto [closest_point, closest_point_id, closest_point_velocity] =
         ::get_closest_point(this->last_path_msg_, rear_axis);

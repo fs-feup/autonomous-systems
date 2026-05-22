@@ -4,8 +4,6 @@
 
 #include <fstream>
 
-#include "adapter_ekf_state_est/eufs.hpp"
-#include "adapter_ekf_state_est/fsds.hpp"
 #include "adapter_ekf_state_est/map.hpp"
 #include "common_lib/communication/marker.hpp"
 #include "common_lib/config_load/config_load.hpp"
@@ -15,8 +13,8 @@
 #include "common_lib/structures/position.hpp"
 #include "geometry_msgs/msg/pose_with_covariance.hpp"
 #include "rclcpp/rclcpp.hpp"
-#include "visualization_msgs/msg/marker.hpp"
 #include "utils/utils.hpp"
+#include "visualization_msgs/msg/marker.hpp"
 /*---------------------- Constructor --------------------*/
 
 double last_wss = 0.0;
@@ -211,8 +209,8 @@ void SENode::_wheel_speeds_subscription_callback(double rl_speed, double rr_spee
   RCLCPP_INFO(this->get_logger(), "Rear Left: %f\n Rear Right: %f", rl_speed, rr_speed);
   rclcpp::Time start_time = this->get_clock()->now();
 
-  auto [linear_velocity, angular_velocity] =
-      wheels_velocities_to_cg(this->_car_parameters_, rl_speed, fl_speed, rr_speed, fr_speed, steering_angle);
+  auto [linear_velocity, angular_velocity] = wheels_velocities_to_cg(
+      this->_car_parameters_, rl_speed, fl_speed, rr_speed, fr_speed, steering_angle);
 
   RCLCPP_INFO(this->get_logger(), "Linear Velocity: %f\nAngular Velocity: %f", linear_velocity,
               angular_velocity);
@@ -392,7 +390,7 @@ void SENode::_publish_map() {
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
   cone_array_msg.header.stamp = this->get_clock()->now();
   marker_array_msg = common_lib::communication::marker_array_from_structure_array(
-      *this->_track_map_, "map_cones", _adapter_name_ == "eufs" ? "base_footprint" : "map");
+      *this->_track_map_, "map_cones", "map");
   this->_map_publisher_->publish(cone_array_msg);
   this->_visualization_map_publisher_->publish(marker_array_msg);
 }

@@ -28,6 +28,11 @@ protected:
     std::string adapter;
     PlanningParameters params = Planning::load_config(adapter);
 
+    // Need to set there parameters direcly
+    params.planning_using_full_map_ = false;
+    params.smoothing_use_optimization_ = false;
+    params.smoothing_use_path_smoothing_ = true;
+
     planning_test_ = std::make_shared<VehicleAdapter>(params);
     planning_test_->set_mission(Mission::TRACKDRIVE);
 

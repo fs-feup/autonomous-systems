@@ -9,8 +9,6 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
-find_package(fs_msgs REQUIRED)
-find_package(eufs_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
@@ -74,7 +72,7 @@ install(TARGETS perception
 
 install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
 
-ament_target_dependencies(perception rclcpp visualization_msgs common_lib custom_interfaces sensor_msgs fs_msgs message_filters eufs_msgs std_srvs)
+ament_target_dependencies(perception rclcpp visualization_msgs common_lib custom_interfaces sensor_msgs message_filters std_srvs)
 
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
@@ -95,8 +93,6 @@ if(BUILD_TESTING)
       visualization_msgs
       common_lib
       custom_interfaces
-      fs_msgs
-      eufs_msgs
       message_filters
       tf2
       tf2_ros

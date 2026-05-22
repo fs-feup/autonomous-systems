@@ -90,9 +90,11 @@ std::string ControlParameters::load_config() {
   this->lateral_controller_ = control_config["lateral_controller"].as<std::string>();
   this->longitudinal_controller_ = control_config["longitudinal_controller"].as<std::string>();
   this->pure_pursuit_lookahead_gain_ = control_config["pure_pursuit_lookahead_gain"].as<double>();
-  this->pure_pursuit_lookahead_minimum_ = control_config["pure_pursuit_lookahead_minimum"].as<double>();
+  this->pure_pursuit_lookahead_minimum_ =
+      control_config["pure_pursuit_lookahead_minimum"].as<double>();
   this->pure_pursuit_lpf_alpha_ = control_config["pure_pursuit_lpf_alpha"].as<double>();
-  this->pure_pursuit_lpf_initial_value_ = control_config["pure_pursuit_lpf_initial_value"].as<double>();
+  this->pure_pursuit_lpf_initial_value_ =
+      control_config["pure_pursuit_lpf_initial_value"].as<double>();
   this->first_last_max_dist_ = control_config["first_last_max_dist"].as<double>();
   this->pid_kp_ = control_config["pid_kp"].as<double>();
   this->pid_ki_ = control_config["pid_ki"].as<double>();
@@ -107,8 +109,11 @@ std::string ControlParameters::load_config() {
   this->mpc_prediction_horizon_seconds_ = control_config["mpc_prediction_horizon_seconds"].as<double>();
   this->mpc_prediction_horizon_steps_ = control_config["mpc_prediction_horizon_steps"].as<unsigned int>();
   this->wheel_speeds_scale_mpc_ = control_config["wheel_speeds_scale_mpc"].as<double>();
-  this->map_frame_id_ = adapter == "eufs" ? "base_footprint" : "map";
+  this->map_frame_id_ = "map";
   this->command_time_interval_ = control_config["command_time_interval"].as<int>();
+  this->car_parameters_ = common_lib::car_parameters::CarParameters();
+  this->car_parameters_.steering_parameters =
+      std::make_shared<common_lib::car_parameters::SteeringParameters>("02_steering");
 
   return adapter;
 }

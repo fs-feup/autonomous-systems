@@ -104,10 +104,10 @@ endif()
 set(IMPLEMENTATION_FILES
   src/ros_node/ros_node.cpp
   src/adapter/pacsim.cpp
-  src/adapter/eufs.cpp
   src/adapter/vehicle.cpp
   src/local_pather/interpolator.cpp
   src/local_pather/alpha_beta.cpp
+  src/adapter/invictasim.cpp
   src/lateral_controller/pure_pursuit.cpp
   src/lateral_controller/mpczinho.cpp
   src/longitudinal_controller/pid.cpp
@@ -127,14 +127,12 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
-find_package(fs_msgs REQUIRED)
 find_package(message_filters REQUIRED)
 find_package(pacsim REQUIRED)
 find_package(ackermann_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
-find_package(eufs_msgs REQUIRED)
 find_package(common_lib REQUIRED)
 find_package(visualization_msgs REQUIRED)
 find_package(motion_lib REQUIRED)
@@ -215,15 +213,13 @@ ament_target_dependencies(node_control
   rclcpp
   std_msgs
   sensor_msgs
-  custom_interfaces
-  fs_msgs
+  custom_interfaces  
   message_filters
   pacsim
   ackermann_msgs
   std_srvs
   tf2_ros
   tf2_geometry_msgs
-  eufs_msgs
   common_lib
   visualization_msgs
   motion_lib
@@ -279,8 +275,7 @@ if(BUILD_TESTING)
   ament_target_dependencies(${PROJECT_NAME}_test
     rclcpp
     std_msgs
-    sensor_msgs
-    fs_msgs
+    sensor_msgs    
     custom_interfaces
     message_filters
     pacsim
@@ -288,7 +283,6 @@ if(BUILD_TESTING)
     std_srvs
     tf2_ros
     tf2_geometry_msgs
-    eufs_msgs
     common_lib
     visualization_msgs
     motion_lib
