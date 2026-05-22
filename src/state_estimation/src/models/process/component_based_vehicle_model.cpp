@@ -88,7 +88,7 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
   for (Tire tire : {FL, FR, RL, RR}) {
     // Update wheel speeds using the calculated torques and tire forces
     state(FL_WHEEL_SPEED + tire) +=
-        (torques(tire) - tire_forces(tire * 4) * wheel_radius / inertia) *
+        ((torques(tire) - tire_forces(tire * 4) * wheel_radius) / inertia) *
         dt;  // No braking torque and no rolling resistance
 
     // Current tire forces in tire-local frame

@@ -140,7 +140,7 @@ Eigen::Matrix<double, StateSize, 1> RK4VehicleModel::get_state_derivative(
 
   // Acceleration derivatives
   state_derivative_(AX) = state_derivative_(VX) - state(AX);
-  state_derivative_(AY) = state_derivative_(VY) + state(AY);
+  state_derivative_(AY) = state_derivative_(VY) - state(AY);
 
   // Yaw rate derivative
   state_derivative_(YAW_RATE) = total_torque / Izz_;
@@ -148,7 +148,7 @@ Eigen::Matrix<double, StateSize, 1> RK4VehicleModel::get_state_derivative(
   // Wheel speed derivatives
   for (Tire tire : {FL, FR, RL, RR}) {
     state_derivative_(FL_WHEEL_SPEED + tire) =
-        (torques_cache_(tire) - tire_forces_cache_(tire * 4) * wheel_radius_ / inertia_);
+        (torques_cache_(tire) - tire_forces_cache_(tire * 4) * wheel_radius_) / inertia_;
   }
 
   return state_derivative_;

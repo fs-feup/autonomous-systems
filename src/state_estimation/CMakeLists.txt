@@ -14,8 +14,6 @@ set(PACKAGES
     sensor_msgs
     custom_interfaces
     std_srvs
-    fs_msgs
-    eufs_msgs
     pacsim
     geometry_msgs
     common_lib
