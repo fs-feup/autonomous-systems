@@ -3,11 +3,6 @@
 #include <tf2/LinearMath/Matrix3x3.h>
 #include <tf2/LinearMath/Quaternion.h>
 
-#include <geometry_msgs/msg/twist_with_covariance_stamped.hpp>
-#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
-
-#include "custom_interfaces/msg/vehicle_state.hpp"
-#include "geometry_msgs/msg/transform_stamped.hpp"
 #include "pacsim/msg/stamped_scalar.hpp"
 #include "planning/planning.hpp"
 #include "sensor_msgs/msg/joint_state.hpp"

@@ -10,7 +10,7 @@
 struct ControlParameters {
   common_lib::car_parameters::CarParameters car_parameters_; // car parameters
 
-  std::string control_solver_; // control solver to be used, options: "decoupled"
+  std::string controller_; // control solver to be used, options: "decoupled"
   std::string lateral_controller_; // lateral controller to be used, options: "pure_pursuit"
   std::string longitudinal_controller_; // longitudinal controller to be used, options: "pid"
   bool using_simulated_slam_;  // true: use simulated slam, false: use real slam (must run the slam node)
@@ -31,6 +31,9 @@ struct ControlParameters {
   double pid_anti_windup_; // anti-windup parameter for PID controller, gain of integrator impact when saturated 
   double pid_max_positive_error_; // maximum positive error for PID controller (restricts acceleration)
   double pid_max_negative_error_; // maximum negative error for PID controller (restricts braking)
+  double mpc_prediction_horizon_seconds_; // prediction horizon in seconds for MPC controller
+  unsigned int mpc_prediction_horizon_steps_; // prediction horizon in steps for MPC controller
+  double wheel_speeds_scale_mpc_; // scale factor for wheel speeds (used to improve numerical stability of the solver, can be tuned)
   std::string map_frame_id_; // frame id to publish visualization markers (can be "map", ...), for example closest point and lookahead point
   uint command_time_interval_; // time interval (in ms) between command publications
 
