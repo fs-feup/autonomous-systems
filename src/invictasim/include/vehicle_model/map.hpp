@@ -5,6 +5,7 @@
 #include <string>
 
 #include "FSFEUP02.hpp"
+#include "FSFEUP03.hpp"
 #include "vehicle_model.hpp"
 
 /*
@@ -15,8 +16,12 @@ const std::map<std::string,
                std::function<std::shared_ptr<VehicleModel>(const InvictaSimParameters&)>,
                std::less<>>
     vehicle_models_map = {
-        {"FSFEUP02",
+        {"02",
          [](const InvictaSimParameters& params) -> std::shared_ptr<VehicleModel> {
            return std::make_shared<FSFEUP02Model>(params);
+         }},
+        {"03",
+         [](const InvictaSimParameters& params) -> std::shared_ptr<VehicleModel> {
+           return std::make_shared<FSFEUP03Model>(params);
          }},
 };

@@ -1,0 +1,8 @@
+positions:
+  steering_offset_x: 0.65
+  steering_offset_y: 0.0
+  steering_offset_z: 0.50
+  steering_rotation_x: 0.0
+  steering_rotation_y: 15.0
+  steering_rotation_z: 0.0
+  

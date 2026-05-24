@@ -166,10 +166,14 @@ private:
   visualization_msgs::msg::MarkerArray convert_cone_array_to_markers(
       const std::vector<common_lib::structures::Cone>& cone_array, const rclcpp::Time& stamp,
       const std::string& frame_id = "map") const;
+  std::string get_car_mesh_resource(const std::string& mesh_name) const;
+  std::vector<double> load_car_mesh_positions() const;
   void add_start_line_markers(visualization_msgs::msg::MarkerArray& marker_array,
                               const rclcpp::Time& stamp) const;
   void add_body_marker(visualization_msgs::msg::MarkerArray& marker_array,
                        const rclcpp::Time& stamp) const;
+  void add_steering_marker(visualization_msgs::msg::MarkerArray& marker_array,
+                           const rclcpp::Time& stamp) const;
   void add_wheel_markers(visualization_msgs::msg::MarkerArray& marker_array,
                          const rclcpp::Time& stamp, double dt);
   void add_vehicle_transform(const rclcpp::Time& stamp);

@@ -36,6 +36,7 @@ set(IMPLEMENTATION_FILES
   src/io/input/keyboard.cpp
   src/config/config.cpp
   src/vehicle_model/FSFEUP02.cpp
+  src/vehicle_model/FSFEUP03.cpp
   src/track/track.cpp
   src/statistics/statistics.cpp
 )

@@ -615,6 +615,7 @@ void RosOutputAdapter::publish_visualization_car(const rclcpp::Time& stamp) {
 
   add_vehicle_transform(stamp);
   add_body_marker(vehicle_marker_array, stamp);
+  add_steering_marker(vehicle_marker_array, stamp);
   add_wheel_markers(vehicle_marker_array, stamp, dt);
 
   visualization_vehicle_pub_->publish(vehicle_marker_array);
@@ -643,7 +644,7 @@ void RosOutputAdapter::publish_visualization_ground(const rclcpp::Time& stamp) {
   ground.color.r = 0.78f;
   ground.color.g = 0.78f;
   ground.color.b = 0.78f;
-  ground.mesh_resource = "package://invictasim/resources/meshes/ground_plane.dae";
+  ground.mesh_resource = "package://invictasim/resources/meshes/ground/ground_plane.dae";
   ground.mesh_use_embedded_materials = true;
   ground_marker_array.markers.push_back(ground);
   add_start_line_markers(ground_marker_array, stamp);
@@ -747,6 +748,36 @@ std::vector<common_lib::structures::Cone> RosOutputAdapter::mark_recently_hit_co
   return cones;
 }
 
+std::string RosOutputAdapter::get_car_mesh_resource(const std::string& mesh_name) const {
+  return "package://invictasim/resources/meshes/car/" +
+         simulator_->get_params().car_parameters_config + "/" + mesh_name;
+}
+
+std::vector<double> RosOutputAdapter::load_car_mesh_positions() const {
+  std::vector<double> positions(6, 0.0);
+  const std::string car_folder = simulator_->get_params().car_parameters_config;
+  std::string pos_file = ament_index_cpp::get_package_share_directory("invictasim") +
+                         "/resources/meshes/car/" + car_folder + "/pos.yaml";
+
+  const YAML::Node config = YAML::LoadFile(pos_file);
+  const YAML::Node yaml_positions = config["positions"];
+  if (!yaml_positions) {
+    return positions;
+  }
+
+  positions[0] = yaml_positions["steering_offset_x"].as<double>(positions[0]);
+  positions[1] = yaml_positions["steering_offset_y"].as<double>(positions[1]);
+  positions[2] = yaml_positions["steering_offset_z"].as<double>(positions[2]);
+  positions[3] = yaml_positions["steering_rotation_x"].as<double>(positions[3]);
+  positions[4] = yaml_positions["steering_rotation_y"].as<double>(positions[4]);
+  positions[5] = yaml_positions["steering_rotation_z"].as<double>(positions[5]);
+  positions[3] *= M_PI / 180.0;
+  positions[4] *= M_PI / 180.0;
+  positions[5] *= M_PI / 180.0;
+
+  return positions;
+}
+
 void RosOutputAdapter::add_start_line_markers(visualization_msgs::msg::MarkerArray& marker_array,
                                               const rclcpp::Time& stamp) const {
   const auto start_line = simulator_->get_start_line();
@@ -803,9 +834,6 @@ void RosOutputAdapter::add_start_line_markers(visualization_msgs::msg::MarkerArr
 
 void RosOutputAdapter::add_body_marker(visualization_msgs::msg::MarkerArray& marker_array,
                                        const rclcpp::Time& stamp) const {
-  tf2::Quaternion q_mesh_offset;
-  q_mesh_offset.setRPY(-M_PI_2, 0.0, M_PI_2);
-
   visualization_msgs::msg::Marker body;
   body.header.stamp = stamp;
   body.header.frame_id = "car";
@@ -815,33 +843,76 @@ void RosOutputAdapter::add_body_marker(visualization_msgs::msg::MarkerArray& mar
   body.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
   body.action = visualization_msgs::msg::Marker::ADD;
 
-  body.pose.position.x = 1.0;
+  body.pose.position.x = 0.0;
   body.pose.position.y = 0.0;
   body.pose.position.z = 0.0;
 
-  body.pose.orientation.x = q_mesh_offset.x();
-  body.pose.orientation.y = q_mesh_offset.y();
-  body.pose.orientation.z = q_mesh_offset.z();
-  body.pose.orientation.w = q_mesh_offset.w();
+  body.pose.orientation.x = 0.0;
+  body.pose.orientation.y = 0.0;
+  body.pose.orientation.z = 0.0;
+  body.pose.orientation.w = 1.0;
 
   body.scale.x = 1.0;
   body.scale.y = 1.0;
   body.scale.z = 1.0;
   body.color.a = 1.0f;
   body.color.r = 0.85f;
-  body.color.g = 0.1f;
-  body.color.b = 0.1f;
-  body.mesh_resource = "package://invictasim/resources/meshes/car_body.stl";
+  body.color.g = 0.0f;
+  body.color.b = 0.0f;
+  body.mesh_resource = get_car_mesh_resource("car_body.glb");
   body.mesh_use_embedded_materials = false;
 
   marker_array.markers.push_back(body);
+}
+
+void RosOutputAdapter::add_steering_marker(visualization_msgs::msg::MarkerArray& marker_array,
+                                           const rclcpp::Time& stamp) const {
+  const std::vector<double> positions = load_car_mesh_positions();
+
+  tf2::Quaternion q_mount;
+  q_mount.setRPY(positions[3], positions[4], positions[5]);
+
+  tf2::Quaternion q_steering;
+  q_steering.setRPY(-vehicle_model_snapshot_cache_.steering_angle, 0.0, 0.0);
+
+  tf2::Quaternion q_total = q_mount * q_steering;
+  q_total.normalize();
+
+  visualization_msgs::msg::Marker steering;
+  steering.header.stamp = stamp;
+  steering.header.frame_id = "car";
+  steering.frame_locked = true;
+  steering.ns = "invictasim_vehicle";
+  steering.id = 5;
+  steering.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
+  steering.action = visualization_msgs::msg::Marker::ADD;
+
+  steering.pose.position.x = positions[0];
+  steering.pose.position.y = positions[1];
+  steering.pose.position.z = positions[2];
+
+  steering.pose.orientation.x = q_total.x();
+  steering.pose.orientation.y = q_total.y();
+  steering.pose.orientation.z = q_total.z();
+  steering.pose.orientation.w = q_total.w();
+
+  steering.scale.x = 1.0;
+  steering.scale.y = 1.0;
+  steering.scale.z = 1.0;
+  steering.color.a = 1.0f;
+  steering.color.r = 0.0f;
+  steering.color.g = 0.0f;
+  steering.color.b = 0.0f;
+  steering.mesh_resource = get_car_mesh_resource("steering.glb");
+  steering.mesh_use_embedded_materials = false;
+
+  marker_array.markers.push_back(steering);
 }
 
 void RosOutputAdapter::add_wheel_markers(visualization_msgs::msg::MarkerArray& marker_array,
                                          const rclcpp::Time& stamp, double dt) {
   const auto car_params = simulator_->get_params().car_parameters;
   const double wheel_center_z = car_params->wheel_diameter * 0.5;
-  const double long_offset = 0.15;
 
   if (dt > 0.0) {
     const auto wheel_speed = vehicle_model_snapshot_cache_.wheel_speed;
@@ -853,8 +924,8 @@ void RosOutputAdapter::add_wheel_markers(visualization_msgs::msg::MarkerArray& m
 
   const double steer = vehicle_model_snapshot_cache_.steering_angle;
 
-  const double front_axle_x = car_params->wheelbase - car_params->cg_2_rear_axis + long_offset;
-  const double rear_axle_x = -car_params->cg_2_rear_axis + long_offset;
+  const double front_axle_x = car_params->wheelbase - car_params->cg_2_rear_axis;
+  const double rear_axle_x = -car_params->cg_2_rear_axis;
   const double half_track = car_params->track_width * 0.5;
 
   const double local_x[4] = {front_axle_x, front_axle_x, rear_axle_x, rear_axle_x};
@@ -870,14 +941,11 @@ void RosOutputAdapter::add_wheel_markers(visualization_msgs::msg::MarkerArray& m
     tf2::Quaternion q_spin;
     q_spin.setRPY(0.0, spins[i], 0.0);
 
-    tf2::Quaternion q_mesh_offset;
-    q_mesh_offset.setRPY(-M_PI_2, 0.0, 0.0);
-
     tf2::Quaternion q_side_offset;
-    q_side_offset.setRPY(0.0, 0.0, (i == 1 || i == 3) ? M_PI : 0.0);
+    q_side_offset.setRPY((i == 0 || i == 2) ? M_PI : 0.0, 0.0, 0.0);
 
-    // Order: apply steering, then wheel spin, then mesh corrections
-    tf2::Quaternion q_wheel = q_steer * q_spin * q_side_offset * q_mesh_offset;
+    // Mirror the left-side mesh first, then apply visual roll and steering.
+    tf2::Quaternion q_wheel = q_steer * q_spin * q_side_offset;
     q_wheel.normalize();
 
     visualization_msgs::msg::Marker wheel;
@@ -899,14 +967,14 @@ void RosOutputAdapter::add_wheel_markers(visualization_msgs::msg::MarkerArray& m
     wheel.pose.orientation.z = q_wheel.z();
     wheel.pose.orientation.w = q_wheel.w();
 
-    wheel.scale.x = 0.01;
-    wheel.scale.y = 0.01;
-    wheel.scale.z = 0.01;
+    wheel.scale.x = 1.0;
+    wheel.scale.y = 1.0;
+    wheel.scale.z = 1.0;
     wheel.color.a = 1.0f;
-    wheel.color.r = 0.08f;
-    wheel.color.g = 0.08f;
-    wheel.color.b = 0.08f;
-    wheel.mesh_resource = "package://invictasim/resources/meshes/tire.stl";
+    wheel.color.r = 0.0f;
+    wheel.color.g = 0.0f;
+    wheel.color.b = 0.0f;
+    wheel.mesh_resource = get_car_mesh_resource(i < 2 ? "wheel_front.glb" : "wheel_back.glb");
     wheel.mesh_use_embedded_materials = false;
 
     marker_array.markers.push_back(wheel);

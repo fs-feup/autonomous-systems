@@ -23,6 +23,7 @@ struct InvictaSimParameters {
   std::string output_adapter;
 
   std::string vehicle_model;
+  std::string car_parameters_config;
   std::string tire_model;
   std::string aero_model;
   std::string steering_model;
