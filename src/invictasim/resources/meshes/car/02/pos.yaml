@@ -1,8 +1,11 @@
 positions:
-  steering_offset_x: 0.45
-  steering_offset_y: 0.0
-  steering_offset_z: 0.60
+  steering_offset_x: 0.48
+  steering_offset_y: 0.03
+  steering_offset_z: 0.57
   steering_rotation_x: 0.0
   steering_rotation_y: 10.0
   steering_rotation_z: 0.0
+  wheels_offset_x: -0.10
+  wheels_offset_y: 0.0
+  wheels_offset_z: 0.0
   

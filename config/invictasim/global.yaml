@@ -2,7 +2,7 @@ invictasim:
   # Simulator config
   input_adapter: "keyboard"  # Options: "ros", "keyboard"
   output_adapter: "ros"  # Options: "ros"
-  vehicle_model: "02"  # Options: "02", "03", "FSFEUP03"
+  vehicle_model: "03"  # Options: "02", "03",
   sim_frequency: 1000  # Hz 
   sim_speed: 1.0  # Sim velocity multiplier (1.0 = real-time, 2.0 = 2x real-time, etc.)
   initial_go_signal: true  # Initial state of the go signal 

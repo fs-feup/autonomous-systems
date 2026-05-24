@@ -754,7 +754,7 @@ std::string RosOutputAdapter::get_car_mesh_resource(const std::string& mesh_name
 }
 
 std::vector<double> RosOutputAdapter::load_car_mesh_positions() const {
-  std::vector<double> positions(6, 0.0);
+  std::vector<double> positions(9, 0.0);
   const std::string car_folder = simulator_->get_params().car_parameters_config;
   std::string pos_file = ament_index_cpp::get_package_share_directory("invictasim") +
                          "/resources/meshes/car/" + car_folder + "/pos.yaml";
@@ -771,6 +771,9 @@ std::vector<double> RosOutputAdapter::load_car_mesh_positions() const {
   positions[3] = yaml_positions["steering_rotation_x"].as<double>(positions[3]);
   positions[4] = yaml_positions["steering_rotation_y"].as<double>(positions[4]);
   positions[5] = yaml_positions["steering_rotation_z"].as<double>(positions[5]);
+  positions[6] = yaml_positions["wheels_offset_x"].as<double>(positions[6]);
+  positions[7] = yaml_positions["wheels_offset_y"].as<double>(positions[7]);
+  positions[8] = yaml_positions["wheels_offset_z"].as<double>(positions[8]);
   positions[3] *= M_PI / 180.0;
   positions[4] *= M_PI / 180.0;
   positions[5] *= M_PI / 180.0;
@@ -860,7 +863,7 @@ void RosOutputAdapter::add_body_marker(visualization_msgs::msg::MarkerArray& mar
   body.color.g = 0.0f;
   body.color.b = 0.0f;
   body.mesh_resource = get_car_mesh_resource("car_body.glb");
-  body.mesh_use_embedded_materials = false;
+  body.mesh_use_embedded_materials = true;
 
   marker_array.markers.push_back(body);
 }
@@ -912,6 +915,7 @@ void RosOutputAdapter::add_steering_marker(visualization_msgs::msg::MarkerArray&
 void RosOutputAdapter::add_wheel_markers(visualization_msgs::msg::MarkerArray& marker_array,
                                          const rclcpp::Time& stamp, double dt) {
   const auto car_params = simulator_->get_params().car_parameters;
+  const std::vector<double> positions = load_car_mesh_positions();
   const double wheel_center_z = car_params->wheel_diameter * 0.5;
 
   if (dt > 0.0) {
@@ -958,9 +962,9 @@ void RosOutputAdapter::add_wheel_markers(visualization_msgs::msg::MarkerArray& m
     wheel.action = visualization_msgs::msg::Marker::ADD;
 
     // Use pure local offsets
-    wheel.pose.position.x = local_x[i];
-    wheel.pose.position.y = local_y[i];
-    wheel.pose.position.z = wheel_center_z;
+    wheel.pose.position.x = local_x[i] + positions[6];
+    wheel.pose.position.y = local_y[i] + positions[7];
+    wheel.pose.position.z = wheel_center_z + positions[8];
 
     wheel.pose.orientation.x = q_wheel.x();
     wheel.pose.orientation.y = q_wheel.y();
