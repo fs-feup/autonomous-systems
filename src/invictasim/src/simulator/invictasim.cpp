@@ -260,6 +260,15 @@ VehicleStateSnapshot InvictaSim::build_vehicle_state_snapshot() const {
   snapshot.velocity_x = vehicle_model_->get_velocity_x();
   snapshot.velocity_y = vehicle_model_->get_velocity_y();
   snapshot.yaw_rate = vehicle_model_->get_yaw_rate();
+  snapshot.acceleration_x = vehicle_model_->get_acceleration_x();
+  snapshot.acceleration_y = vehicle_model_->get_acceleration_y();
+  snapshot.steering_angle = vehicle_model_->get_steering_angle();
+  const auto wheel_speed = vehicle_model_->get_wheels_speed();
+  snapshot.wheel_rpm =
+      common_lib::structures::Wheels(wheel_speed.front_left * 60.0 / (2.0 * M_PI),
+                                     wheel_speed.front_right * 60.0 / (2.0 * M_PI),
+                                     wheel_speed.rear_left * 60.0 / (2.0 * M_PI),
+                                     wheel_speed.rear_right * 60.0 / (2.0 * M_PI));
   snapshot.velocity_covariance =
       std::vector<double>(9, 0.0);  // Placeholder for velocity covariance
 

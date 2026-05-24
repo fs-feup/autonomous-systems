@@ -23,6 +23,7 @@ publish_frequencies:
     simulated_slam: 30        # Simulated SLAM map 
   vehicle_state:
     pose: 10              # Simulated vehicle pose (slam output)
+    state_vector: 10      # Simulated vehicle state vector (MPC input)
     velocities: 10        # Simulated velocities (velocity estimation output)
     operational_status: 1  # Simulated operational status (contains go_signal and mission)
   statistics:

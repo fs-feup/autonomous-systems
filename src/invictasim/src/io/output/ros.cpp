@@ -64,6 +64,9 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator,
         "invictasim/state_estimation/map", 10);
     vehicle_pose_pub_ = this->create_publisher<custom_interfaces::msg::Pose>(
         "invictasim/state_estimation/vehicle_pose", 10);
+    vehicle_state_vector_pub_ =
+        this->create_publisher<custom_interfaces::msg::VehicleStateVector>(
+            "invictasim/state_estimation/vehicle_state_vector", 10);
     lap_counter_pub_ = this->create_publisher<std_msgs::msg::Float64>(
         "invictasim/state_estimation/lap_counter", 10);
   }
@@ -189,6 +192,9 @@ void RosOutputAdapter::map_callbacks() {
                         [this](const rclcpp::Time&) { publish_state_estimation_lap_counter(); });
     register_pub_helper(
         "pose", [this](const rclcpp::Time& stamp) { publish_state_estimation_pose(stamp); });
+    register_pub_helper("state_vector", [this](const rclcpp::Time& stamp) {
+      publish_state_estimation_state_vector(stamp);
+    });
   }
 
   // Simulated perception
@@ -591,6 +597,26 @@ void RosOutputAdapter::publish_state_estimation_pose(const rclcpp::Time& stamp) 
   vehicle_pose_pub_->publish(pose_msg);
 }
 
+void RosOutputAdapter::publish_state_estimation_state_vector(const rclcpp::Time& stamp) {
+  custom_interfaces::msg::VehicleStateVector state_vector_msg;
+  state_vector_msg.header.stamp = stamp;
+  state_vector_msg.header.frame_id = "base_link";
+  state_vector_msg.velocity_x = vehicle_state_snapshot_cache_.velocity_x;
+  state_vector_msg.velocity_y = vehicle_state_snapshot_cache_.velocity_y;
+  state_vector_msg.yaw_rate = vehicle_state_snapshot_cache_.yaw_rate;
+  state_vector_msg.acceleration_x = vehicle_state_snapshot_cache_.acceleration_x;
+  state_vector_msg.acceleration_y = vehicle_state_snapshot_cache_.acceleration_y;
+  state_vector_msg.steering_angle = vehicle_state_snapshot_cache_.steering_angle;
+
+  const auto wheel_rpm = vehicle_state_snapshot_cache_.wheel_rpm;
+  state_vector_msg.fl_rpm = wheel_rpm.front_left;
+  state_vector_msg.fr_rpm = wheel_rpm.front_right;
+  state_vector_msg.rl_rpm = wheel_rpm.rear_left;
+  state_vector_msg.rr_rpm = wheel_rpm.rear_right;
+
+  vehicle_state_vector_pub_->publish(state_vector_msg);
+}
+
 void RosOutputAdapter::publish_operational_status(const rclcpp::Time& stamp) {
   custom_interfaces::msg::OperationalStatus status_msg;
   status_msg.header.stamp = stamp;
@@ -774,7 +800,7 @@ std::vector<double> RosOutputAdapter::load_car_mesh_positions() const {
   positions[6] = yaml_positions["wheels_offset_x"].as<double>(positions[6]);
   positions[7] = yaml_positions["wheels_offset_y"].as<double>(positions[7]);
   positions[8] = yaml_positions["wheels_offset_z"].as<double>(positions[8]);
-  positions[3] *= M_PI / 180.0;
+  positions[3] *= M_PI / 180.0; // Convert from degrees to radians
   positions[4] *= M_PI / 180.0;
   positions[5] *= M_PI / 180.0;
 

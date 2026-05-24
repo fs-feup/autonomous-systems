@@ -139,6 +139,7 @@ private:
   void publish_state_estimation_map(const rclcpp::Time& stamp);
   void publish_state_estimation_lap_counter();
   void publish_state_estimation_pose(const rclcpp::Time& stamp);
+  void publish_state_estimation_state_vector(const rclcpp::Time& stamp);
   void publish_state_estimation_velocities(const rclcpp::Time& stamp);
   void publish_operational_status(const rclcpp::Time& stamp);
 
@@ -233,5 +234,7 @@ private:
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr state_map_pub_;
   rclcpp::Publisher<custom_interfaces::msg::OperationalStatus>::SharedPtr operational_status_pub_;
   rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr vehicle_pose_pub_;
+  rclcpp::Publisher<custom_interfaces::msg::VehicleStateVector>::SharedPtr
+      vehicle_state_vector_pub_;
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr lap_counter_pub_;
 };

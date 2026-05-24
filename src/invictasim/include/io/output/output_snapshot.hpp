@@ -147,6 +147,10 @@ struct VehicleStateSnapshot {
   double velocity_x = 0.0;
   double velocity_y = 0.0;
   double yaw_rate = 0.0;
+  double acceleration_x = 0.0;
+  double acceleration_y = 0.0;
+  double steering_angle = 0.0;
+  common_lib::structures::Wheels wheel_rpm = {0.0, 0.0, 0.0, 0.0};
   std::vector<double> velocity_covariance = std::vector<double>(9, 0.0);
 
   // Operational status
