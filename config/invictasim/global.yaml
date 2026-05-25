@@ -1,6 +1,6 @@
 invictasim:
   # Simulator config
-  input_adapter: "keyboard"  # Options: "ros", "keyboard"
+  input_adapter: "ros"  # Options: "ros", "keyboard"
   output_adapter: "ros"  # Options: "ros"
   vehicle_model: "03"  # Options: "02", "03",
   sim_frequency: 1000  # Hz 

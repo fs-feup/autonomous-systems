@@ -1,0 +1,28 @@
+visualization:
+  position:
+    x: 0.0
+    y: 0.0
+    z: -0.02
+  scale:
+    x: 1000.0
+    y: 1000.0
+    z: 1.0
+  color:
+    r: 0.78
+    g: 0.78
+    b: 0.78
+    a: 1.0
+  start_line:
+    target_cell_length: 0.5
+    row_count: 2
+    total_width: 0.45
+    z: 0.01
+    height: 0.02
+
+lap_finish:
+  start_line_gate_margin: 2.0
+  minimum_lap_time: 3.0
+  minimum_lap_distance: 20.0
+  penalties:
+    default_cone: 2.0
+    skidpad_cone: 0.2

@@ -9,7 +9,8 @@ InvictaSim::InvictaSim(const InvictaSimParameters& params)
   // Initialize Objects
   vehicle_model_ = vehicle_models_map.at(params_.vehicle_model.c_str())(params);
   track_ = std::make_shared<Track>(params_.track_name);
-  statistics_ = std::make_unique<Statistics>(*track_, params_.car_parameters, params_.discipline);
+  statistics_ = std::make_unique<Statistics>(*track_, params_.car_parameters, params_.discipline,
+                                             params_.car_parameters_config);
 
   // Set initial position according to track information
   auto start_position = track_->get_start_position();

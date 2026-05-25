@@ -28,7 +28,7 @@ public:
    */
   Statistics(const Track& track,
              std::shared_ptr<const common_lib::car_parameters::CarParameters> car_parameters,
-             const std::string& discipline);
+             const std::string& discipline, const std::string& car_parameters_config = "");
 
   /**
    * @brief Reset all accumulated statistics.
@@ -66,9 +66,13 @@ private:
   common_lib::structures::Position start_line_a_;
   common_lib::structures::Position start_line_b_;
   std::vector<common_lib::structures::Cone> cones_;
-  double car_front_extent_ = 0.0;
-  double car_rear_extent_ = 0.0;
-  double car_half_width_ = 0.0;
+  struct Hitbox {
+    double center_x = 0.0;
+    double center_y = 0.0;
+    double half_length = 0.0;
+    double half_width = 0.0;
+  };
+  std::vector<Hitbox> car_hitboxes_;
 
   // Cone collisions and penalties
   double standard_cone_radius_m_ = 0.115;
@@ -102,6 +106,8 @@ private:
   // Geometry helpers
   double distance_between(const common_lib::structures::Position& a,
                           const common_lib::structures::Position& b) const;
+  void load_cone_collision_config();
+  void load_ground_lap_finish_config();
   double speed_from_snapshot(const VehicleModelSnapshot& snapshot) const;
 
   // Control tracking
@@ -118,6 +124,9 @@ private:
   double penalty_time_for_discipline(std::string discipline) const;
   bool collides_with_cone(const VehicleModelSnapshot& vehicle_snapshot,
                           const common_lib::structures::Cone& cone) const;
+  std::vector<Hitbox> load_car_hitboxes(const std::string& car_parameters_config) const;
+  bool hitbox_collides_with_cone(const Hitbox& hitbox, double local_x, double local_y,
+                                 double cone_radius) const;
   double cone_radius(const common_lib::structures::Cone& cone) const;
   double current_lap_penalty_time() const;
   bool cone_was_hit(std::size_t cone_index) const;

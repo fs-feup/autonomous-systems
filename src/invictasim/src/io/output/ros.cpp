@@ -64,9 +64,8 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator,
         "invictasim/state_estimation/map", 10);
     vehicle_pose_pub_ = this->create_publisher<custom_interfaces::msg::Pose>(
         "invictasim/state_estimation/vehicle_pose", 10);
-    vehicle_state_vector_pub_ =
-        this->create_publisher<custom_interfaces::msg::VehicleStateVector>(
-            "invictasim/state_estimation/vehicle_state_vector", 10);
+    vehicle_state_vector_pub_ = this->create_publisher<custom_interfaces::msg::VehicleStateVector>(
+        "invictasim/state_estimation/vehicle_state_vector", 10);
     lap_counter_pub_ = this->create_publisher<std_msgs::msg::Float64>(
         "invictasim/state_estimation/lap_counter", 10);
   }
@@ -643,12 +642,14 @@ void RosOutputAdapter::publish_visualization_car(const rclcpp::Time& stamp) {
   add_body_marker(vehicle_marker_array, stamp);
   add_steering_marker(vehicle_marker_array, stamp);
   add_wheel_markers(vehicle_marker_array, stamp, dt);
+  add_hitbox_markers(vehicle_marker_array, stamp);
 
   visualization_vehicle_pub_->publish(vehicle_marker_array);
 }
 
 void RosOutputAdapter::publish_visualization_ground(const rclcpp::Time& stamp) {
   visualization_msgs::msg::MarkerArray ground_marker_array;
+  const GroundVisualConfig ground_config = load_ground_visual_config();
   visualization_msgs::msg::Marker ground;
   ground.header.stamp = stamp;
   ground.header.frame_id = "map";
@@ -656,20 +657,20 @@ void RosOutputAdapter::publish_visualization_ground(const rclcpp::Time& stamp) {
   ground.id = 100;
   ground.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
   ground.action = visualization_msgs::msg::Marker::ADD;
-  ground.pose.position.x = 0.0;
-  ground.pose.position.y = 0.0;
-  ground.pose.position.z = -0.02;
+  ground.pose.position.x = ground_config.position_x;
+  ground.pose.position.y = ground_config.position_y;
+  ground.pose.position.z = ground_config.position_z;
   ground.pose.orientation.x = 0.0;
   ground.pose.orientation.y = 0.0;
   ground.pose.orientation.z = 0.0;
   ground.pose.orientation.w = 1.0;
-  ground.scale.x = 1000.0;
-  ground.scale.y = 1000.0;
-  ground.scale.z = 1.0;
-  ground.color.a = 1.0f;
-  ground.color.r = 0.78f;
-  ground.color.g = 0.78f;
-  ground.color.b = 0.78f;
+  ground.scale.x = ground_config.scale_x;
+  ground.scale.y = ground_config.scale_y;
+  ground.scale.z = ground_config.scale_z;
+  ground.color.a = static_cast<float>(ground_config.color_a);
+  ground.color.r = static_cast<float>(ground_config.color_r);
+  ground.color.g = static_cast<float>(ground_config.color_g);
+  ground.color.b = static_cast<float>(ground_config.color_b);
   ground.mesh_resource = "package://invictasim/resources/meshes/ground/ground_plane.dae";
   ground.mesh_use_embedded_materials = true;
   ground_marker_array.markers.push_back(ground);
@@ -679,9 +680,8 @@ void RosOutputAdapter::publish_visualization_ground(const rclcpp::Time& stamp) {
 
 void RosOutputAdapter::publish_visualization_gt_cones(const rclcpp::Time& stamp) {
   visualization_msgs::msg::MarkerArray track_marker_array;
-  track_marker_array =
-      convert_cone_array_to_markers(mark_recently_hit_cones_red(map_snapshot_cache_.ground_truth),
-                                    stamp);
+  track_marker_array = convert_cone_array_to_markers(
+      mark_recently_hit_cones_red(map_snapshot_cache_.ground_truth), stamp);
   visualization_gt_cones_pub_->publish(track_marker_array);
 }
 
@@ -699,11 +699,87 @@ void RosOutputAdapter::publish_visualization_perception_cones(const rclcpp::Time
   visualization_perception_cones_pub_->publish(perception_marker_array);
 }
 
+RosOutputAdapter::ConeVisualConfig RosOutputAdapter::load_cone_visual_config() const {
+  ConeVisualConfig cone_config;
+  const std::string path =
+      std::string(INVICTASIM_SOURCE_DIR) + "/resources/meshes/cones/config.yaml";
+  const YAML::Node config = YAML::LoadFile(path);
+
+  const YAML::Node hitboxes = config["visualization"]["hitboxes"];
+  if (hitboxes) {
+    cone_config.visualize_hitboxes = hitboxes["visualize"].as<bool>(cone_config.visualize_hitboxes);
+    cone_config.hitbox_z = hitboxes["z"].as<double>(cone_config.hitbox_z);
+    cone_config.hitbox_height = hitboxes["height"].as<double>(cone_config.hitbox_height);
+    cone_config.hitbox_alpha = hitboxes["alpha"].as<double>(cone_config.hitbox_alpha);
+  }
+
+  const YAML::Node collision = config["collision"];
+  if (collision) {
+    cone_config.standard_radius =
+        collision["standard_radius"].as<double>(cone_config.standard_radius);
+    cone_config.large_radius = collision["large_radius"].as<double>(cone_config.large_radius);
+    cone_config.hit_match_distance =
+        collision["hit_match_distance"].as<double>(cone_config.hit_match_distance);
+  }
+
+  return cone_config;
+}
+
+RosOutputAdapter::GroundVisualConfig RosOutputAdapter::load_ground_visual_config() const {
+  GroundVisualConfig ground_config;
+  const std::string path =
+      std::string(INVICTASIM_SOURCE_DIR) + "/resources/meshes/ground/config.yaml";
+  const YAML::Node config = YAML::LoadFile(path);
+
+  const YAML::Node visualization = config["visualization"];
+  if (!visualization) {
+    return ground_config;
+  }
+
+  const YAML::Node position = visualization["position"];
+  if (position) {
+    ground_config.position_x = position["x"].as<double>(ground_config.position_x);
+    ground_config.position_y = position["y"].as<double>(ground_config.position_y);
+    ground_config.position_z = position["z"].as<double>(ground_config.position_z);
+  }
+
+  const YAML::Node scale = visualization["scale"];
+  if (scale) {
+    ground_config.scale_x = scale["x"].as<double>(ground_config.scale_x);
+    ground_config.scale_y = scale["y"].as<double>(ground_config.scale_y);
+    ground_config.scale_z = scale["z"].as<double>(ground_config.scale_z);
+  }
+
+  const YAML::Node color = visualization["color"];
+  if (color) {
+    ground_config.color_r = color["r"].as<double>(ground_config.color_r);
+    ground_config.color_g = color["g"].as<double>(ground_config.color_g);
+    ground_config.color_b = color["b"].as<double>(ground_config.color_b);
+    ground_config.color_a = color["a"].as<double>(ground_config.color_a);
+  }
+
+  const YAML::Node start_line = visualization["start_line"];
+  if (start_line) {
+    ground_config.start_line_target_cell_length =
+        start_line["target_cell_length"].as<double>(ground_config.start_line_target_cell_length);
+    ground_config.start_line_row_count =
+        start_line["row_count"].as<int>(ground_config.start_line_row_count);
+    ground_config.start_line_total_width =
+        start_line["total_width"].as<double>(ground_config.start_line_total_width);
+    ground_config.start_line_z = start_line["z"].as<double>(ground_config.start_line_z);
+    ground_config.start_line_height =
+        start_line["height"].as<double>(ground_config.start_line_height);
+  }
+
+  return ground_config;
+}
+
 visualization_msgs::msg::MarkerArray RosOutputAdapter::convert_cone_array_to_markers(
     const std::vector<common_lib::structures::Cone>& cone_array, const rclcpp::Time& stamp,
     const std::string& frame_id) const {
   visualization_msgs::msg::MarkerArray marker_array;
   int cone_id = 0;
+  const ConeVisualConfig cone_config = load_cone_visual_config();
   for (const auto& cone : cone_array) {
     visualization_msgs::msg::Marker m;
     m.header.stamp = stamp;
@@ -713,7 +789,8 @@ visualization_msgs::msg::MarkerArray RosOutputAdapter::convert_cone_array_to_mar
       m.lifetime = rclcpp::Duration::from_seconds(0.1);
     }
     m.ns = "cones";
-    m.id = cone_id++;
+    const int current_cone_id = cone_id++;
+    m.id = current_cone_id;
     m.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
     m.action = visualization_msgs::msg::Marker::ADD;
 
@@ -756,13 +833,38 @@ visualization_msgs::msg::MarkerArray RosOutputAdapter::convert_cone_array_to_mar
         break;
     }
     marker_array.markers.push_back(m);
+    if (cone_config.visualize_hitboxes) {
+      const bool is_large =
+          cone.is_large || cone.color == common_lib::competition_logic::Color::LARGE_ORANGE;
+      const double radius = is_large ? cone_config.large_radius : cone_config.standard_radius;
+      visualization_msgs::msg::Marker hitbox;
+      hitbox.header = m.header;
+      hitbox.frame_locked = m.frame_locked;
+      hitbox.lifetime = m.lifetime;
+      hitbox.ns = "cone_hitboxes";
+      hitbox.id = 10000 + current_cone_id;
+      hitbox.type = visualization_msgs::msg::Marker::CYLINDER;
+      hitbox.action = visualization_msgs::msg::Marker::ADD;
+      hitbox.pose.position.x = cone.position.x;
+      hitbox.pose.position.y = cone.position.y;
+      hitbox.pose.position.z = cone_config.hitbox_z;
+      hitbox.pose.orientation.w = 1.0;
+      hitbox.scale.x = radius * 2.0;
+      hitbox.scale.y = radius * 2.0;
+      hitbox.scale.z = cone_config.hitbox_height;
+      hitbox.color.r = 0.0f;
+      hitbox.color.g = 0.8f;
+      hitbox.color.b = 1.0f;
+      hitbox.color.a = static_cast<float>(cone_config.hitbox_alpha);
+      marker_array.markers.push_back(hitbox);
+    }
   }
   return marker_array;
 }
 
 std::vector<common_lib::structures::Cone> RosOutputAdapter::mark_recently_hit_cones_red(
     std::vector<common_lib::structures::Cone> cones) const {
-  constexpr double same_cone_max_dist = 0.35;
+  const double same_cone_max_dist = load_cone_visual_config().hit_match_distance;
   for (auto& cone : cones) {
     for (const auto& hit_cone : map_snapshot_cache_.recently_hit_cones) {
       if (cone.position.euclidean_distance(hit_cone.position) <= same_cone_max_dist) {
@@ -779,11 +881,42 @@ std::string RosOutputAdapter::get_car_mesh_resource(const std::string& mesh_name
          simulator_->get_params().car_parameters_config + "/" + mesh_name;
 }
 
+std::vector<RosOutputAdapter::HitboxVisual> RosOutputAdapter::load_car_hitboxes() const {
+  std::vector<HitboxVisual> hitboxes;
+  const std::string car_folder = simulator_->get_params().car_parameters_config;
+  const std::string pos_file =
+      std::string(INVICTASIM_SOURCE_DIR) + "/resources/meshes/car/" + car_folder + "/config.yaml";
+
+  const YAML::Node config = YAML::LoadFile(pos_file);
+  const YAML::Node yaml_hitboxes = config["hitboxes"];
+  if (!yaml_hitboxes || !yaml_hitboxes["visualize"].as<bool>(false)) {
+    return hitboxes;
+  }
+
+  const YAML::Node yaml_boxes = yaml_hitboxes["boxes"];
+  if (!yaml_boxes || !yaml_boxes.IsSequence()) {
+    return hitboxes;
+  }
+
+  for (const auto& node : yaml_boxes) {
+    const double length = node["length"].as<double>(0.0);
+    const double width = node["width"].as<double>(0.0);
+    if (length <= 0.0 || width <= 0.0) {
+      continue;
+    }
+
+    hitboxes.push_back(
+        {node["center_x"].as<double>(0.0), node["center_y"].as<double>(0.0), length, width});
+  }
+
+  return hitboxes;
+}
+
 std::vector<double> RosOutputAdapter::load_car_mesh_positions() const {
   std::vector<double> positions(10, 0.0);
   const std::string car_folder = simulator_->get_params().car_parameters_config;
-  std::string pos_file = ament_index_cpp::get_package_share_directory("invictasim") +
-                         "/resources/meshes/car/" + car_folder + "/pos.yaml";
+  std::string pos_file =
+      std::string(INVICTASIM_SOURCE_DIR) + "/resources/meshes/car/" + car_folder + "/config.yaml";
 
   const YAML::Node config = YAML::LoadFile(pos_file);
   const YAML::Node yaml_positions = config["positions"];
@@ -800,8 +933,8 @@ std::vector<double> RosOutputAdapter::load_car_mesh_positions() const {
   positions[6] = yaml_positions["wheels_offset_x"].as<double>(positions[6]);
   positions[7] = yaml_positions["wheels_offset_y"].as<double>(positions[7]);
   positions[8] = yaml_positions["wheels_offset_z"].as<double>(positions[8]);
-  positions[9] = yaml_positions["steering_visual_multiplier"].as<double>(positions[9]);
-  positions[3] *= M_PI / 180.0; // Convert from degrees to radians
+  positions[9] = yaml_positions["steering_rotation_multiplier"].as<double>(positions[9]);
+  positions[3] *= M_PI / 180.0;  // Convert from degrees to radians
   positions[4] *= M_PI / 180.0;
   positions[5] *= M_PI / 180.0;
 
@@ -811,6 +944,7 @@ std::vector<double> RosOutputAdapter::load_car_mesh_positions() const {
 void RosOutputAdapter::add_start_line_markers(visualization_msgs::msg::MarkerArray& marker_array,
                                               const rclcpp::Time& stamp) const {
   const auto start_line = simulator_->get_start_line();
+  const GroundVisualConfig ground_config = load_ground_visual_config();
   const double dx = start_line.second.x - start_line.first.x;
   const double dy = start_line.second.y - start_line.first.y;
   const double length = std::hypot(dx, dy);
@@ -822,11 +956,11 @@ void RosOutputAdapter::add_start_line_markers(visualization_msgs::msg::MarkerArr
   tf2::Quaternion orientation;
   orientation.setRPY(0.0, 0.0, yaw);
 
-  constexpr double target_cell_length = 0.5;
-  constexpr int row_count = 2;
+  const double target_cell_length = std::max(0.01, ground_config.start_line_target_cell_length);
+  const int row_count = std::max(1, ground_config.start_line_row_count);
   const int column_count = std::max(2, static_cast<int>(std::ceil(length / target_cell_length)));
   const double cell_length = length / static_cast<double>(column_count);
-  const double cell_width = 0.45 / static_cast<double>(row_count);
+  const double cell_width = ground_config.start_line_total_width / static_cast<double>(row_count);
 
   for (int column = 0; column < column_count; ++column) {
     for (int row = 0; row < row_count; ++row) {
@@ -843,7 +977,7 @@ void RosOutputAdapter::add_start_line_markers(visualization_msgs::msg::MarkerArr
           (static_cast<double>(row) + 0.5 - static_cast<double>(row_count) * 0.5) * cell_width;
       cell.pose.position.x = start_line.first.x + t * dx - std::sin(yaw) * lateral_offset;
       cell.pose.position.y = start_line.first.y + t * dy + std::cos(yaw) * lateral_offset;
-      cell.pose.position.z = 0.01;
+      cell.pose.position.z = ground_config.start_line_z;
       cell.pose.orientation.x = orientation.x();
       cell.pose.orientation.y = orientation.y();
       cell.pose.orientation.z = orientation.z();
@@ -851,7 +985,7 @@ void RosOutputAdapter::add_start_line_markers(visualization_msgs::msg::MarkerArr
 
       cell.scale.x = cell_length;
       cell.scale.y = cell_width;
-      cell.scale.z = 0.02;
+      cell.scale.z = ground_config.start_line_height;
       cell.color.a = 1.0f;
       const bool is_white = ((column + row) % 2) == 0;
       cell.color.r = is_white ? 1.0f : 0.02f;
@@ -890,9 +1024,42 @@ void RosOutputAdapter::add_body_marker(visualization_msgs::msg::MarkerArray& mar
   body.color.g = 0.0f;
   body.color.b = 0.0f;
   body.mesh_resource = get_car_mesh_resource("car_body.glb");
-  body.mesh_use_embedded_materials = true;
+  body.mesh_use_embedded_materials = false;
 
   marker_array.markers.push_back(body);
+}
+
+void RosOutputAdapter::add_hitbox_markers(visualization_msgs::msg::MarkerArray& marker_array,
+                                          const rclcpp::Time& stamp) const {
+  const std::vector<HitboxVisual> hitboxes = load_car_hitboxes();
+
+  for (std::size_t i = 0; i < hitboxes.size(); ++i) {
+    const HitboxVisual& hitbox = hitboxes[i];
+
+    visualization_msgs::msg::Marker marker;
+    marker.header.stamp = stamp;
+    marker.header.frame_id = "car";
+    marker.frame_locked = true;
+    marker.ns = "invictasim_vehicle_hitboxes";
+    marker.id = static_cast<int>(i);
+    marker.type = visualization_msgs::msg::Marker::CUBE;
+    marker.action = visualization_msgs::msg::Marker::ADD;
+
+    marker.pose.position.x = hitbox.center_x;
+    marker.pose.position.y = hitbox.center_y;
+    marker.pose.position.z = 0.12;
+    marker.pose.orientation.w = 1.0;
+
+    marker.scale.x = hitbox.length;
+    marker.scale.y = hitbox.width;
+    marker.scale.z = 0.08;
+    marker.color.a = 0.28f;
+    marker.color.r = 0.0f;
+    marker.color.g = 0.8f;
+    marker.color.b = 1.0f;
+
+    marker_array.markers.push_back(marker);
+  }
 }
 
 void RosOutputAdapter::add_steering_marker(visualization_msgs::msg::MarkerArray& marker_array,

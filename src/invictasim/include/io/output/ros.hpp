@@ -16,8 +16,8 @@
 #include "custom_interfaces/msg/cone.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/control_command.hpp"
-#include "custom_interfaces/msg/execution_times.hpp"
 #include "custom_interfaces/msg/control_statistics.hpp"
+#include "custom_interfaces/msg/execution_times.hpp"
 #include "custom_interfaces/msg/lap_current.hpp"
 #include "custom_interfaces/msg/lap_statistics.hpp"
 #include "custom_interfaces/msg/lap_summary.hpp"
@@ -81,6 +81,41 @@ private:
   std::map<std::string, int> visualization_publish_frequencies_;
   std::map<std::string, int> sensors_publish_frequencies_;
   std::map<std::string, int> map_publish_frequencies_;
+  struct HitboxVisual {
+    double center_x = 0.0;
+    double center_y = 0.0;
+    double length = 0.0;
+    double width = 0.0;
+  };
+
+  struct ConeVisualConfig {
+    bool visualize_hitboxes = false;
+    double hitbox_z = 0.02;
+    double hitbox_height = 0.04;
+    double hitbox_alpha = 0.35;
+    double standard_radius = 0.115;
+    double large_radius = 0.15;
+    double hit_match_distance = 0.35;
+  };
+
+  struct GroundVisualConfig {
+    double position_x = 0.0;
+    double position_y = 0.0;
+    double position_z = -0.02;
+    double scale_x = 1000.0;
+    double scale_y = 1000.0;
+    double scale_z = 1.0;
+    double color_r = 0.78;
+    double color_g = 0.78;
+    double color_b = 0.78;
+    double color_a = 1.0;
+    double start_line_target_cell_length = 0.5;
+    int start_line_row_count = 2;
+    double start_line_total_width = 0.45;
+    double start_line_z = 0.01;
+    double start_line_height = 0.02;
+  };
+
   std::map<std::string, int> vehicle_state_publish_frequencies_;
   int execution_time_frequency_ = 0;
 
@@ -169,12 +204,17 @@ private:
       const std::string& frame_id = "map") const;
   std::string get_car_mesh_resource(const std::string& mesh_name) const;
   std::vector<double> load_car_mesh_positions() const;
+  std::vector<HitboxVisual> load_car_hitboxes() const;
+  ConeVisualConfig load_cone_visual_config() const;
+  GroundVisualConfig load_ground_visual_config() const;
   void add_start_line_markers(visualization_msgs::msg::MarkerArray& marker_array,
                               const rclcpp::Time& stamp) const;
   void add_body_marker(visualization_msgs::msg::MarkerArray& marker_array,
                        const rclcpp::Time& stamp) const;
   void add_steering_marker(visualization_msgs::msg::MarkerArray& marker_array,
                            const rclcpp::Time& stamp) const;
+  void add_hitbox_markers(visualization_msgs::msg::MarkerArray& marker_array,
+                          const rclcpp::Time& stamp) const;
   void add_wheel_markers(visualization_msgs::msg::MarkerArray& marker_array,
                          const rclcpp::Time& stamp, double dt);
   void add_vehicle_transform(const rclcpp::Time& stamp);

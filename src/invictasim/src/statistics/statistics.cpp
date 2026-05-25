@@ -1,5 +1,7 @@
 #include "statistics/statistics.hpp"
 
+#include <yaml-cpp/yaml.h>
+
 #include <algorithm>
 #include <cctype>
 #include <chrono>
@@ -7,14 +9,14 @@
 #include <ctime>
 #include <filesystem>
 #include <iomanip>
-#include <stdexcept>
 #include <sstream>
+#include <stdexcept>
 #include <string>
 
 Statistics::Statistics(
     const Track& track,
     std::shared_ptr<const common_lib::car_parameters::CarParameters> car_parameters,
-    const std::string& discipline)
+    const std::string& discipline, const std::string& car_parameters_config)
     : start_line_a_(track.get_start_line().first),
       start_line_b_(track.get_start_line().second),
       cones_(track.get_cones()) {
@@ -22,11 +24,10 @@ Statistics::Statistics(
     throw std::invalid_argument("Statistics requires vehicle model car parameters");
   }
 
+  load_cone_collision_config();
+  load_ground_lap_finish_config();
   penalty_time_per_cone_ = penalty_time_for_discipline(discipline);
-  const double wheel_radius = car_parameters->wheel_diameter * 0.5;
-  car_front_extent_ = car_parameters->wheelbase - car_parameters->cg_2_rear_axis + wheel_radius;
-  car_rear_extent_ = car_parameters->cg_2_rear_axis + wheel_radius;
-  car_half_width_ = car_parameters->track_width * 0.5 + wheel_radius;
+  car_hitboxes_ = load_car_hitboxes(car_parameters_config);
   reset();
 }
 
@@ -41,6 +42,42 @@ std::vector<common_lib::structures::Cone> Statistics::get_recently_hit_cones() c
   }
 
   return hit_cones;
+}
+
+void Statistics::load_cone_collision_config() {
+  const std::string path =
+      std::string(INVICTASIM_SOURCE_DIR) + "/resources/meshes/cones/config.yaml";
+  const YAML::Node config = YAML::LoadFile(path);
+  const YAML::Node collision = config["collision"];
+  if (!collision) {
+    return;
+  }
+
+  standard_cone_radius_m_ = collision["standard_radius"].as<double>(standard_cone_radius_m_);
+  large_cone_radius_m_ = collision["large_radius"].as<double>(large_cone_radius_m_);
+}
+
+void Statistics::load_ground_lap_finish_config() {
+  const std::string path =
+      std::string(INVICTASIM_SOURCE_DIR) + "/resources/meshes/ground/config.yaml";
+  const YAML::Node config = YAML::LoadFile(path);
+  const YAML::Node lap_finish = config["lap_finish"];
+  if (!lap_finish) {
+    return;
+  }
+
+  start_line_gate_margin_m_ =
+      lap_finish["start_line_gate_margin"].as<double>(start_line_gate_margin_m_);
+  minimum_lap_time_s_ = lap_finish["minimum_lap_time"].as<double>(minimum_lap_time_s_);
+  minimum_lap_distance_m_ = lap_finish["minimum_lap_distance"].as<double>(minimum_lap_distance_m_);
+
+  const YAML::Node penalties = lap_finish["penalties"];
+  if (penalties) {
+    default_cone_penalty_time_s_ =
+        penalties["default_cone"].as<double>(default_cone_penalty_time_s_);
+    skidpad_cone_penalty_time_s_ =
+        penalties["skidpad_cone"].as<double>(skidpad_cone_penalty_time_s_);
+  }
 }
 
 double Statistics::distance_between(const common_lib::structures::Position& a,
@@ -189,6 +226,54 @@ double Statistics::cone_radius(const common_lib::structures::Cone& cone) const {
              : standard_cone_radius_m_;
 }
 
+std::vector<Statistics::Hitbox> Statistics::load_car_hitboxes(
+    const std::string& car_parameters_config) const {
+  std::vector<Hitbox> hitboxes;
+  if (car_parameters_config.empty()) {
+    return hitboxes;
+  }
+
+  const std::string path = std::string(INVICTASIM_SOURCE_DIR) + "/resources/meshes/car/" +
+                           car_parameters_config + "/config.yaml";
+
+  const YAML::Node config = YAML::LoadFile(path);
+  const YAML::Node yaml_hitboxes = config["hitboxes"];
+  if (!yaml_hitboxes) {
+    return hitboxes;
+  }
+  const YAML::Node yaml_boxes = yaml_hitboxes["boxes"];
+  if (!yaml_boxes) {
+    return hitboxes;
+  }
+  if (!yaml_boxes.IsSequence()) {
+    throw std::runtime_error("Malformed hitboxes. Expected a boxes list in: " + path);
+  }
+
+  for (const auto& node : yaml_boxes) {
+    const double length = node["length"].as<double>();
+    const double width = node["width"].as<double>();
+    if (length <= 0.0 || width <= 0.0) {
+      throw std::runtime_error("Malformed hitbox. length and width must be positive in: " + path);
+    }
+
+    hitboxes.push_back({node["center_x"].as<double>(0.0), node["center_y"].as<double>(0.0),
+                        length * 0.5, width * 0.5});
+  }
+
+  return hitboxes;
+}
+
+bool Statistics::hitbox_collides_with_cone(const Hitbox& hitbox, double local_x, double local_y,
+                                           double cone_radius) const {
+  const double min_x = hitbox.center_x - hitbox.half_length;
+  const double max_x = hitbox.center_x + hitbox.half_length;
+  const double min_y = hitbox.center_y - hitbox.half_width;
+  const double max_y = hitbox.center_y + hitbox.half_width;
+  const double closest_x = std::clamp(local_x, min_x, max_x);
+  const double closest_y = std::clamp(local_y, min_y, max_y);
+  return std::hypot(local_x - closest_x, local_y - closest_y) <= cone_radius;
+}
+
 bool Statistics::collides_with_cone(const VehicleModelSnapshot& vehicle_snapshot,
                                     const common_lib::structures::Cone& cone) const {
   const double dx = cone.position.x - vehicle_snapshot.x;
@@ -198,9 +283,14 @@ bool Statistics::collides_with_cone(const VehicleModelSnapshot& vehicle_snapshot
   const double local_x = cos_yaw * dx + sin_yaw * dy;
   const double local_y = -sin_yaw * dx + cos_yaw * dy;
 
-  const double closest_x = std::clamp(local_x, -car_rear_extent_, car_front_extent_);
-  const double closest_y = std::clamp(local_y, -car_half_width_, car_half_width_);
-  return std::hypot(local_x - closest_x, local_y - closest_y) <= cone_radius(cone);
+  const double radius = cone_radius(cone);
+  for (const Hitbox& hitbox : car_hitboxes_) {
+    if (hitbox_collides_with_cone(hitbox, local_x, local_y, radius)) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 double Statistics::current_lap_penalty_time() const {
@@ -407,14 +497,13 @@ void Statistics::write_csv_row() {
     return;
   }
 
-  csv_file_ << snapshot_.lap_counter << ","
-            << snapshot_.last_lap_time << "," << snapshot_.cones_hit << ","
-            << snapshot_.total_lap_time << "," << snapshot_.best_lap_time << ","
+  csv_file_ << snapshot_.lap_counter << "," << snapshot_.last_lap_time << "," << snapshot_.cones_hit
+            << "," << snapshot_.total_lap_time << "," << snapshot_.best_lap_time << ","
             << snapshot_.completed_lap_average_velocity * meters_per_second_to_kilometers_per_hour_
             << ","
             << snapshot_.completed_lap_max_velocity * meters_per_second_to_kilometers_per_hour_
-            << "," << snapshot_.completed_lap_average_tracking_error
-            << "," << snapshot_.completed_lap_max_tracking_error << ","
+            << "," << snapshot_.completed_lap_average_tracking_error << ","
+            << snapshot_.completed_lap_max_tracking_error << ","
             << snapshot_.completed_lap_average_velocity_error *
                    meters_per_second_to_kilometers_per_hour_
             << ","
