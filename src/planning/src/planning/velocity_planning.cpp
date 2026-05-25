@@ -283,19 +283,19 @@ void VelocityPlanning::adapt_limits(Pose &pose, std::vector<PathPoint> &path) {
   if (error > 1.0) { 
     change_limits(index, -1.0, -1.0);
     change_limits(index+1, -1.0, -1.0);
-    change_all_limits(-0.1, -0.1);
+    //change_all_limits(-0.1, -0.1);
   } else if (error > 0.5) { 
-    change_limits(index, -0.2, -0.2);
-    change_limits(index+1, -0.2, -0.2);
-    change_all_limits(-0.02, -0.02);
-  } else if (error > 0.2) { 
     change_limits(index, 0.2, 0.2);
     change_limits(index+1, 0.2, 0.2);
-    change_all_limits(0.02, 0.02);
+    //change_all_limits(-0.02, -0.02);
+  } else if (error > 0.2) { 
+    change_limits(index, 1.0, 1.0);
+    change_limits(index+1, 1.0, 1.0);
+    //change_all_limits(0.02, 0.02);
   } else {
-    change_limits(index, 0.1, 0.1);
-    change_limits(index+1, 0.1, 0.1);
-    change_all_limits(0.01, 0.01);
+    change_limits(index, 1.5, 1.5);
+    change_limits(index+1, 1.5, 1.5);
+    //change_all_limits(0.01, 0.01);
   }
 
   return; 

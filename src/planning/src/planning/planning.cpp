@@ -335,6 +335,8 @@ void Planning::run_autocross() {
     if (!is_path_final_) {
       run_full_map();
     }
+    //TODO: Change to always call this!
+    velocity_planning_.trackdrive_velocity(smoothed_path_);
     return;
   }
   if (lap_counter_ == 0) {
