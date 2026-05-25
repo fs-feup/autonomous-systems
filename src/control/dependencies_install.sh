@@ -12,6 +12,7 @@ sudo apt-get install -y \
     build-essential \
     cmake \
     git \
+    ninja-build \
     libblas-dev \
     liblapack-dev \
     gfortran \
@@ -47,16 +48,14 @@ cd "${ACADOS_SRC_DIR}"
 git submodule update --init --recursive
 
 # Clean previous builds if any
-sudo rm -rf build
-sudo rm -rf "${ACADOS_INSTALL_DIR}"
-mkdir build
-cd build
+rm -rf build
+rm -rf "${ACADOS_INSTALL_DIR}"
 
-cmake .. \
+cmake -S . -B build -G Ninja \
     -DACADOS_WITH_QPOASES=ON \
-    -DACADOS_WITH_OSQP=ON \
+    -DACADOS_WITH_OSQP=OFF \
     -DACADOS_WITH_OPENMP=ON \
-    -DBLASFEO_TARGET=X64_INTEL_HASWELL \
+    -DBLASFEO_TARGET=GENERIC \
     -DHPIPM_TARGET=GENERIC \
     -DCMAKE_BUILD_RPATH=\$ORIGIN \
     -DCMAKE_INSTALL_RPATH=\$ORIGIN \
@@ -64,8 +63,7 @@ cmake .. \
     -DCMAKE_INSTALL_PREFIX="${ACADOS_INSTALL_DIR}" \
     -DCMAKE_BUILD_TYPE=Release
 
-make -j$(nproc)
-make install
+cmake --build build --target install --parallel "$(nproc)"
 
 # ------------------------------------------------------------------
 # 3. Python interface
@@ -82,7 +80,7 @@ echo ""
 echo "You can now compile and run the control package."
 echo ""
 echo "Build the control package:"
-echo "  colcon build --packages-select control"
+echo "  colcon build --packages-select control --cmake-args -G Ninja"
 echo ""
 echo "The acados libraries are installed to:"
 echo "  ${ACADOS_INSTALL_DIR}"
