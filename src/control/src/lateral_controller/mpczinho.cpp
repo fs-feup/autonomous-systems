@@ -58,9 +58,16 @@ double MPCzinho::get_steering_command() {
 
   this->set_path_in_solver();
 
+  if (!this->has_previous_control_command_) {
+    this->previous_control_command_.steering_angle = this->solver_state_.steering_angle;
+    this->has_previous_control_command_ = true;
+  }
+
+  this->solver_->set_previous_control_command(this->previous_control_command_);
   this->solver_->set_state(this->solver_state_);
   int solver_status = 0;
   common_lib::structures::ControlCommand command = this->solver_->solve(&solver_status);
+  this->previous_control_command_.steering_angle = command.steering_angle;
 
   return command.steering_angle;
 }

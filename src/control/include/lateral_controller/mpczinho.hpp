@@ -15,6 +15,8 @@ private:
   bool _path_received_ = false;
   custom_interfaces::msg::PathPointArray latest_path_;
   std::shared_ptr<LocalPather> local_pather_;
+  common_lib::structures::ControlCommand previous_control_command_;
+  bool has_previous_control_command_ = false;
   void set_path_in_solver();
 public:
   /**

@@ -13,6 +13,8 @@ public:
 
     void set_state(const custom_interfaces::msg::VehicleStateVector& state) override;
     void set_path(const custom_interfaces::msg::PathPointArray& path) override;
+    void set_previous_control_command(
+        const common_lib::structures::ControlCommand& previous_command) override;
     common_lib::structures::ControlCommand solve(int* solver_status = nullptr) override; 
     
     std::vector<common_lib::structures::ControlCommand> get_full_solution() override;
@@ -51,6 +53,7 @@ private:
     unsigned int total_sqp_iterations_ = 0;
 
     custom_interfaces::msg::VehicleStateVector latest_state_;
+    common_lib::structures::ControlCommand previous_control_command_;
     bool has_state_ = false;
     bool has_path_ = false;
     bool is_initialized_ = false;

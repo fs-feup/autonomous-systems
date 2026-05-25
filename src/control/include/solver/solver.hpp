@@ -33,6 +33,14 @@ public:
     virtual void set_path(const custom_interfaces::msg::PathPointArray& path) = 0;
 
     /**
+     * @brief Set the previously sent command, for solvers that constrain command-to-command changes.
+     *
+     * Solvers that do not need this information can ignore it.
+     */
+    virtual void set_previous_control_command(
+        const common_lib::structures::ControlCommand&) {}
+
+    /**
      * @brief Solve the optimization problem
      * 
      * @param solver_status Optional pointer to an integer to store the solver status code (0 for success, 1 for benign failure such as infeasibility, negative for solver errors or divergences)

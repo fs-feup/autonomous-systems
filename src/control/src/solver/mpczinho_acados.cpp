@@ -3,7 +3,7 @@
 #include <cmath>
 #include <limits>
 
-constexpr int path_point_size = 4;
+constexpr int solver_parameter_size = 5;
 
 MPCzinhoAcadosSolver::MPCzinhoAcadosSolver(const ControlParameters& params) : SolverInterface(params), _execution_times_(std::make_shared<std::vector<double>>(9, 0.0)) {
   // 1. Create the capsule
@@ -23,7 +23,7 @@ MPCzinhoAcadosSolver::MPCzinhoAcadosSolver(const ControlParameters& params) : So
 
   // 4. Initialize parameters per stage vector
   int N = this->control_params_->mpc_prediction_horizon_steps_;
-  parameters_per_stage.resize((N+1)*4, 0.0); // Assuming 1 parameter
+  parameters_per_stage.resize((N+1)*solver_parameter_size, 0.0);
 }
 
 MPCzinhoAcadosSolver::~MPCzinhoAcadosSolver() {
@@ -47,6 +47,11 @@ void MPCzinhoAcadosSolver::set_state(const custom_interfaces::msg::VehicleStateV
   ocp_nlp_constraints_model_set(nlp_config_, nlp_dims_, nlp_in_, nlp_out_, 0, "ubx", (void*)state_vector.data());
 }
 
+void MPCzinhoAcadosSolver::set_previous_control_command(
+    const common_lib::structures::ControlCommand& previous_command) {
+  this->previous_control_command_ = previous_command;
+}
+
 void MPCzinhoAcadosSolver::initialize_solver_memory() {
   int N = this->control_params_->mpc_prediction_horizon_steps_;
   double u_zero[1] = {0.0}; // Baseline control guess
@@ -57,9 +62,9 @@ void MPCzinhoAcadosSolver::initialize_solver_memory() {
 
   // Fill the state guess across the entire horizon (stages 0 to N)
   for (int i = 0; i <= N; ++i) {
-    double x = this->parameters_per_stage[i*4];
-    double y = this->parameters_per_stage[i*4 + 1];
-    double yaw = this->parameters_per_stage[i*4 + 3];
+    double x = this->parameters_per_stage[i*solver_parameter_size];
+    double y = this->parameters_per_stage[i*solver_parameter_size + 1];
+    double yaw = this->parameters_per_stage[i*solver_parameter_size + 3];
 
     double state_guess[4] = {x, y, yaw, 0.0}; // [x, y, theta, steering_angle] with some initial guess for velocities and other states
     ocp_nlp_out_set(nlp_config_, nlp_dims_, nlp_out_, nlp_in_, i, "x", (void*)state_guess);
@@ -77,13 +82,14 @@ void MPCzinhoAcadosSolver::set_path_point_per_stage() {
   int N = this->control_params_->mpc_prediction_horizon_steps_;
   this->stage_parameters_debug = "Stage parameters debug:  \n";
   for (int i = 0; i <= N; ++i) {
-    double path_point_x = this->parameters_per_stage[i*path_point_size];
-    double path_point_y = this->parameters_per_stage[i*path_point_size + 1];
-    double path_point_v = this->parameters_per_stage[i*path_point_size + 2];
-    double path_point_orientation = this->parameters_per_stage[i*path_point_size + 3];
+    double path_point_x = this->parameters_per_stage[i*solver_parameter_size];
+    double path_point_y = this->parameters_per_stage[i*solver_parameter_size + 1];
+    double path_point_v = this->parameters_per_stage[i*solver_parameter_size + 2];
+    double path_point_orientation = this->parameters_per_stage[i*solver_parameter_size + 3];
+    double previous_steering_command = this->previous_control_command_.steering_angle;
     this->stage_parameters_debug += "(" + std::to_string(path_point_x) + ", " + std::to_string(path_point_y) + ", " + std::to_string(path_point_v) + ", " + std::to_string(path_point_orientation) + ")\n";
-    double point_for_stage[path_point_size] = {this->parameters_per_stage[i*path_point_size], this->parameters_per_stage[i*path_point_size + 1], this->parameters_per_stage[i*path_point_size + 2], this->parameters_per_stage[i*path_point_size + 3]};
-    mpczinho_acados_update_params(this->capsule_, i, point_for_stage, path_point_size);
+    double point_for_stage[solver_parameter_size] = {path_point_x, path_point_y, path_point_v, path_point_orientation, previous_steering_command};
+    mpczinho_acados_update_params(this->capsule_, i, point_for_stage, solver_parameter_size);
   }
 }
 
@@ -133,10 +139,10 @@ void MPCzinhoAcadosSolver::set_path(const custom_interfaces::msg::PathPointArray
 
   for (size_t i = 0; i < path.pathpoint_array.size(); ++i) {
     const auto& point = path.pathpoint_array[i];
-    this->parameters_per_stage[i*path_point_size] = point.x;
-    this->parameters_per_stage[i*path_point_size + 1] = point.y;
-    this->parameters_per_stage[i*path_point_size + 2] = point.v;
-    this->parameters_per_stage[i*path_point_size + 3] = point.orientation;
+    this->parameters_per_stage[i*solver_parameter_size] = point.x;
+    this->parameters_per_stage[i*solver_parameter_size + 1] = point.y;
+    this->parameters_per_stage[i*solver_parameter_size + 2] = point.v;
+    this->parameters_per_stage[i*solver_parameter_size + 3] = point.orientation;
   }
 
   this->has_path_ = true;
