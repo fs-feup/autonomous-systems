@@ -4,10 +4,44 @@
 #include <cctype>
 #include <chrono>
 #include <cmath>
+#include <ctime>
 #include <filesystem>
 #include <iomanip>
+#include <stdexcept>
 #include <sstream>
 #include <string>
+
+Statistics::Statistics(
+    const Track& track,
+    std::shared_ptr<const common_lib::car_parameters::CarParameters> car_parameters,
+    const std::string& discipline)
+    : start_line_a_(track.get_start_line().first),
+      start_line_b_(track.get_start_line().second),
+      cones_(track.get_cones()) {
+  if (car_parameters == nullptr) {
+    throw std::invalid_argument("Statistics requires vehicle model car parameters");
+  }
+
+  penalty_time_per_cone_ = penalty_time_for_discipline(discipline);
+  const double wheel_radius = car_parameters->wheel_diameter * 0.5;
+  car_front_extent_ = car_parameters->wheelbase - car_parameters->cg_2_rear_axis + wheel_radius;
+  car_rear_extent_ = car_parameters->cg_2_rear_axis + wheel_radius;
+  car_half_width_ = car_parameters->track_width * 0.5 + wheel_radius;
+  reset();
+}
+
+std::vector<common_lib::structures::Cone> Statistics::get_recently_hit_cones() const {
+  std::vector<common_lib::structures::Cone> hit_cones;
+  hit_cones.reserve(hit_cone_indices_.size());
+
+  for (const std::size_t cone_index : hit_cone_indices_) {
+    if (cone_index < cones_.size()) {
+      hit_cones.push_back(cones_[cone_index]);
+    }
+  }
+
+  return hit_cones;
+}
 
 double Statistics::distance_between(const common_lib::structures::Position& a,
                                     const common_lib::structures::Position& b) const {
@@ -31,7 +65,7 @@ std::pair<double, double> Statistics::tracking_error_and_objective_velocity(
   double best_distance_sq = std::numeric_limits<double>::max();
   double best_velocity = 0.0;
 
-  for (size_t i = 0; i + 1 < path_points.size(); ++i) {
+  for (std::size_t i = 0; i + 1 < path_points.size(); ++i) {
     const auto& start = path_points[i];
     const auto& end = path_points[i + 1];
     const double segment_x = end.position.x - start.position.x;
@@ -76,27 +110,6 @@ std::filesystem::path Statistics::run_directory() const {
   return std::filesystem::current_path() / "src" / "invictasim" / "runs";
 }
 
-Statistics::Statistics(
-    const Track& track,
-    std::shared_ptr<const common_lib::car_parameters::CarParameters> car_parameters,
-    const std::string& discipline)
-    : start_line_a_(track.get_start_line().first),
-      start_line_b_(track.get_start_line().second),
-      cones_(track.get_cones()) {
-  penalty_time_per_cone_ = penalty_time_for_discipline(discipline);
-  if (car_parameters != nullptr) {
-    const double wheel_radius = car_parameters->wheel_diameter * 0.5;
-    car_front_extent_ = car_parameters->wheelbase - car_parameters->cg_2_rear_axis + wheel_radius;
-    car_rear_extent_ = car_parameters->cg_2_rear_axis + wheel_radius;
-    car_half_width_ = car_parameters->track_width * 0.5 + wheel_radius;
-  } else {
-    car_front_extent_ = default_car_front_extent_m_;
-    car_rear_extent_ = default_car_rear_extent_m_;
-    car_half_width_ = default_car_half_width_m_;
-  }
-  reset();
-}
-
 void Statistics::reset() {
   snapshot_ = StatisticsSnapshot();
   previous_position_.reset();
@@ -106,8 +119,6 @@ void Statistics::reset() {
   lap_start_distance_ = 0.0;
   distance_traveled_ = 0.0;
   reset_lap_accumulators();
-  cones_been_hit_.assign(cones_.size(), false);
-  recently_hit_cones_.clear();
   reset_lap_cone_hits();
   start_csv_file();
 }
@@ -192,6 +203,15 @@ bool Statistics::collides_with_cone(const VehicleModelSnapshot& vehicle_snapshot
   return std::hypot(local_x - closest_x, local_y - closest_y) <= cone_radius(cone);
 }
 
+double Statistics::current_lap_penalty_time() const {
+  return static_cast<double>(hit_cone_indices_.size()) * penalty_time_per_cone_;
+}
+
+bool Statistics::cone_was_hit(std::size_t cone_index) const {
+  return std::find(hit_cone_indices_.begin(), hit_cone_indices_.end(), cone_index) !=
+         hit_cone_indices_.end();
+}
+
 double Statistics::current_lap_average_velocity() const {
   if (lap_accumulated_time_ <= 0.0) {
     return 0.0;
@@ -218,19 +238,17 @@ void Statistics::update_cone_collisions(const VehicleModelSnapshot& vehicle_snap
     return;
   }
 
-  for (size_t i = 0; i < cones_.size(); ++i) {
+  for (std::size_t i = 0; i < cones_.size(); ++i) {
     if (!collides_with_cone(vehicle_snapshot, cones_[i])) {
       continue;
     }
 
-    if (cones_been_hit_[i]) {
+    if (cone_was_hit(i)) {
       continue;
     }
 
-    cones_been_hit_[i] = true;
-    snapshot_.current_lap_cones_hit += 1;
-    current_lap_penalty_time_ += penalty_time_per_cone_;
-    recently_hit_cones_.push_back(cones_[i]);
+    hit_cone_indices_.push_back(i);
+    snapshot_.current_lap_cones_hit = static_cast<int>(hit_cone_indices_.size());
   }
 }
 
@@ -281,7 +299,7 @@ void Statistics::finish_lap(double sim_time) {
   snapshot_.lap_counter += 1;
   snapshot_.last_lap_time = lap_time;
   snapshot_.cones_hit = snapshot_.current_lap_cones_hit;
-  snapshot_.total_lap_time = snapshot_.last_lap_time + current_lap_penalty_time_;
+  snapshot_.total_lap_time = snapshot_.last_lap_time + current_lap_penalty_time();
   snapshot_.completed_lap_average_velocity = current_lap_average_velocity();
   snapshot_.completed_lap_max_velocity = lap_max_velocity_;
   snapshot_.completed_lap_average_tracking_error = current_lap_average_tracking_error();
@@ -293,13 +311,12 @@ void Statistics::finish_lap(double sim_time) {
     snapshot_.best_lap_time = snapshot_.total_lap_time;
   }
 
-  write_csv_row("lap_summary", sim_time, current_lap_penalty_time_);
+  write_csv_row();
 
   lap_start_time_ = sim_time;
   lap_start_distance_ = distance_traveled_;
   snapshot_.current_lap_time = 0.0;
   reset_lap_accumulators();
-  cones_been_hit_.assign(cones_.size(), false);
   reset_lap_cone_hits();
 }
 
@@ -317,7 +334,6 @@ void Statistics::update_lap_counter(const common_lib::structures::Position& posi
       lap_start_distance_ = distance_traveled_;
       snapshot_.current_lap_time = 0.0;
       reset_lap_accumulators();
-      cones_been_hit_.assign(cones_.size(), false);
       reset_lap_cone_hits();
     }
     previous_start_line_side_ = current_side;
@@ -343,9 +359,8 @@ void Statistics::reset_lap_accumulators() {
 }
 
 void Statistics::reset_lap_cone_hits() {
-  current_lap_penalty_time_ = 0.0;
   snapshot_.current_lap_cones_hit = 0;
-  recently_hit_cones_.clear();
+  hit_cone_indices_.clear();
 }
 
 void Statistics::start_csv_file() {
@@ -387,7 +402,7 @@ void Statistics::write_csv_header() {
                "avg_velocity_error_kmh,max_velocity_error_kmh\n";
 }
 
-void Statistics::write_csv_row(const char* event, double sim_time, double penalty_time) {
+void Statistics::write_csv_row() {
   if (!csv_file_.is_open()) {
     return;
   }
