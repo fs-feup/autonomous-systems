@@ -1024,7 +1024,7 @@ void RosOutputAdapter::add_body_marker(visualization_msgs::msg::MarkerArray& mar
   body.color.g = 0.0f;
   body.color.b = 0.0f;
   body.mesh_resource = get_car_mesh_resource("car_body.glb");
-  body.mesh_use_embedded_materials = false;
+  body.mesh_use_embedded_materials = true;
 
   marker_array.markers.push_back(body);
 }
