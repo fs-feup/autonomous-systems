@@ -780,7 +780,7 @@ std::string RosOutputAdapter::get_car_mesh_resource(const std::string& mesh_name
 }
 
 std::vector<double> RosOutputAdapter::load_car_mesh_positions() const {
-  std::vector<double> positions(9, 0.0);
+  std::vector<double> positions(10, 0.0);
   const std::string car_folder = simulator_->get_params().car_parameters_config;
   std::string pos_file = ament_index_cpp::get_package_share_directory("invictasim") +
                          "/resources/meshes/car/" + car_folder + "/pos.yaml";
@@ -800,6 +800,7 @@ std::vector<double> RosOutputAdapter::load_car_mesh_positions() const {
   positions[6] = yaml_positions["wheels_offset_x"].as<double>(positions[6]);
   positions[7] = yaml_positions["wheels_offset_y"].as<double>(positions[7]);
   positions[8] = yaml_positions["wheels_offset_z"].as<double>(positions[8]);
+  positions[9] = yaml_positions["steering_visual_multiplier"].as<double>(positions[9]);
   positions[3] *= M_PI / 180.0; // Convert from degrees to radians
   positions[4] *= M_PI / 180.0;
   positions[5] *= M_PI / 180.0;
@@ -902,7 +903,7 @@ void RosOutputAdapter::add_steering_marker(visualization_msgs::msg::MarkerArray&
   q_mount.setRPY(positions[3], positions[4], positions[5]);
 
   tf2::Quaternion q_steering;
-  q_steering.setRPY(-vehicle_model_snapshot_cache_.steering_angle, 0.0, 0.0);
+  q_steering.setRPY(-vehicle_model_snapshot_cache_.steering_angle * positions[9], 0.0, 0.0);
 
   tf2::Quaternion q_total = q_mount * q_steering;
   q_total.normalize();

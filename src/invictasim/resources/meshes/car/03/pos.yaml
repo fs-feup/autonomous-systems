@@ -5,6 +5,7 @@ positions:
   steering_rotation_x: 0.0
   steering_rotation_y: 15.0
   steering_rotation_z: 0.0
+  steering_visual_multiplier: 5.0
   wheels_offset_x: 0.0
   wheels_offset_y: 0.0
   wheels_offset_z: 0.0
