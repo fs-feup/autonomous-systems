@@ -674,7 +674,7 @@ void RosOutputAdapter::publish_visualization_ground(const rclcpp::Time& stamp) {
   ground.mesh_resource = "package://invictasim/resources/meshes/ground/ground_plane.dae";
   ground.mesh_use_embedded_materials = true;
   ground_marker_array.markers.push_back(ground);
-  add_start_line_markers(ground_marker_array, stamp);
+  add_timing_line_markers(ground_marker_array, stamp);
   visualization_ground_pub_->publish(ground_marker_array);
 }
 
@@ -758,17 +758,17 @@ RosOutputAdapter::GroundVisualConfig RosOutputAdapter::load_ground_visual_config
     ground_config.color_a = color["a"].as<double>(ground_config.color_a);
   }
 
-  const YAML::Node start_line = visualization["start_line"];
-  if (start_line) {
-    ground_config.start_line_target_cell_length =
-        start_line["target_cell_length"].as<double>(ground_config.start_line_target_cell_length);
-    ground_config.start_line_row_count =
-        start_line["row_count"].as<int>(ground_config.start_line_row_count);
-    ground_config.start_line_total_width =
-        start_line["total_width"].as<double>(ground_config.start_line_total_width);
-    ground_config.start_line_z = start_line["z"].as<double>(ground_config.start_line_z);
-    ground_config.start_line_height =
-        start_line["height"].as<double>(ground_config.start_line_height);
+  const YAML::Node timing_line = visualization["timing_line"];
+  if (timing_line) {
+    ground_config.timing_line_target_cell_length =
+        timing_line["target_cell_length"].as<double>(ground_config.timing_line_target_cell_length);
+    ground_config.timing_line_row_count =
+        timing_line["row_count"].as<int>(ground_config.timing_line_row_count);
+    ground_config.timing_line_total_width =
+        timing_line["total_width"].as<double>(ground_config.timing_line_total_width);
+    ground_config.timing_line_z = timing_line["z"].as<double>(ground_config.timing_line_z);
+    ground_config.timing_line_height =
+        timing_line["height"].as<double>(ground_config.timing_line_height);
   }
 
   return ground_config;
@@ -941,12 +941,47 @@ std::vector<double> RosOutputAdapter::load_car_mesh_positions() const {
   return positions;
 }
 
-void RosOutputAdapter::add_start_line_markers(visualization_msgs::msg::MarkerArray& marker_array,
-                                              const rclcpp::Time& stamp) const {
-  const auto start_line = simulator_->get_start_line();
+std::vector<RosOutputAdapter::TimingLine> RosOutputAdapter::make_timing_lines() const {
+  std::string discipline = simulator_->get_discipline();
+  std::transform(discipline.begin(), discipline.end(), discipline.begin(),
+                 [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
+
+  if (discipline == "acceleration") {
+    return make_acceleration_timing_lines();
+  }
+  return make_default_timing_lines();
+}
+
+std::vector<RosOutputAdapter::TimingLine> RosOutputAdapter::make_default_timing_lines() const {
+  const auto timing_line = simulator_->get_timing_line();
+  return {{timing_line.first, timing_line.second}};
+}
+
+std::vector<RosOutputAdapter::TimingLine> RosOutputAdapter::make_acceleration_timing_lines() const {
+  std::vector<TimingLine> timing_lines;
+  const auto& configured_timing_lines = simulator_->get_timing_lines();
+  for (const auto& timing_line : configured_timing_lines) {
+    timing_lines.emplace_back(timing_line.first, timing_line.second);
+  }
+  return timing_lines;
+}
+
+void RosOutputAdapter::add_timing_line_markers(visualization_msgs::msg::MarkerArray& marker_array,
+                                               const rclcpp::Time& stamp) const {
+  const auto timing_lines = make_timing_lines();
+  for (std::size_t i = 0; i < timing_lines.size(); ++i) {
+    add_timing_line_marker(marker_array, stamp, timing_lines[i], static_cast<int>(i) * 1000);
+  }
+}
+
+void RosOutputAdapter::add_timing_line_marker(visualization_msgs::msg::MarkerArray& marker_array,
+                                              const rclcpp::Time& stamp,
+                                              const TimingLine& timing_line, int id_offset) const {
+  const auto& start = std::get<0>(timing_line);
+  const auto& end = std::get<1>(timing_line);
   const GroundVisualConfig ground_config = load_ground_visual_config();
-  const double dx = start_line.second.x - start_line.first.x;
-  const double dy = start_line.second.y - start_line.first.y;
+  const double dx = end.x - start.x;
+  const double dy = end.y - start.y;
   const double length = std::hypot(dx, dy);
   if (length <= std::numeric_limits<double>::epsilon()) {
     return;
@@ -956,28 +991,28 @@ void RosOutputAdapter::add_start_line_markers(visualization_msgs::msg::MarkerArr
   tf2::Quaternion orientation;
   orientation.setRPY(0.0, 0.0, yaw);
 
-  const double target_cell_length = std::max(0.01, ground_config.start_line_target_cell_length);
-  const int row_count = std::max(1, ground_config.start_line_row_count);
+  const double target_cell_length = std::max(0.01, ground_config.timing_line_target_cell_length);
+  const int row_count = std::max(1, ground_config.timing_line_row_count);
   const int column_count = std::max(2, static_cast<int>(std::ceil(length / target_cell_length)));
   const double cell_length = length / static_cast<double>(column_count);
-  const double cell_width = ground_config.start_line_total_width / static_cast<double>(row_count);
+  const double cell_width = ground_config.timing_line_total_width / static_cast<double>(row_count);
 
   for (int column = 0; column < column_count; ++column) {
     for (int row = 0; row < row_count; ++row) {
       visualization_msgs::msg::Marker cell;
       cell.header.stamp = stamp;
       cell.header.frame_id = "map";
-      cell.ns = "invictasim_start_line";
-      cell.id = 200 + column * row_count + row;
+      cell.ns = "invictasim_timing_line";
+      cell.id = 200 + id_offset + column * row_count + row;
       cell.type = visualization_msgs::msg::Marker::CUBE;
       cell.action = visualization_msgs::msg::Marker::ADD;
 
       const double t = (static_cast<double>(column) + 0.5) / static_cast<double>(column_count);
       const double lateral_offset =
           (static_cast<double>(row) + 0.5 - static_cast<double>(row_count) * 0.5) * cell_width;
-      cell.pose.position.x = start_line.first.x + t * dx - std::sin(yaw) * lateral_offset;
-      cell.pose.position.y = start_line.first.y + t * dy + std::cos(yaw) * lateral_offset;
-      cell.pose.position.z = ground_config.start_line_z;
+      cell.pose.position.x = start.x + t * dx - std::sin(yaw) * lateral_offset;
+      cell.pose.position.y = start.y + t * dy + std::cos(yaw) * lateral_offset;
+      cell.pose.position.z = ground_config.timing_line_z;
       cell.pose.orientation.x = orientation.x();
       cell.pose.orientation.y = orientation.y();
       cell.pose.orientation.z = orientation.z();
@@ -985,7 +1020,7 @@ void RosOutputAdapter::add_start_line_markers(visualization_msgs::msg::MarkerArr
 
       cell.scale.x = cell_length;
       cell.scale.y = cell_width;
-      cell.scale.z = ground_config.start_line_height;
+      cell.scale.z = ground_config.timing_line_height;
       cell.color.a = 1.0f;
       const bool is_white = ((column + row) % 2) == 0;
       cell.color.r = is_white ? 1.0f : 0.02f;

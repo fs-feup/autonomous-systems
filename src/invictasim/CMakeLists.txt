@@ -38,7 +38,10 @@ set(IMPLEMENTATION_FILES
   src/vehicle_model/FSFEUP02.cpp
   src/vehicle_model/FSFEUP03.cpp
   src/track/track.cpp
+  src/statistics/collision_statistics.cpp
+  src/statistics/lap_timer_statistics.cpp
   src/statistics/statistics.cpp
+  src/statistics/tracking_statistics.cpp
 )
 
 # Main executable

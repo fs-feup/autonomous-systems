@@ -94,14 +94,14 @@ collision:
 
 ## Ground Configuration
 
-`ground/config.yaml` stores the ground marker, start-line marker, and lap-finish thresholds:
+`ground/config.yaml` stores the ground marker, timing-line marker, and lap-finish thresholds:
 
 ```yaml
 visualization:
   position: {x: 0.0, y: 0.0, z: -0.02}
   scale: {x: 1000.0, y: 1000.0, z: 1.0}
   color: {r: 0.78, g: 0.78, b: 0.78, a: 1.0}
-  start_line:
+  timing_line:
     target_cell_length: 0.5
     row_count: 2
     total_width: 0.45
@@ -109,7 +109,7 @@ visualization:
     height: 0.02
 
 lap_finish:
-  start_line_gate_margin: 2.0
+  timing_line_gate_margin: 2.0
   minimum_lap_time: 3.0
   minimum_lap_distance: 20.0
   penalties:

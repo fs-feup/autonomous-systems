@@ -170,12 +170,19 @@ public:
   }
 
   /**
-   * @brief Get the immutable track start/finish line endpoints.
+   * @brief Get the immutable track timing line endpoints.
    */
-  std::pair<common_lib::structures::Position, common_lib::structures::Position> get_start_line()
+  std::pair<common_lib::structures::Position, common_lib::structures::Position> get_timing_line()
       const {
-    return track_->get_start_line();
+    return track_->get_timing_line();
   }
+
+  const std::vector<std::pair<common_lib::structures::Position, common_lib::structures::Position>>&
+  get_timing_lines() const {
+    return track_->get_timing_lines();
+  }
+
+  std::string get_discipline() const { return params_.discipline; }
 
   /**
    * @brief Set the external SLAM cones.
@@ -240,7 +247,7 @@ private:
 
   std::vector<common_lib::structures::Cone> external_slam_cones_;  ///< External SLAM cones.
   std::vector<common_lib::structures::Cone>
-      external_perception_cones_;               ///< External perception cones.
+      external_perception_cones_;  ///< External perception cones.
   std::vector<common_lib::structures::PathPoint>
       external_path_points_;  ///< Latest external path points.
 

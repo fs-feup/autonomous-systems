@@ -1,6 +1,6 @@
 track:
   start_position: [0, 0]
-  start_line: [[0, -5], [0, 5]]
+  timing_line: [[0, -5], [0, 5]]
   cones:
   - [0.508259644895337, 1.54867360811606, "blue_cone"]
   - [3.779953956604, 1.52323353290558, "blue_cone"]

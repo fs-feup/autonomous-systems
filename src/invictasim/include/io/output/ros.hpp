@@ -1,11 +1,14 @@
 #pragma once
 
+#include <algorithm>
 #include <ament_index_cpp/get_package_share_directory.hpp>
 #include <atomic>
+#include <cctype>
 #include <cmath>
 #include <map>
 #include <memory>
 #include <set>
+#include <tuple>
 #include <vector>
 
 #include "common_lib/competition_logic/color.hpp"
@@ -81,6 +84,8 @@ private:
   std::map<std::string, int> visualization_publish_frequencies_;
   std::map<std::string, int> sensors_publish_frequencies_;
   std::map<std::string, int> map_publish_frequencies_;
+  using TimingLine = std::tuple<common_lib::structures::Position, common_lib::structures::Position>;
+
   struct HitboxVisual {
     double center_x = 0.0;
     double center_y = 0.0;
@@ -109,11 +114,11 @@ private:
     double color_g = 0.78;
     double color_b = 0.78;
     double color_a = 1.0;
-    double start_line_target_cell_length = 0.5;
-    int start_line_row_count = 2;
-    double start_line_total_width = 0.45;
-    double start_line_z = 0.01;
-    double start_line_height = 0.02;
+    double timing_line_target_cell_length = 0.5;
+    int timing_line_row_count = 2;
+    double timing_line_total_width = 0.45;
+    double timing_line_z = 0.01;
+    double timing_line_height = 0.02;
   };
 
   std::map<std::string, int> vehicle_state_publish_frequencies_;
@@ -207,8 +212,14 @@ private:
   std::vector<HitboxVisual> load_car_hitboxes() const;
   ConeVisualConfig load_cone_visual_config() const;
   GroundVisualConfig load_ground_visual_config() const;
-  void add_start_line_markers(visualization_msgs::msg::MarkerArray& marker_array,
-                              const rclcpp::Time& stamp) const;
+  std::vector<TimingLine> make_timing_lines() const;
+  std::vector<TimingLine> make_default_timing_lines() const;
+  std::vector<TimingLine> make_acceleration_timing_lines() const;
+  void add_timing_line_markers(visualization_msgs::msg::MarkerArray& marker_array,
+                               const rclcpp::Time& stamp) const;
+  void add_timing_line_marker(visualization_msgs::msg::MarkerArray& marker_array,
+                              const rclcpp::Time& stamp, const TimingLine& timing_line,
+                              int id_offset) const;
   void add_body_marker(visualization_msgs::msg::MarkerArray& marker_array,
                        const rclcpp::Time& stamp) const;
   void add_steering_marker(visualization_msgs::msg::MarkerArray& marker_array,

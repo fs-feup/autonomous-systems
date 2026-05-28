@@ -24,21 +24,33 @@ Track::Track(std::string file_name) {
         common_lib::structures::Position(start_node[0].as<double>(), start_node[1].as<double>());
   }
 
-  if (track_node["start_line"]) {
-    const YAML::Node& start_line_node = track_node["start_line"];
-    if (!start_line_node.IsSequence() || start_line_node.size() != 2 ||
-        !start_line_node[0].IsSequence() || !start_line_node[1].IsSequence() ||
-        start_line_node[0].size() < 2 || start_line_node[1].size() < 2) {
-      throw std::runtime_error("Malformed start_line. Expected [[x1, y1], [x2, y2]] in: " +
+  auto parse_line = [&full_path](const YAML::Node& line_node, const std::string& key) {
+    if (!line_node.IsSequence() || line_node.size() != 2 || !line_node[0].IsSequence() ||
+        !line_node[1].IsSequence() || line_node[0].size() < 2 || line_node[1].size() < 2) {
+      throw std::runtime_error("Malformed " + key +
+                               ". Expected [[x1, y1], [x2, y2]] in: " + full_path);
+    }
+    return std::make_pair(common_lib::structures::Position(line_node[0][0].as<double>(),
+                                                           line_node[0][1].as<double>()),
+                          common_lib::structures::Position(line_node[1][0].as<double>(),
+                                                           line_node[1][1].as<double>()));
+  };
+
+  if (track_node["timing_lines"]) {
+    const YAML::Node& timing_lines_node = track_node["timing_lines"];
+    if (!timing_lines_node.IsSequence() || timing_lines_node.size() == 0) {
+      throw std::runtime_error("Malformed timing_lines. Expected a non-empty list in: " +
                                full_path);
     }
-    start_line_ = {common_lib::structures::Position(start_line_node[0][0].as<double>(),
-                                                    start_line_node[0][1].as<double>()),
-                   common_lib::structures::Position(start_line_node[1][0].as<double>(),
-                                                    start_line_node[1][1].as<double>())};
+    for (const auto& line_node : timing_lines_node) {
+      timing_lines_.push_back(parse_line(line_node, "timing_lines"));
+    }
+  } else if (track_node["timing_line"]) {
+    timing_lines_.push_back(parse_line(track_node["timing_line"], "timing_line"));
   } else {
-    start_line_ = {common_lib::structures::Position(start_position_.x, start_position_.y - 5.0),
-                   common_lib::structures::Position(start_position_.x, start_position_.y + 5.0)};
+    timing_lines_.push_back(
+        {common_lib::structures::Position(start_position_.x, start_position_.y - 5.0),
+         common_lib::structures::Position(start_position_.x, start_position_.y + 5.0)});
   }
 
   if (!track_node["cones"]) {
@@ -63,19 +75,24 @@ Track::Track(std::string file_name) {
     }
   }
 
-  fit_start_line_to_track_width();
+  fit_timing_line_to_track_width();
 }
 
-void Track::fit_start_line_to_track_width() {
-  const double line_x = start_line_.second.x - start_line_.first.x;
-  const double line_y = start_line_.second.y - start_line_.first.y;
+void Track::fit_timing_line_to_track_width() {
+  if (timing_lines_.empty()) {
+    return;
+  }
+
+  auto& timing_line = timing_lines_.front();
+  const double line_x = timing_line.second.x - timing_line.first.x;
+  const double line_y = timing_line.second.y - timing_line.first.y;
   const double line_length = std::hypot(line_x, line_y);
   if (line_length <= std::numeric_limits<double>::epsilon() || cones_.size() < 2) {
     return;
   }
 
-  const common_lib::structures::Position center(0.5 * (start_line_.first.x + start_line_.second.x),
-                                                0.5 * (start_line_.first.y + start_line_.second.y));
+  const common_lib::structures::Position center(0.5 * (timing_line.first.x + timing_line.second.x),
+                                                0.5 * (timing_line.first.y + timing_line.second.y));
   const double axis_x = line_x / line_length;
   const double axis_y = line_y / line_length;
   const double normal_x = -axis_y;
@@ -136,9 +153,9 @@ void Track::fit_start_line_to_track_width() {
     return;
   }
 
-  start_line_.first = common_lib::structures::Position(center.x + axis_x * *lower_along,
+  timing_line.first = common_lib::structures::Position(center.x + axis_x * *lower_along,
                                                        center.y + axis_y * *lower_along);
-  start_line_.second = common_lib::structures::Position(center.x + axis_x * *upper_along,
+  timing_line.second = common_lib::structures::Position(center.x + axis_x * *upper_along,
                                                         center.y + axis_y * *upper_along);
 }
 
@@ -147,6 +164,11 @@ const std::vector<common_lib::structures::Cone>& Track::get_cones() const { retu
 common_lib::structures::Position Track::get_start_position() const { return start_position_; }
 
 std::pair<common_lib::structures::Position, common_lib::structures::Position>
-Track::get_start_line() const {
-  return start_line_;
+Track::get_timing_line() const {
+  return timing_lines_.front();
+}
+
+const std::vector<std::pair<common_lib::structures::Position, common_lib::structures::Position>>&
+Track::get_timing_lines() const {
+  return timing_lines_;
 }

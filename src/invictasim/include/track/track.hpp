@@ -36,20 +36,26 @@ public:
   common_lib::structures::Position get_start_position() const;
 
   /**
-   * @brief Get the start/finish line endpoints for lap counting.
-   * @return Pair with the two endpoints of the start line.
+   * @brief Get the timing line endpoints for lap counting.
+   * @return Pair with the two endpoints of the timing line.
    */
-  std::pair<common_lib::structures::Position, common_lib::structures::Position> get_start_line()
+  std::pair<common_lib::structures::Position, common_lib::structures::Position> get_timing_line()
       const;
+
+  /**
+   * @brief Get all configured timing lines. The first line is the default timing line.
+   */
+  const std::vector<std::pair<common_lib::structures::Position, common_lib::structures::Position>>&
+  get_timing_lines() const;
 
 private:
   std::vector<common_lib::structures::Cone> cones_;  ///< List of cones on the track
   common_lib::structures::Position start_position_;  ///< Starting position
-  std::pair<common_lib::structures::Position, common_lib::structures::Position>
-      start_line_;  ///< Start/finish line endpoints
+  std::vector<std::pair<common_lib::structures::Position, common_lib::structures::Position>>
+      timing_lines_;  ///< Timing line endpoints
 
   /**
-   * @brief Adjust start/finish line endpoints to the local track width near the configured line.
+   * @brief Adjust timing line endpoints to the local track width near the configured line.
    */
-  void fit_start_line_to_track_width();
+  void fit_timing_line_to_track_width();
 };

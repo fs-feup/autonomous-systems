@@ -1,6 +1,7 @@
 #pragma once
 
 #include <map>
+#include <string>
 
 #include "common_lib/car_parameters/car_parameters.hpp"
 #include "common_lib/config_load/config_load.hpp"

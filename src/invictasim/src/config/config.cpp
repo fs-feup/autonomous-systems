@@ -31,8 +31,7 @@ InvictaSimParameters::InvictaSimParameters() {
   YAML::Node vehicle_model_config = YAML::LoadFile(vehicle_model_config_path);
 
   // Vehicle model config
-  car_parameters_config =
-      vehicle_model_config["vehicle_model"]["car_parameters"].as<std::string>();
+  car_parameters_config = vehicle_model_config["vehicle_model"]["car_parameters"].as<std::string>();
   tire_model = vehicle_model_config["vehicle_model"]["tire_model"].as<std::string>();
   aero_model = vehicle_model_config["vehicle_model"]["aero_model"].as<std::string>();
   steering_model = vehicle_model_config["vehicle_model"]["steering_model"].as<std::string>();

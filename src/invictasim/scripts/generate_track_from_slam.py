@@ -47,7 +47,7 @@ COLOR_ALIASES = {
 
 MIN_COLORED_CONES = 2
 MATCH_DISTANCE_METERS = 1.0
-START_LINE_HALF_WIDTH_METERS = 5.0
+TIMING_LINE_HALF_WIDTH_METERS = 5.0
 ALLOW_UNKNOWN_CONES = False
 
 
@@ -189,12 +189,12 @@ class SlamTrackGenerator(Node):
     def write_track_file(self, cones):
         output_path = TRACKS_DIR / f"{TRACK_NAME}.yaml"
         start_position = [float(self.start_pose.x), float(self.start_pose.y)]
-        start_line = self.start_line_from_pose(self.start_pose)
+        timing_line = self.timing_line_from_pose(self.start_pose)
 
         data = {
             "track": {
                 "start_position": start_position,
-                "start_line": start_line,
+                "timing_line": timing_line,
                 "cones": cones,
             }
         }
@@ -206,12 +206,12 @@ class SlamTrackGenerator(Node):
         self.get_logger().info(f"Wrote {len(cones)} cones to {output_path}")
 
     @staticmethod
-    def start_line_from_pose(pose):
+    def timing_line_from_pose(pose):
         import math
 
         normal_theta = pose.theta + math.pi / 2.0
-        dx = START_LINE_HALF_WIDTH_METERS * math.cos(normal_theta)
-        dy = START_LINE_HALF_WIDTH_METERS * math.sin(normal_theta)
+        dx = TIMING_LINE_HALF_WIDTH_METERS * math.cos(normal_theta)
+        dy = TIMING_LINE_HALF_WIDTH_METERS * math.sin(normal_theta)
 
         return [
             [float(pose.x - dx), float(pose.y - dy)],
