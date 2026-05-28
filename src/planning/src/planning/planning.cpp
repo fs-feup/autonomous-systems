@@ -376,6 +376,11 @@ void Planning::run_trackdrive() {
     if (!is_path_final_) {
       run_full_map();
     }
+    if (lap_counter_ >= 1 && lap_counter_ < 10) {
+      // Continue tracking
+    } else if (lap_counter_ >= 10) {
+      velocity_planning_.stop(smoothed_path_, planning_config_.braking_distance_autocross_);
+    }
     return;
   }
   if (lap_counter_ == 0) {

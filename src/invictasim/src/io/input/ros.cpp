@@ -1,5 +1,7 @@
 #include "io/input/ros.hpp"
 
+#include "common_lib/communication/interfaces.hpp"
+
 RosInputAdapter::RosInputAdapter(const std::shared_ptr<InvictaSim>& simulator)
     : Node("invictasim_input", rclcpp::NodeOptions().use_global_arguments(false)),
       InvictaSimInputAdapter(simulator) {
@@ -13,6 +15,13 @@ RosInputAdapter::RosInputAdapter(const std::shared_ptr<InvictaSim>& simulator)
         simulator_->set_input(throttle, msg->steering);
       });
 
+  path_sub_ = this->create_subscription<custom_interfaces::msg::PathPointArray>(
+      "/path_planning/path", 10,
+      [this](const custom_interfaces::msg::PathPointArray::SharedPtr msg) {
+        simulator_->set_path_points(
+            common_lib::communication::path_point_array_from_ci_vector(*msg));
+      });
+
   if (!simulator_->get_params().use_simulated_se) {
     slam_map_sub_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
         "/state_estimation/map", 10,
@@ -22,8 +31,7 @@ RosInputAdapter::RosInputAdapter(const std::shared_ptr<InvictaSim>& simulator)
           for (const auto& cone_msg : msg->cone_array) {
             cones.push_back(common_lib::structures::Cone(
                 common_lib::structures::Position{cone_msg.position.x, cone_msg.position.y},
-                common_lib::competition_logic::Color::RED, cone_msg.confidence,
-                msg->header.stamp));
+                common_lib::competition_logic::Color::RED, cone_msg.confidence, msg->header.stamp));
           }
           simulator_->set_external_slam_cones(cones);
         });

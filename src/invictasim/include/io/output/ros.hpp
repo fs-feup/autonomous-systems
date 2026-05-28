@@ -1,11 +1,15 @@
 #pragma once
 
+#include <algorithm>
 #include <ament_index_cpp/get_package_share_directory.hpp>
 #include <atomic>
+#include <cctype>
 #include <cmath>
 #include <map>
 #include <memory>
 #include <set>
+#include <tuple>
+#include <vector>
 
 #include "common_lib/competition_logic/color.hpp"
 #include "common_lib/competition_logic/mission_logic.hpp"
@@ -15,7 +19,11 @@
 #include "custom_interfaces/msg/cone.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/control_command.hpp"
+#include "custom_interfaces/msg/control_statistics.hpp"
 #include "custom_interfaces/msg/execution_times.hpp"
+#include "custom_interfaces/msg/lap_current.hpp"
+#include "custom_interfaces/msg/lap_statistics.hpp"
+#include "custom_interfaces/msg/lap_summary.hpp"
 #include "custom_interfaces/msg/motor_state.hpp"
 #include "custom_interfaces/msg/operational_status.hpp"
 #include "custom_interfaces/msg/perception_output.hpp"
@@ -31,7 +39,6 @@
 #include "io/output/output_adapter.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/float64.hpp"
-#include "std_msgs/msg/float64_multi_array.hpp"
 #include "tf2/LinearMath/Quaternion.h"
 #include "tf2_ros/transform_broadcaster.h"
 #include "visualization_msgs/msg/marker.hpp"
@@ -67,6 +74,8 @@ private:
   double wheel_spin_rl_ = 0.0;
   double wheel_spin_rr_ = 0.0;
   double last_visualization_stamp_sec_ = -1.0;
+  int last_published_summary_lap_ = 0;
+  std::vector<custom_interfaces::msg::LapStatistics> lap_summary_history_;
 
   // Publishing timers and frequencies
   std::atomic<bool> running_;
@@ -75,6 +84,43 @@ private:
   std::map<std::string, int> visualization_publish_frequencies_;
   std::map<std::string, int> sensors_publish_frequencies_;
   std::map<std::string, int> map_publish_frequencies_;
+  using TimingLine = std::tuple<common_lib::structures::Position, common_lib::structures::Position>;
+
+  struct HitboxVisual {
+    double center_x = 0.0;
+    double center_y = 0.0;
+    double length = 0.0;
+    double width = 0.0;
+  };
+
+  struct ConeVisualConfig {
+    bool visualize_hitboxes = false;
+    double hitbox_z = 0.02;
+    double hitbox_height = 0.04;
+    double hitbox_alpha = 0.35;
+    double standard_radius = 0.115;
+    double large_radius = 0.15;
+    double hit_match_distance = 0.35;
+  };
+
+  struct GroundVisualConfig {
+    double position_x = 0.0;
+    double position_y = 0.0;
+    double position_z = -0.02;
+    double scale_x = 1000.0;
+    double scale_y = 1000.0;
+    double scale_z = 1.0;
+    double color_r = 0.78;
+    double color_g = 0.78;
+    double color_b = 0.78;
+    double color_a = 1.0;
+    double timing_line_target_cell_length = 0.5;
+    int timing_line_row_count = 2;
+    double timing_line_total_width = 0.45;
+    double timing_line_z = 0.01;
+    double timing_line_height = 0.02;
+  };
+
   std::map<std::string, int> vehicle_state_publish_frequencies_;
   int execution_time_frequency_ = 0;
 
@@ -84,6 +130,7 @@ private:
   MapSnapshot map_snapshot_cache_;
   SensorsSnapshot sensors_snapshot_cache_;
   VehicleStateSnapshot vehicle_state_snapshot_cache_;
+  StatisticsSnapshot statistics_snapshot_cache_;
 
   // Topic frequency
   std::unordered_map<std::string, int> topic_frequencies_;
@@ -104,6 +151,7 @@ private:
   void refresh_map_snapshot();
   void refresh_sensors_snapshot();
   void refresh_vehicle_state_snapshot();
+  void refresh_statistics_snapshot();
 
   // Vehicle model
   void publish_vm_tire(const rclcpp::Time& stamp);
@@ -129,16 +177,22 @@ private:
   // Map
   void publish_map_ground_truth(const rclcpp::Time& stamp);
   void publish_state_estimation_map(const rclcpp::Time& stamp);
-  void publish_perception_cones(const rclcpp::Time& stamp);
   void publish_state_estimation_lap_counter();
-
-  // Vehicle state (for state estimation, SLAM, planning pipelines)
   void publish_state_estimation_pose(const rclcpp::Time& stamp);
+  void publish_state_estimation_state_vector(const rclcpp::Time& stamp);
   void publish_state_estimation_velocities(const rclcpp::Time& stamp);
   void publish_operational_status(const rclcpp::Time& stamp);
 
   // Execution time
   void publish_execution_time(const rclcpp::Time& stamp);
+
+  // Statistics
+  void publish_lap_summary(const rclcpp::Time& stamp);
+  void publish_lap_current(const rclcpp::Time& stamp);
+  void publish_control_statistics(const rclcpp::Time& stamp);
+
+  // Simulated perception
+  void publish_perception_cones(const rclcpp::Time& stamp);
 
   // Input commands
   void publish_input(const rclcpp::Time& stamp);
@@ -146,13 +200,32 @@ private:
   // Helper functions for message conversions and visualization
   custom_interfaces::msg::WheelScalars to_wheels_msg(const common_lib::structures::Wheels& wheels,
                                                      const rclcpp::Time& stamp) const;
+  std::vector<common_lib::structures::Cone> mark_recently_hit_cones_red(
+      std::vector<common_lib::structures::Cone> cones) const;
 
   // Visualization marker publishing helper functions
   visualization_msgs::msg::MarkerArray convert_cone_array_to_markers(
       const std::vector<common_lib::structures::Cone>& cone_array, const rclcpp::Time& stamp,
       const std::string& frame_id = "map") const;
+  std::string get_car_mesh_resource(const std::string& mesh_name) const;
+  std::vector<double> load_car_mesh_positions() const;
+  std::vector<HitboxVisual> load_car_hitboxes() const;
+  ConeVisualConfig load_cone_visual_config() const;
+  GroundVisualConfig load_ground_visual_config() const;
+  std::vector<TimingLine> make_timing_lines() const;
+  std::vector<TimingLine> make_default_timing_lines() const;
+  std::vector<TimingLine> make_acceleration_timing_lines() const;
+  void add_timing_line_markers(visualization_msgs::msg::MarkerArray& marker_array,
+                               const rclcpp::Time& stamp) const;
+  void add_timing_line_marker(visualization_msgs::msg::MarkerArray& marker_array,
+                              const rclcpp::Time& stamp, const TimingLine& timing_line,
+                              int id_offset) const;
   void add_body_marker(visualization_msgs::msg::MarkerArray& marker_array,
                        const rclcpp::Time& stamp) const;
+  void add_steering_marker(visualization_msgs::msg::MarkerArray& marker_array,
+                           const rclcpp::Time& stamp) const;
+  void add_hitbox_markers(visualization_msgs::msg::MarkerArray& marker_array,
+                          const rclcpp::Time& stamp) const;
   void add_wheel_markers(visualization_msgs::msg::MarkerArray& marker_array,
                          const rclcpp::Time& stamp, double dt);
   void add_vehicle_transform(const rclcpp::Time& stamp);
@@ -182,6 +255,12 @@ private:
       execution_times_pub_;  ///< Publisher for simulation execution timings.
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr
       map_pub_;  ///< Publisher for the loaded ground truth map.
+  rclcpp::Publisher<custom_interfaces::msg::LapSummary>::SharedPtr
+      lap_summary_pub_;  ///< Publisher for completed lap history.
+  rclcpp::Publisher<custom_interfaces::msg::LapCurrent>::SharedPtr
+      lap_current_pub_;  ///< Publisher for current lap status.
+  rclcpp::Publisher<custom_interfaces::msg::ControlStatistics>::SharedPtr
+      control_statistics_pub_;  ///< Publisher for controller tracking statistics.
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
       visualization_ground_pub_;  ///< Publisher for ground visualization markers.
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
@@ -206,5 +285,7 @@ private:
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr state_map_pub_;
   rclcpp::Publisher<custom_interfaces::msg::OperationalStatus>::SharedPtr operational_status_pub_;
   rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr vehicle_pose_pub_;
+  rclcpp::Publisher<custom_interfaces::msg::VehicleStateVector>::SharedPtr
+      vehicle_state_vector_pub_;
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr lap_counter_pub_;
 };

@@ -1,5 +1,6 @@
 global:
   adapter: "invictasim" # Options: "vehicle", "pacsim" or "invictasim"
+  adapter: "invictasim" # Options: "vehicle", "pacsim" or "invictasim"
   car_config: "02" # default car configuration to load from config/car/
   vehicle_frame_id: "map" # "map" or ... -> frame_id for the visualization messages
   use_simulated_se: true # use simulated state estimator from the simulator
