@@ -28,7 +28,7 @@ struct Section {
 
   // --- rolling-mean error tracking ---
   double mean_error{0.0};  ///< Running mean of cross-track error inside this section
-  int sample_count{0};     ///< Number of error samples accumulated since last reset
+  int sample_count{2};     ///< Number of error samples accumulated since last reset
 };
 
 /**

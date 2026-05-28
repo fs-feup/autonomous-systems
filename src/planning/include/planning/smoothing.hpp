@@ -77,7 +77,6 @@ private:
   mutable OSQPSolver* solver_ = nullptr;
   mutable int cached_num_points_ = -1;
   mutable bool cached_is_closed_ = false;
-  mutable bool cached_is_final_ = false;
   mutable std::vector<OSQPFloat> cached_primal_;
   mutable std::vector<OSQPFloat> cached_dual_;
 
@@ -207,7 +206,7 @@ private:
    */
   std::vector<PathPoint> osqp_optimization_implementation(
       const std::vector<PathPoint>& center_path, const std::vector<PathPoint>& left_boundary,
-      const std::vector<PathPoint>& right_boundary, bool is_path_closed, bool is_final) const;
+      const std::vector<PathPoint>& right_boundary, bool is_path_closed) const;
 
   /**
    * @brief Builds the warm-start vectors for the OSQP solver.
@@ -219,13 +218,6 @@ private:
    */
   void build_warm_start(int total_variables, int num_path_points, int total_constraints,
                         const std::vector<PathPoint>& center_path) const;
-
-  void add_fixed_point_constraints(std::vector<OSQPFloat>& constraint_values,
-                                   std::vector<OSQPInt>& constraint_row_indices,
-                                   std::vector<OSQPInt>& constraint_col_indices,
-                                   std::vector<OSQPFloat>& constraint_lower_bounds,
-                                   std::vector<OSQPFloat>& constraint_upper_bounds,
-                                   int& constraint_count, const PathPoint& fixed_point) const;
 };
 
 #endif  // SRC_PLANNING_INCLUDE_PLANNING_SMOOTHING_HPP_

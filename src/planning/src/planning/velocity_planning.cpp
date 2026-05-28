@@ -169,9 +169,6 @@ void VelocityPlanning::set_velocity(std::vector<PathPoint> &final_path) {
     curvatures[i] = find_curvature(final_path[i - 1], final_path[i], final_path[i + 1]);
   }
 
-  // Build sections from curvature peaks (once per path)
-  compute_sections(curvatures);
-
   // Velocity passes
   std::vector<double> velocities;
   point_speed(curvatures, velocities);
@@ -217,7 +214,10 @@ void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
   for (int i = 1; i < path_size - 1; ++i) {
     curvatures[i] = find_curvature(final_path[i - 1], final_path[i], final_path[i + 1]);
   }
-  compute_sections(curvatures);
+
+  if (sections_.empty()) {
+    compute_sections(curvatures);
+  }
 }
 
 void VelocityPlanning::stop(std::vector<PathPoint> &final_path, double braking_distance) {

@@ -301,7 +301,7 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(
   }
 
   return osqp_optimization_implementation(center_path, left_boundary, right_boundary,
-                                          is_path_closed, is_final);
+                                          is_path_closed);
 }
 
 void PathSmoothing::build_warm_start(int total_variables, int num_path_points,
@@ -326,31 +326,9 @@ void PathSmoothing::build_warm_start(int total_variables, int num_path_points,
   (void)::osqp_warm_start(solver_, warm_x.data(), warm_y.data());
 }
 
-void PathSmoothing::add_fixed_point_constraints(std::vector<OSQPFloat>& constraint_values,
-                                                std::vector<OSQPInt>& constraint_row_indices,
-                                                std::vector<OSQPInt>& constraint_col_indices,
-                                                std::vector<OSQPFloat>& constraint_lower_bounds,
-                                                std::vector<OSQPFloat>& constraint_upper_bounds,
-                                                int& constraint_count,
-                                                const PathPoint& fixed_point) const {
-  constraint_row_indices.push_back(constraint_count);
-  constraint_col_indices.push_back(0);
-  constraint_values.push_back(1.0);
-  constraint_lower_bounds.push_back(fixed_point.position.x);
-  constraint_upper_bounds.push_back(fixed_point.position.x);
-  constraint_count++;
-
-  constraint_row_indices.push_back(constraint_count);
-  constraint_col_indices.push_back(1);
-  constraint_values.push_back(1.0);
-  constraint_lower_bounds.push_back(fixed_point.position.y);
-  constraint_upper_bounds.push_back(fixed_point.position.y);
-  constraint_count++;
-}
-
 std::vector<PathPoint> PathSmoothing::osqp_optimization_implementation(
     const std::vector<PathPoint>& center_path, const std::vector<PathPoint>& left_boundary,
-    const std::vector<PathPoint>& right_boundary, bool is_path_closed, bool is_final) const {
+    const std::vector<PathPoint>& right_boundary, bool is_path_closed) const {
   const int num_path_points = static_cast<int>(center_path.size());
 
   if (num_path_points < 5) {
@@ -415,12 +393,6 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization_implementation(
                                       constraint_col_indices, constraint_lower_bounds,
                                       constraint_upper_bounds, constraint_count, num_path_points);
 
-  if (!is_final) {
-    add_fixed_point_constraints(constraint_values, constraint_row_indices, constraint_col_indices,
-                                constraint_lower_bounds, constraint_upper_bounds, constraint_count,
-                                center_path[0]);
-  }
-
   const int total_constraints = constraint_count;
 
   // -------- CONVERT TO CSC FORMAT --------
@@ -429,27 +401,10 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization_implementation(
   convert_to_csc_format(P_values, P_row_indices, P_col_indices, total_variables, P_csc_values,
                         P_csc_row_indices, P_csc_col_pointers);
 
-  // Check P matrix upper triangularity
-  for (int col = 0; col < total_variables; ++col) {
-    for (OSQPInt ptr = P_csc_col_pointers[col]; ptr < P_csc_col_pointers[col + 1]; ++ptr) {
-      if (P_csc_row_indices[ptr] > col) {
-        RCLCPP_ERROR(rclcpp::get_logger("rclcpp"),
-                     "P matrix violation: row %d > col %d in CSC format", P_csc_row_indices[ptr],
-                     col);
-      }
-    }
-  }
-
   std::vector<OSQPFloat> A_csc_values;
   std::vector<OSQPInt> A_csc_row_indices, A_csc_col_pointers;
   convert_to_csc_format(constraint_values, constraint_row_indices, constraint_col_indices,
                         total_variables, A_csc_values, A_csc_row_indices, A_csc_col_pointers);
-
-  RCLCPP_INFO(rclcpp::get_logger("rclcpp"),
-              "A matrix: P_csc_values.size()=%ld, A_csc_values.size()=%ld, "
-              "P_col_pointers.size()=%ld, A_col_pointers.size()=%ld",
-              P_csc_values.size(), A_csc_values.size(), P_csc_col_pointers.size(),
-              A_csc_col_pointers.size());
 
   OSQPCscMatrix objective_matrix;
   objective_matrix.m = total_variables;
@@ -486,23 +441,12 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization_implementation(
 
     OSQPSettings solver_settings;
     ::osqp_set_default_settings(&solver_settings);
-    solver_settings.verbose = true;
+    solver_settings.verbose = false;
     solver_settings.max_iter = config_.max_iterations_;
     solver_settings.eps_abs = config_.tolerance_;
     solver_settings.eps_rel = config_.tolerance_;
     solver_settings.polishing = 1;
-    RCLCPP_INFO(
-        rclcpp::get_logger("rclcpp"),
-        "OSQP: m=%d, n=%d, constraint_lower_bounds.size()=%ld, constraint_upper_bounds.size()=%ld",
-        total_constraints, total_variables, constraint_lower_bounds.size(),
-        constraint_upper_bounds.size());
 
-    for (int i = 0; i < static_cast<int>(constraint_lower_bounds.size()); ++i) {
-      if (constraint_lower_bounds[i] > constraint_upper_bounds[i]) {
-        RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Bound violation at index %d: l=%.6e > u=%.6e",
-                     i, constraint_lower_bounds[i], constraint_upper_bounds[i]);
-      }
-    }
     const OSQPInt setup_status =
         ::osqp_setup(&solver_, &objective_matrix, linear_objective.data(), &constraint_matrix,
                      constraint_lower_bounds.data(), constraint_upper_bounds.data(),

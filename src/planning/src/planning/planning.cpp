@@ -338,6 +338,7 @@ void Planning::run_autocross() {
       run_full_map();
     }
     //TODO: Change to always call this!
+    velocity_planning_.adapt_limits(current_pose_, smoothed_path_);
     velocity_planning_.trackdrive_velocity(smoothed_path_);
     return;
   }
