@@ -131,6 +131,8 @@ Planning::Planning(const PlanningParameters &params)
         create_publisher<visualization_msgs::msg::Marker>("/path_planning/smoothed_path_", 10);
     velocity_hover_pub_ =
         create_publisher<visualization_msgs::msg::MarkerArray>("/path_planning/velocity_hover", 10);
+    velocity_colored_path_pub_ = create_publisher<visualization_msgs::msg::Marker>(
+        "/path_planning/velocity_colored_path", 10);
   }
 
   if (!planning_config_.using_simulated_se_) {
@@ -316,7 +318,7 @@ void Planning::run_full_map() {
     RCLCPP_DEBUG(get_logger(), "Trackdrive path calculated with %d points",
                  static_cast<int>(smoothed_path_.size()));
 
-    RCLCPP_DEBUG(get_logger(),
+    RCLCPP_INFO(get_logger(),
                 "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
                 "| Max: %.2f m/s",
                 lap_time, total_length, avg_vel, min_vel, max_vel);
@@ -363,7 +365,6 @@ void Planning::run_autocross() {
   }
   if (lap_counter_ >= 1) {
     if (!is_path_final_) {
-      is_path_final_ = true;
       run_full_map();
     }
     velocity_planning_.stop(smoothed_path_, planning_config_.braking_distance_autocross_);
@@ -504,6 +505,9 @@ void Planning::publish_visualization_msgs() const {
   path_to_car_pub_->publish(common_lib::communication::marker_array_from_structure_array(
       path_calculation_.get_path_to_car(), "global_path", map_frame_id_, "white", "cylinder", 0.6,
       visualization_msgs::msg::Marker::MODIFY));
+
+  velocity_colored_path_pub_->publish(common_lib::communication::velocity_colored_path_marker(
+      smoothed_path_, "velocity_colored_path", map_frame_id_));
 
   if (planning_config_.smoothing_.use_path_smoothing_) {
     velocity_hover_pub_->publish(common_lib::communication::velocity_hover_markers(

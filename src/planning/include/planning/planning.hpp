@@ -123,6 +123,7 @@ private:
   rclcpp::Subscription<custom_interfaces::msg::Pose>::SharedPtr vehicle_localization_sub_;
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr track_map_sub_;
   rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr lap_counter_sub_;
+  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr velocity_colored_path_pub_;
 
   /*--------------------- Publishers --------------------*/
   /**< Publisher of the smoothed path to control */

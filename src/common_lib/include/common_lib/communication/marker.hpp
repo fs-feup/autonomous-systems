@@ -256,4 +256,9 @@ visualization_msgs::msg::Marker lines_marker_from_triangulations(
 visualization_msgs::msg::MarkerArray velocity_hover_markers(
     const std::vector<common_lib::structures::PathPoint>& path_array, const std::string& name_space,
     const std::string& frame_id, float scale = 0.2f, int every_nth = 1);
+
+// TODO: docs
+visualization_msgs::msg::Marker velocity_colored_path_marker(
+    const std::vector<common_lib::structures::PathPoint>& path_array, const std::string& name_space,
+    const std::string& frame_id, float scale = 0.15f);
 }  // namespace common_lib::communication
