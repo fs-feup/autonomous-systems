@@ -6,7 +6,7 @@ vehicle_model:
   aero_model: "default_aero"
   aero_model_params: "02_aero"
 
-  tire_model: "pacejka_MF6_2" # Options: "pacejka_combined_slip", "pacejka_MF6_2"
+  tire_model: "pacejka_combined_slip" # Options: "pacejka_combined_slip", "pacejka_MF6_2"
   tire_model_params: "02_tire"
 
   motor_model: "map_based_motor"
@@ -15,7 +15,7 @@ vehicle_model:
   battery_model: "thevenin"
   battery_model_params: "02_battery"
 
-  transmission_model: "diff_viscous"
+  transmission_model: "diff_open" # Options: "diff_viscous", "diff_open"
   transmission_model_params: "02_transmission"
 
   load_transfer_model: "rigid_body" # Options: "rigid_body", "vd_model"

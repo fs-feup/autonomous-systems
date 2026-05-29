@@ -5,7 +5,7 @@
 #include <string>
 
 #include "viscous_differential.hpp"
-
+#include "open_differential.hpp"
 /*
  * Map of transmission models, with the key being the model name and the value
  * being a lambda function that returns a shared pointer to the corresponding model.
@@ -19,5 +19,10 @@ const std::map<std::string,
          [](const std::shared_ptr<common_lib::car_parameters::CarParameters> params)
              -> std::shared_ptr<TransmissionModel> {
            return std::make_shared<ViscousDifferential>(*params);
+         }},
+        {"diff_open",
+         [](const std::shared_ptr<common_lib::car_parameters::CarParameters> params)
+             -> std::shared_ptr<TransmissionModel> {
+           return std::make_shared<OpenDifferential>(*params);
          }},
 };

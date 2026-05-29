@@ -25,7 +25,9 @@ void StateEstModel::step(double dt, common_lib::structures::Wheels throttle, dou
 
   // Motor + battery
   const auto powertrain_start = Clock::now();
-  double motor_torque = throttle.rear_left * car_parameters_->motor_parameters->max_peak_torque;
+  double throttle_input =
+      (throttle.rear_left + throttle.rear_right) / 2.0;  // Average throttle for rear-wheel drive
+  double motor_torque = throttle_input * car_parameters_->motor_parameters->max_peak_torque;
   const auto powertrain_end = Clock::now();
 
   // Calculate torque distribution using the transmission model
@@ -73,11 +75,13 @@ void StateEstModel::step(double dt, common_lib::structures::Wheels throttle, dou
   TireInput tire_input;
   const auto tire_start = Clock::now();
   Eigen::VectorXd tire_forces = Eigen::VectorXd(16);  // 4 tires * 4 forces each
-  Eigen::Vector4d slip_angles = Eigen::Vector4d::Zero();
   tire_input.vx = state_->vx;
   tire_input.vy = state_->vy;
   tire_input.yaw_rate = state_->yaw_rate;
   tire_input.dt = dt;
+  tire_input.last_slip_angle =
+      Eigen::Vector4d(state_->wheels_slip_angle.front_left, state_->wheels_slip_angle.front_right,
+                      state_->wheels_slip_angle.rear_left, state_->wheels_slip_angle.rear_right);
   tire_input.last_slip_ratio =
       Eigen::Vector4d(state_->wheels_slip_ratio.front_left, state_->wheels_slip_ratio.front_right,
                       state_->wheels_slip_ratio.rear_left, state_->wheels_slip_ratio.rear_right);
@@ -88,16 +92,15 @@ void StateEstModel::step(double dt, common_lib::structures::Wheels throttle, dou
     tire_input.vertical_load = total_vertical_loads(tire);
     tire_forces.segment<4>(tire * 4) =
         tire_model_->calculate_tire_forces_not_transient(tire_input);  //[Fx, Fy, My, Mz]
-    slip_angles(tire) = tire_input.slip_angle;
   }
 
   // Info for simulator publishers
-  state_->wheels_slip_angle = common_lib::structures::Wheels(slip_angles(0), slip_angles(1),
-                                                             slip_angles(2), slip_angles(3));
   state_->front_left_forces = tire_forces.segment<4>(FL * 4);
   state_->front_right_forces = tire_forces.segment<4>(FR * 4);
   state_->rear_left_forces = tire_forces.segment<4>(RL * 4);
   state_->rear_right_forces = tire_forces.segment<4>(RR * 4);
+  state_->wheels_slip_angle = common_lib::structures::Wheels(tire_input.last_slip_angle(0), tire_input.last_slip_angle(1), tire_input.last_slip_angle(2),
+                                                             tire_input.last_slip_angle(3));
   state_->wheels_slip_ratio =
       common_lib::structures::Wheels(tire_input.last_slip_ratio(0), tire_input.last_slip_ratio(1),
                                      tire_input.last_slip_ratio(2), tire_input.last_slip_ratio(3));
@@ -121,8 +124,7 @@ void StateEstModel::step(double dt, common_lib::structures::Wheels throttle, dou
   for (Tire tire : {FL, FR, RL, RR}) {
     double sign_r = 2.0 / M_PI * std::atan(10.0 * wheel_speeds(tire));
     // Update wheel speeds using the calculated torques and tire forces
-    wheel_speeds(tire) += ((torques(tire) - tire_forces(tire * 4) * wheel_radius -
-                            std::abs(tire_forces(tire * 4 + 2)) * sign_r) /
+    wheel_speeds(tire) += ((torques(tire) - tire_forces(tire * 4) * wheel_radius - sign_r * std::abs(tire_forces(tire * 4 + 2))) /
                            inertia) *
                           dt;  // No braking torque
 
@@ -165,7 +167,7 @@ void StateEstModel::step(double dt, common_lib::structures::Wheels throttle, dou
   state_->self_aligning_moment = self_aligning_moment;
   state_->total_torque_z = total_torque;
 
-  // Trapezoidal integration for velocity
+  // Euler integration for velocity
   state_->vx += total_ax * dt;
   state_->vy += total_ay * dt;
   state_->ax = total_ax;
@@ -173,6 +175,22 @@ void StateEstModel::step(double dt, common_lib::structures::Wheels throttle, dou
 
   // Update Yaw Rate
   state_->yaw_rate += (total_torque / car_parameters_->Izz) * dt;
+
+  // Prevent oscillations at very low speeds by forcing a dead stop
+  double speed = std::sqrt(state_->vx * state_->vx + state_->vy * state_->vy);
+  if (speed < 0.1 && std::abs(throttle_input) < 0.01) {
+    state_->vx = 0.0;
+    state_->vy = 0.0;
+    state_->ax = 0.0;
+    state_->ay = 0.0;
+    state_->yaw_rate = 0.0;
+    state_->wheels_speed.front_left = 0.0;
+    state_->wheels_speed.front_right = 0.0;
+    state_->wheels_speed.rear_left = 0.0;
+    state_->wheels_speed.rear_right = 0.0;
+    state_->wheels_slip_ratio = {0.0, 0.0, 0.0, 0.0};
+    state_->wheels_slip_angle = {0.0, 0.0, 0.0, 0.0};
+  }
 
   // Integrate heading and position in global coordinates.
   state_->yaw += state_->yaw_rate * dt;
@@ -189,6 +207,15 @@ void StateEstModel::step(double dt, common_lib::structures::Wheels throttle, dou
   const double v_global_y = state_->vx * sin_yaw + state_->vy * cos_yaw;
   state_->x += v_global_x * dt;
   state_->y += v_global_y * dt;
+
+  if (state_->wheels_speed.rear_left > 100.0) {
+    std::cout << "[DEBUG RR WHEEL SPIN] \n"
+              << "  Motor Torque: " << torques(RL) << " Nm\n"
+              << "  Slip Ratio: " << state_->wheels_slip_ratio.rear_left << "\n"
+              << "  Vertical Load: " << total_vertical_loads(RL) << " N\n"
+              << "  Tire Fx Generated: " << tire_forces(RL * 4) << " N\n"
+              << "  Net Wheel Torque: " << (torques(RL) - tire_forces(RL * 4) * wheel_radius) << " Nm\n";
+    }
 
   // Per-subsystem execution times in milliseconds.
   execution_times_->powertrain_ms =

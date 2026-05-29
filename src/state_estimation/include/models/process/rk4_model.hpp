@@ -35,6 +35,8 @@ private:
   Eigen::Vector3d aero_forces_cache_;
   Eigen::Vector4d total_vertical_loads_cache_;
   Eigen::Matrix<double, 16, 1> tire_forces_cache_;
+  Eigen::Vector4d slip_ratio_cache_;
+  Eigen::Vector4d slip_angle_cache_;
 
   // Helper method to compute common calculations
   void compute_forces_and_moments(const State& state,

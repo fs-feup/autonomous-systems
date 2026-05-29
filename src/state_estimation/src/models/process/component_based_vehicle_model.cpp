@@ -20,7 +20,9 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
                                          double dt) {
   // Scale control command to torque (02 version, assuming single motor RWD)
   double throttle_input =
-      control_command.throttle_rl * parameters_->car_parameters_->motor_parameters->max_peak_torque;
+      (control_command.throttle_rl + control_command.throttle_rr) / 2.0;  // Average throttle for rear-wheel drive
+  double motor_torque =
+      throttle_input * parameters_->car_parameters_->motor_parameters->max_peak_torque;
 
   // Calculate torque distribution using the transmission model
   common_lib::structures::Wheels wheel_speeds;
@@ -30,7 +32,7 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
   wheel_speeds.rear_right = state(RR_WHEEL_SPEED);
 
   common_lib::structures::Wheels torques_struct =
-      transmission_model_->calculate_wheel_torques(throttle_input, wheel_speeds);
+      transmission_model_->calculate_wheel_torques(motor_torque, wheel_speeds);
   Eigen::Vector4d torques(torques_struct.front_left, torques_struct.front_right,
                           torques_struct.rear_left, torques_struct.rear_right);
 
@@ -67,13 +69,12 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
   }
 
   // Calculate steering rate using the steering motor model
-  double steering_rate =
-      steering_motor_model_->compute_steering_rate(state(ST_ANGLE), control_command.steering_angle);
+  // double steering_rate = steering_motor_model_->compute_steering_rate(state(ST_ANGLE), control_command.steering_angle);
 
   // Update state using the calculated values
 
   // Update steering angle
-  state(ST_ANGLE) += steering_rate * dt;
+  // state(ST_ANGLE) += steering_rate * dt;
 
   double total_fx = aero_forces(0);
   double total_fy = aero_forces(1);
@@ -114,7 +115,7 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
     total_torque += (arm_x * fy_veh) - (arm_y * fx_veh);
   }
   // RCLCPP_INFO_STREAM(rclcpp::get_logger("ComponentBasedVehicleModel"),"Torque command: " <<
-  // throttle_input << " Total Fx: " << total_fx << " Total Fy: " << total_fy << " Total Torque: "
+  // motor_torque << " Total Fx: " << total_fx << " Total Fy: " << total_fy << " Total Torque: "
   // << total_torque);
   //  RCLCPP_INFO_STREAM(rclcpp::get_logger("ComponentBasedVehicleModel"),"Slip ratios: " <<
   //  tire_input.last_slip_ratio.transpose());
@@ -134,6 +135,21 @@ void ComponentBasedVehicleModel::predict(Eigen::Ref<State> state,
 
   // Update Yaw Rate
   state(YAW_RATE) += (total_torque / parameters_->car_parameters_->Izz) * dt;
+
+  // Prevent oscillations at very low speeds by forcing a dead stop
+  double speed = std::sqrt(state(VX) * state(VX) + state(VY) * state(VY));
+  if (speed < 0.1 && std::abs(throttle_input) < 0.01) {
+    state(VX) = 0.0;
+    state(VY) = 0.0;
+    state(AX) = 0.0;
+    state(AY) = 0.0;
+    state(YAW_RATE) = 0.0;
+    state(FL_WHEEL_SPEED) = 0.0;
+    state(FR_WHEEL_SPEED) = 0.0;
+    state(RL_WHEEL_SPEED) = 0.0;
+    state(RR_WHEEL_SPEED) = 0.0;
+  }
+
 };
 
 VehicleState ComponentBasedVehicleModel::get_process_model_data(

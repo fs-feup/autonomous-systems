@@ -11,7 +11,7 @@ void ObservationModelPacsim::expected_observations(
 
   Eigen::Vector4d wheel_angles = steering_model_->calculate_steering_angles(state(ST_ANGLE));
 
-  // Calculate wheel speeds from slip ratios and velocities
+  // Calculate wheel speeds
   double half_width = parameters_->car_parameters_->track_width / 2.0;
   double lr = parameters_->car_parameters_->cg_2_rear_axis;  // distance from CG to rear axle
   double lf = parameters_->car_parameters_->wheelbase - lr;  // distance from CG to front axle
@@ -24,11 +24,11 @@ void ObservationModelPacsim::expected_observations(
     double v_x = state(VX) - state(YAW_RATE) * y_pos(i);
     double v_y = state(VY) + state(YAW_RATE) * x_pos(i);
     double v_lon = v_x * cos(wheel_angles(i)) + v_y * sin(wheel_angles(i));
-
     // State-based wheel angular speed prediction.
     expected_observations(3 + i) = state(FL_WHEEL_SPEED + i) * rad_to_rpm;
 
-    // Kinematic wheel angular speed prediction.
+    // Kinematic wheel angular speed prediction (pure kinematics — no slip correction here,
+    // or the prediction collapses to the state-based one and yaw rate loses observability).
     expected_observations(7 + i) = (v_lon / wheel_radius) * rad_to_rpm;
   }
 }
@@ -54,7 +54,7 @@ Eigen::MatrixXd ObservationModelPacsim::get_last_observations_noise() const {
   //        [var_wss,                   var_wss + var_kin_model]]
   const double var_wss = this->parameters_->wheel_speed_noise_;
   const double var_state_model = 0.25 * var_wss;
-  const double var_kin_model = 9.0 * var_wss;
+  const double var_kin_model = 6.0 * var_wss;
   for (int i = 0; i < 4; ++i) {
     const int idx_state = 3 + i;
     const int idx_kin = 7 + i;

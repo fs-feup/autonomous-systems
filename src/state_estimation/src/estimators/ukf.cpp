@@ -48,7 +48,7 @@ UKF::UKF(std::shared_ptr<SEParameters> se_parameters, std::shared_ptr<ProcessMod
 void UKF::compute_sigma_points(
     const State& state, const Eigen::Matrix<double, StateSize, StateSize>& covariance,
     Eigen::Matrix<double, 2 * StateSize + 1, StateSize, Eigen::RowMajor>& sigma_points) {
-  // Fixed-size LLT keeps the factorization on the stack (no heap allocation).
+      
   Eigen::LLT<Eigen::Matrix<double, StateSize, StateSize>> llt(StateSize * covariance);
   const Eigen::Matrix<double, StateSize, StateSize> sqrt_covariance = llt.matrixL();
 
@@ -255,4 +255,13 @@ void UKF::timer_callback(State& curr_state) {
   execution_times_(2) =
       std::chrono::duration<double, std::milli>(update_start - correction_start).count();
   execution_times_(3) = std::chrono::duration<double, std::milli>(end_time - update_start).count();
+
+  //if(state_(VY) > 0.1 || state_(VY) < -0.1){
+  //  RCLCPP_WARN_STREAM(rclcpp::get_logger("state_estimation"), "Lateral velocity is high: " << state_(VY));
+  //  RCLCPP_INFO_STREAM(rclcpp::get_logger("state_estimation"),
+  //                    "Time since last update: " << dt << " seconds");
+  //  RCLCPP_INFO_STREAM(rclcpp::get_logger("state_estimation"), "Updated State: \n" << updated_state);
+  //  RCLCPP_INFO_STREAM(rclcpp::get_logger("state_estimation"), "3 - Covariance: \n"
+  //                                                                << updated_covariance);
+  //}
 }

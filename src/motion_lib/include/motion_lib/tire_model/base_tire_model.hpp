@@ -44,7 +44,6 @@ protected:
   void calculate_slip_angle_rear(TireInput& tire_input);
   void calculate_slip_angle_rear_not_transient(TireInput& tire_input);
   void calculate_slip_ratio(TireInput& tire_input);
-  void calculate_slip_ratio_not_transient(TireInput& tire_input);
 
   /**
    * @brief Calculate the forces acting in a tire based on the tire characteristics and dynamic
@@ -62,4 +61,5 @@ public:
 
   Eigen::Vector4d calculate_tire_forces(TireInput& tire_input);
   Eigen::Vector4d calculate_tire_forces_not_transient(TireInput& tire_input);
+  void calculate_slip_ratio_not_transient(TireInput& tire_input);
 };

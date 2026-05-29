@@ -45,6 +45,8 @@ void RK4VehicleModel::compute_forces_and_moments(
     double& total_fy, double& total_torque) {
   if (abs(state(VX)) < 1e-2 && abs(control_command.throttle_rl) < 1e-6) {
     state_derivative_.setZero();
+    slip_ratio_cache_.setZero();
+    slip_angle_cache_.setZero();
     return;
   }
 
@@ -97,6 +99,8 @@ void RK4VehicleModel::compute_forces_and_moments(
     tire_input.vertical_load = total_vertical_loads_cache_(tire);
     tire_forces_cache_.segment<4>(tire * 4) =
         tire_model_->calculate_tire_forces_not_transient(tire_input);  //[Fx, Fy, My, Mz]
+    slip_ratio_cache_(tire) = tire_input.last_slip_ratio(tire);
+    slip_angle_cache_(tire) = tire_input.last_slip_angle(tire);
   }
 
   // Calculate steering rate
@@ -205,6 +209,10 @@ VehicleState RK4VehicleModel::get_process_model_data(
   vehicle_state.aero_downforce = aero_forces_cache_(2);
   vehicle_state.total_force_x = total_fx;
   vehicle_state.total_force_y = total_fy;
+  vehicle_state.wheels_slip_ratio = {slip_ratio_cache_(0), slip_ratio_cache_(1),
+                                     slip_ratio_cache_(2), slip_ratio_cache_(3)};
+  vehicle_state.wheels_slip_angle = {slip_angle_cache_(0), slip_angle_cache_(1),
+                                     slip_angle_cache_(2), slip_angle_cache_(3)};
   vehicle_state.moment_fx = total_moment_x;
   vehicle_state.moment_fy = total_moment_y;
   vehicle_state.self_aligning_moment = total_self_aligning_moment;
