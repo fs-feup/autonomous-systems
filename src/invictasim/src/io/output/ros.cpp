@@ -74,6 +74,10 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator,
       this->create_publisher<custom_interfaces::msg::WheelRPM>("invictasim/wss/front_left", 10);
   vehicle_fr_rpm_pub_ =
       this->create_publisher<custom_interfaces::msg::WheelRPM>("invictasim/wss/front_right", 10);
+  vehicle_rl_rpm_pub_ =
+      this->create_publisher<custom_interfaces::msg::WheelRPM>("invictasim/wss/rear_left", 10);
+  vehicle_rr_rpm_pub_ =
+      this->create_publisher<custom_interfaces::msg::WheelRPM>("invictasim/wss/rear_right", 10);
   vehicle_motor_rpm_pub_ =
       this->create_publisher<custom_interfaces::msg::WheelRPM>("invictasim/resolver", 10);
   steering_pub_ = this->create_publisher<custom_interfaces::msg::SteeringAngle>(
@@ -137,8 +141,14 @@ void RosOutputAdapter::map_callbacks() {
 
   // Sensors
   register_pub_helper("imu", [this](const rclcpp::Time& stamp) { publish_sensors_imu(stamp); });
-  register_pub_helper("wheel_speed",
-                      [this](const rclcpp::Time& stamp) { publish_sensors_wheel_speed(stamp); });
+  register_pub_helper("wheel_speed_fr",
+                      [this](const rclcpp::Time& stamp) { publish_sensors_wheel_speed_fr(stamp); });
+  register_pub_helper("wheel_speed_fl",
+                      [this](const rclcpp::Time& stamp) { publish_sensors_wheel_speed_fl(stamp); });
+  register_pub_helper("wheel_speed_rr",
+                      [this](const rclcpp::Time& stamp) { publish_sensors_wheel_speed_rr(stamp); });
+  register_pub_helper("wheel_speed_rl",
+                      [this](const rclcpp::Time& stamp) { publish_sensors_wheel_speed_rl(stamp); });
   register_pub_helper("resolver",
                       [this](const rclcpp::Time& stamp) { publish_sensors_resolver(stamp); });
   register_pub_helper("steering",
@@ -195,9 +205,19 @@ void RosOutputAdapter::load_group_from_yaml(const YAML::Node& config,
   if (group_node && group_node.IsMap()) {
     for (const auto& node : group_node) {
       std::string topic_key = node.first.as<std::string>();
-      int frequency = node.second.as<int>();
-
-      topic_frequencies_[topic_key] = frequency;
+      
+      // Handle nested maps (e.g., wheel_speed with per-wheel frequencies)
+      if (node.second.IsMap()) {
+        for (const auto& nested_node : node.second) {
+          std::string nested_key = nested_node.first.as<std::string>();
+          int frequency = nested_node.second.as<int>();
+          std::string combined_key = topic_key + "_" + nested_key;
+          topic_frequencies_[combined_key] = frequency;
+        }
+      } else {
+        int frequency = node.second.as<int>();
+        topic_frequencies_[topic_key] = frequency;
+      }
     }
   }
 }
@@ -274,17 +294,60 @@ void RosOutputAdapter::publish_sensors_imu(const rclcpp::Time& stamp) {
   angular_vel_msg.vector.z = sensors_snapshot_cache_.angular_velocity.z();
   angular_vel_pub_->publish(angular_vel_msg);
 }
-void RosOutputAdapter::publish_sensors_wheel_speed(const rclcpp::Time& stamp) {
-  // Publish wheel RPMs for each wheel
+void RosOutputAdapter::publish_sensors_wheel_speed_fr(const rclcpp::Time& stamp) {
+  // Skip publishing if front right wheel had dropout
+  if (sensors_snapshot_cache_.wheel_rpm_dropout[0]) {
+    return;
+  }
+  
+  // Publish front right wheel RPM
+  custom_interfaces::msg::WheelRPM fr_msg;
+  fr_msg.header.stamp = stamp;
+  fr_msg.header.frame_id = "base_link";
+  fr_msg.fr_rpm = sensors_snapshot_cache_.wheel_rpm.front_right;
+  vehicle_fr_rpm_pub_->publish(fr_msg);
+}
+
+void RosOutputAdapter::publish_sensors_wheel_speed_fl(const rclcpp::Time& stamp) {
+  // Skip publishing if front left wheel had dropout
+  if (sensors_snapshot_cache_.wheel_rpm_dropout[1]) {
+    return;
+  }
+  
+  // Publish front left wheel RPM
   custom_interfaces::msg::WheelRPM fl_msg;
   fl_msg.header.stamp = stamp;
   fl_msg.header.frame_id = "base_link";
   fl_msg.fl_rpm = sensors_snapshot_cache_.wheel_rpm.front_left;
   vehicle_fl_rpm_pub_->publish(fl_msg);
+}
 
-  custom_interfaces::msg::WheelRPM fr_msg = fl_msg;
-  fr_msg.fr_rpm = sensors_snapshot_cache_.wheel_rpm.front_right;
-  vehicle_fr_rpm_pub_->publish(fr_msg);
+void RosOutputAdapter::publish_sensors_wheel_speed_rr(const rclcpp::Time& stamp) {
+  // Skip publishing if rear right wheel had dropout
+  if (sensors_snapshot_cache_.wheel_rpm_dropout[2]) {
+    return;
+  }
+  
+  // Publish rear right wheel RPM
+  custom_interfaces::msg::WheelRPM rr_msg;
+  rr_msg.header.stamp = stamp;
+  rr_msg.header.frame_id = "base_link";
+  rr_msg.rr_rpm = sensors_snapshot_cache_.wheel_rpm.rear_right;
+  vehicle_rr_rpm_pub_->publish(rr_msg);
+}
+
+void RosOutputAdapter::publish_sensors_wheel_speed_rl(const rclcpp::Time& stamp) {
+  // Skip publishing if rear left wheel had dropout
+  if (sensors_snapshot_cache_.wheel_rpm_dropout[3]) {
+    return;
+  }
+  
+  // Publish rear left wheel RPM
+  custom_interfaces::msg::WheelRPM rl_msg;
+  rl_msg.header.stamp = stamp;
+  rl_msg.header.frame_id = "base_link";
+  rl_msg.rl_rpm = sensors_snapshot_cache_.wheel_rpm.rear_left;
+  vehicle_rl_rpm_pub_->publish(rl_msg);
 }
 
 void RosOutputAdapter::publish_sensors_resolver(const rclcpp::Time& stamp) {
@@ -743,7 +806,7 @@ visualization_msgs::msg::MarkerArray RosOutputAdapter::convert_cone_array_to_mar
       m.frame_locked = true;
       m.lifetime = rclcpp::Duration::from_seconds(0.1);
     }
-    m.ns = "cones";
+    m.ns = frame_id == "car" ? "perceived_cones" : "map_cones";
     m.id = cone_id++;
     m.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
     m.action = visualization_msgs::msg::Marker::ADD;

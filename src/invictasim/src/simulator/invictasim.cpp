@@ -12,6 +12,9 @@ InvictaSim::InvictaSim(const InvictaSimParameters& params)
   std::string imu_cfg = common_lib::config_load::get_config_yaml_path(
     "invictasim", "invictasim/sensors", "imu");
   imu_model_ = std::make_unique<IMU>(imu_cfg);
+  std::string wss_cfg = common_lib::config_load::get_config_yaml_path(
+    "invictasim", "invictasim/sensors", "wss");
+  wss_model_ = std::make_unique<WSS>(wss_cfg);
   if (params_.use_simulated_perception) {
     std::string perception_cfg = common_lib::config_load::get_config_yaml_path(
         "invictasim", "invictasim/sensors", "perception");
@@ -208,8 +211,7 @@ ExecutionTimesSnapshot InvictaSim::build_execution_times_snapshot(double total_s
 
 MapSnapshot InvictaSim::build_map_snapshot(const VehicleModelSnapshot& vehicle_snapshot) const {
   MapSnapshot snapshot;
-  // For now, all of them publish the same ground truth cones,
-  // but later this would publish the slam map and the perception cones
+  
   snapshot.ground_truth = track_->get_cones();
   if (params_.use_simulated_se) {
     snapshot.simulated_slam_map = track_->get_cones();
@@ -257,13 +259,18 @@ SensorsSnapshot InvictaSim::build_sensors_snapshot(
       imu_measurement[2]
   );
 
-  snapshot.wheel_rpm = common_lib::structures::Wheels(
-    vehicle_snapshot.wheel_speed.front_left * 60 / (2 * M_PI),
-    vehicle_snapshot.wheel_speed.front_right * 60 / (2 * M_PI),
-    vehicle_snapshot.wheel_speed.rear_left * 60 / (2 * M_PI),
-    vehicle_snapshot.wheel_speed.rear_right * 60 / (2 * M_PI));
+  // Apply WSS error (noise, outliers, dropout, quantization)
+  snapshot.wheel_rpm = wss_model_->simulate_wheel_speeds(
+    vehicle_snapshot.wheel_speed.front_left,
+    vehicle_snapshot.wheel_speed.front_right,
+    vehicle_snapshot.wheel_speed.rear_left,
+    vehicle_snapshot.wheel_speed.rear_right);
+
+  snapshot.wheel_rpm_dropout = wss_model_->get_wheel_dropout_status();
+
   snapshot.steering_angle = vehicle_snapshot.steering_angle;
   snapshot.motor_rpm = vehicle_snapshot.motor_omega * 60 / (2 * M_PI);
+
 
   return snapshot;
 }

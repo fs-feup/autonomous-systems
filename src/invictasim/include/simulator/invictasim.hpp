@@ -13,6 +13,7 @@
 #include "vehicle_model/vehicle_model.hpp"
 #include "sensors/simulated_perception.hpp"
 #include "sensors/imu.hpp"
+#include "sensors/wss.hpp"
 /**
  * @brief Main simulator class
  */
@@ -182,6 +183,7 @@ private:
   std::shared_ptr<Track> track_;                            ///< Track information.
   std::shared_ptr<IMU> imu_model_;                          ///< IMU
   std::shared_ptr<SimulatedPerception> perception_model_;   ///< Simulated Perception cones
+  std::shared_ptr<WSS> wss_model_;                          ///< Wheel Speed Sensor
   
   // Simulation loop timing
   std::atomic<bool> running_;  ///< Indicates whether the simulation loop is running.

@@ -42,13 +42,13 @@ public:
 
 private:
   // LiDAR sensor parameters
-  double height_;                    // Height of LiDAR relative to vehicle origin (meters)
-  double max_range_;                 // Maximum detection range (meters)
-  double horizontal_fov_angle_;      // Horizontal field of view (radians)
-  double vertical_fov_angle_;        // Vertical field of view (radians)
+  double height_;                       // Height of LiDAR relative to vehicle origin (meters)
+  double max_range_;                    // Maximum detection range (meters)
+  double horizontal_fov_angle_;         // Horizontal field of view (radians)
+  double vertical_fov_angle_;           // Vertical field of view (radians)
   double detection_probability_alpha_;  // Alpha parameter for detection sigmoid
-  double noise_std_dev_base_;        // Base standard deviation for noise (meters)
-  bool noise_scales_with_range_;     // Whether noise scales with range
-  double noise_range_scaling_;       // Scaling factor for range-dependent noise
-  double mounting_pitch_;            // Mounting pitch angle of the LiDAR (radians)
+  double noise_std_dev_base_;           // Base standard deviation for noise (meters)
+  bool noise_scales_with_range_;        // Whether noise scales with range
+  double noise_range_scaling_;          // Scaling factor for range-dependent noise
+  double mounting_pitch_;               // Mounting pitch angle of the LiDAR (radians)
 };

@@ -40,6 +40,7 @@ set(IMPLEMENTATION_FILES
   src/sensors/sensors_base.cpp
   src/sensors/simulated_perception.cpp
   src/sensors/imu.cpp
+  src/sensors/wss.cpp
 )
 
 # Main executable

@@ -14,7 +14,11 @@ publish_frequencies:
     perception_cones: 30    # Perception cones visualization (simulated or from perception)
   sensors:
     imu: 200             # Simulated IMU (free_acceleration, angular_velocity)
-    wheel_speed: 50      # Simulated wheel speed sensors
+    wheel_speed:
+      fr: 50             # Front right wheel speed
+      fl: 2              # Front left wheel speed
+      rr: 50             # Rear right wheel speed
+      rl: 50             # Rear left wheel speed
     resolver: 5         # Simulated motor/resolver RPM
     steering: 10         # Simulated steering sensor
   map:

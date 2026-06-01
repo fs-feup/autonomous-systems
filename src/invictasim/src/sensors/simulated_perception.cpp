@@ -84,9 +84,9 @@ std::vector<common_lib::structures::Cone> SimulatedPerception::perception_error(
       // Update the cone's position with noisy values
       noisy_cone.position.x = x_noisy;
       noisy_cone.position.y = y_noisy;
+      
+      result.push_back(noisy_cone);
     }
-
-    result.push_back(noisy_cone);
   }
 
   return result;

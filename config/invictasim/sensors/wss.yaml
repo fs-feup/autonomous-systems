@@ -1,21 +1,47 @@
 # Wheel Speed Sensor (WSS) Configuration
+# Each wheel can be individually tuned with its own parameters
 wss_sensor:
 
-  # White noise parameters
-  noise:
-    std_dev: 0.05
+  # Front Right Wheel
+  fr:
+    noise:
+      std_dev: 0.4
+    outliers:
+      probability: 0.002
+      impact_factor: 0.3
+    dropout_probability: 0.002
+    speed_cutoff: 0.01
+    quantization_steps: 15
 
-  # Outlier parameters
-  outliers:
-    # Probability of outlier occurrence (0.0 to 1.0)
-    probability: 0.02
-    impact_factor: 2.5
+  # Front Left Wheel
+  fl:
+    noise:
+      std_dev: 0.4
+    outliers:
+      probability: 0.002
+      impact_factor: 0.3
+    dropout_probability: 0.5
+    speed_cutoff: 0.01
+    quantization_steps: 15
 
-  # Dropout parameter
-  # Probability of signal dropout (0.0 to 1.0)
-  dropout_probability: 0.01
+  # Rear Right Wheel
+  rr:
+    noise:
+      std_dev: 0.4
+    outliers:
+      probability: 0.002
+      impact_factor: 0.3
+    dropout_probability: 0.002
+    speed_cutoff: 0.01
+    quantization_steps: 15
 
-  speed_cutoff: 0.01
-
-  # Quantization parameter
-  quantization_steps: 12
+  # Rear Left Wheel
+  rl:
+    noise:
+      std_dev: 0.4
+    outliers:
+      probability: 0.002
+      impact_factor: 0.3
+    dropout_probability: 0.002
+    speed_cutoff: 0.01
+    quantization_steps: 15
