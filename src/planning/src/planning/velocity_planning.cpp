@@ -19,60 +19,48 @@ double VelocityPlanning::find_curvature(const PathPoint &p1, const PathPoint &p2
 
 void VelocityPlanning::compute_sections(const std::vector<double> &curvatures) {
   sections_.clear();
+
   int n = static_cast<int>(curvatures.size());
-
-  if (n < 2) {
-    sections_.push_back(
-        {0, n - 1, 0.0, 0, config_.longitudinal_acceleration_, config_.lateral_acceleration_});
-    return;
-  }
-
-  const double curvature_jump_threshold = curvature_peak_threshold_;
-  // reuse your param OR define new one
+  if (n < 2) return;
 
   int start = 0;
-
-  double running_mean = curvatures[0];
-  int count = 1;
+  CurvatureRegime current = get_regime(curvatures[0]);
 
   for (int i = 1; i < n; ++i) {
-    double prev_mean = running_mean / count;
-    double cur = curvatures[i];
+    CurvatureRegime r = get_regime(curvatures[i]);
 
-    // update running mean
-    running_mean += cur;
-    count++;
+    bool regime_change = (r != current);
 
-    double new_mean = running_mean / count;
+    // also detect unstable zones (slight oscillation between straight/curve)
+    double jump = std::abs(curvatures[i] - curvatures[i - 1]);
+    bool unstable = jump > 0.03;
 
-    double jump = std::abs(cur - prev_mean);
+    bool should_split = regime_change || unstable || (i - start > min_section_spacing_);
 
-    bool split = false;
-
-    // ignore near-zero curvature noise
-    if (std::abs(cur - curvatures[i - 1]) > curvature_jump_threshold) {
-      split = true;
-    }
-
-    // also split if curvature regime changes significantly
-    if (jump > curvature_jump_threshold) {
-      split = true;
-    }
-
-    // avoid tiny sections
-    if (split && (i - start) > min_section_spacing_) {
+    if (should_split) {
       sections_.push_back({start, i - 1, 0.0, 0, config_.longitudinal_acceleration_,
                            config_.lateral_acceleration_});
 
       start = i;
-      running_mean = cur;
-      count = 1;
+      current = r;
     }
   }
 
   // last section
   sections_.push_back(
       {start, n - 1, 0.0, 0, config_.longitudinal_acceleration_, config_.lateral_acceleration_});
+
+  // post-process: merge tiny sections
+  std::vector<Section> merged;
+  for (auto &s : sections_) {
+    if (!merged.empty() && (s.end_idx - s.start_idx) < min_section_spacing_ / 2) {
+      merged.back().end_idx = s.end_idx;
+    } else {
+      merged.push_back(s);
+    }
+  }
+
+  sections_ = merged;
 }
 
 int VelocityPlanning::find_section(int point_idx) const {
@@ -298,6 +286,31 @@ void VelocityPlanning::change_section_limits(int section_idx, double delta_long,
   sections_[section_idx].current_lat_acc += delta_lat;
 }
 
+
+//TODO: CHANGE THIS!!!
+double get_delta(double mean) {
+  double anchor_mean[] = {0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50,
+                          0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00, 1.50};
+
+  double anchor_delta[] = {0.54,  0.47,  0.41,  0.34,  0.27,  0.26,  0.20,  0.10,
+                           0.00,  -0.10, -0.20, -0.30, -0.40, -0.50, -0.60, -0.70,
+                           -0.80, -0.90, -1.00, -1.10, -1.20, -1.50};
+  const int N = 22;
+
+  if (mean <= anchor_mean[0]) return anchor_delta[0];
+  if (mean >= anchor_mean[N - 1]) return anchor_delta[N - 1];
+
+  for (int i = 0; i < N - 1; i++) {
+    if (mean >= anchor_mean[i] && mean <= anchor_mean[i + 1]) {
+      double t = (mean - anchor_mean[i]) / (anchor_mean[i + 1] - anchor_mean[i]);
+
+      return anchor_delta[i] + t * (anchor_delta[i + 1] - anchor_delta[i]);
+    }
+  }
+
+  return anchor_delta[N - 1];
+}
+
 void VelocityPlanning::adapt_limits(Pose &pose, std::vector<PathPoint> &path, bool is_closed) {
   // Find the closest path segment and the cross-track error
   size_t point_idx = 0;
@@ -326,25 +339,7 @@ void VelocityPlanning::adapt_limits(Pose &pose, std::vector<PathPoint> &path, bo
 
   const double mean = sec.mean_error;
 
-  double delta;
-
-  double scale_pos = 1.35;  // tune: 1.2–1.6
-
-  if (mean <= 0.2) {
-    double t = mean / 0.2;
-    delta = scale_pos * (0.4 + t * (0.2 - 0.4));
-  } else if (mean <= 0.55) {
-    double t = (mean - 0.2) / 0.35;
-    delta = scale_pos * (0.2 + t * (0.05 - 0.2));
-  } else if (mean <= 0.75) {
-    double t = (mean - 0.55) / 0.2;
-    delta = 0.05 + t * (-0.5 - 0.05);
-  } else if (mean <= 1.0) {
-    double t = (mean - 0.75) / 0.25;
-    delta = -0.5 + t * (-1.2 + 0.5);
-  } else {
-    delta = -1.2;
-  }
+  double delta = get_delta(mean);
 
   change_section_limits(sec_idx, delta, delta);
 
@@ -358,6 +353,8 @@ void VelocityPlanning::adapt_limits(Pose &pose, std::vector<PathPoint> &path, bo
     set_velocity(path);
   }
 }
+
+
 
 double VelocityPlanning::get_pose_error(const Pose &pose, const std::vector<PathPoint> &path,
                                         size_t &best_index) {
