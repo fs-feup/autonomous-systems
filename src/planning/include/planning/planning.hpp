@@ -146,6 +146,8 @@ private:
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr smoothed_path_pub_;
   /**< Publisher for velocity hover markers */
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr velocity_hover_pub_;
+  //TODO: DOCS
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr sections_debug_pub_;
 
   /*--------------------- Service Clients --------------------*/
   rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr param_client_;
@@ -246,6 +248,8 @@ private:
    * @param start_time ROS time when planning algorithms began execution
    */
   void publish_execution_time(rclcpp::Time start_time);
+  //TODO: DOCS
+  void publish_sections_debug() const;
 
   /*--------------------- Abstract Methods --------------------*/
   /**

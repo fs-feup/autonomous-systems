@@ -23,12 +23,14 @@ using Pose = common_lib::structures::Pose;
  * and the accumulator is reset.
  */
 struct Section {
-  int start_idx{0};  ///< Index of the first path point in this section (inclusive)
-  int end_idx{0};    ///< Index of the last path point in this section (inclusive)
-
-  // --- rolling-mean error tracking ---
-  double mean_error{0.0};  ///< Running mean of cross-track error inside this section
-  int sample_count{2};     ///< Number of error samples accumulated since last reset
+  int start_idx;
+  int end_idx;
+  double mean_error;
+  int sample_count;
+  double current_long_acc;
+  double current_lat_acc;
+  double max_error;
+  double min_error;
 };
 
 /**
@@ -92,22 +94,20 @@ public:
    * @param pose  Current vehicle pose.
    * @param path  The active path (same one passed to set_velocity).
    */
-  void adapt_limits(Pose &pose, std::vector<PathPoint> &path);
+  void adapt_limits(Pose &pose, std::vector<PathPoint> &path, bool is_closed);
+  const std::vector<Section> &get_sections() const { return sections_; }
 
 private:
   VelocityPlanningConfig config_;
 
   static constexpr double epsilon = 1e-9;
 
-  std::vector<double> max_longitudinal_acceleration_;
-  std::vector<double> max_lateral_acceleration_;
-
   /// Path sections computed once per set_velocity() call.
   std::vector<Section> sections_;
 
   /// Number of error samples to collect before applying a limit adjustment.
   /// Exposed here so it can be tuned; consider adding to VelocityPlanningConfig.
-  int section_adapt_samples_{10};
+  int section_adapt_samples_{30};
 
   /// Minimum curvature value for a point to be considered a corner apex / section boundary.
   /// Exposed here so it can be tuned; consider adding to VelocityPlanningConfig.
@@ -157,7 +157,4 @@ private:
   void change_section_limits(int section_idx, double longitudinal_acc, double lateral_acc);
 
   double get_pose_error(const Pose &pose, const std::vector<PathPoint> &path, size_t &best_index);
-
-  void change_limits(int index, double longitudinal_acc, double lateral_acc);
-  void change_all_limits(double longitudinal_acc, double lateral_acc);
 };

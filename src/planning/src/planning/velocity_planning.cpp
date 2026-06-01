@@ -21,7 +21,7 @@ void VelocityPlanning::compute_sections(const std::vector<double> &curvatures) {
   sections_.clear();
   int n = static_cast<int>(curvatures.size());
 
-  // Find local curvature maxima above threshold 
+  // Find local curvature maxima above threshold
   // A point is a peak if it is strictly greater than all neighbours within
   // min_section_spacing_ and above curvature_peak_threshold_.
   std::vector<int> peaks;
@@ -43,7 +43,7 @@ void VelocityPlanning::compute_sections(const std::vector<double> &curvatures) {
     }
   }
 
-  // Merge peaks that are too close together 
+  // Merge peaks that are too close together
   // Keep only the highest peak within any window of min_section_spacing_ points.
   std::vector<int> merged_peaks;
   for (int i = 0; i < static_cast<int>(peaks.size()); ++i) {
@@ -57,26 +57,29 @@ void VelocityPlanning::compute_sections(const std::vector<double> &curvatures) {
     }
   }
 
-  // Build sections between consecutive peaks  
+  // Build sections between consecutive peaks
   // Each section spans from one peak to the next (inclusive on both ends).
   // If no peaks were found, the whole path is one section.
   if (merged_peaks.empty()) {
-    sections_.push_back({0, n - 1, 0.0, 0});
+    sections_.push_back(
+        {0, n - 1, 0.0, 0, config_.longitudinal_acceleration_, config_.lateral_acceleration_});
     return;
   }
 
   // Section before first peak: index 0 → first peak
-  sections_.push_back({0, merged_peaks[0], 0.0, 0});
+  sections_.push_back({0, merged_peaks[0], 0.0, 0, config_.longitudinal_acceleration_,
+                       config_.lateral_acceleration_});
 
   // Sections between consecutive peaks
   for (int i = 0; i + 1 < static_cast<int>(merged_peaks.size()); ++i) {
-    sections_.push_back({merged_peaks[i], merged_peaks[i + 1], 0.0, 0});
+    sections_.push_back({merged_peaks[i], merged_peaks[i + 1], 0.0, 0,
+                         config_.longitudinal_acceleration_, config_.lateral_acceleration_});
   }
 
   // Section after last peak: last peak → end
-  sections_.push_back({merged_peaks.back(), n - 1, 0.0, 0});
+  sections_.push_back({merged_peaks.back(), n - 1, 0.0, 0, config_.longitudinal_acceleration_,
+                       config_.lateral_acceleration_});
 }
-
 
 int VelocityPlanning::find_section(int point_idx) const {
   for (int s = 0; s < static_cast<int>(sections_.size()); ++s) {
@@ -94,7 +97,10 @@ void VelocityPlanning::point_speed(const std::vector<double> &curvatures,
       velocities.push_back(config_.desired_velocity_);
       continue;
     }
-    double velocity = std::sqrt(max_lateral_acceleration_[i] / std::abs(curvatures[i]));
+    int sec_idx = find_section(i);
+    double lat_acc =
+        (sec_idx >= 0) ? sections_[sec_idx].current_lat_acc : config_.lateral_acceleration_;
+    double velocity = std::sqrt(lat_acc / std::abs(curvatures[i]));
     velocities.push_back(std::min(velocity, config_.desired_velocity_));
   }
   velocities.back() = config_.minimum_velocity_;
@@ -109,8 +115,11 @@ void VelocityPlanning::acceleration_limiter(const std::vector<PathPoint> &points
     double dy = points[i].position.y - points[i - 1].position.y;
     double d = std::sqrt(dx * dx + dy * dy);
 
-    double lateral_acc = max_lateral_acceleration_[i];
-    double longitudinal_acc = max_longitudinal_acceleration_[i];
+    int sec_idx = find_section(i);
+    double lateral_acc =
+        (sec_idx >= 0) ? sections_[sec_idx].current_lat_acc : config_.lateral_acceleration_;
+    double longitudinal_acc =
+        (sec_idx >= 0) ? sections_[sec_idx].current_long_acc : config_.longitudinal_acceleration_;
 
     double ay =
         std::min(velocities[i - 1] * velocities[i - 1] * std::abs(curvatures[i - 1]), lateral_acc);
@@ -132,7 +141,9 @@ void VelocityPlanning::braking_limiter(std::vector<PathPoint> &points,
     double distance = std::hypot(points[j].position.x - points[i].position.x,
                                  points[j].position.y - points[i].position.y);
 
-    double lateral_acc = max_lateral_acceleration_[i];
+    int sec_idx = find_section(i);
+    double lateral_acc =
+        (sec_idx >= 0) ? sections_[sec_idx].current_lat_acc : config_.lateral_acceleration_;
 
     double ay = std::min(velocities[j] * velocities[j] * std::abs(curvatures[j]), lateral_acc);
 
@@ -146,7 +157,6 @@ void VelocityPlanning::braking_limiter(std::vector<PathPoint> &points,
   }
 }
 
-
 void VelocityPlanning::set_velocity(std::vector<PathPoint> &final_path) {
   int path_size = static_cast<int>(final_path.size());
 
@@ -157,16 +167,14 @@ void VelocityPlanning::set_velocity(std::vector<PathPoint> &final_path) {
     return;
   }
 
-  // Grow per-node limit vectors if the path grew
-  while (static_cast<int>(max_longitudinal_acceleration_.size()) < path_size) {
-    max_longitudinal_acceleration_.push_back(config_.longitudinal_acceleration_);
-    max_lateral_acceleration_.push_back(config_.lateral_acceleration_);
-  }
-
-  // Curvature at every point
   std::vector<double> curvatures(path_size, 0.0);
   for (int i = 1; i < path_size - 1; ++i) {
     curvatures[i] = find_curvature(final_path[i - 1], final_path[i], final_path[i + 1]);
+  }
+
+  // Compute sections on first call or when path size changes
+  if (sections_.empty() || static_cast<int>(sections_.back().end_idx) != path_size - 1) {
+    compute_sections(curvatures);
   }
 
   // Velocity passes
@@ -191,7 +199,19 @@ void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
     return;
   }
 
-  // Triple the path to allow the forward/backward passes to see the wrap-around
+  // Compute sections on the real path once, before tripling
+  if ((sections_.empty() || static_cast<int>(sections_.back().end_idx) != path_size - 1)) {
+    std::vector<double> curvatures(path_size, 0.0);
+    for (int i = 1; i < path_size - 1; ++i) {
+      curvatures[i] = find_curvature(final_path[i - 1], final_path[i], final_path[i + 1]);
+    }
+    compute_sections(curvatures);
+  }
+
+  // Save sections computed on the real path — set_velocity on the tripled
+  // path would overwrite them with wrong indices
+  std::vector<Section> saved_sections = sections_;
+
   std::vector<PathPoint> triple_path;
   triple_path.reserve(3 * path_size);
   for (int lap = 0; lap < 3; ++lap) {
@@ -200,6 +220,24 @@ void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
     }
   }
 
+  // Temporarily expand section indices for the tripled path so the velocity
+  // passes read the correct per-section limits
+  // Middle lap offset is path_size, so shift each section by that for the
+  // passes — actually simpler: just suppress section recomputation inside
+  // set_velocity and let it use whatever sections_ contains.
+  // Since triple_path indices [path_size, 2*path_size-1] map to the same
+  // corners as [0, path_size-1], we replicate sections_ three times.
+  sections_.clear();
+  for (int lap = 0; lap < 3; ++lap) {
+    for (const auto &sec : saved_sections) {
+      sections_.push_back({sec.start_idx + lap * path_size, sec.end_idx + lap * path_size,
+                           sec.mean_error, sec.sample_count, sec.current_long_acc,
+                           sec.current_lat_acc});
+    }
+  }
+
+  // Run velocity passes on tripled path — set_velocity will skip recomputation
+  // because sections_.back().end_idx == 3*path_size-1 == triple_path.size()-1
   set_velocity(triple_path);
 
   // Extract the middle lap
@@ -208,16 +246,8 @@ void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
     final_path[i].ideal_velocity = triple_path[offset + i].ideal_velocity;
   }
 
-  // Sections were computed on the tripled path; recompute on the actual path length
-  // so that section indices are valid for adapt_limits() calls later.
-  std::vector<double> curvatures(path_size, 0.0);
-  for (int i = 1; i < path_size - 1; ++i) {
-    curvatures[i] = find_curvature(final_path[i - 1], final_path[i], final_path[i + 1]);
-  }
-
-  if (sections_.empty()) {
-    compute_sections(curvatures);
-  }
+  // Restore real-path sections
+  sections_ = saved_sections;
 }
 
 void VelocityPlanning::stop(std::vector<PathPoint> &final_path, double braking_distance) {
@@ -241,7 +271,9 @@ void VelocityPlanning::stop(std::vector<PathPoint> &final_path, double braking_d
     int j = index + 1;
     double d = final_path[j].position.euclidean_distance(final_path[index].position);
     double vi = final_path[index].ideal_velocity;
-    double lateral_acc = max_lateral_acceleration_[index];
+    int sec_idx = find_section(index);
+    double lateral_acc =
+        (sec_idx >= 0) ? sections_[sec_idx].current_lat_acc : config_.lateral_acceleration_;
 
     double ay = std::min(vi * vi *
                              std::abs(find_curvature(final_path[std::max(index - 1, 0)],
@@ -258,38 +290,22 @@ void VelocityPlanning::stop(std::vector<PathPoint> &final_path, double braking_d
     ++index;
   }
 
-  while (index < path_size) {
+  while (index < (path_size - path_size / 4)) {
     final_path[index].ideal_velocity = 0.0;
     ++index;
   }
 }
 
-void VelocityPlanning::change_section_limits(int section_idx, double longitudinal_acc,
-                                             double lateral_acc) {
+void VelocityPlanning::change_section_limits(int section_idx, double delta_long, double delta_lat) {
   if (section_idx < 0 || section_idx >= static_cast<int>(sections_.size())) {
     return;
   }
-  const Section &sec = sections_[section_idx];
-  for (int i = sec.start_idx; i <= sec.end_idx; ++i) {
-    change_limits(i, longitudinal_acc, lateral_acc);
-  }
+  sections_[section_idx].current_long_acc += delta_long;
+  sections_[section_idx].current_lat_acc += delta_lat;
 }
 
-void VelocityPlanning::change_limits(int index, double longitudinal_acc, double lateral_acc) {
-  if (index < static_cast<int>(max_longitudinal_acceleration_.size())) {
-    max_longitudinal_acceleration_[index] += longitudinal_acc;
-    max_lateral_acceleration_[index] += lateral_acc;
-  }
-}
-
-void VelocityPlanning::change_all_limits(double longitudinal_acc, double lateral_acc) {
-  for (size_t i = 0; i < max_longitudinal_acceleration_.size(); ++i) {
-    change_limits(i, longitudinal_acc, lateral_acc);
-  }
-}
-
-void VelocityPlanning::adapt_limits(Pose &pose, std::vector<PathPoint> &path) {
-  // Find the closest path segment and the cross-track error 
+void VelocityPlanning::adapt_limits(Pose &pose, std::vector<PathPoint> &path, bool is_closed) {
+  // Find the closest path segment and the cross-track error
   size_t point_idx = 0;
   double error = get_pose_error(pose, path, point_idx);
   if (error < 0.0) {
@@ -297,19 +313,19 @@ void VelocityPlanning::adapt_limits(Pose &pose, std::vector<PathPoint> &path) {
     return;
   }
 
-  // Identify which section the vehicle is in 
+  // Identify which section the vehicle is in
   int sec_idx = find_section(static_cast<int>(point_idx));
   if (sec_idx < 0) {
     return;  // No sections computed yet; silently skip
   }
   Section &sec = sections_[sec_idx];
 
-  // Accumulate error into the rolling mean 
+  // Accumulate error into the rolling mean
   // Online (Welford-style) mean update: mean += (x - mean) / n
   ++sec.sample_count;
   sec.mean_error += (error - sec.mean_error) / static_cast<double>(sec.sample_count);
 
-  // Apply adjustment once we have enough samples 
+  // Apply adjustment once we have enough samples
   if (sec.sample_count < section_adapt_samples_) {
     return;
   }
@@ -319,22 +335,28 @@ void VelocityPlanning::adapt_limits(Pose &pose, std::vector<PathPoint> &path) {
   // Same error bands as before, but applied to the whole section at once.
   // Negative deltas tighten limits (slower, safer); positive deltas relax them.
   if (mean > 1.0) {
-    // Large error: the car is struggling badly — reduce limits significantly
-    change_section_limits(sec_idx, -1.0, -1.0);
-  } else if (mean > 0.5) {
-    // Moderate error: slight tightening
-    change_section_limits(sec_idx, -0.2, -0.2);
-  } else if (mean > 0.2) {
-    // Small error: car is coping well — gently relax limits
-    change_section_limits(sec_idx, 0.5, 0.5);
-  } else {
-    // Very small error: car is very comfortable — relax more
-    change_section_limits(sec_idx, 1.0, 1.0);
-  }
+  // Clearly off track — back off hard
+  change_section_limits(sec_idx, -2.0, -2.0);
+} else if (mean > 0.5) {
+  // Struggling — moderate reduction
+  change_section_limits(sec_idx, -0.5, -0.5);
+} else if (mean > 0.2) {
+  // Acceptable — tiny increase
+  change_section_limits(sec_idx, 0.1, 0.1);
+} else {
+  // Very comfortable — small increase
+  change_section_limits(sec_idx, 0.2, 0.2);
+}
 
   // Reset accumulator for the next window
   sec.mean_error = 0.0;
   sec.sample_count = 0;
+
+  if (is_closed) {
+    trackdrive_velocity(path);
+  } else {
+    set_velocity(path);
+  }
 }
 
 double VelocityPlanning::get_pose_error(const Pose &pose, const std::vector<PathPoint> &path,

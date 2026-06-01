@@ -133,6 +133,8 @@ Planning::Planning(const PlanningParameters &params)
         create_publisher<visualization_msgs::msg::MarkerArray>("/path_planning/velocity_hover", 10);
     velocity_colored_path_pub_ = create_publisher<visualization_msgs::msg::Marker>(
         "/path_planning/velocity_colored_path", 10);
+    sections_debug_pub_ =
+        create_publisher<visualization_msgs::msg::MarkerArray>("/path_planning/sections_debug", 10);
   }
 
   if (!planning_config_.using_simulated_se_) {
@@ -212,7 +214,7 @@ void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose 
     if (!has_received_pose_) {
       run_planning_algorithms();
     }
-    velocity_planning_.adapt_limits(pose_, smoothed_path_);
+    velocity_planning_.adapt_limits(pose_, smoothed_path_, is_path_closed_);
   }
 
   has_received_pose_ = true;
@@ -270,6 +272,7 @@ void Planning::compute_path_orientation(std::vector<PathPoint> &path) {
 }
 
 void Planning::run_full_map() {
+  is_path_closed_ = true;
   is_path_final_ = true;
   full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
 
@@ -337,9 +340,6 @@ void Planning::run_autocross() {
     if (!is_path_final_) {
       run_full_map();
     }
-    //TODO: Change to always call this!
-    velocity_planning_.adapt_limits(current_pose_, smoothed_path_);
-    velocity_planning_.trackdrive_velocity(smoothed_path_);
     return;
   }
   if (lap_counter_ == 0) {
@@ -398,7 +398,7 @@ void Planning::run_trackdrive() {
     std::vector<PathPoint> yellow_cones = path_calculation_.get_yellow_cones();
     std::vector<PathPoint> blue_cones = path_calculation_.get_blue_cones();
     smoothed_path_ =
-        path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones, is_path_closed_,false);
+        path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones, is_path_closed_, false);
 
     if (is_path_closed_) {
       velocity_planning_.trackdrive_velocity(smoothed_path_);
@@ -523,4 +523,102 @@ void Planning::publish_visualization_msgs() const {
     velocity_hover_pub_->publish(common_lib::communication::velocity_hover_markers(
         smoothed_path_, "velocity", map_frame_id_, 0.25f, 1));
   }
+  publish_sections_debug();
+}
+
+//TODO: Change this to a marker!
+void Planning::publish_sections_debug() const {
+  const auto &sections = velocity_planning_.get_sections();
+  if (sections.empty() || smoothed_path_.empty()) return;
+
+  visualization_msgs::msg::MarkerArray marker_array;
+  int path_size = static_cast<int>(smoothed_path_.size());
+
+  for (int s = 0; s < static_cast<int>(sections.size()); ++s) {
+    const auto &sec = sections[s];
+    if (sec.start_idx >= path_size || sec.end_idx >= path_size) continue;
+
+    // Color: green = limits at or above config default, red = limits reduced
+    double base = planning_config_.velocity_planning_.longitudinal_acceleration_;
+    double t = std::clamp((sec.current_long_acc - base * 0.5) / base, 0.0, 1.0);
+
+    std_msgs::msg::ColorRGBA color;
+    color.r = static_cast<float>(1.0 - t);
+    color.g = static_cast<float>(t);
+    color.b = 0.0f;
+    color.a = 0.85f;
+
+    // 1. Colored line strip for this section
+    {
+      visualization_msgs::msg::Marker strip;
+      strip.header.frame_id = map_frame_id_;
+      strip.header.stamp = now();
+      strip.ns = "section_strip";
+      strip.id = s;
+      strip.type = visualization_msgs::msg::Marker::LINE_STRIP;
+      strip.action = visualization_msgs::msg::Marker::ADD;
+      strip.scale.x = 0.15f;
+      strip.color = color;
+
+      for (int i = sec.start_idx; i <= sec.end_idx && i < path_size; ++i) {
+        geometry_msgs::msg::Point p;
+        p.x = smoothed_path_[i].position.x;
+        p.y = smoothed_path_[i].position.y;
+        p.z = 0.05;
+        strip.points.push_back(p);
+      }
+      marker_array.markers.push_back(strip);
+    }
+
+    // 2. Text label at section midpoint
+    {
+      int mid_idx = (sec.start_idx + sec.end_idx) / 2;
+      if (mid_idx >= path_size) continue;
+
+      visualization_msgs::msg::Marker text;
+      text.header.frame_id = map_frame_id_;
+      text.header.stamp = now();
+      text.ns = "section_label";
+      text.id = s;
+      text.type = visualization_msgs::msg::Marker::TEXT_VIEW_FACING;
+      text.action = visualization_msgs::msg::Marker::ADD;
+      text.pose.position.x = smoothed_path_[mid_idx].position.x;
+      text.pose.position.y = smoothed_path_[mid_idx].position.y;
+      text.pose.position.z = 0.8;
+      text.pose.orientation.w = 1.0;
+      text.scale.z = 0.35f;
+      text.color.r = text.color.g = text.color.b = 1.0f;
+      text.color.a = 1.0f;
+
+      char buf[128];
+      std::snprintf(buf, sizeof(buf), "S%d [%d-%d]\nLong:%.1f Lat:%.1f\nerr:%.3f n:%d", s,
+                    sec.start_idx, sec.end_idx, sec.current_long_acc, sec.current_lat_acc,
+                    sec.mean_error, sec.sample_count);
+      text.text = buf;
+      marker_array.markers.push_back(text);
+    }
+
+    // 3. Yellow sphere at section boundary (start index)
+    {
+      visualization_msgs::msg::Marker sphere;
+      sphere.header.frame_id = map_frame_id_;
+      sphere.header.stamp = now();
+      sphere.ns = "section_boundary";
+      sphere.id = s;
+      sphere.type = visualization_msgs::msg::Marker::SPHERE;
+      sphere.action = visualization_msgs::msg::Marker::ADD;
+      sphere.pose.position.x = smoothed_path_[sec.start_idx].position.x;
+      sphere.pose.position.y = smoothed_path_[sec.start_idx].position.y;
+      sphere.pose.position.z = 0.2;
+      sphere.pose.orientation.w = 1.0;
+      sphere.scale.x = sphere.scale.y = sphere.scale.z = 0.4f;
+      sphere.color.r = 1.0f;
+      sphere.color.g = 1.0f;
+      sphere.color.b = 0.0f;
+      sphere.color.a = 1.0f;
+      marker_array.markers.push_back(sphere);
+    }
+  }
+
+  sections_debug_pub_->publish(marker_array);
 }
