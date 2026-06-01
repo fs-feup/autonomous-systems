@@ -337,15 +337,15 @@ void VelocityPlanning::adapt_limits(Pose &pose, std::vector<PathPoint> &path, bo
   if (mean > 1.0) {
   // Clearly off track — back off hard
   change_section_limits(sec_idx, -2.0, -2.0);
-} else if (mean > 0.5) {
+} else if (mean > 0.6) {
   // Struggling — moderate reduction
   change_section_limits(sec_idx, -0.5, -0.5);
 } else if (mean > 0.2) {
   // Acceptable — tiny increase
-  change_section_limits(sec_idx, 0.1, 0.1);
+  change_section_limits(sec_idx, 0.2, 0.2);
 } else {
   // Very comfortable — small increase
-  change_section_limits(sec_idx, 0.2, 0.2);
+  change_section_limits(sec_idx, 0.4, 0.4);
 }
 
   // Reset accumulator for the next window
