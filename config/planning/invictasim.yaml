@@ -13,7 +13,7 @@ planning:
   pc_lookback_points: 4
   pc_search_depth: 4
   pc_max_points: 200
-  pc_minimum_point_distance: 0.5
+  pc_minimum_point_distance: 0.8
   pc_reset_interval: 10000
   pc_use_reset_path: false
   pc_close_cost: 40.0 

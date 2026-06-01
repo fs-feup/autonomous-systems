@@ -332,21 +332,27 @@ void VelocityPlanning::adapt_limits(Pose &pose, std::vector<PathPoint> &path, bo
 
   const double mean = sec.mean_error;
 
-  // Same error bands as before, but applied to the whole section at once.
-  // Negative deltas tighten limits (slower, safer); positive deltas relax them.
-  if (mean > 1.0) {
-  // Clearly off track — back off hard
-  change_section_limits(sec_idx, -2.0, -2.0);
-} else if (mean > 0.6) {
-  // Struggling — moderate reduction
-  change_section_limits(sec_idx, -0.5, -0.5);
-} else if (mean > 0.2) {
-  // Acceptable — tiny increase
-  change_section_limits(sec_idx, 0.2, 0.2);
-} else {
-  // Very comfortable — small increase
-  change_section_limits(sec_idx, 0.4, 0.4);
-}
+  double delta;
+
+  double scale_pos = 1.35;  // tune: 1.2–1.6
+
+  if (mean <= 0.2) {
+    double t = mean / 0.2;
+    delta = scale_pos * (0.4 + t * (0.2 - 0.4));
+  } else if (mean <= 0.55) {
+    double t = (mean - 0.2) / 0.35;
+    delta = scale_pos * (0.2 + t * (0.05 - 0.2));
+  } else if (mean <= 0.75) {
+    double t = (mean - 0.55) / 0.2;
+    delta = 0.05 + t * (-0.5 - 0.05);
+  } else if (mean <= 1.0) {
+    double t = (mean - 0.75) / 0.25;
+    delta = -0.5 + t * (-1.2 + 0.5);
+  } else {
+    delta = -1.2;
+  }
+
+  change_section_limits(sec_idx, delta, delta);
 
   // Reset accumulator for the next window
   sec.mean_error = 0.0;
