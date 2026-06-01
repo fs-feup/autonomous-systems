@@ -21,64 +21,58 @@ void VelocityPlanning::compute_sections(const std::vector<double> &curvatures) {
   sections_.clear();
   int n = static_cast<int>(curvatures.size());
 
-  // Find local curvature maxima above threshold
-  // A point is a peak if it is strictly greater than all neighbours within
-  // min_section_spacing_ and above curvature_peak_threshold_.
-  std::vector<int> peaks;
-  for (int i = 1; i < n - 1; ++i) {
-    if (curvatures[i] < curvature_peak_threshold_) {
-      continue;
-    }
-
-    bool is_peak = true;
-    int half = min_section_spacing_ / 2;
-    for (int k = std::max(0, i - half); k <= std::min(n - 1, i + half); ++k) {
-      if (k != i && curvatures[k] >= curvatures[i]) {
-        is_peak = false;
-        break;
-      }
-    }
-    if (is_peak) {
-      peaks.push_back(i);
-    }
-  }
-
-  // Merge peaks that are too close together
-  // Keep only the highest peak within any window of min_section_spacing_ points.
-  std::vector<int> merged_peaks;
-  for (int i = 0; i < static_cast<int>(peaks.size()); ++i) {
-    if (!merged_peaks.empty() && peaks[i] - merged_peaks.back() < min_section_spacing_) {
-      // Replace with whichever has higher curvature
-      if (curvatures[peaks[i]] > curvatures[merged_peaks.back()]) {
-        merged_peaks.back() = peaks[i];
-      }
-    } else {
-      merged_peaks.push_back(peaks[i]);
-    }
-  }
-
-  // Build sections between consecutive peaks
-  // Each section spans from one peak to the next (inclusive on both ends).
-  // If no peaks were found, the whole path is one section.
-  if (merged_peaks.empty()) {
+  if (n < 2) {
     sections_.push_back(
         {0, n - 1, 0.0, 0, config_.longitudinal_acceleration_, config_.lateral_acceleration_});
     return;
   }
 
-  // Section before first peak: index 0 → first peak
-  sections_.push_back({0, merged_peaks[0], 0.0, 0, config_.longitudinal_acceleration_,
-                       config_.lateral_acceleration_});
+  const double curvature_jump_threshold = curvature_peak_threshold_;
+  // reuse your param OR define new one
 
-  // Sections between consecutive peaks
-  for (int i = 0; i + 1 < static_cast<int>(merged_peaks.size()); ++i) {
-    sections_.push_back({merged_peaks[i], merged_peaks[i + 1], 0.0, 0,
-                         config_.longitudinal_acceleration_, config_.lateral_acceleration_});
+  int start = 0;
+
+  double running_mean = curvatures[0];
+  int count = 1;
+
+  for (int i = 1; i < n; ++i) {
+    double prev_mean = running_mean / count;
+    double cur = curvatures[i];
+
+    // update running mean
+    running_mean += cur;
+    count++;
+
+    double new_mean = running_mean / count;
+
+    double jump = std::abs(cur - prev_mean);
+
+    bool split = false;
+
+    // ignore near-zero curvature noise
+    if (std::abs(cur - curvatures[i - 1]) > curvature_jump_threshold) {
+      split = true;
+    }
+
+    // also split if curvature regime changes significantly
+    if (jump > curvature_jump_threshold) {
+      split = true;
+    }
+
+    // avoid tiny sections
+    if (split && (i - start) > min_section_spacing_) {
+      sections_.push_back({start, i - 1, 0.0, 0, config_.longitudinal_acceleration_,
+                           config_.lateral_acceleration_});
+
+      start = i;
+      running_mean = cur;
+      count = 1;
+    }
   }
 
-  // Section after last peak: last peak → end
-  sections_.push_back({merged_peaks.back(), n - 1, 0.0, 0, config_.longitudinal_acceleration_,
-                       config_.lateral_acceleration_});
+  // last section
+  sections_.push_back(
+      {start, n - 1, 0.0, 0, config_.longitudinal_acceleration_, config_.lateral_acceleration_});
 }
 
 int VelocityPlanning::find_section(int point_idx) const {

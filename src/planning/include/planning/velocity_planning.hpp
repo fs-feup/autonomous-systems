@@ -107,7 +107,7 @@ private:
 
   /// Number of error samples to collect before applying a limit adjustment.
   /// Exposed here so it can be tuned; consider adding to VelocityPlanningConfig.
-  int section_adapt_samples_{30};
+  int section_adapt_samples_{10};
 
   /// Minimum curvature value for a point to be considered a corner apex / section boundary.
   /// Exposed here so it can be tuned; consider adding to VelocityPlanningConfig.
