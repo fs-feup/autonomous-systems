@@ -16,6 +16,7 @@ public:
     void set_previous_control_command(
         const common_lib::structures::ControlCommand& previous_command) override;
     common_lib::structures::ControlCommand solve(int* solver_status = nullptr) override; 
+    int get_prediction_horizon_steps() const override;
     
     std::vector<common_lib::structures::ControlCommand> get_full_solution() override;
     std::vector<custom_interfaces::msg::VehicleStateVector> get_full_horizon() override;
@@ -41,6 +42,7 @@ private:
     ocp_nlp_dims* nlp_dims_;
     ocp_nlp_in* nlp_in_;
     ocp_nlp_out* nlp_out_;
+    int solver_horizon_steps_;
 
     // Debug stats: Execution time of each part of the solver, for debugging and visualization purposes
     std::shared_ptr<std::vector<double>> _execution_times_;

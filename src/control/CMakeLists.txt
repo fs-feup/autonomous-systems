@@ -78,6 +78,12 @@ message(STATUS "Will generate acados into build tree: ${ACADOS_MPCZINHO_GEN_DIR}
 
 set(MPCZINHO_ACADOS_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/include/solver/mpczinho_acados/mpczinho_acados.py)
 set(MPCZINHO_SO "${ACADOS_MPCZINHO_GEN_DIR}/libacados_ocp_solver_${ACADOS_MPCZINHO_NAME}.so")
+set(MPC_ACADOS_CONFIG_DEPS
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../config/global/global_config.yaml
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../config/control/vehicle.yaml
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../config/control/pacsim.yaml
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../config/control/invictasim.yaml
+)
 
 if(GENERATE_MPCZINHO_ACADOS)
   add_custom_command(
@@ -96,7 +102,7 @@ if(GENERATE_MPCZINHO_ACADOS)
     COMMAND /bin/sh -c "sed -i -e 's#^INCLUDE_PATH = .*#INCLUDE_PATH = ${ACADOS_INSTALL_DIR}/include#' -e 's#^LIB_PATH = .*#LIB_PATH = ${ACADOS_LIB_DIR}#' ${ACADOS_MPCZINHO_GEN_DIR}/Makefile"
     COMMAND make -C ${ACADOS_MPCZINHO_GEN_DIR} -j4
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../..
-    DEPENDS ${MPCZINHO_ACADOS_SCRIPT}
+    DEPENDS ${MPCZINHO_ACADOS_SCRIPT} ${MPC_ACADOS_CONFIG_DEPS}
     COMMENT "Generating and compiling MPCzinho Acados solver code..."
   )
 else()

@@ -20,9 +20,18 @@ MPCzinhoAcadosSolver::MPCzinhoAcadosSolver(const ControlParameters& params) : So
   nlp_dims_ = mpczinho_acados_get_nlp_dims(this->capsule_);
   nlp_in_ = mpczinho_acados_get_nlp_in(this->capsule_);
   nlp_out_ = mpczinho_acados_get_nlp_out(this->capsule_);
+  solver_horizon_steps_ = nlp_dims_->N;
+
+  if (solver_horizon_steps_ != this->control_params_->mpc_prediction_horizon_steps_) {
+    RCLCPP_WARN(
+        rclcpp::get_logger("MPCzinhoAcadosSolver"),
+        "Runtime MPC horizon is %d steps, but the generated MPCzinho solver was compiled with %d steps. "
+        "Using the generated solver horizon; rebuild control to apply the YAML value.",
+        this->control_params_->mpc_prediction_horizon_steps_, solver_horizon_steps_);
+  }
 
   // 4. Initialize parameters per stage vector
-  int N = this->control_params_->mpc_prediction_horizon_steps_;
+  int N = solver_horizon_steps_;
   parameters_per_stage.resize((N+1)*solver_parameter_size, 0.0);
 }
 
@@ -53,7 +62,7 @@ void MPCzinhoAcadosSolver::set_previous_control_command(
 }
 
 void MPCzinhoAcadosSolver::initialize_solver_memory() {
-  int N = this->control_params_->mpc_prediction_horizon_steps_;
+  int N = solver_horizon_steps_;
   double u_zero[1] = {0.0}; // Baseline control guess
   double time_step = this->control_params_->mpc_prediction_horizon_seconds_ / static_cast<double>(N);
 
@@ -79,7 +88,7 @@ void MPCzinhoAcadosSolver::initialize_solver_memory() {
 }
 
 void MPCzinhoAcadosSolver::set_path_point_per_stage() {
-  int N = this->control_params_->mpc_prediction_horizon_steps_;
+  int N = solver_horizon_steps_;
   this->stage_parameters_debug = "Stage parameters debug:  \n";
   for (int i = 0; i <= N; ++i) {
     double path_point_x = this->parameters_per_stage[i*solver_parameter_size];
@@ -132,8 +141,8 @@ void MPCzinhoAcadosSolver::update_mpc_stats() {
 }
 
 void MPCzinhoAcadosSolver::set_path(const custom_interfaces::msg::PathPointArray& path) {
-  if (path.pathpoint_array.size() != static_cast<size_t>(this->control_params_->mpc_prediction_horizon_steps_ + 1)) {
-    RCLCPP_ERROR(rclcpp::get_logger("MPCzinhoAcadosSolver"), "Received path with %zu points, but expected %d points based on MPC horizon. Ignoring path update.", path.pathpoint_array.size(), this->control_params_->mpc_prediction_horizon_steps_ + 1);
+  if (path.pathpoint_array.size() != static_cast<size_t>(solver_horizon_steps_ + 1)) {
+    RCLCPP_ERROR(rclcpp::get_logger("MPCzinhoAcadosSolver"), "Received path with %zu points, but expected %d points based on generated MPC horizon. Ignoring path update.", path.pathpoint_array.size(), solver_horizon_steps_ + 1);
     return;
   }
 
@@ -178,10 +187,14 @@ common_lib::structures::ControlCommand MPCzinhoAcadosSolver::solve(int* solver_s
   if (status != ACADOS_SUCCESS) {
     RCLCPP_ERROR(rclcpp::get_logger("MPCzinhoAcadosSolver"), "Acados solver failed with status %d", status);
     if (this->sanity_check_output()) {
-      *solver_status = 1; // Positive to indicate benign failure (e.g. infeasibility)
+      if (solver_status != nullptr) {
+        *solver_status = 1; // Positive to indicate benign failure (e.g. infeasibility)
+      }
     } else {
       print_debug_info(); // If solver failed, print debug info
-      *solver_status = -1; // Negative to indicate malign failure
+      if (solver_status != nullptr) {
+        *solver_status = -1; // Negative to indicate malign failure
+      }
     }
   }
 
@@ -195,7 +208,7 @@ common_lib::structures::ControlCommand MPCzinhoAcadosSolver::solve(int* solver_s
   double total_delay_ms = total_solver_time_ms + 5.0;
   double total_delay_s = total_delay_ms / 1000.0;
 
-  double time_step = this->control_params_->mpc_prediction_horizon_seconds_ / static_cast<double>(this->control_params_->mpc_prediction_horizon_steps_);
+  double time_step = this->control_params_->mpc_prediction_horizon_seconds_ / static_cast<double>(solver_horizon_steps_);
   unsigned int steps_ahead = static_cast<unsigned int>(std::floor(total_delay_s / time_step));
   if (steps_ahead >= full_solution.size() - 1) {
     RCLCPP_WARN(rclcpp::get_logger("AcadosSolver"), "Total delay of %.2f ms exceeds prediction horizon, using last available control", total_delay_ms);
@@ -215,6 +228,10 @@ common_lib::structures::ControlCommand MPCzinhoAcadosSolver::solve(int* solver_s
   command.throttle_rr = (1 - alpha) * command_zero.throttle_rr + alpha * command_one.throttle_rr;
   command.steering_angle = (1 - alpha) * command_zero.steering_angle + alpha * command_one.steering_angle;
   return command;
+}
+
+int MPCzinhoAcadosSolver::get_prediction_horizon_steps() const {
+  return solver_horizon_steps_;
 }
 
 std::vector<common_lib::structures::ControlCommand> MPCzinhoAcadosSolver::get_full_solution() {

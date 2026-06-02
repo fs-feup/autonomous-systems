@@ -7,18 +7,18 @@ control:
   pure_pursuit_lpf_alpha: 1 # Smoothing factor for the low-pass filter (0 = max smoothing, 1 = no smoothing)
   pure_pursuit_lpf_initial_value: 0.0
   first_last_max_dist: 5.0 # Maximum distance between first and last point in the path to consider it a closed track
-  pid_kp: 0.1
-  pid_ki: 0.0025
+  pid_kp: 0.30
+  pid_ki: 0.00
   pid_kd: 0.0
   pid_tau: 0.5
   pid_t: 0.01
   pid_lim_min: -1.0
   pid_lim_max: 1.0
   pid_anti_windup: 0.7
-  pid_max_positive_error: 3
-  pid_max_negative_error: -3
+  pid_max_positive_error: 2
+  pid_max_negative_error: -2
   command_time_interval: 25 # Milliseconds
-  mpc_prediction_horizon_seconds: 5.0
+  mpc_prediction_horizon_seconds: 1.5
   mpc_prediction_horizon_steps: 100
   mpczinho_max_steering_command_derivative: 5.0 # Maximum steering command change rate between published controls [rad/s]
   wheel_speeds_scale_mpc: 5.0 # Scale factor for wheel speeds in the MPC cost function (higher values make the controller more sensitive to wheel speed errors)

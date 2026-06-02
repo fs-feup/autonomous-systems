@@ -63,6 +63,16 @@ public:
     virtual std::vector<custom_interfaces::msg::VehicleStateVector> get_full_horizon() = 0;
 
     /**
+     * @brief Get the prediction horizon compiled into the solver.
+     *
+     * Generated solvers can have a fixed horizon that differs from the runtime
+     * config if the solver was not regenerated after a YAML change.
+     */
+    virtual int get_prediction_horizon_steps() const {
+        return control_params_->mpc_prediction_horizon_steps_;
+    }
+
+    /**
      * @brief Publish any relevant solver data for visualization or debugging purposes.
      * 
      * @param node 
