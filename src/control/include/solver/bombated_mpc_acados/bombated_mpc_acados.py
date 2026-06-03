@@ -28,6 +28,10 @@ tire_B = 12.0  # 9.63
 tire_C = 1.625 # 1.39
 tire_D = 1.775 # 1.60
 tire_E = 0.3   # 0.95
+tire_mz_B = 10.0   # Self-aligning moment stiffness factor
+tire_mz_C = 1.5    # Self-aligning moment shape factor
+tire_mz_D = 0 #.04 currently at 0 because it performs better on simulation   # Self-aligning moment peak factor (peak_Mz = D * Fz * wheel_radius)
+tire_mz_E = -1.6   # Self-aligning moment curvature factor
 ackermann_deviation = 0.0
 wheel_radius = 0.203
 max_motor_torque = 300  # in Nm
@@ -47,6 +51,7 @@ rolling_resistance_coefficient = 0.015
 gravity_acceleration = 9.81
 
 steering_motor_tau = 0.1
+steering_damping = 10.0  # Effective steering system damping referred to wheel axis (N*m*s/rad)
 
 def get_config_yaml_path(package_name: str, dir: str, filename: str) -> str:
     """
@@ -182,6 +187,12 @@ def export_mpc_model() -> AcadosModel:
     fy_rl = (tire_lateral_D * vertical_load_rl * sin(tire_lateral_C * atan(tire_lateral_B * slip_angle_rl - tire_lateral_E * (tire_lateral_B * slip_angle_rl - atan(tire_lateral_B * slip_angle_rl)))))
     fy_rr = (tire_lateral_D * vertical_load_rr * sin(tire_lateral_C * atan(tire_lateral_B * slip_angle_rr - tire_lateral_E * (tire_lateral_B * slip_angle_rr - atan(tire_lateral_B * slip_angle_rr)))))
 
+    # Self-aligning moments — direct Pacejka formula, negative sign: restoring torque opposes slip angle
+    mz_fl = -(tire_mz_D * vertical_load_fl * wheel_radius * sin(tire_mz_C * atan(tire_mz_B * slip_angle_fl - tire_mz_E * (tire_mz_B * slip_angle_fl - atan(tire_mz_B * slip_angle_fl)))))
+    mz_fr = -(tire_mz_D * vertical_load_fr * wheel_radius * sin(tire_mz_C * atan(tire_mz_B * slip_angle_fr - tire_mz_E * (tire_mz_B * slip_angle_fr - atan(tire_mz_B * slip_angle_fr)))))
+    mz_rl = -(tire_mz_D * vertical_load_rl * wheel_radius * sin(tire_mz_C * atan(tire_mz_B * slip_angle_rl - tire_mz_E * (tire_mz_B * slip_angle_rl - atan(tire_mz_B * slip_angle_rl)))))
+    mz_rr = -(tire_mz_D * vertical_load_rr * wheel_radius * sin(tire_mz_C * atan(tire_mz_B * slip_angle_rr - tire_mz_E * (tire_mz_B * slip_angle_rr - atan(tire_mz_B * slip_angle_rr)))))
+
     # Longitudinal tire forces
     speed_blend = 0.5 * (tanh((x[3] - 5.0)) + 1.0)
 
@@ -225,8 +236,8 @@ def export_mpc_model() -> AcadosModel:
     yaw_moment_rl = - lr * (fy_car_rl) - s * (fx_car_rl)
     yaw_moment_rr = - lr * (fy_car_rr) + s * (fx_car_rr)
 
-    yaw_rate_dot = (yaw_moment_fl + yaw_moment_fr + yaw_moment_rl + yaw_moment_rr) / Izz
-    steering_dot = (u[2] - x[8]) / steering_motor_tau
+    yaw_rate_dot = (yaw_moment_fl + yaw_moment_fr + yaw_moment_rl + yaw_moment_rr + mz_fl + mz_fr + mz_rl + mz_rr) / Izz
+    steering_dot = (u[2] - x[8]) / steering_motor_tau + (mz_fl + mz_fr) / steering_damping
 
     # Dynamic torque limits
     max_torque_fl = max_motor_torque

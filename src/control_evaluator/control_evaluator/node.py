@@ -1,15 +1,13 @@
 import math
-from pathlib import Path
 from typing import Optional
 
 import rclpy
-import yaml
 from custom_interfaces.msg import ControlCommand, PathPointArray, Pose, Velocities
-from geometry_msgs.msg import TwistWithCovarianceStamped
-from pacsim.msg import StampedScalar, Wheels
+
 from rclpy.node import Node
 from std_msgs.msg import Float64
 
+from . import params as params_module
 
 class RunningStats:
     def __init__(self) -> None:
@@ -39,38 +37,103 @@ class RunningStats:
             return 0.0
         return self.sum_sq / self.count
 
-    def rmse(self) -> float:
-        return math.sqrt(self.mse())
-
-
 class ControlEvaluatorNode(Node):
-    def __init__(self) -> None:
+    def __init__(self, params: params_module.Params) -> None:
         super().__init__("control_evaluator")
 
-        self.declare_parameter("global_config_path", "")
+        self._params = params
 
-        self._adapter = self._load_adapter_from_global_config()
-        self.get_logger().info(f"control_evaluator adapter: {self._adapter}")
+        self.get_logger().info(f"control_evaluator adapter: {self._params.adapter}")
 
-        self._path_points = []
+        self.topic_prefix = "/control_evaluator"
+
+        # Metric definitions: metric name -> (has_sign, can_compute_fn, compute_fn)
+        self.metric_has_sign = {
+            "distance_error": (
+                False,
+                lambda: self._has_received_control_command and self._has_received_path and self._has_pose,
+                lambda: self._get_path_reference()[0],
+            ),
+            "velocity_error": (
+                True,
+                lambda: self._has_received_control_command and self._has_received_path and self._has_pose and self._has_speed,
+                lambda: self._current_speed - self._get_path_reference()[2],
+            ),
+            "heading_error": (
+                True,
+                lambda: self._has_received_control_command and self._has_received_path and self._has_pose,
+                lambda: self._normalize_angle(self._current_heading - self._get_path_reference()[1]),
+            ),
+            "left_throttle_smoothness": (
+                False,
+                lambda: self._left_throttle_updated,
+                self._compute_left_throttle_smoothness,
+            ),
+            "right_throttle_smoothness": (
+                False,
+                lambda: self._right_throttle_updated,
+                self._compute_right_throttle_smoothness,
+            ),
+            "steering_smoothness": (
+                False,
+                lambda: self._steering_updated,
+                self._compute_steering_smoothness,
+            ),
+        }
+
+        # Error publisher creation
+        for metric, metric_info in self.metric_has_sign.items():
+            has_sign = metric_info[0]
+            for topic in ("instant", "average", "mse"):
+                setattr(self, f"_{metric}_{topic}_pub",
+                        self.create_publisher(Float64, f"{self.topic_prefix}/{metric}/{topic}", 10))
+            if has_sign:
+                setattr(self, f"_{metric}_absolute_average_pub",
+                        self.create_publisher(Float64, f"{self.topic_prefix}/{metric}/absolute_average", 10))
+
+        # Other metrics publisher creation
+        self._average_velocity_pub = self.create_publisher(
+            Float64, f"{self.topic_prefix}/average_velocity", 10
+        )
+        self._average_lap_time_pub = self.create_publisher(
+            Float64, f"{self.topic_prefix}/average_lap_time", 10
+        )
+        self._lap_time_pub = self.create_publisher(
+            Float64, f"{self.topic_prefix}/lap_time", 10
+        )
+
+
+        # RunningStats initialization
+        for metric in self.metric_has_sign.keys():
+            setattr(self, f"_{metric}_stats", RunningStats())
+
+        self._average_velocity_stats = RunningStats()
+        self._lap_time_stats = RunningStats()
+
+        # Data initialization
         self._has_pose = False
         self._has_speed = False
         self._has_received_control_command = False
+        self._has_received_path = False
 
         self._current_x = 0.0
         self._current_y = 0.0
         self._current_heading = 0.0
         self._current_speed = 0.0
-
-        self._distance_stats = RunningStats()
-        self._velocity_error_stats = RunningStats()
-        self._heading_error_stats = RunningStats()
-        self._average_velocity_stats = RunningStats()
-        self._lap_time_stats = RunningStats()
-
-        self._last_lap_counter: Optional[int] = None
+        self._path_points = []
         self._last_lap_stamp = None
+        self._last_left_throttle: Optional[float] = None
+        self._last_right_throttle: Optional[float] = None
+        self._last_steering: Optional[float] = None
+        self._current_left_throttle: Optional[float] = None
+        self._current_right_throttle: Optional[float] = None
+        self._current_steering: Optional[float] = None
+        self._left_throttle_updated = False
+        self._right_throttle_updated = False
+        self._steering_updated = False
+        self._cached_path_ref = None
 
+        # Subscribers
         self._path_sub = self.create_subscription(
             PathPointArray,
             "/path_planning/path",
@@ -85,300 +148,86 @@ class ControlEvaluatorNode(Node):
             10,
         )
 
-        if self._adapter == "vehicle":
-            self._pose_sub = self.create_subscription(
-                Pose,
-                "/state_estimation/pose",
-                self._vehicle_pose_callback,
-                10,
-            )
-            self._vel_sub = self.create_subscription(
-                Velocities,
-                "/state_estimation/velocities",
-                self._vehicle_velocities_callback,
-                10,
-            )
-            self._control_sub = self.create_subscription(
-                ControlCommand,
-                "/control/command",
-                self._vehicle_control_callback,
-                10,
-            )
-        elif self._adapter == "pacsim":
-            self._pose_sub = self.create_subscription(
-                TwistWithCovarianceStamped,
-                "/pacsim/pose",
-                self._pacsim_pose_callback,
-                10,
-            )
-            self._vel_sub = self.create_subscription(
-                TwistWithCovarianceStamped,
-                "/pacsim/velocity",
-                self._pacsim_velocity_callback,
-                10,
-            )
-            self._pacsim_steering_control_sub = self.create_subscription(
-                StampedScalar,
-                "/pacsim/steering_setpoint",
-                self._pacsim_control_callback,
-                10,
-            )
-            self._pacsim_throttle_control_sub = self.create_subscription(
-                Wheels,
-                "/pacsim/throttle_setpoint",
-                self._pacsim_control_callback,
-                10,
-            )
-        else:
-            self.get_logger().warn(
-                f"Unknown adapter '{self._adapter}', defaulting to vehicle topics"
-            )
-            self._pose_sub = self.create_subscription(
-                Pose,
-                "/state_estimation/pose",
-                self._vehicle_pose_callback,
-                10,
-            )
-            self._vel_sub = self.create_subscription(
-                Velocities,
-                "/state_estimation/velocities",
-                self._vehicle_velocities_callback,
-                10,
-            )
-            self._control_sub = self.create_subscription(
-                ControlCommand,
-                "/control/command",
-                self._vehicle_control_callback,
-                10,
-            )
-
-        prefix = "/control_evaluator"
-
-        self._distance_instant_pub = self.create_publisher(
-            Float64, f"{prefix}/distance_error/instant", 10
-        )
-        self._distance_average_pub = self.create_publisher(
-            Float64, f"{prefix}/distance_error/average", 10
-        )
-        self._distance_mse_pub = self.create_publisher(
-            Float64, f"{prefix}/distance_error/mse", 10
-        )
-        self._distance_rmse_pub = self.create_publisher(
-            Float64, f"{prefix}/distance_error/rmse", 10
-        )
-
-        self._velocity_error_instant_pub = self.create_publisher(
-            Float64, f"{prefix}/velocity_error/instant", 10
-        )
-        self._velocity_error_average_pub = self.create_publisher(
-            Float64, f"{prefix}/velocity_error/average", 10
-        )
-        self._velocity_error_signed_average_pub = self.create_publisher(
-            Float64, f"{prefix}/velocity_error/signed_average", 10
-        )
-        self._velocity_error_mse_pub = self.create_publisher(
-            Float64, f"{prefix}/velocity_error/mse", 10
-        )
-        self._velocity_error_rmse_pub = self.create_publisher(
-            Float64, f"{prefix}/velocity_error/rmse", 10
-        )
-
-        self._heading_error_instant_pub = self.create_publisher(
-            Float64, f"{prefix}/heading_error/instant", 10
-        )
-        self._heading_error_average_pub = self.create_publisher(
-            Float64, f"{prefix}/heading_error/average", 10
-        )
-        self._heading_error_signed_average_pub = self.create_publisher(
-            Float64, f"{prefix}/heading_error/signed_average", 10
-        )
-        self._heading_error_mse_pub = self.create_publisher(
-            Float64, f"{prefix}/heading_error/mse", 10
-        )
-        self._heading_error_rmse_pub = self.create_publisher(
-            Float64, f"{prefix}/heading_error/rmse", 10
-        )
-
-        self._average_velocity_pub = self.create_publisher(
-            Float64, f"{prefix}/average_velocity", 10
-        )
-        self._average_lap_time_pub = self.create_publisher(
-            Float64, f"{prefix}/average_lap_time", 10
-        )
-
+        self.create_timer(0.05, self._compute_and_publish_metrics)
         self.get_logger().info("control_evaluator node started")
 
-    def _load_adapter_from_global_config(self) -> str:
-        config_path = str(self.get_parameter("global_config_path").value).strip()
-        resolved_path = self._resolve_global_config_path(config_path)
 
-        if resolved_path is None:
-            self.get_logger().warn(
-                "Could not locate config/global/global_config.yaml; using adapter='vehicle'"
-            )
-            return "vehicle"
-
-        try:
-            with resolved_path.open("r", encoding="utf-8") as handle:
-                cfg = yaml.safe_load(handle) or {}
-            adapter = str(cfg.get("global", {}).get("adapter", "vehicle")).strip()
-            return adapter if adapter else "vehicle"
-        except Exception as exc:
-            self.get_logger().warn(
-                f"Failed to read global config at {resolved_path}: {exc}; using adapter='vehicle'"
-            )
-            return "vehicle"
-
-    def _resolve_global_config_path(self, explicit_path: str) -> Optional[Path]:
-        if explicit_path:
-            candidate = Path(explicit_path).expanduser()
-            if candidate.exists():
-                return candidate.resolve()
-            self.get_logger().warn(
-                f"Configured global_config_path does not exist: {candidate}"
-            )
-
-        relative_target = Path("config") / "global" / "global_config.yaml"
-        search_roots = [Path.cwd(), Path(__file__).resolve()]
-        checked = set()
-
-        for root in search_roots:
-            for parent in [root, *root.parents]:
-                candidate = (parent / relative_target).resolve()
-                if candidate in checked:
-                    continue
-                checked.add(candidate)
-                if candidate.exists():
-                    return candidate
-
-        fallback = Path("/home/ws/config/global/global_config.yaml")
-        if fallback.exists():
-            return fallback
-
-        return None
-
+    # Callbacks
     def _path_callback(self, msg: PathPointArray) -> None:
         self._path_points = [
             (point.x, point.y, point.v) for point in msg.pathpoint_array
         ]
-        self._evaluate_if_ready()
+        self._has_received_path = True
 
-    def _vehicle_pose_callback(self, msg: Pose) -> None:
-        self._current_x = msg.x
-        self._current_y = msg.y
-        self._current_heading = msg.theta
-        self._has_pose = True
-        self._evaluate_if_ready()
+    # Metrics
+    def _update_throttle_smoothness(self, left_throttle: float, right_throttle: float) -> None:
+        if self._last_left_throttle is None:
+            self._last_left_throttle = left_throttle
+        else:
+            self._left_throttle_updated = True
+        self._current_left_throttle = left_throttle
 
-    def _pacsim_pose_callback(self, msg: TwistWithCovarianceStamped) -> None:
-        self._current_x = msg.twist.twist.linear.x
-        self._current_y = msg.twist.twist.linear.y
-        self._current_heading = msg.twist.twist.angular.z
-        self._has_pose = True
-        self._evaluate_if_ready()
+        if self._last_right_throttle is None:
+            self._last_right_throttle = right_throttle
+        else:
+            self._right_throttle_updated = True
+        self._current_right_throttle = right_throttle
 
-    def _vehicle_velocities_callback(self, msg: Velocities) -> None:
-        self._current_speed = math.sqrt(
-            msg.velocity_x * msg.velocity_x + msg.velocity_y * msg.velocity_y
-        )
-        self._has_speed = True
-        if self._has_received_control_command:
-            self._average_velocity_stats.add(self._current_speed)
-            self._publish_float(
-                self._average_velocity_pub, self._average_velocity_stats.average()
-            )
-        self._evaluate_if_ready()
-
-    def _pacsim_velocity_callback(self, msg: TwistWithCovarianceStamped) -> None:
-        vx = msg.twist.twist.linear.x
-        vy = msg.twist.twist.linear.y
-        self._current_speed = math.sqrt(vx * vx + vy * vy)
-        self._has_speed = True
-        if self._has_received_control_command:
-            self._average_velocity_stats.add(self._current_speed)
-            self._publish_float(
-                self._average_velocity_pub, self._average_velocity_stats.average()
-            )
-        self._evaluate_if_ready()
-
-    def _vehicle_control_callback(self, _: ControlCommand) -> None:
-        self._mark_control_started()
-
-    def _pacsim_control_callback(self, _: object) -> None:
-        self._mark_control_started()
-
-    def _mark_control_started(self) -> None:
-        if self._has_received_control_command:
-            return
-
-        self._has_received_control_command = True
-        self.get_logger().info("First control command received; metrics computation started")
-        self._evaluate_if_ready()
+    def _update_steering_smoothness(self, steering: float) -> None:
+        if self._last_steering is None:
+            self._last_steering = steering
+        else:
+            self._steering_updated = True
+        self._current_steering = steering
 
     def _lap_counter_callback(self, msg: Float64) -> None:
         if not self._has_received_control_command:
             return
 
-        current_lap = int(msg.data)
         now = self.get_clock().now()
 
-        if self._last_lap_counter is None:
-            self._last_lap_counter = current_lap
+        if self._last_lap_stamp is None:
             self._last_lap_stamp = now
             return
 
-        if current_lap > self._last_lap_counter and self._last_lap_stamp is not None:
+        if self._last_lap_stamp is not None:
             lap_time = (now - self._last_lap_stamp).nanoseconds * 1e-9
             if lap_time > 0.0:
                 self._lap_time_stats.add(lap_time)
-                self._publish_float(self._average_lap_time_pub, self._lap_time_stats.average())
             self._last_lap_stamp = now
 
-        self._last_lap_counter = current_lap
+    def _compute_and_publish_metrics(self) -> None:
+        self._cached_path_ref = None
+        for metric, (_, can_compute, compute_fn) in self.metric_has_sign.items():
+            if not can_compute():
+                continue
+            value = compute_fn()
+            stats = getattr(self, f"_{metric}_stats")
+            stats.add(value)
+            self._publish_metric_set(metric, value, stats)
 
-    def _evaluate_if_ready(self) -> None:
-        if (
-            not self._has_received_control_command
-            or not self._path_points
-            or not self._has_pose
-            or not self._has_speed
-        ):
-            return
+    def _get_path_reference(self):
+        if self._cached_path_ref is None:
+            self._cached_path_ref = self._interpolated_path_reference()
+        return self._cached_path_ref
 
-        distance_error, ref_heading, ref_velocity = self._interpolated_path_reference()
-        velocity_error = self._current_speed - ref_velocity
-        heading_error = self._normalize_angle(self._current_heading - ref_heading)
+    def _compute_left_throttle_smoothness(self) -> float:
+        delta = self._current_left_throttle - self._last_left_throttle
+        self._last_left_throttle = self._current_left_throttle
+        self._left_throttle_updated = False
+        return delta
 
-        self._distance_stats.add(distance_error)
-        self._velocity_error_stats.add(velocity_error)
-        self._heading_error_stats.add(heading_error)
+    def _compute_right_throttle_smoothness(self) -> float:
+        delta = self._current_right_throttle - self._last_right_throttle
+        self._last_right_throttle = self._current_right_throttle
+        self._right_throttle_updated = False
+        return delta
 
-        self._publish_metric_set(
-            distance_error,
-            self._distance_stats,
-            self._distance_instant_pub,
-            self._distance_average_pub,
-            self._distance_mse_pub,
-            self._distance_rmse_pub,
-        )
-        self._publish_metric_set(
-            velocity_error,
-            self._velocity_error_stats,
-            self._velocity_error_instant_pub,
-            self._velocity_error_average_pub,
-            self._velocity_error_mse_pub,
-            self._velocity_error_rmse_pub,
-            self._velocity_error_signed_average_pub,
-        )
-        self._publish_metric_set(
-            heading_error,
-            self._heading_error_stats,
-            self._heading_error_instant_pub,
-            self._heading_error_average_pub,
-            self._heading_error_mse_pub,
-            self._heading_error_rmse_pub,
-            self._heading_error_signed_average_pub,
-        )
+    def _compute_steering_smoothness(self) -> float:
+        delta = self._current_steering - self._last_steering
+        self._last_steering = self._current_steering
+        self._steering_updated = False
+        return delta
 
     def _find_closest_path_point(self):
         best_index = 0
@@ -492,22 +341,15 @@ class ControlEvaluatorNode(Node):
             angle += 2.0 * math.pi
         return angle
 
-    def _publish_metric_set(
-        self,
-        instant_value: float,
-        stats: RunningStats,
-        instant_pub,
-        average_pub,
-        mse_pub,
-        rmse_pub,
-        signed_average_pub=None,
-    ) -> None:
-        self._publish_float(instant_pub, instant_value)
-        self._publish_float(average_pub, stats.average_abs())
-        if signed_average_pub is not None:
-            self._publish_float(signed_average_pub, stats.average())
-        self._publish_float(mse_pub, stats.mse())
-        self._publish_float(rmse_pub, stats.rmse())
+    def _publish_metric_set(self, metric: str, instant_value: float, stats: RunningStats) -> None:
+        has_sign = self.metric_has_sign[metric][0]
+        self._publish_float(getattr(self, f"_{metric}_instant_pub"), instant_value)
+        if has_sign:
+            self._publish_float(getattr(self, f"_{metric}_average_pub"), stats.average())
+            self._publish_float(getattr(self, f"_{metric}_absolute_average_pub"), stats.average_abs())
+        else:
+            self._publish_float(getattr(self, f"_{metric}_average_pub"), stats.average_abs())
+        self._publish_float(getattr(self, f"_{metric}_mse_pub"), stats.mse())
 
     @staticmethod
     def _publish_float(publisher, value: float) -> None:
@@ -517,8 +359,18 @@ class ControlEvaluatorNode(Node):
 
 
 def main(args=None) -> None:
+    from . import vehicle_adapter, pacsim_adapter, invictasim_adapter
     rclpy.init(args=args)
-    node = ControlEvaluatorNode()
+    params = params_module.Params()
+    node = None
+    if params.adapter == "vehicle":
+        node = vehicle_adapter.VehicleAdapter(params)
+    elif params.adapter == "pacsim":
+        node = pacsim_adapter.PacsimAdapter(params)
+    elif params.adapter == "invictasim":
+        node = invictasim_adapter.InvictasimAdapter(params)
+    else:
+        raise ValueError(f"Unknown adapter: {params.adapter}")
     try:
         rclpy.spin(node)
     finally:
