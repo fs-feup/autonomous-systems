@@ -42,62 +42,62 @@ set(ACADOS_MPCZINHO_GEN_DIR
 # Code generation
 
 # Bombated MPC with acados
-set(GENERATE_BOMBATED_MPC_ACADOS ON)
+set(BOMBATED_MPC_ACADOS_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/include/solver/bombated_mpc_acados/bombated_mpc_acados.py)
+set(BOMBATED_MPC_STAMP ${CMAKE_BINARY_DIR}/control/stamps/bombated_mpc_acados.stamp)
 message(STATUS "Will generate acados into build tree: ${ACADOS_BOMBATED_MPC_GEN_DIR}")
 
-set(BOMBATED_MPC_ACADOS_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/include/solver/bombated_mpc_acados/bombated_mpc_acados.py)
+add_custom_command(
+  OUTPUT ${BOMBATED_MPC_STAMP}
+  COMMAND ${CMAKE_COMMAND} -E rm -rf ${ACADOS_BOMBATED_MPC_GEN_DIR}
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${ACADOS_BOMBATED_MPC_GEN_DIR}
+  COMMAND ${CMAKE_COMMAND} -E env
+    AMENT_PREFIX_PATH=${WORKSPACE_INSTALL_DIR}:$ENV{AMENT_PREFIX_PATH}
+    CMAKE_PREFIX_PATH=${WORKSPACE_INSTALL_DIR}:$ENV{CMAKE_PREFIX_PATH}
+    LD_LIBRARY_PATH=${ACADOS_LIB_DIR}:$ENV{LD_LIBRARY_PATH}
+    python3 ${BOMBATED_MPC_ACADOS_SCRIPT}
+    --out-dir ${CMAKE_BINARY_DIR}/control/${ACADOS_BOMBATED_MPC_NAME}/acados
+    --acados-dir ${ACADOS_INSTALL_DIR}
+    --acados-lib-dir ${ACADOS_LIB_DIR}
+  COMMAND /bin/sh -c "sed -i -e 's#^INCLUDE_PATH = .*#INCLUDE_PATH = ${ACADOS_INSTALL_DIR}/include#' -e 's#^LIB_PATH = .*#LIB_PATH = ${ACADOS_LIB_DIR}#' ${ACADOS_BOMBATED_MPC_GEN_DIR}/Makefile"
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/control/stamps
+  COMMAND ${CMAKE_COMMAND} -E touch ${BOMBATED_MPC_STAMP}
+  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../..
+  DEPENDS ${BOMBATED_MPC_ACADOS_SCRIPT}
+  COMMENT "Generating Bombated MPC Acados solver code..."
+)
 
-if(GENERATE_BOMBATED_MPC_ACADOS)
-  file(MAKE_DIRECTORY ${ACADOS_BOMBATED_MPC_GEN_DIR})
-
-  add_custom_target(generate_bombated_mpc_acados_solver
-    COMMAND ${CMAKE_COMMAND} -E rm -rf ${ACADOS_BOMBATED_MPC_GEN_DIR}
-    COMMAND ${CMAKE_COMMAND} -E make_directory ${ACADOS_BOMBATED_MPC_GEN_DIR}
-    COMMAND ${CMAKE_COMMAND} -E env
-      AMENT_PREFIX_PATH=${WORKSPACE_INSTALL_DIR}:$ENV{AMENT_PREFIX_PATH}
-      CMAKE_PREFIX_PATH=${WORKSPACE_INSTALL_DIR}:$ENV{CMAKE_PREFIX_PATH}
-      LD_LIBRARY_PATH=${ACADOS_LIB_DIR}:$ENV{LD_LIBRARY_PATH}
-      python3 ${BOMBATED_MPC_ACADOS_SCRIPT}
-      --out-dir ${CMAKE_BINARY_DIR}/control/${ACADOS_BOMBATED_MPC_NAME}/acados
-      --acados-dir ${ACADOS_INSTALL_DIR}
-      --acados-lib-dir ${ACADOS_LIB_DIR}
-    COMMAND /bin/sh -c "sed -i -e 's#^INCLUDE_PATH = .*#INCLUDE_PATH = ${ACADOS_INSTALL_DIR}/include#' -e 's#^LIB_PATH = .*#LIB_PATH = ${ACADOS_LIB_DIR}#' ${ACADOS_BOMBATED_MPC_GEN_DIR}/Makefile"
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../..
-    DEPENDS ${BOMBATED_MPC_ACADOS_SCRIPT}
-    COMMENT "Generating Bombated MPC Acados solver code..."
-  )
-else()
-  message(STATUS "Skipping generation; using existing generated files at ${ACADOS_BOMBATED_MPC_GEN_DIR}")
-endif()
+add_custom_target(generate_bombated_mpc_acados_solver
+  DEPENDS ${BOMBATED_MPC_STAMP}
+)
 
 # MPCzinho with acados
-set(GENERATE_MPCZINHO_ACADOS ON)
+set(MPCZINHO_ACADOS_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/include/solver/mpczinho_acados/mpczinho_acados.py)
+set(MPCZINHO_STAMP ${CMAKE_BINARY_DIR}/control/stamps/mpczinho_acados.stamp)
 message(STATUS "Will generate acados into build tree: ${ACADOS_MPCZINHO_GEN_DIR}")
 
-set(MPCZINHO_ACADOS_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/include/solver/mpczinho_acados/mpczinho_acados.py)
+add_custom_command(
+  OUTPUT ${MPCZINHO_STAMP}
+  COMMAND ${CMAKE_COMMAND} -E rm -rf ${ACADOS_MPCZINHO_GEN_DIR}
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${ACADOS_MPCZINHO_GEN_DIR}
+  COMMAND ${CMAKE_COMMAND} -E env
+    AMENT_PREFIX_PATH=${WORKSPACE_INSTALL_DIR}:$ENV{AMENT_PREFIX_PATH}
+    CMAKE_PREFIX_PATH=${WORKSPACE_INSTALL_DIR}:$ENV{CMAKE_PREFIX_PATH}
+    LD_LIBRARY_PATH=${ACADOS_LIB_DIR}:$ENV{LD_LIBRARY_PATH}
+    python3 ${MPCZINHO_ACADOS_SCRIPT}
+    --out-dir ${CMAKE_BINARY_DIR}/control/${ACADOS_MPCZINHO_NAME}/acados
+    --acados-dir ${ACADOS_INSTALL_DIR}
+    --acados-lib-dir ${ACADOS_LIB_DIR}
+  COMMAND /bin/sh -c "sed -i -e 's#^INCLUDE_PATH = .*#INCLUDE_PATH = ${ACADOS_INSTALL_DIR}/include#' -e 's#^LIB_PATH = .*#LIB_PATH = ${ACADOS_LIB_DIR}#' ${ACADOS_MPCZINHO_GEN_DIR}/Makefile"
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/control/stamps
+  COMMAND ${CMAKE_COMMAND} -E touch ${MPCZINHO_STAMP}
+  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../..
+  DEPENDS ${MPCZINHO_ACADOS_SCRIPT}
+  COMMENT "Generating MPCzinho Acados solver code..."
+)
 
-if(GENERATE_MPCZINHO_ACADOS)
-  file(MAKE_DIRECTORY ${ACADOS_MPCZINHO_GEN_DIR})
-
-  add_custom_target(generate_mpczinho_acados_solver
-    COMMAND ${CMAKE_COMMAND} -E rm -rf ${ACADOS_MPCZINHO_GEN_DIR}
-    COMMAND ${CMAKE_COMMAND} -E make_directory ${ACADOS_MPCZINHO_GEN_DIR}
-    COMMAND ${CMAKE_COMMAND} -E env
-      AMENT_PREFIX_PATH=${WORKSPACE_INSTALL_DIR}:$ENV{AMENT_PREFIX_PATH}
-      CMAKE_PREFIX_PATH=${WORKSPACE_INSTALL_DIR}:$ENV{CMAKE_PREFIX_PATH}
-      LD_LIBRARY_PATH=${ACADOS_LIB_DIR}:$ENV{LD_LIBRARY_PATH}
-      python3 ${MPCZINHO_ACADOS_SCRIPT}
-      --out-dir ${CMAKE_BINARY_DIR}/control/${ACADOS_MPCZINHO_NAME}/acados
-      --acados-dir ${ACADOS_INSTALL_DIR}
-      --acados-lib-dir ${ACADOS_LIB_DIR}
-    COMMAND /bin/sh -c "sed -i -e 's#^INCLUDE_PATH = .*#INCLUDE_PATH = ${ACADOS_INSTALL_DIR}/include#' -e 's#^LIB_PATH = .*#LIB_PATH = ${ACADOS_LIB_DIR}#' ${ACADOS_MPCZINHO_GEN_DIR}/Makefile"
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../..
-    DEPENDS ${MPCZINHO_ACADOS_SCRIPT}
-    COMMENT "Generating MPCzinho Acados solver code..."
-  )
-else()
-  message(STATUS "Skipping generation; using existing generated files at ${ACADOS_MPCZINHO_GEN_DIR}")
-endif()
+add_custom_target(generate_mpczinho_acados_solver
+  DEPENDS ${MPCZINHO_STAMP}
+)
 
 # ------------------------------------------------------------------------------
 # Sources (cpp implementation files)
@@ -197,13 +197,7 @@ set(CONTROL_INCLUDE_DIRS
 # Main executable
 add_executable(node_control src/main.cpp ${IMPLEMENTATION_FILES})
 
-if(GENERATE_BOMBATED_MPC_ACADOS)
-  add_dependencies(node_control generate_bombated_mpc_acados_solver)
-endif()
-
-if(GENERATE_MPCZINHO_ACADOS)
-  add_dependencies(node_control generate_mpczinho_acados_solver)
-endif()
+add_dependencies(node_control generate_bombated_mpc_acados_solver generate_mpczinho_acados_solver)
 
 target_include_directories(node_control PUBLIC
   ${CONTROL_INCLUDE_DIRS}
