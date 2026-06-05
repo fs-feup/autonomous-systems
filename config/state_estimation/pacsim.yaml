@@ -1,9 +1,9 @@
 state_estimation:
   estimation_method: "ukf" # "ukf" or ... -> name of the state estimation method
-  process_model_name: "component_based_vehicle_model" # "component_based_vehicle_model" or "rk4_vehicle_model" or ... -> name of the process model
+  process_model_name: "rk4_vehicle_model" # "component_based_vehicle_model" or "rk4_vehicle_model" or ... -> name of the process model
   observation_model_name: "pacsim_sensors" # "sensors_01" or "pacsim_sensors" or ... -> name of the observation model
 
-  state_estimation_freq: 100.0 # Frequency of state estimation updates in Hz
+  state_estimation_freq: 200.0 # Frequency of state estimation updates in Hz
 
   vehicle_model: "FSFEUP02"  # Options: "FSFEUP02"
 

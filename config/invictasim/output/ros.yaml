@@ -2,7 +2,7 @@ publish_frequencies:
   vehicle_model:
     tire: 100          # Tire status (FX, FY, MY, MZ, slip ratio, slip angle)
     battery: 0       # Battery status (voltage, current, state of charge)
-    motor: 0         # Motor status (RPM, torque, temperature)
+    motor: 50         # Motor status (RPM, torque, temperature)
     transmission: 50  # Transmission status (torque on each wheel)
     aero: 50          # Aerodynamic status (drag, downforce)
     status: 100        # Overall vehicle status (speed, acceleration, position, yaw, etc.)
@@ -10,17 +10,17 @@ publish_frequencies:
     car: 100           # Car visualization 
     ground: 1         # Ground visualization 
     ground_truth_cones: 1   # Ground-truth cones visualization
-    slam_cones: 30          # SLAM cones visualization (simulated or from state estimation)
-    perception_cones: 30    # Perception cones visualization (simulated or from perception)
+    slam_cones: 1          # SLAM cones visualization (simulated or from state estimation)
+    perception_cones: 1    # Perception cones visualization (simulated or from perception)
   sensors:
     imu: 200             # Simulated IMU (free_acceleration, angular_velocity)
     wheel_speed: 50      # Simulated wheel speed sensors
     resolver: 5         # Simulated motor/resolver RPM
     steering: 10         # Simulated steering sensor
   map:
-    perception: 10      # Simulated perception output
+    perception: 0      # Simulated perception output
     ground_truth: 0       # Ground-truth track map
-    simulated_slam: 30        # Simulated SLAM map 
+    simulated_slam: 0        # Simulated SLAM map 
   vehicle_state:
     pose: 10              # Simulated vehicle pose (slam output)
     velocities: 10        # Simulated velocities (velocity estimation output)

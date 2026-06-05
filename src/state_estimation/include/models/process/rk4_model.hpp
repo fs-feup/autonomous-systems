@@ -1,5 +1,7 @@
 #pragma once
 
+#include <algorithm>
+#include <cmath>
 #include "models/process/process_model.hpp"
 #include "motion_lib/aero_model/map.hpp"
 #include "motion_lib/load_transfer_model/map.hpp"
@@ -50,7 +52,7 @@ public:
                double dt) override;
 
   Eigen::Matrix<double, StateSize, 1> get_state_derivative(
-      Eigen::Ref<State> state, common_lib::structures::ControlCommand control_command);
+      Eigen::Ref<State> state, common_lib::structures::ControlCommand control_command, double dt);
 
   VehicleState get_process_model_data(
       const State& state, const common_lib::structures::ControlCommand& control_command) override;

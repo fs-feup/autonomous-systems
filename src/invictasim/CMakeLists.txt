@@ -37,6 +37,7 @@ set(IMPLEMENTATION_FILES
   src/config/config.cpp
   src/vehicle_model/FSFEUP02.cpp
   src/vehicle_model/state_est_model.cpp
+  src/vehicle_model/rk4_state_est_model.cpp
   src/track/track.cpp
 )
 

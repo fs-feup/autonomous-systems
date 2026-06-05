@@ -1,5 +1,5 @@
 vehicle_model:
-  name: "StateEstModel"
+  name: "rk4_state_est"
 
   car_parameters: "02"
 
@@ -26,4 +26,3 @@ vehicle_model:
 
   steering_model: "ackerman_steering" # options: "ackerman_steering" , "parallel_front_steering"
   steering_model_params: "02_steering"
-  

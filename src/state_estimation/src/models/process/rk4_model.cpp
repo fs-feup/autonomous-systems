@@ -1,7 +1,5 @@
 #include "models/process/rk4_model.hpp"
 
-#include <algorithm>
-
 RK4VehicleModel::RK4VehicleModel(const std::shared_ptr<SEParameters>& parameters)
     : ProcessModel(parameters) {
   this->transmission_model_ =
@@ -28,13 +26,13 @@ RK4VehicleModel::RK4VehicleModel(const std::shared_ptr<SEParameters>& parameters
 
 void RK4VehicleModel::predict(Eigen::Ref<State> state,
                               common_lib::structures::ControlCommand control_command, double dt) {
-  Eigen::Matrix<double, StateSize, 1> f1 = get_state_derivative(state, control_command);
+  Eigen::Matrix<double, StateSize, 1> f1 = get_state_derivative(state, control_command, dt);
   State s2 = state + (0.5 * dt) * f1;
-  Eigen::Matrix<double, StateSize, 1> f2 = get_state_derivative(s2, control_command);
+  Eigen::Matrix<double, StateSize, 1> f2 = get_state_derivative(s2, control_command, dt);
   State s3 = state + (0.5 * dt) * f2;
-  Eigen::Matrix<double, StateSize, 1> f3 = get_state_derivative(s3, control_command);
+  Eigen::Matrix<double, StateSize, 1> f3 = get_state_derivative(s3, control_command, dt);
   State s4 = state + dt * f3;
-  Eigen::Matrix<double, StateSize, 1> f4 = get_state_derivative(s4, control_command);
+  Eigen::Matrix<double, StateSize, 1> f4 = get_state_derivative(s4, control_command, dt);
 
   // Combine to get new state
   state += (dt / 6.0) * (f1 + 2.0 * f2 + 2.0 * f3 + f4);
@@ -134,25 +132,57 @@ void RK4VehicleModel::compute_forces_and_moments(
 }
 
 Eigen::Matrix<double, StateSize, 1> RK4VehicleModel::get_state_derivative(
-    Eigen::Ref<State> state, common_lib::structures::ControlCommand control_command) {
-  double total_fx, total_fy, total_torque;
+    Eigen::Ref<State> state, common_lib::structures::ControlCommand control_command, double dt) {
+  double total_fx = 0.0, total_fy = 0.0, total_torque = 0.0;
   compute_forces_and_moments(state, control_command, total_fx, total_fy, total_torque);
 
-  // Compute accelerations
+  // vy/yaw damping. 
+  constexpr double kLateralStiffness = 20.0;  // dFy/dalpha per unit Fz [1/rad] (estimate)
+  double lat_Cy = 0.0;
+  double lat_Crr = 0.0;
+  for (Tire tire : {FL, FR, RL, RR}) {
+    double arm_x = (tire == FL || tire == FR) ? lf_ : -lr_;
+    double c_eff =
+        kLateralStiffness * total_vertical_loads_cache_(tire) * std::cos(wheel_angles_cache_(tire));
+    lat_Cy += c_eff;
+    lat_Crr += c_eff * arm_x * arm_x;
+  }
+  const double V_reg = std::max(std::abs(state(VX)), 1.0);  // [m/s] regularizes the 1/V stiffness
+
+  // Compute accelerations (vy/yaw damped linearly-implicitly).
   state_derivative_(VX) = total_fx / total_mass_ + state(VY) * state(YAW_RATE);
-  state_derivative_(VY) = total_fy / total_mass_ - state(VX) * state(YAW_RATE);
+  double ay_raw = total_fy / total_mass_ - state(VX) * state(YAW_RATE);
+  state_derivative_(VY) = ay_raw / (1.0 + dt * lat_Cy / (total_mass_ * V_reg));
 
   // Acceleration derivatives
   state_derivative_(AX) = state_derivative_(VX) - state(AX);
   state_derivative_(AY) = state_derivative_(VY) - state(AY);
 
   // Yaw rate derivative
-  state_derivative_(YAW_RATE) = total_torque / Izz_;
+  state_derivative_(YAW_RATE) = (total_torque / Izz_) / (1.0 + dt * lat_Crr / (Izz_ * V_reg));
 
-  // Wheel speed derivatives
+  // Wheel angular accelerations (linear blend to stabilize the stiff slip dynamics at low speed).
+  constexpr double kLinearSlipStiffness = 34.6;
+  constexpr double V_floor = 1.0;                
+  const double half_track = half_width_;
   for (Tire tire : {FL, FR, RL, RR}) {
-    state_derivative_(FL_WHEEL_SPEED + tire) =
-        (torques_cache_(tire) - tire_forces_cache_(tire * 4) * wheel_radius_) / inertia_;
+    double net_torque = torques_cache_(tire) - tire_forces_cache_(tire * 4) * wheel_radius_;
+
+    // Per-wheel longitudinal contact velocity (same hub kinematics as the slip model).
+    bool is_rear = (tire == RL || tire == RR);
+    double y_sign = (tire == FL || tire == RL) ? 1.0 : -1.0;
+    double x_sign = is_rear ? -1.0 : 1.0;
+    double l_axle = is_rear ? lr_ : lf_;
+    double vx_hub = state(VX) - state(YAW_RATE) * y_sign * half_track;
+    double vy_hub = state(VY) + state(YAW_RATE) * x_sign * l_axle;
+    double Vcx = vx_hub * std::cos(wheel_angles_cache_(tire)) +
+                 vy_hub * std::sin(wheel_angles_cache_(tire));
+    double Vw = state(FL_WHEEL_SPEED + tire) * wheel_radius_;
+
+    double denom = std::max({std::abs(Vw), std::abs(Vcx), V_floor});
+    double kx = kLinearSlipStiffness * total_vertical_loads_cache_(tire); 
+    double wheel_damping = dt * kx * wheel_radius_ * wheel_radius_ / denom;
+    state_derivative_(FL_WHEEL_SPEED + tire) = net_torque / (inertia_ + wheel_damping);
   }
 
   return state_derivative_;

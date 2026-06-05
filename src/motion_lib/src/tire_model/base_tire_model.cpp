@@ -84,21 +84,26 @@ void TireModel::calculate_slip_angle_rear(TireInput& tire_input) {
 
 void TireModel::calculate_slip_angle_front_not_transient(TireInput& tire_input) {
   const double V_eps = 0.5;
-  double sign = (tire_input.tire == FL) ? -1.0 : 1.0;  // Sign used to apply the effect of yaw_rate
+  const double half_track = car_parameters_->track_width / 2.0;
 
-  // Normalize velocity to wheels coordinate system
-  double Vcx = tire_input.vx * cos(tire_input.steering_angle) +
-               tire_input.vy * sin(tire_input.steering_angle);
-  double Vcy = -tire_input.vx * sin(tire_input.steering_angle) +
-               tire_input.vy * cos(tire_input.steering_angle);
+  // Wheel position relative to the CG (ISO: x forward, y left, yaw positive CCW).
+  // Left wheels sit at +track/2, right wheels at -track/2. Use the longitudinal
+  // CG distance lf, not the diagonal d_f* distance.
+  double y_sign = (tire_input.tire == FL) ? 1.0 : -1.0;
+  double lf = car_parameters_->wheelbase - car_parameters_->cg_2_rear_axis;
 
-  // Lateral velocity at the wheel contact patch (with yaw-rate contributions)
-  double Vlat = Vcy + (tire_input.yaw_rate * tire_input.distance_to_CG) +
-                (sign * tire_input.yaw_rate * car_parameters_->track_width / 2.0);
+  // Hub velocity in the vehicle frame: v = v_cg + omega x r.
+  // The lateral offset (track) enters the longitudinal velocity; lf enters the lateral.
+  double vx_hub = tire_input.vx - (tire_input.yaw_rate * y_sign * half_track);
+  double vy_hub = tire_input.vy + (tire_input.yaw_rate * lf);
+
+  // Rotate into the steered wheel frame.
+  double Vcx = vx_hub * cos(tire_input.steering_angle) + vy_hub * sin(tire_input.steering_angle);
+  double Vcy = -vx_hub * sin(tire_input.steering_angle) + vy_hub * cos(tire_input.steering_angle);
 
   double Vlong_reg = std::sqrt(Vcx * Vcx + V_eps * V_eps);
   double direction = Vcx / Vlong_reg;
-  tire_input.slip_angle = atan2(Vlat, Vlong_reg) * direction;
+  tire_input.slip_angle = atan2(Vcy, Vlong_reg) * direction;
 
   tire_input.last_slip_angle[tire_input.tire] = tire_input.slip_angle;
 }
@@ -106,16 +111,22 @@ void TireModel::calculate_slip_angle_front_not_transient(TireInput& tire_input) 
 void TireModel::calculate_slip_angle_rear_not_transient(TireInput& tire_input) {
   // See calculate_slip_angle_front_not_transient for the regularization rationale.
   const double V_eps = 0.5;
-  double sign = (tire_input.tire == RL) ? -1.0 : 1.0;
+  const double half_track = car_parameters_->track_width / 2.0;
 
-  // Lateral velocity at the wheel contact patch
-  double Vcy_contact = tire_input.vy - (tire_input.yaw_rate * tire_input.distance_to_CG) +
-                       (sign * tire_input.yaw_rate * car_parameters_->track_width / 2.0);
+  // Left wheels sit at +track/2, right wheels at -track/2. Use the longitudinal
+  // CG distance lr, not the diagonal d_b* distance.
+  double y_sign = (tire_input.tire == RL) ? 1.0 : -1.0;
+  double lr = car_parameters_->cg_2_rear_axis;
+
+  // Hub velocity in the vehicle frame (rear wheels are unsteered).
+  // The lateral offset (track) enters the longitudinal velocity; lr enters the lateral.
+  double vx_hub = tire_input.vx - (tire_input.yaw_rate * y_sign * half_track);
+  double vy_hub = tire_input.vy - (tire_input.yaw_rate * lr);
 
   // Smooth denominator + smooth sign(vx); slip_angle -> 0 smoothly at standstill.
-  double Vlong_reg = std::sqrt(tire_input.vx * tire_input.vx + V_eps * V_eps);
-  double direction = tire_input.vx / Vlong_reg;
-  tire_input.slip_angle = atan2(Vcy_contact, Vlong_reg) * direction;
+  double Vlong_reg = std::sqrt(vx_hub * vx_hub + V_eps * V_eps);
+  double direction = vx_hub / Vlong_reg;
+  tire_input.slip_angle = atan2(vy_hub, Vlong_reg) * direction;
 
   tire_input.last_slip_angle[tire_input.tire] = tire_input.slip_angle;
 }
@@ -162,9 +173,11 @@ void TireModel::calculate_slip_ratio(TireInput& tire_input) {
   // Integrate
   tire_input.slip_ratio =
       tire_input.last_slip_ratio[tire_input.tire] + (slip_derivative * tire_input.dt);
+      tire_input.slip_ratio = std::clamp(tire_input.slip_ratio, -1.0, 1.0);
 
   // Update state for next frame
   tire_input.last_slip_ratio[tire_input.tire] = tire_input.slip_ratio;
+  
 }
 
 void TireModel::calculate_slip_ratio_not_transient(TireInput& tire_input) {
@@ -188,19 +201,16 @@ void TireModel::calculate_slip_ratio_not_transient(TireInput& tire_input) {
   double Vcx = vx_hub * std::cos(tire_input.steering_angle) + vy_hub * std::sin(tire_input.steering_angle);
   double Vw = tire_input.wheel_angular_speed * car_parameters_->tire_parameters->effective_tire_r;
 
-  // 5. Dynamically adjust V_eps based on vehicle speed to damp low-speed chatter
-  double V_eps = 0.5 + 1.5 * std::exp(-std::abs(Vcx)); 
-
-  double Vcx_reg = std::sqrt(Vcx * Vcx + V_eps * V_eps);
-  double slip_target = (Vw - Vcx) / Vcx_reg;
-
-  // 6. Smoothly scale down slip forces when the vehicle is practically stationary
-  if (std::abs(Vcx) < 0.1 && std::abs(Vw) < 0.1) {
-    slip_target = 0.0;
-  } else {
-    // If you plan to allow full wheelspin/burnouts later, consider widening these bounds
-    slip_target = std::clamp(slip_target, -1.0, 1.0);
-  }
+  // 5. Normalize by the larger of the two surface speeds (with a small floor) rather
+  //    than by Vcx alone. A Vcx-normalized ratio is singular at low speed: its slope
+  //    d(kappa)/d(omega) = r / Vcx blows up as Vcx -> 0, so the force chatters and kappa
+  //    slams to +/-1. This form is bounded in [-1, 1] by construction, its slope
+  //    ~ Vcx / Vw^2 stays small at low speed (no chatter), it matches the standard slip
+  //    ratio at speed, and below V_floor it degrades gracefully into a creep model
+  //    (kappa proportional to slip velocity).
+  const double V_floor = 1.0;  // [m/s]
+  double denom = std::max({std::abs(Vw), std::abs(Vcx), V_floor});
+  double slip_target = std::clamp((Vw - Vcx) / denom, -1.0, 1.0);
 
   tire_input.slip_ratio = slip_target;
   tire_input.last_slip_ratio[tire_input.tire] = slip_target;
@@ -264,6 +274,8 @@ Eigen::Vector4d TireModel::calculate_tire_forces_not_transient(TireInput& tire_i
   constexpr double kBlendWidth = 2.0;            // [m/s]
 
   double Fx_linear = kLinearSlipStiffness * tire_input.vertical_load * tire_input.slip_ratio;
+  // double Fx_limit = car_parameters_->tire_parameters->PDX1 * tire_input.vertical_load;
+  // Fx_linear = std::clamp(Fx_linear, -Fx_limit, Fx_limit);
   double speed_blend =
       0.5 * (std::tanh((std::abs(tire_input.vx) - kBlendCenter) / kBlendWidth) + 1.0);
   forces(0) = (1.0 - speed_blend) * Fx_linear + speed_blend * forces(0);

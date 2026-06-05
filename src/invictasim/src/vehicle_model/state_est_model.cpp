@@ -27,6 +27,7 @@ void StateEstModel::step(double dt, common_lib::structures::Wheels throttle, dou
   const auto powertrain_start = Clock::now();
   double throttle_input =
       (throttle.rear_left + throttle.rear_right) / 2.0;  // Average throttle for rear-wheel drive
+  // double motor_torque = calculate_powertrain_torque(throttle_input, dt);
   double motor_torque = throttle_input * car_parameters_->motor_parameters->max_peak_torque;
   const auto powertrain_end = Clock::now();
 
@@ -207,15 +208,6 @@ void StateEstModel::step(double dt, common_lib::structures::Wheels throttle, dou
   const double v_global_y = state_->vx * sin_yaw + state_->vy * cos_yaw;
   state_->x += v_global_x * dt;
   state_->y += v_global_y * dt;
-
-  if (state_->wheels_speed.rear_left > 100.0) {
-    std::cout << "[DEBUG RR WHEEL SPIN] \n"
-              << "  Motor Torque: " << torques(RL) << " Nm\n"
-              << "  Slip Ratio: " << state_->wheels_slip_ratio.rear_left << "\n"
-              << "  Vertical Load: " << total_vertical_loads(RL) << " N\n"
-              << "  Tire Fx Generated: " << tire_forces(RL * 4) << " N\n"
-              << "  Net Wheel Torque: " << (torques(RL) - tire_forces(RL * 4) * wheel_radius) << " Nm\n";
-    }
 
   // Per-subsystem execution times in milliseconds.
   execution_times_->powertrain_ms =
