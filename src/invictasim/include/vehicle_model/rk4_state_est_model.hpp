@@ -14,18 +14,7 @@
 #include "vehicle_model/vehicle_model.hpp"
 
 /**
- * @brief Four-wheel vehicle model (StateEstModel physics) advanced with RK4.
- *
- * Same dynamics as StateEstModel, but integrated with a classic 4th-order Runge-Kutta
- * scheme structured like the RK4 process model in state_estimation: a pure
- * get_state_derivative() evaluated four times per step. Heading and global position are
- * integrated inside the RK4 as well (an improvement over the state-estimation version,
- * which only integrates the dynamic states and leaves pose to a separate step).
- *
- * NOTE: this requires the *non-transient* tire model. RK4 evaluates the derivative at
- * intermediate stages that are not the real state; a transient tire model carries
- * internal slip state and would be corrupted by those off-trajectory evaluations. The
- * non-transient model is memoryless, so it is safe to call repeatedly per step.
+ * @brief Four-wheel vehicle model with RK4
  */
 class RK4StateEstModel : public VehicleModel {
 public:
@@ -57,17 +46,13 @@ private:
   using StateVec = Eigen::Matrix<double, STATE_SIZE, 1>;
 
   /**
-   * @brief Continuous-time state derivative at `s`.
-   *
-   * The accelerations AX/AY are themselves integrated states (their derivative is
-   * vx_dot - ax, like the state-estimation model), and the load transfer reads those
-   * states, breaking the algebraic accel<->load loop. When `write_telemetry` is true the
-   * computed forces/loads/slips are written straight to `state_` for publishing; only the
-   * start-of-step (k1) stage sets it, so the off-trajectory RK4 stages don't clobber it.
-   *
-   * `dt` is used only to stabilize the stiff wheel-spin mode at low speed (its slip
-   * stiffness is folded into the effective wheel inertia, a linearly-implicit treatment);
-   * it does not otherwise affect the derivative and vanishes at speed.
+   * @brief Computes the state derivative for the RK4 integration.
+   * @param s Current state vector
+   * @param throttle_input Current throttle input (0 to 1)
+   * @param steering_target Current steering input (radians)
+   * @param dt Time step (s) - provided for any transient dynamics that require it
+   * @param write_telemetry Whether to write telemetry for this evaluation (only true for the first RK4 evaluation, k1)
+   * @return State derivative vector
    */
   StateVec get_state_derivative(const StateVec& s, double throttle_input, double steering_target,
                                 double dt, bool write_telemetry);
