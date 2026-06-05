@@ -25,6 +25,8 @@ struct TireInput {
   double slip_ratio;
   double distance_to_CG;
   double camber_angle;
+  double contact_patch_longitudinal_velocity = 0.0;
+  double contact_patch_lateral_velocity = 0.0;
 
   Eigen::Vector4d last_slip_ratio = Eigen::Vector4d::Zero();
   Eigen::Vector4d last_slip_angle = Eigen::Vector4d::Zero();

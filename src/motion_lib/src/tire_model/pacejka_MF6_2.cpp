@@ -29,12 +29,13 @@ Eigen::Vector4d PacejkaMF6_2::tire_forces(const TireInput& tire_input) {
 
   // Calculate all the internal values needed for the calculations of forces and moments
   calculate_tire_state(tire_input.slip_angle, tire_input.slip_ratio, tire_input.vertical_load,
-                       tire_input.vx, tire_input.vy, tire_input.yaw_rate,
-                       tire_input.wheel_angular_speed, tire_input.steering_angle,
-                       tire_input.distance_to_CG, tire_input.camber_angle);
+                       tire_input.contact_patch_longitudinal_velocity,
+                       tire_input.contact_patch_lateral_velocity, tire_input.yaw_rate,
+                       tire_input.wheel_angular_speed, tire_input.camber_angle);
 
   // Low speed fade for slip shifts
-  double speed = std::sqrt(tire_input.vx * tire_input.vx + tire_input.vy * tire_input.vy);
+  double speed = std::hypot(tire_input.contact_patch_longitudinal_velocity,
+                            tire_input.contact_patch_lateral_velocity);
   double shift_fade = std::clamp(speed / 0.1, 0.0, 1.0);
 
   // Shifts for longitudinal and lateral slip
@@ -44,7 +45,10 @@ Eigen::Vector4d PacejkaMF6_2::tire_forces(const TireInput& tire_input) {
   // (4.E20)
   double shifted_slip_a = internal_vals.alpha_star + SHy;
   // (4.E10)
-  double shifted_slip_r = tire_input.slip_ratio + SHx;
+  double force_slip_ratio =
+      std::clamp(tire_input.slip_ratio, car_parameters_->tire_parameters->KPUMIN,
+                 car_parameters_->tire_parameters->KPUMAX);
+  double shifted_slip_r = force_slip_ratio + SHx;
 
   // Y parameter calculation
   double Dy = calculate_Dy(tire_input.vertical_load);
@@ -69,12 +73,11 @@ Eigen::Vector4d PacejkaMF6_2::tire_forces(const TireInput& tire_input) {
   double Fy0 = calculate_pure_slip(By, Cy, Dy, Ey, shifted_slip_a, SVy);
 
   // Combined slip calculations
-  Fx = calculate_combined_longitudinal(Fx0, tire_input.slip_ratio);
-  Fy = calculate_combined_lateral(Fy0, shifted_slip_r, tire_input.slip_ratio,
-                                  tire_input.vertical_load);
+  Fx = calculate_combined_longitudinal(Fx0, force_slip_ratio);
+  Fy = calculate_combined_lateral(Fy0, shifted_slip_r, force_slip_ratio, tire_input.vertical_load);
 
   // Aligining moment calculation
-  MZ = calculate_combined_moment(Fx, Fy, tire_input.slip_ratio, SHy, SVy, By, Cy, internal_vals.Vcx,
+  MZ = calculate_combined_moment(Fx, Fy, force_slip_ratio, SHy, SVy, By, Cy, internal_vals.Vcx,
                                  tire_input.vertical_load);
 
   // Rolling resistance moment calculation
@@ -99,9 +102,9 @@ double PacejkaMF6_2::calculate_pure_slip(double B, double C, double D, double E,
 */
 
 void PacejkaMF6_2::calculate_tire_state(double slip_angle, double slip_ratio, double vertical_load,
-                                        double vx, double vy, double yaw_rate,
-                                        double wheel_angular_speed, double steering_angle,
-                                        double distance_to_CG, double camber_angle) {
+                                        double contact_patch_longitudinal_velocity,
+                                        double contact_patch_lateral_velocity, double yaw_rate,
+                                        double wheel_angular_speed, double camber_angle) {
   // Load related calculations
   // (4.E1) -> Assuming we have a tire with a different nominal load we approxiamte using scaling
   // factor LFZO The result is the adpated nominal load
@@ -113,16 +116,15 @@ void PacejkaMF6_2::calculate_tire_state(double slip_angle, double slip_ratio, do
   internal_vals.epsilong = car_parameters_->tire_parameters->PECP1 *
                            (1 + car_parameters_->tire_parameters->PECP2 * internal_vals.dfz);
 
-  // Velcoity related calculations
-  // Simple velocity of wheel contact center
-  internal_vals.Vc = sqrt(vx * vx + vy * vy);
+  // Velocity related calculations using the same contact-patch velocity as slip calculations.
+  internal_vals.Vc =
+      sqrt(contact_patch_longitudinal_velocity * contact_patch_longitudinal_velocity +
+           contact_patch_lateral_velocity * contact_patch_lateral_velocity);
 
   // Velocity of wheel contact center with safety factor for zero speed calculations
   internal_vals.Vc_prime = internal_vals.Vc + internal_vals.epsilon;
 
-  // Longitudinal velocity of the wheel center in the direction of the steering angle
-  internal_vals.Vcx = (vx * cos(steering_angle)) + (vy * sin(steering_angle)) +
-                      yaw_rate * distance_to_CG * sin(steering_angle);
+  internal_vals.Vcx = contact_patch_longitudinal_velocity;
   internal_vals.longitudinal_direction = std::copysign(1.0, internal_vals.Vcx);
 
   double alpha_arg = std::clamp(std::abs(internal_vals.Vcx) / internal_vals.Vc_prime, 0.0, 1.0);

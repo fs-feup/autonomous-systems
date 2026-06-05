@@ -30,7 +30,8 @@ tire:
   effective_tire_r: 0.2275
 
 # Packejka MF6.2 parameters
-  relaxation_length: 0.15
+  slip_angle_relaxation_length: 0.00
+  slip_ratio_relaxation_length: 0.005
   d_bright: 1.06
   d_bleft: 1.06 
   d_fright: 0.99
@@ -169,8 +170,8 @@ tire:
 
   longitudinal_coefficients:
     PCX1: 1.786
-    PDX1: 2.933
-    PDX2: -0.44
+    PDX1: 1.05  # Previous was 2.933
+    PDX2: 0.00  # Previous was -0.44
     PDX3: 20.8
     PEX1: 0.871
     PEX2: -0.038

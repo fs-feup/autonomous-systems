@@ -1,8 +1,7 @@
 #include "motion_lib/tire_model/pacejka_combined_slip.hpp"
 
 Eigen::Vector4d PacejkaCombinedSlip::tire_forces(const TireInput& tire_input) {
-  // Fix slip angle for reversing direction
-  double direction = (tire_input.vx >= 0.0) ? 1.0 : -1.0;
+  double direction = (tire_input.contact_patch_longitudinal_velocity >= 0.0) ? 1.0 : -1.0;
   double effective_slip_angle = tire_input.slip_angle * direction;
 
   // Longitudinal pure slip force (Fx0)
@@ -27,7 +26,6 @@ Eigen::Vector4d PacejkaCombinedSlip::tire_forces(const TireInput& tire_input) {
                                                    std::atan(By * effective_slip_angle))));
 
   // Combined slip reduction factors (friction ellipse type)
-  // Use effective_slip_angle for symmetry
   double Gx = std::cos(std::atan(By * effective_slip_angle));
   double Gy = std::cos(std::atan(Bx * tire_input.slip_ratio));
 

@@ -25,7 +25,8 @@ struct TireParameters {
   double rr_toe;
   double rl_toe;
   double wheel_inertia;
-  double relaxation_length;
+  double slip_angle_relaxation_length;
+  double slip_ratio_relaxation_length;
 
   // Distances
   double d_bright;
