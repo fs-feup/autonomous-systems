@@ -20,6 +20,7 @@ InvictaSimParameters::InvictaSimParameters() {
   sim_frequency = simulator_config["invictasim"]["sim_frequency"].as<int>();
   sim_speed = simulator_config["invictasim"]["sim_speed"].as<double>();
   initial_go_signal = simulator_config["invictasim"]["initial_go_signal"].as<bool>();
+  control_mode = simulator_config["invictasim"]["control_mode"].as<std::string>();
   track_name = simulator_config["invictasim"]["track_name"].as<std::string>();
   input_adapter = simulator_config["invictasim"]["input_adapter"].as<std::string>();
   output_adapter = simulator_config["invictasim"]["output_adapter"].as<std::string>();
@@ -42,8 +43,9 @@ InvictaSimParameters::InvictaSimParameters() {
   motor_model = vehicle_model_config["vehicle_model"]["motor_model"].as<std::string>();
   battery_model = vehicle_model_config["vehicle_model"]["battery_model"].as<std::string>();
   transmission_model =
-      vehicle_model_config["vehicle_model"]["transmission_model"].as<std::string>();
-
+  vehicle_model_config["vehicle_model"]["transmission_model"].as<std::string>();
+  inverter_model = vehicle_model_config["vehicle_model"]["inverter_model"].as<std::string>();
+  brake_model = vehicle_model_config["vehicle_model"]["brake_model"].as<std::string>();
   car_parameters = std::make_shared<common_lib::car_parameters::CarParameters>(
       "invictasim/vehicle_models", vehicle_model);
 }

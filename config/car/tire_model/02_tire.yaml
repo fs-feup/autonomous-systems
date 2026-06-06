@@ -30,8 +30,8 @@ tire:
   effective_tire_r: 0.2275
 
 # Packejka MF6.2 parameters
-  slip_angle_relaxation_length: 0.00  # Putting this to 0 removes transient behaviour
-  slip_ratio_relaxation_length: 0.00  # Putting this to 0 removes transient behaviour
+  slip_angle_relaxation_length: 0.05  # Putting this to 0 removes transient behaviour
+  slip_ratio_relaxation_length: 0.05  # Putting this to 0 removes transient behaviour
   d_bright: 1.06
   d_bleft: 1.06 
   d_fright: 0.99
@@ -170,7 +170,7 @@ tire:
 
   longitudinal_coefficients:
     PCX1: 1.786
-    PDX1: 1.5  # Previous was 2.933  Maior - Mais aderencia, Menor - Menos aderencia (Dá mais slips)
+    PDX1: 1.15  # Previous was 2.933  Maior - Mais aderencia, Menor - Menos aderencia (Dá mais slips)
     PDX2: -0.44
     PDX3: 20.8
     PEX1: 0.871

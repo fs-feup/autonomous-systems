@@ -18,6 +18,12 @@ vehicle_model:
   transmission_model: "diff_viscous"
   transmission_model_params: "02_transmission"
 
+  inverter_model: "linear" # Options: "linear", "quadratic"
+  inverter_model_params: "02_inverter"
+
+  brake_model: "default"
+  brake_model_params: "02_brake"
+
   load_transfer_model: "vd_model" # Options: "rigid_body_model", "vd_model"
   load_transfer_model_params: "02_load_transfer"
 

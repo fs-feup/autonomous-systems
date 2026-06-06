@@ -73,6 +73,7 @@ void InvictaSim::reset_sim() {
   // Reset inputs
   throttle_ = {0.0, 0.0, 0.0, 0.0};
   steering_ = 0.0;
+  go_signal_ = params_.initial_go_signal;
 
   // Reset loop timing
   const auto now = std::chrono::steady_clock::now();

@@ -1,9 +1,12 @@
 #pragma once
 
 #include <chrono>
+#include <string>
 
 #include "motion_lib/aero_model/map.hpp"
 #include "motion_lib/battery_model/map.hpp"
+#include "motion_lib/brake_model/map.hpp"
+#include "motion_lib/inverter_model/map.hpp"
 #include "motion_lib/load_transfer_model/map.hpp"
 #include "motion_lib/motor_model/map.hpp"
 #include "motion_lib/steering_model/map.hpp"
@@ -70,17 +73,21 @@ private:
   std::shared_ptr<MotorModel> motor_;
   std::shared_ptr<BatteryModel> battery_;
   std::shared_ptr<TransmissionModel> transmission_;
+  std::shared_ptr<InverterModel> inverter_;
+  std::shared_ptr<BrakeModel> brake_;
   std::shared_ptr<AeroModel> aero_;
   std::shared_ptr<LoadTransferModel> load_transfer_;
   std::shared_ptr<SteeringModel> steering_;
   std::shared_ptr<SteeringMotorModel> steering_motor_;
+  std::string control_mode_;
 
   // Calculate the available motor torque based on the throttle input and current motor/battery
   // state
   double calculate_powertrain_torque(double throttle_input, double dt);
 
   // Calculate the state derivative for the RK4 integration
-  StateVec get_state_derivative(const StateVec& s, double motor_torque, double steering_target,
-                                double dt, bool write_telemetry,
+  StateVec get_state_derivative(const StateVec& s, double motor_torque,
+                                const common_lib::structures::Wheels& brake_torques,
+                                double steering_target, double dt, bool write_telemetry,
                                 VehicleModelExecutionTimes* execution_times);
 };
