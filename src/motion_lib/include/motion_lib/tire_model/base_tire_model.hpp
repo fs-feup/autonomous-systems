@@ -6,7 +6,6 @@
 
 enum Tire { FL, FR, RL, RR };
 
-// Same approach as the one used in load transfer
 /**
  * @brief Struct used to store all possible input parameters for the tire model. splip angle, ratio,
  * camber and distance to CG will be overwritten by the tire model, no need to fill them.
@@ -14,19 +13,19 @@ enum Tire { FL, FR, RL, RR };
  */
 struct TireInput {
   Tire tire;
-  double vx;
-  double vy;
-  double yaw_rate;
-  double steering_angle;
-  double wheel_angular_speed;
-  double vertical_load;
+  double vx = 0.0;
+  double vy = 0.0;
+  double yaw_rate = 0.0;
+  double steering_angle = 0.0;
+  double wheel_angular_speed = 0.0;
+  double vertical_load = 0.0;
 
-  double slip_angle;
-  double slip_ratio;
-  double distance_to_CG;
-  double camber_angle;
-  double contact_patch_longitudinal_velocity = 0.0;
-  double contact_patch_lateral_velocity = 0.0;
+  double slip_angle = 0.0;
+  double slip_ratio = 0.0;
+  double distance_to_CG = 0.0;
+  double camber_angle = 0.0;
+  double vcx = 0.0;  // Longitudinal contact-patch velocity in the tire frame.
+  double vcy = 0.0;  // Lateral contact-patch velocity in the tire frame.
 
   Eigen::Vector4d last_slip_ratio = Eigen::Vector4d::Zero();
   Eigen::Vector4d last_slip_angle = Eigen::Vector4d::Zero();
@@ -44,6 +43,10 @@ protected:
   void calculate_slip_angle_front(TireInput& tire_input);
   void calculate_slip_angle_rear(TireInput& tire_input);
   void calculate_slip_ratio(TireInput& tire_input);
+  
+  void calculate_slip_angle_front_not_transient(TireInput& tire_input);
+  void calculate_slip_angle_rear_not_transient(TireInput& tire_input);
+  void calculate_slip_ratio_not_transient(TireInput& tire_input);
 
   /**
    * @brief Calculate the forces acting in a tire based on the tire characteristics and dynamic
@@ -60,4 +63,5 @@ public:
             std::make_shared<common_lib::car_parameters::CarParameters>(car_parameters)) {}
 
   Eigen::Vector4d calculate_tire_forces(TireInput& tire_input);
+  Eigen::Vector4d calculate_tire_forces_not_transient(TireInput& tire_input);
 };

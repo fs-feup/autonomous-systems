@@ -12,6 +12,24 @@
 #include "motion_lib/transmission_model/map.hpp"
 #include "vehicle_model/vehicle_model.hpp"
 
+// State indices for the state vector
+enum StateIdx {
+  VX = 0,
+  VY,
+  YAW_RATE,
+  YAW,
+  PX,
+  PY,
+  ST_ANGLE,
+  FL_W,
+  FR_W,
+  RL_W,
+  RR_W,
+  AX,
+  AY,
+  STATE_SIZE
+};
+
 /**
  * @brief Four wheel vehicle model (tuned for FSFEUP02)
  */
@@ -44,6 +62,9 @@ public:
   std::string get_model_name() const override;
 
 private:
+  // State vector used for RK4 integration
+  using StateVec = Eigen::Matrix<double, STATE_SIZE, 1>;
+
   // Vehicle state struct is defined in the base class
   std::shared_ptr<TireModel> tire_model_;
   std::shared_ptr<MotorModel> motor_;
@@ -54,6 +75,12 @@ private:
   std::shared_ptr<SteeringModel> steering_;
   std::shared_ptr<SteeringMotorModel> steering_motor_;
 
-  // Helper function to calculate the torque combining the motor model and the battery model
+  // Calculate the available motor torque based on the throttle input and current motor/battery
+  // state
   double calculate_powertrain_torque(double throttle_input, double dt);
+
+  // Calculate the state derivative for the RK4 integration
+  StateVec get_state_derivative(const StateVec& s, double motor_torque, double steering_target,
+                                double dt, bool write_telemetry,
+                                VehicleModelExecutionTimes* execution_times);
 };

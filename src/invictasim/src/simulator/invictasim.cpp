@@ -200,6 +200,7 @@ ExecutionTimesSnapshot InvictaSim::build_execution_times_snapshot(double total_s
   snapshot.steering_ms = model_times.steering_ms;
   snapshot.load_transfer_ms = model_times.load_transfer_ms;
   snapshot.tire_ms = model_times.tire_ms;
+  snapshot.integration_ms = model_times.integration_ms;
   snapshot.total_step_ms = total_step_ms;
 
   return snapshot;
@@ -207,7 +208,7 @@ ExecutionTimesSnapshot InvictaSim::build_execution_times_snapshot(double total_s
 
 MapSnapshot InvictaSim::build_map_snapshot(const InputSnapshot& input_snapshot) const {
   MapSnapshot snapshot;
-  
+
   // For now, all of them publish the same ground truth cones,
   // but later this would publish the slam map and the perception cones
   snapshot.ground_truth = track_->get_cones();
@@ -265,11 +266,9 @@ VehicleStateSnapshot InvictaSim::build_vehicle_state_snapshot() const {
   snapshot.acceleration_y = vehicle_model_->get_acceleration_y();
   snapshot.steering_angle = vehicle_model_->get_steering_angle();
   const auto wheel_speed = vehicle_model_->get_wheels_speed();
-  snapshot.wheel_rpm =
-      common_lib::structures::Wheels(wheel_speed.front_left * 60.0 / (2.0 * M_PI),
-                                     wheel_speed.front_right * 60.0 / (2.0 * M_PI),
-                                     wheel_speed.rear_left * 60.0 / (2.0 * M_PI),
-                                     wheel_speed.rear_right * 60.0 / (2.0 * M_PI));
+  snapshot.wheel_rpm = common_lib::structures::Wheels(
+      wheel_speed.front_left * 60.0 / (2.0 * M_PI), wheel_speed.front_right * 60.0 / (2.0 * M_PI),
+      wheel_speed.rear_left * 60.0 / (2.0 * M_PI), wheel_speed.rear_right * 60.0 / (2.0 * M_PI));
   snapshot.velocity_covariance =
       std::vector<double>(9, 0.0);  // Placeholder for velocity covariance
 

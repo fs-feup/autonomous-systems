@@ -67,6 +67,7 @@ struct ExecutionTimesSnapshot {
   double steering_ms = 0.0;
   double load_transfer_ms = 0.0;
   double tire_ms = 0.0;
+  double integration_ms = 0.0;
   double total_step_ms = 0.0;
 };
 

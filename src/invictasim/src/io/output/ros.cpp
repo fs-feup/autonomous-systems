@@ -205,8 +205,9 @@ void RosOutputAdapter::map_callbacks() {
                         [this](const rclcpp::Time& stamp) { publish_state_estimation_map(stamp); });
     register_pub_helper("lap_counter", refresh_statistics,
                         [this](const rclcpp::Time&) { publish_state_estimation_lap_counter(); });
-    register_pub_helper("pose", refresh_vehicle_state,
-                        [this](const rclcpp::Time& stamp) { publish_state_estimation_pose(stamp); });
+    register_pub_helper("pose", refresh_vehicle_state, [this](const rclcpp::Time& stamp) {
+      publish_state_estimation_pose(stamp);
+    });
     register_pub_helper("state_vector", refresh_vehicle_state, [this](const rclcpp::Time& stamp) {
       publish_state_estimation_state_vector(stamp);
     });
@@ -244,11 +245,10 @@ void RosOutputAdapter::register_pub_helper(const std::string& topic,
                                            std::function<void(const rclcpp::Time&)> func) {
   if (topic_frequencies_.count(topic) && topic_frequencies_[topic] > 0) {
     const int frequency = topic_frequencies_[topic];
-    frequency_callbacks_[frequency].push_back(
-        [refresh_snapshot, func](const rclcpp::Time& stamp) {
-          refresh_snapshot();
-          func(stamp);
-        });
+    frequency_callbacks_[frequency].push_back([refresh_snapshot, func](const rclcpp::Time& stamp) {
+      refresh_snapshot();
+      func(stamp);
+    });
   }
 }
 
@@ -536,6 +536,7 @@ void RosOutputAdapter::publish_execution_time(const rclcpp::Time& stamp) {
   times_msg.steering_ms = execution_times_snapshot_cache_.steering_ms;
   times_msg.load_transfer_ms = execution_times_snapshot_cache_.load_transfer_ms;
   times_msg.tire_ms = execution_times_snapshot_cache_.tire_ms;
+  times_msg.integration_ms = execution_times_snapshot_cache_.integration_ms;
   times_msg.total_step_ms = execution_times_snapshot_cache_.total_step_ms;
   execution_times_pub_->publish(times_msg);
 }
@@ -715,8 +716,7 @@ void RosOutputAdapter::load_cone_visualization_resources() {
   if (collision) {
     cone_standard_radius_ = collision["standard_radius"].as<double>(cone_standard_radius_);
     cone_large_radius_ = collision["large_radius"].as<double>(cone_large_radius_);
-    cone_hit_match_distance_ =
-        collision["hit_match_distance"].as<double>(cone_hit_match_distance_);
+    cone_hit_match_distance_ = collision["hit_match_distance"].as<double>(cone_hit_match_distance_);
   }
 
   cone_hitbox_marker_template_.ns = "cone_hitboxes";

@@ -29,13 +29,11 @@ Eigen::Vector4d PacejkaMF6_2::tire_forces(const TireInput& tire_input) {
 
   // Calculate all the internal values needed for the calculations of forces and moments
   calculate_tire_state(tire_input.slip_angle, tire_input.slip_ratio, tire_input.vertical_load,
-                       tire_input.contact_patch_longitudinal_velocity,
-                       tire_input.contact_patch_lateral_velocity, tire_input.yaw_rate,
+                       tire_input.vcx, tire_input.vcy, tire_input.yaw_rate,
                        tire_input.wheel_angular_speed, tire_input.camber_angle);
 
   // Low speed fade for slip shifts
-  double speed = std::hypot(tire_input.contact_patch_longitudinal_velocity,
-                            tire_input.contact_patch_lateral_velocity);
+  double speed = std::hypot(tire_input.vcx, tire_input.vcy);
   double shift_fade = std::clamp(speed / 0.1, 0.0, 1.0);
 
   // Shifts for longitudinal and lateral slip
@@ -102,8 +100,7 @@ double PacejkaMF6_2::calculate_pure_slip(double B, double C, double D, double E,
 */
 
 void PacejkaMF6_2::calculate_tire_state(double slip_angle, double slip_ratio, double vertical_load,
-                                        double contact_patch_longitudinal_velocity,
-                                        double contact_patch_lateral_velocity, double yaw_rate,
+                                        double vcx, double vcy, double yaw_rate,
                                         double wheel_angular_speed, double camber_angle) {
   // Load related calculations
   // (4.E1) -> Assuming we have a tire with a different nominal load we approxiamte using scaling
@@ -117,14 +114,12 @@ void PacejkaMF6_2::calculate_tire_state(double slip_angle, double slip_ratio, do
                            (1 + car_parameters_->tire_parameters->PECP2 * internal_vals.dfz);
 
   // Velocity related calculations using the same contact-patch velocity as slip calculations.
-  internal_vals.Vc =
-      sqrt(contact_patch_longitudinal_velocity * contact_patch_longitudinal_velocity +
-           contact_patch_lateral_velocity * contact_patch_lateral_velocity);
+  internal_vals.Vc = sqrt(vcx * vcx + vcy * vcy);
 
   // Velocity of wheel contact center with safety factor for zero speed calculations
   internal_vals.Vc_prime = internal_vals.Vc + internal_vals.epsilon;
 
-  internal_vals.Vcx = contact_patch_longitudinal_velocity;
+  internal_vals.Vcx = vcx;
   internal_vals.longitudinal_direction = std::copysign(1.0, internal_vals.Vcx);
 
   double alpha_arg = std::clamp(std::abs(internal_vals.Vcx) / internal_vals.Vc_prime, 0.0, 1.0);
@@ -555,12 +550,14 @@ double PacejkaMF6_2::calculate_rolling_resistance_moment(double vertical_load, d
   // Standard Pacejka reference velocity is 16.666 m/s (60 km/h)
   const double Vref = 16.666;
 
-  // (4.E85)
-  double My =
+  // (4.E85) gives the coefficient magnitude. Sign it with Vcx so the moment opposes rolling
+  // in both forward and reverse motion.
+  double My_magnitude = std::abs(
       unloaded_radius * vertical_load *
-      (QSY1 + QSY2 * (Fx / Fz0) + QSY3 * std::abs(vx / Vref) + QSY4 * std::pow(vx / Vref, 4));
+      (QSY1 + QSY2 * (Fx / Fz0) + QSY3 * std::abs(vx / Vref) + QSY4 * std::pow(vx / Vref, 4)));
+  double direction = 2.0 / M_PI * std::atan(10.0 * vx);
 
-  return My;
+  return My_magnitude * direction;
 }
 
 double PacejkaMF6_2::calculate_Zeta1(double slip_ratio) const {

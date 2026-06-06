@@ -1,7 +1,7 @@
 #include "motion_lib/tire_model/pacejka_combined_slip.hpp"
 
 Eigen::Vector4d PacejkaCombinedSlip::tire_forces(const TireInput& tire_input) {
-  double direction = (tire_input.contact_patch_longitudinal_velocity >= 0.0) ? 1.0 : -1.0;
+  double direction = (tire_input.vcx >= 0.0) ? 1.0 : -1.0;
   double effective_slip_angle = tire_input.slip_angle * direction;
 
   // Longitudinal pure slip force (Fx0)

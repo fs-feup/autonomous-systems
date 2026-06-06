@@ -92,16 +92,15 @@ private:
    * @param slip_angle Slip angle
    * @param slip_ratio Slip ratio
    * @param vertical_load Fz
-   * @param contact_patch_longitudinal_velocity Longitudinal velocity in the wheel frame
-   * @param contact_patch_lateral_velocity Lateral velocity in the wheel frame
+   * @param vcx Longitudinal contact-patch velocity in the tire frame
+   * @param vcy Lateral contact-patch velocity in the tire frame
    * @param yaw_rate Yaw rate
    * @param wheel_angular_speed Angular speed at the wheel
    * @param camber_angle Camber angle
    */
-  void calculate_tire_state(double slip_angle, double slip_ratio, double vertical_load,
-                            double contact_patch_longitudinal_velocity,
-                            double contact_patch_lateral_velocity, double yaw_rate,
-                            double wheel_angular_speed, double camber_angle);
+  void calculate_tire_state(double slip_angle, double slip_ratio, double vertical_load, double vcx,
+                            double vcy, double yaw_rate, double wheel_angular_speed,
+                            double camber_angle);
 
   /**
    * @brief Calculates the D parameter for the Fy calculation using pacejka MF (Peak)
