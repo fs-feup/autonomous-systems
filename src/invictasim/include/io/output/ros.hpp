@@ -42,6 +42,7 @@
 #include "geometry_msgs/msg/vector3_stamped.hpp"
 #include "io/output/output_adapter.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/color_rgba.hpp"
 #include "std_msgs/msg/float64.hpp"
 #include "tf2/LinearMath/Quaternion.h"
 #include "tf2_ros/transform_broadcaster.h"
@@ -104,11 +105,31 @@ private:
       frequency_callbacks_;
 
   // Visualization configuration
+  struct TrackRibbon {
+    std::vector<geometry_msgs::msg::Point> inner;
+    std::vector<geometry_msgs::msg::Point> outer;
+    bool closed = false;
+  };
+
+  struct AsphaltSample {
+    geometry_msgs::msg::Point source;
+    geometry_msgs::msg::Point target;
+    double width = 0.0;
+  };
+
   double cone_standard_radius_ = 0.115;
   double cone_large_radius_ = 0.15;
   double cone_hit_match_distance_ = 0.35;
   double steering_rotation_multiplier_ = 0.0;
   bool visualize_cone_hitboxes_ = false;
+  bool use_generated_track_visualization_ = true;
+  double track_surface_max_boundary_segment_length_ = 30.0;
+  double track_surface_max_loop_segment_length_ = 30.0;
+  double track_surface_cone_clearance_ = 1.50;
+  double track_surface_curb_width_ = 0.45;
+  double track_surface_curb_block_length_ = 0.80;
+  double track_surface_curb_z_ = 0.018;
+  double track_surface_asphalt_z_ = 0.004;
 
   // Visualization marker templates
   visualization_msgs::msg::Marker cone_hitbox_marker_template_;
@@ -191,18 +212,57 @@ private:
   std::vector<common_lib::structures::Cone> mark_recently_hit_cones_red(
       std::vector<common_lib::structures::Cone> cones) const;
 
-  // Visualization marker helpers
+  // Common visualization helpers
   visualization_msgs::msg::MarkerArray convert_cone_array_to_markers(
       const std::vector<common_lib::structures::Cone>& cone_array, const rclcpp::Time& stamp,
       const std::string& frame_id = "map") const;
-  std::string get_car_mesh_resource(const std::string& mesh_name) const;
-  static std::array<double, 10> load_car_mesh_positions(const YAML::Node& config);
+
+  // Ground visualization helpers
   std::vector<TimingLine> make_timing_lines() const;
   std::vector<TimingLine> make_default_timing_lines() const;
   std::vector<TimingLine> make_acceleration_timing_lines() const;
   void add_timing_line_markers(visualization_msgs::msg::MarkerArray& marker_array,
                                double target_cell_length, int row_count, double total_width,
                                double z, double height) const;
+  void add_track_surface_markers(visualization_msgs::msg::MarkerArray& marker_array,
+                                 const std::vector<common_lib::structures::Cone>& cones,
+                                 const rclcpp::Time& stamp) const;
+
+  // Track surface geometry helpers
+  visualization_msgs::msg::Marker make_track_triangle_marker(const std::string& ns, int id,
+                                                             double z,
+                                                             const rclcpp::Time& stamp) const;
+  TrackRibbon build_track_ribbon(
+      const std::vector<common_lib::structures::Cone>& side_cones,
+      const std::vector<common_lib::structures::Cone>& opposite_cones) const;
+  void add_track_curb_ribbon(visualization_msgs::msg::Marker& curb_marker,
+                             const TrackRibbon& ribbon, const std_msgs::msg::ColorRGBA& curb_red,
+                             const std_msgs::msg::ColorRGBA& curb_white) const;
+  void add_track_asphalt_from_ribbon(visualization_msgs::msg::Marker& asphalt_marker,
+                                     const TrackRibbon& source_ribbon,
+                                     const TrackRibbon& target_ribbon,
+                                     const std_msgs::msg::ColorRGBA& asphalt_color,
+                                     bool reverse_winding) const;
+  std_msgs::msg::ColorRGBA make_track_color(float r, float g, float b) const;
+  geometry_msgs::msg::Point make_track_point(double x, double y) const;
+  std::array<double, 2> track_segment_outward_normal(
+      const std::vector<common_lib::structures::Cone>& side_cones,
+      const std::vector<common_lib::structures::Cone>& opposite_cones, std::size_t start_i,
+      std::size_t end_i) const;
+  void add_track_quad(visualization_msgs::msg::Marker& marker, const geometry_msgs::msg::Point& a,
+                      const geometry_msgs::msg::Point& b, const geometry_msgs::msg::Point& c,
+                      const geometry_msgs::msg::Point& d,
+                      const std_msgs::msg::ColorRGBA& color) const;
+  double track_path_length(const std::vector<geometry_msgs::msg::Point>& points, bool closed) const;
+  geometry_msgs::msg::Point sample_track_path(const std::vector<geometry_msgs::msg::Point>& points,
+                                              bool closed, double target_distance) const;
+  geometry_msgs::msg::Point closest_point_on_track_path(
+      const std::vector<geometry_msgs::msg::Point>& points, bool closed,
+      const geometry_msgs::msg::Point& query) const;
+
+  // Vehicle visualization helpers
+  std::string get_car_mesh_resource(const std::string& mesh_name) const;
+  static std::array<double, 10> load_car_mesh_positions(const YAML::Node& config);
   void add_body_marker(visualization_msgs::msg::MarkerArray& marker_array,
                        const rclcpp::Time& stamp) const;
   void add_steering_marker(visualization_msgs::msg::MarkerArray& marker_array,

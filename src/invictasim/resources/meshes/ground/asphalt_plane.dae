@@ -2,31 +2,29 @@
 <COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
   <asset>
     <contributor>
-      <authoring_tool>InvictaSim ground plane</authoring_tool>
+      <authoring_tool>InvictaSim asphalt plane</authoring_tool>
     </contributor>
-    <created>2026-04-13T00:00:00Z</created>
-    <modified>2026-04-13T00:00:00Z</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
 
   <library_images>
-    <image id="ground_texture-image" name="ground_texture">
-      <init_from>ground_texture.png</init_from>
+    <image id="asphalt_texture-image" name="asphalt_texture">
+      <init_from>asphalt_texture.png</init_from>
     </image>
   </library_images>
 
   <library_effects>
-    <effect id="ground_effect">
+    <effect id="asphalt_effect">
       <profile_COMMON>
-        <newparam sid="ground_surface">
+        <newparam sid="asphalt_surface">
           <surface type="2D">
-            <init_from>ground_texture-image</init_from>
+            <init_from>asphalt_texture-image</init_from>
           </surface>
         </newparam>
-        <newparam sid="ground_sampler">
+        <newparam sid="asphalt_sampler">
           <sampler2D>
-            <source>ground_surface</source>
+            <source>asphalt_surface</source>
             <wrap_s>WRAP</wrap_s>
             <wrap_t>WRAP</wrap_t>
             <minfilter>LINEAR_MIPMAP_LINEAR</minfilter>
@@ -35,20 +33,17 @@
         </newparam>
         <technique sid="common">
           <phong>
-            <emission>
-              <color>0 0 0 1</color>
-            </emission>
             <ambient>
-              <color>0.035 0.035 0.035 1</color>
+              <color>0.04 0.04 0.04 1</color>
             </ambient>
             <diffuse>
-              <texture texture="ground_sampler" texcoord="UVMap"/>
+              <texture texture="asphalt_sampler" texcoord="UVMap"/>
             </diffuse>
             <specular>
               <color>0 0 0 1</color>
             </specular>
             <shininess>
-              <float>0.75</float>
+              <float>0.5</float>
             </shininess>
           </phong>
         </technique>
@@ -57,54 +52,50 @@
   </library_effects>
 
   <library_materials>
-    <material id="ground_material" name="ground_material">
-      <instance_effect url="#ground_effect"/>
+    <material id="asphalt_material" name="asphalt_material">
+      <instance_effect url="#asphalt_effect"/>
     </material>
   </library_materials>
 
   <library_geometries>
-    <geometry id="ground_plane-mesh" name="ground_plane">
+    <geometry id="asphalt_plane-mesh" name="asphalt_plane">
       <mesh>
-        <source id="ground_plane-positions">
-          <float_array id="ground_plane-positions-array" count="12">-0.5 -0.5 0 0.5 -0.5 0 0.5 0.5 0 -0.5 0.5 0</float_array>
+        <source id="asphalt_plane-positions">
+          <float_array id="asphalt_plane-positions-array" count="12">-0.5 -0.5 0 0.5 -0.5 0 0.5 0.5 0 -0.5 0.5 0</float_array>
           <technique_common>
-            <accessor source="#ground_plane-positions-array" count="4" stride="3">
+            <accessor source="#asphalt_plane-positions-array" count="4" stride="3">
               <param name="X" type="float"/>
               <param name="Y" type="float"/>
               <param name="Z" type="float"/>
             </accessor>
           </technique_common>
         </source>
-
-        <source id="ground_plane-normals">
-          <float_array id="ground_plane-normals-array" count="3">0 0 1</float_array>
+        <source id="asphalt_plane-normals">
+          <float_array id="asphalt_plane-normals-array" count="3">0 0 1</float_array>
           <technique_common>
-            <accessor source="#ground_plane-normals-array" count="1" stride="3">
+            <accessor source="#asphalt_plane-normals-array" count="1" stride="3">
               <param name="X" type="float"/>
               <param name="Y" type="float"/>
               <param name="Z" type="float"/>
             </accessor>
           </technique_common>
         </source>
-
-        <source id="ground_plane-map-0">
-          <float_array id="ground_plane-map-0-array" count="8">0 0 420 0 420 420 0 420</float_array>
+        <source id="asphalt_plane-map-0">
+          <float_array id="asphalt_plane-map-0-array" count="8">0 0 128 0 128 128 0 128</float_array>
           <technique_common>
-            <accessor source="#ground_plane-map-0-array" count="4" stride="2">
+            <accessor source="#asphalt_plane-map-0-array" count="4" stride="2">
               <param name="S" type="float"/>
               <param name="T" type="float"/>
             </accessor>
           </technique_common>
         </source>
-
-        <vertices id="ground_plane-vertices">
-          <input semantic="POSITION" source="#ground_plane-positions"/>
+        <vertices id="asphalt_plane-vertices">
+          <input semantic="POSITION" source="#asphalt_plane-positions"/>
         </vertices>
-
-        <triangles count="2" material="ground_material">
-          <input semantic="VERTEX" source="#ground_plane-vertices" offset="0"/>
-          <input semantic="NORMAL" source="#ground_plane-normals" offset="1"/>
-          <input semantic="TEXCOORD" source="#ground_plane-map-0" offset="2" set="0"/>
+        <triangles count="2" material="asphalt_material">
+          <input semantic="VERTEX" source="#asphalt_plane-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#asphalt_plane-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#asphalt_plane-map-0" offset="2" set="0"/>
           <p>0 0 0 1 0 1 2 0 2 0 0 0 2 0 2 3 0 3</p>
         </triangles>
       </mesh>
@@ -113,11 +104,11 @@
 
   <library_visual_scenes>
     <visual_scene id="Scene" name="Scene">
-      <node id="ground_plane-node" name="ground_plane" type="NODE">
-        <instance_geometry url="#ground_plane-mesh">
+      <node id="asphalt_plane-node" name="asphalt_plane" type="NODE">
+        <instance_geometry url="#asphalt_plane-mesh">
           <bind_material>
             <technique_common>
-              <instance_material symbol="ground_material" target="#ground_material">
+              <instance_material symbol="asphalt_material" target="#asphalt_material">
                 <bind_vertex_input semantic="UVMap" input_semantic="TEXCOORD" input_set="0"/>
               </instance_material>
             </technique_common>
