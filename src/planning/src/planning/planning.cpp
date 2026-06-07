@@ -536,7 +536,17 @@ void Planning::publish_sections_debug() const {
 
   for (int s = 0; s < static_cast<int>(sections.size()); ++s) {
     const auto &sec = sections[s];
-    if (sec.start_idx >= path_size || sec.end_idx >= path_size) continue;
+
+    // Collect indices correctly, handling wrap
+    std::vector<int> indices;
+    if (sec.start_idx <= sec.end_idx) {
+      for (int i = sec.start_idx; i <= sec.end_idx && i < path_size; ++i) indices.push_back(i);
+    } else {
+      for (int i = sec.start_idx; i < path_size; ++i) indices.push_back(i);
+      for (int i = 0; i <= sec.end_idx && i < path_size; ++i) indices.push_back(i);
+    }
+
+    if (indices.empty()) continue;
 
     // Color: green = limits at or above config default, red = limits reduced
     double base = planning_config_.velocity_planning_.longitudinal_acceleration_;
@@ -560,7 +570,7 @@ void Planning::publish_sections_debug() const {
       strip.scale.x = 0.15f;
       strip.color = color;
 
-      for (int i = sec.start_idx; i <= sec.end_idx && i < path_size; ++i) {
+      for (int i : indices) {
         geometry_msgs::msg::Point p;
         p.x = smoothed_path_[i].position.x;
         p.y = smoothed_path_[i].position.y;
@@ -572,7 +582,7 @@ void Planning::publish_sections_debug() const {
 
     // 2. Text label at section midpoint
     {
-      int mid_idx = (sec.start_idx + sec.end_idx) / 2;
+      int mid_idx = indices[indices.size() / 2];
       if (mid_idx >= path_size) continue;
 
       visualization_msgs::msg::Marker text;
@@ -600,6 +610,8 @@ void Planning::publish_sections_debug() const {
 
     // 3. Yellow sphere at section boundary (start index)
     {
+      int boundary_idx = indices.front();
+
       visualization_msgs::msg::Marker sphere;
       sphere.header.frame_id = map_frame_id_;
       sphere.header.stamp = now();
@@ -607,8 +619,8 @@ void Planning::publish_sections_debug() const {
       sphere.id = s;
       sphere.type = visualization_msgs::msg::Marker::SPHERE;
       sphere.action = visualization_msgs::msg::Marker::ADD;
-      sphere.pose.position.x = smoothed_path_[sec.start_idx].position.x;
-      sphere.pose.position.y = smoothed_path_[sec.start_idx].position.y;
+      sphere.pose.position.x = smoothed_path_[boundary_idx].position.x;
+      sphere.pose.position.y = smoothed_path_[boundary_idx].position.y;
       sphere.pose.position.z = 0.2;
       sphere.pose.orientation.w = 1.0;
       sphere.scale.x = sphere.scale.y = sphere.scale.z = 0.4f;

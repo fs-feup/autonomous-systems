@@ -320,26 +320,23 @@ void VelocityPlanning::change_section_limits(int section_idx, double delta_long,
 }
 
 // TODO: CHANGE THIS!!!
-double get_delta_corner(double mean) {
-  if (mean < 0.05) return 0.20;  // tracking great, push harder
-  if (mean < 0.10) return 0.12;
-  if (mean < 0.15) return 0.05;
-  if (mean < 0.30) return 0.00;
-  if (mean < 0.45) return -0.20;  // back off decisively
-  if (mean < 0.50) return -0.40;
-  if (mean < 0.85) return -0.60;
-  return -0.80;  
+double get_delta(double mean) {
+  double anchor_mean[] = {0.00, 0.05, 0.10, 0.20, 0.30, 0.45, 0.60, 0.75, 1.00};
+  double anchor_delta[] = {0.35, 0.28, 0.20, 0.10, 0.00, -0.25, -0.50, -0.70, -1.00};
+  const int N = 9;
+
+  if (mean <= anchor_mean[0]) return anchor_delta[0];
+  if (mean >= anchor_mean[N - 1]) return anchor_delta[N - 1];
+
+  for (int i = 0; i < N - 1; i++) {
+    if (mean >= anchor_mean[i] && mean <= anchor_mean[i + 1]) {
+      double t = (mean - anchor_mean[i]) / (anchor_mean[i + 1] - anchor_mean[i]);
+      return anchor_delta[i] + t * (anchor_delta[i + 1] - anchor_delta[i]);
+    }
+  }
+  return anchor_delta[N - 1];
 }
 
-double get_delta_straight(double mean) {
-  if (mean < 0.10) return 0.40;
-  if (mean < 0.15) return 0.25;
-  if (mean < 0.25) return 0.10;
-  if (mean < 0.30) return 0.00;
-  if (mean < 0.35) return -0.15;
-  if (mean < 0.60) return -0.25;
-  return -0.40;
-}
 void VelocityPlanning::adapt_limits(Pose &pose, std::vector<PathPoint> &path, bool is_closed) {
   size_t point_idx = 0;
   double error = get_pose_error(pose, path, point_idx);
@@ -361,11 +358,11 @@ void VelocityPlanning::adapt_limits(Pose &pose, std::vector<PathPoint> &path, bo
   const double mean = sec.mean_error;
 
   if (sec.is_corner) {
-    double delta = get_delta_corner(mean);
-    change_section_limits(sec_idx, 0.0, delta);  // only lat_acc
+    double delta = get_delta(mean);
+    change_section_limits(sec_idx, delta, delta);  // only lat_acc
   } else {
-    double delta = get_delta_straight(mean);
-    change_section_limits(sec_idx, delta, 0.0);  // only long_acc
+    double delta = get_delta(mean);
+    change_section_limits(sec_idx, delta, delta);  // only long_acc
   }
 
   sec.mean_error = 0.0;
