@@ -145,16 +145,8 @@ private:
   void braking_limiter(std::vector<PathPoint> &points, std::vector<double> &velocities,
                        const std::vector<double> &curvatures);
 
-  /**
-   * @brief Computes and stores path sections from a curvature vector.
-   *
-   * Finds local curvature maxima above curvature_peak_threshold_, merges peaks
-   * that are closer than min_section_spacing_, then places section boundaries
-   * AT each peak so that straights form the body of each section.
-   *
-   * @param curvatures Curvature at each path point (same indexing as the path).
-   */
-  void compute_sections(const std::vector<double> &curvatures);
+  //TODO: CHANGE DOCS
+  void compute_sections(const std::vector<double> &curvatures, bool is_closed);
 
   /**
    * @brief Returns the index of the section that contains path index point_idx,

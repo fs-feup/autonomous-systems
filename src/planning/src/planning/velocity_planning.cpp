@@ -17,56 +17,75 @@ double VelocityPlanning::find_curvature(const PathPoint &p1, const PathPoint &p2
   return 4 * area / (a * b * c);
 }
 
-void VelocityPlanning::compute_sections(const std::vector<double> &curvatures) {
+void VelocityPlanning::compute_sections(const std::vector<double> &curvatures, bool is_closed) {
   sections_.clear();
-
   int n = static_cast<int>(curvatures.size());
   if (n < 2) return;
 
+  // Optional: smooth curvatures to reduce noise
+  std::vector<double> smooth(n);
+  for (int i = 0; i < n; ++i) {
+    int lo = std::max(0, i - 2), hi = std::min(n - 1, i + 2);
+    double sum = 0;
+    int cnt = 0;
+    for (int k = lo; k <= hi; ++k) {
+      sum += curvatures[k];
+      ++cnt;
+    }
+    smooth[i] = sum / cnt;
+  }
+
+  // Label each point as corner or straight
   int start = 0;
-  CurvatureRegime current = get_regime(curvatures[0]);
+  bool in_corner = (smooth[0] >= curvature_peak_threshold_);
 
-  for (int i = 1; i < n; ++i) {
-    CurvatureRegime r = get_regime(curvatures[i]);
-
-    bool regime_change = (r != current);
-
-    // also detect unstable zones (slight oscillation between straight/curve)
-    double jump = std::abs(curvatures[i] - curvatures[i - 1]);
-    bool unstable = jump > 0.03;
-
-    bool should_split = regime_change || unstable || (i - start > min_section_spacing_);
-
-    if (should_split) {
+  for (int i = 1; i <= n; ++i) {
+    bool cur_corner = (i < n) && (smooth[i] >= curvature_peak_threshold_);
+    if (i == n || cur_corner != in_corner) {
       sections_.push_back({start, i - 1, 0.0, 0, config_.longitudinal_acceleration_,
                            config_.lateral_acceleration_});
-
       start = i;
-      current = r;
+      in_corner = cur_corner;
     }
   }
 
-  // last section
-  sections_.push_back(
-      {start, n - 1, 0.0, 0, config_.longitudinal_acceleration_, config_.lateral_acceleration_});
-
-  // post-process: merge tiny sections
-  std::vector<Section> merged;
-  for (auto &s : sections_) {
-    if (!merged.empty() && (s.end_idx - s.start_idx) < min_section_spacing_ / 2) {
-      merged.back().end_idx = s.end_idx;
-    } else {
-      merged.push_back(s);
+  // Merge sections shorter than min_section_spacing_
+  bool merged = true;
+  while (merged) {
+    merged = false;
+    for (int i = 0; i < static_cast<int>(sections_.size()); ++i) {
+      int len = sections_[i].end_idx - sections_[i].start_idx + 1;
+      if (len < min_section_spacing_ && sections_.size() > 1) {
+        int neighbor = (i > 0) ? i - 1 : i + 1;
+        sections_[neighbor].start_idx =
+            std::min(sections_[neighbor].start_idx, sections_[i].start_idx);
+        sections_[neighbor].end_idx = std::max(sections_[neighbor].end_idx, sections_[i].end_idx);
+        sections_.erase(sections_.begin() + i);
+        merged = true;
+        break;
+      }
     }
   }
 
-  sections_ = merged;
+  if (is_closed && sections_.size() >= 2) {
+    double first_mid = smooth[(sections_.front().start_idx + sections_.front().end_idx) / 2];
+    double last_mid = smooth[(sections_.back().start_idx + sections_.back().end_idx) / 2];
+    if (first_mid < curvature_peak_threshold_ && last_mid < curvature_peak_threshold_) {
+      sections_.front().start_idx = sections_.back().start_idx;
+      sections_.front().mean_error = 0.0;
+      sections_.front().sample_count = 0;
+      sections_.pop_back();
+    }
+  }
 }
 
 int VelocityPlanning::find_section(int point_idx) const {
   for (int s = 0; s < static_cast<int>(sections_.size()); ++s) {
-    if (point_idx >= sections_[s].start_idx && point_idx <= sections_[s].end_idx) {
-      return s;
+    const auto &sec = sections_[s];
+    if (sec.start_idx <= sec.end_idx) {
+      if (point_idx >= sec.start_idx && point_idx <= sec.end_idx) return s;
+    } else {
+      if (point_idx >= sec.start_idx || point_idx <= sec.end_idx) return s;
     }
   }
   return -1;
@@ -156,7 +175,7 @@ void VelocityPlanning::set_velocity(std::vector<PathPoint> &final_path) {
 
   // Compute sections on first call or when path size changes
   if (sections_.empty() || static_cast<int>(sections_.back().end_idx) != path_size - 1) {
-    compute_sections(curvatures);
+    compute_sections(curvatures, false);
   }
 
   // Velocity passes
@@ -187,7 +206,7 @@ void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
     for (int i = 1; i < path_size - 1; ++i) {
       curvatures[i] = find_curvature(final_path[i - 1], final_path[i], final_path[i + 1]);
     }
-    compute_sections(curvatures);
+    compute_sections(curvatures, true);
   }
 
   // Save sections computed on the real path — set_velocity on the tripled
@@ -286,8 +305,7 @@ void VelocityPlanning::change_section_limits(int section_idx, double delta_long,
   sections_[section_idx].current_lat_acc += delta_lat;
 }
 
-
-//TODO: CHANGE THIS!!!
+// TODO: CHANGE THIS!!!
 double get_delta(double mean) {
   double anchor_mean[] = {0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50,
                           0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00, 1.50};
@@ -353,8 +371,6 @@ void VelocityPlanning::adapt_limits(Pose &pose, std::vector<PathPoint> &path, bo
     set_velocity(path);
   }
 }
-
-
 
 double VelocityPlanning::get_pose_error(const Pose &pose, const std::vector<PathPoint> &path,
                                         size_t &best_index) {
