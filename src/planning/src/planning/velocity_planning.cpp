@@ -22,7 +22,6 @@ void VelocityPlanning::compute_sections(const std::vector<double> &curvatures, b
   int n = static_cast<int>(curvatures.size());
   if (n < 2) return;
 
-  // Optional: smooth curvatures to reduce noise
   std::vector<double> smooth(n);
   for (int i = 0; i < n; ++i) {
     int lo = std::max(0, i - 2), hi = std::min(n - 1, i + 2);
@@ -35,7 +34,6 @@ void VelocityPlanning::compute_sections(const std::vector<double> &curvatures, b
     smooth[i] = sum / cnt;
   }
 
-  // Label each point as corner or straight
   int start = 0;
   bool in_corner = (smooth[0] >= curvature_peak_threshold_);
 
@@ -49,12 +47,27 @@ void VelocityPlanning::compute_sections(const std::vector<double> &curvatures, b
     }
   }
 
+  // Merge first and last if both straights on closed path — do this BEFORE
+  // short-section merging so the identity of the boundary sections is still clean
+  if (is_closed && sections_.size() >= 2) {
+    double first_mid = smooth[(sections_.front().start_idx + sections_.front().end_idx) / 2];
+    double last_mid = smooth[(sections_.back().start_idx + sections_.back().end_idx) / 2];
+    if (first_mid < curvature_peak_threshold_ && last_mid < curvature_peak_threshold_) {
+      sections_.front().start_idx = sections_.back().start_idx;
+      sections_.front().mean_error = 0.0;
+      sections_.front().sample_count = 0;
+      sections_.pop_back();
+    }
+  }
+
   // Merge sections shorter than min_section_spacing_
   bool merged = true;
   while (merged) {
     merged = false;
     for (int i = 0; i < static_cast<int>(sections_.size()); ++i) {
-      int len = sections_[i].end_idx - sections_[i].start_idx + 1;
+      int len = (sections_[i].start_idx <= sections_[i].end_idx)
+                    ? sections_[i].end_idx - sections_[i].start_idx + 1
+                    : (n - sections_[i].start_idx) + sections_[i].end_idx + 1;
       if (len < min_section_spacing_ && sections_.size() > 1) {
         int neighbor = (i > 0) ? i - 1 : i + 1;
         sections_[neighbor].start_idx =
@@ -64,17 +77,6 @@ void VelocityPlanning::compute_sections(const std::vector<double> &curvatures, b
         merged = true;
         break;
       }
-    }
-  }
-
-  if (is_closed && sections_.size() >= 2) {
-    double first_mid = smooth[(sections_.front().start_idx + sections_.front().end_idx) / 2];
-    double last_mid = smooth[(sections_.back().start_idx + sections_.back().end_idx) / 2];
-    if (first_mid < curvature_peak_threshold_ && last_mid < curvature_peak_threshold_) {
-      sections_.front().start_idx = sections_.back().start_idx;
-      sections_.front().mean_error = 0.0;
-      sections_.front().sample_count = 0;
-      sections_.pop_back();
     }
   }
 }
@@ -201,7 +203,8 @@ void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
   }
 
   // Compute sections on the real path once, before tripling
-  if ((sections_.empty() || static_cast<int>(sections_.back().end_idx) != path_size - 1)) {
+  if (sections_.empty() || (sections_.front().start_idx <= sections_.front().end_idx &&
+                            static_cast<int>(sections_.back().end_idx) != path_size - 1)) {
     std::vector<double> curvatures(path_size, 0.0);
     for (int i = 1; i < path_size - 1; ++i) {
       curvatures[i] = find_curvature(final_path[i - 1], final_path[i], final_path[i + 1]);
@@ -209,9 +212,21 @@ void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
     compute_sections(curvatures, true);
   }
 
-  // Save sections computed on the real path — set_velocity on the tripled
-  // path would overwrite them with wrong indices
+  // Save sections computed on the real path
   std::vector<Section> saved_sections = sections_;
+
+  // Un-wrap the closed-loop merged section for tripling
+  std::vector<Section> sections_for_tripling = saved_sections;
+  if (sections_for_tripling.front().start_idx > sections_for_tripling.front().end_idx) {
+    Section &wrapped = sections_for_tripling.front();
+    Section tail = {wrapped.start_idx,        path_size - 1,          0.0, 0,
+                    wrapped.current_long_acc, wrapped.current_lat_acc};
+    Section head = {0, wrapped.end_idx, 0.0, 0, wrapped.current_long_acc, wrapped.current_lat_acc};
+    wrapped = head;
+    sections_for_tripling.push_back(tail);
+    std::sort(sections_for_tripling.begin(), sections_for_tripling.end(),
+              [](const Section &a, const Section &b) { return a.start_idx < b.start_idx; });
+  }
 
   std::vector<PathPoint> triple_path;
   triple_path.reserve(3 * path_size);
@@ -221,24 +236,16 @@ void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
     }
   }
 
-  // Temporarily expand section indices for the tripled path so the velocity
-  // passes read the correct per-section limits
-  // Middle lap offset is path_size, so shift each section by that for the
-  // passes — actually simpler: just suppress section recomputation inside
-  // set_velocity and let it use whatever sections_ contains.
-  // Since triple_path indices [path_size, 2*path_size-1] map to the same
-  // corners as [0, path_size-1], we replicate sections_ three times.
   sections_.clear();
   for (int lap = 0; lap < 3; ++lap) {
-    for (const auto &sec : saved_sections) {
+    for (const auto &sec : sections_for_tripling) {
       sections_.push_back({sec.start_idx + lap * path_size, sec.end_idx + lap * path_size,
                            sec.mean_error, sec.sample_count, sec.current_long_acc,
                            sec.current_lat_acc});
     }
   }
 
-  // Run velocity passes on tripled path — set_velocity will skip recomputation
-  // because sections_.back().end_idx == 3*path_size-1 == triple_path.size()-1
+  // set_velocity will skip recomputation because sections_.back().end_idx == 3*path_size-1
   set_velocity(triple_path);
 
   // Extract the middle lap
