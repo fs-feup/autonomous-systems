@@ -41,7 +41,7 @@ void VelocityPlanning::compute_sections(const std::vector<double> &curvatures, b
     bool cur_corner = (i < n) && (smooth[i] >= curvature_peak_threshold_);
     if (i == n || cur_corner != in_corner) {
       sections_.push_back({start, i - 1, 0.0, 0, config_.longitudinal_acceleration_,
-                           config_.lateral_acceleration_});
+                           config_.lateral_acceleration_, 0.0, 0.0, in_corner});
       start = i;
       in_corner = cur_corner;
     }
@@ -219,9 +219,12 @@ void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
   std::vector<Section> sections_for_tripling = saved_sections;
   if (sections_for_tripling.front().start_idx > sections_for_tripling.front().end_idx) {
     Section &wrapped = sections_for_tripling.front();
-    Section tail = {wrapped.start_idx,        path_size - 1,          0.0, 0,
-                    wrapped.current_long_acc, wrapped.current_lat_acc};
-    Section head = {0, wrapped.end_idx, 0.0, 0, wrapped.current_long_acc, wrapped.current_lat_acc};
+    Section tail = {wrapped.start_idx,        path_size - 1,           0.0, 0,
+                    wrapped.current_long_acc, wrapped.current_lat_acc, 0.0, 0.0,
+                    wrapped.is_corner};
+    Section head = {
+        0,   wrapped.end_idx,  0.0, 0, wrapped.current_long_acc, wrapped.current_lat_acc, 0.0,
+        0.0, wrapped.is_corner};
     wrapped = head;
     sections_for_tripling.push_back(tail);
     std::sort(sections_for_tripling.begin(), sections_for_tripling.end(),
@@ -241,7 +244,7 @@ void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
     for (const auto &sec : sections_for_tripling) {
       sections_.push_back({sec.start_idx + lap * path_size, sec.end_idx + lap * path_size,
                            sec.mean_error, sec.sample_count, sec.current_long_acc,
-                           sec.current_lat_acc});
+                           sec.current_lat_acc, 0.0, 0.0, sec.is_corner});
     }
   }
 
@@ -305,39 +308,39 @@ void VelocityPlanning::stop(std::vector<PathPoint> &final_path, double braking_d
 }
 
 void VelocityPlanning::change_section_limits(int section_idx, double delta_long, double delta_lat) {
-  if (section_idx < 0 || section_idx >= static_cast<int>(sections_.size())) {
-    return;
-  }
-  sections_[section_idx].current_long_acc += delta_long;
-  sections_[section_idx].current_lat_acc += delta_lat;
+  if (section_idx < 0 || section_idx >= static_cast<int>(sections_.size())) return;
+
+  auto &sec = sections_[section_idx];
+  sec.current_long_acc =
+      std::clamp(sec.current_long_acc + delta_long, config_.longitudinal_acceleration_ * 0.4,
+                 config_.longitudinal_acceleration_ * 2.0);
+  sec.current_lat_acc =
+      std::clamp(sec.current_lat_acc + delta_lat, config_.lateral_acceleration_ * 0.4,
+                 config_.lateral_acceleration_ * 1.5);
 }
 
 // TODO: CHANGE THIS!!!
-double get_delta(double mean) {
-  double anchor_mean[] = {0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50,
-                          0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00, 1.50};
-
-  double anchor_delta[] = {0.54,  0.47,  0.41,  0.34,  0.27,  0.26,  0.20,  0.10,
-                           0.00,  -0.10, -0.20, -0.30, -0.40, -0.50, -0.60, -0.70,
-                           -0.80, -0.90, -1.00, -1.10, -1.20, -1.50};
-  const int N = 22;
-
-  if (mean <= anchor_mean[0]) return anchor_delta[0];
-  if (mean >= anchor_mean[N - 1]) return anchor_delta[N - 1];
-
-  for (int i = 0; i < N - 1; i++) {
-    if (mean >= anchor_mean[i] && mean <= anchor_mean[i + 1]) {
-      double t = (mean - anchor_mean[i]) / (anchor_mean[i + 1] - anchor_mean[i]);
-
-      return anchor_delta[i] + t * (anchor_delta[i + 1] - anchor_delta[i]);
-    }
-  }
-
-  return anchor_delta[N - 1];
+double get_delta_corner(double mean) {
+  if (mean < 0.05) return 0.20;  // tracking great, push harder
+  if (mean < 0.10) return 0.12;
+  if (mean < 0.15) return 0.05;
+  if (mean < 0.30) return 0.00;
+  if (mean < 0.45) return -0.20;  // back off decisively
+  if (mean < 0.50) return -0.40;
+  if (mean < 0.85) return -0.60;
+  return -0.80;  
 }
 
+double get_delta_straight(double mean) {
+  if (mean < 0.10) return 0.40;
+  if (mean < 0.15) return 0.25;
+  if (mean < 0.25) return 0.10;
+  if (mean < 0.30) return 0.00;
+  if (mean < 0.35) return -0.15;
+  if (mean < 0.60) return -0.25;
+  return -0.40;
+}
 void VelocityPlanning::adapt_limits(Pose &pose, std::vector<PathPoint> &path, bool is_closed) {
-  // Find the closest path segment and the cross-track error
   size_t point_idx = 0;
   double error = get_pose_error(pose, path, point_idx);
   if (error < 0.0) {
@@ -345,30 +348,26 @@ void VelocityPlanning::adapt_limits(Pose &pose, std::vector<PathPoint> &path, bo
     return;
   }
 
-  // Identify which section the vehicle is in
   int sec_idx = find_section(static_cast<int>(point_idx));
-  if (sec_idx < 0) {
-    return;  // No sections computed yet; silently skip
-  }
+  if (sec_idx < 0) return;
+
   Section &sec = sections_[sec_idx];
 
-  // Accumulate error into the rolling mean
-  // Online (Welford-style) mean update: mean += (x - mean) / n
   ++sec.sample_count;
   sec.mean_error += (error - sec.mean_error) / static_cast<double>(sec.sample_count);
 
-  // Apply adjustment once we have enough samples
-  if (sec.sample_count < section_adapt_samples_) {
-    return;
-  }
+  if (sec.sample_count < section_adapt_samples_) return;
 
   const double mean = sec.mean_error;
 
-  double delta = get_delta(mean);
+  if (sec.is_corner) {
+    double delta = get_delta_corner(mean);
+    change_section_limits(sec_idx, 0.0, delta);  // only lat_acc
+  } else {
+    double delta = get_delta_straight(mean);
+    change_section_limits(sec_idx, delta, 0.0);  // only long_acc
+  }
 
-  change_section_limits(sec_idx, delta, delta);
-
-  // Reset accumulator for the next window
   sec.mean_error = 0.0;
   sec.sample_count = 0;
 

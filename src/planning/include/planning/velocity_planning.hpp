@@ -31,22 +31,9 @@ struct Section {
   double current_lat_acc;
   double max_error;
   double min_error;
+  bool is_corner;
 };
 
-// TODO: CHANGE THIS!!
-enum CurvatureRegime { STRAIGHT, FAST_CURVE, MEDIUM_CURVE, TIGHT_CURVE };
-
-// TODO: CHANGE THIS!!
-inline CurvatureRegime get_regime(double c) {
-  const double c1 = 0.02;
-  const double c2 = 0.08;
-  const double c3 = 0.15;
-
-  if (c < c1) return STRAIGHT;
-  if (c < c2) return FAST_CURVE;
-  if (c < c3) return MEDIUM_CURVE;
-  return TIGHT_CURVE;
-}
 
 /**
  * @brief Computes velocity profiles for a planned path based on curvature and dynamics constraints.
@@ -122,7 +109,7 @@ private:
 
   /// Number of error samples to collect before applying a limit adjustment.
   /// Exposed here so it can be tuned; consider adding to VelocityPlanningConfig.
-  int section_adapt_samples_{5};
+  int section_adapt_samples_{10};
 
   /// Minimum curvature value for a point to be considered a corner apex / section boundary.
   /// Exposed here so it can be tuned; consider adding to VelocityPlanningConfig.
