@@ -1,0 +1,8 @@
+<map id="CollisionStatistics::update" name="CollisionStatistics::update">
+<area shape="rect" id="Node000001" title="Check current vehicle pose against all unhit cones." alt="" coords="441,5,566,46"/>
+<area shape="rect" id="Node000002" href="$d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a8a079d78fabe3578dc7038a75af16fb9" title="Stop the thread." alt="" coords="5,13,224,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="425,28,224,28,224,23,425,23"/>
+<area shape="rect" id="Node000003" href="$d8/da8/class_statistics.html#a86ed1cd18203a8229ee60e191c5cafdd" title="Update statistics after a vehicle model step." alt="" coords="272,38,393,64"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="426,40,394,45,393,39,425,35"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="256,45,224,41,224,36,256,40"/>
+</map>

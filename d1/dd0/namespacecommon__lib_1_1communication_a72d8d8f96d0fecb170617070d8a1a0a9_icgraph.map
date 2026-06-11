@@ -1,7 +1,9 @@
 <map id="common_lib::communication::path_point_array_from_ci_vector" name="common_lib::communication::path_point_array_from_ci_vector">
-<area shape="rect" id="Node000001" title="Convert from custom interfaces PathPointArray to vector of common_lib PathPoints." alt="" coords="451,5,636,61"/>
-<area shape="rect" id="Node000002" href="$d1/d4c/class_mocker_node.html#a3554ae6ede0351fe34fb199e4bf627cc" title="publish the messages" alt="" coords="229,20,403,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="436,36,404,36,404,31,436,31"/>
-<area shape="rect" id="Node000003" href="$d1/d4c/class_mocker_node.html#aa36522a8f5f3a0b61e7517ad951c826e" title="Constructor for a new Mocker Node object." alt="" coords="5,20,181,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="213,36,181,36,181,31,213,31"/>
+<area shape="rect" id="Node000001" title="Convert from custom interfaces PathPointArray to vector of common_lib PathPoints." alt="" coords="453,20,638,75"/>
+<area shape="rect" id="Node000002" href="$d1/d4c/class_mocker_node.html#a3554ae6ede0351fe34fb199e4bf627cc" title="publish the messages" alt="" coords="230,5,404,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="437,36,404,32,405,27,438,31"/>
+<area shape="rect" id="Node000004" href="$dc/d46/class_ros_input_adapter.html#a50ffc4f990a88cf6670263ca8e705318" title="Construct a new RosInputAdapter." alt="" coords="229,55,405,96"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="438,63,406,67,405,62,437,58"/>
+<area shape="rect" id="Node000003" href="$d1/d4c/class_mocker_node.html#aa36522a8f5f3a0b61e7517ad951c826e" title="Constructor for a new Mocker Node object." alt="" coords="5,5,181,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="214,21,181,21,181,16,214,16"/>
 </map>

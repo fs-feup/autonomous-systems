@@ -1,5 +1,7 @@
 <map id="VehicleStateSnapshot" name="VehicleStateSnapshot">
-<area shape="rect" id="Node000001" title="Snapshot of the vehicle&#39;s state for publishing the current pose and operational status,..." alt="" coords="8,268,149,474"/>
+<area shape="rect" id="Node000001" title="Snapshot of the vehicle&#39;s state for publishing the current pose and operational status,..." alt="" coords="93,268,235,534"/>
 <area shape="rect" id="Node000002" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="5,5,152,205"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,205,81,251,76,251,76,205"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,204,124,251,118,253,105,206"/>
+<area shape="rect" id="Node000003" href="$d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html" title=" " alt="" coords="176,25,323,185"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="229,186,209,253,204,252,224,184"/>
 </map>

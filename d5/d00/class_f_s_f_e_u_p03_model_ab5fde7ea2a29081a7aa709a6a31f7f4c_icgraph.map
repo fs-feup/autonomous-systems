@@ -1,0 +1,5 @@
+<map id="FSFEUP03Model::calculate_powertrain_torque" name="FSFEUP03Model::calculate_powertrain_torque">
+<area shape="rect" id="Node000001" title=" " alt="" coords="207,5,387,46"/>
+<area shape="rect" id="Node000002" href="$d5/d00/class_f_s_f_e_u_p03_model.html#a39b7136ba72db798005a9a4d07caf7e0" title="Step the vehicle model forward in time based on the current state and the control inputs (steering an..." alt="" coords="5,13,159,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="191,28,159,28,159,23,191,23"/>
+</map>

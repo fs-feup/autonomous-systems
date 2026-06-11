@@ -1,0 +1,5 @@
+<map id="CollisionStatistics::load_cone_collision_config" name="CollisionStatistics::load_cone_collision_config">
+<area shape="rect" id="Node000001" title=" " alt="" coords="185,5,325,61"/>
+<area shape="rect" id="Node000002" href="$d0/d3a/class_collision_statistics.html#aa3dd9ecdb96c0e570594e8372f45ddda" title="Load cone collision settings and car hitboxes." alt="" coords="5,13,137,54"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="169,36,137,36,137,31,169,31"/>
+</map>

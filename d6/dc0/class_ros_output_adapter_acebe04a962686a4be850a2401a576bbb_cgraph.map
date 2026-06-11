@@ -1,13 +1,15 @@
 <map id="RosOutputAdapter::on_frequency_tick" name="RosOutputAdapter::on_frequency_tick">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,136,154,177"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,169,154,210"/>
 <area shape="rect" id="Node000002" href="$d6/dc0/class_ros_output_adapter.html#ae8913f49eb4deb0ec176665b927595e1" title=" " alt="" coords="202,5,384,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,134,144,95,200,57,213,50,215,55,203,61,148,100,104,138"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,167,137,113,167,83,200,57,210,51,212,56,203,61,171,87,141,116,97,170"/>
 <area shape="rect" id="Node000003" href="$d6/dc0/class_ros_output_adapter.html#ab57db1f566ed2566fe2c60b79e100672" title=" " alt="" coords="206,71,380,111"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="147,133,209,114,210,119,149,138"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="115,167,201,122,216,115,218,120,203,127,117,171"/>
 <area shape="rect" id="Node000004" href="$d6/dc0/class_ros_output_adapter.html#a7a8206f90f7292085423c0c237ae3c69" title=" " alt="" coords="206,136,380,177"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="154,154,190,154,190,159,154,159"/>
-<area shape="rect" id="Node000005" href="$d6/dc0/class_ros_output_adapter.html#a96955edb1db6bbbed531bbe1b8c66403" title=" " alt="" coords="206,201,380,242"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="149,175,210,194,209,199,147,180"/>
-<area shape="rect" id="Node000006" href="$d6/dc0/class_ros_output_adapter.html#a1432f38d1c5f9fda91dada6c5d88645e" title=" " alt="" coords="206,267,380,307"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="104,175,148,213,203,251,215,258,213,262,200,256,144,217,100,179"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="154,175,190,170,191,175,154,181"/>
+<area shape="rect" id="Node000005" href="$d6/dc0/class_ros_output_adapter.html#a4f79747e417e0d3e09ad16b68e13dfe9" title=" " alt="" coords="206,201,380,242"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="154,198,191,204,190,209,154,203"/>
+<area shape="rect" id="Node000006" href="$d6/dc0/class_ros_output_adapter.html#a96955edb1db6bbbed531bbe1b8c66403" title=" " alt="" coords="206,267,380,307"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="118,208,203,251,218,258,216,263,201,256,116,213"/>
+<area shape="rect" id="Node000007" href="$d6/dc0/class_ros_output_adapter.html#a1432f38d1c5f9fda91dada6c5d88645e" title=" " alt="" coords="206,332,380,373"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="97,209,141,262,171,291,203,317,212,322,210,327,200,321,167,295,137,266,93,212"/>
 </map>

@@ -1,0 +1,8 @@
+<map id="generate_track_from_slam.SlamTrackGenerator.build_cones" name="generate_track_from_slam.SlamTrackGenerator.build_cones">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,58,257,99"/>
+<area shape="rect" id="Node000002" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#a163c657ecd763928e9b42d1c8161efd0" title=" " alt="" coords="305,5,507,61"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="257,55,289,50,290,55,258,60"/>
+<area shape="rect" id="Node000003" href="$d9/d1e/tests_8cpp.html#a322889033b0102b5c2eb49fe3c081fd8" title="round to n decimal places" alt="" coords="379,110,433,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="258,96,364,113,363,119,257,101"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="377,118,356,108,352,101,353,94,371,86,406,83,437,85,455,92,460,102,449,112,445,108,454,101,452,96,436,90,406,88,372,91,358,98,357,100,360,104,380,114"/>
+</map>

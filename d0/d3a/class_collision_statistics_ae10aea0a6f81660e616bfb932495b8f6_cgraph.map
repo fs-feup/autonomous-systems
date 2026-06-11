@@ -1,0 +1,7 @@
+<map id="CollisionStatistics::update" name="CollisionStatistics::update">
+<area shape="rect" id="Node000001" title="Check current vehicle pose against all unhit cones." alt="" coords="5,5,131,46"/>
+<area shape="rect" id="Node000002" href="$d0/d3a/class_collision_statistics.html#a0dd4aef332e9e631d2b3e98808ce82e4" title=" " alt="" coords="179,5,316,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="131,23,163,23,163,28,131,28"/>
+<area shape="rect" id="Node000003" href="$d0/d3a/class_collision_statistics.html#a7e842e778416b1098468f6e375db2279" title=" " alt="" coords="364,5,489,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="316,23,349,23,349,28,316,28"/>
+</map>

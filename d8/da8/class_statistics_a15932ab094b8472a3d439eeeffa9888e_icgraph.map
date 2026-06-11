@@ -1,0 +1,9 @@
+<map id="Statistics::run_directory" name="Statistics::run_directory">
+<area shape="rect" id="Node000001" title=" " alt="" coords="557,5,714,31"/>
+<area shape="rect" id="Node000002" href="$d8/da8/class_statistics.html#a7d2a67afb804d85de29bc6669cd21d84" title=" " alt="" coords="350,5,509,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="541,21,510,21,510,16,541,16"/>
+<area shape="rect" id="Node000003" href="$d8/da8/class_statistics.html#af09659391046f49a99e44fc1768d403d" title="Reset all accumulated statistics." alt="" coords="191,5,302,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="335,21,302,21,302,16,335,16"/>
+<area shape="rect" id="Node000004" href="$d8/da8/class_statistics.html#ac37f076e3bd365e23739583fe32489e9" title="Construct a statistics calculator using track metadata." alt="" coords="5,5,143,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="175,21,143,21,143,16,175,16"/>
+</map>

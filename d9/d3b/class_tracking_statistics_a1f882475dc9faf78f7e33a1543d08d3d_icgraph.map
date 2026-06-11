@@ -1,0 +1,14 @@
+<map id="TrackingStatistics::reset_lap" name="TrackingStatistics::reset_lap">
+<area shape="rect" id="Node000001" title="Clear per&#45;lap tracking aggregates." alt="" coords="641,49,768,89"/>
+<area shape="rect" id="Node000002" href="$d8/da8/class_statistics.html#ae7e7674d3f1fc23f779f78fd92f88b19" title=" " alt="" coords="457,5,593,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="626,49,572,34,574,29,627,44"/>
+<area shape="rect" id="Node000003" href="$d8/da8/class_statistics.html#a86ed1cd18203a8229ee60e191c5cafdd" title="Update statistics after a vehicle model step." alt="" coords="280,31,401,56"/>
+<area shape="poly" id="edge6_Node000001_Node000003" title=" " alt="" coords="626,66,401,50,401,45,626,61"/>
+<area shape="rect" id="Node000005" href="$d8/da8/class_statistics.html#af09659391046f49a99e44fc1768d403d" title="Reset all accumulated statistics." alt="" coords="470,107,581,132"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="627,93,574,109,572,104,626,88"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="442,32,402,38,401,33,441,27"/>
+<area shape="rect" id="Node000004" href="$d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a8a079d78fabe3578dc7038a75af16fb9" title="Stop the thread." alt="" coords="5,31,224,56"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="264,46,224,46,224,41,264,41"/>
+<area shape="rect" id="Node000006" href="$d8/da8/class_statistics.html#ac37f076e3bd365e23739583fe32489e9" title="Construct a statistics calculator using track metadata." alt="" coords="272,107,409,132"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="454,122,409,122,409,117,454,117"/>
+</map>

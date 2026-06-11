@@ -1,0 +1,5 @@
+<map id="CollisionStatistics::collides_with_cone" name="CollisionStatistics::collides_with_cone">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,143,46"/>
+<area shape="rect" id="Node000002" href="$d0/d3a/class_collision_statistics.html#a7e842e778416b1098468f6e375db2279" title=" " alt="" coords="191,5,316,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,23,175,23,175,28,143,28"/>
+</map>

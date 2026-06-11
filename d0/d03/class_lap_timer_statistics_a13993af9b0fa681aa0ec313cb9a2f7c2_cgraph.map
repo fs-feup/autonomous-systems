@@ -1,0 +1,12 @@
+<map id="LapTimerStatistics::update_default_lap" name="LapTimerStatistics::update_default_lap">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,69,142,110"/>
+<area shape="rect" id="Node000002" href="$d0/d03/class_lap_timer_statistics.html#a62314c9e854f648baf759f8b62d2d261" title=" " alt="" coords="206,26,339,82"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,75,189,66,190,71,142,80"/>
+<area shape="rect" id="Node000005" href="$d0/d03/class_lap_timer_statistics.html#a660cd9ef7a6229aa224d6df39ab393ed" title=" " alt="" coords="190,105,355,146"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="142,99,175,105,174,111,141,105"/>
+<area shape="rect" id="Node000003" href="$d0/d03/class_lap_timer_statistics.html#a230a963b821741448aafb753193009d5" title=" " alt="" coords="403,5,534,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="339,42,387,35,388,40,340,47"/>
+<area shape="rect" id="Node000004" href="$d0/d03/class_lap_timer_statistics.html#a49d23e8f4e745db968a552012f76eccd" title=" " alt="" coords="582,35,720,75"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="340,53,403,55,534,55,567,54,567,60,534,60,403,60,339,59"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="535,34,567,39,566,44,534,39"/>
+</map>

@@ -1,3 +1,25 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$d9/d90/struct_observation_data.html" title="Struct containing observation data." alt="" coords="5,5,124,31"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,324,58,349"/>
+<area shape="rect" id="Node000001" href="$d7/df1/classcolour__track__cones_1_1_track_generator.html" title=" " alt="" coords="159,5,330,46"/>
+<area shape="poly" id="edge86_Node000000_Node000001" title=" " alt="" coords="34,307,59,172,79,103,91,76,104,57,129,39,158,29,160,34,132,44,108,61,95,78,84,105,64,173,39,308"/>
+<area shape="rect" id="Node000002" href="$d1/daf/classdata__infrastructure_1_1data__infrastructure__node_1_1_data_infrastructure_node.html" title=" " alt="" coords="106,71,383,111"/>
+<area shape="poly" id="edge87_Node000000_Node000002" title=" " alt="" coords="31,307,37,266,49,216,70,165,85,141,104,121,119,110,123,114,107,125,89,145,75,167,54,217,42,267,37,308"/>
+<area shape="rect" id="Node000003" href="$dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html" title="A ROS2 node for computing and publishing the system&#39;s real&#45;time metrics." alt="" coords="151,136,338,161"/>
+<area shape="poly" id="edge88_Node000000_Node000003" title=" " alt="" coords="35,308,42,276,56,239,76,202,104,172,126,159,149,150,151,155,128,163,107,176,80,205,61,241,47,277,40,309"/>
+<area shape="rect" id="Node000004" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html" title=" " alt="" coords="155,185,334,226"/>
+<area shape="poly" id="edge89_Node000000_Node000004" title=" " alt="" coords="44,308,68,271,85,252,104,237,128,224,153,215,155,220,130,229,107,241,89,256,73,274,48,311"/>
+<area shape="rect" id="Node000005" href="$d5/dc8/classmanual__to__as_1_1_manual_throttle_bridge.html" title=" " alt="" coords="149,251,340,291"/>
+<area shape="poly" id="edge90_Node000000_Node000005" title=" " alt="" coords="71,315,105,302,147,289,149,294,107,307,73,320"/>
+<area shape="rect" id="Node000006" href="$db/d78/classpower__log_1_1power__log__node_1_1_power_node.html" title=" " alt="" coords="173,316,316,357"/>
+<area shape="poly" id="edge91_Node000000_Node000006" title=" " alt="" coords="73,334,173,334,173,339,73,339"/>
+<area shape="rect" id="Node000007" href="$da/deb/classrosbag__groundtruth_1_1rosbag__node_1_1_bag_node.html" title=" " alt="" coords="157,381,332,422"/>
+<area shape="poly" id="edge92_Node000000_Node000007" title=" " alt="" coords="73,353,107,366,157,381,156,386,105,371,71,357"/>
+<area shape="rect" id="Node000008" href="$db/d57/classsupervisor_1_1main_1_1_supervisor.html" title=" " alt="" coords="156,446,333,472"/>
+<area shape="poly" id="edge93_Node000000_Node000008" title=" " alt="" coords="48,361,72,399,88,417,107,431,130,443,156,450,154,455,129,448,104,436,85,421,68,402,43,364"/>
+<area shape="rect" id="Node000009" href="$dc/ddc/classtest_1_1_location_publisher.html" title=" " alt="" coords="169,496,320,521"/>
+<area shape="poly" id="edge94_Node000000_Node000009" title=" " alt="" coords="41,363,50,392,63,425,82,456,107,482,137,497,169,505,168,511,135,502,104,486,78,460,58,427,45,394,36,365"/>
+<area shape="rect" id="Node000010" href="$d3/d05/classvehicle__dynamics__node_1_1integrator__node_1_1_integrator.html" title=" " alt="" coords="136,545,353,586"/>
+<area shape="poly" id="edge95_Node000000_Node000010" title=" " alt="" coords="38,364,44,403,56,448,77,493,91,514,107,532,137,550,134,554,104,536,86,517,72,496,51,450,38,404,32,365"/>
+<area shape="rect" id="Node000011" href="$d6/d38/classvehicle__dynamics__node_1_1vehicle__dynamics__node_1_1_vehicle_dynamics_publisher.html" title=" " alt="" coords="107,611,382,651"/>
+<area shape="poly" id="edge96_Node000000_Node000011" title=" " alt="" coords="35,365,37,415,47,477,56,510,69,541,86,570,108,596,124,608,120,612,104,600,82,573,64,543,51,511,42,478,32,415,29,365"/>
 </map>

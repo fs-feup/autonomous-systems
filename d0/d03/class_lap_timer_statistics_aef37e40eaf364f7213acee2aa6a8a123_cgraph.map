@@ -1,0 +1,9 @@
+<map id="LapTimerStatistics::configure_default_lines" name="LapTimerStatistics::configure_default_lines">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,47,165,88"/>
+<area shape="rect" id="Node000002" href="$d6/d2c/class_track.html#a930dcff4b8cc64727915f4707d7bee88" title="Get the starting position for the vehicle on the specified track." alt="" coords="213,5,376,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,46,222,32,223,38,166,51"/>
+<area shape="rect" id="Node000003" href="$d6/d2c/class_track.html#ad86e1420e2aadcec63eeab6bf0226909" title="Get the timing line endpoints for lap counting." alt="" coords="221,55,368,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="165,65,205,65,205,70,165,70"/>
+<area shape="rect" id="Node000004" href="$d0/d03/class_lap_timer_statistics.html#ae5d02db0e7f2bc34d0384b8a0994c549" title=" " alt="" coords="220,105,369,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="162,86,206,98,205,103,161,91"/>
+</map>

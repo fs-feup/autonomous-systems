@@ -1,0 +1,5 @@
+<map id="LapTimerStatistics::start_next_lap" name="LapTimerStatistics::start_next_lap">
+<area shape="rect" id="Node000001" title="Start measuring the next lap after a finish." alt="" coords="5,5,137,46"/>
+<area shape="rect" id="Node000002" href="$d0/d03/class_lap_timer_statistics.html#a660cd9ef7a6229aa224d6df39ab393ed" title=" " alt="" coords="185,5,350,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,23,169,23,169,28,137,28"/>
+</map>

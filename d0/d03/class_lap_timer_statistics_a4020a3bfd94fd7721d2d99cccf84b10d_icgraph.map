@@ -1,0 +1,8 @@
+<map id="LapTimerStatistics::load_config" name="LapTimerStatistics::load_config">
+<area shape="rect" id="Node000001" title=" " alt="" coords="244,63,375,103"/>
+<area shape="rect" id="Node000002" href="$dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aa18ac7a345a445145c329fadb7da9746" title=" " alt="" coords="5,29,196,70"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="228,73,196,68,197,62,229,67"/>
+<area shape="rect" id="Node000003" href="$d0/d03/class_lap_timer_statistics.html#ac78b1d3c7ec12cabe1c25a0cde383408" title="Initialize lap timing from the track and discipline." alt="" coords="32,95,169,135"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="229,98,170,107,169,102,228,93"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="134,16,122,10,100,8,81,10,69,15,64,20,66,28,61,29,59,19,65,10,79,5,101,3,123,5,137,11"/>
+</map>

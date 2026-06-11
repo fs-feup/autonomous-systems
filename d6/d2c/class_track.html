@@ -94,6 +94,7 @@ $(document).ready(function(){initNavTree('d6/d2c/class_track.html','../../'); in
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d1/daf/class_track-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Track Struct Reference</div></div>
@@ -109,9 +110,9 @@ Collaboration diagram for Track:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/dc7/class_track__coll__graph.png" border="0" usemap="#a_track_coll__map" alt="Collaboration graph"/></div>
 <map name="a_track_coll__map" id="a_track_coll__map">
-<area shape="rect" title="The Track class is responsible for loading track information from a YAML file and providing access to..." alt="" coords="5,268,200,514"/>
+<area shape="rect" title="The Track class is responsible for loading track information from a YAML file and providing access to..." alt="" coords="5,268,200,608"/>
 <area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="29,5,176,205"/>
-<area shape="poly" title=" " alt="" coords="105,205,105,252,100,252,100,205"/>
+<area shape="poly" title=" " alt="" coords="105,205,105,251,100,251,100,205"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -126,6 +127,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a930dcff4b8cc64727915f4707d7bee88" id="r_a930dcff4b8cc64727915f4707d7bee88"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d2c/class_track.html#a930dcff4b8cc64727915f4707d7bee88">get_start_position</a> () const</td></tr>
 <tr class="memdesc:a930dcff4b8cc64727915f4707d7bee88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the starting position for the vehicle on the specified track.  <br /></td></tr>
 <tr class="separator:a930dcff4b8cc64727915f4707d7bee88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad86e1420e2aadcec63eeab6bf0226909" id="r_ad86e1420e2aadcec63eeab6bf0226909"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>, <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d2c/class_track.html#ad86e1420e2aadcec63eeab6bf0226909">get_timing_line</a> () const</td></tr>
+<tr class="memdesc:ad86e1420e2aadcec63eeab6bf0226909"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the timing line endpoints for lap counting.  <br /></td></tr>
+<tr class="separator:ad86e1420e2aadcec63eeab6bf0226909"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebe749f290109ddcfea7e64d8ceded05" id="r_aebe749f290109ddcfea7e64d8ceded05"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::pair&lt; <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>, <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d2c/class_track.html#aebe749f290109ddcfea7e64d8ceded05">get_timing_lines</a> () const</td></tr>
+<tr class="memdesc:aebe749f290109ddcfea7e64d8ceded05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get all configured timing lines.  <br /></td></tr>
+<tr class="separator:aebe749f290109ddcfea7e64d8ceded05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -144,6 +151,12 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a293aa34977632f64a4c0e55ec28517a0" id="r_a293aa34977632f64a4c0e55ec28517a0"><td class="memItemLeft" align="right" valign="top">Eigen::Vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d2c/class_track.html#a293aa34977632f64a4c0e55ec28517a0">enuToTrackRotation</a></td></tr>
 <tr class="separator:a293aa34977632f64a4c0e55ec28517a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:adbfcff62d006929ef82224361f463c50" id="r_adbfcff62d006929ef82224361f463c50"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d2c/class_track.html#adbfcff62d006929ef82224361f463c50">fit_timing_line_to_track_width</a> ()</td></tr>
+<tr class="memdesc:adbfcff62d006929ef82224361f463c50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adjust timing line endpoints to the local track width near the configured line.  <br /></td></tr>
+<tr class="separator:adbfcff62d006929ef82224361f463c50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:aac5ad017730d5969a44c655695b62a48" id="r_aac5ad017730d5969a44c655695b62a48"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d2c/class_track.html#aac5ad017730d5969a44c655695b62a48">cones_</a></td></tr>
@@ -152,11 +165,14 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ae1918b711b0676fde6953d623baf642c" id="r_ae1918b711b0676fde6953d623baf642c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d2c/class_track.html#ae1918b711b0676fde6953d623baf642c">start_position_</a></td></tr>
 <tr class="memdesc:ae1918b711b0676fde6953d623baf642c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starting position.  <br /></td></tr>
 <tr class="separator:ae1918b711b0676fde6953d623baf642c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7361cec8098affa48eb85813ae1b33d" id="r_ac7361cec8098affa48eb85813ae1b33d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>, <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d2c/class_track.html#ac7361cec8098affa48eb85813ae1b33d">timing_lines_</a></td></tr>
+<tr class="memdesc:ac7361cec8098affa48eb85813ae1b33d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timing line endpoints.  <br /></td></tr>
+<tr class="separator:ac7361cec8098affa48eb85813ae1b33d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="../../d6/d2c/class_track.html" title="The Track class is responsible for loading track information from a YAML file and providing access to...">Track</a> class is responsible for loading track information from a YAML file and providing access to the cones on the track and the starting position for the vehicle. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d76/track_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../de/d76/track_8hpp_source.html">track.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d76/track_8hpp_source.html#l00018">18</a> of file <a class="el" href="../../de/d76/track_8hpp_source.html">track.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a78d9aebeef91d02be11ef547589a8ad3" name="a78d9aebeef91d02be11ef547589a8ad3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a78d9aebeef91d02be11ef547589a8ad3">&#9670;&#160;</a></span>Track()</h2>
@@ -184,11 +200,60 @@ Private Attributes</h2></td></tr>
 
 <p>Construct a new <a class="el" href="../../d6/d2c/class_track.html" title="The Track class is responsible for loading track information from a YAML file and providing access to...">Track</a> object by loading track information from a YAML file. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/de1/track_8cpp_source.html#l00003">3</a> of file <a class="el" href="../../dc/de1/track_8cpp_source.html">track.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/de1/track_8cpp_source.html#l00008">8</a> of file <a class="el" href="../../dc/de1/track_8cpp_source.html">track.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d6/d2c/class_track_a78d9aebeef91d02be11ef547589a8ad3_cgraph.png" border="0" usemap="#ad6/d2c/class_track_a78d9aebeef91d02be11ef547589a8ad3_cgraph" alt=""/></div>
+<map name="ad6/d2c/class_track_a78d9aebeef91d02be11ef547589a8ad3_cgraph" id="ad6/d2c/class_track_a78d9aebeef91d02be11ef547589a8ad3_cgraph">
+<area shape="rect" title="Construct a new Track object by loading track information from a YAML file." alt="" coords="5,13,99,39"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#adbfcff62d006929ef82224361f463c50" title="Adjust timing line endpoints to the local track width near the configured line." alt="" coords="147,5,286,46"/>
+<area shape="poly" title=" " alt="" coords="99,23,131,23,131,28,99,28"/>
+</map>
+</div>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="adbfcff62d006929ef82224361f463c50" name="adbfcff62d006929ef82224361f463c50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbfcff62d006929ef82224361f463c50">&#9670;&#160;</a></span>fit_timing_line_to_track_width()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Track::fit_timing_line_to_track_width </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adjust timing line endpoints to the local track width near the configured line. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../dc/de1/track_8cpp_source.html#l00081">81</a> of file <a class="el" href="../../dc/de1/track_8cpp_source.html">track.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d6/d2c/class_track_adbfcff62d006929ef82224361f463c50_icgraph.png" border="0" usemap="#ad6/d2c/class_track_adbfcff62d006929ef82224361f463c50_icgraph" alt=""/></div>
+<map name="ad6/d2c/class_track_adbfcff62d006929ef82224361f463c50_icgraph" id="ad6/d2c/class_track_adbfcff62d006929ef82224361f463c50_icgraph">
+<area shape="rect" title="Adjust timing line endpoints to the local track width near the configured line." alt="" coords="147,5,286,46"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a78d9aebeef91d02be11ef547589a8ad3" title="Construct a new Track object by loading track information from a YAML file." alt="" coords="5,13,99,39"/>
+<area shape="poly" title=" " alt="" coords="131,28,99,28,99,23,131,23"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a75e110d73a77227e2e929a36f72ae6f6" name="a75e110d73a77227e2e929a36f72ae6f6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a75e110d73a77227e2e929a36f72ae6f6">&#9670;&#160;</a></span>get_cones()</h2>
 
@@ -207,7 +272,7 @@ Private Attributes</h2></td></tr>
 <p>Get the track information, which consists of a vector of Cone objects. </p>
 <p>Each Cone contains the position and color of a cone on the track. </p><dl class="section return"><dt>Returns</dt><dd>std::vector&lt;common_lib::structures::Cone&gt; Vector of Cone objects </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/de1/track_8cpp_source.html#l00039">39</a> of file <a class="el" href="../../dc/de1/track_8cpp_source.html">track.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/de1/track_8cpp_source.html#l00162">162</a> of file <a class="el" href="../../dc/de1/track_8cpp_source.html">track.cpp</a>.</p>
 
 </div>
 </div>
@@ -229,7 +294,96 @@ Private Attributes</h2></td></tr>
 <p>Get the starting position for the vehicle on the specified track. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> Starting position for the vehicle. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/de1/track_8cpp_source.html#l00041">41</a> of file <a class="el" href="../../dc/de1/track_8cpp_source.html">track.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/de1/track_8cpp_source.html#l00164">164</a> of file <a class="el" href="../../dc/de1/track_8cpp_source.html">track.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d6/d2c/class_track_a930dcff4b8cc64727915f4707d7bee88_icgraph.png" border="0" usemap="#ad6/d2c/class_track_a930dcff4b8cc64727915f4707d7bee88_icgraph" alt=""/></div>
+<map name="ad6/d2c/class_track_a930dcff4b8cc64727915f4707d7bee88_icgraph" id="ad6/d2c/class_track_a930dcff4b8cc64727915f4707d7bee88_icgraph">
+<area shape="rect" title="Get the starting position for the vehicle on the specified track." alt="" coords="632,46,796,72"/>
+<area shape="rect" href="../../d0/d03/class_lap_timer_statistics.html#acb60069ffd07ca86004afdf851e7a772" title=" " alt="" coords="394,5,584,46"/>
+<area shape="poly" title=" " alt="" coords="617,47,584,42,585,37,617,42"/>
+<area shape="rect" href="../../d0/d03/class_lap_timer_statistics.html#aef37e40eaf364f7213acee2aa6a8a123" title=" " alt="" coords="410,71,569,111"/>
+<area shape="poly" title=" " alt="" coords="617,75,570,82,569,77,616,70"/>
+<area shape="rect" href="../../d0/d03/class_lap_timer_statistics.html#a91f2be4627a83134e577ea8a6f7d6d9f" title=" " alt="" coords="191,39,346,79"/>
+<area shape="poly" title=" " alt="" coords="379,45,347,50,346,45,378,40"/>
+<area shape="rect" href="../../d0/d03/class_lap_timer_statistics.html#ac78b1d3c7ec12cabe1c25a0cde383408" title="Initialize lap timing from the track and discipline." alt="" coords="5,39,143,79"/>
+<area shape="poly" title=" " alt="" coords="175,62,143,62,143,56,175,56"/>
+<area shape="poly" title=" " alt="" coords="394,80,346,73,347,68,394,75"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ad86e1420e2aadcec63eeab6bf0226909" name="ad86e1420e2aadcec63eeab6bf0226909"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad86e1420e2aadcec63eeab6bf0226909">&#9670;&#160;</a></span>get_timing_line()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt; <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>, <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> &gt; Track::get_timing_line </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the timing line endpoints for lap counting. </p>
+<dl class="section return"><dt>Returns</dt><dd>Pair with the two endpoints of the timing line. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../dc/de1/track_8cpp_source.html#l00167">167</a> of file <a class="el" href="../../dc/de1/track_8cpp_source.html">track.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d6/d2c/class_track_ad86e1420e2aadcec63eeab6bf0226909_icgraph.png" border="0" usemap="#ad6/d2c/class_track_ad86e1420e2aadcec63eeab6bf0226909_icgraph" alt=""/></div>
+<map name="ad6/d2c/class_track_ad86e1420e2aadcec63eeab6bf0226909_icgraph" id="ad6/d2c/class_track_ad86e1420e2aadcec63eeab6bf0226909_icgraph">
+<area shape="rect" title="Get the timing line endpoints for lap counting." alt="" coords="601,13,749,39"/>
+<area shape="rect" href="../../d0/d03/class_lap_timer_statistics.html#aef37e40eaf364f7213acee2aa6a8a123" title=" " alt="" coords="394,5,553,46"/>
+<area shape="poly" title=" " alt="" coords="586,28,554,28,554,23,586,23"/>
+<area shape="rect" href="../../d0/d03/class_lap_timer_statistics.html#a91f2be4627a83134e577ea8a6f7d6d9f" title=" " alt="" coords="191,5,346,46"/>
+<area shape="poly" title=" " alt="" coords="378,28,346,28,346,23,378,23"/>
+<area shape="rect" href="../../d0/d03/class_lap_timer_statistics.html#ac78b1d3c7ec12cabe1c25a0cde383408" title="Initialize lap timing from the track and discipline." alt="" coords="5,5,143,46"/>
+<area shape="poly" title=" " alt="" coords="175,28,143,28,143,23,175,23"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aebe749f290109ddcfea7e64d8ceded05" name="aebe749f290109ddcfea7e64d8ceded05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebe749f290109ddcfea7e64d8ceded05">&#9670;&#160;</a></span>get_timing_lines()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; std::pair&lt; <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>, <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> &gt; &gt; &amp; Track::get_timing_lines </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get all configured timing lines. </p>
+<p>The first line is the default timing line. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../dc/de1/track_8cpp_source.html#l00172">172</a> of file <a class="el" href="../../dc/de1/track_8cpp_source.html">track.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d6/d2c/class_track_aebe749f290109ddcfea7e64d8ceded05_icgraph.png" border="0" usemap="#ad6/d2c/class_track_aebe749f290109ddcfea7e64d8ceded05_icgraph" alt=""/></div>
+<map name="ad6/d2c/class_track_aebe749f290109ddcfea7e64d8ceded05_icgraph" id="ad6/d2c/class_track_aebe749f290109ddcfea7e64d8ceded05_icgraph">
+<area shape="rect" title="Get all configured timing lines." alt="" coords="632,13,787,39"/>
+<area shape="rect" href="../../d0/d03/class_lap_timer_statistics.html#acb60069ffd07ca86004afdf851e7a772" title=" " alt="" coords="394,5,584,46"/>
+<area shape="poly" title=" " alt="" coords="617,28,585,28,585,23,617,23"/>
+<area shape="rect" href="../../d0/d03/class_lap_timer_statistics.html#a91f2be4627a83134e577ea8a6f7d6d9f" title=" " alt="" coords="191,5,346,46"/>
+<area shape="poly" title=" " alt="" coords="378,28,347,28,347,23,378,23"/>
+<area shape="rect" href="../../d0/d03/class_lap_timer_statistics.html#ac78b1d3c7ec12cabe1c25a0cde383408" title="Initialize lap timing from the track and discipline." alt="" coords="5,5,143,46"/>
+<area shape="poly" title=" " alt="" coords="175,28,143,28,143,23,175,23"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -256,7 +410,7 @@ Private Attributes</h2></td></tr>
 
 <p>List of cones on the track. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d76/track_8hpp_source.html#l00038">38</a> of file <a class="el" href="../../de/d76/track_8hpp_source.html">track.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d76/track_8hpp_source.html#l00052">52</a> of file <a class="el" href="../../de/d76/track_8hpp_source.html">track.hpp</a>.</p>
 
 </div>
 </div>
@@ -362,7 +516,7 @@ Private Attributes</h2></td></tr>
 
 <p>Starting position. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d76/track_8hpp_source.html#l00039">39</a> of file <a class="el" href="../../de/d76/track_8hpp_source.html">track.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d76/track_8hpp_source.html#l00053">53</a> of file <a class="el" href="../../de/d76/track_8hpp_source.html">track.hpp</a>.</p>
 
 </div>
 </div>
@@ -379,6 +533,32 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="../../dd/de3/types_8hpp_source.html#l00045">45</a> of file <a class="el" href="../../dd/de3/types_8hpp_source.html">types.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac7361cec8098affa48eb85813ae1b33d" name="ac7361cec8098affa48eb85813ae1b33d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7361cec8098affa48eb85813ae1b33d">&#9670;&#160;</a></span>timing_lines_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::pair&lt;<a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>, <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>&gt; &gt; Track::timing_lines_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Timing line endpoints. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../de/d76/track_8hpp_source.html#l00055">55</a> of file <a class="el" href="../../de/d76/track_8hpp_source.html">track.hpp</a>.</p>
 
 </div>
 </div>

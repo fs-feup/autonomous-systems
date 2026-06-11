@@ -1,0 +1,21 @@
+<map id="LapTimerStatistics::LapTimerStatistics" name="LapTimerStatistics::LapTimerStatistics">
+<area shape="rect" id="Node000001" title="Initialize lap timing from the track and discipline." alt="" coords="5,110,143,151"/>
+<area shape="rect" id="Node000002" href="$d0/d03/class_lap_timer_statistics.html#a91f2be4627a83134e577ea8a6f7d6d9f" title=" " alt="" coords="191,77,346,117"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,116,175,110,176,115,143,121"/>
+<area shape="rect" id="Node000009" href="$d0/d03/class_lap_timer_statistics.html#a4020a3bfd94fd7721d2d99cccf84b10d" title=" " alt="" coords="203,142,334,183"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="143,139,188,146,187,152,142,144"/>
+<area shape="rect" id="Node000003" href="$d0/d03/class_lap_timer_statistics.html#acb60069ffd07ca86004afdf851e7a772" title=" " alt="" coords="394,109,584,149"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="347,105,379,110,378,115,346,111"/>
+<area shape="rect" id="Node000007" href="$d0/d03/class_lap_timer_statistics.html#aef37e40eaf364f7213acee2aa6a8a123" title=" " alt="" coords="410,43,569,84"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="346,82,394,75,394,80,347,88"/>
+<area shape="rect" id="Node000004" href="$d6/d2c/class_track.html#a930dcff4b8cc64727915f4707d7bee88" title="Get the starting position for the vehicle on the specified track." alt="" coords="632,55,796,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="566,105,649,82,650,87,567,110"/>
+<area shape="rect" id="Node000005" href="$d6/d2c/class_track.html#aebe749f290109ddcfea7e64d8ceded05" title="Get all configured timing lines." alt="" coords="637,169,791,195"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="578,147,643,163,641,168,577,152"/>
+<area shape="rect" id="Node000006" href="$d0/d03/class_lap_timer_statistics.html#ae5d02db0e7f2bc34d0384b8a0994c549" title=" " alt="" coords="640,105,788,145"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="585,124,624,124,624,129,585,130"/>
+<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="570,62,617,63,617,68,569,68"/>
+<area shape="poly" id="edge9_Node000007_Node000006" title=" " alt="" coords="567,82,626,98,624,103,566,87"/>
+<area shape="rect" id="Node000008" href="$d6/d2c/class_track.html#ad86e1420e2aadcec63eeab6bf0226909" title="Get the timing line endpoints for lap counting." alt="" coords="640,5,788,31"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="569,45,632,32,633,37,570,50"/>
+</map>

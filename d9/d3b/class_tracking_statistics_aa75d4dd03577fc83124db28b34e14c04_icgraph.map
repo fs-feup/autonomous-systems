@@ -1,0 +1,11 @@
+<map id="TrackingStatistics::current_lap_average_tracking_error" name="TrackingStatistics::current_lap_average_tracking_error">
+<area shape="rect" id="Node000001" title=" " alt="" coords="800,5,944,61"/>
+<area shape="rect" id="Node000002" href="$d9/d3b/class_tracking_statistics.html#a25f854292e45bbdf661afa0d5312b427" title="Copy completed lap tracking metrics into the snapshot." alt="" coords="625,13,752,54"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="784,36,752,36,752,31,784,31"/>
+<area shape="rect" id="Node000003" href="$d8/da8/class_statistics.html#ae7e7674d3f1fc23f779f78fd92f88b19" title=" " alt="" coords="441,20,577,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="610,36,578,36,578,31,610,31"/>
+<area shape="rect" id="Node000004" href="$d8/da8/class_statistics.html#a86ed1cd18203a8229ee60e191c5cafdd" title="Update statistics after a vehicle model step." alt="" coords="272,20,393,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="425,36,393,36,393,31,425,31"/>
+<area shape="rect" id="Node000005" href="$d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a8a079d78fabe3578dc7038a75af16fb9" title="Stop the thread." alt="" coords="5,20,224,46"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="256,36,224,36,224,31,256,31"/>
+</map>

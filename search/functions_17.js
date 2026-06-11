@@ -11,10 +11,13 @@ var searchData=
   ['within_5flimits_8',['within_limits',['../de/dd9/class_fov_trimming.html#a5afc4560649660cff6eb8eda2699713c',1,'FovTrimming']]],
   ['worldtoposition_9',['worldToPosition',['../d5/da5/classdraw_view_1_1draw_view.html#a4ecf47f83546a129339c3f89a6830fd2',1,'drawView::drawView']]],
   ['write_10',['write',['../d1/d79/classconvert__fssim__sdf__to__yaml_1_1_my___yaml___dump.html#afd2864d7bdf9adc8046905c53e29a9bb',1,'convert_fssim_sdf_to_yaml.My_Yaml_Dump.write()'],['../dd/d24/classmap_file_1_1_my___yaml___dump.html#aaed0067921f5907de699cb7d10d7677a',1,'mapFile.My_Yaml_Dump.write()']]],
-  ['write_5fto_5fyaml_11',['write_to_yaml',['../da/d44/namespaceconvert__fssim__sdf__to__yaml.html#ab57d18f674753e5e71cc76d2e00ea794',1,'convert_fssim_sdf_to_yaml']]],
-  ['writemapfile_12',['writeMapFile',['../d2/de2/classgui_logic_1_1gui_logic.html#a929df49121054ba8f1fd7010bd458c5a',1,'guiLogic::guiLogic']]],
-  ['writeresults_13',['writeResults',['../de/de3/class_perception_integration_test.html#aa4fa851c03a8209c2babfe24263e700c',1,'PerceptionIntegrationTest']]],
-  ['writetofile_14',['writeToFile',['../d3/d0d/class_perception_performance_test.html#a8912c95da87f5544243d06e35d5b0f5a',1,'PerceptionPerformanceTest']]],
-  ['writeyaml_15',['writeYaml',['../d6/dff/namespacemap_file.html#a986514478284fdbf036b40c416533962',1,'mapFile']]],
-  ['wss_5fcallback_16',['wss_callback',['../d1/df1/class_vehicle_adapter.html#a4af19314f0fc8a4643c8f8a4a6abfc3d',1,'VehicleAdapter::wss_callback()'],['../d7/dbe/class_e_k_f.html#acb60c0c5bde517ab68ed0c408419a62c',1,'EKF::wss_callback()'],['../d9/d08/class_velocity_estimator.html#aed76e4cfcadd78f3f6602042d3d21ee8',1,'VelocityEstimator::wss_callback()'],['../dd/da2/class_no_rear_w_s_s_e_k_f.html#ae43674adea4ea6537f48809bb7fee556',1,'NoRearWSSEKF::wss_callback()'],['../d1/dcb/class_pacsim_adapter.html#a77b1b534a8cd331a964cba15532cb01f',1,'PacsimAdapter::wss_callback()'],['../d6/d6c/class_invicta_sim_adapter.html#af4da8573618c3b7c33b567ef126befeb',1,'InvictaSimAdapter::wss_callback()']]]
+  ['write_5fcsv_5fheader_11',['write_csv_header',['../d8/da8/class_statistics.html#aa7c85acbfe8a771a88b437a099ca8fdf',1,'Statistics']]],
+  ['write_5fcsv_5frow_12',['write_csv_row',['../d8/da8/class_statistics.html#a09c4c4031d16fd8321b60791ba34a0cb',1,'Statistics']]],
+  ['write_5fto_5fyaml_13',['write_to_yaml',['../da/d44/namespaceconvert__fssim__sdf__to__yaml.html#ab57d18f674753e5e71cc76d2e00ea794',1,'convert_fssim_sdf_to_yaml']]],
+  ['write_5ftrack_5ffile_14',['write_track_file',['../da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#af7442494e75c5788e84be8c47731fb23',1,'generate_track_from_slam::SlamTrackGenerator']]],
+  ['writemapfile_15',['writeMapFile',['../d2/de2/classgui_logic_1_1gui_logic.html#a929df49121054ba8f1fd7010bd458c5a',1,'guiLogic::guiLogic']]],
+  ['writeresults_16',['writeResults',['../de/de3/class_perception_integration_test.html#aa4fa851c03a8209c2babfe24263e700c',1,'PerceptionIntegrationTest']]],
+  ['writetofile_17',['writeToFile',['../d3/d0d/class_perception_performance_test.html#a8912c95da87f5544243d06e35d5b0f5a',1,'PerceptionPerformanceTest']]],
+  ['writeyaml_18',['writeYaml',['../d6/dff/namespacemap_file.html#a986514478284fdbf036b40c416533962',1,'mapFile']]],
+  ['wss_5fcallback_19',['wss_callback',['../d6/d6c/class_invicta_sim_adapter.html#af4da8573618c3b7c33b567ef126befeb',1,'InvictaSimAdapter::wss_callback()'],['../d1/dcb/class_pacsim_adapter.html#a77b1b534a8cd331a964cba15532cb01f',1,'PacsimAdapter::wss_callback()'],['../d1/df1/class_vehicle_adapter.html#a4af19314f0fc8a4643c8f8a4a6abfc3d',1,'VehicleAdapter::wss_callback()'],['../d7/dbe/class_e_k_f.html#acb60c0c5bde517ab68ed0c408419a62c',1,'EKF::wss_callback()'],['../d9/d08/class_velocity_estimator.html#aed76e4cfcadd78f3f6602042d3d21ee8',1,'VelocityEstimator::wss_callback()'],['../dd/da2/class_no_rear_w_s_s_e_k_f.html#ae43674adea4ea6537f48809bb7fee556',1,'NoRearWSSEKF::wss_callback()']]]
 ];

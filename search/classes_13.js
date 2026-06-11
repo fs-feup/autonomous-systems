@@ -9,10 +9,11 @@ var searchData=
   ['tireparameters_6',['TireParameters',['../dd/d7d/structcommon__lib_1_1car__parameters_1_1_tire_parameters.html',1,'common_lib::car_parameters']]],
   ['track_7',['Track',['../d6/d2c/class_track.html',1,'']]],
   ['trackgenerator_8',['TrackGenerator',['../d7/df1/classcolour__track__cones_1_1_track_generator.html',1,'colour_track_cones']]],
-  ['trajectorycalculator_9',['TrajectoryCalculator',['../d3/d86/class_trajectory_calculator.html',1,'']]],
-  ['transmissionmodel_10',['TransmissionModel',['../dc/d7c/class_transmission_model.html',1,'']]],
-  ['transmissionparameters_11',['TransmissionParameters',['../d2/d1f/structcommon__lib_1_1car__parameters_1_1_transmission_parameters.html',1,'common_lib::car_parameters']]],
-  ['trimmingparameters_12',['TrimmingParameters',['../d8/d2c/struct_trimming_parameters.html',1,'']]],
-  ['triplecomparator_13',['TripleComparator',['../dd/da8/struct_triple_comparator.html',1,'']]],
-  ['triplespline_14',['TripleSpline',['../d1/d77/struct_triple_spline.html',1,'']]]
+  ['trackingstatistics_9',['TrackingStatistics',['../d9/d3b/class_tracking_statistics.html',1,'']]],
+  ['trajectorycalculator_10',['TrajectoryCalculator',['../d3/d86/class_trajectory_calculator.html',1,'']]],
+  ['transmissionmodel_11',['TransmissionModel',['../dc/d7c/class_transmission_model.html',1,'']]],
+  ['transmissionparameters_12',['TransmissionParameters',['../d2/d1f/structcommon__lib_1_1car__parameters_1_1_transmission_parameters.html',1,'common_lib::car_parameters']]],
+  ['trimmingparameters_13',['TrimmingParameters',['../d8/d2c/struct_trimming_parameters.html',1,'']]],
+  ['triplecomparator_14',['TripleComparator',['../dd/da8/struct_triple_comparator.html',1,'']]],
+  ['triplespline_15',['TripleSpline',['../d1/d77/struct_triple_spline.html',1,'']]]
 ];

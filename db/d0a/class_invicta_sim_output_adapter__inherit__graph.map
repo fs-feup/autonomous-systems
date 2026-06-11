@@ -1,5 +1,5 @@
 <map id="InvictaSimOutputAdapter" name="InvictaSimOutputAdapter">
-<area shape="rect" id="Node000001" title="Base interface for simulator output adapters." alt="" coords="13,5,197,131"/>
-<area shape="rect" id="Node000002" href="$d6/dc0/class_ros_output_adapter.html" title="ROS&#45;based simulator output adapter." alt="" coords="5,179,204,777"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,146,107,179,102,179,102,146"/>
+<area shape="rect" id="Node000001" title="Base interface for simulator output adapters." alt="" coords="12,5,196,131"/>
+<area shape="rect" id="Node000002" href="$d6/dc0/class_ros_output_adapter.html" title="ROS&#45;based simulator output adapter." alt="" coords="5,179,203,763"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,146,107,179,101,179,101,146"/>
 </map>

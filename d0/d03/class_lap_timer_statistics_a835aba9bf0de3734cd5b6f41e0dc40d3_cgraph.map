@@ -1,0 +1,23 @@
+<map id="LapTimerStatistics::update" name="LapTimerStatistics::update">
+<area shape="rect" id="Node000001" title="Update lap timing and report whether a lap started or finished." alt="" coords="5,101,137,142"/>
+<area shape="rect" id="Node000002" href="$d0/d03/class_lap_timer_statistics.html#ae5d02db0e7f2bc34d0384b8a0994c549" title=" " alt="" coords="403,5,551,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,99,138,74,184,54,235,40,288,31,386,23,387,28,289,36,236,45,186,59,140,79,102,103"/>
+<area shape="rect" id="Node000003" href="$d0/d03/class_lap_timer_statistics.html#a8420f27e9fd0b01632a145f8bf8e4402" title=" " alt="" coords="194,68,337,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="137,108,178,101,179,106,138,113"/>
+<area shape="rect" id="Node000008" href="$d0/d03/class_lap_timer_statistics.html#a13993af9b0fa681aa0ec313cb9a2f7c2" title=" " alt="" coords="197,133,334,174"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="138,130,182,137,181,143,137,135"/>
+<area shape="rect" id="Node000009" href="$d0/d03/class_lap_timer_statistics.html#a0c2621fcc82d977c78bbac466a50dd96" title=" " alt="" coords="185,199,346,239"/>
+<area shape="poly" id="edge12_Node000001_Node000009" title=" " alt="" coords="108,140,186,183,199,190,197,194,183,188,105,145"/>
+<area shape="poly" id="edge8_Node000003_Node000002" title=" " alt="" coords="335,65,390,48,392,54,337,70"/>
+<area shape="rect" id="Node000004" href="$d0/d03/class_lap_timer_statistics.html#a62314c9e854f648baf759f8b62d2d261" title=" " alt="" coords="410,135,543,191"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="326,107,396,132,394,137,324,112"/>
+<area shape="rect" id="Node000007" href="$d0/d03/class_lap_timer_statistics.html#a660cd9ef7a6229aa224d6df39ab393ed" title=" " alt="" coords="394,71,559,111"/>
+<area shape="poly" id="edge7_Node000003_Node000007" title=" " alt="" coords="337,87,379,87,379,92,337,92"/>
+<area shape="rect" id="Node000005" href="$d0/d03/class_lap_timer_statistics.html#a230a963b821741448aafb753193009d5" title=" " alt="" coords="607,171,739,211"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="544,170,592,177,591,182,543,175"/>
+<area shape="rect" id="Node000006" href="$d0/d03/class_lap_timer_statistics.html#a49d23e8f4e745db968a552012f76eccd" title=" " alt="" coords="787,143,924,183"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="544,158,607,156,739,156,771,157,771,162,739,162,607,162,544,163"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="739,178,771,173,772,179,740,184"/>
+<area shape="poly" id="edge10_Node000008_Node000004" title=" " alt="" coords="334,154,394,157,394,162,334,159"/>
+<area shape="poly" id="edge11_Node000008_Node000007" title=" " alt="" coords="333,131,390,114,392,119,335,136"/>
+</map>

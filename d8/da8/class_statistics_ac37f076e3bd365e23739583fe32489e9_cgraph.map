@@ -1,0 +1,19 @@
+<map id="Statistics::Statistics" name="Statistics::Statistics">
+<area shape="rect" id="Node000001" title="Construct a statistics calculator using track metadata." alt="" coords="5,112,143,137"/>
+<area shape="rect" id="Node000002" href="$d8/da8/class_statistics.html#af09659391046f49a99e44fc1768d403d" title="Reset all accumulated statistics." alt="" coords="191,112,302,137"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,122,175,122,175,127,143,127"/>
+<area shape="rect" id="Node000003" href="$d0/d03/class_lap_timer_statistics.html#afc8ef4eaecfc3cbfe6e775fcb68400e9" title="Reset timing state and current lap fields." alt="" coords="364,5,495,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="265,109,349,57,361,50,364,55,351,61,268,113"/>
+<area shape="rect" id="Node000005" href="$d9/d3b/class_tracking_statistics.html#a1f882475dc9faf78f7e33a1543d08d3d" title="Clear per&#45;lap tracking aggregates." alt="" coords="367,71,493,111"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="302,112,351,103,352,108,303,117"/>
+<area shape="rect" id="Node000006" href="$d0/d3a/class_collision_statistics.html#a556f162852949d090aedf778fede3776" title="Clear cone hits for a new lap." alt="" coords="367,136,492,177"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="303,131,352,140,351,145,302,137"/>
+<area shape="rect" id="Node000007" href="$d8/da8/class_statistics.html#a7d2a67afb804d85de29bc6669cd21d84" title=" " alt="" coords="350,201,509,227"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="268,136,305,161,351,186,367,193,365,198,349,191,303,165,265,140"/>
+<area shape="rect" id="Node000004" href="$d0/d03/class_lap_timer_statistics.html#a660cd9ef7a6229aa224d6df39ab393ed" title=" " alt="" coords="557,5,723,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="496,23,542,23,542,28,496,28"/>
+<area shape="rect" id="Node000008" href="$d8/da8/class_statistics.html#a15932ab094b8472a3d439eeeffa9888e" title=" " alt="" coords="562,172,718,197"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="509,200,546,195,547,200,510,205"/>
+<area shape="rect" id="Node000009" href="$d8/da8/class_statistics.html#aa7c85acbfe8a771a88b437a099ca8fdf" title=" " alt="" coords="571,221,709,262"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="510,222,556,228,555,233,509,227"/>
+</map>

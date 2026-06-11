@@ -1,0 +1,7 @@
+<map id="LapTimerStatistics::configure_acceleration_lines" name="LapTimerStatistics::configure_acceleration_lines">
+<area shape="rect" id="Node000001" title=" " alt="" coords="394,5,584,46"/>
+<area shape="rect" id="Node000002" href="$d0/d03/class_lap_timer_statistics.html#a91f2be4627a83134e577ea8a6f7d6d9f" title=" " alt="" coords="191,5,346,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="378,28,347,28,347,23,378,23"/>
+<area shape="rect" id="Node000003" href="$d0/d03/class_lap_timer_statistics.html#ac78b1d3c7ec12cabe1c25a0cde383408" title="Initialize lap timing from the track and discipline." alt="" coords="5,5,143,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="175,28,143,28,143,23,175,23"/>
+</map>

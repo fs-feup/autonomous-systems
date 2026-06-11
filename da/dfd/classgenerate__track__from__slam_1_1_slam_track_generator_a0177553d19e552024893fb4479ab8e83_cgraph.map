@@ -1,0 +1,16 @@
+<map id="generate_track_from_slam.SlamTrackGenerator.map_callback" name="generate_track_from_slam.SlamTrackGenerator.map_callback">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,127,213,182"/>
+<area shape="rect" id="Node000002" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#a466ab5aa27c0686e7b353130cbfe8c08" title=" " alt="" coords="261,127,457,182"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="213,152,245,152,245,157,213,157"/>
+<area shape="rect" id="Node000003" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#a4b69c55e753b58e8d020e65ed5938de6" title=" " alt="" coords="505,98,756,139"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="457,139,489,135,490,140,458,144"/>
+<area shape="rect" id="Node000006" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#af7442494e75c5788e84be8c47731fb23" title=" " alt="" coords="526,163,736,218"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="458,165,511,172,510,177,457,170"/>
+<area shape="rect" id="Node000004" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#a163c657ecd763928e9b42d1c8161efd0" title=" " alt="" coords="812,5,1014,61"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="700,95,803,64,804,69,702,100"/>
+<area shape="rect" id="Node000005" href="$d9/d1e/tests_8cpp.html#a322889033b0102b5c2eb49fe3c081fd8" title="round to n decimal places" alt="" coords="886,110,940,135"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="757,118,871,119,871,125,757,123"/>
+<area shape="poly" id="edge5_Node000005_Node000005" title=" " alt="" coords="885,119,862,108,858,102,859,95,877,86,913,83,945,85,964,92,968,103,956,113,952,109,963,101,960,96,944,91,913,88,878,91,863,98,863,100,866,104,887,114"/>
+<area shape="rect" id="Node000007" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#a0296925f62bb0d8bc111d1f69b128d89" title=" " alt="" coords="804,163,1022,218"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="736,188,788,188,788,193,736,193"/>
+</map>

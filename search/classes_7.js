@@ -10,7 +10,7 @@ var searchData=
   ['hash_3c_20common_5flib_3a_3astructures_3a_3apathpoint_20_3e_7',['hash&lt; common_lib::structures::PathPoint &gt;',['../db/d69/structstd_1_1hash_3_01common__lib_1_1structures_1_1_path_point_01_4.html',1,'std']]],
   ['hash_3c_20common_5flib_3a_3astructures_3a_3aposition_20_3e_8',['hash&lt; common_lib::structures::Position &gt;',['../d2/dff/structstd_1_1hash_3_01common__lib_1_1structures_1_1_position_01_4.html',1,'std']]],
   ['hash_3c_20gridindex_20_3e_9',['hash&lt; GridIndex &gt;',['../d8/d6d/structstd_1_1hash_3_01_grid_index_01_4.html',1,'std']]],
-  ['hasposition_10',['hasposition',['../d3/d65/structcommon__lib_1_1communication_1_1_has_position.html',1,'common_lib::communication::HasPosition&lt; T, typename &gt;'],['../db/d42/struct_has_position.html',1,'HasPosition&lt; T, typename &gt;']]],
+  ['hasposition_10',['hasposition',['../db/d42/struct_has_position.html',1,'HasPosition&lt; T, typename &gt;'],['../d3/d65/structcommon__lib_1_1communication_1_1_has_position.html',1,'common_lib::communication::HasPosition&lt; T, typename &gt;']]],
   ['hasposition_3c_20t_2c_20std_3a_3aenable_5fif_5ft_3c_20std_3a_3ais_5farithmetic_5fv_3c_20decltype_28std_3a_3adeclval_3c_20t_20_3e_28_29_2eposition_2ex_29_3e_20_26_26std_3a_3ais_5farithmetic_5fv_3c_20decltype_28std_3a_3adeclval_3c_20t_20_3e_28_29_2eposition_2ey_29_3e_20_3e_20_3e_11',['HasPosition&lt; T, std::enable_if_t&lt; std::is_arithmetic_v&lt; decltype(std::declval&lt; T &gt;().position.x)&gt; &amp;&amp;std::is_arithmetic_v&lt; decltype(std::declval&lt; T &gt;().position.y)&gt; &gt; &gt;',['../d0/d78/structcommon__lib_1_1communication_1_1_has_position_3_01_t_00_01std_1_1enable__if__t_3_01std_1_1f92f66d3afd606fa0b7fa2e397b76781.html',1,'common_lib::communication']]],
   ['hasposition_3c_20t_2c_20std_3a_3avoid_5ft_3c_20decltype_28std_3a_3adeclval_3c_20t_20_3e_28_29_2eposition_29_3e_20_3e_12',['HasPosition&lt; T, std::void_t&lt; decltype(std::declval&lt; T &gt;().position)&gt; &gt;',['../d8/da8/struct_has_position_3_01_t_00_01std_1_1void__t_3_01decltype_07std_1_1declval_3_01_t_01_4_07_08_8position_08_4_01_4.html',1,'']]],
   ['haspositionxy_13',['HasPositionXY',['../dd/d5d/struct_has_position_x_y.html',1,'']]],
@@ -18,5 +18,7 @@ var searchData=
   ['heightvalidator_15',['HeightValidator',['../d9/d1f/class_height_validator.html',1,'']]],
   ['heightvalidatortest_16',['HeightValidatorTest',['../d9/d7c/class_height_validator_test.html',1,'']]],
   ['himmelsbach_17',['Himmelsbach',['../da/d5d/class_himmelsbach.html',1,'']]],
-  ['himmelsbachtest_18',['HimmelsbachTest',['../de/d11/class_himmelsbach_test.html',1,'']]]
+  ['himmelsbachtest_18',['HimmelsbachTest',['../de/d11/class_himmelsbach_test.html',1,'']]],
+  ['hitbox_19',['Hitbox',['../d7/d15/struct_hitbox.html',1,'']]],
+  ['hitboxvisual_20',['HitboxVisual',['../d9/d82/struct_ros_output_adapter_1_1_hitbox_visual.html',1,'RosOutputAdapter']]]
 ];

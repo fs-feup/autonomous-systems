@@ -1,0 +1,25 @@
+<map id="Statistics::finish_lap" name="Statistics::finish_lap">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,231,142,257"/>
+<area shape="rect" id="Node000002" href="$d0/d03/class_lap_timer_statistics.html#a1433d7f5bf52cc34ffb29f1faf2659a6" title="Copy completed lap timing metrics into the snapshot." alt="" coords="210,20,341,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,229,119,160,150,118,188,79,206,66,209,70,191,83,155,121,123,163,83,232"/>
+<area shape="rect" id="Node000004" href="$d9/d3b/class_tracking_statistics.html#a25f854292e45bbdf661afa0d5312b427" title="Copy completed lap tracking metrics into the snapshot." alt="" coords="212,93,339,134"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="86,229,129,188,188,144,199,138,202,143,191,149,132,192,89,233"/>
+<area shape="rect" id="Node000007" href="$d0/d3a/class_collision_statistics.html#a35576639c4a850d2cde5d07a26a9a7da" title="Penalty time from cones hit in the current lap." alt="" coords="190,158,361,199"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="115,228,195,202,196,207,116,233"/>
+<area shape="rect" id="Node000008" href="$d9/d3b/class_tracking_statistics.html#a1f882475dc9faf78f7e33a1543d08d3d" title="Clear per&#45;lap tracking aggregates." alt="" coords="212,224,339,264"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="142,241,197,241,197,247,142,247"/>
+<area shape="rect" id="Node000009" href="$d0/d3a/class_collision_statistics.html#a556f162852949d090aedf778fede3776" title="Clear cone hits for a new lap." alt="" coords="213,289,338,330"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="116,255,199,282,197,287,115,260"/>
+<area shape="rect" id="Node000010" href="$d0/d03/class_lap_timer_statistics.html#a6a618364100a82ac19dcced34a48ac29" title="Start measuring the next lap after a finish." alt="" coords="210,354,341,395"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="89,255,132,295,191,339,202,345,199,349,188,343,129,300,86,259"/>
+<area shape="rect" id="Node000012" href="$d8/da8/class_statistics.html#a09c4c4031d16fd8321b60791ba34a0cb" title=" " alt="" coords="192,419,359,445"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="83,256,98,286,121,327,153,369,191,404,200,410,197,414,188,409,149,372,117,330,93,289,78,258"/>
+<area shape="rect" id="Node000003" href="$d0/d03/class_lap_timer_statistics.html#a50737a8baf90478a1fb0f32424d1d2aa" title=" " alt="" coords="420,5,564,61"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="341,35,404,33,404,39,341,40"/>
+<area shape="rect" id="Node000005" href="$d9/d3b/class_tracking_statistics.html#aa75d4dd03577fc83124db28b34e14c04" title=" " alt="" coords="420,85,564,141"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="339,111,404,111,404,116,339,116"/>
+<area shape="rect" id="Node000006" href="$d9/d3b/class_tracking_statistics.html#a783bc7b526528555fcde29c5d92cdb12" title=" " alt="" coords="420,165,564,221"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="333,131,406,159,404,164,331,136"/>
+<area shape="rect" id="Node000011" href="$d0/d03/class_lap_timer_statistics.html#a660cd9ef7a6229aa224d6df39ab393ed" title=" " alt="" coords="409,354,574,395"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="341,372,393,372,393,377,341,377"/>
+</map>

@@ -4,6 +4,7 @@ var struct_invicta_sim_parameters =
     [ "aero_model", "df/d28/struct_invicta_sim_parameters.html#a7371cf59b91c360ebaf84c111dc4266f", null ],
     [ "battery_model", "df/d28/struct_invicta_sim_parameters.html#a3fb4fa9fb90ec9b5f11ea74238a7217d", null ],
     [ "car_parameters", "df/d28/struct_invicta_sim_parameters.html#a8b86372bd9293e2bde53538df8f6ad67", null ],
+    [ "car_parameters_config", "df/d28/struct_invicta_sim_parameters.html#a27e4f8cc4021c5541ee09521f5ee4200", null ],
     [ "discipline", "df/d28/struct_invicta_sim_parameters.html#abca5edb04fed1f0e3d5628f75fcd42bf", null ],
     [ "initial_go_signal", "df/d28/struct_invicta_sim_parameters.html#a125c9d99e0c41c93c3a5261101f91604", null ],
     [ "input_adapter", "df/d28/struct_invicta_sim_parameters.html#a73e77211ea42724debeaef93c71d513f", null ],

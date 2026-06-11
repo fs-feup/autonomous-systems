@@ -1,0 +1,11 @@
+<map id="CollisionStatistics::CollisionStatistics" name="CollisionStatistics::CollisionStatistics">
+<area shape="rect" id="Node000001" title="Load cone collision settings and car hitboxes." alt="" coords="5,113,137,154"/>
+<area shape="rect" id="Node000002" href="$d0/d3a/class_collision_statistics.html#a30a144dd1ff2c132fa627bcf0f7929b4" title=" " alt="" coords="211,5,342,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,111,137,83,183,55,195,50,197,55,186,60,140,87,100,115"/>
+<area shape="rect" id="Node000003" href="$d0/d3a/class_collision_statistics.html#a457a2ed99c4af8371848630ac944f93b" title=" " alt="" coords="206,70,347,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="137,120,190,110,191,115,137,125"/>
+<area shape="rect" id="Node000004" href="$d0/d3a/class_collision_statistics.html#a70a879cf22fc4cc899b43e3d341be368" title=" " alt="" coords="206,149,347,190"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="137,143,191,152,190,157,137,148"/>
+<area shape="rect" id="Node000005" href="$d0/d3a/class_collision_statistics.html#a013a7ca2eebe6ee42d933755f2b150f1" title=" " alt="" coords="185,215,368,255"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="104,152,186,199,201,206,199,211,183,204,102,157"/>
+</map>

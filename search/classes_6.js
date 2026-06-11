@@ -13,5 +13,6 @@ var searchData=
   ['gripmap_10',['gripMap',['../de/d10/classgrip_map.html',1,'']]],
   ['groundgrid_11',['GroundGrid',['../dc/d71/class_ground_grid.html',1,'']]],
   ['groundremoval_12',['GroundRemoval',['../dc/d84/class_ground_removal.html',1,'']]],
-  ['guilogic_13',['guiLogic',['../d2/de2/classgui_logic_1_1gui_logic.html',1,'guiLogic']]]
+  ['groundvisualconfig_13',['GroundVisualConfig',['../d5/dec/struct_ros_output_adapter_1_1_ground_visual_config.html',1,'RosOutputAdapter']]],
+  ['guilogic_14',['guiLogic',['../d2/de2/classgui_logic_1_1gui_logic.html',1,'guiLogic']]]
 ];

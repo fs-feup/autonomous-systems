@@ -103,6 +103,7 @@ var namespaces_dup =
     ] ],
     [ "drawView", "d2/dfb/namespacedraw_view.html", "d2/dfb/namespacedraw_view" ],
     [ "evaluator", "db/d6f/namespaceevaluator.html", "db/d6f/namespaceevaluator" ],
+    [ "generate_track_from_slam", "de/d8e/namespacegenerate__track__from__slam.html", "de/d8e/namespacegenerate__track__from__slam" ],
     [ "guiLogic", "db/d15/namespacegui_logic.html", "db/d15/namespacegui_logic" ],
     [ "LidarPoint", "dc/d9c/namespace_lidar_point.html", [
       [ "PointIntensity", "dc/d9c/namespace_lidar_point.html#a8edce3288bc1c20a132f287330d99cf9", null ],

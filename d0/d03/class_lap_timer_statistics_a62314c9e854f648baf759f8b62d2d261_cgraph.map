@@ -1,0 +1,8 @@
+<map id="LapTimerStatistics::crossed_line_from_approach_side" name="LapTimerStatistics::crossed_line_from_approach_side">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,27,139,83"/>
+<area shape="rect" id="Node000002" href="$d0/d03/class_lap_timer_statistics.html#a230a963b821741448aafb753193009d5" title=" " alt="" coords="187,5,318,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,42,171,36,172,41,139,47"/>
+<area shape="rect" id="Node000003" href="$d0/d03/class_lap_timer_statistics.html#a49d23e8f4e745db968a552012f76eccd" title=" " alt="" coords="366,35,503,75"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="139,54,187,55,318,55,350,54,350,60,318,60,187,60,139,59"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="319,34,351,39,350,44,318,39"/>
+</map>

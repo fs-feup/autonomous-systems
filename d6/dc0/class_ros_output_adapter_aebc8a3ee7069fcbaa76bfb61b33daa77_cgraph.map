@@ -1,5 +1,9 @@
 <map id="RosOutputAdapter::publish_map_ground_truth" name="RosOutputAdapter::publish_map_ground_truth">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,181,46"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,39,181,79"/>
 <area shape="rect" id="Node000002" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="229,5,393,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="181,23,213,23,213,28,181,28"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="181,43,213,38,214,43,182,48"/>
+<area shape="rect" id="Node000003" href="$d6/dc0/class_ros_output_adapter.html#a1098c04843104fa7f02c376df88d137e" title=" " alt="" coords="229,71,393,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="182,69,214,74,213,79,181,75"/>
+<area shape="rect" id="Node000004" href="$d6/dc0/class_ros_output_adapter.html#a653d658abeea9048c28d555818f19c23" title=" " alt="" coords="441,71,599,111"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="393,88,425,88,425,94,393,94"/>
 </map>

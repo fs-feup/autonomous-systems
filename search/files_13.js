@@ -8,7 +8,7 @@ var searchData=
   ['second_5fpose_5finput_5ftrait_2ehpp_5',['second_pose_input_trait.hpp',['../d2/d9c/second__pose__input__trait_8hpp.html',1,'']]],
   ['send_5fbucket_2epy_6',['send_bucket.py',['../db/d01/send__bucket_8py.html',1,'']]],
   ['sensorbase_2ehpp_7',['sensorBase.hpp',['../d2/d00/sensor_base_8hpp.html',1,'']]],
-  ['setup_2epy_8',['setup.py',['../d5/d89/pacsim__keys_2setup_8py.html',1,'(Global Namespace)'],['../db/d21/power__log_2setup_8py.html',1,'(Global Namespace)'],['../d0/dd5/supervisor_2setup_8py.html',1,'(Global Namespace)'],['../d0/dd6/vehicle__dynamics__node_2setup_8py.html',1,'(Global Namespace)'],['../df/d3c/data__infrastructure_2setup_8py.html',1,'(Global Namespace)'],['../db/df8/car__keys_2setup_8py.html',1,'(Global Namespace)'],['../d6/d69/evaluator_2setup_8py.html',1,'(Global Namespace)']]],
+  ['setup_2epy_8',['setup.py',['../df/d3c/data__infrastructure_2setup_8py.html',1,'(Global Namespace)'],['../db/df8/car__keys_2setup_8py.html',1,'(Global Namespace)'],['../d0/dd6/vehicle__dynamics__node_2setup_8py.html',1,'(Global Namespace)'],['../d0/dd5/supervisor_2setup_8py.html',1,'(Global Namespace)'],['../db/d21/power__log_2setup_8py.html',1,'(Global Namespace)'],['../d5/d89/pacsim__keys_2setup_8py.html',1,'(Global Namespace)'],['../d6/d69/evaluator_2setup_8py.html',1,'(Global Namespace)']]],
   ['skidpad_2ecpp_9',['skidpad.cpp',['../d6/d4e/skidpad_8cpp.html',1,'']]],
   ['skidpad_2ehpp_10',['skidpad.hpp',['../d9/d9a/skidpad_8hpp.html',1,'']]],
   ['skidpad_5fconesgenerator_2epy_11',['skidpad_conesgenerator.py',['../da/de0/skidpad__conesgenerator_8py.html',1,'']]],
@@ -37,8 +37,10 @@ var searchData=
   ['splines_2ehpp_34',['splines.hpp',['../d6/da8/splines_8hpp.html',1,'']]],
   ['splines_5ftests_2ecpp_35',['splines_tests.cpp',['../d9/db5/splines__tests_8cpp.html',1,'']]],
   ['standard_5fdeviation_5fvalidator_5ftest_2ecpp_36',['standard_deviation_validator_test.cpp',['../d7/d73/standard__deviation__validator__test_8cpp.html',1,'']]],
-  ['steering_5fmotor_5fparameters_2ecpp_37',['steering_motor_parameters.cpp',['../d8/d33/steering__motor__parameters_8cpp.html',1,'']]],
-  ['steering_5fmotor_5fparameters_2ehpp_38',['steering_motor_parameters.hpp',['../d7/de8/steering__motor__parameters_8hpp.html',1,'']]],
-  ['steering_5fparameters_2ecpp_39',['steering_parameters.cpp',['../db/dd5/steering__parameters_8cpp.html',1,'']]],
-  ['steering_5fparameters_2ehpp_40',['steering_parameters.hpp',['../d6/db0/steering__parameters_8hpp.html',1,'']]]
+  ['statistics_2ecpp_37',['statistics.cpp',['../d1/d45/statistics_8cpp.html',1,'']]],
+  ['statistics_2ehpp_38',['statistics.hpp',['../dd/d37/statistics_8hpp.html',1,'']]],
+  ['steering_5fmotor_5fparameters_2ecpp_39',['steering_motor_parameters.cpp',['../d8/d33/steering__motor__parameters_8cpp.html',1,'']]],
+  ['steering_5fmotor_5fparameters_2ehpp_40',['steering_motor_parameters.hpp',['../d7/de8/steering__motor__parameters_8hpp.html',1,'']]],
+  ['steering_5fparameters_2ecpp_41',['steering_parameters.cpp',['../db/dd5/steering__parameters_8cpp.html',1,'']]],
+  ['steering_5fparameters_2ehpp_42',['steering_parameters.hpp',['../d6/db0/steering__parameters_8hpp.html',1,'']]]
 ];

@@ -107,9 +107,11 @@ Collaboration diagram for VehicleStateSnapshot:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/d06/struct_vehicle_state_snapshot__coll__graph.png" border="0" usemap="#a_vehicle_state_snapshot_coll__map" alt="Collaboration graph"/></div>
 <map name="a_vehicle_state_snapshot_coll__map" id="a_vehicle_state_snapshot_coll__map">
-<area shape="rect" title="Snapshot of the vehicle&#39;s state for publishing the current pose and operational status,..." alt="" coords="8,268,149,474"/>
+<area shape="rect" title="Snapshot of the vehicle&#39;s state for publishing the current pose and operational status,..." alt="" coords="93,268,235,534"/>
 <area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="5,5,152,205"/>
-<area shape="poly" title=" " alt="" coords="81,205,81,251,76,251,76,205"/>
+<area shape="poly" title=" " alt="" coords="110,204,124,251,118,253,105,206"/>
+<area shape="rect" href="../../d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html" title=" " alt="" coords="176,25,323,185"/>
+<area shape="poly" title=" " alt="" coords="229,186,209,253,204,252,224,184"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -127,6 +129,14 @@ Public Attributes</h2></td></tr>
 <tr class="separator:aa8ed19854559e91756b6393461e4ec9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68f8d0a21e8f8d7a6fb6ead46ab8048f" id="r_a68f8d0a21e8f8d7a6fb6ead46ab8048f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dfe/struct_vehicle_state_snapshot.html#a68f8d0a21e8f8d7a6fb6ead46ab8048f">yaw_rate</a> = 0.0</td></tr>
 <tr class="separator:a68f8d0a21e8f8d7a6fb6ead46ab8048f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add90721f7c1cb6345feaf0e68adcb6ba" id="r_add90721f7c1cb6345feaf0e68adcb6ba"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dfe/struct_vehicle_state_snapshot.html#add90721f7c1cb6345feaf0e68adcb6ba">acceleration_x</a> = 0.0</td></tr>
+<tr class="separator:add90721f7c1cb6345feaf0e68adcb6ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2702abea93ed3dcbcc6732b117b4a7df" id="r_a2702abea93ed3dcbcc6732b117b4a7df"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dfe/struct_vehicle_state_snapshot.html#a2702abea93ed3dcbcc6732b117b4a7df">acceleration_y</a> = 0.0</td></tr>
+<tr class="separator:a2702abea93ed3dcbcc6732b117b4a7df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81b1467525fbc0d9043963822adf6723" id="r_a81b1467525fbc0d9043963822adf6723"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dfe/struct_vehicle_state_snapshot.html#a81b1467525fbc0d9043963822adf6723">steering_angle</a> = 0.0</td></tr>
+<tr class="separator:a81b1467525fbc0d9043963822adf6723"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab29b0aecd2828502e1c877d4383f6f10" id="r_ab29b0aecd2828502e1c877d4383f6f10"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html">common_lib::structures::Wheels</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dfe/struct_vehicle_state_snapshot.html#ab29b0aecd2828502e1c877d4383f6f10">wheel_rpm</a> = {0.0, 0.0, 0.0, 0.0}</td></tr>
+<tr class="separator:ab29b0aecd2828502e1c877d4383f6f10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f0cce8524533c394e72c84c1215aab4" id="r_a1f0cce8524533c394e72c84c1215aab4"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dfe/struct_vehicle_state_snapshot.html#a1f0cce8524533c394e72c84c1215aab4">velocity_covariance</a> = std::vector&lt;double&gt;(9, 0.0)</td></tr>
 <tr class="separator:a1f0cce8524533c394e72c84c1215aab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27a07ad0837dec924b86c6c589b9a748" id="r_a27a07ad0837dec924b86c6c589b9a748"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dfe/struct_vehicle_state_snapshot.html#a27a07ad0837dec924b86c6c589b9a748">go_signal</a> = false</td></tr>
@@ -137,8 +147,40 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Snapshot of the vehicle's state for publishing the current pose and operational status, used for state estimation / SLAM / planning compatibility topics. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00107">107</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00140">140</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="add90721f7c1cb6345feaf0e68adcb6ba" name="add90721f7c1cb6345feaf0e68adcb6ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add90721f7c1cb6345feaf0e68adcb6ba">&#9670;&#160;</a></span>acceleration_x</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleStateSnapshot::acceleration_x = 0.0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00150">150</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2702abea93ed3dcbcc6732b117b4a7df" name="a2702abea93ed3dcbcc6732b117b4a7df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2702abea93ed3dcbcc6732b117b4a7df">&#9670;&#160;</a></span>acceleration_y</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleStateSnapshot::acceleration_y = 0.0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00151">151</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a27a07ad0837dec924b86c6c589b9a748" name="a27a07ad0837dec924b86c6c589b9a748"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a27a07ad0837dec924b86c6c589b9a748">&#9670;&#160;</a></span>go_signal</h2>
 
@@ -151,7 +193,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00120">120</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00157">157</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
 
 </div>
 </div>
@@ -167,7 +209,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00121">121</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00158">158</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
 
 </div>
 </div>
@@ -183,7 +225,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00111">111</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00144">144</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
 
 </div>
 </div>
@@ -199,7 +241,23 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00109">109</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00142">142</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a81b1467525fbc0d9043963822adf6723" name="a81b1467525fbc0d9043963822adf6723"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81b1467525fbc0d9043963822adf6723">&#9670;&#160;</a></span>steering_angle</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double VehicleStateSnapshot::steering_angle = 0.0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00152">152</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
 
 </div>
 </div>
@@ -215,7 +273,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00117">117</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00154">154</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
 
 </div>
 </div>
@@ -231,7 +289,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00114">114</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00147">147</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
 
 </div>
 </div>
@@ -247,7 +305,23 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00115">115</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00148">148</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab29b0aecd2828502e1c877d4383f6f10" name="ab29b0aecd2828502e1c877d4383f6f10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab29b0aecd2828502e1c877d4383f6f10">&#9670;&#160;</a></span>wheel_rpm</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html">common_lib::structures::Wheels</a> VehicleStateSnapshot::wheel_rpm = {0.0, 0.0, 0.0, 0.0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00153">153</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
 
 </div>
 </div>
@@ -263,7 +337,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00110">110</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00143">143</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
 
 </div>
 </div>
@@ -279,7 +353,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00116">116</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00149">149</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
 
 </div>
 </div>

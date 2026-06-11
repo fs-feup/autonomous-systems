@@ -1,0 +1,5 @@
+<map id="CollisionStatistics::recently_hit_cones" name="CollisionStatistics::recently_hit_cones">
+<area shape="rect" id="Node000001" title="Cones hit during the current lap." alt="" coords="206,5,341,46"/>
+<area shape="rect" id="Node000002" href="$d8/da8/class_statistics.html#a16da928943748a1283676055933991a6" title="Get cones hit during the current lap for map visualization." alt="" coords="5,5,158,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="190,28,158,28,158,23,190,23"/>
+</map>

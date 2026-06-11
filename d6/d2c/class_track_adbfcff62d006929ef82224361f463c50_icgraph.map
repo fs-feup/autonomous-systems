@@ -1,0 +1,5 @@
+<map id="Track::fit_timing_line_to_track_width" name="Track::fit_timing_line_to_track_width">
+<area shape="rect" id="Node000001" title="Adjust timing line endpoints to the local track width near the configured line." alt="" coords="147,5,286,46"/>
+<area shape="rect" id="Node000002" href="$d6/d2c/class_track.html#a78d9aebeef91d02be11ef547589a8ad3" title="Construct a new Track object by loading track information from a YAML file." alt="" coords="5,13,99,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="131,28,99,28,99,23,131,23"/>
+</map>

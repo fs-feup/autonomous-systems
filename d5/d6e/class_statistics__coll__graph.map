@@ -1,0 +1,11 @@
+<map id="Statistics" name="Statistics">
+<area shape="rect" id="Node000001" title="Simulator statistics calculator." alt="" coords="341,876,505,1142"/>
+<area shape="rect" id="Node000002" href="$d8/d6e/struct_statistics_snapshot.html" title="Snapshot of accumulated simulator statistics." alt="" coords="5,247,197,571"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,570,139,631,158,693,182,754,212,812,237,848,266,881,329,939,326,943,262,885,233,851,207,815,177,757,153,695,134,632,120,572"/>
+<area shape="rect" id="Node000003" href="$d0/d3a/class_collision_statistics.html" title="Tracks cone collisions and lap cone penalties." alt="" coords="222,167,410,651"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="347,651,382,852,383,859,378,860,376,853,342,652"/>
+<area shape="rect" id="Node000004" href="$d0/d03/class_lap_timer_statistics.html" title="Tracks lap timing and velocity aggregates." alt="" coords="435,5,624,813"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="512,814,503,853,500,861,495,859,497,852,507,813"/>
+<area shape="rect" id="Node000005" href="$d9/d3b/class_tracking_statistics.html" title="Tracks path following error and objective velocity metrics." alt="" coords="649,233,823,586"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="727,586,715,653,697,723,671,791,637,854,612,885,583,914,521,960,517,956,580,910,608,882,632,851,666,788,692,721,710,652,722,585"/>
+</map>

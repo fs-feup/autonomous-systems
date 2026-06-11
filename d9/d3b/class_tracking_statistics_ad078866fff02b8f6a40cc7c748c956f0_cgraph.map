@@ -1,0 +1,7 @@
+<map id="TrackingStatistics::update" name="TrackingStatistics::update">
+<area shape="rect" id="Node000001" title="Update tracking error from the current vehicle pose and path." alt="" coords="5,13,132,54"/>
+<area shape="rect" id="Node000002" href="$d9/d3b/class_tracking_statistics.html#a12d22e1a7f1ad3b8e87bca7726bed145" title=" " alt="" coords="180,5,314,61"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,31,164,31,164,36,132,36"/>
+<area shape="rect" id="Node000003" href="$d9/d3b/class_tracking_statistics.html#a896ae662d9091762babf7d327a36bda7" title=" " alt="" coords="362,13,494,54"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="314,31,347,31,347,36,314,36"/>
+</map>

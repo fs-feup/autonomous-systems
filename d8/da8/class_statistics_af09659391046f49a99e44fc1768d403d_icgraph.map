@@ -1,0 +1,5 @@
+<map id="Statistics::reset" name="Statistics::reset">
+<area shape="rect" id="Node000001" title="Reset all accumulated statistics." alt="" coords="191,5,302,31"/>
+<area shape="rect" id="Node000002" href="$d8/da8/class_statistics.html#ac37f076e3bd365e23739583fe32489e9" title="Construct a statistics calculator using track metadata." alt="" coords="5,5,143,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,21,143,21,143,16,175,16"/>
+</map>

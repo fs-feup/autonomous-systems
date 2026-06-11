@@ -1,0 +1,5 @@
+<map id="FSFEUP03Model::step" name="FSFEUP03Model::step">
+<area shape="rect" id="Node000001" title="Step the vehicle model forward in time based on the current state and the control inputs (steering an..." alt="" coords="5,13,159,39"/>
+<area shape="rect" id="Node000002" href="$d5/d00/class_f_s_f_e_u_p03_model.html#ab5fde7ea2a29081a7aa709a6a31f7f4c" title=" " alt="" coords="207,5,387,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,23,191,23,191,28,159,28"/>
+</map>

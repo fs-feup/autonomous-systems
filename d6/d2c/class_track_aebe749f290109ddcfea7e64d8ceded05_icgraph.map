@@ -1,0 +1,9 @@
+<map id="Track::get_timing_lines" name="Track::get_timing_lines">
+<area shape="rect" id="Node000001" title="Get all configured timing lines." alt="" coords="632,13,787,39"/>
+<area shape="rect" id="Node000002" href="$d0/d03/class_lap_timer_statistics.html#acb60069ffd07ca86004afdf851e7a772" title=" " alt="" coords="394,5,584,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="617,28,585,28,585,23,617,23"/>
+<area shape="rect" id="Node000003" href="$d0/d03/class_lap_timer_statistics.html#a91f2be4627a83134e577ea8a6f7d6d9f" title=" " alt="" coords="191,5,346,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="378,28,347,28,347,23,378,23"/>
+<area shape="rect" id="Node000004" href="$d0/d03/class_lap_timer_statistics.html#ac78b1d3c7ec12cabe1c25a0cde383408" title="Initialize lap timing from the track and discipline." alt="" coords="5,5,143,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="175,28,143,28,143,23,175,23"/>
+</map>

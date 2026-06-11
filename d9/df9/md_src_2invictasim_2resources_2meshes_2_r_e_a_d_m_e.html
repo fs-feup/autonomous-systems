@@ -94,13 +94,94 @@ $(document).ready(function(){initNavTree('d9/df9/md_src_2invictasim_2resources_2
   <div class="headertitle"><div class="title">InvictaSim Mesh Assets</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md105"></a> Car and wheel meshes for marker-based visualization in Foxglove.</p>
-<p>Required files:</p><ul>
-<li><code>car_body.stl</code></li>
-<li><code>tire.stl</code> (reused for all 4 wheels)</li>
-<li><code>ground_plane.dae</code></li>
-<li><code>ground_texture.jpg</code> </li>
+<div class="textblock"><p><a class="anchor" id="autotoc_md105"></a> Car, wheel, cone, and ground meshes for marker-based visualization in Foxglove.</p>
+<h1><a class="anchor" id="autotoc_md106"></a>
+Car Meshes</h1>
+<p>Each car model has its own folder under <code>car/&lt;model&gt;/</code>. The folder name must match the <code>car_parameters_config</code> selected by the simulator.</p>
+<p>Required files for each car:</p>
+<ul>
+<li><code>car_body.glb</code></li>
+<li><code>steering.glb</code></li>
+<li><code>wheel_front.glb</code></li>
+<li><code>wheel_back.glb</code></li>
+<li><code>config.yaml</code></li>
 </ul>
+<p>The vehicle marker loader reads meshes from:</p>
+<div class="fragment"><div class="line">package://invictasim/resources/meshes/car/&lt;model&gt;/&lt;mesh_name&gt;</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md107"></a>
+Position Configuration</h1>
+<p><code>config.yaml</code> stores visual alignment offsets for model-specific meshes:</p>
+<div class="fragment"><div class="line">positions:</div>
+<div class="line">  steering_offset_x: 0.0</div>
+<div class="line">  steering_offset_y: 0.0</div>
+<div class="line">  steering_offset_z: 0.0</div>
+<div class="line">  steering_rotation_x: 0.0</div>
+<div class="line">  steering_rotation_y: 0.0</div>
+<div class="line">  steering_rotation_z: 0.0</div>
+<div class="line">  steering_rotation_multiplier: 1.0</div>
+<div class="line">  wheels_offset_x: 0.0</div>
+<div class="line">  wheels_offset_y: 0.0</div>
+<div class="line">  wheels_offset_z: 0.0</div>
+</div><!-- fragment --><p><code>steering_offset_*</code> moves the steering wheel mesh in the car frame. <code>steering_rotation_*</code> is specified in degrees and is converted to radians by the loader. <code>wheels_offset_*</code> is added to all four computed wheel positions, which is useful when the wheel meshes are exported with a model-specific origin offset.</p>
+<p>Missing values default to <code>0.0</code>.</p>
+<h1><a class="anchor" id="autotoc_md108"></a>
+Hitbox Configuration</h1>
+<p><code>config.yaml</code> can also define the 2D car hitboxes used for cone-hit detection:</p>
+<div class="fragment"><div class="line">hitboxes:</div>
+<div class="line">  visualize: false</div>
+<div class="line">  boxes:</div>
+<div class="line">    - name: chassis</div>
+<div class="line">      center_x: 0.0</div>
+<div class="line">      center_y: 0.0</div>
+<div class="line">      length: 1.5</div>
+<div class="line">      width: 1.4</div>
+<div class="line">    - name: front_wing</div>
+<div class="line">      center_x: 1.1</div>
+<div class="line">      center_y: 0.0</div>
+<div class="line">      length: 0.3</div>
+<div class="line">      width: 1.6</div>
+</div><!-- fragment --><p><code>hitboxes.visualize</code> controls whether these rectangles are drawn in the car marker array. It does not disable collision checks.</p>
+<p><code>hitboxes.boxes</code> contains the rectangles used by collision detection.</p>
+<p>Hitboxes are axis-aligned rectangles in the car frame, in meters. <code>x</code> points forward, <code>y</code> points left, and cone collision is checked against the union of all configured rectangles. If no hitbox boxes are configured, no car-cone collision is detected.</p>
+<h1><a class="anchor" id="autotoc_md109"></a>
+Cone Configuration</h1>
+<p><code>cones/config.yaml</code> stores cone collision radii and optional radius visualization:</p>
+<div class="fragment"><div class="line">visualization:</div>
+<div class="line">  hitboxes:</div>
+<div class="line">    visualize: false</div>
+<div class="line">    z: 0.02</div>
+<div class="line">    height: 0.04</div>
+<div class="line">    alpha: 0.35</div>
+<div class="line"> </div>
+<div class="line">collision:</div>
+<div class="line">  standard_radius: 0.115</div>
+<div class="line">  large_radius: 0.15</div>
+<div class="line">  hit_match_distance: 0.35</div>
+</div><!-- fragment --><p><code>standard_radius</code> and <code>large_radius</code> are used by car-cone collision detection. <code>hit_match_distance</code> is used only to recolor recently hit cones in the visualization.</p>
+<h1><a class="anchor" id="autotoc_md110"></a>
+Ground Configuration</h1>
+<p><code>ground/config.yaml</code> stores the ground marker, timing-line marker, and lap-finish thresholds:</p>
+<div class="fragment"><div class="line">visualization:</div>
+<div class="line">  position: {x: 0.0, y: 0.0, z: -0.02}</div>
+<div class="line">  scale: {x: 1000.0, y: 1000.0, z: 1.0}</div>
+<div class="line">  color: {r: 0.78, g: 0.78, b: 0.78, a: 1.0}</div>
+<div class="line">  timing_line:</div>
+<div class="line">    target_cell_length: 0.5</div>
+<div class="line">    row_count: 2</div>
+<div class="line">    total_width: 0.45</div>
+<div class="line">    z: 0.01</div>
+<div class="line">    height: 0.02</div>
+<div class="line"> </div>
+<div class="line">lap_finish:</div>
+<div class="line">  timing_line_gate_margin: 2.0</div>
+<div class="line">  minimum_lap_time: 3.0</div>
+<div class="line">  minimum_lap_distance: 20.0</div>
+<div class="line">  penalties:</div>
+<div class="line">    default_cone: 2.0</div>
+<div class="line">    skidpad_cone: 0.2</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md111"></a>
+Other Meshes</h1>
+<p>Cone meshes are stored in <code>cones/</code>. The ground plane mesh and texture are stored in <code>ground/</code>. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

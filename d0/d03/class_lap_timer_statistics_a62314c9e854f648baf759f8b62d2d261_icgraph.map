@@ -1,0 +1,15 @@
+<map id="LapTimerStatistics::crossed_line_from_approach_side" name="LapTimerStatistics::crossed_line_from_approach_side">
+<area shape="rect" id="Node000001" title=" " alt="" coords="812,31,945,87"/>
+<area shape="rect" id="Node000002" href="$d0/d03/class_lap_timer_statistics.html#a8420f27e9fd0b01632a145f8bf8e4402" title=" " alt="" coords="620,5,764,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="796,47,764,41,765,36,797,42"/>
+<area shape="rect" id="Node000006" href="$d0/d03/class_lap_timer_statistics.html#a13993af9b0fa681aa0ec313cb9a2f7c2" title=" " alt="" coords="624,71,760,111"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="797,76,761,82,760,77,796,70"/>
+<area shape="rect" id="Node000003" href="$d0/d03/class_lap_timer_statistics.html#a835aba9bf0de3734cd5b6f41e0dc40d3" title="Update lap timing and report whether a lap started or finished." alt="" coords="441,39,572,79"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="606,44,573,50,572,45,605,39"/>
+<area shape="rect" id="Node000004" href="$d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a8a079d78fabe3578dc7038a75af16fb9" title="Stop the thread." alt="" coords="5,46,224,72"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="426,62,224,62,224,56,426,56"/>
+<area shape="rect" id="Node000005" href="$d8/da8/class_statistics.html#a86ed1cd18203a8229ee60e191c5cafdd" title="Update statistics after a vehicle model step." alt="" coords="272,72,393,97"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="426,73,394,78,393,73,425,68"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="256,78,224,74,224,69,256,73"/>
+<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="608,79,572,73,573,68,609,74"/>
+</map>

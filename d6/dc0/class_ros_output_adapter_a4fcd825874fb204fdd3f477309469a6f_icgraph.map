@@ -1,0 +1,11 @@
+<map id="RosOutputAdapter::add_steering_marker" name="RosOutputAdapter::add_steering_marker">
+<area shape="rect" id="Node000001" title=" " alt="" coords="887,5,1042,46"/>
+<area shape="rect" id="Node000002" href="$d6/dc0/class_ros_output_adapter.html#acbb05addf6ab772532a720fcf8b27590" title=" " alt="" coords="663,5,839,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="871,28,839,28,839,23,871,23"/>
+<area shape="rect" id="Node000003" href="$d6/dc0/class_ros_output_adapter.html#af5c8880e354607d78f4dcc291affddf3" title=" " alt="" coords="456,5,615,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="648,28,616,28,616,23,648,23"/>
+<area shape="rect" id="Node000004" href="$d6/dc0/class_ros_output_adapter.html#ae0731f4371f82f41a127242dfd4316e3" title=" " alt="" coords="250,5,408,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="440,28,409,28,409,23,440,23"/>
+<area shape="rect" id="Node000005" href="$d6/dc0/class_ros_output_adapter.html#a395da5a7032d98f5eeabfcc4e1c5ca94" title="Construct a new RosOutputAdapter." alt="" coords="5,5,202,46"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="234,28,202,28,202,23,234,23"/>
+</map>

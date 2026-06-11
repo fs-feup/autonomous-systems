@@ -4,7 +4,7 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,187,145,187,145,192,113,192"/>
 <area shape="rect" id="Node000003" href="$df/d77/class_invicta_sim.html#a42452e684b0f3746a385ee48b39326bf" title="Build per&#45;subsystem execution timings snapshot." alt="" coords="389,5,567,46"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="261,175,312,119,348,86,388,57,398,51,400,56,390,61,351,90,316,123,265,178"/>
-<area shape="rect" id="Node000004" href="$df/d77/class_invicta_sim.html#a4f26451183de42b9877a83b98e8702d6" title="Build map snapshot with ground truth map, slam simulation and perception cones." alt="" coords="404,71,552,111"/>
+<area shape="rect" id="Node000004" href="$df/d77/class_invicta_sim.html#ac0c6bc926f7aa54e62aceec5ea29ae89" title="Build map snapshot with ground truth map, slam simulation and perception cones." alt="" coords="404,71,552,111"/>
 <area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="277,174,388,122,405,115,407,120,390,127,280,179"/>
 <area shape="rect" id="Node000005" href="$df/d77/class_invicta_sim.html#ab5abb4c1fca9382738d68076ad4d732a" title="Build sensors snapshot with latest simulated sensors data." alt="" coords="394,136,563,177"/>
 <area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="341,174,378,168,378,174,342,179"/>

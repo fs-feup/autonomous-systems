@@ -1,5 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" title=" " alt="" coords="5,5,62,31"/>
-<area shape="rect" id="Node000001" href="$d7/d8e/classmain_1_1_ui___main_window.html" title=" " alt="" coords="110,5,256,31"/>
-<area shape="poly" id="edge96_Node000000_Node000001" title=" " alt="" coords="77,16,109,16,109,21,77,21"/>
+<area shape="rect" id="Node000000" href="$d3/d0e/class_motor_model.html" title="Base class for motor models for electric powertrain." alt="" coords="5,5,95,31"/>
+<area shape="rect" id="Node000001" href="$dd/d43/class_map_based_motor.html" title="Map based motor model for electric powertrain." alt="" coords="143,5,259,31"/>
+<area shape="poly" id="edge85_Node000000_Node000001" title=" " alt="" coords="110,16,142,16,142,21,110,21"/>
 </map>

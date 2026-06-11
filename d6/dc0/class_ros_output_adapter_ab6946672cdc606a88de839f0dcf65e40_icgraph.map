@@ -1,0 +1,16 @@
+<map id="RosOutputAdapter::load_car_mesh_positions" name="RosOutputAdapter::load_car_mesh_positions">
+<area shape="rect" id="Node000001" title=" " alt="" coords="1090,39,1248,79"/>
+<area shape="rect" id="Node000002" href="$d6/dc0/class_ros_output_adapter.html#a4fcd825874fb204fdd3f477309469a6f" title=" " alt="" coords="887,5,1042,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1074,46,1042,41,1043,36,1075,41"/>
+<area shape="rect" id="Node000007" href="$d6/dc0/class_ros_output_adapter.html#a0ff7a92fa684f5372afa34b79e378be9" title=" " alt="" coords="887,71,1042,111"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="1075,76,1043,82,1042,76,1074,71"/>
+<area shape="rect" id="Node000003" href="$d6/dc0/class_ros_output_adapter.html#acbb05addf6ab772532a720fcf8b27590" title=" " alt="" coords="663,39,839,79"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="872,43,840,48,839,43,871,38"/>
+<area shape="rect" id="Node000004" href="$d6/dc0/class_ros_output_adapter.html#af5c8880e354607d78f4dcc291affddf3" title=" " alt="" coords="456,39,615,79"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="648,62,616,62,616,56,648,56"/>
+<area shape="rect" id="Node000005" href="$d6/dc0/class_ros_output_adapter.html#ae0731f4371f82f41a127242dfd4316e3" title=" " alt="" coords="250,39,408,79"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="440,62,409,62,409,56,440,56"/>
+<area shape="rect" id="Node000006" href="$d6/dc0/class_ros_output_adapter.html#a395da5a7032d98f5eeabfcc4e1c5ca94" title="Construct a new RosOutputAdapter." alt="" coords="5,39,202,79"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="234,62,202,62,202,56,234,56"/>
+<area shape="poly" id="edge7_Node000007_Node000003" title=" " alt="" coords="871,80,839,75,840,70,872,74"/>
+</map>

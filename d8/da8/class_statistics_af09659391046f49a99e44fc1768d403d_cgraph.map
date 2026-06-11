@@ -1,0 +1,17 @@
+<map id="Statistics::reset" name="Statistics::reset">
+<area shape="rect" id="Node000001" title="Reset all accumulated statistics." alt="" coords="5,112,117,137"/>
+<area shape="rect" id="Node000002" href="$d0/d03/class_lap_timer_statistics.html#afc8ef4eaecfc3cbfe6e775fcb68400e9" title="Reset timing state and current lap fields." alt="" coords="179,5,310,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="80,109,163,57,176,50,178,55,166,61,82,113"/>
+<area shape="rect" id="Node000004" href="$d9/d3b/class_tracking_statistics.html#a1f882475dc9faf78f7e33a1543d08d3d" title="Clear per&#45;lap tracking aggregates." alt="" coords="181,71,308,111"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="117,112,166,103,166,108,118,117"/>
+<area shape="rect" id="Node000005" href="$d0/d3a/class_collision_statistics.html#a556f162852949d090aedf778fede3776" title="Clear cone hits for a new lap." alt="" coords="182,136,307,177"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="117,131,167,140,166,145,117,137"/>
+<area shape="rect" id="Node000006" href="$d8/da8/class_statistics.html#a7d2a67afb804d85de29bc6669cd21d84" title=" " alt="" coords="165,201,324,227"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="82,136,120,161,166,186,182,193,180,198,164,191,117,165,79,140"/>
+<area shape="rect" id="Node000003" href="$d0/d03/class_lap_timer_statistics.html#a660cd9ef7a6229aa224d6df39ab393ed" title=" " alt="" coords="372,5,537,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="310,23,357,23,357,28,310,28"/>
+<area shape="rect" id="Node000007" href="$d8/da8/class_statistics.html#a15932ab094b8472a3d439eeeffa9888e" title=" " alt="" coords="377,172,533,197"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="324,200,361,195,362,200,325,205"/>
+<area shape="rect" id="Node000008" href="$d8/da8/class_statistics.html#aa7c85acbfe8a771a88b437a099ca8fdf" title=" " alt="" coords="386,221,524,262"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="325,222,370,228,370,233,324,227"/>
+</map>

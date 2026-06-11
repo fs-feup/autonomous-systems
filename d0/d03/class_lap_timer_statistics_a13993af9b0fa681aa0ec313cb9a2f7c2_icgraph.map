@@ -1,0 +1,10 @@
+<map id="LapTimerStatistics::update_default_lap" name="LapTimerStatistics::update_default_lap">
+<area shape="rect" id="Node000001" title=" " alt="" coords="620,5,757,46"/>
+<area shape="rect" id="Node000002" href="$d0/d03/class_lap_timer_statistics.html#a835aba9bf0de3734cd5b6f41e0dc40d3" title="Update lap timing and report whether a lap started or finished." alt="" coords="441,5,572,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="605,28,573,28,573,23,605,23"/>
+<area shape="rect" id="Node000003" href="$d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a8a079d78fabe3578dc7038a75af16fb9" title="Stop the thread." alt="" coords="5,13,224,39"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="426,28,224,28,224,23,426,23"/>
+<area shape="rect" id="Node000004" href="$d8/da8/class_statistics.html#a86ed1cd18203a8229ee60e191c5cafdd" title="Update statistics after a vehicle model step." alt="" coords="272,38,393,64"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="426,40,394,45,393,40,425,35"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="256,45,224,41,224,36,256,40"/>
+</map>

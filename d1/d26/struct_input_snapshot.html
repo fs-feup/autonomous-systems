@@ -107,7 +107,7 @@ Collaboration diagram for InputSnapshot:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/dda/struct_input_snapshot__coll__graph.png" border="0" usemap="#a_input_snapshot_coll__map" alt="Collaboration graph"/></div>
 <map name="a_input_snapshot_coll__map" id="a_input_snapshot_coll__map">
-<area shape="rect" title="Snapshot of current simulator control input values." alt="" coords="30,228,127,294"/>
+<area shape="rect" title="Snapshot of current simulator control input values." alt="" coords="6,228,151,368"/>
 <area shape="rect" href="../../d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html" title=" " alt="" coords="5,5,152,165"/>
 <area shape="poly" title=" " alt="" coords="81,165,81,212,76,212,76,165"/>
 </map>
@@ -119,12 +119,66 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a72b097faf527c9b1689adc78543fec4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03db16781a6d3ab770cf80d126b59153" id="r_a03db16781a6d3ab770cf80d126b59153"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d26/struct_input_snapshot.html#a03db16781a6d3ab770cf80d126b59153">steering</a> = 0.0</td></tr>
 <tr class="separator:a03db16781a6d3ab770cf80d126b59153"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73efb72929560a454f1d581856160c43" id="r_a73efb72929560a454f1d581856160c43"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d26/struct_input_snapshot.html#a73efb72929560a454f1d581856160c43">external_slam_cones</a> = {}</td></tr>
+<tr class="separator:a73efb72929560a454f1d581856160c43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ff2b4aa6efc007d0812a4c871036af3" id="r_a5ff2b4aa6efc007d0812a4c871036af3"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d26/struct_input_snapshot.html#a5ff2b4aa6efc007d0812a4c871036af3">external_perception_cones</a> = {}</td></tr>
+<tr class="separator:a5ff2b4aa6efc007d0812a4c871036af3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4668303f7d028171470c275c44863b67" id="r_a4668303f7d028171470c275c44863b67"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d9/db0/structcommon__lib_1_1structures_1_1_path_point.html">common_lib::structures::PathPoint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d26/struct_input_snapshot.html#a4668303f7d028171470c275c44863b67">external_path_points</a> = {}</td></tr>
+<tr class="separator:a4668303f7d028171470c275c44863b67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Snapshot of current simulator control input values. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00074">74</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00076">76</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a4668303f7d028171470c275c44863b67" name="a4668303f7d028171470c275c44863b67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4668303f7d028171470c275c44863b67">&#9670;&#160;</a></span>external_path_points</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="../../d9/db0/structcommon__lib_1_1structures_1_1_path_point.html">common_lib::structures::PathPoint</a>&gt; InputSnapshot::external_path_points = {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00081">81</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5ff2b4aa6efc007d0812a4c871036af3" name="a5ff2b4aa6efc007d0812a4c871036af3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ff2b4aa6efc007d0812a4c871036af3">&#9670;&#160;</a></span>external_perception_cones</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a>&gt; InputSnapshot::external_perception_cones = {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00080">80</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a73efb72929560a454f1d581856160c43" name="a73efb72929560a454f1d581856160c43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73efb72929560a454f1d581856160c43">&#9670;&#160;</a></span>external_slam_cones</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a>&gt; InputSnapshot::external_slam_cones = {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00079">79</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a03db16781a6d3ab770cf80d126b59153" name="a03db16781a6d3ab770cf80d126b59153"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a03db16781a6d3ab770cf80d126b59153">&#9670;&#160;</a></span>steering</h2>
 
@@ -137,7 +191,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00076">76</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00078">78</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
 
 </div>
 </div>
@@ -153,7 +207,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00075">75</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html#l00077">77</a> of file <a class="el" href="../../d2/d97/output__snapshot_8hpp_source.html">output_snapshot.hpp</a>.</p>
 
 </div>
 </div>

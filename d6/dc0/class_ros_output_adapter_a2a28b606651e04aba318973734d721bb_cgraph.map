@@ -1,5 +1,10 @@
 <map id="RosOutputAdapter::publish_visualization_slam_cones" name="RosOutputAdapter::publish_visualization_slam_cones">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,182,46"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,39,182,79"/>
 <area shape="rect" id="Node000002" href="$d6/dc0/class_ros_output_adapter.html#a7f4bd574d8a592b6c16320035126b00c" title=" " alt="" coords="230,5,407,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,23,214,23,214,28,182,28"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,43,214,38,215,44,182,49"/>
+<area shape="rect" id="Node000004" href="$d6/dc0/class_ros_output_adapter.html#a1098c04843104fa7f02c376df88d137e" title=" " alt="" coords="237,71,400,111"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="182,69,222,75,221,80,182,74"/>
+<area shape="rect" id="Node000003" href="$d6/dc0/class_ros_output_adapter.html#a653d658abeea9048c28d555818f19c23" title=" " alt="" coords="455,39,613,79"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="408,37,440,42,439,47,407,42"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="400,76,439,70,440,76,401,82"/>
 </map>

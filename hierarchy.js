@@ -40,6 +40,7 @@ var hierarchy =
       [ "DBSCAN", "df/d6a/class_d_b_s_c_a_n.html", null ],
       [ "GridClustering", "d1/d40/class_grid_clustering.html", null ]
     ] ],
+    [ "CollisionStatistics", "d0/d3a/class_collision_statistics.html", null ],
     [ "Colorpoint", "d4/d10/class_colorpoint.html", null ],
     [ "CompetitionLogic", "de/dbe/class_competition_logic.html", null ],
     [ "common_lib::structures::Cone", "d6/dd0/structcommon__lib_1_1structures_1_1_cone.html", null ],
@@ -55,6 +56,7 @@ var hierarchy =
       [ "NPointsValidator", "d2/ddf/class_n_points_validator.html", null ],
       [ "ZScoreValidator", "d5/d4f/class_z_score_validator.html", null ]
     ] ],
+    [ "RosOutputAdapter::ConeVisualConfig", "dc/da7/struct_ros_output_adapter_1_1_cone_visual_config.html", null ],
     [ "ConfigElement", "d0/d11/class_config_element.html", [
       [ "Config", "dd/d34/class_config.html", null ]
     ] ],
@@ -113,11 +115,14 @@ var hierarchy =
       [ "Himmelsbach", "da/d5d/class_himmelsbach.html", null ],
       [ "RANSAC", "d6/dc3/class_r_a_n_s_a_c.html", null ]
     ] ],
+    [ "RosOutputAdapter::GroundVisualConfig", "d5/dec/struct_ros_output_adapter_1_1_ground_visual_config.html", null ],
     [ "guiLogic.guiLogic", "d2/de2/classgui_logic_1_1gui_logic.html", null ],
     [ "std::hash< common_lib::structures::Cone >", "dc/d41/structstd_1_1hash_3_01common__lib_1_1structures_1_1_cone_01_4.html", null ],
     [ "std::hash< common_lib::structures::PathPoint >", "db/d69/structstd_1_1hash_3_01common__lib_1_1structures_1_1_path_point_01_4.html", null ],
     [ "std::hash< common_lib::structures::Position >", "d2/dff/structstd_1_1hash_3_01common__lib_1_1structures_1_1_position_01_4.html", null ],
     [ "std::hash< GridIndex >", "d8/d6d/structstd_1_1hash_3_01_grid_index_01_4.html", null ],
+    [ "Hitbox", "d7/d15/struct_hitbox.html", null ],
+    [ "RosOutputAdapter::HitboxVisual", "d9/d82/struct_ros_output_adapter_1_1_hitbox_visual.html", null ],
     [ "ICP", "dd/d10/class_i_c_p.html", null ],
     [ "common_lib::sensor_data::ImuData", "df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html", null ],
     [ "ImuData", "d6/dc7/struct_imu_data.html", null ],
@@ -148,6 +153,7 @@ var hierarchy =
     [ "LandmarkList", "d9/d09/struct_landmark_list.html", null ],
     [ "LandmarksMarkerWrapper", "d9/d6d/class_landmarks_marker_wrapper.html", null ],
     [ "Report::LapTime", "d7/d84/struct_report_1_1_lap_time.html", null ],
+    [ "LapTimerStatistics", "d0/d03/class_lap_timer_statistics.html", null ],
     [ "LateralController", "d7/d69/class_lateral_controller.html", [
       [ "PurePursuit", "dc/dde/class_pure_pursuit.html", null ]
     ] ],
@@ -294,6 +300,8 @@ var hierarchy =
     ] ],
     [ "Slice", "d0/da8/struct_slice.html", null ],
     [ "StampedScalar", "d1/d2c/struct_stamped_scalar.html", null ],
+    [ "Statistics", "d8/da8/class_statistics.html", null ],
+    [ "StatisticsSnapshot", "d8/d6e/struct_statistics_snapshot.html", null ],
     [ "SteeringModel", "d0/db0/class_steering_model.html", [
       [ "AckermanSteering", "dd/dc4/class_ackerman_steering.html", null ],
       [ "ParallelFrontSteering", "d2/dab/class_parallel_front_steering.html", null ]
@@ -349,6 +357,7 @@ var hierarchy =
     [ "VehicleModelBicycle::TireModel", "d3/dad/struct_vehicle_model_bicycle_1_1_tire_model.html", null ],
     [ "common_lib::car_parameters::TireParameters", "dd/d7d/structcommon__lib_1_1car__parameters_1_1_tire_parameters.html", null ],
     [ "Track", "d6/d2c/class_track.html", null ],
+    [ "TrackingStatistics", "d9/d3b/class_tracking_statistics.html", null ],
     [ "TrajectoryCalculator", "d3/d86/class_trajectory_calculator.html", [
       [ "GraphSLAMSolver", "d9/d73/class_graph_s_l_a_m_solver.html", null ]
     ] ],
@@ -378,7 +387,8 @@ var hierarchy =
       [ "OdometryModel", "db/d0c/class_odometry_model.html", null ]
     ] ],
     [ "VehicleModel", "d6/dbc/class_vehicle_model.html", [
-      [ "FSFEUP02Model", "df/d75/class_f_s_f_e_u_p02_model.html", null ]
+      [ "FSFEUP02Model", "df/d75/class_f_s_f_e_u_p02_model.html", null ],
+      [ "FSFEUP03Model", "d5/d00/class_f_s_f_e_u_p03_model.html", null ]
     ] ],
     [ "VehicleModelExecutionTimes", "d6/dba/struct_vehicle_model_execution_times.html", null ],
     [ "VehicleModelSnapshot", "d9/de2/struct_vehicle_model_snapshot.html", null ],
@@ -414,6 +424,7 @@ var hierarchy =
       [ "colour_track_cones.TrackGenerator", "d7/df1/classcolour__track__cones_1_1_track_generator.html", null ],
       [ "data_infrastructure.data_infrastructure_node.DataInfrastructureNode", "d1/daf/classdata__infrastructure_1_1data__infrastructure__node_1_1_data_infrastructure_node.html", null ],
       [ "evaluator.evaluator.Evaluator", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html", null ],
+      [ "generate_track_from_slam.SlamTrackGenerator", "da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html", null ],
       [ "manual_to_as.ManualThrottleBridge", "d5/dc8/classmanual__to__as_1_1_manual_throttle_bridge.html", null ],
       [ "power_log.power_log_node.PowerNode", "db/d78/classpower__log_1_1power__log__node_1_1_power_node.html", null ],
       [ "rosbag_groundtruth.rosbag_node.BagNode", "da/deb/classrosbag__groundtruth_1_1rosbag__node_1_1_bag_node.html", null ],

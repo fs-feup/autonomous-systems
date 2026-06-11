@@ -1,0 +1,7 @@
+<map id="TrackingStatistics::complete_lap" name="TrackingStatistics::complete_lap">
+<area shape="rect" id="Node000001" title="Copy completed lap tracking metrics into the snapshot." alt="" coords="5,53,132,94"/>
+<area shape="rect" id="Node000002" href="$d9/d3b/class_tracking_statistics.html#aa75d4dd03577fc83124db28b34e14c04" title=" " alt="" coords="180,5,324,61"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="131,57,164,50,165,55,133,62"/>
+<area shape="rect" id="Node000003" href="$d9/d3b/class_tracking_statistics.html#a783bc7b526528555fcde29c5d92cdb12" title=" " alt="" coords="180,85,324,141"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="133,84,165,92,164,97,131,90"/>
+</map>
