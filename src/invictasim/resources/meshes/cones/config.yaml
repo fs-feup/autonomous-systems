@@ -1,0 +1,11 @@
+visualization:
+  hitboxes:
+    visualize: false
+    z: 0.02
+    height: 0.04
+    alpha: 0.35
+
+collision:
+  standard_radius: 0.115
+  large_radius: 0.15
+  hit_match_distance: 0.35
