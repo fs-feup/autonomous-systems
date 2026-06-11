@@ -2,10 +2,17 @@
 
 #include <cmath>
 #include <algorithm>
+#include <random>
 #include <yaml-cpp/yaml.h>
 #include <fstream>
+#include <common_lib/config_load/config_load.hpp>
+#include <common_lib/competition_logic/color.hpp>
 
 SimulatedPerception::SimulatedPerception(const std::string& config_path) {
+
+  std::string perception_cfg = common_lib::config_load::get_config_yaml_path(
+        "invictasim", "invictasim/sensors", "perception");
+
   YAML::Node config = YAML::LoadFile(config_path);
   YAML::Node lidar = config["lidar_sensor"];
 
@@ -18,6 +25,8 @@ SimulatedPerception::SimulatedPerception(const std::string& config_path) {
   noise_scales_with_range_ = lidar["noise_scales_with_range"].as<bool>();
   noise_range_scaling_ = lidar["noise_range_scaling"].as<double>();
   mounting_pitch_ = lidar["mounting_pitch"].as<double>() * M_PI / 180.0;
+  outlier_probability_ = lidar["outlier_probability"].as<double>();
+  persistent_outlier_chance_ = lidar["persistent_outlier_chance"].as<double>();
 }
 
 std::vector<common_lib::structures::Cone> SimulatedPerception::perception_error(
@@ -29,10 +38,51 @@ std::vector<common_lib::structures::Cone> SimulatedPerception::perception_error(
   double yaw_cos = std::cos(vehicle_pose.orientation);
   double yaw_sin = std::sin(vehicle_pose.orientation);
 
-  // Transform each cone
-  for (const auto& cone : cones) {
-    auto noisy_cone = cone;
+  std::vector<common_lib::structures::Cone> cones_to_process = cones;
+  cones_to_process.insert(
+      cones_to_process.end(), persistent_outliers_.begin(), persistent_outliers_.end());
 
+  // Generate random outliers in the field of view
+  std::uniform_real_distribution<double> uniform_dist(0.0, 1.0);
+  std::uniform_real_distribution<double> range_dist(0.0, max_range_);
+  std::uniform_real_distribution<double> azimuth_dist(-horizontal_fov_angle_ / 2.0,
+                                                      horizontal_fov_angle_ / 2.0);
+  std::uniform_real_distribution<double> elevation_dist(-vertical_fov_angle_ / 2.0,
+                                                        vertical_fov_angle_ / 2.0);
+
+  // Generate outliers based on probability
+  int num_outliers = 0;
+  if (uniform_dist(generator_) < outlier_probability_) {
+    num_outliers = 1;
+  }
+
+  for (int i = 0; i < num_outliers; ++i) {
+    double random_range = range_dist(generator_);
+    double random_azimuth = azimuth_dist(generator_);
+    double random_elevation = elevation_dist(generator_);
+
+    double x_local = random_range * std::cos(random_elevation) * std::cos(random_azimuth);
+    double y_local = random_range * std::cos(random_elevation) * std::sin(random_azimuth);
+
+    double dx_global = yaw_cos * x_local - yaw_sin * y_local;
+    double dy_global = yaw_sin * x_local + yaw_cos * y_local;
+
+    common_lib::structures::Cone outlier_cone;
+    outlier_cone.position.x = vehicle_pose.position.x + dx_global;
+    outlier_cone.position.y = vehicle_pose.position.y + dy_global;
+    outlier_cone.color = common_lib::competition_logic::Color::UNKNOWN;
+    outlier_cone.is_large = false;
+    outlier_cone.certainty = 1.0;
+
+    cones_to_process.push_back(outlier_cone);
+
+    if (uniform_dist(generator_) < persistent_outlier_chance_) {
+      persistent_outliers_.push_back(outlier_cone);
+    }
+  }
+
+  // Transform each cone
+  for (const auto& cone : cones_to_process) {
     // Translate to vehicle-relative coordinates
     double dx = cone.position.x - vehicle_pose.position.x;
     double dy = cone.position.y - vehicle_pose.position.y;
@@ -57,6 +107,7 @@ std::vector<common_lib::structures::Cone> SimulatedPerception::perception_error(
     double y_local = range_3d * std::cos(elevation_with_pitch) * std::sin(azimuth);
     double z_local = range_3d * std::sin(elevation_with_pitch);
 
+
     // Check field of view
     bool is_visible = true;
 
@@ -78,13 +129,13 @@ std::vector<common_lib::structures::Cone> SimulatedPerception::perception_error(
       }
 
       // Apply Gaussian noise to coordinates
+      auto noisy_cone = cone;
       double x_noisy = x_local + gaussian_noise(sigma);
       double y_noisy = y_local + gaussian_noise(sigma);
 
-      // Update the cone's position with noisy values
       noisy_cone.position.x = x_noisy;
       noisy_cone.position.y = y_noisy;
-      
+  
       result.push_back(noisy_cone);
     }
   }

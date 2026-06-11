@@ -15,15 +15,6 @@
 class IMU : public Sensor {
 public:
   /**
-   * @brief IMU measurement output structure
-   */
-  struct IMUMeasurement {
-    double acceleration_x = 0.0;      ///< Measured acceleration in X direction (m/s²)
-    double acceleration_y = 0.0;      ///< Measured acceleration in Y direction (m/s²)
-    double angular_velocity_z = 0.0;  ///< Measured yaw rate (rad/s)
-  };
-
-  /**
    * @brief Construct a new IMU object and load configuration
    *
    * @param config_path Path to the imu.yaml configuration file

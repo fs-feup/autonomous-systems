@@ -1,4 +1,5 @@
 #include "simulator/invictasim.hpp"
+#include <common_lib/config_load/config_load.hpp>
 
 InvictaSim::InvictaSim(const InvictaSimParameters& params)
     : params_(params),
@@ -9,15 +10,12 @@ InvictaSim::InvictaSim(const InvictaSimParameters& params)
   // Initialize Objects
   vehicle_model_ = vehicle_models_map.at(params_.vehicle_model.c_str())(params);
   track_ = std::make_shared<Track>(params_.track_name);
-  std::string imu_cfg = common_lib::config_load::get_config_yaml_path(
-    "invictasim", "invictasim/sensors", "imu");
+  std::string imu_cfg = common_lib::config_load::get_config_yaml_path("invictasim", "invictasim/sensors", "imu");
+  std::string wss_cfg = common_lib::config_load::get_config_yaml_path("invictasim", "invictasim/sensors", "wss");
   imu_model_ = std::make_unique<IMU>(imu_cfg);
-  std::string wss_cfg = common_lib::config_load::get_config_yaml_path(
-    "invictasim", "invictasim/sensors", "wss");
   wss_model_ = std::make_unique<WSS>(wss_cfg);
   if (params_.use_simulated_perception) {
-    std::string perception_cfg = common_lib::config_load::get_config_yaml_path(
-        "invictasim", "invictasim/sensors", "perception");
+    std::string perception_cfg = common_lib::config_load::get_config_yaml_path("invictasim", "invictasim/sensors", "perception");
     perception_model_ = std::make_unique<SimulatedPerception>(perception_cfg);
 }
 

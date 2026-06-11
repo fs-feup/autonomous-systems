@@ -2,8 +2,11 @@
 
 #include <yaml-cpp/yaml.h>
 #include <cmath>
+#include <common_lib/config_load/config_load.hpp>
 
 IMU::IMU(const std::string& config_path) {
+  std::string imu_cfg = common_lib::config_load::get_config_yaml_path("invictasim", "invictasim/sensors", "imu");
+
   YAML::Node config = YAML::LoadFile(config_path);
   YAML::Node imu = config["imu_sensor"];
 

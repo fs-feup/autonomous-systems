@@ -10,6 +10,10 @@ lidar_sensor:
     detection_probability_alpha: 0.3    # Alpha parameter for sigmoid curve steepness (higher = steeper drop-off)
     
     # Noise parameters
-    noise_std_dev_base: 0.01             # Base standard deviation for Gaussian noise (meters)
+    noise_std_dev_base: 0             # Base standard deviation for Gaussian noise (meters)
     noise_scales_with_range: true        # Whether noise increases with range
-    noise_range_scaling: 0.005           # Scaling factor for range-dependent noise
+    noise_range_scaling: 0           # Scaling factor for range-dependent noise
+    
+    # Outlier parameters
+    outlier_probability: 0.003             # Probability of spawning an outlier cone per iteration (0.0 to 1.0)
+    persistent_outlier_chance: 0.05       # Chance that an outlier becomes persistent (0.0 to 1.0)

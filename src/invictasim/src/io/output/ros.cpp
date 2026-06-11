@@ -414,7 +414,6 @@ void RosOutputAdapter::publish_state_estimation_lap_counter() {
 }
 
 void RosOutputAdapter::publish_perception_cones(const rclcpp::Time& stamp) {
-  if (!perception_pub_) return;
 
   custom_interfaces::msg::PerceptionOutput perception_msg;
   perception_msg.header.stamp = stamp;
@@ -655,7 +654,6 @@ void RosOutputAdapter::publish_visualization_slam_cones(const rclcpp::Time& stam
 }
 
 void RosOutputAdapter::publish_visualization_perception_cones(const rclcpp::Time& stamp) {
-  if (!visualization_perception_cones_pub_) return;
 
   auto markers = convert_cone_array_to_markers(
       map_snapshot_cache_.perception_cones, stamp, "car");
@@ -803,7 +801,6 @@ visualization_msgs::msg::MarkerArray RosOutputAdapter::convert_cone_array_to_mar
     m.header.stamp = stamp;
     m.header.frame_id = frame_id;
     if (frame_id == "car") {
-      m.frame_locked = true;
       m.lifetime = rclcpp::Duration::from_seconds(0.1);
     }
     m.ns = frame_id == "car" ? "perceived_cones" : "map_cones";

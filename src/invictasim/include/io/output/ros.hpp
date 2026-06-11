@@ -163,6 +163,7 @@ private:
   void add_vehicle_transform(const rclcpp::Time& stamp);
 
   // ROS publishers
+  std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
   rclcpp::Publisher<custom_interfaces::msg::TireForces>::SharedPtr
       tire_forces_pub_;  ///< Publisher for tire forces.
   rclcpp::Publisher<custom_interfaces::msg::WheelScalars>::SharedPtr
@@ -214,6 +215,4 @@ private:
   rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr vehicle_pose_pub_;
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr lap_counter_pub_;
 
-  // Transform broadcaster for visualization
-  std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
 };

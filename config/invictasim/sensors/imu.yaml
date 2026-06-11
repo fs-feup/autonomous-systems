@@ -1,21 +1,14 @@
 # IMU Sensor Configuration
 imu_sensor:
-  # Accelerometer parameters
   accelerometer:
-    # Gaussian white noise standard deviation (m/s²)
-    noise_std_dev: 0.1
-    # Scale factor error that scales with acceleration magnitude (dimensionless)
-    acceleration_scale_factor: 0.01
-    # Bias (constant offset in m/s²)
-    bias_x: 0.2
-    bias_y: 0.2
+    noise_std_dev: 0.1                  # Gaussian white noise standard deviation (m/s²)
+    acceleration_scale_factor: 0.01     # Scale factor error that scales with acceleration magnitude (dimensionless)
+    bias_x: 0.2                         # m/s²
+    bias_y: 0.2                         # m/s²
 
   # Gyroscope parameters
   gyroscope:
-    # Gaussian white noise standard deviation (rad/s)
-    noise_std_dev: 0.01
-    # Scale factor error that scales with angular velocity (dimensionless)
-    angular_velocity_scale_factor: 0.01
-    # Bias (constant offset in rad/s)
-    bias: 0.3
+    noise_std_dev: 0.01                     # Gaussian white noise standard deviation (rad/s)
+    angular_velocity_scale_factor: 0.01     # Scale factor error that scales with angular velocity (dimensionless)
+    bias: 0.3                               # Bias (constant offset in rad/s)    
 

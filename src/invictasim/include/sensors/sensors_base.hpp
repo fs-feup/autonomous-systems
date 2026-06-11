@@ -22,7 +22,7 @@ public:
   double gaussian_noise(double std_dev);
 
 protected:
-  Sensor() = default;
-  static std::random_device rd_;
-  static std::mt19937 generator_;
+  Sensor();
+  std::random_device rd_;
+  std::mt19937 generator_;
 };

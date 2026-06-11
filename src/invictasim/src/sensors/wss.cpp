@@ -3,8 +3,11 @@
 #include <yaml-cpp/yaml.h>
 #include <cmath>
 #include <random>
+#include <common_lib/config_load/config_load.hpp>
 
 WSS::WSS(const std::string& config_path) {
+  std::string wss_cfg = common_lib::config_load::get_config_yaml_path(
+    "invictasim", "invictasim/sensors", "wss");
   YAML::Node config = YAML::LoadFile(config_path);
   YAML::Node wss = config["wss_sensor"];
 
