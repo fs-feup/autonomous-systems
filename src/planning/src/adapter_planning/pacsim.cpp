@@ -1,5 +1,7 @@
 #include "adapter_planning/pacsim.hpp"
 
+#include <cmath>
+
 PacSimAdapter::PacSimAdapter(const PlanningParameters& params) : Planning(params) {
   if (params.planning_using_simulated_se_) {
     RCLCPP_INFO(this->get_logger(), "Planning : Pacsim using simulated State Estimation");

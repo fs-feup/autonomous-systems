@@ -45,7 +45,11 @@ void InvictasimAdapter::go_signal_callback(const custom_interfaces::msg::Operati
 }
 
 void InvictasimAdapter::velocities_callback(const custom_interfaces::msg::Velocities &msg) {
-  this->vehicle_state_callback(msg);
+  custom_interfaces::msg::VehicleStateVector state_vector;
+  state_vector.velocity_x = msg.velocity_x;
+  state_vector.velocity_y = msg.velocity_y;
+  state_vector.yaw_rate = msg.angular_velocity;
+  this->vehicle_state_callback(state_vector);
 }
 
 void InvictasimAdapter::pose_callback(const custom_interfaces::msg::Pose &msg) {

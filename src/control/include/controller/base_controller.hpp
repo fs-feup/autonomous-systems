@@ -1,7 +1,7 @@
 #pragma once
 
 #include "custom_interfaces/msg/path_point_array.hpp"
-#include "custom_interfaces/msg/velocities.hpp"
+#include "custom_interfaces/msg/vehicle_state_vector.hpp"
 #include "custom_interfaces/msg/pose.hpp"
 #include "control/include/config/parameters.hpp"
 #include "common_lib/structures/control_command.hpp"
@@ -10,7 +10,7 @@
  * @brief Base class for control solvers, that calculate both lateral and longitudinal control commands
  * 
  */
-class ControlSolver {
+class Controller {
 protected:
   std::shared_ptr<ControlParameters> params_;
 public:
@@ -22,7 +22,7 @@ public:
   /**
    * @brief Called when the car state (currently just velocity) is updated
    */
-  virtual void vehicle_state_callback(const custom_interfaces::msg::Velocities& msg) = 0;
+  virtual void vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& msg) = 0;
 
   /**
    * @brief Called when the car pose is updated by SLAM
@@ -42,6 +42,6 @@ public:
    */
   virtual void publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) = 0;
 
-  ControlSolver(const ControlParameters& params) : params_(std::make_shared<ControlParameters>(params)) {};
-  virtual ~ControlSolver() = default;
+  Controller(const ControlParameters& params) : params_(std::make_shared<ControlParameters>(params)) {};
+  virtual ~Controller() = default;
 };

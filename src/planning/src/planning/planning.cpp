@@ -1,5 +1,6 @@
 #include "planning/planning.hpp"
 
+#include <cmath>
 #include <vector>
 
 #include "adapter_planning/pacsim.hpp"
@@ -478,6 +479,9 @@ void Planning::publish_path_points() const {
   custom_interfaces::msg::PathPointArray message =
       common_lib::communication::custom_interfaces_array_from_vector(smoothed_path_,
                                                                      is_path_closed_);
+  if (planning_config_.using_full_map_) {
+    message.is_map_closed = true;
+  }
   path_pub_->publish(message);
 }
 
