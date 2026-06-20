@@ -17,6 +17,7 @@ std::string SEParameters::load_config() {
   this->observation_model_name_ = se_config["observation_model_name"].as<std::string>();
 
   this->state_estimation_freq_ = se_config["state_estimation_freq"].as<double>();
+  this->prediction_threads_ = se_config["prediction_threads"].as<int>();
 
   this->velocity_x_process_noise_ = se_config["velocity_x_process_noise"].as<double>();
   this->velocity_y_process_noise_ = se_config["velocity_y_process_noise"].as<double>();

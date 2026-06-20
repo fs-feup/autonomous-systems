@@ -6,6 +6,7 @@ state_estimation:
   state_estimation_freq: 200.0 # Frequency of state estimation updates in Hz
 
   vehicle_model: "FSFEUP02"  # Options: "FSFEUP02"
+  prediction_threads: 1 # OpenMP threads for the UKF sigma-point prediction loop
 
   velocity_x_process_noise: 0.03 # variance of the noise for the velocity in x
   velocity_y_process_noise: 0.001 # variance of the noise for the velocity in y

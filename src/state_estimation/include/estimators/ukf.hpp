@@ -9,6 +9,7 @@
 #include <mutex>
 #include <queue>
 #include <string>
+#include <vector>
 
 #include "common_lib/structures/control_command.hpp"
 #include "common_lib/structures/velocities.hpp"
@@ -29,6 +30,10 @@ class UKF : public StateEstimator {
   Eigen::MatrixXd measurement_noise_matrix_;
 
   std::shared_ptr<ProcessModel> process_model_;
+  // One process-model instance per prediction thread; the models cache into members, so each
+  // thread needs its own. pool_[0] aliases process_model_.
+  std::vector<std::shared_ptr<ProcessModel>> process_model_pool_;
+  int prediction_threads_ = 1;
   VehicleState process_model_data_;
   std::shared_ptr<ObservationModel> observation_model_;
 

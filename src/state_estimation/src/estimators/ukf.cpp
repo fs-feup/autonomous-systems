@@ -1,5 +1,11 @@
 #include "estimators/ukf.hpp"
 
+#ifdef _OPENMP
+#include <omp.h>
+#endif
+
+#include <algorithm>
+
 // TODO: Measurement noise matrix with an i number of measurements
 
 UKF::UKF(std::shared_ptr<SEParameters> se_parameters, std::shared_ptr<ProcessModel> process_model,
@@ -31,6 +37,20 @@ UKF::UKF(std::shared_ptr<SEParameters> se_parameters, std::shared_ptr<ProcessMod
 
   // Precomputed constant used in every covariance update
   w0_cov_correction_ = 1.0 + se_parameters->beta_ - alpha2;
+
+  // Build one process-model instance per prediction thread 
+#ifdef _OPENMP
+  prediction_threads_ = std::max(1, se_parameters->prediction_threads_);
+#else
+  prediction_threads_ = 1;
+  RCLCPP_WARN_STREAM(rclcpp::get_logger("state_estimation"),
+                      "OpenMP is not enabled, prediction_threads_ set to 1.");
+#endif
+  process_model_pool_.resize(prediction_threads_);
+  process_model_pool_[0] = process_model_;
+  for (int i = 1; i < prediction_threads_; ++i) {
+    process_model_pool_[i] = process_models_map.at(se_parameters->process_model_name_)(se_parameters);
+  }
 
   // Cache measurement size and preallocate all workspace matrices to eliminate per-callback heap
   // allocations, which are the primary cause of execution-time variance
@@ -134,9 +154,15 @@ void UKF::timer_callback(State& curr_state) {
 
   compute_sigma_points(state_, covariance_, sigma_points_);
 
-  // Predict the sigma points through the process model
+  // Predict the sigma points through the process model.
+  #pragma omp parallel for schedule(static) num_threads(prediction_threads_)
   for (int i = 0; i < sigma_points_.rows(); ++i) {
-    process_model_->predict(sigma_points_.row(i), control_command, dt);
+    #ifdef _OPENMP
+      const int tid = omp_get_thread_num();
+    #else
+      const int tid = 0;
+    #endif
+    process_model_pool_[tid]->predict(sigma_points_.row(i), control_command, dt);
   }
 
   // Compute the predicted mean and covariance of the state

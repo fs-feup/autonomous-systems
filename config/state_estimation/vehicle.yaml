@@ -4,6 +4,7 @@ state_estimation:
   observation_model_name: "02_sensors" # "02_sensors" or "pacsim_sensors" or ... -> name of the observation model
 
   state_estimation_freq: 200.0 # Frequency of state estimation updates in Hz
+  prediction_threads: 4 # OpenMP threads for the UKF sigma-point prediction loop (scoped to this node)
 
   vehicle_model: "FSFEUP02"  # Options: "FSFEUP02"
 

@@ -17,6 +17,7 @@ struct SEParameters {
                                         // observation models
 
   double state_estimation_freq_;  // The rate at which the state estimation should run (in Hz)
+  int prediction_threads_;  // OpenMP threads for the sigma-point prediction loop (scoped to this node)
 
   std::string vehicle_model_name_;         // Used to choose between different vehicle models
   std::string load_transfer_model_name_;   // Used to choose between different load transfer models
