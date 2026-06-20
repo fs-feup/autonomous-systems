@@ -1,13 +1,17 @@
 #include "adapters/vehicle.hpp"
 
+#include "common_lib/maths/transformations.hpp"
+
 VehicleAdapter::VehicleAdapter(const std::shared_ptr<SEParameters>& parameters)
     : SENode(parameters) {
-  // IMU: free acceleration and angular velocity are published separately and synchronized.
+  // IMU: free acceleration, angular velocity and orientation are published separately and synchronized.
   this->_free_acceleration_subscription_.subscribe(this, "/filter/free_acceleration");
   this->_angular_velocity_subscription_.subscribe(this, "/imu/angular_velocity");
+  this->_quaternion_subscription_.subscribe(this, "/filter/quaternion");
   const XsensImuPolicy xsens_imu_policy(10);
   this->_xsens_imu_sync_ = std::make_shared<message_filters::Synchronizer<XsensImuPolicy>>(
-      xsens_imu_policy, _free_acceleration_subscription_, _angular_velocity_subscription_);
+      xsens_imu_policy, _free_acceleration_subscription_, _angular_velocity_subscription_,
+      _quaternion_subscription_);
   this->_xsens_imu_sync_->registerCallback(&VehicleAdapter::imu_callback, this);
 
   // Front wheel-speed sensors (no rear wheel-speed sensors on this car).
@@ -33,8 +37,9 @@ VehicleAdapter::VehicleAdapter(const std::shared_ptr<SEParameters>& parameters)
 
 void VehicleAdapter::imu_callback(
     const geometry_msgs::msg::Vector3Stamped::SharedPtr& free_acceleration_msg,
-    const geometry_msgs::msg::Vector3Stamped::SharedPtr& angular_velocity_msg) {
-  // TODO: treat IMU data, correct bias + frame fixes and calibration
+    const geometry_msgs::msg::Vector3Stamped::SharedPtr& angular_velocity_msg,
+    const geometry_msgs::msg::QuaternionStamped::SharedPtr& quaternion_msg) {
+  // TODO: correct accelerometer bias + calibration
   // Estimate the yaw-rate bias from the first readings (car stationary) before forwarding data.
   if (this->number_of_imu_readings_ < 250) {
     this->average_imu_bias_ =
@@ -44,10 +49,27 @@ void VehicleAdapter::imu_callback(
     return;
   }
 
+  // Rotate free acceleration into sensor frame using orientation quaternion
+  const Eigen::Vector3d acceleration_local(free_acceleration_msg->vector.x,
+                                           free_acceleration_msg->vector.y,
+                                           free_acceleration_msg->vector.z);
+  const Eigen::Quaterniond orientation(quaternion_msg->quaternion.w, quaternion_msg->quaternion.x,
+                                       quaternion_msg->quaternion.y, quaternion_msg->quaternion.z);
+  const Eigen::Vector3d acceleration_sensor =
+      common_lib::maths::local_to_sensor_frame(acceleration_local, orientation);
+
+  const double yaw_rate = angular_velocity_msg->vector.z - this->average_imu_bias_;
+
+  // Compensate for IMU offset from the vehicle's center of rotation
+  const auto& car = *this->_params_->car_parameters_;
+  const double imu_r_x = (car.wheelbase - car.cg_2_rear_axis) - car.imu_position_x;
+  const double imu_r_y = car.imu_position_y;
+  const double centripetal = yaw_rate * yaw_rate;
+
   common_lib::sensor_data::ImuData imu_data;
-  imu_data.acceleration_x = free_acceleration_msg->vector.x;
-  imu_data.acceleration_y = free_acceleration_msg->vector.y;
-  imu_data.rotational_velocity = angular_velocity_msg->vector.z - this->average_imu_bias_;
+  imu_data.acceleration_x = acceleration_sensor.x() + centripetal * imu_r_x;
+  imu_data.acceleration_y = acceleration_sensor.y() + centripetal * imu_r_y;
+  imu_data.rotational_velocity = yaw_rate;
   imu_data.timestamp_ = free_acceleration_msg->header.stamp;
 
   this->_state_estimator_->imu_callback(imu_data);

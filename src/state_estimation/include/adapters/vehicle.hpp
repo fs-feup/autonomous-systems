@@ -10,6 +10,7 @@
 #include "custom_interfaces/msg/control_command.hpp"
 #include "custom_interfaces/msg/steering_angle.hpp"
 #include "custom_interfaces/msg/wheel_rpm.hpp"
+#include "geometry_msgs/msg/quaternion_stamped.hpp"
 #include "geometry_msgs/msg/vector3_stamped.hpp"
 #include "node/node.hpp"
 
@@ -29,9 +30,10 @@ class VehicleAdapter : public SENode {
 
   message_filters::Subscriber<geometry_msgs::msg::Vector3Stamped> _free_acceleration_subscription_;
   message_filters::Subscriber<geometry_msgs::msg::Vector3Stamped> _angular_velocity_subscription_;
+  message_filters::Subscriber<geometry_msgs::msg::QuaternionStamped> _quaternion_subscription_;
   using XsensImuPolicy = message_filters::sync_policies::ApproximateTime<
-      geometry_msgs::msg::Vector3Stamped,
-      geometry_msgs::msg::Vector3Stamped>;  ///< Policy for synchronizing Xsens IMU data
+      geometry_msgs::msg::Vector3Stamped, geometry_msgs::msg::Vector3Stamped,
+      geometry_msgs::msg::QuaternionStamped>;  ///< Policy for synchronizing Xsens IMU data
   using WheelSSPolicy = message_filters::sync_policies::ApproximateTime<
       custom_interfaces::msg::WheelRPM,
       custom_interfaces::msg::WheelRPM>;  ///< Policy for synchronizing front wheel speeds
@@ -49,11 +51,14 @@ public:
   explicit VehicleAdapter(const std::shared_ptr<SEParameters>& parameters);
 
   /**
-   * @brief IMU callback receiving free acceleration and angular velocity through a synchronizer.
-   * The first readings are used to estimate the yaw-rate bias before any data is forwarded.
+   * @brief IMU callback receiving free acceleration, angular velocity and orientation through a
+   * synchronizer. The free acceleration is published in the local (ENU) frame and is rotated into
+   * the sensor frame using the orientation quaternion before being forwarded. The first readings
+   * are used to estimate the yaw-rate bias before any data is forwarded.
    */
   void imu_callback(const geometry_msgs::msg::Vector3Stamped::SharedPtr& free_acceleration_msg,
-                    const geometry_msgs::msg::Vector3Stamped::SharedPtr& angular_velocity_msg);
+                    const geometry_msgs::msg::Vector3Stamped::SharedPtr& angular_velocity_msg,
+                    const geometry_msgs::msg::QuaternionStamped::SharedPtr& quaternion_msg);
 
   /**
    * @brief Front wheel-speed callback receiving FL and FR rpm through a synchronizer.

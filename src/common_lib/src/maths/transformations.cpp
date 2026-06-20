@@ -66,4 +66,9 @@ Eigen::VectorXd local_to_global_coordinates(const Eigen::Vector3d& local_referen
   return global_points_vector;
 }
 
+Eigen::Vector3d local_to_sensor_frame(const Eigen::Vector3d& vector_local,
+                                      const Eigen::Quaterniond& orientation) {
+  return orientation.conjugate() * vector_local;
+}
+
 }  // namespace common_lib::maths
