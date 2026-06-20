@@ -63,12 +63,11 @@ void VehicleAdapter::imu_callback(
   // Compensate for IMU offset from the vehicle's center of rotation
   const auto& car = *this->_params_->car_parameters_;
   const double imu_r_x = (car.wheelbase - car.cg_2_rear_axis) - car.imu_position_x;
-  const double imu_r_y = car.imu_position_y;
   const double centripetal = yaw_rate * yaw_rate;
 
   common_lib::sensor_data::ImuData imu_data;
   imu_data.acceleration_x = acceleration_sensor.x() + centripetal * imu_r_x;
-  imu_data.acceleration_y = acceleration_sensor.y() + centripetal * imu_r_y;
+  imu_data.acceleration_y = acceleration_sensor.y();
   imu_data.rotational_velocity = yaw_rate;
   imu_data.timestamp_ = free_acceleration_msg->header.stamp;
 
