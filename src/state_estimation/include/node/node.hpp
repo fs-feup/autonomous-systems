@@ -2,6 +2,7 @@
 
 #include <std_msgs/msg/float64_multi_array.hpp>
 
+#include "custom_interfaces/msg/sensor_health.hpp"
 #include "custom_interfaces/msg/tire_forces.hpp"
 #include "custom_interfaces/msg/vehicle_state_vector.hpp"
 #include "custom_interfaces/msg/wheel_scalars.hpp"
@@ -28,6 +29,7 @@ protected:
   rclcpp::Publisher<custom_interfaces::msg::WheelScalars>::SharedPtr _slip_ratio_pub_;
   rclcpp::Publisher<custom_interfaces::msg::WheelScalars>::SharedPtr _slip_angles_pub_;
   rclcpp::Publisher<custom_interfaces::msg::TireForces>::SharedPtr _tire_forces_pub_;
+  rclcpp::Publisher<custom_interfaces::msg::SensorHealth>::SharedPtr _sensor_health_pub_;
   rclcpp::TimerBase::SharedPtr _timer_;
 
   // For now so i dont have to change the entire fucking pipeline

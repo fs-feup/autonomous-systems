@@ -5,6 +5,7 @@
 #include "common_lib/structures/control_command.hpp"
 #include "common_lib/structures/velocities.hpp"
 #include "custom_interfaces/msg/vehicle_state_vector.hpp"
+#include "models/observation/sensor_overseer.hpp"
 #include "utils/state_define.hpp"
 /**
  * @brief Interface for state estimators
@@ -36,13 +37,13 @@ public:
    * @brief callback for motor RPM data that the SENode should call when new motor RPM data is
    * received
    */
-  virtual void motor_rpm_callback(double motor_rpm) = 0;
+  virtual void motor_rpm_callback(double motor_rpm, const rclcpp::Time& stamp) = 0;
 
   /**
    * @brief callback for steering angle data that the SENode should call when new steering angle
    * data is received
    */
-  virtual void steering_callback(double steering_angle) = 0;
+  virtual void steering_callback(double steering_angle, const rclcpp::Time& stamp) = 0;
 
   /**
    * @brief callback for timer that the SENode should call at a fixed frequency to trigger state
@@ -52,4 +53,7 @@ public:
 
   virtual VehicleState get_process_model_data() const = 0;
   virtual Eigen::Vector4d get_exec_times() const = 0;
+
+  /// Per-sensor health snapshot from the observation model, for telemetry.
+  virtual std::vector<SensorHealth> get_sensor_health() const = 0;
 };

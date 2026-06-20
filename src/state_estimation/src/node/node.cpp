@@ -35,6 +35,8 @@ SENode::SENode(const std::shared_ptr<SEParameters>& parameters)
       "/state_estimation/slip_angles", 10);
   this->_tire_forces_pub_ = this->create_publisher<custom_interfaces::msg::TireForces>(
       "/state_estimation/tire_forces", 10);
+  this->_sensor_health_pub_ = this->create_publisher<custom_interfaces::msg::SensorHealth>(
+      "/state_estimation/sensor_health", 10);
 }
 
 void SENode::publish_state(const State& state, const rclcpp::Time time) {
@@ -88,6 +90,21 @@ void SENode::timer_callback() {
         std::chrono::duration<double, std::milli>(hrc_end - hrc_start).count();
   }
   this->_execution_time_pub_->publish(execution_time_msg);
+
+  // Publish per-sensor health (Overseer). Generic over the sensor set: the names
+  // travel in the message, so adding/removing sensors needs no change here.
+  if (this->_params_->publish_sensor_health_) {
+    const std::vector<SensorHealth> health = this->_state_estimator_->get_sensor_health();
+    custom_interfaces::msg::SensorHealth health_msg;
+    health_msg.header.stamp = start_time;
+    health_msg.names.reserve(health.size());
+    health_msg.statuses.reserve(health.size());
+    for (const SensorHealth& sensor : health) {
+      health_msg.names.push_back(sensor.name);
+      health_msg.statuses.push_back(static_cast<uint8_t>(sensor.status));
+    }
+    this->_sensor_health_pub_->publish(health_msg);
+  }
 
   if (!this->_params_->publish_vm_debug_info_) {
     return;  // Don't publish debug info if the parameter is set to false

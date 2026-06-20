@@ -61,7 +61,7 @@ class UKF : public StateEstimator {
 
   // Thread synchronization mutexes
   std::mutex control_command_mutex_;
-  std::mutex observation_model_mutex_;
+  mutable std::mutex observation_model_mutex_;
 
   /**
    * @brief Compute the sigma points for the given state and covariance using the Merwe Scaled Sigma
@@ -86,10 +86,15 @@ public:
   void control_callback(const common_lib::structures::ControlCommand& control_command) override;
   void imu_callback(const common_lib::sensor_data::ImuData& imu_data) override;
   void wss_callback(const common_lib::sensor_data::WheelEncoderData& wss_data) override;
-  void motor_rpm_callback(double motor_rpm) override;
-  void steering_callback(double steering_angle) override;
+  void motor_rpm_callback(double motor_rpm, const rclcpp::Time& stamp) override;
+  void steering_callback(double steering_angle, const rclcpp::Time& stamp) override;
   void timer_callback(State& curr_state) override;
 
   VehicleState get_process_model_data() const override { return process_model_data_; }
   Eigen::Vector4d get_exec_times() const override { return execution_times_; }
+
+  std::vector<SensorHealth> get_sensor_health() const override {
+    std::lock_guard<std::mutex> lock(observation_model_mutex_);
+    return observation_model_->get_health();
+  }
 };

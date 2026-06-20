@@ -36,6 +36,13 @@ void RK4VehicleModel::predict(Eigen::Ref<State> state,
 
   // Combine to get new state
   state += (dt / 6.0) * (f1 + 2.0 * f2 + 2.0 * f3 + f4);
+
+  double speed = state.segment<2>(VX).norm();
+  if (speed < 1e-1 && control_command.throttle_rl < 1e-6) {
+    const double steering_angle = state(ST_ANGLE);
+    state.setZero();
+    state(ST_ANGLE) = steering_angle;
+  }
 }
 
 void RK4VehicleModel::compute_forces_and_moments(

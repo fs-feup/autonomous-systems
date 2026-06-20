@@ -70,5 +70,5 @@ void PacsimAdapter::wss_callback(const pacsim::msg::Wheels::SharedPtr msg) {
 }
 
 void PacsimAdapter::steering_angle_callback(const pacsim::msg::StampedScalar::SharedPtr msg) {
-  this->_state_estimator_->steering_callback(msg->value);
+  this->_state_estimator_->steering_callback(msg->value, rclcpp::Time(msg->stamp));
 }

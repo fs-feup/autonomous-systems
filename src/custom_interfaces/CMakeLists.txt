@@ -59,6 +59,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/BatteryState.msg"
   "msg/MotorState.msg"
   "msg/ExecutionTimes.msg"
+  "msg/SensorHealth.msg"
   DEPENDENCIES builtin_interfaces std_msgs geometry_msgs
 )
 

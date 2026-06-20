@@ -36,11 +36,13 @@ link_directories(${Eigen_INCLUDE_DIRS})
 set(IMPLEMENTATION_FILES
   src/node/node.cpp
   src/adapters/pacsim.cpp
+  src/adapters/vehicle.cpp
   src/estimators/ukf.cpp
   src/models/process/component_based_vehicle_model.cpp
   src/models/process/rk4_model.cpp
   src/models/observation/02_sensors.cpp
   src/models/observation/pacsim_sensors.cpp
+  src/models/observation/sensor_overseer.cpp
   src/utils/parameters.cpp
 )
 

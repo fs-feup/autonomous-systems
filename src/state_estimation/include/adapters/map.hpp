@@ -14,6 +14,10 @@
 const std::map<std::string, std::function<std::shared_ptr<SENode>(std::shared_ptr<SEParameters>)>,
                std::less<>>
     adapter_map = {
-        {"pacsim", [](const std::shared_ptr<SEParameters>& params) -> std::shared_ptr<SENode> {
+        {"pacsim",
+         [](const std::shared_ptr<SEParameters>& params) -> std::shared_ptr<SENode> {
            return std::make_shared<PacsimAdapter>(params);
+         }},
+        {"vehicle", [](const std::shared_ptr<SEParameters>& params) -> std::shared_ptr<SENode> {
+           return std::make_shared<VehicleAdapter>(params);
          }}};

@@ -33,6 +33,10 @@ std::string SEParameters::load_config() {
   this->motor_rpm_noise_ = se_config["motor_rpm_noise"].as<double>();
   this->steering_angle_noise_ = se_config["steering_angle_noise"].as<double>();
 
+  this->state_model_noise_factor_ = se_config["state_model_noise_factor"].as<double>();
+  this->kinematic_model_noise_factor_ = se_config["kinematic_model_noise_factor"].as<double>();
+  this->cross_noise_factor_ = se_config["cross_noise_factor"].as<double>();
+
   // Load UKF parameters
   this->mean_weight_ = se_config["mean_weight"].as<double>();
   this->alpha_ = se_config["alpha"].as<double>();
@@ -42,6 +46,27 @@ std::string SEParameters::load_config() {
   // Load Publishing options
   this->publish_vm_debug_info_ = se_config["publish_vm_debug_info"].as<bool>();
   this->publish_exec_times_ = se_config["publish_exec_times"].as<bool>();
+  this->publish_sensor_health_ = se_config["publish_sensor_health"].as<bool>();
+
+  // Load sensor fault-detection options
+  this->sensor_fault_detection_enabled_ = se_config["sensor_fault_detection_enabled"].as<bool>();
+  this->sensor_faulty_noise_factor_ = se_config["sensor_faulty_noise_factor"].as<double>();
+  this->sensor_staleness_miss_tolerance_ =
+      se_config["sensor_staleness_miss_tolerance"].as<double>();
+  this->imu_frequency_ = se_config["imu_frequency"].as<double>();
+  this->wheel_speed_frequency_ = se_config["wheel_speed_frequency"].as<double>();
+  this->steering_frequency_ = se_config["steering_frequency"].as<double>();
+  this->imu_accel_range_ = se_config["imu_accel_range"].as<double>();
+  this->imu_accel_max_rate_of_change_ = se_config["imu_accel_max_rate_of_change"].as<double>();
+  this->imu_yaw_range_ = se_config["imu_yaw_range"].as<double>();
+  this->imu_yaw_max_rate_of_change_ = se_config["imu_yaw_max_rate_of_change"].as<double>();
+  this->wheel_speed_range_ = se_config["wheel_speed_range"].as<double>();
+  this->wheel_speed_max_rate_of_change_ = se_config["wheel_speed_max_rate_of_change"].as<double>();
+  this->steering_range_ = se_config["steering_range"].as<double>();
+  this->steering_max_rate_of_change_ = se_config["steering_max_rate_of_change"].as<double>();
+  this->motor_frequency_ = se_config["motor_frequency"].as<double>();
+  this->motor_rpm_range_ = se_config["motor_rpm_range"].as<double>();
+  this->motor_rpm_max_rate_of_change_ = se_config["motor_rpm_max_rate_of_change"].as<double>();
 
   // Load Vehicle Model
   this->vehicle_model_name_ = se_config["vehicle_model"].as<std::string>();

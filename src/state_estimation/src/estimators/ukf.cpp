@@ -65,27 +65,23 @@ void UKF::control_callback(const common_lib::structures::ControlCommand& control
 }
 
 void UKF::imu_callback(const common_lib::sensor_data::ImuData& imu_data) {
-  // TODO: Logic for broken sensor or data
   std::lock_guard<std::mutex> lock(observation_model_mutex_);
   this->observation_model_->update_imu_data(imu_data);
 }
 
 void UKF::wss_callback(const common_lib::sensor_data::WheelEncoderData& wss_data) {
-  // TODO: Logic for broken sensor or data
   std::lock_guard<std::mutex> lock(observation_model_mutex_);
   this->observation_model_->update_wss_data(wss_data);
 }
 
-void UKF::motor_rpm_callback(double motor_rpm) {
-  // TODO: Logic for broken sensor or data
+void UKF::motor_rpm_callback(double motor_rpm, const rclcpp::Time& stamp) {
   std::lock_guard<std::mutex> lock(observation_model_mutex_);
-  this->observation_model_->update_motor_rpm(motor_rpm);
+  this->observation_model_->update_motor_rpm(motor_rpm, stamp);
 }
 
-void UKF::steering_callback(double steering_angle) {
-  // TODO: Logic for broken sensor or data
+void UKF::steering_callback(double steering_angle, const rclcpp::Time& stamp) {
   std::lock_guard<std::mutex> lock(observation_model_mutex_);
-  this->observation_model_->update_steering_angle(steering_angle);
+  this->observation_model_->update_steering_angle(steering_angle, stamp);
 }
 
 void UKF::timer_callback(State& curr_state) {
