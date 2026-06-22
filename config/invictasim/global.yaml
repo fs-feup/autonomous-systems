@@ -1,6 +1,6 @@
 invictasim:
   # Simulator config
-  input_adapter: "ros"  # Options: "ros", "keyboard"
+  input_adapter: "manual"  # Options: "ros", "keyboard"
   output_adapter: "ros"  # Options: "ros"
   vehicle_model: "02"  # Options: "02", "03",
   control_mode: "autonomous" # Options: "manual", "autonomous"

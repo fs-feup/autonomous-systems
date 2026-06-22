@@ -31,18 +31,19 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   const auto powertrain_start = Clock::now();
   const double throttle_input =
       (throttle.rear_left + throttle.rear_right) / 2.0;  // Average throttle for rear-wheel drive
-  const common_lib::structures::Wheels brake_torques =
-      (control_mode_ == "manual" && throttle_input < 0.0)
-          ? brake_->calculate_brake_torques(-throttle_input)
-          : common_lib::structures::Wheels();
+
+  common_lib::structures::Wheels brake_torques;
+  double inverter_command = throttle_input;
+  if (control_mode_ == "manual" && throttle_input < 0.0) {
+    brake_torques = brake_->calculate_brake_torques(-throttle_input);
+    inverter_command = 0.0;
+  }
+
   const bool braking = brake_torques.front_left > 0.0 || brake_torques.front_right > 0.0 ||
                        brake_torques.rear_left > 0.0 || brake_torques.rear_right > 0.0;
-  double motor_demand = 0.0;
-  if (throttle_input > 0.0 || (throttle_input < 0.0 && control_mode_ != "manual")) {
-    motor_demand = inverter_->apply_throttle_curve(throttle_input);
-  }
-  const double inverter_throttle_input = motor_demand;
-  double motor_torque = calculate_powertrain_torque(inverter_throttle_input, dt);
+  const double motor_input = inverter_->calculate_inverter_throttle(inverter_command, dt);
+  const double motor_torque =
+      calculate_powertrain_torque(motor_input, dt);
   const auto powertrain_end = Clock::now();
 
   VehicleModelExecutionTimes current_times;
@@ -369,6 +370,7 @@ void FSFEUP02Model::reset() {
   execution_times_ = std::make_shared<VehicleModelExecutionTimes>();
   motor_->reset();
   battery_->reset();
+  inverter_->reset();
 }
 
 std::string FSFEUP02Model::get_model_name() const { return "FSFEUP02Model"; }

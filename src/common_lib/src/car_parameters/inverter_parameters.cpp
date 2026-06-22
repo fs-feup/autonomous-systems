@@ -7,6 +7,9 @@ InverterParameters::InverterParameters(const std::string& config_name) {
       "common_lib", "car/inverter_model", config_name);
   YAML::Node config = YAML::LoadFile(config_path);
   config = config["inverter"];
+  acceleration_delay_ms = config["acceleration_delay_ms"].as<double>();
+  coast_delay_ms = config["coast_delay_ms"].as<double>();
+  regen_braking_delay_ms = config["regen_braking_delay_ms"].as<double>();
 }
 
 }  // namespace common_lib::car_parameters
