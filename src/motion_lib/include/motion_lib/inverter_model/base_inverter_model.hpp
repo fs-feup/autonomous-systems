@@ -13,5 +13,7 @@ public:
 
   virtual ~InverterModel() = default;
 
-  virtual double apply_throttle_curve(double throttle_input) const = 0;
+  virtual double calculate_inverter_throttle(double throttle_input, double dt) = 0;
+
+  virtual void reset() = 0;
 };

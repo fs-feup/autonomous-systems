@@ -25,7 +25,7 @@ publish_frequencies:
     pose: 50              # Simulated vehicle pose (slam output)
     state_vector: 0      # Simulated vehicle state vector (MPC input)
     velocities: 50        # Simulated velocities (velocity estimation output)
-    operational_status: 0  # Simulated operational status (contains go_signal and mission)
+    operational_status: 1  # Simulated operational status (contains go_signal and mission)
   statistics:
     lap_summary: 0            # End-of-lap summary: 0 disables, 1 enables
     lap_current: 0         # Current lap number, lap time, and cones hit

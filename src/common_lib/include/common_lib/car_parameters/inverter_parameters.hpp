@@ -7,6 +7,10 @@
 namespace common_lib::car_parameters {
 
 struct InverterParameters {
+  double acceleration_delay_ms;
+  double coast_delay_ms;
+  double regen_braking_delay_ms;
+
   InverterParameters(const std::string& config_name);
 };
 
