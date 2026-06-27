@@ -142,33 +142,94 @@ double FSFEUP02Model::calculate_powertrain_torque(double throttle_input, double 
   double motor_omega = transmission_->calculate_motor_omega(state_->wheels_speed);
   double motor_rpm = std::abs(motor_omega * 60.0f / (2.0f * M_PI));
 
-  // Calculate Max Torque at current RPM
+  // Calculate max motor torque at current RPM
   double max_motor_torque = motor_->get_max_torque_at_rpm(motor_rpm);
   double reference_motor_torque = throttle_input * max_motor_torque;
 
-  // Motor Efficiency at this state
+  // Avoid zero power request at launch
+  const double min_omega_for_power = 10.0;  // rad/s,
+
+  double omega_sign_source =
+      std::abs(motor_omega) > 1e-3 ? motor_omega : reference_motor_torque;
+
+  double omega_for_power =
+      std::copysign(std::max(std::abs(motor_omega), min_omega_for_power),
+                    omega_sign_source);
+
+  // Mechanical power request
+  double mechanical_power_request =
+      reference_motor_torque * omega_for_power;
+
+  // Mechanical-Eletrical efficiency
   double motor_efficiency = motor_->get_efficiency(std::abs(reference_motor_torque), motor_rpm);
+  double inverter_efficiency = inverter_->get_efficiency();
+  double total_efficiency = motor_efficiency * inverter_efficiency;
 
-  const double current_magnitude =
-      std::abs(reference_motor_torque) /
-      (car_parameters_->motor_parameters->kt_constant * std::max(motor_efficiency, 0.05));
-  const double mechanical_power = reference_motor_torque * motor_omega;
-  const double current_sign =
-      std::abs(motor_omega) > 1e-3 ? std::copysign(1.0, mechanical_power)
-                                   : std::copysign(1.0, reference_motor_torque);
-  double requested_motor_current = current_sign * current_magnitude;
+  // Requested battery power
+  double battery_power_request;
+  if (mechanical_power_request >= 0.0) {
+    // Normal
+    battery_power_request = mechanical_power_request / total_efficiency;
+  } else {
+    // Regen
+    battery_power_request = mechanical_power_request * total_efficiency;
+  }
 
-  // Calculate the allowed current from the battery
-  double allowed_motor_current = battery_->calculate_allowed_current(requested_motor_current);
+  // Battery current limit
+  double battery_voltage = battery_->get_voltage();
+  double requested_battery_current =
+      battery_power_request / battery_voltage;
+  double allowed_battery_current =
+      battery_->calculate_allowed_current(requested_battery_current);
 
-  // Actual motor torque limited by the battery
+  // Provided battery power
+  double allowed_battery_voltage =
+      battery_->get_voltage(allowed_battery_current);
+  double allowed_battery_power =
+      allowed_battery_current * allowed_battery_voltage;
+
+  // Convert back to available mechanical power
+  double allowed_mechanical_power;
+  if (allowed_battery_power >= 0.0) {
+    allowed_mechanical_power = allowed_battery_power * total_efficiency;
+  } else {
+    allowed_mechanical_power = allowed_battery_power / total_efficiency;
+  }
+
   double actual_motor_torque = std::copysign(
-      std::abs(allowed_motor_current) * car_parameters_->motor_parameters->kt_constant *
-          motor_efficiency,
+      std::min(std::abs(allowed_mechanical_power / omega_for_power),
+               std::abs(reference_motor_torque)),
       reference_motor_torque);
 
-  battery_->update_state(allowed_motor_current, dt);
-  motor_->update_state(allowed_motor_current, actual_motor_torque, dt);
+  // Motor phase current magnitude. Sign follows the battery current convention:
+  // positive while discharging, negative while charging/regenerating.
+  double motor_phase_current =
+      std::abs(actual_motor_torque) / car_parameters_->motor_parameters->kt_constant;
+
+  // Inverter phase current limit
+  double max_inverter_phase_current =
+      car_parameters_->inverter_parameters->max_phase_current;
+  if (motor_phase_current > max_inverter_phase_current) {
+    double limited_torque =
+        max_inverter_phase_current *
+        car_parameters_->motor_parameters->kt_constant;
+
+    actual_motor_torque =
+        std::copysign(limited_torque, actual_motor_torque);
+
+    motor_phase_current = max_inverter_phase_current;
+  }
+
+  const double signed_motor_phase_current =
+      std::abs(allowed_battery_current) > 1e-9
+          ? std::copysign(motor_phase_current, allowed_battery_current)
+          : 0.0;
+
+  // Update models
+  battery_->update_state(allowed_battery_current, dt);
+  motor_->update_state(signed_motor_phase_current,
+                       actual_motor_torque,
+                       dt);
 
   state_->motor_torque = actual_motor_torque;
   state_->motor_omega = motor_omega;

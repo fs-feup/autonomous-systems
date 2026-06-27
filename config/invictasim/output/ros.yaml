@@ -1,11 +1,11 @@
 publish_frequencies:
   vehicle_model:
-    tire: 0          # Tire status (FX, FY, MY, MZ, slip ratio, slip angle)
-    battery: 0       # Battery status (voltage, current, state of charge)
-    motor: 0         # Motor status (RPM, torque, temperature)
-    transmission: 0  # Transmission status (torque on each wheel)
-    aero: 0          # Aerodynamic status (drag, downforce)
-    status: 0        # Overall vehicle status (speed, acceleration, position, yaw, etc.)
+    tire: 5          # Tire status (FX, FY, MY, MZ, slip ratio, slip angle)
+    battery: 5       # Battery status (voltage, current, state of charge)
+    motor: 5         # Motor status (RPM, torque, temperature)
+    transmission: 5  # Transmission status (torque on each wheel)
+    aero: 5          # Aerodynamic status (drag, downforce)
+    status: 5        # Overall vehicle status (speed, acceleration, position, yaw, etc.)
   visualization:     # Visualization 
     car: 30           # Car visualization 
     ground: 1         # Ground visualization 
@@ -27,7 +27,7 @@ publish_frequencies:
     velocities: 50        # Simulated velocities (velocity estimation output)
     operational_status: 1  # Simulated operational status (contains go_signal and mission)
   statistics:
-    lap_summary: 0            # End-of-lap summary: 0 disables, 1 enables
+    lap_summary: 1            # End-of-lap summary: 0 disables, 1 enables
     lap_current: 0         # Current lap number, lap time, and cones hit
     control_statistics: 0    # Velocity and path tracking errors
     lap_counter: 0        # Lap counter (slam output)

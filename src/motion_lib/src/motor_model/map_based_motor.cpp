@@ -49,11 +49,10 @@ double MapBasedMotor::get_max_torque_at_rpm(double rpm) const {
   double thermal_ratio = thermal_state_ / thermal_capacity_;
 
   // Calculate limits based on current state
-  // Torque: 230Nm -> 102Nm | Power: 120kW -> 60kW | RPM: 6500 -> 5500
   double current_max_t =
       car_parameters_->motor_parameters->max_peak_torque -
       (thermal_ratio * (car_parameters_->motor_parameters->max_peak_torque -
-                        car_parameters_->motor_parameters->max_continous_torque));
+                        car_parameters_->motor_parameters->max_continuous_torque));
 
   double current_max_p =
       car_parameters_->motor_parameters->max_peak_power -
@@ -66,20 +65,27 @@ double MapBasedMotor::get_max_torque_at_rpm(double rpm) const {
                         car_parameters_->motor_parameters->max_continuous_rpm));
 
   if (rpm >= current_max_rpm) {
-    return 0.0f;  // Should not happen due to 1/x decay, but just in case
+    return 0.0f;  // Should not happen due to decay, but just in case
   }
 
   if (rpm < 0.1) {
     return current_max_t;
   }
 
-  double omega = (rpm * 2.0 * static_cast<double>(M_PI)) / 60.0;
+  double omega = (rpm * 2.0 * M_PI) / 60.0;
 
-  // 1/x decay logic to the limits as we approach max RPM
-  double proximity_to_limit = 1.0 - (rpm / current_max_rpm);
-  double power_limited_torque = (current_max_p / omega) * proximity_to_limit;
+   // Normal constant torque / constant power behavior
+  double torque_limit = std::min(current_max_t, current_max_p / omega);
 
-  return std::min(current_max_t, power_limited_torque);
+  // Fade torque to zero as we approach max RPM
+  double fade_start_rpm = car_parameters_->motor_parameters->fade_start * current_max_rpm;
+  if (rpm > fade_start_rpm) {
+    double fade =
+        (current_max_rpm - rpm) / (current_max_rpm - fade_start_rpm);
+    torque_limit = std::clamp(fade * torque_limit, 0.0, 1.0);
+  }
+
+  return torque_limit;
 }
 
 void MapBasedMotor::update_state(double current_draw, double torque, double dt) {

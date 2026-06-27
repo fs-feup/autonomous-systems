@@ -15,5 +15,13 @@ public:
 
   virtual double calculate_inverter_throttle(double throttle_input, double dt) = 0;
 
+  double get_efficiency() const{
+    return car_parameters_->inverter_parameters->efficiency;
+  }
+
+  double get_max_phase_current() const {
+    return car_parameters_->inverter_parameters->max_phase_current;
+  }
+
   virtual void reset() = 0;
 };

@@ -311,10 +311,14 @@ double FSFEUP03Model::calculate_powertrain_torque(double throttle_input, double 
   // Motor Efficiency at this state
   double motor_efficiency = motor_->get_efficiency(std::abs(reference_motor_torque), motor_rpm);
 
-  // Preserve current sign so regen charges the battery.
-  double requested_motor_current =
-      reference_motor_torque /
+  const double current_magnitude =
+      std::abs(reference_motor_torque) /
       (car_parameters_->motor_parameters->kt_constant * std::max(motor_efficiency, 0.05));
+  const double mechanical_power = reference_motor_torque * motor_omega;
+  const double current_sign =
+      std::abs(motor_omega) > 1e-3 ? std::copysign(1.0, mechanical_power)
+                                   : std::copysign(1.0, reference_motor_torque);
+  double requested_motor_current = current_sign * current_magnitude;
 
   // Calculate the allowed current from the battery
   double allowed_motor_current = battery_->calculate_allowed_current(requested_motor_current);
