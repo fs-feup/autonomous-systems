@@ -1,0 +1,134 @@
+tuning:
+  bags:
+    - path: "/home/ws/FEUP Trackdrive 17.mcap"
+      track_name: "FEUP"
+      weight: 1.0
+      start_offset_s: 0.0
+      max_wall_time_s: 80.0
+
+  playback:
+    rate: 1.0
+    sim_speed: 1.0
+    startup_sleep_s: 3.0
+    shutdown_grace_s: 3.0
+    topics:
+      - "/control/command"
+      - "/state_estimation/vehicle_pose"
+      - "/state_estimation/velocities"
+      - "/vehicle/fl_rpm"
+      - "/vehicle/fr_rpm"
+      - "/vehicle/motor_rpm"
+
+  score:
+    min_samples: 200
+    weights:
+      position_rmse: 1.0
+      heading_rmse: 3.0
+      velocity_rmse: 0.6
+      yaw_rate_rmse: 0.4
+      front_wheel_rpm_rmse: 0.002
+      motor_rpm_rmse: 0.0004
+
+  optimizer:
+    method: "de"
+    trials: 24
+    maxiter: 3
+    popsize: 3
+    seed: 7
+
+  parameters:
+    - name: "motor.kt_constant"
+      file: "config/car/motor_model/02_motor.yaml"
+      path: ["motor", "kt_constant"]
+      min: 0.45
+      max: 0.9
+
+    - name: "transmission.viscous_drag_coeff"
+      file: "config/car/transmission_model/02_transmission.yaml"
+      path: ["transmission", "viscous_drag_coeff"]
+      min: 0.0
+      max: 0.08
+
+    - name: "transmission.coulomb_drag"
+      file: "config/car/transmission_model/02_transmission.yaml"
+      path: ["transmission", "coulomb_drag"]
+      min: 0.0
+      max: 8.0
+
+    - name: "car.front_bearing_drag"
+      file: "config/car/02.yaml"
+      path: ["car", "front_bearing_drag"]
+      min: 0.0
+      max: 1.0
+
+    - name: "tire.effective_tire_r"
+      file: "config/car/tire_model/02_tire.yaml"
+      path: ["tire", "effective_tire_r"]
+      min: 0.215
+      max: 0.240
+
+    - name: "tire.slip_ratio_relaxation_length"
+      file: "config/car/tire_model/02_tire.yaml"
+      path: ["tire", "slip_ratio_relaxation_length"]
+      min: 0.0
+      max: 0.25
+
+    - name: "tire.slip_angle_relaxation_length"
+      file: "config/car/tire_model/02_tire.yaml"
+      path: ["tire", "slip_angle_relaxation_length"]
+      min: 0.0
+      max: 0.25
+
+    - name: "tire.longitudinal_peak_scale"
+      file: "config/car/tire_model/02_tire.yaml"
+      path: ["tire", "scaling_coefficients", "LMUX"]
+      min: 0.75
+      max: 1.30
+
+    - name: "tire.longitudinal_stiffness_scale"
+      file: "config/car/tire_model/02_tire.yaml"
+      path: ["tire", "scaling_coefficients", "LKX"]
+      min: 0.70
+      max: 1.40
+
+    - name: "tire.lateral_peak_scale"
+      file: "config/car/tire_model/02_tire.yaml"
+      path: ["tire", "scaling_coefficients", "LMUY"]
+      min: 0.75
+      max: 1.35
+
+    - name: "tire.lateral_stiffness_scale"
+      file: "config/car/tire_model/02_tire.yaml"
+      path: ["tire", "scaling_coefficients", "LKY"]
+      min: 0.70
+      max: 1.40
+
+    - name: "tire.longitudinal_peak_pdx1"
+      file: "config/car/tire_model/02_tire.yaml"
+      path: ["tire", "longitudinal_coefficients", "PDX1"]
+      min: 0.70
+      max: 1.80
+
+    - name: "tire.longitudinal_stiffness_pkx1"
+      file: "config/car/tire_model/02_tire.yaml"
+      path: ["tire", "longitudinal_coefficients", "PKX1"]
+      min: 40.0
+      max: 130.0
+
+    - name: "tire.lateral_peak_pdy1"
+      file: "config/car/tire_model/02_tire.yaml"
+      path: ["tire", "lateral_coefficients", "PDY1"]
+      min: 1.4
+      max: 3.2
+
+    - name: "tire.lateral_stiffness_pky1"
+      file: "config/car/tire_model/02_tire.yaml"
+      path: ["tire", "lateral_coefficients", "PKY1"]
+      min: -70.0
+      max: -15.0
+
+    - name: "steering_motor.time_constant"
+      file: "config/car/steering_motor_model/02_steering_motor.yaml"
+      path: ["steering_motor", "time_constant"]
+      min: 0.02
+      max: 0.20

@@ -33,6 +33,7 @@ set(IMPLEMENTATION_FILES
   src/io/input/input_adapter.cpp
   src/io/input/ros.cpp
   src/io/output/ros.cpp
+  src/tuning/tuning_evaluator.cpp
   src/io/input/keyboard.cpp
   src/config/config.cpp
   src/vehicle_model/FSFEUP02.cpp
