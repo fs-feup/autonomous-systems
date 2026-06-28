@@ -256,6 +256,45 @@ void MPCzinhoAcadosSolver::publish_solver_data(std::shared_ptr<rclcpp::Node> nod
   std_msgs::msg::Float64MultiArray msg;
   msg.data = *this->_execution_times_;
   publisher->publish(msg);
+
+  this->publish_interpolated_path(node, publisher_map);
+  this->publish_received_state(node, publisher_map);
+}
+
+void MPCzinhoAcadosSolver::publish_received_state(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
+  if (!this->has_state_) return;
+
+  const std::string topic = "/mpczinho/received_state";
+  if (publisher_map.find(topic) == publisher_map.end()) {
+    publisher_map[topic] = node->create_publisher<custom_interfaces::msg::VehicleStateVector>(topic, 10);
+  }
+
+  auto state_publisher = std::static_pointer_cast<rclcpp::Publisher<custom_interfaces::msg::VehicleStateVector>>(publisher_map[topic]);
+  state_publisher->publish(this->latest_state_);
+}
+
+void MPCzinhoAcadosSolver::publish_interpolated_path(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
+  if (!this->has_path_) return;
+
+  const std::string topic = "/mpczinho/interpolated_path";
+  if (publisher_map.find(topic) == publisher_map.end()) {
+    publisher_map[topic] = node->create_publisher<visualization_msgs::msg::Marker>(topic, 10);
+  }
+
+  // Rebuild the interpolated trajectory received by the solver for visualization
+  int N = this->control_params_->mpc_prediction_horizon_steps_;
+  std::vector<common_lib::structures::PathPoint> interpolated_path;
+  interpolated_path.reserve(N + 1);
+  for (int i = 0; i <= N; ++i) {
+    interpolated_path.emplace_back(this->parameters_per_stage[i * path_point_size],
+                                   this->parameters_per_stage[i * path_point_size + 1],
+                                   this->parameters_per_stage[i * path_point_size + 3],
+                                   this->parameters_per_stage[i * path_point_size + 2]);
+  }
+
+  auto path_publisher = std::static_pointer_cast<rclcpp::Publisher<visualization_msgs::msg::Marker>>(publisher_map[topic]);
+  path_publisher->publish(common_lib::communication::line_marker_from_structure_array(
+      interpolated_path, "mpczinho_interpolated_path", "map", 0, "blue"));
 }
 
 void MPCzinhoAcadosSolver::print_debug_info() {

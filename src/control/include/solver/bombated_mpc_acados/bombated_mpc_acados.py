@@ -10,7 +10,6 @@ import yaml
 path_size = 31
 path_point_size = 4  # x, y, velocity, orientation
 
-alpha_max = 0.15
 mass = 240
 Izz = 153
 lr = 0.804  # Distance from the center of mass to the rear axle

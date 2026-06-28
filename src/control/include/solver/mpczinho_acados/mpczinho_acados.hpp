@@ -5,6 +5,7 @@
 #include "std_msgs/msg/float64_multi_array.hpp"
 #include "custom_interfaces/msg/vehicle_state_vector.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
+#include "common_lib/communication/marker.hpp"
 
 class MPCzinhoAcadosSolver : public SolverInterface {
 public:
@@ -24,6 +25,8 @@ private:
     void update_mpc_stats();
     void initialize_solver_memory();
     void print_debug_info();
+    void publish_interpolated_path(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map);
+    void publish_received_state(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map);
 
     /**
      * @brief Checks if the solver output is reasonable upon solver failure, to help identify if the failure is benign (e.g. due to infeasibility) or if the solver diverged

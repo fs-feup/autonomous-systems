@@ -66,4 +66,5 @@ double MPCzinho::get_steering_command() {
 }
 
 void MPCzinho::publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
+  this->solver_->publish_solver_data(node, publisher_map);
 }
