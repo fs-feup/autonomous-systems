@@ -16,7 +16,7 @@ publish_frequencies:
     imu: 200             # Simulated IMU (free_acceleration, angular_velocity)
     wheel_speed:
       fr: 50             # Front right wheel speed
-      fl: 2              # Front left wheel speed
+      fl: 50              # Front left wheel speed
       rr: 50             # Rear right wheel speed
       rl: 50             # Rear left wheel speed
     resolver: 5         # Simulated motor/resolver RPM

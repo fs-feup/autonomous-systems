@@ -49,7 +49,7 @@ std::vector<double> IMU::apply_imu_error(double acceleration_x, double accelerat
   double yaw_rate_with_bias = yaw_rate + gyroscope_bias_;
 
   // Apply scale factor error that depends on angular velocity magnitude
-  double scale_error_angular = angular_velocity_scale_factor_ * yaw_rate * std::abs(yaw_rate);
+  double scale_error_angular = angular_velocity_scale_factor_ * std::abs(yaw_rate);
 
   yaw_rate_with_bias += scale_error_angular;
 

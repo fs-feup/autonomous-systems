@@ -121,24 +121,28 @@ std::vector<common_lib::structures::Cone> SimulatedPerception::perception_error(
       is_visible = false;
     }
 
-    if (is_visible && range_3d <= max_range_) {
-      // Calculate noise standard deviation
-      double sigma = noise_std_dev_base_;
-      if (noise_scales_with_range_) {
-        sigma += noise_range_scaling_ * range_3d;
-      }
+    if (is_visible) {
+    double exponent = detection_probability_alpha_ * (range_3d - max_range_);
+    exponent = std::clamp(exponent, -100.0, 100.0);
+    double detection_probability = 1.0 / (1.0 + std::exp(exponent));
 
-      // Apply Gaussian noise to coordinates
-      auto noisy_cone = cone;
-      double x_noisy = x_local + gaussian_noise(sigma);
-      double y_noisy = y_local + gaussian_noise(sigma);
+    // Sample whether this cone is detected
+    std::uniform_real_distribution<double> uniform_dist(0.0, 1.0);
+    if (uniform_dist(generator_) < detection_probability) {
+        double sigma = noise_std_dev_base_;
+        if (noise_scales_with_range_) {
+            sigma += noise_range_scaling_ * range_3d;
+        }
 
-      noisy_cone.position.x = x_noisy;
-      noisy_cone.position.y = y_noisy;
-  
-      result.push_back(noisy_cone);
+        // Apply Gaussian noise
+        auto noisy_cone = cone;
+        noisy_cone.position.x = x_local + gaussian_noise(sigma);
+        noisy_cone.position.y = y_local + gaussian_noise(sigma);
+
+        result.push_back(noisy_cone);
     }
-  }
+    }
+}
 
   return result;
 }

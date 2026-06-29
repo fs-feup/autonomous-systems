@@ -7,7 +7,7 @@ lidar_sensor:
     mounting_pitch: 4.98                # Mounting pitch angle (degrees)
     
     # Detection probability parameters
-    detection_probability_alpha: 0.3    # Alpha parameter for sigmoid curve steepness (higher = steeper drop-off)
+    detection_probability_alpha: 0.5    # Alpha parameter for sigmoid curve steepness (higher = steeper drop-off)
     
     # Noise parameters
     noise_std_dev_base: 0             # Base standard deviation for Gaussian noise (meters)

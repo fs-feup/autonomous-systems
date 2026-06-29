@@ -16,13 +16,13 @@ wss_sensor:
   # Front Left Wheel
   fl:
     noise:
-      std_dev: 0.4
+      std_dev: 0.2
     outliers:
-      probability: 0.002
+      probability: 0.008
       impact_factor: 0.3
-    dropout_probability: 0.5
+    dropout_probability: 0.002
     speed_cutoff: 0.01
-    quantization_steps: 15
+    quantization_steps: 12
 
   # Rear Right Wheel
   rr:
