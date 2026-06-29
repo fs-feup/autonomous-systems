@@ -11,7 +11,7 @@ car:
   unsprung_cg_z: 0.206
   cg_height: 0.208
   cg_2_rear_axis: 0.706
-  imu_position_x: 0.7694  # IMU longitudinal position behind the front axle [m], +rearward?
+  imu_position_x: 0.7694  # IMU longitudinal position behind the front axle [m], +rearward
   gear_ratio: 3.67
   Izz: 101.082
   front_bearing_drag: 0.25

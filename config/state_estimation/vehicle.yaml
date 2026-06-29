@@ -1,64 +1,63 @@
 state_estimation:
   estimation_method: "ukf" # "ukf" or ... -> name of the state estimation method
-  process_model_name: "component_based_vehicle_model" # "component_based_vehicle_model" or ... -> name of the process model
+  process_model_name: "rk4_vehicle_model" # "component_based_vehicle_model" or "rk4_vehicle_model" or ... -> name of the process model
   observation_model_name: "02_sensors" # "02_sensors" or "pacsim_sensors" or ... -> name of the observation model
 
   state_estimation_freq: 200.0 # Frequency of state estimation updates in Hz
-  prediction_threads: 4 # OpenMP threads for the UKF sigma-point prediction loop (scoped to this node)
 
   vehicle_model: "FSFEUP02"  # Options: "FSFEUP02"
+  prediction_threads: 1 # OpenMP threads for the UKF sigma-point prediction loop
 
-  velocity_x_process_noise: 0.1 # variance of the noise for the velocity in x
-  velocity_y_process_noise: 0.1 # variance of the noise for the velocity in y
-  yaw_rate_process_noise: 0.2 # variance of the noise for the yaw rate
-  acceleration_x_process_noise: 0.2 # variance of the noise for the acceleration in x
-  acceleration_y_process_noise: 0.2 # variance of the noise for the acceleration in y
-  steering_angle_process_noise: 0.3 # variance of the noise for the steering angle
-  wheel_speed_process_noise: 0.15 # variance of the noise for the wheel speeds
+  velocity_x_process_noise: 0.03 # variance of the noise for the velocity in x
+  velocity_y_process_noise: 0.001 # variance of the noise for the velocity in y
+  yaw_rate_process_noise: 0.003 # variance of the noise for the yaw rate
+  acceleration_x_process_noise: 0.02 # variance of the noise for the acceleration in x
+  acceleration_y_process_noise: 0.03 # variance of the noise for the acceleration in y
+  steering_angle_process_noise: 1e-3 # variance of the noise for the steering angle
+  wheel_speed_process_noise: 0.05 # variance of the noise for the wheel speeds
   
-  imu_acceleration_x_noise: 0.15 # variance of the noise for the acceleration in x from IMU
-  imu_acceleration_y_noise: 0.15 # variance of the noise for the acceleration in y from IMU  
-  imu_rotational_noise: 0.2 # variance of the noise for the rotational velocity from IMU
-  wheel_speed_noise: 0.15 # variance of the noise for the wheel speeds from encoders
-  steering_angle_noise: 0.1 # variance of the noise for the steering angle from steering sensor
+  imu_acceleration_x_noise: 0.3 # variance of the noise for the acceleration in x from IMU
+  imu_acceleration_y_noise: 0.5 # variance of the noise for the acceleration in y from IMU  
+  imu_rotational_noise: 0.05 # variance of the noise for the rotational velocity from IMU
+  wheel_speed_noise: 2.5 # variance of the noise for the wheel speeds from encoders (rpm)
+  steering_angle_noise: 2e-5 # variance of the noise for the steering angle from steering sensor
   motor_rpm_noise: 0.1 # variance of the noise for the motor rpm from motor sensor
 
-  # Paired (state-based / kinematic) measurement-noise factors, as multiples of the base
-  # sensor variance, for the wheel/motor rows that share one physical measurement.
+  # Paired (state-based / kinematic) measurement-noise factors
   state_model_noise_factor: 0.25 # extra variance on the state-based row
   kinematic_model_noise_factor: 6.0 # extra variance on the kinematic row
   cross_noise_factor: 1.0 # shared measurement covariance (off-diagonal) between the two rows
 
-  mean_weight: 0.4 # UKF mean weight parameter
-  alpha: 1e-2 # UKF alpha parameter
+  mean_weight: 0.4
+  alpha: 0.15 # UKF alpha parameter
   beta: 2.0 # UKF beta parameter
   kappa: 0.0 # UKF kappa parameter
 
   # --- Publishing options ---
   publish_vm_debug_info: false # Whether to publish debug information about the vehicle model calculations (e.g., tire forces, slip ratios, etc.)
-  publish_exec_times: false # Whether to publish execution time statistics for filter stages (overhead, prediction, correction, update)
+  publish_exec_times: true # Whether to publish execution time statistics for filter stages (overhead, prediction, correction, update)
   publish_sensor_health: true # Whether to publish per-sensor health (LIVE/FAULTY/DEAD) from the Overseer
 
   # --- Sensor fault detection (Overseer) ---
-  # Placeholders — tune to the real 02 sensor rates and physical limits.
-  sensor_fault_detection_enabled: true # master switch; when false, health is tracked but never affects the filter
-  sensor_faulty_noise_factor: 50.0 # bounded R multiplier for FAULTY rows; DEAD rows are dropped
+  sensor_fault_detection_enabled: true # Whether to enable sensor fault detection
+
+  sensor_faulty_noise_factor: 75.0 # bounded R multiplier for FAULTY rows; DEAD rows are dropped
   sensor_staleness_miss_tolerance: 5.0 # missed sample periods of silence before DEAD
 
   imu_frequency: 100.0                # expected IMU publish rate (Hz)
-  imu_accel_range: 30.0               # max |acceleration| from IMU (m/s^2)
-  imu_accel_max_rate_of_change: 500.0         # max |d(accel)/dt| from IMU (m/s^3)
-  imu_yaw_range: 5.0                  # max |yaw rate| from IMU (rad/s)
-  imu_yaw_max_rate_of_change: 100.0           # max |d(yaw rate)/dt| from IMU (rad/s^2)
+  imu_accel_range: 25.0               # max |acceleration| from IMU (m/s^2)
+  imu_accel_max_rate_of_change: 1.0        # max |d(accel)/dt| from IMU (m/s^3)
+  imu_yaw_range: 2.0                  # max |yaw rate| from IMU (rad/s)
+  imu_yaw_max_rate_of_change: 60.0           # max |d(yaw rate)/dt| from IMU (rad/s^2)
 
-  wheel_speed_frequency: 100.0        # expected front wheel encoder publish rate (Hz)
-  wheel_speed_range: 3000.0           # max |wheel speed| from encoder (rpm)
-  wheel_speed_max_rate_of_change: 20000.0     # max |d(wheel speed)/dt| from encoder (rpm/s)
+  wheel_speed_frequency: 50.0        # expected wheel encoder publish rate (Hz)
+  wheel_speed_range: 1200           # max |wheel speed| from encoder (rpm)
+  wheel_speed_max_rate_of_change: 8000.0     # max |d(wheel speed)/dt| from encoder (rpm/s)
 
-  steering_frequency: 100.0           # expected steering sensor publish rate (Hz)
-  steering_range: 0.5                 # max |steering angle| (rad)
-  steering_max_rate_of_change: 20.0           # max |d(steering angle)/dt| (rad/s)
+  steering_frequency: 50.0           # expected steering sensor publish rate (Hz)
+  steering_range: 0.39                 # max |steering angle| (rad)
+  steering_max_rate_of_change: 5.0           # max |d(steering angle)/dt| (rad/s)
 
   motor_frequency: 100.0              # expected motor rpm publish rate (Hz)
-  motor_rpm_range: 20000.0            # max |motor rpm| (rpm)
-  motor_rpm_max_rate_of_change: 200000.0      # max |d(motor rpm)/dt| (rpm/s)
+  motor_rpm_range: 4440.0           # max |motor rpm| (rpm)
+  motor_rpm_max_rate_of_change: 21000.0      # max |d(motor rpm)/dt| (rpm/s)

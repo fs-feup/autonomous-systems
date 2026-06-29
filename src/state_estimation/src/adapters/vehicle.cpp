@@ -14,7 +14,7 @@ VehicleAdapter::VehicleAdapter(const std::shared_ptr<SEParameters>& parameters)
       _quaternion_subscription_);
   this->_xsens_imu_sync_->registerCallback(&VehicleAdapter::imu_callback, this);
 
-  // Front wheel-speed sensors (no rear wheel-speed sensors on this car).
+  // Front wheel-speed sensors (no rear wheel-speed sensors on 02).
   this->_fl_wheel_rpm_subscription_.subscribe(this, "/vehicle/fl_rpm");
   this->_fr_wheel_rpm_subscription_.subscribe(this, "/vehicle/fr_rpm");
   const WheelSSPolicy policy(10);
@@ -23,7 +23,7 @@ VehicleAdapter::VehicleAdapter(const std::shared_ptr<SEParameters>& parameters)
   this->_wss_sync_->registerCallback(&VehicleAdapter::wss_callback, this);
 
   this->_steering_angle_sub_ = this->create_subscription<custom_interfaces::msg::SteeringAngle>(
-      "/vehicle/bosch_steering_angle", 1,
+      "/vehicle/steering_motor_state", 1, // SAS is not working so use steering motor TODO: Implement fallback
       std::bind(&VehicleAdapter::steering_angle_callback, this, std::placeholders::_1));
   this->_resolver_sub_ = this->create_subscription<custom_interfaces::msg::WheelRPM>(
       "/vehicle/motor_rpm", 1,

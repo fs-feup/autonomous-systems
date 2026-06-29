@@ -15,9 +15,9 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
                 [
-                    FindPackageShare("velocity_estimation"),
+                    FindPackageShare("state_estimation"),
                     "launch",
-                    "velocity_estimation.launch.py",
+                    "state_estimation.launch.py",
                 ]
             )
         ),
