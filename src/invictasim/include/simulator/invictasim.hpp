@@ -11,7 +11,9 @@
 #include "track/track.hpp"
 #include "vehicle_model/map.hpp"
 #include "vehicle_model/vehicle_model.hpp"
-
+#include "sensors/simulated_perception.hpp"
+#include "sensors/imu.hpp"
+#include "sensors/wss.hpp"
 /**
  * @brief Main simulator class
  */
@@ -177,9 +179,12 @@ private:
   InvictaSimParameters params_;  ///< Simulator configuration values.
 
   // Simulation components
-  std::shared_ptr<VehicleModel> vehicle_model_;  ///< Vehicle model.
-  std::shared_ptr<Track> track_;                 ///< Track information.
-
+  std::shared_ptr<VehicleModel> vehicle_model_;             ///< Vehicle model.
+  std::shared_ptr<Track> track_;                            ///< Track information.
+  std::shared_ptr<IMU> imu_model_;                          ///< IMU
+  std::shared_ptr<SimulatedPerception> perception_model_;   ///< Simulated Perception cones
+  std::shared_ptr<WSS> wss_model_;                          ///< Wheel Speed Sensor
+  
   // Simulation loop timing
   std::atomic<bool> running_;  ///< Indicates whether the simulation loop is running.
   double sim_time_;            ///< Current simulation time in seconds.
@@ -225,7 +230,7 @@ private:
    * @brief Build map snapshot with ground truth map, slam simulation and perception cones.
    * @return MapSnapshot Latest map snapshot.
    */
-  MapSnapshot build_map_snapshot() const;
+  MapSnapshot build_map_snapshot(const VehicleModelSnapshot& vehicle_snapshot) const;
 
   /**
    * @brief Build sensors snapshot with latest simulated sensors data.

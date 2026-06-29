@@ -5,7 +5,7 @@ publish_frequencies:
     motor: 0         # Motor status (RPM, torque, temperature)
     transmission: 0  # Transmission status (torque on each wheel)
     aero: 0          # Aerodynamic status (drag, downforce)
-    status: 0        # Overall vehicle status (speed, acceleration, position, yaw, etc.)
+    status: 200        # Overall vehicle status (speed, acceleration, position, yaw, etc.)
   visualization:     # Visualization will work at the minimum of this frequencies (excluding 0s)
     car: 30           # Car visualization 
     ground: 1         # Ground visualization 
@@ -14,7 +14,11 @@ publish_frequencies:
     perception_cones: 30    # Perception cones visualization (simulated or from perception)
   sensors:
     imu: 200             # Simulated IMU (free_acceleration, angular_velocity)
-    wheel_speed: 50      # Simulated wheel speed sensors
+    wheel_speed:
+      fr: 50             # Front right wheel speed
+      fl: 2              # Front left wheel speed
+      rr: 50             # Rear right wheel speed
+      rl: 50             # Rear left wheel speed
     resolver: 5         # Simulated motor/resolver RPM
     steering: 10         # Simulated steering sensor
   map:

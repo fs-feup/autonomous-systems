@@ -37,6 +37,7 @@
 #include "visualization_msgs/msg/marker.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
 
+
 /**
  * @brief ROS-based simulator output adapter.
  */
@@ -61,6 +62,7 @@ public:
   void stop() override;
 
 private:
+
   // Used for spinning wheels visualization
   double wheel_spin_fl_ = 0.0;
   double wheel_spin_fr_ = 0.0;
@@ -122,7 +124,10 @@ private:
 
   // Sensors
   void publish_sensors_imu(const rclcpp::Time& stamp);
-  void publish_sensors_wheel_speed(const rclcpp::Time& stamp);
+  void publish_sensors_wheel_speed_fr(const rclcpp::Time& stamp);
+  void publish_sensors_wheel_speed_fl(const rclcpp::Time& stamp);
+  void publish_sensors_wheel_speed_rr(const rclcpp::Time& stamp);
+  void publish_sensors_wheel_speed_rl(const rclcpp::Time& stamp);
   void publish_sensors_resolver(const rclcpp::Time& stamp);
   void publish_sensors_steering(const rclcpp::Time& stamp);
 
@@ -158,8 +163,7 @@ private:
   void add_vehicle_transform(const rclcpp::Time& stamp);
 
   // ROS publishers
-  std::unique_ptr<tf2_ros::TransformBroadcaster>
-      tf_broadcaster_;  ///< Vehicle pose TF publisher, used for having a car perspective.
+  std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
   rclcpp::Publisher<custom_interfaces::msg::TireForces>::SharedPtr
       tire_forces_pub_;  ///< Publisher for tire forces.
   rclcpp::Publisher<custom_interfaces::msg::WheelScalars>::SharedPtr
@@ -194,11 +198,14 @@ private:
       visualization_perception_cones_pub_;  ///< Publisher for perception cones visualization
                                             ///< markers.
 
+
   // Compatibility publishers for other nodes (ground-truth topics expected by adapters)
   rclcpp::Publisher<geometry_msgs::msg::Vector3Stamped>::SharedPtr free_accel_pub_;
   rclcpp::Publisher<geometry_msgs::msg::Vector3Stamped>::SharedPtr angular_vel_pub_;
   rclcpp::Publisher<custom_interfaces::msg::WheelRPM>::SharedPtr vehicle_fl_rpm_pub_;
   rclcpp::Publisher<custom_interfaces::msg::WheelRPM>::SharedPtr vehicle_fr_rpm_pub_;
+  rclcpp::Publisher<custom_interfaces::msg::WheelRPM>::SharedPtr vehicle_rl_rpm_pub_;
+  rclcpp::Publisher<custom_interfaces::msg::WheelRPM>::SharedPtr vehicle_rr_rpm_pub_;
   rclcpp::Publisher<custom_interfaces::msg::WheelRPM>::SharedPtr vehicle_motor_rpm_pub_;
   rclcpp::Publisher<custom_interfaces::msg::SteeringAngle>::SharedPtr steering_pub_;
   rclcpp::Publisher<custom_interfaces::msg::PerceptionOutput>::SharedPtr perception_pub_;
@@ -207,4 +214,5 @@ private:
   rclcpp::Publisher<custom_interfaces::msg::OperationalStatus>::SharedPtr operational_status_pub_;
   rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr vehicle_pose_pub_;
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr lap_counter_pub_;
+
 };

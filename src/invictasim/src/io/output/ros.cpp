@@ -46,10 +46,9 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator,
 
   // Simulated perception publishers
   if (simulator_->get_params().use_simulated_perception) {
-    perception_pub_ = this->create_publisher<custom_interfaces::msg::PerceptionOutput>(
-        "invictasim/perception/cones", 10);
+      perception_pub_ = this->create_publisher<custom_interfaces::msg::PerceptionOutput>(
+          "invictasim/perception/cones", 10);
   }
-
   // Simulated state estimation publishers
   if (simulator_->get_params().use_simulated_se) {
     state_map_pub_ = this->create_publisher<custom_interfaces::msg::ConeArray>(
@@ -75,14 +74,20 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator,
       this->create_publisher<custom_interfaces::msg::WheelRPM>("invictasim/wss/front_left", 10);
   vehicle_fr_rpm_pub_ =
       this->create_publisher<custom_interfaces::msg::WheelRPM>("invictasim/wss/front_right", 10);
+  vehicle_rl_rpm_pub_ =
+      this->create_publisher<custom_interfaces::msg::WheelRPM>("invictasim/wss/rear_left", 10);
+  vehicle_rr_rpm_pub_ =
+      this->create_publisher<custom_interfaces::msg::WheelRPM>("invictasim/wss/rear_right", 10);
   vehicle_motor_rpm_pub_ =
       this->create_publisher<custom_interfaces::msg::WheelRPM>("invictasim/resolver", 10);
   steering_pub_ = this->create_publisher<custom_interfaces::msg::SteeringAngle>(
       "invictasim/steering_angle_sensor", 10);
 
+
   // Operational status
   operational_status_pub_ = this->create_publisher<custom_interfaces::msg::OperationalStatus>(
       "invictasim/operational_status", 10);
+  
 
   load_publish_frequencies(config_file);
   setup_timers();
@@ -136,8 +141,14 @@ void RosOutputAdapter::map_callbacks() {
 
   // Sensors
   register_pub_helper("imu", [this](const rclcpp::Time& stamp) { publish_sensors_imu(stamp); });
-  register_pub_helper("wheel_speed",
-                      [this](const rclcpp::Time& stamp) { publish_sensors_wheel_speed(stamp); });
+  register_pub_helper("wheel_speed_fr",
+                      [this](const rclcpp::Time& stamp) { publish_sensors_wheel_speed_fr(stamp); });
+  register_pub_helper("wheel_speed_fl",
+                      [this](const rclcpp::Time& stamp) { publish_sensors_wheel_speed_fl(stamp); });
+  register_pub_helper("wheel_speed_rr",
+                      [this](const rclcpp::Time& stamp) { publish_sensors_wheel_speed_rr(stamp); });
+  register_pub_helper("wheel_speed_rl",
+                      [this](const rclcpp::Time& stamp) { publish_sensors_wheel_speed_rl(stamp); });
   register_pub_helper("resolver",
                       [this](const rclcpp::Time& stamp) { publish_sensors_resolver(stamp); });
   register_pub_helper("steering",
@@ -194,9 +205,19 @@ void RosOutputAdapter::load_group_from_yaml(const YAML::Node& config,
   if (group_node && group_node.IsMap()) {
     for (const auto& node : group_node) {
       std::string topic_key = node.first.as<std::string>();
-      int frequency = node.second.as<int>();
-
-      topic_frequencies_[topic_key] = frequency;
+      
+      // Handle nested maps (e.g., wheel_speed with per-wheel frequencies)
+      if (node.second.IsMap()) {
+        for (const auto& nested_node : node.second) {
+          std::string nested_key = nested_node.first.as<std::string>();
+          int frequency = nested_node.second.as<int>();
+          std::string combined_key = topic_key + "_" + nested_key;
+          topic_frequencies_[combined_key] = frequency;
+        }
+      } else {
+        int frequency = node.second.as<int>();
+        topic_frequencies_[topic_key] = frequency;
+      }
     }
   }
 }
@@ -230,11 +251,11 @@ void RosOutputAdapter::on_frequency_tick(int frequency_hz) {
   refresh_sensors_snapshot();
   refresh_vehicle_state_snapshot();
 
-  // Execute functions for this frequency
   for (const auto& publish_func : frequency_callbacks_[frequency_hz]) {
-    publish_func(stamp);
+  publish_func(stamp);
   }
 }
+
 
 void RosOutputAdapter::refresh_vehicle_model_snapshot() {
   vehicle_model_snapshot_cache_ = simulator_->get_vehicle_model_snapshot();
@@ -273,18 +294,60 @@ void RosOutputAdapter::publish_sensors_imu(const rclcpp::Time& stamp) {
   angular_vel_msg.vector.z = sensors_snapshot_cache_.angular_velocity.z();
   angular_vel_pub_->publish(angular_vel_msg);
 }
+void RosOutputAdapter::publish_sensors_wheel_speed_fr(const rclcpp::Time& stamp) {
+  // Skip publishing if front right wheel had dropout
+  if (sensors_snapshot_cache_.wheel_rpm_dropout[0]) {
+    return;
+  }
+  
+  // Publish front right wheel RPM
+  custom_interfaces::msg::WheelRPM fr_msg;
+  fr_msg.header.stamp = stamp;
+  fr_msg.header.frame_id = "base_link";
+  fr_msg.fr_rpm = sensors_snapshot_cache_.wheel_rpm.front_right;
+  vehicle_fr_rpm_pub_->publish(fr_msg);
+}
 
-void RosOutputAdapter::publish_sensors_wheel_speed(const rclcpp::Time& stamp) {
-  // Publish wheel RPMs for each wheel
+void RosOutputAdapter::publish_sensors_wheel_speed_fl(const rclcpp::Time& stamp) {
+  // Skip publishing if front left wheel had dropout
+  if (sensors_snapshot_cache_.wheel_rpm_dropout[1]) {
+    return;
+  }
+  
+  // Publish front left wheel RPM
   custom_interfaces::msg::WheelRPM fl_msg;
   fl_msg.header.stamp = stamp;
   fl_msg.header.frame_id = "base_link";
   fl_msg.fl_rpm = sensors_snapshot_cache_.wheel_rpm.front_left;
   vehicle_fl_rpm_pub_->publish(fl_msg);
+}
 
-  custom_interfaces::msg::WheelRPM fr_msg = fl_msg;
-  fr_msg.fr_rpm = sensors_snapshot_cache_.wheel_rpm.front_right;
-  vehicle_fr_rpm_pub_->publish(fr_msg);
+void RosOutputAdapter::publish_sensors_wheel_speed_rr(const rclcpp::Time& stamp) {
+  // Skip publishing if rear right wheel had dropout
+  if (sensors_snapshot_cache_.wheel_rpm_dropout[2]) {
+    return;
+  }
+  
+  // Publish rear right wheel RPM
+  custom_interfaces::msg::WheelRPM rr_msg;
+  rr_msg.header.stamp = stamp;
+  rr_msg.header.frame_id = "base_link";
+  rr_msg.rr_rpm = sensors_snapshot_cache_.wheel_rpm.rear_right;
+  vehicle_rr_rpm_pub_->publish(rr_msg);
+}
+
+void RosOutputAdapter::publish_sensors_wheel_speed_rl(const rclcpp::Time& stamp) {
+  // Skip publishing if rear left wheel had dropout
+  if (sensors_snapshot_cache_.wheel_rpm_dropout[3]) {
+    return;
+  }
+  
+  // Publish rear left wheel RPM
+  custom_interfaces::msg::WheelRPM rl_msg;
+  rl_msg.header.stamp = stamp;
+  rl_msg.header.frame_id = "base_link";
+  rl_msg.rl_rpm = sensors_snapshot_cache_.wheel_rpm.rear_left;
+  vehicle_rl_rpm_pub_->publish(rl_msg);
 }
 
 void RosOutputAdapter::publish_sensors_resolver(const rclcpp::Time& stamp) {
@@ -351,13 +414,13 @@ void RosOutputAdapter::publish_state_estimation_lap_counter() {
 }
 
 void RosOutputAdapter::publish_perception_cones(const rclcpp::Time& stamp) {
-  const auto& cones = map_snapshot_cache_.perception_cones;
+
   custom_interfaces::msg::PerceptionOutput perception_msg;
   perception_msg.header.stamp = stamp;
-  perception_msg.header.frame_id = "base_link";
+  perception_msg.header.frame_id = "car";
   perception_msg.cones.header = perception_msg.header;
-  perception_msg.cones.cone_array.reserve(cones.size());
-  for (const auto& cone : cones) {
+
+  for (const auto& cone : map_snapshot_cache_.perception_cones) {
     custom_interfaces::msg::Cone msg;
     msg.position.x = cone.position.x;
     msg.position.y = cone.position.y;
@@ -366,7 +429,8 @@ void RosOutputAdapter::publish_perception_cones(const rclcpp::Time& stamp) {
     msg.is_large = cone.is_large;
     perception_msg.cones.cone_array.push_back(msg);
   }
-  perception_msg.exec_time = map_snapshot_cache_.perception_exec_time_ms;
+
+  perception_msg.exec_time = 0.0;
   perception_pub_->publish(perception_msg);
 }
 
@@ -590,71 +654,10 @@ void RosOutputAdapter::publish_visualization_slam_cones(const rclcpp::Time& stam
 }
 
 void RosOutputAdapter::publish_visualization_perception_cones(const rclcpp::Time& stamp) {
-  visualization_msgs::msg::MarkerArray perception_marker_array;
-  perception_marker_array =
-      convert_cone_array_to_markers(map_snapshot_cache_.perception_cones, stamp, "car");
-  visualization_perception_cones_pub_->publish(perception_marker_array);
-}
 
-visualization_msgs::msg::MarkerArray RosOutputAdapter::convert_cone_array_to_markers(
-    const std::vector<common_lib::structures::Cone>& cone_array, const rclcpp::Time& stamp,
-    const std::string& frame_id) const {
-  visualization_msgs::msg::MarkerArray marker_array;
-  int cone_id = 0;
-  for (const auto& cone : cone_array) {
-    visualization_msgs::msg::Marker m;
-    m.header.stamp = stamp;
-    m.header.frame_id = frame_id;
-    if (frame_id == "car") {
-      m.frame_locked = true;
-      m.lifetime = rclcpp::Duration::from_seconds(0.1);
-    }
-    m.ns = "cones";
-    m.id = cone_id++;
-    m.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
-    m.action = visualization_msgs::msg::Marker::ADD;
-
-    m.pose.position.x = cone.position.x;
-    m.pose.position.y = cone.position.y;
-    m.pose.position.z = 0.1425;
-
-    m.pose.orientation.w = 1.0;
-    m.scale.x = 1.0;
-    m.scale.y = 1.0;
-    m.scale.z = 1.0;
-    m.mesh_use_embedded_materials = true;
-    m.color.r = 1.0f;
-    m.color.g = 1.0f;
-    m.color.b = 1.0f;
-    m.color.a = 1.0f;
-
-    std::string path = "package://invictasim/resources/meshes/cones/";
-
-    switch (cone.color) {
-      case common_lib::competition_logic::Color::BLUE:
-        m.mesh_resource = path + "cone_blue.dae";
-        break;
-      case common_lib::competition_logic::Color::YELLOW:
-        m.mesh_resource = path + "cone_yellow.dae";
-        break;
-      case common_lib::competition_logic::Color::LARGE_ORANGE:
-        m.mesh_resource = path + "cone_orange_big.dae";
-        m.pose.position.z = 0.03;  // Adjusted height for large cone
-        break;
-      case common_lib::competition_logic::Color::RED:
-        m.mesh_resource = path + "cone_red.dae";
-        break;
-      case common_lib::competition_logic::Color::GREEN:
-        m.mesh_resource = path + "cone_green.dae";
-        break;
-      case common_lib::competition_logic::Color::ORANGE:
-      default:
-        m.mesh_resource = path + "cone_orange.dae";
-        break;
-    }
-    marker_array.markers.push_back(m);
-  }
-  return marker_array;
+  auto markers = convert_cone_array_to_markers(
+      map_snapshot_cache_.perception_cones, stamp, "car");
+  visualization_perception_cones_pub_->publish(markers);
 }
 
 void RosOutputAdapter::add_body_marker(visualization_msgs::msg::MarkerArray& marker_array,
@@ -788,6 +791,56 @@ void RosOutputAdapter::add_vehicle_transform(const rclcpp::Time& stamp) {
   tf_broadcaster_->sendTransform(car_transform);
 }
 
+visualization_msgs::msg::MarkerArray RosOutputAdapter::convert_cone_array_to_markers(
+    const std::vector<common_lib::structures::Cone>& cone_array, const rclcpp::Time& stamp,
+    const std::string& frame_id) const {
+  visualization_msgs::msg::MarkerArray marker_array;
+  int cone_id = 0;
+  for (const auto& cone : cone_array) {
+    visualization_msgs::msg::Marker m;
+    m.header.stamp = stamp;
+    m.header.frame_id = frame_id;
+    if (frame_id == "car") {
+      m.lifetime = rclcpp::Duration::from_seconds(0.1);
+    }
+    m.ns = frame_id == "car" ? "perceived_cones" : "map_cones";
+    m.id = cone_id++;
+    m.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
+    m.action = visualization_msgs::msg::Marker::ADD;
+    m.pose.position.x = cone.position.x;
+    m.pose.position.y = cone.position.y;
+    m.pose.position.z = 0.1425;
+    m.pose.orientation.w = 1.0;
+    m.scale.x = 1.0;
+    m.scale.y = 1.0;
+    m.scale.z = 1.0;
+    m.mesh_use_embedded_materials = true;
+    m.color.r = 1.0f;
+    m.color.g = 1.0f;
+    m.color.b = 1.0f;
+    m.color.a = 1.0f;
+
+    std::string path = "package://invictasim/resources/meshes/cones/";
+    switch (cone.color) {
+      case common_lib::competition_logic::Color::BLUE:
+        m.mesh_resource = path + "cone_blue.dae"; break;
+      case common_lib::competition_logic::Color::YELLOW:
+        m.mesh_resource = path + "cone_yellow.dae"; break;
+      case common_lib::competition_logic::Color::LARGE_ORANGE:
+        m.mesh_resource = path + "cone_orange_big.dae";
+        m.pose.position.z = 0.03; break;
+      case common_lib::competition_logic::Color::RED:
+        m.mesh_resource = path + "cone_red.dae"; break;
+      case common_lib::competition_logic::Color::GREEN:
+        m.mesh_resource = path + "cone_green.dae"; break;
+      case common_lib::competition_logic::Color::ORANGE:
+      default:
+        m.mesh_resource = path + "cone_orange.dae"; break;
+    }
+    marker_array.markers.push_back(m);
+  }
+  return marker_array;
+}
 custom_interfaces::msg::WheelScalars RosOutputAdapter::to_wheels_msg(
     const common_lib::structures::Wheels& wheels, const rclcpp::Time& stamp) const {
   custom_interfaces::msg::WheelScalars msg;
