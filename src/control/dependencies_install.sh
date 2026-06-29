@@ -48,14 +48,16 @@ cd "${ACADOS_SRC_DIR}"
 git submodule update --init --recursive
 
 # Clean previous builds if any
-rm -rf build
-rm -rf "${ACADOS_INSTALL_DIR}"
+sudo rm -rf build
+sudo rm -rf "${ACADOS_INSTALL_DIR}"
+mkdir build
+cd build
 
 cmake -S . -B build -G Ninja \
     -DACADOS_WITH_QPOASES=ON \
-    -DACADOS_WITH_OSQP=OFF \
+    -DACADOS_WITH_OSQP=ON \
     -DACADOS_WITH_OPENMP=ON \
-    -DBLASFEO_TARGET=GENERIC \
+    -DBLASFEO_TARGET=X64_INTEL_HASWELL \
     -DHPIPM_TARGET=GENERIC \
     -DCMAKE_BUILD_RPATH=\$ORIGIN \
     -DCMAKE_INSTALL_RPATH=\$ORIGIN \

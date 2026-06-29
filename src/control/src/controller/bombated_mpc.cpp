@@ -10,7 +10,7 @@
 MPC::MPC(const ControlParameters& params) : Controller(params) {
   RCLCPP_INFO(rclcpp::get_logger("bombated_mpc"), "Initializing Bombated MPC Controller");
   this->solver_ = solver_map.at("bombated_mpc_acados")(params);
-  this->local_pather_ = local_pather_map.at("interpolator")(params);
+  this->local_pather_ = local_pather_map.at("alpha_beta")(params);
   this->path_data.pathpoint_array.resize((this->params_->mpc_prediction_horizon_steps_ + 1) * PATHPOINT_SIZE);
 }
 

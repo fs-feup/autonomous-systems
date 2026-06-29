@@ -56,13 +56,8 @@ void MPCzinhoAcadosSolver::set_state(const custom_interfaces::msg::VehicleStateV
   ocp_nlp_constraints_model_set(nlp_config_, nlp_dims_, nlp_in_, nlp_out_, 0, "ubx", (void*)state_vector.data());
 }
 
-void MPCzinhoAcadosSolver::set_previous_control_command(
-    const common_lib::structures::ControlCommand& previous_command) {
-  this->previous_control_command_ = previous_command;
-}
-
 void MPCzinhoAcadosSolver::initialize_solver_memory() {
-  int N = solver_horizon_steps_;
+  int N = this->solver_horizon_steps_;
   double u_zero[1] = {0.0}; // Baseline control guess
   double time_step = this->control_params_->mpc_prediction_horizon_seconds_ / static_cast<double>(N);
 
@@ -163,6 +158,13 @@ common_lib::structures::ControlCommand MPCzinhoAcadosSolver::solve(int* solver_s
     return command;
   }
 
+  // On the first solve, seed the previous command with the measured steering angle so the
+  // command-rate cost has a sensible reference. Afterwards the solver tracks its own output.
+  if (!this->has_previous_control_command_) {
+    this->previous_control_command_.steering_angle = this->latest_state_.steering_angle;
+    this->has_previous_control_command_ = true;
+  }
+
   this->set_path_point_per_stage();
 
   double first_x = this->parameters_per_stage[0];
@@ -212,6 +214,7 @@ common_lib::structures::ControlCommand MPCzinhoAcadosSolver::solve(int* solver_s
   unsigned int steps_ahead = static_cast<unsigned int>(std::floor(total_delay_s / time_step));
   if (steps_ahead >= full_solution.size() - 1) {
     RCLCPP_WARN(rclcpp::get_logger("AcadosSolver"), "Total delay of %.2f ms exceeds prediction horizon, using last available control", total_delay_ms);
+    this->previous_control_command_ = full_solution.back();
     return full_solution.back();
   }
 
@@ -227,11 +230,8 @@ common_lib::structures::ControlCommand MPCzinhoAcadosSolver::solve(int* solver_s
   command.throttle_rl = (1 - alpha) * command_zero.throttle_rl + alpha * command_one.throttle_rl;
   command.throttle_rr = (1 - alpha) * command_zero.throttle_rr + alpha * command_one.throttle_rr;
   command.steering_angle = (1 - alpha) * command_zero.steering_angle + alpha * command_one.steering_angle;
+  this->previous_control_command_ = command;
   return command;
-}
-
-int MPCzinhoAcadosSolver::get_prediction_horizon_steps() const {
-  return solver_horizon_steps_;
 }
 
 std::vector<common_lib::structures::ControlCommand> MPCzinhoAcadosSolver::get_full_solution() {
@@ -279,6 +279,45 @@ void MPCzinhoAcadosSolver::publish_solver_data(std::shared_ptr<rclcpp::Node> nod
   std_msgs::msg::Float64MultiArray msg;
   msg.data = *this->_execution_times_;
   publisher->publish(msg);
+
+  this->publish_interpolated_path(node, publisher_map);
+  this->publish_received_state(node, publisher_map);
+}
+
+void MPCzinhoAcadosSolver::publish_received_state(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
+  if (!this->has_state_) return;
+
+  const std::string topic = "/mpczinho/received_state";
+  if (publisher_map.find(topic) == publisher_map.end()) {
+    publisher_map[topic] = node->create_publisher<custom_interfaces::msg::VehicleStateVector>(topic, 10);
+  }
+
+  auto state_publisher = std::static_pointer_cast<rclcpp::Publisher<custom_interfaces::msg::VehicleStateVector>>(publisher_map[topic]);
+  state_publisher->publish(this->latest_state_);
+}
+
+void MPCzinhoAcadosSolver::publish_interpolated_path(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
+  if (!this->has_path_) return;
+
+  const std::string topic = "/mpczinho/interpolated_path";
+  if (publisher_map.find(topic) == publisher_map.end()) {
+    publisher_map[topic] = node->create_publisher<visualization_msgs::msg::Marker>(topic, 10);
+  }
+
+  // Rebuild the interpolated trajectory received by the solver for visualization
+  int N = this->control_params_->mpc_prediction_horizon_steps_;
+  std::vector<common_lib::structures::PathPoint> interpolated_path;
+  interpolated_path.reserve(N + 1);
+  for (int i = 0; i <= N; ++i) {
+    interpolated_path.emplace_back(this->parameters_per_stage[i * solver_parameter_size],
+                                   this->parameters_per_stage[i * solver_parameter_size + 1],
+                                   this->parameters_per_stage[i * solver_parameter_size + 3],
+                                   this->parameters_per_stage[i * solver_parameter_size + 2]);
+  }
+
+  auto path_publisher = std::static_pointer_cast<rclcpp::Publisher<visualization_msgs::msg::Marker>>(publisher_map[topic]);
+  path_publisher->publish(common_lib::communication::line_marker_from_structure_array(
+      interpolated_path, "mpczinho_interpolated_path", "map", 0, "blue"));
 }
 
 void MPCzinhoAcadosSolver::print_debug_info() {

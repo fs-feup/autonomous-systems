@@ -5,6 +5,7 @@
 #include "std_msgs/msg/float64_multi_array.hpp"
 #include "custom_interfaces/msg/vehicle_state_vector.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
+#include "common_lib/communication/marker.hpp"
 
 class MPCzinhoAcadosSolver : public SolverInterface {
 public:
@@ -13,10 +14,7 @@ public:
 
     void set_state(const custom_interfaces::msg::VehicleStateVector& state) override;
     void set_path(const custom_interfaces::msg::PathPointArray& path) override;
-    void set_previous_control_command(
-        const common_lib::structures::ControlCommand& previous_command) override;
-    common_lib::structures::ControlCommand solve(int* solver_status = nullptr) override; 
-    int get_prediction_horizon_steps() const override;
+    common_lib::structures::ControlCommand solve(int* solver_status = nullptr) override;
     
     std::vector<common_lib::structures::ControlCommand> get_full_solution() override;
     std::vector<custom_interfaces::msg::VehicleStateVector> get_full_horizon() override;
@@ -27,6 +25,8 @@ private:
     void update_mpc_stats();
     void initialize_solver_memory();
     void print_debug_info();
+    void publish_interpolated_path(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map);
+    void publish_received_state(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map);
 
     /**
      * @brief Checks if the solver output is reasonable upon solver failure, to help identify if the failure is benign (e.g. due to infeasibility) or if the solver diverged
@@ -42,7 +42,7 @@ private:
     ocp_nlp_dims* nlp_dims_;
     ocp_nlp_in* nlp_in_;
     ocp_nlp_out* nlp_out_;
-    int solver_horizon_steps_;
+    int solver_horizon_steps_ = 0;
 
     // Debug stats: Execution time of each part of the solver, for debugging and visualization purposes
     std::shared_ptr<std::vector<double>> _execution_times_;
@@ -56,6 +56,7 @@ private:
 
     custom_interfaces::msg::VehicleStateVector latest_state_;
     common_lib::structures::ControlCommand previous_control_command_;
+    bool has_previous_control_command_ = false;
     bool has_state_ = false;
     bool has_path_ = false;
     bool is_initialized_ = false;
