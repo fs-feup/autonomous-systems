@@ -193,6 +193,12 @@ set(CONTROL_INCLUDE_DIRS
   ${ACADOS_MPCZINHO_GEN_DIR}
 )
 
+set(ACADOS_RUNTIME_RPATH
+  ${ACADOS_LIB_DIR}
+  ${ACADOS_BOMBATED_MPC_GEN_DIR}
+  ${ACADOS_MPCZINHO_GEN_DIR}
+)
+
 # ------------------------------------------------------------------------------
 # Main executable
 add_executable(node_control src/main.cpp ${IMPLEMENTATION_FILES})
@@ -224,11 +230,16 @@ target_link_libraries(node_control
   ${ACADOS_LIBS}
 )
 
+target_link_options(node_control PRIVATE
+  "-Wl,--disable-new-dtags"
+)
+
 target_compile_features(node_control PUBLIC c_std_99 cxx_std_17)
 
 set_target_properties(node_control PROPERTIES
   BUILD_WITH_INSTALL_RPATH TRUE
-  INSTALL_RPATH "${ACADOS_LIB_DIR};${ACADOS_BOMBATED_MPC_GEN_DIR};${ACADOS_MPCZINHO_GEN_DIR}"
+  BUILD_RPATH "${ACADOS_RUNTIME_RPATH}"
+  INSTALL_RPATH "${ACADOS_RUNTIME_RPATH}"
   INSTALL_RPATH_USE_LINK_PATH TRUE
 )
 
@@ -287,9 +298,14 @@ if(BUILD_TESTING)
     ${ACADOS_LIBS}
   )
 
+  target_link_options(${PROJECT_NAME}_test PRIVATE
+    "-Wl,--disable-new-dtags"
+  )
+
   set_target_properties(${PROJECT_NAME}_test PROPERTIES
     BUILD_WITH_INSTALL_RPATH TRUE
-    INSTALL_RPATH "${ACADOS_LIB_DIR};${ACADOS_BOMBATED_MPC_GEN_DIR};${ACADOS_MPCZINHO_GEN_DIR}"
+    BUILD_RPATH "${ACADOS_RUNTIME_RPATH}"
+    INSTALL_RPATH "${ACADOS_RUNTIME_RPATH}"
     INSTALL_RPATH_USE_LINK_PATH TRUE
   )
 endif()

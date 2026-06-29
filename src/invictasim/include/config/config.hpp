@@ -1,6 +1,7 @@
 #pragma once
 
 #include <map>
+#include <string>
 
 #include "common_lib/car_parameters/car_parameters.hpp"
 #include "common_lib/config_load/config_load.hpp"
@@ -23,6 +24,7 @@ struct InvictaSimParameters {
   std::string output_adapter;
 
   std::string vehicle_model;
+  std::string car_parameters_config;
   std::string tire_model;
   std::string aero_model;
   std::string steering_model;

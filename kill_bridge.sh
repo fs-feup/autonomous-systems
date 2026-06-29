@@ -2,7 +2,6 @@
 NODE_PATTERNS=(
   "/foxglove_bridge_component_manager"
   "/foxglove_bridge"
-  "/inspection"
 )
 
 

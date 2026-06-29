@@ -22,6 +22,21 @@ ControlNode::ControlNode(const ControlParameters& params)
         "/state_estimation/vehicle_pose", 10,
         std::bind(&ControlNode::vehicle_pose_callback, this, std::placeholders::_1));
   }
+  if (!params_.using_simulated_velocities_) {
+    velocity_sub_ = this->create_subscription<custom_interfaces::msg::Velocities>(
+        "/state_estimation/velocities", 10,
+        [this](const custom_interfaces::msg::Velocities& msg) {
+          this->state.velocity_x = msg.velocity_x;
+          this->state.velocity_y = msg.velocity_y;
+          this->state.yaw_rate = msg.angular_velocity;
+          this->vehicle_state_callback(this->state);
+        });
+    steering_angle_sub_ = this->create_subscription<custom_interfaces::msg::SteeringAngle>(
+        "/vehicle/steering_motor_state", 10, [this](const custom_interfaces::msg::SteeringAngle& msg) {
+          this->state.steering_angle = msg.steering_angle;
+          this->vehicle_state_callback(this->state);
+        });
+  }
 }
 
 void ControlNode::control_timer_callback() {

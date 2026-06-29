@@ -39,22 +39,30 @@ def get_config_yaml_path(package_name: str, dir: str, filename: str) -> str:
 
 def load_mpc_parameters():
     """
-    Load MPC horizon time and steps from the global config YAML file.
+    Load MPC parameters for the adapter selected in the global config YAML file.
     """
-    global_config_path = get_config_yaml_path("common_lib", "control", "pacsim")
+    global_config_path = get_config_yaml_path("common_lib", "global", "global_config")
     
     with open(global_config_path, 'r') as f:
         global_config = yaml.safe_load(f)
-    
-    mpc_horizon_time = global_config["control"]["mpc_prediction_horizon_seconds"]
-    mpc_horizon_steps = global_config["control"]["mpc_prediction_horizon_steps"]
-    
-    return mpc_horizon_time, mpc_horizon_steps
 
-def export_mpc_model() -> AcadosModel:
+    adapter = global_config["global"]["adapter"]
+    control_config_path = get_config_yaml_path("common_lib", "control", adapter)
+
+    with open(control_config_path, 'r') as f:
+        control_config = yaml.safe_load(f)
+    
+    mpc_horizon_time = control_config["control"]["mpc_prediction_horizon_seconds"]
+    mpc_horizon_steps = control_config["control"]["mpc_prediction_horizon_steps"]
+    max_steering_command_derivative = control_config["control"]["mpczinho_max_steering_command_derivative"]
+    command_time_interval_seconds = control_config["control"]["command_time_interval"] / 1000.0
+    
+    return mpc_horizon_time, mpc_horizon_steps, max_steering_command_derivative, command_time_interval_seconds
+
+def export_mpc_model(command_time_interval_seconds: float) -> AcadosModel:
     model = AcadosModel()
     model.name = "mpczinho"
-    p = SX.sym("p", 4) # [x_ref, y_ref, v, theta_ref]
+    p = SX.sym("p", 5) # [x_ref, y_ref, v, theta_ref, previous_steering_command]
 
     x = SX.sym("x", 4) # [x_position, y_position, yaw, steering_angle]
     xdot = SX.sym("xdot", 4)
@@ -74,9 +82,9 @@ def export_mpc_model() -> AcadosModel:
     model.u = u
     model.f_expl_expr = f_expl
     model.f_impl_expr = xdot - f_expl
-    steering_error = u[0] - x[3]
-    model.con_h_expr = steering_error
-    model.con_h_expr_0 = steering_error
+    steering_command_derivative = (u[0] - p[4]) / command_time_interval_seconds
+    model.con_h_expr = steering_command_derivative
+    model.con_h_expr_0 = steering_command_derivative
     return model
 
 def setup_cost_function(ocp: AcadosOcp):
@@ -102,7 +110,7 @@ def setup_cost_function(ocp: AcadosOcp):
         x[1] - p[1],      # Y Position Error
         theta_cost_term,  # Orientation Error
         u[0],             # Penalty on Steering
-        u[0] - x[3]       # Penalty on Steering Rate
+        u[0] - p[4]       # Penalty on steering command change
     )
 
     # Terminal Residual (No controls at the last step)
@@ -116,7 +124,7 @@ def setup_cost_function(ocp: AcadosOcp):
     ocp.model.cost_y_expr_e = cost_expression_e
 
     # 4. Define Weight Matrices (W)
-    weights = np.array([2.0, 2.0, 1.0, 10.0, 200.0])
+    weights = np.array([2.0, 2.0, 1.0, 8.0, 5.0])
     
     # Terminal weights
     weights_e = np.array([2.0, 2.0, 1.0])
@@ -149,7 +157,7 @@ def create_ocp_solver(gen_base_dir: str = "./build/control/control/mpczinho/acad
     os.makedirs(os.path.dirname(c_code_dir), exist_ok=True)
     os.makedirs(os.path.dirname(json_path), exist_ok=True)
 
-    prediction_horizon_seconds, prediction_horizon_steps = load_mpc_parameters()
+    prediction_horizon_seconds, prediction_horizon_steps, max_steering_command_derivative, command_time_interval_seconds = load_mpc_parameters()
 
     if acados_dir is not None:
         acados_dir = os.path.abspath(acados_dir)
@@ -160,7 +168,7 @@ def create_ocp_solver(gen_base_dir: str = "./build/control/control/mpczinho/acad
         ocp = AcadosOcp(acados_path=acados_dir, acados_lib_path=acados_lib_dir)
     else:
         ocp = AcadosOcp()
-    ocp.model = export_mpc_model()
+    ocp.model = export_mpc_model(command_time_interval_seconds)
     ocp.code_export_directory = c_code_dir
 
     ocp.solver_options.N_horizon = prediction_horizon_steps
@@ -180,7 +188,7 @@ def create_ocp_solver(gen_base_dir: str = "./build/control/control/mpczinho/acad
 
     # Initial state constraint (required for set_state logic)
     ocp.constraints.x0 = np.zeros(4)
-    ocp.parameter_values = np.zeros(4)
+    ocp.parameter_values = np.zeros(5)
 
     setup_cost_function(ocp)
 
@@ -194,12 +202,12 @@ def create_ocp_solver(gen_base_dir: str = "./build/control/control/mpczinho/acad
     ocp.constraints.ubu = u_max  # upper bound on u
     ocp.constraints.idxbu = np.array([0])  # which control inputs have bounds
 
-    ocp.constraints.lh = np.array([-0.05])
-    ocp.constraints.uh = np.array([0.05])
+    ocp.constraints.lh = np.array([-max_steering_command_derivative])
+    ocp.constraints.uh = np.array([max_steering_command_derivative])
     ocp.dims.nh = 1
 
-    ocp.constraints.lh_0 = np.array([-0.05])
-    ocp.constraints.uh_0 = np.array([0.05])
+    ocp.constraints.lh_0 = np.array([-max_steering_command_derivative])
+    ocp.constraints.uh_0 = np.array([max_steering_command_derivative])
     ocp.dims.nh_0 = 1
 
     try:

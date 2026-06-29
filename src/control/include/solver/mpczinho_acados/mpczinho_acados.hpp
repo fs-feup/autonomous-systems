@@ -14,7 +14,7 @@ public:
 
     void set_state(const custom_interfaces::msg::VehicleStateVector& state) override;
     void set_path(const custom_interfaces::msg::PathPointArray& path) override;
-    common_lib::structures::ControlCommand solve(int* solver_status = nullptr) override; 
+    common_lib::structures::ControlCommand solve(int* solver_status = nullptr) override;
     
     std::vector<common_lib::structures::ControlCommand> get_full_solution() override;
     std::vector<custom_interfaces::msg::VehicleStateVector> get_full_horizon() override;
@@ -42,6 +42,7 @@ private:
     ocp_nlp_dims* nlp_dims_;
     ocp_nlp_in* nlp_in_;
     ocp_nlp_out* nlp_out_;
+    int solver_horizon_steps_ = 0;
 
     // Debug stats: Execution time of each part of the solver, for debugging and visualization purposes
     std::shared_ptr<std::vector<double>> _execution_times_;
@@ -54,6 +55,8 @@ private:
     unsigned int total_sqp_iterations_ = 0;
 
     custom_interfaces::msg::VehicleStateVector latest_state_;
+    common_lib::structures::ControlCommand previous_control_command_;
+    bool has_previous_control_command_ = false;
     bool has_state_ = false;
     bool has_path_ = false;
     bool is_initialized_ = false;

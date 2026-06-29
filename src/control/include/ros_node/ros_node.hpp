@@ -9,6 +9,7 @@
 #include "custom_interfaces/msg/operational_status.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/pose.hpp"
+#include "custom_interfaces/msg/steering_angle.hpp"
 #include "custom_interfaces/msg/velocities.hpp"
 #include "utils/utils.hpp"
 #include "rclcpp/rclcpp.hpp"
@@ -72,6 +73,8 @@ private:
 
   // Temporary subscription, until State Estimation publishes the full state vector
   rclcpp::Subscription<custom_interfaces::msg::Velocities>::SharedPtr velocity_sub_;
+  rclcpp::Subscription<custom_interfaces::msg::SteeringAngle>::SharedPtr steering_angle_sub_;
+  custom_interfaces::msg::VehicleStateVector state;
 
   /**
    * @brief Function that publishes control commands on timer ticks

@@ -23,6 +23,12 @@ publish_frequencies:
     simulated_slam: 30        # Simulated SLAM map 
   vehicle_state:
     pose: 10              # Simulated vehicle pose (slam output)
+    state_vector: 10      # Simulated vehicle state vector (MPC input)
     velocities: 10        # Simulated velocities (velocity estimation output)
     operational_status: 1  # Simulated operational status (contains go_signal and mission)
+  statistics:
+    lap_summary: 1            # End-of-lap summary: 0 disables, 1 enables
+    lap_current: 1           # Current lap number, lap time, and cones hit
+    control_statistics: 60    # Velocity and path tracking errors
+    lap_counter: 5        # Lap counter (slam output)
   execution_time: 0      # Time taken for each simulation step (ms)
