@@ -17,7 +17,7 @@ VehicleAdapter::VehicleAdapter(const VEParameters& parameters) : VENode(paramete
   this->_wss_sync_->registerCallback(&VehicleAdapter::wss_callback, this);
 
   this->_steering_angle_sub_ = this->create_subscription<custom_interfaces::msg::SteeringAngle>(
-      "/vehicle/bosch_steering_angle", 1,
+      "/vehicle/steering_motor_state", 1,
       std::bind(&VehicleAdapter::steering_angle_callback, this, std::placeholders::_1));
   this->_resolver_sub_ = this->create_subscription<custom_interfaces::msg::WheelRPM>(
       "/vehicle/motor_rpm", 1,

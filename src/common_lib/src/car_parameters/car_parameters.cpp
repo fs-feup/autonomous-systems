@@ -35,7 +35,9 @@ common_lib::car_parameters::CarParameters::CarParameters(std::string dir, std::s
   YAML::Node config = YAML::LoadFile(config_path);
 
   std::string car_config_name;
-  if (config["car_config"]) {
+  if (config["vehicle_model"] && config["vehicle_model"]["car_parameters"]) {
+    car_config_name = config["vehicle_model"]["car_parameters"].as<std::string>();
+  } else if (config["car_config"]) {
     car_config_name = config["car_config"].as<std::string>();
   } else {
     std::string global_config_path =

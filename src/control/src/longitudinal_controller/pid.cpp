@@ -104,7 +104,7 @@ void PID::path_callback(const custom_interfaces::msg::PathPointArray& msg)  {
   this->last_path_msg_ = msg.pathpoint_array;
   this->received_first_path_ = true;
 }
-void PID::vehicle_state_callback(const custom_interfaces::msg::Velocities& msg)  {
+void PID::vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& msg)  {
   this->last_velocity_msg_ = msg;
   this->absolute_velocity_ = std::sqrt(msg.velocity_x * msg.velocity_x + msg.velocity_y * msg.velocity_y);
   this->received_first_state_ = true;
@@ -133,4 +133,15 @@ common_lib::structures::ControlCommand PID::get_throttle_command()  {
   return command;
 }
 
-void PID::publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {}
+void PID::publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
+  if (publisher_map.find("/pid/components") == publisher_map.end()) {
+    auto publisher = node->create_publisher<std_msgs::msg::Float64MultiArray>(
+          "/pid/components", 10);
+    publisher_map["/pid/components"] = publisher;
+  }
+
+  auto publisher = std::static_pointer_cast<rclcpp::Publisher<std_msgs::msg::Float64MultiArray>>(publisher_map["/pid/components"]);
+  std_msgs::msg::Float64MultiArray msg;
+  msg.data = {this->proportional_, this->integrator_, this->differentiator_};
+  publisher->publish(msg);
+}

@@ -8,6 +8,7 @@
 #include "std_srvs/srv/empty.hpp"
 #include "tf2_ros/buffer.h"
 #include "tf2_ros/transform_listener.h"
+#include "sensor_msgs/msg/imu.hpp"
 
 /**
  * @brief Adapter for the PacSim simulator. Works on a publish-subscribe model.
@@ -20,9 +21,11 @@ private:
   rclcpp::Publisher<pacsim::msg::Wheels>::SharedPtr throttle_pub_;
 
   // If using simulated (ground truth) State Estimation (and SLAM) from PacSim
-  rclcpp::Subscription<geometry_msgs::msg::TwistWithCovarianceStamped>::SharedPtr car_velocity_sub_;
-  rclcpp::Subscription<geometry_msgs::msg::TwistWithCovarianceStamped>::SharedPtr car_pose_sub_;
-  rclcpp::Subscription<custom_interfaces::msg::VehicleStateVector>::SharedPtr car_state_vector_sub_;
+  rclcpp::Subscription<geometry_msgs::msg::TwistWithCovarianceStamped>::SharedPtr pacsim_velocity_sub_;
+  rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr pacsim_imu_sub_;
+  rclcpp::Subscription<pacsim::msg::StampedScalar>::SharedPtr pacsim_steering_angle_sub_;
+  rclcpp::Subscription<pacsim::msg::Wheels>::SharedPtr pacsim_wheels_sub_;
+  rclcpp::Subscription<geometry_msgs::msg::TwistWithCovarianceStamped>::SharedPtr pacsim_pose_sub_;
 
 public:
   explicit PacSimAdapter(const ControlParameters &params);
@@ -39,10 +42,25 @@ public:
   void _pacsim_gt_velocities_callback(const geometry_msgs::msg::TwistWithCovarianceStamped &msg);
 
   /**
-   * @brief Callback for the pacsim ground truth state vector topic, used when using simulated full
-   * state estimation
+   * @brief Callback for the pacsim IMU topic, used when using simulated velocity estimation and/or simulated SLAM
+   * 
+   * @param msg 
    */
-  void _pacsim_gt_state_vector_callback(const custom_interfaces::msg::VehicleStateVector &msg);
+  void _pacsim_imu_callback(const sensor_msgs::msg::Imu &msg);
+
+  /**
+   * @brief Callback for the pacsim steering angle topic, used when using simulated steering
+   * 
+   * @param msg 
+   */
+  void _pacsim_steering_angle_callback(const pacsim::msg::StampedScalar &msg);
+
+  /**
+   * @brief Callback for the pacsim wheels topic, used when using simulated velocity estimation
+   * 
+   * @param msg 
+   */
+  void _pacsim_wheels_callback(const pacsim::msg::Wheels &msg);
 
   void publish_command(common_lib::structures::ControlCommand cmd) override;
 };

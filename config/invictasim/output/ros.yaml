@@ -2,12 +2,12 @@ publish_frequencies:
   vehicle_model:
     tire: 100          # Tire status (FX, FY, MY, MZ, slip ratio, slip angle)
     battery: 0       # Battery status (voltage, current, state of charge)
-    motor: 50         # Motor status (RPM, torque, temperature)
-    transmission: 50  # Transmission status (torque on each wheel)
-    aero: 50          # Aerodynamic status (drag, downforce)
-    status: 100        # Overall vehicle status (speed, acceleration, position, yaw, etc.)
-  visualization:     # Visualization will work at the minimum of this frequencies (excluding 0s)
-    car: 100           # Car visualization 
+    motor: 0         # Motor status (RPM, torque, temperature)
+    transmission: 0  # Transmission status (torque on each wheel)
+    aero: 0          # Aerodynamic status (drag, downforce)
+    status: 0        # Overall vehicle status (speed, acceleration, position, yaw, etc.)
+  visualization:     # Visualization 
+    car: 30           # Car visualization 
     ground: 1         # Ground visualization 
     ground_truth_cones: 1   # Ground-truth cones visualization
     slam_cones: 1          # SLAM cones visualization (simulated or from state estimation)
@@ -23,6 +23,12 @@ publish_frequencies:
     simulated_slam: 0        # Simulated SLAM map 
   vehicle_state:
     pose: 10              # Simulated vehicle pose (slam output)
+    state_vector: 10      # Simulated vehicle state vector (MPC input)
     velocities: 10        # Simulated velocities (velocity estimation output)
     operational_status: 1  # Simulated operational status (contains go_signal and mission)
+  statistics:
+    lap_summary: 1            # End-of-lap summary: 0 disables, 1 enables
+    lap_current: 1           # Current lap number, lap time, and cones hit
+    control_statistics: 60    # Velocity and path tracking errors
+    lap_counter: 5        # Lap counter (slam output)
   execution_time: 0      # Time taken for each simulation step (ms)
