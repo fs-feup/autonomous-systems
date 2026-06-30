@@ -41,6 +41,11 @@ set(IMPLEMENTATION_FILES
   src/sensors/simulated_perception.cpp
   src/sensors/imu.cpp
   src/sensors/wss.cpp
+  src/vehicle_model/FSFEUP03.cpp
+  src/statistics/collision_statistics.cpp
+  src/statistics/lap_timer_statistics.cpp
+  src/statistics/statistics.cpp
+  src/statistics/tracking_statistics.cpp
 )
 
 # Main executable
@@ -53,6 +58,7 @@ target_include_directories(invictasim PUBLIC
 )
 target_compile_features(invictasim PUBLIC c_std_99 cxx_std_17)
 target_compile_options(invictasim PUBLIC ${SDL2_CFLAGS_OTHER} ${SDL2_TTF_CFLAGS_OTHER})
+target_compile_definitions(invictasim PRIVATE INVICTASIM_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}")
 target_link_libraries(invictasim yaml-cpp ${SDL2_LIBRARIES} ${SDL2_TTF_LIBRARIES})
 ament_target_dependencies(invictasim
   ament_index_cpp
@@ -97,6 +103,7 @@ if(BUILD_TESTING)
     ${SDL2_TTF_INCLUDE_DIRS}
   )
   target_compile_options(invictasim_test PUBLIC ${SDL2_CFLAGS_OTHER} ${SDL2_TTF_CFLAGS_OTHER})
+  target_compile_definitions(invictasim_test PRIVATE INVICTASIM_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}")
   target_link_libraries(invictasim_test ${SDL2_LIBRARIES} ${SDL2_TTF_LIBRARIES})
   ament_target_dependencies(invictasim_test
     ament_index_cpp

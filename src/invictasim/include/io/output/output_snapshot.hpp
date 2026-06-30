@@ -1,9 +1,11 @@
 #pragma once
 
 #include <Eigen/Core>
+#include <vector>
 
 #include "common_lib/competition_logic/mission_logic.hpp"
 #include "common_lib/structures/cone.hpp"
+#include "common_lib/structures/path_point.hpp"
 #include "common_lib/structures/position.hpp"
 #include "common_lib/structures/wheels.hpp"
 
@@ -74,6 +76,9 @@ struct ExecutionTimesSnapshot {
 struct InputSnapshot {
   common_lib::structures::Wheels throttle = {0.0, 0.0, 0.0, 0.0};
   double steering = 0.0;
+dtd::vector<common_lib::structures::Cone> external_slam_cones = {};
+  std::vector<common_lib::structures::Cone> external_perception_cones = {};
+  std::vector<common_lib::structures::PathPoint> external_path_points = {};
 };
 
 /**
@@ -84,8 +89,36 @@ struct MapSnapshot {
   std::vector<common_lib::structures::Cone> ground_truth = {};
   std::vector<common_lib::structures::Cone> simulated_slam_map = {};
   std::vector<common_lib::structures::Cone> perception_cones = {};
+  std::vector<common_lib::structures::Cone> recently_hit_cones = {};
   double perception_exec_time_ms = 0.0;
+};
+
+/**
+ * @brief Snapshot of accumulated simulator statistics.
+ */
+struct StatisticsSnapshot {
+  // Completed lap summary
   int lap_counter = 0;
+  double last_lap_time = 0.0;
+  int cones_hit = 0;
+  double total_lap_time = 0.0;
+  double best_lap_time = 0.0;
+  double completed_lap_average_velocity = 0.0;
+  double completed_lap_max_velocity = 0.0;
+  double completed_lap_average_tracking_error = 0.0;
+  double completed_lap_max_tracking_error = 0.0;
+  double completed_lap_average_velocity_error = 0.0;
+  double completed_lap_max_velocity_error = 0.0;
+
+  // Current lap
+  double current_lap_time = 0.0;
+  int current_lap_cones_hit = 0;
+
+  // Control statistics
+  double current_velocity = 0.0;
+  double objective_velocity = 0.0;
+  double tracking_cross_track_error = 0.0;
+  double velocity_error = 0.0;
 };
 
 /**
@@ -115,6 +148,10 @@ struct VehicleStateSnapshot {
   double velocity_x = 0.0;
   double velocity_y = 0.0;
   double yaw_rate = 0.0;
+  double acceleration_x = 0.0;
+  double acceleration_y = 0.0;
+  double steering_angle = 0.0;
+  common_lib::structures::Wheels wheel_rpm = {0.0, 0.0, 0.0, 0.0};
   std::vector<double> velocity_covariance = std::vector<double>(9, 0.0);
 
   // Operational status

@@ -2,7 +2,7 @@
 #include <memory>
 
 #include "custom_interfaces/msg/path_point_array.hpp"
-#include "custom_interfaces/msg/velocities.hpp"
+#include "custom_interfaces/msg/vehicle_state_vector.hpp"
 #include "custom_interfaces/msg/pose.hpp"
 #include "control/include/config/parameters.hpp"
 #include "common_lib/structures/control_command.hpp"
@@ -22,7 +22,7 @@ public:
   /**
    * @brief Called when the car state (currently just velocity) is updated
    */
-  virtual void vehicle_state_callback(const custom_interfaces::msg::Velocities& msg) = 0;
+  virtual void vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& msg) = 0;
 
   /**
    * @brief Called when the car pose is updated by SLAM

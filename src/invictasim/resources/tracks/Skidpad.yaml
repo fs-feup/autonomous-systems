@@ -1,5 +1,7 @@
 track:
   start_position: [-16.68, 0]
+  timing_lines:
+  - [[0, -3], [0, 3]]
   cones:
   - [-15, 1.65, "orange_cone"]
   - [-11.25, 1.65, "orange_cone"]

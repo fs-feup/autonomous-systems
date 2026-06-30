@@ -1,7 +1,6 @@
 #pragma once
 
 #include <cmath>
-
 #include "common_lib/structures/path_point.hpp"
 #include "config/velocity_config.hpp"
 

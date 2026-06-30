@@ -2,7 +2,7 @@
 
 ControlParameters::ControlParameters(const ControlParameters &params) {
   car_parameters_ = params.car_parameters_;
-  control_solver_ = params.control_solver_;
+  controller_ = params.controller_;
   lateral_controller_ = params.lateral_controller_;
   longitudinal_controller_ = params.longitudinal_controller_;
   using_simulated_slam_ = params.using_simulated_slam_;
@@ -23,6 +23,11 @@ ControlParameters::ControlParameters(const ControlParameters &params) {
   pid_anti_windup_ = params.pid_anti_windup_;
   pid_max_positive_error_ = params.pid_max_positive_error_;
   pid_max_negative_error_ = params.pid_max_negative_error_;
+  mpc_prediction_horizon_seconds_ = params.mpc_prediction_horizon_seconds_;
+  mpc_prediction_horizon_steps_ = params.mpc_prediction_horizon_steps_;
+  mpczinho_max_steering_command_derivative_ =
+      params.mpczinho_max_steering_command_derivative_;
+  wheel_speeds_scale_mpc_ = params.wheel_speeds_scale_mpc_;
   map_frame_id_ = params.map_frame_id_;
   command_time_interval_ = params.command_time_interval_;
 }
@@ -30,7 +35,7 @@ ControlParameters::ControlParameters(const ControlParameters &params) {
 ControlParameters &ControlParameters::operator=(const ControlParameters &other) {
   if (this != &other) {
     car_parameters_ = other.car_parameters_;
-    control_solver_ = other.control_solver_;
+    controller_ = other.controller_;
     lateral_controller_ = other.lateral_controller_;
     longitudinal_controller_ = other.longitudinal_controller_;
     using_simulated_slam_ = other.using_simulated_slam_;
@@ -51,6 +56,11 @@ ControlParameters &ControlParameters::operator=(const ControlParameters &other) 
     pid_anti_windup_ = other.pid_anti_windup_;
     pid_max_positive_error_ = other.pid_max_positive_error_;
     pid_max_negative_error_ = other.pid_max_negative_error_;
+    mpc_prediction_horizon_seconds_ = other.mpc_prediction_horizon_seconds_;
+    mpc_prediction_horizon_steps_ = other.mpc_prediction_horizon_steps_;
+    mpczinho_max_steering_command_derivative_ =
+        other.mpczinho_max_steering_command_derivative_;
+    wheel_speeds_scale_mpc_ = other.wheel_speeds_scale_mpc_;
     map_frame_id_ = other.map_frame_id_;
     command_time_interval_ = other.command_time_interval_;
   }
@@ -80,7 +90,7 @@ std::string ControlParameters::load_config() {
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Control config contents: %s",
                YAML::Dump(control_config).c_str());
 
-  this->control_solver_ = control_config["control_solver"].as<std::string>();
+  this->controller_ = control_config["controller"].as<std::string>();
   this->lateral_controller_ = control_config["lateral_controller"].as<std::string>();
   this->longitudinal_controller_ = control_config["longitudinal_controller"].as<std::string>();
   this->pure_pursuit_lookahead_gain_ = control_config["pure_pursuit_lookahead_gain"].as<double>();
@@ -100,6 +110,11 @@ std::string ControlParameters::load_config() {
   this->pid_anti_windup_ = control_config["pid_anti_windup"].as<double>();
   this->pid_max_positive_error_ = control_config["pid_max_positive_error"].as<double>();
   this->pid_max_negative_error_ = control_config["pid_max_negative_error"].as<double>();
+  this->mpc_prediction_horizon_seconds_ = control_config["mpc_prediction_horizon_seconds"].as<double>();
+  this->mpc_prediction_horizon_steps_ = control_config["mpc_prediction_horizon_steps"].as<unsigned int>();
+  this->mpczinho_max_steering_command_derivative_ =
+      control_config["mpczinho_max_steering_command_derivative"].as<double>();
+  this->wheel_speeds_scale_mpc_ = control_config["wheel_speeds_scale_mpc"].as<double>();
   this->map_frame_id_ = "map";
   this->command_time_interval_ = control_config["command_time_interval"].as<int>();
   this->car_parameters_ = common_lib::car_parameters::CarParameters();
