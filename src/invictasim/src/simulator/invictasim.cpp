@@ -227,29 +227,58 @@ MapSnapshot InvictaSim::build_map_snapshot(const InputSnapshot& input_snapshot) 
     snapshot.simulated_slam_map = input_snapshot.external_slam_cones;
   }
 
-  if (params_.use_simulated_perception) {
-    snapshot.perception_cones = track_->get_cones();
+  if (params_.use_simulated_perception && perception_model_) {
+    common_lib::structures::Pose vehicle_pose;
+    vehicle_pose.position.x = vehicle_model_->get_position_x();
+    vehicle_pose.position.y = vehicle_model_->get_position_y();
+    vehicle_pose.orientation = vehicle_model_->get_yaw();
+
+    common_lib::structures::Velocities vehicle_velocities;
+    vehicle_velocities.velocity_x = vehicle_model_->get_velocity_x();
+    vehicle_velocities.velocity_y = vehicle_model_->get_velocity_y();
+    vehicle_velocities.rotational_velocity = vehicle_model_->get_yaw_rate();
+
+    snapshot.perception_cones = perception_model_->perception_error(track_->get_cones(),
+                                                                 vehicle_pose,
+                                                                 vehicle_velocities);
   } else {
     snapshot.perception_cones = input_snapshot.external_perception_cones;
   }
 
-  snapshot.perception_exec_time_ms = 0.0;  // Will allow to simualte the perception delay
+  snapshot.perception_exec_time_ms = 0.0;  // Will allow to simulate the perception delay
   return snapshot;
 }
 
 SensorsSnapshot InvictaSim::build_sensors_snapshot(
     const VehicleModelSnapshot& vehicle_snapshot) const {
   SensorsSnapshot snapshot;
-  // For now, publishing the ground truth as sensor data, but later this would be the sensor
-  // simulated data
-  snapshot.free_acceleration =
-      Eigen::Vector3d(vehicle_snapshot.acceleration_x, vehicle_snapshot.acceleration_y, 0.0);
-  snapshot.angular_velocity = Eigen::Vector3d(0.0, 0.0, vehicle_snapshot.yaw_rate);
-  snapshot.wheel_rpm =
-      common_lib::structures::Wheels(vehicle_snapshot.wheel_speed.front_left * 60 / (2 * M_PI),
-                                     vehicle_snapshot.wheel_speed.front_right * 60 / (2 * M_PI),
-                                     vehicle_snapshot.wheel_speed.rear_left * 60 / (2 * M_PI),
-                                     vehicle_snapshot.wheel_speed.rear_right * 60 / (2 * M_PI));
+  if (imu_model_) {
+    std::vector<double> imu_measurement = imu_model_->apply_imu_error(
+        vehicle_snapshot.acceleration_x, vehicle_snapshot.acceleration_y,
+        vehicle_snapshot.yaw_rate);
+    snapshot.free_acceleration = Eigen::Vector3d(imu_measurement[0], imu_measurement[1], 0.0);
+    snapshot.angular_velocity = Eigen::Vector3d(0.0, 0.0, imu_measurement[2]);
+  } else {
+    snapshot.free_acceleration =
+        Eigen::Vector3d(vehicle_snapshot.acceleration_x, vehicle_snapshot.acceleration_y, 0.0);
+    snapshot.angular_velocity = Eigen::Vector3d(0.0, 0.0, vehicle_snapshot.yaw_rate);
+  }
+
+  if (wss_model_) {
+    snapshot.wheel_rpm = wss_model_->simulate_wheel_speeds(
+        vehicle_snapshot.wheel_speed.front_left,
+        vehicle_snapshot.wheel_speed.front_right,
+        vehicle_snapshot.wheel_speed.rear_left,
+        vehicle_snapshot.wheel_speed.rear_right);
+    snapshot.wheel_rpm_dropout = wss_model_->get_wheel_dropout_status();
+  } else {
+    snapshot.wheel_rpm = common_lib::structures::Wheels(
+        vehicle_snapshot.wheel_speed.front_left * 60 / (2 * M_PI),
+        vehicle_snapshot.wheel_speed.front_right * 60 / (2 * M_PI),
+        vehicle_snapshot.wheel_speed.rear_left * 60 / (2 * M_PI),
+        vehicle_snapshot.wheel_speed.rear_right * 60 / (2 * M_PI));
+  }
+
   snapshot.steering_angle = vehicle_snapshot.steering_angle;
   snapshot.motor_rpm = vehicle_snapshot.motor_omega * 60 / (2 * M_PI);  // Convert rad/s to rpm
   return snapshot;

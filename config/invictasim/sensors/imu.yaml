@@ -3,7 +3,7 @@ imu_sensor:
   accelerometer:
     noise_std_dev: 0.1                  # Gaussian white noise standard deviation (m/s²)
     acceleration_scale_factor: 0.01     # Scale factor error that scales with acceleration magnitude (dimensionless)
-    bias_x: 0.2                         # m/s²
+    bias_x: 10                         # m/s²
     bias_y: 0.2                         # m/s²
 
   # Gyroscope parameters

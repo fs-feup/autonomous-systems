@@ -76,7 +76,7 @@ struct ExecutionTimesSnapshot {
 struct InputSnapshot {
   common_lib::structures::Wheels throttle = {0.0, 0.0, 0.0, 0.0};
   double steering = 0.0;
-dtd::vector<common_lib::structures::Cone> external_slam_cones = {};
+  std::vector<common_lib::structures::Cone> external_slam_cones = {};
   std::vector<common_lib::structures::Cone> external_perception_cones = {};
   std::vector<common_lib::structures::PathPoint> external_path_points = {};
 };

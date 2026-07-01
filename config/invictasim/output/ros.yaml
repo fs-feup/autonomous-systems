@@ -5,11 +5,11 @@ publish_frequencies:
     motor: 0         # Motor status (RPM, torque, temperature)
     transmission: 0  # Transmission status (torque on each wheel)
     aero: 0          # Aerodynamic status (drag, downforce)
-    status: 0        # Overall vehicle status (speed, acceleration, position, yaw, etc.)
+    status: 50        # Overall vehicle status (speed, acceleration, position, yaw, etc.)
   visualization:     # Visualization 
     car: 30           # Car visualization 
     ground: 1         # Ground visualization 
-    ground_truth_cones: 0   # Ground-truth cones visualization
+    ground_truth_cones: 10   # Ground-truth cones visualization
     slam_cones: 30          # SLAM cones visualization (simulated or from state estimation)
     perception_cones: 30    # Perception cones visualization (simulated or from perception)
   sensors:

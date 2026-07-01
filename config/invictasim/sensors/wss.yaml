@@ -16,9 +16,9 @@ wss_sensor:
   # Front Left Wheel
   fl:
     noise:
-      std_dev: 0.2
+      std_dev: 0.5
     outliers:
-      probability: 0.008
+      probability: 0.02
       impact_factor: 0.3
     dropout_probability: 0.002
     speed_cutoff: 0.01

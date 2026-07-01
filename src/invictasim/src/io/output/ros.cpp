@@ -459,7 +459,7 @@ void RosOutputAdapter::publish_perception_cones(const rclcpp::Time& stamp) {
   perception_pub_->publish(perception_msg);
 }
 
-void RosOutputAdapter::pvoidublish_vm_tire(const rclcpp::Time& stamp) {
+void RosOutputAdapter::publish_vm_tire(const rclcpp::Time& stamp) {
   custom_interfaces::msg::TireForces tire_forces_msg;
   tire_forces_msg.header.stamp = stamp;
   tire_forces_msg.header.frame_id = "base_link";

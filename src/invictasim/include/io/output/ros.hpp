@@ -281,6 +281,8 @@ private:
   rclcpp::Publisher<geometry_msgs::msg::Vector3Stamped>::SharedPtr angular_vel_pub_;
   rclcpp::Publisher<custom_interfaces::msg::WheelRPM>::SharedPtr vehicle_fl_rpm_pub_;
   rclcpp::Publisher<custom_interfaces::msg::WheelRPM>::SharedPtr vehicle_fr_rpm_pub_;
+  rclcpp::Publisher<custom_interfaces::msg::WheelRPM>::SharedPtr vehicle_rl_rpm_pub_;
+  rclcpp::Publisher<custom_interfaces::msg::WheelRPM>::SharedPtr vehicle_rr_rpm_pub_;
   rclcpp::Publisher<custom_interfaces::msg::WheelRPM>::SharedPtr vehicle_motor_rpm_pub_;
   rclcpp::Publisher<custom_interfaces::msg::SteeringAngle>::SharedPtr steering_pub_;
   rclcpp::Publisher<custom_interfaces::msg::PerceptionOutput>::SharedPtr perception_pub_;
