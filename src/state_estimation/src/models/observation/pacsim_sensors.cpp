@@ -4,8 +4,8 @@ void ObservationModelPacsim::expected_observations(const State& state,
                                                    Eigen::Ref<Eigen::VectorXd> expected) {
   Eigen::VectorXd& full = full_expected_;
   const double rad_to_rpm = 60 / (2 * M_PI);
-  full(0) = state(AX);
-  full(1) = state(AY);
+  full(0) = state(AX) - state(YAW_RATE) * state(VY);
+  full(1) = state(AY) + state(YAW_RATE) * state(VX);
   full(2) = state(YAW_RATE);
   full(11) = state(ST_ANGLE);
 

@@ -19,7 +19,9 @@ struct CarParameters {
   double wheelbase;
   double track_width;
   double cg_2_rear_axis;
-  double imu_position_x;  ///< IMU longitudinal position behind the front axle [m], +rearward
+  double imu_position_x;
+  double imu_yaw_offset;
+  double steering_motor_to_wheel_ratio;
   double gear_ratio;
   double cg_height;
   double sprung_mass;

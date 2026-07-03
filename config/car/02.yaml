@@ -12,6 +12,8 @@ car:
   cg_height: 0.208
   cg_2_rear_axis: 0.706
   imu_position_x: 0.7694  # IMU longitudinal position behind the front axle [m], +rearward
-  gear_ratio: 3.67
+  imu_yaw_offset: 1.5533  # IMU mounting yaw (sensor -> vehicle, about z) [rad]. Calibrated on
+  steering_motor_to_wheel_ratio: 334.0  # steering motor angle units per wheel steering rad.
+  gear_ratio: 4.0
   Izz: 101.082
   front_bearing_drag: 0.25

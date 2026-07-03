@@ -38,6 +38,7 @@ class UKF : public StateEstimator {
   std::shared_ptr<ObservationModel> observation_model_;
 
   rclcpp::Time last_update_;
+  bool received_any_measurement_ = false;  // startup gate: hold until a first row survives
   Eigen::Vector4d execution_times_;
 
   Eigen::VectorXd weights_m_;

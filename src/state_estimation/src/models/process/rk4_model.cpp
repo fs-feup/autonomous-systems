@@ -161,6 +161,14 @@ Eigen::Matrix<double, StateSize, 1> RK4VehicleModel::get_state_derivative(
   double ay_raw = total_fy / total_mass_ - state(VX) * state(YAW_RATE);
   state_derivative_(VY) = ay_raw / (1.0 + dt * lat_Cy / (total_mass_ * V_reg));
 
+  // Low-speed lateral bleed: below kVyBleedSpeed the measurements carry no vy information, so pull vy to zero instead of freezing it at its last observed value.
+  constexpr double kVyBleedSpeed = 1.5;  // [m/s]
+  constexpr double kVyBleedGain = 10.0;  // [1/s] at standstill
+  const double speed_abs = std::abs(state(VX));
+  if (speed_abs < kVyBleedSpeed) {
+    state_derivative_(VY) -= kVyBleedGain * (kVyBleedSpeed - speed_abs) / kVyBleedSpeed * state(VY);
+  }
+
   // Acceleration derivatives
   state_derivative_(AX) = state_derivative_(VX) - state(AX);
   state_derivative_(AY) = state_derivative_(VY) - state(AY);

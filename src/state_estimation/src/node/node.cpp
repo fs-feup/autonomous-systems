@@ -58,6 +58,10 @@ void SENode::publish_state(const State& state, const rclcpp::Time time) {
   velocity_msg.velocity_x = state(VX);
   velocity_msg.velocity_y = state(VY);
   velocity_msg.angular_velocity = state(YAW_RATE);
+  // Slam does not use it i am sure like 85% but put it because i am a scared man and its 2 AM
+  velocity_msg.covariance[0] = 1e-4;
+  velocity_msg.covariance[4] = 1e-4;
+  velocity_msg.covariance[8] = 1e-4;
 
   this->_state_pub_->publish(state_msg);
   this->_velocity_pub_->publish(velocity_msg);

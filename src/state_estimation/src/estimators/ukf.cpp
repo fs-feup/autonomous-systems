@@ -70,6 +70,12 @@ void UKF::compute_sigma_points(
     Eigen::Matrix<double, 2 * StateSize + 1, StateSize, Eigen::RowMajor>& sigma_points) {
       
   Eigen::LLT<Eigen::Matrix<double, StateSize, StateSize>> llt(StateSize * covariance);
+  if (llt.info() != Eigen::Success) {
+    // Numerical round-off can leave the covariance slightly indefinite; re-condition it
+    // instead of silently spreading garbage through the sigma points.
+    llt.compute(StateSize * (covariance +
+                             1e-6 * Eigen::Matrix<double, StateSize, StateSize>::Identity()));
+  }
   const Eigen::Matrix<double, StateSize, StateSize> sqrt_covariance = llt.matrixL();
 
   sigma_points.row(0) = state;
@@ -138,6 +144,15 @@ void UKF::timer_callback(State& curr_state) {
     control_command = this->last_control_command_;
   }
 
+  const bool has_measurements = last_observation.size() > 0;
+  if (!has_measurements && !received_any_measurement_) {
+    // If no row is active (due to Sensor Fault Detection), skip the update.
+    last_update_ = now;
+    curr_state = state_;
+    return;
+  }
+  received_any_measurement_ = received_any_measurement_ || has_measurements;
+
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"),
                       "Time since last update: " << dt << " seconds");
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"), "Current State: \n" << state_);
@@ -183,6 +198,24 @@ void UKF::timer_callback(State& curr_state) {
   // Correction Step
   auto correction_start = std::chrono::high_resolution_clock::now();
 
+  if (!has_measurements) {
+    // Prediction-only cycle: no live sensor delivered fresh data this tick.
+    state_ = predicted_state;
+    covariance_ = predicted_covariance;
+    last_update_ = now;
+    curr_state = state_;
+
+    auto end_time = std::chrono::high_resolution_clock::now();
+    execution_times_(0) =
+        std::chrono::duration<double, std::milli>(prediction_start - start_time).count();
+    execution_times_(1) =
+        std::chrono::duration<double, std::milli>(correction_start - prediction_start).count();
+    execution_times_(2) =
+        std::chrono::duration<double, std::milli>(end_time - correction_start).count();
+    execution_times_(3) = 0.0;
+    return;
+  }
+
   // Support runtime measurement-size changes
   {
     int current_meas_size = observation_model_->get_measurement_size();
@@ -213,6 +246,19 @@ void UKF::timer_callback(State& curr_state) {
           (predicted_measurements_.row(0).transpose() - predicted_measurement_mean_) *
           (predicted_measurements_.row(0).transpose() - predicted_measurement_mean_).transpose() +
       last_observation_noise;
+
+  // Innovation gate: soft-reject rows whose normalized innovation squared exceeds the gate. (Stops mainly WSS peaks from affecting the state estimate)
+  if (params_->innovation_gate_ > 0.0) {
+    for (int i = 0; i < meas_size_; ++i) {
+      const double innovation = last_observation(i) - predicted_measurement_mean_(i);
+      const double nis = innovation * innovation / predicted_measurement_covariance_(i, i);
+      if (nis > params_->innovation_gate_) {
+        const double extra = innovation * innovation;
+        predicted_measurement_covariance_(i, i) += extra;
+        last_observation_noise(i, i) += extra;
+      }
+    }
+  }
 
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("state_estimation"), "Last Observation: \n"
                                                                   << last_observation);

@@ -10,7 +10,8 @@ state_estimation:
 
   velocity_x_process_noise: 0.03 # variance of the noise for the velocity in x
   velocity_y_process_noise: 0.001 # variance of the noise for the velocity in y
-  yaw_rate_process_noise: 0.003 # variance of the noise for the yaw rate
+  yaw_rate_process_noise: 0.02 # variance of the noise for the yaw rate; high enough that the
+                               # (bias-corrected, low-noise) gyro wins over the vehicle model
   acceleration_x_process_noise: 0.02 # variance of the noise for the acceleration in x
   acceleration_y_process_noise: 0.03 # variance of the noise for the acceleration in y
   steering_angle_process_noise: 1e-3 # variance of the noise for the steering angle
@@ -19,9 +20,9 @@ state_estimation:
   imu_acceleration_x_noise: 0.3 # variance of the noise for the acceleration in x from IMU
   imu_acceleration_y_noise: 0.5 # variance of the noise for the acceleration in y from IMU  
   imu_rotational_noise: 0.05 # variance of the noise for the rotational velocity from IMU
-  wheel_speed_noise: 2.5 # variance of the noise for the wheel speeds from encoders (rpm)
+  wheel_speed_noise: 25.0 # variance of the noise for the wheel speeds from encoders (rpm^2)
   steering_angle_noise: 2e-5 # variance of the noise for the steering angle from steering sensor
-  motor_rpm_noise: 0.1 # variance of the noise for the motor rpm from motor sensor
+  motor_rpm_noise: 100.0 # variance of the noise for the motor rpm from motor sensor (rpm^2)
 
   # Paired (state-based / kinematic) measurement-noise factors
   state_model_noise_factor: 0.25 # extra variance on the state-based row
@@ -36,21 +37,27 @@ state_estimation:
   # --- Publishing options ---
   publish_vm_debug_info: false # Whether to publish debug information about the vehicle model calculations (e.g., tire forces, slip ratios, etc.)
   publish_exec_times: true # Whether to publish execution time statistics for filter stages (overhead, prediction, correction, update)
-  publish_sensor_health: true # Whether to publish per-sensor health (LIVE/FAULTY/DEAD) from the Overseer
+  publish_sensor_health: true # Whether to publish per-sensor health (LIVE/FAULTY/DEAD/INVALID) from the Overseer
+
+  # Only apply measurement rows whose sensor delivered a NEW sample since the previous filter
+  use_fresh_measurements_only: true
+
+  # Soft-reject any measurement row whose normalized innovation squared exceeds this gate. 0 disables.
+  innovation_gate: 25.0
 
   # --- Sensor fault detection (Overseer) ---
   sensor_fault_detection_enabled: true # Whether to enable sensor fault detection
 
-  sensor_faulty_noise_factor: 75.0 # bounded R multiplier for FAULTY rows; DEAD rows are dropped
+  sensor_faulty_noise_factor: 75.0 # bounded R multiplier for FAULTY (rate-of-change) rows; DEAD/INVALID rows are dropped
   sensor_staleness_miss_tolerance: 5.0 # missed sample periods of silence before DEAD
 
-  imu_frequency: 100.0                # expected IMU publish rate (Hz)
+  imu_frequency: 100.0
   imu_accel_range: 25.0               # max |acceleration| from IMU (m/s^2)
-  imu_accel_max_rate_of_change: 1.0        # max |d(accel)/dt| from IMU (m/s^3)
+  imu_accel_max_rate_of_change: 20000.0    # max |d(accel)/dt| (m/s^3)
   imu_yaw_range: 2.0                  # max |yaw rate| from IMU (rad/s)
-  imu_yaw_max_rate_of_change: 60.0           # max |d(yaw rate)/dt| from IMU (rad/s^2)
+  imu_yaw_max_rate_of_change: 150.0          # max |d(yaw rate)/dt| from IMU (rad/s^2)
 
-  wheel_speed_frequency: 50.0        # expected wheel encoder publish rate (Hz)
+  wheel_speed_frequency: 6.0
   wheel_speed_range: 1200           # max |wheel speed| from encoder (rpm)
   wheel_speed_max_rate_of_change: 8000.0     # max |d(wheel speed)/dt| from encoder (rpm/s)
 
@@ -58,6 +65,6 @@ state_estimation:
   steering_range: 0.39                 # max |steering angle| (rad)
   steering_max_rate_of_change: 5.0           # max |d(steering angle)/dt| (rad/s)
 
-  motor_frequency: 100.0              # expected motor rpm publish rate (Hz)
+  motor_frequency: 4.0
   motor_rpm_range: 4440.0           # max |motor rpm| (rpm)
   motor_rpm_max_rate_of_change: 21000.0      # max |d(motor rpm)/dt| (rpm/s)

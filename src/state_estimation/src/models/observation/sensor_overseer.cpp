@@ -11,33 +11,36 @@ void SensorOverseer::update(std::size_t id, const std::vector<double>& values,
                             const rclcpp::Time& stamp) {
   ChannelState& st = states_[id];
   const SensorSpec& spec = specs_[id];
-  // Work in raw nanoseconds so a sensor whose stamp uses a different clock source
-  // (e.g. an unset RCL_SYSTEM_TIME default) can never throw on a Time subtraction.
-  const int64_t now_ns = stamp.nanoseconds();
+  // Header stamps are only ever compared against this sensor's own previous stamp, so a
+  // sensor whose clock differs from the others (or from the node clock) stays consistent.
+  const int64_t stamp_ns = stamp.nanoseconds();
 
-  bool faulty = false;
+  bool out_of_range = false;
+  bool rate_violation = false;
   const std::size_t n = std::min(values.size(), spec.signals.size());
   for (std::size_t i = 0; i < n; ++i) {
     const SignalSpec& sig = spec.signals[i];
 
     if (values[i] < sig.range_min || values[i] > sig.range_max) {
-      faulty = true;
+      out_of_range = true;
     }
 
     // Rate-of-change check is skipped on the first sample, where no prior value exists.
     if (st.has_prev && i < st.prev.size()) {
-      const double dt = (now_ns - st.last_recv_ns) * 1e-9;
+      const double dt = (stamp_ns - st.last_stamp_ns) * 1e-9;
       if (dt > 1e-9 && std::abs(values[i] - st.prev[i]) / dt > sig.max_rate_of_change) {
-        faulty = true;
+        rate_violation = true;
       }
     }
   }
 
-  st.status = faulty ? SensorStatus::FAULTY : SensorStatus::LIVE;
+  st.status = out_of_range   ? SensorStatus::INVALID
+              : rate_violation ? SensorStatus::FAULTY
+                               : SensorStatus::LIVE;
   st.prev = values;
-  st.last_recv_ns = now_ns;
+  st.last_stamp_ns = stamp_ns;
+  st.last_arrival = std::chrono::steady_clock::now();
   st.has_prev = true;
-  latest_stamp_ns_ = std::max(latest_stamp_ns_, now_ns);
 }
 
 SensorStatus SensorOverseer::status(std::size_t id) const {
@@ -48,8 +51,9 @@ SensorStatus SensorOverseer::status(std::size_t id) const {
     return SensorStatus::DEAD;
   }
 
-  // Age is measured against the newest sample seen on any sensor (the stream clock).
-  const double age = (latest_stamp_ns_ - st.last_recv_ns) * 1e-9;
+  // Age is measured with the local steady clock, immune to per-sensor stamp clocks.
+  const double age =
+      std::chrono::duration<double>(std::chrono::steady_clock::now() - st.last_arrival).count();
   if (age > specs_[id].staleness_timeout) {
     return SensorStatus::DEAD;
   }

@@ -49,6 +49,9 @@ std::string SEParameters::load_config() {
   this->publish_exec_times_ = se_config["publish_exec_times"].as<bool>();
   this->publish_sensor_health_ = se_config["publish_sensor_health"].as<bool>();
 
+  this->use_fresh_measurements_only_ = se_config["use_fresh_measurements_only"].as<bool>(false);
+  this->innovation_gate_ = se_config["innovation_gate"].as<double>(0.0);
+
   // Load sensor fault-detection options
   this->sensor_fault_detection_enabled_ = se_config["sensor_fault_detection_enabled"].as<bool>();
   this->sensor_faulty_noise_factor_ = se_config["sensor_faulty_noise_factor"].as<double>();

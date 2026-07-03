@@ -63,6 +63,11 @@ struct SEParameters {
   bool publish_exec_times_;     // Publish execution time statistics for filter stages
   bool publish_sensor_health_;  // Publish per-sensor health from the Overseer
 
+  bool use_fresh_measurements_only_;  // Only use rows whose sensor delivered a new sample since
+                                      // the previous filter cycle (avoids re-applying stale data)
+  double innovation_gate_;  // Normalized-innovation-squared threshold above which a measurement
+                            // row is soft-rejected (variance inflated). 0 disables the gate.
+
   // --- Sensor fault detection (Overseer) ---
   bool sensor_fault_detection_enabled_;  // Master switch: when false, health never affects R
   double sensor_faulty_noise_factor_;    // Bounded R multiplier for FAULTY rows (DEAD are dropped)

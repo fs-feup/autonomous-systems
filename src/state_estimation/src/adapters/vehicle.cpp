@@ -1,5 +1,7 @@
 #include "adapters/vehicle.hpp"
 
+#include <cmath>
+
 #include "common_lib/maths/transformations.hpp"
 
 VehicleAdapter::VehicleAdapter(const std::shared_ptr<SEParameters>& parameters)
@@ -58,16 +60,24 @@ void VehicleAdapter::imu_callback(
   const Eigen::Vector3d acceleration_sensor =
       common_lib::maths::local_to_sensor_frame(acceleration_local, orientation);
 
+  // Compensate for IMU Mounting Yaw
+  const auto& car = *this->_params_->car_parameters_;
+  const double cos_psi = std::cos(car.imu_yaw_offset);
+  const double sin_psi = std::sin(car.imu_yaw_offset);
+  const double acc_x_vehicle =
+      cos_psi * acceleration_sensor.x() - sin_psi * acceleration_sensor.y();
+  const double acc_y_vehicle =
+      sin_psi * acceleration_sensor.x() + cos_psi * acceleration_sensor.y();
+
   const double yaw_rate = angular_velocity_msg->vector.z - this->average_imu_bias_;
 
   // Compensate for IMU offset from the vehicle's center of rotation
-  const auto& car = *this->_params_->car_parameters_;
   const double imu_r_x = (car.wheelbase - car.cg_2_rear_axis) - car.imu_position_x;
   const double centripetal = yaw_rate * yaw_rate;
 
   common_lib::sensor_data::ImuData imu_data;
-  imu_data.acceleration_x = acceleration_sensor.x() + centripetal * imu_r_x;
-  imu_data.acceleration_y = acceleration_sensor.y();
+  imu_data.acceleration_x = acc_x_vehicle + centripetal * imu_r_x;
+  imu_data.acceleration_y = acc_y_vehicle;
   imu_data.rotational_velocity = yaw_rate;
   imu_data.timestamp_ = free_acceleration_msg->header.stamp;
 
@@ -88,7 +98,10 @@ void VehicleAdapter::wss_callback(const custom_interfaces::msg::WheelRPM& fl_whe
 }
 
 void VehicleAdapter::steering_angle_callback(const custom_interfaces::msg::SteeringAngle msg) {
-  this->_state_estimator_->steering_callback(msg.steering_angle, rclcpp::Time(msg.header.stamp));
+  // Convert to wheel steering angle [rad].
+  const double steering_angle =
+      msg.steering_angle / this->_params_->car_parameters_->steering_motor_to_wheel_ratio;
+  this->_state_estimator_->steering_callback(steering_angle, rclcpp::Time(msg.header.stamp));
 }
 
 void VehicleAdapter::resolver_callback(custom_interfaces::msg::WheelRPM msg) {
