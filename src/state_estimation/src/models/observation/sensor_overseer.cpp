@@ -37,17 +37,22 @@ void SensorOverseer::update(std::size_t id, const std::vector<double>& values,
   st.status = out_of_range   ? SensorStatus::INVALID
               : rate_violation ? SensorStatus::FAULTY
                                : SensorStatus::LIVE;
-  st.prev = values;
-  st.last_stamp_ns = stamp_ns;
   st.last_arrival = std::chrono::steady_clock::now();
-  st.has_prev = true;
+  st.has_arrival = true;
+  // An out-of-range sample must not become the rate-of-change reference: the next good
+  // sample would be differenced against the garbage spike and flagged FAULTY for nothing.
+  if (!out_of_range) {
+    st.prev = values;
+    st.last_stamp_ns = stamp_ns;
+    st.has_prev = true;
+  }
 }
 
 SensorStatus SensorOverseer::status(std::size_t id) const {
   const ChannelState& st = states_[id];
 
   // Never received a message (also the startup state) -> not publishing.
-  if (!st.has_prev) {
+  if (!st.has_arrival) {
     return SensorStatus::DEAD;
   }
 

@@ -70,10 +70,12 @@ private:
   using SteadyTime = std::chrono::steady_clock::time_point;
 
   struct ChannelState {
-    std::vector<double> prev;   ///< Previous sample, for the rate-of-change check.
-    int64_t last_stamp_ns = 0;  ///< Header stamp of the last sample (same-sensor clock).
-    SteadyTime last_arrival;    ///< Local arrival time of the last sample, for staleness.
-    bool has_prev = false;
+    std::vector<double> prev;   ///< Last VALID sample, the rate-of-change reference (out-of-range
+                                ///< samples are excluded so recovery isn't flagged FAULTY).
+    int64_t last_stamp_ns = 0;  ///< Header stamp of the last valid sample (same-sensor clock).
+    SteadyTime last_arrival;    ///< Local arrival time of the last sample (any), for staleness.
+    bool has_prev = false;      ///< A valid rate reference exists.
+    bool has_arrival = false;   ///< At least one message was ever received.
     SensorStatus status = SensorStatus::DEAD;  ///< Latest range/rate verdict (not staleness).
   };
 
