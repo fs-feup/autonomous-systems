@@ -1,4 +1,7 @@
 std_msgs/Header header
+float64 x
+float64 y
+float64 orientation
 float64 velocity_x
 float64 velocity_y
 float64 yaw_rate

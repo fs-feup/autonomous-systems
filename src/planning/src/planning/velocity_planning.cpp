@@ -1,5 +1,9 @@
 #include "planning/velocity_planning.hpp"
 
+#include <algorithm>
+
+#include <rclcpp/rclcpp.hpp>
+
 double VelocityPlanning::find_curvature(const PathPoint &p1, const PathPoint &p2,
                                         const PathPoint &p3) {
   double a = std::hypot(p2.position.x - p1.position.x, p2.position.y - p1.position.y);
@@ -301,7 +305,8 @@ void VelocityPlanning::stop(std::vector<PathPoint> &final_path, double braking_d
     ++index;
   }
 
-  while (index < (path_size - path_size / 4)) {
+  // After the car stop the rest of the points should have 0.0 speed
+  while (index < (path_size - path_size/4)) {
     final_path[index].ideal_velocity = 0.0;
     ++index;
   }

@@ -16,7 +16,7 @@ void PurePursuit::path_callback(const custom_interfaces::msg::PathPointArray& ms
   this->received_first_path_ = true;
 }
 
-void PurePursuit::vehicle_state_callback(const custom_interfaces::msg::Velocities& msg) {
+void PurePursuit::vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& msg) {
   this->last_velocity_msg_ = msg;
   this->absolute_velocity_ =
       std::sqrt(msg.velocity_x * msg.velocity_x + msg.velocity_y * msg.velocity_y);
@@ -53,6 +53,24 @@ double PurePursuit::get_steering_command() {
       if (!lookahead_error) {
         steering_command = pp_steering_control_law(rear_axis, vehicle_cog, lookahead_point,
                                                    this->params_->car_parameters_.cg_2_rear_axis);
+      } else{  // Fix to prevent invalid lookahead point when the lookahead distance is too small or the path is too curvy
+        int count = 0;
+        while (lookahead_error)
+        {
+          count += 1;
+          if (count>=20) {break;}
+          ld += 0.5;
+          auto [lookahead_point1, lookahead_velocity1, lookahead_error1] =
+          ::get_lookahead_point(this->last_path_msg_, closest_point_id, ld, rear_axis,
+                                this->params_->first_last_max_dist_);
+            lookahead_point = lookahead_point1;
+            lookahead_velocity = lookahead_velocity1;
+            lookahead_error = lookahead_error1;
+        }
+        if (!lookahead_error) {
+          steering_command = pp_steering_control_law(rear_axis, vehicle_cog, lookahead_point,
+                                                   this->params_->car_parameters_.cg_2_rear_axis);
+        }
       }
     }
   }

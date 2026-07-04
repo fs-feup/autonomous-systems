@@ -1,5 +1,6 @@
 #include "planning/planning.hpp"
 
+#include <cmath>
 #include <vector>
 
 #include "adapter_planning/pacsim.hpp"
@@ -340,6 +341,9 @@ void Planning::run_autocross() {
     if (!is_path_final_) {
       run_full_map();
     }
+    if (lap_counter_ >= 1) {
+      velocity_planning_.stop(smoothed_path_, planning_config_.braking_distance_autocross_);
+    }
     return;
   }
   if (lap_counter_ == 0) {
@@ -481,6 +485,9 @@ void Planning::publish_path_points() const {
   custom_interfaces::msg::PathPointArray message =
       common_lib::communication::custom_interfaces_array_from_vector(smoothed_path_,
                                                                      is_path_closed_);
+  if (planning_config_.using_full_map_) {
+    message.is_map_closed = true;
+  }
   path_pub_->publish(message);
 }
 

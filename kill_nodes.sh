@@ -7,7 +7,6 @@ NODE_PATTERNS=(
   "planning_adapter"
   "control_adapter"
   "ros_can"
-  "supervisor"
 )
 
 

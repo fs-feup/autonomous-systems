@@ -12,7 +12,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   )
 endif()
 
-add_link_options(-fuse-ld=lld)
+add_link_options(-fuse-ld=lld "-Wl,--disable-new-dtags")
 
 find_program(CCACHE_PROGRAM ccache)
 if(CCACHE_PROGRAM)
@@ -156,6 +156,7 @@ if(BUILD_TESTING)
   target_include_directories(planning_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
+    ${OSQP_INSTALL_DIR}/include
     ${PCL_INCLUDE_DIRS}
     ${GSL_INCLUDE_DIRS}
   )

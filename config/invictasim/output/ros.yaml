@@ -5,8 +5,8 @@ publish_frequencies:
     motor: 0         # Motor status (RPM, torque, temperature)
     transmission: 0  # Transmission status (torque on each wheel)
     aero: 0          # Aerodynamic status (drag, downforce)
-    status: 0        # Overall vehicle status (speed, acceleration, position, yaw, etc.)
-  visualization:     # Visualization 
+    status: 100      # Overall vehicle status (speed, acceleration, position, yaw, etc.)
+  visualization:     # Visualization will work at the minimum of this frequencies (excluding 0s)
     car: 30           # Car visualization 
     ground: 1         # Ground visualization 
     ground_truth_cones: 0   # Ground-truth cones visualization
