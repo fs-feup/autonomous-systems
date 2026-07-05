@@ -326,8 +326,8 @@ void VelocityPlanning::change_section_limits(int section_idx, double delta_long,
 
 // TODO: CHANGE THIS!!!
 double get_delta(double mean) {
-  double anchor_mean[] = {0.00, 0.05, 0.10, 0.20, 0.30, 0.45, 0.60, 0.75, 1.00};
-  double anchor_delta[] = {0.35, 0.28, 0.20, 0.10, 0.00, -0.25, -0.50, -0.70, -1.00};
+  double anchor_mean[] = {0.00, 0.05, 0.10, 0.15, 0.20, 0.30, 0.60, 0.80, 1.00};
+  double anchor_delta[] = {0.60, 0.45, 0.25, 0.15, 0.0, -0.55, -1.00, -1.50, -2.00};
   const int N = 9;
 
   if (mean <= anchor_mean[0]) return anchor_delta[0];

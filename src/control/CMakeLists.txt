@@ -47,7 +47,7 @@ set(BOMBATED_MPC_STAMP ${CMAKE_BINARY_DIR}/control/stamps/bombated_mpc_acados.st
 message(STATUS "Will generate acados into build tree: ${ACADOS_BOMBATED_MPC_GEN_DIR}")
 
 add_custom_command(
-  OUTPUT ${BOMBATED_MPC_STAMP}
+  OUTPUT ${BOMBATED_MPC_STAMP} ${ACADOS_BOMBATED_MPC_GEN_DIR}/libacados_ocp_solver_${ACADOS_BOMBATED_MPC_NAME}.so
   COMMAND ${CMAKE_COMMAND} -E rm -rf ${ACADOS_BOMBATED_MPC_GEN_DIR}
   COMMAND ${CMAKE_COMMAND} -E make_directory ${ACADOS_BOMBATED_MPC_GEN_DIR}
   COMMAND ${CMAKE_COMMAND} -E env
@@ -76,7 +76,7 @@ set(MPCZINHO_STAMP ${CMAKE_BINARY_DIR}/control/stamps/mpczinho_acados.stamp)
 message(STATUS "Will generate acados into build tree: ${ACADOS_MPCZINHO_GEN_DIR}")
 
 add_custom_command(
-  OUTPUT ${MPCZINHO_STAMP}
+  OUTPUT ${MPCZINHO_STAMP} ${ACADOS_MPCZINHO_GEN_DIR}/libacados_ocp_solver_${ACADOS_MPCZINHO_NAME}.so
   COMMAND ${CMAKE_COMMAND} -E rm -rf ${ACADOS_MPCZINHO_GEN_DIR}
   COMMAND ${CMAKE_COMMAND} -E make_directory ${ACADOS_MPCZINHO_GEN_DIR}
   COMMAND ${CMAKE_COMMAND} -E env
