@@ -1,0 +1,5 @@
+<map id="SimulatedPerception::perception_error" name="SimulatedPerception::perception_error">
+<area shape="rect" id="Node000001" title="Apply perception error modeling to global cone coordinates Transforms cones to LiDAR local frame and ..." alt="" coords="5,5,147,46"/>
+<area shape="rect" id="Node000002" href="$d7/daf/class_sensor.html#af0e772011f0603d57b7f30f53d1558cc" title="Generate Gaussian noise." alt="" coords="195,13,353,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="147,23,179,23,179,28,147,28"/>
+</map>

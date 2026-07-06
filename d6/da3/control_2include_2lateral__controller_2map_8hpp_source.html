@@ -106,22 +106,28 @@ $(document).ready(function(){initNavTree('d6/da3/control_2include_2lateral__cont
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="../../d4/d31/pure__pursuit_8hpp.html">pure_pursuit.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * Map of lateral control solvers, with the key being the type of the solver and the value being a lambda</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> * function that creates the solver</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">const</span> std::map&lt;std::string, std::function&lt;std::shared_ptr&lt;LateralController&gt;(<span class="keyword">const</span> <a class="code hl_struct" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a>&amp;)&gt;,</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>               std::less&lt;&gt;&gt;</div>
-<div class="foldopen" id="foldopen00015" data-start="{" data-end="};">
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="../../d6/da3/control_2include_2lateral__controller_2map_8hpp.html#a026f35a8b3791590408110eba4ef4c76">   15</a></span>    <a class="code hl_variable" href="../../d6/da3/control_2include_2lateral__controller_2map_8hpp.html#a026f35a8b3791590408110eba4ef4c76">lateral_controller_map</a> = {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        {<span class="stringliteral">&quot;pure_pursuit&quot;</span>,</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>         [](<span class="keyword">const</span> <a class="code hl_struct" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a>&amp; params) -&gt; std::shared_ptr&lt;LateralController&gt; {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>           <span class="keywordflow">return</span> std::make_shared&lt;PurePursuit&gt;(params);</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>         }},</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    };</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="../../d9/d7e/mpczinho_8hpp.html">mpczinho.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> * Map of lateral control solvers, with the key being the type of the solver and the value being a lambda</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> * function that creates the solver</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">const</span> std::map&lt;std::string, std::function&lt;std::shared_ptr&lt;LateralController&gt;(<span class="keyword">const</span> <a class="code hl_struct" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a>&amp;)&gt;,</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>               std::less&lt;&gt;&gt;</div>
+<div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="../../d6/da3/control_2include_2lateral__controller_2map_8hpp.html#a026f35a8b3791590408110eba4ef4c76">   16</a></span>    <a class="code hl_variable" href="../../d6/da3/control_2include_2lateral__controller_2map_8hpp.html#a026f35a8b3791590408110eba4ef4c76">lateral_controller_map</a> = {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        {<span class="stringliteral">&quot;pure_pursuit&quot;</span>,</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>         [](<span class="keyword">const</span> <a class="code hl_struct" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a>&amp; params) -&gt; std::shared_ptr&lt;LateralController&gt; {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>           <span class="keywordflow">return</span> std::make_shared&lt;PurePursuit&gt;(params);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>         }},</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        {<span class="stringliteral">&quot;mpczinho&quot;</span>,</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>         [](<span class="keyword">const</span> <a class="code hl_struct" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a>&amp; params) -&gt; std::shared_ptr&lt;LateralController&gt; {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>           <span class="keywordflow">return</span> std::make_shared&lt;MPCzinho&gt;(params);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>         }},</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    };</div>
 </div>
-<div class="ttc" id="acontrol_2include_2lateral__controller_2map_8hpp_html_a026f35a8b3791590408110eba4ef4c76"><div class="ttname"><a href="../../d6/da3/control_2include_2lateral__controller_2map_8hpp.html#a026f35a8b3791590408110eba4ef4c76">lateral_controller_map</a></div><div class="ttdeci">const std::map&lt; std::string, std::function&lt; std::shared_ptr&lt; LateralController &gt;(const ControlParameters &amp;)&gt;, std::less&lt;&gt; &gt; lateral_controller_map</div><div class="ttdef"><b>Definition</b> <a href="../../d6/da3/control_2include_2lateral__controller_2map_8hpp_source.html#l00015">map.hpp:15</a></div></div>
+<div class="ttc" id="acontrol_2include_2lateral__controller_2map_8hpp_html_a026f35a8b3791590408110eba4ef4c76"><div class="ttname"><a href="../../d6/da3/control_2include_2lateral__controller_2map_8hpp.html#a026f35a8b3791590408110eba4ef4c76">lateral_controller_map</a></div><div class="ttdeci">const std::map&lt; std::string, std::function&lt; std::shared_ptr&lt; LateralController &gt;(const ControlParameters &amp;)&gt;, std::less&lt;&gt; &gt; lateral_controller_map</div><div class="ttdef"><b>Definition</b> <a href="../../d6/da3/control_2include_2lateral__controller_2map_8hpp_source.html#l00016">map.hpp:16</a></div></div>
+<div class="ttc" id="ampczinho_8hpp_html"><div class="ttname"><a href="../../d9/d7e/mpczinho_8hpp.html">mpczinho.hpp</a></div></div>
 <div class="ttc" id="apure__pursuit_8hpp_html"><div class="ttname"><a href="../../d4/d31/pure__pursuit_8hpp.html">pure_pursuit.hpp</a></div></div>
 <div class="ttc" id="astruct_control_parameters_html"><div class="ttname"><a href="../../d4/de1/struct_control_parameters.html">ControlParameters</a></div><div class="ttdef"><b>Definition</b> <a href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00010">parameters.hpp:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

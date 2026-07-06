@@ -1,17 +1,17 @@
 <map id="src/control/include/longitudinal_controller/base_longitudinal_controller.hpp" name="src/control/include/longitudinal_controller/base_longitudinal_controller.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="1608,5,1818,61"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="1271,117,1339,142"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1608,53,1484,77,1351,112,1347,113,1345,108,1350,106,1483,72,1607,48"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="1362,109,1520,150"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1635,64,1513,106,1512,101,1634,59"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="1544,109,1701,150"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1689,63,1654,100,1650,96,1685,60"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="1604,5,1814,61"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="1258,117,1325,142"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1604,52,1476,76,1338,112,1333,113,1332,108,1336,106,1475,71,1603,47"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="1349,109,1506,150"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1629,64,1502,106,1500,101,1627,59"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="1531,109,1700,150"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1684,63,1648,100,1644,96,1680,60"/>
 <area shape="rect" id="Node000005" title=" " alt="" coords="1725,109,1882,150"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="1741,60,1776,96,1773,100,1737,63"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="1738,60,1775,96,1772,100,1735,63"/>
 <area shape="rect" id="Node000006" href="$d3/da8/control_2include_2config_2parameters_8hpp.html" title=" " alt="" coords="1907,109,2050,150"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="1791,59,1910,101,1908,106,1789,64"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="1788,59,1909,101,1907,106,1786,64"/>
 <area shape="rect" id="Node000023" href="$d8/dd3/control__command_8hpp.html" title=" " alt="" coords="2074,109,2227,150"/>
-<area shape="poly" id="edge41_Node000001_Node000023" title=" " alt="" coords="1819,54,2059,106,2058,111,1818,59"/>
+<area shape="poly" id="edge41_Node000001_Node000023" title=" " alt="" coords="1815,54,2059,106,2058,111,1814,59"/>
 <area shape="rect" id="Node000007" title=" " alt="" coords="603,383,717,408"/>
 <area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="1907,150,1895,152,1766,168,1656,178,1470,186,1282,189,1043,200,939,202,807,197,657,191,501,187,348,191,276,197,209,206,148,219,95,237,51,260,16,288,10,297,8,307,10,316,16,325,44,339,98,351,255,370,435,383,587,389,587,394,435,388,254,376,97,357,42,344,13,329,5,318,3,307,5,295,12,285,48,255,93,232,147,214,208,201,275,192,347,186,501,182,658,186,807,192,939,197,1042,195,1282,184,1469,181,1656,173,1765,163,1894,147,1906,145"/>
 <area shape="rect" id="Node000008" title=" " alt="" coords="1604,471,1657,497"/>

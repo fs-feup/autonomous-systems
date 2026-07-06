@@ -1,0 +1,5 @@
+<map id="WSS::apply_outlier" name="WSS::apply_outlier">
+<area shape="rect" id="Node000001" title="Apply random outlier with configurable probability." alt="" coords="5,5,135,31"/>
+<area shape="rect" id="Node000002" href="$dd/d27/class_w_s_s.html#a393c9033f2bfc260dbdaeedf1845281d" title="Generate random number between 0.0 and 1.0." alt="" coords="183,5,333,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="135,16,167,16,167,21,135,21"/>
+</map>

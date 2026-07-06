@@ -25,7 +25,7 @@
 <area shape="rect" id="Node000008" title=" " alt="" coords="209,590,328,616"/>
 <area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="84,350,88,395,94,420,104,444,133,487,169,524,205,555,238,579,235,583,202,559,165,528,129,490,100,447,89,422,83,396,79,350"/>
 <area shape="poly" id="edge15_Node000011_Node000007" title=" " alt="" coords="287,249,146,305,144,300,285,244"/>
-<area shape="rect" id="Node000012" href="$d9/d4e/imu_8hpp.html" title=" " alt="" coords="114,405,280,446"/>
+<area shape="rect" id="Node000012" href="$d1/d5c/common__lib_2include_2common__lib_2sensor__data_2imu_8hpp.html" title=" " alt="" coords="114,405,280,446"/>
 <area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="291,249,256,271,238,285,224,303,214,323,206,346,200,390,194,389,201,345,209,321,220,300,235,282,252,266,289,244"/>
 <area shape="rect" id="Node000013" href="$de/de3/wheel__encoders_8hpp.html" title=" " alt="" coords="234,309,400,350"/>
 <area shape="poly" id="edge13_Node000011_Node000013" title=" " alt="" coords="319,246,319,293,314,293,314,246"/>

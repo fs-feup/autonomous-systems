@@ -1,0 +1,9 @@
+<map id="Sensor" name="Sensor">
+<area shape="rect" id="Node000001" title="Abstract base class for sensor implementations." alt="" coords="237,5,359,131"/>
+<area shape="rect" id="Node000002" href="$dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:" alt="" coords="5,214,185,498"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="230,143,200,180,176,216,171,213,196,177,226,140"/>
+<area shape="rect" id="Node000003" href="$d0/dc0/class_simulated_perception.html" title="Perception output class for handling LiDAR perception with error modeling." alt="" coords="210,179,386,533"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="301,146,301,179,295,179,295,146"/>
+<area shape="rect" id="Node000004" href="$dd/d27/class_w_s_s.html" title="Wheel Speed Sensor (WSS) simulator." alt="" coords="410,243,594,469"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="370,140,400,177,443,242,439,245,396,180,366,143"/>
+</map>

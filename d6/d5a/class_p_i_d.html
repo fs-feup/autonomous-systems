@@ -100,7 +100,7 @@ $(document).ready(function(){initNavTree('d6/d5a/class_p_i_d.html','../../'); in
 </div><!--header-->
 <div class="contents">
 
-<p>PI-D Controller class.  
+<p>PI-D <a class="el" href="../../d8/d87/class_controller.html" title="Base class for control solvers, that calculate both lateral and longitudinal control commands.">Controller</a> class.  
  <a href="../../d6/d5a/class_p_i_d.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>&gt;</code></p>
@@ -119,13 +119,11 @@ Collaboration diagram for PID:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d1/d7b/class_p_i_d__coll__graph.png" border="0" usemap="#a_p_i_d_coll__map" alt="Collaboration graph"/></div>
 <map name="a_p_i_d_coll__map" id="a_p_i_d_coll__map">
-<area shape="rect" title="PI&#45;D Controller class." alt="" coords="147,254,311,903"/>
+<area shape="rect" title="PI&#45;D Controller class." alt="" coords="69,254,233,923"/>
 <area shape="rect" href="../../da/ded/class_longitudinal_controller.html" title="Base (abstract) class for longitudinal controllers (the ones that calculate throttle)" alt="" coords="5,5,169,191"/>
-<area shape="poly" title=" " alt="" coords="121,204,149,299,144,301,116,205"/>
-<area shape="rect" title=" " alt="" coords="194,65,263,131"/>
-<area shape="poly" title=" " alt="" coords="231,130,231,237,226,237,226,130"/>
-<area shape="rect" title=" " alt="" coords="357,65,399,131"/>
-<area shape="poly" title=" " alt="" coords="375,131,351,230,319,336,313,335,346,229,369,130"/>
+<area shape="poly" title=" " alt="" coords="104,205,110,253,105,254,99,206"/>
+<area shape="rect" title=" " alt="" coords="194,65,237,131"/>
+<area shape="poly" title=" " alt="" coords="214,131,200,237,195,237,209,130"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -137,9 +135,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a68405cef60bc126ea45aa2861eddd593" id="r_a68405cef60bc126ea45aa2861eddd593"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a68405cef60bc126ea45aa2861eddd593">path_callback</a> (const custom_interfaces::msg::PathPointArray &amp;msg) override</td></tr>
 <tr class="memdesc:a68405cef60bc126ea45aa2861eddd593"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when a new path is sent by Path <a class="el" href="../../d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle.">Planning</a>.  <br /></td></tr>
 <tr class="separator:a68405cef60bc126ea45aa2861eddd593"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e8f51e7ec2f15cc84e2ca95e6f3e6f0" id="r_a6e8f51e7ec2f15cc84e2ca95e6f3e6f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a6e8f51e7ec2f15cc84e2ca95e6f3e6f0">vehicle_state_callback</a> (const custom_interfaces::msg::Velocities &amp;msg) override</td></tr>
-<tr class="memdesc:a6e8f51e7ec2f15cc84e2ca95e6f3e6f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the car state (currently just velocity) is updated.  <br /></td></tr>
-<tr class="separator:a6e8f51e7ec2f15cc84e2ca95e6f3e6f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ad4b2f8c66159546ff814fa5d8a4bf9" id="r_a8ad4b2f8c66159546ff814fa5d8a4bf9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8ad4b2f8c66159546ff814fa5d8a4bf9">vehicle_state_callback</a> (const custom_interfaces::msg::VehicleStateVector &amp;msg) override</td></tr>
+<tr class="memdesc:a8ad4b2f8c66159546ff814fa5d8a4bf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the car state (currently just velocity) is updated.  <br /></td></tr>
+<tr class="separator:a8ad4b2f8c66159546ff814fa5d8a4bf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b30304cbc507ff0156104bc425e1ba4" id="r_a7b30304cbc507ff0156104bc425e1ba4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a7b30304cbc507ff0156104bc425e1ba4">vehicle_pose_callback</a> (const custom_interfaces::msg::Pose &amp;msg) override</td></tr>
 <tr class="memdesc:a7b30304cbc507ff0156104bc425e1ba4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the car pose is updated by SLAM.  <br /></td></tr>
 <tr class="separator:a7b30304cbc507ff0156104bc425e1ba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -207,8 +205,8 @@ Private Member Functions</h2></td></tr>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a2290b64e88f0d346c5b6e8c1869e41ae" id="r_a2290b64e88f0d346c5b6e8c1869e41ae"><td class="memItemLeft" align="right" valign="top">std::vector&lt; custom_interfaces::msg::PathPoint &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a2290b64e88f0d346c5b6e8c1869e41ae">last_path_msg_</a></td></tr>
 <tr class="separator:a2290b64e88f0d346c5b6e8c1869e41ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98eac0445514e98d56ef44409f71d5a4" id="r_a98eac0445514e98d56ef44409f71d5a4"><td class="memItemLeft" align="right" valign="top">custom_interfaces::msg::Velocities&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a98eac0445514e98d56ef44409f71d5a4">last_velocity_msg_</a></td></tr>
-<tr class="separator:a98eac0445514e98d56ef44409f71d5a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab58ba07c4a9ee88b86a964e9629783ad" id="r_ab58ba07c4a9ee88b86a964e9629783ad"><td class="memItemLeft" align="right" valign="top">custom_interfaces::msg::VehicleStateVector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#ab58ba07c4a9ee88b86a964e9629783ad">last_velocity_msg_</a></td></tr>
+<tr class="separator:ab58ba07c4a9ee88b86a964e9629783ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5953c6ee999d8be3eabf38df08086206" id="r_a5953c6ee999d8be3eabf38df08086206"><td class="memItemLeft" align="right" valign="top">custom_interfaces::msg::Pose&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a5953c6ee999d8be3eabf38df08086206">last_pose_msg_</a></td></tr>
 <tr class="separator:a5953c6ee999d8be3eabf38df08086206"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a893aca687c9e05b20cb738fa8bfeb7d4" id="r_a893aca687c9e05b20cb738fa8bfeb7d4"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a893aca687c9e05b20cb738fa8bfeb7d4">absolute_velocity_</a> = 0.0</td></tr>
@@ -245,10 +243,10 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:aed18a4817f49744473789c6dac393f8c inherit pro_attribs_class_longitudinal_controller"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>PI-D Controller class. </p>
+<div class="textblock"><p>PI-D <a class="el" href="../../d8/d87/class_controller.html" title="Base class for control solvers, that calculate both lateral and longitudinal control commands.">Controller</a> class. </p>
 <p>This class implements a PI-D controller. Its a PI-D because the P and I terms operates on the Error signal and the D works with the feedback signal (measurement). </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00018">18</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00019">19</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3b05685d0075077b1762fc8e611ea0f4" name="a3b05685d0075077b1762fc8e611ea0f4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3b05685d0075077b1762fc8e611ea0f4">&#9670;&#160;</a></span>PID()</h2>
@@ -1209,8 +1207,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a6e8f51e7ec2f15cc84e2ca95e6f3e6f0" name="a6e8f51e7ec2f15cc84e2ca95e6f3e6f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e8f51e7ec2f15cc84e2ca95e6f3e6f0">&#9670;&#160;</a></span>vehicle_state_callback()</h2>
+<a id="a8ad4b2f8c66159546ff814fa5d8a4bf9" name="a8ad4b2f8c66159546ff814fa5d8a4bf9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ad4b2f8c66159546ff814fa5d8a4bf9">&#9670;&#160;</a></span>vehicle_state_callback()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1221,7 +1219,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void PID::vehicle_state_callback </td>
           <td>(</td>
-          <td class="paramtype">const custom_interfaces::msg::Velocities &amp;&#160;</td>
+          <td class="paramtype">const custom_interfaces::msg::VehicleStateVector &amp;&#160;</td>
           <td class="paramname"><em>msg</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1235,7 +1233,7 @@ Here is the caller graph for this function:</div>
 
 <p>Called when the car state (currently just velocity) is updated. </p>
 
-<p>Implements <a class="el" href="../../da/ded/class_longitudinal_controller.html#a5f49e2c40f4aed4b5b3e11e5ad5764e5">LongitudinalController</a>.</p>
+<p>Implements <a class="el" href="../../da/ded/class_longitudinal_controller.html#a89af5f265b3f2b408abc3f3c60210805">LongitudinalController</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00107">107</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 
@@ -1262,7 +1260,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1288,7 +1286,7 @@ Here is the caller graph for this function:</div>
 
 <p>Differentiator term current value. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00032">32</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1314,7 +1312,7 @@ Here is the caller graph for this function:</div>
 
 <p>Integrator term current value. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00030">30</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1338,7 +1336,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00020">20</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00021">21</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1362,12 +1360,12 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00022">22</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a98eac0445514e98d56ef44409f71d5a4" name="a98eac0445514e98d56ef44409f71d5a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a98eac0445514e98d56ef44409f71d5a4">&#9670;&#160;</a></span>last_velocity_msg_</h2>
+<a id="ab58ba07c4a9ee88b86a964e9629783ad" name="ab58ba07c4a9ee88b86a964e9629783ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab58ba07c4a9ee88b86a964e9629783ad">&#9670;&#160;</a></span>last_velocity_msg_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1376,7 +1374,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">custom_interfaces::msg::Velocities PID::last_velocity_msg_</td>
+          <td class="memname">custom_interfaces::msg::VehicleStateVector PID::last_velocity_msg_</td>
         </tr>
       </table>
   </td>
@@ -1386,7 +1384,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00021">21</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00022">22</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1412,7 +1410,7 @@ Here is the caller graph for this function:</div>
 
 <p>Current output value. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00036">36</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00037">37</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1438,7 +1436,7 @@ Here is the caller graph for this function:</div>
 
 <p>Previous error value, required for integrator. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00033">33</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1464,7 +1462,7 @@ Here is the caller graph for this function:</div>
 
 <p>Previous measurement value, required for defferentiator. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00035">35</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1490,7 +1488,7 @@ Here is the caller graph for this function:</div>
 
 <p>Proportional term current value. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00030">30</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1514,7 +1512,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00025">25</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1538,7 +1536,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00027">27</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1562,7 +1560,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00027">27</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>

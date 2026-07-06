@@ -1,0 +1,5 @@
+<map id="IMU" name="IMU">
+<area shape="rect" id="Node000001" title="Simulates IMU sensor characteristics including:" alt="" coords="5,179,185,463"/>
+<area shape="rect" id="Node000002" href="$d7/daf/class_sensor.html" title="Abstract base class for sensor implementations." alt="" coords="35,5,156,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,146,98,179,93,179,93,146"/>
+</map>

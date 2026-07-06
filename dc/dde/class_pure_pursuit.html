@@ -119,15 +119,13 @@ Collaboration diagram for PurePursuit:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/da8/class_pure_pursuit__coll__graph.png" border="0" usemap="#a_pure_pursuit_coll__map" alt="Collaboration graph"/></div>
 <map name="a_pure_pursuit_coll__map" id="a_pure_pursuit_coll__map">
-<area shape="rect" title="Pure Pursuit class." alt="" coords="219,283,393,763"/>
+<area shape="rect" title="Pure Pursuit class." alt="" coords="131,283,305,783"/>
 <area shape="rect" href="../../d7/d69/class_lateral_controller.html" title="Base (abstract) class for lateral control solvers (that calculate steering command)" alt="" coords="5,13,172,198"/>
-<area shape="poly" title=" " alt="" coords="146,210,222,355,217,358,141,212"/>
-<area shape="rect" title=" " alt="" coords="197,73,266,138"/>
-<area shape="poly" title=" " alt="" coords="232,138,231,194,236,259,237,266,232,267,231,260,226,195,227,138"/>
-<area shape="rect" title=" " alt="" coords="359,73,402,138"/>
-<area shape="poly" title=" " alt="" coords="378,138,355,267,349,266,372,137"/>
-<area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="441,5,587,205"/>
-<area shape="poly" title=" " alt="" coords="489,206,468,260,438,322,404,381,399,378,433,319,464,258,484,204"/>
+<area shape="poly" title=" " alt="" coords="123,211,145,283,140,285,118,213"/>
+<area shape="rect" title=" " alt="" coords="197,73,239,138"/>
+<area shape="poly" title=" " alt="" coords="221,138,221,266,215,266,215,138"/>
+<area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="278,5,425,205"/>
+<area shape="poly" title=" " alt="" coords="338,206,325,260,313,300,307,298,319,259,332,204"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -139,9 +137,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3cc3bfea4178ed7d191a3a558e90cff7" id="r_a3cc3bfea4178ed7d191a3a558e90cff7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a3cc3bfea4178ed7d191a3a558e90cff7">path_callback</a> (const custom_interfaces::msg::PathPointArray &amp;msg) override</td></tr>
 <tr class="memdesc:a3cc3bfea4178ed7d191a3a558e90cff7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when a new path is sent by Path <a class="el" href="../../d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle.">Planning</a>.  <br /></td></tr>
 <tr class="separator:a3cc3bfea4178ed7d191a3a558e90cff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e9fdf3978edeee9e86a7f2dd15d383c" id="r_a6e9fdf3978edeee9e86a7f2dd15d383c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a6e9fdf3978edeee9e86a7f2dd15d383c">vehicle_state_callback</a> (const custom_interfaces::msg::Velocities &amp;msg) override</td></tr>
-<tr class="memdesc:a6e9fdf3978edeee9e86a7f2dd15d383c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the car state (currently just velocity) is updated.  <br /></td></tr>
-<tr class="separator:a6e9fdf3978edeee9e86a7f2dd15d383c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2697d8d08230e927e3027d3e81af7fe" id="r_aa2697d8d08230e927e3027d3e81af7fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#aa2697d8d08230e927e3027d3e81af7fe">vehicle_state_callback</a> (const custom_interfaces::msg::VehicleStateVector &amp;msg) override</td></tr>
+<tr class="memdesc:aa2697d8d08230e927e3027d3e81af7fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the car state (currently just velocity) is updated.  <br /></td></tr>
+<tr class="separator:aa2697d8d08230e927e3027d3e81af7fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf40950346abc2e2e6ae99435f3d0d00" id="r_adf40950346abc2e2e6ae99435f3d0d00"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#adf40950346abc2e2e6ae99435f3d0d00">vehicle_pose_callback</a> (const custom_interfaces::msg::Pose &amp;msg) override</td></tr>
 <tr class="memdesc:adf40950346abc2e2e6ae99435f3d0d00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the car pose is updated by SLAM.  <br /></td></tr>
 <tr class="separator:adf40950346abc2e2e6ae99435f3d0d00"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -190,8 +188,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a438e7399db2c34125f6545da0691877a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a489241b162a6b9f3726149e9b0abe0f5" id="r_a489241b162a6b9f3726149e9b0abe0f5"><td class="memItemLeft" align="right" valign="top">std::vector&lt; custom_interfaces::msg::PathPoint &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a489241b162a6b9f3726149e9b0abe0f5">last_path_msg_</a></td></tr>
 <tr class="separator:a489241b162a6b9f3726149e9b0abe0f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71bef088309ced49c6b87ab919d10c2c" id="r_a71bef088309ced49c6b87ab919d10c2c"><td class="memItemLeft" align="right" valign="top">custom_interfaces::msg::Velocities&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a71bef088309ced49c6b87ab919d10c2c">last_velocity_msg_</a></td></tr>
-<tr class="separator:a71bef088309ced49c6b87ab919d10c2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae30dec5594f4241c68f6fdfb775b3dbb" id="r_ae30dec5594f4241c68f6fdfb775b3dbb"><td class="memItemLeft" align="right" valign="top">custom_interfaces::msg::VehicleStateVector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#ae30dec5594f4241c68f6fdfb775b3dbb">last_velocity_msg_</a></td></tr>
+<tr class="separator:ae30dec5594f4241c68f6fdfb775b3dbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a800bcbe0e7dea8d836faaa9ae7fd7893" id="r_a800bcbe0e7dea8d836faaa9ae7fd7893"><td class="memItemLeft" align="right" valign="top">custom_interfaces::msg::Pose&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a800bcbe0e7dea8d836faaa9ae7fd7893">last_pose_msg_</a></td></tr>
 <tr class="separator:a800bcbe0e7dea8d836faaa9ae7fd7893"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa44f2166dd8fbe6ce1c9cd88422d25a6" id="r_aa44f2166dd8fbe6ce1c9cd88422d25a6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#aa44f2166dd8fbe6ce1c9cd88422d25a6">absolute_velocity_</a> = 0.0</td></tr>
@@ -302,7 +300,7 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>double </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html#l00078">78</a> of file <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html">pure_pursuit.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html#l00096">96</a> of file <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html">pure_pursuit.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -637,7 +635,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Steering angle </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html#l00063">63</a> of file <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html">pure_pursuit.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html#l00081">81</a> of file <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html">pure_pursuit.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -709,7 +707,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html#l00105">105</a> of file <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html">pure_pursuit.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html#l00123">123</a> of file <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html">pure_pursuit.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -780,7 +778,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html#l00121">121</a> of file <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html">pure_pursuit.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html#l00139">139</a> of file <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html">pure_pursuit.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -853,7 +851,7 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="../../d7/d69/class_lateral_controller.html#ad449d61c7570de39d966d6e1236d607c">LateralController</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html#l00098">98</a> of file <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html">pure_pursuit.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html#l00116">116</a> of file <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html">pure_pursuit.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -908,8 +906,8 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a6e9fdf3978edeee9e86a7f2dd15d383c" name="a6e9fdf3978edeee9e86a7f2dd15d383c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e9fdf3978edeee9e86a7f2dd15d383c">&#9670;&#160;</a></span>vehicle_state_callback()</h2>
+<a id="aa2697d8d08230e927e3027d3e81af7fe" name="aa2697d8d08230e927e3027d3e81af7fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2697d8d08230e927e3027d3e81af7fe">&#9670;&#160;</a></span>vehicle_state_callback()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -920,7 +918,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">void PurePursuit::vehicle_state_callback </td>
           <td>(</td>
-          <td class="paramtype">const custom_interfaces::msg::Velocities &amp;&#160;</td>
+          <td class="paramtype">const custom_interfaces::msg::VehicleStateVector &amp;&#160;</td>
           <td class="paramname"><em>msg</em></td><td>)</td>
           <td></td>
         </tr>
@@ -934,7 +932,7 @@ Here is the call graph for this function:</div>
 
 <p>Called when the car state (currently just velocity) is updated. </p>
 
-<p>Implements <a class="el" href="../../d7/d69/class_lateral_controller.html#a8fad886a3f57be78824b40aa32907ef5">LateralController</a>.</p>
+<p>Implements <a class="el" href="../../d7/d69/class_lateral_controller.html#a053b8c8bfcab9bac1100feb2b8393539">LateralController</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html#l00019">19</a> of file <a class="el" href="../../dd/d44/pure__pursuit_8cpp_source.html">pure_pursuit.cpp</a>.</p>
 
@@ -1037,8 +1035,8 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a71bef088309ced49c6b87ab919d10c2c" name="a71bef088309ced49c6b87ab919d10c2c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71bef088309ced49c6b87ab919d10c2c">&#9670;&#160;</a></span>last_velocity_msg_</h2>
+<a id="ae30dec5594f4241c68f6fdfb775b3dbb" name="ae30dec5594f4241c68f6fdfb775b3dbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae30dec5594f4241c68f6fdfb775b3dbb">&#9670;&#160;</a></span>last_velocity_msg_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1047,7 +1045,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">custom_interfaces::msg::Velocities PurePursuit::last_velocity_msg_</td>
+          <td class="memname">custom_interfaces::msg::VehicleStateVector PurePursuit::last_velocity_msg_</td>
         </tr>
       </table>
   </td>

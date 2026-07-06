@@ -207,7 +207,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa1eb2b5a7cf531686ea57c9e7f905651" id="r_aa1eb2b5a7cf531686ea57c9e7f905651"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6c/class_invicta_sim_adapter.html#aa1eb2b5a7cf531686ea57c9e7f905651">InvictaSimAdapter</a> (const <a class="el" href="../../d5/db7/struct_v_e_parameters.html">VEParameters</a> &amp;parameters)</td></tr>
 <tr class="separator:aa1eb2b5a7cf531686ea57c9e7f905651"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c33c3c59849e5363ca2f8bb73a5dd93" id="r_a2c33c3c59849e5363ca2f8bb73a5dd93"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6c/class_invicta_sim_adapter.html#a2c33c3c59849e5363ca2f8bb73a5dd93">imu_callback</a> (const geometry_msgs::msg::Vector3Stamped::SharedPtr &amp;free_acceleration_msg, const geometry_msgs::msg::Vector3Stamped::SharedPtr &amp;angular_velocity_msg)</td></tr>
-<tr class="memdesc:a2c33c3c59849e5363ca2f8bb73a5dd93"><td class="mdescLeft">&#160;</td><td class="mdescRight">IMU subscription callback, which receives both free acceleration and angular velocity through a synchronizer message filter.  <br /></td></tr>
+<tr class="memdesc:a2c33c3c59849e5363ca2f8bb73a5dd93"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a> subscription callback, which receives both free acceleration and angular velocity through a synchronizer message filter.  <br /></td></tr>
 <tr class="separator:a2c33c3c59849e5363ca2f8bb73a5dd93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4da8573618c3b7c33b567ef126befeb" id="r_af4da8573618c3b7c33b567ef126befeb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6c/class_invicta_sim_adapter.html#af4da8573618c3b7c33b567ef126befeb">wss_callback</a> (const custom_interfaces::msg::WheelRPM &amp;rl_wheel_rpm_msg, const custom_interfaces::msg::WheelRPM &amp;rr_wheel_rpm_msg)</td></tr>
 <tr class="memdesc:af4da8573618c3b7c33b567ef126befeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wheel speed subscription callback, which receives both wheel speeds through a synchronizer message filter.  <br /></td></tr>
@@ -239,7 +239,7 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-types" name="pri-types"></a>
 Private Types</h2></td></tr>
 <tr class="memitem:a44455fee66047eaa9f0f68841533ffc6" id="r_a44455fee66047eaa9f0f68841533ffc6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6c/class_invicta_sim_adapter.html#a44455fee66047eaa9f0f68841533ffc6">XsensImuPolicy</a> = message_filters::sync_policies::ApproximateTime&lt; geometry_msgs::msg::Vector3Stamped, geometry_msgs::msg::Vector3Stamped &gt;</td></tr>
-<tr class="memdesc:a44455fee66047eaa9f0f68841533ffc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Policy for synchronizing Xsens IMU data.  <br /></td></tr>
+<tr class="memdesc:a44455fee66047eaa9f0f68841533ffc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Policy for synchronizing Xsens <a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a> data.  <br /></td></tr>
 <tr class="separator:a44455fee66047eaa9f0f68841533ffc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab4a352096e24eb42fc59cd0514480b8" id="r_aab4a352096e24eb42fc59cd0514480b8"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d6c/class_invicta_sim_adapter.html#aab4a352096e24eb42fc59cd0514480b8">WheelSSPolicy</a> = message_filters::sync_policies::ApproximateTime&lt; custom_interfaces::msg::WheelRPM, custom_interfaces::msg::WheelRPM &gt;</td></tr>
 <tr class="memdesc:aab4a352096e24eb42fc59cd0514480b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Policy for synchronizing wheel speeds.  <br /></td></tr>
@@ -292,7 +292,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a6e228ce696c330a4a43ae5807c632df7 inherit pro_methods_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback that updates everytime information is received from velocity estimation node.  <br /></td></tr>
 <tr class="separator:a6e228ce696c330a4a43ae5807c632df7 inherit pro_methods_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8e02138c8c98857ec5bd1d220a0cbf6 inherit pro_methods_class_s_l_a_m_node" id="r_ad8e02138c8c98857ec5bd1d220a0cbf6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#ad8e02138c8c98857ec5bd1d220a0cbf6">_imu_subscription_callback</a> (const sensor_msgs::msg::Imu &amp;msg)</td></tr>
-<tr class="memdesc:ad8e02138c8c98857ec5bd1d220a0cbf6 inherit pro_methods_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback that updates everytime information is received from the IMU.  <br /></td></tr>
+<tr class="memdesc:ad8e02138c8c98857ec5bd1d220a0cbf6 inherit pro_methods_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback that updates everytime information is received from the <a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a>.  <br /></td></tr>
 <tr class="separator:ad8e02138c8c98857ec5bd1d220a0cbf6 inherit pro_methods_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a695c062e0021d33622b6c1a59cee0379 inherit pro_methods_class_s_l_a_m_node" id="r_a695c062e0021d33622b6c1a59cee0379"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379">_publish_vehicle_pose</a> ()</td></tr>
 <tr class="memdesc:a695c062e0021d33622b6c1a59cee0379 inherit pro_methods_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">publishes the localization ('vehicle_pose') to the topic vehicle_pose  <br /></td></tr>
@@ -413,7 +413,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock"><p><a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a> class to interface with the <a class="el" href="../../df/d77/class_invicta_sim.html" title="Main simulator class.">InvictaSim</a> simulator for SLAM. </p>
 <p><a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a> class for the <a class="el" href="../../df/d77/class_invicta_sim.html" title="Main simulator class.">InvictaSim</a>.</p>
 <p>This class subscribes to the necessary topics from <a class="el" href="../../df/d77/class_invicta_sim.html" title="Main simulator class.">InvictaSim</a> and adapts the data for use in the SLAM node</p>
-<p>This class subscribes to the IMU, wheel speed sensors, and steering angle topics published by the <a class="el" href="../../df/d77/class_invicta_sim.html" title="Main simulator class.">InvictaSim</a>. It then passes the data to the velocity estimator for processing. </p>
+<p>This class subscribes to the <a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a>, wheel speed sensors, and steering angle topics published by the <a class="el" href="../../df/d77/class_invicta_sim.html" title="Main simulator class.">InvictaSim</a>. It then passes the data to the velocity estimator for processing. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d6/d88/planning_2include_2adapter__planning_2invictasim_8hpp_source.html#l00009">9</a> of file <a class="el" href="../../d6/d88/planning_2include_2adapter__planning_2invictasim_8hpp_source.html">invictasim.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
@@ -463,7 +463,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Policy for synchronizing Xsens IMU data. </p>
+<p>Policy for synchronizing Xsens <a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a> data. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d4/de8/invictasim__adapter_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../d4/de8/invictasim__adapter_8hpp_source.html">invictasim_adapter.hpp</a>.</p>
 
@@ -830,7 +830,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>IMU subscription callback, which receives both free acceleration and angular velocity through a synchronizer message filter. </p>
+<p><a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a> subscription callback, which receives both free acceleration and angular velocity through a synchronizer message filter. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d05/invictasim__adapter_8cpp_source.html#l00043">43</a> of file <a class="el" href="../../dc/d05/invictasim__adapter_8cpp_source.html">invictasim_adapter.cpp</a>.</p>
 <div class="dynheader">

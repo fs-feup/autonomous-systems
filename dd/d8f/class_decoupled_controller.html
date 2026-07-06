@@ -106,7 +106,7 @@ Inheritance diagram for DecoupledController:</div>
 <div class="center"><img src="../../d9/dbc/class_decoupled_controller__inherit__graph.png" border="0" usemap="#a_decoupled_controller_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_decoupled_controller_inherit__map" id="a_decoupled_controller_inherit__map">
 <area shape="rect" title=" " alt="" coords="5,239,169,444"/>
-<area shape="rect" href="../../d1/d5f/class_control_solver.html" title="Base class for control solvers, that calculate both lateral and longitudinal control commands." alt="" coords="5,5,169,191"/>
+<area shape="rect" href="../../d8/d87/class_controller.html" title="Base class for control solvers, that calculate both lateral and longitudinal control commands." alt="" coords="5,5,169,191"/>
 <area shape="poly" title=" " alt="" coords="90,206,90,239,85,239,85,206"/>
 </map>
 </div>
@@ -116,7 +116,7 @@ Collaboration diagram for DecoupledController:</div>
 <div class="center"><img src="../../df/d6e/class_decoupled_controller__coll__graph.png" border="0" usemap="#a_decoupled_controller_coll__map" alt="Collaboration graph"/></div>
 <map name="a_decoupled_controller_coll__map" id="a_decoupled_controller_coll__map">
 <area shape="rect" title=" " alt="" coords="5,239,169,444"/>
-<area shape="rect" href="../../d1/d5f/class_control_solver.html" title="Base class for control solvers, that calculate both lateral and longitudinal control commands." alt="" coords="5,5,169,191"/>
+<area shape="rect" href="../../d8/d87/class_controller.html" title="Base class for control solvers, that calculate both lateral and longitudinal control commands." alt="" coords="5,5,169,191"/>
 <area shape="poly" title=" " alt="" coords="90,206,90,239,85,239,85,206"/>
 </map>
 </div>
@@ -126,9 +126,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4485d0ea0700b71e2576d5d62b56701c" id="r_a4485d0ea0700b71e2576d5d62b56701c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d8f/class_decoupled_controller.html#a4485d0ea0700b71e2576d5d62b56701c">path_callback</a> (const custom_interfaces::msg::PathPointArray &amp;msg) override</td></tr>
 <tr class="memdesc:a4485d0ea0700b71e2576d5d62b56701c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when a new path is sent by Path <a class="el" href="../../d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle.">Planning</a>.  <br /></td></tr>
 <tr class="separator:a4485d0ea0700b71e2576d5d62b56701c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcf0de9b521a0c26d017a79551c028af" id="r_abcf0de9b521a0c26d017a79551c028af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d8f/class_decoupled_controller.html#abcf0de9b521a0c26d017a79551c028af">vehicle_state_callback</a> (const custom_interfaces::msg::Velocities &amp;msg) override</td></tr>
-<tr class="memdesc:abcf0de9b521a0c26d017a79551c028af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the car state (currently just velocity) is updated.  <br /></td></tr>
-<tr class="separator:abcf0de9b521a0c26d017a79551c028af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cc91f6a0dfc5a61390ea18bfc0296eb" id="r_a8cc91f6a0dfc5a61390ea18bfc0296eb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d8f/class_decoupled_controller.html#a8cc91f6a0dfc5a61390ea18bfc0296eb">vehicle_state_callback</a> (const custom_interfaces::msg::VehicleStateVector &amp;msg) override</td></tr>
+<tr class="memdesc:a8cc91f6a0dfc5a61390ea18bfc0296eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the car state (currently just velocity) is updated.  <br /></td></tr>
+<tr class="separator:a8cc91f6a0dfc5a61390ea18bfc0296eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adfe78ea2ed4539ba63dc31f5e3f10a2e" id="r_adfe78ea2ed4539ba63dc31f5e3f10a2e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d8f/class_decoupled_controller.html#adfe78ea2ed4539ba63dc31f5e3f10a2e">vehicle_pose_callback</a> (const custom_interfaces::msg::Pose &amp;msg) override</td></tr>
 <tr class="memdesc:adfe78ea2ed4539ba63dc31f5e3f10a2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the car pose is updated by SLAM.  <br /></td></tr>
 <tr class="separator:adfe78ea2ed4539ba63dc31f5e3f10a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,11 +142,11 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a87e7cccba04e21666a59a474ee8064d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5cbe980fd413db67413465a3d177cfe" id="r_af5cbe980fd413db67413465a3d177cfe"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d8f/class_decoupled_controller.html#af5cbe980fd413db67413465a3d177cfe">~DecoupledController</a> ()=default</td></tr>
 <tr class="separator:af5cbe980fd413db67413465a3d177cfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_control_solver"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_control_solver')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d1/d5f/class_control_solver.html">ControlSolver</a></td></tr>
-<tr class="memitem:a31736d3a4421a519337673c865f6e02d inherit pub_methods_class_control_solver" id="r_a31736d3a4421a519337673c865f6e02d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5f/class_control_solver.html#a31736d3a4421a519337673c865f6e02d">ControlSolver</a> (const <a class="el" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a> &amp;params)</td></tr>
-<tr class="separator:a31736d3a4421a519337673c865f6e02d inherit pub_methods_class_control_solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c401e4257f8cd7523033f1855e95563 inherit pub_methods_class_control_solver" id="r_a5c401e4257f8cd7523033f1855e95563"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5f/class_control_solver.html#a5c401e4257f8cd7523033f1855e95563">~ControlSolver</a> ()=default</td></tr>
-<tr class="separator:a5c401e4257f8cd7523033f1855e95563 inherit pub_methods_class_control_solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_controller"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_controller')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d8/d87/class_controller.html">Controller</a></td></tr>
+<tr class="memitem:a2a07683b5b7567b37d0c3ee93e8a014a inherit pub_methods_class_controller" id="r_a2a07683b5b7567b37d0c3ee93e8a014a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d87/class_controller.html#a2a07683b5b7567b37d0c3ee93e8a014a">Controller</a> (const <a class="el" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a> &amp;params)</td></tr>
+<tr class="separator:a2a07683b5b7567b37d0c3ee93e8a014a inherit pub_methods_class_controller"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d16a7a97c266dc0d5aa5685c4dcdd89 inherit pub_methods_class_controller" id="r_a8d16a7a97c266dc0d5aa5685c4dcdd89"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d87/class_controller.html#a8d16a7a97c266dc0d5aa5685c4dcdd89">~Controller</a> ()=default</td></tr>
+<tr class="separator:a8d16a7a97c266dc0d5aa5685c4dcdd89 inherit pub_methods_class_controller"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -157,9 +157,9 @@ Private Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_attribs_class_control_solver"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_control_solver')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d1/d5f/class_control_solver.html">ControlSolver</a></td></tr>
-<tr class="memitem:aa9f50f0763c89b33aa6e421ed7a14184 inherit pro_attribs_class_control_solver" id="r_aa9f50f0763c89b33aa6e421ed7a14184"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d5f/class_control_solver.html#aa9f50f0763c89b33aa6e421ed7a14184">params_</a></td></tr>
-<tr class="separator:aa9f50f0763c89b33aa6e421ed7a14184 inherit pro_attribs_class_control_solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_class_controller"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_controller')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d8/d87/class_controller.html">Controller</a></td></tr>
+<tr class="memitem:a77a9a2e85cb7fe540a9f2b0cfba9c839 inherit pro_attribs_class_controller" id="r_a77a9a2e85cb7fe540a9f2b0cfba9c839"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d87/class_controller.html#a77a9a2e85cb7fe540a9f2b0cfba9c839">params_</a></td></tr>
+<tr class="separator:a77a9a2e85cb7fe540a9f2b0cfba9c839 inherit pro_attribs_class_controller"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -236,7 +236,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Returns the control command calculated by the solver. </p>
 
-<p>Implements <a class="el" href="../../d1/d5f/class_control_solver.html#ae38963cd8e12843c2a9f4e6d61c168d8">ControlSolver</a>.</p>
+<p>Implements <a class="el" href="../../d8/d87/class_controller.html#a73c0c60f3f931c293f1798f9d35d0168">Controller</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="../../d5/d8c/base__decoupled__controller_8cpp_source.html#l00022">22</a> of file <a class="el" href="../../d5/d8c/base__decoupled__controller_8cpp_source.html">base_decoupled_controller.cpp</a>.</p>
 
@@ -268,7 +268,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Called when a new path is sent by Path <a class="el" href="../../d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle.">Planning</a>. </p>
 
-<p>Implements <a class="el" href="../../d1/d5f/class_control_solver.html#a79a7b78712dfa86c84192f88d68c19c3">ControlSolver</a>.</p>
+<p>Implements <a class="el" href="../../d8/d87/class_controller.html#ab8c4735244bb8dac7d9dc75579a2f4a3">Controller</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="../../d5/d8c/base__decoupled__controller_8cpp_source.html#l00007">7</a> of file <a class="el" href="../../d5/d8c/base__decoupled__controller_8cpp_source.html">base_decoupled_controller.cpp</a>.</p>
 <div class="dynheader">
@@ -277,7 +277,7 @@ Here is the call graph for this function:</div>
 <div class="center"><img src="../../dd/d8f/class_decoupled_controller_a4485d0ea0700b71e2576d5d62b56701c_cgraph.png" border="0" usemap="#add/d8f/class_decoupled_controller_a4485d0ea0700b71e2576d5d62b56701c_cgraph" alt=""/></div>
 <map name="add/d8f/class_decoupled_controller_a4485d0ea0700b71e2576d5d62b56701c_cgraph" id="add/d8f/class_decoupled_controller_a4485d0ea0700b71e2576d5d62b56701c_cgraph">
 <area shape="rect" title="Called when a new path is sent by Path Planning." alt="" coords="5,5,143,46"/>
-<area shape="rect" href="../../d1/d5f/class_control_solver.html#a79a7b78712dfa86c84192f88d68c19c3" title="Called when a new path is sent by Path Planning." alt="" coords="191,5,321,46"/>
+<area shape="rect" href="../../d8/d87/class_controller.html#ab8c4735244bb8dac7d9dc75579a2f4a3" title="Called when a new path is sent by Path Planning." alt="" coords="191,13,353,39"/>
 <area shape="poly" title=" " alt="" coords="143,23,175,23,175,28,143,28"/>
 </map>
 </div>
@@ -327,7 +327,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="../../d1/d5f/class_control_solver.html#a899d832d3e92933675c6cde61a56e274">ControlSolver</a>.</p>
+<p>Implements <a class="el" href="../../d8/d87/class_controller.html#a8730b38203f2f66c699b9815fe776b88">Controller</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="../../d5/d8c/base__decoupled__controller_8cpp_source.html#l00028">28</a> of file <a class="el" href="../../d5/d8c/base__decoupled__controller_8cpp_source.html">base_decoupled_controller.cpp</a>.</p>
 
@@ -359,14 +359,14 @@ Here is the call graph for this function:</div>
 
 <p>Called when the car pose is updated by SLAM. </p>
 
-<p>Implements <a class="el" href="../../d1/d5f/class_control_solver.html#a7e393998205943818c2c73ef9b01c04f">ControlSolver</a>.</p>
+<p>Implements <a class="el" href="../../d8/d87/class_controller.html#a8716c81e342324629c8de3948de45a66">Controller</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="../../d5/d8c/base__decoupled__controller_8cpp_source.html#l00017">17</a> of file <a class="el" href="../../d5/d8c/base__decoupled__controller_8cpp_source.html">base_decoupled_controller.cpp</a>.</p>
 
 </div>
 </div>
-<a id="abcf0de9b521a0c26d017a79551c028af" name="abcf0de9b521a0c26d017a79551c028af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abcf0de9b521a0c26d017a79551c028af">&#9670;&#160;</a></span>vehicle_state_callback()</h2>
+<a id="a8cc91f6a0dfc5a61390ea18bfc0296eb" name="a8cc91f6a0dfc5a61390ea18bfc0296eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cc91f6a0dfc5a61390ea18bfc0296eb">&#9670;&#160;</a></span>vehicle_state_callback()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -377,7 +377,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">void DecoupledController::vehicle_state_callback </td>
           <td>(</td>
-          <td class="paramtype">const custom_interfaces::msg::Velocities &amp;&#160;</td>
+          <td class="paramtype">const custom_interfaces::msg::VehicleStateVector &amp;&#160;</td>
           <td class="paramname"><em>msg</em></td><td>)</td>
           <td></td>
         </tr>
@@ -391,7 +391,7 @@ Here is the call graph for this function:</div>
 
 <p>Called when the car state (currently just velocity) is updated. </p>
 
-<p>Implements <a class="el" href="../../d1/d5f/class_control_solver.html#a4d12aa4265502c3be07469570ff39dc1">ControlSolver</a>.</p>
+<p>Implements <a class="el" href="../../d8/d87/class_controller.html#aceacbe8dd0e23f13f752c1adfed9113e">Controller</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="../../d5/d8c/base__decoupled__controller_8cpp_source.html#l00012">12</a> of file <a class="el" href="../../d5/d8c/base__decoupled__controller_8cpp_source.html">base_decoupled_controller.cpp</a>.</p>
 
@@ -447,8 +447,8 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/control/include/control_solver/<a class="el" href="../../dd/d5f/base__decoupled__controller_8hpp_source.html">base_decoupled_controller.hpp</a></li>
-<li>src/control/src/control_solver/<a class="el" href="../../d5/d8c/base__decoupled__controller_8cpp_source.html">base_decoupled_controller.cpp</a></li>
+<li>src/control/include/controller/<a class="el" href="../../dd/d5f/base__decoupled__controller_8hpp_source.html">base_decoupled_controller.hpp</a></li>
+<li>src/control/src/controller/<a class="el" href="../../d5/d8c/base__decoupled__controller_8cpp_source.html">base_decoupled_controller.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

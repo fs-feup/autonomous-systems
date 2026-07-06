@@ -1,0 +1,5 @@
+<map id="WSS::apply_wss_error" name="WSS::apply_wss_error">
+<area shape="rect" id="Node000001" title="Apply realistic sensor errors to rotational speed measurement for a specific wheel." alt="" coords="201,13,352,39"/>
+<area shape="rect" id="Node000002" href="$dd/d27/class_w_s_s.html#ab62e6dc87343094451c4eabdd6c5a0a6" title="Process all four wheel speeds and return them in rpm." alt="" coords="5,5,153,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,28,153,28,153,23,185,23"/>
+</map>

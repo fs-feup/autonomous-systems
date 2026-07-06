@@ -38,12 +38,14 @@ var class_invicta_sim =
     [ "external_perception_cones_", "df/d77/class_invicta_sim.html#ad21a4ef41ce353b785d94da085e1dad7", null ],
     [ "external_slam_cones_", "df/d77/class_invicta_sim.html#a95f9d0f9a909a4f19b96584780be245c", null ],
     [ "go_signal_", "df/d77/class_invicta_sim.html#a6d2ce8c32a7a3bac3386422b1ea97603", null ],
+    [ "imu_model_", "df/d77/class_invicta_sim.html#adb0f99ecc9b5d5f497a8c5505489a83a", null ],
     [ "input_mutex_", "df/d77/class_invicta_sim.html#a3d5598addd8c9747f679ef707ce2a1ec", null ],
     [ "last_step_time_", "df/d77/class_invicta_sim.html#ad61355ada5d784c229686c2547f79523", null ],
     [ "map_snapshot_", "df/d77/class_invicta_sim.html#ad4089336fbc347b0bb2690088ad16b57", null ],
     [ "next_step_time_", "df/d77/class_invicta_sim.html#a72fd9112fc46fd7dc839cba5765b3c1f", null ],
     [ "output_snapshot_mutex_", "df/d77/class_invicta_sim.html#a2b93036f287568083acd0ccfd85dc757", null ],
     [ "params_", "df/d77/class_invicta_sim.html#ae50802673fdd37fcc2cfac00b333c763", null ],
+    [ "perception_model_", "df/d77/class_invicta_sim.html#a56d8ce0713df7b11731b4d15ccd0df65", null ],
     [ "running_", "df/d77/class_invicta_sim.html#a3934f37ca0a400927770ee8d67b891a7", null ],
     [ "sensors_snapshot_", "df/d77/class_invicta_sim.html#a1550b50fcd10ed451b2b896c9cc34afd", null ],
     [ "sim_time_", "df/d77/class_invicta_sim.html#a8148cab5e5ee60ba0ca8c6a5e6a74bbe", null ],
@@ -55,5 +57,6 @@ var class_invicta_sim =
     [ "track_", "df/d77/class_invicta_sim.html#a6ff51a9e6faa224b4fcef0118ae8d5f8", null ],
     [ "vehicle_model_", "df/d77/class_invicta_sim.html#ab615746aadadeda23c5b3e5fa7f1b93e", null ],
     [ "vehicle_model_snapshot_", "df/d77/class_invicta_sim.html#a88e0f9d033c7118ed4240d2160f37332", null ],
-    [ "vehicle_state_snapshot_", "df/d77/class_invicta_sim.html#a48262a51b8773242017cebeca3bcb822", null ]
+    [ "vehicle_state_snapshot_", "df/d77/class_invicta_sim.html#a48262a51b8773242017cebeca3bcb822", null ],
+    [ "wss_model_", "df/d77/class_invicta_sim.html#a5b41bed670aa49270ee6f08bf1fed56c", null ]
 ];

@@ -1,0 +1,7 @@
+<map id="MPC" name="MPC">
+<area shape="rect" id="Node000001" title=" " alt="" coords="77,269,252,709"/>
+<area shape="rect" id="Node000002" href="$d8/d87/class_controller.html" title="Base class for control solvers, that calculate both lateral and longitudinal control commands." alt="" coords="5,5,169,191"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,205,124,268,118,269,106,206"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="193,65,293,131"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="240,131,215,253,210,252,234,130"/>
+</map>

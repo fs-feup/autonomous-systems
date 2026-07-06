@@ -61,10 +61,11 @@ var hierarchy =
       [ "Config", "dd/d34/class_config.html", null ]
     ] ],
     [ "common_lib::structures::ControlCommand", "da/d16/structcommon__lib_1_1structures_1_1_control_command.html", null ],
-    [ "ControlParameters", "d4/de1/struct_control_parameters.html", null ],
-    [ "ControlSolver", "d1/d5f/class_control_solver.html", [
-      [ "DecoupledController", "dd/d8f/class_decoupled_controller.html", null ]
+    [ "Controller", "d8/d87/class_controller.html", [
+      [ "DecoupledController", "dd/d8f/class_decoupled_controller.html", null ],
+      [ "MPC", "df/d9d/class_m_p_c.html", null ]
     ] ],
+    [ "ControlParameters", "d4/de1/struct_control_parameters.html", null ],
     [ "DataAssociationModel", "d1/d14/class_data_association_model.html", [
       [ "AdaptiveNearestNeighbor", "da/d50/class_adaptive_nearest_neighbor.html", null ],
       [ "JCBB", "df/dd3/class_j_c_b_b.html", null ],
@@ -155,6 +156,7 @@ var hierarchy =
     [ "Report::LapTime", "d7/d84/struct_report_1_1_lap_time.html", null ],
     [ "LapTimerStatistics", "d0/d03/class_lap_timer_statistics.html", null ],
     [ "LateralController", "d7/d69/class_lateral_controller.html", [
+      [ "MPCzinho", "d5/d58/class_m_p_czinho.html", null ],
       [ "PurePursuit", "dc/dde/class_pure_pursuit.html", null ]
     ] ],
     [ "LoadTransferInput", "d9/dda/struct_load_transfer_input.html", null ],
@@ -164,6 +166,10 @@ var hierarchy =
     ] ],
     [ "LoadTransferOutput", "da/d85/struct_load_transfer_output.html", null ],
     [ "common_lib::car_parameters::LoadTransferParameters", "da/d10/structcommon__lib_1_1car__parameters_1_1_load_transfer_parameters.html", null ],
+    [ "LocalPather", "d7/d41/class_local_pather.html", [
+      [ "AlphaBeta", "dd/d9d/class_alpha_beta.html", null ],
+      [ "Interpolator", "da/d8e/class_interpolator.html", null ]
+    ] ],
     [ "Logger", "d3/d42/class_logger.html", null ],
     [ "LongitudinalController", "da/ded/class_longitudinal_controller.html", [
       [ "PID", "d6/d5a/class_p_i_d.html", null ]
@@ -270,8 +276,14 @@ var hierarchy =
     [ "Report", "d7/dac/struct_report.html", null ],
     [ "LoopClosure::Result", "dc/d0f/struct_loop_closure_1_1_result.html", null ],
     [ "Ring", "d2/db2/struct_ring.html", null ],
+    [ "control_evaluator.node.RunningStats", "d3/d4e/classcontrol__evaluator_1_1node_1_1_running_stats.html", null ],
     [ "SecondPoseInputTrait", "da/df3/class_second_pose_input_trait.html", [
       [ "DoublePoseUpdater", "dd/d7d/class_double_pose_updater.html", null ]
+    ] ],
+    [ "Sensor", "d7/daf/class_sensor.html", [
+      [ "IMU", "dd/d3c/class_i_m_u.html", null ],
+      [ "SimulatedPerception", "d0/dc0/class_simulated_perception.html", null ],
+      [ "WSS", "dd/d27/class_w_s_s.html", null ]
     ] ],
     [ "SensorBase< T >", "dd/dc4/class_sensor_base.html", null ],
     [ "SensorBase< GnssData >", "dd/dc4/class_sensor_base.html", [
@@ -299,6 +311,10 @@ var hierarchy =
       [ "GraphSLAMSolver", "d9/d73/class_graph_s_l_a_m_solver.html", null ]
     ] ],
     [ "Slice", "d0/da8/struct_slice.html", null ],
+    [ "SolverInterface", "df/db9/class_solver_interface.html", [
+      [ "AcadosSolver", "de/dea/class_acados_solver.html", null ],
+      [ "MPCzinhoAcadosSolver", "d3/dc4/class_m_p_czinho_acados_solver.html", null ]
+    ] ],
     [ "StampedScalar", "d1/d2c/struct_stamped_scalar.html", null ],
     [ "Statistics", "d8/da8/class_statistics.html", null ],
     [ "StatisticsSnapshot", "d8/d6e/struct_statistics_snapshot.html", null ],
@@ -414,6 +430,7 @@ var hierarchy =
       [ "GridWallRemoval", "df/d89/class_grid_wall_removal.html", null ]
     ] ],
     [ "common_lib::sensor_data::WheelEncoderData", "d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data.html", null ],
+    [ "WSS::WheelParameters", "d3/dfd/struct_w_s_s_1_1_wheel_parameters.html", null ],
     [ "common_lib::structures::Wheels", "d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html", null ],
     [ "Wheels", "de/d84/struct_wheels.html", null ],
     [ "Enum", null, [
@@ -422,9 +439,12 @@ var hierarchy =
     ] ],
     [ "Node", null, [
       [ "colour_track_cones.TrackGenerator", "d7/df1/classcolour__track__cones_1_1_track_generator.html", null ],
+      [ "colour_track_cones.TrackGenerator", "d7/df1/classcolour__track__cones_1_1_track_generator.html", null ],
+      [ "control_evaluator.node.ControlEvaluatorNode", "d4/de9/classcontrol__evaluator_1_1node_1_1_control_evaluator_node.html", null ],
       [ "data_infrastructure.data_infrastructure_node.DataInfrastructureNode", "d1/daf/classdata__infrastructure_1_1data__infrastructure__node_1_1_data_infrastructure_node.html", null ],
       [ "evaluator.evaluator.Evaluator", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html", null ],
       [ "generate_track_from_slam.SlamTrackGenerator", "da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html", null ],
+      [ "manual_to_as.ManualThrottleBridge", "d5/dc8/classmanual__to__as_1_1_manual_throttle_bridge.html", null ],
       [ "manual_to_as.ManualThrottleBridge", "d5/dc8/classmanual__to__as_1_1_manual_throttle_bridge.html", null ],
       [ "power_log.power_log_node.PowerNode", "db/d78/classpower__log_1_1power__log__node_1_1_power_node.html", null ],
       [ "rosbag_groundtruth.rosbag_node.BagNode", "da/deb/classrosbag__groundtruth_1_1rosbag__node_1_1_bag_node.html", null ],

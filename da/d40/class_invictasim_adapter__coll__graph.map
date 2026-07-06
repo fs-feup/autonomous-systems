@@ -1,11 +1,11 @@
 <map id="InvictasimAdapter" name="InvictasimAdapter">
-<area shape="rect" id="Node000001" title="Adapter for interfacing with the invictasim simulator." alt="" coords="28,1175,169,1381"/>
-<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="17,801,181,1126"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,1141,101,1176,96,1176,96,1141"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="5,520,91,586"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="56,600,81,801,76,801,51,601"/>
-<area shape="rect" id="Node000004" href="$d4/de1/struct_control_parameters.html" title=" " alt="" coords="115,368,301,738"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="162,738,149,785,144,783,156,737"/>
-<area shape="rect" id="Node000005" href="$dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html" title=" " alt="" coords="119,5,297,305"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="211,305,211,352,205,352,205,305"/>
+<area shape="rect" id="Node000001" title="Adapter for interfacing with the invictasim simulator." alt="" coords="29,1290,170,1495"/>
+<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="5,801,193,1241"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,1256,102,1290,97,1290,97,1256"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="6,520,91,586"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="56,600,78,800,73,801,51,601"/>
+<area shape="rect" id="Node000004" href="$d4/de1/struct_control_parameters.html" title=" " alt="" coords="115,368,302,738"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="168,738,157,785,152,784,163,737"/>
+<area shape="rect" id="Node000005" href="$dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html" title=" " alt="" coords="119,5,298,305"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="211,305,211,352,206,352,206,305"/>
 </map>

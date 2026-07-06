@@ -1,17 +1,17 @@
 <map id="VehicleAdapter" name="VehicleAdapter">
 <area shape="rect" id="Node000001" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="733,2309,941,2908"/>
-<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="563,1793,727,2119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="700,2132,752,2309,747,2310,695,2134"/>
+<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="539,1736,727,2176"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="709,2189,746,2309,741,2310,704,2191"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="643,1202,728,1267"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="685,1282,657,1794,652,1793,680,1281"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="685,1282,652,1736,646,1736,679,1281"/>
 <area shape="rect" id="Node000007" href="$d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="1086,1659,1266,2253"/>
 <area shape="poly" id="edge7_Node000007_Node000003" title=" " alt="" coords="682,1282,679,1348,683,1429,691,1471,702,1512,719,1552,742,1587,763,1608,784,1620,806,1625,830,1627,880,1629,907,1636,936,1650,980,1682,1020,1719,1056,1760,1088,1802,1084,1805,1052,1764,1016,1723,976,1686,933,1654,906,1641,879,1634,829,1632,805,1630,782,1625,760,1612,738,1591,715,1554,697,1514,685,1472,678,1429,673,1348,677,1282"/>
 <area shape="rect" id="Node000021" href="$d8/d84/class_s_l_a_m_node.html" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="234,1652,435,2260"/>
-<area shape="poly" id="edge29_Node000021_Node000003" title=" " alt="" coords="689,1282,687,1345,680,1424,663,1509,650,1550,633,1590,618,1613,596,1630,574,1642,552,1654,491,1717,437,1787,433,1784,487,1714,549,1650,571,1637,593,1626,614,1609,628,1588,645,1549,658,1507,674,1423,682,1345,684,1282"/>
+<area shape="poly" id="edge29_Node000021_Node000003" title=" " alt="" coords="685,1282,669,1421,654,1506,633,1590,628,1612,615,1630,592,1642,571,1644,550,1644,528,1654,479,1699,437,1751,433,1748,475,1695,525,1650,549,1639,571,1638,591,1637,612,1626,623,1610,628,1588,649,1505,663,1421,679,1282"/>
 <area shape="rect" id="Node000024" href="$d3/d43/class_v_e_node.html" title="Node class for the velocity estimation node." alt="" coords="752,1873,923,2039"/>
 <area shape="poly" id="edge34_Node000024_Node000003" title=" " alt="" coords="693,1281,713,1419,743,1588,779,1740,816,1873,811,1874,774,1741,737,1590,707,1420,688,1282"/>
 <area shape="rect" id="Node000004" href="$d4/de1/struct_control_parameters.html" title=" " alt="" coords="432,1050,619,1419"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="559,1419,618,1776,613,1777,553,1419"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="556,1419,601,1719,595,1720,550,1419"/>
 <area shape="rect" id="Node000005" href="$dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html" title=" " alt="" coords="524,504,703,804"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="579,804,572,841,546,1033,540,1032,567,840,574,803"/>
 <area shape="rect" id="Node000025" href="$d5/db7/struct_v_e_parameters.html" title=" " alt="" coords="753,1107,922,1362"/>
@@ -53,7 +53,7 @@
 <area shape="poly" id="edge22_Node000007_Node000018" title=" " alt="" coords="1285,1455,1245,1642,1240,1641,1280,1454"/>
 <area shape="poly" id="edge24_Node000007_Node000019" title=" " alt="" coords="1784,1347,1775,1409,1758,1474,1730,1537,1711,1565,1689,1591,1670,1607,1651,1617,1616,1625,1577,1627,1530,1631,1473,1634,1400,1633,1329,1638,1301,1644,1280,1654,1280,1654,1277,1650,1277,1650,1299,1639,1328,1632,1400,1628,1473,1628,1529,1625,1576,1621,1615,1620,1649,1612,1666,1602,1685,1587,1707,1562,1725,1534,1753,1473,1770,1408,1779,1346"/>
 <area shape="poly" id="edge26_Node000007_Node000020" title=" " alt="" coords="1968,1337,1958,1400,1939,1467,1911,1533,1892,1563,1870,1591,1847,1611,1825,1620,1770,1631,1685,1635,1541,1636,1389,1641,1327,1647,1282,1657,1281,1652,1326,1642,1389,1635,1541,1630,1685,1629,1769,1625,1823,1615,1844,1606,1866,1587,1888,1560,1906,1530,1934,1465,1953,1399,1963,1336"/>
-<area shape="poly" id="edge28_Node000001_Node000021" title=" " alt="" coords="446,2113,553,2258,735,2484,731,2487,549,2262,441,2116"/>
+<area shape="poly" id="edge28_Node000001_Node000021" title=" " alt="" coords="445,2138,529,2258,633,2385,736,2499,732,2502,629,2389,525,2262,441,2141"/>
 <area shape="rect" id="Node000022" href="$d0/d4e/structcommon__lib_1_1structures_1_1_velocities.html" title=" " alt="" coords="261,1117,408,1352"/>
 <area shape="poly" id="edge30_Node000021_Node000022" title=" " alt="" coords="337,1352,337,1635,332,1635,332,1352"/>
 <area shape="rect" id="Node000023" href="$d5/d51/struct_s_l_a_m_parameters.html" title="Parameters for the SLAM node." alt="" coords="5,1047,187,1422"/>

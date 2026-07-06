@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$d3/dad/struct_vehicle_model_bicycle_1_1_tire_model.html" title=" " alt="" coords="5,5,147,46"/>
+<area shape="rect" id="Node000000" href="$d6/dbc/class_vehicle_model.html" title="Vehicle model interface." alt="" coords="5,31,105,56"/>
+<area shape="rect" id="Node000001" href="$df/d75/class_f_s_f_e_u_p02_model.html" title="Four wheel vehicle model (tuned for FSFEUP02)" alt="" coords="153,5,275,31"/>
+<area shape="poly" id="edge180_Node000000_Node000001" title=" " alt="" coords="120,30,152,25,153,31,121,36"/>
+<area shape="rect" id="Node000002" href="$d5/d00/class_f_s_f_e_u_p03_model.html" title="Four wheel vehicle model (tuned for FSFEUP03)" alt="" coords="153,55,275,80"/>
+<area shape="poly" id="edge181_Node000000_Node000002" title=" " alt="" coords="121,51,153,56,152,61,120,56"/>
 </map>

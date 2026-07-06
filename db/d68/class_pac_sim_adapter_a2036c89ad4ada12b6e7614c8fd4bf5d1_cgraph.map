@@ -1,0 +1,5 @@
+<map id="PacSimAdapter::_pacsim_imu_callback" name="PacSimAdapter::_pacsim_imu_callback">
+<area shape="rect" id="Node000001" title="Callback for the pacsim IMU topic, used when using simulated velocity estimation and/or simulated SLA..." alt="" coords="5,5,173,46"/>
+<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html#a6a6198d08ac15d6b51750cd30953a647" title="Called when a new velocity is received." alt="" coords="221,5,361,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,23,206,23,206,28,173,28"/>
+</map>

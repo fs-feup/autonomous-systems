@@ -1,0 +1,22 @@
+<map id="ControlNode::vehicle_state_callback" name="ControlNode::vehicle_state_callback">
+<area shape="rect" id="Node000001" title="Called when a new velocity is received." alt="" coords="482,169,622,210"/>
+<area shape="rect" id="Node000002" href="$db/d68/class_pac_sim_adapter.html#ace940c40e28e3fffd0c762adb3de48f3" title="Callback for the pacsim ground truth velocity topic, used when using simulated velocity estimation." alt="" coords="265,5,432,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="526,158,485,109,460,83,432,61,411,49,414,44,436,57,464,79,489,105,530,155"/>
+<area shape="rect" id="Node000004" href="$db/d68/class_pac_sim_adapter.html#a2036c89ad4ada12b6e7614c8fd4bf5d1" title="Callback for the pacsim IMU topic, used when using simulated velocity estimation and/or simulated SLA..." alt="" coords="265,71,432,111"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="502,163,433,127,404,114,407,109,435,122,504,159"/>
+<area shape="rect" id="Node000005" href="$db/d68/class_pac_sim_adapter.html#acf3f28f5304081d15d89f4f402c1fe4a" title="Callback for the pacsim steering angle topic, used when using simulated steering." alt="" coords="265,136,432,177"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="466,178,432,173,433,167,467,173"/>
+<area shape="rect" id="Node000006" href="$db/d68/class_pac_sim_adapter.html#a65f078d07dba68b3c0b487cc8777e0cf" title="Callback for the pacsim wheels topic, used when using simulated velocity estimation." alt="" coords="265,201,432,242"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="467,206,433,211,432,206,466,200"/>
+<area shape="rect" id="Node000007" href="$d6/dc5/class_control_node.html#abd6f2010c9af09c52a7ac5f49a95c2ad" title=" " alt="" coords="263,266,434,292"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="505,221,435,256,402,268,400,263,433,251,503,216"/>
+<area shape="rect" id="Node000008" href="$dc/d0e/class_invictasim_adapter.html#aa4495de31797c5fb3c0bb815c7e6906a" title=" " alt="" coords="282,316,415,357"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="526,224,486,266,435,307,415,318,412,313,433,302,482,262,523,220"/>
+<area shape="rect" id="Node000003" href="$db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868" title=" " alt="" coords="5,112,215,137"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="280,55,264,61,142,113,140,109,262,57,278,50"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="250,107,207,113,206,108,249,102"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="249,146,210,140,211,135,250,140"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="278,198,262,191,142,140,144,135,264,186,280,193"/>
+<area shape="rect" id="Node000009" href="$dc/d0e/class_invictasim_adapter.html#ae56d46f61925c91ec26257dfe37d24c3" title=" " alt="" coords="44,316,176,357"/>
+<area shape="poly" id="edge11_Node000008_Node000009" title=" " alt="" coords="267,339,177,339,177,334,267,334"/>
+</map>

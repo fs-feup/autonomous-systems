@@ -1,0 +1,13 @@
+<map id="src/control/include/lateral_controller/mpczinho.hpp" name="src/control/include/lateral_controller/mpczinho.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="187,5,315,61"/>
+<area shape="rect" id="Node000002" href="$d6/da3/control_2include_2lateral__controller_2map_8hpp.html" title=" " alt="" coords="103,109,231,165"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="221,75,192,110,188,107,217,72"/>
+<area shape="rect" id="Node000006" href="$d5/df8/mpczinho_8cpp.html" title=" " alt="" coords="254,117,419,157"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="286,71,322,115,318,118,282,75"/>
+<area shape="rect" id="Node000003" href="$dd/d5f/base__decoupled__controller_8hpp.html" title=" " alt="" coords="79,213,255,268"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="170,180,170,212,164,212,164,180"/>
+<area shape="rect" id="Node000004" href="$d0/d7e/control_2include_2controller_2map_8hpp.html" title=" " alt="" coords="5,316,137,357"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="130,281,93,318,89,314,126,278"/>
+<area shape="rect" id="Node000005" href="$d5/d8c/base__decoupled__controller_8cpp.html" title=" " alt="" coords="161,316,365,357"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="208,278,245,314,241,318,204,281"/>
+</map>

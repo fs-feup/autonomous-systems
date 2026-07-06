@@ -27,12 +27,13 @@ var searchData=
   ['constantvelocitymodel_24',['ConstantVelocityModel',['../df/d42/class_constant_velocity_model.html',1,'']]],
   ['constantvelocityturnratemodel_25',['ConstantVelocityTurnrateModel',['../d4/d11/class_constant_velocity_turnrate_model.html',1,'']]],
   ['controlcommand_26',['ControlCommand',['../da/d16/structcommon__lib_1_1structures_1_1_control_command.html',1,'common_lib::structures']]],
-  ['controlnode_27',['ControlNode',['../d6/dc5/class_control_node.html',1,'']]],
-  ['controlparameters_28',['ControlParameters',['../d4/de1/struct_control_parameters.html',1,'']]],
-  ['controlsolver_29',['ControlSolver',['../d1/d5f/class_control_solver.html',1,'']]],
-  ['customitem_30',['CustomItem',['../df/d25/classdraw_view_1_1_custom_item.html',1,'drawView']]],
-  ['cuttrimming_31',['CutTrimming',['../d4/d48/class_cut_trimming.html',1,'']]],
-  ['cuttrimmingtest_32',['CutTrimmingTest',['../d1/dad/class_cut_trimming_test.html',1,'']]],
-  ['cylindervalidator_33',['CylinderValidator',['../dd/def/class_cylinder_validator.html',1,'']]],
-  ['cylindervalidatortest_34',['CylinderValidatorTest',['../da/dcf/class_cylinder_validator_test.html',1,'']]]
+  ['controlevaluatornode_27',['ControlEvaluatorNode',['../d4/de9/classcontrol__evaluator_1_1node_1_1_control_evaluator_node.html',1,'control_evaluator::node']]],
+  ['controller_28',['Controller',['../d8/d87/class_controller.html',1,'']]],
+  ['controlnode_29',['ControlNode',['../d6/dc5/class_control_node.html',1,'']]],
+  ['controlparameters_30',['ControlParameters',['../d4/de1/struct_control_parameters.html',1,'']]],
+  ['customitem_31',['CustomItem',['../df/d25/classdraw_view_1_1_custom_item.html',1,'drawView']]],
+  ['cuttrimming_32',['CutTrimming',['../d4/d48/class_cut_trimming.html',1,'']]],
+  ['cuttrimmingtest_33',['CutTrimmingTest',['../d1/dad/class_cut_trimming_test.html',1,'']]],
+  ['cylindervalidator_34',['CylinderValidator',['../dd/def/class_cylinder_validator.html',1,'']]],
+  ['cylindervalidatortest_35',['CylinderValidatorTest',['../da/dcf/class_cylinder_validator_test.html',1,'']]]
 ];

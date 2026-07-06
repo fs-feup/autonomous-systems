@@ -1,0 +1,22 @@
+<map id="src/control/include/utils/path_stager.hpp" name="src/control/include/utils/path_stager.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="238,5,384,46"/>
+<area shape="rect" id="Node000002" href="$d5/def/bombated__mpc_8hpp.html" title=" " alt="" coords="73,94,213,150"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="264,56,193,96,190,91,261,52"/>
+<area shape="rect" id="Node000005" href="$d9/d7e/mpczinho_8hpp.html" title=" " alt="" coords="247,94,375,150"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="314,61,314,93,308,93,308,61"/>
+<area shape="rect" id="Node000010" href="$d0/d30/path__stager_8cpp.html" title=" " alt="" coords="398,102,531,142"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="357,52,434,99,431,103,355,57"/>
+<area shape="rect" id="Node000003" href="$d0/d7e/control_2include_2controller_2map_8hpp.html" title=" " alt="" coords="5,405,137,446"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="83,161,65,179,52,199,42,226,38,254,40,312,52,364,65,404,60,406,47,366,35,313,33,254,37,224,47,196,61,175,79,157"/>
+<area shape="rect" id="Node000004" href="$d7/d51/bombated__mpc_8cpp.html" title=" " alt="" coords="62,205,224,246"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="146,165,146,205,140,205,140,165"/>
+<area shape="rect" id="Node000006" href="$d6/da3/control_2include_2lateral__controller_2map_8hpp.html" title=" " alt="" coords="247,198,375,253"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="314,165,314,197,308,197,308,165"/>
+<area shape="rect" id="Node000009" href="$d5/df8/mpczinho_8cpp.html" title=" " alt="" coords="398,205,563,246"/>
+<area shape="poly" id="edge9_Node000005_Node000009" title=" " alt="" coords="371,156,449,202,446,207,368,160"/>
+<area shape="rect" id="Node000007" href="$dd/d5f/base__decoupled__controller_8hpp.html" title=" " alt="" coords="199,301,375,357"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="304,269,296,301,291,300,298,268"/>
+<area shape="poly" id="edge7_Node000007_Node000003" title=" " alt="" coords="212,366,117,407,115,402,210,361"/>
+<area shape="rect" id="Node000008" href="$d5/d8c/base__decoupled__controller_8cpp.html" title=" " alt="" coords="185,405,389,446"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="290,373,290,405,284,405,284,373"/>
+</map>

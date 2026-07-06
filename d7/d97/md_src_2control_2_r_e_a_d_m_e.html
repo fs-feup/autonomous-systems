@@ -105,7 +105,7 @@ Folder Structure</h2>
 <ul>
 <li><a href="../.././include/adapter/">adapter</a>: Adapters to change ros2 interfaces according to simulator or environment</li>
 <li><a href="../.././include/config/">config</a>: Parameters struct definition, which will be read from the <a href="../../../../config/control/">config</a> folder</li>
-<li><a href="../.././include/control_solver/">control_solver</a>: algorithms that calculate both lateral and longitudinal controls (full control solvers)</li>
+<li><a href="../.././include/controller/">controller</a>: algorithms that calculate both lateral and longitudinal controls (full control solvers)</li>
 <li><a href="../.././include/lateral_controller/">lateral_controller</a>: algorithms that calculate lateral control only (steering angle)</li>
 <li><a href="../.././include/longitudinal_controller/">longitudinal_controller</a>: algorithms that calculate longitudinal control only (throttle)</li>
 <li><a href="../.././include/ros_node/">ros_node</a>: ROS2 Node class</li>
@@ -117,6 +117,7 @@ Important Dependencies</h2>
 How to Run</h1>
 <h2><a class="anchor" id="autotoc_md44"></a>
 Install Dependencies</h2>
+<p>Both in /autonomous_systems and /src/control.</p>
 <div class="fragment"><div class="line">./dependencies_install.sh</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md45"></a>
 Compiling</h2>
@@ -140,7 +141,7 @@ Design</h1>
 </p><ul>
 <li><a class="el" href="../../d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module.">ControlNode</a>: The node abstract class itself, from which adapters inherit. This is the main class that initializes the other classes and interacts with ROS2.</li>
 <li>Adapters: Provide an interface to correctly subscribe/publish, as well as parse and normalize values as needed by the different simulators we use and for the actual vehicle.</li>
-<li><a class="el" href="../../d1/d5f/class_control_solver.html" title="Base class for control solvers, that calculate both lateral and longitudinal control commands.">ControlSolver</a>: The generic controller, from which other full controllers must inherit.</li>
+<li><a class="el" href="../../d8/d87/class_controller.html" title="Base class for control solvers, that calculate both lateral and longitudinal control commands.">Controller</a>: The generic controller, from which other full controllers must inherit.</li>
 <li><a class="el" href="../../dd/d8f/class_decoupled_controller.html">DecoupledController</a>: The generic decoupled controller, i.e. the lateral and longitudinal controllers work independently of each other.</li>
 <li><a class="el" href="../../d7/d69/class_lateral_controller.html" title="Base (abstract) class for lateral control solvers (that calculate steering command)">LateralController</a>: The generic lateral controller, from which other lateral controllers must inherit.</li>
 <li><a class="el" href="../../da/ded/class_longitudinal_controller.html" title="Base (abstract) class for longitudinal controllers (the ones that calculate throttle)">LongitudinalController</a>: The generic longitudinal controller, from which other longitudinal controllers must inherit.</li>

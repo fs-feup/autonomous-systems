@@ -1,0 +1,11 @@
+<map id="Sensor::gaussian_noise" name="Sensor::gaussian_noise">
+<area shape="rect" id="Node000001" title="Generate Gaussian noise." alt="" coords="400,55,558,80"/>
+<area shape="rect" id="Node000002" href="$dd/d3c/class_i_m_u.html#aa4a33b663f052a683172a32c0b3e4341" title=" " alt="" coords="205,5,348,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="408,53,332,34,333,29,409,48"/>
+<area shape="rect" id="Node000003" href="$dd/d27/class_w_s_s.html#aef3714f58d1d7ee9ad34f556118fcc97" title="Apply realistic sensor errors to rotational speed measurement for a specific wheel." alt="" coords="201,55,352,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="385,70,352,70,352,65,385,65"/>
+<area shape="rect" id="Node000005" href="$d0/dc0/class_simulated_perception.html#a6820e33a13a2cbea1157a6c90500e57c" title="Apply perception error modeling to global cone coordinates Transforms cones to LiDAR local frame and ..." alt="" coords="206,105,347,145"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="417,88,348,107,347,102,416,83"/>
+<area shape="rect" id="Node000004" href="$dd/d27/class_w_s_s.html#ab62e6dc87343094451c4eabdd6c5a0a6" title="Process all four wheel speeds and return them in rpm." alt="" coords="5,47,153,88"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="185,70,153,70,153,65,185,65"/>
+</map>

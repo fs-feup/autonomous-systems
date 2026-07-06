@@ -1,10 +1,10 @@
 <map id="PacSimAdapter" name="PacSimAdapter">
-<area shape="rect" id="Node000001" title="Adapter for the PacSim simulator." alt="" coords="91,761,279,1216"/>
-<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="5,243,169,589"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="122,603,149,761,143,762,116,604"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="142,5,227,71"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="175,85,134,244,129,243,170,84"/>
-<area shape="rect" id="Node000004" href="$d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="193,119,373,713"/>
-<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="199,84,208,118,203,119,194,85"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="232,728,226,762,221,761,227,728"/>
+<area shape="rect" id="Node000001" title="Adapter for the PacSim simulator." alt="" coords="107,761,299,1296"/>
+<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="5,186,193,646"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,660,161,761,155,762,138,661"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="161,5,246,71"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="193,85,165,187,160,185,188,84"/>
+<area shape="rect" id="Node000004" href="$d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="217,119,397,713"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="218,84,228,118,223,119,213,86"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="257,728,251,762,246,761,252,727"/>
 </map>

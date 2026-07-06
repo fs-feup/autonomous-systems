@@ -1,0 +1,19 @@
+<map id="MPC::get_control_command" name="MPC::get_control_command">
+<area shape="rect" id="Node000001" title="Returns the control command calculated by the solver." alt="" coords="5,80,190,106"/>
+<area shape="rect" id="Node000002" href="$df/d9d/class_m_p_c.html#a9578529ae26389cadea47f726fd8e033" title=" " alt="" coords="245,31,396,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="158,77,244,58,245,63,160,82"/>
+<area shape="rect" id="Node000003" href="$df/d9d/class_m_p_c.html#a5c77747e8246ca315fd904d4975aa3b5" title=" " alt="" coords="238,80,403,106"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="190,90,222,90,222,96,190,96"/>
+<area shape="rect" id="Node000009" href="$df/d9d/class_m_p_c.html#a829c1dd3f835a299b781c2e2f4be687d" title=" " alt="" coords="243,129,398,155"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="160,104,245,123,244,128,158,109"/>
+<area shape="rect" id="Node000004" href="$d0/d30/path__stager_8cpp.html#ad32a1acc1cbb2cc0a95cdd1d0afa811d" title=" " alt="" coords="451,73,598,113"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="403,90,436,90,436,96,403,96"/>
+<area shape="rect" id="Node000005" href="$d0/d30/path__stager_8cpp.html#a0f7577eff9b37f8c9a764121963c2fc6" title=" " alt="" coords="646,5,817,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="571,70,645,40,664,34,666,39,647,45,573,75"/>
+<area shape="rect" id="Node000006" href="$d0/d30/path__stager_8cpp.html#a5a0801f2d5516bb91801e776b401f11b" title=" " alt="" coords="652,55,811,80"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="598,81,637,76,637,82,599,86"/>
+<area shape="rect" id="Node000007" href="$d0/d30/path__stager_8cpp.html#ada2f8dd78f2f8e78787c6f2f936e4219" title=" " alt="" coords="686,104,777,130"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="599,99,671,107,670,112,598,104"/>
+<area shape="rect" id="Node000008" href="$d0/d30/path__stager_8cpp.html#a06ae070046122e2bf3f07cdd25cc69b3" title=" " alt="" coords="652,154,811,195"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="577,111,647,140,661,145,659,150,645,145,575,116"/>
+</map>

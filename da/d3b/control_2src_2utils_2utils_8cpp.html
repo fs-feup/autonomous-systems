@@ -121,8 +121,40 @@ Functions</h2></td></tr>
 <tr class="memitem:affb99cf5ad23a3e9e3b14b64587fed1e" id="r_affb99cf5ad23a3e9e3b14b64587fed1e"><td class="memItemLeft" align="right" valign="top">std::tuple&lt; <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">Position</a>, double, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d3b/control_2src_2utils_2utils_8cpp.html#affb99cf5ad23a3e9e3b14b64587fed1e">get_lookahead_point</a> (const std::vector&lt; <a class="el" href="../../d4/dbc/colorpoint_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">custom_interfaces::msg::PathPoint</a> &gt; &amp;pathpoint_array, int closest_point_id, double lookahead_distance, <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">Position</a> <a class="el" href="../../d1/da2/control_2include_2utils_2utils_8hpp.html#aa4db0590a4eae468aa0a5ebd95003e52">rear_axis_position</a>, double last_to_first_max_dist)</td></tr>
 <tr class="memdesc:affb99cf5ad23a3e9e3b14b64587fed1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update Lookahead point.  <br /></td></tr>
 <tr class="separator:affb99cf5ad23a3e9e3b14b64587fed1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a296883e33074fb94bb78bcc81079668d" id="r_a296883e33074fb94bb78bcc81079668d"><td class="memItemLeft" align="right" valign="top">custom_interfaces::msg::Velocities&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d3b/control_2src_2utils_2utils_8cpp.html#a296883e33074fb94bb78bcc81079668d">full_state_to_velocities_msg</a> (const custom_interfaces::msg::VehicleStateVector &amp;full_state)</td></tr>
+<tr class="memdesc:a296883e33074fb94bb78bcc81079668d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts VehicleStateVector message to Velocities message.  <br /></td></tr>
+<tr class="separator:a296883e33074fb94bb78bcc81079668d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a296883e33074fb94bb78bcc81079668d" name="a296883e33074fb94bb78bcc81079668d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a296883e33074fb94bb78bcc81079668d">&#9670;&#160;</a></span>full_state_to_velocities_msg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">custom_interfaces::msg::Velocities full_state_to_velocities_msg </td>
+          <td>(</td>
+          <td class="paramtype">const custom_interfaces::msg::VehicleStateVector &amp;&#160;</td>
+          <td class="paramname"><em>full_state</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Converts VehicleStateVector message to Velocities message. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">full_state</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>custom_interfaces::msg::Velocities </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../da/d3b/control_2src_2utils_2utils_8cpp_source.html#l00151">151</a> of file <a class="el" href="../../da/d3b/control_2src_2utils_2utils_8cpp_source.html">utils.cpp</a>.</p>
+
+</div>
+</div>
 <a id="abc841ff1f30fff8e3601c0eb3c5a952b" name="abc841ff1f30fff8e3601c0eb3c5a952b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abc841ff1f30fff8e3601c0eb3c5a952b">&#9670;&#160;</a></span>get_closest_point()</h2>
 

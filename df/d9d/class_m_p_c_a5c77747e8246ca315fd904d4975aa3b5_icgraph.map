@@ -1,0 +1,5 @@
+<map id="MPC::set_path_in_solver" name="MPC::set_path_in_solver">
+<area shape="rect" id="Node000001" title=" " alt="" coords="238,5,403,31"/>
+<area shape="rect" id="Node000002" href="$df/d9d/class_m_p_c.html#a43eb26cfe3b3f98734c77a58be7ad531" title="Returns the control command calculated by the solver." alt="" coords="5,5,190,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="222,21,190,21,190,16,222,16"/>
+</map>

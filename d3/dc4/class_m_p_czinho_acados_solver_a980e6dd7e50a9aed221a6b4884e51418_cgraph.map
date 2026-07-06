@@ -1,0 +1,15 @@
+<map id="MPCzinhoAcadosSolver::solve" name="MPCzinhoAcadosSolver::solve">
+<area shape="rect" id="Node000001" title="Solve the optimization problem." alt="" coords="5,169,167,210"/>
+<area shape="rect" id="Node000002" href="$d3/dc4/class_m_p_czinho_acados_solver.html#ae2f87626be8faf3ee45cc9303133999b" title="Get the full predicted control solution (for the whole horizon)" alt="" coords="222,5,384,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,167,148,113,179,83,213,57,223,51,225,56,216,61,182,87,151,117,105,171"/>
+<area shape="rect" id="Node000003" href="$d3/dc4/class_m_p_czinho_acados_solver.html#a06707bca6219961f78e08894b34c280c" title=" " alt="" coords="219,71,387,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="124,166,214,122,229,115,231,120,216,127,126,171"/>
+<area shape="rect" id="Node000004" href="$d3/dc4/class_m_p_czinho_acados_solver.html#a1e549c4c14069d314ddd47e10c30cf31" title=" " alt="" coords="222,136,384,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="167,175,206,168,207,174,167,180"/>
+<area shape="rect" id="Node000005" href="$d3/dc4/class_m_p_czinho_acados_solver.html#aa5d30ee19af5784f96c08f59bb9a5fc0" title="Checks if the solver output is reasonable upon solver failure, to help identify if the failure is ben..." alt="" coords="222,201,384,242"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="167,199,207,205,206,210,167,204"/>
+<area shape="rect" id="Node000006" href="$d3/dc4/class_m_p_czinho_acados_solver.html#aabd95742a1febf920b0aae290976fb79" title=" " alt="" coords="215,267,391,307"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="128,208,216,251,231,258,229,263,214,256,125,213"/>
+<area shape="rect" id="Node000007" href="$d3/dc4/class_m_p_czinho_acados_solver.html#a9b5e1f120f7d344d045ff4327af3573d" title=" " alt="" coords="222,332,384,373"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="105,209,151,262,182,291,216,317,225,322,223,327,213,321,179,295,148,266,101,212"/>
+</map>

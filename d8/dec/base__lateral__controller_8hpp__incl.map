@@ -1,9 +1,9 @@
 <map id="src/control/include/lateral_controller/base_lateral_controller.hpp" name="src/control/include/lateral_controller/base_lateral_controller.hpp">
 <area shape="rect" id="Node000001" title=" " alt="" coords="1714,5,1893,61"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="1362,109,1520,150"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1714,60,1533,107,1531,102,1713,55"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="1544,109,1701,150"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1753,64,1675,104,1672,99,1750,59"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="1349,109,1506,150"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1714,59,1522,107,1520,102,1713,54"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="1531,109,1700,150"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1751,64,1670,104,1667,99,1748,59"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="1725,109,1882,150"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1806,62,1806,94,1801,94,1801,62"/>
 <area shape="rect" id="Node000005" href="$d3/da8/control_2include_2config_2parameters_8hpp.html" title=" " alt="" coords="1907,109,2050,150"/>

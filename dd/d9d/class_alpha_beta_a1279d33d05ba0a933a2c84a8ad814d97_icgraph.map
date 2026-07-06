@@ -1,0 +1,8 @@
+<map id="AlphaBeta::convergence_distance" name="AlphaBeta::convergence_distance">
+<area shape="rect" id="Node000001" title=" " alt="" coords="439,5,600,46"/>
+<area shape="rect" id="Node000002" href="$dd/d9d/class_alpha_beta.html#ae025e08ff4a398264dcb00af77cc8425" title="Called when a new path is sent by Path Planning." alt="" coords="5,13,195,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="423,25,391,24,243,24,195,25,195,20,243,19,391,19,423,20"/>
+<area shape="rect" id="Node000003" href="$dd/d9d/class_alpha_beta.html#a5ed19917ff15b7148e41ab3314662aec" title=" " alt="" coords="243,33,391,74"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="424,42,391,46,391,41,423,36"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="227,45,195,41,196,35,228,39"/>
+</map>

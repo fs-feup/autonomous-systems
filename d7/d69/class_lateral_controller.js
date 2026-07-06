@@ -6,6 +6,6 @@ var class_lateral_controller =
     [ "path_callback", "d7/d69/class_lateral_controller.html#a340e178491f0939d395ad0e8398f8ff8", null ],
     [ "publish_solver_data", "d7/d69/class_lateral_controller.html#ad449d61c7570de39d966d6e1236d607c", null ],
     [ "vehicle_pose_callback", "d7/d69/class_lateral_controller.html#ab853c6b04821d7c0a02e285b255631c2", null ],
-    [ "vehicle_state_callback", "d7/d69/class_lateral_controller.html#a8fad886a3f57be78824b40aa32907ef5", null ],
+    [ "vehicle_state_callback", "d7/d69/class_lateral_controller.html#a053b8c8bfcab9bac1100feb2b8393539", null ],
     [ "params_", "d7/d69/class_lateral_controller.html#a3ead89475fb757b27ae4993b3572bb70", null ]
 ];

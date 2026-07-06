@@ -1,5 +1,9 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$dd/dc4/class_sensor_base.html" title=" " alt="" coords="5,5,200,31"/>
-<area shape="rect" id="Node000001" href="$d0/d8a/class_perception_sensor.html" title=" " alt="" coords="248,5,372,31"/>
-<area shape="poly" id="edge108_Node000000_Node000001" title=" " alt="" coords="215,16,247,16,247,21,215,21"/>
+<area shape="rect" id="Node000000" href="$d7/daf/class_sensor.html" title="Abstract base class for sensor implementations." alt="" coords="5,55,68,80"/>
+<area shape="rect" id="Node000001" href="$dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:" alt="" coords="163,5,210,31"/>
+<area shape="poly" id="edge111_Node000000_Node000001" title=" " alt="" coords="82,50,162,23,164,28,84,55"/>
+<area shape="rect" id="Node000002" href="$d0/dc0/class_simulated_perception.html" title="Perception output class for handling LiDAR perception with error modeling." alt="" coords="116,55,257,80"/>
+<area shape="poly" id="edge112_Node000000_Node000002" title=" " alt="" coords="83,65,115,65,115,70,83,70"/>
+<area shape="rect" id="Node000003" href="$dd/d27/class_w_s_s.html" title="Wheel Speed Sensor (WSS) simulator." alt="" coords="161,104,212,130"/>
+<area shape="poly" id="edge113_Node000000_Node000003" title=" " alt="" coords="83,80,161,106,160,111,82,85"/>
 </map>

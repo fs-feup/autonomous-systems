@@ -1,0 +1,13 @@
+<map id="MPCzinho::set_path_in_solver" name="MPCzinho::set_path_in_solver">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,73,142,113"/>
+<area shape="rect" id="Node000002" href="$d0/d30/path__stager_8cpp.html#ad32a1acc1cbb2cc0a95cdd1d0afa811d" title=" " alt="" coords="190,73,337,113"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,90,174,90,174,96,142,96"/>
+<area shape="rect" id="Node000003" href="$d0/d30/path__stager_8cpp.html#a0f7577eff9b37f8c9a764121963c2fc6" title=" " alt="" coords="385,5,555,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="309,70,384,40,403,34,404,39,386,45,311,75"/>
+<area shape="rect" id="Node000004" href="$d0/d30/path__stager_8cpp.html#a5a0801f2d5516bb91801e776b401f11b" title=" " alt="" coords="391,55,549,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="337,81,375,76,376,82,338,86"/>
+<area shape="rect" id="Node000005" href="$d0/d30/path__stager_8cpp.html#ada2f8dd78f2f8e78787c6f2f936e4219" title=" " alt="" coords="425,104,515,130"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="338,99,410,107,409,112,337,104"/>
+<area shape="rect" id="Node000006" href="$d0/d30/path__stager_8cpp.html#a06ae070046122e2bf3f07cdd25cc69b3" title=" " alt="" coords="391,154,550,195"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="316,111,386,140,400,145,398,150,384,145,314,116"/>
+</map>

@@ -36,7 +36,7 @@ var searchData=
   ['epsilong_33',['epsilong',['../dd/d8c/struct_internal_values.html#a1ef99004953d682e03a4f24485223537',1,'InternalValues']]],
   ['epsnl_34',['EPSNL',['../dd/d7d/structcommon__lib_1_1car__parameters_1_1_tire_parameters.html#ad1808bfc0c2e89e2181251447fbf2179',1,'common_lib::car_parameters::TireParameters']]],
   ['equality_5ftolerance_35',['equality_tolerance',['../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html#ad1cb6d5aafe963dfc48c45e147a1127e',1,'common_lib::structures::Cone']]],
-  ['error_5fmean_36',['error_mean',['../df/d7c/class_scalar_value_sensor.html#a48b6afdfdb169cf008173e37a5ad0b4e',1,'ScalarValueSensor::error_mean'],['../dc/df1/class_wheels_sensor.html#a7220c01fc4eeeb77437e230fef517da8',1,'WheelsSensor::error_mean']]],
+  ['error_5fmean_36',['error_mean',['../dc/df1/class_wheels_sensor.html#a7220c01fc4eeeb77437e230fef517da8',1,'WheelsSensor::error_mean'],['../df/d7c/class_scalar_value_sensor.html#a48b6afdfdb169cf008173e37a5ad0b4e',1,'ScalarValueSensor::error_mean']]],
   ['error_5fmean_5facc_37',['error_mean_acc',['../d6/d71/class_imu_sensor.html#acba0641b9a1a815f59450f0051c9d7f7',1,'ImuSensor']]],
   ['error_5fmean_5frot_38',['error_mean_rot',['../d6/d71/class_imu_sensor.html#ae43cfdf4ddffae5e33c2d1767094e55f',1,'ImuSensor']]],
   ['error_5fsigma_39',['error_sigma',['../dc/df1/class_wheels_sensor.html#ade3c203c7a9f61299e9021f1af0c07bc',1,'WheelsSensor::error_sigma'],['../df/d7c/class_scalar_value_sensor.html#a82edcbe789cf46bc6fd005650c36bc33',1,'ScalarValueSensor::error_sigma']]],
@@ -83,5 +83,6 @@ var searchData=
   ['external_5fperception_5fcones_80',['external_perception_cones',['../d1/d26/struct_input_snapshot.html#a5ff2b4aa6efc007d0812a4c871036af3',1,'InputSnapshot']]],
   ['external_5fperception_5fcones_5f_81',['external_perception_cones_',['../df/d77/class_invicta_sim.html#ad21a4ef41ce353b785d94da085e1dad7',1,'InvictaSim']]],
   ['external_5fslam_5fcones_82',['external_slam_cones',['../d1/d26/struct_input_snapshot.html#a73efb72929560a454f1d581856160c43',1,'InputSnapshot']]],
-  ['external_5fslam_5fcones_5f_83',['external_slam_cones_',['../df/d77/class_invicta_sim.html#a95f9d0f9a909a4f19b96584780be245c',1,'InvictaSim']]]
+  ['external_5fslam_5fcones_5f_83',['external_slam_cones_',['../df/d77/class_invicta_sim.html#a95f9d0f9a909a4f19b96584780be245c',1,'InvictaSim']]],
+  ['extras_5frequire_84',['extras_require',['../dd/dc4/namespacesetup.html#a5081a5a3f9d0dee597ab99a7fdc362df',1,'setup']]]
 ];

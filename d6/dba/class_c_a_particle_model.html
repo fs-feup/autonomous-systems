@@ -125,7 +125,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a77f40768a8fa70f208ce0c1344fe0f94" id="r_a77f40768a8fa70f208ce0c1344fe0f94"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dba/class_c_a_particle_model.html#a77f40768a8fa70f208ce0c1344fe0f94">CAParticleModel</a> ()=default</td></tr>
 <tr class="separator:a77f40768a8fa70f208ce0c1344fe0f94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a6800f9051998fb548e0bc375c96581" id="r_a0a6800f9051998fb548e0bc375c96581"><td class="memItemLeft" align="right" valign="top">Eigen::Vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dba/class_c_a_particle_model.html#a0a6800f9051998fb548e0bc375c96581">get_next_velocities</a> (const Eigen::Vector3d &amp;previous_velocities, const Eigen::Vector3d &amp;imu_data, const double time_interval) override</td></tr>
-<tr class="memdesc:a0a6800f9051998fb548e0bc375c96581"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicts the next velocities based on the previous velocities and accelerations from IMU.  <br /></td></tr>
+<tr class="memdesc:a0a6800f9051998fb548e0bc375c96581"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicts the next velocities based on the previous velocities and accelerations from <a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a>.  <br /></td></tr>
 <tr class="separator:a0a6800f9051998fb548e0bc375c96581"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae24fe751fb6f0b17ddc6242544b8cad4" id="r_ae24fe751fb6f0b17ddc6242544b8cad4"><td class="memItemLeft" align="right" valign="top">Eigen::Matrix3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dba/class_c_a_particle_model.html#ae24fe751fb6f0b17ddc6242544b8cad4">get_jacobian_velocities</a> (const Eigen::Vector3d &amp;previous_velocities, const Eigen::Vector3d &amp;imu_data, const double time_interval) override</td></tr>
 <tr class="memdesc:ae24fe751fb6f0b17ddc6242544b8cad4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Jacobian of the velocity process model.  <br /></td></tr>
@@ -331,7 +331,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Predicts the next velocities based on the previous velocities and accelerations from IMU. </p>
+<p>Predicts the next velocities based on the previous velocities and accelerations from <a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">previous_velocities</td><td>The velocities at the previous time step. </td></tr>

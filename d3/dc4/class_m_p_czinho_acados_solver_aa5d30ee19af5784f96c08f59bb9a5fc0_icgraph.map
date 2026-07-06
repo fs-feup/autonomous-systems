@@ -1,0 +1,5 @@
+<map id="MPCzinhoAcadosSolver::sanity_check_output" name="MPCzinhoAcadosSolver::sanity_check_output">
+<area shape="rect" id="Node000001" title="Checks if the solver output is reasonable upon solver failure, to help identify if the failure is ben..." alt="" coords="215,5,376,46"/>
+<area shape="rect" id="Node000002" href="$d3/dc4/class_m_p_czinho_acados_solver.html#a980e6dd7e50a9aed221a6b4884e51418" title="Solve the optimization problem." alt="" coords="5,5,167,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="199,28,167,28,167,23,199,23"/>
+</map>

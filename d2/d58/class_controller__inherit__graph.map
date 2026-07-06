@@ -1,0 +1,7 @@
+<map id="Controller" name="Controller">
+<area shape="rect" id="Node000001" title="Base class for control solvers, that calculate both lateral and longitudinal control commands." alt="" coords="101,5,265,191"/>
+<area shape="rect" id="Node000002" href="$dd/d8f/class_decoupled_controller.html" title=" " alt="" coords="5,376,169,581"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,206,116,377,110,375,154,204"/>
+<area shape="rect" id="Node000003" href="$df/d9d/class_m_p_c.html" title=" " alt="" coords="193,239,368,719"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="213,204,222,238,217,239,208,206"/>
+</map>

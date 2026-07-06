@@ -1,0 +1,5 @@
+<map id="SimulatedPerception" name="SimulatedPerception">
+<area shape="rect" id="Node000001" title="Perception output class for handling LiDAR perception with error modeling." alt="" coords="5,179,181,533"/>
+<area shape="rect" id="Node000002" href="$d7/daf/class_sensor.html" title="Abstract base class for sensor implementations." alt="" coords="33,5,154,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,146,96,179,91,179,91,146"/>
+</map>

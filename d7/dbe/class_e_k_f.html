@@ -133,7 +133,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa40cfcfe4565f3673a629ed707f728c5" id="r_aa40cfcfe4565f3673a629ed707f728c5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dbe/class_e_k_f.html#aa40cfcfe4565f3673a629ed707f728c5">EKF</a> (const <a class="el" href="../../d5/db7/struct_v_e_parameters.html">VEParameters</a> &amp;params)</td></tr>
 <tr class="separator:aa40cfcfe4565f3673a629ed707f728c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9b8bb5ae1df27f800988736e5598d67" id="r_aa9b8bb5ae1df27f800988736e5598d67"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dbe/class_e_k_f.html#aa9b8bb5ae1df27f800988736e5598d67">imu_callback</a> (const <a class="el" href="../../df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html">common_lib::sensor_data::ImuData</a> &amp;imu_data) override</td></tr>
-<tr class="memdesc:aa9b8bb5ae1df27f800988736e5598d67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for the IMU data that should be called by adapters when new IMU data is available.  <br /></td></tr>
+<tr class="memdesc:aa9b8bb5ae1df27f800988736e5598d67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for the <a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a> data that should be called by adapters when new <a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a> data is available.  <br /></td></tr>
 <tr class="separator:aa9b8bb5ae1df27f800988736e5598d67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb60c0c5bde517ab68ed0c408419a62c" id="r_acb60c0c5bde517ab68ed0c408419a62c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dbe/class_e_k_f.html#acb60c0c5bde517ab68ed0c408419a62c">wss_callback</a> (const <a class="el" href="../../d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data.html">common_lib::sensor_data::WheelEncoderData</a> &amp;wss_data) override</td></tr>
 <tr class="memdesc:acb60c0c5bde517ab68ed0c408419a62c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for the wheel speed sensor data that should be called by adapters when new wheel speed sensor data is available.  <br /></td></tr>
@@ -150,7 +150,7 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a6758c727d6017e7561c8b4b4f39575c0" id="r_a6758c727d6017e7561c8b4b4f39575c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dbe/class_e_k_f.html#a6758c727d6017e7561c8b4b4f39575c0">predict</a> (Eigen::Vector3d &amp;state, Eigen::Matrix3d &amp;covariance, const Eigen::Matrix3d &amp;process_noise_matrix, const rclcpp::Time last_update, <a class="el" href="../../df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html">common_lib::sensor_data::ImuData</a> &amp;imu_data)</td></tr>
-<tr class="memdesc:a6758c727d6017e7561c8b4b4f39575c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predict velocities at the next index based on IMU measurements and current state.  <br /></td></tr>
+<tr class="memdesc:a6758c727d6017e7561c8b4b4f39575c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predict velocities at the next index based on <a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a> measurements and current state.  <br /></td></tr>
 <tr class="separator:a6758c727d6017e7561c8b4b4f39575c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e293a7d506fc7312ad6d80f49cab701" id="r_a2e293a7d506fc7312ad6d80f49cab701"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dbe/class_e_k_f.html#a2e293a7d506fc7312ad6d80f49cab701">correct_wheels</a> (Eigen::Vector3d &amp;state, Eigen::Matrix3d &amp;covariance, <a class="el" href="../../d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data.html">common_lib::sensor_data::WheelEncoderData</a> &amp;wss_data, double motor_rpm, double steering_angle)</td></tr>
 <tr class="memdesc:a2e293a7d506fc7312ad6d80f49cab701"><td class="mdescLeft">&#160;</td><td class="mdescRight">Correct the state estimate based on wheel speed sensor, resolver, and steering data.  <br /></td></tr>
@@ -412,7 +412,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Callback function for the IMU data that should be called by adapters when new IMU data is available. </p>
+<p>Callback function for the <a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a> data that should be called by adapters when new <a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a> data is available. </p>
 
 <p>Implements <a class="el" href="../../d9/d08/class_velocity_estimator.html#ae5825d1a63588cbccfd5007e1396349a">VelocityEstimator</a>.</p>
 
@@ -526,14 +526,14 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Predict velocities at the next index based on IMU measurements and current state. </p>
+<p>Predict velocities at the next index based on <a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a> measurements and current state. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">state</td><td>Vector of velocities {velocity_x, velocity_y, rotational_velocity} </td></tr>
     <tr><td class="paramname">covariance</td><td>Covariance matrix representing the uncertainty in the state estimate. </td></tr>
     <tr><td class="paramname">process_noise_matrix</td><td>Process noise matrix representing the uncertainty in the process model. </td></tr>
     <tr><td class="paramname">last_update</td><td>Time point of the last update. </td></tr>
-    <tr><td class="paramname">imu_data</td><td>IMU data containing acceleration and rotational velocity measurements. </td></tr>
+    <tr><td class="paramname">imu_data</td><td><a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a> data containing acceleration and rotational velocity measurements. </td></tr>
   </table>
   </dd>
 </dl>

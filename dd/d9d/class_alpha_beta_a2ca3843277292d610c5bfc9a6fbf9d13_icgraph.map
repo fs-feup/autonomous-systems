@@ -1,0 +1,11 @@
+<map id="AlphaBeta::error_distance" name="AlphaBeta::error_distance">
+<area shape="rect" id="Node000001" title=" " alt="" coords="648,60,818,85"/>
+<area shape="rect" id="Node000002" href="$dd/d9d/class_alpha_beta.html#a1279d33d05ba0a933a2c84a8ad814d97" title=" " alt="" coords="439,23,600,64"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="632,61,600,57,601,52,633,56"/>
+<area shape="rect" id="Node000003" href="$dd/d9d/class_alpha_beta.html#ae025e08ff4a398264dcb00af77cc8425" title="Called when a new path is sent by Path Planning." alt="" coords="5,30,195,56"/>
+<area shape="poly" id="edge5_Node000001_Node000003" title=" " alt="" coords="633,82,451,88,346,86,242,78,148,59,149,54,243,73,347,80,451,83,633,77"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="433,21,391,14,317,8,243,14,149,32,148,27,242,9,317,3,391,9,433,16"/>
+<area shape="rect" id="Node000004" href="$dd/d9d/class_alpha_beta.html#a5ed19917ff15b7148e41ab3314662aec" title=" " alt="" coords="243,23,391,64"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="423,46,391,46,391,41,423,41"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="227,46,195,46,195,41,227,41"/>
+</map>

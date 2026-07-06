@@ -1,16 +1,16 @@
 <map id="PacSimAdapter" name="PacSimAdapter">
-<area shape="rect" id="Node000001" title="Adapter for the PacSim simulator." alt="" coords="351,2296,539,2751"/>
-<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="177,1787,341,2112"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="318,2125,374,2295,369,2297,313,2127"/>
+<area shape="rect" id="Node000001" title="Adapter for the PacSim simulator." alt="" coords="349,2296,541,2831"/>
+<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="165,1729,353,2169"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="332,2183,367,2295,362,2297,327,2185"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="216,1202,301,1267"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="261,1282,261,1787,256,1787,256,1282"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="261,1282,261,1730,256,1730,256,1282"/>
 <area shape="rect" id="Node000006" href="$d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="653,1652,833,2247"/>
-<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="259,1282,259,1346,266,1425,284,1509,299,1549,317,1588,350,1639,389,1687,432,1732,478,1773,571,1844,654,1897,651,1902,567,1848,474,1777,429,1736,385,1690,346,1642,312,1590,294,1551,279,1510,261,1426,254,1346,253,1282"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="259,1282,259,1346,266,1425,284,1509,299,1549,317,1588,339,1618,371,1653,459,1732,560,1812,654,1882,651,1887,557,1816,455,1736,367,1657,334,1621,312,1590,294,1551,279,1510,261,1426,254,1346,253,1282"/>
 <area shape="rect" id="Node000004" href="$d4/de1/struct_control_parameters.html" title=" " alt="" coords="5,1050,192,1419"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="142,1418,221,1769,216,1770,137,1419"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="142,1418,208,1712,203,1714,137,1419"/>
 <area shape="rect" id="Node000005" href="$dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html" title=" " alt="" coords="9,504,188,804"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="101,804,101,1033,96,1033,96,804"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="648,2138,542,2343,537,2340,643,2135"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="649,2150,544,2366,539,2364,644,2148"/>
 <area shape="rect" id="Node000007" href="$df/dec/struct_planning_config.html" title=" " alt="" coords="775,1134,980,1334"/>
 <area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="861,1334,804,1636,799,1635,856,1333"/>
 <area shape="rect" id="Node000008" href="$df/d7d/struct_path_calculation_config.html" title=" " alt="" coords="970,491,1145,817"/>

@@ -1,0 +1,5 @@
+<map id="AlphaBeta" name="AlphaBeta">
+<area shape="rect" id="Node000001" title="Base (abstract) class for local path creation, which takes the global path from the planner and the c..." alt="" coords="5,159,167,324"/>
+<area shape="rect" id="Node000002" href="$d7/d41/class_local_pather.html" title="Base (abstract) class for local path creation, which takes the global path from the planner and the c..." alt="" coords="19,5,153,111"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,126,89,159,83,159,83,126"/>
+</map>

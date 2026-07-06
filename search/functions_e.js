@@ -9,5 +9,6 @@ var searchData=
   ['normalvelocitymodel_6',['NormalVelocityModel',['../d7/df9/class_normal_velocity_model.html#a053c266f34e38e3e609eaa4affe76bf8',1,'NormalVelocityModel']]],
   ['noslipbicyclemodel_7',['NoSlipBicycleModel',['../db/df5/class_no_slip_bicycle_model.html#ad67b5cbb4ecc2f42cb7c89619c798667',1,'NoSlipBicycleModel']]],
   ['npoints_5fvalid_8',['npoints_valid',['../df/d8f/class_cone_evaluator.html#a73dbb0369a2ac04e93520c3180b3a9d3',1,'ConeEvaluator']]],
-  ['npointsvalidator_9',['NPointsValidator',['../d2/ddf/class_n_points_validator.html#a683fa4e68098a3a9d88a4c092f52894d',1,'NPointsValidator']]]
+  ['npointsvalidator_9',['NPointsValidator',['../d2/ddf/class_n_points_validator.html#a683fa4e68098a3a9d88a4c092f52894d',1,'NPointsValidator']]],
+  ['number_5fof_5fpoints_10',['number_of_points',['../dd/d9d/class_alpha_beta.html#a5ed19917ff15b7148e41ab3314662aec',1,'AlphaBeta']]]
 ];

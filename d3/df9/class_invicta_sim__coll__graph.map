@@ -1,24 +1,24 @@
 <map id="InvictaSim" name="InvictaSim">
-<area shape="rect" id="Node000001" title="Main simulator class." alt="" coords="543,715,715,1345"/>
+<area shape="rect" id="Node000001" title="Main simulator class." alt="" coords="555,715,727,1345"/>
 <area shape="rect" id="Node000002" href="$df/d28/struct_invicta_sim_parameters.html" title=" " alt="" coords="5,358,180,623"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,622,136,657,155,690,195,739,239,784,287,826,338,865,438,930,529,980,526,984,436,935,335,869,284,830,236,788,191,742,151,693,131,660,116,624"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,622,136,657,155,690,196,740,242,786,292,828,344,867,448,933,541,982,538,986,445,937,341,872,289,833,238,790,192,743,151,693,131,660,116,624"/>
 <area shape="rect" id="Node000003" href="$d9/de2/struct_vehicle_model_snapshot.html" title="Vehicle model snapshot containing all vehicle state data to be published." alt="" coords="307,358,468,623"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="382,623,386,657,394,691,421,755,455,816,494,873,534,924,530,927,490,876,451,819,416,757,389,692,381,658,377,623"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="391,622,397,657,406,690,434,753,469,814,507,871,546,921,542,924,503,874,464,817,429,756,401,692,391,658,385,623"/>
 <area shape="rect" id="Node000004" href="$d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html" title=" " alt="" coords="393,25,539,185"/>
-<area shape="poly" id="edge12_Node000001_Node000004" title=" " alt="" coords="394,156,352,190,310,230,272,277,242,329,211,417,203,455,201,490,203,526,211,564,242,651,268,701,299,749,334,793,373,835,454,908,530,965,527,969,450,912,369,839,330,797,294,752,263,704,238,653,206,565,198,527,195,490,198,454,206,416,238,327,267,274,306,227,349,186,391,152"/>
+<area shape="poly" id="edge12_Node000001_Node000004" title=" " alt="" coords="394,156,352,190,310,230,272,277,242,329,211,417,203,455,200,491,203,526,211,564,242,651,269,702,301,751,338,796,379,838,463,911,543,968,539,972,460,915,375,842,334,800,297,754,264,705,238,653,205,565,198,527,195,491,198,454,206,416,238,327,267,274,306,227,349,186,391,152"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="411,186,392,230,381,285,377,341,372,341,375,284,386,229,406,184"/>
-<area shape="rect" id="Node000007" href="$db/d58/struct_sensors_snapshot.html" title="Snapshot of sensor data for publishing simulated IMU, WSS, steering angle sensor and resolver." alt="" coords="493,428,615,553"/>
-<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="502,184,517,229,537,322,549,410,544,411,531,323,511,230,497,186"/>
-<area shape="rect" id="Node000008" href="$d8/dfe/struct_vehicle_state_snapshot.html" title="Snapshot of the vehicle&#39;s state for publishing the current pose and operational status,..." alt="" coords="639,358,781,623"/>
-<area shape="poly" id="edge10_Node000008_Node000004" title=" " alt="" coords="541,156,578,189,611,228,644,283,669,341,665,343,639,285,606,231,574,193,538,160"/>
-<area shape="rect" id="Node000005" href="$dd/d2b/struct_execution_times_snapshot.html" title="Snapshot of execution times for different components of the vehicle model." alt="" coords="806,398,966,583"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="872,583,858,638,839,692,786,799,726,897,722,894,782,796,834,690,853,636,867,582"/>
-<area shape="rect" id="Node000006" href="$d0/dc5/struct_map_snapshot.html" title="Snapshot of the track map, containing both the ground truth cone positions and simulated slam map." alt="" coords="997,418,1172,563"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="1072,564,1050,629,1035,662,1016,693,951,775,877,849,801,913,730,966,727,961,797,909,873,845,947,771,1012,690,1030,659,1045,627,1066,562"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="554,553,554,619,558,691,559,698,554,699,553,692,548,620,548,553"/>
-<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="693,623,681,699,676,698,688,622"/>
+<area shape="rect" id="Node000007" href="$db/d58/struct_sensors_snapshot.html" title="Snapshot of sensor data for publishing simulated IMU, WSS, steering angle sensor and resolver." alt="" coords="493,418,629,563"/>
+<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="502,184,517,229,537,317,552,401,547,402,532,318,511,230,497,186"/>
+<area shape="rect" id="Node000008" href="$d8/dfe/struct_vehicle_state_snapshot.html" title="Snapshot of the vehicle&#39;s state for publishing the current pose and operational status,..." alt="" coords="653,358,794,623"/>
+<area shape="poly" id="edge10_Node000008_Node000004" title=" " alt="" coords="541,156,578,189,612,228,647,283,675,341,671,343,642,285,608,231,575,193,537,160"/>
+<area shape="rect" id="Node000005" href="$dd/d2b/struct_execution_times_snapshot.html" title="Snapshot of execution times for different components of the vehicle model." alt="" coords="818,398,978,583"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="885,583,871,638,852,692,799,800,738,898,734,896,795,797,848,690,866,636,880,582"/>
+<area shape="rect" id="Node000006" href="$d0/dc5/struct_map_snapshot.html" title="Snapshot of the track map, containing both the ground truth cone positions and simulated slam map." alt="" coords="1009,418,1184,563"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="1084,564,1063,629,1048,662,1030,693,965,775,890,849,813,914,742,966,739,962,810,909,886,845,961,771,1025,690,1043,659,1058,627,1079,562"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="563,563,564,625,570,691,571,698,566,699,565,692,559,626,557,563"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="706,623,694,699,689,698,701,622"/>
 <area shape="rect" id="Node000009" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="681,5,827,205"/>
-<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="745,205,730,341,724,340,740,205"/>
-<area shape="rect" id="Node000010" href="$d8/d6e/struct_statistics_snapshot.html" title="Snapshot of accumulated simulator statistics." alt="" coords="1197,328,1389,652"/>
-<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="1199,641,1187,654,1132,706,1073,755,951,844,832,920,731,979,728,974,829,916,948,840,1070,751,1128,702,1183,650,1195,638"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="749,205,738,341,733,340,743,205"/>
+<area shape="rect" id="Node000010" href="$d8/d6e/struct_statistics_snapshot.html" title="Snapshot of accumulated simulator statistics." alt="" coords="1209,328,1401,652"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="1211,641,1199,654,1144,706,1085,755,963,845,844,920,743,979,740,974,842,916,960,840,1082,751,1140,702,1195,650,1207,637"/>
 </map>

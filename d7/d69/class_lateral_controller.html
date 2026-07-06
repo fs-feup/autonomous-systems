@@ -108,9 +108,11 @@ Inheritance diagram for LateralController:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d6/d3b/class_lateral_controller__inherit__graph.png" border="0" usemap="#a_lateral_controller_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_lateral_controller_inherit__map" id="a_lateral_controller_inherit__map">
-<area shape="rect" title="Base (abstract) class for lateral control solvers (that calculate steering command)" alt="" coords="9,5,175,191"/>
-<area shape="rect" href="../../dc/dde/class_pure_pursuit.html" title="Pure Pursuit class." alt="" coords="5,239,179,799"/>
-<area shape="poly" title=" " alt="" coords="95,206,95,239,89,239,89,206"/>
+<area shape="rect" title="Base (abstract) class for lateral control solvers (that calculate steering command)" alt="" coords="119,5,286,191"/>
+<area shape="rect" href="../../d5/d58/class_m_p_czinho.html" title=" " alt="" coords="5,359,195,679"/>
+<area shape="poly" title=" " alt="" coords="179,206,142,360,136,358,174,205"/>
+<area shape="rect" href="../../dc/dde/class_pure_pursuit.html" title="Pure Pursuit class." alt="" coords="219,239,392,799"/>
+<area shape="poly" title=" " alt="" coords="231,205,239,238,234,239,226,206"/>
 </map>
 </div>
 <div class="dynheader">
@@ -127,9 +129,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a340e178491f0939d395ad0e8398f8ff8" id="r_a340e178491f0939d395ad0e8398f8ff8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d69/class_lateral_controller.html#a340e178491f0939d395ad0e8398f8ff8">path_callback</a> (const custom_interfaces::msg::PathPointArray &amp;msg)=0</td></tr>
 <tr class="memdesc:a340e178491f0939d395ad0e8398f8ff8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when a new path is sent by Path <a class="el" href="../../d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle.">Planning</a>.  <br /></td></tr>
 <tr class="separator:a340e178491f0939d395ad0e8398f8ff8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8fad886a3f57be78824b40aa32907ef5" id="r_a8fad886a3f57be78824b40aa32907ef5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d69/class_lateral_controller.html#a8fad886a3f57be78824b40aa32907ef5">vehicle_state_callback</a> (const custom_interfaces::msg::Velocities &amp;msg)=0</td></tr>
-<tr class="memdesc:a8fad886a3f57be78824b40aa32907ef5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the car state (currently just velocity) is updated.  <br /></td></tr>
-<tr class="separator:a8fad886a3f57be78824b40aa32907ef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a053b8c8bfcab9bac1100feb2b8393539" id="r_a053b8c8bfcab9bac1100feb2b8393539"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d69/class_lateral_controller.html#a053b8c8bfcab9bac1100feb2b8393539">vehicle_state_callback</a> (const custom_interfaces::msg::VehicleStateVector &amp;msg)=0</td></tr>
+<tr class="memdesc:a053b8c8bfcab9bac1100feb2b8393539"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the car state (currently just velocity) is updated.  <br /></td></tr>
+<tr class="separator:a053b8c8bfcab9bac1100feb2b8393539"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab853c6b04821d7c0a02e285b255631c2" id="r_ab853c6b04821d7c0a02e285b255631c2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d69/class_lateral_controller.html#ab853c6b04821d7c0a02e285b255631c2">vehicle_pose_callback</a> (const custom_interfaces::msg::Pose &amp;msg)=0</td></tr>
 <tr class="memdesc:ab853c6b04821d7c0a02e285b255631c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the car pose is updated by SLAM.  <br /></td></tr>
 <tr class="separator:ab853c6b04821d7c0a02e285b255631c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -233,7 +235,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Returns the steering command calculated by the solver. </p>
 
-<p>Implemented in <a class="el" href="../../dc/dde/class_pure_pursuit.html#aa511921b74317316d8e62a5063bb66dd">PurePursuit</a>.</p>
+<p>Implemented in <a class="el" href="../../d5/d58/class_m_p_czinho.html#ac6f73a913611ba47457ad61b98bdc2c0">MPCzinho</a>, and <a class="el" href="../../dc/dde/class_pure_pursuit.html#aa511921b74317316d8e62a5063bb66dd">PurePursuit</a>.</p>
 
 </div>
 </div>
@@ -263,7 +265,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Called when a new path is sent by Path <a class="el" href="../../d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle.">Planning</a>. </p>
 
-<p>Implemented in <a class="el" href="../../dc/dde/class_pure_pursuit.html#a3cc3bfea4178ed7d191a3a558e90cff7">PurePursuit</a>.</p>
+<p>Implemented in <a class="el" href="../../d5/d58/class_m_p_czinho.html#a2c83b00f591c5d53966cd9b63776dcde">MPCzinho</a>, and <a class="el" href="../../dc/dde/class_pure_pursuit.html#a3cc3bfea4178ed7d191a3a558e90cff7">PurePursuit</a>.</p>
 
 </div>
 </div>
@@ -310,7 +312,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../dc/dde/class_pure_pursuit.html#a0a8fc6a4cd3c8c9f366c320d85999299">PurePursuit</a>.</p>
+<p>Implemented in <a class="el" href="../../d5/d58/class_m_p_czinho.html#a05d4b19a2563228107ba8e11c2a9e942">MPCzinho</a>, and <a class="el" href="../../dc/dde/class_pure_pursuit.html#a0a8fc6a4cd3c8c9f366c320d85999299">PurePursuit</a>.</p>
 
 </div>
 </div>
@@ -340,12 +342,12 @@ Protected Attributes</h2></td></tr>
 
 <p>Called when the car pose is updated by SLAM. </p>
 
-<p>Implemented in <a class="el" href="../../dc/dde/class_pure_pursuit.html#adf40950346abc2e2e6ae99435f3d0d00">PurePursuit</a>.</p>
+<p>Implemented in <a class="el" href="../../d5/d58/class_m_p_czinho.html#a434c7f978f3f85ba7a818f29aadcae50">MPCzinho</a>, and <a class="el" href="../../dc/dde/class_pure_pursuit.html#adf40950346abc2e2e6ae99435f3d0d00">PurePursuit</a>.</p>
 
 </div>
 </div>
-<a id="a8fad886a3f57be78824b40aa32907ef5" name="a8fad886a3f57be78824b40aa32907ef5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8fad886a3f57be78824b40aa32907ef5">&#9670;&#160;</a></span>vehicle_state_callback()</h2>
+<a id="a053b8c8bfcab9bac1100feb2b8393539" name="a053b8c8bfcab9bac1100feb2b8393539"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a053b8c8bfcab9bac1100feb2b8393539">&#9670;&#160;</a></span>vehicle_state_callback()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -356,7 +358,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">virtual void LateralController::vehicle_state_callback </td>
           <td>(</td>
-          <td class="paramtype">const custom_interfaces::msg::Velocities &amp;&#160;</td>
+          <td class="paramtype">const custom_interfaces::msg::VehicleStateVector &amp;&#160;</td>
           <td class="paramname"><em>msg</em></td><td>)</td>
           <td></td>
         </tr>
@@ -370,7 +372,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Called when the car state (currently just velocity) is updated. </p>
 
-<p>Implemented in <a class="el" href="../../dc/dde/class_pure_pursuit.html#a6e9fdf3978edeee9e86a7f2dd15d383c">PurePursuit</a>.</p>
+<p>Implemented in <a class="el" href="../../d5/d58/class_m_p_czinho.html#a7d2a8eac66ccbb6bbdbc6dd64be2b5a3">MPCzinho</a>, and <a class="el" href="../../dc/dde/class_pure_pursuit.html#aa2697d8d08230e927e3027d3e81af7fe">PurePursuit</a>.</p>
 
 </div>
 </div>

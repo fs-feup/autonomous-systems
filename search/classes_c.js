@@ -21,6 +21,9 @@ var searchData=
   ['motionupdate_18',['MotionUpdate',['../db/d6d/struct_motion_update.html',1,'']]],
   ['motormodel_19',['MotorModel',['../d3/d0e/class_motor_model.html',1,'']]],
   ['motorparameters_20',['MotorParameters',['../d3/dba/structcommon__lib_1_1car__parameters_1_1_motor_parameters.html',1,'common_lib::car_parameters']]],
-  ['my_5fyaml_5fdump_21',['my_yaml_dump',['../d1/d79/classconvert__fssim__sdf__to__yaml_1_1_my___yaml___dump.html',1,'convert_fssim_sdf_to_yaml.My_Yaml_Dump'],['../dd/d24/classmap_file_1_1_my___yaml___dump.html',1,'mapFile.My_Yaml_Dump']]],
-  ['mywindow_22',['MyWindow',['../d8/def/classmain_1_1_my_window.html',1,'main']]]
+  ['mpc_21',['MPC',['../df/d9d/class_m_p_c.html',1,'']]],
+  ['mpczinho_22',['MPCzinho',['../d5/d58/class_m_p_czinho.html',1,'']]],
+  ['mpczinhoacadossolver_23',['MPCzinhoAcadosSolver',['../d3/dc4/class_m_p_czinho_acados_solver.html',1,'']]],
+  ['my_5fyaml_5fdump_24',['my_yaml_dump',['../d1/d79/classconvert__fssim__sdf__to__yaml_1_1_my___yaml___dump.html',1,'convert_fssim_sdf_to_yaml.My_Yaml_Dump'],['../dd/d24/classmap_file_1_1_my___yaml___dump.html',1,'mapFile.My_Yaml_Dump']]],
+  ['mywindow_25',['MyWindow',['../d8/def/classmain_1_1_my_window.html',1,'main']]]
 ];

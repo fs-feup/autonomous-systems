@@ -6,11 +6,14 @@ var struct_control_parameters =
     [ "operator=", "d4/de1/struct_control_parameters.html#a774c6e3c4caf9f23142b1ab015de81cd", null ],
     [ "car_parameters_", "d4/de1/struct_control_parameters.html#a97528bd0f2fc84027a0a6d86bdbda0f4", null ],
     [ "command_time_interval_", "d4/de1/struct_control_parameters.html#a005f9d25aed7701bf926116ae00bcda3", null ],
-    [ "control_solver_", "d4/de1/struct_control_parameters.html#a9a1da0488cf5817514f9dfe837612182", null ],
+    [ "controller_", "d4/de1/struct_control_parameters.html#ae684facea737766ac4f6e318e2f4bfc4", null ],
     [ "first_last_max_dist_", "d4/de1/struct_control_parameters.html#ae6d21ffcbd6d757076c43a1975b4b67a", null ],
     [ "lateral_controller_", "d4/de1/struct_control_parameters.html#ad821d39b83edaf4a1f18d2fcf2b60c04", null ],
     [ "longitudinal_controller_", "d4/de1/struct_control_parameters.html#a19501a8f5d5122f79135df461b443478", null ],
     [ "map_frame_id_", "d4/de1/struct_control_parameters.html#ad583dff74c07eb7bd8ffe630137b7cdc", null ],
+    [ "mpc_prediction_horizon_seconds_", "d4/de1/struct_control_parameters.html#a724ec51c51f74b829ef994c1683e6b0b", null ],
+    [ "mpc_prediction_horizon_steps_", "d4/de1/struct_control_parameters.html#ae2ee4a4fbafaa5b4c6204f6580f5c926", null ],
+    [ "mpczinho_max_steering_command_derivative_", "d4/de1/struct_control_parameters.html#af942af25184c6b2a25607352891e1f90", null ],
     [ "pid_anti_windup_", "d4/de1/struct_control_parameters.html#a85edaba74014e6ec6a2efce0ef3434c8", null ],
     [ "pid_kd_", "d4/de1/struct_control_parameters.html#a5f2680748995a2b6cf9a678360f98319", null ],
     [ "pid_ki_", "d4/de1/struct_control_parameters.html#a44ccca9d008ec4137ef9c6c21206f086", null ],
@@ -27,5 +30,6 @@ var struct_control_parameters =
     [ "pure_pursuit_lpf_initial_value_", "d4/de1/struct_control_parameters.html#a31578032384ea8062c15f90c1bfda847", null ],
     [ "use_simulated_planning_", "d4/de1/struct_control_parameters.html#aa3382215cf22ddf385d779a96d059936", null ],
     [ "using_simulated_slam_", "d4/de1/struct_control_parameters.html#aa25152fbc32273040f961b849293ef29", null ],
-    [ "using_simulated_velocities_", "d4/de1/struct_control_parameters.html#ad3d5abbb9cc1d589a1126a430f3047b4", null ]
+    [ "using_simulated_velocities_", "d4/de1/struct_control_parameters.html#ad3d5abbb9cc1d589a1126a430f3047b4", null ],
+    [ "wheel_speeds_scale_mpc_", "d4/de1/struct_control_parameters.html#abb967d227b7d5cdb163bbc3d10f006f3", null ]
 ];

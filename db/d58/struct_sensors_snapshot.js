@@ -4,5 +4,6 @@ var struct_sensors_snapshot =
     [ "free_acceleration", "db/d58/struct_sensors_snapshot.html#a506ff380d548096b785d45649a4224ce", null ],
     [ "motor_rpm", "db/d58/struct_sensors_snapshot.html#aeef317e8c472737fc39abbbd8e96cc3e", null ],
     [ "steering_angle", "db/d58/struct_sensors_snapshot.html#a60f6f0ab453623b6935f76a8c60d3a6e", null ],
-    [ "wheel_rpm", "db/d58/struct_sensors_snapshot.html#a8220e13650ff00457876a6cab6bb7203", null ]
+    [ "wheel_rpm", "db/d58/struct_sensors_snapshot.html#a8220e13650ff00457876a6cab6bb7203", null ],
+    [ "wheel_rpm_dropout", "db/d58/struct_sensors_snapshot.html#a223f6f111f9c7b8ece29a2ca4393f541", null ]
 ];

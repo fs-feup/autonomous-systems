@@ -6,7 +6,7 @@ var class_decoupled_controller =
     [ "path_callback", "dd/d8f/class_decoupled_controller.html#a4485d0ea0700b71e2576d5d62b56701c", null ],
     [ "publish_solver_data", "dd/d8f/class_decoupled_controller.html#a762f345adf27327bc9fdb519c2818dd9", null ],
     [ "vehicle_pose_callback", "dd/d8f/class_decoupled_controller.html#adfe78ea2ed4539ba63dc31f5e3f10a2e", null ],
-    [ "vehicle_state_callback", "dd/d8f/class_decoupled_controller.html#abcf0de9b521a0c26d017a79551c028af", null ],
+    [ "vehicle_state_callback", "dd/d8f/class_decoupled_controller.html#a8cc91f6a0dfc5a61390ea18bfc0296eb", null ],
     [ "lateral_controller_", "dd/d8f/class_decoupled_controller.html#a7089ea48c62cfdb22e322b79d6fbf09c", null ],
     [ "longitudinal_controller_", "dd/d8f/class_decoupled_controller.html#a0fd5db8ee17c8ad466602ee3459d0146", null ]
 ];

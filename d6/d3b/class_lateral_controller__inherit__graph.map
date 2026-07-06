@@ -1,5 +1,7 @@
 <map id="LateralController" name="LateralController">
-<area shape="rect" id="Node000001" title="Base (abstract) class for lateral control solvers (that calculate steering command)" alt="" coords="9,5,175,191"/>
-<area shape="rect" id="Node000002" href="$dc/dde/class_pure_pursuit.html" title="Pure Pursuit class." alt="" coords="5,239,179,799"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,206,95,239,89,239,89,206"/>
+<area shape="rect" id="Node000001" title="Base (abstract) class for lateral control solvers (that calculate steering command)" alt="" coords="119,5,286,191"/>
+<area shape="rect" id="Node000002" href="$d5/d58/class_m_p_czinho.html" title=" " alt="" coords="5,359,195,679"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="179,206,142,360,136,358,174,205"/>
+<area shape="rect" id="Node000003" href="$dc/dde/class_pure_pursuit.html" title="Pure Pursuit class." alt="" coords="219,239,392,799"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="231,205,239,238,234,239,226,206"/>
 </map>

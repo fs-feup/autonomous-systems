@@ -6,6 +6,6 @@
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="138,68,171,74,170,79,138,73"/>
 <area shape="rect" id="Node000003" href="$d6/dc5/class_control_node.html#a73f934ff5ed27706be539777807b2a5f" title="Called when a new vehicle pose is received." alt="" coords="366,5,506,46"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="318,23,351,23,351,28,318,28"/>
-<area shape="rect" id="Node000005" href="$d6/dc5/class_control_node.html#a56019e5aed0f23a8ff5c9d6f8868c025" title="Called when a new velocity is received." alt="" coords="366,71,506,111"/>
+<area shape="rect" id="Node000005" href="$d6/dc5/class_control_node.html#a6a6198d08ac15d6b51750cd30953a647" title="Called when a new velocity is received." alt="" coords="366,71,506,111"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="318,88,351,88,351,94,318,94"/>
 </map>

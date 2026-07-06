@@ -1,18 +1,18 @@
 <map id="VehicleAdapter" name="VehicleAdapter">
-<area shape="rect" id="Node000001" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="394,775,602,1373"/>
-<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="5,250,169,595"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,608,155,668,183,725,230,797,285,865,342,927,396,981,392,985,338,931,281,869,226,800,178,728,150,671,128,610"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="347,5,433,71"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="333,50,296,59,255,73,216,93,183,121,160,149,141,181,114,251,109,249,136,179,155,146,179,117,213,89,253,68,294,54,332,44"/>
-<area shape="rect" id="Node000005" href="$d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="193,125,373,720"/>
-<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="380,86,368,126,363,125,375,84"/>
-<area shape="rect" id="Node000006" href="$d8/d84/class_s_l_a_m_node.html" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="397,119,599,727"/>
-<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="406,85,415,118,410,120,400,86"/>
-<area shape="rect" id="Node000007" href="$d3/d43/class_v_e_node.html" title="Node class for the velocity estimation node." alt="" coords="623,330,794,515"/>
-<area shape="poly" id="edge9_Node000007_Node000003" title=" " alt="" coords="448,43,488,52,532,66,576,87,613,117,649,165,675,220,693,277,703,330,698,331,688,278,670,222,645,168,609,121,573,92,530,71,487,57,446,48"/>
-<area shape="rect" id="Node000004" href="$d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="818,350,1002,495"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="893,511,859,617,836,674,808,728,762,798,710,865,656,926,604,979,600,976,652,922,706,861,758,795,804,725,831,672,854,615,888,509"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="381,709,402,774,397,776,375,711"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="501,742,501,775,495,775,495,742"/>
-<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="678,530,614,727,598,776,593,774,609,726,672,528"/>
+<area shape="rect" id="Node000001" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="418,775,626,1373"/>
+<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="5,193,193,653"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,665,207,725,255,796,309,864,366,926,420,979,416,983,362,929,305,867,251,799,202,728,171,668"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="371,5,457,71"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="358,50,320,59,280,73,241,93,207,121,179,155,156,194,152,192,174,152,203,117,238,89,278,68,319,54,357,45"/>
+<area shape="rect" id="Node000005" href="$d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="217,125,397,720"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="404,86,392,126,387,125,399,84"/>
+<area shape="rect" id="Node000006" href="$d8/d84/class_s_l_a_m_node.html" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="421,119,623,727"/>
+<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="430,85,439,118,434,120,424,86"/>
+<area shape="rect" id="Node000007" href="$d3/d43/class_v_e_node.html" title="Node class for the velocity estimation node." alt="" coords="647,330,818,515"/>
+<area shape="poly" id="edge9_Node000007_Node000003" title=" " alt="" coords="472,43,512,52,556,66,600,87,637,117,673,165,699,220,717,277,727,330,722,331,712,278,694,222,669,168,633,121,597,92,554,71,511,57,470,48"/>
+<area shape="rect" id="Node000004" href="$d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="842,350,1026,495"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="917,511,883,617,860,674,832,728,786,798,734,865,680,926,628,979,624,976,676,922,730,861,782,795,828,725,855,672,878,615,912,509"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="405,709,426,774,421,776,399,711"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="525,742,525,775,519,775,519,742"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="702,530,638,727,622,776,617,774,633,726,696,528"/>
 </map>

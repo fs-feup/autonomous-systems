@@ -94,8 +94,8 @@ $(document).ready(function(){initNavTree('d1/db8/md_src_2invictasim_2_r_e_a_d_m_
   <div class="headertitle"><div class="title">Invictasim</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md96"></a> Invictasim is the Formula Student FEUP simulator package for autonomous system development. It supports ROS-driven input and SDL keyboard input, publishes vehicle/track/visualization outputs, and runs with configurable vehicle and track models.</p>
-<h1><a class="anchor" id="autotoc_md97"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md101"></a> Invictasim is the Formula Student FEUP simulator package for autonomous system development. It supports ROS-driven input and SDL keyboard input, publishes vehicle/track/visualization outputs, and runs with configurable vehicle and track models.</p>
+<h1><a class="anchor" id="autotoc_md102"></a>
 Current Package Structure</h1>
 <div class="fragment"><div class="line">src/invictasim/</div>
 <div class="line">├── include/</div>
@@ -123,7 +123,7 @@ Current Package Structure</h1>
 <div class="line">├── test/</div>
 <div class="line">├── CMakeLists.txt</div>
 <div class="line">└── package.xml</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md98"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md103"></a>
 Runtime Overview</h1>
 <ul>
 <li><code>invictasim</code> executable starts simulator, input adapter, and output adapter.</li>
@@ -142,7 +142,7 @@ Runtime Overview</h1>
 <li><a href="../../include/io/input/map.hpp">include/io/input/map.hpp</a></li>
 <li><a href="../../include/io/output/map.hpp">include/io/output/map.hpp</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md99"></a>
+<h1><a class="anchor" id="autotoc_md104"></a>
 Configuration Files Used</h1>
 <p>Invictasim reads configuration through <code><a class="el" href="../../de/dca/namespacecommon__lib_1_1config__load.html">common_lib::config_load</a></code>:</p>
 <ul>
@@ -163,12 +163,12 @@ Configuration Files Used</h1>
 <ul>
 <li><a href="../../src/config/config.cpp">src/config/config.cpp</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md100"></a>
+<h1><a class="anchor" id="autotoc_md105"></a>
 Build</h1>
 <p>From workspace root:</p>
 <div class="fragment"><div class="line">source install/setup.bash</div>
 <div class="line">colcon build --packages-select invictasim</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md101"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md106"></a>
 Run</h1>
 <p>From workspace root:</p>
 <div class="fragment"><div class="line">source install/setup.bash</div>
@@ -176,7 +176,7 @@ Run</h1>
 </div><!-- fragment --><p>Or run the node directly:</p>
 <div class="fragment"><div class="line">source install/setup.bash</div>
 <div class="line">ros2 run invictasim invictasim</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md102"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md107"></a>
 Keyboard Mode</h1>
 <p>Set in <a href="../../../../config/invictasim/global.yaml">config/invictasim/global.yaml</a>:</p>
 <div class="fragment"><div class="line">invictasim:</div>
@@ -194,7 +194,7 @@ Keyboard Mode</h1>
 <ul>
 <li><a href="../../src/io/input/keyboard.cpp">src/io/input/keyboard.cpp</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md103"></a>
+<h1><a class="anchor" id="autotoc_md108"></a>
 ROS Input Mode</h1>
 <p>Set in <a href="../../../../config/invictasim/global.yaml">config/invictasim/global.yaml</a>:</p>
 <div class="fragment"><div class="line">invictasim:</div>
@@ -207,7 +207,7 @@ ROS Input Mode</h1>
 <ul>
 <li><a href="../../src/io/input/ros.cpp">src/io/input/ros.cpp</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md104"></a>
+<h1><a class="anchor" id="autotoc_md109"></a>
 Tests</h1>
 <p>Run tests for this package:</p>
 <div class="fragment"><div class="line">source install/setup.bash</div>

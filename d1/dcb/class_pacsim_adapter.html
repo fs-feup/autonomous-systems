@@ -168,7 +168,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a00836c9f1567034e7e403fae0faefd90" id="r_a00836c9f1567034e7e403fae0faefd90"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dcb/class_pacsim_adapter.html#a00836c9f1567034e7e403fae0faefd90">PacsimAdapter</a> (const <a class="el" href="../../d5/db7/struct_v_e_parameters.html">VEParameters</a> &amp;parameters)</td></tr>
 <tr class="separator:a00836c9f1567034e7e403fae0faefd90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a84f8050582171d9ede535e6a73d1ce79" id="r_a84f8050582171d9ede535e6a73d1ce79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dcb/class_pacsim_adapter.html#a84f8050582171d9ede535e6a73d1ce79">imu_callback</a> (const sensor_msgs::msg::Imu::SharedPtr msg)</td></tr>
-<tr class="memdesc:a84f8050582171d9ede535e6a73d1ce79"><td class="mdescLeft">&#160;</td><td class="mdescRight">callback that gets called when the IMU data is received  <br /></td></tr>
+<tr class="memdesc:a84f8050582171d9ede535e6a73d1ce79"><td class="mdescLeft">&#160;</td><td class="mdescRight">callback that gets called when the <a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a> data is received  <br /></td></tr>
 <tr class="separator:a84f8050582171d9ede535e6a73d1ce79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77b1b534a8cd331a964cba15532cb01f" id="r_a77b1b534a8cd331a964cba15532cb01f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dcb/class_pacsim_adapter.html#a77b1b534a8cd331a964cba15532cb01f">wss_callback</a> (const pacsim::msg::Wheels::SharedPtr msg)</td></tr>
 <tr class="memdesc:a77b1b534a8cd331a964cba15532cb01f"><td class="mdescLeft">&#160;</td><td class="mdescRight">callback that gets called when the wheel speeds are received  <br /></td></tr>
@@ -180,7 +180,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af30f4341ffb2562f3684d0c9647081d4 inherit pub_methods_class_adapter" id="r_af30f4341ffb2562f3684d0c9647081d4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#af30f4341ffb2562f3684d0c9647081d4">Adapter</a> (std::shared_ptr&lt; <a class="el" href="../../d4/d43/class_s_e_node.html">SENode</a> &gt; se_node)</td></tr>
 <tr class="separator:af30f4341ffb2562f3684d0c9647081d4 inherit pub_methods_class_adapter"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f8e5c482d7fbf9bf4b2834d8fd7a814 inherit pub_methods_class_adapter" id="r_a3f8e5c482d7fbf9bf4b2834d8fd7a814"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a3f8e5c482d7fbf9bf4b2834d8fd7a814">imu_subscription_callback</a> (const sensor_msgs::msg::Imu &amp;msg)</td></tr>
-<tr class="memdesc:a3f8e5c482d7fbf9bf4b2834d8fd7a814 inherit pub_methods_class_adapter"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function that parses the message sent from the ros IMU topic and calls the respective node's function to update the motion.  <br /></td></tr>
+<tr class="memdesc:a3f8e5c482d7fbf9bf4b2834d8fd7a814 inherit pub_methods_class_adapter"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function that parses the message sent from the ros <a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a> topic and calls the respective node's function to update the motion.  <br /></td></tr>
 <tr class="separator:a3f8e5c482d7fbf9bf4b2834d8fd7a814 inherit pub_methods_class_adapter"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59ef0a057a37f80df780968230d8e4c0 inherit pub_methods_class_adapter" id="r_a59ef0a057a37f80df780968230d8e4c0"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a59ef0a057a37f80df780968230d8e4c0">~Adapter</a> ()=default</td></tr>
 <tr class="separator:a59ef0a057a37f80df780968230d8e4c0 inherit pub_methods_class_adapter"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -216,7 +216,7 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a651d389ab08e146b604c9b833cf5c0a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for simulated velocities from pacsim.  <br /></td></tr>
 <tr class="separator:a651d389ab08e146b604c9b833cf5c0a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a066611e620ab033c8f5399f8305847da" id="r_a066611e620ab033c8f5399f8305847da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dcb/class_pacsim_adapter.html#a066611e620ab033c8f5399f8305847da">_pacsim_imu_subscription_callback</a> (const sensor_msgs::msg::Imu &amp;msg)</td></tr>
-<tr class="memdesc:a066611e620ab033c8f5399f8305847da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for simulated IMU data from pacsim.  <br /></td></tr>
+<tr class="memdesc:a066611e620ab033c8f5399f8305847da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for simulated <a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a> data from pacsim.  <br /></td></tr>
 <tr class="separator:a066611e620ab033c8f5399f8305847da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1fbe764d3bc5dcb5a1f91071e7be923f" id="r_a1fbe764d3bc5dcb5a1f91071e7be923f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dcb/class_pacsim_adapter.html#a1fbe764d3bc5dcb5a1f91071e7be923f">fetch_discipline</a> ()</td></tr>
 <tr class="memdesc:a1fbe764d3bc5dcb5a1f91071e7be923f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches the mission from the parameters.  <br /></td></tr>
@@ -243,7 +243,7 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a018cc20267002944937d24f36f59d6ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscriber for simulated velocities.  <br /></td></tr>
 <tr class="separator:a018cc20267002944937d24f36f59d6ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33e5182de4faabe8bc8ac5efff8e516b" id="r_a33e5182de4faabe8bc8ac5efff8e516b"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; sensor_msgs::msg::Imu &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dcb/class_pacsim_adapter.html#a33e5182de4faabe8bc8ac5efff8e516b">_imu_subscription_</a></td></tr>
-<tr class="memdesc:a33e5182de4faabe8bc8ac5efff8e516b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscriber for simulated IMU data.  <br /></td></tr>
+<tr class="memdesc:a33e5182de4faabe8bc8ac5efff8e516b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscriber for simulated <a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a> data.  <br /></td></tr>
 <tr class="separator:a33e5182de4faabe8bc8ac5efff8e516b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75c3e630a78e057693f46b79fdcbf0ef" id="r_a75c3e630a78e057693f46b79fdcbf0ef"><td class="memItemLeft" align="right" valign="top">rclcpp::Client&lt; rcl_interfaces::srv::GetParameters &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dcb/class_pacsim_adapter.html#a75c3e630a78e057693f46b79fdcbf0ef">param_client_</a></td></tr>
 <tr class="separator:a75c3e630a78e057693f46b79fdcbf0ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -269,7 +269,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a6e228ce696c330a4a43ae5807c632df7 inherit pro_methods_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback that updates everytime information is received from velocity estimation node.  <br /></td></tr>
 <tr class="separator:a6e228ce696c330a4a43ae5807c632df7 inherit pro_methods_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8e02138c8c98857ec5bd1d220a0cbf6 inherit pro_methods_class_s_l_a_m_node" id="r_ad8e02138c8c98857ec5bd1d220a0cbf6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#ad8e02138c8c98857ec5bd1d220a0cbf6">_imu_subscription_callback</a> (const sensor_msgs::msg::Imu &amp;msg)</td></tr>
-<tr class="memdesc:ad8e02138c8c98857ec5bd1d220a0cbf6 inherit pro_methods_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback that updates everytime information is received from the IMU.  <br /></td></tr>
+<tr class="memdesc:ad8e02138c8c98857ec5bd1d220a0cbf6 inherit pro_methods_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback that updates everytime information is received from the <a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a>.  <br /></td></tr>
 <tr class="separator:ad8e02138c8c98857ec5bd1d220a0cbf6 inherit pro_methods_class_s_l_a_m_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a695c062e0021d33622b6c1a59cee0379 inherit pro_methods_class_s_l_a_m_node" id="r_a695c062e0021d33622b6c1a59cee0379"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d84/class_s_l_a_m_node.html#a695c062e0021d33622b6c1a59cee0379">_publish_vehicle_pose</a> ()</td></tr>
 <tr class="memdesc:a695c062e0021d33622b6c1a59cee0379 inherit pro_methods_class_s_l_a_m_node"><td class="mdescLeft">&#160;</td><td class="mdescRight">publishes the localization ('vehicle_pose') to the topic vehicle_pose  <br /></td></tr>
@@ -390,7 +390,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock"><p><a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a> class to interface with the Pacsim simulator for SLAM. </p>
 <p><a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a> class for the pacsim simulator.</p>
 <p>This class subscribes to the necessary topics from Pacsim and adapts the data for use in the SLAM node</p>
-<p>This class subscribes to the IMU, wheel speeds, and steering angle topics published by the pacsim simulator. It then passes the data to the velocity estimator for processing. </p>
+<p>This class subscribes to the <a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a>, wheel speeds, and steering angle topics published by the pacsim simulator. It then passes the data to the velocity estimator for processing. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../df/d31/ekf__state__est_2include_2adapter__ekf__state__est_2pacsim_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../df/d31/ekf__state__est_2include_2adapter__ekf__state__est_2pacsim_8hpp_source.html">pacsim.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
@@ -610,10 +610,10 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Callback for simulated IMU data from pacsim. </p>
+<p>Callback for simulated <a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a> data from pacsim. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">msg</td><td>Message containing the IMU data of the vehicle </td></tr>
+    <tr><td class="paramname">msg</td><td>Message containing the <a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a> data of the vehicle </td></tr>
   </table>
   </dd>
 </dl>
@@ -910,7 +910,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>callback that gets called when the IMU data is received </p>
+<p>callback that gets called when the <a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a> data is received </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d7/d72/pacsim__adapter_8cpp_source.html#l00015">15</a> of file <a class="el" href="../../d7/d72/pacsim__adapter_8cpp_source.html">pacsim_adapter.cpp</a>.</p>
 <div class="dynheader">
@@ -1197,7 +1197,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Subscriber for simulated IMU data. </p>
+<p>Subscriber for simulated <a class="el" href="../../dd/d3c/class_i_m_u.html" title="Simulates IMU sensor characteristics including:">IMU</a> data. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d0/daa/slam_2include_2adapter__slam_2pacsim_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../d0/daa/slam_2include_2adapter__slam_2pacsim_8hpp_source.html">pacsim.hpp</a>.</p>
 

@@ -1,5 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$d1/d5f/class_control_solver.html" title="Base class for control solvers, that calculate both lateral and longitudinal control commands." alt="" coords="5,5,105,31"/>
-<area shape="rect" id="Node000001" href="$dd/d8f/class_decoupled_controller.html" title=" " alt="" coords="153,5,290,31"/>
-<area shape="poly" id="edge47_Node000000_Node000001" title=" " alt="" coords="120,16,152,16,152,21,120,21"/>
+<area shape="rect" id="Node000000" href="$d8/d87/class_controller.html" title="Base class for control solvers, that calculate both lateral and longitudinal control commands." alt="" coords="5,31,82,56"/>
+<area shape="rect" id="Node000001" href="$dd/d8f/class_decoupled_controller.html" title=" " alt="" coords="130,5,267,31"/>
+<area shape="poly" id="edge47_Node000000_Node000001" title=" " alt="" coords="97,32,129,27,130,32,98,37"/>
+<area shape="rect" id="Node000002" href="$df/d9d/class_m_p_c.html" title=" " alt="" coords="173,55,224,80"/>
+<area shape="poly" id="edge48_Node000000_Node000002" title=" " alt="" coords="97,49,173,61,172,66,97,54"/>
 </map>

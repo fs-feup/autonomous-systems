@@ -1,0 +1,16 @@
+<map id="WSS::simulate_wheel_speeds" name="WSS::simulate_wheel_speeds">
+<area shape="rect" id="Node000001" title="Process all four wheel speeds and return them in rpm." alt="" coords="5,23,153,64"/>
+<area shape="rect" id="Node000002" href="$dd/d27/class_w_s_s.html#a0d97cb22061b0a112b85962d9aee8192" title="Apply quantization (ADC resolution) to a value." alt="" coords="201,5,364,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,32,185,28,185,33,153,37"/>
+<area shape="rect" id="Node000003" href="$dd/d27/class_w_s_s.html#aef3714f58d1d7ee9ad34f556118fcc97" title="Apply realistic sensor errors to rotational speed measurement for a specific wheel." alt="" coords="207,55,358,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="153,50,192,54,191,59,152,55"/>
+<area shape="rect" id="Node000004" href="$dd/d27/class_w_s_s.html#ad8502730d7b51d2cdceac1a750e4f064" title="Apply random outlier with configurable probability." alt="" coords="427,5,556,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="339,51,418,33,419,38,341,57"/>
+<area shape="rect" id="Node000006" href="$d7/daf/class_sensor.html#af0e772011f0603d57b7f30f53d1558cc" title="Generate Gaussian noise." alt="" coords="412,55,570,80"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="358,65,396,65,396,70,358,70"/>
+<area shape="rect" id="Node000007" href="$dd/d27/class_w_s_s.html#a8541287e398f195d4c41847fdf12681c" title="Check for signal dropout and update dropout tracking." alt="" coords="415,104,568,130"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="341,78,419,97,418,102,339,84"/>
+<area shape="rect" id="Node000005" href="$dd/d27/class_w_s_s.html#a393c9033f2bfc260dbdaeedf1845281d" title="Generate random number between 0.0 and 1.0." alt="" coords="618,55,769,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="548,29,624,48,622,53,546,34"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="546,101,622,82,624,87,548,106"/>
+</map>

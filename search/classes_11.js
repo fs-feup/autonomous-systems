@@ -7,5 +7,6 @@ var searchData=
   ['rigidbodyloadtransfermodel_4',['RigidBodyLoadTransferModel',['../d1/dde/class_rigid_body_load_transfer_model.html',1,'']]],
   ['ring_5',['Ring',['../d2/db2/struct_ring.html',1,'']]],
   ['rosinputadapter_6',['RosInputAdapter',['../dc/d46/class_ros_input_adapter.html',1,'']]],
-  ['rosoutputadapter_7',['RosOutputAdapter',['../d6/dc0/class_ros_output_adapter.html',1,'']]]
+  ['rosoutputadapter_7',['RosOutputAdapter',['../d6/dc0/class_ros_output_adapter.html',1,'']]],
+  ['runningstats_8',['RunningStats',['../d3/d4e/classcontrol__evaluator_1_1node_1_1_running_stats.html',1,'control_evaluator::node']]]
 ];

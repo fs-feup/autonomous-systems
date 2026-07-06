@@ -1,0 +1,14 @@
+<map id="src/invictasim/include/sensors/imu.hpp" name="src/invictasim/include/sensors/imu.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,153,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="45,168,102,193"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="66,48,53,70,43,95,41,110,44,125,58,154,53,156,39,127,36,110,38,93,48,67,62,45"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="52,94,106,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="82,46,82,78,76,78,76,46"/>
+<area shape="rect" id="Node000004" href="$da/d0f/sensors__base_8hpp.html" title=" " alt="" coords="130,94,306,120"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="115,44,185,84,182,88,112,49"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="194,123,113,163,110,158,192,118"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="143,168,207,193"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="213,121,192,156,188,153,208,119"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="232,168,289,193"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="227,119,248,153,243,156,222,121"/>
+</map>

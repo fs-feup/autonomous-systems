@@ -1,4 +1,6 @@
 <map id="manual_to_as.ManualThrottleBridge.__init__" name="manual_to_as.ManualThrottleBridge.__init__">
 <area shape="rect" id="Node000001" title=" " alt="" coords="5,29,197,70"/>
-<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="64,29,63,19,69,10,82,5,101,3,122,5,134,11,132,16,120,10,101,8,83,10,72,15,68,20,70,28"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="56,29,54,19,61,10,77,5,101,3,127,5,142,11,140,16,126,10,101,8,78,10,64,15,59,21,61,28"/>
+<area shape="rect" id="Node000002" href="$d5/dc8/classmanual__to__as_1_1_manual_throttle_bridge.html#a7ea373e6fc054fff9d5f0c64c1cb13f4" title=" " alt="" coords="245,29,436,70"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="197,47,229,47,229,52,197,52"/>
 </map>

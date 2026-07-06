@@ -1,4 +1,13 @@
 <map id="colour_track_cones.TrackGenerator.__init__" name="colour_track_cones.TrackGenerator.__init__">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,176,70"/>
-<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="58,29,56,19,61,11,73,5,91,3,109,5,120,11,118,16,108,10,90,8,75,10,65,14,61,20,63,28"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,39,176,79"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="49,39,47,29,54,20,68,14,91,12,114,14,128,21,126,26,113,20,90,17,70,19,57,24,52,30,54,37"/>
+<area shape="rect" id="Node000002" href="$d7/df1/classcolour__track__cones_1_1_track_generator.html#a55629166f75ed765bf0a79aa9b5279a4" title=" " alt="" coords="225,5,395,46"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="176,43,209,38,210,44,177,49"/>
+<area shape="rect" id="Node000005" href="$d7/df1/classcolour__track__cones_1_1_track_generator.html#a54dbc1a100b25e968c04b6cbed6c162c" title=" " alt="" coords="224,71,396,111"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="177,69,209,74,208,79,176,74"/>
+<area shape="rect" id="Node000003" href="$d7/df1/classcolour__track__cones_1_1_track_generator.html#a33d259b5c56ddbb7729c705751b34b12" title=" " alt="" coords="444,39,623,79"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="396,36,429,41,428,46,395,41"/>
+<area shape="rect" id="Node000004" href="$d7/df1/classcolour__track__cones_1_1_track_generator.html#a9172925fe55a4e0e0b7f3089b91bc517" title=" " alt="" coords="671,39,842,79"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="624,56,656,56,656,62,624,62"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="396,76,428,71,429,77,396,81"/>
 </map>

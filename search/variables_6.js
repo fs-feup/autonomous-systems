@@ -64,7 +64,7 @@ var searchData=
   ['front_5fright_5fload_61',['front_right_load',['../da/d85/struct_load_transfer_output.html#a3919a5dcf46a5bee1cf0db609886bb65',1,'LoadTransferOutput']]],
   ['front_5froll_5fcenter_5fz_62',['front_roll_center_z',['../da/d10/structcommon__lib_1_1car__parameters_1_1_load_transfer_parameters.html#a37fb06ef2c0747cfda0276694001a0bf',1,'common_lib::car_parameters::LoadTransferParameters']]],
   ['front_5fstiffness_5fdistribution_63',['front_stiffness_distribution',['../da/d10/structcommon__lib_1_1car__parameters_1_1_load_transfer_parameters.html#af61064ee99650f47a95e61be8d72f3a7',1,'common_lib::car_parameters::LoadTransferParameters']]],
-  ['frontal_5farea_64',['frontal_area',['../d5/d5a/structcommon__lib_1_1car__parameters_1_1_aero_parameters.html#a850c4e95eba05124ca466e33087a2d38',1,'common_lib::car_parameters::AeroParameters']]],
+  ['frontal_5farea_64',['frontal_area',['../d5/d5a/structcommon__lib_1_1car__parameters_1_1_aero_parameters.html#a850c4e95eba05124ca466e33087a2d38',1,'common_lib::car_parameters::AeroParameters::frontal_area'],['../d8/d72/namespacebombated__mpc__acados.html#aa342e6533e09c385e06d2c0a91dccd6e',1,'bombated_mpc_acados.frontal_area']]],
   ['full_5fpath_65',['full_path',['../dd/d3b/namespacebayesian.html#aab328ab3684fe795d37961c8d4ebfce5',1,'bayesian']]],
   ['full_5fpath_5f_66',['full_path_',['../d9/db5/class_planning.html#a925f11b6978ebac7174923e8b3624c48',1,'Planning']]],
   ['full_5fpath_5fpub_5f_67',['full_path_pub_',['../d9/db5/class_planning.html#a73811aa22ecf3236e443d1d42f9a5f9a',1,'Planning']]],

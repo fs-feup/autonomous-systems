@@ -127,9 +127,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6852a198ec5241f4dadf08f8d1593b79" id="r_a6852a198ec5241f4dadf08f8d1593b79"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/ded/class_longitudinal_controller.html#a6852a198ec5241f4dadf08f8d1593b79">path_callback</a> (const custom_interfaces::msg::PathPointArray &amp;msg)=0</td></tr>
 <tr class="memdesc:a6852a198ec5241f4dadf08f8d1593b79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when a new path is sent by Path <a class="el" href="../../d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle.">Planning</a>.  <br /></td></tr>
 <tr class="separator:a6852a198ec5241f4dadf08f8d1593b79"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f49e2c40f4aed4b5b3e11e5ad5764e5" id="r_a5f49e2c40f4aed4b5b3e11e5ad5764e5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/ded/class_longitudinal_controller.html#a5f49e2c40f4aed4b5b3e11e5ad5764e5">vehicle_state_callback</a> (const custom_interfaces::msg::Velocities &amp;msg)=0</td></tr>
-<tr class="memdesc:a5f49e2c40f4aed4b5b3e11e5ad5764e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the car state (currently just velocity) is updated.  <br /></td></tr>
-<tr class="separator:a5f49e2c40f4aed4b5b3e11e5ad5764e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89af5f265b3f2b408abc3f3c60210805" id="r_a89af5f265b3f2b408abc3f3c60210805"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/ded/class_longitudinal_controller.html#a89af5f265b3f2b408abc3f3c60210805">vehicle_state_callback</a> (const custom_interfaces::msg::VehicleStateVector &amp;msg)=0</td></tr>
+<tr class="memdesc:a89af5f265b3f2b408abc3f3c60210805"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the car state (currently just velocity) is updated.  <br /></td></tr>
+<tr class="separator:a89af5f265b3f2b408abc3f3c60210805"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab8fb4e0d8fd5b5f548c3601aa097101" id="r_aab8fb4e0d8fd5b5f548c3601aa097101"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/ded/class_longitudinal_controller.html#aab8fb4e0d8fd5b5f548c3601aa097101">vehicle_pose_callback</a> (const custom_interfaces::msg::Pose &amp;msg)=0</td></tr>
 <tr class="memdesc:aab8fb4e0d8fd5b5f548c3601aa097101"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the car pose is updated by SLAM.  <br /></td></tr>
 <tr class="separator:aab8fb4e0d8fd5b5f548c3601aa097101"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -344,8 +344,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a5f49e2c40f4aed4b5b3e11e5ad5764e5" name="a5f49e2c40f4aed4b5b3e11e5ad5764e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f49e2c40f4aed4b5b3e11e5ad5764e5">&#9670;&#160;</a></span>vehicle_state_callback()</h2>
+<a id="a89af5f265b3f2b408abc3f3c60210805" name="a89af5f265b3f2b408abc3f3c60210805"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89af5f265b3f2b408abc3f3c60210805">&#9670;&#160;</a></span>vehicle_state_callback()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -356,7 +356,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">virtual void LongitudinalController::vehicle_state_callback </td>
           <td>(</td>
-          <td class="paramtype">const custom_interfaces::msg::Velocities &amp;&#160;</td>
+          <td class="paramtype">const custom_interfaces::msg::VehicleStateVector &amp;&#160;</td>
           <td class="paramname"><em>msg</em></td><td>)</td>
           <td></td>
         </tr>
@@ -370,7 +370,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Called when the car state (currently just velocity) is updated. </p>
 
-<p>Implemented in <a class="el" href="../../d6/d5a/class_p_i_d.html#a6e8f51e7ec2f15cc84e2ca95e6f3e6f0">PID</a>.</p>
+<p>Implemented in <a class="el" href="../../d6/d5a/class_p_i_d.html#a8ad4b2f8c66159546ff814fa5d8a4bf9">PID</a>.</p>
 
 </div>
 </div>

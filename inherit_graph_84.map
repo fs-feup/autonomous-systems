@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$d9/dda/struct_load_transfer_input.html" title="Struct that contains all possible inputs used for load transfer calculations." alt="" coords="5,5,133,31"/>
+<area shape="rect" id="Node000000" href="$d7/d69/class_lateral_controller.html" title="Base (abstract) class for lateral control solvers (that calculate steering command)" alt="" coords="5,31,122,56"/>
+<area shape="rect" id="Node000001" href="$d5/d58/class_m_p_czinho.html" title=" " alt="" coords="174,5,255,31"/>
+<area shape="poly" id="edge78_Node000000_Node000001" title=" " alt="" coords="136,29,173,22,174,28,137,34"/>
+<area shape="rect" id="Node000002" href="$dc/dde/class_pure_pursuit.html" title="Pure Pursuit class." alt="" coords="170,55,259,80"/>
+<area shape="poly" id="edge79_Node000000_Node000002" title=" " alt="" coords="137,53,170,58,169,63,137,58"/>
 </map>

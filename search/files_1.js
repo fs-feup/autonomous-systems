@@ -16,6 +16,8 @@ var searchData=
   ['adaptive_5fnearest_5fneighbor_5ftest_2ecpp_13',['adaptive_nearest_neighbor_test.cpp',['../d1/d58/adaptive__nearest__neighbor__test_8cpp.html',1,'']]],
   ['aero_5fparameters_2ecpp_14',['aero_parameters.cpp',['../d0/dff/aero__parameters_8cpp.html',1,'']]],
   ['aero_5fparameters_2ehpp_15',['aero_parameters.hpp',['../df/db5/aero__parameters_8hpp.html',1,'']]],
-  ['angle_5fand_5fnorms_2ecpp_16',['angle_and_norms.cpp',['../d6/dd2/angle__and__norms_8cpp.html',1,'']]],
-  ['angle_5fand_5fnorms_2ehpp_17',['angle_and_norms.hpp',['../d2/d3c/angle__and__norms_8hpp.html',1,'']]]
+  ['alpha_5fbeta_2ecpp_16',['alpha_beta.cpp',['../df/dab/alpha__beta_8cpp.html',1,'']]],
+  ['alpha_5fbeta_2ehpp_17',['alpha_beta.hpp',['../d3/d14/alpha__beta_8hpp.html',1,'']]],
+  ['angle_5fand_5fnorms_2ecpp_18',['angle_and_norms.cpp',['../d6/dd2/angle__and__norms_8cpp.html',1,'']]],
+  ['angle_5fand_5fnorms_2ehpp_19',['angle_and_norms.hpp',['../d2/d3c/angle__and__norms_8hpp.html',1,'']]]
 ];

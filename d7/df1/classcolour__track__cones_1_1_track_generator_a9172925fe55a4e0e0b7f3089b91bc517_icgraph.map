@@ -1,9 +1,12 @@
 <map id="colour_track_cones.TrackGenerator.save_yaml" name="colour_track_cones.TrackGenerator.save_yaml">
-<area shape="rect" id="Node000001" title=" " alt="" coords="453,39,623,79"/>
-<area shape="rect" id="Node000002" href="$d7/df1/classcolour__track__cones_1_1_track_generator.html#a33d259b5c56ddbb7729c705751b34b12" title=" " alt="" coords="226,39,405,79"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="437,62,405,62,405,56,437,56"/>
-<area shape="rect" id="Node000003" href="$d7/df1/classcolour__track__cones_1_1_track_generator.html#a55629166f75ed765bf0a79aa9b5279a4" title=" " alt="" coords="6,5,177,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="210,46,177,41,178,36,211,41"/>
-<area shape="rect" id="Node000004" href="$d7/df1/classcolour__track__cones_1_1_track_generator.html#a54dbc1a100b25e968c04b6cbed6c162c" title=" " alt="" coords="5,71,178,111"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="211,77,179,81,178,76,210,71"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="671,39,842,79"/>
+<area shape="rect" id="Node000002" href="$d7/df1/classcolour__track__cones_1_1_track_generator.html#a33d259b5c56ddbb7729c705751b34b12" title=" " alt="" coords="444,39,623,79"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="655,62,624,62,624,56,655,56"/>
+<area shape="rect" id="Node000003" href="$d7/df1/classcolour__track__cones_1_1_track_generator.html#a55629166f75ed765bf0a79aa9b5279a4" title=" " alt="" coords="225,5,395,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="428,46,395,41,396,36,429,41"/>
+<area shape="rect" id="Node000005" href="$d7/df1/classcolour__track__cones_1_1_track_generator.html#a54dbc1a100b25e968c04b6cbed6c162c" title=" " alt="" coords="224,71,396,111"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="429,77,397,81,396,76,428,71"/>
+<area shape="rect" id="Node000004" href="$d7/df1/classcolour__track__cones_1_1_track_generator.html#afd20edd5e51c5274bc5113d88164d760" title=" " alt="" coords="5,39,176,79"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="210,44,176,49,176,43,209,38"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="208,79,176,74,177,69,209,74"/>
 </map>

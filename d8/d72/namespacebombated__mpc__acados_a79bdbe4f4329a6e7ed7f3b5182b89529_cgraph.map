@@ -1,0 +1,12 @@
+<map id="bombated_mpc_acados.create_ocp_solver" name="bombated_mpc_acados.create_ocp_solver">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,63,204,103"/>
+<area shape="rect" id="Node000002" href="$d8/d72/namespacebombated__mpc__acados.html#a1f18d8e12dc2c65d82569a6974781a06" title=" " alt="" coords="252,5,449,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="194,59,245,48,246,53,195,65"/>
+<area shape="rect" id="Node000003" href="$d8/d72/namespacebombated__mpc__acados.html#a819b7dcc226f4f9732aa7609814d3eb5" title=" " alt="" coords="497,35,683,75"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="204,75,481,59,481,64,204,80"/>
+<area shape="rect" id="Node000005" href="$d8/d72/namespacebombated__mpc__acados.html#a41d8661c6f0512b5bee4be73148a8091" title=" " alt="" coords="253,120,448,161"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="195,101,246,113,245,118,194,107"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="450,35,482,39,481,44,449,40"/>
+<area shape="rect" id="Node000004" href="$d8/d72/namespacebombated__mpc__acados.html#a4833e84acdae15f5ee191dc3f8285a9e" title=" " alt="" coords="731,35,912,75"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="684,52,715,52,715,58,684,58"/>
+</map>
