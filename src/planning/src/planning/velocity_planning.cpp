@@ -318,13 +318,13 @@ void VelocityPlanning::change_section_limits(int section_idx, double delta_long,
   auto &sec = sections_[section_idx];
   sec.current_long_acc =
       std::clamp(sec.current_long_acc + delta_long, config_.longitudinal_acceleration_ * 0.4,
-                 config_.longitudinal_acceleration_ * 2.0);
+                 config_.longitudinal_acceleration_ * 2.5);
   sec.current_lat_acc =
       std::clamp(sec.current_lat_acc + delta_lat, config_.lateral_acceleration_ * 0.4,
                  config_.lateral_acceleration_ * 1.5);
 }
 
-// TODO: CHANGE THIS!!!
+
 double get_delta(double mean) {
   double anchor_mean[] = {0.00, 0.05, 0.10, 0.15, 0.20, 0.30, 0.60, 0.80, 1.00};
   double anchor_delta[] = {0.60, 0.45, 0.25, 0.15, 0.0, -0.55, -1.00, -1.50, -2.00};
@@ -343,6 +343,10 @@ double get_delta(double mean) {
 }
 
 void VelocityPlanning::adapt_limits(Pose &pose, std::vector<PathPoint> &path, bool is_closed) {
+  if (!config_.use_adaptive_velocity_) {
+    return;
+  }
+
   size_t point_idx = 0;
   double error = get_pose_error(pose, path, point_idx);
   if (error < 0.0) {

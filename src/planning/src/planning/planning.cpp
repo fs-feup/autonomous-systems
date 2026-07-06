@@ -79,6 +79,7 @@ PlanningParameters Planning::load_config(std::string &adapter) {
       planning_config["vp_longitudinal_acceleration"].as<double>();
   params.vp_use_velocity_planning_ = planning_config["vp_use_velocity_planning"].as<bool>();
   params.vp_desired_velocity_ = planning_config["vp_desired_velocity"].as<double>();
+  params.vp_use_adaptive_velocity_ = planning_config["vp_use_adaptive_velocity"].as<bool>();
 
   /*--------------------- Planning Configuration Parameters --------------------*/
   params.planning_publishing_visualization_msgs_ =

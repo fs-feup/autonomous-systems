@@ -40,6 +40,7 @@ planning:
   vp_lateral_acceleration: 4.0
   vp_longitudinal_acceleration: 8.0
   vp_use_velocity_planning: true
+  vp_use_adaptive_velocity: true
   vp_desired_velocity: 25.0
   #---------------------- Planning Config (planning_) ---------------------------
   planning_publishing_visualization_msgs: true
@@ -81,6 +82,7 @@ planning:
 #   braking_acceleration: -1.0
 #   normal_acceleration: 4.0
 #   use_velocity_planning: false
+#   use_adaptive_velocity: true
 #   desired_velocity: 10.55
 
 
@@ -111,6 +113,7 @@ planning:
   # braking_acceleration: -1.0
   # normal_acceleration: 4.0
   # use_velocity_planning: false
+  # use_adaptive_velocity: true
 
 
 # Parameters for Acceleration
@@ -145,6 +148,7 @@ planning:
 #   braking_acceleration: -8.0
 #   normal_acceleration: 4.0
 #   use_velocity_planning: false  
+#   use_adaptive_velocity: true
 #   desired_velocity: 8.0
 
 # Parameters for Skidpad / AutoX
@@ -179,4 +183,5 @@ planning:
 #   braking_acceleration: -8.0
 #   normal_acceleration: 4.0
 #   use_velocity_planning: false  
+#   use_adaptive_velocity: true
 #   desired_velocity: 2.0

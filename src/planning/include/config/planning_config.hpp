@@ -55,6 +55,7 @@ struct PlanningParameters {
   double vp_longitudinal_acceleration_;
   bool vp_use_velocity_planning_;
   double vp_desired_velocity_;
+  bool vp_use_adaptive_velocity_;
 
   /*---------------------- Planning (planning_) ----------------------*/
   /**
@@ -125,7 +126,7 @@ struct PlanningConfig {
         velocity_planning_(params.vp_minimum_velocity_, params.vp_desired_velocity_,
                            params.vp_braking_acceleration_,
                            params.vp_lateral_acceleration_, params.vp_longitudinal_acceleration_,
-                           params.vp_use_velocity_planning_),
+                           params.vp_use_velocity_planning_, params.vp_use_adaptive_velocity_),
         skidpad_(params.skidpad_minimum_cones_, params.skidpad_tolerance_),
         publishing_visualization_msgs_(params.planning_publishing_visualization_msgs_),
         using_simulated_se_(params.planning_using_simulated_se_),

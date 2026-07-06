@@ -20,3 +20,4 @@ float64 minimum_velocity
 float64 braking_acceleration
 float64 normal_acceleration
 bool    use_velocity_planning
+bool    use_adaptive_velocity

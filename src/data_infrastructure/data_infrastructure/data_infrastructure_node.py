@@ -307,6 +307,9 @@ class DataInfrastructureNode(Node):
         planning_msg.use_velocity_planning = bool(
             parameters.get("use_velocity_planning", False)
         )
+        planning_msg.use_adaptive_velocity = bool(
+            parameters.get("use_adaptive_velocity", False)
+        )
         self.planning_par_pub.publish(planning_msg)
 
     def slam_parameters(self):
