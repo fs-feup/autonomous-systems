@@ -129,6 +129,7 @@ struct SensorsSnapshot {
   Eigen::Vector3d free_acceleration = {0.0, 0.0, 0.0};
   Eigen::Vector3d angular_velocity = {0.0, 0.0, 0.0};
   common_lib::structures::Wheels wheel_rpm = {0.0, 0.0, 0.0, 0.0};
+  std::vector<bool> wheel_rpm_dropout = {false, false, false, false};
   double steering_angle = 0.0;
   double motor_rpm = 0.0;
 };

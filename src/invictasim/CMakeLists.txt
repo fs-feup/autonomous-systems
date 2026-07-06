@@ -36,8 +36,12 @@ set(IMPLEMENTATION_FILES
   src/io/input/keyboard.cpp
   src/config/config.cpp
   src/vehicle_model/FSFEUP02.cpp
-  src/vehicle_model/FSFEUP03.cpp
   src/track/track.cpp
+  src/sensors/sensors_base.cpp
+  src/sensors/simulated_perception.cpp
+  src/sensors/imu.cpp
+  src/sensors/wss.cpp
+  src/vehicle_model/FSFEUP03.cpp
   src/statistics/collision_statistics.cpp
   src/statistics/lap_timer_statistics.cpp
   src/statistics/statistics.cpp
