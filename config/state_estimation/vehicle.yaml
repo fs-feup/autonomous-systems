@@ -19,7 +19,7 @@ state_estimation:
   
   imu_acceleration_x_noise: 0.3 # variance of the noise for the acceleration in x from IMU
   imu_acceleration_y_noise: 0.5 # variance of the noise for the acceleration in y from IMU  
-  imu_rotational_noise: 0.05 # variance of the noise for the rotational velocity from IMU
+  imu_rotational_noise: 0.001 # variance of the noise for the rotational velocity from IMU.
   wheel_speed_noise: 25.0 # variance of the noise for the wheel speeds from encoders (rpm^2)
   steering_angle_noise: 2e-5 # variance of the noise for the steering angle from steering sensor
   motor_rpm_noise: 100.0 # variance of the noise for the motor rpm from motor sensor (rpm^2)
