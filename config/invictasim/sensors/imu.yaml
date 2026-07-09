@@ -1,6 +1,5 @@
 # IMU Sensor Configuration
 imu_sensor:
-  # Accelerometer parameters
   accelerometer:
     # Gaussian white noise standard deviation (m/s²)
     noise_std_dev: 0.05
@@ -10,7 +9,6 @@ imu_sensor:
     bias_x: 0.0
     bias_y: 0.0
 
-  # Gyroscope parameters
   gyroscope:
     # Gaussian white noise standard deviation (rad/s)
     noise_std_dev: 0.002

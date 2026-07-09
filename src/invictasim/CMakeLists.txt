@@ -40,6 +40,7 @@ set(IMPLEMENTATION_FILES
   src/sensors/sensors_base.cpp
   src/sensors/perception_output.cpp
   src/sensors/imu.cpp
+  src/sensors/sangle.cpp
 )
 
 # Main executable

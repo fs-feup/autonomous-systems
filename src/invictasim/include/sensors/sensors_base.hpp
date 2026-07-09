@@ -7,7 +7,7 @@
 /**
  * @brief Abstract base class for sensor implementations
  *
- * Provides Gaussian noise implementation for sensor error modeling.
+ * Provides Gaussian noise implementation, bias, and quantization for sensor error modeling.
  */
 class Sensor {
 public:
@@ -20,6 +20,24 @@ public:
    * @return double Random value from the Gaussian distribution
    */
   double gaussian_noise(double std_dev);
+
+  /**
+   * @brief Apply a constant bias offset to a sensor reading.
+   *
+   * @param value Raw sensor value
+   * @param bias Bias offset to add
+   * @return double Value with bias applied
+   */
+  double apply_bias(double value, double bias) const;
+
+  /**
+   * @brief Quantize a value to a given resolution.
+   *
+   * @param value Raw sensor value
+   * @param resolution Quantization step size
+   * @return double Quantized value
+   */
+  double quantize(double value, double resolution) const;
 
 protected:
   Sensor() = default;

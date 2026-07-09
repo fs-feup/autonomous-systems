@@ -19,10 +19,6 @@ IMU::IMU(const std::string& config_path) {
   gyroscope_noise_std_dev_ = gyroscope["noise_std_dev"].as<double>();
   angular_velocity_scale_factor_ = gyroscope["angular_velocity_scale_factor"].as<double>();
   gyroscope_bias_ = gyroscope["bias"].as<double>();
-
-  // Load general parameters
-  update_rate_hz_ = imu["update_rate_hz"].as<double>();
-  temperature_sensitivity_ = imu["temperature_sensitivity"].as<bool>();
 }
 
 IMU::IMUMeasurement IMU::apply_imu_error(double acceleration_x, double acceleration_y, double yaw_rate) 
@@ -30,8 +26,8 @@ IMU::IMUMeasurement IMU::apply_imu_error(double acceleration_x, double accelerat
   IMUMeasurement measurement;
   // Apply accelerometer error modeling
   // Add bias
-  double acc_x_with_bias = acceleration_x + accelerometer_bias_x_;
-  double acc_y_with_bias = acceleration_y + accelerometer_bias_y_;
+  double acc_x_with_bias = Sensor::apply_bias(acceleration_x, accelerometer_bias_x_);
+  double acc_y_with_bias = Sensor::apply_bias(acceleration_y, accelerometer_bias_y_);
 
   // Apply scale factor error that depends on acceleration magnitude
   // error = scale_factor * acceleration_magnitude
@@ -47,7 +43,7 @@ IMU::IMUMeasurement IMU::apply_imu_error(double acceleration_x, double accelerat
 
   // Apply gyroscope error modeling
   // Add bias
-  double yaw_rate_with_bias = yaw_rate + gyroscope_bias_;
+  double yaw_rate_with_bias = Sensor::apply_bias(yaw_rate, gyroscope_bias_);
 
   // Apply scale factor error that depends on angular velocity magnitude
   double scale_error_angular = angular_velocity_scale_factor_ * yaw_rate * std::abs(yaw_rate);
@@ -59,7 +55,3 @@ IMU::IMUMeasurement IMU::apply_imu_error(double acceleration_x, double accelerat
 
   return measurement;
 }
-
-//cenas para perguntar segunda. 
-//A cena do refresh rate nao interessa aqui certo?
-//o gaussian noise nao teria parametros diferentes para cada sensor?
