@@ -1,0 +1,31 @@
+#include "controller/base_decoupled_controller.hpp"
+
+DecoupledController::DecoupledController(const ControlParameters& params) : Controller(params),
+ lateral_controller_(lateral_controller_map.at(params.lateral_controller_)(params)),
+ longitudinal_controller_(longitudinal_controller_map.at(params.longitudinal_controller_)(params))  {}
+
+void DecoupledController::path_callback(const custom_interfaces::msg::PathPointArray& msg) {
+  lateral_controller_->path_callback(msg);
+  longitudinal_controller_->path_callback(msg);
+}
+
+void DecoupledController::vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& msg) {
+  lateral_controller_->vehicle_state_callback(msg);
+  longitudinal_controller_->vehicle_state_callback(msg);
+}
+
+void DecoupledController::vehicle_pose_callback(const custom_interfaces::msg::Pose& msg) {
+  lateral_controller_->vehicle_pose_callback(msg);
+  longitudinal_controller_->vehicle_pose_callback(msg);
+}
+
+common_lib::structures::ControlCommand DecoupledController::get_control_command() {
+  common_lib::structures::ControlCommand command = this->longitudinal_controller_->get_throttle_command();
+  command.steering_angle = this->lateral_controller_->get_steering_command();
+  return command;
+}
+
+void DecoupledController::publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
+  lateral_controller_->publish_solver_data(node, publisher_map);
+  longitudinal_controller_->publish_solver_data(node, publisher_map);
+}

@@ -1,0 +1,47 @@
+# Wheel Speed Sensor (WSS) Configuration
+# Each wheel can be individually tuned with its own parameters
+wss_sensor:
+
+  # Front Right Wheel
+  fr:
+    noise:
+      std_dev: 0.4
+    outliers:
+      probability: 0.002
+      impact_factor: 0.3
+    dropout_probability: 0.002
+    speed_cutoff: 0.01
+    quantization_steps: 15
+
+  # Front Left Wheel
+  fl:
+    noise:
+      std_dev: 0.5
+    outliers:
+      probability: 0.02
+      impact_factor: 0.3
+    dropout_probability: 0.002
+    speed_cutoff: 0.01
+    quantization_steps: 12
+
+  # Rear Right Wheel
+  rr:
+    noise:
+      std_dev: 0.4
+    outliers:
+      probability: 0.002
+      impact_factor: 0.3
+    dropout_probability: 0.002
+    speed_cutoff: 0.01
+    quantization_steps: 15
+
+  # Rear Left Wheel
+  rl:
+    noise:
+      std_dev: 0.4
+    outliers:
+      probability: 0.002
+      impact_factor: 0.3
+    dropout_probability: 0.002
+    speed_cutoff: 0.01
+    quantization_steps: 15

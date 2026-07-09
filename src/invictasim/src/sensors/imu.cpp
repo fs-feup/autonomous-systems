@@ -2,8 +2,11 @@
 
 #include <yaml-cpp/yaml.h>
 #include <cmath>
+#include <common_lib/config_load/config_load.hpp>
 
 IMU::IMU(const std::string& config_path) {
+  std::string imu_cfg = common_lib::config_load::get_config_yaml_path("invictasim", "invictasim/sensors", "imu");
+
   YAML::Node config = YAML::LoadFile(config_path);
   YAML::Node imu = config["imu_sensor"];
 
@@ -21,9 +24,9 @@ IMU::IMU(const std::string& config_path) {
   gyroscope_bias_ = gyroscope["bias"].as<double>();
 }
 
-IMU::IMUMeasurement IMU::apply_imu_error(double acceleration_x, double acceleration_y, double yaw_rate) 
+std::vector<double> IMU::apply_imu_error(double acceleration_x, double acceleration_y, double yaw_rate) 
 {
-  IMUMeasurement measurement;
+  std::vector<double> measurement(3);
   // Apply accelerometer error modeling
   // Add bias
   double acc_x_with_bias = Sensor::apply_bias(acceleration_x, accelerometer_bias_x_);
@@ -38,20 +41,20 @@ IMU::IMUMeasurement IMU::apply_imu_error(double acceleration_x, double accelerat
   acc_y_with_bias += scale_error_y;
 
   // Apply white Gaussian noise
-  measurement.acceleration_x = acc_x_with_bias + gaussian_noise(accelerometer_noise_std_dev_);
-  measurement.acceleration_y = acc_y_with_bias + gaussian_noise(accelerometer_noise_std_dev_);
+  measurement[0] = acc_x_with_bias + gaussian_noise(accelerometer_noise_std_dev_);
+  measurement[1] = acc_y_with_bias + gaussian_noise(accelerometer_noise_std_dev_);
 
   // Apply gyroscope error modeling
   // Add bias
   double yaw_rate_with_bias = Sensor::apply_bias(yaw_rate, gyroscope_bias_);
 
   // Apply scale factor error that depends on angular velocity magnitude
-  double scale_error_angular = angular_velocity_scale_factor_ * yaw_rate * std::abs(yaw_rate);
+  double scale_error_angular = angular_velocity_scale_factor_ * std::abs(yaw_rate);
 
   yaw_rate_with_bias += scale_error_angular;
 
   // Apply white Gaussian noise
-  measurement.angular_velocity_z = yaw_rate_with_bias + gaussian_noise(gyroscope_noise_std_dev_);
+  measurement[2] = yaw_rate_with_bias + gaussian_noise(gyroscope_noise_std_dev_);
 
   return measurement;
 }

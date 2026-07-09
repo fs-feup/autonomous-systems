@@ -5,6 +5,7 @@
 #include "utils/utils.hpp"
 #include "gtest/gtest.h"
 #include <rclcpp/rclcpp.hpp>
+#include "std_msgs/msg/float64_multi_array.hpp"
 
 /**
  * @brief PI-D Controller class
@@ -18,7 +19,7 @@
 class PID : public LongitudinalController {
 private:
   std::vector<custom_interfaces::msg::PathPoint> last_path_msg_;
-  custom_interfaces::msg::Velocities last_velocity_msg_;
+  custom_interfaces::msg::VehicleStateVector last_velocity_msg_;
   custom_interfaces::msg::Pose last_pose_msg_;
   double absolute_velocity_ = 0.0;
 
@@ -92,7 +93,7 @@ public:
   PID(const ControlParameters &params);
 
   void path_callback(const custom_interfaces::msg::PathPointArray& msg) override;
-  void vehicle_state_callback(const custom_interfaces::msg::Velocities& msg) override;
+  void vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& msg) override;
   void vehicle_pose_callback(const custom_interfaces::msg::Pose& msg) override;
   common_lib::structures::ControlCommand get_throttle_command() override;
   void publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) override;
