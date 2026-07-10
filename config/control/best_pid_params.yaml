@@ -1,6 +1,0 @@
-control:
-  pid_kd: 0.0
-  pid_ki: 1.618330078938533e-05
-  pid_kp: 0.7995395956383315
-  pid_max_negative_error: -4.770512880219267
-  pid_max_positive_error: 4.770512880219267
