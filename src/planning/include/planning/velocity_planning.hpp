@@ -107,9 +107,7 @@ private:
   /// Path sections computed once per set_velocity() call.
   std::vector<Section> sections_;
 
-  /// Number of error samples to collect before applying a limit adjustment.
-  /// Exposed here so it can be tuned; consider adding to VelocityPlanningConfig.
-  int section_adapt_samples_{10};
+  int current_section_idx_ = -1;
 
   /// Minimum curvature value for a point to be considered a corner apex / section boundary.
   /// Exposed here so it can be tuned; consider adding to VelocityPlanningConfig.

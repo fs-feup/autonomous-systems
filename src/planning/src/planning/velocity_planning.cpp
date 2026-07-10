@@ -316,18 +316,14 @@ void VelocityPlanning::change_section_limits(int section_idx, double delta_long,
   if (section_idx < 0 || section_idx >= static_cast<int>(sections_.size())) return;
 
   auto &sec = sections_[section_idx];
-  sec.current_long_acc =
-      std::clamp(sec.current_long_acc + delta_long, config_.longitudinal_acceleration_ * 0.4,
-                 config_.longitudinal_acceleration_ * 2.5);
-  sec.current_lat_acc =
-      std::clamp(sec.current_lat_acc + delta_lat, config_.lateral_acceleration_ * 0.4,
-                 config_.lateral_acceleration_ * 1.5);
+  sec.current_long_acc = sec.current_long_acc + delta_long;
+  sec.current_lat_acc = sec.current_lat_acc + delta_lat;
 }
 
 
 double get_delta(double mean) {
-  double anchor_mean[] = {0.00, 0.05, 0.10, 0.15, 0.20, 0.30, 0.60, 0.80, 1.00};
-  double anchor_delta[] = {0.60, 0.45, 0.25, 0.15, 0.0, -0.55, -1.00, -1.50, -2.00};
+  double anchor_mean[] = {0.00, 0.05, 0.10, 0.15, 0.20, 0.30, 0.70, 0.90, 1.00};
+  double anchor_delta[] = {0.80, 0.65, 0.35, 0.25, 0.15, -0.50, -1.00, -1.50, -2.00};
   const int N = 9;
 
   if (mean <= anchor_mean[0]) return anchor_delta[0];
@@ -357,31 +353,35 @@ void VelocityPlanning::adapt_limits(Pose &pose, std::vector<PathPoint> &path, bo
   int sec_idx = find_section(static_cast<int>(point_idx));
   if (sec_idx < 0) return;
 
-  Section &sec = sections_[sec_idx];
+  // First call after startup/reset: just start tracking, nothing to adapt yet
+  if (current_section_idx_ < 0) {
+    current_section_idx_ = sec_idx;
+  }
 
+  if (sec_idx != current_section_idx_) {
+    // Crossed into a new section -> adapt the section we just finished
+    Section &finished_sec = sections_[current_section_idx_];
+
+    if (finished_sec.sample_count > 0) {
+      double delta = get_delta(finished_sec.mean_error);
+      change_section_limits(current_section_idx_, delta, delta);
+    }
+
+    finished_sec.mean_error = 0.0;
+    finished_sec.sample_count = 0;
+    current_section_idx_ = sec_idx;
+
+    if (is_closed) {
+      trackdrive_velocity(path);
+    } else {
+      set_velocity(path);
+    }
+  }
+
+  // Accumulate this sample's error into the (now current) section's running mean
+  Section &sec = sections_[sec_idx];
   ++sec.sample_count;
   sec.mean_error += (error - sec.mean_error) / static_cast<double>(sec.sample_count);
-
-  if (sec.sample_count < section_adapt_samples_) return;
-
-  const double mean = sec.mean_error;
-
-  if (sec.is_corner) {
-    double delta = get_delta(mean);
-    change_section_limits(sec_idx, delta, delta);  // only lat_acc
-  } else {
-    double delta = get_delta(mean);
-    change_section_limits(sec_idx, delta, delta);  // only long_acc
-  }
-
-  sec.mean_error = 0.0;
-  sec.sample_count = 0;
-
-  if (is_closed) {
-    trackdrive_velocity(path);
-  } else {
-    set_velocity(path);
-  }
 }
 
 double VelocityPlanning::get_pose_error(const Pose &pose, const std::vector<PathPoint> &path,
