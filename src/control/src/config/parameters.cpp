@@ -17,7 +17,6 @@ ControlParameters::ControlParameters(const ControlParameters &params) {
   pid_ki_ = params.pid_ki_;
   pid_kd_ = params.pid_kd_;
   pid_tau_ = params.pid_tau_;
-  pid_t_ = params.pid_t_;
   pid_lim_min_ = params.pid_lim_min_;
   pid_lim_max_ = params.pid_lim_max_;
   pid_anti_windup_ = params.pid_anti_windup_;
@@ -50,7 +49,6 @@ ControlParameters &ControlParameters::operator=(const ControlParameters &other) 
     pid_ki_ = other.pid_ki_;
     pid_kd_ = other.pid_kd_;
     pid_tau_ = other.pid_tau_;
-    pid_t_ = other.pid_t_;
     pid_lim_min_ = other.pid_lim_min_;
     pid_lim_max_ = other.pid_lim_max_;
     pid_anti_windup_ = other.pid_anti_windup_;
@@ -104,7 +102,6 @@ std::string ControlParameters::load_config() {
   this->pid_ki_ = control_config["pid_ki"].as<double>();
   this->pid_kd_ = control_config["pid_kd"].as<double>();
   this->pid_tau_ = control_config["pid_tau"].as<double>();
-  this->pid_t_ = control_config["pid_t"].as<double>();
   this->pid_lim_min_ = control_config["pid_lim_min"].as<double>();
   this->pid_lim_max_ = control_config["pid_lim_max"].as<double>();
   this->pid_anti_windup_ = control_config["pid_anti_windup"].as<double>();
