@@ -1,0 +1,49 @@
+{
+  "try": 583,
+  "status": "ok",
+  "score": 48.007530244199465,
+  "values": {
+    "steering.ackerman_factor": 0.2405459171920681,
+    "tire.effective_tire_r": 0.18768551100673808,
+    "tire.slip_ratio_relaxation_length": 0.057082759000894503,
+    "tire.slip_angle_relaxation_length": 0.0008819794718525051,
+    "tire.longitudinal_peak_scale": 1.6469336922838653,
+    "tire.longitudinal_stiffness_scale": 0.8421970687757301,
+    "tire.lateral_shape_scale": 1.1447984291601327,
+    "tire.lateral_peak_scale": 1.0951822033072467,
+    "tire.lateral_curvature_scale": 1.020709951342447,
+    "tire.lateral_stiffness_scale": 8.050801322639032,
+    "tire.combined_slip_lateral_stiffness_scale": 0.9015762958108332,
+    "tire.longitudinal_peak_pdx1": 1.0399855380631844,
+    "tire.longitudinal_stiffness_pkx1": 20.139636848644685,
+    "tire.longitudinal_curvature_pex1": 1.1674629883644376,
+    "tire.lateral_peak_pdy1": 2.04517312416603,
+    "tire.lateral_stiffness_pky1": -329.5289169594258,
+    "tire.lateral_curvature_pey1": -0.07395925701941503,
+    "tire.structural_longitudinal_stiffness": 461046.43552733865,
+    "tire.structural_lateral_stiffness": 916511.0467207255,
+    "tire.structural_yaw_stiffness": 26590.605362989685
+  },
+  "bags": [
+    {
+      "position_rmse": 10.828749015602641,
+      "heading_rmse": 0.7829740691804282,
+      "velocity_rmse": 1.2055282484613044,
+      "velocity_x_rmse": 1.1242912504260854,
+      "velocity_x_mean_error": 0.5613666660728475,
+      "velocity_x_slow_rmse": 0.44785347902622585,
+      "velocity_x_slow_mean": 0.17822623841059604,
+      "velocity_y_rmse": 0.435048896164017,
+      "yaw_rate_rmse": 0.08595231258691903,
+      "yaw_rate_under_rmse": 0.06200304029817829,
+      "front_wheel_rpm_rmse": 68.91648654211289,
+      "motor_rpm_rmse": 240.56826273418062,
+      "samples": 755,
+      "score": 48.007530244199465,
+      "track_name": "Skidpad"
+    }
+  ],
+  "kind": "staged_genetic",
+  "stage": "skidpad_lateral_force",
+  "generation": 12
+}

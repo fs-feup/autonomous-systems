@@ -1,0 +1,49 @@
+{
+  "try": 1901,
+  "status": "ok",
+  "score": 159.43517720035032,
+  "values": {
+    "steering.ackerman_factor": 0.2744982717941028,
+    "tire.effective_tire_r": 0.18648591154118607,
+    "tire.slip_ratio_relaxation_length": 0.06411154015925596,
+    "tire.slip_angle_relaxation_length": 0.0018400878944655685,
+    "tire.longitudinal_peak_scale": 1.2176435144465345,
+    "tire.longitudinal_stiffness_scale": 1.069648350851415,
+    "tire.lateral_shape_scale": 0.9214825022316085,
+    "tire.lateral_peak_scale": 1.2581622184577836,
+    "tire.lateral_curvature_scale": 1.160308104146518,
+    "tire.lateral_stiffness_scale": 8.671604745112093,
+    "tire.combined_slip_lateral_stiffness_scale": 1.1354242363561358,
+    "tire.longitudinal_peak_pdx1": 0.9877083171642314,
+    "tire.longitudinal_stiffness_pkx1": 37.22248328530127,
+    "tire.longitudinal_curvature_pex1": 1.0647906299207512,
+    "tire.lateral_peak_pdy1": 2.2677370716732907,
+    "tire.lateral_stiffness_pky1": -386.6816265221192,
+    "tire.lateral_curvature_pey1": -0.27836265103466995,
+    "tire.structural_longitudinal_stiffness": 426051.4834761983,
+    "tire.structural_lateral_stiffness": 819905.5884775883,
+    "tire.structural_yaw_stiffness": 36656.098410727485
+  },
+  "bags": [
+    {
+      "position_rmse": 18.83407076913576,
+      "heading_rmse": 1.6738346539558095,
+      "velocity_rmse": 2.916385680303926,
+      "velocity_x_rmse": 2.805339060333818,
+      "velocity_x_mean_error": 0.1085003277954146,
+      "velocity_x_slow_rmse": 1.9702348853021703,
+      "velocity_x_slow_mean": 1.1105567947795418,
+      "velocity_y_rmse": 0.7971061365007598,
+      "yaw_rate_rmse": 0.4260352937826306,
+      "yaw_rate_under_rmse": 0.21952917761160848,
+      "front_wheel_rpm_rmse": 859.1225153776845,
+      "motor_rpm_rmse": 1006.1193815161124,
+      "samples": 1134,
+      "score": 159.43517720035032,
+      "track_name": "FEUP"
+    }
+  ],
+  "kind": "staged_genetic_long_eval",
+  "stage": "feup_speed_preservation",
+  "generation": 12
+}

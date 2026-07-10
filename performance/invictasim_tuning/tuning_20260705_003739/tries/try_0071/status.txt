@@ -1,0 +1,21 @@
+[01:02:36] starting try
+[01:02:36] parameters {"steering.ackerman_factor": 0.02014380290672936, "tire.lateral_curvature_pey1": 0.17974579461455614, "tire.lateral_peak_pdy1": 3.5603622551740504, "tire.lateral_peak_scale": 1.7842199470404208, "tire.lateral_stiffness_pky1": -181.44150294623907, "tire.lateral_stiffness_scale": 4.78594040066011, "tire.slip_angle_relaxation_length": 0.0006176555447511721, "tire.structural_lateral_stiffness": 460340.01847139257, "tire.structural_yaw_stiffness": 39816.77528236202}
+[01:02:36] bag_00: using track Skidpad
+[01:02:36] bag_00: using sim_speed 3.0
+[01:02:36] bag_00: starting InvictaSim with track Skidpad
+[01:02:36] bag_00: InvictaSim pid 897976
+[01:02:39] bag_00: playing bag /home/ws/Skidpad DV Aerodromo 3.mcap
+[01:02:39] bag_00: bag pid 898063
+[01:02:58] bag_00: bag timeout after 18.333333333333332s
+[01:02:58] bag_00: bag exit code 124
+[01:02:59] bag_00: score 40.23447472766324
+[01:02:59] bag_01: using track FEUP
+[01:02:59] bag_01: using sim_speed 3.0
+[01:02:59] bag_01: starting InvictaSim with track FEUP
+[01:02:59] bag_01: InvictaSim pid 898187
+[01:03:02] bag_01: playing bag /home/ws/FEUP Trackdrive 17.mcap
+[01:03:02] bag_01: bag pid 898258
+[01:03:17] bag_01: bag timeout after 15.0s
+[01:03:17] bag_01: bag exit code 124
+[01:03:18] bag_01: score 56.53583828307477
+[01:03:18] finished try with status ok and score 47.02670954241805

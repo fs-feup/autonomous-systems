@@ -26,17 +26,7 @@ InvictaSimParameters::InvictaSimParameters() {
   output_adapter = simulator_config["invictasim"]["output_adapter"].as<std::string>();
   const YAML::Node tuning_evaluator_config = simulator_config["invictasim"]["tuning_evaluator"];
   tuning_evaluator_enabled =
-      tuning_evaluator_config && tuning_evaluator_config["enabled"]
-          ? tuning_evaluator_config["enabled"].as<bool>()
-          : false;
-  tuning_evaluator_output_directory =
-      tuning_evaluator_config && tuning_evaluator_config["output_directory"]
-          ? tuning_evaluator_config["output_directory"].as<std::string>()
-          : "performance/invictasim_tuning/live";
-  tuning_evaluator_frequency =
-      tuning_evaluator_config && tuning_evaluator_config["frequency"]
-          ? tuning_evaluator_config["frequency"].as<int>()
-          : 50;
+      tuning_evaluator_config ? tuning_evaluator_config.as<bool>() : false;
 
   vehicle_model = simulator_config["invictasim"]["vehicle_model"].as<std::string>();
 

@@ -24,8 +24,6 @@ struct InvictaSimParameters {
   std::string input_adapter;
   std::string output_adapter;
   bool tuning_evaluator_enabled;
-  std::string tuning_evaluator_output_directory;
-  int tuning_evaluator_frequency;
 
   std::string vehicle_model;
   std::string car_parameters_config;

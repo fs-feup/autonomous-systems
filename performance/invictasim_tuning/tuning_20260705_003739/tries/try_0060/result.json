@@ -1,0 +1,34 @@
+{
+  "try": 60,
+  "status": "ok",
+  "score": 62.49420642708733,
+  "values": {
+    "steering.ackerman_factor": 0.030429431495484625,
+    "tire.slip_angle_relaxation_length": 0.0003739649458096821,
+    "tire.lateral_peak_scale": 1.8682668650355683,
+    "tire.lateral_stiffness_scale": 4.884368547611397,
+    "tire.lateral_peak_pdy1": 3.3798538257676105,
+    "tire.lateral_stiffness_pky1": -185.544164265956,
+    "tire.lateral_curvature_pey1": 0.1755311432028406,
+    "tire.structural_lateral_stiffness": 502824.60349523777,
+    "tire.structural_yaw_stiffness": 36765.56067729501
+  },
+  "bags": [
+    {
+      "position_rmse": 17.856905818888677,
+      "heading_rmse": 1.3930691605637147,
+      "velocity_rmse": 2.7410204554622792,
+      "velocity_x_rmse": 2.70814366438113,
+      "velocity_y_rmse": 0.4232623658382442,
+      "yaw_rate_rmse": 0.2644126214123029,
+      "front_wheel_rpm_rmse": 132.99185610761765,
+      "motor_rpm_rmse": 495.27371076982763,
+      "samples": 589,
+      "score": 62.49420642708733,
+      "track_name": "FEUP"
+    }
+  ],
+  "kind": "staged_genetic",
+  "stage": "feup_turning_validation",
+  "generation": 1
+}

@@ -1,0 +1,49 @@
+{
+  "try": 90,
+  "status": "ok",
+  "score": 117.7211973614548,
+  "values": {
+    "steering.ackerman_factor": -0.019120028810222192,
+    "tire.effective_tire_r": 0.1889293965307134,
+    "tire.slip_ratio_relaxation_length": 0.07351315656911714,
+    "tire.slip_angle_relaxation_length": 0.0009868953372649144,
+    "tire.longitudinal_peak_scale": 1.103550828074891,
+    "tire.longitudinal_stiffness_scale": 1.304349926838115,
+    "tire.lateral_shape_scale": 1.3028177809654493,
+    "tire.lateral_peak_scale": 1.042645421512397,
+    "tire.lateral_curvature_scale": 0.6121440370692974,
+    "tire.lateral_stiffness_scale": 5.120115153205081,
+    "tire.combined_slip_lateral_stiffness_scale": 1.0460639188544616,
+    "tire.longitudinal_peak_pdx1": 1.2325467059603958,
+    "tire.longitudinal_stiffness_pkx1": 51.772892614138755,
+    "tire.longitudinal_curvature_pex1": 0.741539390414012,
+    "tire.lateral_peak_pdy1": 2.2615349354375045,
+    "tire.lateral_stiffness_pky1": -305.9160915651155,
+    "tire.lateral_curvature_pey1": 0.7822651291143545,
+    "tire.structural_longitudinal_stiffness": 229474.06174354244,
+    "tire.structural_lateral_stiffness": 450524.07781652815,
+    "tire.structural_yaw_stiffness": 28080.181202854135
+  },
+  "bags": [
+    {
+      "position_rmse": 30.722483086619736,
+      "heading_rmse": 1.879978832826122,
+      "velocity_rmse": 1.4163123293831001,
+      "velocity_x_rmse": 1.3873038212406037,
+      "velocity_x_mean_error": -0.9242501699267645,
+      "velocity_x_slow_rmse": 1.3759457763040601,
+      "velocity_x_slow_mean": 0.9796557276964052,
+      "velocity_y_rmse": 0.2851819102499379,
+      "yaw_rate_rmse": 0.1859167981871131,
+      "yaw_rate_under_rmse": 0.16126649548649674,
+      "front_wheel_rpm_rmse": 64.39118421887152,
+      "motor_rpm_rmse": 398.4756649110053,
+      "samples": 751,
+      "score": 117.7211973614548,
+      "track_name": "Skidpad"
+    }
+  ],
+  "kind": "staged_genetic_long_eval",
+  "stage": "skidpad_lateral_force",
+  "generation": 1
+}

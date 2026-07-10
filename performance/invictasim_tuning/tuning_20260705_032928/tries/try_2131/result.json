@@ -1,0 +1,49 @@
+{
+  "try": 2131,
+  "status": "ok",
+  "score": 156.11585204659627,
+  "values": {
+    "steering.ackerman_factor": 0.24031641647808413,
+    "tire.effective_tire_r": 0.19093458242729397,
+    "tire.slip_ratio_relaxation_length": 0.062073475976170474,
+    "tire.slip_angle_relaxation_length": 0.0030963022981410353,
+    "tire.longitudinal_peak_scale": 1.0137815241630321,
+    "tire.longitudinal_stiffness_scale": 1.7771658466111462,
+    "tire.lateral_shape_scale": 0.9899504548513314,
+    "tire.lateral_peak_scale": 1.4673462924935219,
+    "tire.lateral_curvature_scale": 1.316217347379209,
+    "tire.lateral_stiffness_scale": 7.990496745765167,
+    "tire.combined_slip_lateral_stiffness_scale": 0.8529243703166034,
+    "tire.longitudinal_peak_pdx1": 0.8561029950737236,
+    "tire.longitudinal_stiffness_pkx1": 38.281422407731334,
+    "tire.longitudinal_curvature_pex1": 0.9802451880177693,
+    "tire.lateral_peak_pdy1": 3.4938423905129676,
+    "tire.lateral_stiffness_pky1": -302.52749852379884,
+    "tire.lateral_curvature_pey1": -0.16279474196543725,
+    "tire.structural_longitudinal_stiffness": 453211.28868750384,
+    "tire.structural_lateral_stiffness": 444256.0725282066,
+    "tire.structural_yaw_stiffness": 29290.60296688926
+  },
+  "bags": [
+    {
+      "position_rmse": 19.08480975031324,
+      "heading_rmse": 1.7989544316391282,
+      "velocity_rmse": 3.2134972437021028,
+      "velocity_x_rmse": 3.089417148983101,
+      "velocity_x_mean_error": 0.25588628950617287,
+      "velocity_x_slow_rmse": 1.9781227869596405,
+      "velocity_x_slow_mean": 1.1079354556437375,
+      "velocity_y_rmse": 0.8843450767941987,
+      "yaw_rate_rmse": 0.47691765893270915,
+      "yaw_rate_under_rmse": 0.21503678111740063,
+      "front_wheel_rpm_rmse": 156.54985886776757,
+      "motor_rpm_rmse": 1178.900327897788,
+      "samples": 1134,
+      "score": 156.11585204659627,
+      "track_name": "FEUP"
+    }
+  ],
+  "kind": "staged_genetic",
+  "stage": "feup_speed_preservation",
+  "generation": 18
+}

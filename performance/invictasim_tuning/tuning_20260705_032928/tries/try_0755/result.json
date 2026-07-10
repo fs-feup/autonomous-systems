@@ -1,0 +1,49 @@
+{
+  "try": 755,
+  "status": "ok",
+  "score": 62.15574995047135,
+  "values": {
+    "steering.ackerman_factor": 0.05125258448578765,
+    "tire.effective_tire_r": 0.18419133444309038,
+    "tire.slip_ratio_relaxation_length": 0.06694331840643053,
+    "tire.slip_angle_relaxation_length": 0.0017506250942451325,
+    "tire.longitudinal_peak_scale": 1.4683682028622291,
+    "tire.longitudinal_stiffness_scale": 0.9981271179954216,
+    "tire.lateral_shape_scale": 1.1862641390023443,
+    "tire.lateral_peak_scale": 1.1123446173518767,
+    "tire.lateral_curvature_scale": 0.9440901395834557,
+    "tire.lateral_stiffness_scale": 6.757216234041209,
+    "tire.combined_slip_lateral_stiffness_scale": 1.2415842502339043,
+    "tire.longitudinal_peak_pdx1": 0.9456640816655963,
+    "tire.longitudinal_stiffness_pkx1": 21.617078069602343,
+    "tire.longitudinal_curvature_pex1": 1.3753093459793932,
+    "tire.lateral_peak_pdy1": 2.065483464564616,
+    "tire.lateral_stiffness_pky1": -199.14524361696886,
+    "tire.lateral_curvature_pey1": -0.1389628586745018,
+    "tire.structural_longitudinal_stiffness": 400919.7979424504,
+    "tire.structural_lateral_stiffness": 1302549.162259328,
+    "tire.structural_yaw_stiffness": 49021.970951581374
+  },
+  "bags": [
+    {
+      "position_rmse": 20.677977534004686,
+      "heading_rmse": 1.0290166083696444,
+      "velocity_rmse": 0.9660130418237479,
+      "velocity_x_rmse": 0.8817111209774856,
+      "velocity_x_mean_error": 0.22348640529761937,
+      "velocity_x_slow_rmse": 0.4763300433632648,
+      "velocity_x_slow_mean": 0.26046863756613753,
+      "velocity_y_rmse": 0.3946728976230785,
+      "yaw_rate_rmse": 0.09941049321693578,
+      "yaw_rate_under_rmse": 0.07878002719482324,
+      "front_wheel_rpm_rmse": 56.18366783760347,
+      "motor_rpm_rmse": 204.25299496945587,
+      "samples": 756,
+      "score": 62.15574995047136,
+      "track_name": "Skidpad"
+    }
+  ],
+  "kind": "staged_genetic",
+  "stage": "skidpad_lateral_force",
+  "generation": 15
+}

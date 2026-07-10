@@ -1,0 +1,49 @@
+{
+  "try": 1852,
+  "status": "ok",
+  "score": 154.47620645542816,
+  "values": {
+    "steering.ackerman_factor": 0.27237197357968557,
+    "tire.effective_tire_r": 0.19181083678500926,
+    "tire.slip_ratio_relaxation_length": 0.07364110962791699,
+    "tire.slip_angle_relaxation_length": 0.0017355784912651082,
+    "tire.longitudinal_peak_scale": 1.2309999832432186,
+    "tire.longitudinal_stiffness_scale": 1.4362557386489039,
+    "tire.lateral_shape_scale": 0.9321230267343459,
+    "tire.lateral_peak_scale": 1.2743713772513408,
+    "tire.lateral_curvature_scale": 1.1854329740028786,
+    "tire.lateral_stiffness_scale": 9.229481125568167,
+    "tire.combined_slip_lateral_stiffness_scale": 1.3166318624871742,
+    "tire.longitudinal_peak_pdx1": 1.1034923174868005,
+    "tire.longitudinal_stiffness_pkx1": 39.19385059437539,
+    "tire.longitudinal_curvature_pex1": 1.08221616501582,
+    "tire.lateral_peak_pdy1": 3.1091087679853953,
+    "tire.lateral_stiffness_pky1": -357.1821633995378,
+    "tire.lateral_curvature_pey1": -0.14187460368390617,
+    "tire.structural_longitudinal_stiffness": 457679.9983652134,
+    "tire.structural_lateral_stiffness": 881979.9683774373,
+    "tire.structural_yaw_stiffness": 55494.689534112935
+  },
+  "bags": [
+    {
+      "position_rmse": 17.146844398542193,
+      "heading_rmse": 1.1874578970514078,
+      "velocity_rmse": 2.6556092044213346,
+      "velocity_x_rmse": 2.6206157659728193,
+      "velocity_x_mean_error": -0.9154108863369103,
+      "velocity_x_slow_rmse": 2.352674891816928,
+      "velocity_x_slow_mean": 1.536075124664882,
+      "velocity_y_rmse": 0.42968971798498684,
+      "yaw_rate_rmse": 0.30491017518340735,
+      "yaw_rate_under_rmse": 0.3001137884523242,
+      "front_wheel_rpm_rmse": 149.94228435226083,
+      "motor_rpm_rmse": 479.7244678156958,
+      "samples": 1119,
+      "score": 154.47620645542816,
+      "track_name": "FEUP"
+    }
+  ],
+  "kind": "staged_genetic",
+  "stage": "feup_speed_preservation",
+  "generation": 11
+}

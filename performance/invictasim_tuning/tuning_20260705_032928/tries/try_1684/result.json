@@ -1,0 +1,49 @@
+{
+  "try": 1684,
+  "status": "ok",
+  "score": 134.1377486633785,
+  "values": {
+    "steering.ackerman_factor": 0.2737566022395665,
+    "tire.effective_tire_r": 0.18254507542327897,
+    "tire.slip_ratio_relaxation_length": 0.05905816497808292,
+    "tire.slip_angle_relaxation_length": 0.0008112987802976525,
+    "tire.longitudinal_peak_scale": 1.1430626914502204,
+    "tire.longitudinal_stiffness_scale": 1.0263519987536913,
+    "tire.lateral_shape_scale": 0.9353082067168986,
+    "tire.lateral_peak_scale": 1.306975484395953,
+    "tire.lateral_curvature_scale": 1.1379562901694187,
+    "tire.lateral_stiffness_scale": 10.795498618077387,
+    "tire.combined_slip_lateral_stiffness_scale": 1.305580859013209,
+    "tire.longitudinal_peak_pdx1": 1.0548619768232668,
+    "tire.longitudinal_stiffness_pkx1": 44.1088397376013,
+    "tire.longitudinal_curvature_pex1": 1.17190078542533,
+    "tire.lateral_peak_pdy1": 2.5130209184817667,
+    "tire.lateral_stiffness_pky1": -197.52516818464403,
+    "tire.lateral_curvature_pey1": -0.4938136399474973,
+    "tire.structural_longitudinal_stiffness": 367219.5694238577,
+    "tire.structural_lateral_stiffness": 563271.1110121555,
+    "tire.structural_yaw_stiffness": 71744.8263439374
+  },
+  "bags": [
+    {
+      "position_rmse": 19.858060428391592,
+      "heading_rmse": 1.3095250695408405,
+      "velocity_rmse": 2.775619372333793,
+      "velocity_x_rmse": 2.7237197132711772,
+      "velocity_x_mean_error": 0.48399881670360495,
+      "velocity_x_slow_rmse": 1.6274409116107313,
+      "velocity_x_slow_mean": 0.9013153094107297,
+      "velocity_y_rmse": 0.5342413533344373,
+      "yaw_rate_rmse": 0.23199406715140053,
+      "yaw_rate_under_rmse": 0.2004428596175604,
+      "front_wheel_rpm_rmse": 150.92742857590576,
+      "motor_rpm_rmse": 610.8675333553836,
+      "samples": 1137,
+      "score": 134.1377486633785,
+      "track_name": "FEUP"
+    }
+  ],
+  "kind": "staged_genetic_long_eval",
+  "stage": "feup_speed_preservation",
+  "generation": 7
+}

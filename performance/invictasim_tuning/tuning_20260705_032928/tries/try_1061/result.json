@@ -1,0 +1,49 @@
+{
+  "try": 1061,
+  "status": "ok",
+  "score": 41.826679234233154,
+  "values": {
+    "steering.ackerman_factor": 0.10894705351082515,
+    "tire.effective_tire_r": 0.18453109303302562,
+    "tire.slip_ratio_relaxation_length": 0.06833652976723731,
+    "tire.slip_angle_relaxation_length": 0.0006605324853490337,
+    "tire.longitudinal_peak_scale": 1.4277234606789722,
+    "tire.longitudinal_stiffness_scale": 0.8888397874525573,
+    "tire.lateral_shape_scale": 1.2269312008520157,
+    "tire.lateral_peak_scale": 0.9554102282632799,
+    "tire.lateral_curvature_scale": 0.913740917331097,
+    "tire.lateral_stiffness_scale": 7.445286063838574,
+    "tire.combined_slip_lateral_stiffness_scale": 1.0433045039223263,
+    "tire.longitudinal_peak_pdx1": 1.1194286823998367,
+    "tire.longitudinal_stiffness_pkx1": 20.46073041936445,
+    "tire.longitudinal_curvature_pex1": 1.5227121815791629,
+    "tire.lateral_peak_pdy1": 2.217136329350606,
+    "tire.lateral_stiffness_pky1": -260.84918757317763,
+    "tire.lateral_curvature_pey1": 0.44125715037264984,
+    "tire.structural_longitudinal_stiffness": 273573.54716475605,
+    "tire.structural_lateral_stiffness": 1322154.4111993317,
+    "tire.structural_yaw_stiffness": 72962.09988955807
+  },
+  "bags": [
+    {
+      "position_rmse": 10.220228295231026,
+      "heading_rmse": 0.7422197088123945,
+      "velocity_rmse": 1.1923017799057036,
+      "velocity_x_rmse": 1.1085575749904815,
+      "velocity_x_mean_error": 0.6240746656541452,
+      "velocity_x_slow_rmse": 0.2985893332903787,
+      "velocity_x_slow_mean": 0.13193791450777193,
+      "velocity_y_rmse": 0.4389574436064748,
+      "yaw_rate_rmse": 0.08565558186531329,
+      "yaw_rate_under_rmse": 0.06365651818466767,
+      "front_wheel_rpm_rmse": 72.22301633605524,
+      "motor_rpm_rmse": 252.03891986523487,
+      "samples": 772,
+      "score": 41.826679234233154,
+      "track_name": "Skidpad"
+    }
+  ],
+  "kind": "staged_genetic",
+  "stage": "skidpad_lateral_force",
+  "generation": 22
+}

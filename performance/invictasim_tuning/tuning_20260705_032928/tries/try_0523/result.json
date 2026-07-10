@@ -1,0 +1,49 @@
+{
+  "try": 523,
+  "status": "ok",
+  "score": 365.88247035320074,
+  "values": {
+    "steering.ackerman_factor": 0.1348057863638613,
+    "tire.effective_tire_r": 0.18118631365430812,
+    "tire.slip_ratio_relaxation_length": 0.05962891959203523,
+    "tire.slip_angle_relaxation_length": 0.0009636381919435853,
+    "tire.longitudinal_peak_scale": 1.5087352448797522,
+    "tire.longitudinal_stiffness_scale": 0.9602128328288579,
+    "tire.lateral_shape_scale": 1.2819652750157187,
+    "tire.lateral_peak_scale": 1.0505103815359105,
+    "tire.lateral_curvature_scale": 0.8581726557282653,
+    "tire.lateral_stiffness_scale": 5.782788899989714,
+    "tire.combined_slip_lateral_stiffness_scale": 1.1637929829393707,
+    "tire.longitudinal_peak_pdx1": 1.0386203894637038,
+    "tire.longitudinal_stiffness_pkx1": 20.048659451898125,
+    "tire.longitudinal_curvature_pex1": 1.0623692848724948,
+    "tire.lateral_peak_pdy1": 1.8322087962866915,
+    "tire.lateral_stiffness_pky1": -305.22767457292116,
+    "tire.lateral_curvature_pey1": -0.00820949231177115,
+    "tire.structural_longitudinal_stiffness": 182051.2543126245,
+    "tire.structural_lateral_stiffness": 1159895.032287775,
+    "tire.structural_yaw_stiffness": 68279.36970554189
+  },
+  "bags": [
+    {
+      "position_rmse": 181.7339888668915,
+      "heading_rmse": 1.6805264626794036,
+      "velocity_rmse": 9.21490806260923,
+      "velocity_x_rmse": 9.211555542041864,
+      "velocity_x_mean_error": 7.191539135443286,
+      "velocity_x_slow_rmse": 0.22019451769828577,
+      "velocity_x_slow_mean": 0.07229443285528032,
+      "velocity_y_rmse": 0.24854596801854476,
+      "yaw_rate_rmse": 0.5124521576450534,
+      "yaw_rate_under_rmse": 0.39837267586235525,
+      "front_wheel_rpm_rmse": 483.03936722239405,
+      "motor_rpm_rmse": 1850.6357312203202,
+      "samples": 767,
+      "score": 365.8824703532008,
+      "track_name": "Skidpad"
+    }
+  ],
+  "kind": "staged_genetic_long_eval",
+  "stage": "skidpad_lateral_force",
+  "generation": 10
+}

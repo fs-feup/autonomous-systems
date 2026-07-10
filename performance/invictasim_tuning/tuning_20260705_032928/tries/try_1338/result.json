@@ -1,0 +1,49 @@
+{
+  "try": 1338,
+  "status": "ok",
+  "score": 53.48116364404272,
+  "values": {
+    "steering.ackerman_factor": 0.22431754784470398,
+    "tire.effective_tire_r": 0.18326792166780662,
+    "tire.slip_ratio_relaxation_length": 0.056073034270750735,
+    "tire.slip_angle_relaxation_length": 0.00015450328679011993,
+    "tire.longitudinal_peak_scale": 1.6663600608599776,
+    "tire.longitudinal_stiffness_scale": 0.8308950208152353,
+    "tire.lateral_shape_scale": 1.1891731549865052,
+    "tire.lateral_peak_scale": 1.003618424474923,
+    "tire.lateral_curvature_scale": 0.777436408093653,
+    "tire.lateral_stiffness_scale": 9.478656054256247,
+    "tire.combined_slip_lateral_stiffness_scale": 1.0318325877955405,
+    "tire.longitudinal_peak_pdx1": 1.0369096964680353,
+    "tire.longitudinal_stiffness_pkx1": 20.112831076155704,
+    "tire.longitudinal_curvature_pex1": 1.3918583887986995,
+    "tire.lateral_peak_pdy1": 2.039014476710891,
+    "tire.lateral_stiffness_pky1": -304.3896178292515,
+    "tire.lateral_curvature_pey1": 0.32204654448337955,
+    "tire.structural_longitudinal_stiffness": 289519.73384598445,
+    "tire.structural_lateral_stiffness": 1085383.5710472015,
+    "tire.structural_yaw_stiffness": 30989.635266387282
+  },
+  "bags": [
+    {
+      "position_rmse": 12.783247034812664,
+      "heading_rmse": 1.2467980179959959,
+      "velocity_rmse": 1.4967957559228364,
+      "velocity_x_rmse": 1.4247506726496793,
+      "velocity_x_mean_error": 0.9280916038211939,
+      "velocity_x_slow_rmse": 0.3646645235019815,
+      "velocity_x_slow_mean": 0.1269386490066225,
+      "velocity_y_rmse": 0.4587843237654288,
+      "yaw_rate_rmse": 0.1022511104130781,
+      "yaw_rate_under_rmse": 0.054149995195873574,
+      "front_wheel_rpm_rmse": 91.18639587334977,
+      "motor_rpm_rmse": 323.3671798503867,
+      "samples": 755,
+      "score": 53.48116364404272,
+      "track_name": "Skidpad"
+    }
+  ],
+  "kind": "staged_genetic_long_eval",
+  "stage": "skidpad_lateral_force",
+  "generation": 27
+}

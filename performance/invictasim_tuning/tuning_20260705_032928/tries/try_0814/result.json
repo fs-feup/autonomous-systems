@@ -1,0 +1,49 @@
+{
+  "try": 814,
+  "status": "ok",
+  "score": 42.76656135332024,
+  "values": {
+    "steering.ackerman_factor": 0.11284651096392703,
+    "tire.effective_tire_r": 0.18353090516939147,
+    "tire.slip_ratio_relaxation_length": 0.06514046468002962,
+    "tire.slip_angle_relaxation_length": 0.002113966050799854,
+    "tire.longitudinal_peak_scale": 1.5730218270271052,
+    "tire.longitudinal_stiffness_scale": 0.8176703622924786,
+    "tire.lateral_shape_scale": 1.1704988868313217,
+    "tire.lateral_peak_scale": 0.9983452632191504,
+    "tire.lateral_curvature_scale": 0.7584660179933125,
+    "tire.lateral_stiffness_scale": 8.24421733753404,
+    "tire.combined_slip_lateral_stiffness_scale": 1.1015182590609438,
+    "tire.longitudinal_peak_pdx1": 1.03149935655739,
+    "tire.longitudinal_stiffness_pkx1": 20.91310602457086,
+    "tire.longitudinal_curvature_pex1": 1.49461890159836,
+    "tire.lateral_peak_pdy1": 2.1011760228790854,
+    "tire.lateral_stiffness_pky1": -353.40006344314895,
+    "tire.lateral_curvature_pey1": 0.014862971561507244,
+    "tire.structural_longitudinal_stiffness": 450402.26332614874,
+    "tire.structural_lateral_stiffness": 1179012.4933022803,
+    "tire.structural_yaw_stiffness": 23767.535193085667
+  },
+  "bags": [
+    {
+      "position_rmse": 7.762254031252139,
+      "heading_rmse": 0.7941848168759352,
+      "velocity_rmse": 1.4481266910380717,
+      "velocity_x_rmse": 1.3729230569150748,
+      "velocity_x_mean_error": 0.8929289942923282,
+      "velocity_x_slow_rmse": 0.34660687666253337,
+      "velocity_x_slow_mean": 0.12385881481481488,
+      "velocity_y_rmse": 0.46060090434978623,
+      "yaw_rate_rmse": 0.0890319006072128,
+      "yaw_rate_under_rmse": 0.05610546276161082,
+      "front_wheel_rpm_rmse": 87.97172262842271,
+      "motor_rpm_rmse": 312.7554854526069,
+      "samples": 756,
+      "score": 42.76656135332024,
+      "track_name": "Skidpad"
+    }
+  ],
+  "kind": "staged_genetic_long_eval",
+  "stage": "skidpad_lateral_force",
+  "generation": 16
+}

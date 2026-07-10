@@ -1,0 +1,49 @@
+{
+  "try": 1174,
+  "status": "ok",
+  "score": 53.983680864049454,
+  "values": {
+    "steering.ackerman_factor": 0.11216882220125501,
+    "tire.effective_tire_r": 0.18229369796219452,
+    "tire.slip_ratio_relaxation_length": 0.059792559311790144,
+    "tire.slip_angle_relaxation_length": 0.0009275756946613065,
+    "tire.longitudinal_peak_scale": 1.6581189227313469,
+    "tire.longitudinal_stiffness_scale": 0.9535262646291771,
+    "tire.lateral_shape_scale": 1.2045443881244233,
+    "tire.lateral_peak_scale": 1.0641663937482302,
+    "tire.lateral_curvature_scale": 0.8521897130296422,
+    "tire.lateral_stiffness_scale": 7.8313131268797225,
+    "tire.combined_slip_lateral_stiffness_scale": 0.9342148093696006,
+    "tire.longitudinal_peak_pdx1": 1.0759587699853572,
+    "tire.longitudinal_stiffness_pkx1": 20.49787139394734,
+    "tire.longitudinal_curvature_pex1": 1.3254393213226348,
+    "tire.lateral_peak_pdy1": 2.064690868351059,
+    "tire.lateral_stiffness_pky1": -195.62647189912127,
+    "tire.lateral_curvature_pey1": 0.0122624540822697,
+    "tire.structural_longitudinal_stiffness": 588640.9441358877,
+    "tire.structural_lateral_stiffness": 1345087.256078108,
+    "tire.structural_yaw_stiffness": 30710.742663797035
+  },
+  "bags": [
+    {
+      "position_rmse": 17.563791895749553,
+      "heading_rmse": 0.9232939418512492,
+      "velocity_rmse": 1.012828363245429,
+      "velocity_x_rmse": 0.9244336592987061,
+      "velocity_x_mean_error": 0.3766349583463032,
+      "velocity_x_slow_rmse": 0.37281897350708176,
+      "velocity_x_slow_mean": 0.19063687418936448,
+      "velocity_y_rmse": 0.4138160254871936,
+      "yaw_rate_rmse": 0.08877281117908213,
+      "yaw_rate_under_rmse": 0.06938320593737679,
+      "front_wheel_rpm_rmse": 63.191606553942236,
+      "motor_rpm_rmse": 217.0834770491466,
+      "samples": 771,
+      "score": 53.983680864049454,
+      "track_name": "Skidpad"
+    }
+  ],
+  "kind": "staged_genetic",
+  "stage": "skidpad_lateral_force",
+  "generation": 24
+}

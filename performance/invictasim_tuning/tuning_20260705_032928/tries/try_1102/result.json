@@ -1,0 +1,49 @@
+{
+  "try": 1102,
+  "status": "ok",
+  "score": 42.085074432143934,
+  "values": {
+    "steering.ackerman_factor": 0.23489922183663411,
+    "tire.effective_tire_r": 0.18360831491759821,
+    "tire.slip_ratio_relaxation_length": 0.05561851287889161,
+    "tire.slip_angle_relaxation_length": 0.0002583400512452185,
+    "tire.longitudinal_peak_scale": 1.651633310385937,
+    "tire.longitudinal_stiffness_scale": 0.832546263806124,
+    "tire.lateral_shape_scale": 1.2456283910037143,
+    "tire.lateral_peak_scale": 0.9432594759139827,
+    "tire.lateral_curvature_scale": 1.1531650567668166,
+    "tire.lateral_stiffness_scale": 9.482057490346577,
+    "tire.combined_slip_lateral_stiffness_scale": 0.9809386331816435,
+    "tire.longitudinal_peak_pdx1": 1.1187569538734965,
+    "tire.longitudinal_stiffness_pkx1": 20.252584892021453,
+    "tire.longitudinal_curvature_pex1": 1.3697669417316263,
+    "tire.lateral_peak_pdy1": 2.5553011324687156,
+    "tire.lateral_stiffness_pky1": -272.5729929483533,
+    "tire.lateral_curvature_pey1": 0.01636646472197504,
+    "tire.structural_longitudinal_stiffness": 323048.15438076714,
+    "tire.structural_lateral_stiffness": 1251333.2733106574,
+    "tire.structural_yaw_stiffness": 30339.706014768155
+  },
+  "bags": [
+    {
+      "position_rmse": 7.36066369187527,
+      "heading_rmse": 0.7179767456428586,
+      "velocity_rmse": 1.4416450161802814,
+      "velocity_x_rmse": 1.3651160644615747,
+      "velocity_x_mean_error": 0.8832033198466662,
+      "velocity_x_slow_rmse": 0.3551155117411798,
+      "velocity_x_slow_mean": 0.12586418666666666,
+      "velocity_y_rmse": 0.46346357270704824,
+      "yaw_rate_rmse": 0.09194556777048749,
+      "yaw_rate_under_rmse": 0.060084640711608774,
+      "front_wheel_rpm_rmse": 87.44171789327866,
+      "motor_rpm_rmse": 310.37932809733707,
+      "samples": 750,
+      "score": 42.085074432143934,
+      "track_name": "Skidpad"
+    }
+  ],
+  "kind": "staged_genetic_long_eval",
+  "stage": "skidpad_lateral_force",
+  "generation": 22
+}

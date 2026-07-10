@@ -1,0 +1,49 @@
+{
+  "try": 1185,
+  "status": "ok",
+  "score": 40.89932645485297,
+  "values": {
+    "steering.ackerman_factor": 0.1558395793858501,
+    "tire.effective_tire_r": 0.18395627451654858,
+    "tire.slip_ratio_relaxation_length": 0.05393127702155069,
+    "tire.slip_angle_relaxation_length": 0.0001842619451498971,
+    "tire.longitudinal_peak_scale": 1.7961676696279045,
+    "tire.longitudinal_stiffness_scale": 0.8194782492030276,
+    "tire.lateral_shape_scale": 1.1754156154277384,
+    "tire.lateral_peak_scale": 0.9245460456323685,
+    "tire.lateral_curvature_scale": 0.5585630802224718,
+    "tire.lateral_stiffness_scale": 9.614278892921199,
+    "tire.combined_slip_lateral_stiffness_scale": 1.0178771134712243,
+    "tire.longitudinal_peak_pdx1": 1.0946174861430713,
+    "tire.longitudinal_stiffness_pkx1": 21.713786992577237,
+    "tire.longitudinal_curvature_pex1": 1.413732255789835,
+    "tire.lateral_peak_pdy1": 2.581258716397724,
+    "tire.lateral_stiffness_pky1": -275.22838600083605,
+    "tire.lateral_curvature_pey1": 0.03972686409864028,
+    "tire.structural_longitudinal_stiffness": 447412.14219067467,
+    "tire.structural_lateral_stiffness": 1338596.489468725,
+    "tire.structural_yaw_stiffness": 19172.080654100224
+  },
+  "bags": [
+    {
+      "position_rmse": 10.37713009352604,
+      "heading_rmse": 0.7338462823932943,
+      "velocity_rmse": 1.142005184596896,
+      "velocity_x_rmse": 1.0560291001562265,
+      "velocity_x_mean_error": 0.6147637845460442,
+      "velocity_x_slow_rmse": 0.28119678056270964,
+      "velocity_x_slow_mean": 0.11423111543450075,
+      "velocity_y_rmse": 0.43471643777228147,
+      "yaw_rate_rmse": 0.08407704013902001,
+      "yaw_rate_under_rmse": 0.06184260720720651,
+      "front_wheel_rpm_rmse": 70.28404975327506,
+      "motor_rpm_rmse": 245.46497721506282,
+      "samples": 771,
+      "score": 40.89932645485297,
+      "track_name": "Skidpad"
+    }
+  ],
+  "kind": "staged_genetic",
+  "stage": "skidpad_lateral_force",
+  "generation": 24
+}

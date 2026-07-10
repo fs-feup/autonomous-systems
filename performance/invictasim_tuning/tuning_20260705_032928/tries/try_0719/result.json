@@ -1,0 +1,49 @@
+{
+  "try": 719,
+  "status": "ok",
+  "score": 40.19277879013115,
+  "values": {
+    "steering.ackerman_factor": 0.1622916055441045,
+    "tire.effective_tire_r": 0.1843107368487271,
+    "tire.slip_ratio_relaxation_length": 0.052599301640066515,
+    "tire.slip_angle_relaxation_length": 0.0009108761425376452,
+    "tire.longitudinal_peak_scale": 1.5510548590085484,
+    "tire.longitudinal_stiffness_scale": 0.8604531344448223,
+    "tire.lateral_shape_scale": 1.171954778172466,
+    "tire.lateral_peak_scale": 1.0413120856459732,
+    "tire.lateral_curvature_scale": 1.0520221377377714,
+    "tire.lateral_stiffness_scale": 9.222244424683574,
+    "tire.combined_slip_lateral_stiffness_scale": 0.9140953268278622,
+    "tire.longitudinal_peak_pdx1": 1.0465883089410533,
+    "tire.longitudinal_stiffness_pkx1": 20.698604028827766,
+    "tire.longitudinal_curvature_pex1": 1.4059878218906254,
+    "tire.lateral_peak_pdy1": 2.0565831410563904,
+    "tire.lateral_stiffness_pky1": -267.9768560751301,
+    "tire.lateral_curvature_pey1": 0.009337939637557713,
+    "tire.structural_longitudinal_stiffness": 565892.7742153922,
+    "tire.structural_lateral_stiffness": 1133643.5017072374,
+    "tire.structural_yaw_stiffness": 36450.965624275
+  },
+  "bags": [
+    {
+      "position_rmse": 9.38362707060554,
+      "heading_rmse": 0.7386131819057046,
+      "velocity_rmse": 1.2206799941543798,
+      "velocity_x_rmse": 1.1391279150489357,
+      "velocity_x_mean_error": 0.6874140610985354,
+      "velocity_x_slow_rmse": 0.2802238301789003,
+      "velocity_x_slow_mean": 0.1156154061251664,
+      "velocity_y_rmse": 0.43868809111372425,
+      "yaw_rate_rmse": 0.08282202697805072,
+      "yaw_rate_under_rmse": 0.05645678856371986,
+      "front_wheel_rpm_rmse": 74.46779364981127,
+      "motor_rpm_rmse": 262.08363398116285,
+      "samples": 751,
+      "score": 40.19277879013115,
+      "track_name": "Skidpad"
+    }
+  ],
+  "kind": "staged_genetic_long_eval",
+  "stage": "skidpad_lateral_force",
+  "generation": 14
+}

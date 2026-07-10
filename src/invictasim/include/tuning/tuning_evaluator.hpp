@@ -63,6 +63,7 @@ private:
   void publish_comparison_visualization(const PoseSample& real_pose, const PoseSample& sim_pose,
                                         double position_error);
   void open_csv();
+  void write_summary_csv();
   void write_csv_row(const PoseSample& real_pose, const PoseSample& sim_pose,
                      double position_error, double heading_error);
 
@@ -86,6 +87,7 @@ private:
   PoseSample real_origin_;
   PoseSample sim_origin_;
   bool started_ = false;
+  bool output_samples_ = false;
   std::chrono::steady_clock::time_point start_time_;
 
   RunningRmse position_rmse_;

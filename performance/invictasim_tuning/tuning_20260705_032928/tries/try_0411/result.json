@@ -1,0 +1,49 @@
+{
+  "try": 411,
+  "status": "ok",
+  "score": 100.41076820868551,
+  "values": {
+    "steering.ackerman_factor": 0.21428601365171715,
+    "tire.effective_tire_r": 0.1859937712304036,
+    "tire.slip_ratio_relaxation_length": 0.06587359574188682,
+    "tire.slip_angle_relaxation_length": 0.0024994767484820936,
+    "tire.longitudinal_peak_scale": 1.6892185964744535,
+    "tire.longitudinal_stiffness_scale": 0.8554004369009844,
+    "tire.lateral_shape_scale": 1.1646613808168909,
+    "tire.lateral_peak_scale": 0.9762678007602501,
+    "tire.lateral_curvature_scale": 0.7333943357949104,
+    "tire.lateral_stiffness_scale": 8.256898592236068,
+    "tire.combined_slip_lateral_stiffness_scale": 0.9452886354691669,
+    "tire.longitudinal_peak_pdx1": 1.0600652911719892,
+    "tire.longitudinal_stiffness_pkx1": 23.691474788777327,
+    "tire.longitudinal_curvature_pex1": 1.025321648586708,
+    "tire.lateral_peak_pdy1": 2.6065409049510473,
+    "tire.lateral_stiffness_pky1": -285.09605297149517,
+    "tire.lateral_curvature_pey1": -0.1793382969799709,
+    "tire.structural_longitudinal_stiffness": 453714.71905381687,
+    "tire.structural_lateral_stiffness": 1055854.749417358,
+    "tire.structural_yaw_stiffness": 41872.005428826145
+  },
+  "bags": [
+    {
+      "position_rmse": 17.101796579258185,
+      "heading_rmse": 1.9666455326631682,
+      "velocity_rmse": 1.4818415678543562,
+      "velocity_x_rmse": 1.4480766449550448,
+      "velocity_x_mean_error": -0.9168138528011196,
+      "velocity_x_slow_rmse": 1.427179049478179,
+      "velocity_x_slow_mean": 1.0173847351540608,
+      "velocity_y_rmse": 0.31452895344753634,
+      "yaw_rate_rmse": 0.1915940635349751,
+      "yaw_rate_under_rmse": 0.10798361131438772,
+      "front_wheel_rpm_rmse": 68.23084309390366,
+      "motor_rpm_rmse": 235.12082125805205,
+      "samples": 714,
+      "score": 100.41076820868551,
+      "track_name": "Skidpad"
+    }
+  ],
+  "kind": "staged_genetic",
+  "stage": "skidpad_lateral_force",
+  "generation": 8
+}

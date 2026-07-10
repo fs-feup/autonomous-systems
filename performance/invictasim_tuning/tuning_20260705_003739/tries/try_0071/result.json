@@ -1,0 +1,46 @@
+{
+  "try": 71,
+  "status": "ok",
+  "score": 47.02670954241805,
+  "values": {
+    "steering.ackerman_factor": 0.02014380290672936,
+    "tire.slip_angle_relaxation_length": 0.0006176555447511721,
+    "tire.lateral_peak_scale": 1.7842199470404208,
+    "tire.lateral_stiffness_scale": 4.78594040066011,
+    "tire.lateral_peak_pdy1": 3.5603622551740504,
+    "tire.lateral_stiffness_pky1": -181.44150294623907,
+    "tire.lateral_curvature_pey1": 0.17974579461455614,
+    "tire.structural_lateral_stiffness": 460340.01847139257,
+    "tire.structural_yaw_stiffness": 39816.77528236202
+  },
+  "bags": [
+    {
+      "position_rmse": 11.281461061201059,
+      "heading_rmse": 1.4889684410228812,
+      "velocity_rmse": 1.9110438237556748,
+      "velocity_x_rmse": 1.8990867526759898,
+      "velocity_y_rmse": 0.21344320585410634,
+      "yaw_rate_rmse": 0.24740989366518987,
+      "front_wheel_rpm_rmse": 88.96569093718416,
+      "motor_rpm_rmse": 304.76792720636774,
+      "samples": 739,
+      "score": 40.23447472766324,
+      "track_name": "Skidpad"
+    },
+    {
+      "position_rmse": 18.16117060699226,
+      "heading_rmse": 1.3899891614184454,
+      "velocity_rmse": 2.6954965902978985,
+      "velocity_x_rmse": 2.662609618733811,
+      "velocity_y_rmse": 0.41977599566173046,
+      "yaw_rate_rmse": 0.26260586235402034,
+      "front_wheel_rpm_rmse": 133.61062103578732,
+      "motor_rpm_rmse": 494.4749196216877,
+      "samples": 593,
+      "score": 56.53583828307477,
+      "track_name": "FEUP"
+    }
+  ],
+  "kind": "final_validation",
+  "stage": "all_bags"
+}

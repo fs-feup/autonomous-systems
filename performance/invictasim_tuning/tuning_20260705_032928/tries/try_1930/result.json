@@ -1,0 +1,49 @@
+{
+  "try": 1930,
+  "status": "ok",
+  "score": 148.1951907640177,
+  "values": {
+    "steering.ackerman_factor": 0.27117003283012514,
+    "tire.effective_tire_r": 0.19013628892414375,
+    "tire.slip_ratio_relaxation_length": 0.07444203965826347,
+    "tire.slip_angle_relaxation_length": 0.0020694549135951935,
+    "tire.longitudinal_peak_scale": 1.0774609837593165,
+    "tire.longitudinal_stiffness_scale": 1.4148840205372575,
+    "tire.lateral_shape_scale": 0.8756147698200875,
+    "tire.lateral_peak_scale": 1.3600575600735145,
+    "tire.lateral_curvature_scale": 1.1103380035505221,
+    "tire.lateral_stiffness_scale": 8.970213165118537,
+    "tire.combined_slip_lateral_stiffness_scale": 1.2986931820551753,
+    "tire.longitudinal_peak_pdx1": 0.9624133364862393,
+    "tire.longitudinal_stiffness_pkx1": 42.80606245915469,
+    "tire.longitudinal_curvature_pex1": 1.1569784402960266,
+    "tire.lateral_peak_pdy1": 2.9319328424846938,
+    "tire.lateral_stiffness_pky1": -393.691428020188,
+    "tire.lateral_curvature_pey1": -0.29980568540209473,
+    "tire.structural_longitudinal_stiffness": 479654.6403550038,
+    "tire.structural_lateral_stiffness": 725705.5642521235,
+    "tire.structural_yaw_stiffness": 9529.794316966436
+  },
+  "bags": [
+    {
+      "position_rmse": 20.54601884991173,
+      "heading_rmse": 1.7174300277183392,
+      "velocity_rmse": 2.6271645130014467,
+      "velocity_x_rmse": 2.5796444583259563,
+      "velocity_x_mean_error": -0.11366591045576444,
+      "velocity_x_slow_rmse": 1.9518831338162048,
+      "velocity_x_slow_mean": 1.1547729140303853,
+      "velocity_y_rmse": 0.49742119677625185,
+      "yaw_rate_rmse": 0.26907838282221636,
+      "yaw_rate_under_rmse": 0.25424214838333126,
+      "front_wheel_rpm_rmse": 132.47863876250324,
+      "motor_rpm_rmse": 605.9293847236662,
+      "samples": 1119,
+      "score": 148.1951907640177,
+      "track_name": "FEUP"
+    }
+  ],
+  "kind": "staged_genetic",
+  "stage": "feup_speed_preservation",
+  "generation": 13
+}

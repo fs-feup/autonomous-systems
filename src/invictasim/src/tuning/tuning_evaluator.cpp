@@ -5,6 +5,11 @@
 #include <iomanip>
 #include <sstream>
 
+namespace {
+constexpr const char* kDefaultEvaluationOutputDirectory = "performance/invictasim_evaluation";
+constexpr int kEvaluatorFrequencyHz = 50;
+}  // namespace
+
 double TuningEvaluator::RunningRmse::update(double value) {
   sum_squares += value * value;
   count += 1;
@@ -33,13 +38,11 @@ TuningEvaluator::PoseSample TuningEvaluator::transform_pose_to_map(
 }
 
 TuningEvaluator::TuningEvaluator(const std::shared_ptr<InvictaSim>& simulator,
-                                 const InvictaSimParameters& params)
+                                 const InvictaSimParameters& /*params*/)
     : Node("invictasim_tuning_evaluator"), simulator_(simulator) {
   output_directory_ = this->declare_parameter<std::string>(
-      "tuning_output_directory", params.tuning_evaluator_output_directory);
-  const int frequency = std::max(
-      1, static_cast<int>(
-             this->declare_parameter<int>("tuning_frequency", params.tuning_evaluator_frequency)));
+      "tuning_output_directory", kDefaultEvaluationOutputDirectory);
+  output_samples_ = this->declare_parameter<bool>("tuning_output_samples", false);
 
   position_error_pub_ =
       this->create_publisher<std_msgs::msg::Float64>("/invictasim/tuning/position_error", 10);
@@ -99,7 +102,7 @@ TuningEvaluator::TuningEvaluator(const std::shared_ptr<InvictaSim>& simulator,
         real_motor_rpm_callback(msg);
       });
 
-  timer_ = this->create_wall_timer(std::chrono::milliseconds(1000 / frequency),
+  timer_ = this->create_wall_timer(std::chrono::milliseconds(1000 / kEvaluatorFrequencyHz),
                                    [this]() { on_timer(); });
 
   RCLCPP_INFO(this->get_logger(),
@@ -107,6 +110,9 @@ TuningEvaluator::TuningEvaluator(const std::shared_ptr<InvictaSim>& simulator,
 }
 
 TuningEvaluator::~TuningEvaluator() {
+  if (!output_samples_) {
+    write_summary_csv();
+  }
   if (csv_file_.is_open()) {
     csv_file_.close();
   }
@@ -322,6 +328,9 @@ void TuningEvaluator::publish_comparison_visualization(const PoseSample& real_po
 
 void TuningEvaluator::open_csv() {
   std::filesystem::create_directories(output_directory_);
+  if (!output_samples_) {
+    return;
+  }
   const auto now = std::chrono::system_clock::now();
   const std::time_t now_time = std::chrono::system_clock::to_time_t(now);
   std::tm local_time{};
@@ -336,6 +345,34 @@ void TuningEvaluator::open_csv() {
       << "sim_yaw_rate,real_fl_rpm,real_fr_rpm,real_front_rpm,real_motor_rpm,sim_fl_rpm,"
       << "sim_fr_rpm,sim_front_rpm,sim_motor_rpm,front_wheel_rpm_error,motor_rpm_error\n";
   RCLCPP_INFO(this->get_logger(), "Writing tuning samples to %s", csv_path.c_str());
+}
+
+void TuningEvaluator::write_summary_csv() {
+  if (!started_) {
+    return;
+  }
+  std::filesystem::create_directories(output_directory_);
+  const auto now = std::chrono::system_clock::now();
+  const std::time_t now_time = std::chrono::system_clock::to_time_t(now);
+  std::tm local_time{};
+  localtime_r(&now_time, &local_time);
+  std::ostringstream filename;
+  filename << "summary_" << std::put_time(&local_time, "%Y%m%d_%H%M%S") << ".csv";
+  const std::filesystem::path summary_path = output_directory_ / filename.str();
+  std::ofstream summary_file(summary_path);
+  summary_file << "samples,position_rmse,heading_rmse,velocity_rmse,yaw_rate_rmse,"
+               << "front_wheel_rpm_rmse,motor_rpm_rmse\n";
+  const auto rmse_or_empty = [](const RunningRmse& metric) -> std::string {
+    if (metric.count <= 0) {
+      return "";
+    }
+    return std::to_string(std::sqrt(metric.sum_squares / static_cast<double>(metric.count)));
+  };
+  summary_file << position_rmse_.count << "," << rmse_or_empty(position_rmse_) << ","
+               << rmse_or_empty(heading_rmse_) << "," << rmse_or_empty(velocity_rmse_) << ","
+               << rmse_or_empty(yaw_rate_rmse_) << "," << rmse_or_empty(front_wheel_rpm_rmse_)
+               << "," << rmse_or_empty(motor_rpm_rmse_) << "\n";
+  RCLCPP_INFO(this->get_logger(), "Writing tuning summary to %s", summary_path.c_str());
 }
 
 void TuningEvaluator::write_csv_row(const PoseSample& real_pose, const PoseSample& sim_pose,

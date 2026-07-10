@@ -1,0 +1,49 @@
+{
+  "try": 412,
+  "status": "ok",
+  "score": 45.5580100337851,
+  "values": {
+    "steering.ackerman_factor": 0.18470046373923282,
+    "tire.effective_tire_r": 0.18152040581911633,
+    "tire.slip_ratio_relaxation_length": 0.05358195374883346,
+    "tire.slip_angle_relaxation_length": 0.0011359757029039469,
+    "tire.longitudinal_peak_scale": 1.5518405899096448,
+    "tire.longitudinal_stiffness_scale": 0.9425632336169492,
+    "tire.lateral_shape_scale": 1.192149294049593,
+    "tire.lateral_peak_scale": 1.089424567324347,
+    "tire.lateral_curvature_scale": 0.855056257243292,
+    "tire.lateral_stiffness_scale": 7.160891569260322,
+    "tire.combined_slip_lateral_stiffness_scale": 1.0345341080353014,
+    "tire.longitudinal_peak_pdx1": 0.9994316950420232,
+    "tire.longitudinal_stiffness_pkx1": 20.931204397773335,
+    "tire.longitudinal_curvature_pex1": 1.2585491803612874,
+    "tire.lateral_peak_pdy1": 2.1309564612829197,
+    "tire.lateral_stiffness_pky1": -340.0251295098944,
+    "tire.lateral_curvature_pey1": -0.011520493607870816,
+    "tire.structural_longitudinal_stiffness": 353801.484416048,
+    "tire.structural_lateral_stiffness": 951216.325582147,
+    "tire.structural_yaw_stiffness": 66591.78115002536
+  },
+  "bags": [
+    {
+      "position_rmse": 12.786723055156532,
+      "heading_rmse": 0.7719545776782543,
+      "velocity_rmse": 1.0688994015670839,
+      "velocity_x_rmse": 0.9832653834413317,
+      "velocity_x_mean_error": 0.48708912518000014,
+      "velocity_x_slow_rmse": 0.33346223331765773,
+      "velocity_x_slow_mean": 0.15962387999999994,
+      "velocity_y_rmse": 0.41920772463832295,
+      "yaw_rate_rmse": 0.08310991218122514,
+      "yaw_rate_under_rmse": 0.06014815231088717,
+      "front_wheel_rpm_rmse": 68.55389764503317,
+      "motor_rpm_rmse": 236.98982636544847,
+      "samples": 750,
+      "score": 45.5580100337851,
+      "track_name": "Skidpad"
+    }
+  ],
+  "kind": "staged_genetic",
+  "stage": "skidpad_lateral_force",
+  "generation": 8
+}

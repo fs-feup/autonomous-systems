@@ -13,4 +13,4 @@ car:
   cg_2_rear_axis: 0.706
   gear_ratio: 3.67
   Izz: 101.082
-  front_bearing_drag: 0.25
+  front_bearing_drag: 0.0 # original: 0.25

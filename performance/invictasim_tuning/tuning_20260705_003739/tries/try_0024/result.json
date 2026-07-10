@@ -1,0 +1,34 @@
+{
+  "try": 24,
+  "status": "ok",
+  "score": 48.69637988006005,
+  "values": {
+    "steering.ackerman_factor": 0.0505990036264627,
+    "tire.slip_angle_relaxation_length": 3.1242613296023135e-05,
+    "tire.lateral_peak_scale": 1.6916653847336225,
+    "tire.lateral_stiffness_scale": 4.437371784057426,
+    "tire.lateral_peak_pdy1": 3.42718698291498,
+    "tire.lateral_stiffness_pky1": -199.99342369529563,
+    "tire.lateral_curvature_pey1": 0.16880108809541733,
+    "tire.structural_lateral_stiffness": 476322.99589919834,
+    "tire.structural_yaw_stiffness": 30649.455777868374
+  },
+  "bags": [
+    {
+      "position_rmse": 11.554490321742932,
+      "heading_rmse": 1.5093384387322222,
+      "velocity_rmse": 1.8537458003290206,
+      "velocity_x_rmse": 1.8401833341920613,
+      "velocity_y_rmse": 0.22382758721675194,
+      "yaw_rate_rmse": 0.24548580190331665,
+      "front_wheel_rpm_rmse": 86.70899569234312,
+      "motor_rpm_rmse": 294.01282558406945,
+      "samples": 721,
+      "score": 48.69637988006005,
+      "track_name": "Skidpad"
+    }
+  ],
+  "kind": "staged_genetic",
+  "stage": "skidpad_turning",
+  "generation": 1
+}

@@ -1,0 +1,49 @@
+{
+  "try": 1600,
+  "status": "ok",
+  "score": 147.88040520095817,
+  "values": {
+    "steering.ackerman_factor": 0.0038345843326900997,
+    "tire.effective_tire_r": 0.18851137911433477,
+    "tire.slip_ratio_relaxation_length": 0.0745595370982316,
+    "tire.slip_angle_relaxation_length": 0.0077505190095841945,
+    "tire.longitudinal_peak_scale": 1.2371420914466535,
+    "tire.longitudinal_stiffness_scale": 1.119076471371183,
+    "tire.lateral_shape_scale": 1.265568796301518,
+    "tire.lateral_peak_scale": 1.0341326031241806,
+    "tire.lateral_curvature_scale": 1.185014761281272,
+    "tire.lateral_stiffness_scale": 11.201526200036383,
+    "tire.combined_slip_lateral_stiffness_scale": 1.4677000382500398,
+    "tire.longitudinal_peak_pdx1": 1.3087980395280352,
+    "tire.longitudinal_stiffness_pkx1": 30.916088629574805,
+    "tire.longitudinal_curvature_pex1": 1.5580009596998265,
+    "tire.lateral_peak_pdy1": 2.8064232747029463,
+    "tire.lateral_stiffness_pky1": -332.6467929652572,
+    "tire.lateral_curvature_pey1": 0.4803294987229806,
+    "tire.structural_longitudinal_stiffness": 422158.9652799526,
+    "tire.structural_lateral_stiffness": 307169.17052329984,
+    "tire.structural_yaw_stiffness": 29772.657557654748
+  },
+  "bags": [
+    {
+      "position_rmse": 18.250952064460847,
+      "heading_rmse": 1.3360116281969003,
+      "velocity_rmse": 2.5770976205005764,
+      "velocity_x_rmse": 2.5376648752823017,
+      "velocity_x_mean_error": -0.5617039743291591,
+      "velocity_x_slow_rmse": 2.1360999259864943,
+      "velocity_x_slow_mean": 1.3610962194096603,
+      "velocity_y_rmse": 0.4490981255229085,
+      "yaw_rate_rmse": 0.25877535248635225,
+      "yaw_rate_under_rmse": 0.25189613899995483,
+      "front_wheel_rpm_rmse": 146.0892375711411,
+      "motor_rpm_rmse": 471.1040098109161,
+      "samples": 1118,
+      "score": 147.88040520095817,
+      "track_name": "FEUP"
+    }
+  ],
+  "kind": "staged_genetic_long_eval",
+  "stage": "feup_speed_preservation",
+  "generation": 5
+}

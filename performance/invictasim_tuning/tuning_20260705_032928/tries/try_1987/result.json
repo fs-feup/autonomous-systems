@@ -1,0 +1,49 @@
+{
+  "try": 1987,
+  "status": "ok",
+  "score": 140.61861857496007,
+  "values": {
+    "steering.ackerman_factor": 0.33865618925711316,
+    "tire.effective_tire_r": 0.19180846599656132,
+    "tire.slip_ratio_relaxation_length": 0.05351759103523642,
+    "tire.slip_angle_relaxation_length": 0.0032526941076932245,
+    "tire.longitudinal_peak_scale": 1.212685095972554,
+    "tire.longitudinal_stiffness_scale": 0.7917258794858985,
+    "tire.lateral_shape_scale": 0.9723542494571785,
+    "tire.lateral_peak_scale": 1.2342430009540755,
+    "tire.lateral_curvature_scale": 1.2106871516897653,
+    "tire.lateral_stiffness_scale": 11.920358397874688,
+    "tire.combined_slip_lateral_stiffness_scale": 1.0242124011356997,
+    "tire.longitudinal_peak_pdx1": 1.0485842115943853,
+    "tire.longitudinal_stiffness_pkx1": 46.437994239784565,
+    "tire.longitudinal_curvature_pex1": 1.1947304508573109,
+    "tire.lateral_peak_pdy1": 2.734410807835849,
+    "tire.lateral_stiffness_pky1": -378.3879497943816,
+    "tire.lateral_curvature_pey1": -0.36636193430725944,
+    "tire.structural_longitudinal_stiffness": 476210.6055107361,
+    "tire.structural_lateral_stiffness": 710717.1818947882,
+    "tire.structural_yaw_stiffness": 22259.634507260515
+  },
+  "bags": [
+    {
+      "position_rmse": 20.311761310083238,
+      "heading_rmse": 1.4619067668841603,
+      "velocity_rmse": 2.7846723536795475,
+      "velocity_x_rmse": 2.734846297929846,
+      "velocity_x_mean_error": 0.28779223467841436,
+      "velocity_x_slow_rmse": 1.7684434483596958,
+      "velocity_x_slow_mean": 1.0087422002995599,
+      "velocity_y_rmse": 0.5244195305731992,
+      "yaw_rate_rmse": 0.2403957772346679,
+      "yaw_rate_under_rmse": 0.21134699817342054,
+      "front_wheel_rpm_rmse": 138.55269766799705,
+      "motor_rpm_rmse": 537.9171881023137,
+      "samples": 1135,
+      "score": 140.61861857496007,
+      "track_name": "FEUP"
+    }
+  ],
+  "kind": "staged_genetic_long_eval",
+  "stage": "feup_speed_preservation",
+  "generation": 14
+}

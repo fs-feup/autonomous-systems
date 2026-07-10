@@ -1,0 +1,142 @@
+tuning:
+  bags:
+    - path: "/home/ws/DV Acceleration 31.mcap"
+      track_name: "Acceleration"
+      discipline: "acceleration"
+      weight: 1.0
+      start_offset_s: 0.0
+      stop_after_bag_s: 9.3
+      max_wall_time_s: 20.0
+
+  playback:
+    rate: 3.0
+    sim_speed: 3.0
+    startup_sleep_s: 3.0
+    shutdown_grace_s: 3.0
+    topics:
+      - "/control/command"
+      - "/state_estimation/vehicle_pose"
+      - "/state_estimation/velocities"
+      - "/vehicle/fl_rpm"
+      - "/vehicle/fr_rpm"
+      - "/vehicle/motor_rpm"
+
+  score:
+    min_samples: 140
+    weights:
+      velocity_x_rmse: 6.0
+      front_wheel_rpm_rmse: 0.040
+      motor_rpm_rmse: 0.010
+      position_rmse: 0.2
+      velocity_y_rmse: 0.05
+      heading_rmse: 0.05
+      yaw_rate_rmse: 0.02
+
+  initial_values:
+    inverter.max_phase_current: 390.0
+    inverter.acceleration_delay_ms: 0.0
+    battery.max_discharge_current: 183.3337287614195
+    transmission.viscous_drag_coeff: 0.0
+    transmission.coulomb_drag: 0.0
+    transmission.efficiency: 0.981877832047299
+    tire.effective_tire_r: 0.18217369020446572
+    tire.slip_ratio_relaxation_length: 0.0475034894401475
+    tire.longitudinal_peak_scale: 1.493161901474767
+    tire.longitudinal_stiffness_scale: 1.1247054264980267
+    tire.longitudinal_peak_pdx1: 1.0553523312698423
+    tire.longitudinal_stiffness_pkx1: 25.0
+    tire.longitudinal_curvature_pex1: 1.4301675997941354
+    tire.structural_longitudinal_stiffness: 322204.3901689281
+
+  optimizer:
+    method: "coordinate"
+    trials: 40
+    seed: 31
+    initial_step: 0.18
+    min_step: 0.01
+    shrink: 0.5
+
+  parameters:
+    - name: "inverter.max_phase_current"
+      file: "config/car/inverter_model/02_inverter.yaml"
+      path: ["inverter", "max_phase_current"]
+      min: 220.0
+      max: 420.0
+
+    - name: "inverter.acceleration_delay_ms"
+      file: "config/car/inverter_model/02_inverter.yaml"
+      path: ["inverter", "acceleration_delay_ms"]
+      min: 0.0
+      max: 700.0
+
+    - name: "battery.max_discharge_current"
+      file: "config/car/battery_model/02_battery.yaml"
+      path: ["battery", "max_discharge_current"]
+      min: 130.0
+      max: 230.0
+
+    - name: "transmission.viscous_drag_coeff"
+      file: "config/car/transmission_model/02_transmission.yaml"
+      path: ["transmission", "viscous_drag_coeff"]
+      min: 0.0
+      max: 0.10
+
+    - name: "transmission.coulomb_drag"
+      file: "config/car/transmission_model/02_transmission.yaml"
+      path: ["transmission", "coulomb_drag"]
+      min: 0.0
+      max: 8.0
+
+    - name: "transmission.efficiency"
+      file: "config/car/transmission_model/02_transmission.yaml"
+      path: ["transmission", "efficiency"]
+      min: 0.88
+      max: 0.99
+
+    - name: "tire.effective_tire_r"
+      file: "config/car/tire_model/02_tire.yaml"
+      path: ["tire", "effective_tire_r"]
+      min: 0.17
+      max: 0.23
+
+    - name: "tire.slip_ratio_relaxation_length"
+      file: "config/car/tire_model/02_tire.yaml"
+      path: ["tire", "slip_ratio_relaxation_length"]
+      min: 0.0
+      max: 0.12
+
+    - name: "tire.longitudinal_peak_scale"
+      file: "config/car/tire_model/02_tire.yaml"
+      path: ["tire", "scaling_coefficients", "LMUX"]
+      min: 0.65
+      max: 1.90
+
+    - name: "tire.longitudinal_stiffness_scale"
+      file: "config/car/tire_model/02_tire.yaml"
+      path: ["tire", "scaling_coefficients", "LKX"]
+      min: 0.55
+      max: 1.60
+
+    - name: "tire.longitudinal_peak_pdx1"
+      file: "config/car/tire_model/02_tire.yaml"
+      path: ["tire", "longitudinal_coefficients", "PDX1"]
+      min: 0.50
+      max: 2.50
+
+    - name: "tire.longitudinal_stiffness_pkx1"
+      file: "config/car/tire_model/02_tire.yaml"
+      path: ["tire", "longitudinal_coefficients", "PKX1"]
+      min: 20.0
+      max: 140.0
+
+    - name: "tire.longitudinal_curvature_pex1"
+      file: "config/car/tire_model/02_tire.yaml"
+      path: ["tire", "longitudinal_coefficients", "PEX1"]
+      min: 0.45
+      max: 1.60
+
+    - name: "tire.structural_longitudinal_stiffness"
+      file: "config/car/tire_model/02_tire.yaml"
+      path: ["tire", "structural", "LONGITUDINAL_STIFFNESS"]
+      min: 180000.0
+      max: 450000.0

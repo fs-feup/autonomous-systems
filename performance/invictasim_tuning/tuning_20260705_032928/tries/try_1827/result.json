@@ -1,0 +1,49 @@
+{
+  "try": 1827,
+  "status": "ok",
+  "score": 165.91978030713386,
+  "values": {
+    "steering.ackerman_factor": -0.016795609102539785,
+    "tire.effective_tire_r": 0.18130073499718594,
+    "tire.slip_ratio_relaxation_length": 0.05874397569137037,
+    "tire.slip_angle_relaxation_length": 0.0006115265420033013,
+    "tire.longitudinal_peak_scale": 1.1836284247111082,
+    "tire.longitudinal_stiffness_scale": 0.7830120936370953,
+    "tire.lateral_shape_scale": 0.8043753496804776,
+    "tire.lateral_peak_scale": 2.294708365879566,
+    "tire.lateral_curvature_scale": 1.3735661086949833,
+    "tire.lateral_stiffness_scale": 9.967031287551384,
+    "tire.combined_slip_lateral_stiffness_scale": 1.0074641512019642,
+    "tire.longitudinal_peak_pdx1": 0.8742132009128774,
+    "tire.longitudinal_stiffness_pkx1": 30.973055726182217,
+    "tire.longitudinal_curvature_pex1": 1.2523534314328963,
+    "tire.lateral_peak_pdy1": 2.8073359096699493,
+    "tire.lateral_stiffness_pky1": -97.22717535238633,
+    "tire.lateral_curvature_pey1": -0.021264063374097364,
+    "tire.structural_longitudinal_stiffness": 512810.3868488685,
+    "tire.structural_lateral_stiffness": 132034.14649002248,
+    "tire.structural_yaw_stiffness": 31284.9166546842
+  },
+  "bags": [
+    {
+      "position_rmse": 18.6998293062025,
+      "heading_rmse": 1.2744559561651718,
+      "velocity_rmse": 2.7971518440912297,
+      "velocity_x_rmse": 2.7619646491780796,
+      "velocity_x_mean_error": -0.7620242314823784,
+      "velocity_x_slow_rmse": 2.3025058752815144,
+      "velocity_x_slow_mean": 1.5121644628777302,
+      "velocity_y_rmse": 0.44227787147175657,
+      "yaw_rate_rmse": 0.2772031353698534,
+      "yaw_rate_under_rmse": 0.27040117487806753,
+      "front_wheel_rpm_rmse": 864.0458642208756,
+      "motor_rpm_rmse": 652.8099688837206,
+      "samples": 1118,
+      "score": 165.91978030713386,
+      "track_name": "FEUP"
+    }
+  ],
+  "kind": "staged_genetic",
+  "stage": "feup_speed_preservation",
+  "generation": 11
+}

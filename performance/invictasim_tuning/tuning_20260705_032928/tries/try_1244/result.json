@@ -1,0 +1,49 @@
+{
+  "try": 1244,
+  "status": "ok",
+  "score": 42.82426535092488,
+  "values": {
+    "steering.ackerman_factor": 0.15644064019494391,
+    "tire.effective_tire_r": 0.18470757775823737,
+    "tire.slip_ratio_relaxation_length": 0.05891747662509809,
+    "tire.slip_angle_relaxation_length": 0.0009800428089768295,
+    "tire.longitudinal_peak_scale": 1.4233227633772811,
+    "tire.longitudinal_stiffness_scale": 0.8931416244760378,
+    "tire.lateral_shape_scale": 1.2044708615830253,
+    "tire.lateral_peak_scale": 0.9812160166863583,
+    "tire.lateral_curvature_scale": 0.8392255548894783,
+    "tire.lateral_stiffness_scale": 8.958288549606324,
+    "tire.combined_slip_lateral_stiffness_scale": 1.0323855801605717,
+    "tire.longitudinal_peak_pdx1": 1.1377465465557817,
+    "tire.longitudinal_stiffness_pkx1": 20.035343233569247,
+    "tire.longitudinal_curvature_pex1": 1.5170993353048363,
+    "tire.lateral_peak_pdy1": 2.103170567636011,
+    "tire.lateral_stiffness_pky1": -277.77374542701085,
+    "tire.lateral_curvature_pey1": 0.02323828718561514,
+    "tire.structural_longitudinal_stiffness": 254053.51182592267,
+    "tire.structural_lateral_stiffness": 1316885.6992138866,
+    "tire.structural_yaw_stiffness": 69337.67343602664
+  },
+  "bags": [
+    {
+      "position_rmse": 7.783851685602802,
+      "heading_rmse": 0.7613710293055033,
+      "velocity_rmse": 1.3741530830832491,
+      "velocity_x_rmse": 1.297564822674835,
+      "velocity_x_mean_error": 0.8081427253116708,
+      "velocity_x_slow_rmse": 0.37151854181480853,
+      "velocity_x_slow_mean": 0.13394286472148545,
+      "velocity_y_rmse": 0.4523518837188827,
+      "yaw_rate_rmse": 0.090871676507957,
+      "yaw_rate_under_rmse": 0.06356528647295313,
+      "front_wheel_rpm_rmse": 82.4525501019688,
+      "motor_rpm_rmse": 291.3673239557249,
+      "samples": 754,
+      "score": 42.82426535092488,
+      "track_name": "Skidpad"
+    }
+  ],
+  "kind": "staged_genetic_long_eval",
+  "stage": "skidpad_lateral_force",
+  "generation": 25
+}

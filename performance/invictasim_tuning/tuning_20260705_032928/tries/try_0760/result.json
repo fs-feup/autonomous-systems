@@ -1,0 +1,49 @@
+{
+  "try": 760,
+  "status": "ok",
+  "score": 294.3051613613372,
+  "values": {
+    "steering.ackerman_factor": 0.2333068751702302,
+    "tire.effective_tire_r": 0.18433748155469734,
+    "tire.slip_ratio_relaxation_length": 0.046283583563716486,
+    "tire.slip_angle_relaxation_length": 0.0009838794343032494,
+    "tire.longitudinal_peak_scale": 1.4519113545786824,
+    "tire.longitudinal_stiffness_scale": 0.9097799900613783,
+    "tire.lateral_shape_scale": 1.2371448280171629,
+    "tire.lateral_peak_scale": 1.0316197966983736,
+    "tire.lateral_curvature_scale": 0.8694558563052462,
+    "tire.lateral_stiffness_scale": 8.357376504053125,
+    "tire.combined_slip_lateral_stiffness_scale": 0.9597877829164201,
+    "tire.longitudinal_peak_pdx1": 1.1486707028295324,
+    "tire.longitudinal_stiffness_pkx1": 20.091561480187387,
+    "tire.longitudinal_curvature_pex1": 1.0387765636043484,
+    "tire.lateral_peak_pdy1": 2.0506191766944184,
+    "tire.lateral_stiffness_pky1": -299.51559868528807,
+    "tire.lateral_curvature_pey1": 0.07446348947719153,
+    "tire.structural_longitudinal_stiffness": 600000.0,
+    "tire.structural_lateral_stiffness": 1128789.3542896798,
+    "tire.structural_yaw_stiffness": 40122.9385799865
+  },
+  "bags": [
+    {
+      "position_rmse": 135.82735817975842,
+      "heading_rmse": 1.9636358578241468,
+      "velocity_rmse": 4.916630018410139,
+      "velocity_x_rmse": 4.912819858052109,
+      "velocity_x_mean_error": 3.1270093713687177,
+      "velocity_x_slow_rmse": 1.1660640980162544,
+      "velocity_x_slow_mean": 0.5268104749999999,
+      "velocity_y_rmse": 0.19352462442935628,
+      "yaw_rate_rmse": 0.4363169023746713,
+      "yaw_rate_under_rmse": 0.3297609287780504,
+      "front_wheel_rpm_rmse": 255.49013466796708,
+      "motor_rpm_rmse": 980.7830352073225,
+      "samples": 716,
+      "score": 294.3051613613372,
+      "track_name": "Skidpad"
+    }
+  ],
+  "kind": "staged_genetic",
+  "stage": "skidpad_lateral_force",
+  "generation": 15
+}

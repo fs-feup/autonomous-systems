@@ -2,4 +2,4 @@ steering_motor:
   kp: 0.00250
   ki: 0.01
   kd: 0.00001
-  time_constant: 0.112
+  time_constant: 0.15575537109374998 # original: 0.112, fit from Skidpad+FEUP steering sensor

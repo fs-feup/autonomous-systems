@@ -1,0 +1,12 @@
+[03:53:01] starting try
+[03:53:01] parameters {"steering.ackerman_factor": 0.23841643629588302, "tire.combined_slip_lateral_stiffness_scale": 1.0589652573281094, "tire.effective_tire_r": 0.1801006152006803, "tire.lateral_curvature_pey1": 0.020679124407167012, "tire.lateral_curvature_scale": 1.2194060218808462, "tire.lateral_peak_pdy1": 2.300072984472482, "tire.lateral_peak_scale": 1.6155366179278143, "tire.lateral_shape_scale": 1.2287828335438566, "tire.lateral_stiffness_pky1": -282.1774417592632, "tire.lateral_stiffness_scale": 4.157465759823173, "tire.longitudinal_curvature_pex1": 1.0329712851597534, "tire.longitudinal_peak_pdx1": 0.9076810851429185, "tire.longitudinal_peak_scale": 1.5063308046025046, "tire.longitudinal_stiffness_pkx1": 37.26480237832786, "tire.longitudinal_stiffness_scale": 1.8, "tire.slip_angle_relaxation_length": 0.0010397228930263225, "tire.slip_ratio_relaxation_length": 0.05459894405127809, "tire.structural_lateral_stiffness": 562744.2965764843, "tire.structural_longitudinal_stiffness": 271173.1910055089, "tire.structural_yaw_stiffness": 69719.647627103}
+[03:53:01] bag_00: using track Skidpad
+[03:53:01] bag_00: using sim_speed 4.0
+[03:53:01] bag_00: starting InvictaSim with track Skidpad
+[03:53:01] bag_00: InvictaSim pid 971792
+[03:53:03] bag_00: playing bag /home/ws/Skidpad DV Aerodromo 3.mcap
+[03:53:03] bag_00: bag pid 971887
+[03:53:18] bag_00: bag timeout after 15.5s
+[03:53:18] bag_00: bag exit code 124
+[03:53:19] bag_00: score 126.44360050351622
+[03:53:19] finished try with status ok and score 126.44360050351622

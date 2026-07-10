@@ -1,0 +1,12 @@
+[13:45:56] starting try
+[13:45:56] parameters {"steering.ackerman_factor": 0.27255786307810564, "tire.combined_slip_lateral_stiffness_scale": 1.1013777120683317, "tire.effective_tire_r": 0.1916753646421419, "tire.lateral_curvature_pey1": -0.07573136960101493, "tire.lateral_curvature_scale": 1.019759404026516, "tire.lateral_peak_pdy1": 2.577501219710583, "tire.lateral_peak_scale": 1.287236945984752, "tire.lateral_shape_scale": 0.9163578481494755, "tire.lateral_stiffness_pky1": -446.4029157509101, "tire.lateral_stiffness_scale": 9.588955608573736, "tire.longitudinal_curvature_pex1": 1.1865019072929621, "tire.longitudinal_peak_pdx1": 0.9793015864168407, "tire.longitudinal_peak_scale": 1.1802116770990478, "tire.longitudinal_stiffness_pkx1": 39.04125716280168, "tire.longitudinal_stiffness_scale": 1.5696245558782775, "tire.slip_angle_relaxation_length": 0.0016082160225597984, "tire.slip_ratio_relaxation_length": 0.06483437294451758, "tire.structural_lateral_stiffness": 535996.0341248512, "tire.structural_longitudinal_stiffness": 395925.04467643774, "tire.structural_yaw_stiffness": 34901.90737877142}
+[13:45:56] bag_00: using track FEUP
+[13:45:56] bag_00: using sim_speed 4.0
+[13:45:56] bag_00: starting InvictaSim with track FEUP
+[13:45:56] bag_00: InvictaSim pid 1367365
+[13:45:58] bag_00: playing bag /home/ws/FEUP Trackdrive 17.mcap
+[13:45:58] bag_00: bag pid 1367437
+[13:46:20] bag_00: bag timeout after 22.75s
+[13:46:21] bag_00: bag exit code 124
+[13:46:21] bag_00: score 167.0308538747784
+[13:46:21] finished try with status ok and score 167.0308538747784

@@ -1,0 +1,30 @@
+[17:56:38] starting try
+[17:56:38] parameters {"steering.ackerman_factor": 0.31348448517777594, "tire.combined_slip_lateral_stiffness_scale": 0.9434873710139969, "tire.effective_tire_r": 0.19091023138074023, "tire.lateral_curvature_pey1": -0.15198170987362156, "tire.lateral_curvature_scale": 1.1711452296486538, "tire.lateral_peak_pdy1": 2.1159534844384984, "tire.lateral_peak_scale": 1.302704997398099, "tire.lateral_shape_scale": 0.9738540283750673, "tire.lateral_stiffness_pky1": -431.57830051822793, "tire.lateral_stiffness_scale": 11.663409929179403, "tire.longitudinal_curvature_pex1": 1.018463876793513, "tire.longitudinal_peak_pdx1": 0.9708395699667383, "tire.longitudinal_peak_scale": 1.3543268351691145, "tire.longitudinal_stiffness_pkx1": 20.0, "tire.longitudinal_stiffness_scale": 1.0748260457360952, "tire.slip_angle_relaxation_length": 0.0038772105986522734, "tire.slip_ratio_relaxation_length": 0.06388024708245287, "tire.structural_lateral_stiffness": 777308.212507641, "tire.structural_longitudinal_stiffness": 389993.4194374289, "tire.structural_yaw_stiffness": 45246.33846166065}
+[17:56:38] bag_00: using track Skidpad
+[17:56:38] bag_00: using sim_speed 4.0
+[17:56:38] bag_00: starting InvictaSim with track Skidpad
+[17:56:38] bag_00: InvictaSim pid 1509009
+[17:56:40] bag_00: playing bag /home/ws/Skidpad DV Aerodromo 3.mcap
+[17:56:40] bag_00: bag pid 1509082
+[17:56:56] bag_00: bag timeout after 15.5s
+[17:56:56] bag_00: bag exit code 124
+[17:56:57] bag_00: score 92.2627719926115
+[17:56:57] bag_01: using track FEUP
+[17:56:57] bag_01: using sim_speed 4.0
+[17:56:57] bag_01: starting InvictaSim with track FEUP
+[17:56:57] bag_01: InvictaSim pid 1509198
+[17:56:59] bag_01: playing bag /home/ws/FEUP Trackdrive 17.mcap
+[17:56:59] bag_01: bag pid 1509262
+[17:57:21] bag_01: bag timeout after 22.75s
+[17:57:22] bag_01: bag exit code 124
+[17:57:22] bag_01: score 139.74552760919636
+[17:57:22] bag_02: using track Acceleration
+[17:57:22] bag_02: using sim_speed 4.0
+[17:57:22] bag_02: starting InvictaSim with track Acceleration
+[17:57:22] bag_02: InvictaSim pid 1509405
+[17:57:24] bag_02: playing bag /home/ws/DV Acceleration 31.mcap
+[17:57:24] bag_02: bag pid 1509470
+[17:57:27] bag_02: bag timeout after 2.75s
+[17:57:27] bag_02: bag exit code 124
+[17:57:28] bag_02: score 38.17751447349225
+[17:57:28] finished try with status ok and score 97.1116755749061

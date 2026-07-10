@@ -1,0 +1,49 @@
+{
+  "try": 1050,
+  "status": "ok",
+  "score": 37.282606476232445,
+  "values": {
+    "steering.ackerman_factor": 0.2742060312737296,
+    "tire.effective_tire_r": 0.1839082082442335,
+    "tire.slip_ratio_relaxation_length": 0.05865473972811481,
+    "tire.slip_angle_relaxation_length": 0.0009307913438366556,
+    "tire.longitudinal_peak_scale": 1.5237068663859414,
+    "tire.longitudinal_stiffness_scale": 0.9208883817361633,
+    "tire.lateral_shape_scale": 1.2040065160646727,
+    "tire.lateral_peak_scale": 0.9877222568039086,
+    "tire.lateral_curvature_scale": 0.7808559756023982,
+    "tire.lateral_stiffness_scale": 9.51677670479574,
+    "tire.combined_slip_lateral_stiffness_scale": 0.9772744377682507,
+    "tire.longitudinal_peak_pdx1": 1.1030087422107862,
+    "tire.longitudinal_stiffness_pkx1": 20.031575068856966,
+    "tire.longitudinal_curvature_pex1": 1.4191982863739403,
+    "tire.lateral_peak_pdy1": 2.1085435765400775,
+    "tire.lateral_stiffness_pky1": -270.2188816413234,
+    "tire.lateral_curvature_pey1": -0.025768138542863913,
+    "tire.structural_longitudinal_stiffness": 305054.55959519546,
+    "tire.structural_lateral_stiffness": 1273664.7516257938,
+    "tire.structural_yaw_stiffness": 64692.11078848137
+  },
+  "bags": [
+    {
+      "position_rmse": 7.765823198411465,
+      "heading_rmse": 0.6860926017082274,
+      "velocity_rmse": 1.2274286681823205,
+      "velocity_x_rmse": 1.1443973026043486,
+      "velocity_x_mean_error": 0.7098629597930578,
+      "velocity_x_slow_rmse": 0.26693306533953803,
+      "velocity_x_slow_mean": 0.10628663551401875,
+      "velocity_y_rmse": 0.4437746604614985,
+      "yaw_rate_rmse": 0.08309246587230787,
+      "yaw_rate_under_rmse": 0.0575953589802721,
+      "front_wheel_rpm_rmse": 75.58480362708683,
+      "motor_rpm_rmse": 265.60035418011796,
+      "samples": 749,
+      "score": 37.282606476232445,
+      "track_name": "Skidpad"
+    }
+  ],
+  "kind": "staged_genetic_long_eval",
+  "stage": "skidpad_lateral_force",
+  "generation": 21
+}

@@ -1,0 +1,2 @@
+samples,position_rmse,heading_rmse,velocity_rmse,yaw_rate_rmse,front_wheel_rpm_rmse,motor_rpm_rmse
+1429,4.746467,0.473257,1.034248,0.076434,69.308263,230.980619

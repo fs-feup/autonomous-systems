@@ -1,7 +1,7 @@
 inverter:
-  efficiency: 0.97
-  max_phase_current: 285.0
+  efficiency: 0.9764323777361831 # original: 0.97
+  max_phase_current: 390.0 # original: 285.0
 
-  acceleration_delay_ms: 500.0
+  acceleration_delay_ms: 0.0 # original: 500.0
   coast_delay_ms: 0.0
   regen_braking_delay_ms: 500.0

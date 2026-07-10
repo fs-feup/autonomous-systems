@@ -1,0 +1,49 @@
+{
+  "try": 932,
+  "status": "ok",
+  "score": 47.332243337050365,
+  "values": {
+    "steering.ackerman_factor": 0.2075082769151183,
+    "tire.effective_tire_r": 0.1832082700604542,
+    "tire.slip_ratio_relaxation_length": 0.06162147338168822,
+    "tire.slip_angle_relaxation_length": 0.0008124747412383501,
+    "tire.longitudinal_peak_scale": 1.6269228218114578,
+    "tire.longitudinal_stiffness_scale": 0.9112433067006483,
+    "tire.lateral_shape_scale": 1.2030212517798395,
+    "tire.lateral_peak_scale": 1.0397082687827444,
+    "tire.lateral_curvature_scale": 0.8892705903509515,
+    "tire.lateral_stiffness_scale": 7.562410300687664,
+    "tire.combined_slip_lateral_stiffness_scale": 1.0740662525712414,
+    "tire.longitudinal_peak_pdx1": 1.0383782390137803,
+    "tire.longitudinal_stiffness_pkx1": 20.502984226905937,
+    "tire.longitudinal_curvature_pex1": 1.3427023548586137,
+    "tire.lateral_peak_pdy1": 2.3263823911867916,
+    "tire.lateral_stiffness_pky1": -275.7201817568052,
+    "tire.lateral_curvature_pey1": 0.019673838982993228,
+    "tire.structural_longitudinal_stiffness": 507864.2847647916,
+    "tire.structural_lateral_stiffness": 1299789.4990996728,
+    "tire.structural_yaw_stiffness": 39001.04109426388
+  },
+  "bags": [
+    {
+      "position_rmse": 13.967958662550428,
+      "heading_rmse": 0.7994813627946739,
+      "velocity_rmse": 1.0331873573517443,
+      "velocity_x_rmse": 0.9434210956326162,
+      "velocity_x_mean_error": 0.42963541435880853,
+      "velocity_x_slow_rmse": 0.34307789772704445,
+      "velocity_x_slow_mean": 0.16885639896373045,
+      "velocity_y_rmse": 0.42122767205732775,
+      "yaw_rate_rmse": 0.08357324046868832,
+      "yaw_rate_under_rmse": 0.0637844469670831,
+      "front_wheel_rpm_rmse": 64.1052090939122,
+      "motor_rpm_rmse": 220.68518364187892,
+      "samples": 772,
+      "score": 47.332243337050365,
+      "track_name": "Skidpad"
+    }
+  ],
+  "kind": "staged_genetic",
+  "stage": "skidpad_lateral_force",
+  "generation": 19
+}

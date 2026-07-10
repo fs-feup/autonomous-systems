@@ -1,0 +1,50 @@
+{
+  "bags": [
+    {
+      "error": "not enough samples in /home/ws/performance/invictasim_tuning/tuning_20260704_131247/tries/try_1327/evaluator_csv/bag_00/tuning_20260704_171030.csv",
+      "samples": 281
+    }
+  ],
+  "kind": "staged_genetic",
+  "score": Infinity,
+  "stage": "lateral_skidpad",
+  "status": "failed",
+  "try": 1327,
+  "values": {
+    "aero.aero_balance_front": 0.5205899635356216,
+    "aero.drag_coefficient": 0.8890107905618299,
+    "aero.lift_coefficient": 0.9744351194425314,
+    "battery.initial_soc": 0.8689184709481579,
+    "battery.max_discharge_current": 183.3337287614195,
+    "battery.min_voltage": 349.43148587398707,
+    "car.front_bearing_drag": 0,
+    "inverter.acceleration_delay_ms": 0,
+    "inverter.efficiency": 0.9764323777361831,
+    "inverter.max_phase_current": 390,
+    "motor.kt_constant": 0.7133221138331354,
+    "steering.ackerman_factor": -0.3832781999278401,
+    "steering_motor.time_constant": 0.05482515859212462,
+    "tire.combined_slip_lateral_scale": 1.1273001284623487,
+    "tire.effective_tire_r": 0.18217369020446572,
+    "tire.lateral_curvature_pey1": 0.1845041964573762,
+    "tire.lateral_peak_pdy1": 2.79185461499953,
+    "tire.lateral_peak_scale": 0.7907131100508016,
+    "tire.lateral_stiffness_pky1": -43.60877299357257,
+    "tire.lateral_stiffness_scale": 0.860048600695436,
+    "tire.longitudinal_curvature_pex1": 1.4301675997941354,
+    "tire.longitudinal_peak_pdx1": 1.0553523312698423,
+    "tire.longitudinal_peak_scale": 1.493161901474767,
+    "tire.longitudinal_stiffness_pkx1": 25,
+    "tire.longitudinal_stiffness_scale": 1.1247054264980267,
+    "tire.slip_angle_relaxation_length": 0.0526428428887543,
+    "tire.slip_ratio_relaxation_length": 0.0475034894401475,
+    "tire.structural_lateral_stiffness": 93851.13806232119,
+    "tire.structural_longitudinal_stiffness": 322204.3901689281,
+    "tire.structural_yaw_stiffness": 4283.094748410758,
+    "transmission.coulomb_drag": 0,
+    "transmission.efficiency": 0.981877832047299,
+    "transmission.kv": 58.48433543089377,
+    "transmission.t_max": 361.5055953976007,
+    "transmission.viscous_drag_coeff": 0
+  }
+}
