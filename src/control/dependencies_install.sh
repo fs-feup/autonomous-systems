@@ -51,7 +51,6 @@ git submodule update --init --recursive
 sudo rm -rf build
 sudo rm -rf "${ACADOS_INSTALL_DIR}"
 mkdir build
-cd build
 
 cmake -S . -B build -G Ninja \
     -DACADOS_WITH_QPOASES=ON \

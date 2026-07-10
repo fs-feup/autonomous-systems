@@ -106,7 +106,7 @@ void PID::path_callback(const custom_interfaces::msg::PathPointArray& msg)  {
 }
 void PID::vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& msg)  {
   this->last_velocity_msg_ = msg;
-  this->absolute_velocity_ = std::sqrt(msg.velocity_x * msg.velocity_x + msg.velocity_y * msg.velocity_y);
+  this->absolute_velocity_ = copysign(std::sqrt(msg.velocity_x * msg.velocity_x + msg.velocity_y * msg.velocity_y), msg.velocity_x);
   this->received_first_state_ = true;
 }
 void PID::vehicle_pose_callback(const custom_interfaces::msg::Pose& msg)  {
