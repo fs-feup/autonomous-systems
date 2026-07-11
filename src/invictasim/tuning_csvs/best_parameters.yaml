@@ -1,40 +1,40 @@
-generation: 23
-best_score: 11.6817
-position_rmse: 4.6851
+generation: 792
+best_score: 10.8226
+position_rmse: 1.24194
 parameters:
-  inverter.max_phase_current: 291.619
+  inverter.max_phase_current: 349.786
   inverter.acceleration_delay_ms: 0
-  battery.max_discharge_current: 230
-  transmission.viscous_drag_coeff: 0.490692
-  transmission.coulomb_drag: 4.62528
-  transmission.efficiency: 0.977336
-  tire.effective_tire_r: 0.192171
-  tire.slip_ratio_relaxation_length: 0.112288
-  tire.slip_angle_relaxation_length: 0.11324
-  tire.LMUX: 1.23724
-  tire.LKX: 0.55
-  tire.PDX1: 2.44283
-  tire.PKX1: 85.3515
-  tire.PEX1: 0.45
-  tire.LONGITUDINAL_STIFFNESS: 375330
-  steering_motor.time_constant: 0.240722
-  motor.max_peak_rpm: 3250
-  motor.max_continuous_rpm: 6080.13
-  motor.max_peak_current: 231.438
-  motor.max_continuous_current: 90
-  motor.max_continuous_power: 35062.1
-  motor.max_peak_power: 66013.7
-  motor.max_continuous_torque: 75.4126
+  battery.max_discharge_current: 130
+  transmission.viscous_drag_coeff: 0.252734
+  transmission.coulomb_drag: 3.41854
+  transmission.efficiency: 0.981496
+  tire.effective_tire_r: 0.184149
+  tire.slip_ratio_relaxation_length: 0
+  tire.slip_angle_relaxation_length: 0.0371293
+  tire.LMUX: 1.17355
+  tire.LKX: 1.34549
+  tire.PDX1: 1.29851
+  tire.PKX1: 140
+  tire.PEX1: 1.318
+  tire.LONGITUDINAL_STIFFNESS: 375194
+  steering_motor.time_constant: 0.225086
+  motor.max_peak_rpm: 4648.53
+  motor.max_continuous_rpm: 4960.58
+  motor.max_peak_current: 278.313
+  motor.max_continuous_current: 246.53
+  motor.max_continuous_power: 96000
+  motor.max_peak_power: 84714.4
+  motor.max_continuous_torque: 168
   motor.max_peak_torque: 240
-  motor.kt_constant: 0.769332
+  motor.kt_constant: 0.7
   transmission.efficiency: 0.999
-  transmission.kv: 87.72
-  transmission.t_max: 235.547
+  transmission.kv: 9.24
+  transmission.t_max: 542.25
   transmission.viscous_drag_coeff: 0
-  transmission.coulomb_drag: 3.30825
-  transmission.coulomb_smooth_stiffness: 26.1343
-  steering.ackerman_factor: 0.194354
-  steering_motor.kp: 0.00125
-  steering_motor.ki: 0.0119049
-  steering_motor.kd: 9.17061e-06
-  steering_motor.time_constant: 0.077
+  transmission.coulomb_drag: 0
+  transmission.coulomb_smooth_stiffness: 19.9294
+  steering.ackerman_factor: 0.2618
+  steering_motor.kp: 0.00359027
+  steering_motor.ki: 0.0131187
+  steering_motor.kd: 1.5e-05
+  steering_motor.time_constant: 0.001
