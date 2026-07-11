@@ -1,5 +1,7 @@
 #include "longitudinal_controller/pid.hpp"
 
+#include <chrono>
+
 #include "gtest/gtest.h"
 
 /**
@@ -12,7 +14,6 @@ TEST(PidTests, TestAntiWindUp1) {
   params.pid_ki_ = 0.3;
   params.pid_kd_ = 0.09;
   params.pid_tau_ = 0.5;
-  params.pid_t_ = 0.01;
   params.pid_lim_min_ = -1;
   params.pid_lim_max_ = 1;
   params.pid_anti_windup_ = 0.7;
@@ -36,7 +37,6 @@ TEST(PidTests, TestAntiWindUp2) {
   params.pid_ki_ = 0.3;
   params.pid_kd_ = 0.09;
   params.pid_tau_ = 0.5;
-  params.pid_t_ = 0.01;
   params.pid_lim_min_ = -1;
   params.pid_lim_max_ = 1;
   params.pid_anti_windup_ = 0.7;
@@ -60,7 +60,6 @@ TEST(PidTests, TestAntiWindUp3) {
   params.pid_ki_ = 0.3;
   params.pid_kd_ = 0.09;
   params.pid_tau_ = 0.5;
-  params.pid_t_ = 0.01;
   params.pid_lim_min_ = -1;
   params.pid_lim_max_ = 1;
   params.pid_anti_windup_ = 0.7;
@@ -83,7 +82,6 @@ TEST(PidTests, ProportionalTerm) {
   params.pid_ki_ = 0.3;
   params.pid_kd_ = 0.09;
   params.pid_tau_ = 0.7;
-  params.pid_t_ = 0.1;
   params.pid_lim_min_ = -1;
   params.pid_lim_max_ = 1;
   params.pid_anti_windup_ = 0.5;
@@ -105,7 +103,6 @@ TEST(PidTests, IntegralTerm1) {
   params.pid_ki_ = 0.3;
   params.pid_kd_ = 0.09;
   params.pid_tau_ = 0.7;
-  params.pid_t_ = 0.1;
   params.pid_lim_min_ = -1;
   params.pid_lim_max_ = 1;
   params.pid_anti_windup_ = 0.5;
@@ -115,8 +112,8 @@ TEST(PidTests, IntegralTerm1) {
   float error = 3;
   pid.integrator_ = 0.3;
   pid.prev_error_ = 4;
-  pid.calculate_integral_term(error);
-  EXPECT_FLOAT_EQ(0.405, pid.integrator_);
+  pid.calculate_integral_term(error, 0.1);
+  EXPECT_FLOAT_EQ(0.39, pid.integrator_);
 }
 
 /**
@@ -129,7 +126,6 @@ TEST(PidTests, IntegralTerm2) {
   params.pid_ki_ = 0.3;
   params.pid_kd_ = 0.09;
   params.pid_tau_ = 0.7;
-  params.pid_t_ = 0.1;
   params.pid_lim_min_ = -1;
   params.pid_lim_max_ = 1;
   params.pid_anti_windup_ = 0.5;
@@ -139,8 +135,8 @@ TEST(PidTests, IntegralTerm2) {
   float error = -3;
   pid.integrator_ = 0.3;
   pid.prev_error_ = -4;
-  pid.calculate_integral_term(error);
-  EXPECT_FLOAT_EQ(0.195, pid.integrator_);
+  pid.calculate_integral_term(error, 0.1);
+  EXPECT_FLOAT_EQ(0.21, pid.integrator_);
 }
 
 /**
@@ -153,7 +149,6 @@ TEST(PidTests, DerivativeTerm1) {
   params.pid_ki_ = 0.3;
   params.pid_kd_ = 0.1;
   params.pid_tau_ = 0.7;
-  params.pid_t_ = 0.1;
   params.pid_lim_min_ = -1;
   params.pid_lim_max_ = 1;
   params.pid_anti_windup_ = 0.45;
@@ -163,8 +158,8 @@ TEST(PidTests, DerivativeTerm1) {
   float measurement = 3;
   pid.differentiator_ = 0.4;
   pid.prev_measurement_ = 4;
-  pid.calculate_derivative_term(measurement);
-  EXPECT_FLOAT_EQ(0.48, pid.differentiator_);
+  pid.calculate_derivative_term(measurement, 0.1);
+  EXPECT_FLOAT_EQ(1.0, pid.differentiator_);
 }
 
 /**
@@ -177,7 +172,6 @@ TEST(PidTests, DerivativeTerm2) {
   params.pid_ki_ = 0.3;
   params.pid_kd_ = 0.1;
   params.pid_tau_ = 0.7;
-  params.pid_t_ = 0.1;
   params.pid_lim_min_ = -1;
   params.pid_lim_max_ = 1;
   params.pid_anti_windup_ = 0.45;
@@ -187,8 +181,8 @@ TEST(PidTests, DerivativeTerm2) {
   float measurement = -4;
   pid.differentiator_ = 0.4;
   pid.prev_measurement_ = -1.2;
-  pid.calculate_derivative_term(measurement);
-  EXPECT_FLOAT_EQ(0.72, pid.differentiator_);
+  pid.calculate_derivative_term(measurement, 0.1);
+  EXPECT_FLOAT_EQ(2.8, pid.differentiator_);
 }
 
 /**
@@ -201,7 +195,6 @@ TEST(PidTests, Output1) {
   params.pid_ki_ = 0.3;
   params.pid_kd_ = 0.09;
   params.pid_tau_ = 0.7;
-  params.pid_t_ = 0.1;
   params.pid_lim_min_ = -1;
   params.pid_lim_max_ = 1;
   params.pid_anti_windup_ = 0.45;
@@ -225,7 +218,6 @@ TEST(PidTests, Output2) {
   params.pid_ki_ = 0.3;
   params.pid_kd_ = 0.09;
   params.pid_tau_ = 0.7;
-  params.pid_t_ = 0.1;
   params.pid_lim_min_ = -1;
   params.pid_lim_max_ = 1;
   params.pid_anti_windup_ = 0.45;
@@ -249,7 +241,6 @@ TEST(PidTests, Output3) {
   params.pid_ki_ = 0.3;
   params.pid_kd_ = 0.09;
   params.pid_tau_ = 0.7;
-  params.pid_t_ = 0.1;
   params.pid_lim_min_ = -1;
   params.pid_lim_max_ = 1;
   params.pid_anti_windup_ = 0.45;
@@ -263,8 +254,31 @@ TEST(PidTests, Output3) {
   EXPECT_FLOAT_EQ(-1, pid.out_);
 }
 
-// -2*kd(Measur - oldMeasur)+((2*tua-T)*oldDiffere)/(2*tau+T) + kp*Error + oldIntegra +
-// 0.5*ki*T*(Error+OldErro)
+TEST(PidTests, UsesElapsedTimeForIntegrationAndDerivative) {
+  ControlParameters params;
+  params.pid_kp_ = 0.0;
+  params.pid_ki_ = 1.0;
+  params.pid_kd_ = 1.0;
+  params.pid_tau_ = 0.0;
+  params.pid_lim_min_ = -1000;
+  params.pid_lim_max_ = 1000;
+  params.pid_anti_windup_ = 0.0;
+  params.pid_max_positive_error_ = 1000;
+  params.pid_max_negative_error_ = -1000;
+  PID pid(params);
+
+  pid.prev_error_ = 0.0;
+  pid.prev_measurement_ = 0.0;
+  pid.integrator_ = 0.0;
+  pid.differentiator_ = 0.0;
+  pid.last_update_time_ = std::chrono::steady_clock::now() - std::chrono::milliseconds(20);
+  pid.has_last_update_time_ = true;
+
+  pid.update(1.0, 0.5);
+
+  EXPECT_NEAR(0.02, pid.integrator_, 1e-6);
+  EXPECT_NEAR(-25.0, pid.differentiator_, 1e-6);
+}
 
 /**
  * @brief Test PID class - update
@@ -276,7 +290,6 @@ TEST(PidTests, Update1) {
   params.pid_ki_ = 0.3;
   params.pid_kd_ = 0.1;
   params.pid_tau_ = 0.7;
-  params.pid_t_ = 0.1;
   params.pid_lim_min_ = -1;
   params.pid_lim_max_ = 1;
   params.pid_anti_windup_ = 0.45;
@@ -290,5 +303,5 @@ TEST(PidTests, Update1) {
   pid.prev_error_ = 1.5;
   pid.prev_measurement_ = 3.5;
   pid.update(setpoint, measurement);
-  EXPECT_NEAR(0.924, pid.out_, 0.001);
+  EXPECT_NEAR(1.0, pid.out_, 0.001);
 }

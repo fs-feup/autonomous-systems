@@ -1,5 +1,7 @@
 #include "longitudinal_controller/pid.hpp"
 
+#include <cmath>
+
 using namespace common_lib::structures;
 
 /**
@@ -17,6 +19,19 @@ PID::PID(const ControlParameters& params) : LongitudinalController(params) {}
  */
 
 double PID::update(double setpoint, double measurement) {
+  double dt = static_cast<double>(this->params_->command_time_interval_) / 1000.0;
+  const auto now = std::chrono::steady_clock::now();
+
+  if (this->has_last_update_time_) {
+    dt = std::chrono::duration<double>(now - this->last_update_time_).count();
+    if (dt <= 0.0) {
+      dt = static_cast<double>(this->params_->command_time_interval_) / 1000.0;
+    }
+  }
+
+  this->last_update_time_ = now;
+  this->has_last_update_time_ = true;
+
   /*
    * Error signal
    */
@@ -24,12 +39,12 @@ double PID::update(double setpoint, double measurement) {
 
   this->calculate_proportional_term(error);
 
-  this->calculate_integral_term(error);
+  this->calculate_integral_term(error, dt);
 
   /*
    * Derivative term , derivative on measurement
    */
-  this->calculate_derivative_term(measurement);
+  this->calculate_derivative_term(measurement, dt);
 
   /*
    * Anti-wind-up integrator
@@ -69,9 +84,9 @@ void PID::calculate_proportional_term(double error) {
   this->proportional_ = this->params_->pid_kp_ * error;
 }
 
-void PID::calculate_integral_term(double error) {
-  this->integrator_ = this->integrator_ + 0.5f * this->params_->pid_ki_ * this->params_->pid_t_ *
-                                              (error + this->prev_error_);
+void PID::calculate_integral_term(double error, double dt) {
+  const double sample_time = dt > 0.0 ? dt : 0.01;
+  this->integrator_ = this->integrator_ + this->params_->pid_ki_ * error * sample_time;
 }
 
 void PID::anti_wind_up() {
@@ -81,11 +96,9 @@ void PID::anti_wind_up() {
   }
 }
 
-void PID::calculate_derivative_term(double measurement) {
-  this->differentiator_ =
-      (-2.0f * this->params_->pid_kd_ * (measurement - this->prev_measurement_) +
-       (2.0f * this->params_->pid_tau_ - this->params_->pid_t_) * this->differentiator_) /
-      (2.0f * this->params_->pid_tau_ + this->params_->pid_t_);
+void PID::calculate_derivative_term(double measurement, double dt) {
+  const double sample_time = dt > 0.0 ? dt : 0.01;
+  this->differentiator_ = -this->params_->pid_kd_ * (measurement - this->prev_measurement_) / sample_time;
 }
 
 void PID::compute_output() {
@@ -106,7 +119,7 @@ void PID::path_callback(const custom_interfaces::msg::PathPointArray& msg)  {
 }
 void PID::vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& msg)  {
   this->last_velocity_msg_ = msg;
-  this->absolute_velocity_ = std::sqrt(msg.velocity_x * msg.velocity_x + msg.velocity_y * msg.velocity_y);
+  this->absolute_velocity_ = copysign(std::sqrt(msg.velocity_x * msg.velocity_x + msg.velocity_y * msg.velocity_y), msg.velocity_x);
   this->received_first_state_ = true;
 }
 void PID::vehicle_pose_callback(const custom_interfaces::msg::Pose& msg)  {
