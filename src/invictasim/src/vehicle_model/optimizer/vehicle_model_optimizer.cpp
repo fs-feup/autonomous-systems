@@ -80,7 +80,12 @@ struct SimState {
 
   common_lib::structures::Wheels wheels_torque;
   common_lib::structures::Wheels wheels_vertical_load;
+
+  double aero_drag = 0.0;
+  double aero_downforce = 0.0;
 };
+
+using StateVec = Eigen::Matrix<double, 13, 1>;
 
 struct RunningRmse {
   double sum_squares = 0.0;
@@ -692,6 +697,24 @@ std::map<std::string, double*> get_parameter_ptrs(std::shared_ptr<common_lib::ca
     m["tire.QFZ3"] = &p->tire_parameters->QFZ3;
     m["tire.QPFZ1"] = &p->tire_parameters->QPFZ1;
     m["tire.Amu"] = &p->tire_parameters->Amu;
+
+    // Aliases for tuning configs
+    m["tire.longitudinal_peak_pdx1"] = &p->tire_parameters->PDX1;
+    m["tire.longitudinal_stiffness_pkx1"] = &p->tire_parameters->PKX1;
+    m["tire.longitudinal_curvature_pex1"] = &p->tire_parameters->PEX1;
+    m["tire.lateral_peak_pdy1"] = &p->tire_parameters->PDY1;
+    m["tire.lateral_stiffness_pky1"] = &p->tire_parameters->PKY1;
+    m["tire.lateral_curvature_pey1"] = &p->tire_parameters->PEY1;
+    m["tire.structural_longitudinal_stiffness"] = &p->tire_parameters->LONGITUDINAL_STIFFNESS;
+    m["tire.structural_lateral_stiffness"] = &p->tire_parameters->LATERAL_STIFFNESS;
+    m["tire.structural_yaw_stiffness"] = &p->tire_parameters->YAW_STIFFNESS;
+    m["tire.longitudinal_peak_scale"] = &p->tire_parameters->LMUX;
+    m["tire.longitudinal_stiffness_scale"] = &p->tire_parameters->LKX;
+    m["tire.lateral_shape_scale"] = &p->tire_parameters->LCY;
+    m["tire.lateral_peak_scale"] = &p->tire_parameters->LMUY;
+    m["tire.lateral_curvature_scale"] = &p->tire_parameters->LEY;
+    m["tire.lateral_stiffness_scale"] = &p->tire_parameters->LKY;
+    m["tire.combined_slip_lateral_stiffness_scale"] = &p->tire_parameters->LYKA;
   }
   if (p->transmission_parameters) {
     m["transmission.gear_ratio"] = &p->transmission_parameters->gear_ratio;
@@ -1309,6 +1332,9 @@ double evaluate_candidate(
   }
 
   YAML::Node csvs = tuning_config["tuning"]["csvs"];
+  if (!csvs && tuning_config["tuning"]["bags"]) {
+    csvs = tuning_config["tuning"]["bags"];
+  }
   YAML::Node default_score_config = tuning_config["tuning"]["score"];
 
   double weighted_score_sum = 0.0;
@@ -1503,6 +1529,7 @@ Individual run_genetic_algorithm(
 
   Individual global_best;
   global_best.score = 1e9;
+  global_best.values = population[0].values;
 
   for (int gen = 0; gen < generations; ++gen) {
     std::cout << "--- Generation " << gen + 1 << "/" << generations << " ---" << std::endl;
@@ -1623,13 +1650,26 @@ int main(int argc, char** argv) {
   InvictaSimParameters base_params;
 
   YAML::Node csvs = tuning_config["tuning"]["csvs"];
+  if (!csvs && tuning_config["tuning"]["bags"]) {
+    csvs = tuning_config["tuning"]["bags"];
+  }
   std::vector<std::vector<CsvRow>> all_csvs_rows;
   all_csvs_rows.reserve(csvs.size());
 
   std::cout << "Loading CSV telemetry datasets..." << std::endl;
   for (size_t b = 0; b < csvs.size(); ++b) {
-    std::string rel_path = csvs[b]["path"].as<std::string>();
-    std::string full_path = get_full_csv_path(data_dir, rel_path);
+    std::string full_path;
+    if (csvs[b]["csv_path"]) {
+      full_path = get_full_csv_path(data_dir, csvs[b]["csv_path"].as<std::string>());
+    } else if (csvs[b]["name"]) {
+      full_path = (std::filesystem::path(data_dir) / (csvs[b]["name"].as<std::string>() + ".csv")).string();
+    } else if (csvs[b]["path"]) {
+      std::string rel_path = csvs[b]["path"].as<std::string>();
+      full_path = get_full_csv_path(data_dir, rel_path);
+    } else {
+      std::cerr << "Warning: Bag entry is missing path or name." << std::endl;
+      continue;
+    }
     std::cout << "  Reading: " << full_path << std::endl;
     auto rows = read_csv(full_path);
     std::cout << "    Loaded " << rows.size() << " samples." << std::endl;

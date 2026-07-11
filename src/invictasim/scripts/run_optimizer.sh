@@ -11,4 +11,4 @@ echo "Sourcing ROS 2 workspace..."
 source install/setup.bash
 
 echo "Starting Vehicle Model Optimizer..."
-./install/invictasim/lib/invictasim/vehicle_model_optimizer --config "$1"
+./install/invictasim/lib/invictasim/vehicle_model_optimizer --config "$1" --data-dir src/invictasim/tuning_csvs
