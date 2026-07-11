@@ -15,13 +15,13 @@ tuning:
     min_samples: 140
     short_sample_penalty: 1000.0 # Heavy penalty if the car crashes or stops early
     weights:
-      velocity_x_rmse: 6.0
+      velocity_x_rmse: 2.0
       front_wheel_rpm_rmse: 0.040
       motor_rpm_rmse: 0.010
-      position_rmse: 0.2
-      velocity_y_rmse: 0.05
-      heading_rmse: 0.05
-      yaw_rate_rmse: 0.02
+      position_rmse: 10.0
+      velocity_y_rmse: 4.0
+      heading_rmse: 1.0
+      yaw_rate_rmse: 8.0
 
   optimizer:
     # Genetic Algorithm Settings (mapped to the C++ variables)
@@ -37,28 +37,16 @@ tuning:
 
   parameters:
     - name: "inverter.max_phase_current"
-      min: 220.0
-      max: 420.0
+      min: 180.0
+      max: 540.0
 
     - name: "inverter.acceleration_delay_ms"
       min: 0.0
       max: 700.0
 
     - name: "battery.max_discharge_current"
-      min: 130.0
-      max: 230.0
-
-    - name: "transmission.viscous_drag_coeff"
-      min: 0.0
-      max: 0.5
-
-    - name: "transmission.coulomb_drag"
-      min: 0.0
-      max: 8.0
-
-    - name: "transmission.efficiency"
-      min: 0.88
-      max: 0.99
+      min: 100.0
+      max: 300.0
 
     - name: "tire.effective_tire_r"
       min: 0.16
@@ -66,48 +54,104 @@ tuning:
 
     - name: "tire.slip_ratio_relaxation_length"
       min: 0.0
-      max: 0.12
+      max: 0.15
     
     - name: "tire.slip_angle_relaxation_length"
       min: 0.0
-      max: 0.12
+      max: 0.15
 
-    # Note: These names are updated to match the C++ string map in get_parameter_ptrs()!
+    # Longitudinal Tire Parameters
     - name: "tire.LMUX"
-      min: 0.65
-      max: 1.90
+      min: 0.5
+      max: 1.8
 
     - name: "tire.LKX"
-      min: 0.55
-      max: 1.60
+      min: 0.5
+      max: 1.8
 
     - name: "tire.PDX1"
-      min: 0.50
-      max: 2.50
+      min: 0.5
+      max: 2.5
 
     - name: "tire.PKX1"
-      min: 20.0
-      max: 140.0
+      min: 50.0
+      max: 200.0
 
     - name: "tire.PEX1"
-      min: 0.45
-      max: 1.60
+      min: 0.5
+      max: 1.6
 
     - name: "tire.LONGITUDINAL_STIFFNESS"
-      min: 180000.0
-      max: 450000.0
-    
-    - name: "steering_motor.time_constant"
-      min: 0.10
-      max: 0.250
+      min: 150000.0
+      max: 500000.0
 
+    # Lateral Tire Parameters
+    - name: "tire.LMUY"
+      min: 0.5
+      max: 1.8
+
+    - name: "tire.LKY"
+      min: 3.0
+      max: 15.0
+
+    - name: "tire.PDY1"
+      min: 0.9
+      max: 2.7
+
+    - name: "tire.PKY1"
+      min: -450.0
+      max: -100.0
+
+    - name: "tire.PEY1"
+      min: 0.3
+      max: 1.1
+
+    # Load Transfer Parameters
+    - name: "load_transfer.front_stiffness_distribution"
+      min: 0.3
+      max: 0.7
+
+    - name: "load_transfer.roll_axis_z"
+      min: 0.01
+      max: 0.2
+
+    - name: "load_transfer.front_roll_center_z"
+      min: 0.01
+      max: 0.15
+
+    - name: "load_transfer.rear_roll_center_z"
+      min: 0.01
+      max: 0.15
+
+    # Steering Parameters
+    - name: "steering.ackerman_factor"
+      min: 0.1
+      max: 0.4
+
+    - name: "steering_motor.kp"
+      min: 0.001
+      max: 0.005
+
+    - name: "steering_motor.ki"
+      min: 0.005
+      max: 0.02
+
+    - name: "steering_motor.kd"
+      min: 0.0
+      max: 0.0001
+
+    - name: "steering_motor.time_constant"
+      min: 0.05
+      max: 0.25
+
+    # Motor Parameters
     - name: "motor.max_peak_rpm"
       min: 3250.0
-      max: 7000.0
+      max: 9750.0
 
     - name: "motor.max_continuous_rpm"
       min: 2750.0
-      max: 6000.0
+      max: 8250.0
 
     - name: "motor.max_peak_current"
       min: 180.0
@@ -130,53 +174,34 @@ tuning:
       max: 168.0
 
     - name: "motor.max_peak_torque"
-      min: 220.0
-      max: 240.0
+      min: 110.0
+      max: 330.0
 
     - name: "motor.kt_constant"
-      min: 0.70
-      max: 0.80
+      min: 0.35
+      max: 1.05
 
+    # Transmission Parameters
     - name: "transmission.efficiency"
-      min: 0.8
-      max: 0.999
+      min: 0.5
+      max: 1.0
 
     - name: "transmission.kv"
-      min: 9.24
-      max: 87.72
+      min: 0.0
+      max: 200.0
 
     - name: "transmission.t_max"
-      min: 180.75
-      max: 542.25
+      min: 180.0
+      max: 540.0
 
     - name: "transmission.viscous_drag_coeff"
       min: 0.0
-      max: 0.3
+      max: 0.2
 
     - name: "transmission.coulomb_drag"
       min: 0.0
-      max: 8.0
+      max: 5.0
 
     - name: "transmission.coulomb_smooth_stiffness"
-      min: 0.0
+      min: 10.0
       max: 30.0
-
-    - name: "steering.ackerman_factor"
-      min: 0.112
-      max: 0.337
-
-    - name: "steering_motor.kp"
-      min: 0.00125
-      max: 0.00375
-
-    - name: "steering_motor.ki"
-      min: 0.005
-      max: 0.015
-
-    - name: "steering_motor.kd"
-      min: 0.000005
-      max: 0.000015
-
-    - name: "steering_motor.time_constant"
-      min: 0.001
-      max: 0.333

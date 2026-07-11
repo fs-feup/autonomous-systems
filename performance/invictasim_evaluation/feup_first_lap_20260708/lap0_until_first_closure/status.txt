@@ -1,9 +1,0 @@
-[22:52:53] bag_00: using track FEUP
-[22:52:53] bag_00: using sim_speed 4.0
-[22:52:53] bag_00: starting InvictaSim with track FEUP
-[22:52:53] bag_00: InvictaSim pid 22755
-[22:52:55] bag_00: playing bag /home/ws/FEUP Trackdrive 17.mcap
-[22:52:55] bag_00: bag pid 22850
-[22:53:01] bag_00: bag timeout after 6.07325s
-[22:53:02] bag_00: bag exit code 124
-[22:53:02] bag_00: score 18.94650003225761
