@@ -1,5 +1,8 @@
 var NAVTREEINDEX18 =
 {
+"d8/d72/namespacebombated__mpc__acados.html#a5e7f8cee37e0873947416932418c1ecc":[28,0,4,8],
+"d8/d72/namespacebombated__mpc__acados.html#a65c42647cd2977165b8fb3d1fdec067e":[28,0,4,26],
+"d8/d72/namespacebombated__mpc__acados.html#a6ca8b6b01096ad2a758acf8d0994a055":[28,0,4,37],
 "d8/d72/namespacebombated__mpc__acados.html#a6f68dfc1af324f0383297dec140b4a1a":[28,0,4,27],
 "d8/d72/namespacebombated__mpc__acados.html#a70a0d0435d16d2b0e49af3d9c9f81566":[28,0,4,13],
 "d8/d72/namespacebombated__mpc__acados.html#a79bdbe4f4329a6e7ed7f3b5182b89529":[28,0,4,0],
@@ -230,8 +233,8 @@ var NAVTREEINDEX18 =
 "d8/def/classmain_1_1_my_window.html#a297e698e595c9ec53bfdf8aff80b4ef0":[29,0,10,0,1],
 "d8/def/classmain_1_1_my_window.html#a6b002edc3801cd958445fa38bb9763aa":[29,0,10,0,3],
 "d8/def/classmain_1_1_my_window.html#a6b002edc3801cd958445fa38bb9763aa":[28,0,20,0,3],
-"d8/def/classmain_1_1_my_window.html#a7bdf44ee1e1c19d02b7502f0b8543662":[29,0,10,0,2],
 "d8/def/classmain_1_1_my_window.html#a7bdf44ee1e1c19d02b7502f0b8543662":[28,0,20,0,2],
+"d8/def/classmain_1_1_my_window.html#a7bdf44ee1e1c19d02b7502f0b8543662":[29,0,10,0,2],
 "d8/def/classmain_1_1_my_window.html#a8b2cfcc4ce6d44be0243341c0a63f628":[28,0,20,0,0],
 "d8/def/classmain_1_1_my_window.html#a8b2cfcc4ce6d44be0243341c0a63f628":[29,0,10,0,0],
 "d8/df2/base__pose__updater_8cpp.html":[30,0,0,22,1,3,0,1,0],
@@ -246,8 +249,5 @@ var NAVTREEINDEX18 =
 "d8/dfe/struct_vehicle_state_snapshot.html":[29,0,275],
 "d8/dfe/struct_vehicle_state_snapshot.html#a1f0cce8524533c394e72c84c1215aab4":[29,0,275,7],
 "d8/dfe/struct_vehicle_state_snapshot.html#a2702abea93ed3dcbcc6732b117b4a7df":[29,0,275,1],
-"d8/dfe/struct_vehicle_state_snapshot.html#a27a07ad0837dec924b86c6c589b9a748":[29,0,275,2],
-"d8/dfe/struct_vehicle_state_snapshot.html#a3db7b600f5bf05be328718353d498bad":[29,0,275,5],
-"d8/dfe/struct_vehicle_state_snapshot.html#a68f8d0a21e8f8d7a6fb6ead46ab8048f":[29,0,275,12],
-"d8/dfe/struct_vehicle_state_snapshot.html#a700116eac0f376294526323b8e95b14a":[29,0,275,4]
+"d8/dfe/struct_vehicle_state_snapshot.html#a27a07ad0837dec924b86c6c589b9a748":[29,0,275,2]
 };

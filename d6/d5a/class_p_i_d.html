@@ -109,9 +109,9 @@ Inheritance diagram for PID:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dd/dc8/class_p_i_d__inherit__graph.png" border="0" usemap="#a_p_i_d_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_p_i_d_inherit__map" id="a_p_i_d_inherit__map">
-<area shape="rect" title="PI&#45;D Controller class." alt="" coords="5,239,169,928"/>
+<area shape="rect" title="PI&#45;D Controller class." alt="" coords="5,239,169,968"/>
 <area shape="rect" href="../../da/ded/class_longitudinal_controller.html" title="Base (abstract) class for longitudinal controllers (the ones that calculate throttle)" alt="" coords="5,5,169,191"/>
-<area shape="poly" title=" " alt="" coords="90,205,90,239,85,239,85,205"/>
+<area shape="poly" title=" " alt="" coords="90,206,90,239,85,239,85,206"/>
 </map>
 </div>
 <div class="dynheader">
@@ -119,11 +119,11 @@ Collaboration diagram for PID:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d1/d7b/class_p_i_d__coll__graph.png" border="0" usemap="#a_p_i_d_coll__map" alt="Collaboration graph"/></div>
 <map name="a_p_i_d_coll__map" id="a_p_i_d_coll__map">
-<area shape="rect" title="PI&#45;D Controller class." alt="" coords="69,254,233,923"/>
+<area shape="rect" title="PI&#45;D Controller class." alt="" coords="69,254,233,963"/>
 <area shape="rect" href="../../da/ded/class_longitudinal_controller.html" title="Base (abstract) class for longitudinal controllers (the ones that calculate throttle)" alt="" coords="5,5,169,191"/>
-<area shape="poly" title=" " alt="" coords="104,205,110,253,105,254,99,206"/>
+<area shape="poly" title=" " alt="" coords="103,205,109,254,104,254,98,205"/>
 <area shape="rect" title=" " alt="" coords="194,65,237,131"/>
-<area shape="poly" title=" " alt="" coords="214,131,200,237,195,237,209,130"/>
+<area shape="poly" title=" " alt="" coords="214,131,201,237,195,237,209,130"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -147,6 +147,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3bed9f0b83456b2bde4db41790b38957" id="r_a3bed9f0b83456b2bde4db41790b38957"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a3bed9f0b83456b2bde4db41790b38957">publish_solver_data</a> (std::shared_ptr&lt; rclcpp::Node &gt; node, std::map&lt; std::string, std::shared_ptr&lt; rclcpp::PublisherBase &gt; &gt; &amp;publisher_map) override</td></tr>
 <tr class="memdesc:a3bed9f0b83456b2bde4db41790b38957"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes solver specific data using the provided <a class="el" href="../../d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module.">ControlNode</a>.  <br /></td></tr>
 <tr class="separator:a3bed9f0b83456b2bde4db41790b38957"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8da0d7520f135666d19cdbfe2efea57" id="r_aa8da0d7520f135666d19cdbfe2efea57"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#aa8da0d7520f135666d19cdbfe2efea57">FRIEND_TEST</a> (PidTests, UsesElapsedTimeForIntegrationAndDerivative)</td></tr>
+<tr class="separator:aa8da0d7520f135666d19cdbfe2efea57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab17003f79f5c9ead4e282b9f01d92ef5" id="r_ab17003f79f5c9ead4e282b9f01d92ef5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#ab17003f79f5c9ead4e282b9f01d92ef5">FRIEND_TEST</a> (PidTests, TestAntiWindUp1)</td></tr>
 <tr class="separator:ab17003f79f5c9ead4e282b9f01d92ef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2df584c41a7cf2c47761aaeb75c1d147" id="r_a2df584c41a7cf2c47761aaeb75c1d147"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a2df584c41a7cf2c47761aaeb75c1d147">FRIEND_TEST</a> (PidTests, TestAntiWindUp2)</td></tr>
@@ -185,15 +187,15 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:afeb910407a0ec97035fd19f97cbfae1c" id="r_afeb910407a0ec97035fd19f97cbfae1c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#afeb910407a0ec97035fd19f97cbfae1c">calculate_proportional_term</a> (double error)</td></tr>
 <tr class="memdesc:afeb910407a0ec97035fd19f97cbfae1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the proportional term.  <br /></td></tr>
 <tr class="separator:afeb910407a0ec97035fd19f97cbfae1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05352c1a64fe0e13588291ccf450bace" id="r_a05352c1a64fe0e13588291ccf450bace"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a05352c1a64fe0e13588291ccf450bace">calculate_integral_term</a> (double error)</td></tr>
-<tr class="memdesc:a05352c1a64fe0e13588291ccf450bace"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the integral term.  <br /></td></tr>
-<tr class="separator:a05352c1a64fe0e13588291ccf450bace"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeee186f11a36ecbfa02d0cd84f6b9537" id="r_aeee186f11a36ecbfa02d0cd84f6b9537"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#aeee186f11a36ecbfa02d0cd84f6b9537">calculate_integral_term</a> (double error, double dt=-1.0)</td></tr>
+<tr class="memdesc:aeee186f11a36ecbfa02d0cd84f6b9537"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the integral term.  <br /></td></tr>
+<tr class="separator:aeee186f11a36ecbfa02d0cd84f6b9537"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa587fab53433af6127bbc5c7fdf50a35" id="r_aa587fab53433af6127bbc5c7fdf50a35"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#aa587fab53433af6127bbc5c7fdf50a35">anti_wind_up</a> ()</td></tr>
 <tr class="memdesc:aa587fab53433af6127bbc5c7fdf50a35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Anti-wind-up via dynamic integrator clamping.  <br /></td></tr>
 <tr class="separator:aa587fab53433af6127bbc5c7fdf50a35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5748127c7eb3f374fd599576a822abcd" id="r_a5748127c7eb3f374fd599576a822abcd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a5748127c7eb3f374fd599576a822abcd">calculate_derivative_term</a> (double measurement)</td></tr>
-<tr class="memdesc:a5748127c7eb3f374fd599576a822abcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the derivative term (derivative on measurement)  <br /></td></tr>
-<tr class="separator:a5748127c7eb3f374fd599576a822abcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcc75d1df4d4516b707b114d5c08f290" id="r_adcc75d1df4d4516b707b114d5c08f290"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#adcc75d1df4d4516b707b114d5c08f290">calculate_derivative_term</a> (double measurement, double dt=-1.0)</td></tr>
+<tr class="memdesc:adcc75d1df4d4516b707b114d5c08f290"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the derivative term (derivative on measurement)  <br /></td></tr>
+<tr class="separator:adcc75d1df4d4516b707b114d5c08f290"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a8397dc4b3e36d1db9ea2f1b8fb91a4" id="r_a5a8397dc4b3e36d1db9ea2f1b8fb91a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a5a8397dc4b3e36d1db9ea2f1b8fb91a4">compute_output</a> ()</td></tr>
 <tr class="memdesc:a5a8397dc4b3e36d1db9ea2f1b8fb91a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the output value and apply limits.  <br /></td></tr>
 <tr class="separator:a5a8397dc4b3e36d1db9ea2f1b8fb91a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -232,6 +234,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:aa960c9dd715e9be8fa818197719ee276" id="r_aa960c9dd715e9be8fa818197719ee276"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#aa960c9dd715e9be8fa818197719ee276">prev_measurement_</a> {0.0f}</td></tr>
 <tr class="memdesc:aa960c9dd715e9be8fa818197719ee276"><td class="mdescLeft">&#160;</td><td class="mdescRight">Previous measurement value, required for defferentiator.  <br /></td></tr>
 <tr class="separator:aa960c9dd715e9be8fa818197719ee276"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefceea02f8dfa378b798ebc24706b881" id="r_aefceea02f8dfa378b798ebc24706b881"><td class="memItemLeft" align="right" valign="top">std::chrono::steady_clock::time_point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#aefceea02f8dfa378b798ebc24706b881">last_update_time_</a> {}</td></tr>
+<tr class="separator:aefceea02f8dfa378b798ebc24706b881"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bc53ad753af20ba14ce12fd6b6d93af" id="r_a2bc53ad753af20ba14ce12fd6b6d93af"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a2bc53ad753af20ba14ce12fd6b6d93af">has_last_update_time_</a> {false}</td></tr>
+<tr class="separator:a2bc53ad753af20ba14ce12fd6b6d93af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8eb686b3c4053c020d2bbfa218d198be" id="r_a8eb686b3c4053c020d2bbfa218d198be"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">out_</a> {0.0f}</td></tr>
 <tr class="memdesc:a8eb686b3c4053c020d2bbfa218d198be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current output value.  <br /></td></tr>
 <tr class="separator:a8eb686b3c4053c020d2bbfa218d198be"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -246,7 +252,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock"><p>PI-D <a class="el" href="../../d8/d87/class_controller.html" title="Base class for control solvers, that calculate both lateral and longitudinal control commands.">Controller</a> class. </p>
 <p>This class implements a PI-D controller. Its a PI-D because the P and I terms operates on the Error signal and the D works with the feedback signal (measurement). </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00019">19</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00021">21</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3b05685d0075077b1762fc8e611ea0f4" name="a3b05685d0075077b1762fc8e611ea0f4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3b05685d0075077b1762fc8e611ea0f4">&#9670;&#160;</a></span>PID()</h2>
@@ -272,7 +278,7 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00009">9</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00011">11</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 
 </div>
 </div>
@@ -302,7 +308,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Anti-wind-up via dynamic integrator clamping. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00077">77</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00092">92</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -317,19 +323,21 @@ Here is the caller graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="393,108,344,115,343,110,392,102"/>
 <area shape="rect" href="../../d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="272,153,360,179"/>
 <area shape="poly" title=" " alt="" coords="429,115,346,155,344,150,426,111"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a92a2db4c3ffd6a0a37ea275d96c55b1c" title="Returns the throttle command calculated by the solver (only throttle)" alt="" coords="25,104,204,130"/>
-<area shape="poly" title=" " alt="" coords="256,152,223,143,178,133,179,128,224,138,257,147"/>
-<area shape="rect" href="../../d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a8a079d78fabe3578dc7038a75af16fb9" title="Stop the thread." alt="" coords="5,153,224,179"/>
-<area shape="poly" title=" " alt="" coords="256,169,224,169,224,164,256,164"/>
-<area shape="rect" href="../../d3/d6a/pid__test_8cpp.html#aa955b6a9298278b14ec50652fd165ecb" title="Test PID class &#45; update Test all the methods." alt="" coords="87,203,142,228"/>
-<area shape="poly" title=" " alt="" coords="257,185,224,194,143,213,141,207,223,189,256,180"/>
+<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a92a2db4c3ffd6a0a37ea275d96c55b1c" title="Returns the throttle command calculated by the solver (only throttle)" alt="" coords="25,79,204,104"/>
+<area shape="poly" title=" " alt="" coords="276,148,223,118,189,108,191,102,225,113,279,143"/>
+<area shape="rect" href="../../d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a8a079d78fabe3578dc7038a75af16fb9" title="Stop the thread." alt="" coords="5,128,224,154"/>
+<area shape="poly" title=" " alt="" coords="256,161,221,157,222,152,257,156"/>
+<area shape="rect" href="../../d3/d6a/pid__test_8cpp.html#aa955b6a9298278b14ec50652fd165ecb" title="Test PID class &#45; update Test all the methods." alt="" coords="87,177,142,203"/>
+<area shape="poly" title=" " alt="" coords="257,176,142,190,142,184,256,171"/>
+<area shape="rect" href="../../d3/d6a/pid__test_8cpp.html#aba478b89bd9d3b5b04f2a7d66851b2a2" title=" " alt="" coords="87,227,142,252"/>
+<area shape="poly" title=" " alt="" coords="282,190,225,218,182,231,143,238,142,233,180,225,223,213,280,185"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a5748127c7eb3f374fd599576a822abcd" name="a5748127c7eb3f374fd599576a822abcd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5748127c7eb3f374fd599576a822abcd">&#9670;&#160;</a></span>calculate_derivative_term()</h2>
+<a id="adcc75d1df4d4516b707b114d5c08f290" name="adcc75d1df4d4516b707b114d5c08f290"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcc75d1df4d4516b707b114d5c08f290">&#9670;&#160;</a></span>calculate_derivative_term()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -341,8 +349,18 @@ Here is the caller graph for this function:</div>
           <td class="memname">void PID::calculate_derivative_term </td>
           <td>(</td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>measurement</em></td><td>)</td>
+          <td class="paramname"><em>measurement</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>dt</em> = <code>-1.0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -360,12 +378,12 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00084">84</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00099">99</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d6/d5a/class_p_i_d_a5748127c7eb3f374fd599576a822abcd_icgraph.png" border="0" usemap="#ad6/d5a/class_p_i_d_a5748127c7eb3f374fd599576a822abcd_icgraph" alt=""/></div>
-<map name="ad6/d5a/class_p_i_d_a5748127c7eb3f374fd599576a822abcd_icgraph" id="ad6/d5a/class_p_i_d_a5748127c7eb3f374fd599576a822abcd_icgraph">
+<div class="center"><img src="../../d6/d5a/class_p_i_d_adcc75d1df4d4516b707b114d5c08f290_icgraph.png" border="0" usemap="#ad6/d5a/class_p_i_d_adcc75d1df4d4516b707b114d5c08f290_icgraph" alt=""/></div>
+<map name="ad6/d5a/class_p_i_d_adcc75d1df4d4516b707b114d5c08f290_icgraph" id="ad6/d5a/class_p_i_d_adcc75d1df4d4516b707b114d5c08f290_icgraph">
 <area shape="rect" title="Calculate the derivative term (derivative on measurement)" alt="" coords="408,55,605,80"/>
 <area shape="rect" href="../../d3/d6a/pid__test_8cpp.html#ad5a06e1825657e1eafe1a6f007acb4ac" title="Test PID class &#45; calculate_derivative_term measurement positive." alt="" coords="289,5,343,31"/>
 <area shape="poly" title=" " alt="" coords="439,53,343,28,344,23,440,48"/>
@@ -373,12 +391,14 @@ Here is the caller graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="393,70,344,70,344,65,393,65"/>
 <area shape="rect" href="../../d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="272,104,360,130"/>
 <area shape="poly" title=" " alt="" coords="440,87,361,108,360,103,439,82"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a92a2db4c3ffd6a0a37ea275d96c55b1c" title="Returns the throttle command calculated by the solver (only throttle)" alt="" coords="25,55,204,80"/>
-<area shape="poly" title=" " alt="" coords="256,103,223,94,178,83,179,78,224,89,257,98"/>
-<area shape="rect" href="../../d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a8a079d78fabe3578dc7038a75af16fb9" title="Stop the thread." alt="" coords="5,104,224,130"/>
-<area shape="poly" title=" " alt="" coords="256,120,224,120,224,114,256,114"/>
-<area shape="rect" href="../../d3/d6a/pid__test_8cpp.html#aa955b6a9298278b14ec50652fd165ecb" title="Test PID class &#45; update Test all the methods." alt="" coords="87,153,142,179"/>
-<area shape="poly" title=" " alt="" coords="257,136,224,145,143,163,141,158,223,140,256,131"/>
+<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a92a2db4c3ffd6a0a37ea275d96c55b1c" title="Returns the throttle command calculated by the solver (only throttle)" alt="" coords="25,29,204,55"/>
+<area shape="poly" title=" " alt="" coords="276,98,223,69,189,58,191,53,225,64,279,94"/>
+<area shape="rect" href="../../d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a8a079d78fabe3578dc7038a75af16fb9" title="Stop the thread." alt="" coords="5,79,224,104"/>
+<area shape="poly" title=" " alt="" coords="256,112,221,108,222,102,257,107"/>
+<area shape="rect" href="../../d3/d6a/pid__test_8cpp.html#aa955b6a9298278b14ec50652fd165ecb" title="Test PID class &#45; update Test all the methods." alt="" coords="87,128,142,154"/>
+<area shape="poly" title=" " alt="" coords="257,127,142,140,142,135,256,121"/>
+<area shape="rect" href="../../d3/d6a/pid__test_8cpp.html#aba478b89bd9d3b5b04f2a7d66851b2a2" title=" " alt="" coords="87,177,142,203"/>
+<area shape="poly" title=" " alt="" coords="282,140,225,169,182,181,143,189,142,184,180,176,223,164,280,136"/>
 </map>
 </div>
 
@@ -428,28 +448,30 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>error (double) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00056">56</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00071">71</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d6/d5a/class_p_i_d_abbd48a33a97a7dbc49e75050bef0146c_icgraph.png" border="0" usemap="#ad6/d5a/class_p_i_d_abbd48a33a97a7dbc49e75050bef0146c_icgraph" alt=""/></div>
 <map name="ad6/d5a/class_p_i_d_abbd48a33a97a7dbc49e75050bef0146c_icgraph" id="ad6/d5a/class_p_i_d_abbd48a33a97a7dbc49e75050bef0146c_icgraph">
-<area shape="rect" title="Calculate the error signal." alt="" coords="408,55,542,80"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="272,55,360,80"/>
-<area shape="poly" title=" " alt="" coords="392,70,361,70,361,65,392,65"/>
+<area shape="rect" title="Calculate the error signal." alt="" coords="408,80,542,106"/>
+<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="272,80,360,106"/>
+<area shape="poly" title=" " alt="" coords="392,96,361,96,361,90,392,90"/>
 <area shape="rect" href="../../d6/d5a/class_p_i_d.html#a92a2db4c3ffd6a0a37ea275d96c55b1c" title="Returns the throttle command calculated by the solver (only throttle)" alt="" coords="25,5,204,31"/>
-<area shape="poly" title=" " alt="" coords="256,53,223,45,178,34,179,29,224,40,257,48"/>
+<area shape="poly" title=" " alt="" coords="280,74,223,45,189,34,191,29,225,40,283,69"/>
 <area shape="rect" href="../../d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a8a079d78fabe3578dc7038a75af16fb9" title="Stop the thread." alt="" coords="5,55,224,80"/>
-<area shape="poly" title=" " alt="" coords="256,70,224,70,224,65,256,65"/>
+<area shape="poly" title=" " alt="" coords="256,88,221,84,222,78,257,83"/>
 <area shape="rect" href="../../d3/d6a/pid__test_8cpp.html#aa955b6a9298278b14ec50652fd165ecb" title="Test PID class &#45; update Test all the methods." alt="" coords="87,104,142,130"/>
-<area shape="poly" title=" " alt="" coords="257,87,224,95,143,114,141,109,223,90,256,82"/>
+<area shape="poly" title=" " alt="" coords="257,103,142,116,142,111,256,97"/>
+<area shape="rect" href="../../d3/d6a/pid__test_8cpp.html#aba478b89bd9d3b5b04f2a7d66851b2a2" title=" " alt="" coords="87,153,142,179"/>
+<area shape="poly" title=" " alt="" coords="282,116,225,145,182,157,143,165,142,160,180,152,223,140,280,112"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a05352c1a64fe0e13588291ccf450bace" name="a05352c1a64fe0e13588291ccf450bace"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05352c1a64fe0e13588291ccf450bace">&#9670;&#160;</a></span>calculate_integral_term()</h2>
+<a id="aeee186f11a36ecbfa02d0cd84f6b9537" name="aeee186f11a36ecbfa02d0cd84f6b9537"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeee186f11a36ecbfa02d0cd84f6b9537">&#9670;&#160;</a></span>calculate_integral_term()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -461,8 +483,18 @@ Here is the caller graph for this function:</div>
           <td class="memname">void PID::calculate_integral_term </td>
           <td>(</td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>error</em></td><td>)</td>
+          <td class="paramname"><em>error</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>dt</em> = <code>-1.0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -480,12 +512,12 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00072">72</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00087">87</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d6/d5a/class_p_i_d_a05352c1a64fe0e13588291ccf450bace_icgraph.png" border="0" usemap="#ad6/d5a/class_p_i_d_a05352c1a64fe0e13588291ccf450bace_icgraph" alt=""/></div>
-<map name="ad6/d5a/class_p_i_d_a05352c1a64fe0e13588291ccf450bace_icgraph" id="ad6/d5a/class_p_i_d_a05352c1a64fe0e13588291ccf450bace_icgraph">
+<div class="center"><img src="../../d6/d5a/class_p_i_d_aeee186f11a36ecbfa02d0cd84f6b9537_icgraph.png" border="0" usemap="#ad6/d5a/class_p_i_d_aeee186f11a36ecbfa02d0cd84f6b9537_icgraph" alt=""/></div>
+<map name="ad6/d5a/class_p_i_d_aeee186f11a36ecbfa02d0cd84f6b9537_icgraph" id="ad6/d5a/class_p_i_d_aeee186f11a36ecbfa02d0cd84f6b9537_icgraph">
 <area shape="rect" title="Calculate the integral term." alt="" coords="408,55,591,80"/>
 <area shape="rect" href="../../d3/d6a/pid__test_8cpp.html#a48d5dc0bd38dfb02fe54f10303a97fbd" title="Test PID class &#45; calculate_integral_term error positive." alt="" coords="289,5,343,31"/>
 <area shape="poly" title=" " alt="" coords="434,53,343,28,344,23,435,48"/>
@@ -493,12 +525,14 @@ Here is the caller graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="393,70,344,70,344,65,393,65"/>
 <area shape="rect" href="../../d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="272,104,360,130"/>
 <area shape="poly" title=" " alt="" coords="435,88,361,108,360,102,433,82"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a92a2db4c3ffd6a0a37ea275d96c55b1c" title="Returns the throttle command calculated by the solver (only throttle)" alt="" coords="25,55,204,80"/>
-<area shape="poly" title=" " alt="" coords="256,103,223,94,178,83,179,78,224,89,257,98"/>
-<area shape="rect" href="../../d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a8a079d78fabe3578dc7038a75af16fb9" title="Stop the thread." alt="" coords="5,104,224,130"/>
-<area shape="poly" title=" " alt="" coords="256,120,224,120,224,114,256,114"/>
-<area shape="rect" href="../../d3/d6a/pid__test_8cpp.html#aa955b6a9298278b14ec50652fd165ecb" title="Test PID class &#45; update Test all the methods." alt="" coords="87,153,142,179"/>
-<area shape="poly" title=" " alt="" coords="257,136,224,145,143,163,141,158,223,140,256,131"/>
+<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a92a2db4c3ffd6a0a37ea275d96c55b1c" title="Returns the throttle command calculated by the solver (only throttle)" alt="" coords="25,29,204,55"/>
+<area shape="poly" title=" " alt="" coords="276,98,223,69,189,58,191,53,225,64,279,94"/>
+<area shape="rect" href="../../d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a8a079d78fabe3578dc7038a75af16fb9" title="Stop the thread." alt="" coords="5,79,224,104"/>
+<area shape="poly" title=" " alt="" coords="256,112,221,108,222,102,257,107"/>
+<area shape="rect" href="../../d3/d6a/pid__test_8cpp.html#aa955b6a9298278b14ec50652fd165ecb" title="Test PID class &#45; update Test all the methods." alt="" coords="87,128,142,154"/>
+<area shape="poly" title=" " alt="" coords="257,127,142,140,142,135,256,121"/>
+<area shape="rect" href="../../d3/d6a/pid__test_8cpp.html#aba478b89bd9d3b5b04f2a7d66851b2a2" title=" " alt="" coords="87,177,142,203"/>
+<area shape="poly" title=" " alt="" coords="282,140,225,169,182,181,143,189,142,184,180,176,223,164,280,136"/>
 </map>
 </div>
 
@@ -536,23 +570,25 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00068">68</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00083">83</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d6/d5a/class_p_i_d_afeb910407a0ec97035fd19f97cbfae1c_icgraph.png" border="0" usemap="#ad6/d5a/class_p_i_d_afeb910407a0ec97035fd19f97cbfae1c_icgraph" alt=""/></div>
 <map name="ad6/d5a/class_p_i_d_afeb910407a0ec97035fd19f97cbfae1c_icgraph" id="ad6/d5a/class_p_i_d_afeb910407a0ec97035fd19f97cbfae1c_icgraph">
-<area shape="rect" title="Calculate the proportional term." alt="" coords="408,31,616,56"/>
-<area shape="rect" href="../../d3/d6a/pid__test_8cpp.html#a237bbc15dc5cdbcb80fc96410787b574" title="Test PID class &#45; calculate_proportional_term." alt="" coords="289,5,343,31"/>
-<area shape="poly" title=" " alt="" coords="392,31,343,24,344,19,393,25"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="272,55,360,80"/>
-<area shape="poly" title=" " alt="" coords="393,61,361,65,360,59,392,55"/>
+<area shape="rect" title="Calculate the proportional term." alt="" coords="408,56,616,82"/>
+<area shape="rect" href="../../d3/d6a/pid__test_8cpp.html#a237bbc15dc5cdbcb80fc96410787b574" title="Test PID class &#45; calculate_proportional_term." alt="" coords="289,31,343,56"/>
+<area shape="poly" title=" " alt="" coords="392,56,343,50,344,44,393,51"/>
+<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="272,80,360,106"/>
+<area shape="poly" title=" " alt="" coords="393,86,361,90,360,85,392,81"/>
 <area shape="rect" href="../../d6/d5a/class_p_i_d.html#a92a2db4c3ffd6a0a37ea275d96c55b1c" title="Returns the throttle command calculated by the solver (only throttle)" alt="" coords="25,5,204,31"/>
-<area shape="poly" title=" " alt="" coords="256,53,223,45,178,34,179,29,224,40,257,48"/>
+<area shape="poly" title=" " alt="" coords="276,74,223,45,189,34,191,29,225,40,279,70"/>
 <area shape="rect" href="../../d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a8a079d78fabe3578dc7038a75af16fb9" title="Stop the thread." alt="" coords="5,55,224,80"/>
-<area shape="poly" title=" " alt="" coords="256,70,224,70,224,65,256,65"/>
+<area shape="poly" title=" " alt="" coords="256,88,221,84,222,78,257,83"/>
 <area shape="rect" href="../../d3/d6a/pid__test_8cpp.html#aa955b6a9298278b14ec50652fd165ecb" title="Test PID class &#45; update Test all the methods." alt="" coords="87,104,142,130"/>
-<area shape="poly" title=" " alt="" coords="257,87,224,95,143,114,141,109,223,90,256,82"/>
+<area shape="poly" title=" " alt="" coords="257,103,142,116,142,111,256,97"/>
+<area shape="rect" href="../../d3/d6a/pid__test_8cpp.html#aba478b89bd9d3b5b04f2a7d66851b2a2" title=" " alt="" coords="87,153,142,179"/>
+<area shape="poly" title=" " alt="" coords="282,116,225,145,182,157,143,165,142,160,180,152,223,140,280,112"/>
 </map>
 </div>
 
@@ -583,7 +619,7 @@ Here is the caller graph for this function:</div>
 
 <p>Compute the output value and apply limits. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00091">91</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00104">104</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -598,19 +634,21 @@ Here is the caller graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="393,108,344,116,343,110,392,103"/>
 <area shape="rect" href="../../d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="272,153,360,179"/>
 <area shape="poly" title=" " alt="" coords="436,115,348,155,345,150,433,110"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a92a2db4c3ffd6a0a37ea275d96c55b1c" title="Returns the throttle command calculated by the solver (only throttle)" alt="" coords="25,104,204,130"/>
-<area shape="poly" title=" " alt="" coords="256,152,223,143,178,133,179,128,224,138,257,147"/>
-<area shape="rect" href="../../d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a8a079d78fabe3578dc7038a75af16fb9" title="Stop the thread." alt="" coords="5,153,224,179"/>
-<area shape="poly" title=" " alt="" coords="256,169,224,169,224,164,256,164"/>
-<area shape="rect" href="../../d3/d6a/pid__test_8cpp.html#aa955b6a9298278b14ec50652fd165ecb" title="Test PID class &#45; update Test all the methods." alt="" coords="87,203,142,228"/>
-<area shape="poly" title=" " alt="" coords="257,185,224,194,143,213,141,207,223,189,256,180"/>
+<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a92a2db4c3ffd6a0a37ea275d96c55b1c" title="Returns the throttle command calculated by the solver (only throttle)" alt="" coords="25,79,204,104"/>
+<area shape="poly" title=" " alt="" coords="276,148,223,118,189,108,191,102,225,113,279,143"/>
+<area shape="rect" href="../../d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a8a079d78fabe3578dc7038a75af16fb9" title="Stop the thread." alt="" coords="5,128,224,154"/>
+<area shape="poly" title=" " alt="" coords="256,161,221,157,222,152,257,156"/>
+<area shape="rect" href="../../d3/d6a/pid__test_8cpp.html#aa955b6a9298278b14ec50652fd165ecb" title="Test PID class &#45; update Test all the methods." alt="" coords="87,177,142,203"/>
+<area shape="poly" title=" " alt="" coords="257,176,142,190,142,184,256,171"/>
+<area shape="rect" href="../../d3/d6a/pid__test_8cpp.html#aba478b89bd9d3b5b04f2a7d66851b2a2" title=" " alt="" coords="87,227,142,252"/>
+<area shape="poly" title=" " alt="" coords="282,190,225,218,182,231,143,238,142,233,180,225,223,213,280,185"/>
 </map>
 </div>
 
 </div>
 </div>
 <a id="a28415465dc91d9ef563719eb5ad2d7db" name="a28415465dc91d9ef563719eb5ad2d7db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28415465dc91d9ef563719eb5ad2d7db">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[1/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a28415465dc91d9ef563719eb5ad2d7db">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[1/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -638,7 +676,7 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <a id="a83cc1223d70cd19ac1c9927313551aef" name="a83cc1223d70cd19ac1c9927313551aef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a83cc1223d70cd19ac1c9927313551aef">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[2/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a83cc1223d70cd19ac1c9927313551aef">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[2/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -666,7 +704,7 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <a id="a37d911cf1d6d758875980266213aa594" name="a37d911cf1d6d758875980266213aa594"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a37d911cf1d6d758875980266213aa594">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[3/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a37d911cf1d6d758875980266213aa594">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[3/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -694,7 +732,7 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <a id="a8899147087953160a3f25cc32589e8b4" name="a8899147087953160a3f25cc32589e8b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8899147087953160a3f25cc32589e8b4">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[4/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8899147087953160a3f25cc32589e8b4">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[4/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -722,7 +760,7 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <a id="a4adc1f8e9f533c8f3a8e6641ac7d302c" name="a4adc1f8e9f533c8f3a8e6641ac7d302c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4adc1f8e9f533c8f3a8e6641ac7d302c">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[5/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4adc1f8e9f533c8f3a8e6641ac7d302c">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[5/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -750,7 +788,7 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <a id="a30aad838b9de1fd266e4f579cd3da20c" name="a30aad838b9de1fd266e4f579cd3da20c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a30aad838b9de1fd266e4f579cd3da20c">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[6/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a30aad838b9de1fd266e4f579cd3da20c">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[6/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -778,7 +816,7 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <a id="a731e6701255982813a5a03c9ba6e3048" name="a731e6701255982813a5a03c9ba6e3048"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a731e6701255982813a5a03c9ba6e3048">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[7/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a731e6701255982813a5a03c9ba6e3048">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[7/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -806,7 +844,7 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <a id="ad50f0243cfab5c0f516326cf03184b27" name="ad50f0243cfab5c0f516326cf03184b27"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad50f0243cfab5c0f516326cf03184b27">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[8/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad50f0243cfab5c0f516326cf03184b27">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[8/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -834,7 +872,7 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <a id="ab17003f79f5c9ead4e282b9f01d92ef5" name="ab17003f79f5c9ead4e282b9f01d92ef5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab17003f79f5c9ead4e282b9f01d92ef5">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[9/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab17003f79f5c9ead4e282b9f01d92ef5">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[9/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -862,7 +900,7 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <a id="a2df584c41a7cf2c47761aaeb75c1d147" name="a2df584c41a7cf2c47761aaeb75c1d147"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2df584c41a7cf2c47761aaeb75c1d147">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[10/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2df584c41a7cf2c47761aaeb75c1d147">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[10/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -890,7 +928,7 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <a id="a0bf43c26318e48dd81c6eb98f8cf205a" name="a0bf43c26318e48dd81c6eb98f8cf205a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0bf43c26318e48dd81c6eb98f8cf205a">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[11/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bf43c26318e48dd81c6eb98f8cf205a">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[11/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -918,7 +956,7 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <a id="a26d1278986bd707041ed6ef36ca8f4a8" name="a26d1278986bd707041ed6ef36ca8f4a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26d1278986bd707041ed6ef36ca8f4a8">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[12/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a26d1278986bd707041ed6ef36ca8f4a8">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[12/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -933,6 +971,34 @@ Here is the caller graph for this function:</div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Update1&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa8da0d7520f135666d19cdbfe2efea57" name="aa8da0d7520f135666d19cdbfe2efea57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8da0d7520f135666d19cdbfe2efea57">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[13/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">PID::FRIEND_TEST </td>
+          <td>(</td>
+          <td class="paramtype">PidTests&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UsesElapsedTimeForIntegrationAndDerivative&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -972,7 +1038,7 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="../../da/ded/class_longitudinal_controller.html#abcaad41b461c8e2ca6819a2f54fb3b3f">LongitudinalController</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00117">117</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00130">130</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -989,11 +1055,11 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="356,43,416,38,416,43,357,48"/>
 <area shape="rect" href="../../d6/d5a/class_p_i_d.html#aa587fab53433af6127bbc5c7fdf50a35" title="Anti&#45;wind&#45;up via dynamic integrator clamping." alt="" coords="447,86,572,111"/>
 <area shape="poly" title=" " alt="" coords="310,182,351,151,404,120,431,110,433,115,406,125,354,155,313,186"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a5748127c7eb3f374fd599576a822abcd" title="Calculate the derivative term (derivative on measurement)" alt="" coords="411,135,608,161"/>
+<area shape="rect" href="../../d6/d5a/class_p_i_d.html#adcc75d1df4d4516b707b114d5c08f290" title="Calculate the derivative term (derivative on measurement)" alt="" coords="411,135,608,161"/>
 <area shape="poly" title=" " alt="" coords="339,184,435,162,436,167,340,190"/>
 <area shape="rect" href="../../d6/d5a/class_p_i_d.html#abbd48a33a97a7dbc49e75050bef0146c" title="Calculate the error signal." alt="" coords="442,184,576,210"/>
 <area shape="poly" title=" " alt="" coords="339,195,426,195,426,200,339,200"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a05352c1a64fe0e13588291ccf450bace" title="Calculate the integral term." alt="" coords="418,234,601,259"/>
+<area shape="rect" href="../../d6/d5a/class_p_i_d.html#aeee186f11a36ecbfa02d0cd84f6b9537" title="Calculate the integral term." alt="" coords="418,234,601,259"/>
 <area shape="poly" title=" " alt="" coords="340,205,436,227,435,232,339,210"/>
 <area shape="rect" href="../../d6/d5a/class_p_i_d.html#afeb910407a0ec97035fd19f97cbfae1c" title="Calculate the proportional term." alt="" coords="405,283,613,309"/>
 <area shape="poly" title=" " alt="" coords="313,208,354,239,406,269,422,275,420,280,404,274,351,244,310,213"/>
@@ -1032,7 +1098,7 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="../../da/ded/class_longitudinal_controller.html#a6852a198ec5241f4dadf08f8d1593b79">LongitudinalController</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00103">103</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00116">116</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 
 </div>
 </div>
@@ -1081,7 +1147,7 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="../../da/ded/class_longitudinal_controller.html#aa2445cceff14e90a6c1f53d54429c7ab">LongitudinalController</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00136">136</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00149">149</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 
 </div>
 </div>
@@ -1137,7 +1203,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>double </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00019">19</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00021">21</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1146,11 +1212,11 @@ Here is the call graph for this function:</div>
 <area shape="rect" title="Calculate the output value." alt="" coords="5,129,94,155"/>
 <area shape="rect" href="../../d6/d5a/class_p_i_d.html#aa587fab53433af6127bbc5c7fdf50a35" title="Anti&#45;wind&#45;up via dynamic integrator clamping." alt="" coords="183,5,309,31"/>
 <area shape="poly" title=" " alt="" coords="57,127,90,84,113,60,140,40,167,28,169,33,143,44,117,64,94,87,61,130"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a5748127c7eb3f374fd599576a822abcd" title="Calculate the derivative term (derivative on measurement)" alt="" coords="147,55,345,80"/>
+<area shape="rect" href="../../d6/d5a/class_p_i_d.html#adcc75d1df4d4516b707b114d5c08f290" title="Calculate the derivative term (derivative on measurement)" alt="" coords="147,55,345,80"/>
 <area shape="poly" title=" " alt="" coords="70,126,102,107,141,89,160,82,162,87,143,94,105,112,72,131"/>
 <area shape="rect" href="../../d6/d5a/class_p_i_d.html#abbd48a33a97a7dbc49e75050bef0146c" title="Calculate the error signal." alt="" coords="179,104,313,130"/>
 <area shape="poly" title=" " alt="" coords="94,134,163,125,164,130,95,139"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a05352c1a64fe0e13588291ccf450bace" title="Calculate the integral term." alt="" coords="154,153,338,179"/>
+<area shape="rect" href="../../d6/d5a/class_p_i_d.html#aeee186f11a36ecbfa02d0cd84f6b9537" title="Calculate the integral term." alt="" coords="154,153,338,179"/>
 <area shape="poly" title=" " alt="" coords="95,145,139,150,138,156,94,150"/>
 <area shape="rect" href="../../d6/d5a/class_p_i_d.html#afeb910407a0ec97035fd19f97cbfae1c" title="Calculate the proportional term." alt="" coords="142,203,350,228"/>
 <area shape="poly" title=" " alt="" coords="73,153,105,172,143,189,162,195,160,200,141,194,103,176,70,158"/>
@@ -1163,13 +1229,15 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d6/d5a/class_p_i_d_a6b2e0ee3c86f4106bccac154b8baf65e_icgraph.png" border="0" usemap="#ad6/d5a/class_p_i_d_a6b2e0ee3c86f4106bccac154b8baf65e_icgraph" alt=""/></div>
 <map name="ad6/d5a/class_p_i_d_a6b2e0ee3c86f4106bccac154b8baf65e_icgraph" id="ad6/d5a/class_p_i_d_a6b2e0ee3c86f4106bccac154b8baf65e_icgraph">
-<area shape="rect" title="Calculate the output value." alt="" coords="272,55,360,80"/>
+<area shape="rect" title="Calculate the output value." alt="" coords="272,80,360,106"/>
 <area shape="rect" href="../../d6/d5a/class_p_i_d.html#a92a2db4c3ffd6a0a37ea275d96c55b1c" title="Returns the throttle command calculated by the solver (only throttle)" alt="" coords="25,5,204,31"/>
-<area shape="poly" title=" " alt="" coords="256,53,223,45,178,34,179,29,224,40,257,48"/>
+<area shape="poly" title=" " alt="" coords="280,74,223,45,189,34,191,29,225,40,283,69"/>
 <area shape="rect" href="../../d5/d69/classcar__keys_1_1main_1_1_publish_thread.html#a8a079d78fabe3578dc7038a75af16fb9" title="Stop the thread." alt="" coords="5,55,224,80"/>
-<area shape="poly" title=" " alt="" coords="256,70,224,70,224,65,256,65"/>
+<area shape="poly" title=" " alt="" coords="256,88,221,84,222,78,257,83"/>
 <area shape="rect" href="../../d3/d6a/pid__test_8cpp.html#aa955b6a9298278b14ec50652fd165ecb" title="Test PID class &#45; update Test all the methods." alt="" coords="87,104,142,130"/>
-<area shape="poly" title=" " alt="" coords="257,87,224,95,143,114,141,109,223,90,256,82"/>
+<area shape="poly" title=" " alt="" coords="257,103,142,116,142,111,256,97"/>
+<area shape="rect" href="../../d3/d6a/pid__test_8cpp.html#aba478b89bd9d3b5b04f2a7d66851b2a2" title=" " alt="" coords="87,153,142,179"/>
+<area shape="poly" title=" " alt="" coords="282,116,225,145,182,157,143,165,142,160,180,152,223,140,280,112"/>
 </map>
 </div>
 
@@ -1203,7 +1271,7 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="../../da/ded/class_longitudinal_controller.html#aab8fb4e0d8fd5b5f548c3601aa097101">LongitudinalController</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00112">112</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00125">125</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 
 </div>
 </div>
@@ -1235,7 +1303,7 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="../../da/ded/class_longitudinal_controller.html#a89af5f265b3f2b408abc3f3c60210805">LongitudinalController</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00107">107</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00120">120</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 
 </div>
 </div>
@@ -1260,7 +1328,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1286,7 +1354,31 @@ Here is the caller graph for this function:</div>
 
 <p>Differentiator term current value. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00032">32</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2bc53ad753af20ba14ce12fd6b6d93af" name="a2bc53ad753af20ba14ce12fd6b6d93af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bc53ad753af20ba14ce12fd6b6d93af">&#9670;&#160;</a></span>has_last_update_time_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PID::has_last_update_time_ {false}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00040">40</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1312,7 +1404,7 @@ Here is the caller graph for this function:</div>
 
 <p>Integrator term current value. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00033">33</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1336,7 +1428,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00021">21</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1360,7 +1452,31 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00025">25</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aefceea02f8dfa378b798ebc24706b881" name="aefceea02f8dfa378b798ebc24706b881"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefceea02f8dfa378b798ebc24706b881">&#9670;&#160;</a></span>last_update_time_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::chrono::steady_clock::time_point PID::last_update_time_ {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00039">39</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1384,7 +1500,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00022">22</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1410,7 +1526,7 @@ Here is the caller graph for this function:</div>
 
 <p>Current output value. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00037">37</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00042">42</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1436,7 +1552,7 @@ Here is the caller graph for this function:</div>
 
 <p>Previous error value, required for integrator. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00036">36</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1462,7 +1578,7 @@ Here is the caller graph for this function:</div>
 
 <p>Previous measurement value, required for defferentiator. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00035">35</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00037">37</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1488,7 +1604,7 @@ Here is the caller graph for this function:</div>
 
 <p>Proportional term current value. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00030">30</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00032">32</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1512,7 +1628,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1536,7 +1652,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00030">30</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1560,7 +1676,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00027">27</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>

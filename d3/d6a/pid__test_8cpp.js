@@ -11,5 +11,6 @@ var pid__test_8cpp =
     [ "TEST", "d3/d6a/pid__test_8cpp.html#a12a2222b862ba3121c65234c2a16f5b2", null ],
     [ "TEST", "d3/d6a/pid__test_8cpp.html#a53cc6549fac8e929df3580ac1dc922b2", null ],
     [ "TEST", "d3/d6a/pid__test_8cpp.html#a6b4d621d8a916007978515ac3513748a", null ],
-    [ "TEST", "d3/d6a/pid__test_8cpp.html#aa955b6a9298278b14ec50652fd165ecb", null ]
+    [ "TEST", "d3/d6a/pid__test_8cpp.html#aa955b6a9298278b14ec50652fd165ecb", null ],
+    [ "TEST", "d3/d6a/pid__test_8cpp.html#aba478b89bd9d3b5b04f2a7d66851b2a2", null ]
 ];

@@ -1,7 +1,7 @@
 <map id="PID" name="PID">
-<area shape="rect" id="Node000001" title="PI&#45;D Controller class." alt="" coords="69,254,233,923"/>
+<area shape="rect" id="Node000001" title="PI&#45;D Controller class." alt="" coords="69,254,233,963"/>
 <area shape="rect" id="Node000002" href="$da/ded/class_longitudinal_controller.html" title="Base (abstract) class for longitudinal controllers (the ones that calculate throttle)" alt="" coords="5,5,169,191"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,205,110,253,105,254,99,206"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,205,109,254,104,254,98,205"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="194,65,237,131"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="214,131,200,237,195,237,209,130"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="214,131,201,237,195,237,209,130"/>
 </map>

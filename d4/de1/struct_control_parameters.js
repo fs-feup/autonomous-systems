@@ -22,7 +22,6 @@ var struct_control_parameters =
     [ "pid_lim_min_", "d4/de1/struct_control_parameters.html#aa99a13e24b70bbab07eba1e02066a7ed", null ],
     [ "pid_max_negative_error_", "d4/de1/struct_control_parameters.html#ad863dfaa2a425155f3d492ca0da4fc78", null ],
     [ "pid_max_positive_error_", "d4/de1/struct_control_parameters.html#ac7b9388826b5a7643375cfb3b1d4776f", null ],
-    [ "pid_t_", "d4/de1/struct_control_parameters.html#ad1411cbd9ac605fa2f9d9e11c226ef27", null ],
     [ "pid_tau_", "d4/de1/struct_control_parameters.html#a8fa20f824ceff20002fe72da1abb0e9a", null ],
     [ "pure_pursuit_lookahead_gain_", "d4/de1/struct_control_parameters.html#a3384b408c688c3ac41a1474579037698", null ],
     [ "pure_pursuit_lookahead_minimum_", "d4/de1/struct_control_parameters.html#a4865e94c54ed6800c71d2f4e9931bbb4", null ],
