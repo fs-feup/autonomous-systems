@@ -108,7 +108,7 @@ Eigen::Vector4d TireModel::calculate_tire_forces_not_transient(TireInput& tire_i
 // Transient
 void TireModel::calculate_slip_angle_front(TireInput& tire_input) {
   double L_alpha = car_parameters_->tire_parameters->slip_angle_relaxation_length;
-  if (L_alpha <= 0.0) {
+  if (L_alpha <= 0.001) {
     calculate_slip_angle_front_not_transient(tire_input);
     return;
   }
@@ -135,7 +135,7 @@ void TireModel::calculate_slip_angle_front(TireInput& tire_input) {
 
 void TireModel::calculate_slip_angle_rear(TireInput& tire_input) {
   double L_alpha = car_parameters_->tire_parameters->slip_angle_relaxation_length;
-  if (L_alpha <= 0.0) {
+  if (L_alpha <= 0.001) {
     calculate_slip_angle_rear_not_transient(tire_input);
     return;
   }
@@ -162,7 +162,7 @@ void TireModel::calculate_slip_angle_rear(TireInput& tire_input) {
 
 void TireModel::calculate_slip_ratio(TireInput& tire_input) {
   double L = car_parameters_->tire_parameters->slip_ratio_relaxation_length;
-  if (L <= 0.0) {
+  if (L <= 0.001) {
     calculate_slip_ratio_not_transient(tire_input);
     return;
   }

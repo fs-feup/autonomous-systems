@@ -23,7 +23,7 @@ struct InvictaSimParameters {
   std::string track_name;
   std::string input_adapter;
   std::string output_adapter;
-  bool tuning_evaluator_enabled;
+  bool rosbag_evaluator_enabled;
 
   std::string vehicle_model;
   std::string car_parameters_config;
