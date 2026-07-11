@@ -40,7 +40,7 @@ set(IMPLEMENTATION_FILES
   src/sensors/sensors_base.cpp
   src/sensors/simulated_perception.cpp
   src/sensors/imu.cpp
-  src/sensors/sangle.cpp
+  src/sensors/steering_sensor.cpp
   src/sensors/wss.cpp
   src/vehicle_model/FSFEUP03.cpp
   src/statistics/collision_statistics.cpp

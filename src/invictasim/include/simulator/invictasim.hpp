@@ -225,6 +225,7 @@ private:
   std::shared_ptr<IMU> imu_model_;                          ///< IMU
   std::shared_ptr<SimulatedPerception> perception_model_;   ///< Simulated Perception cones
   std::shared_ptr<WSS> wss_model_;                          ///< Wheel Speed Sensor
+  std::shared_ptr<SteeringSensor> sas_model_;                    ///< Steering Angle Sensor
   std::shared_ptr<Statistics> statistics_;       ///< Statistics calculator.
 
   // Simulation loop timing

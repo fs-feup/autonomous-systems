@@ -1,7 +1,5 @@
 # Steering Angle Sensor Configuration
 steering_angle_sensor:
   noise_std_dev: 0.005
-  scale_factor: 0.01
   bias: 0.0
-  steering_speed_scale: 0.05
   quantization_step: 0.001

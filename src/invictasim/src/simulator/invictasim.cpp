@@ -11,8 +11,11 @@ InvictaSim::InvictaSim(const InvictaSimParameters& params)
   track_ = std::make_shared<Track>(params_.track_name);
   std::string imu_cfg = common_lib::config_load::get_config_yaml_path("invictasim", "invictasim/sensors", "imu");
   std::string wss_cfg = common_lib::config_load::get_config_yaml_path("invictasim", "invictasim/sensors", "wss");
+  std::string sas_cfg = common_lib::config_load::get_config_yaml_path("invictasim", "invictasim/sensors", "steering_sensor");
   imu_model_ = std::make_unique<IMU>(imu_cfg);
   wss_model_ = std::make_unique<WSS>(wss_cfg);
+  sas_model_ = std::make_unique<SteeringSensor>(sas_cfg);
+  
   if (params_.use_simulated_perception) {
     std::string perception_cfg = common_lib::config_load::get_config_yaml_path("invictasim", "invictasim/sensors", "perception");
     perception_model_ = std::make_unique<SimulatedPerception>(perception_cfg);
@@ -254,8 +257,7 @@ SensorsSnapshot InvictaSim::build_sensors_snapshot(
   SensorsSnapshot snapshot;
   if (imu_model_) {
     std::vector<double> imu_measurement = imu_model_->apply_imu_error(
-        vehicle_snapshot.acceleration_x, vehicle_snapshot.acceleration_y,
-        vehicle_snapshot.yaw_rate);
+        vehicle_snapshot.acceleration_x, vehicle_snapshot.acceleration_y, vehicle_snapshot.yaw_rate);
     snapshot.free_acceleration = Eigen::Vector3d(imu_measurement[0], imu_measurement[1], 0.0);
     snapshot.angular_velocity = Eigen::Vector3d(0.0, 0.0, imu_measurement[2]);
   } else {
@@ -279,7 +281,12 @@ SensorsSnapshot InvictaSim::build_sensors_snapshot(
         vehicle_snapshot.wheel_speed.rear_right * 60 / (2 * M_PI));
   }
 
-  snapshot.steering_angle = vehicle_snapshot.steering_angle;
+  if (sas_model_) {
+    snapshot.steering_angle = sas_model_->apply_sas_error(vehicle_snapshot.steering_angle);
+  } else {
+    snapshot.steering_angle = vehicle_snapshot.steering_angle;
+  }
+
   snapshot.motor_rpm = vehicle_snapshot.motor_omega * 60 / (2 * M_PI);  // Convert rad/s to rpm
   return snapshot;
 }
