@@ -1,8 +1,8 @@
 transmission:
   gear_ratio: 3.67
-  efficiency: 0.981877832047299 # original: 0.95
-  kv: 58.48433543089377 # original: 40.0
-  t_max: 361.5055953976007 # original: 300.0
-  viscous_drag_coeff: 0.0 # original: 0.01
-  coulomb_drag: 0.0 # original: 2.0
-  coulomb_smooth_stiffness: 20.0  # Stiffness for smoothing in Coulomb drag
+  efficiency: 0.999 # original: 0.95
+  kv: 9.24 # original: 40.0
+  t_max: 542.25 # original: 300.0
+  viscous_drag_coeff: 0 # original: 0.01
+  coulomb_drag: 0 # original: 2.0
+  coulomb_smooth_stiffness: 19.9294  # Stiffness for smoothing in Coulomb drag

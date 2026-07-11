@@ -8,4 +8,4 @@ invictasim:
   sim_speed: 1.0  # Sim velocity multiplier (1.0 = real-time, 2.0 = 2x real-time, etc.)
   initial_go_signal: true  # Initial state of the go signal 
   track_name: "Acceleration"  # Also available: "Europarque", "FEUP"
-  rosbag_evaluator: false
+  rosbag_evaluator: true
