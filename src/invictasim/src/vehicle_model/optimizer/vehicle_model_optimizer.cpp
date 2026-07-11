@@ -11,6 +11,14 @@
 #include <algorithm>
 #include <future>
 #include <filesystem>
+#include <csignal>
+#include <atomic>
+
+std::atomic<bool> g_stop_optimization{false};
+void handle_sigint(int /*sig*/) {
+    std::cout << "\n[SIGINT] CTRL+C detected. Stopping optimization after current generation finishes..." << std::endl;
+    g_stop_optimization = true;
+}
 
 #include <Eigen/Dense>
 #include <yaml-cpp/yaml.h>
@@ -19,223 +27,111 @@
 #include "common_lib/structures/wheels.hpp"
 #include "config/config.hpp"
 
-#include "motion_lib/aero_model/map.hpp"
-#include "motion_lib/battery_model/map.hpp"
-#include "motion_lib/brake_model/map.hpp"
-#include "motion_lib/inverter_model/map.hpp"
-#include "motion_lib/load_transfer_model/map.hpp"
-#include "motion_lib/motor_model/map.hpp"
-#include "motion_lib/steering_model/map.hpp"
-#include "motion_lib/steering_motor_model/map.hpp"
-#include "motion_lib/tire_model/map.hpp"
-#include "motion_lib/transmission_model/map.hpp"
-
+// Include your high-performance inline models here!
+// Make sure to rename inline_02.cpp to inline_02.hpp in your file explorer.
+#include "inline_models/inline_02.hpp" 
+// #include "inline_models/inline_03.hpp" // Add future models easily
 
 // Constants
 constexpr double kEpsilon = 1e-6;
 
 struct CsvRow {
-  double timestamp_s;
-  double throttle_fl;
-  double throttle_fr;
-  double throttle_rl;
-  double throttle_rr;
-  double steering;
-  double real_x;
-  double real_y;
-  double real_yaw;
-  double real_vx;
-  double real_vy;
-  double real_yaw_rate;
-  double real_fl_rpm;
-  double real_fr_rpm;
-  double real_rl_rpm;
-  double real_rr_rpm;
-  double real_motor_rpm;
+    double timestamp_s, throttle_fl, throttle_fr, throttle_rl, throttle_rr, steering;
+    double real_x, real_y, real_yaw, real_vx, real_vy, real_yaw_rate;
+    double real_fl_rpm, real_fr_rpm, real_rl_rpm, real_rr_rpm, real_motor_rpm;
 };
-
-struct SimState {
-  double vx = 0.0;
-  double vy = 0.0;
-  double yaw_rate = 0.0;
-  double yaw = 0.0;
-  double x = 0.0;
-  double y = 0.0;
-  double steering_angle = 0.0;
-  double wl_fl = 0.0;
-  double wl_fr = 0.0;
-  double wl_rl = 0.0;
-  double wl_rr = 0.0;
-  double ax = 0.0;
-  double ay = 0.0;
-
-  double motor_torque = 0.0;
-  double motor_omega = 0.0;
-  double motor_current = 0.0;
-  double battery_current = 0.0;
-  double battery_voltage = 0.0;
-
-  Eigen::Vector4d last_slip_ratio = Eigen::Vector4d::Zero();
-  Eigen::Vector4d last_slip_angle = Eigen::Vector4d::Zero();
-
-  common_lib::structures::Wheels wheels_torque;
-  common_lib::structures::Wheels wheels_vertical_load;
-
-  double aero_drag = 0.0;
-  double aero_downforce = 0.0;
-};
-
-using StateVec = Eigen::Matrix<double, 13, 1>;
 
 struct RunningRmse {
-  double sum_squares = 0.0;
-  int count = 0;
-
-  void update(double value) {
-    sum_squares += value * value;
-    count++;
-  }
-
-  double get() const {
-    if (count <= 0) return 0.0;
-    return std::sqrt(sum_squares / static_cast<double>(count));
-  }
+    double sum_squares = 0.0;
+    int count = 0;
+    void update(double value) { sum_squares += value * value; count++; }
+    double get() const { return count <= 0 ? 0.0 : std::sqrt(sum_squares / static_cast<double>(count)); }
 };
 
-struct ParameterSpec {
-  std::string name;
-  double min_val;
-  double max_val;
-};
-
-struct Individual {
-  std::vector<double> values;
-  double score = 1e9;
-};
-
-struct PoseSample {
-  double x;
-  double y;
-  double yaw;
-};
+struct ParameterSpec { std::string name; double min_val; double max_val; };
+struct Individual { std::vector<double> values; double score = 1e9; double position_rmse = 1e9; };
+struct EvaluationResult { double total_score; double position_rmse; };
+struct PoseSample { double x; double y; double yaw; };
 
 double normalize_angle(double angle) {
-  return std::atan2(std::sin(angle), std::cos(angle));
+    return std::atan2(std::sin(angle), std::cos(angle));
 }
 
-PoseSample transform_pose_to_map(
-    const PoseSample& pose, const PoseSample& source_origin, const PoseSample& target_origin) {
-  const double dx = pose.x - source_origin.x;
-  const double dy = pose.y - source_origin.y;
-  const double source_cos = std::cos(source_origin.yaw);
-  const double source_sin = std::sin(source_origin.yaw);
-  const double local_x = source_cos * dx + source_sin * dy;
-  const double local_y = -source_sin * dx + source_cos * dy;
-  const double local_yaw = normalize_angle(pose.yaw - source_origin.yaw);
+PoseSample transform_pose_to_map(const PoseSample& pose, const PoseSample& source_origin, const PoseSample& target_origin) {
+    const double dx = pose.x - source_origin.x;
+    const double dy = pose.y - source_origin.y;
+    const double source_cos = std::cos(source_origin.yaw);
+    const double source_sin = std::sin(source_origin.yaw);
+    const double local_x = source_cos * dx + source_sin * dy;
+    const double local_y = -source_sin * dx + source_cos * dy;
+    const double local_yaw = normalize_angle(pose.yaw - source_origin.yaw);
 
-  const double target_cos = std::cos(target_origin.yaw);
-  const double target_sin = std::sin(target_origin.yaw);
-  return {target_origin.x + target_cos * local_x - target_sin * local_y,
-          target_origin.y + target_sin * local_x + target_cos * local_y,
-          normalize_angle(target_origin.yaw + local_yaw)};
+    const double target_cos = std::cos(target_origin.yaw);
+    const double target_sin = std::sin(target_origin.yaw);
+    return {target_origin.x + target_cos * local_x - target_sin * local_y,
+            target_origin.y + target_sin * local_x + target_cos * local_y,
+            normalize_angle(target_origin.yaw + local_yaw)};
 }
 
 std::vector<CsvRow> read_csv(const std::string& path) {
-  std::vector<CsvRow> rows;
-  std::ifstream file(path);
-  if (!file.is_open()) {
-    std::cerr << "Error: Could not open CSV file: " << path << std::endl;
-    return rows;
-  }
-
-  std::string line;
-  if (!std::getline(file, line)) {
-    return rows;
-  }
-
-  std::vector<std::string> headers;
-  std::stringstream ss(line);
-  std::string cell;
-  while (std::getline(ss, cell, ',')) {
-    while (!cell.empty() && (cell.back() == '\r' || cell.back() == ' ')) cell.pop_back();
-    headers.push_back(cell);
-  }
-
-  auto get_col_idx = [&](const std::string& name) -> int {
-    for (size_t i = 0; i < headers.size(); ++i) {
-      if (headers[i] == name) return i;
-    }
-    return -1;
-  };
-
-  int idx_time = get_col_idx("timestamp_s");
-  int idx_throttle_fl = get_col_idx("throttle_fl");
-  int idx_throttle_fr = get_col_idx("throttle_fr");
-  int idx_throttle_rl = get_col_idx("throttle_rl");
-  int idx_throttle_rr = get_col_idx("throttle_rr");
-  int idx_steering = get_col_idx("steering");
-  int idx_x = get_col_idx("real_x");
-  int idx_y = get_col_idx("real_y");
-  int idx_yaw = get_col_idx("real_yaw");
-  int idx_vx = get_col_idx("real_vx");
-  int idx_vy = get_col_idx("real_vy");
-  int idx_yaw_rate = get_col_idx("real_yaw_rate");
-  int idx_fl_rpm = get_col_idx("real_fl_rpm");
-  int idx_fr_rpm = get_col_idx("real_fr_rpm");
-  int idx_rl_rpm = get_col_idx("real_rl_rpm");
-  int idx_rr_rpm = get_col_idx("real_rr_rpm");
-  int idx_motor_rpm = get_col_idx("real_motor_rpm");
-
-  if (idx_time < 0 || idx_steering < 0 || idx_x < 0 || idx_y < 0) {
-    std::cerr << "Error: CSV is missing required columns in " << path << std::endl;
-    return rows;
-  }
-
-  while (std::getline(file, line)) {
-    if (line.empty()) continue;
-    std::vector<std::string> values;
-    std::stringstream line_ss(line);
-    while (std::getline(line_ss, cell, ',')) {
-      values.push_back(cell);
+    std::vector<CsvRow> rows;
+    std::ifstream file(path);
+    if (!file.is_open()) {
+        std::cerr << "Error: Could not open CSV file: " << path << std::endl;
+        return rows;
     }
 
-    if (values.size() < headers.size()) continue;
+    std::string line;
+    if (!std::getline(file, line)) return rows;
 
-    auto get_val = [&](int idx, double default_val = 0.0) -> double {
-      if (idx < 0 || idx >= static_cast<int>(values.size())) return default_val;
-      try {
-        return std::stod(values[idx]);
-      } catch (...) {
-        return default_val;
-      }
+    std::vector<std::string> headers;
+    std::stringstream ss(line);
+    std::string cell;
+    while (std::getline(ss, cell, ',')) {
+        while (!cell.empty() && (cell.back() == '\r' || cell.back() == ' ')) cell.pop_back();
+        headers.push_back(cell);
+    }
+
+    auto get_col_idx = [&](const std::string& name) -> int {
+        for (size_t i = 0; i < headers.size(); ++i) if (headers[i] == name) return i;
+        return -1;
     };
 
-    CsvRow row;
-    row.timestamp_s = get_val(idx_time);
-    row.throttle_fl = get_val(idx_throttle_fl);
-    row.throttle_fr = get_val(idx_throttle_fr);
-    row.throttle_rl = get_val(idx_throttle_rl);
-    row.throttle_rr = get_val(idx_throttle_rr);
-    row.steering = get_val(idx_steering);
-    row.real_x = get_val(idx_x);
-    row.real_y = get_val(idx_y);
-    row.real_yaw = get_val(idx_yaw);
-    row.real_vx = get_val(idx_vx);
-    row.real_vy = get_val(idx_vy);
-    row.real_yaw_rate = get_val(idx_yaw_rate);
-    row.real_fl_rpm = get_val(idx_fl_rpm);
-    row.real_fr_rpm = get_val(idx_fr_rpm);
-    row.real_rl_rpm = get_val(idx_rl_rpm);
-    row.real_rr_rpm = get_val(idx_rr_rpm);
-    row.real_motor_rpm = get_val(idx_motor_rpm);
+    int idx_time = get_col_idx("timestamp_s"), idx_throttle_fl = get_col_idx("throttle_fl");
+    int idx_throttle_fr = get_col_idx("throttle_fr"), idx_throttle_rl = get_col_idx("throttle_rl");
+    int idx_throttle_rr = get_col_idx("throttle_rr"), idx_steering = get_col_idx("steering");
+    int idx_x = get_col_idx("real_x"), idx_y = get_col_idx("real_y"), idx_yaw = get_col_idx("real_yaw");
+    int idx_vx = get_col_idx("real_vx"), idx_vy = get_col_idx("real_vy"), idx_yaw_rate = get_col_idx("real_yaw_rate");
+    int idx_fl_rpm = get_col_idx("real_fl_rpm"), idx_fr_rpm = get_col_idx("real_fr_rpm");
+    int idx_rl_rpm = get_col_idx("real_rl_rpm"), idx_rr_rpm = get_col_idx("real_rr_rpm");
+    int idx_motor_rpm = get_col_idx("real_motor_rpm");
 
-    rows.push_back(row);
-  }
+    while (std::getline(file, line)) {
+        if (line.empty()) continue;
+        std::vector<std::string> values;
+        std::stringstream line_ss(line);
+        while (std::getline(line_ss, cell, ',')) values.push_back(cell);
+        if (values.size() < headers.size()) continue;
 
-  return rows;
+        auto get_val = [&](int idx, double default_val = 0.0) -> double {
+            if (idx < 0 || idx >= static_cast<int>(values.size())) return default_val;
+            try { return std::stod(values[idx]); } catch (...) { return default_val; }
+        };
+
+        CsvRow row;
+        row.timestamp_s = get_val(idx_time); row.throttle_fl = get_val(idx_throttle_fl);
+        row.throttle_fr = get_val(idx_throttle_fr); row.throttle_rl = get_val(idx_throttle_rl);
+        row.throttle_rr = get_val(idx_throttle_rr); row.steering = get_val(idx_steering);
+        row.real_x = get_val(idx_x); row.real_y = get_val(idx_y); row.real_yaw = get_val(idx_yaw);
+        row.real_vx = get_val(idx_vx); row.real_vy = get_val(idx_vy); row.real_yaw_rate = get_val(idx_yaw_rate);
+        row.real_fl_rpm = get_val(idx_fl_rpm); row.real_fr_rpm = get_val(idx_fr_rpm);
+        row.real_rl_rpm = get_val(idx_rl_rpm); row.real_rr_rpm = get_val(idx_rr_rpm);
+        row.real_motor_rpm = get_val(idx_motor_rpm);
+        rows.push_back(row);
+    }
+    return rows;
 }
 
-// Reflection-like map of parameters. Add any new parameters you want to tune here!
 std::map<std::string, double*> get_parameter_ptrs(std::shared_ptr<common_lib::car_parameters::CarParameters> p) {
   std::map<std::string, double*> m;
   if (!p) return m;
@@ -729,983 +625,456 @@ std::map<std::string, double*> get_parameter_ptrs(std::shared_ptr<common_lib::ca
   return m;
 }
 
-void apply_parameter_override(
-    std::shared_ptr<common_lib::car_parameters::CarParameters> car_params,
-    const std::string& name, double val) {
-  auto ptrs = get_parameter_ptrs(car_params);
-  auto it = ptrs.find(name);
-  if (it != ptrs.end()) {
-    *(it->second) = val;
-  } else {
-    std::cerr << "Warning: Unknown parameter override '" << name << "'" << std::endl;
-  }
-}
 
-double get_baseline_value(
-    std::shared_ptr<common_lib::car_parameters::CarParameters> car_params,
-    const std::string& name) {
-  auto ptrs = get_parameter_ptrs(car_params);
-  auto it = ptrs.find(name);
-  if (it != ptrs.end()) {
-    return *(it->second);
-  }
-  return 0.0;
-}
-
-// Polymorphic base for standalone simulator models
-class StandaloneVehicleModel {
-public:
-  virtual ~StandaloneVehicleModel() = default;
-  virtual void step(double dt, const common_lib::structures::Wheels& throttle, double steering_angle, SimState& state) = 0;
-};
-
-// Standalone FSFEUP02 implementation
-class FSFEUP02StandaloneModel : public StandaloneVehicleModel {
-private:
-  std::shared_ptr<common_lib::car_parameters::CarParameters> car_params;
-  std::shared_ptr<TireModel> tire_model;
-  std::shared_ptr<MotorModel> motor;
-  std::shared_ptr<BatteryModel> battery;
-  std::shared_ptr<TransmissionModel> transmission;
-  std::shared_ptr<InverterModel> inverter;
-  std::shared_ptr<BrakeModel> brake;
-  std::shared_ptr<AeroModel> aero;
-  std::shared_ptr<LoadTransferModel> load_transfer;
-  std::shared_ptr<SteeringModel> steering;
-  std::shared_ptr<SteeringMotorModel> steering_motor;
-
-  double calculate_powertrain_torque(double throttle_input, double dt, SimState& state) {
-    common_lib::structures::Wheels w_speeds(state.wl_fl, state.wl_fr, state.wl_rl, state.wl_rr);
-    double motor_omega = transmission->calculate_motor_omega(w_speeds);
-    double motor_rpm = std::abs(motor_omega * 60.0f / (2.0f * M_PI));
-
-    double max_motor_torque = motor->get_max_torque_at_rpm(motor_rpm);
-    double reference_motor_torque = throttle_input * max_motor_torque;
-
-    const double min_omega_for_power = 10.0;
-    double omega_sign_source =
-        std::abs(motor_omega) > 1e-3 ? motor_omega : reference_motor_torque;
-
-    double omega_for_power =
-        std::copysign(std::max(std::abs(motor_omega), min_omega_for_power),
-                      omega_sign_source);
-
-    double mechanical_power_request =
-        reference_motor_torque * omega_for_power;
-
-    double motor_efficiency = motor->get_efficiency(std::abs(reference_motor_torque), motor_rpm);
-    double inverter_efficiency = inverter->get_efficiency();
-    double total_efficiency = motor_efficiency * inverter_efficiency;
-
-    double battery_power_request;
-    if (mechanical_power_request >= 0.0) {
-      battery_power_request = mechanical_power_request / total_efficiency;
+void apply_parameter_override(std::shared_ptr<common_lib::car_parameters::CarParameters> car_params, const std::string& name, double val) {
+    auto ptrs = get_parameter_ptrs(car_params);
+    auto it = ptrs.find(name);
+    if (it != ptrs.end()) {
+        *(it->second) = val;
     } else {
-      battery_power_request = mechanical_power_request * total_efficiency;
+        std::cerr << "Warning: Unknown parameter override '" << name << "'" << std::endl;
     }
-
-    double battery_voltage = battery->get_voltage();
-    double requested_battery_current =
-        battery_power_request / battery_voltage;
-    double allowed_battery_current =
-        battery->calculate_allowed_current(requested_battery_current);
-
-    double allowed_battery_voltage =
-        battery->get_voltage(allowed_battery_current);
-    double allowed_battery_power =
-        allowed_battery_current * allowed_battery_voltage;
-
-    double allowed_mechanical_power;
-    if (allowed_battery_power >= 0.0) {
-      allowed_mechanical_power = allowed_battery_power * total_efficiency;
-    } else {
-      allowed_mechanical_power = allowed_battery_power / total_efficiency;
-    }
-
-    double actual_motor_torque = std::copysign(
-        std::min(std::abs(allowed_mechanical_power / omega_for_power),
-                 std::abs(reference_motor_torque)),
-        reference_motor_torque);
-
-    double motor_phase_current =
-        std::abs(actual_motor_torque) / car_params->motor_parameters->kt_constant;
-
-    double max_inverter_phase_current =
-        car_params->inverter_parameters->max_phase_current;
-    if (motor_phase_current > max_inverter_phase_current) {
-      double limited_torque =
-          max_inverter_phase_current *
-          car_params->motor_parameters->kt_constant;
-
-      actual_motor_torque =
-          std::copysign(limited_torque, actual_motor_torque);
-
-      motor_phase_current = max_inverter_phase_current;
-    }
-
-    const double signed_motor_phase_current =
-        std::abs(allowed_battery_current) > 1e-9
-            ? std::copysign(motor_phase_current, allowed_battery_current)
-            : 0.0;
-
-    battery->update_state(allowed_battery_current, dt);
-    motor->update_state(signed_motor_phase_current,
-                         actual_motor_torque,
-                         dt);
-
-    state.motor_torque = actual_motor_torque;
-    state.motor_omega = motor_omega;
-    state.motor_current = motor->get_current();
-    state.battery_current = battery->get_current();
-    state.battery_voltage = battery->get_voltage();
-
-    return actual_motor_torque;
-  }
-
-  StateVec get_state_derivative(
-      const StateVec& s,
-      double motor_torque,
-      const common_lib::structures::Wheels& brake_torques,
-      double steering_target,
-      double dt,
-      const Eigen::Vector4d& last_slip_ratio,
-      const Eigen::Vector4d& last_slip_angle,
-      Eigen::Vector4d& out_slip_ratio,
-      Eigen::Vector4d& out_slip_angle
-  ) {
-    StateVec ds = StateVec::Zero();
-    const common_lib::structures::Wheels wheel_speeds(s(7), s(8), s(9), s(10));
-
-    const common_lib::structures::Wheels wheel_torques =
-        transmission->calculate_wheel_torques(motor_torque, wheel_speeds);
-    const Eigen::Vector4d torques(wheel_torques.front_left, wheel_torques.front_right,
-                                  wheel_torques.rear_left, wheel_torques.rear_right);
-
-    Eigen::Vector4d wheel_angles = steering->calculate_steering_angles(s(6));
-
-    const Eigen::Vector3d aero_forces =
-        aero->aero_forces(Eigen::Vector3d(s(0), s(1), s(2)));
-
-    const common_lib::structures::Wheels load_distribution = load_transfer->compute_loads(
-        LoadTransferInput{s(11), s(12), aero_forces[2]});
-    const Eigen::Vector4d vertical_loads(load_distribution.front_left, load_distribution.front_right,
-                                         load_distribution.rear_left, load_distribution.rear_right);
-
-    Eigen::VectorXd tire_forces(16);
-    TireInput tire_input;
-    tire_input.dt = dt;
-    tire_input.vx = s(0);
-    tire_input.vy = s(1);
-    tire_input.yaw_rate = s(2);
-    tire_input.last_slip_ratio = last_slip_ratio;
-    tire_input.last_slip_angle = last_slip_angle;
-
-    for (Tire tire : {FL, FR, RL, RR}) {
-      tire_input.tire = tire;
-      tire_input.steering_angle = wheel_angles(tire);
-      tire_input.wheel_angular_speed = s(7 + tire);
-      tire_input.vertical_load = vertical_loads(tire);
-      tire_forces.segment<4>(tire * 4) = tire_model->calculate_tire_forces(tire_input);
-      out_slip_ratio(tire) = tire_input.slip_ratio;
-      out_slip_angle(tire) = tire_input.slip_angle;
-    }
-
-    double total_fx = aero_forces[0];
-    double total_fy = aero_forces[1];
-    double total_torque = 0.0;
-
-    const double lr = car_params->cg_2_rear_axis;
-    const double lf = car_params->wheelbase - lr;
-    const double half_width = car_params->track_width / 2.0;
-    const double wheel_radius = car_params->tire_parameters->effective_tire_r;
-    const Eigen::Vector4d brake_torques_by_tire(brake_torques.front_left,
-                                                brake_torques.front_right,
-                                                brake_torques.rear_left,
-                                                brake_torques.rear_right);
-
-    for (Tire tire : {FL, FR, RL, RR}) {
-      double fx_tire = tire_forces(tire * 4);
-      const double fy_tire = tire_forces(tire * 4 + 1);
-      const double mz_tire = tire_forces(tire * 4 + 3);
-      const double cos_delta = std::cos(wheel_angles(tire));
-      const double sin_delta = std::sin(wheel_angles(tire));
-      const double brake_torque = brake_torques_by_tire(tire);
-
-      double vcx_tire = s(0);
-      if (tire == FL || tire == FR) {
-        vcx_tire = s(0) * cos_delta + (s(1) + lf * s(2)) * sin_delta;
-      } else {
-        vcx_tire = s(0) - (tire == RL ? half_width : -half_width) * s(2);
-      }
-
-      if (brake_torque > 0.0) {
-        const double brake_sign =
-            2.0 / M_PI * std::atan(10.0 * vcx_tire);
-        fx_tire -= brake_torque * brake_sign / std::max(wheel_radius, kEpsilon);
-      }
-
-      const double fx_vehicle = fx_tire * cos_delta - fy_tire * sin_delta;
-      const double fy_vehicle = fx_tire * sin_delta + fy_tire * cos_delta;
-      const double arm_x = (tire == FL || tire == FR) ? lf : -lr;
-      const double arm_y = (tire == FL || tire == RL) ? half_width : -half_width;
-
-      total_fx += fx_vehicle;
-      total_fy += fy_vehicle;
-      total_torque += arm_x * fy_vehicle - arm_y * fx_vehicle + mz_tire;
-    }
-
-    const double ax = total_fx / car_params->total_mass + s(1) * s(2);
-    const double ay = total_fy / car_params->total_mass - s(0) * s(2);
-    ds(0) = ax;
-    ds(1) = ay;
-    ds(11) = ax - s(11);
-    ds(12) = ay - s(12);
-    ds(2) = total_torque / car_params->Izz;
-    ds(3) = s(2);
-    ds(4) = s(0) * std::cos(s(3)) - s(1) * std::sin(s(3));
-    ds(5) = s(0) * std::sin(s(3)) + s(1) * std::cos(s(3));
-    ds(6) = steering_motor->compute_steering_rate(s(6), steering_target);
-
-    const double inertia = car_params->tire_parameters->wheel_inertia;
-    for (Tire tire : {FL, FR, RL, RR}) {
-      const double wheel_omega = s(7 + tire);
-      double net_torque =
-          torques(tire) - tire_forces(tire * 4) * wheel_radius - tire_forces(tire * 4 + 2);
-      const double brake_sign = 2.0 / M_PI * std::atan(10.0 * wheel_omega);
-      const double brake_torque = brake_torques_by_tire(tire);
-      net_torque -= brake_torque * brake_sign;
-
-      if (tire == FL || tire == FR) {
-        net_torque -= car_params->front_bearing_drag * wheel_omega;
-      }
-
-      const double wheel_acceleration = net_torque / inertia;
-      if (brake_torque > 0.0 && std::abs(wheel_omega) < 0.5 &&
-          wheel_acceleration * wheel_omega <= 0.0) {
-        ds(7 + tire) = -wheel_omega / std::max(dt, kEpsilon);
-      } else {
-        ds(7 + tire) = wheel_acceleration;
-      }
-    }
-
-    return ds;
-  }
-
-public:
-  FSFEUP02StandaloneModel(const InvictaSimParameters& p) {
-    car_params = p.car_parameters;
-    tire_model = tire_models_map.at(p.tire_model)(car_params);
-    motor = motor_models_map.at(p.motor_model)(car_params);
-    battery = battery_models_map.at(p.battery_model)(car_params);
-    transmission = transmission_models_map.at(p.transmission_model)(car_params);
-    inverter = inverter_models_map.at(p.inverter_model)(car_params);
-    brake = brake_models_map.at(p.brake_model)(car_params);
-    aero = aero_models_map.at(p.aero_model)(car_params);
-    load_transfer = load_transfer_models_map.at(p.load_transfer_model)(car_params);
-    steering = steering_models_map.at(p.steering_model)(car_params);
-    steering_motor = steering_motor_models_map.at(p.steering_motor_model)(car_params);
-  }
-
-  void step(double dt, const common_lib::structures::Wheels& throttle, double steering_angle, SimState& state) override {
-    const double throttle_input = (throttle.rear_left + throttle.rear_right) / 2.0;
-    common_lib::structures::Wheels brake_torques;
-    double inverter_command = throttle_input;
-
-    const double motor_input = inverter->calculate_inverter_throttle(inverter_command, dt);
-    const double motor_torque = calculate_powertrain_torque(motor_input, dt, state);
-
-    StateVec s;
-    s << state.vx, state.vy, state.yaw_rate, state.yaw, state.x, state.y,
-         state.steering_angle, state.wl_fl, state.wl_fr, state.wl_rl, state.wl_rr,
-         state.ax, state.ay;
-
-    Eigen::Vector4d k1_ratio, k1_angle;
-    const StateVec k1 = get_state_derivative(
-        s, motor_torque, brake_torques, steering_angle, dt,
-        state.last_slip_ratio, state.last_slip_angle, k1_ratio, k1_angle
-    );
-
-    Eigen::Vector4d k2_ratio, k2_angle;
-    const StateVec k2 = get_state_derivative(
-        s + 0.5 * dt * k1, motor_torque, brake_torques, steering_angle, dt,
-        state.last_slip_ratio, state.last_slip_angle, k2_ratio, k2_angle
-    );
-
-    Eigen::Vector4d k3_ratio, k3_angle;
-    const StateVec k3 = get_state_derivative(
-        s + 0.5 * dt * k2, motor_torque, brake_torques, steering_angle, dt,
-        state.last_slip_ratio, state.last_slip_angle, k3_ratio, k3_angle
-    );
-
-    Eigen::Vector4d k4_ratio, k4_angle;
-    const StateVec k4 = get_state_derivative(
-        s + dt * k3, motor_torque, brake_torques, steering_angle, dt,
-        state.last_slip_ratio, state.last_slip_angle, k4_ratio, k4_angle
-    );
-
-    StateVec s_next = s + (dt / 6.0) * (k1 + 2.0 * k2 + 2.0 * k3 + k4);
-
-    state.vx = s_next(0);
-    state.vy = s_next(1);
-    state.yaw_rate = s_next(2);
-    state.yaw = s_next(3);
-    state.x = s_next(4);
-    state.y = s_next(5);
-    state.steering_angle = s_next(6);
-    state.wl_fl = s_next(7);
-    state.wl_fr = s_next(8);
-    state.wl_rl = s_next(9);
-    state.wl_rr = s_next(10);
-    state.ax = s_next(11);
-    state.ay = s_next(12);
-
-    double speed = std::sqrt(state.vx * state.vx + state.vy * state.vy);
-    if (speed < 0.05 && std::abs(throttle_input) < 0.01) {
-      state.vx = 0.0;
-      state.vy = 0.0;
-      state.ax = 0.0;
-      state.ay = 0.0;
-      state.yaw_rate = 0.0;
-      state.wl_fl = 0.0;
-      state.wl_fr = 0.0;
-      state.wl_rl = 0.0;
-      state.wl_rr = 0.0;
-      state.last_slip_ratio.setZero();
-      state.last_slip_angle.setZero();
-    } else {
-      state.last_slip_ratio = k1_ratio;
-      state.last_slip_angle = k1_angle;
-    }
-
-    if (state.yaw > M_PI) state.yaw -= 2.0 * M_PI;
-    if (state.yaw < -M_PI) state.yaw += 2.0 * M_PI;
-  }
-};
-
-// Standalone FSFEUP03 implementation
-class FSFEUP03StandaloneModel : public StandaloneVehicleModel {
-private:
-  std::shared_ptr<common_lib::car_parameters::CarParameters> car_params;
-  std::shared_ptr<TireModel> tire_model;
-  std::shared_ptr<MotorModel> motor;
-  std::shared_ptr<BatteryModel> battery;
-  std::shared_ptr<TransmissionModel> transmission;
-  std::shared_ptr<InverterModel> inverter;
-  std::shared_ptr<BrakeModel> brake;
-  std::shared_ptr<AeroModel> aero;
-  std::shared_ptr<LoadTransferModel> load_transfer;
-  std::shared_ptr<SteeringModel> steering;
-  std::shared_ptr<SteeringMotorModel> steering_motor;
-
-  double calculate_powertrain_torque(double throttle_input, double dt, SimState& state) {
-    double motor_omega = transmission->calculate_motor_omega(
-        common_lib::structures::Wheels(state.wl_fl, state.wl_fr, state.wl_rl, state.wl_rr)
-    );
-    double motor_rpm = std::abs(motor_omega * 60.0f / (2.0f * M_PI));
-
-    double max_motor_torque = motor->get_max_torque_at_rpm(motor_rpm);
-    double reference_motor_torque = throttle_input * max_motor_torque;
-
-    double motor_efficiency = motor->get_efficiency(std::abs(reference_motor_torque), motor_rpm);
-
-    const double current_magnitude =
-        std::abs(reference_motor_torque) /
-        (car_params->motor_parameters->kt_constant * std::max(motor_efficiency, 0.05));
-    const double mechanical_power = reference_motor_torque * motor_omega;
-    const double current_sign =
-        std::abs(motor_omega) > 1e-3 ? std::copysign(1.0, mechanical_power)
-                                     : std::copysign(1.0, reference_motor_torque);
-    double requested_motor_current = current_sign * current_magnitude;
-
-    double allowed_motor_current = battery->calculate_allowed_current(requested_motor_current);
-
-    double actual_motor_torque =
-        allowed_motor_current * car_params->motor_parameters->kt_constant * motor_efficiency;
-
-    battery->update_state(allowed_motor_current, dt);
-    motor->update_state(allowed_motor_current, actual_motor_torque, dt);
-
-    state.motor_torque = actual_motor_torque;
-    state.motor_omega = motor_omega;
-    state.motor_current = motor->get_current();
-    state.battery_current = battery->get_current();
-    state.battery_voltage = battery->get_voltage();
-
-    return actual_motor_torque;
-  }
-
-public:
-  FSFEUP03StandaloneModel(const InvictaSimParameters& p) {
-    car_params = p.car_parameters;
-    tire_model = tire_models_map.at(p.tire_model)(car_params);
-    motor = motor_models_map.at(p.motor_model)(car_params);
-    battery = battery_models_map.at(p.battery_model)(car_params);
-    transmission = transmission_models_map.at(p.transmission_model)(car_params);
-    inverter = inverter_models_map.at(p.inverter_model)(car_params);
-    brake = brake_models_map.at(p.brake_model)(car_params);
-    aero = aero_models_map.at(p.aero_model)(car_params);
-    load_transfer = load_transfer_models_map.at(p.load_transfer_model)(car_params);
-    steering = steering_models_map.at(p.steering_model)(car_params);
-    steering_motor = steering_motor_models_map.at(p.steering_motor_model)(car_params);
-  }
-
-  void step(double dt, const common_lib::structures::Wheels& throttle, double steering_angle, SimState& state) override {
-    double throttle_input = (throttle.rear_left + throttle.rear_right) / 2.0;
-
-    common_lib::structures::Wheels brake_torques;
-    double inverter_command = throttle_input;
-
-    const double motor_torque = calculate_powertrain_torque(
-        inverter->calculate_inverter_throttle(inverter_command, dt), dt, state
-    );
-
-    state.wheels_torque =
-        transmission->calculate_wheel_torques(motor_torque, common_lib::structures::Wheels(state.wl_fl, state.wl_fr, state.wl_rl, state.wl_rr));
-
-    const Eigen::Vector3d aero_forces =
-        aero->aero_forces(Eigen::Vector3d(state.vx, state.vy, state.yaw_rate));
-    state.aero_drag = aero_forces[0];
-    state.aero_downforce = aero_forces[2];
-
-    const double steering_rate =
-        steering_motor->compute_steering_rate(state.steering_angle, steering_angle);
-    state.steering_angle += steering_rate * dt;
-
-    auto st_angles = steering->calculate_steering_angles(state.steering_angle);
-    double actual_steering_fl = st_angles[0];
-    double actual_steering_fr = st_angles[1];
-
-    state.wheels_vertical_load = load_transfer->compute_loads(
-        LoadTransferInput{state.ax, state.ay, aero_forces[2]}
-    );
-
-    TireInput tire_input;
-    tire_input.dt = dt;
-    tire_input.vx = state.vx;
-    tire_input.vy = state.vy;
-    tire_input.yaw_rate = state.yaw_rate;
-    tire_input.last_slip_ratio = state.last_slip_ratio;
-    tire_input.last_slip_angle = state.last_slip_angle;
-
-    // FL
-    tire_input.tire = FL;
-    tire_input.steering_angle = actual_steering_fl;
-    tire_input.wheel_angular_speed = state.wl_fl;
-    tire_input.vertical_load = state.wheels_vertical_load.front_left;
-    auto fl_forces = tire_model->calculate_tire_forces(tire_input);
-    state.last_slip_ratio(FL) = tire_input.slip_ratio;
-    state.last_slip_angle(FL) = tire_input.slip_angle;
-
-    // FR
-    tire_input.tire = FR;
-    tire_input.steering_angle = actual_steering_fr;
-    tire_input.wheel_angular_speed = state.wl_fr;
-    tire_input.vertical_load = state.wheels_vertical_load.front_right;
-    auto fr_forces = tire_model->calculate_tire_forces(tire_input);
-    state.last_slip_ratio(FR) = tire_input.slip_ratio;
-    state.last_slip_angle(FR) = tire_input.slip_angle;
-
-    // RL
-    tire_input.tire = RL;
-    tire_input.steering_angle = 0.0;
-    tire_input.wheel_angular_speed = state.wl_rl;
-    tire_input.vertical_load = state.wheels_vertical_load.rear_left;
-    auto rl_forces = tire_model->calculate_tire_forces(tire_input);
-    state.last_slip_ratio(RL) = tire_input.slip_ratio;
-    state.last_slip_angle(RL) = tire_input.slip_angle;
-
-    // RR
-    tire_input.tire = RR;
-    tire_input.steering_angle = 0.0;
-    tire_input.wheel_angular_speed = state.wl_rr;
-    tire_input.vertical_load = state.wheels_vertical_load.rear_right;
-    auto rr_forces = tire_model->calculate_tire_forces(tire_input);
-    state.last_slip_ratio(RR) = tire_input.slip_ratio;
-    state.last_slip_angle(RR) = tire_input.slip_angle;
-
-    // Update wheel speeds
-    double R = car_params->tire_parameters->effective_tire_r;
-    double I = car_params->tire_parameters->wheel_inertia;
-    const double brake_sign_fl = 2.0 / M_PI * std::atan(10.0 * state.wl_fl);
-    const double brake_sign_fr = 2.0 / M_PI * std::atan(10.0 * state.wl_fr);
-    const double brake_sign_rl = 2.0 / M_PI * std::atan(10.0 * state.wl_rl);
-    const double brake_sign_rr = 2.0 / M_PI * std::atan(10.0 * state.wl_rr);
-
-    state.wl_rl += ((state.wheels_torque.rear_left - (rl_forces[0] * R) - rl_forces[2] - brake_torques.rear_left * brake_sign_rl) / I) * dt;
-    state.wl_rr += ((state.wheels_torque.rear_right - (rr_forces[0] * R) - rr_forces[2] - brake_torques.rear_right * brake_sign_rr) / I) * dt;
-    state.wl_fl += ((-(fl_forces[0] * R) - (car_params->front_bearing_drag * state.wl_fl) - fl_forces[2] - brake_torques.front_left * brake_sign_fl) / I) * dt;
-    state.wl_fr += ((-(fr_forces[0] * R) - (car_params->front_bearing_drag * state.wl_fr) - fr_forces[2] - brake_torques.front_right * brake_sign_fr) / I) * dt;
-
-    double Fx_fl = fl_forces[0] * cos(actual_steering_fl) - fl_forces[1] * sin(actual_steering_fl);
-    double Fy_fl = fl_forces[0] * sin(actual_steering_fl) + fl_forces[1] * cos(actual_steering_fl);
-    double Fx_fr = fr_forces[0] * cos(actual_steering_fr) - fr_forces[1] * sin(actual_steering_fr);
-    double Fy_fr = fr_forces[0] * sin(actual_steering_fr) + fr_forces[1] * cos(actual_steering_fr);
-
-    double total_fx = Fx_fl + Fx_fr + rl_forces[0] + rr_forces[0] + aero_forces[0];
-    double total_fy = Fy_fl + Fy_fr + rl_forces[1] + rr_forces[1] + aero_forces[1];
-
-    state.ax = total_fx / car_params->total_mass + state.vy * state.yaw_rate;
-    state.ay = total_fy / car_params->total_mass - state.vx * state.yaw_rate;
-
-    state.vx += state.ax * dt;
-    state.vy += state.ay * dt;
-
-    double speed = std::sqrt(state.vx * state.vx + state.vy * state.vy);
-    if (speed < 0.05 && std::abs(throttle_input) < 0.01) {
-      state.vx = 0.0;
-      state.vy = 0.0;
-      state.ax = 0.0;
-      state.ay = 0.0;
-      state.yaw_rate = 0.0;
-      state.wl_fl = 0.0;
-      state.wl_fr = 0.0;
-      state.wl_rl = 0.0;
-      state.wl_rr = 0.0;
-      state.last_slip_ratio.setZero();
-      state.last_slip_angle.setZero();
-    }
-
-    double lr = car_params->cg_2_rear_axis;
-    double lf = car_params->wheelbase - lr;
-    double half_width = car_params->track_width / 2.0;
-
-    double moment_fy = (Fy_fl + Fy_fr) * lf - (rl_forces[1] + rr_forces[1]) * lr;
-    double moment_fx = (Fx_fr - Fx_fl) * half_width + (rr_forces[0] - rl_forces[0]) * half_width;
-    double total_mz = fl_forces[3] + fr_forces[3] + rl_forces[3] + rr_forces[3];
-
-    double total_torque = moment_fy + moment_fx + total_mz;
-
-    double yaw_a = total_torque / car_params->Izz;
-    state.yaw_rate += yaw_a * dt;
-    state.yaw += state.yaw_rate * dt;
-
-    if (state.yaw > M_PI) state.yaw -= 2.0 * M_PI;
-    if (state.yaw < -M_PI) state.yaw += 2.0 * M_PI;
-
-    double cos_yaw = cos(state.yaw);
-    double sin_yaw = sin(state.yaw);
-    state.x += (state.vx * cos_yaw - state.vy * sin_yaw) * dt;
-    state.y += (state.vx * sin_yaw + state.vy * cos_yaw) * dt;
-  }
-};
-
-std::unique_ptr<StandaloneVehicleModel> create_vehicle_model(const InvictaSimParameters& p) {
-  if (p.vehicle_model == "fsfeup02") {
-    return std::make_unique<FSFEUP02StandaloneModel>(p);
-  } else if (p.vehicle_model == "fsfeup03") {
-    return std::make_unique<FSFEUP03StandaloneModel>(p);
-  } else {
-    std::cerr << "Warning: Unknown vehicle model '" << p.vehicle_model << "', defaulting to fsfeup02." << std::endl;
-    return std::make_unique<FSFEUP02StandaloneModel>(p);
-  }
 }
 
-std::shared_ptr<common_lib::car_parameters::CarParameters> deep_copy_car_parameters(
-    std::shared_ptr<common_lib::car_parameters::CarParameters> src) {
-  if (!src) return nullptr;
-  auto dst = std::make_shared<common_lib::car_parameters::CarParameters>(*src);
-  if (src->aero_parameters) dst->aero_parameters = std::make_shared<common_lib::car_parameters::AeroParameters>(*src->aero_parameters);
-  if (src->battery_parameters) dst->battery_parameters = std::make_shared<common_lib::car_parameters::BatteryParameters>(*src->battery_parameters);
-  if (src->brake_parameters) dst->brake_parameters = std::make_shared<common_lib::car_parameters::BrakeParameters>(*src->brake_parameters);
-  if (src->inverter_parameters) dst->inverter_parameters = std::make_shared<common_lib::car_parameters::InverterParameters>(*src->inverter_parameters);
-  if (src->load_transfer_parameters) dst->load_transfer_parameters = std::make_shared<common_lib::car_parameters::LoadTransferParameters>(*src->load_transfer_parameters);
-  if (src->motor_parameters) dst->motor_parameters = std::make_shared<common_lib::car_parameters::MotorParameters>(*src->motor_parameters);
-  if (src->steering_motor_parameters) dst->steering_motor_parameters = std::make_shared<common_lib::car_parameters::SteeringMotorParameters>(*src->steering_motor_parameters);
-  if (src->steering_parameters) dst->steering_parameters = std::make_shared<common_lib::car_parameters::SteeringParameters>(*src->steering_parameters);
-  if (src->tire_parameters) dst->tire_parameters = std::make_shared<common_lib::car_parameters::TireParameters>(*src->tire_parameters);
-  if (src->transmission_parameters) dst->transmission_parameters = std::make_shared<common_lib::car_parameters::TransmissionParameters>(*src->transmission_parameters);
-  return dst;
+double get_baseline_value(std::shared_ptr<common_lib::car_parameters::CarParameters> car_params, const std::string& name) {
+    auto ptrs = get_parameter_ptrs(car_params);
+    auto it = ptrs.find(name);
+    return (it != ptrs.end()) ? *(it->second) : 0.0;
 }
 
-double evaluate_candidate(
+std::shared_ptr<common_lib::car_parameters::CarParameters> deep_copy_car_parameters(std::shared_ptr<common_lib::car_parameters::CarParameters> src) {
+    if (!src) return nullptr;
+    auto dst = std::make_shared<common_lib::car_parameters::CarParameters>(*src);
+    if (src->aero_parameters) dst->aero_parameters = std::make_shared<common_lib::car_parameters::AeroParameters>(*src->aero_parameters);
+    if (src->tire_parameters) dst->tire_parameters = std::make_shared<common_lib::car_parameters::TireParameters>(*src->tire_parameters);
+    if (src->motor_parameters) dst->motor_parameters = std::make_shared<common_lib::car_parameters::MotorParameters>(*src->motor_parameters);
+    if (src->battery_parameters) dst->battery_parameters = std::make_shared<common_lib::car_parameters::BatteryParameters>(*src->battery_parameters);
+    if (src->transmission_parameters) dst->transmission_parameters = std::make_shared<common_lib::car_parameters::TransmissionParameters>(*src->transmission_parameters);
+    if (src->inverter_parameters) dst->inverter_parameters = std::make_shared<common_lib::car_parameters::InverterParameters>(*src->inverter_parameters);
+    if (src->brake_parameters) dst->brake_parameters = std::make_shared<common_lib::car_parameters::BrakeParameters>(*src->brake_parameters);
+    if (src->steering_parameters) dst->steering_parameters = std::make_shared<common_lib::car_parameters::SteeringParameters>(*src->steering_parameters);
+    if (src->steering_motor_parameters) dst->steering_motor_parameters = std::make_shared<common_lib::car_parameters::SteeringMotorParameters>(*src->steering_motor_parameters);
+    if (src->load_transfer_parameters) dst->load_transfer_parameters = std::make_shared<common_lib::car_parameters::LoadTransferParameters>(*src->load_transfer_parameters);
+    if (src->physical_constants) dst->physical_constants = std::make_shared<common_lib::structures::PhysicalConstants>(*src->physical_constants);
+    return dst;
+}
+
+// ============================================================================
+// TEMPLATED EVALUATION: Zero-overhead polymorphic dispatch
+// ============================================================================
+template <typename ModelType>
+EvaluationResult evaluate_candidate(
     const std::vector<std::vector<CsvRow>>& all_csvs_rows,
     const std::vector<ParameterSpec>& param_specs,
     const std::vector<double>& candidate_values,
     const YAML::Node& tuning_config,
     const InvictaSimParameters& base_params
 ) {
-  InvictaSimParameters sim_params = base_params;
-  sim_params.car_parameters = deep_copy_car_parameters(base_params.car_parameters);
+    InvictaSimParameters sim_params = base_params;
+    sim_params.car_parameters = deep_copy_car_parameters(base_params.car_parameters);
 
-  for (size_t i = 0; i < param_specs.size(); ++i) {
-    apply_parameter_override(sim_params.car_parameters, param_specs[i].name, candidate_values[i]);
-  }
-
-  YAML::Node csvs = tuning_config["tuning"]["csvs"];
-  if (!csvs && tuning_config["tuning"]["bags"]) {
-    csvs = tuning_config["tuning"]["bags"];
-  }
-  YAML::Node default_score_config = tuning_config["tuning"]["score"];
-
-  double weighted_score_sum = 0.0;
-  double total_weight = 0.0;
-
-  for (size_t b = 0; b < csvs.size(); ++b) {
-    YAML::Node csv_node = csvs[b];
-    double weight = csv_node["weight"] ? csv_node["weight"].as<double>() : 1.0;
-    double start_offset = csv_node["start_offset_s"] ? csv_node["start_offset_s"].as<double>() : 0.0;
-    double stop_duration = csv_node["stop_after_s"] ? csv_node["stop_after_s"].as<double>() : -1.0;
-
-    YAML::Node score_config = default_score_config;
-    if (csv_node["mission"]) {
-      std::string mission_name = csv_node["mission"].as<std::string>();
-      if (tuning_config["tuning"]["missions"] && tuning_config["tuning"]["missions"][mission_name]) {
-        score_config = tuning_config["tuning"]["missions"][mission_name];
-      } else {
-        std::cerr << "Warning: Mission '" << mission_name << "' not found in tuning:missions. Falling back to default." << std::endl;
-      }
-    } else if (csv_node["score"]) {
-      score_config = csv_node["score"];
+    for (size_t i = 0; i < param_specs.size(); ++i) {
+        apply_parameter_override(sim_params.car_parameters, param_specs[i].name, candidate_values[i]);
     }
 
-    const auto& rows = all_csvs_rows[b];
-    if (rows.empty()) {
-      weighted_score_sum += weight * 1e9;
-      total_weight += weight;
-      continue;
+    YAML::Node csvs = tuning_config["tuning"]["csvs"];
+    if (!csvs && tuning_config["tuning"]["bags"]) {
+        csvs = tuning_config["tuning"]["bags"];
+    }
+    YAML::Node default_score_config = tuning_config["tuning"]["score"];
+
+    double weighted_score_sum = 0.0;
+    double total_weight = 0.0;
+    double weighted_position_rmse = 0.0;
+
+    for (size_t b = 0; b < csvs.size(); ++b) {
+        YAML::Node csv_node = csvs[b];
+        double weight = csv_node["weight"] ? csv_node["weight"].as<double>() : 1.0;
+        double start_offset = csv_node["start_offset_s"] ? csv_node["start_offset_s"].as<double>() : 0.0;
+        double stop_duration = csv_node["stop_after_s"] ? csv_node["stop_after_s"].as<double>() : -1.0;
+
+        YAML::Node score_config = default_score_config;
+        if (csv_node["score"]) {
+            score_config = csv_node["score"];
+        }
+
+        const auto& rows = all_csvs_rows[b];
+        if (rows.empty()) {
+            weighted_score_sum += weight * 1e9;
+            total_weight += weight;
+            continue;
+        }
+
+        size_t start_idx = 0;
+        for (size_t i = 0; i < rows.size(); ++i) {
+            if (rows[i].timestamp_s >= start_offset) {
+                start_idx = i;
+                break;
+            }
+        }
+
+        double start_time = rows[start_idx].timestamp_s;
+
+        // INSTANTIATE THE HARDCODED MODEL DIRECTLY
+        ModelType model(sim_params);
+
+        SimState state;
+        CsvRow first_sample = rows[start_idx];
+        state.x = first_sample.real_x;
+        state.y = first_sample.real_y;
+        state.yaw = first_sample.real_yaw;
+        state.vx = first_sample.real_vx;
+        state.vy = first_sample.real_vy;
+        state.yaw_rate = first_sample.real_yaw_rate;
+        
+        // Updated to use the correct wheels_speed struct variables
+        state.wheels_speed.front_left = first_sample.real_fl_rpm * 2.0 * M_PI / 60.0;
+        state.wheels_speed.front_right = first_sample.real_fr_rpm * 2.0 * M_PI / 60.0;
+        state.wheels_speed.rear_left = first_sample.real_rl_rpm * 2.0 * M_PI / 60.0;
+        state.wheels_speed.rear_right = first_sample.real_rr_rpm * 2.0 * M_PI / 60.0;
+        state.motor_omega = first_sample.real_motor_rpm * 2.0 * M_PI / 60.0;
+
+        RunningRmse position_rmse, heading_rmse, velocity_rmse, velocity_x_rmse, velocity_x_slow_rmse;
+        RunningRmse velocity_y_rmse, yaw_rate_rmse, yaw_rate_under_rmse, front_wheel_rpm_rmse, motor_rpm_rmse;
+
+        PoseSample real_origin = {first_sample.real_x, first_sample.real_y, first_sample.real_yaw};
+        PoseSample sim_origin = {state.x, state.y, state.yaw};
+
+        double last_time = first_sample.timestamp_s;
+
+        for (size_t i = start_idx + 1; i < rows.size(); ++i) {
+            const CsvRow& row = rows[i];
+            if (stop_duration > 0.0 && (row.timestamp_s - start_time) > stop_duration) break;
+            
+            double dt = row.timestamp_s - last_time;
+            if (dt <= 0.0) continue;
+            last_time = row.timestamp_s;
+
+            const CsvRow& prev_row = rows[i - 1];
+            common_lib::structures::Wheels throttle(prev_row.throttle_fl, prev_row.throttle_fr, prev_row.throttle_rl, prev_row.throttle_rr);
+
+            // STEP THE PHYSICS ENGINE
+            model.step(dt, throttle, prev_row.steering, state);
+
+            double sim_fl_rpm = state.wheels_speed.front_left * 60.0 / (2.0 * M_PI);
+            double sim_fr_rpm = state.wheels_speed.front_right * 60.0 / (2.0 * M_PI);
+            double sim_front_rpm = 0.5 * (sim_fl_rpm + sim_fr_rpm);
+            double sim_motor_rpm = state.motor_omega * 60.0 / (2.0 * M_PI);
+            double real_front_rpm = 0.5 * (row.real_fl_rpm + row.real_fr_rpm);
+
+            PoseSample real_raw = {row.real_x, row.real_y, row.real_yaw};
+            PoseSample real_pose = transform_pose_to_map(real_raw, real_origin, sim_origin);
+
+            position_rmse.update(std::hypot(state.x - real_pose.x, state.y - real_pose.y));
+            heading_rmse.update(normalize_angle(state.yaw - real_pose.yaw));
+            velocity_x_rmse.update(state.vx - row.real_vx);
+            velocity_x_slow_rmse.update(std::min(0.0, state.vx - row.real_vx));
+            velocity_y_rmse.update(state.vy - row.real_vy);
+            velocity_rmse.update(std::hypot(state.vx - row.real_vx, state.vy - row.real_vy));
+            yaw_rate_rmse.update(state.yaw_rate - row.real_yaw_rate);
+            yaw_rate_under_rmse.update(std::min(0.0, state.yaw_rate - row.real_yaw_rate));
+            front_wheel_rpm_rmse.update(sim_front_rpm - real_front_rpm);
+            motor_rpm_rmse.update(sim_motor_rpm - row.real_motor_rpm);
+        }
+
+        int samples = position_rmse.count;
+        double dataset_score = 0.0;
+        YAML::Node weights = score_config["weights"];
+        if (weights) {
+            if (weights["position_rmse"]) dataset_score += weights["position_rmse"].as<double>() * position_rmse.get();
+            if (weights["heading_rmse"]) dataset_score += weights["heading_rmse"].as<double>() * heading_rmse.get();
+            if (weights["velocity_rmse"]) dataset_score += weights["velocity_rmse"].as<double>() * velocity_rmse.get();
+            if (weights["velocity_x_rmse"]) dataset_score += weights["velocity_x_rmse"].as<double>() * velocity_x_rmse.get();
+            if (weights["velocity_x_slow_rmse"]) dataset_score += weights["velocity_x_slow_rmse"].as<double>() * velocity_x_slow_rmse.get();
+            if (weights["velocity_y_rmse"]) dataset_score += weights["velocity_y_rmse"].as<double>() * velocity_y_rmse.get();
+            if (weights["yaw_rate_rmse"]) dataset_score += weights["yaw_rate_rmse"].as<double>() * yaw_rate_rmse.get();
+            if (weights["yaw_rate_under_rmse"]) dataset_score += weights["yaw_rate_under_rmse"].as<double>() * yaw_rate_under_rmse.get();
+            if (weights["front_wheel_rpm_rmse"]) dataset_score += weights["front_wheel_rpm_rmse"].as<double>() * front_wheel_rpm_rmse.get();
+            if (weights["motor_rpm_rmse"]) dataset_score += weights["motor_rpm_rmse"].as<double>() * motor_rpm_rmse.get();
+        }
+
+        int min_samples = score_config["min_samples"] ? score_config["min_samples"].as<int>() : 0;
+        if (min_samples > 0 && samples < min_samples) {
+            double shortfall = static_cast<double>(min_samples - samples) / static_cast<double>(min_samples);
+            double penalty = score_config["short_sample_penalty"] ? score_config["short_sample_penalty"].as<double>() : 0.0;
+            dataset_score += penalty * shortfall;
+        }
+
+        weighted_score_sum += weight * dataset_score;
+        weighted_position_rmse += weight * position_rmse.get();
+        total_weight += weight;
     }
 
-    size_t start_idx = 0;
-    for (size_t i = 0; i < rows.size(); ++i) {
-      if (rows[i].timestamp_s >= start_offset) {
-        start_idx = i;
-        break;
-      }
-    }
-
-    double start_time = rows[start_idx].timestamp_s;
-
-    // Instantiate polymorphic vehicle model based on config selection
-    std::unique_ptr<StandaloneVehicleModel> model = create_vehicle_model(sim_params);
-
-    SimState state;
-    CsvRow first_sample = rows[start_idx];
-    state.x = first_sample.real_x;
-    state.y = first_sample.real_y;
-    state.yaw = first_sample.real_yaw;
-    state.vx = first_sample.real_vx;
-    state.vy = first_sample.real_vy;
-    state.yaw_rate = first_sample.real_yaw_rate;
-    state.wl_fl = first_sample.real_fl_rpm * 2.0 * M_PI / 60.0;
-    state.wl_fr = first_sample.real_fr_rpm * 2.0 * M_PI / 60.0;
-    state.wl_rl = first_sample.real_rl_rpm * 2.0 * M_PI / 60.0;
-    state.wl_rr = first_sample.real_rr_rpm * 2.0 * M_PI / 60.0;
-    state.motor_omega = first_sample.real_motor_rpm * 2.0 * M_PI / 60.0;
-
-    RunningRmse position_rmse;
-    RunningRmse heading_rmse;
-    RunningRmse velocity_rmse;
-    RunningRmse velocity_x_rmse;
-    RunningRmse velocity_x_slow_rmse;
-    RunningRmse velocity_y_rmse;
-    RunningRmse yaw_rate_rmse;
-    RunningRmse yaw_rate_under_rmse;
-    RunningRmse front_wheel_rpm_rmse;
-    RunningRmse motor_rpm_rmse;
-
-    PoseSample real_origin = {first_sample.real_x, first_sample.real_y, first_sample.real_yaw};
-    PoseSample sim_origin = {state.x, state.y, state.yaw};
-
-    double last_time = first_sample.timestamp_s;
-
-    for (size_t i = start_idx + 1; i < rows.size(); ++i) {
-      const CsvRow& row = rows[i];
-      if (stop_duration > 0.0 && (row.timestamp_s - start_time) > stop_duration) {
-        break;
-      }
-      double dt = row.timestamp_s - last_time;
-      if (dt <= 0.0) continue;
-      last_time = row.timestamp_s;
-
-      const CsvRow& prev_row = rows[i - 1];
-      common_lib::structures::Wheels throttle(prev_row.throttle_fl, prev_row.throttle_fr, prev_row.throttle_rl, prev_row.throttle_rr);
-
-      model->step(dt, throttle, prev_row.steering, state);
-
-      double sim_fl_rpm = state.wl_fl * 60.0 / (2.0 * M_PI);
-      double sim_fr_rpm = state.wl_fr * 60.0 / (2.0 * M_PI);
-      double sim_front_rpm = 0.5 * (sim_fl_rpm + sim_fr_rpm);
-      double sim_motor_rpm = state.motor_omega * 60.0 / (2.0 * M_PI);
-
-      double real_front_rpm = 0.5 * (row.real_fl_rpm + row.real_fr_rpm);
-
-      PoseSample real_raw = {row.real_x, row.real_y, row.real_yaw};
-      PoseSample real_pose = transform_pose_to_map(real_raw, real_origin, sim_origin);
-
-      double pos_err = std::hypot(state.x - real_pose.x, state.y - real_pose.y);
-      double head_err = normalize_angle(state.yaw - real_pose.yaw);
-      double vel_x_err = state.vx - row.real_vx;
-      double vel_y_err = state.vy - row.real_vy;
-      double vel_err = std::hypot(vel_x_err, vel_y_err);
-      double yaw_err = state.yaw_rate - row.real_yaw_rate;
-      double front_rpm_err = sim_front_rpm - real_front_rpm;
-      double motor_rpm_err = sim_motor_rpm - row.real_motor_rpm;
-
-      position_rmse.update(pos_err);
-      heading_rmse.update(head_err);
-      velocity_rmse.update(vel_err);
-      velocity_x_rmse.update(vel_x_err);
-      velocity_x_slow_rmse.update(std::min(0.0, vel_x_err));
-      velocity_y_rmse.update(vel_y_err);
-      yaw_rate_rmse.update(yaw_err);
-      yaw_rate_under_rmse.update(std::min(0.0, yaw_err));
-      front_wheel_rpm_rmse.update(front_rpm_err);
-      motor_rpm_rmse.update(motor_rpm_err);
-    }
-
-    int samples = position_rmse.count;
-    double dataset_score = 0.0;
-    YAML::Node weights = score_config["weights"];
-    if (weights) {
-      if (weights["position_rmse"]) dataset_score += weights["position_rmse"].as<double>() * position_rmse.get();
-      if (weights["heading_rmse"]) dataset_score += weights["heading_rmse"].as<double>() * heading_rmse.get();
-      if (weights["velocity_rmse"]) dataset_score += weights["velocity_rmse"].as<double>() * velocity_rmse.get();
-      if (weights["velocity_x_rmse"]) dataset_score += weights["velocity_x_rmse"].as<double>() * velocity_x_rmse.get();
-      if (weights["velocity_x_slow_rmse"]) dataset_score += weights["velocity_x_slow_rmse"].as<double>() * velocity_x_slow_rmse.get();
-      if (weights["velocity_y_rmse"]) dataset_score += weights["velocity_y_rmse"].as<double>() * velocity_y_rmse.get();
-      if (weights["yaw_rate_rmse"]) dataset_score += weights["yaw_rate_rmse"].as<double>() * yaw_rate_rmse.get();
-      if (weights["yaw_rate_under_rmse"]) dataset_score += weights["yaw_rate_under_rmse"].as<double>() * yaw_rate_under_rmse.get();
-      if (weights["front_wheel_rpm_rmse"]) dataset_score += weights["front_wheel_rpm_rmse"].as<double>() * front_wheel_rpm_rmse.get();
-      if (weights["motor_rpm_rmse"]) dataset_score += weights["motor_rpm_rmse"].as<double>() * motor_rpm_rmse.get();
-    }
-
-    int min_samples = score_config["min_samples"] ? score_config["min_samples"].as<int>() : 0;
-    if (min_samples > 0 && samples < min_samples) {
-      double shortfall = static_cast<double>(min_samples - samples) / static_cast<double>(min_samples);
-      double penalty = score_config["short_sample_penalty"] ? score_config["short_sample_penalty"].as<double>() : 0.0;
-      dataset_score += penalty * shortfall;
-    }
-
-    weighted_score_sum += weight * dataset_score;
-    total_weight += weight;
-  }
-
-  return weighted_score_sum / std::max(total_weight, 1e-9);
+    double final_score = weighted_score_sum / std::max(total_weight, 1e-9);
+    double final_pos_rmse = weighted_position_rmse / std::max(total_weight, 1e-9);
+    return {final_score, final_pos_rmse};
 }
 
-std::string get_full_csv_path(const std::string& data_dir, const std::string& rel_path) {
-  if (std::filesystem::path(rel_path).is_absolute() || data_dir.empty()) {
-    return rel_path;
-  }
-  return (std::filesystem::path(data_dir) / rel_path).string();
-}
-
+template <typename ModelType>
 Individual run_genetic_algorithm(
     const std::vector<std::vector<CsvRow>>& all_csvs_rows,
     const std::vector<ParameterSpec>& param_specs,
     const YAML::Node& tuning_config,
     const InvictaSimParameters& base_params
 ) {
-  YAML::Node opt = tuning_config["tuning"]["optimizer"];
-  int generations = opt["generations"] ? opt["generations"].as<int>() : 15;
-  int population_size = opt["population_size"] ? opt["population_size"].as<int>() : 24;
-  int elite_count = opt["elite_count"] ? opt["elite_count"].as<int>() : 4;
-  int immigrant_count = opt["immigrant_count"] ? opt["immigrant_count"].as<int>() : 3;
-  double mutation_rate = opt["mutation_rate"] ? opt["mutation_rate"].as<double>() : 0.35;
-  double mutation_scale = opt["mutation_scale"] ? opt["mutation_scale"].as<double>() : 0.16;
-  double blend_alpha = opt["blend_alpha"] ? opt["blend_alpha"].as<double>() : 0.25;
-  int tournament_size = opt["tournament_size"] ? opt["tournament_size"].as<int>() : 3;
-  int seed = opt["seed"] ? opt["seed"].as<int>() : 42;
+    YAML::Node opt = tuning_config["tuning"]["optimizer"];
+    int generations = opt["generations"] ? opt["generations"].as<int>() : 15;
+    int population_size = opt["population_size"] ? opt["population_size"].as<int>() : 24;
+    int elite_count = opt["elite_count"] ? opt["elite_count"].as<int>() : 4;
+    int immigrant_count = opt["immigrant_count"] ? opt["immigrant_count"].as<int>() : 3;
+    double mutation_rate = opt["mutation_rate"] ? opt["mutation_rate"].as<double>() : 0.35;
+    double mutation_scale = opt["mutation_scale"] ? opt["mutation_scale"].as<double>() : 0.16;
+    double blend_alpha = opt["blend_alpha"] ? opt["blend_alpha"].as<double>() : 0.25;
+    int tournament_size = opt["tournament_size"] ? opt["tournament_size"].as<int>() : 3;
+    int seed = opt["seed"] ? opt["seed"].as<int>() : 42;
 
-  std::mt19937 rng(seed);
-  std::uniform_real_distribution<double> dist_01(0.0, 1.0);
+    std::mt19937 rng(seed);
+    std::uniform_real_distribution<double> dist_01(0.0, 1.0);
 
-  // Initialize population
-  std::vector<double> baseline_vals(param_specs.size());
-  for (size_t p = 0; p < param_specs.size(); ++p) {
-    baseline_vals[p] = get_baseline_value(base_params.car_parameters, param_specs[p].name);
-  }
-
-  std::vector<Individual> population(population_size);
-  population[0].values = baseline_vals;
-
-  for (int i = 1; i < population_size; ++i) {
-    population[i].values.resize(param_specs.size());
+    std::vector<double> baseline_vals(param_specs.size());
     for (size_t p = 0; p < param_specs.size(); ++p) {
-      std::uniform_real_distribution<double> dist(param_specs[p].min_val, param_specs[p].max_val);
-      population[i].values[p] = dist(rng);
-    }
-  }
-
-  Individual global_best;
-  global_best.score = 1e9;
-  global_best.values = population[0].values;
-
-  for (int gen = 0; gen < generations; ++gen) {
-    std::cout << "--- Generation " << gen + 1 << "/" << generations << " ---" << std::endl;
-
-    // Evaluate population in parallel using std::async
-    std::vector<std::future<double>> futures(population_size);
-    for (int i = 0; i < population_size; ++i) {
-      futures[i] = std::async(std::launch::async, [&, i]() {
-        return evaluate_candidate(all_csvs_rows, param_specs, population[i].values, tuning_config, base_params);
-      });
+        baseline_vals[p] = get_baseline_value(base_params.car_parameters, param_specs[p].name);
     }
 
-    for (int i = 0; i < population_size; ++i) {
-      population[i].score = futures[i].get();
-      if (population[i].score < global_best.score) {
-        global_best = population[i];
-        std::cout << "  [New Global Best] Score: " << global_best.score << " Parameters:";
+    std::vector<Individual> population(population_size);
+    population[0].values = baseline_vals;
+
+    for (int i = 1; i < population_size; ++i) {
+        population[i].values.resize(param_specs.size());
         for (size_t p = 0; p < param_specs.size(); ++p) {
-          std::cout << " " << param_specs[p].name << "=" << global_best.values[p];
+            std::uniform_real_distribution<double> dist(param_specs[p].min_val, param_specs[p].max_val);
+            population[i].values[p] = dist(rng);
         }
-        std::cout << std::endl;
-      }
     }
 
-    // Sort by score
-    std::sort(population.begin(), population.end(), [](const Individual& a, const Individual& b) {
-      return a.score < b.score;
-    });
+    Individual global_best;
+    global_best.score = 1e9;
+    global_best.values = population[0].values;
 
-    std::cout << "  Best score in generation: " << population[0].score << std::endl;
-
-    std::vector<Individual> next_pop;
-    next_pop.reserve(population_size);
-
-    // Keep elites
-    for (int i = 0; i < std::min(elite_count, population_size); ++i) {
-      next_pop.push_back(population[i]);
-    }
-
-    // Add immigrants
-    for (int i = 0; i < immigrant_count; ++i) {
-      Individual immigrant;
-      immigrant.values.resize(param_specs.size());
-      for (size_t p = 0; p < param_specs.size(); ++p) {
-        std::uniform_real_distribution<double> dist(param_specs[p].min_val, param_specs[p].max_val);
-        immigrant.values[p] = dist(rng);
-      }
-      next_pop.push_back(immigrant);
-    }
-
-    auto tournament_select = [&](int size) -> const Individual& {
-      int best_idx = rng() % population_size;
-      for (int t = 1; t < size; ++t) {
-        int idx = rng() % population_size;
-        if (population[idx].score < population[best_idx].score) {
-          best_idx = idx;
+    for (int gen = 0; gen < generations; ++gen) {
+        if (g_stop_optimization) {
+            std::cout << "Optimization manually stopped by user." << std::endl;
+            break;
         }
-      }
-      return population[best_idx];
-    };
+        std::cout << "--- Generation " << gen + 1 << "/" << generations << " ---" << std::endl;
 
-    // Fill remaining
-    while (next_pop.size() < static_cast<size_t>(population_size)) {
-      const Individual& parent_a = tournament_select(tournament_size);
-      const Individual& parent_b = tournament_select(tournament_size);
-
-      Individual child;
-      child.values.resize(param_specs.size());
-      for (size_t p = 0; p < param_specs.size(); ++p) {
-        std::uniform_real_distribution<double> dist_blend(-blend_alpha, 1.0 + blend_alpha);
-        double alpha = dist_blend(rng);
-        double val = alpha * parent_a.values[p] + (1.0 - alpha) * parent_b.values[p];
-        child.values[p] = std::clamp(val, param_specs[p].min_val, param_specs[p].max_val);
-      }
-
-      // Mutate
-      for (size_t p = 0; p < param_specs.size(); ++p) {
-        if (dist_01(rng) < mutation_rate) {
-          double span = param_specs[p].max_val - param_specs[p].min_val;
-          std::normal_distribution<double> dist_normal(0.0, mutation_scale * span);
-          child.values[p] = std::clamp(child.values[p] + dist_normal(rng), param_specs[p].min_val, param_specs[p].max_val);
+        std::vector<std::future<EvaluationResult>> futures(population_size);
+        for (int i = 0; i < population_size; ++i) {
+            futures[i] = std::async(std::launch::async, [&, i]() {
+                // RUNS THE TEMPLATED FUNCTION
+                return evaluate_candidate<ModelType>(all_csvs_rows, param_specs, population[i].values, tuning_config, base_params);
+            });
         }
-      }
 
-      next_pop.push_back(child);
+        for (int i = 0; i < population_size; ++i) {
+            EvaluationResult res = futures[i].get();
+            population[i].score = res.total_score;
+            population[i].position_rmse = res.position_rmse;
+            
+            if (population[i].score < global_best.score) {
+                global_best = population[i];
+                std::cout << "  [New Global Best] Score: " << global_best.score << " (Pos RMSE: " << global_best.position_rmse << "m) Parameters:";
+                for (size_t p = 0; p < param_specs.size(); ++p) {
+                    std::cout << " " << param_specs[p].name << "=" << global_best.values[p];
+                }
+                std::cout << std::endl;
+            }
+        }
+
+        std::sort(population.begin(), population.end(), [](const Individual& a, const Individual& b) {
+            return a.score < b.score;
+        });
+
+        std::cout << "  Best score in generation: " << population[0].score << std::endl;
+
+        // Iteratively save best parameters
+        std::ofstream best_file("src/invictasim/tuning_csvs/best_parameters.yaml");
+        if (best_file.is_open()) {
+            best_file << "generation: " << gen + 1 << "\n";
+            best_file << "best_score: " << global_best.score << "\n";
+            best_file << "position_rmse: " << global_best.position_rmse << "\n";
+            best_file << "parameters:\n";
+            for (size_t p = 0; p < param_specs.size(); ++p) {
+                best_file << "  " << param_specs[p].name << ": " << global_best.values[p] << "\n";
+            }
+            best_file.close();
+        }
+
+        if (global_best.position_rmse <= 0.1) {
+            std::cout << "Optimization stopped: Target Position RMSE (<= 0.1m) reached!" << std::endl;
+            break;
+        }
+
+        std::vector<Individual> next_pop;
+        next_pop.reserve(population_size);
+
+        for (int i = 0; i < std::min(elite_count, population_size); ++i) {
+            next_pop.push_back(population[i]);
+        }
+
+        for (int i = 0; i < immigrant_count; ++i) {
+            Individual immigrant;
+            immigrant.values.resize(param_specs.size());
+            for (size_t p = 0; p < param_specs.size(); ++p) {
+                std::uniform_real_distribution<double> dist(param_specs[p].min_val, param_specs[p].max_val);
+                immigrant.values[p] = dist(rng);
+            }
+            next_pop.push_back(immigrant);
+        }
+
+        auto tournament_select = [&](int size) -> const Individual& {
+            int best_idx = rng() % population_size;
+            for (int t = 1; t < size; ++t) {
+                int idx = rng() % population_size;
+                if (population[idx].score < population[best_idx].score) best_idx = idx;
+            }
+            return population[best_idx];
+        };
+
+        while (next_pop.size() < static_cast<size_t>(population_size)) {
+            const Individual& parent_a = tournament_select(tournament_size);
+            const Individual& parent_b = tournament_select(tournament_size);
+
+            Individual child;
+            child.values.resize(param_specs.size());
+            for (size_t p = 0; p < param_specs.size(); ++p) {
+                std::uniform_real_distribution<double> dist_blend(-blend_alpha, 1.0 + blend_alpha);
+                double alpha = dist_blend(rng);
+                double val = alpha * parent_a.values[p] + (1.0 - alpha) * parent_b.values[p];
+                child.values[p] = std::clamp(val, param_specs[p].min_val, param_specs[p].max_val);
+            }
+
+            for (size_t p = 0; p < param_specs.size(); ++p) {
+                if (dist_01(rng) < mutation_rate) {
+                    double span = param_specs[p].max_val - param_specs[p].min_val;
+                    std::normal_distribution<double> dist_normal(0.0, mutation_scale * span);
+                    child.values[p] = std::clamp(child.values[p] + dist_normal(rng), param_specs[p].min_val, param_specs[p].max_val);
+                }
+            }
+            next_pop.push_back(child);
+        }
+        population = next_pop;
     }
-
-    population = next_pop;
-  }
-
-  return global_best;
+    return global_best;
 }
 
-
+std::string get_full_csv_path(const std::string& data_dir, const std::string& rel_path) {
+    if (std::filesystem::path(rel_path).is_absolute() || data_dir.empty()) {
+        return rel_path;
+    }
+    return (std::filesystem::path(data_dir) / rel_path).string();
+}
 
 int main(int argc, char** argv) {
-  std::string config_path;
-  std::string data_dir;
+    std::signal(SIGINT, handle_sigint);
+    std::string config_path;
+    std::string data_dir;
 
-  for (int i = 1; i < argc; ++i) {
-    std::string arg = argv[i];
-    if (arg == "--config" && i + 1 < argc) {
-      config_path = argv[++i];
-    } else if (arg == "--data-dir" && i + 1 < argc) {
-      data_dir = argv[++i];
+    for (int i = 1; i < argc; ++i) {
+        std::string arg = argv[i];
+        if (arg == "--config" && i + 1 < argc) {
+            config_path = argv[++i];
+        } else if (arg == "--data-dir" && i + 1 < argc) {
+            data_dir = argv[++i];
+        }
     }
-  }
 
-  if (config_path.empty() || data_dir.empty()) {
-    std::cerr << "Usage: " << argv[0] << " --config <config_yaml> --data-dir <data_csv_directory>" << std::endl;
-    return 1;
-  }
-
-  std::cout << "Loading tuning configuration from: " << config_path << std::endl;
-  YAML::Node tuning_config = YAML::LoadFile(config_path);
-
-  rclcpp::init(0, nullptr);
-  InvictaSimParameters base_params;
-
-  YAML::Node csvs = tuning_config["tuning"]["csvs"];
-  if (!csvs && tuning_config["tuning"]["bags"]) {
-    csvs = tuning_config["tuning"]["bags"];
-  }
-  std::vector<std::vector<CsvRow>> all_csvs_rows;
-  all_csvs_rows.reserve(csvs.size());
-
-  std::cout << "Loading CSV telemetry datasets..." << std::endl;
-  for (size_t b = 0; b < csvs.size(); ++b) {
-    std::string full_path;
-    if (csvs[b]["csv_path"]) {
-      full_path = get_full_csv_path(data_dir, csvs[b]["csv_path"].as<std::string>());
-    } else if (csvs[b]["name"]) {
-      full_path = (std::filesystem::path(data_dir) / (csvs[b]["name"].as<std::string>() + ".csv")).string();
-    } else if (csvs[b]["path"]) {
-      std::string rel_path = csvs[b]["path"].as<std::string>();
-      full_path = get_full_csv_path(data_dir, rel_path);
-    } else {
-      std::cerr << "Warning: Bag entry is missing path or name." << std::endl;
-      continue;
+    if (config_path.empty() || data_dir.empty()) {
+        std::cerr << "Usage: " << argv[0] << " --config <config_yaml> --data-dir <data_csv_directory>" << std::endl;
+        return 1;
     }
-    std::cout << "  Reading: " << full_path << std::endl;
-    auto rows = read_csv(full_path);
-    std::cout << "    Loaded " << rows.size() << " samples." << std::endl;
-    all_csvs_rows.push_back(std::move(rows));
-  }
 
-  std::vector<ParameterSpec> param_specs;
-  YAML::Node params_node = tuning_config["tuning"]["parameters"];
-  if (params_node) {
-    for (size_t i = 0; i < params_node.size(); ++i) {
-      ParameterSpec spec;
-      spec.name = params_node[i]["name"].as<std::string>();
-      spec.min_val = params_node[i]["min"].as<double>();
-      spec.max_val = params_node[i]["max"].as<double>();
-      param_specs.push_back(spec);
+    std::cout << "Loading tuning configuration from: " << config_path << std::endl;
+    YAML::Node tuning_config = YAML::LoadFile(config_path);
+
+    // Initializing rclcpp is optional here unless your parameter config loader strictly requires it!
+    // rclcpp::init(0, nullptr); 
+
+    InvictaSimParameters base_params;
+    
+    // Using default base_params because it loads the full vehicle_models properly.
+
+    YAML::Node csvs = tuning_config["tuning"]["csvs"];
+    if (!csvs && tuning_config["tuning"]["bags"]) {
+        csvs = tuning_config["tuning"]["bags"];
     }
-  }
+    std::vector<std::vector<CsvRow>> all_csvs_rows;
+    all_csvs_rows.reserve(csvs.size());
 
-  std::cout << "Loaded " << param_specs.size() << " optimization parameters." << std::endl;
-  std::cout << "Selected vehicle model from configuration: " << base_params.vehicle_model << std::endl;
+    std::cout << "Loading CSV telemetry datasets..." << std::endl;
+    for (size_t b = 0; b < csvs.size(); ++b) {
+        std::string full_path;
+        if (csvs[b]["csv_path"]) {
+            full_path = get_full_csv_path(data_dir, csvs[b]["csv_path"].as<std::string>());
+        } else if (csvs[b]["name"]) {
+            full_path = (std::filesystem::path(data_dir) / (csvs[b]["name"].as<std::string>() + ".csv")).string();
+        } else if (csvs[b]["path"]) {
+            std::string rel_path = csvs[b]["path"].as<std::string>();
+            full_path = get_full_csv_path(data_dir, rel_path);
+        } else {
+            std::cerr << "Warning: Bag entry is missing path or name." << std::endl;
+            continue;
+        }
+        std::cout << "  Reading: " << full_path << std::endl;
+        auto rows = read_csv(full_path);
+        std::cout << "    Loaded " << rows.size() << " samples." << std::endl;
+        all_csvs_rows.push_back(std::move(rows));
+    }
 
-  std::cout << "Starting Genetic Algorithm search..." << std::endl;
-  auto start_time = std::chrono::steady_clock::now();
-  Individual optimal = run_genetic_algorithm(all_csvs_rows, param_specs, tuning_config, base_params);
-  auto end_time = std::chrono::steady_clock::now();
+    std::vector<ParameterSpec> param_specs;
+    YAML::Node params_node = tuning_config["tuning"]["parameters"];
+    if (params_node) {
+        for (size_t i = 0; i < params_node.size(); ++i) {
+            ParameterSpec spec;
+            spec.name = params_node[i]["name"].as<std::string>();
+            spec.min_val = params_node[i]["min"].as<double>();
+            spec.max_val = params_node[i]["max"].as<double>();
+            param_specs.push_back(spec);
+        }
+    }
 
-  double elapsed_s = std::chrono::duration<double>(end_time - start_time).count();
-  std::cout << "\n========================================" << std::endl;
-  std::cout << "Optimization Complete in " << elapsed_s << " seconds." << std::endl;
-  std::cout << "Optimal Cost Score: " << optimal.score << std::endl;
-  std::cout << "Optimal Parameters:" << std::endl;
-  for (size_t p = 0; p < param_specs.size(); ++p) {
-    std::cout << "  " << param_specs[p].name << ": " << optimal.values[p] << std::endl;
-  }
-  std::cout << "========================================" << std::endl;
+    std::cout << "Loaded " << param_specs.size() << " optimization parameters." << std::endl;
+    
+    // Extract the vehicle model from the tuning YAML
+    std::string requested_model = "fsfeup02"; // default
+    if (tuning_config["tuning"]["vehicle_model"]) {
+        requested_model = tuning_config["tuning"]["vehicle_model"].as<std::string>();
+    }
+    std::cout << "Selected vehicle model from configuration: " << requested_model << std::endl;
 
-  rclcpp::shutdown();
-  return 0;
+    std::cout << "Starting Genetic Algorithm search..." << std::endl;
+    auto start_time = std::chrono::steady_clock::now();
+    
+    Individual optimal;
+
+    // ====================================================================
+    // MODEL ROUTER: Add future inline models here!
+    // ====================================================================
+    if (requested_model == "fsfeup02" || requested_model == "inline_02") {
+        optimal = run_genetic_algorithm<InlineFSFEUP02Model>(all_csvs_rows, param_specs, tuning_config, base_params);
+    } 
+    /*
+    else if (requested_model == "fsfeup03" || requested_model == "inline_03") {
+        optimal = run_genetic_algorithm<InlineFSFEUP03Model>(all_csvs_rows, param_specs, tuning_config, base_params);
+    }
+    */
+    else {
+        std::cerr << "Error: Unknown or unlinked vehicle model '" << requested_model << "'." << std::endl;
+        return 1;
+    }
+
+    auto end_time = std::chrono::steady_clock::now();
+    double elapsed_s = std::chrono::duration<double>(end_time - start_time).count();
+    
+    std::cout << "\n========================================" << std::endl;
+    std::cout << "Optimization Complete in " << elapsed_s << " seconds." << std::endl;
+    std::cout << "Optimal Cost Score: " << optimal.score << std::endl;
+    std::cout << "Optimal Parameters:" << std::endl;
+    for (size_t p = 0; p < param_specs.size(); ++p) {
+        std::cout << "  " << param_specs[p].name << ": " << optimal.values[p] << std::endl;
+    }
+    std::cout << "========================================" << std::endl;
+
+    // rclcpp::shutdown();
+    return 0;
 }

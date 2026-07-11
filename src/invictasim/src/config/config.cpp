@@ -24,9 +24,8 @@ InvictaSimParameters::InvictaSimParameters() {
   track_name = simulator_config["invictasim"]["track_name"].as<std::string>();
   input_adapter = simulator_config["invictasim"]["input_adapter"].as<std::string>();
   output_adapter = simulator_config["invictasim"]["output_adapter"].as<std::string>();
-  const YAML::Node tuning_evaluator_config = simulator_config["invictasim"]["tuning_evaluator"];
-  tuning_evaluator_enabled =
-      tuning_evaluator_config ? tuning_evaluator_config.as<bool>() : false;
+  const YAML::Node rosbag_evaluator_config = simulator_config["invictasim"]["rosbag_evaluator"];
+  rosbag_evaluator_enabled = rosbag_evaluator_config ? rosbag_evaluator_config.as<bool>() : false;
 
   vehicle_model = simulator_config["invictasim"]["vehicle_model"].as<std::string>();
 

@@ -45,7 +45,7 @@ int main(int argc, char* argv[]) {
     output_thread = std::thread([&output_adapter]() { output_adapter->run(); });
   }
 
-  if (params.tuning_evaluator_enabled) {
+  if (params.rosbag_evaluator_enabled) {
     tuning_evaluator = std::make_shared<TuningEvaluator>(simulator, params);
     executor.add_node(tuning_evaluator);
   }

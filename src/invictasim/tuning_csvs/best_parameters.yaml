@@ -1,0 +1,40 @@
+generation: 23
+best_score: 11.6817
+position_rmse: 4.6851
+parameters:
+  inverter.max_phase_current: 291.619
+  inverter.acceleration_delay_ms: 0
+  battery.max_discharge_current: 230
+  transmission.viscous_drag_coeff: 0.490692
+  transmission.coulomb_drag: 4.62528
+  transmission.efficiency: 0.977336
+  tire.effective_tire_r: 0.192171
+  tire.slip_ratio_relaxation_length: 0.112288
+  tire.slip_angle_relaxation_length: 0.11324
+  tire.LMUX: 1.23724
+  tire.LKX: 0.55
+  tire.PDX1: 2.44283
+  tire.PKX1: 85.3515
+  tire.PEX1: 0.45
+  tire.LONGITUDINAL_STIFFNESS: 375330
+  steering_motor.time_constant: 0.240722
+  motor.max_peak_rpm: 3250
+  motor.max_continuous_rpm: 6080.13
+  motor.max_peak_current: 231.438
+  motor.max_continuous_current: 90
+  motor.max_continuous_power: 35062.1
+  motor.max_peak_power: 66013.7
+  motor.max_continuous_torque: 75.4126
+  motor.max_peak_torque: 240
+  motor.kt_constant: 0.769332
+  transmission.efficiency: 0.999
+  transmission.kv: 87.72
+  transmission.t_max: 235.547
+  transmission.viscous_drag_coeff: 0
+  transmission.coulomb_drag: 3.30825
+  transmission.coulomb_smooth_stiffness: 26.1343
+  steering.ackerman_factor: 0.194354
+  steering_motor.kp: 0.00125
+  steering_motor.ki: 0.0119049
+  steering_motor.kd: 9.17061e-06
+  steering_motor.time_constant: 0.077
