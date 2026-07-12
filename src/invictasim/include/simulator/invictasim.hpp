@@ -12,6 +12,7 @@
 #include "vehicle_model/vehicle_model.hpp"
 #include "sensors/simulated_perception.hpp"
 #include "sensors/imu.hpp"
+#include "sensors/steering_sensor.hpp"
 #include "sensors/wss.hpp"
 #include "common_lib/structures/path_point.hpp"
 #include "common_lib/structures/wheels.hpp"

@@ -91,8 +91,8 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator,
       this->create_publisher<custom_interfaces::msg::WheelRPM>("invictasim/wss/rear_right", 10);
   vehicle_motor_rpm_pub_ =
       this->create_publisher<custom_interfaces::msg::WheelRPM>("invictasim/resolver", 10);
-  steering_pub_ = this->create_publisher<custom_interfaces::msg::SteeringAngle>(
-      "invictasim/steering_angle_sensor", 10);
+  steering_pub_ = 
+      this->create_publisher<custom_interfaces::msg::SteeringAngle>("invictasim/steering_sensor", 10);
 
   // Operational status
   operational_status_pub_ = this->create_publisher<custom_interfaces::msg::OperationalStatus>(

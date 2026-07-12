@@ -1,0 +1,5 @@
+# Steering Angle Sensor Configuration
+steering_angle_sensor:
+  noise_std_dev: 2
+  bias: 0.2
+  quantization_step: 2

@@ -49,4 +49,4 @@ private:
   double gyroscope_noise_std_dev_;        ///< Gaussian noise std dev (rad/s)
   double angular_velocity_scale_factor_;  ///< Scale error coefficient
   double gyroscope_bias_;                 ///< Bias (rad/s)
-}
+};

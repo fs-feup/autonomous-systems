@@ -7,9 +7,7 @@ SteeringSensor::SteeringSensor(const std::string& config_path) {
   YAML::Node sensor = config["steering_angle_sensor"];
 
   noise_std_dev_ = sensor["noise_std_dev"].as<double>();
-  scale_factor_ = sensor["scale_factor"].as<double>();
   bias_ = sensor["bias"].as<double>();
-  steering_speed_scale_ = sensor["steering_speed_scale"].as<double>();
   quantization_step_ = sensor["quantization_step"].as<double>();
 }
 
