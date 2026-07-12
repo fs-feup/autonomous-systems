@@ -7,7 +7,7 @@ class SalisburyDifferential : public TransmissionModel {
   SalisburyDifferential(const common_lib::car_parameters::CarParameters& params)
       : TransmissionModel(params) {}
 
-  ~SalisburyDifferential() override = default;
+  virtual ~SalisburyDifferential() = default;
 
   double calculate_motor_omega(
       const common_lib::structures::Wheels& wheel_speeds) const override;
