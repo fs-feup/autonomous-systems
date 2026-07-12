@@ -1,13 +1,18 @@
-generation: 792
-best_score: 10.8226
-position_rmse: 1.24194
+generation: 87
+best_score: -1e+09
+metrics:
+  position_rmse: 1e+09
+  heading_rmse: 1e+09
+  velocity_rmse: 1e+09
+  velocity_x_rmse: 1e+09
+  velocity_y_rmse: 1e+09
+  yaw_rate_rmse: 1e+09
+  front_wheel_rpm_rmse: 1e+09
+  motor_rpm_rmse: 1e+09
 parameters:
   inverter.max_phase_current: 349.786
   inverter.acceleration_delay_ms: 0
   battery.max_discharge_current: 130
-  transmission.viscous_drag_coeff: 0.252734
-  transmission.coulomb_drag: 3.41854
-  transmission.efficiency: 0.981496
   tire.effective_tire_r: 0.184149
   tire.slip_ratio_relaxation_length: 0
   tire.slip_angle_relaxation_length: 0.0371293
@@ -17,7 +22,20 @@ parameters:
   tire.PKX1: 140
   tire.PEX1: 1.318
   tire.LONGITUDINAL_STIFFNESS: 375194
-  steering_motor.time_constant: 0.225086
+  tire.LMUY: 1.05719
+  tire.LKY: 9.01148
+  tire.PDY1: 1.8
+  tire.PKY1: -296.683
+  tire.PEY1: 0.711023
+  load_transfer.front_stiffness_distribution: 4.98409e-310
+  load_transfer.roll_axis_z: 4.98409e-310
+  load_transfer.front_roll_center_z: 4.98409e-310
+  load_transfer.rear_roll_center_z: 4.98409e-310
+  steering.ackerman_factor: 0.2618
+  steering_motor.kp: 0.00359027
+  steering_motor.ki: 0.0131187
+  steering_motor.kd: 1.5e-05
+  steering_motor.time_constant: 0.001
   motor.max_peak_rpm: 4648.53
   motor.max_continuous_rpm: 4960.58
   motor.max_peak_current: 278.313
@@ -33,8 +51,3 @@ parameters:
   transmission.viscous_drag_coeff: 0
   transmission.coulomb_drag: 0
   transmission.coulomb_smooth_stiffness: 19.9294
-  steering.ackerman_factor: 0.2618
-  steering_motor.kp: 0.00359027
-  steering_motor.ki: 0.0131187
-  steering_motor.kd: 1.5e-05
-  steering_motor.time_constant: 0.001

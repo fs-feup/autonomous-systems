@@ -12,27 +12,18 @@ tuning:
       stop_after_s: 51.0
 
   score:
-    min_samples: 140
-    short_sample_penalty: 1000.0 # Heavy penalty if the car crashes or stops early
-    weights:
-      velocity_x_rmse: 2.0
-      front_wheel_rpm_rmse: 0.040
-      motor_rpm_rmse: 0.010
-      position_rmse: 10.0
-      velocity_y_rmse: 4.0
-      heading_rmse: 1.0
-      yaw_rate_rmse: 8.0
+    max_distance_error: 2.31415 # Maximum allowed distance error in meters before a mutation is killed immediately
 
   optimizer:
     # Genetic Algorithm Settings (mapped to the C++ variables)
     generations: 1000000
-    population_size: 150      # Increased for wider search space
-    elite_count: 5            # Keep the top 5 strictly safe
-    immigrant_count: 15       # Inject 15 completely random sets every generation
-    mutation_rate: 0.35       # Probability of a gene mutating
-    mutation_scale: 0.40      # How drastic the mutation is (Increased!)
-    blend_alpha: 0.60         # Increased to encourage extrapolation
-    tournament_size: 3
+    population_size: 1000      # Increased for wider search space
+    elite_count: 10            # Keep the top 5 strictly safe
+    immigrant_count: 40       # Inject 15 completely random sets every generation
+    mutation_rate: 0.10       # Probability of a gene mutating
+    mutation_scale: 0.15      # How drastic the mutation is (Increased!)
+    blend_alpha: 0.25         # Increased to encourage extrapolation
+    tournament_size: 4
     seed: 31
 
   parameters:

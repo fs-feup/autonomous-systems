@@ -49,8 +49,18 @@ struct RunningRmse {
 };
 
 struct ParameterSpec { std::string name; double min_val; double max_val; };
-struct Individual { std::vector<double> values; double score = 1e9; double position_rmse = 1e9; };
-struct EvaluationResult { double total_score; double position_rmse; };
+struct EvaluationMetrics {
+    double position_rmse = 1e9;
+    double heading_rmse = 1e9;
+    double velocity_rmse = 1e9;
+    double velocity_x_rmse = 1e9;
+    double velocity_y_rmse = 1e9;
+    double yaw_rate_rmse = 1e9;
+    double front_wheel_rpm_rmse = 1e9;
+    double motor_rpm_rmse = 1e9;
+};
+struct Individual { std::vector<double> values; double score = -1e9; EvaluationMetrics metrics; };
+struct EvaluationResult { double total_score; EvaluationMetrics metrics; };
 struct PoseSample { double x; double y; double yaw; };
 
 double normalize_angle(double angle) {
@@ -686,6 +696,13 @@ EvaluationResult evaluate_candidate(
     double weighted_score_sum = 0.0;
     double total_weight = 0.0;
     double weighted_position_rmse = 0.0;
+    double weighted_heading_rmse = 0.0;
+    double weighted_velocity_rmse = 0.0;
+    double weighted_velocity_x_rmse = 0.0;
+    double weighted_velocity_y_rmse = 0.0;
+    double weighted_yaw_rate_rmse = 0.0;
+    double weighted_front_wheel_rpm_rmse = 0.0;
+    double weighted_motor_rpm_rmse = 0.0;
 
     for (size_t b = 0; b < csvs.size(); ++b) {
         YAML::Node csv_node = csvs[b];
@@ -698,9 +715,11 @@ EvaluationResult evaluate_candidate(
             score_config = csv_node["score"];
         }
 
+        double max_dist_error = score_config["max_distance_error"] ? score_config["max_distance_error"].as<double>() : 2.0;
+
         const auto& rows = all_csvs_rows[b];
         if (rows.empty()) {
-            weighted_score_sum += weight * 1e9;
+            weighted_score_sum += weight * -1e9;
             total_weight += weight;
             continue;
         }
@@ -742,6 +761,7 @@ EvaluationResult evaluate_candidate(
 
         double last_time = first_sample.timestamp_s;
 
+        double alive_time = 0.0;
         for (size_t i = start_idx + 1; i < rows.size(); ++i) {
             const CsvRow& row = rows[i];
             if (stop_duration > 0.0 && (row.timestamp_s - start_time) > stop_duration) break;
@@ -765,7 +785,15 @@ EvaluationResult evaluate_candidate(
             PoseSample real_raw = {row.real_x, row.real_y, row.real_yaw};
             PoseSample real_pose = transform_pose_to_map(real_raw, real_origin, sim_origin);
 
-            position_rmse.update(std::hypot(state.x - real_pose.x, state.y - real_pose.y));
+            double current_pos_error = std::hypot(state.x - real_pose.x, state.y - real_pose.y);
+            
+            if (current_pos_error > max_dist_error) {
+                break; // Hard limit reached, kill mutation
+            }
+            
+            alive_time = row.timestamp_s - start_time;
+
+            position_rmse.update(current_pos_error);
             heading_rmse.update(normalize_angle(state.yaw - real_pose.yaw));
             velocity_x_rmse.update(state.vx - row.real_vx);
             velocity_x_slow_rmse.update(std::min(0.0, state.vx - row.real_vx));
@@ -777,37 +805,32 @@ EvaluationResult evaluate_candidate(
             motor_rpm_rmse.update(sim_motor_rpm - row.real_motor_rpm);
         }
 
-        int samples = position_rmse.count;
-        double dataset_score = 0.0;
-        YAML::Node weights = score_config["weights"];
-        if (weights) {
-            if (weights["position_rmse"]) dataset_score += weights["position_rmse"].as<double>() * position_rmse.get();
-            if (weights["heading_rmse"]) dataset_score += weights["heading_rmse"].as<double>() * heading_rmse.get();
-            if (weights["velocity_rmse"]) dataset_score += weights["velocity_rmse"].as<double>() * velocity_rmse.get();
-            if (weights["velocity_x_rmse"]) dataset_score += weights["velocity_x_rmse"].as<double>() * velocity_x_rmse.get();
-            if (weights["velocity_x_slow_rmse"]) dataset_score += weights["velocity_x_slow_rmse"].as<double>() * velocity_x_slow_rmse.get();
-            if (weights["velocity_y_rmse"]) dataset_score += weights["velocity_y_rmse"].as<double>() * velocity_y_rmse.get();
-            if (weights["yaw_rate_rmse"]) dataset_score += weights["yaw_rate_rmse"].as<double>() * yaw_rate_rmse.get();
-            if (weights["yaw_rate_under_rmse"]) dataset_score += weights["yaw_rate_under_rmse"].as<double>() * yaw_rate_under_rmse.get();
-            if (weights["front_wheel_rpm_rmse"]) dataset_score += weights["front_wheel_rpm_rmse"].as<double>() * front_wheel_rpm_rmse.get();
-            if (weights["motor_rpm_rmse"]) dataset_score += weights["motor_rpm_rmse"].as<double>() * motor_rpm_rmse.get();
-        }
-
-        int min_samples = score_config["min_samples"] ? score_config["min_samples"].as<int>() : 0;
-        if (min_samples > 0 && samples < min_samples) {
-            double shortfall = static_cast<double>(min_samples - samples) / static_cast<double>(min_samples);
-            double penalty = score_config["short_sample_penalty"] ? score_config["short_sample_penalty"].as<double>() : 0.0;
-            dataset_score += penalty * shortfall;
-        }
+        double dataset_score = alive_time;
 
         weighted_score_sum += weight * dataset_score;
         weighted_position_rmse += weight * position_rmse.get();
+        weighted_heading_rmse += weight * heading_rmse.get();
+        weighted_velocity_rmse += weight * velocity_rmse.get();
+        weighted_velocity_x_rmse += weight * velocity_x_rmse.get();
+        weighted_velocity_y_rmse += weight * velocity_y_rmse.get();
+        weighted_yaw_rate_rmse += weight * yaw_rate_rmse.get();
+        weighted_front_wheel_rpm_rmse += weight * front_wheel_rpm_rmse.get();
+        weighted_motor_rpm_rmse += weight * motor_rpm_rmse.get();
         total_weight += weight;
     }
 
     double final_score = weighted_score_sum / std::max(total_weight, 1e-9);
-    double final_pos_rmse = weighted_position_rmse / std::max(total_weight, 1e-9);
-    return {final_score, final_pos_rmse};
+    EvaluationResult res;
+    res.total_score = final_score;
+    res.metrics.position_rmse = weighted_position_rmse / std::max(total_weight, 1e-9);
+    res.metrics.heading_rmse = weighted_heading_rmse / std::max(total_weight, 1e-9);
+    res.metrics.velocity_rmse = weighted_velocity_rmse / std::max(total_weight, 1e-9);
+    res.metrics.velocity_x_rmse = weighted_velocity_x_rmse / std::max(total_weight, 1e-9);
+    res.metrics.velocity_y_rmse = weighted_velocity_y_rmse / std::max(total_weight, 1e-9);
+    res.metrics.yaw_rate_rmse = weighted_yaw_rate_rmse / std::max(total_weight, 1e-9);
+    res.metrics.front_wheel_rpm_rmse = weighted_front_wheel_rpm_rmse / std::max(total_weight, 1e-9);
+    res.metrics.motor_rpm_rmse = weighted_motor_rpm_rmse / std::max(total_weight, 1e-9);
+    return res;
 }
 
 template <typename ModelType>
@@ -848,7 +871,7 @@ Individual run_genetic_algorithm(
     }
 
     Individual global_best;
-    global_best.score = 1e9;
+    global_best.score = -1e9;
     global_best.values = population[0].values;
 
     for (int gen = 0; gen < generations; ++gen) {
@@ -869,11 +892,11 @@ Individual run_genetic_algorithm(
         for (int i = 0; i < population_size; ++i) {
             EvaluationResult res = futures[i].get();
             population[i].score = res.total_score;
-            population[i].position_rmse = res.position_rmse;
+            population[i].metrics = res.metrics;
             
-            if (population[i].score < global_best.score) {
+            if (population[i].score > global_best.score) {
                 global_best = population[i];
-                std::cout << "  [New Global Best] Score: " << global_best.score << " (Pos RMSE: " << global_best.position_rmse << "m) Parameters:";
+                std::cout << "  [New Global Best] Score: " << global_best.score << " (Pos RMSE: " << global_best.metrics.position_rmse << "m) Parameters:";
                 for (size_t p = 0; p < param_specs.size(); ++p) {
                     std::cout << " " << param_specs[p].name << "=" << global_best.values[p];
                 }
@@ -882,7 +905,7 @@ Individual run_genetic_algorithm(
         }
 
         std::sort(population.begin(), population.end(), [](const Individual& a, const Individual& b) {
-            return a.score < b.score;
+            return a.score > b.score;
         });
 
         std::cout << "  Best score in generation: " << population[0].score << std::endl;
@@ -892,7 +915,15 @@ Individual run_genetic_algorithm(
         if (best_file.is_open()) {
             best_file << "generation: " << gen + 1 << "\n";
             best_file << "best_score: " << global_best.score << "\n";
-            best_file << "position_rmse: " << global_best.position_rmse << "\n";
+            best_file << "metrics:\n";
+            best_file << "  position_rmse: " << global_best.metrics.position_rmse << "\n";
+            best_file << "  heading_rmse: " << global_best.metrics.heading_rmse << "\n";
+            best_file << "  velocity_rmse: " << global_best.metrics.velocity_rmse << "\n";
+            best_file << "  velocity_x_rmse: " << global_best.metrics.velocity_x_rmse << "\n";
+            best_file << "  velocity_y_rmse: " << global_best.metrics.velocity_y_rmse << "\n";
+            best_file << "  yaw_rate_rmse: " << global_best.metrics.yaw_rate_rmse << "\n";
+            best_file << "  front_wheel_rpm_rmse: " << global_best.metrics.front_wheel_rpm_rmse << "\n";
+            best_file << "  motor_rpm_rmse: " << global_best.metrics.motor_rpm_rmse << "\n";
             best_file << "parameters:\n";
             for (size_t p = 0; p < param_specs.size(); ++p) {
                 best_file << "  " << param_specs[p].name << ": " << global_best.values[p] << "\n";
@@ -900,10 +931,10 @@ Individual run_genetic_algorithm(
             best_file.close();
         }
 
-        if (global_best.position_rmse <= 0.1) {
-            std::cout << "Optimization stopped: Target Position RMSE (<= 0.1m) reached!" << std::endl;
-            break;
-        }
+        // if (global_best.position_rmse <= 0.1) {
+        //     std::cout << "Optimization stopped: Target Position RMSE (<= 0.1m) reached!" << std::endl;
+        //     break;
+        // }
 
         std::vector<Individual> next_pop;
         next_pop.reserve(population_size);
@@ -926,7 +957,7 @@ Individual run_genetic_algorithm(
             int best_idx = rng() % population_size;
             for (int t = 1; t < size; ++t) {
                 int idx = rng() % population_size;
-                if (population[idx].score < population[best_idx].score) best_idx = idx;
+                if (population[idx].score > population[best_idx].score) best_idx = idx;
             }
             return population[best_idx];
         };
