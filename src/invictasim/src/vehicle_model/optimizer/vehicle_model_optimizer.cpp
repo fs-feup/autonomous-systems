@@ -774,6 +774,7 @@ EvaluationResult evaluate_candidate(
         }
 
         double max_dist_error = score_config["max_distance_error"] ? score_config["max_distance_error"].as<double>() : 2.0;
+        bool ignore_lateral = score_config["ignore_lateral_distance"] && score_config["ignore_lateral_distance"].as<bool>();
 
         const auto& rows = all_csvs_rows[b];
         if (rows.empty()) {
@@ -843,7 +844,16 @@ EvaluationResult evaluate_candidate(
             PoseSample real_raw = {row.real_x, row.real_y, row.real_yaw};
             PoseSample real_pose = transform_pose_to_map(real_raw, real_origin, sim_origin);
 
-            double current_pos_error = std::hypot(state.x - real_pose.x, state.y - real_pose.y);
+            double current_pos_error;
+            if (ignore_lateral) {
+                // Ignore lateral drift: just compare total distance traveled from start
+                double sim_dist = std::hypot(state.x - sim_origin.x, state.y - sim_origin.y);
+                double real_dist = std::hypot(real_pose.x - real_origin.x, real_pose.y - real_origin.y);
+                current_pos_error = std::abs(sim_dist - real_dist);
+            } else {
+                // Strict 2D Euclidean distance error
+                current_pos_error = std::hypot(state.x - real_pose.x, state.y - real_pose.y);
+            }
             
             if (current_pos_error > max_dist_error) {
                 break; // Hard limit reached, kill mutation

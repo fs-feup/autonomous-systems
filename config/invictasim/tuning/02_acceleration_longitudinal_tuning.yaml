@@ -12,30 +12,23 @@ tuning:
       stop_after_s: 9.3
 
   score:
-    min_samples: 140
-    short_sample_penalty: 1000.0 # Heavy penalty if the car crashes or stops early
-    weights:
-      velocity_x_rmse: 6.0
-      front_wheel_rpm_rmse: 0.040
-      motor_rpm_rmse: 0.010
-      position_rmse: 0.2
-      velocity_y_rmse: 0.05
-      heading_rmse: 0.05
-      yaw_rate_rmse: 0.02
+    max_distance_error: 0.5 # Extremely tight 0.5m distance error tolerance
+    ignore_lateral_distance: true # Purely compares forward distance traveled, ignoring sideways steering/drift errors
 
   optimizer:
     # Genetic Algorithm Settings
-    generations: 1000000
-    population_size: 150      # Increased for wider search space
-    elite_count: 5            # Keep the top 5 strictly safe
-    immigrant_count: 15       # Inject 15 completely random sets every generation
-    mutation_rate: 0.35       # Probability of a gene mutating
-    mutation_scale: 0.40      # How drastic the mutation is (Increased!)
-    blend_alpha: 0.60         # Increased to encourage extrapolation
+    generations: 50000
+    population_size: 150      
+    elite_count: 5            
+    immigrant_count: 15       
+    mutation_rate: 0.35       
+    mutation_scale: 0.40      
+    blend_alpha: 0.60         
     tournament_size: 3
     seed: 31
 
   parameters:
+    # --- INVERTER & BATTERY (Power Delivery) ---
     - name: "inverter.max_phase_current"
       min: 220.0
       max: 420.0
@@ -48,58 +41,7 @@ tuning:
       min: 130.0
       max: 230.0
 
-    - name: "transmission.viscous_drag_coeff"
-      min: 0.0
-      max: 0.5
-
-    - name: "transmission.coulomb_drag"
-      min: 0.0
-      max: 8.0
-
-    - name: "transmission.efficiency"
-      min: 0.88
-      max: 0.99
-
-    - name: "tire.effective_tire_r"
-      min: 0.16
-      max: 0.24
-
-    - name: "tire.slip_ratio_relaxation_length"
-      min: 0.0
-      max: 0.12
-    
-    - name: "tire.slip_angle_relaxation_length"
-      min: 0.0
-      max: 0.12
-      
-    - name: "tire.LMUX"
-      min: 0.65
-      max: 1.90
-
-    - name: "tire.LKX"
-      min: 0.55
-      max: 1.60
-
-    - name: "tire.PDX1"
-      min: 0.50
-      max: 2.50
-
-    - name: "tire.PKX1"
-      min: 20.0
-      max: 140.0
-
-    - name: "tire.PEX1"
-      min: 0.45
-      max: 1.60
-
-    - name: "tire.LONGITUDINAL_STIFFNESS"
-      min: 180000.0
-      max: 450000.0
-    
-    - name: "steering_motor.time_constant"
-      min: 0.10
-      max: 0.250
-
+    # --- MOTOR SPECS (Torque & RPM) ---
     - name: "motor.max_peak_rpm"
       min: 3250.0
       max: 7000.0
@@ -136,25 +78,14 @@ tuning:
       min: 0.70
       max: 0.80
 
+    # --- TRANSMISSION (Efficiency & Drag) ---
     - name: "transmission.efficiency"
-      min: 0.8
+      min: 0.85
       max: 0.999
 
     - name: "transmission.kv"
       min: 9.24
       max: 87.72
-
-    - name: "transmission.preload"
-      min: 10.0
-      max: 60.0
-
-    - name: "transmission.drive_ramp_effect"
-      min: 0.5
-      max: 2.0
-
-    - name: "transmission.coast_ramp_effect"
-      min: 0.05
-      max: 0.8
 
     - name: "transmission.viscous_drag_coeff"
       min: 0.0
@@ -168,22 +99,38 @@ tuning:
       min: 0.0
       max: 30.0
 
-    - name: "steering.ackerman_factor"
-      min: 0.112
-      max: 0.337
+    # Note: Differential preload/ramps are omitted here because both wheels have identical grip
+    # in an ideal straight line, meaning differential slip is near 0.
 
-    - name: "steering_motor.kp"
-      min: 0.00125
-      max: 0.00375
+    # --- TIRE PURELY LONGITUDINAL PARAMETERS ---
+    - name: "tire.effective_tire_r"
+      min: 0.16
+      max: 0.24
 
-    - name: "steering_motor.ki"
-      min: 0.005
-      max: 0.015
+    - name: "tire.slip_ratio_relaxation_length"
+      min: 0.0
+      max: 0.12
 
-    - name: "steering_motor.kd"
-      min: 0.000005
-      max: 0.000015
+    - name: "tire.LMUX"
+      min: 0.65
+      max: 1.90
 
-    - name: "steering_motor.time_constant"
-      min: 0.001
-      max: 0.333
+    - name: "tire.LKX"
+      min: 0.55
+      max: 1.60
+
+    - name: "tire.PDX1"
+      min: 0.50
+      max: 2.50
+
+    - name: "tire.PKX1"
+      min: 20.0
+      max: 140.0
+
+    - name: "tire.PEX1"
+      min: 0.45
+      max: 1.60
+
+    - name: "tire.LONGITUDINAL_STIFFNESS"
+      min: 180000.0
+      max: 450000.0
