@@ -6,3 +6,6 @@ transmission:
   viscous_drag_coeff: 0 # original: 0.01
   coulomb_drag: 0 # original: 2.0
   coulomb_smooth_stiffness: 19.9294  # Stiffness for smoothing in Coulomb drag
+  preload: 20.0
+  drive_ramp_effect: 1.0
+  coast_ramp_effect: 0.1

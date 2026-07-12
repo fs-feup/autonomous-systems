@@ -685,6 +685,9 @@ std::map<std::string, double*> get_parameter_ptrs(std::shared_ptr<common_lib::ca
     m["transmission.viscous_drag_coeff"] = &p->transmission_parameters->viscous_drag_coeff;
     m["transmission.coulomb_drag"] = &p->transmission_parameters->coulomb_drag;
     m["transmission.coulomb_smooth_stiffness"] = &p->transmission_parameters->coulomb_smooth_stiffness;
+    m["transmission.preload"] = &p->transmission_parameters->preload;
+    m["transmission.drive_ramp_effect"] = &p->transmission_parameters->drive_ramp_effect;
+    m["transmission.coast_ramp_effect"] = &p->transmission_parameters->coast_ramp_effect;
   }
 
   return m;

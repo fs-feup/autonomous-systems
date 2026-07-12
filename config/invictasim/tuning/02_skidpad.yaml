@@ -145,9 +145,17 @@ tuning:
       min: 9.24
       max: 87.72
 
-    - name: "transmission.t_max"
-      min: 180.75
-      max: 542.25
+    - name: "transmission.preload"
+      min: 10.0
+      max: 60.0
+
+    - name: "transmission.drive_ramp_effect"
+      min: 0.5
+      max: 2.0
+
+    - name: "transmission.coast_ramp_effect"
+      min: 0.05
+      max: 0.8
 
     - name: "transmission.viscous_drag_coeff"
       min: 0.0
