@@ -13,6 +13,61 @@
 #include <filesystem>
 #include <csignal>
 #include <atomic>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
+#include <queue>
+#include <functional>
+
+class ThreadPool {
+public:
+    ThreadPool(size_t num_threads) : stop(false) {
+        for (size_t i = 0; i < num_threads; ++i) {
+            workers.emplace_back([this] {
+                for (;;) {
+                    std::function<void()> task;
+                    {
+                        std::unique_lock<std::mutex> lock(this->queue_mutex);
+                        this->condition.wait(lock, [this] { return this->stop || !this->tasks.empty(); });
+                        if (this->stop && this->tasks.empty()) return;
+                        task = std::move(this->tasks.front());
+                        this->tasks.pop();
+                    }
+                    task();
+                }
+            });
+        }
+    }
+    
+    template<class F, class... Args>
+    auto enqueue(F&& f, Args&&... args) -> std::future<typename std::invoke_result<F, Args...>::type> {
+        using return_type = typename std::invoke_result<F, Args...>::type;
+        auto task = std::make_shared<std::packaged_task<return_type()>>(std::bind(std::forward<F>(f), std::forward<Args>(args)...));
+        std::future<return_type> res = task->get_future();
+        {
+            std::unique_lock<std::mutex> lock(queue_mutex);
+            if(stop) throw std::runtime_error("enqueue on stopped ThreadPool");
+            tasks.emplace([task](){ (*task)(); });
+        }
+        condition.notify_one();
+        return res;
+    }
+    
+    ~ThreadPool() {
+        {
+            std::unique_lock<std::mutex> lock(queue_mutex);
+            stop = true;
+        }
+        condition.notify_all();
+        for (std::thread &worker : workers) worker.join();
+    }
+private:
+    std::vector<std::thread> workers;
+    std::queue<std::function<void()>> tasks;
+    std::mutex queue_mutex;
+    std::condition_variable condition;
+    bool stop;
+};
 
 std::atomic<bool> g_stop_optimization{false};
 void handle_sigint(int /*sig*/) {
@@ -853,6 +908,9 @@ Individual run_genetic_algorithm(
 
     std::mt19937 rng(seed);
     std::uniform_real_distribution<double> dist_01(0.0, 1.0);
+    
+    // Create a thread pool with the maximum hardware threads available
+    ThreadPool pool(std::thread::hardware_concurrency());
 
     std::vector<double> baseline_vals(param_specs.size());
     for (size_t p = 0; p < param_specs.size(); ++p) {
@@ -883,7 +941,7 @@ Individual run_genetic_algorithm(
 
         std::vector<std::future<EvaluationResult>> futures(population_size);
         for (int i = 0; i < population_size; ++i) {
-            futures[i] = std::async(std::launch::async, [&, i]() {
+            futures[i] = pool.enqueue([&, i]() {
                 // RUNS THE TEMPLATED FUNCTION
                 return evaluate_candidate<ModelType>(all_csvs_rows, param_specs, population[i].values, tuning_config, base_params);
             });
