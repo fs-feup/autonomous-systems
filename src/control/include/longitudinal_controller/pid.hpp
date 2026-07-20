@@ -30,6 +30,7 @@ private:
   double proportional_{0.0f};   /**< Proportional term current value */
   double integrator_{0.0f};     /**< Integrator term current value */
   double differentiator_{0.0f}; /**< Differentiator term current value */
+  double setpoint_{0.0f};       /**< Current setpoint value */
 
   double prev_error_{0.0f};       /**< Previous error value, required for integrator */
   double prev_measurement_{0.0f}; /**< Previous measurement value, required for defferentiator */
