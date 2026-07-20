@@ -32,6 +32,8 @@ struct CarParameters {
   double unsprung_cg_z;
   double Izz;
   double ackerman_factor;
+  double front_wheel_inertia; 
+  double rear_wheel_inertia;
 
   std::shared_ptr<common_lib::car_parameters::TireParameters> tire_parameters;
   std::shared_ptr<common_lib::car_parameters::AeroParameters> aero_parameters;

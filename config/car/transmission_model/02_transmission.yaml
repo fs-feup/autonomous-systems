@@ -3,9 +3,9 @@ transmission:
   efficiency: 0.95 # original: 0.95
   kv: 40.0
   t_max: 300.0
-  viscous_drag_coeff: 0.01
-  coulomb_drag: 2.0
-  coulomb_smooth_stiffness: 25  # Stiffness for smoothing in Coulomb drag
-  preload: 20.0
-  drive_ramp_effect: 1.0
-  coast_ramp_effect: 0.1
+  viscous_drag_coeff: 0.0204539       # previous: 0.01
+  coulomb_drag: 3.00026              # previous: 2.0
+  coulomb_smooth_stiffness: 4.50786  # previous: 25
+  preload: 51.2658                   # previous: 20.0
+  drive_ramp_effect: 1.17566         # previous: 1.0
+  coast_ramp_effect: 0.303048        # previous: 0.1

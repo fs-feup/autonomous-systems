@@ -54,7 +54,8 @@ private:
     // Pre-computed constants to replace slow division with fast multiplication
     double inv_mass_;
     double inv_izz_;
-    double inv_wheel_inertia_;
+    double inv_front_wheel_inertia_;
+    double inv_rear_wheel_inertia_;
     double half_track_width_;
 
     enum StateIndex {
@@ -223,7 +224,8 @@ private:
                 }
 
                 // Fast multiplication instead of division
-                const double wheel_acceleration = net_torque * inv_wheel_inertia_;
+                const double inv_inertia = (tire == FL || tire == FR) ? inv_front_wheel_inertia_ : inv_rear_wheel_inertia_;
+                const double wheel_acceleration = net_torque * inv_inertia;
                 if (brake_torque > 0.0 && std::abs(wheel_omega) < 0.5 && wheel_acceleration * wheel_omega <= 0.0) {
                     ds(FL_W + tire) = -wheel_omega / std::max(dt, 1e-6);
                 } else {
@@ -251,7 +253,8 @@ public:
         // Cache inversions for blazing fast physics math
         inv_mass_ = 1.0 / car_parameters_->total_mass;
         inv_izz_ = 1.0 / car_parameters_->Izz;
-        inv_wheel_inertia_ = 1.0 / car_parameters_->tire_parameters->wheel_inertia;
+        inv_front_wheel_inertia_ = 1.0 / car_parameters_->front_wheel_inertia;
+        inv_rear_wheel_inertia_ = 1.0 / car_parameters_->rear_wheel_inertia;
         half_track_width_ = car_parameters_->track_width / 2.0;
     }
 

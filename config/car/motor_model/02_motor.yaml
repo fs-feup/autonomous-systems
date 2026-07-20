@@ -9,7 +9,7 @@ motor:
   max_peak_torque: 220.0
   kt_constant: 0.61
   peak_duration: 120.0
-  fade_start: 0.95
+  fade_start: 0.932696  # previous: 0.95
   efficiency_map:
     500:
       10: 0.87

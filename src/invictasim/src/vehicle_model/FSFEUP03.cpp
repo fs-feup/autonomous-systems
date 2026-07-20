@@ -148,7 +148,9 @@ void FSFEUP03Model::step(double dt, common_lib::structures::Wheels throttle, dou
     state_->wheels_speed = {0.0, 0.0, 0.0, 0.0};
   } else {
     double R = car_parameters_->tire_parameters->effective_tire_r;
-    double I = car_parameters_->tire_parameters->wheel_inertia;
+    // Front: tire + rim inertia only; Rear: tire + rim + motor + transmission (reflected)
+    double I_front = car_parameters_->front_wheel_inertia;
+    double I_rear = car_parameters_->rear_wheel_inertia;
     const double brake_sign_fl = 2.0 / M_PI * std::atan(10.0 * state_->wheels_speed.front_left);
     const double brake_sign_fr = 2.0 / M_PI * std::atan(10.0 * state_->wheels_speed.front_right);
     const double brake_sign_rl = 2.0 / M_PI * std::atan(10.0 * state_->wheels_speed.rear_left);
@@ -158,13 +160,13 @@ void FSFEUP03Model::step(double dt, common_lib::structures::Wheels throttle, dou
     state_->wheels_speed.rear_left +=
         ((state_->wheels_torque.rear_left - (state_->rear_left_forces[0] * R) -
           state_->rear_left_forces[2] - brake_torques.rear_left * brake_sign_rl) /
-         I) *
+         I_rear) *
         dt;
 
     state_->wheels_speed.rear_right +=
         ((state_->wheels_torque.rear_right - (state_->rear_right_forces[0] * R) -
           state_->rear_right_forces[2] - brake_torques.rear_right * brake_sign_rr) /
-         I) *
+         I_rear) *
         dt;
 
     // Front Wheels: Tire Reaction - Bearing Drag - Rolling Resistance
@@ -172,14 +174,14 @@ void FSFEUP03Model::step(double dt, common_lib::structures::Wheels throttle, dou
         ((-(state_->front_left_forces[0] * R) -
           (car_parameters_->front_bearing_drag * state_->wheels_speed.front_left) -
           state_->front_left_forces[2] - brake_torques.front_left * brake_sign_fl) /
-         I) *
+         I_front) *
         dt;
 
     state_->wheels_speed.front_right +=
         ((-(state_->front_right_forces[0] * R) -
           (car_parameters_->front_bearing_drag * state_->wheels_speed.front_right) -
           state_->front_right_forces[2] - brake_torques.front_right * brake_sign_fr) /
-         I) *
+         I_front) *
         dt;
   }
 

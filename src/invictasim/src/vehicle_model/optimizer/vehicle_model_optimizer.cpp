@@ -69,11 +69,6 @@ private:
     bool stop;
 };
 
-std::atomic<bool> g_stop_optimization{false};
-void handle_sigint(int /*sig*/) {
-    std::cout << "\n[SIGINT] CTRL+C detected. Stopping optimization after current generation finishes..." << std::endl;
-    g_stop_optimization = true;
-}
 
 #include <Eigen/Dense>
 #include <yaml-cpp/yaml.h>
@@ -208,6 +203,8 @@ std::map<std::string, double*> get_parameter_ptrs(std::shared_ptr<common_lib::ca
   m["car.cg_2_rear_axis"] = &p->cg_2_rear_axis;
   m["car.gear_ratio"] = &p->gear_ratio;
   m["car.cg_height"] = &p->cg_height;
+  m["car.front_wheel_inertia"] = &p->front_wheel_inertia;
+  m["car.rear_wheel_inertia"] = &p->rear_wheel_inertia;
   m["car.sprung_mass"] = &p->sprung_mass;
   m["car.unsprung_mass"] = &p->unsprung_mass;
   m["car.total_mass"] = &p->total_mass;
@@ -727,15 +724,23 @@ std::shared_ptr<common_lib::car_parameters::CarParameters> deep_copy_car_paramet
     return dst;
 }
 
+struct DatasetConfig {
+    double weight = 1.0;
+    double start_offset_s = 0.0;
+    double stop_after_s = -1.0;
+    double max_distance_error = 2.5;
+    bool ignore_lateral_distance = false;
+};
+
 // ============================================================================
-// TEMPLATED EVALUATION: Zero-overhead polymorphic dispatch
+// EVALUATE A SINGLE CANDIDATE INDIVIDUAL ACROSS ALL BAGS
 // ============================================================================
 template <typename ModelType>
 EvaluationResult evaluate_candidate(
     const std::vector<std::vector<CsvRow>>& all_csvs_rows,
+    const std::vector<DatasetConfig>& dataset_configs,
     const std::vector<ParameterSpec>& param_specs,
     const std::vector<double>& candidate_values,
-    const YAML::Node& tuning_config,
     const InvictaSimParameters& base_params
 ) {
     InvictaSimParameters sim_params = base_params;
@@ -744,12 +749,6 @@ EvaluationResult evaluate_candidate(
     for (size_t i = 0; i < param_specs.size(); ++i) {
         apply_parameter_override(sim_params.car_parameters, param_specs[i].name, candidate_values[i]);
     }
-
-    YAML::Node csvs = tuning_config["tuning"]["csvs"];
-    if (!csvs && tuning_config["tuning"]["bags"]) {
-        csvs = tuning_config["tuning"]["bags"];
-    }
-    YAML::Node default_score_config = tuning_config["tuning"]["score"];
 
     double weighted_score_sum = 0.0;
     double total_weight = 0.0;
@@ -762,19 +761,13 @@ EvaluationResult evaluate_candidate(
     double weighted_front_wheel_rpm_rmse = 0.0;
     double weighted_motor_rpm_rmse = 0.0;
 
-    for (size_t b = 0; b < csvs.size(); ++b) {
-        YAML::Node csv_node = csvs[b];
-        double weight = csv_node["weight"] ? csv_node["weight"].as<double>() : 1.0;
-        double start_offset = csv_node["start_offset_s"] ? csv_node["start_offset_s"].as<double>() : 0.0;
-        double stop_duration = csv_node["stop_after_s"] ? csv_node["stop_after_s"].as<double>() : -1.0;
-
-        YAML::Node score_config = default_score_config;
-        if (csv_node["score"]) {
-            score_config = csv_node["score"];
-        }
-
-        double max_dist_error = score_config["max_distance_error"] ? score_config["max_distance_error"].as<double>() : 2.0;
-        bool ignore_lateral = score_config["ignore_lateral_distance"] && score_config["ignore_lateral_distance"].as<bool>();
+    for (size_t b = 0; b < dataset_configs.size(); ++b) {
+        const auto& ds_cfg = dataset_configs[b];
+        double weight = ds_cfg.weight;
+        double start_offset = ds_cfg.start_offset_s;
+        double stop_duration = ds_cfg.stop_after_s;
+        double max_dist_error = ds_cfg.max_distance_error;
+        bool ignore_lateral = ds_cfg.ignore_lateral_distance;
 
         const auto& rows = all_csvs_rows[b];
         if (rows.empty()) {
@@ -794,6 +787,11 @@ EvaluationResult evaluate_candidate(
         double start_time = rows[start_idx].timestamp_s;
 
         // INSTANTIATE THE HARDCODED MODEL DIRECTLY
+        if (!sim_params.car_parameters) {
+            std::cerr << "Error: sim_params.car_parameters is null!" << std::endl;
+        } else if (!sim_params.car_parameters->motor_parameters) {
+            std::cerr << "Error: sim_params.car_parameters->motor_parameters is null!" << std::endl;
+        }
         ModelType model(sim_params);
 
         SimState state;
@@ -946,19 +944,36 @@ Individual run_genetic_algorithm(
     global_best.values = population[0].values;
 
     for (int gen = 0; gen < generations; ++gen) {
-        if (g_stop_optimization) {
-            std::cout << "Optimization manually stopped by user." << std::endl;
-            break;
-        }
         std::cout << "--- Generation " << gen + 1 << "/" << generations << " ---" << std::endl;
 
-        std::vector<std::future<EvaluationResult>> futures(population_size);
-        for (int i = 0; i < population_size; ++i) {
-            futures[i] = pool.enqueue([&, i]() {
-                // RUNS THE TEMPLATED FUNCTION
-                return evaluate_candidate<ModelType>(all_csvs_rows, param_specs, population[i].values, tuning_config, base_params);
-            });
-        }
+    YAML::Node csvs = tuning_config["tuning"]["csvs"];
+    if (!csvs && tuning_config["tuning"]["bags"]) {
+        csvs = tuning_config["tuning"]["bags"];
+    }
+    YAML::Node default_score_config = tuning_config["tuning"]["score"];
+
+    std::vector<DatasetConfig> dataset_configs;
+    for (size_t b = 0; b < csvs.size(); ++b) {
+        YAML::Node csv_node = csvs[b];
+        DatasetConfig cfg;
+        cfg.weight = csv_node["weight"] ? csv_node["weight"].as<double>() : 1.0;
+        cfg.start_offset_s = csv_node["start_offset_s"] ? csv_node["start_offset_s"].as<double>() : 0.0;
+        cfg.stop_after_s = csv_node["stop_after_s"] ? csv_node["stop_after_s"].as<double>() : -1.0;
+
+        YAML::Node score_config = default_score_config;
+        if (csv_node["score"]) score_config = csv_node["score"];
+
+        cfg.max_distance_error = score_config["max_distance_error"] ? score_config["max_distance_error"].as<double>() : 2.0;
+        cfg.ignore_lateral_distance = score_config["ignore_lateral_distance"] && score_config["ignore_lateral_distance"].as<bool>();
+        dataset_configs.push_back(cfg);
+    }
+
+    std::vector<std::future<EvaluationResult>> futures(population_size);
+    for (int i = 0; i < population_size; ++i) {
+        futures[i] = pool.enqueue([&, i]() {
+            return evaluate_candidate<ModelType>(all_csvs_rows, dataset_configs, param_specs, population[i].values, base_params);
+        });
+    }
 
         for (int i = 0; i < population_size; ++i) {
             EvaluationResult res = futures[i].get();
@@ -982,7 +997,13 @@ Individual run_genetic_algorithm(
         std::cout << "  Best score in generation: " << population[0].score << std::endl;
 
         // Iteratively save best parameters
-        std::ofstream best_file("src/invictasim/tuning_csvs/best_parameters.yaml");
+        std::string target_out_path = "src/invictasim/tuning_csvs/best_parameters.yaml";
+        if (std::filesystem::exists("/home/ws/src/invictasim/tuning_csvs")) {
+            target_out_path = "/home/ws/src/invictasim/tuning_csvs/best_parameters.yaml";
+        } else {
+            std::filesystem::create_directories("src/invictasim/tuning_csvs");
+        }
+        std::ofstream best_file(target_out_path);
         if (best_file.is_open()) {
             best_file << "generation: " << gen + 1 << "\n";
             best_file << "best_score: " << global_best.score << "\n";
@@ -1068,7 +1089,6 @@ std::string get_full_csv_path(const std::string& data_dir, const std::string& re
 }
 
 int main(int argc, char** argv) {
-    std::signal(SIGINT, handle_sigint);
     std::string config_path;
     std::string data_dir;
 

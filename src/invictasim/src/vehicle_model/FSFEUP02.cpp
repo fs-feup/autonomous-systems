@@ -379,7 +379,9 @@ FSFEUP02Model::StateVec FSFEUP02Model::get_state_derivative(
     ds(RL_W) = -s(RL_W) / std::max(dt, 1e-6);
     ds(RR_W) = -s(RR_W) / std::max(dt, 1e-6);
   } else {
-    const double inertia = car_parameters_->tire_parameters->wheel_inertia;
+    // Front: tire + rim inertia only; Rear: tire + rim + motor + transmission (reflected)
+    const double front_inertia = car_parameters_->front_wheel_inertia;
+    const double rear_inertia = car_parameters_->rear_wheel_inertia;
     for (Tire tire : {FL, FR, RL, RR}) {
       const double wheel_omega = s(FL_W + tire);
       double net_torque =
@@ -392,6 +394,7 @@ FSFEUP02Model::StateVec FSFEUP02Model::get_state_derivative(
         net_torque -= car_parameters_->front_bearing_drag * wheel_omega;
       }
 
+      const double inertia = (tire == FL || tire == FR) ? front_inertia : rear_inertia;
       const double wheel_acceleration = net_torque / inertia;
       if (brake_torque > 0.0 && std::abs(wheel_omega) < 0.5 &&
           wheel_acceleration * wheel_omega <= 0.0) {
