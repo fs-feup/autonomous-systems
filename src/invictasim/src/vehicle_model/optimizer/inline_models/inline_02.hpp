@@ -236,6 +236,14 @@ private:
     }
 
 public:
+    void update_cache() {
+        inv_mass_ = 1.0 / car_parameters_->total_mass;
+        inv_izz_ = 1.0 / car_parameters_->Izz;
+        inv_front_wheel_inertia_ = 1.0 / car_parameters_->front_wheel_inertia;
+        inv_rear_wheel_inertia_ = 1.0 / car_parameters_->rear_wheel_inertia;
+        half_track_width_ = car_parameters_->track_width / 2.0;
+    }
+
     InlineFSFEUP02Model(const InvictaSimParameters& simulator_parameters) {
         car_parameters_ = simulator_parameters.car_parameters;
         tire_model_ = tire_models_map.at(simulator_parameters.tire_model.c_str())(simulator_parameters.car_parameters);
@@ -304,12 +312,21 @@ public:
             state.wheels_speed = {0.0, 0.0, 0.0, 0.0};
             state.wheels_slip_ratio = {0.0, 0.0, 0.0, 0.0};
             state.wheels_slip_angle = {0.0, 0.0, 0.0, 0.0};
-        } else {
-            state.wheels_slip_ratio = common_lib::structures::Wheels(k1_r(FL), k1_r(FR), k1_r(RL), k1_r(RR));
-            state.wheels_slip_angle = common_lib::structures::Wheels(k1_a(FL), k1_a(FR), k1_a(RL), k1_a(RR));
         }
 
         if (state.yaw > M_PI) state.yaw -= 2.0 * M_PI;
         if (state.yaw < -M_PI) state.yaw += 2.0 * M_PI;
+
+        StateVec s_final;
+        s_final << state.vx, state.vy, state.yaw_rate, state.yaw, state.x, state.y, state.steering_angle,
+             state.wheels_speed.front_left, state.wheels_speed.front_right, state.wheels_speed.rear_left, state.wheels_speed.rear_right,
+             state.ax, state.ay;
+
+        Eigen::Vector4d final_r, final_a;
+        StateVec final_ds;
+        get_state_derivative(s_final, motor_torque, brake_torques, angle, dt, state, final_r, final_a, final_ds);
+
+        state.wheels_slip_ratio = common_lib::structures::Wheels(final_r(FL), final_r(FR), final_r(RL), final_r(RR));
+        state.wheels_slip_angle = common_lib::structures::Wheels(final_a(FL), final_a(FR), final_a(RL), final_a(RR));
     }
 };

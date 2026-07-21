@@ -1,16 +1,16 @@
 tire:
   # Pacejka combined slip parameters
   # Lateral coefficients
-  B_lateral: 9.63
-  C_lateral: 1.39
-  D_lateral: 1.6
-  E_lateral: 1.0
+  B_lateral: 13.8416 # previous: 5
+  C_lateral: 1 # previous: 1.81053
+  D_lateral: 3.5 # previous: 2.45709
+  E_lateral: -0.262103 # previous: -0.662351
   
   # Longitudinal coefficients
-  B_longitudinal: 12.0
-  C_longitudinal: 1.625
-  D_longitudinal: 1.775
-  E_longitudinal: 0.3
+  B_longitudinal: 5 # previous: 9.6905
+  C_longitudinal: 1.80847 # previous: 1.87813
+  D_longitudinal: 1 # previous: 1.0844
+  E_longitudinal: -0.059626 # previous: 0.0467185
 
   # Camber and toe parameters
   fr:
@@ -27,11 +27,11 @@ tire:
     camber: 0.0
 
   camber_scaling_factor: 1.0
-  effective_tire_r: 0.239737 # previous: 0.184149 (original: 0.2275)
+  effective_tire_r: 0.218924 # previous: 0.202646
 
 # Packejka MF6.2 parameters
-  slip_angle_relaxation_length: 0.054751 # previous: 0.0371293
-  slip_ratio_relaxation_length: 0.0956505 # previous: 0
+  slip_angle_relaxation_length: 0.05
+  slip_ratio_relaxation_length: 0.0660745 # previous: 0.13373
   d_bright: 1.06
   d_bleft: 1.06 
   d_fright: 0.99
@@ -85,8 +85,8 @@ tire:
     BOTTOM_STIFF: 2000000
 
   structural:
-    LONGITUDINAL_STIFFNESS: 333468.0 # previous: 375194 (original: 300000)
-    LATERAL_STIFFNESS: 338551.0      # previous: 954263.783475552
+    LONGITUDINAL_STIFFNESS: 300000
+    LATERAL_STIFFNESS: 954263.783475552
     YAW_STIFFNESS: 31092.393319742318
     FREQ_LONG: 80
     FREQ_LAT: 40
@@ -144,15 +144,15 @@ tire:
   scaling_coefficients:
     LFZO: 1
     LCX: 1
-    LMUX: 0.502311 # previous: 1.17355 (original: 1)
+    LMUX: 1
     LEX: 1
-    LKX: 1.02294  # previous: 1.34549 (original: 1)
+    LKX: 1
     LHX: 0
     LVX: 0
     LCY: 1.205755192585647
-    LMUY: 1.40763 # previous: 1.0571937277357617 
+    LMUY: 1.0571937277357617 
     LEY: 0.7746446274662531
-    LKY: 14.7631  # previous: 9.011481227520228
+    LKY: 9.011481227520228
     LHY: 0
     LVY: 0
     LTR: 1
@@ -169,15 +169,15 @@ tire:
     LMP: 1
 
   longitudinal_coefficients:
-    PCX1: 1.63399 # previous: 1.786
-    PDX1: 0.5     # previous: 1.29851 (original: 1.15)
+    PCX1: 1.786
+    PDX1: 1.15
     PDX2: -0.44
     PDX3: 20.8
-    PEX1: 0.664587 # previous: 1.318 (original: 0.871)
+    PEX1: 0.871
     PEX2: -0.038
     PEX3: 0
     PEX4: 0.071
-    PKX1: 167.858 # previous: 140 (original: 85.31)
+    PKX1: 85.31
     PKX2: -20.25
     PKX3: 0.5
     PHX1: 0
@@ -214,16 +214,16 @@ tire:
     PPMX1: 0
 
   lateral_coefficients:
-    PCY1: 1.68522  # previous: 1.6384
-    PDY1: 2.23179  # previous: 1.8
+    PCY1: 1.6384
+    PDY1: 1.8
     PDY2: -0.1985
     PDY3: 4.0072
-    PEY1: 1.00968  # previous: 0.711023
+    PEY1: 0.711023
     PEY2: -0.33312
     PEY3: 0.27748
     PEY4: -0.016493
     PEY5: 0
-    PKY1: -448.451 # previous: -296.683
+    PKY1: -296.683
     PKY2: 1.6336
     PKY3: 0.62971
     PKY4: 2

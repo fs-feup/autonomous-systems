@@ -1,7 +1,7 @@
 aero:
-  lift_coefficient: 1.83263      # previous: 0.86
-  drag_coefficient: 0.782432     # previous: 0.73
-  aero_balance_front: 0.429437   # previous: 0.5
+  lift_coefficient: 2.75621 # previous: 2.51555
+  drag_coefficient: 0.927861 # previous: 2
+  aero_balance_front: 0.533551 # previous: 0.391613
   frontal_area: 0.44
   air_density: 1.225
   aero_side_force_coefficient: 0.0

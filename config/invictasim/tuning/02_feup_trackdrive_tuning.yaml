@@ -12,9 +12,12 @@ tuning:
       stop_after_s: 141.0
 
   score:
-    max_distance_error: 2.5 # Maximum allowed distance error in meters before a mutation is killed immediately
+    max_distance_error: 1.5 # Maximum allowed distance error in meters before a mutation is killed immediately
+    max_velocity_error: 2.0 # Maximum allowed velocity error in m/s before a mutation is killed
 
   optimizer:
+    algorithm: "simulated_annealing" # Options: "genetic_algorithm", "simulated_annealing"
+    
     # Genetic Algorithm Settings
     generations: 1000000
     population_size: 1000
@@ -25,6 +28,11 @@ tuning:
     blend_alpha: 0.40
     tournament_size: 4
     seed: 67
+
+    # Simulated Annealing Settings
+    iterations: 100000000
+    initial_temp: 100.0
+    cooling_rate: 0.99995
 
   parameters:
     # =============================================
@@ -54,25 +62,6 @@ tuning:
       max: 0.7
 
     # =============================================
-    # INVERTER DELAYS & MOTOR FADE
-    # =============================================
-    - name: "inverter.acceleration_delay_ms"
-      min: 0.0
-      max: 700.0
-
-    - name: "inverter.coast_delay_ms"
-      min: 0.0
-      max: 700.0
-
-    - name: "inverter.regen_braking_delay_ms"
-      min: 0.0
-      max: 700.0
-
-    - name: "motor.fade_start"
-      min: 0.70
-      max: 0.99
-
-    # =============================================
     # STEERING MOTOR
     # =============================================
     - name: "steering_motor.time_constant"
@@ -90,89 +79,71 @@ tuning:
       min: 0.0
       max: 0.15
 
-    - name: "tire.slip_angle_relaxation_length"
-      min: 0.0
-      max: 0.15
-
-    # Tire Pacejka MF6.2 Scaling Factors & Parameters
-    - name: "tire.LMUX"
+    # Tire Pacejka 6.2 Scaling Parameters
+    - name: "tire.longitudinal_peak_scale"
       min: 0.5
-      max: 1.8
+      max: 1.5
 
-    - name: "tire.LKX"
+    - name: "tire.longitudinal_stiffness_scale"
       min: 0.5
-      max: 1.8
+      max: 1.5
 
-    - name: "tire.PDX1"
+    - name: "tire.lateral_shape_scale"
       min: 0.5
+      max: 2.0
+
+    - name: "tire.lateral_peak_scale"
+      min: 0.5
+      max: 2.0
+
+    - name: "tire.lateral_curvature_scale"
+      min: 0.1
+      max: 2.0
+
+    - name: "tire.lateral_stiffness_scale"
+      min: 1.0
+      max: 25.0
+
+    - name: "tire.combined_slip_lateral_stiffness_scale"
+      min: 0.5
+      max: 1.5
+
+    # Tire Pacejka 6.2 Base Parameters
+    - name: "tire.longitudinal_peak_pdx1"
+      min: 0.8
+      max: 1.5
+
+    - name: "tire.longitudinal_stiffness_pkx1"
+      min: 50.0
+      max: 120.0
+
+    - name: "tire.longitudinal_curvature_pex1"
+      min: 0.5
+      max: 1.2
+
+    - name: "tire.lateral_peak_pdy1"
+      min: 1.2
       max: 2.5
 
-    - name: "tire.PKX1"
-      min: 20.0
-      max: 200.0
+    - name: "tire.lateral_stiffness_pky1"
+      min: -1500.0
+      max: -50.0
 
-    - name: "tire.PCX1"
-      min: 1.1
-      max: 1.8
+    - name: "tire.lateral_curvature_pey1"
+      min: 0.3
+      max: 1.0
 
-    - name: "tire.PEX1"
-      min: 0.4
-      max: 1.6
-
-    - name: "tire.LONGITUDINAL_STIFFNESS"
-      min: 150000.0
+    - name: "tire.structural_longitudinal_stiffness"
+      min: 100000.0
       max: 500000.0
 
-    - name: "tire.LMUY"
-      min: 0.5
-      max: 1.8
-
-    - name: "tire.LKY"
-      min: 3.0
-      max: 15.0
-
-    - name: "tire.PCY1"
-      min: 1.1
-      max: 1.8
-
-    - name: "tire.PDY1"
-      min: 0.9
-      max: 2.7
-
-    - name: "tire.PKY1"
-      min: -450.0
-      max: -100.0
-
-    - name: "tire.PEY1"
-      min: 0.3
-      max: 1.1
-
-    - name: "tire.LATERAL_STIFFNESS"
+    - name: "tire.structural_lateral_stiffness"
       min: 100000.0
-      max: 400000.0
+      max: 3000000.0
 
-    # =============================================
-    # LOAD TRANSFER PARAMETERS
-    # =============================================
-    - name: "load_transfer.front_stiffness_distribution"
-      min: 0.30
-      max: 0.70
-
-    - name: "load_transfer.roll_axis_z"
-      min: 0.01
-      max: 0.15
-
-    - name: "load_transfer.front_roll_center_z"
-      min: 0.01
-      max: 0.12
-
-    - name: "load_transfer.rear_roll_center_z"
-      min: 0.01
-      max: 0.12
-
-    - name: "load_transfer.pitch_center_z"
-      min: 0.005
-      max: 0.08
+    - name: "tire.structural_yaw_stiffness"
+      min: 10000.0
+      max: 60000.0
 
     # =============================================
     # TRANSMISSION & DIFFERENTIAL
@@ -215,3 +186,53 @@ tuning:
     - name: "car.cg_2_rear_axis"
       min: 0.720
       max: 0.970
+
+    # =============================================
+    # MASS PROPERTIES
+    # =============================================
+    - name: "car.Izz"
+      min: 80.0
+      max: 130.0
+
+    # =============================================
+    # DRIVETRAIN PARAMETERS
+    # =============================================
+    - name: "transmission.efficiency"
+      min: 0.80
+      max: 1.00
+
+    # =============================================
+    # MOTOR CHARACTERISTICS
+    # =============================================
+    - name: "motor.fade_start"
+      min: 0.5
+      max: 1.0
+
+    - name: "motor.max_peak_torque"
+      min: 200.0
+      max: 250.0
+
+    - name: "motor.max_continuous_torque"
+      min: 100.0
+      max: 130.0
+
+    - name: "motor.max_peak_power"
+      min: 80000.0
+      max: 180000.0
+
+    - name: "motor.max_continuous_power"
+      min: 60000.0
+      max: 120000.0
+
+    # =============================================
+    # BATTERY LIMITS
+    # =============================================
+    - name: "battery.max_discharge_current"
+      min: 150.0
+      max: 400.0
+
+    - name: "battery.max_charge_current"
+      min: 20.0
+      max: 200.0
+
+

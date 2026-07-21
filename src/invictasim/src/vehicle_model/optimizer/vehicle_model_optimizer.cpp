@@ -729,12 +729,174 @@ struct DatasetConfig {
     double start_offset_s = 0.0;
     double stop_after_s = -1.0;
     double max_distance_error = 2.5;
+    double max_velocity_error = 5.0;
     bool ignore_lateral_distance = false;
 };
 
 // ============================================================================
 // EVALUATE A SINGLE CANDIDATE INDIVIDUAL ACROSS ALL BAGS
 // ============================================================================
+
+template <typename ModelType>
+EvaluationResult evaluate_candidate_fast(
+    const std::vector<std::vector<CsvRow>>& all_csvs_rows,
+    const std::vector<DatasetConfig>& dataset_configs,
+    const std::vector<ParameterSpec>& param_specs,
+    const std::vector<double>& candidate_values,
+    InvictaSimParameters& thread_local_params,
+    const std::vector<double*>& fast_ptrs,
+    ModelType& model
+) {
+    for (size_t i = 0; i < param_specs.size(); ++i) {
+        if (fast_ptrs[i]) *(fast_ptrs[i]) = candidate_values[i];
+    }
+
+    double weighted_score_sum = 0.0;
+    double total_weight = 0.0;
+    double weighted_position_rmse = 0.0;
+    double weighted_heading_rmse = 0.0;
+    double weighted_velocity_rmse = 0.0;
+    double weighted_velocity_x_rmse = 0.0;
+    double weighted_velocity_y_rmse = 0.0;
+    double weighted_yaw_rate_rmse = 0.0;
+    double weighted_front_wheel_rpm_rmse = 0.0;
+    double weighted_motor_rpm_rmse = 0.0;
+
+    for (size_t b = 0; b < dataset_configs.size(); ++b) {
+        const auto& ds_cfg = dataset_configs[b];
+        double weight = ds_cfg.weight;
+        double start_offset = ds_cfg.start_offset_s;
+        double stop_duration = ds_cfg.stop_after_s;
+        double max_dist_error = ds_cfg.max_distance_error;
+        bool ignore_lateral = ds_cfg.ignore_lateral_distance;
+
+        const auto& rows = all_csvs_rows[b];
+        if (rows.empty()) {
+            weighted_score_sum += weight * -1e9;
+            total_weight += weight;
+            continue;
+        }
+
+        size_t start_idx = 0;
+        for (size_t i = 0; i < rows.size(); ++i) {
+            if (rows[i].timestamp_s >= start_offset) {
+                start_idx = i;
+                break;
+            }
+        }
+
+        double start_time = rows[start_idx].timestamp_s;
+
+        model.update_cache();
+
+        SimState state;
+        CsvRow first_sample = rows[start_idx];
+        state.x = 0.0;
+        state.y = 0.0;
+        state.yaw = 0.0;
+        state.vx = first_sample.real_vx;
+        state.vy = first_sample.real_vy;
+        state.yaw_rate = first_sample.real_yaw_rate;
+        
+        state.wheels_speed.front_left = first_sample.real_fl_rpm * 2.0 * 3.14159265358979323846 / 60.0;
+        state.wheels_speed.front_right = first_sample.real_fr_rpm * 2.0 * 3.14159265358979323846 / 60.0;
+        state.wheels_speed.rear_left = first_sample.real_rl_rpm * 2.0 * 3.14159265358979323846 / 60.0;
+        state.wheels_speed.rear_right = first_sample.real_rr_rpm * 2.0 * 3.14159265358979323846 / 60.0;
+        state.motor_omega = first_sample.real_motor_rpm * 2.0 * 3.14159265358979323846 / 60.0;
+
+        RunningRmse position_rmse, heading_rmse, velocity_rmse, velocity_x_rmse, velocity_x_slow_rmse;
+        RunningRmse velocity_y_rmse, yaw_rate_rmse, yaw_rate_under_rmse, front_wheel_rpm_rmse, motor_rpm_rmse;
+
+        PoseSample real_origin = {first_sample.real_x, first_sample.real_y, first_sample.real_yaw};
+        PoseSample sim_origin = {state.x, state.y, state.yaw};
+
+        double last_time = first_sample.timestamp_s;
+        double alive_time = 0.0;
+
+        for (size_t i = start_idx + 1; i < rows.size(); ++i) {
+            const CsvRow& row = rows[i];
+            if (stop_duration > 0.0 && (row.timestamp_s - start_time) > stop_duration) break;
+            
+            double dt = row.timestamp_s - last_time;
+            if (dt <= 0.0) continue;
+            last_time = row.timestamp_s;
+
+            const CsvRow& prev_row = rows[i - 1];
+            common_lib::structures::Wheels throttle(prev_row.throttle_fl, prev_row.throttle_fr, prev_row.throttle_rl, prev_row.throttle_rr);
+
+            model.step(dt, throttle, prev_row.steering, state);
+
+            double sim_fl_rpm = state.wheels_speed.front_left * 60.0 / (2.0 * 3.14159265358979323846);
+            double sim_fr_rpm = state.wheels_speed.front_right * 60.0 / (2.0 * 3.14159265358979323846);
+            double sim_front_rpm = 0.5 * (sim_fl_rpm + sim_fr_rpm);
+            double sim_motor_rpm = state.motor_omega * 60.0 / (2.0 * 3.14159265358979323846);
+            double real_front_rpm = 0.5 * (row.real_fl_rpm + row.real_fr_rpm);
+
+            PoseSample real_raw = {row.real_x, row.real_y, row.real_yaw};
+            PoseSample real_pose = transform_pose_to_map(real_raw, real_origin, sim_origin);
+
+            double current_pos_error;
+            if (ignore_lateral) {
+                double sim_dist = std::hypot(state.x - sim_origin.x, state.y - sim_origin.y);
+                double real_dist = std::hypot(real_pose.x - real_origin.x, real_pose.y - real_origin.y);
+                current_pos_error = std::abs(sim_dist - real_dist);
+            } else {
+                current_pos_error = std::hypot(state.x - real_pose.x, state.y - real_pose.y);
+            }
+            
+            // The dataset does not contain valid real_vy (it is always 0.0), so we only measure vx error
+            double current_vel_error = std::abs(state.vx - row.real_vx);
+
+            alive_time = row.timestamp_s - start_time;
+            
+            if (current_pos_error > max_dist_error || current_vel_error > ds_cfg.max_velocity_error) {
+                // Adjust alive time with a continuous penalty based on how badly it failed
+                // This gives the optimizer a gradient to follow when stuck at a time barrier
+                alive_time -= (current_pos_error - max_dist_error);
+                alive_time -= (current_vel_error - ds_cfg.max_velocity_error);
+                break;
+            }
+
+            position_rmse.update(current_pos_error);
+            heading_rmse.update(normalize_angle(state.yaw - real_pose.yaw));
+            velocity_x_rmse.update(state.vx - row.real_vx);
+            velocity_x_slow_rmse.update(std::min(0.0, state.vx - row.real_vx));
+            velocity_y_rmse.update(state.vy - row.real_vy);
+            velocity_rmse.update(std::hypot(state.vx - row.real_vx, state.vy - row.real_vy));
+            yaw_rate_rmse.update(state.yaw_rate - row.real_yaw_rate);
+            yaw_rate_under_rmse.update(std::min(0.0, state.yaw_rate - row.real_yaw_rate));
+            front_wheel_rpm_rmse.update(sim_front_rpm - real_front_rpm);
+            motor_rpm_rmse.update(sim_motor_rpm - row.real_motor_rpm);
+        }
+
+        double dataset_score = alive_time;
+
+        weighted_score_sum += weight * dataset_score;
+        weighted_position_rmse += weight * position_rmse.get();
+        weighted_heading_rmse += weight * heading_rmse.get();
+        weighted_velocity_rmse += weight * velocity_rmse.get();
+        weighted_velocity_x_rmse += weight * velocity_x_rmse.get();
+        weighted_velocity_y_rmse += weight * velocity_y_rmse.get();
+        weighted_yaw_rate_rmse += weight * yaw_rate_rmse.get();
+        weighted_front_wheel_rpm_rmse += weight * front_wheel_rpm_rmse.get();
+        weighted_motor_rpm_rmse += weight * motor_rpm_rmse.get();
+        total_weight += weight;
+    }
+
+    double final_score = weighted_score_sum / std::max(total_weight, 1e-9);
+    EvaluationResult res;
+    res.total_score = final_score;
+    res.metrics.position_rmse = weighted_position_rmse / std::max(total_weight, 1e-9);
+    res.metrics.heading_rmse = weighted_heading_rmse / std::max(total_weight, 1e-9);
+    res.metrics.velocity_rmse = weighted_velocity_rmse / std::max(total_weight, 1e-9);
+    res.metrics.velocity_x_rmse = weighted_velocity_x_rmse / std::max(total_weight, 1e-9);
+    res.metrics.velocity_y_rmse = weighted_velocity_y_rmse / std::max(total_weight, 1e-9);
+    res.metrics.yaw_rate_rmse = weighted_yaw_rate_rmse / std::max(total_weight, 1e-9);
+    res.metrics.front_wheel_rpm_rmse = weighted_front_wheel_rpm_rmse / std::max(total_weight, 1e-9);
+    res.metrics.motor_rpm_rmse = weighted_motor_rpm_rmse / std::max(total_weight, 1e-9);
+    return res;
+}
+
 template <typename ModelType>
 EvaluationResult evaluate_candidate(
     const std::vector<std::vector<CsvRow>>& all_csvs_rows,
@@ -796,9 +958,9 @@ EvaluationResult evaluate_candidate(
 
         SimState state;
         CsvRow first_sample = rows[start_idx];
-        state.x = first_sample.real_x;
-        state.y = first_sample.real_y;
-        state.yaw = first_sample.real_yaw;
+        state.x = 0.0;
+        state.y = 0.0;
+        state.yaw = 0.0;
         state.vx = first_sample.real_vx;
         state.vy = first_sample.real_vy;
         state.yaw_rate = first_sample.real_yaw_rate;
@@ -853,7 +1015,10 @@ EvaluationResult evaluate_candidate(
                 current_pos_error = std::hypot(state.x - real_pose.x, state.y - real_pose.y);
             }
             
-            if (current_pos_error > max_dist_error) {
+            // The dataset does not contain valid real_vy (it is always 0.0), so we only measure vx error
+            double current_vel_error = std::abs(state.vx - row.real_vx);
+
+            if (current_pos_error > max_dist_error || current_vel_error > ds_cfg.max_velocity_error) {
                 break; // Hard limit reached, kill mutation
             }
             
@@ -964,6 +1129,7 @@ Individual run_genetic_algorithm(
         if (csv_node["score"]) score_config = csv_node["score"];
 
         cfg.max_distance_error = score_config["max_distance_error"] ? score_config["max_distance_error"].as<double>() : 2.0;
+        cfg.max_velocity_error = score_config["max_velocity_error"] ? score_config["max_velocity_error"].as<double>() : 5.0;
         cfg.ignore_lateral_distance = score_config["ignore_lateral_distance"] && score_config["ignore_lateral_distance"].as<bool>();
         dataset_configs.push_back(cfg);
     }
@@ -1081,6 +1247,174 @@ Individual run_genetic_algorithm(
     return global_best;
 }
 
+template <typename ModelType>
+Individual run_simulated_annealing(
+    const std::vector<std::vector<CsvRow>>& all_csvs_rows,
+    const std::vector<ParameterSpec>& param_specs,
+    const YAML::Node& tuning_config,
+    const InvictaSimParameters& base_params
+) {
+    YAML::Node opt = tuning_config["tuning"]["optimizer"];
+    int iterations = opt["iterations"] ? opt["iterations"].as<int>() : 10000;
+    double initial_temp = opt["initial_temp"] ? opt["initial_temp"].as<double>() : 10.0;
+    double cooling_rate = opt["cooling_rate"] ? opt["cooling_rate"].as<double>() : 0.999;
+    double mutation_scale = opt["mutation_scale"] ? opt["mutation_scale"].as<double>() : 0.16;
+    int seed = opt["seed"] ? opt["seed"].as<int>() : 42;
+    int num_chains = std::max(1u, std::thread::hardware_concurrency());
+    
+    YAML::Node csvs = tuning_config["tuning"]["csvs"];
+    if (!csvs && tuning_config["tuning"]["bags"]) {
+        csvs = tuning_config["tuning"]["bags"];
+    }
+    YAML::Node default_score_config = tuning_config["tuning"]["score"];
+
+    std::vector<DatasetConfig> dataset_configs;
+    for (size_t b = 0; b < csvs.size(); ++b) {
+        YAML::Node csv_node = csvs[b];
+        DatasetConfig cfg;
+        cfg.weight = csv_node["weight"] ? csv_node["weight"].as<double>() : 1.0;
+        cfg.start_offset_s = csv_node["start_offset_s"] ? csv_node["start_offset_s"].as<double>() : 0.0;
+        cfg.stop_after_s = csv_node["stop_after_s"] ? csv_node["stop_after_s"].as<double>() : -1.0;
+
+        YAML::Node score_config = default_score_config;
+        if (csv_node["score"]) score_config = csv_node["score"];
+
+        cfg.max_distance_error = score_config["max_distance_error"] ? score_config["max_distance_error"].as<double>() : 2.0;
+        cfg.max_velocity_error = score_config["max_velocity_error"] ? score_config["max_velocity_error"].as<double>() : 5.0;
+        cfg.ignore_lateral_distance = score_config["ignore_lateral_distance"] && score_config["ignore_lateral_distance"].as<bool>();
+        dataset_configs.push_back(cfg);
+    }
+
+    std::vector<double> current_vals(param_specs.size());
+    for (size_t p = 0; p < param_specs.size(); ++p) {
+        current_vals[p] = get_baseline_value(base_params.car_parameters, param_specs[p].name);
+    }
+
+    std::mutex best_mutex;
+    Individual global_best;
+    global_best.score = -1e9;
+    std::atomic<int> completed_iterations(0);
+
+    auto run_sa_chain = [&](int chain_id, int chain_seed) {
+        std::mt19937 rng(chain_seed);
+        std::uniform_real_distribution<double> dist_01(0.0, 1.0);
+        
+        InvictaSimParameters thread_local_params = base_params;
+        thread_local_params.car_parameters = deep_copy_car_parameters(base_params.car_parameters);
+
+        auto ptr_map = get_parameter_ptrs(thread_local_params.car_parameters);
+        std::vector<double*> fast_ptrs(param_specs.size(), nullptr);
+        for (size_t i = 0; i < param_specs.size(); ++i) {
+            auto it = ptr_map.find(param_specs[i].name);
+            if (it != ptr_map.end()) {
+                fast_ptrs[i] = it->second;
+            } else {
+                std::cerr << "Warning: Pointer resolution failed for " << param_specs[i].name << std::endl;
+            }
+        }
+
+        Individual current;
+        current.values = current_vals;
+        
+        // Add 5% noise to initial values for threads > 0 to explore different neighborhoods
+        if (chain_id > 0) {
+            for (size_t p = 0; p < param_specs.size(); ++p) {
+                double span = param_specs[p].max_val - param_specs[p].min_val;
+                std::normal_distribution<double> dist_normal(0.0, 0.05 * span);
+                current.values[p] = std::clamp(current.values[p] + dist_normal(rng), param_specs[p].min_val, param_specs[p].max_val);
+            }
+        }
+        
+        ModelType model(thread_local_params);
+        EvaluationResult res = evaluate_candidate_fast<ModelType>(all_csvs_rows, dataset_configs, param_specs, current.values, thread_local_params, fast_ptrs, model);
+        current.score = res.total_score;
+        current.metrics = res.metrics;
+        
+        Individual local_best = current;
+        double temp = initial_temp;
+
+        for (int iter = 0; iter < iterations; ++iter) {
+            Individual candidate;
+            candidate.values = current.values;
+            for (size_t p = 0; p < param_specs.size(); ++p) {
+                double span = param_specs[p].max_val - param_specs[p].min_val;
+                std::normal_distribution<double> dist_normal(0.0, mutation_scale * span);
+                candidate.values[p] = std::clamp(candidate.values[p] + dist_normal(rng), param_specs[p].min_val, param_specs[p].max_val);
+            }
+
+            EvaluationResult eval_res = evaluate_candidate_fast<ModelType>(all_csvs_rows, dataset_configs, param_specs, candidate.values, thread_local_params, fast_ptrs, model);
+            candidate.score = eval_res.total_score;
+            candidate.metrics = eval_res.metrics;
+            
+            double delta = candidate.score - current.score;
+            
+            if (delta > 0 || std::exp(delta / temp) > dist_01(rng)) {
+                current = candidate;
+            }
+
+            if (current.score > local_best.score) {
+                local_best = current;
+                
+                std::lock_guard<std::mutex> lock(best_mutex);
+                if (local_best.score > global_best.score) {
+                    global_best = local_best;
+                    std::cout << "\n[Chain " << chain_id << "] New Global Best! Score: " << global_best.score 
+                              << " | Pos RMSE: " << global_best.metrics.position_rmse << "m\nParameters:";
+                    for (size_t p = 0; p < param_specs.size(); ++p) {
+                        std::cout << " " << param_specs[p].name << "=" << global_best.values[p];
+                    }
+                    std::cout << std::endl;
+                    
+                    std::string target_out_path = "src/invictasim/tuning_csvs/best_parameters.yaml";
+                    if (std::filesystem::exists("/home/ws/src/invictasim/tuning_csvs")) {
+                        target_out_path = "/home/ws/src/invictasim/tuning_csvs/best_parameters.yaml";
+                    } else {
+                        std::filesystem::create_directories("src/invictasim/tuning_csvs");
+                    }
+                    std::ofstream best_file(target_out_path);
+                    if (best_file.is_open()) {
+                        best_file << "iteration: " << iter + 1 << "\n";
+                        best_file << "chain: " << chain_id << "\n";
+                        best_file << "best_score: " << global_best.score << "\n";
+                        best_file << "metrics:\n";
+                        best_file << "  position_rmse: " << global_best.metrics.position_rmse << "\n";
+                        best_file << "  heading_rmse: " << global_best.metrics.heading_rmse << "\n";
+                        best_file << "  velocity_rmse: " << global_best.metrics.velocity_rmse << "\n";
+                        best_file << "  velocity_x_rmse: " << global_best.metrics.velocity_x_rmse << "\n";
+                        best_file << "  velocity_y_rmse: " << global_best.metrics.velocity_y_rmse << "\n";
+                        best_file << "  yaw_rate_rmse: " << global_best.metrics.yaw_rate_rmse << "\n";
+                        best_file << "  front_wheel_rpm_rmse: " << global_best.metrics.front_wheel_rpm_rmse << "\n";
+                        best_file << "  motor_rpm_rmse: " << global_best.metrics.motor_rpm_rmse << "\n";
+                        best_file << "parameters:\n";
+                        for (size_t p = 0; p < param_specs.size(); ++p) {
+                            best_file << "  " << param_specs[p].name << ": " << global_best.values[p] << "\n";
+                        }
+                        best_file.close();
+                    }
+                }
+            }
+            temp *= cooling_rate;
+            
+            int total_done = ++completed_iterations;
+            if (total_done % 1000 == 0) {
+                std::cout << "Progress: " << total_done << " / " << (iterations * num_chains) << " evaluations...\r" << std::flush;
+            }
+        }
+    };
+
+    std::vector<std::thread> threads;
+    std::cout << "Starting Parallel Simulated Annealing with " << num_chains << " independent chains (Total iterations: " << iterations * num_chains << ")..." << std::endl;
+    for (int i = 0; i < num_chains; ++i) {
+        threads.emplace_back(run_sa_chain, i, seed + i);
+    }
+    for (auto& t : threads) {
+        t.join();
+    }
+    std::cout << std::endl;
+
+    return global_best;
+}
+
 std::string get_full_csv_path(const std::string& data_dir, const std::string& rel_path) {
     if (std::filesystem::path(rel_path).is_absolute() || data_dir.empty()) {
         return rel_path;
@@ -1164,7 +1498,11 @@ int main(int argc, char** argv) {
     }
     std::cout << "Selected vehicle model from configuration: " << requested_model << std::endl;
 
-    std::cout << "Starting Genetic Algorithm search..." << std::endl;
+    std::string algorithm = "genetic_algorithm";
+    if (tuning_config["tuning"]["optimizer"]["algorithm"]) {
+        algorithm = tuning_config["tuning"]["optimizer"]["algorithm"].as<std::string>();
+    }
+    std::cout << "Starting " << algorithm << " search..." << std::endl;
     auto start_time = std::chrono::steady_clock::now();
     
     Individual optimal;
@@ -1173,7 +1511,11 @@ int main(int argc, char** argv) {
     // MODEL ROUTER: Add future inline models here!
     // ====================================================================
     if (requested_model == "fsfeup02" || requested_model == "inline_02") {
-        optimal = run_genetic_algorithm<InlineFSFEUP02Model>(all_csvs_rows, param_specs, tuning_config, base_params);
+        if (algorithm == "simulated_annealing") {
+            optimal = run_simulated_annealing<InlineFSFEUP02Model>(all_csvs_rows, param_specs, tuning_config, base_params);
+        } else {
+            optimal = run_genetic_algorithm<InlineFSFEUP02Model>(all_csvs_rows, param_specs, tuning_config, base_params);
+        }
     } 
     /*
     else if (requested_model == "fsfeup03" || requested_model == "inline_03") {

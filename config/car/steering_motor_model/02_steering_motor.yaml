@@ -2,4 +2,4 @@ steering_motor:
   kp: 0.00359027
   ki: 0.0131187
   kd: 1.5e-05
-  time_constant: 0.0631099 # previous: 0.001 (original: 0.112)
+  time_constant: 0.0420449 # previous: 0.0369763 (original: 0.112)
