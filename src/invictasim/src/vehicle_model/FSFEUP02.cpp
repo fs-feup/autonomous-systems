@@ -26,6 +26,23 @@ FSFEUP02Model::FSFEUP02Model(const InvictaSimParameters& simulator_parameters)
 }
 
 void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, double angle) {
+  // The driven-wheel / tyre-slip mode is stiff (time constant ~ I*denom/(kxk*r^2),
+  // sub-millisecond at low speed), so a single explicit RK4 step at the incoming
+  // dt is numerically unstable near launch and causes runaway wheel spin.  The
+  // stable step scales with speed, so we substep adaptively: one step at cruise,
+  // finer steps only in the first low-speed instants.  This mirrors the offline
+  // tuning model (inline_02.hpp) so tuned parameters transfer to the live sim.
+  if (!(dt > 0.0)) return;
+  constexpr double kBaseSubDt = 2.0e-4;  // stable step at ~1 m/s
+  constexpr int kMaxSub = 64;
+  const double speed = std::sqrt(state_->vx * state_->vx + state_->vy * state_->vy);
+  const double stable_dt = kBaseSubDt * std::max(1.0, speed);
+  const int n_sub = std::min(kMaxSub, std::max(1, static_cast<int>(std::ceil(dt / stable_dt))));
+  const double sub_dt = dt / static_cast<double>(n_sub);
+  for (int k = 0; k < n_sub; ++k) integrate_substep(sub_dt, throttle, angle);
+}
+
+void FSFEUP02Model::integrate_substep(double dt, common_lib::structures::Wheels throttle, double angle) {
   using Clock = std::chrono::steady_clock;
 
   const auto powertrain_start = Clock::now();

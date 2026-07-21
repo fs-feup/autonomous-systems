@@ -266,11 +266,32 @@ public:
         half_track_width_ = car_parameters_->track_width / 2.0;
     }
 
+    // The driven-wheel / tyre-slip mode is stiff: its time constant is
+    // tau = I_wheel * denom / (kxk * r^2), where denom = max(|Vw|,|Vcx|,1) grows
+    // with speed.  So an explicit RK4 step is only unstable at low speed (near
+    // launch); at cruise the mode is well damped and a single step at the raw
+    // telemetry spacing (~1.5-2.8 ms) is fine.  We therefore substep adaptively:
+    // the stable step scales with vehicle speed, so most of the run integrates in
+    // one step and only the first low-speed seconds pay for fine substeps.
+    static constexpr double kBaseSubDt = 2.0e-4;  // stable step at ~1 m/s (dt_stable ~ 0.2ms * speed)
+    static constexpr int kMaxSub = 64;
+
     void step(double dt, const common_lib::structures::Wheels& throttle, double angle, SimState& state) {
+        if (!(dt > 0.0)) return;
+        const double speed = std::sqrt(state.vx * state.vx + state.vy * state.vy);
+        const double stable_dt = kBaseSubDt * std::max(1.0, speed);
+        const int n_sub = std::min(kMaxSub, std::max(1, static_cast<int>(std::ceil(dt / stable_dt))));
+        const double sub_dt = dt / static_cast<double>(n_sub);
+        for (int k = 0; k < n_sub; ++k) {
+            integrate_substep(sub_dt, throttle, angle, state);
+        }
+    }
+
+    void integrate_substep(double dt, const common_lib::structures::Wheels& throttle, double angle, SimState& state) {
         const double throttle_input = (throttle.rear_left + throttle.rear_right) / 2.0;
         common_lib::structures::Wheels brake_torques;
         double inverter_command = throttle_input;
-        
+
         if (control_mode_ == "manual" && throttle_input < 0.0) {
             brake_torques = brake_->calculate_brake_torques(-throttle_input);
             inverter_command = 0.0;
@@ -278,7 +299,7 @@ public:
 
         const bool braking = brake_torques.front_left > 0.0 || brake_torques.front_right > 0.0 ||
                              brake_torques.rear_left > 0.0 || brake_torques.rear_right > 0.0;
-                             
+
         const double motor_input = inverter_->calculate_inverter_throttle(inverter_command, dt);
         const double motor_torque = calculate_powertrain_torque(motor_input, dt, state);
 
@@ -294,7 +315,7 @@ public:
         get_state_derivative(s + 0.5 * dt * k1, motor_torque, brake_torques, angle, dt, state, k2_r, k2_a, k2);
         get_state_derivative(s + 0.5 * dt * k2, motor_torque, brake_torques, angle, dt, state, k3_r, k3_a, k3);
         get_state_derivative(s + dt * k3, motor_torque, brake_torques, angle, dt, state, k4_r, k4_a, k4);
-        
+
         StateVec s_next = s + (dt / 6.0) * (k1 + 2.0 * k2 + 2.0 * k3 + k4);
 
         state.vx = s_next(VX); state.vy = s_next(VY); state.yaw_rate = s_next(YAW_RATE);

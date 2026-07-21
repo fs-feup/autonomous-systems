@@ -9,10 +9,10 @@ car:
   sprung_cg_z: 0.245
   unsprung_cg_y: 0.765
   unsprung_cg_z: 0.206
-  cg_height: 0.24              # previous: 0.180588 (original: 0.208)
-  cg_2_rear_axis: 0.764865         # previous: 0.931369 (original: 0.706)
-  gear_ratio: 3.67
-  Izz: 98.309                      # previous: 101.082
-  front_bearing_drag: 0.131773    # previous: 0.0411359 (original: 0.25)
-  front_wheel_inertia: 0.105592   # previous: 0.343578
-  rear_wheel_inertia: 0.215427    # previous: 0.665334
+  cg_height: 0.23709              # previous: 0.180588 (original: 0.208)
+  cg_2_rear_axis: 0.72         # previous: 0.931369 (original: 0.706)
+  gear_ratio: 3.32502
+  Izz: 105.05                      # previous: 101.082
+  front_bearing_drag: 0.167626    # previous: 0.0411359 (original: 0.25)
+  front_wheel_inertia: 0.1   # previous: 0.343578
+  rear_wheel_inertia: 0.269343    # previous: 0.665334

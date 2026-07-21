@@ -6,14 +6,23 @@ tuning:
   vehicle_model: "inline_02"
 
   csvs:
+    # Windows are detected from speed and inactive inputs by the optimizer.
+    # No timestamps belong in this configuration: bags need not end at rest.
     - path: "FEUP_trackdrive.csv"
       weight: 1.0
-      start_offset_s: 9.0
-      stop_after_s: 141.0
+    - path: "skidpad.csv"
+      weight: 0.35
 
   score:
     max_distance_error: 1.5 # Maximum allowed distance error in meters before a mutation is killed immediately
     max_velocity_error: 2.0 # Maximum allowed velocity error in m/s before a mutation is killed
+    # Re-anchor the sim to the measured state every N seconds during scoring.
+    # This makes fitness reward whole-trajectory fidelity (every corner) instead
+    # of only the easy opening, which prevents the optimizer from selecting a
+    # directionally-unstable car that survives the first straight and then spins.
+    # Set 0 to score classic continuous time-to-first-failure (used for final
+    # continuous-survival validation).
+    reanchor_period: 3.0
 
   optimizer:
     algorithm: "simulated_annealing" # Options: "genetic_algorithm", "simulated_annealing"
@@ -30,9 +39,13 @@ tuning:
     seed: 67
 
     # Simulated Annealing Settings
+    # Score magnitude is ~survival_seconds * 1e6, so the temperature must be on
+    # the order of the score deltas a single subset-mutation produces (~1e5-1e6)
+    # for the Metropolis acceptance to explore rather than pure hill-climb.
     iterations: 100000000
-    initial_temp: 100.0
-    cooling_rate: 0.99995
+    initial_temp: 1500000.0
+    cooling_rate: 0.99997
+    mutation_scale: 0.12
 
   parameters:
     # =============================================
@@ -148,6 +161,13 @@ tuning:
     # =============================================
     # TRANSMISSION & DIFFERENTIAL
     # =============================================
+    # Final-drive ratio: dominant launch-torque and motor-rpm lever.  Nominal
+    # 3.67, but the recorded launch acceleration implies a lower effective ratio,
+    # so it must be free to move.
+    - name: "transmission.gear_ratio"
+      min: 2.5
+      max: 4.2
+
     - name: "transmission.preload"
       min: 10.0
       max: 60.0
@@ -208,13 +228,21 @@ tuning:
       min: 0.5
       max: 1.0
 
+    # Recorded launch acceleration (~5.5 m/s^2 at 0.6 throttle) implies far less
+    # effective wheel torque than 0.6*208 Nm through 3.67:1 would give.  Allow the
+    # peak torque to drop into the physically-consistent range instead of pinning
+    # it near the datasheet peak, which forced runaway wheelspin.
+    # Effective peak torque identified at ~130 Nm from the recorded launch and
+    # whole-run velocity tracking (0.6 throttle -> ~5.5 m/s^2).  Datasheet peak
+    # (208) forces the sim to over-accelerate and run ahead of the car, so the
+    # bound is kept in the physically-consistent effective range.
     - name: "motor.max_peak_torque"
-      min: 200.0
-      max: 250.0
+      min: 115.0
+      max: 165.0
 
     - name: "motor.max_continuous_torque"
-      min: 100.0
-      max: 130.0
+      min: 75.0
+      max: 115.0
 
     - name: "motor.max_peak_power"
       min: 80000.0
@@ -234,5 +262,4 @@ tuning:
     - name: "battery.max_charge_current"
       min: 20.0
       max: 200.0
-
 

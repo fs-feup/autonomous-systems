@@ -27,11 +27,11 @@ tire:
     camber: 0.0
 
   camber_scaling_factor: 1.0
-  effective_tire_r: 0.218924 # previous: 0.202646
+  effective_tire_r: 0.220569 # previous: 0.202646
 
 # Packejka MF6.2 parameters
   slip_angle_relaxation_length: 0.05
-  slip_ratio_relaxation_length: 0.0660745 # previous: 0.13373
+  slip_ratio_relaxation_length: 0.0281853 # previous: 0.13373
   d_bright: 1.06
   d_bleft: 1.06 
   d_fright: 0.99
@@ -85,9 +85,9 @@ tire:
     BOTTOM_STIFF: 2000000
 
   structural:
-    LONGITUDINAL_STIFFNESS: 300000
-    LATERAL_STIFFNESS: 954263.783475552
-    YAW_STIFFNESS: 31092.393319742318
+    LONGITUDINAL_STIFFNESS: 459104
+    LATERAL_STIFFNESS: 1.72112e+06
+    YAW_STIFFNESS: 58972.7
     FREQ_LONG: 80
     FREQ_LAT: 40
     FREQ_YAW: 50
@@ -144,21 +144,21 @@ tire:
   scaling_coefficients:
     LFZO: 1
     LCX: 1
-    LMUX: 1
+    LMUX: 0.853525
     LEX: 1
-    LKX: 1
+    LKX: 0.952219
     LHX: 0
     LVX: 0
-    LCY: 1.205755192585647
-    LMUY: 1.0571937277357617 
-    LEY: 0.7746446274662531
-    LKY: 9.011481227520228
+    LCY: 1.17125
+    LMUY: 1.04776 
+    LEY: 0.893083
+    LKY: 15.407
     LHY: 0
     LVY: 0
     LTR: 1
     LRES: 0
     LXAL: 1
-    LYKA: 0.9843295176809728
+    LYKA: 0.946605
     LVYKA: 1
     LS: 1
     LKYC: 1
@@ -170,14 +170,14 @@ tire:
 
   longitudinal_coefficients:
     PCX1: 1.786
-    PDX1: 1.15
+    PDX1: 0.979
     PDX2: -0.44
     PDX3: 20.8
-    PEX1: 0.871
+    PEX1: 0.65143
     PEX2: -0.038
     PEX3: 0
     PEX4: 0.071
-    PKX1: 85.31
+    PKX1: 59.8835
     PKX2: -20.25
     PKX3: 0.5
     PHX1: 0
@@ -215,15 +215,15 @@ tire:
 
   lateral_coefficients:
     PCY1: 1.6384
-    PDY1: 1.8
+    PDY1: 1.79981
     PDY2: -0.1985
     PDY3: 4.0072
-    PEY1: 0.711023
+    PEY1: 0.668097
     PEY2: -0.33312
     PEY3: 0.27748
     PEY4: -0.016493
     PEY5: 0
-    PKY1: -296.683
+    PKY1: -330.601
     PKY2: 1.6336
     PKY3: 0.62971
     PKY4: 2

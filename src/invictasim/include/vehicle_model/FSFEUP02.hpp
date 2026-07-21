@@ -83,6 +83,10 @@ private:
 
   // Calculate the available motor torque based on the throttle input and current motor/battery
   // state
+  // One RK4 integration substep.  step() splits the incoming dt into stable
+  // substeps (see FSFEUP02.cpp) because the driven-wheel/tyre-slip mode is stiff.
+  void integrate_substep(double dt, common_lib::structures::Wheels throttle, double angle);
+
   double calculate_powertrain_torque(double throttle_input, double dt);
 
   // Calculate the state derivative for the RK4 integration

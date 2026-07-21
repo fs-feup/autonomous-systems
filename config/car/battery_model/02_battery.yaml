@@ -4,8 +4,8 @@ battery:
   cells_parallel: 5
   capacity_ah: 14.0 
   initial_soc: 0.85
-  max_discharge_current: 400 # previous: 175
-  max_charge_current: 175.0
+  max_discharge_current: 389.858 # previous: 175
+  max_charge_current: 181.264
   min_voltage: 360
   min_soc: 0.10
 

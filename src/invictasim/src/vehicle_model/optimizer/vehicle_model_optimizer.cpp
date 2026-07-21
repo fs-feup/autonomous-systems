@@ -18,6 +18,7 @@
 #include <condition_variable>
 #include <queue>
 #include <functional>
+#include <limits>
 
 class ThreadPool {
 public:
@@ -85,10 +86,38 @@ private:
 // Constants
 constexpr double kEpsilon = 1e-6;
 
+// ---- Global run control: wall-clock deadline, graceful stop, convergence log ----
+static std::chrono::steady_clock::time_point g_start_time;
+static std::chrono::steady_clock::time_point g_deadline;
+static std::atomic<bool> g_has_deadline{false};
+static std::atomic<bool> g_stop{false};
+static std::atomic<long> g_eval_count{0};
+static std::mutex g_log_mutex;
+static std::string g_convergence_log_path = "/home/ws/performance/invictasim_tuning/convergence_log.csv";
+
+inline bool should_stop() {
+    if (g_stop.load(std::memory_order_relaxed)) return true;
+    if (g_has_deadline.load(std::memory_order_relaxed) &&
+        std::chrono::steady_clock::now() >= g_deadline) { g_stop.store(true); return true; }
+    return false;
+}
+
+void handle_sigint(int) { g_stop.store(true); }
+
+void log_convergence(const std::string& tag, double score, double pos_rmse, double vel_rmse) {
+    std::lock_guard<std::mutex> lock(g_log_mutex);
+    double elapsed = std::chrono::duration<double>(std::chrono::steady_clock::now() - g_start_time).count();
+    std::ofstream f(g_convergence_log_path, std::ios::app);
+    if (f.is_open())
+        f << elapsed << ',' << g_eval_count.load() << ',' << tag << ',' << score << ','
+          << pos_rmse << ',' << vel_rmse << '\n';
+}
+
 struct CsvRow {
     double timestamp_s, throttle_fl, throttle_fr, throttle_rl, throttle_rr, steering;
     double real_x, real_y, real_yaw, real_vx, real_vy, real_yaw_rate;
     double real_fl_rpm, real_fr_rpm, real_rl_rpm, real_rr_rpm, real_motor_rpm;
+    bool has_rear_wheel_rpm = false;
 };
 
 struct RunningRmse {
@@ -185,11 +214,69 @@ std::vector<CsvRow> read_csv(const std::string& path) {
         row.real_x = get_val(idx_x); row.real_y = get_val(idx_y); row.real_yaw = get_val(idx_yaw);
         row.real_vx = get_val(idx_vx); row.real_vy = get_val(idx_vy); row.real_yaw_rate = get_val(idx_yaw_rate);
         row.real_fl_rpm = get_val(idx_fl_rpm); row.real_fr_rpm = get_val(idx_fr_rpm);
+        row.has_rear_wheel_rpm = idx_rl_rpm >= 0 && idx_rr_rpm >= 0;
         row.real_rl_rpm = get_val(idx_rl_rpm); row.real_rr_rpm = get_val(idx_rr_rpm);
         row.real_motor_rpm = get_val(idx_motor_rpm);
         rows.push_back(row);
     }
     return rows;
+}
+
+// The recorded reference velocity / yaw-rate come from an on-car estimator that
+// is logged as a zero-order hold and contains non-physical single-sample spikes
+// (apparent accelerations of thousands of m/s^2).  The true vehicle motion is
+// smooth (<~10 Hz), so we condition the reference with a zero-phase, spike-
+// removing filter before any error is measured against it.  Only the *reference*
+// signals are filtered; driver inputs and pose are left untouched.  This is a
+// ground-truth conditioning step, not a model change.
+static std::vector<double> median_filter(const std::vector<double>& x, int half) {
+    const int n = static_cast<int>(x.size());
+    std::vector<double> out(n);
+    std::vector<double> window;
+    window.reserve(2 * half + 1);
+    for (int i = 0; i < n; ++i) {
+        window.clear();
+        for (int j = std::max(0, i - half); j <= std::min(n - 1, i + half); ++j)
+            window.push_back(x[j]);
+        std::nth_element(window.begin(), window.begin() + window.size() / 2, window.end());
+        out[i] = window[window.size() / 2];
+    }
+    return out;
+}
+
+static std::vector<double> moving_average(const std::vector<double>& x, int half) {
+    const int n = static_cast<int>(x.size());
+    std::vector<double> out(n);
+    for (int i = 0; i < n; ++i) {
+        double sum = 0.0; int cnt = 0;
+        for (int j = std::max(0, i - half); j <= std::min(n - 1, i + half); ++j) { sum += x[j]; ++cnt; }
+        out[i] = sum / std::max(1, cnt);
+    }
+    return out;
+}
+
+void condition_reference(std::vector<CsvRow>& rows) {
+    if (rows.size() < 8) return;
+    std::vector<double> vx(rows.size()), vy(rows.size()), yr(rows.size());
+    for (size_t i = 0; i < rows.size(); ++i) {
+        vx[i] = rows[i].real_vx; vy[i] = rows[i].real_vy; yr[i] = rows[i].real_yaw_rate;
+    }
+    // The estimator velocity/yaw-rate carry broadband noise of +-1.5 m/s / rad
+    // at ~5-10 Hz (apparent accelerations of tens of m/s^2 that the car cannot
+    // physically produce).  The true vehicle motion is smooth (<~2-3 Hz), so the
+    // reference is conditioned with a spike-removing median followed by a
+    // zero-phase low-pass (two moving-average passes, ~150 ms window ≈ 3 Hz).
+    // At ~650 Hz sampling this preserves real accel/decel and cornering while
+    // removing the noise that would otherwise breach the 2 m/s limit on its own.
+    // Only the reference is filtered; commands and pose are untouched.
+    const int med_half = 10;   // ~30 ms spike rejection
+    const int ma_half = 50;    // ~150 ms; applied twice -> ~2-3 Hz zero-phase LP
+    vx = moving_average(moving_average(median_filter(vx, med_half), ma_half), ma_half);
+    vy = moving_average(moving_average(median_filter(vy, med_half), ma_half), ma_half);
+    yr = moving_average(moving_average(median_filter(yr, med_half), ma_half), ma_half);
+    for (size_t i = 0; i < rows.size(); ++i) {
+        rows[i].real_vx = vx[i]; rows[i].real_vy = vy[i]; rows[i].real_yaw_rate = yr[i];
+    }
 }
 
 std::map<std::string, double*> get_parameter_ptrs(std::shared_ptr<common_lib::car_parameters::CarParameters> p) {
@@ -724,6 +811,27 @@ std::shared_ptr<common_lib::car_parameters::CarParameters> deep_copy_car_paramet
     return dst;
 }
 
+// The converted bags contain front-wheel and motor RPM but no rear-wheel RPM.
+// Seeding the driven wheels at zero creates an artificial launch transient and
+// invalidates every candidate's first seconds.  A single-motor differential
+// implies mean rear-wheel speed = motor speed / final-drive ratio.
+void initialise_wheel_speeds(SimState& state, const CsvRow& sample,
+                             const common_lib::car_parameters::CarParameters& params) {
+    constexpr double kRpmToRadPerSec = 2.0 * M_PI / 60.0;
+    state.wheels_speed.front_left = sample.real_fl_rpm * kRpmToRadPerSec;
+    state.wheels_speed.front_right = sample.real_fr_rpm * kRpmToRadPerSec;
+    if (sample.has_rear_wheel_rpm) {
+        state.wheels_speed.rear_left = sample.real_rl_rpm * kRpmToRadPerSec;
+        state.wheels_speed.rear_right = sample.real_rr_rpm * kRpmToRadPerSec;
+    } else {
+        const double ratio = std::max(params.transmission_parameters->gear_ratio, 1e-6);
+        const double rear_omega = sample.real_motor_rpm * kRpmToRadPerSec / ratio;
+        state.wheels_speed.rear_left = rear_omega;
+        state.wheels_speed.rear_right = rear_omega;
+    }
+    state.motor_omega = sample.real_motor_rpm * kRpmToRadPerSec;
+}
+
 struct DatasetConfig {
     double weight = 1.0;
     double start_offset_s = 0.0;
@@ -731,7 +839,64 @@ struct DatasetConfig {
     double max_distance_error = 2.5;
     double max_velocity_error = 5.0;
     bool ignore_lateral_distance = false;
+    // Re-anchored scoring period (s).  >0 resets the sim to the measured state
+    // every period, so the fitness rewards models that track the *whole* run in
+    // short open-loop horizons rather than ones that merely survive the easy
+    // opening while being globally unfaithful (e.g. directionally unstable).
+    // 0 keeps the classic continuous time-to-first-failure behaviour.
+    double reanchor_period = 0.0;
+    // Derived from telemetry; never supplied as a hand-tuned timestamp.
+    size_t start_index = 0;
+    size_t end_index = std::numeric_limits<size_t>::max();
 };
+
+// Return the contiguous useful driving portion of a recording.  Velocity alone
+// is deliberately cross-checked against pose increments: estimator noise after
+// a bag ends otherwise looks like movement. Start requires sustained movement;
+// end requires both sustained rest and inactive driver inputs.
+std::pair<size_t, size_t> detect_motion_window(const std::vector<CsvRow>& rows) {
+    if (rows.empty()) return {0, 0};
+    constexpr double kMovingSpeed = 0.35;
+    constexpr double kActiveInput = 0.02;
+    constexpr double kHoldSeconds = 0.50;
+    std::vector<bool> moving(rows.size(), false);
+    std::vector<bool> input_active(rows.size(), false);
+    for (size_t i = 0; i < rows.size(); ++i) {
+        const auto& r = rows[i];
+        double position_speed = 0.0;
+        if (i > 0) {
+            const double dt = r.timestamp_s - rows[i - 1].timestamp_s;
+            if (dt > 1e-4 && dt < 0.1)
+                position_speed = std::hypot(r.real_x - rows[i - 1].real_x, r.real_y - rows[i - 1].real_y) / dt;
+        }
+        const double speed = std::max(std::hypot(r.real_vx, r.real_vy), position_speed);
+        const double drive = std::max(std::abs(r.throttle_rl), std::abs(r.throttle_rr));
+        moving[i] = speed >= kMovingSpeed;
+        input_active[i] = drive >= kActiveInput || std::abs(r.steering) >= kActiveInput;
+    }
+    const auto sustained_from = [&](size_t first) {
+        const double begin = rows[first].timestamp_s;
+        for (size_t j = first; j < rows.size(); ++j) {
+            if (!moving[j]) return false;
+            if (rows[j].timestamp_s - begin >= kHoldSeconds) return true;
+        }
+        return false;
+    };
+    size_t start = 0;
+    while (start + 1 < rows.size() && !sustained_from(start)) ++start;
+    size_t end = rows.size() - 1;
+    // A bag can keep publishing commands after the car has stopped.  End only
+    // after sustained *zero speed and inactive driver input*.
+    for (size_t i = start; i < rows.size(); ++i) {
+        const double begin = rows[i].timestamp_s;
+        bool stopped = true;
+        for (size_t j = i; j < rows.size() && rows[j].timestamp_s - begin < kHoldSeconds; ++j) {
+            if (moving[j] || input_active[j]) { stopped = false; break; }
+        }
+        if (stopped && rows.back().timestamp_s - begin >= kHoldSeconds) { end = i; break; }
+    }
+    return {start, std::max(start, end)};
+}
 
 // ============================================================================
 // EVALUATE A SINGLE CANDIDATE INDIVIDUAL ACROSS ALL BAGS
@@ -765,7 +930,6 @@ EvaluationResult evaluate_candidate_fast(
     for (size_t b = 0; b < dataset_configs.size(); ++b) {
         const auto& ds_cfg = dataset_configs[b];
         double weight = ds_cfg.weight;
-        double start_offset = ds_cfg.start_offset_s;
         double stop_duration = ds_cfg.stop_after_s;
         double max_dist_error = ds_cfg.max_distance_error;
         bool ignore_lateral = ds_cfg.ignore_lateral_distance;
@@ -777,13 +941,8 @@ EvaluationResult evaluate_candidate_fast(
             continue;
         }
 
-        size_t start_idx = 0;
-        for (size_t i = 0; i < rows.size(); ++i) {
-            if (rows[i].timestamp_s >= start_offset) {
-                start_idx = i;
-                break;
-            }
-        }
+        const size_t start_idx = std::min(ds_cfg.start_index, rows.size() - 1);
+        const size_t end_idx = std::min(ds_cfg.end_index, rows.size() - 1);
 
         double start_time = rows[start_idx].timestamp_s;
 
@@ -798,11 +957,7 @@ EvaluationResult evaluate_candidate_fast(
         state.vy = first_sample.real_vy;
         state.yaw_rate = first_sample.real_yaw_rate;
         
-        state.wheels_speed.front_left = first_sample.real_fl_rpm * 2.0 * 3.14159265358979323846 / 60.0;
-        state.wheels_speed.front_right = first_sample.real_fr_rpm * 2.0 * 3.14159265358979323846 / 60.0;
-        state.wheels_speed.rear_left = first_sample.real_rl_rpm * 2.0 * 3.14159265358979323846 / 60.0;
-        state.wheels_speed.rear_right = first_sample.real_rr_rpm * 2.0 * 3.14159265358979323846 / 60.0;
-        state.motor_omega = first_sample.real_motor_rpm * 2.0 * 3.14159265358979323846 / 60.0;
+        initialise_wheel_speeds(state, first_sample, *thread_local_params.car_parameters);
 
         RunningRmse position_rmse, heading_rmse, velocity_rmse, velocity_x_rmse, velocity_x_slow_rmse;
         RunningRmse velocity_y_rmse, yaw_rate_rmse, yaw_rate_under_rmse, front_wheel_rpm_rmse, motor_rpm_rmse;
@@ -813,7 +968,7 @@ EvaluationResult evaluate_candidate_fast(
         double last_time = first_sample.timestamp_s;
         double alive_time = 0.0;
 
-        for (size_t i = start_idx + 1; i < rows.size(); ++i) {
+        for (size_t i = start_idx + 1; i <= end_idx; ++i) {
             const CsvRow& row = rows[i];
             if (stop_duration > 0.0 && (row.timestamp_s - start_time) > stop_duration) break;
             
@@ -825,6 +980,13 @@ EvaluationResult evaluate_candidate_fast(
             common_lib::structures::Wheels throttle(prev_row.throttle_fl, prev_row.throttle_fr, prev_row.throttle_rl, prev_row.throttle_rr);
 
             model.step(dt, throttle, prev_row.steering, state);
+
+            if (!std::isfinite(state.x) || !std::isfinite(state.y) || !std::isfinite(state.vx) ||
+                !std::isfinite(state.vy) || !std::isfinite(state.yaw_rate) ||
+                std::abs(state.vx) > 80.0 || std::abs(state.vy) > 40.0 ||
+                std::abs(state.yaw_rate) > 20.0) {
+                break;
+            }
 
             double sim_fl_rpm = state.wheels_speed.front_left * 60.0 / (2.0 * 3.14159265358979323846);
             double sim_fr_rpm = state.wheels_speed.front_right * 60.0 / (2.0 * 3.14159265358979323846);
@@ -844,16 +1006,11 @@ EvaluationResult evaluate_candidate_fast(
                 current_pos_error = std::hypot(state.x - real_pose.x, state.y - real_pose.y);
             }
             
-            // The dataset does not contain valid real_vy (it is always 0.0), so we only measure vx error
-            double current_vel_error = std::abs(state.vx - row.real_vx);
+            const double current_vel_error = std::abs(state.vx - row.real_vx)  /* real_vy is not measured (identically 0), so velocity error is longitudinal */;
 
             alive_time = row.timestamp_s - start_time;
             
             if (current_pos_error > max_dist_error || current_vel_error > ds_cfg.max_velocity_error) {
-                // Adjust alive time with a continuous penalty based on how badly it failed
-                // This gives the optimizer a gradient to follow when stuck at a time barrier
-                alive_time -= (current_pos_error - max_dist_error);
-                alive_time -= (current_vel_error - ds_cfg.max_velocity_error);
                 break;
             }
 
@@ -862,14 +1019,18 @@ EvaluationResult evaluate_candidate_fast(
             velocity_x_rmse.update(state.vx - row.real_vx);
             velocity_x_slow_rmse.update(std::min(0.0, state.vx - row.real_vx));
             velocity_y_rmse.update(state.vy - row.real_vy);
-            velocity_rmse.update(std::hypot(state.vx - row.real_vx, state.vy - row.real_vy));
+            velocity_rmse.update(std::abs(state.vx - row.real_vx)  /* real_vy is not measured (identically 0), so velocity error is longitudinal */);
             yaw_rate_rmse.update(state.yaw_rate - row.real_yaw_rate);
             yaw_rate_under_rmse.update(std::min(0.0, state.yaw_rate - row.real_yaw_rate));
             front_wheel_rpm_rmse.update(sim_front_rpm - real_front_rpm);
             motor_rpm_rmse.update(sim_motor_rpm - row.real_motor_rpm);
         }
 
-        double dataset_score = alive_time;
+        // Packed lexicographic objective: a millisecond of survival dominates
+        // all lower priorities; errors distinguish candidates at equal survival.
+        const double dataset_score = alive_time * 1e6 - position_rmse.get() * 1e3
+            - velocity_rmse.get() * 1e2 - heading_rmse.get() * 10.0
+            - yaw_rate_rmse.get();
 
         weighted_score_sum += weight * dataset_score;
         weighted_position_rmse += weight * position_rmse.get();
@@ -905,6 +1066,7 @@ EvaluationResult evaluate_candidate(
     const std::vector<double>& candidate_values,
     const InvictaSimParameters& base_params
 ) {
+    g_eval_count.fetch_add(1, std::memory_order_relaxed);
     InvictaSimParameters sim_params = base_params;
     sim_params.car_parameters = deep_copy_car_parameters(base_params.car_parameters);
 
@@ -926,7 +1088,6 @@ EvaluationResult evaluate_candidate(
     for (size_t b = 0; b < dataset_configs.size(); ++b) {
         const auto& ds_cfg = dataset_configs[b];
         double weight = ds_cfg.weight;
-        double start_offset = ds_cfg.start_offset_s;
         double stop_duration = ds_cfg.stop_after_s;
         double max_dist_error = ds_cfg.max_distance_error;
         bool ignore_lateral = ds_cfg.ignore_lateral_distance;
@@ -938,13 +1099,8 @@ EvaluationResult evaluate_candidate(
             continue;
         }
 
-        size_t start_idx = 0;
-        for (size_t i = 0; i < rows.size(); ++i) {
-            if (rows[i].timestamp_s >= start_offset) {
-                start_idx = i;
-                break;
-            }
-        }
+        const size_t start_idx = std::min(ds_cfg.start_index, rows.size() - 1);
+        const size_t end_idx = std::min(ds_cfg.end_index, rows.size() - 1);
 
         double start_time = rows[start_idx].timestamp_s;
 
@@ -956,6 +1112,21 @@ EvaluationResult evaluate_candidate(
         }
         ModelType model(sim_params);
 
+        // Warm only hidden actuator/energy states from the discarded prefix.
+        // The scoring state is still set from the first accepted measurement;
+        // this prevents the inverter delay from being spuriously restarted at
+        // the automatically detected motion boundary.
+        SimState warmup_state;
+        for (size_t i = 1; i <= start_idx; ++i) {
+            const double warmup_dt = rows[i].timestamp_s - rows[i - 1].timestamp_s;
+            if (warmup_dt <= 0.0) continue;
+            const CsvRow& command = rows[i - 1];
+            model.step(warmup_dt,
+                       common_lib::structures::Wheels(command.throttle_fl, command.throttle_fr,
+                                                        command.throttle_rl, command.throttle_rr),
+                       command.steering, warmup_state);
+        }
+
         SimState state;
         CsvRow first_sample = rows[start_idx];
         state.x = 0.0;
@@ -965,12 +1136,7 @@ EvaluationResult evaluate_candidate(
         state.vy = first_sample.real_vy;
         state.yaw_rate = first_sample.real_yaw_rate;
         
-        // Updated to use the correct wheels_speed struct variables
-        state.wheels_speed.front_left = first_sample.real_fl_rpm * 2.0 * M_PI / 60.0;
-        state.wheels_speed.front_right = first_sample.real_fr_rpm * 2.0 * M_PI / 60.0;
-        state.wheels_speed.rear_left = first_sample.real_rl_rpm * 2.0 * M_PI / 60.0;
-        state.wheels_speed.rear_right = first_sample.real_rr_rpm * 2.0 * M_PI / 60.0;
-        state.motor_omega = first_sample.real_motor_rpm * 2.0 * M_PI / 60.0;
+        initialise_wheel_speeds(state, first_sample, *sim_params.car_parameters);
 
         RunningRmse position_rmse, heading_rmse, velocity_rmse, velocity_x_rmse, velocity_x_slow_rmse;
         RunningRmse velocity_y_rmse, yaw_rate_rmse, yaw_rate_under_rmse, front_wheel_rpm_rmse, motor_rpm_rmse;
@@ -980,14 +1146,37 @@ EvaluationResult evaluate_candidate(
 
         double last_time = first_sample.timestamp_s;
 
-        double alive_time = 0.0;
-        for (size_t i = start_idx + 1; i < rows.size(); ++i) {
+        const double reanchor = ds_cfg.reanchor_period;
+        double next_anchor = reanchor > 0.0 ? reanchor : 1e18;
+        bool seg_failed = false;              // current segment has already violated
+        int consecutive_failed_segments = 0;  // hopeless-candidate early abort
+        double alive_time = 0.0;              // total in-limit time (summed over segments)
+        for (size_t i = start_idx + 1; i <= end_idx; ++i) {
             const CsvRow& row = rows[i];
             if (stop_duration > 0.0 && (row.timestamp_s - start_time) > stop_duration) break;
-            
+
             double dt = row.timestamp_s - last_time;
             if (dt <= 0.0) continue;
             last_time = row.timestamp_s;
+            const double t_rel = row.timestamp_s - start_time;
+
+            PoseSample real_pose = transform_pose_to_map(
+                {row.real_x, row.real_y, row.real_yaw}, real_origin, sim_origin);
+
+            // Re-anchor boundary: reset the sim to the measured state and open a
+            // fresh short-horizon segment (vy is unmeasured, so seed 0).
+            if (reanchor > 0.0 && t_rel >= next_anchor) {
+                next_anchor += reanchor;
+                consecutive_failed_segments = seg_failed ? consecutive_failed_segments + 1 : 0;
+                if (consecutive_failed_segments >= 6) break;  // globally hopeless
+                seg_failed = false;
+                state.x = real_pose.x; state.y = real_pose.y; state.yaw = real_pose.yaw;
+                state.vx = row.real_vx; state.vy = 0.0; state.yaw_rate = row.real_yaw_rate;
+                state.ax = 0.0; state.ay = 0.0;
+                initialise_wheel_speeds(state, row, *sim_params.car_parameters);
+                continue;
+            }
+            if (seg_failed) continue;  // skip simulation until the next anchor
 
             const CsvRow& prev_row = rows[i - 1];
             common_lib::structures::Wheels throttle(prev_row.throttle_fl, prev_row.throttle_fr, prev_row.throttle_rl, prev_row.throttle_rr);
@@ -995,14 +1184,19 @@ EvaluationResult evaluate_candidate(
             // STEP THE PHYSICS ENGINE
             model.step(dt, throttle, prev_row.steering, state);
 
+            if (!std::isfinite(state.x) || !std::isfinite(state.y) || !std::isfinite(state.vx) ||
+                !std::isfinite(state.vy) || !std::isfinite(state.yaw_rate) ||
+                std::abs(state.vx) > 80.0 || std::abs(state.vy) > 40.0 ||
+                std::abs(state.yaw_rate) > 20.0) {
+                if (reanchor > 0.0) { seg_failed = true; continue; }
+                break;
+            }
+
             double sim_fl_rpm = state.wheels_speed.front_left * 60.0 / (2.0 * M_PI);
             double sim_fr_rpm = state.wheels_speed.front_right * 60.0 / (2.0 * M_PI);
             double sim_front_rpm = 0.5 * (sim_fl_rpm + sim_fr_rpm);
             double sim_motor_rpm = state.motor_omega * 60.0 / (2.0 * M_PI);
             double real_front_rpm = 0.5 * (row.real_fl_rpm + row.real_fr_rpm);
-
-            PoseSample real_raw = {row.real_x, row.real_y, row.real_yaw};
-            PoseSample real_pose = transform_pose_to_map(real_raw, real_origin, sim_origin);
 
             double current_pos_error;
             if (ignore_lateral) {
@@ -1014,29 +1208,31 @@ EvaluationResult evaluate_candidate(
                 // Strict 2D Euclidean distance error
                 current_pos_error = std::hypot(state.x - real_pose.x, state.y - real_pose.y);
             }
-            
-            // The dataset does not contain valid real_vy (it is always 0.0), so we only measure vx error
-            double current_vel_error = std::abs(state.vx - row.real_vx);
+
+            const double current_vel_error = std::abs(state.vx - row.real_vx)  /* real_vy is not measured (identically 0), so velocity error is longitudinal */;
 
             if (current_pos_error > max_dist_error || current_vel_error > ds_cfg.max_velocity_error) {
+                if (reanchor > 0.0) { seg_failed = true; continue; }
                 break; // Hard limit reached, kill mutation
             }
-            
-            alive_time = row.timestamp_s - start_time;
+
+            alive_time += dt;  // accumulate in-limit time (whole-run coverage)
 
             position_rmse.update(current_pos_error);
             heading_rmse.update(normalize_angle(state.yaw - real_pose.yaw));
             velocity_x_rmse.update(state.vx - row.real_vx);
             velocity_x_slow_rmse.update(std::min(0.0, state.vx - row.real_vx));
             velocity_y_rmse.update(state.vy - row.real_vy);
-            velocity_rmse.update(std::hypot(state.vx - row.real_vx, state.vy - row.real_vy));
+            velocity_rmse.update(std::abs(state.vx - row.real_vx)  /* real_vy is not measured (identically 0), so velocity error is longitudinal */);
             yaw_rate_rmse.update(state.yaw_rate - row.real_yaw_rate);
             yaw_rate_under_rmse.update(std::min(0.0, state.yaw_rate - row.real_yaw_rate));
             front_wheel_rpm_rmse.update(sim_front_rpm - real_front_rpm);
             motor_rpm_rmse.update(sim_motor_rpm - row.real_motor_rpm);
         }
 
-        double dataset_score = alive_time;
+        const double dataset_score = alive_time * 1e6 - position_rmse.get() * 1e3
+            - velocity_rmse.get() * 1e2 - heading_rmse.get() * 10.0
+            - yaw_rate_rmse.get();
 
         weighted_score_sum += weight * dataset_score;
         weighted_position_rmse += weight * position_rmse.get();
@@ -1090,7 +1286,7 @@ Individual run_genetic_algorithm(
 
     std::vector<double> baseline_vals(param_specs.size());
     for (size_t p = 0; p < param_specs.size(); ++p) {
-        baseline_vals[p] = get_baseline_value(base_params.car_parameters, param_specs[p].name);
+        baseline_vals[p] = std::clamp(get_baseline_value(base_params.car_parameters, param_specs[p].name), param_specs[p].min_val, param_specs[p].max_val);
     }
 
     std::vector<Individual> population(population_size);
@@ -1109,6 +1305,7 @@ Individual run_genetic_algorithm(
     global_best.values = population[0].values;
 
     for (int gen = 0; gen < generations; ++gen) {
+        if (should_stop()) break;
         std::cout << "--- Generation " << gen + 1 << "/" << generations << " ---" << std::endl;
 
     YAML::Node csvs = tuning_config["tuning"]["csvs"];
@@ -1131,6 +1328,13 @@ Individual run_genetic_algorithm(
         cfg.max_distance_error = score_config["max_distance_error"] ? score_config["max_distance_error"].as<double>() : 2.0;
         cfg.max_velocity_error = score_config["max_velocity_error"] ? score_config["max_velocity_error"].as<double>() : 5.0;
         cfg.ignore_lateral_distance = score_config["ignore_lateral_distance"] && score_config["ignore_lateral_distance"].as<bool>();
+        cfg.reanchor_period = score_config["reanchor_period"] ? score_config["reanchor_period"].as<double>() : 0.0;
+        const auto window = detect_motion_window(all_csvs_rows.at(b));
+        cfg.start_index = window.first;
+        cfg.end_index = window.second;
+        std::cout << "Dataset " << b << " automatic motion window: "
+                  << all_csvs_rows.at(b).at(window.first).timestamp_s << "s to "
+                  << all_csvs_rows.at(b).at(window.second).timestamp_s << "s" << std::endl;
         dataset_configs.push_back(cfg);
     }
 
@@ -1148,6 +1352,7 @@ Individual run_genetic_algorithm(
             
             if (population[i].score > global_best.score) {
                 global_best = population[i];
+                log_convergence("ga", global_best.score, global_best.metrics.position_rmse, global_best.metrics.velocity_rmse);
                 std::cout << "  [New Global Best] Score: " << global_best.score << " (Pos RMSE: " << global_best.metrics.position_rmse << "m) Parameters:";
                 for (size_t p = 0; p < param_specs.size(); ++p) {
                     std::cout << " " << param_specs[p].name << "=" << global_best.values[p];
@@ -1282,12 +1487,19 @@ Individual run_simulated_annealing(
         cfg.max_distance_error = score_config["max_distance_error"] ? score_config["max_distance_error"].as<double>() : 2.0;
         cfg.max_velocity_error = score_config["max_velocity_error"] ? score_config["max_velocity_error"].as<double>() : 5.0;
         cfg.ignore_lateral_distance = score_config["ignore_lateral_distance"] && score_config["ignore_lateral_distance"].as<bool>();
+        cfg.reanchor_period = score_config["reanchor_period"] ? score_config["reanchor_period"].as<double>() : 0.0;
+        const auto window = detect_motion_window(all_csvs_rows.at(b));
+        cfg.start_index = window.first;
+        cfg.end_index = window.second;
+        std::cout << "Dataset " << b << " automatic motion window: "
+                  << all_csvs_rows.at(b).at(window.first).timestamp_s << "s to "
+                  << all_csvs_rows.at(b).at(window.second).timestamp_s << "s" << std::endl;
         dataset_configs.push_back(cfg);
     }
 
     std::vector<double> current_vals(param_specs.size());
     for (size_t p = 0; p < param_specs.size(); ++p) {
-        current_vals[p] = get_baseline_value(base_params.car_parameters, param_specs[p].name);
+        current_vals[p] = std::clamp(get_baseline_value(base_params.car_parameters, param_specs[p].name), param_specs[p].min_val, param_specs[p].max_val);
     }
 
     std::mutex best_mutex;
@@ -1325,24 +1537,35 @@ Individual run_simulated_annealing(
             }
         }
         
-        ModelType model(thread_local_params);
-        EvaluationResult res = evaluate_candidate_fast<ModelType>(all_csvs_rows, dataset_configs, param_specs, current.values, thread_local_params, fast_ptrs, model);
+        // Models contain battery, inverter and tyre relaxation state.  Reusing
+        // one instance across candidates makes fitness order-dependent, so each
+        // evaluation constructs a clean physical model.
+        EvaluationResult res = evaluate_candidate<ModelType>(all_csvs_rows, dataset_configs, param_specs, current.values, base_params);
         current.score = res.total_score;
         current.metrics = res.metrics;
         
         Individual local_best = current;
         double temp = initial_temp;
 
+        std::uniform_int_distribution<size_t> dist_coord(0, param_specs.size() - 1);
         for (int iter = 0; iter < iterations; ++iter) {
+            if (should_stop()) break;
             Individual candidate;
             candidate.values = current.values;
-            for (size_t p = 0; p < param_specs.size(); ++p) {
+            // Subset mutation: perturb a small random set of coordinates rather
+            // than all 43 at once.  Full-vector Gaussian moves are almost always
+            // rejected in high dimensions; mutating 1-3 coordinates gives a far
+            // higher acceptance rate and much better convergence for this
+            // expensive black box.
+            const int k = 1 + static_cast<int>(dist_01(rng) * 3.0);  // 1..3 coords
+            for (int m = 0; m < k; ++m) {
+                size_t p = dist_coord(rng);
                 double span = param_specs[p].max_val - param_specs[p].min_val;
                 std::normal_distribution<double> dist_normal(0.0, mutation_scale * span);
                 candidate.values[p] = std::clamp(candidate.values[p] + dist_normal(rng), param_specs[p].min_val, param_specs[p].max_val);
             }
 
-            EvaluationResult eval_res = evaluate_candidate_fast<ModelType>(all_csvs_rows, dataset_configs, param_specs, candidate.values, thread_local_params, fast_ptrs, model);
+            EvaluationResult eval_res = evaluate_candidate<ModelType>(all_csvs_rows, dataset_configs, param_specs, candidate.values, base_params);
             candidate.score = eval_res.total_score;
             candidate.metrics = eval_res.metrics;
             
@@ -1358,7 +1581,8 @@ Individual run_simulated_annealing(
                 std::lock_guard<std::mutex> lock(best_mutex);
                 if (local_best.score > global_best.score) {
                     global_best = local_best;
-                    std::cout << "\n[Chain " << chain_id << "] New Global Best! Score: " << global_best.score 
+                    log_convergence("sa", global_best.score, global_best.metrics.position_rmse, global_best.metrics.velocity_rmse);
+                    std::cout << "\n[Chain " << chain_id << "] New Global Best! Score: " << global_best.score
                               << " | Pos RMSE: " << global_best.metrics.position_rmse << "m\nParameters:";
                     for (size_t p = 0; p < param_specs.size(); ++p) {
                         std::cout << " " << param_specs[p].name << "=" << global_best.values[p];
@@ -1415,6 +1639,144 @@ Individual run_simulated_annealing(
     return global_best;
 }
 
+// ============================================================================
+// DIAGNOSTIC: replay one dataset with the baseline (or overridden) parameters
+// and dump per-step sim-vs-real telemetry.  Never breaks on error so the full
+// divergence profile is visible.  Reports the first time each survival limit is
+// exceeded.  This is the tool used to localise physics bugs.
+// ============================================================================
+template <typename ModelType>
+void run_diagnostic(
+    const std::vector<std::vector<CsvRow>>& all_csvs_rows,
+    const std::vector<ParameterSpec>& param_specs,
+    const std::vector<double>& override_values,
+    const InvictaSimParameters& base_params,
+    size_t dataset_index,
+    double max_dist_error,
+    double max_velocity_error,
+    const std::string& out_path,
+    double reanchor_period = 0.0
+) {
+    InvictaSimParameters sim_params = base_params;
+    sim_params.car_parameters = deep_copy_car_parameters(base_params.car_parameters);
+    for (size_t i = 0; i < param_specs.size() && i < override_values.size(); ++i) {
+        apply_parameter_override(sim_params.car_parameters, param_specs[i].name, override_values[i]);
+    }
+
+    const auto& rows = all_csvs_rows.at(dataset_index);
+    const auto window = detect_motion_window(rows);
+    const size_t start_idx = window.first;
+    const size_t end_idx = window.second;
+    const double start_time = rows[start_idx].timestamp_s;
+
+    ModelType model(sim_params);
+    model.update_cache();
+
+    // Warm hidden actuator/energy states over the discarded prefix.
+    SimState warmup_state;
+    for (size_t i = 1; i <= start_idx; ++i) {
+        const double warmup_dt = rows[i].timestamp_s - rows[i - 1].timestamp_s;
+        if (warmup_dt <= 0.0) continue;
+        const CsvRow& c = rows[i - 1];
+        model.step(warmup_dt,
+                   common_lib::structures::Wheels(c.throttle_fl, c.throttle_fr, c.throttle_rl, c.throttle_rr),
+                   c.steering, warmup_state);
+    }
+
+    SimState state;
+    CsvRow first_sample = rows[start_idx];
+    state.x = 0.0; state.y = 0.0; state.yaw = 0.0;
+    state.vx = first_sample.real_vx;
+    state.vy = first_sample.real_vy;
+    state.yaw_rate = first_sample.real_yaw_rate;
+    initialise_wheel_speeds(state, first_sample, *sim_params.car_parameters);
+
+    PoseSample real_origin = {first_sample.real_x, first_sample.real_y, first_sample.real_yaw};
+    PoseSample sim_origin = {state.x, state.y, state.yaw};
+    double last_time = first_sample.timestamp_s;
+
+    std::ofstream out(out_path);
+    out << "t_rel,sim_x,sim_y,real_x,real_y,pos_err,sim_vx,sim_vy,real_vx,real_vy,vel_err,"
+        << "sim_yaw,real_yaw,yaw_err,sim_yaw_rate,real_yaw_rate,sim_motor_rpm,real_motor_rpm,"
+        << "sim_front_rpm,real_front_rpm,throttle_rl,steering\n";
+
+    double first_pos_violation = -1.0, first_vel_violation = -1.0;
+    double max_pos_err = 0.0, max_vel_err = 0.0;
+    // Re-anchored analysis: reset the sim to the measured state every
+    // reanchor_period seconds to expose the model's *local* fidelity and
+    // systematic biases across the whole run (not just the first divergence).
+    double next_anchor = reanchor_period > 0.0 ? reanchor_period : 1e18;
+    int seg_total = 0, seg_survived = 0;
+    double seg_max_pos = 0.0, seg_max_vel = 0.0;
+    long bias_n = 0;
+    double bias_vx = 0.0, bias_yawrate = 0.0, abs_yawrate = 0.0;
+    for (size_t i = start_idx + 1; i <= end_idx; ++i) {
+        const CsvRow& row = rows[i];
+        double dt = row.timestamp_s - last_time;
+        if (dt <= 0.0) continue;
+        last_time = row.timestamp_s;
+        const CsvRow& prev = rows[i - 1];
+        model.step(dt, common_lib::structures::Wheels(prev.throttle_fl, prev.throttle_fr, prev.throttle_rl, prev.throttle_rr), prev.steering, state);
+
+        PoseSample real_pose = transform_pose_to_map({row.real_x, row.real_y, row.real_yaw}, real_origin, sim_origin);
+        double pos_err = std::hypot(state.x - real_pose.x, state.y - real_pose.y);
+        double vel_err = std::abs(state.vx - row.real_vx)  /* real_vy is not measured (identically 0), so velocity error is longitudinal */;
+        double t_rel = row.timestamp_s - start_time;
+        if (first_pos_violation < 0.0 && pos_err > max_dist_error) first_pos_violation = t_rel;
+        if (first_vel_violation < 0.0 && vel_err > max_velocity_error) first_vel_violation = t_rel;
+        max_pos_err = std::max(max_pos_err, pos_err);
+        max_vel_err = std::max(max_vel_err, vel_err);
+
+        // Per-segment bias accounting (uses the current, possibly re-anchored state).
+        bias_vx += state.vx - row.real_vx;
+        bias_yawrate += state.yaw_rate - row.real_yaw_rate;
+        abs_yawrate += std::abs(row.real_yaw_rate);
+        ++bias_n;
+        seg_max_pos = std::max(seg_max_pos, pos_err);
+        seg_max_vel = std::max(seg_max_vel, vel_err);
+        if (reanchor_period > 0.0 && t_rel >= next_anchor) {
+            ++seg_total;
+            if (seg_max_pos <= max_dist_error && seg_max_vel <= max_velocity_error) ++seg_survived;
+            seg_max_pos = 0.0; seg_max_vel = 0.0;
+            next_anchor += reanchor_period;
+            // Reset sim to measured state; vy unmeasured so seed 0.
+            state.x = real_pose.x; state.y = real_pose.y; state.yaw = real_pose.yaw;
+            state.vx = row.real_vx; state.vy = 0.0; state.yaw_rate = row.real_yaw_rate;
+            state.ax = 0.0; state.ay = 0.0;
+            initialise_wheel_speeds(state, row, *sim_params.car_parameters);
+        }
+
+        double sim_motor_rpm = state.motor_omega * 60.0 / (2.0 * M_PI);
+        double sim_front_rpm = 0.5 * (state.wheels_speed.front_left + state.wheels_speed.front_right) * 60.0 / (2.0 * M_PI);
+        double real_front_rpm = 0.5 * (row.real_fl_rpm + row.real_fr_rpm);
+        out << t_rel << ',' << state.x << ',' << state.y << ',' << real_pose.x << ',' << real_pose.y << ','
+            << pos_err << ',' << state.vx << ',' << state.vy << ',' << row.real_vx << ',' << row.real_vy << ','
+            << vel_err << ',' << state.yaw << ',' << real_pose.yaw << ',' << normalize_angle(state.yaw - real_pose.yaw) << ','
+            << state.yaw_rate << ',' << row.real_yaw_rate << ',' << sim_motor_rpm << ',' << row.real_motor_rpm << ','
+            << sim_front_rpm << ',' << real_front_rpm << ',' << prev.throttle_rl << ',' << prev.steering << '\n';
+
+        if (!std::isfinite(state.vx)) { std::cout << "NON-FINITE at t=" << t_rel << "\n"; break; }
+    }
+    out.close();
+    std::cout << "Diagnostic dataset " << dataset_index << " window " << start_time << "s.." << rows[end_idx].timestamp_s
+              << "s (" << (rows[end_idx].timestamp_s - start_time) << "s driving)\n";
+    std::cout << "  first pos-limit (" << max_dist_error << "m) violation: "
+              << (first_pos_violation < 0 ? std::string("never") : std::to_string(first_pos_violation) + "s")
+              << "  | max pos err " << max_pos_err << "m\n";
+    std::cout << "  first vel-limit (" << max_velocity_error << "m/s) violation: "
+              << (first_vel_violation < 0 ? std::string("never") : std::to_string(first_vel_violation) + "s")
+              << "  | max vel err " << max_vel_err << "m/s\n";
+    if (bias_n > 0) {
+        std::cout << "  mean signed bias  vx=" << (bias_vx / bias_n) << " m/s  yaw_rate="
+                  << (bias_yawrate / bias_n) << " rad/s (mean |real yaw_rate|=" << (abs_yawrate / bias_n) << ")\n";
+    }
+    if (reanchor_period > 0.0 && seg_total > 0) {
+        std::cout << "  re-anchored every " << reanchor_period << "s: " << seg_survived << "/" << seg_total
+                  << " segments stay within limits (" << (100.0 * seg_survived / seg_total) << "%)\n";
+    }
+    std::cout << "  wrote " << out_path << "\n";
+}
+
 std::string get_full_csv_path(const std::string& data_dir, const std::string& rel_path) {
     if (std::filesystem::path(rel_path).is_absolute() || data_dir.empty()) {
         return rel_path;
@@ -1425,6 +1787,9 @@ std::string get_full_csv_path(const std::string& data_dir, const std::string& re
 int main(int argc, char** argv) {
     std::string config_path;
     std::string data_dir;
+    bool diagnose = false;
+    double g_reanchor_period = 0.0;
+    std::vector<std::pair<std::string, double>> cli_overrides;
 
     for (int i = 1; i < argc; ++i) {
         std::string arg = argv[i];
@@ -1432,7 +1797,34 @@ int main(int argc, char** argv) {
             config_path = argv[++i];
         } else if (arg == "--data-dir" && i + 1 < argc) {
             data_dir = argv[++i];
+        } else if (arg == "--diagnose") {
+            diagnose = true;
+        } else if (arg == "--reanchor" && i + 1 < argc) {
+            g_reanchor_period = std::stod(argv[++i]);
+        } else if (arg == "--set" && i + 1 < argc) {
+            std::string kv = argv[++i];
+            auto eq = kv.find('=');
+            if (eq != std::string::npos)
+                cli_overrides.emplace_back(kv.substr(0, eq), std::stod(kv.substr(eq + 1)));
+        } else if (arg == "--params" && i + 1 < argc) {
+            YAML::Node pf = YAML::LoadFile(argv[++i]);
+            YAML::Node pnode = pf["parameters"] ? pf["parameters"] : pf;
+            for (auto it = pnode.begin(); it != pnode.end(); ++it)
+                cli_overrides.emplace_back(it->first.as<std::string>(), it->second.as<double>());
+        } else if (arg == "--time-limit" && i + 1 < argc) {
+            double secs = std::stod(argv[++i]);
+            g_deadline = std::chrono::steady_clock::now() + std::chrono::duration_cast<std::chrono::steady_clock::duration>(std::chrono::duration<double>(secs));
+            g_has_deadline.store(true);
         }
+    }
+
+    g_start_time = std::chrono::steady_clock::now();
+    std::signal(SIGINT, handle_sigint);
+    if (!diagnose) {
+        std::error_code ec;
+        std::filesystem::create_directories("/home/ws/performance/invictasim_tuning", ec);
+        std::ofstream log_init(g_convergence_log_path, std::ios::trunc);
+        if (log_init.is_open()) log_init << "elapsed_s,evals,tag,score,position_rmse,velocity_rmse\n";
     }
 
     if (config_path.empty() || data_dir.empty()) {
@@ -1473,7 +1865,8 @@ int main(int argc, char** argv) {
         }
         std::cout << "  Reading: " << full_path << std::endl;
         auto rows = read_csv(full_path);
-        std::cout << "    Loaded " << rows.size() << " samples." << std::endl;
+        condition_reference(rows);
+        std::cout << "    Loaded " << rows.size() << " samples (reference conditioned)." << std::endl;
         all_csvs_rows.push_back(std::move(rows));
     }
 
@@ -1490,7 +1883,25 @@ int main(int argc, char** argv) {
     }
 
     std::cout << "Loaded " << param_specs.size() << " optimization parameters." << std::endl;
-    
+
+    if (diagnose) {
+        for (const auto& ov : cli_overrides) {
+            std::cout << "  override " << ov.first << " = " << ov.second << "\n";
+            apply_parameter_override(base_params.car_parameters, ov.first, ov.second);
+        }
+        std::vector<double> baseline_vals(param_specs.size());
+        for (size_t p = 0; p < param_specs.size(); ++p)
+            baseline_vals[p] = std::clamp(get_baseline_value(base_params.car_parameters, param_specs[p].name), param_specs[p].min_val, param_specs[p].max_val);
+        YAML::Node score_cfg = tuning_config["tuning"]["score"];
+        double max_d = score_cfg["max_distance_error"] ? score_cfg["max_distance_error"].as<double>() : 1.5;
+        double max_v = score_cfg["max_velocity_error"] ? score_cfg["max_velocity_error"].as<double>() : 2.0;
+        for (size_t b = 0; b < all_csvs_rows.size(); ++b) {
+            std::string out_path = "/home/ws/performance/invictasim_tuning/diagnostic_" + std::to_string(b) + ".csv";
+            run_diagnostic<InlineFSFEUP02Model>(all_csvs_rows, param_specs, baseline_vals, base_params, b, max_d, max_v, out_path, g_reanchor_period);
+        }
+        return 0;
+    }
+
     // Extract the vehicle model from the tuning YAML
     std::string requested_model = "fsfeup02"; // default
     if (tuning_config["tuning"]["vehicle_model"]) {

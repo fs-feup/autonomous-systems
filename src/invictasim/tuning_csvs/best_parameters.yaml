@@ -1,46 +1,56 @@
-iteration: 1002444
-chain: 3
-best_score: 12.2518
+iteration: 85
+chain: 2
+best_score: 9.91954e+07
 metrics:
-  position_rmse: 0.45299
-  heading_rmse: 0.0692532
-  velocity_rmse: 0.776824
-  velocity_x_rmse: 0.660053
-  velocity_y_rmse: 0.409617
-  yaw_rate_rmse: 0.132685
-  front_wheel_rpm_rmse: 36.471
-  motor_rpm_rmse: 919.46
+  position_rmse: 0.652456
+  heading_rmse: 0.118709
+  velocity_rmse: 0.615321
+  velocity_x_rmse: 0.615321
+  velocity_y_rmse: 0.427196
+  yaw_rate_rmse: 0.142031
+  front_wheel_rpm_rmse: 332.723
+  motor_rpm_rmse: 245.388
 parameters:
-  car.front_wheel_inertia: 0.105592
-  car.rear_wheel_inertia: 0.215427
-  aero.lift_coefficient: 2.75621
-  aero.drag_coefficient: 0.927861
-  aero.aero_balance_front: 0.533551
-  steering_motor.time_constant: 0.0420449
-  tire.effective_tire_r: 0.218924
-  tire.slip_ratio_relaxation_length: 0.0660745
-  tire.tire_B_lateral: 13.8416
-  tire.tire_C_lateral: 1
-  tire.tire_D_lateral: 3.5
-  tire.tire_E_lateral: -0.262103
-  tire.tire_B_longitudinal: 5
-  tire.tire_C_longitudinal: 1.80847
-  tire.tire_D_longitudinal: 1
-  tire.tire_E_longitudinal: -0.059626
-  transmission.preload: 22.6103
-  transmission.drive_ramp_effect: 1.15802
-  transmission.coast_ramp_effect: 0.0983152
-  transmission.viscous_drag_coeff: 0.0102768
-  transmission.coulomb_drag: 1.1144
-  transmission.coulomb_smooth_stiffness: 0
-  car.front_bearing_drag: 0.131773
-  car.cg_height: 0.24
-  car.cg_2_rear_axis: 0.764865
-  car.Izz: 98.309
+  car.front_wheel_inertia: 0.1
+  car.rear_wheel_inertia: 0.269343
+  aero.lift_coefficient: 4
+  aero.drag_coefficient: 1.41946
+  aero.aero_balance_front: 0.631047
+  steering_motor.time_constant: 0.0333452
+  tire.effective_tire_r: 0.220569
+  tire.slip_ratio_relaxation_length: 0.0281853
+  tire.longitudinal_peak_scale: 0.853525
+  tire.longitudinal_stiffness_scale: 0.952219
+  tire.lateral_shape_scale: 1.17125
+  tire.lateral_peak_scale: 1.04776
+  tire.lateral_curvature_scale: 0.893083
+  tire.lateral_stiffness_scale: 15.407
+  tire.combined_slip_lateral_stiffness_scale: 0.946605
+  tire.longitudinal_peak_pdx1: 0.979
+  tire.longitudinal_stiffness_pkx1: 59.8835
+  tire.longitudinal_curvature_pex1: 0.65143
+  tire.lateral_peak_pdy1: 1.79981
+  tire.lateral_stiffness_pky1: -330.601
+  tire.lateral_curvature_pey1: 0.668097
+  tire.structural_longitudinal_stiffness: 459104
+  tire.structural_lateral_stiffness: 1.72112e+06
+  tire.structural_yaw_stiffness: 58972.7
+  transmission.gear_ratio: 3.32502
+  transmission.preload: 36.3601
+  transmission.drive_ramp_effect: 1.88656
+  transmission.coast_ramp_effect: 0.0870353
+  transmission.viscous_drag_coeff: 0
+  transmission.coulomb_drag: 1.16502
+  transmission.coulomb_smooth_stiffness: 10.1779
+  car.front_bearing_drag: 0.167626
+  car.cg_height: 0.23709
+  car.cg_2_rear_axis: 0.72
+  car.Izz: 105.05
   transmission.efficiency: 1
-  motor.fade_start: 0.667848
-  motor.max_peak_torque: 208.792
-  motor.max_continuous_torque: 130
-  motor.max_peak_power: 131331
-  motor.max_continuous_power: 88615.4
-  battery.max_discharge_current: 400
+  motor.fade_start: 0.670071
+  motor.max_peak_torque: 165
+  motor.max_continuous_torque: 112.187
+  motor.max_peak_power: 109941
+  motor.max_continuous_power: 93526.9
+  battery.max_discharge_current: 389.858
+  battery.max_charge_current: 181.264
