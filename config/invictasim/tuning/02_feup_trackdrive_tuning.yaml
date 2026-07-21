@@ -6,12 +6,8 @@ tuning:
   vehicle_model: "inline_02"
 
   csvs:
-    # Windows are detected from speed and inactive inputs by the optimizer.
-    # No timestamps belong in this configuration: bags need not end at rest.
-    - path: "FEUP_trackdrive.csv"
+    - path: "europarque.csv"
       weight: 1.0
-    - path: "skidpad.csv"
-      weight: 0.35
 
   score:
     max_distance_error: 1.5 # Maximum allowed distance error in meters before a mutation is killed immediately
@@ -22,7 +18,7 @@ tuning:
     # directionally-unstable car that survives the first straight and then spins.
     # Set 0 to score classic continuous time-to-first-failure (used for final
     # continuous-survival validation).
-    reanchor_period: 3.0
+    reanchor_period: 0.0
 
   optimizer:
     algorithm: "simulated_annealing" # Options: "genetic_algorithm", "simulated_annealing"
@@ -52,214 +48,156 @@ tuning:
     # VEHICLE WHEEL INERTIA (Front vs Rear)
     # =============================================
     - name: "car.front_wheel_inertia"
-      min: 0.10
-      max: 0.40
+      min: 0.08
+      max: 0.12
 
     - name: "car.rear_wheel_inertia"
-      min: 0.20
-      max: 0.70
-
-    # =============================================
-    # AERODYNAMICS
-    # =============================================
-    - name: "aero.lift_coefficient"
-      min: 1.0
-      max: 4.0
-
-    - name: "aero.drag_coefficient"
-      min: 0.5
-      max: 2.0
-
-    - name: "aero.aero_balance_front"
-      min: 0.3
-      max: 0.7
-
-    # =============================================
-    # STEERING MOTOR
-    # =============================================
-    - name: "steering_motor.time_constant"
-      min: 0.01
-      max: 0.25
+      min: 0.18
+      max: 0.22
 
     # =============================================
     # TIRE MODEL PARAMETERS
     # =============================================
     - name: "tire.effective_tire_r"
-      min: 0.16
-      max: 0.24
+      min: 0.23
+      max: 0.25
 
     - name: "tire.slip_ratio_relaxation_length"
       min: 0.0
-      max: 0.15
+      max: 0.02
 
     # Tire Pacejka 6.2 Scaling Parameters
     - name: "tire.longitudinal_peak_scale"
-      min: 0.5
-      max: 1.5
+      min: 1.15
+      max: 1.35
 
     - name: "tire.longitudinal_stiffness_scale"
-      min: 0.5
-      max: 1.5
+      min: 0.55
+      max: 0.65
 
     - name: "tire.lateral_shape_scale"
-      min: 0.5
-      max: 2.0
+      min: 1.10
+      max: 1.25
 
     - name: "tire.lateral_peak_scale"
-      min: 0.5
-      max: 2.0
+      min: 1.05
+      max: 1.20
 
     - name: "tire.lateral_curvature_scale"
-      min: 0.1
-      max: 2.0
+      min: 0.80
+      max: 0.95
 
     - name: "tire.lateral_stiffness_scale"
-      min: 1.0
-      max: 25.0
+      min: 14.5
+      max: 17.5
 
     - name: "tire.combined_slip_lateral_stiffness_scale"
-      min: 0.5
-      max: 1.5
+      min: 0.75
+      max: 0.90
 
     # Tire Pacejka 6.2 Base Parameters
     - name: "tire.longitudinal_peak_pdx1"
-      min: 0.8
-      max: 1.5
+      min: 0.75
+      max: 0.95
 
     - name: "tire.longitudinal_stiffness_pkx1"
-      min: 50.0
-      max: 120.0
+      min: 55.0
+      max: 65.0
 
     - name: "tire.longitudinal_curvature_pex1"
-      min: 0.5
-      max: 1.2
+      min: 0.55
+      max: 0.65
 
     - name: "tire.lateral_peak_pdy1"
-      min: 1.2
-      max: 2.5
+      min: 1.70
+      max: 1.95
 
     - name: "tire.lateral_stiffness_pky1"
-      min: -1500.0
-      max: -50.0
+      min: -360.0
+      max: -300.0
 
     - name: "tire.lateral_curvature_pey1"
-      min: 0.3
-      max: 1.0
+      min: 0.60
+      max: 0.75
+
+    # Advanced Pacejka 6.2 Shape & Load Sensitivity Parameters
+    # (Allowing these to shift gives the optimizer power to improve cornering
+    # under heavy weight transfer and braking)
+    - name: "tire.PCX1"
+      min: 1.4
+      max: 2.0
+
+    - name: "tire.PDX2"
+      min: -1.0
+      max: 0.0
+
+    - name: "tire.PKX2"
+      min: -40.0
+      max: 0.0
+
+    - name: "tire.PEX2"
+      min: -0.2
+      max: 0.2
+
+    - name: "tire.PCY1"
+      min: 1.2
+      max: 2.0
+
+    - name: "tire.PDY2"
+      min: -0.8
+      max: 0.0
+
+    - name: "tire.PKY2"
+      min: 0.0
+      max: 4.0
+
+    - name: "tire.PEY2"
+      min: -1.0
+      max: 0.5
 
     - name: "tire.structural_longitudinal_stiffness"
-      min: 100000.0
-      max: 500000.0
+      min: 380000.0
+      max: 430000.0
 
     - name: "tire.structural_lateral_stiffness"
-      min: 100000.0
-      max: 3000000.0
+      min: 1600000.0
+      max: 1850000.0
 
     - name: "tire.structural_yaw_stiffness"
-      min: 10000.0
-      max: 60000.0
+      min: 55000.0
+      max: 65000.0
 
     # =============================================
     # TRANSMISSION & DIFFERENTIAL
     # =============================================
-    # Final-drive ratio: dominant launch-torque and motor-rpm lever.  Nominal
-    # 3.67, but the recorded launch acceleration implies a lower effective ratio,
-    # so it must be free to move.
-    - name: "transmission.gear_ratio"
-      min: 2.5
-      max: 4.2
-
     - name: "transmission.preload"
-      min: 10.0
-      max: 60.0
+      min: 24.0
+      max: 29.0
 
     - name: "transmission.drive_ramp_effect"
-      min: 0.5
-      max: 2.0
+      min: 1.50
+      max: 1.80
 
     - name: "transmission.coast_ramp_effect"
-      min: 0.05
-      max: 0.8
+      min: 0.02
+      max: 0.10
 
     - name: "transmission.viscous_drag_coeff"
       min: 0.0
-      max: 0.3
+      max: 0.02
 
     - name: "transmission.coulomb_drag"
       min: 0.0
-      max: 8.0
+      max: 0.5
 
     - name: "transmission.coulomb_smooth_stiffness"
-      min: 0.0
-      max: 30.0
+      min: 5.0
+      max: 7.5
 
     # =============================================
     # CAR DRAG & CG GEOMETRY
     # =============================================
     - name: "car.front_bearing_drag"
-      min: 0.0
-      max: 0.5
-
-    - name: "car.cg_height"
-      min: 0.175
-      max: 0.240
-
-    - name: "car.cg_2_rear_axis"
-      min: 0.720
-      max: 0.970
-
-    # =============================================
-    # MASS PROPERTIES
-    # =============================================
-    - name: "car.Izz"
-      min: 80.0
-      max: 130.0
-
-    # =============================================
-    # DRIVETRAIN PARAMETERS
-    # =============================================
-    - name: "transmission.efficiency"
-      min: 0.80
-      max: 1.00
-
-    # =============================================
-    # MOTOR CHARACTERISTICS
-    # =============================================
-    - name: "motor.fade_start"
-      min: 0.5
-      max: 1.0
-
-    # Recorded launch acceleration (~5.5 m/s^2 at 0.6 throttle) implies far less
-    # effective wheel torque than 0.6*208 Nm through 3.67:1 would give.  Allow the
-    # peak torque to drop into the physically-consistent range instead of pinning
-    # it near the datasheet peak, which forced runaway wheelspin.
-    # Effective peak torque identified at ~130 Nm from the recorded launch and
-    # whole-run velocity tracking (0.6 throttle -> ~5.5 m/s^2).  Datasheet peak
-    # (208) forces the sim to over-accelerate and run ahead of the car, so the
-    # bound is kept in the physically-consistent effective range.
-    - name: "motor.max_peak_torque"
-      min: 115.0
-      max: 165.0
-
-    - name: "motor.max_continuous_torque"
-      min: 75.0
-      max: 115.0
-
-    - name: "motor.max_peak_power"
-      min: 80000.0
-      max: 180000.0
-
-    - name: "motor.max_continuous_power"
-      min: 60000.0
-      max: 120000.0
-
-    # =============================================
-    # BATTERY LIMITS
-    # =============================================
-    - name: "battery.max_discharge_current"
-      min: 150.0
-      max: 400.0
-
-    - name: "battery.max_charge_current"
-      min: 20.0
-      max: 200.0
+      min: 0.05
+      max: 0.10
 

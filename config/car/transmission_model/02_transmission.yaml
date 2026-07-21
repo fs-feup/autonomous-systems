@@ -1,11 +1,11 @@
 transmission:
-  gear_ratio: 3.32502
-  efficiency: 1 # previous: 0.95 (original: 0.95)
+  gear_ratio: 3.67
+  efficiency: 0.97
   kv: 40.0
   t_max: 300.0
-  viscous_drag_coeff: 0       # previous: 0.0575654
-  coulomb_drag: 1.16502              # previous: 1.60331
-  coulomb_smooth_stiffness: 10.1779  # previous: 30
-  preload: 36.3601                   # previous: 38.0145
-  drive_ramp_effect: 1.88656         # previous: 1.14762
-  coast_ramp_effect: 0.0870353        # previous: 0.561941
+  viscous_drag_coeff: 0.035   # cruise resistance (aero+drivetrain)
+  coulomb_drag: 0.5           # cruise resistance
+  coulomb_smooth_stiffness: 6.10895  
+  preload: 18.0                   # less locking -> less understeer (more rotation)
+  drive_ramp_effect: 1.665        # physical ref
+  coast_ramp_effect: 0.05        # tuned

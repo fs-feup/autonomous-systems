@@ -82,7 +82,7 @@ double MapBasedMotor::get_max_torque_at_rpm(double rpm) const {
   if (rpm > fade_start_rpm) {
     double fade =
         (current_max_rpm - rpm) / (current_max_rpm - fade_start_rpm);
-    torque_limit = std::clamp(fade * torque_limit, 0.0, 1.0);
+    torque_limit = std::max(0.0, fade * torque_limit);
   }
 
   return torque_limit;

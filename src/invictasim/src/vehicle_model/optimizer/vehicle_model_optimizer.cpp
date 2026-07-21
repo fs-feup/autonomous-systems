@@ -1026,9 +1026,8 @@ EvaluationResult evaluate_candidate_fast(
             motor_rpm_rmse.update(sim_motor_rpm - row.real_motor_rpm);
         }
 
-        // Packed lexicographic objective: a millisecond of survival dominates
-        // all lower priorities; errors distinguish candidates at equal survival.
-        const double dataset_score = alive_time * 1e6 - position_rmse.get() * 1e3
+        // Score based only on errors (survival time is removed).
+        const double dataset_score = - position_rmse.get() * 1e3
             - velocity_rmse.get() * 1e2 - heading_rmse.get() * 10.0
             - yaw_rate_rmse.get();
 
@@ -1230,7 +1229,8 @@ EvaluationResult evaluate_candidate(
             motor_rpm_rmse.update(sim_motor_rpm - row.real_motor_rpm);
         }
 
-        const double dataset_score = alive_time * 1e6 - position_rmse.get() * 1e3
+        // Score based only on errors (survival time is removed).
+        const double dataset_score = - position_rmse.get() * 1e3
             - velocity_rmse.get() * 1e2 - heading_rmse.get() * 10.0
             - yaw_rate_rmse.get();
 

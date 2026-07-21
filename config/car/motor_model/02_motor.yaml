@@ -1,15 +1,15 @@
 motor:
   max_peak_rpm: 6500
   max_continuous_rpm: 5500
-  max_continuous_current: 180
+  max_continuous_current: 180.0
   max_peak_current: 360.0
-  max_continuous_power: 93526.9 # previous: 64000.0
-  max_peak_power: 109941 # previous: 124000.0
-  max_continuous_torque: 112.187 # previous: 112.0
-  max_peak_torque: 165 # previous: 220.0
+  max_continuous_power: 75000
+  max_peak_power: 124000
+  max_continuous_torque: 110.0
+  max_peak_torque: 220
   kt_constant: 0.61
   peak_duration: 120.0
-  fade_start: 0.670071 # previous: 0.95
+  fade_start: 0.99
   efficiency_map:
     500:
       10: 0.87

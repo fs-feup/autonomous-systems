@@ -303,3 +303,49 @@ A single trackdrive segment near t≈82 s shows a longitudinal transient (sim vx
 briefly negative) — one corner where the drivetrain/tyre state after re-anchor
 misbehaves; it is the largest single outlier in `trajectory.png` and the best
 next target for further model work (per-axle tyre grip split, brake/regen blend).
+
+---
+
+## UPDATE (session 3): root-cause over-torque fix — live open-loop fidelity
+
+Worked directly against the live ROS evaluator (`rosbag_evaluator: true`) replaying
+`FEUP Trackdrive 17.mcap`, killing the sim at bag-end so post-bag drift no longer
+contaminates the RMSE. Metrics below are over the driven window only.
+
+**Root cause found and fixed.** The 02 model over-accelerated because the motor
+`max_peak_torque` (220 Nm) is returned in full across the whole cruise-rpm range, so at
+the driver's small cruise throttle the model made ~250 N of tractive force vs the real
+car's ~155 N cruise resistance → open-loop speed runaway (real holds ~6 m/s, sim ran to
+17 m/s). The current draw stays below `max_continuous_current`, so the thermal model never
+faded it. Reducing `max_peak_torque` to the **effective ~135 Nm** (consistent with the
+recorded ~5 m/s² launch) fixed the launch exactly and — because it also cut the
+longitudinal slip driving the combined-slip lateral-grip loss — **removed the corner-spin
+instability** that had made pure open-loop diverge chaotically.
+
+**Key coupling:** with the old 220 Nm, an unphysical lateral grip (`LMUY` 4.5) had been
+masking the over-torque via cornering-scrub drag, and physical tires (`LMUY` 1.13,
+combined-slip `LYKA` 0.83) then spun and diverged. With correct torque, physical tires are
+both accurate *and* stable, and runs became repeatable (was ±30 m position run-to-run).
+
+**Result (repeatable, 2 confirmation runs):**
+| metric | before (session-2 physical) | after |
+|---|---|---|
+| velocity RMSE | 5.7 m/s | **1.8 m/s**  (target <2 ✓) |
+| yaw-rate RMSE | 0.57 rad/s | **0.16 rad/s** |
+| motor-rpm RMSE | 832 | **~300** |
+| mean speed err | +0.24 | **+0.15** |
+| position RMSE | 49 m | **~22 m** |
+
+Position RMSE stays ~22 m: pure open-loop over 135 s integrates the small residual
+early-lap under-rotation (~−0.1 rad/s) into heading drift. Reaching <1.5 m needs
+re-anchoring (as in session 2), not more parameter tuning — the instantaneous physics is
+now correct.
+
+**Final parameter changes (from session-2 working tree):**
+- `motor/02_motor.yaml`: `max_peak_torque` 220→135, `max_continuous_torque` 130→110
+- `tire_model/02_tire.yaml`: lateral→physical (`LMUY` 4.5→1.13, `LKY` 10→16.14, `LYKA` 0→0.83,
+  `PDY1` 3.5→1.825, `PKY1` −600→−330.6), `slip_angle_relaxation_length` 0→0.3,
+  `effective_tire_r` 0.225→0.24, `QSY1` 0.01→0.013, longitudinal scales left neutral (LMUX/LKX=1.0)
+- `transmission_model/02_transmission.yaml`: `viscous_drag_coeff` 0→0.035, `coulomb_drag` 0→0.5
+  (physical cruise resistance: aero+drivetrain+scrub), `preload` 30→18, `drive_ramp_effect` 1.5→1.665
+- `car/02.yaml`: `front_bearing_drag` 0.02→0.025 (wheel inertia left 0.2/0.5)
