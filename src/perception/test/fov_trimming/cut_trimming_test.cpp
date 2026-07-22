@@ -30,6 +30,8 @@ protected:
     params.fov = 360.0;
     params.apply_rotation = true;
     params.rotation = 90.0;
+    params.is_raining = false;
+    params.minimum_intensity = 0.0f;
   }
 
   sensor_msgs::msg::PointCloud2::SharedPtr cloud;

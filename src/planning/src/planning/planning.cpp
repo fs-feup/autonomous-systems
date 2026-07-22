@@ -1,5 +1,6 @@
 #include "planning/planning.hpp"
 
+#include <cmath>
 #include <vector>
 
 #include "adapter_planning/pacsim.hpp"
@@ -88,11 +89,7 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.planning_braking_distance_autocross_ =
       planning_config["planning_braking_distance_autocross"].as<double>();
 
-  if (adapter == "eufs") {
-    params.map_frame_id_ = "base_footprint";
-  } else {
-    params.map_frame_id_ = "map";
-  }
+  params.map_frame_id_ = "map";
 
   return params;
 }
@@ -336,6 +333,9 @@ void Planning::run_autocross() {
     if (!is_path_final_) {
       run_full_map();
     }
+    if (lap_counter_ >= 1) {
+      velocity_planning_.stop(smoothed_path_, planning_config_.braking_distance_autocross_);
+    }
     return;
   }
   if (lap_counter_ == 0) {
@@ -373,6 +373,11 @@ void Planning::run_trackdrive() {
   if (planning_config_.using_full_map_) {
     if (!is_path_final_) {
       run_full_map();
+    }
+    if (lap_counter_ >= 1 && lap_counter_ < 10) {
+      // Continue tracking
+    } else if (lap_counter_ >= 10) {
+      velocity_planning_.stop(smoothed_path_, planning_config_.braking_distance_autocross_);
     }
     return;
   }
@@ -473,6 +478,9 @@ void Planning::publish_path_points() const {
   custom_interfaces::msg::PathPointArray message =
       common_lib::communication::custom_interfaces_array_from_vector(smoothed_path_,
                                                                      is_path_closed_);
+  if (planning_config_.using_full_map_) {
+    message.is_map_closed = true;
+  }
   path_pub_->publish(message);
 }
 

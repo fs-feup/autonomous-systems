@@ -5,6 +5,7 @@
 #include <string>
 
 #include "pure_pursuit.hpp"
+#include "mpczinho.hpp"
 
 /*
  * Map of lateral control solvers, with the key being the type of the solver and the value being a lambda
@@ -16,5 +17,9 @@ const std::map<std::string, std::function<std::shared_ptr<LateralController>(con
         {"pure_pursuit",
          [](const ControlParameters& params) -> std::shared_ptr<LateralController> {
            return std::make_shared<PurePursuit>(params);
+         }},
+        {"mpczinho",
+         [](const ControlParameters& params) -> std::shared_ptr<LateralController> {
+           return std::make_shared<MPCzinho>(params);
          }},
     };

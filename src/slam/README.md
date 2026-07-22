@@ -66,7 +66,7 @@ Use a launch file:
 
 ```sh
 source ./install/setup.bash # If in a new terminal
-ros2 launch slam eufs.launch.py
+ros2 launch slam slam.launch.py
 ```
 
 or run directly:

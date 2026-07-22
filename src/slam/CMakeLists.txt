@@ -12,10 +12,8 @@ set(PACKAGES
     std_msgs
     sensor_msgs
     custom_interfaces
-    eufs_msgs
     nav_msgs
     std_srvs
-    fs_msgs
     pacsim
     sensor_msgs
     geometry_msgs
@@ -44,6 +42,7 @@ set(IMPLEMENTATION_FILES
   src/ros_node/slam_node.cpp
   src/adapter_slam/pacsim.cpp
   src/adapter_slam/vehicle.cpp
+  src/adapter_slam/invictasim.cpp
   src/slam_config/general_config.cpp
   src/slam_solver/slam_solver.cpp
   src/slam_solver/ekf_slam_solver.cpp

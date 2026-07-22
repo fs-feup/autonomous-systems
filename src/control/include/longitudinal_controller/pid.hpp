@@ -1,10 +1,13 @@
 #pragma once
 
+#include <chrono>
+
 #include "base_longitudinal_controller.hpp"
 #include "common_lib/structures/position.hpp"
 #include "utils/utils.hpp"
 #include "gtest/gtest.h"
 #include <rclcpp/rclcpp.hpp>
+#include "std_msgs/msg/float64_multi_array.hpp"
 
 /**
  * @brief PI-D Controller class
@@ -18,7 +21,7 @@
 class PID : public LongitudinalController {
 private:
   std::vector<custom_interfaces::msg::PathPoint> last_path_msg_;
-  custom_interfaces::msg::Velocities last_velocity_msg_;
+  custom_interfaces::msg::VehicleStateVector last_velocity_msg_;
   custom_interfaces::msg::Pose last_pose_msg_;
   double absolute_velocity_ = 0.0;
 
@@ -32,6 +35,9 @@ private:
 
   double prev_error_{0.0f};       /**< Previous error value, required for integrator */
   double prev_measurement_{0.0f}; /**< Previous measurement value, required for defferentiator */
+
+  std::chrono::steady_clock::time_point last_update_time_{};
+  bool has_last_update_time_{false};
 
   double out_{0.0f}; /**< Current output value */
 
@@ -56,7 +62,7 @@ private:
    *
    * @param error
    */
-  void calculate_integral_term(double error);
+  void calculate_integral_term(double error, double dt = -1.0);
 
   /**
    * @brief Anti-wind-up via dynamic integrator clamping
@@ -68,7 +74,7 @@ private:
    *
    * @param measurement
    */
-  void calculate_derivative_term(double measurement);
+  void calculate_derivative_term(double measurement, double dt = -1.0);
 
   /**
    * @brief Compute the output value and apply limits
@@ -92,11 +98,12 @@ public:
   PID(const ControlParameters &params);
 
   void path_callback(const custom_interfaces::msg::PathPointArray& msg) override;
-  void vehicle_state_callback(const custom_interfaces::msg::Velocities& msg) override;
+  void vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& msg) override;
   void vehicle_pose_callback(const custom_interfaces::msg::Pose& msg) override;
   common_lib::structures::ControlCommand get_throttle_command() override;
   void publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) override;
 
+  FRIEND_TEST(PidTests, UsesElapsedTimeForIntegrationAndDerivative);
   FRIEND_TEST(PidTests, TestAntiWindUp1);
   FRIEND_TEST(PidTests, TestAntiWindUp2);
   FRIEND_TEST(PidTests, TestAntiWindUp3);
