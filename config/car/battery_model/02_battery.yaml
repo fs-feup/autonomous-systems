@@ -3,10 +3,10 @@ battery:
   cells_series: 144
   cells_parallel: 5
   capacity_ah: 14.0 
-  initial_soc: 1.0
-  max_discharge_current: 175.0
-  max_charge_current: 175.0
-  min_voltage: 360.0
+  initial_soc: 0.835
+  max_discharge_current: 150
+  max_charge_current: 150
+  min_voltage: 360
   min_soc: 0.10
 
   # Open Circuit Voltage

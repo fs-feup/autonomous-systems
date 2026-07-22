@@ -19,9 +19,11 @@ struct InvictaSimParameters {
   int sim_frequency;
   double sim_speed;
   bool initial_go_signal;
+  std::string control_mode;
   std::string track_name;
   std::string input_adapter;
   std::string output_adapter;
+  bool rosbag_evaluator_enabled;
 
   std::string vehicle_model;
   std::string car_parameters_config;
@@ -33,6 +35,8 @@ struct InvictaSimParameters {
   std::string motor_model;
   std::string battery_model;
   std::string transmission_model;
+  std::string inverter_model;
+  std::string brake_model;
 
   std::shared_ptr<common_lib::car_parameters::CarParameters> car_parameters;
 

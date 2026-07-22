@@ -5,4 +5,5 @@ float64 aero_ms
 float64 steering_ms
 float64 load_transfer_ms
 float64 tire_ms
+float64 integration_ms
 float64 total_step_ms

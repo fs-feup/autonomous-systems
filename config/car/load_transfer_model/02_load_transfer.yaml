@@ -1,1 +1,6 @@
 load_transfer:
+  roll_axis_z: 0.05
+  front_roll_center_z: 0.04
+  rear_roll_center_z: 0.05
+  front_stiffness_distribution: 0.5
+  pitch_center_z: 0.02

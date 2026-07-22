@@ -6,6 +6,7 @@ Statistics::Statistics(
     const std::string& discipline, const std::string& car_parameters_config)
     : collision_statistics_(track, discipline, car_parameters_config),
       lap_timer_statistics_(track, discipline) {
+  (void)car_parameters;
   reset();
 }
 
