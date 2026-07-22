@@ -41,12 +41,10 @@ void MPCzinho::path_callback(const custom_interfaces::msg::PathPointArray& new_m
 void MPCzinho::set_path_in_solver() {
   custom_interfaces::msg::PathPointArray resampled_path;
 
-  const int solver_horizon_steps = this->solver_->get_prediction_horizon_steps();
+  local_path_resampled_with_spline(this->latest_path_, this->solver_state_, this->local_pather_, this->params_->mpc_prediction_horizon_steps_, this->params_->mpc_prediction_horizon_seconds_, resampled_path);
 
-  local_path_resampled_with_spline(this->latest_path_, this->solver_state_, this->local_pather_, solver_horizon_steps, this->params_->mpc_prediction_horizon_seconds_, resampled_path);
-
-  if (resampled_path.pathpoint_array.size() != static_cast<size_t>(solver_horizon_steps + 1)) {
-    RCLCPP_ERROR(rclcpp::get_logger("mpczinho"), "Resampled path has less points than the MPC horizon. Resampled points: %zu, required: %d. This can lead to unexpected behavior.", resampled_path.pathpoint_array.size(), solver_horizon_steps + 1);
+  if (resampled_path.pathpoint_array.size() != this->params_->mpc_prediction_horizon_steps_ + 1) {
+    RCLCPP_ERROR(rclcpp::get_logger("mpczinho"), "Resampled path has less points than the MPC horizon. Resampled points: %zu, required: %u. This can lead to unexpected behavior.", resampled_path.pathpoint_array.size(), this->params_->mpc_prediction_horizon_steps_ + 1);
     return;
   }
 
@@ -60,19 +58,13 @@ double MPCzinho::get_steering_command() {
 
   this->set_path_in_solver();
 
-  if (!this->has_previous_control_command_) {
-    this->previous_control_command_.steering_angle = this->solver_state_.steering_angle;
-    this->has_previous_control_command_ = true;
-  }
-
-  this->solver_->set_previous_control_command(this->previous_control_command_);
   this->solver_->set_state(this->solver_state_);
   int solver_status = 0;
   common_lib::structures::ControlCommand command = this->solver_->solve(&solver_status);
-  this->previous_control_command_.steering_angle = command.steering_angle;
 
   return command.steering_angle;
 }
 
 void MPCzinho::publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
+  this->solver_->publish_solver_data(node, publisher_map);
 }

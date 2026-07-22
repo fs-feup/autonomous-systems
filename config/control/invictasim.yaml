@@ -17,7 +17,6 @@ control:
   pid_max_positive_error: 3
   pid_max_negative_error: -3
   command_time_interval: 25 # Milliseconds
-  mpc_prediction_horizon_seconds: 1.5
-  mpc_prediction_horizon_steps: 100
-  mpczinho_max_steering_command_derivative: 5.0 # Maximum steering command change rate between published controls [rad/s]
+  mpc_prediction_horizon_seconds: 0.5
+  mpc_prediction_horizon_steps: 50
   wheel_speeds_scale_mpc: 5.0 # Scale factor for wheel speeds in the MPC cost function (higher values make the controller more sensitive to wheel speed errors)

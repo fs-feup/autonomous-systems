@@ -109,7 +109,7 @@ void local_path_resampled_with_spline(custom_interfaces::msg::PathPointArray& pa
   double car_yaw = new_path.pathpoint_array[0].orientation;
   double car_v = new_path.pathpoint_array[0].v;
   double car_yaw_rate = vehicle_state.yaw_rate;
-  double max_breaking_acceleration = 3.5; // m/s^2
+  double max_breaking_acceleration = 6.0; // m/s^2
   double max_yaw_acceleration = 1.0; // rad/s^2
   double dt = horizon_length_seconds / static_cast<double>(number_of_stages);
   output_path_data.pathpoint_array.clear();
@@ -203,8 +203,16 @@ void local_path_resampled_with_spline(custom_interfaces::msg::PathPointArray& pa
   spline_x.set_boundary(tk::spline::first_deriv, std::cos(car_yaw), tk::spline::second_deriv, 0.0);
   spline_y.set_boundary(tk::spline::first_deriv, std::sin(car_yaw), tk::spline::second_deriv, 0.0);
 
-  spline_x.set_points(s, x);
-  spline_y.set_points(s, y);
+  // Use shape-preserving Hermite splines (local, C^1) instead of the classical
+  // C^2 cubic. The C^2 cubic overshoots when the car sits off the path at a
+  // corner entry: the clamped start tangent plus the sharp turn in the data one
+  // point later makes it bulge, producing a spurious "hook" in the reference
+  // (heading spiking ~90 deg then snapping back within ~0.5 m). The kinematic
+  // lateral MPC follows that hook faithfully, over-rotates, and spins off. The
+  // Hermite form still honours the clamped start tangent (car heading) but takes
+  // interior tangents from local finite differences, so it cannot overshoot.
+  spline_x.set_points(s, x, tk::spline::cspline_hermite);
+  spline_y.set_points(s, y, tk::spline::cspline_hermite);
 
   // --- 3. Sample the splines based on MPC dt ---    
   current_s = 0.0;

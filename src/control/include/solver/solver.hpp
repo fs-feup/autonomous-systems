@@ -33,14 +33,6 @@ public:
     virtual void set_path(const custom_interfaces::msg::PathPointArray& path) = 0;
 
     /**
-     * @brief Set the previously sent command, for solvers that constrain command-to-command changes.
-     *
-     * Solvers that do not need this information can ignore it.
-     */
-    virtual void set_previous_control_command(
-        const common_lib::structures::ControlCommand&) {}
-
-    /**
      * @brief Solve the optimization problem
      * 
      * @param solver_status Optional pointer to an integer to store the solver status code (0 for success, 1 for benign failure such as infeasibility, negative for solver errors or divergences)
@@ -61,16 +53,6 @@ public:
      * @return std::vector<custom_interfaces::msg::VehicleStateVector> vector of states, one for each stage in the horizon
      */
     virtual std::vector<custom_interfaces::msg::VehicleStateVector> get_full_horizon() = 0;
-
-    /**
-     * @brief Get the prediction horizon compiled into the solver.
-     *
-     * Generated solvers can have a fixed horizon that differs from the runtime
-     * config if the solver was not regenerated after a YAML change.
-     */
-    virtual int get_prediction_horizon_steps() const {
-        return control_params_->mpc_prediction_horizon_steps_;
-    }
 
     /**
      * @brief Publish any relevant solver data for visualization or debugging purposes.

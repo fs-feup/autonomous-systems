@@ -139,7 +139,8 @@ common_lib::structures::ControlCommand PID::get_throttle_command()  {
         ::get_closest_point(this->last_path_msg_, rear_axis);
 
     if (closest_point_id != -1) {
-      command.throttle_rl = command.throttle_rr = update(closest_point_velocity, this->absolute_velocity_);
+      this->setpoint_ = closest_point_velocity;
+      command.throttle_rl = command.throttle_rr = update(this->setpoint_, this->absolute_velocity_);
     }
   }
   
@@ -155,6 +156,6 @@ void PID::publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::
 
   auto publisher = std::static_pointer_cast<rclcpp::Publisher<std_msgs::msg::Float64MultiArray>>(publisher_map["/pid/components"]);
   std_msgs::msg::Float64MultiArray msg;
-  msg.data = {this->proportional_, this->integrator_, this->differentiator_};
+  msg.data = {this->setpoint_, this->proportional_, this->integrator_, this->differentiator_};
   publisher->publish(msg);
 }
